@@ -1,27 +1,48 @@
 import { useState, useEffect } from "react";
+import { MemoryRouter } from "react-router-dom";
+import TaskHistoryRow from "pages/taskHistory/TaskHistoryRow";
+import VariantHistoryRow from "pages/variantHistory/VariantHistoryRow";
 import HistoryTable from ".";
 import { HistoryTableProvider, useHistoryTable } from "./HistoryTableContext";
-import Row from "./Row";
 import { mainlineCommitData } from "./testData";
 
 export * from "./HistoryTableIcon/HistoryTableIcon.stories";
 
 export default {
   title: "History Table",
+  decorators: [
+    (Story) => (
+      <MemoryRouter>
+        <Story />
+      </MemoryRouter>
+    ),
+  ],
 };
 
-export const Default = () => (
+export const TaskHistoryTable = () => (
   <HistoryTableProvider>
-    <HistoryTableWrapper />
+    <HistoryTableWrapper type="task" />
   </HistoryTableProvider>
 );
 
-const HistoryTableWrapper = () => {
+export const VariantHistoryTable = () => (
+  <HistoryTableProvider>
+    <HistoryTableWrapper type="variant" />
+  </HistoryTableProvider>
+);
+
+interface HistoryTableWrapperProps {
+  type?: "variant" | "task";
+}
+const HistoryTableWrapper: React.FC<HistoryTableWrapperProps> = ({ type }) => {
   const { addColumns } = useHistoryTable();
   const [commitData, setCommitData] = useState(mainlineCommitData);
   useEffect(() => {
-    addColumns(["ubuntu1604", "race-detector", "lint"]);
+    const taskColumns = ["ubuntu1604", "race-detector", "lint"];
+    const variantColumns = ["Lint", "test-model-distro", "dist"];
+    addColumns(type === "task" ? taskColumns : variantColumns);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   const loadMore = () => {
     setCommitData(fetchNewCommitData(commitData));
   };
@@ -32,7 +53,7 @@ const HistoryTableWrapper = () => {
         recentlyFetchedCommits={commitData}
         loadMoreItems={loadMore}
       >
-        {Row}
+        {type === "task" ? TaskHistoryRow : VariantHistoryRow}
       </HistoryTable>
     </div>
   );
