@@ -7,6 +7,7 @@ import { TaskStatus } from "types/task";
 import { useHistoryTable } from "./HistoryTableContext";
 import { HistoryTableIcon } from "./HistoryTableIcon";
 import { DateSeparator } from "./row/DateSeparator";
+import { FoldedCommit } from "./row/FoldedCommit";
 import { rowType } from "./utils";
 
 interface RowProps extends ListChildComponentProps {
@@ -41,11 +42,8 @@ const Row: React.FC<RowProps> = ({ columns, index, style }) => {
     );
   }
   if (commit.type === rowType.FOLDED_COMMITS) {
-    // TODO: add folded commits component
     return (
-      <FoldedCommitContainer style={style}>
-        Expand {commit.rolledUpCommits.length} inactive{" "}
-      </FoldedCommitContainer>
+      <FoldedCommit rolledUpCommits={commit.rolledUpCommits} style={style} />
     );
   }
 };
@@ -85,11 +83,4 @@ export const Cell = styled.div`
   }
 `;
 
-const FoldedCommitContainer = styled.div`
-  width: 100%;
-  padding-right: 40px;
-  background-color: yellow;
-  display: flex;
-  align-items: center;
-`;
 export default Row;
