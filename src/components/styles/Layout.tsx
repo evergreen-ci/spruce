@@ -66,7 +66,7 @@ export const PageButtonRow = styled.div`
   display: flex;
   justify-content: flex-end;
   > button,
-  a {
+  > a {
     margin-left: 16px;
     white-space: nowrap;
   }
