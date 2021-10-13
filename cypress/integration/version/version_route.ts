@@ -84,7 +84,10 @@ describe("Version route", () => {
 
     it("Navigates to task tab and applies filters when clicking on task square", () => {
       cy.dataCy("grouped-task-status-badge").first().click();
-      cy.location("search").should("include", "statuses=will-run");
+      cy.location("search").should(
+        "include",
+        "statuses=scheduled-umbrella,will-run,pending,unstarted"
+      );
     });
   });
 

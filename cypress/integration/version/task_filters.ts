@@ -97,7 +97,7 @@ describe("Tasks filters", () => {
     });
   });
 
-  describe(`Task Statuses select`, () => {
+  describe("Task Statuses select", () => {
     const urlParam = "statuses";
     before(() => {
       cy.contains("Clear All Filters").click();
@@ -122,7 +122,7 @@ describe("Tasks filters", () => {
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
-        search: "failed,success",
+        search: "failed-umbrella,failed,known-issue,success",
       });
       const multiFilterCount = cy.dataCy("current-task-count").invoke("text");
 
@@ -132,7 +132,6 @@ describe("Tasks filters", () => {
     it("Clicking on 'All' checkbox adds all the statuses and clicking again removes them", () => {
       const taskStatuses = [
         "All",
-        "Failure",
         "Failed",
         "Known Issue",
         "Succeeded",
@@ -181,17 +180,17 @@ describe("Tasks filters", () => {
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
-        search: "started",
+        search: "running-umbrella,started,dispatched",
       });
       const postFilterCount = cy.dataCy("current-task-count").invoke("text");
       expect(preFilterCount).to.not.eq(postFilterCount);
       cy.toggleTableFilter(3);
-      cy.getInputByLabel("Success").check({ force: true });
+      cy.getInputByLabel("Succeeded").check({ force: true });
       cy.dataCy("base-status-treeselect").contains("Filter").click();
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
-        search: "started,success",
+        search: "running-umbrella,started,dispatched,success",
       });
       const multiFilterCount = cy.dataCy("current-task-count").invoke("text");
 
@@ -202,10 +201,9 @@ describe("Tasks filters", () => {
       cy.toggleTableFilter(3);
       const taskStatuses = [
         "All",
-        "Failure",
         "Failed",
         "Known Issue",
-        "Success",
+        "Succeeded",
         "Running",
         "Will Run",
         "Undispatched",
