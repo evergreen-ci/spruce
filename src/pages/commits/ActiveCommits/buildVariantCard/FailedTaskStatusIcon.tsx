@@ -63,7 +63,7 @@ export const FailedTaskStatusIcon: React.FC<FailedStatusIconProps> = ({
                 {displayName} - {msToDuration(timeTaken)}
               </TooltipTitle>
               {testResults?.map(({ id, testFile }) => (
-                <div key={id}>{testFile}</div>
+                <TestName key={id}>{testFile}</TestName>
               ))}
             </>
           )
@@ -72,7 +72,9 @@ export const FailedTaskStatusIcon: React.FC<FailedStatusIconProps> = ({
     </Tooltip>
   );
 };
-
+const TestName = styled.div`
+  word-break: break-all;
+`;
 const TooltipTitle = styled.div`
   white-space: nowrap;
 `;
