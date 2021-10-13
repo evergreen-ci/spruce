@@ -33,7 +33,7 @@ describe("GroupedTaskStatusBadgeIcon", () => {
         />
       </MemoryRouter>
     );
-    expect(queryByText("System Failures")).toBeInTheDocument();
+    expect(queryByText("System Failed")).toBeInTheDocument();
     expect(queryByText("400")).toBeInTheDocument();
   });
 
