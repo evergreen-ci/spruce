@@ -1,7 +1,9 @@
 import { ListChildComponentProps } from "react-window";
 import { useHistoryTable } from "components/HistoryTable/HistoryTableContext";
-import Row, { TaskCell, Cell } from "components/HistoryTable/Row";
+import Row, { Cell } from "components/HistoryTable/Row";
 import { rowType } from "components/HistoryTable/types";
+
+const { TaskCell, EmptyCell } = Cell;
 
 const VariantHistoryRow: React.FC<ListChildComponentProps> = ({ ...rest }) => {
   let orderedColumns = [];
@@ -20,7 +22,7 @@ const VariantHistoryRow: React.FC<ListChildComponentProps> = ({ ...rest }) => {
         }
       }
       // Returned if the task did not run for this commit
-      return <Cell key={`empty_task_${c}`}>DNR</Cell>;
+      return <EmptyCell key={`empty_task_${c}`} />;
     });
   }
   return <Row {...rest} columns={orderedColumns} />;

@@ -1,11 +1,8 @@
 import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
 import { ListChildComponentProps } from "react-window";
 import CommitChartLabel from "components/CommitChartLabel";
-import { getTaskRoute } from "constants/routes";
-import { TaskStatus } from "types/task";
 import { useHistoryTable } from "./HistoryTableContext";
-import { HistoryTableIcon } from "./HistoryTableIcon";
+import * as Cell from "./row/Cell";
 import { DateSeparator } from "./row/DateSeparator";
 import { FoldedCommit } from "./row/FoldedCommit";
 import { rowType } from "./types";
@@ -48,20 +45,6 @@ const Row: React.FC<RowProps> = ({ columns, index, style }) => {
   }
 };
 
-interface TaskCellProps {
-  task: {
-    id: string;
-    status: string;
-  };
-}
-export const TaskCell: React.FC<TaskCellProps> = ({ task }) => (
-  <Link key={task.id} to={getTaskRoute(task.id)}>
-    <Cell key={`task_cell_${task.id}`}>
-      <HistoryTableIcon status={task.status as TaskStatus} />
-    </Cell>
-  </Link>
-);
-
 const LabelCellContainer = styled.div`
   width: 200px;
   padding-right: 40px;
@@ -72,15 +55,5 @@ const RowContainer = styled.div`
   flex-direction: row;
 `;
 
-export const Cell = styled.div`
-  display: flex;
-  height: 100%;
-  width: 140px;
-  justify-content: center;
-  align-items: center;
-  :hover {
-    cursor: pointer;
-  }
-`;
-
+export { Cell };
 export default Row;
