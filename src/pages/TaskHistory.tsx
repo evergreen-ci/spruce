@@ -20,7 +20,7 @@ import { usePageTitle } from "hooks";
 import { parseQueryString } from "utils/queryString";
 import { BuildVariantSelector } from "./taskHistory/BuildVariantSelector";
 import ColumnHeaders from "./taskHistory/ColumnHeaders";
-import { TaskHistoryRow } from "./taskHistory/TaskHistoryRow";
+import TaskHistoryRow from "./taskHistory/TaskHistoryRow";
 
 export const TaskHistory = () => {
   const { projectId, taskName } = useParams<{

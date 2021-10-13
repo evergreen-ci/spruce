@@ -1,6 +1,6 @@
 import { useContext, createContext, useReducer, useMemo } from "react";
 import { reducer } from "./historyTableContextReducer";
-import { rowType, mainlineCommits, CommitRowType } from "./utils";
+import { rowType, mainlineCommits, CommitRowType } from "./types";
 
 interface HistoryTableState {
   itemHeight: (index: number) => number;

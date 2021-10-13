@@ -21,7 +21,7 @@ import { parseQueryString } from "utils/queryString";
 import { applyStrictRegex } from "utils/string";
 import ColumnHeaders from "./variantHistory/ColumnHeaders";
 import { TaskSelector } from "./variantHistory/TaskSelector";
-import { VariantHistoryRow } from "./variantHistory/VariantHistoryRow";
+import VariantHistoryRow from "./variantHistory/VariantHistoryRow";
 
 export const VariantHistory = () => {
   const { projectId, variantName } = useParams<{

@@ -8,7 +8,7 @@ import { useHistoryTable } from "./HistoryTableContext";
 import { HistoryTableIcon } from "./HistoryTableIcon";
 import { DateSeparator } from "./row/DateSeparator";
 import { FoldedCommit } from "./row/FoldedCommit";
-import { rowType } from "./utils";
+import { rowType } from "./types";
 
 interface RowProps extends ListChildComponentProps {
   columns: React.ReactNode[];
