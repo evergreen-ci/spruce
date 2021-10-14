@@ -126,61 +126,28 @@ export const usePatchStatusSelect = (
       patchBuildVariants !== prevPatchBuildVariants ||
       patchStatusFilterTerm !== prevPatchStatusFilterTerm ||
       baseStatusFilterTerm !== prevBaseStatusFilterTerm;
+
     if (filterTermOrPatchTasksChanged) {
-      // Iterate through PatchBuildVariants and determine if a task should be
-      // selected or not based on if the task status correlates with the 2 filters.
-      // if 1 of the 2 filters is empty, ignore the empty filter
-      let baseStatuses = new Set(baseStatusFilterTerm[versionId]);
-      let statuses = new Set(patchStatusFilterTerm[versionId]);
-
-      let nextState =
-        patchBuildVariants?.reduce(
-          (accumA, patchBuildVariant) =>
-            patchBuildVariant.tasks?.reduce(
-              (accumB, task) => ({
-                ...accumB,
-                [task.id]:
-                  (!!baseStatusFilterTerm[versionId]?.length ||
-                    !!patchStatusFilterTerm[versionId]?.length) &&
-                  (patchStatusFilterTerm[versionId]?.length
-                    ? statuses.has(task.status)
-                    : true) &&
-                  (baseStatusFilterTerm[versionId]?.length
-                    ? baseStatuses.has(task.baseStatus)
-                    : true),
-              }),
-              accumA
-            ),
-          { ...selectedTasks[versionId] }
+      const parntNextState =
+        reduceBuildVariants(
+          patchBuildVariants !== prevPatchBuildVariants,
+          patchBuildVariants,
+          patchStatusFilterTerm[versionId],
+          baseStatusFilterTerm[versionId],
+          selectedTasks[versionId]
         ) ?? {};
-
-      const newTaskSelect = { [versionId]: nextState };
-
+      const newTaskSelect = { [versionId]: parntNextState };
       childVersions?.forEach((cv) => {
-        baseStatuses = new Set(baseStatusFilterTerm[cv.id]);
-        statuses = new Set(patchStatusFilterTerm[cv.id]);
-        nextState =
-          cv.buildVariants?.reduce(
-            (accumA, patchBuildVariant) =>
-              patchBuildVariant.tasks?.reduce(
-                (accumB, task) => ({
-                  ...accumB,
-                  [task.id]:
-                    (!!patchStatusFilterTerm[cv.id]?.length ||
-                      !!baseStatusFilterTerm[cv.id]?.length) &&
-                    (patchStatusFilterTerm[cv.id]?.length
-                      ? statuses.has(task.status)
-                      : true) &&
-                    (baseStatusFilterTerm[cv.id]?.length
-                      ? baseStatuses.has(task.baseStatus)
-                      : true),
-                }),
-                accumA
-              ),
-            { ...selectedTasks[cv.id] }
+        const childId = cv.id;
+        const childNextState =
+          reduceBuildVariants(
+            patchBuildVariants !== prevPatchBuildVariants,
+            cv.buildVariants,
+            patchStatusFilterTerm[childId],
+            baseStatusFilterTerm[childId],
+            selectedTasks[childId]
           ) ?? {};
-
-        newTaskSelect[cv.id] = nextState;
+        newTaskSelect[childId] = childNextState;
       });
 
       dispatch({ type: "setSelectedTasks", data: newTaskSelect });
@@ -217,4 +184,41 @@ export const usePatchStatusSelect = (
     baseStatusFilterTerm,
     { toggleSelectedTask, setPatchStatusFilterTerm, setBaseStatusFilterTerm },
   ];
+};
+
+const reduceBuildVariants = (
+  parentTasksChanged,
+  buildVariants,
+  patchStatusFilterTerm,
+  baseStatusFilterTerm,
+  selectedTasks
+) => {
+  const statuses = new Set(patchStatusFilterTerm);
+  const baseStatuses = new Set(baseStatusFilterTerm);
+  if (patchStatusFilterTerm || baseStatusFilterTerm || parentTasksChanged) {
+    // Iterate through PatchBuildVariants and determine if a task should be
+    // selected or not based on if the task status correlates with the 2 filters.
+    // if 1 of the 2 filters is empty, ignore the empty filter
+    const reducedVariants = buildVariants?.reduce(
+      (accumA, patchBuildVariant) =>
+        patchBuildVariant.tasks?.reduce(
+          (accumB, task) => ({
+            ...accumB,
+            [task.id]:
+              (!!patchStatusFilterTerm?.length ||
+                !!baseStatusFilterTerm?.length) &&
+              (patchStatusFilterTerm?.length
+                ? statuses.has(task.status)
+                : true) &&
+              (baseStatusFilterTerm?.length
+                ? baseStatuses.has(task.baseStatus)
+                : true),
+          }),
+          accumA
+        ),
+      { ...selectedTasks }
+    );
+    return reducedVariants;
+  }
+  return selectedTasks;
 };
