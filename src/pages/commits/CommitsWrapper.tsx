@@ -1,7 +1,6 @@
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
-import { PageWrapper } from "components/styles";
 import { MainlineCommitsQuery } from "gql/generated/types";
 import { ChartTypes } from "types/commits";
 import { ChartToggle } from "./ActiveCommits/ChartToggle";
@@ -19,6 +18,7 @@ interface Props {
   isLoading: boolean;
   chartType?: ChartTypes;
   hasTaskFilter: boolean;
+  hasFilters: boolean;
 }
 
 export const CommitsWrapper: React.FC<Props> = ({
@@ -27,9 +27,14 @@ export const CommitsWrapper: React.FC<Props> = ({
   error,
   chartType,
   hasTaskFilter,
+  hasFilters,
 }) => {
   if (error) {
-    return <PageWrapper>ERROR</PageWrapper>;
+    return (
+      <ProjectHealthWrapper>
+        <Grid numDashedLine={5} />
+      </ProjectHealthWrapper>
+    );
   }
   if (isLoading) {
     return <StyledSkeleton active title={false} paragraph={{ rows: 6 }} />;
@@ -59,7 +64,10 @@ export const CommitsWrapper: React.FC<Props> = ({
             ) : (
               <ColumnContainer key={rolledUpVersions[0].id}>
                 <InactiveCommitLine />
-                <InactiveCommits rolledUpVersions={rolledUpVersions} />
+                <InactiveCommits
+                  hasFilters={hasFilters}
+                  rolledUpVersions={rolledUpVersions}
+                />
               </ColumnContainer>
             )
           )}
