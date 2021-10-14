@@ -2,6 +2,7 @@ import { useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import Tooltip from "@leafygreen-ui/tooltip";
+import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { Link } from "react-router-dom";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
@@ -59,7 +60,10 @@ export const FailedTaskStatusIcon: React.FC<FailedStatusIconProps> = ({
         ) : (
           !!data && (
             <>
-              <TooltipTitle data-cy="failed-task-status-icon-tooltip-title">
+              <TooltipTitle
+                data-cy="failed-task-status-icon-tooltip-title"
+                weight="medium"
+              >
                 {displayName} - {msToDuration(timeTaken)}
               </TooltipTitle>
               {testResults?.map(({ id, testFile }) => (
@@ -75,6 +79,6 @@ export const FailedTaskStatusIcon: React.FC<FailedStatusIconProps> = ({
 const TestName = styled.div`
   word-break: break-all;
 `;
-const TooltipTitle = styled.div`
+const TooltipTitle = styled(Body)`
   white-space: nowrap;
 `;
