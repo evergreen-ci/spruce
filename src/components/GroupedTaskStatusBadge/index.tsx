@@ -106,7 +106,6 @@ interface CountProps {
   umbrellaStatus: TaskStatus;
 }
 const Count = styled.span<CountProps>`
-  ${({ umbrellaStatus }) =>
-    umbrellaStatus !== TaskStatus.Succeeded && "font-weight: bold;"}
+  font-weight: bold;
   margin-left: 5px;
 `;
