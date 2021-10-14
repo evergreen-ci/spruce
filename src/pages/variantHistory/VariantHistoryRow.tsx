@@ -14,7 +14,7 @@ const VariantHistoryRow: React.FC<ListChildComponentProps> = (props) => {
   if (isItemLoaded(index) && commit.type === rowType.COMMIT && commit.commit) {
     const { buildVariants } = commit.commit;
     orderedColumns = visibleColumns.map((c) => {
-      if (buildVariants.length > 0) {
+      if (buildVariants && buildVariants.length > 0) {
         const { tasks } = buildVariants[0];
         const foundTask = tasks.find((t) => t.displayName === c);
         if (foundTask) {
