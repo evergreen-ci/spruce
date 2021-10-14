@@ -1,4 +1,4 @@
-import React, { Ref, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { FilterOutlined, SearchOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -40,18 +40,15 @@ export const InputFilter: React.FC<InputFilterProps> = ({
 
   useEffect(() => {
     if (visible && inputEl) {
-      inputEl.current.focus();
-      console.log("executed", inputEl.current);
+      setTimeout(() => {
+        inputEl.current.focus();
+      }, 100);
     }
   }, [visible, inputEl]);
-  useEffect(() => {
-    console.log(visible);
-    console.log(inputEl);
-  }, [visible]);
 
   return (
     <FilterWrapper data-cy={`${dataCy}-wrapper`}>
-      <input
+      <TextInput
         type="search"
         aria-label="input-filter"
         data-cy={`${dataCy}-input-filter`}
@@ -59,10 +56,6 @@ export const InputFilter: React.FC<InputFilterProps> = ({
         value={value}
         onChange={onChange}
         onKeyPress={(e) => e.key === "Enter" && onFilter()}
-        ref={inputEl}
-        onFocus={(event) => {
-          console.log("has been focused");
-        }}
       />
       <FilterInputControls
         onClickSubmit={onFilter}
