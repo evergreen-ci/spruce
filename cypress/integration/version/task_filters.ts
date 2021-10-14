@@ -180,7 +180,7 @@ describe("Tasks filters", () => {
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
-        search: "running-umbrella,started,dispatched",
+        search: "started",
       });
       const postFilterCount = cy.dataCy("current-task-count").invoke("text");
       expect(preFilterCount).to.not.eq(postFilterCount);
@@ -190,7 +190,7 @@ describe("Tasks filters", () => {
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
-        search: "running-umbrella,started,dispatched,success",
+        search: "started,success",
       });
       const multiFilterCount = cy.dataCy("current-task-count").invoke("text");
 
