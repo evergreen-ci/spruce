@@ -167,7 +167,6 @@ test("selecting an individual task should work", () => {
     });
   });
   expect(result.current[0][versionId]).toEqual({
-    ...allFalse,
     evergreen_lint_generate_lint: true,
   });
 });
