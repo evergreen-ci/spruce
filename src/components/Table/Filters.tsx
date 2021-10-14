@@ -1,8 +1,8 @@
-import React from "react";
+import React, { Ref, useEffect, useRef } from "react";
 import { FilterOutlined, SearchOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
-import { Input } from "antd";
+import TextInput from "@leafygreen-ui/text-input";
 import { FilterDropdownProps } from "antd/es/table/interface";
 import { Button } from "components/Button";
 import { CheckboxGroup } from "components/Checkbox";
@@ -23,6 +23,7 @@ export interface InputFilterProps {
   onFilter: () => void;
   onReset: () => void;
   submitButtonCopy?: string;
+  visible?: boolean;
 }
 
 export const InputFilter: React.FC<InputFilterProps> = ({
@@ -33,22 +34,44 @@ export const InputFilter: React.FC<InputFilterProps> = ({
   onReset,
   "data-cy": dataCy,
   submitButtonCopy,
-}) => (
-  <FilterWrapper data-cy={`${dataCy}-wrapper`}>
-    <Input
-      data-cy="input-filter"
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-      onPressEnter={onFilter}
-    />
-    <FilterInputControls
-      onClickSubmit={onFilter}
-      onClickReset={onReset}
-      submitButtonCopy={submitButtonCopy}
-    />
-  </FilterWrapper>
-);
+  visible,
+}) => {
+  const inputEl = useRef(null);
+
+  useEffect(() => {
+    if (visible && inputEl) {
+      inputEl.current.focus();
+      console.log("executed", inputEl.current);
+    }
+  }, [visible, inputEl]);
+  useEffect(() => {
+    console.log(visible);
+    console.log(inputEl);
+  }, [visible]);
+
+  return (
+    <FilterWrapper data-cy={`${dataCy}-wrapper`}>
+      <input
+        type="search"
+        aria-label="input-filter"
+        data-cy={`${dataCy}-input-filter`}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        onKeyPress={(e) => e.key === "Enter" && onFilter()}
+        ref={inputEl}
+        onFocus={(event) => {
+          console.log("has been focused");
+        }}
+      />
+      <FilterInputControls
+        onClickSubmit={onFilter}
+        onClickReset={onReset}
+        submitButtonCopy={submitButtonCopy}
+      />
+    </FilterWrapper>
+  );
+};
 
 export const getColumnSearchFilterProps = ({
   "data-cy": dataCy,
@@ -59,8 +82,9 @@ export const getColumnSearchFilterProps = ({
   onReset,
   submitButtonCopy,
 }: InputFilterProps) => ({
-  filterDropdown: ({ confirm }: FilterDropdownProps) => (
+  filterDropdown: ({ confirm, visible }: FilterDropdownProps) => (
     <InputFilter
+      visible={visible}
       placeholder={placeholder}
       value={value}
       onChange={onChange}
