@@ -128,7 +128,7 @@ export const usePatchStatusSelect = (
       baseStatusFilterTerm !== prevBaseStatusFilterTerm;
 
     if (filterTermOrPatchTasksChanged) {
-      const parntNextState =
+      const parentNextState =
         reduceBuildVariants(
           patchBuildVariants !== prevPatchBuildVariants,
           patchBuildVariants,
@@ -136,7 +136,7 @@ export const usePatchStatusSelect = (
           baseStatusFilterTerm[versionId],
           selectedTasks[versionId]
         ) ?? {};
-      const newTaskSelect = { [versionId]: parntNextState };
+      const newTaskSelect = { [versionId]: parentNextState };
       childVersions?.forEach((cv) => {
         const childId = cv.id;
         const childNextState =
