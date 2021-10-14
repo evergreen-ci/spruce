@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Link } from "react-router-dom";
-import { HistoryTableIcon } from "components/HistoryTable/HistoryTableIcon";
 import { getTaskRoute } from "constants/routes";
 import { TaskStatus } from "types/task";
+import { HistoryTableIcon } from "./HistoryTableIcon";
 
 const { gray } = uiColors;
 

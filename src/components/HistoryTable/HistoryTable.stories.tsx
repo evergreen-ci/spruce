@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import { MemoryRouter } from "react-router-dom";
 import TaskHistoryRow from "pages/taskHistory/TaskHistoryRow";
 import VariantHistoryRow from "pages/variantHistory/VariantHistoryRow";
-import HistoryTable from ".";
-import { HistoryTableProvider, useHistoryTable } from "./HistoryTableContext";
+import HistoryTable, { context } from ".";
 import { mainlineCommitData } from "./testData";
+
+const { HistoryTableProvider, useHistoryTable } = context;
 
 export * from "./HistoryTableIcon/HistoryTableIcon.stories";
 

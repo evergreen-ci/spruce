@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { ListChildComponentProps } from "react-window";
 import CommitChartLabel from "components/CommitChartLabel";
+import * as Cell from "./Cell";
 import { useHistoryTable } from "./HistoryTableContext";
-import * as Cell from "./row/Cell";
 import { DateSeparator } from "./row/DateSeparator";
 import { FoldedCommit } from "./row/FoldedCommit";
 import { rowType } from "./types";

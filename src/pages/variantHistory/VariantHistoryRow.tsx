@@ -1,13 +1,13 @@
 import { ListChildComponentProps } from "react-window";
-import { useHistoryTable } from "components/HistoryTable/HistoryTableContext";
-import Row, { Cell } from "components/HistoryTable/Row";
-import { rowType } from "components/HistoryTable/types";
+import { context, Cell, Row, types } from "components/HistoryTable";
 
 const { TaskCell, EmptyCell } = Cell;
+const { useHistoryTable } = context;
+const { rowType } = types;
 
-const VariantHistoryRow: React.FC<ListChildComponentProps> = ({ ...rest }) => {
+const VariantHistoryRow: React.FC<ListChildComponentProps> = (props) => {
   let orderedColumns = [];
-  const { index } = rest;
+  const { index } = props;
   const { visibleColumns, getItem, isItemLoaded } = useHistoryTable();
   const commit = getItem(index);
 
@@ -25,7 +25,7 @@ const VariantHistoryRow: React.FC<ListChildComponentProps> = ({ ...rest }) => {
       return <EmptyCell key={`empty_task_${c}`} />;
     });
   }
-  return <Row {...rest} columns={orderedColumns} />;
+  return <Row {...props} columns={orderedColumns} />;
 };
 
 export default VariantHistoryRow;

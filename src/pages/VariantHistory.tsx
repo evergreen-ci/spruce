@@ -3,8 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
 import { useLocation, useParams } from "react-router-dom";
-import HistoryTable from "components/HistoryTable";
-import { HistoryTableProvider } from "components/HistoryTable/HistoryTableContext";
+import HistoryTable, { context } from "components/HistoryTable";
 import { PageWrapper } from "components/styles";
 import {
   MainlineCommitsForHistoryQuery,
@@ -17,11 +16,14 @@ import {
   GET_TASK_NAMES_FOR_BUILD_VARIANT,
 } from "gql/queries";
 import { usePageTitle } from "hooks";
-import { parseQueryString } from "utils/queryString";
-import { applyStrictRegex } from "utils/string";
+import { queryString, string } from "utils";
 import ColumnHeaders from "./variantHistory/ColumnHeaders";
 import { TaskSelector } from "./variantHistory/TaskSelector";
 import VariantHistoryRow from "./variantHistory/VariantHistoryRow";
+
+const { HistoryTableProvider } = context;
+const { parseQueryString } = queryString;
+const { applyStrictRegex } = string;
 
 export const VariantHistory = () => {
   const { projectId, variantName } = useParams<{

@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import styled from "@emotion/styled";
-import { useHistoryTable } from "components/HistoryTable/HistoryTableContext";
+import { context } from "components/HistoryTable";
 
+const { useHistoryTable } = context;
 interface ColumnHeadersProps {
   columns: string[];
   loading: boolean;
