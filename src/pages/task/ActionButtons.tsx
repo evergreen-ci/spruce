@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import LeafyGreenButton from "@leafygreen-ui/button";
 import { Body } from "@leafygreen-ui/typography";
 import { InputNumber, Popconfirm } from "antd";
 import { Link, useParams } from "react-router-dom";
@@ -259,7 +258,7 @@ export const ActionButtons: React.FC<Props> = ({
   return (
     <>
       <PageButtonRow>
-        <LeafyGreenButton
+        <Button
           size="small"
           as={Link}
           data-cy="task-history"
@@ -270,7 +269,7 @@ export const ActionButtons: React.FC<Props> = ({
           to={getTaskHistoryRoute(projectIdentifier, taskName)}
         >
           See history
-        </LeafyGreenButton>
+        </Button>
         <LastPassingVersion
           projectId={projectIdentifier}
           taskName={taskName}
