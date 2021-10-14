@@ -6,6 +6,8 @@ import { getTaskRoute } from "constants/routes";
 import { TaskStatus } from "types/task";
 import { useHistoryTable } from "./HistoryTableContext";
 import { HistoryTableIcon } from "./HistoryTableIcon";
+import { DateSeparator } from "./row/DateSeparator";
+import { FoldedCommit } from "./row/FoldedCommit";
 import { rowType } from "./utils";
 
 const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
@@ -17,7 +19,7 @@ const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
   const commit = getItem(index);
   if (commit.type === rowType.DATE_SEPARATOR) {
     // TODO: add date separator component
-    return <DateSeparator style={style}>{commit.date}</DateSeparator>;
+    return <DateSeparator style={style} date={commit.date} />;
   }
   if (commit.type === rowType.COMMIT && commit.commit) {
     const {
@@ -33,7 +35,7 @@ const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
       if (foundVariant) {
         const { tasks } = foundVariant;
         return (
-          <Link to={getTaskRoute(tasks[0].id)}>
+          <Link key={tasks[0].id} to={getTaskRoute(tasks[0].id)}>
             <Cell key={`task_cell_${tasks[0].id}`}>
               <HistoryTableIcon status={tasks[0].status as TaskStatus} />
             </Cell>
@@ -58,11 +60,8 @@ const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
     );
   }
   if (commit.type === rowType.FOLDED_COMMITS) {
-    // TODO: add folded commits component
     return (
-      <FoldedCommitContainer style={style}>
-        Expand {commit.rolledUpCommits.length} inactive{" "}
-      </FoldedCommitContainer>
+      <FoldedCommit rolledUpCommits={commit.rolledUpCommits} style={style} />
     );
   }
 };
@@ -88,19 +87,4 @@ const Cell = styled.div`
   }
 `;
 
-const DateSeparator = styled.div`
-  width: 100%;
-  padding-right: 40px;
-  background-color: lightblue;
-  display: flex;
-  align-items: center;
-`;
-
-const FoldedCommitContainer = styled.div`
-  width: 100%;
-  padding-right: 40px;
-  background-color: yellow;
-  display: flex;
-  align-items: center;
-`;
 export default Row;

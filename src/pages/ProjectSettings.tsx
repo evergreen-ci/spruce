@@ -10,12 +10,10 @@ import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
 } from "constants/routes";
+import { ProjectSettingsProvider } from "context/project-settings";
 import { usePageTitle } from "hooks";
 import { environmentalVariables } from "utils";
-import {
-  ProjectSettingsTabs,
-  getTitle,
-} from "./projectSettings/ProjectSettingsTabs";
+import { ProjectSettingsTabs, getTitle } from "./projectSettings/Tabs";
 
 const { isProduction } = environmentalVariables;
 
@@ -46,7 +44,7 @@ export const ProjectSettings: React.FC = () => {
   }
 
   return (
-    <>
+    <ProjectSettingsProvider>
       <SideNav aria-label="Project Settings">
         <SideNavGroup header="Project" />
         <SideNavGroup>
@@ -105,7 +103,7 @@ export const ProjectSettings: React.FC = () => {
       <PageWrapper>
         <ProjectSettingsTabs />
       </PageWrapper>
-    </>
+    </ProjectSettingsProvider>
   );
 };
 
