@@ -1,7 +1,6 @@
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
-import { PageWrapper } from "components/styles";
 import { MainlineCommitsQuery } from "gql/generated/types";
 import { ChartTypes } from "types/commits";
 import { ChartToggle } from "./ActiveCommits/ChartToggle";
@@ -31,7 +30,11 @@ export const CommitsWrapper: React.FC<Props> = ({
   hasFilters,
 }) => {
   if (error) {
-    return <PageWrapper>ERROR</PageWrapper>;
+    return (
+      <ProjectHealthWrapper>
+        <Grid numDashedLine={5} />
+      </ProjectHealthWrapper>
+    );
   }
   if (isLoading) {
     return <StyledSkeleton active title={false} paragraph={{ rows: 6 }} />;
