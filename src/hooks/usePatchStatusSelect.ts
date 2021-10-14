@@ -128,24 +128,24 @@ export const usePatchStatusSelect = (
       baseStatusFilterTerm !== prevBaseStatusFilterTerm;
 
     if (filterTermOrPatchTasksChanged) {
-      let nextState =
+      const parntNextState =
         reduceBuildVariants(
           patchBuildVariants,
           patchStatusFilterTerm[versionId],
           baseStatusFilterTerm[versionId],
           selectedTasks[versionId]
         ) ?? {};
-      const newTaskSelect = { [versionId]: nextState };
+      const newTaskSelect = { [versionId]: parntNextState };
       childVersions?.forEach((cv) => {
         const childId = cv.id;
-        nextState =
+        const childNextState =
           reduceBuildVariants(
             cv.buildVariants,
             patchStatusFilterTerm[childId],
             baseStatusFilterTerm[childId],
             selectedTasks[childId]
           ) ?? {};
-        newTaskSelect[childId] = nextState;
+        newTaskSelect[childId] = childNextState;
       });
 
       dispatch({ type: "setSelectedTasks", data: newTaskSelect });
