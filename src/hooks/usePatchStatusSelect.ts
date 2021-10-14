@@ -130,6 +130,7 @@ export const usePatchStatusSelect = (
     if (filterTermOrPatchTasksChanged) {
       const parntNextState =
         reduceBuildVariants(
+          patchBuildVariants !== prevPatchBuildVariants,
           patchBuildVariants,
           patchStatusFilterTerm[versionId],
           baseStatusFilterTerm[versionId],
@@ -140,6 +141,7 @@ export const usePatchStatusSelect = (
         const childId = cv.id;
         const childNextState =
           reduceBuildVariants(
+            patchBuildVariants !== prevPatchBuildVariants,
             cv.buildVariants,
             patchStatusFilterTerm[childId],
             baseStatusFilterTerm[childId],
@@ -185,6 +187,7 @@ export const usePatchStatusSelect = (
 };
 
 const reduceBuildVariants = (
+  parentTasksChanged,
   buildVariants,
   patchStatusFilterTerm,
   baseStatusFilterTerm,
@@ -192,7 +195,7 @@ const reduceBuildVariants = (
 ) => {
   const statuses = new Set(patchStatusFilterTerm);
   const baseStatuses = new Set(baseStatusFilterTerm);
-  if (patchStatusFilterTerm || baseStatusFilterTerm) {
+  if (patchStatusFilterTerm || baseStatusFilterTerm || parentTasksChanged) {
     // Iterate through PatchBuildVariants and determine if a task should be
     // selected or not based on if the task status correlates with the 2 filters.
     // if 1 of the 2 filters is empty, ignore the empty filter

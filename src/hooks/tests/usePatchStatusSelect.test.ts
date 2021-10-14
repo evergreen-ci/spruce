@@ -30,7 +30,7 @@ test("should have no tasks and no valid statuses selected by default", () => {
   const { result } = renderHook(() =>
     usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
   );
-  expect(result.current[0][versionId]).toStrictEqual({});
+  expect(result.current[0][versionId]).toStrictEqual(allFalse);
 });
 
 test("should select all tasks that match the patch status filter when the base status filter is empty", () => {
@@ -167,6 +167,7 @@ test("selecting an individual task should work", () => {
     });
   });
   expect(result.current[0][versionId]).toEqual({
+    ...allFalse,
     evergreen_lint_generate_lint: true,
   });
 });
