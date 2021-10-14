@@ -192,8 +192,6 @@ const reduceBuildVariants = (
 ) => {
   const statuses = new Set(patchStatusFilterTerm);
   const baseStatuses = new Set(baseStatusFilterTerm);
-  console.log(`statuses:${JSON.stringify(statuses)}`);
-  console.log(`baseStatuses:${JSON.stringify(baseStatuses)}`);
   if (patchStatusFilterTerm || baseStatusFilterTerm) {
     // Iterate through PatchBuildVariants and determine if a task should be
     // selected or not based on if the task status correlates with the 2 filters.
