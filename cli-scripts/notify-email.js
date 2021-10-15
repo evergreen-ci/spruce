@@ -19,7 +19,7 @@ const sendEmail = async () => {
     const today = new Date();
     const day = prependZero(`${today.getDate()}`);
     const month = prependZero(`${today.getMonth() + 1}`);
-    const dateStr = `${today.getFullYear()}/${month}/${day}`;
+    const dateStr = `${today.getFullYear()}-${month}-${day}`;
     const recipient = process.env.REACT_APP_DEPLOYS_EMAIL;
 
     const subject = `${dateStr} Spruce deploy to ${formattedCommitHash}`;
