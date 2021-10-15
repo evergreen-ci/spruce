@@ -1,5 +1,5 @@
 import { renderHook, act } from "@testing-library/react-hooks";
-import { usePatchStatusSelect } from "hooks";
+import { useVersionTaskStatusSelect } from "hooks";
 import { waitFor } from "test_utils/test-utils";
 
 const allFalse = {
@@ -28,14 +28,14 @@ const allTrue = {
 
 test("should have no tasks and no valid statuses selected by default", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
   expect(result.current[0][versionId]).toStrictEqual(allFalse);
 });
 
 test("should select all tasks that match the patch status filter when the base status filter is empty", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
   act(() => {
     result.current[3].setPatchStatusFilterTerm({
@@ -50,7 +50,7 @@ test("should select all tasks that match the patch status filter when the base s
 
 test("should select all tasks that match the base status filter when the patch status filter is empty", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
   act(() => {
     result.current[3].setPatchStatusFilterTerm({});
@@ -68,7 +68,7 @@ test("should select all tasks that match the base status filter when the patch s
 
 test("should select all tasks that match the patch status filter when the base status filter is empty", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
   act(() => {
     result.current[3].setPatchStatusFilterTerm({
@@ -83,7 +83,7 @@ test("should select all tasks that match the patch status filter when the base s
 
 test("should select all tasks that match the patch status filter and base status filter when both filters have active filter terms.", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
   act(() => {
     result.current[3].setPatchStatusFilterTerm({
@@ -105,7 +105,7 @@ test("should select all tasks that match the patch status filter and base status
 
 test("tasks with undefined base statuses do not match with any base status filter state.", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
   act(() => {
     result.current[3].setPatchStatusFilterTerm({
@@ -126,7 +126,7 @@ test("tasks with undefined base statuses do not match with any base status filte
 
 test("should deselect all tasks with statuses that do not match any patch status filter terms.", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
   act(() => {
     result.current[3].setPatchStatusFilterTerm({
@@ -144,7 +144,7 @@ test("should deselect all tasks with statuses that do not match any patch status
 
 test("selecting multiple patch statuses should select all tasks with a matching status", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
   act(() => {
     result.current[3].setPatchStatusFilterTerm({
@@ -159,7 +159,7 @@ test("selecting multiple patch statuses should select all tasks with a matching 
 
 test("selecting an individual task should work", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
   act(() => {
     result.current[3].toggleSelectedTask({
@@ -174,7 +174,7 @@ test("selecting an individual task should work", () => {
 
 test("deselecting an individual task should work if it was selected by valid statuses", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
   act(() => {
     result.current[3].setPatchStatusFilterTerm({
@@ -197,7 +197,7 @@ test("deselecting an individual task should work if it was selected by valid sta
 
 test("batch toggling tasks will set them all to checked when they are orignially unchecked", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
   waitFor(() => expect(result.current[0]).toStrictEqual({ ...allFalse }));
   act(() =>
@@ -210,7 +210,7 @@ test("batch toggling tasks will set them all to checked when they are orignially
 
 test("batch toggling tasks will set them all to checked when some and not all are originally checked.", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
   waitFor(() => expect(result.current[0]).toStrictEqual({ ...allFalse }));
   act(() =>
@@ -234,7 +234,7 @@ test("batch toggling tasks will set them all to checked when some and not all ar
 
 test("batch toggling tasks will set them all to unchecked when they are all originally checked.", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
   waitFor(() => expect(result.current[0]).toStrictEqual({ ...allTrue }));
   act(() =>

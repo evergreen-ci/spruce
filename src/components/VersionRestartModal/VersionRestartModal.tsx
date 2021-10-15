@@ -19,11 +19,11 @@ import {
 } from "gql/generated/types";
 import { RESTART_VERSIONS } from "gql/mutations";
 import { GET_BUILD_VARIANTS_WITH_CHILDREN } from "gql/queries";
-import { usePatchStatusSelect } from "hooks";
+import { useVersionTaskStatusSelect } from "hooks";
 import {
   patchSelectedTasks,
   selectedStrings,
-} from "hooks/usePatchStatusSelect";
+} from "hooks/useVersionTaskStatusSelect";
 import { BuildVariantAccordian } from "./BuildVariantAccordian";
 
 const { gray } = uiColors;
@@ -78,7 +78,7 @@ const VersionRestartModal: React.FC<Props> = ({
     toggleSelectedTask,
     setPatchStatusFilterTerm,
     setBaseStatusFilterTerm,
-  } = usePatchStatusSelect(buildVariants, versionId, childVersions);
+  } = useVersionTaskStatusSelect(buildVariants, versionId, childVersions);
 
   const setVersionStatus = (childVersionId) => (selectedFilters: string[]) => {
     setPatchStatusFilterTerm({ [childVersionId]: selectedFilters });
