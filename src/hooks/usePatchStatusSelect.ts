@@ -127,24 +127,24 @@ export const usePatchStatusSelect = (
 
     if (filterTermOrPatchTasksChanged) {
       const parentNextState =
-        reduceBuildVariants(
-          patchBuildVariants !== prevPatchBuildVariants,
-          patchBuildVariants,
-          patchStatusFilterTerm[versionId],
-          baseStatusFilterTerm[versionId],
-          selectedTasks[versionId]
-        ) ?? {};
+        reduceBuildVariants({
+          parentTasksChanged: patchBuildVariants !== prevPatchBuildVariants,
+          buildVariants: patchBuildVariants,
+          patchStatusFilterTerm: patchStatusFilterTerm[versionId],
+          baseStatusFilterTerm: baseStatusFilterTerm[versionId],
+          selectedTasks: selectedTasks[versionId],
+        }) ?? {};
       const newTaskSelect = { [versionId]: parentNextState };
       childVersions?.forEach((cv) => {
         const childId = cv.id;
         const childNextState =
-          reduceBuildVariants(
-            patchBuildVariants !== prevPatchBuildVariants,
-            cv.buildVariants,
-            patchStatusFilterTerm[childId],
-            baseStatusFilterTerm[childId],
-            selectedTasks[childId]
-          ) ?? {};
+          reduceBuildVariants({
+            parentTasksChanged: patchBuildVariants !== prevPatchBuildVariants,
+            buildVariants: cv.buildVariants,
+            patchStatusFilterTerm: patchStatusFilterTerm[childId],
+            baseStatusFilterTerm: baseStatusFilterTerm[childId],
+            selectedTasks: selectedTasks[childId],
+          }) ?? {};
         newTaskSelect[childId] = childNextState;
       });
 
@@ -186,13 +186,23 @@ export const usePatchStatusSelect = (
   };
 };
 
-const reduceBuildVariants = (
-  parentTasksChanged,
-  buildVariants,
-  patchStatusFilterTerm,
-  baseStatusFilterTerm,
-  selectedTasks
-) => {
+type reduceInput = {
+  parentTasksChanged: boolean;
+  buildVariants: UpdatedPatchBuildVariantType[];
+  patchStatusFilterTerm: string[];
+  baseStatusFilterTerm: string[];
+  selectedTasks: selectedStrings | undefined;
+};
+
+const reduceBuildVariants = (filterDetails: reduceInput) => {
+  const {
+    parentTasksChanged,
+    buildVariants,
+    patchStatusFilterTerm,
+    baseStatusFilterTerm,
+    selectedTasks,
+  } = filterDetails;
+
   const statuses = new Set(patchStatusFilterTerm);
   const baseStatuses = new Set(baseStatusFilterTerm);
   if (patchStatusFilterTerm || baseStatusFilterTerm || parentTasksChanged) {
