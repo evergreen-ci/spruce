@@ -11,7 +11,7 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({ columns, loading }) => {
   const { visibleColumns, addColumns } = useHistoryTable();
   useEffect(() => {
     if (columns) {
-      addColumns(columns.map((c) => c));
+      addColumns(columns);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [columns]);
