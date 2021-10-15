@@ -1,16 +1,17 @@
 import { render, fireEvent } from "test_utils/test-utils";
-import { SpruceForm } from ".";
+import { SpruceForm, SpruceFormContainer } from ".";
 
 describe("basic form", () => {
   test("should render as expected", () => {
     const onChange = jest.fn();
     const { container, getByLabelText } = render(
-      <SpruceForm
-        schema={basicForm.schema}
-        title="Just a test"
-        formData={basicForm.formData}
-        onChange={onChange}
-      />
+      <SpruceFormContainer title="Just a test">
+        <SpruceForm
+          schema={basicForm.schema}
+          formData={basicForm.formData}
+          onChange={onChange}
+        />
+      </SpruceFormContainer>
     );
     expect(getByLabelText("Project Cloning Method")).toBeInTheDocument();
     expect(container.firstChild).toMatchSnapshot();
@@ -22,13 +23,14 @@ describe("basic form", () => {
       data = formData;
     });
     const { queryByDataCy } = render(
-      <SpruceForm
-        schema={basicForm.schema}
-        title="Just a test"
-        formData={basicForm.formData}
-        onChange={onChange}
-        uiSchema={basicForm.uiSchema}
-      />
+      <SpruceFormContainer title="Just a test">
+        <SpruceForm
+          schema={basicForm.schema}
+          formData={basicForm.formData}
+          onChange={onChange}
+          uiSchema={basicForm.uiSchema}
+        />
+      </SpruceFormContainer>
     );
     fireEvent.change(queryByDataCy("valid-projects-input"), {
       target: { value: "new value" },

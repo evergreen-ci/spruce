@@ -2734,6 +2734,34 @@ export type PatchQuery = {
   } & BasePatchFragment;
 };
 
+export type ProjectSettingsGeneralQueryVariables = Exact<{
+  identifier: Scalars["String"];
+}>;
+
+export type ProjectSettingsGeneralQuery = {
+  projectSettings: {
+    projectRef?: Maybe<{
+      enabled?: Maybe<boolean>;
+      owner: string;
+      repo: string;
+      branch: string;
+      displayName: string;
+      batchTime?: Maybe<number>;
+      remotePath: string;
+      spawnHostScriptPath: string;
+      useRepoSettings: boolean;
+    }>;
+  };
+};
+
+export type ProjectSettingsUseRepoQueryVariables = Exact<{
+  identifier: Scalars["String"];
+}>;
+
+export type ProjectSettingsUseRepoQuery = {
+  projectSettings: { projectRef?: Maybe<{ useRepoSettings: boolean }> };
+};
+
 export type GetProjectsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetProjectsQuery = {

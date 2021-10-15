@@ -1,0 +1,7 @@
+query ProjectSettingsUseRepo($identifier: String!) {
+  projectSettings(identifier: $identifier) {
+    projectRef {
+      useRepoSettings
+    }
+  }
+}

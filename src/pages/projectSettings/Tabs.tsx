@@ -1,4 +1,5 @@
 import { ComponentType } from "react";
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
 import { Route, useParams } from "react-router-dom";
@@ -18,12 +19,30 @@ import {
 import { TabProps } from "components/ProjectSettingsTabs/utils";
 import { routes, ProjectSettingsTabRoutes } from "constants/routes";
 import { useProjectSettingsContext } from "context/project-settings";
+import {
+  ProjectSettingsUseRepoQuery,
+  ProjectSettingsUseRepoQueryVariables,
+} from "gql/generated/types";
+import { GET_PROJECT_SETTINGS_USE_REPO } from "gql/queries";
 
 export const ProjectSettingsTabs: React.FC = () => {
-  const { tab } = useParams<{ tab: ProjectSettingsTabRoutes }>();
+  const { identifier, tab } = useParams<{
+    identifier: string;
+    tab: ProjectSettingsTabRoutes;
+  }>();
   const { saveTab } = useProjectSettingsContext();
 
   const { title, subtitle } = getTitle(tab);
+
+  const { data } = useQuery<
+    ProjectSettingsUseRepoQuery,
+    ProjectSettingsUseRepoQueryVariables
+  >(GET_PROJECT_SETTINGS_USE_REPO, {
+    variables: { identifier },
+    fetchPolicy: "cache-and-network",
+  });
+
+  const useRepoSettings = data?.projectSettings?.projectRef?.useRepoSettings;
 
   return (
     <Container>
@@ -38,12 +57,14 @@ export const ProjectSettingsTabs: React.FC = () => {
         >
           Save changes on page
         </Button>
+        {!useRepoSettings && <Button>Default to Repo on page</Button>}
       </TitleContainer>
 
       <TabRoute
         Component={GeneralTab}
         path={routes.projectSettingsGeneral}
         tab={ProjectSettingsTabRoutes.General}
+        useRepoSettings={useRepoSettings}
       />
       <TabRoute
         Component={AccessTab}
@@ -98,10 +119,21 @@ interface TabRouteProps {
   Component: ComponentType<TabProps>;
   path: string;
   tab: ProjectSettingsTabRoutes;
+  useRepoSettings?: boolean;
 }
 
-const TabRoute: React.FC<TabRouteProps> = ({ Component, path, tab }) => (
-  <Route path={path} render={(props) => <Component {...props} tab={tab} />} />
+const TabRoute: React.FC<TabRouteProps> = ({
+  Component,
+  path,
+  tab,
+  useRepoSettings = false,
+}) => (
+  <Route
+    path={path}
+    render={(props) => (
+      <Component {...props} tab={tab} useRepoSettings={useRepoSettings} />
+    )}
+  />
 );
 
 export const getTitle = (
