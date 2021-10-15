@@ -49,18 +49,16 @@ const reducer = (state: State, action: Action) => {
 
 type FilterSetter = (statuses: versionFilters) => void;
 
-type HookResult = [
-  patchSelectedTasks,
-  versionFilters,
-  versionFilters,
-  {
-    toggleSelectedTask: (
-      taskIds: { [patchId: string]: string } | { [patchId: string]: string[] }
-    ) => void;
-    setPatchStatusFilterTerm: FilterSetter;
-    setBaseStatusFilterTerm: FilterSetter;
-  }
-];
+type HookResult = {
+  selectedTasks: patchSelectedTasks;
+  patchStatusFilterTerm: versionFilters;
+  baseStatusFilterTerm: versionFilters;
+  toggleSelectedTask: (
+    taskIds: { [patchId: string]: string } | { [patchId: string]: string[] }
+  ) => void;
+  setPatchStatusFilterTerm: FilterSetter;
+  setBaseStatusFilterTerm: FilterSetter;
+};
 
 type UpdatedPatchBuildVariantType = Omit<GroupedBuildVariant, "tasks"> & {
   tasks?: {
@@ -178,12 +176,14 @@ export const usePatchStatusSelect = (
     nextState[vId] = statuses[vId];
     dispatch({ type: "setBaseStatusFilterTerm", data: nextState });
   };
-  return [
+  return {
     selectedTasks,
     patchStatusFilterTerm,
     baseStatusFilterTerm,
-    { toggleSelectedTask, setPatchStatusFilterTerm, setBaseStatusFilterTerm },
-  ];
+    toggleSelectedTask,
+    setPatchStatusFilterTerm,
+    setBaseStatusFilterTerm,
+  };
 };
 
 const reduceBuildVariants = (

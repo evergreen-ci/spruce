@@ -71,12 +71,14 @@ const VersionRestartModal: React.FC<Props> = ({
 
   const { version } = data || {};
   const { buildVariants, childVersions } = version || {};
-  const [
+  const {
     selectedTasks,
     patchStatusFilterTerm,
     baseStatusFilterTerm,
-    { toggleSelectedTask, setPatchStatusFilterTerm, setBaseStatusFilterTerm },
-  ] = usePatchStatusSelect(buildVariants, versionId, childVersions);
+    toggleSelectedTask,
+    setPatchStatusFilterTerm,
+    setBaseStatusFilterTerm,
+  } = usePatchStatusSelect(buildVariants, versionId, childVersions);
 
   const setVersionStatus = (childVersionId) => (selectedFilters: string[]) => {
     setPatchStatusFilterTerm({ [childVersionId]: selectedFilters });
