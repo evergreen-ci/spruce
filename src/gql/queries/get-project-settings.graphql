@@ -1,4 +1,4 @@
-query ProjectSettingsGeneral($identifier: String!) {
+query ProjectSettings($identifier: String!) {
   projectSettings(identifier: $identifier) {
     projectRef {
       enabled

@@ -1,37 +1,29 @@
-import { useMemo } from "react";
-import { useQuery } from "@apollo/client";
-import { useParams } from "react-router-dom";
+import { useCallback, useMemo } from "react";
 import { SpruceForm, SpruceFormContainer } from "components/SpruceForm";
 import widgets from "components/SpruceForm/Widgets";
+import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
   usePopulateForm,
   useProjectSettingsContext,
 } from "context/project-settings";
-import {
-  ProjectSettingsGeneralQuery,
-  ProjectSettingsGeneralQueryVariables,
-} from "gql/generated/types";
-import { GET_PROJECT_SETTINGS_GENERAL } from "gql/queries";
 import { MoveRepoField } from "./GeneralTab/MoveRepoField";
-import { TabProps } from "./utils";
+import { GeneralTabProps } from "./types";
 
-export const GeneralTab: React.FC<TabProps> = ({ tab, useRepoSettings }) => {
-  const { identifier } = useParams<{ identifier: string }>();
+const tab = ProjectSettingsTabRoutes.General;
+
+export const GeneralTab: React.FC<GeneralTabProps> = ({
+  data,
+  useRepoSettings,
+}) => {
   const { getTabFormState, updateForm } = useProjectSettingsContext();
   const currentFormState = getTabFormState(tab);
 
-  const { data } = useQuery<
-    ProjectSettingsGeneralQuery,
-    ProjectSettingsGeneralQueryVariables
-  >(GET_PROJECT_SETTINGS_GENERAL, {
-    variables: { identifier },
-  });
-
-  const initialFormState = useMemo(() => {
-    const projectRef = data?.projectSettings.projectRef || {};
-    return gqlToSchema(projectRef);
-  }, [data]);
+  const initialFormState = useMemo(() => gqlToSchema(data), [data]);
   usePopulateForm(initialFormState, tab);
+
+  const onChange = useCallback(({ formData }) => updateForm(tab, formData), [
+    updateForm,
+  ]);
 
   return (
     <>
@@ -40,7 +32,7 @@ export const GeneralTab: React.FC<TabProps> = ({ tab, useRepoSettings }) => {
           schema={generalConfiguration.schema}
           fields={{ moveRepo: MoveRepoField }}
           formData={currentFormState}
-          onChange={({ formData }) => updateForm(tab, formData)}
+          onChange={onChange}
           uiSchema={{
             ...generalConfiguration.uiSchema,
             repositoryInfo: {
@@ -54,42 +46,37 @@ export const GeneralTab: React.FC<TabProps> = ({ tab, useRepoSettings }) => {
   );
 };
 
-const gqlToSchema = (gqlData) => {
-  if (!Object.keys(gqlData).length) {
-    return {};
-  }
-  const {
-    enabled,
+const gqlToSchema = ({
+  enabled = false,
+  owner,
+  repo,
+  branch,
+  displayName,
+  batchTime = 0,
+  remotePath,
+  spawnHostScriptPath,
+}) => ({
+  enabled: enabled ? "enabled" : "disabled",
+  repositoryInfo: {
     owner,
     repo,
-    branch,
+  },
+  branch,
+  other: {
     displayName,
     batchTime,
     remotePath,
     spawnHostScriptPath,
-  } = gqlData;
-  return {
-    enabled,
-    repositoryInfo: {
-      owner,
-      repo,
-    },
-    branch,
-    other: {
-      displayName,
-      batchTime,
-      remotePath,
-      spawnHostScriptPath,
-    },
-  };
-};
+  },
+});
 
 const generalConfiguration = {
   schema: {
     type: "object" as "object",
     properties: {
       enabled: {
-        type: "boolean" as "boolean",
+        type: "string" as "string",
+        enum: ["enabled", "disabled"],
         enumNames: ["Enabled", "Disabled"],
       },
       repositoryInfo: {

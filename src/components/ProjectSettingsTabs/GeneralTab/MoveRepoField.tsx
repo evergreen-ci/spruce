@@ -60,7 +60,14 @@ export const MoveRepoField: React.FC<SpruceFormProps> = ({
   };
 
   return (
-    <>
+    <Container>
+      <Modal
+        initialOwner={formData?.owner}
+        initialRepo={formData?.repo}
+        onCancel={onCancel}
+        onConfirm={onConfirm}
+        open={open}
+      />
       <SpruceForm
         formData={formData}
         onChange={() => {}}
@@ -77,16 +84,7 @@ export const MoveRepoField: React.FC<SpruceFormProps> = ({
             : "Detach from current repo"}
         </Button>
       </ButtonRow>
-      {Object.keys(formData).length && (
-        <Modal
-          initialOwner={formData?.owner}
-          initialRepo={formData?.repo}
-          onCancel={onCancel}
-          onConfirm={onConfirm}
-          open={open}
-        />
-      )}
-    </>
+    </Container>
   );
 };
 
@@ -108,10 +106,12 @@ const modalFormDefinition = {
 
 const ButtonRow = styled.div`
   display: inline;
-  padding-top: 8px;
-  padding-bottom: 8px;
 
   > :not(:last-child) {
     margin-right: 8px;
   }
+`;
+
+const Container = styled.div`
+  margin-bottom: 20px;
 `;

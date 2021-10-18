@@ -21,13 +21,14 @@ export const ArrayField: React.FC<FieldProps> = ({
 );
 
 export const TitleField: React.FC<FieldProps> = ({ title }) => (
-  <ElementWrapper>
+  <>
     {/* @ts-expect-error  */}
     <StyledSubtitle>{title}</StyledSubtitle>
-  </ElementWrapper>
+  </>
 );
 
 /* @ts-expect-error  */
 const StyledSubtitle = styled(Subtitle)`
   margin-top: 16px;
+  margin-bottom: 16px;
 `;

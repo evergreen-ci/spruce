@@ -1,4 +1,6 @@
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { Skeleton } from "antd";
 import { useParams, Link, Redirect } from "react-router-dom";
 import {
   SideNav,
@@ -11,6 +13,11 @@ import {
   getProjectSettingsRoute,
 } from "constants/routes";
 import { ProjectSettingsProvider } from "context/project-settings";
+import {
+  ProjectSettingsQuery,
+  ProjectSettingsQueryVariables,
+} from "gql/generated/types";
+import { GET_PROJECT_SETTINGS } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { environmentalVariables } from "utils";
 import { ProjectSettingsTabs, getTitle } from "./projectSettings/Tabs";
@@ -25,6 +32,13 @@ export const ProjectSettings: React.FC = () => {
     identifier: string;
     tab: ProjectSettingsTabRoutes;
   }>();
+
+  const { data } = useQuery<
+    ProjectSettingsQuery,
+    ProjectSettingsQueryVariables
+  >(GET_PROJECT_SETTINGS, {
+    variables: { identifier },
+  });
 
   if (disablePage) {
     return (
@@ -100,7 +114,7 @@ export const ProjectSettings: React.FC = () => {
         </SideNavGroup>
       </SideNav>
       <PageWrapper>
-        <ProjectSettingsTabs />
+        {data ? <ProjectSettingsTabs data={data} /> : <Skeleton />}
       </PageWrapper>
     </ProjectSettingsProvider>
   );

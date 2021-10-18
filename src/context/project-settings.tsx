@@ -108,11 +108,12 @@ const usePopulateForm = (
   tab: ProjectSettingsTabRoutes
 ): void => {
   const { saveTab, updateForm } = useProjectSettingsContext();
+  const isSaved = useIsTabSaved(tab);
 
   useEffect(() => {
     // Ensure form does not have unsaved changes before writing.
     // This preserves the unsaved form state when switching between project settings tabs.
-    if (Object.keys(formState).length) {
+    if (isSaved) {
       updateForm(tab, formState);
       saveTab(tab);
     }

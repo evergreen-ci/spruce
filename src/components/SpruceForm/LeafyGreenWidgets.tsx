@@ -152,7 +152,7 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
       <RadioBoxGroup
         name={label}
         value={value}
-        onChange={(e) => onChange(e.target.value === "true")}
+        onChange={(e) => onChange(e.target.value)}
         data-cy={dataCy}
       >
         {enumOptions.map((o) => (
