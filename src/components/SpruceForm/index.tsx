@@ -14,6 +14,7 @@ export interface SpruceFormProps {
   uiSchema?: FormProps<any>["uiSchema"];
   formData: FormDataProps;
   fields?: FormProps<any>["fields"];
+  tagName?: FormProps<any>["tagName"];
 }
 
 export const SpruceForm: React.FC<SpruceFormProps> = ({
@@ -22,6 +23,7 @@ export const SpruceForm: React.FC<SpruceFormProps> = ({
   uiSchema,
   formData,
   fields,
+  tagName,
 }) => (
   <Form
     fields={{ ...baseFields, ...fields }}
@@ -30,8 +32,8 @@ export const SpruceForm: React.FC<SpruceFormProps> = ({
     widgets={widgets}
     uiSchema={uiSchema}
     formData={formData}
+    tagName={tagName}
     FieldTemplate={DefaultFieldTemplate}
-    liveValidate
   >
     {/*  Need to pass in an empty fragment child to remove default submit button */}
     <></>

@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import Modal, { Variant } from "@leafygreen-ui/confirmation-modal";
 
 interface ConfirmationModalProps {
@@ -22,7 +22,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   submitDisabled,
   variant,
 }) => (
-  <Modal
+  <StyledModal
     buttonText={buttonText}
     onCancel={onCancel}
     onConfirm={onConfirm}
@@ -31,10 +31,11 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
     submitDisabled={submitDisabled}
     title="Move Repo"
     variant={variant}
-    css={css`
-      z-index: 1;
-    `}
   >
     {children}
-  </Modal>
+  </StyledModal>
 );
+
+const StyledModal = styled(Modal)`
+  z-index: 1;
+`;

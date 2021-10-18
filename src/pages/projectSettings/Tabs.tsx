@@ -26,11 +26,8 @@ interface Props {
 }
 
 export const ProjectSettingsTabs: React.FC<Props> = ({ data }) => {
-  const { tab } = useParams<{
-    tab: ProjectSettingsTabRoutes;
-  }>();
+  const { tab } = useParams<{ tab: ProjectSettingsTabRoutes }>();
   const { saveTab } = useProjectSettingsContext();
-
   const { title, subtitle } = getTitle(tab);
 
   const {
@@ -39,7 +36,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({ data }) => {
     },
   } = data;
 
-  const tabData = useMemo(() => makeTabData(data), [data]);
+  const tabData = useMemo(() => getTabData(data), [data]);
 
   return (
     <Container>
@@ -120,24 +117,14 @@ interface TabRouteProps {
   Component: ComponentType<TabProps>;
   path: string;
   tab: ProjectSettingsTabRoutes;
-  useRepoSettings?: boolean;
 }
 
-const TabRoute: React.FC<TabRouteProps> = ({
-  Component,
-  path,
-  tab,
-  useRepoSettings = false,
-}) => (
-  <Route
-    path={path}
-    render={(props) => (
-      <Component {...props} tab={tab} useRepoSettings={useRepoSettings} />
-    )}
-  />
+const TabRoute: React.FC<TabRouteProps> = ({ Component, path, tab }) => (
+  <Route path={path} render={(props) => <Component {...props} tab={tab} />} />
 );
 
-const makeTabData = (
+/* Map data from query to the tab to which it will be passed */
+const getTabData = (
   data: ProjectSettingsQuery
 ): {
   [ProjectSettingsTabRoutes.General]: GeneralTabProps["data"];

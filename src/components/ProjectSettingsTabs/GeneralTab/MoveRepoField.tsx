@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Button } from "components/Button";
 import { ConfirmationModal } from "components/ConfirmationModal";
@@ -25,17 +24,12 @@ const Modal: React.FC<any> = ({
       open={open}
       title="Move Repo"
       variant="danger"
-      css={css`
-        z-index: 1;
-      `}
     >
       Select an existing repository or add a new one.
       {/* TODO: Add select component upon completion of EVG-15037 */}
       <SpruceForm
         formData={formState}
-        onChange={({ formData }) => {
-          setFormState(formData);
-        }}
+        onChange={({ formData }) => setFormState(formData)}
         schema={modalFormDefinition.schema}
       />
     </ConfirmationModal>
@@ -73,6 +67,7 @@ export const MoveRepoField: React.FC<SpruceFormProps> = ({
         onChange={() => {}}
         schema={schema}
         uiSchema={uiSchema}
+        tagName="fieldset"
       />
       <ButtonRow>
         <Button onClick={() => setOpen(true)} size="small">
