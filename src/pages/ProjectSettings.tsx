@@ -130,6 +130,7 @@ const ProjectSettingsNavItem: React.FC<{
     active={tab === currentTab}
     as={Link} // @ts-expect-error
     to={getProjectSettingsRoute(identifier, tab)}
+    data-cy={`navitem-${tab}`}
   >
     {title || getTitle(tab).title}
   </SideNavItem>

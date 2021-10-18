@@ -138,6 +138,7 @@ const generalConfiguration = {
       spawnHostScriptPath: {
         "ui:description":
           "This is the bash setup script to optionally run on spawn hosts created from tasks.",
+        "ui:data-cy": "spawn-host-input",
       },
     },
   },
