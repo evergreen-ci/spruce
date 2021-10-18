@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { Tooltip } from "antd";
 import { useParams } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
@@ -7,7 +6,7 @@ import { TaskStatus } from "types/task";
 
 interface Props {
   count: number;
-  statuses: string[];
+  statuses: { [key: string]: number };
   variant: string;
   umbrellaStatus: string;
 }
@@ -21,26 +20,21 @@ export const GroupedTaskSquare: React.FC<Props> = ({
   const patchAnalytics = usePatchAnalytics();
   const { id } = useParams<{ id: string }>();
 
-  const multipleStatuses = statuses.length > 1;
-  const tooltipCopy = `${count} ${count > 1 ? "tasks" : "task"} with ${
-    multipleStatuses ? "statuses" : "status"
-  }: ${statuses.join()}`;
   return (
     <GroupedTaskSquareWrapper>
-      <Tooltip title={<span data-cy="task-square-tooltip">{tooltipCopy}</span>}>
-        <GroupedTaskStatusBadge
-          variant={variant}
-          versionId={id}
-          status={umbrellaStatus as TaskStatus}
-          count={count}
-          onClick={() =>
-            patchAnalytics.sendEvent({
-              name: "Click Grouped Task Square",
-              taskSquareStatuses: statuses,
-            })
-          }
-        />{" "}
-      </Tooltip>
+      <GroupedTaskStatusBadge
+        variant={variant}
+        versionId={id}
+        status={umbrellaStatus as TaskStatus}
+        count={count}
+        onClick={() =>
+          patchAnalytics.sendEvent({
+            name: "Click Grouped Task Square",
+            taskSquareStatuses: Object.keys(statuses),
+          })
+        }
+        statusCounts={statuses}
+      />{" "}
     </GroupedTaskSquareWrapper>
   );
 };

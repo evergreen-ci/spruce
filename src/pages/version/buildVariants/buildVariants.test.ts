@@ -2,7 +2,7 @@ import { TaskStatus } from "types/task";
 import { groupTasksByUmbrellaStatus } from "./utils";
 
 describe("groupTasksByUmbrellaStatus", () => {
-  test("Seperates tasks into groups based on the color of the status", () => {
+  test("Seperates tasks into groups based on their umbrella status", () => {
     const tasks = [
       {
         id: "123",
@@ -25,21 +25,21 @@ describe("groupTasksByUmbrellaStatus", () => {
     ];
 
     expect(groupTasksByUmbrellaStatus(tasks)).toStrictEqual({
-      "failed-umbrella": {
+      [TaskStatus.FailedUmbrella]: {
         count: 1,
-        statuses: ["failed"],
+        statuses: { [TaskStatus.Failed]: 1 },
       },
-      success: {
+      [TaskStatus.Succeeded]: {
         count: 1,
-        statuses: ["success"],
+        statuses: { [TaskStatus.Succeeded]: 1 },
       },
-      "running-umbrella": {
+      [TaskStatus.RunningUmbrella]: {
         count: 1,
-        statuses: ["started"],
+        statuses: { [TaskStatus.Started]: 1 },
       },
     });
   });
-  test("Groups tasks with different statuses but the same color", () => {
+  test("Differing task statuses are grouped to the same umbrella status", () => {
     const tasks = [
       {
         id: "123",
@@ -68,17 +68,17 @@ describe("groupTasksByUmbrellaStatus", () => {
     ];
 
     expect(groupTasksByUmbrellaStatus(tasks)).toStrictEqual({
-      "failed-umbrella": {
+      [TaskStatus.FailedUmbrella]: {
         count: 2,
-        statuses: ["failed", "task-timed-out"],
+        statuses: { failed: 1, [TaskStatus.TaskTimedOut]: 1 },
       },
-      success: {
+      [TaskStatus.Succeeded]: {
         count: 1,
-        statuses: ["success"],
+        statuses: { [TaskStatus.Succeeded]: 1 },
       },
-      "running-umbrella": {
+      [TaskStatus.RunningUmbrella]: {
         count: 1,
-        statuses: ["started"],
+        statuses: { [TaskStatus.Started]: 1 },
       },
     });
   });
@@ -111,17 +111,17 @@ describe("groupTasksByUmbrellaStatus", () => {
     ];
 
     expect(groupTasksByUmbrellaStatus(tasks)).toStrictEqual({
-      "failed-umbrella": {
+      [TaskStatus.FailedUmbrella]: {
         count: 2,
-        statuses: ["failed"],
+        statuses: { [TaskStatus.Failed]: 2 },
       },
-      success: {
+      [TaskStatus.Succeeded]: {
         count: 1,
-        statuses: ["success"],
+        statuses: { [TaskStatus.Succeeded]: 1 },
       },
-      "running-umbrella": {
+      [TaskStatus.RunningUmbrella]: {
         count: 1,
-        statuses: ["started"],
+        statuses: { [TaskStatus.Started]: 1 },
       },
     });
   });
