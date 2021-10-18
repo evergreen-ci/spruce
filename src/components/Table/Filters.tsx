@@ -53,7 +53,7 @@ export const InputFilter: React.FC<InputFilterProps> = ({
       <TextInput
         type="search"
         aria-label="input-filter"
-        data-cy={`${dataCy}-input-filter`}
+        data-cy="input-filter"
         placeholder={placeholder}
         value={value}
         onChange={onChange}
