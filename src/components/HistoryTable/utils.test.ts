@@ -1,5 +1,6 @@
 import { mainlineCommitData } from "./testData";
-import { processCommits, rowType } from "./utils";
+import { rowType } from "./types";
+import { processCommits } from "./utils";
 
 describe("HistoryTable utils", () => {
   describe("processCommits", () => {

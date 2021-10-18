@@ -327,27 +327,6 @@ exports[`Storyshots History Table Active Icons 1`] = `
 </div>
 `;
 
-exports[`Storyshots History Table Default 1`] = `
-<div
-  style={
-    Object {
-      "height": 800,
-      "width": "100%",
-    }
-  }
->
-  <div
-    style={
-      Object {
-        "height": 0,
-        "overflow": "visible",
-        "width": 0,
-      }
-    }
-  />
-</div>
-`;
-
 exports[`Storyshots History Table Inactive Icons 1`] = `
 <div
   className="css-1tw1ctr-Container eb1823k0"
@@ -636,5 +615,47 @@ exports[`Storyshots History Table Inactive Icons 1`] = `
       className="css-p140hk-IconContainer-inactiveElementStyle e12dzyme0"
     />
   </div>
+</div>
+`;
+
+exports[`Storyshots History Table Task History Table 1`] = `
+<div
+  style={
+    Object {
+      "height": 800,
+      "width": "100%",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "height": 0,
+        "overflow": "visible",
+        "width": 0,
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots History Table Variant History Table 1`] = `
+<div
+  style={
+    Object {
+      "height": 800,
+      "width": "100%",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "height": 0,
+        "overflow": "visible",
+        "width": 0,
+      }
+    }
+  />
 </div>
 `;

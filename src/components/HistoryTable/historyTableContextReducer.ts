@@ -1,4 +1,5 @@
-import { processCommits, CommitRowType, mainlineCommits } from "./utils";
+import { CommitRowType, mainlineCommits } from "./types";
+import { processCommits } from "./utils";
 
 type Action =
   | { type: "ingestNewCommits"; commits: mainlineCommits }
