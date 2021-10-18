@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import Modal, { Variant } from "@leafygreen-ui/confirmation-modal";
 
 interface ConfirmationModalProps {
+  "data-cy"?: string;
   title: string;
   open?: boolean;
   onConfirm?: () => void;
@@ -15,6 +16,7 @@ interface ConfirmationModalProps {
 export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   buttonText,
   children,
+  "data-cy": dataCy,
   onCancel,
   onConfirm,
   open,
@@ -24,6 +26,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
 }) => (
   <StyledModal
     buttonText={buttonText}
+    data-cy={dataCy}
     onCancel={onCancel}
     onConfirm={onConfirm}
     open={open}

@@ -4,27 +4,22 @@ import { Button } from "components/Button";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { SpruceForm, SpruceFormProps } from "components/SpruceForm";
 
-const Modal: React.FC<any> = ({
-  initialOwner,
-  initialRepo,
-  onCancel,
-  onConfirm,
-  open,
-}) => {
-  const [formState, setFormState] = useState({
-    owner: initialOwner,
-    repo: initialRepo,
-  });
-
+export const MoveRepoModal: React.FC<any> = ({ onCancel, onConfirm, open }) => {
+  const [formState, setFormState] = useState({});
   const [hasError, setHasError] = useState(false);
+  const isDisabled =
+    Object.keys(formState).length === 0 ||
+    Object.values(formState).some((input) => input === "") ||
+    hasError;
 
   return (
     <ConfirmationModal
       buttonText="Move Repo"
+      data-cy="move-repo-modal"
       onCancel={onCancel}
       onConfirm={() => onConfirm(formState)}
       open={open}
-      submitDisabled={hasError}
+      submitDisabled={isDisabled}
       title="Move Repo"
       variant="danger"
     >
@@ -37,6 +32,7 @@ const Modal: React.FC<any> = ({
           setFormState(formData);
         }}
         schema={modalFormDefinition.schema}
+        uiSchema={modalFormDefinition.uiSchema}
       />
     </ConfirmationModal>
   );
@@ -54,29 +50,26 @@ export const MoveRepoField: React.FC<SpruceFormProps> = ({
   const [open, setOpen] = useState(false);
 
   const onCancel = () => setOpen(false);
-  const onConfirm = ({ newOwner, newRepo }) => {
+  const onConfirm = (formUpdate) => {
     setOpen(false);
-    onChange({ owner: newOwner, repo: newRepo });
+    onChange(formUpdate);
   };
 
   return (
     <Container>
-      <Modal
-        initialOwner={formData?.owner}
-        initialRepo={formData?.repo}
-        onCancel={onCancel}
-        onConfirm={onConfirm}
-        open={open}
-      />
       <SpruceForm
         formData={formData}
         onChange={() => {}}
         schema={schema}
-        uiSchema={uiSchema}
         tagName="fieldset"
+        uiSchema={uiSchema}
       />
       <ButtonRow>
-        <Button onClick={() => setOpen(true)} size="small">
+        <Button
+          onClick={() => setOpen(true)}
+          size="small"
+          data-cy="move-repo-button"
+        >
           Move to new repo
         </Button>
         <Button size="small">
@@ -85,6 +78,7 @@ export const MoveRepoField: React.FC<SpruceFormProps> = ({
             : "Detach from current repo"}
         </Button>
       </ButtonRow>
+      <MoveRepoModal onCancel={onCancel} onConfirm={onConfirm} open={open} />
     </Container>
   );
 };
@@ -93,19 +87,26 @@ const modalFormDefinition = {
   schema: {
     type: "object" as "object",
     properties: {
-      newOwner: {
+      owner: {
         type: "string" as "string",
         title: "New Owner",
       },
-      newRepo: {
+      repo: {
         type: "string" as "string",
         title: "New Repository",
-        id: "new-repo",
       },
     },
     dependencies: {
-      newOwner: ["newRepo"],
-      newRepo: ["newOwner"],
+      owner: ["repo"],
+      repo: ["owner"],
+    },
+  },
+  uiSchema: {
+    owner: {
+      "ui:data-cy": "new-owner-input",
+    },
+    repo: {
+      "ui:data-cy": "new-repo-input",
     },
   },
 };

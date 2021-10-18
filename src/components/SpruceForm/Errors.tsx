@@ -4,7 +4,6 @@ export const transformErrors = (errors: AjvError[]) =>
   errors.map((error) => {
     switch (error.name) {
       case "required":
-        console.log("in required");
         return {
           ...error,
           message: "Value is required.",
