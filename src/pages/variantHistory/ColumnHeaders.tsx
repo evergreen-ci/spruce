@@ -3,19 +3,15 @@ import styled from "@emotion/styled";
 import { context } from "components/HistoryTable";
 
 const { useHistoryTable } = context;
-
 interface ColumnHeadersProps {
-  columns: {
-    displayName: string;
-    buildVariant: string;
-  }[];
+  columns: string[];
   loading: boolean;
 }
 const ColumnHeaders: React.FC<ColumnHeadersProps> = ({ columns, loading }) => {
   const { visibleColumns, addColumns } = useHistoryTable();
   useEffect(() => {
     if (columns) {
-      addColumns(columns.map((c) => c.buildVariant));
+      addColumns(columns);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [columns]);
@@ -24,15 +20,11 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({ columns, loading }) => {
     <RowContainer>
       <LabelCellContainer />
       {visibleColumns.map((vc) => {
-        const cell = columns.find((c) => c.buildVariant === vc);
+        const cell = columns.find((c) => c === vc);
         if (!cell) {
           return null;
         }
-        return (
-          <Cell key={`header_cell_${cell.buildVariant}`}>
-            {cell.displayName}
-          </Cell>
-        );
+        return <Cell key={`header_cell_${cell}`}>{cell}</Cell>;
       })}
       {loading &&
         Array.from(Array(8)).map((i) => (

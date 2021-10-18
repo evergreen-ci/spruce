@@ -2506,7 +2506,14 @@ export type MainlineCommitsForHistoryQuery = {
               displayName: string;
               variant: string;
               tasks?: Maybe<
-                Array<Maybe<{ id: string; execution: number; status: string }>>
+                Array<
+                  Maybe<{
+                    id: string;
+                    execution: number;
+                    status: string;
+                    displayName: string;
+                  }>
+                >
               >;
             }>
           >
