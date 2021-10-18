@@ -4,18 +4,9 @@ import { RadioBox, RadioBoxGroup } from "@leafygreen-ui/radio-box-group";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import { Option, Select } from "@leafygreen-ui/select";
 import TextArea from "@leafygreen-ui/text-area";
-import TextInput, { TextInputType } from "@leafygreen-ui/text-input";
+import TextInput from "@leafygreen-ui/text-input";
 import { WidgetProps } from "@rjsf/core";
 import ElementWrapper from "./ElementWrapper";
-
-const getInputType = (
-  schemaType: WidgetProps["schema"]["type"]
-): TextInputType => {
-  if (schemaType === "number") {
-    return TextInputType.Number;
-  }
-  return TextInputType.Text;
-};
 
 export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
   value,
@@ -24,7 +15,6 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
   onChange,
   disabled,
   options,
-  schema: { type },
   rawErrors,
 }) => {
   const { description, "data-cy": dataCy } = options;
@@ -43,7 +33,6 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
           aria-label={label}
           errorMessage={hasError ? rawErrors.join(", ") : null}
           state={hasError ? "error" : "none"}
-          type={getInputType(type)}
         />
       </TextInputContainer>
     </ElementWrapper>

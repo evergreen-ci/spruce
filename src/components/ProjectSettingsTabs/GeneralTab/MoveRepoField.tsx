@@ -16,12 +16,15 @@ const Modal: React.FC<any> = ({
     repo: initialRepo,
   });
 
+  const [hasError, setHasError] = useState(false);
+
   return (
     <ConfirmationModal
       buttonText="Move Repo"
       onCancel={onCancel}
       onConfirm={() => onConfirm(formState)}
       open={open}
+      submitDisabled={hasError}
       title="Move Repo"
       variant="danger"
     >
@@ -29,7 +32,10 @@ const Modal: React.FC<any> = ({
       {/* TODO: Add select component upon completion of EVG-15037 */}
       <SpruceForm
         formData={formState}
-        onChange={({ formData }) => setFormState(formData)}
+        onChange={({ formData, errors }) => {
+          setHasError(errors.length > 0);
+          setFormState(formData);
+        }}
         schema={modalFormDefinition.schema}
       />
     </ConfirmationModal>
@@ -48,9 +54,9 @@ export const MoveRepoField: React.FC<SpruceFormProps> = ({
   const [open, setOpen] = useState(false);
 
   const onCancel = () => setOpen(false);
-  const onConfirm = (repositoryInfo) => {
+  const onConfirm = ({ newOwner, newRepo }) => {
     setOpen(false);
-    onChange(repositoryInfo);
+    onChange({ owner: newOwner, repo: newRepo });
   };
 
   return (
@@ -87,14 +93,19 @@ const modalFormDefinition = {
   schema: {
     type: "object" as "object",
     properties: {
-      owner: {
+      newOwner: {
         type: "string" as "string",
         title: "New Owner",
       },
-      repo: {
+      newRepo: {
         type: "string" as "string",
         title: "New Repository",
+        id: "new-repo",
       },
+    },
+    dependencies: {
+      newOwner: ["newRepo"],
+      newRepo: ["newOwner"],
     },
   },
 };

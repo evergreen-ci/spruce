@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
 import { H3 } from "@leafygreen-ui/typography";
 import Form, { FormProps } from "@rjsf/core";
+import { transformErrors } from "./Errors";
 import baseFields from "./Fields";
 import { DefaultFieldTemplate } from "./FieldTemplates";
 import widgets from "./Widgets";
@@ -34,6 +35,9 @@ export const SpruceForm: React.FC<SpruceFormProps> = ({
     formData={formData}
     tagName={tagName}
     FieldTemplate={DefaultFieldTemplate}
+    transformErrors={transformErrors}
+    showErrorList={false}
+    liveValidate
   >
     {/*  Need to pass in an empty fragment child to remove default submit button */}
     <></>
