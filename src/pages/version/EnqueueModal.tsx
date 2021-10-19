@@ -2,18 +2,15 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { Input } from "antd";
+import TextArea from "@leafygreen-ui/text-area";
 import { usePatchAnalytics } from "analytics";
 import { Modal } from "components/Modal";
-import { InputLabel } from "components/styles";
 import { useToastContext } from "context/toast";
 import {
   EnqueuePatchMutation,
   EnqueuePatchMutationVariables,
 } from "gql/generated/types";
 import { ENQUEUE_PATCH } from "gql/mutations";
-
-const { TextArea } = Input;
 
 interface EnqueueProps {
   patchId: string;
@@ -77,14 +74,11 @@ export const EnqueuePatchModal: React.FC<EnqueueProps> = ({
       ]}
       data-cy="enqueue-modal"
     >
-      <InputLabel htmlFor={COMMIT_MESSAGE_ID}>Commit Message</InputLabel>
-      <CommitSquashWarning>
-        Warning: submitting a patch to the commit queue will squash the commits.
-      </CommitSquashWarning>
       <StyledTextArea
         id={COMMIT_MESSAGE_ID}
+        label="Commit Message"
+        description="Warning: submitting a patch to the commit queue will squash the commits."
         value={commitMessageValue}
-        autoSize={{ minRows: 4, maxRows: 6 }}
         onChange={(e) => setCommitMessageValue(e.target.value)}
       />
     </Modal>
@@ -92,11 +86,9 @@ export const EnqueuePatchModal: React.FC<EnqueueProps> = ({
 };
 
 const StyledTextArea = styled(TextArea)`
-  margin: 15px 0;
-`;
-
-const CommitSquashWarning = styled.div`
-  margin-top: 14px;
+  & p {
+    margin-bottom: 15px;
+  }
 `;
 
 const COMMIT_MESSAGE_ID = "commit-message-input";
