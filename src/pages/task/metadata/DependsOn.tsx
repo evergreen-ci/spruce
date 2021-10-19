@@ -54,6 +54,10 @@ const Subtitle = styled(Disclaimer)`
   padding-bottom: 3px;
 `;
 
+const StyledBadge = styled(Badge)`
+  align-self: flex-start;
+`;
+
 const metStatusToIcon = {
   [MetStatus.Met]: <TaskStatusIcon status={TaskStatus.Succeeded} />,
   [MetStatus.Unmet]: <TaskStatusIcon status={TaskStatus.Failed} />,
@@ -61,11 +65,13 @@ const metStatusToIcon = {
 };
 
 const requiredStatusToBadge = {
-  [RequiredStatus.MustFail]: <Badge variant={Variant.Red}>Must fail</Badge>,
+  [RequiredStatus.MustFail]: (
+    <StyledBadge variant={Variant.Red}>Must fail</StyledBadge>
+  ),
   [RequiredStatus.MustFinish]: (
-    <Badge variant={Variant.Blue}>Must finish</Badge>
+    <StyledBadge variant={Variant.Blue}>Must finish</StyledBadge>
   ),
   [RequiredStatus.MustSucceed]: (
-    <Badge variant={Variant.Green}>Must succeed</Badge>
+    <StyledBadge variant={Variant.Green}>Must succeed</StyledBadge>
   ),
 };
