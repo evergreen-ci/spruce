@@ -1,53 +1,53 @@
-
-  query PatchTasks(
-    $patchId: String!
-    $sorts: [SortOrder!]
-    $page: Int
-    $statuses: [String!]
-    $baseStatuses: [String!]
-    $variant: String
-    $taskName: String
-    $limit: Int
+query PatchTasks(
+  $patchId: String!
+  $sorts: [SortOrder!]
+  $page: Int
+  $statuses: [String!]
+  $baseStatuses: [String!]
+  $variant: String
+  $taskName: String
+  $limit: Int
+) {
+  patchTasks(
+    patchId: $patchId
+    limit: $limit
+    page: $page
+    statuses: $statuses
+    baseStatuses: $baseStatuses
+    sorts: $sorts
+    variant: $variant
+    taskName: $taskName
   ) {
-    patchTasks(
-      patchId: $patchId
-      limit: $limit
-      page: $page
-      statuses: $statuses
-      baseStatuses: $baseStatuses
-      sorts: $sorts
-      variant: $variant
-      taskName: $taskName
-    ) {
-      count
-      tasks {
+    count
+    tasks {
+      id
+      execution
+      aborted
+      status
+      displayName
+      buildVariant
+      buildVariantDisplayName
+      blocked
+      executionTasksFull {
         id
         execution
-        aborted
-        status
         displayName
+        status
         buildVariant
-        buildVariantDisplayName
-        blocked
-        executionTasksFull {
-          id
-          execution
-          displayName
-          status
-          buildVariant
-          baseTask {
-            id
-            execution
-            status
-          }
-          baseStatus
-          buildVariantDisplayName
-        }
         baseTask {
           id
           execution
           status
         }
+        baseStatus
+        buildVariantDisplayName
       }
+      baseTask {
+        id
+        execution
+        status
+      }
+      projectIdentifier
     }
   }
+}

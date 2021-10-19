@@ -10,7 +10,7 @@ import {
 import TaskStatusBadge from "components/TaskStatusBadge";
 import { TreeSelectProps } from "components/TreeSelect";
 import { WordBreak } from "components/Typography";
-import { getTaskRoute } from "constants/routes";
+import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
 import {
   Task,
   SortDirection,
@@ -30,6 +30,7 @@ type TaskTableInfo = {
   };
   buildVariantDisplayName?: string;
   executionTasksFull?: TaskTableInfo[];
+  projectIdentifier?: string;
 };
 
 interface TasksTableProps {
@@ -170,6 +171,13 @@ const getColumnDefs = ({
         ...variantInputProps,
         "data-cy": "variant-input",
       })),
+    render: (displayName, { projectIdentifier, buildVariant }) => (
+      <StyledRouterLink
+        to={getVariantHistoryRoute(projectIdentifier, buildVariant)}
+      >
+        {displayName}
+      </StyledRouterLink>
+    ),
   },
 ];
 
