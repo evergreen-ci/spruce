@@ -2688,6 +2688,7 @@ export type PatchTasksQuery = {
           buildVariant: string;
           baseStatus?: Maybe<string>;
           buildVariantDisplayName?: Maybe<string>;
+          projectIdentifier?: Maybe<string>;
           baseTask?: Maybe<{ id: string; execution: number; status: string }>;
         }>
       >;

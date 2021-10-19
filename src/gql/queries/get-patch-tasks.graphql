@@ -41,6 +41,7 @@ query PatchTasks(
         }
         baseStatus
         buildVariantDisplayName
+        projectIdentifier
       }
       baseTask {
         id
