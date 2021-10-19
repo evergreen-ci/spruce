@@ -3,7 +3,10 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
 import { useLocation, useParams } from "react-router-dom";
-import HistoryTable, { context } from "components/HistoryTable";
+import HistoryTable, {
+  context,
+  ColumnPaginationButtons,
+} from "components/HistoryTable";
 import { PageWrapper } from "components/styles";
 import {
   MainlineCommitsForHistoryQuery,
@@ -83,10 +86,15 @@ export const VariantHistory = () => {
   return (
     <PageWrapper>
       <CenterPage>
-        <H2>Build Variant: {variantName}</H2>
-        <TaskSelector projectId={projectId} buildVariant={variantName} />
-        <TableContainer>
-          <HistoryTableProvider>
+        <HistoryTableProvider>
+          <PageHeader>
+            <div>
+              <H2>Build Variant: {variantName}</H2>
+              <TaskSelector projectId={projectId} buildVariant={variantName} />
+            </div>
+            <ColumnPaginationButtons />
+          </PageHeader>
+          <TableContainer>
             {taskNamesForBuildVariant && (
               <>
                 <ColumnHeaders loading={loading} columns={selectedColumns} />
@@ -106,12 +114,18 @@ export const VariantHistory = () => {
                 </TableWrapper>
               </>
             )}
-          </HistoryTableProvider>
-        </TableContainer>
+          </TableContainer>
+        </HistoryTableProvider>
       </CenterPage>
     </PageWrapper>
   );
 };
+
+const PageHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 
 const TableWrapper = styled.div`
   height: 80vh;

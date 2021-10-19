@@ -3,8 +3,10 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
 import { useLocation, useParams } from "react-router-dom";
-import HistoryTable from "components/HistoryTable";
-import { HistoryTableProvider } from "components/HistoryTable/HistoryTableContext";
+import HistoryTable, {
+  context,
+  ColumnPaginationButtons,
+} from "components/HistoryTable";
 import { PageWrapper } from "components/styles";
 import {
   MainlineCommitsForHistoryQuery,
@@ -21,6 +23,8 @@ import { parseQueryString } from "utils/queryString";
 import { BuildVariantSelector } from "./taskHistory/BuildVariantSelector";
 import ColumnHeaders from "./taskHistory/ColumnHeaders";
 import TaskHistoryRow from "./taskHistory/TaskHistoryRow";
+
+const { HistoryTableProvider } = context;
 
 export const TaskHistory = () => {
   const { projectId, taskName } = useParams<{
@@ -81,10 +85,15 @@ export const TaskHistory = () => {
   return (
     <PageWrapper>
       <CenterPage>
-        <H2>Task Name: {taskName}</H2>
-        <BuildVariantSelector projectId={projectId} taskName={taskName} />
-        <TableContainer>
-          <HistoryTableProvider>
+        <HistoryTableProvider>
+          <PageHeader>
+            <div>
+              <H2>Task Name: {taskName}</H2>
+              <BuildVariantSelector projectId={projectId} taskName={taskName} />
+            </div>
+            <ColumnPaginationButtons />
+          </PageHeader>
+          <TableContainer>
             {buildVariantsForTaskName && (
               <>
                 <ColumnHeaders loading={loading} columns={selectedColumns} />
@@ -104,13 +113,18 @@ export const TaskHistory = () => {
                 </TableWrapper>
               </>
             )}
-          </HistoryTableProvider>
-        </TableContainer>
+          </TableContainer>
+        </HistoryTableProvider>
       </CenterPage>
     </PageWrapper>
   );
 };
 
+const PageHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 const TableWrapper = styled.div`
   height: 80vh;
 `;

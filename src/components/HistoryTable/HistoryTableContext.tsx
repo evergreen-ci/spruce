@@ -13,13 +13,21 @@ interface HistoryTableState {
   addColumns: (columns: string[]) => void;
   nextPage: () => void;
   previousPage: () => void;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
 }
 
 const HistoryTableDispatchContext = createContext<any | null>(null);
 
 const HistoryTableProvider: React.FC = ({ children }) => {
   const [
-    { processedCommits, processedCommitCount, visibleColumns },
+    {
+      processedCommits,
+      processedCommitCount,
+      visibleColumns,
+      pageCount,
+      currentPage,
+    },
     dispatch,
   ] = useReducer(reducer, {
     loadedCommits: [],
@@ -28,11 +36,12 @@ const HistoryTableProvider: React.FC = ({ children }) => {
     commitCache: new Map(),
     visibleColumns: [],
     currentPage: 0,
+    pageCount: 0,
     columns: [],
     columnLimit: 8,
   });
 
-  const itemHeight = (index) => {
+  const itemHeight = (index: number) => {
     if (processedCommits[index]) {
       switch (processedCommits[index].type) {
         case rowType.COMMIT:
@@ -65,6 +74,8 @@ const HistoryTableProvider: React.FC = ({ children }) => {
       addColumns: (columns) => dispatch({ type: "addColumns", columns }),
       nextPage: () => dispatch({ type: "nextPageColumns" }),
       previousPage: () => dispatch({ type: "prevPageColumns" }),
+      hasNextPage: currentPage < pageCount - 1,
+      hasPreviousPage: currentPage > 0,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [processedCommits, visibleColumns, processedCommitCount]
