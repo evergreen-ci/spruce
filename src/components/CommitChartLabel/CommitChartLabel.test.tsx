@@ -1,5 +1,5 @@
 import userEvent from "@testing-library/user-event";
-import { render, act } from "test_utils/test-utils";
+import { render, waitFor } from "test_utils/test-utils";
 import CommitChartLabel from ".";
 
 const RenderCommitChartLabel = (version) => (
@@ -11,10 +11,6 @@ const RenderCommitChartLabel = (version) => (
   />
 );
 
-afterEach(() => {
-  jest.clearAllTimers();
-  jest.clearAllMocks();
-});
 describe("CommitChartLabel", () => {
   test("Displays author, githash and createTime", () => {
     const { queryByDataCy } = render(RenderCommitChartLabel(versionShort));
@@ -24,8 +20,10 @@ describe("CommitChartLabel", () => {
   });
 
   test("Displays shortened commit message and the 'more' button if necessary", () => {
-    const { queryByDataCy } = render(RenderCommitChartLabel(versionLong));
-    expect(queryByDataCy("tooltip-button")).toBeInTheDocument();
+    const { queryByDataCy, queryByText } = render(
+      RenderCommitChartLabel(versionLong)
+    );
+    expect(queryByText("more")).toBeInTheDocument();
     expect(queryByDataCy("commit-label")).toHaveTextContent(
       "4137c 6/16/21 11:38 PMMohamed Khelif -SERVER-57332 Create skeleton Internal...more"
     );
@@ -38,17 +36,17 @@ describe("CommitChartLabel", () => {
     );
   });
 
-  test("Clicking on the 'more' button should open a tooltip containing commit message", () => {
-    const { queryByDataCy } = render(RenderCommitChartLabel(versionLong));
-    jest.useFakeTimers();
+  test("Clicking on the 'more' button should open a tooltip containing commit message", async () => {
+    const { queryByDataCy, queryByText } = render(
+      RenderCommitChartLabel(versionLong)
+    );
 
     expect(queryByDataCy("long-commit-message-tooltip")).toBeNull();
-    userEvent.click(queryByDataCy("tooltip-button"));
-    //   Need to use fake timers to get around @leafygreen-ui/tooltip debounce
-    act(() => {
-      jest.runAllTimers();
+    userEvent.click(queryByText("more"));
+
+    await waitFor(() => {
+      expect(queryByDataCy("long-commit-message-tooltip")).toBeInTheDocument();
     });
-    expect(queryByDataCy("long-commit-message-tooltip")).toBeInTheDocument();
     expect(queryByDataCy("long-commit-message-tooltip")).toHaveTextContent(
       "SERVER-57332 Create skeleton InternalDocumentSourceDensify"
     );
