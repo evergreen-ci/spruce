@@ -38,6 +38,7 @@ interface TasksTableProps {
   onExpand?: (expanded: boolean) => void;
   sorts?: SortOrder[];
   statusSelectorProps?: TreeSelectProps;
+  onColumnHeaderClick?: (sortField) => void;
   tableChangeHandler?: TableOnChange<TaskTableInfo>;
   tasks: TaskTableInfo[];
   taskNameInputProps?: InputFilterProps;
@@ -51,6 +52,7 @@ export const TasksTable: React.FC<TasksTableProps> = ({
   onExpand = () => {},
   sorts,
   statusSelectorProps,
+  onColumnHeaderClick,
   tableChangeHandler,
   tasks,
   variantInputProps,
@@ -64,6 +66,7 @@ export const TasksTable: React.FC<TasksTableProps> = ({
         ? getColumnDefsWithSort({
             sorts,
             onClickTaskLink,
+            onColumnHeaderClick,
             baseStatusSelectorProps,
             statusSelectorProps,
             taskNameInputProps,
@@ -71,6 +74,7 @@ export const TasksTable: React.FC<TasksTableProps> = ({
           })
         : getColumnDefs({
             onClickTaskLink,
+            onColumnHeaderClick,
             baseStatusSelectorProps,
             statusSelectorProps,
             taskNameInputProps,
@@ -90,6 +94,7 @@ export const TasksTable: React.FC<TasksTableProps> = ({
 
 interface GetColumnDefsParams {
   onClickTaskLink: (s: string) => void;
+  onColumnHeaderClick?: (sortField) => void;
   baseStatusSelectorProps?: TreeSelectProps;
   statusSelectorProps?: TreeSelectProps;
   taskNameInputProps?: InputFilterProps;
@@ -98,6 +103,7 @@ interface GetColumnDefsParams {
 
 const getColumnDefs = ({
   onClickTaskLink,
+  onColumnHeaderClick,
   baseStatusSelectorProps,
   statusSelectorProps,
   variantInputProps,
@@ -107,6 +113,11 @@ const getColumnDefs = ({
     title: "Name",
     dataIndex: "displayName",
     key: TaskSortCategory.Name,
+    onHeaderCell: () => ({
+      onClick: () => {
+        onColumnHeaderClick("name");
+      },
+    }),
     sorter: {
       compare: (a, b) => a.displayName.localeCompare(b.displayName),
       multiple: 4,
@@ -126,6 +137,11 @@ const getColumnDefs = ({
     title: "Patch Status",
     dataIndex: "status",
     key: TaskSortCategory.Status,
+    onHeaderCell: () => ({
+      onClick: () => {
+        onColumnHeaderClick("status");
+      },
+    }),
     sorter: {
       compare: (a, b) => sortTasks(a.status, b.status),
       multiple: 4,
@@ -143,6 +159,11 @@ const getColumnDefs = ({
     title: "Base Status",
     dataIndex: ["baseTask", "status"],
     key: TaskSortCategory.BaseStatus,
+    onHeaderCell: () => ({
+      onClick: () => {
+        onColumnHeaderClick("baseStatus");
+      },
+    }),
     sorter: {
       compare: (a, b) => sortTasks(a.baseStatus, b.baseStatus),
       multiple: 4,
@@ -160,6 +181,11 @@ const getColumnDefs = ({
     title: "Variant",
     dataIndex: "buildVariantDisplayName",
     key: TaskSortCategory.Variant,
+    onHeaderCell: () => ({
+      onClick: () => {
+        onColumnHeaderClick("variant");
+      },
+    }),
     sorter: {
       compare: (a, b) => a.buildVariant.localeCompare(b.buildVariant),
       multiple: 4,
@@ -191,6 +217,7 @@ interface GetColumnDefsWithSort extends GetColumnDefsParams {
 const getColumnDefsWithSort = ({
   sorts,
   onClickTaskLink,
+  onColumnHeaderClick,
   baseStatusSelectorProps,
   statusSelectorProps,
   taskNameInputProps,
@@ -213,6 +240,7 @@ const getColumnDefsWithSort = ({
 
   return getColumnDefs({
     onClickTaskLink,
+    onColumnHeaderClick,
     baseStatusSelectorProps,
     statusSelectorProps,
     taskNameInputProps,

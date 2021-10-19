@@ -11,6 +11,10 @@ import { GET_PATCH } from "gql/queries";
 
 type Action =
   | { name: "Filter Tasks"; filterBy: string }
+  | {
+      name: "Sort Tasks Table";
+      sortBy: "name" | "status" | "baseStatus" | "variant";
+    }
   | { name: "Restart"; abort: boolean }
   | { name: "Schedule" }
   | { name: "Set Priority"; priority: number }

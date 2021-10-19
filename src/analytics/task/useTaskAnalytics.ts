@@ -18,6 +18,10 @@ import { queryString } from "utils";
 const { parseQueryString } = queryString;
 type Action =
   | { name: "Filter Tests"; filterBy: string }
+  | {
+      name: "Sort Tests Table";
+      sortBy: "name" | "status" | "baseStatus" | "time";
+    }
   | { name: "Restart" }
   | { name: "Schedule" }
   | { name: "Abort" }

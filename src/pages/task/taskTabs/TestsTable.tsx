@@ -98,6 +98,8 @@ export const TestsTable: React.FC = () => {
 
   const columns = getColumnsTemplate({
     taskAnalytics,
+    onColumnHeaderClick: (sortField) =>
+      taskAnalytics.sendEvent({ name: "Sort Tests Table", sortBy: sortField }),
     statusSelectorProps,
     testNameInputProps,
   }).map((column) => ({
