@@ -171,13 +171,16 @@ const getColumnDefs = ({
         ...variantInputProps,
         "data-cy": "variant-input",
       })),
-    render: (displayName, { projectIdentifier, buildVariant }) => (
-      <StyledRouterLink
-        to={getVariantHistoryRoute(projectIdentifier, buildVariant)}
-      >
-        {displayName}
-      </StyledRouterLink>
-    ),
+    render: (displayName, { projectIdentifier, buildVariant }) =>
+      projectIdentifier ? (
+        <StyledRouterLink
+          to={getVariantHistoryRoute(projectIdentifier, buildVariant)}
+        >
+          {displayName}
+        </StyledRouterLink>
+      ) : (
+        <>{displayName}</>
+      ),
   },
 ];
 
