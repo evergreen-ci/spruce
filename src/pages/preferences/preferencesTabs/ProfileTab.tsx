@@ -3,8 +3,8 @@ import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import Card from "@leafygreen-ui/card";
+import { Option, Select } from "@leafygreen-ui/select";
 import TextInput from "@leafygreen-ui/text-input";
-import { Select } from "antd";
 import get from "lodash/get";
 import { usePreferencesAnalytics } from "analytics";
 import { timeZones } from "constants/fieldMaps";
@@ -19,7 +19,6 @@ import { GET_AWS_REGIONS } from "gql/queries";
 import { useUserSettingsQuery } from "hooks/useUserSettingsQuery";
 import { string } from "utils";
 
-const { Option } = Select;
 const { omitTypename } = string;
 
 export const ProfileTab: React.FC = () => {
@@ -98,6 +97,8 @@ export const ProfileTab: React.FC = () => {
             value={githubUsernameField}
           />
           <StyledSelect
+            label="Timezone"
+            placeholder="Select timezone"
             defaultValue={timezoneField}
             onChange={handleFieldUpdate(setTimezoneField)}
             data-cy="timezone-field"
@@ -113,6 +114,8 @@ export const ProfileTab: React.FC = () => {
             ))}
           </StyledSelect>
           <StyledSelect
+            label="AWS Region"
+            placeholder="Select AWS Region"
             defaultValue={regionField}
             onChange={handleFieldUpdate(setRegionField)}
           >
@@ -144,7 +147,7 @@ const handleFieldUpdate = (stateUpdate) => (e) => {
   }
 };
 
-const StyledSelect = styled(Select)`
+const StyledSelect = styled(Select as any)`
   width: 100%;
   margin-bottom: 24px;
   :last-child {
