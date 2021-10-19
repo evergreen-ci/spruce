@@ -22,6 +22,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   open,
   requiredInputText,
   submitDisabled,
+  title,
   variant,
 }) => (
   <StyledModal
@@ -32,7 +33,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
     open={open}
     requiredInputText={requiredInputText}
     submitDisabled={submitDisabled}
-    title="Move Repo"
+    title={title}
     variant={variant}
   >
     {children}
