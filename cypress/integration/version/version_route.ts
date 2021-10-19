@@ -80,7 +80,7 @@ describe("Version route", () => {
         .first()
         .trigger("mouseover")
         .within(($el) => {
-          expect($el.text()).to.contain("Will Run");
+          expect($el.text()).to.contain("1Scheduled");
         });
     });
 
