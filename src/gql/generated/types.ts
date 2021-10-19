@@ -1093,7 +1093,6 @@ export type Task = {
   priority?: Maybe<Scalars["Int"]>;
   project?: Maybe<Project>;
   projectId: Scalars["String"];
-  projectIdentifier?: Maybe<Scalars["String"]>;
   /** @deprecated reliesOn is deprecated. Use dependsOn instead. */
   reliesOn: Array<Dependency>;
   dependsOn?: Maybe<Array<Dependency>>;
