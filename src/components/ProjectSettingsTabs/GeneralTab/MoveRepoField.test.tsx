@@ -17,7 +17,7 @@ test("Clicking the button opens the modal", async () => {
 
   const moveRepoButton = queryByDataCy("move-repo-button");
   await fireEvent.click(moveRepoButton);
-  waitFor(() => expect(queryByDataCy("move-repo-modal")).toBeVisible());
+  await waitFor(() => expect(queryByDataCy("move-repo-modal")).toBeVisible());
 });
 
 test("Renders the Move Repo Modal when the open prop is true", () => {

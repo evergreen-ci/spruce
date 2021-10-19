@@ -1,4 +1,4 @@
-const settingsRoute = `project/evergreen/settings`;
+const settingsRoute = "project/evergreen/settings";
 const generalRoute = `${settingsRoute}/general`;
 
 describe("Project Settings", () => {
