@@ -21,12 +21,6 @@ test.skip("Tooltip should contain task name, duration and list of failing test n
     </MemoryRouter>
   );
   userEvent.hover(queryByDataCy("failed-task-status-icon"));
-  await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-  await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-  await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-  await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-  await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-  await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
   await waitFor(() => {
     expect(
       queryByDataCy("failed-task-status-icon-tooltip")
