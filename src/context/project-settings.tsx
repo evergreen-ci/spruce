@@ -125,9 +125,19 @@ const useIsTabSaved = (tab: ProjectSettingsTabRoutes): boolean => {
   return !tabs[tab].hasChanges;
 };
 
-const useIsAnyTabUnsaved = (): boolean => {
+const useIsAnyTabUnsaved = (): {
+  hasUnsaved: boolean;
+  unsavedTabs: ProjectSettingsTabRoutes[];
+} => {
   const { tabs } = useProjectSettingsContext();
-  return Object.values(tabs).some((tab) => tab.hasChanges);
+  const unsavedTabs = Object.entries(tabs)
+    .filter(([, tabData]) => tabData.hasChanges)
+    .map(([tab]) => tab as ProjectSettingsTabRoutes);
+
+  return {
+    unsavedTabs,
+    hasUnsaved: !!unsavedTabs.length,
+  };
 };
 
 const getDefaultRouteObject = <T extends unknown>(
