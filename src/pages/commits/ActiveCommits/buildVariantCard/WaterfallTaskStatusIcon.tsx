@@ -32,16 +32,13 @@ export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = (
     GetFailedTaskStatusIconTooltipQuery,
     GetFailedTaskStatusIconTooltipQueryVariables
   >(GET_FAILED_TASK_STATUS_ICON_TOOLTIP, { variables: { taskId } });
-  console.log(taskId);
   const { testResults } = data?.taskTests ?? {};
   const loadDataCb = () => {
-    console.log("considering", status);
     if (isFailedTaskStatus(status)) {
-      console.log("loading data");
       loadData();
     }
   };
-  console.log({ data, loading });
+
   return (
     <Tooltip
       usePortal={false}
@@ -56,16 +53,16 @@ export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = (
           aria-label="task icon"
           as={Link}
           to={getTaskRoute(taskId)}
-          data-cy="task-icon"
+          data-cy="waterfall-task-status-icon"
         >
           <TaskStatusIcon status={status} size={16} />
         </IconButton>
       }
       triggerEvent="hover"
     >
-      <div data-cy="failed-task-status-icon-tooltip">
+      <div data-cy="waterfall-task-status-icon-tooltip">
         <TooltipTitle
-          data-cy="failed-task-status-icon-tooltip-title"
+          data-cy="waterfall-task-status-icon-tooltip-title"
           weight="medium"
         >
           {displayName} {timeTaken && `- ${msToDuration(timeTaken)}`}
