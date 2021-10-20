@@ -210,9 +210,9 @@ export const getCommitsRoute = (projectId: string) =>
   `${paths.commits}/${projectId}`;
 
 export const getVariantHistoryRoute = (
-  projectId: string,
+  projectIdentifier: string,
   variantName: string
-) => `${paths.variantHistory}/${projectId}/${variantName}`;
+) => `${paths.variantHistory}/${projectIdentifier}/${variantName}`;
 
 export const getTaskHistoryRoute = (projectId: string, taskName: string) =>
   `${paths.taskHistory}/${projectId}/${taskName}`;
