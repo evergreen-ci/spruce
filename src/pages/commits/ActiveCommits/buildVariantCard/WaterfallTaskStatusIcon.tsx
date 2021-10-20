@@ -15,14 +15,14 @@ import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
 import { isFailedTaskStatus } from "utils/statuses";
 import { msToDuration } from "utils/string";
 
-interface FailedStatusIconProps {
+interface WaterfallTaskStatusIconProps {
   taskId: string;
   status: string;
   displayName: string;
   timeTaken?: number;
 }
 
-export const FailedTaskStatusIcon: React.FC<FailedStatusIconProps> = ({
+export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = ({
   taskId,
   status,
   displayName,

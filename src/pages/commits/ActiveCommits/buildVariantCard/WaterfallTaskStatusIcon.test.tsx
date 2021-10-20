@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
 import { act, render, waitFor } from "test_utils/test-utils";
-import { FailedTaskStatusIcon } from "./FailedTaskStatusIcon";
+import { WaterfallTaskStatusIcon } from "./WaterfallTaskStatusIcon";
 
 const props = {
   displayName: "multiversion",
@@ -11,10 +11,10 @@ const props = {
   taskId: "task",
 };
 test("Tooltip should contain task name, duration and list of failing test names", async () => {
-  const { queryByDataCy, queryByText, debug } = render(
+  const { queryByDataCy, queryByText } = render(
     <MemoryRouter>
       <MockedProvider mocks={[getTooltipQueryMock]} addTypename={false}>
-        <FailedTaskStatusIcon {...props} status="failed" />
+        <WaterfallTaskStatusIcon {...props} status="failed" />
       </MockedProvider>
     </MemoryRouter>
   );
@@ -44,36 +44,36 @@ test("Tooltip should contain task name, duration and list of failing test names"
   });
 });
 
-// test("Icon should link to task page", async () => {
-//   const { queryByDataCy } = render(
-//     <MemoryRouter>
-//       <MockedProvider mocks={[getTooltipQueryMock]}>
-//         <FailedTaskStatusIcon {...props} status="failed" />
-//       </MockedProvider>
-//     </MemoryRouter>
-//   );
-//   await waitFor(() => {
-//     expect(queryByDataCy("failed-task-status-icon")).toBeInTheDocument();
-//   });
-//   await waitFor(() => {
-//     expect(
-//       queryByDataCy("failed-task-status-icon").querySelector("a")
-//     ).toHaveAttribute("href", "/task/task");
-//   });
-// });
+test("Icon should link to task page", async () => {
+  const { queryByDataCy } = render(
+    <MemoryRouter>
+      <MockedProvider mocks={[getTooltipQueryMock]}>
+        <WaterfallTaskStatusIcon {...props} status="failed" />
+      </MockedProvider>
+    </MemoryRouter>
+  );
+  await waitFor(() => {
+    expect(queryByDataCy("failed-task-status-icon")).toBeInTheDocument();
+  });
+  await waitFor(() => {
+    expect(
+      queryByDataCy("failed-task-status-icon").querySelector("a")
+    ).toHaveAttribute("href", "/task/task");
+  });
+});
 
-// test("No query is made when task status is not failing", async () => {
-//   const { queryByDataCy } = render(
-//     <MemoryRouter>
-//       <MockedProvider mocks={[]}>
-//         <FailedTaskStatusIcon {...props} status="succeeded" />
-//       </MockedProvider>
-//     </MemoryRouter>
-//   );
-//   await waitFor(() => {
-//     expect(queryByDataCy("failed-task-status-icon")).toBeInTheDocument();
-//   });
-// });
+test("No query is made when task status is not failing", async () => {
+  const { queryByDataCy } = render(
+    <MemoryRouter>
+      <MockedProvider mocks={[]}>
+        <WaterfallTaskStatusIcon {...props} status="succeeded" />
+      </MockedProvider>
+    </MemoryRouter>
+  );
+  await waitFor(() => {
+    expect(queryByDataCy("failed-task-status-icon")).toBeInTheDocument();
+  });
+});
 
 const getTooltipQueryMock = {
   request: {

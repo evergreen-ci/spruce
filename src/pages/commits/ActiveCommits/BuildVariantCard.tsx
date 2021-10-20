@@ -6,7 +6,7 @@ import {
   groupStatusesByUmbrellaStatus,
   isFailedTaskStatus,
 } from "utils/statuses";
-import { FailedTaskStatusIcon } from "./buildVariantCard/FailedTaskStatusIcon";
+import { WaterfallTaskStatusIcon } from "./buildVariantCard/WaterfallTaskStatusIcon";
 
 const { gray } = uiColors;
 
@@ -113,7 +113,7 @@ interface RenderTaskIconsProps {
 const RenderTaskIcons: React.FC<RenderTaskIconsProps> = ({ tasks }) => (
   <>
     {tasks.map(({ id, status, displayName, timeTaken }) => (
-      <FailedTaskStatusIcon
+      <WaterfallTaskStatusIcon
         key={id}
         taskId={id}
         status={status}

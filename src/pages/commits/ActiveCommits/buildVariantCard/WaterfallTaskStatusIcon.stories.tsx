@@ -1,11 +1,11 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { MemoryRouter } from "react-router-dom";
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
-import { FailedTaskStatusIcon } from "./FailedTaskStatusIcon";
+import { WaterfallTaskStatusIcon } from "./WaterfallTaskStatusIcon";
 
 export default {
-  title: "FailedTaskStatusIcon",
-  component: FailedTaskStatusIcon,
+  title: "WaterfallTaskStatusIcon",
+  component: WaterfallTaskStatusIcon,
 };
 
 const props = {
@@ -17,7 +17,15 @@ const props = {
 export const FailedIcon = () => (
   <MemoryRouter>
     <MockedProvider mocks={[getTooltipQueryMock]} addTypename={false}>
-      <FailedTaskStatusIcon {...props} status="failed" />
+      <WaterfallTaskStatusIcon {...props} status="failed" />
+    </MockedProvider>
+  </MemoryRouter>
+);
+
+export const SuccessIcon = () => (
+  <MemoryRouter>
+    <MockedProvider mocks={[getTooltipQueryMock]} addTypename={false}>
+      <WaterfallTaskStatusIcon {...props} status="success" />
     </MockedProvider>
   </MemoryRouter>
 );
