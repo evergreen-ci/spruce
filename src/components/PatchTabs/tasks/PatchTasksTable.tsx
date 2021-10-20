@@ -41,16 +41,12 @@ export const PatchTasksTable: React.FC<Props> = ({ patchTasks, sorts }) => {
   const statusSelectorProps = {
     state: currentStatusesFilter.inputValue,
     tData: currentStatuses,
-    onChange: currentStatusesFilter.setInputValue,
-    onReset: currentStatusesFilter.reset,
-    onFilter: currentStatusesFilter.submitInputValue,
+    onChange: currentStatusesFilter.setAndSubmitInputValue,
   };
   const baseStatusSelectorProps = {
     state: baseStatusesFilter.inputValue,
     tData: baseStatuses,
-    onChange: baseStatusesFilter.setInputValue,
-    onReset: baseStatusesFilter.reset,
-    onFilter: baseStatusesFilter.submitInputValue,
+    onChange: baseStatusesFilter.setAndSubmitInputValue,
   };
   const variantFilterInputChangeHandler = useFilterInputChangeHandler({
     urlParam: PatchTasksQueryParams.Variant,
@@ -72,18 +68,14 @@ export const PatchTasksTable: React.FC<Props> = ({ patchTasks, sorts }) => {
     placeholder: "Variant name",
     value: variantFilterInputChangeHandler.inputValue,
     onChange: ({ target }) =>
-      variantFilterInputChangeHandler.setInputValue(target.value),
-    onFilter: variantFilterInputChangeHandler.submitInputValue,
-    onReset: variantFilterInputChangeHandler.reset,
+      variantFilterInputChangeHandler.setAndSubmitInputValue(target.value),
   };
 
   const taskNameInputProps: InputFilterProps = {
     placeholder: "Task name",
     value: taskNameFilterInputChangeHandler.inputValue,
     onChange: ({ target }) =>
-      taskNameFilterInputChangeHandler.setInputValue(target.value),
-    onFilter: taskNameFilterInputChangeHandler.submitInputValue,
-    onReset: taskNameFilterInputChangeHandler.reset,
+      taskNameFilterInputChangeHandler.setAndSubmitInputValue(target.value),
   };
 
   return (

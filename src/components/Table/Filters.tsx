@@ -14,14 +14,14 @@ import {
   TreeSelectProps,
 } from "components/TreeSelect";
 
-const { blue } = uiColors;
+const { focus } = uiColors;
 export interface InputFilterProps {
   "data-cy"?: string;
   placeholder: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onFilter: () => void;
-  onReset: () => void;
+  onFilter?: () => void;
+  onReset?: () => void;
   submitButtonCopy?: string;
   visible?: boolean;
 }
@@ -57,14 +57,16 @@ export const InputFilter: React.FC<InputFilterProps> = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        onKeyPress={(e) => e.key === "Enter" && onFilter()}
+        onKeyPress={(e) => e.key === "Enter" && onFilter?.()}
         ref={inputEl}
       />
-      <FilterInputControls
-        onClickSubmit={onFilter}
-        onClickReset={onReset}
-        submitButtonCopy={submitButtonCopy}
-      />
+      {onFilter && onReset && (
+        <FilterInputControls
+          onClickSubmit={onFilter}
+          onClickReset={onReset}
+          submitButtonCopy={submitButtonCopy}
+        />
+      )}
     </FilterWrapper>
   );
 };
@@ -84,14 +86,19 @@ export const getColumnSearchFilterProps = ({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      onFilter={() => {
-        onFilter();
-        confirm({ closeDropdown: true });
-      }}
-      onReset={() => {
-        onReset();
-        confirm({ closeDropdown: true });
-      }}
+      /* Eventually, want to get rid of these */
+      {...(onFilter && {
+        onFilter: () => {
+          onFilter();
+          confirm({ closeDropdown: true });
+        },
+      })}
+      {...(onReset && {
+        onReset: () => {
+          onReset();
+          confirm({ closeDropdown: true });
+        },
+      })}
       data-cy={dataCy}
       submitButtonCopy={submitButtonCopy}
     />
@@ -113,14 +120,19 @@ export const getColumnTreeSelectFilterProps = ({
       state={state}
       tData={tData}
       onChange={onChange}
-      onFilter={() => {
-        onFilter();
-        confirm({ closeDropdown: true });
-      }}
-      onReset={() => {
-        onReset();
-        confirm({ closeDropdown: true });
-      }}
+      /* Eventually, want to get rid of these */
+      {...(onFilter && {
+        onFilter: () => {
+          onFilter();
+          confirm({ closeDropdown: true });
+        },
+      })}
+      {...(onReset && {
+        onReset: () => {
+          onReset();
+          confirm({ closeDropdown: true });
+        },
+      })}
     />
   ),
   filterIcon: () => (
@@ -211,9 +223,11 @@ interface StyledOutlinedProps {
   active?: boolean;
 }
 const StyledFilterOutlined = styled(FilterOutlined)<StyledOutlinedProps>`
-  ${({ active }) => active && `color: ${blue.base}`}
+  font-size: 16px;
+  ${({ active }) => active && `color: ${focus}`}
 `;
 
 const StyledSearchOutlined = styled(SearchOutlined)<StyledOutlinedProps>`
-  ${({ active }) => active && `color: ${blue.base}`}
+  font-size: 16px;
+  ${({ active }) => active && `color: ${focus}`}
 `;
