@@ -5,14 +5,12 @@ import Button from "@leafygreen-ui/button";
 import { Skeleton } from "antd";
 import every from "lodash.every";
 import { useParams, useLocation } from "react-router-dom";
-// import { useParams, useLocation, useHistory } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
 import { pollInterval } from "constants/index";
-// import { getVersionRoute } from "constants/routes";
 import { useToastContext } from "context/toast";
 import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
@@ -33,7 +31,6 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const { id: versionId } = useParams<{ id: string }>();
 
   const { search } = useLocation();
-  // const router = useHistory();
   const patchAnalytics = usePatchAnalytics();
   const dispatchToast = useToastContext();
 
@@ -49,18 +46,6 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
       });
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const onClearAll = () => {
-    patchAnalytics.sendEvent({ name: "Clear all filter" });
-    // router.push(getVersionRoute(versionId)); // Ask about this
-    updateQueryParams({
-      statuses: [],
-      baseStatuses: [],
-      taskName: undefined,
-      variant: undefined,
-      sorts: "STATUS:ASC;BASE_STATUS:DESC",
-    });
-  };
 
   const { data, startPolling, stopPolling } = useQuery<
     PatchTasksQuery,
@@ -80,6 +65,18 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   }
   useNetworkStatus(startPolling, stopPolling);
   const { patchTasks } = data || {};
+
+  const onClearAll = () => {
+    patchAnalytics.sendEvent({ name: "Clear all filter" });
+    updateQueryParams({
+      statuses: [],
+      baseStatuses: [],
+      taskName: undefined,
+      variant: undefined,
+      page: undefined,
+      sorts: "STATUS:ASC;BASE_STATUS:DESC",
+    });
+  };
 
   return (
     <>
