@@ -1,20 +1,20 @@
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
-import Tooltip from "@leafygreen-ui/tooltip";
+import Tooltip, { TriggerEvent } from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
 
 const { blue } = uiColors;
 
 interface ExpandedTextProps {
   message: string;
-  triggerEvent?: "hover" | "click";
+  triggerEvent?: typeof TriggerEvent[keyof typeof TriggerEvent];
   zIndex?: number;
   ["data-cy"]?: string;
 }
 
 const ExpandedText: React.FC<ExpandedTextProps> = ({
   message,
-  triggerEvent = "hover",
+  triggerEvent = TriggerEvent.Hover,
   zIndex = 0,
   "data-cy": dataCy,
 }) => (
