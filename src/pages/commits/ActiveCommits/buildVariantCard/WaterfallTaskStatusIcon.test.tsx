@@ -18,11 +18,10 @@ const props = {
 // The same MockProvider mock works as expected in the corresponding Storybook file.
 test.skip("Tooltip should contain task name, duration and list of failing test names", async () => {
   const { queryByDataCy, queryByText } = render(
-    <MemoryRouter>
-      <MockedProvider mocks={[getTooltipQueryMock]} addTypename={false}>
-        <WaterfallTaskStatusIcon {...props} status="failed" />
-      </MockedProvider>
-    </MemoryRouter>
+   Commits("failed"),
+   {
+   route: "/commits/evergreen",
+   }
   );
   userEvent.hover(queryByDataCy("failed-task-status-icon"));
   await waitFor(() => {
