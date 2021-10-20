@@ -25,11 +25,6 @@ test("Tooltip should contain task name, duration and list of failing test names"
   });
   userEvent.hover(queryByDataCy("waterfall-task-status-icon"));
   await waitFor(() => {
-    expect(
-      queryByDataCy("waterfall-task-status-icon-tooltip")
-    ).toBeInTheDocument();
-  });
-  await waitFor(() => {
     expect(queryByDataCy("waterfall-task-status-icon-tooltip")).toBeVisible();
   });
   await waitFor(() => {

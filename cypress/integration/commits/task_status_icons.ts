@@ -21,7 +21,7 @@ describe("Waterfall Task Status Icons", () => {
 
   describe("Single task status icon", () => {
     it("Single task status icons should be rendered on the waterfall page", () => {
-      cy.dataCy("task-status-icon")
+      cy.dataCy("waterfall-task-status-icon")
         .first()
         .scrollIntoView()
         .should("be.visible");

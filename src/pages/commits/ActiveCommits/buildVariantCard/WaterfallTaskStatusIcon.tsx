@@ -34,6 +34,7 @@ export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = (
   >(GET_FAILED_TASK_STATUS_ICON_TOOLTIP, { variables: { taskId } });
   const { testResults } = data?.taskTests ?? {};
   const loadDataCb = () => {
+    // Only query failing test names if the task has failed.
     if (isFailedTaskStatus(status)) {
       loadData();
     }
