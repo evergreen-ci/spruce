@@ -42,6 +42,7 @@ const CommitChartLabel: React.FC<Props> = ({
             </ButtonContainer>
           }
           triggerEvent="click"
+          popoverZIndex={1}
         >
           <TooltipContainer data-cy="long-commit-message-tooltip">
             {message}

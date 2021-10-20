@@ -1,7 +1,7 @@
 import { renderHook, act } from "@testing-library/react-hooks";
 import { HistoryTableProvider, useHistoryTable } from "./HistoryTableContext";
 import { mainlineCommitData } from "./testData";
-import { rowType } from "./utils";
+import { rowType } from "./types";
 
 const wrapper = ({ children }) => (
   <HistoryTableProvider>{children}</HistoryTableProvider>

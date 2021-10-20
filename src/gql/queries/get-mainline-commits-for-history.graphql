@@ -18,6 +18,7 @@ query MainlineCommitsForHistory(
             id
             execution
             status
+            displayName
           }
         }
       }

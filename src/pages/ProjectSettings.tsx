@@ -1,4 +1,6 @@
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { Skeleton } from "antd";
 import { useParams, Link, Redirect } from "react-router-dom";
 import {
   SideNav,
@@ -10,12 +12,15 @@ import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
 } from "constants/routes";
+import { ProjectSettingsProvider } from "context/project-settings";
+import {
+  ProjectSettingsQuery,
+  ProjectSettingsQueryVariables,
+} from "gql/generated/types";
+import { GET_PROJECT_SETTINGS } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { environmentalVariables } from "utils";
-import {
-  ProjectSettingsTabs,
-  getTitle,
-} from "./projectSettings/ProjectSettingsTabs";
+import { ProjectSettingsTabs, getTitle } from "./projectSettings/Tabs";
 
 const { isProduction } = environmentalVariables;
 
@@ -23,7 +28,18 @@ const disablePage = isProduction();
 
 export const ProjectSettings: React.FC = () => {
   usePageTitle(`Project Settings`);
-  const { id: projectId, tab } = useParams<{ id: string; tab: string }>();
+  const { identifier, tab } = useParams<{
+    identifier: string;
+    tab: ProjectSettingsTabRoutes;
+  }>();
+
+  const { data } = useQuery<
+    ProjectSettingsQuery,
+    ProjectSettingsQueryVariables
+  >(GET_PROJECT_SETTINGS, {
+    variables: { identifier },
+  });
+
   if (disablePage) {
     return (
       <PageWrapper>
@@ -34,91 +50,87 @@ export const ProjectSettings: React.FC = () => {
     );
   }
 
-  if (!tabRouteValues.includes(tab as ProjectSettingsTabRoutes)) {
+  if (!tabRouteValues.includes(tab)) {
     return (
       <Redirect
         to={getProjectSettingsRoute(
-          projectId,
+          identifier,
           ProjectSettingsTabRoutes.General
         )}
       />
     );
   }
 
+  const sharedProps = {
+    identifier,
+    currentTab: tab,
+  };
+
   return (
-    <>
+    <ProjectSettingsProvider>
       <SideNav aria-label="Project Settings">
         <SideNavGroup header="Project" />
         <SideNavGroup>
           <ProjectSettingsNavItem
-            currentTab={tab}
+            {...sharedProps}
             tab={ProjectSettingsTabRoutes.General}
-            projectId={projectId}
           />
           <ProjectSettingsNavItem
-            currentTab={tab}
+            {...sharedProps}
             tab={ProjectSettingsTabRoutes.Access}
-            projectId={projectId}
           />
           <ProjectSettingsNavItem
-            currentTab={tab}
+            {...sharedProps}
             tab={ProjectSettingsTabRoutes.Variables}
-            projectId={projectId}
           />
           <ProjectSettingsNavItem
-            currentTab={tab}
+            {...sharedProps}
             tab={ProjectSettingsTabRoutes.GitHubCommitQueue}
-            projectId={projectId}
           />
           <ProjectSettingsNavItem
-            currentTab={tab}
+            {...sharedProps}
             tab={ProjectSettingsTabRoutes.Notifications}
-            projectId={projectId}
           />
           <ProjectSettingsNavItem
-            currentTab={tab}
+            {...sharedProps}
             tab={ProjectSettingsTabRoutes.PatchAliases}
-            projectId={projectId}
           />
           <ProjectSettingsNavItem
-            currentTab={tab}
+            {...sharedProps}
             tab={ProjectSettingsTabRoutes.VirtualWorkstation}
-            projectId={projectId}
           />
           <ProjectSettingsNavItem
-            currentTab={tab}
+            {...sharedProps}
             tab={ProjectSettingsTabRoutes.ProjectTriggers}
-            projectId={projectId}
           />
           <ProjectSettingsNavItem
-            currentTab={tab}
+            {...sharedProps}
             tab={ProjectSettingsTabRoutes.PeriodicBuilds}
-            projectId={projectId}
           />
           <ProjectSettingsNavItem
-            currentTab={tab}
+            {...sharedProps}
             tab={ProjectSettingsTabRoutes.EventLog}
-            projectId={projectId}
           />
         </SideNavGroup>
       </SideNav>
       <PageWrapper>
-        <ProjectSettingsTabs />
+        {data ? <ProjectSettingsTabs data={data} /> : <Skeleton />}
       </PageWrapper>
-    </>
+    </ProjectSettingsProvider>
   );
 };
 
 const ProjectSettingsNavItem: React.FC<{
-  currentTab: string;
-  projectId: string;
+  currentTab: ProjectSettingsTabRoutes;
+  identifier: string;
   tab: ProjectSettingsTabRoutes;
   title?: string;
-}> = ({ currentTab, tab, title, projectId }) => (
+}> = ({ currentTab, identifier, tab, title }) => (
   <SideNavItem
     active={tab === currentTab}
     as={Link} // @ts-expect-error
-    to={getProjectSettingsRoute(projectId, tab)}
+    to={getProjectSettingsRoute(identifier, tab)}
+    data-cy={`navitem-${tab}`}
   >
     {title || getTitle(tab).title}
   </SideNavItem>

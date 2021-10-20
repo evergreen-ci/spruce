@@ -1,6 +1,6 @@
 import { useContext, createContext, useReducer, useMemo } from "react";
 import { reducer } from "./historyTableContextReducer";
-import { rowType, mainlineCommits, CommitRowType } from "./utils";
+import { rowType, mainlineCommits, CommitRowType } from "./types";
 
 interface HistoryTableState {
   itemHeight: (index: number) => number;
@@ -33,8 +33,6 @@ const HistoryTableProvider: React.FC = ({ children }) => {
   });
 
   const itemHeight = (index) => {
-    // TODO: Fix bug causing itemHeight to be 0 on intial render
-    // There is a race condition where it tries to calculate element heights before the element content is loaded in
     if (processedCommits[index]) {
       switch (processedCommits[index].type) {
         case rowType.COMMIT:
@@ -50,7 +48,7 @@ const HistoryTableProvider: React.FC = ({ children }) => {
       return 120;
     }
   };
-  const isItemLoaded = (index) => processedCommitCount > index;
+  const isItemLoaded = (index: number) => processedCommitCount > index;
 
   const getItem = (index: number) => processedCommits[index];
 

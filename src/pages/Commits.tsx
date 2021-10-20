@@ -21,7 +21,6 @@ import {
 } from "types/commits";
 import { TaskStatus } from "types/task";
 import { queryString } from "utils";
-import { PageDoesNotExist } from "./404";
 import { CommitsWrapper } from "./commits/CommitsWrapper";
 import { PaginationButtons } from "./commits/PaginationButtons";
 import { ProjectSelect } from "./commits/projectSelect";
@@ -114,9 +113,8 @@ export const Commits = () => {
     mainlineCommits || {};
 
   const hasTaskFilter = filterTasks.length > 0;
-  if (error) {
-    return <PageDoesNotExist />;
-  }
+  const hasFilters =
+    filterStatuses.length > 0 || filterVariants.length > 0 || hasTaskFilter;
 
   return (
     <PageWrapper>
@@ -145,6 +143,7 @@ export const Commits = () => {
           isLoading={loading}
           chartType={currentChartType}
           hasTaskFilter={hasTaskFilter}
+          hasFilters={hasFilters}
         />
       </PageContainer>
     </PageWrapper>

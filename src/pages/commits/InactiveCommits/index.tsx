@@ -17,9 +17,11 @@ type rolledUpVersion = {
 };
 interface InactiveCommitsProps {
   rolledUpVersions: rolledUpVersion[];
+  hasFilters?: boolean;
 }
 export const InactiveCommits: React.FC<InactiveCommitsProps> = ({
   rolledUpVersions,
+  hasFilters = false,
 }) => {
   const versionCount = rolledUpVersions.length;
 
@@ -63,15 +65,16 @@ export const InactiveCommits: React.FC<InactiveCommitsProps> = ({
         <ButtonContainer>
           <ButtonText data-cy="inactive-commits-button">
             <TopText>{`${versionCount}`} </TopText>
-            inactive
+            {hasFilters ? "unmatching" : "inactive"}
           </ButtonText>
         </ButtonContainer>
       }
       triggerEvent="click"
+      popoverZIndex={10}
     >
       <TooltipContainer data-cy="inactive-commits-tooltip">
         <TitleText>
-          {`${versionCount}`} Inactive{" "}
+          {versionCount} {hasFilters ? "Unmatching" : "Inactive"}{" "}
           {`Commit${versionCount !== 1 ? "s" : ""}`}
         </TitleText>
         {returnedCommits}
