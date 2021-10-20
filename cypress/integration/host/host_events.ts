@@ -206,8 +206,9 @@ describe("Host events", () => {
 
   it("host events are displayed in the right timezone", () => {
     cy.visit("/preferences");
-    cy.dataCy("timezone-field").click();
-    cy.dataCy("Hawaii-option").click();
+    cy.get('[data-testid="leafygreen-ui-select-menubutton"]').first().click();
+    cy.get('[data-leafygreen-ui="option"]').eq(3).contains("Hawaii");
+    cy.get('[data-leafygreen-ui="option"]').eq(3).click();
     cy.dataCy("save-profile-changes-button").click();
 
     cy.visit(pathWithEvents);
