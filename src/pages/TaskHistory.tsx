@@ -123,7 +123,6 @@ export const TaskHistory = () => {
 const PageHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
 `;
 const TableWrapper = styled.div`
   height: 80vh;

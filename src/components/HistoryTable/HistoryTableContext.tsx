@@ -15,6 +15,8 @@ interface HistoryTableState {
   previousPage: () => void;
   hasNextPage: boolean;
   hasPreviousPage: boolean;
+  pageCount: number;
+  currentPage: number;
 }
 
 const HistoryTableDispatchContext = createContext<any | null>(null);
@@ -76,6 +78,8 @@ const HistoryTableProvider: React.FC = ({ children }) => {
       previousPage: () => dispatch({ type: "prevPageColumns" }),
       hasNextPage: currentPage < pageCount - 1,
       hasPreviousPage: currentPage > 0,
+      currentPage,
+      pageCount,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [processedCommits, visibleColumns, processedCommitCount]
