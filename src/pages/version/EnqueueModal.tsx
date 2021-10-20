@@ -41,7 +41,6 @@ export const EnqueuePatchModal: React.FC<EnqueueProps> = ({
   });
 
   const patchAnalytics = usePatchAnalytics();
-
   const [commitMessageValue, setCommitMessageValue] = useState<string>(
     commitMessage || ""
   );
