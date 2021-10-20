@@ -3,6 +3,7 @@ import {
   LeafyGreenTextArea,
   LeafyGreenSelect,
   LeafyGreenRadio,
+  LeafyGreenRadioBox,
   LeafyGreenCheckBox,
 } from "./LeafyGreenWidgets";
 
@@ -12,6 +13,7 @@ const widgets = {
   CheckboxWidget: LeafyGreenCheckBox,
   SelectWidget: LeafyGreenSelect,
   RadioWidget: LeafyGreenRadio,
+  RadioBoxWidget: LeafyGreenRadioBox,
 };
 
 export default widgets;

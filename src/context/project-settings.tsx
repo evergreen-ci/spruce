@@ -104,7 +104,7 @@ const useProjectSettingsContext = (): ProjectSettingsState => {
 };
 
 const usePopulateForm = (
-  initialState: FormDataProps,
+  formState: FormDataProps,
   tab: ProjectSettingsTabRoutes
 ): void => {
   const { saveTab, updateForm } = useProjectSettingsContext();
@@ -114,10 +114,10 @@ const usePopulateForm = (
     // Ensure form does not have unsaved changes before writing.
     // This preserves the unsaved form state when switching between project settings tabs.
     if (isSaved) {
-      updateForm(tab, initialState);
+      updateForm(tab, formState);
       saveTab(tab);
     }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [formState]); // eslint-disable-line react-hooks/exhaustive-deps
 };
 
 const useIsTabSaved = (tab: ProjectSettingsTabRoutes): boolean => {
