@@ -49,21 +49,17 @@ export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = (
       justify="middle"
       popoverZIndex={1}
       trigger={
-        <div
+        <IconButton
           onMouseOver={loadDataCb}
           onFocus={loadDataCb}
-          data-cy="failed-task-status-icon"
+          key={`task_${taskId}`}
+          aria-label="task icon"
+          as={Link}
+          to={getTaskRoute(taskId)}
+          data-cy="task-icon"
         >
-          <Link
-            data-cy="task-status-icon"
-            to={getTaskRoute(taskId)}
-            key={`task_${taskId}`}
-          >
-            <IconButton aria-label="task icon">
-              <TaskStatusIcon status={status} size={16} />
-            </IconButton>
-          </Link>
-        </div>
+          <TaskStatusIcon status={status} size={16} />
+        </IconButton>
       }
       triggerEvent="hover"
     >
