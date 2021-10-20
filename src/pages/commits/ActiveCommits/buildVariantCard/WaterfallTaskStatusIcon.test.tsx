@@ -4,7 +4,11 @@ import { MemoryRouter } from "react-router-dom";
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
 import {  renderWithRouterMatch as render,  waitFor } from "test_utils/test-utils";
 import { WaterfallTaskStatusIcon } from "./WaterfallTaskStatusIcon";
-
+const Content = (status: string) => () => (
+  <MockedProvider mocks={[getTooltipQueryMock]} addTypename={false}>
+    <WaterfallTaskStatusIcon {...props} status={status} />
+  </MockedProvider>
+);
 const props = {
   displayName: "multiversion",
   timeTaken: 2754729,
