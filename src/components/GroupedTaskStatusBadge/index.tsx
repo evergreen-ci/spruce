@@ -55,7 +55,7 @@ export const GroupedTaskStatusBadge: React.FC<Props> = ({
             <Row key={taskStatus}>
               <TaskStatusIcon status={taskStatus} size={16} />
               <span>
-                <Count umbrellaStatus={status}>{taskCount}</Count>{" "}
+                <Count>{taskCount}</Count>{" "}
                 {taskStatusToCopy[taskStatus] ?? taskStatus}
               </span>
             </Row>
@@ -102,10 +102,7 @@ const Status = styled.span`
   white-space: nowrap;
 `;
 
-interface CountProps {
-  umbrellaStatus: TaskStatus;
-}
-const Count = styled.span<CountProps>`
+const Count = styled.span`
   font-weight: bold;
   margin-left: 5px;
 `;

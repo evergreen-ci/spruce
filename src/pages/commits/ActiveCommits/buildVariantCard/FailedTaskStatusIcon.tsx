@@ -12,23 +12,36 @@ import {
   GetFailedTaskStatusIconTooltipQueryVariables,
 } from "gql/generated/types";
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
+import { isFailedTaskStatus } from "utils/statuses";
 import { msToDuration } from "utils/string";
 
 interface FailedStatusIconProps {
   taskId: string;
   status: string;
+  displayName: string;
+  timeTaken?: number;
 }
+
 export const FailedTaskStatusIcon: React.FC<FailedStatusIconProps> = ({
   taskId,
   status,
+  displayName,
+  timeTaken,
 }) => {
   const [loadData, { data, loading }] = useLazyQuery<
     GetFailedTaskStatusIconTooltipQuery,
     GetFailedTaskStatusIconTooltipQueryVariables
   >(GET_FAILED_TASK_STATUS_ICON_TOOLTIP, { variables: { taskId } });
-  const { displayName, timeTaken } = data?.task ?? {};
+  console.log(taskId);
   const { testResults } = data?.taskTests ?? {};
-
+  const loadDataCb = () => {
+    console.log("considering", status);
+    if (isFailedTaskStatus(status)) {
+      console.log("loading data");
+      loadData();
+    }
+  };
+  console.log({ data, loading });
   return (
     <Tooltip
       usePortal={false}
@@ -37,8 +50,8 @@ export const FailedTaskStatusIcon: React.FC<FailedStatusIconProps> = ({
       popoverZIndex={1}
       trigger={
         <div
-          onMouseOver={() => loadData()}
-          onFocus={() => loadData()}
+          onMouseOver={loadDataCb}
+          onFocus={loadDataCb}
           data-cy="failed-task-status-icon"
         >
           <Link
@@ -55,22 +68,20 @@ export const FailedTaskStatusIcon: React.FC<FailedStatusIconProps> = ({
       triggerEvent="hover"
     >
       <div data-cy="failed-task-status-icon-tooltip">
+        <TooltipTitle
+          data-cy="failed-task-status-icon-tooltip-title"
+          weight="medium"
+        >
+          {displayName} {timeTaken && `- ${msToDuration(timeTaken)}`}
+        </TooltipTitle>
         {loading ? (
           <Skeleton />
         ) : (
-          !!data && (
-            <>
-              <TooltipTitle
-                data-cy="failed-task-status-icon-tooltip-title"
-                weight="medium"
-              >
-                {displayName} - {msToDuration(timeTaken)}
-              </TooltipTitle>
-              {testResults?.map(({ id, testFile }) => (
-                <TestName key={id}>{testFile}</TestName>
-              ))}
-            </>
-          )
+          <>
+            {testResults?.map(({ id, testFile }) => (
+              <TestName key={id}>{testFile}</TestName>
+            ))}
+          </>
         )}
       </div>
     </Tooltip>

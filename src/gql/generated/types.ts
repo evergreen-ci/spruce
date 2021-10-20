@@ -1093,6 +1093,7 @@ export type Task = {
   priority?: Maybe<Scalars["Int"]>;
   project?: Maybe<Project>;
   projectId: Scalars["String"];
+  projectIdentifier?: Maybe<Scalars["String"]>;
   /** @deprecated reliesOn is deprecated. Use dependsOn instead. */
   reliesOn: Array<Dependency>;
   dependsOn?: Maybe<Array<Dependency>>;
@@ -2082,12 +2083,6 @@ export type GetFailedTaskStatusIconTooltipQueryVariables = Exact<{
 }>;
 
 export type GetFailedTaskStatusIconTooltipQuery = {
-  task?: Maybe<{
-    execution: number;
-    id: string;
-    displayName: string;
-    timeTaken?: Maybe<number>;
-  }>;
   taskTests: { testResults: Array<{ id: string; testFile: string }> };
 };
 
@@ -2570,6 +2565,7 @@ export type MainlineCommitsQuery = {
                     execution: number;
                     status: string;
                     displayName: string;
+                    timeTaken?: Maybe<number>;
                   }>
                 >
               >;

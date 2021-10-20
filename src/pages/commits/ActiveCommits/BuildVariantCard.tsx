@@ -10,13 +10,16 @@ import { FailedTaskStatusIcon } from "./buildVariantCard/FailedTaskStatusIcon";
 
 const { gray } = uiColors;
 
+type taskList = {
+  id: string;
+  status: string;
+  displayName: string;
+  timeTaken?: number;
+}[];
 interface Props {
   variant: string;
   buildVariantDisplayName: string;
-  tasks?: {
-    id: string;
-    status: string;
-  }[];
+  tasks?: taskList;
   shouldGroupTasks: boolean;
   versionId: string;
 }
@@ -81,7 +84,7 @@ const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
 }) => {
   // get the count of the amount of tasks in each status
   const { stats } = groupStatusesByUmbrellaStatus(
-    tasks.map((task) => ({ ...task, count: 1 }))
+    tasks.map(({ status }) => ({ status, count: 1 }))
   );
   return (
     <>
@@ -104,16 +107,19 @@ const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
 };
 
 interface RenderTaskIconsProps {
-  tasks: {
-    id: string;
-    status: string;
-  }[];
+  tasks: taskList;
 }
 
 const RenderTaskIcons: React.FC<RenderTaskIconsProps> = ({ tasks }) => (
   <>
-    {tasks.map(({ id, status }) => (
-      <FailedTaskStatusIcon key={id} taskId={id} status={status} />
+    {tasks.map(({ id, status, displayName, timeTaken }) => (
+      <FailedTaskStatusIcon
+        key={id}
+        taskId={id}
+        status={status}
+        displayName={displayName}
+        timeTaken={timeTaken}
+      />
     ))}
   </>
 );

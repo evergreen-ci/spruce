@@ -24,6 +24,7 @@ query MainlineCommits(
             execution
             status
             displayName
+            timeTaken
           }
         }
       }
