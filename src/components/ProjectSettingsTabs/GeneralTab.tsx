@@ -24,9 +24,10 @@ export const GeneralTab: React.FC<GeneralTabProps> = ({
     updateForm,
   ]);
 
-  const { generalConfiguration } = useMemo(() => getFormData(useRepoSettings), [
-    useRepoSettings,
-  ]);
+  const { generalConfiguration, projectFlags } = useMemo(
+    () => getFormData(useRepoSettings),
+    [useRepoSettings]
+  );
 
   return (
     <>
@@ -37,6 +38,15 @@ export const GeneralTab: React.FC<GeneralTabProps> = ({
           onChange={onChange}
           schema={generalConfiguration.schema}
           uiSchema={generalConfiguration.uiSchema}
+        />
+      </SpruceFormContainer>
+      <SpruceFormContainer title="Project Flags">
+        <SpruceForm
+          fields={projectFlags.fields}
+          formData={currentFormState}
+          onChange={onChange}
+          schema={projectFlags.schema}
+          uiSchema={projectFlags.uiSchema}
         />
       </SpruceFormContainer>
     </>
@@ -52,6 +62,13 @@ const gqlToSchema = ({
   batchTime = 0,
   remotePath,
   spawnHostScriptPath,
+  dispatchingDisabled = false,
+  deactivatePrevious = true,
+  repotrackerDisabled = false,
+  defaultLogger = "",
+  cedarTestResultsEnabled = false,
+  patchingDisabled = false,
+  taskSync,
 }) => ({
   enabled: enabled ? "enabled" : "disabled",
   repositoryInfo: {
@@ -64,5 +81,27 @@ const gqlToSchema = ({
     batchTime,
     remotePath,
     spawnHostScriptPath,
+  },
+  dispatchingDisabled: dispatchingDisabled ? "disabled" : "enabled",
+  scheduling: {
+    deactivatePrevious: deactivatePrevious ? "unschedule" : "schedule",
+  },
+  repotracker: {
+    repotrackerDisabled: repotrackerDisabled ? "disabled" : "enabled",
+    // TODO: Fetch forceRepotrackerRun via resolver
+    forceRepotrackerRun: false,
+  },
+  logger: {
+    defaultLogger: defaultLogger || null,
+  },
+  testResults: {
+    cedarTestResultsEnabled: cedarTestResultsEnabled ? "enabled" : "disabled",
+  },
+  patch: {
+    patchingDisabled: patchingDisabled ? "disabled" : "enabled",
+  },
+  taskSync: {
+    configEnabled: taskSync.configEnabled ? "enabled" : "disabled",
+    patchEnabled: taskSync.patchEnabled ? "enabled" : "disabled",
   },
 });

@@ -196,8 +196,9 @@ export type QueryProjectSettingsArgs = {
 export type Mutation = {
   addFavoriteProject: Project;
   removeFavoriteProject: Project;
-  saveProjectSettingsForSection: ProjectSettings;
   createProject: Project;
+  copyProject: Project;
+  saveProjectSettingsForSection: ProjectSettings;
   attachProjectToRepo: Project;
   detachProjectFromRepo: Project;
   schedulePatch: Patch;
@@ -247,13 +248,17 @@ export type MutationRemoveFavoriteProjectArgs = {
   identifier: Scalars["String"];
 };
 
+export type MutationCreateProjectArgs = {
+  project: CreateProjectInput;
+};
+
+export type MutationCopyProjectArgs = {
+  project: CopyProjectInput;
+};
+
 export type MutationSaveProjectSettingsForSectionArgs = {
   projectSettings?: Maybe<ProjectSettingsInput>;
   section: Scalars["String"];
-};
-
-export type MutationCreateProjectArgs = {
-  project: CreateProjectInput;
 };
 
 export type MutationAttachProjectToRepoArgs = {
@@ -643,6 +648,19 @@ export type PatchesInput = {
   includeCommitQueue?: Scalars["Boolean"];
 };
 
+export type CreateProjectInput = {
+  identifier: Scalars["String"];
+  owner: Scalars["String"];
+  repo: Scalars["String"];
+  id?: Maybe<Scalars["String"]>;
+};
+
+export type CopyProjectInput = {
+  projectIdToCopy: Scalars["String"];
+  newProjectIdentifier: Scalars["String"];
+  newProjectId?: Maybe<Scalars["String"]>;
+};
+
 export type ProjectSettingsInput = {
   githubWebhooksEnabled?: Maybe<Scalars["Boolean"]>;
   projectRef?: Maybe<ProjectInput>;
@@ -688,12 +706,6 @@ export type ProjectInput = {
   workstationConfig?: Maybe<WorkstationConfigInput>;
   hidden?: Maybe<Scalars["Boolean"]>;
   useRepoSettings?: Maybe<Scalars["Boolean"]>;
-};
-
-export type CreateProjectInput = {
-  identifier: Scalars["String"];
-  owner: Scalars["String"];
-  repo: Scalars["String"];
 };
 
 export type TriggerAliasInput = {
@@ -1229,6 +1241,7 @@ export type Task = {
   priority?: Maybe<Scalars["Int"]>;
   project?: Maybe<Project>;
   projectId: Scalars["String"];
+  projectIdentifier?: Maybe<Scalars["String"]>;
   /** @deprecated reliesOn is deprecated. Use dependsOn instead. */
   reliesOn: Array<Dependency>;
   dependsOn?: Maybe<Array<Dependency>>;
@@ -1367,11 +1380,11 @@ export type Project = {
   githubTriggerAliases?: Maybe<Array<Maybe<Scalars["String"]>>>;
   periodicBuilds?: Maybe<Array<Maybe<PeriodicBuild>>>;
   cedarTestResultsEnabled?: Maybe<Scalars["Boolean"]>;
-  commitQueue?: Maybe<CommitQueueParams>;
+  commitQueue: CommitQueueParams;
   admins?: Maybe<Array<Maybe<Scalars["String"]>>>;
   spawnHostScriptPath: Scalars["String"];
   tracksPushEvents?: Maybe<Scalars["Boolean"]>;
-  taskSync?: Maybe<TaskSyncOptions>;
+  taskSync: TaskSyncOptions;
   gitTagAuthorizedUsers?: Maybe<Array<Maybe<Scalars["String"]>>>;
   gitTagAuthorizedTeams?: Maybe<Array<Maybe<Scalars["String"]>>>;
   gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]>;
@@ -1419,8 +1432,8 @@ export type CommitQueueParams = {
 };
 
 export type TaskSyncOptions = {
-  configEnabled: Scalars["Boolean"];
-  patchEnabled: Scalars["Boolean"];
+  configEnabled?: Maybe<Scalars["Boolean"]>;
+  patchEnabled?: Maybe<Scalars["Boolean"]>;
 };
 
 export type WorkstationConfig = {
@@ -1867,6 +1880,24 @@ export type ProjectFragment = {
   repo: string;
   owner: string;
   displayName: string;
+};
+
+export type GeneralSettingsFragment = {
+  enabled?: Maybe<boolean>;
+  owner: string;
+  repo: string;
+  branch: string;
+  displayName: string;
+  batchTime?: Maybe<number>;
+  remotePath: string;
+  spawnHostScriptPath: string;
+  dispatchingDisabled?: Maybe<boolean>;
+  deactivatePrevious?: Maybe<boolean>;
+  repotrackerDisabled?: Maybe<boolean>;
+  defaultLogger?: Maybe<string>;
+  cedarTestResultsEnabled?: Maybe<boolean>;
+  patchingDisabled?: Maybe<boolean>;
+  taskSync: { configEnabled?: Maybe<boolean>; patchEnabled?: Maybe<boolean> };
 };
 
 export type AbortTaskMutationVariables = Exact<{
@@ -2875,17 +2906,7 @@ export type ProjectSettingsQueryVariables = Exact<{
 
 export type ProjectSettingsQuery = {
   projectSettings: {
-    projectRef?: Maybe<{
-      enabled?: Maybe<boolean>;
-      owner: string;
-      repo: string;
-      branch: string;
-      displayName: string;
-      batchTime?: Maybe<number>;
-      remotePath: string;
-      spawnHostScriptPath: string;
-      useRepoSettings: boolean;
-    }>;
+    projectRef?: Maybe<{ useRepoSettings: boolean } & GeneralSettingsFragment>;
   };
 };
 

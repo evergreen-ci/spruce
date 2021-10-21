@@ -20,10 +20,10 @@ export const ArrayField: React.FC<FieldProps> = ({
   </ElementWrapper>
 );
 
-export const TitleField: React.FC<FieldProps> = ({ title }) => (
+export const TitleField: React.FC<FieldProps> = ({ id, title }) => (
   <>
     {/* @ts-expect-error  */}
-    <StyledSubtitle>{title}</StyledSubtitle>
+    <StyledSubtitle id={id}>{title}</StyledSubtitle>
   </>
 );
 
