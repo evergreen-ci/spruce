@@ -15,11 +15,15 @@ describe("HistoryTableContext", () => {
       getItem: expect.any(Function),
       isItemLoaded: expect.any(Function),
       itemHeight: expect.any(Function),
+      hasNextPage: false,
+      hasPreviousPage: false,
       processedCommits: [],
       visibleColumns: [],
       addColumns: expect.any(Function),
       nextPage: expect.any(Function),
       previousPage: expect.any(Function),
+      currentPage: 0,
+      pageCount: 0,
     });
   });
   test("Should process new commits when they are passed in", () => {
@@ -199,14 +203,18 @@ describe("HistoryTableContext", () => {
       });
       expect(result.current.visibleColumns.length).toEqual(8);
       expect(result.current.visibleColumns).toEqual(columns.slice(0, 8));
+      expect(result.current.hasNextPage).toBeTruthy();
+      expect(result.current.hasPreviousPage).toBeFalsy();
       act(() => {
         result.current.nextPage();
       });
+      expect(result.current.hasPreviousPage).toBeTruthy();
       expect(result.current.visibleColumns.length).toEqual(8);
       expect(result.current.visibleColumns).toEqual(columns.slice(8, 16));
       act(() => {
         result.current.previousPage();
       });
+      expect(result.current.hasPreviousPage).toBeFalsy();
       expect(result.current.visibleColumns.length).toEqual(8);
       expect(result.current.visibleColumns).toEqual(columns.slice(0, 8));
     });
@@ -215,6 +223,7 @@ describe("HistoryTableContext", () => {
       act(() => {
         result.current.addColumns(columns);
       });
+      expect(result.current.hasPreviousPage).toBeFalsy();
       expect(result.current.visibleColumns.length).toEqual(8);
       expect(result.current.visibleColumns).toEqual(columns.slice(0, 8));
       act(() => {

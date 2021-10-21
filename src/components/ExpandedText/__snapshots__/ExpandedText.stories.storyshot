@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots ExpandedText Sample 1`] = `
+<small
+  className="css-20msfu-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+  onBlur={[Function]}
+  onFocus={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  more
+</small>
+`;
