@@ -15,6 +15,10 @@ type Action =
       name: "Sort Tasks Table";
       sortBy: "name" | "status" | "baseStatus" | "variant";
     }
+  | {
+      name: "Sort Downstream Tasks Table";
+      sortBy: "name" | "status" | "baseStatus" | "variant";
+    }
   | { name: "Restart"; abort: boolean }
   | { name: "Schedule" }
   | { name: "Set Priority"; priority: number }

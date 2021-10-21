@@ -22,6 +22,10 @@ type Action =
       name: "Sort Tests Table";
       sortBy: "name" | "status" | "baseStatus" | "time";
     }
+  | {
+      name: "Sort Execution Tasks Table";
+      sortBy: "name" | "status" | "baseStatus" | "variant";
+    }
   | { name: "Restart" }
   | { name: "Schedule" }
   | { name: "Abort" }
