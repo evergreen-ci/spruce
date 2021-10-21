@@ -21,7 +21,7 @@ export const NavigationModal: React.FC = () => {
     <NavigationPrompt disableNative when={shouldConfirmNavigation}>
       {({ onConfirm, onCancel }) => (
         <ConfirmationModal
-          buttonText="Delete"
+          buttonText="Leave"
           data-cy="navigation-warning-modal"
           open
           onCancel={onCancel}
