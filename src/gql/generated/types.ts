@@ -1883,6 +1883,24 @@ export type ProjectFragment = {
   displayName: string;
 };
 
+export type GeneralSettingsFragment = {
+  enabled?: Maybe<boolean>;
+  owner: string;
+  repo: string;
+  branch: string;
+  displayName: string;
+  batchTime?: Maybe<number>;
+  remotePath: string;
+  spawnHostScriptPath: string;
+  dispatchingDisabled?: Maybe<boolean>;
+  deactivatePrevious?: Maybe<boolean>;
+  repotrackerDisabled?: Maybe<boolean>;
+  defaultLogger?: Maybe<string>;
+  cedarTestResultsEnabled?: Maybe<boolean>;
+  patchingDisabled?: Maybe<boolean>;
+  taskSync: { configEnabled?: Maybe<boolean>; patchEnabled?: Maybe<boolean> };
+};
+
 export type AbortTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
@@ -2898,17 +2916,7 @@ export type ProjectSettingsQueryVariables = Exact<{
 
 export type ProjectSettingsQuery = {
   projectSettings: {
-    projectRef?: Maybe<{
-      enabled?: Maybe<boolean>;
-      owner: string;
-      repo: string;
-      branch: string;
-      displayName: string;
-      batchTime?: Maybe<number>;
-      remotePath: string;
-      spawnHostScriptPath: string;
-      useRepoSettings: boolean;
-    }>;
+    projectRef?: Maybe<{ useRepoSettings: boolean } & GeneralSettingsFragment>;
   };
 };
 

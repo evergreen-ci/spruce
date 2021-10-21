@@ -143,6 +143,13 @@ const getTabData = (
         remotePath,
         repo,
         spawnHostScriptPath,
+        deactivatePrevious,
+        dispatchingDisabled,
+        repotrackerDisabled,
+        defaultLogger,
+        cedarTestResultsEnabled,
+        patchingDisabled,
+        taskSync,
       },
     },
   } = data;
@@ -156,11 +163,24 @@ const getTabData = (
       remotePath,
       repo,
       spawnHostScriptPath,
+      ...(dispatchingDisabled && { dispatchingDisabled }),
+      ...(deactivatePrevious && { deactivatePrevious }),
+      ...(repotrackerDisabled && { repotrackerDisabled }),
+      ...(defaultLogger && { defaultLogger }),
+      ...(cedarTestResultsEnabled && { cedarTestResultsEnabled }),
+      ...(patchingDisabled && { patchingDisabled }),
+      ...(taskSync && {
+        taskSync: {
+          configEnabled: taskSync.configEnabled,
+          patchEnabled: taskSync.patchEnabled,
+        },
+      }),
     },
   };
 };
 
 const Container = styled.div`
+  min-width: min-content;
   width: 60%;
 `;
 
