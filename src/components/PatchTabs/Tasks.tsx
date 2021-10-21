@@ -38,11 +38,12 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const queryVariables = getQueryVariables(search, versionId);
 
   const { sorts, limit, page } = queryVariables;
+  const defaultSortMethod = "STATUS:ASC;BASE_STATUS:DESC";
 
   useEffect(() => {
     if (sorts.length === 0) {
       updateQueryParams({
-        sorts: "STATUS:ASC;BASE_STATUS:DESC",
+        sorts: defaultSortMethod,
       });
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -69,12 +70,12 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const onClearAll = () => {
     patchAnalytics.sendEvent({ name: "Clear all filter" });
     updateQueryParams({
-      statuses: [],
-      baseStatuses: [],
+      statuses: undefined,
+      baseStatuses: undefined,
       taskName: undefined,
       variant: undefined,
       page: undefined,
-      sorts: "STATUS:ASC;BASE_STATUS:DESC",
+      sorts: defaultSortMethod,
     });
   };
 
@@ -90,7 +91,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
             denominator={taskCount}
           />
           <PaddedButton // @ts-expect-error
-            onClick={() => onClearAll()}
+            onClick={onClearAll}
             data-cy="clear-all-filters"
           >
             Clear All Filters
