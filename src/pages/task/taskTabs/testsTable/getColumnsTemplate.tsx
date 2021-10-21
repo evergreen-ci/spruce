@@ -20,7 +20,7 @@ interface GetColumnsTemplateParams {
     | { name: "Click Logs HTML Button" }
     | { name: "Click Logs Raw Button" }
   >;
-  onColumnHeaderClick: (sortField) => void;
+  onColumnHeaderClick?: (sortField) => void;
   statusSelectorProps: TreeSelectProps;
   testNameInputProps: InputFilterProps;
 }
@@ -37,7 +37,7 @@ export const getColumnsTemplate = ({
     key: TestSortCategory.TestName,
     onHeaderCell: () => ({
       onClick: () => {
-        onColumnHeaderClick("name");
+        onColumnHeaderClick?.(TestSortCategory.TestName);
       },
     }),
     width: "40%",
@@ -51,7 +51,7 @@ export const getColumnsTemplate = ({
     key: TestSortCategory.Status,
     onHeaderCell: () => ({
       onClick: () => {
-        onColumnHeaderClick("status");
+        onColumnHeaderClick?.(TestSortCategory.Status);
       },
     }),
     sorter: true,
@@ -70,7 +70,7 @@ export const getColumnsTemplate = ({
     key: TestSortCategory.BaseStatus,
     onHeaderCell: () => ({
       onClick: () => {
-        onColumnHeaderClick("baseStatus");
+        onColumnHeaderClick?.(TestSortCategory.BaseStatus);
       },
     }),
     sorter: true,
@@ -84,7 +84,7 @@ export const getColumnsTemplate = ({
     key: TestSortCategory.Duration,
     onHeaderCell: () => ({
       onClick: () => {
-        onColumnHeaderClick("time");
+        onColumnHeaderClick?.(TestSortCategory.Duration);
       },
     }),
     sorter: true,

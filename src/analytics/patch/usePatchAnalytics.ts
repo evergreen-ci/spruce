@@ -6,6 +6,7 @@ import {
   SaveSubscriptionMutationVariables,
   PatchQuery,
   PatchQueryVariables,
+  TaskSortCategory,
 } from "gql/generated/types";
 import { GET_PATCH } from "gql/queries";
 
@@ -13,11 +14,19 @@ type Action =
   | { name: "Filter Tasks"; filterBy: string }
   | {
       name: "Sort Tasks Table";
-      sortBy: "name" | "status" | "baseStatus" | "variant";
+      sortBy:
+        | TaskSortCategory.Name
+        | TaskSortCategory.Status
+        | TaskSortCategory.BaseStatus
+        | TaskSortCategory.Variant;
     }
   | {
       name: "Sort Downstream Tasks Table";
-      sortBy: "name" | "status" | "baseStatus" | "variant";
+      sortBy:
+        | TaskSortCategory.Name
+        | TaskSortCategory.Status
+        | TaskSortCategory.BaseStatus
+        | TaskSortCategory.Variant;
     }
   | { name: "Restart"; abort: boolean }
   | { name: "Schedule" }

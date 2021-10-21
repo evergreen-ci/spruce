@@ -14,8 +14,8 @@ import { getTaskRoute } from "constants/routes";
 import {
   Task,
   SortDirection,
-  TaskSortCategory,
   SortOrder,
+  TaskSortCategory,
 } from "gql/generated/types";
 import { TableOnChange } from "types/task";
 import { sortTasks } from "utils/statuses";
@@ -115,7 +115,7 @@ const getColumnDefs = ({
     key: TaskSortCategory.Name,
     onHeaderCell: () => ({
       onClick: () => {
-        onColumnHeaderClick("name");
+        onColumnHeaderClick?.(TaskSortCategory.Name);
       },
     }),
     sorter: {
@@ -139,7 +139,7 @@ const getColumnDefs = ({
     key: TaskSortCategory.Status,
     onHeaderCell: () => ({
       onClick: () => {
-        onColumnHeaderClick("status");
+        onColumnHeaderClick?.(TaskSortCategory.Status);
       },
     }),
     sorter: {
@@ -161,7 +161,7 @@ const getColumnDefs = ({
     key: TaskSortCategory.BaseStatus,
     onHeaderCell: () => ({
       onClick: () => {
-        onColumnHeaderClick("baseStatus");
+        onColumnHeaderClick?.(TaskSortCategory.BaseStatus);
       },
     }),
     sorter: {
@@ -183,7 +183,7 @@ const getColumnDefs = ({
     key: TaskSortCategory.Variant,
     onHeaderCell: () => ({
       onClick: () => {
-        onColumnHeaderClick("variant");
+        onColumnHeaderClick?.(TaskSortCategory.Variant);
       },
     }),
     sorter: {
