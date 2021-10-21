@@ -1,5 +1,6 @@
 import GET_AWS_REGIONS from "./aws-regions.graphql";
 import DISTRO_TASK_QUEUE from "./distro-task-queue.graphql";
+import GET_FAILED_TASK_STATUS_ICON_TOOLTIP from "./failed-task-status-icon-tooltip.graphql";
 import GET_AGENT_LOGS from "./get-agent-logs.graphql";
 import GET_ANNOTATION_EVENT_DATA from "./get-annotation-event-data.graphql";
 import GET_BUILD_BARON from "./get-build-baron.graphql";
@@ -110,4 +111,5 @@ export {
   GET_PATCH,
   GET_VERSION,
   GET_PATCH_CONFIGURE,
+  GET_FAILED_TASK_STATUS_ICON_TOOLTIP,
 };

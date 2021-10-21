@@ -1,4 +1,4 @@
-import { mapTaskStatusToColor } from "constants/task";
+import { mapTaskStatusToColor, taskStatusToCopy } from "constants/task";
 import { TaskStatus } from "types/task";
 import {
   getAllTaskStatsGroupedByColor,
@@ -6,162 +6,207 @@ import {
 } from "./utils";
 
 describe("getAllTaskStatsGroupedByColor", () => {
-  test(
-    "Grab the taskStatusCounts field from all versions," +
-      "returns mapping between version id to its {grouped task stats, max, total}",
-    () => {
-      expect(getAllTaskStatsGroupedByColor(versions)).toStrictEqual({
-        "12": {
-          stats: [
-            {
-              count: 8,
-              statuses: ["Test Timed Out", "Failed"],
-              color: "#CF4A22",
-              umbrellaStatus: "failed-umbrella",
+  test("Grab the taskStatusCounts field from all versions, returns mapping between version id to its {grouped task stats, max, total}", () => {
+    expect(getAllTaskStatsGroupedByColor(versions)).toStrictEqual({
+      "12": {
+        stats: [
+          {
+            count: 8,
+            statuses: [
+              taskStatusToCopy[TaskStatus.TestTimedOut],
+              taskStatusToCopy[TaskStatus.Failed],
+            ],
+            color: "#CF4A22",
+            umbrellaStatus: TaskStatus.FailedUmbrella,
+            statusCounts: {
+              [TaskStatus.TestTimedOut]: 6,
+              [TaskStatus.Failed]: 2,
             },
-            {
-              count: 7,
-              statuses: ["System Time Out", "System Unresponsive"],
-              color: "#4f4fbf",
-              umbrellaStatus: "system-failure-umbrella",
+          },
+          {
+            count: 7,
+            statuses: [
+              taskStatusToCopy[TaskStatus.SystemTimedOut],
+              taskStatusToCopy[TaskStatus.SystemUnresponsive],
+            ],
+            color: "#4f4fbf",
+            umbrellaStatus: TaskStatus.SystemFailureUmbrella,
+            statusCounts: {
+              [TaskStatus.SystemTimedOut]: 5,
+              [TaskStatus.SystemUnresponsive]: 2,
             },
-            {
-              count: 4,
-              statuses: ["Dispatched"],
-              color: "#FFDD49",
-              umbrellaStatus: "running-umbrella",
+          },
+          {
+            count: 4,
+            statuses: [taskStatusToCopy[TaskStatus.Dispatched]],
+            color: "#FFDD49",
+            umbrellaStatus: TaskStatus.RunningUmbrella,
+            statusCounts: { [TaskStatus.Dispatched]: 4 },
+          },
+          {
+            count: 2,
+            statuses: [taskStatusToCopy[TaskStatus.WillRun]],
+            color: "#5D6C74",
+            umbrellaStatus: TaskStatus.ScheduledUmbrella,
+            statusCounts: { [TaskStatus.WillRun]: 2 },
+          },
+        ],
+        max: 8,
+        total: 21,
+      },
+      "13": {
+        stats: [
+          {
+            count: 6,
+            statuses: [taskStatusToCopy[TaskStatus.Succeeded]],
+            color: "#13AA52",
+            umbrellaStatus: TaskStatus.Succeeded,
+            statusCounts: { [TaskStatus.Succeeded]: 6 },
+          },
+          {
+            count: 2,
+            statuses: [taskStatusToCopy[TaskStatus.Failed]],
+            color: "#CF4A22",
+            umbrellaStatus: TaskStatus.FailedUmbrella,
+            statusCounts: { [TaskStatus.Failed]: 2 },
+          },
+          {
+            count: 9,
+            statuses: [
+              taskStatusToCopy[TaskStatus.Dispatched],
+              taskStatusToCopy[TaskStatus.Started],
+            ],
+            color: "#FFDD49",
+            umbrellaStatus: TaskStatus.RunningUmbrella,
+            statusCounts: {
+              [TaskStatus.Dispatched]: 4,
+              [TaskStatus.Started]: 5,
             },
-            {
-              count: 2,
-              statuses: ["Will Run"],
-              color: "#5D6C74",
-              umbrellaStatus: "scheduled-umbrella",
+          },
+        ],
+        max: 9,
+        total: 17,
+      },
+      "14": {
+        stats: [
+          {
+            count: 4,
+            statuses: [taskStatusToCopy[TaskStatus.Succeeded]],
+            color: "#13AA52",
+            umbrellaStatus: TaskStatus.Succeeded,
+            statusCounts: { [TaskStatus.Succeeded]: 4 },
+          },
+          {
+            count: 6,
+            statuses: [taskStatusToCopy[TaskStatus.TaskTimedOut]],
+            color: "#CF4A22",
+            umbrellaStatus: TaskStatus.FailedUmbrella,
+            statusCounts: { [TaskStatus.TaskTimedOut]: 6 },
+          },
+          {
+            count: 7,
+            statuses: [
+              taskStatusToCopy[TaskStatus.SystemFailed],
+              taskStatusToCopy[TaskStatus.SystemUnresponsive],
+            ],
+            color: "#4f4fbf",
+            umbrellaStatus: TaskStatus.SystemFailureUmbrella,
+            statusCounts: {
+              [TaskStatus.SystemFailed]: 5,
+              [TaskStatus.SystemUnresponsive]: 2,
             },
-          ],
-          max: 8,
-          total: 21,
-        },
-        "13": {
-          stats: [
-            {
-              count: 6,
-              statuses: ["Success"],
-              color: "#13AA52",
-              umbrellaStatus: "success",
+          },
+          {
+            count: 3,
+            statuses: [taskStatusToCopy[TaskStatus.SetupFailed]],
+            color: "#f1f0fc",
+            umbrellaStatus: TaskStatus.SetupFailed,
+            statusCounts: { [TaskStatus.SetupFailed]: 3 },
+          },
+          {
+            count: 3,
+            statuses: [taskStatusToCopy[TaskStatus.Started]],
+            color: "#FFDD49",
+            umbrellaStatus: TaskStatus.RunningUmbrella,
+            statusCounts: { started: 3 },
+          },
+          {
+            count: 2,
+            statuses: [taskStatusToCopy[TaskStatus.Unscheduled]],
+            color: "#89979B",
+            umbrellaStatus: TaskStatus.UndispatchedUmbrella,
+            statusCounts: { [TaskStatus.Unscheduled]: 2 },
+          },
+        ],
+        max: 7,
+        total: 25,
+      },
+      "123": {
+        stats: [
+          {
+            count: 4,
+            statuses: [taskStatusToCopy[TaskStatus.Succeeded]],
+            color: "#13AA52",
+            umbrellaStatus: TaskStatus.Succeeded,
+            statusCounts: { [TaskStatus.Succeeded]: 4 },
+          },
+          {
+            count: 6,
+            statuses: [taskStatusToCopy[TaskStatus.TaskTimedOut]],
+            color: "#CF4A22",
+            umbrellaStatus: TaskStatus.FailedUmbrella,
+            statusCounts: { [TaskStatus.TaskTimedOut]: 6 },
+          },
+          {
+            count: 7,
+            statuses: [
+              taskStatusToCopy[TaskStatus.SystemFailed],
+              taskStatusToCopy[TaskStatus.SystemUnresponsive],
+            ],
+            color: "#4f4fbf",
+            umbrellaStatus: TaskStatus.SystemFailureUmbrella,
+            statusCounts: {
+              [TaskStatus.SystemFailed]: 5,
+              [TaskStatus.SystemUnresponsive]: 2,
             },
-            {
-              count: 2,
-              statuses: ["Failed"],
-              color: "#CF4A22",
-              umbrellaStatus: "failed-umbrella",
-            },
-            {
-              count: 9,
-              statuses: ["Dispatched", "Running"],
-              color: "#FFDD49",
-              umbrellaStatus: "running-umbrella",
-            },
-          ],
-          max: 9,
-          total: 17,
-        },
-        "14": {
-          stats: [
-            {
-              count: 4,
-              statuses: ["Success"],
-              color: "#13AA52",
-              umbrellaStatus: "success",
-            },
-            {
-              count: 6,
-              statuses: ["Task Timed Out"],
-              color: "#CF4A22",
-              umbrellaStatus: "failed-umbrella",
-            },
-            {
-              count: 7,
-              statuses: ["System Failed", "System Unresponsive"],
-              color: "#4f4fbf",
-              umbrellaStatus: "system-failure-umbrella",
-            },
-            {
-              count: 3,
-              statuses: ["Setup Failure"],
-              color: "#f1f0fc",
-              umbrellaStatus: "setup-failed",
-            },
-            {
-              count: 3,
-              statuses: ["Running"],
-              color: "#FFDD49",
-              umbrellaStatus: "running-umbrella",
-            },
-            {
-              count: 2,
-              statuses: ["Unscheduled"],
-              color: "#89979B",
-              umbrellaStatus: "undispatched-umbrella",
-            },
-          ],
-          max: 7,
-          total: 25,
-        },
-        "123": {
-          stats: [
-            {
-              count: 4,
-              statuses: ["Success"],
-              color: "#13AA52",
-              umbrellaStatus: "success",
-            },
-            {
-              count: 6,
-              statuses: ["Task Timed Out"],
-              color: "#CF4A22",
-              umbrellaStatus: "failed-umbrella",
-            },
-            {
-              count: 7,
-              statuses: ["System Failed", "System Unresponsive"],
-              color: "#4f4fbf",
-              umbrellaStatus: "system-failure-umbrella",
-            },
-            {
-              count: 3,
-              statuses: ["Setup Failure"],
-              color: "#f1f0fc",
-              umbrellaStatus: "setup-failed",
-            },
-            {
-              count: 3,
-              statuses: ["Running"],
-              color: "#FFDD49",
-              umbrellaStatus: "running-umbrella",
-            },
-            {
-              count: 2,
-              statuses: ["Unscheduled"],
-              color: "#89979B",
-              umbrellaStatus: "undispatched-umbrella",
-            },
-          ],
-          max: 7,
-          total: 25,
-        },
-      });
-    }
-  );
+          },
+          {
+            count: 3,
+            statuses: [taskStatusToCopy[TaskStatus.SetupFailed]],
+            color: "#f1f0fc",
+            umbrellaStatus: TaskStatus.SetupFailed,
+            statusCounts: { [TaskStatus.SetupFailed]: 3 },
+          },
+          {
+            count: 3,
+            statuses: [taskStatusToCopy[TaskStatus.Started]],
+            color: "#FFDD49",
+            umbrellaStatus: TaskStatus.RunningUmbrella,
+            statusCounts: { started: 3 },
+          },
+          {
+            count: 2,
+            statuses: [taskStatusToCopy[TaskStatus.Unscheduled]],
+            color: "#89979B",
+            umbrellaStatus: TaskStatus.UndispatchedUmbrella,
+            statusCounts: { [TaskStatus.Unscheduled]: 2 },
+          },
+        ],
+        max: 7,
+        total: 25,
+      },
+    });
+  });
 });
 
 describe("getStatusesWithZeroCount", () => {
   test("Return an array of umbrella statuses that have 0 count", () => {
     expect(getStatusesWithZeroCount(groupedTaskStats)).toStrictEqual([
-      "failed-umbrella",
-      "running-umbrella",
-      "scheduled-umbrella",
-      "system-failure-umbrella",
-      "undispatched-umbrella",
+      TaskStatus.FailedUmbrella,
+      TaskStatus.RunningUmbrella,
+      TaskStatus.ScheduledUmbrella,
+      TaskStatus.SystemFailureUmbrella,
+      TaskStatus.UndispatchedUmbrella,
     ]);
   });
   test("Should return an empty array when all umbrella statuses are present", () => {
@@ -169,13 +214,13 @@ describe("getStatusesWithZeroCount", () => {
   });
   test("Return an array of all umbrella statuses when no umbrella status exists", () => {
     expect(getStatusesWithZeroCount([])).toStrictEqual([
-      "failed-umbrella",
-      "success",
-      "running-umbrella",
-      "scheduled-umbrella",
-      "system-failure-umbrella",
-      "undispatched-umbrella",
-      "setup-failed",
+      TaskStatus.FailedUmbrella,
+      TaskStatus.Succeeded,
+      TaskStatus.RunningUmbrella,
+      TaskStatus.ScheduledUmbrella,
+      TaskStatus.SystemFailureUmbrella,
+      TaskStatus.UndispatchedUmbrella,
+      TaskStatus.SetupFailed,
     ]);
   });
 });
@@ -189,13 +234,13 @@ const versions = [
       author: "Mohamed Khelif",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
-        { status: "task-timed-out", count: 6 },
-        { status: "success", count: 4 },
-        { status: "started", count: 3 },
-        { status: "system-failed", count: 5 },
-        { status: "unscheduled", count: 2 },
-        { status: "setup-failed", count: 3 },
-        { status: "system-unresponsive", count: 2 },
+        { status: TaskStatus.TaskTimedOut, count: 6 },
+        { status: TaskStatus.Succeeded, count: 4 },
+        { status: TaskStatus.Started, count: 3 },
+        { status: TaskStatus.SystemFailed, count: 5 },
+        { status: TaskStatus.Unscheduled, count: 2 },
+        { status: TaskStatus.SetupFailed, count: 3 },
+        { status: TaskStatus.SystemUnresponsive, count: 2 },
       ],
     },
     rolledUpVersions: null,
@@ -208,12 +253,12 @@ const versions = [
       author: "Arjun Patel",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
-        { status: "test-timed-out", count: 6 },
-        { status: "failed", count: 2 },
-        { status: "dispatched", count: 4 },
-        { status: "will-run", count: 2 },
-        { status: "system-timed-out", count: 5 },
-        { status: "system-unresponsive", count: 2 },
+        { status: TaskStatus.TestTimedOut, count: 6 },
+        { status: TaskStatus.Failed, count: 2 },
+        { status: TaskStatus.Dispatched, count: 4 },
+        { status: TaskStatus.WillRun, count: 2 },
+        { status: TaskStatus.SystemTimedOut, count: 5 },
+        { status: TaskStatus.SystemUnresponsive, count: 2 },
       ],
     },
     rolledUpVersions: null,
@@ -226,10 +271,10 @@ const versions = [
       author: "Mohamed Khelif",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
-        { status: "success", count: 6 },
-        { status: "failed", count: 2 },
-        { status: "dispatched", count: 4 },
-        { status: "started", count: 5 },
+        { status: TaskStatus.Succeeded, count: 6 },
+        { status: TaskStatus.Failed, count: 2 },
+        { status: TaskStatus.Dispatched, count: 4 },
+        { status: TaskStatus.Started, count: 5 },
       ],
     },
     rolledUpVersions: null,
@@ -243,13 +288,13 @@ const versions = [
       author: "Arjun Patel",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
-        { status: "task-timed-out", count: 6 },
-        { status: "success", count: 4 },
-        { status: "started", count: 3 },
-        { status: "system-failed", count: 5 },
-        { status: "unscheduled", count: 2 },
-        { status: "setup-failed", count: 3 },
-        { status: "system-unresponsive", count: 2 },
+        { status: TaskStatus.TaskTimedOut, count: 6 },
+        { status: TaskStatus.Succeeded, count: 4 },
+        { status: TaskStatus.Started, count: 3 },
+        { status: TaskStatus.SystemFailed, count: 5 },
+        { status: TaskStatus.Unscheduled, count: 2 },
+        { status: TaskStatus.SetupFailed, count: 3 },
+        { status: TaskStatus.SystemUnresponsive, count: 2 },
       ],
     },
     rolledUpVersions: null,

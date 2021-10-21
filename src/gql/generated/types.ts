@@ -196,8 +196,9 @@ export type QueryProjectSettingsArgs = {
 export type Mutation = {
   addFavoriteProject: Project;
   removeFavoriteProject: Project;
-  saveProjectSettingsForSection: ProjectSettings;
   createProject: Project;
+  copyProject: Project;
+  saveProjectSettingsForSection: ProjectSettings;
   attachProjectToRepo: Project;
   detachProjectFromRepo: Project;
   schedulePatch: Patch;
@@ -247,13 +248,17 @@ export type MutationRemoveFavoriteProjectArgs = {
   identifier: Scalars["String"];
 };
 
+export type MutationCreateProjectArgs = {
+  project: CreateProjectInput;
+};
+
+export type MutationCopyProjectArgs = {
+  project: CopyProjectInput;
+};
+
 export type MutationSaveProjectSettingsForSectionArgs = {
   projectSettings?: Maybe<ProjectSettingsInput>;
   section: Scalars["String"];
-};
-
-export type MutationCreateProjectArgs = {
-  project: CreateProjectInput;
 };
 
 export type MutationAttachProjectToRepoArgs = {
@@ -643,6 +648,19 @@ export type PatchesInput = {
   includeCommitQueue?: Scalars["Boolean"];
 };
 
+export type CreateProjectInput = {
+  identifier: Scalars["String"];
+  owner: Scalars["String"];
+  repo: Scalars["String"];
+  id?: Maybe<Scalars["String"]>;
+};
+
+export type CopyProjectInput = {
+  projectIdToCopy: Scalars["String"];
+  newProjectIdentifier: Scalars["String"];
+  newProjectId?: Maybe<Scalars["String"]>;
+};
+
 export type ProjectSettingsInput = {
   githubWebhooksEnabled?: Maybe<Scalars["Boolean"]>;
   projectRef?: Maybe<ProjectInput>;
@@ -688,12 +706,6 @@ export type ProjectInput = {
   workstationConfig?: Maybe<WorkstationConfigInput>;
   hidden?: Maybe<Scalars["Boolean"]>;
   useRepoSettings?: Maybe<Scalars["Boolean"]>;
-};
-
-export type CreateProjectInput = {
-  identifier: Scalars["String"];
-  owner: Scalars["String"];
-  repo: Scalars["String"];
 };
 
 export type TriggerAliasInput = {
@@ -1229,6 +1241,7 @@ export type Task = {
   priority?: Maybe<Scalars["Int"]>;
   project?: Maybe<Project>;
   projectId: Scalars["String"];
+  projectIdentifier?: Maybe<Scalars["String"]>;
   /** @deprecated reliesOn is deprecated. Use dependsOn instead. */
   reliesOn: Array<Dependency>;
   dependsOn?: Maybe<Array<Dependency>>;
@@ -2213,6 +2226,14 @@ export type DistroTaskQueueQuery = {
   }>;
 };
 
+export type GetFailedTaskStatusIconTooltipQueryVariables = Exact<{
+  taskId: Scalars["String"];
+}>;
+
+export type GetFailedTaskStatusIconTooltipQuery = {
+  taskTests: { testResults: Array<{ id: string; testFile: string }> };
+};
+
 export type AgentLogsQueryVariables = Exact<{
   id: Scalars["String"];
   execution?: Maybe<Scalars["Int"]>;
@@ -2699,6 +2720,7 @@ export type MainlineCommitsQuery = {
                     execution: number;
                     status: string;
                     displayName: string;
+                    timeTaken?: Maybe<number>;
                   }>
                 >
               >;
