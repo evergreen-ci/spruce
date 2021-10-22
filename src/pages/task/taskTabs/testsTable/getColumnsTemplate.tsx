@@ -20,12 +20,14 @@ interface GetColumnsTemplateParams {
     | { name: "Click Logs HTML Button" }
     | { name: "Click Logs Raw Button" }
   >;
+  onColumnHeaderClick?: (sortField) => void;
   statusSelectorProps: TreeSelectProps;
   testNameInputProps: InputFilterProps;
 }
 
 export const getColumnsTemplate = ({
   taskAnalytics,
+  onColumnHeaderClick = () => undefined,
   statusSelectorProps,
   testNameInputProps,
 }: GetColumnsTemplateParams): ColumnProps<TestResult>[] => [
@@ -33,6 +35,11 @@ export const getColumnsTemplate = ({
     title: <span data-cy="name-column">Name</span>,
     dataIndex: "testFile",
     key: TestSortCategory.TestName,
+    onHeaderCell: () => ({
+      onClick: () => {
+        onColumnHeaderClick(TestSortCategory.TestName);
+      },
+    }),
     width: "40%",
     render: (testFile) => <WordBreak>{testFile}</WordBreak>,
     sorter: true,
@@ -42,6 +49,11 @@ export const getColumnsTemplate = ({
     title: <span data-cy="status-column">Status</span>,
     dataIndex: "status",
     key: TestSortCategory.Status,
+    onHeaderCell: () => ({
+      onClick: () => {
+        onColumnHeaderClick(TestSortCategory.Status);
+      },
+    }),
     sorter: true,
     className: "data-cy-status-column",
     render: (status: string): JSX.Element => (
@@ -56,6 +68,11 @@ export const getColumnsTemplate = ({
     title: <span data-cy="base-status-column">Base Status</span>,
     dataIndex: "baseStatus",
     key: TestSortCategory.BaseStatus,
+    onHeaderCell: () => ({
+      onClick: () => {
+        onColumnHeaderClick(TestSortCategory.BaseStatus);
+      },
+    }),
     sorter: true,
     render: (status: string): JSX.Element => (
       <TestStatusBadge status={status} />
@@ -65,6 +82,11 @@ export const getColumnsTemplate = ({
     title: <span data-cy="time-column">Time</span>,
     dataIndex: "duration",
     key: TestSortCategory.Duration,
+    onHeaderCell: () => ({
+      onClick: () => {
+        onColumnHeaderClick(TestSortCategory.Duration);
+      },
+    }),
     sorter: true,
     render: (text: number): string => {
       const ms = text * 1000;
