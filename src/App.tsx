@@ -12,77 +12,77 @@ const globalStyles = css`
   // Regular
   @font-face {
     font-family: "Akzidenz";
-    src: url("/static/font/akzidgrostdreg.eot");
-    src: url("/static/font/akzidgrostdreg.eot?#iefix")
+    src: url("/static/font/akzidenz/akzidgrostdreg.eot");
+    src: url("/static/font/akzidenz/akzidgrostdreg.eot?#iefix")
         format("embedded-opentype"),
-      url("/static/font/akzidgrostdreg.woff") format("woff"),
-      url("/static/font/akzidgrostdreg.ttf") format("truetype");
+      url("/static/font/akzidenz/akzidgrostdreg.woff") format("woff"),
+      url("/static/font/akzidenz/akzidgrostdreg.ttf") format("truetype");
     font-style: normal;
     font-weight: normal;
   }
   // Regular Italic
   @font-face {
     font-family: "Akzidenz";
-    src: url("/static/font/akzidgrostdita.eot");
-    src: url("/static/font/akzidgrostdita.eot?#iefix")
+    src: url("/static/font/akzidenz/akzidgrostdita.eot");
+    src: url("/static/font/akzidenz/akzidgrostdita.eot?#iefix")
         format("embedded-opentype"),
-      url("/static/font/akzidgrostdita.woff") format("woff"),
-      url("/static/font/akzidgrostdita.ttf") format("truetype");
+      url("/static/font/akzidenz/akzidgrostdita.woff") format("woff"),
+      url("/static/font/akzidenz/akzidgrostdita.ttf") format("truetype");
     font-style: italic;
     font-weight: normal;
   }
   // Bold
   @font-face {
     font-family: "Akzidenz";
-    src: url("/static/font/akzidgrostdmed.eot");
-    src: url("/static/font/akzidgrostdmed.eot?#iefix")
+    src: url("/static/font/akzidenz/akzidgrostdmed.eot");
+    src: url("/static/font/akzidenz/akzidgrostdmed.eot?#iefix")
         format("embedded-opentype"),
-      url("/static/font/akzidgrostdmed.woff") format("woff"),
-      url("/static/font/akzidgrostdmed.ttf") format("truetype");
+      url("/static/font/akzidenz/akzidgrostdmed.woff") format("woff"),
+      url("/static/font/akzidenz/akzidgrostdmed.ttf") format("truetype");
     font-style: normal;
     font-weight: bold;
   }
   // Bold Italic
   @font-face {
     font-family: "Akzidenz";
-    src: url("/static/font/akzidgrostdmedita.eot");
-    src: url("/static/font/akzidgrostdmedita.eot?#iefix")
+    src: url("/static/font/akzidenz/akzidgrostdmedita.eot");
+    src: url("/static/font/akzidenz/akzidgrostdmedita.eot?#iefix")
         format("embedded-opentype"),
-      url("/static/font/akzidgrostdmedita.woff") format("woff"),
-      url("/static/font/akzidgrostdmedita.ttf") format("truetype");
+      url("/static/font/akzidenz/akzidgrostdmedita.woff") format("woff"),
+      url("/static/font/akzidenz/akzidgrostdmedita.ttf") format("truetype");
     font-style: italic;
     font-weight: bold;
   }
   // Light
   @font-face {
     font-family: "Akzidenz";
-    src: url("/static/font/akzidgrostdlig.eot");
-    src: url("/static/font/akzidgrostdlig.eot?#iefix")
+    src: url("/static/font/akzidenz/akzidgrostdlig.eot");
+    src: url("/static/font/akzidenz/akzidgrostdlig.eot?#iefix")
         format("embedded-opentype"),
-      url("/static/font/akzidgrostdlig.woff") format("woff"),
-      url("/static/font/akzidgrostdlig.ttf") format("truetype");
+      url("/static/font/akzidenz/akzidgrostdlig.woff") format("woff"),
+      url("/static/font/akzidenz/akzidgrostdlig.ttf") format("truetype");
     font-style: normal;
     font-weight: 200;
   }
   // Light Italic
   @font-face {
     font-family: "Akzidenz";
-    src: url("/static/font/akzidgrostdligita.eot");
-    src: url("/static/font/akzidgrostdligita.eot?#iefix")
+    src: url("/static/font/akzidenz/akzidgrostdligita.eot");
+    src: url("/static/font/akzidenz/akzidgrostdligita.eot?#iefix")
         format("embedded-opentype"),
-      url("/static/font/akzidgrostdligita.woff") format("woff"),
-      url("/static/font/akzidgrostdligita.ttf") format("truetype");
+      url("/static/font/akzidenz/akzidgrostdligita.woff") format("woff"),
+      url("/static/font/akzidenz/akzidgrostdligita.ttf") format("truetype");
     font-style: italic;
     font-weight: 200;
   }
   //Condensed weights and styles
   @font-face {
     font-family: "Akzidenz Cnd";
-    src: url("/static/font/akzidgrostdligcnd.eot");
-    src: url("/static/font/akzidgrostdligcnd.eot?#iefix")
+    src: url("/static/font/akzidenz/akzidgrostdligcnd.eot");
+    src: url("/static/font/akzidenz/akzidgrostdligcnd.eot?#iefix")
         format("embedded-opentype"),
-      url("/static/font/akzidgrostdligcnd.woff") format("woff"),
-      url("/static/font/akzidgrostdligcnd.ttf") format("truetype");
+      url("/static/font/akzidenz/akzidgrostdligcnd.woff") format("woff"),
+      url("/static/font/akzidenz/akzidgrostdligcnd.ttf") format("truetype");
     font-style: normal;
     font-weight: 200;
   }
