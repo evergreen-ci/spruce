@@ -103,7 +103,7 @@ interface GetColumnDefsParams {
 
 const getColumnDefs = ({
   onClickTaskLink,
-  onColumnHeaderClick,
+  onColumnHeaderClick = () => undefined,
   baseStatusSelectorProps,
   statusSelectorProps,
   variantInputProps,
@@ -115,7 +115,7 @@ const getColumnDefs = ({
     key: TaskSortCategory.Name,
     onHeaderCell: () => ({
       onClick: () => {
-        onColumnHeaderClick?.(TaskSortCategory.Name);
+        onColumnHeaderClick(TaskSortCategory.Name);
       },
     }),
     sorter: {
@@ -139,7 +139,7 @@ const getColumnDefs = ({
     key: TaskSortCategory.Status,
     onHeaderCell: () => ({
       onClick: () => {
-        onColumnHeaderClick?.(TaskSortCategory.Status);
+        onColumnHeaderClick(TaskSortCategory.Status);
       },
     }),
     sorter: {
@@ -161,7 +161,7 @@ const getColumnDefs = ({
     key: TaskSortCategory.BaseStatus,
     onHeaderCell: () => ({
       onClick: () => {
-        onColumnHeaderClick?.(TaskSortCategory.BaseStatus);
+        onColumnHeaderClick(TaskSortCategory.BaseStatus);
       },
     }),
     sorter: {
@@ -183,7 +183,7 @@ const getColumnDefs = ({
     key: TaskSortCategory.Variant,
     onHeaderCell: () => ({
       onClick: () => {
-        onColumnHeaderClick?.(TaskSortCategory.Variant);
+        onColumnHeaderClick(TaskSortCategory.Variant);
       },
     }),
     sorter: {

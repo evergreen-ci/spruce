@@ -27,7 +27,7 @@ interface GetColumnsTemplateParams {
 
 export const getColumnsTemplate = ({
   taskAnalytics,
-  onColumnHeaderClick,
+  onColumnHeaderClick = () => undefined,
   statusSelectorProps,
   testNameInputProps,
 }: GetColumnsTemplateParams): ColumnProps<TestResult>[] => [
@@ -37,7 +37,7 @@ export const getColumnsTemplate = ({
     key: TestSortCategory.TestName,
     onHeaderCell: () => ({
       onClick: () => {
-        onColumnHeaderClick?.(TestSortCategory.TestName);
+        onColumnHeaderClick(TestSortCategory.TestName);
       },
     }),
     width: "40%",
@@ -51,7 +51,7 @@ export const getColumnsTemplate = ({
     key: TestSortCategory.Status,
     onHeaderCell: () => ({
       onClick: () => {
-        onColumnHeaderClick?.(TestSortCategory.Status);
+        onColumnHeaderClick(TestSortCategory.Status);
       },
     }),
     sorter: true,
@@ -70,7 +70,7 @@ export const getColumnsTemplate = ({
     key: TestSortCategory.BaseStatus,
     onHeaderCell: () => ({
       onClick: () => {
-        onColumnHeaderClick?.(TestSortCategory.BaseStatus);
+        onColumnHeaderClick(TestSortCategory.BaseStatus);
       },
     }),
     sorter: true,
@@ -84,7 +84,7 @@ export const getColumnsTemplate = ({
     key: TestSortCategory.Duration,
     onHeaderCell: () => ({
       onClick: () => {
-        onColumnHeaderClick?.(TestSortCategory.Duration);
+        onColumnHeaderClick(TestSortCategory.Duration);
       },
     }),
     sorter: true,
