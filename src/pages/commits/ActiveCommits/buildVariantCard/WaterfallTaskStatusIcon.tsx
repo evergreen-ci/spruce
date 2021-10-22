@@ -45,7 +45,7 @@ export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = (
       usePortal={false}
       align="top"
       justify="middle"
-      popoverZIndex={1}
+      popoverZIndex={4} // One more than the Absolute/Percentage chart toggle
       trigger={
         <IconButton
           onMouseOver={loadDataCb}
