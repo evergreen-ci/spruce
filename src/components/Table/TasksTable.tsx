@@ -77,6 +77,7 @@ export const TasksTable: React.FC<TasksTableProps> = ({
             variantInputProps,
           })
     }
+    getPopupContainer={(trigger: HTMLElement) => trigger as HTMLElement}
     dataSource={tasks}
     onChange={tableChangeHandler}
     childrenColumnName="executionTasksFull"

@@ -21,6 +21,8 @@ describe("Tasks filters", () => {
 
   it("Should clear any filters with the Clear All Filters button and reset the table to its default state", () => {
     cy.visit(pathURLWithFilters);
+    cy.dataCy("dismiss-sitewide-banner-button").click();
+
     cy.dataCy("tasks-table").should("exist");
     cy.dataCy("clear-all-filters").click();
     cy.location().should((loc) => {
@@ -60,7 +62,6 @@ describe("Tasks filters", () => {
         search: variantInputValue,
       });
       cy.dataCy("current-task-count").should("contain.text", 2);
-      // cy.toggleTableFilter(4);
       cy.dataCy("variant-input-wrapper").find("input").focus().clear();
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
@@ -85,8 +86,8 @@ describe("Tasks filters", () => {
         paramName: urlParam,
         search: taskNameInputValue,
       });
-      // cy.toggleTableFilter(1);
       cy.dataCy("taskname-input-wrapper").find("input").focus().clear();
+      cy.toggleTableFilter(1);
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
@@ -111,9 +112,10 @@ describe("Tasks filters", () => {
         paramName: urlParam,
         search: "failed",
       });
+      cy.toggleTableFilter(2);
       const postFilterCount = cy.dataCy("current-task-count").invoke("text");
       expect(preFilterCount).to.not.eq(postFilterCount);
-      // cy.toggleTableFilter(2);
+      cy.toggleTableFilter(2);
       cy.getInputByLabel("Success").check({ force: true });
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
