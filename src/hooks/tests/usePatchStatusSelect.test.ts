@@ -1,5 +1,5 @@
 import { renderHook, act } from "@testing-library/react-hooks";
-import { usePatchStatusSelect } from "hooks";
+import { useVersionTaskStatusSelect } from "hooks";
 import { waitFor } from "test_utils/test-utils";
 
 const allFalse = {
@@ -28,39 +28,39 @@ const allTrue = {
 
 test("should have no tasks and no valid statuses selected by default", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
-  expect(result.current[0][versionId]).toStrictEqual(allFalse);
+  expect(result.current.selectedTasks[versionId]).toStrictEqual(allFalse);
 });
 
 test("should select all tasks that match the patch status filter when the base status filter is empty", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
   act(() => {
-    result.current[3].setPatchStatusFilterTerm({
+    result.current.setVersionStatusFilterTerm({
       mainVersion: ["success"],
     });
   });
   act(() => {
-    result.current[3].setBaseStatusFilterTerm({});
+    result.current.setBaseStatusFilterTerm({});
   });
-  expect(result.current[0][versionId]).toEqual(successStatusIds);
+  expect(result.current.selectedTasks[versionId]).toEqual(successStatusIds);
 });
 
 test("should select all tasks that match the base status filter when the patch status filter is empty", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
   act(() => {
-    result.current[3].setPatchStatusFilterTerm({});
+    result.current.setVersionStatusFilterTerm({});
   });
   act(() => {
-    result.current[3].setBaseStatusFilterTerm({
+    result.current.setBaseStatusFilterTerm({
       mainVersion: ["success"],
     });
   });
-  expect(result.current[0][versionId]).toEqual({
+  expect(result.current.selectedTasks[versionId]).toEqual({
     ...allFalse,
     evergreen_ubuntu1604_test_service: true,
   });
@@ -68,35 +68,35 @@ test("should select all tasks that match the base status filter when the patch s
 
 test("should select all tasks that match the patch status filter when the base status filter is empty", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
   act(() => {
-    result.current[3].setPatchStatusFilterTerm({
+    result.current.setVersionStatusFilterTerm({
       mainVersion: ["success"],
     });
   });
   act(() => {
-    result.current[3].setBaseStatusFilterTerm({});
+    result.current.setBaseStatusFilterTerm({});
   });
-  expect(result.current[0][versionId]).toEqual(successStatusIds);
+  expect(result.current.selectedTasks[versionId]).toEqual(successStatusIds);
 });
 
 test("should select all tasks that match the patch status filter and base status filter when both filters have active filter terms.", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
   act(() => {
-    result.current[3].setPatchStatusFilterTerm({
+    result.current.setVersionStatusFilterTerm({
       mainVersion: ["failed"],
     });
   });
   act(() => {
-    result.current[3].setBaseStatusFilterTerm({
+    result.current.setBaseStatusFilterTerm({
       mainVersion: ["success"],
     });
   });
   waitFor(() =>
-    expect(result.current[0]).toEqual({
+    expect(result.current.selectedTasks).toEqual({
       ...allFalse,
       evergreen_ubuntu1604_test_service: true,
     })
@@ -105,20 +105,20 @@ test("should select all tasks that match the patch status filter and base status
 
 test("tasks with undefined base statuses do not match with any base status filter state.", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
   act(() => {
-    result.current[3].setPatchStatusFilterTerm({
+    result.current.setVersionStatusFilterTerm({
       mainVersion: ["success"],
     });
   });
   act(() => {
-    result.current[3].setBaseStatusFilterTerm({
+    result.current.setBaseStatusFilterTerm({
       mainVersion: ["success", "fakeStatus", "random"],
     });
   });
   waitFor(() =>
-    expect(result.current[0]).toEqual({
+    expect(result.current.selectedTasks).toEqual({
       ...allFalse,
     })
   );
@@ -126,32 +126,34 @@ test("tasks with undefined base statuses do not match with any base status filte
 
 test("should deselect all tasks with statuses that do not match any patch status filter terms.", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
   act(() => {
-    result.current[3].setPatchStatusFilterTerm({
+    result.current.setVersionStatusFilterTerm({
       mainVersion: ["success"],
     });
   });
-  expect(result.current[0][versionId]).toEqual(successStatusIds);
+  expect(result.current.selectedTasks[versionId]).toEqual(successStatusIds);
   act(() => {
-    result.current[3].setPatchStatusFilterTerm({
+    result.current.setVersionStatusFilterTerm({
       mainVersion: [],
     });
   });
-  expect(result.current[0][versionId]).toStrictEqual({ ...allFalse });
+  expect(result.current.selectedTasks[versionId]).toStrictEqual({
+    ...allFalse,
+  });
 });
 
 test("selecting multiple patch statuses should select all tasks with a matching status", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
   act(() => {
-    result.current[3].setPatchStatusFilterTerm({
+    result.current.setVersionStatusFilterTerm({
       mainVersion: ["success", "failed"],
     });
   });
-  expect(result.current[0][versionId]).toEqual({
+  expect(result.current.selectedTasks[versionId]).toEqual({
     ...allTrue,
     evergreen_ubuntu1604_89: false,
   });
@@ -159,14 +161,14 @@ test("selecting multiple patch statuses should select all tasks with a matching 
 
 test("selecting an individual task should work", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
   act(() => {
-    result.current[3].toggleSelectedTask({
+    result.current.toggleSelectedTask({
       mainVersion: "evergreen_lint_generate_lint",
     });
   });
-  expect(result.current[0][versionId]).toEqual({
+  expect(result.current.selectedTasks[versionId]).toEqual({
     ...allFalse,
     evergreen_lint_generate_lint: true,
   });
@@ -174,20 +176,20 @@ test("selecting an individual task should work", () => {
 
 test("deselecting an individual task should work if it was selected by valid statuses", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
   act(() => {
-    result.current[3].setPatchStatusFilterTerm({
+    result.current.setVersionStatusFilterTerm({
       mainVersion: ["success"],
     });
   });
-  expect(result.current[0][versionId]).toEqual(successStatusIds);
+  expect(result.current.selectedTasks[versionId]).toEqual(successStatusIds);
   act(() => {
-    result.current[3].toggleSelectedTask({
+    result.current.toggleSelectedTask({
       mainVersion: "evergreen_lint_generate_lint",
     });
   });
-  expect(result.current[0][versionId]).toEqual({
+  expect(result.current.selectedTasks[versionId]).toEqual({
     ...allTrue,
     evergreen_lint_generate_lint: false,
     evergreen_ubuntu1604_89: false,
@@ -197,52 +199,64 @@ test("deselecting an individual task should work if it was selected by valid sta
 
 test("batch toggling tasks will set them all to checked when they are orignially unchecked", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
-  waitFor(() => expect(result.current[0]).toStrictEqual({ ...allFalse }));
+  waitFor(() =>
+    expect(result.current.selectedTasks).toStrictEqual({ ...allFalse })
+  );
   act(() =>
-    result.current[3].toggleSelectedTask({
+    result.current.toggleSelectedTask({
       mainVersion: Object.keys(allFalse),
     })
   );
-  waitFor(() => expect(result.current[0]).toStrictEqual({ ...allTrue }));
+  waitFor(() =>
+    expect(result.current.selectedTasks).toStrictEqual({ ...allTrue })
+  );
 });
 
 test("batch toggling tasks will set them all to checked when some and not all are originally checked.", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
-  waitFor(() => expect(result.current[0]).toStrictEqual({ ...allFalse }));
+  waitFor(() =>
+    expect(result.current.selectedTasks).toStrictEqual({ ...allFalse })
+  );
   act(() =>
-    result.current[3].toggleSelectedTask({
+    result.current.toggleSelectedTask({
       mainVersion: "evergreen_lint_generate_lint",
     })
   );
   waitFor(() =>
-    expect(result.current[0]).toStrictEqual({
+    expect(result.current.selectedTasks).toStrictEqual({
       ...allFalse,
       evergreen_lint_generate_lint: true,
     })
   );
   act(() =>
-    result.current[3].toggleSelectedTask({
+    result.current.toggleSelectedTask({
       mainVersion: Object.keys(allFalse),
     })
   );
-  waitFor(() => expect(result.current[0]).toStrictEqual({ ...allTrue }));
+  waitFor(() =>
+    expect(result.current.selectedTasks).toStrictEqual({ ...allTrue })
+  );
 });
 
 test("batch toggling tasks will set them all to unchecked when they are all originally checked.", () => {
   const { result } = renderHook(() =>
-    usePatchStatusSelect(patchBuildVariants, versionId, childVersion)
+    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
   );
-  waitFor(() => expect(result.current[0]).toStrictEqual({ ...allTrue }));
+  waitFor(() =>
+    expect(result.current.selectedTasks).toStrictEqual({ ...allTrue })
+  );
   act(() =>
-    result.current[3].toggleSelectedTask({
+    result.current.toggleSelectedTask({
       mainVersion: Object.keys(allTrue),
     })
   );
-  waitFor(() => expect(result.current[0]).toStrictEqual({ ...allFalse }));
+  waitFor(() =>
+    expect(result.current.selectedTasks).toStrictEqual({ ...allFalse })
+  );
 });
 
 const patchBuildVariants = [

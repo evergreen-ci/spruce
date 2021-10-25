@@ -1,6 +1,6 @@
 import React from "react";
 import { FixedSizeList } from "react-window";
-import { selectedStrings } from "hooks/usePatchStatusSelect";
+import { selectedStrings } from "hooks/useVersionTaskStatusSelect";
 import { TaskStatusCheckbox } from "./TaskStatusCheckbox";
 
 interface TaskStatusCheckboxContainerProps {
