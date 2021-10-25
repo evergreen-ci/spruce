@@ -100,32 +100,6 @@ const akzidenzBoldItalic = css`
   }
 `;
 
-// Akzidenz Super
-const akzidenzSuper = css`
-  @font-face {
-    font-display: swap;
-    font-family: "Akzidenz";
-    font-weight: 900;
-    font-style: normal;
-    src: url("/static/font/akzidenz/akzidgrostdsup-webfont.woff2")
-        format("woff2"),
-      url("/static/font/akzidenz/akzidgrostdsup-webfont.woff") format("woff");
-  }
-`;
-
-// Akzidenz Super Italic
-const akzidenzSuperItalic = css`
-  @font-face {
-    font-display: swap;
-    font-family: "Akzidenz";
-    font-weight: 900;
-    font-style: italic;
-    src: url("/static/font/akzidenz/akzidgrostdsupita-webfont.woff2")
-        format("woff2"),
-      url("/static/font/akzidenz/akzidgrostdsupita-webfont.woff") format("woff");
-  }
-`;
-
 export const akzidenzFont = css`
   ${akzidenzLight}
   ${akzidenzLightItalic}
@@ -135,6 +109,4 @@ export const akzidenzFont = css`
   ${akzidenzMediumItalic}
   ${akzidenzBold}
   ${akzidenzBoldItalic}
-  ${akzidenzSuper}
-  ${akzidenzSuperItalic}
 `;
