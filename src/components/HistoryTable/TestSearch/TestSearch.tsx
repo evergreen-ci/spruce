@@ -50,7 +50,7 @@ export const TestSearch = () => {
             glyph="Plus"
             onClick={onClick}
             aria-label="Select plus button"
-            data-cy="tuple-select-button"
+            data-cy="history-table-test-search-button"
           />
         }
         onPressEnter={onClick}

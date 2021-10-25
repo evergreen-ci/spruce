@@ -8,7 +8,7 @@ import HistoryTable, {
   context,
   ColumnPaginationButtons,
 } from "components/HistoryTable";
-import { TestSearch } from "components/HistoryTable/TestSearch/TestSearch"; // change this
+import { TestSearch } from "components/HistoryTable/TestSearch/TestSearch";
 import { PageWrapper } from "components/styles";
 import {
   MainlineCommitsForHistoryQuery,
@@ -96,7 +96,6 @@ export const VariantHistory = () => {
               <TaskSelector projectId={projectId} buildVariant={variantName} />
             </PageHeaderContent>
           </PageHeader>
-
           <BadgeWrapper>
             <FilterBadges />
           </BadgeWrapper>
@@ -140,6 +139,11 @@ const PageHeaderContent = styled.div`
   padding-top: 28px;
 `;
 
+const BadgeWrapper = styled.div`
+  padding-top: 16px;
+  padding-bottom: 16px;
+`;
+
 const TableWrapper = styled.div`
   height: 80vh;
 `;
@@ -151,9 +155,4 @@ const CenterPage = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-`;
-
-const BadgeWrapper = styled.div`
-  padding-top: 16px;
-  padding-bottom: 16px;
 `;
