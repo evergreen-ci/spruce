@@ -639,6 +639,198 @@ exports[`Storyshots History Table Task History Table 1`] = `
 </div>
 `;
 
+exports[`Storyshots History Table Test Filter Search 1`] = `
+<div
+  style={
+    Object {
+      "display": "flex",
+      "flexDirection": "column",
+    }
+  }
+>
+  <div
+    className="css-einlee-ContentWrapper emkahk32"
+  >
+    <div
+      className="css-11bvodl-RadioBoxWrapper emkahk31"
+    >
+      <div
+        className="leafygreen-ui-ov1ktg"
+        role="group"
+      >
+        <label
+          className="leafygreen-ui-uy9cic css-1mmcw71-StyledRadioBox emkahk30"
+          data-leafygreen-ui="radio-box-wrapper"
+          htmlFor="radio-box-1"
+        >
+          <input
+            aria-checked={true}
+            aria-disabled={false}
+            checked={true}
+            className="leafygreen-ui-sjbfy8"
+            data-leafygreen-ui="radio-box-input"
+            disabled={false}
+            id="radio-box-1"
+            name="radio-box-group-1"
+            onChange={[Function]}
+            type="radio"
+            value="failed"
+          />
+          <div
+            className="leafygreen-ui-127vqa1"
+          >
+            <div
+              className="leafygreen-ui-16kk2uc"
+            >
+              <div
+                className="leafygreen-ui-15zg8ja"
+                onBlur={[Function]}
+                onFocus={[Function]}
+              >
+                Failed test
+              </div>
+              <div
+                className="leafygreen-ui-lmd64m"
+                data-leafygreen-ui="interaction-ring"
+              />
+            </div>
+          </div>
+        </label>
+        <label
+          className="leafygreen-ui-uy9cic css-1mmcw71-StyledRadioBox emkahk30"
+          data-leafygreen-ui="radio-box-wrapper"
+          htmlFor="radio-box-2"
+        >
+          <input
+            aria-checked={false}
+            aria-disabled={false}
+            checked={false}
+            className="leafygreen-ui-sjbfy8"
+            data-leafygreen-ui="radio-box-input"
+            disabled={false}
+            id="radio-box-2"
+            name="radio-box-group-1"
+            onChange={[Function]}
+            type="radio"
+            value="passed"
+          />
+          <div
+            className="leafygreen-ui-127vqa1"
+          >
+            <div
+              className="leafygreen-ui-1ozjte4"
+            >
+              <div
+                className="leafygreen-ui-15zg8ja"
+                onBlur={[Function]}
+                onFocus={[Function]}
+              >
+                Passed test
+              </div>
+              <div
+                className="leafygreen-ui-15x5f9a"
+                data-leafygreen-ui="interaction-ring"
+              />
+            </div>
+          </div>
+        </label>
+        <label
+          className="leafygreen-ui-uy9cic css-1mmcw71-StyledRadioBox emkahk30"
+          data-leafygreen-ui="radio-box-wrapper"
+          htmlFor="radio-box-3"
+        >
+          <input
+            aria-checked={false}
+            aria-disabled={false}
+            checked={false}
+            className="leafygreen-ui-sjbfy8"
+            data-leafygreen-ui="radio-box-input"
+            disabled={false}
+            id="radio-box-3"
+            name="radio-box-group-1"
+            onChange={[Function]}
+            type="radio"
+            value="all"
+          />
+          <div
+            className="leafygreen-ui-127vqa1"
+          >
+            <div
+              className="leafygreen-ui-1ozjte4"
+            >
+              <div
+                className="leafygreen-ui-15zg8ja"
+                onBlur={[Function]}
+                onFocus={[Function]}
+              >
+                All test
+              </div>
+              <div
+                className="leafygreen-ui-15x5f9a"
+                data-leafygreen-ui="interaction-ring"
+              />
+            </div>
+          </div>
+        </label>
+      </div>
+    </div>
+    <span
+      className="ant-input-affix-wrapper"
+      onMouseUp={[Function]}
+    >
+      <input
+        aria-label="Select Test Name Input"
+        className="ant-input"
+        data-cy="history-table-test-search-input"
+        id="history-table-test-search-input"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Search Test Name"
+        style={null}
+        type="text"
+        value=""
+      />
+      <span
+        className="ant-input-suffix"
+      >
+        <svg
+          aria-label="Select plus button"
+          className=""
+          data-cy="tuple-select-button"
+          fill="none"
+          height={16}
+          onClick={[Function]}
+          role="img"
+          viewBox="0 0 16 16"
+          width={16}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clipRule="evenodd"
+            d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+        </svg>
+      </span>
+    </span>
+  </div>
+  <div
+    style={
+      Object {
+        "paddingTop": "16px",
+      }
+    }
+  >
+    <div
+      className="css-19f1xe2-Container e3qndfh0"
+    />
+  </div>
+</div>
+`;
+
 exports[`Storyshots History Table Variant History Table 1`] = `
 <div
   style={

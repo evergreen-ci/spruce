@@ -63,7 +63,7 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 40%;
-  min-width: 600px; // only imposed because leafygreen radio buttons don't seem to be responsive
+  min-width: 600px; // only imposed because leafygreen RadioBoxGroup don't seem to be responsive
   padding-right: 30px;
 `;
 
