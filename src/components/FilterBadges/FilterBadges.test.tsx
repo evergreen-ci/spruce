@@ -4,7 +4,7 @@ import {
 } from "test_utils/test-utils";
 import { FilterBadges } from ".";
 
-const Content = () => <FilterBadges />;
+const Content = () => <FilterBadges queryParamsToIgnore={new Set([])} />;
 
 test("should not render any badges if there are no query params", () => {
   const { queryByDataCy } = render(Content, {

@@ -19,14 +19,23 @@ const hiddenQueryParams = new Set([
   PatchTasksQueryParams.Statuses,
   MainlineCommitQueryParams.SkipOrderNumber,
 ]);
-export const FilterBadges: React.FC = () => {
+
+interface FilterBadgesProps {
+  queryParamsToIgnore: Set<string>;
+}
+export const FilterBadges: React.FC<FilterBadgesProps> = ({
+  queryParamsToIgnore,
+}) => {
   const updateQueryParams = useUpdateURLQueryParams();
   const location = useLocation();
   const { search } = location;
   const queryParams = parseQueryString(search);
   const queryParamsList = convertObjectToArray(queryParams).filter(
-    ({ key }) => !hiddenQueryParams.has(key as any)
+    ({ key }) =>
+      !hiddenQueryParams.has(key as any) && !queryParamsToIgnore.has(key as any)
   );
+
+  console.log(queryParamsList);
 
   const onRemove = (key: string, value: string) => {
     const updatedParam = popQueryParams(queryParams[key], value);

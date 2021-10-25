@@ -798,7 +798,7 @@ exports[`Storyshots History Table Test Filter Search 1`] = `
         <svg
           aria-label="Select plus button"
           className=""
-          data-cy="tuple-select-button"
+          data-cy="history-table-test-search-button"
           fill="none"
           height={16}
           onClick={[Function]}

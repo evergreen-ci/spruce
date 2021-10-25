@@ -131,7 +131,7 @@ export const Commits = () => {
           </ProjectSelectWrapper>
         </HeaderWrapper>
         <BadgeWrapper>
-          <FilterBadges />
+          <FilterBadges queryParamsToIgnore={new Set([])} />
         </BadgeWrapper>
         <PaginationButtons
           prevPageOrderNumber={prevPageOrderNumber}

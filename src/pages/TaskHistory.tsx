@@ -3,10 +3,12 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
 import { useLocation, useParams } from "react-router-dom";
+import { FilterBadges } from "components/FilterBadges";
 import HistoryTable, {
   context,
   ColumnPaginationButtons,
 } from "components/HistoryTable";
+import { TestSearch } from "components/HistoryTable/TestSearch/TestSearch";
 import { PageWrapper } from "components/styles";
 import {
   MainlineCommitsForHistoryQuery,
@@ -19,6 +21,7 @@ import {
   GET_BUILD_VARIANTS_FOR_TASK_NAME,
 } from "gql/queries";
 import { usePageTitle } from "hooks";
+import { HistoryFilterOptions } from "types/history";
 import { parseQueryString } from "utils/queryString";
 import { BuildVariantSelector } from "./taskHistory/BuildVariantSelector";
 import ColumnHeaders from "./taskHistory/ColumnHeaders";
@@ -77,6 +80,8 @@ export const TaskHistory = () => {
     selectedBuildVariants = queryParams.buildVariants;
   }
 
+  const queryParamsToIgnore = new Set([HistoryFilterOptions.BuildVariant]);
+
   const selectedColumns = selectedBuildVariants?.length
     ? buildVariantsForTaskName?.filter((bv) =>
         selectedBuildVariants.includes(bv.buildVariant)
@@ -87,12 +92,16 @@ export const TaskHistory = () => {
       <CenterPage>
         <HistoryTableProvider>
           <PageHeader>
-            <div>
-              <H2>Task Name: {taskName}</H2>
+            <H2>Task Name: {taskName}</H2>
+            <PageHeaderContent>
+              <TestSearch />
               <BuildVariantSelector projectId={projectId} taskName={taskName} />
-            </div>
-            <ColumnPaginationButtons />
+            </PageHeaderContent>
           </PageHeader>
+          <BadgeWrapper>
+            <FilterBadges queryParamsToIgnore={queryParamsToIgnore} />
+          </BadgeWrapper>
+          <ColumnPaginationButtons />
           <TableContainer>
             {buildVariantsForTaskName && (
               <>
@@ -122,8 +131,21 @@ export const TaskHistory = () => {
 
 const PageHeader = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
 `;
+
+const PageHeaderContent = styled.div`
+  display: flex;
+  align-items: flex-end;
+  padding-top: 28px;
+`;
+
+const BadgeWrapper = styled.div`
+  padding-top: 16px;
+  padding-bottom: 16px;
+`;
+
 const TableWrapper = styled.div`
   height: 80vh;
 `;
