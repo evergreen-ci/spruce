@@ -3,10 +3,12 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
 import { useLocation, useParams } from "react-router-dom";
+import { FilterBadges } from "components/FilterBadges";
 import HistoryTable, {
   context,
   ColumnPaginationButtons,
 } from "components/HistoryTable";
+import { TestSearch } from "components/HistoryTable/TestSearch/TestSearch"; // change this
 import { PageWrapper } from "components/styles";
 import {
   MainlineCommitsForHistoryQuery,
@@ -88,12 +90,17 @@ export const VariantHistory = () => {
       <CenterPage>
         <HistoryTableProvider>
           <PageHeader>
-            <div>
-              <H2>Build Variant: {variantName}</H2>
+            <H2>Build Variant: {variantName}</H2>
+            <PageHeaderContent>
+              <TestSearch />
               <TaskSelector projectId={projectId} buildVariant={variantName} />
-            </div>
-            <ColumnPaginationButtons />
+            </PageHeaderContent>
           </PageHeader>
+
+          <BadgeWrapper>
+            <FilterBadges />
+          </BadgeWrapper>
+          <ColumnPaginationButtons />
           <TableContainer>
             {taskNamesForBuildVariant && (
               <>
@@ -123,7 +130,14 @@ export const VariantHistory = () => {
 
 const PageHeader = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+`;
+
+const PageHeaderContent = styled.div`
+  display: flex;
+  align-items: flex-end;
+  padding-top: 28px;
 `;
 
 const TableWrapper = styled.div`
@@ -137,4 +151,9 @@ const CenterPage = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+`;
+
+const BadgeWrapper = styled.div`
+  padding-top: 16px;
+  padding-bottom: 16px;
 `;

@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import { RadioBox, RadioBoxGroup } from "@leafygreen-ui/radio-box-group";
 import { Input } from "antd";
 import { useLocation } from "react-router-dom";
-import { FilterBadges } from "components/FilterBadges";
 import Icon from "components/Icon";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { queryString, url } from "utils";
@@ -27,7 +26,7 @@ export const TestSearch = () => {
   };
 
   return (
-    <HeaderWrapper>
+    <ContentWrapper>
       <RadioBoxWrapper>
         <RadioBoxGroup
           value={radioSelection}
@@ -40,12 +39,11 @@ export const TestSearch = () => {
       </RadioBoxWrapper>
 
       <Input
-        id="history-table-search-input"
+        id="history-table-test-search-input"
         aria-label="Select Test Name Input"
-        data-cy="history-table-search-input"
+        data-cy="history-table-test-search-input"
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        style={{ width: "60%" }}
         placeholder="Search Test Name"
         suffix={
           <Icon
@@ -57,33 +55,22 @@ export const TestSearch = () => {
         }
         onPressEnter={onClick}
       />
-      <BadgeWrapper>
-        <FilterBadges />
-      </BadgeWrapper>
-    </HeaderWrapper>
+    </ContentWrapper>
   );
 };
 
-const HeaderWrapper = styled.div`
+const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 40%;
+  min-width: 600px; // only imposed because leafygreen radio buttons don't seem to be responsive
+  padding-right: 30px;
 `;
 
 const RadioBoxWrapper = styled.div`
-  width: 70%;
   margin-bottom: 14px;
 `;
 
 const StyledRadioBox = styled(RadioBox)`
   height: 32px;
-  &div {
-    min-width: 100px;
-  }
-`;
-
-const BadgeWrapper = styled.div`
-  padding-top: 16px;
-  padding-bottom: 32px;
-  height: 32px;
-  margin-bottom: 60px; //remove
 `;
