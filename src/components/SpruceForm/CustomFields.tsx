@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
-import { Label } from "@leafygreen-ui/typography";
+import { Label, Subtitle } from "@leafygreen-ui/typography";
 import { FieldProps } from "@rjsf/core";
 import { EditableTagField } from "components/EditableTagField";
+import ElementWrapper from "./ElementWrapper";
 
 export const ArrayField: React.FC<FieldProps> = ({
   onChange,
@@ -19,7 +20,15 @@ export const ArrayField: React.FC<FieldProps> = ({
   </ElementWrapper>
 );
 
-const ElementWrapper = styled.div`
-  padding-top: 8px;
-  padding-bottom: 8px;
+export const TitleField: React.FC<FieldProps> = ({ title }) => (
+  <>
+    {/* @ts-expect-error  */}
+    <StyledSubtitle>{title}</StyledSubtitle>
+  </>
+);
+
+/* @ts-expect-error  */
+const StyledSubtitle = styled(Subtitle)`
+  margin-top: 16px;
+  margin-bottom: 16px;
 `;

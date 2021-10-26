@@ -1,85 +1,68 @@
-import { SpruceForm } from "components/SpruceForm";
+import { useCallback, useMemo } from "react";
+import { SpruceForm, SpruceFormContainer } from "components/SpruceForm";
+import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
-  useProjectSettingsContext,
   usePopulateForm,
+  useProjectSettingsContext,
 } from "context/project-settings";
-import { TabProps } from "./utils";
+import { getFormData } from "./GeneralTab/getFormData";
+import { GeneralTabProps } from "./types";
 
-export const GeneralTab: React.FC<TabProps> = ({ tab }) => {
+const tab = ProjectSettingsTabRoutes.General;
+
+export const GeneralTab: React.FC<GeneralTabProps> = ({
+  data,
+  useRepoSettings,
+}) => {
   const { getTabFormState, updateForm } = useProjectSettingsContext();
   const currentFormState = getTabFormState(tab);
 
-  // Call this hook after getting data via GraphQL. For now, use dummy data from the object below.
-  usePopulateForm({ ...example1Def.formData, ...example2Def.formData }, tab);
+  const initialFormState = useMemo(() => gqlToSchema(data), [data]);
+  usePopulateForm(initialFormState, tab);
+
+  const onChange = useCallback(({ formData }) => updateForm(tab, formData), [
+    updateForm,
+  ]);
+
+  const { generalConfiguration } = useMemo(() => getFormData(useRepoSettings), [
+    useRepoSettings,
+  ]);
 
   return (
     <>
-      <SpruceForm
-        formData={currentFormState}
-        onChange={({ formData }) => {
-          updateForm(tab, formData);
-        }}
-        schema={example1Def.schema}
-        title="General Configuration"
-        uiSchema={example1Def.uiSchema}
-      />
-      <SpruceForm
-        formData={currentFormState}
-        onChange={({ formData }) => {
-          updateForm(tab, formData);
-        }}
-        schema={example2Def.schema}
-        title="Project Flags"
-        uiSchema={example2Def.uiSchema}
-      />
+      <SpruceFormContainer title="General Configuration">
+        <SpruceForm
+          fields={generalConfiguration.fields}
+          formData={currentFormState}
+          onChange={onChange}
+          schema={generalConfiguration.schema}
+          uiSchema={generalConfiguration.uiSchema}
+        />
+      </SpruceFormContainer>
     </>
   );
 };
 
-const example1Def = {
-  schema: {
-    type: "object" as "object",
-    properties: {
-      foo: {
-        type: "string" as "string",
-        title: "Test Form",
-      },
-    },
+const gqlToSchema = ({
+  enabled = false,
+  owner,
+  repo,
+  branch,
+  displayName,
+  batchTime = 0,
+  remotePath,
+  spawnHostScriptPath,
+}) => ({
+  enabled: enabled ? "enabled" : "disabled",
+  repositoryInfo: {
+    owner,
+    repo,
   },
-  uiSchema: {
-    foo: {
-      "ui:widget": "textarea",
-      "ui:options": {
-        rows: 5,
-        label: false,
-      },
-    },
+  branch,
+  other: {
+    displayName,
+    batchTime,
+    remotePath,
+    spawnHostScriptPath,
   },
-  formData: {
-    foo: "This data will be loaded via GraphQL",
-  },
-};
-
-const example2Def = {
-  schema: {
-    type: "object" as "object",
-    properties: {
-      bar: {
-        type: "string" as "string",
-        title: "Test Form 2",
-      },
-    },
-  },
-  uiSchema: {
-    bar: {
-      "ui:widget": "textarea",
-      "ui:options": {
-        rows: 5,
-        label: false,
-      },
-    },
-  },
-  formData: {
-    bar: "More data loaded via GraphQL",
-  },
-};
+});

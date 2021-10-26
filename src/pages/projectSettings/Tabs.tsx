@@ -1,4 +1,4 @@
-import { ComponentType } from "react";
+import { useMemo, ComponentType } from "react";
 import styled from "@emotion/styled";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
 import { Route, useParams } from "react-router-dom";
@@ -15,18 +15,34 @@ import {
   VariablesTab,
   VirtualWorkstationTab,
 } from "components/ProjectSettingsTabs";
+import { GeneralTabProps } from "components/ProjectSettingsTabs/types";
 import { TabProps } from "components/ProjectSettingsTabs/utils";
 import { routes, ProjectSettingsTabRoutes } from "constants/routes";
 import { useProjectSettingsContext } from "context/project-settings";
+import { ProjectSettingsQuery } from "gql/generated/types";
+import { getTabTitle } from "./getTabTitle";
+import { NavigationModal } from "./NavigationModal";
 
-export const ProjectSettingsTabs: React.FC = () => {
+interface Props {
+  data: ProjectSettingsQuery;
+}
+
+export const ProjectSettingsTabs: React.FC<Props> = ({ data }) => {
   const { tab } = useParams<{ tab: ProjectSettingsTabRoutes }>();
   const { saveTab } = useProjectSettingsContext();
+  const { title, subtitle } = getTabTitle(tab);
 
-  const { title, subtitle } = getTitle(tab);
+  const {
+    projectSettings: {
+      projectRef: { useRepoSettings },
+    },
+  } = data;
+
+  const tabData = useMemo(() => getTabData(data), [data]);
 
   return (
     <Container>
+      <NavigationModal />
       <TitleContainer>
         <H2 data-cy="project-settings-tab-title">{title}</H2>
         {subtitle && <Subtitle>{subtitle}</Subtitle>}
@@ -38,12 +54,18 @@ export const ProjectSettingsTabs: React.FC = () => {
         >
           Save changes on page
         </Button>
+        {!useRepoSettings && <Button>Default to Repo on page</Button>}
       </TitleContainer>
 
-      <TabRoute
-        Component={GeneralTab}
+      <Route
         path={routes.projectSettingsGeneral}
-        tab={ProjectSettingsTabRoutes.General}
+        render={(props) => (
+          <GeneralTab
+            {...props}
+            useRepoSettings={useRepoSettings}
+            data={tabData[ProjectSettingsTabRoutes.General]}
+          />
+        )}
       />
       <TabRoute
         Component={AccessTab}
@@ -104,44 +126,38 @@ const TabRoute: React.FC<TabRouteProps> = ({ Component, path, tab }) => (
   <Route path={path} render={(props) => <Component {...props} tab={tab} />} />
 );
 
-export const getTitle = (
-  tab: ProjectSettingsTabRoutes = ProjectSettingsTabRoutes.General
-): { title: string; subtitle?: string } => {
-  const defaultTitle = {
-    title: "General Settings",
+/* Map data from query to the tab to which it will be passed */
+const getTabData = (
+  data: ProjectSettingsQuery
+): {
+  [ProjectSettingsTabRoutes.General]: GeneralTabProps["data"];
+} => {
+  const {
+    projectSettings: {
+      projectRef: {
+        batchTime,
+        branch,
+        displayName,
+        enabled,
+        owner,
+        remotePath,
+        repo,
+        spawnHostScriptPath,
+      },
+    },
+  } = data;
+  return {
+    [ProjectSettingsTabRoutes.General]: {
+      ...(enabled && { enabled }),
+      ...(batchTime && { batchTime }),
+      branch,
+      displayName,
+      owner,
+      remotePath,
+      repo,
+      spawnHostScriptPath,
+    },
   };
-  return (
-    {
-      [ProjectSettingsTabRoutes.General]: defaultTitle,
-      [ProjectSettingsTabRoutes.Access]: {
-        title: "Access Settings & Admin",
-      },
-      [ProjectSettingsTabRoutes.Variables]: {
-        title: "Variables",
-      },
-      [ProjectSettingsTabRoutes.GitHubCommitQueue]: {
-        title: "GitHub & Commit Queue",
-      },
-      [ProjectSettingsTabRoutes.Notifications]: {
-        title: "Notifications",
-      },
-      [ProjectSettingsTabRoutes.PatchAliases]: {
-        title: "Patch Aliases",
-      },
-      [ProjectSettingsTabRoutes.VirtualWorkstation]: {
-        title: "Virtual Workstation",
-      },
-      [ProjectSettingsTabRoutes.ProjectTriggers]: {
-        title: "Project Triggers",
-      },
-      [ProjectSettingsTabRoutes.PeriodicBuilds]: {
-        title: "Periodic Builds",
-      },
-      [ProjectSettingsTabRoutes.EventLog]: {
-        title: "Event Log",
-      },
-    }[tab] ?? defaultTitle
-  );
 };
 
 const Container = styled.div`

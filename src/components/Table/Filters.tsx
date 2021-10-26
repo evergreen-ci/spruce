@@ -58,6 +58,7 @@ export const InputFilter: React.FC<InputFilterProps> = ({
         value={value}
         onChange={onChange}
         onKeyPress={(e) => e.key === "Enter" && onFilter()}
+        ref={inputEl}
       />
       <FilterInputControls
         onClickSubmit={onFilter}

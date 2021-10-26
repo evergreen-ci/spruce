@@ -94,7 +94,7 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
       className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-114ed4x"
       data-cy="task-status-badge"
     >
-      Success
+      Succeeded
     </div>
   </div>
   <div
@@ -137,7 +137,7 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
       fill="#f1f0fc"
       text="#4f4fbf"
     >
-      Setup Failure
+      Setup Failed
     </div>
   </div>
   <div
