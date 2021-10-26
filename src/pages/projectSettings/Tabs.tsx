@@ -32,7 +32,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({ data }) => {
 
   const {
     projectSettings: {
-      projectRef: { useRepoSettings },
+      projectRef: { id, useRepoSettings },
     },
   } = data;
 
@@ -59,6 +59,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({ data }) => {
         render={(props) => (
           <GeneralTab
             {...props}
+            projectId={id}
             useRepoSettings={useRepoSettings}
             data={tabData[ProjectSettingsTabRoutes.General]}
           />
@@ -144,6 +145,7 @@ const getTabData = (
         dispatchingDisabled,
         repotrackerDisabled,
         defaultLogger,
+        validDefaultLoggers,
         cedarTestResultsEnabled,
         patchingDisabled,
         taskSync,
@@ -164,6 +166,7 @@ const getTabData = (
       ...(deactivatePrevious && { deactivatePrevious }),
       ...(repotrackerDisabled && { repotrackerDisabled }),
       ...(defaultLogger && { defaultLogger }),
+      validDefaultLoggers,
       ...(cedarTestResultsEnabled && { cedarTestResultsEnabled }),
       ...(patchingDisabled && { patchingDisabled }),
       ...(taskSync && {

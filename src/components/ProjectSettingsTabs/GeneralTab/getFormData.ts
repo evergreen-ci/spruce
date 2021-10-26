@@ -1,7 +1,13 @@
 import widgets from "components/SpruceForm/Widgets";
+import { Project } from "gql/generated/types";
+import { ForceRepotrackerRunField } from "./ForceRepotrackerRunField";
 import { MoveRepoField } from "./MoveRepoField";
 
-export const getFormData = (useRepoSettings: boolean) => ({
+export const getFormData = (
+  projectId: string,
+  useRepoSettings: boolean,
+  validDefaultLoggers: Project["validDefaultLoggers"]
+) => ({
   generalConfiguration: {
     fields: { moveRepo: MoveRepoField },
     schema: {
@@ -80,7 +86,7 @@ export const getFormData = (useRepoSettings: boolean) => ({
     },
   },
   projectFlags: {
-    fields: {},
+    fields: { forceRepotrackerRun: ForceRepotrackerRunField },
     schema: {
       type: "object" as "object",
       properties: {
@@ -112,10 +118,6 @@ export const getFormData = (useRepoSettings: boolean) => ({
               enum: ["enabled", "disabled"],
               enumNames: ["Enabled", "Disabled"],
             },
-            forceRepotrackerRun: {
-              type: "boolean" as "boolean",
-              title: "Force run Repotracker on save",
-            },
           },
         },
         logger: {
@@ -124,8 +126,7 @@ export const getFormData = (useRepoSettings: boolean) => ({
           properties: {
             defaultLogger: {
               type: "string" as "string",
-              // TODO: Fetch defaultlogger fields via resolver
-              enum: ["buildlogger", "evergreen"],
+              enum: validDefaultLoggers,
             },
           },
         },
@@ -187,9 +188,11 @@ export const getFormData = (useRepoSettings: boolean) => ({
       },
       repotracker: {
         repotrackerDisabled: {
+          "ui:field": "forceRepotrackerRun",
           "ui:widget": widgets.RadioBoxWidget,
           "ui:description":
             "Repotracker will be triggered from GitHub push events sent via webhook.",
+          options: { projectId },
         },
       },
       logger: {

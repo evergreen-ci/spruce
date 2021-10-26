@@ -11,6 +11,7 @@ fragment generalSettings on Project {
   deactivatePrevious
   repotrackerDisabled
   defaultLogger
+  validDefaultLoggers
   cedarTestResultsEnabled
   patchingDisabled
   taskSync {

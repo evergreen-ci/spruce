@@ -12,6 +12,7 @@ const tab = ProjectSettingsTabRoutes.General;
 
 export const GeneralTab: React.FC<GeneralTabProps> = ({
   data,
+  projectId,
   useRepoSettings,
 }) => {
   const { getTabFormState, updateForm } = useProjectSettingsContext();
@@ -24,9 +25,11 @@ export const GeneralTab: React.FC<GeneralTabProps> = ({
     updateForm,
   ]);
 
+  const { validDefaultLoggers } = data;
+
   const { generalConfiguration, projectFlags } = useMemo(
-    () => getFormData(useRepoSettings),
-    [useRepoSettings]
+    () => getFormData(projectId, useRepoSettings, validDefaultLoggers),
+    [projectId, useRepoSettings, validDefaultLoggers]
   );
 
   return (
@@ -53,6 +56,7 @@ export const GeneralTab: React.FC<GeneralTabProps> = ({
   );
 };
 
+// TODO: Remove default values as part of EVG-15643
 const gqlToSchema = ({
   enabled = false,
   owner,
@@ -88,8 +92,6 @@ const gqlToSchema = ({
   },
   repotracker: {
     repotrackerDisabled: repotrackerDisabled ? "disabled" : "enabled",
-    // TODO: Fetch forceRepotrackerRun via resolver
-    forceRepotrackerRun: false,
   },
   logger: {
     defaultLogger: defaultLogger || null,
