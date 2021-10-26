@@ -7,10 +7,16 @@ import Icon from "components/Icon";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { queryString, url } from "utils";
 
-const { upsertQueryParam } = url;
+const { upsertQueryParam, removeQueryParam } = url;
 const { parseQueryString } = queryString;
 
-export const TestSearch = () => {
+enum TestStatus {
+  Failed = "failed",
+  Passed = "passed",
+  All = "all",
+}
+
+export const HistoryTableTestSearch = () => {
   const [input, setInput] = useState<string>("");
   const [radioSelection, setRadioSelection] = useState<string>("failed");
 
@@ -18,10 +24,34 @@ export const TestSearch = () => {
   const { search } = useLocation();
   const queryParams = parseQueryString(search);
 
-  const onClick = () => {
-    const selectedParams = queryParams.tests as string[];
+  const updateAndRemoveQueryParams = (selectedParams, removeKey: string) => {
     const updatedParams = upsertQueryParam(selectedParams, input);
-    updateQueryParams({ tests: updatedParams });
+    const removedParams = removeQueryParam(queryParams[removeKey], input);
+    updateQueryParams({ [removeKey]: removedParams, all: updatedParams });
+    setInput("");
+  };
+
+  const onClick = () => {
+    const allParams = convertToArray((queryParams.all as string[]) || []);
+    const failedParams = convertToArray((queryParams.failed as string[]) || []);
+    const passedParams = convertToArray((queryParams.passed as string[]) || []);
+
+    if (allParams.includes(input)) {
+      setInput("");
+      return;
+    }
+    if (radioSelection !== TestStatus.Failed && failedParams.includes(input)) {
+      updateAndRemoveQueryParams(allParams, TestStatus.Failed);
+      return;
+    }
+    if (radioSelection !== TestStatus.Passed && passedParams.includes(input)) {
+      updateAndRemoveQueryParams(allParams, TestStatus.Passed);
+      return;
+    }
+
+    const selectedParams = queryParams[radioSelection] as string[];
+    const updatedParams = upsertQueryParam(selectedParams, input);
+    updateQueryParams({ [radioSelection]: updatedParams });
     setInput("");
   };
 
@@ -32,9 +62,21 @@ export const TestSearch = () => {
           value={radioSelection}
           onChange={(e) => setRadioSelection(e.target.value)}
         >
-          <StyledRadioBox value="failed">Failed test</StyledRadioBox>
-          <StyledRadioBox value="passed">Passed test</StyledRadioBox>
-          <StyledRadioBox value="all">All test</StyledRadioBox>
+          <StyledRadioBox
+            data-cy="test-search-failed"
+            value={TestStatus.Failed}
+          >
+            Failed test
+          </StyledRadioBox>
+          <StyledRadioBox
+            data-cy="test-search-passed"
+            value={TestStatus.Passed}
+          >
+            Passed test
+          </StyledRadioBox>
+          <StyledRadioBox data-cy="test-search-all" value={TestStatus.All}>
+            All test
+          </StyledRadioBox>
         </RadioBoxGroup>
       </RadioBoxWrapper>
 
@@ -58,6 +100,9 @@ export const TestSearch = () => {
     </ContentWrapper>
   );
 };
+
+const convertToArray = (params: string[] | string) =>
+  Array.isArray(params) ? [...params] : [params];
 
 const ContentWrapper = styled.div`
   display: flex;

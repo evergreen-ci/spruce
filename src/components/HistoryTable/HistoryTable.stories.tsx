@@ -8,7 +8,7 @@ import { mainlineCommitData } from "./testData";
 const { HistoryTableProvider, useHistoryTable } = context;
 
 export * from "./HistoryTableIcon/HistoryTableIcon.stories";
-export * from "./TestSearch/TestSearch.stories";
+export * from "./HistoryTableTestSearch/HistoryTableTestSearch.stories";
 
 export default {
   title: "History Table",

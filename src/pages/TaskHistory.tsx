@@ -8,7 +8,7 @@ import HistoryTable, {
   context,
   ColumnPaginationButtons,
 } from "components/HistoryTable";
-import { TestSearch } from "components/HistoryTable/TestSearch/TestSearch";
+import { HistoryTableTestSearch } from "components/HistoryTable/HistoryTableTestSearch/HistoryTableTestSearch";
 import { PageWrapper } from "components/styles";
 import {
   MainlineCommitsForHistoryQuery,
@@ -94,7 +94,7 @@ export const TaskHistory = () => {
           <PageHeader>
             <H2>Task Name: {taskName}</H2>
             <PageHeaderContent>
-              <TestSearch />
+              <HistoryTableTestSearch />
               <BuildVariantSelector projectId={projectId} taskName={taskName} />
             </PageHeaderContent>
           </PageHeader>

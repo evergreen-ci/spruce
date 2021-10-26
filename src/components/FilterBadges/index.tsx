@@ -35,8 +35,6 @@ export const FilterBadges: React.FC<FilterBadgesProps> = ({
       !hiddenQueryParams.has(key as any) && !queryParamsToIgnore.has(key as any)
   );
 
-  console.log(queryParamsList);
-
   const onRemove = (key: string, value: string) => {
     const updatedParam = popQueryParams(queryParams[key], value);
     updateQueryParams({ [key]: updatedParam });

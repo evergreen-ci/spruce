@@ -639,7 +639,7 @@ exports[`Storyshots History Table Task History Table 1`] = `
 </div>
 `;
 
-exports[`Storyshots History Table Test Filter Search 1`] = `
+exports[`Storyshots History Table Test Search 1`] = `
 <div
   style={
     Object {
@@ -649,17 +649,17 @@ exports[`Storyshots History Table Test Filter Search 1`] = `
   }
 >
   <div
-    className="css-einlee-ContentWrapper emkahk32"
+    className="css-einlee-ContentWrapper e8i7li42"
   >
     <div
-      className="css-11bvodl-RadioBoxWrapper emkahk31"
+      className="css-11bvodl-RadioBoxWrapper e8i7li41"
     >
       <div
         className="leafygreen-ui-ov1ktg"
         role="group"
       >
         <label
-          className="leafygreen-ui-uy9cic css-1mmcw71-StyledRadioBox emkahk30"
+          className="leafygreen-ui-uy9cic css-1mmcw71-StyledRadioBox e8i7li40"
           data-leafygreen-ui="radio-box-wrapper"
           htmlFor="radio-box-1"
         >
@@ -668,6 +668,7 @@ exports[`Storyshots History Table Test Filter Search 1`] = `
             aria-disabled={false}
             checked={true}
             className="leafygreen-ui-sjbfy8"
+            data-cy="test-search-failed"
             data-leafygreen-ui="radio-box-input"
             disabled={false}
             id="radio-box-1"
@@ -697,7 +698,7 @@ exports[`Storyshots History Table Test Filter Search 1`] = `
           </div>
         </label>
         <label
-          className="leafygreen-ui-uy9cic css-1mmcw71-StyledRadioBox emkahk30"
+          className="leafygreen-ui-uy9cic css-1mmcw71-StyledRadioBox e8i7li40"
           data-leafygreen-ui="radio-box-wrapper"
           htmlFor="radio-box-2"
         >
@@ -706,6 +707,7 @@ exports[`Storyshots History Table Test Filter Search 1`] = `
             aria-disabled={false}
             checked={false}
             className="leafygreen-ui-sjbfy8"
+            data-cy="test-search-passed"
             data-leafygreen-ui="radio-box-input"
             disabled={false}
             id="radio-box-2"
@@ -735,7 +737,7 @@ exports[`Storyshots History Table Test Filter Search 1`] = `
           </div>
         </label>
         <label
-          className="leafygreen-ui-uy9cic css-1mmcw71-StyledRadioBox emkahk30"
+          className="leafygreen-ui-uy9cic css-1mmcw71-StyledRadioBox e8i7li40"
           data-leafygreen-ui="radio-box-wrapper"
           htmlFor="radio-box-3"
         >
@@ -744,6 +746,7 @@ exports[`Storyshots History Table Test Filter Search 1`] = `
             aria-disabled={false}
             checked={false}
             className="leafygreen-ui-sjbfy8"
+            data-cy="test-search-all"
             data-leafygreen-ui="radio-box-input"
             disabled={false}
             id="radio-box-3"

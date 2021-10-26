@@ -1,9 +1,9 @@
 import { FilterBadges } from "components/FilterBadges";
-import { TestSearch } from "./TestSearch";
+import { HistoryTableTestSearch } from "./HistoryTableTestSearch";
 
-export const TestFilterSearch = () => (
+export const TestSearch = () => (
   <div style={{ display: "flex", flexDirection: "column" }}>
-    <TestSearch />
+    <HistoryTableTestSearch />
     <div style={{ paddingTop: "16px" }}>
       <FilterBadges queryParamsToIgnore={new Set([])} />
     </div>
