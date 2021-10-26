@@ -33,7 +33,7 @@ export const ForceRepotrackerRunModal: React.FC<ModalProps> = ({
     },
     onError(err) {
       dispatchToast.error(
-        `There was an error creating the job: ${err.message}`
+        `There was an error creating the repotracker job: ${err.message}`
       );
     },
   });
