@@ -55,14 +55,19 @@ describe("Tasks filters", () => {
       cy.dataCy("variant-input-wrapper")
         .find("input")
         .focus()
-        .type(variantInputValue);
+        .type(`${variantInputValue}{enter}`);
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
         search: variantInputValue,
       });
+      cy.toggleTableFilter(4);
       cy.dataCy("current-task-count").should("contain.text", 2);
-      cy.dataCy("variant-input-wrapper").find("input").focus().clear();
+      cy.dataCy("variant-input-wrapper")
+        .find("input")
+        .focus()
+        .clear()
+        .type(`{enter}`);
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
@@ -80,13 +85,18 @@ describe("Tasks filters", () => {
       cy.dataCy("taskname-input-wrapper")
         .find("input")
         .focus()
-        .type(taskNameInputValue);
+        .type(`${taskNameInputValue}{enter}`);
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
         search: taskNameInputValue,
       });
-      cy.dataCy("taskname-input-wrapper").find("input").focus().clear();
+      cy.toggleTableFilter(1);
+      cy.dataCy("taskname-input-wrapper")
+        .find("input")
+        .focus()
+        .clear()
+        .type(`{enter}`);
       cy.toggleTableFilter(1);
       urlSearchParamsAreUpdated({
         pathname: pathTasks,

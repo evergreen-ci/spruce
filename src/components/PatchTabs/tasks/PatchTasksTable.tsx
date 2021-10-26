@@ -68,14 +68,16 @@ export const PatchTasksTable: React.FC<Props> = ({ patchTasks, sorts }) => {
     placeholder: "Variant name",
     value: variantFilterInputChangeHandler.inputValue,
     onChange: ({ target }) =>
-      variantFilterInputChangeHandler.setAndSubmitInputValue(target.value),
+      variantFilterInputChangeHandler.setInputValue(target.value),
+    onFilter: variantFilterInputChangeHandler.submitInputValue,
   };
 
   const taskNameInputProps: InputFilterProps = {
     placeholder: "Task name",
     value: taskNameFilterInputChangeHandler.inputValue,
     onChange: ({ target }) =>
-      taskNameFilterInputChangeHandler.setAndSubmitInputValue(target.value),
+      taskNameFilterInputChangeHandler.setInputValue(target.value),
+    onFilter: taskNameFilterInputChangeHandler.submitInputValue,
   };
 
   return (

@@ -3,6 +3,7 @@ import { FilterOutlined, SearchOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import TextInput from "@leafygreen-ui/text-input";
+import { Disclaimer } from "@leafygreen-ui/typography";
 import { FilterDropdownProps } from "antd/es/table/interface";
 import { Button } from "components/Button";
 import { CheckboxGroup } from "components/Checkbox";
@@ -50,6 +51,7 @@ export const InputFilter: React.FC<InputFilterProps> = ({
 
   return (
     <FilterWrapper data-cy={`${dataCy}-wrapper`}>
+      <FilterDescription> Press enter to filter. </FilterDescription>
       <TextInput
         type="search"
         aria-label="input-filter"
@@ -57,7 +59,8 @@ export const InputFilter: React.FC<InputFilterProps> = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        onKeyPress={(e) => e.key === "Enter" && onFilter?.()}
+        style={{ minWidth: "190px" }}
+        onKeyPress={(e) => e.key === "Enter" && onFilter && onFilter()}
         ref={inputEl}
       />
       {onFilter && onReset && (
@@ -208,6 +211,9 @@ export const getColumnCheckboxFilterProps = ({
 
 const FilterWrapper = styled.div`
   ${tableInputContainerCSS}
+`;
+const FilterDescription = styled(Disclaimer)`
+  padding-bottom: 12px;
 `;
 const ButtonsWrapper = styled.div`
   display: flex;
