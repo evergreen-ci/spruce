@@ -147,7 +147,8 @@ const handleFieldUpdate = (stateUpdate) => (e) => {
   }
 };
 
-const StyledSelect = styled(Select as any)`
+// @ts-expect-error
+const StyledSelect = styled(Select)`
   width: 100%;
   margin-bottom: 24px;
   :last-child {
