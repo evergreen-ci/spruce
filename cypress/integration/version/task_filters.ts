@@ -127,7 +127,7 @@ describe("Tasks filters", () => {
       const postFilterCount = cy.dataCy("current-task-count").invoke("text");
       expect(preFilterCount).to.not.eq(postFilterCount);
       cy.toggleTableFilter(2);
-      cy.getInputByLabel("Success").check({ force: true });
+      cy.getInputByLabel("Succeeded").check({ force: true });
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
@@ -189,7 +189,7 @@ describe("Tasks filters", () => {
       });
       const postFilterCount = cy.dataCy("current-task-count").invoke("text");
       expect(preFilterCount).to.not.eq(postFilterCount);
-      cy.getInputByLabel("Success").check({ force: true });
+      cy.getInputByLabel("Succeeded").check({ force: true });
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
@@ -227,10 +227,10 @@ describe("Tasks filters", () => {
       });
 
       cy.getInputByLabel("All").uncheck({ force: true });
-
       taskStatuses.forEach((status) => {
         cy.getInputByLabel(status).should("not.be.checked");
       });
+      cy.toggleTableFilter(3);
 
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
