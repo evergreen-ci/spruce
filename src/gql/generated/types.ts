@@ -520,6 +520,7 @@ export type MainlineCommitsOptions = {
   projectID: Scalars["String"];
   limit?: Maybe<Scalars["Int"]>;
   skipOrderNumber?: Maybe<Scalars["Int"]>;
+  shouldCollapse?: Maybe<Scalars["Boolean"]>;
 };
 
 export type BuildVariantTuple = {
@@ -1380,11 +1381,11 @@ export type Project = {
   githubTriggerAliases?: Maybe<Array<Maybe<Scalars["String"]>>>;
   periodicBuilds?: Maybe<Array<Maybe<PeriodicBuild>>>;
   cedarTestResultsEnabled?: Maybe<Scalars["Boolean"]>;
-  commitQueue?: Maybe<CommitQueueParams>;
+  commitQueue: CommitQueueParams;
   admins?: Maybe<Array<Maybe<Scalars["String"]>>>;
   spawnHostScriptPath: Scalars["String"];
   tracksPushEvents?: Maybe<Scalars["Boolean"]>;
-  taskSync?: Maybe<TaskSyncOptions>;
+  taskSync: TaskSyncOptions;
   gitTagAuthorizedUsers?: Maybe<Array<Maybe<Scalars["String"]>>>;
   gitTagAuthorizedTeams?: Maybe<Array<Maybe<Scalars["String"]>>>;
   gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]>;
@@ -1432,8 +1433,8 @@ export type CommitQueueParams = {
 };
 
 export type TaskSyncOptions = {
-  configEnabled: Scalars["Boolean"];
-  patchEnabled: Scalars["Boolean"];
+  configEnabled?: Maybe<Scalars["Boolean"]>;
+  patchEnabled?: Maybe<Scalars["Boolean"]>;
 };
 
 export type WorkstationConfig = {
