@@ -1,0 +1,8 @@
+query GetFailedTaskStatusIconTooltip($taskId: String!) {
+  taskTests(taskId: $taskId, statuses: ["fail"]) {
+    testResults {
+      id
+      testFile
+    }
+  }
+}

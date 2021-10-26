@@ -7,6 +7,7 @@ const patch = {
 const path = `/version/${patch.id}`;
 const pathTasks = `${path}/tasks`;
 const pathURLWithFilters = `${pathTasks}?page=0&sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=failed,success,running-umbrella,dispatched,started&taskName=test-thirdparty&variant=ubuntu`;
+const defaultPath = `${pathTasks}?sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC`;
 
 describe("Tasks filters", () => {
   before(() => {
@@ -26,7 +27,7 @@ describe("Tasks filters", () => {
     cy.dataCy("tasks-table").should("exist");
     cy.dataCy("clear-all-filters").click();
     cy.location().should((loc) => {
-      expect(loc.href).to.equal(loc.origin + pathTasks);
+      expect(loc.href).to.equal(loc.origin + defaultPath);
     });
     cy.toggleTableFilter(1);
     cy.dataCy("taskname-input-wrapper")
@@ -106,7 +107,7 @@ describe("Tasks filters", () => {
     });
   });
 
-  describe(`Task Statuses select`, () => {
+  describe("Task Statuses select", () => {
     const urlParam = "statuses";
     before(() => {
       cy.contains("Clear All Filters").click();
@@ -130,7 +131,7 @@ describe("Tasks filters", () => {
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
-        search: "failed,success",
+        search: "failed-umbrella,failed,known-issue,success",
       });
       const multiFilterCount = cy.dataCy("current-task-count").invoke("text");
 
@@ -140,10 +141,9 @@ describe("Tasks filters", () => {
     it("Clicking on 'All' checkbox adds all the statuses and clicking again removes them", () => {
       const taskStatuses = [
         "All",
-        "Failure",
         "Failed",
         "Known Issue",
-        "Success",
+        "Succeeded",
         "Running",
         "Will Run",
         "Aborted",
@@ -189,7 +189,6 @@ describe("Tasks filters", () => {
       });
       const postFilterCount = cy.dataCy("current-task-count").invoke("text");
       expect(preFilterCount).to.not.eq(postFilterCount);
-      // cy.toggleTableFilter(3);
       cy.getInputByLabel("Success").check({ force: true });
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
@@ -205,10 +204,9 @@ describe("Tasks filters", () => {
       cy.toggleTableFilter(3);
       const taskStatuses = [
         "All",
-        "Failure",
         "Failed",
         "Known Issue",
-        "Success",
+        "Succeeded",
         "Running",
         "Will Run",
         "Undispatched",

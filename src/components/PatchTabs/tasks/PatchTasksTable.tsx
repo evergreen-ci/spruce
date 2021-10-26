@@ -97,6 +97,12 @@ export const PatchTasksTable: React.FC<Props> = ({ patchTasks, sorts }) => {
           taskId,
         })
       }
+      onColumnHeaderClick={(sortField) =>
+        patchAnalytics.sendEvent({
+          name: "Sort Tasks Table",
+          sortBy: sortField,
+        })
+      }
       taskNameInputProps={taskNameInputProps}
       variantInputProps={variantInputProps}
       baseStatusSelectorProps={baseStatusSelectorProps}

@@ -4,16 +4,21 @@ import {
   mapUmbrellaStatusColors,
   sortedUmbrellaStatus,
 } from "constants/task";
+import { TaskStatus } from "types/task";
 
 type ColorCount = {
   count: number;
   statuses: string[];
   color: string;
-  umbrellaStatus: string;
+  umbrellaStatus: TaskStatus;
+  statusCounts: { [key: string]: number };
 };
 
 export const groupStatusesByUmbrellaStatus = (
-  statusCounts: { status: string; count: number }[]
+  statusCounts: {
+    status: string;
+    count: number;
+  }[]
 ) => {
   const counts: { [key: string]: ColorCount } = {};
 
@@ -29,8 +34,14 @@ export const groupStatusesByUmbrellaStatus = (
         count: stat.count,
         statuses: [taskStatusToCopy[stat.status]],
         color: mapUmbrellaStatusColors[umbrellaStatus].barChart,
-        umbrellaStatus,
+        umbrellaStatus: umbrellaStatus as TaskStatus,
+        statusCounts: {},
       };
+    }
+    if (!counts[umbrellaStatus].statusCounts[stat.status]) {
+      counts[umbrellaStatus].statusCounts[stat.status] = stat.count;
+    } else {
+      counts[umbrellaStatus].statusCounts[stat.status] += stat.count;
     }
   });
 

@@ -20,6 +20,7 @@ interface HistoryTableState {
   commitCache: cacheShape;
   visibleColumns: string[];
   currentPage: number;
+  pageCount: number;
   columns: string[];
   columnLimit: number;
 }
@@ -51,11 +52,12 @@ export const reducer = (state: HistoryTableState, action: Action) => {
       return {
         ...state,
         columns: action.columns,
-        visibleColumns: action.columns.slice(0, 8),
+        visibleColumns: action.columns.slice(0, state.columnLimit),
         currentPage: 0,
+        pageCount: Math.ceil(action.columns.length / state.columnLimit),
       };
     case "nextPageColumns": {
-      const pageCount = Math.ceil(state.columns.length / 8);
+      const pageCount = Math.ceil(state.columns.length / state.columnLimit);
       if (pageCount <= state.currentPage + 1) {
         return state;
       }

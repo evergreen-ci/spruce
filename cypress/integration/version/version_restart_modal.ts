@@ -70,7 +70,7 @@ describe("Restarting a patch", () => {
   it("Selecting on the base status filter should toggle the tasks that have matching statuses to it", () => {
     cy.dataCy("version-restart-modal").within(() => {
       cy.get(baseStatusFilter).click();
-      cy.getInputByLabel("Success").check({ force: true });
+      cy.getInputByLabel("Succeeded").check({ force: true });
       cy.get(baseStatusFilter).click();
 
       // ideally this would target the text field itself but leafygreen Body tags dont
@@ -81,7 +81,7 @@ describe("Restarting a patch", () => {
       );
       cy.get(baseStatusFilter).click();
 
-      cy.getInputByLabel("Success").check({ force: true });
+      cy.getInputByLabel("Succeeded").check({ force: true });
       cy.get(baseStatusFilter).click();
     });
   });
@@ -89,7 +89,7 @@ describe("Restarting a patch", () => {
   it("Restarting a task should close the modal and display a success message if it occurs successfully.", () => {
     cy.dataCy("version-restart-modal").within(() => {
       cy.get(statusFilter).click();
-      cy.getInputByLabel("Success").check({ force: true });
+      cy.getInputByLabel("Succeeded").check({ force: true });
       cy.get(statusFilter).click();
       cy.dataCy("restart-patch-button").click();
     });

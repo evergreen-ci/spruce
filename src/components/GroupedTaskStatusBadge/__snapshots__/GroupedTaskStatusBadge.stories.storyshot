@@ -5,148 +5,265 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
   className="css-1gttx0q-Container e1ub2bu20"
 >
   <div
-    className="css-5yec2p-BadgeContainer emc61an2"
-    fill="#E4F4E4"
-    onClick={[Function]}
+    className="leafygreen-ui-cssveg"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
-    <span
-      className="css-wtl5ix-Number emc61an1"
+    <a
+      data-cy="grouped-task-status-badge"
+      href="/version/some_version/tasks?statuses=success"
+      onClick={[Function]}
     >
-      20
-    </span>
-    <span
-      className="css-4dluyx-Status emc61an0"
-    >
-      Successes
-    </span>
+      <div
+        className="css-q6x9ck-BadgeContainer emc61an4"
+        fill="#E4F4E4"
+      >
+        <span
+          className="css-wtl5ix-Number emc61an2"
+        >
+          20
+        </span>
+        <span
+          className="css-oqj204-Status emc61an1"
+        >
+          Succeeded
+        </span>
+      </div>
+    </a>
   </div>
   <div
-    className="css-5yec2p-BadgeContainer emc61an2"
-    fill="#E4F4E4"
-    onClick={[Function]}
+    className="leafygreen-ui-cssveg"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
-    <span
-      className="css-wtl5ix-Number emc61an1"
+    <a
+      data-cy="grouped-task-status-badge"
+      href="/version/some_version/tasks?statuses=success"
+      onClick={[Function]}
     >
-      1
-    </span>
-    <span
-      className="css-4dluyx-Status emc61an0"
-    >
-      Success
-    </span>
+      <div
+        className="css-q6x9ck-BadgeContainer emc61an4"
+        fill="#E4F4E4"
+      >
+        <span
+          className="css-wtl5ix-Number emc61an2"
+        >
+          1
+        </span>
+        <span
+          className="css-oqj204-Status emc61an1"
+        >
+          Succeeded
+        </span>
+      </div>
+    </a>
   </div>
   <div
-    className="css-i119zf-BadgeContainer emc61an2"
-    fill="#FCEBE2"
-    onClick={[Function]}
+    className="leafygreen-ui-cssveg"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
-    <span
-      className="css-wtl5ix-Number emc61an1"
+    <a
+      data-cy="grouped-task-status-badge"
+      href="/version/some_version/tasks?statuses=failed-umbrella,failed,task-timed-out,test-timed-out,known-issue"
+      onClick={[Function]}
     >
-      1
-    </span>
-    <span
-      className="css-4dluyx-Status emc61an0"
-    >
-      Failure
-    </span>
+      <div
+        className="css-1u1pdi6-BadgeContainer emc61an4"
+        fill="#FCEBE2"
+      >
+        <span
+          className="css-wtl5ix-Number emc61an2"
+        >
+          1
+        </span>
+        <span
+          className="css-oqj204-Status emc61an1"
+        >
+          Failed
+        </span>
+      </div>
+    </a>
   </div>
   <div
-    className="css-1gp0ja9-BadgeContainer emc61an2"
-    fill="#FEF7E3"
-    onClick={[Function]}
+    className="leafygreen-ui-cssveg"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
-    <span
-      className="css-wtl5ix-Number emc61an1"
+    <a
+      data-cy="grouped-task-status-badge"
+      href="/version/some_version/tasks?statuses=running-umbrella,started,dispatched"
+      onClick={[Function]}
     >
-      2
-    </span>
-    <span
-      className="css-4dluyx-Status emc61an0"
-    >
-      Running
-    </span>
+      <div
+        className="css-uf0at9-BadgeContainer emc61an4"
+        fill="#FEF7E3"
+      >
+        <span
+          className="css-wtl5ix-Number emc61an2"
+        >
+          2
+        </span>
+        <span
+          className="css-oqj204-Status emc61an1"
+        >
+          Running
+        </span>
+      </div>
+    </a>
   </div>
   <div
-    className="css-q8apdg-BadgeContainer emc61an2"
-    fill="#4f4fbf"
-    onClick={[Function]}
+    className="leafygreen-ui-cssveg"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
-    <span
-      className="css-wtl5ix-Number emc61an1"
+    <a
+      data-cy="grouped-task-status-badge"
+      href="/version/some_version/tasks?statuses=system-failure-umbrella,system-failed,system-timed-out,system-unresponsive"
+      onClick={[Function]}
     >
-      3
-    </span>
-    <span
-      className="css-4dluyx-Status emc61an0"
-    >
-      System Failures
-    </span>
+      <div
+        className="css-185tpy4-BadgeContainer emc61an4"
+        fill="#4f4fbf"
+      >
+        <span
+          className="css-wtl5ix-Number emc61an2"
+        >
+          3
+        </span>
+        <span
+          className="css-oqj204-Status emc61an1"
+        >
+          System Failed
+        </span>
+      </div>
+    </a>
   </div>
   <div
-    className="css-1hhvtzt-BadgeContainer emc61an2"
-    fill="#f1f0fc"
-    onClick={[Function]}
+    className="leafygreen-ui-cssveg"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
-    <span
-      className="css-wtl5ix-Number emc61an1"
+    <a
+      data-cy="grouped-task-status-badge"
+      href="/version/some_version/tasks?statuses=setup-failed"
+      onClick={[Function]}
     >
-      4
-    </span>
-    <span
-      className="css-4dluyx-Status emc61an0"
-    >
-      Setup Failures
-    </span>
+      <div
+        className="css-lexjm7-BadgeContainer emc61an4"
+        fill="#f1f0fc"
+      >
+        <span
+          className="css-wtl5ix-Number emc61an2"
+        >
+          4
+        </span>
+        <span
+          className="css-oqj204-Status emc61an1"
+        >
+          Setup Failed
+        </span>
+      </div>
+    </a>
   </div>
   <div
-    className="css-1hhvtzt-BadgeContainer emc61an2"
-    fill="#f1f0fc"
-    onClick={[Function]}
+    className="leafygreen-ui-cssveg"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
-    <span
-      className="css-wtl5ix-Number emc61an1"
+    <a
+      data-cy="grouped-task-status-badge"
+      href="/version/some_version/tasks?statuses=setup-failed"
+      onClick={[Function]}
     >
-      1
-    </span>
-    <span
-      className="css-4dluyx-Status emc61an0"
-    >
-      Setup Failure
-    </span>
+      <div
+        className="css-lexjm7-BadgeContainer emc61an4"
+        fill="#f1f0fc"
+      >
+        <span
+          className="css-wtl5ix-Number emc61an2"
+        >
+          1
+        </span>
+        <span
+          className="css-oqj204-Status emc61an1"
+        >
+          Setup Failed
+        </span>
+      </div>
+    </a>
   </div>
   <div
-    className="css-1seowmo-BadgeContainer emc61an2"
-    fill="#F9FBFA"
-    onClick={[Function]}
+    className="leafygreen-ui-cssveg"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
-    <span
-      className="css-wtl5ix-Number emc61an1"
+    <a
+      data-cy="grouped-task-status-badge"
+      href="/version/some_version/tasks?statuses=undispatched-umbrella,unscheduled,aborted,blocked"
+      onClick={[Function]}
     >
-      5
-    </span>
-    <span
-      className="css-4dluyx-Status emc61an0"
-    >
-      Undispatched
-    </span>
+      <div
+        className="css-1kp5fxv-BadgeContainer emc61an4"
+        fill="#F9FBFA"
+      >
+        <span
+          className="css-wtl5ix-Number emc61an2"
+        >
+          5
+        </span>
+        <span
+          className="css-oqj204-Status emc61an1"
+        >
+          Undispatched
+        </span>
+      </div>
+    </a>
   </div>
   <div
-    className="css-1jueq6p-BadgeContainer emc61an2"
-    fill="#5D6C74"
-    onClick={[Function]}
+    className="leafygreen-ui-cssveg"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
-    <span
-      className="css-wtl5ix-Number emc61an1"
+    <a
+      data-cy="grouped-task-status-badge"
+      href="/version/some_version/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted"
+      onClick={[Function]}
     >
-      5
-    </span>
-    <span
-      className="css-4dluyx-Status emc61an0"
-    >
-      Scheduled
-    </span>
+      <div
+        className="css-nup11h-BadgeContainer emc61an4"
+        fill="#5D6C74"
+      >
+        <span
+          className="css-wtl5ix-Number emc61an2"
+        >
+          5
+        </span>
+        <span
+          className="css-oqj204-Status emc61an1"
+        >
+          Scheduled
+        </span>
+      </div>
+    </a>
   </div>
 </div>
 `;

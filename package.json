@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "2.20.1",
+  "version": "2.21.1",
   "private": true,
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js' --html | sed 1d > build/source_map.html",
@@ -86,7 +86,7 @@
     "@leafygreen-ui/toggle": "7.0.4",
     "@leafygreen-ui/tooltip": "6.3.1",
     "@leafygreen-ui/typography": "8.1.0",
-    "@rjsf/core": "^2.5.1",
+    "@rjsf/core": "3.1.0",
     "ansi_up": "5.0.0",
     "antd": "4.12.1",
     "axios": "0.21.2",
@@ -107,6 +107,7 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-router-dom": "5.2.0",
+    "react-router-navigation-prompt": "1.9.1",
     "react-string-replace": "0.4.4",
     "react-virtualized-auto-sizer": "^1.0.6",
     "react-window": "1.8.6",

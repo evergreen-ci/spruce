@@ -42,6 +42,7 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({ columns, loading }) => {
   );
 };
 
+// LabelCellContainer is used to provide padding for the first column in the table since we do not have a header for it
 const LabelCellContainer = styled.div`
   width: 200px;
   padding-right: 40px;
