@@ -20,7 +20,8 @@ import {
 import { GET_PROJECT_SETTINGS } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { environmentalVariables } from "utils";
-import { ProjectSettingsTabs, getTitle } from "./projectSettings/Tabs";
+import { getTabTitle } from "./projectSettings/getTabTitle";
+import { ProjectSettingsTabs } from "./projectSettings/Tabs";
 
 const { isProduction } = environmentalVariables;
 
@@ -132,7 +133,7 @@ const ProjectSettingsNavItem: React.FC<{
     to={getProjectSettingsRoute(identifier, tab)}
     data-cy={`navitem-${tab}`}
   >
-    {title || getTitle(tab).title}
+    {title || getTabTitle(tab).title}
   </SideNavItem>
 );
 

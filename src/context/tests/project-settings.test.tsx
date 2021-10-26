@@ -10,7 +10,7 @@ test("Ensure that tabs are initially saved", async () => {
   const { result } = renderHook(() => useIsAnyTabUnsaved(), {
     wrapper: ProjectSettingsProvider,
   });
-  expect(result.current).toBe(false);
+  expect(result.current.hasUnsaved).toBe(false);
 });
 
 test("Updating the form state unsaves the tab", async () => {
@@ -33,5 +33,6 @@ test("Updating the form state unsaves the tab", async () => {
     );
   });
 
-  expect(result.current.tabUnsaved).toBe(true);
+  expect(result.current.tabUnsaved.hasUnsaved).toBe(true);
+  expect(result.current.tabUnsaved.unsavedTabs).toStrictEqual(["general"]);
 });

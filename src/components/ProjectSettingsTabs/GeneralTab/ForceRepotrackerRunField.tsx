@@ -77,7 +77,6 @@ export const ForceRepotrackerRunField: React.FC<SpruceFormProps> = ({
   const [open, setOpen] = useState(false);
 
   const closeModal = () => setOpen(false);
-  console.log(formData);
 
   return (
     <Container>

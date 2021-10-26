@@ -2258,6 +2258,14 @@ export type DistroTaskQueueQuery = {
   }>;
 };
 
+export type GetFailedTaskStatusIconTooltipQueryVariables = Exact<{
+  taskId: Scalars["String"];
+}>;
+
+export type GetFailedTaskStatusIconTooltipQuery = {
+  taskTests: { testResults: Array<{ id: string; testFile: string }> };
+};
+
 export type AgentLogsQueryVariables = Exact<{
   id: Scalars["String"];
   execution?: Maybe<Scalars["Int"]>;
@@ -2744,6 +2752,7 @@ export type MainlineCommitsQuery = {
                     execution: number;
                     status: string;
                     displayName: string;
+                    timeTaken?: Maybe<number>;
                   }>
                 >
               >;

@@ -10,6 +10,8 @@ import {
   SaveSubscriptionMutationVariables,
   GetTaskQuery,
   GetTaskQueryVariables,
+  TaskSortCategory,
+  TestSortCategory,
 } from "gql/generated/types";
 import { GET_TASK } from "gql/queries";
 import { RequiredQueryParams, LogTypes } from "types/task";
@@ -18,6 +20,22 @@ import { queryString } from "utils";
 const { parseQueryString } = queryString;
 type Action =
   | { name: "Filter Tests"; filterBy: string }
+  | {
+      name: "Sort Tests Table";
+      sortBy:
+        | TestSortCategory.TestName
+        | TestSortCategory.Status
+        | TestSortCategory.BaseStatus
+        | TestSortCategory.Duration;
+    }
+  | {
+      name: "Sort Execution Tasks Table";
+      sortBy:
+        | TaskSortCategory.Name
+        | TaskSortCategory.Status
+        | TaskSortCategory.BaseStatus
+        | TaskSortCategory.Variant;
+    }
   | { name: "Restart" }
   | { name: "Schedule" }
   | { name: "Abort" }

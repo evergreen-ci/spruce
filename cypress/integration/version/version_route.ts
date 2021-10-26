@@ -76,15 +76,20 @@ describe("Version route", () => {
     });
 
     it("Shows tooltip with task's name on hover", () => {
-      cy.dataCy("task-square").first().trigger("mouseover");
-      cy.dataCy("task-square-tooltip").within(($el) => {
-        expect($el.text()).to.contain("task with status");
-      });
+      cy.dataCy("grouped-task-status-badge")
+        .first()
+        .trigger("mouseover")
+        .within(($el) => {
+          expect($el.text()).to.contain("1Scheduled");
+        });
     });
 
     it("Navigates to task tab and applies filters when clicking on task square", () => {
-      cy.dataCy("task-square").first().click();
-      cy.location("search").should("include", "statuses=will-run");
+      cy.dataCy("grouped-task-status-badge").first().click();
+      cy.location("search").should(
+        "include",
+        "statuses=scheduled-umbrella,will-run,pending,unstarted"
+      );
     });
   });
 

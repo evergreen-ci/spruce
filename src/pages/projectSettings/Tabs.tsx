@@ -20,6 +20,8 @@ import { TabProps } from "components/ProjectSettingsTabs/utils";
 import { routes, ProjectSettingsTabRoutes } from "constants/routes";
 import { useProjectSettingsContext } from "context/project-settings";
 import { ProjectSettingsQuery } from "gql/generated/types";
+import { getTabTitle } from "./getTabTitle";
+import { NavigationModal } from "./NavigationModal";
 
 interface Props {
   data: ProjectSettingsQuery;
@@ -28,7 +30,7 @@ interface Props {
 export const ProjectSettingsTabs: React.FC<Props> = ({ data }) => {
   const { tab } = useParams<{ tab: ProjectSettingsTabRoutes }>();
   const { saveTab } = useProjectSettingsContext();
-  const { title, subtitle } = getTitle(tab);
+  const { title, subtitle } = getTabTitle(tab);
 
   const {
     projectSettings: {
@@ -40,6 +42,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({ data }) => {
 
   return (
     <Container>
+      <NavigationModal />
       <TitleContainer>
         <H2 data-cy="project-settings-tab-title">{title}</H2>
         {subtitle && <Subtitle>{subtitle}</Subtitle>}
@@ -177,46 +180,6 @@ const getTabData = (
       }),
     },
   };
-};
-
-export const getTitle = (
-  tab: ProjectSettingsTabRoutes = ProjectSettingsTabRoutes.General
-): { title: string; subtitle?: string } => {
-  const defaultTitle = {
-    title: "General Settings",
-  };
-  return (
-    {
-      [ProjectSettingsTabRoutes.General]: defaultTitle,
-      [ProjectSettingsTabRoutes.Access]: {
-        title: "Access Settings & Admin",
-      },
-      [ProjectSettingsTabRoutes.Variables]: {
-        title: "Variables",
-      },
-      [ProjectSettingsTabRoutes.GitHubCommitQueue]: {
-        title: "GitHub & Commit Queue",
-      },
-      [ProjectSettingsTabRoutes.Notifications]: {
-        title: "Notifications",
-      },
-      [ProjectSettingsTabRoutes.PatchAliases]: {
-        title: "Patch Aliases",
-      },
-      [ProjectSettingsTabRoutes.VirtualWorkstation]: {
-        title: "Virtual Workstation",
-      },
-      [ProjectSettingsTabRoutes.ProjectTriggers]: {
-        title: "Project Triggers",
-      },
-      [ProjectSettingsTabRoutes.PeriodicBuilds]: {
-        title: "Periodic Builds",
-      },
-      [ProjectSettingsTabRoutes.EventLog]: {
-        title: "Event Log",
-      },
-    }[tab] ?? defaultTitle
-  );
 };
 
 const Container = styled.div`
