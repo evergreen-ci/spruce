@@ -55,7 +55,7 @@ const akzidenzMedium = css`
   @font-face {
     font-display: swap;
     font-family: "Akzidenz";
-    font-weight: bold;
+    font-weight: 500 700;
     src: url("/static/font/akzidenz/akzidgrostdmed-webfont.woff2")
         format("woff2"),
       url("/static/font/akzidenz/akzidgrostdmed-webfont.woff") format("woff");
@@ -67,36 +67,11 @@ const akzidenzMediumItalic = css`
   @font-face {
     font-display: swap;
     font-family: "Akzidenz";
-    font-weight: bold;
+    font-weight: 500 700;
     font-style: italic;
     src: url("/static/font/akzidenz/akzidgrostdmedita-webfont.woff2")
         format("woff2"),
       url("/static/font/akzidenz/akzidgrostdmedita-webfont.woff") format("woff");
-  }
-`;
-
-// Akzidenz Bold
-const akzidenzBold = css`
-  @font-face {
-    font-display: swap;
-    font-family: "Akzidenz";
-    font-weight: 800;
-    src: url("/static/font/akzidenz/akzidgrostdbol-webfont.woff2")
-        format("woff2"),
-      url("/static/font/akzidenz/akzidgrostdbol-webfont.woff") format("woff");
-  }
-`;
-
-// Akzidenz Bold Italic
-const akzidenzBoldItalic = css`
-  @font-face {
-    font-display: swap;
-    font-family: "Akzidenz";
-    font-weight: 800;
-    font-style: italic;
-    src: url("/static/font/akzidenz/akzidgrostdbolita-webfont.woff2")
-        format("woff2"),
-      url("/static/font/akzidenz/akzidgrostdbolita-webfont.woff") format("woff");
   }
 `;
 
@@ -107,6 +82,4 @@ export const akzidenzFont = css`
   ${akzidenzRegularItalic}
   ${akzidenzMedium}
   ${akzidenzMediumItalic}
-  ${akzidenzBold}
-  ${akzidenzBoldItalic}
 `;
