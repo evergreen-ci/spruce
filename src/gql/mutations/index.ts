@@ -23,6 +23,7 @@ import SAVE_SUBSCRIPTION from "./save-subscription.graphql";
 import SCHEDULE_PATCH_TASKS from "./schedule-patch-tasks.graphql";
 import SCHEDULE_PATCH from "./schedule-patch.graphql";
 import SCHEDULE_TASK from "./schedule-task.graphql";
+import SCHEDULE_TASKS from "./schedule-tasks.graphql";
 import SCHEDULE_UNDISPATCHED_BASE_TASKS from "./schedule-undispatched-base-tasks.graphql";
 import SET_PATCH_PRIORITY from "./set-patch-priority.graphql";
 import SET_TASK_PRIORTY from "./set-task-priority.graphql";
@@ -74,4 +75,5 @@ export {
   SAVE_SUBSCRIPTION,
   SPAWN_VOLUME,
   UPDATE_PUBLIC_KEY,
+  SCHEDULE_TASKS,
 };
