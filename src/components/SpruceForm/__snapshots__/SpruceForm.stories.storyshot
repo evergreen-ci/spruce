@@ -28,58 +28,62 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
               className="css-bm42zs-ElementWrapper ee4bs9n0"
             >
               <div
-                className=""
+                className="css-12pm1mq-MaxWidthContainer eyx6h6k0"
               >
-                <label
-                  className="leafygreen-ui-1v870ns"
-                  id="select-1-label"
+                <div
+                  className=""
                 >
-                  Project Cloning Method
-                </label>
-                <button
-                  aria-controls="select-1-menu"
-                  aria-describedby="select-1-description"
-                  aria-disabled={false}
-                  aria-expanded={false}
-                  aria-labelledby="select-1-label"
-                  className="leafygreen-ui-p6v5m8"
-                  data-testid="leafygreen-ui-select-menubutton"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button"
-                  value="legacy-ssh"
-                >
-                  <div
-                    className="leafygreen-ui-1ktj4tm"
-                  />
-                  <div
-                    className="leafygreen-ui-sl5lf4"
+                  <label
+                    className="leafygreen-ui-1v870ns"
+                    id="select-1-label"
+                  >
+                    Project Cloning Method
+                  </label>
+                  <button
+                    aria-controls="select-1-menu"
+                    aria-describedby="select-1-description"
+                    aria-disabled={false}
+                    aria-expanded={false}
+                    aria-labelledby="select-1-label"
+                    className="leafygreen-ui-p6v5m8"
+                    data-testid="leafygreen-ui-select-menubutton"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                    value="legacy-ssh"
                   >
                     <div
-                      className="leafygreen-ui-17aj16e"
+                      className="leafygreen-ui-1ktj4tm"
+                    />
+                    <div
+                      className="leafygreen-ui-sl5lf4"
                     >
-                      Legacy SSH
-                    </div>
-                    <span
-                      className="leafygreen-ui-18n6mp2"
-                    >
-                      <svg
-                        alt=""
-                        aria-hidden={true}
-                        className="leafygreen-ui-195unnb"
-                        height={16}
-                        role="presentation"
-                        viewBox="0 0 16 16"
-                        width={16}
+                      <div
+                        className="leafygreen-ui-17aj16e"
                       >
-                        <path
-                          d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                </button>
+                        Legacy SSH
+                      </div>
+                      <span
+                        className="leafygreen-ui-18n6mp2"
+                      >
+                        <svg
+                          alt=""
+                          aria-hidden={true}
+                          className="leafygreen-ui-195unnb"
+                          height={16}
+                          role="presentation"
+                          viewBox="0 0 16 16"
+                          width={16}
+                        >
+                          <path
+                            d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
