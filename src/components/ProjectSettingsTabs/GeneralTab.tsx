@@ -24,10 +24,11 @@ export const GeneralTab: React.FC<GeneralTabProps> = ({
     updateForm,
   ]);
 
-  const { generalConfiguration, projectFlags } = useMemo(
-    () => getFormData(useRepoSettings),
-    [useRepoSettings]
-  );
+  const {
+    generalConfiguration,
+    projectFlags,
+    historicalDataCaching,
+  } = useMemo(() => getFormData(useRepoSettings), [useRepoSettings]);
 
   return (
     <>
@@ -47,6 +48,15 @@ export const GeneralTab: React.FC<GeneralTabProps> = ({
           onChange={onChange}
           schema={projectFlags.schema}
           uiSchema={projectFlags.uiSchema}
+        />
+      </SpruceFormContainer>
+      <SpruceFormContainer title="Historical Data Caching Info">
+        <SpruceForm
+          fields={historicalDataCaching.fields}
+          formData={currentFormState}
+          onChange={onChange}
+          schema={historicalDataCaching.schema}
+          uiSchema={historicalDataCaching.uiSchema}
         />
       </SpruceFormContainer>
     </>
@@ -69,6 +79,8 @@ const gqlToSchema = ({
   cedarTestResultsEnabled = false,
   patchingDisabled = false,
   taskSync,
+  disabledStatsCache = false,
+  filesIgnoredFromCache = [],
 }) => ({
   enabled: enabled ? "enabled" : "disabled",
   repositoryInfo: {
@@ -104,4 +116,6 @@ const gqlToSchema = ({
     configEnabled: taskSync.configEnabled ? "enabled" : "disabled",
     patchEnabled: taskSync.patchEnabled ? "enabled" : "disabled",
   },
+  disabledStatsCache: disabledStatsCache ? "disabledStatsCache" : "enabled",
+  filesIgnoredFromCache,
 });

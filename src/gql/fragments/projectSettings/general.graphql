@@ -17,4 +17,6 @@ fragment generalSettings on Project {
     configEnabled
     patchEnabled
   }
+  disabledStatsCache
+  filesIgnoredFromCache
 }

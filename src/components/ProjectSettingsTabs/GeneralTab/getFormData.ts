@@ -1,4 +1,5 @@
 import widgets from "components/SpruceForm/Widgets";
+import { historicalDataCaching } from "./historicalDataCaching";
 import { MoveRepoField } from "./MoveRepoField";
 
 export const getFormData = (useRepoSettings: boolean) => ({
@@ -223,4 +224,5 @@ export const getFormData = (useRepoSettings: boolean) => ({
       },
     },
   },
+  historicalDataCaching,
 });
