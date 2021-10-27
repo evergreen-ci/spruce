@@ -29,6 +29,7 @@ export const PlusButton = ({ children, ...props }) => (
 );
 
 const TableContainer = styled.div`
+  overflow-x: scroll;
   width: 100%;
 `;
 
