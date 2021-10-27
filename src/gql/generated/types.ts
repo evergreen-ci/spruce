@@ -201,6 +201,7 @@ export type Mutation = {
   saveProjectSettingsForSection: ProjectSettings;
   attachProjectToRepo: Project;
   detachProjectFromRepo: Project;
+  forceRepotrackerRun: Scalars["Boolean"];
   schedulePatch: Patch;
   schedulePatchTasks?: Maybe<Scalars["String"]>;
   unschedulePatchTasks?: Maybe<Scalars["String"]>;
@@ -266,6 +267,10 @@ export type MutationAttachProjectToRepoArgs = {
 };
 
 export type MutationDetachProjectFromRepoArgs = {
+  projectId: Scalars["String"];
+};
+
+export type MutationForceRepotrackerRunArgs = {
   projectId: Scalars["String"];
 };
 
@@ -1396,6 +1401,7 @@ export type Project = {
   useRepoSettings: Scalars["Boolean"];
   repoRefId?: Maybe<Scalars["String"]>;
   isFavorite: Scalars["Boolean"];
+  validDefaultLoggers: Array<Scalars["String"]>;
   patches: Patches;
 };
 
@@ -1883,6 +1889,25 @@ export type ProjectFragment = {
   displayName: string;
 };
 
+export type GeneralSettingsFragment = {
+  enabled?: Maybe<boolean>;
+  owner: string;
+  repo: string;
+  branch: string;
+  displayName: string;
+  batchTime?: Maybe<number>;
+  remotePath: string;
+  spawnHostScriptPath: string;
+  dispatchingDisabled?: Maybe<boolean>;
+  deactivatePrevious?: Maybe<boolean>;
+  repotrackerDisabled?: Maybe<boolean>;
+  defaultLogger?: Maybe<string>;
+  validDefaultLoggers: Array<string>;
+  cedarTestResultsEnabled?: Maybe<boolean>;
+  patchingDisabled?: Maybe<boolean>;
+  taskSync: { configEnabled?: Maybe<boolean>; patchEnabled?: Maybe<boolean> };
+};
+
 export type AbortTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
@@ -1979,6 +2004,12 @@ export type BbCreateTicketMutationVariables = Exact<{
 }>;
 
 export type BbCreateTicketMutation = { bbCreateTicket: boolean };
+
+export type ForceRepotrackerRunMutationVariables = Exact<{
+  projectId: Scalars["String"];
+}>;
+
+export type ForceRepotrackerRunMutation = { forceRepotrackerRun: boolean };
 
 export type MoveAnnotationIssueMutationVariables = Exact<{
   taskId: Scalars["String"];
@@ -2898,17 +2929,9 @@ export type ProjectSettingsQueryVariables = Exact<{
 
 export type ProjectSettingsQuery = {
   projectSettings: {
-    projectRef?: Maybe<{
-      enabled?: Maybe<boolean>;
-      owner: string;
-      repo: string;
-      branch: string;
-      displayName: string;
-      batchTime?: Maybe<number>;
-      remotePath: string;
-      spawnHostScriptPath: string;
-      useRepoSettings: boolean;
-    }>;
+    projectRef?: Maybe<
+      { id: string; useRepoSettings: boolean } & GeneralSettingsFragment
+    >;
   };
 };
 

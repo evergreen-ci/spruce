@@ -34,7 +34,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({ data }) => {
 
   const {
     projectSettings: {
-      projectRef: { useRepoSettings },
+      projectRef: { id, useRepoSettings },
     },
   } = data;
 
@@ -62,6 +62,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({ data }) => {
         render={(props) => (
           <GeneralTab
             {...props}
+            projectId={id}
             useRepoSettings={useRepoSettings}
             data={tabData[ProjectSettingsTabRoutes.General]}
           />
@@ -143,6 +144,14 @@ const getTabData = (
         remotePath,
         repo,
         spawnHostScriptPath,
+        deactivatePrevious,
+        dispatchingDisabled,
+        repotrackerDisabled,
+        defaultLogger,
+        validDefaultLoggers,
+        cedarTestResultsEnabled,
+        patchingDisabled,
+        taskSync,
       },
     },
   } = data;
@@ -156,11 +165,25 @@ const getTabData = (
       remotePath,
       repo,
       spawnHostScriptPath,
+      ...(dispatchingDisabled && { dispatchingDisabled }),
+      ...(deactivatePrevious && { deactivatePrevious }),
+      ...(repotrackerDisabled && { repotrackerDisabled }),
+      ...(defaultLogger && { defaultLogger }),
+      validDefaultLoggers,
+      ...(cedarTestResultsEnabled && { cedarTestResultsEnabled }),
+      ...(patchingDisabled && { patchingDisabled }),
+      ...(taskSync && {
+        taskSync: {
+          configEnabled: taskSync.configEnabled,
+          patchEnabled: taskSync.patchEnabled,
+        },
+      }),
     },
   };
 };
 
 const Container = styled.div`
+  min-width: min-content;
   width: 60%;
 `;
 

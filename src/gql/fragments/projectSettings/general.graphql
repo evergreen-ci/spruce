@@ -1,0 +1,21 @@
+fragment generalSettings on Project {
+  enabled
+  owner
+  repo
+  branch
+  displayName
+  batchTime
+  remotePath
+  spawnHostScriptPath
+  dispatchingDisabled
+  deactivatePrevious
+  repotrackerDisabled
+  defaultLogger
+  validDefaultLoggers
+  cedarTestResultsEnabled
+  patchingDisabled
+  taskSync {
+    configEnabled
+    patchEnabled
+  }
+}
