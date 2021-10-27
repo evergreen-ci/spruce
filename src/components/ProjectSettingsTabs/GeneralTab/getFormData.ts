@@ -1,7 +1,6 @@
 import widgets from "components/SpruceForm/Widgets";
 import { Project } from "gql/generated/types";
 import { ForceRepotrackerRunField } from "./ForceRepotrackerRunField";
-import { historicalDataCaching } from "./historicalDataCaching";
 import { MoveRepoField } from "./MoveRepoField";
 
 export const getFormData = (
@@ -227,5 +226,38 @@ export const getFormData = (
       },
     },
   },
-  historicalDataCaching,
+  historicalDataCaching: {
+    fields: {},
+    schema: {
+      type: "object" as "object",
+      properties: {
+        disabledStatsCache: {
+          type: "string" as "string",
+          title: "Caching",
+          enum: ["enabled", "disabled"],
+          enumNames: ["Enabled", "Disabled"],
+        },
+        filesIgnoredFromCache: {
+          title: "File Patterns to Ignore",
+          type: "array" as "array",
+          description:
+            "Comma-separated list of regular expression patterns that specify test filenames to ignore when caching test and task history.",
+          items: {
+            type: "object" as "object",
+            properties: {
+              filePattern: {
+                type: "string" as "string",
+                title: "File Pattern",
+              },
+            },
+          },
+        },
+      },
+    },
+    uiSchema: {
+      disabledStatsCache: {
+        "ui:widget": widgets.RadioBoxWidget,
+      },
+    },
+  },
 });

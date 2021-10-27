@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { ArrayFieldTemplateProps, FieldTemplateProps } from "@rjsf/core";
@@ -26,7 +25,7 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   const id = idSchema.$id;
   const description = uiSchema["ui:description"] || schema.description;
   return (
-    <div>
+    <>
       <TitleField id={`${id}__title`} required={required} title={title} />
       {description && (
         <DescriptionField id={`${id}__description`} description={description} />
@@ -42,28 +41,35 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
           </Button>
         </ElementWrapper>
       )}
-      {items.map(({ children, hasRemove, index, onDropIndexClick }) => (
-        <ArrayItemRow>
-          <Fragment key={index}>{children}</Fragment>
-          {hasRemove && (
-            <DeleteButtonWrapper>
-              <Button onClick={onDropIndexClick(index)}>
-                <Icon glyph="Trash" />
-              </Button>
-            </DeleteButtonWrapper>
-          )}
-        </ArrayItemRow>
-      ))}
-    </div>
+      <ArrayContainer>
+        {items.map(({ children, hasRemove, index, onDropIndexClick }) => (
+          <ArrayItemRow key={index}>
+            {children}
+            {hasRemove && (
+              <DeleteButtonWrapper>
+                <Button onClick={onDropIndexClick(index)}>
+                  <Icon glyph="Trash" />
+                </Button>
+              </DeleteButtonWrapper>
+            )}
+          </ArrayItemRow>
+        ))}
+      </ArrayContainer>
+    </>
   );
 };
+
+const ArrayContainer = styled.div`
+  min-width: min-content;
+  width: 60%;
+`;
 
 const ArrayItemRow = styled.div`
   align-items: flex-end;
   display: flex;
 
-  div {
-    max-width: unset;
+  .field-object {
+    flex-grow: 1;
   }
 `;
 
