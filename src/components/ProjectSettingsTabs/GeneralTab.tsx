@@ -121,6 +121,6 @@ const gqlToSchema = ({
     configEnabled: taskSync.configEnabled ? "enabled" : "disabled",
     patchEnabled: taskSync.patchEnabled ? "enabled" : "disabled",
   },
-  disabledStatsCache: disabledStatsCache ? "disabledStatsCache" : "enabled",
+  disabledStatsCache: disabledStatsCache ? "disabled" : "enabled",
   filesIgnoredFromCache,
 });
