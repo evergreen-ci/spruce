@@ -81,7 +81,7 @@ export const useVersionTaskStatusSelect = (
 ): HookResult => {
   const [
     { baseStatusFilterTerm, versionStatusFilterTerm, selectedTasks },
-    disversion,
+    dispatch,
   ] = useReducer(reducer, {
     baseStatusFilterTerm: {},
     versionStatusFilterTerm: {},
@@ -112,7 +112,7 @@ export const useVersionTaskStatusSelect = (
         newState[taskVersion][selectedId] = nextCheckedState;
       });
     }
-    disversion({ type: "setSelectedTasks", data: newState });
+    dispatch({ type: "setSelectedTasks", data: newState });
   };
 
   // Determine if a task is a selected based on the filter terms and available tasks
@@ -149,7 +149,7 @@ export const useVersionTaskStatusSelect = (
         newTaskSelect[childId] = childNextState;
       });
 
-      disversion({ type: "setSelectedTasks", data: newTaskSelect });
+      dispatch({ type: "setSelectedTasks", data: newTaskSelect });
     }
   }, [
     baseStatusFilterTerm,
@@ -168,14 +168,14 @@ export const useVersionTaskStatusSelect = (
 
     const nextState = { ...versionStatusFilterTerm };
     nextState[vId] = statuses[vId];
-    disversion({ type: "setVersionStatusFilterTerm", data: nextState });
+    dispatch({ type: "setVersionStatusFilterTerm", data: nextState });
   };
   const setBaseStatusFilterTerm = (statuses: versionFilters) => {
     const vId = Object.keys(statuses)[0];
 
     const nextState = { ...baseStatusFilterTerm };
     nextState[vId] = statuses[vId];
-    disversion({ type: "setBaseStatusFilterTerm", data: nextState });
+    dispatch({ type: "setBaseStatusFilterTerm", data: nextState });
   };
   return {
     selectedTasks,
