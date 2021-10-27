@@ -83,7 +83,7 @@ const getSortedBuildVariantGroups = (data?: GetUndispatchedTasksQuery) => {
   return sortedBuildVariants;
 };
 
-// Add all items to set if some are in set, remove all items from set if all are in set
+// Add all items to set if none are in set, remove all items from set if some are in set
 const toggleItemsById = (set: Set<string>, ids: string[]) => {
   const someInSet = ids.some((id) => set.has(id));
   if (someInSet) {
