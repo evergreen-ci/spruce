@@ -16,7 +16,8 @@ interface State {
 type Action =
   | { type: "ingestData"; taskData?: GetUndispatchedTasksQuery }
   | { type: "toggleTask"; taskId: string }
-  | { type: "toggleBuildVariant"; buildVariant: string };
+  | { type: "toggleBuildVariant"; buildVariant: string }
+  | { type: "reset" };
 
 export const reducer = (state: State, action: Action): State => {
   const { selectedTasks, sortedBuildVariantGroups } = state;
@@ -41,6 +42,8 @@ export const reducer = (state: State, action: Action): State => {
             ?.tasks.map(({ id }) => id) ?? []
         ),
       };
+    case "reset":
+      return { ...initialState };
     default:
       throw new Error();
   }
