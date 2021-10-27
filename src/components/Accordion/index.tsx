@@ -30,10 +30,13 @@ export const Accordion: React.FC<AccordionProps> = ({
       )}
       <AccordionToggle
         data-cy="accordion-toggle"
-        onClick={toggleAccordionHandler}
+        onClick={!showCaret ? toggleAccordionHandler : undefined}
       >
         {showCaret && (
-          <Icon glyph={isAccordionDisplayed ? "CaretDown" : "CaretRight"} />
+          <Icon
+            onClick={toggleAccordionHandler}
+            glyph={isAccordionDisplayed ? "CaretDown" : "CaretRight"}
+          />
         )}
         {toggledTitle ? showToggledTitle : title}
       </AccordionToggle>

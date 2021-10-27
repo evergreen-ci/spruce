@@ -210,7 +210,9 @@ export type Mutation = {
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   enqueuePatch: Patch;
   setPatchPriority?: Maybe<Scalars["String"]>;
+  /** @deprecated scheduleTask deprecated, Use scheduleTasks instead */
   scheduleTask: Task;
+  scheduleTasks: Array<Task>;
   unscheduleTask: Task;
   abortTask: Task;
   setTaskPriority: Task;
@@ -311,6 +313,10 @@ export type MutationSetPatchPriorityArgs = {
 
 export type MutationScheduleTaskArgs = {
   taskId: Scalars["String"];
+};
+
+export type MutationScheduleTasksArgs = {
+  taskIds: Array<Scalars["String"]>;
 };
 
 export type MutationUnscheduleTaskArgs = {
@@ -1380,11 +1386,11 @@ export type Project = {
   githubTriggerAliases?: Maybe<Array<Maybe<Scalars["String"]>>>;
   periodicBuilds?: Maybe<Array<Maybe<PeriodicBuild>>>;
   cedarTestResultsEnabled?: Maybe<Scalars["Boolean"]>;
-  commitQueue?: Maybe<CommitQueueParams>;
+  commitQueue: CommitQueueParams;
   admins?: Maybe<Array<Maybe<Scalars["String"]>>>;
   spawnHostScriptPath: Scalars["String"];
   tracksPushEvents?: Maybe<Scalars["Boolean"]>;
-  taskSync?: Maybe<TaskSyncOptions>;
+  taskSync: TaskSyncOptions;
   gitTagAuthorizedUsers?: Maybe<Array<Maybe<Scalars["String"]>>>;
   gitTagAuthorizedTeams?: Maybe<Array<Maybe<Scalars["String"]>>>;
   gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]>;
@@ -1432,8 +1438,8 @@ export type CommitQueueParams = {
 };
 
 export type TaskSyncOptions = {
-  configEnabled: Scalars["Boolean"];
-  patchEnabled: Scalars["Boolean"];
+  configEnabled?: Maybe<Scalars["Boolean"]>;
+  patchEnabled?: Maybe<Scalars["Boolean"]>;
 };
 
 export type WorkstationConfig = {
@@ -3169,6 +3175,21 @@ export type GetTestsQuery = {
       id: string;
       testFile: string;
       logs: { url?: Maybe<string>; urlLobster?: Maybe<string> };
+    }>;
+  };
+};
+
+export type GetUndispatchedTasksQueryVariables = Exact<{
+  versionId: Scalars["String"];
+}>;
+
+export type GetUndispatchedTasksQuery = {
+  patchTasks: {
+    tasks: Array<{
+      id: string;
+      displayName: string;
+      buildVariant: string;
+      buildVariantDisplayName?: Maybe<string>;
     }>;
   };
 };
