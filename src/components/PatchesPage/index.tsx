@@ -3,31 +3,32 @@ import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import Icon from "@leafygreen-ui/icon";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Analytics } from "analytics/addPageAction";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import {
   PageWrapper,
-  StyledInput,
   FiltersWrapper,
   PageTitle,
+  StyledInput,
 } from "components/styles";
+import { PatchesPagePatchesFragment, PatchesInput } from "gql/generated/types";
 import {
-  UserPatchesQueryVariables,
-  PatchesPagePatchesFragment,
-} from "gql/generated/types";
-import { useFilterInputChangeHandler, usePageTitle } from "hooks";
-import { MyPatchesQueryParams, ALL_PATCH_STATUS } from "types/patch";
+  useFilterInputChangeHandler,
+  usePageTitle,
+  useUpdateURLQueryParams,
+} from "hooks";
+import { PatchPageQueryParams, ALL_PATCH_STATUS } from "types/patch";
 import { queryString, url } from "utils";
 import { ListArea } from "./ListArea";
 import { StatusSelector } from "./StatusSelector";
 
 const { getPageFromSearch, getLimitFromSearch } = url;
-const { parseQueryString, stringifyQuery } = queryString;
+const { parseQueryString } = queryString;
 
 interface Props {
-  analyticsObject?: Analytics<
+  analyticsObject: Analytics<
     | { name: "Filter Patches"; filterBy: string }
     | { name: "Filter Commit Queue" }
     | { name: "Change Page Size" }
@@ -50,30 +51,26 @@ export const PatchesPage: React.FC<Props> = ({
   error,
   pageType,
 }) => {
-  const { replace } = useHistory();
-  const { search, pathname } = useLocation();
-  const { limit, page, includeCommitQueue } = getPatchesInputFromURLSearch(
-    search
-  );
-  const {
-    inputValue: patchNameFilterValue,
-    setAndSubmitInputValue: patchNameFilterValueOnChange,
-  } = useFilterInputChangeHandler({
-    urlParam: MyPatchesQueryParams.PatchName,
+  const { search } = useLocation();
+  const parsed = parseQueryString(search);
+  const isCommitQueueCheckboxChecked =
+    parsed[PatchPageQueryParams.CommitQueue] === "true";
+  const { limit, page } = getPatchesInputFromURLSearch(search);
+  const { inputValue, setAndSubmitInputValue } = useFilterInputChangeHandler({
+    urlParam: PatchPageQueryParams.PatchName,
     resetPage: false,
     sendAnalyticsEvent: (filterBy: string) =>
-      analyticsObject?.sendEvent({ name: "Filter Patches", filterBy }),
+      analyticsObject.sendEvent({ name: "Filter Patches", filterBy }),
   });
+  const updateQueryParams = useUpdateURLQueryParams();
   usePageTitle(pageTitle);
-  const onCheckboxChange = (): void => {
-    replace(
-      `${pathname}?${stringifyQuery({
-        ...parseQueryString(search),
-        [MyPatchesQueryParams.CommitQueue]: !includeCommitQueue,
-      })}`
-    );
+
+  const onCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    updateQueryParams({
+      [PatchPageQueryParams.CommitQueue]: `${e.target.checked}`,
+    });
     // eslint-disable-next-line no-unused-expressions
-    analyticsObject?.sendEvent({ name: "Filter Commit Queue" });
+    analyticsObject.sendEvent({ name: "Filter Commit Queue" });
   };
 
   return (
@@ -83,9 +80,9 @@ export const PatchesPage: React.FC<Props> = ({
         <FlexRow>
           <StyledInput
             placeholder="Search Patch Descriptions"
-            onChange={(e) => patchNameFilterValueOnChange(e.target.value)}
+            onChange={(e) => setAndSubmitInputValue(e.target.value)}
             suffix={<Icon glyph="MagnifyingGlass" />}
-            value={patchNameFilterValue}
+            value={inputValue}
             data-cy="patch-description-input"
             width="25%"
           />
@@ -94,8 +91,12 @@ export const PatchesPage: React.FC<Props> = ({
         <Checkbox
           data-cy="commit-queue-checkbox"
           onChange={onCheckboxChange}
-          label="Show Commit Queue"
-          checked={includeCommitQueue}
+          label={
+            pageType === "project"
+              ? "Only Show Commit Queue Patches"
+              : "Include Commit Queue"
+          }
+          checked={isCommitQueueCheckboxChecked}
         />
       </FiltersWrapperSpaceBetween>
       <PaginationRow>
@@ -109,7 +110,7 @@ export const PatchesPage: React.FC<Props> = ({
           data-cy="my-patches-page-size-selector"
           value={limit}
           sendAnalyticsEvent={() =>
-            analyticsObject?.sendEvent({ name: "Change Page Size" })
+            analyticsObject.sendEvent({ name: "Change Page Size" })
           }
         />
       </PaginationRow>
@@ -123,21 +124,15 @@ export const PatchesPage: React.FC<Props> = ({
   );
 };
 
-export const getPatchesInputFromURLSearch = (
-  search: string
-): UserPatchesQueryVariables["patchesInput"] => {
+export const getPatchesInputFromURLSearch = (search: string): PatchesInput => {
   const parsed = parseQueryString(search);
-  const includeCommitQueue =
-    parsed[MyPatchesQueryParams.CommitQueue] === "true" ||
-    parsed[MyPatchesQueryParams.CommitQueue] === undefined;
-  const patchName = (parsed[MyPatchesQueryParams.PatchName] || "").toString();
-  const rawStatuses = parsed[MyPatchesQueryParams.Statuses];
+  const patchName = (parsed[PatchPageQueryParams.PatchName] || "").toString();
+  const rawStatuses = parsed[PatchPageQueryParams.Statuses];
   const statuses = (Array.isArray(rawStatuses)
     ? rawStatuses
     : [rawStatuses]
   ).filter((v) => v && v !== ALL_PATCH_STATUS);
   return {
-    includeCommitQueue,
     patchName,
     statuses,
     page: getPageFromSearch(search),
