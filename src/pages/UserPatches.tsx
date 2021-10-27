@@ -7,6 +7,7 @@ import {
   getPatchesInputFromURLSearch,
 } from "components/PatchesPage";
 import { pollInterval } from "constants/index";
+import { useToastContext } from "context/toast";
 import {
   UserPatchesQuery,
   UserPatchesQueryVariables,
@@ -23,6 +24,7 @@ import { queryString } from "utils";
 const { parseQueryString } = queryString;
 
 export const UserPatches = () => {
+  const dispatchToast = useToastContext();
   const { id: userId } = useParams<{ id: string }>();
   const { search } = useLocation();
   const analyticsObject = useUserPatchesAnalytics();
@@ -42,7 +44,7 @@ export const UserPatches = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [parsed]);
 
-  const { data, startPolling, stopPolling, error } = useQuery<
+  const { data, startPolling, stopPolling, loading } = useQuery<
     UserPatchesQuery,
     UserPatchesQueryVariables
   >(GET_USER_PATCHES, {
@@ -54,7 +56,9 @@ export const UserPatches = () => {
       },
     },
     pollInterval,
-    fetchPolicy: "cache-and-network",
+    onError: (err) => {
+      dispatchToast.error(`Error while fetching user patches: ${err.message}`);
+    },
   });
   useNetworkStatus(startPolling, stopPolling);
   const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId);
@@ -62,7 +66,7 @@ export const UserPatches = () => {
     <PatchesPage
       analyticsObject={analyticsObject}
       pageTitle={pageTitle}
-      error={error}
+      loading={loading}
       pageType="user"
       patches={data?.user.patches}
     />

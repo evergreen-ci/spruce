@@ -7,6 +7,7 @@ import {
   getPatchesInputFromURLSearch,
 } from "components/PatchesPage";
 import { pollInterval } from "constants/index";
+import { useToastContext } from "context/toast";
 import {
   ProjectPatchesQuery,
   ProjectPatchesQueryVariables,
@@ -19,10 +20,12 @@ import { queryString } from "utils";
 const { parseQueryString } = queryString;
 
 export const ProjectPatches = () => {
+  const dispatchToast = useToastContext();
   const { id: projectId } = useParams<{ id: string }>();
   const { search } = useLocation();
   const parsed = parseQueryString(search);
   const updateQueryParams = useUpdateURLQueryParams();
+
   const patchesInput = getPatchesInputFromURLSearch(search);
   const isCommitQueueCheckboxChecked =
     parsed[PatchPageQueryParams.CommitQueue] === "true";
@@ -34,8 +37,9 @@ export const ProjectPatches = () => {
       });
     }
   }, [parsed, updateQueryParams]);
+  const analyticsObject = useProjectPatchesAnalytics();
 
-  const { data, startPolling, stopPolling, error } = useQuery<
+  const { data, startPolling, stopPolling, loading } = useQuery<
     ProjectPatchesQuery,
     ProjectPatchesQueryVariables
   >(GET_PROJECT_PATCHES, {
@@ -47,15 +51,19 @@ export const ProjectPatches = () => {
       },
     },
     pollInterval,
+    onError: (err) => {
+      dispatchToast.error(
+        `Error while fetching project patches: ${err.message}`
+      );
+    },
   });
   useNetworkStatus(startPolling, stopPolling);
-  const analyticsObject = useProjectPatchesAnalytics();
   const { displayName, patches } = data?.project ?? {};
   return (
     <PatchesPage
       analyticsObject={analyticsObject}
       pageTitle={`${displayName ?? ""} Patches`}
-      error={error}
+      loading={loading}
       pageType="project"
       patches={patches}
     />

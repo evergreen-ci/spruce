@@ -1,5 +1,4 @@
 import React from "react";
-import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import Icon from "@leafygreen-ui/icon";
@@ -40,7 +39,7 @@ interface Props {
   >;
   pageTitle: string;
   patches?: PatchesPagePatchesFragment;
-  error?: ApolloError;
+  loading: boolean;
   pageType: "project" | "user";
 }
 
@@ -48,7 +47,7 @@ export const PatchesPage: React.FC<Props> = ({
   analyticsObject,
   pageTitle,
   patches,
-  error,
+  loading,
   pageType,
 }) => {
   const { search } = useLocation();
@@ -116,7 +115,7 @@ export const PatchesPage: React.FC<Props> = ({
       </PaginationRow>
       <ListArea
         patches={patches}
-        error={error}
+        loading={loading}
         pageType={pageType}
         analyticsObject={analyticsObject}
       />
