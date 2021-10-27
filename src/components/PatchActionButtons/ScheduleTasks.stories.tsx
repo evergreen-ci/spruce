@@ -1,17 +1,15 @@
 import StoryRouter from "storybook-react-router";
 import { GET_UNSCHEDULED_TASKS } from "gql/queries";
 import WithToastContext from "test_utils/toast-decorator";
-import { ScheduleTasksModal } from ".";
+import { ScheduleTasks } from ".";
 
 export default {
-  title: "ScheduleTasksModal",
-  component: ScheduleTasksModal,
+  title: "Schedule Tasks",
+  component: ScheduleTasks,
   decorators: [StoryRouter(), (story) => WithToastContext(story)],
 };
 
-export const Story = () => (
-  <ScheduleTasksModal open versionId="version" setOpen={() => {}} />
-);
+export const Story = () => <ScheduleTasks versionId="version" />;
 
 Story.parameters = {
   apolloClient: {

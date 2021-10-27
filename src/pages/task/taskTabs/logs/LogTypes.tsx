@@ -138,7 +138,9 @@ export const TaskLog: React.FC<Props> = (props): JSX.Element => {
   >(GET_TASK_LOGS, {
     variables: { id, execution: selectedExecution },
     pollInterval,
+    fetchPolicy: "network-only",
   });
+
   useNetworkStatus(startPolling, stopPolling);
 
   return useRenderBody({

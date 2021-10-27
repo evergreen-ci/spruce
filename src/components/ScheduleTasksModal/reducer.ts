@@ -43,7 +43,7 @@ export const reducer = (state: State, action: Action): State => {
         ),
       };
     case "reset":
-      return { ...initialState };
+      return { ...state, selectedTasks: new Set() };
     default:
       throw new Error();
   }
