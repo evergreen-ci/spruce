@@ -10,7 +10,7 @@ interface BVGroupsInterface {
 }
 interface State {
   sortedBuildVariantGroups: BVGroupEntry[];
-  selectedTasks: Set<String>;
+  selectedTasks: Set<string>;
 }
 
 type Action =
@@ -84,7 +84,7 @@ const getSortedBuildVariantGroups = (data?: GetUndispatchedTasksQuery) => {
 };
 
 // Add all items to set if some are in set, remove all items from set if all are in set
-const toggleItemsById = (set: Set<String>, ids: String[]) => {
+const toggleItemsById = (set: Set<string>, ids: string[]) => {
   const someInSet = ids.some((id) => set.has(id));
   if (someInSet) {
     ids.forEach((id) => set.delete(id));

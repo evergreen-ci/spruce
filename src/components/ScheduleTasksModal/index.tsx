@@ -1,14 +1,18 @@
 import { useReducer, useEffect } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Skeleton } from "antd";
 import { Accordion } from "components/Accordion";
 import { ConfirmationModal } from "components/ConfirmationModal";
+import { useToastContext } from "context/toast";
 import {
   GetUndispatchedTasksQuery,
   GetUndispatchedTasksQueryVariables,
+  ScheduleTasksMutation,
+  ScheduleTasksMutationVariables,
 } from "gql/generated/types";
+import { SCHEDULE_TASKS } from "gql/mutations";
 import { GET_UNSCHEDULED_TASKS } from "gql/queries";
 import { initialState, reducer } from "./reducer";
 
@@ -26,8 +30,25 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
     reducer,
     initialState
   );
-
-  const { data, loading } = useQuery<
+  const closeModal = () => {
+    dispatch({ type: "reset" });
+    setOpen(false);
+  };
+  const dispatchToast = useToastContext();
+  const [scheduleTasks, { loading: loadingScheduleTasks }] = useMutation<
+    ScheduleTasksMutation,
+    ScheduleTasksMutationVariables
+  >(SCHEDULE_TASKS, {
+    onCompleted() {
+      dispatchToast.success("Tasks scheduled successfully");
+      closeModal();
+    },
+    onError({ message }) {
+      dispatchToast.error(`There was an error scheduling tasks: ${message}`);
+      closeModal();
+    },
+  });
+  const { data, loading: loadingTaskData } = useQuery<
     GetUndispatchedTasksQuery,
     GetUndispatchedTasksQueryVariables
   >(GET_UNSCHEDULED_TASKS, {
@@ -41,11 +62,17 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
   return (
     <ConfirmationModal
       open={open}
-      onCancel={() => setOpen(false)}
+      onCancel={closeModal}
       title="Schedule Tasks"
       buttonText="Schedule"
+      submitDisabled={
+        loadingTaskData || loadingScheduleTasks || !selectedTasks.size
+      }
+      onConfirm={() => {
+        scheduleTasks({ variables: { taskIds: Array.from(selectedTasks) } });
+      }}
     >
-      {loading ? (
+      {loadingTaskData ? (
         <Skeleton />
       ) : (
         sortedBuildVariantGroups.map(
