@@ -89,7 +89,7 @@ export const getColumnSearchFilterProps = ({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      /* Eventually, want to get rid of these */
+      /* Only passing these functions if they are defined */
       {...(onFilter && {
         onFilter: () => {
           onFilter();
@@ -123,7 +123,7 @@ export const getColumnTreeSelectFilterProps = ({
       state={state}
       tData={tData}
       onChange={onChange}
-      /* Eventually, want to get rid of these */
+      /* Only passing these functions if they are defined */
       {...(onFilter && {
         onFilter: () => {
           onFilter();
