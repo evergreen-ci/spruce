@@ -107,7 +107,8 @@ export const VersionPage: React.FC = () => {
   }, [data]);
 
   const { version } = data || {};
-  const { status, patch, isPatch, revision, message, order } = version || {};
+  const { status, patch, isPatch, revision, message, order, activated } =
+    version || {};
 
   const {
     commitQueuePosition,
@@ -154,6 +155,7 @@ export const VersionPage: React.FC = () => {
             versionId={id}
             childPatches={childPatches}
             isPatch={isPatch}
+            versionActivated={activated}
           />
         }
       />

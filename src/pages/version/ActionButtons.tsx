@@ -23,6 +23,7 @@ interface ActionButtonProps {
   versionId: string;
   childPatches: Partial<Patch>[];
   isPatch: boolean;
+  versionActivated: boolean;
 }
 
 export const ActionButtons: React.FC<ActionButtonProps> = ({
@@ -32,6 +33,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
   versionId,
   childPatches,
   isPatch,
+  versionActivated,
 }) => {
   const dropdownItems = [
     <LinkToReconfigurePage
@@ -71,7 +73,9 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
   return (
     <>
       <PageButtonRow>
-        <ScheduleTasks versionId={versionId} />
+        {!versionActivated && !isPatch && (
+          <ScheduleTasks versionId={versionId} />
+        )}
         <SchedulePatchTasks
           patchId={versionId}
           isButton
