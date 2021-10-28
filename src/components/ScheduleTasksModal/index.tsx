@@ -1,9 +1,8 @@
 import { useReducer, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Skeleton } from "antd";
-import { Accordion } from "components/Accordion";
+import { Accordion, AccordionWrapper } from "components/Accordion";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { useToastContext } from "context/toast";
 import {
@@ -61,6 +60,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
 
   return (
     <ConfirmationModal
+      data-cy="schedule-tasks-modal"
       open={open}
       onCancel={closeModal}
       title="Schedule Tasks"
@@ -88,7 +88,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
                 <Accordion
                   title={
                     <Checkbox
-                      data-cy="variant-checkbox"
+                      data-cy={`${buildVariant}-variant-checkbox`}
                       name={buildVariant}
                       label={buildVariantDisplayName}
                       bold
@@ -102,9 +102,11 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
                   contents={tasks.map(({ id, displayName }) => (
                     <Checkbox
                       key={id}
-                      data-cy="task-checkbox"
+                      data-cy={`${buildVariant}-${displayName}-task-checkbox`}
                       name={id}
-                      label={displayName}
+                      label={
+                        <span data-cy="task-checkbox-label">{displayName}</span>
+                      }
                       bold={false}
                       checked={selectedTasks.has(id)}
                       onClick={() => {
@@ -121,8 +123,3 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
     </ConfirmationModal>
   );
 };
-
-const AccordionWrapper = styled.div`
-  padding-bottom: 12px;
-  padding-top: 12px;
-`;
