@@ -22,7 +22,6 @@ describe("Tasks filters", () => {
 
   it("Should clear any filters with the Clear All Filters button and reset the table to its default state", () => {
     cy.visit(pathURLWithFilters);
-    cy.dataCy("dismiss-sitewide-banner-button").click();
 
     cy.dataCy("tasks-table").should("exist");
     cy.dataCy("clear-all-filters").click();

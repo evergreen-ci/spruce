@@ -329,7 +329,7 @@ const OptionsWrapper = styled.div`
 
 const CheckboxContainer = styled.div`
   ${tableInputContainerCSS}
-  min-width: 140px; // need to set this as side effect of getPopupContainer
+  min-width: 150px; // need to set this as side effect of getPopupContainer
   font-weight: normal; // need to set this as side effect of getPopupContainer
 `;
 

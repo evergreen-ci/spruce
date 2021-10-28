@@ -249,12 +249,10 @@ describe("Hosts page filtering from table filters", () => {
             .invoke("val", subString)
             .trigger("input");
 
-          cy.get("@currentTask").type(lastChar);
+          cy.get("@currentTask").type(lastChar).type(`{enter}`);
         } else {
-          cy.dataCy("input-filter").type(filterValue);
+          cy.dataCy("input-filter").type(filterValue).type(`{enter}`);
         }
-
-        cy.dataCy("filter-button").click();
       });
     });
   });

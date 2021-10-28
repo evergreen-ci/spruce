@@ -22,14 +22,10 @@ export type Action =
   | { type: "onChangeStatusesSelector"; statuses: string[] }
   | { type: "onChangeTaskNameInput"; task: string }
   | { type: "onChangeVariantInput"; variant: string }
-  | { type: "onFilterBaseStatusesSelector" }
-  | { type: "onFilterStatusesSelector" }
   | { type: "onFilterTaskNameInput" }
   | { type: "onFilterVariantInput" }
-  | { type: "onResetBaseStatusesSelector" }
-  | { type: "onResetStatusesSelector" }
-  | { type: "onResetTaskNameInput" }
-  | { type: "onResetVariantInput" }
+  | { type: "setAndSubmitBaseStatusesSelector"; baseStatuses: string[] }
+  | { type: "setAndSubmitStatusesSelector"; statuses: string[] }
   | { type: "clearAllFilters" }
   | { type: "onSort"; sorts: SortOrder[] }
   | { type: "onChangePagination"; page: number }
@@ -65,44 +61,18 @@ export const reducer = (state: State, action: Action) => {
         variant: state.variantInputVal,
         ...resetPage,
       };
-    case "onFilterBaseStatusesSelector":
+    case "setAndSubmitBaseStatusesSelector":
       return {
         ...state,
-        baseStatuses: state.baseStatusesInputVal,
+        baseStatusesInputVal: action.baseStatuses,
+        baseStatuses: action.baseStatuses,
         ...resetPage,
       };
-    case "onFilterStatusesSelector":
+    case "setAndSubmitStatusesSelector":
       return {
         ...state,
-        statuses: state.currentStatusesInputVal,
-        ...resetPage,
-      };
-    case "onResetTaskNameInput":
-      return {
-        ...state,
-        currentStatusesInputVal: [],
-        statuses: [],
-        ...resetPage,
-      };
-    case "onResetVariantInput":
-      return {
-        ...state,
-        variantInputVal: "",
-        variant: "",
-        ...resetPage,
-      };
-    case "onResetBaseStatusesSelector":
-      return {
-        ...state,
-        baseStatusesInputVal: [],
-        baseStatuses: [],
-        ...resetPage,
-      };
-    case "onResetStatusesSelector":
-      return {
-        ...state,
-        currentStatusesInputVal: [],
-        statuses: [],
+        currentStatusesInputVal: action.statuses,
+        statuses: action.statuses,
         ...resetPage,
       };
     case "clearAllFilters":

@@ -82,12 +82,25 @@ export const useTableCheckboxFilter = <SearchParam extends string>({
   const [value, setValue] = useState<string[]>(valueFromUrl);
 
   const onChange = (e: InputEvent, key: string): void => {
+    let newValues: string[];
     if (e.target.checked) {
-      setValue([...value, key]);
+      newValues = [...value, key];
+      setValue(newValues);
     } else {
       const index = value.findIndex((v) => v === key);
-      setValue([...value.slice(0, index), ...value.slice(index + 1)]);
+      newValues = [...value.slice(0, index), ...value.slice(index + 1)];
+      setValue(newValues);
     }
+
+    updateUrlQueryParam(
+      urlSearchParam,
+      newValues,
+      search,
+      replace,
+      pathname,
+      true
+    );
+    sendAnalyticsEvent(urlSearchParam);
   };
 
   const updateParams = () => {

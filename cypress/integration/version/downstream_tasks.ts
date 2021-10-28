@@ -25,8 +25,10 @@ describe("Downstream Tasks Tab", () => {
   it("Filters by test name", () => {
     cy.get("tbody").first().children().should("have.length", 1);
     cy.toggleTableFilter(1);
-    cy.dataCy("taskname-input-wrapper").find("input").focus().type("filter");
-    cy.dataCy("taskname-input-wrapper").contains("Filter").click();
+    cy.dataCy("taskname-input-wrapper")
+      .find("input")
+      .focus()
+      .type("filter{enter}");
     cy.get("tbody").first().contains("No Data");
   });
 

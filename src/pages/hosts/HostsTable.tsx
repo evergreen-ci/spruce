@@ -72,7 +72,6 @@ export const HostsTable: React.FC<Props> = ({
     hostIdValue,
     onChangeHostId,
     updateHostIdUrlParam,
-    resetHostIdUrlParam,
   ] = useTableInputFilter<HostsUrlParam>({
     urlSearchParam: "hostId",
     sendAnalyticsEvent: sendHostsTableFilterEvent,
@@ -82,8 +81,6 @@ export const HostsTable: React.FC<Props> = ({
   const [
     statusesValue,
     onChangeStatuses,
-    updateStatusesUrlParam,
-    resetStatusesUrlParam,
   ] = useTableCheckboxFilter<HostsUrlParam>({
     urlSearchParam: "statuses",
     sendAnalyticsEvent: sendHostsTableFilterEvent,
@@ -94,7 +91,6 @@ export const HostsTable: React.FC<Props> = ({
     distroIdValue,
     onChangeDistroId,
     updateDistroIdUrlParam,
-    resetDistroIdUrlParam,
   ] = useTableInputFilter<HostsUrlParam>({
     urlSearchParam: "distroId",
     sendAnalyticsEvent: sendHostsTableFilterEvent,
@@ -105,7 +101,6 @@ export const HostsTable: React.FC<Props> = ({
     currentTaskIdValue,
     onChangeCurrentTaskId,
     updateCurrentTaskIdUrlParam,
-    resetCurrentTaskIdUrlParam,
   ] = useTableInputFilter<HostsUrlParam>({
     urlSearchParam: "currentTaskId",
     sendAnalyticsEvent: sendHostsTableFilterEvent,
@@ -116,14 +111,12 @@ export const HostsTable: React.FC<Props> = ({
     ownerValue,
     onChangeOwner,
     updateOwnerUrlParam,
-    resetOwnerUrlParam,
   ] = useTableInputFilter<HostsUrlParam>({
     urlSearchParam: "startedBy",
     sendAnalyticsEvent: sendHostsTableFilterEvent,
   });
 
   // TABLE COLUMNS
-  const submitButtonCopy = "Search";
   const columnsTemplate: Array<ColumnProps<Host>> = [
     {
       title: "ID",
@@ -144,8 +137,6 @@ export const HostsTable: React.FC<Props> = ({
         onChange: onChangeHostId,
         "data-cy": "host-id-filter",
         onFilter: updateHostIdUrlParam,
-        onReset: resetHostIdUrlParam,
-        submitButtonCopy,
       }),
     },
     {
@@ -162,8 +153,6 @@ export const HostsTable: React.FC<Props> = ({
         onChange: onChangeDistroId,
         "data-cy": "distro-id-filter",
         onFilter: updateDistroIdUrlParam,
-        onReset: resetDistroIdUrlParam,
-        submitButtonCopy,
       }),
     },
     {
@@ -179,8 +168,6 @@ export const HostsTable: React.FC<Props> = ({
         onChange: onChangeStatuses,
         dataCy: "statuses-filter",
         statuses: hostStatuses,
-        onFilter: updateStatusesUrlParam,
-        onReset: resetStatusesUrlParam,
       }),
     },
     {
@@ -208,8 +195,6 @@ export const HostsTable: React.FC<Props> = ({
         onChange: onChangeCurrentTaskId,
         "data-cy": "current-task-id-filter",
         onFilter: updateCurrentTaskIdUrlParam,
-        onReset: resetCurrentTaskIdUrlParam,
-        submitButtonCopy,
       }),
     },
     {
@@ -259,8 +244,6 @@ export const HostsTable: React.FC<Props> = ({
         onChange: onChangeOwner,
         "data-cy": "owner-filter",
         onFilter: updateOwnerUrlParam,
-        onReset: resetOwnerUrlParam,
-        submitButtonCopy,
       }),
     },
   ];
