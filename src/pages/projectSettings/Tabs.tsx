@@ -152,6 +152,8 @@ const getTabData = (
         cedarTestResultsEnabled,
         patchingDisabled,
         taskSync,
+        disabledStatsCache,
+        filesIgnoredFromCache,
       },
     },
   } = data;
@@ -178,6 +180,8 @@ const getTabData = (
           patchEnabled: taskSync.patchEnabled,
         },
       }),
+      ...(disabledStatsCache && { disabledStatsCache }),
+      ...(filesIgnoredFromCache && { filesIgnoredFromCache }),
     },
   };
 };

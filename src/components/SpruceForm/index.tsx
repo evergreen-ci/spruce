@@ -4,7 +4,7 @@ import { H3 } from "@leafygreen-ui/typography";
 import Form, { FormProps } from "@rjsf/core";
 import { transformErrors } from "./Errors";
 import baseFields from "./Fields";
-import { DefaultFieldTemplate } from "./FieldTemplates";
+import { ArrayFieldTemplate, DefaultFieldTemplate } from "./FieldTemplates";
 import widgets from "./Widgets";
 
 export type FormDataProps = FormProps<any>["formData"];
@@ -34,6 +34,7 @@ export const SpruceForm: React.FC<SpruceFormProps> = ({
     uiSchema={uiSchema}
     formData={formData}
     tagName={tagName}
+    ArrayFieldTemplate={ArrayFieldTemplate}
     FieldTemplate={DefaultFieldTemplate}
     transformErrors={transformErrors}
     showErrorList={false}

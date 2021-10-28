@@ -1905,6 +1905,8 @@ export type GeneralSettingsFragment = {
   validDefaultLoggers: Array<string>;
   cedarTestResultsEnabled?: Maybe<boolean>;
   patchingDisabled?: Maybe<boolean>;
+  disabledStatsCache?: Maybe<boolean>;
+  filesIgnoredFromCache?: Maybe<Array<Maybe<string>>>;
   taskSync: { configEnabled?: Maybe<boolean>; patchEnabled?: Maybe<boolean> };
 };
 
