@@ -289,6 +289,7 @@ export const HostsTable: React.FC<Props> = ({
         onChange: onSelectChange,
         selectedRowKeys: selectedHostIds,
       }}
+      getPopupContainer={(trigger: HTMLElement) => trigger}
       onChange={tableChangeHandler}
       loading={loading}
     />

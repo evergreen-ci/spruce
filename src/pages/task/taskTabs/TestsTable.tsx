@@ -172,6 +172,7 @@ export const TestsTable: React.FC = () => {
           pagination={false}
           columns={columns}
           dataSource={testResults}
+          getPopupContainer={(trigger: HTMLElement) => trigger}
           onChange={tableChangeHandler}
         />
       </TableContainer>
