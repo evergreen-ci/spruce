@@ -13,7 +13,7 @@ export const ScheduleTasks: React.FC<ScheduleTasksProps> = ({ versionId }) => {
     <>
       <Button
         size="small"
-        data-cy="schedule-tasks"
+        data-cy="schedule-tasks-button"
         onClick={() => {
           patchAnalytics.sendEvent({ name: "Open Schedule Tasks Modal" });
           setOpen(true);
