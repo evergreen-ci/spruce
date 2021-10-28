@@ -6,7 +6,7 @@ import { InlineCode } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { TableProps } from "antd/es/table";
 import { usePatchAnalytics } from "analytics";
-import { Accordion } from "components/Accordion";
+import { Accordion, AccordionWrapper } from "components/Accordion";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
@@ -234,11 +234,6 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
     </AccordionWrapper>
   );
 };
-
-const AccordionWrapper = styled.div`
-  padding-bottom: 12px;
-  padding-top: 12px;
-`;
 
 const ProjectTitleWrapper = styled.div`
   margin-right: 10px;
