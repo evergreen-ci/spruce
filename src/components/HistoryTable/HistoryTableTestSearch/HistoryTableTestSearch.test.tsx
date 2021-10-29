@@ -7,21 +7,21 @@ import { HistoryTableTestSearch } from "./HistoryTableTestSearch";
 const Content = () => <HistoryTableTestSearch />;
 
 test("Renders normally and doesn't affect the url", () => {
-  const { queryByDataCy } = render(Content, {
+  const { getByPlaceholderText } = render(Content, {
     route: `/variant-history/evergreen/lint`,
     path: "/variant-history/:projectId/:variantName",
   });
-  const input = queryByDataCy("history-table-test-search-input");
+  const input = getByPlaceholderText("Search Test Name") as HTMLInputElement;
   expect(input).toBeInTheDocument();
   expect(input).toHaveValue("");
 });
 
 test("Should clear input when a value is submitted", () => {
-  const { queryByDataCy } = render(Content, {
+  const { getByPlaceholderText } = render(Content, {
     route: `/variant-history/evergreen/lint`,
     path: "/variant-history/:projectId/:variantName",
   });
-  const input = queryByDataCy("history-table-test-search-input");
+  const input = getByPlaceholderText("Search Test Name") as HTMLInputElement;
 
   expect(input).toHaveValue("");
   fireEvent.change(input, {
@@ -29,7 +29,7 @@ test("Should clear input when a value is submitted", () => {
   });
   expect(input).toHaveValue("some-test-name");
   fireEvent.focus(input);
-  fireEvent.keyDown(input, {
+  fireEvent.keyPress(input, {
     key: "Enter",
     keyCode: 13,
   });
@@ -37,11 +37,11 @@ test("Should clear input when a value is submitted", () => {
 });
 
 test("Should add input query params to the url", () => {
-  const { queryByDataCy, history } = render(Content, {
+  const { getByText, getByPlaceholderText, history } = render(Content, {
     route: `/variant-history/evergreen/lint`,
     path: "/variant-history/:projectId/:variantName",
   });
-  const input = queryByDataCy("history-table-test-search-input");
+  const input = getByPlaceholderText("Search Test Name") as HTMLInputElement;
 
   // FAILED TEST
   expect(input).toHaveValue("");
@@ -50,31 +50,31 @@ test("Should add input query params to the url", () => {
   });
   expect(input).toHaveValue("some-test-name");
   fireEvent.focus(input);
-  fireEvent.keyDown(input, {
+  fireEvent.keyPress(input, {
     key: "Enter",
     keyCode: 13,
   });
 
   // PASSED TEST
-  fireEvent.click(queryByDataCy("test-search-passed"));
+  fireEvent.click(getByText("Passed test"));
   fireEvent.change(input, {
     target: { value: "some-other-test-name" },
   });
   expect(input).toHaveValue("some-other-test-name");
   fireEvent.focus(input);
-  fireEvent.keyDown(input, {
+  fireEvent.keyPress(input, {
     key: "Enter",
     keyCode: 13,
   });
 
   // ALL TEST
-  fireEvent.click(queryByDataCy("test-search-all"));
+  fireEvent.click(getByText("All test"));
   fireEvent.change(input, {
     target: { value: "another-test-name" },
   });
   expect(input).toHaveValue("another-test-name");
   fireEvent.focus(input);
-  fireEvent.keyDown(input, {
+  fireEvent.keyPress(input, {
     key: "Enter",
     keyCode: 13,
   });
@@ -86,17 +86,17 @@ test("Should add input query params to the url", () => {
 });
 
 test("Should add multiple input filters to the same key as query params", () => {
-  const { queryByDataCy, history } = render(Content, {
+  const { getByPlaceholderText, history } = render(Content, {
     route: `/variant-history/evergreen/lint`,
     path: "/variant-history/:projectId/:variantName",
   });
-  const input = queryByDataCy("history-table-test-search-input");
+  const input = getByPlaceholderText("Search Test Name") as HTMLInputElement;
   expect(input).toHaveValue("");
   fireEvent.change(input, {
     target: { value: "some-test-name" },
   });
   expect(input).toHaveValue("some-test-name");
-  fireEvent.keyDown(input, {
+  fireEvent.keyPress(input, {
     key: "Enter",
     keyCode: 13,
   });
@@ -104,7 +104,7 @@ test("Should add multiple input filters to the same key as query params", () => 
     target: { value: "some-other-test-name" },
   });
   expect(input).toHaveValue("some-other-test-name");
-  fireEvent.keyDown(input, {
+  fireEvent.keyPress(input, {
     key: "Enter",
     keyCode: 13,
   });
@@ -113,17 +113,17 @@ test("Should add multiple input filters to the same key as query params", () => 
 });
 
 test("Should not allow duplicate input filters for the same key as query params", () => {
-  const { queryByDataCy, history } = render(Content, {
+  const { getByPlaceholderText, history } = render(Content, {
     route: `/variant-history/evergreen/lint`,
     path: "/variant-history/:projectId/:variantName",
   });
-  const input = queryByDataCy("history-table-test-search-input");
+  const input = getByPlaceholderText("Search Test Name") as HTMLInputElement;
   expect(input).toHaveValue("");
   fireEvent.change(input, {
     target: { value: "some-test-name" },
   });
   expect(input).toHaveValue("some-test-name");
-  fireEvent.keyDown(input, {
+  fireEvent.keyPress(input, {
     key: "Enter",
     keyCode: 13,
   });
@@ -131,7 +131,7 @@ test("Should not allow duplicate input filters for the same key as query params"
     target: { value: "some-test-name" },
   });
   expect(input).toHaveValue("some-test-name");
-  fireEvent.keyDown(input, {
+  fireEvent.keyPress(input, {
     key: "Enter",
     keyCode: 13,
   });
@@ -140,27 +140,27 @@ test("Should not allow duplicate input filters for the same key as query params"
 });
 
 test("Should convert a test specified to be passing /and/ failing as all", () => {
-  const { queryByDataCy, history } = render(Content, {
+  const { getByText, getByPlaceholderText, history } = render(Content, {
     route: `/variant-history/evergreen/lint`,
     path: "/variant-history/:projectId/:variantName",
   });
-  const input = queryByDataCy("history-table-test-search-input");
+  const input = getByPlaceholderText("Search Test Name") as HTMLInputElement;
   expect(input).toHaveValue("");
   fireEvent.change(input, {
     target: { value: "some-test-name" },
   });
   expect(input).toHaveValue("some-test-name");
-  fireEvent.keyDown(input, {
+  fireEvent.keyPress(input, {
     key: "Enter",
     keyCode: 13,
   });
 
-  fireEvent.click(queryByDataCy("test-search-passed"));
+  fireEvent.click(getByText("Passed test"));
   fireEvent.change(input, {
     target: { value: "some-test-name" },
   });
   expect(input).toHaveValue("some-test-name");
-  fireEvent.keyDown(input, {
+  fireEvent.keyPress(input, {
     key: "Enter",
     keyCode: 13,
   });
@@ -170,24 +170,25 @@ test("Should convert a test specified to be passing /and/ failing as all", () =>
 });
 
 test("Should prevent adding test as passing or failing if the test is already chosen as all", () => {
-  const { queryByDataCy, history } = render(Content, {
+  const { getByText, getByPlaceholderText, history } = render(Content, {
     route: `/variant-history/evergreen/lint`,
     path: "/variant-history/:projectId/:variantName",
   });
 
-  fireEvent.click(queryByDataCy("test-search-all"));
-  const input = queryByDataCy("history-table-test-search-input");
+  fireEvent.click(getByText("All test"));
+
+  const input = getByPlaceholderText("Search Test Name") as HTMLInputElement;
   expect(input).toHaveValue("");
   fireEvent.change(input, {
     target: { value: "some-test-name" },
   });
   expect(input).toHaveValue("some-test-name");
-  fireEvent.keyDown(input, {
+  fireEvent.keyPress(input, {
     key: "Enter",
     keyCode: 13,
   });
 
-  fireEvent.click(queryByDataCy("test-search-failed"));
+  fireEvent.click(getByText("Failed test"));
   fireEvent.change(input, {
     target: { value: "some-test-name" },
   });
@@ -197,12 +198,12 @@ test("Should prevent adding test as passing or failing if the test is already ch
     keyCode: 13,
   });
 
-  fireEvent.click(queryByDataCy("test-search-passed"));
+  fireEvent.click(getByText("Passed test"));
   fireEvent.change(input, {
     target: { value: "some-test-name" },
   });
   expect(input).toHaveValue("some-test-name");
-  fireEvent.keyDown(input, {
+  fireEvent.keyPress(input, {
     key: "Enter",
     keyCode: 13,
   });
@@ -212,49 +213,50 @@ test("Should prevent adding test as passing or failing if the test is already ch
 });
 
 test("Should convert a passing or failing test as all if test is submitted as all", () => {
-  const { queryByDataCy, history } = render(Content, {
+  const { getByText, getByPlaceholderText, history } = render(Content, {
     route: `/variant-history/evergreen/lint`,
     path: "/variant-history/:projectId/:variantName",
   });
 
-  fireEvent.click(queryByDataCy("test-search-failed"));
-  const input = queryByDataCy("history-table-test-search-input");
+  fireEvent.click(getByText("Failed test"));
+
+  const input = getByPlaceholderText("Search Test Name") as HTMLInputElement;
   fireEvent.change(input, {
     target: { value: "some-test-name" },
   });
   expect(input).toHaveValue("some-test-name");
-  fireEvent.keyDown(input, {
+  fireEvent.keyPress(input, {
     key: "Enter",
     keyCode: 13,
   });
 
-  fireEvent.click(queryByDataCy("test-search-all"));
+  fireEvent.click(getByText("All test"));
   expect(input).toHaveValue("");
   fireEvent.change(input, {
     target: { value: "some-test-name" },
   });
   expect(input).toHaveValue("some-test-name");
-  fireEvent.keyDown(input, {
+  fireEvent.keyPress(input, {
     key: "Enter",
     keyCode: 13,
   });
 
-  fireEvent.click(queryByDataCy("test-search-passed"));
+  fireEvent.click(getByText("Passed test"));
   fireEvent.change(input, {
     target: { value: "some-other-test-name" },
   });
   expect(input).toHaveValue("some-other-test-name");
-  fireEvent.keyDown(input, {
+  fireEvent.keyPress(input, {
     key: "Enter",
     keyCode: 13,
   });
 
-  fireEvent.click(queryByDataCy("test-search-all"));
+  fireEvent.click(getByText("All test"));
   fireEvent.change(input, {
     target: { value: "some-other-test-name" },
   });
   expect(input).toHaveValue("some-other-test-name");
-  fireEvent.keyDown(input, {
+  fireEvent.keyPress(input, {
     key: "Enter",
     keyCode: 13,
   });

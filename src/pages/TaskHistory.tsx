@@ -98,10 +98,12 @@ export const TaskHistory = () => {
               <BuildVariantSelector projectId={projectId} taskName={taskName} />
             </PageHeaderContent>
           </PageHeader>
-          <BadgeWrapper>
-            <FilterBadges queryParamsToIgnore={queryParamsToIgnore} />
-          </BadgeWrapper>
-          <ColumnPaginationButtons />
+          <PaginationFilterWrapper>
+            <BadgeWrapper>
+              <FilterBadges queryParamsToIgnore={queryParamsToIgnore} />
+            </BadgeWrapper>
+            <ColumnPaginationButtons />
+          </PaginationFilterWrapper>
           <TableContainer>
             {buildVariantsForTaskName && (
               <>
@@ -141,8 +143,13 @@ const PageHeaderContent = styled.div`
   padding-top: 28px;
 `;
 
-const BadgeWrapper = styled.div`
+const PaginationFilterWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
   padding-top: 16px;
+`;
+
+const BadgeWrapper = styled.div`
   padding-bottom: 16px;
 `;
 
