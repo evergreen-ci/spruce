@@ -5,6 +5,7 @@ import Button from "@leafygreen-ui/button";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { TableProps } from "antd/es/table";
+import { usePatchAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
@@ -47,6 +48,7 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
   taskCount,
 }) => {
   const dispatchToast = useToastContext();
+  const patchAnalytics = usePatchAnalytics();
 
   const defaultSort: SortOrder = {
     Key: TaskSortCategory.Status,
@@ -217,6 +219,12 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
                   baseStatusSelectorProps={baseStatusSelectorProps}
                   taskNameInputProps={taskNameInputProps}
                   variantInputProps={variantInputProps}
+                  onColumnHeaderClick={(sortField) =>
+                    patchAnalytics.sendEvent({
+                      name: "Sort Downstream Tasks Table",
+                      sortBy: sortField,
+                    })
+                  }
                 />
               )}
             </TableWrapper>

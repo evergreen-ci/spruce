@@ -1,15 +1,11 @@
+#import "../fragments/projectSettings/general.graphql"
+
 query ProjectSettings($identifier: String!) {
   projectSettings(identifier: $identifier) {
     projectRef {
-      enabled
-      owner
-      repo
-      branch
-      displayName
-      batchTime
-      remotePath
-      spawnHostScriptPath
+      id
       useRepoSettings
+      ...generalSettings
     }
   }
 }

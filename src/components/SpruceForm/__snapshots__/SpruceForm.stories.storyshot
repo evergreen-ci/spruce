@@ -28,200 +28,265 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
               className="css-bm42zs-ElementWrapper ee4bs9n0"
             >
               <div
-                className=""
+                className="css-12pm1mq-MaxWidthContainer eyx6h6k0"
               >
-                <label
-                  className="leafygreen-ui-1v870ns"
-                  id="select-1-label"
+                <div
+                  className=""
                 >
-                  Project Cloning Method
-                </label>
-                <button
-                  aria-controls="select-1-menu"
-                  aria-describedby="select-1-description"
-                  aria-disabled={false}
-                  aria-expanded={false}
-                  aria-labelledby="select-1-label"
-                  className="leafygreen-ui-p6v5m8"
-                  data-testid="leafygreen-ui-select-menubutton"
-                  disabled={false}
-                  onClick={[Function]}
-                  type="button"
-                  value="legacy-ssh"
-                >
-                  <div
-                    className="leafygreen-ui-1ktj4tm"
-                  />
-                  <div
-                    className="leafygreen-ui-sl5lf4"
+                  <label
+                    className="leafygreen-ui-1v870ns"
+                    id="select-1-label"
+                  >
+                    Project Cloning Method
+                  </label>
+                  <button
+                    aria-controls="select-1-menu"
+                    aria-describedby="select-1-description"
+                    aria-disabled={false}
+                    aria-expanded={false}
+                    aria-labelledby="select-1-label"
+                    className="leafygreen-ui-p6v5m8"
+                    data-testid="leafygreen-ui-select-menubutton"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                    value="legacy-ssh"
                   >
                     <div
-                      className="leafygreen-ui-17aj16e"
+                      className="leafygreen-ui-1ktj4tm"
+                    />
+                    <div
+                      className="leafygreen-ui-sl5lf4"
                     >
-                      Legacy SSH
-                    </div>
-                    <span
-                      className="leafygreen-ui-18n6mp2"
-                    >
-                      <svg
-                        alt=""
-                        aria-hidden={true}
-                        className="leafygreen-ui-195unnb"
-                        height={16}
-                        role="presentation"
-                        viewBox="0 0 16 16"
-                        width={16}
+                      <div
+                        className="leafygreen-ui-17aj16e"
                       >
-                        <path
-                          d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                </button>
+                        Legacy SSH
+                      </div>
+                      <span
+                        className="leafygreen-ui-18n6mp2"
+                      >
+                        <svg
+                          alt=""
+                          aria-hidden={true}
+                          className="leafygreen-ui-195unnb"
+                          height={16}
+                          role="presentation"
+                          viewBox="0 0 16 16"
+                          width={16}
+                        >
+                          <path
+                            d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
           <div
             className="form-group field field-array"
           >
+            <h6
+              className="css-ho1tq1-StyledSubtitle e63qz861 leafygreen-ui-11wdjex"
+              id="root_expansions__title"
+            >
+              Expansions
+            </h6>
             <div
               className="css-bm42zs-ElementWrapper ee4bs9n0"
             >
-              <label
-                className="leafygreen-ui-ly82bp"
-                htmlFor="editable_tag_field_Expansions"
-              >
-                Expansions
-              </label>
-              <div
-                className="css-1ojulcu-FlexColumnContainer e1zn6k0"
-                id="editable_tag_field_Expansions"
+              <button
+                aria-disabled={false}
+                className="leafygreen-ui-1jc9h6q"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
               >
                 <div
-                  className="css-ajmoyw-FlexColumnContainer e161fbrp2"
-                  data-cy="user-tag-row"
+                  className="leafygreen-ui-1ktj4tm"
+                />
+                <div
+                  className="leafygreen-ui-ie0uqp"
                 >
-                  <div
-                    className="css-3oy7y7-FlexContainer e161fbrp3"
+                  <svg
+                    alt=""
+                    aria-hidden={true}
+                    className="leafygreen-ui-1my2s1b"
+                    fill="none"
+                    height={16}
+                    role="presentation"
+                    viewBox="0 0 16 16"
+                    width={16}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clipRule="evenodd"
+                      d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
+                      fill="currentColor"
+                      fillRule="evenodd"
+                    />
+                  </svg>
+                  Add File Pattern
+                </div>
+              </button>
+            </div>
+            <div
+              className="css-tkt7ft-ArrayContainer e7smmlm2"
+            >
+              <div
+                className="css-wsj9xt-ArrayItemRow e7smmlm1"
+              >
+                <div
+                  className="form-group field field-object"
+                >
+                  <fieldset
+                    id="root_expansions_0"
                   >
                     <div
-                      className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+                      className="form-group field field-string"
                     >
                       <div
-                        className="css-8jhme8-FlexColumnContainer-Section e161fbrp1"
-                      >
-                        <label
-                          className="css-c0hrp-InputLabel e1xf068s2"
-                          htmlFor="tag_key_undefined"
-                        >
-                          Key
-                        </label>
-                        <input
-                          className="ant-input"
-                          data-cy="user-tag-key-field"
-                          id="tag_key_undefined"
-                          onBlur={[Function]}
-                          onChange={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          type="text"
-                          value="Sample Input"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      className="css-ajmoyw-FlexColumnContainer e161fbrp2"
-                    >
-                      <div
-                        className="css-8jhme8-FlexColumnContainer-Section e161fbrp1"
-                      >
-                        <label
-                          className="css-c0hrp-InputLabel e1xf068s2"
-                          htmlFor="tag_value_undefined"
-                        >
-                          Value
-                        </label>
-                        <input
-                          className="ant-input"
-                          data-cy="user-tag-value-field"
-                          id="tag_value_undefined"
-                          onBlur={[Function]}
-                          onChange={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          type="text"
-                          value="Sample Input"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      className="css-1ys6knn-IconButtonContainer e161fbrp0"
-                    >
-                      <button
-                        aria-disabled={false}
-                        aria-label="Delete Tag"
-                        className="leafygreen-ui-wn45f0"
-                        tabIndex={0}
+                        className="css-bm42zs-ElementWrapper ee4bs9n0"
                       >
                         <div
-                          className="leafygreen-ui-xhlipt"
+                          className="css-12pm1mq-MaxWidthContainer eyx6h6k0"
                         >
-                          <svg
-                            aria-label="Trash Icon"
-                            className=""
-                            data-cy="user-tag-trash-icon"
-                            fill="none"
-                            height={16}
-                            onClick={[Function]}
-                            role="img"
-                            viewBox="0 0 16 16"
-                            width={16}
-                            xmlns="http://www.w3.org/2000/svg"
+                          <div
+                            className="leafygreen-ui-1iyoj2o"
                           >
-                            <path
-                              clipRule="evenodd"
-                              d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
-                              fill="currentColor"
-                              fillRule="evenodd"
-                            />
-                          </svg>
+                            <label
+                              className="leafygreen-ui-ly82bp"
+                              htmlFor="textinput-1"
+                            >
+                              key
+                            </label>
+                            <div
+                              className="leafygreen-ui-lzja97"
+                            >
+                              <div
+                                className="leafygreen-ui-1i2djk5"
+                              >
+                                <input
+                                  aria-label="key"
+                                  autoComplete="on"
+                                  className="leafygreen-ui-1il5lef"
+                                  disabled={false}
+                                  id="textinput-1"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onFocus={[Function]}
+                                  placeholder=""
+                                  required={true}
+                                  type="text"
+                                  value="Sample Input"
+                                />
+                                <div
+                                  className="leafygreen-ui-3x1o6h"
+                                  data-leafygreen-ui="interaction-ring"
+                                />
+                              </div>
+                              <div
+                                className="leafygreen-ui-m329s1"
+                                data-leafygreen-ui="icon-selector"
+                              />
+                            </div>
+                          </div>
                         </div>
-                      </button>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div
-                  className="css-ajmoyw-FlexColumnContainer e161fbrp2"
-                  data-cy="add-tag-button-row"
-                >
-                  <div
-                    className="css-10b13qw-ButtonContainer e161fbrp4"
-                  >
-                    <button
-                      aria-disabled={false}
-                      className="leafygreen-ui-26sqyb"
-                      data-cy="add-tag-button"
-                      disabled={false}
-                      glyph={
-                        <Icon
-                          glyph="Plus"
-                        />
-                      }
-                      onClick={[Function]}
-                      type="button"
+                    <div
+                      className="form-group field field-string"
                     >
                       <div
-                        className="leafygreen-ui-1ktj4tm"
-                      />
-                      <div
-                        className="leafygreen-ui-ie0uqp"
+                        className="css-bm42zs-ElementWrapper ee4bs9n0"
                       >
-                        Add New Expansion
+                        <div
+                          className="css-12pm1mq-MaxWidthContainer eyx6h6k0"
+                        >
+                          <div
+                            className="leafygreen-ui-1iyoj2o"
+                          >
+                            <label
+                              className="leafygreen-ui-ly82bp"
+                              htmlFor="textinput-2"
+                            >
+                              value
+                            </label>
+                            <div
+                              className="leafygreen-ui-lzja97"
+                            >
+                              <div
+                                className="leafygreen-ui-1i2djk5"
+                              >
+                                <input
+                                  aria-label="value"
+                                  autoComplete="on"
+                                  className="leafygreen-ui-1il5lef"
+                                  disabled={false}
+                                  id="textinput-2"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onFocus={[Function]}
+                                  placeholder=""
+                                  required={true}
+                                  type="text"
+                                  value="Sample Input"
+                                />
+                                <div
+                                  className="leafygreen-ui-3x1o6h"
+                                  data-leafygreen-ui="interaction-ring"
+                                />
+                              </div>
+                              <div
+                                className="leafygreen-ui-m329s1"
+                                data-leafygreen-ui="icon-selector"
+                              />
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </button>
-                  </div>
+                    </div>
+                  </fieldset>
+                </div>
+                <div
+                  className="css-x2ce4n-ElementWrapper-DeleteButtonWrapper e7smmlm0"
+                >
+                  <button
+                    aria-disabled={false}
+                    className="leafygreen-ui-26sqyb"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <div
+                      className="leafygreen-ui-1ktj4tm"
+                    />
+                    <div
+                      className="leafygreen-ui-ie0uqp"
+                    >
+                      <svg
+                        aria-label="Trash Icon"
+                        className=""
+                        fill="none"
+                        height={16}
+                        role="img"
+                        viewBox="0 0 16 16"
+                        width={16}
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          clipRule="evenodd"
+                          d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
+                          fill="currentColor"
+                          fillRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </button>
                 </div>
               </div>
             </div>

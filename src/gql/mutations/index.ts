@@ -9,6 +9,7 @@ import EDIT_ANNOTATION_NOTE from "./edit-annotation-note.graphql";
 import EDIT_SPAWN_HOST from "./edit-spawn-host.graphql";
 import ENQUEUE_PATCH from "./enqueue-patch.graphql";
 import FILE_JIRA_TICKET from "./file-jira-ticket.graphql";
+import FORCE_REPOTRACKER_RUN from "./force-repotracker-run.graphql";
 import MOVE_ANNOTATION from "./move-annotation.graphql";
 import OVERRIDE_TASK_DEPENDENCIES from "./override-task-dependencies.graphql";
 import REMOVE_ANNOTATION from "./remove-annotation.graphql";
@@ -45,6 +46,7 @@ export {
   EDIT_SPAWN_HOST,
   ENQUEUE_PATCH,
   FILE_JIRA_TICKET,
+  FORCE_REPOTRACKER_RUN,
   OVERRIDE_TASK_DEPENDENCIES,
   REMOVE_ITEM_FROM_COMMIT_QUEUE,
   REMOVE_PUBLIC_KEY,
