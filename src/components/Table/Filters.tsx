@@ -140,8 +140,8 @@ export const getColumnCheckboxFilterProps = ({
 
 const FilterWrapper = styled.div`
   ${tableInputContainerCSS}
-  min-width: 200px;
-  font-weight: normal;
+  min-width: 200px; // need to set this as side effect of getPopupContainer
+  font-weight: normal; // need to set this as side effect of getPopupContainer
 `;
 const StyledTextInput = styled(TextInput)`
   p {

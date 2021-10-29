@@ -18,8 +18,6 @@ interface InputValueState {
 }
 
 export type Action =
-  | { type: "onChangeBaseStatusesSelector"; baseStatuses: string[] }
-  | { type: "onChangeStatusesSelector"; statuses: string[] }
   | { type: "onChangeTaskNameInput"; task: string }
   | { type: "onChangeVariantInput"; variant: string }
   | { type: "onFilterTaskNameInput" }

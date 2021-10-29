@@ -55,7 +55,8 @@ describe("Tasks filters", () => {
       cy.dataCy("variant-input-wrapper")
         .find("input")
         .focus()
-        .type(`${variantInputValue}{enter}`);
+        .type(variantInputValue)
+        .type("{enter}");
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
@@ -85,7 +86,8 @@ describe("Tasks filters", () => {
       cy.dataCy("taskname-input-wrapper")
         .find("input")
         .focus()
-        .type(`${taskNameInputValue}{enter}`);
+        .type(taskNameInputValue)
+        .type("{enter}");
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,

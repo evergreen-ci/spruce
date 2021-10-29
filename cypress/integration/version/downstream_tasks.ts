@@ -28,7 +28,8 @@ describe("Downstream Tasks Tab", () => {
     cy.dataCy("taskname-input-wrapper")
       .find("input")
       .focus()
-      .type("filter{enter}");
+      .type("filter")
+      .type("{enter}");
     cy.get("tbody").first().contains("No Data");
   });
 
