@@ -1960,6 +1960,27 @@ export type ProjectFragment = {
   displayName: string;
 };
 
+export type GeneralSettingsFragment = {
+  enabled?: Maybe<boolean>;
+  owner: string;
+  repo: string;
+  branch: string;
+  displayName: string;
+  batchTime: number;
+  remotePath: string;
+  spawnHostScriptPath: string;
+  dispatchingDisabled?: Maybe<boolean>;
+  deactivatePrevious?: Maybe<boolean>;
+  repotrackerDisabled?: Maybe<boolean>;
+  defaultLogger: string;
+  validDefaultLoggers: Array<string>;
+  cedarTestResultsEnabled?: Maybe<boolean>;
+  patchingDisabled?: Maybe<boolean>;
+  disabledStatsCache?: Maybe<boolean>;
+  filesIgnoredFromCache?: Maybe<Array<string>>;
+  taskSync: { configEnabled?: Maybe<boolean>; patchEnabled?: Maybe<boolean> };
+};
+
 export type AbortTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
@@ -2056,6 +2077,12 @@ export type BbCreateTicketMutationVariables = Exact<{
 }>;
 
 export type BbCreateTicketMutation = { bbCreateTicket: boolean };
+
+export type ForceRepotrackerRunMutationVariables = Exact<{
+  projectId: Scalars["String"];
+}>;
+
+export type ForceRepotrackerRunMutation = { forceRepotrackerRun: boolean };
 
 export type MoveAnnotationIssueMutationVariables = Exact<{
   taskId: Scalars["String"];
@@ -2183,12 +2210,6 @@ export type SchedulePatchMutation = {
     variants: Array<string>;
   } & BasePatchFragment;
 };
-
-export type ScheduleTaskMutationVariables = Exact<{
-  taskId: Scalars["String"];
-}>;
-
-export type ScheduleTaskMutation = { scheduleTask: BaseTaskFragment };
 
 export type ScheduleTasksMutationVariables = Exact<{
   taskIds: Array<Scalars["String"]>;
@@ -2981,17 +3002,9 @@ export type ProjectSettingsQueryVariables = Exact<{
 
 export type ProjectSettingsQuery = {
   projectSettings: {
-    projectRef?: Maybe<{
-      enabled?: Maybe<boolean>;
-      owner: string;
-      repo: string;
-      branch: string;
-      displayName: string;
-      batchTime: number;
-      remotePath: string;
-      spawnHostScriptPath: string;
-      useRepoSettings: boolean;
-    }>;
+    projectRef?: Maybe<
+      { id: string; useRepoSettings: boolean } & GeneralSettingsFragment
+    >;
   };
 };
 
