@@ -169,7 +169,7 @@ test("Should convert a test specified to be passing /and/ failing as all", () =>
   expect(location.search).toBe(`?all=some-test-name`);
 });
 
-test("Should prevent adding test as passing or failing if the test is already chosen as all", () => {
+test("Should prevent adding test as passing or failing if the test is already tagged with all", () => {
   const { getByText, getByPlaceholderText, history } = render(Content, {
     route: `/variant-history/evergreen/lint`,
     path: "/variant-history/:projectId/:variantName",

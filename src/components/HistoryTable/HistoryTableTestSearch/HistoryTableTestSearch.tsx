@@ -18,13 +18,18 @@ enum TestStatus {
 
 export const HistoryTableTestSearch = () => {
   const [input, setInput] = useState("");
-  const [radioSelection, setRadioSelection] = useState<string>("failed");
+  const [radioSelection, setRadioSelection] = useState<string>(
+    TestStatus.Failed
+  );
 
   const updateQueryParams = useUpdateURLQueryParams();
   const { search } = useLocation();
   const queryParams = parseQueryString(search);
 
-  const updateAndRemoveQueryParams = (selectedParams, removeKey: string) => {
+  const updateAndRemoveQueryParams = (
+    selectedParams: string[],
+    removeKey: string
+  ) => {
     const updatedParams = upsertQueryParam(selectedParams, input);
     const removedParams = removeQueryParam(queryParams[removeKey], input);
     updateQueryParams({ [removeKey]: removedParams, all: updatedParams });
@@ -58,25 +63,25 @@ export const HistoryTableTestSearch = () => {
   return (
     <ContentWrapper>
       <RadioBoxWrapper>
-        <RadioBoxGroup
+        <StyledRadioBoxGroup
           value={radioSelection}
           size="full"
           onChange={(e) => setRadioSelection(e.target.value)}
         >
-          <StyledRadioBox value={TestStatus.Failed}>Failed test</StyledRadioBox>
-          <StyledRadioBox value={TestStatus.Passed}>Passed test</StyledRadioBox>
-          <StyledRadioBox value={TestStatus.All}>All test</StyledRadioBox>
-        </RadioBoxGroup>
+          <RadioBox value={TestStatus.Failed}>Failed test</RadioBox>
+          <RadioBox value={TestStatus.Passed}>Passed test</RadioBox>
+          <RadioBox value={TestStatus.All}>All test</RadioBox>
+        </StyledRadioBoxGroup>
       </RadioBoxWrapper>
 
       <TextInputWrapper>
         <TextInput
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Search Test Name"
-          onKeyPress={(e) => e.key === "Enter" && onClick()}
           type="search"
           aria-label="history-table-test-search-input"
+          value={input}
+          placeholder="Search Test Name"
+          onChange={(e) => setInput(e.target.value)}
+          onKeyPress={(e) => e.key === "Enter" && onClick()}
         />
         <StyledIcon glyph="Plus" onClick={() => onClick()} />
       </TextInputWrapper>
@@ -91,15 +96,17 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 40%;
-  min-width: 400px; // to prevent radio buttons from becoming visually squished if Content div becomes too small
+  min-width: 500px; // to prevent radio buttons from becoming visually squished if Content div becomes too small
   padding-right: 30px;
 `;
 
 const RadioBoxWrapper = styled.div`
   margin-bottom: 14px;
+  width: 85%;
 `;
 
-const StyledRadioBox = styled(RadioBox)`
+// @ts-expect-error
+const StyledRadioBoxGroup = styled(RadioBoxGroup)`
   height: 32px;
 `;
 

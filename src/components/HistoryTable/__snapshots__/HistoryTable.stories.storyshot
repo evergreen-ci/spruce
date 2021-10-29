@@ -649,17 +649,17 @@ exports[`Storyshots History Table Test Search 1`] = `
   }
 >
   <div
-    className="css-1c3wadv-ContentWrapper e8i7li44"
+    className="css-n2ye9f-ContentWrapper e8i7li44"
   >
     <div
-      className="css-11bvodl-RadioBoxWrapper e8i7li43"
+      className="css-sdhzj1-RadioBoxWrapper e8i7li43"
     >
       <div
-        className="leafygreen-ui-ov1ktg"
+        className="leafygreen-ui-ov1ktg css-foijwf-StyledRadioBoxGroup e8i7li42"
         role="group"
       >
         <label
-          className="css-1mmcw71-StyledRadioBox e8i7li42 leafygreen-ui-179725f"
+          className="leafygreen-ui-179725f"
           data-leafygreen-ui="radio-box-wrapper"
           htmlFor="radio-box-1"
         >
@@ -697,7 +697,7 @@ exports[`Storyshots History Table Test Search 1`] = `
           </div>
         </label>
         <label
-          className="css-1mmcw71-StyledRadioBox e8i7li42 leafygreen-ui-179725f"
+          className="leafygreen-ui-179725f"
           data-leafygreen-ui="radio-box-wrapper"
           htmlFor="radio-box-2"
         >
@@ -735,7 +735,7 @@ exports[`Storyshots History Table Test Search 1`] = `
           </div>
         </label>
         <label
-          className="css-1mmcw71-StyledRadioBox e8i7li42 leafygreen-ui-179725f"
+          className="leafygreen-ui-179725f"
           data-leafygreen-ui="radio-box-wrapper"
           htmlFor="radio-box-3"
         >
