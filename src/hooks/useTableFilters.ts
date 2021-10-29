@@ -15,8 +15,7 @@ interface Params<SearchParam> {
 type UseInputFilterReturn = [
   string, // url param value
   (e: InputEvent) => void, // onChange handler
-  () => void, // update url param
-  () => void // reset url param
+  () => void // update url param
 ];
 
 // USE FOR FILTERS BUILT INTO TABLE COLUMN HEADERS
@@ -50,20 +49,12 @@ export const useTableInputFilter = <SearchParam extends string>({
     sendAnalyticsEvent(urlSearchParam);
   };
 
-  const resetQueryParam = () => {
-    setValue("");
-
-    updateUrlQueryParam(urlSearchParam, null, search, replace, pathname, true);
-  };
-
-  return [value, onChange, updateParams, resetQueryParam];
+  return [value, onChange, updateParams];
 };
 
 type UseCheckboxFilterReturn = [
   string[], // url param value
-  (e: InputEvent, key: string) => void, // onChange handler
-  () => void, // update url param
-  () => void // reset url param
+  (e: InputEvent, key: string) => void // onChange handler
 ];
 
 export const useTableCheckboxFilter = <SearchParam extends string>({
@@ -103,17 +94,5 @@ export const useTableCheckboxFilter = <SearchParam extends string>({
     sendAnalyticsEvent(urlSearchParam);
   };
 
-  const updateParams = () => {
-    updateUrlQueryParam(urlSearchParam, value, search, replace, pathname, true);
-
-    sendAnalyticsEvent(urlSearchParam);
-  };
-
-  const resetQueryParam = () => {
-    setValue([]);
-
-    updateUrlQueryParam(urlSearchParam, null, search, replace, pathname, true);
-  };
-
-  return [value, onChange, updateParams, resetQueryParam];
+  return [value, onChange];
 };

@@ -42,13 +42,6 @@ export const reducer = (state: State, action: Action) => {
       };
     case "onChangeVariantInput":
       return { ...state, variantInputVal: action.variant };
-    case "onChangeBaseStatusesSelector":
-      return { ...state, baseStatusesInputVal: action.baseStatuses };
-    case "onChangeStatusesSelector":
-      return {
-        ...state,
-        currentStatusesInputVal: action.statuses,
-      };
     case "onFilterTaskNameInput":
       return {
         ...state,
