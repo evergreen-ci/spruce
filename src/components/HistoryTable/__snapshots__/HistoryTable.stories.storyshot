@@ -649,137 +649,20 @@ exports[`Storyshots History Table Test Search 1`] = `
   }
 >
   <div
-    className="css-n2ye9f-ContentWrapper e8i7li44"
+    className="css-i7ibqh-ContentWrapper e8i7li42"
   >
-    <div
-      className="css-sdhzj1-RadioBoxWrapper e8i7li43"
-    >
-      <div
-        className="leafygreen-ui-ov1ktg css-foijwf-StyledRadioBoxGroup e8i7li42"
-        role="group"
-      >
-        <label
-          className="leafygreen-ui-179725f"
-          data-leafygreen-ui="radio-box-wrapper"
-          htmlFor="radio-box-1"
-        >
-          <input
-            aria-checked={true}
-            aria-disabled={false}
-            checked={true}
-            className="leafygreen-ui-sjbfy8"
-            data-leafygreen-ui="radio-box-input"
-            disabled={false}
-            id="radio-box-1"
-            name="radio-box-group-1"
-            onChange={[Function]}
-            type="radio"
-            value="failed"
-          />
-          <div
-            className="leafygreen-ui-od3kvw"
-          >
-            <div
-              className="leafygreen-ui-16kk2uc"
-            >
-              <div
-                className="leafygreen-ui-2hwukf"
-                onBlur={[Function]}
-                onFocus={[Function]}
-              >
-                Failed test
-              </div>
-              <div
-                className="leafygreen-ui-lmd64m"
-                data-leafygreen-ui="interaction-ring"
-              />
-            </div>
-          </div>
-        </label>
-        <label
-          className="leafygreen-ui-179725f"
-          data-leafygreen-ui="radio-box-wrapper"
-          htmlFor="radio-box-2"
-        >
-          <input
-            aria-checked={false}
-            aria-disabled={false}
-            checked={false}
-            className="leafygreen-ui-sjbfy8"
-            data-leafygreen-ui="radio-box-input"
-            disabled={false}
-            id="radio-box-2"
-            name="radio-box-group-1"
-            onChange={[Function]}
-            type="radio"
-            value="passed"
-          />
-          <div
-            className="leafygreen-ui-od3kvw"
-          >
-            <div
-              className="leafygreen-ui-1ozjte4"
-            >
-              <div
-                className="leafygreen-ui-2hwukf"
-                onBlur={[Function]}
-                onFocus={[Function]}
-              >
-                Passed test
-              </div>
-              <div
-                className="leafygreen-ui-15x5f9a"
-                data-leafygreen-ui="interaction-ring"
-              />
-            </div>
-          </div>
-        </label>
-        <label
-          className="leafygreen-ui-179725f"
-          data-leafygreen-ui="radio-box-wrapper"
-          htmlFor="radio-box-3"
-        >
-          <input
-            aria-checked={false}
-            aria-disabled={false}
-            checked={false}
-            className="leafygreen-ui-sjbfy8"
-            data-leafygreen-ui="radio-box-input"
-            disabled={false}
-            id="radio-box-3"
-            name="radio-box-group-1"
-            onChange={[Function]}
-            type="radio"
-            value="all"
-          />
-          <div
-            className="leafygreen-ui-od3kvw"
-          >
-            <div
-              className="leafygreen-ui-1ozjte4"
-            >
-              <div
-                className="leafygreen-ui-2hwukf"
-                onBlur={[Function]}
-                onFocus={[Function]}
-              >
-                All test
-              </div>
-              <div
-                className="leafygreen-ui-15x5f9a"
-                data-leafygreen-ui="interaction-ring"
-              />
-            </div>
-          </div>
-        </label>
-      </div>
-    </div>
     <div
       className="css-1pqnk9o-TextInputWrapper e8i7li41"
     >
       <div
         className="leafygreen-ui-1iyoj2o"
       >
+        <label
+          className="leafygreen-ui-ly82bp"
+          htmlFor="textinput-1"
+        >
+          Filter by failed tests
+        </label>
         <div
           className="leafygreen-ui-lzja97"
         >
