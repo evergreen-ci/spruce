@@ -1,4 +1,5 @@
-export enum HistoryFilterOptions {
-  BuildVariant = "buildVariants",
-  Task = "tasks",
+export enum TestStatus {
+  Failed = "failed",
+  Passed = "passed",
+  All = "all",
 }

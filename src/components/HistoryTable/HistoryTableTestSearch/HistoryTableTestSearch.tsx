@@ -46,18 +46,22 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 40%;
-  min-width: 200px;
+  min-width: 500px; // to prevent radio buttons from becoming visually squished if Content div becomes too small
   padding-right: 30px;
 `;
 
 const TextInputWrapper = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
 `;
 
 const StyledIcon = styled(Icon)`
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  height: 100%;
+  margin-top: auto;
+  align-self: flex-end;
+  margin-right: 10px;
   &:hover {
     cursor: pointer;
   }

@@ -4,9 +4,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import TextInput from "@leafygreen-ui/text-input";
 import { FilterDropdownProps } from "antd/es/table/interface";
-import { Button } from "components/Button";
 import { CheckboxGroup } from "components/Checkbox";
-import { FilterInputControls } from "components/FilterInputControls";
 import { tableInputContainerCSS } from "components/styles/Table";
 import {
   TreeDataEntry,
@@ -14,15 +12,13 @@ import {
   TreeSelectProps,
 } from "components/TreeSelect";
 
-const { blue } = uiColors;
+const { focus } = uiColors;
 export interface InputFilterProps {
   "data-cy"?: string;
   placeholder: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onFilter: () => void;
-  onReset: () => void;
-  submitButtonCopy?: string;
   visible?: boolean;
 }
 
@@ -31,9 +27,7 @@ export const InputFilter: React.FC<InputFilterProps> = ({
   value,
   onChange,
   onFilter,
-  onReset,
   "data-cy": dataCy,
-  submitButtonCopy,
   visible,
 }) => {
   const inputEl = useRef(null);
@@ -50,7 +44,8 @@ export const InputFilter: React.FC<InputFilterProps> = ({
 
   return (
     <FilterWrapper data-cy={`${dataCy}-wrapper`}>
-      <TextInput
+      <StyledTextInput
+        description="Press enter to filter."
         type="search"
         aria-label="input-filter"
         data-cy="input-filter"
@@ -59,11 +54,6 @@ export const InputFilter: React.FC<InputFilterProps> = ({
         onChange={onChange}
         onKeyPress={(e) => e.key === "Enter" && onFilter()}
         ref={inputEl}
-      />
-      <FilterInputControls
-        onClickSubmit={onFilter}
-        onClickReset={onReset}
-        submitButtonCopy={submitButtonCopy}
       />
     </FilterWrapper>
   );
@@ -75,8 +65,6 @@ export const getColumnSearchFilterProps = ({
   value,
   onChange,
   onFilter,
-  onReset,
-  submitButtonCopy,
 }: InputFilterProps) => ({
   filterDropdown: ({ confirm, visible }: FilterDropdownProps) => (
     <InputFilter
@@ -88,12 +76,7 @@ export const getColumnSearchFilterProps = ({
         onFilter();
         confirm({ closeDropdown: true });
       }}
-      onReset={() => {
-        onReset();
-        confirm({ closeDropdown: true });
-      }}
       data-cy={dataCy}
-      submitButtonCopy={submitButtonCopy}
     />
   ),
   filterIcon: () => <StyledSearchOutlined data-cy={dataCy} active={!!value} />,
@@ -103,24 +86,14 @@ export const getColumnTreeSelectFilterProps = ({
   tData,
   state,
   onChange,
-  onFilter,
-  onReset,
   "data-cy": dataCy,
 }: TreeSelectProps) => ({
-  filterDropdown: ({ confirm }: FilterDropdownProps) => (
+  filterDropdown: () => (
     <TreeSelect
       data-cy={dataCy}
       state={state}
       tData={tData}
       onChange={onChange}
-      onFilter={() => {
-        onFilter();
-        confirm({ closeDropdown: true });
-      }}
-      onReset={() => {
-        onReset();
-        confirm({ closeDropdown: true });
-      }}
     />
   ),
   filterIcon: () => (
@@ -133,35 +106,16 @@ export interface CheckboxFilterProps {
   statuses: TreeDataEntry[];
   value: string[];
   onChange: (e: React.ChangeEvent<HTMLInputElement>, key: string) => void;
-  onFilter: () => void;
-  onReset: () => void;
 }
 
 export const CheckboxFilter: React.FC<CheckboxFilterProps> = ({
   statuses,
   value,
   onChange,
-  onFilter,
-  onReset,
   dataCy,
 }) => (
   <FilterWrapper data-cy={`${dataCy}-wrapper`}>
     <CheckboxGroup value={value} data={statuses} onChange={onChange} />
-    <ButtonsWrapper>
-      <ButtonWrapper>
-        <Button data-cy="reset-button" onClick={onReset} size="small">
-          Reset
-        </Button>
-      </ButtonWrapper>
-      <Button
-        data-cy="filter-button"
-        size="small"
-        variant="primary"
-        onClick={onFilter}
-      >
-        Filter
-      </Button>
-    </ButtonsWrapper>
   </FilterWrapper>
 );
 
@@ -169,23 +123,13 @@ export const getColumnCheckboxFilterProps = ({
   statuses,
   value,
   onChange,
-  onFilter,
-  onReset,
   dataCy,
 }: CheckboxFilterProps) => ({
-  filterDropdown: ({ confirm }: FilterDropdownProps) => (
+  filterDropdown: () => (
     <CheckboxFilter
       statuses={statuses}
       value={value}
       onChange={onChange}
-      onFilter={() => {
-        onFilter();
-        confirm({ closeDropdown: true });
-      }}
-      onReset={() => {
-        onReset();
-        confirm({ closeDropdown: true });
-      }}
       dataCy={dataCy}
     />
   ),
@@ -196,24 +140,25 @@ export const getColumnCheckboxFilterProps = ({
 
 const FilterWrapper = styled.div`
   ${tableInputContainerCSS}
+  min-width: 200px; // need to set this as side effect of getPopupContainer
+  font-weight: normal; // need to set this as side effect of getPopupContainer
 `;
-const ButtonsWrapper = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: flex-end;
-  margin-top: 32px;
-`;
-const ButtonWrapper = styled.div`
-  margin-right: 8px;
+const StyledTextInput = styled(TextInput)`
+  p {
+    font-size: 12px;
+    padding-bottom: 8px;
+  }
 `;
 
 interface StyledOutlinedProps {
   active?: boolean;
 }
 const StyledFilterOutlined = styled(FilterOutlined)<StyledOutlinedProps>`
-  ${({ active }) => active && `color: ${blue.base}`}
+  font-size: 16px;
+  ${({ active }) => active && `color: ${focus}`}
 `;
 
 const StyledSearchOutlined = styled(SearchOutlined)<StyledOutlinedProps>`
-  ${({ active }) => active && `color: ${blue.base}`}
+  font-size: 16px;
+  ${({ active }) => active && `color: ${focus}`}
 `;

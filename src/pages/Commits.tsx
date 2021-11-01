@@ -19,7 +19,7 @@ import {
   ProjectFilterOptions,
   MainlineCommitQueryParams,
 } from "types/commits";
-import { TaskStatus, PatchTasksQueryParams } from "types/task";
+import { TaskStatus } from "types/task";
 import { queryString } from "utils";
 import { CommitsWrapper } from "./commits/CommitsWrapper";
 import { PaginationButtons } from "./commits/PaginationButtons";
@@ -112,10 +112,9 @@ export const Commits = () => {
   const { versions, nextPageOrderNumber, prevPageOrderNumber } =
     mainlineCommits || {};
 
-  const queryParamsToIgnore = new Set([
-    ChartToggleQueryParams.chartType,
-    PatchTasksQueryParams.Statuses,
-    MainlineCommitQueryParams.SkipOrderNumber,
+  const queryParamsToDisplay = new Set([
+    ProjectFilterOptions.BuildVariant,
+    ProjectFilterOptions.Task,
   ]);
 
   return (
@@ -133,7 +132,7 @@ export const Commits = () => {
           </ProjectSelectWrapper>
         </HeaderWrapper>
         <BadgeWrapper>
-          <FilterBadges queryParamsToIgnore={queryParamsToIgnore} />
+          <FilterBadges queryParamsToDisplay={queryParamsToDisplay} />
         </BadgeWrapper>
         <PaginationButtons
           prevPageOrderNumber={prevPageOrderNumber}

@@ -20,3 +20,14 @@ import "./commands";
 // require('./commands')
 
 import "./hooks";
+
+// This code is included because a ResizeObserver error occurs when opening an antd dropdown.
+// See the issue here: https://github.com/ant-design/ant-design/issues/26621
+// The ResizeObserver error is ignored in cypress to allow the e2e tests to pass.
+const resizeObserverLoopErrRe = /^[^(ResizeObserver loop limit exceeded)]/;
+Cypress.on("uncaught:exception", (err) => {
+  /* returning false here prevents Cypress from failing the test */
+  if (resizeObserverLoopErrRe.test(err.message)) {
+    return false;
+  }
+});
