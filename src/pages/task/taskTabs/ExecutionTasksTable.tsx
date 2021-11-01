@@ -51,6 +51,12 @@ export const ExecutionTasksTable: React.FC<Props> = ({
       onClickTaskLink={() =>
         taskAnalytics.sendEvent({ name: "Click Execution Task Link" })
       }
+      onColumnHeaderClick={(sortField) =>
+        taskAnalytics.sendEvent({
+          name: "Sort Execution Tasks Table",
+          sortBy: sortField,
+        })
+      }
     />
   );
 };

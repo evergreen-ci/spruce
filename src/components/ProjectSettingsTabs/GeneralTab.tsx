@@ -12,6 +12,7 @@ const tab = ProjectSettingsTabRoutes.General;
 
 export const GeneralTab: React.FC<GeneralTabProps> = ({
   data,
+  projectId,
   useRepoSettings,
 }) => {
   const { getTabFormState, updateForm } = useProjectSettingsContext();
@@ -24,9 +25,16 @@ export const GeneralTab: React.FC<GeneralTabProps> = ({
     updateForm,
   ]);
 
-  const { generalConfiguration } = useMemo(() => getFormData(useRepoSettings), [
-    useRepoSettings,
-  ]);
+  const { validDefaultLoggers } = data;
+
+  const {
+    generalConfiguration,
+    projectFlags,
+    historicalDataCaching,
+  } = useMemo(
+    () => getFormData(projectId, useRepoSettings, validDefaultLoggers),
+    [projectId, useRepoSettings, validDefaultLoggers]
+  );
 
   return (
     <>
@@ -39,10 +47,29 @@ export const GeneralTab: React.FC<GeneralTabProps> = ({
           uiSchema={generalConfiguration.uiSchema}
         />
       </SpruceFormContainer>
+      <SpruceFormContainer title="Project Flags">
+        <SpruceForm
+          fields={projectFlags.fields}
+          formData={currentFormState}
+          onChange={onChange}
+          schema={projectFlags.schema}
+          uiSchema={projectFlags.uiSchema}
+        />
+      </SpruceFormContainer>
+      <SpruceFormContainer title="Historical Data Caching Info">
+        <SpruceForm
+          fields={historicalDataCaching.fields}
+          formData={currentFormState}
+          onChange={onChange}
+          schema={historicalDataCaching.schema}
+          uiSchema={historicalDataCaching.uiSchema}
+        />
+      </SpruceFormContainer>
     </>
   );
 };
 
+// TODO: Remove default values as part of EVG-15643
 const gqlToSchema = ({
   enabled = false,
   owner,
@@ -52,6 +79,15 @@ const gqlToSchema = ({
   batchTime = 0,
   remotePath,
   spawnHostScriptPath,
+  dispatchingDisabled = false,
+  deactivatePrevious = true,
+  repotrackerDisabled = false,
+  defaultLogger = "",
+  cedarTestResultsEnabled = false,
+  patchingDisabled = false,
+  taskSync,
+  disabledStatsCache = false,
+  filesIgnoredFromCache = [],
 }) => ({
   enabled: enabled ? "enabled" : "disabled",
   repositoryInfo: {
@@ -65,4 +101,26 @@ const gqlToSchema = ({
     remotePath,
     spawnHostScriptPath,
   },
+  dispatchingDisabled: dispatchingDisabled ? "disabled" : "enabled",
+  scheduling: {
+    deactivatePrevious: deactivatePrevious ? "unschedule" : "schedule",
+  },
+  repotracker: {
+    repotrackerDisabled: repotrackerDisabled ? "disabled" : "enabled",
+  },
+  logger: {
+    defaultLogger: defaultLogger || null,
+  },
+  testResults: {
+    cedarTestResultsEnabled: cedarTestResultsEnabled ? "enabled" : "disabled",
+  },
+  patch: {
+    patchingDisabled: patchingDisabled ? "disabled" : "enabled",
+  },
+  taskSync: {
+    configEnabled: taskSync.configEnabled ? "enabled" : "disabled",
+    patchEnabled: taskSync.patchEnabled ? "enabled" : "disabled",
+  },
+  disabledStatsCache: disabledStatsCache ? "disabled" : "enabled",
+  filesIgnoredFromCache,
 });

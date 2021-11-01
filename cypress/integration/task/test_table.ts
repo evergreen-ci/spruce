@@ -137,14 +137,15 @@ describe("Tests Table", () => {
   describe("Changing page number", () => {
     before(() => {
       cy.visit(TESTS_ROUTE);
+      // Asserts that the data in the table has loaded before running the tests
+      cy.get(".ant-pagination-simple-pager").should("contain.text", "/2");
     });
 
     it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", () => {
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyNextPage,
         secondPageDisplayNames,
-        1,
-        dataCyTableRows
+        1
       );
     });
 
@@ -152,8 +153,7 @@ describe("Tests Table", () => {
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyNextPage,
         secondPageDisplayNames,
-        1,
-        dataCyTableRows
+        1
       );
     });
 
@@ -161,8 +161,7 @@ describe("Tests Table", () => {
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyPrevPage,
         firstPageDisplayNames,
-        0,
-        dataCyTableRows
+        0
       );
     });
 
@@ -170,8 +169,7 @@ describe("Tests Table", () => {
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyPrevPage,
         firstPageDisplayNames,
-        0,
-        dataCyTableRows
+        0
       );
     });
   });

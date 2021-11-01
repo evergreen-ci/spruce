@@ -7,6 +7,7 @@ const patch = {
 const path = `/version/${patch.id}`;
 const pathTasks = `${path}/tasks`;
 const pathURLWithFilters = `${pathTasks}?page=0&sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=failed,success,running-umbrella,dispatched,started&taskName=test-thirdparty&variant=ubuntu`;
+const defaultPath = `${pathTasks}?sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC`;
 
 describe("Tasks filters", () => {
   before(() => {
@@ -24,7 +25,7 @@ describe("Tasks filters", () => {
     cy.dataCy("tasks-table").should("exist");
     cy.dataCy("clear-all-filters").click();
     cy.location().should((loc) => {
-      expect(loc.href).to.equal(loc.origin + pathTasks);
+      expect(loc.href).to.equal(loc.origin + defaultPath);
     });
     cy.toggleTableFilter(1);
     cy.dataCy("taskname-input-wrapper")

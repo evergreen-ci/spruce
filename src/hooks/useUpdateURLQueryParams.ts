@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useCallback } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { queryString } from "utils";
 
@@ -7,8 +7,8 @@ const { stringifyQuery, parseQueryString } = queryString;
 export const useUpdateURLQueryParams = () => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
-  const result = useMemo(
-    () => (nextQueryParams: StringMap) => {
+  const updateQueryParams = useCallback(
+    (nextQueryParams: StringMap) => {
       const joinedParams = {
         ...parseQueryString(search),
         ...nextQueryParams,
@@ -19,7 +19,7 @@ export const useUpdateURLQueryParams = () => {
     [replace, search, pathname]
   );
 
-  return result;
+  return updateQueryParams;
 };
 
 interface StringMap {

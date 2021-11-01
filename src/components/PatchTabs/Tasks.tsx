@@ -4,14 +4,13 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Skeleton } from "antd";
 import every from "lodash.every";
-import { useParams, useLocation, useHistory } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
 import { pollInterval } from "constants/index";
-import { getVersionRoute } from "constants/routes";
 import { useToastContext } from "context/toast";
 import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
@@ -32,7 +31,6 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const { id: versionId } = useParams<{ id: string }>();
 
   const { search } = useLocation();
-  const router = useHistory();
   const patchAnalytics = usePatchAnalytics();
   const dispatchToast = useToastContext();
 
@@ -40,11 +38,12 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const queryVariables = getQueryVariables(search, versionId);
 
   const { sorts, limit, page } = queryVariables;
+  const defaultSortMethod = "STATUS:ASC;BASE_STATUS:DESC";
 
   useEffect(() => {
     if (sorts.length === 0) {
       updateQueryParams({
-        sorts: "STATUS:ASC;BASE_STATUS:DESC",
+        sorts: defaultSortMethod,
       });
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -68,6 +67,18 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   useNetworkStatus(startPolling, stopPolling);
   const { patchTasks } = data || {};
 
+  const onClearAll = () => {
+    patchAnalytics.sendEvent({ name: "Clear all filter" });
+    updateQueryParams({
+      statuses: undefined,
+      baseStatuses: undefined,
+      taskName: undefined,
+      variant: undefined,
+      page: undefined,
+      sorts: defaultSortMethod,
+    });
+  };
+
   return (
     <>
       <TableControlOuterRow>
@@ -80,10 +91,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
             denominator={taskCount}
           />
           <PaddedButton // @ts-expect-error
-            onClick={() => {
-              patchAnalytics.sendEvent({ name: "Clear all filter" });
-              router.push(getVersionRoute(versionId));
-            }}
+            onClick={onClearAll}
             data-cy="clear-all-filters"
           >
             Clear All Filters

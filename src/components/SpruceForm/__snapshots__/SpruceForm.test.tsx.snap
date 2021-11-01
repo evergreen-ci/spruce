@@ -36,6 +36,10 @@ exports[`basic form should render as expected 1`] = `
 }
 
 .emotion-8 {
+  max-width: 400px;
+}
+
+.emotion-10 {
   font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
   display: block;
   margin-bottom: 2px;
@@ -46,13 +50,13 @@ exports[`basic form should render as expected 1`] = `
 }
 
 @media only screen and (max-width: 1024px) {
-  .emotion-8 {
+  .emotion-10 {
     font-size: 16px;
     line-height: 19px;
   }
 }
 
-.emotion-9 {
+.emotion-11 {
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
@@ -91,51 +95,51 @@ exports[`basic form should render as expected 1`] = `
   border-color: #B8C4C2;
 }
 
-.emotion-9:focus {
+.emotion-11:focus {
   outline: none;
 }
 
-.emotion-9:disabled {
+.emotion-11:disabled {
   pointer-events: none;
 }
 
-.emotion-9:active,
-.emotion-9:focus,
-.emotion-9:hover {
+.emotion-11:active,
+.emotion-11:focus,
+.emotion-11:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.emotion-9:focus {
+.emotion-11:focus {
   color: #3D4F58;
 }
 
-.emotion-9:hover,
-.emotion-9:active {
+.emotion-11:hover,
+.emotion-11:active {
   color: #3D4F58;
   background-color: #FFFFFF;
   border: 1px solid #5D6C74;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3),0px 0px 0px 3px #E7EEEC;
 }
 
-.emotion-9:focus {
+.emotion-11:focus {
   background: #FFFFFF;
   border: 1px solid #5D6C74;
   box-shadow: 0px 4px 4px rgba(0, 124, 173, 0.4),0px 0px 0px 3px #019EE2;
 }
 
-.emotion-9>span {
+.emotion-11>span {
   padding: 0;
 }
 
 @media only screen and (max-width: 1024px) {
-  .emotion-9 {
+  .emotion-11 {
     height: 36px;
     font-size: 16px;
   }
 }
 
-.emotion-10 {
+.emotion-12 {
   overflow: hidden;
   border-radius: 3px;
   position: absolute;
@@ -145,7 +149,7 @@ exports[`basic form should render as expected 1`] = `
   bottom: 0;
 }
 
-.emotion-11 {
+.emotion-13 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -167,14 +171,14 @@ exports[`basic form should render as expected 1`] = `
   padding-right: 12px;
 }
 
-.emotion-12 {
+.emotion-14 {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   max-width: 100%;
 }
 
-.emotion-13 {
+.emotion-15 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -190,7 +194,7 @@ exports[`basic form should render as expected 1`] = `
   margin-left: auto;
 }
 
-.emotion-14 {
+.emotion-16 {
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -200,11 +204,7 @@ exports[`basic form should render as expected 1`] = `
   margin-left: 6px;
 }
 
-.emotion-17 {
-  max-width: 400px;
-}
-
-.emotion-19 {
+.emotion-21 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -214,7 +214,7 @@ exports[`basic form should render as expected 1`] = `
   flex-direction: column;
 }
 
-.emotion-20 {
+.emotion-22 {
   font-size: 14px;
   font-weight: bold;
   line-height: 16px;
@@ -222,7 +222,7 @@ exports[`basic form should render as expected 1`] = `
   color: #3D4F58;
 }
 
-.emotion-21 {
+.emotion-23 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -235,7 +235,7 @@ exports[`basic form should render as expected 1`] = `
   z-index: 0;
 }
 
-.emotion-22 {
+.emotion-24 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -249,11 +249,11 @@ exports[`basic form should render as expected 1`] = `
   width: 100%;
 }
 
-.emotion-22:hover>[data-leafygreen-ui="interaction-ring"] {
+.emotion-24:hover>[data-leafygreen-ui="interaction-ring"] {
   box-shadow: 0 0 0 3px #E7EEEC;
 }
 
-.emotion-23 {
+.emotion-25 {
   width: 100%;
   height: 100%;
   font-family: inherit;
@@ -276,38 +276,38 @@ exports[`basic form should render as expected 1`] = `
   border-color: #89979B;
 }
 
-.emotion-23::-webkit-input-placeholder {
+.emotion-25::-webkit-input-placeholder {
   color: #89979B;
 }
 
-.emotion-23::-moz-placeholder {
+.emotion-25::-moz-placeholder {
   color: #89979B;
 }
 
-.emotion-23:-ms-input-placeholder {
+.emotion-25:-ms-input-placeholder {
   color: #89979B;
 }
 
-.emotion-23::placeholder {
+.emotion-25::placeholder {
   color: #89979B;
 }
 
-.emotion-23:disabled {
+.emotion-25:disabled {
   cursor: not-allowed;
 }
 
-.emotion-23:focus {
+.emotion-25:focus {
   border: 1px solid #FFFFFF;
 }
 
-.emotion-23:disabled {
+.emotion-25:disabled {
   color: #89979B;
   background-color: #E7EEEC;
 }
 
-.emotion-23:disabled:-webkit-autofill,
-.emotion-23:disabled:-webkit-autofill:hover,
-.emotion-23:disabled:-webkit-autofill:focus {
+.emotion-25:disabled:-webkit-autofill,
+.emotion-25:disabled:-webkit-autofill:hover,
+.emotion-25:disabled:-webkit-autofill:focus {
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
@@ -317,7 +317,7 @@ exports[`basic form should render as expected 1`] = `
   -webkit-box-shadow: 0 0 0px 1000px #E7EEEC inset;
 }
 
-.emotion-24 {
+.emotion-26 {
   -webkit-transition: all 150ms ease-in-out;
   transition: all 150ms ease-in-out;
   position: absolute;
@@ -330,7 +330,7 @@ exports[`basic form should render as expected 1`] = `
   border-radius: 4px;
 }
 
-.emotion-25 {
+.emotion-27 {
   position: absolute;
   display: -webkit-box;
   display: -webkit-flex;
@@ -369,56 +369,60 @@ exports[`basic form should render as expected 1`] = `
               class="emotion-6 emotion-7"
             >
               <div
-                class=""
+                class="emotion-8 emotion-9"
               >
-                <label
-                  class="emotion-8"
-                  id="select-1-label"
+                <div
+                  class=""
                 >
-                  Project Cloning Method
-                </label>
-                <button
-                  aria-controls="select-1-menu"
-                  aria-describedby="select-1-description"
-                  aria-disabled="false"
-                  aria-expanded="false"
-                  aria-labelledby="select-1-label"
-                  class="emotion-9"
-                  data-testid="leafygreen-ui-select-menubutton"
-                  type="button"
-                  value="legacy-ssh"
-                >
-                  <div
+                  <label
                     class="emotion-10"
-                  />
-                  <div
+                    id="select-1-label"
+                  >
+                    Project Cloning Method
+                  </label>
+                  <button
+                    aria-controls="select-1-menu"
+                    aria-describedby="select-1-description"
+                    aria-disabled="false"
+                    aria-expanded="false"
+                    aria-labelledby="select-1-label"
                     class="emotion-11"
+                    data-testid="leafygreen-ui-select-menubutton"
+                    type="button"
+                    value="legacy-ssh"
                   >
                     <div
                       class="emotion-12"
-                    >
-                      Legacy SSH
-                    </div>
-                    <span
+                    />
+                    <div
                       class="emotion-13"
                     >
-                      <svg
-                        alt=""
-                        aria-hidden="true"
+                      <div
                         class="emotion-14"
-                        height="16"
-                        role="presentation"
-                        viewBox="0 0 16 16"
-                        width="16"
                       >
-                        <path
-                          d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                </button>
+                        Legacy SSH
+                      </div>
+                      <span
+                        class="emotion-15"
+                      >
+                        <svg
+                          alt=""
+                          aria-hidden="true"
+                          class="emotion-16"
+                          height="16"
+                          role="presentation"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <path
+                            d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -429,27 +433,27 @@ exports[`basic form should render as expected 1`] = `
               class="emotion-6 emotion-7"
             >
               <div
-                class="emotion-17 emotion-18"
+                class="emotion-8 emotion-9"
               >
                 <div
-                  class="emotion-19"
+                  class="emotion-21"
                 >
                   <label
-                    class="emotion-20"
+                    class="emotion-22"
                     for="textinput-1"
                   >
                     Valid Projects
                   </label>
                   <div
-                    class="emotion-21"
+                    class="emotion-23"
                   >
                     <div
-                      class="emotion-22"
+                      class="emotion-24"
                     >
                       <input
                         aria-label="Valid Projects"
                         autocomplete="on"
-                        class="emotion-23"
+                        class="emotion-25"
                         id="textinput-1"
                         placeholder=""
                         required=""
@@ -457,12 +461,12 @@ exports[`basic form should render as expected 1`] = `
                         value="spruce"
                       />
                       <div
-                        class="emotion-24"
+                        class="emotion-26"
                         data-leafygreen-ui="interaction-ring"
                       />
                     </div>
                     <div
-                      class="emotion-25"
+                      class="emotion-27"
                       data-leafygreen-ui="icon-selector"
                     />
                   </div>

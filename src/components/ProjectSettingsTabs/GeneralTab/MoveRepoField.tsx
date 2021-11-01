@@ -4,7 +4,17 @@ import { Button } from "components/Button";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { SpruceForm, SpruceFormProps } from "components/SpruceForm";
 
-export const MoveRepoModal: React.FC<any> = ({ onCancel, onConfirm, open }) => {
+interface ModalProps {
+  onCancel: () => void;
+  onConfirm: (formUpdate: any) => void;
+  open: boolean;
+}
+
+export const MoveRepoModal: React.FC<ModalProps> = ({
+  onCancel,
+  onConfirm,
+  open,
+}) => {
   const [formState, setFormState] = useState({});
   const [hasError, setHasError] = useState(false);
   const isDisabled =
