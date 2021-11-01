@@ -210,50 +210,5 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
       StatusBlocked
     </div>
   </div>
-  <div
-    className="css-11fe4n9-Wrapper e11i4bjx0"
-  >
-    <div
-      className="leafygreen-ui-13xc3rv"
-    >
-      failed-umbrella
-    </div>
-  </div>
-  <div
-    className="css-11fe4n9-Wrapper e11i4bjx0"
-  >
-    <div
-      className="leafygreen-ui-13xc3rv"
-    >
-      system-failure-umbrella
-    </div>
-  </div>
-  <div
-    className="css-11fe4n9-Wrapper e11i4bjx0"
-  >
-    <div
-      className="leafygreen-ui-13xc3rv"
-    >
-      running-umbrella
-    </div>
-  </div>
-  <div
-    className="css-11fe4n9-Wrapper e11i4bjx0"
-  >
-    <div
-      className="leafygreen-ui-13xc3rv"
-    >
-      undispatched-umbrella
-    </div>
-  </div>
-  <div
-    className="css-11fe4n9-Wrapper e11i4bjx0"
-  >
-    <div
-      className="leafygreen-ui-13xc3rv"
-    >
-      scheduled-umbrella
-    </div>
-  </div>
 </div>
 `;
