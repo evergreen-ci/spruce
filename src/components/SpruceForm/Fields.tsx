@@ -1,7 +1,8 @@
-import { ArrayField, TitleField } from "./CustomFields";
+import { DescriptionField, TitleField } from "./CustomFields";
 
 const fields = {
-  ArrayField,
+  DescriptionField,
   TitleField,
 };
+
 export default fields;
