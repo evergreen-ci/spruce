@@ -20,7 +20,6 @@ export type Scalars = {
 };
 
 export type Query = {
-  userPatches: UserPatches;
   task?: Maybe<Task>;
   taskAllExecutions: Array<Task>;
   patch: Patch;
@@ -57,15 +56,6 @@ export type Query = {
   taskNamesForBuildVariant?: Maybe<Array<Scalars["String"]>>;
   buildVariantsForTaskName?: Maybe<Array<Maybe<BuildVariantTuple>>>;
   projectSettings: ProjectSettings;
-};
-
-export type QueryUserPatchesArgs = {
-  limit?: Maybe<Scalars["Int"]>;
-  page?: Maybe<Scalars["Int"]>;
-  patchName?: Maybe<Scalars["String"]>;
-  statuses?: Maybe<Array<Scalars["String"]>>;
-  userId?: Maybe<Scalars["String"]>;
-  includeCommitQueue?: Maybe<Scalars["Boolean"]>;
 };
 
 export type QueryTaskArgs = {
@@ -201,6 +191,7 @@ export type Mutation = {
   saveProjectSettingsForSection: ProjectSettings;
   attachProjectToRepo: Project;
   detachProjectFromRepo: Project;
+  forceRepotrackerRun: Scalars["Boolean"];
   schedulePatch: Patch;
   schedulePatchTasks?: Maybe<Scalars["String"]>;
   unschedulePatchTasks?: Maybe<Scalars["String"]>;
@@ -266,6 +257,10 @@ export type MutationAttachProjectToRepoArgs = {
 };
 
 export type MutationDetachProjectFromRepoArgs = {
+  projectId: Scalars["String"];
+};
+
+export type MutationForceRepotrackerRunArgs = {
   projectId: Scalars["String"];
 };
 
@@ -646,7 +641,8 @@ export type PatchesInput = {
   page?: Scalars["Int"];
   patchName?: Scalars["String"];
   statuses?: Array<Scalars["String"]>;
-  includeCommitQueue?: Scalars["Boolean"];
+  includeCommitQueue?: Maybe<Scalars["Boolean"]>;
+  onlyCommitQueue?: Maybe<Scalars["Boolean"]>;
 };
 
 export type CreateProjectInput = {
@@ -1396,6 +1392,7 @@ export type Project = {
   useRepoSettings: Scalars["Boolean"];
   repoRefId?: Maybe<Scalars["String"]>;
   isFavorite: Scalars["Boolean"];
+  validDefaultLoggers: Array<Scalars["String"]>;
   patches: Patches;
 };
 
@@ -1883,6 +1880,27 @@ export type ProjectFragment = {
   displayName: string;
 };
 
+export type GeneralSettingsFragment = {
+  enabled?: Maybe<boolean>;
+  owner: string;
+  repo: string;
+  branch: string;
+  displayName: string;
+  batchTime?: Maybe<number>;
+  remotePath: string;
+  spawnHostScriptPath: string;
+  dispatchingDisabled?: Maybe<boolean>;
+  deactivatePrevious?: Maybe<boolean>;
+  repotrackerDisabled?: Maybe<boolean>;
+  defaultLogger?: Maybe<string>;
+  validDefaultLoggers: Array<string>;
+  cedarTestResultsEnabled?: Maybe<boolean>;
+  patchingDisabled?: Maybe<boolean>;
+  disabledStatsCache?: Maybe<boolean>;
+  filesIgnoredFromCache?: Maybe<Array<Maybe<string>>>;
+  taskSync: { configEnabled?: Maybe<boolean>; patchEnabled?: Maybe<boolean> };
+};
+
 export type AbortTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
@@ -1979,6 +1997,12 @@ export type BbCreateTicketMutationVariables = Exact<{
 }>;
 
 export type BbCreateTicketMutation = { bbCreateTicket: boolean };
+
+export type ForceRepotrackerRunMutationVariables = Exact<{
+  projectId: Scalars["String"];
+}>;
+
+export type ForceRepotrackerRunMutation = { forceRepotrackerRun: boolean };
 
 export type MoveAnnotationIssueMutationVariables = Exact<{
   taskId: Scalars["String"];
@@ -2898,17 +2922,9 @@ export type ProjectSettingsQueryVariables = Exact<{
 
 export type ProjectSettingsQuery = {
   projectSettings: {
-    projectRef?: Maybe<{
-      enabled?: Maybe<boolean>;
-      owner: string;
-      repo: string;
-      branch: string;
-      displayName: string;
-      batchTime?: Maybe<number>;
-      remotePath: string;
-      spawnHostScriptPath: string;
-      useRepoSettings: boolean;
-    }>;
+    projectRef?: Maybe<
+      { id: string; useRepoSettings: boolean } & GeneralSettingsFragment
+    >;
   };
 };
 

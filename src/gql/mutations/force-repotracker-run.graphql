@@ -1,0 +1,3 @@
+mutation ForceRepotrackerRun($projectId: String!) {
+  forceRepotrackerRun(projectId: $projectId)
+}

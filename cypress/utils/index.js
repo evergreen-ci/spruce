@@ -107,14 +107,13 @@ export const elementExistenceCheck = (
 export const clickOnPageBtnAndAssertURLandTableResults = (
   dataCyPageBtn,
   tableDisplayNames,
-  pageQueryParamValue,
-  dataCyTableRows
+  pageQueryParamValue
 ) => {
-  cy.wait(400);
+  cy.get(dataCyPageBtn).should("be.visible");
+  cy.get(dataCyPageBtn).should("not.be.disabled");
   cy.get(dataCyPageBtn).click();
-  cy.wait(400);
-  cy.get(dataCyTableRows).each(($el, index) => {
-    cy.wrap($el).contains(tableDisplayNames[index]);
+  tableDisplayNames.forEach((displayName) => {
+    cy.contains(displayName);
   });
   cy.location("search").should("include", `page=${pageQueryParamValue}`);
 };
