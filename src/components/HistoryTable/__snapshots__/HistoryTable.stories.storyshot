@@ -775,7 +775,7 @@ exports[`Storyshots History Table Test Search 1`] = `
       </div>
     </div>
     <div
-      className="css-1pqnk9o-TextInputWrapper e8i7li41"
+      className="css-ve22wc-TextInputWrapper e8i7li41"
     >
       <div
         className="leafygreen-ui-1iyoj2o"
@@ -814,7 +814,7 @@ exports[`Storyshots History Table Test Search 1`] = `
       </div>
       <svg
         aria-label="Plus Icon"
-        className="css-7nx6br-StyledIcon e8i7li40"
+        className="css-qk9mw0-StyledIcon e8i7li40"
         fill="none"
         height={16}
         onClick={[Function]}

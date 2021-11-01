@@ -21,7 +21,7 @@ import {
   GET_BUILD_VARIANTS_FOR_TASK_NAME,
 } from "gql/queries";
 import { usePageTitle } from "hooks";
-import { HistoryFilterOptions } from "types/history";
+import { TestStatus } from "types/history";
 import { parseQueryString } from "utils/queryString";
 import { BuildVariantSelector } from "./taskHistory/BuildVariantSelector";
 import ColumnHeaders from "./taskHistory/ColumnHeaders";
@@ -80,8 +80,11 @@ export const TaskHistory = () => {
     selectedBuildVariants = queryParams.buildVariants;
   }
 
-  const queryParamsToIgnore = new Set([HistoryFilterOptions.BuildVariant]);
-
+  const queryParamsToDisplay = new Set([
+    TestStatus.Failed,
+    TestStatus.Passed,
+    TestStatus.All,
+  ]);
   const selectedColumns = selectedBuildVariants?.length
     ? buildVariantsForTaskName?.filter((bv) =>
         selectedBuildVariants.includes(bv.buildVariant)
@@ -100,7 +103,7 @@ export const TaskHistory = () => {
           </PageHeader>
           <PaginationFilterWrapper>
             <BadgeWrapper>
-              <FilterBadges queryParamsToIgnore={queryParamsToIgnore} />
+              <FilterBadges queryParamsToDisplay={queryParamsToDisplay} />
             </BadgeWrapper>
             <ColumnPaginationButtons />
           </PaginationFilterWrapper>

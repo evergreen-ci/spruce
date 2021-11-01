@@ -5,16 +5,11 @@ import { RadioBox, RadioBoxGroup } from "@leafygreen-ui/radio-box-group";
 import TextInput from "@leafygreen-ui/text-input";
 import { useLocation } from "react-router-dom";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { TestStatus } from "types/history";
 import { queryString, url } from "utils";
 
 const { upsertQueryParam, removeQueryParam } = url;
 const { parseQueryString } = queryString;
-
-enum TestStatus {
-  Failed = "failed",
-  Passed = "passed",
-  All = "all",
-}
 
 export const HistoryTableTestSearch = () => {
   const [input, setInput] = useState("");
@@ -112,12 +107,16 @@ const StyledRadioBoxGroup = styled(RadioBoxGroup)`
 
 const TextInputWrapper = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
 `;
 
 const StyledIcon = styled(Icon)`
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  height: 100%;
+  margin-top: auto;
+  align-self: flex-end;
+  margin-right: 10px;
   &:hover {
     cursor: pointer;
   }

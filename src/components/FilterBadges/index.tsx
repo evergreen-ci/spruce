@@ -10,17 +10,17 @@ const { convertObjectToArray } = array;
 const { parseQueryString } = queryString;
 
 interface FilterBadgesProps {
-  queryParamsToIgnore: Set<string>;
+  queryParamsToDisplay: Set<string>;
 }
 export const FilterBadges: React.FC<FilterBadgesProps> = ({
-  queryParamsToIgnore,
+  queryParamsToDisplay,
 }) => {
   const updateQueryParams = useUpdateURLQueryParams();
   const location = useLocation();
   const { search } = location;
   const queryParams = parseQueryString(search);
-  const queryParamsList = convertObjectToArray(queryParams).filter(
-    ({ key }) => !queryParamsToIgnore.has(key as any)
+  const queryParamsList = convertObjectToArray(queryParams).filter(({ key }) =>
+    queryParamsToDisplay.has(key as any)
   );
 
   const onRemove = (key: string, value: string) => {

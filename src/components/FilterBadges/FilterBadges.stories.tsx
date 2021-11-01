@@ -32,7 +32,7 @@ export const Default = () => {
     updateQueryParams({ [badgeKey]: params });
   };
   button("Add Badge", addBadge);
-  return <FilterBadges queryParamsToIgnore={new Set([])} />;
+  return <FilterBadges queryParamsToDisplay={new Set(["buildvariants"])} />;
 };
 
 Default.parameters = {
