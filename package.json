@@ -147,7 +147,7 @@
     "@types/new-relic-browser": "0.1118.0",
     "@types/node": "14.14.10",
     "@types/react": "17.0.0",
-    "@types/react-dom": "17.0.0",
+    "@types/react-dom": "17.0.10",
     "@types/react-router-dom": "5.1.6",
     "@types/react-virtualized-auto-sizer": "^1.0.1",
     "@types/react-window": "^1.8.5",
