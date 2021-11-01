@@ -19,7 +19,7 @@ const Content = (status: string) => () => (
   </MockedProvider>
 );
 
-test("Tooltip should contain task name, duration and list of failing test names", async () => {
+test("Tooltip should contain task name, duration, list of failing test names and additonal test count", async () => {
   const { queryByDataCy, queryByText } = render(Content("failed"), {
     route: "/commits/evergreen",
   });
@@ -35,6 +35,9 @@ test("Tooltip should contain task name, duration and list of failing test names"
     expect(
       queryByText("jstests/multiVersion/remove_invalid_index_options.js")
     ).toBeVisible();
+  });
+  await waitFor(() => {
+    expect(queryByText("and 2 more")).toBeVisible();
   });
 });
 
@@ -61,6 +64,7 @@ const getTooltipQueryMock = {
   result: {
     data: {
       taskTests: {
+        filteredTestCount: 3,
         testResults: [
           {
             id: "83ca0a6b4c73f32e53f3dcbbe727842c",
