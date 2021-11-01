@@ -1,9 +1,7 @@
 import React from "react";
-import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { Analytics } from "analytics/addPageAction";
-import { PageWrapper } from "components/styles";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { PatchCard } from "./PatchCard";
 
@@ -16,13 +14,10 @@ export const ListArea: React.FC<{
       }
   >;
   patches?: PatchesPagePatchesFragment;
-  error?: ApolloError;
   pageType: "project" | "user";
-}> = ({ patches, error, analyticsObject, pageType }) => {
-  if (error) {
-    return <PageWrapper>ERROR</PageWrapper>;
-  }
-  if (!patches) {
+  loading: boolean;
+}> = ({ patches, loading, analyticsObject, pageType }) => {
+  if (loading) {
     return <StyledSkeleton active title={false} paragraph={{ rows: 4 }} />;
   }
   if (patches?.patches.length !== 0) {
