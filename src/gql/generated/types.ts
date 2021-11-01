@@ -20,7 +20,6 @@ export type Scalars = {
 };
 
 export type Query = {
-  userPatches: UserPatches;
   task?: Maybe<Task>;
   taskAllExecutions: Array<Task>;
   patch: Patch;
@@ -58,15 +57,6 @@ export type Query = {
   buildVariantsForTaskName?: Maybe<Array<Maybe<BuildVariantTuple>>>;
   projectSettings: ProjectSettings;
   repoSettings: RepoSettings;
-};
-
-export type QueryUserPatchesArgs = {
-  limit?: Maybe<Scalars["Int"]>;
-  page?: Maybe<Scalars["Int"]>;
-  patchName?: Maybe<Scalars["String"]>;
-  statuses?: Maybe<Array<Scalars["String"]>>;
-  userId?: Maybe<Scalars["String"]>;
-  includeCommitQueue?: Maybe<Scalars["Boolean"]>;
 };
 
 export type QueryTaskArgs = {
@@ -662,7 +652,8 @@ export type PatchesInput = {
   page?: Scalars["Int"];
   patchName?: Scalars["String"];
   statuses?: Array<Scalars["String"]>;
-  includeCommitQueue?: Scalars["Boolean"];
+  includeCommitQueue?: Maybe<Scalars["Boolean"]>;
+  onlyCommitQueue?: Maybe<Scalars["Boolean"]>;
 };
 
 export type CreateProjectInput = {

@@ -71,19 +71,18 @@ describe("My Patches Page", () => {
     cy.dataCy("commit-queue-checkbox").should("be.checked");
     cy.contains(patchOnCommitQueue);
 
-    cy.dataCy("commit-queue-checkbox").click({ force: true });
+    cy.dataCy("commit-queue-checkbox").uncheck({ force: true });
     urlSearchParamsAreUpdated({
       pathname: MY_PATCHES_ROUTE,
       paramName: "commitQueue",
       search: "false",
     });
     cy.contains(patchOnCommitQueue).should("not.exist");
-    cy.dataCy("commit-queue-checkbox").click({ force: true });
+    cy.dataCy("commit-queue-checkbox").check({ force: true });
   });
 
   describe("Changing page number and page size", () => {
     before(() => {
-      cy.login();
       cy.visit(MY_PATCHES_ROUTE);
     });
     it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", () => {
@@ -170,27 +169,6 @@ describe("My Patches Page", () => {
         paramName: "statuses",
         search: "all,created,started,succeeded,failed",
       });
-    });
-  });
-
-  describe("Show commit queue checkbox", () => {
-    beforeEach(() => {
-      cy.preserveCookies();
-    });
-
-    it("Should render with Show Commit Queue box checked when commitQueue not indicated in URL query param", () => {
-      cy.visit(MY_PATCHES_ROUTE);
-      cy.dataCy("commit-queue-checkbox").should("be.checked");
-    });
-
-    it("Should render with Show Commit Queue box unchecked when commitQueue is false in URL query param", () => {
-      cy.visit(`${MY_PATCHES_ROUTE}?commitQueue=false`);
-      cy.dataCy("commit-queue-checkbox").should("not.be.checked");
-    });
-
-    it("Should render with Show Commit Queue box checked when commitQueue is true in URL query param", () => {
-      cy.visit(`${MY_PATCHES_ROUTE}?commitQueue=true`);
-      cy.dataCy("commit-queue-checkbox").should("be.checked");
     });
   });
 });
