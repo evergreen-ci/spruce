@@ -206,29 +206,40 @@ const reduceBuildVariants = (filterDetails: reduceInput) => {
 
   const statuses = new Set(versionStatusFilterTerm);
   const baseStatuses = new Set(baseStatusFilterTerm);
+  // if 1 of the 2 filters is empty, ignore the empty filter
+  const hasFilter =
+    !!versionStatusFilterTerm?.length || !!baseStatusFilterTerm?.length;
+
+  function hasStatus(status) {
+    return versionStatusFilterTerm?.length ? statuses.has(status) : true;
+  }
+  function hasBaseStatus(status) {
+    return baseStatusFilterTerm?.length ? baseStatuses.has(status) : true;
+  }
+
+  function isSelected(task: { status: any; baseStatus: any }) {
+    return (
+      hasFilter && hasStatus(task.status) && hasBaseStatus(task.baseStatus)
+    );
+  }
+
   if (versionStatusFilterTerm || baseStatusFilterTerm || parentTasksChanged) {
+    const taskReducer = (acc, task) => ({
+      ...acc,
+      [task.id]: isSelected(task),
+    });
+
+    const bvReducer = (
+      acc: UpdatedVersionBuildVariantType,
+      versionBuildVariant: UpdatedVersionBuildVariantType
+    ) => versionBuildVariant.tasks?.reduce(taskReducer, acc);
+
     // Iterate through VersionBuildVariants and determine if a task should be
     // selected or not based on if the task status correlates with the 2 filters.
-    // if 1 of the 2 filters is empty, ignore the empty filter
-    const reducedVariants = buildVariants?.reduce(
-      (accumA, versionBuildVariant) =>
-        versionBuildVariant.tasks?.reduce(
-          (accumB, task) => ({
-            ...accumB,
-            [task.id]:
-              (!!versionStatusFilterTerm?.length ||
-                !!baseStatusFilterTerm?.length) &&
-              (versionStatusFilterTerm?.length
-                ? statuses.has(task.status)
-                : true) &&
-              (baseStatusFilterTerm?.length
-                ? baseStatuses.has(task.baseStatus)
-                : true),
-          }),
-          accumA
-        ),
-      { ...selectedTasks }
-    );
+    const reducedVariants = buildVariants?.reduce(bvReducer, {
+      ...selectedTasks,
+    });
+
     return reducedVariants;
   }
   return selectedTasks;
