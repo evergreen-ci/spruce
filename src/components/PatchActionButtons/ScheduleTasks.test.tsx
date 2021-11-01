@@ -3,7 +3,12 @@ import { screen } from "@testing-library/react";
 import { ScheduleTasksModal } from "components/ScheduleTasksModal";
 import { SCHEDULE_TASKS } from "gql/mutations";
 import { GET_UNSCHEDULED_TASKS } from "gql/queries";
-import { render, fireEvent, waitFor } from "test_utils/test-utils";
+import {
+  render,
+  fireEvent,
+  waitFor,
+  renderWithRouterMatch,
+} from "test_utils/test-utils";
 import { ScheduleTasks } from "./ScheduleTasks";
 
 const scheduleTasksMock = {
@@ -180,8 +185,8 @@ const ScheduleModal = () => (
   </MockedProvider>
 );
 
-test.skip("Clicking the button opens the modal", async () => {
-  const { queryByDataCy } = render(SceheduleButton);
+test("Clicking the button opens the modal", async () => {
+  const { queryByDataCy } = renderWithRouterMatch(SceheduleButton);
   expect(queryByDataCy("schedule-tasks-modal")).not.toBeInTheDocument();
   await fireEvent.click(queryByDataCy("schedule-tasks-button"));
   await waitFor(() =>
@@ -189,7 +194,7 @@ test.skip("Clicking the button opens the modal", async () => {
   );
 });
 
-test.skip("The modal is populated with build variant names and checkboxes", async () => {
+test("The modal is populated with build variant names and checkboxes", async () => {
   const { queryByText, queryAllByDataCy } = render(ScheduleModal());
 
   // assert build variant checkbox labels are visibles
@@ -209,7 +214,7 @@ test.skip("The modal is populated with build variant names and checkboxes", asyn
   });
 });
 
-test.skip("Selecting some and not all task checkboxes puts the build variant checkbox in an indeterminate state.", async () => {
+test("Selecting some and not all task checkboxes puts the build variant checkbox in an indeterminate state.", async () => {
   const { queryByText, queryAllByDataCy, queryByDataCy } = render(
     ScheduleModal()
   );
@@ -235,13 +240,13 @@ test("Schedule button is disabled until at least one checkbox is selected", asyn
   await waitFor(() => expect(queryByText("Windows")).toBeVisible());
   const toggles = queryAllByDataCy("accordion-toggle");
   await fireEvent.click(toggles[1]);
+  await fireEvent.click(queryByDataCy("windows-compile-task-checkbox")); // deselect checkbox from previous test
   await waitFor(() => {
     // Unable to pass data-cy to modal buttons so we have to use getAllByRole
     const confirmButton = screen.getAllByRole("button")[0];
     expect(confirmButton).toBeDisabled();
   });
-  // This checkbox will have the checked attribute in the next tests screen.debug output. Trying changing it to windows-compile-task-checkbox and you can see it pass through to the next tests debug out.
-  await fireEvent.click(queryByDataCy("ubuntu1604-compile-task-checkbox"));
+  await fireEvent.click(queryByDataCy("windows-compile-task-checkbox"));
   await waitFor(() => {
     const confirmButton = screen.getAllByRole("button")[0];
     expect(confirmButton).not.toBeDisabled();
@@ -254,9 +259,7 @@ test("Clicking on schedule button dispatches a properly formatted request and di
   await waitFor(() => expect(queryByText("Windows")).toBeVisible());
   const windowVariantToggle = queryAllByDataCy("accordion-toggle")[1];
   await fireEvent.click(windowVariantToggle);
-  screen.debug(undefined, 30000);
   await fireEvent.click(queryByDataCy("windows-compile-task-checkbox"));
-
   const confirmButton = screen.getAllByRole("button")[0];
   await fireEvent.click(confirmButton);
   await waitFor(() => expect(mockErrorToast).toHaveBeenCalledTimes(0));
