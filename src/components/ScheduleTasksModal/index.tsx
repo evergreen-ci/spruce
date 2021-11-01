@@ -86,6 +86,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
             return (
               <AccordionWrapper key={buildVariant} data-cy="variant-accordion">
                 <Accordion
+                  allowToggleFromTitle={false}
                   title={
                     <Checkbox
                       data-cy={`${buildVariant}-variant-checkbox`}

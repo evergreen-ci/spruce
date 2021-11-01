@@ -8,6 +8,7 @@ interface AccordionProps {
   toggleFromBottom?: boolean;
   showCaret?: boolean;
   contents: React.ReactNode;
+  allowToggleFromTitle?: boolean;
 }
 export const Accordion: React.FC<AccordionProps> = ({
   title,
@@ -15,13 +16,14 @@ export const Accordion: React.FC<AccordionProps> = ({
   contents,
   toggleFromBottom = false,
   showCaret = true,
+  allowToggleFromTitle = true,
 }) => {
   const [isAccordionDisplayed, setIsAccordionDisplayed] = useState(false);
   const toggleAccordionHandler = (): void =>
     setIsAccordionDisplayed(!isAccordionDisplayed);
 
   const showToggledTitle = isAccordionDisplayed ? toggledTitle : title;
-  const titleComp = <span>{toggledTitle ? showToggledTitle : title}</span>;
+  const titleComp = <>{toggledTitle ? showToggledTitle : title}</>;
   return (
     <>
       {toggleFromBottom && (
@@ -37,9 +39,9 @@ export const Accordion: React.FC<AccordionProps> = ({
           {showCaret && (
             <Icon glyph={isAccordionDisplayed ? "CaretDown" : "CaretRight"} />
           )}
-          {!showCaret && titleComp}
+          {allowToggleFromTitle && titleComp}
         </AccordionToggle>
-        {showCaret && titleComp}
+        {!allowToggleFromTitle && titleComp}
       </Row>
       {!toggleFromBottom && (
         <AnimatedAccordion hide={!isAccordionDisplayed}>
