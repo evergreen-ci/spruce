@@ -32,13 +32,15 @@ describe("Tests Table", () => {
     cy.toggleTableFilter(2);
 
     cy.get(".cy-checkbox").contains("Fail").click({ force: true });
-    cy.dataCy("status-treeselect").contains("Filter").click();
     cy.get("@filtered-count").invoke("text").should("eq", "1");
     cy.get("@total-count").invoke("text").should("eq", "20");
 
     cy.toggleTableFilter(1);
-    cy.dataCy("testname-input-wrapper").find("input").focus().type("hello");
-    cy.dataCy("testname-input-wrapper").contains("Filter").click();
+    cy.dataCy("testname-input-wrapper")
+      .find("input")
+      .focus()
+      .type("hello")
+      .type("{enter}");
 
     cy.get("@filtered-count").invoke("text").should("eq", "0");
     cy.get("@total-count").invoke("text").should("eq", "20");
@@ -109,7 +111,6 @@ describe("Tests Table", () => {
       statuses.forEach(({ display }) => {
         cy.get(".cy-checkbox").contains(display).click({ force: true });
       });
-      cy.dataCy("status-treeselect").contains("Filter").click();
       cy.location().should((loc) => {
         expect(loc.search).to.include("statuses=pass,silentfail,fail,skip,all");
       });
@@ -127,8 +128,8 @@ describe("Tests Table", () => {
       cy.dataCy("testname-input-wrapper")
         .find("input")
         .focus()
-        .type(testNameInputValue);
-      cy.dataCy("testname-input-wrapper").contains("Filter").click();
+        .type(testNameInputValue)
+        .type("{enter}");
       cy.location().should((loc) => {
         expect(loc.search).to.include(`testname=${testNameInputValue}`);
       });
