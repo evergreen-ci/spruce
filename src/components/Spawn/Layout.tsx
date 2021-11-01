@@ -84,13 +84,15 @@ export const Section = styled(ModalContent)`
 export const SectionContainer = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
   margin-top: 15px;
 `;
 
 export const SectionLabel = styled(Body)`
+  flex-grow: 1;
   padding-right: 15px;
   margin-top: 22px;
-  min-width: 175px;
 `;
 
 // @ts-expect-error
