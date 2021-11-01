@@ -8,7 +8,6 @@ export { useLegacyUIURL } from "hooks/useLegacyUIURL";
 export { usePageTitle } from "hooks/usePageTitle";
 export { useNetworkStatus } from "hooks/useNetworkStatus";
 export { useStatusesFilter } from "hooks/useStatusesFilter";
-export { useTabs } from "hooks/useTabs";
 export {
   useTableInputFilter,
   useTableCheckboxFilter,
