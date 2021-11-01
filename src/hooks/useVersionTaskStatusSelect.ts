@@ -209,19 +209,14 @@ const reduceBuildVariants = (filterDetails: reduceInput) => {
   // if 1 of the 2 filters is empty, ignore the empty filter
   const hasFilter =
     !!versionStatusFilterTerm?.length || !!baseStatusFilterTerm?.length;
+  const hasStatus = (status: string) =>
+    versionStatusFilterTerm?.length ? statuses.has(status) : true;
 
-  function hasStatus(status) {
-    return versionStatusFilterTerm?.length ? statuses.has(status) : true;
-  }
-  function hasBaseStatus(status) {
-    return baseStatusFilterTerm?.length ? baseStatuses.has(status) : true;
-  }
+  const hasBaseStatus = (status: string) =>
+    baseStatusFilterTerm?.length ? baseStatuses.has(status) : true;
 
-  function isSelected(task: { status: any; baseStatus: any }) {
-    return (
-      hasFilter && hasStatus(task.status) && hasBaseStatus(task.baseStatus)
-    );
-  }
+  const isSelected = (task: { status: string; baseStatus: string }) =>
+    hasFilter && hasStatus(task.status) && hasBaseStatus(task.baseStatus);
 
   if (versionStatusFilterTerm || baseStatusFilterTerm || parentTasksChanged) {
     const taskReducer = (acc, task) => ({
