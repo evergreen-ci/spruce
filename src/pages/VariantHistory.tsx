@@ -3,10 +3,12 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
 import { useLocation, useParams } from "react-router-dom";
+import { FilterBadges } from "components/FilterBadges";
 import HistoryTable, {
   context,
   ColumnPaginationButtons,
 } from "components/HistoryTable";
+import { HistoryTableTestSearch } from "components/HistoryTable/HistoryTableTestSearch/HistoryTableTestSearch";
 import { PageWrapper } from "components/styles";
 import {
   MainlineCommitsForHistoryQuery,
@@ -19,6 +21,7 @@ import {
   GET_TASK_NAMES_FOR_BUILD_VARIANT,
 } from "gql/queries";
 import { usePageTitle } from "hooks";
+import { TestStatus } from "types/history";
 import { queryString, string } from "utils";
 import ColumnHeaders from "./variantHistory/ColumnHeaders";
 import { TaskSelector } from "./variantHistory/TaskSelector";
@@ -78,6 +81,12 @@ export const VariantHistory = () => {
     selectedTaskNames = queryParams.tasks;
   }
 
+  const queryParamsToDisplay = new Set([
+    TestStatus.Failed,
+    TestStatus.Passed,
+    TestStatus.All,
+  ]);
+
   const selectedColumns = selectedTaskNames?.length
     ? taskNamesForBuildVariant?.filter((task) =>
         selectedTaskNames.includes(task)
@@ -88,12 +97,18 @@ export const VariantHistory = () => {
       <CenterPage>
         <HistoryTableProvider>
           <PageHeader>
-            <div>
-              <H2>Build Variant: {variantName}</H2>
+            <H2>Build Variant: {variantName}</H2>
+            <PageHeaderContent>
+              <HistoryTableTestSearch />
               <TaskSelector projectId={projectId} buildVariant={variantName} />
-            </div>
-            <ColumnPaginationButtons />
+            </PageHeaderContent>
           </PageHeader>
+          <PaginationFilterWrapper>
+            <BadgeWrapper>
+              <FilterBadges queryParamsToDisplay={queryParamsToDisplay} />
+            </BadgeWrapper>
+            <ColumnPaginationButtons />
+          </PaginationFilterWrapper>
           <TableContainer>
             {taskNamesForBuildVariant && (
               <>
@@ -123,7 +138,24 @@ export const VariantHistory = () => {
 
 const PageHeader = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+`;
+
+const PageHeaderContent = styled.div`
+  display: flex;
+  align-items: flex-end;
+  padding-top: 28px;
+`;
+
+const PaginationFilterWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding-top: 16px;
+`;
+
+const BadgeWrapper = styled.div`
+  padding-bottom: 16px;
 `;
 
 const TableWrapper = styled.div`

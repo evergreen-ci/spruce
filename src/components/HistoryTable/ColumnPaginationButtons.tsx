@@ -50,9 +50,10 @@ const StyledButton = styled(Button)`
 `;
 
 const Container = styled.div`
-  align-self: flex-end;
+  align-self: flex-start;
   align-items: center;
   display: flex;
+  flex-shrink: 0;
 `;
 
 export default ColumPaginationButtons;
