@@ -61,13 +61,15 @@ type HookResult = {
 };
 
 type UpdatedVersionBuildVariantType = Omit<GroupedBuildVariant, "tasks"> & {
-  tasks?: {
-    id: string;
-    execution: number;
-    displayName: string;
-    status: string;
-    baseStatus?: string;
-  }[];
+  tasks?: task[];
+};
+
+type task = {
+  id: string;
+  execution: number;
+  displayName: string;
+  status: string;
+  baseStatus?: string;
 };
 
 type ChildVersions = {
@@ -215,7 +217,7 @@ const reduceBuildVariants = (filterDetails: reduceInput) => {
   const hasBaseStatus = (status: string) =>
     baseStatusFilterTerm?.length ? baseStatuses.has(status) : true;
 
-  const isSelected = (task: { status: string; baseStatus: string }) =>
+  const isSelected = (task: task) =>
     hasFilter && hasStatus(task.status) && hasBaseStatus(task.baseStatus);
 
   if (versionStatusFilterTerm || baseStatusFilterTerm || parentTasksChanged) {
