@@ -89,6 +89,7 @@ export type QueryPatchTasksArgs = {
   baseStatuses?: Maybe<Array<Scalars["String"]>>;
   variant?: Maybe<Scalars["String"]>;
   taskName?: Maybe<Scalars["String"]>;
+  includeNeverActivatedTasks?: Maybe<Scalars["Boolean"]>;
 };
 
 export type QueryTaskTestsArgs = {
@@ -194,6 +195,7 @@ export type Mutation = {
   createProject: Project;
   copyProject: Project;
   saveProjectSettingsForSection: ProjectSettings;
+  saveRepoSettingsForSection: RepoSettings;
   attachProjectToRepo: Project;
   detachProjectFromRepo: Project;
   forceRepotrackerRun: Scalars["Boolean"];
@@ -256,6 +258,11 @@ export type MutationCopyProjectArgs = {
 
 export type MutationSaveProjectSettingsForSectionArgs = {
   projectSettings?: Maybe<ProjectSettingsInput>;
+  section: Scalars["String"];
+};
+
+export type MutationSaveRepoSettingsForSectionArgs = {
+  repoSettings?: Maybe<RepoSettingsInput>;
   section: Scalars["String"];
 };
 
@@ -673,8 +680,8 @@ export type ProjectSettingsInput = {
   githubWebhooksEnabled?: Maybe<Scalars["Boolean"]>;
   projectRef?: Maybe<ProjectInput>;
   vars?: Maybe<ProjectVarsInput>;
-  aliases?: Maybe<Array<Maybe<ProjectAliasInput>>>;
-  subscriptions?: Maybe<Array<Maybe<SubscriptionInput>>>;
+  aliases?: Maybe<Array<ProjectAliasInput>>;
+  subscriptions?: Maybe<Array<SubscriptionInput>>;
 };
 
 export type ProjectInput = {
@@ -696,24 +703,68 @@ export type ProjectInput = {
   deactivatePrevious?: Maybe<Scalars["Boolean"]>;
   defaultLogger?: Maybe<Scalars["String"]>;
   notifyOnBuildFailure?: Maybe<Scalars["Boolean"]>;
-  triggers?: Maybe<Array<Maybe<TriggerAliasInput>>>;
-  patchTriggerAliases?: Maybe<Array<Maybe<PatchTriggerAliasInput>>>;
+  triggers?: Maybe<Array<TriggerAliasInput>>;
+  patchTriggerAliases?: Maybe<Array<PatchTriggerAliasInput>>;
   githubTriggerAliases?: Maybe<Array<Maybe<Scalars["String"]>>>;
-  periodicBuilds?: Maybe<Array<Maybe<PeriodicBuildInput>>>;
+  periodicBuilds?: Maybe<Array<PeriodicBuildInput>>;
   cedarTestResultsEnabled?: Maybe<Scalars["Boolean"]>;
   commitQueue?: Maybe<CommitQueueParamsInput>;
-  admins?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  admins?: Maybe<Array<Scalars["String"]>>;
   spawnHostScriptPath?: Maybe<Scalars["String"]>;
   tracksPushEvents?: Maybe<Scalars["Boolean"]>;
   taskSync?: Maybe<TaskSyncOptionsInput>;
-  gitTagAuthorizedUsers?: Maybe<Array<Maybe<Scalars["String"]>>>;
-  gitTagAuthorizedTeams?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]>>;
+  gitTagAuthorizedTeams?: Maybe<Array<Scalars["String"]>>;
   gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]>;
-  filesIgnoredFromCache?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  filesIgnoredFromCache?: Maybe<Array<Scalars["String"]>>;
   disabledStatsCache?: Maybe<Scalars["Boolean"]>;
   workstationConfig?: Maybe<WorkstationConfigInput>;
   hidden?: Maybe<Scalars["Boolean"]>;
   useRepoSettings?: Maybe<Scalars["Boolean"]>;
+};
+
+export type RepoSettingsInput = {
+  githubWebhooksEnabled?: Maybe<Scalars["Boolean"]>;
+  projectRef?: Maybe<RepoRefInput>;
+  vars?: Maybe<ProjectVarsInput>;
+  aliases?: Maybe<Array<ProjectAliasInput>>;
+  subscriptions?: Maybe<Array<SubscriptionInput>>;
+};
+
+export type RepoRefInput = {
+  id: Scalars["String"];
+  displayName?: Maybe<Scalars["String"]>;
+  enabled?: Maybe<Scalars["Boolean"]>;
+  private?: Maybe<Scalars["Boolean"]>;
+  owner?: Maybe<Scalars["String"]>;
+  repo?: Maybe<Scalars["String"]>;
+  branch?: Maybe<Scalars["String"]>;
+  remotePath?: Maybe<Scalars["String"]>;
+  patchingDisabled?: Maybe<Scalars["Boolean"]>;
+  repotrackerDisabled?: Maybe<Scalars["Boolean"]>;
+  dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
+  prTestingEnabled?: Maybe<Scalars["Boolean"]>;
+  githubChecksEnabled?: Maybe<Scalars["Boolean"]>;
+  batchTime?: Maybe<Scalars["Int"]>;
+  deactivatePrevious?: Maybe<Scalars["Boolean"]>;
+  defaultLogger?: Maybe<Scalars["String"]>;
+  notifyOnBuildFailure?: Maybe<Scalars["Boolean"]>;
+  triggers?: Maybe<Array<TriggerAliasInput>>;
+  patchTriggerAliases?: Maybe<Array<PatchTriggerAliasInput>>;
+  githubTriggerAliases?: Maybe<Array<Scalars["String"]>>;
+  periodicBuilds?: Maybe<Array<PeriodicBuildInput>>;
+  cedarTestResultsEnabled?: Maybe<Scalars["Boolean"]>;
+  commitQueue?: Maybe<CommitQueueParamsInput>;
+  admins?: Maybe<Array<Scalars["String"]>>;
+  spawnHostScriptPath?: Maybe<Scalars["String"]>;
+  tracksPushEvents?: Maybe<Scalars["Boolean"]>;
+  taskSync?: Maybe<TaskSyncOptionsInput>;
+  gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]>>;
+  gitTagAuthorizedTeams?: Maybe<Array<Scalars["String"]>>;
+  gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]>;
+  filesIgnoredFromCache?: Maybe<Array<Scalars["String"]>>;
+  disabledStatsCache?: Maybe<Scalars["Boolean"]>;
+  workstationConfig?: Maybe<WorkstationConfigInput>;
 };
 
 export type TriggerAliasInput = {
