@@ -128,10 +128,7 @@ export const VersionPage: React.FC = () => {
   const versionText = revision?.length
     ? revision?.substr(0, 7)
     : id.substr(0, 7);
-  const title =
-    isPatch && patchNumber
-      ? `Patch - ${patchNumber}`
-      : `Version - ${versionText}`;
+  const title = isPatch ? `Patch - ${patchNumber}` : `Version - ${versionText}`;
   usePageTitle(title);
 
   if (isLoadingData) {
