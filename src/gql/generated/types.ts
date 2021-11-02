@@ -201,6 +201,7 @@ export type Mutation = {
   saveProjectSettingsForSection: ProjectSettings;
   attachProjectToRepo: Project;
   detachProjectFromRepo: Project;
+  forceRepotrackerRun: Scalars["Boolean"];
   schedulePatch: Patch;
   schedulePatchTasks?: Maybe<Scalars["String"]>;
   unschedulePatchTasks?: Maybe<Scalars["String"]>;
@@ -266,6 +267,10 @@ export type MutationAttachProjectToRepoArgs = {
 };
 
 export type MutationDetachProjectFromRepoArgs = {
+  projectId: Scalars["String"];
+};
+
+export type MutationForceRepotrackerRunArgs = {
   projectId: Scalars["String"];
 };
 
@@ -520,6 +525,7 @@ export type MainlineCommitsOptions = {
   projectID: Scalars["String"];
   limit?: Maybe<Scalars["Int"]>;
   skipOrderNumber?: Maybe<Scalars["Int"]>;
+  shouldCollapse?: Maybe<Scalars["Boolean"]>;
 };
 
 export type BuildVariantTuple = {
@@ -1380,11 +1386,11 @@ export type Project = {
   githubTriggerAliases?: Maybe<Array<Maybe<Scalars["String"]>>>;
   periodicBuilds?: Maybe<Array<Maybe<PeriodicBuild>>>;
   cedarTestResultsEnabled?: Maybe<Scalars["Boolean"]>;
-  commitQueue?: Maybe<CommitQueueParams>;
+  commitQueue: CommitQueueParams;
   admins?: Maybe<Array<Maybe<Scalars["String"]>>>;
   spawnHostScriptPath: Scalars["String"];
   tracksPushEvents?: Maybe<Scalars["Boolean"]>;
-  taskSync?: Maybe<TaskSyncOptions>;
+  taskSync: TaskSyncOptions;
   gitTagAuthorizedUsers?: Maybe<Array<Maybe<Scalars["String"]>>>;
   gitTagAuthorizedTeams?: Maybe<Array<Maybe<Scalars["String"]>>>;
   gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]>;
@@ -1395,6 +1401,7 @@ export type Project = {
   useRepoSettings: Scalars["Boolean"];
   repoRefId?: Maybe<Scalars["String"]>;
   isFavorite: Scalars["Boolean"];
+  validDefaultLoggers: Array<Scalars["String"]>;
   patches: Patches;
 };
 
@@ -1432,8 +1439,8 @@ export type CommitQueueParams = {
 };
 
 export type TaskSyncOptions = {
-  configEnabled: Scalars["Boolean"];
-  patchEnabled: Scalars["Boolean"];
+  configEnabled?: Maybe<Scalars["Boolean"]>;
+  patchEnabled?: Maybe<Scalars["Boolean"]>;
 };
 
 export type WorkstationConfig = {

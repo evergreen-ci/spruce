@@ -221,7 +221,7 @@ const reduceBuildVariants = (filterDetails: reduceInput) => {
     hasFilter && hasStatus(task.status) && hasBaseStatus(task.baseStatus);
 
   if (versionStatusFilterTerm || baseStatusFilterTerm || parentTasksChanged) {
-    const taskReducer = (acc, task) => ({
+    const taskReducer = (acc, task: task) => ({
       ...acc,
       [task.id]: isSelected(task),
     });
