@@ -10,7 +10,6 @@ import {
   GET_SPRUCE_CONFIG,
 } from "gql/queries";
 import {
-  act,
   renderWithRouterMatch as render,
   waitFor,
 } from "test_utils/test-utils";
@@ -271,7 +270,7 @@ const twoHostsThreeLimitMock = {
   },
 };
 
-test.skip("Disables the spawn host button when the number of hosts that currently exist are greater than or equal to the max number of spawn hosts per user", () => {
+test("Disables the spawn host button when the number of hosts that currently exist are greater than or equal to the max number of spawn hosts per user", async () => {
   const { queryByDataCy } = render(() => (
     <MockedProvider
       mocks={[
@@ -287,10 +286,12 @@ test.skip("Disables the spawn host button when the number of hosts that currentl
       <SpawnHostButton />
     </MockedProvider>
   ));
-  waitFor(() => expect(queryByDataCy("spawn-host-button")).toBeDisabled());
+  await waitFor(() =>
+    expect(queryByDataCy("spawn-host-button")).toBeDisabled()
+  );
 });
 
-test.skip("Enables the spawn host button when the number of hosts that currently exist is less than the max number of spawn hosts per user", async () => {
+test("Enables the spawn host button when the number of hosts that currently exist is less than the max number of spawn hosts per user", async () => {
   const { queryByDataCy } = render(() => (
     <MockedProvider
       mocks={[
@@ -306,6 +307,7 @@ test.skip("Enables the spawn host button when the number of hosts that currently
       <SpawnHostButton />
     </MockedProvider>
   ));
-  await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-  waitFor(() => expect(queryByDataCy("spawn-host-button")).not.toBeDisabled());
+  await waitFor(() =>
+    expect(queryByDataCy("spawn-host-button")).not.toBeDisabled()
+  );
 });
