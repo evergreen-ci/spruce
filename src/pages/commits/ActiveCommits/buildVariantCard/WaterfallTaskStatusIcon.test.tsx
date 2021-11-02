@@ -36,9 +36,9 @@ test("Tooltip should contain task name, duration, list of failing test names and
       queryByText("jstests/multiVersion/remove_invalid_index_options.js")
     ).toBeVisible();
   });
-  // await waitFor(() => {
-  //   expect(queryByText("and 2 more")).toBeVisible();
-  // });
+  await waitFor(() => {
+    expect(queryByText("and 2 more")).toBeVisible();
+  });
 });
 
 test("Icon should link to task page", async () => {
