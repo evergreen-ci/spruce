@@ -661,7 +661,7 @@ exports[`Storyshots History Table Test Search 1`] = `
           className="leafygreen-ui-ly82bp"
           htmlFor="textinput-1"
         >
-          Filter by failed tests
+          Filter by Failed Tests
         </label>
         <div
           className="leafygreen-ui-lzja97"
