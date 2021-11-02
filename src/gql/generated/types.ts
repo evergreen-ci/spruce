@@ -89,7 +89,7 @@ export type QueryPatchTasksArgs = {
   baseStatuses?: Maybe<Array<Scalars["String"]>>;
   variant?: Maybe<Scalars["String"]>;
   taskName?: Maybe<Scalars["String"]>;
-  includeNeverActivatedTasks?: Maybe<Scalars["Boolean"]>;
+  includeEmptyActivation?: Maybe<Scalars["Boolean"]>;
 };
 
 export type QueryTaskTestsArgs = {
