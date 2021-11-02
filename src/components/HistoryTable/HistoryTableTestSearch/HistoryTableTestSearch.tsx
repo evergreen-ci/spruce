@@ -29,7 +29,7 @@ export const HistoryTableTestSearch = () => {
       <TextInputWrapper>
         <TextInput
           type="search"
-          label="Filter by failed tests"
+          label="Filter by Failed Tests"
           aria-label="history-table-test-search-input"
           value={input}
           placeholder="Search Test Name"
