@@ -74,66 +74,73 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
         scheduleTasks({ variables: { taskIds: Array.from(selectedTasks) } });
       }}
     >
-      {loadingTaskData ? (
-        <Skeleton />
-      ) : (
-        sortedBuildVariantGroups.map(
-          ({ tasks, buildVariantDisplayName, buildVariant }) => {
-            const allTasksSelected = tasks.every(({ id }) =>
-              selectedTasks.has(id)
-            );
-            const someTasksSelected = tasks.some(({ id }) =>
-              selectedTasks.has(id)
-            );
-            return (
-              <StyledAccordionWrapper
-                key={buildVariant}
-                data-cy="variant-accordion"
-              >
-                <Accordion
-                  allowToggleFromTitle={false}
-                  title={
-                    <Checkbox
-                      data-cy={`${buildVariant}-variant-checkbox`}
-                      name={buildVariant}
-                      label={buildVariantDisplayName}
-                      bold
-                      checked={allTasksSelected}
-                      indeterminate={!allTasksSelected && someTasksSelected}
-                      onClick={() => {
-                        dispatch({ type: "toggleBuildVariant", buildVariant });
-                      }}
-                    />
-                  }
-                  contents={tasks.map(({ id, displayName }) => (
-                    <Checkbox
-                      key={id}
-                      data-cy={`${buildVariant}-${displayName}-task-checkbox`}
-                      name={id}
-                      label={
-                        <span data-cy="task-checkbox-label">{displayName}</span>
-                      }
-                      bold={false}
-                      checked={selectedTasks.has(id)}
-                      onClick={() => {
-                        dispatch({ type: "toggleTask", taskId: id });
-                      }}
-                    />
-                  ))}
-                />
-              </StyledAccordionWrapper>
-            );
-          }
-        )
-      )}
-      {!loadingTaskData && !sortedBuildVariantGroups.length && (
-        <Body>There are no unscheduled tasks to schedule.</Body>
-      )}
+      <ContentWrapper>
+        {loadingTaskData ? (
+          <Skeleton />
+        ) : (
+          sortedBuildVariantGroups.map(
+            ({ tasks, buildVariantDisplayName, buildVariant }) => {
+              const allTasksSelected = tasks.every(({ id }) =>
+                selectedTasks.has(id)
+              );
+              const someTasksSelected = tasks.some(({ id }) =>
+                selectedTasks.has(id)
+              );
+              return (
+                <AccordionWrapper
+                  key={buildVariant}
+                  data-cy="variant-accordion"
+                >
+                  <Accordion
+                    allowToggleFromTitle={false}
+                    title={
+                      <Checkbox
+                        data-cy={`${buildVariant}-variant-checkbox`}
+                        name={buildVariant}
+                        label={buildVariantDisplayName}
+                        bold
+                        checked={allTasksSelected}
+                        indeterminate={!allTasksSelected && someTasksSelected}
+                        onClick={() => {
+                          dispatch({
+                            type: "toggleBuildVariant",
+                            buildVariant,
+                          });
+                        }}
+                      />
+                    }
+                    contents={tasks.map(({ id, displayName }) => (
+                      <Checkbox
+                        key={id}
+                        data-cy={`${buildVariant}-${displayName}-task-checkbox`}
+                        name={id}
+                        label={
+                          <span data-cy="task-checkbox-label">
+                            {displayName}
+                          </span>
+                        }
+                        bold={false}
+                        checked={selectedTasks.has(id)}
+                        onClick={() => {
+                          dispatch({ type: "toggleTask", taskId: id });
+                        }}
+                      />
+                    ))}
+                  />
+                </AccordionWrapper>
+              );
+            }
+          )
+        )}
+        {!loadingTaskData && !sortedBuildVariantGroups.length && (
+          <Body>There are no unscheduled tasks to schedule.</Body>
+        )}
+      </ContentWrapper>
     </ConfirmationModal>
   );
 };
 
-const StyledAccordionWrapper = styled(AccordionWrapper)`
-  max-height: calc(100vh - 300px);
+const ContentWrapper = styled.div`
+  max-height: calc(100vh - 307px);
   overflow-y: auto;
 `;
