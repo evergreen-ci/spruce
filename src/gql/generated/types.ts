@@ -3320,6 +3320,7 @@ export type GetUndispatchedTasksQuery = {
   patchTasks: {
     tasks: Array<{
       id: string;
+      execution: number;
       displayName: string;
       buildVariant: string;
       buildVariantDisplayName?: Maybe<string>;

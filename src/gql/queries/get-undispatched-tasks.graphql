@@ -6,6 +6,7 @@ query GetUndispatchedTasks($versionId: String!) {
   ) {
     tasks {
       id
+      execution
       displayName
       buildVariant
       buildVariantDisplayName
