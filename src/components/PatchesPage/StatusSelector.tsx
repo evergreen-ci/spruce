@@ -2,7 +2,7 @@ import React from "react";
 import { Dropdown, TreeSelect } from "components/TreeSelect";
 import { useStatusesFilter } from "hooks";
 import {
-  MyPatchesQueryParams,
+  PatchPageQueryParams,
   PatchStatus,
   ALL_PATCH_STATUS,
 } from "types/patch";
@@ -11,7 +11,7 @@ export const StatusSelector: React.FC = () => {
   const {
     inputValue: statusVal,
     setAndSubmitInputValue: statusValOnChange,
-  } = useStatusesFilter({ urlParam: MyPatchesQueryParams.Statuses });
+  } = useStatusesFilter({ urlParam: PatchPageQueryParams.Statuses });
 
   return (
     <Dropdown

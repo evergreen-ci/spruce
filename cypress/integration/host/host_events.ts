@@ -206,10 +206,9 @@ describe("Host events", () => {
 
   it("host events are displayed in the right timezone", () => {
     cy.visit("/preferences");
-    cy.dataCy("timezone-field").click();
-    cy.dataCy("Hawaii-option").click();
-    cy.dataCy("save-profile-changes-button").click();
-
+    cy.contains("Select timezone").click();
+    cy.contains("Hawaii").click();
+    cy.contains("Save Changes").click();
     cy.visit(pathWithEvents);
     cy.dataCy("HOST_JASPER_RESTARTING-time").contains(
       "Sep 30, 2017, 9:11:16 AM"

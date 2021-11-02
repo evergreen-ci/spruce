@@ -72,27 +72,27 @@ export const Commits = () => {
     }
   }, [chartTypeParam, setCurrentChartType]);
 
-  // query mainlineCommits data
-  const mainlineCommitsOptions = {
-    projectID: projectId,
-    limit: 5,
-    skipOrderNumber,
-  };
+  const hasTaskFilter = filterTasks.length > 0;
+
   const buildVariantOptionsForTask = {
     statuses: filterStatuses,
     variants: filterVariants,
     tasks: filterTasks,
   };
-  const defaultFilterByFailed = !(
-    filterStatuses.length ||
-    filterVariants.length ||
-    filterTasks.length
-  );
+  const hasFilters =
+    filterStatuses.length > 0 || filterVariants.length > 0 || hasTaskFilter;
+  const mainlineCommitsOptions = {
+    projectID: projectId,
+    limit: 5,
+    skipOrderNumber,
+    shouldCollapse: hasFilters,
+  };
   const buildVariantOptions = {
-    statuses: defaultFilterByFailed ? FAILED_STATUSES : filterStatuses,
+    statuses: hasFilters ? filterStatuses : FAILED_STATUSES,
     variants: filterVariants,
     tasks: filterTasks,
   };
+
   const { data, loading, error, startPolling, stopPolling } = useQuery<
     MainlineCommitsQuery,
     MainlineCommitsQueryVariables
@@ -112,9 +112,10 @@ export const Commits = () => {
   const { versions, nextPageOrderNumber, prevPageOrderNumber } =
     mainlineCommits || {};
 
-  const hasTaskFilter = filterTasks.length > 0;
-  const hasFilters =
-    filterStatuses.length > 0 || filterVariants.length > 0 || hasTaskFilter;
+  const queryParamsToDisplay = new Set([
+    ProjectFilterOptions.BuildVariant,
+    ProjectFilterOptions.Task,
+  ]);
 
   return (
     <PageWrapper>
@@ -131,7 +132,7 @@ export const Commits = () => {
           </ProjectSelectWrapper>
         </HeaderWrapper>
         <BadgeWrapper>
-          <FilterBadges />
+          <FilterBadges queryParamsToDisplay={queryParamsToDisplay} />
         </BadgeWrapper>
         <PaginationButtons
           prevPageOrderNumber={prevPageOrderNumber}

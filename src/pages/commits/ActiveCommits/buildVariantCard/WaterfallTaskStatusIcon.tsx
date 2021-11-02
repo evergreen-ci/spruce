@@ -32,13 +32,14 @@ export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = (
     GetFailedTaskStatusIconTooltipQuery,
     GetFailedTaskStatusIconTooltipQueryVariables
   >(GET_FAILED_TASK_STATUS_ICON_TOOLTIP, { variables: { taskId } });
-  const { testResults } = data?.taskTests ?? {};
+  const { testResults, filteredTestCount } = data?.taskTests ?? {};
   const loadDataCb = () => {
     // Only query failing test names if the task has failed.
     if (isFailedTaskStatus(status)) {
       loadData();
     }
   };
+  const failedTestDifference = filteredTestCount - testResults?.length;
 
   return (
     <Tooltip
@@ -75,6 +76,9 @@ export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = (
             {testResults?.map(({ id, testFile }) => (
               <TestName key={id}>{testFile}</TestName>
             ))}
+            {failedTestDifference > 0 && (
+              <div>and {failedTestDifference} more</div>
+            )}
           </>
         )}
       </div>
