@@ -1,5 +1,6 @@
 import { useReducer, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
+import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
@@ -85,7 +86,10 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
               selectedTasks.has(id)
             );
             return (
-              <AccordionWrapper key={buildVariant} data-cy="variant-accordion">
+              <StyledAccordionWrapper
+                key={buildVariant}
+                data-cy="variant-accordion"
+              >
                 <Accordion
                   allowToggleFromTitle={false}
                   title={
@@ -117,7 +121,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
                     />
                   ))}
                 />
-              </AccordionWrapper>
+              </StyledAccordionWrapper>
             );
           }
         )
@@ -128,3 +132,8 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
     </ConfirmationModal>
   );
 };
+
+const StyledAccordionWrapper = styled(AccordionWrapper)`
+  max-height: calc(100vh - 300px);
+  overflow-y: auto;
+`;
