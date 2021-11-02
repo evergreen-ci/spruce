@@ -1,6 +1,7 @@
 import { useReducer, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import Checkbox from "@leafygreen-ui/checkbox";
+import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { Accordion, AccordionWrapper } from "components/Accordion";
 import { ConfirmationModal } from "components/ConfirmationModal";
@@ -120,6 +121,9 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
             );
           }
         )
+      )}
+      {!loadingTaskData && !sortedBuildVariantGroups.length && (
+        <Body>There are no unscheduled tasks to schedule.</Body>
       )}
     </ConfirmationModal>
   );
