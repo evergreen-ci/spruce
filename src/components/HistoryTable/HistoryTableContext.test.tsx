@@ -172,51 +172,49 @@ describe("HistoryTableContext", () => {
       "enterprise-debian92-64",
       "enterprise-rhel-70-64-bit",
       "enterprise-rhel-72-s390x",
-      "enterprise-rhel-72-s390x-all-feature-flags",
-      "enterprise-rhel-72-s390x-inmem",
     ];
-    test("Should load in a set of columns and only display the first 8", () => {
+    test("Should load in a set of columns and only display the first 7", () => {
       const { result } = renderHook(() => useHistoryTable(), { wrapper });
       act(() => {
         result.current.addColumns(columns);
       });
-      expect(result.current.visibleColumns.length).toEqual(8);
-      expect(result.current.visibleColumns).toEqual(columns.slice(0, 8));
+      expect(result.current.visibleColumns.length).toEqual(7);
+      expect(result.current.visibleColumns).toEqual(columns.slice(0, 7));
     });
     test("Should be able to paginate forward on visible columns", () => {
       const { result } = renderHook(() => useHistoryTable(), { wrapper });
       act(() => {
         result.current.addColumns(columns);
       });
-      expect(result.current.visibleColumns.length).toEqual(8);
-      expect(result.current.visibleColumns).toEqual(columns.slice(0, 8));
+      expect(result.current.visibleColumns.length).toEqual(7);
+      expect(result.current.visibleColumns).toEqual(columns.slice(0, 7));
       act(() => {
         result.current.nextPage();
       });
-      // expect(result.current.visibleColumns.length).toEqual(8);
-      expect(result.current.visibleColumns).toEqual(columns.slice(8, 16));
+      expect(result.current.visibleColumns.length).toEqual(7);
+      expect(result.current.visibleColumns).toEqual(columns.slice(7, 14));
     });
     test("Should be able to paginate backwards on visible columns", () => {
       const { result } = renderHook(() => useHistoryTable(), { wrapper });
       act(() => {
         result.current.addColumns(columns);
       });
-      expect(result.current.visibleColumns.length).toEqual(8);
-      expect(result.current.visibleColumns).toEqual(columns.slice(0, 8));
+      expect(result.current.visibleColumns.length).toEqual(7);
+      expect(result.current.visibleColumns).toEqual(columns.slice(0, 7));
       expect(result.current.hasNextPage).toBeTruthy();
       expect(result.current.hasPreviousPage).toBeFalsy();
       act(() => {
         result.current.nextPage();
       });
       expect(result.current.hasPreviousPage).toBeTruthy();
-      expect(result.current.visibleColumns.length).toEqual(8);
-      expect(result.current.visibleColumns).toEqual(columns.slice(8, 16));
+      expect(result.current.visibleColumns.length).toEqual(7);
+      expect(result.current.visibleColumns).toEqual(columns.slice(7, 14));
       act(() => {
         result.current.previousPage();
       });
       expect(result.current.hasPreviousPage).toBeFalsy();
-      expect(result.current.visibleColumns.length).toEqual(8);
-      expect(result.current.visibleColumns).toEqual(columns.slice(0, 8));
+      expect(result.current.visibleColumns.length).toEqual(7);
+      expect(result.current.visibleColumns).toEqual(columns.slice(0, 7));
     });
     test("Should not be able to paginate backwards on non existant pages", () => {
       const { result } = renderHook(() => useHistoryTable(), { wrapper });
@@ -224,13 +222,13 @@ describe("HistoryTableContext", () => {
         result.current.addColumns(columns);
       });
       expect(result.current.hasPreviousPage).toBeFalsy();
-      expect(result.current.visibleColumns.length).toEqual(8);
-      expect(result.current.visibleColumns).toEqual(columns.slice(0, 8));
+      expect(result.current.visibleColumns.length).toEqual(7);
+      expect(result.current.visibleColumns).toEqual(columns.slice(0, 7));
       act(() => {
         result.current.previousPage();
       });
-      expect(result.current.visibleColumns.length).toEqual(8);
-      expect(result.current.visibleColumns).toEqual(columns.slice(0, 8));
+      expect(result.current.visibleColumns.length).toEqual(7);
+      expect(result.current.visibleColumns).toEqual(columns.slice(0, 7));
     });
   });
 });
