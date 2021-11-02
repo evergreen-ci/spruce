@@ -9,19 +9,25 @@ export default {
   decorators: [withKnobs],
 };
 
-export const AllStatuses = () => (
-  <Container>
-    {Object.keys(TaskStatus).map((status) => (
-      <IconContainer key={status}>
-        <TaskStatusIcon
-          status={TaskStatus[status]}
-          size={select("Size", Sizes, Sizes[Size.Default])}
-        />
-        <span>{status}</span>
-      </IconContainer>
-    ))}
-  </Container>
-);
+export const AllStatuses = () => {
+  // filter out umbrella statuses
+  const taskStatuses = Object.keys(TaskStatus).filter(
+    (taskName) => !taskName.includes("Umbrella")
+  );
+  return (
+    <Container>
+      {taskStatuses.map((status) => (
+        <IconContainer key={status}>
+          <TaskStatusIcon
+            status={TaskStatus[status]}
+            size={select("Size", Sizes, Sizes[Size.Default])}
+          />
+          <span>{status}</span>
+        </IconContainer>
+      ))}
+    </Container>
+  );
+};
 
 const Sizes = {
   [Size.Small]: 14,

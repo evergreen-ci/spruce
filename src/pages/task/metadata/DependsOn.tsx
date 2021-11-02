@@ -61,7 +61,7 @@ const StyledBadge = styled(Badge)`
 const metStatusToIcon = {
   [MetStatus.Met]: <TaskStatusIcon status={TaskStatus.Succeeded} />,
   [MetStatus.Unmet]: <TaskStatusIcon status={TaskStatus.Failed} />,
-  [MetStatus.Pending]: <></>,
+  [MetStatus.Pending]: <TaskStatusIcon status={TaskStatus.Pending} />,
 };
 
 const requiredStatusToBadge = {

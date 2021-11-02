@@ -1,0 +1,557 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Metadata Base 1`] = `
+<div
+  className="css-1ej7kz3-Container egzqr3n0"
+>
+  <div
+    className="css-1u7q4a0-SiderCard e1am38ss0 leafygreen-ui-fe135o"
+  >
+    <div
+      className="leafygreen-ui-1sqf492"
+    >
+      Task Metadata
+    </div>
+    <div
+      className="ant-divider ant-divider-horizontal css-1gzlxe4-StyledDivider eyj3qof0"
+      role="separator"
+    />
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+      data-cy="task-metadata-build-variant"
+    >
+      Build Variant Name:
+       
+      <a
+        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+        data-cy="build-variant-link"
+        href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=ubuntu1604"
+        onClick={[Function]}
+      >
+        ubuntu1604
+      </a>
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+      data-cy="task-metadata-project"
+    >
+      Project:
+       
+      <a
+        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+        data-cy="project-link"
+        href="/project/spruce/patches"
+        onClick={[Function]}
+      />
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+    >
+      Submitted by: 
+      mohamed.khelif
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+    >
+      Estimated time to start:
+       
+      <span
+        data-cy="task-metadata-estimated_start"
+      >
+        1s 0ms
+      </span>
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+      data-cy="task-metadata-base-commit-duration"
+    >
+      Base commit duration: 
+      20m 28s
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+    >
+      Base commit:
+       
+      <a
+        className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+        data-cy="base-task-link"
+        href="https://evergreen.mongodb.com/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
+        onClick={[Function]}
+      >
+        e0ece5ad52
+      </a>
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+    >
+      Distro:
+       
+      <a
+        className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+        data-cy="task-distro-link"
+        href="/distros##ubuntu1604-small"
+        onClick={[Function]}
+      >
+        ubuntu1604-small
+      </a>
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+      data-cy="task-metadata-ami"
+    >
+      AMI: 
+      ami-0c83bb0a9f48c15bf
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+    >
+      Host:
+       
+      <a
+        className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+        data-cy="task-host-link"
+        href="/host/i-0e0e62799806e037d"
+        onClick={[Function]}
+      >
+        i-0e0e62799806e037d
+      </a>
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+    >
+      <a
+        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+        data-cy="task-spawn-host-link"
+        href="/spawn/host?distroId=ubuntu1604-small&spawnHost=True&taskId=someTaskId"
+        onClick={[Function]}
+      >
+        Spawn host
+      </a>
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Metadata With Abort Message 1`] = `
+<div
+  className="css-1ej7kz3-Container egzqr3n0"
+>
+  <div
+    className="css-1u7q4a0-SiderCard e1am38ss0 leafygreen-ui-fe135o"
+  >
+    <div
+      className="leafygreen-ui-1sqf492"
+    >
+      Task Metadata
+    </div>
+    <div
+      className="ant-divider ant-divider-horizontal css-1gzlxe4-StyledDivider eyj3qof0"
+      role="separator"
+    />
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+      data-cy="task-metadata-build-variant"
+    >
+      Build Variant Name:
+       
+      <a
+        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+        data-cy="build-variant-link"
+        href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=ubuntu1604"
+        onClick={[Function]}
+      >
+        ubuntu1604
+      </a>
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+      data-cy="task-metadata-project"
+    >
+      Project:
+       
+      <a
+        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+        data-cy="project-link"
+        href="/project/spruce/patches"
+        onClick={[Function]}
+      />
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+    >
+      Submitted by: 
+      mohamed.khelif
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+    >
+      Estimated time to start:
+       
+      <span
+        data-cy="task-metadata-estimated_start"
+      >
+        1s 0ms
+      </span>
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+      data-cy="task-metadata-base-commit-duration"
+    >
+      Base commit duration: 
+      20m 28s
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+    >
+      Base commit:
+       
+      <a
+        className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+        data-cy="base-task-link"
+        href="https://evergreen.mongodb.com/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
+        onClick={[Function]}
+      >
+        e0ece5ad52
+      </a>
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+    >
+      Distro:
+       
+      <a
+        className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+        data-cy="task-distro-link"
+        href="/distros##ubuntu1604-small"
+        onClick={[Function]}
+      >
+        ubuntu1604-small
+      </a>
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+      data-cy="task-metadata-ami"
+    >
+      AMI: 
+      ami-0c83bb0a9f48c15bf
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+    >
+      Host:
+       
+      <a
+        className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+        data-cy="task-host-link"
+        href="/host/i-0e0e62799806e037d"
+        onClick={[Function]}
+      >
+        i-0e0e62799806e037d
+      </a>
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+    >
+      <a
+        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+        data-cy="task-spawn-host-link"
+        href="/spawn/host?distroId=ubuntu1604-small&spawnHost=True&taskId=someTaskId"
+        onClick={[Function]}
+      >
+        Spawn host
+      </a>
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Metadata With Dependencies 1`] = `
+<div
+  className="css-1ej7kz3-Container egzqr3n0"
+>
+  <div
+    className="css-1u7q4a0-SiderCard e1am38ss0 leafygreen-ui-fe135o"
+  >
+    <div
+      className="leafygreen-ui-1sqf492"
+    >
+      Task Metadata
+    </div>
+    <div
+      className="ant-divider ant-divider-horizontal css-1gzlxe4-StyledDivider eyj3qof0"
+      role="separator"
+    />
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+      data-cy="task-metadata-build-variant"
+    >
+      Build Variant Name:
+       
+      <a
+        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+        data-cy="build-variant-link"
+        href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=ubuntu1604"
+        onClick={[Function]}
+      >
+        ubuntu1604
+      </a>
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+      data-cy="task-metadata-project"
+    >
+      Project:
+       
+      <a
+        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+        data-cy="project-link"
+        href="/project/spruce/patches"
+        onClick={[Function]}
+      />
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+    >
+      Submitted by: 
+      mohamed.khelif
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+    >
+      Estimated time to start:
+       
+      <span
+        data-cy="task-metadata-estimated_start"
+      >
+        1s 0ms
+      </span>
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+      data-cy="task-metadata-base-commit-duration"
+    >
+      Base commit duration: 
+      20m 28s
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+    >
+      Base commit:
+       
+      <a
+        className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+        data-cy="base-task-link"
+        href="https://evergreen.mongodb.com/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
+        onClick={[Function]}
+      >
+        e0ece5ad52
+      </a>
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+    >
+      Distro:
+       
+      <a
+        className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+        data-cy="task-distro-link"
+        href="/distros##ubuntu1604-small"
+        onClick={[Function]}
+      >
+        ubuntu1604-small
+      </a>
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+      data-cy="task-metadata-ami"
+    >
+      AMI: 
+      ami-0c83bb0a9f48c15bf
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+    >
+      Host:
+       
+      <a
+        className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+        data-cy="task-host-link"
+        href="/host/i-0e0e62799806e037d"
+        onClick={[Function]}
+      >
+        i-0e0e62799806e037d
+      </a>
+    </p>
+    <p
+      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+    >
+      <a
+        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+        data-cy="task-spawn-host-link"
+        href="/spawn/host?distroId=ubuntu1604-small&spawnHost=True&taskId=someTaskId"
+        onClick={[Function]}
+      >
+        Spawn host
+      </a>
+    </p>
+    <span
+      data-cy="depends-on-container"
+    >
+      <h3
+        className="css-1el4fgd-H3 eplk6ht2"
+      >
+        Depends On
+      </h3>
+      <div
+        className="ant-divider ant-divider-horizontal css-1gzlxe4-StyledDivider eyj3qof0"
+        role="separator"
+      />
+      <div
+        className="css-3ay4yh-DependsOnWrapper e1dgw5p64"
+      >
+        <div
+          className="css-1ncpeg7-LeftContainer e1dgw5p63"
+        >
+          <svg
+            aria-label="X Icon"
+            className="leafygreen-ui-14toih"
+            fill="none"
+            height={16}
+            role="img"
+            viewBox="0 0 16 16"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clipRule="evenodd"
+              d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
+              fill="currentColor"
+              fillRule="evenodd"
+            />
+          </svg>
+        </div>
+        <div
+          className="css-yr1wle-RightContainer e1dgw5p62"
+        >
+          <a
+            className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+            data-cy="depends-on-link"
+            href="/task/some_task_id_1"
+            onClick={[Function]}
+          >
+            Some dep
+          </a>
+          <small
+            className="css-51mu5l-Subtitle e1dgw5p61 leafygreen-ui-13bqno6"
+          >
+            in 
+            ubuntu1604
+          </small>
+          <div
+            className="css-18qx7zk-StyledBadge-StyledBadge e1dgw5p60 leafygreen-ui-114ed4x"
+          >
+            Must succeed
+          </div>
+        </div>
+      </div>
+      <div
+        className="css-3ay4yh-DependsOnWrapper e1dgw5p64"
+      >
+        <div
+          className="css-1ncpeg7-LeftContainer e1dgw5p63"
+        >
+          <svg
+            aria-label="Calendar Icon"
+            className="leafygreen-ui-foqtcf"
+            fill="none"
+            height={16}
+            role="img"
+            viewBox="0 0 16 16"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clipRule="evenodd"
+              d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
+              fill="currentColor"
+              fillRule="evenodd"
+            />
+          </svg>
+        </div>
+        <div
+          className="css-yr1wle-RightContainer e1dgw5p62"
+        >
+          <a
+            className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+            data-cy="depends-on-link"
+            href="/task/some_task_id_2"
+            onClick={[Function]}
+          >
+            Some dep
+          </a>
+          <small
+            className="css-51mu5l-Subtitle e1dgw5p61 leafygreen-ui-13bqno6"
+          >
+            in 
+            ubuntu1604
+          </small>
+          <div
+            className="css-18qx7zk-StyledBadge-StyledBadge e1dgw5p60 leafygreen-ui-r4llcb"
+          >
+            Must finish
+          </div>
+        </div>
+      </div>
+      <div
+        className="css-3ay4yh-DependsOnWrapper e1dgw5p64"
+      >
+        <div
+          className="css-1ncpeg7-LeftContainer e1dgw5p63"
+        >
+          <svg
+            aria-label="Checkmark Icon"
+            className="leafygreen-ui-ifwzrn"
+            fill="none"
+            height={16}
+            role="img"
+            viewBox="0 0 16 16"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clipRule="evenodd"
+              d="M6.306 9.05l5.455-5.455a1 1 0 011.414 0l.707.707a1 1 0 010 1.414l-7.067 7.068a1 1 0 01-1.5-.098l-3.049-3.97a1 1 0 01.184-1.402l.595-.457a1.25 1.25 0 011.753.23L6.306 9.05z"
+              fill="currentColor"
+              fillRule="evenodd"
+            />
+          </svg>
+        </div>
+        <div
+          className="css-yr1wle-RightContainer e1dgw5p62"
+        >
+          <a
+            className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+            data-cy="depends-on-link"
+            href="/task/some_task_id_3"
+            onClick={[Function]}
+          >
+            Some dep
+          </a>
+          <small
+            className="css-51mu5l-Subtitle e1dgw5p61 leafygreen-ui-13bqno6"
+          >
+            in 
+            ubuntu1604
+          </small>
+          <div
+            className="css-18qx7zk-StyledBadge-StyledBadge e1dgw5p60 leafygreen-ui-1sq0is2"
+          >
+            Must fail
+          </div>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+`;

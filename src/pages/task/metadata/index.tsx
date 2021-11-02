@@ -18,9 +18,9 @@ import { GetTaskQuery } from "gql/generated/types";
 import { useUserTimeZone } from "hooks/useUserTimeZone";
 import { TaskStatus } from "types/task";
 import { environmentalVariables, string } from "utils";
-import { AbortMessage } from "./metadata/AbortMessage";
-import { DependsOn } from "./metadata/DependsOn";
-import { ETATimer } from "./metadata/ETATimer";
+import { AbortMessage } from "./AbortMessage";
+import { DependsOn } from "./DependsOn";
+import { ETATimer } from "./ETATimer";
 
 const { msToDuration, getDateCopy } = string;
 const { getUiUrl } = environmentalVariables;
