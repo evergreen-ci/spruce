@@ -48,7 +48,7 @@ export const VersionPage: React.FC = () => {
   const [redirectURL, setRedirectURL] = useState(undefined);
   const [isLoadingData, setIsLoadingData] = useState(true);
 
-  const [getPatch, { data: patchData }] = useLazyQuery<
+  const [getPatch, { data: patchData, error: patchError }] = useLazyQuery<
     IsPatchConfiguredQuery,
     IsPatchConfiguredQueryVariables
   >(GET_IS_PATCH_CONFIGURED, {
@@ -63,10 +63,12 @@ export const VersionPage: React.FC = () => {
   >(GET_VERSION, {
     variables: { id },
     pollInterval,
-    onError: (e) =>
+    onError: (e) => {
       dispatchToast.error(
         `There was an error loading the version: ${e.message}`
-      ),
+      );
+      setIsLoadingData(false);
+    },
   });
 
   useNetworkStatus(startPolling, stopPolling);
@@ -97,7 +99,12 @@ export const VersionPage: React.FC = () => {
         getVersion();
       }
     }
-  }, [patchData, getVersion, id]);
+    // if there was an error fetching the patch and the patch id was a real id it could be a periodic patch build
+    // in which case we should check if theres a corresponding version associated with it.
+    if (validatePatchId(id) && patchError) {
+      getVersion();
+    }
+  }, [patchData, getVersion, patchError, id]);
 
   // If we have successfully loaded a version we can show the page
   useEffect(() => {
@@ -117,9 +124,14 @@ export const VersionPage: React.FC = () => {
   } = patch || {};
   const isPatchOnCommitQueue = commitQueuePosition !== null;
 
-  const title = isPatch
-    ? `Patch - ${patchNumber}`
-    : `Version - ${revision?.substr(0, 6)}`;
+  // If a revision exists
+  const versionText = revision?.length
+    ? revision?.substr(0, 7)
+    : id.substr(0, 7);
+  const title =
+    isPatch && patchNumber
+      ? `Patch - ${patchNumber}`
+      : `Version - ${versionText}`;
   usePageTitle(title);
 
   if (isLoadingData) {
@@ -131,7 +143,11 @@ export const VersionPage: React.FC = () => {
   }
 
   if (error) {
-    return <PageDoesNotExist />;
+    return (
+      <PageWrapper data-cy="version-page">
+        <PageDoesNotExist />
+      </PageWrapper>
+    );
   }
 
   const linkifiedMessage = jiraLinkify(
