@@ -24,6 +24,7 @@ describe("HistoryTableContext", () => {
       previousPage: expect.any(Function),
       currentPage: 0,
       pageCount: 0,
+      columnLimit: 7,
     });
   });
   test("Should process new commits when they are passed in", () => {

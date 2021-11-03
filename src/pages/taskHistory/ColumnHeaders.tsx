@@ -13,7 +13,7 @@ interface ColumnHeadersProps {
   loading: boolean;
 }
 const ColumnHeaders: React.FC<ColumnHeadersProps> = ({ columns, loading }) => {
-  const { visibleColumns, addColumns } = useHistoryTable();
+  const { visibleColumns, addColumns, columnLimit } = useHistoryTable();
   useEffect(() => {
     if (columns) {
       addColumns(columns.map((c) => c.buildVariant));
@@ -36,7 +36,7 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({ columns, loading }) => {
         );
       })}
       {loading &&
-        Array.from(Array(8)).map((i) => (
+        Array.from(Array(columnLimit)).map((i) => (
           <HeaderCell key={`loading_cell_${i}`}>Loading...</HeaderCell>
         ))}
     </RowContainer>
