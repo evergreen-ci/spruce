@@ -3,7 +3,9 @@ query LastPassingVersion(
   $projectId: String!
   $taskName: String!
 ) {
-  mainlineCommits(options: { projectID: $projectId, limit: 1 }) {
+  mainlineCommits(
+    options: { projectID: $projectId, limit: 1, shouldCollapse: true }
+  ) {
     versions {
       version {
         id
