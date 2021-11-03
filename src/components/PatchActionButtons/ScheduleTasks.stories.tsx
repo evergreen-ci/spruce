@@ -13,6 +13,10 @@ export const ScheduleTasksPopulated = () => (
   <ScheduleTasks versionId="version" />
 );
 
+export const ScheduleTasksEmpty = () => (
+  <ScheduleTasks versionId="emptyVersion" />
+);
+
 ScheduleTasksPopulated.parameters = {
   apolloClient: {
     mocks: [
@@ -152,6 +156,20 @@ ScheduleTasksPopulated.parameters = {
                   __typename: "Task",
                 },
               ],
+              __typename: "PatchTasks",
+            },
+          },
+        },
+      },
+      {
+        request: {
+          query: GET_UNSCHEDULED_TASKS,
+          variables: { versionId: "emptyVersion" },
+        },
+        result: {
+          data: {
+            patchTasks: {
+              tasks: [],
               __typename: "PatchTasks",
             },
           },
