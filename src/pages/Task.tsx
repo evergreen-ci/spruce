@@ -115,7 +115,6 @@ export const Task: React.FC = () => {
             taskName={displayName}
             projectIdentifier={project?.identifier}
             buildVariant={buildVariant}
-            status={status}
           />
         }
       />
