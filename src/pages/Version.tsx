@@ -99,7 +99,7 @@ export const VersionPage: React.FC = () => {
         getVersion();
       }
     }
-    // if there was an error fetching the patch and the patch id was a real id it could be a periodic patch build
+    // if there was an error fetching the patch and the patch id was a real id it could be a periodic build
     // in which case we should check if theres a corresponding version associated with it.
     if (validatePatchId(id) && patchError) {
       getVersion();
@@ -126,8 +126,8 @@ export const VersionPage: React.FC = () => {
 
   // If a revision exists
   const versionText = revision?.length
-    ? revision?.substr(0, 7)
-    : id.substr(0, 7);
+    ? revision?.substring(0, 7)
+    : id.substring(0, 7);
   const title = isPatch ? `Patch - ${patchNumber}` : `Version - ${versionText}`;
   usePageTitle(title);
 
