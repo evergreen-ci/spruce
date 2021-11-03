@@ -5,23 +5,15 @@ query LastPassingVersion(
 ) {
   mainlineCommits(
     options: { projectID: $projectId, limit: 1, shouldCollapse: true }
+    buildVariantOptions: {
+      variants: [$variant]
+      tasks: [$taskName]
+      statuses: ["success"]
+    }
   ) {
     versions {
       version {
         id
-        buildVariants(
-          options: {
-            statuses: ["success"]
-            tasks: [$taskName]
-            variants: [$variant]
-          }
-        ) {
-          variant
-          tasks {
-            id
-            execution
-          }
-        }
       }
     }
   }

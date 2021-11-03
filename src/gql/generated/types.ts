@@ -3457,19 +3457,7 @@ export type LastPassingVersionQueryVariables = Exact<{
 
 export type LastPassingVersionQuery = {
   mainlineCommits?: Maybe<{
-    versions: Array<{
-      version?: Maybe<{
-        id: string;
-        buildVariants?: Maybe<
-          Array<
-            Maybe<{
-              variant: string;
-              tasks?: Maybe<Array<Maybe<{ id: string; execution: number }>>>;
-            }>
-          >
-        >;
-      }>;
-    }>;
+    versions: Array<{ version?: Maybe<{ id: string }> }>;
   }>;
 };
 
