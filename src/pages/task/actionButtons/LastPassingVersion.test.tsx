@@ -50,8 +50,8 @@ const mocks = [
       query: GET_LAST_PASSING_VERSION,
       variables: {
         projectId: "spruce",
-        variant: "ubuntu1604",
-        taskName: "test",
+        variant: "^ubuntu1604$",
+        taskName: "^test$",
       },
     },
     result: {
@@ -61,18 +61,6 @@ const mocks = [
             {
               version: {
                 id: "spruce_b06b02cd9e9bb6604dda7b5c20851cc9fa233e57",
-                buildVariants: [
-                  {
-                    variant: "ubuntu1604",
-                    tasks: [
-                      {
-                        id:
-                          "spruce_ubuntu1604_e2e_test_b06b02cd9e9bb6604dda7b5c20851cc9fa233e57_21_10_08_19_25_15",
-                        execution: 1,
-                      },
-                    ],
-                  },
-                ],
               },
             },
           ],
@@ -85,8 +73,8 @@ const mocks = [
       query: GET_LAST_PASSING_VERSION,
       variables: {
         projectId: "spruce",
-        variant: "ubuntu1604",
-        taskName: "e2e_test",
+        variant: "^ubuntu1604$",
+        taskName: "^e2e_test$",
       },
     },
     result: {
