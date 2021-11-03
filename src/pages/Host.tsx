@@ -5,6 +5,7 @@ import Code from "@leafygreen-ui/code";
 import { useParams, useLocation } from "react-router-dom";
 import { Button } from "components/Button";
 import { UpdateStatusModal } from "components/Hosts";
+import { Reprovision } from "components/Hosts/Reprovision";
 import { RestartJasper } from "components/Hosts/RestartJasper";
 import { HostStatusBadge } from "components/HostStatusBadge";
 import { PageTitle } from "components/PageTitle";
@@ -77,7 +78,7 @@ export const Host: React.FC = () => {
 
   usePageTitle(`Host${hostId ? ` - ${hostId}` : ""}`);
 
-  const canRestartJasper =
+  const canRestartJasperOrReprovision =
     host?.status === "running" &&
     (bootstrapMethod === "ssh" || bootstrapMethod === "user-data");
   return (
@@ -101,12 +102,21 @@ export const Host: React.FC = () => {
                       Update Status
                     </Button>
                   </ButtonSpacer>
-                  <RestartJasper
+                  <ButtonSpacer>
+                    <RestartJasper
+                      selectedHostIds={[id]}
+                      hostUrl={hostUrl}
+                      isSingleHost
+                      canRestartJasper={canRestartJasperOrReprovision}
+                      jasperTooltipMessage="Jasper cannot be restarted for this host"
+                    />
+                  </ButtonSpacer>
+                  <Reprovision
                     selectedHostIds={[id]}
                     hostUrl={hostUrl}
                     isSingleHost
-                    canRestartJasper={canRestartJasper}
-                    jasperTooltipMessage="Jasper cannot be restarted for this host"
+                    canReprovision={canRestartJasperOrReprovision}
+                    reprovisionTooltipMessage="This host cannot be reprovisioned"
                   />
                 </ButtonsWrapper>
               </div>

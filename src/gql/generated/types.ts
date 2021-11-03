@@ -89,6 +89,7 @@ export type QueryPatchTasksArgs = {
   baseStatuses?: Maybe<Array<Scalars["String"]>>;
   variant?: Maybe<Scalars["String"]>;
   taskName?: Maybe<Scalars["String"]>;
+  includeEmptyActivation?: Maybe<Scalars["Boolean"]>;
 };
 
 export type QueryTaskTestsArgs = {
@@ -222,6 +223,7 @@ export type Mutation = {
   removeItemFromCommitQueue?: Maybe<Scalars["String"]>;
   updateUserSettings: Scalars["Boolean"];
   restartJasper: Scalars["Int"];
+  reprovisionToNew: Scalars["Int"];
   updateHostStatus: Scalars["Int"];
   createPublicKey: Array<PublicKey>;
   spawnHost: Host;
@@ -384,6 +386,10 @@ export type MutationUpdateUserSettingsArgs = {
 };
 
 export type MutationRestartJasperArgs = {
+  hostIds: Array<Scalars["String"]>;
+};
+
+export type MutationReprovisionToNewArgs = {
   hostIds: Array<Scalars["String"]>;
 };
 
@@ -1503,6 +1509,7 @@ export type RepoRef = {
   filesIgnoredFromCache?: Maybe<Array<Scalars["String"]>>;
   disabledStatsCache: Scalars["Boolean"];
   workstationConfig: RepoWorkstationConfig;
+  validDefaultLoggers: Array<Scalars["String"]>;
 };
 
 export type TriggerAlias = {
@@ -2188,6 +2195,12 @@ export type RemoveVolumeMutationVariables = Exact<{
 }>;
 
 export type RemoveVolumeMutation = { removeVolume: boolean };
+
+export type ReprovisionToNewMutationVariables = Exact<{
+  hostIds: Array<Scalars["String"]>;
+}>;
+
+export type ReprovisionToNewMutation = { reprovisionToNew: number };
 
 export type RestartJasperMutationVariables = Exact<{
   hostIds: Array<Scalars["String"]>;
