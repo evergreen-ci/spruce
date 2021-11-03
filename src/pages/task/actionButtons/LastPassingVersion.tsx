@@ -8,6 +8,7 @@ import {
   LastPassingVersionQueryVariables,
 } from "gql/generated/types";
 import { GET_LAST_PASSING_VERSION } from "gql/queries";
+import { applyStrictRegex } from "utils/string";
 
 interface LastPassingVersionProps {
   variant: string;
@@ -24,7 +25,13 @@ export const LastPassingVersion: React.FC<LastPassingVersionProps> = ({
   const { data, loading } = useQuery<
     LastPassingVersionQuery,
     LastPassingVersionQueryVariables
-  >(GET_LAST_PASSING_VERSION, { variables: { variant, projectId, taskName } });
+  >(GET_LAST_PASSING_VERSION, {
+    variables: {
+      variant: applyStrictRegex(variant),
+      projectId,
+      taskName: applyStrictRegex(taskName),
+    },
+  });
 
   const lastPassingVersion =
     data?.mainlineCommits.versions.find(({ version }) => !!version) ?? {};
