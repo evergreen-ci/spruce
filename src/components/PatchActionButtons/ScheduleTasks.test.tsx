@@ -173,6 +173,20 @@ const getUnscheduledTasksMock = {
     },
   },
 };
+const getUnscheduledTasksMockEmpty = {
+  request: {
+    query: GET_UNSCHEDULED_TASKS,
+    variables: { versionId: "emptyVersion" },
+  },
+  result: {
+    data: {
+      patchTasks: {
+        tasks: [],
+        __typename: "PatchTasks",
+      },
+    },
+  },
+};
 
 const mockSuccessToast = jest.fn();
 const mockErrorToast = jest.fn();
@@ -197,6 +211,12 @@ const SceheduleButton = () => (
 const ScheduleModal = () => (
   <MockedProvider mocks={[getUnscheduledTasksMock, scheduleTasksMock]}>
     <ScheduleTasksModal open setOpen={() => {}} versionId="version" />
+  </MockedProvider>
+);
+
+const ScheduleModalEmpty = () => (
+  <MockedProvider mocks={[getUnscheduledTasksMockEmpty]}>
+    <ScheduleTasksModal open setOpen={() => {}} versionId="emptyVersion" />
   </MockedProvider>
 );
 
@@ -279,4 +299,11 @@ test("Clicking on schedule button dispatches a properly formatted request and di
   await fireEvent.click(confirmButton);
   await waitFor(() => expect(mockErrorToast).toHaveBeenCalledTimes(0));
   await waitFor(() => expect(mockSuccessToast).toHaveBeenCalledTimes(1));
+});
+
+test("Modal displays copy when there are no schedulable tasks.", async () => {
+  const { queryByText } = render(ScheduleModalEmpty());
+  await waitFor(() =>
+    expect(queryByText("There are no scheduleable tasks.")).toBeVisible()
+  );
 });
