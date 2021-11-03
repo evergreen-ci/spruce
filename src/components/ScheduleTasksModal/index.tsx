@@ -36,20 +36,23 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
     setOpen(false);
   };
   const dispatchToast = useToastContext();
-  const [scheduleTasks, { loading: loadingScheduleTasks }] = useMutation<
-    ScheduleTasksMutation,
-    ScheduleTasksMutationVariables
-  >(SCHEDULE_TASKS, {
-    onCompleted() {
-      dispatchToast.success("Tasks scheduled successfully");
-      closeModal();
-    },
-    onError({ message }) {
-      dispatchToast.error(`There was an error scheduling tasks: ${message}`);
-      closeModal();
-    },
-  });
-  const { data, loading: loadingTaskData } = useQuery<
+  const [
+    scheduleTasks,
+    { loading: loadingScheduleTasksMutation },
+  ] = useMutation<ScheduleTasksMutation, ScheduleTasksMutationVariables>(
+    SCHEDULE_TASKS,
+    {
+      onCompleted() {
+        dispatchToast.success("Tasks scheduled successfully");
+        closeModal();
+      },
+      onError({ message }) {
+        dispatchToast.error(`There was an error scheduling tasks: ${message}`);
+        closeModal();
+      },
+    }
+  );
+  const { data: taskData, loading: loadingTaskData } = useQuery<
     GetUndispatchedTasksQuery,
     GetUndispatchedTasksQueryVariables
   >(GET_UNSCHEDULED_TASKS, {
@@ -57,8 +60,8 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
   });
 
   useEffect(() => {
-    dispatch({ type: "ingestData", taskData: data });
-  }, [data]);
+    dispatch({ type: "ingestData", taskData });
+  }, [taskData]);
 
   return (
     <ConfirmationModal
@@ -68,7 +71,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
       title="Schedule Tasks"
       buttonText="Schedule"
       submitDisabled={
-        loadingTaskData || loadingScheduleTasks || !selectedTasks.size
+        loadingTaskData || loadingScheduleTasksMutation || !selectedTasks.size
       }
       onConfirm={() => {
         scheduleTasks({ variables: { taskIds: Array.from(selectedTasks) } });
@@ -140,6 +143,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
   );
 };
 
+// 307px represents the height to subtract to prevent an overflow on the modal
 const ContentWrapper = styled.div`
   max-height: calc(100vh - 307px);
   overflow-y: auto;
