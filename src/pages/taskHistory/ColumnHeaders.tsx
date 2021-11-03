@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import styled from "@emotion/styled";
-import { useHistoryTable } from "components/HistoryTable/HistoryTableContext";
+import { context, Cell } from "components/HistoryTable";
+
+const { useHistoryTable } = context;
+const { HeaderCell } = Cell;
 
 interface ColumnHeadersProps {
   columns: {
@@ -10,7 +13,7 @@ interface ColumnHeadersProps {
   loading: boolean;
 }
 const ColumnHeaders: React.FC<ColumnHeadersProps> = ({ columns, loading }) => {
-  const { visibleColumns, addColumns } = useHistoryTable();
+  const { visibleColumns, addColumns, columnLimit } = useHistoryTable();
   useEffect(() => {
     if (columns) {
       addColumns(columns.map((c) => c.buildVariant));
@@ -27,19 +30,20 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({ columns, loading }) => {
           return null;
         }
         return (
-          <Cell key={`header_cell_${cell.buildVariant}`}>
+          <HeaderCell key={`header_cell_${cell.buildVariant}`}>
             {cell.displayName}
-          </Cell>
+          </HeaderCell>
         );
       })}
       {loading &&
-        Array.from(Array(8)).map((i) => (
-          <Cell key={`loading_cell_${i}`}>Loading...</Cell>
+        Array.from(Array(columnLimit)).map((i) => (
+          <HeaderCell key={`loading_cell_${i}`}>Loading...</HeaderCell>
         ))}
     </RowContainer>
   );
 };
 
+// LabelCellContainer is used to provide padding for the first column in the table since we do not have a header for it
 const LabelCellContainer = styled.div`
   width: 200px;
   padding-right: 40px;
@@ -48,14 +52,6 @@ const LabelCellContainer = styled.div`
 const RowContainer = styled.div`
   display: flex;
   flex-direction: row;
-`;
-
-const Cell = styled.div`
-  display: flex;
-  height: 100%;
-  width: 140px;
-  justify-content: center;
-  align-items: center;
 `;
 
 export default ColumnHeaders;

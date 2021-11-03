@@ -1,47 +1,73 @@
 import styled from "@emotion/styled";
-import { Subtitle } from "@leafygreen-ui/typography";
+import Card from "@leafygreen-ui/card";
+import { H3 } from "@leafygreen-ui/typography";
 import Form, { FormProps } from "@rjsf/core";
-import { SiderCard } from "components/styles";
-import fields from "./Fields";
+import { transformErrors } from "./Errors";
+import baseFields from "./Fields";
+import { ArrayFieldTemplate, DefaultFieldTemplate } from "./FieldTemplates";
 import widgets from "./Widgets";
 
 export type FormDataProps = FormProps<any>["formData"];
 
-interface Props {
-  title: string;
+export interface SpruceFormProps {
   schema: FormProps<any>["schema"];
   onChange: (d: any) => void;
   uiSchema?: FormProps<any>["uiSchema"];
-  formData: FormProps<any>["formData"];
+  formData: FormDataProps;
+  fields?: FormProps<any>["fields"];
+  tagName?: FormProps<any>["tagName"];
 }
-export const SpruceForm: React.FC<Props> = ({
-  title,
+
+export const SpruceForm: React.FC<SpruceFormProps> = ({
   schema,
   onChange,
   uiSchema,
   formData,
+  fields,
+  tagName,
+}) => (
+  <Form
+    fields={{ ...baseFields, ...fields }}
+    schema={schema}
+    onChange={onChange}
+    widgets={widgets}
+    uiSchema={uiSchema}
+    formData={formData}
+    tagName={tagName}
+    ArrayFieldTemplate={ArrayFieldTemplate}
+    FieldTemplate={DefaultFieldTemplate}
+    transformErrors={transformErrors}
+    showErrorList={false}
+    liveValidate
+  >
+    {/*  Need to pass in an empty fragment child to remove default submit button */}
+    <></>
+  </Form>
+);
+
+interface ContainerProps {
+  title?: string;
+}
+
+export const SpruceFormContainer: React.FC<ContainerProps> = ({
+  children,
+  title,
 }) => (
   <div>
-    <Subtitle>{title}</Subtitle>
     {/* @ts-expect-error  */}
-    <Card>
-      <Form
-        fields={fields}
-        schema={schema}
-        onChange={onChange}
-        widgets={widgets}
-        uiSchema={uiSchema}
-        formData={formData}
-      >
-        {/*  Need to pass in an empty fragment child to remove default submit button */}
-        <></>
-      </Form>
-    </Card>
+    {title && <StyledH3>{title}</StyledH3>}
+    {/* @ts-expect-error  */}
+    <StyledCard>{children}</StyledCard>
   </div>
 );
 
-const Card = styled(SiderCard)`
-  margin-top: 22px;
-  padding-bottom: 60px;
-  padding-right: 22px;
+/* @ts-expect-error */
+const StyledH3 = styled(H3)`
+  margin-bottom: 24px;
+`;
+
+/* @ts-expect-error */
+const StyledCard = styled(Card)`
+  margin-bottom: 48px;
+  padding: 24px;
 `;

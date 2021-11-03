@@ -3,7 +3,10 @@ query MainlineCommits(
   $buildVariantOptionsForTask: BuildVariantOptions!
   $buildVariantOptions: BuildVariantOptions!
 ) {
-  mainlineCommits(options: $mainlineCommitsOptions) {
+  mainlineCommits(
+    options: $mainlineCommitsOptions
+    buildVariantOptions: $buildVariantOptions
+  ) {
     versions {
       version {
         projectIdentifier
@@ -25,6 +28,7 @@ query MainlineCommits(
             execution
             status
             displayName
+            timeTaken
           }
         }
       }

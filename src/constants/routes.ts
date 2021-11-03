@@ -54,7 +54,7 @@ const paths = {
   jobLogs: "/job-logs",
 };
 
-const projectSettingsSlug = `${paths.project}/:id/${PageNames.Settings}`;
+const projectSettingsSlug = `${paths.project}/:identifier/${PageNames.Settings}`;
 
 const projectSettingsRoutes = {
   projectSettings: `${projectSettingsSlug}/:tab?`,

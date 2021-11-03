@@ -1,5 +1,6 @@
 import GET_AWS_REGIONS from "./aws-regions.graphql";
 import DISTRO_TASK_QUEUE from "./distro-task-queue.graphql";
+import GET_FAILED_TASK_STATUS_ICON_TOOLTIP from "./failed-task-status-icon-tooltip.graphql";
 import GET_AGENT_LOGS from "./get-agent-logs.graphql";
 import GET_ANNOTATION_EVENT_DATA from "./get-annotation-event-data.graphql";
 import GET_BUILD_BARON from "./get-build-baron.graphql";
@@ -29,6 +30,7 @@ import GET_PATCH_CONFIGURE from "./get-patch-configure.graphql";
 import GET_PATCH_TASK_STATUSES from "./get-patch-task-statuses.graphql";
 import GET_PATCH_TASKS from "./get-patch-tasks.graphql";
 import GET_PATCH from "./get-patch.graphql";
+import GET_PROJECT_SETTINGS from "./get-project-settings.graphql";
 import GET_PROJECTS from "./get-projects.graphql";
 import GET_MY_PUBLIC_KEYS from "./get-public-keys.graphql";
 import GET_SPRUCE_CONFIG from "./get-spruce-config.graphql";
@@ -68,6 +70,7 @@ export {
   GET_BUILD_VARIANTS,
   GET_IS_PATCH_CONFIGURED,
   GET_PATCH_TASKS,
+  GET_PROJECT_SETTINGS,
   GET_PROJECTS,
   GET_TASK_FILES,
   GET_TASK_TESTS,
@@ -110,4 +113,5 @@ export {
   GET_VERSION,
   GET_PATCH_CONFIGURE,
   GET_LAST_PASSING_VERSION,
+  GET_FAILED_TASK_STATUS_ICON_TOOLTIP,
 };

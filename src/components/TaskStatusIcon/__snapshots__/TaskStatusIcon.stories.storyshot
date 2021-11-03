@@ -441,40 +441,5 @@ exports[`Storyshots Task Status Icons All Statuses 1`] = `
       StatusBlocked
     </span>
   </div>
-  <div
-    className="css-319pve-IconContainer efwkn3y0"
-  >
-    <span>
-      FailedUmbrella
-    </span>
-  </div>
-  <div
-    className="css-319pve-IconContainer efwkn3y0"
-  >
-    <span>
-      SystemFailureUmbrella
-    </span>
-  </div>
-  <div
-    className="css-319pve-IconContainer efwkn3y0"
-  >
-    <span>
-      RunningUmbrella
-    </span>
-  </div>
-  <div
-    className="css-319pve-IconContainer efwkn3y0"
-  >
-    <span>
-      UndispatchedUmbrella
-    </span>
-  </div>
-  <div
-    className="css-319pve-IconContainer efwkn3y0"
-  >
-    <span>
-      ScheduledUmbrella
-    </span>
-  </div>
 </div>
 `;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant, Size } from "@leafygreen-ui/button";
@@ -41,6 +41,9 @@ export const AnnotationNote: React.FC<Props> = ({
   const originalMessage = note?.message || "";
   const dispatchToast = useToastContext();
   const [newMessage, setMessage] = useState(originalMessage);
+  useEffect(() => {
+    setMessage(originalMessage);
+  }, [originalMessage]);
   const [updateAnnotationNote] = useMutation<
     EditAnnotationNoteMutation,
     EditAnnotationNoteMutationVariables

@@ -1,29 +1,44 @@
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
+import { RadioBox, RadioBoxGroup } from "@leafygreen-ui/radio-box-group";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import { Option, Select } from "@leafygreen-ui/select";
 import TextArea from "@leafygreen-ui/text-area";
 import TextInput from "@leafygreen-ui/text-input";
+import { Description, Label } from "@leafygreen-ui/typography";
 import { WidgetProps } from "@rjsf/core";
+import ElementWrapper from "./ElementWrapper";
 
 export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
   value,
-  title,
+  label,
   placeholder,
   onChange,
-  options: { "data-cy": dataCy },
-}) => (
-  <ElementWrapper>
-    <TextInput
-      data-cy={dataCy}
-      value={value}
-      label={title}
-      placeholder={placeholder}
-      onChange={(e) => onChange(e.target.value)}
-      aria-label={title}
-    />
-  </ElementWrapper>
-);
+  disabled,
+  options,
+  rawErrors,
+}) => {
+  const { description, "data-cy": dataCy } = options;
+  const hasError = !!rawErrors?.length;
+  return (
+    <ElementWrapper>
+      <MaxWidthContainer>
+        <TextInput
+          data-cy={dataCy}
+          value={`${value !== undefined ? value : ""}`}
+          label={label}
+          placeholder={placeholder}
+          description={description as string}
+          disabled={disabled}
+          onChange={(e) => onChange(e.target.value)}
+          aria-label={label}
+          errorMessage={hasError ? rawErrors.join(", ") : null}
+          state={hasError ? "error" : "none"}
+        />
+      </MaxWidthContainer>
+    </ElementWrapper>
+  );
+};
 
 export const LeafyGreenCheckBox: React.FC<WidgetProps> = ({
   value,
@@ -46,34 +61,46 @@ export const LeafyGreenCheckBox: React.FC<WidgetProps> = ({
 export const LeafyGreenSelect: React.FC<WidgetProps> = ({
   label,
   options,
+  placeholder,
   value,
   onChange,
 }) => {
-  const { enumOptions, "data-cy": dataCy } = options;
+  const {
+    allowDeselect,
+    ariaLabelledBy,
+    enumOptions,
+    "data-cy": dataCy,
+  } = options;
   if (!Array.isArray(enumOptions)) {
     console.error("Non Array passed into leafygreen select");
     return null;
   }
   return (
     <ElementWrapper>
-      <Select
-        label={label}
-        value={value}
-        onChange={(v) => onChange(v)}
-        data-cy={dataCy}
-      >
-        {enumOptions.map((o) => (
-          <Option key={o.value} value={o.value}>
-            {o.label}
-          </Option>
-        ))}
-      </Select>
+      <MaxWidthContainer>
+        <Select
+          allowDeselect={allowDeselect !== false}
+          // @ts-ignore
+          aria-labelledby={ariaLabelledBy}
+          label={ariaLabelledBy ? undefined : label}
+          value={value}
+          onChange={(v) => onChange(v)}
+          placeholder={placeholder}
+          data-cy={dataCy}
+        >
+          {enumOptions.map((o) => (
+            <Option key={o.value} value={o.value}>
+              {o.label}
+            </Option>
+          ))}
+        </Select>
+      </MaxWidthContainer>
     </ElementWrapper>
   );
 };
 
 export const LeafyGreenRadio: React.FC<WidgetProps> = ({
-  title,
+  label,
   options,
   value,
   onChange,
@@ -88,7 +115,7 @@ export const LeafyGreenRadio: React.FC<WidgetProps> = ({
   return (
     <ElementWrapper>
       <RadioGroup
-        name={title}
+        name={label}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         data-cy={dataCy}
@@ -102,6 +129,53 @@ export const LeafyGreenRadio: React.FC<WidgetProps> = ({
     </ElementWrapper>
   );
 };
+
+export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
+  id,
+  label,
+  options,
+  value,
+  onChange,
+  disabled,
+}) => {
+  const { description, enumOptions, "data-cy": dataCy, showLabel } = options;
+  if (!Array.isArray(enumOptions)) {
+    console.error(
+      "enumOptions must be an array passed into LeafyGreen Radio Box"
+    );
+    return null;
+  }
+
+  return (
+    <ElementWrapper>
+      {showLabel !== false && (
+        <RadioBoxLabelContainer>
+          <Label htmlFor={id} disabled={disabled}>
+            {label}
+          </Label>
+          {description && <Description>{description}</Description>}
+        </RadioBoxLabelContainer>
+      )}
+      <RadioBoxGroup
+        id={id}
+        name={label}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        data-cy={dataCy}
+      >
+        {enumOptions.map((o) => (
+          <RadioBox key={o.value} value={o.value} disabled={disabled}>
+            {o.label}
+          </RadioBox>
+        ))}
+      </RadioBoxGroup>
+    </ElementWrapper>
+  );
+};
+
+const RadioBoxLabelContainer = styled.div`
+  margin-bottom: 8px;
+`;
 
 export const LeafyGreenTextArea: React.FC<WidgetProps> = ({
   label,
@@ -121,7 +195,6 @@ export const LeafyGreenTextArea: React.FC<WidgetProps> = ({
   </ElementWrapper>
 );
 
-const ElementWrapper = styled.div`
-  padding-top: 8px;
-  padding-bottom: 8px;
+const MaxWidthContainer = styled.div`
+  max-width: 400px;
 `;

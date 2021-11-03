@@ -1,6 +1,6 @@
 import { useContext, createContext, useReducer, useMemo } from "react";
 import { reducer } from "./historyTableContextReducer";
-import { rowType, mainlineCommits, CommitRowType } from "./utils";
+import { rowType, mainlineCommits, CommitRowType } from "./types";
 
 interface HistoryTableState {
   itemHeight: (index: number) => number;
@@ -13,13 +13,25 @@ interface HistoryTableState {
   addColumns: (columns: string[]) => void;
   nextPage: () => void;
   previousPage: () => void;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  pageCount: number;
+  currentPage: number;
+  columnLimit: number;
 }
 
 const HistoryTableDispatchContext = createContext<any | null>(null);
 
 const HistoryTableProvider: React.FC = ({ children }) => {
   const [
-    { processedCommits, processedCommitCount, visibleColumns },
+    {
+      processedCommits,
+      processedCommitCount,
+      visibleColumns,
+      pageCount,
+      currentPage,
+      columnLimit,
+    },
     dispatch,
   ] = useReducer(reducer, {
     loadedCommits: [],
@@ -28,13 +40,12 @@ const HistoryTableProvider: React.FC = ({ children }) => {
     commitCache: new Map(),
     visibleColumns: [],
     currentPage: 0,
+    pageCount: 0,
     columns: [],
-    columnLimit: 8,
+    columnLimit: 7,
   });
 
-  const itemHeight = (index) => {
-    // TODO: Fix bug causing itemHeight to be 0 on intial render
-    // There is a race condition where it tries to calculate element heights before the element content is loaded in
+  const itemHeight = (index: number) => {
     if (processedCommits[index]) {
       switch (processedCommits[index].type) {
         case rowType.COMMIT:
@@ -50,7 +61,7 @@ const HistoryTableProvider: React.FC = ({ children }) => {
       return 120;
     }
   };
-  const isItemLoaded = (index) => processedCommitCount > index;
+  const isItemLoaded = (index: number) => processedCommitCount > index;
 
   const getItem = (index: number) => processedCommits[index];
 
@@ -67,6 +78,11 @@ const HistoryTableProvider: React.FC = ({ children }) => {
       addColumns: (columns) => dispatch({ type: "addColumns", columns }),
       nextPage: () => dispatch({ type: "nextPageColumns" }),
       previousPage: () => dispatch({ type: "prevPageColumns" }),
+      hasNextPage: currentPage < pageCount - 1,
+      hasPreviousPage: currentPage > 0,
+      currentPage,
+      pageCount,
+      columnLimit,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [processedCommits, visibleColumns, processedCommitCount]

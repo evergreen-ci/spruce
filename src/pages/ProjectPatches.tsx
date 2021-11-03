@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { useLocation, useParams } from "react-router-dom";
 import { useProjectPatchesAnalytics } from "analytics/patches/useProjectPatchesAnalytics";
@@ -7,33 +7,63 @@ import {
   getPatchesInputFromURLSearch,
 } from "components/PatchesPage";
 import { pollInterval } from "constants/index";
+import { useToastContext } from "context/toast";
 import {
   ProjectPatchesQuery,
   ProjectPatchesQueryVariables,
 } from "gql/generated/types";
 import { GET_PROJECT_PATCHES } from "gql/queries";
-import { useNetworkStatus } from "hooks";
+import { useNetworkStatus, useUpdateURLQueryParams } from "hooks";
+import { PatchPageQueryParams } from "types/patch";
+import { queryString } from "utils";
+
+const { parseQueryString } = queryString;
 
 export const ProjectPatches = () => {
+  const dispatchToast = useToastContext();
   const { id: projectId } = useParams<{ id: string }>();
   const { search } = useLocation();
+  const parsed = parseQueryString(search);
+  const updateQueryParams = useUpdateURLQueryParams();
+
   const patchesInput = getPatchesInputFromURLSearch(search);
-  const { data, startPolling, stopPolling, error } = useQuery<
+  const isCommitQueueCheckboxChecked =
+    parsed[PatchPageQueryParams.CommitQueue] === "true";
+
+  useEffect(() => {
+    if (parsed[PatchPageQueryParams.CommitQueue] === undefined) {
+      updateQueryParams({
+        [PatchPageQueryParams.CommitQueue]: `${false}`,
+      });
+    }
+  }, [parsed, updateQueryParams]);
+  const analyticsObject = useProjectPatchesAnalytics();
+
+  const { data, startPolling, stopPolling, loading } = useQuery<
     ProjectPatchesQuery,
     ProjectPatchesQueryVariables
   >(GET_PROJECT_PATCHES, {
-    variables: { projectId, patchesInput },
+    variables: {
+      projectId,
+      patchesInput: {
+        ...patchesInput,
+        onlyCommitQueue: isCommitQueueCheckboxChecked,
+      },
+    },
     pollInterval,
-    fetchPolicy: "cache-and-network",
+    onError: (err) => {
+      dispatchToast.error(
+        `Error while fetching project patches: ${err.message}`
+      );
+    },
   });
   useNetworkStatus(startPolling, stopPolling);
-  const analyticsObject = useProjectPatchesAnalytics();
   const { displayName, patches } = data?.project ?? {};
   return (
     <PatchesPage
       analyticsObject={analyticsObject}
       pageTitle={`${displayName ?? ""} Patches`}
-      error={error}
+      loading={loading}
       pageType="project"
       patches={patches}
     />

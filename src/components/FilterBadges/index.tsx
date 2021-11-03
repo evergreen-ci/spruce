@@ -2,11 +2,6 @@ import styled from "@emotion/styled";
 import Button, { Variant, Size } from "@leafygreen-ui/button";
 import { useLocation } from "react-router";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import {
-  ChartToggleQueryParams,
-  MainlineCommitQueryParams,
-} from "types/commits";
-import { PatchTasksQueryParams } from "types/task";
 import { queryString, array } from "utils";
 import { FilterBadge } from "./FilterBadge";
 import { SeeMoreModal } from "./SeeMoreModal";
@@ -14,18 +9,18 @@ import { SeeMoreModal } from "./SeeMoreModal";
 const { convertObjectToArray } = array;
 const { parseQueryString } = queryString;
 
-const hiddenQueryParams = new Set([
-  ChartToggleQueryParams.chartType,
-  PatchTasksQueryParams.Statuses,
-  MainlineCommitQueryParams.SkipOrderNumber,
-]);
-export const FilterBadges: React.FC = () => {
+interface FilterBadgesProps {
+  queryParamsToDisplay: Set<string>;
+}
+export const FilterBadges: React.FC<FilterBadgesProps> = ({
+  queryParamsToDisplay,
+}) => {
   const updateQueryParams = useUpdateURLQueryParams();
   const location = useLocation();
   const { search } = location;
   const queryParams = parseQueryString(search);
-  const queryParamsList = convertObjectToArray(queryParams).filter(
-    ({ key }) => !hiddenQueryParams.has(key as any)
+  const queryParamsList = convertObjectToArray(queryParams).filter(({ key }) =>
+    queryParamsToDisplay.has(key as any)
   );
 
   const onRemove = (key: string, value: string) => {

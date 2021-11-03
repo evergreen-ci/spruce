@@ -20,7 +20,6 @@ export type Scalars = {
 };
 
 export type Query = {
-  userPatches: UserPatches;
   task?: Maybe<Task>;
   taskAllExecutions: Array<Task>;
   patch: Patch;
@@ -57,15 +56,7 @@ export type Query = {
   taskNamesForBuildVariant?: Maybe<Array<Scalars["String"]>>;
   buildVariantsForTaskName?: Maybe<Array<Maybe<BuildVariantTuple>>>;
   projectSettings: ProjectSettings;
-};
-
-export type QueryUserPatchesArgs = {
-  limit?: Maybe<Scalars["Int"]>;
-  page?: Maybe<Scalars["Int"]>;
-  patchName?: Maybe<Scalars["String"]>;
-  statuses?: Maybe<Array<Scalars["String"]>>;
-  userId?: Maybe<Scalars["String"]>;
-  includeCommitQueue?: Maybe<Scalars["Boolean"]>;
+  repoSettings: RepoSettings;
 };
 
 export type QueryTaskArgs = {
@@ -98,6 +89,7 @@ export type QueryPatchTasksArgs = {
   baseStatuses?: Maybe<Array<Scalars["String"]>>;
   variant?: Maybe<Scalars["String"]>;
   taskName?: Maybe<Scalars["String"]>;
+  includeEmptyActivation?: Maybe<Scalars["Boolean"]>;
 };
 
 export type QueryTaskTestsArgs = {
@@ -176,6 +168,7 @@ export type QueryBbGetCreatedTicketsArgs = {
 
 export type QueryMainlineCommitsArgs = {
   options: MainlineCommitsOptions;
+  buildVariantOptions?: Maybe<BuildVariantOptions>;
 };
 
 export type QueryTaskNamesForBuildVariantArgs = {
@@ -192,12 +185,20 @@ export type QueryProjectSettingsArgs = {
   identifier: Scalars["String"];
 };
 
+export type QueryRepoSettingsArgs = {
+  id: Scalars["String"];
+};
+
 export type Mutation = {
   addFavoriteProject: Project;
   removeFavoriteProject: Project;
   createProject: Project;
+  copyProject: Project;
+  saveProjectSettingsForSection: ProjectSettings;
+  saveRepoSettingsForSection: RepoSettings;
   attachProjectToRepo: Project;
   detachProjectFromRepo: Project;
+  forceRepotrackerRun: Scalars["Boolean"];
   schedulePatch: Patch;
   schedulePatchTasks?: Maybe<Scalars["String"]>;
   unschedulePatchTasks?: Maybe<Scalars["String"]>;
@@ -207,7 +208,9 @@ export type Mutation = {
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   enqueuePatch: Patch;
   setPatchPriority?: Maybe<Scalars["String"]>;
+  /** @deprecated scheduleTask deprecated, Use scheduleTasks instead */
   scheduleTask: Task;
+  scheduleTasks: Array<Task>;
   unscheduleTask: Task;
   abortTask: Task;
   setTaskPriority: Task;
@@ -246,7 +249,21 @@ export type MutationRemoveFavoriteProjectArgs = {
 };
 
 export type MutationCreateProjectArgs = {
-  project: ProjectInput;
+  project: CreateProjectInput;
+};
+
+export type MutationCopyProjectArgs = {
+  project: CopyProjectInput;
+};
+
+export type MutationSaveProjectSettingsForSectionArgs = {
+  projectSettings?: Maybe<ProjectSettingsInput>;
+  section: Scalars["String"];
+};
+
+export type MutationSaveRepoSettingsForSectionArgs = {
+  repoSettings?: Maybe<RepoSettingsInput>;
+  section: Scalars["String"];
 };
 
 export type MutationAttachProjectToRepoArgs = {
@@ -254,6 +271,10 @@ export type MutationAttachProjectToRepoArgs = {
 };
 
 export type MutationDetachProjectFromRepoArgs = {
+  projectId: Scalars["String"];
+};
+
+export type MutationForceRepotrackerRunArgs = {
   projectId: Scalars["String"];
 };
 
@@ -299,6 +320,10 @@ export type MutationSetPatchPriorityArgs = {
 
 export type MutationScheduleTaskArgs = {
   taskId: Scalars["String"];
+};
+
+export type MutationScheduleTasksArgs = {
+  taskIds: Array<Scalars["String"]>;
 };
 
 export type MutationUnscheduleTaskArgs = {
@@ -508,6 +533,7 @@ export type MainlineCommitsOptions = {
   projectID: Scalars["String"];
   limit?: Maybe<Scalars["Int"]>;
   skipOrderNumber?: Maybe<Scalars["Int"]>;
+  shouldCollapse?: Maybe<Scalars["Boolean"]>;
 };
 
 export type BuildVariantTuple = {
@@ -592,13 +618,8 @@ export type DisplayTask = {
   ExecTasks: Array<Scalars["String"]>;
 };
 
-export type ProjectInput = {
-  identifier: Scalars["String"];
-  owner: Scalars["String"];
-  repo: Scalars["String"];
-};
-
 export type SubscriptionInput = {
+  id?: Maybe<Scalars["String"]>;
   resource_type?: Maybe<Scalars["String"]>;
   trigger?: Maybe<Scalars["String"]>;
   selectors: Array<SelectorInput>;
@@ -638,7 +659,193 @@ export type PatchesInput = {
   page?: Scalars["Int"];
   patchName?: Scalars["String"];
   statuses?: Array<Scalars["String"]>;
-  includeCommitQueue?: Scalars["Boolean"];
+  includeCommitQueue?: Maybe<Scalars["Boolean"]>;
+  onlyCommitQueue?: Maybe<Scalars["Boolean"]>;
+};
+
+export type CreateProjectInput = {
+  identifier: Scalars["String"];
+  owner: Scalars["String"];
+  repo: Scalars["String"];
+  id?: Maybe<Scalars["String"]>;
+};
+
+export type CopyProjectInput = {
+  projectIdToCopy: Scalars["String"];
+  newProjectIdentifier: Scalars["String"];
+  newProjectId?: Maybe<Scalars["String"]>;
+};
+
+export type ProjectSettingsInput = {
+  githubWebhooksEnabled?: Maybe<Scalars["Boolean"]>;
+  projectRef?: Maybe<ProjectInput>;
+  vars?: Maybe<ProjectVarsInput>;
+  aliases?: Maybe<Array<ProjectAliasInput>>;
+  subscriptions?: Maybe<Array<SubscriptionInput>>;
+};
+
+export type ProjectInput = {
+  id: Scalars["String"];
+  identifier?: Maybe<Scalars["String"]>;
+  displayName?: Maybe<Scalars["String"]>;
+  enabled?: Maybe<Scalars["Boolean"]>;
+  private?: Maybe<Scalars["Boolean"]>;
+  owner?: Maybe<Scalars["String"]>;
+  repo?: Maybe<Scalars["String"]>;
+  branch?: Maybe<Scalars["String"]>;
+  remotePath?: Maybe<Scalars["String"]>;
+  patchingDisabled?: Maybe<Scalars["Boolean"]>;
+  repotrackerDisabled?: Maybe<Scalars["Boolean"]>;
+  dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
+  prTestingEnabled?: Maybe<Scalars["Boolean"]>;
+  githubChecksEnabled?: Maybe<Scalars["Boolean"]>;
+  batchTime?: Maybe<Scalars["Int"]>;
+  deactivatePrevious?: Maybe<Scalars["Boolean"]>;
+  defaultLogger?: Maybe<Scalars["String"]>;
+  notifyOnBuildFailure?: Maybe<Scalars["Boolean"]>;
+  triggers?: Maybe<Array<TriggerAliasInput>>;
+  patchTriggerAliases?: Maybe<Array<PatchTriggerAliasInput>>;
+  githubTriggerAliases?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  periodicBuilds?: Maybe<Array<PeriodicBuildInput>>;
+  cedarTestResultsEnabled?: Maybe<Scalars["Boolean"]>;
+  commitQueue?: Maybe<CommitQueueParamsInput>;
+  admins?: Maybe<Array<Scalars["String"]>>;
+  spawnHostScriptPath?: Maybe<Scalars["String"]>;
+  tracksPushEvents?: Maybe<Scalars["Boolean"]>;
+  taskSync?: Maybe<TaskSyncOptionsInput>;
+  gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]>>;
+  gitTagAuthorizedTeams?: Maybe<Array<Scalars["String"]>>;
+  gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]>;
+  filesIgnoredFromCache?: Maybe<Array<Scalars["String"]>>;
+  disabledStatsCache?: Maybe<Scalars["Boolean"]>;
+  workstationConfig?: Maybe<WorkstationConfigInput>;
+  hidden?: Maybe<Scalars["Boolean"]>;
+  useRepoSettings?: Maybe<Scalars["Boolean"]>;
+};
+
+export type RepoSettingsInput = {
+  githubWebhooksEnabled?: Maybe<Scalars["Boolean"]>;
+  projectRef?: Maybe<RepoRefInput>;
+  vars?: Maybe<ProjectVarsInput>;
+  aliases?: Maybe<Array<ProjectAliasInput>>;
+  subscriptions?: Maybe<Array<SubscriptionInput>>;
+};
+
+export type RepoRefInput = {
+  id: Scalars["String"];
+  displayName?: Maybe<Scalars["String"]>;
+  enabled?: Maybe<Scalars["Boolean"]>;
+  private?: Maybe<Scalars["Boolean"]>;
+  owner?: Maybe<Scalars["String"]>;
+  repo?: Maybe<Scalars["String"]>;
+  branch?: Maybe<Scalars["String"]>;
+  remotePath?: Maybe<Scalars["String"]>;
+  patchingDisabled?: Maybe<Scalars["Boolean"]>;
+  repotrackerDisabled?: Maybe<Scalars["Boolean"]>;
+  dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
+  prTestingEnabled?: Maybe<Scalars["Boolean"]>;
+  githubChecksEnabled?: Maybe<Scalars["Boolean"]>;
+  batchTime?: Maybe<Scalars["Int"]>;
+  deactivatePrevious?: Maybe<Scalars["Boolean"]>;
+  defaultLogger?: Maybe<Scalars["String"]>;
+  notifyOnBuildFailure?: Maybe<Scalars["Boolean"]>;
+  triggers?: Maybe<Array<TriggerAliasInput>>;
+  patchTriggerAliases?: Maybe<Array<PatchTriggerAliasInput>>;
+  githubTriggerAliases?: Maybe<Array<Scalars["String"]>>;
+  periodicBuilds?: Maybe<Array<PeriodicBuildInput>>;
+  cedarTestResultsEnabled?: Maybe<Scalars["Boolean"]>;
+  commitQueue?: Maybe<CommitQueueParamsInput>;
+  admins?: Maybe<Array<Scalars["String"]>>;
+  spawnHostScriptPath?: Maybe<Scalars["String"]>;
+  tracksPushEvents?: Maybe<Scalars["Boolean"]>;
+  taskSync?: Maybe<TaskSyncOptionsInput>;
+  gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]>>;
+  gitTagAuthorizedTeams?: Maybe<Array<Scalars["String"]>>;
+  gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]>;
+  filesIgnoredFromCache?: Maybe<Array<Scalars["String"]>>;
+  disabledStatsCache?: Maybe<Scalars["Boolean"]>;
+  workstationConfig?: Maybe<WorkstationConfigInput>;
+};
+
+export type TriggerAliasInput = {
+  project?: Maybe<Scalars["String"]>;
+  level: Scalars["String"];
+  definitionID: Scalars["String"];
+  buildVariantRegex: Scalars["String"];
+  taskRegex: Scalars["String"];
+  status: Scalars["String"];
+  dateCutoff: Scalars["Int"];
+  configFile: Scalars["String"];
+  generateFile: Scalars["String"];
+  command: Scalars["String"];
+  alias: Scalars["String"];
+};
+
+export type PeriodicBuildInput = {
+  id: Scalars["String"];
+  configFile: Scalars["String"];
+  intervalHours: Scalars["Int"];
+  alias: Scalars["String"];
+  message: Scalars["String"];
+  nextRunTime: Scalars["Time"];
+};
+
+export type CommitQueueParamsInput = {
+  enabled?: Maybe<Scalars["Boolean"]>;
+  mergeMethod?: Maybe<Scalars["String"]>;
+  message?: Maybe<Scalars["String"]>;
+};
+
+export type TaskSyncOptionsInput = {
+  configEnabled: Scalars["Boolean"];
+  patchEnabled: Scalars["Boolean"];
+};
+
+export type WorkstationConfigInput = {
+  setupCommands?: Maybe<Array<Maybe<WorkstationSetupCommandInput>>>;
+  gitClone: Scalars["Boolean"];
+};
+
+export type WorkstationSetupCommandInput = {
+  Command: Scalars["String"];
+  Directory?: Maybe<Scalars["String"]>;
+};
+
+export type PatchTriggerAliasInput = {
+  alias: Scalars["String"];
+  childProjectId: Scalars["String"];
+  childProjectIdentifier: Scalars["String"];
+  taskSpecifiers?: Maybe<Array<Maybe<TaskSpecifierInput>>>;
+  status?: Maybe<Scalars["String"]>;
+  parentAsModule?: Maybe<Scalars["String"]>;
+  variantsTasks: Array<Maybe<VariantTaskInput>>;
+};
+
+export type TaskSpecifierInput = {
+  patchAlias: Scalars["String"];
+  taskRegex: Scalars["String"];
+  variantRegex: Scalars["String"];
+};
+
+export type ProjectVarsInput = {
+  vars?: Maybe<Scalars["StringMap"]>;
+  privateVarsList?: Maybe<Array<Maybe<Scalars["String"]>>>;
+};
+
+export type VariantTaskInput = {
+  name: Scalars["String"];
+  tasks: Array<Scalars["String"]>;
+};
+
+export type ProjectAliasInput = {
+  id: Scalars["String"];
+  alias: Scalars["String"];
+  gitTag: Scalars["String"];
+  variant: Scalars["String"];
+  task: Scalars["String"];
+  remotePath: Scalars["String"];
+  variantTags: Array<Scalars["String"]>;
+  taskTags: Array<Scalars["String"]>;
 };
 
 export type SpawnHostInput = {
@@ -1128,8 +1335,16 @@ export type ProjectSettings = {
   githubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<Project>;
   vars?: Maybe<ProjectVars>;
-  aliases?: Maybe<Array<Maybe<ProjectAlias>>>;
-  subscriptions?: Maybe<Array<Maybe<ProjectSubscription>>>;
+  aliases?: Maybe<Array<ProjectAlias>>;
+  subscriptions?: Maybe<Array<ProjectSubscription>>;
+};
+
+export type RepoSettings = {
+  githubWebhooksEnabled: Scalars["Boolean"];
+  projectRef?: Maybe<RepoRef>;
+  vars?: Maybe<ProjectVars>;
+  aliases?: Maybe<Array<ProjectAlias>>;
+  subscriptions?: Maybe<Array<ProjectSubscription>>;
 };
 
 export type ProjectVars = {
@@ -1223,35 +1438,73 @@ export type Project = {
   dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
   prTestingEnabled?: Maybe<Scalars["Boolean"]>;
   githubChecksEnabled?: Maybe<Scalars["Boolean"]>;
-  batchTime?: Maybe<Scalars["Int"]>;
+  batchTime: Scalars["Int"];
   deactivatePrevious?: Maybe<Scalars["Boolean"]>;
-  defaultLogger?: Maybe<Scalars["String"]>;
+  defaultLogger: Scalars["String"];
   notifyOnBuildFailure?: Maybe<Scalars["Boolean"]>;
-  triggers?: Maybe<Array<Maybe<TriggerAlias>>>;
-  patchTriggerAliases?: Maybe<Array<Maybe<PatchTriggerAlias>>>;
-  githubTriggerAliases?: Maybe<Array<Maybe<Scalars["String"]>>>;
-  periodicBuilds?: Maybe<Array<Maybe<PeriodicBuild>>>;
+  triggers?: Maybe<Array<TriggerAlias>>;
+  patchTriggerAliases?: Maybe<Array<PatchTriggerAlias>>;
+  githubTriggerAliases?: Maybe<Array<Scalars["String"]>>;
+  periodicBuilds?: Maybe<Array<PeriodicBuild>>;
   cedarTestResultsEnabled?: Maybe<Scalars["Boolean"]>;
-  commitQueue?: Maybe<CommitQueueParams>;
+  commitQueue: CommitQueueParams;
   admins?: Maybe<Array<Maybe<Scalars["String"]>>>;
   spawnHostScriptPath: Scalars["String"];
   tracksPushEvents?: Maybe<Scalars["Boolean"]>;
-  taskSync?: Maybe<TaskSyncOptions>;
-  gitTagAuthorizedUsers?: Maybe<Array<Maybe<Scalars["String"]>>>;
-  gitTagAuthorizedTeams?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  taskSync: TaskSyncOptions;
+  gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]>>;
+  gitTagAuthorizedTeams?: Maybe<Array<Scalars["String"]>>;
   gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]>;
-  filesIgnoredFromCache?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  filesIgnoredFromCache?: Maybe<Array<Scalars["String"]>>;
   disabledStatsCache?: Maybe<Scalars["Boolean"]>;
-  workstationConfig?: Maybe<WorkstationConfig>;
+  workstationConfig: WorkstationConfig;
   hidden?: Maybe<Scalars["Boolean"]>;
   useRepoSettings: Scalars["Boolean"];
-  repoRefId?: Maybe<Scalars["String"]>;
+  repoRefId: Scalars["String"];
   isFavorite: Scalars["Boolean"];
+  validDefaultLoggers: Array<Scalars["String"]>;
   patches: Patches;
 };
 
 export type ProjectPatchesArgs = {
   patchesInput: PatchesInput;
+};
+
+export type RepoRef = {
+  id: Scalars["String"];
+  displayName: Scalars["String"];
+  enabled: Scalars["Boolean"];
+  private: Scalars["Boolean"];
+  owner: Scalars["String"];
+  repo: Scalars["String"];
+  branch: Scalars["String"];
+  remotePath: Scalars["String"];
+  patchingDisabled: Scalars["Boolean"];
+  repotrackerDisabled: Scalars["Boolean"];
+  dispatchingDisabled: Scalars["Boolean"];
+  prTestingEnabled: Scalars["Boolean"];
+  githubChecksEnabled: Scalars["Boolean"];
+  batchTime: Scalars["Int"];
+  deactivatePrevious: Scalars["Boolean"];
+  defaultLogger: Scalars["String"];
+  notifyOnBuildFailure: Scalars["Boolean"];
+  triggers: Array<TriggerAlias>;
+  patchTriggerAliases?: Maybe<Array<PatchTriggerAlias>>;
+  githubTriggerAliases?: Maybe<Array<Scalars["String"]>>;
+  periodicBuilds?: Maybe<Array<PeriodicBuild>>;
+  cedarTestResultsEnabled: Scalars["Boolean"];
+  commitQueue: RepoCommitQueueParams;
+  admins: Array<Scalars["String"]>;
+  spawnHostScriptPath: Scalars["String"];
+  tracksPushEvents: Scalars["Boolean"];
+  taskSync: RepoTaskSyncOptions;
+  gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]>>;
+  gitTagAuthorizedTeams?: Maybe<Array<Scalars["String"]>>;
+  gitTagVersionsEnabled: Scalars["Boolean"];
+  filesIgnoredFromCache?: Maybe<Array<Scalars["String"]>>;
+  disabledStatsCache: Scalars["Boolean"];
+  workstationConfig: RepoWorkstationConfig;
+  validDefaultLoggers: Array<Scalars["String"]>;
 };
 
 export type TriggerAlias = {
@@ -1279,23 +1532,39 @@ export type PeriodicBuild = {
 
 export type CommitQueueParams = {
   enabled?: Maybe<Scalars["Boolean"]>;
-  mergeMethod?: Maybe<Scalars["String"]>;
-  message?: Maybe<Scalars["String"]>;
+  mergeMethod: Scalars["String"];
+  message: Scalars["String"];
+};
+
+export type RepoCommitQueueParams = {
+  enabled: Scalars["Boolean"];
+  mergeMethod: Scalars["String"];
+  message: Scalars["String"];
 };
 
 export type TaskSyncOptions = {
+  configEnabled?: Maybe<Scalars["Boolean"]>;
+  patchEnabled?: Maybe<Scalars["Boolean"]>;
+};
+
+export type RepoTaskSyncOptions = {
   configEnabled: Scalars["Boolean"];
   patchEnabled: Scalars["Boolean"];
 };
 
 export type WorkstationConfig = {
-  setupCommands?: Maybe<Array<Maybe<WorkstationSetupCommand>>>;
+  setupCommands?: Maybe<Array<WorkstationSetupCommand>>;
+  gitClone?: Maybe<Scalars["Boolean"]>;
+};
+
+export type RepoWorkstationConfig = {
+  setupCommands?: Maybe<Array<WorkstationSetupCommand>>;
   gitClone: Scalars["Boolean"];
 };
 
 export type WorkstationSetupCommand = {
   Command: Scalars["String"];
-  Directory?: Maybe<Scalars["String"]>;
+  Directory: Scalars["String"];
 };
 
 export type TaskSpecifier = {
@@ -1734,6 +2003,27 @@ export type ProjectFragment = {
   displayName: string;
 };
 
+export type GeneralSettingsFragment = {
+  enabled?: Maybe<boolean>;
+  owner: string;
+  repo: string;
+  branch: string;
+  displayName: string;
+  batchTime: number;
+  remotePath: string;
+  spawnHostScriptPath: string;
+  dispatchingDisabled?: Maybe<boolean>;
+  deactivatePrevious?: Maybe<boolean>;
+  repotrackerDisabled?: Maybe<boolean>;
+  defaultLogger: string;
+  validDefaultLoggers: Array<string>;
+  cedarTestResultsEnabled?: Maybe<boolean>;
+  patchingDisabled?: Maybe<boolean>;
+  disabledStatsCache?: Maybe<boolean>;
+  filesIgnoredFromCache?: Maybe<Array<string>>;
+  taskSync: { configEnabled?: Maybe<boolean>; patchEnabled?: Maybe<boolean> };
+};
+
 export type AbortTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
@@ -1830,6 +2120,12 @@ export type BbCreateTicketMutationVariables = Exact<{
 }>;
 
 export type BbCreateTicketMutation = { bbCreateTicket: boolean };
+
+export type ForceRepotrackerRunMutationVariables = Exact<{
+  projectId: Scalars["String"];
+}>;
+
+export type ForceRepotrackerRunMutation = { forceRepotrackerRun: boolean };
 
 export type MoveAnnotationIssueMutationVariables = Exact<{
   taskId: Scalars["String"];
@@ -2076,6 +2372,17 @@ export type DistroTaskQueueQuery = {
     priority: number;
     version: string;
   }>;
+};
+
+export type GetFailedTaskStatusIconTooltipQueryVariables = Exact<{
+  taskId: Scalars["String"];
+}>;
+
+export type GetFailedTaskStatusIconTooltipQuery = {
+  taskTests: {
+    filteredTestCount: number;
+    testResults: Array<{ id: string; testFile: string }>;
+  };
 };
 
 export type AgentLogsQueryVariables = Exact<{
@@ -2506,7 +2813,14 @@ export type MainlineCommitsForHistoryQuery = {
               displayName: string;
               variant: string;
               tasks?: Maybe<
-                Array<Maybe<{ id: string; execution: number; status: string }>>
+                Array<
+                  Maybe<{
+                    id: string;
+                    execution: number;
+                    status: string;
+                    displayName: string;
+                  }>
+                >
               >;
             }>
           >
@@ -2558,6 +2872,7 @@ export type MainlineCommitsQuery = {
                     execution: number;
                     status: string;
                     displayName: string;
+                    timeTaken?: Maybe<number>;
                   }>
                 >
               >;
@@ -2728,6 +3043,18 @@ export type PatchQuery = {
       finished?: Maybe<string>;
     }>;
   } & BasePatchFragment;
+};
+
+export type ProjectSettingsQueryVariables = Exact<{
+  identifier: Scalars["String"];
+}>;
+
+export type ProjectSettingsQuery = {
+  projectSettings: {
+    projectRef?: Maybe<
+      { id: string; useRepoSettings: boolean } & GeneralSettingsFragment
+    >;
+  };
 };
 
 export type GetProjectsQueryVariables = Exact<{ [key: string]: never }>;

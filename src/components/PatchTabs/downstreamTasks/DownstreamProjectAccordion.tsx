@@ -5,6 +5,7 @@ import Button from "@leafygreen-ui/button";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { TableProps } from "antd/es/table";
+import { usePatchAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
@@ -47,6 +48,7 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
   taskCount,
 }) => {
   const dispatchToast = useToastContext();
+  const patchAnalytics = usePatchAnalytics();
 
   const defaultSort: SortOrder = {
     Key: TaskSortCategory.Status,
@@ -91,7 +93,6 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
     onChange: ({ target }) =>
       dispatch({ type: "onChangeTaskNameInput", task: target.value }),
     onFilter: () => dispatch({ type: "onFilterTaskNameInput" }),
-    onReset: () => dispatch({ type: "onResetTaskNameInput" }),
   };
 
   const variantInputProps = {
@@ -103,16 +104,13 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
         variant: target.value,
       }),
     onFilter: () => dispatch({ type: "onFilterVariantInput" }),
-    onReset: () => dispatch({ type: "onResetVariantInput" }),
   };
 
   const baseStatusSelectorProps = {
     state: baseStatusesInputVal,
     tData: baseStatuses,
     onChange: (s: string[]) =>
-      dispatch({ type: "onChangeBaseStatusesSelector", baseStatuses: s }),
-    onReset: () => dispatch({ type: "onResetBaseStatusesSelector" }),
-    onFilter: () => dispatch({ type: "onFilterBaseStatusesSelector" }),
+      dispatch({ type: "setAndSubmitBaseStatusesSelector", baseStatuses: s }),
   };
 
   const statusSelectorProps = {
@@ -120,11 +118,9 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
     tData: currentStatuses,
     onChange: (s: string[]) =>
       dispatch({
-        type: "onChangeStatusesSelector",
+        type: "setAndSubmitStatusesSelector",
         statuses: s,
       }),
-    onReset: () => dispatch({ type: "onResetStatusesSelector" }),
-    onFilter: () => dispatch({ type: "onFilterStatusesSelector" }),
   };
 
   const { data, startPolling, stopPolling } = useQuery<
@@ -217,6 +213,12 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
                   baseStatusSelectorProps={baseStatusSelectorProps}
                   taskNameInputProps={taskNameInputProps}
                   variantInputProps={variantInputProps}
+                  onColumnHeaderClick={(sortField) =>
+                    patchAnalytics.sendEvent({
+                      name: "Sort Downstream Tasks Table",
+                      sortBy: sortField,
+                    })
+                  }
                 />
               )}
             </TableWrapper>

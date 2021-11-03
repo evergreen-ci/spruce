@@ -75,9 +75,7 @@ export const TestsTable: React.FC = () => {
   const statusSelectorProps = {
     state: statusesFilter.inputValue,
     tData: testStatusesFilterTreeData,
-    onChange: statusesFilter.setInputValue,
-    onReset: statusesFilter.reset,
-    onFilter: statusesFilter.submitInputValue,
+    onChange: statusesFilter.setAndSubmitInputValue,
   };
 
   const testNameFilterInputChangeHandler = useFilterInputChangeHandler({
@@ -93,11 +91,12 @@ export const TestsTable: React.FC = () => {
     onChange: ({ target }) =>
       testNameFilterInputChangeHandler.setInputValue(target.value),
     onFilter: testNameFilterInputChangeHandler.submitInputValue,
-    onReset: testNameFilterInputChangeHandler.reset,
   };
 
   const columns = getColumnsTemplate({
     taskAnalytics,
+    onColumnHeaderClick: (sortField) =>
+      taskAnalytics.sendEvent({ name: "Sort Tests Table", sortBy: sortField }),
     statusSelectorProps,
     testNameInputProps,
   }).map((column) => ({
@@ -173,6 +172,7 @@ export const TestsTable: React.FC = () => {
           pagination={false}
           columns={columns}
           dataSource={testResults}
+          getPopupContainer={(trigger: HTMLElement) => trigger}
           onChange={tableChangeHandler}
         />
       </TableContainer>

@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
-import Tooltip from "@leafygreen-ui/tooltip";
-import { Disclaimer, Body } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
+import ExpandedText from "components/ExpandedText";
 import { string } from "utils";
 
-const { gray, blue } = uiColors;
+const { gray } = uiColors;
 const { shortDate } = string;
 const MAX_CHAR = 40;
 interface Props {
@@ -32,21 +32,7 @@ const CommitChartLabel: React.FC<Props> = ({
       <LabelText>{author} -</LabelText>
       <LabelText>{shortenMessage ? shortenedMessage : message}</LabelText>
       {shortenMessage && (
-        <Tooltip
-          usePortal={false}
-          align="bottom"
-          justify="middle"
-          trigger={
-            <ButtonContainer>
-              <ButtonText data-cy="tooltip-button">more</ButtonText>
-            </ButtonContainer>
-          }
-          triggerEvent="click"
-        >
-          <TooltipContainer data-cy="long-commit-message-tooltip">
-            {message}
-          </TooltipContainer>
-        </Tooltip>
+        <ExpandedText message={message} data-cy="long-commit-message-tooltip" />
       )}
     </LabelContainer>
   );
@@ -67,20 +53,6 @@ const LabelText = styled(Body)`
   color: ${gray.dark2};
   width: 100%;
   font-size: 12px;
-`;
-
-const ButtonContainer = styled.div`
-  cursor: pointer;
-`;
-
-const ButtonText = styled(Disclaimer)`
-  text-align: center;
-  color: ${blue.dark2};
-  text-decoration: underline;
-`;
-
-const TooltipContainer = styled(Body)`
-  width: 200px;
 `;
 
 export default CommitChartLabel;

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { action } from "@storybook/addon-actions";
 import { object } from "@storybook/addon-knobs";
-import { SpruceForm } from ".";
+import { SpruceForm, SpruceFormContainer } from ".";
 
 export const Example1 = () => {
   const schema = object("schema", example1Def.schema);
@@ -15,13 +15,14 @@ export const Example1 = () => {
     setFormState(formData);
   };
   return (
-    <SpruceForm
-      schema={schema}
-      uiSchema={uiSchema}
-      onChange={onChange}
-      formData={formState}
-      title="Distro Projects"
-    />
+    <SpruceFormContainer title="Distro Projects">
+      <SpruceForm
+        schema={schema}
+        uiSchema={uiSchema}
+        onChange={onChange}
+        formData={formState}
+      />
+    </SpruceFormContainer>
   );
 };
 export const Example2 = () => {
@@ -36,13 +37,14 @@ export const Example2 = () => {
     setFormState(formData);
   };
   return (
-    <SpruceForm
-      schema={schema}
-      onChange={onChange}
-      formData={formState}
-      uiSchema={uiSchema}
-      title="Admin Options"
-    />
+    <SpruceFormContainer title="Admin Options">
+      <SpruceForm
+        schema={schema}
+        onChange={onChange}
+        formData={formState}
+        uiSchema={uiSchema}
+      />
+    </SpruceFormContainer>
   );
 };
 export default {

@@ -1,17 +1,17 @@
 import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
 import { ListChildComponentProps } from "react-window";
 import CommitChartLabel from "components/CommitChartLabel";
-import { getTaskRoute } from "constants/routes";
-import { TaskStatus } from "types/task";
+import * as Cell from "./Cell";
 import { useHistoryTable } from "./HistoryTableContext";
-import { HistoryTableIcon } from "./HistoryTableIcon";
 import { DateSeparator } from "./row/DateSeparator";
 import { FoldedCommit } from "./row/FoldedCommit";
-import { rowType } from "./utils";
+import { rowType } from "./types";
 
-const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
-  const { isItemLoaded, getItem, visibleColumns } = useHistoryTable();
+interface RowProps extends ListChildComponentProps {
+  columns: React.ReactNode[];
+}
+const Row: React.FC<RowProps> = ({ columns, index, style }) => {
+  const { isItemLoaded, getItem } = useHistoryTable();
   if (!isItemLoaded(index)) {
     // TODO: add loading state
     return <div style={style}> Loading....</div>;
@@ -22,29 +22,8 @@ const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
     return <DateSeparator style={style} date={commit.date} />;
   }
   if (commit.type === rowType.COMMIT && commit.commit) {
-    const {
-      revision,
-      createTime,
-      author,
-      message,
-      buildVariants,
-    } = commit.commit;
+    const { revision, createTime, author, message } = commit.commit;
 
-    const orderedColumns = visibleColumns.map((c) => {
-      const foundVariant = buildVariants.find((bv) => bv.variant === c);
-      if (foundVariant) {
-        const { tasks } = foundVariant;
-        return (
-          <Link key={tasks[0].id} to={getTaskRoute(tasks[0].id)}>
-            <Cell key={`task_cell_${tasks[0].id}`}>
-              <HistoryTableIcon status={tasks[0].status as TaskStatus} />
-            </Cell>
-          </Link>
-        );
-      }
-      // Returned if the build variant did not run for this commit
-      return <Cell key={`empty_variant_${c}`}>DNR</Cell>;
-    });
     return (
       <RowContainer style={style}>
         <LabelCellContainer>
@@ -55,7 +34,7 @@ const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
             message={message}
           />
         </LabelCellContainer>
-        {orderedColumns}
+        {columns}
       </RowContainer>
     );
   }
@@ -76,15 +55,5 @@ const RowContainer = styled.div`
   flex-direction: row;
 `;
 
-const Cell = styled.div`
-  display: flex;
-  height: 100%;
-  width: 140px;
-  justify-content: center;
-  align-items: center;
-  :hover {
-    cursor: pointer;
-  }
-`;
-
+export { Cell };
 export default Row;

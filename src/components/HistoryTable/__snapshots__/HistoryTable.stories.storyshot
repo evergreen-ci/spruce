@@ -327,27 +327,6 @@ exports[`Storyshots History Table Active Icons 1`] = `
 </div>
 `;
 
-exports[`Storyshots History Table Default 1`] = `
-<div
-  style={
-    Object {
-      "height": 800,
-      "width": "100%",
-    }
-  }
->
-  <div
-    style={
-      Object {
-        "height": 0,
-        "overflow": "visible",
-        "width": 0,
-      }
-    }
-  />
-</div>
-`;
-
 exports[`Storyshots History Table Inactive Icons 1`] = `
 <div
   className="css-1tw1ctr-Container eb1823k0"
@@ -636,5 +615,137 @@ exports[`Storyshots History Table Inactive Icons 1`] = `
       className="css-p140hk-IconContainer-inactiveElementStyle e12dzyme0"
     />
   </div>
+</div>
+`;
+
+exports[`Storyshots History Table Task History Table 1`] = `
+<div
+  style={
+    Object {
+      "height": 800,
+      "width": "100%",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "height": 0,
+        "overflow": "visible",
+        "width": 0,
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots History Table Test Search 1`] = `
+<div
+  style={
+    Object {
+      "display": "flex",
+      "flexDirection": "column",
+    }
+  }
+>
+  <div
+    className="css-1o3pjf3-ContentWrapper e8i7li42"
+  >
+    <div
+      className="css-ve22wc-TextInputWrapper e8i7li41"
+    >
+      <div
+        className="leafygreen-ui-1iyoj2o"
+      >
+        <label
+          className="leafygreen-ui-ly82bp"
+          htmlFor="textinput-1"
+        >
+          Filter by Failed Tests
+        </label>
+        <div
+          className="leafygreen-ui-lzja97"
+        >
+          <div
+            className="leafygreen-ui-1i2djk5"
+          >
+            <input
+              aria-label="history-table-test-search-input"
+              autoComplete="on"
+              className="leafygreen-ui-1il5lef"
+              disabled={false}
+              id="textinput-1"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Search Test Name"
+              required={true}
+              type="search"
+              value=""
+            />
+            <div
+              className="leafygreen-ui-3x1o6h"
+              data-leafygreen-ui="interaction-ring"
+            />
+          </div>
+          <div
+            className="leafygreen-ui-m329s1"
+            data-leafygreen-ui="icon-selector"
+          />
+        </div>
+      </div>
+      <svg
+        aria-label="Plus Icon"
+        className="css-1341dg6-StyledIcon e8i7li40"
+        fill="none"
+        height={16}
+        onClick={[Function]}
+        role="img"
+        viewBox="0 0 16 16"
+        width={16}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clipRule="evenodd"
+          d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
+          fill="currentColor"
+          fillRule="evenodd"
+        />
+      </svg>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "paddingTop": "16px",
+      }
+    }
+  >
+    <div
+      className="css-19f1xe2-Container e3qndfh0"
+    />
+  </div>
+</div>
+`;
+
+exports[`Storyshots History Table Variant History Table 1`] = `
+<div
+  style={
+    Object {
+      "height": 800,
+      "width": "100%",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "height": 0,
+        "overflow": "visible",
+        "width": 0,
+      }
+    }
+  />
 </div>
 `;

@@ -1,28 +1,24 @@
 import styled from "@emotion/styled";
-import IconButton from "@leafygreen-ui/icon-button";
-import { Link } from "react-router-dom";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { StyledRouterLink } from "components/styles";
-import { TaskStatusIcon } from "components/TaskStatusIcon";
-import {
-  getVersionRoute,
-  getTaskRoute,
-  getVariantHistoryRoute,
-} from "constants/routes";
-import { mapUmbrellaStatusToQueryParam } from "constants/task";
+import { getVariantHistoryRoute } from "constants/routes";
+
 import {
   groupStatusesByUmbrellaStatus,
   isFailedTaskStatus,
 } from "utils/statuses";
-import { applyStrictRegex } from "utils/string";
+import { WaterfallTaskStatusIcon } from "./buildVariantCard/WaterfallTaskStatusIcon";
 
+type taskList = {
+  id: string;
+  status: string;
+  displayName: string;
+  timeTaken?: number;
+}[];
 interface Props {
   variant: string;
   buildVariantDisplayName: string;
-  tasks?: {
-    id: string;
-    status: string;
-  }[];
+  tasks?: taskList;
   shouldGroupTasks: boolean;
   versionId: string;
   projectIdentifier: string;
@@ -91,23 +87,22 @@ const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
 }) => {
   // get the count of the amount of tasks in each status
   const { stats } = groupStatusesByUmbrellaStatus(
-    tasks.map((task) => ({ ...task, count: 1 }))
+    tasks.map(({ status }) => ({ status, count: 1 }))
   );
   return (
     <>
-      {stats.map(({ count, umbrellaStatus }) => (
+      {stats.map(({ count, umbrellaStatus, statusCounts }) => (
         <GroupedTaskStatusBadgeWrapper
           key={umbrellaStatus}
           data-cy="grouped-task-status-badge"
         >
-          <Link
-            to={getVersionRoute(versionId, {
-              statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
-              variant: applyStrictRegex(variant),
-            })}
-          >
-            <GroupedTaskStatusBadge status={umbrellaStatus} count={count} />
-          </Link>
+          <GroupedTaskStatusBadge
+            status={umbrellaStatus}
+            count={count}
+            statusCounts={statusCounts}
+            versionId={versionId}
+            variant={variant}
+          />
         </GroupedTaskStatusBadgeWrapper>
       ))}
     </>
@@ -115,20 +110,19 @@ const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
 };
 
 interface RenderTaskIconsProps {
-  tasks: {
-    id: string;
-    status: string;
-  }[];
+  tasks: taskList;
 }
 
 const RenderTaskIcons: React.FC<RenderTaskIconsProps> = ({ tasks }) => (
   <>
-    {tasks.map(({ id, status }) => (
-      <Link data-cy="task-status-icon" to={getTaskRoute(id)} key={`task_${id}`}>
-        <IconButton aria-label="task icon">
-          <TaskStatusIcon status={status} size={16} />
-        </IconButton>
-      </Link>
+    {tasks.map(({ id, status, displayName, timeTaken }) => (
+      <WaterfallTaskStatusIcon
+        key={id}
+        taskId={id}
+        status={status}
+        displayName={displayName}
+        timeTaken={timeTaken}
+      />
     ))}
   </>
 );

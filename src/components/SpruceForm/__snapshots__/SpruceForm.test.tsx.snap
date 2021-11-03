@@ -2,25 +2,25 @@
 
 exports[`basic form should render as expected 1`] = `
 .emotion-0 {
+  margin-bottom: 24px;
+}
+
+.emotion-2 {
   margin: unset;
   font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
   color: #21313C;
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 24px;
+  line-height: 32px;
   letter-spacing: 0px;
-}
-
-.emotion-1 {
-  padding-top: 10px;
-  padding-right: 8px;
-  padding-left: 8px;
-  margin-bottom: 12px;
-  margin-top: 22px;
-  padding-bottom: 60px;
-  padding-right: 22px;
+  font-weight: medium;
 }
 
 .emotion-3 {
+  margin-bottom: 48px;
+  padding: 24px;
+}
+
+.emotion-5 {
   position: relative;
   border-radius: 7px;
   -webkit-transition: border 300ms ease-in-out,box-shadow 300ms ease-in-out;
@@ -31,12 +31,15 @@ exports[`basic form should render as expected 1`] = `
   color: #21313C;
 }
 
-.emotion-4 {
-  padding-top: 8px;
-  padding-bottom: 8px;
+.emotion-6 {
+  margin-bottom: 20px;
 }
 
-.emotion-6 {
+.emotion-8 {
+  max-width: 400px;
+}
+
+.emotion-10 {
   font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
   display: block;
   margin-bottom: 2px;
@@ -47,13 +50,13 @@ exports[`basic form should render as expected 1`] = `
 }
 
 @media only screen and (max-width: 1024px) {
-  .emotion-6 {
+  .emotion-10 {
     font-size: 16px;
     line-height: 19px;
   }
 }
 
-.emotion-7 {
+.emotion-11 {
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
@@ -92,51 +95,51 @@ exports[`basic form should render as expected 1`] = `
   border-color: #B8C4C2;
 }
 
-.emotion-7:focus {
+.emotion-11:focus {
   outline: none;
 }
 
-.emotion-7:disabled {
+.emotion-11:disabled {
   pointer-events: none;
 }
 
-.emotion-7:active,
-.emotion-7:focus,
-.emotion-7:hover {
+.emotion-11:active,
+.emotion-11:focus,
+.emotion-11:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.emotion-7:focus {
+.emotion-11:focus {
   color: #3D4F58;
 }
 
-.emotion-7:hover,
-.emotion-7:active {
+.emotion-11:hover,
+.emotion-11:active {
   color: #3D4F58;
   background-color: #FFFFFF;
   border: 1px solid #5D6C74;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3),0px 0px 0px 3px #E7EEEC;
 }
 
-.emotion-7:focus {
+.emotion-11:focus {
   background: #FFFFFF;
   border: 1px solid #5D6C74;
   box-shadow: 0px 4px 4px rgba(0, 124, 173, 0.4),0px 0px 0px 3px #019EE2;
 }
 
-.emotion-7>span {
+.emotion-11>span {
   padding: 0;
 }
 
 @media only screen and (max-width: 1024px) {
-  .emotion-7 {
+  .emotion-11 {
     height: 36px;
     font-size: 16px;
   }
 }
 
-.emotion-8 {
+.emotion-12 {
   overflow: hidden;
   border-radius: 3px;
   position: absolute;
@@ -146,7 +149,7 @@ exports[`basic form should render as expected 1`] = `
   bottom: 0;
 }
 
-.emotion-9 {
+.emotion-13 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -168,14 +171,14 @@ exports[`basic form should render as expected 1`] = `
   padding-right: 12px;
 }
 
-.emotion-10 {
+.emotion-14 {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   max-width: 100%;
 }
 
-.emotion-11 {
+.emotion-15 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -191,7 +194,7 @@ exports[`basic form should render as expected 1`] = `
   margin-left: auto;
 }
 
-.emotion-12 {
+.emotion-16 {
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -201,7 +204,7 @@ exports[`basic form should render as expected 1`] = `
   margin-left: 6px;
 }
 
-.emotion-15 {
+.emotion-21 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -211,7 +214,15 @@ exports[`basic form should render as expected 1`] = `
   flex-direction: column;
 }
 
-.emotion-16 {
+.emotion-22 {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 16px;
+  padding-bottom: 4px;
+  color: #3D4F58;
+}
+
+.emotion-23 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -224,7 +235,7 @@ exports[`basic form should render as expected 1`] = `
   z-index: 0;
 }
 
-.emotion-17 {
+.emotion-24 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -238,11 +249,11 @@ exports[`basic form should render as expected 1`] = `
   width: 100%;
 }
 
-.emotion-17:hover>[data-leafygreen-ui="interaction-ring"] {
+.emotion-24:hover>[data-leafygreen-ui="interaction-ring"] {
   box-shadow: 0 0 0 3px #E7EEEC;
 }
 
-.emotion-18 {
+.emotion-25 {
   width: 100%;
   height: 100%;
   font-family: inherit;
@@ -265,38 +276,38 @@ exports[`basic form should render as expected 1`] = `
   border-color: #89979B;
 }
 
-.emotion-18::-webkit-input-placeholder {
+.emotion-25::-webkit-input-placeholder {
   color: #89979B;
 }
 
-.emotion-18::-moz-placeholder {
+.emotion-25::-moz-placeholder {
   color: #89979B;
 }
 
-.emotion-18:-ms-input-placeholder {
+.emotion-25:-ms-input-placeholder {
   color: #89979B;
 }
 
-.emotion-18::placeholder {
+.emotion-25::placeholder {
   color: #89979B;
 }
 
-.emotion-18:disabled {
+.emotion-25:disabled {
   cursor: not-allowed;
 }
 
-.emotion-18:focus {
+.emotion-25:focus {
   border: 1px solid #FFFFFF;
 }
 
-.emotion-18:disabled {
+.emotion-25:disabled {
   color: #89979B;
   background-color: #E7EEEC;
 }
 
-.emotion-18:disabled:-webkit-autofill,
-.emotion-18:disabled:-webkit-autofill:hover,
-.emotion-18:disabled:-webkit-autofill:focus {
+.emotion-25:disabled:-webkit-autofill,
+.emotion-25:disabled:-webkit-autofill:hover,
+.emotion-25:disabled:-webkit-autofill:focus {
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
@@ -306,7 +317,7 @@ exports[`basic form should render as expected 1`] = `
   -webkit-box-shadow: 0 0 0px 1000px #E7EEEC inset;
 }
 
-.emotion-19 {
+.emotion-26 {
   -webkit-transition: all 150ms ease-in-out;
   transition: all 150ms ease-in-out;
   position: absolute;
@@ -319,7 +330,7 @@ exports[`basic form should render as expected 1`] = `
   border-radius: 4px;
 }
 
-.emotion-20 {
+.emotion-27 {
   position: absolute;
   display: -webkit-box;
   display: -webkit-flex;
@@ -334,13 +345,13 @@ exports[`basic form should render as expected 1`] = `
 }
 
 <div>
-  <h6
-    class="emotion-0"
+  <h3
+    class="emotion-0 emotion-1 emotion-2"
   >
     Just a test
-  </h6>
+  </h3>
   <div
-    class="emotion-1 emotion-2 emotion-3"
+    class="emotion-3 emotion-4 emotion-5"
   >
     <form
       class="rjsf"
@@ -354,108 +365,111 @@ exports[`basic form should render as expected 1`] = `
           <div
             class="form-group field field-string"
           >
-            <label
-              class="control-label"
-              for="root_cloneMethod"
-            >
-              Project Cloning Method
-            </label>
             <div
-              class="emotion-4 emotion-5"
+              class="emotion-6 emotion-7"
             >
               <div
-                class=""
+                class="emotion-8 emotion-9"
               >
-                <label
-                  class="emotion-6"
-                  id="select-1-label"
+                <div
+                  class=""
                 >
-                  Project Cloning Method
-                </label>
-                <button
-                  aria-controls="select-1-menu"
-                  aria-describedby="select-1-description"
-                  aria-disabled="false"
-                  aria-expanded="false"
-                  aria-labelledby="select-1-label"
-                  class="emotion-7"
-                  data-testid="leafygreen-ui-select-menubutton"
-                  type="button"
-                  value="legacy-ssh"
-                >
-                  <div
-                    class="emotion-8"
-                  />
-                  <div
-                    class="emotion-9"
+                  <label
+                    class="emotion-10"
+                    id="select-1-label"
+                  >
+                    Project Cloning Method
+                  </label>
+                  <button
+                    aria-controls="select-1-menu"
+                    aria-describedby="select-1-description"
+                    aria-disabled="false"
+                    aria-expanded="false"
+                    aria-labelledby="select-1-label"
+                    class="emotion-11"
+                    data-testid="leafygreen-ui-select-menubutton"
+                    type="button"
+                    value="legacy-ssh"
                   >
                     <div
-                      class="emotion-10"
+                      class="emotion-12"
+                    />
+                    <div
+                      class="emotion-13"
                     >
-                      Legacy SSH
-                    </div>
-                    <span
-                      class="emotion-11"
-                    >
-                      <svg
-                        alt=""
-                        aria-hidden="true"
-                        class="emotion-12"
-                        height="16"
-                        role="presentation"
-                        viewBox="0 0 16 16"
-                        width="16"
+                      <div
+                        class="emotion-14"
                       >
-                        <path
-                          d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                </button>
+                        Legacy SSH
+                      </div>
+                      <span
+                        class="emotion-15"
+                      >
+                        <svg
+                          alt=""
+                          aria-hidden="true"
+                          class="emotion-16"
+                          height="16"
+                          role="presentation"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <path
+                            d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
           <div
             class="form-group field field-string"
           >
-            <label
-              class="control-label"
-              for="root_validProjects"
-            >
-              Valid Projects
-            </label>
             <div
-              class="emotion-4 emotion-5"
+              class="emotion-6 emotion-7"
             >
               <div
-                class="emotion-15"
+                class="emotion-8 emotion-9"
               >
                 <div
-                  class="emotion-16"
+                  class="emotion-21"
                 >
-                  <div
-                    class="emotion-17"
+                  <label
+                    class="emotion-22"
+                    for="textinput-1"
                   >
-                    <input
-                      autocomplete="on"
-                      class="emotion-18"
-                      id="textinput-1"
-                      placeholder=""
-                      required=""
-                      type="text"
-                      value="spruce"
-                    />
+                    Valid Projects
+                  </label>
+                  <div
+                    class="emotion-23"
+                  >
                     <div
-                      class="emotion-19"
-                      data-leafygreen-ui="interaction-ring"
+                      class="emotion-24"
+                    >
+                      <input
+                        aria-label="Valid Projects"
+                        autocomplete="on"
+                        class="emotion-25"
+                        id="textinput-1"
+                        placeholder=""
+                        required=""
+                        type="text"
+                        value="spruce"
+                      />
+                      <div
+                        class="emotion-26"
+                        data-leafygreen-ui="interaction-ring"
+                      />
+                    </div>
+                    <div
+                      class="emotion-27"
+                      data-leafygreen-ui="icon-selector"
                     />
                   </div>
-                  <div
-                    class="emotion-20"
-                    data-leafygreen-ui="icon-selector"
-                  />
                 </div>
               </div>
             </div>
