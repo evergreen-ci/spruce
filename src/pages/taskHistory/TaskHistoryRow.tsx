@@ -26,7 +26,11 @@ const TaskHistoryRow: React.FC<ListChildComponentProps> = (props) => {
     });
   }
   return (
-    <Row {...props} columns={orderedColumns} visibleCols={visibleColumns} />
+    <Row
+      {...props}
+      columns={orderedColumns}
+      numVisibleCols={visibleColumns.length}
+    />
   );
 };
 
