@@ -1,4 +1,28 @@
-fragment generalSettings on Project {
+fragment projectGeneralSettings on Project {
+  enabled
+  owner
+  repo
+  branch
+  displayName
+  batchTime
+  remotePath
+  spawnHostScriptPath
+  dispatchingDisabled
+  deactivatePrevious
+  repotrackerDisabled
+  defaultLogger
+  validDefaultLoggers
+  cedarTestResultsEnabled
+  patchingDisabled
+  taskSync {
+    configEnabled
+    patchEnabled
+  }
+  disabledStatsCache
+  filesIgnoredFromCache
+}
+
+fragment repoGeneralSettings on RepoRef {
   enabled
   owner
   repo
