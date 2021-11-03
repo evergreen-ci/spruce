@@ -136,7 +136,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
           )
         )}
         {!loadingTaskData && !sortedBuildVariantGroups.length && (
-          <Body>There are no unscheduled tasks to schedule.</Body>
+          <Body>There are no scheduleable tasks.</Body>
         )}
       </ContentWrapper>
     </ConfirmationModal>
