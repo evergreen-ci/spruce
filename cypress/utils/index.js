@@ -13,13 +13,11 @@ export const clickingCheckboxUpdatesUrlAndRendersFetchedResults = ({
     openFilter();
   }
   cy.getInputByLabel(checkboxDisplayName).check({ force: true });
-  cy.dataCy("filter-button").click();
   urlSearchParamsAreUpdated({ pathname, paramName, search });
   if (openFilter) {
     openFilter();
   }
   cy.getInputByLabel(checkboxDisplayName).uncheck({ force: true });
-  cy.dataCy("filter-button").click({ force: true });
   urlSearchParamsAreUpdated({ pathname, paramName, search: null });
 };
 
@@ -109,14 +107,13 @@ export const elementExistenceCheck = (
 export const clickOnPageBtnAndAssertURLandTableResults = (
   dataCyPageBtn,
   tableDisplayNames,
-  pageQueryParamValue,
-  dataCyTableRows
+  pageQueryParamValue
 ) => {
-  cy.wait(400);
+  cy.get(dataCyPageBtn).should("be.visible");
+  cy.get(dataCyPageBtn).should("not.be.disabled");
   cy.get(dataCyPageBtn).click();
-  cy.wait(400);
-  cy.get(dataCyTableRows).each(($el, index) => {
-    cy.wrap($el).contains(tableDisplayNames[index]);
+  tableDisplayNames.forEach((displayName) => {
+    cy.contains(displayName);
   });
   cy.location("search").should("include", `page=${pageQueryParamValue}`);
 };

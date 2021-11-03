@@ -8,7 +8,7 @@ const { parseQueryString } = queryString;
 const hostIdUrlParam = "hostId";
 
 export const InputFilterTestComponent = () => {
-  const [value, onChange, onFilter, onReset] = useTableInputFilter({
+  const [value, onChange, onFilter] = useTableInputFilter({
     urlSearchParam: hostIdUrlParam,
     sendAnalyticsEvent: () => undefined,
   });
@@ -25,8 +25,6 @@ export const InputFilterTestComponent = () => {
           value,
           onChange,
           onFilter,
-          onReset,
-          submitButtonCopy: "Search",
         }}
       />
     </>
@@ -36,7 +34,7 @@ export const InputFilterTestComponent = () => {
 const statusesUrlParam = "statuses";
 
 export const CheckboxFilterTestComponent = () => {
-  const [value, onChange, onFilter, onReset] = useTableCheckboxFilter({
+  const [value, onChange] = useTableCheckboxFilter({
     urlSearchParam: statusesUrlParam,
     sendAnalyticsEvent: () => undefined,
   });
@@ -57,8 +55,6 @@ export const CheckboxFilterTestComponent = () => {
           statuses,
           value,
           onChange,
-          onFilter,
-          onReset,
         }}
       />
     </>

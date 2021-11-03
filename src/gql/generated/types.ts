@@ -2399,7 +2399,10 @@ export type GetFailedTaskStatusIconTooltipQueryVariables = Exact<{
 }>;
 
 export type GetFailedTaskStatusIconTooltipQuery = {
-  taskTests: { testResults: Array<{ id: string; testFile: string }> };
+  taskTests: {
+    filteredTestCount: number;
+    testResults: Array<{ id: string; testFile: string }>;
+  };
 };
 
 export type AgentLogsQueryVariables = Exact<{

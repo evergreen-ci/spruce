@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "2.21.2",
+  "version": "2.22.0",
   "private": true,
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js' --html | sed 1d > build/source_map.html",
@@ -8,6 +8,7 @@
     "build-storybook": "build-storybook -s public",
     "build:prod": "env-cmd -e prod -r env/.cmdrc.json yarn build",
     "build:staging": "env-cmd -e staging -r env/.cmdrc.json yarn build",
+    "build:beta": "env-cmd -e beta -r env/.cmdrc.json yarn build",
     "check-types": "tsc -p tsconfig.json --noEmit",
     "codegen": "graphql-codegen --config codegen.yml",
     "coverage": "yarn test -- --coverage --watchAll=false",
@@ -18,6 +19,7 @@
     "deploy-prod:do-not-use-directly": "yarn build:prod && BUCKET=evergreen.spruce yarn deploy; yarn upload-source-maps;",
     "deploy:prod": "node cli-scripts/deploy-prod.js",
     "deploy:staging": "yarn build:staging && BUCKET=evergreen-staging.spruce yarn deploy",
+    "deploy:beta": "yarn build:beta && BUCKET=evergreen-beta.spruce yarn deploy",
     "dev": "env-cmd -e devServer -r env/.cmdrc.json yarn start",
     "eslint": "eslint -c .eslintrc.js 'src/**/*.ts?(x)' 'cypress/**/*.ts'",
     "eslint-fix": "STRICT=1 eslint -c .eslintrc.js --fix 'src/**/*.ts?(x)' 'cypress/**/*.ts'",

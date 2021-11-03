@@ -172,7 +172,7 @@ describe("Hosts page filtering from table filters", () => {
     cy.dataCy(distroFilterIconDataCy).click();
 
     cy.dataCy(`${distroFilterIconDataCy}-wrapper`).within(() => {
-      cy.dataCy("input-filter").type("centos6-perf{enter}");
+      cy.dataCy("input-filter").type("centos6-perf").type("{enter}");
     });
 
     cy.get(tableRow).each(($el, index) =>
@@ -203,7 +203,7 @@ describe("Hosts page filtering from table filters", () => {
     cy.dataCy(distroFilterIconDataCy).click();
 
     cy.dataCy(`${distroFilterIconDataCy}-wrapper`).within(() => {
-      cy.dataCy("input-filter").type("      centos6-perf     {enter}");
+      cy.dataCy("input-filter").type("      centos6-perf     ").type("{enter}");
     });
 
     cy.get(tableRow).each(($el, index) =>
@@ -249,12 +249,10 @@ describe("Hosts page filtering from table filters", () => {
             .invoke("val", subString)
             .trigger("input");
 
-          cy.get("@currentTask").type(lastChar);
+          cy.get("@currentTask").type(lastChar).type(`{enter}`);
         } else {
-          cy.dataCy("input-filter").type(filterValue);
+          cy.dataCy("input-filter").type(filterValue).type(`{enter}`);
         }
-
-        cy.dataCy("filter-button").click();
       });
     });
   });

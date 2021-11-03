@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Accordion } from "components/Accordion";
 import Badge from "components/Badge";
-import { selectedStrings } from "hooks/usePatchStatusSelect";
+import { selectedStrings } from "hooks/useVersionTaskStatusSelect";
 import { TaskStatusCheckboxContainer } from "./TaskStatusCheckboxContainer";
 
 interface BuildVariantAccordianProps {
