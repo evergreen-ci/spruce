@@ -9,9 +9,11 @@ export default {
   decorators: [StoryRouter(), (story) => WithToastContext(story)],
 };
 
-export const Story = () => <ScheduleTasks versionId="version" />;
+export const ScheduleTasksPopulated = () => (
+  <ScheduleTasks versionId="version" />
+);
 
-Story.parameters = {
+ScheduleTasksPopulated.parameters = {
   apolloClient: {
     mocks: [
       {
@@ -29,6 +31,7 @@ Story.parameters = {
                   displayName: "compile",
                   buildVariant: "ubuntu1604",
                   buildVariantDisplayName: "Ubuntu 16.04",
+                  execution: 1,
                   __typename: "Task",
                 },
                 {
@@ -37,6 +40,7 @@ Story.parameters = {
                   displayName: "coverage",
                   buildVariant: "ubuntu1604",
                   buildVariantDisplayName: "Ubuntu 16.04",
+                  execution: 2,
                   __typename: "Task",
                 },
                 {
@@ -45,6 +49,7 @@ Story.parameters = {
                   displayName: "e2e_test",
                   buildVariant: "ubuntu1604",
                   buildVariantDisplayName: "Ubuntu 16.04",
+                  execution: 1,
                   __typename: "Task",
                 },
                 {
@@ -53,6 +58,7 @@ Story.parameters = {
                   displayName: "lint",
                   buildVariant: "ubuntu1604",
                   buildVariantDisplayName: "Ubuntu 16.04",
+                  execution: 1,
                   __typename: "Task",
                 },
                 {
@@ -61,6 +67,7 @@ Story.parameters = {
                   displayName: "storybook",
                   buildVariant: "ubuntu1604",
                   buildVariantDisplayName: "Ubuntu 16.04",
+                  execution: 1,
                   __typename: "Task",
                 },
                 {
@@ -69,6 +76,7 @@ Story.parameters = {
                   displayName: "test",
                   buildVariant: "ubuntu1604",
                   buildVariantDisplayName: "Ubuntu 16.04",
+                  execution: 1,
                   __typename: "Task",
                 },
                 {
@@ -77,6 +85,7 @@ Story.parameters = {
                   displayName: "type_check",
                   buildVariant: "ubuntu1604",
                   buildVariantDisplayName: "Ubuntu 16.04",
+                  execution: 1,
                   __typename: "Task",
                 },
                 {
@@ -85,6 +94,7 @@ Story.parameters = {
                   displayName: "compile",
                   buildVariant: "windows",
                   buildVariantDisplayName: "Windows",
+                  execution: 1,
                   __typename: "Task",
                 },
                 {
@@ -93,6 +103,7 @@ Story.parameters = {
                   displayName: "coverage",
                   buildVariant: "windows",
                   buildVariantDisplayName: "Windows",
+                  execution: 1,
                   __typename: "Task",
                 },
                 {
@@ -101,6 +112,7 @@ Story.parameters = {
                   displayName: "e2e_test",
                   buildVariant: "windows",
                   buildVariantDisplayName: "Windows",
+                  execution: 1,
                   __typename: "Task",
                 },
                 {
@@ -109,6 +121,7 @@ Story.parameters = {
                   displayName: "lint",
                   buildVariant: "windows",
                   buildVariantDisplayName: "Windows",
+                  execution: 1,
                   __typename: "Task",
                 },
                 {
@@ -117,6 +130,7 @@ Story.parameters = {
                   displayName: "storybook",
                   buildVariant: "windows",
                   buildVariantDisplayName: "Windows",
+                  execution: 1,
                   __typename: "Task",
                 },
                 {
@@ -125,6 +139,7 @@ Story.parameters = {
                   displayName: "test",
                   buildVariant: "windows",
                   buildVariantDisplayName: "Windows",
+                  execution: 1,
                   __typename: "Task",
                 },
                 {
@@ -133,6 +148,7 @@ Story.parameters = {
                   displayName: "type_check",
                   buildVariant: "windows",
                   buildVariantDisplayName: "Windows",
+                  execution: 1,
                   __typename: "Task",
                 },
               ],

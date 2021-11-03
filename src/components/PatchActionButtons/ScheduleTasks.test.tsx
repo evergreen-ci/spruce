@@ -31,6 +31,7 @@ const scheduleTasksMock = {
     },
   },
 };
+
 const getUnscheduledTasksMock = {
   request: {
     query: GET_UNSCHEDULED_TASKS,
@@ -46,6 +47,7 @@ const getUnscheduledTasksMock = {
             displayName: "compile",
             buildVariant: "ubuntu1604",
             buildVariantDisplayName: "Ubuntu 16.04",
+            execution: 1,
             __typename: "Task",
           },
           {
@@ -54,6 +56,7 @@ const getUnscheduledTasksMock = {
             displayName: "coverage",
             buildVariant: "ubuntu1604",
             buildVariantDisplayName: "Ubuntu 16.04",
+            execution: 2,
             __typename: "Task",
           },
           {
@@ -62,6 +65,7 @@ const getUnscheduledTasksMock = {
             displayName: "e2e_test",
             buildVariant: "ubuntu1604",
             buildVariantDisplayName: "Ubuntu 16.04",
+            execution: 1,
             __typename: "Task",
           },
           {
@@ -70,6 +74,7 @@ const getUnscheduledTasksMock = {
             displayName: "lint",
             buildVariant: "ubuntu1604",
             buildVariantDisplayName: "Ubuntu 16.04",
+            execution: 1,
             __typename: "Task",
           },
           {
@@ -78,6 +83,7 @@ const getUnscheduledTasksMock = {
             displayName: "storybook",
             buildVariant: "ubuntu1604",
             buildVariantDisplayName: "Ubuntu 16.04",
+            execution: 1,
             __typename: "Task",
           },
           {
@@ -86,6 +92,7 @@ const getUnscheduledTasksMock = {
             displayName: "test",
             buildVariant: "ubuntu1604",
             buildVariantDisplayName: "Ubuntu 16.04",
+            execution: 1,
             __typename: "Task",
           },
           {
@@ -94,6 +101,7 @@ const getUnscheduledTasksMock = {
             displayName: "type_check",
             buildVariant: "ubuntu1604",
             buildVariantDisplayName: "Ubuntu 16.04",
+            execution: 1,
             __typename: "Task",
           },
           {
@@ -102,6 +110,7 @@ const getUnscheduledTasksMock = {
             displayName: "compile",
             buildVariant: "windows",
             buildVariantDisplayName: "Windows",
+            execution: 1,
             __typename: "Task",
           },
           {
@@ -110,6 +119,7 @@ const getUnscheduledTasksMock = {
             displayName: "coverage",
             buildVariant: "windows",
             buildVariantDisplayName: "Windows",
+            execution: 1,
             __typename: "Task",
           },
           {
@@ -118,6 +128,7 @@ const getUnscheduledTasksMock = {
             displayName: "e2e_test",
             buildVariant: "windows",
             buildVariantDisplayName: "Windows",
+            execution: 1,
             __typename: "Task",
           },
           {
@@ -126,6 +137,7 @@ const getUnscheduledTasksMock = {
             displayName: "lint",
             buildVariant: "windows",
             buildVariantDisplayName: "Windows",
+            execution: 1,
             __typename: "Task",
           },
           {
@@ -134,6 +146,7 @@ const getUnscheduledTasksMock = {
             displayName: "storybook",
             buildVariant: "windows",
             buildVariantDisplayName: "Windows",
+            execution: 1,
             __typename: "Task",
           },
           {
@@ -142,6 +155,7 @@ const getUnscheduledTasksMock = {
             displayName: "test",
             buildVariant: "windows",
             buildVariantDisplayName: "Windows",
+            execution: 1,
             __typename: "Task",
           },
           {
@@ -150,6 +164,7 @@ const getUnscheduledTasksMock = {
             displayName: "type_check",
             buildVariant: "windows",
             buildVariantDisplayName: "Windows",
+            execution: 1,
             __typename: "Task",
           },
         ],
