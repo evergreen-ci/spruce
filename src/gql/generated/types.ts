@@ -89,6 +89,7 @@ export type QueryPatchTasksArgs = {
   baseStatuses?: Maybe<Array<Scalars["String"]>>;
   variant?: Maybe<Scalars["String"]>;
   taskName?: Maybe<Scalars["String"]>;
+  includeEmptyActivation?: Maybe<Scalars["Boolean"]>;
 };
 
 export type QueryTaskTestsArgs = {
@@ -1503,6 +1504,7 @@ export type RepoRef = {
   filesIgnoredFromCache?: Maybe<Array<Scalars["String"]>>;
   disabledStatsCache: Scalars["Boolean"];
   workstationConfig: RepoWorkstationConfig;
+  validDefaultLoggers: Array<Scalars["String"]>;
 };
 
 export type TriggerAlias = {
@@ -2850,6 +2852,7 @@ export type MainlineCommitsQuery = {
     prevPageOrderNumber?: Maybe<number>;
     versions: Array<{
       version?: Maybe<{
+        projectIdentifier: string;
         id: string;
         author: string;
         createTime: Date;
@@ -2990,6 +2993,7 @@ export type PatchTasksQuery = {
       buildVariant: string;
       buildVariantDisplayName?: Maybe<string>;
       blocked: boolean;
+      projectIdentifier?: Maybe<string>;
       executionTasksFull?: Maybe<
         Array<{
           id: string;
@@ -2999,6 +3003,7 @@ export type PatchTasksQuery = {
           buildVariant: string;
           baseStatus?: Maybe<string>;
           buildVariantDisplayName?: Maybe<string>;
+          projectIdentifier?: Maybe<string>;
           baseTask?: Maybe<{ id: string; execution: number; status: string }>;
         }>
       >;
@@ -3442,6 +3447,18 @@ export type HostsQuery = {
       runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
     }>;
   };
+};
+
+export type LastPassingVersionQueryVariables = Exact<{
+  variant: Scalars["String"];
+  projectId: Scalars["String"];
+  taskName: Scalars["String"];
+}>;
+
+export type LastPassingVersionQuery = {
+  mainlineCommits?: Maybe<{
+    versions: Array<{ version?: Maybe<{ id: string }> }>;
+  }>;
 };
 
 export type ProjectPatchesQueryVariables = Exact<{

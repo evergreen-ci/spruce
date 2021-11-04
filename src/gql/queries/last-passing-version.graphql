@@ -1,0 +1,20 @@
+query LastPassingVersion(
+  $variant: String!
+  $projectId: String!
+  $taskName: String!
+) {
+  mainlineCommits(
+    options: { projectID: $projectId, limit: 1, shouldCollapse: true }
+    buildVariantOptions: {
+      variants: [$variant]
+      tasks: [$taskName]
+      statuses: ["success"]
+    }
+  ) {
+    versions {
+      version {
+        id
+      }
+    }
+  }
+}

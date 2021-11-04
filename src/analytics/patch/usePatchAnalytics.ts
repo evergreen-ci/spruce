@@ -46,7 +46,8 @@ type Action =
       name: "Add Notification";
       subscription: SaveSubscriptionMutationVariables["subscription"];
     }
-  | { name: "Toggle Display Task Dropdown"; expanded: boolean };
+  | { name: "Toggle Display Task Dropdown"; expanded: boolean }
+  | { name: "Click Base Commit Link" };
 
 interface P extends Properties {
   patchId: string;

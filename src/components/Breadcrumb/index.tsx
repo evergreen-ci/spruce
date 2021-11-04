@@ -2,10 +2,10 @@ import React from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Breadcrumb } from "antd";
-import { useBreadcrumbAnalytics } from "analytics";
+import { useBreadcrumbAnalytics, BreadcrumbAnalytics } from "analytics";
 import { StyledRouterLink } from "components/styles";
 import { H3, P1 } from "components/Typography";
-import { getVersionRoute, getProjectPatchesRoute } from "constants/routes";
+import { getVersionRoute, getCommitsRoute } from "constants/routes";
 import { useGetUserPatchesPageTitleAndLink } from "hooks";
 
 const { blue } = uiColors;
@@ -127,9 +127,7 @@ interface VersionBreadcrumbProps {
     project: string;
   };
   isTask: boolean;
-  analytics: {
-    sendEvent: (any) => void;
-  };
+  analytics: BreadcrumbAnalytics;
 }
 const VersionBreadcrumb: React.FC<VersionBreadcrumbProps> = ({
   versionMetadata,
@@ -142,16 +140,16 @@ const VersionBreadcrumb: React.FC<VersionBreadcrumbProps> = ({
       <Breadcrumb.Item>
         <StyledP1>
           <StyledBreadcrumbLink
-            data-cy="bc-my-patches"
-            to={getProjectPatchesRoute(project)}
+            data-cy="bc-waterfall"
+            to={getCommitsRoute(project)}
             onClick={() =>
               analytics.sendEvent({
                 name: "Click Link",
-                link: "myPatches",
+                link: "waterfall",
               })
             }
           >
-            {project}&apos;s patches
+            {project}&apos;s waterfall
           </StyledBreadcrumbLink>
         </StyledP1>
       </Breadcrumb.Item>
