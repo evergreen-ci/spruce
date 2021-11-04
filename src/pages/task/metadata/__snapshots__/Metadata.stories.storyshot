@@ -74,9 +74,9 @@ exports[`Storyshots Metadata Base 1`] = `
       Base commit:
        
       <a
-        className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
         data-cy="base-task-link"
-        href="https://evergreen.mongodb.com/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
+        href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
         onClick={[Function]}
       >
         e0ece5ad52
@@ -207,9 +207,9 @@ exports[`Storyshots Metadata With Abort Message 1`] = `
       Base commit:
        
       <a
-        className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
         data-cy="base-task-link"
-        href="https://evergreen.mongodb.com/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
+        href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
         onClick={[Function]}
       >
         e0ece5ad52
@@ -340,9 +340,9 @@ exports[`Storyshots Metadata With Dependencies 1`] = `
       Base commit:
        
       <a
-        className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
         data-cy="base-task-link"
-        href="https://evergreen.mongodb.com/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
+        href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
         onClick={[Function]}
       >
         e0ece5ad52

@@ -10,8 +10,8 @@ export const taskQuery = {
     baseTaskMetadata: {
       __typename: "BaseTaskMetadata",
       baseTaskDuration: 1228078,
-      baseTaskLink:
-        "https://evergreen.mongodb.com/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41",
+      baseTaskId:
+        "spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41",
     },
     createTime: new Date("2020-08-26T19:20:41Z"),
     estimatedStart: 1000,

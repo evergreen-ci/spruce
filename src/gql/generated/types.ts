@@ -1236,7 +1236,9 @@ export type PatchMetadata = {
 
 export type BaseTaskMetadata = {
   baseTaskDuration?: Maybe<Scalars["Duration"]>;
+  /** @deprecated baseTaskLink is deprecated and should not be used */
   baseTaskLink: Scalars["String"];
+  baseTaskId: Scalars["String"];
 };
 
 export type AbortInfo = {
@@ -3259,7 +3261,7 @@ export type GetTaskQuery = {
       >;
       baseTaskMetadata?: Maybe<{
         baseTaskDuration?: Maybe<number>;
-        baseTaskLink: string;
+        baseTaskId: string;
       }>;
       displayTask?: Maybe<{
         id: string;
