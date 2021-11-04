@@ -85,6 +85,7 @@ export const TaskHistory = () => {
     TestStatus.Passed,
     TestStatus.All,
   ]);
+
   const selectedColumns = selectedBuildVariants?.length
     ? buildVariantsForTaskName?.filter((bv) =>
         selectedBuildVariants.includes(bv.buildVariant)
@@ -138,6 +139,7 @@ const PageHeader = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding-top: 16px;
 `;
 
 const PageHeaderContent = styled.div`
