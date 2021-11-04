@@ -134,7 +134,7 @@ const VersionBreadcrumb: React.FC<VersionBreadcrumbProps> = ({
   analytics,
   isTask,
 }) => {
-  const { project, revision, id } = versionMetadata;
+  const { project, revision, id } = versionMetadata ?? {};
   return (
     <>
       <Breadcrumb.Item>

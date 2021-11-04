@@ -167,7 +167,7 @@ export const VersionPage: React.FC = () => {
             <Tabs
               taskCount={version?.taskCount}
               childPatches={childPatches}
-              isPatch={version.isPatch}
+              isPatch={version?.isPatch}
             />
           </PageContent>
         </PageLayout>
