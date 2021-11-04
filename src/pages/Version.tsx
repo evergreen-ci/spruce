@@ -62,12 +62,13 @@ export const VersionPage: React.FC = () => {
       id,
     },
     onCompleted: (data) => {
-      switch (data?.isPatchOrVersion) {
+      switch (data.isPatchOrVersion) {
         case PatchOrVersionType.Patch:
-          getPatch();
+          getPatch({ variables: { id } });
+
           break;
         case PatchOrVersionType.Version:
-          getVersion();
+          getVersion({ variables: { id } });
           break;
         default: {
           // This should never happen but we need to handle it just in case
@@ -85,6 +86,12 @@ export const VersionPage: React.FC = () => {
       setIsLoadingData(false);
     },
   });
+
+  // This resets the pages states to force showing the loading state when the page is changed on navigation
+  useEffect(() => {
+    setIsLoadingData(true);
+    setRedirectURL(undefined);
+  }, [id]);
 
   const [getPatch, { data: patchData, error: patchError }] = useLazyQuery<
     IsPatchConfiguredQuery,
@@ -130,7 +137,7 @@ export const VersionPage: React.FC = () => {
         setRedirectURL(getCommitQueueRoute(projectID));
         setIsLoadingData(false);
       } else {
-        getVersion();
+        getVersion({ variables: { id } });
       }
     }
   }, [patchData, getVersion, id]);
