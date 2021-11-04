@@ -57,6 +57,7 @@ export type Query = {
   buildVariantsForTaskName?: Maybe<Array<Maybe<BuildVariantTuple>>>;
   projectSettings: ProjectSettings;
   repoSettings: RepoSettings;
+  isPatchOrVersion: PatchOrVersionType;
 };
 
 export type QueryTaskArgs = {
@@ -185,6 +186,10 @@ export type QueryProjectSettingsArgs = {
 };
 
 export type QueryRepoSettingsArgs = {
+  id: Scalars["String"];
+};
+
+export type QueryIsPatchOrVersionArgs = {
   id: Scalars["String"];
 };
 
@@ -539,6 +544,11 @@ export type BuildVariantTuple = {
   buildVariant: Scalars["String"];
   displayName: Scalars["String"];
 };
+
+export enum PatchOrVersionType {
+  Patch = "PATCH",
+  Version = "VERSION",
+}
 
 export enum SpawnHostStatusActions {
   Start = "START",
@@ -2715,6 +2725,12 @@ export type IsPatchConfiguredQuery = {
     projectID: string;
   };
 };
+
+export type GetIsPatchOrVersionQueryVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type GetIsPatchOrVersionQuery = { isPatchOrVersion: PatchOrVersionType };
 
 export type GetCustomCreatedIssuesQueryVariables = Exact<{
   taskId: Scalars["String"];

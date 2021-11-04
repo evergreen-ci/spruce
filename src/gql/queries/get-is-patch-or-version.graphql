@@ -1,0 +1,3 @@
+query GetIsPatchOrVersion($id: String!) {
+  isPatchOrVersion(id: $id)
+}

@@ -21,21 +21,27 @@ import {
   IsPatchConfiguredQuery,
   IsPatchConfiguredQueryVariables,
   GetSpruceConfigQuery,
+  GetIsPatchOrVersionQuery,
+  GetIsPatchOrVersionQueryVariables,
+  PatchOrVersionType,
 } from "gql/generated/types";
 import {
   GET_VERSION,
   GET_IS_PATCH_CONFIGURED,
   GET_SPRUCE_CONFIG,
+  GET_IS_PATCH_OR_VERSION,
 } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
 import { PageDoesNotExist } from "pages/404";
+import { errorReporting } from "utils";
 import { githubPRLinkify } from "utils/string";
 import { jiraLinkify } from "utils/string/jiraLinkify";
-import { validatePatchId } from "utils/validators";
 import { BuildVariants } from "./version/BuildVariants";
 import { ActionButtons } from "./version/index";
 import { Metadata } from "./version/Metadata";
 import { Tabs } from "./version/Tabs";
+
+const { reportError } = errorReporting;
 
 export const VersionPage: React.FC = () => {
   const { data: spruceConfigData } = useQuery<GetSpruceConfigQuery>(
@@ -48,6 +54,38 @@ export const VersionPage: React.FC = () => {
   const [redirectURL, setRedirectURL] = useState(undefined);
   const [isLoadingData, setIsLoadingData] = useState(true);
 
+  const { error: isPatchOrVersionError } = useQuery<
+    GetIsPatchOrVersionQuery,
+    GetIsPatchOrVersionQueryVariables
+  >(GET_IS_PATCH_OR_VERSION, {
+    variables: {
+      id,
+    },
+    onCompleted: (data) => {
+      switch (data?.isPatchOrVersion) {
+        case PatchOrVersionType.Patch:
+          getPatch();
+          break;
+        case PatchOrVersionType.Version:
+          getVersion();
+          break;
+        default: {
+          // This should never happen but we need to handle it just in case
+          const err = new Error(
+            `Received an unexpected response from isPatchOrVersion: ${data.isPatchOrVersion}`
+          );
+          dispatchToast.error(err.message);
+          reportError(err).severe();
+          break;
+        }
+      }
+    },
+    onError: (error) => {
+      dispatchToast.error(error.message);
+      setIsLoadingData(false);
+    },
+  });
+
   const [getPatch, { data: patchData, error: patchError }] = useLazyQuery<
     IsPatchConfiguredQuery,
     IsPatchConfiguredQueryVariables
@@ -55,12 +93,18 @@ export const VersionPage: React.FC = () => {
     variables: {
       id,
     },
+    onError: (error) => {
+      dispatchToast.error(
+        `There was an error loading this patch: ${error.message}`
+      );
+      setIsLoadingData(false);
+    },
   });
 
-  const [getVersion, { data, error, startPolling, stopPolling }] = useLazyQuery<
-    VersionQuery,
-    VersionQueryVariables
-  >(GET_VERSION, {
+  const [
+    getVersion,
+    { data, error: versionError, startPolling, stopPolling },
+  ] = useLazyQuery<VersionQuery, VersionQueryVariables>(GET_VERSION, {
     variables: { id },
     pollInterval,
     onError: (e) => {
@@ -72,16 +116,6 @@ export const VersionPage: React.FC = () => {
   });
 
   useNetworkStatus(startPolling, stopPolling);
-
-  // First check if an id belongs to a patch if so we should fetch the patch,
-  //  to see if it has been activated and has a version; otherwise fetch the version directly
-  useEffect(() => {
-    if (validatePatchId(id)) {
-      getPatch();
-    } else {
-      getVersion();
-    }
-  }, [getPatch, getVersion, id]);
 
   // Decide where to redirect the user based off of whether or not the patch has been activated
   // If this patch is activated and not on the commit queue we can safely fetch the associated version
@@ -99,12 +133,7 @@ export const VersionPage: React.FC = () => {
         getVersion();
       }
     }
-    // if there was an error fetching the patch and the patch id was a real id it could be a periodic build
-    // in which case we should check if theres a corresponding version associated with it.
-    if (validatePatchId(id) && patchError) {
-      getVersion();
-    }
-  }, [patchData, getVersion, patchError, id]);
+  }, [patchData, getVersion, id]);
 
   // If we have successfully loaded a version we can show the page
   useEffect(() => {
@@ -139,7 +168,7 @@ export const VersionPage: React.FC = () => {
     return <Redirect to={redirectURL} />;
   }
 
-  if (error) {
+  if (isPatchOrVersionError || patchError || versionError) {
     return (
       <PageWrapper data-cy="version-page">
         <PageDoesNotExist />
