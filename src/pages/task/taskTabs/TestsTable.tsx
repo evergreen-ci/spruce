@@ -108,7 +108,7 @@ export const TestsTable: React.FC = () => {
     }),
   }));
 
-  const { loading, data, startPolling, stopPolling } = useQuery<
+  const { data, loading, startPolling, stopPolling } = useQuery<
     TaskTestsQuery,
     TaskTestsQueryVariables
   >(GET_TASK_TESTS, {
