@@ -149,6 +149,7 @@ export const VersionPage: React.FC = () => {
         buttons={
           <ActionButtons
             canEnqueueToCommitQueue={canEnqueueToCommitQueue}
+            isPatchOnCommitQueue={isPatchOnCommitQueue}
             canReconfigure={!isPatchOnCommitQueue && isPatch}
             patchDescription={message}
             versionId={id}
