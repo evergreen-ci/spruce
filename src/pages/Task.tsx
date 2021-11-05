@@ -60,15 +60,21 @@ export const Task: React.FC = () => {
     canUnschedule,
     canSetPriority,
     displayName,
+    project,
     patchNumber,
     priority,
     status,
     annotation,
     latestExecution,
     versionMetadata,
+    patch,
     canOverrideDependencies,
   } = task ?? {};
   const attributed = annotation?.issues?.length > 0;
+
+  console.log(project);
+  const { commitQueuePosition } = patch || {};
+  const isPatchOnCommitQueue = commitQueuePosition !== null;
 
   // Set the execution if it isnt provided
   if (Number.isNaN(selectedExecution) && latestExecution !== undefined) {
@@ -103,6 +109,7 @@ export const Task: React.FC = () => {
         }
         buttons={
           <ActionButtons
+            isPatchOnCommitQueue={isPatchOnCommitQueue}
             canAbort={canAbort}
             canRestart={canRestart}
             canSchedule={canSchedule}

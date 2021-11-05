@@ -37,6 +37,7 @@ import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
 interface Props {
   initialPriority?: number;
+  isPatchOnCommitQueue: boolean;
   canAbort: boolean;
   canRestart: boolean;
   canSchedule: boolean;
@@ -46,6 +47,7 @@ interface Props {
 }
 
 export const ActionButtons: React.FC<Props> = ({
+  isPatchOnCommitQueue,
   canAbort,
   canRestart,
   canSchedule,
@@ -151,6 +153,7 @@ export const ActionButtons: React.FC<Props> = ({
   });
 
   const disabled =
+    isPatchOnCommitQueue ||
     loadingAbortTask ||
     loadingRestartTask ||
     loadingSetPriority ||

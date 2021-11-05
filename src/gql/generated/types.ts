@@ -1318,6 +1318,7 @@ export type Task = {
   /** @deprecated version is deprecated. Use versionMetadata instead. */
   version: Scalars["String"];
   versionMetadata: Version;
+  patch?: Maybe<Patch>;
 };
 
 export type BaseTaskInfo = {
@@ -3268,7 +3269,11 @@ export type GetTaskQuery = {
         revision: string;
         project: string;
       };
-      project?: Maybe<{ identifier: string }>;
+      patch?: Maybe<{ commitQueuePosition?: Maybe<number> }>;
+      project?: Maybe<{
+        identifier: string;
+        commitQueue: { enabled?: Maybe<boolean> };
+      }>;
       dependsOn?: Maybe<
         Array<{
           buildVariant: string;
