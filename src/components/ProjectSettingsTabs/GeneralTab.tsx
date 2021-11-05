@@ -5,6 +5,10 @@ import {
   usePopulateForm,
   useProjectSettingsContext,
 } from "context/project-settings";
+import {
+  ProjectGeneralSettingsFragment,
+  RepoGeneralSettingsFragment,
+} from "gql/generated/types";
 import { getFormData } from "./GeneralTab/getFormData";
 import { GeneralTabProps } from "./types";
 
@@ -37,8 +41,14 @@ export const GeneralTab: React.FC<GeneralTabProps> = ({
     projectFlags,
     historicalDataCaching,
   } = useMemo(
-    () => getFormData(projectId, useRepoSettings, validDefaultLoggers),
-    [projectId, useRepoSettings, validDefaultLoggers]
+    () =>
+      getFormData(
+        projectId,
+        useRepoSettings,
+        validDefaultLoggers,
+        useRepoSettings ? repoData : null
+      ),
+    [projectId, repoData, useRepoSettings, validDefaultLoggers]
   );
 
   return (
@@ -74,27 +84,26 @@ export const GeneralTab: React.FC<GeneralTabProps> = ({
   );
 };
 
-// TODO: Remove default values as part of EVG-15643
+// While most boolean fields specify whether a property is enabled, some if a field is *disabled*.
+// These values need to be switched in order to display properties to users in a consistent manner.
+// This function also preserves the null state of a field.
+const invertValue = (val) => (val === null ? null : !val);
+
 const gqlToSchema = ({
-  enabled = false,
   owner,
   repo,
   branch,
   displayName,
-  batchTime = 0,
+  batchTime,
   remotePath,
   spawnHostScriptPath,
-  dispatchingDisabled = false,
-  deactivatePrevious = true,
-  repotrackerDisabled = false,
-  defaultLogger = "",
-  cedarTestResultsEnabled = false,
-  patchingDisabled = false,
+  defaultLogger,
   taskSync,
-  disabledStatsCache = false,
-  filesIgnoredFromCache = [],
-}) => ({
-  enabled: enabled ? "enabled" : "disabled",
+  ...data
+}:
+  | ProjectGeneralSettingsFragment
+  | RepoGeneralSettingsFragment): GeneralSettingsFormState<void> => ({
+  enabled: data.enabled,
   repositoryInfo: {
     owner,
     repo,
@@ -106,26 +115,67 @@ const gqlToSchema = ({
     remotePath,
     spawnHostScriptPath,
   },
-  dispatchingDisabled: dispatchingDisabled ? "disabled" : "enabled",
+  dispatchingDisabled: invertValue(data.dispatchingDisabled),
   scheduling: {
-    deactivatePrevious: deactivatePrevious ? "unschedule" : "schedule",
+    deactivatePrevious: data.deactivatePrevious,
   },
   repotracker: {
-    repotrackerDisabled: repotrackerDisabled ? "disabled" : "enabled",
+    repotrackerDisabled: invertValue(data.repotrackerDisabled),
   },
   logger: {
-    defaultLogger: defaultLogger || null,
+    defaultLogger,
   },
   testResults: {
-    cedarTestResultsEnabled: cedarTestResultsEnabled ? "enabled" : "disabled",
+    cedarTestResultsEnabled: data.cedarTestResultsEnabled,
   },
   patch: {
-    patchingDisabled: patchingDisabled ? "disabled" : "enabled",
+    patchingDisabled: invertValue(data.patchingDisabled),
   },
   taskSync: {
-    configEnabled: taskSync.configEnabled ? "enabled" : "disabled",
-    patchEnabled: taskSync.patchEnabled ? "enabled" : "disabled",
+    configEnabled: taskSync.configEnabled,
+    patchEnabled: taskSync.patchEnabled,
   },
-  disabledStatsCache: disabledStatsCache ? "disabled" : "enabled",
-  filesIgnoredFromCache,
+  disabledStatsCache: invertValue(data.disabledStatsCache),
+  files: {
+    filesIgnoredFromCache: data.filesIgnoredFromCache,
+  },
 });
+
+interface GeneralSettingsFormState<T> {
+  enabled: boolean | null | T;
+  repositoryInfo: {
+    owner: string | T;
+    repo: string | T;
+  };
+  branch: string | T;
+  other: {
+    displayName: string | T;
+    batchTime: number | T;
+    remotePath: string | T;
+    spawnHostScriptPath: string | T;
+  };
+  dispatchingDisabled: boolean | null | T;
+  scheduling: {
+    deactivatePrevious: boolean | null | T;
+  };
+  repotracker: {
+    repotrackerDisabled: boolean | null | T;
+  };
+  logger: {
+    defaultLogger: string | T;
+  };
+  testResults: {
+    cedarTestResultsEnabled: boolean | null | T;
+  };
+  patch: {
+    patchingDisabled: boolean | null | T;
+  };
+  taskSync: {
+    configEnabled: boolean | null | T;
+    patchEnabled: boolean | null | T;
+  };
+  disabledStatsCache: boolean | null | T;
+  files: {
+    filesIgnoredFromCache: string[] | null | T;
+  };
+}

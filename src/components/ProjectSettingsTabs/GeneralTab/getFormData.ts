@@ -1,22 +1,36 @@
 import widgets from "components/SpruceForm/Widgets";
-import { Project } from "gql/generated/types";
-import { ForceRepotrackerRunField } from "./ForceRepotrackerRunField";
+import { Project, RepoGeneralSettingsFragment } from "gql/generated/types";
+import { FilesIgnoredFromCacheField } from "./FilesIgnoredFromCacheField";
 import { MoveRepoField } from "./MoveRepoField";
+import { RepotrackerField } from "./RepotrackerField";
+
+const insertIf = (condition, ...elements) => (condition ? elements : []);
+
+const placeholderIf = (element) =>
+  element && { "ui:placeholder": `${element} (Default from repo)` };
 
 export const getFormData = (
   projectId: string,
   useRepoSettings: boolean,
-  validDefaultLoggers: Project["validDefaultLoggers"]
+  validDefaultLoggers: Project["validDefaultLoggers"],
+  repoData?: RepoGeneralSettingsFragment
 ) => ({
   generalConfiguration: {
-    fields: { moveRepo: MoveRepoField },
+    fields: { moveRepoField: MoveRepoField },
     schema: {
       type: "object" as "object",
       properties: {
         enabled: {
-          type: "string" as "string",
-          enum: ["enabled", "disabled"],
-          enumNames: ["Enabled", "Disabled"],
+          type: "boolean" as "boolean",
+          enum: [true, false, ...insertIf(repoData, null)],
+          enumNames: [
+            "Enabled",
+            "Disabled",
+            ...insertIf(
+              repoData,
+              `Default to repo (${repoData?.enabled ? "enabled" : "disabled"})`
+            ),
+          ],
         },
         repositoryInfo: {
           type: "object" as "object",
@@ -67,44 +81,70 @@ export const getFormData = (
         "ui:showLabel": false,
       },
       repositoryInfo: {
-        "ui:field": "moveRepo",
+        "ui:field": "moveRepoField",
         "ui:disabled": true,
         options: { useRepoSettings },
+      },
+      branch: {
+        ...placeholderIf(repoData?.branch),
       },
       other: {
         batchTime: {
           "ui:description":
             "The interval of time (in minutes) that Evergreen should wait in between activating the latest version.",
           "ui:emptyValue": 9,
+          ...placeholderIf(repoData?.batchTime),
+        },
+        remotePath: {
+          ...placeholderIf(repoData?.remotePath),
         },
         spawnHostScriptPath: {
           "ui:description":
             "This is the bash setup script to optionally run on spawn hosts created from tasks.",
           "ui:data-cy": "spawn-host-input",
+          ...placeholderIf(repoData?.spawnHostScriptPath),
         },
       },
     },
   },
   projectFlags: {
-    fields: { forceRepotrackerRun: ForceRepotrackerRunField },
+    fields: { repotrackerField: RepotrackerField },
     schema: {
       type: "object" as "object",
       properties: {
         dispatchingDisabled: {
-          type: "string" as "string",
+          type: "boolean" as "boolean",
           title: "Dispatching",
-          enum: ["enabled", "disabled"],
-          enumNames: ["Enabled", "Disabled"],
+          enum: [false, true, ...insertIf(repoData, null)],
+          enumNames: [
+            "Enabled",
+            "Disabled",
+            ...insertIf(
+              repoData,
+              `Default to repo (${
+                repoData?.dispatchingDisabled ? "disabled" : "enabled"
+              })`
+            ),
+          ],
         },
         scheduling: {
           type: "object" as "object",
           title: "Scheduling Settings",
           properties: {
             deactivatePrevious: {
-              type: "string" as "string",
+              type: "boolean" as "boolean",
               title: "Old task on success",
-              enum: ["unschedule", "schedule"],
-              enumNames: ["Unschedule", "Schedule"],
+              enum: [true, false, ...insertIf(repoData, null)],
+              enumNames: [
+                "Unschedule",
+                "Schedule",
+                ...insertIf(
+                  repoData,
+                  `Default to repo (${
+                    repoData?.deactivatePrevious ? "unscheduled" : "scheduled"
+                  })`
+                ),
+              ],
             },
           },
         },
@@ -113,10 +153,19 @@ export const getFormData = (
           title: "Repotracker Settings",
           properties: {
             repotrackerDisabled: {
-              type: "string" as "string",
+              type: "boolean" as "boolean",
               title: "Repotracker",
-              enum: ["enabled", "disabled"],
-              enumNames: ["Enabled", "Disabled"],
+              enum: [false, true, ...insertIf(repoData, null)],
+              enumNames: [
+                "Enabled",
+                "Disabled",
+                ...insertIf(
+                  repoData,
+                  `Default to repo (${
+                    repoData?.repotrackerDisabled ? "disabled" : "enabled"
+                  })`
+                ),
+              ],
             },
           },
         },
@@ -135,10 +184,19 @@ export const getFormData = (
           title: "Test Results",
           properties: {
             cedarTestResultsEnabled: {
-              type: "string" as "string",
+              type: "boolean" as "string",
               title: "Cedar Test Results",
-              enum: ["enabled", "disabled"],
-              enumNames: ["Enabled", "Disabled"],
+              enum: [true, false, ...insertIf(repoData, null)],
+              enumNames: [
+                "Enabled",
+                "Disabled",
+                ...insertIf(
+                  repoData,
+                  `Default to repo (${
+                    repoData?.cedarTestResultsEnabled ? "enabled" : "disabled"
+                  })`
+                ),
+              ],
             },
           },
         },
@@ -149,8 +207,17 @@ export const getFormData = (
             patchingDisabled: {
               type: "string" as "string",
               title: "Patching",
-              enum: ["enabled", "disabled"],
-              enumNames: ["Enabled", "Disabled"],
+              enum: [true, false, ...insertIf(repoData, null)],
+              enumNames: [
+                "Enabled",
+                "Disabled",
+                ...insertIf(
+                  repoData,
+                  `Default to repo (${
+                    repoData?.patchingDisabled ? "enabled" : "disabled"
+                  })`
+                ),
+              ],
             },
           },
         },
@@ -161,14 +228,32 @@ export const getFormData = (
             configEnabled: {
               type: "string" as "string",
               title: "Project Config Commands",
-              enum: ["enabled", "disabled"],
-              enumNames: ["Enabled", "Disabled"],
+              enum: [true, false, ...insertIf(repoData, null)],
+              enumNames: [
+                "Enabled",
+                "Disabled",
+                ...insertIf(
+                  repoData,
+                  `Default to repo (${
+                    repoData?.taskSync.configEnabled ? "enabled" : "disabled"
+                  })`
+                ),
+              ],
             },
             patchEnabled: {
               type: "string" as "string",
               title: "Task in Patches",
-              enum: ["enabled", "disabled"],
-              enumNames: ["Enabled", "Disabled"],
+              enum: [true, false, ...insertIf(repoData, null)],
+              enumNames: [
+                "Enabled",
+                "Disabled",
+                ...insertIf(
+                  repoData,
+                  `Default to repo (${
+                    repoData?.taskSync.patchEnabled ? "enabled" : "disabled"
+                  })`
+                ),
+              ],
             },
           },
         },
@@ -187,12 +272,12 @@ export const getFormData = (
         },
       },
       repotracker: {
+        "ui:field": "repotrackerField",
+        options: { projectId },
         repotrackerDisabled: {
-          "ui:field": "forceRepotrackerRun",
           "ui:widget": widgets.RadioBoxWidget,
           "ui:description":
             "Repotracker will be triggered from GitHub push events sent via webhook.",
-          options: { projectId },
         },
       },
       logger: {
@@ -227,27 +312,43 @@ export const getFormData = (
     },
   },
   historicalDataCaching: {
-    fields: {},
+    fields: {
+      filesIgnoredFromCacheField: FilesIgnoredFromCacheField,
+    },
     schema: {
       type: "object" as "object",
       properties: {
         disabledStatsCache: {
           type: "string" as "string",
           title: "Caching",
-          enum: ["enabled", "disabled"],
-          enumNames: ["Enabled", "Disabled"],
+          enum: [true, false, ...insertIf(repoData, null)],
+          enumNames: [
+            "Enabled",
+            "Disabled",
+            ...insertIf(
+              repoData,
+              `Default to repo (${
+                repoData?.disabledStatsCache ? "enabled" : "disabled"
+              })`
+            ),
+          ],
         },
-        filesIgnoredFromCache: {
+        files: {
+          type: "object" as "object",
           title: "File Patterns to Ignore",
-          type: "array" as "array",
           description:
             "Comma-separated list of regular expression patterns that specify test filenames to ignore when caching test and task history.",
-          items: {
-            type: "object" as "object",
-            properties: {
-              filePattern: {
-                type: "string" as "string",
-                title: "File Pattern",
+          properties: {
+            filesIgnoredFromCache: {
+              type: "array" as "array",
+              items: {
+                type: "object" as "object",
+                properties: {
+                  filePattern: {
+                    type: "string" as "string",
+                    title: "File Pattern",
+                  },
+                },
               },
             },
           },
@@ -255,8 +356,15 @@ export const getFormData = (
       },
     },
     uiSchema: {
+      "ui:rootFieldId": "historicalDataCaching",
       disabledStatsCache: {
         "ui:widget": widgets.RadioBoxWidget,
+      },
+      files: {
+        filesIgnoredFromCache: {
+          "ui:field": "filesIgnoredFromCacheField",
+          options: { useRepoSettings },
+        },
       },
     },
   },
