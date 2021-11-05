@@ -47,7 +47,6 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
     timeTaken,
     revision,
     dependsOn,
-    baseTaskMetadata,
     ami,
     distroId,
     priority,
@@ -62,10 +61,11 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
     displayTask,
     project,
     expectedDuration,
+    baseTask,
   } = task || {};
 
   const baseCommit = revision?.slice(0, 10);
-  const { baseTaskDuration, baseTaskId } = baseTaskMetadata ?? {};
+  const { id: baseTaskId, timeTaken: baseTaskDuration } = baseTask ?? {};
   const projectIdentifier = project?.identifier;
   const { author, id: versionID } = versionMetadata ?? {};
   const oomTracker = details?.oomTracker;

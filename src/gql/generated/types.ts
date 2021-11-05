@@ -1236,9 +1236,7 @@ export type PatchMetadata = {
 
 export type BaseTaskMetadata = {
   baseTaskDuration?: Maybe<Scalars["Duration"]>;
-  /** @deprecated baseTaskLink is deprecated and should not be used */
   baseTaskLink: Scalars["String"];
-  baseTaskId: Scalars["String"];
 };
 
 export type AbortInfo = {
@@ -1260,6 +1258,7 @@ export type Task = {
   annotation?: Maybe<Annotation>;
   baseTask?: Maybe<Task>;
   baseStatus?: Maybe<Scalars["String"]>;
+  /** @deprecated baseTaskMetadata is deprecated. Use baseTask instead */
   baseTaskMetadata?: Maybe<BaseTaskMetadata>;
   blocked: Scalars["Boolean"];
   buildId: Scalars["String"];
@@ -3248,6 +3247,11 @@ export type GetTaskQuery = {
         newVersion: string;
         prClosed: boolean;
       }>;
+      baseTask?: Maybe<{
+        id: string;
+        execution: number;
+        timeTaken?: Maybe<number>;
+      }>;
       executionTasksFull?: Maybe<
         Array<{
           displayName: string;
@@ -3259,10 +3263,7 @@ export type GetTaskQuery = {
           buildVariantDisplayName?: Maybe<string>;
         }>
       >;
-      baseTaskMetadata?: Maybe<{
-        baseTaskDuration?: Maybe<number>;
-        baseTaskId: string;
-      }>;
+      baseTaskMetadata?: Maybe<{ baseTaskDuration?: Maybe<number> }>;
       displayTask?: Maybe<{
         id: string;
         execution: number;
