@@ -153,7 +153,6 @@ export const ActionButtons: React.FC<Props> = ({
   });
 
   const disabled =
-    isPatchOnCommitQueue ||
     loadingAbortTask ||
     loadingRestartTask ||
     loadingSetPriority ||
@@ -257,7 +256,7 @@ export const ActionButtons: React.FC<Props> = ({
           size="small"
           data-cy="schedule-task"
           key="schedule"
-          disabled={disabled || !canSchedule}
+          disabled={disabled || isPatchOnCommitQueue || !canSchedule}
           loading={loadingScheduleTask}
           onClick={() => {
             scheduleTask();
@@ -270,7 +269,7 @@ export const ActionButtons: React.FC<Props> = ({
           size="small"
           data-cy="restart-task"
           key="restart"
-          disabled={disabled || !canRestart}
+          disabled={disabled || isPatchOnCommitQueue || !canRestart}
           loading={loadingRestartTask}
           onClick={() => {
             restartTask();

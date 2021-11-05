@@ -60,7 +60,6 @@ export const Task: React.FC = () => {
     canUnschedule,
     canSetPriority,
     displayName,
-    project,
     patchNumber,
     priority,
     status,
@@ -72,7 +71,6 @@ export const Task: React.FC = () => {
   } = task ?? {};
   const attributed = annotation?.issues?.length > 0;
 
-  console.log(project);
   const { commitQueuePosition } = patch || {};
   const isPatchOnCommitQueue = commitQueuePosition !== null;
 
