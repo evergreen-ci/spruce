@@ -3270,10 +3270,7 @@ export type GetTaskQuery = {
         project: string;
       };
       patch?: Maybe<{ commitQueuePosition?: Maybe<number> }>;
-      project?: Maybe<{
-        identifier: string;
-        commitQueue: { enabled?: Maybe<boolean> };
-      }>;
+      project?: Maybe<{ identifier: string }>;
       dependsOn?: Maybe<
         Array<{
           buildVariant: string;
