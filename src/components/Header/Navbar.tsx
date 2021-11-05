@@ -89,6 +89,7 @@ const StyledNav = styled.nav`
 const Logo = styled.div`
   display: flex;
   align-items: center;
+  margin-top: -3px;
 `;
 
 /* @ts-expect-error */
