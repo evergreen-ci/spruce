@@ -63,13 +63,6 @@ exports[`Storyshots Metadata Base 1`] = `
     </p>
     <p
       className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
-      data-cy="task-metadata-base-commit-duration"
-    >
-      Base commit duration: 
-      20m 28s
-    </p>
-    <p
-      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
     >
       Base commit:
        
@@ -196,13 +189,6 @@ exports[`Storyshots Metadata With Abort Message 1`] = `
     </p>
     <p
       className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
-      data-cy="task-metadata-base-commit-duration"
-    >
-      Base commit duration: 
-      20m 28s
-    </p>
-    <p
-      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
     >
       Base commit:
        
@@ -326,13 +312,6 @@ exports[`Storyshots Metadata With Dependencies 1`] = `
       >
         1s 0ms
       </span>
-    </p>
-    <p
-      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
-      data-cy="task-metadata-base-commit-duration"
-    >
-      Base commit duration: 
-      20m 28s
     </p>
     <p
       className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
