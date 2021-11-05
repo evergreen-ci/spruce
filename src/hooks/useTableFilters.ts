@@ -15,8 +15,7 @@ interface Params<SearchParam> {
 type UseInputFilterReturn = [
   string, // url param value
   (e: InputEvent) => void, // onChange handler
-  () => void, // update url param
-  () => void // reset url param
+  () => void // update url param
 ];
 
 // USE FOR FILTERS BUILT INTO TABLE COLUMN HEADERS
@@ -50,20 +49,12 @@ export const useTableInputFilter = <SearchParam extends string>({
     sendAnalyticsEvent(urlSearchParam);
   };
 
-  const resetQueryParam = () => {
-    setValue("");
-
-    updateUrlQueryParam(urlSearchParam, null, search, replace, pathname, true);
-  };
-
-  return [value, onChange, updateParams, resetQueryParam];
+  return [value, onChange, updateParams];
 };
 
 type UseCheckboxFilterReturn = [
   string[], // url param value
-  (e: InputEvent, key: string) => void, // onChange handler
-  () => void, // update url param
-  () => void // reset url param
+  (e: InputEvent, key: string) => void // onChange handler
 ];
 
 export const useTableCheckboxFilter = <SearchParam extends string>({
@@ -82,25 +73,26 @@ export const useTableCheckboxFilter = <SearchParam extends string>({
   const [value, setValue] = useState<string[]>(valueFromUrl);
 
   const onChange = (e: InputEvent, key: string): void => {
+    let newValues: string[];
     if (e.target.checked) {
-      setValue([...value, key]);
+      newValues = [...value, key];
+      setValue(newValues);
     } else {
       const index = value.findIndex((v) => v === key);
-      setValue([...value.slice(0, index), ...value.slice(index + 1)]);
+      newValues = [...value.slice(0, index), ...value.slice(index + 1)];
+      setValue(newValues);
     }
-  };
 
-  const updateParams = () => {
-    updateUrlQueryParam(urlSearchParam, value, search, replace, pathname, true);
-
+    updateUrlQueryParam(
+      urlSearchParam,
+      newValues,
+      search,
+      replace,
+      pathname,
+      true
+    );
     sendAnalyticsEvent(urlSearchParam);
   };
 
-  const resetQueryParam = () => {
-    setValue([]);
-
-    updateUrlQueryParam(urlSearchParam, null, search, replace, pathname, true);
-  };
-
-  return [value, onChange, updateParams, resetQueryParam];
+  return [value, onChange];
 };

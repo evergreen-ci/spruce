@@ -7,7 +7,10 @@ export default {
 };
 
 export const badges = () => {
-  const taskStatuses = Object.keys(TaskStatus);
+  // filter out umbrella statuses
+  const taskStatuses = Object.keys(TaskStatus).filter(
+    (taskName) => !taskName.includes("Umbrella")
+  );
   return (
     <Container>
       {taskStatuses.map((status) => (

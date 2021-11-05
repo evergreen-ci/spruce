@@ -37,10 +37,13 @@ const Circle = styled.div`
 const Cell = styled.div`
   display: flex;
   height: 100%;
-  width: 140px;
+  width: 150px;
+  margin: 0 5px;
   justify-content: center;
   align-items: center;
-  :hover {
-    cursor: pointer;
-  }
+`;
+
+export const HeaderCell = styled(Cell)`
+  word-wrap: anywhere;
+  text-align: center;
 `;

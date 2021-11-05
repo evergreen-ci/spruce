@@ -112,6 +112,11 @@ export const Commits = () => {
   const { versions, nextPageOrderNumber, prevPageOrderNumber } =
     mainlineCommits || {};
 
+  const queryParamsToDisplay = new Set([
+    ProjectFilterOptions.BuildVariant,
+    ProjectFilterOptions.Task,
+  ]);
+
   return (
     <PageWrapper>
       <PageContainer>
@@ -127,7 +132,7 @@ export const Commits = () => {
           </ProjectSelectWrapper>
         </HeaderWrapper>
         <BadgeWrapper>
-          <FilterBadges />
+          <FilterBadges queryParamsToDisplay={queryParamsToDisplay} />
         </BadgeWrapper>
         <PaginationButtons
           prevPageOrderNumber={prevPageOrderNumber}

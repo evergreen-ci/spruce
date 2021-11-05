@@ -19,11 +19,11 @@ import {
 } from "gql/generated/types";
 import { RESTART_VERSIONS } from "gql/mutations";
 import { GET_BUILD_VARIANTS_WITH_CHILDREN } from "gql/queries";
-import { usePatchStatusSelect } from "hooks";
+import { useVersionTaskStatusSelect } from "hooks";
 import {
-  patchSelectedTasks,
+  versionSelectedTasks,
   selectedStrings,
-} from "hooks/usePatchStatusSelect";
+} from "hooks/useVersionTaskStatusSelect";
 import { BuildVariantAccordian } from "./BuildVariantAccordian";
 
 const { gray } = uiColors;
@@ -71,15 +71,17 @@ const VersionRestartModal: React.FC<Props> = ({
 
   const { version } = data || {};
   const { buildVariants, childVersions } = version || {};
-  const [
+  const {
     selectedTasks,
-    patchStatusFilterTerm,
+    versionStatusFilterTerm,
     baseStatusFilterTerm,
-    { toggleSelectedTask, setPatchStatusFilterTerm, setBaseStatusFilterTerm },
-  ] = usePatchStatusSelect(buildVariants, versionId, childVersions);
+    toggleSelectedTask,
+    setVersionStatusFilterTerm,
+    setBaseStatusFilterTerm,
+  } = useVersionTaskStatusSelect(buildVariants, versionId, childVersions);
 
   const setVersionStatus = (childVersionId) => (selectedFilters: string[]) => {
-    setPatchStatusFilterTerm({ [childVersionId]: selectedFilters });
+    setVersionStatusFilterTerm({ [childVersionId]: selectedFilters });
   };
   const setVersionBaseStatus = (childVersionId) => (
     selectedFilters: string[]
@@ -140,10 +142,10 @@ const VersionRestartModal: React.FC<Props> = ({
         version={version}
         selectedTasks={selectedTasks}
         setBaseStatusFilterTerm={setVersionBaseStatus(version?.id)}
-        setPatchStatusFilterTerm={setVersionStatus(version?.id)}
+        setVersionStatusFilterTerm={setVersionStatus(version?.id)}
         toggleSelectedTask={toggleSelectedTask}
         baseStatusFilterTerm={baseStatusFilterTerm[version?.id]}
-        patchStatusFilterTerm={patchStatusFilterTerm[version?.id]}
+        versionStatusFilterTerm={versionStatusFilterTerm[version?.id]}
       />
 
       {childVersions && (
@@ -165,10 +167,10 @@ const VersionRestartModal: React.FC<Props> = ({
                     version={v}
                     selectedTasks={selectedTasks}
                     setBaseStatusFilterTerm={setVersionBaseStatus(v?.id)}
-                    setPatchStatusFilterTerm={setVersionStatus(v?.id)}
+                    setVersionStatusFilterTerm={setVersionStatus(v?.id)}
                     toggleSelectedTask={toggleSelectedTask}
                     baseStatusFilterTerm={baseStatusFilterTerm[v.id]}
-                    patchStatusFilterTerm={patchStatusFilterTerm[v.id]}
+                    versionStatusFilterTerm={versionStatusFilterTerm[v.id]}
                   />
                 </TitleContainer>
               }
@@ -195,24 +197,24 @@ const VersionRestartModal: React.FC<Props> = ({
 
 interface VersionTasksProps {
   version: BuildVariantsWithChildrenQuery["version"];
-  selectedTasks: patchSelectedTasks;
+  selectedTasks: versionSelectedTasks;
   setBaseStatusFilterTerm: (statuses: string[]) => void;
-  setPatchStatusFilterTerm: (statuses: string[]) => void;
+  setVersionStatusFilterTerm: (statuses: string[]) => void;
   toggleSelectedTask: (
     taskIds: { [patchId: string]: string } | { [patchId: string]: string[] }
   ) => void;
   baseStatusFilterTerm: string[];
-  patchStatusFilterTerm: string[];
+  versionStatusFilterTerm: string[];
 }
 
 const VersionTasks: React.FC<VersionTasksProps> = ({
   version,
   selectedTasks,
   setBaseStatusFilterTerm,
-  setPatchStatusFilterTerm,
+  setVersionStatusFilterTerm,
   toggleSelectedTask,
   baseStatusFilterTerm,
-  patchStatusFilterTerm,
+  versionStatusFilterTerm,
 }) => {
   const { buildVariants } = version || {};
   const tasks = selectedTasks[version?.id] || {};
@@ -224,10 +226,10 @@ const VersionTasks: React.FC<VersionTasksProps> = ({
           <Row>
             <TaskStatusFilters
               onChangeBaseStatusFilter={setBaseStatusFilterTerm}
-              onChangeStatusFilter={setPatchStatusFilterTerm}
+              onChangeStatusFilter={setVersionStatusFilterTerm}
               versionId={version?.id}
               selectedBaseStatuses={baseStatusFilterTerm || []}
-              selectedStatuses={patchStatusFilterTerm || []}
+              selectedStatuses={versionStatusFilterTerm || []}
               filterWidth="50%"
             />
           </Row>
@@ -259,13 +261,13 @@ const selectedArray = (selected: selectedStrings) => {
   return out;
 };
 
-const selectTasksTotal = (selectedTasks: patchSelectedTasks) =>
+const selectTasksTotal = (selectedTasks: versionSelectedTasks) =>
   Object.values(selectedTasks).reduce(
     (total, selectedTask) => selectedArray(selectedTask).length + total,
     0
   );
 
-const getTaskIds = (selectedTasks: patchSelectedTasks) =>
+const getTaskIds = (selectedTasks: versionSelectedTasks) =>
   Object.entries(selectedTasks).map(([versionId, tasks]) => ({
     versionId,
     taskIds: selectedArray(tasks),

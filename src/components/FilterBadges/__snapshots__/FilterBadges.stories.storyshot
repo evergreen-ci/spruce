@@ -11,7 +11,7 @@ exports[`Storyshots FilterBadges Default 1`] = `
     <div
       className="css-d7bq0k-BadgeContent e1vs77ku0"
     >
-      buildvariants
+      buildVariants
        : 
       ! Enterprise Clang Tidy
       <svg
@@ -42,7 +42,7 @@ exports[`Storyshots FilterBadges Default 1`] = `
     <div
       className="css-d7bq0k-BadgeContent e1vs77ku0"
     >
-      buildvariants
+      buildVariants
        : 
       ! Enterprise Windows
       <svg
@@ -73,7 +73,7 @@ exports[`Storyshots FilterBadges Default 1`] = `
     <div
       className="css-d7bq0k-BadgeContent e1vs77ku0"
     >
-      buildvariants
+      buildVariants
        : 
       Enterprise RHEL 8.0 (Lock Free Reads disabled)
       <svg

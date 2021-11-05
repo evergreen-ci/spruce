@@ -2,6 +2,7 @@ export enum ProjectFilterOptions {
   BuildVariant = "buildVariants",
   Task = "taskNames",
   Status = "statuses",
+  Test = "tests",
 }
 
 export enum ChartToggleQueryParams {

@@ -3,12 +3,11 @@ export { useFilterInputChangeHandler } from "hooks/useFilterInputChangeHandler";
 export { useGetUserPatchesPageTitleAndLink } from "hooks/useGetUserPatchesPageTitleAndLink";
 export { useNotificationModal } from "hooks/useNotificationModal";
 export { useOnClickOutside } from "hooks/useOnClickOutside";
-export { usePatchStatusSelect } from "hooks/usePatchStatusSelect";
+export { useVersionTaskStatusSelect } from "hooks/useVersionTaskStatusSelect";
 export { useLegacyUIURL } from "hooks/useLegacyUIURL";
 export { usePageTitle } from "hooks/usePageTitle";
 export { useNetworkStatus } from "hooks/useNetworkStatus";
 export { useStatusesFilter } from "hooks/useStatusesFilter";
-export { useTabs } from "hooks/useTabs";
 export {
   useTableInputFilter,
   useTableCheckboxFilter,

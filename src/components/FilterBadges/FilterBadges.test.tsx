@@ -2,9 +2,20 @@ import {
   renderWithRouterMatch as render,
   fireEvent,
 } from "test_utils/test-utils";
+import { ProjectFilterOptions } from "types/commits";
 import { FilterBadges } from ".";
 
-const Content = () => <FilterBadges />;
+const Content = () => (
+  <FilterBadges
+    queryParamsToDisplay={
+      new Set([
+        ProjectFilterOptions.BuildVariant,
+        ProjectFilterOptions.Task,
+        ProjectFilterOptions.Test,
+      ])
+    }
+  />
+);
 
 test("should not render any badges if there are no query params", () => {
   const { queryByDataCy } = render(Content, {
@@ -102,7 +113,7 @@ test("should remove all badges when clicking on clear all button", () => {
 
 test("should show a max of 8 badges and a link to show more if there are more", () => {
   const { queryAllByDataCy, queryByText } = render(Content, {
-    route: `/commits/evergreen?buildVariants=variant1,variant2,variant3,variant4&tests=test1,test2,test3,test4&taskNames:task1`,
+    route: `/commits/evergreen?buildVariants=variant1,variant2,variant3,variant4&tests=test1,test2,test3,test4&taskNames=task1`,
     path: "/commits/:projectId",
   });
 

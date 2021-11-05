@@ -23,7 +23,7 @@ import { RequiredQueryParams, TaskStatus } from "types/task";
 import { queryString } from "utils";
 import { ActionButtons } from "./task/ActionButtons";
 import { ExecutionSelect } from "./task/executionDropdown/ExecutionSelector";
-import { Metadata } from "./task/Metadata";
+import { Metadata } from "./task/metadata";
 import { TaskTabs } from "./task/TaskTabs";
 
 const { parseQueryString } = queryString;

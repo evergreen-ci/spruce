@@ -1,14 +1,16 @@
 import { useEffect } from "react";
 import styled from "@emotion/styled";
-import { context } from "components/HistoryTable";
+import { context, Cell } from "components/HistoryTable";
 
 const { useHistoryTable } = context;
+const { HeaderCell } = Cell;
+
 interface ColumnHeadersProps {
   columns: string[];
   loading: boolean;
 }
 const ColumnHeaders: React.FC<ColumnHeadersProps> = ({ columns, loading }) => {
-  const { visibleColumns, addColumns } = useHistoryTable();
+  const { visibleColumns, addColumns, columnLimit } = useHistoryTable();
   useEffect(() => {
     if (columns) {
       addColumns(columns);
@@ -24,11 +26,11 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({ columns, loading }) => {
         if (!cell) {
           return null;
         }
-        return <Cell key={`header_cell_${cell}`}>{cell}</Cell>;
+        return <HeaderCell key={`header_cell_${cell}`}>{cell}</HeaderCell>;
       })}
       {loading &&
-        Array.from(Array(8)).map((i) => (
-          <Cell key={`loading_cell_${i}`}>Loading...</Cell>
+        Array.from(Array(columnLimit)).map((i) => (
+          <HeaderCell key={`loading_cell_${i}`}>Loading...</HeaderCell>
         ))}
     </RowContainer>
   );
@@ -43,15 +45,6 @@ const LabelCellContainer = styled.div`
 const RowContainer = styled.div`
   display: flex;
   flex-direction: row;
-`;
-
-const Cell = styled.div`
-  display: flex;
-  height: 100%;
-  width: 140px;
-  justify-content: center;
-  align-items: center;
-  text-overflow: ellipsis;
 `;
 
 export default ColumnHeaders;
