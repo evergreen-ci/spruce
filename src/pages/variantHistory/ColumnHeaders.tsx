@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import styled from "@emotion/styled";
+import { Skeleton } from "antd";
 import { context, Cell } from "components/HistoryTable";
 
 const { useHistoryTable } = context;
@@ -29,8 +30,11 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({ columns, loading }) => {
         return <HeaderCell key={`header_cell_${cell}`}>{cell}</HeaderCell>;
       })}
       {loading &&
-        Array.from(Array(columnLimit)).map((i) => (
-          <HeaderCell key={`loading_cell_${i}`}>Loading...</HeaderCell>
+        Array.from(Array(columnLimit)).map((_, i) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <HeaderCell key={`loading_cell_${i}`}>
+            <Skeleton active title paragraph={false} />
+          </HeaderCell>
         ))}
     </RowContainer>
   );
