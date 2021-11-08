@@ -223,7 +223,7 @@ const ScheduleModalEmpty = () => (
 test("Clicking the button opens the modal", async () => {
   const { queryByDataCy } = renderWithRouterMatch(SceheduleButton);
   expect(queryByDataCy("schedule-tasks-modal")).not.toBeInTheDocument();
-  await fireEvent.click(queryByDataCy("schedule-tasks-button"));
+  await fireEvent.click(queryByDataCy("schedule-patch"));
   await waitFor(() =>
     expect(queryByDataCy("schedule-tasks-modal")).toBeVisible()
   );
