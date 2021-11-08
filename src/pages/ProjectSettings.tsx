@@ -13,6 +13,7 @@ import {
   getProjectSettingsRoute,
 } from "constants/routes";
 import { ProjectSettingsProvider } from "context/project-settings";
+import { useToastContext } from "context/toast";
 import {
   ProjectSettingsQuery,
   ProjectSettingsQueryVariables,
@@ -32,6 +33,7 @@ const disablePage = isProduction();
 
 export const ProjectSettings: React.FC = () => {
   usePageTitle(`Project Settings`);
+  const dispatchToast = useToastContext();
   const { identifier, tab } = useParams<{
     identifier: string;
     tab: ProjectSettingsTabRoutes;
@@ -40,12 +42,17 @@ export const ProjectSettings: React.FC = () => {
   // If the path includes an Object ID, this page represents a repo and we should not attempt to fetch a project.
   const isRepo = validateObjectId(identifier);
 
-  const { data: projectData = null } = useQuery<
+  const { data: projectData, loading: projectLoading } = useQuery<
     ProjectSettingsQuery,
     ProjectSettingsQueryVariables
   >(GET_PROJECT_SETTINGS, {
     skip: isRepo,
     variables: { identifier },
+    onError: (e) => {
+      dispatchToast.error(
+        `There was an error loading the project ${identifier}: ${e.message}`
+      );
+    },
   });
 
   const repoRefId =
@@ -57,8 +64,13 @@ export const ProjectSettings: React.FC = () => {
     RepoSettingsQuery,
     RepoSettingsQueryVariables
   >(GET_REPO_SETTINGS, {
-    skip: useRepoSettings === false,
+    skip: projectLoading || useRepoSettings === false,
     variables: { repoId: repoRefId },
+    onError: (e) => {
+      dispatchToast.error(
+        `There was an error loading the repo ${repoRefId}: ${e.message}`
+      );
+    },
   });
 
   if (disablePage) {
