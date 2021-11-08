@@ -13,17 +13,16 @@ interface RowProps extends ListChildComponentProps {
   numVisibleCols: number;
 }
 const Row: React.FC<RowProps> = ({ columns, numVisibleCols, index, style }) => {
-  const { isItemLoaded, getItem } = useHistoryTable();
+  const { isItemLoaded, getItem, columnLimit } = useHistoryTable();
   if (!isItemLoaded(index)) {
     return (
       <RowContainer style={style}>
-        <LoadingRow numVisibleCols={numVisibleCols} />
+        <LoadingRow numVisibleCols={numVisibleCols || columnLimit} />
       </RowContainer>
     );
   }
   const commit = getItem(index);
   if (commit.type === rowType.DATE_SEPARATOR) {
-    // TODO: add date separator component
     return <DateSeparator style={style} date={commit.date} />;
   }
   if (commit.type === rowType.COMMIT && commit.commit) {

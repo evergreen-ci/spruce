@@ -110,25 +110,19 @@ export const VariantHistory = () => {
             <ColumnPaginationButtons />
           </PaginationFilterWrapper>
           <TableContainer>
-            {taskNamesForBuildVariant && (
-              <>
-                <ColumnHeaders loading={loading} columns={selectedColumns} />
-                <TableWrapper>
-                  <HistoryTable
-                    recentlyFetchedCommits={mainlineCommits}
-                    loadMoreItems={() => {
-                      if (mainlineCommits) {
-                        setNextPageOrderNumber(
-                          mainlineCommits.nextPageOrderNumber
-                        );
-                      }
-                    }}
-                  >
-                    {VariantHistoryRow}
-                  </HistoryTable>
-                </TableWrapper>
-              </>
-            )}
+            <ColumnHeaders loading={loading} columns={selectedColumns} />
+            <TableWrapper>
+              <HistoryTable
+                recentlyFetchedCommits={mainlineCommits}
+                loadMoreItems={() => {
+                  if (mainlineCommits) {
+                    setNextPageOrderNumber(mainlineCommits.nextPageOrderNumber);
+                  }
+                }}
+              >
+                {VariantHistoryRow}
+              </HistoryTable>
+            </TableWrapper>
           </TableContainer>
         </HistoryTableProvider>
       </CenterPage>

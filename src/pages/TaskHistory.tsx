@@ -65,7 +65,6 @@ export const TaskHistory = () => {
       projectId,
       taskName,
     },
-    fetchPolicy: "cache-only",
   });
 
   const { buildVariantsForTaskName } = columnData || {};
@@ -109,25 +108,19 @@ export const TaskHistory = () => {
             <ColumnPaginationButtons />
           </PaginationFilterWrapper>
           <TableContainer>
-            {buildVariantsForTaskName && (
-              <>
-                <ColumnHeaders loading={loading} columns={selectedColumns} />
-                <TableWrapper>
-                  <HistoryTable
-                    recentlyFetchedCommits={mainlineCommits}
-                    loadMoreItems={() => {
-                      if (mainlineCommits) {
-                        setNextPageOrderNumber(
-                          mainlineCommits.nextPageOrderNumber
-                        );
-                      }
-                    }}
-                  >
-                    {TaskHistoryRow}
-                  </HistoryTable>
-                </TableWrapper>
-              </>
-            )}
+            <ColumnHeaders loading={loading} columns={selectedColumns} />
+            <TableWrapper>
+              <HistoryTable
+                recentlyFetchedCommits={mainlineCommits}
+                loadMoreItems={() => {
+                  if (mainlineCommits) {
+                    setNextPageOrderNumber(mainlineCommits.nextPageOrderNumber);
+                  }
+                }}
+              >
+                {TaskHistoryRow}
+              </HistoryTable>
+            </TableWrapper>
           </TableContainer>
         </HistoryTableProvider>
       </CenterPage>
