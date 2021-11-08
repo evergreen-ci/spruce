@@ -7,23 +7,19 @@ import { Link } from "react-router-dom";
 import { useNavbarAnalytics } from "analytics";
 import Icon from "components/Icon";
 import { StyledLink } from "components/styles";
-import { getUserPatchesRoute, routes } from "constants/routes";
+import { getCommitsRoute, getUserPatchesRoute, routes } from "constants/routes";
 import { useAuthStateContext } from "context/auth";
 import { GetUserQuery } from "gql/generated/types";
 import { GET_USER } from "gql/queries";
 import { useLegacyUIURL } from "hooks";
-import { environmentalVariables } from "utils";
 import { AuxiliaryDropdown } from "./AuxiliaryDropdown";
 import { UserDropdown } from "./UserDropdown";
-
-const { getUiUrl } = environmentalVariables;
 
 const { white, blue, gray } = uiColors;
 
 export const Navbar: React.FC = () => {
   const { isAuthenticated } = useAuthStateContext();
   const legacyURL = useLegacyUIURL();
-  const uiURL = getUiUrl();
   const navbarAnalytics = useNavbarAnalytics();
 
   const { data } = useQuery<GetUserQuery>(GET_USER);
@@ -47,14 +43,14 @@ export const Navbar: React.FC = () => {
           </Logo>
         </Link>
 
-        <PrimaryA
-          href={`${uiURL}/waterfall`}
+        <PrimaryLink
+          to={getCommitsRoute()}
           onClick={() =>
             navbarAnalytics.sendEvent({ name: "Click Waterfall Link" })
           }
         >
           Waterfall
-        </PrimaryA>
+        </PrimaryLink>
         <PrimaryLink to={getUserPatchesRoute(userId)}>My Patches</PrimaryLink>
         <PrimaryLink to={routes.spawnHost}>My Hosts</PrimaryLink>
         <AuxiliaryDropdown />
@@ -107,16 +103,8 @@ const NavActionContainer = styled.div`
   }
 `;
 
-const primaryStyle = css`
-  color: ${white};
-`;
-
 const PrimaryLink = styled(Link)`
-  ${primaryStyle}
-`;
-
-const PrimaryA = styled.a`
-  ${primaryStyle}
+  color: ${white};
 `;
 
 const secondaryStyle = css`
