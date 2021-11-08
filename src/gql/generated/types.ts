@@ -57,7 +57,7 @@ export type Query = {
   buildVariantsForTaskName?: Maybe<Array<Maybe<BuildVariantTuple>>>;
   projectSettings: ProjectSettings;
   repoSettings: RepoSettings;
-  isPatchOrVersion: PatchOrVersionType;
+  hasVersion: Scalars["Boolean"];
 };
 
 export type QueryTaskArgs = {
@@ -90,6 +90,7 @@ export type QueryPatchTasksArgs = {
   baseStatuses?: Maybe<Array<Scalars["String"]>>;
   variant?: Maybe<Scalars["String"]>;
   taskName?: Maybe<Scalars["String"]>;
+  includeEmptyActivation?: Maybe<Scalars["Boolean"]>;
 };
 
 export type QueryTaskTestsArgs = {
@@ -189,7 +190,7 @@ export type QueryRepoSettingsArgs = {
   id: Scalars["String"];
 };
 
-export type QueryIsPatchOrVersionArgs = {
+export type QueryHasVersionArgs = {
   id: Scalars["String"];
 };
 
@@ -544,11 +545,6 @@ export type BuildVariantTuple = {
   buildVariant: Scalars["String"];
   displayName: Scalars["String"];
 };
-
-export enum PatchOrVersionType {
-  Patch = "PATCH",
-  Version = "VERSION",
-}
 
 export enum SpawnHostStatusActions {
   Start = "START",
@@ -1513,6 +1509,7 @@ export type RepoRef = {
   filesIgnoredFromCache?: Maybe<Array<Scalars["String"]>>;
   disabledStatsCache: Scalars["Boolean"];
   workstationConfig: RepoWorkstationConfig;
+  validDefaultLoggers: Array<Scalars["String"]>;
 };
 
 export type TriggerAlias = {
@@ -2656,6 +2653,12 @@ export type EventLogsQuery = {
   };
 };
 
+export type GetHasVersionQueryVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type GetHasVersionQuery = { hasVersion: boolean };
+
 export type HostEventsQueryVariables = Exact<{
   id: Scalars["String"];
   tag: Scalars["String"];
@@ -2725,12 +2728,6 @@ export type IsPatchConfiguredQuery = {
     projectID: string;
   };
 };
-
-export type GetIsPatchOrVersionQueryVariables = Exact<{
-  id: Scalars["String"];
-}>;
-
-export type GetIsPatchOrVersionQuery = { isPatchOrVersion: PatchOrVersionType };
 
 export type GetCustomCreatedIssuesQueryVariables = Exact<{
   taskId: Scalars["String"];

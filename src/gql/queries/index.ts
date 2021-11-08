@@ -14,11 +14,11 @@ import GET_CREATED_TICKETS from "./get-created-tickets.graphql";
 import GET_DISPLAY_TASK from "./get-display-task.graphql";
 import GET_DISTROS from "./get-distros.graphql";
 import GET_EVENT_LOGS from "./get-event-logs.graphql";
+import GET_HAS_VERSION from "./get-has-version.graphql";
 import GET_HOST_EVENTS from "./get-host-events.graphql";
 import GET_HOST from "./get-host.graphql";
 import GET_INSTANCE_TYPES from "./get-instance-types.graphql";
 import GET_IS_PATCH_CONFIGURED from "./get-is-patch-configured.graphql";
-import GET_IS_PATCH_OR_VERSION from "./get-is-patch-or-version.graphql";
 import GET_JIRA_CUSTOM_CREATED_ISSUES from "./get-jira-custom-created-issues.graphql";
 import GET_JIRA_ISSUES from "./get-jira-issues.graphql";
 import GET_JIRA_SUSPECTED_ISSUES from "./get-jira-suspected-issues.graphql";
@@ -68,8 +68,8 @@ export {
   GET_DISPLAY_TASK,
   GET_MY_HOSTS,
   GET_BUILD_VARIANTS,
+  GET_HAS_VERSION,
   GET_IS_PATCH_CONFIGURED,
-  GET_IS_PATCH_OR_VERSION,
   GET_PATCH_TASKS,
   GET_PROJECT_SETTINGS,
   GET_PROJECTS,

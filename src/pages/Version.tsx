@@ -21,27 +21,23 @@ import {
   IsPatchConfiguredQuery,
   IsPatchConfiguredQueryVariables,
   GetSpruceConfigQuery,
-  GetIsPatchOrVersionQuery,
-  GetIsPatchOrVersionQueryVariables,
-  PatchOrVersionType,
+  GetHasVersionQuery,
+  GetHasVersionQueryVariables,
 } from "gql/generated/types";
 import {
   GET_VERSION,
   GET_IS_PATCH_CONFIGURED,
   GET_SPRUCE_CONFIG,
-  GET_IS_PATCH_OR_VERSION,
+  GET_HAS_VERSION,
 } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
 import { PageDoesNotExist } from "pages/404";
-import { errorReporting } from "utils";
 import { githubPRLinkify } from "utils/string";
 import { jiraLinkify } from "utils/string/jiraLinkify";
 import { BuildVariants } from "./version/BuildVariants";
 import { ActionButtons } from "./version/index";
 import { Metadata } from "./version/Metadata";
 import { Tabs } from "./version/Tabs";
-
-const { reportError } = errorReporting;
 
 export const VersionPage: React.FC = () => {
   const { data: spruceConfigData } = useQuery<GetSpruceConfigQuery>(
@@ -55,30 +51,17 @@ export const VersionPage: React.FC = () => {
   const [isLoadingData, setIsLoadingData] = useState(true);
 
   const { error: isPatchOrVersionError } = useQuery<
-    GetIsPatchOrVersionQuery,
-    GetIsPatchOrVersionQueryVariables
-  >(GET_IS_PATCH_OR_VERSION, {
+    GetHasVersionQuery,
+    GetHasVersionQueryVariables
+  >(GET_HAS_VERSION, {
     variables: {
       id,
     },
-    onCompleted: (data) => {
-      switch (data.isPatchOrVersion) {
-        case PatchOrVersionType.Patch:
-          getPatch({ variables: { id } });
-
-          break;
-        case PatchOrVersionType.Version:
-          getVersion({ variables: { id } });
-          break;
-        default: {
-          // This should never happen but we need to handle it just in case
-          const err = new Error(
-            `Received an unexpected response from isPatchOrVersion: ${data.isPatchOrVersion}`
-          );
-          dispatchToast.error(err.message);
-          reportError(err).severe();
-          break;
-        }
+    onCompleted: ({ hasVersion }) => {
+      if (hasVersion) {
+        getVersion({ variables: { id } });
+      } else {
+        getPatch({ variables: { id } });
       }
     },
     onError: (error) => {
