@@ -240,7 +240,7 @@ export const useNotificationModal = ({
 
   const onChangeSubscriptionMethod = (v: string) => {
     setSelectedSubscriptionMethod(v);
-    Cookies.set("subscription-method", v, { expires: 365 });
+    Cookies.set(SUBSCRIPTION_METHOD, v, { expires: 365 });
   };
 
   const onChangeTrigger = (v: number) => {
