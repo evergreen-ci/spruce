@@ -5,16 +5,21 @@ import * as Cell from "./Cell";
 import { useHistoryTable } from "./HistoryTableContext";
 import { DateSeparator } from "./row/DateSeparator";
 import { FoldedCommit } from "./row/FoldedCommit";
+import { LoadingRow } from "./row/LoadingRow";
 import { rowType } from "./types";
 
 interface RowProps extends ListChildComponentProps {
   columns: React.ReactNode[];
+  numVisibleCols: number;
 }
-const Row: React.FC<RowProps> = ({ columns, index, style }) => {
+const Row: React.FC<RowProps> = ({ columns, numVisibleCols, index, style }) => {
   const { isItemLoaded, getItem } = useHistoryTable();
   if (!isItemLoaded(index)) {
-    // TODO: add loading state
-    return <div style={style}> Loading....</div>;
+    return (
+      <RowContainer style={style}>
+        <LoadingRow numVisibleCols={numVisibleCols} />
+      </RowContainer>
+    );
   }
   const commit = getItem(index);
   if (commit.type === rowType.DATE_SEPARATOR) {
@@ -53,6 +58,7 @@ const LabelCellContainer = styled.div`
 const RowContainer = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
 `;
 
 export { Cell };
