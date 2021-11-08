@@ -56,7 +56,6 @@ export const TaskHistory = () => {
   });
 
   // Fetch the column headers from the same query used on the dropdown.
-  // We set the fetchPolicy to "cache-only" since this could be an expensive op and we want to avoid doing it twice
   const { data: columnData, loading } = useQuery<
     GetBuildVariantsForTaskNameQuery,
     GetBuildVariantsForTaskNameQueryVariables
@@ -65,7 +64,6 @@ export const TaskHistory = () => {
       projectId,
       taskName,
     },
-    fetchPolicy: "cache-only",
   });
 
   const { buildVariantsForTaskName } = columnData || {};
@@ -109,25 +107,19 @@ export const TaskHistory = () => {
             <ColumnPaginationButtons />
           </PaginationFilterWrapper>
           <TableContainer>
-            {buildVariantsForTaskName && (
-              <>
-                <ColumnHeaders loading={loading} columns={selectedColumns} />
-                <TableWrapper>
-                  <HistoryTable
-                    recentlyFetchedCommits={mainlineCommits}
-                    loadMoreItems={() => {
-                      if (mainlineCommits) {
-                        setNextPageOrderNumber(
-                          mainlineCommits.nextPageOrderNumber
-                        );
-                      }
-                    }}
-                  >
-                    {TaskHistoryRow}
-                  </HistoryTable>
-                </TableWrapper>
-              </>
-            )}
+            <ColumnHeaders loading={loading} columns={selectedColumns} />
+            <TableWrapper>
+              <HistoryTable
+                recentlyFetchedCommits={mainlineCommits}
+                loadMoreItems={() => {
+                  if (mainlineCommits) {
+                    setNextPageOrderNumber(mainlineCommits.nextPageOrderNumber);
+                  }
+                }}
+              >
+                {TaskHistoryRow}
+              </HistoryTable>
+            </TableWrapper>
           </TableContainer>
         </HistoryTableProvider>
       </CenterPage>
