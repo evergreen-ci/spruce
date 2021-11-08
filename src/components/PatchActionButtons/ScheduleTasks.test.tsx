@@ -204,7 +204,7 @@ beforeEach(() => {
 
 const SceheduleButton = () => (
   <MockedProvider mocks={[getUnscheduledTasksMock]}>
-    <ScheduleTasks versionId="version" />
+    <ScheduleTasks versionId="version" isButton />
   </MockedProvider>
 );
 
