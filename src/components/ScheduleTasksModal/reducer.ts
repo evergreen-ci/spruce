@@ -11,21 +11,24 @@ interface BVGroupsInterface {
 interface State {
   sortedBuildVariantGroups: BVGroupEntry[];
   selectedTasks: Set<string>;
+  allTasks: string[];
 }
 
 type Action =
   | { type: "ingestData"; taskData?: GetUndispatchedTasksQuery }
   | { type: "toggleTask"; taskId: string }
   | { type: "toggleBuildVariant"; buildVariant: string }
-  | { type: "reset" };
+  | { type: "reset" }
+  | { type: "toggleSelectAll" };
 
 export const reducer = (state: State, action: Action): State => {
-  const { selectedTasks, sortedBuildVariantGroups } = state;
+  const { selectedTasks, sortedBuildVariantGroups, allTasks } = state;
   switch (action.type) {
     case "ingestData":
       return {
         ...state,
         sortedBuildVariantGroups: getSortedBuildVariantGroups(action.taskData),
+        allTasks: action.taskData?.patchTasks.tasks.map(({ id }) => id),
       };
     case "toggleTask":
       return {
@@ -42,6 +45,14 @@ export const reducer = (state: State, action: Action): State => {
             ?.tasks.map(({ id }) => id) ?? []
         ),
       };
+    case "toggleSelectAll":
+      return {
+        ...state,
+        selectedTasks:
+          selectedTasks.size === allTasks.length
+            ? new Set()
+            : new Set(allTasks),
+      };
     case "reset":
       return { ...state, selectedTasks: new Set() };
     default:
@@ -52,6 +63,7 @@ export const reducer = (state: State, action: Action): State => {
 export const initialState: State = {
   sortedBuildVariantGroups: [],
   selectedTasks: new Set(),
+  allTasks: [],
 };
 
 const getSortedBuildVariantGroups = (data?: GetUndispatchedTasksQuery) => {

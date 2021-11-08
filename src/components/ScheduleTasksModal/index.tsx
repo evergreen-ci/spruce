@@ -1,5 +1,5 @@
 import { useReducer, useEffect } from "react";
-import { useQuery, useMutation } from "@apollo/client";
+import { useMutation, useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Body } from "@leafygreen-ui/typography";
@@ -27,10 +27,10 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
   setOpen,
   versionId,
 }) => {
-  const [{ sortedBuildVariantGroups, selectedTasks }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
+  const [
+    { sortedBuildVariantGroups, selectedTasks, allTasks },
+    dispatch,
+  ] = useReducer(reducer, initialState);
   const closeModal = () => {
     dispatch({ type: "reset" });
     setOpen(false);
@@ -52,13 +52,20 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
       },
     }
   );
-  const { data: taskData, loading: loadingTaskData } = useQuery<
+  const [
+    loadTaskData,
+    { data: taskData, loading: loadingTaskData, called: calledTaskData },
+  ] = useLazyQuery<
     GetUndispatchedTasksQuery,
     GetUndispatchedTasksQueryVariables
   >(GET_UNSCHEDULED_TASKS, {
     variables: { versionId },
   });
-
+  useEffect(() => {
+    if (open && !calledTaskData) {
+      loadTaskData();
+    }
+  }, [calledTaskData, loadTaskData, open]);
   useEffect(() => {
     dispatch({ type: "ingestData", taskData });
   }, [taskData]);
@@ -81,59 +88,78 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
         {loadingTaskData ? (
           <Skeleton />
         ) : (
-          sortedBuildVariantGroups.map(
-            ({ tasks, buildVariantDisplayName, buildVariant }) => {
-              const allTasksSelected = tasks.every(({ id }) =>
-                selectedTasks.has(id)
-              );
-              const someTasksSelected = tasks.some(({ id }) =>
-                selectedTasks.has(id)
-              );
-              return (
-                <AccordionWrapper
-                  key={buildVariant}
-                  data-cy="variant-accordion"
-                >
-                  <Accordion
-                    allowToggleFromTitle={false}
-                    title={
-                      <Checkbox
-                        data-cy={`${buildVariant}-variant-checkbox`}
-                        name={buildVariant}
-                        label={buildVariantDisplayName}
-                        bold
-                        checked={allTasksSelected}
-                        indeterminate={!allTasksSelected && someTasksSelected}
-                        onClick={() => {
-                          dispatch({
-                            type: "toggleBuildVariant",
-                            buildVariant,
-                          });
-                        }}
-                      />
-                    }
-                    contents={tasks.map(({ id, displayName }) => (
-                      <Checkbox
-                        key={id}
-                        data-cy={`${buildVariant}-${displayName}-task-checkbox`}
-                        name={id}
-                        label={
-                          <span data-cy="task-checkbox-label">
-                            {displayName}
-                          </span>
-                        }
-                        bold={false}
-                        checked={selectedTasks.has(id)}
-                        onClick={() => {
-                          dispatch({ type: "toggleTask", taskId: id });
-                        }}
-                      />
-                    ))}
-                  />
-                </AccordionWrapper>
-              );
-            }
-          )
+          <>
+            {sortedBuildVariantGroups.length && (
+              <Checkbox
+                data-cy="select-all-tasks"
+                name="select-all-tasks"
+                label="Select all tasks"
+                bold
+                checked={selectedTasks.size === allTasks.length}
+                indeterminate={
+                  selectedTasks.size > 0 && selectedTasks.size < allTasks.length
+                }
+                onClick={() => {
+                  dispatch({
+                    type: "toggleSelectAll",
+                  });
+                }}
+              />
+            )}
+            {sortedBuildVariantGroups.map(
+              ({ tasks, buildVariantDisplayName, buildVariant }) => {
+                const allTasksSelected = tasks.every(({ id }) =>
+                  selectedTasks.has(id)
+                );
+                const someTasksSelected = tasks.some(({ id }) =>
+                  selectedTasks.has(id)
+                );
+                return (
+                  <AccordionWrapper
+                    key={buildVariant}
+                    data-cy="variant-accordion"
+                  >
+                    <Accordion
+                      allowToggleFromTitle={false}
+                      title={
+                        <Checkbox
+                          data-cy={`${buildVariant}-variant-checkbox`}
+                          name={buildVariant}
+                          label={buildVariantDisplayName}
+                          bold
+                          checked={allTasksSelected}
+                          indeterminate={!allTasksSelected && someTasksSelected}
+                          onClick={() => {
+                            dispatch({
+                              type: "toggleBuildVariant",
+                              buildVariant,
+                            });
+                          }}
+                        />
+                      }
+                      contents={tasks.map(({ id, displayName }) => (
+                        <Checkbox
+                          key={id}
+                          data-cy={`${buildVariant}-${displayName}-task-checkbox`}
+                          name={id}
+                          label={
+                            <span data-cy="task-checkbox-label">
+                              {displayName}
+                            </span>
+                          }
+                          bold={false}
+                          checked={selectedTasks.has(id)}
+                          onClick={() => {
+                            dispatch({ type: "toggleTask", taskId: id });
+                          }}
+                        />
+                      ))}
+                    />
+                  </AccordionWrapper>
+                );
+              }
+            )}
+          </>
         )}
         {!loadingTaskData && !sortedBuildVariantGroups.length && (
           <Body>There are no scheduleable tasks.</Body>
