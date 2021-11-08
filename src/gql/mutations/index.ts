@@ -21,7 +21,6 @@ import RESTART_JASPER from "./restart-jasper.graphql";
 import RESTART_TASK from "./restart-task.graphql";
 import RESTART_VERSIONS from "./restart-versions.graphql";
 import SAVE_SUBSCRIPTION from "./save-subscription.graphql";
-import SCHEDULE_PATCH_TASKS from "./schedule-patch-tasks.graphql";
 import SCHEDULE_PATCH from "./schedule-patch.graphql";
 import SCHEDULE_TASKS from "./schedule-tasks.graphql";
 import SCHEDULE_UNDISPATCHED_BASE_TASKS from "./schedule-undispatched-base-tasks.graphql";
@@ -61,7 +60,6 @@ export {
   RESTART_TASK,
   RESTART_VERSIONS,
   SAVE_SUBSCRIPTION,
-  SCHEDULE_PATCH_TASKS,
   SCHEDULE_PATCH,
   SCHEDULE_TASKS,
   SCHEDULE_UNDISPATCHED_BASE_TASKS,

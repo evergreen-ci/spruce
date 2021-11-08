@@ -89,7 +89,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
           <Skeleton />
         ) : (
           <>
-            {sortedBuildVariantGroups.length && (
+            {sortedBuildVariantGroups.length ? (
               <Checkbox
                 data-cy="select-all-tasks"
                 name="select-all-tasks"
@@ -105,7 +105,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
                   });
                 }}
               />
-            )}
+            ) : null}
             {sortedBuildVariantGroups.map(
               ({ tasks, buildVariantDisplayName, buildVariant }) => {
                 const allTasksSelected = tasks.every(({ id }) =>

@@ -3,7 +3,6 @@ import { ButtonDropdown } from "components/ButtonDropdown";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
   ScheduleTasks,
-  SchedulePatchTasks,
   RestartPatch,
   UnscheduleTasks,
   SetPatchPriority,
@@ -71,12 +70,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
   return (
     <>
       <PageButtonRow>
-        <ScheduleTasks versionId={versionId} />
-        <SchedulePatchTasks
-          patchId={versionId}
-          isButton
-          refetchQueries={["Patch"]}
-        />
+        <ScheduleTasks versionId={versionId} isButton />
         <RestartPatch
           patchId={versionId}
           childPatches={childPatches}

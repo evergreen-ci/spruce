@@ -1,4 +1,3 @@
-export { SchedulePatchTasks } from "./SchedulePatchTasks";
 export { UnscheduleTasks } from "./UnscheduleTasks";
 export { RestartPatch } from "./RestartPatch";
 export { SetPatchPriority } from "./SetPatchPriority";
