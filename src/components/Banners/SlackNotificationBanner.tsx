@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
@@ -7,6 +7,7 @@ import { Body } from "@leafygreen-ui/typography";
 import { Popconfirm, Input } from "antd";
 import Cookies from "js-cookie";
 import { PageWrapper } from "components/styles";
+import { SLACK_NOTIFICATION_BANNER } from "constants/cookies";
 import { useToastContext } from "context/toast";
 import {
   UpdateUserSettingsMutation,
@@ -17,8 +18,6 @@ import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { GET_USER_SETTINGS } from "gql/queries";
 
 const { blue } = uiColors;
-
-const slackNotificationBannerCookieKey = "has-closed-slack-banner";
 
 export const SlackNotificationBanner = () => {
   const dispatchToast = useToastContext();
@@ -57,12 +56,12 @@ export const SlackNotificationBanner = () => {
   );
 
   const hasClosedSlackBanner = () =>
-    Boolean(Cookies.get(slackNotificationBannerCookieKey));
+    Boolean(Cookies.get(SLACK_NOTIFICATION_BANNER));
 
   const [hasClosedBanner, setHasClosedBanner] = useState(hasClosedSlackBanner);
 
   const hideBanner = () => {
-    Cookies.set(slackNotificationBannerCookieKey, "true", { expires: 60 });
+    Cookies.set(SLACK_NOTIFICATION_BANNER, "true", { expires: 60 });
     setHasClosedBanner(true);
   };
 

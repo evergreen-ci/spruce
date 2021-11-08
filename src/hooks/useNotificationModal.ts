@@ -4,6 +4,10 @@ import Cookies from "js-cookie";
 import get from "lodash/get";
 import { v4 as uuid } from "uuid";
 import { RegexSelectorProps } from "components/NotificationModal/RegexSelectorInput";
+import {
+  getNotificationTriggerCookie,
+  SUBSCRIPTION_METHOD,
+} from "constants/cookies";
 import { GetUserSettingsQuery, GetUserQuery } from "gql/generated/types";
 import { GET_USER_SETTINGS, GET_USER } from "gql/queries";
 import { SUBSCRIPTION_SLACK, SUBSCRIPTION_EMAIL } from "types/subscription";
@@ -37,7 +41,7 @@ export const useNotificationModal = ({
   const [
     selectedSubscriptionMethod,
     setSelectedSubscriptionMethod,
-  ] = useState(() => Cookies.get("subscription-method"));
+  ] = useState(() => Cookies.get(SUBSCRIPTION_METHOD));
   // target represents the input value for a subscription method
   const [target, setTarget] = useState<Target>({});
   const [isFormValid, setIsFormValid] = useState(false);
@@ -46,7 +50,7 @@ export const useNotificationModal = ({
   >([]);
 
   const [selectedTriggerIndex, setSelectedTriggerIndex] = useState<number>(() =>
-    parseInt(Cookies.get(`${type}-notification-trigger`) || "0", 10)
+    parseInt(Cookies.get(getNotificationTriggerCookie(type)) || "0", 10)
   );
   const [extraFieldInputVals, setExtraFieldInputVals] = useState<StringMap>({});
   const [regexSelectorInputs, setRegexSelectorInputs] = useState<StringMap>({});
