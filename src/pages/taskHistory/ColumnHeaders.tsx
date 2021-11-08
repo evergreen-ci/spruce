@@ -37,7 +37,8 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({ columns, loading }) => {
         );
       })}
       {loading &&
-        Array.from(Array(columnLimit)).map((i) => (
+        Array.from(Array(columnLimit)).map((_, i) => (
+          // eslint-disable-next-line react/no-array-index-key
           <HeaderCell key={`loading_cell_${i}`}>
             <Skeleton active title paragraph={false} />
           </HeaderCell>
