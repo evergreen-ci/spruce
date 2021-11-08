@@ -32,7 +32,6 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({ columns, loading }) => {
       {loading &&
         Array.from(Array(columnLimit)).map((i) => (
           <HeaderCell key={`loading_cell_${i}`}>
-            {" "}
             <Skeleton active title paragraph={false} />
           </HeaderCell>
         ))}
