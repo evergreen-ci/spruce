@@ -33,6 +33,7 @@ import GET_PATCH from "./get-patch.graphql";
 import GET_PROJECT_SETTINGS from "./get-project-settings.graphql";
 import GET_PROJECTS from "./get-projects.graphql";
 import GET_MY_PUBLIC_KEYS from "./get-public-keys.graphql";
+import GET_REPO_SETTINGS from "./get-repo-settings.graphql";
 import GET_SPRUCE_CONFIG from "./get-spruce-config.graphql";
 import GET_SYSTEM_LOGS from "./get-system-logs.graphql";
 import GET_TASK_ALL_EXECUTIONS from "./get-task-all-executions.graphql";
@@ -71,6 +72,7 @@ export {
   GET_PATCH_TASKS,
   GET_PROJECT_SETTINGS,
   GET_PROJECTS,
+  GET_REPO_SETTINGS,
   GET_TASK_FILES,
   GET_TASK_TESTS,
   GET_TASK,

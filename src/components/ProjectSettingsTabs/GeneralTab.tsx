@@ -11,21 +11,26 @@ import { GeneralTabProps } from "./types";
 const tab = ProjectSettingsTabRoutes.General;
 
 export const GeneralTab: React.FC<GeneralTabProps> = ({
-  data,
+  projectData,
   projectId,
+  repoData,
   useRepoSettings,
 }) => {
   const { getTabFormState, updateForm } = useProjectSettingsContext();
   const currentFormState = getTabFormState(tab);
 
-  const initialFormState = useMemo(() => gqlToSchema(data), [data]);
+  const initialFormState = useMemo(() => gqlToSchema(projectData || repoData), [
+    projectData,
+    repoData,
+  ]);
   usePopulateForm(initialFormState, tab);
 
   const onChange = useCallback(({ formData }) => updateForm(tab, formData), [
     updateForm,
   ]);
 
-  const { validDefaultLoggers } = data;
+  const validDefaultLoggers =
+    projectData?.validDefaultLoggers || repoData?.validDefaultLoggers;
 
   const {
     generalConfiguration,
