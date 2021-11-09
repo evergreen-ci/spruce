@@ -5,7 +5,8 @@ query ProjectSettings($identifier: String!) {
     projectRef {
       id
       useRepoSettings
-      ...generalSettings
+      repoRefId
+      ...projectGeneralSettings
     }
   }
 }

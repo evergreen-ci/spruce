@@ -10,7 +10,7 @@ exports[`Storyshots Public Key Form Public Key Form View 1`] = `
     Public Key
   </h6>
   <div
-    className="css-1nt06cj-SelectContainer edx7lnf2"
+    className="css-17t3jqf-SelectContainer edx7lnf2"
   >
     <div
       className="ant-select ant-select-single ant-select-show-arrow ant-select-show-search"

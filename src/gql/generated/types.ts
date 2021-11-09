@@ -1736,6 +1736,7 @@ export type JiraConfig = {
 
 export type UiConfig = {
   userVoice?: Maybe<Scalars["String"]>;
+  defaultProject: Scalars["String"];
 };
 
 export type CloudProviderConfig = {
@@ -2004,7 +2005,7 @@ export type ProjectFragment = {
   displayName: string;
 };
 
-export type GeneralSettingsFragment = {
+export type ProjectGeneralSettingsFragment = {
   enabled?: Maybe<boolean>;
   owner: string;
   repo: string;
@@ -2023,6 +2024,27 @@ export type GeneralSettingsFragment = {
   disabledStatsCache?: Maybe<boolean>;
   filesIgnoredFromCache?: Maybe<Array<string>>;
   taskSync: { configEnabled?: Maybe<boolean>; patchEnabled?: Maybe<boolean> };
+};
+
+export type RepoGeneralSettingsFragment = {
+  enabled: boolean;
+  owner: string;
+  repo: string;
+  branch: string;
+  displayName: string;
+  batchTime: number;
+  remotePath: string;
+  spawnHostScriptPath: string;
+  dispatchingDisabled: boolean;
+  deactivatePrevious: boolean;
+  repotrackerDisabled: boolean;
+  defaultLogger: string;
+  validDefaultLoggers: Array<string>;
+  cedarTestResultsEnabled: boolean;
+  patchingDisabled: boolean;
+  disabledStatsCache: boolean;
+  filesIgnoredFromCache?: Maybe<Array<string>>;
+  taskSync: { configEnabled: boolean; patchEnabled: boolean };
 };
 
 export type AbortTaskMutationVariables = Exact<{
@@ -3053,7 +3075,11 @@ export type ProjectSettingsQueryVariables = Exact<{
 export type ProjectSettingsQuery = {
   projectSettings: {
     projectRef?: Maybe<
-      { id: string; useRepoSettings: boolean } & GeneralSettingsFragment
+      {
+        id: string;
+        useRepoSettings: boolean;
+        repoRefId: string;
+      } & ProjectGeneralSettingsFragment
     >;
   };
 };
@@ -3082,13 +3108,21 @@ export type GetMyPublicKeysQuery = {
   myPublicKeys: Array<{ name: string; key: string }>;
 };
 
+export type RepoSettingsQueryVariables = Exact<{
+  repoId: Scalars["String"];
+}>;
+
+export type RepoSettingsQuery = {
+  repoSettings: { projectRef?: Maybe<RepoGeneralSettingsFragment> };
+};
+
 export type GetSpruceConfigQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetSpruceConfigQuery = {
   spruceConfig?: Maybe<{
     bannerTheme?: Maybe<string>;
     banner?: Maybe<string>;
-    ui?: Maybe<{ userVoice?: Maybe<string> }>;
+    ui?: Maybe<{ userVoice?: Maybe<string>; defaultProject: string }>;
     jira?: Maybe<{ host?: Maybe<string> }>;
     providers?: Maybe<{
       aws?: Maybe<{ maxVolumeSizePerUser?: Maybe<number> }>;
