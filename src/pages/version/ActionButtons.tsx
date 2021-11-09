@@ -2,7 +2,7 @@ import React from "react";
 import { ButtonDropdown } from "components/ButtonDropdown";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
-  SchedulePatchTasks,
+  ScheduleTasks,
   RestartPatch,
   UnscheduleTasks,
   SetPatchPriority,
@@ -10,6 +10,7 @@ import {
   AddNotification,
   DisableTasks,
 } from "components/PatchActionButtons";
+
 import { PageButtonRow } from "components/styles";
 import { Patch } from "gql/generated/types";
 import { ScheduleUndispatchedBaseTasks } from "./ScheduleUndispatchedBaseTasks";
@@ -69,11 +70,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
   return (
     <>
       <PageButtonRow>
-        <SchedulePatchTasks
-          patchId={versionId}
-          isButton
-          refetchQueries={["Patch"]}
-        />
+        <ScheduleTasks versionId={versionId} isButton />
         <RestartPatch
           patchId={versionId}
           childPatches={childPatches}
