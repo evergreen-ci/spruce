@@ -108,8 +108,7 @@ export const TestsTable: React.FC = () => {
     }),
   }));
 
-  // initial request for task tests
-  const { data, startPolling, stopPolling } = useQuery<
+  const { data, loading, startPolling, stopPolling } = useQuery<
     TaskTestsQuery,
     TaskTestsQueryVariables
   >(GET_TASK_TESTS, {
@@ -174,6 +173,7 @@ export const TestsTable: React.FC = () => {
           dataSource={testResults}
           getPopupContainer={(trigger: HTMLElement) => trigger}
           onChange={tableChangeHandler}
+          loading={loading}
         />
       </TableContainer>
     </>

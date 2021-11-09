@@ -1,7 +1,9 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
+import Cookies from "js-cookie";
 import { useHistory } from "react-router-dom";
 import SearchableDropdown from "components/SearchableDropdown";
+import { CURRENT_PROJECT } from "constants/cookies";
 import { getCommitsRoute } from "constants/routes";
 import {
   GetProjectsQuery,
@@ -63,6 +65,7 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
       value={selectedProject?.displayName || selectedProject?.identifier}
       options={allProjects}
       onChange={(projectIdentifier: any) => {
+        Cookies.set(CURRENT_PROJECT, projectIdentifier, { expires: 365 });
         history.push(getCommitsRoute(projectIdentifier));
       }}
       optionRenderer={(projectGroup, onClick) => (

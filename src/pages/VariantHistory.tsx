@@ -58,7 +58,6 @@ export const VariantHistory = () => {
   });
 
   // Fetch the column headers from the same query used on the dropdown.
-  // We set the fetchPolicy to "cache-only" since this could be an expensive op and we want to avoid doing it twice
   const { data: columnData, loading } = useQuery<
     GetTaskNamesForBuildVariantQuery,
     GetTaskNamesForBuildVariantQueryVariables
@@ -110,25 +109,19 @@ export const VariantHistory = () => {
             <ColumnPaginationButtons />
           </PaginationFilterWrapper>
           <TableContainer>
-            {taskNamesForBuildVariant && (
-              <>
-                <ColumnHeaders loading={loading} columns={selectedColumns} />
-                <TableWrapper>
-                  <HistoryTable
-                    recentlyFetchedCommits={mainlineCommits}
-                    loadMoreItems={() => {
-                      if (mainlineCommits) {
-                        setNextPageOrderNumber(
-                          mainlineCommits.nextPageOrderNumber
-                        );
-                      }
-                    }}
-                  >
-                    {VariantHistoryRow}
-                  </HistoryTable>
-                </TableWrapper>
-              </>
-            )}
+            <ColumnHeaders loading={loading} columns={selectedColumns} />
+            <TableWrapper>
+              <HistoryTable
+                recentlyFetchedCommits={mainlineCommits}
+                loadMoreItems={() => {
+                  if (mainlineCommits) {
+                    setNextPageOrderNumber(mainlineCommits.nextPageOrderNumber);
+                  }
+                }}
+              >
+                {VariantHistoryRow}
+              </HistoryTable>
+            </TableWrapper>
           </TableContainer>
         </HistoryTableProvider>
       </CenterPage>

@@ -1,14 +1,12 @@
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
-import { Body } from "@leafygreen-ui/typography";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
+import { StyledRouterLink } from "components/styles";
+import { getVariantHistoryRoute } from "constants/routes";
 import {
   groupStatusesByUmbrellaStatus,
   isFailedTaskStatus,
 } from "utils/statuses";
 import { WaterfallTaskStatusIcon } from "./buildVariantCard/WaterfallTaskStatusIcon";
-
-const { gray } = uiColors;
 
 type taskList = {
   id: string;
@@ -22,6 +20,7 @@ interface Props {
   tasks?: taskList;
   shouldGroupTasks: boolean;
   versionId: string;
+  projectIdentifier: string;
 }
 export const BuildVariantCard: React.FC<Props> = ({
   buildVariantDisplayName,
@@ -29,6 +28,7 @@ export const BuildVariantCard: React.FC<Props> = ({
   tasks,
   shouldGroupTasks,
   versionId,
+  projectIdentifier,
 }) => {
   let render = null;
   if (shouldGroupTasks) {
@@ -40,30 +40,22 @@ export const BuildVariantCard: React.FC<Props> = ({
     );
     render = (
       <>
-        <IconContainer>
-          <RenderGroupedIcons
-            tasks={nonFailingTasks}
-            versionId={versionId}
-            variant={variant}
-          />
-        </IconContainer>
-        <IconContainer>
-          <RenderTaskIcons tasks={failingTasks} />
-        </IconContainer>
+        <RenderGroupedIcons
+          tasks={nonFailingTasks}
+          versionId={versionId}
+          variant={variant}
+        />
+        <RenderTaskIcons tasks={failingTasks} />
       </>
     );
   } else {
-    render = (
-      <>
-        <IconContainer>
-          <RenderTaskIcons tasks={tasks} />
-        </IconContainer>
-      </>
-    );
+    render = <RenderTaskIcons tasks={tasks} />;
   }
   return (
     <Container>
-      <Label>{buildVariantDisplayName}</Label>
+      <Label to={getVariantHistoryRoute(projectIdentifier, variant)}>
+        {buildVariantDisplayName}
+      </Label>
       {render}
     </Container>
   );
@@ -86,8 +78,11 @@ const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
   const { stats } = groupStatusesByUmbrellaStatus(
     tasks.map(({ status }) => ({ status, count: 1 }))
   );
+  if (!stats.length) {
+    return null;
+  }
   return (
-    <>
+    <IconContainer>
       {stats.map(({ count, umbrellaStatus, statusCounts }) => (
         <GroupedTaskStatusBadgeWrapper
           key={umbrellaStatus}
@@ -102,7 +97,7 @@ const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
           />
         </GroupedTaskStatusBadgeWrapper>
       ))}
-    </>
+    </IconContainer>
   );
 };
 
@@ -110,35 +105,36 @@ interface RenderTaskIconsProps {
   tasks: taskList;
 }
 
-const RenderTaskIcons: React.FC<RenderTaskIconsProps> = ({ tasks }) => (
-  <>
-    {tasks.map(({ id, status, displayName, timeTaken }) => (
-      <WaterfallTaskStatusIcon
-        key={id}
-        taskId={id}
-        status={status}
-        displayName={displayName}
-        timeTaken={timeTaken}
-      />
-    ))}
-  </>
-);
-const Label = styled(Body)`
-  color: ${gray.dark2};
-  font-size: 14px;
+const RenderTaskIcons: React.FC<RenderTaskIconsProps> = ({ tasks }) =>
+  tasks.length ? (
+    <IconContainer>
+      {tasks.map(({ id, status, displayName, timeTaken }) => (
+        <WaterfallTaskStatusIcon
+          key={id}
+          taskId={id}
+          status={status}
+          displayName={displayName}
+          timeTaken={timeTaken}
+        />
+      ))}
+    </IconContainer>
+  ) : null;
+
+const Label = styled(StyledRouterLink)`
   word-break: break-word;
-  margin-bottom: 24px;
 `;
 
 const IconContainer = styled.div`
   display: flex;
   flex-direction: row;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
+  margin-top: 8px;
   flex-wrap: wrap;
 `;
 
 const Container = styled.div`
   width: 160px;
+  margin-bottom: 16px;
 `;
 
 const GroupedTaskStatusBadgeWrapper = styled.div`

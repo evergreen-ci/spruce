@@ -6,6 +6,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import Cookies from "js-cookie";
 import Icon from "components/Icon";
 import { StyledLink as Link } from "components/styles";
+import { HIDE_FEEDBACK } from "constants/cookies";
 import { GetSpruceConfigQuery } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
 
@@ -17,8 +18,8 @@ export const Feedback: React.FC = () => {
   const userVoiceUrl = data?.spruceConfig?.ui?.userVoice;
 
   const hideFeeback =
-    Cookies.get("HIDE_FEEDBACK") !== undefined
-      ? Cookies.get("HIDE_FEEDBACK") === "true"
+    Cookies.get(HIDE_FEEDBACK) !== undefined
+      ? Cookies.get(HIDE_FEEDBACK) === "true"
       : false;
   const [isHidden, setIsHidden] = useState(hideFeeback);
   return (
@@ -30,7 +31,7 @@ export const Feedback: React.FC = () => {
       )}
       <IconButton
         onClick={() => {
-          Cookies.set("HIDE_FEEDBACK", `${!isHidden}`, { expires: 365 });
+          Cookies.set(HIDE_FEEDBACK, `${!isHidden}`, { expires: 365 });
           setIsHidden(!isHidden);
         }}
         aria-label="Show Feedback form"
