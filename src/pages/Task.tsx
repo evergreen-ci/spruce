@@ -19,6 +19,7 @@ import { GET_TASK } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PageDoesNotExist } from "pages/404";
+import { commitQueueRequester } from "types/commits";
 import { RequiredQueryParams, TaskStatus } from "types/task";
 import { queryString } from "utils";
 import { ActionButtons } from "./task/ActionButtons";
@@ -66,13 +67,12 @@ export const Task: React.FC = () => {
     annotation,
     latestExecution,
     versionMetadata,
-    patch,
+    requester,
     canOverrideDependencies,
   } = task ?? {};
   const attributed = annotation?.issues?.length > 0;
 
-  const { commitQueuePosition } = patch || {};
-  const isPatchOnCommitQueue = commitQueuePosition !== null;
+  const isPatchOnCommitQueue = requester === commitQueueRequester;
 
   // Set the execution if it isnt provided
   if (Number.isNaN(selectedExecution) && latestExecution !== undefined) {

@@ -1293,6 +1293,7 @@ export type Task = {
   latestExecution: Scalars["Int"];
   logs: TaskLogLinks;
   minQueuePosition: Scalars["Int"];
+  patch?: Maybe<Patch>;
   /** @deprecated patchMetadata is deprecated. Use versionMetadata instead. */
   patchMetadata: PatchMetadata;
   patchNumber?: Maybe<Scalars["Int"]>;
@@ -1318,7 +1319,6 @@ export type Task = {
   /** @deprecated version is deprecated. Use versionMetadata instead. */
   version: Scalars["String"];
   versionMetadata: Version;
-  patch?: Maybe<Patch>;
 };
 
 export type BaseTaskInfo = {
@@ -3209,6 +3209,7 @@ export type GetTaskQuery = {
       estimatedStart?: Maybe<number>;
       finishTime?: Maybe<Date>;
       hostId?: Maybe<string>;
+      requester: string;
       projectId: string;
       patchNumber?: Maybe<number>;
       canOverrideDependencies: boolean;
@@ -3269,7 +3270,6 @@ export type GetTaskQuery = {
         revision: string;
         project: string;
       };
-      patch?: Maybe<{ commitQueuePosition?: Maybe<number> }>;
       project?: Maybe<{ identifier: string }>;
       dependsOn?: Maybe<
         Array<{

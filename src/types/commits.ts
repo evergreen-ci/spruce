@@ -17,3 +17,5 @@ export enum ChartTypes {
   Absolute = "absolute",
   Percentage = "percentage",
 }
+
+export const commitQueueRequester = "merge_test";
