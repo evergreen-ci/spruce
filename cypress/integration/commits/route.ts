@@ -2,6 +2,8 @@
 describe("Mainline Commits page route", () => {
   before(() => {
     cy.login();
+  });
+  beforeEach(() => {
     cy.preserveCookies();
   });
 
