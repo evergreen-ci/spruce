@@ -49,6 +49,7 @@ export const ActiveCommit: React.FC<Props> = ({
           tasks={tasks}
           key={`${version.id}_${variant}`}
           shouldGroupTasks={!hasTaskFilter}
+          projectIdentifier={version.projectIdentifier}
         />
       ))}
     </ColumnContainer>
