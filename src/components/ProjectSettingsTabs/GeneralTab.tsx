@@ -84,11 +84,6 @@ export const GeneralTab: React.FC<GeneralTabProps> = ({
   );
 };
 
-// While most boolean fields specify whether a property is enabled, some if a field is *disabled*.
-// These values need to be switched in order to display properties to users in a consistent manner.
-// This function also preserves the null state of a field.
-const invertValue = (val) => (val === null ? null : !val);
-
 const gqlToSchema = ({
   owner,
   repo,
@@ -102,7 +97,7 @@ const gqlToSchema = ({
   ...data
 }:
   | ProjectGeneralSettingsFragment
-  | RepoGeneralSettingsFragment): GeneralSettingsFormState<void> => ({
+  | RepoGeneralSettingsFragment): FormState => ({
   enabled: data.enabled,
   repositoryInfo: {
     owner,
@@ -115,12 +110,12 @@ const gqlToSchema = ({
     remotePath,
     spawnHostScriptPath,
   },
-  dispatchingDisabled: invertValue(data.dispatchingDisabled),
+  dispatchingDisabled: data.dispatchingDisabled,
   scheduling: {
     deactivatePrevious: data.deactivatePrevious,
   },
   repotracker: {
-    repotrackerDisabled: invertValue(data.repotrackerDisabled),
+    repotrackerDisabled: data.repotrackerDisabled,
   },
   logger: {
     defaultLogger,
@@ -129,53 +124,53 @@ const gqlToSchema = ({
     cedarTestResultsEnabled: data.cedarTestResultsEnabled,
   },
   patch: {
-    patchingDisabled: invertValue(data.patchingDisabled),
+    patchingDisabled: data.patchingDisabled,
   },
   taskSync: {
     configEnabled: taskSync.configEnabled,
     patchEnabled: taskSync.patchEnabled,
   },
-  disabledStatsCache: invertValue(data.disabledStatsCache),
+  disabledStatsCache: data.disabledStatsCache,
   files: {
     filesIgnoredFromCache: data.filesIgnoredFromCache,
   },
 });
 
-interface GeneralSettingsFormState<T> {
-  enabled: boolean | null | T;
+interface FormState {
+  enabled: boolean | null;
   repositoryInfo: {
-    owner: string | T;
-    repo: string | T;
+    owner: string;
+    repo: string;
   };
-  branch: string | T;
+  branch: string;
   other: {
-    displayName: string | T;
-    batchTime: number | T;
-    remotePath: string | T;
-    spawnHostScriptPath: string | T;
+    displayName: string;
+    batchTime: number;
+    remotePath: string;
+    spawnHostScriptPath: string;
   };
-  dispatchingDisabled: boolean | null | T;
+  dispatchingDisabled: boolean | null;
   scheduling: {
-    deactivatePrevious: boolean | null | T;
+    deactivatePrevious: boolean | null;
   };
   repotracker: {
-    repotrackerDisabled: boolean | null | T;
+    repotrackerDisabled: boolean | null;
   };
   logger: {
-    defaultLogger: string | T;
+    defaultLogger: string;
   };
   testResults: {
-    cedarTestResultsEnabled: boolean | null | T;
+    cedarTestResultsEnabled: boolean | null;
   };
   patch: {
-    patchingDisabled: boolean | null | T;
+    patchingDisabled: boolean | null;
   };
   taskSync: {
-    configEnabled: boolean | null | T;
-    patchEnabled: boolean | null | T;
+    configEnabled: boolean | null;
+    patchEnabled: boolean | null;
   };
-  disabledStatsCache: boolean | null | T;
+  disabledStatsCache: boolean | null;
   files: {
-    filesIgnoredFromCache: string[] | null | T;
+    filesIgnoredFromCache: string[] | null;
   };
 }

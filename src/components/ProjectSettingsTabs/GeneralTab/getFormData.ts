@@ -1,20 +1,25 @@
+import { Field } from "@rjsf/core";
+import { SpruceFormProps } from "components/SpruceForm";
 import widgets from "components/SpruceForm/Widgets";
 import { Project, RepoGeneralSettingsFragment } from "gql/generated/types";
+import { placeholderIf, radioBoxOptions } from "../utils";
 import { FilesIgnoredFromCacheField } from "./FilesIgnoredFromCacheField";
 import { MoveRepoField } from "./MoveRepoField";
 import { RepotrackerField } from "./RepotrackerField";
-
-const insertIf = (condition, ...elements) => (condition ? elements : []);
-
-const placeholderIf = (element) =>
-  element && { "ui:placeholder": `${element} (Default from repo)` };
 
 export const getFormData = (
   projectId: string,
   useRepoSettings: boolean,
   validDefaultLoggers: Project["validDefaultLoggers"],
   repoData?: RepoGeneralSettingsFragment
-) => ({
+): Record<
+  string,
+  {
+    fields: Record<string, Field>;
+    schema: SpruceFormProps["schema"];
+    uiSchema: SpruceFormProps["uiSchema"];
+  }
+> => ({
   generalConfiguration: {
     fields: { moveRepoField: MoveRepoField },
     schema: {
@@ -22,15 +27,7 @@ export const getFormData = (
       properties: {
         enabled: {
           type: "boolean" as "boolean",
-          enum: [true, false, ...insertIf(repoData, null)],
-          enumNames: [
-            "Enabled",
-            "Disabled",
-            ...insertIf(
-              repoData,
-              `Default to repo (${repoData?.enabled ? "enabled" : "disabled"})`
-            ),
-          ],
+          oneOf: radioBoxOptions(["Enabled", "Disabled"], repoData?.enabled),
         },
         repositoryInfo: {
           type: "object" as "object",
@@ -115,17 +112,11 @@ export const getFormData = (
         dispatchingDisabled: {
           type: "boolean" as "boolean",
           title: "Dispatching",
-          enum: [false, true, ...insertIf(repoData, null)],
-          enumNames: [
-            "Enabled",
-            "Disabled",
-            ...insertIf(
-              repoData,
-              `Default to repo (${
-                repoData?.dispatchingDisabled ? "disabled" : "enabled"
-              })`
-            ),
-          ],
+          oneOf: radioBoxOptions(
+            ["Enabled", "Disabled"],
+            repoData?.dispatchingDisabled,
+            true
+          ),
         },
         scheduling: {
           type: "object" as "object",
@@ -134,17 +125,10 @@ export const getFormData = (
             deactivatePrevious: {
               type: "boolean" as "boolean",
               title: "Old task on success",
-              enum: [true, false, ...insertIf(repoData, null)],
-              enumNames: [
-                "Unschedule",
-                "Schedule",
-                ...insertIf(
-                  repoData,
-                  `Default to repo (${
-                    repoData?.deactivatePrevious ? "unscheduled" : "scheduled"
-                  })`
-                ),
-              ],
+              oneOf: radioBoxOptions(
+                ["Unschedule", "Don't Unschedule"],
+                repoData?.deactivatePrevious
+              ),
             },
           },
         },
@@ -155,17 +139,11 @@ export const getFormData = (
             repotrackerDisabled: {
               type: "boolean" as "boolean",
               title: "Repotracker",
-              enum: [false, true, ...insertIf(repoData, null)],
-              enumNames: [
-                "Enabled",
-                "Disabled",
-                ...insertIf(
-                  repoData,
-                  `Default to repo (${
-                    repoData?.repotrackerDisabled ? "disabled" : "enabled"
-                  })`
-                ),
-              ],
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.repotrackerDisabled,
+                true
+              ),
             },
           },
         },
@@ -186,17 +164,10 @@ export const getFormData = (
             cedarTestResultsEnabled: {
               type: "boolean" as "string",
               title: "Cedar Test Results",
-              enum: [true, false, ...insertIf(repoData, null)],
-              enumNames: [
-                "Enabled",
-                "Disabled",
-                ...insertIf(
-                  repoData,
-                  `Default to repo (${
-                    repoData?.cedarTestResultsEnabled ? "enabled" : "disabled"
-                  })`
-                ),
-              ],
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.cedarTestResultsEnabled
+              ),
             },
           },
         },
@@ -207,17 +178,11 @@ export const getFormData = (
             patchingDisabled: {
               type: "string" as "string",
               title: "Patching",
-              enum: [true, false, ...insertIf(repoData, null)],
-              enumNames: [
-                "Enabled",
-                "Disabled",
-                ...insertIf(
-                  repoData,
-                  `Default to repo (${
-                    repoData?.patchingDisabled ? "enabled" : "disabled"
-                  })`
-                ),
-              ],
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.patchingDisabled,
+                true
+              ),
             },
           },
         },
@@ -228,32 +193,18 @@ export const getFormData = (
             configEnabled: {
               type: "string" as "string",
               title: "Project Config Commands",
-              enum: [true, false, ...insertIf(repoData, null)],
-              enumNames: [
-                "Enabled",
-                "Disabled",
-                ...insertIf(
-                  repoData,
-                  `Default to repo (${
-                    repoData?.taskSync.configEnabled ? "enabled" : "disabled"
-                  })`
-                ),
-              ],
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.taskSync.configEnabled
+              ),
             },
             patchEnabled: {
               type: "string" as "string",
               title: "Task in Patches",
-              enum: [true, false, ...insertIf(repoData, null)],
-              enumNames: [
-                "Enabled",
-                "Disabled",
-                ...insertIf(
-                  repoData,
-                  `Default to repo (${
-                    repoData?.taskSync.patchEnabled ? "enabled" : "disabled"
-                  })`
-                ),
-              ],
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.taskSync.patchEnabled
+              ),
             },
           },
         },
@@ -321,17 +272,11 @@ export const getFormData = (
         disabledStatsCache: {
           type: "string" as "string",
           title: "Caching",
-          enum: [true, false, ...insertIf(repoData, null)],
-          enumNames: [
-            "Enabled",
-            "Disabled",
-            ...insertIf(
-              repoData,
-              `Default to repo (${
-                repoData?.disabledStatsCache ? "enabled" : "disabled"
-              })`
-            ),
-          ],
+          oneOf: radioBoxOptions(
+            ["Enabled", "Disabled"],
+            repoData?.disabledStatsCache,
+            true
+          ),
         },
         files: {
           type: "object" as "object",
