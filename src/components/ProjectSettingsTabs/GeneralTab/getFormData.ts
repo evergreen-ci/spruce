@@ -76,6 +76,7 @@ export const getFormData = (
       enabled: {
         "ui:widget": widgets.RadioBoxWidget,
         "ui:showLabel": false,
+        "ui:data-cy": "enabled-radio-box",
       },
       repositoryInfo: {
         "ui:field": "moveRepoField",
