@@ -89,6 +89,7 @@ export type QueryPatchTasksArgs = {
   baseStatuses?: Maybe<Array<Scalars["String"]>>;
   variant?: Maybe<Scalars["String"]>;
   taskName?: Maybe<Scalars["String"]>;
+  includeEmptyActivation?: Maybe<Scalars["Boolean"]>;
 };
 
 export type QueryTaskTestsArgs = {
@@ -1257,6 +1258,7 @@ export type Task = {
   annotation?: Maybe<Annotation>;
   baseTask?: Maybe<Task>;
   baseStatus?: Maybe<Scalars["String"]>;
+  /** @deprecated baseTaskMetadata is deprecated. Use baseTask instead */
   baseTaskMetadata?: Maybe<BaseTaskMetadata>;
   blocked: Scalars["Boolean"];
   buildId: Scalars["String"];
@@ -1734,6 +1736,7 @@ export type JiraConfig = {
 
 export type UiConfig = {
   userVoice?: Maybe<Scalars["String"]>;
+  defaultProject: Scalars["String"];
 };
 
 export type CloudProviderConfig = {
@@ -2872,6 +2875,7 @@ export type MainlineCommitsQuery = {
     prevPageOrderNumber?: Maybe<number>;
     versions: Array<{
       version?: Maybe<{
+        projectIdentifier: string;
         id: string;
         author: string;
         createTime: Date;
