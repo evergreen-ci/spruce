@@ -66,7 +66,9 @@ export const initialState: State = {
   allTasks: [],
 };
 
-const getSortedBuildVariantGroups = (data?: GetUndispatchedTasksQuery) => {
+const getSortedBuildVariantGroups = (
+  data?: GetUndispatchedTasksQuery
+): BVGroupEntry[] => {
   const bvGroups: BVGroupsInterface = data?.patchTasks.tasks.reduce(
     (acc, task) => {
       const { buildVariant, buildVariantDisplayName, displayName, id } = task;
@@ -96,7 +98,7 @@ const getSortedBuildVariantGroups = (data?: GetUndispatchedTasksQuery) => {
 };
 
 // Remove all items if all are in the set, add all items if some are in the set.
-const toggleItemsById = (set: Set<string>, ids: string[]) => {
+const toggleItemsById = (set: Set<string>, ids: string[]): Set<string> => {
   const allInSet = ids.every((id) => set.has(id));
   if (allInSet) {
     ids.forEach((id) => set.delete(id));
