@@ -304,6 +304,6 @@ test("Clicking on schedule button dispatches a properly formatted request and di
 test("Modal displays copy when there are no schedulable tasks.", async () => {
   const { queryByText } = render(ScheduleModalEmpty());
   await waitFor(() =>
-    expect(queryByText("There are no scheduleable tasks.")).toBeVisible()
+    expect(queryByText("There are no schedulable tasks.")).toBeVisible()
   );
 });
