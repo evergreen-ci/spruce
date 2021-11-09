@@ -9,6 +9,7 @@ import {
   ProjectGeneralSettingsFragment,
   RepoGeneralSettingsFragment,
 } from "gql/generated/types";
+import { GeneralFormState } from "./GeneralTab/formState";
 import { getFormData } from "./GeneralTab/getFormData";
 import { GeneralTabProps } from "./types";
 
@@ -97,7 +98,7 @@ const gqlToSchema = ({
   ...data
 }:
   | ProjectGeneralSettingsFragment
-  | RepoGeneralSettingsFragment): FormState => ({
+  | RepoGeneralSettingsFragment): GeneralFormState => ({
   enabled: data.enabled,
   repositoryInfo: {
     owner,
@@ -135,42 +136,3 @@ const gqlToSchema = ({
     filesIgnoredFromCache: data.filesIgnoredFromCache,
   },
 });
-
-interface FormState {
-  enabled: boolean | null;
-  repositoryInfo: {
-    owner: string;
-    repo: string;
-  };
-  branch: string;
-  other: {
-    displayName: string;
-    batchTime: number;
-    remotePath: string;
-    spawnHostScriptPath: string;
-  };
-  dispatchingDisabled: boolean | null;
-  scheduling: {
-    deactivatePrevious: boolean | null;
-  };
-  repotracker: {
-    repotrackerDisabled: boolean | null;
-  };
-  logger: {
-    defaultLogger: string;
-  };
-  testResults: {
-    cedarTestResultsEnabled: boolean | null;
-  };
-  patch: {
-    patchingDisabled: boolean | null;
-  };
-  taskSync: {
-    configEnabled: boolean | null;
-    patchEnabled: boolean | null;
-  };
-  disabledStatsCache: boolean | null;
-  files: {
-    filesIgnoredFromCache: string[] | null;
-  };
-}
