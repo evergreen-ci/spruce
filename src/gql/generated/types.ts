@@ -2875,6 +2875,7 @@ export type MainlineCommitsQuery = {
     prevPageOrderNumber?: Maybe<number>;
     versions: Array<{
       version?: Maybe<{
+        projectIdentifier: string;
         id: string;
         author: string;
         createTime: Date;
