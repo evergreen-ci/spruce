@@ -89,6 +89,7 @@ export type QueryPatchTasksArgs = {
   baseStatuses?: Maybe<Array<Scalars["String"]>>;
   variant?: Maybe<Scalars["String"]>;
   taskName?: Maybe<Scalars["String"]>;
+  includeEmptyActivation?: Maybe<Scalars["Boolean"]>;
 };
 
 export type QueryTaskTestsArgs = {
@@ -1257,6 +1258,7 @@ export type Task = {
   annotation?: Maybe<Annotation>;
   baseTask?: Maybe<Task>;
   baseStatus?: Maybe<Scalars["String"]>;
+  /** @deprecated baseTaskMetadata is deprecated. Use baseTask instead */
   baseTaskMetadata?: Maybe<BaseTaskMetadata>;
   blocked: Scalars["Boolean"];
   buildId: Scalars["String"];
@@ -1734,6 +1736,7 @@ export type JiraConfig = {
 
 export type UiConfig = {
   userVoice?: Maybe<Scalars["String"]>;
+  defaultProject: Scalars["String"];
 };
 
 export type CloudProviderConfig = {
@@ -3116,7 +3119,7 @@ export type GetSpruceConfigQuery = {
   spruceConfig?: Maybe<{
     bannerTheme?: Maybe<string>;
     banner?: Maybe<string>;
-    ui?: Maybe<{ userVoice?: Maybe<string> }>;
+    ui?: Maybe<{ userVoice?: Maybe<string>; defaultProject: string }>;
     jira?: Maybe<{ host?: Maybe<string> }>;
     providers?: Maybe<{
       aws?: Maybe<{ maxVolumeSizePerUser?: Maybe<number> }>;
