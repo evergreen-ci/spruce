@@ -27,7 +27,6 @@ const spruceConfigMock = {
         banner: "",
         ui: {
           userVoice: "https://feedback.mongodb.com/forums/930019-evergreen",
-          defaultProject: "evergreen",
           __typename: "UIConfig",
         },
         jira: { host: "jira.mongodb.org", __typename: "JiraConfig" },
