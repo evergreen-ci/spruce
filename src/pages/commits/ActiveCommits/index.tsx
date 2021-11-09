@@ -33,6 +33,7 @@ export const ActiveCommit: React.FC<Props> = ({
         chartType={chartType}
       />
       <CommitChartLabel
+        versionId={version.id}
         githash={version.revision.substring(0, 5)}
         createTime={version.createTime}
         author={version.author}
