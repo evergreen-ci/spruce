@@ -19,8 +19,8 @@ import {
   AbortTaskMutationVariables,
   RestartTaskMutation,
   RestartTaskMutationVariables,
-  ScheduleTaskMutation,
-  ScheduleTaskMutationVariables,
+  ScheduleTasksMutation,
+  ScheduleTasksMutationVariables,
   UnscheduleTaskMutation,
   UnscheduleTaskMutationVariables,
   OverrideTaskDependenciesMutation,
@@ -30,7 +30,7 @@ import {
   ABORT_TASK,
   OVERRIDE_TASK_DEPENDENCIES,
   RESTART_TASK,
-  SCHEDULE_TASK,
+  SCHEDULE_TASKS,
   SET_TASK_PRIORTY,
   UNSCHEDULE_TASK,
 } from "gql/mutations";
@@ -68,10 +68,10 @@ export const ActionButtons: React.FC<Props> = ({
   const updateQueryParams = useUpdateURLQueryParams();
 
   const [scheduleTask, { loading: loadingScheduleTask }] = useMutation<
-    ScheduleTaskMutation,
-    ScheduleTaskMutationVariables
-  >(SCHEDULE_TASK, {
-    variables: { taskId },
+    ScheduleTasksMutation,
+    ScheduleTasksMutationVariables
+  >(SCHEDULE_TASKS, {
+    variables: { taskIds: [taskId] },
     onCompleted: () => {
       dispatchToast.success("Task marked as scheduled");
     },

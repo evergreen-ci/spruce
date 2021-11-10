@@ -18,19 +18,11 @@ describe("Action Buttons", () => {
     before(() => {
       cy.visit(versionPath(patch));
     });
-    it("Clicking 'Schedule' button shows popconfirm and toast on success", () => {
+    it("Clicking 'Schedule' button shows modal and clicking on 'Cancel' closes it.", () => {
       cy.dataCy("schedule-patch").click();
-      cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
-      cy.dataCy("toast").should("exist");
-    });
-
-    it("Error scheduling a version shows error toast", () => {
-      cy.dataCy("schedule-patch").click();
-      mockErrorResponse({
-        errorMessage: "There was an error scheduling tasks",
-      });
-      cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
-      cy.dataCy("toast").contains("error").should("exist");
+      cy.dataCy("schedule-tasks-modal").should("be.visible");
+      cy.contains("Cancel").click();
+      cy.dataCy("schedule-tasks-modal").should("not.be.visible");
     });
 
     it("Clicking ellipses dropdown shows ellipses options", () => {
