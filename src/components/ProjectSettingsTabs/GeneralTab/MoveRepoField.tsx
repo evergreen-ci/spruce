@@ -57,6 +57,7 @@ export const MoveRepoField: React.FC<SpruceFormProps> = ({
   const {
     options: { useRepoSettings },
   } = uiSchema;
+  const isRepo = useRepoSettings === undefined;
   const [open, setOpen] = useState(false);
 
   const onCancel = () => setOpen(false);
@@ -66,28 +67,32 @@ export const MoveRepoField: React.FC<SpruceFormProps> = ({
   };
 
   return (
-    <Container>
+    <Container hasButtons={!isRepo}>
       <SpruceForm
         formData={formData}
-        onChange={() => {}}
+        onChange={({ formData: formUpdate }) => onChange(formUpdate)}
         schema={schema}
         tagName="fieldset"
         uiSchema={uiSchema}
       />
-      <ButtonRow>
-        <Button
-          onClick={() => setOpen(true)}
-          size="small"
-          data-cy="move-repo-button"
-        >
-          Move to new repo
-        </Button>
-        <Button size="small">
-          {useRepoSettings
-            ? "Detach from current repo"
-            : "Attach to current repo"}
-        </Button>
-      </ButtonRow>
+      {!isRepo && (
+        <ButtonRow>
+          {useRepoSettings && (
+            <Button
+              onClick={() => setOpen(true)}
+              size="small"
+              data-cy="move-repo-button"
+            >
+              Move to new repo
+            </Button>
+          )}
+          <Button size="small">
+            {useRepoSettings
+              ? "Detach from current repo"
+              : "Attach to current repo"}
+          </Button>
+        </ButtonRow>
+      )}
       <MoveRepoModal onCancel={onCancel} onConfirm={onConfirm} open={open} />
     </Container>
   );
@@ -130,5 +135,6 @@ const ButtonRow = styled.div`
 `;
 
 const Container = styled.div`
-  margin-bottom: 20px;
+  ${(props: { hasButtons: boolean }): string =>
+    props.hasButtons && "margin-bottom: 20px;"}
 `;

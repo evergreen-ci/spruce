@@ -80,7 +80,7 @@ export const getFormData = (
       },
       repositoryInfo: {
         "ui:field": "moveRepoField",
-        "ui:disabled": true,
+        "ui:disabled": !!useRepoSettings,
         options: { useRepoSettings },
       },
       branch: {
