@@ -21,7 +21,7 @@ Spruce is the React UI for MongoDB's continuous integration software.
 3. Run `yarn`
 4. Start a local evergreen server by doing the following:
 
-- Clone the evergreen repo into your go path
+- Clone the evergreen repo
 - Run `make local-evergreen`
 
 5. Run `yarn run dev`. This will launch the app and point it at the local evergreen server you just ran.
