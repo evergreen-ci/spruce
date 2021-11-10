@@ -72,7 +72,11 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
   return (
     <>
       <PageButtonRow>
-        <ScheduleTasks versionId={versionId} isButton />
+        <ScheduleTasks
+          versionId={versionId}
+          isButton
+          disabled={isPatchOnCommitQueue}
+        />
         <RestartPatch
           patchId={versionId}
           childPatches={childPatches}
