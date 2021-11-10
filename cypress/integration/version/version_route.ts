@@ -36,7 +36,9 @@ describe("Version route", () => {
     });
     it("Throws a 404 if the version and patch doesn't exist", () => {
       cy.visit(versionRoute(versions[1]));
-      cy.dataCy("toast").contains("404 (Not Found)").should("exist");
+      cy.dataCy("toast")
+        .contains("Unable to find patch or version i-dont-exist")
+        .should("exist");
     });
   });
 
