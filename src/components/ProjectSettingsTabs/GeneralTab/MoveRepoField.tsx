@@ -84,8 +84,8 @@ export const MoveRepoField: React.FC<SpruceFormProps> = ({
         </Button>
         <Button size="small">
           {useRepoSettings
-            ? "Attach to current repo"
-            : "Detach from current repo"}
+            ? "Detach from current repo"
+            : "Attach to current repo"}
         </Button>
       </ButtonRow>
       <MoveRepoModal onCancel={onCancel} onConfirm={onConfirm} open={open} />
