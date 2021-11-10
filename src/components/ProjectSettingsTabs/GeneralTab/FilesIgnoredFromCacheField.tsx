@@ -14,15 +14,16 @@ export const FilesIgnoredFromCacheField: React.FC<SpruceFormProps> = ({
   } = uiSchema;
 
   const [defaultToRepo, setDefaultToRepo] = useState(!formData);
-
   const showArray = !useRepoSettings || (useRepoSettings && !defaultToRepo);
 
   return (
     <>
       {useRepoSettings && (
         <RadioBoxGroup
-          value={defaultToRepo ? 1 : 0}
+          data-cy="file-patterns-radio"
+          /* Use parseInt since radio inputs cannot natively handle numbers */
           onChange={(e) => setDefaultToRepo(!!parseInt(e.target.value, 10))}
+          value={defaultToRepo ? 1 : 0}
         >
           <StyledRadioBox value={0}>Override Repo File Pattern</StyledRadioBox>
           <StyledRadioBox value={1}>

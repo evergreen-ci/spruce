@@ -308,6 +308,7 @@ export const getFormData = (
       },
       files: {
         filesIgnoredFromCache: {
+          "ui:buttonText": "Add File Pattern",
           "ui:field": "filesIgnoredFromCacheField",
           options: { useRepoSettings },
         },
