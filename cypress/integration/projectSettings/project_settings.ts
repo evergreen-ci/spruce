@@ -19,8 +19,8 @@ describe("Project Settings when not defaulting to repo", () => {
     cy.preserveCookies();
   });
 
-  it("Shows a 'Default to Repo' button on page", () => {
-    cy.dataCy("default-to-repo").should("exist");
+  it("Does not show a 'Default to Repo' button on page", () => {
+    cy.dataCy("default-to-repo").should("not.exist");
   });
 
   it("Shows two radio boxes", () => {
@@ -48,8 +48,8 @@ describe("Project Settings when defaulting to repo", () => {
     cy.dataCy("spawn-host-input").should("have.value", "/path/test");
   });
 
-  it("Does not show a 'Default to Repo' button on page", () => {
-    cy.dataCy("default-to-repo").should("not.exist");
+  it("Shows a 'Default to Repo' button on page", () => {
+    cy.dataCy("default-to-repo").should("exist");
   });
 
   it("Shows a third radio box when rendering a project that inherits from repo", () => {
