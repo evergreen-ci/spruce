@@ -36,13 +36,14 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.location("pathname").should("eq", `/user/admin/patches`);
   });
 
-  it("'Schedule' link opens popconfirm and schedules patch", () => {
+  it("'Schedule' link opens modal and clicking on 'Cancel' closes it.", () => {
     getPatchCardByDescription(patchDescriptionCanReconfigure).within(() => {
       cy.dataCy("patch-card-dropdown").click();
     });
-    cy.dataCy("schedule-patch").click({ force: true });
-    cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
-    cy.dataCy("toast").should("exist");
+    cy.dataCy("schedule-patch").click();
+    cy.dataCy("schedule-tasks-modal").should("be.visible");
+    cy.contains("Cancel").click();
+    cy.dataCy("schedule-tasks-modal").should("not.be.visible");
   });
 
   it("'Unschedule' link opens popconfirm and schedules patch", () => {

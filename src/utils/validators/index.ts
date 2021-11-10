@@ -30,7 +30,7 @@ export const validateSlack = (v: string): boolean =>
  * @return {boolean} - true if it is a mongo objectId, false otherwise
  */
 //
-export const validatePatchId = (id: string): boolean => {
+export const validateObjectId = (id: string): boolean => {
   // Official regex the mongodb bson specification uses https://github.com/mongodb/js-bson/blob/6ceaa05a68c1a89e43b3b6d0002e5bab69e2613f/src/objectid.ts#L6
   const mgobsonRegex = /^[0-9a-fA-F]{24}$/i;
   return mgobsonRegex.test(id);

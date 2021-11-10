@@ -19,26 +19,32 @@ import { GeneralTabProps } from "components/ProjectSettingsTabs/types";
 import { TabProps } from "components/ProjectSettingsTabs/utils";
 import { routes, ProjectSettingsTabRoutes } from "constants/routes";
 import { useProjectSettingsContext } from "context/project-settings";
-import { ProjectSettingsQuery } from "gql/generated/types";
+import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
+
 import { getTabTitle } from "./getTabTitle";
 import { NavigationModal } from "./NavigationModal";
 
 interface Props {
-  data: ProjectSettingsQuery;
+  projectData?: ProjectSettingsQuery;
+  repoData?: RepoSettingsQuery;
 }
 
-export const ProjectSettingsTabs: React.FC<Props> = ({ data }) => {
+export const ProjectSettingsTabs: React.FC<Props> = ({
+  projectData,
+  repoData,
+}) => {
   const { tab } = useParams<{ tab: ProjectSettingsTabRoutes }>();
   const { saveTab } = useProjectSettingsContext();
   const { title, subtitle } = getTabTitle(tab);
 
-  const {
-    projectSettings: {
-      projectRef: { id, useRepoSettings },
-    },
-  } = data;
+  const projectId = projectData?.projectSettings?.projectRef?.id;
+  const useRepoSettings =
+    projectData?.projectSettings?.projectRef?.useRepoSettings;
 
-  const tabData = useMemo(() => getTabData(data), [data]);
+  const tabData = useMemo(() => getTabData(projectData, repoData), [
+    projectData,
+    repoData,
+  ]);
 
   return (
     <Container>
@@ -62,9 +68,10 @@ export const ProjectSettingsTabs: React.FC<Props> = ({ data }) => {
         render={(props) => (
           <GeneralTab
             {...props}
-            projectId={id}
+            projectId={projectId}
             useRepoSettings={useRepoSettings}
-            data={tabData[ProjectSettingsTabRoutes.General]}
+            projectData={tabData[ProjectSettingsTabRoutes.General].projectData}
+            repoData={tabData[ProjectSettingsTabRoutes.General].repoData}
           />
         )}
       />
@@ -129,62 +136,19 @@ const TabRoute: React.FC<TabRouteProps> = ({ Component, path, tab }) => (
 
 /* Map data from query to the tab to which it will be passed */
 const getTabData = (
-  data: ProjectSettingsQuery
+  projectData: ProjectSettingsQuery,
+  repoData?: RepoSettingsQuery
 ): {
-  [ProjectSettingsTabRoutes.General]: GeneralTabProps["data"];
-} => {
-  const {
-    projectSettings: {
-      projectRef: {
-        batchTime,
-        branch,
-        displayName,
-        enabled,
-        owner,
-        remotePath,
-        repo,
-        spawnHostScriptPath,
-        deactivatePrevious,
-        dispatchingDisabled,
-        repotrackerDisabled,
-        defaultLogger,
-        validDefaultLoggers,
-        cedarTestResultsEnabled,
-        patchingDisabled,
-        taskSync,
-        disabledStatsCache,
-        filesIgnoredFromCache,
-      },
-    },
-  } = data;
-  return {
-    [ProjectSettingsTabRoutes.General]: {
-      ...(enabled && { enabled }),
-      ...(batchTime && { batchTime }),
-      branch,
-      displayName,
-      owner,
-      remotePath,
-      repo,
-      spawnHostScriptPath,
-      ...(dispatchingDisabled && { dispatchingDisabled }),
-      ...(deactivatePrevious && { deactivatePrevious }),
-      ...(repotrackerDisabled && { repotrackerDisabled }),
-      ...(defaultLogger && { defaultLogger }),
-      validDefaultLoggers,
-      ...(cedarTestResultsEnabled && { cedarTestResultsEnabled }),
-      ...(patchingDisabled && { patchingDisabled }),
-      ...(taskSync && {
-        taskSync: {
-          configEnabled: taskSync.configEnabled,
-          patchEnabled: taskSync.patchEnabled,
-        },
-      }),
-      ...(disabledStatsCache && { disabledStatsCache }),
-      ...(filesIgnoredFromCache && { filesIgnoredFromCache }),
-    },
+  [ProjectSettingsTabRoutes.General]: {
+    projectData: GeneralTabProps["projectData"];
+    repoData: GeneralTabProps["repoData"];
   };
-};
+} => ({
+  [ProjectSettingsTabRoutes.General]: {
+    projectData: projectData?.projectSettings?.projectRef,
+    repoData: repoData?.repoSettings?.projectRef,
+  },
+});
 
 const Container = styled.div`
   min-width: min-content;

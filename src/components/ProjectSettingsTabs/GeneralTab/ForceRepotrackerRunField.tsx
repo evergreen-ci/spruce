@@ -87,18 +87,22 @@ export const ForceRepotrackerRunField: React.FC<SpruceFormProps> = ({
         tagName="fieldset"
         uiSchema={uiSchema}
       />
-      <Button
-        onClick={() => setOpen(true)}
-        size="small"
-        data-cy="force-repotracker-run-button"
-      >
-        Force Repotracker Run
-      </Button>
-      <ForceRepotrackerRunModal
-        closeModal={closeModal}
-        open={open}
-        projectId={projectId}
-      />
+      {projectId && (
+        <>
+          <Button
+            onClick={() => setOpen(true)}
+            size="small"
+            data-cy="force-repotracker-run-button"
+          >
+            Force Repotracker Run
+          </Button>
+          <ForceRepotrackerRunModal
+            closeModal={closeModal}
+            open={open}
+            projectId={projectId}
+          />
+        </>
+      )}
     </Container>
   );
 };
