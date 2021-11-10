@@ -26,12 +26,19 @@ const Row: React.FC<RowProps> = ({ columns, numVisibleCols, index, style }) => {
     return <DateSeparator style={style} date={commit.date} />;
   }
   if (commit.type === rowType.COMMIT && commit.commit) {
-    const { revision, createTime, author, message } = commit.commit;
+    const {
+      revision,
+      createTime,
+      author,
+      message,
+      id: versionId,
+    } = commit.commit;
 
     return (
       <RowContainer style={style}>
         <LabelCellContainer>
           <CommitChartLabel
+            versionId={versionId}
             githash={revision}
             createTime={createTime}
             author={author}

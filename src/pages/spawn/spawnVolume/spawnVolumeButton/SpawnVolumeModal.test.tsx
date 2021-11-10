@@ -1,9 +1,8 @@
-import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
+import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { SPAWN_VOLUME } from "gql/mutations";
 import {
   GET_MY_HOSTS,
-  GET_SPRUCE_CONFIG,
   GET_SUBNET_AVAILABILITY_ZONES,
   GET_USER,
   GET_MY_VOLUMES,
@@ -115,37 +114,6 @@ const myHostsMock = {
   },
 };
 
-const spruceConfigMock = {
-  request: {
-    query: GET_SPRUCE_CONFIG,
-    variables: {},
-  },
-  result: {
-    data: {
-      spruceConfig: {
-        bannerTheme: "warning",
-        banner: "",
-        ui: {
-          userVoice: "https://feedback.mongodb.com/forums/930019-evergreen",
-          __typename: "UIConfig",
-        },
-        jira: { host: "jira.mongodb.org", __typename: "JiraConfig" },
-        providers: {
-          aws: { maxVolumeSizePerUser: 1500, __typename: "AWSConfig" },
-          __typename: "CloudProviderConfig",
-        },
-        spawnHost: {
-          spawnHostsPerUser: 6,
-          unexpirableHostsPerUser: 2,
-          unexpirableVolumesPerUser: 1,
-          __typename: "SpawnHostConfig",
-        },
-        __typename: "SpruceConfig",
-      },
-    },
-  },
-};
-
 const myVolumesQueryMock = {
   request: { query: GET_MY_VOLUMES, variables: {} },
   result: {
@@ -240,7 +208,7 @@ const baseMocks = [
   userMock,
   subnetZonesMock,
   myHostsMock,
-  spruceConfigMock,
+  getSpruceConfigMock,
   myVolumesQueryMock,
 ];
 
@@ -307,7 +275,7 @@ test("Form submission succeeds with default values", async () => {
     subnetZonesMock,
     myHostsMock,
     myHostsMock,
-    spruceConfigMock,
+    getSpruceConfigMock,
     myVolumesQueryMock,
     {
       request: {
@@ -326,7 +294,7 @@ test("Form submission succeeds with default values", async () => {
     },
     myVolumesQueryMock,
     myVolumesQueryMock,
-    spruceConfigMock,
+    getSpruceConfigMock,
   ];
   const { queryByText } = render(() => (
     <MockedProvider mocks={mocks}>
@@ -345,7 +313,7 @@ test("Form submission succeeds after adjusting inputs", async () => {
     userMock,
     subnetZonesMock,
     myHostsMock,
-    spruceConfigMock,
+    getSpruceConfigMock,
     myVolumesQueryMock,
     {
       request: {
@@ -364,7 +332,7 @@ test("Form submission succeeds after adjusting inputs", async () => {
       result: { data: { spawnVolume: true } },
     },
     myVolumesQueryMock,
-    spruceConfigMock,
+    getSpruceConfigMock,
     myHostsMock,
   ];
   const { queryByText, queryByDataCy } = render(() => (

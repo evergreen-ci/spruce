@@ -89,6 +89,7 @@ export type QueryPatchTasksArgs = {
   baseStatuses?: Maybe<Array<Scalars["String"]>>;
   variant?: Maybe<Scalars["String"]>;
   taskName?: Maybe<Scalars["String"]>;
+  includeEmptyActivation?: Maybe<Scalars["Boolean"]>;
 };
 
 export type QueryTaskTestsArgs = {
@@ -1257,6 +1258,7 @@ export type Task = {
   annotation?: Maybe<Annotation>;
   baseTask?: Maybe<Task>;
   baseStatus?: Maybe<Scalars["String"]>;
+  /** @deprecated baseTaskMetadata is deprecated. Use baseTask instead */
   baseTaskMetadata?: Maybe<BaseTaskMetadata>;
   blocked: Scalars["Boolean"];
   buildId: Scalars["String"];
@@ -1734,6 +1736,7 @@ export type JiraConfig = {
 
 export type UiConfig = {
   userVoice?: Maybe<Scalars["String"]>;
+  defaultProject: Scalars["String"];
 };
 
 export type CloudProviderConfig = {
@@ -2274,11 +2277,11 @@ export type SchedulePatchMutation = {
   } & BasePatchFragment;
 };
 
-export type ScheduleTaskMutationVariables = Exact<{
-  taskId: Scalars["String"];
+export type ScheduleTasksMutationVariables = Exact<{
+  taskIds: Array<Scalars["String"]>;
 }>;
 
-export type ScheduleTaskMutation = { scheduleTask: BaseTaskFragment };
+export type ScheduleTasksMutation = { scheduleTasks: Array<BaseTaskFragment> };
 
 export type ScheduleUndispatchedBaseTasksMutationVariables = Exact<{
   patchId: Scalars["String"];
@@ -2872,6 +2875,7 @@ export type MainlineCommitsQuery = {
     prevPageOrderNumber?: Maybe<number>;
     versions: Array<{
       version?: Maybe<{
+        projectIdentifier: string;
         id: string;
         author: string;
         createTime: Date;
@@ -3116,7 +3120,7 @@ export type GetSpruceConfigQuery = {
   spruceConfig?: Maybe<{
     bannerTheme?: Maybe<string>;
     banner?: Maybe<string>;
-    ui?: Maybe<{ userVoice?: Maybe<string> }>;
+    ui?: Maybe<{ userVoice?: Maybe<string>; defaultProject: string }>;
     jira?: Maybe<{ host?: Maybe<string> }>;
     providers?: Maybe<{
       aws?: Maybe<{ maxVolumeSizePerUser?: Maybe<number> }>;
@@ -3344,6 +3348,22 @@ export type GetTestsQuery = {
       id: string;
       testFile: string;
       logs: { url?: Maybe<string>; urlLobster?: Maybe<string> };
+    }>;
+  };
+};
+
+export type GetUndispatchedTasksQueryVariables = Exact<{
+  versionId: Scalars["String"];
+}>;
+
+export type GetUndispatchedTasksQuery = {
+  patchTasks: {
+    tasks: Array<{
+      id: string;
+      execution: number;
+      displayName: string;
+      buildVariant: string;
+      buildVariantDisplayName?: Maybe<string>;
     }>;
   };
 };

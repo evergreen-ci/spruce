@@ -9,6 +9,7 @@ query MainlineCommits(
   ) {
     versions {
       version {
+        projectIdentifier
         id
         author
         createTime

@@ -1,4 +1,0 @@
-
-  mutation SchedulePatchTasks($patchId: String!) {
-    schedulePatchTasks(patchId: $patchId)
-  }
