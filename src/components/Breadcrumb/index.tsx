@@ -153,7 +153,7 @@ const VersionBreadcrumb: React.FC<VersionBreadcrumbProps> = ({
               })
             }
           >
-            {project}&apos;s waterfall
+            {project}
           </StyledBreadcrumbLink>
         </StyledP1>
       </Breadcrumb.Item>
