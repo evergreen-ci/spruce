@@ -45,6 +45,7 @@ import GET_TASK_STATUSES from "./get-task-statuses.graphql";
 import GET_TASK_TESTS from "./get-task-tests.graphql";
 import GET_TASK from "./get-task.graphql";
 import GET_TESTS from "./get-tests.graphql";
+import GET_UNSCHEDULED_TASKS from "./get-undispatched-tasks.graphql";
 import GET_USER_CONFIG from "./get-user-config.graphql";
 import GET_USER_SETTINGS from "./get-user-settings.graphql";
 import GET_USER from "./get-user.graphql";
@@ -116,4 +117,5 @@ export {
   GET_VERSION,
   GET_PATCH_CONFIGURE,
   GET_FAILED_TASK_STATUS_ICON_TOOLTIP,
+  GET_UNSCHEDULED_TASKS,
 };

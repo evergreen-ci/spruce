@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { ButtonDropdown } from "components/ButtonDropdown";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
-  SchedulePatchTasks,
   UnscheduleTasks,
   RestartPatch,
   EnqueuePatch,
+  ScheduleTasks,
 } from "components/PatchActionButtons";
 import { Patch } from "gql/generated/types";
 
@@ -31,11 +31,7 @@ export const DropdownMenu: React.FC<Props> = ({
       patchId={patchId}
       disabled={isPatchOnCommitQueue}
     />,
-    <SchedulePatchTasks
-      key="schedule"
-      patchId={patchId}
-      refetchQueries={refetchQueries}
-    />,
+    <ScheduleTasks key="schedule" versionId={patchId} />,
     <UnscheduleTasks
       key="unschedule"
       patchId={patchId}

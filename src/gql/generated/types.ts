@@ -2282,11 +2282,11 @@ export type SchedulePatchMutation = {
   } & BasePatchFragment;
 };
 
-export type ScheduleTaskMutationVariables = Exact<{
-  taskId: Scalars["String"];
+export type ScheduleTasksMutationVariables = Exact<{
+  taskIds: Array<Scalars["String"]>;
 }>;
 
-export type ScheduleTaskMutation = { scheduleTask: BaseTaskFragment };
+export type ScheduleTasksMutation = { scheduleTasks: Array<BaseTaskFragment> };
 
 export type ScheduleUndispatchedBaseTasksMutationVariables = Exact<{
   patchId: Scalars["String"];
@@ -3359,6 +3359,22 @@ export type GetTestsQuery = {
       id: string;
       testFile: string;
       logs: { url?: Maybe<string>; urlLobster?: Maybe<string> };
+    }>;
+  };
+};
+
+export type GetUndispatchedTasksQueryVariables = Exact<{
+  versionId: Scalars["String"];
+}>;
+
+export type GetUndispatchedTasksQuery = {
+  patchTasks: {
+    tasks: Array<{
+      id: string;
+      execution: number;
+      displayName: string;
+      buildVariant: string;
+      buildVariantDisplayName?: Maybe<string>;
     }>;
   };
 };

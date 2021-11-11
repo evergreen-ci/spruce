@@ -1,0 +1,15 @@
+query GetUndispatchedTasks($versionId: String!) {
+  patchTasks(
+    patchId: $versionId
+    statuses: ["unscheduled"]
+    includeEmptyActivation: true
+  ) {
+    tasks {
+      id
+      execution
+      displayName
+      buildVariant
+      buildVariantDisplayName
+    }
+  }
+}
