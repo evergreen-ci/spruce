@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { Square } from "components/StatusSquare";
-import { mapTaskStatusToColor } from "constants/task";
+import { TaskStatusIcon } from "components/TaskStatusIcon";
 
 interface TaskStatusCheckboxProps {
   displayName: string;
@@ -28,11 +27,9 @@ const CheckboxComponent: React.FC<TaskStatusCheckboxProps> = ({
     name={taskId}
     label={
       <StateItemWrapper>
-        <PaddedSquare color={mapTaskStatusToColor[status]} />
-        {baseStatus && (
-          <PaddedSquare color={mapTaskStatusToColor[baseStatus]} />
-        )}
-        {displayName}
+        <TaskStatusIcon status={status} style={iconStyle} />
+        {baseStatus && <TaskStatusIcon status={baseStatus} style={iconStyle} />}
+        <div>{displayName}</div>
       </StateItemWrapper>
     }
     checked={checked}
@@ -42,10 +39,7 @@ const CheckboxComponent: React.FC<TaskStatusCheckboxProps> = ({
 
 export const TaskStatusCheckbox = React.memo(CheckboxComponent);
 
-const PaddedSquare = styled(Square)`
-  margin-right: 6px;
-`;
-
+const iconStyle = { marginRight: 3 };
 const StateItemWrapper = styled("div")`
   display: flex;
   flex-direction: row;

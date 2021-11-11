@@ -84,7 +84,7 @@ describe("Version route", () => {
         });
     });
 
-    it("Navigates to task tab and applies filters when clicking on task square", () => {
+    it("Navigates to task tab and applies filters when clicking on grouped task status badge", () => {
       cy.dataCy("grouped-task-status-badge").first().click();
       cy.location("search").should(
         "include",
