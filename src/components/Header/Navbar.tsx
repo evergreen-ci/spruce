@@ -49,7 +49,7 @@ export const Navbar: React.FC = () => {
             navbarAnalytics.sendEvent({ name: "Click Waterfall Link" })
           }
         >
-          Waterfall
+          Project Health
         </PrimaryLink>
         <PrimaryLink to={getUserPatchesRoute(userId)}>My Patches</PrimaryLink>
         <PrimaryLink to={routes.spawnHost}>My Hosts</PrimaryLink>
