@@ -125,7 +125,7 @@ export const getFormData = (
           properties: {
             deactivatePrevious: {
               type: "boolean" as "boolean",
-              title: "Old task on success",
+              title: "Old Task on Success",
               oneOf: radioBoxOptions(
                 ["Unschedule", "Don't Unschedule"],
                 repoData?.deactivatePrevious
