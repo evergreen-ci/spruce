@@ -15,7 +15,7 @@ test("Does not render radio boxes when repo settings are not in use", async () =
   expect(queryByDataCy("file-patterns-radio")).not.toBeInTheDocument();
 });
 
-test("Renders radio boxes when repo settings are not in use", async () => {
+test("Renders radio boxes when repo settings are in use", async () => {
   const { queryByDataCy } = render(
     <FilesIgnoredFromCacheField
       formData={null}

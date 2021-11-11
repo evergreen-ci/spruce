@@ -12,7 +12,7 @@ const insertIf = (condition, ...elements) => (condition ? elements : []);
  *
  * @param {options} string array representing the primary two radio box labels.
  * @param {field} value upon which the default box should be conditionally shown.
- * @param {invert} specify whether or not the field represents an "inverted" value; i.e. the option indicates a field is disabled rather than enabled.
+ * @param {invert} specify whether or not the field represents an "inverted" value; i.e. the field indicates a feature is disabled rather than enabled. invert ensures that the form represents values consistently regardless of whether a boolean field represents enabled or disabled.
  */
 export const radioBoxOptions = (
   options: [string, string],

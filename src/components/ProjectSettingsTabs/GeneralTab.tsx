@@ -85,31 +85,20 @@ export const GeneralTab: React.FC<GeneralTabProps> = ({
   );
 };
 
-const gqlToSchema = ({
-  owner,
-  repo,
-  branch,
-  displayName,
-  batchTime,
-  remotePath,
-  spawnHostScriptPath,
-  defaultLogger,
-  taskSync,
-  ...data
-}:
-  | ProjectGeneralSettingsFragment
-  | RepoGeneralSettingsFragment): GeneralFormState => ({
+const gqlToSchema = (
+  data: ProjectGeneralSettingsFragment | RepoGeneralSettingsFragment
+): GeneralFormState => ({
   enabled: data.enabled,
   repositoryInfo: {
-    owner,
-    repo,
+    owner: data.owner,
+    repo: data.repo,
   },
-  branch,
+  branch: data.branch,
   other: {
-    displayName,
-    batchTime,
-    remotePath,
-    spawnHostScriptPath,
+    displayName: data.displayName,
+    batchTime: data.batchTime,
+    remotePath: data.remotePath,
+    spawnHostScriptPath: data.spawnHostScriptPath,
   },
   dispatchingDisabled: data.dispatchingDisabled,
   scheduling: {
@@ -119,7 +108,7 @@ const gqlToSchema = ({
     repotrackerDisabled: data.repotrackerDisabled,
   },
   logger: {
-    defaultLogger,
+    defaultLogger: data.defaultLogger,
   },
   testResults: {
     cedarTestResultsEnabled: data.cedarTestResultsEnabled,
@@ -128,8 +117,8 @@ const gqlToSchema = ({
     patchingDisabled: data.patchingDisabled,
   },
   taskSync: {
-    configEnabled: taskSync.configEnabled,
-    patchEnabled: taskSync.patchEnabled,
+    configEnabled: data.taskSync.configEnabled,
+    patchEnabled: data.taskSync.patchEnabled,
   },
   disabledStatsCache: data.disabledStatsCache,
   files: {
