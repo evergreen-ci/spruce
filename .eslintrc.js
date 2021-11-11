@@ -125,6 +125,7 @@ module.exports = {
       { some: ["nesting", "id"] },
     ],
     "no-console": OFF,
+    "no-debugger": errorIfStrict,
     "no-shadow": OFF,
     "@typescript-eslint/no-shadow": ERROR,
     // disallow use of undeclared variables unless mentioned in a

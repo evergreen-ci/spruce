@@ -1,0 +1,3 @@
+query GetHasVersion($id: String!) {
+  hasVersion(id: $id)
+}

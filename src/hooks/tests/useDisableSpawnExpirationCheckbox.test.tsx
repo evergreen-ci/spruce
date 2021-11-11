@@ -1,44 +1,12 @@
-import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import { renderHook } from "@testing-library/react-hooks";
-import { GET_SPRUCE_CONFIG, GET_MY_VOLUMES, GET_MY_HOSTS } from "gql/queries";
+import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
+import { GET_MY_VOLUMES, GET_MY_HOSTS } from "gql/queries";
 import { useDisableSpawnExpirationCheckbox } from "..";
 
 const getProvider = (mocks) => ({ children }) => (
   <MockedProvider mocks={mocks}>{children}</MockedProvider>
 );
-
-const spruceConfigMock = {
-  request: {
-    query: GET_SPRUCE_CONFIG,
-    variables: {},
-  },
-  result: {
-    data: {
-      spruceConfig: {
-        bannerTheme: "warning",
-        banner: "",
-        ui: {
-          userVoice: "https://feedback.mongodb.com/forums/930019-evergreen",
-          defaultProject: "evergreen",
-          __typename: "UIConfig",
-        },
-        jira: { host: "jira.mongodb.org", __typename: "JiraConfig" },
-        providers: {
-          aws: { maxVolumeSizePerUser: 1500, __typename: "AWSConfig" },
-          __typename: "CloudProviderConfig",
-        },
-        spawnHost: {
-          spawnHostsPerUser: 6,
-          unexpirableHostsPerUser: 2,
-          unexpirableVolumesPerUser: 1,
-          __typename: "SpawnHostConfig",
-        },
-        __typename: "SpruceConfig",
-      },
-    },
-  },
-};
 
 const myVolumesBase = {
   displayName: "",
@@ -205,7 +173,7 @@ const myHostsMock = {
   },
 };
 
-const mocks = [spruceConfigMock, myHostsMock, myVolumesQueryMock];
+const mocks = [getSpruceConfigMock, myHostsMock, myVolumesQueryMock];
 test("Should return true when the user already has the maximum unexpirable volumes and a target item is not supplied.", async () => {
   const { result, waitForNextUpdate } = renderHook(
     () => useDisableSpawnExpirationCheckbox(true),

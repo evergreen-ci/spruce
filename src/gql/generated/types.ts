@@ -57,6 +57,7 @@ export type Query = {
   buildVariantsForTaskName?: Maybe<Array<Maybe<BuildVariantTuple>>>;
   projectSettings: ProjectSettings;
   repoSettings: RepoSettings;
+  hasVersion: Scalars["Boolean"];
 };
 
 export type QueryTaskArgs = {
@@ -186,6 +187,10 @@ export type QueryProjectSettingsArgs = {
 };
 
 export type QueryRepoSettingsArgs = {
+  id: Scalars["String"];
+};
+
+export type QueryHasVersionArgs = {
   id: Scalars["String"];
 };
 
@@ -2670,6 +2675,12 @@ export type EventLogsQuery = {
     }>;
   };
 };
+
+export type GetHasVersionQueryVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type GetHasVersionQuery = { hasVersion: boolean };
 
 export type HostEventsQueryVariables = Exact<{
   id: Scalars["String"];

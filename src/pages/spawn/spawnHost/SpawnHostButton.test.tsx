@@ -1,5 +1,5 @@
-import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
+import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import {
   GET_AWS_REGIONS,
   GET_DISTROS,
@@ -7,45 +7,12 @@ import {
   GET_MY_PUBLIC_KEYS,
   GET_MY_VOLUMES,
   GET_USER,
-  GET_SPRUCE_CONFIG,
 } from "gql/queries";
 import {
   renderWithRouterMatch as render,
   waitFor,
 } from "test_utils/test-utils";
 import { SpawnHostButton } from "./SpawnHostButton";
-
-const spruceConfigMock = {
-  request: {
-    query: GET_SPRUCE_CONFIG,
-    variables: {},
-  },
-  result: {
-    data: {
-      spruceConfig: {
-        bannerTheme: "warning",
-        banner: "",
-        ui: {
-          userVoice: "https://feedback.mongodb.com/forums/930019-evergreen",
-          defaultProject: "evergreen",
-          __typename: "UIConfig",
-        },
-        jira: { host: "jira.mongodb.org", __typename: "JiraConfig" },
-        providers: {
-          aws: { maxVolumeSizePerUser: 1500, __typename: "AWSConfig" },
-          __typename: "CloudProviderConfig",
-        },
-        spawnHost: {
-          spawnHostsPerUser: 6,
-          unexpirableHostsPerUser: 2,
-          unexpirableVolumesPerUser: 1,
-          __typename: "SpawnHostConfig",
-        },
-        __typename: "SpruceConfig",
-      },
-    },
-  },
-};
 
 const awsRegionsMock = {
   request: {
@@ -281,7 +248,7 @@ test("Disables the spawn host button when the number of hosts that currently exi
         getUserMock,
         myVolumesQueryMock,
         twoHostsTwoLimitMock,
-        spruceConfigMock,
+        getSpruceConfigMock,
       ]}
     >
       <SpawnHostButton />
@@ -302,7 +269,7 @@ test("Enables the spawn host button when the number of hosts that currently exis
         getUserMock,
         myVolumesQueryMock,
         twoHostsThreeLimitMock,
-        spruceConfigMock,
+        getSpruceConfigMock,
       ]}
     >
       <SpawnHostButton />
