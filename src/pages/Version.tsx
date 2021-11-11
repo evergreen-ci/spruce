@@ -50,7 +50,7 @@ export const VersionPage: React.FC = () => {
   const [redirectURL, setRedirectURL] = useState(undefined);
   const [isLoadingData, setIsLoadingData] = useState(true);
 
-  const { error: isPatchOrVersionError } = useQuery<
+  const { error: hasVersionError } = useQuery<
     GetHasVersionQuery,
     GetHasVersionQueryVariables
   >(GET_HAS_VERSION, {
@@ -158,7 +158,7 @@ export const VersionPage: React.FC = () => {
     return <Redirect to={redirectURL} />;
   }
 
-  if (isPatchOrVersionError || patchError || versionError) {
+  if (hasVersionError || patchError || versionError) {
     return (
       <PageWrapper data-cy="version-page">
         <PageDoesNotExist />
