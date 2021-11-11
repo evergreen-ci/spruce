@@ -58,10 +58,10 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
             saveTab(tab);
           }}
         >
-          Save changes on page
+          Save Changes on Page
         </Button>
         {projectData && useRepoSettings && (
-          <Button data-cy="default-to-repo">Default to Repo on page</Button>
+          <Button data-cy="default-to-repo">Default to Repo on Page</Button>
         )}
       </TitleContainer>
 

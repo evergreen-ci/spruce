@@ -83,13 +83,13 @@ export const MoveRepoField: React.FC<SpruceFormProps> = ({
               size="small"
               data-cy="move-repo-button"
             >
-              Move to new repo
+              Move to New Repo
             </Button>
           )}
           <Button size="small">
             {useRepoSettings
-              ? "Detach from current repo"
-              : "Attach to current repo"}
+              ? "Detach from Current Repo"
+              : "Attach to Current Repo"}
           </Button>
         </ButtonRow>
       )}
