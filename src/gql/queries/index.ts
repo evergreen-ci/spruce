@@ -14,6 +14,7 @@ import GET_CREATED_TICKETS from "./get-created-tickets.graphql";
 import GET_DISPLAY_TASK from "./get-display-task.graphql";
 import GET_DISTROS from "./get-distros.graphql";
 import GET_EVENT_LOGS from "./get-event-logs.graphql";
+import GET_HAS_VERSION from "./get-has-version.graphql";
 import GET_HOST_EVENTS from "./get-host-events.graphql";
 import GET_HOST from "./get-host.graphql";
 import GET_INSTANCE_TYPES from "./get-instance-types.graphql";
@@ -69,6 +70,7 @@ export {
   GET_DISPLAY_TASK,
   GET_MY_HOSTS,
   GET_BUILD_VARIANTS,
+  GET_HAS_VERSION,
   GET_IS_PATCH_CONFIGURED,
   GET_PATCH_TASKS,
   GET_PROJECT_SETTINGS,
