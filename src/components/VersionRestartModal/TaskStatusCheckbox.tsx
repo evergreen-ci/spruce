@@ -27,8 +27,8 @@ const CheckboxComponent: React.FC<TaskStatusCheckboxProps> = ({
     name={taskId}
     label={
       <StateItemWrapper>
-        <TaskStatusIcon status={status} style={iconStyle} />
-        {baseStatus && <TaskStatusIcon status={baseStatus} style={iconStyle} />}
+        <TaskStatusIcon status={status} rightMargin />
+        {baseStatus && <TaskStatusIcon status={baseStatus} rightMargin />}
         <div>{displayName}</div>
       </StateItemWrapper>
     }
@@ -39,7 +39,6 @@ const CheckboxComponent: React.FC<TaskStatusCheckboxProps> = ({
 
 export const TaskStatusCheckbox = React.memo(CheckboxComponent);
 
-const iconStyle = { marginRight: 3 };
 const StateItemWrapper = styled("div")`
   display: flex;
   flex-direction: row;

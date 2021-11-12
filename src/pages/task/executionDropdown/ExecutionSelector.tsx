@@ -56,10 +56,7 @@ export const ExecutionSelect: React.FC<ExecutionSelectProps> = ({
           data-cy={`execution-${singleExecution.execution}`}
         >
           <Row>
-            <TaskStatusIcon
-              status={singleExecution.status}
-              style={{ marginRight: 3 }}
-            />
+            <TaskStatusIcon status={singleExecution.status} rightMargin />
             <StyledP1>
               Execution {executionAsDisplay(singleExecution.execution)} -{" "}
               {shortDate(
