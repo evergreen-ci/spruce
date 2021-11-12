@@ -8,7 +8,6 @@ modules:
 - name: evergreen
   repo: git@github.com:evergreen-ci/evergreen.git
   branch: main
-  prefix: build
 
 #######################################
 #              Functions              #
@@ -36,29 +35,29 @@ functions:
           gobin: /opt/golang/go1.16/bin/go
           MONGODB_URL: ${mongodb_url}
           DECOMPRESS: ${decompress}
-        working_dir: spruce/build/evergreen
+        working_dir: spruce/evergreen
         command: make get-mongodb
     - command: subprocess.exec
       type: setup
       params:
         background: true
-        working_dir: spruce/build/evergreen
+        working_dir: spruce/evergreen
         command: make start-mongod
     - command: subprocess.exec
       type: setup
       params:
-        working_dir: spruce/build/evergreen
+        working_dir: spruce/evergreen
         command: make check-mongod
     - command: subprocess.exec
       type: setup
       params:
-        working_dir: spruce/build/evergreen
+        working_dir: spruce/evergreen
         command: make init-rs
 
   run-make:
     command: subprocess.exec
     params:
-      working_dir: spruce/build/evergreen
+      working_dir: spruce/evergreen
       binary: make
       args: ["${make_args|}", "${target}"]
       background: false
@@ -68,7 +67,7 @@ functions:
   run-make-background:
     command: subprocess.exec
     params:
-      working_dir: spruce/build/evergreen
+      working_dir: spruce/evergreen
       binary: make
       args: ["${make_args|}", "${target}"]
       background: true
@@ -81,7 +80,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        ln -s build/evergreen/graphql/schema.graphql sdlschema.graphql
+        ln -s evergreen/graphql/schema.graphql sdlschema.graphql
 
   yarn-start:
     command: shell.exec
@@ -216,7 +215,7 @@ functions:
       aws_key: ${aws_key}
       aws_secret: ${aws_secret}
       local_files_include_filter:
-        ["build/evergreen/server_logs.txt"]
+        ["evergreen/server_logs.txt"]
       remote_file: spruce/${task_id}/
       bucket: mciuploads
       content_type: text/plain
