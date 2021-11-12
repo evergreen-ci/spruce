@@ -24,6 +24,7 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
 }) => {
   const id = idSchema.$id;
   const description = uiSchema["ui:description"] || schema.description;
+  const buttonText = uiSchema["ui:buttonText"] || "Add";
   return (
     <>
       <TitleField id={`${id}__title`} required={required} title={title} />
@@ -33,11 +34,12 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
       {canAdd && (
         <ElementWrapper>
           <Button
+            data-cy="add-button"
             leftGlyph={<Icon glyph="Plus" />}
             onClick={onAddClick}
             size="small"
           >
-            Add File Pattern
+            {buttonText}
           </Button>
         </ElementWrapper>
       )}

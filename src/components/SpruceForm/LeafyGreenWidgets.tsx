@@ -146,6 +146,9 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
     return null;
   }
 
+  // RadioBox components do not accept boolean props for value, so use the indices instead.
+  const valueMap = enumOptions.map(({ value: val }) => val);
+
   return (
     <ElementWrapper>
       {showLabel !== false && (
@@ -159,14 +162,18 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
       <RadioBoxGroup
         id={id}
         name={label}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
+        value={valueMap.indexOf(value)}
+        onChange={(e) => onChange(valueMap[e.target.value])}
         data-cy={dataCy}
       >
         {enumOptions.map((o) => (
-          <RadioBox key={o.value} value={o.value} disabled={disabled}>
+          <StyledRadioBox
+            key={o.value}
+            value={valueMap.indexOf(o.value)}
+            disabled={disabled}
+          >
             {o.label}
-          </RadioBox>
+          </StyledRadioBox>
         ))}
       </RadioBoxGroup>
     </ElementWrapper>
@@ -175,6 +182,10 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
 
 const RadioBoxLabelContainer = styled.div`
   margin-bottom: 8px;
+`;
+
+const StyledRadioBox = styled(RadioBox)`
+  line-height: 1.25;
 `;
 
 export const LeafyGreenTextArea: React.FC<WidgetProps> = ({

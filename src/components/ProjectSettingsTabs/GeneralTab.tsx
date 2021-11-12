@@ -5,6 +5,11 @@ import {
   usePopulateForm,
   useProjectSettingsContext,
 } from "context/project-settings";
+import {
+  ProjectGeneralSettingsFragment,
+  RepoGeneralSettingsFragment,
+} from "gql/generated/types";
+import { GeneralFormState } from "./GeneralTab/formState";
 import { getFormData } from "./GeneralTab/getFormData";
 import { GeneralTabProps } from "./types";
 
@@ -37,8 +42,14 @@ export const GeneralTab: React.FC<GeneralTabProps> = ({
     projectFlags,
     historicalDataCaching,
   } = useMemo(
-    () => getFormData(projectId, useRepoSettings, validDefaultLoggers),
-    [projectId, useRepoSettings, validDefaultLoggers]
+    () =>
+      getFormData(
+        projectId,
+        useRepoSettings,
+        validDefaultLoggers,
+        useRepoSettings ? repoData : null
+      ),
+    [projectId, repoData, useRepoSettings, validDefaultLoggers]
   );
 
   return (
@@ -74,58 +85,43 @@ export const GeneralTab: React.FC<GeneralTabProps> = ({
   );
 };
 
-// TODO: Remove default values as part of EVG-15643
-const gqlToSchema = ({
-  enabled = false,
-  owner,
-  repo,
-  branch,
-  displayName,
-  batchTime = 0,
-  remotePath,
-  spawnHostScriptPath,
-  dispatchingDisabled = false,
-  deactivatePrevious = true,
-  repotrackerDisabled = false,
-  defaultLogger = "",
-  cedarTestResultsEnabled = false,
-  patchingDisabled = false,
-  taskSync,
-  disabledStatsCache = false,
-  filesIgnoredFromCache = [],
-}) => ({
-  enabled: enabled ? "enabled" : "disabled",
+const gqlToSchema = (
+  data: ProjectGeneralSettingsFragment | RepoGeneralSettingsFragment
+): GeneralFormState => ({
+  enabled: data.enabled,
   repositoryInfo: {
-    owner,
-    repo,
+    owner: data.owner,
+    repo: data.repo,
   },
-  branch,
+  branch: data.branch,
   other: {
-    displayName,
-    batchTime,
-    remotePath,
-    spawnHostScriptPath,
+    displayName: data.displayName,
+    batchTime: data.batchTime,
+    remotePath: data.remotePath,
+    spawnHostScriptPath: data.spawnHostScriptPath,
   },
-  dispatchingDisabled: dispatchingDisabled ? "disabled" : "enabled",
+  dispatchingDisabled: data.dispatchingDisabled,
   scheduling: {
-    deactivatePrevious: deactivatePrevious ? "unschedule" : "schedule",
+    deactivatePrevious: data.deactivatePrevious,
   },
   repotracker: {
-    repotrackerDisabled: repotrackerDisabled ? "disabled" : "enabled",
+    repotrackerDisabled: data.repotrackerDisabled,
   },
   logger: {
-    defaultLogger: defaultLogger || null,
+    defaultLogger: data.defaultLogger,
   },
   testResults: {
-    cedarTestResultsEnabled: cedarTestResultsEnabled ? "enabled" : "disabled",
+    cedarTestResultsEnabled: data.cedarTestResultsEnabled,
   },
   patch: {
-    patchingDisabled: patchingDisabled ? "disabled" : "enabled",
+    patchingDisabled: data.patchingDisabled,
   },
   taskSync: {
-    configEnabled: taskSync.configEnabled ? "enabled" : "disabled",
-    patchEnabled: taskSync.patchEnabled ? "enabled" : "disabled",
+    configEnabled: data.taskSync.configEnabled,
+    patchEnabled: data.taskSync.patchEnabled,
   },
-  disabledStatsCache: disabledStatsCache ? "disabled" : "enabled",
-  filesIgnoredFromCache,
+  disabledStatsCache: data.disabledStatsCache,
+  files: {
+    filesIgnoredFromCache: data.filesIgnoredFromCache,
+  },
 });
