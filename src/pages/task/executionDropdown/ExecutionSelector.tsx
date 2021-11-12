@@ -56,7 +56,7 @@ export const ExecutionSelect: React.FC<ExecutionSelectProps> = ({
           data-cy={`execution-${singleExecution.execution}`}
         >
           <Row>
-            <TaskStatusIcon status={singleExecution.status} rightMargin />
+            <StyledTaskStatusIcon status={singleExecution.status} />
             <StyledP1>
               Execution {executionAsDisplay(singleExecution.execution)} -{" "}
               {shortDate(
@@ -80,4 +80,8 @@ const StyledP1 = styled(P1)`
 
 const Row = styled.div`
   display: flex;
+`;
+
+const StyledTaskStatusIcon = styled(TaskStatusIcon)`
+  margin-right: 3px;
 `;

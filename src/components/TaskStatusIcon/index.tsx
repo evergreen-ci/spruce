@@ -10,19 +10,17 @@ const failurePurple = "#36367F";
 interface TaskStatusIconProps {
   status: string;
   size?: Size | number;
-  rightMargin?: boolean;
+  className?: string;
 }
 
 export const TaskStatusIcon: React.FC<TaskStatusIconProps> = ({
   status,
   size = Size.Default,
-  rightMargin,
+  className,
 }) => {
   const props = {
     size,
-    style: {
-      ...(rightMargin && { marginRight: 3 }),
-    },
+    ...(className && { className }),
   };
   switch (status) {
     case TaskStatus.Succeeded:
