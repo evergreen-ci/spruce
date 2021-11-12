@@ -37,7 +37,6 @@ import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
 interface Props {
   initialPriority?: number;
-  isPatchOnCommitQueue: boolean;
   canAbort: boolean;
   canRestart: boolean;
   canSchedule: boolean;
@@ -47,7 +46,6 @@ interface Props {
 }
 
 export const ActionButtons: React.FC<Props> = ({
-  isPatchOnCommitQueue,
   canAbort,
   canRestart,
   canSchedule,
@@ -256,7 +254,7 @@ export const ActionButtons: React.FC<Props> = ({
           size="small"
           data-cy="schedule-task"
           key="schedule"
-          disabled={disabled || isPatchOnCommitQueue || !canSchedule}
+          disabled={disabled || !canSchedule}
           loading={loadingScheduleTask}
           onClick={() => {
             scheduleTask();
@@ -269,7 +267,7 @@ export const ActionButtons: React.FC<Props> = ({
           size="small"
           data-cy="restart-task"
           key="restart"
-          disabled={disabled || isPatchOnCommitQueue || !canRestart}
+          disabled={disabled || !canRestart}
           loading={loadingRestartTask}
           onClick={() => {
             restartTask();

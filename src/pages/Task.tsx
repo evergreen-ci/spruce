@@ -107,10 +107,9 @@ export const Task: React.FC = () => {
         }
         buttons={
           <ActionButtons
-            isPatchOnCommitQueue={isPatchOnCommitQueue}
             canAbort={canAbort}
-            canRestart={canRestart}
-            canSchedule={canSchedule}
+            canRestart={!isPatchOnCommitQueue && canRestart}
+            canSchedule={!isPatchOnCommitQueue && canSchedule}
             canUnschedule={canUnschedule}
             canSetPriority={canSetPriority}
             initialPriority={priority}
