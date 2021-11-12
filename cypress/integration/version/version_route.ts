@@ -36,7 +36,9 @@ describe("Version route", () => {
     });
     it("Throws a 404 if the version and patch doesn't exist", () => {
       cy.visit(versionRoute(versions[1]));
-      cy.dataCy("toast").contains("404 (Not Found)").should("exist");
+      cy.dataCy("toast")
+        .contains("Unable to find patch or version i-dont-exist")
+        .should("exist");
     });
   });
 
@@ -80,7 +82,7 @@ describe("Version route", () => {
         .first()
         .trigger("mouseover")
         .within(($el) => {
-          expect($el.text()).to.contain("1Scheduled");
+          expect($el.text()).to.contain("1Undispatched");
         });
     });
 
@@ -88,7 +90,7 @@ describe("Version route", () => {
       cy.dataCy("grouped-task-status-badge").first().click();
       cy.location("search").should(
         "include",
-        "statuses=scheduled-umbrella,will-run,pending,unstarted"
+        "statuses=undispatched-umbrella,unscheduled,aborted,blocked"
       );
     });
   });

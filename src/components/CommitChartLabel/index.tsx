@@ -1,8 +1,17 @@
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import ExpandedText from "components/ExpandedText";
+import { StyledRouterLink } from "components/styles";
+import { getVersionRoute } from "constants/routes";
+import {
+  GetSpruceConfigQuery,
+  GetSpruceConfigQueryVariables,
+} from "gql/generated/types";
+import { GET_SPRUCE_CONFIG } from "gql/queries";
 import { string } from "utils";
+import { jiraLinkify } from "utils/string/jiraLinkify";
 
 const { gray } = uiColors;
 const { shortDate } = string;
@@ -12,6 +21,7 @@ interface Props {
   createTime: Date;
   author: string;
   message: string;
+  versionId: string;
 }
 
 const CommitChartLabel: React.FC<Props> = ({
@@ -19,18 +29,29 @@ const CommitChartLabel: React.FC<Props> = ({
   createTime,
   author,
   message,
+  versionId,
 }) => {
   const createDate = new Date(createTime);
   const shortenMessage = message.length > MAX_CHAR;
   const shortenedMessage = message.substring(0, MAX_CHAR - 3).concat("...");
+  const { data: configData } = useQuery<
+    GetSpruceConfigQuery,
+    GetSpruceConfigQueryVariables
+  >(GET_SPRUCE_CONFIG);
+  const jiraHost = configData?.spruceConfig?.jira?.host;
 
   return (
     <LabelContainer data-cy="commit-label">
       <LabelText>
-        {githash.substr(0, 6)} {shortDate(createDate)}
+        <StyledRouterLink to={getVersionRoute(versionId)}>
+          {githash.substring(0, 6)}
+        </StyledRouterLink>{" "}
+        {shortDate(createDate)}
       </LabelText>
       <LabelText>{author} -</LabelText>
-      <LabelText>{shortenMessage ? shortenedMessage : message}</LabelText>
+      <LabelText>
+        {jiraLinkify(shortenMessage ? shortenedMessage : message, jiraHost)}
+      </LabelText>
       {shortenMessage && (
         <ExpandedText message={message} data-cy="long-commit-message-tooltip" />
       )}

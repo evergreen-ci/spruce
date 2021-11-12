@@ -1,17 +1,22 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { useParams, useLocation } from "react-router-dom";
+import Cookies from "js-cookie";
+import { useParams, useLocation, useHistory } from "react-router-dom";
 import { FilterBadges } from "components/FilterBadges";
 import { PageWrapper } from "components/styles";
 import { TupleSelect } from "components/TupleSelect";
+import { CURRENT_PROJECT } from "constants/cookies";
 import { pollInterval } from "constants/index";
+import { getCommitsRoute } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
+  GetSpruceConfigQuery,
+  GetSpruceConfigQueryVariables,
   MainlineCommitsQuery,
   MainlineCommitsQueryVariables,
 } from "gql/generated/types";
-import { GET_MAINLINE_COMMITS } from "gql/queries";
+import { GET_MAINLINE_COMMITS, GET_SPRUCE_CONFIG } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
 import {
   ChartToggleQueryParams,
@@ -38,6 +43,7 @@ const FAILED_STATUSES = [
 
 export const Commits = () => {
   const dispatchToast = useToastContext();
+  const { replace } = useHistory();
   const { search } = useLocation();
   const [currentChartType, setCurrentChartType] = useState<ChartTypes>(
     DEFAULT_CHART_TYPE
@@ -45,6 +51,24 @@ export const Commits = () => {
 
   // get query params from url
   const { projectId } = useParams<{ projectId: string }>();
+  const recentlySelectedProject = Cookies.get(CURRENT_PROJECT);
+  // Push default project to URL if there isn't a project in
+  // the URL already and an mci-project-cookie does not exist.
+  useQuery<GetSpruceConfigQuery, GetSpruceConfigQueryVariables>(
+    GET_SPRUCE_CONFIG,
+    {
+      skip: !!projectId || !!recentlySelectedProject,
+      onCompleted({ spruceConfig }) {
+        replace(getCommitsRoute(spruceConfig?.ui.defaultProject));
+      },
+    }
+  );
+  useEffect(() => {
+    if (!projectId && recentlySelectedProject) {
+      replace(getCommitsRoute(recentlySelectedProject));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [projectId]);
   const parsed = queryString.parseQueryString(search);
   const chartTypeParam = (parsed[ChartToggleQueryParams.chartType] || "")
     .toString()
@@ -97,6 +121,7 @@ export const Commits = () => {
     MainlineCommitsQuery,
     MainlineCommitsQueryVariables
   >(GET_MAINLINE_COMMITS, {
+    skip: !projectId,
     variables: {
       mainlineCommitsOptions,
       buildVariantOptionsForTask,
@@ -141,7 +166,7 @@ export const Commits = () => {
         <CommitsWrapper
           versions={versions}
           error={error}
-          isLoading={loading}
+          isLoading={loading || !projectId}
           chartType={currentChartType}
           hasTaskFilter={hasTaskFilter}
           hasFilters={hasFilters}

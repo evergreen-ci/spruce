@@ -17,7 +17,7 @@ interface ModalProps {
   projectId: string;
 }
 
-export const ForceRepotrackerRunModal: React.FC<ModalProps> = ({
+export const Modal: React.FC<ModalProps> = ({
   closeModal,
   open,
   projectId,
@@ -65,7 +65,7 @@ export const ForceRepotrackerRunModal: React.FC<ModalProps> = ({
   );
 };
 
-export const ForceRepotrackerRunField: React.FC<SpruceFormProps> = ({
+export const RepotrackerField: React.FC<SpruceFormProps> = ({
   formData,
   onChange,
   schema,
@@ -87,18 +87,18 @@ export const ForceRepotrackerRunField: React.FC<SpruceFormProps> = ({
         tagName="fieldset"
         uiSchema={uiSchema}
       />
-      <Button
-        onClick={() => setOpen(true)}
-        size="small"
-        data-cy="force-repotracker-run-button"
-      >
-        Force Repotracker Run
-      </Button>
-      <ForceRepotrackerRunModal
-        closeModal={closeModal}
-        open={open}
-        projectId={projectId}
-      />
+      {projectId && (
+        <>
+          <Button
+            onClick={() => setOpen(true)}
+            size="small"
+            data-cy="force-repotracker-run-button"
+          >
+            Force Repotracker Run
+          </Button>
+          <Modal closeModal={closeModal} open={open} projectId={projectId} />
+        </>
+      )}
     </Container>
   );
 };
