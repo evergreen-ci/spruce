@@ -102,6 +102,7 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
               <button
                 aria-disabled={false}
                 className="leafygreen-ui-1jc9h6q"
+                data-cy="add-button"
                 disabled={false}
                 onClick={[Function]}
                 type="button"
@@ -130,7 +131,7 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
                       fillRule="evenodd"
                     />
                   </svg>
-                  Add File Pattern
+                  Add
                 </div>
               </button>
             </div>
