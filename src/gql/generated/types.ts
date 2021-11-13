@@ -57,6 +57,7 @@ export type Query = {
   buildVariantsForTaskName?: Maybe<Array<Maybe<BuildVariantTuple>>>;
   projectSettings: ProjectSettings;
   repoSettings: RepoSettings;
+  hasVersion: Scalars["Boolean"];
 };
 
 export type QueryTaskArgs = {
@@ -186,6 +187,10 @@ export type QueryProjectSettingsArgs = {
 };
 
 export type QueryRepoSettingsArgs = {
+  id: Scalars["String"];
+};
+
+export type QueryHasVersionArgs = {
   id: Scalars["String"];
 };
 
@@ -1263,6 +1268,7 @@ export type Task = {
   annotation?: Maybe<Annotation>;
   baseTask?: Maybe<Task>;
   baseStatus?: Maybe<Scalars["String"]>;
+  /** @deprecated baseTaskMetadata is deprecated. Use baseTask instead */
   baseTaskMetadata?: Maybe<BaseTaskMetadata>;
   blocked: Scalars["Boolean"];
   buildId: Scalars["String"];
@@ -1740,6 +1746,7 @@ export type JiraConfig = {
 
 export type UiConfig = {
   userVoice?: Maybe<Scalars["String"]>;
+  defaultProject: Scalars["String"];
 };
 
 export type CloudProviderConfig = {
@@ -2008,7 +2015,7 @@ export type ProjectFragment = {
   displayName: string;
 };
 
-export type GeneralSettingsFragment = {
+export type ProjectGeneralSettingsFragment = {
   enabled?: Maybe<boolean>;
   owner: string;
   repo: string;
@@ -2027,6 +2034,27 @@ export type GeneralSettingsFragment = {
   disabledStatsCache?: Maybe<boolean>;
   filesIgnoredFromCache?: Maybe<Array<string>>;
   taskSync: { configEnabled?: Maybe<boolean>; patchEnabled?: Maybe<boolean> };
+};
+
+export type RepoGeneralSettingsFragment = {
+  enabled: boolean;
+  owner: string;
+  repo: string;
+  branch: string;
+  displayName: string;
+  batchTime: number;
+  remotePath: string;
+  spawnHostScriptPath: string;
+  dispatchingDisabled: boolean;
+  deactivatePrevious: boolean;
+  repotrackerDisabled: boolean;
+  defaultLogger: string;
+  validDefaultLoggers: Array<string>;
+  cedarTestResultsEnabled: boolean;
+  patchingDisabled: boolean;
+  disabledStatsCache: boolean;
+  filesIgnoredFromCache?: Maybe<Array<string>>;
+  taskSync: { configEnabled: boolean; patchEnabled: boolean };
 };
 
 export type AbortTaskMutationVariables = Exact<{
@@ -2265,11 +2293,11 @@ export type SchedulePatchMutation = {
   } & BasePatchFragment;
 };
 
-export type ScheduleTaskMutationVariables = Exact<{
-  taskId: Scalars["String"];
+export type ScheduleTasksMutationVariables = Exact<{
+  taskIds: Array<Scalars["String"]>;
 }>;
 
-export type ScheduleTaskMutation = { scheduleTask: BaseTaskFragment };
+export type ScheduleTasksMutation = { scheduleTasks: Array<BaseTaskFragment> };
 
 export type ScheduleUndispatchedBaseTasksMutationVariables = Exact<{
   patchId: Scalars["String"];
@@ -2659,6 +2687,12 @@ export type EventLogsQuery = {
   };
 };
 
+export type GetHasVersionQueryVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type GetHasVersionQuery = { hasVersion: boolean };
+
 export type HostEventsQueryVariables = Exact<{
   id: Scalars["String"];
   tag: Scalars["String"];
@@ -2863,6 +2897,7 @@ export type MainlineCommitsQuery = {
     prevPageOrderNumber?: Maybe<number>;
     versions: Array<{
       version?: Maybe<{
+        projectIdentifier: string;
         id: string;
         author: string;
         createTime: Date;
@@ -3060,7 +3095,11 @@ export type ProjectSettingsQueryVariables = Exact<{
 export type ProjectSettingsQuery = {
   projectSettings: {
     projectRef?: Maybe<
-      { id: string; useRepoSettings: boolean } & GeneralSettingsFragment
+      {
+        id: string;
+        useRepoSettings: boolean;
+        repoRefId: string;
+      } & ProjectGeneralSettingsFragment
     >;
   };
 };
@@ -3089,13 +3128,21 @@ export type GetMyPublicKeysQuery = {
   myPublicKeys: Array<{ name: string; key: string }>;
 };
 
+export type RepoSettingsQueryVariables = Exact<{
+  repoId: Scalars["String"];
+}>;
+
+export type RepoSettingsQuery = {
+  repoSettings: { projectRef?: Maybe<RepoGeneralSettingsFragment> };
+};
+
 export type GetSpruceConfigQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetSpruceConfigQuery = {
   spruceConfig?: Maybe<{
     bannerTheme?: Maybe<string>;
     banner?: Maybe<string>;
-    ui?: Maybe<{ userVoice?: Maybe<string> }>;
+    ui?: Maybe<{ userVoice?: Maybe<string>; defaultProject: string }>;
     jira?: Maybe<{ host?: Maybe<string> }>;
     providers?: Maybe<{
       aws?: Maybe<{ maxVolumeSizePerUser?: Maybe<number> }>;
@@ -3323,6 +3370,22 @@ export type GetTestsQuery = {
       id: string;
       testFile: string;
       logs: { url?: Maybe<string>; urlLobster?: Maybe<string> };
+    }>;
+  };
+};
+
+export type GetUndispatchedTasksQueryVariables = Exact<{
+  versionId: Scalars["String"];
+}>;
+
+export type GetUndispatchedTasksQuery = {
+  patchTasks: {
+    tasks: Array<{
+      id: string;
+      execution: number;
+      displayName: string;
+      buildVariant: string;
+      buildVariantDisplayName?: Maybe<string>;
     }>;
   };
 };

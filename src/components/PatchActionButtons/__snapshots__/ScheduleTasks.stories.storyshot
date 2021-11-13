@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Schedule Tasks Schedule Tasks Empty 1`] = `
+<li
+  role="none"
+>
+  <button
+    aria-disabled={false}
+    className="leafygreen-ui-1hnrrnl"
+    data-cy="schedule-patch"
+    data-leafygreen-ui="menu-item-container"
+    disabled={false}
+    onClick={[Function]}
+    role="menuitem"
+  >
+    <div
+      className="leafygreen-ui-1700k5z"
+    >
+      <div>
+        Schedule
+      </div>
+    </div>
+  </button>
+</li>
+`;
+
+exports[`Storyshots Schedule Tasks Schedule Tasks Populated 1`] = `
+<li
+  role="none"
+>
+  <button
+    aria-disabled={false}
+    className="leafygreen-ui-1hnrrnl"
+    data-cy="schedule-patch"
+    data-leafygreen-ui="menu-item-container"
+    disabled={false}
+    onClick={[Function]}
+    role="menuitem"
+  >
+    <div
+      className="leafygreen-ui-1700k5z"
+    >
+      <div>
+        Schedule
+      </div>
+    </div>
+  </button>
+</li>
+`;

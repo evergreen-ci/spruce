@@ -2,7 +2,7 @@ import userEvent from "@testing-library/user-event";
 import { render, fireEvent, waitFor } from "test_utils/test-utils";
 import { MoveRepoField, MoveRepoModal } from "./MoveRepoField";
 
-test("Clicking the button opens the modal", async () => {
+test("Does not show the move repo button when not attached to repo", async () => {
   const { queryByDataCy } = render(
     <MoveRepoField
       formData={{}}
@@ -10,6 +10,20 @@ test("Clicking the button opens the modal", async () => {
       schema={{}}
       uiSchema={{
         options: { useRepoSettings: false },
+      }}
+    />
+  );
+  expect(queryByDataCy("move-repo-button")).not.toBeInTheDocument();
+});
+
+test("Clicking the button opens the modal", async () => {
+  const { queryByDataCy } = render(
+    <MoveRepoField
+      formData={{}}
+      onChange={() => {}}
+      schema={{}}
+      uiSchema={{
+        options: { useRepoSettings: true },
       }}
     />
   );

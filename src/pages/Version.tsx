@@ -21,17 +21,19 @@ import {
   IsPatchConfiguredQuery,
   IsPatchConfiguredQueryVariables,
   GetSpruceConfigQuery,
+  GetHasVersionQuery,
+  GetHasVersionQueryVariables,
 } from "gql/generated/types";
 import {
   GET_VERSION,
   GET_IS_PATCH_CONFIGURED,
   GET_SPRUCE_CONFIG,
+  GET_HAS_VERSION,
 } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
 import { PageDoesNotExist } from "pages/404";
 import { githubPRLinkify } from "utils/string";
 import { jiraLinkify } from "utils/string/jiraLinkify";
-import { validatePatchId } from "utils/validators";
 import { BuildVariants } from "./version/BuildVariants";
 import { ActionButtons } from "./version/index";
 import { Metadata } from "./version/Metadata";
@@ -48,38 +50,62 @@ export const VersionPage: React.FC = () => {
   const [redirectURL, setRedirectURL] = useState(undefined);
   const [isLoadingData, setIsLoadingData] = useState(true);
 
-  const [getPatch, { data: patchData }] = useLazyQuery<
+  const { error: hasVersionError } = useQuery<
+    GetHasVersionQuery,
+    GetHasVersionQueryVariables
+  >(GET_HAS_VERSION, {
+    variables: {
+      id,
+    },
+    onCompleted: ({ hasVersion }) => {
+      if (hasVersion) {
+        getVersion({ variables: { id } });
+      } else {
+        getPatch({ variables: { id } });
+      }
+    },
+    onError: (error) => {
+      dispatchToast.error(error.message);
+      setIsLoadingData(false);
+    },
+  });
+
+  // This resets the pages states to force showing the loading state when the page is changed on navigation
+  useEffect(() => {
+    setIsLoadingData(true);
+    setRedirectURL(undefined);
+  }, [id]);
+
+  const [getPatch, { data: patchData, error: patchError }] = useLazyQuery<
     IsPatchConfiguredQuery,
     IsPatchConfiguredQueryVariables
   >(GET_IS_PATCH_CONFIGURED, {
     variables: {
       id,
     },
+    onError: (error) => {
+      dispatchToast.error(
+        `There was an error loading this patch: ${error.message}`
+      );
+      setIsLoadingData(false);
+    },
   });
 
-  const [getVersion, { data, error, startPolling, stopPolling }] = useLazyQuery<
-    VersionQuery,
-    VersionQueryVariables
-  >(GET_VERSION, {
+  const [
+    getVersion,
+    { data, error: versionError, startPolling, stopPolling },
+  ] = useLazyQuery<VersionQuery, VersionQueryVariables>(GET_VERSION, {
     variables: { id },
     pollInterval,
-    onError: (e) =>
+    onError: (e) => {
       dispatchToast.error(
         `There was an error loading the version: ${e.message}`
-      ),
+      );
+      setIsLoadingData(false);
+    },
   });
 
   useNetworkStatus(startPolling, stopPolling);
-
-  // First check if an id belongs to a patch if so we should fetch the patch,
-  //  to see if it has been activated and has a version; otherwise fetch the version directly
-  useEffect(() => {
-    if (validatePatchId(id)) {
-      getPatch();
-    } else {
-      getVersion();
-    }
-  }, [getPatch, getVersion, id]);
 
   // Decide where to redirect the user based off of whether or not the patch has been activated
   // If this patch is activated and not on the commit queue we can safely fetch the associated version
@@ -94,7 +120,7 @@ export const VersionPage: React.FC = () => {
         setRedirectURL(getCommitQueueRoute(projectID));
         setIsLoadingData(false);
       } else {
-        getVersion();
+        getVersion({ variables: { id } });
       }
     }
   }, [patchData, getVersion, id]);
@@ -117,9 +143,11 @@ export const VersionPage: React.FC = () => {
   } = patch || {};
   const isPatchOnCommitQueue = commitQueuePosition !== null;
 
-  const title = isPatch
-    ? `Patch - ${patchNumber}`
-    : `Version - ${revision?.substr(0, 6)}`;
+  // If a revision exists
+  const versionText = revision?.length
+    ? revision?.substring(0, 7)
+    : id.substring(0, 7);
+  const title = isPatch ? `Patch - ${patchNumber}` : `Version - ${versionText}`;
   usePageTitle(title);
 
   if (isLoadingData) {
@@ -130,8 +158,12 @@ export const VersionPage: React.FC = () => {
     return <Redirect to={redirectURL} />;
   }
 
-  if (error) {
-    return <PageDoesNotExist />;
+  if (hasVersionError || patchError || versionError) {
+    return (
+      <PageWrapper data-cy="version-page">
+        <PageDoesNotExist />
+      </PageWrapper>
+    );
   }
 
   const linkifiedMessage = jiraLinkify(

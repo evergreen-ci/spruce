@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { Accordion } from "components/Accordion";
+import { Accordion, AccordionWrapper } from "components/Accordion";
 import Badge from "components/Badge";
 import { selectedStrings } from "hooks/useVersionTaskStatusSelect";
 import { TaskStatusCheckboxContainer } from "./TaskStatusCheckboxContainer";
@@ -77,11 +77,6 @@ const countMatchingTasks = (
   });
   return matchingTasks;
 };
-
-const AccordionWrapper = styled("div")`
-  padding-bottom: 12px;
-  padding-top: 12px;
-`;
 
 const BadgeWrapper = styled("div")`
   padding-left: 10px;

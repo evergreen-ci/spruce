@@ -8,6 +8,7 @@ interface AccordionProps {
   toggleFromBottom?: boolean;
   showCaret?: boolean;
   contents: React.ReactNode;
+  allowToggleFromTitle?: boolean;
 }
 export const Accordion: React.FC<AccordionProps> = ({
   title,
@@ -15,12 +16,14 @@ export const Accordion: React.FC<AccordionProps> = ({
   contents,
   toggleFromBottom = false,
   showCaret = true,
+  allowToggleFromTitle = true,
 }) => {
   const [isAccordionDisplayed, setIsAccordionDisplayed] = useState(false);
   const toggleAccordionHandler = (): void =>
     setIsAccordionDisplayed(!isAccordionDisplayed);
 
   const showToggledTitle = isAccordionDisplayed ? toggledTitle : title;
+  const titleComp = <>{toggledTitle ? showToggledTitle : title}</>;
   return (
     <>
       {toggleFromBottom && (
@@ -28,15 +31,18 @@ export const Accordion: React.FC<AccordionProps> = ({
           {contents}
         </AnimatedAccordion>
       )}
-      <AccordionToggle
-        data-cy="accordion-toggle"
-        onClick={toggleAccordionHandler}
-      >
-        {showCaret && (
-          <Icon glyph={isAccordionDisplayed ? "CaretDown" : "CaretRight"} />
-        )}
-        {toggledTitle ? showToggledTitle : title}
-      </AccordionToggle>
+      <Row>
+        <AccordionToggle
+          data-cy="accordion-toggle"
+          onClick={toggleAccordionHandler}
+        >
+          {showCaret && (
+            <Icon glyph={isAccordionDisplayed ? "CaretDown" : "CaretRight"} />
+          )}
+          {allowToggleFromTitle && titleComp}
+        </AccordionToggle>
+        {!allowToggleFromTitle && titleComp}
+      </Row>
       {!toggleFromBottom && (
         <AnimatedAccordion hide={!isAccordionDisplayed}>
           <ContentsContainer indent={showCaret}>{contents}</ContentsContainer>
@@ -46,6 +52,13 @@ export const Accordion: React.FC<AccordionProps> = ({
   );
 };
 
+export const AccordionWrapper = styled.div`
+  padding-bottom: 12px;
+  padding-top: 12px;
+`;
+const Row = styled.div`
+  display: flex;
+`;
 const AccordionToggle = styled.span`
   display: flex;
   align-items: center;

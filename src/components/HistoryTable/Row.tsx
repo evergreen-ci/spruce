@@ -5,29 +5,40 @@ import * as Cell from "./Cell";
 import { useHistoryTable } from "./HistoryTableContext";
 import { DateSeparator } from "./row/DateSeparator";
 import { FoldedCommit } from "./row/FoldedCommit";
+import { LoadingRow } from "./row/LoadingRow";
 import { rowType } from "./types";
 
 interface RowProps extends ListChildComponentProps {
   columns: React.ReactNode[];
+  numVisibleCols: number;
 }
-const Row: React.FC<RowProps> = ({ columns, index, style }) => {
-  const { isItemLoaded, getItem } = useHistoryTable();
+const Row: React.FC<RowProps> = ({ columns, numVisibleCols, index, style }) => {
+  const { isItemLoaded, getItem, columnLimit } = useHistoryTable();
   if (!isItemLoaded(index)) {
-    // TODO: add loading state
-    return <div style={style}> Loading....</div>;
+    return (
+      <RowContainer style={style}>
+        <LoadingRow numVisibleCols={numVisibleCols || columnLimit} />
+      </RowContainer>
+    );
   }
   const commit = getItem(index);
   if (commit.type === rowType.DATE_SEPARATOR) {
-    // TODO: add date separator component
     return <DateSeparator style={style} date={commit.date} />;
   }
   if (commit.type === rowType.COMMIT && commit.commit) {
-    const { revision, createTime, author, message } = commit.commit;
+    const {
+      revision,
+      createTime,
+      author,
+      message,
+      id: versionId,
+    } = commit.commit;
 
     return (
       <RowContainer style={style}>
         <LabelCellContainer>
           <CommitChartLabel
+            versionId={versionId}
             githash={revision}
             createTime={createTime}
             author={author}
@@ -53,6 +64,7 @@ const LabelCellContainer = styled.div`
 const RowContainer = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
 `;
 
 export { Cell };

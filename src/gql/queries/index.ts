@@ -14,6 +14,7 @@ import GET_CREATED_TICKETS from "./get-created-tickets.graphql";
 import GET_DISPLAY_TASK from "./get-display-task.graphql";
 import GET_DISTROS from "./get-distros.graphql";
 import GET_EVENT_LOGS from "./get-event-logs.graphql";
+import GET_HAS_VERSION from "./get-has-version.graphql";
 import GET_HOST_EVENTS from "./get-host-events.graphql";
 import GET_HOST from "./get-host.graphql";
 import GET_INSTANCE_TYPES from "./get-instance-types.graphql";
@@ -33,6 +34,7 @@ import GET_PATCH from "./get-patch.graphql";
 import GET_PROJECT_SETTINGS from "./get-project-settings.graphql";
 import GET_PROJECTS from "./get-projects.graphql";
 import GET_MY_PUBLIC_KEYS from "./get-public-keys.graphql";
+import GET_REPO_SETTINGS from "./get-repo-settings.graphql";
 import GET_SPRUCE_CONFIG from "./get-spruce-config.graphql";
 import GET_SYSTEM_LOGS from "./get-system-logs.graphql";
 import GET_TASK_ALL_EXECUTIONS from "./get-task-all-executions.graphql";
@@ -43,6 +45,7 @@ import GET_TASK_STATUSES from "./get-task-statuses.graphql";
 import GET_TASK_TESTS from "./get-task-tests.graphql";
 import GET_TASK from "./get-task.graphql";
 import GET_TESTS from "./get-tests.graphql";
+import GET_UNSCHEDULED_TASKS from "./get-undispatched-tasks.graphql";
 import GET_USER_CONFIG from "./get-user-config.graphql";
 import GET_USER_SETTINGS from "./get-user-settings.graphql";
 import GET_USER from "./get-user.graphql";
@@ -67,10 +70,12 @@ export {
   GET_DISPLAY_TASK,
   GET_MY_HOSTS,
   GET_BUILD_VARIANTS,
+  GET_HAS_VERSION,
   GET_IS_PATCH_CONFIGURED,
   GET_PATCH_TASKS,
   GET_PROJECT_SETTINGS,
   GET_PROJECTS,
+  GET_REPO_SETTINGS,
   GET_TASK_FILES,
   GET_TASK_TESTS,
   GET_TASK,
@@ -112,4 +117,5 @@ export {
   GET_VERSION,
   GET_PATCH_CONFIGURE,
   GET_FAILED_TASK_STATUS_ICON_TOOLTIP,
+  GET_UNSCHEDULED_TASKS,
 };

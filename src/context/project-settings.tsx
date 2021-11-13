@@ -1,12 +1,14 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
+import { FormStateMap } from "components/ProjectSettingsTabs/types";
 import { FormDataProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 
-interface TabState
-  extends Record<
-    ProjectSettingsTabRoutes,
-    { hasChanges: boolean; formData: FormDataProps }
-  > {}
+type TabState = {
+  [K in keyof FormStateMap]: {
+    hasChanges: boolean;
+    formData: FormStateMap[K];
+  };
+};
 
 type Action =
   | {
@@ -61,7 +63,7 @@ const ProjectSettingsProvider: React.FC = ({ children }) => {
     reducer,
     getDefaultRouteObject({
       hasChanges: false,
-      formData: {},
+      formData: null,
     })
   );
 

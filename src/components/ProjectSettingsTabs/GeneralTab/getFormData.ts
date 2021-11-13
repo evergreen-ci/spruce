@@ -1,22 +1,33 @@
+import { Field } from "@rjsf/core";
+import { SpruceFormProps } from "components/SpruceForm";
 import widgets from "components/SpruceForm/Widgets";
-import { Project } from "gql/generated/types";
-import { ForceRepotrackerRunField } from "./ForceRepotrackerRunField";
+import { Project, RepoGeneralSettingsFragment } from "gql/generated/types";
+import { placeholderIf, radioBoxOptions } from "../utils";
+import { FilesIgnoredFromCacheField } from "./FilesIgnoredFromCacheField";
 import { MoveRepoField } from "./MoveRepoField";
+import { RepotrackerField } from "./RepotrackerField";
 
 export const getFormData = (
   projectId: string,
   useRepoSettings: boolean,
-  validDefaultLoggers: Project["validDefaultLoggers"]
-) => ({
+  validDefaultLoggers: Project["validDefaultLoggers"],
+  repoData?: RepoGeneralSettingsFragment
+): Record<
+  string,
+  {
+    fields: Record<string, Field>;
+    schema: SpruceFormProps["schema"];
+    uiSchema: SpruceFormProps["uiSchema"];
+  }
+> => ({
   generalConfiguration: {
-    fields: { moveRepo: MoveRepoField },
+    fields: { moveRepoField: MoveRepoField },
     schema: {
       type: "object" as "object",
       properties: {
         enabled: {
-          type: "string" as "string",
-          enum: ["enabled", "disabled"],
-          enumNames: ["Enabled", "Disabled"],
+          type: "boolean" as "boolean",
+          oneOf: radioBoxOptions(["Enabled", "Disabled"], repoData?.enabled),
         },
         repositoryInfo: {
           type: "object" as "object",
@@ -65,46 +76,60 @@ export const getFormData = (
       enabled: {
         "ui:widget": widgets.RadioBoxWidget,
         "ui:showLabel": false,
+        "ui:data-cy": "enabled-radio-box",
       },
       repositoryInfo: {
-        "ui:field": "moveRepo",
-        "ui:disabled": true,
+        "ui:field": "moveRepoField",
+        "ui:disabled": !!useRepoSettings,
         options: { useRepoSettings },
+      },
+      branch: {
+        ...placeholderIf(repoData?.branch),
       },
       other: {
         batchTime: {
           "ui:description":
             "The interval of time (in minutes) that Evergreen should wait in between activating the latest version.",
           "ui:emptyValue": 9,
+          ...placeholderIf(repoData?.batchTime),
+        },
+        remotePath: {
+          ...placeholderIf(repoData?.remotePath),
         },
         spawnHostScriptPath: {
           "ui:description":
             "This is the bash setup script to optionally run on spawn hosts created from tasks.",
           "ui:data-cy": "spawn-host-input",
+          ...placeholderIf(repoData?.spawnHostScriptPath),
         },
       },
     },
   },
   projectFlags: {
-    fields: { forceRepotrackerRun: ForceRepotrackerRunField },
+    fields: { repotrackerField: RepotrackerField },
     schema: {
       type: "object" as "object",
       properties: {
         dispatchingDisabled: {
-          type: "string" as "string",
+          type: "boolean" as "boolean",
           title: "Dispatching",
-          enum: ["enabled", "disabled"],
-          enumNames: ["Enabled", "Disabled"],
+          oneOf: radioBoxOptions(
+            ["Enabled", "Disabled"],
+            repoData?.dispatchingDisabled,
+            true
+          ),
         },
         scheduling: {
           type: "object" as "object",
           title: "Scheduling Settings",
           properties: {
             deactivatePrevious: {
-              type: "string" as "string",
-              title: "Old task on success",
-              enum: ["unschedule", "schedule"],
-              enumNames: ["Unschedule", "Schedule"],
+              type: "boolean" as "boolean",
+              title: "Old Task on Success",
+              oneOf: radioBoxOptions(
+                ["Unschedule", "Don't Unschedule"],
+                repoData?.deactivatePrevious
+              ),
             },
           },
         },
@@ -113,10 +138,13 @@ export const getFormData = (
           title: "Repotracker Settings",
           properties: {
             repotrackerDisabled: {
-              type: "string" as "string",
+              type: "boolean" as "boolean",
               title: "Repotracker",
-              enum: ["enabled", "disabled"],
-              enumNames: ["Enabled", "Disabled"],
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.repotrackerDisabled,
+                true
+              ),
             },
           },
         },
@@ -135,10 +163,12 @@ export const getFormData = (
           title: "Test Results",
           properties: {
             cedarTestResultsEnabled: {
-              type: "string" as "string",
+              type: "boolean" as "string",
               title: "Cedar Test Results",
-              enum: ["enabled", "disabled"],
-              enumNames: ["Enabled", "Disabled"],
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.cedarTestResultsEnabled
+              ),
             },
           },
         },
@@ -149,8 +179,11 @@ export const getFormData = (
             patchingDisabled: {
               type: "string" as "string",
               title: "Patching",
-              enum: ["enabled", "disabled"],
-              enumNames: ["Enabled", "Disabled"],
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.patchingDisabled,
+                true
+              ),
             },
           },
         },
@@ -161,14 +194,18 @@ export const getFormData = (
             configEnabled: {
               type: "string" as "string",
               title: "Project Config Commands",
-              enum: ["enabled", "disabled"],
-              enumNames: ["Enabled", "Disabled"],
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.taskSync.configEnabled
+              ),
             },
             patchEnabled: {
               type: "string" as "string",
               title: "Task in Patches",
-              enum: ["enabled", "disabled"],
-              enumNames: ["Enabled", "Disabled"],
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.taskSync.patchEnabled
+              ),
             },
           },
         },
@@ -187,12 +224,12 @@ export const getFormData = (
         },
       },
       repotracker: {
+        "ui:field": "repotrackerField",
+        options: { projectId },
         repotrackerDisabled: {
-          "ui:field": "forceRepotrackerRun",
           "ui:widget": widgets.RadioBoxWidget,
           "ui:description":
             "Repotracker will be triggered from GitHub push events sent via webhook.",
-          options: { projectId },
         },
       },
       logger: {
@@ -227,27 +264,37 @@ export const getFormData = (
     },
   },
   historicalDataCaching: {
-    fields: {},
+    fields: {
+      filesIgnoredFromCacheField: FilesIgnoredFromCacheField,
+    },
     schema: {
       type: "object" as "object",
       properties: {
         disabledStatsCache: {
           type: "string" as "string",
           title: "Caching",
-          enum: ["enabled", "disabled"],
-          enumNames: ["Enabled", "Disabled"],
+          oneOf: radioBoxOptions(
+            ["Enabled", "Disabled"],
+            repoData?.disabledStatsCache,
+            true
+          ),
         },
-        filesIgnoredFromCache: {
+        files: {
+          type: "object" as "object",
           title: "File Patterns to Ignore",
-          type: "array" as "array",
           description:
             "Comma-separated list of regular expression patterns that specify test filenames to ignore when caching test and task history.",
-          items: {
-            type: "object" as "object",
-            properties: {
-              filePattern: {
-                type: "string" as "string",
-                title: "File Pattern",
+          properties: {
+            filesIgnoredFromCache: {
+              type: "array" as "array",
+              items: {
+                type: "object" as "object",
+                properties: {
+                  filePattern: {
+                    type: "string" as "string",
+                    title: "File Pattern",
+                  },
+                },
               },
             },
           },
@@ -255,8 +302,16 @@ export const getFormData = (
       },
     },
     uiSchema: {
+      "ui:rootFieldId": "historicalDataCaching",
       disabledStatsCache: {
         "ui:widget": widgets.RadioBoxWidget,
+      },
+      files: {
+        filesIgnoredFromCache: {
+          "ui:buttonText": "Add File Pattern",
+          "ui:field": "filesIgnoredFromCacheField",
+          options: { useRepoSettings },
+        },
       },
     },
   },

@@ -25,7 +25,13 @@ const VariantHistoryRow: React.FC<ListChildComponentProps> = (props) => {
       return <EmptyCell key={`empty_task_${c}`} />;
     });
   }
-  return <Row {...props} columns={orderedColumns} />;
+  return (
+    <Row
+      {...props}
+      columns={orderedColumns}
+      numVisibleCols={visibleColumns.length}
+    />
+  );
 };
 
 export default VariantHistoryRow;
