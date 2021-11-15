@@ -93,7 +93,7 @@ export const routes = {
   userPatchesRedirect: `${paths.user}/:id`,
   userPatches: `${paths.user}/:id/${PageNames.Patches}`,
   version: `${paths.version}/:id/:tab?`,
-  commits: `${paths.commits}/:projectId?`,
+  commits: `${paths.commits}/:id?`,
   variantHistory: `${paths.variantHistory}/:projectId/:variantName`,
   taskHistory: `${paths.taskHistory}/:projectId/:taskName`,
   jobLogs: `${paths.jobLogs}/:taskId/:execution/:groupId?`,
@@ -206,10 +206,13 @@ export const getProjectSettingsRoute = (
 export const getCommitQueueRoute = (projectId: string) =>
   `${paths.commitQueue}/${projectId}`;
 
-export const getCommitsRoute = (projectId: string) =>
+export const getCommitsRoute = (projectId: string = "") =>
   `${paths.commits}/${projectId}`;
 
 export const getVariantHistoryRoute = (
-  projectId: string,
+  projectIdentifier: string,
   variantName: string
-) => `${paths.variantHistory}/${projectId}/${variantName}`;
+) => `${paths.variantHistory}/${projectIdentifier}/${variantName}`;
+
+export const getTaskHistoryRoute = (projectId: string, taskName: string) =>
+  `${paths.taskHistory}/${projectId}/${taskName}`;

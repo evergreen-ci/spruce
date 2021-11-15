@@ -3027,6 +3027,7 @@ export type PatchTasksQuery = {
       buildVariant: string;
       buildVariantDisplayName?: Maybe<string>;
       blocked: boolean;
+      projectIdentifier?: Maybe<string>;
       executionTasksFull?: Maybe<
         Array<{
           id: string;
@@ -3036,6 +3037,7 @@ export type PatchTasksQuery = {
           buildVariant: string;
           baseStatus?: Maybe<string>;
           buildVariantDisplayName?: Maybe<string>;
+          projectIdentifier?: Maybe<string>;
           baseTask?: Maybe<{ id: string; execution: number; status: string }>;
         }>
       >;
@@ -3290,6 +3292,11 @@ export type GetTaskQuery = {
         newVersion: string;
         prClosed: boolean;
       }>;
+      baseTask?: Maybe<{
+        id: string;
+        execution: number;
+        timeTaken?: Maybe<number>;
+      }>;
       executionTasksFull?: Maybe<
         Array<{
           displayName: string;
@@ -3301,10 +3308,7 @@ export type GetTaskQuery = {
           buildVariantDisplayName?: Maybe<string>;
         }>
       >;
-      baseTaskMetadata?: Maybe<{
-        baseTaskDuration?: Maybe<number>;
-        baseTaskLink: string;
-      }>;
+      baseTaskMetadata?: Maybe<{ baseTaskDuration?: Maybe<number> }>;
       displayTask?: Maybe<{
         id: string;
         execution: number;
@@ -3507,6 +3511,18 @@ export type HostsQuery = {
       runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
     }>;
   };
+};
+
+export type LastPassingVersionQueryVariables = Exact<{
+  variant: Scalars["String"];
+  projectId: Scalars["String"];
+  taskName: Scalars["String"];
+}>;
+
+export type LastPassingVersionQuery = {
+  mainlineCommits?: Maybe<{
+    versions: Array<{ version?: Maybe<{ id: string }> }>;
+  }>;
 };
 
 export type ProjectPatchesQueryVariables = Exact<{

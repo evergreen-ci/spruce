@@ -67,6 +67,7 @@ export const Task: React.FC = () => {
     latestExecution,
     versionMetadata,
     canOverrideDependencies,
+    project,
   } = task ?? {};
   const attributed = annotation?.issues?.length > 0;
 
@@ -110,6 +111,8 @@ export const Task: React.FC = () => {
             canSetPriority={canSetPriority}
             initialPriority={priority}
             canOverrideDependencies={canOverrideDependencies}
+            taskName={displayName}
+            projectIdentifier={project?.identifier}
           />
         }
       />

@@ -53,10 +53,10 @@ describe("Version route", () => {
       cy.get('button[aria-label="Close modal"]').click();
       cy.dataCy("parameters-modal").should("not.exist");
     });
-    it("'Base commit' link in metadata links to version page of legacy UI", () => {
+    it("'Base commit' link in metadata links to version page", () => {
       cy.dataCy("patch-base-commit")
         .should("have.attr", "href")
-        .and("include", `http://localhost:9090/version/${versions[5]}`);
+        .and("include", `/version/${versions[5]}`);
     });
     it("Doesn't show patch parameters if they don't exist", () => {
       cy.visit(versionRoute(versions[2]));

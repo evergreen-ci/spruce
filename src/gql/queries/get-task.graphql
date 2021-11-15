@@ -17,6 +17,11 @@ query GetTask($taskId: String!, $execution: Int) {
       newVersion
       prClosed
     }
+    baseTask {
+      id
+      execution
+      timeTaken
+    }
     activatedBy
     executionTasksFull {
       displayName
@@ -29,7 +34,6 @@ query GetTask($taskId: String!, $execution: Int) {
     }
     baseTaskMetadata {
       baseTaskDuration
-      baseTaskLink
     }
     displayTask {
       id
