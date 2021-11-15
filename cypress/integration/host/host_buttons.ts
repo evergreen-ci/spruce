@@ -1,6 +1,6 @@
 import { popconfirmYesClassName } from "../../utils/popconfirm";
 
-describe("Host page restart jasper and update host status buttons", () => {
+describe("Host page restart jasper, reprovision, and update host status buttons", () => {
   before(() => {
     cy.login();
     cy.visit("/host/i-0d0ae8b83366d22be");
@@ -14,6 +14,14 @@ describe("Host page restart jasper and update host status buttons", () => {
     cy.dataCy("restart-jasper-button").click();
     cy.get(popconfirmYesClassName).click();
     cy.dataCy("toast").should("exist");
+    cy.get(`[aria-label="Close Message"]`).click();
+  });
+
+  it("Should show a toast when host is reprovisioned", () => {
+    cy.dataCy("reprovision-button").click();
+    cy.get(popconfirmYesClassName).last().click();
+    cy.dataCy("toast").should("exist");
+    cy.get(`[aria-label="Close Message"]`).click();
   });
 
   it("Should show and hide the modal for update status", () => {

@@ -46,4 +46,18 @@ describe("Select hosts in hosts page table", () => {
 
     cy.dataCy("toast").should("exist");
   });
+
+  it("Can reprovision for selected hosts", () => {
+    cy.visit(`${hostsRoute}?distroId=ubuntu1604-large&page=0&statuses=running`);
+
+    cy.get(".ant-table-selection-column").within(() => {
+      cy.get(".ant-checkbox-input").check({ force: true });
+    });
+
+    cy.dataCy("reprovision-button").click();
+
+    cy.get(popconfirmYesClassName).click();
+
+    cy.dataCy("toast").should("exist");
+  });
 });

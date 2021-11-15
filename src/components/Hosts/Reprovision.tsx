@@ -78,7 +78,7 @@ export const Reprovision: React.FC<Props> = ({
         cancelButtonProps={{ disabled: loadingReprovision }}
       >
         <Button
-          data-cy="restart-jasper-button"
+          data-cy="reprovision-button"
           disabled={selectedHostIds.length === 0 || !canReprovision}
         >
           Reprovision
