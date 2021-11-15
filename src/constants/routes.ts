@@ -214,5 +214,7 @@ export const getVariantHistoryRoute = (
   variantName: string
 ) => `${paths.variantHistory}/${projectIdentifier}/${variantName}`;
 
-export const getTaskHistoryRoute = (projectId: string, taskName: string) =>
-  `${paths.taskHistory}/${projectId}/${taskName}`;
+export const getTaskHistoryRoute = (
+  projectIdentifier: string,
+  taskName: string
+) => `${paths.taskHistory}/${projectIdentifier}/${taskName}`;
