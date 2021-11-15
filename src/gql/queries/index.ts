@@ -51,7 +51,6 @@ import GET_USER_SETTINGS from "./get-user-settings.graphql";
 import GET_USER from "./get-user.graphql";
 import GET_VERSION from "./get-version.graphql";
 import HOSTS from "./hosts.graphql";
-import GET_LAST_PASSING_VERSION from "./last-passing-version.graphql";
 import GET_PROJECT_PATCHES from "./project-patches.graphql";
 import GET_SPAWN_EXPIRATION_INFO from "./spawn-expiration.graphql";
 import GET_SPAWN_TASK from "./spawn-task.graphql";
@@ -117,7 +116,6 @@ export {
   GET_PATCH,
   GET_VERSION,
   GET_PATCH_CONFIGURE,
-  GET_LAST_PASSING_VERSION,
   GET_FAILED_TASK_STATUS_ICON_TOOLTIP,
   GET_UNSCHEDULED_TASKS,
 };

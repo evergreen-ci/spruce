@@ -62,8 +62,7 @@ type Action =
   | { name: "Click Execution Task Link" }
   | { name: "Click Display Task Link" }
   | { name: "Click Project Link" }
-  | { name: "Click See History Button" }
-  | { name: "Click Last Passing Version Button" };
+  | { name: "Click See History Button" };
 
 interface P extends Properties {
   taskId: string;
