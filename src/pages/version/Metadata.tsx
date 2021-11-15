@@ -85,7 +85,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
       </P2>
       <P2>Makespan: {makespan && msToDuration(makespan)}</P2>
       <P2>Time taken: {timeTaken && msToDuration(timeTaken)}</P2>
-      <P2>Submitted at: {getDateCopy(createTime)}</P2>
+      <P2>Submitted at: {createTime && getDateCopy(createTime)}</P2>
       <P2>Started: {startTime && getDateCopy(startTime)}</P2>
       <P2>Finished: {finishTime && getDateCopy(finishTime)}</P2>
       <P2>{`Submitted by: ${author}`}</P2>

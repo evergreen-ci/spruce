@@ -2,28 +2,23 @@ import { useQuery } from "@apollo/client";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
-import { Subtitle } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { useNavbarAnalytics } from "analytics";
 import Icon from "components/Icon";
 import { StyledLink } from "components/styles";
-import { getUserPatchesRoute, routes } from "constants/routes";
+import { getCommitsRoute, getUserPatchesRoute, routes } from "constants/routes";
 import { useAuthStateContext } from "context/auth";
 import { GetUserQuery } from "gql/generated/types";
 import { GET_USER } from "gql/queries";
 import { useLegacyUIURL } from "hooks";
-import { environmentalVariables } from "utils";
 import { AuxiliaryDropdown } from "./AuxiliaryDropdown";
 import { UserDropdown } from "./UserDropdown";
-
-const { getUiUrl } = environmentalVariables;
 
 const { white, blue, gray } = uiColors;
 
 export const Navbar: React.FC = () => {
   const { isAuthenticated } = useAuthStateContext();
   const legacyURL = useLegacyUIURL();
-  const uiURL = getUiUrl();
   const navbarAnalytics = useNavbarAnalytics();
 
   const { data } = useQuery<GetUserQuery>(GET_USER);
@@ -36,25 +31,21 @@ export const Navbar: React.FC = () => {
   return (
     <StyledNav>
       <NavActionContainer>
-        <Link
+        <LogoLink
           to={routes.myPatches}
           onClick={() => navbarAnalytics.sendEvent({ name: "Click Logo Link" })}
         >
-          <Logo>
-            <Icon glyph="EvergreenLogo" />
-            {/* @ts-expect-error */}
-            <StyledSubtitle>Evergreen</StyledSubtitle>
-          </Logo>
-        </Link>
+          <Icon glyph="EvergreenLogo" />
+        </LogoLink>
 
-        <PrimaryA
-          href={`${uiURL}/waterfall`}
+        <PrimaryLink
+          to={getCommitsRoute()}
           onClick={() =>
             navbarAnalytics.sendEvent({ name: "Click Waterfall Link" })
           }
         >
-          Waterfall
-        </PrimaryA>
+          Project Health
+        </PrimaryLink>
         <PrimaryLink to={getUserPatchesRoute(userId)}>My Patches</PrimaryLink>
         <PrimaryLink to={routes.spawnHost}>My Hosts</PrimaryLink>
         <AuxiliaryDropdown />
@@ -86,15 +77,10 @@ const StyledNav = styled.nav`
   line-height: 64px;
   padding: 0 36px;
 `;
-const Logo = styled.div`
+
+const LogoLink = styled(Link)`
   display: flex;
   align-items: center;
-`;
-
-/* @ts-expect-error */
-const StyledSubtitle = styled(Subtitle)`
-  color: ${white};
-  margin-left: 8px;
 `;
 
 const NavActionContainer = styled.div`
@@ -107,16 +93,8 @@ const NavActionContainer = styled.div`
   }
 `;
 
-const primaryStyle = css`
-  color: ${white};
-`;
-
 const PrimaryLink = styled(Link)`
-  ${primaryStyle}
-`;
-
-const PrimaryA = styled.a`
-  ${primaryStyle}
+  color: ${white};
 `;
 
 const secondaryStyle = css`

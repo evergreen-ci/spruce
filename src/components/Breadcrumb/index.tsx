@@ -60,7 +60,7 @@ export const BreadCrumb: React.FC<Props> = ({
 
 interface PatchBreadcrumbProps {
   patchAuthor: string;
-  analytics: any;
+  analytics: ReturnType<typeof useBreadcrumbAnalytics>;
   versionId: string;
   patchNumber?: number;
   isTask: boolean;
@@ -135,6 +135,10 @@ const VersionBreadcrumb: React.FC<VersionBreadcrumbProps> = ({
   isTask,
 }) => {
   const { project, revision, id } = versionMetadata;
+  // We need to case on revision since periodic builds do not have a revision
+  const breadcrumbText = revision.length
+    ? revision.substring(0, 7)
+    : id.substring(0, 7);
   return (
     <>
       <Breadcrumb.Item>
@@ -149,7 +153,7 @@ const VersionBreadcrumb: React.FC<VersionBreadcrumbProps> = ({
               })
             }
           >
-            {project}&apos;s waterfall
+            {project}
           </StyledBreadcrumbLink>
         </StyledP1>
       </Breadcrumb.Item>
@@ -166,13 +170,13 @@ const VersionBreadcrumb: React.FC<VersionBreadcrumbProps> = ({
                 })
               }
             >
-              {revision?.substr(0, 7)}
+              {breadcrumbText}
             </StyledBreadcrumbLink>
           </StyledP1>
         </Breadcrumb.Item>
       ) : (
         <Breadcrumb.Item>
-          <H3 data-cy="bc-version"> {revision?.substr(0, 7)}</H3>
+          <H3 data-cy="bc-version"> {breadcrumbText}</H3>
         </Breadcrumb.Item>
       )}
     </>
