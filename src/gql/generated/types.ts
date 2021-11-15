@@ -1300,6 +1300,7 @@ export type Task = {
   latestExecution: Scalars["Int"];
   logs: TaskLogLinks;
   minQueuePosition: Scalars["Int"];
+  patch?: Maybe<Patch>;
   /** @deprecated patchMetadata is deprecated. Use versionMetadata instead. */
   patchMetadata: PatchMetadata;
   patchNumber?: Maybe<Scalars["Int"]>;
@@ -3257,6 +3258,7 @@ export type GetTaskQuery = {
       estimatedStart?: Maybe<number>;
       finishTime?: Maybe<Date>;
       hostId?: Maybe<string>;
+      requester: string;
       projectId: string;
       patchNumber?: Maybe<number>;
       canOverrideDependencies: boolean;

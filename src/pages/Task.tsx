@@ -13,6 +13,7 @@ import {
 } from "components/styles";
 import TaskStatusBadge from "components/TaskStatusBadge";
 import { pollInterval } from "constants/index";
+import { commitQueueRequester } from "constants/patch";
 import { useToastContext } from "context/toast";
 import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
 import { GET_TASK } from "gql/queries";
@@ -66,9 +67,12 @@ export const Task: React.FC = () => {
     annotation,
     latestExecution,
     versionMetadata,
+    requester,
     canOverrideDependencies,
   } = task ?? {};
   const attributed = annotation?.issues?.length > 0;
+
+  const isPatchOnCommitQueue = requester === commitQueueRequester;
 
   // Set the execution if it isnt provided
   if (Number.isNaN(selectedExecution) && latestExecution !== undefined) {
@@ -104,8 +108,8 @@ export const Task: React.FC = () => {
         buttons={
           <ActionButtons
             canAbort={canAbort}
-            canRestart={canRestart}
-            canSchedule={canSchedule}
+            canRestart={!isPatchOnCommitQueue && canRestart}
+            canSchedule={!isPatchOnCommitQueue && canSchedule}
             canUnschedule={canUnschedule}
             canSetPriority={canSetPriority}
             initialPriority={priority}

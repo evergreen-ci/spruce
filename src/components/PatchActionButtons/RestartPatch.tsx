@@ -14,7 +14,7 @@ interface RestartPatchProps {
 }
 export const RestartPatch: React.FC<RestartPatchProps> = ({
   isButton,
-  disabled,
+  disabled = false,
   patchId,
   refetchQueries,
   visibilityControl,
@@ -34,7 +34,7 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
         <Button
           size="small"
           data-cy="restart-patch"
-          disabled={false}
+          disabled={disabled}
           loading={false}
           onClick={onClick}
         >
