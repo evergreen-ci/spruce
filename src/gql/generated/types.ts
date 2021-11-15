@@ -2420,7 +2420,11 @@ export type AgentLogsQueryVariables = Exact<{
 }>;
 
 export type AgentLogsQuery = {
-  taskLogs: { agentLogs: Array<LogMessageFragment> };
+  taskLogs: {
+    execution: number;
+    taskId: string;
+    agentLogs: Array<LogMessageFragment>;
+  };
 };
 
 export type GetAnnotationEventDataQueryVariables = Exact<{
@@ -2661,6 +2665,8 @@ export type EventLogsQueryVariables = Exact<{
 
 export type EventLogsQuery = {
   taskLogs: {
+    execution: number;
+    taskId: string;
     eventLogs: Array<{
       timestamp?: Maybe<Date>;
       eventType?: Maybe<string>;
@@ -3151,7 +3157,11 @@ export type SystemLogsQueryVariables = Exact<{
 }>;
 
 export type SystemLogsQuery = {
-  taskLogs: { systemLogs: Array<LogMessageFragment> };
+  taskLogs: {
+    execution: number;
+    taskId: string;
+    systemLogs: Array<LogMessageFragment>;
+  };
 };
 
 export type GetTaskAllExecutionsQueryVariables = Exact<{
@@ -3189,7 +3199,11 @@ export type TaskLogsQueryVariables = Exact<{
 }>;
 
 export type TaskLogsQuery = {
-  taskLogs: { taskLogs: Array<LogMessageFragment> };
+  taskLogs: {
+    execution: number;
+    taskId: string;
+    taskLogs: Array<LogMessageFragment>;
+  };
 };
 
 export type GetTaskNamesForBuildVariantQueryVariables = Exact<{
