@@ -2,7 +2,6 @@ import { useQuery } from "@apollo/client";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
-import { Subtitle } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { useNavbarAnalytics } from "analytics";
 import Icon from "components/Icon";
@@ -32,16 +31,12 @@ export const Navbar: React.FC = () => {
   return (
     <StyledNav>
       <NavActionContainer>
-        <Link
+        <LogoLink
           to={routes.myPatches}
           onClick={() => navbarAnalytics.sendEvent({ name: "Click Logo Link" })}
         >
-          <Logo>
-            <Icon glyph="EvergreenLogo" />
-            {/* @ts-expect-error */}
-            <StyledSubtitle>Evergreen</StyledSubtitle>
-          </Logo>
-        </Link>
+          <Icon glyph="EvergreenLogo" />
+        </LogoLink>
 
         <PrimaryLink
           to={getCommitsRoute()}
@@ -82,15 +77,10 @@ const StyledNav = styled.nav`
   line-height: 64px;
   padding: 0 36px;
 `;
-const Logo = styled.div`
+
+const LogoLink = styled(Link)`
   display: flex;
   align-items: center;
-`;
-
-/* @ts-expect-error */
-const StyledSubtitle = styled(Subtitle)`
-  color: ${white};
-  margin-left: 8px;
 `;
 
 const NavActionContainer = styled.div`
