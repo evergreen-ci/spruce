@@ -127,6 +127,7 @@ const mocks = [
           banner: "",
           ui: {
             userVoice: "",
+            defaultProject: "evergreen",
           },
           jira: {
             host: "jira.mongodb.org",

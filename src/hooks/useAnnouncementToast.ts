@@ -1,12 +1,11 @@
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { toastData } from "constants/announcementToast";
+import { ANNOUNCEMENT_TOAST } from "constants/cookies";
 import { useToastContext } from "context/toast";
 
-const COOKIE_NAME = "announcement-toast";
-
 const setClosedCookie = (message: string, expires: number = 7) => {
-  Cookies.set(COOKIE_NAME, message, { expires });
+  Cookies.set(ANNOUNCEMENT_TOAST, message, { expires });
 };
 
 export const useAnnouncementToast = () => {
@@ -18,7 +17,7 @@ export const useAnnouncementToast = () => {
     }
 
     const { closable, expires, message, title, variant } = toastData;
-    if (message !== "" && Cookies.get(COOKIE_NAME) !== message) {
+    if (message !== "" && Cookies.get(ANNOUNCEMENT_TOAST) !== message) {
       dispatchToast[variant](
         message,
         closable,

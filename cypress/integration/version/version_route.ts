@@ -80,7 +80,7 @@ describe("Version route", () => {
         .first()
         .trigger("mouseover")
         .within(($el) => {
-          expect($el.text()).to.contain("1Scheduled");
+          expect($el.text()).to.contain("1Undispatched");
         });
     });
 
@@ -88,7 +88,7 @@ describe("Version route", () => {
       cy.dataCy("grouped-task-status-badge").first().click();
       cy.location("search").should(
         "include",
-        "statuses=scheduled-umbrella,will-run,pending,unstarted"
+        "statuses=undispatched-umbrella,unscheduled,aborted,blocked"
       );
     });
   });

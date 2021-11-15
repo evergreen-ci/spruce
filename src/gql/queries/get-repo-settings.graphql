@@ -1,0 +1,9 @@
+#import "../fragments/projectSettings/general.graphql"
+
+query RepoSettings($repoId: String!) {
+  repoSettings(id: $repoId) {
+    projectRef {
+      ...repoGeneralSettings
+    }
+  }
+}

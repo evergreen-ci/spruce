@@ -48,6 +48,9 @@ export const Modal: React.FC<ModalProps> = ({
 const backgroundColor = hexToRGBA(uiColors.black, 0.9);
 
 const StyledModal = styled(AntdModal)`
+  .ant-modal-content {
+    min-width: 500px;
+  }
   .ant-modal-body {
     padding-bottom: 89px;
   }

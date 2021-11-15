@@ -71,58 +71,60 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
   return (
     <SectionContainer>
       <SectionLabel weight="medium">Expiration</SectionLabel>
-      <FlexColumnContainer>
-        <InputLabel htmlFor="hostDetailsDatePicker">Date</InputLabel>
-        <DatePicker
-          id="hostDetailsDatePicker"
-          data-cy="date-picker"
-          onChange={updateDate}
-          disabled={noExpiration}
-          disabledDate={disabledDate}
-          value={expiration}
-          allowClear={false}
-        />
-      </FlexColumnContainer>
-      <PaddedBody>&amp;</PaddedBody>
-      <FlexColumnContainer>
-        <InputLabel htmlFor="hostDetailsTimePicker">Time</InputLabel>
-        <TimePicker
-          data-cy="time-picker"
-          onChange={updateTime}
-          disabled={noExpiration}
-          disabledDate={disabledDate}
-          value={expiration}
-          allowClear={false}
-        />
-      </FlexColumnContainer>
-      <PaddedBody> or </PaddedBody>
-      <FlexColumnContainer>
-        <Tooltip
-          title={
-            disableExpirationCheckbox
-              ? `You have reached the max number of unexpirable ${
-                  isVolume
-                    ? `volumes (${unexpirableVolumesPerUser})`
-                    : `hosts (${unexpirableHostsPerUser})`
-                }. Toggle an existing ${
-                  isVolume ? "volume" : "host"
-                } to expirable to enable this checkbox.`
-              : undefined
-          }
-        >
-          <span>
-            <PaddedCheckbox
-              data-cy="neverExpireCheckbox"
-              disabled={disableExpirationCheckbox}
-              label="Never"
-              checked={noExpiration}
-              onChange={(e) =>
-                onChange({ noExpiration: e.target.checked, expiration })
-              }
-            />
-          </span>
-        </Tooltip>
-      </FlexColumnContainer>
+      <FormContainer>
+        <FlexColumnContainer>
+          <InputLabel htmlFor="hostDetailsDatePicker">Date</InputLabel>
+          <DatePicker
+            id="hostDetailsDatePicker"
+            data-cy="date-picker"
+            onChange={updateDate}
+            disabled={noExpiration}
+            disabledDate={disabledDate}
+            value={expiration}
+            allowClear={false}
+          />
+        </FlexColumnContainer>
+        <PaddedBody>&amp;</PaddedBody>
+        <FlexColumnContainer>
+          <InputLabel htmlFor="hostDetailsTimePicker">Time</InputLabel>
+          <TimePicker
+            data-cy="time-picker"
+            onChange={updateTime}
+            disabled={noExpiration}
+            disabledDate={disabledDate}
+            value={expiration}
+            allowClear={false}
+          />
+        </FlexColumnContainer>
+        <PaddedBody> or </PaddedBody>
+        <FlexColumnContainer>
+          <Tooltip
+            title={
+              disableExpirationCheckbox
+                ? `You have reached the max number of unexpirable ${
+                    isVolume
+                      ? `volumes (${unexpirableVolumesPerUser})`
+                      : `hosts (${unexpirableHostsPerUser})`
+                  }. Toggle an existing ${
+                    isVolume ? "volume" : "host"
+                  } to expirable to enable this checkbox.`
+                : undefined
+            }
+          >
+            <span>
+              <PaddedCheckbox
+                data-cy="neverExpireCheckbox"
+                disabled={disableExpirationCheckbox}
+                label="Never"
+                checked={noExpiration}
+                onChange={(e) =>
+                  onChange({ noExpiration: e.target.checked, expiration })
+                }
+              />
+            </span>
+          </Tooltip>
+        </FlexColumnContainer>
+      </FormContainer>
     </SectionContainer>
   );
 };
@@ -130,6 +132,11 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
 const FlexColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const FormContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 const PaddedBody = styled.span`

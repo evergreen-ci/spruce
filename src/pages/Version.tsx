@@ -31,7 +31,7 @@ import { usePageTitle, useNetworkStatus } from "hooks";
 import { PageDoesNotExist } from "pages/404";
 import { githubPRLinkify } from "utils/string";
 import { jiraLinkify } from "utils/string/jiraLinkify";
-import { validatePatchId } from "utils/validators";
+import { validateObjectId } from "utils/validators";
 import { BuildVariants } from "./version/BuildVariants";
 import { ActionButtons } from "./version/index";
 import { Metadata } from "./version/Metadata";
@@ -74,7 +74,7 @@ export const VersionPage: React.FC = () => {
   // First check if an id belongs to a patch if so we should fetch the patch,
   //  to see if it has been activated and has a version; otherwise fetch the version directly
   useEffect(() => {
-    if (validatePatchId(id)) {
+    if (validateObjectId(id)) {
       getPatch();
     } else {
       getVersion();
