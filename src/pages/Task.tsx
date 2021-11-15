@@ -13,13 +13,13 @@ import {
 } from "components/styles";
 import TaskStatusBadge from "components/TaskStatusBadge";
 import { pollInterval } from "constants/index";
+import { commitQueueRequester } from "constants/patch";
 import { useToastContext } from "context/toast";
 import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
 import { GET_TASK } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PageDoesNotExist } from "pages/404";
-import { commitQueueRequester } from "types/commits";
 import { RequiredQueryParams, TaskStatus } from "types/task";
 import { queryString } from "utils";
 import { ActionButtons } from "./task/ActionButtons";
