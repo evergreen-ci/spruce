@@ -1,5 +1,6 @@
 import {
   ProjectGeneralSettingsFragment,
+  ProjectInput,
   ProjectSettingsInput,
   RepoGeneralSettingsFragment,
 } from "gql/generated/types";
@@ -51,8 +52,8 @@ export const gqlToForm = (
 export const formToGql = (
   formState: FormState,
   id: string
-): Partial<ProjectSettingsInput> => ({
-  projectRef: {
+): Pick<ProjectSettingsInput, "projectRef"> => {
+  const projectRef: ProjectInput = {
     id,
     enabled: formState.enabled,
     owner: formState.repositoryInfo.owner,
@@ -78,5 +79,7 @@ export const formToGql = (
           ({ filePattern }) => filePattern
         )
       : null,
-  },
-});
+  };
+
+  return { projectRef };
+};

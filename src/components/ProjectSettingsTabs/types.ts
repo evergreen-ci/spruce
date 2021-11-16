@@ -23,10 +23,10 @@ export type TabDataProps = {
   };
 };
 
-export const readOnlyTabList: ProjectSettingsTabRoutes[] = [
+export const readOnlyTabs: ProjectSettingsTabRoutes[] = [
   ProjectSettingsTabRoutes.EventLog,
 ];
 
-type ReadOnlyTabs = typeof readOnlyTabList[number];
+type ReadOnlyTabs = typeof readOnlyTabs[number];
 
 export type WritableTabRoutes = Exclude<ProjectSettingsTabRoutes, ReadOnlyTabs>;

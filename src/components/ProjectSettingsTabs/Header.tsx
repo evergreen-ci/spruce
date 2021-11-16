@@ -54,7 +54,7 @@ export const Header: React.FC<Props> = ({
         `There was an error saving the project: ${err.message}`
       );
     },
-    refetchQueries: ["ProjectSettings", "RepoSettings"],
+    refetchQueries: ["ProjectSettings"],
   });
 
   const [saveRepoSection] = useMutation<
@@ -67,7 +67,7 @@ export const Header: React.FC<Props> = ({
     onError(err) {
       dispatchToast.error(`There was an error saving the repo: ${err.message}`);
     },
-    refetchQueries: ["ProjectSettings", "RepoSettings"],
+    refetchQueries: ["RepoSettings"],
   });
 
   const onClick = () => {
@@ -129,7 +129,7 @@ const TitleContainer = styled.div`
   margin-bottom: 30px;
 
   > :not(:last-child) {
-    margin-right: 24px;
+    margin-right: 12px;
   }
 `;
 

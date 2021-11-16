@@ -15,7 +15,7 @@ import {
   VirtualWorkstationTab,
 } from "components/ProjectSettingsTabs";
 import {
-  readOnlyTabList,
+  readOnlyTabs,
   TabDataProps,
 } from "components/ProjectSettingsTabs/types";
 import { TabProps } from "components/ProjectSettingsTabs/utils";
@@ -50,7 +50,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
         canDefaultToRepo={projectData && useRepoSettings}
         id={projectId || repoData?.repoSettings?.projectRef?.id}
         isRepo={!projectData}
-        saveable={!readOnlyTabList.includes(tab)}
+        saveable={!readOnlyTabs.includes(tab)}
         tab={tab}
       />
       <Route
