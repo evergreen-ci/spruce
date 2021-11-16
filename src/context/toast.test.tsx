@@ -53,12 +53,12 @@ describe("Real Toast", () => {
   describe("Displays a toast which corresponds to the variant dispatched", () => {
     test("success", async () => {
       const { queryByText, queryByDataCy } = render(
-        renderContainer(<UseToastComponent warning={["test string"]} />)
+        renderContainer(<UseToastComponent success={["test string"]} />)
       );
       fireEvent.click(queryByText("Click Me"));
       await waitFor(() => {
         expect(queryByDataCy("toast")).toBeInTheDocument();
-        expect(queryByText("Warning!")).toBeInTheDocument();
+        expect(queryByText("Success!")).toBeInTheDocument();
         expect(queryByText("test string")).toBeInTheDocument();
       });
     });
