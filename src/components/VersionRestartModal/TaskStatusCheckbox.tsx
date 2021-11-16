@@ -28,7 +28,11 @@ const CheckboxComponent: React.FC<TaskStatusCheckboxProps> = ({
     label={
       <StateItemWrapper>
         <StyledTaskStatusIcon status={status} />
-        {baseStatus && <StyledTaskStatusIcon status={baseStatus} />}
+        {baseStatus ? (
+          <StyledTaskStatusIcon status={baseStatus} />
+        ) : (
+          <EmptyCell />
+        )}
         <div>{displayName}</div>
       </StateItemWrapper>
     }
@@ -48,4 +52,10 @@ const StateItemWrapper = styled("div")`
 
 const StyledTaskStatusIcon = styled(TaskStatusIcon)`
   margin-right: 3px;
+`;
+
+// Wrapping checkboxes with fix width container
+// adjusts alignment.
+const EmptyCell = styled.span`
+  width: 19px;
 `;
