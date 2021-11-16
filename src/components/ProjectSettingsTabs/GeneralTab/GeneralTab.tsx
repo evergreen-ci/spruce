@@ -5,17 +5,12 @@ import {
   usePopulateForm,
   useProjectSettingsContext,
 } from "context/project-settings";
-import {
-  ProjectGeneralSettingsFragment,
-  RepoGeneralSettingsFragment,
-} from "gql/generated/types";
-import { GeneralFormState } from "./GeneralTab/formState";
-import { getFormData } from "./GeneralTab/getFormData";
-import { GeneralTabProps } from "./types";
+import { gqlToForm, TabProps } from ".";
+import { getFormData } from "./getFormData";
 
 const tab = ProjectSettingsTabRoutes.General;
 
-export const GeneralTab: React.FC<GeneralTabProps> = ({
+export const GeneralTab: React.FC<TabProps> = ({
   projectData,
   projectId,
   repoData,
@@ -24,7 +19,7 @@ export const GeneralTab: React.FC<GeneralTabProps> = ({
   const { getTabFormState, updateForm } = useProjectSettingsContext();
   const currentFormState = getTabFormState(tab);
 
-  const initialFormState = useMemo(() => gqlToSchema(projectData || repoData), [
+  const initialFormState = useMemo(() => gqlToForm(projectData || repoData), [
     projectData,
     repoData,
   ]);
@@ -51,6 +46,8 @@ export const GeneralTab: React.FC<GeneralTabProps> = ({
       ),
     [projectId, repoData, useRepoSettings, validDefaultLoggers]
   );
+
+  if (!currentFormState) return null;
 
   return (
     <>
@@ -84,44 +81,3 @@ export const GeneralTab: React.FC<GeneralTabProps> = ({
     </>
   );
 };
-
-const gqlToSchema = (
-  data: ProjectGeneralSettingsFragment | RepoGeneralSettingsFragment
-): GeneralFormState => ({
-  enabled: data.enabled,
-  repositoryInfo: {
-    owner: data.owner,
-    repo: data.repo,
-  },
-  branch: data.branch,
-  other: {
-    displayName: data.displayName,
-    batchTime: data.batchTime,
-    remotePath: data.remotePath,
-    spawnHostScriptPath: data.spawnHostScriptPath,
-  },
-  dispatchingDisabled: data.dispatchingDisabled,
-  scheduling: {
-    deactivatePrevious: data.deactivatePrevious,
-  },
-  repotracker: {
-    repotrackerDisabled: data.repotrackerDisabled,
-  },
-  logger: {
-    defaultLogger: data.defaultLogger,
-  },
-  testResults: {
-    cedarTestResultsEnabled: data.cedarTestResultsEnabled,
-  },
-  patch: {
-    patchingDisabled: data.patchingDisabled,
-  },
-  taskSync: {
-    configEnabled: data.taskSync.configEnabled,
-    patchEnabled: data.taskSync.patchEnabled,
-  },
-  disabledStatsCache: data.disabledStatsCache,
-  files: {
-    filesIgnoredFromCache: data.filesIgnoredFromCache,
-  },
-});

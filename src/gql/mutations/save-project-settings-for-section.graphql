@@ -1,0 +1,14 @@
+mutation SaveProjectSettingsForSection(
+  $projectSettings: ProjectSettingsInput!
+  $section: ProjectSettingsSection!
+) {
+  saveProjectSettingsForSection(
+    projectSettings: $projectSettings
+    section: $section
+  ) {
+    projectRef {
+      id
+      branch
+    }
+  }
+}

@@ -3,9 +3,11 @@ import { SpruceFormProps } from "components/SpruceForm";
 import widgets from "components/SpruceForm/Widgets";
 import { Project, RepoGeneralSettingsFragment } from "gql/generated/types";
 import { placeholderIf, radioBoxOptions } from "../utils";
-import { FilesIgnoredFromCacheField } from "./FilesIgnoredFromCacheField";
-import { MoveRepoField } from "./MoveRepoField";
-import { RepotrackerField } from "./RepotrackerField";
+import {
+  FilesIgnoredFromCacheField,
+  MoveRepoField,
+  RepotrackerField,
+} from "./Fields";
 
 export const getFormData = (
   projectId: string,

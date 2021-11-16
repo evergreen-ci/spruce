@@ -1,0 +1,10 @@
+mutation SaveRepoSettingsForSection(
+  $repoSettings: RepoSettingsInput!
+  $section: ProjectSettingsSection!
+) {
+  saveRepoSettingsForSection(repoSettings: $repoSettings, section: $section) {
+    projectRef {
+      id
+    }
+  }
+}

@@ -1,4 +1,10 @@
-export type GeneralFormState = {
+import { FormDataProps } from "components/SpruceForm";
+import {
+  ProjectGeneralSettingsFragment,
+  RepoGeneralSettingsFragment,
+} from "gql/generated/types";
+
+export interface FormState extends FormDataProps {
   enabled: boolean | null;
   repositoryInfo: {
     owner: string;
@@ -33,6 +39,15 @@ export type GeneralFormState = {
   };
   disabledStatsCache: boolean | null;
   files: {
-    filesIgnoredFromCache: string[] | null;
+    filesIgnoredFromCache: Array<{
+      filePattern: string;
+    }> | null;
   };
+}
+
+export type TabProps = {
+  projectData?: ProjectGeneralSettingsFragment;
+  projectId?: string;
+  repoData?: RepoGeneralSettingsFragment;
+  useRepoSettings: boolean;
 };
