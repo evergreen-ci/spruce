@@ -7,21 +7,16 @@ const { reportError } = errorReporting;
 const { green, red, yellow, gray } = uiColors;
 
 const failurePurple = "#36367F";
-interface TaskStatusIconProps {
+interface TaskStatusIconProps extends React.ComponentProps<typeof Icon> {
   status: string;
-  size?: Size | number;
-  className?: string;
 }
 
 export const TaskStatusIcon: React.FC<TaskStatusIconProps> = ({
   status,
   size = Size.Default,
-  className,
+  ...rest,
 }) => {
-  const props = {
-    size,
-    ...(className && { className }),
-  };
+
   switch (status) {
     case TaskStatus.Succeeded:
       return <Icon glyph="Checkmark" fill={green.base} {...props} />;
