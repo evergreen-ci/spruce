@@ -1,5 +1,3 @@
-import { popconfirmYesClassName } from "../../utils/popconfirm";
-
 const hostsRoute = "/hosts";
 
 describe("Select hosts in hosts page table", () => {
@@ -41,9 +39,7 @@ describe("Select hosts in hosts page table", () => {
     });
 
     cy.dataCy("restart-jasper-button").click();
-
-    cy.get(popconfirmYesClassName).click();
-
+    cy.contains("button", "Yes").click();
     cy.dataCy("toast").should("exist");
   });
 
@@ -55,9 +51,7 @@ describe("Select hosts in hosts page table", () => {
     });
 
     cy.dataCy("reprovision-button").click();
-
-    cy.get(popconfirmYesClassName).click();
-
+    cy.contains("button", "Yes").click();
     cy.dataCy("toast").should("exist");
   });
 });

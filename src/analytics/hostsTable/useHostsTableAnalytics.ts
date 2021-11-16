@@ -6,7 +6,7 @@ type Action =
   | { name: "Sort Hosts" }
   | { name: "Change Page Size" }
   | { name: "Restart Jasper" }
-  | { name: "Reprovision" }
+  | { name: "Reprovision Host" }
   | { name: "Update Status"; status: string };
 
 interface P extends Properties {}

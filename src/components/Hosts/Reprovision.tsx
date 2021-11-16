@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { Popconfirm, Tooltip } from "antd";
+import styled from "@emotion/styled";
+import Tooltip from "@leafygreen-ui/tooltip";
 import { useHostsTableAnalytics } from "analytics";
 import { Button } from "components/Button";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
@@ -10,6 +11,7 @@ import {
   ReprovisionToNewMutationVariables,
 } from "gql/generated/types";
 import { REPROVISION_TO_NEW } from "gql/mutations";
+import { HostPopover } from "./HostPopover";
 
 interface Props {
   selectedHostIds: string[];
@@ -26,6 +28,7 @@ export const Reprovision: React.FC<Props> = ({
   canReprovision,
   reprovisionTooltipMessage,
 }) => {
+  const [active, setActive] = useState(false);
   const hostsTableAnalytics = useHostsTableAnalytics(isSingleHost);
   const dispatchToast = useToastContext();
 
@@ -48,7 +51,7 @@ export const Reprovision: React.FC<Props> = ({
   });
 
   const onClickReprovisionConfirm = () => {
-    hostsTableAnalytics.sendEvent({ name: "Reprovision" });
+    hostsTableAnalytics.sendEvent({ name: "Reprovision Host" });
     reprovisionToNew({ variables: { hostIds: selectedHostIds } });
   };
 
@@ -62,28 +65,37 @@ export const Reprovision: React.FC<Props> = ({
     <ConditionalWrapper
       condition={!canReprovision}
       wrapper={(children) => (
-        <Tooltip title={reprovisionTooltipMessage}>
-          <span>{children}</span>
-        </Tooltip>
+        <StyledTooltip
+          align="top"
+          justify="middle"
+          triggerEvent="hover"
+          trigger={children}
+        >
+          {reprovisionTooltipMessage}
+        </StyledTooltip>
       )}
     >
-      <Popconfirm
-        title={titleText}
-        onConfirm={onClickReprovisionConfirm}
-        icon={null}
-        placement="bottom"
-        okText="Yes"
-        okButtonProps={{ loading: loadingReprovision }}
-        cancelText="No"
-        cancelButtonProps={{ disabled: loadingReprovision }}
-      >
+      <div>
         <Button
+          onClick={() => setActive((prevActive) => !prevActive)}
           data-cy="reprovision-button"
           disabled={selectedHostIds.length === 0 || !canReprovision}
         >
           Reprovision
+          <HostPopover
+            titleText={titleText}
+            active={active}
+            loading={loadingReprovision}
+            onClick={onClickReprovisionConfirm}
+            setActive={setActive}
+          />
         </Button>
-      </Popconfirm>
+      </div>
     </ConditionalWrapper>
   );
 };
+
+// @ts-expect-error
+const StyledTooltip = styled(Tooltip)`
+  width: 300px;
+`;

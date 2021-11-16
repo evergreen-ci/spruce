@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { Popconfirm, Tooltip } from "antd";
+import styled from "@emotion/styled";
+import Tooltip from "@leafygreen-ui/tooltip";
 import { useHostsTableAnalytics } from "analytics";
 import { Button } from "components/Button";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
@@ -10,6 +11,7 @@ import {
   RestartJasperMutationVariables,
 } from "gql/generated/types";
 import { RESTART_JASPER } from "gql/mutations";
+import { HostPopover } from "./HostPopover";
 
 interface Props {
   selectedHostIds: string[];
@@ -26,6 +28,7 @@ export const RestartJasper: React.FC<Props> = ({
   canRestartJasper,
   jasperTooltipMessage,
 }) => {
+  const [active, setActive] = useState(false);
   const hostsTableAnalytics = useHostsTableAnalytics(isSingleHost);
   const dispatchToast = useToastContext();
 
@@ -62,28 +65,37 @@ export const RestartJasper: React.FC<Props> = ({
     <ConditionalWrapper
       condition={!canRestartJasper}
       wrapper={(children) => (
-        <Tooltip title={jasperTooltipMessage}>
-          <span>{children}</span>
-        </Tooltip>
+        <StyledTooltip
+          align="top"
+          justify="middle"
+          triggerEvent="hover"
+          trigger={children}
+        >
+          {jasperTooltipMessage}
+        </StyledTooltip>
       )}
     >
-      <Popconfirm
-        title={titleText}
-        onConfirm={onClickRestartJasperConfirm}
-        icon={null}
-        placement="bottom"
-        okText="Yes"
-        okButtonProps={{ loading: loadingRestartJasper }}
-        cancelText="No"
-        cancelButtonProps={{ disabled: loadingRestartJasper }}
-      >
+      <div>
         <Button
+          onClick={() => setActive((prevActive) => !prevActive)}
           data-cy="restart-jasper-button"
           disabled={selectedHostIds.length === 0 || !canRestartJasper}
         >
           Restart Jasper
+          <HostPopover
+            titleText={titleText}
+            active={active}
+            loading={loadingRestartJasper}
+            onClick={onClickRestartJasperConfirm}
+            setActive={setActive}
+          />
         </Button>
-      </Popconfirm>
+      </div>
     </ConditionalWrapper>
   );
 };
+
+// @ts-expect-error
+const StyledTooltip = styled(Tooltip)`
+  width: 300px;
+`;

@@ -111,13 +111,15 @@ export const Host: React.FC = () => {
                       jasperTooltipMessage="Jasper cannot be restarted for this host"
                     />
                   </ButtonSpacer>
-                  <Reprovision
-                    selectedHostIds={[id]}
-                    hostUrl={hostUrl}
-                    isSingleHost
-                    canReprovision={canRestartJasperOrReprovision}
-                    reprovisionTooltipMessage="This host cannot be reprovisioned"
-                  />
+                  <ButtonSpacer>
+                    <Reprovision
+                      selectedHostIds={[id]}
+                      hostUrl={hostUrl}
+                      isSingleHost
+                      canReprovision={canRestartJasperOrReprovision}
+                      reprovisionTooltipMessage="This host cannot be reprovisioned"
+                    />
+                  </ButtonSpacer>
                 </ButtonsWrapper>
               </div>
             }
@@ -167,5 +169,7 @@ const ButtonSpacer = styled.span`
 `;
 
 const ButtonsWrapper = styled.div`
-  white-space: nowrap;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
 `;
