@@ -7,43 +7,57 @@ const { reportError } = errorReporting;
 const { green, red, yellow, gray } = uiColors;
 
 const failurePurple = "#36367F";
-interface TaskStatusIconProps extends React.ComponentProps<typeof Icon> {
+
+type IconProps = React.ComponentProps<typeof Icon>;
+interface TaskStatusIconProps extends Omit<IconProps, "glyph" | "fill"> {
   status: string;
 }
 
 export const TaskStatusIcon: React.FC<TaskStatusIconProps> = ({
   status,
   size = Size.Default,
-  ...rest,
+  ...rest
 }) => {
-
   switch (status) {
     case TaskStatus.Succeeded:
-      return <Icon glyph="Checkmark" fill={green.base} {...props} />;
+      return <Icon glyph="Checkmark" fill={green.base} size={size} {...rest} />;
     case TaskStatus.Failed:
-      return <Icon glyph="X" fill={red.base} {...props} />;
+      return <Icon glyph="X" fill={red.base} size={size} {...rest} />;
     case TaskStatus.KnownIssue:
-      return <Icon glyph="KnownFailureIcon" fill={red.base} {...props} />;
+      return (
+        <Icon glyph="KnownFailureIcon" fill={red.base} size={size} {...rest} />
+      );
     case TaskStatus.Dispatched:
     case TaskStatus.Started:
-      return <Icon glyph="Refresh" fill={yellow.dark2} {...props} />;
+      return <Icon glyph="Refresh" fill={yellow.dark2} size={size} {...rest} />;
     case TaskStatus.SetupFailed:
-      return <Icon glyph="SetupFailure" fill={red.base} {...props} />;
+      return (
+        <Icon glyph="SetupFailure" fill={red.base} size={size} {...rest} />
+      );
     case TaskStatus.SystemUnresponsive:
     case TaskStatus.SystemTimedOut:
     case TaskStatus.SystemFailed:
-      return <Icon glyph="SystemFailure" fill={failurePurple} {...props} />;
+      return (
+        <Icon
+          glyph="SystemFailure"
+          fill={failurePurple}
+          size={size}
+          {...rest}
+        />
+      );
     case TaskStatus.TestTimedOut:
     case TaskStatus.TaskTimedOut:
-      return <Icon glyph="TimedOut" fill={red.base} {...props} />;
+      return <Icon glyph="TimedOut" fill={red.base} size={size} {...rest} />;
     case TaskStatus.Aborted:
     case TaskStatus.Blocked:
     case TaskStatus.Unscheduled:
-      return <Icon glyph="WillNotRun" fill={gray.dark1} {...props} />;
+      return (
+        <Icon glyph="WillNotRun" fill={gray.dark1} size={size} {...rest} />
+      );
     case TaskStatus.WillRun:
     case TaskStatus.Pending:
     case TaskStatus.Unstarted:
-      return <Icon glyph="Calendar" fill={gray.dark3} {...props} />;
+      return <Icon glyph="Calendar" fill={gray.dark3} size={size} {...rest} />;
     default:
       reportError(
         new Error(`Status '${status}' is not a valid task status`)
