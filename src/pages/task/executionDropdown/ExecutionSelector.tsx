@@ -2,9 +2,8 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Select } from "antd";
-import { Square } from "components/StatusSquare";
+import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { P1 } from "components/Typography";
-import { mapTaskStatusToColor } from "constants/task";
 import {
   GetTaskAllExecutionsQuery,
   GetTaskAllExecutionsQueryVariables,
@@ -56,14 +55,15 @@ export const ExecutionSelect: React.FC<ExecutionSelectProps> = ({
           value={singleExecution.execution}
           data-cy={`execution-${singleExecution.execution}`}
         >
-          <StyledSquare color={mapTaskStatusToColor[singleExecution.status]} />
-          <StyledP1>
-            {" "}
-            Execution {executionAsDisplay(singleExecution.execution)} -{" "}
-            {shortDate(
-              singleExecution.activatedTime ?? singleExecution.ingestTime
-            )}
-          </StyledP1>
+          <Row>
+            <StyledTaskStatusIcon status={singleExecution.status} />
+            <StyledP1>
+              Execution {executionAsDisplay(singleExecution.execution)} -{" "}
+              {shortDate(
+                singleExecution.activatedTime ?? singleExecution.ingestTime
+              )}
+            </StyledP1>
+          </Row>
         </Option>
       ))}
     </StyledSelect>
@@ -74,13 +74,14 @@ const StyledSelect = styled(Select)`
   margin-bottom: 10px;
   width: 100%;
 `;
-const StyledSquare = styled(Square)`
-  float: left;
-  width: 17px;
-  height: 17px;
-  margin-right: 3px;
-`;
 const StyledP1 = styled(P1)`
   font-size: 14px;
-  float: left;
+`;
+
+const Row = styled.div`
+  display: flex;
+`;
+
+const StyledTaskStatusIcon = styled(TaskStatusIcon)`
+  margin-right: 3px;
 `;
