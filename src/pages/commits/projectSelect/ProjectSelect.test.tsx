@@ -1,29 +1,33 @@
-import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
+import { RenderFakeToastContext } from "context/__mocks__/toast";
 import { GET_PROJECTS } from "gql/queries";
-import { render, act } from "test_utils/test-utils";
+import { render, act, waitFor } from "test_utils/test-utils";
 import { ProjectSelect } from ".";
 
+afterEach(() => {
+  jest.restoreAllMocks();
+});
 test("Sets the currently selected project to what ever is passed in's display name", async () => {
-  const ContentWrapper = () => (
+  const { Component } = RenderFakeToastContext(
     <MockedProvider mocks={mocks} addTypename={false}>
       <ProjectSelect selectedProjectIdentifier="evergreen" />
     </MockedProvider>
   );
-  const { baseElement } = render(ContentWrapper());
-  await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
-  expect(baseElement).toHaveTextContent("evergreen smoke test");
+  const { baseElement } = render(<Component />);
+  await waitFor(() => {
+    expect(baseElement).toHaveTextContent("evergreen smoke test");
+  });
 });
 
 test("Should toggle dropdown when clicking on it ", async () => {
-  const ContentWrapper = () => (
+  const { Component } = RenderFakeToastContext(
     <MockedProvider mocks={mocks} addTypename={false}>
       <ProjectSelect selectedProjectIdentifier="evergreen" />
     </MockedProvider>
   );
-  const { queryByDataCy } = render(ContentWrapper());
+  const { queryByDataCy } = render(<Component />);
   await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
   expect(queryByDataCy("project-select-options")).not.toBeInTheDocument();
@@ -34,12 +38,12 @@ test("Should toggle dropdown when clicking on it ", async () => {
 });
 
 test("Should narrow down search results when filtering on projects", async () => {
-  const ContentWrapper = () => (
+  const { Component } = RenderFakeToastContext(
     <MockedProvider mocks={mocks} addTypename={false}>
       <ProjectSelect selectedProjectIdentifier="evergreen" />
     </MockedProvider>
   );
-  const { queryByDataCy, findAllByDataCy } = render(ContentWrapper());
+  const { queryByDataCy, findAllByDataCy } = render(<Component />);
   await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
   expect(queryByDataCy("project-select-options")).not.toBeInTheDocument();
