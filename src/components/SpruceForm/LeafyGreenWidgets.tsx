@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { uiColors } from "@leafygreen-ui/palette";
 import { RadioBox, RadioBoxGroup } from "@leafygreen-ui/radio-box-group";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import { Option, Select } from "@leafygreen-ui/select";
@@ -67,7 +66,6 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
   placeholder,
   value,
   onChange,
-  rawErrors,
 }) => {
   const {
     allowDeselect,
@@ -75,15 +73,6 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
     enumOptions,
     "data-cy": dataCy,
   } = options;
-
-  const convertError = (errorString) => {
-    if (errorString === "should be equal to one of the allowed values") {
-      return "A selection is required for this field.";
-    }
-    return errorString;
-  };
-
-  const hasError = !!rawErrors?.length;
 
   if (!Array.isArray(enumOptions)) {
     console.error("Non Array passed into leafygreen select");
@@ -98,27 +87,26 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
           aria-labelledby={ariaLabelledBy}
           label={ariaLabelledBy ? undefined : label}
           value={value}
-          onChange={(v) => onChange(v)}
+          onChange={(v) => onChange(v === "" ? null : v)}
           placeholder={placeholder}
           data-cy={dataCy}
         >
-          {enumOptions.map((o) => (
-            <Option key={o.value} value={o.value}>
-              {o.label}
-            </Option>
-          ))}
+          {enumOptions.map((o) => {
+            // Handle deselect value without errors
+            if (o.value === null) {
+              return;
+            }
+            return (
+              <Option key={o.value} value={o.value}>
+                {o.label}
+              </Option>
+            );
+          })}
         </Select>
-        {hasError && (
-          <Error>{rawErrors.map((err) => convertError(err)).join(", ")}</Error>
-        )}
       </MaxWidthContainer>
     </ElementWrapper>
   );
 };
-
-const Error = styled(Description)`
-  color: ${uiColors.red.base};
-`;
 
 export const LeafyGreenRadio: React.FC<WidgetProps> = ({
   label,

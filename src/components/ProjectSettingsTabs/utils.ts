@@ -5,7 +5,7 @@ export interface TabProps {
   tab: ProjectSettingsTabRoutes;
 }
 
-const insertIf = (condition, ...elements) => (condition ? elements : []);
+export const insertIf = (condition, ...elements) => (condition ? elements : []);
 
 const radioBoxOption = (title: string, value: boolean) => ({
   type: ["boolean", "null"],

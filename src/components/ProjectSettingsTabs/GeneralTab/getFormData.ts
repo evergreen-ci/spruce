@@ -3,7 +3,7 @@ import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { Project, RepoGeneralSettingsFragment } from "gql/generated/types";
-import { placeholderIf, radioBoxOptions } from "../utils";
+import { insertIf, placeholderIf, radioBoxOptions } from "../utils";
 import {
   FilesIgnoredFromCacheField,
   MoveRepoField,
@@ -125,8 +125,9 @@ export const getFormData = (
             title: "Default Logger",
             properties: {
               defaultLogger: {
-                type: ["string", "null"],
-                enum: validDefaultLoggers,
+                default: null,
+                type: ["string", ...insertIf(repoData, "null")],
+                enum: [...validDefaultLoggers, ...insertIf(repoData, null)],
               },
             },
           },
@@ -278,8 +279,12 @@ export const getFormData = (
       },
       logger: {
         defaultLogger: {
-          "ui:placeholder": "Select Default Logger",
-          "ui:allowDeselect": false,
+          "ui:placeholder": repoData
+            ? `Default to Repo (${repoData.defaultLogger})`
+            : "Select Default Logger",
+          ...(!repoData && {
+            "ui:allowDeselect": false,
+          }),
           "ui:ariaLabelledBy": "projectFlags_logger__title",
         },
       },

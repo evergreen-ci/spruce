@@ -32,7 +32,7 @@ export const gqlToForm = (
       repotrackerDisabled: data.repotrackerDisabled,
     },
     logger: {
-      defaultLogger: data.defaultLogger,
+      defaultLogger: data.defaultLogger === "" ? null : data.defaultLogger,
     },
     testResults: {
       cedarTestResultsEnabled: data.cedarTestResultsEnabled,
