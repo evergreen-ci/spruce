@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from "react";
-import { SpruceForm, SpruceFormContainer } from "components/SpruceForm";
+import { SpruceForm } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
   usePopulateForm,
@@ -37,11 +37,7 @@ export const GeneralTab: React.FC<GeneralTabProps> = ({
   const validDefaultLoggers =
     projectData?.validDefaultLoggers || repoData?.validDefaultLoggers;
 
-  const {
-    generalConfiguration,
-    projectFlags,
-    historicalDataCaching,
-  } = useMemo(
+  const { fields, schema, uiSchema } = useMemo(
     () =>
       getFormData(
         projectId,
@@ -53,75 +49,59 @@ export const GeneralTab: React.FC<GeneralTabProps> = ({
   );
 
   return (
-    <>
-      <SpruceFormContainer title="General Configuration">
-        <SpruceForm
-          fields={generalConfiguration.fields}
-          formData={currentFormState}
-          onChange={onChange}
-          schema={generalConfiguration.schema}
-          uiSchema={generalConfiguration.uiSchema}
-        />
-      </SpruceFormContainer>
-      <SpruceFormContainer title="Project Flags">
-        <SpruceForm
-          fields={projectFlags.fields}
-          formData={currentFormState}
-          onChange={onChange}
-          schema={projectFlags.schema}
-          uiSchema={projectFlags.uiSchema}
-        />
-      </SpruceFormContainer>
-      <SpruceFormContainer title="Historical Data Caching Info">
-        <SpruceForm
-          fields={historicalDataCaching.fields}
-          formData={currentFormState}
-          onChange={onChange}
-          schema={historicalDataCaching.schema}
-          uiSchema={historicalDataCaching.uiSchema}
-        />
-      </SpruceFormContainer>
-    </>
+    <SpruceForm
+      fields={fields}
+      formData={currentFormState}
+      onChange={onChange}
+      schema={schema}
+      uiSchema={uiSchema}
+    />
   );
 };
 
 const gqlToSchema = (
   data: ProjectGeneralSettingsFragment | RepoGeneralSettingsFragment
 ): GeneralFormState => ({
-  enabled: data.enabled,
-  repositoryInfo: {
-    owner: data.owner,
-    repo: data.repo,
+  generalConfiguration: {
+    enabled: data.enabled,
+    repositoryInfo: {
+      owner: data.owner,
+      repo: data.repo,
+    },
+    branch: data.branch,
+    other: {
+      displayName: data.displayName,
+      batchTime: data.batchTime,
+      remotePath: data.remotePath,
+      spawnHostScriptPath: data.spawnHostScriptPath,
+    },
   },
-  branch: data.branch,
-  other: {
-    displayName: data.displayName,
-    batchTime: data.batchTime,
-    remotePath: data.remotePath,
-    spawnHostScriptPath: data.spawnHostScriptPath,
+  projectFlags: {
+    dispatchingDisabled: data.dispatchingDisabled,
+    scheduling: {
+      deactivatePrevious: data.deactivatePrevious,
+    },
+    repotracker: {
+      repotrackerDisabled: data.repotrackerDisabled,
+    },
+    logger: {
+      defaultLogger: data.defaultLogger,
+    },
+    testResults: {
+      cedarTestResultsEnabled: data.cedarTestResultsEnabled,
+    },
+    patch: {
+      patchingDisabled: data.patchingDisabled,
+    },
+    taskSync: {
+      configEnabled: data.taskSync.configEnabled,
+      patchEnabled: data.taskSync.patchEnabled,
+    },
   },
-  dispatchingDisabled: data.dispatchingDisabled,
-  scheduling: {
-    deactivatePrevious: data.deactivatePrevious,
-  },
-  repotracker: {
-    repotrackerDisabled: data.repotrackerDisabled,
-  },
-  logger: {
-    defaultLogger: data.defaultLogger,
-  },
-  testResults: {
-    cedarTestResultsEnabled: data.cedarTestResultsEnabled,
-  },
-  patch: {
-    patchingDisabled: data.patchingDisabled,
-  },
-  taskSync: {
-    configEnabled: data.taskSync.configEnabled,
-    patchEnabled: data.taskSync.patchEnabled,
-  },
-  disabledStatsCache: data.disabledStatsCache,
-  files: {
-    filesIgnoredFromCache: data.filesIgnoredFromCache,
+  historicalDataCaching: {
+    disabledStatsCache: data.disabledStatsCache,
+    files: {
+      filesIgnoredFromCache: data.filesIgnoredFromCache,
+    },
   },
 });

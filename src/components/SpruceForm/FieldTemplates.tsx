@@ -1,7 +1,12 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { ArrayFieldTemplateProps, FieldTemplateProps } from "@rjsf/core";
+import {
+  ArrayFieldTemplateProps,
+  FieldTemplateProps,
+  ObjectFieldTemplateProps,
+} from "@rjsf/core";
 import Icon from "components/Icon";
+import { SpruceFormContainer } from "./Container";
 import ElementWrapper from "./ElementWrapper";
 
 // Custom field template that does not render fields' titles, as this is handled by LeafyGreen widgets
@@ -78,3 +83,17 @@ const ArrayItemRow = styled.div`
 const DeleteButtonWrapper = styled(ElementWrapper)`
   margin-left: 16px;
 `;
+
+export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
+  idSchema,
+  properties,
+  title,
+  uiSchema,
+}) => (
+  <SpruceFormContainer
+    title={uiSchema["ui:title"] || title}
+    id={`${idSchema.$id}__title`}
+  >
+    {properties.map((prop) => prop.content)}
+  </SpruceFormContainer>
+);
