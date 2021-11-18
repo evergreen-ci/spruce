@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { SpruceForm, SpruceFormContainer } from "components/SpruceForm";
+import { SpruceForm } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
   usePopulateForm,
@@ -30,11 +30,7 @@ export const GeneralTab: React.FC<TabProps> = ({
   const validDefaultLoggers =
     projectData?.validDefaultLoggers || repoData?.validDefaultLoggers;
 
-  const {
-    generalConfiguration,
-    projectFlags,
-    historicalDataCaching,
-  } = useMemo(
+  const { fields, schema, uiSchema } = useMemo(
     () =>
       getFormData(
         projectId,
@@ -48,34 +44,12 @@ export const GeneralTab: React.FC<TabProps> = ({
   if (!formData) return null;
 
   return (
-    <>
-      <SpruceFormContainer title="General Configuration">
-        <SpruceForm
-          fields={generalConfiguration.fields}
-          formData={formData}
-          onChange={onChange}
-          schema={generalConfiguration.schema}
-          uiSchema={generalConfiguration.uiSchema}
-        />
-      </SpruceFormContainer>
-      <SpruceFormContainer title="Project Flags">
-        <SpruceForm
-          fields={projectFlags.fields}
-          formData={formData}
-          onChange={onChange}
-          schema={projectFlags.schema}
-          uiSchema={projectFlags.uiSchema}
-        />
-      </SpruceFormContainer>
-      <SpruceFormContainer title="Historical Data Caching Info">
-        <SpruceForm
-          fields={historicalDataCaching.fields}
-          formData={formData}
-          onChange={onChange}
-          schema={historicalDataCaching.schema}
-          uiSchema={historicalDataCaching.uiSchema}
-        />
-      </SpruceFormContainer>
-    </>
+    <SpruceForm
+      fields={fields}
+      formData={formData}
+      onChange={onChange}
+      schema={schema}
+      uiSchema={uiSchema}
+    />
   );
 };

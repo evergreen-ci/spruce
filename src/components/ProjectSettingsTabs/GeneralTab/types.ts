@@ -5,43 +5,49 @@ import {
 } from "gql/generated/types";
 
 export interface FormState extends FormDataProps {
-  enabled: boolean | null;
-  repositoryInfo: {
-    owner: string;
-    repo: string;
+  generalConfiguration: {
+    enabled: boolean | null;
+    repositoryInfo: {
+      owner: string;
+      repo: string;
+    };
+    branch: string;
+    other: {
+      displayName: string;
+      batchTime: number;
+      remotePath: string;
+      spawnHostScriptPath: string;
+    };
   };
-  branch: string;
-  other: {
-    displayName: string;
-    batchTime: number;
-    remotePath: string;
-    spawnHostScriptPath: string;
+  projectFlags: {
+    dispatchingDisabled: boolean | null;
+    scheduling: {
+      deactivatePrevious: boolean | null;
+    };
+    repotracker: {
+      repotrackerDisabled: boolean | null;
+    };
+    logger: {
+      defaultLogger: string;
+    };
+    testResults: {
+      cedarTestResultsEnabled: boolean | null;
+    };
+    patch: {
+      patchingDisabled: boolean | null;
+    };
+    taskSync: {
+      configEnabled: boolean | null;
+      patchEnabled: boolean | null;
+    };
   };
-  dispatchingDisabled: boolean | null;
-  scheduling: {
-    deactivatePrevious: boolean | null;
-  };
-  repotracker: {
-    repotrackerDisabled: boolean | null;
-  };
-  logger: {
-    defaultLogger: string;
-  };
-  testResults: {
-    cedarTestResultsEnabled: boolean | null;
-  };
-  patch: {
-    patchingDisabled: boolean | null;
-  };
-  taskSync: {
-    configEnabled: boolean | null;
-    patchEnabled: boolean | null;
-  };
-  disabledStatsCache: boolean | null;
-  files: {
-    filesIgnoredFromCache: Array<{
-      filePattern: string;
-    }> | null;
+  historicalDataCaching: {
+    disabledStatsCache: boolean | null;
+    files: {
+      filesIgnoredFromCache: Array<{
+        filePattern: string;
+      }> | null;
+    };
   };
 }
 

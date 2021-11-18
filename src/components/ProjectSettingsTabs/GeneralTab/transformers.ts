@@ -9,76 +9,82 @@ import { FormState } from "./types";
 export const gqlToForm = (
   data: ProjectGeneralSettingsFragment | RepoGeneralSettingsFragment
 ): FormState => ({
-  enabled: data.enabled,
-  repositoryInfo: {
-    owner: data.owner,
-    repo: data.repo,
+  generalConfiguration: {
+    enabled: data.enabled,
+    repositoryInfo: {
+      owner: data.owner,
+      repo: data.repo,
+    },
+    branch: data.branch,
+    other: {
+      displayName: data.displayName,
+      batchTime: data.batchTime,
+      remotePath: data.remotePath,
+      spawnHostScriptPath: data.spawnHostScriptPath,
+    },
   },
-  branch: data.branch,
-  other: {
-    displayName: data.displayName,
-    batchTime: data.batchTime,
-    remotePath: data.remotePath,
-    spawnHostScriptPath: data.spawnHostScriptPath,
+  projectFlags: {
+    dispatchingDisabled: data.dispatchingDisabled,
+    scheduling: {
+      deactivatePrevious: data.deactivatePrevious,
+    },
+    repotracker: {
+      repotrackerDisabled: data.repotrackerDisabled,
+    },
+    logger: {
+      defaultLogger: data.defaultLogger,
+    },
+    testResults: {
+      cedarTestResultsEnabled: data.cedarTestResultsEnabled,
+    },
+    patch: {
+      patchingDisabled: data.patchingDisabled,
+    },
+    taskSync: {
+      configEnabled: data.taskSync.configEnabled,
+      patchEnabled: data.taskSync.patchEnabled,
+    },
   },
-  dispatchingDisabled: data.dispatchingDisabled,
-  scheduling: {
-    deactivatePrevious: data.deactivatePrevious,
-  },
-  repotracker: {
-    repotrackerDisabled: data.repotrackerDisabled,
-  },
-  logger: {
-    defaultLogger: data.defaultLogger,
-  },
-  testResults: {
-    cedarTestResultsEnabled: data.cedarTestResultsEnabled,
-  },
-  patch: {
-    patchingDisabled: data.patchingDisabled,
-  },
-  taskSync: {
-    configEnabled: data.taskSync.configEnabled,
-    patchEnabled: data.taskSync.patchEnabled,
-  },
-  disabledStatsCache: data.disabledStatsCache,
-  files: {
-    filesIgnoredFromCache: data.filesIgnoredFromCache
-      ? data.filesIgnoredFromCache.map((filePattern) => ({ filePattern }))
-      : null,
+  historicalDataCaching: {
+    disabledStatsCache: data.disabledStatsCache,
+    files: {
+      filesIgnoredFromCache: data.filesIgnoredFromCache
+        ? data.filesIgnoredFromCache.map((filePattern) => ({ filePattern }))
+        : null,
+    },
   },
 });
 
 export const formToGql = (
-  formState: FormState,
+  { generalConfiguration, projectFlags, historicalDataCaching }: FormState,
   id: string,
   useRepoSettings: boolean
 ): Pick<ProjectSettingsInput, "projectRef"> => {
   const filteredFiles =
-    formState?.files?.filesIgnoredFromCache
+    historicalDataCaching?.files?.filesIgnoredFromCache
       ?.map(({ filePattern }) => filePattern)
       .filter((str) => !!str) || [];
   const projectRef: ProjectInput = {
     id,
-    enabled: formState.enabled,
-    owner: formState.repositoryInfo.owner,
-    repo: formState.repositoryInfo.repo,
-    branch: formState.branch,
-    displayName: formState.other.displayName,
-    batchTime: formState.other.batchTime,
-    remotePath: formState.other.remotePath,
-    spawnHostScriptPath: formState.other.spawnHostScriptPath,
-    dispatchingDisabled: formState.dispatchingDisabled,
-    deactivatePrevious: formState.scheduling.deactivatePrevious,
-    repotrackerDisabled: formState.repotracker.repotrackerDisabled,
-    defaultLogger: formState.logger.defaultLogger,
-    cedarTestResultsEnabled: formState.testResults.cedarTestResultsEnabled,
-    patchingDisabled: formState.patch.patchingDisabled,
+    enabled: generalConfiguration.enabled,
+    owner: generalConfiguration.repositoryInfo.owner,
+    repo: generalConfiguration.repositoryInfo.repo,
+    branch: generalConfiguration.branch,
+    displayName: generalConfiguration.other.displayName,
+    batchTime: generalConfiguration.other.batchTime,
+    remotePath: generalConfiguration.other.remotePath,
+    spawnHostScriptPath: generalConfiguration.other.spawnHostScriptPath,
+    dispatchingDisabled: projectFlags.dispatchingDisabled,
+    deactivatePrevious: projectFlags.scheduling.deactivatePrevious,
+    repotrackerDisabled: projectFlags.repotracker.repotrackerDisabled,
+    defaultLogger: projectFlags.logger.defaultLogger,
+    cedarTestResultsEnabled: projectFlags.testResults.cedarTestResultsEnabled,
+    patchingDisabled: projectFlags.patch.patchingDisabled,
     taskSync: {
-      configEnabled: formState.taskSync.configEnabled,
-      patchEnabled: formState.taskSync.patchEnabled,
+      configEnabled: projectFlags.taskSync.configEnabled,
+      patchEnabled: projectFlags.taskSync.patchEnabled,
     },
-    disabledStatsCache: formState.disabledStatsCache,
+    disabledStatsCache: historicalDataCaching.disabledStatsCache,
     filesIgnoredFromCache: filteredFiles.length ? filteredFiles : null,
     useRepoSettings,
   };

@@ -1,17 +1,19 @@
-  query EventLogs($id: String!, $execution: Int) {
-    taskLogs(taskId: $id, execution: $execution) {
-      eventLogs {
+query EventLogs($id: String!, $execution: Int) {
+  taskLogs(taskId: $id, execution: $execution) {
+    execution
+    taskId
+    eventLogs {
+      timestamp
+      eventType
+      data {
+        hostId
+        jiraIssue
+        jiraLink
+        priority
+        status
         timestamp
-        eventType
-        data {
-          hostId
-          jiraIssue
-          jiraLink
-          priority
-          status
-          timestamp
-          userId
-        }
+        userId
       }
     }
   }
+}
