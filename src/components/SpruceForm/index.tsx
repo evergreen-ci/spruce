@@ -1,7 +1,5 @@
-import styled from "@emotion/styled";
-import Card from "@leafygreen-ui/card";
-import { H3 } from "@leafygreen-ui/typography";
 import Form, { FormProps } from "@rjsf/core";
+import { SpruceFormContainer } from "./Container";
 import { transformErrors } from "./Errors";
 import baseFields from "./Fields";
 import { ArrayFieldTemplate, DefaultFieldTemplate } from "./FieldTemplates";
@@ -45,29 +43,4 @@ export const SpruceForm: React.FC<SpruceFormProps> = ({
   </Form>
 );
 
-interface ContainerProps {
-  title?: string;
-}
-
-export const SpruceFormContainer: React.FC<ContainerProps> = ({
-  children,
-  title,
-}) => (
-  <div>
-    {/* @ts-expect-error  */}
-    {title && <StyledH3>{title}</StyledH3>}
-    {/* @ts-expect-error  */}
-    <StyledCard>{children}</StyledCard>
-  </div>
-);
-
-/* @ts-expect-error */
-const StyledH3 = styled(H3)`
-  margin-bottom: 24px;
-`;
-
-/* @ts-expect-error */
-const StyledCard = styled(Card)`
-  margin-bottom: 48px;
-  padding: 24px;
-`;
+export { SpruceFormContainer };
