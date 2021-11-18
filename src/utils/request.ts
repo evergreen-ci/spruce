@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { getLoginDomain } from "./environmentalVariables";
 import { reportError } from "./errorReporting";
 
@@ -46,7 +46,7 @@ export const get = async (url: string, opts?: optionsType) => {
   }
 };
 
-const isBadResponse = (response) =>
+const isBadResponse = (response: AxiosResponse) =>
   !response || (response && response.statusText !== "OK");
 
 type responseType = {
