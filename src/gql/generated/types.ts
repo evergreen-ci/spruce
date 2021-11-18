@@ -1364,6 +1364,7 @@ export type Task = {
   latestExecution: Scalars["Int"];
   logs: TaskLogLinks;
   minQueuePosition: Scalars["Int"];
+  patch?: Maybe<Patch>;
   /** @deprecated patchMetadata is deprecated. Use versionMetadata instead. */
   patchMetadata: PatchMetadata;
   patchNumber?: Maybe<Scalars["Int"]>;
@@ -2700,8 +2701,8 @@ export type CommitQueueQuery = {
           id: string;
           author: string;
           description: string;
-          version: string;
           activated: boolean;
+          versionFull?: Maybe<{ id: string }>;
           moduleCodeChanges: Array<ModuleCodeChangeFragment>;
         }>;
       }>
