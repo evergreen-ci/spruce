@@ -2087,7 +2087,6 @@ export type PatchesPagePatchesFragment = {
     createTime?: Maybe<Date>;
     commitQueuePosition?: Maybe<number>;
     canEnqueueToCommitQueue: boolean;
-    builds: Array<{ id: string; buildVariant: string; status: string }>;
     childPatches?: Maybe<
       Array<{
         baseVersionID?: Maybe<string>;

@@ -9,11 +9,6 @@ fragment PatchesPagePatches on Patches {
     status
     createTime
     commitQueuePosition
-    builds {
-      id
-      buildVariant
-      status
-    }
     childPatches {
       baseVersionID
       githash
