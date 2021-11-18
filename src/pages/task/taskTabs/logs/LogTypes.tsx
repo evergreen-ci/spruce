@@ -170,7 +170,7 @@ const useRenderBody: React.FC<{
 }) => {
   const taskAnalytics = useTaskAnalytics();
   const updateQueryParams = useUpdateURLQueryParams();
-  const noLogs = !!(error || !data.length);
+  const noLogs = !!((error && !data) || !data.length);
   const onChangeLog = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const nextLogType = event.target.value as LogTypes;
     updateQueryParams({ [QueryParams.LogType]: nextLogType });

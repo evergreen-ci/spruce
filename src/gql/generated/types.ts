@@ -1300,6 +1300,7 @@ export type Task = {
   latestExecution: Scalars["Int"];
   logs: TaskLogLinks;
   minQueuePosition: Scalars["Int"];
+  patch?: Maybe<Patch>;
   /** @deprecated patchMetadata is deprecated. Use versionMetadata instead. */
   patchMetadata: PatchMetadata;
   patchNumber?: Maybe<Scalars["Int"]>;
@@ -2419,7 +2420,11 @@ export type AgentLogsQueryVariables = Exact<{
 }>;
 
 export type AgentLogsQuery = {
-  taskLogs: { agentLogs: Array<LogMessageFragment> };
+  taskLogs: {
+    execution: number;
+    taskId: string;
+    agentLogs: Array<LogMessageFragment>;
+  };
 };
 
 export type GetAnnotationEventDataQueryVariables = Exact<{
@@ -2660,6 +2665,8 @@ export type EventLogsQueryVariables = Exact<{
 
 export type EventLogsQuery = {
   taskLogs: {
+    execution: number;
+    taskId: string;
     eventLogs: Array<{
       timestamp?: Maybe<Date>;
       eventType?: Maybe<string>;
@@ -3150,7 +3157,11 @@ export type SystemLogsQueryVariables = Exact<{
 }>;
 
 export type SystemLogsQuery = {
-  taskLogs: { systemLogs: Array<LogMessageFragment> };
+  taskLogs: {
+    execution: number;
+    taskId: string;
+    systemLogs: Array<LogMessageFragment>;
+  };
 };
 
 export type GetTaskAllExecutionsQueryVariables = Exact<{
@@ -3188,7 +3199,11 @@ export type TaskLogsQueryVariables = Exact<{
 }>;
 
 export type TaskLogsQuery = {
-  taskLogs: { taskLogs: Array<LogMessageFragment> };
+  taskLogs: {
+    execution: number;
+    taskId: string;
+    taskLogs: Array<LogMessageFragment>;
+  };
 };
 
 export type GetTaskNamesForBuildVariantQueryVariables = Exact<{
@@ -3257,6 +3272,7 @@ export type GetTaskQuery = {
       estimatedStart?: Maybe<number>;
       finishTime?: Maybe<Date>;
       hostId?: Maybe<string>;
+      requester: string;
       projectId: string;
       patchNumber?: Maybe<number>;
       canOverrideDependencies: boolean;

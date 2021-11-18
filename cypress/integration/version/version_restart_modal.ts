@@ -39,16 +39,16 @@ describe("Restarting a patch", () => {
     cy.dataCy("patch-status-selector-container").should("exist");
   });
   it("Clicking on a variant checkbox should toggle its textbox and all the associated tasks", () => {
-    cy.dataCy("task-status-badge").should("contain.text", "0 of 2 Selected");
+    cy.dataCy("task-status-badge").should("contain.text", "0 of 1 Selected");
     cy.dataCy("variant-checkbox-select-all").first().click({ force: true });
-    cy.dataCy("task-status-badge").should("contain.text", "2 of 2 Selected");
+    cy.dataCy("task-status-badge").should("contain.text", "1 of 1 Selected");
     cy.dataCy("variant-checkbox-select-all").first().click({ force: true });
-    cy.dataCy("task-status-badge").should("contain.text", "0 of 2 Selected");
+    cy.dataCy("task-status-badge").should("contain.text", "0 of 1 Selected");
   });
   it("Clicking on a task should toggle its check box and select the task", () => {
     cy.dataCy("task-status-checkbox").first().click({ force: true });
     cy.dataCy("patch-status-selector-container").should("exist");
-    cy.dataCy("task-status-badge").should("contain.text", "1 of 2 Selected");
+    cy.dataCy("task-status-badge").should("contain.text", "1 of 1 Selected");
   });
 
   it("Selecting on the patch status filter should toggle the tasks that have matching statuses to it", () => {
@@ -60,7 +60,7 @@ describe("Restarting a patch", () => {
     // support cy-data elements currently
     cy.dataCy("version-restart-modal").should(
       "contain.text",
-      "Are you sure you want to restart the 50 selected tasks?"
+      "Are you sure you want to restart the 1 selected tasks?"
     );
     cy.get(statusFilter).click();
     cy.getInputByLabel("All").check({ force: true });
@@ -77,7 +77,7 @@ describe("Restarting a patch", () => {
       // support cy-data elements currently
       cy.dataCy("confirmation-message").should(
         "contain.text",
-        "Are you sure you want to restart the 44 selected tasks?"
+        "Are you sure you want to restart the 1 selected tasks?"
       );
       cy.get(baseStatusFilter).click();
 
@@ -89,7 +89,7 @@ describe("Restarting a patch", () => {
   it("Restarting a task should close the modal and display a success message if it occurs successfully.", () => {
     cy.dataCy("version-restart-modal").within(() => {
       cy.get(statusFilter).click();
-      cy.getInputByLabel("Succeeded").check({ force: true });
+      cy.getInputByLabel("Unscheduled").check({ force: true });
       cy.get(statusFilter).click();
       cy.dataCy("restart-patch-button").click();
     });
@@ -101,7 +101,7 @@ describe("Restarting a patch", () => {
     );
   });
 
-  const path = `/version/5e4ff3abe3c3317e352062e4`;
+  const path = `/version/5ecedafb562343215a7ff297`;
   const statusFilter = ".ant-modal-body > div > [data-cy=task-status-filter]";
   const baseStatusFilter =
     ".ant-modal-body > div >  [data-cy=task-base-status-filter]";
