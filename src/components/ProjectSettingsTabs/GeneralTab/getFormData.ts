@@ -1,5 +1,6 @@
 import { Field } from "@rjsf/core";
 import { SpruceFormProps } from "components/SpruceForm";
+import { CardField } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { Project, RepoGeneralSettingsFragment } from "gql/generated/types";
 import { placeholderIf, radioBoxOptions } from "../utils";
@@ -12,67 +13,215 @@ export const getFormData = (
   useRepoSettings: boolean,
   validDefaultLoggers: Project["validDefaultLoggers"],
   repoData?: RepoGeneralSettingsFragment
-): Record<
-  string,
-  {
-    fields: Record<string, Field>;
-    schema: SpruceFormProps["schema"];
-    uiSchema: SpruceFormProps["uiSchema"];
-  }
-> => ({
-  generalConfiguration: {
-    fields: { moveRepoField: MoveRepoField },
-    schema: {
-      type: "object" as "object",
-      properties: {
-        enabled: {
-          type: "boolean" as "boolean",
-          oneOf: radioBoxOptions(["Enabled", "Disabled"], repoData?.enabled),
-        },
-        repositoryInfo: {
-          type: "object" as "object",
-          title: "Repository Info",
-          properties: {
-            owner: {
-              type: "string" as "string",
-              title: "Owner",
+): {
+  fields: Record<string, Field>;
+  schema: SpruceFormProps["schema"];
+  uiSchema: SpruceFormProps["uiSchema"];
+} => ({
+  fields: {
+    moveRepoField: MoveRepoField,
+    filesIgnoredFromCacheField: FilesIgnoredFromCacheField,
+    repotrackerField: RepotrackerField,
+  },
+  schema: {
+    type: "object" as "object",
+    properties: {
+      generalConfiguration: {
+        type: "object" as "object",
+        title: "General Configuration",
+        properties: {
+          enabled: {
+            type: "boolean" as "boolean",
+            oneOf: radioBoxOptions(["Enabled", "Disabled"], repoData?.enabled),
+          },
+          repositoryInfo: {
+            type: "object" as "object",
+            title: "Repository Info",
+            properties: {
+              owner: {
+                type: "string" as "string",
+                title: "Owner",
+              },
+              repo: {
+                type: "string" as "string",
+                title: "Repository",
+              },
             },
-            repo: {
-              type: "string" as "string",
-              title: "Repository",
+          },
+          branch: {
+            type: "string" as "string",
+            title: "Branch Name",
+          },
+          other: {
+            type: "object" as "object",
+            title: "Other",
+            properties: {
+              displayName: {
+                type: "string" as "string",
+                title: "Display Name",
+              },
+              batchTime: {
+                type: "number" as "number",
+                title: "Batch Time",
+              },
+              remotePath: {
+                type: "string" as "string",
+                title: "Config File",
+              },
+              spawnHostScriptPath: {
+                type: "string" as "string",
+                title: "Spawn Host Script Path",
+              },
             },
           },
         },
-        branch: {
-          type: "string" as "string",
-          title: "Branch Name",
+      },
+      projectFlags: {
+        type: "object" as "object",
+        title: "Project Flags",
+        properties: {
+          dispatchingDisabled: {
+            type: "boolean" as "boolean",
+            title: "Dispatching",
+            oneOf: radioBoxOptions(
+              ["Enabled", "Disabled"],
+              repoData?.dispatchingDisabled,
+              true
+            ),
+          },
+          scheduling: {
+            type: "object" as "object",
+            title: "Scheduling Settings",
+            properties: {
+              deactivatePrevious: {
+                type: "boolean" as "boolean",
+                title: "Old Task on Success",
+                oneOf: radioBoxOptions(
+                  ["Unschedule", "Don't Unschedule"],
+                  repoData?.deactivatePrevious
+                ),
+              },
+            },
+          },
+          repotracker: {
+            type: "object" as "object",
+            title: "Repotracker Settings",
+            properties: {
+              repotrackerDisabled: {
+                type: "boolean" as "boolean",
+                title: "Repotracker",
+                oneOf: radioBoxOptions(
+                  ["Enabled", "Disabled"],
+                  repoData?.repotrackerDisabled,
+                  true
+                ),
+              },
+            },
+          },
+          logger: {
+            type: "object" as "object",
+            title: "Default Logger",
+            properties: {
+              defaultLogger: {
+                type: "string" as "string",
+                enum: validDefaultLoggers,
+              },
+            },
+          },
+          testResults: {
+            type: "object" as "object",
+            title: "Test Results",
+            properties: {
+              cedarTestResultsEnabled: {
+                type: "boolean" as "string",
+                title: "Cedar Test Results",
+                oneOf: radioBoxOptions(
+                  ["Enabled", "Disabled"],
+                  repoData?.cedarTestResultsEnabled
+                ),
+              },
+            },
+          },
+          patch: {
+            type: "object" as "object",
+            title: "Patch Settings",
+            properties: {
+              patchingDisabled: {
+                type: "string" as "string",
+                title: "Patching",
+                oneOf: radioBoxOptions(
+                  ["Enabled", "Disabled"],
+                  repoData?.patchingDisabled,
+                  true
+                ),
+              },
+            },
+          },
+          taskSync: {
+            type: "object" as "object",
+            title: "Task Sync",
+            properties: {
+              configEnabled: {
+                type: "string" as "string",
+                title: "Project Config Commands",
+                oneOf: radioBoxOptions(
+                  ["Enabled", "Disabled"],
+                  repoData?.taskSync.configEnabled
+                ),
+              },
+              patchEnabled: {
+                type: "string" as "string",
+                title: "Task in Patches",
+                oneOf: radioBoxOptions(
+                  ["Enabled", "Disabled"],
+                  repoData?.taskSync.patchEnabled
+                ),
+              },
+            },
+          },
         },
-        other: {
-          type: "object" as "object",
-          title: "Other",
-          properties: {
-            displayName: {
-              type: "string" as "string",
-              title: "Display Name",
-            },
-            batchTime: {
-              type: "number" as "number",
-              title: "Batch Time",
-            },
-            remotePath: {
-              type: "string" as "string",
-              title: "Config File",
-            },
-            spawnHostScriptPath: {
-              type: "string" as "string",
-              title: "Spawn Host Script Path",
+      },
+      historicalDataCaching: {
+        type: "object" as "object",
+        title: "Historical Data Caching Info",
+        properties: {
+          disabledStatsCache: {
+            type: "string" as "string",
+            title: "Caching",
+            oneOf: radioBoxOptions(
+              ["Enabled", "Disabled"],
+              repoData?.disabledStatsCache,
+              true
+            ),
+          },
+          files: {
+            type: "object" as "object",
+            title: "File Patterns to Ignore",
+            description:
+              "Comma-separated list of regular expression patterns that specify test filenames to ignore when caching test and task history.",
+            properties: {
+              filesIgnoredFromCache: {
+                type: "array" as "array",
+                items: {
+                  type: "object" as "object",
+                  properties: {
+                    filePattern: {
+                      type: "string" as "string",
+                      title: "File Pattern",
+                    },
+                  },
+                },
+              },
             },
           },
         },
       },
     },
-    uiSchema: {
+  },
+  uiSchema: {
+    generalConfiguration: {
       "ui:rootFieldId": "generalConfiguration",
+      "ui:ObjectFieldTemplate": CardField,
       enabled: {
         "ui:widget": widgets.RadioBoxWidget,
         "ui:showLabel": false,
@@ -104,115 +253,9 @@ export const getFormData = (
         },
       },
     },
-  },
-  projectFlags: {
-    fields: { repotrackerField: RepotrackerField },
-    schema: {
-      type: "object" as "object",
-      properties: {
-        dispatchingDisabled: {
-          type: "boolean" as "boolean",
-          title: "Dispatching",
-          oneOf: radioBoxOptions(
-            ["Enabled", "Disabled"],
-            repoData?.dispatchingDisabled,
-            true
-          ),
-        },
-        scheduling: {
-          type: "object" as "object",
-          title: "Scheduling Settings",
-          properties: {
-            deactivatePrevious: {
-              type: "boolean" as "boolean",
-              title: "Old Task on Success",
-              oneOf: radioBoxOptions(
-                ["Unschedule", "Don't Unschedule"],
-                repoData?.deactivatePrevious
-              ),
-            },
-          },
-        },
-        repotracker: {
-          type: "object" as "object",
-          title: "Repotracker Settings",
-          properties: {
-            repotrackerDisabled: {
-              type: "boolean" as "boolean",
-              title: "Repotracker",
-              oneOf: radioBoxOptions(
-                ["Enabled", "Disabled"],
-                repoData?.repotrackerDisabled,
-                true
-              ),
-            },
-          },
-        },
-        logger: {
-          type: "object" as "object",
-          title: "Default Logger",
-          properties: {
-            defaultLogger: {
-              type: "string" as "string",
-              enum: validDefaultLoggers,
-            },
-          },
-        },
-        testResults: {
-          type: "object" as "object",
-          title: "Test Results",
-          properties: {
-            cedarTestResultsEnabled: {
-              type: "boolean" as "string",
-              title: "Cedar Test Results",
-              oneOf: radioBoxOptions(
-                ["Enabled", "Disabled"],
-                repoData?.cedarTestResultsEnabled
-              ),
-            },
-          },
-        },
-        patch: {
-          type: "object" as "object",
-          title: "Patch Settings",
-          properties: {
-            patchingDisabled: {
-              type: "string" as "string",
-              title: "Patching",
-              oneOf: radioBoxOptions(
-                ["Enabled", "Disabled"],
-                repoData?.patchingDisabled,
-                true
-              ),
-            },
-          },
-        },
-        taskSync: {
-          type: "object" as "object",
-          title: "Task Sync",
-          properties: {
-            configEnabled: {
-              type: "string" as "string",
-              title: "Project Config Commands",
-              oneOf: radioBoxOptions(
-                ["Enabled", "Disabled"],
-                repoData?.taskSync.configEnabled
-              ),
-            },
-            patchEnabled: {
-              type: "string" as "string",
-              title: "Task in Patches",
-              oneOf: radioBoxOptions(
-                ["Enabled", "Disabled"],
-                repoData?.taskSync.patchEnabled
-              ),
-            },
-          },
-        },
-      },
-    },
-    uiSchema: {
+    projectFlags: {
       "ui:rootFieldId": "projectFlags",
+      "ui:ObjectFieldTemplate": CardField,
       dispatchingDisabled: {
         "ui:widget": widgets.RadioBoxWidget,
       },
@@ -262,47 +305,9 @@ export const getFormData = (
         },
       },
     },
-  },
-  historicalDataCaching: {
-    fields: {
-      filesIgnoredFromCacheField: FilesIgnoredFromCacheField,
-    },
-    schema: {
-      type: "object" as "object",
-      properties: {
-        disabledStatsCache: {
-          type: "string" as "string",
-          title: "Caching",
-          oneOf: radioBoxOptions(
-            ["Enabled", "Disabled"],
-            repoData?.disabledStatsCache,
-            true
-          ),
-        },
-        files: {
-          type: "object" as "object",
-          title: "File Patterns to Ignore",
-          description:
-            "Comma-separated list of regular expression patterns that specify test filenames to ignore when caching test and task history.",
-          properties: {
-            filesIgnoredFromCache: {
-              type: "array" as "array",
-              items: {
-                type: "object" as "object",
-                properties: {
-                  filePattern: {
-                    type: "string" as "string",
-                    title: "File Pattern",
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-    uiSchema: {
+    historicalDataCaching: {
       "ui:rootFieldId": "historicalDataCaching",
+      "ui:ObjectFieldTemplate": CardField,
       disabledStatsCache: {
         "ui:widget": widgets.RadioBoxWidget,
       },
