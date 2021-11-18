@@ -28,7 +28,7 @@ export const getFormData = (
       type: "object" as "object",
       properties: {
         enabled: {
-          type: "boolean" as "boolean",
+          type: ["boolean", "null"],
           oneOf: radioBoxOptions(["Enabled", "Disabled"], repoData?.enabled),
         },
         repositoryInfo: {
@@ -58,7 +58,7 @@ export const getFormData = (
               title: "Display Name",
             },
             batchTime: {
-              type: "number" as "number",
+              type: ["number", "null"],
               title: "Batch Time",
             },
             remotePath: {
@@ -92,7 +92,6 @@ export const getFormData = (
         batchTime: {
           "ui:description":
             "The interval of time (in minutes) that Evergreen should wait in between activating the latest version.",
-          "ui:emptyValue": 9,
           ...placeholderIf(repoData?.batchTime),
         },
         remotePath: {
@@ -113,7 +112,7 @@ export const getFormData = (
       type: "object" as "object",
       properties: {
         dispatchingDisabled: {
-          type: "boolean" as "boolean",
+          type: ["boolean", "null"],
           title: "Dispatching",
           oneOf: radioBoxOptions(
             ["Enabled", "Disabled"],
@@ -126,7 +125,7 @@ export const getFormData = (
           title: "Scheduling Settings",
           properties: {
             deactivatePrevious: {
-              type: "boolean" as "boolean",
+              type: ["boolean", "null"],
               title: "Old Task on Success",
               oneOf: radioBoxOptions(
                 ["Unschedule", "Don't Unschedule"],
@@ -140,7 +139,7 @@ export const getFormData = (
           title: "Repotracker Settings",
           properties: {
             repotrackerDisabled: {
-              type: "boolean" as "boolean",
+              type: ["boolean", "null"],
               title: "Repotracker",
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
@@ -155,7 +154,7 @@ export const getFormData = (
           title: "Default Logger",
           properties: {
             defaultLogger: {
-              type: "string" as "string",
+              type: ["string", "null"],
               enum: validDefaultLoggers,
             },
           },
@@ -165,7 +164,7 @@ export const getFormData = (
           title: "Test Results",
           properties: {
             cedarTestResultsEnabled: {
-              type: "boolean" as "string",
+              type: ["boolean", "null"],
               title: "Cedar Test Results",
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
@@ -179,7 +178,7 @@ export const getFormData = (
           title: "Patch Settings",
           properties: {
             patchingDisabled: {
-              type: "string" as "string",
+              type: ["boolean", "null"],
               title: "Patching",
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
@@ -194,7 +193,7 @@ export const getFormData = (
           title: "Task Sync",
           properties: {
             configEnabled: {
-              type: "string" as "string",
+              type: ["boolean", "null"],
               title: "Project Config Commands",
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
@@ -202,7 +201,7 @@ export const getFormData = (
               ),
             },
             patchEnabled: {
-              type: "string" as "string",
+              type: ["boolean", "null"],
               title: "Task in Patches",
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
@@ -273,7 +272,7 @@ export const getFormData = (
       type: "object" as "object",
       properties: {
         disabledStatsCache: {
-          type: "string" as "string",
+          type: ["boolean", "null"],
           title: "Caching",
           oneOf: radioBoxOptions(
             ["Enabled", "Disabled"],
@@ -288,7 +287,7 @@ export const getFormData = (
             "Comma-separated list of regular expression patterns that specify test filenames to ignore when caching test and task history.",
           properties: {
             filesIgnoredFromCache: {
-              type: "array" as "array",
+              type: ["array", "null"],
               items: {
                 type: "object" as "object",
                 properties: {

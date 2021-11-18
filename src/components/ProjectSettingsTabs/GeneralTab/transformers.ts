@@ -51,8 +51,13 @@ export const gqlToForm = (
 
 export const formToGql = (
   formState: FormState,
-  id: string
+  id: string,
+  useRepoSettings: boolean
 ): Pick<ProjectSettingsInput, "projectRef"> => {
+  const filteredFiles =
+    formState?.files?.filesIgnoredFromCache
+      ?.map(({ filePattern }) => filePattern)
+      .filter((str) => !!str) || [];
   const projectRef: ProjectInput = {
     id,
     enabled: formState.enabled,
@@ -74,11 +79,8 @@ export const formToGql = (
       patchEnabled: formState.taskSync.patchEnabled,
     },
     disabledStatsCache: formState.disabledStatsCache,
-    filesIgnoredFromCache: formState.files.filesIgnoredFromCache
-      ? formState.files.filesIgnoredFromCache.map(
-          ({ filePattern }) => filePattern
-        )
-      : null,
+    filesIgnoredFromCache: filteredFiles.length ? filteredFiles : null,
+    useRepoSettings,
   };
 
   return { projectRef };

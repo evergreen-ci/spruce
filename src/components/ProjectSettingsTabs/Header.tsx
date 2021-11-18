@@ -23,23 +23,24 @@ import { getTabTitle } from "pages/projectSettings/getTabTitle";
 import { TransformerMap, WritableTabRoutes } from "./types";
 
 interface Props {
-  canDefaultToRepo: boolean;
   id: string;
   isRepo: boolean;
   saveable: boolean;
   tab: ProjectSettingsTabRoutes;
+  useRepoSettings: boolean;
 }
 
 export const Header: React.FC<Props> = ({
-  canDefaultToRepo,
   id,
   isRepo,
   saveable,
   tab,
+  useRepoSettings,
 }) => {
   const dispatchToast = useToastContext();
   const { title, subtitle } = getTabTitle(tab);
-  const { getTabFormState, saveTab } = useProjectSettingsContext();
+  const { getTab, saveTab } = useProjectSettingsContext();
+  const { hasError } = getTab(tab);
   const saved = useIsTabSaved(tab);
 
   const [saveProjectSection] = useMutation<
@@ -71,8 +72,8 @@ export const Header: React.FC<Props> = ({
   });
 
   const onClick = () => {
-    const currentFormState = getTabFormState(tab);
-    const newData = TransformerMap[tab](currentFormState, id);
+    const { formData } = getTab(tab);
+    const newData = TransformerMap[tab](formData, id, useRepoSettings);
     const save = (update, section) =>
       isRepo
         ? saveRepoSection({
@@ -97,11 +98,15 @@ export const Header: React.FC<Props> = ({
       <H2 data-cy="project-settings-tab-title">{title}</H2>
       {subtitle && <Subtitle>{subtitle}</Subtitle>}
       {saveable && (
-        <Button variant="primary" onClick={onClick} disabled={saved}>
+        <Button
+          variant="primary"
+          onClick={onClick}
+          disabled={hasError || saved}
+        >
           Save Changes on Page
         </Button>
       )}
-      {canDefaultToRepo && (
+      {!isRepo && useRepoSettings && (
         <Button data-cy="default-to-repo">Default to Repo on Page</Button>
       )}
     </TitleContainer>

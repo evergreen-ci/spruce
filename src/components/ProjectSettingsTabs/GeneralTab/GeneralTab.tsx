@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 import { SpruceForm, SpruceFormContainer } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
@@ -16,8 +16,8 @@ export const GeneralTab: React.FC<TabProps> = ({
   repoData,
   useRepoSettings,
 }) => {
-  const { getTabFormState, updateForm } = useProjectSettingsContext();
-  const currentFormState = getTabFormState(tab);
+  const { getTab, updateForm } = useProjectSettingsContext();
+  const { formData } = getTab(tab);
 
   const initialFormState = useMemo(() => gqlToForm(projectData || repoData), [
     projectData,
@@ -25,9 +25,7 @@ export const GeneralTab: React.FC<TabProps> = ({
   ]);
   usePopulateForm(initialFormState, tab);
 
-  const onChange = useCallback(({ formData }) => updateForm(tab, formData), [
-    updateForm,
-  ]);
+  const onChange = updateForm(tab);
 
   const validDefaultLoggers =
     projectData?.validDefaultLoggers || repoData?.validDefaultLoggers;
@@ -47,14 +45,14 @@ export const GeneralTab: React.FC<TabProps> = ({
     [projectId, repoData, useRepoSettings, validDefaultLoggers]
   );
 
-  if (!currentFormState) return null;
+  if (!formData) return null;
 
   return (
     <>
       <SpruceFormContainer title="General Configuration">
         <SpruceForm
           fields={generalConfiguration.fields}
-          formData={currentFormState}
+          formData={formData}
           onChange={onChange}
           schema={generalConfiguration.schema}
           uiSchema={generalConfiguration.uiSchema}
@@ -63,7 +61,7 @@ export const GeneralTab: React.FC<TabProps> = ({
       <SpruceFormContainer title="Project Flags">
         <SpruceForm
           fields={projectFlags.fields}
-          formData={currentFormState}
+          formData={formData}
           onChange={onChange}
           schema={projectFlags.schema}
           uiSchema={projectFlags.uiSchema}
@@ -72,7 +70,7 @@ export const GeneralTab: React.FC<TabProps> = ({
       <SpruceFormContainer title="Historical Data Caching Info">
         <SpruceForm
           fields={historicalDataCaching.fields}
-          formData={currentFormState}
+          formData={formData}
           onChange={onChange}
           schema={historicalDataCaching.schema}
           uiSchema={historicalDataCaching.uiSchema}

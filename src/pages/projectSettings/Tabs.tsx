@@ -47,11 +47,11 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
     <Container>
       <NavigationModal />
       <Header
-        canDefaultToRepo={projectData && useRepoSettings}
         id={projectId || repoData?.repoSettings?.projectRef?.id}
         isRepo={!projectData}
         saveable={!readOnlyTabs.includes(tab)}
         tab={tab}
+        useRepoSettings={useRepoSettings}
       />
       <Route
         path={routes.projectSettingsGeneral}

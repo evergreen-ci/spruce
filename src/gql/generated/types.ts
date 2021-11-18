@@ -25,6 +25,7 @@ export type Query = {
   patch: Patch;
   version: Version;
   projects: Array<Maybe<GroupedProjects>>;
+  viewableProjectRefs: Array<Maybe<GroupedProjects>>;
   project: Project;
   patchTasks: PatchTasks;
   taskTests: TaskTestResult;
@@ -199,6 +200,7 @@ export type Mutation = {
   removeFavoriteProject: Project;
   createProject: Project;
   copyProject: Project;
+  attachProjectToNewRepo: Project;
   saveProjectSettingsForSection: ProjectSettings;
   saveRepoSettingsForSection: RepoSettings;
   attachProjectToRepo: Project;
@@ -228,6 +230,7 @@ export type Mutation = {
   removeItemFromCommitQueue?: Maybe<Scalars["String"]>;
   updateUserSettings: Scalars["Boolean"];
   restartJasper: Scalars["Int"];
+  reprovisionToNew: Scalars["Int"];
   updateHostStatus: Scalars["Int"];
   createPublicKey: Array<PublicKey>;
   spawnHost: Host;
@@ -259,6 +262,10 @@ export type MutationCreateProjectArgs = {
 
 export type MutationCopyProjectArgs = {
   project: CopyProjectInput;
+};
+
+export type MutationAttachProjectToNewRepoArgs = {
+  project: MoveProjectInput;
 };
 
 export type MutationSaveProjectSettingsForSectionArgs = {
@@ -390,6 +397,10 @@ export type MutationUpdateUserSettingsArgs = {
 };
 
 export type MutationRestartJasperArgs = {
+  hostIds: Array<Scalars["String"]>;
+};
+
+export type MutationReprovisionToNewArgs = {
   hostIds: Array<Scalars["String"]>;
 };
 
@@ -685,6 +696,7 @@ export type CreateProjectInput = {
   identifier: Scalars["String"];
   owner: Scalars["String"];
   repo: Scalars["String"];
+  repoRefId?: Maybe<Scalars["String"]>;
   id?: Maybe<Scalars["String"]>;
 };
 
@@ -692,6 +704,12 @@ export type CopyProjectInput = {
   projectIdToCopy: Scalars["String"];
   newProjectIdentifier: Scalars["String"];
   newProjectId?: Maybe<Scalars["String"]>;
+};
+
+export type MoveProjectInput = {
+  projectId: Scalars["String"];
+  newOwner: Scalars["String"];
+  newRepo: Scalars["String"];
 };
 
 export type ProjectSettingsInput = {
@@ -1377,7 +1395,10 @@ export type BaseTaskInfo = {
 };
 
 export type GroupedProjects = {
+  groupDisplayName: Scalars["String"];
+  /** @deprecated name is deprecated. Use groupDisplayName instead. */
   name: Scalars["String"];
+  repo?: Maybe<RepoRef>;
   projects: Array<Project>;
 };
 

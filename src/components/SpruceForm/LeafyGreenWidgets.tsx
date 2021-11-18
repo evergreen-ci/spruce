@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
+import { uiColors } from "@leafygreen-ui/palette";
 import { RadioBox, RadioBoxGroup } from "@leafygreen-ui/radio-box-group";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import { Option, Select } from "@leafygreen-ui/select";
@@ -25,12 +26,14 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
       <MaxWidthContainer>
         <TextInput
           data-cy={dataCy}
-          value={`${value !== undefined ? value : ""}`}
+          value={value === null ? "" : `${value}`}
           label={label}
           placeholder={placeholder}
           description={description as string}
           disabled={disabled}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={({ target }) =>
+            onChange(target.value === "" ? null : target.value)
+          }
           aria-label={label}
           errorMessage={hasError ? rawErrors.join(", ") : null}
           state={hasError ? "error" : "none"}
@@ -64,6 +67,7 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
   placeholder,
   value,
   onChange,
+  rawErrors,
 }) => {
   const {
     allowDeselect,
@@ -71,6 +75,16 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
     enumOptions,
     "data-cy": dataCy,
   } = options;
+
+  const convertError = (errorString) => {
+    if (errorString === "should be equal to one of the allowed values") {
+      return "A selection is required for this field.";
+    }
+    return errorString;
+  };
+
+  const hasError = !!rawErrors?.length;
+
   if (!Array.isArray(enumOptions)) {
     console.error("Non Array passed into leafygreen select");
     return null;
@@ -94,10 +108,17 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
             </Option>
           ))}
         </Select>
+        {hasError && (
+          <Error>{rawErrors.map((err) => convertError(err)).join(", ")}</Error>
+        )}
       </MaxWidthContainer>
     </ElementWrapper>
   );
 };
+
+const Error = styled(Description)`
+  color: ${uiColors.red.base};
+`;
 
 export const LeafyGreenRadio: React.FC<WidgetProps> = ({
   label,

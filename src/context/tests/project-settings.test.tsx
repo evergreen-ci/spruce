@@ -25,8 +25,7 @@ test("Updating the form state unsaves the tab", async () => {
   );
 
   act(() => {
-    result.current.projectSettings.updateForm(
-      ProjectSettingsTabRoutes.General,
+    result.current.projectSettings.updateForm(ProjectSettingsTabRoutes.General)(
       {
         foo: "bar",
       }
