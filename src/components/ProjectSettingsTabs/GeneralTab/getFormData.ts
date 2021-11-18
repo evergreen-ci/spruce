@@ -1,6 +1,6 @@
 import { Field } from "@rjsf/core";
 import { SpruceFormProps } from "components/SpruceForm";
-import { CardField } from "components/SpruceForm/FieldTemplates";
+import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { Project, RepoGeneralSettingsFragment } from "gql/generated/types";
 import { placeholderIf, radioBoxOptions } from "../utils";
@@ -221,7 +221,7 @@ export const getFormData = (
   uiSchema: {
     generalConfiguration: {
       "ui:rootFieldId": "generalConfiguration",
-      "ui:ObjectFieldTemplate": CardField,
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
       enabled: {
         "ui:widget": widgets.RadioBoxWidget,
         "ui:showLabel": false,
@@ -255,7 +255,7 @@ export const getFormData = (
     },
     projectFlags: {
       "ui:rootFieldId": "projectFlags",
-      "ui:ObjectFieldTemplate": CardField,
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
       dispatchingDisabled: {
         "ui:widget": widgets.RadioBoxWidget,
       },
@@ -307,7 +307,7 @@ export const getFormData = (
     },
     historicalDataCaching: {
       "ui:rootFieldId": "historicalDataCaching",
-      "ui:ObjectFieldTemplate": CardField,
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
       disabledStatsCache: {
         "ui:widget": widgets.RadioBoxWidget,
       },

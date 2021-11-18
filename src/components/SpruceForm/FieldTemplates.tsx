@@ -84,7 +84,7 @@ const DeleteButtonWrapper = styled(ElementWrapper)`
   margin-left: 16px;
 `;
 
-export const CardField: React.FC<ObjectFieldTemplateProps> = ({
+export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
   idSchema,
   properties,
   title,
