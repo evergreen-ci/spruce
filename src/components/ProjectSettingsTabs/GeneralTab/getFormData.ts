@@ -41,17 +41,17 @@ export const getFormData = (
             title: "Repository Info",
             properties: {
               owner: {
-                type: "string" as "string",
+                type: ["string", "null"],
                 title: "Owner",
               },
               repo: {
-                type: "string" as "string",
+                type: ["string", "null"],
                 title: "Repository",
               },
             },
           },
           branch: {
-            type: "string" as "string",
+            type: ["string", "null"],
             title: "Branch Name",
           },
           other: {
@@ -59,7 +59,7 @@ export const getFormData = (
             title: "Other",
             properties: {
               displayName: {
-                type: "string" as "string",
+                type: ["string", "null"],
                 title: "Display Name",
               },
               batchTime: {
@@ -67,11 +67,11 @@ export const getFormData = (
                 title: "Batch Time",
               },
               remotePath: {
-                type: "string" as "string",
+                type: ["string", "null"],
                 title: "Config File",
               },
               spawnHostScriptPath: {
-                type: "string" as "string",
+                type: ["string", "null"],
                 title: "Spawn Host Script Path",
               },
             },

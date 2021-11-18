@@ -25,7 +25,7 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
       <MaxWidthContainer>
         <TextInput
           data-cy={dataCy}
-          value={value === null ? "" : `${value}`}
+          value={value === null || value === undefined ? null : `${value}`}
           label={label}
           placeholder={placeholder}
           description={description as string}
