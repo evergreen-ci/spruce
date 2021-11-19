@@ -78,7 +78,7 @@ export const CommitQueueCard: React.FC<Props> = ({
           <CommitInfo>
             <ConditionalWrapper
               condition={
-                versionId !== "" || issue === "" || Number.isNaN(Number(issue))
+                !!versionId || issue === "" || Number.isNaN(Number(issue))
               }
               wrapper={(c) => (
                 <>
