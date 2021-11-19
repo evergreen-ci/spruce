@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { Square } from "components/StatusSquare";
-import { mapTaskStatusToColor } from "constants/task";
+import { TaskStatusIcon } from "components/TaskStatusIcon";
 
 interface TaskStatusCheckboxProps {
   displayName: string;
@@ -28,11 +27,13 @@ const CheckboxComponent: React.FC<TaskStatusCheckboxProps> = ({
     name={taskId}
     label={
       <StateItemWrapper>
-        <PaddedSquare color={mapTaskStatusToColor[status]} />
-        {baseStatus && (
-          <PaddedSquare color={mapTaskStatusToColor[baseStatus]} />
+        <StyledTaskStatusIcon status={status} />
+        {baseStatus ? (
+          <StyledTaskStatusIcon status={baseStatus} />
+        ) : (
+          <EmptyCell />
         )}
-        {displayName}
+        <div>{displayName}</div>
       </StateItemWrapper>
     }
     checked={checked}
@@ -42,13 +43,19 @@ const CheckboxComponent: React.FC<TaskStatusCheckboxProps> = ({
 
 export const TaskStatusCheckbox = React.memo(CheckboxComponent);
 
-const PaddedSquare = styled(Square)`
-  margin-right: 6px;
-`;
-
 const StateItemWrapper = styled("div")`
   display: flex;
   flex-direction: row;
   align-items: center;
   white-space: nowrap;
+`;
+
+const StyledTaskStatusIcon = styled(TaskStatusIcon)`
+  margin-right: 3px;
+`;
+
+// Wrapping checkboxes with fix width container
+// adjusts alignment.
+const EmptyCell = styled.span`
+  width: 19px;
 `;

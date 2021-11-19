@@ -17,6 +17,7 @@ import { ScheduleUndispatchedBaseTasks } from "./ScheduleUndispatchedBaseTasks";
 
 interface ActionButtonProps {
   canEnqueueToCommitQueue: boolean;
+  isPatchOnCommitQueue: boolean;
   canReconfigure: boolean;
   patchDescription: string;
   versionId: string;
@@ -26,6 +27,7 @@ interface ActionButtonProps {
 
 export const ActionButtons: React.FC<ActionButtonProps> = ({
   canEnqueueToCommitQueue,
+  isPatchOnCommitQueue,
   canReconfigure,
   patchDescription,
   versionId,
@@ -70,11 +72,16 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
   return (
     <>
       <PageButtonRow>
-        <ScheduleTasks versionId={versionId} isButton />
+        <ScheduleTasks
+          versionId={versionId}
+          isButton
+          disabled={isPatchOnCommitQueue}
+        />
         <RestartPatch
           patchId={versionId}
           childPatches={childPatches}
           isButton
+          disabled={isPatchOnCommitQueue}
           refetchQueries={["Patch"]}
         />
         <AddNotification patchId={versionId} refetchQueries={["Patch"]} />

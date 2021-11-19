@@ -44,6 +44,9 @@ const cache = new InMemoryCache({
     User: {
       keyFields: ["userId"],
     },
+    TaskLogs: {
+      keyFields: ["execution", "taskId"],
+    },
     Task: {
       keyFields: ["execution", "id"],
       fields: {

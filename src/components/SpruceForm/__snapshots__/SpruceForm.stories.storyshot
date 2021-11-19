@@ -3,12 +3,12 @@
 exports[`Storyshots Spruce Form Example 1 1`] = `
 <div>
   <h3
-    className="css-7bylgw-StyledH3 emd7ieu1 leafygreen-ui-1hbs73"
+    className="css-7bylgw-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"
   >
     Distro Projects
   </h3>
   <div
-    className="css-197y785-StyledCard emd7ieu0 leafygreen-ui-fe135o"
+    className="css-197y785-StyledCard e1c06qt20 leafygreen-ui-fe135o"
   >
     <form
       className="rjsf"
@@ -338,12 +338,12 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
 exports[`Storyshots Spruce Form Example 2 1`] = `
 <div>
   <h3
-    className="css-7bylgw-StyledH3 emd7ieu1 leafygreen-ui-1hbs73"
+    className="css-7bylgw-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"
   >
     Admin Options
   </h3>
   <div
-    className="css-197y785-StyledCard emd7ieu0 leafygreen-ui-fe135o"
+    className="css-197y785-StyledCard e1c06qt20 leafygreen-ui-fe135o"
   >
     <form
       className="rjsf"
