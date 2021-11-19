@@ -43,7 +43,7 @@ export const HostPopover: React.FC<Props> = ({
     return () => {
       document.removeEventListener("mousedown", onClickOutside);
     };
-  }, [popoverRef, active]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [buttonRef, popoverRef, active]);
 
   return (
     <>
