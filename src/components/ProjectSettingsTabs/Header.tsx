@@ -3,10 +3,6 @@ import styled from "@emotion/styled";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
 import { Button } from "components/Button";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import {
-  useIsTabSaved,
-  useProjectSettingsContext,
-} from "context/project-settings";
 import { useToastContext } from "context/toast";
 import {
   ProjectSettingsSection,
@@ -20,6 +16,7 @@ import {
   SAVE_REPO_SETTINGS_FOR_SECTION,
 } from "gql/mutations";
 import { getTabTitle } from "pages/projectSettings/getTabTitle";
+import { useIsTabSaved, useProjectSettingsContext } from "./Context";
 import { TransformerMap, WritableTabRoutes } from "./types";
 
 interface Props {

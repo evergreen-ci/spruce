@@ -4,7 +4,7 @@ import {
   ProjectSettingsProvider,
   useIsAnyTabUnsaved,
   useProjectSettingsContext,
-} from "../project-settings";
+} from "./Context";
 
 test("Ensure that tabs are initially saved", async () => {
   const { result } = renderHook(() => useIsAnyTabUnsaved(), {

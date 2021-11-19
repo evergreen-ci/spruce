@@ -1,11 +1,8 @@
 import { useMemo } from "react";
 import { SpruceForm } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import {
-  usePopulateForm,
-  useProjectSettingsContext,
-} from "context/project-settings";
 import { gqlToForm, TabProps } from ".";
+import { usePopulateForm, useProjectSettingsContext } from "../Context";
 import { getFormData } from "./getFormData";
 
 const tab = ProjectSettingsTabRoutes.General;
