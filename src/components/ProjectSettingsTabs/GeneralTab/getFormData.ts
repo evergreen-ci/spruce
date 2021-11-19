@@ -239,6 +239,9 @@ export const getFormData = (
         ...placeholderIf(repoData?.branch),
       },
       other: {
+        displayName: {
+          "ui:data-cy": "display-name-input",
+        },
         batchTime: {
           "ui:description":
             "The interval of time (in minutes) that Evergreen should wait in between activating the latest version.",
@@ -286,6 +289,7 @@ export const getFormData = (
             "ui:allowDeselect": false,
           }),
           "ui:ariaLabelledBy": "projectFlags_logger__title",
+          "ui:data-cy": "default-logger-select",
         },
       },
       testResults: {

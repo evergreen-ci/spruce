@@ -58,7 +58,7 @@ export const gqlToForm = (
 export const formToGql = (
   { generalConfiguration, projectFlags, historicalDataCaching }: FormState,
   id: string,
-  useRepoSettings: boolean
+  useRepoSettings?: boolean
 ): Pick<ProjectSettingsInput, "projectRef"> => {
   const filteredFiles =
     historicalDataCaching?.files?.filesIgnoredFromCache
@@ -86,7 +86,7 @@ export const formToGql = (
     },
     disabledStatsCache: historicalDataCaching.disabledStatsCache,
     filesIgnoredFromCache: filteredFiles.length ? filteredFiles : null,
-    useRepoSettings,
+    ...(useRepoSettings !== undefined && { useRepoSettings }),
   };
 
   return { projectRef };

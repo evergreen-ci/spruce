@@ -99,6 +99,7 @@ export const Header: React.FC<Props> = ({
       {subtitle && <Subtitle>{subtitle}</Subtitle>}
       {saveable && (
         <Button
+          data-cy="save-settings-button"
           variant="primary"
           onClick={onClick}
           disabled={hasError || saved}

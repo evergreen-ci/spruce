@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
+import { uiColors } from "@leafygreen-ui/palette";
 import { RadioBox, RadioBoxGroup } from "@leafygreen-ui/radio-box-group";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import { Option, Select } from "@leafygreen-ui/select";
@@ -27,7 +28,7 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
           data-cy={dataCy}
           value={value === null || value === undefined ? null : `${value}`}
           label={label}
-          placeholder={placeholder}
+          placeholder={placeholder || undefined}
           description={description as string}
           disabled={disabled}
           onChange={({ target }) =>
@@ -66,6 +67,7 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
   placeholder,
   value,
   onChange,
+  rawErrors,
 }) => {
   const {
     allowDeselect,
@@ -73,6 +75,8 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
     enumOptions,
     "data-cy": dataCy,
   } = options;
+
+  const hasError = !!rawErrors?.length;
 
   if (!Array.isArray(enumOptions)) {
     console.error("Non Array passed into leafygreen select");
@@ -103,10 +107,15 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
             );
           })}
         </Select>
+        {hasError && <Error>Selection is required.</Error>}
       </MaxWidthContainer>
     </ElementWrapper>
   );
 };
+
+const Error = styled(Description)`
+  color: ${uiColors.red.base};
+`;
 
 export const LeafyGreenRadio: React.FC<WidgetProps> = ({
   label,

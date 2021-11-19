@@ -40,12 +40,21 @@ describe("Project Settings when defaulting to repo", () => {
     cy.preserveCookies();
   });
 
-  it("Preserves edits to the form when navigating between settings tabs", () => {
+  it("Loads with the save button disabled initially", () => {
+    cy.dataCy("save-settings-button").should("be.disabled");
+  });
+
+  it("Preserves edits to the form when navigating between settings tabs and does not show a warning modal", () => {
     cy.dataCy("spawn-host-input").should("have.value", "/path");
     cy.dataCy("spawn-host-input").type("/test");
     cy.dataCy("navitem-access").click();
+    cy.dataCy("navigation-warning-modal").should("not.be.visible");
     cy.dataCy("navitem-general").click();
     cy.dataCy("spawn-host-input").should("have.value", "/path/test");
+  });
+
+  it("Enables the save button", () => {
+    cy.dataCy("save-settings-button").should("not.be.disabled");
   });
 
   it("Shows a 'Default to Repo' button on page", () => {
@@ -56,15 +65,19 @@ describe("Project Settings when defaulting to repo", () => {
     cy.dataCy("enabled-radio-box").children().should("have.length", 3);
   });
 
+  it("Does not default to repo value for display name", () => {
+    cy.dataCy("display-name-input").should("not.have.attr", "placeholder");
+  });
+
   it("Shows a navigation warning modal when clicking on a header link", () => {
     cy.get("a[href='/user/patches']").click();
     cy.dataCy("navigation-warning-modal").should("be.visible");
     cy.get("body").type("{esc}");
   });
 
-  it("Does not show a navigation warning modal when navigating between settings tabs", () => {
-    cy.dataCy("navitem-access").click();
-    cy.dataCy("navigation-warning-modal").should("not.be.visible");
+  it("Clicking on save button should  show a success toast", () => {
+    cy.dataCy("save-settings-button").click();
+    cy.contains("Successfully updated project");
   });
 });
 
@@ -82,5 +95,19 @@ describe("Repo Settings", () => {
 
   it("Does not show a 'Default to Repo' button on page", () => {
     cy.dataCy("default-to-repo").should("not.exist");
+  });
+
+  it("Does not show a 'Move to New Repo' button on page", () => {
+    cy.dataCy("move-repo-button").should("not.exist");
+  });
+
+  it("Selects a default logger on click", () => {
+    cy.get("[data-testid=leafygreen-ui-select-menubutton]").click();
+    cy.get("[data-leafygreen-ui=option]").first().click();
+  });
+
+  it("Clicking on save button should  show a success toast", () => {
+    cy.dataCy("save-settings-button").click();
+    cy.contains("Successfully updated repo");
   });
 });
