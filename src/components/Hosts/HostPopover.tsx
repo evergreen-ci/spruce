@@ -1,25 +1,30 @@
-import React, { useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import styled from "@emotion/styled";
+import { uiColors } from "@leafygreen-ui/palette";
 import Popover from "@leafygreen-ui/popover";
 import { Button } from "components/Button";
 
+const { gray } = uiColors;
+
 interface Props {
+  buttonText: string;
   titleText: string;
   loading: boolean;
+  disabled: boolean;
   onClick: () => void;
-  active: boolean;
-  setActive: (isActive: boolean) => void;
   "data-cy"?: string;
 }
 
 export const HostPopover: React.FC<Props> = ({
+  buttonText,
   titleText,
   loading,
+  disabled = false,
   onClick,
-  active,
-  setActive,
   "data-cy": dataCy,
 }) => {
+  const [active, setActive] = useState(false);
+  const buttonRef = useRef(null);
   const popoverRef = useRef(null);
 
   // Handle onClickOutside
@@ -28,12 +33,10 @@ export const HostPopover: React.FC<Props> = ({
       return;
     }
     const onClickOutside = (event: MouseEvent) => {
-      if (
-        popoverRef.current &&
-        !popoverRef.current.contains(event.target as Node)
-      ) {
-        setActive(false);
-      }
+      const stillFocused =
+        popoverRef.current!.contains(event.target as Node) ||
+        buttonRef.current!.contains(event.target as Node);
+      setActive(stillFocused);
     };
 
     document.addEventListener("mousedown", onClickOutside);
@@ -43,38 +46,55 @@ export const HostPopover: React.FC<Props> = ({
   }, [popoverRef, active]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <StyledPopover
-      align="bottom"
-      justify="middle"
-      active={active}
-      data-cy={dataCy}
-    >
-      <PopoverContainer ref={popoverRef}>
-        {titleText}
+    <>
+      <div ref={buttonRef}>
+        <Button
+          onClick={() => setActive((curr) => !curr)}
+          data-cy={dataCy}
+          disabled={disabled}
+        >
+          {buttonText}
+        </Button>
+      </div>
+      <StyledPopover
+        align="bottom"
+        justify="middle"
+        active={active}
+        data-cy={`${dataCy}-popover`}
+      >
+        <PopoverContainer ref={popoverRef}>
+          {titleText}
 
-        <ButtonContainer>
-          <ButtonSpacer>
-            <Button size="xsmall" disabled={loading}>
-              No
-            </Button>
-          </ButtonSpacer>
-          <ButtonSpacer>
-            <Button
-              variant="primary"
-              size="xsmall"
-              disabled={loading}
-              onClick={onClick}
-            >
-              Yes
-            </Button>
-          </ButtonSpacer>
-        </ButtonContainer>
-      </PopoverContainer>
-    </StyledPopover>
+          <ButtonContainer>
+            <ButtonSpacer>
+              <Button
+                size="xsmall"
+                disabled={loading}
+                onClick={() => setActive(false)}
+              >
+                No
+              </Button>
+            </ButtonSpacer>
+            <ButtonSpacer>
+              <Button
+                variant="primary"
+                size="xsmall"
+                disabled={loading}
+                onClick={onClick}
+              >
+                Yes
+              </Button>
+            </ButtonSpacer>
+          </ButtonContainer>
+        </PopoverContainer>
+      </StyledPopover>
+    </>
   );
 };
 
 // @ts-expect-error
+// For leafygreen Popover, there is a bug where you have to set the width to prevent misalignment when
+// the trigger element is near the right side of a page. Ticket: https://jira.mongodb.org/browse/PD-1542
 const StyledPopover = styled(Popover)`
   width: 300px;
 `;
@@ -84,8 +104,7 @@ const PopoverContainer = styled.div`
   flex-direction: column;
   background-color: white;
   padding: 16px;
-  box-shadow: 0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%),
-    0 9px 28px 8px rgb(0 0 0 / 5%);
+  box-shadow: 0 5px 10px 0 ${gray.light2}, 0 5px 30px 5px ${gray.light2};
 `;
 
 const ButtonContainer = styled.div`

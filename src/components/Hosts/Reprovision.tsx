@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { useHostsTableAnalytics } from "analytics";
-import { Button } from "components/Button";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { useToastContext } from "context/toast";
 import {
@@ -28,7 +27,6 @@ export const Reprovision: React.FC<Props> = ({
   canReprovision,
   reprovisionTooltipMessage,
 }) => {
-  const [active, setActive] = useState(false);
   const hostsTableAnalytics = useHostsTableAnalytics(isSingleHost);
   const dispatchToast = useToastContext();
 
@@ -75,27 +73,24 @@ export const Reprovision: React.FC<Props> = ({
         </StyledTooltip>
       )}
     >
+      {/* This div is necessary, or else the tooltip will not show. */}
       <div>
-        <Button
-          onClick={() => setActive((prevActive) => !prevActive)}
+        <HostPopover
+          buttonText="Reprovision"
           data-cy="reprovision-button"
           disabled={selectedHostIds.length === 0 || !canReprovision}
-        >
-          Reprovision
-          <HostPopover
-            titleText={titleText}
-            active={active}
-            loading={loadingReprovision}
-            onClick={onClickReprovisionConfirm}
-            setActive={setActive}
-          />
-        </Button>
+          titleText={titleText}
+          loading={loadingReprovision}
+          onClick={onClickReprovisionConfirm}
+        />
       </div>
     </ConditionalWrapper>
   );
 };
 
 // @ts-expect-error
+// For leafygreen Tooltip, there is a bug where you have to set the width to prevent misalignment when
+// the trigger element is near the right side of a page. Ticket: https://jira.mongodb.org/browse/PD-1542
 const StyledTooltip = styled(Tooltip)`
   width: 300px;
 `;

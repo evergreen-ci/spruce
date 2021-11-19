@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { useHostsTableAnalytics } from "analytics";
-import { Button } from "components/Button";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { useToastContext } from "context/toast";
 import {
@@ -28,7 +27,6 @@ export const RestartJasper: React.FC<Props> = ({
   canRestartJasper,
   jasperTooltipMessage,
 }) => {
-  const [active, setActive] = useState(false);
   const hostsTableAnalytics = useHostsTableAnalytics(isSingleHost);
   const dispatchToast = useToastContext();
 
@@ -75,27 +73,24 @@ export const RestartJasper: React.FC<Props> = ({
         </StyledTooltip>
       )}
     >
+      {/* This div is necessary, or else the tooltip will not show. */}
       <div>
-        <Button
-          onClick={() => setActive((prevActive) => !prevActive)}
+        <HostPopover
+          buttonText="Restart Jasper"
           data-cy="restart-jasper-button"
           disabled={selectedHostIds.length === 0 || !canRestartJasper}
-        >
-          Restart Jasper
-          <HostPopover
-            titleText={titleText}
-            active={active}
-            loading={loadingRestartJasper}
-            onClick={onClickRestartJasperConfirm}
-            setActive={setActive}
-          />
-        </Button>
+          titleText={titleText}
+          loading={loadingRestartJasper}
+          onClick={onClickRestartJasperConfirm}
+        />
       </div>
     </ConditionalWrapper>
   );
 };
 
 // @ts-expect-error
+// For leafygreen Tooltip, there is a bug where you have to set the width to prevent misalignment when
+// the trigger element is near the right side of a page. Ticket: https://jira.mongodb.org/browse/PD-1542
 const StyledTooltip = styled(Tooltip)`
   width: 300px;
 `;
