@@ -1,5 +1,5 @@
 import { uiColors } from "@leafygreen-ui/palette";
-import Icon, { Size } from "components/Icon";
+import Icon from "components/Icon";
 import { TaskStatus } from "types/task";
 import { errorReporting } from "utils";
 
@@ -9,13 +9,15 @@ const { green, red, yellow, gray } = uiColors;
 const failurePurple = "#36367F";
 
 type IconProps = React.ComponentProps<typeof Icon>;
-interface TaskStatusIconProps extends Omit<IconProps, "glyph" | "fill"> {
+interface TaskStatusIconProps
+  extends Omit<IconProps, "glyph" | "fill" | "size"> {
   status: string;
+  size?: number;
 }
 
 export const TaskStatusIcon: React.FC<TaskStatusIconProps> = ({
   status,
-  size = Size.Default,
+  size = 16,
   ...rest
 }) => {
   switch (status) {
