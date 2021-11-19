@@ -926,7 +926,8 @@ export type TaskQueueItem = {
 
 export type TaskQueueDistro = {
   id: Scalars["ID"];
-  queueCount: Scalars["Int"];
+  taskCount: Scalars["Int"];
+  hostCount: Scalars["Int"];
 };
 
 export type Host = {
@@ -3570,7 +3571,7 @@ export type SubnetAvailabilityZonesQuery = {
 export type TaskQueueDistrosQueryVariables = Exact<{ [key: string]: never }>;
 
 export type TaskQueueDistrosQuery = {
-  taskQueueDistros: Array<{ id: string; queueCount: number }>;
+  taskQueueDistros: Array<{ id: string; taskCount: number; hostCount: number }>;
 };
 
 export type UserPatchesQueryVariables = Exact<{
