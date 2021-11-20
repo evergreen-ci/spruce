@@ -25,7 +25,7 @@ export const TaskQueue = () => {
   const { distro, taskId } = useParams<{ distro: string; taskId?: string }>();
   const { replace } = useHistory();
 
-  const [selectedDistro, setSelectedDistro] = useState("");
+  const [selectedDistro, setSelectedDistro] = useState(null);
 
   const { data: distrosData } = useQuery<
     TaskQueueDistrosQuery,
