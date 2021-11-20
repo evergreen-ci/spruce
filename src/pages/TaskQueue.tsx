@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import { H2 } from "@leafygreen-ui/typography";
+import styled from "@emotion/styled";
+import Badge from "@leafygreen-ui/badge";
+import { H2, Subtitle } from "@leafygreen-ui/typography";
 import { useParams, useHistory } from "react-router-dom";
 import { useTaskQueueAnalytics } from "analytics";
 import {
@@ -38,12 +40,13 @@ export const TaskQueue = () => {
   // SET DEFAULT DISTRO
   useEffect(() => {
     const defaultDistro = distro ?? firstDistroInList;
-    setSelectedDistro(defaultDistro);
+
+    setSelectedDistro(distros.find((d) => d.id === defaultDistro));
 
     if (defaultDistro) {
       replace(getTaskQueueRoute(defaultDistro, taskId));
     }
-  }, [firstDistroInList, distro, replace, taskId]);
+  }, [firstDistroInList, distro, replace, taskId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onChangeDistroSelection = (val: any) => {
     taskQueueAnalytics.sendEvent({ name: "Select Distro", distro: val });
@@ -60,7 +63,7 @@ export const TaskQueue = () => {
         <SelectSearch
           onChange={onChangeDistroSelection}
           searchFunc={handleSearch}
-          searchPlaceholder={selectedDistro}
+          searchPlaceholder={selectedDistro?.id}
           options={distros}
           optionRenderer={(option: TaskQueueDistro, onClick) => (
             <DistroOption
@@ -73,9 +76,34 @@ export const TaskQueue = () => {
           )}
         />
       </TableControlOuterRow>
+      <DistroLabel>
+        <Subtitle> {selectedDistro?.id} </Subtitle>
+        <StyledBadge>{`${selectedDistro?.taskCount} ${
+          selectedDistro?.taskCount === 1 ? "TASK" : "TASKS"
+        }`}</StyledBadge>
+        <StyledBadge>{`${selectedDistro?.hostCount} ${
+          selectedDistro?.hostCount === 1 ? "HOST" : "HOSTS"
+        }`}</StyledBadge>
+      </DistroLabel>
       <TableContainer hide={false}>
         <TaskQueueTable />
       </TableContainer>
     </PageWrapper>
   );
 };
+
+const DistroLabel = styled.div`
+  padding-top: 16px;
+  padding-bottom: 24px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+`;
+
+const StyledBadge = styled(Badge)`
+  display: inline-flex;
+  justify-content: center;
+  width: 60px;
+  text-align: center;
+  margin-left: 24px;
+`;
