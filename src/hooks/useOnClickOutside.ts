@@ -2,23 +2,21 @@ import { useEffect } from "react";
 
 export const useOnClickOutside = (
   refs: Array<React.RefObject<HTMLElement>>,
-  cb: (isFocused: boolean) => void,
-  isOpen: boolean
+  cb: () => void
 ): void => {
   useEffect(() => {
     function handleClickOutside(event): void {
-      if (!isOpen) {
-        return;
-      }
-      // Array.some returns true if some value within array satisfies condition, false otherwise
-      const isFocused = refs.some((ref) =>
-        ref.current!.contains(event.target as Node)
+      const isNotFocused = refs.every(
+        (ref) => ref.current && !ref.current.contains(event.target as Node)
       );
-      cb(isFocused);
+      // if none of the refs are being focused on, execute callback
+      if (isNotFocused) {
+        cb();
+      }
     }
     document.addEventListener("mousedown", handleClickOutside);
     return (): void => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [cb, refs, isOpen]);
+  }, [cb, refs]);
 };

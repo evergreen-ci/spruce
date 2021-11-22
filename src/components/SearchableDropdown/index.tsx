@@ -49,11 +49,7 @@ const SearchableDropdown = <T extends {}>({
   const menuButtonRef = useRef(null);
 
   // Handle onClickOutside
-  useOnClickOutside(
-    [listMenuRef, menuButtonRef],
-    (isFocused) => setisOpen(isFocused),
-    isOpen
-  );
+  useOnClickOutside([listMenuRef, menuButtonRef], () => setisOpen(false));
 
   // Update options when they change
   useEffect(() => {

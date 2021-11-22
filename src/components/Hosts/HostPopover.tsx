@@ -29,11 +29,7 @@ export const HostPopover: React.FC<Props> = ({
   const popoverRef = useRef(null);
 
   // Handle onClickOutside
-  useOnClickOutside(
-    [buttonRef, popoverRef],
-    (isFocused) => setActive(isFocused),
-    active
-  );
+  useOnClickOutside([buttonRef, popoverRef], () => setActive(false));
 
   return (
     <>
@@ -70,7 +66,10 @@ export const HostPopover: React.FC<Props> = ({
                 variant="primary"
                 size="xsmall"
                 disabled={loading}
-                onClick={onClick}
+                onClick={() => {
+                  onClick();
+                  setActive(false);
+                }}
               >
                 Yes
               </Button>
