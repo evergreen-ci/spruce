@@ -5,6 +5,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { Body, Label } from "@leafygreen-ui/typography";
 import { Input } from "antd";
 import Icon from "components/Icon";
+import { useOnClickOutside } from "hooks";
 import { toggleArray } from "utils/array";
 
 const { Search } = Input;
@@ -48,22 +49,11 @@ const SearchableDropdown = <T extends {}>({
   const menuButtonRef = useRef(null);
 
   // Handle onClickOutside
-  useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
-    const onClickOutside = (event: MouseEvent) => {
-      const stillFocused =
-        menuButtonRef.current!.contains(event.target as Node) ||
-        listMenuRef.current!.contains(event.target as Node);
-      setisOpen(stillFocused);
-    };
-
-    document.addEventListener("mousedown", onClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", onClickOutside);
-    };
-  }, [listMenuRef, menuButtonRef, isOpen]);
+  useOnClickOutside(
+    [listMenuRef, menuButtonRef],
+    (isFocused) => setisOpen(isFocused),
+    isOpen
+  );
 
   // Update options when they change
   useEffect(() => {

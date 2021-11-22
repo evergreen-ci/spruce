@@ -1,8 +1,9 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import Popover from "@leafygreen-ui/popover";
 import { Button } from "components/Button";
+import { useOnClickOutside } from "hooks";
 
 const { gray } = uiColors;
 
@@ -28,22 +29,11 @@ export const HostPopover: React.FC<Props> = ({
   const popoverRef = useRef(null);
 
   // Handle onClickOutside
-  useEffect(() => {
-    if (!active) {
-      return;
-    }
-    const onClickOutside = (event: MouseEvent) => {
-      const stillFocused =
-        popoverRef.current!.contains(event.target as Node) ||
-        buttonRef.current!.contains(event.target as Node);
-      setActive(stillFocused);
-    };
-
-    document.addEventListener("mousedown", onClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", onClickOutside);
-    };
-  }, [buttonRef, popoverRef, active]);
+  useOnClickOutside(
+    [buttonRef, popoverRef],
+    (isFocused) => setActive(isFocused),
+    active
+  );
 
   return (
     <>
