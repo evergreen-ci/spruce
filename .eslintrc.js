@@ -1,15 +1,9 @@
 const fs = require("fs");
 const path = require("path");
 
-let schema;
 const prettierConfig = JSON.parse(
   fs.readFileSync(path.join(__dirname, ".prettierrc"), "utf8")
 );
-try {
-  schema = fs.readFileSync("./sdlschema.graphql", "utf8");
-} catch (e) {
-  schema = "";
-}
 
 const ERROR = "error";
 const WARN = "warn";
@@ -26,15 +20,11 @@ module.exports = {
     mocha: true,
   },
   extends: [
-    "plugin:react/recommended",
     "airbnb",
     "plugin:import/errors",
     "plugin:import/warnings",
     "prettier",
-    "prettier/react",
     "prettier/@typescript-eslint",
-    "plugin:testing-library/recommended",
-    "plugin:testing-library/react",
   ],
   globals: {
     Atomics: "readonly",
@@ -50,15 +40,7 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: "module",
   },
-  plugins: [
-    "react",
-    "@typescript-eslint",
-    "graphql",
-    "react-hooks",
-    "prettier",
-    "@emotion",
-    "testing-library",
-  ],
+  plugins: ["@typescript-eslint", "prettier"],
   settings: {
     "import/resolver": {
       node: {
@@ -87,17 +69,6 @@ module.exports = {
     "consistent-return": "off",
     curly: [errorIfStrict, "multi-line"],
     eqeqeq: [errorIfStrict, "always", { null: "ignore" }],
-    // Help us with emotion
-    "@emotion/import-from-emotion": ERROR,
-    "@emotion/no-vanilla": errorIfStrict,
-    "@emotion/pkg-renaming": ERROR,
-    "@emotion/syntax-preference": [errorIfStrict, "string"],
-    "graphql/template-strings": [
-      ERROR,
-      {
-        schemaString: schema,
-      },
-    ],
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -113,17 +84,6 @@ module.exports = {
     "import/no-extraneous-dependencies": OFF,
     "import/newline-after-import": WARN,
     "import/prefer-default-export": OFF,
-
-    // These rules help ensure we are following proper accessability standards
-    "jsx-a11y/aria-role": [errorIfStrict, { ignoreNonDom: false }],
-    "jsx-a11y/aria-props": errorIfStrict,
-    // renamed to anchor-is-valid
-    "jsx-a11y/href-no-hash": OFF,
-    "jsx-a11y/anchor-is-valid": errorIfStrict,
-    "jsx-a11y/label-has-associated-control": [
-      errorIfStrict,
-      { some: ["nesting", "id"] },
-    ],
     "no-console": OFF,
     "no-debugger": errorIfStrict,
     "no-shadow": OFF,
@@ -139,51 +99,5 @@ module.exports = {
     "no-empty": [ERROR, { allowEmptyCatch: true }],
     "no-plusplus": [ERROR, { allowForLoopAfterthoughts: true }],
     "prettier/prettier": [errorIfStrict, prettierConfig],
-    "react/react-in-jsx-scope": OFF, // This is no longer necessary as of React 17
-    "react/sort-comp": [
-      errorIfStrict,
-      { order: ["everything-else", "render"] },
-    ],
-    "react/jsx-props-no-spreading": [
-      errorIfStrict,
-      {
-        custom: "ignore",
-        explicitSpread: "ignore",
-      },
-    ],
-    "react/prop-types": OFF,
-    "react/jsx-filename-extension": [1, { extensions: [".tsx"] }],
-    "react/require-default-props": OFF,
-    "react-hooks/rules-of-hooks": ERROR, // Checks rules of Hooks
-    "react-hooks/exhaustive-deps": WARN, // Checks effect dependencies
-    "import/order": [
-      "error",
-      {
-        groups: ["external", "builtin", "internal"],
-        pathGroups: [
-          {
-            pattern: "react",
-            group: "external",
-            position: "before",
-          },
-          {
-            pattern: "@**",
-            group: "external",
-            position: "before",
-          },
-          {
-            pattern:
-              "(analytics|components|constants|context|gql|hoc|hooks|pages|types|utils)/**",
-            group: "internal",
-            position: "before",
-          },
-        ],
-        pathGroupsExcludedImportTypes: ["react"],
-        alphabetize: {
-          order: "asc",
-          caseInsensitive: true,
-        },
-      },
-    ],
   },
 };
