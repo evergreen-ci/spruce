@@ -10,27 +10,27 @@ const { gray, white } = uiColors;
 
 interface SelectSearchProps<T> {
   label?: string | React.ReactNode;
-  onChange: (value: T | T[]) => void;
+  searchPlaceholder?: string;
+  onChange: (value: T) => void;
   searchFunc?: (options: T[], match: string) => T[];
-  searchPlaceholder: T;
   options: T[] | string[];
   optionRenderer?: (option: T, onClick: (selectedV) => void) => React.ReactNode;
   ["data-cy"]?: string;
 }
 const SelectSearch = <T extends {}>({
   label,
+  searchPlaceholder,
   onChange,
   searchFunc,
-  searchPlaceholder,
   options,
   optionRenderer,
   "data-cy": dataCy = "select-search",
 }: PropsWithChildren<SelectSearchProps<T>>) => {
   const [isOpen, setisOpen] = useState(false);
   const [search, setSearch] = useState("");
-  const [placeholder, setPlaceholder] = useState(null);
   const [visibleOptions, setVisibleOptions] = useState(options);
 
+  // Handle onClickOutside
   const searchSelectRef = useRef(null);
   useOnClickOutside(searchSelectRef, () => setisOpen(false));
 
@@ -39,18 +39,24 @@ const SelectSearch = <T extends {}>({
     if (options) {
       setVisibleOptions(options);
     }
-    setPlaceholder(searchPlaceholder);
-  }, [searchPlaceholder, options]);
+  }, [options]);
 
   const onClick = (v: T) => {
     onChange(v);
-    setPlaceholder(v); // set placeholder to clicked value
     setSearch(""); // clear search
     setVisibleOptions(options); // reset visible options
     setisOpen(false);
   };
 
-  const option = (v: T) => optionRenderer(v, onClick);
+  const option = optionRenderer
+    ? (v: T) => optionRenderer(v, onClick)
+    : (v: T) => (
+        <SelectSearchOption
+          key={`searchable_dropdown_option_${v}`}
+          value={v}
+          onClick={() => onClick(v)}
+        />
+      );
 
   const handleSearch = useMemo(
     () => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,7 +86,7 @@ const SelectSearch = <T extends {}>({
             spellCheck={false}
             aria-label="select-search-input"
             type="search"
-            placeholder={placeholder}
+            placeholder={searchPlaceholder}
             value={search}
             onChange={handleSearch}
             onClick={() => setisOpen(true)}
@@ -102,6 +108,25 @@ const SelectSearch = <T extends {}>({
     </>
   );
 };
+
+interface SelectSearchOptionProps<T> {
+  onClick: (v: T) => void;
+  value: T;
+  displayName?: string;
+}
+export const SelectSearchOption = <T extends {}>({
+  onClick,
+  value,
+  displayName,
+}: PropsWithChildren<SelectSearchOptionProps<T>>) => (
+  <Option
+    onClick={() => onClick(value)}
+    key={`select_${value}`}
+    data-cy="select-search-option"
+  >
+    {displayName || value}
+  </Option>
+);
 
 const SearchSelectWrapper = styled.div`
   display: flex;
@@ -125,7 +150,7 @@ const StyledIcon = styled(Icon)`
     cursor: pointer;
   }
 `;
-// Used to provide a basis for the absolutely positions OptionsWrapper
+// Used to provide a basis for the absolutely positioned OptionsWrapper
 const RelativeWrapper = styled.div`
   position: relative;
 `;
@@ -140,6 +165,16 @@ const OptionsWrapper = styled.div`
   margin-top: 5px;
   width: 100%;
   white-space: nowrap;
+`;
+const Option = styled.div`
+  width: 100%;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: row;
+  :hover {
+    cursor: pointer;
+    background-color: ${gray.light1};
+  }
 `;
 
 export default SelectSearch;

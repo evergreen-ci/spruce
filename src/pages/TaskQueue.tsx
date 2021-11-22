@@ -5,6 +5,7 @@ import Badge from "@leafygreen-ui/badge";
 import { H2, Subtitle } from "@leafygreen-ui/typography";
 import { useParams, useHistory } from "react-router-dom";
 import { useTaskQueueAnalytics } from "analytics";
+import SelectSearch from "components/SelectSearch";
 import {
   TableContainer,
   TableControlOuterRow,
@@ -18,7 +19,6 @@ import {
 } from "gql/generated/types";
 import { TASK_QUEUE_DISTROS } from "gql/queries";
 import { DistroOption } from "pages/taskQueue/DistroOption";
-import SelectSearch from "pages/taskQueue/SelectSearch";
 import { TaskQueueTable } from "pages/taskQueue/TaskQueueTable";
 
 export const TaskQueue = () => {
@@ -29,7 +29,7 @@ export const TaskQueue = () => {
 
   const [selectedDistro, setSelectedDistro] = useState(null);
 
-  const { data: distrosData } = useQuery<
+  const { data: distrosData, loading } = useQuery<
     TaskQueueDistrosQuery,
     TaskQueueDistrosQueryVariables
   >(TASK_QUEUE_DISTROS);
@@ -53,8 +53,8 @@ export const TaskQueue = () => {
     replace(getTaskQueueRoute(val));
   };
 
-  const handleSearch = (options: TaskQueueDistro[], value: string) =>
-    options.filter((d) => d.id.toLowerCase().includes(value.toLowerCase()));
+  const handleSearch = (options: TaskQueueDistro[], match: string) =>
+    options.filter((d) => d.id.toLowerCase().includes(match.toLowerCase()));
 
   return (
     <PageWrapper>
@@ -63,7 +63,7 @@ export const TaskQueue = () => {
         <SelectSearch
           onChange={onChangeDistroSelection}
           searchFunc={handleSearch}
-          searchPlaceholder={selectedDistro?.id}
+          searchPlaceholder="Search for Distro"
           options={distros}
           optionRenderer={(option: TaskQueueDistro, onClick) => (
             <DistroOption
@@ -76,15 +76,17 @@ export const TaskQueue = () => {
           )}
         />
       </TableControlOuterRow>
-      <DistroLabel>
-        <Subtitle> {selectedDistro?.id} </Subtitle>
-        <StyledBadge>{`${selectedDistro?.taskCount} ${
-          selectedDistro?.taskCount === 1 ? "TASK" : "TASKS"
-        }`}</StyledBadge>
-        <StyledBadge>{`${selectedDistro?.hostCount} ${
-          selectedDistro?.hostCount === 1 ? "HOST" : "HOSTS"
-        }`}</StyledBadge>
-      </DistroLabel>
+      {!loading && (
+        <DistroLabel>
+          <Subtitle> {selectedDistro?.id} </Subtitle>
+          <StyledBadge>{`${selectedDistro?.taskCount} ${
+            selectedDistro?.taskCount === 1 ? "TASK" : "TASKS"
+          }`}</StyledBadge>
+          <StyledBadge>{`${selectedDistro?.hostCount} ${
+            selectedDistro?.hostCount === 1 ? "HOST" : "HOSTS"
+          }`}</StyledBadge>
+        </DistroLabel>
+      )}
       <TableContainer hide={false}>
         <TaskQueueTable />
       </TableContainer>
