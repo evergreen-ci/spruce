@@ -6,8 +6,8 @@ import { rowType } from "./types";
 const wrapper = ({ children }) => (
   <HistoryTableProvider>{children}</HistoryTableProvider>
 );
-describe("HistoryTableContext", () => {
-  test("Initializes with the default state", () => {
+describe("historyTableContext", () => {
+  it("initializes with the default state", () => {
     const { result } = renderHook(() => useHistoryTable(), { wrapper });
     expect(result.current).toEqual({
       processedCommitCount: 0,
@@ -27,7 +27,7 @@ describe("HistoryTableContext", () => {
       columnLimit: 7,
     });
   });
-  test("Should process new commits when they are passed in", () => {
+  it("should process new commits when they are passed in", () => {
     const { result } = renderHook(() => useHistoryTable(), { wrapper });
     const splitMainlineCommitDataPart1 = {
       ...mainlineCommitData,
@@ -41,7 +41,7 @@ describe("HistoryTableContext", () => {
       (c) => c.type !== rowType.DATE_SEPARATOR
     );
     // Should have processed the new commits and have every real commit
-    expect(processedCommits.length).toEqual(
+    expect(processedCommits).toHaveLength(
       splitMainlineCommitDataPart1.versions.length
     );
     // First element should be the date separator
@@ -58,7 +58,7 @@ describe("HistoryTableContext", () => {
     });
     expect(result.current.isItemLoaded(2)).toBe(false);
   });
-  test("Should process additional commits when they are passed in", () => {
+  it("should process additional commits when they are passed in", () => {
     const { result } = renderHook(() => useHistoryTable(), { wrapper });
     const splitMainlineCommitDataPart1 = {
       ...mainlineCommitData,
@@ -89,7 +89,7 @@ describe("HistoryTableContext", () => {
     });
   });
 
-  test("Should add a line separator between commits when they are a different date", () => {
+  it("should add a line separator between commits when they are a different date", () => {
     const { result } = renderHook(() => useHistoryTable(), { wrapper });
     const commitDate1 = {
       ...mainlineCommitData,
@@ -129,7 +129,7 @@ describe("HistoryTableContext", () => {
       commit: commitDate2.versions[0].version,
     });
   });
-  test("Should deduplicate passed in versions", () => {
+  it("should deduplicate passed in versions", () => {
     const { result } = renderHook(() => useHistoryTable(), { wrapper });
     const duplicateCommitData = {
       ...mainlineCommitData,
@@ -139,14 +139,14 @@ describe("HistoryTableContext", () => {
       result.current.fetchNewCommit(duplicateCommitData);
     });
 
-    expect(result.current.processedCommits.length).toEqual(2);
+    expect(result.current.processedCommits).toHaveLength(2);
     act(() => {
       result.current.fetchNewCommit(duplicateCommitData);
     });
 
-    expect(result.current.processedCommits.length).toEqual(2);
+    expect(result.current.processedCommits).toHaveLength(2);
   });
-  describe("Columns", () => {
+  describe("columns", () => {
     const columns = [
       "enterprise-windows-required",
       "enterprise-windows-all-feature-flags-required",
@@ -174,33 +174,33 @@ describe("HistoryTableContext", () => {
       "enterprise-rhel-70-64-bit",
       "enterprise-rhel-72-s390x",
     ];
-    test("Should load in a set of columns and only display the first 7", () => {
+    it("should load in a set of columns and only display the first 7", () => {
       const { result } = renderHook(() => useHistoryTable(), { wrapper });
       act(() => {
         result.current.addColumns(columns);
       });
-      expect(result.current.visibleColumns.length).toEqual(7);
+      expect(result.current.visibleColumns).toHaveLength(7);
       expect(result.current.visibleColumns).toEqual(columns.slice(0, 7));
     });
-    test("Should be able to paginate forward on visible columns", () => {
+    it("should be able to paginate forward on visible columns", () => {
       const { result } = renderHook(() => useHistoryTable(), { wrapper });
       act(() => {
         result.current.addColumns(columns);
       });
-      expect(result.current.visibleColumns.length).toEqual(7);
+      expect(result.current.visibleColumns).toHaveLength(7);
       expect(result.current.visibleColumns).toEqual(columns.slice(0, 7));
       act(() => {
         result.current.nextPage();
       });
-      expect(result.current.visibleColumns.length).toEqual(7);
+      expect(result.current.visibleColumns).toHaveLength(7);
       expect(result.current.visibleColumns).toEqual(columns.slice(7, 14));
     });
-    test("Should be able to paginate backwards on visible columns", () => {
+    it("should be able to paginate backwards on visible columns", () => {
       const { result } = renderHook(() => useHistoryTable(), { wrapper });
       act(() => {
         result.current.addColumns(columns);
       });
-      expect(result.current.visibleColumns.length).toEqual(7);
+      expect(result.current.visibleColumns).toHaveLength(7);
       expect(result.current.visibleColumns).toEqual(columns.slice(0, 7));
       expect(result.current.hasNextPage).toBeTruthy();
       expect(result.current.hasPreviousPage).toBeFalsy();
@@ -208,27 +208,27 @@ describe("HistoryTableContext", () => {
         result.current.nextPage();
       });
       expect(result.current.hasPreviousPage).toBeTruthy();
-      expect(result.current.visibleColumns.length).toEqual(7);
+      expect(result.current.visibleColumns).toHaveLength(7);
       expect(result.current.visibleColumns).toEqual(columns.slice(7, 14));
       act(() => {
         result.current.previousPage();
       });
       expect(result.current.hasPreviousPage).toBeFalsy();
-      expect(result.current.visibleColumns.length).toEqual(7);
+      expect(result.current.visibleColumns).toHaveLength(7);
       expect(result.current.visibleColumns).toEqual(columns.slice(0, 7));
     });
-    test("Should not be able to paginate backwards on non existant pages", () => {
+    it("should not be able to paginate backwards on non existant pages", () => {
       const { result } = renderHook(() => useHistoryTable(), { wrapper });
       act(() => {
         result.current.addColumns(columns);
       });
       expect(result.current.hasPreviousPage).toBeFalsy();
-      expect(result.current.visibleColumns.length).toEqual(7);
+      expect(result.current.visibleColumns).toHaveLength(7);
       expect(result.current.visibleColumns).toEqual(columns.slice(0, 7));
       act(() => {
         result.current.previousPage();
       });
-      expect(result.current.visibleColumns.length).toEqual(7);
+      expect(result.current.visibleColumns).toHaveLength(7);
       expect(result.current.visibleColumns).toEqual(columns.slice(0, 7));
     });
   });

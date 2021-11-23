@@ -12,8 +12,8 @@ const execCommand = jest.fn();
 const user = "bynn.lee";
 const hostUrl = "ec2-54-242-162-135.compute-1.amazonaws.com";
 
-describe("CopySSHCommandButton", async () => {
-  test("Tooltip text should change after clicking on the copy button", async () => {
+describe("copySSHCommandButton", () => {
+  it("tooltip text should change after clicking on the copy button", async () => {
     const { queryByDataCy, queryByText } = render(
       <MockedProvider mocks={[getUserMock]}>
         <CopySSHCommandButton user={user} hostUrl={hostUrl} />
@@ -37,7 +37,7 @@ describe("CopySSHCommandButton", async () => {
 
     // Click should change tooltip message.
     fireEvent.click(copySshButton);
-    expect(execCommand).toBeCalledWith("copy");
+    expect(execCommand).toHaveBeenCalledWith("copy");
     expect(queryByText("Copied!")).toBeInTheDocument();
 
     // MouseLeave should cause tooltip to disappear.

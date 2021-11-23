@@ -15,7 +15,7 @@ describe("parseQueryString", () => {
       statuses: ["failed", "passed", "ehh"],
     });
   });
-  it("parses a query param with multiple arrays as value ", () => {
+  it("parses a query param with multiple arrays as value", () => {
     expect(
       parseQueryString("statuses=failed,passed,ehh&variants=ubuntu1604,GLADOS")
     ).toEqual({
@@ -23,7 +23,7 @@ describe("parseQueryString", () => {
       variants: ["ubuntu1604", "GLADOS"],
     });
   });
-  it("parses a query param with a mixed array and a single string as a value ", () => {
+  it("parses a query param with a mixed array and a single string as a value", () => {
     expect(
       parseQueryString("status=failed&variants=ubuntu1604,GLADOS")
     ).toEqual({

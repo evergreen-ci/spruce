@@ -11,8 +11,8 @@ afterEach(() => {
   jest.clearAllTimers();
   jest.clearAllMocks();
 });
-describe("InactiveCommits", () => {
-  test("Displays the correct count of inactive versions with the correct copy", () => {
+describe("inactiveCommits", () => {
+  it("displays the correct count of inactive versions with the correct copy", () => {
     const { queryByDataCy, rerender } = render(
       <InactiveCommits rolledUpVersions={versions} />
     );
@@ -25,7 +25,7 @@ describe("InactiveCommits", () => {
     );
   });
 
-  test("Clicking on the button should open a tooltip", async () => {
+  it("clicking on the button should open a tooltip", async () => {
     const { queryByDataCy } = render(
       <InactiveCommits rolledUpVersions={versions} />
     );
@@ -40,7 +40,7 @@ describe("InactiveCommits", () => {
     expect(queryByDataCy("inactive-commits-tooltip")).toBeInTheDocument();
   });
 
-  test("Should show all inactive commits if there are 5 or less commits ", async () => {
+  it("should show all inactive commits if there are 5 or less commits", async () => {
     const { queryByDataCy, queryAllByDataCy } = render(
       <InactiveCommits rolledUpVersions={versions.slice(0, 4)} />
     );
@@ -56,7 +56,7 @@ describe("InactiveCommits", () => {
     expect(queryAllByDataCy("commit-text")).toHaveLength(4);
     expect(queryByDataCy("hidden-commits")).toBeNull();
   });
-  test("Should collapse some commits if there are more then 5 ", async () => {
+  it("should collapse some commits if there are more then 5", async () => {
     const { queryByDataCy, queryAllByDataCy } = render(
       <InactiveCommits rolledUpVersions={versions} />
     );

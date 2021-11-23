@@ -6,14 +6,14 @@ import {
   useProjectSettingsContext,
 } from "../project-settings";
 
-test("Ensure that tabs are initially saved", async () => {
+test("ensure that tabs are initially saved", async () => {
   const { result } = renderHook(() => useIsAnyTabUnsaved(), {
     wrapper: ProjectSettingsProvider,
   });
   expect(result.current.hasUnsaved).toBe(false);
 });
 
-test("Updating the form state unsaves the tab", async () => {
+test("updating the form state unsaves the tab", async () => {
   const { result } = renderHook(
     () => ({
       projectSettings: useProjectSettingsContext(),

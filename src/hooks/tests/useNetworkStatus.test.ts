@@ -10,7 +10,7 @@ test("useNetworkStatus should return online when the users browser is online and
   );
   expect(startPolling).toHaveBeenCalledTimes(0);
   expect(stopPolling).toHaveBeenCalledTimes(0);
-  expect(result.current).toStrictEqual(false);
+  expect(result.current).toBe(false);
 });
 
 test("useNetworkStatus should return offline when the users browser is offline and polling to have been stopped", () => {
@@ -25,7 +25,7 @@ test("useNetworkStatus should return offline when the users browser is offline a
   });
   expect(startPolling).toHaveBeenCalledTimes(0);
   expect(stopPolling).toHaveBeenCalledTimes(1);
-  expect(result.current).toStrictEqual(true);
+  expect(result.current).toBe(true);
 });
 
 test("useNetworkStatus should restart polling when the browser is back to online", () => {
@@ -40,11 +40,11 @@ test("useNetworkStatus should restart polling when the browser is back to online
   });
   expect(startPolling).toHaveBeenCalledTimes(0);
   expect(stopPolling).toHaveBeenCalledTimes(1);
-  expect(result.current).toStrictEqual(true);
+  expect(result.current).toBe(true);
   act(() => {
     fireEvent(window, new Event("online"));
   });
   expect(startPolling).toHaveBeenCalledTimes(1);
   expect(stopPolling).toHaveBeenCalledTimes(1);
-  expect(result.current).toStrictEqual(false);
+  expect(result.current).toBe(false);
 });

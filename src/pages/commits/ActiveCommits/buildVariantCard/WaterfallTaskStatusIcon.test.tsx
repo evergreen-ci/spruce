@@ -19,7 +19,7 @@ const Content = (status: string) => () => (
   </MockedProvider>
 );
 
-test("Tooltip should contain task name, duration, list of failing test names and additonal test count", async () => {
+test("tooltip should contain task name, duration, list of failing test names and additonal test count", async () => {
   const { queryByDataCy, queryByText } = render(Content("failed"), {
     route: "/commits/evergreen",
   });
@@ -41,7 +41,7 @@ test("Tooltip should contain task name, duration, list of failing test names and
   });
 });
 
-test("Icon should link to task page", async () => {
+test("icon should link to task page", async () => {
   const { queryByDataCy } = render(Content("failed"), {
     route: "/commits/evergreen",
   });

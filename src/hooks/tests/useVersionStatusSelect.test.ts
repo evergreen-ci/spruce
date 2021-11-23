@@ -66,21 +66,6 @@ test("should select all tasks that match the base status filter when the patch s
   });
 });
 
-test("should select all tasks that match the patch status filter when the base status filter is empty", () => {
-  const { result } = renderHook(() =>
-    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
-  );
-  act(() => {
-    result.current.setVersionStatusFilterTerm({
-      mainVersion: ["success"],
-    });
-  });
-  act(() => {
-    result.current.setBaseStatusFilterTerm({});
-  });
-  expect(result.current.selectedTasks[versionId]).toEqual(successStatusIds);
-});
-
 test("should select all tasks that match the patch status filter and base status filter when both filters have active filter terms.", () => {
   const { result } = renderHook(() =>
     useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)

@@ -16,8 +16,8 @@ const RenderCommitChartLabel = (version) => () => (
   </MockedProvider>
 );
 
-describe("CommitChartLabel", () => {
-  test("Displays author, githash and createTime", () => {
+describe("commitChartLabel", () => {
+  it("displays author, githash and createTime", () => {
     const { queryByDataCy } = renderWithRouterMatch(
       RenderCommitChartLabel(versionShort)
     );
@@ -26,7 +26,7 @@ describe("CommitChartLabel", () => {
     );
   });
 
-  test("Githash links to version page", () => {
+  it("githash links to version page", () => {
     const { queryByText } = renderWithRouterMatch(
       RenderCommitChartLabel(versionShort)
     );
@@ -36,7 +36,7 @@ describe("CommitChartLabel", () => {
     );
   });
 
-  test("Jira ticket links to Jira website", async () => {
+  it("jira ticket links to Jira website", async () => {
     const { queryByText } = renderWithRouterMatch(
       RenderCommitChartLabel(versionShort)
     );
@@ -48,7 +48,7 @@ describe("CommitChartLabel", () => {
     });
   });
 
-  test("Displays shortened commit message and the 'more' button if necessary", () => {
+  it("displays shortened commit message and the 'more' button if necessary", () => {
     const { queryByDataCy, queryByText } = renderWithRouterMatch(
       RenderCommitChartLabel(versionLong)
     );
@@ -58,7 +58,7 @@ describe("CommitChartLabel", () => {
     );
   });
 
-  test("Displays entire commit message if it does not break length limit", () => {
+  it("displays entire commit message if it does not break length limit", () => {
     const { queryByDataCy } = renderWithRouterMatch(
       RenderCommitChartLabel(versionShort)
     );
@@ -67,7 +67,7 @@ describe("CommitChartLabel", () => {
     );
   });
 
-  test("Clicking on the 'more' button should open a tooltip containing commit message", async () => {
+  it("clicking on the 'more' button should open a tooltip containing commit message", async () => {
     const { queryByDataCy, queryByText } = renderWithRouterMatch(
       RenderCommitChartLabel(versionLong)
     );

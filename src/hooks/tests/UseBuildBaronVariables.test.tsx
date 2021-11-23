@@ -1,9 +1,64 @@
-import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import { renderHook } from "@testing-library/react-hooks";
+import MatchMediaMock from "jest-matchmedia-mock";
 import { GET_BUILD_BARON } from "gql/queries";
 import { useBuildBaronVariables } from "../useBuildBaronVariables";
-import "test_utils/__mocks__/matchmedia.mock";
+
+let matchMedia;
+beforeAll(() => {
+  matchMedia = new MatchMediaMock();
+});
+
+afterEach(() => {
+  matchMedia.clear();
+});
+
+const Provider = ({ children }) => (
+  <MockedProvider mocks={mocks}>{children}</MockedProvider>
+);
+
+test("the BuildBaron tab renders when the task is failed", async () => {
+  const { result, waitForNextUpdate } = renderHook(
+    () =>
+      useBuildBaronVariables({
+        taskId: taskId1,
+        execution,
+        taskStatus: "failed",
+      }),
+    { wrapper: Provider }
+  );
+
+  await waitForNextUpdate();
+  await waitForNextUpdate();
+  expect(result.current.showBuildBaron).toBeTruthy();
+});
+
+test("the BuildBaron tab doesn't render when the task is successful", async () => {
+  const { result } = renderHook(
+    () =>
+      useBuildBaronVariables({
+        taskId: taskId1,
+        execution,
+        taskStatus: "success",
+      }),
+    { wrapper: Provider }
+  );
+  expect(result.current.showBuildBaron).toBeFalsy();
+});
+
+test("the BuildBaron tab doesn't render when the buildBaron is not configured", async () => {
+  const { result, waitForNextUpdate } = renderHook(
+    () =>
+      useBuildBaronVariables({
+        taskId: taskId2,
+        execution,
+        taskStatus: "failed",
+      }),
+    { wrapper: Provider }
+  );
+  await waitForNextUpdate();
+  expect(result.current.showBuildBaron).toBeFalsy();
+});
 
 const taskId1 = "spruce_ubuntu1604_e2e_test_1";
 const taskId2 = "spruce_ubuntu1604_e2e_test_2";
@@ -110,50 +165,3 @@ const mocks = [
     },
   },
 ];
-
-const Provider = ({ children }) => (
-  <MockedProvider mocks={mocks}>{children}</MockedProvider>
-);
-
-test("The BuildBaron tab renders when the task is failed", async () => {
-  const { result, waitForNextUpdate } = renderHook(
-    () =>
-      useBuildBaronVariables({
-        taskId: taskId1,
-        execution,
-        taskStatus: "failed",
-      }),
-    { wrapper: Provider }
-  );
-
-  await waitForNextUpdate();
-  await waitForNextUpdate();
-  expect(result.current.showBuildBaron).toBeTruthy();
-});
-
-test("The BuildBaron tab doesn't render when the task is successful", async () => {
-  const { result } = renderHook(
-    () =>
-      useBuildBaronVariables({
-        taskId: taskId1,
-        execution,
-        taskStatus: "success",
-      }),
-    { wrapper: Provider }
-  );
-  expect(result.current.showBuildBaron).toBeFalsy();
-});
-
-test("The BuildBaron tab doesn't render when the buildBaron is not configured", async () => {
-  const { result, waitForNextUpdate } = renderHook(
-    () =>
-      useBuildBaronVariables({
-        taskId: taskId2,
-        execution,
-        taskStatus: "failed",
-      }),
-    { wrapper: Provider }
-  );
-  await waitForNextUpdate();
-  expect(result.current.showBuildBaron).toBeFalsy();
-});

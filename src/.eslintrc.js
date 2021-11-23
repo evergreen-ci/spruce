@@ -44,7 +44,7 @@ module.exports = {
         schemaString: schema,
       },
     ],
-
+    "jest/no-mocks-import": OFF,
     // These rules help ensure we are following proper accessability standards
     "jsx-a11y/aria-role": [errorIfStrict, { ignoreNonDom: false }],
     "jsx-a11y/aria-props": errorIfStrict,

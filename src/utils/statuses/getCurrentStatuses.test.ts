@@ -2,7 +2,7 @@ import { TreeDataEntry } from "components/TreeSelect";
 import { TaskStatus } from "types/task";
 import { getCurrentStatuses } from "utils/statuses";
 
-test("Matches status keys to status tree data", () => {
+test("matches status keys to status tree data", () => {
   const statuses = [
     TaskStatus.Failed,
     TaskStatus.Succeeded,
@@ -32,7 +32,7 @@ test("Matches status keys to status tree data", () => {
   ]);
 });
 
-test("Returns only All for no statuses", () => {
+test("returns only All for no statuses", () => {
   expect(getCurrentStatuses([], statusesTreeData)).toStrictEqual([
     {
       title: "All",
@@ -42,7 +42,7 @@ test("Returns only All for no statuses", () => {
   ]);
 });
 
-test("Returns one child status if parent only has one matching child", () => {
+test("returns one child status if parent only has one matching child", () => {
   const statuses = [
     TaskStatus.TestTimedOut,
     TaskStatus.Undispatched,
@@ -72,7 +72,7 @@ test("Returns one child status if parent only has one matching child", () => {
   ]);
 });
 
-test("Returns child statuses as parent's children if there are two or more", () => {
+test("returns child statuses as parent's children if there are two or more", () => {
   const statuses = [TaskStatus.Failed, TaskStatus.TestTimedOut];
   expect(getCurrentStatuses(statuses, statusesTreeData)).toStrictEqual([
     {
