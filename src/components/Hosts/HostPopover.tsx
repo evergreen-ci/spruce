@@ -33,7 +33,7 @@ export const HostPopover: React.FC<Props> = ({
 
   return (
     <>
-      <div ref={buttonRef}>
+      <ButtonWrapper ref={buttonRef}>
         <Button
           onClick={() => setActive((curr) => !curr)}
           data-cy={dataCy}
@@ -41,7 +41,7 @@ export const HostPopover: React.FC<Props> = ({
         >
           {buttonText}
         </Button>
-      </div>
+      </ButtonWrapper>
       <StyledPopover
         align="bottom"
         justify="middle"
@@ -96,12 +96,14 @@ const PopoverContainer = styled.div`
   box-shadow: 0 5px 10px 0 ${gray.light2}, 0 5px 30px 5px ${gray.light2};
 `;
 
+const ButtonWrapper = styled.div`
+  white-space: nowrap; // prevent button collapse when screen is small
+`;
 const ButtonContainer = styled.div`
   margin-top: 10px;
   display: flex;
   justify-content: flex-end;
 `;
-
 const ButtonSpacer = styled.div`
   margin-left: 8px;
 `;

@@ -5,10 +5,10 @@ import { useOnClickOutside } from "hooks";
 import { render } from "test_utils/test-utils";
 
 describe("useOnClickOutside", () => {
-  const body = document.body as HTMLElement;
-  const callback = jest.fn();
   describe("useOnClickOutside with 1 ref", () => {
     test("executes callback when clicking outside element", () => {
+      const body = document.body as HTMLElement;
+      const callback = jest.fn();
       const ref = React.createRef<HTMLDivElement>();
       render(<div ref={ref}> Test ref </div>);
 
@@ -17,6 +17,7 @@ describe("useOnClickOutside", () => {
       expect(callback).toHaveBeenCalledTimes(1);
     });
     test("does not execute callback when clicking inside element", () => {
+      const callback = jest.fn();
       const ref = React.createRef<HTMLDivElement>();
       const { getByText } = render(<div ref={ref}> Test ref </div>);
 
@@ -27,6 +28,8 @@ describe("useOnClickOutside", () => {
   });
   describe("useOnClickOutside with multiple refs", () => {
     test("executes callback when clicking outside elements", () => {
+      const body = document.body as HTMLElement;
+      const callback = jest.fn();
       const ref1 = React.createRef<HTMLDivElement>();
       const ref2 = React.createRef<HTMLDivElement>();
       render(
@@ -40,6 +43,7 @@ describe("useOnClickOutside", () => {
       expect(callback).toHaveBeenCalledTimes(1);
     });
     test("does not execute callback when clicking inside elements", () => {
+      const callback = jest.fn();
       const ref1 = React.createRef<HTMLDivElement>();
       const ref2 = React.createRef<HTMLDivElement>();
       const { getByText } = render(

@@ -37,8 +37,8 @@ export const Reprovision: React.FC<Props> = ({
   >(REPROVISION_TO_NEW, {
     onCompleted({ reprovisionToNew: numberOfHostsUpdated }) {
       const successMessage = isSingleHost
-        ? `Marked host for reprovision`
-        : `Marked hosts for reprovision for ${numberOfHostsUpdated} host${
+        ? `Marked host to reprovision`
+        : `Marked hosts to reprovision for ${numberOfHostsUpdated} host${
             numberOfHostsUpdated === 1 ? "" : "s"
           }`;
       dispatchToast.success(successMessage);
