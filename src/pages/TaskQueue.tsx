@@ -27,7 +27,7 @@ export const TaskQueue = () => {
   const { distro, taskId } = useParams<{ distro: string; taskId?: string }>();
   const { replace } = useHistory();
 
-  const [selectedDistro, setSelectedDistro] = useState(null);
+  const [selectedDistro, setSelectedDistro] = useState<TaskQueueDistro>(null);
 
   const { data: distrosData, loading } = useQuery<
     TaskQueueDistrosQuery,
@@ -40,7 +40,6 @@ export const TaskQueue = () => {
   // SET DEFAULT DISTRO
   useEffect(() => {
     const defaultDistro = distro ?? firstDistroInList;
-
     setSelectedDistro(distros.find((d) => d.id === defaultDistro));
 
     if (defaultDistro) {

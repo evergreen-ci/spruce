@@ -100,7 +100,9 @@ const SelectSearch = <T extends {}>({
         {isOpen && (
           <RelativeWrapper>
             <OptionsWrapper data-cy={`${dataCy}-options`}>
-              {(visibleOptions as T[])?.map((o) => option(o))}
+              <ScrollableList>
+                {(visibleOptions as T[])?.map((o) => option(o))}
+              </ScrollableList>
             </OptionsWrapper>
           </RelativeWrapper>
         )}
@@ -165,6 +167,10 @@ const OptionsWrapper = styled.div`
   margin-top: 5px;
   width: 100%;
   white-space: nowrap;
+`;
+const ScrollableList = styled.div`
+  overflow: scroll;
+  max-height: 400px;
 `;
 const Option = styled.div`
   width: 100%;
