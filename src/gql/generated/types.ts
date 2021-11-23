@@ -228,6 +228,7 @@ export type Mutation = {
   removeItemFromCommitQueue?: Maybe<Scalars["String"]>;
   updateUserSettings: Scalars["Boolean"];
   restartJasper: Scalars["Int"];
+  reprovisionToNew: Scalars["Int"];
   updateHostStatus: Scalars["Int"];
   createPublicKey: Array<PublicKey>;
   spawnHost: Host;
@@ -390,6 +391,10 @@ export type MutationUpdateUserSettingsArgs = {
 };
 
 export type MutationRestartJasperArgs = {
+  hostIds: Array<Scalars["String"]>;
+};
+
+export type MutationReprovisionToNewArgs = {
   hostIds: Array<Scalars["String"]>;
 };
 
@@ -2219,6 +2224,12 @@ export type RemoveVolumeMutationVariables = Exact<{
 }>;
 
 export type RemoveVolumeMutation = { removeVolume: boolean };
+
+export type ReprovisionToNewMutationVariables = Exact<{
+  hostIds: Array<Scalars["String"]>;
+}>;
+
+export type ReprovisionToNewMutation = { reprovisionToNew: number };
 
 export type RestartJasperMutationVariables = Exact<{
   hostIds: Array<Scalars["String"]>;
