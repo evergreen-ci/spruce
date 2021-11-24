@@ -4,16 +4,26 @@ import Toast, { Variant } from "@leafygreen-ui/toast";
 import { WordBreak } from "components/Typography";
 import { TOAST_TIMEOUT } from "constants/index";
 
-export type ToastProps = {
+type ToastProps = {
   variant: Variant;
   message: string;
   closable: boolean;
-  onClose: () => void;
-  shouldTimeout: boolean;
+  onClose?: () => void;
+  shouldTimeout?: boolean;
   title?: string;
 };
 
-type AddToast = (message: string, closable?: boolean) => void;
+type ToastOptions = {
+  onClose?: () => void;
+  shouldTimeout?: boolean;
+  title?: string;
+};
+
+type AddToast = (
+  message: string,
+  closable?: boolean,
+  options?: ToastOptions
+) => void;
 
 interface ToastType {
   success: string;
@@ -34,7 +44,7 @@ interface DispatchToast {
   success: AddToast;
   warning: AddToast;
   error: AddToast;
-  note: AddToast;
+  info: AddToast;
   hide: () => void;
 }
 
@@ -70,66 +80,40 @@ const ToastProvider: React.FC = ({ children }) => {
     setToastOpen(false);
   }, [setToastOpen]);
 
-  const toastContext = {
-    success: (
-      message: string,
-      closable: boolean = true,
-      onClose: () => void = () => {},
-      shouldTimeout: boolean = true,
-      title?: string
-    ) =>
+  const defaultOptions = {
+    onClose: () => {},
+    shouldTimeout: true,
+    title: null,
+  };
+
+  const toastContext: DispatchToast = {
+    success: (message = "", closable = true, options = defaultOptions) =>
       addToast({
         variant: mapToastToLeafyGreenVariant.success,
         message,
         closable,
-        onClose,
-        shouldTimeout,
-        title,
+        ...options,
       }),
-    warning: (
-      message: string,
-      closable: boolean = true,
-      onClose: () => void = () => {},
-      shouldTimeout: boolean = true,
-      title?: string
-    ) =>
+    warning: (message = "", closable = true, options = defaultOptions) =>
       addToast({
         variant: mapToastToLeafyGreenVariant.warning,
         message,
         closable,
-        onClose,
-        shouldTimeout,
-        title,
+        ...options,
       }),
-    error: (
-      message: string,
-      closable: boolean = true,
-      onClose: () => void = () => {},
-      shouldTimeout: boolean = true,
-      title?: string
-    ) =>
+    error: (message = "", closable = true, options = defaultOptions) =>
       addToast({
         variant: mapToastToLeafyGreenVariant.error,
         message,
         closable,
-        onClose,
-        shouldTimeout,
-        title,
+        ...options,
       }),
-    info: (
-      message: string,
-      closable: boolean = true,
-      onClose: () => void = () => {},
-      shouldTimeout: boolean = true,
-      title?: string
-    ) =>
+    info: (message = "", closable = true, options = defaultOptions) =>
       addToast({
         variant: mapToastToLeafyGreenVariant.info,
         message,
         closable,
-        onClose,
-        shouldTimeout,
-        title,
+        ...options,
       }),
     hide: hideToast,
   };
@@ -154,11 +138,12 @@ const ToastProvider: React.FC = ({ children }) => {
         body={<WordBreak>{visibleToast.message}</WordBreak>}
         open={toastOpen}
         close={
-          visibleToast.closable &&
-          (() => {
-            visibleToast.onClose();
-            setToastOpen(false);
-          })
+          visibleToast.closable
+            ? () => {
+                visibleToast.onClose();
+                setToastOpen(false);
+              }
+            : undefined
         }
         data-cy="toast"
       />
@@ -168,7 +153,7 @@ const ToastProvider: React.FC = ({ children }) => {
 
 const useToastContext = (): DispatchToast => {
   const context = React.useContext(ToastDispatchContext);
-  if (context === undefined) {
+  if (context === null || context === undefined) {
     throw new Error("useToastContext must be used within a ToastProvider");
   }
   return context;

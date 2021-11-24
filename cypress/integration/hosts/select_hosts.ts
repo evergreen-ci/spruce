@@ -1,5 +1,3 @@
-import { popconfirmYesClassName } from "../../utils/popconfirm";
-
 const hostsRoute = "/hosts";
 
 describe("Select hosts in hosts page table", () => {
@@ -41,9 +39,19 @@ describe("Select hosts in hosts page table", () => {
     });
 
     cy.dataCy("restart-jasper-button").click();
+    cy.contains("button", "Yes").click();
+    cy.dataCy("toast").should("exist");
+  });
 
-    cy.get(popconfirmYesClassName).click();
+  it("Can reprovision for selected hosts", () => {
+    cy.visit(`${hostsRoute}?distroId=ubuntu1604-large&page=0&statuses=running`);
 
+    cy.get(".ant-table-selection-column").within(() => {
+      cy.get(".ant-checkbox-input").check({ force: true });
+    });
+
+    cy.dataCy("reprovision-button").click();
+    cy.contains("button", "Yes").click();
     cy.dataCy("toast").should("exist");
   });
 });

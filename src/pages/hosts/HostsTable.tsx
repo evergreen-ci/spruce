@@ -32,6 +32,8 @@ interface Props {
   setSelectedHostIds: React.Dispatch<React.SetStateAction<string[]>>;
   setCanRestartJasper: React.Dispatch<React.SetStateAction<boolean>>;
   setRestartJasperError: React.Dispatch<React.SetStateAction<string>>;
+  setCanReprovision: React.Dispatch<React.SetStateAction<boolean>>;
+  setReprovisionError: React.Dispatch<React.SetStateAction<string>>;
 }
 
 type Host = HostsQuery["hosts"]["hosts"][0];
@@ -46,6 +48,8 @@ export const HostsTable: React.FC<Props> = ({
   setSelectedHostIds,
   setCanRestartJasper,
   setRestartJasperError,
+  setCanReprovision,
+  setReprovisionError,
   loading,
 }) => {
   const hostsTableAnalytics = useHostsTableAnalytics();
@@ -248,9 +252,13 @@ export const HostsTable: React.FC<Props> = ({
     },
   ];
 
-  const canRestartJasper = (selectedHosts) => {
+  const canRestartJasperOrReprovision = (selectedHosts) => {
     let canRestart = true;
-    let errorMessage = "Jasper cannot be restarted for:";
+    let canReprovision = true;
+
+    let restartJasperErrorMessage = "Jasper cannot be restarted for:";
+    let reprovisionErrorMessage =
+      "The following hosts cannot be reprovisioned:";
     const errorHosts = [];
     selectedHosts.forEach((host) => {
       const bootstrapMethod = host?.distro?.bootstrapMethod;
@@ -261,12 +269,17 @@ export const HostsTable: React.FC<Props> = ({
         )
       ) {
         canRestart = false;
+        canReprovision = false;
         errorHosts.push(` ${host?.id}`);
       }
     });
-    errorMessage += ` ${errorHosts}`;
+    restartJasperErrorMessage += ` ${errorHosts}`;
+    reprovisionErrorMessage += ` ${errorHosts}`;
+
     setCanRestartJasper(canRestart);
-    setRestartJasperError(errorMessage);
+    setRestartJasperError(restartJasperErrorMessage);
+    setCanReprovision(canReprovision);
+    setReprovisionError(reprovisionErrorMessage);
   };
 
   const onSelectChange: TableRowSelection<Host>["onChange"] = (
@@ -274,7 +287,7 @@ export const HostsTable: React.FC<Props> = ({
     selectedRows
   ) => {
     setSelectedHostIds(selectedRowKeys as string[]);
-    canRestartJasper(selectedRows);
+    canRestartJasperOrReprovision(selectedRows);
   };
 
   return (

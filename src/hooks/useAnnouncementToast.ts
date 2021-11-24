@@ -18,13 +18,11 @@ export const useAnnouncementToast = () => {
 
     const { closable, expires, message, title, variant } = toastData;
     if (message !== "" && Cookies.get(ANNOUNCEMENT_TOAST) !== message) {
-      dispatchToast[variant](
-        message,
-        closable,
-        () => setClosedCookie(message, expires),
-        false,
-        title
-      );
+      dispatchToast[variant](message, closable, {
+        onClose: () => setClosedCookie(message, expires),
+        shouldTimeout: false,
+        title,
+      });
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 };
