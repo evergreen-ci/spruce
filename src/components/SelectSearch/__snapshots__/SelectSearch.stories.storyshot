@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Select Search Custom Option 1`] = `
+<div
+  className="css-6q6cm6-SearchSelectWrapper e1fdo2056"
+>
+  <div
+    className="css-158v4hp-TextInputWrapper e1fdo2055"
+  >
+    <div
+      className="leafygreen-ui-1iyoj2o"
+    >
+      <div
+        className="leafygreen-ui-lzja97"
+      >
+        <div
+          className="leafygreen-ui-1i2djk5"
+        >
+          <input
+            aria-label="select-search-input"
+            autoComplete="on"
+            className="leafygreen-ui-1il5lef"
+            disabled={false}
+            id="textinput-3"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            placeholder="Option 1"
+            required={true}
+            spellCheck={false}
+            type="search"
+            value=""
+          />
+          <div
+            className="leafygreen-ui-3x1o6h"
+            data-leafygreen-ui="interaction-ring"
+          />
+        </div>
+        <div
+          className="leafygreen-ui-m329s1"
+          data-leafygreen-ui="icon-selector"
+        />
+      </div>
+    </div>
+    <svg
+      aria-label="Magnifying Glass Icon"
+      className="css-176uf5d-StyledIcon e1fdo2054"
+      fill="none"
+      height={16}
+      onClick={[Function]}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M2.323 9.819a5.302 5.302 0 006.463.805l4.144 4.144a1.3 1.3 0 101.838-1.838l-4.144-4.144a5.302 5.302 0 00-8.3-6.463 5.3 5.3 0 000 7.496zM7.98 4.162A2.7 2.7 0 114.162 7.98 2.7 2.7 0 017.98 4.162z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Select Search Story 1`] = `
+<div
+  className="css-6q6cm6-SearchSelectWrapper e1fdo2056"
+>
+  <div
+    className="css-158v4hp-TextInputWrapper e1fdo2055"
+  >
+    <div
+      className="leafygreen-ui-1iyoj2o"
+    >
+      <div
+        className="leafygreen-ui-lzja97"
+      >
+        <div
+          className="leafygreen-ui-1i2djk5"
+        >
+          <input
+            aria-label="select-search-input"
+            autoComplete="on"
+            className="leafygreen-ui-1il5lef"
+            disabled={false}
+            id="textinput-2"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            placeholder="1"
+            required={true}
+            spellCheck={false}
+            type="search"
+            value=""
+          />
+          <div
+            className="leafygreen-ui-3x1o6h"
+            data-leafygreen-ui="interaction-ring"
+          />
+        </div>
+        <div
+          className="leafygreen-ui-m329s1"
+          data-leafygreen-ui="icon-selector"
+        />
+      </div>
+    </div>
+    <svg
+      aria-label="Magnifying Glass Icon"
+      className="css-176uf5d-StyledIcon e1fdo2054"
+      fill="none"
+      height={16}
+      onClick={[Function]}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M2.323 9.819a5.302 5.302 0 006.463.805l4.144 4.144a1.3 1.3 0 101.838-1.838l-4.144-4.144a5.302 5.302 0 00-8.3-6.463 5.3 5.3 0 000 7.496zM7.98 4.162A2.7 2.7 0 114.162 7.98 2.7 2.7 0 017.98 4.162z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+  </div>
+</div>
+`;

@@ -32,7 +32,7 @@ const SelectSearch = <T extends {}>({
 
   // Handle onClickOutside
   const searchSelectRef = useRef(null);
-  useOnClickOutside(searchSelectRef, () => setisOpen(false));
+  useOnClickOutside([searchSelectRef], () => setisOpen(false));
 
   // Set options and placeholder on component load
   useEffect(() => {
