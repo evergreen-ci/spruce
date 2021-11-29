@@ -3,13 +3,13 @@ import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { uiColors } from "@leafygreen-ui/palette";
 import TextInput from "@leafygreen-ui/text-input";
-import { Label } from "@leafygreen-ui/typography";
 import { useOnClickOutside } from "hooks";
 
 const { gray, white } = uiColors;
 
 interface SelectSearchProps<T> {
-  label?: string | React.ReactNode;
+  label?: string;
+  description?: string;
   searchPlaceholder?: string;
   onChange: (value: T) => void;
   searchFunc?: (options: T[], match: string) => T[];
@@ -19,6 +19,7 @@ interface SelectSearchProps<T> {
 }
 const SelectSearch = <T extends {}>({
   label,
+  description,
   searchPlaceholder,
   onChange,
   searchFunc,
@@ -32,7 +33,8 @@ const SelectSearch = <T extends {}>({
 
   // Handle onClickOutside
   const searchSelectRef = useRef(null);
-  useOnClickOutside([searchSelectRef], () => setisOpen(false));
+  const optionsRef = useRef(null);
+  useOnClickOutside([searchSelectRef, optionsRef], () => setisOpen(false));
 
   // Set options and placeholder on component load
   useEffect(() => {
@@ -78,36 +80,35 @@ const SelectSearch = <T extends {}>({
   );
 
   return (
-    <>
-      {label && <Label htmlFor="select-search">{label}</Label>}
-      <SearchSelectWrapper ref={searchSelectRef}>
-        <TextInputWrapper>
-          <TextInput
-            spellCheck={false}
-            aria-label="select-search-input"
-            type="search"
-            placeholder={searchPlaceholder}
-            value={search}
-            onChange={handleSearch}
-            onClick={() => setisOpen(true)}
-          />
-          <StyledIcon
-            glyph="MagnifyingGlass"
-            onClick={() => setisOpen((curr) => !curr)}
-          />
-        </TextInputWrapper>
+    <SearchSelectWrapper>
+      <TextInputWrapper ref={searchSelectRef}>
+        <TextInput
+          label={label}
+          description={description}
+          spellCheck={false}
+          aria-label="select-search-input"
+          type="search"
+          placeholder={searchPlaceholder}
+          value={search}
+          onChange={handleSearch}
+          onClick={() => setisOpen(true)}
+        />
+        <StyledIcon
+          glyph="MagnifyingGlass"
+          onClick={() => setisOpen((curr) => !curr)}
+        />
+      </TextInputWrapper>
 
-        {isOpen && (
-          <RelativeWrapper>
-            <OptionsWrapper data-cy={`${dataCy}-options`}>
-              <ScrollableList>
-                {(visibleOptions as T[])?.map((o) => option(o))}
-              </ScrollableList>
-            </OptionsWrapper>
-          </RelativeWrapper>
-        )}
-      </SearchSelectWrapper>
-    </>
+      {isOpen && (
+        <RelativeWrapper>
+          <OptionsWrapper data-cy={`${dataCy}-options`} ref={optionsRef}>
+            <ScrollableList>
+              {(visibleOptions as T[])?.map((o) => option(o))}
+            </ScrollableList>
+          </OptionsWrapper>
+        </RelativeWrapper>
+      )}
+    </SearchSelectWrapper>
   );
 };
 
@@ -134,20 +135,19 @@ const SearchSelectWrapper = styled.div`
   display: flex;
   flex-direction: column;
   min-width: 300px;
-  margin-bottom: 10px;
+  margin-top: 16px;
+  margin-bottom: 16px;
 `;
 const TextInputWrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
 `;
 const StyledIcon = styled(Icon)`
   position: absolute;
-  height: 100%;
-  justify-content: center;
   align-self: flex-end;
   margin-right: 10px;
+  bottom: 10px;
   &:hover {
     cursor: pointer;
   }

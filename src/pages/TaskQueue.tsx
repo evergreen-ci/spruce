@@ -94,7 +94,6 @@ export const TaskQueue = () => {
 };
 
 const DistroLabel = styled.div`
-  padding-top: 16px;
   padding-bottom: 24px;
   display: flex;
   align-items: center;

@@ -2,10 +2,10 @@
 
 exports[`Storyshots Select Search Custom Option 1`] = `
 <div
-  className="css-6q6cm6-SearchSelectWrapper e1fdo2056"
+  className="css-i88io5-SearchSelectWrapper e1fdo2056"
 >
   <div
-    className="css-158v4hp-TextInputWrapper e1fdo2055"
+    className="css-ve22wc-TextInputWrapper e1fdo2055"
   >
     <div
       className="leafygreen-ui-1iyoj2o"
@@ -45,7 +45,7 @@ exports[`Storyshots Select Search Custom Option 1`] = `
     </div>
     <svg
       aria-label="Magnifying Glass Icon"
-      className="css-176uf5d-StyledIcon e1fdo2054"
+      className="css-fw5zvv-StyledIcon e1fdo2054"
       fill="none"
       height={16}
       onClick={[Function]}
@@ -67,10 +67,10 @@ exports[`Storyshots Select Search Custom Option 1`] = `
 
 exports[`Storyshots Select Search Story 1`] = `
 <div
-  className="css-6q6cm6-SearchSelectWrapper e1fdo2056"
+  className="css-i88io5-SearchSelectWrapper e1fdo2056"
 >
   <div
-    className="css-158v4hp-TextInputWrapper e1fdo2055"
+    className="css-ve22wc-TextInputWrapper e1fdo2055"
   >
     <div
       className="leafygreen-ui-1iyoj2o"
@@ -110,7 +110,7 @@ exports[`Storyshots Select Search Story 1`] = `
     </div>
     <svg
       aria-label="Magnifying Glass Icon"
-      className="css-176uf5d-StyledIcon e1fdo2054"
+      className="css-fw5zvv-StyledIcon e1fdo2054"
       fill="none"
       height={16}
       onClick={[Function]}
