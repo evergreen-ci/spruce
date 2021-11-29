@@ -51,6 +51,7 @@ query GetTask($taskId: String!, $execution: Int) {
       revision
       project
     }
+    requester
     projectId
     project {
       identifier

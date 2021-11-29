@@ -7,10 +7,12 @@ import { ScheduleTasksModal } from "components/ScheduleTasksModal";
 interface ScheduleTasksProps {
   versionId: string;
   isButton?: boolean;
+  disabled?: boolean;
 }
 export const ScheduleTasks: React.FC<ScheduleTasksProps> = ({
   versionId,
   isButton,
+  disabled = false,
 }) => {
   const [open, setOpen] = useState(false);
   const patchAnalytics = usePatchAnalytics();
@@ -23,7 +25,7 @@ export const ScheduleTasks: React.FC<ScheduleTasksProps> = ({
   };
 
   const modalOpenerComp = isButton ? (
-    <Button size="small" {...props}>
+    <Button size="small" disabled={disabled} {...props}>
       Schedule
     </Button>
   ) : (

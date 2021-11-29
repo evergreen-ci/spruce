@@ -8,6 +8,7 @@ import Badge, { Variant } from "components/Badge";
 import { Button } from "components/Button";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { UpdateStatusModal } from "components/Hosts";
+import { Reprovision } from "components/Hosts/Reprovision";
 import { RestartJasper } from "components/Hosts/RestartJasper";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
@@ -56,6 +57,8 @@ export const Hosts: React.FC = () => {
 
   const [canRestartJasper, setCanRestartJasper] = useState<boolean>(true);
   const [restartJasperError, setRestartJasperError] = useState<string>("");
+  const [canReprovision, setCanReprovision] = useState<boolean>(true);
+  const [reprovisionError, setReprovisionError] = useState<string>("");
 
   // UPDATE STATUS MODAL VISIBILITY STATE
   const [
@@ -107,6 +110,13 @@ export const Hosts: React.FC = () => {
                   jasperTooltipMessage={restartJasperError}
                 />
               </ButtonWrapper>
+              <ButtonWrapper>
+                <Reprovision
+                  selectedHostIds={selectedHostIds}
+                  canReprovision={canReprovision}
+                  reprovisionTooltipMessage={reprovisionError}
+                />
+              </ButtonWrapper>
             </HostsSelectionWrapper>
           </SubtitleDataWrapper>
           <TableControlInnerRow>
@@ -134,6 +144,8 @@ export const Hosts: React.FC = () => {
             setSelectedHostIds={setSelectedHostIds}
             setCanRestartJasper={setCanRestartJasper}
             setRestartJasperError={setRestartJasperError}
+            setCanReprovision={setCanReprovision}
+            setReprovisionError={setReprovisionError}
             loading={loading}
           />
         </TableContainer>

@@ -22,7 +22,7 @@ export * from "@testing-library/react";
 export { customRender as render };
 
 export const renderWithRouterMatch = (
-  ui,
+  ui: React.ComponentType<any>,
   {
     path = "/",
     route = "/",

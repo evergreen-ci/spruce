@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
@@ -18,7 +17,6 @@ export const NewUITab: React.FC = () => {
   const { data, loadingComp } = useUserSettingsQuery();
   const { spruceV1, hasUsedSpruceBefore } =
     data?.userSettings?.useSpruceOptions ?? {};
-  const [checked, setChecked] = useState(spruceV1);
   const dispatchToast = useToastContext();
   const [updateUserSettings, { loading: updateLoading }] = useMutation<
     UpdateUserSettingsMutation,
@@ -36,25 +34,21 @@ export const NewUITab: React.FC = () => {
     return loadingComp;
   }
 
-  const handleToggle = async (c, e): Promise<void> => {
-    e.preventDefault();
-    setChecked(c);
+  const handleToggle = async (c: boolean) => {
     sendEvent({
       name: c ? "Opt into Spruce" : "Opt out of Spruce",
     });
-    try {
-      await updateUserSettings({
-        variables: {
-          userSettings: {
-            useSpruceOptions: {
-              spruceV1: c,
-              hasUsedSpruceBefore,
-            },
+    updateUserSettings({
+      variables: {
+        userSettings: {
+          useSpruceOptions: {
+            spruceV1: c,
+            hasUsedSpruceBefore,
           },
         },
-        refetchQueries: ["GetUserSettings"],
-      });
-    } catch (err) {}
+      },
+      refetchQueries: ["GetUserSettings"],
+    });
   };
   return (
     <>
@@ -65,7 +59,7 @@ export const NewUITab: React.FC = () => {
           (e.g. from the CLI, GitHub, etc.)
         </PaddedBody>
         <Toggle
-          checked={checked}
+          checked={spruceV1}
           disabled={updateLoading}
           onChange={handleToggle}
           aria-label="Toggle new evergreen ui"
