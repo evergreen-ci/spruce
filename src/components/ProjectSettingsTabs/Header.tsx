@@ -45,7 +45,7 @@ export const Header: React.FC<Props> = ({
     SaveProjectSettingsForSectionMutationVariables
   >(SAVE_PROJECT_SETTINGS_FOR_SECTION, {
     onCompleted() {
-      dispatchToast.success(`Successfully updated project`);
+      dispatchToast.success("Successfully updated project");
     },
     onError(err) {
       dispatchToast.error(
@@ -60,7 +60,7 @@ export const Header: React.FC<Props> = ({
     SaveRepoSettingsForSectionMutationVariables
   >(SAVE_REPO_SETTINGS_FOR_SECTION, {
     onCompleted() {
-      dispatchToast.success(`Successfully updated repo`);
+      dispatchToast.success("Successfully updated repo");
     },
     onError(err) {
       dispatchToast.error(`There was an error saving the repo: ${err.message}`);

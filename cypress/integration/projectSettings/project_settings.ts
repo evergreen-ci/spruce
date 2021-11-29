@@ -106,7 +106,7 @@ describe("Repo Settings", () => {
     cy.get("[data-leafygreen-ui=option]").first().click();
   });
 
-  it("Clicking on save button should  show a success toast", () => {
+  it("Clicking on save button should show a success toast", () => {
     cy.dataCy("save-settings-button").click();
     cy.contains("Successfully updated repo");
   });
