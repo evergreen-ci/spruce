@@ -75,7 +75,7 @@ describe("Project Settings when defaulting to repo", () => {
     cy.get("body").type("{esc}");
   });
 
-  it("Clicking on save button should  show a success toast", () => {
+  it("Clicking on save button should show a success toast", () => {
     cy.dataCy("save-settings-button").click();
     cy.contains("Successfully updated project");
   });
