@@ -1072,7 +1072,9 @@ export type Patch = {
   patchNumber: Scalars["Int"];
   author: Scalars["String"];
   authorDisplayName: Scalars["String"];
+  /** @deprecated version is deprecated, use versionFull.id instead */
   version: Scalars["String"];
+  versionFull?: Maybe<Version>;
   status: Scalars["String"];
   variants: Array<Scalars["String"]>;
   tasks: Array<Scalars["String"]>;
@@ -3500,6 +3502,24 @@ export type VersionQuery = {
       >;
     }>;
   };
+};
+
+export type GetViewableProjectRefsQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type GetViewableProjectRefsQuery = {
+  viewableProjectRefs: Array<
+    Maybe<{
+      groupDisplayName: string;
+      projects: Array<{
+        identifier: string;
+        repo: string;
+        owner: string;
+        repoRefId: string;
+      }>;
+    }>
+  >;
 };
 
 export type HostsQueryVariables = Exact<{
