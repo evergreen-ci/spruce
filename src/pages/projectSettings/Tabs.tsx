@@ -1,9 +1,8 @@
 import { useMemo, ComponentType } from "react";
 import styled from "@emotion/styled";
-import { H2, Disclaimer } from "@leafygreen-ui/typography";
 import { Route, useParams } from "react-router-dom";
-import { Button } from "components/Button";
 import {
+  Header,
   AccessTab,
   EventLogTab,
   GeneralTab,
@@ -15,13 +14,13 @@ import {
   VariablesTab,
   VirtualWorkstationTab,
 } from "components/ProjectSettingsTabs";
-import { GeneralTabProps } from "components/ProjectSettingsTabs/types";
+import {
+  readOnlyTabs,
+  TabDataProps,
+} from "components/ProjectSettingsTabs/types";
 import { TabProps } from "components/ProjectSettingsTabs/utils";
 import { routes, ProjectSettingsTabRoutes } from "constants/routes";
-import { useProjectSettingsContext } from "context/project-settings";
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
-
-import { getTabTitle } from "./getTabTitle";
 import { NavigationModal } from "./NavigationModal";
 
 interface Props {
@@ -34,8 +33,6 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
   repoData,
 }) => {
   const { tab } = useParams<{ tab: ProjectSettingsTabRoutes }>();
-  const { saveTab } = useProjectSettingsContext();
-  const { title, subtitle } = getTabTitle(tab);
 
   const projectId = projectData?.projectSettings?.projectRef?.id;
   const useRepoSettings =
@@ -49,22 +46,13 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
   return (
     <Container>
       <NavigationModal />
-      <TitleContainer>
-        <H2 data-cy="project-settings-tab-title">{title}</H2>
-        {subtitle && <Subtitle>{subtitle}</Subtitle>}
-        <Button
-          variant="primary"
-          onClick={() => {
-            saveTab(tab);
-          }}
-        >
-          Save Changes on Page
-        </Button>
-        {projectData && useRepoSettings && (
-          <Button data-cy="default-to-repo">Default to Repo on Page</Button>
-        )}
-      </TitleContainer>
-
+      <Header
+        id={projectId || repoData?.repoSettings?.projectRef?.id}
+        isRepo={!projectData}
+        saveable={!readOnlyTabs.includes(tab)}
+        tab={tab}
+        useRepoSettings={useRepoSettings}
+      />
       <Route
         path={routes.projectSettingsGeneral}
         render={(props) => (
@@ -140,12 +128,7 @@ const TabRoute: React.FC<TabRouteProps> = ({ Component, path, tab }) => (
 const getTabData = (
   projectData: ProjectSettingsQuery,
   repoData?: RepoSettingsQuery
-): {
-  [ProjectSettingsTabRoutes.General]: {
-    projectData: GeneralTabProps["projectData"];
-    repoData: GeneralTabProps["repoData"];
-  };
-} => ({
+): TabDataProps => ({
   [ProjectSettingsTabRoutes.General]: {
     projectData: projectData?.projectSettings?.projectRef,
     repoData: repoData?.repoSettings?.projectRef,
@@ -155,17 +138,4 @@ const getTabData = (
 const Container = styled.div`
   min-width: min-content;
   width: 60%;
-`;
-
-const TitleContainer = styled.div`
-  display: flex;
-  margin-bottom: 30px;
-
-  > :not(:last-child) {
-    margin-right: 24px;
-  }
-`;
-
-const Subtitle = styled(Disclaimer)`
-  padding-top: 16px;
 `;

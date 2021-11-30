@@ -1,0 +1,13 @@
+#import "../fragments/projectSettings/general.graphql"
+
+mutation SaveRepoSettingsForSection(
+  $repoSettings: RepoSettingsInput!
+  $section: ProjectSettingsSection!
+) {
+  saveRepoSettingsForSection(repoSettings: $repoSettings, section: $section) {
+    projectRef {
+      id
+      ...repoGeneralSettings
+    }
+  }
+}

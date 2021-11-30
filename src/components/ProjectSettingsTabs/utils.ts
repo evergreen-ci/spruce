@@ -5,7 +5,13 @@ export interface TabProps {
   tab: ProjectSettingsTabRoutes;
 }
 
-const insertIf = (condition, ...elements) => (condition ? elements : []);
+export const insertIf = (condition, ...elements) => (condition ? elements : []);
+
+const radioBoxOption = (title: string, value: boolean) => ({
+  type: ["boolean", "null"],
+  title,
+  enum: [value],
+});
 
 /**
  * Generate the options for a radio box group that conditionally includes a third option to "Default to repo".
@@ -19,27 +25,21 @@ export const radioBoxOptions = (
   field: boolean,
   invert: boolean = false
 ): Array<SpruceFormProps["schema"]> => [
-  {
-    type: "boolean" as "boolean",
-    title: options[0],
-    enum: [!invert],
-  },
-  {
-    type: "boolean" as "boolean",
-    title: options[1],
-    enum: [invert],
-  },
-  ...insertIf(field !== undefined, {
-    type: "boolean" as "boolean",
-    title: `Default to repo (${(field
-      ? options[+invert]
-      : options[+!invert]
-    ).toLowerCase()})`,
-    enum: [null],
-  }),
+  radioBoxOption(options[0], !invert),
+  radioBoxOption(options[1], invert),
+  ...insertIf(
+    field !== undefined,
+    radioBoxOption(
+      `Default to repo (${(field
+        ? options[+invert]
+        : options[+!invert]
+      ).toLowerCase()})`,
+      null
+    )
+  ),
 ];
 
 export const placeholderIf = (element: string | number) =>
-  element && {
+  element !== null && {
     "ui:placeholder": `${element} (Default from repo)`,
   };
