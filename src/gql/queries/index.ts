@@ -50,6 +50,7 @@ import GET_USER_CONFIG from "./get-user-config.graphql";
 import GET_USER_SETTINGS from "./get-user-settings.graphql";
 import GET_USER from "./get-user.graphql";
 import GET_VERSION from "./get-version.graphql";
+import GET_VIEWABLE_PROJECTS from "./get-viewable-projects.graphql";
 import HOSTS from "./hosts.graphql";
 import GET_PROJECT_PATCHES from "./project-patches.graphql";
 import GET_SPAWN_EXPIRATION_INFO from "./spawn-expiration.graphql";
@@ -115,6 +116,7 @@ export {
   GET_OTHER_USER,
   GET_PATCH,
   GET_VERSION,
+  GET_VIEWABLE_PROJECTS,
   GET_PATCH_CONFIGURE,
   GET_FAILED_TASK_STATUS_ICON_TOOLTIP,
   GET_UNSCHEDULED_TASKS,
