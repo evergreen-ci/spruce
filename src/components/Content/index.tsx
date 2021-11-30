@@ -6,6 +6,7 @@ import { useAnalyticsAttributes } from "analytics";
 import { Feedback } from "components/Feedback";
 import { Header } from "components/Header";
 import { FullPageLoad } from "components/Loading/FullPageLoad";
+import { ProjectSettingsRedirect } from "components/ProjectSettingsRedirect";
 import { PageGrid } from "components/styles/Layout";
 import { UserPatchesRedirect } from "components/UserPatchesRedirect";
 import { WelcomeModal } from "components/WelcomeModal";
@@ -72,6 +73,10 @@ export const Content: React.FC = () => {
           exact
           path={routes.userPatchesRedirect}
           component={UserPatchesRedirect}
+        />
+        <Route
+          path={routes.projectSettingsRedirect}
+          component={ProjectSettingsRedirect}
         />
         <Route path={routes.userPatches} component={UserPatches} />
         <Route path={routes.taskQueue} component={TaskQueue} />

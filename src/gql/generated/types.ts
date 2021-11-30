@@ -2092,7 +2092,6 @@ export type PatchesPagePatchesFragment = {
     createTime?: Maybe<Date>;
     commitQueuePosition?: Maybe<number>;
     canEnqueueToCommitQueue: boolean;
-    builds: Array<{ id: string; buildVariant: string; status: string }>;
     childPatches?: Maybe<
       Array<{
         baseVersionID?: Maybe<string>;
@@ -2103,6 +2102,10 @@ export type PatchesPagePatchesFragment = {
         status: string;
       }>
     >;
+    versionFull?: Maybe<{
+      id: string;
+      taskStatusCounts?: Maybe<Array<{ status: string; count: number }>>;
+    }>;
   }>;
 };
 
@@ -2321,6 +2324,12 @@ export type RemoveVolumeMutationVariables = Exact<{
 }>;
 
 export type RemoveVolumeMutation = { removeVolume: boolean };
+
+export type ReprovisionToNewMutationVariables = Exact<{
+  hostIds: Array<Scalars["String"]>;
+}>;
+
+export type ReprovisionToNewMutation = { reprovisionToNew: number };
 
 export type RestartJasperMutationVariables = Exact<{
   hostIds: Array<Scalars["String"]>;
@@ -2730,8 +2739,8 @@ export type CommitQueueQuery = {
           id: string;
           author: string;
           description: string;
-          version: string;
           activated: boolean;
+          versionFull?: Maybe<{ id: string }>;
           moduleCodeChanges: Array<ModuleCodeChangeFragment>;
         }>;
       }>
@@ -3615,6 +3624,16 @@ export type VersionQuery = {
       >;
     }>;
   };
+};
+
+export type GetViewableProjectRefsQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type GetViewableProjectRefsQuery = {
+  viewableProjectRefs: Array<
+    Maybe<{ projects: Array<{ identifier: string }> }>
+  >;
 };
 
 export type HostsQueryVariables = Exact<{

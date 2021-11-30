@@ -17,6 +17,7 @@ import REMOVE_FAVORITE_PROJECT from "./remove-favorite-project.graphql";
 import REMOVE_ITEM_FROM_COMMIT_QUEUE from "./remove-item-from-commit-queue.graphql";
 import REMOVE_PUBLIC_KEY from "./remove-public-key.graphql";
 import REMOVE_VOLUME from "./remove-volume.graphql";
+import REPROVISION_TO_NEW from "./reprovision-to-new.graphql";
 import RESTART_JASPER from "./restart-jasper.graphql";
 import RESTART_TASK from "./restart-task.graphql";
 import RESTART_VERSIONS from "./restart-versions.graphql";
@@ -59,6 +60,7 @@ export {
   REMOVE_PUBLIC_KEY,
   REMOVE_VOLUME,
   RESTART_JASPER,
+  REPROVISION_TO_NEW,
   RESTART_TASK,
   RESTART_VERSIONS,
   SAVE_PROJECT_SETTINGS_FOR_SECTION,
