@@ -726,6 +726,7 @@ export type ProjectInput = {
   displayName?: Maybe<Scalars["String"]>;
   enabled?: Maybe<Scalars["Boolean"]>;
   private?: Maybe<Scalars["Boolean"]>;
+  restricted?: Maybe<Scalars["Boolean"]>;
   owner?: Maybe<Scalars["String"]>;
   repo?: Maybe<Scalars["String"]>;
   branch?: Maybe<Scalars["String"]>;
@@ -775,6 +776,7 @@ export type RepoRefInput = {
   displayName?: Maybe<Scalars["String"]>;
   enabled?: Maybe<Scalars["Boolean"]>;
   private?: Maybe<Scalars["Boolean"]>;
+  restricted?: Maybe<Scalars["Boolean"]>;
   owner?: Maybe<Scalars["String"]>;
   repo?: Maybe<Scalars["String"]>;
   branch?: Maybe<Scalars["String"]>;
@@ -1129,7 +1131,9 @@ export type Patch = {
   patchNumber: Scalars["Int"];
   author: Scalars["String"];
   authorDisplayName: Scalars["String"];
+  /** @deprecated version is deprecated, use versionFull.id instead */
   version: Scalars["String"];
+  versionFull?: Maybe<Version>;
   status: Scalars["String"];
   variants: Array<Scalars["String"]>;
   tasks: Array<Scalars["String"]>;
@@ -1501,6 +1505,7 @@ export type Project = {
   displayName: Scalars["String"];
   enabled?: Maybe<Scalars["Boolean"]>;
   private?: Maybe<Scalars["Boolean"]>;
+  restricted?: Maybe<Scalars["Boolean"]>;
   owner: Scalars["String"];
   repo: Scalars["String"];
   branch: Scalars["String"];
@@ -1550,6 +1555,7 @@ export type RepoRef = {
   displayName: Scalars["String"];
   enabled: Scalars["Boolean"];
   private: Scalars["Boolean"];
+  restricted: Scalars["Boolean"];
   owner: Scalars["String"];
   repo: Scalars["String"];
   branch: Scalars["String"];
@@ -2361,7 +2367,13 @@ export type SaveProjectSettingsForSectionMutationVariables = Exact<{
 
 export type SaveProjectSettingsForSectionMutation = {
   saveProjectSettingsForSection: {
-    projectRef?: Maybe<{ id: string; branch: string }>;
+    projectRef?: Maybe<
+      {
+        id: string;
+        useRepoSettings: boolean;
+        repoRefId: string;
+      } & ProjectGeneralSettingsFragment
+    >;
   };
 };
 
@@ -2371,7 +2383,9 @@ export type SaveRepoSettingsForSectionMutationVariables = Exact<{
 }>;
 
 export type SaveRepoSettingsForSectionMutation = {
-  saveRepoSettingsForSection: { projectRef?: Maybe<{ id: string }> };
+  saveRepoSettingsForSection: {
+    projectRef?: Maybe<{ id: string } & RepoGeneralSettingsFragment>;
+  };
 };
 
 export type SaveSubscriptionMutationVariables = Exact<{

@@ -10,6 +10,8 @@ import { Description, Label } from "@leafygreen-ui/typography";
 import { WidgetProps } from "@rjsf/core";
 import ElementWrapper from "./ElementWrapper";
 
+const { red } = uiColors;
+
 export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
   value,
   label,
@@ -114,7 +116,7 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
 };
 
 const Error = styled(Description)`
-  color: ${uiColors.red.base};
+  color: ${red.base};
 `;
 
 export const LeafyGreenRadio: React.FC<WidgetProps> = ({

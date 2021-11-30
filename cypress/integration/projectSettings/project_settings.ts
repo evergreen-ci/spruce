@@ -101,9 +101,8 @@ describe("Repo Settings", () => {
     cy.dataCy("move-repo-button").should("not.exist");
   });
 
-  it("Selects a default logger on click", () => {
-    cy.get("[data-testid=leafygreen-ui-select-menubutton]").click();
-    cy.get("[data-leafygreen-ui=option]").first().click();
+  it("Sets a display name", () => {
+    cy.dataCy("display-name-input").type("evg");
   });
 
   it("Clicking on save button should show a success toast", () => {
