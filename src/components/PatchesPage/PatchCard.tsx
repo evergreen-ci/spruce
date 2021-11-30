@@ -92,10 +92,10 @@ export const PatchCard: React.FC<Props> = ({
         </TimeAndProject>
       </Left>
       <Center>
-        <BadgeContainer>
+        <PatchBadgeContainer>
           <PatchStatusBadge status={status} />
-        </BadgeContainer>
-        <IconsContainer>{badges}</IconsContainer>
+        </PatchBadgeContainer>
+        <TaskBadgeContainer>{badges}</TaskBadgeContainer>
       </Center>
       <Right>
         <DropdownMenu
@@ -110,7 +110,7 @@ export const PatchCard: React.FC<Props> = ({
   );
 };
 
-const IconsContainer = styled.div`
+const TaskBadgeContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   > div {
@@ -147,7 +147,7 @@ const DescriptionLink = styled(StyledRouterLink)`
   padding-bottom: 8px;
 `;
 
-const BadgeContainer = styled.div`
+const PatchBadgeContainer = styled.div`
   margin-right: 24px;
   min-width: 90px;
 `;
