@@ -1,0 +1,7 @@
+query GetViewableProjectRefs {
+  viewableProjectRefs {
+    projects {
+      identifier
+    }
+  }
+}

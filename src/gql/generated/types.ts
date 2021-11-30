@@ -25,6 +25,7 @@ export type Query = {
   patch: Patch;
   version: Version;
   projects: Array<Maybe<GroupedProjects>>;
+  viewableProjectRefs: Array<Maybe<GroupedProjects>>;
   project: Project;
   patchTasks: PatchTasks;
   taskTests: TaskTestResult;
@@ -695,6 +696,7 @@ export type CreateProjectInput = {
   identifier: Scalars["String"];
   owner: Scalars["String"];
   repo: Scalars["String"];
+  repoRefId?: Maybe<Scalars["String"]>;
   id?: Maybe<Scalars["String"]>;
 };
 
@@ -837,8 +839,33 @@ export type CommitQueueParamsInput = {
 };
 
 export type TaskSyncOptionsInput = {
-  configEnabled: Scalars["Boolean"];
-  patchEnabled: Scalars["Boolean"];
+  configEnabled?: Maybe<Scalars["Boolean"]>;
+  patchEnabled?: Maybe<Scalars["Boolean"]>;
+};
+
+export type BuildBaronSettingsInput = {
+  ticketCreateProject: Scalars["String"];
+  ticketSearchProjects?: Maybe<Array<Scalars["String"]>>;
+  bfSuggestionServer?: Maybe<Scalars["String"]>;
+  bfSuggestionUsername?: Maybe<Scalars["String"]>;
+  bfSuggestionPassword?: Maybe<Scalars["String"]>;
+  bfSuggestionTimeoutSecs?: Maybe<Scalars["Int"]>;
+  bfSuggestionFeaturesURL?: Maybe<Scalars["String"]>;
+};
+
+export type TaskAnnotationSettingsInput = {
+  jiraCustomFields?: Maybe<Array<JiraFieldInput>>;
+  fileTicketWebhook: WebhookInput;
+};
+
+export type JiraFieldInput = {
+  field: Scalars["String"];
+  displayText: Scalars["String"];
+};
+
+export type WebhookInput = {
+  endpoint: Scalars["String"];
+  secret: Scalars["String"];
 };
 
 export type BuildBaronSettingsInput = {
@@ -1127,7 +1154,9 @@ export type Patch = {
   patchNumber: Scalars["Int"];
   author: Scalars["String"];
   authorDisplayName: Scalars["String"];
+  /** @deprecated version is deprecated, use versionFull.id instead */
   version: Scalars["String"];
+  versionFull?: Maybe<Version>;
   status: Scalars["String"];
   variants: Array<Scalars["String"]>;
   tasks: Array<Scalars["String"]>;
@@ -1394,7 +1423,10 @@ export type BaseTaskInfo = {
 };
 
 export type GroupedProjects = {
+  groupDisplayName: Scalars["String"];
+  /** @deprecated name is deprecated. Use groupDisplayName instead. */
   name: Scalars["String"];
+  repo?: Maybe<RepoRef>;
   projects: Array<Project>;
 };
 
@@ -2081,7 +2113,6 @@ export type PatchesPagePatchesFragment = {
     createTime?: Maybe<Date>;
     commitQueuePosition?: Maybe<number>;
     canEnqueueToCommitQueue: boolean;
-    builds: Array<{ id: string; buildVariant: string; status: string }>;
     childPatches?: Maybe<
       Array<{
         baseVersionID?: Maybe<string>;
@@ -2092,6 +2123,10 @@ export type PatchesPagePatchesFragment = {
         status: string;
       }>
     >;
+    versionFull?: Maybe<{
+      id: string;
+      taskStatusCounts?: Maybe<Array<{ status: string; count: number }>>;
+    }>;
   }>;
 };
 
@@ -2697,8 +2732,8 @@ export type CommitQueueQuery = {
           id: string;
           author: string;
           description: string;
-          version: string;
           activated: boolean;
+          versionFull?: Maybe<{ id: string }>;
           moduleCodeChanges: Array<ModuleCodeChangeFragment>;
         }>;
       }>
@@ -3584,6 +3619,16 @@ export type VersionQuery = {
       >;
     }>;
   };
+};
+
+export type GetViewableProjectRefsQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type GetViewableProjectRefsQuery = {
+  viewableProjectRefs: Array<
+    Maybe<{ projects: Array<{ identifier: string }> }>
+  >;
 };
 
 export type HostsQueryVariables = Exact<{
