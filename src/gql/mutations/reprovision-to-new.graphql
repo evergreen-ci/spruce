@@ -1,0 +1,3 @@
+mutation ReprovisionToNew($hostIds: [String!]!) {
+  reprovisionToNew(hostIds: $hostIds)
+}

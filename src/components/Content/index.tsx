@@ -6,6 +6,7 @@ import { useAnalyticsAttributes } from "analytics";
 import { Feedback } from "components/Feedback";
 import { Header } from "components/Header";
 import { FullPageLoad } from "components/Loading/FullPageLoad";
+import { ProjectSettingsRedirect } from "components/ProjectSettingsRedirect";
 import { PageGrid } from "components/styles/Layout";
 import { UserPatchesRedirect } from "components/UserPatchesRedirect";
 import { WelcomeModal } from "components/WelcomeModal";
@@ -13,7 +14,6 @@ import { routes } from "constants/routes";
 import { useAuthStateContext } from "context/auth";
 import { GetUserQuery, GetUserSettingsQuery } from "gql/generated/types";
 import { GET_USER, GET_USER_SETTINGS } from "gql/queries";
-import { useAdBlockDetection } from "hooks/useAdBlockDetection";
 import { useAnnouncementToast } from "hooks/useAnnouncementToast";
 import { PageDoesNotExist } from "pages/404";
 import { CommitQueue } from "pages/CommitQueue";
@@ -36,7 +36,7 @@ import { VersionPage } from "pages/Version";
 
 export const Content: React.FC = () => {
   const { isAuthenticated } = useAuthStateContext();
-  useAdBlockDetection();
+
   // this top-level query is required for authentication to work
   // afterware is used at apollo link level to authenticate or deauthenticate user based on response to query
   // therefore this could be any query as long as it is top-level
@@ -73,6 +73,10 @@ export const Content: React.FC = () => {
           exact
           path={routes.userPatchesRedirect}
           component={UserPatchesRedirect}
+        />
+        <Route
+          path={routes.projectSettingsRedirect}
+          component={ProjectSettingsRedirect}
         />
         <Route path={routes.userPatches} component={UserPatches} />
         <Route path={routes.taskQueue} component={TaskQueue} />

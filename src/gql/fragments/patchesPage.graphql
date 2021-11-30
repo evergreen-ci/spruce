@@ -9,11 +9,6 @@ fragment PatchesPagePatches on Patches {
     status
     createTime
     commitQueuePosition
-    builds {
-      id
-      buildVariant
-      status
-    }
     childPatches {
       baseVersionID
       githash
@@ -21,6 +16,13 @@ fragment PatchesPagePatches on Patches {
       projectID
       taskCount
       status
+    }
+    versionFull {
+      id
+      taskStatusCounts(options: {}) {
+        status
+        count
+      }
     }
     canEnqueueToCommitQueue
   }

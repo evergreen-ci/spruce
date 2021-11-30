@@ -55,14 +55,14 @@ describe("My Patches Page", () => {
     cy.dataCy("no-patches-found").contains("No patches found");
   });
 
-  it("Build status icon should link to version page with appropriate filters", () => {
+  it("Grouped task status icon should link to version page with appropriate filters", () => {
     cy.visit(MY_PATCHES_ROUTE);
-    cy.dataCy("build-status-icon-link")
+    cy.dataCy("grouped-task-status-badge")
       .eq(1)
       .should("have.attr", "href")
       .and(
         "equals",
-        "/version/5ecedafb562343215a7ff297/tasks?variant=ubuntu1604"
+        "/version/5ecedafb562343215a7ff297/tasks?statuses=success"
       );
   });
 
