@@ -3,38 +3,25 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { format } from "date-fns";
 import { Analytics } from "analytics/addPageAction";
+import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { StyledRouterLink } from "components/styles";
 import {
-  getBuildStatusIconLink,
   getProjectPatchesRoute,
   getVersionRoute,
   getUserPatchesRoute,
 } from "constants/routes";
-import { Maybe, Patch } from "gql/generated/types";
-import { BuildStatusIcon } from "./patchCard/BuildStatusIcon";
+import { PatchesPagePatchesFragment } from "gql/generated/types";
+import { Unpacked } from "types/utils";
+import { groupStatusesByUmbrellaStatus } from "utils/statuses";
 import { DropdownMenu } from "./patchCard/DropdownMenu";
 
+type P = Unpacked<PatchesPagePatchesFragment["patches"]>;
+type PatchProps = Omit<P, "commitQueuePosition">;
 const { gray } = uiColors;
-interface Build {
-  id: string;
-  buildVariant: string;
-  status: string;
-}
 
-interface Props {
-  id: string;
-  childPatches?: Partial<Patch>[];
-  projectID: string;
-  projectIdentifier: string;
-  description: string;
+interface Props extends PatchProps {
   pageType: "project" | "user";
-  status: string;
-  createTime?: Maybe<Date>;
-  builds: Build[];
-  author: string;
-  authorDisplayName: string;
-  canEnqueueToCommitQueue: boolean;
   isPatchOnCommitQueue: boolean;
   analyticsObject?: Analytics<
     | { name: "Click Patch Link" }
@@ -56,12 +43,22 @@ export const PatchCard: React.FC<Props> = ({
   projectIdentifier,
   status,
   pageType,
-  builds,
   canEnqueueToCommitQueue,
   isPatchOnCommitQueue,
   analyticsObject,
+  versionFull,
 }) => {
   const createDate = new Date(createTime);
+  const { taskStatusCounts, id: versionId } = versionFull || {};
+  const { stats } = groupStatusesByUmbrellaStatus(taskStatusCounts ?? []);
+  const badges = stats?.map(({ count, umbrellaStatus, statusCounts }) => (
+    <GroupedTaskStatusBadge
+      status={umbrellaStatus}
+      count={count}
+      statusCounts={statusCounts}
+      versionId={versionId}
+    />
+  ));
   return (
     <CardWrapper data-cy="patch-card">
       <Left>
@@ -95,26 +92,10 @@ export const PatchCard: React.FC<Props> = ({
         </TimeAndProject>
       </Left>
       <Center>
-        <BadgeContainer>
+        <PatchBadgeContainer>
           <PatchStatusBadge status={status} />
-        </BadgeContainer>
-        <IconsContainer>
-          {builds.map((b) => (
-            <div key={b.id}>
-              <BuildStatusIcon
-                status={b.status}
-                buildVariant={b.buildVariant}
-                href={getBuildStatusIconLink(id, b.buildVariant)}
-                onClick={() =>
-                  analyticsObject?.sendEvent({
-                    name: "Click Variant Icon",
-                    variantIconStatus: b.status,
-                  })
-                }
-              />
-            </div>
-          ))}
-        </IconsContainer>
+        </PatchBadgeContainer>
+        <TaskBadgeContainer>{badges}</TaskBadgeContainer>
       </Center>
       <Right>
         <DropdownMenu
@@ -129,7 +110,7 @@ export const PatchCard: React.FC<Props> = ({
   );
 };
 
-const IconsContainer = styled.div`
+const TaskBadgeContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   > div {
@@ -166,7 +147,7 @@ const DescriptionLink = styled(StyledRouterLink)`
   padding-bottom: 8px;
 `;
 
-const BadgeContainer = styled.div`
+const PatchBadgeContainer = styled.div`
   margin-right: 24px;
   min-width: 90px;
 `;
