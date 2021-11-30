@@ -726,6 +726,7 @@ export type ProjectInput = {
   displayName?: Maybe<Scalars["String"]>;
   enabled?: Maybe<Scalars["Boolean"]>;
   private?: Maybe<Scalars["Boolean"]>;
+  restricted?: Maybe<Scalars["Boolean"]>;
   owner?: Maybe<Scalars["String"]>;
   repo?: Maybe<Scalars["String"]>;
   branch?: Maybe<Scalars["String"]>;
@@ -775,6 +776,7 @@ export type RepoRefInput = {
   displayName?: Maybe<Scalars["String"]>;
   enabled?: Maybe<Scalars["Boolean"]>;
   private?: Maybe<Scalars["Boolean"]>;
+  restricted?: Maybe<Scalars["Boolean"]>;
   owner?: Maybe<Scalars["String"]>;
   repo?: Maybe<Scalars["String"]>;
   branch?: Maybe<Scalars["String"]>;
@@ -841,31 +843,6 @@ export type CommitQueueParamsInput = {
 export type TaskSyncOptionsInput = {
   configEnabled?: Maybe<Scalars["Boolean"]>;
   patchEnabled?: Maybe<Scalars["Boolean"]>;
-};
-
-export type BuildBaronSettingsInput = {
-  ticketCreateProject: Scalars["String"];
-  ticketSearchProjects?: Maybe<Array<Scalars["String"]>>;
-  bfSuggestionServer?: Maybe<Scalars["String"]>;
-  bfSuggestionUsername?: Maybe<Scalars["String"]>;
-  bfSuggestionPassword?: Maybe<Scalars["String"]>;
-  bfSuggestionTimeoutSecs?: Maybe<Scalars["Int"]>;
-  bfSuggestionFeaturesURL?: Maybe<Scalars["String"]>;
-};
-
-export type TaskAnnotationSettingsInput = {
-  jiraCustomFields?: Maybe<Array<JiraFieldInput>>;
-  fileTicketWebhook: WebhookInput;
-};
-
-export type JiraFieldInput = {
-  field: Scalars["String"];
-  displayText: Scalars["String"];
-};
-
-export type WebhookInput = {
-  endpoint: Scalars["String"];
-  secret: Scalars["String"];
 };
 
 export type BuildBaronSettingsInput = {
@@ -1528,6 +1505,7 @@ export type Project = {
   displayName: Scalars["String"];
   enabled?: Maybe<Scalars["Boolean"]>;
   private?: Maybe<Scalars["Boolean"]>;
+  restricted?: Maybe<Scalars["Boolean"]>;
   owner: Scalars["String"];
   repo: Scalars["String"];
   branch: Scalars["String"];
@@ -1577,6 +1555,7 @@ export type RepoRef = {
   displayName: Scalars["String"];
   enabled: Scalars["Boolean"];
   private: Scalars["Boolean"];
+  restricted: Scalars["Boolean"];
   owner: Scalars["String"];
   repo: Scalars["String"];
   branch: Scalars["String"];
