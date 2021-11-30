@@ -4,11 +4,17 @@ import {
   getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
 } from "constants/routes";
-import { GetViewableProjectRefsQuery } from "gql/generated/types";
+import {
+  GetViewableProjectRefsQuery,
+  GetViewableProjectRefsQueryVariables,
+} from "gql/generated/types";
 import { GET_VIEWABLE_PROJECTS } from "gql/queries";
 
 export const ProjectSettingsRedirect: React.FC = () => {
-  const { data } = useQuery<GetViewableProjectRefsQuery>(GET_VIEWABLE_PROJECTS);
+  const { data } = useQuery<
+    GetViewableProjectRefsQuery,
+    GetViewableProjectRefsQueryVariables
+  >(GET_VIEWABLE_PROJECTS);
 
   if (data) {
     const { viewableProjectRefs } = data;
@@ -19,7 +25,7 @@ export const ProjectSettingsRedirect: React.FC = () => {
       return (
         <Redirect
           to={getProjectSettingsRoute(
-            data.viewableProjectRefs[0]?.projects[0]?.identifier,
+            viewableProjectRefs[0].projects[0].identifier,
             ProjectSettingsTabRoutes.General
           )}
         />
