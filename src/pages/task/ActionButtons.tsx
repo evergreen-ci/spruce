@@ -33,6 +33,7 @@ import {
   UNSCHEDULE_TASK,
 } from "gql/mutations";
 import { useUpdateURLQueryParams } from "hooks";
+import { PreviousCommits } from "./actionButtons/PreviousCommits";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
 interface Props {
@@ -250,6 +251,7 @@ export const ActionButtons: React.FC<Props> = ({
   return (
     <>
       <PageButtonRow>
+        <PreviousCommits taskId={taskId} />
         <Button
           size="small"
           data-cy="schedule-task"
