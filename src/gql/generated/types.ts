@@ -503,7 +503,9 @@ export type Version = {
   patch?: Maybe<Patch>;
   childVersions?: Maybe<Array<Maybe<Version>>>;
   taskCount?: Maybe<Scalars["Int"]>;
+  /** @deprecated baseVersionId is deprecated, use baseVersion.id instead */
   baseVersionID?: Maybe<Scalars["String"]>;
+  baseVersion?: Maybe<Version>;
   versionTiming?: Maybe<VersionTiming>;
   parameters: Array<Parameter>;
   taskStatuses: Array<Scalars["String"]>;
@@ -2581,13 +2583,12 @@ export type GetBaseTaskQuery = {
   task?: Maybe<{
     id: string;
     execution: number;
-    baseTask?: Maybe<{
-      id: string;
-      execution: number;
-      displayName: string;
-      buildVariant: string;
-      versionMetadata: { order: number; projectIdentifier: string };
-    }>;
+    displayName: string;
+    buildVariant: string;
+    versionMetadata: {
+      baseVersion?: Maybe<{ order: number; projectIdentifier: string }>;
+    };
+    baseTask?: Maybe<{ id: string; execution: number }>;
   }>;
 };
 
