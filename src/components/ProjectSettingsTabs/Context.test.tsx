@@ -4,7 +4,7 @@ import {
   ProjectSettingsProvider,
   useIsAnyTabUnsaved,
   useProjectSettingsContext,
-} from "../project-settings";
+} from "./Context";
 
 test("Ensure that tabs are initially saved", async () => {
   const { result } = renderHook(() => useIsAnyTabUnsaved(), {
@@ -25,8 +25,7 @@ test("Updating the form state unsaves the tab", async () => {
   );
 
   act(() => {
-    result.current.projectSettings.updateForm(
-      ProjectSettingsTabRoutes.General,
+    result.current.projectSettings.updateForm(ProjectSettingsTabRoutes.General)(
       {
         foo: "bar",
       }

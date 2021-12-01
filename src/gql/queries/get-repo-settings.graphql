@@ -3,6 +3,7 @@
 query RepoSettings($repoId: String!) {
   repoSettings(id: $repoId) {
     projectRef {
+      id
       ...repoGeneralSettings
     }
   }

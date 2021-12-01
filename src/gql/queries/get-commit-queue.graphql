@@ -13,7 +13,9 @@ query CommitQueue($id: String!) {
         id
         author
         description
-        version
+        versionFull {
+          id
+        }
         activated
         moduleCodeChanges {
           ...moduleCodeChange

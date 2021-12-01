@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { useParams, Link, Redirect } from "react-router-dom";
+import { ProjectSettingsProvider } from "components/ProjectSettingsTabs/Context";
 import {
   SideNav,
   SideNavGroup,
@@ -12,7 +13,6 @@ import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
 } from "constants/routes";
-import { ProjectSettingsProvider } from "context/project-settings";
 import { useToastContext } from "context/toast";
 import {
   ProjectSettingsQuery,

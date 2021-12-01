@@ -2092,7 +2092,6 @@ export type PatchesPagePatchesFragment = {
     createTime?: Maybe<Date>;
     commitQueuePosition?: Maybe<number>;
     canEnqueueToCommitQueue: boolean;
-    builds: Array<{ id: string; buildVariant: string; status: string }>;
     childPatches?: Maybe<
       Array<{
         baseVersionID?: Maybe<string>;
@@ -2103,6 +2102,10 @@ export type PatchesPagePatchesFragment = {
         status: string;
       }>
     >;
+    versionFull?: Maybe<{
+      id: string;
+      taskStatusCounts?: Maybe<Array<{ status: string; count: number }>>;
+    }>;
   }>;
 };
 
@@ -2364,6 +2367,34 @@ export type RestartVersionsMutation = {
       }>;
     }>
   >;
+};
+
+export type SaveProjectSettingsForSectionMutationVariables = Exact<{
+  projectSettings: ProjectSettingsInput;
+  section: ProjectSettingsSection;
+}>;
+
+export type SaveProjectSettingsForSectionMutation = {
+  saveProjectSettingsForSection: {
+    projectRef?: Maybe<
+      {
+        id: string;
+        useRepoSettings: boolean;
+        repoRefId: string;
+      } & ProjectGeneralSettingsFragment
+    >;
+  };
+};
+
+export type SaveRepoSettingsForSectionMutationVariables = Exact<{
+  repoSettings: RepoSettingsInput;
+  section: ProjectSettingsSection;
+}>;
+
+export type SaveRepoSettingsForSectionMutation = {
+  saveRepoSettingsForSection: {
+    projectRef?: Maybe<{ id: string } & RepoGeneralSettingsFragment>;
+  };
 };
 
 export type SaveSubscriptionMutationVariables = Exact<{
@@ -2726,8 +2757,8 @@ export type CommitQueueQuery = {
           id: string;
           author: string;
           description: string;
-          version: string;
           activated: boolean;
+          versionFull?: Maybe<{ id: string }>;
           moduleCodeChanges: Array<ModuleCodeChangeFragment>;
         }>;
       }>
@@ -3272,7 +3303,9 @@ export type RepoSettingsQueryVariables = Exact<{
 }>;
 
 export type RepoSettingsQuery = {
-  repoSettings: { projectRef?: Maybe<RepoGeneralSettingsFragment> };
+  repoSettings: {
+    projectRef?: Maybe<{ id: string } & RepoGeneralSettingsFragment>;
+  };
 };
 
 export type GetSpruceConfigQueryVariables = Exact<{ [key: string]: never }>;

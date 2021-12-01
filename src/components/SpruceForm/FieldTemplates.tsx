@@ -72,7 +72,7 @@ const ArrayContainer = styled.div`
 `;
 
 const ArrayItemRow = styled.div`
-  align-items: flex-end;
+  align-items: flex-start;
   display: flex;
 
   .field-object {
@@ -82,6 +82,7 @@ const ArrayItemRow = styled.div`
 
 const DeleteButtonWrapper = styled(ElementWrapper)`
   margin-left: 16px;
+  margin-top: 20px;
 `;
 
 export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({

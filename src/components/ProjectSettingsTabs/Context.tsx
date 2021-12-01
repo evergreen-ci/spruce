@@ -1,11 +1,12 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { FormStateMap } from "components/ProjectSettingsTabs/types";
-import { FormDataProps } from "components/SpruceForm";
+import { FormDataProps, SpruceFormProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 
 type TabState = {
   [K in keyof FormStateMap]: {
     hasChanges: boolean;
+    hasError: boolean;
     formData: FormStateMap[K];
   };
 };
@@ -15,6 +16,7 @@ type Action =
       type: "updateForm";
       tab: ProjectSettingsTabRoutes;
       formData: FormDataProps;
+      errors: Parameters<SpruceFormProps["onChange"]>[0]["errors"];
     }
   | { type: "saveTab"; tab: ProjectSettingsTabRoutes };
 
@@ -27,6 +29,7 @@ const reducer = (state: TabState, action: Action): TabState => {
             [action.tab]: {
               ...state[action.tab],
               hasChanges: false,
+              hasError: false,
             },
           }
         : state;
@@ -38,6 +41,7 @@ const reducer = (state: TabState, action: Action): TabState => {
             [action.tab]: {
               formData: action.formData,
               hasChanges: true,
+              hasError: !!action.errors.length,
             },
           };
     default:
@@ -48,12 +52,13 @@ const reducer = (state: TabState, action: Action): TabState => {
 interface ProjectSettingsState {
   tabs: TabState;
   saveTab: (tab: ProjectSettingsTabRoutes) => void;
-  getTabFormState: (tab: ProjectSettingsTabRoutes) => FormDataProps;
+  getTab: (
+    tab: ProjectSettingsTabRoutes
+  ) => TabState[ProjectSettingsTabRoutes.General]; // TODO: update type as all tabs are implemented
   updateForm: (
     tab: ProjectSettingsTabRoutes,
-    formData: FormDataProps,
     save?: boolean
-  ) => void;
+  ) => (formData: FormDataProps) => void;
 }
 
 const ProjectSettingsContext = createContext<ProjectSettingsState | null>(null);
@@ -63,30 +68,30 @@ const ProjectSettingsProvider: React.FC = ({ children }) => {
     reducer,
     getDefaultRouteObject({
       hasChanges: false,
+      hasError: false,
       formData: null,
     })
   );
 
-  const updateForm = (
-    tab: ProjectSettingsTabRoutes,
-    formData: FormDataProps
-  ): void => {
-    dispatch({ type: "updateForm", tab, formData });
+  const updateForm = (tab: ProjectSettingsTabRoutes) => ({
+    formData,
+    errors = [],
+  }: Parameters<SpruceFormProps["onChange"]>[0]): void => {
+    dispatch({ type: "updateForm", tab, formData, errors });
   };
 
   const saveTab = (tab: ProjectSettingsTabRoutes): void => {
     dispatch({ type: "saveTab", tab });
   };
 
-  const getTabFormState = (tab: ProjectSettingsTabRoutes) =>
-    state[tab].formData;
+  const getTab = (tab: ProjectSettingsTabRoutes) => state[tab];
 
   return (
     <ProjectSettingsContext.Provider
       value={{
         updateForm,
         saveTab,
-        getTabFormState,
+        getTab,
         tabs: state,
       }}
     >
@@ -106,7 +111,7 @@ const useProjectSettingsContext = (): ProjectSettingsState => {
 };
 
 const usePopulateForm = (
-  formState: FormDataProps,
+  formData: FormDataProps,
   tab: ProjectSettingsTabRoutes
 ): void => {
   const { saveTab, updateForm } = useProjectSettingsContext();
@@ -116,10 +121,10 @@ const usePopulateForm = (
     // Ensure form does not have unsaved changes before writing.
     // This preserves the unsaved form state when switching between project settings tabs.
     if (isSaved) {
-      updateForm(tab, formState);
+      updateForm(tab)({ formData });
       saveTab(tab);
     }
-  }, [formState]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [formData]); // eslint-disable-line react-hooks/exhaustive-deps
 };
 
 const useIsTabSaved = (tab: ProjectSettingsTabRoutes): boolean => {
