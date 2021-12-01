@@ -2951,6 +2951,29 @@ export type GetSuspectedIssuesQuery = {
   }>;
 };
 
+export type GetLastMainlineCommitQueryVariables = Exact<{
+  projectIdentifier: Scalars["String"];
+  skipOrderNumber: Scalars["Int"];
+  buildVariantOptions: BuildVariantOptions;
+}>;
+
+export type GetLastMainlineCommitQuery = {
+  mainlineCommits?: Maybe<{
+    versions: Array<{
+      version?: Maybe<{
+        id: string;
+        buildVariants?: Maybe<
+          Array<
+            Maybe<{
+              tasks?: Maybe<Array<Maybe<{ id: string; execution: number }>>>;
+            }>
+          >
+        >;
+      }>;
+    }>;
+  }>;
+};
+
 export type MainlineCommitsForHistoryQueryVariables = Exact<{
   mainlineCommitsOptions: MainlineCommitsOptions;
   buildVariantOptions: BuildVariantOptions;
@@ -3653,14 +3676,6 @@ export type HostsQuery = {
       runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
     }>;
   };
-};
-
-export type PreviousCommitsQueryVariables = Exact<{
-  taskId: Scalars["String"];
-}>;
-
-export type PreviousCommitsQuery = {
-  task?: Maybe<{ baseTask?: Maybe<{ id: string }> } & BaseTaskFragment>;
 };
 
 export type ProjectPatchesQueryVariables = Exact<{

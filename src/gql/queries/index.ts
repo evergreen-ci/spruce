@@ -23,6 +23,7 @@ import GET_IS_PATCH_CONFIGURED from "./get-is-patch-configured.graphql";
 import GET_JIRA_CUSTOM_CREATED_ISSUES from "./get-jira-custom-created-issues.graphql";
 import GET_JIRA_ISSUES from "./get-jira-issues.graphql";
 import GET_JIRA_SUSPECTED_ISSUES from "./get-jira-suspected-issues.graphql";
+import GET_LAST_MAINLINE_COMMIT from "./get-last-mainline-commit.graphql";
 import GET_MAINLINE_COMMITS_FOR_HISTORY from "./get-mainline-commits-for-history.graphql";
 import GET_MAINLINE_COMMITS from "./get-mainline-commits.graphql";
 import GET_MY_HOSTS from "./get-my-hosts.graphql";
@@ -97,6 +98,7 @@ export {
   GET_MY_VOLUMES,
   GET_INSTANCE_TYPES,
   GET_JIRA_SUSPECTED_ISSUES,
+  GET_LAST_MAINLINE_COMMIT,
   GET_JIRA_ISSUES,
   GET_JIRA_CUSTOM_CREATED_ISSUES,
   GET_SPRUCE_CONFIG,

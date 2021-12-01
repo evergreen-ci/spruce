@@ -1,0 +1,27 @@
+query GetLastMainlineCommit(
+  $projectIdentifier: String!
+  $skipOrderNumber: Int!
+  $buildVariantOptions: BuildVariantOptions!
+) {
+  mainlineCommits(
+    options: {
+      projectID: $projectIdentifier
+      limit: 1
+      skipOrderNumber: $skipOrderNumber
+      shouldCollapse: true
+    }
+    buildVariantOptions: $buildVariantOptions
+  ) {
+    versions {
+      version {
+        id
+        buildVariants(options: $buildVariantOptions) {
+          tasks {
+            id
+            execution
+          }
+        }
+      }
+    }
+  }
+}
