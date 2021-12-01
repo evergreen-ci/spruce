@@ -246,5 +246,8 @@
     "workbox-webpack-plugin": "5.1.4",
     "worker-loader": "^3.0.7"
   },
+  "engines": {
+    "node": ">=12.22.0"
+  },
   "proxy": "http://localhost:9090"
 }
