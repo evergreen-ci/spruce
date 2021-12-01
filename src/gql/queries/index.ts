@@ -3,6 +3,7 @@ import DISTRO_TASK_QUEUE from "./distro-task-queue.graphql";
 import GET_FAILED_TASK_STATUS_ICON_TOOLTIP from "./failed-task-status-icon-tooltip.graphql";
 import GET_AGENT_LOGS from "./get-agent-logs.graphql";
 import GET_ANNOTATION_EVENT_DATA from "./get-annotation-event-data.graphql";
+import GET_BASE_TASK from "./get-base-task.graphql";
 import GET_BUILD_BARON from "./get-build-baron.graphql";
 import GET_BUILD_VARIANTS_FOR_TASK_NAME from "./get-build-variants-for-task-name.graphql";
 import GET_BUILD_VARIANTS_WITH_CHILDREN from "./get-build-variants-with-children.graphql";
@@ -64,6 +65,7 @@ export {
   GET_AWS_REGIONS,
   DISTRO_TASK_QUEUE,
   GET_ANNOTATION_EVENT_DATA,
+  GET_BASE_TASK,
   GET_BUILD_BARON,
   GET_TASK_NAMES_FOR_BUILD_VARIANT,
   GET_CLIENT_CONFIG,
