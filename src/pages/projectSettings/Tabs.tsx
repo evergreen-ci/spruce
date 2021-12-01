@@ -15,6 +15,7 @@ import {
   VirtualWorkstationTab,
 } from "components/ProjectSettingsTabs";
 import {
+  gqlToFormMap,
   readOnlyTabs,
   TabDataProps,
 } from "components/ProjectSettingsTabs/types";
@@ -23,9 +24,12 @@ import { routes, ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 import { NavigationModal } from "./NavigationModal";
 
+type ProjectSettings = ProjectSettingsQuery["projectSettings"];
+type RepoSettings = RepoSettingsQuery["repoSettings"];
+
 interface Props {
-  projectData?: ProjectSettingsQuery;
-  repoData?: RepoSettingsQuery;
+  projectData?: ProjectSettings;
+  repoData?: RepoSettings;
 }
 
 export const ProjectSettingsTabs: React.FC<Props> = ({
@@ -34,9 +38,8 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
 }) => {
   const { tab } = useParams<{ tab: ProjectSettingsTabRoutes }>();
 
-  const projectId = projectData?.projectSettings?.projectRef?.id;
-  const useRepoSettings =
-    projectData?.projectSettings?.projectRef?.useRepoSettings;
+  const projectId = projectData?.projectRef?.id;
+  const useRepoSettings = projectData?.projectRef?.useRepoSettings;
 
   const tabData = useMemo(() => getTabData(projectData, repoData), [
     projectData,
@@ -47,9 +50,9 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
     <Container>
       <NavigationModal />
       <Header
-        id={projectId || repoData?.repoSettings?.projectRef?.id}
+        id={projectId || repoData?.projectRef?.id}
         isRepo={!projectData}
-        saveable={!readOnlyTabs.includes(tab)}
+        saveable={!(readOnlyTabs as ReadonlyArray<string>).includes(tab)}
         tab={tab}
         useRepoSettings={useRepoSettings}
       />
@@ -59,16 +62,26 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           <GeneralTab
             {...props}
             projectId={projectId}
-            useRepoSettings={useRepoSettings}
             projectData={tabData[ProjectSettingsTabRoutes.General].projectData}
             repoData={tabData[ProjectSettingsTabRoutes.General].repoData}
+            useRepoSettings={useRepoSettings}
+            validDefaultLoggers={
+              projectData?.projectRef?.validDefaultLoggers ||
+              repoData?.projectRef?.validDefaultLoggers
+            }
           />
         )}
       />
-      <TabRoute
-        Component={AccessTab}
+      <Route
         path={routes.projectSettingsAccess}
-        tab={ProjectSettingsTabRoutes.Access}
+        render={(props) => (
+          <AccessTab
+            {...props}
+            useRepoSettings={useRepoSettings}
+            projectData={tabData[ProjectSettingsTabRoutes.Access].projectData}
+            repoData={tabData[ProjectSettingsTabRoutes.Access].repoData}
+          />
+        )}
       />
       <TabRoute
         Component={VariablesTab}
@@ -126,14 +139,19 @@ const TabRoute: React.FC<TabRouteProps> = ({ Component, path, tab }) => (
 
 /* Map data from query to the tab to which it will be passed */
 const getTabData = (
-  projectData: ProjectSettingsQuery,
-  repoData?: RepoSettingsQuery
-): TabDataProps => ({
-  [ProjectSettingsTabRoutes.General]: {
-    projectData: projectData?.projectSettings?.projectRef,
-    repoData: repoData?.repoSettings?.projectRef,
-  },
-});
+  projectData: ProjectSettings,
+  repoData?: RepoSettings
+): TabDataProps =>
+  Object.keys(gqlToFormMap).reduce(
+    (obj, tab) => ({
+      ...obj,
+      [tab]: {
+        projectData: gqlToFormMap[tab](projectData),
+        repoData: gqlToFormMap[tab](repoData),
+      },
+    }),
+    {} as TabDataProps
+  );
 
 const Container = styled.div`
   min-width: min-content;

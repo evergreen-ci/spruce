@@ -1,59 +1,69 @@
 import {
-  ProjectGeneralSettingsFragment,
   ProjectInput,
   ProjectSettingsInput,
-  RepoGeneralSettingsFragment,
+  ProjectSettingsQuery,
+  RepoSettingsQuery,
 } from "gql/generated/types";
 import { FormState } from "./types";
 
 export const gqlToForm = (
-  data: ProjectGeneralSettingsFragment | RepoGeneralSettingsFragment
-): FormState => ({
-  generalConfiguration: {
-    enabled: data.enabled,
-    repositoryInfo: {
-      owner: data.owner,
-      repo: data.repo,
+  data:
+    | ProjectSettingsQuery["projectSettings"]
+    | RepoSettingsQuery["repoSettings"]
+): FormState => {
+  if (!data) return null;
+
+  const { projectRef } = data;
+  return {
+    generalConfiguration: {
+      enabled: projectRef.enabled,
+      repositoryInfo: {
+        owner: projectRef.owner,
+        repo: projectRef.repo,
+      },
+      branch: projectRef.branch,
+      other: {
+        displayName: projectRef.displayName,
+        batchTime: projectRef.batchTime,
+        remotePath: projectRef.remotePath,
+        spawnHostScriptPath: projectRef.spawnHostScriptPath,
+      },
     },
-    branch: data.branch,
-    other: {
-      displayName: data.displayName,
-      batchTime: data.batchTime,
-      remotePath: data.remotePath,
-      spawnHostScriptPath: data.spawnHostScriptPath,
+    projectFlags: {
+      dispatchingDisabled: projectRef.dispatchingDisabled,
+      scheduling: {
+        deactivatePrevious: projectRef.deactivatePrevious,
+      },
+      repotracker: {
+        repotrackerDisabled: projectRef.repotrackerDisabled,
+      },
+      logger: {
+        defaultLogger:
+          projectRef.defaultLogger === "" ? null : projectRef.defaultLogger,
+      },
+      testResults: {
+        cedarTestResultsEnabled: projectRef.cedarTestResultsEnabled,
+      },
+      patch: {
+        patchingDisabled: projectRef.patchingDisabled,
+      },
+      taskSync: {
+        configEnabled: projectRef.taskSync.configEnabled,
+        patchEnabled: projectRef.taskSync.patchEnabled,
+      },
     },
-  },
-  projectFlags: {
-    dispatchingDisabled: data.dispatchingDisabled,
-    scheduling: {
-      deactivatePrevious: data.deactivatePrevious,
+    historicalDataCaching: {
+      disabledStatsCache: projectRef.disabledStatsCache,
+      files: {
+        filesIgnoredFromCache: projectRef.filesIgnoredFromCache
+          ? projectRef.filesIgnoredFromCache.map((filePattern) => ({
+              filePattern,
+            }))
+          : null,
+      },
     },
-    repotracker: {
-      repotrackerDisabled: data.repotrackerDisabled,
-    },
-    logger: {
-      defaultLogger: data.defaultLogger === "" ? null : data.defaultLogger,
-    },
-    testResults: {
-      cedarTestResultsEnabled: data.cedarTestResultsEnabled,
-    },
-    patch: {
-      patchingDisabled: data.patchingDisabled,
-    },
-    taskSync: {
-      configEnabled: data.taskSync.configEnabled,
-      patchEnabled: data.taskSync.patchEnabled,
-    },
-  },
-  historicalDataCaching: {
-    disabledStatsCache: data.disabledStatsCache,
-    files: {
-      filesIgnoredFromCache: data.filesIgnoredFromCache
-        ? data.filesIgnoredFromCache.map((filePattern) => ({ filePattern }))
-        : null,
-    },
-  },
-});
+  };
+};
 
 export const formToGql = (
   { generalConfiguration, projectFlags, historicalDataCaching }: FormState,

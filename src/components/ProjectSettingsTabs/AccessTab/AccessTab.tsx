@@ -5,14 +5,12 @@ import { TabProps } from ".";
 import { usePopulateForm, useProjectSettingsContext } from "../Context";
 import { getFormData } from "./getFormData";
 
-const tab = ProjectSettingsTabRoutes.General;
+const tab = ProjectSettingsTabRoutes.Access;
 
-export const GeneralTab: React.FC<TabProps> = ({
+export const AccessTab: React.FC<TabProps> = ({
   projectData,
-  projectId,
   repoData,
   useRepoSettings,
-  validDefaultLoggers,
 }) => {
   const { getTab, updateForm } = useProjectSettingsContext();
   const { formData } = getTab(tab);
@@ -26,14 +24,8 @@ export const GeneralTab: React.FC<TabProps> = ({
   const onChange = updateForm(tab);
 
   const { fields, schema, uiSchema } = useMemo(
-    () =>
-      getFormData(
-        projectId,
-        useRepoSettings,
-        validDefaultLoggers,
-        useRepoSettings ? repoData : null
-      ),
-    [projectId, repoData, useRepoSettings, validDefaultLoggers]
+    () => getFormData(useRepoSettings, useRepoSettings ? repoData : null),
+    [repoData, useRepoSettings]
   );
 
   if (!formData) return null;

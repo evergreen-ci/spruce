@@ -1,8 +1,4 @@
 import { FormDataProps } from "components/SpruceForm";
-import {
-  ProjectGeneralSettingsFragment,
-  RepoGeneralSettingsFragment,
-} from "gql/generated/types";
 
 export interface FormState extends FormDataProps {
   generalConfiguration: {
@@ -52,8 +48,9 @@ export interface FormState extends FormDataProps {
 }
 
 export type TabProps = {
-  projectData?: ProjectGeneralSettingsFragment;
+  projectData?: FormState;
   projectId?: string;
-  repoData?: RepoGeneralSettingsFragment;
+  repoData?: FormState;
   useRepoSettings: boolean;
+  validDefaultLoggers: string[];
 };
