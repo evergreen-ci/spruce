@@ -1375,7 +1375,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.13.10", "@babel/runtime@^7.2.0", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.7":
+"@babel/runtime@^7.13.10", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.7":
   version "7.15.4"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.15.4.tgz#fd17d16bfdf878e6dd02d19753a39fa8a8d9c84a"
   integrity sha512-99catp6bHCaxr4sJ/DbTGgHS4+Rs2RVd2g7iOap6SLGPDknRK9ztKNsE/Fg6QhSeh1FGE5f6gHGQmvvn3I3xhw==
@@ -2612,10 +2612,10 @@
     "@emotion/react" "^11.4.0"
     "@emotion/server" "^11.4.0"
 
-"@leafygreen-ui/hooks@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/hooks/-/hooks-7.0.0.tgz#8417d62c9df565d3e19f795f5a560f4d00448100"
-  integrity sha512-/UDdinXJbHcNvqodfY+5Ej4auxKdzbljJx0PkLy+bAUI0/P9W4xlYb2N0LZTIZBmKj4SUSQX3O/G7fvtSqJW7A==
+"@leafygreen-ui/hooks@^7.0.0", "@leafygreen-ui/hooks@^7.1.0":
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/hooks/-/hooks-7.1.0.tgz#52febb873f06c7d2665627f8621f72c1171f21bc"
+  integrity sha512-eL0BKaaVgVsQuyNjZqYUUJM6b42Bmdn9gSvZ473EXeNtMD3o6/VqAlYFmOWnVYWHNj8ToLXgyWNuwnRuMRZ0qg==
   dependencies:
     lodash "^4.17.21"
 
@@ -2655,14 +2655,14 @@
     "@leafygreen-ui/hooks" "^7.0.0"
     "@leafygreen-ui/lib" "^9.0.0"
 
-"@leafygreen-ui/lib@^9.0.0":
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-9.0.0.tgz#9dd517bce5d92f0dae7ca5a1ed18c90d5a4b79b4"
-  integrity sha512-Uo2tOfkhCYiSKrYCi8+CrTEcyPhf+iczNP+wPKlQjKOLa+6zJaWX/0AXLiQX1CuO0MXdYgNvsB5510q7hDiqdg==
+"@leafygreen-ui/lib@^9.0.0", "@leafygreen-ui/lib@^9.1.0":
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-9.1.0.tgz#1cc0402a97462c4685da2542c7910e30fbf59df0"
+  integrity sha512-JH3mnoCZNtUcJfXrvVG4I3PAIm1ehlR1H5WkDqkjengcf/iVMo7+AluzwfTCQb2fqQgohURs+qY4vEhJe+9+2g==
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.0"
     facepaint "^1.2.1"
-    polished "^2.3.0"
+    polished "^4.1.3"
     prop-types "^15.0.0"
 
 "@leafygreen-ui/menu@11.0.1", "@leafygreen-ui/menu@^11.0.1":
@@ -2790,15 +2790,15 @@
     "@leafygreen-ui/portal" "^4.0.0"
     "@leafygreen-ui/tokens" "^0.5.3"
 
-"@leafygreen-ui/text-area@4.0.3":
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/text-area/-/text-area-4.0.3.tgz#09260bf3a2b4cf51099704beea8de0a89666bd21"
-  integrity sha512-n6xbBbV7t5Vm9Zyxfxnfe5oI8myMKv6Hl5wCAE0jvk4DHYCJBkZXRaqcLrVv0AjfK2sDCzc+41E+cO1Ylchncg==
+"@leafygreen-ui/text-area@4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/text-area/-/text-area-4.1.0.tgz#8f2405c1552b5cb57c8f8e93da1e23c2e6b57123"
+  integrity sha512-B0jorv6F/MxQS2/WiKZ3HC2mjZFPTls+HNxf/ck0VuLkxgNfUNO9KXrsWSs9Y3a4DoSwQdhEoVz/ZpVhJVko8w==
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.0"
-    "@leafygreen-ui/hooks" "^7.0.0"
+    "@leafygreen-ui/hooks" "^7.1.0"
     "@leafygreen-ui/interaction-ring" "^1.1.0"
-    "@leafygreen-ui/lib" "^9.0.0"
+    "@leafygreen-ui/lib" "^9.1.0"
     "@leafygreen-ui/palette" "^3.2.2"
     "@leafygreen-ui/tokens" "^0.5.3"
     "@leafygreen-ui/typography" "^8.0.4"
@@ -13780,13 +13780,6 @@ pnp-webpack-plugin@1.6.4, pnp-webpack-plugin@^1.6.4:
   dependencies:
     ts-pnp "^1.1.6"
 
-polished@^2.3.0:
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/polished/-/polished-2.3.3.tgz#bdbaba962ba8271b0e11aa287f2befd4c87be99a"
-  integrity sha512-59V4fDbdxtH4I1m9TWxFsoGJbC8nnOpUYo5uFmvMfKp9Qh+6suo4VMUle1TGIIUZIGxfkW+Rs485zPk0wcwR2Q==
-  dependencies:
-    "@babel/runtime" "^7.2.0"
-
 polished@^3.4.4:
   version "3.6.7"
   resolved "https://registry.yarnpkg.com/polished/-/polished-3.6.7.tgz#44cbd0047f3187d83db0c479ef0c7d5583af5fb6"
@@ -13794,7 +13787,7 @@ polished@^3.4.4:
   dependencies:
     "@babel/runtime" "^7.9.2"
 
-polished@^4.0.3, polished@^4.1.1:
+polished@^4.0.3, polished@^4.1.1, polished@^4.1.3:
   version "4.1.3"
   resolved "https://registry.yarnpkg.com/polished/-/polished-4.1.3.tgz#7a3abf2972364e7d97770b827eec9a9e64002cfc"
   integrity sha512-ocPAcVBUOryJEKe0z2KLd1l9EBa1r5mSwlKpExmrLzsnIzJo4axsoU9O2BjOTkDGDT4mZ0WFE5XKTlR3nLnZOA==
