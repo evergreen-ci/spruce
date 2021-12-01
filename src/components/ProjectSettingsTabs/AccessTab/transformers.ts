@@ -22,7 +22,7 @@ export const gqlToForm = (
     admin: {
       admins: projectRef.admins
         ? projectRef.admins.map((username) => ({ username }))
-        : null,
+        : [],
     },
   };
 };
@@ -31,14 +31,11 @@ export const formToGql = (
   { accessSettings, admin }: FormState,
   id: string
 ): Pick<ProjectSettingsInput, "projectRef"> => {
-  const filteredAdmins =
-    admin?.admins?.map(({ username }) => username).filter((str) => !!str) || [];
-
   const projectRef: ProjectInput = {
     id,
     private: accessSettings.private,
     restricted: accessSettings.restricted,
-    admins: filteredAdmins.length ? filteredAdmins : null,
+    admins: admin.admins.map(({ username }) => username).filter((str) => !!str),
   };
 
   return { projectRef };
