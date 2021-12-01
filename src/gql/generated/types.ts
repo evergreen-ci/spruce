@@ -726,6 +726,7 @@ export type ProjectInput = {
   displayName?: Maybe<Scalars["String"]>;
   enabled?: Maybe<Scalars["Boolean"]>;
   private?: Maybe<Scalars["Boolean"]>;
+  restricted?: Maybe<Scalars["Boolean"]>;
   owner?: Maybe<Scalars["String"]>;
   repo?: Maybe<Scalars["String"]>;
   branch?: Maybe<Scalars["String"]>;
@@ -775,6 +776,7 @@ export type RepoRefInput = {
   displayName?: Maybe<Scalars["String"]>;
   enabled?: Maybe<Scalars["Boolean"]>;
   private?: Maybe<Scalars["Boolean"]>;
+  restricted?: Maybe<Scalars["Boolean"]>;
   owner?: Maybe<Scalars["String"]>;
   repo?: Maybe<Scalars["String"]>;
   branch?: Maybe<Scalars["String"]>;
@@ -1503,6 +1505,7 @@ export type Project = {
   displayName: Scalars["String"];
   enabled?: Maybe<Scalars["Boolean"]>;
   private?: Maybe<Scalars["Boolean"]>;
+  restricted?: Maybe<Scalars["Boolean"]>;
   owner: Scalars["String"];
   repo: Scalars["String"];
   branch: Scalars["String"];
@@ -1552,6 +1555,7 @@ export type RepoRef = {
   displayName: Scalars["String"];
   enabled: Scalars["Boolean"];
   private: Scalars["Boolean"];
+  restricted: Scalars["Boolean"];
   owner: Scalars["String"];
   repo: Scalars["String"];
   branch: Scalars["String"];
@@ -2535,6 +2539,24 @@ export type GetAnnotationEventDataQuery = {
     id: string;
     execution: number;
     annotation?: Maybe<AnnotationFragment>;
+  }>;
+};
+
+export type GetBaseTaskQueryVariables = Exact<{
+  taskId: Scalars["String"];
+}>;
+
+export type GetBaseTaskQuery = {
+  task?: Maybe<{
+    id: string;
+    execution: number;
+    baseTask?: Maybe<{
+      id: string;
+      execution: number;
+      displayName: string;
+      buildVariant: string;
+      versionMetadata: { order: number; projectIdentifier: string };
+    }>;
   }>;
 };
 
@@ -3631,6 +3653,14 @@ export type HostsQuery = {
       runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
     }>;
   };
+};
+
+export type PreviousCommitsQueryVariables = Exact<{
+  taskId: Scalars["String"];
+}>;
+
+export type PreviousCommitsQuery = {
+  task?: Maybe<{ baseTask?: Maybe<{ id: string }> } & BaseTaskFragment>;
 };
 
 export type ProjectPatchesQueryVariables = Exact<{

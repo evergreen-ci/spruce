@@ -1,0 +1,18 @@
+#import "../fragments/baseTask.graphql"
+
+query GetBaseTask($taskId: String!) {
+  task(taskId: $taskId) {
+    id
+    execution
+    baseTask {
+      id
+      execution
+      displayName
+      buildVariant
+      versionMetadata {
+        order
+        projectIdentifier
+      }
+    }
+  }
+}
