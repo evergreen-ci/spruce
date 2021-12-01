@@ -209,7 +209,7 @@
     "prompt-run": "^1.4.5",
     "prompts": "2.4.0",
     "react-app-polyfill": "^2.0.0",
-    "react-dev-utils": "^11.0.1",
+    "react-dev-utils": "^11.0.4",
     "react-refresh": "^0.8.3",
     "react-test-renderer": "17.0.1",
     "resolve": "1.18.1",
