@@ -125,23 +125,24 @@ describe("Tasks filters", () => {
             paramName: urlParam,
             search: "failed",
           });
-          cy.toggleTableFilter(2);
           cy.dataCy("current-task-count")
             .invoke("text")
             .then((postFilterCount) => {
-              expect(preFilterCount).to.not.eq(postFilterCount);
-              cy.toggleTableFilter(2);
+              cy.dataCy("current-task-count").should(
+                "not.have.text",
+                preFilterCount
+              );
               cy.getInputByLabel("Succeeded").check({ force: true });
               urlSearchParamsAreUpdated({
                 pathname: pathTasks,
                 paramName: urlParam,
                 search: "failed-umbrella,failed,known-issue,success",
               });
-              cy.dataCy("current-task-count")
-                .invoke("text")
-                .then((multiFilterCount) => {
-                  expect(postFilterCount).to.not.eq(multiFilterCount);
-                });
+
+              cy.dataCy("current-task-count").should(
+                "not.have.text",
+                postFilterCount
+              );
             });
         });
     });
@@ -167,7 +168,6 @@ describe("Tasks filters", () => {
         paramName: urlParam,
         search: "all",
       });
-      cy.toggleTableFilter(2);
       cy.getInputByLabel("All").uncheck({ force: true });
       taskStatuses.forEach((status) => {
         cy.getInputByLabel(status).should("not.be.checked");
@@ -200,18 +200,21 @@ describe("Tasks filters", () => {
           cy.dataCy("current-task-count")
             .invoke("text")
             .then((postFilterCount) => {
-              expect(preFilterCount).to.not.eq(postFilterCount);
+              cy.dataCy("current-task-count").should(
+                "not.have.text",
+                preFilterCount
+              );
               cy.getInputByLabel("Succeeded").check({ force: true });
               urlSearchParamsAreUpdated({
                 pathname: pathTasks,
                 paramName: urlParam,
                 search: "started,success",
               });
-              cy.dataCy("current-task-count")
-                .invoke("text")
-                .then((multiFilterCount) => {
-                  expect(postFilterCount).to.not.eq(multiFilterCount);
-                });
+
+              cy.dataCy("current-task-count").should(
+                "not.have.text",
+                postFilterCount
+              );
             });
         });
     });
