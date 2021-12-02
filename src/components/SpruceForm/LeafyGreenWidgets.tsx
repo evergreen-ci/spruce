@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
+import { uiColors } from "@leafygreen-ui/palette";
 import { RadioBox, RadioBoxGroup } from "@leafygreen-ui/radio-box-group";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import { Option, Select } from "@leafygreen-ui/select";
@@ -8,6 +9,8 @@ import TextInput from "@leafygreen-ui/text-input";
 import { Description, Label } from "@leafygreen-ui/typography";
 import { WidgetProps } from "@rjsf/core";
 import ElementWrapper from "./ElementWrapper";
+
+const { red } = uiColors;
 
 export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
   value,
@@ -25,12 +28,14 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
       <MaxWidthContainer>
         <TextInput
           data-cy={dataCy}
-          value={`${value !== undefined ? value : ""}`}
+          value={value === null || value === undefined ? null : `${value}`}
           label={label}
-          placeholder={placeholder}
+          placeholder={placeholder || undefined}
           description={description as string}
           disabled={disabled}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={({ target }) =>
+            onChange(target.value === "" ? null : target.value)
+          }
           aria-label={label}
           errorMessage={hasError ? rawErrors.join(", ") : null}
           state={hasError ? "error" : "none"}
@@ -64,6 +69,7 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
   placeholder,
   value,
   onChange,
+  rawErrors,
 }) => {
   const {
     allowDeselect,
@@ -71,6 +77,9 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
     enumOptions,
     "data-cy": dataCy,
   } = options;
+
+  const hasError = !!rawErrors?.length;
+
   if (!Array.isArray(enumOptions)) {
     console.error("Non Array passed into leafygreen select");
     return null;
@@ -84,20 +93,31 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
           aria-labelledby={ariaLabelledBy}
           label={ariaLabelledBy ? undefined : label}
           value={value}
-          onChange={(v) => onChange(v)}
+          onChange={(v) => onChange(v === "" ? null : v)}
           placeholder={placeholder}
           data-cy={dataCy}
         >
-          {enumOptions.map((o) => (
-            <Option key={o.value} value={o.value}>
-              {o.label}
-            </Option>
-          ))}
+          {enumOptions.map((o) => {
+            // Handle deselect value without errors
+            if (o.value === null) {
+              return;
+            }
+            return (
+              <Option key={o.value} value={o.value}>
+                {o.label}
+              </Option>
+            );
+          })}
         </Select>
+        {hasError && <Error>Selection is required.</Error>}
       </MaxWidthContainer>
     </ElementWrapper>
   );
 };
+
+const Error = styled(Description)`
+  color: ${red.base};
+`;
 
 export const LeafyGreenRadio: React.FC<WidgetProps> = ({
   label,

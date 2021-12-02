@@ -455,7 +455,6 @@ exports[`basic form should render as expected 1`] = `
                         autocomplete="on"
                         class="emotion-25"
                         id="textinput-1"
-                        placeholder=""
                         required=""
                         type="text"
                         value="spruce"
