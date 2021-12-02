@@ -7,12 +7,15 @@ import { Link } from "react-router-dom";
 import { getTaskRoute } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
-  GetBaseTaskQuery,
-  GetBaseTaskQueryVariables,
+  GetBaseVersionAndTaskQuery,
+  GetBaseVersionAndTaskQueryVariables,
   GetLastMainlineCommitQuery,
   GetLastMainlineCommitQueryVariables,
 } from "gql/generated/types";
-import { GET_BASE_TASK, GET_LAST_MAINLINE_COMMIT } from "gql/queries";
+import {
+  GET_BASE_VERSION_AND_TASK,
+  GET_LAST_MAINLINE_COMMIT,
+} from "gql/queries";
 import { TaskStatus } from "types/task";
 import { errorReporting } from "utils";
 import { applyStrictRegex } from "utils/string";
@@ -26,9 +29,9 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
   const dispatchToast = useToastContext();
   const [selectState, setSelectState] = useState<commitType>("base");
   const { data: taskData } = useQuery<
-    GetBaseTaskQuery,
-    GetBaseTaskQueryVariables
-  >(GET_BASE_TASK, {
+    GetBaseVersionAndTaskQuery,
+    GetBaseVersionAndTaskQueryVariables
+  >(GET_BASE_VERSION_AND_TASK, {
     variables: { taskId },
   });
   const [
@@ -37,11 +40,7 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
   ] = useLazyQuery<
     GetLastMainlineCommitQuery,
     GetLastMainlineCommitQueryVariables
-  >(GET_LAST_MAINLINE_COMMIT, {
-    onError: ({ message }) => {
-      dispatchToast.error(`Error fetching last passing version: ${message}`);
-    },
-  });
+  >(GET_LAST_MAINLINE_COMMIT);
 
   const [
     fetchLastExecuted,
@@ -58,7 +57,7 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
   const { baseTask, versionMetadata, buildVariant, displayName } =
     taskData?.task ?? {};
   const { id: baseTaskId } = baseTask ?? {};
-  const { projectIdentifier, order } = versionMetadata.baseVersion ?? {};
+  const { projectIdentifier, order } = versionMetadata?.baseVersion ?? {};
   // Increment order by 1 to consider the base commit in the query.
   const skipOrderNumber = order + 1;
   useEffect(() => {
@@ -98,10 +97,7 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
     selectState,
     skipOrderNumber,
   ]);
-  // There is no base commit for the taskId.
-  if (baseTask === null) {
-    return null;
-  }
+
   const lastPassingTaskId = getTaskIdFromMainlineCommitsQuery(lastPassingData);
   const lastExecutedTaskId = getTaskIdFromMainlineCommitsQuery(
     lastExecutedData
@@ -129,7 +125,7 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
         data-cy="previous-commits"
         allowDeselect={false}
         value={selectState}
-        disabled={!versionMetadata.baseVersion}
+        disabled={!versionMetadata?.baseVersion}
       >
         <Option value="base" key="base">
           Go to base commit
@@ -161,9 +157,9 @@ const StyledSelect = styled(Select)`
 const getTaskIdFromMainlineCommitsQuery = (
   data: GetLastMainlineCommitQuery
 ) => {
-  const buildVariants = data?.mainlineCommits.versions.find(
-    ({ version }) => version
-  )?.version.buildVariants;
+  const buildVariants =
+    data?.mainlineCommits.versions.find(({ version }) => version)?.version
+      .buildVariants ?? [];
   if (buildVariants.length > 1) {
     reportError(
       "Multiple build variants matched previous commit search."
