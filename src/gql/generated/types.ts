@@ -2575,11 +2575,11 @@ export type GetAnnotationEventDataQuery = {
   }>;
 };
 
-export type GetBaseTaskQueryVariables = Exact<{
+export type GetBaseVersionAndTaskQueryVariables = Exact<{
   taskId: Scalars["String"];
 }>;
 
-export type GetBaseTaskQuery = {
+export type GetBaseVersionAndTaskQuery = {
   task?: Maybe<{
     id: string;
     execution: number;

@@ -1,6 +1,6 @@
 #import "../fragments/baseTask.graphql"
 
-query GetBaseTask($taskId: String!) {
+query GetBaseVersionAndTask($taskId: String!) {
   task(taskId: $taskId) {
     id
     execution
