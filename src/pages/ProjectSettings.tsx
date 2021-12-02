@@ -150,7 +150,10 @@ export const ProjectSettings: React.FC = () => {
       </SideNav>
       <PageWrapper>
         {hasData ? (
-          <ProjectSettingsTabs projectData={projectData} repoData={repoData} />
+          <ProjectSettingsTabs
+            projectData={projectData?.projectSettings}
+            repoData={repoData?.repoSettings}
+          />
         ) : (
           <Skeleton />
         )}
