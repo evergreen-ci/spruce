@@ -5,7 +5,6 @@ import Button from "@leafygreen-ui/button";
 import { Option, Select } from "@leafygreen-ui/select";
 import { Link } from "react-router-dom";
 import { getTaskRoute } from "constants/routes";
-import { useToastContext } from "context/toast";
 import {
   GetBaseVersionAndTaskQuery,
   GetBaseVersionAndTaskQueryVariables,
@@ -26,7 +25,6 @@ interface Props {
   taskId: string;
 }
 export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
-  const dispatchToast = useToastContext();
   const [selectState, setSelectState] = useState<commitType>("base");
   const { data: taskData } = useQuery<
     GetBaseVersionAndTaskQuery,
@@ -48,15 +46,11 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
   ] = useLazyQuery<
     GetLastMainlineCommitQuery,
     GetLastMainlineCommitQueryVariables
-  >(GET_LAST_MAINLINE_COMMIT, {
-    onError: ({ message }) => {
-      dispatchToast.error(`Error fetching last executed version: ${message}`);
-    },
-  });
+  >(GET_LAST_MAINLINE_COMMIT);
 
   const { baseTask, versionMetadata, buildVariant, displayName } =
     taskData?.task ?? {};
-  const { id: baseTaskId } = baseTask ?? {};
+  const { id: baseTaskId, status: baseTaskStatus } = baseTask ?? {};
   const { projectIdentifier, order } = versionMetadata?.baseVersion ?? {};
   // Increment order by 1 to consider the base commit in the query.
   const skipOrderNumber = order + 1;
@@ -65,7 +59,11 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
       tasks: [applyStrictRegex(displayName)],
       variants: [applyStrictRegex(buildVariant)],
     };
-    if (selectState === "lastPassing" && !lastPassingCalled) {
+    if (
+      selectState === "lastPassing" &&
+      !lastPassingCalled &&
+      baseTaskStatus !== TaskStatus.Succeeded
+    ) {
       fetchLastPassing({
         variables: {
           projectIdentifier,
@@ -77,7 +75,7 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
         },
       });
     }
-    if (selectState === "lastExecuted" && !lastExecutedCalled) {
+    if (selectState === "lastExecuted" && !baseTaskId && !lastExecutedCalled) {
       fetchLastExecuted({
         variables: {
           projectIdentifier,
@@ -87,6 +85,8 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
       });
     }
   }, [
+    baseTaskId,
+    baseTaskStatus,
     buildVariant,
     displayName,
     fetchLastExecuted,
@@ -105,13 +105,28 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
   let link = "";
   switch (selectState) {
     case "base":
+      // The task may not exist on the base version if it was generated.
       link = baseTaskId ? getTaskRoute(baseTaskId) : "";
       break;
     case "lastPassing":
-      link = lastPassingTaskId ? getTaskRoute(lastPassingTaskId) : "";
+      // If a base task succeeded, the last passing commit is the base task.
+      if (baseTaskStatus === TaskStatus.Succeeded) {
+        link = getTaskRoute(baseTaskId);
+      } else if (lastPassingTaskId) {
+        link = getTaskRoute(lastPassingTaskId);
+      } else {
+        link = "";
+      }
       break;
     case "lastExecuted":
-      link = lastExecutedData ? getTaskRoute(lastExecutedTaskId) : "";
+      // If a base task exists, the last executed commit is the base task.
+      if (baseTaskId) {
+        link = getTaskRoute(baseTaskId);
+      } else if (lastExecutedTaskId) {
+        link = getTaskRoute(lastExecutedTaskId);
+      } else {
+        link = "";
+      }
       break;
     default:
   }

@@ -2588,7 +2588,7 @@ export type GetBaseVersionAndTaskQuery = {
     versionMetadata: {
       baseVersion?: Maybe<{ order: number; projectIdentifier: string }>;
     };
-    baseTask?: Maybe<{ id: string; execution: number }>;
+    baseTask?: Maybe<{ id: string; execution: number; status: string }>;
   }>;
 };
 

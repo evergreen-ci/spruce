@@ -15,6 +15,7 @@ query GetBaseVersionAndTask($taskId: String!) {
     baseTask {
       id
       execution
+      status
     }
   }
 }
