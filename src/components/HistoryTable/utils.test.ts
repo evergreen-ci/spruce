@@ -2,14 +2,14 @@ import { mainlineCommitData } from "./testData";
 import { rowType } from "./types";
 import { processCommits } from "./utils";
 
-describe("HistoryTable utils", () => {
+describe("historyTable utils", () => {
   describe("processCommits", () => {
-    test("should return empty array if no commits", () => {
+    it("should return empty array if no commits", () => {
       const result = processCommits([], []);
       expect(result).toEqual([]);
     });
 
-    test("should handle adding new commits when none exist", () => {
+    it("should handle adding new commits when none exist", () => {
       const firstCommit = mainlineCommitData.versions[0];
       const result = processCommits([firstCommit], []);
       expect(result).toEqual([
@@ -28,7 +28,7 @@ describe("HistoryTable utils", () => {
       const firstCommit = mainlineCommitData.versions[0];
       const secondCommit = mainlineCommitData.versions[1];
       const thirdCommit = mainlineCommitData.versions[2];
-      test("should not seperate commits when they subsequent commits are of the same date", () => {
+      it("should not seperate commits when they subsequent commits are of the same date", () => {
         const result = processCommits([firstCommit, secondCommit], []);
         expect(result).toEqual([
           {
@@ -47,7 +47,7 @@ describe("HistoryTable utils", () => {
           },
         ]);
       });
-      test("should seperate commits when they are not of the same date", () => {
+      it("should seperate commits when they are not of the same date", () => {
         const result = processCommits([firstCommit, thirdCommit], []);
         expect(result).toEqual([
           {
@@ -74,7 +74,7 @@ describe("HistoryTable utils", () => {
     describe("should support adding folded up commits", () => {
       const firstCommit = mainlineCommitData.versions[0];
       const foldedUpCommits = mainlineCommitData.versions[5];
-      test("should add a folded up commit when it is the first commit", () => {
+      it("should add a folded up commit when it is the first commit", () => {
         const result = processCommits([foldedUpCommits], []);
         expect(result).toEqual([
           {
@@ -88,7 +88,7 @@ describe("HistoryTable utils", () => {
           },
         ]);
       });
-      test("should add a folded up commit when there are prior commits", () => {
+      it("should add a folded up commit when there are prior commits", () => {
         const result = processCommits(
           [foldedUpCommits],
           [

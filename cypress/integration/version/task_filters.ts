@@ -116,27 +116,35 @@ describe("Tasks filters", () => {
     });
 
     it("Clicking on a status filter filters the tasks to only those statuses", () => {
-      const preFilterCount = cy.dataCy("current-task-count").invoke("text");
+      cy.dataCy("current-task-count")
+        .invoke("text")
+        .then((preFilterCount) => {
+          cy.getInputByLabel("Failed").check({ force: true });
+          urlSearchParamsAreUpdated({
+            pathname: pathTasks,
+            paramName: urlParam,
+            search: "failed",
+          });
+          cy.dataCy("current-task-count")
+            .invoke("text")
+            .then((postFilterCount) => {
+              cy.dataCy("current-task-count").should(
+                "not.have.text",
+                preFilterCount
+              );
+              cy.getInputByLabel("Succeeded").check({ force: true });
+              urlSearchParamsAreUpdated({
+                pathname: pathTasks,
+                paramName: urlParam,
+                search: "failed-umbrella,failed,known-issue,success",
+              });
 
-      cy.getInputByLabel("Failed").check({ force: true });
-      urlSearchParamsAreUpdated({
-        pathname: pathTasks,
-        paramName: urlParam,
-        search: "failed",
-      });
-      cy.toggleTableFilter(2);
-      const postFilterCount = cy.dataCy("current-task-count").invoke("text");
-      expect(preFilterCount).to.not.eq(postFilterCount);
-      cy.toggleTableFilter(2);
-      cy.getInputByLabel("Succeeded").check({ force: true });
-      urlSearchParamsAreUpdated({
-        pathname: pathTasks,
-        paramName: urlParam,
-        search: "failed-umbrella,failed,known-issue,success",
-      });
-      const multiFilterCount = cy.dataCy("current-task-count").invoke("text");
-
-      expect(postFilterCount).to.not.eq(multiFilterCount);
+              cy.dataCy("current-task-count").should(
+                "not.have.text",
+                postFilterCount
+              );
+            });
+        });
     });
 
     it("Clicking on 'All' checkbox adds all the statuses and clicking again removes them", () => {
@@ -160,7 +168,6 @@ describe("Tasks filters", () => {
         paramName: urlParam,
         search: "all",
       });
-      cy.toggleTableFilter(2);
       cy.getInputByLabel("All").uncheck({ force: true });
       taskStatuses.forEach((status) => {
         cy.getInputByLabel(status).should("not.be.checked");
@@ -181,24 +188,35 @@ describe("Tasks filters", () => {
     });
 
     it("Clicking on a base status filter filters the tasks to only those base statuses", () => {
-      const preFilterCount = cy.dataCy("current-task-count").invoke("text");
-      cy.getInputByLabel("Running").check({ force: true });
-      urlSearchParamsAreUpdated({
-        pathname: pathTasks,
-        paramName: urlParam,
-        search: "started",
-      });
-      const postFilterCount = cy.dataCy("current-task-count").invoke("text");
-      expect(preFilterCount).to.not.eq(postFilterCount);
-      cy.getInputByLabel("Succeeded").check({ force: true });
-      urlSearchParamsAreUpdated({
-        pathname: pathTasks,
-        paramName: urlParam,
-        search: "started,success",
-      });
-      const multiFilterCount = cy.dataCy("current-task-count").invoke("text");
+      cy.dataCy("current-task-count")
+        .invoke("text")
+        .then((preFilterCount) => {
+          cy.getInputByLabel("Running").check({ force: true });
+          urlSearchParamsAreUpdated({
+            pathname: pathTasks,
+            paramName: urlParam,
+            search: "started",
+          });
+          cy.dataCy("current-task-count")
+            .invoke("text")
+            .then((postFilterCount) => {
+              cy.dataCy("current-task-count").should(
+                "not.have.text",
+                preFilterCount
+              );
+              cy.getInputByLabel("Succeeded").check({ force: true });
+              urlSearchParamsAreUpdated({
+                pathname: pathTasks,
+                paramName: urlParam,
+                search: "started,success",
+              });
 
-      expect(postFilterCount).to.not.eq(multiFilterCount);
+              cy.dataCy("current-task-count").should(
+                "not.have.text",
+                postFilterCount
+              );
+            });
+        });
     });
 
     it("Clicking on 'All' checkbox adds all the base statuses and clicking again removes them", () => {

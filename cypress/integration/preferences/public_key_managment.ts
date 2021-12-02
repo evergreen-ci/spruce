@@ -80,7 +80,7 @@ describe("Public Key Management Page", () => {
       cy.dataCy("key-value-input").clear();
       cy.dataCy("key-value-input").type(pubKey2);
       cy.dataCy("save-key-button").click();
-      cy.wait(200); // prevent race condition caused by modal close animation
+      cy.dataCy("key-edit-modal").should("not.be.visible");
       cy.dataCy("table-key-name").first().contains(keyName4);
       cy.dataCy("edit-btn").first().click();
       cy.dataCy("key-name-input").should("have.value", keyName4);

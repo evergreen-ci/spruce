@@ -226,7 +226,7 @@ beforeEach(() => {
   mockErrorToast.mockClear();
 });
 
-test("Renders the Spawn Volume Modal when the visible prop is true", async () => {
+test("renders the Spawn Volume Modal when the visible prop is true", async () => {
   const { queryByDataCy } = render(() => (
     <MockedProvider mocks={baseMocks}>
       <SpawnVolumeModal visible onCancel={() => {}} />
@@ -235,7 +235,7 @@ test("Renders the Spawn Volume Modal when the visible prop is true", async () =>
   expect(queryByDataCy("modal-title")).toBeVisible();
 });
 
-test("Does not renders the Spawn Volume Modal when the visible prop is false", async () => {
+test("does not renders the Spawn Volume Modal when the visible prop is false", async () => {
   const { queryByDataCy } = render(() => (
     <MockedProvider mocks={baseMocks}>
       <SpawnVolumeModal visible={false} onCancel={() => {}} />
@@ -244,7 +244,7 @@ test("Does not renders the Spawn Volume Modal when the visible prop is false", a
   expect(queryByDataCy("modal-title")).not.toBeInTheDocument();
 });
 
-test("Form contains default volumes on initial render.", async () => {
+test("form contains default volumes on initial render.", async () => {
   const { queryByDataCy } = render(() => (
     <MockedProvider mocks={baseMocks}>
       <SpawnVolumeModal visible onCancel={() => {}} />
@@ -268,7 +268,7 @@ test("Form contains default volumes on initial render.", async () => {
   );
 });
 
-test("Form submission succeeds with default values", async () => {
+test("form submission succeeds with default values", async () => {
   const mocks = [
     ...baseMocks,
     userMock,
@@ -307,7 +307,7 @@ test("Form submission succeeds with default values", async () => {
   await waitFor(() => expect(mockErrorToast).toHaveBeenCalledTimes(0));
 });
 
-test("Form submission succeeds after adjusting inputs", async () => {
+test("form submission succeeds after adjusting inputs", async () => {
   const mocks = [
     ...baseMocks,
     userMock,

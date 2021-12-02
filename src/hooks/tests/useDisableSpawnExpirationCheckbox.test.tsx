@@ -174,7 +174,7 @@ const myHostsMock = {
 };
 
 const mocks = [getSpruceConfigMock, myHostsMock, myVolumesQueryMock];
-test("Should return true when the user already has the maximum unexpirable volumes and a target item is not supplied.", async () => {
+test("should return true when the user already has the maximum unexpirable volumes and a target item is not supplied.", async () => {
   const { result, waitForNextUpdate } = renderHook(
     () => useDisableSpawnExpirationCheckbox(true),
     {
@@ -185,7 +185,7 @@ test("Should return true when the user already has the maximum unexpirable volum
   expect(result.current).toBeTruthy();
 });
 
-test("Should return false when when the user has the maximum number of unexpirable volumes and the target item is unexpirable.", async () => {
+test("should return false when when the user has the maximum number of unexpirable volumes and the target item is unexpirable.", async () => {
   const { result, waitForNextUpdate } = renderHook(
     () =>
       useDisableSpawnExpirationCheckbox(true, {
@@ -198,7 +198,7 @@ test("Should return false when when the user has the maximum number of unexpirab
   expect(result.current).toBeFalsy();
 });
 
-test("Should return true when the user has the maximum number of unexpirable volumes and the target item is expirable.", async () => {
+test("should return true when the user has the maximum number of unexpirable volumes and the target item is expirable.", async () => {
   const { result, waitForNextUpdate } = renderHook(
     () =>
       useDisableSpawnExpirationCheckbox(true, {
@@ -213,7 +213,7 @@ test("Should return true when the user has the maximum number of unexpirable vol
   expect(result.current).toBeTruthy();
 });
 
-test("Should return true when the user has the maximum number of hosts and a target item is not supplied.", async () => {
+test("should return true when the user has the maximum number of hosts and a target item is not supplied.", async () => {
   const { result, waitForNextUpdate } = renderHook(
     () => useDisableSpawnExpirationCheckbox(false),
     { wrapper: getProvider(mocks) }
@@ -222,7 +222,7 @@ test("Should return true when the user has the maximum number of hosts and a tar
   expect(result.current).toBeTruthy();
 });
 
-test("Should return false when when user has the maximum number of unexpirable hosts and the target item is unexpirable.", async () => {
+test("should return false when when user has the maximum number of unexpirable hosts and the target item is unexpirable.", async () => {
   const { result, waitForNextUpdate } = renderHook(
     () =>
       useDisableSpawnExpirationCheckbox(false, {
@@ -237,7 +237,7 @@ test("Should return false when when user has the maximum number of unexpirable h
   expect(result.current).toBeFalsy();
 });
 
-test("Should return false when when user has the maximum number of unexpirable hosts and the target item is expirable.", async () => {
+test("should return false when when user has the maximum number of unexpirable hosts and the target item is expirable.", async () => {
   const { result, waitForNextUpdate } = renderHook(
     () =>
       useDisableSpawnExpirationCheckbox(false, {

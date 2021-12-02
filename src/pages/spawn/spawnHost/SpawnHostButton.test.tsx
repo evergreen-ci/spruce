@@ -18,7 +18,7 @@ import { SpawnHostButton } from "./SpawnHostButton";
 afterEach(() => {
   jest.restoreAllMocks();
 });
-test("Disables the spawn host button when the number of hosts that currently exist are greater than or equal to the max number of spawn hosts per user", async () => {
+test("disables the spawn host button when the number of hosts that currently exist are greater than or equal to the max number of spawn hosts per user", async () => {
   const { Component } = RenderFakeToastContext(
     <MockedProvider
       mocks={[
@@ -40,7 +40,7 @@ test("Disables the spawn host button when the number of hosts that currently exi
   );
 });
 
-test("Enables the spawn host button when the number of hosts that currently exist is less than the max number of spawn hosts per user", async () => {
+test("enables the spawn host button when the number of hosts that currently exist is less than the max number of spawn hosts per user", async () => {
   const MockedSpawnHostButton = () => (
     <MockedProvider
       mocks={[

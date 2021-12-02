@@ -33,7 +33,7 @@ const ScheduleModalEmpty = () => (
 afterEach(() => {
   jest.restoreAllMocks();
 });
-test("Clicking the button opens the modal", async () => {
+test("clicking the button opens the modal", async () => {
   const { Component } = RenderFakeToastContext(<ScheduleButton />);
   const { queryByDataCy } = renderWithRouterMatch(Component);
   expect(queryByDataCy("schedule-tasks-modal")).not.toBeInTheDocument();
@@ -43,7 +43,7 @@ test("Clicking the button opens the modal", async () => {
   );
 });
 
-test("The modal is populated with build variant names and checkboxes", async () => {
+test("the modal is populated with build variant names and checkboxes", async () => {
   const { Component } = RenderFakeToastContext(<ScheduleModal />);
 
   const { queryByText, queryAllByDataCy } = render(<Component />);
@@ -65,7 +65,7 @@ test("The modal is populated with build variant names and checkboxes", async () 
   });
 });
 
-test("Selecting some and not all task checkboxes puts the build variant checkbox in an indeterminate state.", async () => {
+test("selecting some and not all task checkboxes puts the build variant checkbox in an indeterminate state.", async () => {
   const { Component } = RenderFakeToastContext(<ScheduleModal />);
 
   const { queryByText, queryAllByDataCy, queryByDataCy } = render(
@@ -86,7 +86,7 @@ test("Selecting some and not all task checkboxes puts the build variant checkbox
     ).toBe("mixed");
   });
 });
-test("Schedule button is disabled until at least one checkbox is selected", async () => {
+test("schedule button is disabled until at least one checkbox is selected", async () => {
   const { Component } = RenderFakeToastContext(<ScheduleModal />);
 
   const { queryByText, queryAllByDataCy, queryByDataCy } = render(
@@ -107,7 +107,7 @@ test("Schedule button is disabled until at least one checkbox is selected", asyn
     expect(confirmButton).not.toBeDisabled();
   });
 });
-test("Clicking on schedule button dispatches a properly formatted request and dispatches a toast", async () => {
+test("clicking on schedule button dispatches a properly formatted request and dispatches a toast", async () => {
   const { Component, dispatchToast } = RenderFakeToastContext(
     <ScheduleModal />
   );
@@ -128,7 +128,7 @@ test("Clicking on schedule button dispatches a properly formatted request and di
   });
 });
 
-test("Modal displays copy when there are no schedulable tasks.", async () => {
+test("modal displays copy when there are no schedulable tasks.", async () => {
   const { Component } = RenderFakeToastContext(<ScheduleModalEmpty />);
 
   const { queryByText } = render(<Component />);

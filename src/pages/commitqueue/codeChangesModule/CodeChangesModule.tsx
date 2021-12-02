@@ -30,7 +30,7 @@ export const CodeChangeModule: React.FC<{
   const modules = bucketByCommit(fileDiffs).map((commitDiffs) => {
     const { description } = commitDiffs[0] ?? {};
     return (
-      <CodeChangeModuleContainer>
+      <CodeChangeModuleContainer key={`code_change_${description}`}>
         {description && (
           <CommitName data-cy="commit-name">{description}</CommitName>
         )}

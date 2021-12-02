@@ -1,5 +1,5 @@
 import userEvent from "@testing-library/user-event";
-import { render, act } from "test_utils/test-utils";
+import { render, waitFor } from "test_utils/test-utils";
 import { ChartTypes } from "types/commits";
 import { CommitChart } from "./CommitChart";
 import {
@@ -11,8 +11,8 @@ afterEach(() => {
   jest.clearAllTimers();
   jest.clearAllMocks();
 });
-describe("CommitChart", () => {
-  test("Display right amount of bars", () => {
+describe("commitChart", () => {
+  it("display right amount of bars", () => {
     const { queryAllByDataCy } = render(
       <CommitChart
         key={versions[0].version.id}
@@ -25,7 +25,7 @@ describe("CommitChart", () => {
     expect(queryAllByDataCy("commit-chart-bar")).toHaveLength(4);
   });
 
-  test("Hovering over the chart should open a tooltip", async () => {
+  it("hovering over the chart should open a tooltip", async () => {
     const { queryByDataCy } = render(
       <CommitChart
         key={versions[0].version.id}
@@ -35,18 +35,15 @@ describe("CommitChart", () => {
         chartType={ChartTypes.Absolute}
       />
     );
-    jest.useFakeTimers();
 
     expect(queryByDataCy("commit-chart-tooltip")).toBeNull();
     userEvent.hover(queryByDataCy("commit-chart-container"));
-    //   Need to use fake timers to get around @leafygreen-ui/tooltip debounce
-    act(() => {
-      jest.runAllTimers();
+    await waitFor(() => {
+      expect(queryByDataCy("commit-chart-tooltip")).toBeInTheDocument();
     });
-    expect(queryByDataCy("commit-chart-tooltip")).toBeInTheDocument();
   });
 
-  test("Should show all umbrella statuses (normal and dimmed) and their counts ", async () => {
+  it("should show all umbrella statuses (normal and dimmed) and their counts", async () => {
     const { queryByDataCy, queryAllByDataCy } = render(
       <CommitChart
         key={versions[0].version.id}
@@ -56,15 +53,12 @@ describe("CommitChart", () => {
         chartType={ChartTypes.Absolute}
       />
     );
-    jest.useFakeTimers();
 
     expect(queryByDataCy("commit-chart-tooltip")).toBeNull();
     userEvent.hover(queryByDataCy("commit-chart-container"));
-    //   Need to use fake timers to get around @leafygreen-ui/tooltip debounce
-    act(() => {
-      jest.runAllTimers();
+    await waitFor(() => {
+      expect(queryByDataCy("commit-chart-tooltip")).toBeInTheDocument();
     });
-    expect(queryByDataCy("commit-chart-tooltip")).toBeInTheDocument();
     expect(queryAllByDataCy("current-status-count")).toHaveLength(4);
     expect(queryByDataCy("commit-chart-tooltip")).toHaveTextContent("6");
     expect(queryByDataCy("commit-chart-tooltip")).toHaveTextContent("2");

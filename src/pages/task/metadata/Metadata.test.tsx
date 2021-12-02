@@ -55,7 +55,7 @@ const mocks = [
   },
 ];
 
-test("Renders the metadata card with a pending status", async () => {
+test("renders the metadata card with a pending status", async () => {
   const ContentWrapper = () => (
     <MockedProvider mocks={mocks}>
       <Metadata
@@ -78,7 +78,7 @@ test("Renders the metadata card with a pending status", async () => {
   expect(queryByDataCy("task-metadata-started")).toBeNull();
   expect(queryByDataCy("task-metadata-finished")).toBeNull();
 });
-test("Renders the metadata card with a started status", async () => {
+test("renders the metadata card with a started status", async () => {
   const ContentWrapper = () => (
     <MockedProvider mocks={mocks}>
       <Metadata
@@ -100,7 +100,7 @@ test("Renders the metadata card with a started status", async () => {
   expect(queryByDataCy("task-metadata-finished")).toBeNull();
 });
 
-test("Renders the metadata card with a succeeded status", async () => {
+test("renders the metadata card with a succeeded status", async () => {
   const ContentWrapper = () => (
     <MockedProvider mocks={mocks}>
       <Metadata

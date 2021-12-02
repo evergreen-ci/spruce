@@ -25,7 +25,7 @@ const editableTags = [
 
 const defaultData = [...editableTags];
 
-test("Renders editable tags", async () => {
+test("renders editable tags", async () => {
   let data = [...defaultData];
   const updateData = jest.fn((x) => {
     data = x;
@@ -44,7 +44,7 @@ test("Renders editable tags", async () => {
   expect(data).toEqual(defaultData);
 });
 
-test("Editing a tag value should update the tags", async () => {
+test("editing a tag value should update the tags", async () => {
   let data = [...defaultData];
   const updateData = jest.fn((x) => {
     data = x;
@@ -69,14 +69,14 @@ test("Editing a tag value should update the tags", async () => {
 
   fireEvent.click(queryAllByDataCy("user-tag-edit-icon")[0]);
 
-  expect(updateData).toBeCalled();
+  expect(updateData).toHaveBeenCalled();
   expect(data).toStrictEqual([
     { key: "keyA", value: "new value" },
     ...defaultData.slice(1, 3),
   ]);
 });
 
-test("Deleting a tag should remove it from the array", async () => {
+test("deleting a tag should remove it from the array", async () => {
   let data = [...defaultData];
   const updateData = jest.fn((x) => {
     data = x;
@@ -95,12 +95,12 @@ test("Deleting a tag should remove it from the array", async () => {
 
   fireEvent.click(queryAllByDataCy("user-tag-trash-icon")[0]);
 
-  expect(updateData).toBeCalled();
+  expect(updateData).toHaveBeenCalled();
   expect(data).toStrictEqual([...defaultData.slice(1, 3)]);
   expect(queryByText("keyA")).toBeNull();
 });
 
-test("Editing a tag key should remove the old tag and replace it with a newer tag with the updated key", async () => {
+test("editing a tag key should remove the old tag and replace it with a newer tag with the updated key", async () => {
   let data = [...defaultData];
   const updateData = jest.fn((x) => {
     data = x;
@@ -125,14 +125,14 @@ test("Editing a tag key should remove the old tag and replace it with a newer ta
 
   fireEvent.click(queryAllByDataCy("user-tag-edit-icon")[0]);
 
-  expect(updateData).toBeCalled();
+  expect(updateData).toHaveBeenCalled();
   expect(data).toEqual([
     { ...defaultData[0], key: "new key" },
     ...defaultData.slice(1, 3),
   ]);
 });
 
-test("Should be able to add an new tag with the add tag button", async () => {
+test("should be able to add an new tag with the add tag button", async () => {
   let data = [...defaultData];
   const updateData = jest.fn((x) => {
     data = x;
@@ -171,7 +171,7 @@ test("Should be able to add an new tag with the add tag button", async () => {
 
   fireEvent.click(queryAllByDataCy("user-tag-edit-icon")[0]);
 
-  expect(updateData).toBeCalledTimes(1);
+  expect(updateData).toHaveBeenCalledTimes(1);
   expect(data).toEqual([
     ...defaultData,
     { key: "new key", value: "new value" },

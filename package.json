@@ -21,10 +21,12 @@
     "deploy:staging": "yarn build:staging && BUCKET=evergreen-staging.spruce yarn deploy",
     "deploy:beta": "yarn build:beta && BUCKET=evergreen-beta.spruce yarn deploy",
     "dev": "env-cmd -e devServer -r env/.cmdrc.json yarn start",
-    "eslint": "eslint -c .eslintrc.js 'src/**/*.ts?(x)' 'cypress/**/*.ts'",
-    "eslint-fix": "STRICT=1 eslint -c .eslintrc.js --fix 'src/**/*.ts?(x)' 'cypress/**/*.ts'",
+    "eslint": "eslint -c src/.eslintrc.js 'src/**/*.ts?(x)' && eslint -c cypress/.eslintrc.js 'cypress/**/*.ts'",
+    "eslint-fix": "STRICT=1 eslint -c src/.eslintrc.js --fix 'src/**/*.ts?(x)' && eslint -c cypress/.eslintrc.js 'cypress/**/*.ts'",
     "eslint-staged": "STRICT=1 eslint -c .eslintrc.js",
-    "eslint:strict": "STRICT=1 eslint -c .eslintrc.js 'src/**/*.ts?(x)' 'cypress/**/*.ts'",
+    "eslint-staged:src": "STRICT=1 eslint -c src/.eslintrc.js",
+    "eslint-staged:cypress": "STRICT=1 eslint -c cypress/.eslintrc.js",
+    "eslint:strict": "STRICT=1 eslint -c src/.eslintrc.js 'src/**/*.ts?(x)' && eslint -c cypress/.eslintrc.js 'cypress/**/*.ts'",
     "notify-email": "env-cmd -e prod -r env/.cmdrc.json node cli-scripts/notify-email.js",
     "prettier": "prettier --write",
     "prod": "env-cmd -e devProd -r env/.cmdrc.json yarn start",
@@ -177,10 +179,11 @@
     "eslint-config-airbnb": "18.2.1",
     "eslint-config-prettier": "7.0.0",
     "eslint-config-react-app": "6.0.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-flowtype": "^5.2.0",
     "eslint-plugin-graphql": "4.0.0",
     "eslint-plugin-import": "2.22.1",
-    "eslint-plugin-jest": "^24.1.0",
+    "eslint-plugin-jest": "^25.2.4",
     "eslint-plugin-jsx-a11y": "6.4.1",
     "eslint-plugin-prettier": "3.2.0",
     "eslint-plugin-react": "7.21.5",
@@ -197,6 +200,7 @@
     "jest": "26.6.0",
     "jest-circus": "^26.6.3",
     "jest-junit": "12.0.0",
+    "jest-matchmedia-mock": "^1.1.0",
     "jest-resolve": "26.6.0",
     "jest-watch-typeahead": "0.6.1",
     "lint-staged": "10.5.3",
@@ -241,6 +245,9 @@
     "webpack-merge": "^5.7.3",
     "workbox-webpack-plugin": "5.1.4",
     "worker-loader": "^3.0.7"
+  },
+  "engines": {
+    "node": ">=12.22.0"
   },
   "proxy": "http://localhost:9090"
 }

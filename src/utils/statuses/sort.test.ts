@@ -1,6 +1,6 @@
 import { sortTasks } from "./sort";
 
-test("Correctly sorts task statuses", () => {
+test("correctly sorts task statuses", () => {
   const initialSort = [
     "aborted",
     "blocked",

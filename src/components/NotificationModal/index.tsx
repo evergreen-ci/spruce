@@ -171,7 +171,13 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
           <>
             <RegexSelectorInputContainer>
               {regexSelectorProps.map((props, i) => (
-                <RegexSelectorInput canDelete dataCyPrefix={i} {...props} />
+                <RegexSelectorInput
+                  canDelete
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={`${props.dataCyPrefix}_${i}`}
+                  dataCyPrefix={i}
+                  {...props}
+                />
               ))}
             </RegexSelectorInputContainer>
             <Button

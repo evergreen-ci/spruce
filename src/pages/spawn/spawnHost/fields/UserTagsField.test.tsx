@@ -35,7 +35,7 @@ const defaultData = {
   deletedInstanceTags: [],
 };
 
-test("Renders only editable instance tags", async () => {
+test("renders only editable instance tags", async () => {
   let data = { ...defaultData };
   const updateData = jest.fn((x: UserTagsData) => {
     data = x;
@@ -50,7 +50,7 @@ test("Renders only editable instance tags", async () => {
   expect(data).toStrictEqual(defaultData);
 });
 
-test("Editing a tag value should add it to addedInstanceTags", async () => {
+test("editing a tag value should add it to addedInstanceTags", async () => {
   let data = { ...defaultData };
   const updateData = jest.fn((x: UserTagsData) => {
     data = x;
@@ -71,14 +71,14 @@ test("Editing a tag value should add it to addedInstanceTags", async () => {
 
   fireEvent.click(queryAllByDataCy("user-tag-edit-icon")[0]);
 
-  expect(updateData).toBeCalled();
+  expect(updateData).toHaveBeenCalled();
   expect(data).toEqual({
     ...defaultData,
     addedInstanceTags: [{ key: "keyA", value: "new value" }],
   });
 });
 
-test("Deleting a tag value should add it to deletedInstanceTags", async () => {
+test("deleting a tag value should add it to deletedInstanceTags", async () => {
   let data = { ...defaultData };
   const updateData = jest.fn((x: UserTagsData) => {
     data = x;
@@ -93,7 +93,7 @@ test("Deleting a tag value should add it to deletedInstanceTags", async () => {
 
   fireEvent.click(queryAllByDataCy("user-tag-trash-icon")[0]);
 
-  expect(updateData).toBeCalled();
+  expect(updateData).toHaveBeenCalled();
   expect(data).toEqual({
     ...defaultData,
     deletedInstanceTags: [{ key: "keyA", value: "valueA" }],
@@ -101,7 +101,7 @@ test("Deleting a tag value should add it to deletedInstanceTags", async () => {
   expect(queryByText("keyA")).toBeNull();
 });
 
-test("Editing a tag key should add the new tag to addedInstanceTags and delete the old tag", async () => {
+test("editing a tag key should add the new tag to addedInstanceTags and delete the old tag", async () => {
   let data = { ...defaultData };
   const updateData = jest.fn((x: UserTagsData) => {
     data = x;
@@ -122,7 +122,7 @@ test("Editing a tag key should add the new tag to addedInstanceTags and delete t
 
   fireEvent.click(queryAllByDataCy("user-tag-edit-icon")[0]);
 
-  expect(updateData).toBeCalled();
+  expect(updateData).toHaveBeenCalled();
   expect(data).toEqual({
     ...defaultData,
     deletedInstanceTags: [{ key: "keyA", value: "valueA" }],
@@ -130,7 +130,7 @@ test("Editing a tag key should add the new tag to addedInstanceTags and delete t
   });
 });
 
-test("Should be able to add an new tag with the add tag button", async () => {
+test("should be able to add an new tag with the add tag button", async () => {
   let data = { ...defaultData };
   const updateData = jest.fn((x: UserTagsData) => {
     data = x;
@@ -165,7 +165,7 @@ test("Should be able to add an new tag with the add tag button", async () => {
 
   fireEvent.click(queryAllByDataCy("user-tag-edit-icon")[0]);
 
-  expect(updateData).toBeCalled();
+  expect(updateData).toHaveBeenCalled();
   expect(data).toEqual({
     ...defaultData,
     addedInstanceTags: [{ key: "new key", value: "new value" }],
