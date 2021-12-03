@@ -7,11 +7,11 @@ import {
   getAllTaskStatsGroupedByColor,
 } from "./utils";
 
-afterEach(() => {
-  jest.clearAllTimers();
-  jest.clearAllMocks();
-});
 describe("commitChart", () => {
+  afterEach(() => {
+    jest.clearAllTimers();
+    jest.clearAllMocks();
+  });
   it("display right amount of bars", () => {
     const { queryAllByDataCy } = render(
       <CommitChart

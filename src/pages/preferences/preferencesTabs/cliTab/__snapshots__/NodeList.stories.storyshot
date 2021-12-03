@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Node List Node Element 1`] = `
+exports[`storybook Storyshots Node List Node Element 1`] = `
 <div
   className="css-1xofbf3-NodeContainer e1k5prvz2"
 >
@@ -40,7 +40,7 @@ exports[`Storyshots Node List Node Element 1`] = `
 </div>
 `;
 
-exports[`Storyshots Node List Node List Full 1`] = `
+exports[`storybook Storyshots Node List Node List Full 1`] = `
 <div
   style={
     Object {
