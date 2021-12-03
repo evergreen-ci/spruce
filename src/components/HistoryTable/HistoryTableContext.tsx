@@ -1,6 +1,9 @@
 import { useContext, createContext, useReducer, useMemo } from "react";
 import { TestFilter } from "gql/generated/types";
-import { reducer } from "./historyTableContextReducer";
+import {
+  reducer,
+  HistoryTableReducerState,
+} from "./historyTableContextReducer";
 import { rowType, mainlineCommits, CommitRowType } from "./types";
 
 interface HistoryTableState {
@@ -25,7 +28,25 @@ interface HistoryTableState {
 
 const HistoryTableDispatchContext = createContext<any | null>(null);
 
-const HistoryTableProvider: React.FC = ({ children }) => {
+interface HistoryTableProviderProps {
+  children: React.ReactNode;
+  initialState?: HistoryTableReducerState;
+}
+const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
+  children,
+  initialState = {
+    loadedCommits: [],
+    processedCommits: [],
+    processedCommitCount: 0,
+    commitCache: new Map(),
+    visibleColumns: [],
+    currentPage: 0,
+    pageCount: 0,
+    columns: [],
+    columnLimit: 7,
+    historyTableFilters: [],
+  },
+}) => {
   const [
     {
       processedCommits,
@@ -38,16 +59,7 @@ const HistoryTableProvider: React.FC = ({ children }) => {
     },
     dispatch,
   ] = useReducer(reducer, {
-    loadedCommits: [],
-    processedCommits: [],
-    processedCommitCount: 0,
-    commitCache: new Map(),
-    visibleColumns: [],
-    currentPage: 0,
-    pageCount: 0,
-    columns: [],
-    columnLimit: 7,
-    historyTableFilters: [],
+    ...initialState,
   });
 
   const itemHeight = (index: number) => {

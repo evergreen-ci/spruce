@@ -15,7 +15,7 @@ type cacheShape = Map<
   | mainlineCommits["versions"][0]["version"]
   | mainlineCommits["versions"][0]["rolledUpVersions"][0]
 >;
-interface HistoryTableState {
+export interface HistoryTableReducerState {
   loadedCommits: mainlineCommits["versions"];
   processedCommits: CommitRowType[];
   processedCommitCount: number;
@@ -28,7 +28,7 @@ interface HistoryTableState {
   historyTableFilters: TestFilter[];
 }
 
-export const reducer = (state: HistoryTableState, action: Action) => {
+export const reducer = (state: HistoryTableReducerState, action: Action) => {
   switch (action.type) {
     case "ingestNewCommits": {
       // We cache the commits and use this to determine if a new commit was added in this action
