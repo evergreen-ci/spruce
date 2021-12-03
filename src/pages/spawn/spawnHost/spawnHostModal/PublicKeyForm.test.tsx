@@ -22,7 +22,7 @@ const defaultData = {
   savePublicKey: false,
 };
 
-test("Public Key state should be initialized correctly", async () => {
+test("public Key state should be initialized correctly", async () => {
   let data = { ...defaultData };
   const updateData = jest.fn((x) => {
     data = x;
@@ -34,7 +34,7 @@ test("Public Key state should be initialized correctly", async () => {
   expect(data).toStrictEqual(defaultData);
 });
 
-test("Selecting a public key from the dropdown should select it", async () => {
+test("selecting a public key from the dropdown should select it", async () => {
   let data = { ...defaultData };
   const updateData = jest.fn((x) => {
     data = x;
@@ -53,7 +53,7 @@ test("Selecting a public key from the dropdown should select it", async () => {
   });
 });
 
-test("Clicking on Add new key should reset the state to the default", async () => {
+test("clicking on Add new key should reset the state to the default", async () => {
   const defaultState = {
     publicKey: { ...publicKeys[0] },
     savePublicKey: false,
@@ -76,7 +76,7 @@ test("Clicking on Add new key should reset the state to the default", async () =
   expect(data).toStrictEqual(defaultData);
 });
 
-test("Toggling Add new key should disable and undisable the select input", async () => {
+test("toggling Add new key should disable and undisable the select input", async () => {
   const defaultState = {
     publicKey: { ...publicKeys[0] },
     savePublicKey: false,

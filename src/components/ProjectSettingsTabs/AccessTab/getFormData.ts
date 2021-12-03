@@ -79,8 +79,6 @@ export const getFormData = (
         "ui:description": getAdminsDescription(useRepoSettings),
         "ui:showLabel": false,
         options: {
-          defaultButtonText: "Default to Repo Admins",
-          overrideButtonText: "Override Repo Admins",
           useRepoSettings,
         },
       },

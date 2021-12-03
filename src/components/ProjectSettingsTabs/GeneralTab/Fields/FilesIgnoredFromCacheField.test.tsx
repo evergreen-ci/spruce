@@ -1,7 +1,7 @@
 import { render, fireEvent, waitFor } from "test_utils/test-utils";
 import { FilesIgnoredFromCacheField } from "./FilesIgnoredFromCacheField";
 
-test("Does not render radio boxes when repo settings are not in use", async () => {
+test("does not render radio boxes when repo settings are not in use", async () => {
   const { queryByDataCy } = render(
     <FilesIgnoredFromCacheField
       formData={null}
@@ -15,7 +15,7 @@ test("Does not render radio boxes when repo settings are not in use", async () =
   expect(queryByDataCy("file-patterns-radio")).not.toBeInTheDocument();
 });
 
-test("Renders radio boxes when repo settings are in use", async () => {
+test("renders radio boxes when repo settings are in use", async () => {
   const { queryByDataCy } = render(
     <FilesIgnoredFromCacheField
       formData={null}
@@ -29,7 +29,7 @@ test("Renders radio boxes when repo settings are in use", async () => {
   expect(queryByDataCy("file-patterns-radio")).toBeInTheDocument();
 });
 
-test("Shows a button when 'Override repo file pattern' is selected", async () => {
+test("shows a button when 'Override repo file pattern' is selected", async () => {
   const { queryByDataCy } = render(
     <FilesIgnoredFromCacheField
       formData={null}
@@ -59,7 +59,7 @@ test("Shows a button when 'Override repo file pattern' is selected", async () =>
   await waitFor(() => expect(queryByDataCy("add-button")).toBeInTheDocument());
 });
 
-test("Shows the first radio box as selected when form data exists", async () => {
+test("shows the first radio box as selected when form data exists", async () => {
   const { queryByDataCy } = render(
     <FilesIgnoredFromCacheField
       formData={["test"]}

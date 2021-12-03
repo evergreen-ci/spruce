@@ -65,7 +65,7 @@ test("useTableInputFilter - trims whitespace from input value", async () => {
     keyCode: 13,
   });
 
-  getByText("host id from url: abc");
+  expect(getByText("host id from url: abc")).toBeInTheDocument();
 });
 
 test("useTableCheckboxFilter", async () => {

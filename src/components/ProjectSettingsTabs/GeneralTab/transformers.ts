@@ -1,16 +1,8 @@
-import {
-  ProjectInput,
-  ProjectSettingsInput,
-  ProjectSettingsQuery,
-  RepoSettingsQuery,
-} from "gql/generated/types";
+import { ProjectInput } from "gql/generated/types";
+import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { FormState } from "./types";
 
-export const gqlToForm = (
-  data:
-    | ProjectSettingsQuery["projectSettings"]
-    | RepoSettingsQuery["repoSettings"]
-): FormState => {
+export const gqlToForm: GqlToFormFunction = (data): FormState => {
   if (!data) return null;
 
   const { projectRef } = data;
@@ -65,11 +57,12 @@ export const gqlToForm = (
   };
 };
 
-export const formToGql = (
+export const formToGql: FormToGqlFunction = (
   { generalConfiguration, projectFlags, historicalDataCaching }: FormState,
-  id: string,
-  useRepoSettings?: boolean
-): Pick<ProjectSettingsInput, "projectRef"> => {
+  id,
+  options = {}
+) => {
+  const { useRepoSettings } = options;
   const filteredFiles =
     historicalDataCaching?.files?.filesIgnoredFromCache
       ?.map(({ filePattern }) => filePattern)

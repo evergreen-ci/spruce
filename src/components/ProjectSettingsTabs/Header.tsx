@@ -17,7 +17,8 @@ import {
 } from "gql/mutations";
 import { getTabTitle } from "pages/projectSettings/getTabTitle";
 import { useIsTabSaved, useProjectSettingsContext } from "./Context";
-import { formToGqlMap, WritableTabRoutes } from "./types";
+import { formToGqlMap } from "./transformers";
+import { WritableTabRoutes } from "./types";
 
 interface Props {
   id: string;
@@ -68,7 +69,7 @@ export const Header: React.FC<Props> = ({
 
   const onClick = () => {
     const { formData } = getTab(tab);
-    const newData = formToGqlMap[tab](formData, id, useRepoSettings);
+    const newData = formToGqlMap[tab](formData, id, { useRepoSettings });
     const save = (update, section) =>
       isRepo
         ? saveRepoSection({

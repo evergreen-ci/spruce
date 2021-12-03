@@ -4,7 +4,7 @@ import { ConditionalWrapper } from "./index";
 
 const Wrapper1 = ({ children }) => <div data-cy="wrapper-1">{children}</div>;
 const Wrapper2 = ({ children }) => <div data-cy="wrapper-2">{children}</div>;
-test("Should render the element surrounded by a wrapper when the conditional is true", async () => {
+test("should render the element surrounded by a wrapper when the conditional is true", async () => {
   const { queryByDataCy } = render(
     <ConditionalWrapper
       condition
@@ -17,7 +17,7 @@ test("Should render the element surrounded by a wrapper when the conditional is 
   expect(queryByDataCy("wrapper-1")).toHaveTextContent("Some Element");
 });
 
-test("Should render the element surrounded by no wrapper when the conditional is false and no secondary wrapper is supplied", async () => {
+test("should render the element surrounded by no wrapper when the conditional is false and no secondary wrapper is supplied", async () => {
   const { queryByDataCy, queryByText } = render(
     <ConditionalWrapper
       condition={false}
@@ -30,7 +30,7 @@ test("Should render the element surrounded by no wrapper when the conditional is
   expect(queryByText("Some Element")).toBeVisible();
 });
 
-test("Should render the element surrounded by the secondary wrapper when the conditional is false and a secondary wrapper is supplied", async () => {
+test("should render the element surrounded by the secondary wrapper when the conditional is false and a secondary wrapper is supplied", async () => {
   const { queryByDataCy, queryByText } = render(
     <ConditionalWrapper
       condition={false}

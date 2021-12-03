@@ -11,7 +11,7 @@ const btn = <button type="button">btn</button>;
 const checkboxLabel = "a cool checkbox label";
 const title = "cool title";
 
-it("Passing in the checkboxLabel prop should display a confirmation checkbox and checkbox label.", async () => {
+test("passing in the checkboxLabel prop should display a confirmation checkbox and checkbox label.", async () => {
   const { queryByText, queryByDataCy } = render(() => (
     <PopconfirmWithCheckbox
       title={title}
@@ -27,7 +27,7 @@ it("Passing in the checkboxLabel prop should display a confirmation checkbox and
   expect(queryByDataCy("popconfirm-checkbox")).toBeInTheDocument();
 });
 
-it("Passing in an empty checkboxLabel prop should not render confirmation checkbox and checkbox label.", async () => {
+test("passing in an empty checkboxLabel prop should not render confirmation checkbox and checkbox label.", async () => {
   const { queryByText, queryByDataCy } = render(() => (
     <PopconfirmWithCheckbox title={title} checkboxLabel="" onConfirm={noop}>
       {btn}
@@ -38,7 +38,7 @@ it("Passing in an empty checkboxLabel prop should not render confirmation checkb
   expect(queryByDataCy("popconfirm-checkbox")).not.toBeInTheDocument();
 });
 
-it("Not providing a checkboxLabel prop should not render confirmation checkbox and checkbox label.", async () => {
+test("not providing a checkboxLabel prop should not render confirmation checkbox and checkbox label.", async () => {
   const { queryByText, queryByDataCy } = render(() => (
     <PopconfirmWithCheckbox title={title} onConfirm={noop}>
       {btn}
@@ -49,7 +49,7 @@ it("Not providing a checkboxLabel prop should not render confirmation checkbox a
   expect(queryByDataCy("popconfirm-checkbox")).not.toBeInTheDocument();
 });
 
-it("Ok button is enabled on initial render when no checkbox label is provided.", async () => {
+test("ok button is enabled on initial render when no checkbox label is provided.", async () => {
   const mockCb = jest.fn();
   const { queryByText } = render(() => (
     <PopconfirmWithCheckbox title={title} onConfirm={mockCb}>
@@ -59,10 +59,10 @@ it("Ok button is enabled on initial render when no checkbox label is provided.",
   await fireEvent.click(queryByText("btn"));
   await waitFor(() => expect(queryByText("Yes")).toBeInTheDocument());
   await fireEvent.click(queryByText("Yes"));
-  expect(mockCb.mock.calls.length).toBe(1);
+  expect(mockCb.mock.calls).toHaveLength(1);
 });
 
-it("Ok button is disabled on initial render when a checkbox label is provided.", async () => {
+test("ok button is disabled on initial render when a checkbox label is provided.", async () => {
   const mockCb = jest.fn();
   const { queryByText } = render(() => (
     <PopconfirmWithCheckbox
@@ -76,10 +76,10 @@ it("Ok button is disabled on initial render when a checkbox label is provided.",
   await fireEvent.click(queryByText("btn"));
   await waitFor(() => expect(queryByText("Yes")).toBeInTheDocument());
   await fireEvent.click(queryByText("Yes"));
-  expect(mockCb.mock.calls.length).toBe(0);
+  expect(mockCb.mock.calls).toHaveLength(0);
 });
 
-it("Ok button is enabled after checking the checkbox.", async () => {
+test("ok button is enabled after checking the checkbox.", async () => {
   const mockCb = jest.fn();
   const { queryByText, queryByDataCy } = render(() => (
     <PopconfirmWithCheckbox
@@ -95,10 +95,10 @@ it("Ok button is enabled after checking the checkbox.", async () => {
 
   // attempt before checking
   await fireEvent.click(queryByText("Yes"));
-  expect(mockCb.mock.calls.length).toBe(0);
+  expect(mockCb.mock.calls).toHaveLength(0);
 
   await fireEvent.click(queryByDataCy("popconfirm-checkbox"));
   // attempt after checking
   await fireEvent.click(queryByText("Yes"));
-  expect(mockCb.mock.calls.length).toBe(1);
+  expect(mockCb.mock.calls).toHaveLength(1);
 });

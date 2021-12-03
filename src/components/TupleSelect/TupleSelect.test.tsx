@@ -20,7 +20,7 @@ const options = [
 ];
 const Content = () => <TupleSelect options={options} />;
 
-test("Renders normally and doesn't affect the url", () => {
+test("renders normally and doesn't affect the url", () => {
   const { queryByDataCy } = render(Content, {
     route: `/commits/evergreen`,
     path: "/commits/:projectId",
@@ -33,7 +33,7 @@ test("Renders normally and doesn't affect the url", () => {
   expect(input).toHaveValue("");
 });
 
-test("Should clear input when a value is submitted", () => {
+test("should clear input when a value is submitted", () => {
   const { queryByDataCy } = render(Content, {
     route: `/commits/evergreen`,
     path: "/commits/:projectId",
@@ -53,7 +53,7 @@ test("Should clear input when a value is submitted", () => {
   expect(input).toHaveValue("");
 });
 
-test("Should add input query params to the url", () => {
+test("should add input query params to the url", () => {
   const { queryByDataCy, history } = render(Content, {
     route: `/commits/evergreen`,
     path: "/commits/:projectId",
@@ -77,7 +77,7 @@ test("Should add input query params to the url", () => {
   );
 });
 
-test("Should add multiple input filters to the same key as query params", () => {
+test("should add multiple input filters to the same key as query params", () => {
   const { queryByDataCy, history } = render(Content, {
     route: `/commits/evergreen`,
     path: "/commits/:projectId",
@@ -106,7 +106,7 @@ test("Should add multiple input filters to the same key as query params", () => 
   );
 });
 
-test("Should not allow duplicate input filters for the same key as query params", () => {
+test("should not allow duplicate input filters for the same key as query params", () => {
   const { queryByDataCy, history } = render(Content, {
     route: `/commits/evergreen`,
     path: "/commits/:projectId",
@@ -135,7 +135,7 @@ test("Should not allow duplicate input filters for the same key as query params"
   );
 });
 
-test("Should allow multiple input filters for different keys as query params", async () => {
+test("should allow multiple input filters for different keys as query params", async () => {
   const { queryByDataCy } = render(Content, {
     route: `/commits/evergreen`,
     path: "/commits/:projectId",

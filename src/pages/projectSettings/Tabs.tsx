@@ -14,8 +14,8 @@ import {
   VariablesTab,
   VirtualWorkstationTab,
 } from "components/ProjectSettingsTabs";
+import { gqlToFormMap } from "components/ProjectSettingsTabs/transformers";
 import {
-  gqlToFormMap,
   readOnlyTabs,
   TabDataProps,
 } from "components/ProjectSettingsTabs/types";

@@ -65,7 +65,7 @@ const Provider = ({ children }) => (
   <MockedProvider mocks={mocks}>{children}</MockedProvider>
 );
 
-test("Return correct title and link when the userId passed into the hook parameter is that of the logged in user", async () => {
+test("return correct title and link when the userId passed into the hook parameter is that of the logged in user", async () => {
   const { result, waitForNextUpdate } = renderHook(
     () => useGetUserPatchesPageTitleAndLink("admin"),
     { wrapper: Provider }
@@ -73,11 +73,11 @@ test("Return correct title and link when the userId passed into the hook paramet
 
   await waitForNextUpdate();
 
-  expect(result.current.title).toEqual("My Patches");
-  expect(result.current.link).toEqual("/user/admin/patches");
+  expect(result.current.title).toBe("My Patches");
+  expect(result.current.link).toBe("/user/admin/patches");
 });
 
-test("Return correct title and link when the userId passed into the hook parameter is not that of the logged in user", async () => {
+test("return correct title and link when the userId passed into the hook parameter is not that of the logged in user", async () => {
   const { result, waitForNextUpdate } = renderHook(
     () => useGetUserPatchesPageTitleAndLink("justin.mathew"),
     { wrapper: Provider }
@@ -85,16 +85,16 @@ test("Return correct title and link when the userId passed into the hook paramet
 
   await waitForNextUpdate();
 
-  expect(result.current.title).toEqual("Justin Mathew's Patches");
-  expect(result.current.link).toEqual("/user/justin.mathew/patches");
+  expect(result.current.title).toBe("Justin Mathew's Patches");
+  expect(result.current.link).toBe("/user/justin.mathew/patches");
 });
 
-test("Return correct title and link when the userId passed into the hook parameter is not that of the logged in user and the display name of the other user ends with the letter 's'", async () => {
+test("return correct title and link when the userId passed into the hook parameter is not that of the logged in user and the display name of the other user ends with the letter 's'", async () => {
   const { result, waitForNextUpdate } = renderHook(
     () => useGetUserPatchesPageTitleAndLink("justin.mathews"),
     { wrapper: Provider }
   );
   await waitForNextUpdate();
-  expect(result.current.title).toEqual("Justin Mathews' Patches");
-  expect(result.current.link).toEqual("/user/justin.mathews/patches");
+  expect(result.current.title).toBe("Justin Mathews' Patches");
+  expect(result.current.link).toBe("/user/justin.mathews/patches");
 });

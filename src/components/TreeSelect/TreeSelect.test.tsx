@@ -1,7 +1,7 @@
 import { fireEvent, render } from "test_utils/test-utils";
 import { Dropdown, TreeSelect } from ".";
 
-test("Dropdown renders contents of render prop when provided", () => {
+test("dropdown renders contents of render prop when provided", () => {
   const { queryByDataCy } = render(
     <Dropdown
       data-cy="test-status-select"

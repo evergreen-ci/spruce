@@ -1,38 +1,44 @@
-import React from "react";
-import { render, fireEvent } from "@testing-library/react";
-import { MemoryRouter, Route } from "react-router-dom";
+import MatchMediaMock from "jest-matchmedia-mock";
+import {
+  renderWithRouterMatch as render,
+  fireEvent,
+} from "test_utils/test-utils";
 import { TestComponent } from "./TestComponent";
-import "test_utils/__mocks__/matchmedia.mock";
 
+let matchMedia;
+beforeAll(() => {
+  matchMedia = new MatchMediaMock();
+});
+
+afterEach(() => {
+  matchMedia.clear();
+});
 test("useUpdateUrlSortParamOnTableChange", () => {
-  const { getByText } = render(
-    <MemoryRouter initialEntries={[`/hosts`]}>
-      <Route path="/hosts">
-        <TestComponent />
-      </Route>
-    </MemoryRouter>
-  );
+  const { getByText } = render(() => <TestComponent />, {
+    route: "/hosts",
+    path: "/hosts",
+  });
 
   const idHeader = getByText("ID");
   const statusHeader = getByText("Status");
 
   fireEvent.click(idHeader);
 
-  getByText("sortBy: ID");
-  getByText("sortDir: ASC");
+  expect(getByText("sortBy: ID")).toBeInTheDocument();
+  expect(getByText("sortDir: ASC")).toBeInTheDocument();
 
   fireEvent.click(statusHeader);
 
-  getByText("sortBy: STATUS");
-  getByText("sortDir: ASC");
+  expect(getByText("sortBy: STATUS")).toBeInTheDocument();
+  expect(getByText("sortDir: ASC")).toBeInTheDocument();
 
   fireEvent.click(statusHeader);
 
-  getByText("sortBy: STATUS");
-  getByText("sortDir: DESC");
+  expect(getByText("sortBy: STATUS")).toBeInTheDocument();
+  expect(getByText("sortDir: DESC")).toBeInTheDocument();
 
   fireEvent.click(statusHeader);
 
-  getByText("sortBy: none");
-  getByText("sortDir: none");
+  expect(getByText("sortBy: none")).toBeInTheDocument();
+  expect(getByText("sortDir: none")).toBeInTheDocument();
 });

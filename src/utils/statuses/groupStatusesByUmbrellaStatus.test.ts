@@ -2,7 +2,7 @@ import { taskStatusToCopy } from "constants/task";
 import { TaskStatus } from "types/task";
 import { groupStatusesByUmbrellaStatus } from "./groupStatusesByUmbrellaStatus";
 
-test("Separates statuses into groups based on umbrella status", () => {
+test("separates statuses into groups based on umbrella status", () => {
   const tasks = [
     { status: TaskStatus.Succeeded, count: 6 },
     { status: TaskStatus.Failed, count: 2 },
@@ -42,7 +42,7 @@ test("Separates statuses into groups based on umbrella status", () => {
   });
 });
 
-test("Groups different statuses to the same color", () => {
+test("groups different statuses to the same color", () => {
   const tasks = [
     { status: TaskStatus.TestTimedOut, count: 6 },
     { status: TaskStatus.Failed, count: 2 },
@@ -97,7 +97,7 @@ test("Groups different statuses to the same color", () => {
   });
 });
 
-test("Returns the overall maximum and total", () => {
+test("returns the overall maximum and total", () => {
   const tasks = [
     { status: TaskStatus.TaskTimedOut, count: 6 },
     { status: TaskStatus.Succeeded, count: 4 },

@@ -1,5 +1,6 @@
 import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
+import MatchMediaMock from "jest-matchmedia-mock";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
 import { FILE_JIRA_TICKET } from "gql/mutations";
 import {
@@ -14,16 +15,24 @@ import {
   waitFor,
 } from "test_utils/test-utils";
 import BuildBaron from "./BuildBaron";
-import "test_utils/__mocks__/matchmedia.mock";
 
 const taskId =
   "spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41";
 const execution = 1;
 
+let matchMedia;
+beforeAll(() => {
+  matchMedia = new MatchMediaMock();
+});
+
+afterEach(() => {
+  matchMedia.clear();
+  jest.restoreAllMocks();
+});
 afterEach(() => {
   jest.restoreAllMocks();
 });
-it("The BuildBaron component renders without crashing.", () => {
+test("the BuildBaron component renders without crashing.", () => {
   const { Component } = RenderFakeToastContext(
     <MockedProvider mocks={mocks} addTypename={false}>
       <BuildBaron
@@ -47,7 +56,7 @@ it("The BuildBaron component renders without crashing.", () => {
   expect(queryByDataCy("bb-error")).toBeNull();
 });
 
-it("Clicking on file a new ticket dispatches a banner.", async () => {
+test("clicking on file a new ticket dispatches a banner.", async () => {
   const { Component } = RenderFakeToastContext(
     <MockedProvider mocks={mocks} addTypename={false}>
       <BuildBaron
@@ -76,7 +85,7 @@ it("Clicking on file a new ticket dispatches a banner.", async () => {
   );
 });
 
-it("The correct JiraTicket rows are rendered in the component", () => {
+test("the correct JiraTicket rows are rendered in the component", () => {
   const { Component } = RenderFakeToastContext(
     <MockedProvider mocks={mocks} addTypename={false}>
       <BuildBaron
