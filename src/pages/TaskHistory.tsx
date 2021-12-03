@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
@@ -22,16 +22,14 @@ import {
 } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { TestStatus } from "types/history";
-import { array } from "utils";
 import { parseQueryString } from "utils/queryString";
 import { BuildVariantSelector } from "./taskHistory/BuildVariantSelector";
 import ColumnHeaders from "./taskHistory/ColumnHeaders";
 import TaskHistoryRow from "./taskHistory/TaskHistoryRow";
 
-const { toArray } = array;
-const { HistoryTableProvider, useHistoryTable } = context;
+const { HistoryTableProvider } = context;
 
-const TaskHistoryContents = () => {
+export const TaskHistory = () => {
   const { projectId, taskName } = useParams<{
     projectId: string;
     taskName: string;
@@ -68,30 +66,18 @@ const TaskHistoryContents = () => {
     },
   });
 
-  const { setHistoryTableFilters, historyTableFilters } = useHistoryTable();
-
   const { buildVariantsForTaskName } = columnData || {};
   const { mainlineCommits } = data || {};
   const { search } = useLocation();
-  const queryParams = useMemo(() => parseQueryString(search), [search]);
+  const queryParams = parseQueryString(search);
 
-  const selectedBuildVariants = toArray(queryParams.buildVariants);
-  console.log({ historyTableFilters });
-  useEffect(() => {
-    const failingTests = toArray(queryParams[TestStatus.Failed]);
-    const passingTests = toArray(queryParams[TestStatus.Passed]);
+  let selectedBuildVariants = [];
+  if (typeof queryParams.buildVariants === "string") {
+    selectedBuildVariants = [queryParams.buildVariants];
+  } else {
+    selectedBuildVariants = queryParams.buildVariants;
+  }
 
-    const failingTestFilters = failingTests.map((test) => ({
-      testName: test,
-      testStatus: TestStatus.Failed,
-    }));
-    const passingTestFilters = passingTests.map((test) => ({
-      testName: test,
-      testStatus: TestStatus.Passed,
-    }));
-    setHistoryTableFilters([...failingTestFilters, ...passingTestFilters]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [queryParams]);
   const queryParamsToDisplay = new Set([
     TestStatus.Failed,
     TestStatus.Passed,
@@ -106,44 +92,41 @@ const TaskHistoryContents = () => {
   return (
     <PageWrapper>
       <CenterPage>
-        <PageHeader>
-          <H2>Task Name: {taskName}</H2>
-          <PageHeaderContent>
-            <HistoryTableTestSearch />
-            <BuildVariantSelector projectId={projectId} taskName={taskName} />
-          </PageHeaderContent>
-        </PageHeader>
-        <PaginationFilterWrapper>
-          <BadgeWrapper>
-            <FilterBadges queryParamsToDisplay={queryParamsToDisplay} />
-          </BadgeWrapper>
-          <ColumnPaginationButtons />
-        </PaginationFilterWrapper>
-        <TableContainer>
-          <ColumnHeaders loading={loading} columns={selectedColumns} />
-          <TableWrapper>
-            <HistoryTable
-              recentlyFetchedCommits={mainlineCommits}
-              loadMoreItems={() => {
-                if (mainlineCommits) {
-                  setNextPageOrderNumber(mainlineCommits.nextPageOrderNumber);
-                }
-              }}
-            >
-              {TaskHistoryRow}
-            </HistoryTable>
-          </TableWrapper>
-        </TableContainer>
+        <HistoryTableProvider>
+          <PageHeader>
+            <H2>Task Name: {taskName}</H2>
+            <PageHeaderContent>
+              <HistoryTableTestSearch />
+              <BuildVariantSelector projectId={projectId} taskName={taskName} />
+            </PageHeaderContent>
+          </PageHeader>
+          <PaginationFilterWrapper>
+            <BadgeWrapper>
+              <FilterBadges queryParamsToDisplay={queryParamsToDisplay} />
+            </BadgeWrapper>
+            <ColumnPaginationButtons />
+          </PaginationFilterWrapper>
+          <TableContainer>
+            <ColumnHeaders loading={loading} columns={selectedColumns} />
+            <TableWrapper>
+              <HistoryTable
+                recentlyFetchedCommits={mainlineCommits}
+                loadMoreItems={() => {
+                  if (mainlineCommits) {
+                    setNextPageOrderNumber(mainlineCommits.nextPageOrderNumber);
+                  }
+                }}
+              >
+                {TaskHistoryRow}
+              </HistoryTable>
+            </TableWrapper>
+          </TableContainer>
+        </HistoryTableProvider>
       </CenterPage>
     </PageWrapper>
   );
 };
 
-export const TaskHistory = () => (
-  <HistoryTableProvider>
-    <TaskHistoryContents />
-  </HistoryTableProvider>
-);
 const PageHeader = styled.div`
   display: flex;
   flex-direction: column;
