@@ -17,6 +17,8 @@ describe("historyTableContext", () => {
       itemHeight: expect.any(Function),
       hasNextPage: false,
       hasPreviousPage: false,
+      historyTableFilters: [],
+      setHistoryTableFilters: expect.any(Function),
       processedCommits: [],
       visibleColumns: [],
       addColumns: expect.any(Function),
@@ -230,6 +232,34 @@ describe("historyTableContext", () => {
       });
       expect(result.current.visibleColumns).toHaveLength(7);
       expect(result.current.visibleColumns).toEqual(columns.slice(0, 7));
+    });
+  });
+  describe("test filters", () => {
+    it("should add new test filters when they are passed in", () => {
+      const { result } = renderHook(() => useHistoryTable(), { wrapper });
+      expect(result.current.historyTableFilters).toEqual([]);
+      act(() => {
+        result.current.setHistoryTableFilters([
+          {
+            testName: "test-name",
+            testStatus: "passed",
+          },
+          {
+            testName: "test-name2",
+            testStatus: "failed",
+          },
+        ]);
+      });
+      expect(result.current.historyTableFilters).toEqual([
+        {
+          testName: "test-name",
+          testStatus: "passed",
+        },
+        {
+          testName: "test-name2",
+          testStatus: "failed",
+        },
+      ]);
     });
   });
 });
