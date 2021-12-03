@@ -6,15 +6,10 @@ import { inactiveElementStyle } from "components/styles";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { TaskStatus } from "types/task";
 
-interface FailingTest {
-  testName: string;
-  testId: string;
-}
-
 interface HistoryTableIconProps {
   status: TaskStatus;
   label?: string;
-  failingTests?: FailingTest[];
+  failingTests?: string[];
   inactive?: boolean;
   onClick?: () => void;
 }
@@ -39,8 +34,8 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
         triggerEvent="hover"
       >
         <TestNameContainer>
-          {failingTests.map(({ testName, testId }) => (
-            <Body key={testId}>{testName}</Body>
+          {failingTests.map((testName) => (
+            <Body key={testName}>{testName}</Body>
           ))}
         </TestNameContainer>
       </Tooltip>

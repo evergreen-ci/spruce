@@ -14,11 +14,24 @@ interface TaskCellProps {
     id: string;
     status: string;
   };
+  inactive?: boolean;
+  failingTests?: string[];
+  label?: string;
 }
-export const TaskCell: React.FC<TaskCellProps> = ({ task }) => (
+export const TaskCell: React.FC<TaskCellProps> = ({
+  task,
+  inactive,
+  failingTests,
+  label,
+}) => (
   <Link key={task.id} to={getTaskRoute(task.id)}>
     <Cell key={`task_cell_${task.id}`}>
-      <HistoryTableIcon status={task.status as TaskStatus} />
+      <HistoryTableIcon
+        inactive={inactive}
+        status={task.status as TaskStatus}
+        failingTests={failingTests}
+        label={label}
+      />
     </Cell>
   </Link>
 );

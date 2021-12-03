@@ -1,4 +1,4 @@
-import { render, fireEvent } from "test_utils/test-utils";
+import { render, fireEvent, waitFor } from "test_utils/test-utils";
 import { TaskStatus } from "types/task";
 import { HistoryTableIcon } from ".";
 
@@ -23,7 +23,7 @@ describe("historyTableIcon", () => {
     expect(queryByText("test a")).not.toBeInTheDocument();
   });
   it("hovering over the icon when there are failing tests should open a tooltip", async () => {
-    const { queryByDataCy, queryByText, findByText } = render(
+    const { queryByDataCy, queryByText } = render(
       <HistoryTableIcon
         status={TaskStatus.Succeeded}
         failingTests={failingTests}
@@ -32,16 +32,17 @@ describe("historyTableIcon", () => {
     const icon = queryByDataCy("history-table-icon");
     expect(icon).toBeInTheDocument();
     fireEvent.mouseOver(icon);
-    await findByText("test a");
-    expect(queryByText("test a")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(queryByText("test a")).toBeVisible();
+    });
   });
 });
 
 const failingTests = [
-  { testName: "test a", testId: "1" },
-  { testName: "test b", testId: "2" },
-  { testName: "test c", testId: "3" },
-  { testName: "test looooonnnnnnnng name", testId: "4" },
-  { testName: "some other test", testId: "5" },
-  { testName: "test name d", testId: "6" },
+  "test a",
+  "test b",
+  "test c",
+  "test looooonnnnnnnng name",
+  "some other test",
+  "test name d",
 ];
