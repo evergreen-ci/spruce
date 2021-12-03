@@ -22,13 +22,13 @@ test("toSortString", () => {
     columnKey: TaskSortCategory.Name,
     order: "descend",
   };
-  expect(toSortString(input)).toEqual("NAME:DESC");
+  expect(toSortString(input)).toBe("NAME:DESC");
 
   const unsetSort: SorterResult<Task> = {
     columnKey: TaskSortCategory.Status,
     order: undefined,
   };
-  expect(toSortString(unsetSort)).toEqual(undefined);
+  expect(toSortString(unsetSort)).toBeUndefined();
 
   const multiSort: SorterResult<Task>[] = [
     {
@@ -40,5 +40,5 @@ test("toSortString", () => {
       order: "ascend",
     },
   ];
-  expect(toSortString(multiSort)).toEqual("BASE_STATUS:ASC");
+  expect(toSortString(multiSort)).toBe("BASE_STATUS:ASC");
 });

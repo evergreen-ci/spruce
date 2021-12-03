@@ -8,7 +8,7 @@ import { ProjectSelect } from ".";
 afterEach(() => {
   jest.restoreAllMocks();
 });
-test("Sets the currently selected project to what ever is passed in's display name", async () => {
+test("sets the currently selected project to what ever is passed in's display name", async () => {
   const { Component } = RenderFakeToastContext(
     <MockedProvider mocks={mocks} addTypename={false}>
       <ProjectSelect selectedProjectIdentifier="evergreen" />
@@ -21,7 +21,7 @@ test("Sets the currently selected project to what ever is passed in's display na
   });
 });
 
-test("Should toggle dropdown when clicking on it ", async () => {
+test("should toggle dropdown when clicking on it", async () => {
   const { Component } = RenderFakeToastContext(
     <MockedProvider mocks={mocks} addTypename={false}>
       <ProjectSelect selectedProjectIdentifier="evergreen" />
@@ -37,7 +37,7 @@ test("Should toggle dropdown when clicking on it ", async () => {
   expect(queryByDataCy("project-select-options")).not.toBeInTheDocument();
 });
 
-test("Should narrow down search results when filtering on projects", async () => {
+test("should narrow down search results when filtering on projects", async () => {
   const { Component } = RenderFakeToastContext(
     <MockedProvider mocks={mocks} addTypename={false}>
       <ProjectSelect selectedProjectIdentifier="evergreen" />
@@ -50,10 +50,10 @@ test("Should narrow down search results when filtering on projects", async () =>
   userEvent.click(queryByDataCy("project-select"));
   expect(queryByDataCy("project-select-options")).toBeInTheDocument();
   let options = await findAllByDataCy("project-display-name");
-  expect(options.length).toBe(6);
+  expect(options).toHaveLength(6);
   userEvent.type(queryByDataCy("project-select-search-input"), "logkeeper");
   options = await findAllByDataCy("project-display-name");
-  expect(options.length).toBe(1);
+  expect(options).toHaveLength(1);
 });
 
 const mocks = [

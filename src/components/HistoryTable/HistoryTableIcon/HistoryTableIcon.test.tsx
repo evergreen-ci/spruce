@@ -2,8 +2,8 @@ import { render, fireEvent } from "test_utils/test-utils";
 import { TaskStatus } from "types/task";
 import { HistoryTableIcon } from ".";
 
-describe("HistoryTableIcon", () => {
-  test("Clicking on the icon performs an action", () => {
+describe("historyTableIcon", () => {
+  it("clicking on the icon performs an action", () => {
     const onClick = jest.fn();
     const { queryByDataCy } = render(
       <HistoryTableIcon status={TaskStatus.Succeeded} onClick={onClick} />
@@ -13,7 +13,7 @@ describe("HistoryTableIcon", () => {
     fireEvent.click(icon);
     expect(onClick).toHaveBeenCalled();
   });
-  test("Hovering over the icon when there no failing tests shouldn't open a tooltip", () => {
+  it("hovering over the icon when there no failing tests shouldn't open a tooltip", () => {
     const { queryByDataCy, queryByText } = render(
       <HistoryTableIcon status={TaskStatus.Succeeded} />
     );
@@ -22,7 +22,7 @@ describe("HistoryTableIcon", () => {
     fireEvent.mouseOver(icon);
     expect(queryByText("test a")).not.toBeInTheDocument();
   });
-  test("Hovering over the icon when there are failing tests should open a tooltip", async () => {
+  it("hovering over the icon when there are failing tests should open a tooltip", async () => {
     const { queryByDataCy, queryByText, findByText } = render(
       <HistoryTableIcon
         status={TaskStatus.Succeeded}

@@ -89,7 +89,7 @@ functions:
       working_dir: spruce
       background: true
       script: |
-        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        export PATH=/opt/nodejs/node-v16.13.0-linux-x64/bin:$PATH
         yarn run dev
 
   
@@ -98,7 +98,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        export PATH=/opt/nodejs/node-v16.13.0-linux-x64/bin:$PATH
         yarn
 
   yarn-test:
@@ -106,7 +106,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        export PATH=/opt/nodejs/node-v16.13.0-linux-x64/bin:$PATH
         yarn test -u --reporters=default --reporters=jest-junit
 
   yarn-eslint:
@@ -114,7 +114,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        export PATH=/opt/nodejs/node-v16.13.0-linux-x64/bin:$PATH
         yarn eslint:strict
 
   yarn-tsc:
@@ -122,7 +122,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        export PATH=/opt/nodejs/node-v16.13.0-linux-x64/bin:$PATH
         yarn check-types
 
   yarn-build:
@@ -130,7 +130,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        export PATH=/opt/nodejs/node-v16.13.0-linux-x64/bin:$PATH
         yarn build
 
   yarn-build-storybook:
@@ -138,7 +138,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        export PATH=/opt/nodejs/node-v16.13.0-linux-x64/bin:$PATH
         yarn build-storybook
 
   yarn-coverage:
@@ -146,7 +146,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        export PATH=/opt/nodejs/node-v16.13.0-linux-x64/bin:$PATH
         yarn coverage
 
   yarn-analyze:
@@ -154,7 +154,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        export PATH=/opt/nodejs/node-v16.13.0-linux-x64/bin:$PATH
         yarn analyze
 
   run-cypress-tests:
@@ -162,7 +162,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        export PATH=/opt/nodejs/node-v16.13.0-linux-x64/bin:$PATH
         ./node_modules/.bin/wait-on http://localhost:3000
         ./node_modules/.bin/cypress run --record --key ${cypress_record_key} --reporter junit
 
@@ -280,7 +280,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        export PATH=/opt/nodejs/node-v16.13.0-linux-x64/bin:$PATH
         yarn build:prod
   
   send-email:

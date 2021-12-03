@@ -57,6 +57,7 @@ export const PatchCard: React.FC<Props> = ({
       count={count}
       statusCounts={statusCounts}
       versionId={versionId}
+      key={`${versionId}_${umbrellaStatus}`}
     />
   ));
   return (

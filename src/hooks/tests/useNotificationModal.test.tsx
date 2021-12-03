@@ -17,7 +17,7 @@ jest.mock("uuid", () => ({
   v4: () => Math.floor(Math.random() * Math.floor(Number.MAX_SAFE_INTEGER)),
 }));
 
-it("Should have correctly formatted request payload after selecting options (task)", async () => {
+test("should have correctly formatted request payload after selecting options (task)", async () => {
   const mocks = [
     {
       request: {
@@ -71,7 +71,7 @@ it("Should have correctly formatted request payload after selecting options (tas
   });
 });
 
-it("Should have correctly formatted request payload after selecting options, adding regex selectors and deleting regex selector (version)", async () => {
+test("should have correctly formatted request payload after selecting options, adding regex selectors and deleting regex selector (version)", async () => {
   const mocks = [
     {
       request: {
@@ -190,7 +190,7 @@ it("Should have correctly formatted request payload after selecting options, add
   });
 });
 
-it("Should auto populate email and slack fields if they exist", async () => {
+test("should auto populate email and slack fields if they exist", async () => {
   const mocks = [
     {
       request: {

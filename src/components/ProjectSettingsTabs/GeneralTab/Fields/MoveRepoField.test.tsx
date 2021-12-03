@@ -2,7 +2,7 @@ import userEvent from "@testing-library/user-event";
 import { render, fireEvent, waitFor } from "test_utils/test-utils";
 import { MoveRepoField, MoveRepoModal } from "./MoveRepoField";
 
-test("Does not show the move repo button when not attached to repo", async () => {
+test("does not show the move repo button when not attached to repo", async () => {
   const { queryByDataCy } = render(
     <MoveRepoField
       formData={{}}
@@ -16,7 +16,7 @@ test("Does not show the move repo button when not attached to repo", async () =>
   expect(queryByDataCy("move-repo-button")).not.toBeInTheDocument();
 });
 
-test("Clicking the button opens the modal", async () => {
+test("clicking the button opens the modal", async () => {
   const { queryByDataCy } = render(
     <MoveRepoField
       formData={{}}
@@ -34,7 +34,7 @@ test("Clicking the button opens the modal", async () => {
   await waitFor(() => expect(queryByDataCy("move-repo-modal")).toBeVisible());
 });
 
-test("Renders the Move Repo Modal when the open prop is true", () => {
+test("renders the Move Repo Modal when the open prop is true", () => {
   const mockOnConfirm = jest.fn();
   const mockOnCancel = jest.fn();
   const { queryByDataCy } = render(
@@ -43,7 +43,7 @@ test("Renders the Move Repo Modal when the open prop is true", () => {
   expect(queryByDataCy("move-repo-modal")).toBeVisible();
 });
 
-test("Does not render the Move Repo Modal when the open prop is false", () => {
+test("does not render the Move Repo Modal when the open prop is false", () => {
   const mockOnConfirm = jest.fn();
   const mockOnCancel = jest.fn();
   const { queryByDataCy } = render(
@@ -56,7 +56,7 @@ test("Does not render the Move Repo Modal when the open prop is false", () => {
   expect(queryByDataCy("move-repo-modal")).not.toBeInTheDocument();
 });
 
-test("Disables the confirm button on initial render", () => {
+test("disables the confirm button on initial render", () => {
   const mockOnConfirm = jest.fn();
   const mockOnCancel = jest.fn();
   const { getAllByText } = render(
@@ -67,7 +67,7 @@ test("Disables the confirm button on initial render", () => {
   expect(moveRepoButton).toHaveAttribute("disabled");
 });
 
-test("Disables the confirm button when only owner field is updated", () => {
+test("disables the confirm button when only owner field is updated", () => {
   const mockOnConfirm = jest.fn();
   const mockOnCancel = jest.fn();
   const { getAllByText, queryByDataCy } = render(
@@ -79,7 +79,7 @@ test("Disables the confirm button when only owner field is updated", () => {
   expect(moveRepoButton).toHaveAttribute("disabled");
 });
 
-test("Disables the confirm button when only repo field is updated", () => {
+test("disables the confirm button when only repo field is updated", () => {
   const mockOnConfirm = jest.fn();
   const mockOnCancel = jest.fn();
   const { getAllByText, queryByDataCy } = render(
@@ -91,7 +91,7 @@ test("Disables the confirm button when only repo field is updated", () => {
   expect(moveRepoButton).toHaveAttribute("disabled");
 });
 
-test("Enables the confirm button when both fields are updated", () => {
+test("enables the confirm button when both fields are updated", () => {
   const mockOnConfirm = jest.fn();
   const mockOnCancel = jest.fn();
   const { getAllByText, queryByDataCy } = render(

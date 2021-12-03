@@ -6,7 +6,7 @@ import { HistoryTableTestSearch } from "./HistoryTableTestSearch";
 
 const Content = () => <HistoryTableTestSearch />;
 
-test("Renders normally and doesn't affect the url", () => {
+test("renders normally and doesn't affect the url", () => {
   const { getByPlaceholderText } = render(Content, {
     route: `/variant-history/evergreen/lint`,
     path: "/variant-history/:projectId/:variantName",
@@ -16,7 +16,7 @@ test("Renders normally and doesn't affect the url", () => {
   expect(input).toHaveValue("");
 });
 
-test("Should clear input when a value is submitted", () => {
+test("should clear input when a value is submitted", () => {
   const { getByPlaceholderText } = render(Content, {
     route: `/variant-history/evergreen/lint`,
     path: "/variant-history/:projectId/:variantName",
@@ -36,7 +36,7 @@ test("Should clear input when a value is submitted", () => {
   expect(input).toHaveValue("");
 });
 
-test("Should add input query params to the url", () => {
+test("should add input query params to the url", () => {
   const { getByPlaceholderText, history } = render(Content, {
     route: `/variant-history/evergreen/lint`,
     path: "/variant-history/:projectId/:variantName",
@@ -58,7 +58,7 @@ test("Should add input query params to the url", () => {
   expect(location.search).toBe(`?failed=some-test-name`);
 });
 
-test("Should add multiple input filters to the same key as query params", () => {
+test("should add multiple input filters to the same key as query params", () => {
   const { getByPlaceholderText, history } = render(Content, {
     route: `/variant-history/evergreen/lint`,
     path: "/variant-history/:projectId/:variantName",
@@ -85,7 +85,7 @@ test("Should add multiple input filters to the same key as query params", () => 
   expect(location.search).toBe(`?failed=some-test-name,some-other-test-name`);
 });
 
-test("Should not allow duplicate input filters for the same key as query params", () => {
+test("should not allow duplicate input filters for the same key as query params", () => {
   const { getByPlaceholderText, history } = render(Content, {
     route: `/variant-history/evergreen/lint`,
     path: "/variant-history/:projectId/:variantName",
