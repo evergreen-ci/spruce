@@ -63,3 +63,11 @@ export const mapStringArrayToObject = <T>(
     }
     return { ...prev, [curr]: value };
   }, {});
+
+/** toArray takes a value and converts it into an array if it is not already */
+export const toArray = <T>(value: T | T[]): T[] => {
+  if (Array.isArray(value)) {
+    return value;
+  }
+  return value === undefined ? [] : [value];
+};

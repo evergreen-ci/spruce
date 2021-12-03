@@ -3,6 +3,7 @@ import {
   convertArrayToObject,
   convertObjectToArray,
   mapStringArrayToObject,
+  toArray,
 } from ".";
 
 describe("toggleArray", () => {
@@ -122,5 +123,27 @@ describe("mapStringArrayToObject", () => {
       keyC: "KEYC",
       keyD: "KEYD",
     });
+  });
+});
+
+describe("toArray", () => {
+  it("should convert a single element to an array", () => {
+    expect(toArray(1)).toStrictEqual([1]);
+    expect(toArray("a")).toStrictEqual(["a"]);
+    expect(toArray(true)).toStrictEqual([true]);
+    expect(toArray({ someKey: "someValue" })).toStrictEqual([
+      { someKey: "someValue" },
+    ]);
+  });
+  it("should convert an array to an array", () => {
+    expect(toArray([1, 2, 3])).toStrictEqual([1, 2, 3]);
+    expect(toArray(["a", "b", "c"])).toStrictEqual(["a", "b", "c"]);
+    expect(toArray([true, false, true])).toStrictEqual([true, false, true]);
+    expect(toArray([{ someKey: "someValue" }])).toStrictEqual([
+      { someKey: "someValue" },
+    ]);
+  });
+  it("an undefined value should be converted into an empty array", () => {
+    expect(toArray(undefined)).toStrictEqual([]);
   });
 });
