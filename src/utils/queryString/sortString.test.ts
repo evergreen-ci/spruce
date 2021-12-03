@@ -3,7 +3,7 @@ import { SortDirection, TaskSortCategory, Task } from "gql/generated/types";
 import { parseSortString, toSortString } from "./sortString";
 
 test("parseSortString", () => {
-  expect(parseSortString("NAME:ASC;STATUS:DESC")).toEqual([
+  expect(parseSortString("NAME:ASC;STATUS:DESC")).toStrictEqual([
     {
       Key: TaskSortCategory.Name,
       Direction: SortDirection.Asc,
@@ -14,7 +14,7 @@ test("parseSortString", () => {
     },
   ]);
 
-  expect(parseSortString("FOO:ASC")).toEqual([]);
+  expect(parseSortString("FOO:ASC")).toStrictEqual([]);
 });
 
 test("toSortString", () => {

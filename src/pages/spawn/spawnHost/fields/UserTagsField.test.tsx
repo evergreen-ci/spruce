@@ -60,7 +60,7 @@ test("editing a tag value should add it to addedInstanceTags", async () => {
     <UserTagsField instanceTags={instanceTags} onChange={updateData} />
   );
 
-  expect(data).toEqual(defaultData);
+  expect(data).toStrictEqual(defaultData);
   expect(queryAllByDataCy("user-tag-trash-icon")[0]).toBeVisible();
 
   fireEvent.change(queryAllByDataCy("user-tag-value-field")[0], {
@@ -72,7 +72,7 @@ test("editing a tag value should add it to addedInstanceTags", async () => {
   fireEvent.click(queryAllByDataCy("user-tag-edit-icon")[0]);
 
   expect(updateData).toHaveBeenCalled();
-  expect(data).toEqual({
+  expect(data).toStrictEqual({
     ...defaultData,
     addedInstanceTags: [{ key: "keyA", value: "new value" }],
   });
@@ -88,13 +88,13 @@ test("deleting a tag value should add it to deletedInstanceTags", async () => {
     <UserTagsField instanceTags={instanceTags} onChange={updateData} />
   );
 
-  expect(data).toEqual(defaultData);
+  expect(data).toStrictEqual(defaultData);
   expect(queryAllByDataCy("user-tag-trash-icon")[0]).toBeVisible();
 
   fireEvent.click(queryAllByDataCy("user-tag-trash-icon")[0]);
 
   expect(updateData).toHaveBeenCalled();
-  expect(data).toEqual({
+  expect(data).toStrictEqual({
     ...defaultData,
     deletedInstanceTags: [{ key: "keyA", value: "valueA" }],
   });
@@ -111,7 +111,7 @@ test("editing a tag key should add the new tag to addedInstanceTags and delete t
     <UserTagsField instanceTags={instanceTags} onChange={updateData} />
   );
 
-  expect(data).toEqual(defaultData);
+  expect(data).toStrictEqual(defaultData);
   expect(queryAllByDataCy("user-tag-trash-icon")[0]).toBeVisible();
 
   fireEvent.change(queryAllByDataCy("user-tag-key-field")[0], {
@@ -123,7 +123,7 @@ test("editing a tag key should add the new tag to addedInstanceTags and delete t
   fireEvent.click(queryAllByDataCy("user-tag-edit-icon")[0]);
 
   expect(updateData).toHaveBeenCalled();
-  expect(data).toEqual({
+  expect(data).toStrictEqual({
     ...defaultData,
     deletedInstanceTags: [{ key: "keyA", value: "valueA" }],
     addedInstanceTags: [{ key: "new key", value: "valueA" }],
@@ -140,7 +140,7 @@ test("should be able to add an new tag with the add tag button", async () => {
     <UserTagsField instanceTags={instanceTags} onChange={updateData} />
   );
 
-  expect(data).toEqual(defaultData);
+  expect(data).toStrictEqual(defaultData);
   expect(queryAllByDataCy("user-tag-row")).toHaveLength(3);
   expect(queryByDataCy("add-tag-button")).toBeVisible();
 
@@ -166,7 +166,7 @@ test("should be able to add an new tag with the add tag button", async () => {
   fireEvent.click(queryAllByDataCy("user-tag-edit-icon")[0]);
 
   expect(updateData).toHaveBeenCalled();
-  expect(data).toEqual({
+  expect(data).toStrictEqual({
     ...defaultData,
     addedInstanceTags: [{ key: "new key", value: "new value" }],
   });

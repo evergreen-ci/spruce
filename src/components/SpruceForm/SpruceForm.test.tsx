@@ -35,7 +35,7 @@ describe("basic form", () => {
     fireEvent.change(queryByDataCy("valid-projects-input"), {
       target: { value: "new value" },
     });
-    expect(onChange).toHaveBeenCalled();
+    expect(onChange).toHaveBeenCalledWith({ formData: "new value" });
     expect(queryByDataCy("valid-projects-input")).toHaveValue("new value");
     expect(data).toStrictEqual({
       ...basicForm.formData,

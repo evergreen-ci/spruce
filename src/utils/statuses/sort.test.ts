@@ -41,5 +41,5 @@ test("correctly sorts task statuses", () => {
     "success",
   ];
 
-  expect(initialSort.sort(sortTasks)).toEqual(expected);
+  expect(initialSort.sort(sortTasks)).toStrictEqual(expected);
 });

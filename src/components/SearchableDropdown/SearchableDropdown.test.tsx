@@ -81,7 +81,7 @@ describe("searchableDropdown", () => {
       queryByDataCy("searchable-dropdown-search-input")
     ).toBeInTheDocument();
     userEvent.type(queryByDataCy("searchable-dropdown-search-input"), "spruce");
-    expect(searchFunc).toHaveBeenCalled();
+    expect(searchFunc).toHaveBeenCalledWith("spruce");
     expect(queryByText("spruce")).toBeInTheDocument();
   });
 

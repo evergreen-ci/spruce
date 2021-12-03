@@ -47,7 +47,7 @@ test("selecting a public key from the dropdown should select it", async () => {
   const selectChoice = getAllByText("MyFirstKey.pub")[1];
   expect(selectChoice).toBeInTheDocument();
   fireEvent.click(selectChoice);
-  expect(data).toEqual({
+  expect(data).toStrictEqual({
     publicKey: { ...publicKeys[0] },
     savePublicKey: false,
   });

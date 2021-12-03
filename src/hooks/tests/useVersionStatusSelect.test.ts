@@ -45,7 +45,9 @@ test("should select all tasks that match the patch status filter when the base s
   act(() => {
     result.current.setBaseStatusFilterTerm({});
   });
-  expect(result.current.selectedTasks[versionId]).toEqual(successStatusIds);
+  expect(result.current.selectedTasks[versionId]).toStrictEqual(
+    successStatusIds
+  );
 });
 
 test("should select all tasks that match the base status filter when the patch status filter is empty", () => {
@@ -60,7 +62,7 @@ test("should select all tasks that match the base status filter when the patch s
       mainVersion: ["success"],
     });
   });
-  expect(result.current.selectedTasks[versionId]).toEqual({
+  expect(result.current.selectedTasks[versionId]).toStrictEqual({
     ...allFalse,
     evergreen_ubuntu1604_test_service: true,
   });
@@ -81,7 +83,7 @@ test("should select all tasks that match the patch status filter and base status
     });
   });
   waitFor(() =>
-    expect(result.current.selectedTasks).toEqual({
+    expect(result.current.selectedTasks).toStrictEqual({
       ...allFalse,
       evergreen_ubuntu1604_test_service: true,
     })
@@ -103,7 +105,7 @@ test("tasks with undefined base statuses do not match with any base status filte
     });
   });
   waitFor(() =>
-    expect(result.current.selectedTasks).toEqual({
+    expect(result.current.selectedTasks).toStrictEqual({
       ...allFalse,
     })
   );
@@ -118,7 +120,9 @@ test("should deselect all tasks with statuses that do not match any patch status
       mainVersion: ["success"],
     });
   });
-  expect(result.current.selectedTasks[versionId]).toEqual(successStatusIds);
+  expect(result.current.selectedTasks[versionId]).toStrictEqual(
+    successStatusIds
+  );
   act(() => {
     result.current.setVersionStatusFilterTerm({
       mainVersion: [],
@@ -138,7 +142,7 @@ test("selecting multiple patch statuses should select all tasks with a matching 
       mainVersion: ["success", "failed"],
     });
   });
-  expect(result.current.selectedTasks[versionId]).toEqual({
+  expect(result.current.selectedTasks[versionId]).toStrictEqual({
     ...allTrue,
     evergreen_ubuntu1604_89: false,
   });
@@ -153,7 +157,7 @@ test("selecting an individual task should work", () => {
       mainVersion: "evergreen_lint_generate_lint",
     });
   });
-  expect(result.current.selectedTasks[versionId]).toEqual({
+  expect(result.current.selectedTasks[versionId]).toStrictEqual({
     ...allFalse,
     evergreen_lint_generate_lint: true,
   });
@@ -168,13 +172,15 @@ test("deselecting an individual task should work if it was selected by valid sta
       mainVersion: ["success"],
     });
   });
-  expect(result.current.selectedTasks[versionId]).toEqual(successStatusIds);
+  expect(result.current.selectedTasks[versionId]).toStrictEqual(
+    successStatusIds
+  );
   act(() => {
     result.current.toggleSelectedTask({
       mainVersion: "evergreen_lint_generate_lint",
     });
   });
-  expect(result.current.selectedTasks[versionId]).toEqual({
+  expect(result.current.selectedTasks[versionId]).toStrictEqual({
     ...allTrue,
     evergreen_lint_generate_lint: false,
     evergreen_ubuntu1604_89: false,
