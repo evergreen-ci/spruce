@@ -15,8 +15,9 @@ import {
   GET_BASE_VERSION_AND_TASK,
   GET_LAST_MAINLINE_COMMIT,
 } from "gql/queries";
-import { TaskStatus } from "types/task";
+import { TaskStatus, finishedTaskStatuses } from "types/task";
 import { errorReporting } from "utils";
+import { isFinishedTaskStatus } from "utils/statuses";
 import { applyStrictRegex } from "utils/string";
 
 const { reportError } = errorReporting;
@@ -32,6 +33,7 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
   >(GET_BASE_VERSION_AND_TASK, {
     variables: { taskId },
   });
+
   const [
     fetchLastPassing,
     { data: lastPassingData, called: lastPassingCalled },
@@ -54,6 +56,7 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
   const { projectIdentifier, order } = versionMetadata?.baseVersion ?? {};
   // Increment order by 1 to consider the base commit in the query.
   const skipOrderNumber = order + 1;
+  const isBaseTaskFinished = isFinishedTaskStatus(baseTaskStatus);
   useEffect(() => {
     const bvOptionsBase = {
       tasks: [applyStrictRegex(displayName)],
@@ -75,12 +78,19 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
         },
       });
     }
-    if (selectState === "lastExecuted" && !baseTaskId && !lastExecutedCalled) {
+    if (
+      selectState === "lastExecuted" &&
+      !isBaseTaskFinished &&
+      !lastExecutedCalled
+    ) {
       fetchLastExecuted({
         variables: {
           projectIdentifier,
           skipOrderNumber,
-          buildVariantOptions: bvOptionsBase,
+          buildVariantOptions: {
+            ...bvOptionsBase,
+            statuses: finishedTaskStatuses,
+          },
         },
       });
     }
@@ -91,6 +101,7 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
     displayName,
     fetchLastExecuted,
     fetchLastPassing,
+    isBaseTaskFinished,
     lastExecutedCalled,
     lastPassingCalled,
     projectIdentifier,
@@ -120,7 +131,7 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
       break;
     case "lastExecuted":
       // If a base task exists, the last executed commit is the base task.
-      if (baseTaskId) {
+      if (isBaseTaskFinished) {
         link = getTaskRoute(baseTaskId);
       } else if (lastExecutedTaskId) {
         link = getTaskRoute(lastExecutedTaskId);
