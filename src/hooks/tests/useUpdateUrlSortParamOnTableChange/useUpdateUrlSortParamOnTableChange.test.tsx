@@ -5,40 +5,42 @@ import {
 } from "test_utils/test-utils";
 import { TestComponent } from "./TestComponent";
 
-let matchMedia;
-beforeAll(() => {
-  matchMedia = new MatchMediaMock();
-});
-
-afterEach(() => {
-  matchMedia.clear();
-});
-test("useUpdateUrlSortParamOnTableChange", () => {
-  const { getByText } = render(() => <TestComponent />, {
-    route: "/hosts",
-    path: "/hosts",
+describe("useUpdateUrlSortParamOnTableChange", () => {
+  let matchMedia;
+  beforeAll(() => {
+    matchMedia = new MatchMediaMock();
   });
 
-  const idHeader = getByText("ID");
-  const statusHeader = getByText("Status");
+  afterEach(() => {
+    matchMedia.clear();
+  });
+  it("toggles table headers when clicked", () => {
+    const { getByText } = render(() => <TestComponent />, {
+      route: "/hosts",
+      path: "/hosts",
+    });
 
-  fireEvent.click(idHeader);
+    const idHeader = getByText("ID");
+    const statusHeader = getByText("Status");
 
-  expect(getByText("sortBy: ID")).toBeInTheDocument();
-  expect(getByText("sortDir: ASC")).toBeInTheDocument();
+    fireEvent.click(idHeader);
 
-  fireEvent.click(statusHeader);
+    expect(getByText("sortBy: ID")).toBeInTheDocument();
+    expect(getByText("sortDir: ASC")).toBeInTheDocument();
 
-  expect(getByText("sortBy: STATUS")).toBeInTheDocument();
-  expect(getByText("sortDir: ASC")).toBeInTheDocument();
+    fireEvent.click(statusHeader);
 
-  fireEvent.click(statusHeader);
+    expect(getByText("sortBy: STATUS")).toBeInTheDocument();
+    expect(getByText("sortDir: ASC")).toBeInTheDocument();
 
-  expect(getByText("sortBy: STATUS")).toBeInTheDocument();
-  expect(getByText("sortDir: DESC")).toBeInTheDocument();
+    fireEvent.click(statusHeader);
 
-  fireEvent.click(statusHeader);
+    expect(getByText("sortBy: STATUS")).toBeInTheDocument();
+    expect(getByText("sortDir: DESC")).toBeInTheDocument();
 
-  expect(getByText("sortBy: none")).toBeInTheDocument();
-  expect(getByText("sortDir: none")).toBeInTheDocument();
+    fireEvent.click(statusHeader);
+
+    expect(getByText("sortBy: none")).toBeInTheDocument();
+    expect(getByText("sortDir: none")).toBeInTheDocument();
+  });
 });

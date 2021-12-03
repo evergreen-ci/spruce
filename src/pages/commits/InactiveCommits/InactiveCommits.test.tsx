@@ -7,11 +7,11 @@ const RenderInactiveCommits = (versions) => (
   <InactiveCommits rolledUpVersions={versions} />
 );
 
-afterEach(() => {
-  jest.clearAllTimers();
-  jest.clearAllMocks();
-});
 describe("inactiveCommits", () => {
+  afterEach(() => {
+    jest.clearAllTimers();
+    jest.clearAllMocks();
+  });
   it("displays the correct count of inactive versions with the correct copy", () => {
     const { queryByDataCy, rerender } = render(
       <InactiveCommits rolledUpVersions={versions} />

@@ -21,87 +21,104 @@ const defaultData = {
   },
   savePublicKey: false,
 };
+describe("publicKeyForm", () => {
+  it("public Key state should be initialized correctly", async () => {
+    let data = { ...defaultData };
+    const updateData = jest.fn((x) => {
+      data = x;
+    });
 
-test("public Key state should be initialized correctly", async () => {
-  let data = { ...defaultData };
-  const updateData = jest.fn((x) => {
-    data = x;
+    render(
+      <PublicKeyForm
+        publicKeys={publicKeys}
+        data={data}
+        onChange={updateData}
+      />
+    );
+    expect(data).toStrictEqual(defaultData);
   });
 
-  render(
-    <PublicKeyForm publicKeys={publicKeys} data={data} onChange={updateData} />
-  );
-  expect(data).toStrictEqual(defaultData);
-});
+  it("selecting a public key from the dropdown should select it", async () => {
+    let data = { ...defaultData };
+    const updateData = jest.fn((x) => {
+      data = x;
+    });
 
-test("selecting a public key from the dropdown should select it", async () => {
-  let data = { ...defaultData };
-  const updateData = jest.fn((x) => {
-    data = x;
+    const { queryByDataCy, getAllByText } = render(
+      <PublicKeyForm
+        publicKeys={publicKeys}
+        data={data}
+        onChange={updateData}
+      />
+    );
+    fireEvent.mouseDown(queryByDataCy("public_key_dropdown").firstElementChild);
+    const selectChoice = getAllByText("MyFirstKey.pub")[1];
+    expect(selectChoice).toBeInTheDocument();
+    fireEvent.click(selectChoice);
+    expect(data).toStrictEqual({
+      publicKey: { ...publicKeys[0] },
+      savePublicKey: false,
+    });
   });
 
-  const { queryByDataCy, getAllByText } = render(
-    <PublicKeyForm publicKeys={publicKeys} data={data} onChange={updateData} />
-  );
-  fireEvent.mouseDown(queryByDataCy("public_key_dropdown").firstElementChild);
-  const selectChoice = getAllByText("MyFirstKey.pub")[1];
-  expect(selectChoice).toBeInTheDocument();
-  fireEvent.click(selectChoice);
-  expect(data).toEqual({
-    publicKey: { ...publicKeys[0] },
-    savePublicKey: false,
-  });
-});
+  it("clicking on Add new key should reset the state to the default", async () => {
+    const defaultState = {
+      publicKey: { ...publicKeys[0] },
+      savePublicKey: false,
+    };
+    let data = { ...defaultData };
 
-test("clicking on Add new key should reset the state to the default", async () => {
-  const defaultState = {
-    publicKey: { ...publicKeys[0] },
-    savePublicKey: false,
-  };
-  let data = { ...defaultData };
+    const updateData = jest.fn((x) => {
+      data = x;
+    });
 
-  const updateData = jest.fn((x) => {
-    data = x;
-  });
-
-  const { queryByDataCy } = render(
-    <PublicKeyForm publicKeys={publicKeys} data={data} onChange={updateData} />
-  );
-  expect(data).toStrictEqual(defaultData);
-  expect(queryByDataCy("add_new_key_form")).toBeNull();
-  updateData(defaultState);
-  expect(data).toStrictEqual(defaultState);
-  fireEvent.click(queryByDataCy("add_public_key_button"));
-  expect(queryByDataCy("add_new_key_form")).toBeInTheDocument();
-  expect(data).toStrictEqual(defaultData);
-});
-
-test("toggling Add new key should disable and undisable the select input", async () => {
-  const defaultState = {
-    publicKey: { ...publicKeys[0] },
-    savePublicKey: false,
-  };
-  let data = { ...defaultData };
-
-  const updateData = jest.fn((x) => {
-    data = x;
+    const { queryByDataCy } = render(
+      <PublicKeyForm
+        publicKeys={publicKeys}
+        data={data}
+        onChange={updateData}
+      />
+    );
+    expect(data).toStrictEqual(defaultData);
+    expect(queryByDataCy("add_new_key_form")).toBeNull();
+    updateData(defaultState);
+    expect(data).toStrictEqual(defaultState);
+    fireEvent.click(queryByDataCy("add_public_key_button"));
+    expect(queryByDataCy("add_new_key_form")).toBeInTheDocument();
+    expect(data).toStrictEqual(defaultData);
   });
 
-  const { queryByDataCy } = render(
-    <PublicKeyForm publicKeys={publicKeys} data={data} onChange={updateData} />
-  );
-  expect(data).toStrictEqual(defaultData);
-  expect(queryByDataCy("add_new_key_form")).toBeNull();
-  updateData(defaultState);
-  expect(data).toStrictEqual(defaultState);
-  fireEvent.click(queryByDataCy("add_public_key_button"));
-  expect(queryByDataCy("add_new_key_form")).toBeInTheDocument();
-  expect(queryByDataCy("public_key_dropdown")).toHaveClass(
-    "ant-select-disabled"
-  );
-  fireEvent.click(queryByDataCy("add_public_key_button"));
-  expect(queryByDataCy("add_new_key_form")).toBeNull();
-  expect(queryByDataCy("public_key_dropdown")).not.toHaveClass(
-    "ant-select-disabled"
-  );
+  it("toggling Add new key should disable and undisable the select input", async () => {
+    const defaultState = {
+      publicKey: { ...publicKeys[0] },
+      savePublicKey: false,
+    };
+    let data = { ...defaultData };
+
+    const updateData = jest.fn((x) => {
+      data = x;
+    });
+
+    const { queryByDataCy } = render(
+      <PublicKeyForm
+        publicKeys={publicKeys}
+        data={data}
+        onChange={updateData}
+      />
+    );
+    expect(data).toStrictEqual(defaultData);
+    expect(queryByDataCy("add_new_key_form")).toBeNull();
+    updateData(defaultState);
+    expect(data).toStrictEqual(defaultState);
+    fireEvent.click(queryByDataCy("add_public_key_button"));
+    expect(queryByDataCy("add_new_key_form")).toBeInTheDocument();
+    expect(queryByDataCy("public_key_dropdown")).toHaveClass(
+      "ant-select-disabled"
+    );
+    fireEvent.click(queryByDataCy("add_public_key_button"));
+    expect(queryByDataCy("add_new_key_form")).toBeNull();
+    expect(queryByDataCy("public_key_dropdown")).not.toHaveClass(
+      "ant-select-disabled"
+    );
+  });
 });

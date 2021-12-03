@@ -65,36 +65,38 @@ const Provider = ({ children }) => (
   <MockedProvider mocks={mocks}>{children}</MockedProvider>
 );
 
-test("return correct title and link when the userId passed into the hook parameter is that of the logged in user", async () => {
-  const { result, waitForNextUpdate } = renderHook(
-    () => useGetUserPatchesPageTitleAndLink("admin"),
-    { wrapper: Provider }
-  );
+describe("useGetUserPatchesPageTitleAndLink", () => {
+  it("return correct title and link when the userId passed into the hook parameter is that of the logged in user", async () => {
+    const { result, waitForNextUpdate } = renderHook(
+      () => useGetUserPatchesPageTitleAndLink("admin"),
+      { wrapper: Provider }
+    );
 
-  await waitForNextUpdate();
+    await waitForNextUpdate();
 
-  expect(result.current.title).toBe("My Patches");
-  expect(result.current.link).toBe("/user/admin/patches");
-});
+    expect(result.current.title).toBe("My Patches");
+    expect(result.current.link).toBe("/user/admin/patches");
+  });
 
-test("return correct title and link when the userId passed into the hook parameter is not that of the logged in user", async () => {
-  const { result, waitForNextUpdate } = renderHook(
-    () => useGetUserPatchesPageTitleAndLink("justin.mathew"),
-    { wrapper: Provider }
-  );
+  it("return correct title and link when the userId passed into the hook parameter is not that of the logged in user", async () => {
+    const { result, waitForNextUpdate } = renderHook(
+      () => useGetUserPatchesPageTitleAndLink("justin.mathew"),
+      { wrapper: Provider }
+    );
 
-  await waitForNextUpdate();
+    await waitForNextUpdate();
 
-  expect(result.current.title).toBe("Justin Mathew's Patches");
-  expect(result.current.link).toBe("/user/justin.mathew/patches");
-});
+    expect(result.current.title).toBe("Justin Mathew's Patches");
+    expect(result.current.link).toBe("/user/justin.mathew/patches");
+  });
 
-test("return correct title and link when the userId passed into the hook parameter is not that of the logged in user and the display name of the other user ends with the letter 's'", async () => {
-  const { result, waitForNextUpdate } = renderHook(
-    () => useGetUserPatchesPageTitleAndLink("justin.mathews"),
-    { wrapper: Provider }
-  );
-  await waitForNextUpdate();
-  expect(result.current.title).toBe("Justin Mathews' Patches");
-  expect(result.current.link).toBe("/user/justin.mathews/patches");
+  it("return correct title and link when the userId passed into the hook parameter is not that of the logged in user and the display name of the other user ends with the letter 's'", async () => {
+    const { result, waitForNextUpdate } = renderHook(
+      () => useGetUserPatchesPageTitleAndLink("justin.mathews"),
+      { wrapper: Provider }
+    );
+    await waitForNextUpdate();
+    expect(result.current.title).toBe("Justin Mathews' Patches");
+    expect(result.current.link).toBe("/user/justin.mathews/patches");
+  });
 });

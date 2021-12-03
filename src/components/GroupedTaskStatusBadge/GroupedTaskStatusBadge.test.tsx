@@ -20,7 +20,7 @@ describe("groupedTaskStatusBadgeIcon", () => {
     const badge = queryByDataCy("grouped-task-status-badge");
     expect(badge).toBeInTheDocument();
     fireEvent.click(badge);
-    expect(onClick).toHaveBeenCalled();
+    expect(onClick).toHaveBeenCalledWith();
   });
 
   it("badge should have correct copy", () => {

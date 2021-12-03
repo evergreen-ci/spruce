@@ -1,11 +1,13 @@
 import { bucketByCommit } from "./bucketByCommit";
 
-test("returns an empty array given an empty array", () => {
-  expect(bucketByCommit([])).toStrictEqual([]);
-});
+describe("bucketByCommit", () => {
+  it("returns an empty array given an empty array", () => {
+    expect(bucketByCommit([])).toStrictEqual([]);
+  });
 
-test("returns the input file diffs bucketed by commit", () => {
-  expect(bucketByCommit(input)).toStrictEqual(output);
+  it("returns the input file diffs bucketed by commit", () => {
+    expect(bucketByCommit(input)).toStrictEqual(output);
+  });
 });
 
 const input = [
