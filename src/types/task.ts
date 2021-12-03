@@ -96,3 +96,19 @@ export enum TaskStatus {
   UndispatchedUmbrella = "undispatched-umbrella",
   ScheduledUmbrella = "scheduled-umbrella",
 }
+
+export const failedTaskStatuses = [
+  TaskStatus.Failed,
+  TaskStatus.SetupFailed,
+  TaskStatus.SystemFailed,
+  TaskStatus.TaskTimedOut,
+  TaskStatus.TestTimedOut,
+  TaskStatus.KnownIssue,
+  TaskStatus.SystemUnresponsive,
+  TaskStatus.SystemTimedOut,
+];
+
+export const finishedTaskStatuses = [
+  ...failedTaskStatuses,
+  TaskStatus.Succeeded,
+];
