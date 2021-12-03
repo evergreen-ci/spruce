@@ -15,10 +15,7 @@ export const AccessTab: React.FC<TabProps> = ({
   const { getTab, updateForm } = useProjectSettingsContext();
   const { formData } = getTab(tab);
 
-  const initialFormState = useMemo(() => projectData || repoData, [
-    projectData,
-    repoData,
-  ]);
+  const initialFormState = projectData || repoData;
   usePopulateForm(initialFormState, tab);
 
   const onChange = updateForm(tab);

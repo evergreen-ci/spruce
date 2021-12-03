@@ -3,30 +3,46 @@ import { formToGql, gqlToForm } from "./transformers";
 
 const { project, repo } = data;
 
-describe("Repo data", () => {
+describe("repo data", () => {
   const {
     form,
     gql: { input, result },
   } = repo;
-  test("Correctly converts from GQL to a form", () => {
+  test("correctly converts from GQL to a form", () => {
     expect(gqlToForm(input)).toStrictEqual(form);
   });
 
-  test("Correctly converts from a form to GQL", () => {
+  test("correctly converts from a form to GQL", () => {
     expect(formToGql(form, "123")).toStrictEqual(result);
   });
 });
 
-describe("Project data", () => {
+describe("project data", () => {
   const {
     form,
     gql: { input, result },
   } = project;
-  test("Correctly converts from GQL to a form", () => {
+  test("correctly converts from GQL to a form", () => {
     expect(gqlToForm(input)).toStrictEqual(form);
   });
 
-  test("Correctly converts from a form to GQL", () => {
-    expect(formToGql(form, "456")).toStrictEqual(result);
+  test("correctly converts from a form to GQL and omits empty strings", () => {
+    expect(
+      formToGql(
+        {
+          ...form,
+          ...{
+            admin: {
+              admins: [
+                {
+                  username: "",
+                },
+              ],
+            },
+          },
+        },
+        "456"
+      )
+    ).toStrictEqual(result);
   });
 });
