@@ -125,7 +125,9 @@ describe("scheduleTasks", () => {
 
     expect(dispatchToast.error).not.toHaveBeenCalled();
     await waitFor(() => {
-      expect(dispatchToast.success).toHaveBeenCalledWith();
+      expect(dispatchToast.success).toHaveBeenCalledWith(
+        "Tasks scheduled successfully"
+      );
     });
   });
 
