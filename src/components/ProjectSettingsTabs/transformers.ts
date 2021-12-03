@@ -6,6 +6,7 @@ import {
   GqlToFormFunction,
   WritableTabRoutes,
 } from "./types";
+import * as variables from "./VariablesTab/transformers";
 
 // TODO: Convert PartialRecord to Record once all tabs have been implemented.
 export const gqlToFormMap: PartialRecord<
@@ -13,6 +14,7 @@ export const gqlToFormMap: PartialRecord<
   GqlToFormFunction
 > = {
   [ProjectSettingsTabRoutes.General]: general.gqlToForm,
+  [ProjectSettingsTabRoutes.Variables]: variables.gqlToForm,
 };
 
 // TODO: Convert PartialRecord to Record once all tabs have been implemented.
@@ -21,4 +23,5 @@ export const formToGqlMap: PartialRecord<
   FormToGqlFunction
 > = {
   [ProjectSettingsTabRoutes.General]: general.formToGql,
+  [ProjectSettingsTabRoutes.Variables]: variables.formToGql,
 };

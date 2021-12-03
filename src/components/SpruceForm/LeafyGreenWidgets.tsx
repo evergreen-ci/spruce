@@ -20,9 +20,12 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
   disabled,
   options,
   rawErrors,
+  readonly,
+  formContext,
 }) => {
   const { description, "data-cy": dataCy } = options;
   const hasError = !!rawErrors?.length;
+  const { readonlyAsDisabled = true } = formContext;
   return (
     <ElementWrapper>
       <MaxWidthContainer>
@@ -32,7 +35,7 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
           label={label}
           placeholder={placeholder || undefined}
           description={description as string}
-          disabled={disabled}
+          disabled={disabled || (readonlyAsDisabled && readonly)}
           onChange={({ target }) =>
             onChange(target.value === "" ? null : target.value)
           }
@@ -51,17 +54,22 @@ export const LeafyGreenCheckBox: React.FC<WidgetProps> = ({
   onChange,
   disabled,
   options: { "data-cy": dataCy },
-}) => (
-  <ElementWrapper>
-    <Checkbox
-      data-cy={dataCy}
-      checked={value}
-      label={label}
-      onChange={(e) => onChange(e.target.checked)}
-      disabled={disabled}
-    />
-  </ElementWrapper>
-);
+  readonly,
+  formContext,
+}) => {
+  const { readonlyAsDisabled = true } = formContext;
+  return (
+    <ElementWrapper>
+      <Checkbox
+        data-cy={dataCy}
+        checked={value}
+        label={label}
+        onChange={(e) => onChange(e.target.checked)}
+        disabled={disabled || (readonlyAsDisabled && readonly)}
+      />
+    </ElementWrapper>
+  );
+};
 
 export const LeafyGreenSelect: React.FC<WidgetProps> = ({
   label,
@@ -214,17 +222,26 @@ export const LeafyGreenTextArea: React.FC<WidgetProps> = ({
   value,
   onChange,
   options: { "data-cy": dataCy },
-}) => (
-  <ElementWrapper>
-    <TextArea
-      data-cy={dataCy}
-      label={label}
-      disabled={disabled}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-    />
-  </ElementWrapper>
-);
+  rawErrors,
+  readonly,
+  formContext,
+}) => {
+  const { readonlyAsDisabled = true } = formContext;
+  const hasError = !!rawErrors?.length;
+  return (
+    <ElementWrapper>
+      <TextArea
+        data-cy={dataCy}
+        label={label}
+        disabled={disabled || (readonlyAsDisabled && readonly)}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        errorMessage={hasError ? rawErrors.join(", ") : null}
+        state={hasError ? "error" : "none"}
+      />
+    </ElementWrapper>
+  );
+};
 
 const MaxWidthContainer = styled.div`
   max-width: 400px;

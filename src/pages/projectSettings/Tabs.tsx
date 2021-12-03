@@ -45,6 +45,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
     projectData,
     repoData,
   ]);
+  console.log(tabData);
 
   return (
     <Container>
@@ -77,10 +78,18 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
         path={routes.projectSettingsAccess}
         tab={ProjectSettingsTabRoutes.Access}
       />
-      <TabRoute
-        Component={VariablesTab}
+      <Route
         path={routes.projectSettingsVariables}
-        tab={ProjectSettingsTabRoutes.Variables}
+        render={(props) => (
+          <VariablesTab
+            {...props}
+            projectData={
+              tabData[ProjectSettingsTabRoutes.Variables].projectData
+            }
+            repoData={tabData[ProjectSettingsTabRoutes.Variables].repoData}
+            useRepoSettings={useRepoSettings}
+          />
+        )}
       />
       <TabRoute
         Component={GitHubCommitQueueTab}

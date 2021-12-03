@@ -1,12 +1,7 @@
-#import "../fragments/projectSettings/general.graphql"
+#import "../fragments/projectSettings/index.graphql"
 
 query ProjectSettings($identifier: String!) {
   projectSettings(identifier: $identifier) {
-    projectRef {
-      id
-      useRepoSettings
-      repoRefId
-      ...projectGeneralSettings
-    }
+    ...projectSettings
   }
 }

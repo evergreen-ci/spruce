@@ -1,4 +1,4 @@
-#import "../fragments/projectSettings/general.graphql"
+#import "../fragments/projectSettings/index.graphql"
 
 mutation SaveProjectSettingsForSection(
   $projectSettings: ProjectSettingsInput!
@@ -8,11 +8,6 @@ mutation SaveProjectSettingsForSection(
     projectSettings: $projectSettings
     section: $section
   ) {
-    projectRef {
-      id
-      useRepoSettings
-      repoRefId
-      ...projectGeneralSettings
-    }
+    ...projectSettings
   }
 }
