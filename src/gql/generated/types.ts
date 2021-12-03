@@ -29,6 +29,7 @@ export type Query = {
   project: Project;
   patchTasks: PatchTasks;
   taskTests: TaskTestResult;
+  taskTestSample?: Maybe<Array<TaskTestResultSample>>;
   taskFiles: TaskFiles;
   user: User;
   taskLogs: TaskLogs;
@@ -104,6 +105,11 @@ export type QueryTaskTestsArgs = {
   testName?: Maybe<Scalars["String"]>;
   statuses?: Array<Scalars["String"]>;
   groupId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryTaskTestSampleArgs = {
+  tasks: Array<Scalars["String"]>;
+  filters: Array<TestFilter>;
 };
 
 export type QueryTaskFilesArgs = {
@@ -470,6 +476,18 @@ export type VersionToRestart = {
   taskIds: Array<Scalars["String"]>;
 };
 
+export type TestFilter = {
+  testName: Scalars["String"];
+  testStatus: Scalars["String"];
+};
+
+export type TaskTestResultSample = {
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
+  totalTestCount?: Maybe<Scalars["Int"]>;
+  matchingFailedTestNames?: Maybe<Array<Scalars["String"]>>;
+};
+
 export type MainlineCommits = {
   nextPageOrderNumber?: Maybe<Scalars["Int"]>;
   prevPageOrderNumber?: Maybe<Scalars["Int"]>;
@@ -726,7 +744,6 @@ export type ProjectInput = {
   displayName?: Maybe<Scalars["String"]>;
   enabled?: Maybe<Scalars["Boolean"]>;
   private?: Maybe<Scalars["Boolean"]>;
-  restricted?: Maybe<Scalars["Boolean"]>;
   owner?: Maybe<Scalars["String"]>;
   repo?: Maybe<Scalars["String"]>;
   branch?: Maybe<Scalars["String"]>;
@@ -776,7 +793,6 @@ export type RepoRefInput = {
   displayName?: Maybe<Scalars["String"]>;
   enabled?: Maybe<Scalars["Boolean"]>;
   private?: Maybe<Scalars["Boolean"]>;
-  restricted?: Maybe<Scalars["Boolean"]>;
   owner?: Maybe<Scalars["String"]>;
   repo?: Maybe<Scalars["String"]>;
   branch?: Maybe<Scalars["String"]>;
@@ -1505,7 +1521,6 @@ export type Project = {
   displayName: Scalars["String"];
   enabled?: Maybe<Scalars["Boolean"]>;
   private?: Maybe<Scalars["Boolean"]>;
-  restricted?: Maybe<Scalars["Boolean"]>;
   owner: Scalars["String"];
   repo: Scalars["String"];
   branch: Scalars["String"];
@@ -1555,7 +1570,6 @@ export type RepoRef = {
   displayName: Scalars["String"];
   enabled: Scalars["Boolean"];
   private: Scalars["Boolean"];
-  restricted: Scalars["Boolean"];
   owner: Scalars["String"];
   repo: Scalars["String"];
   branch: Scalars["String"];
@@ -3360,6 +3374,22 @@ export type GetTaskStatusesQuery = {
     taskStatuses: Array<string>;
     baseTaskStatuses: Array<string>;
   };
+};
+
+export type GetTaskTestSampleQueryVariables = Exact<{
+  tasks: Array<Scalars["String"]>;
+  filters: Array<TestFilter>;
+}>;
+
+export type GetTaskTestSampleQuery = {
+  taskTestSample?: Maybe<
+    Array<{
+      taskId: string;
+      execution: number;
+      matchingFailedTestNames?: Maybe<Array<string>>;
+      totalTestCount?: Maybe<number>;
+    }>
+  >;
 };
 
 export type TaskTestsQueryVariables = Exact<{
