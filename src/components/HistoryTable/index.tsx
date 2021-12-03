@@ -4,7 +4,6 @@ import HistoryTable from "./HistoryTable";
 import * as context from "./HistoryTableContext";
 import Row from "./Row";
 import * as types from "./types";
-import useTestResults from "./useTestResults";
 
-export { Row, Cell, ColumnPaginationButtons, context, useTestResults, types };
+export { Row, Cell, ColumnPaginationButtons, context, types };
 export default HistoryTable;
