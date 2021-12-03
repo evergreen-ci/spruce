@@ -7,6 +7,7 @@ import {
 import { FormState } from "./types";
 
 const repoGqlBase = {
+  id: "123",
   enabled: true,
   owner: "evergreen-ci",
   repo: "spruce",
@@ -29,15 +30,20 @@ const repoGqlBase = {
   filesIgnoredFromCache: ["filename"],
 };
 
-const repoGqlInput: RepoGeneralSettingsFragment = {
-  ...repoGqlBase,
-  validDefaultLoggers: ["evergreen", "buildlogger"],
-};
-
-const repoGqlResult: Pick<RepoSettingsInput, "projectRef"> = {
+const repoGqlInput: {
+  [projectRef: string]: {
+    id: string;
+  } & RepoGeneralSettingsFragment;
+} = {
   projectRef: {
     ...repoGqlBase,
-    id: "123",
+    validDefaultLoggers: ["evergreen", "buildlogger"],
+  },
+};
+
+const repoGqlResult: Partial<RepoSettingsInput> = {
+  projectRef: {
+    ...repoGqlBase,
   },
 };
 
@@ -91,6 +97,7 @@ const repoFormData: FormState = {
 };
 
 const projectGqlBase = {
+  id: "456",
   useRepoSettings: true,
 
   enabled: null,
@@ -115,15 +122,20 @@ const projectGqlBase = {
   filesIgnoredFromCache: null,
 };
 
-const projectGqlInput: ProjectGeneralSettingsFragment = {
-  ...projectGqlBase,
-  validDefaultLoggers: ["evergreen", "buildlogger"],
-};
-
-const projectGqlResult: Pick<ProjectSettingsInput, "projectRef"> = {
+const projectGqlInput: {
+  [projectRef: string]: {
+    id: string;
+  } & ProjectGeneralSettingsFragment;
+} = {
   projectRef: {
     ...projectGqlBase,
-    id: "456",
+    validDefaultLoggers: ["evergreen", "buildlogger"],
+  },
+};
+
+const projectGqlResult: Partial<ProjectSettingsInput> = {
+  projectRef: {
+    ...projectGqlBase,
     useRepoSettings: true,
   },
 };

@@ -27,6 +27,10 @@ describe("Project data", () => {
   });
 
   test("Correctly converts from a form to GQL", () => {
-    expect(formToGql(form, "456", true)).toStrictEqual(result);
+    expect(
+      formToGql(form, "456", {
+        useRepoSettings: true,
+      })
+    ).toStrictEqual(result);
   });
 });
