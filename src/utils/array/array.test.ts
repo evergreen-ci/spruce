@@ -86,14 +86,14 @@ describe("convertArrayToObject", () => {
       bKey: element2,
     });
   });
-  it("should not add any elements when there is no matching key", () => {
+  it("should throw an error when the key value is not a valid type", () => {
     const element1 = { key: "aKey", value: 1 };
-    const element2 = { key: "bKey", value: 2 };
+    const element2 = { key: () => {}, value: 2 };
     const element3 = { key: "cKey", value: 3 };
 
-    expect(
-      convertArrayToObject([element1, element2, element3], "keyDNE")
-    ).toStrictEqual({});
+    expect(() =>
+      convertArrayToObject([element1, element2, element3], "key")
+    ).toThrow(TypeError("Object keys must be of type `string`"));
   });
 });
 
