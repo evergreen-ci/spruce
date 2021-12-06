@@ -23,16 +23,18 @@ describe("getLimitFromSearch", () => {
 });
 
 describe("upsertQueryParam", () => {
-  test("should return the value when params aren't passed in", () => {
-    expect(upsertQueryParam(undefined, "test")).toEqual(["test"]);
-    expect(upsertQueryParam(undefined, "something")).toEqual(["something"]);
+  it("should return the value when params aren't passed in", () => {
+    expect(upsertQueryParam(undefined, "test")).toStrictEqual(["test"]);
+    expect(upsertQueryParam(undefined, "something")).toStrictEqual([
+      "something",
+    ]);
   });
   describe("when there is a single value as a param", () => {
     it("should not add a duplicate value", () => {
-      expect(upsertQueryParam("test", "test")).toEqual(["test"]);
+      expect(upsertQueryParam("test", "test")).toStrictEqual(["test"]);
     });
     it("should add a new value", () => {
-      expect(upsertQueryParam("test", "something")).toEqual([
+      expect(upsertQueryParam("test", "something")).toStrictEqual([
         "test",
         "something",
       ]);
@@ -40,13 +42,13 @@ describe("upsertQueryParam", () => {
   });
   describe("when there is a array value as a param", () => {
     it("should not add a duplicate value", () => {
-      expect(upsertQueryParam(["test", "something"], "test")).toEqual([
+      expect(upsertQueryParam(["test", "something"], "test")).toStrictEqual([
         "test",
         "something",
       ]);
     });
     it("should add a new value", () => {
-      expect(upsertQueryParam(["test", "something"], "else")).toEqual([
+      expect(upsertQueryParam(["test", "something"], "else")).toStrictEqual([
         "test",
         "something",
         "else",

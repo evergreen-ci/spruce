@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Task Status Icons All Statuses 1`] = `
+exports[`storybook Storyshots Task Status Icons All Statuses 1`] = `
 <div
   className="css-e47j2m-Container efwkn3y1"
 >

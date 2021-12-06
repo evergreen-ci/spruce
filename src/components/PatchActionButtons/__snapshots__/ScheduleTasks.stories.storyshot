@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Schedule Tasks Schedule Tasks Empty 1`] = `
+exports[`storybook Storyshots Schedule Tasks Schedule Tasks Empty 1`] = `
 <li
   role="none"
 >
@@ -24,7 +24,7 @@ exports[`Storyshots Schedule Tasks Schedule Tasks Empty 1`] = `
 </li>
 `;
 
-exports[`Storyshots Schedule Tasks Schedule Tasks Populated 1`] = `
+exports[`storybook Storyshots Schedule Tasks Schedule Tasks Populated 1`] = `
 <li
   role="none"
 >

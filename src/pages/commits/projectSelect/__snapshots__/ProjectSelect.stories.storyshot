@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots ProjectSelect Story 1`] = `
+exports[`storybook Storyshots ProjectSelect Story 1`] = `
 Array [
   <label
     className="leafygreen-ui-ly82bp"

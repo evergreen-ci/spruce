@@ -19,10 +19,6 @@ module.exports = {
     "plugin:react/recommended",
     "prettier/react",
     "prettier/@typescript-eslint",
-    "plugin:testing-library/recommended",
-    "plugin:testing-library/react",
-    "plugin:jest/recommended",
-    "plugin:jest/style",
   ],
   plugins: [
     "react",
@@ -44,7 +40,6 @@ module.exports = {
         schemaString: schema,
       },
     ],
-    "jest/no-mocks-import": OFF,
     // These rules help ensure we are following proper accessability standards
     "jsx-a11y/aria-role": [errorIfStrict, { ignoreNonDom: false }],
     "jsx-a11y/aria-props": errorIfStrict,
@@ -103,4 +98,19 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: ["*.test.ts", "*.test.tsx"],
+      extends: [
+        "plugin:testing-library/recommended",
+        "plugin:testing-library/react",
+        "plugin:jest/all",
+      ],
+      rules: {
+        "jest/no-hooks": OFF,
+        "jest/no-mocks-import": OFF,
+        "jest/prefer-expect-assertions": OFF,
+      },
+    },
+  ],
 };
