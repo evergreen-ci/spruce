@@ -20,7 +20,6 @@ const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
 const fs = require("fs");
 const path = require("path");
 const getClientEnvironment = require("./env");
-const modules = require("./modules");
 const paths = require("./paths");
 
 const appPackageJson = require(paths.appPackageJson);
@@ -260,9 +259,7 @@ module.exports = function (webpackEnv) {
       // We placed these paths second because we want `node_modules` to "win"
       // if there are any conflicts. This matches Node resolution mechanism.
       // https://github.com/facebook/create-react-app/issues/253
-      modules: ["node_modules", paths.appNodeModules].concat(
-        modules.additionalModulePaths || []
-      ),
+      modules: ["node_modules", paths.appNodeModules],
       // These are the reasonable defaults supported by the Node ecosystem.
       // We also include JSX as a common component filename extension to support
       // some tools, although we do not recommend using it, see:
@@ -273,15 +270,11 @@ module.exports = function (webpackEnv) {
         .map((ext) => `.${ext}`)
         .filter((ext) => useTypeScript || !ext.includes("ts")),
       alias: {
-        // Support React Native Web
-        // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-        "react-native": "react-native-web",
         // Allows for better profiling with ReactDevTools
         ...(isEnvProductionProfile && {
           "react-dom$": "react-dom/profiling",
           "scheduler/tracing": "scheduler/tracing-profiling",
         }),
-        ...(modules.webpackAliases || {}),
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding
