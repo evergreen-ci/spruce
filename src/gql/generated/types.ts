@@ -484,8 +484,8 @@ export type TestFilter = {
 export type TaskTestResultSample = {
   taskId: Scalars["String"];
   execution: Scalars["Int"];
-  totalTestCount?: Maybe<Scalars["Int"]>;
-  matchingFailedTestNames?: Maybe<Array<Scalars["String"]>>;
+  totalTestCount: Scalars["Int"];
+  matchingFailedTestNames: Array<Scalars["String"]>;
 };
 
 export type MainlineCommits = {
@@ -3386,8 +3386,8 @@ export type GetTaskTestSampleQuery = {
     Array<{
       taskId: string;
       execution: number;
-      matchingFailedTestNames?: Maybe<Array<string>>;
-      totalTestCount?: Maybe<number>;
+      matchingFailedTestNames: Array<string>;
+      totalTestCount: number;
     }>
   >;
 };
