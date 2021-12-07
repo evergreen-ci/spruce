@@ -76,11 +76,10 @@ export const VariantHistoryContents = () => {
   const { search } = useLocation();
   const queryParams = useMemo(() => parseQueryString(search), [search]);
 
-  const selectedTaskNames = toArray(queryParams.taskNames);
+  const selectedTaskNames = toArray(queryParams.tasks);
   useEffect(() => {
     const failingTests = toArray(queryParams[TestStatus.Failed]);
     const passingTests = toArray(queryParams[TestStatus.Passed]);
-
     const failingTestFilters = failingTests.map((test) => ({
       testName: test,
       testStatus: TestStatus.Failed,
@@ -98,7 +97,7 @@ export const VariantHistoryContents = () => {
     TestStatus.All,
   ]);
 
-  const selectedColumns = selectedTaskNames?.length
+  const selectedColumns = selectedTaskNames.length
     ? taskNamesForBuildVariant?.filter((task) =>
         selectedTaskNames.includes(task)
       )
@@ -106,36 +105,34 @@ export const VariantHistoryContents = () => {
   return (
     <PageWrapper>
       <CenterPage>
-        <HistoryTableProvider>
-          <PageHeader>
-            <H2>Build Variant: {variantName}</H2>
-            <PageHeaderContent>
-              <HistoryTableTestSearch />
-              <TaskSelector projectId={projectId} buildVariant={variantName} />
-            </PageHeaderContent>
-          </PageHeader>
-          <PaginationFilterWrapper>
-            <BadgeWrapper>
-              <FilterBadges queryParamsToDisplay={queryParamsToDisplay} />
-            </BadgeWrapper>
-            <ColumnPaginationButtons />
-          </PaginationFilterWrapper>
-          <div>
-            <ColumnHeaders loading={loading} columns={selectedColumns} />
-            <TableWrapper>
-              <HistoryTable
-                recentlyFetchedCommits={mainlineCommits}
-                loadMoreItems={() => {
-                  if (mainlineCommits) {
-                    setNextPageOrderNumber(mainlineCommits.nextPageOrderNumber);
-                  }
-                }}
-              >
-                {VariantHistoryRow}
-              </HistoryTable>
-            </TableWrapper>
-          </div>
-        </HistoryTableProvider>
+        <PageHeader>
+          <H2>Build Variant: {variantName}</H2>
+          <PageHeaderContent>
+            <HistoryTableTestSearch />
+            <TaskSelector projectId={projectId} buildVariant={variantName} />
+          </PageHeaderContent>
+        </PageHeader>
+        <PaginationFilterWrapper>
+          <BadgeWrapper>
+            <FilterBadges queryParamsToDisplay={queryParamsToDisplay} />
+          </BadgeWrapper>
+          <ColumnPaginationButtons />
+        </PaginationFilterWrapper>
+        <div>
+          <ColumnHeaders loading={loading} columns={selectedColumns} />
+          <TableWrapper>
+            <HistoryTable
+              recentlyFetchedCommits={mainlineCommits}
+              loadMoreItems={() => {
+                if (mainlineCommits) {
+                  setNextPageOrderNumber(mainlineCommits.nextPageOrderNumber);
+                }
+              }}
+            >
+              {VariantHistoryRow}
+            </HistoryTable>
+          </TableWrapper>
+        </div>
       </CenterPage>
     </PageWrapper>
   );
