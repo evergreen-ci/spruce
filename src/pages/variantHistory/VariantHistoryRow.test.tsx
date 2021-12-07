@@ -42,8 +42,8 @@ const wrapper: React.FC<wrapperProps> = ({ children, mocks = [], state }) => (
   </MockedProvider>
 );
 
-describe("VariantHistoryRow", () => {
-  it("Renders an initial loading row with 7 cells when there is no data", () => {
+describe("variantHistoryRow", () => {
+  it("renders an initial loading row with 7 cells when there is no data", () => {
     const { queryAllByDataCy } = render(
       () => <VariantHistoryRow index={0} style={{}} data={undefined} />,
       {
@@ -52,7 +52,7 @@ describe("VariantHistoryRow", () => {
     );
     expect(queryAllByDataCy("loading-cell")).toHaveLength(7);
   });
-  it("Renders a row when there is data", async () => {
+  it("renders a row when there is data", async () => {
     const { queryAllByDataCy } = render(
       () => <VariantHistoryRow index={0} style={{}} data={undefined} />,
       {
@@ -81,7 +81,7 @@ describe("VariantHistoryRow", () => {
     expect(queryAllByDataCy("loading-cell")).toHaveLength(0);
     expect(queryAllByDataCy("task-cell")).toHaveLength(7);
   });
-  it("Amount of cells rendered corresponds to the amount of visibleColumns", async () => {
+  it("amount of cells rendered corresponds to the amount of visibleColumns", async () => {
     const { queryAllByDataCy } = render(
       () => <VariantHistoryRow index={0} style={{}} data={undefined} />,
       {
