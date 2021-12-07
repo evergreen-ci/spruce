@@ -11,7 +11,7 @@ describe("historyTableIcon", () => {
     const icon = queryByDataCy("history-table-icon");
     expect(icon).toBeInTheDocument();
     fireEvent.click(icon);
-    expect(onClick).toHaveBeenCalled();
+    expect(onClick).toHaveBeenCalledWith();
   });
   it("hovering over the icon when there no failing tests shouldn't open a tooltip", () => {
     const { queryByDataCy, queryByText } = render(

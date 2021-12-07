@@ -1,7 +1,7 @@
 import { render, fireEvent } from "test_utils/test-utils";
 import { SpruceForm, SpruceFormContainer } from ".";
 
-describe("basic form", () => {
+describe("spruceForm", () => {
   it("should render as expected", () => {
     const onChange = jest.fn();
     const { container, getByLabelText } = render(
@@ -35,6 +35,7 @@ describe("basic form", () => {
     fireEvent.change(queryByDataCy("valid-projects-input"), {
       target: { value: "new value" },
     });
+    // eslint-disable-next-line jest/prefer-called-with
     expect(onChange).toHaveBeenCalled();
     expect(queryByDataCy("valid-projects-input")).toHaveValue("new value");
     expect(data).toStrictEqual({

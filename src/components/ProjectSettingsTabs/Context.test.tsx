@@ -6,32 +6,34 @@ import {
   useProjectSettingsContext,
 } from "./Context";
 
-test("ensure that tabs are initially saved", async () => {
-  const { result } = renderHook(() => useIsAnyTabUnsaved(), {
-    wrapper: ProjectSettingsProvider,
-  });
-  expect(result.current.hasUnsaved).toBe(false);
-});
-
-test("updating the form state unsaves the tab", async () => {
-  const { result } = renderHook(
-    () => ({
-      projectSettings: useProjectSettingsContext(),
-      tabUnsaved: useIsAnyTabUnsaved(),
-    }),
-    {
+describe("projectSettingsContext", () => {
+  it("ensure that tabs are initially saved", async () => {
+    const { result } = renderHook(() => useIsAnyTabUnsaved(), {
       wrapper: ProjectSettingsProvider,
-    }
-  );
+    });
+    expect(result.current.hasUnsaved).toBe(false);
+  });
 
-  act(() => {
-    result.current.projectSettings.updateForm(ProjectSettingsTabRoutes.General)(
+  it("updating the form state unsaves the tab", async () => {
+    const { result } = renderHook(
+      () => ({
+        projectSettings: useProjectSettingsContext(),
+        tabUnsaved: useIsAnyTabUnsaved(),
+      }),
       {
-        foo: "bar",
+        wrapper: ProjectSettingsProvider,
       }
     );
-  });
 
-  expect(result.current.tabUnsaved.hasUnsaved).toBe(true);
-  expect(result.current.tabUnsaved.unsavedTabs).toStrictEqual(["general"]);
+    act(() => {
+      result.current.projectSettings.updateForm(
+        ProjectSettingsTabRoutes.General
+      )({
+        foo: "bar",
+      });
+    });
+
+    expect(result.current.tabUnsaved.hasUnsaved).toBe(true);
+    expect(result.current.tabUnsaved.unsavedTabs).toStrictEqual(["general"]);
+  });
 });

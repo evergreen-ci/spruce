@@ -6,13 +6,13 @@ describe("historyTable utils", () => {
   describe("processCommits", () => {
     it("should return empty array if no commits", () => {
       const result = processCommits([], []);
-      expect(result).toEqual([]);
+      expect(result).toStrictEqual([]);
     });
 
     it("should handle adding new commits when none exist", () => {
       const firstCommit = mainlineCommitData.versions[0];
       const result = processCommits([firstCommit], []);
-      expect(result).toEqual([
+      expect(result).toStrictEqual([
         {
           date: firstCommit.version.createTime,
           type: rowType.DATE_SEPARATOR,
@@ -30,7 +30,7 @@ describe("historyTable utils", () => {
       const thirdCommit = mainlineCommitData.versions[2];
       it("should not seperate commits when they subsequent commits are of the same date", () => {
         const result = processCommits([firstCommit, secondCommit], []);
-        expect(result).toEqual([
+        expect(result).toStrictEqual([
           {
             date: firstCommit.version.createTime,
             type: rowType.DATE_SEPARATOR,
@@ -49,7 +49,7 @@ describe("historyTable utils", () => {
       });
       it("should seperate commits when they are not of the same date", () => {
         const result = processCommits([firstCommit, thirdCommit], []);
-        expect(result).toEqual([
+        expect(result).toStrictEqual([
           {
             date: firstCommit.version.createTime,
             type: rowType.DATE_SEPARATOR,
@@ -76,7 +76,7 @@ describe("historyTable utils", () => {
       const foldedUpCommits = mainlineCommitData.versions[5];
       it("should add a folded up commit when it is the first commit", () => {
         const result = processCommits([foldedUpCommits], []);
-        expect(result).toEqual([
+        expect(result).toStrictEqual([
           {
             date: foldedUpCommits.rolledUpVersions[0].createTime,
             type: rowType.DATE_SEPARATOR,
@@ -103,7 +103,7 @@ describe("historyTable utils", () => {
             },
           ]
         );
-        expect(result).toEqual([
+        expect(result).toStrictEqual([
           {
             date: firstCommit.version.createTime,
             type: rowType.DATE_SEPARATOR,

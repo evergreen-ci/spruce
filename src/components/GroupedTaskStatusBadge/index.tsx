@@ -41,7 +41,11 @@ export const GroupedTaskStatusBadge: React.FC<Props> = ({
       popoverZIndex={1}
       trigger={
         <div>
-          <Link to={href} onClick={onClick} data-cy="grouped-task-status-badge">
+          <Link
+            to={href}
+            onClick={() => onClick()}
+            data-cy="grouped-task-status-badge"
+          >
             <BadgeContainer fill={fill} border={border} text={text}>
               <Number>{count}</Number>
               <Status>{taskStatusToCopy[status]}</Status>

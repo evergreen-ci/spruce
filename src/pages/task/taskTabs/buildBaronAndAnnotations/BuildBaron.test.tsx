@@ -21,109 +21,109 @@ const taskId =
 const execution = 1;
 
 let matchMedia;
-beforeAll(() => {
-  matchMedia = new MatchMediaMock();
-});
-
-afterEach(() => {
-  matchMedia.clear();
-  jest.restoreAllMocks();
-});
-afterEach(() => {
-  jest.restoreAllMocks();
-});
-test("the BuildBaron component renders without crashing.", () => {
-  const { Component } = RenderFakeToastContext(
-    <MockedProvider mocks={mocks} addTypename={false}>
-      <BuildBaron
-        annotation={null}
-        bbData={buildBaronQuery}
-        error={null}
-        taskId={taskId}
-        execution={execution}
-        loading={false}
-        userCanModify
-      />
-    </MockedProvider>
-  );
-
-  const { queryByDataCy } = render(() => <Component />, {
-    route: `/task/${taskId}`,
-    path: "/task/:id",
+describe("buildBaron", () => {
+  beforeAll(() => {
+    matchMedia = new MatchMediaMock();
   });
 
-  expect(queryByDataCy("bb-content")).toBeInTheDocument();
-  expect(queryByDataCy("bb-error")).toBeNull();
-});
-
-test("clicking on file a new ticket dispatches a banner.", async () => {
-  const { Component } = RenderFakeToastContext(
-    <MockedProvider mocks={mocks} addTypename={false}>
-      <BuildBaron
-        annotation={null}
-        bbData={buildBaronQuery}
-        error={null}
-        taskId={taskId}
-        execution={execution}
-        loading={false}
-        userCanModify
-      />
-    </MockedProvider>
-  );
-  const { queryByDataCy, getByText } = render(() => <Component />, {
-    route: `/task/${taskId}`,
-    path: "/task/:id",
-  });
-  fireEvent.click(queryByDataCy("file-ticket-button"));
-  await expect(getByText("File Ticket")).toBeInTheDocument();
-  await fireEvent.click(getByText("File Ticket"));
-
-  waitFor(() =>
-    expect(
-      getByText("Ticket successfully created for this task")
-    ).toBeInTheDocument()
-  );
-});
-
-test("the correct JiraTicket rows are rendered in the component", () => {
-  const { Component } = RenderFakeToastContext(
-    <MockedProvider mocks={mocks} addTypename={false}>
-      <BuildBaron
-        annotation={null}
-        bbData={buildBaronQuery}
-        error={null}
-        taskId={taskId}
-        execution={execution}
-        loading={false}
-        userCanModify
-      />
-    </MockedProvider>
-  );
-  const { queryAllByDataCy, queryByDataCy } = render(() => <Component />, {
-    route: `/task/${taskId}`,
-    path: "/task/:id",
+  afterEach(() => {
+    matchMedia.clear();
+    jest.restoreAllMocks();
   });
 
-  expect(queryAllByDataCy("jira-ticket-row")).toHaveLength(3);
+  it("the BuildBaron component renders without crashing.", () => {
+    const { Component } = RenderFakeToastContext(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <BuildBaron
+          annotation={null}
+          bbData={buildBaronQuery}
+          error={null}
+          taskId={taskId}
+          execution={execution}
+          loading={false}
+          userCanModify
+        />
+      </MockedProvider>
+    );
 
-  expect(queryByDataCy("EVG-12345")).toBeInTheDocument();
-  expect(queryByDataCy("EVG-12346")).toBeInTheDocument();
-  expect(queryByDataCy("EVG-12347")).toBeInTheDocument();
+    const { queryByDataCy } = render(() => <Component />, {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+    });
 
-  expect(queryByDataCy("EVG-12345-badge")).toHaveTextContent("Resolved");
-  expect(queryByDataCy("EVG-12345-metadata")).toHaveTextContent(
-    "Created: Sep 23, 2020 Updated: Sep 23, 2020 Unassigned"
-  );
+    expect(queryByDataCy("bb-content")).toBeInTheDocument();
+    expect(queryByDataCy("bb-error")).toBeNull();
+  });
 
-  expect(queryByDataCy("EVG-12346-badge")).toHaveTextContent("Closed");
-  expect(queryByDataCy("EVG-12346-metadata")).toHaveTextContent(
-    "Created: Sep 18, 2020 Updated: Sep 18, 2020 Assignee: Some Name"
-  );
+  it("clicking on file a new ticket dispatches a banner.", async () => {
+    const { Component } = RenderFakeToastContext(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <BuildBaron
+          annotation={null}
+          bbData={buildBaronQuery}
+          error={null}
+          taskId={taskId}
+          execution={execution}
+          loading={false}
+          userCanModify
+        />
+      </MockedProvider>
+    );
+    const { queryByDataCy, getByText } = render(() => <Component />, {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+    });
+    fireEvent.click(queryByDataCy("file-ticket-button"));
+    await expect(getByText("File Ticket")).toBeInTheDocument();
+    await fireEvent.click(getByText("File Ticket"));
 
-  expect(queryByDataCy("EVG-12347-badge")).toHaveTextContent("Open");
-  expect(queryByDataCy("EVG-12347-metadata")).toHaveTextContent(
-    "Created: Sep 18, 2020 Updated: Sep 18, 2020 Assignee: Backlog - Evergreen Team"
-  );
+    waitFor(() =>
+      expect(
+        getByText("Ticket successfully created for this task")
+      ).toBeInTheDocument()
+    );
+  });
+
+  it("the correct JiraTicket rows are rendered in the component", () => {
+    const { Component } = RenderFakeToastContext(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <BuildBaron
+          annotation={null}
+          bbData={buildBaronQuery}
+          error={null}
+          taskId={taskId}
+          execution={execution}
+          loading={false}
+          userCanModify
+        />
+      </MockedProvider>
+    );
+    const { queryAllByDataCy, queryByDataCy } = render(() => <Component />, {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+    });
+
+    expect(queryAllByDataCy("jira-ticket-row")).toHaveLength(3);
+
+    expect(queryByDataCy("EVG-12345")).toBeInTheDocument();
+    expect(queryByDataCy("EVG-12346")).toBeInTheDocument();
+    expect(queryByDataCy("EVG-12347")).toBeInTheDocument();
+
+    expect(queryByDataCy("EVG-12345-badge")).toHaveTextContent("Resolved");
+    expect(queryByDataCy("EVG-12345-metadata")).toHaveTextContent(
+      "Created: Sep 23, 2020 Updated: Sep 23, 2020 Unassigned"
+    );
+
+    expect(queryByDataCy("EVG-12346-badge")).toHaveTextContent("Closed");
+    expect(queryByDataCy("EVG-12346-metadata")).toHaveTextContent(
+      "Created: Sep 18, 2020 Updated: Sep 18, 2020 Assignee: Some Name"
+    );
+
+    expect(queryByDataCy("EVG-12347-badge")).toHaveTextContent("Open");
+    expect(queryByDataCy("EVG-12347-metadata")).toHaveTextContent(
+      "Created: Sep 18, 2020 Updated: Sep 18, 2020 Assignee: Backlog - Evergreen Team"
+    );
+  });
 });
 
 const buildBaronQuery = {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`basic form should render as expected 1`] = `
+exports[`spruceForm should render as expected 1`] = `
 .emotion-0 {
   margin-bottom: 24px;
 }

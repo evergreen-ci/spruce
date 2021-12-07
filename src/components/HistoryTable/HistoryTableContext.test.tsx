@@ -9,7 +9,7 @@ const wrapper = ({ children }) => (
 describe("historyTableContext", () => {
   it("initializes with the default state", () => {
     const { result } = renderHook(() => useHistoryTable(), { wrapper });
-    expect(result.current).toEqual({
+    expect(result.current).toStrictEqual({
       processedCommitCount: 0,
       fetchNewCommit: expect.any(Function),
       getItem: expect.any(Function),
@@ -48,12 +48,12 @@ describe("historyTableContext", () => {
     );
     // First element should be the date separator
     expect(result.current.isItemLoaded(0)).toBe(true);
-    expect(result.current.getItem(0)).toEqual({
+    expect(result.current.getItem(0)).toStrictEqual({
       type: rowType.DATE_SEPARATOR,
       date: splitMainlineCommitDataPart1.versions[0].version.createTime,
     });
     expect(result.current.isItemLoaded(1)).toBe(true);
-    expect(result.current.getItem(1)).toEqual({
+    expect(result.current.getItem(1)).toStrictEqual({
       type: rowType.COMMIT,
       date: splitMainlineCommitDataPart1.versions[0].version.createTime,
       commit: splitMainlineCommitDataPart1.versions[0].version,
@@ -74,7 +74,7 @@ describe("historyTableContext", () => {
       result.current.fetchNewCommit(splitMainlineCommitDataPart1);
     });
     expect(result.current.isItemLoaded(0)).toBeTruthy();
-    expect(result.current.getItem(0)).toEqual({
+    expect(result.current.getItem(0)).toStrictEqual({
       type: rowType.DATE_SEPARATOR,
       date: splitMainlineCommitDataPart1.versions[0].version.createTime,
     });
@@ -84,7 +84,7 @@ describe("historyTableContext", () => {
       result.current.fetchNewCommit(splitMainlineCommitDataPart2);
     });
     expect(result.current.isItemLoaded(2)).toBeTruthy();
-    expect(result.current.getItem(2)).toEqual({
+    expect(result.current.getItem(2)).toStrictEqual({
       type: rowType.COMMIT,
       date: splitMainlineCommitDataPart2.versions[0].version.createTime,
       commit: splitMainlineCommitDataPart2.versions[0].version,
@@ -105,12 +105,12 @@ describe("historyTableContext", () => {
       result.current.fetchNewCommit(commitDate1);
     });
     expect(result.current.isItemLoaded(0)).toBeTruthy();
-    expect(result.current.getItem(0)).toEqual({
+    expect(result.current.getItem(0)).toStrictEqual({
       type: rowType.DATE_SEPARATOR,
       date: commitDate1.versions[0].version.createTime,
     });
     expect(result.current.isItemLoaded(1)).toBeTruthy();
-    expect(result.current.getItem(1)).toEqual({
+    expect(result.current.getItem(1)).toStrictEqual({
       type: rowType.COMMIT,
       date: commitDate1.versions[0].version.createTime,
       commit: commitDate1.versions[0].version,
@@ -120,12 +120,12 @@ describe("historyTableContext", () => {
       result.current.fetchNewCommit(commitDate2);
     });
     expect(result.current.isItemLoaded(2)).toBeTruthy();
-    expect(result.current.getItem(2)).toEqual({
+    expect(result.current.getItem(2)).toStrictEqual({
       type: rowType.DATE_SEPARATOR,
       date: commitDate2.versions[0].version.createTime,
     });
     expect(result.current.isItemLoaded(3)).toBeTruthy();
-    expect(result.current.getItem(3)).toEqual({
+    expect(result.current.getItem(3)).toStrictEqual({
       type: rowType.COMMIT,
       date: commitDate2.versions[0].version.createTime,
       commit: commitDate2.versions[0].version,
@@ -182,7 +182,7 @@ describe("historyTableContext", () => {
         result.current.addColumns(columns);
       });
       expect(result.current.visibleColumns).toHaveLength(7);
-      expect(result.current.visibleColumns).toEqual(columns.slice(0, 7));
+      expect(result.current.visibleColumns).toStrictEqual(columns.slice(0, 7));
     });
     it("should be able to paginate forward on visible columns", () => {
       const { result } = renderHook(() => useHistoryTable(), { wrapper });
@@ -190,12 +190,12 @@ describe("historyTableContext", () => {
         result.current.addColumns(columns);
       });
       expect(result.current.visibleColumns).toHaveLength(7);
-      expect(result.current.visibleColumns).toEqual(columns.slice(0, 7));
+      expect(result.current.visibleColumns).toStrictEqual(columns.slice(0, 7));
       act(() => {
         result.current.nextPage();
       });
       expect(result.current.visibleColumns).toHaveLength(7);
-      expect(result.current.visibleColumns).toEqual(columns.slice(7, 14));
+      expect(result.current.visibleColumns).toStrictEqual(columns.slice(7, 14));
     });
     it("should be able to paginate backwards on visible columns", () => {
       const { result } = renderHook(() => useHistoryTable(), { wrapper });
@@ -203,7 +203,7 @@ describe("historyTableContext", () => {
         result.current.addColumns(columns);
       });
       expect(result.current.visibleColumns).toHaveLength(7);
-      expect(result.current.visibleColumns).toEqual(columns.slice(0, 7));
+      expect(result.current.visibleColumns).toStrictEqual(columns.slice(0, 7));
       expect(result.current.hasNextPage).toBeTruthy();
       expect(result.current.hasPreviousPage).toBeFalsy();
       act(() => {
@@ -211,13 +211,13 @@ describe("historyTableContext", () => {
       });
       expect(result.current.hasPreviousPage).toBeTruthy();
       expect(result.current.visibleColumns).toHaveLength(7);
-      expect(result.current.visibleColumns).toEqual(columns.slice(7, 14));
+      expect(result.current.visibleColumns).toStrictEqual(columns.slice(7, 14));
       act(() => {
         result.current.previousPage();
       });
       expect(result.current.hasPreviousPage).toBeFalsy();
       expect(result.current.visibleColumns).toHaveLength(7);
-      expect(result.current.visibleColumns).toEqual(columns.slice(0, 7));
+      expect(result.current.visibleColumns).toStrictEqual(columns.slice(0, 7));
     });
     it("should not be able to paginate backwards on non existant pages", () => {
       const { result } = renderHook(() => useHistoryTable(), { wrapper });
@@ -226,18 +226,18 @@ describe("historyTableContext", () => {
       });
       expect(result.current.hasPreviousPage).toBeFalsy();
       expect(result.current.visibleColumns).toHaveLength(7);
-      expect(result.current.visibleColumns).toEqual(columns.slice(0, 7));
+      expect(result.current.visibleColumns).toStrictEqual(columns.slice(0, 7));
       act(() => {
         result.current.previousPage();
       });
       expect(result.current.visibleColumns).toHaveLength(7);
-      expect(result.current.visibleColumns).toEqual(columns.slice(0, 7));
+      expect(result.current.visibleColumns).toStrictEqual(columns.slice(0, 7));
     });
   });
   describe("test filters", () => {
     it("should add new test filters when they are passed in", () => {
       const { result } = renderHook(() => useHistoryTable(), { wrapper });
-      expect(result.current.historyTableFilters).toEqual([]);
+      expect(result.current.historyTableFilters).toStrictEqual([]);
       act(() => {
         result.current.setHistoryTableFilters([
           {
@@ -250,7 +250,7 @@ describe("historyTableContext", () => {
           },
         ]);
       });
-      expect(result.current.historyTableFilters).toEqual([
+      expect(result.current.historyTableFilters).toStrictEqual([
         {
           testName: "test-name",
           testStatus: "passed",
@@ -263,7 +263,7 @@ describe("historyTableContext", () => {
     });
     it("should overwrite test filters when new ones are passed in", () => {
       const { result } = renderHook(() => useHistoryTable(), { wrapper });
-      expect(result.current.historyTableFilters).toEqual([]);
+      expect(result.current.historyTableFilters).toStrictEqual([]);
       act(() => {
         result.current.setHistoryTableFilters([
           {
@@ -276,7 +276,7 @@ describe("historyTableContext", () => {
           },
         ]);
       });
-      expect(result.current.historyTableFilters).toEqual([
+      expect(result.current.historyTableFilters).toStrictEqual([
         {
           testName: "test-name",
           testStatus: "passed",
@@ -298,7 +298,7 @@ describe("historyTableContext", () => {
           },
         ]);
       });
-      expect(result.current.historyTableFilters).toEqual([
+      expect(result.current.historyTableFilters).toStrictEqual([
         {
           testName: "test-new",
           testStatus: "passed",

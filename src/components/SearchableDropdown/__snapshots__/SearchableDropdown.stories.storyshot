@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Searchable Dropdown Custom Option 1`] = `
+exports[`storybook Storyshots Searchable Dropdown Custom Option 1`] = `
 Array [
   <label
     className="leafygreen-ui-ly82bp"
@@ -72,7 +72,7 @@ Array [
 ]
 `;
 
-exports[`Storyshots Searchable Dropdown Multiselect 1`] = `
+exports[`storybook Storyshots Searchable Dropdown Multiselect 1`] = `
 Array [
   <label
     className="leafygreen-ui-ly82bp"
@@ -144,7 +144,7 @@ Array [
 ]
 `;
 
-exports[`Storyshots Searchable Dropdown Story 1`] = `
+exports[`storybook Storyshots Searchable Dropdown Story 1`] = `
 Array [
   <label
     className="leafygreen-ui-ly82bp"

@@ -2,18 +2,22 @@ import initStoryshots, {
   multiSnapshotWithOptions,
 } from "@storybook/addon-storyshots";
 import MatchMediaMock from "jest-matchmedia-mock";
-import { v4 as uuid } from "uuid";
+import { mockUUID } from "test_utils/test-utils";
 
+// Must mock uuid for this test since getRandomValues() is not supported in CI
 jest.mock("uuid");
-uuid.mockImplementation(() => "SOME_RANDOM_VALUE");
+
 let matchMedia;
+describe("storybook", () => {
+  beforeAll(() => {
+    matchMedia = new MatchMediaMock();
+    mockUUID();
+  });
 
-beforeAll(() => {
-  matchMedia = new MatchMediaMock();
+  afterAll(() => {
+    matchMedia.clear();
+    jest.restoreAllMocks();
+  });
+  // eslint-disable-next-line jest/require-hook
+  initStoryshots({ test: multiSnapshotWithOptions() });
 });
-
-afterEach(() => {
-  matchMedia.clear();
-  jest.restoreAllMocks();
-});
-initStoryshots({ test: multiSnapshotWithOptions() });

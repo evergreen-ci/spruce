@@ -1,24 +1,26 @@
 import { fireEvent, render } from "test_utils/test-utils";
 import { Dropdown, TreeSelect } from ".";
 
-test("dropdown renders contents of render prop when provided", () => {
-  const { queryByDataCy } = render(
-    <Dropdown
-      data-cy="test-status-select"
-      inputLabel="Test Status:  "
-      render={({ getDropdownProps }) => (
-        <TreeSelect
-          {...getDropdownProps()}
-          onChange={() => {}}
-          state={[]}
-          tData={treeData}
-        />
-      )}
-    />
-  );
-  expect(queryByDataCy("tree-select-options")).not.toBeInTheDocument();
-  fireEvent.click(queryByDataCy("test-status-select").firstElementChild);
-  expect(queryByDataCy("tree-select-options")).toBeInTheDocument();
+describe("treeSelect", () => {
+  it("dropdown renders contents of render prop when provided", () => {
+    const { queryByDataCy } = render(
+      <Dropdown
+        data-cy="test-status-select"
+        inputLabel="Test Status:  "
+        render={({ getDropdownProps }) => (
+          <TreeSelect
+            {...getDropdownProps()}
+            onChange={() => {}}
+            state={[]}
+            tData={treeData}
+          />
+        )}
+      />
+    );
+    expect(queryByDataCy("tree-select-options")).not.toBeInTheDocument();
+    fireEvent.click(queryByDataCy("test-status-select").firstElementChild);
+    expect(queryByDataCy("tree-select-options")).toBeInTheDocument();
+  });
 });
 
 const treeData = [
