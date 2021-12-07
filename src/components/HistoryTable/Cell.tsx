@@ -25,7 +25,7 @@ export const TaskCell: React.FC<TaskCellProps> = ({
   label,
 }) => (
   <Link to={getTaskRoute(task.id)}>
-    <Cell data-cy="task-cell">
+    <Cell aria-disabled={inactive} data-cy="task-cell">
       <HistoryTableIcon
         inactive={inactive}
         status={task.status as TaskStatus}
