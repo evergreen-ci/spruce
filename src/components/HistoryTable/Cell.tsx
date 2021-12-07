@@ -24,8 +24,8 @@ export const TaskCell: React.FC<TaskCellProps> = ({
   failingTests,
   label,
 }) => (
-  <Link key={task.id} to={getTaskRoute(task.id)}>
-    <Cell key={`task_cell_${task.id}`}>
+  <Link to={getTaskRoute(task.id)}>
+    <Cell data-cy="task-cell">
       <HistoryTableIcon
         inactive={inactive}
         status={task.status as TaskStatus}
@@ -37,13 +37,13 @@ export const TaskCell: React.FC<TaskCellProps> = ({
 );
 
 export const EmptyCell = () => (
-  <Cell>
+  <Cell data-cy="empty-cell">
     <Circle />
   </Cell>
 );
 
 export const LoadingCell = () => (
-  <Cell>
+  <Cell data-cy="loading-cell">
     <Skeleton.Avatar active shape="circle" size={statusIconSize} />
   </Cell>
 );
