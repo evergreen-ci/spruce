@@ -29,7 +29,6 @@ const useTestResults = (index: number) => {
       tasks: taskIds,
       filters: historyTableFilters,
     },
-    fetchPolicy: "no-cache",
     skip: !hasDataToQuery,
   });
 
