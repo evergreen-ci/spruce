@@ -1,7 +1,5 @@
-import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import { addMilliseconds } from "date-fns";
-import { withRouter } from "react-router-dom";
 import { GET_USER } from "gql/queries";
 import { renderWithRouterMatch as render } from "test_utils/test-utils";
 import { Metadata } from "./index";
@@ -55,22 +53,27 @@ const mocks = [
   },
 ];
 
-test("renders the metadata card with a pending status", async () => {
-  const ContentWrapper = () => (
-    <MockedProvider mocks={mocks}>
+const wrapper = ({ children }) => (
+  <MockedProvider mocks={mocks} addTypename={false}>
+    {children}
+  </MockedProvider>
+);
+test("renders the metadata card with a pending status", () => {
+  const { queryByDataCy } = render(
+    () => (
       <Metadata
         taskId={taskId}
         loading={false}
         task={taskAboutToStart.task}
         error={undefined}
       />
-    </MockedProvider>
+    ),
+    {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+      wrapper,
+    }
   );
-
-  const { queryByDataCy } = render(withRouter(ContentWrapper), {
-    route: `/task/${taskId}`,
-    path: "/task/:id",
-  });
   expect(queryByDataCy("task-metadata-estimated_start")).toHaveTextContent(
     "1s"
   );
@@ -78,44 +81,44 @@ test("renders the metadata card with a pending status", async () => {
   expect(queryByDataCy("task-metadata-started")).toBeNull();
   expect(queryByDataCy("task-metadata-finished")).toBeNull();
 });
-test("renders the metadata card with a started status", async () => {
-  const ContentWrapper = () => (
-    <MockedProvider mocks={mocks}>
+test("renders the metadata card with a started status", () => {
+  const { queryByDataCy } = render(
+    () => (
       <Metadata
         taskId={taskId}
         loading={false}
         task={taskStarted.task}
         error={undefined}
       />
-    </MockedProvider>
+    ),
+    {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+      wrapper,
+    }
   );
-
-  const { queryByDataCy } = render(withRouter(ContentWrapper), {
-    route: `/task/${taskId}`,
-    path: "/task/:id",
-  });
   expect(queryByDataCy("task-metadata-estimated_start")).toBeNull();
   expect(queryByDataCy("metadata-eta-timer")).toBeInTheDocument();
   expect(queryByDataCy("task-metadata-started")).toBeInTheDocument();
   expect(queryByDataCy("task-metadata-finished")).toBeNull();
 });
 
-test("renders the metadata card with a succeeded status", async () => {
-  const ContentWrapper = () => (
-    <MockedProvider mocks={mocks}>
+test("renders the metadata card with a succeeded status", () => {
+  const { queryByDataCy } = render(
+    () => (
       <Metadata
         taskId={taskId}
         loading={false}
         task={taskSucceeded.task}
         error={undefined}
       />
-    </MockedProvider>
+    ),
+    {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+      wrapper,
+    }
   );
-
-  const { queryByDataCy } = render(withRouter(ContentWrapper), {
-    route: `/task/${taskId}`,
-    path: "/task/:id",
-  });
 
   expect(queryByDataCy("task-metadata-estimated_start")).toBeNull();
   expect(queryByDataCy("metadata-eta-timer")).toBeNull();
