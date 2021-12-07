@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { context, Cell } from "components/HistoryTable";
@@ -14,13 +13,7 @@ interface ColumnHeadersProps {
   loading: boolean;
 }
 const ColumnHeaders: React.FC<ColumnHeadersProps> = ({ columns, loading }) => {
-  const { visibleColumns, addColumns, columnLimit } = useHistoryTable();
-  useEffect(() => {
-    if (columns) {
-      addColumns(columns.map((c) => c.buildVariant));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [columns]);
+  const { visibleColumns, columnLimit } = useHistoryTable();
 
   return (
     <RowContainer>

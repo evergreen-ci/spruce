@@ -14,11 +14,13 @@ const { useHistoryTable } = context;
 const { rowType } = types;
 
 const TaskHistoryRow: React.FC<ListChildComponentProps> = (props) => {
-  let orderedColumns = [];
   const { index } = props;
+  let orderedColumns = [];
   const { visibleColumns, getItem } = useHistoryTable();
+
   const commit = getItem(index);
   const { getTaskMetadata } = useTestResults(index);
+
   if (commit && commit.type === rowType.COMMIT && commit.commit) {
     const { buildVariants } = commit.commit;
     const buildVariantMap = convertArrayToObject(buildVariants, "variant");

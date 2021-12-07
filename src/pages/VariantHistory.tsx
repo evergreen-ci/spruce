@@ -69,7 +69,7 @@ export const VariantHistoryContents = () => {
     },
   });
 
-  const { setHistoryTableFilters } = useHistoryTable();
+  const { setHistoryTableFilters, addColumns } = useHistoryTable();
 
   const { taskNamesForBuildVariant } = columnData || {};
   const { mainlineCommits } = data || {};
@@ -97,11 +97,21 @@ export const VariantHistoryContents = () => {
     TestStatus.All,
   ]);
 
-  const selectedColumns = selectedTaskNames.length
-    ? taskNamesForBuildVariant?.filter((task) =>
-        selectedTaskNames.includes(task)
-      )
-    : taskNamesForBuildVariant;
+  const selectedColumns = useMemo(
+    () =>
+      selectedTaskNames.length
+        ? taskNamesForBuildVariant?.filter((task) =>
+            selectedTaskNames.includes(task)
+          )
+        : taskNamesForBuildVariant,
+    [selectedTaskNames, taskNamesForBuildVariant]
+  );
+
+  useEffect(() => {
+    addColumns(toArray(selectedColumns));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedColumns]);
+
   return (
     <PageWrapper>
       <CenterPage>

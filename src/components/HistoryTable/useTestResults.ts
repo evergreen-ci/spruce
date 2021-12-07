@@ -67,7 +67,7 @@ const useTestResults = (index: number) => {
         failingTests: [],
       };
     },
-    [taskTestMap, hasTestFilters, loading]
+    [hasTestFilters, loading, taskTestMap]
   );
 
   return { getTaskMetadata };
