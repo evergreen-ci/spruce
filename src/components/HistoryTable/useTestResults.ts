@@ -11,16 +11,14 @@ import { rowType } from "./types";
 
 /** useTestResults is a hook that given an index checks if a commit has been loaded and has test filters applied and then  */
 const useTestResults = (index: number) => {
-  const { getItem, isItemLoaded, historyTableFilters } = useHistoryTable();
+  const { getItem, historyTableFilters } = useHistoryTable();
   let taskIds: string[] = [];
   const hasTestFilters = historyTableFilters.length > 0;
-  if (isItemLoaded(index)) {
-    const commit = getItem(index);
-    if (commit.type === rowType.COMMIT && commit.commit) {
-      taskIds = commit.commit.buildVariants.flatMap((buildVariant) =>
-        buildVariant.tasks.map((task) => task.id)
-      );
-    }
+  const commit = getItem(index);
+  if (commit && commit.type === rowType.COMMIT && commit.commit) {
+    taskIds = commit.commit.buildVariants.flatMap((buildVariant) =>
+      buildVariant.tasks.map((task) => task.id)
+    );
   }
   const hasDataToQuery = taskIds.length > 0;
   const { data, loading } = useQuery<
