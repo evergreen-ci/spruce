@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { context, Cell } from "components/HistoryTable";
+import { array } from "utils";
 
+const { mapStringArrayToObject } = array;
 const { useHistoryTable } = context;
 const { HeaderCell } = Cell;
 
@@ -11,16 +13,17 @@ interface ColumnHeadersProps {
 }
 const ColumnHeaders: React.FC<ColumnHeadersProps> = ({ columns, loading }) => {
   const { visibleColumns, columnLimit } = useHistoryTable();
+  const columnMap = mapStringArrayToObject(columns, "name");
 
   return (
     <RowContainer>
       <LabelCellContainer />
       {visibleColumns.map((vc) => {
-        const cell = columns.find((c) => c === vc);
+        const cell = columnMap[vc];
         if (!cell) {
           return null;
         }
-        return <HeaderCell key={`header_cell_${cell}`}>{cell}</HeaderCell>;
+        return <HeaderCell key={`header_cell_${vc}`}>{vc}</HeaderCell>;
       })}
       {loading &&
         Array.from(Array(columnLimit)).map((_, i) => (
