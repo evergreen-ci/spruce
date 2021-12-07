@@ -6,7 +6,6 @@ import {
   HistoryTableProvider,
   useHistoryTable as useHistoryTableActual,
 } from "./HistoryTableContext";
-import { HistoryTableReducerState } from "./historyTableContextReducer";
 import { mainlineCommitData } from "./testData";
 import { rowType } from "./types";
 import useTestResultsActual from "./useTestResults";
@@ -14,35 +13,13 @@ import useTestResultsActual from "./useTestResults";
 interface wrapperProps {
   children: React.ReactNode;
   mocks?: MockedResponse[];
-  historyTableState?: HistoryTableReducerState;
 }
-const wrapper: React.FC<wrapperProps> = ({
-  children,
-  mocks = [],
-  historyTableState,
-}) => {
-  const defaultHistoryTableState = {
-    loadedCommits: [],
-    processedCommits: [],
-    processedCommitCount: 0,
-    commitCache: new Map(),
-    visibleColumns: [],
-    currentPage: 0,
-    pageCount: 0,
-    columns: [],
-    columnLimit: 7,
-    historyTableFilters: [],
-  };
-  return (
-    <MockedProvider mocks={mocks}>
-      <HistoryTableProvider
-        initialState={{ ...defaultHistoryTableState, ...historyTableState }}
-      >
-        {children}
-      </HistoryTableProvider>
-    </MockedProvider>
-  );
-};
+
+const wrapper: React.FC<wrapperProps> = ({ children, mocks = [] }) => (
+  <MockedProvider mocks={mocks}>
+    <HistoryTableProvider>{children}</HistoryTableProvider>
+  </MockedProvider>
+);
 
 /** useMergedHookRender takes the useTestResults and useHistoryTable hooks
  * and combines them into a shared hook which can be rendered under the same wrapper context
@@ -137,9 +114,12 @@ describe("useTestResults", () => {
     });
   });
   it("should return all matching test results when there are no filters applied and the row is a commit", async () => {
-    const { result } = renderHook(() => useMergedHookRender({ row: 1 }), {
-      wrapper: ({ children }) => wrapper({ children, mocks }),
-    });
+    const { result, waitForNextUpdate } = renderHook(
+      () => useMergedHookRender({ row: 1 }),
+      {
+        wrapper: ({ children }) => wrapper({ children, mocks }),
+      }
+    );
     expect(
       result.current.useTestResults.getTaskMetadata(
         "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04"
@@ -156,23 +136,24 @@ describe("useTestResults", () => {
     expect(result.current.useHistoryTable.getItem(2)).toMatchObject({
       type: rowType.COMMIT,
     });
-    await act(async () => {
-      await new Promise((resolve) => setTimeout(resolve, 0));
-    });
-    expect(
-      result.current.useTestResults.getTaskMetadata(
-        "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04"
-      )
-    ).toMatchObject({
+    await waitForNextUpdate();
+    const response = result.current.useTestResults.getTaskMetadata(
+      "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04"
+    );
+    expect(response).toMatchObject({
       inactive: false,
       label: "",
       failingTests: ["TestJiraIntegration"],
+      loading: false,
     });
   });
   it("should return all matching test results when there are matching filters applied and the row is a commit", async () => {
-    const { result } = renderHook(() => useMergedHookRender({ row: 1 }), {
-      wrapper: ({ children }) => wrapper({ children, mocks }),
-    });
+    const { result, waitForNextUpdate } = renderHook(
+      () => useMergedHookRender({ row: 1 }),
+      {
+        wrapper: ({ children }) => wrapper({ children, mocks }),
+      }
+    );
     expect(
       result.current.useTestResults.getTaskMetadata(
         "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04"
@@ -181,6 +162,7 @@ describe("useTestResults", () => {
       inactive: false,
       label: "",
       failingTests: [],
+      loading: false,
     });
     act(() => {
       result.current.useHistoryTable.fetchNewCommit(mainlineCommitData);
@@ -194,9 +176,7 @@ describe("useTestResults", () => {
         { testName: "TestJiraIntegration", testStatus: TestStatus.Failed },
       ]);
     });
-    await act(async () => {
-      await new Promise((resolve) => setTimeout(resolve, 0));
-    });
+    await waitForNextUpdate();
     expect(
       result.current.useTestResults.getTaskMetadata(
         "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04"
@@ -205,12 +185,16 @@ describe("useTestResults", () => {
       inactive: false,
       label: "1 / 1 Failing Tests",
       failingTests: ["TestJiraIntegration"],
+      loading: false,
     });
   });
   it("should not return matching test results when there are non matching filters applied and the row is a commit", async () => {
-    const { result } = renderHook(() => useMergedHookRender({ row: 1 }), {
-      wrapper: ({ children }) => wrapper({ children, mocks }),
-    });
+    const { result, waitForNextUpdate } = renderHook(
+      () => useMergedHookRender({ row: 1 }),
+      {
+        wrapper: ({ children }) => wrapper({ children, mocks }),
+      }
+    );
     expect(
       result.current.useTestResults.getTaskMetadata(
         "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04"
@@ -232,9 +216,7 @@ describe("useTestResults", () => {
         { testName: "NotARealTest", testStatus: TestStatus.Failed },
       ]);
     });
-    await act(async () => {
-      await new Promise((resolve) => setTimeout(resolve, 0));
-    });
+    await waitForNextUpdate();
     expect(
       result.current.useTestResults.getTaskMetadata(
         "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04"
@@ -267,7 +249,7 @@ const noFilterData = {
           taskId:
             "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
           execution: 0,
-          matchingFailedtestNames: ["TestJiraIntegration"],
+          matchingFailedTestNames: ["TestJiraIntegration"],
           totalTestCount: 1,
           __typename: "TaskTestResultSample",
         },
@@ -298,7 +280,7 @@ const withMatchingFilter = {
           taskId:
             "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
           execution: 0,
-          matchingFailedtestNames: ["TestJiraIntegration"],
+          matchingFailedTestNames: ["TestJiraIntegration"],
           totalTestCount: 1,
           __typename: "TaskTestResultSample",
         },
@@ -327,7 +309,7 @@ const withNonMatchingFilter = {
           taskId:
             "evergreen_ubuntu1604_dist_d4cf298cf0b2536fb3bff875775b93a9ceafb75c_21_09_02_14_20_04",
           execution: 0,
-          matchingFailedtestNames: [],
+          matchingFailedTestNames: [],
           totalTestCount: 1,
           __typename: "TaskTestResultSample",
         },

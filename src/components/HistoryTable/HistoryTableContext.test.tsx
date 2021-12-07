@@ -261,5 +261,53 @@ describe("historyTableContext", () => {
         },
       ]);
     });
+    it("should overwrite test filters when new ones are passed in", () => {
+      const { result } = renderHook(() => useHistoryTable(), { wrapper });
+      expect(result.current.historyTableFilters).toEqual([]);
+      act(() => {
+        result.current.setHistoryTableFilters([
+          {
+            testName: "test-name",
+            testStatus: "passed",
+          },
+          {
+            testName: "test-name2",
+            testStatus: "failed",
+          },
+        ]);
+      });
+      expect(result.current.historyTableFilters).toEqual([
+        {
+          testName: "test-name",
+          testStatus: "passed",
+        },
+        {
+          testName: "test-name2",
+          testStatus: "failed",
+        },
+      ]);
+      act(() => {
+        result.current.setHistoryTableFilters([
+          {
+            testName: "test-new",
+            testStatus: "passed",
+          },
+          {
+            testName: "test-new2",
+            testStatus: "failed",
+          },
+        ]);
+      });
+      expect(result.current.historyTableFilters).toEqual([
+        {
+          testName: "test-new",
+          testStatus: "passed",
+        },
+        {
+          testName: "test-new2",
+          testStatus: "failed",
+        },
+      ]);
+    });
   });
 });

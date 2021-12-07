@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import {
   GetTaskTestSampleQuery,
@@ -12,7 +13,7 @@ import { rowType } from "./types";
 const useTestResults = (index: number) => {
   const { getItem, isItemLoaded, historyTableFilters } = useHistoryTable();
   let taskIds: string[] = [];
-
+  const hasTestFilters = historyTableFilters.length > 0;
   if (isItemLoaded(index)) {
     const commit = getItem(index);
     if (commit.type === rowType.COMMIT && commit.commit) {
@@ -22,7 +23,7 @@ const useTestResults = (index: number) => {
     }
   }
   const hasDataToQuery = taskIds.length > 0;
-  const { data } = useQuery<
+  const { data, loading } = useQuery<
     GetTaskTestSampleQuery,
     GetTaskTestSampleQueryVariables
   >(GET_TASK_TEST_SAMPLE, {
@@ -30,9 +31,14 @@ const useTestResults = (index: number) => {
       tasks: taskIds,
       filters: historyTableFilters,
     },
+    fetchPolicy: "no-cache",
     skip: !hasDataToQuery,
   });
-  const taskTestMap = new Map<string, TaskTestResultSample>();
+
+  const taskTestMap = useMemo(
+    () => new Map<string, TaskTestResultSample>(),
+    []
+  );
   if (data) {
     const { taskTestSample } = data;
     if (taskTestSample != null) {
@@ -41,41 +47,31 @@ const useTestResults = (index: number) => {
       });
     }
   }
-
-  /** getTaskMetadata returns the properties for a task cell  */
-  const getTaskMetadata = (taskId: string) => {
-    const taskTest = taskTestMap.get(taskId);
-    // If we haven't fetched task test results return an empty value
-    if (!hasDataToQuery) {
-      return {
-        inactive: false,
-        label: "",
-        failingTests: [],
-      };
-    }
-    if (taskTest) {
-      const matchingTestNameCount = taskTest.matchingFailedTestNames.length;
-      // if the user does not have any test filters applied return just the test results with no label
-      if (historyTableFilters.length === 0) {
+  /** getTaskMetadata returns the properties for a task cell given a task id  */
+  const getTaskMetadata = useMemo(
+    () => (taskId: string) => {
+      const taskTest = taskTestMap.get(taskId);
+      if (taskTest) {
+        const matchingTestNameCount =
+          taskTest.matchingFailedTestNames?.length || 0;
+        const label = `${matchingTestNameCount} / ${taskTest.totalTestCount} Failing Tests`;
         return {
-          inactive: false,
-          label: "",
+          label: hasTestFilters ? label : "",
+          inactive: hasTestFilters && matchingTestNameCount === 0,
+          loading,
           failingTests: taskTest.matchingFailedTestNames,
         };
       }
-      // if the user has test filters applied and the task has failed tests return the label with the number of failed tests
       return {
-        inactive: matchingTestNameCount === 0,
-        label: `${matchingTestNameCount} / ${taskTest.totalTestCount} Failing Tests`,
-        failingTests: taskTest.matchingFailedTestNames,
+        label: "",
+        inactive: hasTestFilters,
+        loading,
+        failingTests: [],
       };
-    }
-    return {
-      inactive: true,
-      label: "",
-      failingTests: [],
-    };
-  };
+    },
+    [taskTestMap, hasTestFilters, loading]
+  );
+
   return { getTaskMetadata };
 };
 

@@ -15,7 +15,7 @@ type cacheShape = Map<
   | mainlineCommits["versions"][0]["version"]
   | mainlineCommits["versions"][0]["rolledUpVersions"][0]
 >;
-export interface HistoryTableReducerState {
+interface HistoryTableReducerState {
   loadedCommits: mainlineCommits["versions"];
   processedCommits: CommitRowType[];
   processedCommitCount: number;
