@@ -10,7 +10,6 @@
         ]
     ],
     "plugins": [
-        "@emotion/babel-plugin",
         [
             "import",
             {
@@ -19,6 +18,7 @@
                 "style": "css"
             },
             "antd"
-        ]
+        ],
+        "@emotion/babel-plugin"
     ]
 }
