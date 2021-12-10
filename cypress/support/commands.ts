@@ -1,5 +1,3 @@
-import { createUser } from "../utils/evergreen";
-
 const LOGIN_COOKIE = "mci-token";
 const TOAST_COOKIE = "announcement-toast";
 const loginURL = "http://localhost:9090/login";
@@ -64,9 +62,4 @@ Cypress.Commands.add("toggleTableFilter", (colNum: number) => {
     .first()
     .click();
   cy.get(".ant-table-filter-dropdown").should("be.visible");
-});
-
-type CreateUserParams = Parameters<typeof createUser>[0];
-Cypress.Commands.add("createUser", (options: CreateUserParams) => {
-  createUser(options);
 });
