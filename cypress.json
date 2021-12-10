@@ -8,5 +8,6 @@
   "retries": {
     "runMode": 4,
     "openMode": 0
-  }
+  },
+  "experimentalNetworkStubbing": true
 }

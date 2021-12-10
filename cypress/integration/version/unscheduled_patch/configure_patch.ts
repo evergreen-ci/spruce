@@ -520,10 +520,11 @@ describe("Configure Patch Page", () => {
       const val = "hello world";
       cy.dataCy(`patch-name-input`).as("patchNameInput").clear().type(val);
       cy.dataCy("task-checkbox").first().check({ force: true });
-      cy.route({
-        method: "POST",
-        url: "/graphql/query",
-        response: mockedSuccessfulConfigureResponse,
+      // TODO: Replace this with cy.intercept() once we upgrade to > Cypress 6.0.0
+      cy.route2("/graphql/query", (req) => {
+        req.reply((res) => {
+          res.body = mockedSuccessfulConfigureResponse;
+        });
       });
       cy.dataCy("schedule-patch").click();
       cy.location("pathname").should(
@@ -536,11 +537,11 @@ describe("Configure Patch Page", () => {
       const val = "hello world";
       cy.dataCy(`patch-name-input`).as("patchNameInput").clear().type(val);
       cy.dataCy("task-checkbox").first().check({ force: true });
-
-      cy.route({
-        method: "POST",
-        url: "/graphql/query",
-        response: mockedErrorConfigureResponse,
+      // TODO: Replace this with cy.intercept() once we upgrade to > Cypress 6.0.0
+      cy.route2("/graphql/query", (req) => {
+        req.reply((res) => {
+          res.body = mockedErrorConfigureResponse;
+        });
       });
       cy.dataCy("schedule-patch").click();
       cy.location("pathname").should(
