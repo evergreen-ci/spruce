@@ -1,10 +1,10 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { useLocation } from "react-router";
 import { MemoryRouter, Route } from "react-router-dom";
-import {
-  InputFilterTestComponent,
-  CheckboxFilterTestComponent,
-} from "./TestComponent";
+import { CheckboxFilter, InputFilter } from "components/Table/Filters";
+import { useTableInputFilter, useTableCheckboxFilter } from "hooks";
+import { render, fireEvent } from "test_utils/test-utils";
+import { queryString } from "utils";
 
 describe("useTableInputFilter", () => {
   it("accepts an input value", async () => {
@@ -105,3 +105,73 @@ describe("useTableCheckboxFilter", () => {
     getByText("statuses from url: none");
   });
 });
+
+const { parseQueryString } = queryString;
+const hostIdUrlParam = "hostId";
+
+const InputFilterTestComponent = () => {
+  const [value, onChange, onFilter] = useTableInputFilter({
+    urlSearchParam: hostIdUrlParam,
+    sendAnalyticsEvent: () => undefined,
+  });
+
+  const { search } = useLocation();
+  const queryParams = parseQueryString(search);
+
+  return (
+    <>
+      <div>host id from url: {queryParams[hostIdUrlParam] ?? "N/A"}</div>
+      <InputFilter
+        {...{
+          placeholder: "Search ID",
+          value,
+          onChange,
+          onFilter,
+        }}
+      />
+    </>
+  );
+};
+
+const statusesUrlParam = "statuses";
+
+const CheckboxFilterTestComponent = () => {
+  const [value, onChange] = useTableCheckboxFilter({
+    urlSearchParam: statusesUrlParam,
+    sendAnalyticsEvent: () => undefined,
+  });
+
+  const { search } = useLocation();
+  const queryParams = parseQueryString(search);
+  const statusesFromUrl = queryParams[statusesUrlParam];
+
+  const urlValue = Array.isArray(statusesFromUrl)
+    ? statusesFromUrl.join()
+    : statusesFromUrl ?? "none";
+
+  return (
+    <>
+      <div>statuses from url: {urlValue}</div>
+      <CheckboxFilter
+        {...{
+          statuses,
+          value,
+          onChange,
+        }}
+      />
+    </>
+  );
+};
+
+const statuses = [
+  {
+    title: "Running",
+    value: "running",
+    key: "running",
+  },
+  {
+    title: "Terminated",
+    value: "terminated",
+    key: "terminated",
+  },
+];
