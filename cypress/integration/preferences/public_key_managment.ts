@@ -16,7 +16,7 @@ describe("Public Key Management Page", () => {
     before(() => {
       cy.visit(route);
     });
-    it.skip("Displays the user's public keys", () => {
+    it("Displays the user's public keys", () => {
       cy.dataCy("table-key-name").each(($el, index) =>
         cy.wrap($el).contains([keyName1, keyName2][index])
       );
