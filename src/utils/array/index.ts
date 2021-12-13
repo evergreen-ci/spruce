@@ -30,6 +30,9 @@ export const convertArrayToObject = <T = { [key: string]: any }>(
   key: keyof T
 ): { [key: string]: T } => {
   const initialValue = {};
+  if (array === undefined) {
+    return initialValue;
+  }
   return array.reduce((obj, item) => {
     if (item[key] === undefined) return { ...obj };
     // if the object value is not a valid object key type throw an error
