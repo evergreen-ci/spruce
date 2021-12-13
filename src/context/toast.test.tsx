@@ -155,7 +155,7 @@ describe("real Toast", () => {
       await waitFor(() => {
         expect(queryByDataCy("toast")).not.toBeInTheDocument();
       });
-      expect(onClose).toHaveBeenCalled();
+      expect(onClose).toHaveBeenCalledWith();
     });
   });
 
@@ -212,7 +212,7 @@ describe("mocked Fake Toast", () => {
     const { queryByText } = render(<Component />);
     fireEvent.click(queryByText("Click Me"));
     expect(useToastContextSpied).toHaveBeenCalledTimes(1);
-    expect(dispatchToast.success).toHaveBeenCalled();
+    expect(dispatchToast.success).toHaveBeenCalledWith("test");
   });
 
   it("should be able to mock the toast in a hook test", () => {
@@ -223,6 +223,6 @@ describe("mocked Fake Toast", () => {
     } = RenderFakeToastContext();
     renderHook(() => useUpdateToastTest(), { wrapper: HookWrapper });
     expect(useToastContextSpied).toHaveBeenCalledTimes(1);
-    expect(dispatchToast.success).toHaveBeenCalled();
+    expect(dispatchToast.success).toHaveBeenCalledWith("test");
   });
 });

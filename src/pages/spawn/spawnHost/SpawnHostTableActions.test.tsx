@@ -3,16 +3,15 @@ import { GET_USER } from "gql/queries";
 import { act, fireEvent, render } from "test_utils/test-utils";
 import { CopySSHCommandButton } from "./SpawnHostTableActions";
 
-afterEach(() => {
-  jest.clearAllMocks();
-  jest.clearAllTimers();
-});
-
 const execCommand = jest.fn();
 const user = "bynn.lee";
 const hostUrl = "ec2-54-242-162-135.compute-1.amazonaws.com";
 
 describe("copySSHCommandButton", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+    jest.clearAllTimers();
+  });
   it("tooltip text should change after clicking on the copy button", async () => {
     const { queryByDataCy, queryByText } = render(
       <MockedProvider mocks={[getUserMock]}>

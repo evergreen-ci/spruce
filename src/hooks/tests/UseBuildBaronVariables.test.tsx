@@ -4,60 +4,60 @@ import MatchMediaMock from "jest-matchmedia-mock";
 import { GET_BUILD_BARON } from "gql/queries";
 import { useBuildBaronVariables } from "../useBuildBaronVariables";
 
-let matchMedia;
-beforeAll(() => {
-  matchMedia = new MatchMediaMock();
-});
-
-afterEach(() => {
-  matchMedia.clear();
-});
-
 const Provider = ({ children }) => (
   <MockedProvider mocks={mocks}>{children}</MockedProvider>
 );
+describe("useBuildBaronVariables", () => {
+  let matchMedia;
+  beforeAll(() => {
+    matchMedia = new MatchMediaMock();
+  });
 
-test("the BuildBaron tab renders when the task is failed", async () => {
-  const { result, waitForNextUpdate } = renderHook(
-    () =>
-      useBuildBaronVariables({
-        taskId: taskId1,
-        execution,
-        taskStatus: "failed",
-      }),
-    { wrapper: Provider }
-  );
+  afterEach(() => {
+    matchMedia.clear();
+  });
+  it("the BuildBaron tab renders when the task is failed", async () => {
+    const { result, waitForNextUpdate } = renderHook(
+      () =>
+        useBuildBaronVariables({
+          taskId: taskId1,
+          execution,
+          taskStatus: "failed",
+        }),
+      { wrapper: Provider }
+    );
 
-  await waitForNextUpdate();
-  await waitForNextUpdate();
-  expect(result.current.showBuildBaron).toBeTruthy();
-});
+    await waitForNextUpdate();
+    await waitForNextUpdate();
+    expect(result.current.showBuildBaron).toBeTruthy();
+  });
 
-test("the BuildBaron tab doesn't render when the task is successful", async () => {
-  const { result } = renderHook(
-    () =>
-      useBuildBaronVariables({
-        taskId: taskId1,
-        execution,
-        taskStatus: "success",
-      }),
-    { wrapper: Provider }
-  );
-  expect(result.current.showBuildBaron).toBeFalsy();
-});
+  it("the BuildBaron tab doesn't render when the task is successful", async () => {
+    const { result } = renderHook(
+      () =>
+        useBuildBaronVariables({
+          taskId: taskId1,
+          execution,
+          taskStatus: "success",
+        }),
+      { wrapper: Provider }
+    );
+    expect(result.current.showBuildBaron).toBeFalsy();
+  });
 
-test("the BuildBaron tab doesn't render when the buildBaron is not configured", async () => {
-  const { result, waitForNextUpdate } = renderHook(
-    () =>
-      useBuildBaronVariables({
-        taskId: taskId2,
-        execution,
-        taskStatus: "failed",
-      }),
-    { wrapper: Provider }
-  );
-  await waitForNextUpdate();
-  expect(result.current.showBuildBaron).toBeFalsy();
+  it("the BuildBaron tab doesn't render when the buildBaron is not configured", async () => {
+    const { result, waitForNextUpdate } = renderHook(
+      () =>
+        useBuildBaronVariables({
+          taskId: taskId2,
+          execution,
+          taskStatus: "failed",
+        }),
+      { wrapper: Provider }
+    );
+    await waitForNextUpdate();
+    expect(result.current.showBuildBaron).toBeFalsy();
+  });
 });
 
 const taskId1 = "spruce_ubuntu1604_e2e_test_1";
