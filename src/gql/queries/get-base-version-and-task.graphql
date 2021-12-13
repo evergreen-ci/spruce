@@ -11,6 +11,7 @@ query GetBaseVersionAndTask($taskId: String!) {
         order
         projectIdentifier
       }
+      isPatch
     }
     baseTask {
       id

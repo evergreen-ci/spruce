@@ -53,7 +53,8 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
   const { baseTask, versionMetadata, buildVariant, displayName } =
     taskData?.task ?? {};
   const { id: baseTaskId, status: baseTaskStatus } = baseTask ?? {};
-  const { projectIdentifier, order } = versionMetadata?.baseVersion ?? {};
+  const { isPatch, baseVersion } = versionMetadata ?? {};
+  const { projectIdentifier, order } = baseVersion ?? {};
   // Increment order by 1 to consider the base commit in the query.
   const skipOrderNumber = order + 1;
   const isBaseTaskFinished = isFinishedTaskStatus(baseTaskStatus);
@@ -141,7 +142,9 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
       break;
     default:
   }
-
+  if (!isPatch) {
+    return null;
+  }
   return (
     <Container>
       <StyledSelect

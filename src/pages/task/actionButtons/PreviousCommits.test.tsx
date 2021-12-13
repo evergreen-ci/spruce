@@ -154,6 +154,7 @@ describe("Previous Commits", () => {
               projectIdentifier: "evergreen",
               __typename: "Version",
             },
+            isPatch: true,
             __typename: "Version",
           },
           baseTask: {
@@ -189,6 +190,7 @@ describe("Previous Commits", () => {
               projectIdentifier: "evergreen",
               __typename: "Version",
             },
+            isPatch: true,
             __typename: "Version",
           },
           baseTask: {
@@ -268,6 +270,7 @@ describe("Previous Commits", () => {
               projectIdentifier: "evergreen",
               __typename: "Version",
             },
+            isPatch: true,
             __typename: "Version",
           },
           baseTask: null,
