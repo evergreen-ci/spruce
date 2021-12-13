@@ -124,6 +124,10 @@ describe("mapStringArrayToObject", () => {
       keyD: "KEYD",
     });
   });
+  it("should return an empty object if provided with an empty array", () => {
+    expect(mapStringArrayToObject([], "someKey")).toStrictEqual({});
+    expect(mapStringArrayToObject(undefined, "someKey")).toStrictEqual({});
+  });
 });
 
 describe("toArray", () => {
