@@ -71,14 +71,18 @@ export const convertObjectToArray = <T>(object: { [key: string]: T[] | T }) => {
 export const mapStringArrayToObject = <T>(
   array: string[],
   v: T
-): { [key: string]: T } =>
-  array.reduce((prev, curr) => {
+): { [key: string]: T } => {
+  if (array === undefined) {
+    return {};
+  }
+  return array.reduce((prev, curr) => {
     let value = v;
     if (typeof v === "function") {
       value = v(curr);
     }
     return { ...prev, [curr]: value };
   }, {});
+};
 
 /** toArray takes a value and converts it into an array if it is not already */
 export const toArray = <T>(value: T | T[]): T[] => {
