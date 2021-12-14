@@ -4,7 +4,7 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { radioBoxOptions } from "../utils";
 
-export const getFormData = (
+export const getFormSchema = (
   useRepoSettings: boolean,
   repoData?: any
 ): {

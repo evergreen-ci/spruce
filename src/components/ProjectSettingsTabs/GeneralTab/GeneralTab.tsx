@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { SpruceForm } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { usePopulateForm, useProjectSettingsContext } from "../Context";
-import { getFormData } from "./getFormData";
+import { getFormSchema } from "./getFormSchema";
 import { TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.General;
@@ -24,7 +24,7 @@ export const GeneralTab: React.FC<TabProps> = ({
 
   const { fields, schema, uiSchema } = useMemo(
     () =>
-      getFormData(
+      getFormSchema(
         projectId,
         useRepoSettings,
         validDefaultLoggers,
