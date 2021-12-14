@@ -40,6 +40,6 @@ export const radioBoxOptions = (
 ];
 
 export const placeholderIf = (element: string | number) =>
-  element !== null && {
+  element !== undefined && {
     "ui:placeholder": `${element} (Default from repo)`,
   };

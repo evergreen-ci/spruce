@@ -23,7 +23,7 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
   readonly,
   formContext,
 }) => {
-  const { description, "data-cy": dataCy } = options;
+  const { description, "data-cy": dataCy, emptyValue } = options;
   const hasError = !!rawErrors?.length;
   const { readonlyAsDisabled = true } = formContext;
   return (
@@ -37,7 +37,9 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
           description={description as string}
           disabled={disabled || (readonlyAsDisabled && readonly)}
           onChange={({ target }) =>
-            onChange(target.value === "" ? null : target.value)
+            onChange(
+              target.value === "" && emptyValue ? emptyValue : target.value
+            )
           }
           aria-label={label}
           errorMessage={hasError ? rawErrors.join(", ") : null}

@@ -4,34 +4,21 @@ import { ObjectFieldTemplateProps } from "@rjsf/core";
 
 const { yellow } = uiColors;
 
-export const VariableRowFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
-  formData,
-  properties,
-  uiSchema,
-}) => {
-  const repoData = uiSchema?.options?.repoData;
+export const VariableRow: React.FC<
+  Pick<ObjectFieldTemplateProps, "formData" | "properties" | "uiSchema">
+> = ({ formData, properties, uiSchema }) => {
   const [variableName, variableValue, isPrivate] = properties;
-  if (!repoData) {
-    return (
-      <RowContainer>
-        <LeftColumn>{variableName.content}</LeftColumn>
-        <div>
-          {variableValue.content}
-          {isPrivate.content}
-        </div>
-      </RowContainer>
-    );
-  }
-
-  const { vars } = repoData;
-  const inRepo = vars.some(({ name }) => name === formData.name);
+  const repoData = uiSchema?.options?.repoData;
+  const inRepo = repoData
+    ? repoData.vars.some(({ varName }) => varName === formData.varName)
+    : false;
 
   return (
     <RowContainer>
-      <LeftColumn>
+      <LeftColumn showWarning={inRepo}>
         {variableName.content}
         {inRepo && (
-          <span>
+          <span data-cy="override-warning">
             This will override the variable of the same name defined in the
             repo.
           </span>
@@ -48,6 +35,12 @@ export const VariableRowFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
 const LeftColumn = styled.div`
   color: ${yellow.dark2};
   padding-right: 16px;
+
+  ${(props: { showWarning?: boolean }): string =>
+    props.showWarning &&
+    `input {
+    border-color: ${yellow.dark2};
+  }`}
 `;
 
 const RowContainer = styled.div`

@@ -10,10 +10,10 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
   } = data;
 
   return {
-    vars: Object.entries(vars).map(([name, value]) => ({
-      name,
-      value,
-      private: privateVars.includes(name),
+    vars: Object.entries(vars).map(([varName, varValue]) => ({
+      varName,
+      varValue,
+      isPrivate: privateVars.includes(varName),
     })),
   };
 };
@@ -27,13 +27,13 @@ export const formToGql: FormToGqlFunction = (
     privateVarsList: [] as ProjectVarsInput["privateVarsList"],
   };
 
-  varsData.forEach(({ name, value, private: isPrivate }) => {
-    if (name === "" || value === "") return;
+  varsData.forEach(({ varName, varValue, isPrivate }) => {
+    if (varName === "") return;
 
     if (isPrivate) {
-      vars.privateVarsList.push(name);
+      vars.privateVarsList.push(varName);
     }
-    vars.vars[name] = value;
+    vars.vars[varName] = varValue;
   });
 
   return {

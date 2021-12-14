@@ -3,9 +3,9 @@ import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { FormState } from "./types";
-import { VariableRowFieldTemplate } from "./VariableRowFieldTemplate";
+import { VariableRow } from "./VariableRow";
 
-export const getFormData = (
+export const getFormSchema = (
   useRepoSettings: boolean,
   repoData?: FormState
 ): {
@@ -21,15 +21,15 @@ export const getFormData = (
         items: {
           type: "object" as "object",
           properties: {
-            name: {
+            varName: {
               type: "string" as "string",
               title: "Variable Name",
             },
-            value: {
+            varValue: {
               type: "string" as "string",
               title: "Variable",
             },
-            private: {
+            isPrivate: {
               type: "boolean" as "boolean",
               title: "Private",
             },
@@ -45,6 +45,9 @@ export const getFormData = (
         repoData: {
           type: "object" as "object",
           title: "Repo Project Variables",
+          ...(repoData.vars.length === 0 && {
+            description: "Repo has no variables defined.",
+          }),
           properties: {
             // prettier-ignore
             vars: { "$ref": "#/definitions/varsArray" },
@@ -61,9 +64,9 @@ export const getFormData = (
       "ui:fullWidth": true,
       "ui:showLabel": false,
       items: {
-        "ui:ObjectFieldTemplate": VariableRowFieldTemplate,
+        "ui:ObjectFieldTemplate": VariableRow,
         options: { repoData },
-        value: {
+        varValue: {
           "ui:widget": widgets.TextareaWidget,
         },
       },
@@ -75,8 +78,8 @@ export const getFormData = (
         "ui:readonly": true,
         "ui:showLabel": false,
         items: {
-          "ui:ObjectFieldTemplate": VariableRowFieldTemplate,
-          value: {
+          "ui:ObjectFieldTemplate": VariableRow,
+          varValue: {
             "ui:widget": widgets.TextareaWidget,
           },
         },

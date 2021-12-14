@@ -45,7 +45,6 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
     projectData,
     repoData,
   ]);
-  console.log(tabData);
 
   return (
     <Container>

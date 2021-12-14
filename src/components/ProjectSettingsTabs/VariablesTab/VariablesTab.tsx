@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { SpruceForm } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { usePopulateForm, useProjectSettingsContext } from "../Context";
-import { getFormData } from "./getFormData";
+import { getFormSchema } from "./getFormSchema";
 import { TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.Variables;
@@ -25,13 +25,12 @@ export const VariablesTab: React.FC<TabProps> = ({
     () => getInitialFormState(projectData, repoData),
     [projectData, repoData]
   );
-  console.log(formData);
   usePopulateForm(initialFormState, tab);
 
   const onChange = updateForm(tab);
 
   const { fields, schema, uiSchema } = useMemo(
-    () => getFormData(useRepoSettings, useRepoSettings ? repoData : null),
+    () => getFormSchema(useRepoSettings, useRepoSettings ? repoData : null),
     [repoData, useRepoSettings]
   );
 
