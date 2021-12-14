@@ -90,7 +90,7 @@ describe("Previous Commits", () => {
           getLastExecutedVersion,
         ]}
       >
-        <PreviousCommits taskId="t1" />
+        <PreviousCommits taskId="t3" />
       </MockedProvider>
     ));
 
@@ -105,7 +105,7 @@ describe("Previous Commits", () => {
     await waitFor(() => {
       expect(queryByText("Go").closest("a")).toHaveAttribute(
         "href",
-        "task/last_executed_task"
+        "/task/last_executed_task"
       );
     });
     userEvent.click(queryAllByText("Go to last executed version")[0]);
@@ -350,7 +350,13 @@ describe("Previous Commits", () => {
                 id: "evergreen_44110b57c6977bf3557009193628c9389772163f",
                 buildVariants: [
                   {
-                    tasks: ["last_executed_task"],
+                    tasks: [
+                      {
+                        id: "last_executed_task",
+                        execution: 0,
+                        __typename: "Task",
+                      },
+                    ],
                     __typename: "GroupedBuildVariant",
                   },
                 ],
