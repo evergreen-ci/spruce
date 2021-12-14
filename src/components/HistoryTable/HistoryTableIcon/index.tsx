@@ -38,7 +38,7 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
       >
         <TestNameContainer>
           {failingTests.map((testName) => (
-            <Body key={testName}>{testName}</Body>
+            <TestName key={testName}>{testName}</TestName>
           ))}
           {loadingTestResults && <Skeleton active />}
         </TestNameContainer>
@@ -76,4 +76,8 @@ const IconContainer = styled.div<IconContainerProps>`
   width: 30px;
   text-align: center;
   ${({ inactive }) => inactive && inactiveElementStyle}
+`;
+
+const TestName = styled.div`
+  word-break: break-all;
 `;

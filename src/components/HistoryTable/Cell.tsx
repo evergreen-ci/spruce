@@ -17,12 +17,14 @@ interface TaskCellProps {
   inactive?: boolean;
   failingTests?: string[];
   label?: string;
+  loading: boolean;
 }
 export const TaskCell: React.FC<TaskCellProps> = ({
   task,
   inactive,
   failingTests,
   label,
+  loading,
 }) => (
   <Link to={getTaskRoute(task.id)}>
     <Cell aria-disabled={inactive} data-cy="task-cell">
@@ -31,6 +33,7 @@ export const TaskCell: React.FC<TaskCellProps> = ({
         status={task.status as TaskStatus}
         failingTests={failingTests}
         label={label}
+        loadingTestResults={loading}
       />
     </Cell>
   </Link>

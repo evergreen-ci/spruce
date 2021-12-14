@@ -31,7 +31,9 @@ const TaskHistoryRow: React.FC<ListChildComponentProps> = (props) => {
           const { tasks } = foundVariant;
           // the tasks array should in theory only have one item in it so we should always use it.
           const t = tasks[0];
-          const { inactive, failingTests, label } = getTaskMetadata(t.id);
+          const { inactive, failingTests, label, loading } = getTaskMetadata(
+            t.id
+          );
           return (
             <TaskCell
               aria-disabled={inactive}
@@ -40,6 +42,7 @@ const TaskHistoryRow: React.FC<ListChildComponentProps> = (props) => {
               task={t}
               failingTests={failingTests}
               label={label}
+              loading={loading}
             />
           );
         }
