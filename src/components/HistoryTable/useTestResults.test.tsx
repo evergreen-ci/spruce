@@ -73,7 +73,7 @@ describe("useTestResults", () => {
       getTaskMetadata: expect.any(Function),
     });
   });
-  it("should return an default state when there is no valid data for a row", () => {
+  it("should return the default state when there is no valid data for a row", () => {
     const { result } = renderHook(() => useMergedHookRender({ row: 0 }), {
       wrapper: ({ children }) => wrapper({ children }),
     });

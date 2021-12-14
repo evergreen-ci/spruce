@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useQuery } from "@apollo/client";
 import {
   GetTaskTestSampleQuery,
@@ -14,6 +14,10 @@ const useTestResults = (index: number) => {
   const { getItem, historyTableFilters } = useHistoryTable();
   let taskIds: string[] = [];
   const hasTestFilters = historyTableFilters.length > 0;
+  const [taskTestMap, setTaskTestMap] = useState<{
+    [taskId: string]: TaskTestResultSample;
+  }>({});
+
   const commit = getItem(index);
   if (commit && commit.type === rowType.COMMIT && commit.commit) {
     taskIds = commit.commit.buildVariants.flatMap((buildVariant) =>
@@ -21,7 +25,7 @@ const useTestResults = (index: number) => {
     );
   }
   const hasDataToQuery = taskIds.length > 0;
-  const { data, loading } = useQuery<
+  const { loading } = useQuery<
     GetTaskTestSampleQuery,
     GetTaskTestSampleQueryVariables
   >(GET_TASK_TEST_SAMPLE, {
@@ -30,24 +34,23 @@ const useTestResults = (index: number) => {
       filters: historyTableFilters,
     },
     skip: !hasDataToQuery,
+    onCompleted: (data) => {
+      const { taskTestSample } = data;
+      if (taskTestSample != null) {
+        const ttm = taskTestSample.reduce((acc, taskTest) => {
+          const { taskId } = taskTest;
+          acc[taskId] = taskTest;
+          return acc;
+        }, {});
+        setTaskTestMap(ttm);
+      }
+    },
   });
 
-  const taskTestMap = useMemo(
-    () => new Map<string, TaskTestResultSample>(),
-    []
-  );
-  if (data) {
-    const { taskTestSample } = data;
-    if (taskTestSample != null) {
-      taskTestSample.forEach((taskTest) => {
-        taskTestMap.set(taskTest.taskId, taskTest);
-      });
-    }
-  }
   /** getTaskMetadata returns the properties for a task cell given a task id  */
   const getTaskMetadata = useMemo(
     () => (taskId: string) => {
-      const taskTest = taskTestMap.get(taskId);
+      const taskTest = taskTestMap[taskId];
       if (taskTest) {
         const matchingTestNameCount =
           taskTest.matchingFailedTestNames?.length || 0;
