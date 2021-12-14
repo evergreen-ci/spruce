@@ -8,6 +8,17 @@ import { renderWithRouterMatch, waitFor } from "test_utils/test-utils";
 import { PreviousCommits } from "./PreviousCommits";
 
 describe("Previous Commits", () => {
+  test("This component will not render if the task's version did not originate from a patch", async () => {
+    const { container } = renderWithRouterMatch(() => (
+      <MockedProvider mocks={[getMainlineCommitTask]}>
+        <PreviousCommits taskId="t1" />
+      </MockedProvider>
+    ));
+    waitFor(() => {
+      expect(container.children).toEqual([]);
+    });
+  });
+
   test("When base task is passing, all dropdown items generate the same link.", async () => {
     const { queryAllByText, queryByText } = renderWithRouterMatch(() => (
       <MockedProvider mocks={[getTaskWithSuccessfulBase]}>
@@ -39,7 +50,7 @@ describe("Previous Commits", () => {
     });
   });
 
-  test("When base task is failing, 'Go to base commit' and 'Go to last executed' dropdown items generate the same link.", async () => {
+  test("When base task is failing, 'Go to base commit' and 'Go to last executed' dropdown items generate the same link and 'Go to last passing version' will be different.", async () => {
     const { queryAllByText, queryByText } = renderWithRouterMatch(() => (
       <MockedProvider mocks={[getTaskWithFailingBase, getLastPassingVersion]}>
         <PreviousCommits taskId="t1" />
@@ -65,56 +76,51 @@ describe("Previous Commits", () => {
     await waitFor(() => {
       expect(queryByText("Go").closest("a")).toHaveAttribute(
         "href",
-        "/task/evergreen_lint_generate_lint_44110b57c6977bf3557009193628c9389772163f_21_11_29_14_13_34"
+        "/task/last_passing_task"
       );
     });
   });
 
-  test("The Go button is disabled when a previous commit does not exist", async () => {
-    const { queryByText, queryAllByText } = renderWithRouterMatch(() => (
+  test("When base task is not in a finished state, the last executed & passing task is not the same as the base commit", async () => {
+    const { queryAllByText, queryByText } = renderWithRouterMatch(() => (
       <MockedProvider
         mocks={[
-          getTaskWithNoBase,
-          getLastPassingVersionEmpty,
-          getLastExecutedVersionEmpty,
+          getTaskWithRunningBase,
+          getLastPassingVersion,
+          getLastExecutedVersion,
         ]}
       >
-        <PreviousCommits taskId="t2" />
+        <PreviousCommits taskId="t1" />
       </MockedProvider>
     ));
+
     await waitFor(() => {
       expect(queryByText("Go").closest("a")).toHaveAttribute(
-        "aria-disabled",
-        "true"
+        "href",
+        baseTaskHref
       );
     });
     userEvent.click(queryByText("Go to base commit"));
     userEvent.click(queryByText("Go to last executed version"));
     await waitFor(() => {
       expect(queryByText("Go").closest("a")).toHaveAttribute(
-        "aria-disabled",
-        "true"
+        "href",
+        "task/last_executed_task"
       );
     });
     userEvent.click(queryAllByText("Go to last executed version")[0]);
     userEvent.click(queryByText("Go to last passing version"));
     await waitFor(() => {
       expect(queryByText("Go").closest("a")).toHaveAttribute(
-        "aria-disabled",
-        "true"
+        "href",
+        "/task/last_passing_task"
       );
     });
   });
 
   test("The select is disabled when no base version exists", async () => {
     const { queryByText } = renderWithRouterMatch(() => (
-      <MockedProvider
-        mocks={[
-          getTaskWithNoBase,
-          getLastPassingVersionEmpty,
-          getLastExecutedVersionEmpty,
-        ]}
-      >
+      <MockedProvider mocks={[getTaskWithNoBaseVersion]}>
         <PreviousCommits taskId="t3" />
       </MockedProvider>
     ));
@@ -130,6 +136,7 @@ describe("Previous Commits", () => {
       ).toHaveAttribute("aria-disabled", "true");
     });
   });
+
   const baseTaskId =
     "evergreen_lint_lint_agent_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_21_11_29_17_55_27";
   const baseTaskHref = `/task/${baseTaskId}`;
@@ -161,6 +168,42 @@ describe("Previous Commits", () => {
             id: baseTaskId,
             execution: 0,
             status: "success",
+            __typename: "Task",
+          },
+          __typename: "Task",
+        },
+      },
+    },
+  };
+
+  const getTaskWithRunningBase = {
+    request: {
+      query: GET_BASE_VERSION_AND_TASK,
+      variables: {
+        taskId: "t3",
+      },
+    },
+    result: {
+      data: {
+        task: {
+          id:
+            "evergreen_lint_lint_agent_patch_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_61a8edf132f41750ab47bc72_21_12_02_16_01_54",
+          execution: 0,
+          displayName: "lint-agent",
+          buildVariant: "lint",
+          versionMetadata: {
+            baseVersion: {
+              order: 3676,
+              projectIdentifier: "evergreen",
+              __typename: "Version",
+            },
+            isPatch: true,
+            __typename: "Version",
+          },
+          baseTask: {
+            id: baseTaskId,
+            execution: 0,
+            status: "started",
             __typename: "Task",
           },
           __typename: "Task",
@@ -229,8 +272,7 @@ describe("Previous Commits", () => {
                   {
                     tasks: [
                       {
-                        id:
-                          "evergreen_lint_generate_lint_44110b57c6977bf3557009193628c9389772163f_21_11_29_14_13_34",
+                        id: "last_passing_task",
                         execution: 0,
                         __typename: "Task",
                       },
@@ -249,11 +291,11 @@ describe("Previous Commits", () => {
     },
   };
 
-  const getTaskWithNoBase = {
+  const getTaskWithNoBaseVersion = {
     request: {
       query: GET_BASE_VERSION_AND_TASK,
       variables: {
-        taskId: "t2",
+        taskId: "t3",
       },
     },
     result: {
@@ -265,11 +307,7 @@ describe("Previous Commits", () => {
           displayName: "lint-agent",
           buildVariant: "lint",
           versionMetadata: {
-            baseVersion: {
-              order: 3676,
-              projectIdentifier: "evergreen",
-              __typename: "Version",
-            },
+            baseVersion: null,
             isPatch: true,
             __typename: "Version",
           },
@@ -280,44 +318,7 @@ describe("Previous Commits", () => {
     },
   };
 
-  const getLastPassingVersionEmpty = {
-    request: {
-      query: GET_LAST_MAINLINE_COMMIT,
-      variables: {
-        projectIdentifier: "evergreen",
-        skipOrderNumber: 3677,
-        buildVariantOptions: {
-          tasks: ["^lint-agent$"],
-          variants: ["^lint$"],
-          statuses: ["success"],
-        },
-      },
-    },
-    result: {
-      data: {
-        mainlineCommits: {
-          versions: [
-            {
-              version: {
-                id: "evergreen_44110b57c6977bf3557009193628c9389772163f",
-                buildVariants: [
-                  {
-                    tasks: [],
-                    __typename: "GroupedBuildVariant",
-                  },
-                ],
-                __typename: "Version",
-              },
-              __typename: "MainlineCommitVersion",
-            },
-          ],
-          __typename: "MainlineCommits",
-        },
-      },
-    },
-  };
-
-  const getLastExecutedVersionEmpty = {
+  const getLastExecutedVersion = {
     request: {
       query: GET_LAST_MAINLINE_COMMIT,
       variables: {
@@ -349,7 +350,7 @@ describe("Previous Commits", () => {
                 id: "evergreen_44110b57c6977bf3557009193628c9389772163f",
                 buildVariants: [
                   {
-                    tasks: [],
+                    tasks: ["last_executed_task"],
                     __typename: "GroupedBuildVariant",
                   },
                 ],
@@ -359,6 +360,41 @@ describe("Previous Commits", () => {
             },
           ],
           __typename: "MainlineCommits",
+        },
+      },
+    },
+  };
+  const getMainlineCommitTask = {
+    request: {
+      query: GET_BASE_VERSION_AND_TASK,
+      variables: {
+        taskId: "t1",
+      },
+    },
+    result: {
+      data: {
+        task: {
+          id:
+            "evergreen_lint_lint_agent_patch_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_61a8edf132f41750ab47bc72_21_12_02_16_01_54",
+          execution: 0,
+          displayName: "lint-agent",
+          buildVariant: "lint",
+          versionMetadata: {
+            baseVersion: {
+              order: 3676,
+              projectIdentifier: "evergreen",
+              __typename: "Version",
+            },
+            isPatch: false,
+            __typename: "Version",
+          },
+          baseTask: {
+            id: baseTaskId,
+            execution: 0,
+            status: "failed",
+            __typename: "Task",
+          },
+          __typename: "Task",
         },
       },
     },

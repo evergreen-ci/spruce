@@ -130,7 +130,7 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
       }
       break;
     case "lastExecuted":
-      // If a base task exists, the last executed commit is the base task.
+      // If a base task exists and has finished, the last executed commit is the base task.
       if (isBaseTaskFinished) {
         link = getTaskRoute(baseTaskId);
       } else if (lastExecutedTaskId) {
