@@ -43,7 +43,7 @@ const TaskHistoryContents = () => {
   const variables = {
     mainlineCommitsOptions: {
       projectID: projectId,
-      limit: 20,
+      limit: 5,
       skipOrderNumber: nextPageOrderNumber,
     },
     buildVariantOptions: {
