@@ -18,6 +18,7 @@ interface HistoryTableState {
   pageCount: number;
   currentPage: number;
   columnLimit: number;
+  commitCount: number;
 }
 
 const HistoryTableDispatchContext = createContext<any | null>(null);
@@ -31,6 +32,7 @@ const HistoryTableProvider: React.FC = ({ children }) => {
       pageCount,
       currentPage,
       columnLimit,
+      commitCount,
     },
     dispatch,
   ] = useReducer(reducer, {
@@ -43,6 +45,7 @@ const HistoryTableProvider: React.FC = ({ children }) => {
     pageCount: 0,
     columns: [],
     columnLimit: 7,
+    commitCount: 0,
   });
 
   const itemHeight = (index: number) => {
@@ -83,6 +86,7 @@ const HistoryTableProvider: React.FC = ({ children }) => {
       currentPage,
       pageCount,
       columnLimit,
+      commitCount,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [processedCommits, visibleColumns, processedCommitCount]
