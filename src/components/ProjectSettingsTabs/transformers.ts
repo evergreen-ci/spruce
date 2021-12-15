@@ -15,8 +15,8 @@ export const gqlToFormMap: PartialRecord<
   GqlToFormFunction
 > = {
   [ProjectSettingsTabRoutes.General]: general.gqlToForm,
-  [ProjectSettingsTabRoutes.Variables]: variables.gqlToForm,
   [ProjectSettingsTabRoutes.Access]: access.gqlToForm,
+  [ProjectSettingsTabRoutes.Variables]: variables.gqlToForm,
 };
 
 // TODO: Convert PartialRecord to Record once all tabs have been implemented.
@@ -25,6 +25,6 @@ export const formToGqlMap: PartialRecord<
   FormToGqlFunction
 > = {
   [ProjectSettingsTabRoutes.General]: general.formToGql,
-  [ProjectSettingsTabRoutes.Variables]: variables.formToGql,
   [ProjectSettingsTabRoutes.Access]: access.formToGql,
+  [ProjectSettingsTabRoutes.Variables]: variables.formToGql,
 };
