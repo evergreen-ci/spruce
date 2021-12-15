@@ -6,6 +6,7 @@ query GetBaseVersionAndTask($taskId: String!) {
     buildVariant
     versionMetadata {
       baseVersion {
+        id
         order
         projectIdentifier
       }

@@ -2643,7 +2643,11 @@ export type GetBaseVersionAndTaskQuery = {
     buildVariant: string;
     versionMetadata: {
       isPatch: boolean;
-      baseVersion?: Maybe<{ order: number; projectIdentifier: string }>;
+      baseVersion?: Maybe<{
+        id: string;
+        order: number;
+        projectIdentifier: string;
+      }>;
     };
     baseTask?: Maybe<{ id: string; execution: number; status: string }>;
   }>;
