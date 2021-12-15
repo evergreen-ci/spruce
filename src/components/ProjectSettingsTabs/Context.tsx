@@ -1,7 +1,21 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
+import { addedDiff } from "deep-object-diff";
 import { FormStateMap } from "components/ProjectSettingsTabs/types";
 import { FormDataProps, SpruceFormProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
+
+/* Given a diff between a form's previous and current state, check if it represents an array field added with no content. */
+const isArrayPushUpdate = (diff: object): boolean =>
+  Object.values(diff).every((val) => {
+    if (typeof val !== "object") {
+      return false;
+    }
+    // An empty object represents a new array element (i.e. blank input field)
+    if (Object.keys(val).length === 0) {
+      return true;
+    }
+    return isArrayPushUpdate(val);
+  });
 
 type TabState = {
   [K in keyof FormStateMap]: {
@@ -21,6 +35,8 @@ type Action =
   | { type: "saveTab"; tab: ProjectSettingsTabRoutes };
 
 const reducer = (state: TabState, action: Action): TabState => {
+  let diff;
+  let saveableUpdate = true;
   switch (action.type) {
     case "saveTab":
       return state[action.tab].hasChanges
@@ -34,16 +50,21 @@ const reducer = (state: TabState, action: Action): TabState => {
           }
         : state;
     case "updateForm":
-      return state[action.tab].formData === action.formData
-        ? state
-        : {
-            ...state,
-            [action.tab]: {
-              formData: action.formData,
-              hasChanges: true,
-              hasError: !!action.errors.length,
-            },
-          };
+      if (state[action.tab].formData === action.formData) {
+        return state;
+      }
+      diff = addedDiff(state[action.tab].formData, action.formData);
+      if (Object.keys(diff).length > 0) {
+        saveableUpdate = !isArrayPushUpdate(diff);
+      }
+      return {
+        ...state,
+        [action.tab]: {
+          formData: action.formData,
+          hasChanges: saveableUpdate,
+          hasError: !!action.errors.length,
+        },
+      };
     default:
       throw new Error("Unknown action type");
   }
