@@ -10,12 +10,12 @@ import { mainlineCommitData } from "./testData";
 import { rowType } from "./types";
 import useTestResultsActual from "./useTestResults";
 
-interface wrapperProps {
+interface ProviderProps {
   children: React.ReactNode;
   mocks?: MockedResponse[];
 }
 
-const wrapper: React.FC<wrapperProps> = ({ children, mocks = [] }) => (
+const ProviderWrapper: React.FC<ProviderProps> = ({ children, mocks = [] }) => (
   <MockedProvider mocks={mocks}>
     <HistoryTableProvider>{children}</HistoryTableProvider>
   </MockedProvider>
@@ -37,7 +37,7 @@ const useMergedHookRender = ({ row }) => {
 describe("useMergedHookRender - sanity check", () => {
   it("should return the correct hooks", () => {
     const { result } = renderHook(() => useMergedHookRender({ row: 0 }), {
-      wrapper,
+      wrapper: ProviderWrapper,
     });
     expect(result.current.useTestResults).toStrictEqual({
       getTaskMetadata: expect.any(Function),
@@ -67,7 +67,7 @@ describe("useMergedHookRender - sanity check", () => {
 describe("useTestResults", () => {
   it("should return an empty map when nothing is loaded", () => {
     const { result } = renderHook(() => useMergedHookRender({ row: 0 }), {
-      wrapper: ({ children }) => wrapper({ children }),
+      wrapper: ({ children }) => ProviderWrapper({ children }),
     });
     expect(result.current.useTestResults).toStrictEqual({
       getTaskMetadata: expect.any(Function),
@@ -75,7 +75,7 @@ describe("useTestResults", () => {
   });
   it("should return the default state when there is no valid data for a row", () => {
     const { result } = renderHook(() => useMergedHookRender({ row: 0 }), {
-      wrapper: ({ children }) => wrapper({ children }),
+      wrapper: ({ children }) => ProviderWrapper({ children }),
     });
     expect(
       result.current.useTestResults.getTaskMetadata(
@@ -89,7 +89,7 @@ describe("useTestResults", () => {
   });
   it("should not attempt to fetch data for non commit rows", () => {
     const { result } = renderHook(() => useMergedHookRender({ row: 0 }), {
-      wrapper: ({ children }) => wrapper({ children, mocks }),
+      wrapper: ({ children }) => ProviderWrapper({ children, mocks }),
     });
     expect(
       result.current.useTestResults.getTaskMetadata("some_id")
@@ -117,7 +117,7 @@ describe("useTestResults", () => {
     const { result, waitForNextUpdate } = renderHook(
       () => useMergedHookRender({ row: 1 }),
       {
-        wrapper: ({ children }) => wrapper({ children, mocks }),
+        wrapper: ({ children }) => ProviderWrapper({ children, mocks }),
       }
     );
     expect(
@@ -151,7 +151,7 @@ describe("useTestResults", () => {
     const { result, waitForNextUpdate } = renderHook(
       () => useMergedHookRender({ row: 1 }),
       {
-        wrapper: ({ children }) => wrapper({ children, mocks }),
+        wrapper: ({ children }) => ProviderWrapper({ children, mocks }),
       }
     );
     expect(
@@ -192,7 +192,7 @@ describe("useTestResults", () => {
     const { result, waitForNextUpdate } = renderHook(
       () => useMergedHookRender({ row: 1 }),
       {
-        wrapper: ({ children }) => wrapper({ children, mocks }),
+        wrapper: ({ children }) => ProviderWrapper({ children, mocks }),
       }
     );
     expect(
