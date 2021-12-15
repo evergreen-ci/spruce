@@ -29,6 +29,7 @@ export type Query = {
   project: Project;
   patchTasks: PatchTasks;
   taskTests: TaskTestResult;
+  taskTestSample?: Maybe<Array<TaskTestResultSample>>;
   taskFiles: TaskFiles;
   user: User;
   taskLogs: TaskLogs;
@@ -58,6 +59,8 @@ export type Query = {
   buildVariantsForTaskName?: Maybe<Array<Maybe<BuildVariantTuple>>>;
   projectSettings: ProjectSettings;
   repoSettings: RepoSettings;
+  projectEvents: ProjectEvents;
+  repoEvents: RepoEvents;
   hasVersion: Scalars["Boolean"];
 };
 
@@ -104,6 +107,11 @@ export type QueryTaskTestsArgs = {
   testName?: Maybe<Scalars["String"]>;
   statuses?: Array<Scalars["String"]>;
   groupId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryTaskTestSampleArgs = {
+  tasks: Array<Scalars["String"]>;
+  filters: Array<TestFilter>;
 };
 
 export type QueryTaskFilesArgs = {
@@ -189,6 +197,18 @@ export type QueryProjectSettingsArgs = {
 
 export type QueryRepoSettingsArgs = {
   id: Scalars["String"];
+};
+
+export type QueryProjectEventsArgs = {
+  identifier: Scalars["String"];
+  limit?: Maybe<Scalars["Int"]>;
+  before?: Maybe<Scalars["Time"]>;
+};
+
+export type QueryRepoEventsArgs = {
+  id: Scalars["String"];
+  limit?: Maybe<Scalars["Int"]>;
+  before?: Maybe<Scalars["Time"]>;
 };
 
 export type QueryHasVersionArgs = {
@@ -468,6 +488,18 @@ export type MutationOverrideTaskDependenciesArgs = {
 export type VersionToRestart = {
   versionId: Scalars["String"];
   taskIds: Array<Scalars["String"]>;
+};
+
+export type TestFilter = {
+  testName: Scalars["String"];
+  testStatus: Scalars["String"];
+};
+
+export type TaskTestResultSample = {
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
+  totalTestCount: Scalars["Int"];
+  matchingFailedTestNames: Array<Scalars["String"]>;
 };
 
 export type MainlineCommits = {
@@ -1410,7 +1442,7 @@ export type GroupedProjects = {
 };
 
 export type ProjectSettings = {
-  githubWebhooksEnabled: Scalars["Boolean"];
+  gitHubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<Project>;
   vars?: Maybe<ProjectVars>;
   aliases?: Maybe<Array<ProjectAlias>>;
@@ -1418,11 +1450,35 @@ export type ProjectSettings = {
 };
 
 export type RepoSettings = {
-  githubWebhooksEnabled: Scalars["Boolean"];
+  gitHubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<RepoRef>;
   vars?: Maybe<ProjectVars>;
   aliases?: Maybe<Array<ProjectAlias>>;
   subscriptions?: Maybe<Array<ProjectSubscription>>;
+};
+
+export type ProjectEvents = {
+  eventLogEntries: Array<ProjectEventLogEntry>;
+  count: Scalars["Int"];
+};
+
+export type ProjectEventLogEntry = {
+  timestamp: Scalars["Time"];
+  user: Scalars["String"];
+  before?: Maybe<ProjectSettings>;
+  after?: Maybe<ProjectSettings>;
+};
+
+export type RepoEvents = {
+  eventLogEntries: Array<RepoEventLogEntry>;
+  count: Scalars["Int"];
+};
+
+export type RepoEventLogEntry = {
+  timestamp: Scalars["Time"];
+  user: Scalars["String"];
+  before?: Maybe<RepoSettings>;
+  after?: Maybe<RepoSettings>;
 };
 
 export type ProjectVars = {
@@ -2118,6 +2174,18 @@ export type ProjectFragment = {
   displayName: string;
 };
 
+export type ProjectAccessSettingsFragment = {
+  private?: Maybe<boolean>;
+  restricted?: Maybe<boolean>;
+  admins?: Maybe<Array<Maybe<string>>>;
+};
+
+export type RepoAccessSettingsFragment = {
+  private: boolean;
+  restricted: boolean;
+  admins: Array<string>;
+};
+
 export type ProjectGeneralSettingsFragment = {
   enabled?: Maybe<boolean>;
   owner: string;
@@ -2166,13 +2234,16 @@ export type ProjectSettingsFragment = {
       id: string;
       useRepoSettings: boolean;
       repoRefId: string;
-    } & ProjectGeneralSettingsFragment
+    } & ProjectGeneralSettingsFragment &
+      ProjectAccessSettingsFragment
   >;
   vars?: Maybe<VariablesFragment>;
 };
 
 export type RepoSettingsFragment = {
-  projectRef?: Maybe<{ id: string } & RepoGeneralSettingsFragment>;
+  projectRef?: Maybe<
+    { id: string } & RepoGeneralSettingsFragment & RepoAccessSettingsFragment
+  >;
   vars?: Maybe<VariablesFragment>;
 };
 

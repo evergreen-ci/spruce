@@ -72,10 +72,16 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           />
         )}
       />
-      <TabRoute
-        Component={AccessTab}
+      <Route
         path={routes.projectSettingsAccess}
-        tab={ProjectSettingsTabRoutes.Access}
+        render={(props) => (
+          <AccessTab
+            {...props}
+            projectData={tabData[ProjectSettingsTabRoutes.Access].projectData}
+            repoData={tabData[ProjectSettingsTabRoutes.Access].repoData}
+            useRepoSettings={useRepoSettings}
+          />
+        )}
       />
       <Route
         path={routes.projectSettingsVariables}
