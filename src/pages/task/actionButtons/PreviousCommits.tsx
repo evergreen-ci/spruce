@@ -21,12 +21,16 @@ import { isFinishedTaskStatus } from "utils/statuses";
 import { applyStrictRegex } from "utils/string";
 
 const { reportError } = errorReporting;
-type commitType = "base" | "lastPassing" | "lastExecuted";
+enum CommitType {
+  Base = "base",
+  LastPassing = "lastPassing",
+  LastExecuted = "lastExecuted",
+}
 interface Props {
   taskId: string;
 }
 export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
-  const [selectState, setSelectState] = useState<commitType>("base");
+  const [selectState, setSelectState] = useState<CommitType>(CommitType.Base);
   const { data: taskData } = useQuery<
     GetBaseVersionAndTaskQuery,
     GetBaseVersionAndTaskQueryVariables
@@ -63,7 +67,7 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
       variants: [applyStrictRegex(buildVariant)],
     };
     if (
-      selectState === "lastPassing" &&
+      selectState === CommitType.LastPassing &&
       !lastPassingCalled &&
       baseTaskStatus !== TaskStatus.Succeeded
     ) {
@@ -79,7 +83,7 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
       });
     }
     if (
-      selectState === "lastExecuted" &&
+      selectState === CommitType.LastExecuted &&
       !isBaseTaskFinished &&
       !lastExecutedCalled
     ) {
@@ -115,11 +119,11 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
   );
   let link = "";
   switch (selectState) {
-    case "base":
+    case CommitType.Base:
       // The task may not exist on the base version if it was generated.
       link = baseTaskId ? getTaskRoute(baseTaskId) : "";
       break;
-    case "lastPassing":
+    case CommitType.LastPassing:
       // If a base task succeeded, the last passing commit is the base task.
       if (baseTaskStatus === TaskStatus.Succeeded) {
         link = getTaskRoute(baseTaskId);
@@ -129,7 +133,7 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
         link = "";
       }
       break;
-    case "lastExecuted":
+    case CommitType.LastExecuted:
       // If a base task exists and has finished, the last executed commit is the base task.
       if (isBaseTaskFinished) {
         link = getTaskRoute(baseTaskId);
@@ -147,7 +151,7 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
       <StyledSelect
         size="small"
         label="Previous commits for this task"
-        onChange={(v) => setSelectState(v as commitType)}
+        onChange={(v) => setSelectState(v as CommitType)}
         data-cy="previous-commits"
         allowDeselect={false}
         value={selectState}
