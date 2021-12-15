@@ -32,7 +32,7 @@ const { toArray } = array;
 const { parseQueryString } = queryString;
 const { applyStrictRegex } = string;
 
-export const VariantHistoryContents = () => {
+export const VariantHistoryContents: React.FC = () => {
   const { projectId, variantName } = useParams<{
     projectId: string;
     variantName: string;
@@ -76,7 +76,9 @@ export const VariantHistoryContents = () => {
   const { search } = useLocation();
   const queryParams = useMemo(() => parseQueryString(search), [search]);
 
-  const selectedTaskNames = toArray(queryParams.tasks);
+  const selectedTaskNames = useMemo(() => toArray(queryParams.tasks), [
+    queryParams.tasks,
+  ]);
   useEffect(() => {
     const failingTests = toArray(queryParams[TestStatus.Failed]);
     const passingTests = toArray(queryParams[TestStatus.Passed]);

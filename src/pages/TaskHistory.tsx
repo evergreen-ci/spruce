@@ -32,7 +32,7 @@ const { applyStrictRegex } = string;
 const { toArray } = array;
 const { HistoryTableProvider, useHistoryTable } = context;
 
-const TaskHistoryContents = () => {
+const TaskHistoryContents: React.FC = () => {
   const { projectId, taskName } = useParams<{
     projectId: string;
     taskName: string;
@@ -76,7 +76,10 @@ const TaskHistoryContents = () => {
   const { search } = useLocation();
   const queryParams = useMemo(() => parseQueryString(search), [search]);
 
-  const selectedBuildVariants = toArray(queryParams.buildVariants);
+  const selectedBuildVariants = useMemo(
+    () => toArray(queryParams.buildVariants),
+    [queryParams.buildVariants]
+  );
   useEffect(() => {
     const failingTests = toArray(queryParams[TestStatus.Failed]);
     const passingTests = toArray(queryParams[TestStatus.Passed]);
@@ -109,6 +112,7 @@ const TaskHistoryContents = () => {
   );
 
   useEffect(() => {
+    console.log("Ran effect");
     addColumns(toArray(selectedColumns).map((c) => c.buildVariant));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedColumns]);
