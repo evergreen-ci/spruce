@@ -28,7 +28,7 @@ export const formToGql: FormToGqlFunction = (
   };
 
   varsData.forEach(({ varName, varValue, isPrivate }) => {
-    if (varName === "") return;
+    if (!varName) return;
 
     if (isPrivate) {
       vars.privateVarsList.push(varName);
