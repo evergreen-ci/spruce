@@ -45,7 +45,7 @@ const HistoryTableProvider: React.FC = ({ children }) => {
     pageCount: 0,
     columns: [],
     columnLimit: 7,
-    commitCount: 0,
+    commitCount: 10,
   });
 
   const itemHeight = (index: number) => {
