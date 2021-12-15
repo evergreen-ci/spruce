@@ -36,7 +36,6 @@ const TaskHistoryRow: React.FC<ListChildComponentProps> = (props) => {
           );
           return (
             <TaskCell
-              aria-disabled={inactive}
               inactive={inactive}
               key={c}
               task={t}
