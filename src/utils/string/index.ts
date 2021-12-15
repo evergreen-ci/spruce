@@ -161,3 +161,9 @@ export const sortFunctionDate = (a, b, key) => {
  * @return {string} A regex that strictly matches on the input.
  */
 export const applyStrictRegex = (str: string) => `^${str}$`;
+
+/**
+ * @param str - A string that represents a githash
+ * @return {string} A shortenend version of the input string.
+ */
+export const shortenGithash = (str: string) => str.substring(0, 7);
