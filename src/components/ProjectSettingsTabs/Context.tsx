@@ -5,7 +5,7 @@ import { FormDataProps, SpruceFormProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 
 /* Given a diff between a form's previous and current state, check if it represents an array field added with no content. */
-const pushToArray = (diff: object): boolean =>
+const isArrayPushUpdate = (diff: object): boolean =>
   Object.values(diff).every((val) => {
     if (typeof val !== "object") {
       return false;
@@ -14,7 +14,7 @@ const pushToArray = (diff: object): boolean =>
     if (Object.keys(val).length === 0) {
       return true;
     }
-    return pushToArray(val);
+    return isArrayPushUpdate(val);
   });
 
 type TabState = {
@@ -55,7 +55,7 @@ const reducer = (state: TabState, action: Action): TabState => {
       }
       diff = addedDiff(state[action.tab].formData, action.formData);
       if (Object.keys(diff).length > 0) {
-        saveableUpdate = !pushToArray(diff);
+        saveableUpdate = !isArrayPushUpdate(diff);
       }
       return {
         ...state,
