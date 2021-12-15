@@ -5,6 +5,7 @@ import {
   omitTypename,
   getDateCopy,
   applyStrictRegex,
+  shortenGithash,
 } from ".";
 
 describe("msToDuration", () => {
@@ -271,5 +272,15 @@ describe("applyStrictRegex", () => {
     expect("dog".match(re)).toBeTruthy();
     expect("dog ".match(re)).toBeFalsy();
     expect("adog".match(re)).toBeFalsy();
+  });
+});
+
+describe("shortenGithash", () => {
+  it("shortens githash to 7 characters", () => {
+    expect(shortenGithash("01234567")).toBe("0123456");
+    expect(shortenGithash("012")).toBe("012");
+  });
+  it("handles undefined input", () => {
+    expect(shortenGithash(undefined)).toBeUndefined();
   });
 });
