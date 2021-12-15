@@ -38,18 +38,12 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
     variables: { taskId },
   });
 
-  const [
-    fetchLastPassing,
-    { data: lastPassingData, called: lastPassingCalled },
-  ] = useLazyQuery<
+  const [fetchLastPassing, { data: lastPassingData }] = useLazyQuery<
     GetLastMainlineCommitQuery,
     GetLastMainlineCommitQueryVariables
   >(GET_LAST_MAINLINE_COMMIT);
 
-  const [
-    fetchLastExecuted,
-    { data: lastExecutedData, called: lastExecutedCalled },
-  ] = useLazyQuery<
+  const [fetchLastExecuted, { data: lastExecutedData }] = useLazyQuery<
     GetLastMainlineCommitQuery,
     GetLastMainlineCommitQueryVariables
   >(GET_LAST_MAINLINE_COMMIT);
@@ -68,7 +62,6 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
     };
     if (
       selectState === CommitType.LastPassing &&
-      !lastPassingCalled &&
       baseTaskStatus !== TaskStatus.Succeeded
     ) {
       fetchLastPassing({
@@ -82,11 +75,7 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
         },
       });
     }
-    if (
-      selectState === CommitType.LastExecuted &&
-      !isBaseTaskFinished &&
-      !lastExecutedCalled
-    ) {
+    if (selectState === CommitType.LastExecuted && !isBaseTaskFinished) {
       fetchLastExecuted({
         variables: {
           projectIdentifier,
@@ -106,8 +95,6 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
     fetchLastExecuted,
     fetchLastPassing,
     isBaseTaskFinished,
-    lastExecutedCalled,
-    lastPassingCalled,
     projectIdentifier,
     selectState,
     skipOrderNumber,
