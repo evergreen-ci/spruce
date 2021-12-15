@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
 import { Link } from "react-router-dom";
+import { inactiveElementStyle } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { TaskStatus } from "types/task";
 import { HistoryTableIcon } from "./HistoryTableIcon";
@@ -17,17 +18,17 @@ interface TaskCellProps {
   inactive?: boolean;
   failingTests?: string[];
   label?: string;
-  loading: boolean;
+  loading?: boolean;
 }
 export const TaskCell: React.FC<TaskCellProps> = ({
   task,
   inactive,
   failingTests,
   label,
-  loading,
+  loading = false,
 }) => (
-  <Link to={getTaskRoute(task.id)}>
-    <Cell aria-disabled={inactive} data-cy="task-cell">
+  <Cell inactive={inactive} aria-disabled={inactive} data-cy="task-cell">
+    <Link to={getTaskRoute(task.id)}>
       <HistoryTableIcon
         inactive={inactive}
         status={task.status as TaskStatus}
@@ -35,8 +36,8 @@ export const TaskCell: React.FC<TaskCellProps> = ({
         label={label}
         loadingTestResults={loading}
       />
-    </Cell>
-  </Link>
+    </Link>
+  </Cell>
 );
 
 export const EmptyCell = () => (
@@ -59,13 +60,14 @@ const Circle = styled.div`
   margin: 0 auto;
 `;
 
-const Cell = styled.div`
+const Cell = styled.div<{ inactive?: boolean }>`
   display: flex;
   height: 100%;
   width: 150px;
   margin: 0 5px;
   justify-content: center;
   align-items: center;
+  ${({ inactive }) => inactive && inactiveElementStyle}
 `;
 
 export const HeaderCell = styled(Cell)`

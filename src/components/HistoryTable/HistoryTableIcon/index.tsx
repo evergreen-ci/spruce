@@ -3,7 +3,6 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
-import { inactiveElementStyle } from "components/styles";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { TaskStatus } from "types/task";
 
@@ -46,7 +45,7 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
     )}
   >
     <Container onClick={onClick} data-cy="history-table-icon">
-      <IconContainer inactive={inactive}>
+      <IconContainer>
         <TaskStatusIcon status={status} size={30} />
       </IconContainer>
       {!inactive && <Body>{label}</Body>}
@@ -68,14 +67,10 @@ const Container = styled.div<ContainerProps>`
   ${({ onClick }) => onClick && "cursor: pointer;"}
 `;
 
-interface IconContainerProps {
-  inactive?: boolean;
-}
-const IconContainer = styled.div<IconContainerProps>`
+const IconContainer = styled.div`
   height: 30px;
   width: 30px;
   text-align: center;
-  ${({ inactive }) => inactive && inactiveElementStyle}
 `;
 
 const TestName = styled.div`
