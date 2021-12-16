@@ -39,12 +39,12 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
           {failingTests.map((testName) => (
             <TestName key={testName}>{testName}</TestName>
           ))}
-          {loadingTestResults && <Skeleton active />}
+          {loadingTestResults && <Skeleton active data-cy="skeleton" />}
         </TestNameContainer>
       </Tooltip>
     )}
   >
-    <Container onClick={onClick} data-cy="history-table-icon">
+    <Container onClick={() => onClick()} data-cy="history-table-icon">
       <IconContainer>
         <TaskStatusIcon status={status} size={30} />
       </IconContainer>
