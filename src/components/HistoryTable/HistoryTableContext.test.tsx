@@ -25,7 +25,7 @@ describe("historyTableContext", () => {
       currentPage: 0,
       pageCount: 0,
       columnLimit: 7,
-      commitCount: 0,
+      commitCount: 10,
     });
   });
   it("should process new commits when they are passed in", () => {
