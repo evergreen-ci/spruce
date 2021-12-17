@@ -26,12 +26,9 @@ describe("Action Buttons", () => {
     });
 
     it("Clicking ellipses dropdown shows ellipses options", () => {
-      cy.dataCy("card-dropdown").should("not.exist");
-
       cy.dataCy("ellipses-btn").should("not.be.visible");
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
-      cy.dataCy("card-dropdown").should("exist");
 
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("not.be.visible");
@@ -42,7 +39,6 @@ describe("Action Buttons", () => {
       });
       beforeEach(() => {
         cy.dataCy("card-dropdown").should("be.visible");
-        cy.dataCy("card-dropdown").should("exist");
       });
 
       it("Error unscheduling a version shows error toast", () => {
@@ -94,7 +90,7 @@ describe("Action Buttons", () => {
     describe("Version dropdown options", () => {
       beforeEach(() => {
         cy.dataCy("ellipsis-btn").click();
-        cy.dataCy("card-dropdown").should("exist");
+        cy.dataCy("card-dropdown").should("be.visible");
       });
       afterEach(() => {
         cy.dataCy("ellipsis-btn").click();
