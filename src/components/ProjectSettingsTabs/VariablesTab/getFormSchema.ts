@@ -69,6 +69,10 @@ export const getFormSchema = (
         varValue: {
           "ui:widget": widgets.TextareaWidget,
         },
+        isPrivate: {
+          "ui:tooltipDescription":
+            "Private variables have redacted values on the Project Page and the API and cannot be updated.",
+        },
       },
     },
     repoData: {

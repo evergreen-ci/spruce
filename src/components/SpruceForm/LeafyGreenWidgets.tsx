@@ -6,8 +6,10 @@ import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import { Option, Select } from "@leafygreen-ui/select";
 import TextArea from "@leafygreen-ui/text-area";
 import TextInput from "@leafygreen-ui/text-input";
+import Tooltip from "@leafygreen-ui/tooltip";
 import { Description, Label } from "@leafygreen-ui/typography";
 import { WidgetProps } from "@rjsf/core";
+import Icon from "components/Icon";
 import ElementWrapper from "./ElementWrapper";
 
 const { red } = uiColors;
@@ -55,7 +57,7 @@ export const LeafyGreenCheckBox: React.FC<WidgetProps> = ({
   label,
   onChange,
   disabled,
-  options: { "data-cy": dataCy },
+  options: { "data-cy": dataCy, tooltipDescription },
   readonly,
   formContext,
 }) => {
@@ -65,13 +67,36 @@ export const LeafyGreenCheckBox: React.FC<WidgetProps> = ({
       <Checkbox
         data-cy={dataCy}
         checked={value}
-        label={label}
+        label={
+          <>
+            {label}
+            {tooltipDescription && (
+              <Tooltip
+                justify="middle"
+                trigger={
+                  <IconContainer>
+                    <Icon glyph="InfoWithCircle" size="small" />
+                  </IconContainer>
+                }
+                triggerEvent="hover"
+              >
+                {tooltipDescription}
+              </Tooltip>
+            )}
+          </>
+        }
         onChange={(e) => onChange(e.target.checked)}
         disabled={disabled || (readonlyAsDisabled && readonly)}
       />
     </ElementWrapper>
   );
 };
+
+const IconContainer = styled.span`
+  margin-left: 4px;
+  top: 1px;
+  vertical-align: text-top;
+`;
 
 export const LeafyGreenSelect: React.FC<WidgetProps> = ({
   label,

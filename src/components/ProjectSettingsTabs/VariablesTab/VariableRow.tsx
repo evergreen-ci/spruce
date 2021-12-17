@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { ObjectFieldTemplateProps } from "@rjsf/core";
+import Icon from "components/Icon";
 
 const { yellow } = uiColors;
 
@@ -18,10 +19,11 @@ export const VariableRow: React.FC<
       <LeftColumn showWarning={inRepo}>
         {variableName.content}
         {inRepo && (
-          <span data-cy="override-warning">
+          <OverrideWarning data-cy="override-warning">
+            <Icon glyph="ImportantWithCircle" size="small" />
             This will override the variable of the same name defined in the
             repo.
-          </span>
+          </OverrideWarning>
         )}
       </LeftColumn>
       <div>
@@ -31,6 +33,14 @@ export const VariableRow: React.FC<
     </RowContainer>
   );
 };
+
+const OverrideWarning = styled.span`
+  svg {
+    margin-right: 4px;
+    margin-top: 1px;
+    vertical-align: text-top;
+  }
+`;
 
 const LeftColumn = styled.div`
   color: ${yellow.dark2};
