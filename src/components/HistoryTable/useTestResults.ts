@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 import { useQuery } from "@apollo/client";
 import {
   GetTaskTestSampleQuery,
@@ -9,7 +9,7 @@ import { GET_TASK_TEST_SAMPLE } from "gql/queries";
 import { useHistoryTable } from "./HistoryTableContext";
 import { rowType } from "./types";
 
-/** useTestResults is a hook that given an index checks if a commit has been loaded and has test filters applied and then  */
+/** useTestResults is a hook that given an index checks if a commit has been loaded and has test filters applied and then fetches the test results for the given tasks  */
 const useTestResults = (index: number) => {
   const { getItem, historyTableFilters } = useHistoryTable();
   let taskIds: string[] = [];
@@ -48,8 +48,8 @@ const useTestResults = (index: number) => {
   });
 
   /** getTaskMetadata returns the properties for a task cell given a task id  */
-  const getTaskMetadata = useMemo(
-    () => (taskId: string) => {
+  const getTaskMetadata = useCallback(
+    (taskId: string) => {
       const taskTest = taskTestMap[taskId];
       if (taskTest) {
         const matchingTestNameCount =

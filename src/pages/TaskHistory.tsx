@@ -112,7 +112,6 @@ const TaskHistoryContents: React.FC = () => {
   );
 
   useEffect(() => {
-    console.log("Ran effect");
     addColumns(toArray(selectedColumns).map((c) => c.buildVariant));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedColumns]);

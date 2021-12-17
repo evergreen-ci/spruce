@@ -21,7 +21,7 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
   failingTests = [],
   inactive,
   loadingTestResults,
-  onClick,
+  onClick = () => {},
 }) => (
   <ConditionalWrapper
     condition={inactive || failingTests.length > 0}
