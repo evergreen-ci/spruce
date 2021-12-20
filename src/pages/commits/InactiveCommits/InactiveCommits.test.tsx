@@ -28,7 +28,6 @@ describe("inactiveCommits", () => {
 
     expect(queryByDataCy("inactive-commits-tooltip")).toBeNull();
     userEvent.click(queryByDataCy("inactive-commits-button"));
-    //   Need to use fake timers to get around @leafygreen-ui/tooltip debounce
     await waitFor(() =>
       expect(queryByDataCy("inactive-commits-tooltip")).toBeVisible()
     );
@@ -41,7 +40,6 @@ describe("inactiveCommits", () => {
 
     expect(queryByDataCy("inactive-commits-tooltip")).toBeNull();
     userEvent.click(queryByDataCy("inactive-commits-button"));
-    //   Need to use fake timers to get around @leafygreen-ui/tooltip debounce
     await waitFor(() =>
       expect(queryByDataCy("inactive-commits-tooltip")).toBeVisible()
     );
@@ -55,7 +53,6 @@ describe("inactiveCommits", () => {
 
     expect(queryByDataCy("inactive-commits-tooltip")).toBeNull();
     userEvent.click(queryByDataCy("inactive-commits-button"));
-    //   Need to use fake timers to get around @leafygreen-ui/tooltip debounce
     await waitFor(() =>
       expect(queryByDataCy("inactive-commits-tooltip")).toBeVisible()
     );
