@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, mockUUID } from "test_utils/test-utils";
+import { render, fireEvent, mockUUID } from "test_utils";
 import { EditableTagField } from ".";
 
 // Must mock uuid for this test since getRandomValues() is not supported in CI

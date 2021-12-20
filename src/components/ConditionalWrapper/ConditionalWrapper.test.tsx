@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "test_utils/test-utils";
+import { render } from "test_utils";
 import { ConditionalWrapper } from "./index";
 
 const Wrapper1 = ({ children }) => <div data-cy="wrapper-1">{children}</div>;
