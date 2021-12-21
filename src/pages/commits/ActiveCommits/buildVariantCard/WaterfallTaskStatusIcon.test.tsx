@@ -1,10 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
-import {
-  renderWithRouterMatch as render,
-  waitFor,
-} from "test_utils/test-utils";
+import { renderWithRouterMatch as render, waitFor } from "test_utils";
 import { WaterfallTaskStatusIcon } from "./WaterfallTaskStatusIcon";
 
 const props = {

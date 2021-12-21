@@ -1,4 +1,4 @@
-import { render } from "test_utils/test-utils";
+import { render } from "test_utils";
 import { FoldedCommit } from "./FoldedCommit";
 
 describe("foldedCommit", () => {

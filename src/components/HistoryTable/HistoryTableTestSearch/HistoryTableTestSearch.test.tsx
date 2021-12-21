@@ -1,7 +1,4 @@
-import {
-  renderWithRouterMatch as render,
-  fireEvent,
-} from "test_utils/test-utils";
+import { renderWithRouterMatch as render, fireEvent } from "test_utils";
 import { HistoryTableTestSearch } from "./HistoryTableTestSearch";
 
 const Content = () => <HistoryTableTestSearch />;
