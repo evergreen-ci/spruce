@@ -1,19 +1,18 @@
 import React from "react";
 import { useLocation } from "react-router";
-import { MemoryRouter, Route } from "react-router-dom";
 import { CheckboxFilter, InputFilter } from "components/Table/Filters";
 import { useTableInputFilter, useTableCheckboxFilter } from "hooks";
-import { render, fireEvent } from "test_utils";
+import { renderWithRouterMatch as render, fireEvent } from "test_utils";
 import { queryString } from "utils";
 
 describe("useTableInputFilter", () => {
   it("accepts an input value", async () => {
     const { getByText, getByPlaceholderText } = render(
-      <MemoryRouter initialEntries={[`/hosts?hostId=123`]}>
-        <Route path="/hosts">
-          <InputFilterTestComponent />
-        </Route>
-      </MemoryRouter>
+      () => <InputFilterTestComponent />,
+      {
+        route: "/hosts?hostId=123",
+        path: "/hosts",
+      }
     );
 
     const input = getByPlaceholderText("Search ID") as HTMLInputElement;
@@ -51,11 +50,11 @@ describe("useTableInputFilter", () => {
 
   it("useTableInputFilter - trims whitespace from input value", async () => {
     const { getByText, getByPlaceholderText } = render(
-      <MemoryRouter initialEntries={[`/hosts?hostId=123`]}>
-        <Route path="/hosts">
-          <InputFilterTestComponent />
-        </Route>
-      </MemoryRouter>
+      () => <InputFilterTestComponent />,
+      {
+        route: "/hosts?hostId=123",
+        path: "/hosts",
+      }
     );
 
     const input = getByPlaceholderText("Search ID") as HTMLInputElement;
@@ -73,11 +72,11 @@ describe("useTableInputFilter", () => {
 describe("useTableCheckboxFilter", () => {
   it("useTableCheckboxFilter", async () => {
     const { getByText, getByLabelText } = render(
-      <MemoryRouter initialEntries={[`/hosts?statuses=running,terminated`]}>
-        <Route path="/hosts">
-          <CheckboxFilterTestComponent />
-        </Route>
-      </MemoryRouter>
+      () => <CheckboxFilterTestComponent />,
+      {
+        route: "/hosts?statuses=running,terminated",
+        path: "/hosts",
+      }
     );
 
     const runningCheckbox = getByLabelText("Running") as HTMLInputElement;
