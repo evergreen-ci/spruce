@@ -7,19 +7,19 @@ import {
 import { renderWithRouterMatch, waitFor } from "test_utils/test-utils";
 import { PreviousCommits } from "./PreviousCommits";
 
-describe("Previous Commits", () => {
-  test("This component will not render if the task's version did not originate from a patch", async () => {
+describe("previous Commits", () => {
+  it("this component will not render if the task's version did not originate from a patch", async () => {
     const { container } = renderWithRouterMatch(() => (
       <MockedProvider mocks={[getMainlineCommitTask]}>
         <PreviousCommits taskId="t1" />
       </MockedProvider>
     ));
     waitFor(() => {
-      expect(container.children).toEqual([]);
+      expect(container.children).toStrictEqual([]);
     });
   });
 
-  test("When base task is passing, all dropdown items generate the same link.", async () => {
+  it("when base task is passing, all dropdown items generate the same link.", async () => {
     const { queryAllByText, queryByText } = renderWithRouterMatch(() => (
       <MockedProvider mocks={[getTaskWithSuccessfulBase]}>
         <PreviousCommits taskId="t1" />
@@ -50,7 +50,7 @@ describe("Previous Commits", () => {
     });
   });
 
-  test("When base task is failing, 'Go to base commit' and 'Go to last executed' dropdown items generate the same link and 'Go to last passing version' will be different.", async () => {
+  it("when base task is failing, 'Go to base commit' and 'Go to last executed' dropdown items generate the same link and 'Go to last passing version' will be different.", async () => {
     const { queryAllByText, queryByText } = renderWithRouterMatch(() => (
       <MockedProvider mocks={[getTaskWithFailingBase, getLastPassingVersion]}>
         <PreviousCommits taskId="t1" />
@@ -81,7 +81,7 @@ describe("Previous Commits", () => {
     });
   });
 
-  test("When base task is not in a finished state, the last executed & passing task is not the same as the base commit", async () => {
+  it("when base task is not in a finished state, the last executed & passing task is not the same as the base commit", async () => {
     const { queryAllByText, queryByText } = renderWithRouterMatch(() => (
       <MockedProvider
         mocks={[
@@ -118,7 +118,7 @@ describe("Previous Commits", () => {
     });
   });
 
-  test("The select is disabled when no base version exists", async () => {
+  it("the select is disabled when no base version exists", async () => {
     const { queryByText } = renderWithRouterMatch(() => (
       <MockedProvider mocks={[getTaskWithNoBaseVersion]}>
         <PreviousCommits taskId="t3" />
@@ -157,6 +157,7 @@ describe("Previous Commits", () => {
           buildVariant: "lint",
           versionMetadata: {
             baseVersion: {
+              id: "baseVersion",
               order: 3676,
               projectIdentifier: "evergreen",
               __typename: "Version",
@@ -193,6 +194,7 @@ describe("Previous Commits", () => {
           buildVariant: "lint",
           versionMetadata: {
             baseVersion: {
+              id: "baseVersion",
               order: 3676,
               projectIdentifier: "evergreen",
               __typename: "Version",
@@ -229,6 +231,7 @@ describe("Previous Commits", () => {
           buildVariant: "lint",
           versionMetadata: {
             baseVersion: {
+              id: "baseVersion",
               order: 3676,
               projectIdentifier: "evergreen",
               __typename: "Version",
@@ -387,6 +390,7 @@ describe("Previous Commits", () => {
           buildVariant: "lint",
           versionMetadata: {
             baseVersion: {
+              id: "baseVersion",
               order: 3676,
               projectIdentifier: "evergreen",
               __typename: "Version",
