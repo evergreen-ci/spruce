@@ -6,8 +6,11 @@ import {
   TaskTestResultSample,
 } from "gql/generated/types";
 import { GET_TASK_TEST_SAMPLE } from "gql/queries";
+import { array } from "utils";
 import { useHistoryTable } from "./HistoryTableContext";
 import { rowType } from "./types";
+
+const { convertArrayToObject } = array;
 
 /** useTestResults is a hook that given an index checks if a commit has been loaded and has test filters applied and then fetches the test results for the given tasks  */
 const useTestResults = (index: number) => {
@@ -37,11 +40,7 @@ const useTestResults = (index: number) => {
     onCompleted: (data) => {
       const { taskTestSample } = data;
       if (taskTestSample != null) {
-        const ttm = taskTestSample.reduce((acc, taskTest) => {
-          const { taskId } = taskTest;
-          acc[taskId] = taskTest;
-          return acc;
-        }, {});
+        const ttm = convertArrayToObject(taskTestSample, "taskId");
         setTaskTestMap(ttm);
       }
     },
