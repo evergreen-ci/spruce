@@ -8,7 +8,7 @@ import {
   renderWithRouterMatch as render,
   act,
   waitFor,
-} from "test_utils/test-utils";
+} from "test_utils";
 import { TestStatus } from "types/history";
 import VariantHistoryRow from "./VariantHistoryRow";
 
@@ -26,6 +26,7 @@ const initialState: HistoryTableReducerState = {
   columns: [],
   columnLimit: 7,
   historyTableFilters: [],
+  commitCount: 10,
 };
 
 interface wrapperProps {

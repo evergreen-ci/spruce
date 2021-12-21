@@ -24,6 +24,7 @@ interface HistoryTableState {
   columnLimit: number;
   historyTableFilters: TestFilter[];
   setHistoryTableFilters: (filters: TestFilter[]) => void;
+  commitCount: number;
 }
 
 const HistoryTableDispatchContext = createContext<any | null>(null);
@@ -45,6 +46,7 @@ const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
     columns: [],
     columnLimit: 7,
     historyTableFilters: [],
+    commitCount: 10,
   },
 }) => {
   const [
@@ -56,6 +58,7 @@ const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
       currentPage,
       columnLimit,
       historyTableFilters,
+      commitCount,
     },
     dispatch,
   ] = useReducer(reducer, {
@@ -102,6 +105,7 @@ const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
       historyTableFilters,
       setHistoryTableFilters: (filters) =>
         dispatch({ type: "setHistoryTableFilters", filters }),
+      commitCount,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [

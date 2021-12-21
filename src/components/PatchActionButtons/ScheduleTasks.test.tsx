@@ -4,12 +4,7 @@ import { ScheduleTasksModal } from "components/ScheduleTasksModal";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
 import { SCHEDULE_TASKS } from "gql/mutations";
 import { GET_UNSCHEDULED_TASKS } from "gql/queries";
-import {
-  render,
-  fireEvent,
-  waitFor,
-  renderWithRouterMatch,
-} from "test_utils/test-utils";
+import { render, fireEvent, waitFor, renderWithRouterMatch } from "test_utils";
 import { ScheduleTasks } from "./ScheduleTasks";
 
 const ScheduleButton = () => (

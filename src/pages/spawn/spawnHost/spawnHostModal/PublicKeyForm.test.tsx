@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent } from "test_utils/test-utils";
+import { render, fireEvent, act } from "test_utils";
 import { PublicKeyForm } from "./PublicKeyForm";
 
 const publicKeys = [
@@ -54,7 +54,9 @@ describe("publicKeyForm", () => {
     fireEvent.mouseDown(queryByDataCy("public_key_dropdown").firstElementChild);
     const selectChoice = getAllByText("MyFirstKey.pub")[1];
     expect(selectChoice).toBeInTheDocument();
-    fireEvent.click(selectChoice);
+    await act(async () => {
+      fireEvent.click(selectChoice);
+    });
     expect(data).toStrictEqual({
       publicKey: { ...publicKeys[0] },
       savePublicKey: false,
@@ -88,7 +90,7 @@ describe("publicKeyForm", () => {
     expect(data).toStrictEqual(defaultData);
   });
 
-  it("toggling Add new key should disable and undisable the select input", async () => {
+  it("toggling add new key should disable and enable the select input", async () => {
     const defaultState = {
       publicKey: { ...publicKeys[0] },
       savePublicKey: false,

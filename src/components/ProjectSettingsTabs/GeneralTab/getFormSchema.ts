@@ -11,7 +11,7 @@ import {
 } from "./Fields";
 import { FormState } from "./types";
 
-export const getFormData = (
+export const getFormSchema = (
   projectId: string,
   useRepoSettings: boolean,
   validDefaultLoggers: Project["validDefaultLoggers"],

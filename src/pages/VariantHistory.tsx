@@ -39,7 +39,7 @@ export const VariantHistoryContents: React.FC = () => {
   }>();
 
   usePageTitle(`Variant History | ${projectId} | ${variantName}`);
-  const [nextPageOrderNumber, setNextPageOrderNumber] = useState(0);
+  const [nextPageOrderNumber, setNextPageOrderNumber] = useState(null);
   const variables = {
     mainlineCommitsOptions: {
       projectID: projectId,

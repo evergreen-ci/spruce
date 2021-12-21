@@ -1,7 +1,4 @@
-import {
-  renderWithRouterMatch as render,
-  fireEvent,
-} from "test_utils/test-utils";
+import { renderWithRouterMatch as render, fireEvent } from "test_utils";
 import { ProjectFilterOptions } from "types/commits";
 import { FilterBadges } from ".";
 

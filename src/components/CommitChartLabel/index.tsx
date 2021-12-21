@@ -11,6 +11,7 @@ import {
 } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
 import { string } from "utils";
+import { shortenGithash } from "utils/string";
 import { jiraLinkify } from "utils/string/jiraLinkify";
 
 const { gray } = uiColors;
@@ -44,7 +45,7 @@ const CommitChartLabel: React.FC<Props> = ({
     <LabelContainer data-cy="commit-label">
       <LabelText>
         <StyledRouterLink to={getVersionRoute(versionId)}>
-          {githash.substring(0, 6)}
+          {shortenGithash(githash)}
         </StyledRouterLink>{" "}
         {shortDate(createDate)}
       </LabelText>

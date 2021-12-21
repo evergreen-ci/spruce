@@ -27,6 +27,7 @@ describe("historyTableContext", () => {
       currentPage: 0,
       pageCount: 0,
       columnLimit: 7,
+      commitCount: 10,
     });
   });
   it("should process new commits when they are passed in", () => {
@@ -90,7 +91,28 @@ describe("historyTableContext", () => {
       commit: splitMainlineCommitDataPart2.versions[0].version,
     });
   });
-
+  it("should handle calculating the commitCount based off of the passed in values", () => {
+    const { result } = renderHook(() => useHistoryTable(), { wrapper });
+    const commitDate1 = {
+      ...mainlineCommitData,
+      versions: [mainlineCommitData.versions[0]],
+      prevPageOrderNumber: null,
+    };
+    const commitDate2 = {
+      ...mainlineCommitData,
+      versions: [mainlineCommitData.versions[2]],
+      nextPageOrderNumber: null,
+      prevPageOrderNumber: 6798,
+    };
+    act(() => {
+      result.current.fetchNewCommit(commitDate1);
+    });
+    expect(result.current.commitCount).toBe(6798);
+    act(() => {
+      result.current.fetchNewCommit(commitDate2);
+    });
+    expect(result.current.commitCount).toBe(4);
+  });
   it("should add a line separator between commits when they are a different date", () => {
     const { result } = renderHook(() => useHistoryTable(), { wrapper });
     const commitDate1 = {

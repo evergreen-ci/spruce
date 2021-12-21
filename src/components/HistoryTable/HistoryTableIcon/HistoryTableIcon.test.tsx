@@ -1,4 +1,4 @@
-import { render, fireEvent, waitFor } from "test_utils/test-utils";
+import { render, fireEvent, waitFor } from "test_utils";
 import { TaskStatus } from "types/task";
 import { HistoryTableIcon } from ".";
 

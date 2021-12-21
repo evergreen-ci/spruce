@@ -1,7 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { addMilliseconds } from "date-fns";
 import { GET_USER } from "gql/queries";
-import { renderWithRouterMatch as render } from "test_utils/test-utils";
+import { renderWithRouterMatch as render } from "test_utils";
 import { Metadata } from "./index";
 import { taskQuery } from "./taskData";
 

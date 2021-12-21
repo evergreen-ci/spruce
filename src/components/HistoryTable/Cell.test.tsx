@@ -2,7 +2,7 @@ import {
   renderWithRouterMatch as render,
   fireEvent,
   waitFor,
-} from "test_utils/test-utils";
+} from "test_utils";
 import { TaskStatus } from "types/task";
 import { TaskCell } from "./Cell";
 

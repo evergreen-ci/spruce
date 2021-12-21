@@ -1,5 +1,6 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { PartialRecord } from "types/utils";
+import * as access from "./AccessTab/transformers";
 import * as general from "./GeneralTab/transformers";
 import {
   FormToGqlFunction,
@@ -13,6 +14,7 @@ export const gqlToFormMap: PartialRecord<
   GqlToFormFunction
 > = {
   [ProjectSettingsTabRoutes.General]: general.gqlToForm,
+  [ProjectSettingsTabRoutes.Access]: access.gqlToForm,
 };
 
 // TODO: Convert PartialRecord to Record once all tabs have been implemented.
@@ -21,4 +23,5 @@ export const formToGqlMap: PartialRecord<
   FormToGqlFunction
 > = {
   [ProjectSettingsTabRoutes.General]: general.formToGql,
+  [ProjectSettingsTabRoutes.Access]: access.formToGql,
 };

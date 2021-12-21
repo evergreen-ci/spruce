@@ -1,4 +1,4 @@
-import { render, fireEvent } from "test_utils/test-utils";
+import { render, fireEvent } from "test_utils";
 import { SpruceForm, SpruceFormContainer } from ".";
 
 describe("spruceForm", () => {

@@ -1,3 +1,4 @@
+#import "../fragments/projectSettings/access.graphql"
 #import "../fragments/projectSettings/general.graphql"
 
 mutation SaveRepoSettingsForSection(
@@ -8,6 +9,7 @@ mutation SaveRepoSettingsForSection(
     projectRef {
       id
       ...repoGeneralSettings
+      ...repoAccessSettings
     }
   }
 }

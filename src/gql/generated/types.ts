@@ -2130,6 +2130,18 @@ export type ProjectFragment = {
   displayName: string;
 };
 
+export type ProjectAccessSettingsFragment = {
+  private?: Maybe<boolean>;
+  restricted?: Maybe<boolean>;
+  admins?: Maybe<Array<Maybe<string>>>;
+};
+
+export type RepoAccessSettingsFragment = {
+  private: boolean;
+  restricted: boolean;
+  admins: Array<string>;
+};
+
 export type ProjectGeneralSettingsFragment = {
   enabled?: Maybe<boolean>;
   owner: string;
@@ -2395,7 +2407,8 @@ export type SaveProjectSettingsForSectionMutation = {
         id: string;
         useRepoSettings: boolean;
         repoRefId: string;
-      } & ProjectGeneralSettingsFragment
+      } & ProjectGeneralSettingsFragment &
+        ProjectAccessSettingsFragment
     >;
   };
 };
@@ -2407,7 +2420,9 @@ export type SaveRepoSettingsForSectionMutationVariables = Exact<{
 
 export type SaveRepoSettingsForSectionMutation = {
   saveRepoSettingsForSection: {
-    projectRef?: Maybe<{ id: string } & RepoGeneralSettingsFragment>;
+    projectRef?: Maybe<
+      { id: string } & RepoGeneralSettingsFragment & RepoAccessSettingsFragment
+    >;
   };
 };
 
@@ -3242,7 +3257,8 @@ export type ProjectSettingsQuery = {
         id: string;
         useRepoSettings: boolean;
         repoRefId: string;
-      } & ProjectGeneralSettingsFragment
+      } & ProjectGeneralSettingsFragment &
+        ProjectAccessSettingsFragment
     >;
   };
 };
@@ -3277,7 +3293,9 @@ export type RepoSettingsQueryVariables = Exact<{
 
 export type RepoSettingsQuery = {
   repoSettings: {
-    projectRef?: Maybe<{ id: string } & RepoGeneralSettingsFragment>;
+    projectRef?: Maybe<
+      { id: string } & RepoGeneralSettingsFragment & RepoAccessSettingsFragment
+    >;
   };
 };
 

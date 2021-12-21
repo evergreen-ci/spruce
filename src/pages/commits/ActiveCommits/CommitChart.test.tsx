@@ -1,5 +1,5 @@
 import userEvent from "@testing-library/user-event";
-import { render, waitFor } from "test_utils/test-utils";
+import { render, waitFor } from "test_utils";
 import { ChartTypes } from "types/commits";
 import { CommitChart } from "./CommitChart";
 import {
