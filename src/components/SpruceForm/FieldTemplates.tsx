@@ -30,9 +30,12 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   const id = idSchema.$id;
   const description = uiSchema["ui:description"] || schema.description;
   const buttonText = uiSchema["ui:buttonText"] || "Add";
+  const showLabel = uiSchema["ui:showLabel"];
   return (
     <>
-      <TitleField id={`${id}__title`} required={required} title={title} />
+      {showLabel !== false && (
+        <TitleField id={`${id}__title`} required={required} title={title} />
+      )}
       {description && (
         <DescriptionField id={`${id}__description`} description={description} />
       )}

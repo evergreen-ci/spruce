@@ -3,7 +3,7 @@ import { useLocation } from "react-router";
 import { MemoryRouter, Route } from "react-router-dom";
 import { CheckboxFilter, InputFilter } from "components/Table/Filters";
 import { useTableInputFilter, useTableCheckboxFilter } from "hooks";
-import { render, fireEvent } from "test_utils/test-utils";
+import { render, fireEvent } from "test_utils";
 import { queryString } from "utils";
 
 describe("useTableInputFilter", () => {

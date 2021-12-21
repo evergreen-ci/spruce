@@ -1,4 +1,4 @@
-export { AccessTab } from "./AccessTab";
+export { AccessTab } from "./AccessTab/AccessTab";
 export { EventLogTab } from "./EventLogTab";
 export { GeneralTab } from "./GeneralTab/GeneralTab";
 export { GitHubCommitQueueTab } from "./GitHubCommitQueueTab";

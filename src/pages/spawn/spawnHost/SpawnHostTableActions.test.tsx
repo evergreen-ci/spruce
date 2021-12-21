@@ -1,6 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { GET_USER } from "gql/queries";
-import { act, fireEvent, render } from "test_utils/test-utils";
+import { act, fireEvent, render } from "test_utils";
 import { CopySSHCommandButton } from "./SpawnHostTableActions";
 
 const execCommand = jest.fn();

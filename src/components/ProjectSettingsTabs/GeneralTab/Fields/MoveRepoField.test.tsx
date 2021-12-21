@@ -1,5 +1,5 @@
 import userEvent from "@testing-library/user-event";
-import { render, fireEvent, waitFor } from "test_utils/test-utils";
+import { render, fireEvent, waitFor } from "test_utils";
 import { MoveRepoField, MoveRepoModal } from "./MoveRepoField";
 
 describe("moveRepoField", () => {

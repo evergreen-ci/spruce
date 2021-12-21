@@ -36,7 +36,7 @@ export const TaskHistory = () => {
   }>();
 
   usePageTitle(`Task History | ${projectId} | ${taskName}`);
-  const [nextPageOrderNumber, setNextPageOrderNumber] = useState(0);
+  const [nextPageOrderNumber, setNextPageOrderNumber] = useState(null);
   const variables = {
     mainlineCommitsOptions: {
       projectID: projectId,

@@ -3,10 +3,7 @@ import { ColumnProps } from "antd/es/table";
 import MatchMediaMock from "jest-matchmedia-mock";
 import { useLocation } from "react-router";
 import { useUpdateUrlSortParamOnTableChange } from "hooks";
-import {
-  renderWithRouterMatch as render,
-  fireEvent,
-} from "test_utils/test-utils";
+import { renderWithRouterMatch as render, fireEvent } from "test_utils";
 import { queryString } from "utils";
 
 describe("useUpdateUrlSortParamOnTableChange", () => {

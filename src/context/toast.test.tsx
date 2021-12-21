@@ -1,5 +1,5 @@
 import { renderHook } from "@testing-library/react-hooks";
-import { render, fireEvent, waitFor, act } from "test_utils/test-utils";
+import { render, fireEvent, waitFor, act } from "test_utils";
 import { RequireAtMostOne } from "types/utils";
 import { RenderFakeToastContext } from "./__mocks__/toast";
 import { useToastContext, ToastProvider } from "./toast";

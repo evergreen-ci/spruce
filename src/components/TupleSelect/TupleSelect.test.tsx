@@ -1,8 +1,4 @@
-import {
-  renderWithRouterMatch as render,
-  fireEvent,
-  act,
-} from "test_utils/test-utils";
+import { renderWithRouterMatch as render, fireEvent, act } from "test_utils";
 import { ProjectFilterOptions } from "types/commits";
 import { TupleSelect } from ".";
 

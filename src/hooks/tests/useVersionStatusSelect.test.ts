@@ -1,6 +1,6 @@
 import { renderHook, act } from "@testing-library/react-hooks";
 import { useVersionTaskStatusSelect } from "hooks";
-import { waitFor } from "test_utils/test-utils";
+import { waitFor } from "test_utils";
 
 const allFalse = {
   evergreen_lint_generate_lint: false,
