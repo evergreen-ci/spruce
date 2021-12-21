@@ -1,8 +1,5 @@
 import MatchMediaMock from "jest-matchmedia-mock";
-import {
-  renderWithRouterMatch as render,
-  fireEvent,
-} from "test_utils/test-utils";
+import { renderWithRouterMatch as render, fireEvent } from "test_utils";
 import { TestComponent } from "./TestComponent";
 
 describe("useUpdateUrlSortParamOnTableChange", () => {

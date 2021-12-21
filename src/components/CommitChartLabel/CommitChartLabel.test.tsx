@@ -1,7 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
-import { renderWithRouterMatch, waitFor } from "test_utils/test-utils";
+import { renderWithRouterMatch, waitFor } from "test_utils";
 import { shortenGithash } from "utils/string";
 import CommitChartLabel from ".";
 

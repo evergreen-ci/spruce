@@ -9,10 +9,7 @@ import {
   GET_MY_VOLUMES,
   GET_USER,
 } from "gql/queries";
-import {
-  renderWithRouterMatch as render,
-  waitFor,
-} from "test_utils/test-utils";
+import { renderWithRouterMatch as render, waitFor } from "test_utils";
 import { SpawnHostButton } from "./SpawnHostButton";
 
 describe("spawnHostButton", () => {

@@ -1,6 +1,6 @@
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
-import { render, fireEvent, waitFor } from "test_utils/test-utils";
+import { render, fireEvent, waitFor } from "test_utils";
 import { TaskStatus } from "types/task";
 import { GroupedTaskStatusBadge } from ".";
 

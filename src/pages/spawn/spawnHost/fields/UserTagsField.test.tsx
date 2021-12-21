@@ -1,4 +1,4 @@
-import { render, fireEvent, mockUUID } from "test_utils/test-utils";
+import { render, fireEvent, mockUUID } from "test_utils";
 import { UserTagsField, UserTagsData } from "./UserTagsField";
 
 // Must mock uuid for this test since getRandomValues() is not supported in CI

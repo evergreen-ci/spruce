@@ -1,4 +1,4 @@
-import { fireEvent, render } from "test_utils/test-utils";
+import { fireEvent, render } from "test_utils";
 import { Dropdown, TreeSelect } from ".";
 
 describe("treeSelect", () => {

@@ -2,7 +2,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
 import { GET_PROJECTS } from "gql/queries";
-import { render, act, waitFor } from "test_utils/test-utils";
+import { render, act, waitFor } from "test_utils";
 import { ProjectSelect } from ".";
 
 describe("projectSelect", () => {

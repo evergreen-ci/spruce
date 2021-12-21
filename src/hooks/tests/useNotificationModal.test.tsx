@@ -11,7 +11,7 @@ import {
   triggers as taskTriggers,
   subscriptionMethodControls as taskSubscriptionMethodControls,
 } from "pages/task/actionButtons/TaskNotificationModal";
-import { mockUUID } from "test_utils/test-utils";
+import { mockUUID } from "test_utils";
 
 // Must mock uuid for this test since getRandomValues() is not supported in CI
 jest.mock("uuid");
