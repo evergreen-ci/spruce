@@ -32,7 +32,8 @@ import {
 } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
 import { PageDoesNotExist } from "pages/404";
-import { githubPRLinkify } from "utils/string";
+import { shortenGithash, githubPRLinkify } from "utils/string";
+
 import { jiraLinkify } from "utils/string/jiraLinkify";
 import { BuildVariants } from "./version/BuildVariants";
 import { ActionButtons } from "./version/index";
@@ -144,9 +145,7 @@ export const VersionPage: React.FC = () => {
   const isPatchOnCommitQueue = commitQueuePosition !== null;
 
   // If a revision exists
-  const versionText = revision?.length
-    ? revision?.substring(0, 7)
-    : id.substring(0, 7);
+  const versionText = shortenGithash(revision?.length ? revision : id);
   const title = isPatch ? `Patch - ${patchNumber}` : `Version - ${versionText}`;
   usePageTitle(title);
 

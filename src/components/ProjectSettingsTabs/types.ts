@@ -1,19 +1,15 @@
 import { FormDataProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import { ProjectSettingsInput } from "gql/generated/types";
-import { PartialRecord } from "types/utils";
-import * as general from "./GeneralTab";
+import {
+  ProjectSettingsInput,
+  ProjectSettingsQuery,
+  RepoSettingsQuery,
+} from "gql/generated/types";
+import * as access from "./AccessTab/types";
+import * as general from "./GeneralTab/types";
 
 export type FormStateMap = {
   [ProjectSettingsTabRoutes.General]: general.FormState;
-};
-
-// TODO: Convert PartialRecord to Record once all tabs have been implemented.
-export const TransformerMap: PartialRecord<
-  WritableTabRoutes,
-  (form: FormDataProps, section: string) => Partial<ProjectSettingsInput>
-> = {
-  [ProjectSettingsTabRoutes.General]: general.formToGql,
 };
 
 export type TabDataProps = {
@@ -21,11 +17,27 @@ export type TabDataProps = {
     projectData: general.TabProps["projectData"];
     repoData: general.TabProps["repoData"];
   };
+  [ProjectSettingsTabRoutes.Access]: {
+    projectData: access.TabProps["projectData"];
+    repoData: access.TabProps["repoData"];
+  };
 };
 
-export const readOnlyTabs: ProjectSettingsTabRoutes[] = [
-  ProjectSettingsTabRoutes.EventLog,
-];
+export type GqlToFormFunction = (
+  data:
+    | ProjectSettingsQuery["projectSettings"]
+    | RepoSettingsQuery["repoSettings"]
+) => FormDataProps;
+
+export type FormToGqlFunction = (
+  form: FormDataProps,
+  id: string,
+  options?: {
+    useRepoSettings?: boolean;
+  }
+) => Partial<ProjectSettingsInput>;
+
+export const readOnlyTabs = [ProjectSettingsTabRoutes.EventLog] as const;
 
 type ReadOnlyTabs = typeof readOnlyTabs[number];
 

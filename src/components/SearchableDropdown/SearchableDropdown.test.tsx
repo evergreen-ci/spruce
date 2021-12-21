@@ -7,8 +7,8 @@ const RenderSearchableDropdown = (props: any) => (
   <SearchableDropdown label="Just a test" {...props} />
 );
 
-describe("SearchableDropdown", () => {
-  test("Sets the label to what ever the current value is", () => {
+describe("searchableDropdown", () => {
+  it("sets the label to what ever the current value is", () => {
     const onChange = jest.fn();
     const { queryByText } = render(
       RenderSearchableDropdown({
@@ -20,7 +20,7 @@ describe("SearchableDropdown", () => {
     expect(queryByText("evergreen")).toBeInTheDocument();
   });
 
-  test("Should toggle dropdown when clicking on it ", () => {
+  it("should toggle dropdown when clicking on it", () => {
     const onChange = jest.fn();
     const { queryByDataCy } = render(
       RenderSearchableDropdown({
@@ -40,7 +40,7 @@ describe("SearchableDropdown", () => {
     ).not.toBeInTheDocument();
   });
 
-  test("Should narrow down search results when filtering", () => {
+  it("should narrow down search results when filtering", () => {
     const onChange = jest.fn();
     const { queryByDataCy, queryAllByDataCy } = render(
       RenderSearchableDropdown({
@@ -62,7 +62,7 @@ describe("SearchableDropdown", () => {
     expect(queryAllByDataCy("searchable-dropdown-option")).toHaveLength(1);
   });
 
-  test("Should use custom search function when passed in", () => {
+  it("should use custom search function when passed in", () => {
     const onChange = jest.fn();
     const searchFunc = jest.fn((options, match) =>
       options.filter((o) => o === match)
@@ -81,12 +81,15 @@ describe("SearchableDropdown", () => {
       queryByDataCy("searchable-dropdown-search-input")
     ).toBeInTheDocument();
     userEvent.type(queryByDataCy("searchable-dropdown-search-input"), "spruce");
-    expect(searchFunc).toHaveBeenCalled();
+    expect(searchFunc).toHaveBeenLastCalledWith(
+      ["evergreen", "spruce"],
+      "spruce"
+    );
     expect(queryByText("spruce")).toBeInTheDocument();
   });
 
-  describe("When multiselect == false", () => {
-    test("Should call onChange when clicking on an option and should close the option list ", () => {
+  describe("when multiselect == false", () => {
+    it("should call onChange when clicking on an option and should close the option list", () => {
       const onChange = jest.fn();
       const { queryByDataCy, queryByText, rerender } = render(
         RenderSearchableDropdown({
@@ -101,7 +104,7 @@ describe("SearchableDropdown", () => {
       userEvent.click(queryByDataCy("searchable-dropdown"));
       expect(queryByDataCy("searchable-dropdown-options")).toBeInTheDocument();
       userEvent.click(queryByText("spruce"));
-      expect(onChange).toBeCalledWith("spruce");
+      expect(onChange).toHaveBeenCalledWith("spruce");
       expect(
         queryByDataCy("searchable-dropdown-options")
       ).not.toBeInTheDocument();
@@ -116,8 +119,8 @@ describe("SearchableDropdown", () => {
     });
   });
 
-  describe("When multiselect == true", () => {
-    test("Should call onChange when clicking on multiple options and shouldn't close the dropdown ", () => {
+  describe("when multiselect == true", () => {
+    it("should call onChange when clicking on multiple options and shouldn't close the dropdown", () => {
       const onChange = jest.fn();
       const { queryByDataCy, queryByText, rerender } = render(
         RenderSearchableDropdown({
@@ -133,7 +136,7 @@ describe("SearchableDropdown", () => {
       userEvent.click(queryByDataCy("searchable-dropdown"));
       expect(queryByDataCy("searchable-dropdown-options")).toBeInTheDocument();
       userEvent.click(queryByText("spruce"));
-      expect(onChange).toBeCalledWith(["spruce"]);
+      expect(onChange).toHaveBeenCalledWith(["spruce"]);
       rerender(
         RenderSearchableDropdown({
           value: ["spruce"],
@@ -152,12 +155,12 @@ describe("SearchableDropdown", () => {
         })
       );
       userEvent.click(queryByText("evergreen"));
-      expect(onChange).toBeCalledWith(["spruce", "evergreen"]);
+      expect(onChange).toHaveBeenCalledWith(["spruce", "evergreen"]);
     });
   });
 
-  describe("When using custom render options", () => {
-    test("Should render custom options", () => {
+  describe("when using custom render options", () => {
+    it("should render custom options", () => {
       const onChange = jest.fn();
       const { queryByText, queryByDataCy } = render(
         RenderSearchableDropdown({
@@ -192,7 +195,7 @@ describe("SearchableDropdown", () => {
       expect(queryByText("Spruce")).toBeInstanceOf(HTMLButtonElement);
     });
 
-    test("Should be able to click on custom elements", () => {
+    it("should be able to click on custom elements", () => {
       const onChange = jest.fn();
       const { queryByText, queryByDataCy } = render(
         RenderSearchableDropdown({
@@ -223,7 +226,7 @@ describe("SearchableDropdown", () => {
 
       expect(queryByText("Spruce")).toBeInTheDocument();
       userEvent.click(queryByText("Spruce"));
-      expect(onChange).toBeCalledWith("spruce");
+      expect(onChange).toHaveBeenCalledWith("spruce");
     });
   });
 });

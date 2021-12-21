@@ -2,7 +2,7 @@ import { TaskStatus } from "types/task";
 import { groupTasksByUmbrellaStatus } from "./utils";
 
 describe("groupTasksByUmbrellaStatus", () => {
-  test("Seperates tasks into groups based on their umbrella status", () => {
+  it("seperates tasks into groups based on their umbrella status", () => {
     const tasks = [
       {
         id: "123",
@@ -39,7 +39,7 @@ describe("groupTasksByUmbrellaStatus", () => {
       },
     });
   });
-  test("Differing task statuses are grouped to the same umbrella status", () => {
+  it("differing task statuses are grouped to the same umbrella status", () => {
     const tasks = [
       {
         id: "123",
@@ -82,7 +82,7 @@ describe("groupTasksByUmbrellaStatus", () => {
       },
     });
   });
-  test("Keeps an accurate count of tasks with the same status and doesnt duplicate statuses", () => {
+  it("keeps an accurate count of tasks with the same status and doesnt duplicate statuses", () => {
     const tasks = [
       {
         id: "123",

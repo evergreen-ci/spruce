@@ -18,41 +18,42 @@ const Content = (status: string) => () => (
     <WaterfallTaskStatusIcon {...props} status={status} />
   </MockedProvider>
 );
+describe("waterfallTaskStatusIcon", () => {
+  it("tooltip should contain task name, duration, list of failing test names and additonal test count", async () => {
+    const { queryByDataCy, queryByText } = render(Content("failed"), {
+      route: "/commits/evergreen",
+    });
+    userEvent.hover(queryByDataCy("waterfall-task-status-icon"));
+    await waitFor(() => {
+      expect(queryByDataCy("waterfall-task-status-icon-tooltip")).toBeVisible();
+    });
+    await waitFor(() => {
+      expect(queryByText("multiversion - 45m 54s")).toBeVisible();
+    });
 
-test("Tooltip should contain task name, duration, list of failing test names and additonal test count", async () => {
-  const { queryByDataCy, queryByText } = render(Content("failed"), {
-    route: "/commits/evergreen",
-  });
-  userEvent.hover(queryByDataCy("waterfall-task-status-icon"));
-  await waitFor(() => {
-    expect(queryByDataCy("waterfall-task-status-icon-tooltip")).toBeVisible();
-  });
-  await waitFor(() => {
-    expect(queryByText("multiversion - 45m 54s")).toBeVisible();
+    await waitFor(() => {
+      expect(
+        queryByText("jstests/multiVersion/remove_invalid_index_options.js")
+      ).toBeVisible();
+    });
+    await waitFor(() => {
+      expect(queryByText("and 2 more")).toBeVisible();
+    });
   });
 
-  await waitFor(() => {
-    expect(
-      queryByText("jstests/multiVersion/remove_invalid_index_options.js")
-    ).toBeVisible();
-  });
-  await waitFor(() => {
-    expect(queryByText("and 2 more")).toBeVisible();
-  });
-});
-
-test("Icon should link to task page", async () => {
-  const { queryByDataCy } = render(Content("failed"), {
-    route: "/commits/evergreen",
-  });
-  await waitFor(() => {
-    expect(queryByDataCy("waterfall-task-status-icon")).toBeInTheDocument();
-  });
-  await waitFor(() => {
-    expect(queryByDataCy("waterfall-task-status-icon")).toHaveAttribute(
-      "href",
-      "/task/task"
-    );
+  it("icon should link to task page", async () => {
+    const { queryByDataCy } = render(Content("failed"), {
+      route: "/commits/evergreen",
+    });
+    await waitFor(() => {
+      expect(queryByDataCy("waterfall-task-status-icon")).toBeInTheDocument();
+    });
+    await waitFor(() => {
+      expect(queryByDataCy("waterfall-task-status-icon")).toHaveAttribute(
+        "href",
+        "/task/task"
+      );
+    });
   });
 });
 

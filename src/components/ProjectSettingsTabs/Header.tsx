@@ -17,7 +17,8 @@ import {
 } from "gql/mutations";
 import { getTabTitle } from "pages/projectSettings/getTabTitle";
 import { useIsTabSaved, useProjectSettingsContext } from "./Context";
-import { TransformerMap, WritableTabRoutes } from "./types";
+import { formToGqlMap } from "./transformers";
+import { WritableTabRoutes } from "./types";
 
 interface Props {
   id: string;
@@ -68,7 +69,7 @@ export const Header: React.FC<Props> = ({
 
   const onClick = () => {
     const { formData } = getTab(tab);
-    const newData = TransformerMap[tab](formData, id, useRepoSettings);
+    const newData = formToGqlMap[tab](formData, id, { useRepoSettings });
     const save = (update, section) =>
       isRepo
         ? saveRepoSection({
@@ -89,23 +90,27 @@ export const Header: React.FC<Props> = ({
   };
 
   return (
-    <TitleContainer>
-      <H2 data-cy="project-settings-tab-title">{title}</H2>
-      {subtitle && <Subtitle>{subtitle}</Subtitle>}
-      {saveable && (
-        <Button
-          data-cy="save-settings-button"
-          variant="primary"
-          onClick={onClick}
-          disabled={hasError || saved}
-        >
-          Save Changes on Page
-        </Button>
-      )}
-      {!isRepo && useRepoSettings && (
-        <Button data-cy="default-to-repo">Default to Repo on Page</Button>
-      )}
-    </TitleContainer>
+    <Container>
+      <TitleContainer>
+        <H2 data-cy="project-settings-tab-title">{title}</H2>
+        {subtitle && <Subtitle>{subtitle}</Subtitle>}
+      </TitleContainer>
+      <ButtonRow>
+        {saveable && (
+          <Button
+            data-cy="save-settings-button"
+            variant="primary"
+            onClick={onClick}
+            disabled={hasError || saved}
+          >
+            Save Changes on Page
+          </Button>
+        )}
+        {!isRepo && useRepoSettings && (
+          <Button data-cy="default-to-repo">Default to Repo on Page</Button>
+        )}
+      </ButtonRow>
+    </Container>
   );
 };
 
@@ -125,15 +130,27 @@ const mapRouteToSection: Record<WritableTabRoutes, ProjectSettingsSection> = {
     ProjectSettingsSection.PeriodicBuilds,
 };
 
-const TitleContainer = styled.div`
+const Container = styled.div`
   display: flex;
+  justify-content: space-between;
   margin-bottom: 30px;
+`;
 
-  > :not(:last-child) {
-    margin-right: 12px;
-  }
+const TitleContainer = styled.div`
+  flex-basis: 40%;
+  margin-right: 16px;
 `;
 
 const Subtitle = styled(Disclaimer)`
   padding-top: 16px;
+`;
+
+const ButtonRow = styled.div`
+  display: flex;
+  flex-grow: 4;
+  justify-content: flex-end;
+
+  > :not(:last-child) {
+    margin-right: 12px;
+  }
 `;

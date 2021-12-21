@@ -2,13 +2,14 @@ import { MockedProvider } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { renderWithRouterMatch, waitFor } from "test_utils/test-utils";
+import { shortenGithash } from "utils/string";
 import CommitChartLabel from ".";
 
 const RenderCommitChartLabel = (version) => () => (
   <MockedProvider mocks={[getSpruceConfigMock]}>
     <CommitChartLabel
       versionId={version.id}
-      githash={version.revision.substring(0, 5)}
+      githash={shortenGithash(version.revision)}
       createTime={version.createTime}
       author={version.author}
       message={version.message}
@@ -16,27 +17,27 @@ const RenderCommitChartLabel = (version) => () => (
   </MockedProvider>
 );
 
-describe("CommitChartLabel", () => {
-  test("Displays author, githash and createTime", () => {
+describe("commitChartLabel", () => {
+  it("displays author, githash and createTime", () => {
     const { queryByDataCy } = renderWithRouterMatch(
       RenderCommitChartLabel(versionShort)
     );
     expect(queryByDataCy("commit-label")).toHaveTextContent(
-      "4137c 6/16/21 11:38 PMMohamed Khelif"
+      "4137c33 6/16/21 11:38 PMMohamed Khelif"
     );
   });
 
-  test("Githash links to version page", () => {
+  it("githash links to version page", () => {
     const { queryByText } = renderWithRouterMatch(
       RenderCommitChartLabel(versionShort)
     );
-    expect(queryByText("4137c").closest("a")).toHaveAttribute(
+    expect(queryByText("4137c33").closest("a")).toHaveAttribute(
       "href",
       "/version/123/tasks"
     );
   });
 
-  test("Jira ticket links to Jira website", async () => {
+  it("jira ticket links to Jira website", async () => {
     const { queryByText } = renderWithRouterMatch(
       RenderCommitChartLabel(versionShort)
     );
@@ -48,17 +49,17 @@ describe("CommitChartLabel", () => {
     });
   });
 
-  test("Displays shortened commit message and the 'more' button if necessary", () => {
+  it("displays shortened commit message and the 'more' button if necessary", () => {
     const { queryByDataCy, queryByText } = renderWithRouterMatch(
       RenderCommitChartLabel(versionLong)
     );
     expect(queryByText("more")).toBeInTheDocument();
     expect(queryByDataCy("commit-label")).toHaveTextContent(
-      "4137c 6/16/21 11:38 PMMohamed Khelif -SERVER-57332 Create skeleton Internal...more"
+      "4137c33 6/16/21 11:38 PMMohamed Khelif -SERVER-57332 Create skeleton Internal...more"
     );
   });
 
-  test("Displays entire commit message if it does not break length limit", () => {
+  it("displays entire commit message if it does not break length limit", () => {
     const { queryByDataCy } = renderWithRouterMatch(
       RenderCommitChartLabel(versionShort)
     );
@@ -67,7 +68,7 @@ describe("CommitChartLabel", () => {
     );
   });
 
-  test("Clicking on the 'more' button should open a tooltip containing commit message", async () => {
+  it("clicking on the 'more' button should open a tooltip containing commit message", async () => {
     const { queryByDataCy, queryByText } = renderWithRouterMatch(
       RenderCommitChartLabel(versionLong)
     );

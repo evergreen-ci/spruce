@@ -1,3 +1,4 @@
+#import "../fragments/projectSettings/access.graphql"
 #import "../fragments/projectSettings/general.graphql"
 
 query RepoSettings($repoId: String!) {
@@ -5,6 +6,7 @@ query RepoSettings($repoId: String!) {
     projectRef {
       id
       ...repoGeneralSettings
+      ...repoAccessSettings
     }
   }
 }

@@ -4,8 +4,8 @@ import { render, fireEvent, waitFor } from "test_utils/test-utils";
 import { TaskStatus } from "types/task";
 import { GroupedTaskStatusBadge } from ".";
 
-describe("GroupedTaskStatusBadgeIcon", () => {
-  test("Clicking on badge performs an action", () => {
+describe("groupedTaskStatusBadgeIcon", () => {
+  it("clicking on badge performs an action", () => {
     const onClick = jest.fn();
     const { queryByDataCy } = render(
       <MemoryRouter>
@@ -20,10 +20,10 @@ describe("GroupedTaskStatusBadgeIcon", () => {
     const badge = queryByDataCy("grouped-task-status-badge");
     expect(badge).toBeInTheDocument();
     fireEvent.click(badge);
-    expect(onClick).toHaveBeenCalled();
+    expect(onClick).toHaveBeenCalledWith();
   });
 
-  test("Badge should have correct copy", () => {
+  it("badge should have correct copy", () => {
     const { queryByText } = render(
       <MemoryRouter>
         <GroupedTaskStatusBadge
@@ -37,7 +37,7 @@ describe("GroupedTaskStatusBadgeIcon", () => {
     expect(queryByText("400")).toBeInTheDocument();
   });
 
-  test("Should link to version page with correct status filters when variant prop is not supplied", () => {
+  it("should link to version page with correct status filters when variant prop is not supplied", () => {
     const { queryByDataCy } = render(
       <MemoryRouter>
         <GroupedTaskStatusBadge
@@ -53,7 +53,7 @@ describe("GroupedTaskStatusBadgeIcon", () => {
     );
   });
 
-  test("Should link to version page with correct status and variant filters when variant prop is supplied", () => {
+  it("should link to version page with correct status and variant filters when variant prop is supplied", () => {
     const { queryByDataCy } = render(
       <MemoryRouter>
         <GroupedTaskStatusBadge
@@ -70,7 +70,7 @@ describe("GroupedTaskStatusBadgeIcon", () => {
     );
   });
 
-  test("Badge should show tooltip when status counts is provided", async () => {
+  it("badge should show tooltip when status counts is provided", async () => {
     const statusCounts = {
       started: 30,
       failed: 15,

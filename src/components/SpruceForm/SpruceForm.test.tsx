@@ -1,8 +1,8 @@
 import { render, fireEvent } from "test_utils/test-utils";
 import { SpruceForm, SpruceFormContainer } from ".";
 
-describe("basic form", () => {
-  test("should render as expected", () => {
+describe("spruceForm", () => {
+  it("should render as expected", () => {
     const onChange = jest.fn();
     const { container, getByLabelText } = render(
       <SpruceFormContainer title="Just a test">
@@ -16,7 +16,7 @@ describe("basic form", () => {
     expect(getByLabelText("Project Cloning Method")).toBeInTheDocument();
     expect(container.firstChild).toMatchSnapshot();
   });
-  test("Updating the form should trigger a callback and update the form state", () => {
+  it("updating the form should trigger a callback and update the form state", () => {
     let data = {};
     const onChange = jest.fn((x) => {
       const { formData } = x;
@@ -35,6 +35,7 @@ describe("basic form", () => {
     fireEvent.change(queryByDataCy("valid-projects-input"), {
       target: { value: "new value" },
     });
+    // eslint-disable-next-line jest/prefer-called-with
     expect(onChange).toHaveBeenCalled();
     expect(queryByDataCy("valid-projects-input")).toHaveValue("new value");
     expect(data).toStrictEqual({

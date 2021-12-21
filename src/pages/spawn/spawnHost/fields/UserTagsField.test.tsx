@@ -1,16 +1,8 @@
-import React from "react";
 import { render, fireEvent, mockUUID } from "test_utils/test-utils";
 import { UserTagsField, UserTagsData } from "./UserTagsField";
 
 // Must mock uuid for this test since getRandomValues() is not supported in CI
 jest.mock("uuid");
-
-beforeAll(() => {
-  mockUUID();
-});
-
-afterAll(() => jest.restoreAllMocks());
-
 const instanceTags = [
   { key: "keyA", value: "valueA", canBeModified: true },
   {
@@ -35,139 +27,162 @@ const defaultData = {
   deletedInstanceTags: [],
 };
 
-test("Renders only editable instance tags", async () => {
-  let data = { ...defaultData };
-  const updateData = jest.fn((x: UserTagsData) => {
-    data = x;
+describe("useTagsField", () => {
+  beforeAll(() => {
+    mockUUID();
   });
 
-  const { queryAllByDataCy, queryByText } = render(
-    <UserTagsField instanceTags={instanceTags} onChange={updateData} />
-  );
-
-  expect(queryAllByDataCy("user-tag-row")).toHaveLength(3);
-  expect(queryByText("hiddenField")).toBeNull();
-  expect(data).toStrictEqual(defaultData);
-});
-
-test("Editing a tag value should add it to addedInstanceTags", async () => {
-  let data = { ...defaultData };
-  const updateData = jest.fn((x: UserTagsData) => {
-    data = x;
+  afterAll(() => {
+    jest.restoreAllMocks();
   });
 
-  const { queryAllByDataCy } = render(
-    <UserTagsField instanceTags={instanceTags} onChange={updateData} />
-  );
+  it("renders only editable instance tags", async () => {
+    let data = { ...defaultData };
+    const updateData = jest.fn((x: UserTagsData) => {
+      data = x;
+    });
 
-  expect(data).toEqual(defaultData);
-  expect(queryAllByDataCy("user-tag-trash-icon")[0]).toBeVisible();
+    const { queryAllByDataCy, queryByText } = render(
+      <UserTagsField instanceTags={instanceTags} onChange={updateData} />
+    );
 
-  fireEvent.change(queryAllByDataCy("user-tag-value-field")[0], {
-    target: { value: "new value" },
+    expect(queryAllByDataCy("user-tag-row")).toHaveLength(3);
+    expect(queryByText("hiddenField")).toBeNull();
+    expect(data).toStrictEqual(defaultData);
   });
 
-  expect(queryAllByDataCy("user-tag-edit-icon")[0]).toBeVisible();
+  it("editing a tag value should add it to addedInstanceTags", async () => {
+    let data = { ...defaultData };
+    const updateData = jest.fn((x: UserTagsData) => {
+      data = x;
+    });
 
-  fireEvent.click(queryAllByDataCy("user-tag-edit-icon")[0]);
+    const { queryAllByDataCy } = render(
+      <UserTagsField instanceTags={instanceTags} onChange={updateData} />
+    );
 
-  expect(updateData).toBeCalled();
-  expect(data).toEqual({
-    ...defaultData,
-    addedInstanceTags: [{ key: "keyA", value: "new value" }],
-  });
-});
+    expect(data).toStrictEqual(defaultData);
+    expect(queryAllByDataCy("user-tag-trash-icon")[0]).toBeVisible();
 
-test("Deleting a tag value should add it to deletedInstanceTags", async () => {
-  let data = { ...defaultData };
-  const updateData = jest.fn((x: UserTagsData) => {
-    data = x;
-  });
+    fireEvent.change(queryAllByDataCy("user-tag-value-field")[0], {
+      target: { value: "new value" },
+    });
 
-  const { queryAllByDataCy, queryByText } = render(
-    <UserTagsField instanceTags={instanceTags} onChange={updateData} />
-  );
+    expect(queryAllByDataCy("user-tag-edit-icon")[0]).toBeVisible();
 
-  expect(data).toEqual(defaultData);
-  expect(queryAllByDataCy("user-tag-trash-icon")[0]).toBeVisible();
+    fireEvent.click(queryAllByDataCy("user-tag-edit-icon")[0]);
 
-  fireEvent.click(queryAllByDataCy("user-tag-trash-icon")[0]);
-
-  expect(updateData).toBeCalled();
-  expect(data).toEqual({
-    ...defaultData,
-    deletedInstanceTags: [{ key: "keyA", value: "valueA" }],
-  });
-  expect(queryByText("keyA")).toBeNull();
-});
-
-test("Editing a tag key should add the new tag to addedInstanceTags and delete the old tag", async () => {
-  let data = { ...defaultData };
-  const updateData = jest.fn((x: UserTagsData) => {
-    data = x;
+    expect(updateData).toHaveBeenCalledWith({
+      ...defaultData,
+      addedInstanceTags: [{ key: "keyA", value: "new value" }],
+    });
+    expect(data).toStrictEqual({
+      ...defaultData,
+      addedInstanceTags: [{ key: "keyA", value: "new value" }],
+    });
   });
 
-  const { queryAllByDataCy } = render(
-    <UserTagsField instanceTags={instanceTags} onChange={updateData} />
-  );
+  it("deleting a tag value should add it to deletedInstanceTags", async () => {
+    let data = { ...defaultData };
+    const updateData = jest.fn((x: UserTagsData) => {
+      data = x;
+    });
 
-  expect(data).toEqual(defaultData);
-  expect(queryAllByDataCy("user-tag-trash-icon")[0]).toBeVisible();
+    const { queryAllByDataCy, queryByText } = render(
+      <UserTagsField instanceTags={instanceTags} onChange={updateData} />
+    );
 
-  fireEvent.change(queryAllByDataCy("user-tag-key-field")[0], {
-    target: { value: "new key" },
+    expect(data).toStrictEqual(defaultData);
+    expect(queryAllByDataCy("user-tag-trash-icon")[0]).toBeVisible();
+
+    fireEvent.click(queryAllByDataCy("user-tag-trash-icon")[0]);
+
+    expect(updateData).toHaveBeenCalledWith({
+      ...defaultData,
+      deletedInstanceTags: [{ key: "keyA", value: "valueA" }],
+    });
+    expect(data).toStrictEqual({
+      ...defaultData,
+      deletedInstanceTags: [{ key: "keyA", value: "valueA" }],
+    });
+    expect(queryByText("keyA")).toBeNull();
   });
 
-  expect(queryAllByDataCy("user-tag-edit-icon")[0]).toBeVisible();
+  it("editing a tag key should add the new tag to addedInstanceTags and delete the old tag", async () => {
+    let data = { ...defaultData };
+    const updateData = jest.fn((x: UserTagsData) => {
+      data = x;
+    });
 
-  fireEvent.click(queryAllByDataCy("user-tag-edit-icon")[0]);
+    const { queryAllByDataCy } = render(
+      <UserTagsField instanceTags={instanceTags} onChange={updateData} />
+    );
 
-  expect(updateData).toBeCalled();
-  expect(data).toEqual({
-    ...defaultData,
-    deletedInstanceTags: [{ key: "keyA", value: "valueA" }],
-    addedInstanceTags: [{ key: "new key", value: "valueA" }],
-  });
-});
+    expect(data).toStrictEqual(defaultData);
+    expect(queryAllByDataCy("user-tag-trash-icon")[0]).toBeVisible();
 
-test("Should be able to add an new tag with the add tag button", async () => {
-  let data = { ...defaultData };
-  const updateData = jest.fn((x: UserTagsData) => {
-    data = x;
-  });
+    fireEvent.change(queryAllByDataCy("user-tag-key-field")[0], {
+      target: { value: "new key" },
+    });
 
-  const { queryAllByDataCy, queryByDataCy } = render(
-    <UserTagsField instanceTags={instanceTags} onChange={updateData} />
-  );
+    expect(queryAllByDataCy("user-tag-edit-icon")[0]).toBeVisible();
 
-  expect(data).toEqual(defaultData);
-  expect(queryAllByDataCy("user-tag-row")).toHaveLength(3);
-  expect(queryByDataCy("add-tag-button")).toBeVisible();
+    fireEvent.click(queryAllByDataCy("user-tag-edit-icon")[0]);
 
-  fireEvent.click(queryByDataCy("add-tag-button"));
-
-  expect(queryByDataCy("add-tag-button")).toBeNull();
-  expect(queryAllByDataCy("user-tag-trash-icon")[3]).toBeVisible();
-  expect(queryAllByDataCy("user-tag-row")).toHaveLength(4);
-  expect(queryAllByDataCy("user-tag-key-field")[3]).toBeVisible();
-
-  fireEvent.change(queryAllByDataCy("user-tag-key-field")[3], {
-    target: { value: "new key" },
+    expect(updateData).toHaveBeenCalledWith({
+      ...defaultData,
+      deletedInstanceTags: [{ key: "keyA", value: "valueA" }],
+      addedInstanceTags: [{ key: "new key", value: "valueA" }],
+    });
+    expect(data).toStrictEqual({
+      ...defaultData,
+      deletedInstanceTags: [{ key: "keyA", value: "valueA" }],
+      addedInstanceTags: [{ key: "new key", value: "valueA" }],
+    });
   });
 
-  expect(queryAllByDataCy("user-tag-value-field")[3]).toBeVisible();
+  it("should be able to add an new tag with the add tag button", async () => {
+    let data = { ...defaultData };
+    const updateData = jest.fn((x: UserTagsData) => {
+      data = x;
+    });
 
-  fireEvent.change(queryAllByDataCy("user-tag-value-field")[3], {
-    target: { value: "new value" },
-  });
+    const { queryAllByDataCy, queryByDataCy } = render(
+      <UserTagsField instanceTags={instanceTags} onChange={updateData} />
+    );
 
-  expect(queryAllByDataCy("user-tag-edit-icon")).toHaveLength(1);
+    expect(data).toStrictEqual(defaultData);
+    expect(queryAllByDataCy("user-tag-row")).toHaveLength(3);
+    expect(queryByDataCy("add-tag-button")).toBeVisible();
 
-  fireEvent.click(queryAllByDataCy("user-tag-edit-icon")[0]);
+    fireEvent.click(queryByDataCy("add-tag-button"));
 
-  expect(updateData).toBeCalled();
-  expect(data).toEqual({
-    ...defaultData,
-    addedInstanceTags: [{ key: "new key", value: "new value" }],
+    expect(queryByDataCy("add-tag-button")).toBeNull();
+    expect(queryAllByDataCy("user-tag-trash-icon")[3]).toBeVisible();
+    expect(queryAllByDataCy("user-tag-row")).toHaveLength(4);
+    expect(queryAllByDataCy("user-tag-key-field")[3]).toBeVisible();
+
+    fireEvent.change(queryAllByDataCy("user-tag-key-field")[3], {
+      target: { value: "new key" },
+    });
+
+    expect(queryAllByDataCy("user-tag-value-field")[3]).toBeVisible();
+
+    fireEvent.change(queryAllByDataCy("user-tag-value-field")[3], {
+      target: { value: "new value" },
+    });
+
+    expect(queryAllByDataCy("user-tag-edit-icon")).toHaveLength(1);
+
+    fireEvent.click(queryAllByDataCy("user-tag-edit-icon")[0]);
+
+    expect(updateData).toHaveBeenCalledWith({
+      ...defaultData,
+      addedInstanceTags: [{ key: "new key", value: "new value" }],
+    });
+    expect(data).toStrictEqual({
+      ...defaultData,
+      addedInstanceTags: [{ key: "new key", value: "new value" }],
+    });
   });
 });

@@ -26,6 +26,16 @@ describe("Project Settings when not defaulting to repo", () => {
   it("Shows two radio boxes", () => {
     cy.dataCy("enabled-radio-box").children().should("have.length", 2);
   });
+
+  it("Visiting the access page should not have the save button enabled", () => {
+    cy.dataCy("navitem-access").click();
+    cy.dataCy("save-settings-button").should("be.disabled");
+  });
+
+  it("Does not enable the save button when adding a new array element", () => {
+    cy.dataCy("add-button").click();
+    cy.dataCy("save-settings-button").should("be.disabled");
+  });
 });
 
 describe("Project Settings when defaulting to repo", () => {

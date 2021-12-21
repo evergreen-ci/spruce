@@ -5,55 +5,58 @@ import { GET_PROJECTS } from "gql/queries";
 import { render, act, waitFor } from "test_utils/test-utils";
 import { ProjectSelect } from ".";
 
-afterEach(() => {
-  jest.restoreAllMocks();
-});
-test("Sets the currently selected project to what ever is passed in's display name", async () => {
-  const { Component } = RenderFakeToastContext(
-    <MockedProvider mocks={mocks} addTypename={false}>
-      <ProjectSelect selectedProjectIdentifier="evergreen" />
-    </MockedProvider>
-  );
-
-  const { baseElement } = render(<Component />);
-  await waitFor(() => {
-    expect(baseElement).toHaveTextContent("evergreen smoke test");
+describe("projectSelect", () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
-});
 
-test("Should toggle dropdown when clicking on it ", async () => {
-  const { Component } = RenderFakeToastContext(
-    <MockedProvider mocks={mocks} addTypename={false}>
-      <ProjectSelect selectedProjectIdentifier="evergreen" />
-    </MockedProvider>
-  );
-  const { queryByDataCy } = render(<Component />);
-  await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+  it("sets the currently selected project to what ever is passed in's display name", async () => {
+    const { Component } = RenderFakeToastContext(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <ProjectSelect selectedProjectIdentifier="evergreen" />
+      </MockedProvider>
+    );
 
-  expect(queryByDataCy("project-select-options")).not.toBeInTheDocument();
-  userEvent.click(queryByDataCy("project-select"));
-  expect(queryByDataCy("project-select-options")).toBeInTheDocument();
-  userEvent.click(queryByDataCy("project-select"));
-  expect(queryByDataCy("project-select-options")).not.toBeInTheDocument();
-});
+    const { baseElement } = render(<Component />);
+    await waitFor(() => {
+      expect(baseElement).toHaveTextContent("evergreen smoke test");
+    });
+  });
 
-test("Should narrow down search results when filtering on projects", async () => {
-  const { Component } = RenderFakeToastContext(
-    <MockedProvider mocks={mocks} addTypename={false}>
-      <ProjectSelect selectedProjectIdentifier="evergreen" />
-    </MockedProvider>
-  );
-  const { queryByDataCy, findAllByDataCy } = render(<Component />);
-  await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+  it("should toggle dropdown when clicking on it", async () => {
+    const { Component } = RenderFakeToastContext(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <ProjectSelect selectedProjectIdentifier="evergreen" />
+      </MockedProvider>
+    );
+    const { queryByDataCy } = render(<Component />);
+    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
-  expect(queryByDataCy("project-select-options")).not.toBeInTheDocument();
-  userEvent.click(queryByDataCy("project-select"));
-  expect(queryByDataCy("project-select-options")).toBeInTheDocument();
-  let options = await findAllByDataCy("project-display-name");
-  expect(options.length).toBe(6);
-  userEvent.type(queryByDataCy("project-select-search-input"), "logkeeper");
-  options = await findAllByDataCy("project-display-name");
-  expect(options.length).toBe(1);
+    expect(queryByDataCy("project-select-options")).not.toBeInTheDocument();
+    userEvent.click(queryByDataCy("project-select"));
+    expect(queryByDataCy("project-select-options")).toBeInTheDocument();
+    userEvent.click(queryByDataCy("project-select"));
+    expect(queryByDataCy("project-select-options")).not.toBeInTheDocument();
+  });
+
+  it("should narrow down search results when filtering on projects", async () => {
+    const { Component } = RenderFakeToastContext(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <ProjectSelect selectedProjectIdentifier="evergreen" />
+      </MockedProvider>
+    );
+    const { queryByDataCy, findAllByDataCy } = render(<Component />);
+    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+
+    expect(queryByDataCy("project-select-options")).not.toBeInTheDocument();
+    userEvent.click(queryByDataCy("project-select"));
+    expect(queryByDataCy("project-select-options")).toBeInTheDocument();
+    let options = await findAllByDataCy("project-display-name");
+    expect(options).toHaveLength(6);
+    userEvent.type(queryByDataCy("project-select-search-input"), "logkeeper");
+    options = await findAllByDataCy("project-display-name");
+    expect(options).toHaveLength(1);
+  });
 });
 
 const mocks = [

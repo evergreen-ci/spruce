@@ -88,10 +88,15 @@ export const UpdateStatusModal: React.FC<Props> = ({
       onCancel={onClickCancel}
       title="Update Host Status"
       footer={[
-        <Button data-cy="modal-cancel-button" onClick={onClickCancel}>
+        <Button
+          key="modal-cancel-button"
+          data-cy="modal-cancel-button"
+          onClick={onClickCancel}
+        >
           Cancel
         </Button>,
         <Button
+          key="modal-update-button"
           data-cy="modal-update-button"
           variant="primary"
           disabled={!status}

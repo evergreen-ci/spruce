@@ -158,7 +158,7 @@ describe("Navigating to Spawn Host page", () => {
         cy.visit(
           `spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${taskId}`
         );
-        cy.wait(200);
+        cy.dataCy("spawn-host-modal").should("be.visible");
         cy.dataCy("parent-checkbox").click({ force: true });
         cy.dataCy("parent-checkbox").should("not.be.checked");
         cy.dataCy("also-start-hosts").click({ force: true });
@@ -169,26 +169,26 @@ describe("Navigating to Spawn Host page", () => {
         cy.visit(
           `spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${taskId}`
         );
-        cy.wait(200);
+        cy.dataCy("spawn-host-modal").should("be.visible");
         cy.dataCy("parent-checkbox").should("be.checked");
 
         cy.dataCy("also-start-hosts").should("not.be.checked");
-        cy.dataCy("also-start-hosts").click({ force: true });
+        cy.dataCy("also-start-hosts").check({ force: true });
         cy.dataCy("also-start-hosts").should("be.checked"); // check 1st child
 
         cy.dataCy("parent-checkbox").should("be.checked");
 
         cy.dataCy("use-psss").should("not.be.checked");
-        cy.dataCy("use-psss").click({ force: true });
+        cy.dataCy("use-psss").check({ force: true });
         cy.dataCy("use-psss").should("be.checked"); // check 2nd child
 
         cy.dataCy("parent-checkbox").should("be.checked");
 
-        cy.dataCy("also-start-hosts").click({ force: true }); // uncheck 1st child
+        cy.dataCy("also-start-hosts").uncheck({ force: true }); // uncheck 1st child
         cy.dataCy("also-start-hosts").should("not.be.checked");
         cy.dataCy("parent-checkbox").should("be.checked"); // parent should be unchecked bc child 2 is selected
 
-        cy.dataCy("use-psss").click({ force: true });
+        cy.dataCy("use-psss").uncheck({ force: true });
         cy.dataCy("use-psss").should("not.be.checked"); // uncheck 2nd child
 
         cy.dataCy("parent-checkbox").should("not.be.checked");

@@ -4,7 +4,7 @@ import { errorReporting } from "utils";
 const { reportError } = errorReporting;
 const err = new Error("test error");
 
-describe("Error reporting", () => {
+describe("error reporting", () => {
   const OLD_ENV = process.env;
 
   beforeEach(() => {
@@ -18,7 +18,7 @@ describe("Error reporting", () => {
     process.env = OLD_ENV;
   });
 
-  test("Returns a map of empty functions when environment is not Production", async () => {
+  it("returns a map of empty functions when environment is not Production", async () => {
     // spy on Bugsnag.notify and newrelic.noticeError becuase that is called when the functions are not empty
     const notifySpy = jest.spyOn(Bugsnag, "notify");
     const result = reportError(err);
@@ -27,7 +27,7 @@ describe("Error reporting", () => {
     expect(notifySpy).toHaveBeenCalledTimes(0);
   });
 
-  test("Returns a map of functions that call Bugsnag.notify and newrelic.noticeError with an error object when environment is Production", () => {
+  it("returns a map of functions that call Bugsnag.notify and newrelic.noticeError with an error object when environment is Production", () => {
     // @ts-ignore
     process.env.NODE_ENV = "production";
     const notifySpy = jest.spyOn(Bugsnag, "notify");
