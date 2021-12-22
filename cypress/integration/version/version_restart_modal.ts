@@ -94,11 +94,7 @@ describe("Restarting a patch", () => {
       cy.dataCy("restart-patch-button").click();
     });
     cy.dataCy("version-restart-modal").should("not.be.be.visible");
-    cy.dataCy("toast").should("exist");
-    cy.dataCy("toast").should(
-      "contain.text",
-      `Success!Successfully restarted tasks!`
-    );
+    cy.validateToast("success", "Successfully restarted tasks!");
   });
 
   const path = `/version/5ecedafb562343215a7ff297`;

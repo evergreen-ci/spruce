@@ -103,7 +103,7 @@ describe("Public Key Management Page", () => {
       cy.dataCy("key-name-input").type("rsioeantarsn");
       cy.dataCy("key-value-input").paste("ssh-rsa");
       cy.dataCy("save-key-button").click();
-      cy.dataCy("toast").first().should("exist");
+      cy.validateToast("error");
     });
   });
 });

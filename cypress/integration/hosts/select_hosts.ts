@@ -37,7 +37,7 @@ describe("Select hosts in hosts page table", () => {
 
     cy.dataCy("restart-jasper-button").click();
     cy.contains("button", "Yes").click();
-    cy.dataCy("toast").should("exist");
+    cy.validateToast("success");
   });
 
   it("Can reprovision for selected hosts", () => {
@@ -52,10 +52,6 @@ describe("Select hosts in hosts page table", () => {
 
     cy.dataCy("reprovision-button").click();
     cy.contains("button", "Yes").click();
-    cy.dataCy("toast").should("exist");
-    cy.dataCy("toast").should(
-      "have.text",
-      "Success!Marked hosts to reprovision for 0 hosts"
-    );
+    cy.validateToast("success", "Marked hosts to reprovision for 0 hosts");
   });
 });

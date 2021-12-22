@@ -88,6 +88,19 @@ declare global {
        * @example cy.dataCy("some-input").paste("Some Value")
        */
       paste(value: string): void;
+
+      /**
+       * Custom command to validate a toast was rendered
+       * @example cy.validateToast("success", "This succeeded")
+       * @example cy.validateToast("error", "This failed")
+       * @example cy.validateToast("warning", "This is a warning")
+       * @example cy.validateToast("info", "This is an info message")
+       * @example cy.validateToast("success")
+       */
+      validateToast(
+        type: "success" | "warning" | "error" | "info",
+        message?: string
+      ): void;
     }
   }
 }

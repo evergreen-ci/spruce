@@ -76,3 +76,11 @@ Cypress.Commands.add(
     cy.wrap(selector).type(lastChar);
   }
 );
+
+Cypress.Commands.add("validateToast", (status: string, message?: string) => {
+  cy.dataCy(`toast`).should("be.visible");
+  cy.dataCy("toast").should("have.attr", "data-variant", status);
+  if (message) {
+    cy.dataCy(`toast`).contains(message);
+  }
+});

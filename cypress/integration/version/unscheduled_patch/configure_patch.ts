@@ -548,7 +548,7 @@ describe("Configure Patch Page", () => {
         "eq",
         `/patch/${unactivatedPatchId}/configure/tasks`
       );
-      cy.dataCy("toast").contains("WAH WAH CHICKEN WAH");
+      cy.validateToast("error", "An error occurred");
     });
   });
 });
@@ -556,7 +556,7 @@ describe("Configure Patch Page", () => {
 const mockedErrorConfigureResponse = {
   errors: [
     {
-      message: "WAH WAH CHICKEN WAH",
+      message: "An error occurred",
       path: ["schedulePatch"],
       extensions: {
         code: "INTERNAL_SERVER_ERROR",

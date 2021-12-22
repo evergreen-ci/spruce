@@ -19,9 +19,7 @@ describe("Task Action Buttons", () => {
     it("Clicking Restart button should restart a task and display a success toast", () => {
       cy.visit(tasks[3]);
       cy.dataCy("restart-task").click();
-      cy.dataCy("toast")
-        .contains(restartSuccessBannerText)
-        .should("be.visible");
+      cy.validateToast("success", restartSuccessBannerText);
     });
 
     it("Clicking Unschedule button should unschedule a task and display a success toast", () => {
@@ -29,9 +27,7 @@ describe("Task Action Buttons", () => {
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("unschedule-task").click();
 
-      cy.dataCy("toast")
-        .contains(unscheduleSuccessBannerText)
-        .should("be.visible");
+      cy.validateToast("success", unscheduleSuccessBannerText);
     });
 
     it("Abort button should be disabled on completed tasks", () => {
@@ -45,21 +41,14 @@ describe("Task Action Buttons", () => {
       cy.get(".ant-input-number-input").clear().type("99");
       cy.get(popconfirmYesClassName).contains("Set").click({ force: true });
 
-      cy.dataCy("toast")
-        .contains(prioritySuccessBannerText)
-        .should("be.visible");
-    });
-
-    it("Visiting a different task page should clear all banners", () => {
-      cy.visit(tasks[2]);
-      cy.dataCy("toast").should("not.exist");
+      cy.validateToast("success", prioritySuccessBannerText);
     });
 
     it("Should be able to abort an incomplete task", () => {
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("abort-task").click();
 
-      cy.dataCy("toast").contains("Task aborted").should("be.visible");
+      cy.validateToast("success", "Task aborted");
     });
 
     it("Should correctly disable/enable the task when clicked", () => {
@@ -68,15 +57,12 @@ describe("Task Action Buttons", () => {
       cy.dataCy("disable-enable").click();
       cy.dataCy("ellipsis-btn").click(); // temporary manually close menu button TODO: Remove when PD-1207 is fixed
 
-      cy.dataCy("toast")
-        .contains("Task was successfully disabled")
-        .should("be.visible");
+      cy.validateToast("success", "Task was successfully disabled");
+
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("disable-enable").click();
 
-      cy.dataCy("toast")
-        .contains("Priority for task updated to 0")
-        .should("be.visible");
+      cy.validateToast("success", "Priority for task updated to 0");
     });
   });
 });

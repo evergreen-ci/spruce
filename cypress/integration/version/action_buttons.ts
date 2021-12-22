@@ -47,14 +47,14 @@ describe("Action Buttons", () => {
           errorMessage: "There was an error unscheduling tasks",
         });
         cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
-        cy.dataCy("toast").contains("error").should("exist");
+        cy.validateToast("error");
       });
 
       it("Clicking 'Unschedule' button show popconfirm with abort checkbox and a toast on success", () => {
         cy.dataCy("unschedule-patch").click();
         cy.dataCy("abort-checkbox").check({ force: true });
         cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
-        cy.dataCy("toast").contains("Success!").should("exist");
+        cy.validateToast("success");
       });
 
       it("Clicking 'Set Priority' button shows popconfirm with input and toast on success", () => {
@@ -62,7 +62,7 @@ describe("Action Buttons", () => {
         cy.dataCy("prioritize-patch").click();
         cy.dataCy("priority-input").clear().type(priority);
         cy.get(popconfirmYesClassName).contains("Set").click({ force: true });
-        cy.dataCy("toast").contains(priority).should("exist");
+        cy.validateToast("success", priority);
       });
 
       it("Error setting priority shows error toast", () => {
@@ -72,7 +72,7 @@ describe("Action Buttons", () => {
           errorMessage: "There was an error setting priority",
         });
         cy.get(popconfirmYesClassName).contains("Set").click({ force: true });
-        cy.dataCy("toast").contains("error").should("exist");
+        cy.validateToast("error");
       });
       it("Should be able to reconfigure the patch", () => {
         cy.dataCy("reconfigure-link").should("not.be.disabled");

@@ -54,7 +54,7 @@ describe("Dropdown Menu of Patch Actions", () => {
 
     cy.dataCy("abort-checkbox").check({ force: true });
     cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
-    cy.dataCy("toast").should("exist");
+    cy.validateToast("success");
   });
 
   it("'Restart' link shows restart patch modal", () => {
@@ -72,7 +72,7 @@ describe("Dropdown Menu of Patch Actions", () => {
       .click({ force: true });
     cy.contains("generate-lint").click();
     cy.dataCy("restart-patch-button").click();
-    cy.dataCy("toast").should("exist");
+    cy.validateToast("success");
   });
 
   it("'Add to commit queue' shows enqueue modal", () => {
