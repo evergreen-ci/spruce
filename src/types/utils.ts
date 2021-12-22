@@ -2,7 +2,7 @@
 export type Unpacked<T> = T extends (infer U)[] ? U : T;
 
 /** Helper to a record that optionally omits some fields when using an enum as a record's key */
-export type PartialRecord<K extends keyof T, T> = {
+export type PartialRecord<K extends keyof any, T> = {
   [P in K]?: T;
 };
 
