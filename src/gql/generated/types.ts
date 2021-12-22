@@ -59,6 +59,8 @@ export type Query = {
   buildVariantsForTaskName?: Maybe<Array<Maybe<BuildVariantTuple>>>;
   projectSettings: ProjectSettings;
   repoSettings: RepoSettings;
+  projectEvents: ProjectEvents;
+  repoEvents: RepoEvents;
   hasVersion: Scalars["Boolean"];
 };
 
@@ -195,6 +197,18 @@ export type QueryProjectSettingsArgs = {
 
 export type QueryRepoSettingsArgs = {
   id: Scalars["String"];
+};
+
+export type QueryProjectEventsArgs = {
+  identifier: Scalars["String"];
+  limit?: Maybe<Scalars["Int"]>;
+  before?: Maybe<Scalars["Time"]>;
+};
+
+export type QueryRepoEventsArgs = {
+  id: Scalars["String"];
+  limit?: Maybe<Scalars["Int"]>;
+  before?: Maybe<Scalars["Time"]>;
 };
 
 export type QueryHasVersionArgs = {
@@ -521,7 +535,9 @@ export type Version = {
   patch?: Maybe<Patch>;
   childVersions?: Maybe<Array<Maybe<Version>>>;
   taskCount?: Maybe<Scalars["Int"]>;
+  /** @deprecated baseVersionId is deprecated, use baseVersion.id instead */
   baseVersionID?: Maybe<Scalars["String"]>;
+  baseVersion?: Maybe<Version>;
   versionTiming?: Maybe<VersionTiming>;
   parameters: Array<Parameter>;
   taskStatuses: Array<Scalars["String"]>;
@@ -744,6 +760,7 @@ export type ProjectInput = {
   displayName?: Maybe<Scalars["String"]>;
   enabled?: Maybe<Scalars["Boolean"]>;
   private?: Maybe<Scalars["Boolean"]>;
+  restricted?: Maybe<Scalars["Boolean"]>;
   owner?: Maybe<Scalars["String"]>;
   repo?: Maybe<Scalars["String"]>;
   branch?: Maybe<Scalars["String"]>;
@@ -793,6 +810,7 @@ export type RepoRefInput = {
   displayName?: Maybe<Scalars["String"]>;
   enabled?: Maybe<Scalars["Boolean"]>;
   private?: Maybe<Scalars["Boolean"]>;
+  restricted?: Maybe<Scalars["Boolean"]>;
   owner?: Maybe<Scalars["String"]>;
   repo?: Maybe<Scalars["String"]>;
   branch?: Maybe<Scalars["String"]>;
@@ -1424,7 +1442,7 @@ export type GroupedProjects = {
 };
 
 export type ProjectSettings = {
-  githubWebhooksEnabled: Scalars["Boolean"];
+  gitHubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<Project>;
   vars?: Maybe<ProjectVars>;
   aliases?: Maybe<Array<ProjectAlias>>;
@@ -1432,11 +1450,35 @@ export type ProjectSettings = {
 };
 
 export type RepoSettings = {
-  githubWebhooksEnabled: Scalars["Boolean"];
+  gitHubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<RepoRef>;
   vars?: Maybe<ProjectVars>;
   aliases?: Maybe<Array<ProjectAlias>>;
   subscriptions?: Maybe<Array<ProjectSubscription>>;
+};
+
+export type ProjectEvents = {
+  eventLogEntries: Array<ProjectEventLogEntry>;
+  count: Scalars["Int"];
+};
+
+export type ProjectEventLogEntry = {
+  timestamp: Scalars["Time"];
+  user: Scalars["String"];
+  before?: Maybe<ProjectSettings>;
+  after?: Maybe<ProjectSettings>;
+};
+
+export type RepoEvents = {
+  eventLogEntries: Array<RepoEventLogEntry>;
+  count: Scalars["Int"];
+};
+
+export type RepoEventLogEntry = {
+  timestamp: Scalars["Time"];
+  user: Scalars["String"];
+  before?: Maybe<RepoSettings>;
+  after?: Maybe<RepoSettings>;
 };
 
 export type ProjectVars = {
@@ -1521,6 +1563,7 @@ export type Project = {
   displayName: Scalars["String"];
   enabled?: Maybe<Scalars["Boolean"]>;
   private?: Maybe<Scalars["Boolean"]>;
+  restricted?: Maybe<Scalars["Boolean"]>;
   owner: Scalars["String"];
   repo: Scalars["String"];
   branch: Scalars["String"];
@@ -1570,6 +1613,7 @@ export type RepoRef = {
   displayName: Scalars["String"];
   enabled: Scalars["Boolean"];
   private: Scalars["Boolean"];
+  restricted: Scalars["Boolean"];
   owner: Scalars["String"];
   repo: Scalars["String"];
   branch: Scalars["String"];
