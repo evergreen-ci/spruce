@@ -2,7 +2,7 @@
 export type Unpacked<T> = T extends (infer U)[] ? U : T;
 
 /** Helper to a record that optionally omits some fields when using an enum as a record's key */
-export type PartialRecord<K extends keyof any, T> = {
+export type PartialRecord<K extends keyof T, T> = {
   [P in K]?: T;
 };
 
@@ -29,3 +29,8 @@ export type RequireAtLeastOne<T, Keys extends keyof T = keyof T> = Pick<
 export type RequireAtMostOne<T, Keys extends keyof T = keyof T> = Partial<
   RequireOnlyOne<T, Keys>
 >;
+
+/** Helper that takes in an object of key/value pairs and returns an inverted object with the key/value pairs swapped */
+export type InvertedObject<T extends Record<PropertyKey, PropertyKey>> = {
+  [K in keyof T as T[K]]: K;
+};
