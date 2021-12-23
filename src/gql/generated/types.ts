@@ -2658,6 +2658,7 @@ export type BuildBaronQueryVariables = Exact<{
 export type BuildBaronQuery = {
   buildBaron: {
     buildBaronConfigured: boolean;
+    bbTicketCreationDefined: boolean;
     searchReturnInfo?: Maybe<{
       search: string;
       source: string;
