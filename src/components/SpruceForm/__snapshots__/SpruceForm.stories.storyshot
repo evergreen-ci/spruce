@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Spruce Form Example 1 1`] = `
+exports[`storybook Storyshots Spruce Form Example 1 1`] = `
 <div>
   <h3
     className="css-7bylgw-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"
@@ -139,7 +139,7 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
               className="css-tkt7ft-ArrayContainer e7smmlm2"
             >
               <div
-                className="css-wsj9xt-ArrayItemRow e7smmlm1"
+                className="css-scktrh-ArrayItemRow e7smmlm1"
               >
                 <div
                   className="form-group field field-object"
@@ -180,7 +180,6 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
                                   onBlur={[Function]}
                                   onChange={[Function]}
                                   onFocus={[Function]}
-                                  placeholder=""
                                   required={true}
                                   type="text"
                                   value="Sample Input"
@@ -232,7 +231,6 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
                                   onBlur={[Function]}
                                   onChange={[Function]}
                                   onFocus={[Function]}
-                                  placeholder=""
                                   required={true}
                                   type="text"
                                   value="Sample Input"
@@ -254,7 +252,7 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
                   </fieldset>
                 </div>
                 <div
-                  className="css-x2ce4n-ElementWrapper-DeleteButtonWrapper e7smmlm0"
+                  className="css-1w3q9da-ElementWrapper-DeleteButtonWrapper e7smmlm0"
                 >
                   <button
                     aria-disabled={false}
@@ -335,7 +333,7 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
 </div>
 `;
 
-exports[`Storyshots Spruce Form Example 2 1`] = `
+exports[`storybook Storyshots Spruce Form Example 2 1`] = `
 <div>
   <h3
     className="css-7bylgw-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"

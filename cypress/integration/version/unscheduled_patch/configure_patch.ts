@@ -62,7 +62,6 @@ describe("Configure Patch Page", () => {
   describe("Switching tabs", () => {
     before(() => {
       cy.visit(`patch/${unactivatedPatchId}/configure/tasks`);
-      cy.wait(10);
     });
     it("Should be able to switch between tabs", () => {
       cy.get('button[data-cy="changes-tab"]').click();
@@ -138,22 +137,22 @@ describe("Configure Patch Page", () => {
       cy.dataCy("task-checkbox").uncheck({ force: true });
     });
     it("Clicking on unchecked tasks checks them and updates task counts", () => {
-      const variantItem = cy.dataCy("build-variant-list-item");
-      variantItem.eq(-1).click();
+      cy.dataCy("build-variant-list-item").eq(-1).click();
 
-      variantItem.find('[data-cy="task-count-badge"]').should("not.exist");
+      cy.dataCy("build-variant-list-item")
+        .find('[data-cy="task-count-badge"]')
+        .should("not.exist");
       let count = 0;
       cy.dataCy("selected-task-disclaimer").contains(
         `${count} tasks across 0 build variants`
       );
       cy.dataCy("task-checkbox").each(($el) => {
-        const checkbox = cy.wrap($el);
-        checkbox.should("not.be.checked");
-        checkbox.check({
+        cy.wrap($el).should("not.be.checked");
+        cy.wrap($el).check({
           force: true,
         });
         count += 1;
-        checkbox.should("be.checked");
+        cy.wrap($el).should("be.checked");
         cy.dataCy("selected-task-disclaimer").contains(`${count} task`);
         cy.dataCy("selected-task-disclaimer").contains(`1 build variant`);
         cy.dataCy("build-variant-list-item")
@@ -165,21 +164,21 @@ describe("Configure Patch Page", () => {
       });
     });
     it("Clicking on checked tasks unchecks them and updates task counts", () => {
-      const variantItem = cy.dataCy("build-variant-list-item");
-      variantItem.find('[data-cy="task-count-badge"]').should("exist");
+      cy.dataCy("build-variant-list-item")
+        .find('[data-cy="task-count-badge"]')
+        .should("exist");
       let count = 7;
       cy.dataCy("selected-task-disclaimer").contains(
         `${count} tasks across 1 build variant`
       );
 
       cy.dataCy("task-checkbox").each(($el) => {
-        const checkbox = cy.wrap($el);
-        checkbox.should("be.checked");
-        checkbox.uncheck({
+        cy.wrap($el).should("be.checked");
+        cy.wrap($el).uncheck({
           force: true,
         });
         count -= 1;
-        checkbox.should("not.be.checked");
+        cy.wrap($el).should("not.be.checked");
       });
 
       cy.dataCy("build-variant-list-item")
@@ -475,11 +474,15 @@ describe("Configure Patch Page", () => {
           `0 tasks across 0 build variants, 1 trigger alias`
         );
 
-        const countBadge = cy
-          .dataCy("trigger-alias-list-item")
-          .find('[data-cy="task-count-badge"]');
-        countBadge.should("exist");
-        countBadge.should("have.text", 1);
+        cy.dataCy("trigger-alias-list-item").find(
+          '[data-cy="task-count-badge"]'
+        );
+        cy.dataCy("trigger-alias-list-item")
+          .find('[data-cy="task-count-badge"]')
+          .should("exist");
+        cy.dataCy("trigger-alias-list-item")
+          .find('[data-cy="task-count-badge"]')
+          .should("have.text", 1);
 
         cy.dataCy("alias-task-checkbox").should("be.checked");
       });

@@ -1,4 +1,5 @@
-import { MockedProvider } from "@apollo/client/testing";
+import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import { RenderFakeToastContext } from "context/__mocks__/toast";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { SPAWN_VOLUME } from "gql/mutations";
 import {
@@ -13,8 +14,125 @@ import {
   fireEvent,
   waitFor,
   act,
-} from "test_utils/test-utils";
+} from "test_utils";
 import { SpawnVolumeModal } from "./SpawnVolumeModal";
+
+describe("spawnVolumeModal", () => {
+  it("renders the Spawn Volume Modal when the visible prop is true", async () => {
+    const { Component } = RenderFakeToastContext(
+      <SpawnVolumeModal visible onCancel={() => {}} />
+    );
+    const { queryByDataCy } = render(() => (
+      <MockedProvider mocks={baseMocks}>
+        <Component />
+      </MockedProvider>
+    ));
+    expect(queryByDataCy("modal-title")).toBeVisible();
+  });
+
+  it("does not renders the Spawn Volume Modal when the visible prop is false", async () => {
+    const { Component } = RenderFakeToastContext(
+      <SpawnVolumeModal visible={false} onCancel={() => {}} />
+    );
+    const { queryByDataCy } = render(() => (
+      <MockedProvider mocks={baseMocks}>
+        <Component />
+      </MockedProvider>
+    ));
+    expect(queryByDataCy("modal-title")).not.toBeInTheDocument();
+  });
+
+  it("form contains default volumes on initial render.", async () => {
+    const { Component } = RenderFakeToastContext(
+      <SpawnVolumeModal visible onCancel={() => {}} />
+    );
+    const { queryByDataCy } = render(() => (
+      <MockedProvider mocks={baseMocks}>
+        <Component />
+      </MockedProvider>
+    ));
+    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+    await waitFor(() => expect(queryByDataCy("volumeSize")).toHaveValue("500"));
+
+    expect(queryByDataCy("regionSelector")).toHaveTextContent("us-east-1a");
+    expect(queryByDataCy("typeSelector")).toHaveTextContent("gp2");
+    expect(queryByDataCy("neverExpireCheckbox")).not.toBeChecked();
+    expect(queryByDataCy("host-select")).toHaveTextContent("");
+  });
+
+  it("form submission succeeds with default values", async () => {
+    const spawnVolumeMutation: MockedResponse = {
+      request: {
+        query: SPAWN_VOLUME,
+        variables: {
+          SpawnVolumeInput: {
+            availabilityZone: "us-east-1a",
+            size: 500,
+            type: "gp2",
+            expiration: null,
+            noExpiration: false,
+          },
+        },
+      },
+      result: { data: { spawnVolume: true } },
+    };
+    const { Component, dispatchToast } = RenderFakeToastContext(
+      <SpawnVolumeModal visible onCancel={() => {}} />
+    );
+    const { queryByText } = render(() => (
+      <MockedProvider mocks={[...baseMocks, spawnVolumeMutation]}>
+        <Component />
+      </MockedProvider>
+    ));
+    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+    await act(async () => {
+      fireEvent.click(queryByText("Spawn"));
+    });
+    expect(dispatchToast.success).toHaveBeenCalledTimes(1);
+    expect(dispatchToast.error).not.toHaveBeenCalled();
+  });
+
+  it("form submission succeeds after adjusting inputs", async () => {
+    const spawnVolumeMutation: MockedResponse = {
+      request: {
+        query: SPAWN_VOLUME,
+        variables: {
+          SpawnVolumeInput: {
+            availabilityZone: "us-east-1c",
+            size: 24,
+            type: "st1",
+            expiration: null,
+            noExpiration: false,
+            host: "i-00b212e96b3f91079",
+          },
+        },
+      },
+      result: { data: { spawnVolume: true } },
+    };
+    const { Component, dispatchToast } = RenderFakeToastContext(
+      <SpawnVolumeModal visible onCancel={() => {}} />
+    );
+    const { queryByText, queryByDataCy } = render(() => (
+      <MockedProvider
+        addTypename={false}
+        mocks={[...baseMocks, spawnVolumeMutation]}
+      >
+        <Component />
+      </MockedProvider>
+    ));
+    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+    fireEvent.change(queryByDataCy("volumeSize"), { target: { value: "24" } });
+    fireEvent.mouseDown(queryByDataCy("regionSelector").firstElementChild);
+    fireEvent.click(queryByText("us-east-1c"));
+    fireEvent.mouseDown(queryByDataCy("typeSelector").firstElementChild);
+    fireEvent.click(queryByText("st1"));
+    fireEvent.mouseDown(queryByDataCy("host-select").firstElementChild);
+    fireEvent.click(queryByDataCy("i-00b212e96b3f91079-option"));
+    fireEvent.click(queryByText("Spawn"));
+    await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
+  });
+});
 
 const myHostsMock = {
   request: {
@@ -204,151 +322,10 @@ const subnetZonesMock = {
   },
 };
 
-const baseMocks = [
+const baseMocks: MockedResponse[] = [
   userMock,
   subnetZonesMock,
   myHostsMock,
   getSpruceConfigMock,
   myVolumesQueryMock,
 ];
-
-const mockSuccessToast = jest.fn();
-const mockErrorToast = jest.fn();
-jest.mock("context/toast", () => ({
-  useToastContext: () => ({
-    success: mockSuccessToast,
-    error: mockErrorToast,
-  }),
-}));
-
-beforeEach(() => {
-  mockSuccessToast.mockClear();
-  mockErrorToast.mockClear();
-});
-
-test("Renders the Spawn Volume Modal when the visible prop is true", async () => {
-  const { queryByDataCy } = render(() => (
-    <MockedProvider mocks={baseMocks}>
-      <SpawnVolumeModal visible onCancel={() => {}} />
-    </MockedProvider>
-  ));
-  expect(queryByDataCy("modal-title")).toBeVisible();
-});
-
-test("Does not renders the Spawn Volume Modal when the visible prop is false", async () => {
-  const { queryByDataCy } = render(() => (
-    <MockedProvider mocks={baseMocks}>
-      <SpawnVolumeModal visible={false} onCancel={() => {}} />
-    </MockedProvider>
-  ));
-  expect(queryByDataCy("modal-title")).not.toBeInTheDocument();
-});
-
-test("Form contains default volumes on initial render.", async () => {
-  const { queryByDataCy } = render(() => (
-    <MockedProvider mocks={baseMocks}>
-      <SpawnVolumeModal visible onCancel={() => {}} />
-    </MockedProvider>
-  ));
-  await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-  await waitFor(() => expect(queryByDataCy("volumeSize")).toHaveValue("500"));
-
-  expect(queryByDataCy("regionSelector")).toContainHTML(
-    '<span class="ant-select-selection-item" title="us-east-1a">us-east-1a</span>'
-  );
-  expect(queryByDataCy("typeSelector")).toContainHTML(
-    '<span class="ant-select-selection-item" title="gp2">gp2</span>'
-  );
-  expect(queryByDataCy("neverExpireCheckbox")).toHaveAttribute(
-    "aria-checked",
-    "false"
-  );
-  expect(queryByDataCy("host-select")).toContainHTML(
-    '<span class="ant-select-selection-item" title=" "> </span>'
-  );
-});
-
-test("Form submission succeeds with default values", async () => {
-  const mocks = [
-    ...baseMocks,
-    userMock,
-    subnetZonesMock,
-    myHostsMock,
-    myHostsMock,
-    getSpruceConfigMock,
-    myVolumesQueryMock,
-    {
-      request: {
-        query: SPAWN_VOLUME,
-        variables: {
-          SpawnVolumeInput: {
-            availabilityZone: "us-east-1a",
-            size: 500,
-            type: "gp2",
-            expiration: null,
-            noExpiration: false,
-          },
-        },
-      },
-      result: { data: { spawnVolume: true } },
-    },
-    myVolumesQueryMock,
-    myVolumesQueryMock,
-    getSpruceConfigMock,
-  ];
-  const { queryByText } = render(() => (
-    <MockedProvider mocks={mocks}>
-      <SpawnVolumeModal visible onCancel={() => {}} />
-    </MockedProvider>
-  ));
-  await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-  fireEvent.click(queryByText("Spawn"));
-  await waitFor(() => expect(mockSuccessToast).toHaveBeenCalledTimes(1));
-  await waitFor(() => expect(mockErrorToast).toHaveBeenCalledTimes(0));
-});
-
-test("Form submission succeeds after adjusting inputs", async () => {
-  const mocks = [
-    ...baseMocks,
-    userMock,
-    subnetZonesMock,
-    myHostsMock,
-    getSpruceConfigMock,
-    myVolumesQueryMock,
-    {
-      request: {
-        query: SPAWN_VOLUME,
-        variables: {
-          SpawnVolumeInput: {
-            availabilityZone: "us-east-1c",
-            size: 24,
-            type: "st1",
-            expiration: null,
-            noExpiration: false,
-            host: "i-00b212e96b3f91079",
-          },
-        },
-      },
-      result: { data: { spawnVolume: true } },
-    },
-    myVolumesQueryMock,
-    getSpruceConfigMock,
-    myHostsMock,
-  ];
-  const { queryByText, queryByDataCy } = render(() => (
-    <MockedProvider addTypename={false} mocks={mocks}>
-      <SpawnVolumeModal visible onCancel={() => {}} />
-    </MockedProvider>
-  ));
-  await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-  fireEvent.change(queryByDataCy("volumeSize"), { target: { value: "24" } });
-  fireEvent.mouseDown(queryByDataCy("regionSelector").firstElementChild);
-  fireEvent.click(queryByText("us-east-1c"));
-  fireEvent.mouseDown(queryByDataCy("typeSelector").firstElementChild);
-  fireEvent.click(queryByText("st1"));
-  fireEvent.mouseDown(queryByDataCy("host-select").firstElementChild);
-  fireEvent.click(queryByDataCy("i-00b212e96b3f91079-option"));
-  fireEvent.click(queryByText("Spawn"));
-  await waitFor(() => expect(mockSuccessToast).toHaveBeenCalledTimes(1));
-  await waitFor(() => expect(mockErrorToast).toHaveBeenCalledTimes(0));
-});

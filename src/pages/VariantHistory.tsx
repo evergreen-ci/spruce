@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
@@ -22,27 +22,28 @@ import {
 } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { TestStatus } from "types/history";
-import { queryString, string } from "utils";
+import { queryString, string, array } from "utils";
 import ColumnHeaders from "./variantHistory/ColumnHeaders";
 import { TaskSelector } from "./variantHistory/TaskSelector";
 import VariantHistoryRow from "./variantHistory/VariantHistoryRow";
 
-const { HistoryTableProvider } = context;
+const { HistoryTableProvider, useHistoryTable } = context;
+const { toArray } = array;
 const { parseQueryString } = queryString;
 const { applyStrictRegex } = string;
 
-export const VariantHistory = () => {
+export const VariantHistoryContents: React.FC = () => {
   const { projectId, variantName } = useParams<{
     projectId: string;
     variantName: string;
   }>();
 
   usePageTitle(`Variant History | ${projectId} | ${variantName}`);
-  const [nextPageOrderNumber, setNextPageOrderNumber] = useState(0);
+  const [nextPageOrderNumber, setNextPageOrderNumber] = useState(null);
   const variables = {
     mainlineCommitsOptions: {
       projectID: projectId,
-      limit: 20,
+      limit: 5,
       skipOrderNumber: nextPageOrderNumber,
     },
     buildVariantOptions: {
@@ -68,67 +69,92 @@ export const VariantHistory = () => {
     },
   });
 
+  const { setHistoryTableFilters, addColumns } = useHistoryTable();
+
   const { taskNamesForBuildVariant } = columnData || {};
   const { mainlineCommits } = data || {};
   const { search } = useLocation();
-  const queryParams = parseQueryString(search);
+  const queryParams = useMemo(() => parseQueryString(search), [search]);
 
-  let selectedTaskNames = [];
-  if (typeof queryParams.tasks === "string") {
-    selectedTaskNames = [queryParams.tasks];
-  } else {
-    selectedTaskNames = queryParams.tasks;
-  }
-
+  const selectedTaskNames = useMemo(() => toArray(queryParams.tasks), [
+    queryParams.tasks,
+  ]);
+  useEffect(() => {
+    const failingTests = toArray(queryParams[TestStatus.Failed]);
+    const passingTests = toArray(queryParams[TestStatus.Passed]);
+    const failingTestFilters = failingTests.map((test) => ({
+      testName: test,
+      testStatus: TestStatus.Failed,
+    }));
+    const passingTestFilters = passingTests.map((test) => ({
+      testName: test,
+      testStatus: TestStatus.Passed,
+    }));
+    setHistoryTableFilters([...failingTestFilters, ...passingTestFilters]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [queryParams]);
   const queryParamsToDisplay = new Set([
     TestStatus.Failed,
     TestStatus.Passed,
     TestStatus.All,
   ]);
 
-  const selectedColumns = selectedTaskNames?.length
-    ? taskNamesForBuildVariant?.filter((task) =>
-        selectedTaskNames.includes(task)
-      )
-    : taskNamesForBuildVariant;
+  const selectedColumns = useMemo(
+    () =>
+      selectedTaskNames.length
+        ? taskNamesForBuildVariant?.filter((task) =>
+            selectedTaskNames.includes(task)
+          )
+        : taskNamesForBuildVariant,
+    [selectedTaskNames, taskNamesForBuildVariant]
+  );
+
+  useEffect(() => {
+    addColumns(toArray(selectedColumns));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedColumns]);
+
   return (
     <PageWrapper>
       <CenterPage>
-        <HistoryTableProvider>
-          <PageHeader>
-            <H2>Build Variant: {variantName}</H2>
-            <PageHeaderContent>
-              <HistoryTableTestSearch />
-              <TaskSelector projectId={projectId} buildVariant={variantName} />
-            </PageHeaderContent>
-          </PageHeader>
-          <PaginationFilterWrapper>
-            <BadgeWrapper>
-              <FilterBadges queryParamsToDisplay={queryParamsToDisplay} />
-            </BadgeWrapper>
-            <ColumnPaginationButtons />
-          </PaginationFilterWrapper>
-          <TableContainer>
-            <ColumnHeaders loading={loading} columns={selectedColumns} />
-            <TableWrapper>
-              <HistoryTable
-                recentlyFetchedCommits={mainlineCommits}
-                loadMoreItems={() => {
-                  if (mainlineCommits) {
-                    setNextPageOrderNumber(mainlineCommits.nextPageOrderNumber);
-                  }
-                }}
-              >
-                {VariantHistoryRow}
-              </HistoryTable>
-            </TableWrapper>
-          </TableContainer>
-        </HistoryTableProvider>
+        <PageHeader>
+          <H2>Build Variant: {variantName}</H2>
+          <PageHeaderContent>
+            <HistoryTableTestSearch />
+            <TaskSelector projectId={projectId} buildVariant={variantName} />
+          </PageHeaderContent>
+        </PageHeader>
+        <PaginationFilterWrapper>
+          <BadgeWrapper>
+            <FilterBadges queryParamsToDisplay={queryParamsToDisplay} />
+          </BadgeWrapper>
+          <ColumnPaginationButtons />
+        </PaginationFilterWrapper>
+        <div>
+          <ColumnHeaders loading={loading} columns={selectedColumns} />
+          <TableWrapper>
+            <HistoryTable
+              recentlyFetchedCommits={mainlineCommits}
+              loadMoreItems={() => {
+                if (mainlineCommits) {
+                  setNextPageOrderNumber(mainlineCommits.nextPageOrderNumber);
+                }
+              }}
+            >
+              {VariantHistoryRow}
+            </HistoryTable>
+          </TableWrapper>
+        </div>
       </CenterPage>
     </PageWrapper>
   );
 };
 
+export const VariantHistory = () => (
+  <HistoryTableProvider>
+    <VariantHistoryContents />
+  </HistoryTableProvider>
+);
 const PageHeader = styled.div`
   display: flex;
   flex-direction: column;
@@ -153,9 +179,6 @@ const BadgeWrapper = styled.div`
 
 const TableWrapper = styled.div`
   height: 80vh;
-`;
-const TableContainer = styled.div`
-  padding-top: 60px;
 `;
 
 const CenterPage = styled.div`

@@ -1,8 +1,8 @@
-import { render } from "test_utils/test-utils";
+import { render } from "test_utils";
 import { FoldedCommit } from "./FoldedCommit";
 
-describe("FoldedCommit", () => {
-  test("Displays the number of inactive commits", () => {
+describe("foldedCommit", () => {
+  it("displays the number of inactive commits", () => {
     const { queryByText } = render(
       <FoldedCommit rolledUpCommits={rolledUpCommits} />
     );

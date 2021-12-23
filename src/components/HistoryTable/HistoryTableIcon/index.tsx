@@ -1,21 +1,17 @@
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
+import { Skeleton } from "antd";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
-import { inactiveElementStyle } from "components/styles";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { TaskStatus } from "types/task";
-
-interface FailingTest {
-  testName: string;
-  testId: string;
-}
 
 interface HistoryTableIconProps {
   status: TaskStatus;
   label?: string;
-  failingTests?: FailingTest[];
+  failingTests?: string[];
   inactive?: boolean;
+  loadingTestResults?: boolean;
   onClick?: () => void;
 }
 
@@ -24,7 +20,8 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
   label,
   failingTests = [],
   inactive,
-  onClick,
+  loadingTestResults,
+  onClick = () => {},
 }) => (
   <ConditionalWrapper
     condition={inactive || failingTests.length > 0}
@@ -39,15 +36,16 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
         triggerEvent="hover"
       >
         <TestNameContainer>
-          {failingTests.map(({ testName, testId }) => (
-            <Body key={testId}>{testName}</Body>
+          {failingTests.map((testName) => (
+            <TestName key={testName}>{testName}</TestName>
           ))}
+          {loadingTestResults && <Skeleton active data-cy="skeleton" />}
         </TestNameContainer>
       </Tooltip>
     )}
   >
-    <Container onClick={onClick} data-cy="history-table-icon">
-      <IconContainer inactive={inactive}>
+    <Container onClick={() => onClick()} data-cy="history-table-icon">
+      <IconContainer>
         <TaskStatusIcon status={status} size={30} />
       </IconContainer>
       {!inactive && <Body>{label}</Body>}
@@ -69,12 +67,12 @@ const Container = styled.div<ContainerProps>`
   ${({ onClick }) => onClick && "cursor: pointer;"}
 `;
 
-interface IconContainerProps {
-  inactive?: boolean;
-}
-const IconContainer = styled.div<IconContainerProps>`
+const IconContainer = styled.div`
   height: 30px;
   width: 30px;
   text-align: center;
-  ${({ inactive }) => inactive && inactiveElementStyle}
+`;
+
+const TestName = styled.div`
+  word-break: break-all;
 `;

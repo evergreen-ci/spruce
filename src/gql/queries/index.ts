@@ -42,6 +42,7 @@ import GET_TASK_FILES from "./get-task-files.graphql";
 import GET_TASK_LOGS from "./get-task-logs.graphql";
 import GET_TASK_NAMES_FOR_BUILD_VARIANT from "./get-task-names-for-build-variant.graphql";
 import GET_TASK_STATUSES from "./get-task-statuses.graphql";
+import GET_TASK_TEST_SAMPLE from "./get-task-test-sample.graphql";
 import GET_TASK_TESTS from "./get-task-tests.graphql";
 import GET_TASK from "./get-task.graphql";
 import GET_TESTS from "./get-tests.graphql";
@@ -50,6 +51,7 @@ import GET_USER_CONFIG from "./get-user-config.graphql";
 import GET_USER_SETTINGS from "./get-user-settings.graphql";
 import GET_USER from "./get-user.graphql";
 import GET_VERSION from "./get-version.graphql";
+import GET_VIEWABLE_PROJECTS from "./get-viewable-projects.graphql";
 import HOSTS from "./hosts.graphql";
 import GET_PROJECT_PATCHES from "./project-patches.graphql";
 import GET_SPAWN_EXPIRATION_INFO from "./spawn-expiration.graphql";
@@ -78,6 +80,7 @@ export {
   GET_REPO_SETTINGS,
   GET_TASK_FILES,
   GET_TASK_TESTS,
+  GET_TASK_TEST_SAMPLE,
   GET_TASK,
   GET_TASK_ALL_EXECUTIONS,
   GET_TASK_STATUSES,
@@ -115,6 +118,7 @@ export {
   GET_OTHER_USER,
   GET_PATCH,
   GET_VERSION,
+  GET_VIEWABLE_PROJECTS,
   GET_PATCH_CONFIGURE,
   GET_FAILED_TASK_STATUS_ICON_TOOLTIP,
   GET_UNSCHEDULED_TASKS,

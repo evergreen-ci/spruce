@@ -1,3 +1,4 @@
+import { TestFilter } from "gql/generated/types";
 import { CommitRowType, mainlineCommits } from "./types";
 import { processCommits } from "./utils";
 
@@ -6,14 +7,15 @@ type Action =
   | { type: "addColumns"; columns: string[] }
   | { type: "nextPageColumns" }
   | { type: "prevPageColumns" }
-  | { type: "setColumnLimit"; limit: number };
+  | { type: "setColumnLimit"; limit: number }
+  | { type: "setHistoryTableFilters"; filters: TestFilter[] };
 
 type cacheShape = Map<
   number,
   | mainlineCommits["versions"][0]["version"]
   | mainlineCommits["versions"][0]["rolledUpVersions"][0]
 >;
-interface HistoryTableState {
+export interface HistoryTableReducerState {
   loadedCommits: mainlineCommits["versions"];
   processedCommits: CommitRowType[];
   processedCommitCount: number;
@@ -23,9 +25,11 @@ interface HistoryTableState {
   pageCount: number;
   columns: string[];
   columnLimit: number;
+  historyTableFilters: TestFilter[];
+  commitCount: number;
 }
 
-export const reducer = (state: HistoryTableState, action: Action) => {
+export const reducer = (state: HistoryTableReducerState, action: Action) => {
   switch (action.type) {
     case "ingestNewCommits": {
       // We cache the commits and use this to determine if a new commit was added in this action
@@ -39,11 +43,26 @@ export const reducer = (state: HistoryTableState, action: Action) => {
           action.commits.versions,
           state.processedCommits
         );
+        let { commitCount } = state;
+        // If there are no previous commits, we can set the commitCount to be the first commit's order.
+        if (action.commits.prevPageOrderNumber == null) {
+          for (let i = 0; i < action.commits.versions.length; i++) {
+            if (action.commits.versions[i].version) {
+              // We set the commitCount to double the order number just so we have room for non commit rows (date separators) and (folded commits)
+              commitCount = action.commits.versions[i].version.order * 2;
+              break;
+            }
+          }
+          // if we have no more commits we have processed everything and know how many commits we have so set the value to that
+        } else if (action.commits.nextPageOrderNumber == null) {
+          commitCount = processedCommits.length;
+        }
         return {
           ...state,
           commitCache: updatedObjectCache,
           processedCommits,
           processedCommitCount: processedCommits.length,
+          commitCount,
         };
       }
       return state;
@@ -90,6 +109,11 @@ export const reducer = (state: HistoryTableState, action: Action) => {
       return {
         ...state,
         columnLimit: action.limit,
+      };
+    case "setHistoryTableFilters":
+      return {
+        ...state,
+        historyTableFilters: action.filters,
       };
     default:
       throw new Error(`Unknown reducer action${action}`);

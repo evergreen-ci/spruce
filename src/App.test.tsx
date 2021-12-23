@@ -1,16 +1,12 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import { act } from "react-dom/test-utils";
-import fetch from "unfetch";
 import App from "App";
-// @ts-ignore
-window.fetch = fetch;
+import { render, act } from "test_utils";
 
-it("renders without crashing", async () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<App />, div);
-  await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-  act(() => {
-    ReactDOM.unmountComponentAtNode(div);
+describe("app", () => {
+  it("renders without crashing", async () => {
+    expect.hasAssertions();
+    const { getByText } = render(<App />);
+    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+    expect(getByText("LOADING...")).toBeInTheDocument();
   });
 });

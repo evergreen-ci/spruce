@@ -25,9 +25,11 @@ export type Query = {
   patch: Patch;
   version: Version;
   projects: Array<Maybe<GroupedProjects>>;
+  viewableProjectRefs: Array<Maybe<GroupedProjects>>;
   project: Project;
   patchTasks: PatchTasks;
   taskTests: TaskTestResult;
+  taskTestSample?: Maybe<Array<TaskTestResultSample>>;
   taskFiles: TaskFiles;
   user: User;
   taskLogs: TaskLogs;
@@ -57,6 +59,8 @@ export type Query = {
   buildVariantsForTaskName?: Maybe<Array<Maybe<BuildVariantTuple>>>;
   projectSettings: ProjectSettings;
   repoSettings: RepoSettings;
+  projectEvents: ProjectEvents;
+  repoEvents: RepoEvents;
   hasVersion: Scalars["Boolean"];
 };
 
@@ -103,6 +107,11 @@ export type QueryTaskTestsArgs = {
   testName?: Maybe<Scalars["String"]>;
   statuses?: Array<Scalars["String"]>;
   groupId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryTaskTestSampleArgs = {
+  tasks: Array<Scalars["String"]>;
+  filters: Array<TestFilter>;
 };
 
 export type QueryTaskFilesArgs = {
@@ -190,6 +199,18 @@ export type QueryRepoSettingsArgs = {
   id: Scalars["String"];
 };
 
+export type QueryProjectEventsArgs = {
+  identifier: Scalars["String"];
+  limit?: Maybe<Scalars["Int"]>;
+  before?: Maybe<Scalars["Time"]>;
+};
+
+export type QueryRepoEventsArgs = {
+  id: Scalars["String"];
+  limit?: Maybe<Scalars["Int"]>;
+  before?: Maybe<Scalars["Time"]>;
+};
+
 export type QueryHasVersionArgs = {
   id: Scalars["String"];
 };
@@ -199,6 +220,7 @@ export type Mutation = {
   removeFavoriteProject: Project;
   createProject: Project;
   copyProject: Project;
+  attachProjectToNewRepo: Project;
   saveProjectSettingsForSection: ProjectSettings;
   saveRepoSettingsForSection: RepoSettings;
   attachProjectToRepo: Project;
@@ -262,14 +284,18 @@ export type MutationCopyProjectArgs = {
   project: CopyProjectInput;
 };
 
+export type MutationAttachProjectToNewRepoArgs = {
+  project: MoveProjectInput;
+};
+
 export type MutationSaveProjectSettingsForSectionArgs = {
   projectSettings?: Maybe<ProjectSettingsInput>;
-  section: Scalars["String"];
+  section: ProjectSettingsSection;
 };
 
 export type MutationSaveRepoSettingsForSectionArgs = {
   repoSettings?: Maybe<RepoSettingsInput>;
-  section: Scalars["String"];
+  section: ProjectSettingsSection;
 };
 
 export type MutationAttachProjectToRepoArgs = {
@@ -464,6 +490,18 @@ export type VersionToRestart = {
   taskIds: Array<Scalars["String"]>;
 };
 
+export type TestFilter = {
+  testName: Scalars["String"];
+  testStatus: Scalars["String"];
+};
+
+export type TaskTestResultSample = {
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
+  totalTestCount: Scalars["Int"];
+  matchingFailedTestNames: Array<Scalars["String"]>;
+};
+
 export type MainlineCommits = {
   nextPageOrderNumber?: Maybe<Scalars["Int"]>;
   prevPageOrderNumber?: Maybe<Scalars["Int"]>;
@@ -497,7 +535,9 @@ export type Version = {
   patch?: Maybe<Patch>;
   childVersions?: Maybe<Array<Maybe<Version>>>;
   taskCount?: Maybe<Scalars["Int"]>;
+  /** @deprecated baseVersionId is deprecated, use baseVersion.id instead */
   baseVersionID?: Maybe<Scalars["String"]>;
+  baseVersion?: Maybe<Version>;
   versionTiming?: Maybe<VersionTiming>;
   parameters: Array<Parameter>;
   taskStatuses: Array<Scalars["String"]>;
@@ -605,6 +645,19 @@ export enum TaskQueueItemType {
   Patch = "PATCH",
 }
 
+export enum ProjectSettingsSection {
+  General = "GENERAL",
+  Access = "ACCESS",
+  Variables = "VARIABLES",
+  GithubAndCommitQueue = "GITHUB_AND_COMMIT_QUEUE",
+  Notifications = "NOTIFICATIONS",
+  PatchAliases = "PATCH_ALIASES",
+  Workstation = "WORKSTATION",
+  Triggers = "TRIGGERS",
+  PeriodicBuilds = "PERIODIC_BUILDS",
+  Plugins = "PLUGINS",
+}
+
 export type VolumeHost = {
   volumeId: Scalars["String"];
   hostId: Scalars["String"];
@@ -677,6 +730,7 @@ export type CreateProjectInput = {
   identifier: Scalars["String"];
   owner: Scalars["String"];
   repo: Scalars["String"];
+  repoRefId?: Maybe<Scalars["String"]>;
   id?: Maybe<Scalars["String"]>;
 };
 
@@ -684,6 +738,12 @@ export type CopyProjectInput = {
   projectIdToCopy: Scalars["String"];
   newProjectIdentifier: Scalars["String"];
   newProjectId?: Maybe<Scalars["String"]>;
+};
+
+export type MoveProjectInput = {
+  projectId: Scalars["String"];
+  newOwner: Scalars["String"];
+  newRepo: Scalars["String"];
 };
 
 export type ProjectSettingsInput = {
@@ -700,6 +760,7 @@ export type ProjectInput = {
   displayName?: Maybe<Scalars["String"]>;
   enabled?: Maybe<Scalars["Boolean"]>;
   private?: Maybe<Scalars["Boolean"]>;
+  restricted?: Maybe<Scalars["Boolean"]>;
   owner?: Maybe<Scalars["String"]>;
   repo?: Maybe<Scalars["String"]>;
   branch?: Maybe<Scalars["String"]>;
@@ -729,6 +790,9 @@ export type ProjectInput = {
   filesIgnoredFromCache?: Maybe<Array<Scalars["String"]>>;
   disabledStatsCache?: Maybe<Scalars["Boolean"]>;
   workstationConfig?: Maybe<WorkstationConfigInput>;
+  perfEnabled?: Maybe<Scalars["Boolean"]>;
+  buildBaronSettings?: Maybe<BuildBaronSettingsInput>;
+  taskAnnotationSettings?: Maybe<TaskAnnotationSettingsInput>;
   hidden?: Maybe<Scalars["Boolean"]>;
   useRepoSettings?: Maybe<Scalars["Boolean"]>;
 };
@@ -746,6 +810,7 @@ export type RepoRefInput = {
   displayName?: Maybe<Scalars["String"]>;
   enabled?: Maybe<Scalars["Boolean"]>;
   private?: Maybe<Scalars["Boolean"]>;
+  restricted?: Maybe<Scalars["Boolean"]>;
   owner?: Maybe<Scalars["String"]>;
   repo?: Maybe<Scalars["String"]>;
   branch?: Maybe<Scalars["String"]>;
@@ -775,6 +840,9 @@ export type RepoRefInput = {
   filesIgnoredFromCache?: Maybe<Array<Scalars["String"]>>;
   disabledStatsCache?: Maybe<Scalars["Boolean"]>;
   workstationConfig?: Maybe<WorkstationConfigInput>;
+  perfEnabled?: Maybe<Scalars["Boolean"]>;
+  buildBaronSettings?: Maybe<BuildBaronSettingsInput>;
+  taskAnnotationSettings?: Maybe<TaskAnnotationSettingsInput>;
 };
 
 export type TriggerAliasInput = {
@@ -807,8 +875,33 @@ export type CommitQueueParamsInput = {
 };
 
 export type TaskSyncOptionsInput = {
-  configEnabled: Scalars["Boolean"];
-  patchEnabled: Scalars["Boolean"];
+  configEnabled?: Maybe<Scalars["Boolean"]>;
+  patchEnabled?: Maybe<Scalars["Boolean"]>;
+};
+
+export type BuildBaronSettingsInput = {
+  ticketCreateProject: Scalars["String"];
+  ticketSearchProjects?: Maybe<Array<Scalars["String"]>>;
+  bfSuggestionServer?: Maybe<Scalars["String"]>;
+  bfSuggestionUsername?: Maybe<Scalars["String"]>;
+  bfSuggestionPassword?: Maybe<Scalars["String"]>;
+  bfSuggestionTimeoutSecs?: Maybe<Scalars["Int"]>;
+  bfSuggestionFeaturesURL?: Maybe<Scalars["String"]>;
+};
+
+export type TaskAnnotationSettingsInput = {
+  jiraCustomFields?: Maybe<Array<JiraFieldInput>>;
+  fileTicketWebhook: WebhookInput;
+};
+
+export type JiraFieldInput = {
+  field: Scalars["String"];
+  displayText: Scalars["String"];
+};
+
+export type WebhookInput = {
+  endpoint: Scalars["String"];
+  secret: Scalars["String"];
 };
 
 export type WorkstationConfigInput = {
@@ -1073,7 +1166,9 @@ export type Patch = {
   patchNumber: Scalars["Int"];
   author: Scalars["String"];
   authorDisplayName: Scalars["String"];
+  /** @deprecated version is deprecated, use versionFull.id instead */
   version: Scalars["String"];
+  versionFull?: Maybe<Version>;
   status: Scalars["String"];
   variants: Array<Scalars["String"]>;
   tasks: Array<Scalars["String"]>;
@@ -1267,6 +1362,7 @@ export type Task = {
   activatedTime?: Maybe<Scalars["Time"]>;
   ami?: Maybe<Scalars["String"]>;
   annotation?: Maybe<Annotation>;
+  bbTicketCreationDefined: Scalars["Boolean"];
   baseTask?: Maybe<Task>;
   baseStatus?: Maybe<Scalars["String"]>;
   /** @deprecated baseTaskMetadata is deprecated. Use baseTask instead */
@@ -1340,12 +1436,15 @@ export type BaseTaskInfo = {
 };
 
 export type GroupedProjects = {
+  groupDisplayName: Scalars["String"];
+  /** @deprecated name is deprecated. Use groupDisplayName instead. */
   name: Scalars["String"];
+  repo?: Maybe<RepoRef>;
   projects: Array<Project>;
 };
 
 export type ProjectSettings = {
-  githubWebhooksEnabled: Scalars["Boolean"];
+  gitHubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<Project>;
   vars?: Maybe<ProjectVars>;
   aliases?: Maybe<Array<ProjectAlias>>;
@@ -1353,11 +1452,35 @@ export type ProjectSettings = {
 };
 
 export type RepoSettings = {
-  githubWebhooksEnabled: Scalars["Boolean"];
+  gitHubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<RepoRef>;
   vars?: Maybe<ProjectVars>;
   aliases?: Maybe<Array<ProjectAlias>>;
   subscriptions?: Maybe<Array<ProjectSubscription>>;
+};
+
+export type ProjectEvents = {
+  eventLogEntries: Array<ProjectEventLogEntry>;
+  count: Scalars["Int"];
+};
+
+export type ProjectEventLogEntry = {
+  timestamp: Scalars["Time"];
+  user: Scalars["String"];
+  before?: Maybe<ProjectSettings>;
+  after?: Maybe<ProjectSettings>;
+};
+
+export type RepoEvents = {
+  eventLogEntries: Array<RepoEventLogEntry>;
+  count: Scalars["Int"];
+};
+
+export type RepoEventLogEntry = {
+  timestamp: Scalars["Time"];
+  user: Scalars["String"];
+  before?: Maybe<RepoSettings>;
+  after?: Maybe<RepoSettings>;
 };
 
 export type ProjectVars = {
@@ -1442,6 +1565,7 @@ export type Project = {
   displayName: Scalars["String"];
   enabled?: Maybe<Scalars["Boolean"]>;
   private?: Maybe<Scalars["Boolean"]>;
+  restricted?: Maybe<Scalars["Boolean"]>;
   owner: Scalars["String"];
   repo: Scalars["String"];
   branch: Scalars["String"];
@@ -1471,6 +1595,9 @@ export type Project = {
   filesIgnoredFromCache?: Maybe<Array<Scalars["String"]>>;
   disabledStatsCache?: Maybe<Scalars["Boolean"]>;
   workstationConfig: WorkstationConfig;
+  perfEnabled?: Maybe<Scalars["Boolean"]>;
+  buildBaronSettings: BuildBaronSettings;
+  taskAnnotationSettings: TaskAnnotationSettings;
   hidden?: Maybe<Scalars["Boolean"]>;
   useRepoSettings: Scalars["Boolean"];
   repoRefId: Scalars["String"];
@@ -1488,6 +1615,7 @@ export type RepoRef = {
   displayName: Scalars["String"];
   enabled: Scalars["Boolean"];
   private: Scalars["Boolean"];
+  restricted: Scalars["Boolean"];
   owner: Scalars["String"];
   repo: Scalars["String"];
   branch: Scalars["String"];
@@ -1517,6 +1645,9 @@ export type RepoRef = {
   filesIgnoredFromCache?: Maybe<Array<Scalars["String"]>>;
   disabledStatsCache: Scalars["Boolean"];
   workstationConfig: RepoWorkstationConfig;
+  perfEnabled: Scalars["Boolean"];
+  buildBaronSettings: BuildBaronSettings;
+  taskAnnotationSettings: TaskAnnotationSettings;
   validDefaultLoggers: Array<Scalars["String"]>;
 };
 
@@ -1568,6 +1699,31 @@ export type RepoTaskSyncOptions = {
 export type WorkstationConfig = {
   setupCommands?: Maybe<Array<WorkstationSetupCommand>>;
   gitClone?: Maybe<Scalars["Boolean"]>;
+};
+
+export type BuildBaronSettings = {
+  ticketCreateProject: Scalars["String"];
+  ticketSearchProjects?: Maybe<Array<Scalars["String"]>>;
+  bfSuggestionServer?: Maybe<Scalars["String"]>;
+  bfSuggestionUsername?: Maybe<Scalars["String"]>;
+  bfSuggestionPassword?: Maybe<Scalars["String"]>;
+  bfSuggestionTimeoutSecs?: Maybe<Scalars["Int"]>;
+  bfSuggestionFeaturesURL?: Maybe<Scalars["String"]>;
+};
+
+export type TaskAnnotationSettings = {
+  jiraCustomFields?: Maybe<Array<JiraField>>;
+  fileTicketWebhook: Webhook;
+};
+
+export type JiraField = {
+  field: Scalars["String"];
+  displayText: Scalars["String"];
+};
+
+export type Webhook = {
+  endpoint: Scalars["String"];
+  secret: Scalars["String"];
 };
 
 export type RepoWorkstationConfig = {
@@ -1996,7 +2152,6 @@ export type PatchesPagePatchesFragment = {
     createTime?: Maybe<Date>;
     commitQueuePosition?: Maybe<number>;
     canEnqueueToCommitQueue: boolean;
-    builds: Array<{ id: string; buildVariant: string; status: string }>;
     childPatches?: Maybe<
       Array<{
         baseVersionID?: Maybe<string>;
@@ -2007,6 +2162,10 @@ export type PatchesPagePatchesFragment = {
         status: string;
       }>
     >;
+    versionFull?: Maybe<{
+      id: string;
+      taskStatusCounts?: Maybe<Array<{ status: string; count: number }>>;
+    }>;
   }>;
 };
 
@@ -2015,6 +2174,18 @@ export type ProjectFragment = {
   repo: string;
   owner: string;
   displayName: string;
+};
+
+export type ProjectAccessSettingsFragment = {
+  private?: Maybe<boolean>;
+  restricted?: Maybe<boolean>;
+  admins?: Maybe<Array<Maybe<string>>>;
+};
+
+export type RepoAccessSettingsFragment = {
+  private: boolean;
+  restricted: boolean;
+  admins: Array<string>;
 };
 
 export type ProjectGeneralSettingsFragment = {
@@ -2270,17 +2441,42 @@ export type RestartVersionsMutation = {
   >;
 };
 
+export type SaveProjectSettingsForSectionMutationVariables = Exact<{
+  projectSettings: ProjectSettingsInput;
+  section: ProjectSettingsSection;
+}>;
+
+export type SaveProjectSettingsForSectionMutation = {
+  saveProjectSettingsForSection: {
+    projectRef?: Maybe<
+      {
+        id: string;
+        useRepoSettings: boolean;
+        repoRefId: string;
+      } & ProjectGeneralSettingsFragment &
+        ProjectAccessSettingsFragment
+    >;
+  };
+};
+
+export type SaveRepoSettingsForSectionMutationVariables = Exact<{
+  repoSettings: RepoSettingsInput;
+  section: ProjectSettingsSection;
+}>;
+
+export type SaveRepoSettingsForSectionMutation = {
+  saveRepoSettingsForSection: {
+    projectRef?: Maybe<
+      { id: string } & RepoGeneralSettingsFragment & RepoAccessSettingsFragment
+    >;
+  };
+};
+
 export type SaveSubscriptionMutationVariables = Exact<{
   subscription: SubscriptionInput;
 }>;
 
 export type SaveSubscriptionMutation = { saveSubscription: boolean };
-
-export type SchedulePatchTasksMutationVariables = Exact<{
-  patchId: Scalars["String"];
-}>;
-
-export type SchedulePatchTasksMutation = { schedulePatchTasks?: Maybe<string> };
 
 export type SchedulePatchMutationVariables = Exact<{
   patchId: Scalars["String"];
@@ -2618,8 +2814,8 @@ export type CommitQueueQuery = {
           id: string;
           author: string;
           description: string;
-          version: string;
           activated: boolean;
+          versionFull?: Maybe<{ id: string }>;
           moduleCodeChanges: Array<ModuleCodeChangeFragment>;
         }>;
       }>
@@ -3107,7 +3303,8 @@ export type ProjectSettingsQuery = {
         id: string;
         useRepoSettings: boolean;
         repoRefId: string;
-      } & ProjectGeneralSettingsFragment
+      } & ProjectGeneralSettingsFragment &
+        ProjectAccessSettingsFragment
     >;
   };
 };
@@ -3141,7 +3338,11 @@ export type RepoSettingsQueryVariables = Exact<{
 }>;
 
 export type RepoSettingsQuery = {
-  repoSettings: { projectRef?: Maybe<RepoGeneralSettingsFragment> };
+  repoSettings: {
+    projectRef?: Maybe<
+      { id: string } & RepoGeneralSettingsFragment & RepoAccessSettingsFragment
+    >;
+  };
 };
 
 export type GetSpruceConfigQueryVariables = Exact<{ [key: string]: never }>;
@@ -3237,6 +3438,22 @@ export type GetTaskStatusesQuery = {
     taskStatuses: Array<string>;
     baseTaskStatuses: Array<string>;
   };
+};
+
+export type GetTaskTestSampleQueryVariables = Exact<{
+  tasks: Array<Scalars["String"]>;
+  filters: Array<TestFilter>;
+}>;
+
+export type GetTaskTestSampleQuery = {
+  taskTestSample?: Maybe<
+    Array<{
+      taskId: string;
+      execution: number;
+      matchingFailedTestNames: Array<string>;
+      totalTestCount: number;
+    }>
+  >;
 };
 
 export type TaskTestsQueryVariables = Exact<{
@@ -3501,6 +3718,16 @@ export type VersionQuery = {
       >;
     }>;
   };
+};
+
+export type GetViewableProjectRefsQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type GetViewableProjectRefsQuery = {
+  viewableProjectRefs: Array<
+    Maybe<{ projects: Array<{ identifier: string }> }>
+  >;
 };
 
 export type HostsQueryVariables = Exact<{

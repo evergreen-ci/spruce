@@ -1,0 +1,20 @@
+#import "../fragments/projectSettings/access.graphql"
+#import "../fragments/projectSettings/general.graphql"
+
+mutation SaveProjectSettingsForSection(
+  $projectSettings: ProjectSettingsInput!
+  $section: ProjectSettingsSection!
+) {
+  saveProjectSettingsForSection(
+    projectSettings: $projectSettings
+    section: $section
+  ) {
+    projectRef {
+      id
+      useRepoSettings
+      repoRefId
+      ...projectGeneralSettings
+      ...projectAccessSettings
+    }
+  }
+}

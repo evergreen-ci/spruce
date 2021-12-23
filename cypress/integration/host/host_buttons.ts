@@ -7,7 +7,6 @@ describe("Host page restart jasper, reprovision, and update host status buttons"
   beforeEach(() => {
     cy.preserveCookies();
   });
-
   it("Should show a toast when jasper restarted", () => {
     cy.dataCy("restart-jasper-button").click();
     cy.contains("button", "Yes").click();

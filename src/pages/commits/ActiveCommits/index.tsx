@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import CommitChartLabel from "components/CommitChartLabel";
 import { MainlineCommitsQuery } from "gql/generated/types";
 import { ChartTypes } from "types/commits";
+import { shortenGithash } from "utils/string";
 import { BuildVariantCard } from "./BuildVariantCard";
 import { CommitChart } from "./CommitChart";
 import { ColorCount } from "./utils";
@@ -34,7 +35,7 @@ export const ActiveCommit: React.FC<Props> = ({
       />
       <CommitChartLabel
         versionId={version.id}
-        githash={version.revision.substring(0, 5)}
+        githash={shortenGithash(version.revision)}
         createTime={version.createTime}
         author={version.author}
         message={version.message}

@@ -21,6 +21,8 @@ import REPROVISION_TO_NEW from "./reprovision-to-new.graphql";
 import RESTART_JASPER from "./restart-jasper.graphql";
 import RESTART_TASK from "./restart-task.graphql";
 import RESTART_VERSIONS from "./restart-versions.graphql";
+import SAVE_PROJECT_SETTINGS_FOR_SECTION from "./save-project-settings-for-section.graphql";
+import SAVE_REPO_SETTINGS_FOR_SECTION from "./save-repo-settings-for-section.graphql";
 import SAVE_SUBSCRIPTION from "./save-subscription.graphql";
 import SCHEDULE_PATCH from "./schedule-patch.graphql";
 import SCHEDULE_TASKS from "./schedule-tasks.graphql";
@@ -61,6 +63,8 @@ export {
   REPROVISION_TO_NEW,
   RESTART_TASK,
   RESTART_VERSIONS,
+  SAVE_PROJECT_SETTINGS_FOR_SECTION,
+  SAVE_REPO_SETTINGS_FOR_SECTION,
   SAVE_SUBSCRIPTION,
   SCHEDULE_PATCH,
   SCHEDULE_TASKS,

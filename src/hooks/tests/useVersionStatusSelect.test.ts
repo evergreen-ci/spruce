@@ -1,6 +1,6 @@
 import { renderHook, act } from "@testing-library/react-hooks";
 import { useVersionTaskStatusSelect } from "hooks";
-import { waitFor } from "test_utils/test-utils";
+import { waitFor } from "test_utils";
 
 const allFalse = {
   evergreen_lint_generate_lint: false,
@@ -25,238 +25,230 @@ const allTrue = {
   evergreen_ubuntu1604_test_model_host: true,
   evergreen_ubuntu1604_test_service: true,
 };
+describe("useVersionStatusSelect", () => {
+  it("should have no tasks and no valid statuses selected by default", () => {
+    const { result } = renderHook(() =>
+      useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
+    );
+    expect(result.current.selectedTasks[versionId]).toStrictEqual(allFalse);
+  });
 
-test("should have no tasks and no valid statuses selected by default", () => {
-  const { result } = renderHook(() =>
-    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
-  );
-  expect(result.current.selectedTasks[versionId]).toStrictEqual(allFalse);
-});
+  it("should select all tasks that match the patch status filter when the base status filter is empty", () => {
+    const { result } = renderHook(() =>
+      useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
+    );
+    act(() => {
+      result.current.setVersionStatusFilterTerm({
+        mainVersion: ["success"],
+      });
+    });
+    act(() => {
+      result.current.setBaseStatusFilterTerm({});
+    });
+    expect(result.current.selectedTasks[versionId]).toStrictEqual(
+      successStatusIds
+    );
+  });
 
-test("should select all tasks that match the patch status filter when the base status filter is empty", () => {
-  const { result } = renderHook(() =>
-    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
-  );
-  act(() => {
-    result.current.setVersionStatusFilterTerm({
-      mainVersion: ["success"],
+  it("should select all tasks that match the base status filter when the patch status filter is empty", () => {
+    const { result } = renderHook(() =>
+      useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
+    );
+    act(() => {
+      result.current.setVersionStatusFilterTerm({});
     });
-  });
-  act(() => {
-    result.current.setBaseStatusFilterTerm({});
-  });
-  expect(result.current.selectedTasks[versionId]).toEqual(successStatusIds);
-});
-
-test("should select all tasks that match the base status filter when the patch status filter is empty", () => {
-  const { result } = renderHook(() =>
-    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
-  );
-  act(() => {
-    result.current.setVersionStatusFilterTerm({});
-  });
-  act(() => {
-    result.current.setBaseStatusFilterTerm({
-      mainVersion: ["success"],
+    act(() => {
+      result.current.setBaseStatusFilterTerm({
+        mainVersion: ["success"],
+      });
     });
-  });
-  expect(result.current.selectedTasks[versionId]).toEqual({
-    ...allFalse,
-    evergreen_ubuntu1604_test_service: true,
-  });
-});
-
-test("should select all tasks that match the patch status filter when the base status filter is empty", () => {
-  const { result } = renderHook(() =>
-    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
-  );
-  act(() => {
-    result.current.setVersionStatusFilterTerm({
-      mainVersion: ["success"],
-    });
-  });
-  act(() => {
-    result.current.setBaseStatusFilterTerm({});
-  });
-  expect(result.current.selectedTasks[versionId]).toEqual(successStatusIds);
-});
-
-test("should select all tasks that match the patch status filter and base status filter when both filters have active filter terms.", () => {
-  const { result } = renderHook(() =>
-    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
-  );
-  act(() => {
-    result.current.setVersionStatusFilterTerm({
-      mainVersion: ["failed"],
-    });
-  });
-  act(() => {
-    result.current.setBaseStatusFilterTerm({
-      mainVersion: ["success"],
-    });
-  });
-  waitFor(() =>
-    expect(result.current.selectedTasks).toEqual({
+    expect(result.current.selectedTasks[versionId]).toStrictEqual({
       ...allFalse,
       evergreen_ubuntu1604_test_service: true,
-    })
-  );
-});
+    });
+  });
 
-test("tasks with undefined base statuses do not match with any base status filter state.", () => {
-  const { result } = renderHook(() =>
-    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
-  );
-  act(() => {
-    result.current.setVersionStatusFilterTerm({
-      mainVersion: ["success"],
+  it("should select all tasks that match the patch status filter and base status filter when both filters have active filter terms.", () => {
+    const { result } = renderHook(() =>
+      useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
+    );
+    act(() => {
+      result.current.setVersionStatusFilterTerm({
+        mainVersion: ["failed"],
+      });
     });
-  });
-  act(() => {
-    result.current.setBaseStatusFilterTerm({
-      mainVersion: ["success", "fakeStatus", "random"],
+    act(() => {
+      result.current.setBaseStatusFilterTerm({
+        mainVersion: ["success"],
+      });
     });
+    waitFor(() =>
+      expect(result.current.selectedTasks).toStrictEqual({
+        ...allFalse,
+        evergreen_ubuntu1604_test_service: true,
+      })
+    );
   });
-  waitFor(() =>
-    expect(result.current.selectedTasks).toEqual({
+
+  it("tasks with undefined base statuses do not match with any base status filter state.", () => {
+    const { result } = renderHook(() =>
+      useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
+    );
+    act(() => {
+      result.current.setVersionStatusFilterTerm({
+        mainVersion: ["success"],
+      });
+    });
+    act(() => {
+      result.current.setBaseStatusFilterTerm({
+        mainVersion: ["success", "fakeStatus", "random"],
+      });
+    });
+    waitFor(() =>
+      expect(result.current.selectedTasks).toStrictEqual({
+        ...allFalse,
+      })
+    );
+  });
+
+  it("should deselect all tasks with statuses that do not match any patch status filter terms.", () => {
+    const { result } = renderHook(() =>
+      useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
+    );
+    act(() => {
+      result.current.setVersionStatusFilterTerm({
+        mainVersion: ["success"],
+      });
+    });
+    expect(result.current.selectedTasks[versionId]).toStrictEqual(
+      successStatusIds
+    );
+    act(() => {
+      result.current.setVersionStatusFilterTerm({
+        mainVersion: [],
+      });
+    });
+    expect(result.current.selectedTasks[versionId]).toStrictEqual({
       ...allFalse,
-    })
-  );
-});
-
-test("should deselect all tasks with statuses that do not match any patch status filter terms.", () => {
-  const { result } = renderHook(() =>
-    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
-  );
-  act(() => {
-    result.current.setVersionStatusFilterTerm({
-      mainVersion: ["success"],
     });
   });
-  expect(result.current.selectedTasks[versionId]).toEqual(successStatusIds);
-  act(() => {
-    result.current.setVersionStatusFilterTerm({
-      mainVersion: [],
+
+  it("selecting multiple patch statuses should select all tasks with a matching status", () => {
+    const { result } = renderHook(() =>
+      useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
+    );
+    act(() => {
+      result.current.setVersionStatusFilterTerm({
+        mainVersion: ["success", "failed"],
+      });
+    });
+    expect(result.current.selectedTasks[versionId]).toStrictEqual({
+      ...allTrue,
+      evergreen_ubuntu1604_89: false,
     });
   });
-  expect(result.current.selectedTasks[versionId]).toStrictEqual({
-    ...allFalse,
-  });
-});
 
-test("selecting multiple patch statuses should select all tasks with a matching status", () => {
-  const { result } = renderHook(() =>
-    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
-  );
-  act(() => {
-    result.current.setVersionStatusFilterTerm({
-      mainVersion: ["success", "failed"],
+  it("selecting an individual task should work", () => {
+    const { result } = renderHook(() =>
+      useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
+    );
+    act(() => {
+      result.current.toggleSelectedTask({
+        mainVersion: "evergreen_lint_generate_lint",
+      });
     });
-  });
-  expect(result.current.selectedTasks[versionId]).toEqual({
-    ...allTrue,
-    evergreen_ubuntu1604_89: false,
-  });
-});
-
-test("selecting an individual task should work", () => {
-  const { result } = renderHook(() =>
-    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
-  );
-  act(() => {
-    result.current.toggleSelectedTask({
-      mainVersion: "evergreen_lint_generate_lint",
-    });
-  });
-  expect(result.current.selectedTasks[versionId]).toEqual({
-    ...allFalse,
-    evergreen_lint_generate_lint: true,
-  });
-});
-
-test("deselecting an individual task should work if it was selected by valid statuses", () => {
-  const { result } = renderHook(() =>
-    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
-  );
-  act(() => {
-    result.current.setVersionStatusFilterTerm({
-      mainVersion: ["success"],
-    });
-  });
-  expect(result.current.selectedTasks[versionId]).toEqual(successStatusIds);
-  act(() => {
-    result.current.toggleSelectedTask({
-      mainVersion: "evergreen_lint_generate_lint",
-    });
-  });
-  expect(result.current.selectedTasks[versionId]).toEqual({
-    ...allTrue,
-    evergreen_lint_generate_lint: false,
-    evergreen_ubuntu1604_89: false,
-    evergreen_ubuntu1604_test_service: false,
-  });
-});
-
-test("batch toggling tasks will set them all to checked when they are orignially unchecked", () => {
-  const { result } = renderHook(() =>
-    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
-  );
-  waitFor(() =>
-    expect(result.current.selectedTasks).toStrictEqual({ ...allFalse })
-  );
-  act(() =>
-    result.current.toggleSelectedTask({
-      mainVersion: Object.keys(allFalse),
-    })
-  );
-  waitFor(() =>
-    expect(result.current.selectedTasks).toStrictEqual({ ...allTrue })
-  );
-});
-
-test("batch toggling tasks will set them all to checked when some and not all are originally checked.", () => {
-  const { result } = renderHook(() =>
-    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
-  );
-  waitFor(() =>
-    expect(result.current.selectedTasks).toStrictEqual({ ...allFalse })
-  );
-  act(() =>
-    result.current.toggleSelectedTask({
-      mainVersion: "evergreen_lint_generate_lint",
-    })
-  );
-  waitFor(() =>
-    expect(result.current.selectedTasks).toStrictEqual({
+    expect(result.current.selectedTasks[versionId]).toStrictEqual({
       ...allFalse,
       evergreen_lint_generate_lint: true,
-    })
-  );
-  act(() =>
-    result.current.toggleSelectedTask({
-      mainVersion: Object.keys(allFalse),
-    })
-  );
-  waitFor(() =>
-    expect(result.current.selectedTasks).toStrictEqual({ ...allTrue })
-  );
-});
+    });
+  });
 
-test("batch toggling tasks will set them all to unchecked when they are all originally checked.", () => {
-  const { result } = renderHook(() =>
-    useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
-  );
-  waitFor(() =>
-    expect(result.current.selectedTasks).toStrictEqual({ ...allTrue })
-  );
-  act(() =>
-    result.current.toggleSelectedTask({
-      mainVersion: Object.keys(allTrue),
-    })
-  );
-  waitFor(() =>
-    expect(result.current.selectedTasks).toStrictEqual({ ...allFalse })
-  );
+  it("deselecting an individual task should work if it was selected by valid statuses", () => {
+    const { result } = renderHook(() =>
+      useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
+    );
+    act(() => {
+      result.current.setVersionStatusFilterTerm({
+        mainVersion: ["success"],
+      });
+    });
+    expect(result.current.selectedTasks[versionId]).toStrictEqual(
+      successStatusIds
+    );
+    act(() => {
+      result.current.toggleSelectedTask({
+        mainVersion: "evergreen_lint_generate_lint",
+      });
+    });
+    expect(result.current.selectedTasks[versionId]).toStrictEqual({
+      ...allTrue,
+      evergreen_lint_generate_lint: false,
+      evergreen_ubuntu1604_89: false,
+      evergreen_ubuntu1604_test_service: false,
+    });
+  });
+
+  it("batch toggling tasks will set them all to checked when they are orignially unchecked", () => {
+    const { result } = renderHook(() =>
+      useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
+    );
+    waitFor(() =>
+      expect(result.current.selectedTasks).toStrictEqual({ ...allFalse })
+    );
+    act(() =>
+      result.current.toggleSelectedTask({
+        mainVersion: Object.keys(allFalse),
+      })
+    );
+    waitFor(() =>
+      expect(result.current.selectedTasks).toStrictEqual({ ...allTrue })
+    );
+  });
+
+  it("batch toggling tasks will set them all to checked when some and not all are originally checked.", () => {
+    const { result } = renderHook(() =>
+      useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
+    );
+    waitFor(() =>
+      expect(result.current.selectedTasks).toStrictEqual({ ...allFalse })
+    );
+    act(() =>
+      result.current.toggleSelectedTask({
+        mainVersion: "evergreen_lint_generate_lint",
+      })
+    );
+    waitFor(() =>
+      expect(result.current.selectedTasks).toStrictEqual({
+        ...allFalse,
+        evergreen_lint_generate_lint: true,
+      })
+    );
+    act(() =>
+      result.current.toggleSelectedTask({
+        mainVersion: Object.keys(allFalse),
+      })
+    );
+    waitFor(() =>
+      expect(result.current.selectedTasks).toStrictEqual({ ...allTrue })
+    );
+  });
+
+  it("batch toggling tasks will set them all to unchecked when they are all originally checked.", () => {
+    const { result } = renderHook(() =>
+      useVersionTaskStatusSelect(patchBuildVariants, versionId, childVersion)
+    );
+    waitFor(() =>
+      expect(result.current.selectedTasks).toStrictEqual({ ...allTrue })
+    );
+    act(() =>
+      result.current.toggleSelectedTask({
+        mainVersion: Object.keys(allTrue),
+      })
+    );
+    waitFor(() =>
+      expect(result.current.selectedTasks).toStrictEqual({ ...allFalse })
+    );
+  });
 });
 
 const patchBuildVariants = [

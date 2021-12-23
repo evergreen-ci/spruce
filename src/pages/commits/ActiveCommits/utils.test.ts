@@ -6,7 +6,7 @@ import {
 } from "./utils";
 
 describe("getAllTaskStatsGroupedByColor", () => {
-  test("Grab the taskStatusCounts field from all versions, returns mapping between version id to its {grouped task stats, max, total}", () => {
+  it("grab the taskStatusCounts field from all versions, returns mapping between version id to its {grouped task stats, max, total}", () => {
     expect(getAllTaskStatsGroupedByColor(versions)).toStrictEqual({
       "12": {
         stats: [
@@ -200,7 +200,7 @@ describe("getAllTaskStatsGroupedByColor", () => {
 });
 
 describe("getStatusesWithZeroCount", () => {
-  test("Return an array of umbrella statuses that have 0 count", () => {
+  it("return an array of umbrella statuses that have 0 count", () => {
     expect(getStatusesWithZeroCount(groupedTaskStats)).toStrictEqual([
       TaskStatus.FailedUmbrella,
       TaskStatus.RunningUmbrella,
@@ -209,10 +209,10 @@ describe("getStatusesWithZeroCount", () => {
       TaskStatus.UndispatchedUmbrella,
     ]);
   });
-  test("Should return an empty array when all umbrella statuses are present", () => {
+  it("should return an empty array when all umbrella statuses are present", () => {
     expect(getStatusesWithZeroCount(groupedTaskStatsAll)).toStrictEqual([]);
   });
-  test("Return an array of all umbrella statuses when no umbrella status exists", () => {
+  it("return an array of all umbrella statuses when no umbrella status exists", () => {
     expect(getStatusesWithZeroCount([])).toStrictEqual([
       TaskStatus.FailedUmbrella,
       TaskStatus.Succeeded,

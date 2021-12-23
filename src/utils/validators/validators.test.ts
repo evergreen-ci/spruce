@@ -1,7 +1,7 @@
 import { validateObjectId } from ".";
 
 describe("validateObjectId", () => {
-  test("Validates object ids", () => {
+  it("validates object ids", () => {
     expect(validateObjectId("5f74d99ab2373627c047c5e5")).toBeTruthy();
     expect(validateObjectId("5e6bb9e23066155a993e0f1a")).toBeTruthy();
     expect(

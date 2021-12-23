@@ -1,5 +1,5 @@
 import userEvent from "@testing-library/user-event";
-import { render, act } from "test_utils/test-utils";
+import { render, waitFor } from "test_utils";
 
 import { InactiveCommits } from ".";
 
@@ -7,12 +7,8 @@ const RenderInactiveCommits = (versions) => (
   <InactiveCommits rolledUpVersions={versions} />
 );
 
-afterEach(() => {
-  jest.clearAllTimers();
-  jest.clearAllMocks();
-});
-describe("InactiveCommits", () => {
-  test("Displays the correct count of inactive versions with the correct copy", () => {
+describe("inactiveCommits", () => {
+  it("displays the correct count of inactive versions with the correct copy", () => {
     const { queryByDataCy, rerender } = render(
       <InactiveCommits rolledUpVersions={versions} />
     );
@@ -25,50 +21,41 @@ describe("InactiveCommits", () => {
     );
   });
 
-  test("Clicking on the button should open a tooltip", async () => {
+  it("clicking on the button should open a tooltip", async () => {
     const { queryByDataCy } = render(
       <InactiveCommits rolledUpVersions={versions} />
     );
-    jest.useFakeTimers();
 
     expect(queryByDataCy("inactive-commits-tooltip")).toBeNull();
     userEvent.click(queryByDataCy("inactive-commits-button"));
-    //   Need to use fake timers to get around @leafygreen-ui/tooltip debounce
-    act(() => {
-      jest.runAllTimers();
-    });
-    expect(queryByDataCy("inactive-commits-tooltip")).toBeInTheDocument();
+    await waitFor(() =>
+      expect(queryByDataCy("inactive-commits-tooltip")).toBeVisible()
+    );
   });
 
-  test("Should show all inactive commits if there are 5 or less commits ", async () => {
+  it("should show all inactive commits if there are 5 or less commits", async () => {
     const { queryByDataCy, queryAllByDataCy } = render(
       <InactiveCommits rolledUpVersions={versions.slice(0, 4)} />
     );
-    jest.useFakeTimers();
 
     expect(queryByDataCy("inactive-commits-tooltip")).toBeNull();
     userEvent.click(queryByDataCy("inactive-commits-button"));
-    //   Need to use fake timers to get around @leafygreen-ui/tooltip debounce
-    act(() => {
-      jest.runAllTimers();
-    });
-    expect(queryByDataCy("inactive-commits-tooltip")).toBeInTheDocument();
+    await waitFor(() =>
+      expect(queryByDataCy("inactive-commits-tooltip")).toBeVisible()
+    );
     expect(queryAllByDataCy("commit-text")).toHaveLength(4);
     expect(queryByDataCy("hidden-commits")).toBeNull();
   });
-  test("Should collapse some commits if there are more then 5 ", async () => {
+  it("should collapse some commits if there are more then 5", async () => {
     const { queryByDataCy, queryAllByDataCy } = render(
       <InactiveCommits rolledUpVersions={versions} />
     );
-    jest.useFakeTimers();
 
     expect(queryByDataCy("inactive-commits-tooltip")).toBeNull();
     userEvent.click(queryByDataCy("inactive-commits-button"));
-    //   Need to use fake timers to get around @leafygreen-ui/tooltip debounce
-    act(() => {
-      jest.runAllTimers();
-    });
-    expect(queryByDataCy("inactive-commits-tooltip")).toBeInTheDocument();
+    await waitFor(() =>
+      expect(queryByDataCy("inactive-commits-tooltip")).toBeVisible()
+    );
     expect(queryAllByDataCy("commit-text")).toHaveLength(5);
     expect(queryByDataCy("hidden-commits")).toBeInTheDocument();
   });
