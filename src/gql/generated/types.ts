@@ -3439,6 +3439,22 @@ export type GetTaskStatusesQuery = {
   };
 };
 
+export type GetTaskTestSampleQueryVariables = Exact<{
+  tasks: Array<Scalars["String"]>;
+  filters: Array<TestFilter>;
+}>;
+
+export type GetTaskTestSampleQuery = {
+  taskTestSample?: Maybe<
+    Array<{
+      taskId: string;
+      execution: number;
+      matchingFailedTestNames: Array<string>;
+      totalTestCount: number;
+    }>
+  >;
+};
+
 export type TaskTestsQueryVariables = Exact<{
   dir?: Maybe<SortDirection>;
   id: Scalars["String"];

@@ -1,3 +1,4 @@
+import { TestFilter } from "gql/generated/types";
 import { CommitRowType, mainlineCommits } from "./types";
 import { processCommits } from "./utils";
 
@@ -6,14 +7,15 @@ type Action =
   | { type: "addColumns"; columns: string[] }
   | { type: "nextPageColumns" }
   | { type: "prevPageColumns" }
-  | { type: "setColumnLimit"; limit: number };
+  | { type: "setColumnLimit"; limit: number }
+  | { type: "setHistoryTableFilters"; filters: TestFilter[] };
 
 type cacheShape = Map<
   number,
   | mainlineCommits["versions"][0]["version"]
   | mainlineCommits["versions"][0]["rolledUpVersions"][0]
 >;
-interface HistoryTableState {
+export interface HistoryTableReducerState {
   loadedCommits: mainlineCommits["versions"];
   processedCommits: CommitRowType[];
   processedCommitCount: number;
@@ -23,10 +25,11 @@ interface HistoryTableState {
   pageCount: number;
   columns: string[];
   columnLimit: number;
+  historyTableFilters: TestFilter[];
   commitCount: number;
 }
 
-export const reducer = (state: HistoryTableState, action: Action) => {
+export const reducer = (state: HistoryTableReducerState, action: Action) => {
   switch (action.type) {
     case "ingestNewCommits": {
       // We cache the commits and use this to determine if a new commit was added in this action
@@ -106,6 +109,11 @@ export const reducer = (state: HistoryTableState, action: Action) => {
       return {
         ...state,
         columnLimit: action.limit,
+      };
+    case "setHistoryTableFilters":
+      return {
+        ...state,
+        historyTableFilters: action.filters,
       };
     default:
       throw new Error(`Unknown reducer action${action}`);
