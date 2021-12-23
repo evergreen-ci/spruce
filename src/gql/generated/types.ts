@@ -29,6 +29,7 @@ export type Query = {
   project: Project;
   patchTasks: PatchTasks;
   taskTests: TaskTestResult;
+  taskTestSample?: Maybe<Array<TaskTestResultSample>>;
   taskFiles: TaskFiles;
   user: User;
   taskLogs: TaskLogs;
@@ -58,6 +59,8 @@ export type Query = {
   buildVariantsForTaskName?: Maybe<Array<Maybe<BuildVariantTuple>>>;
   projectSettings: ProjectSettings;
   repoSettings: RepoSettings;
+  projectEvents: ProjectEvents;
+  repoEvents: RepoEvents;
   hasVersion: Scalars["Boolean"];
 };
 
@@ -104,6 +107,11 @@ export type QueryTaskTestsArgs = {
   testName?: Maybe<Scalars["String"]>;
   statuses?: Array<Scalars["String"]>;
   groupId?: Maybe<Scalars["String"]>;
+};
+
+export type QueryTaskTestSampleArgs = {
+  tasks: Array<Scalars["String"]>;
+  filters: Array<TestFilter>;
 };
 
 export type QueryTaskFilesArgs = {
@@ -189,6 +197,18 @@ export type QueryProjectSettingsArgs = {
 
 export type QueryRepoSettingsArgs = {
   id: Scalars["String"];
+};
+
+export type QueryProjectEventsArgs = {
+  identifier: Scalars["String"];
+  limit?: Maybe<Scalars["Int"]>;
+  before?: Maybe<Scalars["Time"]>;
+};
+
+export type QueryRepoEventsArgs = {
+  id: Scalars["String"];
+  limit?: Maybe<Scalars["Int"]>;
+  before?: Maybe<Scalars["Time"]>;
 };
 
 export type QueryHasVersionArgs = {
@@ -470,6 +490,18 @@ export type VersionToRestart = {
   taskIds: Array<Scalars["String"]>;
 };
 
+export type TestFilter = {
+  testName: Scalars["String"];
+  testStatus: Scalars["String"];
+};
+
+export type TaskTestResultSample = {
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
+  totalTestCount: Scalars["Int"];
+  matchingFailedTestNames: Array<Scalars["String"]>;
+};
+
 export type MainlineCommits = {
   nextPageOrderNumber?: Maybe<Scalars["Int"]>;
   prevPageOrderNumber?: Maybe<Scalars["Int"]>;
@@ -503,7 +535,9 @@ export type Version = {
   patch?: Maybe<Patch>;
   childVersions?: Maybe<Array<Maybe<Version>>>;
   taskCount?: Maybe<Scalars["Int"]>;
+  /** @deprecated baseVersionId is deprecated, use baseVersion.id instead */
   baseVersionID?: Maybe<Scalars["String"]>;
+  baseVersion?: Maybe<Version>;
   versionTiming?: Maybe<VersionTiming>;
   parameters: Array<Parameter>;
   taskStatuses: Array<Scalars["String"]>;
@@ -1327,6 +1361,7 @@ export type Task = {
   activatedTime?: Maybe<Scalars["Time"]>;
   ami?: Maybe<Scalars["String"]>;
   annotation?: Maybe<Annotation>;
+  bbTicketCreationDefined: Scalars["Boolean"];
   baseTask?: Maybe<Task>;
   baseStatus?: Maybe<Scalars["String"]>;
   /** @deprecated baseTaskMetadata is deprecated. Use baseTask instead */
@@ -1408,7 +1443,7 @@ export type GroupedProjects = {
 };
 
 export type ProjectSettings = {
-  githubWebhooksEnabled: Scalars["Boolean"];
+  gitHubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<Project>;
   vars?: Maybe<ProjectVars>;
   aliases?: Maybe<Array<ProjectAlias>>;
@@ -1416,11 +1451,35 @@ export type ProjectSettings = {
 };
 
 export type RepoSettings = {
-  githubWebhooksEnabled: Scalars["Boolean"];
+  gitHubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<RepoRef>;
   vars?: Maybe<ProjectVars>;
   aliases?: Maybe<Array<ProjectAlias>>;
   subscriptions?: Maybe<Array<ProjectSubscription>>;
+};
+
+export type ProjectEvents = {
+  eventLogEntries: Array<ProjectEventLogEntry>;
+  count: Scalars["Int"];
+};
+
+export type ProjectEventLogEntry = {
+  timestamp: Scalars["Time"];
+  user: Scalars["String"];
+  before?: Maybe<ProjectSettings>;
+  after?: Maybe<ProjectSettings>;
+};
+
+export type RepoEvents = {
+  eventLogEntries: Array<RepoEventLogEntry>;
+  count: Scalars["Int"];
+};
+
+export type RepoEventLogEntry = {
+  timestamp: Scalars["Time"];
+  user: Scalars["String"];
+  before?: Maybe<RepoSettings>;
+  after?: Maybe<RepoSettings>;
 };
 
 export type ProjectVars = {
@@ -3380,6 +3439,22 @@ export type GetTaskStatusesQuery = {
     taskStatuses: Array<string>;
     baseTaskStatuses: Array<string>;
   };
+};
+
+export type GetTaskTestSampleQueryVariables = Exact<{
+  tasks: Array<Scalars["String"]>;
+  filters: Array<TestFilter>;
+}>;
+
+export type GetTaskTestSampleQuery = {
+  taskTestSample?: Maybe<
+    Array<{
+      taskId: string;
+      execution: number;
+      matchingFailedTestNames: Array<string>;
+      totalTestCount: number;
+    }>
+  >;
 };
 
 export type TaskTestsQueryVariables = Exact<{

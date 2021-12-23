@@ -1,0 +1,8 @@
+query GetTaskTestSample($tasks: [String!]!, $filters: [TestFilter!]!) {
+  taskTestSample(tasks: $tasks, filters: $filters) {
+    taskId
+    execution
+    matchingFailedTestNames
+    totalTestCount
+  }
+}
