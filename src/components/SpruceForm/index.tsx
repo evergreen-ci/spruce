@@ -9,7 +9,7 @@ export type FormDataProps = FormProps<any>["formData"];
 
 export interface SpruceFormProps {
   schema: FormProps<any>["schema"];
-  onChange: (d: any) => void;
+  onChange: FormProps<any>["onChange"];
   uiSchema?: FormProps<any>["uiSchema"];
   formData: FormDataProps;
   fields?: FormProps<any>["fields"];

@@ -10,6 +10,7 @@ import {
 } from "gql/generated/types";
 import { GET_SPAWN_TASK } from "gql/queries";
 import { queryString } from "utils";
+import { shortenGithash } from "utils/string";
 import { Action as SpawnHostModalAction } from "./useSpawnHostModalState";
 
 const { getString, parseQueryString } = queryString;
@@ -96,7 +97,7 @@ export const SetupScriptForm: React.FC<SetupScriptFormProps> = ({
             label={
               <>
                 Load data for <b>{displayName}</b> on <b>{buildVariant}</b> @{" "}
-                <b>{revision.substring(0, 5)}</b> onto host at startup
+                <b>{shortenGithash(revision)}</b> onto host at startup
               </>
             }
             data-cy="parent-checkbox"

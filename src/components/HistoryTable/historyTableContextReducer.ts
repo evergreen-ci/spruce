@@ -23,6 +23,7 @@ interface HistoryTableState {
   pageCount: number;
   columns: string[];
   columnLimit: number;
+  commitCount: number;
 }
 
 export const reducer = (state: HistoryTableState, action: Action) => {
@@ -39,11 +40,26 @@ export const reducer = (state: HistoryTableState, action: Action) => {
           action.commits.versions,
           state.processedCommits
         );
+        let { commitCount } = state;
+        // If there are no previous commits, we can set the commitCount to be the first commit's order.
+        if (action.commits.prevPageOrderNumber == null) {
+          for (let i = 0; i < action.commits.versions.length; i++) {
+            if (action.commits.versions[i].version) {
+              // We set the commitCount to double the order number just so we have room for non commit rows (date separators) and (folded commits)
+              commitCount = action.commits.versions[i].version.order * 2;
+              break;
+            }
+          }
+          // if we have no more commits we have processed everything and know how many commits we have so set the value to that
+        } else if (action.commits.nextPageOrderNumber == null) {
+          commitCount = processedCommits.length;
+        }
         return {
           ...state,
           commitCache: updatedObjectCache,
           processedCommits,
           processedCommitCount: processedCommits.length,
+          commitCount,
         };
       }
       return state;

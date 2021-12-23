@@ -2116,6 +2116,18 @@ export type ProjectFragment = {
   displayName: string;
 };
 
+export type ProjectAccessSettingsFragment = {
+  private?: Maybe<boolean>;
+  restricted?: Maybe<boolean>;
+  admins?: Maybe<Array<Maybe<string>>>;
+};
+
+export type RepoAccessSettingsFragment = {
+  private: boolean;
+  restricted: boolean;
+  admins: Array<string>;
+};
+
 export type ProjectGeneralSettingsFragment = {
   enabled?: Maybe<boolean>;
   owner: string;
@@ -2367,6 +2379,37 @@ export type RestartVersionsMutation = {
       }>;
     }>
   >;
+};
+
+export type SaveProjectSettingsForSectionMutationVariables = Exact<{
+  projectSettings: ProjectSettingsInput;
+  section: ProjectSettingsSection;
+}>;
+
+export type SaveProjectSettingsForSectionMutation = {
+  saveProjectSettingsForSection: {
+    projectRef?: Maybe<
+      {
+        id: string;
+        useRepoSettings: boolean;
+        repoRefId: string;
+      } & ProjectGeneralSettingsFragment &
+        ProjectAccessSettingsFragment
+    >;
+  };
+};
+
+export type SaveRepoSettingsForSectionMutationVariables = Exact<{
+  repoSettings: RepoSettingsInput;
+  section: ProjectSettingsSection;
+}>;
+
+export type SaveRepoSettingsForSectionMutation = {
+  saveRepoSettingsForSection: {
+    projectRef?: Maybe<
+      { id: string } & RepoGeneralSettingsFragment & RepoAccessSettingsFragment
+    >;
+  };
 };
 
 export type SaveSubscriptionMutationVariables = Exact<{
@@ -3202,7 +3245,8 @@ export type ProjectSettingsQuery = {
         id: string;
         useRepoSettings: boolean;
         repoRefId: string;
-      } & ProjectGeneralSettingsFragment
+      } & ProjectGeneralSettingsFragment &
+        ProjectAccessSettingsFragment
     >;
   };
 };
@@ -3236,7 +3280,11 @@ export type RepoSettingsQueryVariables = Exact<{
 }>;
 
 export type RepoSettingsQuery = {
-  repoSettings: { projectRef?: Maybe<RepoGeneralSettingsFragment> };
+  repoSettings: {
+    projectRef?: Maybe<
+      { id: string } & RepoGeneralSettingsFragment & RepoAccessSettingsFragment
+    >;
+  };
 };
 
 export type GetSpruceConfigQueryVariables = Exact<{ [key: string]: never }>;

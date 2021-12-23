@@ -38,7 +38,7 @@ export const VariantHistory = () => {
   }>();
 
   usePageTitle(`Variant History | ${projectId} | ${variantName}`);
-  const [nextPageOrderNumber, setNextPageOrderNumber] = useState(0);
+  const [nextPageOrderNumber, setNextPageOrderNumber] = useState(null);
   const variables = {
     mainlineCommitsOptions: {
       projectID: projectId,

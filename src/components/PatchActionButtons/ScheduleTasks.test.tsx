@@ -4,12 +4,7 @@ import { ScheduleTasksModal } from "components/ScheduleTasksModal";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
 import { SCHEDULE_TASKS } from "gql/mutations";
 import { GET_UNSCHEDULED_TASKS } from "gql/queries";
-import {
-  render,
-  fireEvent,
-  waitFor,
-  renderWithRouterMatch,
-} from "test_utils/test-utils";
+import { render, fireEvent, waitFor, renderWithRouterMatch } from "test_utils";
 import { ScheduleTasks } from "./ScheduleTasks";
 
 const ScheduleButton = () => (
@@ -30,111 +25,115 @@ const ScheduleModalEmpty = () => (
   </MockedProvider>
 );
 
-afterEach(() => {
-  jest.restoreAllMocks();
-});
-test("Clicking the button opens the modal", async () => {
-  const { Component } = RenderFakeToastContext(<ScheduleButton />);
-  const { queryByDataCy } = renderWithRouterMatch(Component);
-  expect(queryByDataCy("schedule-tasks-modal")).not.toBeInTheDocument();
-  fireEvent.click(queryByDataCy("schedule-patch"));
-  await waitFor(() =>
-    expect(queryByDataCy("schedule-tasks-modal")).toBeVisible()
-  );
-});
+describe("scheduleTasks", () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+  it("clicking the button opens the modal", async () => {
+    const { Component } = RenderFakeToastContext(<ScheduleButton />);
+    const { queryByDataCy } = renderWithRouterMatch(Component);
+    expect(queryByDataCy("schedule-tasks-modal")).not.toBeInTheDocument();
+    fireEvent.click(queryByDataCy("schedule-patch"));
+    await waitFor(() =>
+      expect(queryByDataCy("schedule-tasks-modal")).toBeVisible()
+    );
+  });
 
-test("The modal is populated with build variant names and checkboxes", async () => {
-  const { Component } = RenderFakeToastContext(<ScheduleModal />);
+  it("the modal is populated with build variant names and checkboxes", async () => {
+    const { Component } = RenderFakeToastContext(<ScheduleModal />);
 
-  const { queryByText, queryAllByDataCy } = render(<Component />);
+    const { queryByText, queryAllByDataCy } = render(<Component />);
 
-  // assert build variant checkbox labels are visible
-  await waitFor(() => expect(queryByText("Windows")).toBeVisible());
-  await waitFor(() => expect(queryByText("Ubuntu 16.04")).toBeVisible());
+    // assert build variant checkbox labels are visible
+    await waitFor(() => expect(queryByText("Windows")).toBeVisible());
+    await waitFor(() => expect(queryByText("Ubuntu 16.04")).toBeVisible());
 
-  // open the accordions
-  const toggles = queryAllByDataCy("accordion-toggle");
-  fireEvent.click(toggles[0]);
-  fireEvent.click(toggles[1]);
+    // open the accordions
+    const toggles = queryAllByDataCy("accordion-toggle");
+    fireEvent.click(toggles[0]);
+    fireEvent.click(toggles[1]);
 
-  // assert task checkbox labels are visible
-  await waitFor(() => {
-    queryAllByDataCy("task-checkbox-label").forEach((label) => {
-      expect(label).toBeVisible();
+    // assert task checkbox labels are visible
+    await waitFor(() => {
+      queryAllByDataCy("task-checkbox-label").forEach((label) => {
+        expect(label).toBeVisible();
+      });
     });
   });
-});
 
-test("Selecting some and not all task checkboxes puts the build variant checkbox in an indeterminate state.", async () => {
-  const { Component } = RenderFakeToastContext(<ScheduleModal />);
+  it("selecting some and not all task checkboxes puts the build variant checkbox in an indeterminate state.", async () => {
+    const { Component } = RenderFakeToastContext(<ScheduleModal />);
 
-  const { queryByText, queryAllByDataCy, queryByDataCy } = render(
-    <Component />
-  );
-  await waitFor(() => expect(queryByText("Windows")).toBeVisible());
-  const toggles = queryAllByDataCy("accordion-toggle");
-  fireEvent.click(toggles[1]);
-  await waitFor(() => {
-    expect(
-      queryByDataCy("windows-variant-checkbox").getAttribute("aria-checked")
-    ).toBe("false");
+    const { queryByText, queryAllByDataCy, queryByDataCy } = render(
+      <Component />
+    );
+    await waitFor(() => expect(queryByText("Windows")).toBeVisible());
+    const toggles = queryAllByDataCy("accordion-toggle");
+    fireEvent.click(toggles[1]);
+    await waitFor(() => {
+      expect(
+        queryByDataCy("windows-variant-checkbox").getAttribute("aria-checked")
+      ).toBe("false");
+    });
+    fireEvent.click(queryByDataCy("windows-compile-task-checkbox"));
+    await waitFor(() => {
+      expect(
+        queryByDataCy("windows-variant-checkbox").getAttribute("aria-checked")
+      ).toBe("mixed");
+    });
   });
-  fireEvent.click(queryByDataCy("windows-compile-task-checkbox"));
-  await waitFor(() => {
-    expect(
-      queryByDataCy("windows-variant-checkbox").getAttribute("aria-checked")
-    ).toBe("mixed");
-  });
-});
-test("Schedule button is disabled until at least one checkbox is selected", async () => {
-  const { Component } = RenderFakeToastContext(<ScheduleModal />);
+  it("schedule button is disabled until at least one checkbox is selected", async () => {
+    const { Component } = RenderFakeToastContext(<ScheduleModal />);
 
-  const { queryByText, queryAllByDataCy, queryByDataCy } = render(
-    <Component />
-  );
-  await waitFor(() => expect(queryByText("Windows")).toBeVisible());
-  const toggles = queryAllByDataCy("accordion-toggle");
-  fireEvent.click(toggles[1]);
-  fireEvent.click(queryByDataCy("windows-compile-task-checkbox")); // deselect checkbox from previous test
-  await waitFor(() => {
-    // Unable to pass data-cy to modal buttons so we have to use getAllByRole
+    const { queryByText, queryAllByDataCy, queryByDataCy } = render(
+      <Component />
+    );
+    await waitFor(() => expect(queryByText("Windows")).toBeVisible());
+    const toggles = queryAllByDataCy("accordion-toggle");
+    fireEvent.click(toggles[1]);
+    fireEvent.click(queryByDataCy("windows-compile-task-checkbox")); // deselect checkbox from previous test
+    await waitFor(() => {
+      // Unable to pass data-cy to modal buttons so we have to use getAllByRole
+      const confirmButton = screen.getAllByRole("button")[0];
+      expect(confirmButton).toBeDisabled();
+    });
+    fireEvent.click(queryByDataCy("windows-compile-task-checkbox"));
+    await waitFor(() => {
+      const confirmButton = screen.getAllByRole("button")[0];
+      expect(confirmButton).not.toBeDisabled();
+    });
+  });
+  it("clicking on schedule button dispatches a properly formatted request and dispatches a toast", async () => {
+    const { Component, dispatchToast } = RenderFakeToastContext(
+      <ScheduleModal />
+    );
+
+    const { queryByText, queryAllByDataCy, queryByDataCy } = render(
+      <Component />
+    );
+    await waitFor(() => expect(queryByText("Windows")).toBeVisible());
+    const windowVariantToggle = queryAllByDataCy("accordion-toggle")[1];
+    fireEvent.click(windowVariantToggle);
+    fireEvent.click(queryByDataCy("windows-compile-task-checkbox"));
     const confirmButton = screen.getAllByRole("button")[0];
-    expect(confirmButton).toBeDisabled();
+    fireEvent.click(confirmButton);
+
+    expect(dispatchToast.error).not.toHaveBeenCalled();
+    await waitFor(() => {
+      expect(dispatchToast.success).toHaveBeenCalledWith(
+        "Tasks scheduled successfully"
+      );
+    });
   });
-  fireEvent.click(queryByDataCy("windows-compile-task-checkbox"));
-  await waitFor(() => {
-    const confirmButton = screen.getAllByRole("button")[0];
-    expect(confirmButton).not.toBeDisabled();
+
+  it("modal displays copy when there are no schedulable tasks.", async () => {
+    const { Component } = RenderFakeToastContext(<ScheduleModalEmpty />);
+
+    const { queryByText } = render(<Component />);
+    await waitFor(() =>
+      expect(queryByText("There are no schedulable tasks.")).toBeVisible()
+    );
   });
-});
-test("Clicking on schedule button dispatches a properly formatted request and dispatches a toast", async () => {
-  const { Component, dispatchToast } = RenderFakeToastContext(
-    <ScheduleModal />
-  );
-
-  const { queryByText, queryAllByDataCy, queryByDataCy } = render(
-    <Component />
-  );
-  await waitFor(() => expect(queryByText("Windows")).toBeVisible());
-  const windowVariantToggle = queryAllByDataCy("accordion-toggle")[1];
-  fireEvent.click(windowVariantToggle);
-  fireEvent.click(queryByDataCy("windows-compile-task-checkbox"));
-  const confirmButton = screen.getAllByRole("button")[0];
-  fireEvent.click(confirmButton);
-
-  expect(dispatchToast.error).not.toHaveBeenCalled();
-  await waitFor(() => {
-    expect(dispatchToast.success).toHaveBeenCalled();
-  });
-});
-
-test("Modal displays copy when there are no schedulable tasks.", async () => {
-  const { Component } = RenderFakeToastContext(<ScheduleModalEmpty />);
-
-  const { queryByText } = render(<Component />);
-  await waitFor(() =>
-    expect(queryByText("There are no schedulable tasks.")).toBeVisible()
-  );
 });
 
 const scheduleTasksMock = {

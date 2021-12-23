@@ -7,6 +7,7 @@ import { StyledRouterLink } from "components/styles";
 import { H3, P1 } from "components/Typography";
 import { getVersionRoute, getCommitsRoute } from "constants/routes";
 import { useGetUserPatchesPageTitleAndLink } from "hooks";
+import { shortenGithash } from "utils/string";
 
 const { blue } = uiColors;
 
@@ -136,9 +137,7 @@ const VersionBreadcrumb: React.FC<VersionBreadcrumbProps> = ({
 }) => {
   const { project, revision, id } = versionMetadata;
   // We need to case on revision since periodic builds do not have a revision
-  const breadcrumbText = revision.length
-    ? revision.substring(0, 7)
-    : id.substring(0, 7);
+  const breadcrumbText = shortenGithash(revision.length ? revision : id);
   return (
     <>
       <Breadcrumb.Item>

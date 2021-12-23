@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Public Key Form Public Key Form View 1`] = `
+exports[`storybook Storyshots Public Key Form Public Key Form View 1`] = `
 <div
   className="css-1s5fzt1-FlexColumnContainer-Container edx7lnf4"
 >

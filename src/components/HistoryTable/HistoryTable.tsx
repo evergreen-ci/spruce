@@ -18,7 +18,12 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
   recentlyFetchedCommits,
   children,
 }) => {
-  const { itemHeight, fetchNewCommit, isItemLoaded } = useHistoryTable();
+  const {
+    itemHeight,
+    fetchNewCommit,
+    isItemLoaded,
+    commitCount,
+  } = useHistoryTable();
   const listRef = useRef<List>(null);
   useEffect(() => {
     if (recentlyFetchedCommits) {
@@ -38,13 +43,13 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
       {({ height, width }) => (
         <InfiniteLoader
           isItemLoaded={isItemLoaded}
-          itemCount={10000}
+          itemCount={commitCount}
           loadMoreItems={loadMoreItems}
         >
           {({ onItemsRendered }) => (
             <List
               height={height}
-              itemCount={10000}
+              itemCount={commitCount}
               itemSize={itemHeight}
               onItemsRendered={onItemsRendered}
               ref={listRef}

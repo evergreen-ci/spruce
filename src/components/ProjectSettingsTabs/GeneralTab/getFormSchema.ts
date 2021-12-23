@@ -2,17 +2,20 @@ import { Field } from "@rjsf/core";
 import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { Project, RepoGeneralSettingsFragment } from "gql/generated/types";
-import { placeholderIf, radioBoxOptions } from "../utils";
-import { FilesIgnoredFromCacheField } from "./FilesIgnoredFromCacheField";
-import { MoveRepoField } from "./MoveRepoField";
-import { RepotrackerField } from "./RepotrackerField";
+import { Project } from "gql/generated/types";
+import { insertIf, placeholderIf, radioBoxOptions } from "../utils";
+import {
+  FilesIgnoredFromCacheField,
+  MoveRepoField,
+  RepotrackerField,
+} from "./Fields";
+import { FormState } from "./types";
 
-export const getFormData = (
+export const getFormSchema = (
   projectId: string,
   useRepoSettings: boolean,
   validDefaultLoggers: Project["validDefaultLoggers"],
-  repoData?: RepoGeneralSettingsFragment
+  repoData?: FormState
 ): {
   fields: Record<string, Field>;
   schema: SpruceFormProps["schema"];
@@ -31,25 +34,28 @@ export const getFormData = (
         title: "General Configuration",
         properties: {
           enabled: {
-            type: "boolean" as "boolean",
-            oneOf: radioBoxOptions(["Enabled", "Disabled"], repoData?.enabled),
+            type: ["boolean", "null"],
+            oneOf: radioBoxOptions(
+              ["Enabled", "Disabled"],
+              repoData?.generalConfiguration?.enabled
+            ),
           },
           repositoryInfo: {
             type: "object" as "object",
             title: "Repository Info",
             properties: {
               owner: {
-                type: "string" as "string",
+                type: ["string", "null"],
                 title: "Owner",
               },
               repo: {
-                type: "string" as "string",
+                type: ["string", "null"],
                 title: "Repository",
               },
             },
           },
           branch: {
-            type: "string" as "string",
+            type: ["string", "null"],
             title: "Branch Name",
           },
           other: {
@@ -57,19 +63,19 @@ export const getFormData = (
             title: "Other",
             properties: {
               displayName: {
-                type: "string" as "string",
+                type: ["string", "null"],
                 title: "Display Name",
               },
               batchTime: {
-                type: "number" as "number",
+                type: ["number", "null"],
                 title: "Batch Time",
               },
               remotePath: {
-                type: "string" as "string",
+                type: ["string", "null"],
                 title: "Config File",
               },
               spawnHostScriptPath: {
-                type: "string" as "string",
+                type: ["string", "null"],
                 title: "Spawn Host Script Path",
               },
             },
@@ -81,11 +87,11 @@ export const getFormData = (
         title: "Project Flags",
         properties: {
           dispatchingDisabled: {
-            type: "boolean" as "boolean",
+            type: ["boolean", "null"],
             title: "Dispatching",
             oneOf: radioBoxOptions(
               ["Enabled", "Disabled"],
-              repoData?.dispatchingDisabled,
+              repoData?.projectFlags?.dispatchingDisabled,
               true
             ),
           },
@@ -94,11 +100,11 @@ export const getFormData = (
             title: "Scheduling Settings",
             properties: {
               deactivatePrevious: {
-                type: "boolean" as "boolean",
+                type: ["boolean", "null"],
                 title: "Old Task on Success",
                 oneOf: radioBoxOptions(
                   ["Unschedule", "Don't Unschedule"],
-                  repoData?.deactivatePrevious
+                  repoData?.projectFlags?.scheduling?.deactivatePrevious
                 ),
               },
             },
@@ -108,11 +114,11 @@ export const getFormData = (
             title: "Repotracker Settings",
             properties: {
               repotrackerDisabled: {
-                type: "boolean" as "boolean",
+                type: ["boolean", "null"],
                 title: "Repotracker",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
-                  repoData?.repotrackerDisabled,
+                  repoData?.projectFlags?.repotracker?.repotrackerDisabled,
                   true
                 ),
               },
@@ -123,8 +129,9 @@ export const getFormData = (
             title: "Default Logger",
             properties: {
               defaultLogger: {
-                type: "string" as "string",
-                enum: validDefaultLoggers,
+                default: null,
+                type: ["string", ...insertIf(repoData, "null")],
+                enum: [...validDefaultLoggers, ...insertIf(repoData, null)],
               },
             },
           },
@@ -133,11 +140,11 @@ export const getFormData = (
             title: "Test Results",
             properties: {
               cedarTestResultsEnabled: {
-                type: "boolean" as "string",
+                type: ["boolean", "null"],
                 title: "Cedar Test Results",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
-                  repoData?.cedarTestResultsEnabled
+                  repoData?.projectFlags?.testResults?.cedarTestResultsEnabled
                 ),
               },
             },
@@ -147,11 +154,11 @@ export const getFormData = (
             title: "Patch Settings",
             properties: {
               patchingDisabled: {
-                type: "string" as "string",
+                type: ["boolean", "null"],
                 title: "Patching",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
-                  repoData?.patchingDisabled,
+                  repoData?.projectFlags?.patch?.patchingDisabled,
                   true
                 ),
               },
@@ -162,19 +169,19 @@ export const getFormData = (
             title: "Task Sync",
             properties: {
               configEnabled: {
-                type: "string" as "string",
+                type: ["boolean", "null"],
                 title: "Project Config Commands",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
-                  repoData?.taskSync.configEnabled
+                  repoData?.projectFlags?.taskSync.configEnabled
                 ),
               },
               patchEnabled: {
-                type: "string" as "string",
+                type: ["boolean", "null"],
                 title: "Task in Patches",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
-                  repoData?.taskSync.patchEnabled
+                  repoData?.projectFlags?.taskSync.patchEnabled
                 ),
               },
             },
@@ -186,11 +193,11 @@ export const getFormData = (
         title: "Historical Data Caching Info",
         properties: {
           disabledStatsCache: {
-            type: "string" as "string",
+            type: ["boolean", "null"],
             title: "Caching",
             oneOf: radioBoxOptions(
               ["Enabled", "Disabled"],
-              repoData?.disabledStatsCache,
+              repoData?.historicalDataCaching?.disabledStatsCache,
               true
             ),
           },
@@ -201,7 +208,7 @@ export const getFormData = (
               "Comma-separated list of regular expression patterns that specify test filenames to ignore when caching test and task history.",
             properties: {
               filesIgnoredFromCache: {
-                type: "array" as "array",
+                type: ["array", "null"],
                 items: {
                   type: "object" as "object",
                   properties: {
@@ -233,23 +240,27 @@ export const getFormData = (
         options: { useRepoSettings },
       },
       branch: {
-        ...placeholderIf(repoData?.branch),
+        ...placeholderIf(repoData?.generalConfiguration?.branch),
       },
       other: {
+        displayName: {
+          "ui:data-cy": "display-name-input",
+        },
         batchTime: {
           "ui:description":
             "The interval of time (in minutes) that Evergreen should wait in between activating the latest version.",
-          "ui:emptyValue": 9,
-          ...placeholderIf(repoData?.batchTime),
+          ...placeholderIf(repoData?.generalConfiguration?.other?.batchTime),
         },
         remotePath: {
-          ...placeholderIf(repoData?.remotePath),
+          ...placeholderIf(repoData?.generalConfiguration?.other?.remotePath),
         },
         spawnHostScriptPath: {
           "ui:description":
             "This is the bash setup script to optionally run on spawn hosts created from tasks.",
           "ui:data-cy": "spawn-host-input",
-          ...placeholderIf(repoData?.spawnHostScriptPath),
+          ...placeholderIf(
+            repoData?.generalConfiguration?.other?.spawnHostScriptPath
+          ),
         },
       },
     },
@@ -277,9 +288,14 @@ export const getFormData = (
       },
       logger: {
         defaultLogger: {
-          "ui:placeholder": "Select Default Logger",
-          "ui:allowDeselect": false,
+          "ui:placeholder": repoData
+            ? `Default to Repo (${repoData?.projectFlags?.logger?.defaultLogger})`
+            : "Select Default Logger",
+          ...(!repoData && {
+            "ui:allowDeselect": false,
+          }),
           "ui:ariaLabelledBy": "projectFlags_logger__title",
+          "ui:data-cy": "default-logger-select",
         },
       },
       testResults: {

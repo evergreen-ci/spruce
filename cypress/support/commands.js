@@ -72,5 +72,5 @@ Cypress.Commands.add("toggleTableFilter", (colNum) => {
     .find("[role=button]")
     .first()
     .click();
-  cy.wait(250); // wait for animation
+  cy.get(".ant-table-filter-dropdown").should("be.visible");
 });

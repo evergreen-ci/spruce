@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots TupleSelect Waterfall 1`] = `
+exports[`storybook Storyshots TupleSelect Waterfall 1`] = `
 <div
   style={
     Object {

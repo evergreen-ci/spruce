@@ -9,58 +9,57 @@ import {
   GET_MY_VOLUMES,
   GET_USER,
 } from "gql/queries";
-import {
-  renderWithRouterMatch as render,
-  waitFor,
-} from "test_utils/test-utils";
+import { renderWithRouterMatch as render, waitFor } from "test_utils";
 import { SpawnHostButton } from "./SpawnHostButton";
 
-afterEach(() => {
-  jest.restoreAllMocks();
-});
-test("Disables the spawn host button when the number of hosts that currently exist are greater than or equal to the max number of spawn hosts per user", async () => {
-  const { Component } = RenderFakeToastContext(
-    <MockedProvider
-      mocks={[
-        awsRegionsMock,
-        getDistrosMock,
-        getMyPublicKeysMock,
-        getUserMock,
-        myVolumesQueryMock,
-        twoHostsTwoLimitMock,
-        getSpruceConfigMock,
-      ]}
-    >
-      <SpawnHostButton />
-    </MockedProvider>
-  );
-  const { queryByDataCy } = render(Component);
-  await waitFor(() =>
-    expect(queryByDataCy("spawn-host-button")).toBeDisabled()
-  );
-});
+describe("spawnHostButton", () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+  it("disables the spawn host button when the number of hosts that currently exist are greater than or equal to the max number of spawn hosts per user", async () => {
+    const { Component } = RenderFakeToastContext(
+      <MockedProvider
+        mocks={[
+          awsRegionsMock,
+          getDistrosMock,
+          getMyPublicKeysMock,
+          getUserMock,
+          myVolumesQueryMock,
+          twoHostsTwoLimitMock,
+          getSpruceConfigMock,
+        ]}
+      >
+        <SpawnHostButton />
+      </MockedProvider>
+    );
+    const { queryByDataCy } = render(Component);
+    await waitFor(() =>
+      expect(queryByDataCy("spawn-host-button")).toBeDisabled()
+    );
+  });
 
-test("Enables the spawn host button when the number of hosts that currently exist is less than the max number of spawn hosts per user", async () => {
-  const MockedSpawnHostButton = () => (
-    <MockedProvider
-      mocks={[
-        awsRegionsMock,
-        getDistrosMock,
-        getMyPublicKeysMock,
-        getUserMock,
-        myVolumesQueryMock,
-        twoHostsThreeLimitMock,
-        getSpruceConfigMock,
-      ]}
-    >
-      <SpawnHostButton />
-    </MockedProvider>
-  );
-  const { Component } = RenderFakeToastContext(<MockedSpawnHostButton />);
-  const { queryByDataCy } = render(Component);
-  await waitFor(() =>
-    expect(queryByDataCy("spawn-host-button")).not.toBeDisabled()
-  );
+  it("enables the spawn host button when the number of hosts that currently exist is less than the max number of spawn hosts per user", async () => {
+    const MockedSpawnHostButton = () => (
+      <MockedProvider
+        mocks={[
+          awsRegionsMock,
+          getDistrosMock,
+          getMyPublicKeysMock,
+          getUserMock,
+          myVolumesQueryMock,
+          twoHostsThreeLimitMock,
+          getSpruceConfigMock,
+        ]}
+      >
+        <SpawnHostButton />
+      </MockedProvider>
+    );
+    const { Component } = RenderFakeToastContext(<MockedSpawnHostButton />);
+    const { queryByDataCy } = render(Component);
+    await waitFor(() =>
+      expect(queryByDataCy("spawn-host-button")).not.toBeDisabled()
+    );
+  });
 });
 
 const awsRegionsMock = {
