@@ -60,6 +60,7 @@ describe("useMergedHookRender - sanity check", () => {
       currentPage: 0,
       pageCount: 0,
       columnLimit: 7,
+      commitCount: 10,
     });
   });
 });
