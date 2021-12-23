@@ -32,7 +32,7 @@ export const DistroOption: React.FC<DistroOptionProps> = ({
 const OptionWrapper = styled.div`
   display: flex;
   padding: 8px;
-  max-height: 500px;
+  align-items: center;
   overflow-y: scroll;
   &:hover {
     cursor: pointer;

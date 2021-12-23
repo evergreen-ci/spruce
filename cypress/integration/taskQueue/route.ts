@@ -30,7 +30,7 @@ describe("Task Queue", () => {
 
     cy.get(".ant-table-row").should("have.length", 0);
 
-    cy.get('input[placeholder*="Search for Distro"]').click();
+    cy.dataCy("distro-dropdown").click();
 
     cy.get("div").contains("osx-108").click();
 
@@ -40,10 +40,12 @@ describe("Task Queue", () => {
   it("Searching for a distro shows results that match search term", () => {
     cy.visit("/task-queue/debian71-test");
 
-    cy.get('input[placeholder*="Search for Distro"]').type("deb");
-
-    cy.contains("debian71-test").should("exist");
-    cy.contains("osx-108").should("not.exist");
+    cy.dataCy("distro-dropdown").click();
+    cy.dataCy("distro-dropdown-search-input").type("osx");
+    cy.dataCy("distro-dropdown-options").within(() => {
+      cy.contains("debian71-test").should("not.exist");
+      cy.contains("osx-108").should("exist");
+    });
   });
 
   it("Bogus distro url param values shows an empty list", () => {

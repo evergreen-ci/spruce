@@ -59,8 +59,9 @@ export const TaskQueue = () => {
     <PageWrapper>
       <H2>Task Queue</H2>
       <TableControlOuterRow>
-        <div style={{ width: 400 }}>
+        <SearchableDropdownWrapper>
           <SearchableDropdown
+            data-cy="distro-dropdown"
             label="Distro"
             options={distros}
             searchFunc={handleSearch}
@@ -85,7 +86,7 @@ export const TaskQueue = () => {
               </DistroLabel>
             )}
           />
-        </div>
+        </SearchableDropdownWrapper>
       </TableControlOuterRow>
 
       <TableContainer hide={false}>
@@ -95,6 +96,9 @@ export const TaskQueue = () => {
   );
 };
 
+const SearchableDropdownWrapper = styled.div`
+  width: 400px;
+`;
 const DistroLabel = styled.div`
   display: flex;
   white-space: nowrap;
