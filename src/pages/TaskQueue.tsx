@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
-import { H2, Subtitle } from "@leafygreen-ui/typography";
+import { H2 } from "@leafygreen-ui/typography";
 import { useParams, useHistory } from "react-router-dom";
 import { useTaskQueueAnalytics } from "analytics";
-import SelectSearch from "components/SelectSearch";
+import SearchableDropdown from "components/SearchableDropdown";
 import {
   TableContainer,
   TableControlOuterRow,
@@ -29,7 +29,7 @@ export const TaskQueue = () => {
 
   const [selectedDistro, setSelectedDistro] = useState<TaskQueueDistro>(null);
 
-  const { data: distrosData, loading } = useQuery<
+  const { data: distrosData } = useQuery<
     TaskQueueDistrosQuery,
     TaskQueueDistrosQueryVariables
   >(TASK_QUEUE_DISTROS);
@@ -47,9 +47,9 @@ export const TaskQueue = () => {
     }
   }, [firstDistroInList, distro, replace, taskId]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const onChangeDistroSelection = (val: any) => {
-    taskQueueAnalytics.sendEvent({ name: "Select Distro", distro: val });
-    replace(getTaskQueueRoute(val));
+  const onChangeDistroSelection = (val: TaskQueueDistro) => {
+    taskQueueAnalytics.sendEvent({ name: "Select Distro", distro: val.id });
+    replace(getTaskQueueRoute(val.id));
   };
 
   const handleSearch = (options: TaskQueueDistro[], match: string) =>
@@ -59,33 +59,35 @@ export const TaskQueue = () => {
     <PageWrapper>
       <H2>Task Queue</H2>
       <TableControlOuterRow>
-        <SelectSearch
-          onChange={onChangeDistroSelection}
-          searchFunc={handleSearch}
-          searchPlaceholder="Search for Distro"
-          options={distros}
-          optionRenderer={(option: TaskQueueDistro, onClick) => (
-            <DistroOption
-              taskCount={option.taskCount}
-              hostCount={option.hostCount}
-              id={option.id}
-              key={`distro-select-search-option-${option.id}`}
-              onClick={onClick}
-            />
-          )}
-        />
+        <div style={{ width: 400 }}>
+          <SearchableDropdown
+            label="Distro"
+            options={distros}
+            searchFunc={handleSearch}
+            optionRenderer={(option, onClick) => (
+              <DistroOption
+                option={option}
+                key={`distro-select-search-option-${option.id}`}
+                onClick={onClick}
+              />
+            )}
+            onChange={onChangeDistroSelection}
+            value={selectedDistro}
+            buttonRenderer={(option: TaskQueueDistro) => (
+              <DistroLabel>
+                <StyledBadge>{`${option?.taskCount} ${
+                  option?.taskCount === 1 ? "TASK" : "TASKS"
+                }`}</StyledBadge>
+                <StyledBadge>{`${option?.hostCount} ${
+                  option?.hostCount === 1 ? "HOST" : "HOSTS"
+                }`}</StyledBadge>
+                {option?.id}
+              </DistroLabel>
+            )}
+          />
+        </div>
       </TableControlOuterRow>
-      {!loading && (
-        <DistroLabel>
-          <Subtitle> {selectedDistro?.id} </Subtitle>
-          <StyledBadge>{`${selectedDistro?.taskCount} ${
-            selectedDistro?.taskCount === 1 ? "TASK" : "TASKS"
-          }`}</StyledBadge>
-          <StyledBadge>{`${selectedDistro?.hostCount} ${
-            selectedDistro?.hostCount === 1 ? "HOST" : "HOSTS"
-          }`}</StyledBadge>
-        </DistroLabel>
-      )}
+
       <TableContainer hide={false}>
         <TaskQueueTable />
       </TableContainer>
@@ -94,16 +96,10 @@ export const TaskQueue = () => {
 };
 
 const DistroLabel = styled.div`
-  padding-bottom: 24px;
   display: flex;
-  align-items: center;
   white-space: nowrap;
 `;
 
 const StyledBadge = styled(Badge)`
-  display: inline-flex;
-  justify-content: center;
-  width: 60px;
-  text-align: center;
-  margin-left: 24px;
+  margin-right: 8px;
 `;

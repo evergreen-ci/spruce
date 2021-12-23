@@ -1,34 +1,33 @@
-import React from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import { TaskQueueDistro } from "gql/generated/types";
 
 const { blue } = uiColors;
 
 interface DistroOptionProps {
-  id: string;
-  taskCount: number;
-  hostCount: number;
-  onClick: (val: string) => void;
+  option: TaskQueueDistro;
+  onClick: (val: TaskQueueDistro) => void;
 }
 
 export const DistroOption: React.FC<DistroOptionProps> = ({
-  id,
-  taskCount,
-  hostCount,
+  option,
   onClick,
-}) => (
-  <OptionWrapper onClick={() => onClick(id)}>
-    <StyledBadge>{`${taskCount} ${
-      taskCount === 1 ? "TASK" : "TASKS"
-    }`}</StyledBadge>
-    <StyledBadge>{`${hostCount} ${
-      hostCount === 1 ? "HOST" : "HOSTS"
-    }`}</StyledBadge>
-    <DistroName>{id}</DistroName>
-  </OptionWrapper>
-);
+}) => {
+  const { taskCount, hostCount, id } = option;
+  return (
+    <OptionWrapper onClick={() => onClick(option)}>
+      <StyledBadge>{`${option.taskCount} ${
+        taskCount === 1 ? "TASK" : "TASKS"
+      }`}</StyledBadge>
+      <StyledBadge>{`${hostCount} ${
+        hostCount === 1 ? "HOST" : "HOSTS"
+      }`}</StyledBadge>
+      <DistroName>{id}</DistroName>
+    </OptionWrapper>
+  );
+};
 
 const OptionWrapper = styled.div`
   display: flex;
@@ -41,11 +40,7 @@ const OptionWrapper = styled.div`
   }
 `;
 const StyledBadge = styled(Badge)`
-  display: inline-flex;
-  justify-content: center;
-  width: 60px;
-  text-align: center;
-  margin-right: 6px;
+  margin-right: 8px;
 `;
 const DistroName = styled(Disclaimer)`
   margin-left: 16px;
