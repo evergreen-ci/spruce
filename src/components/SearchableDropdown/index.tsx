@@ -27,6 +27,7 @@ interface SearchableDropdownProps<T> {
   allowMultiselect?: boolean;
   disabled?: boolean;
   ["data-cy"]?: string;
+  buttonRenderer?: (option: T | T[]) => React.ReactNode;
 }
 const SearchableDropdown = <T extends {}>({
   label,
@@ -40,6 +41,7 @@ const SearchableDropdown = <T extends {}>({
   allowMultiselect = false,
   disabled = false,
   "data-cy": dataCy = "searchable-dropdown",
+  buttonRenderer,
 }: PropsWithChildren<SearchableDropdownProps<T>>) => {
   const [isOpen, setisOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -144,7 +146,11 @@ const SearchableDropdown = <T extends {}>({
         >
           <ButtonContent>
             <LabelWrapper>
-              <Body data-cy="dropdown-value">{buttonText}</Body>
+              {buttonRenderer ? (
+                buttonRenderer(value)
+              ) : (
+                <Body data-cy="dropdown-value">{buttonText}</Body>
+              )}
             </LabelWrapper>
             <FlexWrapper>
               <ArrowWrapper>

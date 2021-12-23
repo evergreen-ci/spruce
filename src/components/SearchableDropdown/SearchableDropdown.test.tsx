@@ -3,9 +3,9 @@ import userEvent from "@testing-library/user-event";
 import { render } from "test_utils";
 import SearchableDropdown from ".";
 
-const RenderSearchableDropdown = (props: any) => (
-  <SearchableDropdown label="Just a test" {...props} />
-);
+const RenderSearchableDropdown = (
+  props: Omit<React.ComponentProps<typeof SearchableDropdown>, "label">
+) => <SearchableDropdown label="Just a test" {...props} />;
 
 describe("searchableDropdown", () => {
   it("sets the label to what ever the current value is", () => {
@@ -227,6 +227,20 @@ describe("searchableDropdown", () => {
       expect(queryByText("Spruce")).toBeInTheDocument();
       userEvent.click(queryByText("Spruce"));
       expect(onChange).toHaveBeenCalledWith("spruce");
+    });
+
+    it("should render a custom button", () => {
+      const onChange = jest.fn();
+      const { queryByText } = render(
+        RenderSearchableDropdown({
+          value: "evergreen",
+          onChange,
+          options: ["evergreen", "spruce"],
+          buttonRenderer: (option) => <b className="just-a-test">{option}</b>,
+        })
+      );
+      expect(queryByText("evergreen")).toBeInTheDocument();
+      expect(queryByText("evergreen")).toHaveAttribute("class", "just-a-test");
     });
   });
 });
