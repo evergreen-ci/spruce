@@ -1957,6 +1957,7 @@ export type HostEventLogData = {
 export type BuildBaron = {
   searchReturnInfo?: Maybe<SearchReturnInfo>;
   buildBaronConfigured: Scalars["Boolean"];
+  bbTicketCreationDefined: Scalars["Boolean"];
 };
 
 export type SearchReturnInfo = {
@@ -2655,6 +2656,7 @@ export type BuildBaronQueryVariables = Exact<{
 export type BuildBaronQuery = {
   buildBaron: {
     buildBaronConfigured: boolean;
+    bbTicketCreationDefined: boolean;
     searchReturnInfo?: Maybe<{
       search: string;
       source: string;

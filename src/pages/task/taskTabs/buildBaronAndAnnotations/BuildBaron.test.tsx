@@ -129,6 +129,7 @@ describe("buildBaron", () => {
 const buildBaronQuery = {
   buildBaron: {
     buildBaronConfigured: true,
+    bbTicketCreationDefined: true,
     searchReturnInfo: {
       issues: [
         {
