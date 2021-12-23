@@ -1024,7 +1024,10 @@ export type TaskQueueItem = {
 
 export type TaskQueueDistro = {
   id: Scalars["ID"];
+  /** @deprecated queueCount is deprecated, use taskCount instead */
   queueCount: Scalars["Int"];
+  taskCount: Scalars["Int"];
+  hostCount: Scalars["Int"];
 };
 
 export type Host = {
@@ -1361,7 +1364,6 @@ export type Task = {
   activatedTime?: Maybe<Scalars["Time"]>;
   ami?: Maybe<Scalars["String"]>;
   annotation?: Maybe<Annotation>;
-  bbTicketCreationDefined: Scalars["Boolean"];
   baseTask?: Maybe<Task>;
   baseStatus?: Maybe<Scalars["String"]>;
   /** @deprecated baseTaskMetadata is deprecated. Use baseTask instead */
@@ -3810,7 +3812,7 @@ export type SubnetAvailabilityZonesQuery = {
 export type TaskQueueDistrosQueryVariables = Exact<{ [key: string]: never }>;
 
 export type TaskQueueDistrosQuery = {
-  taskQueueDistros: Array<{ id: string; queueCount: number }>;
+  taskQueueDistros: Array<{ id: string; taskCount: number; hostCount: number }>;
 };
 
 export type UserPatchesQueryVariables = Exact<{
