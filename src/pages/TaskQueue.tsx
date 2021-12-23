@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
@@ -34,7 +34,9 @@ export const TaskQueue = () => {
     TaskQueueDistrosQueryVariables
   >(TASK_QUEUE_DISTROS);
 
-  const distros = distrosData?.taskQueueDistros ?? [];
+  const distros = useMemo(() => distrosData?.taskQueueDistros ?? [], [
+    distrosData,
+  ]);
   const firstDistroInList = distros[0]?.id;
 
   // SET DEFAULT DISTRO
@@ -45,8 +47,7 @@ export const TaskQueue = () => {
     if (defaultDistro) {
       replace(getTaskQueueRoute(defaultDistro, taskId));
     }
-  }, [firstDistroInList, distro, replace, taskId]); // eslint-disable-line react-hooks/exhaustive-deps
-
+  }, [firstDistroInList, distro, replace, taskId, distros]);
   const onChangeDistroSelection = (val: TaskQueueDistro) => {
     taskQueueAnalytics.sendEvent({ name: "Select Distro", distro: val.id });
     replace(getTaskQueueRoute(val.id));
