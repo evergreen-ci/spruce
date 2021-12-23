@@ -13,9 +13,9 @@ import {
 } from "components/styles";
 import { getTaskQueueRoute } from "constants/routes";
 import {
+  TaskQueueDistro,
   TaskQueueDistrosQuery,
   TaskQueueDistrosQueryVariables,
-  TaskQueueDistro,
 } from "gql/generated/types";
 import { TASK_QUEUE_DISTROS } from "gql/queries";
 import { DistroOption } from "pages/taskQueue/DistroOption";
@@ -27,7 +27,7 @@ export const TaskQueue = () => {
   const { distro, taskId } = useParams<{ distro: string; taskId?: string }>();
   const { replace } = useHistory();
 
-  const [selectedDistro, setSelectedDistro] = useState<TaskQueueDistro>(null);
+  const [selectedDistro, setSelectedDistro] = useState(null);
 
   const { data: distrosData } = useQuery<
     TaskQueueDistrosQuery,
@@ -48,12 +48,12 @@ export const TaskQueue = () => {
       replace(getTaskQueueRoute(defaultDistro, taskId));
     }
   }, [firstDistroInList, distro, replace, taskId, distros]);
-  const onChangeDistroSelection = (val: TaskQueueDistro) => {
+  const onChangeDistroSelection = (val: { id: string }) => {
     taskQueueAnalytics.sendEvent({ name: "Select Distro", distro: val.id });
     replace(getTaskQueueRoute(val.id));
   };
 
-  const handleSearch = (options: TaskQueueDistro[], match: string) =>
+  const handleSearch = (options: { id: string }[], match: string) =>
     options.filter((d) => d.id.toLowerCase().includes(match.toLowerCase()));
 
   return (
@@ -75,7 +75,7 @@ export const TaskQueue = () => {
             )}
             onChange={onChangeDistroSelection}
             value={selectedDistro}
-            buttonRenderer={(option: TaskQueueDistro) => (
+            buttonRenderer={(option: Partial<TaskQueueDistro>) => (
               <DistroLabel>
                 <StyledBadge>{`${option?.taskCount} ${
                   option?.taskCount === 1 ? "TASK" : "TASKS"
