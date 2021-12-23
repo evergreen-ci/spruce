@@ -3,12 +3,11 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body, Label } from "@leafygreen-ui/typography";
-import { Input } from "antd";
 import Icon from "components/Icon";
+import TextInput from "components/TextInputWithGlyph";
 import { useOnClickOutside } from "hooks";
 import { toggleArray } from "utils/array";
 
-const { Search } = Input;
 const { gray, white, blue } = uiColors;
 
 interface SearchableDropdownProps<T> {
@@ -162,11 +161,14 @@ const SearchableDropdown = <T extends {}>({
         {isOpen && (
           <RelativeWrapper>
             <OptionsWrapper ref={listMenuRef} data-cy={`${dataCy}-options`}>
-              <Search
+              <TextInput
+                data-cy={`${dataCy}-search-input`}
                 placeholder={searchPlaceholder}
                 value={search}
                 onChange={handleSearch}
-                data-cy={`${dataCy}-search-input`}
+                glyph="MagnifyingGlass"
+                aria-label="Search"
+                type="search"
               />
               <ScrollableList>
                 {(visibleOptions as T[])?.map((o) => option(o))}
