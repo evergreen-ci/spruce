@@ -7,6 +7,7 @@ import {
 } from "gql/generated/types";
 import * as access from "./AccessTab/types";
 import * as general from "./GeneralTab/types";
+import * as plugins from "./PluginsTab/types";
 
 export type FormStateMap = {
   [ProjectSettingsTabRoutes.General]: general.FormState;
@@ -20,6 +21,10 @@ export type TabDataProps = {
   [ProjectSettingsTabRoutes.Access]: {
     projectData: access.TabProps["projectData"];
     repoData: access.TabProps["repoData"];
+  };
+  [ProjectSettingsTabRoutes.Plugins]: {
+    projectData: plugins.TabProps["projectData"];
+    repoData: plugins.TabProps["repoData"];
   };
 };
 

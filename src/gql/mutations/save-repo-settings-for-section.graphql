@@ -10,6 +10,7 @@ mutation SaveRepoSettingsForSection(
       id
       ...repoGeneralSettings
       ...repoAccessSettings
+      ...repoPluginsSettings
     }
   }
 }

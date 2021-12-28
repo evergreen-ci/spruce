@@ -2232,6 +2232,30 @@ export type RepoGeneralSettingsFragment = {
   taskSync: { configEnabled: boolean; patchEnabled: boolean };
 };
 
+export type ProjectPluginsSettingsFragment = {
+  perfEnabled?: Maybe<boolean>;
+  buildBaronSettings: {
+    ticketCreateProject: string;
+    ticketSearchProjects?: Maybe<Array<string>>;
+  };
+  taskAnnotationSettings: {
+    jiraCustomFields?: Maybe<Array<{ field: string; displayText: string }>>;
+    fileTicketWebhook: { endpoint: string; secret: string };
+  };
+};
+
+export type RepoPluginsSettingsFragment = {
+  perfEnabled: boolean;
+  buildBaronSettings: {
+    ticketCreateProject: string;
+    ticketSearchProjects?: Maybe<Array<string>>;
+  };
+  taskAnnotationSettings: {
+    jiraCustomFields?: Maybe<Array<{ field: string; displayText: string }>>;
+    fileTicketWebhook: { endpoint: string; secret: string };
+  };
+};
+
 export type AbortTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
@@ -2456,7 +2480,8 @@ export type SaveProjectSettingsForSectionMutation = {
         useRepoSettings: boolean;
         repoRefId: string;
       } & ProjectGeneralSettingsFragment &
-        ProjectAccessSettingsFragment
+        ProjectAccessSettingsFragment &
+        ProjectPluginsSettingsFragment
     >;
   };
 };
@@ -2469,7 +2494,9 @@ export type SaveRepoSettingsForSectionMutationVariables = Exact<{
 export type SaveRepoSettingsForSectionMutation = {
   saveRepoSettingsForSection: {
     projectRef?: Maybe<
-      { id: string } & RepoGeneralSettingsFragment & RepoAccessSettingsFragment
+      { id: string } & RepoGeneralSettingsFragment &
+        RepoAccessSettingsFragment &
+        RepoPluginsSettingsFragment
     >;
   };
 };
@@ -3307,7 +3334,8 @@ export type ProjectSettingsQuery = {
         useRepoSettings: boolean;
         repoRefId: string;
       } & ProjectGeneralSettingsFragment &
-        ProjectAccessSettingsFragment
+        ProjectAccessSettingsFragment &
+        ProjectPluginsSettingsFragment
     >;
   };
 };
@@ -3343,7 +3371,9 @@ export type RepoSettingsQueryVariables = Exact<{
 export type RepoSettingsQuery = {
   repoSettings: {
     projectRef?: Maybe<
-      { id: string } & RepoGeneralSettingsFragment & RepoAccessSettingsFragment
+      { id: string } & RepoGeneralSettingsFragment &
+        RepoAccessSettingsFragment &
+        RepoPluginsSettingsFragment
     >;
   };
 };

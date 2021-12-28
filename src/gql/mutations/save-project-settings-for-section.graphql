@@ -1,5 +1,6 @@
 #import "../fragments/projectSettings/access.graphql"
 #import "../fragments/projectSettings/general.graphql"
+#import "../fragments/projectSettings/plugins.graphql"
 
 mutation SaveProjectSettingsForSection(
   $projectSettings: ProjectSettingsInput!
@@ -15,6 +16,7 @@ mutation SaveProjectSettingsForSection(
       repoRefId
       ...projectGeneralSettings
       ...projectAccessSettings
+      ...projectPluginsSettings
     }
   }
 }
