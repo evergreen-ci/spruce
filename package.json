@@ -126,7 +126,7 @@
     "@emotion/babel-plugin": "^11.1.2",
     "@emotion/jest": "^11.2.0",
     "@graphql-codegen/cli": "1.19.4",
-    "@graphql-codegen/typescript": "1.19.0",
+    "@graphql-codegen/typescript": "2.4.2",
     "@graphql-codegen/typescript-operations": "1.17.12",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.2",
     "@storybook/addon-a11y": "^6.1.18",
