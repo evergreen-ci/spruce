@@ -100,7 +100,7 @@
     "env-cmd": "10.1.0",
     "graphql": "15.5.0",
     "html-react-parser": "1.2.4",
-    "js-cookie": "2.2.1",
+    "js-cookie": "3.0.1",
     "linkifyjs": "2.1.9",
     "lodash.debounce": "4.0.8",
     "lodash.every": "4.6.0",
