@@ -4,21 +4,10 @@ import {
   GET_BASE_VERSION_AND_TASK,
   GET_LAST_MAINLINE_COMMIT,
 } from "gql/queries";
-import { renderWithRouterMatch, waitFor } from "test_utils/test-utils";
+import { renderWithRouterMatch, waitFor } from "test_utils";
 import { PreviousCommits } from "./PreviousCommits";
 
 describe("previous Commits", () => {
-  it("this component will not render if the task's version did not originate from a patch", async () => {
-    const { container } = renderWithRouterMatch(() => (
-      <MockedProvider mocks={[getMainlineCommitTask]}>
-        <PreviousCommits taskId="t1" />
-      </MockedProvider>
-    ));
-    waitFor(() => {
-      expect(container.children).toStrictEqual([]);
-    });
-  });
-
   it("when base task is passing, all dropdown items generate the same link.", async () => {
     const { queryAllByText, queryByText } = renderWithRouterMatch(() => (
       <MockedProvider mocks={[getTaskWithSuccessfulBase]}>
@@ -369,42 +358,6 @@ describe("previous Commits", () => {
             },
           ],
           __typename: "MainlineCommits",
-        },
-      },
-    },
-  };
-  const getMainlineCommitTask = {
-    request: {
-      query: GET_BASE_VERSION_AND_TASK,
-      variables: {
-        taskId: "t1",
-      },
-    },
-    result: {
-      data: {
-        task: {
-          id:
-            "evergreen_lint_lint_agent_patch_f4fe4814088e13b8ef423a73d65a6e0a5579cf93_61a8edf132f41750ab47bc72_21_12_02_16_01_54",
-          execution: 0,
-          displayName: "lint-agent",
-          buildVariant: "lint",
-          versionMetadata: {
-            baseVersion: {
-              id: "baseVersion",
-              order: 3676,
-              projectIdentifier: "evergreen",
-              __typename: "Version",
-            },
-            isPatch: false,
-            __typename: "Version",
-          },
-          baseTask: {
-            id: baseTaskId,
-            execution: 0,
-            status: "failed",
-            __typename: "Task",
-          },
-          __typename: "Task",
         },
       },
     },
