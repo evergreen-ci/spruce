@@ -5,6 +5,7 @@ export interface FormState extends FormDataProps {
     varName: string;
     varValue: string;
     isPrivate: boolean;
+    isDisabled: boolean;
   }>;
 }
 

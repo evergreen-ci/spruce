@@ -14,6 +14,7 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
       varName,
       varValue,
       isPrivate: privateVars.includes(varName),
+      isDisabled: privateVars.includes(varName),
     })),
   };
 };

@@ -27,6 +27,7 @@ const formData: FormState = {
       varName: "test_name",
       varValue: "test_value",
       isPrivate: true,
+      isDisabled: true,
     },
   ],
 };

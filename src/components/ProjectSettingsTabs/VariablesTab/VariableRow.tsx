@@ -2,13 +2,38 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { ObjectFieldTemplateProps } from "@rjsf/core";
 import Icon from "components/Icon";
+import { Unpacked } from "types/utils";
 
 const { yellow } = uiColors;
+
+// Modify a field such that its internal disabled prop is true.
+const disableField = (
+  property: Unpacked<ObjectFieldTemplateProps["properties"]>
+): Unpacked<ObjectFieldTemplateProps["properties"]>["content"] => ({
+  ...property.content,
+  props: {
+    ...property.content.props,
+    disabled: true,
+  },
+});
+
+// Return child fields to be rendered
+// Conditionally disable based on whether it has been flagged as such (i.e. is a private variable that has already been saved).
+const getFields = (
+  properties: ObjectFieldTemplateProps["properties"],
+  isDisabled: boolean
+): Array<Unpacked<ObjectFieldTemplateProps["properties"]>["content"]> =>
+  isDisabled
+    ? properties.map(disableField)
+    : properties.map(({ content }) => content);
 
 export const VariableRow: React.FC<
   Pick<ObjectFieldTemplateProps, "formData" | "properties" | "uiSchema">
 > = ({ formData, properties, uiSchema }) => {
-  const [variableName, variableValue, isPrivate] = properties;
+  const [variableName, variableValue, isPrivate] = getFields(
+    properties,
+    formData.isDisabled
+  );
   const repoData = uiSchema?.options?.repoData;
   const inRepo = repoData
     ? repoData.vars.some(({ varName }) => varName === formData.varName)
@@ -17,7 +42,7 @@ export const VariableRow: React.FC<
   return (
     <RowContainer>
       <LeftColumn showWarning={inRepo}>
-        {variableName.content}
+        {variableName}
         {inRepo && (
           <OverrideWarning data-cy="override-warning">
             <Icon glyph="ImportantWithCircle" size="small" />
@@ -27,8 +52,8 @@ export const VariableRow: React.FC<
         )}
       </LeftColumn>
       <div>
-        {variableValue.content}
-        {isPrivate.content}
+        {variableValue}
+        {isPrivate}
       </div>
     </RowContainer>
   );

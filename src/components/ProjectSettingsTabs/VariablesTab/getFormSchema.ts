@@ -33,6 +33,9 @@ export const getFormSchema = (
               type: "boolean" as "boolean",
               title: "Private",
             },
+            isDisabled: {
+              type: "boolean" as "boolean",
+            },
           },
         },
       },
