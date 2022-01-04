@@ -3073,7 +3073,9 @@ export type GetLastMainlineCommitQuery = {
         buildVariants?: Maybe<
           Array<
             Maybe<{
-              tasks?: Maybe<Array<Maybe<{ id: string; execution: number }>>>;
+              tasks?: Maybe<
+                Array<Maybe<{ id: string; execution: number; status: string }>>
+              >;
             }>
           >
         >;

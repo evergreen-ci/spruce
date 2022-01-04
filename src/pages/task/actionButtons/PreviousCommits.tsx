@@ -29,14 +29,28 @@ enum CommitType {
 interface Props {
   taskId: string;
 }
+
 export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
   const [selectState, setSelectState] = useState<CommitType>(CommitType.Base);
+  const [parentTask, setParentTask] = useState(null);
   const { data: taskData } = useQuery<
     GetBaseVersionAndTaskQuery,
     GetBaseVersionAndTaskQueryVariables
   >(GET_BASE_VERSION_AND_TASK, {
     variables: { taskId },
   });
+
+  const [fetchParentTask, { data: parentTaskData }] = useLazyQuery<
+    GetLastMainlineCommitQuery,
+    GetLastMainlineCommitQueryVariables
+  >(GET_LAST_MAINLINE_COMMIT);
+
+  useEffect(() => {
+    const { version } = parentTaskData?.mainlineCommits?.versions[0] || {};
+    if (version) {
+      setParentTask(version.buildVariants[0].tasks[0]);
+    }
+  }, [parentTaskData]);
 
   const [fetchLastPassing, { data: lastPassingData }] = useLazyQuery<
     GetLastMainlineCommitQuery,
@@ -50,54 +64,86 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
 
   const { baseTask, versionMetadata, buildVariant, displayName } =
     taskData?.task ?? {};
-  const { id: baseTaskId, status: baseTaskStatus } = baseTask ?? {};
+
+  const { id: parentTaskId, status: parentTaskStatus } = parentTask ?? {};
   const { projectIdentifier, order } = versionMetadata?.baseVersion ?? {};
-  // Increment order by 1 to consider the base commit in the query.
-  const skipOrderNumber = order + 1;
-  const isBaseTaskFinished = isFinishedTaskStatus(baseTaskStatus);
   useEffect(() => {
-    const bvOptionsBase = {
-      tasks: [applyStrictRegex(displayName)],
-      variants: [applyStrictRegex(buildVariant)],
-    };
-    if (
-      selectState === CommitType.LastPassing &&
-      baseTaskStatus !== TaskStatus.Succeeded
-    ) {
-      fetchLastPassing({
+    // If the current version is a mainline commit,
+    // the parent task is of the previous mainline commit.
+    // Otherwise, it is the base task.
+    if (versionMetadata?.isPatch === false) {
+      fetchParentTask({
         variables: {
           projectIdentifier,
-          skipOrderNumber,
+          skipOrderNumber: order,
           buildVariantOptions: {
-            ...bvOptionsBase,
-            statuses: [TaskStatus.Succeeded],
+            tasks: [applyStrictRegex(displayName)],
+            variants: [applyStrictRegex(buildVariant)],
           },
         },
       });
-    }
-    if (selectState === CommitType.LastExecuted && !isBaseTaskFinished) {
-      fetchLastExecuted({
-        variables: {
-          projectIdentifier,
-          skipOrderNumber,
-          buildVariantOptions: {
-            ...bvOptionsBase,
-            statuses: finishedTaskStatuses,
-          },
-        },
-      });
+    } else if (versionMetadata?.isPatch === true) {
+      setParentTask(baseTask);
     }
   }, [
-    baseTaskId,
-    baseTaskStatus,
+    baseTask,
+    buildVariant,
+    displayName,
+    fetchParentTask,
+    order,
+    projectIdentifier,
+    versionMetadata?.isPatch,
+  ]);
+  const isParentTaskFinished = isFinishedTaskStatus(parentTaskStatus);
+  useEffect(() => {
+    if (versionMetadata?.isPatch !== undefined) {
+      // The last passing & last executed version of a non-mainline commit patch may
+      // include the base version of the patch.
+      const skipOrderNumber = versionMetadata.isPatch ? order + 1 : order;
+      const bvOptionsBase = {
+        tasks: [applyStrictRegex(displayName)],
+        variants: [applyStrictRegex(buildVariant)],
+      };
+      if (
+        selectState === CommitType.LastPassing &&
+        parentTaskStatus !== TaskStatus.Succeeded
+      ) {
+        fetchLastPassing({
+          variables: {
+            projectIdentifier,
+            skipOrderNumber,
+            buildVariantOptions: {
+              ...bvOptionsBase,
+              statuses: [TaskStatus.Succeeded],
+            },
+          },
+        });
+      }
+      if (selectState === CommitType.LastExecuted && !isParentTaskFinished) {
+        fetchLastExecuted({
+          variables: {
+            projectIdentifier,
+            skipOrderNumber,
+            buildVariantOptions: {
+              ...bvOptionsBase,
+              statuses: finishedTaskStatuses,
+            },
+          },
+        });
+      }
+    }
+  }, [
+    parentTaskId,
+    parentTaskStatus,
     buildVariant,
     displayName,
     fetchLastExecuted,
     fetchLastPassing,
-    isBaseTaskFinished,
+    isParentTaskFinished,
     projectIdentifier,
     selectState,
-    skipOrderNumber,
+    order,
+    versionMetadata,
   ]);
 
   const lastPassingTaskId = getTaskIdFromMainlineCommitsQuery(lastPassingData);
@@ -107,13 +153,13 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
   let link = "";
   switch (selectState) {
     case CommitType.Base:
-      // The task may not exist on the base version if it was generated.
-      link = baseTaskId ? getTaskRoute(baseTaskId) : "";
+      // The task may not exist on the base version base version is inactive or task is generated.
+      link = parentTaskId ? getTaskRoute(parentTaskId) : "";
       break;
     case CommitType.LastPassing:
       // If a base task succeeded, the last passing commit is the base task.
-      if (baseTaskStatus === TaskStatus.Succeeded) {
-        link = getTaskRoute(baseTaskId);
+      if (parentTaskStatus === TaskStatus.Succeeded) {
+        link = getTaskRoute(parentTaskId);
       } else if (lastPassingTaskId) {
         link = getTaskRoute(lastPassingTaskId);
       } else {
@@ -122,8 +168,8 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
       break;
     case CommitType.LastExecuted:
       // If a base task exists and has finished, the last executed commit is the base task.
-      if (isBaseTaskFinished) {
-        link = getTaskRoute(baseTaskId);
+      if (isParentTaskFinished) {
+        link = getTaskRoute(parentTaskId);
       } else if (lastExecutedTaskId) {
         link = getTaskRoute(lastExecutedTaskId);
       } else {
@@ -132,8 +178,7 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
       break;
     default:
   }
-
-  return versionMetadata?.isPatch === true ? (
+  return versionMetadata?.isPatch !== undefined ? (
     <Container>
       <StyledSelect
         size="small"
@@ -145,7 +190,7 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
         disabled={!versionMetadata?.baseVersion}
       >
         <Option value="base" key="base">
-          Go to base commit
+          Go to {versionMetadata?.isPatch ? "base commit" : "parent commit"}
         </Option>
         <Option value="lastPassing" key="lastPassing">
           Go to last passing version
