@@ -43,6 +43,23 @@ export const VariablesTab: React.FC<TabProps> = ({
       onChange={onChange}
       schema={schema}
       uiSchema={uiSchema}
+      validate={validate}
     />
   );
+};
+
+/* Display an error and prevent saving if a user enters a variable name that already appears in the project. */
+const validate = (formData, errors) => {
+  const duplicateIndices = formData.vars
+    .map((e) => e.varName)
+    .map((e, i, arr) => arr.indexOf(e) !== i && i)
+    .filter((obj) => formData.vars[obj]);
+
+  duplicateIndices.forEach((i) => {
+    errors.vars[i].varName.addError(
+      "Value already appears in project variables."
+    );
+  });
+
+  return errors;
 };

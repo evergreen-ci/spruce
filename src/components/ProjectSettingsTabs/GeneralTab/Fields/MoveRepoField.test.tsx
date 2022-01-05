@@ -1,14 +1,13 @@
 import userEvent from "@testing-library/user-event";
 import { render, fireEvent, waitFor } from "test_utils/test-utils";
 import { MoveRepoField, MoveRepoModal } from "./MoveRepoField";
+import { defaultFieldProps } from "./utils";
 
 describe("moveRepoField", () => {
   it("does not show the move repo button when not attached to repo", async () => {
     const { queryByDataCy } = render(
       <MoveRepoField
-        formData={{}}
-        onChange={() => {}}
-        schema={{}}
+        {...defaultFieldProps}
         uiSchema={{
           options: { useRepoSettings: false },
         }}
@@ -20,9 +19,7 @@ describe("moveRepoField", () => {
   it("clicking the button opens the modal", async () => {
     const { queryByDataCy } = render(
       <MoveRepoField
-        formData={{}}
-        onChange={() => {}}
-        schema={{}}
+        {...defaultFieldProps}
         uiSchema={{
           options: { useRepoSettings: true },
         }}
