@@ -36,7 +36,7 @@ describe("variable row field template", () => {
     expect(queryByDataCy("override-warning")).toBeInTheDocument();
   });
 
-  it("does not show a warning when a duplicate variable does not in repo and project", async () => {
+  it("does not show a warning when a duplicate variable does not appear in repo and project", async () => {
     const { queryByDataCy } = render(
       <VariableRow
         formData={{ varName: "" }}

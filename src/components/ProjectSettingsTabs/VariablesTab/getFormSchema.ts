@@ -69,13 +69,18 @@ export const getFormSchema = (
       items: {
         "ui:ObjectFieldTemplate": VariableRow,
         options: { repoData },
+        varName: {
+          "ui:data-cy": "var-name-input",
+        },
         varValue: {
           "ui:widget": widgets.TextareaWidget,
           "ui:marginBottom": 4,
+          "ui:data-cy": "var-value-input",
         },
         isPrivate: {
           "ui:tooltipDescription":
             "Private variables have redacted values on the Project Page and the API and cannot be updated.",
+          "ui:data-cy": "var-private-input",
         },
       },
     },

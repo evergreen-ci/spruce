@@ -56,7 +56,7 @@ const validate = (formData, errors) => {
     .filter((obj) => formData.vars[obj]);
 
   duplicateIndices.forEach((i) => {
-    errors.vars[i].varName.addError(
+    errors.vars?.[i]?.varName?.addError(
       "Value already appears in project variables."
     );
   });
