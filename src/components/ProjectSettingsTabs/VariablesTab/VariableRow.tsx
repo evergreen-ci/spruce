@@ -44,11 +44,11 @@ export const VariableRow: React.FC<
       <LeftColumn showWarning={inRepo}>
         {variableName}
         {inRepo && (
-          <OverrideWarning data-cy="override-warning">
-            <Icon glyph="ImportantWithCircle" size="small" />
+          <span data-cy="override-warning">
+            <OverrideIcon glyph="ImportantWithCircle" size="small" />
             This will override the variable of the same name defined in the
             repo.
-          </OverrideWarning>
+          </span>
         )}
       </LeftColumn>
       <div>
@@ -59,12 +59,10 @@ export const VariableRow: React.FC<
   );
 };
 
-const OverrideWarning = styled.span`
-  svg {
-    margin-right: 4px;
-    margin-top: 1px;
-    vertical-align: text-top;
-  }
+const OverrideIcon = styled(Icon)`
+  margin-right: 4px;
+  margin-top: 1px;
+  vertical-align: text-top;
 `;
 
 const LeftColumn = styled.div`
@@ -85,9 +83,5 @@ const RowContainer = styled.div`
   > div {
     flex-grow: 1;
     max-width: 50%;
-  }
-
-  > div > div > div {
-    margin-bottom: 4px;
   }
 `;

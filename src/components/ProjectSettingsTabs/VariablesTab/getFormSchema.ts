@@ -71,6 +71,7 @@ export const getFormSchema = (
         options: { repoData },
         varValue: {
           "ui:widget": widgets.TextareaWidget,
+          "ui:marginBottom": 4,
         },
         isPrivate: {
           "ui:tooltipDescription":

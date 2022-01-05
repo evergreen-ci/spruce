@@ -248,7 +248,7 @@ export const LeafyGreenTextArea: React.FC<WidgetProps> = ({
   disabled,
   value,
   onChange,
-  options: { "data-cy": dataCy },
+  options: { "data-cy": dataCy, marginBottom },
   rawErrors,
   readonly,
   formContext,
@@ -256,7 +256,7 @@ export const LeafyGreenTextArea: React.FC<WidgetProps> = ({
   const { readonlyAsDisabled = true } = formContext;
   const hasError = !!rawErrors?.length;
   return (
-    <ElementWrapper>
+    <ElementWrapper marginBottom={marginBottom as number}>
       <TextArea
         data-cy={dataCy}
         label={label}
