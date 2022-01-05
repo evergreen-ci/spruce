@@ -70,6 +70,7 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
                     onClick={onDropIndexClick(index)}
                     disabled={disabled || readonly}
                     leftGlyph={<Icon glyph="Trash" />}
+                    data-cy="delete-item-button"
                   />
                 </DeleteButtonWrapper>
               )}

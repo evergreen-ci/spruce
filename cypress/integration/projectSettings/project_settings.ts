@@ -87,6 +87,16 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("var-name-input").eq(0).should("have.value", "sample_name");
       cy.dataCy("var-name-input").eq(1).should("have.value", "sample_name_2");
     });
+
+    it("Should allow deleting both items", () => {
+      cy.dataCy("delete-item-button").eq(0).click();
+      cy.dataCy("delete-item-button").eq(1).click();
+      cy.dataCy("save-settings-button").click();
+    });
+
+    it("Should show no variables after deleting", () => {
+      cy.dataCy("var-name-input").should("not.exist");
+    });
   });
 });
 
