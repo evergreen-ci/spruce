@@ -89,8 +89,8 @@ describe("Project Settings when not defaulting to repo", () => {
     });
 
     it("Should allow deleting both items", () => {
-      cy.dataCy("delete-item-button").eq(0).click();
-      cy.dataCy("delete-item-button").eq(1).click();
+      cy.dataCy("delete-item-button").first().click();
+      cy.dataCy("delete-item-button").first().click();
       cy.dataCy("save-settings-button").click();
     });
 

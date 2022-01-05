@@ -257,6 +257,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                   <button
                     aria-disabled={false}
                     className="leafygreen-ui-26sqyb"
+                    data-cy="delete-item-button"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
@@ -269,7 +270,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                     >
                       <svg
                         aria-label="Trash Icon"
-                        className=""
+                        className="leafygreen-ui-1d90lhq"
                         fill="none"
                         height={16}
                         role="img"
