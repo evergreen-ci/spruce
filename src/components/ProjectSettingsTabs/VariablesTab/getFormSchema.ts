@@ -42,8 +42,7 @@ export const getFormSchema = (
     },
     type: "object" as "object",
     properties: {
-      // prettier-ignore
-      vars: { "$ref": "#/definitions/varsArray" },
+      vars: { $ref: "#/definitions/varsArray" },
       ...(repoData && {
         repoData: {
           type: "object" as "object",
@@ -52,8 +51,7 @@ export const getFormSchema = (
             description: "Repo has no variables defined.",
           }),
           properties: {
-            // prettier-ignore
-            vars: { "$ref": "#/definitions/varsArray" },
+            vars: { $ref: "#/definitions/varsArray" },
           },
         },
       }),
