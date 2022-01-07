@@ -24,7 +24,7 @@ export const formToGql: FormToGqlFunction = (
 ) => {
   const vars = varsData.reduce(
     (acc, { varName, varValue, isPrivate }) => {
-      if (!varName) return acc;
+      if (!varName || !varValue) return acc;
       if (isPrivate) {
         acc.privateVarsList.push(varName);
       }

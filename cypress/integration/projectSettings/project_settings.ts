@@ -51,9 +51,13 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("save-settings-button").should("be.disabled");
     });
 
-    it("Should correctly save a private variable", () => {
+    it("Should not enable save when the value field is empty", () => {
       cy.dataCy("add-button").click();
       cy.dataCy("var-name-input").type("sample_name");
+      cy.dataCy("save-settings-button").should("be.disabled");
+    });
+
+    it("Should correctly save a private variable", () => {
       cy.dataCy("var-value-input").type("sample_value");
       cy.dataCy("var-private-input").check({ force: true });
       cy.dataCy("save-settings-button").click();
@@ -69,6 +73,7 @@ describe("Project Settings when not defaulting to repo", () => {
     it("Should error when a duplicate variable name is entered and disable saving", () => {
       cy.dataCy("add-button").click();
       cy.dataCy("var-name-input").eq(1).type("sample_name");
+      cy.dataCy("var-value-input").eq(1).type("sample_value_2");
       cy.contains("Value already appears in project variables.");
       cy.dataCy("save-settings-button").should("be.disabled");
     });

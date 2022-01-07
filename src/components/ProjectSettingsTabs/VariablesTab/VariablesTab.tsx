@@ -44,6 +44,7 @@ export const VariablesTab: React.FC<TabProps> = ({
       schema={schema}
       uiSchema={uiSchema}
       validate={validate}
+      customFormats={{ "not-empty-string": /([^\s])/ }}
     />
   );
 };

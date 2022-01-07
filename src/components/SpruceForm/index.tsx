@@ -21,6 +21,7 @@ export const SpruceForm: React.FC<SpruceFormProps> = ({
   fields,
   tagName,
   validate,
+  customFormats,
 }) => (
   <Form
     fields={{ ...baseFields, ...fields }}
@@ -35,6 +36,7 @@ export const SpruceForm: React.FC<SpruceFormProps> = ({
     transformErrors={transformErrors}
     showErrorList={false}
     validate={validate}
+    customFormats={customFormats}
     liveValidate
   >
     {/*  Need to pass in an empty fragment child to remove default submit button */}

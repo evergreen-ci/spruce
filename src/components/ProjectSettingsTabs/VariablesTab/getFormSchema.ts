@@ -24,10 +24,14 @@ export const getFormSchema = (
             varName: {
               type: "string" as "string",
               title: "Variable Name",
+              format: "not-empty-string",
+              default: "",
             },
             varValue: {
               type: "string" as "string",
               title: "Variable",
+              format: "not-empty-string",
+              default: "",
             },
             isPrivate: {
               type: "boolean" as "boolean",
@@ -71,9 +75,9 @@ export const getFormSchema = (
           "ui:data-cy": "var-name-input",
         },
         varValue: {
-          "ui:widget": widgets.TextareaWidget,
-          "ui:marginBottom": 4,
           "ui:data-cy": "var-value-input",
+          "ui:marginBottom": 4,
+          "ui:widget": widgets.TextareaWidget,
         },
         isPrivate: {
           "ui:tooltipDescription":
