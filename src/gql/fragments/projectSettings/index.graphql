@@ -1,0 +1,30 @@
+#import "./access.graphql"
+#import "./general.graphql"
+#import "./variables.graphql"
+#import "./plugins.graphql"
+
+fragment projectSettings on ProjectSettings {
+  projectRef {
+    id
+    useRepoSettings
+    repoRefId
+    ...projectGeneralSettings
+    ...projectAccessSettings
+    ...projectPluginsSettings
+  }
+  vars {
+    ...variables
+  }
+}
+
+fragment repoSettings on RepoSettings {
+  projectRef {
+    id
+    ...repoGeneralSettings
+    ...repoAccessSettings
+    ...repoPluginsSettings
+  }
+  vars {
+    ...variables
+  }
+}

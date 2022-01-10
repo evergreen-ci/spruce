@@ -53,6 +53,7 @@ export const Header: React.FC<Props> = ({
         `There was an error saving the project: ${err.message}`
       );
     },
+    refetchQueries: ["ProjectSettings"],
   });
 
   const [saveRepoSection] = useMutation<
@@ -65,6 +66,7 @@ export const Header: React.FC<Props> = ({
     onError(err) {
       dispatchToast.error(`There was an error saving the repo: ${err.message}`);
     },
+    refetchQueries: ["RepoSettings"],
   });
 
   const onClick = () => {

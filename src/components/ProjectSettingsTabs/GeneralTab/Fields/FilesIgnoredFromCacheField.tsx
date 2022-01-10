@@ -1,9 +1,10 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { RadioBox, RadioBoxGroup } from "@leafygreen-ui/radio-box-group";
-import { SpruceForm, SpruceFormProps } from "components/SpruceForm";
+import { Field } from "@rjsf/core";
+import { SpruceForm } from "components/SpruceForm";
 
-export const FilesIgnoredFromCacheField: React.FC<SpruceFormProps> = ({
+export const FilesIgnoredFromCacheField: Field = ({
   formData,
   onChange,
   schema,

@@ -136,7 +136,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
               </button>
             </div>
             <div
-              className="css-tkt7ft-ArrayContainer e7smmlm2"
+              className="css-1iijkzv-ArrayContainer e7smmlm2"
             >
               <div
                 className="css-scktrh-ArrayItemRow e7smmlm1"
@@ -257,6 +257,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                   <button
                     aria-disabled={false}
                     className="leafygreen-ui-26sqyb"
+                    data-cy="delete-item-button"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
@@ -269,7 +270,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                     >
                       <svg
                         aria-label="Trash Icon"
-                        className=""
+                        className="leafygreen-ui-1d90lhq"
                         fill="none"
                         height={16}
                         role="img"

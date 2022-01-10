@@ -7,6 +7,6 @@ export { NotificationsTab } from "./NotificationsTab";
 export { PatchAliasesTab } from "./PatchAliasesTab";
 export { PeriodicBuildsTab } from "./PeriodicBuildsTab";
 export { ProjectTriggersTab } from "./ProjectTriggersTab";
-export { VariablesTab } from "./VariablesTab";
+export { VariablesTab } from "./VariablesTab/VariablesTab";
 export { VirtualWorkstationTab } from "./VirtualWorkstationTab";
 export { PluginsTab } from "./PluginsTab/PluginsTab";
