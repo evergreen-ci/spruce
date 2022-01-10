@@ -27,14 +27,81 @@ describe("Project Settings when not defaulting to repo", () => {
     cy.dataCy("enabled-radio-box").children().should("have.length", 2);
   });
 
-  it("Visiting the access page should not have the save button enabled", () => {
-    cy.dataCy("navitem-access").click();
-    cy.dataCy("save-settings-button").should("be.disabled");
+  describe("Access page", () => {
+    before(() => {
+      cy.dataCy("navitem-access").click();
+    });
+
+    it("Should not have the save button enabled on load", () => {
+      cy.dataCy("save-settings-button").should("be.disabled");
+    });
+
+    it("Does not enable the save button when adding a new array element", () => {
+      cy.dataCy("add-button").click();
+      cy.dataCy("save-settings-button").should("be.disabled");
+    });
   });
 
-  it("Does not enable the save button when adding a new array element", () => {
-    cy.dataCy("add-button").click();
-    cy.dataCy("save-settings-button").should("be.disabled");
+  describe("Variables page", () => {
+    before(() => {
+      cy.dataCy("navitem-variables").click();
+    });
+
+    it("Should not have the save button enabled on load", () => {
+      cy.dataCy("save-settings-button").should("be.disabled");
+    });
+
+    it("Should not enable save when the value field is empty", () => {
+      cy.dataCy("add-button").click();
+      cy.dataCy("var-name-input").type("sample_name");
+      cy.dataCy("save-settings-button").should("be.disabled");
+    });
+
+    it("Should correctly save a private variable", () => {
+      cy.dataCy("var-value-input").type("sample_value");
+      cy.dataCy("var-private-input").check({ force: true });
+      cy.dataCy("save-settings-button").click();
+    });
+
+    it("Should redact and disable private variables on save", () => {
+      cy.dataCy("var-value-input").should("have.value", "{REDACTED}");
+      cy.dataCy("var-name-input").should("be.disabled");
+      cy.dataCy("var-value-input").should("be.disabled");
+      cy.dataCy("var-private-input").should("be.disabled");
+    });
+
+    it("Should error when a duplicate variable name is entered and disable saving", () => {
+      cy.dataCy("add-button").click();
+      cy.dataCy("var-name-input").eq(1).type("sample_name");
+      cy.dataCy("var-value-input").eq(1).type("sample_value_2");
+      cy.contains("Value already appears in project variables.");
+      cy.dataCy("save-settings-button").should("be.disabled");
+    });
+
+    it("Should remove the error and enable save when the value changes", () => {
+      cy.dataCy("var-name-input").eq(1).type("_2");
+      cy.dataCy("save-settings-button").should("not.be.disabled");
+      cy.contains("Value already appears in project variables.").should(
+        "not.exist"
+      );
+    });
+
+    it("Should show two populated fields when navigating back from another page", () => {
+      cy.dataCy("navitem-access").click();
+      cy.dataCy("navitem-variables").click();
+      cy.dataCy("var-name-input").eq(0).should("have.value", "sample_name");
+      cy.dataCy("var-name-input").eq(1).should("have.value", "sample_name_2");
+    });
+
+    it("Should allow deleting both items", () => {
+      cy.dataCy("delete-item-button").first().click();
+      cy.dataCy("delete-item-button").first().click();
+      cy.dataCy("save-settings-button").click();
+    });
+
+    it("Should show no variables after deleting", () => {
+      cy.dataCy("var-name-input").should("not.exist");
+    });
   });
 });
 

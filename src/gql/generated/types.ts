@@ -2232,6 +2232,30 @@ export type RepoGeneralSettingsFragment = {
   taskSync: { configEnabled: boolean; patchEnabled: boolean };
 };
 
+export type ProjectSettingsFragment = {
+  projectRef?: Maybe<
+    {
+      id: string;
+      useRepoSettings: boolean;
+      repoRefId: string;
+    } & ProjectGeneralSettingsFragment &
+      ProjectAccessSettingsFragment
+  >;
+  vars?: Maybe<VariablesFragment>;
+};
+
+export type RepoSettingsFragment = {
+  projectRef?: Maybe<
+    { id: string } & RepoGeneralSettingsFragment & RepoAccessSettingsFragment
+  >;
+  vars?: Maybe<VariablesFragment>;
+};
+
+export type VariablesFragment = {
+  vars?: Maybe<{ [key: string]: any }>;
+  privateVars?: Maybe<Array<Maybe<string>>>;
+};
+
 export type AbortTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
@@ -2449,16 +2473,7 @@ export type SaveProjectSettingsForSectionMutationVariables = Exact<{
 }>;
 
 export type SaveProjectSettingsForSectionMutation = {
-  saveProjectSettingsForSection: {
-    projectRef?: Maybe<
-      {
-        id: string;
-        useRepoSettings: boolean;
-        repoRefId: string;
-      } & ProjectGeneralSettingsFragment &
-        ProjectAccessSettingsFragment
-    >;
-  };
+  saveProjectSettingsForSection: ProjectSettingsFragment;
 };
 
 export type SaveRepoSettingsForSectionMutationVariables = Exact<{
@@ -2467,11 +2482,7 @@ export type SaveRepoSettingsForSectionMutationVariables = Exact<{
 }>;
 
 export type SaveRepoSettingsForSectionMutation = {
-  saveRepoSettingsForSection: {
-    projectRef?: Maybe<
-      { id: string } & RepoGeneralSettingsFragment & RepoAccessSettingsFragment
-    >;
-  };
+  saveRepoSettingsForSection: RepoSettingsFragment;
 };
 
 export type SaveSubscriptionMutationVariables = Exact<{
@@ -3299,18 +3310,7 @@ export type ProjectSettingsQueryVariables = Exact<{
   identifier: Scalars["String"];
 }>;
 
-export type ProjectSettingsQuery = {
-  projectSettings: {
-    projectRef?: Maybe<
-      {
-        id: string;
-        useRepoSettings: boolean;
-        repoRefId: string;
-      } & ProjectGeneralSettingsFragment &
-        ProjectAccessSettingsFragment
-    >;
-  };
-};
+export type ProjectSettingsQuery = { projectSettings: ProjectSettingsFragment };
 
 export type GetProjectsQueryVariables = Exact<{ [key: string]: never }>;
 
@@ -3340,13 +3340,7 @@ export type RepoSettingsQueryVariables = Exact<{
   repoId: Scalars["String"];
 }>;
 
-export type RepoSettingsQuery = {
-  repoSettings: {
-    projectRef?: Maybe<
-      { id: string } & RepoGeneralSettingsFragment & RepoAccessSettingsFragment
-    >;
-  };
-};
+export type RepoSettingsQuery = { repoSettings: RepoSettingsFragment };
 
 export type GetSpruceConfigQueryVariables = Exact<{ [key: string]: never }>;
 

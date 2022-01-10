@@ -83,10 +83,18 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           />
         )}
       />
-      <TabRoute
-        Component={VariablesTab}
+      <Route
         path={routes.projectSettingsVariables}
-        tab={ProjectSettingsTabRoutes.Variables}
+        render={(props) => (
+          <VariablesTab
+            {...props}
+            projectData={
+              tabData[ProjectSettingsTabRoutes.Variables].projectData
+            }
+            repoData={tabData[ProjectSettingsTabRoutes.Variables].repoData}
+            useRepoSettings={useRepoSettings}
+          />
+        )}
       />
       <TabRoute
         Component={GitHubCommitQueueTab}
