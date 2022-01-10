@@ -79,7 +79,7 @@ export const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
   });
 
   const customTickets = customCreatedTickets?.task?.annotation?.createdIssues;
-  const BBtickets = BBCreatedTickets?.bbGetCreatedTickets;
+  const bbtickets = BBCreatedTickets?.bbGetCreatedTickets;
 
   return (
     <div data-cy="bb-content">
@@ -95,10 +95,10 @@ export const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
           taskId={taskId}
           execution={execution}
           buildBaronConfigured={bbData?.buildBaronConfigured}
-          tickets={BBtickets}
+          tickets={bbtickets}
         />
       )}
-      {BBtickets?.length > 0 && <BuildBaronTable jiraIssues={BBtickets} />}
+      {bbtickets?.length > 0 && <BuildBaronTable jiraIssues={bbtickets} />}
 
       {customTickets?.length > 0 && (
         <CustomCreatedTicketsTable createdIssues={customTickets} />
