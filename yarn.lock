@@ -2536,7 +2536,7 @@
     "@leafygreen-ui/lib" "^9.0.0"
     "@leafygreen-ui/palette" "^3.2.2"
 
-"@leafygreen-ui/box@3.0.6", "@leafygreen-ui/box@^3.0.6":
+"@leafygreen-ui/box@^3.0.6":
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/box/-/box-3.0.6.tgz#319fa2e20c5565255c605cff27019f3d87964a85"
   integrity sha512-KuefTm/DRWAhbw6eT7AEu+vg8XXQZPXJHsmnP8E6YDUswBage7jPcWgUSMCnV79ftvShFoVWEJ+wLeex89L2rA==
@@ -2630,6 +2630,17 @@
     "@leafygreen-ui/lib" "^9.0.0"
     "@leafygreen-ui/palette" "^3.2.2"
 
+"@leafygreen-ui/icon-button@^9.1.7":
+  version "9.1.7"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon-button/-/icon-button-9.1.7.tgz#32aa3784b7f93157f5b004e6cf044e150a778944"
+  integrity sha512-MX9lDYzhalor+jlVgnvC9BHMoku7cUHnmF42ZeorHsmsNzAbLTQz3SS0kgqRoRh7VFdFfzdBpYiNNAth+VaRPg==
+  dependencies:
+    "@leafygreen-ui/a11y" "^1.2.2"
+    "@leafygreen-ui/box" "^3.0.6"
+    "@leafygreen-ui/emotion" "^4.0.0"
+    "@leafygreen-ui/lib" "^9.0.1"
+    "@leafygreen-ui/palette" "^3.2.2"
+
 "@leafygreen-ui/icon@11.4.0", "@leafygreen-ui/icon@^11.3.0", "@leafygreen-ui/icon@^11.4.0":
   version "11.4.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-11.4.0.tgz#d555f3e31d0f71c1f5372cf2c97bc4471cc96edb"
@@ -2663,6 +2674,16 @@
     "@leafygreen-ui/emotion" "^4.0.0"
     facepaint "^1.2.1"
     polished "^2.3.0"
+    prop-types "^15.0.0"
+
+"@leafygreen-ui/lib@^9.0.1":
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-9.1.0.tgz#1cc0402a97462c4685da2542c7910e30fbf59df0"
+  integrity sha512-JH3mnoCZNtUcJfXrvVG4I3PAIm1ehlR1H5WkDqkjengcf/iVMo7+AluzwfTCQb2fqQgohURs+qY4vEhJe+9+2g==
+  dependencies:
+    "@leafygreen-ui/emotion" "^4.0.0"
+    facepaint "^1.2.1"
+    polished "^4.1.3"
     prop-types "^15.0.0"
 
 "@leafygreen-ui/menu@11.0.1", "@leafygreen-ui/menu@^11.0.1":
@@ -13835,7 +13856,7 @@ polished@^3.4.4:
   dependencies:
     "@babel/runtime" "^7.9.2"
 
-polished@^4.0.3, polished@^4.1.1:
+polished@^4.0.3, polished@^4.1.1, polished@^4.1.3:
   version "4.1.3"
   resolved "https://registry.yarnpkg.com/polished/-/polished-4.1.3.tgz#7a3abf2972364e7d97770b827eec9a9e64002cfc"
   integrity sha512-ocPAcVBUOryJEKe0z2KLd1l9EBa1r5mSwlKpExmrLzsnIzJo4axsoU9O2BjOTkDGDT4mZ0WFE5XKTlR3nLnZOA==
