@@ -1,4 +1,4 @@
-import { render } from "test_utils/test-utils";
+import { render } from "test_utils";
 import { VariableRow } from "./VariableRow";
 
 const mockProperty = {
