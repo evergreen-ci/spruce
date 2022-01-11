@@ -27,6 +27,7 @@ import {
 import { TaskStatus } from "types/task";
 import { queryString } from "utils";
 import { CommitsWrapper } from "./commits/CommitsWrapper";
+import CommitTypeSelect from "./commits/commitTypeSelect";
 import { PaginationButtons } from "./commits/PaginationButtons";
 import { ProjectSelect } from "./commits/projectSelect";
 import { StatusSelect } from "./commits/StatusSelect";
@@ -146,15 +147,18 @@ export const Commits = () => {
     <PageWrapper>
       <PageContainer>
         <HeaderWrapper>
-          <TupleSelectWrapper>
+          <ElementWrapper width="35">
             <TupleSelect options={tupleSelectOptions} />
-          </TupleSelectWrapper>
-          <StatusSelectWrapper>
+          </ElementWrapper>
+          <ElementWrapper width="20">
             <StatusSelect />
-          </StatusSelectWrapper>
-          <ProjectSelectWrapper>
+          </ElementWrapper>
+          <ElementWrapper width="20">
+            <CommitTypeSelect />
+          </ElementWrapper>
+          <ElementWrapper width="25">
             <ProjectSelect selectedProjectIdentifier={projectId} />
-          </ProjectSelectWrapper>
+          </ElementWrapper>
         </HeaderWrapper>
         <BadgeWrapper>
           <FilterBadges queryParamsToDisplay={queryParamsToDisplay} />
@@ -195,26 +199,7 @@ const BadgeWrapper = styled.div`
   padding-bottom: 32px;
   height: 32px;
 `;
-const TupleSelectWrapper = styled.div`
-  width: 40%;
-`;
-const StatusSelectWrapper = styled.div`
-  width: 30%;
 
-  .cy-treeselect-bar {
-    height: 32px;
-    padding-bottom: 0;
-    padding-top: 0;
-
-    > div,
-    > span {
-      line-height: 30px;
-    }
-  }
-`;
-const ProjectSelectWrapper = styled.div`
-  width: 30%;
-`;
 const tupleSelectOptions = [
   {
     value: ProjectFilterOptions.BuildVariant,
@@ -227,3 +212,7 @@ const tupleSelectOptions = [
     placeHolderText: "Search Task names",
   },
 ];
+
+const ElementWrapper = styled.div`
+  ${({ width }: { width: string }) => `width: ${width}%;`}
+`;
