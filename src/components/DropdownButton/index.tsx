@@ -47,7 +47,7 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
             {buttonRenderer ? (
               buttonRenderer()
             ) : (
-              <Body data-cy="dropdown-value">{buttonText}</Body>
+              <OverflowBody data-cy="dropdown-value">{buttonText}</OverflowBody>
             )}
           </LabelWrapper>
         </ButtonContent>
@@ -135,7 +135,12 @@ const ButtonContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  max-width: 90%;
+`;
+
+const OverflowBody = styled(Body)`
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export default DropdownButtonWithRef;

@@ -15,7 +15,7 @@ exports[`storybook Storyshots Searchable Dropdown Custom Option 1`] = `
   >
     <button
       aria-disabled={false}
-      className="leafygreen-ui-26sqyb css-mbqq81-StyledButton eq9z4sp1"
+      className="leafygreen-ui-26sqyb css-mbqq81-StyledButton eq9z4sp2"
       data-cy="searchable-dropdown"
       disabled={false}
       id="searchable-dropdown"
@@ -29,13 +29,13 @@ exports[`storybook Storyshots Searchable Dropdown Custom Option 1`] = `
         className="leafygreen-ui-sl5lf4"
       >
         <div
-          className="css-uewcnq-ButtonContent eq9z4sp0"
+          className="css-czkpcu-ButtonContent eq9z4sp1"
         >
           <div
-            className="css-soeq2u-LabelWrapper eq9z4sp2"
+            className="css-soeq2u-LabelWrapper eq9z4sp3"
           >
             <div
-              className="leafygreen-ui-1mngpnd"
+              className="css-197mxpc-OverflowBody eq9z4sp0 leafygreen-ui-1mngpnd"
               data-cy="dropdown-value"
             >
               
@@ -85,7 +85,7 @@ exports[`storybook Storyshots Searchable Dropdown Multiselect 1`] = `
   >
     <button
       aria-disabled={false}
-      className="leafygreen-ui-26sqyb css-mbqq81-StyledButton eq9z4sp1"
+      className="leafygreen-ui-26sqyb css-mbqq81-StyledButton eq9z4sp2"
       data-cy="searchable-dropdown"
       disabled={false}
       id="searchable-dropdown"
@@ -99,13 +99,13 @@ exports[`storybook Storyshots Searchable Dropdown Multiselect 1`] = `
         className="leafygreen-ui-sl5lf4"
       >
         <div
-          className="css-uewcnq-ButtonContent eq9z4sp0"
+          className="css-czkpcu-ButtonContent eq9z4sp1"
         >
           <div
-            className="css-soeq2u-LabelWrapper eq9z4sp2"
+            className="css-soeq2u-LabelWrapper eq9z4sp3"
           >
             <div
-              className="leafygreen-ui-1mngpnd"
+              className="css-197mxpc-OverflowBody eq9z4sp0 leafygreen-ui-1mngpnd"
               data-cy="dropdown-value"
             >
               
@@ -155,7 +155,7 @@ exports[`storybook Storyshots Searchable Dropdown Story 1`] = `
   >
     <button
       aria-disabled={false}
-      className="leafygreen-ui-26sqyb css-mbqq81-StyledButton eq9z4sp1"
+      className="leafygreen-ui-26sqyb css-mbqq81-StyledButton eq9z4sp2"
       data-cy="searchable-dropdown"
       disabled={false}
       id="searchable-dropdown"
@@ -169,13 +169,13 @@ exports[`storybook Storyshots Searchable Dropdown Story 1`] = `
         className="leafygreen-ui-sl5lf4"
       >
         <div
-          className="css-uewcnq-ButtonContent eq9z4sp0"
+          className="css-czkpcu-ButtonContent eq9z4sp1"
         >
           <div
-            className="css-soeq2u-LabelWrapper eq9z4sp2"
+            className="css-soeq2u-LabelWrapper eq9z4sp3"
           >
             <div
-              className="leafygreen-ui-1mngpnd"
+              className="css-197mxpc-OverflowBody eq9z4sp0 leafygreen-ui-1mngpnd"
               data-cy="dropdown-value"
             >
               Select an element

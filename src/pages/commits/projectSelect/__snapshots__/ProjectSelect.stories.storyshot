@@ -15,7 +15,7 @@ exports[`storybook Storyshots ProjectSelect Story 1`] = `
   >
     <button
       aria-disabled={true}
-      className="leafygreen-ui-117l5vj css-mbqq81-StyledButton eq9z4sp1"
+      className="leafygreen-ui-117l5vj css-mbqq81-StyledButton eq9z4sp2"
       data-cy="project-select"
       disabled={true}
       id="searchable-dropdown"
@@ -29,13 +29,13 @@ exports[`storybook Storyshots ProjectSelect Story 1`] = `
         className="leafygreen-ui-sl5lf4"
       >
         <div
-          className="css-uewcnq-ButtonContent eq9z4sp0"
+          className="css-czkpcu-ButtonContent eq9z4sp1"
         >
           <div
-            className="css-soeq2u-LabelWrapper eq9z4sp2"
+            className="css-soeq2u-LabelWrapper eq9z4sp3"
           >
             <div
-              className="leafygreen-ui-1mngpnd"
+              className="css-197mxpc-OverflowBody eq9z4sp0 leafygreen-ui-1mngpnd"
               data-cy="dropdown-value"
             >
               Select a project
