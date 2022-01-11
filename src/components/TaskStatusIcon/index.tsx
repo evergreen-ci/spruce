@@ -34,7 +34,7 @@ export const TaskStatusIcon: React.FC<TaskStatusIconProps> = ({
       return <Icon glyph="Refresh" fill={yellow.dark2} size={size} {...rest} />;
     case TaskStatus.SetupFailed:
       return (
-        <Icon glyph="SetupFailure" fill={red.base} size={size} {...rest} />
+        <Icon glyph="SetupFailure" fill={failurePurple} size={size} {...rest} />
       );
     case TaskStatus.SystemUnresponsive:
     case TaskStatus.SystemTimedOut:
