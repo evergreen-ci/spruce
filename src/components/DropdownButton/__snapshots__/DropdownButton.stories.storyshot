@@ -20,7 +20,7 @@ exports[`storybook Storyshots DropdownButton Custom Button Render 1`] = `
       className="css-uewcnq-ButtonContent eq9z4sp0"
     >
       <div
-        className="css-soeq2u-LabelWrapper eq9z4sp6"
+        className="css-soeq2u-LabelWrapper eq9z4sp2"
       >
         <b>
           Some Magic Button
@@ -73,7 +73,7 @@ exports[`storybook Storyshots DropdownButton Story 1`] = `
       className="css-uewcnq-ButtonContent eq9z4sp0"
     >
       <div
-        className="css-soeq2u-LabelWrapper eq9z4sp6"
+        className="css-soeq2u-LabelWrapper eq9z4sp2"
       >
         <div
           className="leafygreen-ui-1mngpnd"
