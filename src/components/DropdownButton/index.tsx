@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import React, { useRef } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -14,6 +14,8 @@ interface DropdownButtonProps {
   buttonRenderer?: () => React.ReactNode;
   buttonText?: string;
   children?: React.ReactNode;
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
 }
 const DropdownButton: React.FC<DropdownButtonProps> = ({
   "data-cy": dataCy = "dropdown-button",
@@ -21,18 +23,20 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
   buttonText,
   buttonRenderer,
   children,
+  isOpen,
+  setIsOpen,
 }) => {
   const listMenuRef = useRef(null);
   const menuButtonRef = useRef(null);
-  const [isOpen, setisOpen] = useState(false);
+
   // Handle onClickOutside
-  useOnClickOutside([listMenuRef, menuButtonRef], () => setisOpen(false));
+  useOnClickOutside([listMenuRef, menuButtonRef], () => setIsOpen(false));
 
   return (
     <>
       <StyledButton
         ref={menuButtonRef}
-        onClick={() => setisOpen((curr) => !curr)}
+        onClick={() => setIsOpen(!isOpen)}
         data-cy={dataCy}
         id="searchable-dropdown"
         disabled={disabled}
@@ -59,6 +63,46 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
   );
 };
 
+type UncontrolledDropdownButtonProps = Omit<
+  Omit<DropdownButtonProps, "isOpen">,
+  "setIsOpen"
+>;
+
+interface DropdownButtonWithRefProps extends UncontrolledDropdownButtonProps {
+  ref?: React.Ref<DropdownButtonWithRef>;
+}
+
+interface DropdownButtonWithRefState {
+  isOpen: boolean;
+}
+/** DropdownButtonWithRef is a class component that allows the implementer
+ *  to control its internal state methods with a ref in order to trigger state updates */
+class DropdownButtonWithRef extends React.Component<
+  DropdownButtonWithRefProps,
+  DropdownButtonWithRefState
+> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpen: false,
+    };
+  }
+
+  setIsOpen = (isOpen: boolean) => {
+    this.setState({ isOpen });
+  };
+
+  render() {
+    const { isOpen } = this.state;
+    return (
+      <DropdownButton
+        {...this.props}
+        isOpen={isOpen}
+        setIsOpen={this.setIsOpen}
+      />
+    );
+  }
+}
 // Used to provide a basis for the absolutely positions OptionsWrapper
 const RelativeWrapper = styled.div`
   position: relative;
@@ -94,4 +138,4 @@ const ButtonContent = styled.div`
   width: 100%;
 `;
 
-export default DropdownButton;
+export default DropdownButtonWithRef;
