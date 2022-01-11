@@ -25,14 +25,15 @@ import {
   MainlineCommitQueryParams,
 } from "types/commits";
 import { TaskStatus } from "types/task";
-import { queryString } from "utils";
+import { array, queryString } from "utils";
 import { CommitsWrapper } from "./commits/CommitsWrapper";
 import CommitTypeSelect from "./commits/commitTypeSelect";
 import { PaginationButtons } from "./commits/PaginationButtons";
 import { ProjectSelect } from "./commits/projectSelect";
 import { StatusSelect } from "./commits/StatusSelect";
 
-const { getArray } = queryString;
+const { toArray } = array;
+const { parseQueryString } = queryString;
 const DEFAULT_CHART_TYPE = ChartTypes.Absolute;
 const FAILED_STATUSES = [
   TaskStatus.Failed,
@@ -70,15 +71,15 @@ export const Commits = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectId]);
-  const parsed = queryString.parseQueryString(search);
+  const parsed = parseQueryString(search);
   const chartTypeParam = (parsed[ChartToggleQueryParams.chartType] || "")
     .toString()
     .toLowerCase();
-  const filterStatuses = getArray(parsed[ProjectFilterOptions.Status] || []);
-  const filterVariants = getArray(
+  const filterStatuses = toArray(parsed[ProjectFilterOptions.Status] || []);
+  const filterVariants = toArray(
     parsed[ProjectFilterOptions.BuildVariant] || []
   );
-  const filterTasks = getArray(parsed[ProjectFilterOptions.Task] || []);
+  const filterTasks = toArray(parsed[ProjectFilterOptions.Task] || []);
 
   const skipOrderNumberParam =
     parsed[MainlineCommitQueryParams.SkipOrderNumber] || "";
@@ -106,6 +107,7 @@ export const Commits = () => {
   };
   const hasFilters =
     filterStatuses.length > 0 || filterVariants.length > 0 || hasTaskFilter;
+
   const mainlineCommitsOptions = {
     projectID: projectId,
     limit: 5,
