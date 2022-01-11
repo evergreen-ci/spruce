@@ -12,9 +12,9 @@ export const StatusSelect = () => {
   });
   return (
     <Container>
-      <Label htmlFor="project-test-status-select">Status</Label>
+      <Label htmlFor="project-task-status-select">Status</Label>
       <DropdownButton
-        data-cy="project-test-status-select-button"
+        data-cy="project-task-status-select-button"
         buttonText={`Task Status: ${
           inputValue.length ? inputValue.join(", ") : noFilterMessage
         }`}
@@ -23,7 +23,7 @@ export const StatusSelect = () => {
           onChange={setAndSubmitInputValue}
           tData={taskStatusesFilterTreeData}
           state={inputValue}
-          data-cy="project-test-status-select"
+          data-cy="project-task-status-select"
           hasStyling={false}
         />
       </DropdownButton>
