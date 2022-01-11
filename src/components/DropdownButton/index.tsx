@@ -33,7 +33,7 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
   useOnClickOutside([listMenuRef, menuButtonRef], () => setIsOpen(false));
 
   return (
-    <>
+    <Container>
       <StyledButton
         ref={menuButtonRef}
         onClick={() => setIsOpen(!isOpen)}
@@ -59,7 +59,7 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
           </OptionsWrapper>
         </RelativeWrapper>
       )}
-    </>
+    </Container>
   );
 };
 
@@ -118,6 +118,11 @@ const OptionsWrapper = styled.div`
   z-index: 5;
   margin-top: 5px;
   width: 100%;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const LabelWrapper = styled.div`
