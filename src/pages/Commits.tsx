@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { FilterBadges } from "components/FilterBadges";
 import { PageWrapper } from "components/styles";
+import { ALL_VALUE } from "components/TreeSelect";
 import { TupleSelect } from "components/TupleSelect";
 import { CURRENT_PROJECT } from "constants/cookies";
 import { pollInterval } from "constants/index";
@@ -33,7 +34,7 @@ import { ProjectSelect } from "./commits/projectSelect";
 import { StatusSelect } from "./commits/StatusSelect";
 
 const { toArray } = array;
-const { parseQueryString } = queryString;
+const { parseQueryString, getString } = queryString;
 const DEFAULT_CHART_TYPE = ChartTypes.Absolute;
 const FAILED_STATUSES = [
   TaskStatus.Failed,
@@ -53,6 +54,7 @@ export const Commits = () => {
 
   // get query params from url
   const { projectId } = useParams<{ projectId: string }>();
+  usePageTitle(`Project Health | ${projectId}`);
   const recentlySelectedProject = Cookies.get(CURRENT_PROJECT);
   // Push default project to URL if there isn't a project in
   // the URL already and an mci-project-cookie does not exist.
@@ -71,28 +73,24 @@ export const Commits = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectId]);
-  const parsed = parseQueryString(search);
-  const chartTypeParam = (parsed[ChartToggleQueryParams.chartType] || "")
-    .toString()
-    .toLowerCase();
-  const filterStatuses = toArray(parsed[ProjectFilterOptions.Status] || []);
-  const filterVariants = toArray(
-    parsed[ProjectFilterOptions.BuildVariant] || []
-  );
-  const filterTasks = toArray(parsed[ProjectFilterOptions.Task] || []);
 
-  const skipOrderNumberParam =
-    parsed[MainlineCommitQueryParams.SkipOrderNumber] || "";
-  const skipOrderNumber =
-    parseInt(skipOrderNumberParam.toString(), 10) || undefined;
+  const parsed = parseQueryString(search);
+  const chartTypeParam = getString(parsed[ChartToggleQueryParams.chartType]);
+  const filterStatuses = toArray(parsed[ProjectFilterOptions.Status]);
+  const filterVariants = toArray(parsed[ProjectFilterOptions.BuildVariant]);
+  const filterTasks = toArray(parsed[ProjectFilterOptions.Task]);
+  const filterRequesters = toArray(
+    parsed[MainlineCommitQueryParams.Requester]
+  ).filter((r) => r !== ALL_VALUE);
+  const skipOrderNumberParam = getString(
+    parsed[MainlineCommitQueryParams.SkipOrderNumber]
+  );
+  const skipOrderNumber = parseInt(skipOrderNumberParam, 10) || undefined;
 
   // set current chart type based on query param
   useEffect(() => {
-    if (
-      chartTypeParam === ChartTypes.Absolute ||
-      chartTypeParam === ChartTypes.Percentage
-    ) {
-      setCurrentChartType(chartTypeParam);
+    if (Object.values(ChartTypes).includes(chartTypeParam as ChartTypes)) {
+      setCurrentChartType(chartTypeParam as ChartTypes);
     } else {
       setCurrentChartType(DEFAULT_CHART_TYPE);
     }
@@ -105,6 +103,7 @@ export const Commits = () => {
     variants: filterVariants,
     tasks: filterTasks,
   };
+
   const hasFilters =
     filterStatuses.length > 0 || filterVariants.length > 0 || hasTaskFilter;
 
@@ -113,7 +112,9 @@ export const Commits = () => {
     limit: 5,
     skipOrderNumber,
     shouldCollapse: hasFilters,
+    requesters: filterRequesters,
   };
+
   const buildVariantOptions = {
     statuses: hasFilters ? filterStatuses : FAILED_STATUSES,
     variants: filterVariants,
@@ -134,8 +135,8 @@ export const Commits = () => {
     onError: (e) =>
       dispatchToast.error(`There was an error loading the page: ${e.message}`),
   });
-  usePageTitle(`Project Health | ${projectId}`);
   useNetworkStatus(startPolling, stopPolling);
+
   const { mainlineCommits } = data || {};
   const { versions, nextPageOrderNumber, prevPageOrderNumber } =
     mainlineCommits || {};
