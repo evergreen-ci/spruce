@@ -92,43 +92,6 @@ exports[`storybook Storyshots TreeSelect No Dropdown 1`] = `
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
-      htmlFor="checkbox-5"
-      id="checkbox-5-label"
-    >
-      <input
-        aria-checked={false}
-        aria-disabled={false}
-        aria-label="checkbox"
-        aria-labelledby="checkbox-5-label"
-        checked={false}
-        className="leafygreen-ui-3bropy"
-        data-cy="checkbox"
-        disabled={false}
-        id="checkbox-5"
-        onChange={[Function]}
-        onClick={[Function]}
-        type="checkbox"
-      />
-      <div
-        className="leafygreen-ui-cho4qd"
-        data-leafygreen-ui="checkbox-wrapper"
-      >
-        <div
-          className="leafygreen-ui-v3mbc2"
-        />
-      </div>
-      <span
-        className="leafygreen-ui-1qufm80"
-      >
-        Shapes
-      </span>
-    </label>
-  </div>
-  <div
-    className="css-1vxco1u-getCheckboxWrapper e1mpj03z3"
-  >
-    <label
-      className="leafygreen-ui-hfnsvs cy-checkbox"
       htmlFor="checkbox-6"
       id="checkbox-6-label"
     >
@@ -157,7 +120,7 @@ exports[`storybook Storyshots TreeSelect No Dropdown 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        rectangle
+        Shapes
       </span>
     </label>
   </div>
@@ -194,7 +157,7 @@ exports[`storybook Storyshots TreeSelect No Dropdown 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        circle
+        rectangle
       </span>
     </label>
   </div>
@@ -231,12 +194,12 @@ exports[`storybook Storyshots TreeSelect No Dropdown 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        rhombus
+        circle
       </span>
     </label>
   </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
+    className="css-1vxco1u-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -244,11 +207,11 @@ exports[`storybook Storyshots TreeSelect No Dropdown 1`] = `
       id="checkbox-9-label"
     >
       <input
-        aria-checked={true}
+        aria-checked={false}
         aria-disabled={false}
         aria-label="checkbox"
         aria-labelledby="checkbox-9-label"
-        checked={true}
+        checked={false}
         className="leafygreen-ui-3bropy"
         data-cy="checkbox"
         disabled={false}
@@ -262,13 +225,13 @@ exports[`storybook Storyshots TreeSelect No Dropdown 1`] = `
         data-leafygreen-ui="checkbox-wrapper"
       >
         <div
-          className="leafygreen-ui-njm8mk"
+          className="leafygreen-ui-v3mbc2"
         />
       </div>
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Pass
+        rhombus
       </span>
     </label>
   </div>
@@ -305,7 +268,7 @@ exports[`storybook Storyshots TreeSelect No Dropdown 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Failed
+        Pass
       </span>
     </label>
   </div>
@@ -342,7 +305,7 @@ exports[`storybook Storyshots TreeSelect No Dropdown 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Skip
+        Failed
       </span>
     </label>
   </div>
@@ -364,6 +327,43 @@ exports[`storybook Storyshots TreeSelect No Dropdown 1`] = `
         data-cy="checkbox"
         disabled={false}
         id="checkbox-12"
+        onChange={[Function]}
+        onClick={[Function]}
+        type="checkbox"
+      />
+      <div
+        className="leafygreen-ui-cho4qd"
+        data-leafygreen-ui="checkbox-wrapper"
+      >
+        <div
+          className="leafygreen-ui-njm8mk"
+        />
+      </div>
+      <span
+        className="leafygreen-ui-1qufm80"
+      >
+        Skip
+      </span>
+    </label>
+  </div>
+  <div
+    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
+  >
+    <label
+      className="leafygreen-ui-hfnsvs cy-checkbox"
+      htmlFor="checkbox-13"
+      id="checkbox-13-label"
+    >
+      <input
+        aria-checked={true}
+        aria-disabled={false}
+        aria-label="checkbox"
+        aria-labelledby="checkbox-13-label"
+        checked={true}
+        className="leafygreen-ui-3bropy"
+        data-cy="checkbox"
+        disabled={false}
+        id="checkbox-13"
         onChange={[Function]}
         onClick={[Function]}
         type="checkbox"
