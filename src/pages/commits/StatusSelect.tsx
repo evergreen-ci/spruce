@@ -15,7 +15,9 @@ export const StatusSelect = () => {
       <Label htmlFor="project-test-status-select">Status</Label>
       <DropdownButton
         data-cy="project-test-status-select-button"
-        buttonText={`Task Status: ${inputValue.join(", ")}`}
+        buttonText={`Task Status: ${
+          inputValue.length ? inputValue.join(", ") : noFilterMessage
+        }`}
       >
         <TreeSelect
           onChange={setAndSubmitInputValue}
@@ -33,3 +35,5 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
+const noFilterMessage = "No filters selected";

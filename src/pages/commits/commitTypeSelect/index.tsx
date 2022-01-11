@@ -50,7 +50,11 @@ const CommitTypeSelector = () => {
       <Label htmlFor="requester-select">Requesters</Label>
       <DropdownButton
         data-cy="requester-select"
-        buttonText={`Requesters: ${selectedRequesters.join(", ")}`}
+        buttonText={`Requesters: ${
+          selectedRequesters.length
+            ? selectedRequesters.join(", ")
+            : noFilterMessage
+        }`}
       >
         <TreeSelect
           onChange={onChange}
@@ -68,4 +72,5 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
+const noFilterMessage = "No filters selected";
 export default CommitTypeSelector;
