@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
+import { Field } from "@rjsf/core";
 import { Button } from "components/Button";
 import { ConfirmationModal } from "components/ConfirmationModal";
-import { SpruceForm, SpruceFormProps } from "components/SpruceForm";
+import { SpruceForm } from "components/SpruceForm";
 import { useToastContext } from "context/toast";
 import {
   ForceRepotrackerRunMutation,
@@ -65,7 +66,7 @@ export const Modal: React.FC<ModalProps> = ({
   );
 };
 
-export const RepotrackerField: React.FC<SpruceFormProps> = ({
+export const RepotrackerField: Field = ({
   formData,
   onChange,
   schema,

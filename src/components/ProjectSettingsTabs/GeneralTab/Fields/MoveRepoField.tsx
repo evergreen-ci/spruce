@@ -1,8 +1,9 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
+import { Field } from "@rjsf/core";
 import { Button } from "components/Button";
 import { ConfirmationModal } from "components/ConfirmationModal";
-import { SpruceForm, SpruceFormProps } from "components/SpruceForm";
+import { SpruceForm } from "components/SpruceForm";
 
 interface ModalProps {
   onCancel: () => void;
@@ -48,7 +49,7 @@ export const MoveRepoModal: React.FC<ModalProps> = ({
   );
 };
 
-export const MoveRepoField: React.FC<SpruceFormProps> = ({
+export const MoveRepoField: Field = ({
   formData,
   onChange,
   schema,
