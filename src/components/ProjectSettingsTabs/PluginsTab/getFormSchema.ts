@@ -1,13 +1,14 @@
 import { Field } from "@rjsf/core";
-import { SpruceFormProps } from "components/SpruceForm";
+import { FormDataProps, SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { placeholderIf, radioBoxOptions } from "../utils";
+import { FormState } from "./types";
 
 export const getFormSchema = (
   useRepoSettings: boolean,
-  repoData?: any,
-  formData?: any
+  repoData?: FormState,
+  formData?: FormDataProps
 ): {
   fields: Record<string, Field>;
   schema: SpruceFormProps["schema"];
@@ -23,7 +24,7 @@ export const getFormSchema = (
         properties: {
           perfEnabled: {
             type: ["boolean", "null"],
-            title: "Build-break notifications",
+            title: "Build-break Notifications",
             oneOf: radioBoxOptions(
               ["Enabled", "Disabled"],
               repoData?.performanceSettings?.perfEnabled
@@ -36,7 +37,7 @@ export const getFormSchema = (
         title: "Build Baron",
         properties: {
           ticketSearchProjects: {
-            type: ["array", "null"],
+            type: "array" as "array",
             title: "Ticket Search Projects",
             items: {
               type: "object" as "object",
@@ -49,14 +50,14 @@ export const getFormSchema = (
             },
           },
           customTicket: {
-            type: ["boolean", "null"],
+            type: "boolean" as "boolean",
             oneOf: radioBoxOptions(
               ["Custom Ticket Creation", "Build Baron Ticket Creation"],
               undefined
             ),
           },
           ticketCreateProject: {
-            type: ["string", "null"],
+            type: "string" as "string",
             title: "Ticket Create Project",
           },
           taskAnnotationSettings: {

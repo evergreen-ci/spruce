@@ -18,9 +18,6 @@ export const PluginsTab: React.FC<TabProps> = ({
   const initialFormState = projectData || repoData;
   usePopulateForm(initialFormState, tab);
 
-  console.log("plugins tab formData: ", formData);
-  // console.log(formData);
-
   const onChange = updateForm(tab);
 
   const { fields, schema, uiSchema } = useMemo(

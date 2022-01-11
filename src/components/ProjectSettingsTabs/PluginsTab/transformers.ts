@@ -20,23 +20,21 @@ export const gqlToForm = (
     },
     buildBaronSettings: {
       ticketCreateProject: projectRef.buildBaronSettings.ticketCreateProject,
-      ticketSearchProjects: projectRef.buildBaronSettings.ticketSearchProjects
-        ? projectRef.buildBaronSettings.ticketSearchProjects.map(
-            (searchProject) => ({ searchProject })
-          )
-        : [],
-      customTicket: projectRef.buildBaronSettings.ticketCreateProject == null,
+      ticketSearchProjects:
+        projectRef?.buildBaronSettings?.ticketSearchProjects?.map(
+          (searchProject) => ({ searchProject })
+        ) ?? [],
+      customTicket: projectRef.buildBaronSettings.ticketCreateProject === null,
     },
     taskAnnotationSettings: {
       fileTicketWebhook: {
         endpoint: projectRef.taskAnnotationSettings.fileTicketWebhook.endpoint,
         secret: projectRef.taskAnnotationSettings.fileTicketWebhook.secret,
       },
-      jiraCustomFields: projectRef.taskAnnotationSettings.jiraCustomFields
-        ? projectRef.taskAnnotationSettings.jiraCustomFields.map(
-            ({ field, displayText }) => ({ field, displayText })
-          )
-        : [],
+      jiraCustomFields:
+        projectRef?.taskAnnotationSettings?.jiraCustomFields?.map(
+          ({ field, displayText }) => ({ field, displayText })
+        ) ?? [],
     },
   };
 };
