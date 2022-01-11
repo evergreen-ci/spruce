@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { TreeSelect } from "components/TreeSelect";
 
 const treeData = [
@@ -128,14 +128,7 @@ export const NoAllButton = () => {
     "silentfail",
     "pass",
   ]);
-  return (
-    <TreeSelect
-      {...getDropdownProps()}
-      tData={noAllTreeData}
-      state={value}
-      onChange={setValue}
-    />
-  );
+  return <TreeSelect tData={noAllTreeData} state={value} onChange={setValue} />;
 };
 
 export const NoDropdown = () => {
