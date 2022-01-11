@@ -21,7 +21,7 @@ import { queryString, url, array } from "utils";
 import { PatchTasksTable } from "./tasks/PatchTasksTable";
 
 const { toArray } = array;
-const { parseQueryString, parseSortString } = queryString;
+const { parseQueryString, parseSortString, getString } = queryString;
 
 const { getPageFromSearch, getLimitFromSearch } = url;
 interface Props {
@@ -122,9 +122,6 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     </>
   );
 };
-
-const getString = (param: string | string[]): string =>
-  Array.isArray(param) ? param[0] : param;
 
 const statusesToIncludeInQuery = {
   [TaskStatus.Aborted]: true,
