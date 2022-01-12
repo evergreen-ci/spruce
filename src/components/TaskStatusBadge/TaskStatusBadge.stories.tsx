@@ -23,7 +23,9 @@ export const badges = () => {
 };
 
 const Container = styled.div`
-  width: 80%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 `;
 const Wrapper = styled.div`
   padding: 5px;
