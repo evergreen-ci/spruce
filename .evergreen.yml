@@ -282,6 +282,7 @@ functions:
     params:
       working_dir: spruce
       script: |
+        export PATH=/opt/nodejs/node-v16.13.0-linux-x64/bin:$PATH
         BUCKET=${bucket} AWS_ACCESS_KEY_ID=${aws_key} AWS_SECRET_ACCESS_KEY=${aws_secret}  yarn deploy; yarn upload-source-maps;
 
   build-prod:
