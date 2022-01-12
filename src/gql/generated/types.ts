@@ -584,6 +584,7 @@ export type MainlineCommitsOptions = {
   limit?: Maybe<Scalars["Int"]>;
   skipOrderNumber?: Maybe<Scalars["Int"]>;
   shouldCollapse?: Maybe<Scalars["Boolean"]>;
+  requesters?: Maybe<Array<Scalars["String"]>>;
 };
 
 export type BuildVariantTuple = {
