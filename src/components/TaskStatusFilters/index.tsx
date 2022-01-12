@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import DropdownButton from "components/DropdownButton";
+import Dropdown from "components/Dropdown";
 import { TreeSelect } from "components/TreeSelect";
 import { useTaskStatuses } from "hooks";
 
@@ -24,7 +24,7 @@ export const TaskStatusFilters: React.FC<Props> = ({
   return (
     <>
       <SelectorWrapper>
-        <DropdownButton
+        <Dropdown
           data-cy="task-status-filter"
           buttonText={`Task Status: ${
             selectedStatuses.length
@@ -38,10 +38,10 @@ export const TaskStatusFilters: React.FC<Props> = ({
             onChange={onChangeStatusFilter}
             hasStyling={false}
           />
-        </DropdownButton>
+        </Dropdown>
       </SelectorWrapper>
       <SelectorWrapper>
-        <DropdownButton
+        <Dropdown
           data-cy="base-task-status-filter"
           buttonText={`Base Task Status: ${
             selectedBaseStatuses.length
@@ -55,7 +55,7 @@ export const TaskStatusFilters: React.FC<Props> = ({
             onChange={onChangeBaseStatusFilter}
             hasStyling={false}
           />
-        </DropdownButton>
+        </Dropdown>
       </SelectorWrapper>
     </>
   );

@@ -1,19 +1,19 @@
 import userEvent from "@testing-library/user-event";
 import { render } from "test_utils";
-import DropdownButton from ".";
+import Dropdown from ".";
 
 const children = () => <div>Some Children</div>;
-describe("dropdownButton", () => {
+describe("dropdown", () => {
   it("renders a button by default with no dropdown", () => {
     const { queryByText } = render(
-      <DropdownButton buttonText="Some Button"> {children()} </DropdownButton>
+      <Dropdown buttonText="Some Button"> {children()} </Dropdown>
     );
     expect(queryByText("Some Button")).toBeInTheDocument();
     expect(queryByText("Some Children")).not.toBeInTheDocument();
   });
   it("clicking on the button opens and closes the dropdown", () => {
     const { queryByText } = render(
-      <DropdownButton buttonText="Some Button"> {children()} </DropdownButton>
+      <Dropdown buttonText="Some Button"> {children()} </Dropdown>
     );
     expect(queryByText("Some Button")).toBeInTheDocument();
     expect(queryByText("Some Children")).not.toBeInTheDocument();
@@ -24,7 +24,7 @@ describe("dropdownButton", () => {
   });
   it("clicking on the dropdown contents should not close the dropdown", () => {
     const { queryByText } = render(
-      <DropdownButton buttonText="Some Button"> {children()} </DropdownButton>
+      <Dropdown buttonText="Some Button"> {children()} </Dropdown>
     );
     expect(queryByText("Some Button")).toBeInTheDocument();
     expect(queryByText("Some Children")).not.toBeInTheDocument();
@@ -35,7 +35,7 @@ describe("dropdownButton", () => {
   });
   it("clicking outside the button and dropdown closes the dropdown", () => {
     const { queryByText } = render(
-      <DropdownButton buttonText="Some Button"> {children()} </DropdownButton>
+      <Dropdown buttonText="Some Button"> {children()} </Dropdown>
     );
     expect(queryByText("Some Button")).toBeInTheDocument();
     expect(queryByText("Some Children")).not.toBeInTheDocument();
@@ -47,12 +47,9 @@ describe("dropdownButton", () => {
   it("renders a custom button contents when custom buttonRenderer is passed in", () => {
     const customButtonRenderer = () => <div>Custom Button</div>;
     const { queryByText } = render(
-      <DropdownButton
-        buttonText="Some Button"
-        buttonRenderer={customButtonRenderer}
-      >
+      <Dropdown buttonText="Some Button" buttonRenderer={customButtonRenderer}>
         {children()}
-      </DropdownButton>
+      </Dropdown>
     );
     expect(queryByText("Some Button")).not.toBeInTheDocument();
     expect(queryByText("Custom Button")).toBeInTheDocument();

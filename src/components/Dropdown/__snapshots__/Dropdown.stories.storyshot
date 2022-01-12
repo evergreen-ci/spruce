@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots DropdownButton Custom Button Render 1`] = `
+exports[`storybook Storyshots Dropdown Custom Button Render 1`] = `
 <div
-  className="css-1ry038z-Container eq9z4sp4"
+  className="css-1ry038z-Container e1yw4j304"
 >
   <button
     aria-disabled={false}
-    className="leafygreen-ui-26sqyb css-mbqq81-StyledButton eq9z4sp2"
+    className="leafygreen-ui-26sqyb css-mbqq81-StyledButton e1yw4j302"
     data-cy="dropdown-button"
     disabled={false}
     id="searchable-dropdown"
@@ -20,10 +20,10 @@ exports[`storybook Storyshots DropdownButton Custom Button Render 1`] = `
       className="leafygreen-ui-sl5lf4"
     >
       <div
-        className="css-czkpcu-ButtonContent eq9z4sp1"
+        className="css-czkpcu-ButtonContent e1yw4j301"
       >
         <div
-          className="css-soeq2u-LabelWrapper eq9z4sp3"
+          className="css-soeq2u-LabelWrapper e1yw4j303"
         >
           <b>
             Some Magic Button
@@ -57,13 +57,13 @@ exports[`storybook Storyshots DropdownButton Custom Button Render 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots DropdownButton Story 1`] = `
+exports[`storybook Storyshots Dropdown Story 1`] = `
 <div
-  className="css-1ry038z-Container eq9z4sp4"
+  className="css-1ry038z-Container e1yw4j304"
 >
   <button
     aria-disabled={false}
-    className="leafygreen-ui-26sqyb css-mbqq81-StyledButton eq9z4sp2"
+    className="leafygreen-ui-26sqyb css-mbqq81-StyledButton e1yw4j302"
     data-cy="dropdown-button"
     disabled={false}
     id="searchable-dropdown"
@@ -77,13 +77,13 @@ exports[`storybook Storyshots DropdownButton Story 1`] = `
       className="leafygreen-ui-sl5lf4"
     >
       <div
-        className="css-czkpcu-ButtonContent eq9z4sp1"
+        className="css-czkpcu-ButtonContent e1yw4j301"
       >
         <div
-          className="css-soeq2u-LabelWrapper eq9z4sp3"
+          className="css-soeq2u-LabelWrapper e1yw4j303"
         >
           <div
-            className="css-197mxpc-OverflowBody eq9z4sp0 leafygreen-ui-1mngpnd"
+            className="css-197mxpc-OverflowBody e1yw4j300 leafygreen-ui-1mngpnd"
             data-cy="dropdown-value"
           >
             Test

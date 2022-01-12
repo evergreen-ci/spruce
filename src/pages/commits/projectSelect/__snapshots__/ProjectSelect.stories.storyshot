@@ -14,11 +14,11 @@ exports[`storybook Storyshots ProjectSelect Story 1`] = `
     className="css-gte0m8-Wrapper e17dnzmx3"
   >
     <div
-      className="css-1ry038z-Container eq9z4sp4"
+      className="css-1ry038z-Container e1yw4j304"
     >
       <button
         aria-disabled={true}
-        className="leafygreen-ui-117l5vj css-mbqq81-StyledButton eq9z4sp2"
+        className="leafygreen-ui-117l5vj css-mbqq81-StyledButton e1yw4j302"
         data-cy="project-select"
         disabled={true}
         id="searchable-dropdown"
@@ -32,13 +32,13 @@ exports[`storybook Storyshots ProjectSelect Story 1`] = `
           className="leafygreen-ui-sl5lf4"
         >
           <div
-            className="css-czkpcu-ButtonContent eq9z4sp1"
+            className="css-czkpcu-ButtonContent e1yw4j301"
           >
             <div
-              className="css-soeq2u-LabelWrapper eq9z4sp3"
+              className="css-soeq2u-LabelWrapper e1yw4j303"
             >
               <div
-                className="css-197mxpc-OverflowBody eq9z4sp0 leafygreen-ui-1mngpnd"
+                className="css-197mxpc-OverflowBody e1yw4j300 leafygreen-ui-1mngpnd"
                 data-cy="dropdown-value"
               >
                 Select a project

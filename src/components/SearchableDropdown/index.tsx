@@ -2,7 +2,7 @@ import { useState, PropsWithChildren, useRef, useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Label } from "@leafygreen-ui/typography";
-import DropdownButton from "components/DropdownButton";
+import Dropdown from "components/Dropdown";
 import Icon from "components/Icon";
 import TextInput from "components/TextInputWithGlyph";
 import { toggleArray } from "utils/array";
@@ -43,7 +43,7 @@ const SearchableDropdown = <T extends {}>({
 }: PropsWithChildren<SearchableDropdownProps<T>>) => {
   const [search, setSearch] = useState("");
   const [visibleOptions, setVisibleOptions] = useState(options);
-  const dropdownButtonRef = useRef(null);
+  const DropdownRef = useRef(null);
   // Update options when they change
   useEffect(() => {
     if (options) {
@@ -64,8 +64,8 @@ const SearchableDropdown = <T extends {}>({
     }
     // Close the dropdown after user makes a selection only if it isn't a multiselect
     if (!allowMultiSelect) {
-      if (dropdownButtonRef.current) {
-        dropdownButtonRef.current.setIsOpen(false);
+      if (DropdownRef.current) {
+        DropdownRef.current.setIsOpen(false);
       }
     }
   };
@@ -129,14 +129,14 @@ const SearchableDropdown = <T extends {}>({
     <Container>
       <Label htmlFor="searchable-dropdown">{label}</Label>
       <Wrapper>
-        <DropdownButton
+        <Dropdown
           data-cy={dataCy}
           disabled={disabled}
           buttonText={buttonText}
           buttonRenderer={
             buttonRenderer ? () => buttonRenderer(value) : undefined
           }
-          ref={dropdownButtonRef}
+          ref={DropdownRef}
         >
           <TextInput
             data-cy={`${dataCy}-search-input`}
@@ -150,7 +150,7 @@ const SearchableDropdown = <T extends {}>({
           <ScrollableList>
             {(visibleOptions as T[])?.map((o) => option(o))}
           </ScrollableList>
-        </DropdownButton>
+        </Dropdown>
       </Wrapper>
     </Container>
   );

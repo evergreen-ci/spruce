@@ -1,4 +1,4 @@
-import DropdownButton from "components/DropdownButton";
+import Dropdown from "components/Dropdown";
 import { TreeSelect } from "components/TreeSelect";
 import { useStatusesFilter } from "hooks";
 import {
@@ -15,7 +15,7 @@ export const StatusSelector: React.FC = () => {
   const noFilterMessage = "No filters selected";
 
   return (
-    <DropdownButton
+    <Dropdown
       data-cy="my-patch-status-select"
       buttonText={`Patch Status: ${
         statusVal.length ? statusVal.join(", ") : noFilterMessage
@@ -27,7 +27,7 @@ export const StatusSelector: React.FC = () => {
         tData={treeData}
         hasStyling={false}
       />
-    </DropdownButton>
+    </Dropdown>
   );
 };
 

@@ -8,7 +8,7 @@ import { useOnClickOutside } from "hooks";
 
 const { gray, white } = uiColors;
 
-interface DropdownButtonProps {
+interface DropdownProps {
   ["data-cy"]?: string;
   disabled?: boolean;
   buttonRenderer?: () => React.ReactNode;
@@ -17,7 +17,7 @@ interface DropdownButtonProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }
-const DropdownButton: React.FC<DropdownButtonProps> = ({
+const Dropdown: React.FC<DropdownProps> = ({
   "data-cy": dataCy = "dropdown-button",
   disabled = false,
   buttonText,
@@ -63,23 +63,19 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
   );
 };
 
-type UncontrolledDropdownButtonProps = Omit<
-  Omit<DropdownButtonProps, "isOpen">,
-  "setIsOpen"
->;
-
-interface DropdownButtonWithRefProps extends UncontrolledDropdownButtonProps {
-  ref?: React.Ref<DropdownButtonWithRef>;
+interface DropdownWithRefProps
+  extends Omit<DropdownProps, "isOpen" | "setIsOpen"> {
+  ref?: React.Ref<DropdownWithRef>;
 }
 
-interface DropdownButtonWithRefState {
+interface DropdownWithRefState {
   isOpen: boolean;
 }
-/** DropdownButtonWithRef is a class component that allows the implementer
+/** DropdownWithRef is a class component that allows the implementer
  *  to control its internal state methods with a ref in order to trigger state updates */
-class DropdownButtonWithRef extends React.Component<
-  DropdownButtonWithRefProps,
-  DropdownButtonWithRefState
+class DropdownWithRef extends React.Component<
+  DropdownWithRefProps,
+  DropdownWithRefState
 > {
   constructor(props) {
     super(props);
@@ -95,11 +91,7 @@ class DropdownButtonWithRef extends React.Component<
   render() {
     const { isOpen } = this.state;
     return (
-      <DropdownButton
-        {...this.props}
-        isOpen={isOpen}
-        setIsOpen={this.setIsOpen}
-      />
+      <Dropdown {...this.props} isOpen={isOpen} setIsOpen={this.setIsOpen} />
     );
   }
 }
@@ -148,4 +140,4 @@ const OverflowBody = styled(Body)`
   text-overflow: ellipsis;
 `;
 
-export default DropdownButtonWithRef;
+export default DropdownWithRef;

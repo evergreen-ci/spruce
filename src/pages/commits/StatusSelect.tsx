@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Label } from "@leafygreen-ui/typography";
-import DropdownButton from "components/DropdownButton";
+import Dropdown from "components/Dropdown";
 import { TreeSelect } from "components/TreeSelect";
 import { taskStatusesFilterTreeData } from "constants/task";
 import { useStatusesFilter } from "hooks";
@@ -13,7 +13,7 @@ export const StatusSelect = () => {
   return (
     <Container>
       <Label htmlFor="project-task-status-select">Status</Label>
-      <DropdownButton
+      <Dropdown
         data-cy="project-task-status-select-button"
         buttonText={`Task Status: ${
           inputValue.length ? inputValue.join(", ") : noFilterMessage
@@ -26,7 +26,7 @@ export const StatusSelect = () => {
           data-cy="project-task-status-select"
           hasStyling={false}
         />
-      </DropdownButton>
+      </Dropdown>
     </Container>
   );
 };
