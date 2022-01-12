@@ -19,6 +19,23 @@ export const toggleArray = <T>(value: T, array: T[]) => {
 };
 
 /**
+ * deduplicatedAppend takes in an array of values regardless of type and a new value and safely inserts the value if it doesn't exist in the array.
+ * if it does it exist it will do nothing
+ * @param value The value to insert into the array.
+ * @param array
+ */
+export const deduplicatedAppend = <T>(value: T, array: T[]) => {
+  const tempArray = [...array];
+  const idIndex = tempArray.findIndex(
+    (e) => JSON.stringify(value) === JSON.stringify(e)
+  );
+  if (idIndex === -1) {
+    tempArray.push(value);
+  }
+  return tempArray;
+};
+
+/**
  * Takes an array of objects and a key
  * and returns an object using the provided value of the key as a key and the rest of the object as the value
  * @param array The array of objects to convert to an object
