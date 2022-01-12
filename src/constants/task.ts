@@ -1,5 +1,6 @@
 import { uiColors } from "@leafygreen-ui/palette";
 import { ALL_VALUE, TreeDataEntry } from "components/TreeSelect";
+import { purple } from "constants/colors";
 import { TaskStatus } from "types/task";
 
 const { gray, red, yellow, green } = uiColors;
@@ -188,11 +189,6 @@ export const taskStatusesFilterTreeData: TreeDataEntry[] = [
   ...taskStatuses,
 ];
 
-const failureLavender = "#F3EDF5";
-const failureLavendarDark = "#9982A4";
-const failurePurple = "#E6CCE6";
-const failurePurpleDark = "#620662";
-
 // Represents background colors for task statuses
 export const mapTaskStatusToColor = {
   [TaskStatus.UndispatchedUmbrella]: gray.dark1,
@@ -202,20 +198,21 @@ export const mapTaskStatusToColor = {
   [TaskStatus.FailedUmbrella]: red.base,
   [TaskStatus.Failed]: red.base,
   [TaskStatus.KnownIssue]: red.base,
-  [TaskStatus.Pending]: yellow.base,
-  [TaskStatus.SetupFailed]: failureLavender,
-  [TaskStatus.Succeeded]: green.base,
+  [TaskStatus.TaskTimedOut]: red.base,
+  [TaskStatus.TestTimedOut]: red.base,
+  [TaskStatus.Dispatched]: yellow.base,
+  [TaskStatus.SetupFailed]: purple.base,
   [TaskStatus.RunningUmbrella]: yellow.base,
   [TaskStatus.Started]: yellow.base,
   [TaskStatus.Dispatched]: yellow.base,
-  [TaskStatus.SystemFailureUmbrella]: failurePurple,
-  [TaskStatus.SystemFailed]: failurePurple,
-  [TaskStatus.SystemTimedOut]: failurePurple,
-  [TaskStatus.SystemUnresponsive]: failurePurple,
-  [TaskStatus.TaskTimedOut]: red.base,
-  [TaskStatus.TestTimedOut]: red.base,
-  [TaskStatus.Unstarted]: gray.light1,
-  [TaskStatus.WillRun]: gray.light1,
+  [TaskStatus.SystemFailureUmbrella]: purple.base,
+  [TaskStatus.SystemFailed]: purple.base,
+  [TaskStatus.SystemTimedOut]: purple.base,
+  [TaskStatus.SystemUnresponsive]: purple.base,
+  [TaskStatus.Succeeded]: green.base,
+  [TaskStatus.Unstarted]: gray.dark3,
+  [TaskStatus.WillRun]: gray.dark3,
+  [TaskStatus.Pending]: gray.dark3,
 };
 
 // Represents text color for task statuses
@@ -227,14 +224,14 @@ export const mapTaskStatusToTextColor = {
   [TaskStatus.Failed]: red.dark3,
   [TaskStatus.KnownIssue]: red.dark3,
   [TaskStatus.Pending]: yellow.dark3,
-  [TaskStatus.SetupFailed]: failureLavendarDark,
+  [TaskStatus.SetupFailed]: purple.base,
   [TaskStatus.RunningUmbrella]: yellow.dark3,
   [TaskStatus.Started]: yellow.dark3,
   [TaskStatus.Dispatched]: yellow.dark3,
   [TaskStatus.Succeeded]: green.dark3,
-  [TaskStatus.SystemFailed]: failurePurpleDark,
-  [TaskStatus.SystemTimedOut]: failurePurpleDark,
-  [TaskStatus.SystemUnresponsive]: failurePurpleDark,
+  [TaskStatus.SystemFailed]: purple.light1,
+  [TaskStatus.SystemTimedOut]: purple.light1,
+  [TaskStatus.SystemUnresponsive]: purple.light1,
   [TaskStatus.TestTimedOut]: red.dark3,
   [TaskStatus.TaskTimedOut]: red.dark3,
   [TaskStatus.Unstarted]: gray.dark3,
@@ -285,50 +282,53 @@ export const mapUmbrellaStatusColors = {
     fill: gray.light3,
     border: gray.light2,
     text: gray.dark1,
-    barChart: gray.dark1,
   },
   [TaskStatus.RunningUmbrella]: {
     fill: yellow.light3,
     border: yellow.light2,
     text: yellow.dark2,
-    barChart: yellow.base,
   },
   [TaskStatus.SystemFailureUmbrella]: {
-    fill: "#4f4fbf",
-    border: "#36367f",
-    text: "#f1f0fc",
-    barChart: "#4f4fbf",
+    fill: purple.base,
+    border: purple.dark1,
+    text: purple.light1,
   },
   [TaskStatus.UndispatchedUmbrella]: {
     fill: gray.light3,
     border: gray.light2,
     text: gray.dark1,
-    barChart: gray.base,
   },
   [TaskStatus.ScheduledUmbrella]: {
     fill: gray.dark1,
     border: gray.dark2,
     text: gray.light3,
-    barChart: gray.dark1,
   },
   [TaskStatus.FailedUmbrella]: {
     fill: red.light3,
     border: red.light2,
     text: red.dark2,
-    barChart: red.base,
   },
   [TaskStatus.Succeeded]: {
     fill: green.light3,
     border: green.light2,
     text: green.dark2,
-    barChart: green.base,
   },
   [TaskStatus.SetupFailed]: {
-    fill: "#f1f0fc",
-    border: "#d5d4f9",
-    text: "#4f4fbf",
-    barChart: "#f1f0fc",
+    fill: purple.light1,
+    border: purple.light2,
+    text: purple.base,
   },
+};
+
+export const mapTaskToBarchartColor = {
+  [TaskStatus.UndispatchedUmbrella]: gray.dark1,
+  [TaskStatus.RunningUmbrella]: yellow.base,
+  [TaskStatus.SystemFailureUmbrella]: purple.base,
+  [TaskStatus.UndispatchedUmbrella]: gray.dark1,
+  [TaskStatus.ScheduledUmbrella]: gray.base,
+  [TaskStatus.FailedUmbrella]: red.base,
+  [TaskStatus.Succeeded]: green.base,
+  [TaskStatus.SetupFailed]: purple.light1,
 };
 
 // Represents order for waterfall barchart
