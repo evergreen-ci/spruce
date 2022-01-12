@@ -189,56 +189,6 @@ export const taskStatusesFilterTreeData: TreeDataEntry[] = [
   ...taskStatuses,
 ];
 
-// Represents background colors for task statuses
-export const mapTaskStatusToColor = {
-  [TaskStatus.UndispatchedUmbrella]: gray.dark1,
-  [TaskStatus.Aborted]: gray.dark1,
-  [TaskStatus.Blocked]: gray.dark1,
-  [TaskStatus.Unscheduled]: gray.dark1,
-  [TaskStatus.FailedUmbrella]: red.base,
-  [TaskStatus.Failed]: red.base,
-  [TaskStatus.KnownIssue]: red.base,
-  [TaskStatus.TaskTimedOut]: red.base,
-  [TaskStatus.TestTimedOut]: red.base,
-  [TaskStatus.Dispatched]: yellow.base,
-  [TaskStatus.SetupFailed]: purple.base,
-  [TaskStatus.RunningUmbrella]: yellow.base,
-  [TaskStatus.Started]: yellow.base,
-  [TaskStatus.Dispatched]: yellow.base,
-  [TaskStatus.SystemFailureUmbrella]: purple.base,
-  [TaskStatus.SystemFailed]: purple.base,
-  [TaskStatus.SystemTimedOut]: purple.base,
-  [TaskStatus.SystemUnresponsive]: purple.base,
-  [TaskStatus.Succeeded]: green.base,
-  [TaskStatus.Unstarted]: gray.dark3,
-  [TaskStatus.WillRun]: gray.dark3,
-  [TaskStatus.Pending]: gray.dark3,
-};
-
-// Represents text color for task statuses
-export const mapTaskStatusToTextColor = {
-  [TaskStatus.UndispatchedUmbrella]: gray.light1,
-  [TaskStatus.Aborted]: gray.dark3,
-  [TaskStatus.Blocked]: gray.dark3,
-  [TaskStatus.FailedUmbrella]: red.dark3,
-  [TaskStatus.Failed]: red.dark3,
-  [TaskStatus.KnownIssue]: red.dark3,
-  [TaskStatus.Pending]: yellow.dark3,
-  [TaskStatus.SetupFailed]: purple.base,
-  [TaskStatus.RunningUmbrella]: yellow.dark3,
-  [TaskStatus.Started]: yellow.dark3,
-  [TaskStatus.Dispatched]: yellow.dark3,
-  [TaskStatus.Succeeded]: green.dark3,
-  [TaskStatus.SystemFailed]: purple.light1,
-  [TaskStatus.SystemTimedOut]: purple.light1,
-  [TaskStatus.SystemUnresponsive]: purple.light1,
-  [TaskStatus.TestTimedOut]: red.dark3,
-  [TaskStatus.TaskTimedOut]: red.dark3,
-  [TaskStatus.Unstarted]: gray.dark3,
-  [TaskStatus.Unscheduled]: gray.light3,
-  [TaskStatus.WillRun]: gray.dark1,
-};
-
 export const mapBadgeColors = {
   [TaskStatus.Failed]: {
     fill: red.light3,
