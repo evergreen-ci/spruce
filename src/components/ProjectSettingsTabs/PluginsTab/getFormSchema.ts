@@ -34,7 +34,7 @@ export const getFormSchema = (
       },
       buildBaronSettings: {
         type: "object" as "object",
-        title: "Build Baron",
+        title: "Build Baron and Task Annotations",
         properties: {
           ticketSearchProjects: {
             type: "array" as "array",
@@ -52,7 +52,7 @@ export const getFormSchema = (
           customTicket: {
             type: "boolean" as "boolean",
             oneOf: radioBoxOptions(
-              ["Custom Ticket Creation", "Build Baron Ticket Creation"],
+              ["Custom Ticket Creation", "JIRA Ticket Creation"],
               undefined
             ),
           },
@@ -110,11 +110,11 @@ export const getFormSchema = (
       },
     },
     buildBaronSettings: {
-      "ui:description":
-        "Define either a webhook for custom build failure ticket creation, or specify existing JIRA projects.",
       "ui:rootFieldId": "buildBaron",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       ticketSearchProjects: {
+        "ui:description":
+          "Specify an existing JIRA project to search for tickets related to a failing task",
         ...placeholderIf(
           repoData?.projectPluginsSettings?.buildBaronSettings
             ?.ticketSearchProjects
@@ -133,7 +133,7 @@ export const getFormSchema = (
         "ui:disabled": formData?.buildBaronSettings.customTicket === true,
         //   formData?.buildBaronSettings?.fileTicketWebhook?.endpoint !== null,
         "ui:description":
-          "Define either a webhook for custom build failure ticket creation, or specify existing JIRA projects.",
+          "Specify an existing JIRA project to create tickets in when the File Ticket button is clicked on a failing task.",
         ...placeholderIf(
           repoData?.projectPluginsSettings?.buildBaronSettings
             ?.ticketCreateProject
@@ -143,27 +143,24 @@ export const getFormSchema = (
         },
       },
       taskAnnotationSettings: {
-        "ui:disabled": formData?.buildBaronSettings.customTicket !== true,
         "ui:rootFieldId": "taskAnnotation",
-        "ui:showLabel": false,
         jiraCustomFields: {
+          "ui:description":
+            "Add any custom Jira fields that you want displayed on any listed JIRA tickets, for example: assigned teams.",
           ...placeholderIf(
             repoData?.projectPluginsSettings?.taskAnnotationSettings
               ?.jiraCustomFields
           ),
           "ui:fullWidth": true,
           "ui:buttonText": "Add custom Jira field",
-          "ui:buttonDisabled":
-            formData?.buildBaronSettings.customTicket !== true,
-          "ui:showLabel": false,
           options: {
             useRepoSettings,
           },
         },
         fileTicketWebhook: {
           "ui:disabled": formData?.buildBaronSettings.customTicket !== true,
-          "ui:showLabel": false,
-          "ui:visible": false,
+          "ui:description":
+            "Specify the endpoint and secret for a custom webhook to be called when the File Ticket button is clicked on a failing task.",
           endpoint: {
             ...placeholderIf(
               repoData?.projectPluginsSettings?.buildBaronSettings

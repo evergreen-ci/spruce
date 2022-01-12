@@ -65,11 +65,9 @@ export const formToGql = (
             endpoint: taskAnnotationSettings.fileTicketWebhook.endpoint,
             secret: taskAnnotationSettings.fileTicketWebhook.secret,
           },
-      jiraCustomFields: buildBaronSettings.customTicket
-        ? null
-        : taskAnnotationSettings.jiraCustomFields.map(
-            ({ field, displayText }) => ({ field, displayText })
-          ),
+      jiraCustomFields: taskAnnotationSettings.jiraCustomFields.map(
+        ({ field, displayText }) => ({ field, displayText })
+      ),
     },
   };
 
