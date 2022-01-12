@@ -88,7 +88,6 @@ export enum TaskStatus {
   Aborted = "aborted",
 
   KnownIssue = "known-issue",
-  StatusBlocked = "StatusBlocked",
 
   FailedUmbrella = "failed-umbrella",
   SystemFailureUmbrella = "system-failure-umbrella",
