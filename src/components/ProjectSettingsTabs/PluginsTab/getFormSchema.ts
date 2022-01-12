@@ -2,7 +2,7 @@ import { Field } from "@rjsf/core";
 import { FormDataProps, SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { placeholderIf, radioBoxOptions } from "../utils";
+import { hiddenIf, placeholderIf, radioBoxOptions } from "../utils";
 import { FormState } from "./types";
 
 export const getFormSchema = (
@@ -61,20 +61,23 @@ export const getFormSchema = (
             title: "Ticket Create Project",
           },
           taskAnnotationSettings: {
-            title: "Custom Ticket Creation",
+            title:
+              formData?.buildBaronSettings.customTicket === true
+                ? "Custom Ticket Creation"
+                : "",
             type: "object" as "object",
             properties: {
               fileTicketWebhook: {
                 type: "object" as "object",
-                title: "Webhook",
+                title: "",
                 properties: {
                   endpoint: {
                     type: ["string", "null"],
-                    title: "Endpoint",
+                    title: "Webhook Endpoint",
                   },
                   secret: {
                     type: ["string", "null"],
-                    title: "Secret",
+                    title: "Webhook Secret",
                   },
                 },
               },
@@ -130,14 +133,13 @@ export const getFormSchema = (
         "ui:data-cy": "enabled-radio-box",
       },
       ticketCreateProject: {
-        "ui:disabled": formData?.buildBaronSettings.customTicket === true,
-        //   formData?.buildBaronSettings?.fileTicketWebhook?.endpoint !== null,
         "ui:description":
           "Specify an existing JIRA project to create tickets in when the File Ticket button is clicked on a failing task.",
         ...placeholderIf(
           repoData?.projectPluginsSettings?.buildBaronSettings
             ?.ticketCreateProject
         ),
+        ...hiddenIf(formData?.buildBaronSettings.customTicket === true),
         options: {
           useRepoSettings,
         },
@@ -158,7 +160,7 @@ export const getFormSchema = (
           },
         },
         fileTicketWebhook: {
-          "ui:disabled": formData?.buildBaronSettings.customTicket !== true,
+          ...hiddenIf(formData?.buildBaronSettings.customTicket !== true),
           "ui:description":
             "Specify the endpoint and secret for a custom webhook to be called when the File Ticket button is clicked on a failing task.",
           endpoint: {
