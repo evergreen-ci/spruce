@@ -13,7 +13,8 @@ import ElementWrapper from "./ElementWrapper";
 export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
   classNames,
   children,
-}) => <div className={classNames}>{children}</div>;
+  hidden,
+}) => !hidden && <div className={classNames}>{children}</div>;
 
 export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   canAdd,
