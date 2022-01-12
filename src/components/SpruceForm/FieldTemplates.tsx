@@ -13,7 +13,8 @@ import ElementWrapper from "./ElementWrapper";
 export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
   classNames,
   children,
-}) => <div className={classNames}>{children}</div>;
+  hidden,
+}) => !hidden && <div className={classNames}>{children}</div>;
 
 export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   canAdd,
@@ -30,10 +31,11 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   const id = idSchema.$id;
   const description = uiSchema["ui:description"] || schema.description;
   const buttonText = uiSchema["ui:buttonText"] || "Add";
-  const showLabel = uiSchema["ui:showLabel"];
+  const fullWidth = !!uiSchema["ui:fullWidth"];
+  const showLabel = uiSchema["ui:showLabel"] !== false;
   return (
     <>
-      {showLabel !== false && (
+      {showLabel && (
         <TitleField id={`${id}__title`} required={required} title={title} />
       )}
       {description && (
@@ -51,27 +53,41 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
           </Button>
         </ElementWrapper>
       )}
-      <ArrayContainer>
-        {items.map(({ children, hasRemove, index, onDropIndexClick }) => (
-          <ArrayItemRow key={index}>
-            {children}
-            {hasRemove && (
-              <DeleteButtonWrapper>
-                <Button onClick={onDropIndexClick(index)}>
-                  <Icon glyph="Trash" />
-                </Button>
-              </DeleteButtonWrapper>
-            )}
-          </ArrayItemRow>
-        ))}
+      <ArrayContainer fullWidth={fullWidth}>
+        {items.map(
+          ({
+            children,
+            disabled,
+            hasRemove,
+            index,
+            onDropIndexClick,
+            readonly,
+          }) => (
+            <ArrayItemRow key={index}>
+              {children}
+              {hasRemove && (
+                <DeleteButtonWrapper>
+                  <Button
+                    onClick={onDropIndexClick(index)}
+                    disabled={disabled || readonly}
+                    leftGlyph={<Icon glyph="Trash" />}
+                    data-cy="delete-item-button"
+                  />
+                </DeleteButtonWrapper>
+              )}
+            </ArrayItemRow>
+          )
+        )}
       </ArrayContainer>
     </>
   );
 };
 
 const ArrayContainer = styled.div`
+  margin-bottom: 24px;
   min-width: min-content;
-  width: 60%;
+  width: ${(props: { fullWidth?: boolean }): string =>
+    props.fullWidth ? "100%" : "60%"};
 `;
 
 const ArrayItemRow = styled.div`

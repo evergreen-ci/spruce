@@ -3,12 +3,11 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body, Label } from "@leafygreen-ui/typography";
-import { Input } from "antd";
 import Icon from "components/Icon";
+import TextInput from "components/TextInputWithGlyph";
 import { useOnClickOutside } from "hooks";
 import { toggleArray } from "utils/array";
 
-const { Search } = Input;
 const { gray, white, blue } = uiColors;
 
 interface SearchableDropdownProps<T> {
@@ -27,6 +26,7 @@ interface SearchableDropdownProps<T> {
   allowMultiselect?: boolean;
   disabled?: boolean;
   ["data-cy"]?: string;
+  buttonRenderer?: (option: T | T[]) => React.ReactNode;
 }
 const SearchableDropdown = <T extends {}>({
   label,
@@ -40,6 +40,7 @@ const SearchableDropdown = <T extends {}>({
   allowMultiselect = false,
   disabled = false,
   "data-cy": dataCy = "searchable-dropdown",
+  buttonRenderer,
 }: PropsWithChildren<SearchableDropdownProps<T>>) => {
   const [isOpen, setisOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -144,7 +145,11 @@ const SearchableDropdown = <T extends {}>({
         >
           <ButtonContent>
             <LabelWrapper>
-              <Body data-cy="dropdown-value">{buttonText}</Body>
+              {buttonRenderer ? (
+                buttonRenderer(value)
+              ) : (
+                <Body data-cy="dropdown-value">{buttonText}</Body>
+              )}
             </LabelWrapper>
             <FlexWrapper>
               <ArrowWrapper>
@@ -156,11 +161,14 @@ const SearchableDropdown = <T extends {}>({
         {isOpen && (
           <RelativeWrapper>
             <OptionsWrapper ref={listMenuRef} data-cy={`${dataCy}-options`}>
-              <Search
+              <TextInput
+                data-cy={`${dataCy}-search-input`}
                 placeholder={searchPlaceholder}
                 value={search}
                 onChange={handleSearch}
-                data-cy={`${dataCy}-search-input`}
+                glyph="MagnifyingGlass"
+                aria-label="Search"
+                type="search"
               />
               <ScrollableList>
                 {(visibleOptions as T[])?.map((o) => option(o))}

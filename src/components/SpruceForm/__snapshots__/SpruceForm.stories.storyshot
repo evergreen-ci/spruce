@@ -136,7 +136,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
               </button>
             </div>
             <div
-              className="css-tkt7ft-ArrayContainer e7smmlm2"
+              className="css-1iijkzv-ArrayContainer e7smmlm2"
             >
               <div
                 className="css-scktrh-ArrayItemRow e7smmlm1"
@@ -257,6 +257,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                   <button
                     aria-disabled={false}
                     className="leafygreen-ui-26sqyb"
+                    data-cy="delete-item-button"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
@@ -269,7 +270,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                     >
                       <svg
                         aria-label="Trash Icon"
-                        className=""
+                        className="leafygreen-ui-1d90lhq"
                         fill="none"
                         height={16}
                         role="img"
@@ -610,6 +611,74 @@ exports[`storybook Storyshots Spruce Form Example 2 1`] = `
                   </label>
                 </div>
               </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`storybook Storyshots Spruce Form Example 3 1`] = `
+<div>
+  <h3
+    className="css-7bylgw-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"
+  >
+    UI Options
+  </h3>
+  <div
+    className="css-197y785-StyledCard e1c06qt20 leafygreen-ui-fe135o"
+  >
+    <form
+      className="rjsf"
+      noValidate={false}
+      onSubmit={[Function]}
+    >
+      <div
+        className="form-group field field-object"
+      >
+        <fieldset
+          id="root"
+        >
+          <div
+            className="form-group field field-boolean"
+          >
+            <div
+              className="css-bm42zs-ElementWrapper ee4bs9n0"
+            >
+              <label
+                className="leafygreen-ui-hfnsvs"
+                htmlFor="checkbox-5"
+                id="checkbox-5-label"
+              >
+                <input
+                  aria-checked={true}
+                  aria-disabled={false}
+                  aria-label="checkbox"
+                  aria-labelledby="checkbox-5-label"
+                  checked={true}
+                  className="leafygreen-ui-3bropy"
+                  disabled={false}
+                  id="checkbox-5"
+                  onChange={[Function]}
+                  onClick={[Function]}
+                  type="checkbox"
+                />
+                <div
+                  className="leafygreen-ui-cho4qd"
+                  data-leafygreen-ui="checkbox-wrapper"
+                >
+                  <div
+                    className="leafygreen-ui-njm8mk"
+                  />
+                </div>
+                <span
+                  className="leafygreen-ui-1qufm80"
+                >
+                  This is the only visible page element
+                </span>
+              </label>
             </div>
           </div>
         </fieldset>

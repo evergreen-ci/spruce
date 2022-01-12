@@ -12,7 +12,7 @@ describe("Task Queue", () => {
 
     cy.location("pathname").should("eq", "/task-queue/osx-108");
 
-    cy.dataCy("select-distro").contains("osx-108");
+    cy.contains("osx-108").should("exist");
   });
 
   it("Uses distro param in url to query queue and renders table", () => {
@@ -30,21 +30,22 @@ describe("Task Queue", () => {
 
     cy.get(".ant-table-row").should("have.length", 0);
 
-    cy.dataCy("select-distro").click();
+    cy.dataCy("distro-dropdown").click();
 
-    cy.dataCy("osx-108-distro-option").click();
+    cy.get("div").contains("osx-108").click();
 
     cy.get(".ant-table-row").should("have.length", 13);
   });
 
   it("Searching for a distro shows results that match search term", () => {
-    cy.visit("/task-queue");
+    cy.visit("/task-queue/debian71-test");
 
-    cy.dataCy("select-distro").type("deb");
-
-    cy.get(".ant-select-item-option-content")
-      .should("have.length", 1)
-      .and("contain.text", "debian71-test");
+    cy.dataCy("distro-dropdown").click();
+    cy.dataCy("distro-dropdown-search-input").type("osx");
+    cy.dataCy("distro-dropdown-options").within(() => {
+      cy.contains("debian71-test").should("not.exist");
+      cy.contains("osx-108").should("exist");
+    });
   });
 
   it("Bogus distro url param values shows an empty list", () => {
