@@ -44,6 +44,13 @@ export const WithDependencies = () => (
             requiredStatus: RequiredStatus.MustFail,
             taskId: "some_task_id_3",
           },
+          {
+            buildVariant: "ubuntu1604",
+            metStatus: MetStatus.Started,
+            name: "Some dep",
+            requiredStatus: RequiredStatus.MustFail,
+            taskId: "some_task_id_4",
+          },
         ],
       }}
       taskId={taskQuery.task.id}
