@@ -1,13 +1,13 @@
-import { data } from "./testData";
+import { ProjectSettingsInput } from "gql/generated/types";
+import { data } from "../testData";
 import { formToGql, gqlToForm } from "./transformers";
+import { FormState } from "./types";
+
+const { projectBase } = data;
 
 describe("project data", () => {
-  const {
-    form,
-    gql: { input, result },
-  } = data;
   it("correctly converts from GQL to a form", () => {
-    expect(gqlToForm(input)).toStrictEqual(form);
+    expect(gqlToForm(projectBase)).toStrictEqual(form);
   });
 
   it("correctly converts from a form to GQL and omits empty fields", () => {
@@ -16,8 +16,29 @@ describe("project data", () => {
         {
           vars: [...form.vars, {}],
         },
-        "123"
+        "project"
       )
     ).toStrictEqual(result);
   });
 });
+
+const form: FormState = {
+  vars: [
+    {
+      varName: "test_name",
+      varValue: "test_value",
+      isPrivate: true,
+      isDisabled: true,
+    },
+  ],
+};
+
+const result: Pick<ProjectSettingsInput, "projectRef" | "vars"> = {
+  projectRef: {
+    id: "project",
+  },
+  vars: {
+    vars: { test_name: "test_value" },
+    privateVarsList: ["test_name"],
+  },
+};
