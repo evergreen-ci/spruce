@@ -3,6 +3,7 @@ import { Label } from "@leafygreen-ui/typography";
 import { useLocation } from "react-router-dom";
 import Dropdown from "components/Dropdown";
 import { ALL_VALUE, TreeSelect } from "components/TreeSelect";
+import { noFilterMessage } from "constants/strings";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { CommitRequesterTypes, MainlineCommitQueryParams } from "types/commits";
 import { queryString, array } from "utils";
@@ -72,5 +73,4 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const noFilterMessage = "No filters selected";
 export default CommitTypeSelector;

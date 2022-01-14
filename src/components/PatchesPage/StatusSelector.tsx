@@ -1,5 +1,6 @@
 import Dropdown from "components/Dropdown";
 import { TreeSelect } from "components/TreeSelect";
+import { noFilterMessage } from "constants/strings";
 import { useStatusesFilter } from "hooks";
 import {
   PatchPageQueryParams,
@@ -12,7 +13,6 @@ export const StatusSelector: React.FC = () => {
     inputValue: statusVal,
     setAndSubmitInputValue: statusValOnChange,
   } = useStatusesFilter({ urlParam: PatchPageQueryParams.Statuses });
-  const noFilterMessage = "No filters selected";
 
   return (
     <Dropdown

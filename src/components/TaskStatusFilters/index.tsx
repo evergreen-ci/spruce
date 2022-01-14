@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Dropdown from "components/Dropdown";
 import { TreeSelect } from "components/TreeSelect";
+import { noFilterMessage } from "constants/strings";
 import { useTaskStatuses } from "hooks";
 
 interface Props {
@@ -20,7 +21,6 @@ export const TaskStatusFilters: React.FC<Props> = ({
   selectedStatuses,
 }) => {
   const { currentStatuses, baseStatuses } = useTaskStatuses({ versionId });
-  const noFilterMessage = "No filters selected";
   return (
     <>
       <SelectorWrapper>

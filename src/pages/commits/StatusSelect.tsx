@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { Label } from "@leafygreen-ui/typography";
 import Dropdown from "components/Dropdown";
 import { TreeSelect } from "components/TreeSelect";
+import { noFilterMessage } from "constants/strings";
 import { taskStatusesFilterTreeData } from "constants/task";
 import { useStatusesFilter } from "hooks";
 import { PatchTasksQueryParams } from "types/task";
@@ -35,5 +36,3 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
 `;
-
-const noFilterMessage = "No filters selected";
