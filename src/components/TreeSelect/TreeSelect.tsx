@@ -20,6 +20,7 @@ export interface TreeSelectProps {
   onReset?: () => void;
   onFilter?: () => void;
   "data-cy"?: string;
+  hasStyling?: boolean;
 }
 export interface TreeDataChildEntry {
   title: string;
@@ -33,6 +34,7 @@ export interface TreeDataEntry extends TreeDataChildEntry {
 export const TreeSelect: React.FC<TreeSelectProps> = ({
   isDropdown = false,
   isVisible = true,
+  hasStyling = true,
   onChange,
   setOptionsLabel = () => undefined,
   state,
@@ -80,7 +82,10 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
         </RelativeWrapper>
       )}
     >
-      <CheckboxContainer data-cy={dataCy || "tree-select-options"}>
+      <CheckboxContainer
+        hasStyling={hasStyling}
+        data-cy={dataCy || "tree-select-options"}
+      >
         {renderCheckboxes({
           state: filteredState,
           tData,
@@ -328,7 +333,9 @@ const OptionsWrapper = styled.div`
 `;
 
 const CheckboxContainer = styled.div`
-  ${tableInputContainerCSS}
+  /* props for styled component */
+  ${(props: { hasStyling: boolean }) =>
+    props.hasStyling && tableInputContainerCSS}
   min-width: 150px; // need to set this as side effect of getPopupContainer
   font-weight: normal; // need to set this as side effect of getPopupContainer
 `;

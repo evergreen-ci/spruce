@@ -28,7 +28,7 @@ export const Multiselect = () => {
       value={value}
       onChange={setValue}
       options={["1", "2", "3"]}
-      allowMultiselect
+      allowMultiSelect
     />
   );
 };
@@ -55,7 +55,7 @@ export const CustomOption = () => {
       value={value}
       onChange={setValue}
       options={options}
-      allowMultiselect
+      allowMultiSelect
       optionRenderer={(option, onClick, isChecked) => (
         <button onClick={() => onClick(option.value)} type="button">
           {isChecked(option.value) && `✔️`}

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Dropdown, TreeSelect } from "components/TreeSelect";
+import { useState } from "react";
+import { TreeSelect } from "components/TreeSelect";
 
 const treeData = [
   {
@@ -59,19 +59,7 @@ export default {
 
 export const NoInitialValues = () => {
   const [value, setValue] = useState([]);
-  return (
-    <Dropdown
-      inputLabel="Items: "
-      render={({ getDropdownProps }) => (
-        <TreeSelect
-          {...getDropdownProps()}
-          tData={treeData}
-          state={value}
-          onChange={setValue}
-        />
-      )}
-    />
-  );
+  return <TreeSelect tData={treeData} state={value} onChange={setValue} />;
 };
 
 export const Ellipsis = () => {
@@ -82,19 +70,7 @@ export const Ellipsis = () => {
     "silentfail",
     "pass",
   ]);
-  return (
-    <Dropdown
-      inputLabel="Items: "
-      render={({ getDropdownProps }) => (
-        <TreeSelect
-          {...getDropdownProps()}
-          tData={treeData}
-          state={value}
-          onChange={setValue}
-        />
-      )}
-    />
-  );
+  return <TreeSelect tData={treeData} state={value} onChange={setValue} />;
 };
 
 const noAllTreeData = [
@@ -152,19 +128,7 @@ export const NoAllButton = () => {
     "silentfail",
     "pass",
   ]);
-  return (
-    <Dropdown
-      inputLabel="Items: "
-      render={({ getDropdownProps }) => (
-        <TreeSelect
-          {...getDropdownProps()}
-          tData={noAllTreeData}
-          state={value}
-          onChange={setValue}
-        />
-      )}
-    />
-  );
+  return <TreeSelect tData={noAllTreeData} state={value} onChange={setValue} />;
 };
 
 export const NoDropdown = () => {
