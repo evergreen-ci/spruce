@@ -25,7 +25,7 @@ export const toggleArray = <T>(value: T, array: T[]) => {
  * @param array The array to insert the value into.
  */
 export const deduplicatedAppend = <T>(value: T, array: T[]) => {
-  let tempArray = new Set([...array]);
+  let tempArray = new Set(array);
   tempArray = tempArray.add(value);
   return Array.from(tempArray);
 };
