@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { FilterBadges } from "components/FilterBadges";
 import { PageWrapper } from "components/styles";
+import { ALL_VALUE } from "components/TreeSelect";
 import { TupleSelect } from "components/TupleSelect";
 import { CURRENT_PROJECT } from "constants/cookies";
 import { pollInterval } from "constants/index";
@@ -25,13 +26,15 @@ import {
   MainlineCommitQueryParams,
 } from "types/commits";
 import { TaskStatus } from "types/task";
-import { queryString } from "utils";
+import { array, queryString } from "utils";
 import { CommitsWrapper } from "./commits/CommitsWrapper";
+import CommitTypeSelect from "./commits/commitTypeSelect";
 import { PaginationButtons } from "./commits/PaginationButtons";
 import { ProjectSelect } from "./commits/projectSelect";
 import { StatusSelect } from "./commits/StatusSelect";
 
-const { getArray } = queryString;
+const { toArray } = array;
+const { parseQueryString, getString } = queryString;
 const DEFAULT_CHART_TYPE = ChartTypes.Absolute;
 const FAILED_STATUSES = [
   TaskStatus.Failed,
@@ -51,6 +54,7 @@ export const Commits = () => {
 
   // get query params from url
   const { projectId } = useParams<{ projectId: string }>();
+  usePageTitle(`Project Health | ${projectId}`);
   const recentlySelectedProject = Cookies.get(CURRENT_PROJECT);
   // Push default project to URL if there isn't a project in
   // the URL already and an mci-project-cookie does not exist.
@@ -69,28 +73,24 @@ export const Commits = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectId]);
-  const parsed = queryString.parseQueryString(search);
-  const chartTypeParam = (parsed[ChartToggleQueryParams.chartType] || "")
-    .toString()
-    .toLowerCase();
-  const filterStatuses = getArray(parsed[ProjectFilterOptions.Status] || []);
-  const filterVariants = getArray(
-    parsed[ProjectFilterOptions.BuildVariant] || []
-  );
-  const filterTasks = getArray(parsed[ProjectFilterOptions.Task] || []);
 
-  const skipOrderNumberParam =
-    parsed[MainlineCommitQueryParams.SkipOrderNumber] || "";
-  const skipOrderNumber =
-    parseInt(skipOrderNumberParam.toString(), 10) || undefined;
+  const parsed = parseQueryString(search);
+  const chartTypeParam = getString(parsed[ChartToggleQueryParams.chartType]);
+  const filterStatuses = toArray(parsed[ProjectFilterOptions.Status]);
+  const filterVariants = toArray(parsed[ProjectFilterOptions.BuildVariant]);
+  const filterTasks = toArray(parsed[ProjectFilterOptions.Task]);
+  const filterRequesters = toArray(
+    parsed[MainlineCommitQueryParams.Requester]
+  ).filter((r) => r !== ALL_VALUE);
+  const skipOrderNumberParam = getString(
+    parsed[MainlineCommitQueryParams.SkipOrderNumber]
+  );
+  const skipOrderNumber = parseInt(skipOrderNumberParam, 10) || undefined;
 
   // set current chart type based on query param
   useEffect(() => {
-    if (
-      chartTypeParam === ChartTypes.Absolute ||
-      chartTypeParam === ChartTypes.Percentage
-    ) {
-      setCurrentChartType(chartTypeParam);
+    if (Object.values(ChartTypes).includes(chartTypeParam as ChartTypes)) {
+      setCurrentChartType(chartTypeParam as ChartTypes);
     } else {
       setCurrentChartType(DEFAULT_CHART_TYPE);
     }
@@ -103,14 +103,18 @@ export const Commits = () => {
     variants: filterVariants,
     tasks: filterTasks,
   };
+
   const hasFilters =
     filterStatuses.length > 0 || filterVariants.length > 0 || hasTaskFilter;
+
   const mainlineCommitsOptions = {
     projectID: projectId,
     limit: 5,
     skipOrderNumber,
     shouldCollapse: hasFilters,
+    requesters: filterRequesters,
   };
+
   const buildVariantOptions = {
     statuses: hasFilters ? filterStatuses : FAILED_STATUSES,
     variants: filterVariants,
@@ -131,8 +135,8 @@ export const Commits = () => {
     onError: (e) =>
       dispatchToast.error(`There was an error loading the page: ${e.message}`),
   });
-  usePageTitle(`Project Health | ${projectId}`);
   useNetworkStatus(startPolling, stopPolling);
+
   const { mainlineCommits } = data || {};
   const { versions, nextPageOrderNumber, prevPageOrderNumber } =
     mainlineCommits || {};
@@ -146,15 +150,18 @@ export const Commits = () => {
     <PageWrapper>
       <PageContainer>
         <HeaderWrapper>
-          <TupleSelectWrapper>
+          <ElementWrapper width="35">
             <TupleSelect options={tupleSelectOptions} />
-          </TupleSelectWrapper>
-          <StatusSelectWrapper>
+          </ElementWrapper>
+          <ElementWrapper width="20">
             <StatusSelect />
-          </StatusSelectWrapper>
-          <ProjectSelectWrapper>
+          </ElementWrapper>
+          <ElementWrapper width="20">
+            <CommitTypeSelect />
+          </ElementWrapper>
+          <ElementWrapper width="25">
             <ProjectSelect selectedProjectIdentifier={projectId} />
-          </ProjectSelectWrapper>
+          </ElementWrapper>
         </HeaderWrapper>
         <BadgeWrapper>
           <FilterBadges queryParamsToDisplay={queryParamsToDisplay} />
@@ -195,26 +202,7 @@ const BadgeWrapper = styled.div`
   padding-bottom: 32px;
   height: 32px;
 `;
-const TupleSelectWrapper = styled.div`
-  width: 40%;
-`;
-const StatusSelectWrapper = styled.div`
-  width: 30%;
 
-  .cy-treeselect-bar {
-    height: 32px;
-    padding-bottom: 0;
-    padding-top: 0;
-
-    > div,
-    > span {
-      line-height: 30px;
-    }
-  }
-`;
-const ProjectSelectWrapper = styled.div`
-  width: 30%;
-`;
 const tupleSelectOptions = [
   {
     value: ProjectFilterOptions.BuildVariant,
@@ -227,3 +215,7 @@ const tupleSelectOptions = [
     placeHolderText: "Search Task names",
   },
 ];
+
+const ElementWrapper = styled.div`
+  ${({ width }: { width: string }) => `width: ${width}%;`}
+`;

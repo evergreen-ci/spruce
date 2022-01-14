@@ -8,13 +8,13 @@ describe("Mainline Commits page", () => {
 
   it("Should not show a badge for task filters", () => {
     cy.visit("/commits/evergreen");
-    cy.dataCy("project-test-status-select").first().click();
-    cy.get(".cy-checkbox").first().click();
+    cy.dataCy("project-task-status-select-button").click();
+    cy.getInputByLabel("All").check({ force: true });
 
     cy.location().should((loc) => {
       expect(loc.search).to.include("statuses");
     });
 
-    cy.dataCy("filter-badge").should("have.length", 0);
+    cy.dataCy("filter-badge").should("not.be.visible");
   });
 });

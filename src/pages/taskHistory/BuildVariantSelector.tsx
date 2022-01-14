@@ -67,7 +67,7 @@ export const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
         onChange={onChange}
         options={buildVariantsForTaskName}
         disabled={loading}
-        allowMultiselect
+        allowMultiSelect
         searchFunc={handleSearch}
         optionRenderer={(option: BuildVariantTuple, onClick, isChecked) => (
           <SearchableDropdownOption

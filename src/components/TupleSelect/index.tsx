@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styled from "@emotion/styled";
 import { Label } from "@leafygreen-ui/typography";
 import { Input, Select } from "antd";
 import { useLocation } from "react-router";
@@ -33,7 +34,7 @@ export const TupleSelect: React.FC<TupleSelectProps> = ({ options }) => {
   };
   const selectedOption = options.find((o) => o.value === selected);
   return (
-    <>
+    <Container>
       <Label htmlFor="filter-input">
         Add New {selectedOption.displayName} Filter
       </Label>
@@ -74,6 +75,11 @@ export const TupleSelect: React.FC<TupleSelectProps> = ({ options }) => {
           onPressEnter={onClick}
         />
       </Input.Group>
-    </>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
