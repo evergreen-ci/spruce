@@ -1,5 +1,7 @@
-import React from "react";
-import { Dropdown, TreeSelect } from "components/TreeSelect";
+import styled from "@emotion/styled";
+import Dropdown from "components/Dropdown";
+import { TreeSelect } from "components/TreeSelect";
+import { noFilterMessage } from "constants/strings";
 import { useTaskStatuses } from "hooks";
 
 interface Props {
@@ -17,38 +19,48 @@ export const TaskStatusFilters: React.FC<Props> = ({
   versionId,
   selectedBaseStatuses,
   selectedStatuses,
-  filterWidth = "25%",
 }) => {
   const { currentStatuses, baseStatuses } = useTaskStatuses({ versionId });
-
   return (
     <>
-      <Dropdown
-        data-cy="task-status-filter"
-        inputLabel="Task Status: "
-        width={filterWidth}
-        render={({ getDropdownProps }) => (
+      <SelectorWrapper>
+        <Dropdown
+          data-cy="task-status-filter"
+          buttonText={`Task Status: ${
+            selectedStatuses.length
+              ? selectedStatuses.join(", ")
+              : noFilterMessage
+          }`}
+        >
           <TreeSelect
-            {...getDropdownProps()}
             state={selectedStatuses}
             tData={currentStatuses}
             onChange={onChangeStatusFilter}
+            hasStyling={false}
           />
-        )}
-      />
-      <Dropdown
-        data-cy="task-base-status-filter"
-        inputLabel="Task Base Status: "
-        width={filterWidth}
-        render={({ getDropdownProps }) => (
+        </Dropdown>
+      </SelectorWrapper>
+      <SelectorWrapper>
+        <Dropdown
+          data-cy="base-task-status-filter"
+          buttonText={`Base Task Status: ${
+            selectedBaseStatuses.length
+              ? selectedBaseStatuses.join(", ")
+              : noFilterMessage
+          }`}
+        >
           <TreeSelect
-            {...getDropdownProps()}
             state={selectedBaseStatuses}
             tData={baseStatuses}
             onChange={onChangeBaseStatusFilter}
+            hasStyling={false}
           />
-        )}
-      />
+        </Dropdown>
+      </SelectorWrapper>
     </>
   );
 };
+
+const SelectorWrapper = styled.div`
+  width: 50%;
+`;

@@ -17,10 +17,11 @@ import { GET_PATCH_TASKS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
-import { queryString, url } from "utils";
+import { queryString, url, array } from "utils";
 import { PatchTasksTable } from "./tasks/PatchTasksTable";
 
-const { parseQueryString, parseSortString } = queryString;
+const { toArray } = array;
+const { parseQueryString, parseSortString, getString } = queryString;
 
 const { getPageFromSearch, getLimitFromSearch } = url;
 interface Props {
@@ -122,11 +123,6 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   );
 };
 
-const getString = (param: string | string[]): string =>
-  Array.isArray(param) ? param[0] : param;
-const getArray = (param: string | string[]): string[] =>
-  Array.isArray(param) ? param : [param];
-
 const statusesToIncludeInQuery = {
   [TaskStatus.Aborted]: true,
   [TaskStatus.Blocked]: true,
@@ -150,7 +146,7 @@ const statusesToIncludeInQuery = {
 };
 
 const getStatuses = (rawStatuses: string[] | string): string[] => {
-  const statuses = getArray(rawStatuses).filter(
+  const statuses = toArray(rawStatuses).filter(
     (status) => status in statusesToIncludeInQuery
   );
   if (

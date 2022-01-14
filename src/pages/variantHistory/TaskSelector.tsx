@@ -57,7 +57,7 @@ export const TaskSelector: React.FC<TaskSelectorProps> = ({
         onChange={onChange}
         options={taskNamesForBuildVariant}
         disabled={loading}
-        allowMultiselect
+        allowMultiSelect
       />
     </Container>
   );
