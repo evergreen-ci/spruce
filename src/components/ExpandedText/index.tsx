@@ -30,7 +30,7 @@ const ExpandedText: React.FC<ExpandedTextProps> = ({
 const ButtonText = styled(Disclaimer)`
   color: ${blue.dark2};
   text-decoration: underline;
-  cursor: pointer;
+  cursor: default;
 `;
 
 const MessageWrapper = styled.div`

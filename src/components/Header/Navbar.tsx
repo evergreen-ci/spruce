@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useNavbarAnalytics } from "analytics";
 import Icon from "components/Icon";
 import { StyledLink } from "components/styles";
-import { getUserPatchesRoute, routes } from "constants/routes";
+import { getCommitsRoute, getUserPatchesRoute, routes } from "constants/routes";
 import { useAuthStateContext } from "context/auth";
 import { GetUserQuery } from "gql/generated/types";
 import { GET_USER } from "gql/queries";
@@ -15,15 +15,15 @@ import { environmentalVariables } from "utils";
 import { AuxiliaryDropdown } from "./AuxiliaryDropdown";
 import { UserDropdown } from "./UserDropdown";
 
-const { getUiUrl } = environmentalVariables;
+const { getUiUrl, isBeta } = environmentalVariables;
 
 const { white, blue, gray } = uiColors;
 
 export const Navbar: React.FC = () => {
   const { isAuthenticated } = useAuthStateContext();
   const legacyURL = useLegacyUIURL();
-  const uiURL = getUiUrl();
   const navbarAnalytics = useNavbarAnalytics();
+  const uiURL = getUiUrl();
 
   const { data } = useQuery<GetUserQuery>(GET_USER);
   const { user } = data || {};
@@ -42,14 +42,18 @@ export const Navbar: React.FC = () => {
           <Icon glyph="EvergreenLogo" />
         </LogoLink>
 
-        <PrimaryA
-          href={`${uiURL}/waterfall`}
-          onClick={() =>
-            navbarAnalytics.sendEvent({ name: "Click Waterfall Link" })
-          }
-        >
-          Waterfall
-        </PrimaryA>
+        {isBeta() ? (
+          <PrimaryLink
+            to={getCommitsRoute()}
+            onClick={() =>
+              navbarAnalytics.sendEvent({ name: "Click Waterfall Link" })
+            }
+          >
+            Project Health
+          </PrimaryLink>
+        ) : (
+          <PrimaryA href={`${uiURL}/waterfall`}>Waterfall</PrimaryA>
+        )}
         <PrimaryLink to={getUserPatchesRoute(userId)}>My Patches</PrimaryLink>
         <PrimaryLink to={routes.spawnHost}>My Hosts</PrimaryLink>
         <AuxiliaryDropdown />
@@ -97,16 +101,16 @@ const NavActionContainer = styled.div`
   }
 `;
 
-const primaryStyle = css`
+const primaryLinkStyle = css`
   color: ${white};
 `;
 
 const PrimaryLink = styled(Link)`
-  ${primaryStyle}
+  ${primaryLinkStyle}
 `;
 
 const PrimaryA = styled.a`
-  ${primaryStyle}
+  ${primaryLinkStyle}
 `;
 
 const secondaryStyle = css`

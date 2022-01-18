@@ -11,7 +11,7 @@ type Action = {
 };
 
 interface P extends Properties {}
-interface Analytics extends A<Action> {}
+export interface Analytics extends A<Action> {}
 
 export const useBreadcrumbAnalytics = (): Analytics => {
   const userId = useGetUserQuery();

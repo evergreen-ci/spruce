@@ -64,10 +64,12 @@ export const TableControlOuterRow = styled(TableControlInnerRow)`
 
 export const PageButtonRow = styled.div`
   display: flex;
-  button {
-    margin-left: 24px;
+  > * {
+    margin-right: 16px;
   }
-  flex-wrap: wrap;
+  > *:last-child {
+    margin-right: 0;
+  }
 `;
 
 export const InputLabel = styled.label`

@@ -127,7 +127,7 @@ describe("searchableDropdown", () => {
           value: [],
           onChange,
           options: ["evergreen", "spruce"],
-          allowMultiselect: true,
+          allowMultiSelect: true,
         })
       );
       expect(
@@ -142,7 +142,7 @@ describe("searchableDropdown", () => {
           value: ["spruce"],
           onChange,
           options: ["evergreen", "spruce"],
-          allowMultiselect: true,
+          allowMultiSelect: true,
         })
       );
       expect(queryByDataCy("searchable-dropdown-options")).toBeInTheDocument();
@@ -151,7 +151,7 @@ describe("searchableDropdown", () => {
           value: ["spruce"],
           onChange,
           options: ["evergreen", "spruce"],
-          allowMultiselect: true,
+          allowMultiSelect: true,
         })
       );
       userEvent.click(queryByText("evergreen"));

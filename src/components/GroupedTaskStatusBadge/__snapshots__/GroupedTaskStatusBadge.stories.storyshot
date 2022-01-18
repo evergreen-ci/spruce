@@ -86,7 +86,7 @@ exports[`storybook Storyshots Grouped Task Status Badge Grouped Task Status Badg
         <span
           className="css-oqj204-Status emc61an1"
         >
-          Failed
+          Failed / Timed Out
         </span>
       </div>
     </a>
@@ -133,8 +133,8 @@ exports[`storybook Storyshots Grouped Task Status Badge Grouped Task Status Badg
       onClick={[Function]}
     >
       <div
-        className="css-185tpy4-BadgeContainer emc61an4"
-        fill="#4f4fbf"
+        className="css-1htjtjk-BadgeContainer emc61an4"
+        fill="#4F4FBF"
       >
         <span
           className="css-wtl5ix-Number emc61an2"
@@ -162,8 +162,8 @@ exports[`storybook Storyshots Grouped Task Status Badge Grouped Task Status Badg
       onClick={[Function]}
     >
       <div
-        className="css-lexjm7-BadgeContainer emc61an4"
-        fill="#f1f0fc"
+        className="css-1mwonhy-BadgeContainer emc61an4"
+        fill="#F1F0FC"
       >
         <span
           className="css-wtl5ix-Number emc61an2"
@@ -191,8 +191,8 @@ exports[`storybook Storyshots Grouped Task Status Badge Grouped Task Status Badg
       onClick={[Function]}
     >
       <div
-        className="css-lexjm7-BadgeContainer emc61an4"
-        fill="#f1f0fc"
+        className="css-1mwonhy-BadgeContainer emc61an4"
+        fill="#F1F0FC"
       >
         <span
           className="css-wtl5ix-Number emc61an2"

@@ -1,14 +1,18 @@
 import React from "react";
+import { usePatchAnalytics } from "analytics";
 import { MetadataCard } from "components/MetadataCard";
-import { StyledLink, StyledRouterLink } from "components/styles";
+import { StyledRouterLink } from "components/styles";
 import { P2 } from "components/Typography";
-import { getCommitQueueRoute, getProjectPatchesRoute } from "constants/routes";
-import { environmentalVariables, string } from "utils";
+import {
+  getCommitQueueRoute,
+  getProjectPatchesRoute,
+  getVersionRoute,
+} from "constants/routes";
+import { string } from "utils";
 import ManifestBlob from "./ManifestBlob";
 import { ParametersModal } from "./ParametersModal";
 
 const { msToDuration, getDateCopy } = string;
-const { getUiUrl } = environmentalVariables;
 
 interface Props {
   loading: boolean;
@@ -66,6 +70,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
     manifest,
   } = version || {};
   const { makespan, timeTaken } = versionTiming || {};
+  const { sendEvent } = usePatchAnalytics();
   return (
     <MetadataCard
       loading={loading}
@@ -80,19 +85,20 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
       </P2>
       <P2>Makespan: {makespan && msToDuration(makespan)}</P2>
       <P2>Time taken: {timeTaken && msToDuration(timeTaken)}</P2>
-      <P2>Submitted at: {getDateCopy(createTime)}</P2>
+      <P2>Submitted at: {createTime && getDateCopy(createTime)}</P2>
       <P2>Started: {startTime && getDateCopy(startTime)}</P2>
       <P2>Finished: {finishTime && getDateCopy(finishTime)}</P2>
       <P2>{`Submitted by: ${author}`}</P2>
       {baseVersionID && revision && (
         <P2>
           Base commit:{" "}
-          <StyledLink
+          <StyledRouterLink
             data-cy="patch-base-commit"
-            href={`${getUiUrl()}/version/${baseVersionID}`}
+            to={getVersionRoute(baseVersionID)}
+            onClick={() => sendEvent({ name: "Click Base Commit Link" })}
           >
             {revision.slice(0, 10)}
-          </StyledLink>
+          </StyledRouterLink>
         </P2>
       )}
       {isPatch && commitQueuePosition !== undefined && (

@@ -2,7 +2,7 @@
 
 exports[`storybook Storyshots Task Status Badges Badges 1`] = `
 <div
-  className="css-1nz4sst-Container e11i4bjx1"
+  className="css-o6c4dw-Container e11i4bjx1"
 >
   <div
     className="css-11fe4n9-Wrapper e11i4bjx0"
@@ -38,11 +38,8 @@ exports[`storybook Storyshots Task Status Badges Badges 1`] = `
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      border="#3D4F58"
-      className="css-hjjb39-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-13xc3rv"
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-15308hg"
       data-cy="task-status-badge"
-      fill="#5D6C74"
-      text="#F9FBFA"
     >
       Will Run
     </div>
@@ -132,10 +129,10 @@ exports[`storybook Storyshots Task Status Badges Badges 1`] = `
   >
     <div
       border="#d5d4f9"
-      className="css-88d35f-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-13xc3rv"
+      className="css-yl49an-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-13xc3rv"
       data-cy="task-status-badge"
-      fill="#f1f0fc"
-      text="#4f4fbf"
+      fill="#F1F0FC"
+      text="#4F4FBF"
     >
       Setup Failed
     </div>
@@ -144,11 +141,11 @@ exports[`storybook Storyshots Task Status Badges Badges 1`] = `
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      border="#36367f"
-      className="css-1sz0j5a-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-13xc3rv"
+      border="#36367F"
+      className="css-wpehgj-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-13xc3rv"
       data-cy="task-status-badge"
-      fill="#4f4fbf"
-      text="#f1f0fc"
+      fill="#4F4FBF"
+      text="#F1F0FC"
     >
       System Failed
     </div>
@@ -157,18 +154,26 @@ exports[`storybook Storyshots Task Status Badges Badges 1`] = `
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      className="leafygreen-ui-13xc3rv"
+      border="#36367F"
+      className="css-wpehgj-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-13xc3rv"
+      data-cy="task-status-badge"
+      fill="#4F4FBF"
+      text="#F1F0FC"
     >
-      system-timed-out
+      System Timed Out
     </div>
   </div>
   <div
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      className="leafygreen-ui-13xc3rv"
+      border="#36367F"
+      className="css-wpehgj-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-13xc3rv"
+      data-cy="task-status-badge"
+      fill="#4F4FBF"
+      text="#F1F0FC"
     >
-      system-unresponsive
+      System Unresponsive
     </div>
   </div>
   <div
@@ -199,15 +204,6 @@ exports[`storybook Storyshots Task Status Badges Badges 1`] = `
       data-cy="task-status-badge"
     >
       Known Issue
-    </div>
-  </div>
-  <div
-    className="css-11fe4n9-Wrapper e11i4bjx0"
-  >
-    <div
-      className="leafygreen-ui-13xc3rv"
-    >
-      StatusBlocked
     </div>
   </div>
 </div>

@@ -1,5 +1,8 @@
+import styled from "@emotion/styled";
 import { Label } from "@leafygreen-ui/typography";
-import { Dropdown, TreeSelect } from "components/TreeSelect";
+import Dropdown from "components/Dropdown";
+import { TreeSelect } from "components/TreeSelect";
+import { noFilterMessage } from "constants/strings";
 import { taskStatusesFilterTreeData } from "constants/task";
 import { useStatusesFilter } from "hooks";
 import { PatchTasksQueryParams } from "types/task";
@@ -9,20 +12,27 @@ export const StatusSelect = () => {
     urlParam: PatchTasksQueryParams.Statuses,
   });
   return (
-    <>
-      <Label htmlFor="project-test-status-select">Status</Label>
+    <Container>
+      <Label htmlFor="project-task-status-select">Status</Label>
       <Dropdown
-        data-cy="project-test-status-select"
-        inputLabel="Task Status: "
-        render={({ getDropdownProps }) => (
-          <TreeSelect
-            {...getDropdownProps()}
-            onChange={setAndSubmitInputValue}
-            tData={taskStatusesFilterTreeData}
-            state={inputValue}
-          />
-        )}
-      />
-    </>
+        data-cy="project-task-status-select-button"
+        buttonText={`Task Status: ${
+          inputValue.length ? inputValue.join(", ") : noFilterMessage
+        }`}
+      >
+        <TreeSelect
+          onChange={setAndSubmitInputValue}
+          tData={taskStatusesFilterTreeData}
+          state={inputValue}
+          data-cy="project-task-status-select"
+          hasStyling={false}
+        />
+      </Dropdown>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
