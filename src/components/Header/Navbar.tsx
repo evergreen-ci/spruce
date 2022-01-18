@@ -101,12 +101,16 @@ const NavActionContainer = styled.div`
   }
 `;
 
-const PrimaryLink = styled(Link)`
+const primaryLinkStyle = css`
   color: ${white};
 `;
 
+const PrimaryLink = styled(Link)`
+  ${primaryLinkStyle}
+`;
+
 const PrimaryA = styled.a`
-  color: ${white};
+  ${primaryLinkStyle}
 `;
 
 const secondaryStyle = css`
