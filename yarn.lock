@@ -2619,6 +2619,17 @@
   dependencies:
     lodash "^4.17.21"
 
+"@leafygreen-ui/icon-button@9.1.7":
+  version "9.1.7"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon-button/-/icon-button-9.1.7.tgz#32aa3784b7f93157f5b004e6cf044e150a778944"
+  integrity sha512-MX9lDYzhalor+jlVgnvC9BHMoku7cUHnmF42ZeorHsmsNzAbLTQz3SS0kgqRoRh7VFdFfzdBpYiNNAth+VaRPg==
+  dependencies:
+    "@leafygreen-ui/a11y" "^1.2.2"
+    "@leafygreen-ui/box" "^3.0.6"
+    "@leafygreen-ui/emotion" "^4.0.0"
+    "@leafygreen-ui/lib" "^9.0.1"
+    "@leafygreen-ui/palette" "^3.2.2"
+
 "@leafygreen-ui/icon-button@^9.1.6":
   version "9.1.6"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon-button/-/icon-button-9.1.6.tgz#9a1bbf6a7ef59c858e25519ca66476fed08fba83"
@@ -2628,17 +2639,6 @@
     "@leafygreen-ui/box" "^3.0.6"
     "@leafygreen-ui/emotion" "^4.0.0"
     "@leafygreen-ui/lib" "^9.0.0"
-    "@leafygreen-ui/palette" "^3.2.2"
-
-"@leafygreen-ui/icon-button@^9.1.7":
-  version "9.1.7"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon-button/-/icon-button-9.1.7.tgz#32aa3784b7f93157f5b004e6cf044e150a778944"
-  integrity sha512-MX9lDYzhalor+jlVgnvC9BHMoku7cUHnmF42ZeorHsmsNzAbLTQz3SS0kgqRoRh7VFdFfzdBpYiNNAth+VaRPg==
-  dependencies:
-    "@leafygreen-ui/a11y" "^1.2.2"
-    "@leafygreen-ui/box" "^3.0.6"
-    "@leafygreen-ui/emotion" "^4.0.0"
-    "@leafygreen-ui/lib" "^9.0.1"
     "@leafygreen-ui/palette" "^3.2.2"
 
 "@leafygreen-ui/icon@11.4.0", "@leafygreen-ui/icon@^11.3.0", "@leafygreen-ui/icon@^11.4.0":
@@ -2718,7 +2718,7 @@
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/palette/-/palette-3.2.2.tgz#9fc9a8051d9a07cbc50a7f8918f33e146d717070"
   integrity sha512-Oqjz6Qfapm8jB9rw4r9C1yq5XFJRSZ6xSCCGu6Oz8nR0o66xzCxsp0h96tPcrSFWwOrJJxYsQPSGHVsUmTJDzw==
 
-"@leafygreen-ui/popover@^7.2.2":
+"@leafygreen-ui/popover@7.2.2", "@leafygreen-ui/popover@^7.2.2":
   version "7.2.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/popover/-/popover-7.2.2.tgz#f8a4e2241c210b17a868883afb600641c2255d43"
   integrity sha512-MtrRHBh5Rw3hY7aQRzPa9209HY2kVCtMY5nOqS3R4JQDqD5VoC5HfYAiSQ7BJRgI9GFZ81sEVfPIYZsNQoqXpg==
