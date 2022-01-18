@@ -34,6 +34,7 @@ import {
   UNSCHEDULE_TASK,
 } from "gql/mutations";
 import { useUpdateURLQueryParams } from "hooks";
+import { isBeta } from "utils/environmentalVariables";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
 interface Props {
@@ -255,18 +256,20 @@ export const ActionButtons: React.FC<Props> = ({
   return (
     <>
       <PageButtonRow>
-        <Button
-          size="small"
-          as={Link}
-          data-cy="task-history"
-          key="task-history"
-          onClick={() => {
-            taskAnalytics.sendEvent({ name: "Click See History Button" });
-          }}
-          to={getTaskHistoryRoute(projectIdentifier, taskName)}
-        >
-          See history
-        </Button>
+        {isBeta() ? (
+          <Button
+            size="small"
+            as={Link}
+            data-cy="task-history"
+            key="task-history"
+            onClick={() => {
+              taskAnalytics.sendEvent({ name: "Click See History Button" });
+            }}
+            to={getTaskHistoryRoute(projectIdentifier, taskName)}
+          >
+            See history
+          </Button>
+        ) : null}
         <Button
           size="small"
           data-cy="schedule-task"

@@ -11,8 +11,11 @@ import { useAuthStateContext } from "context/auth";
 import { GetUserQuery } from "gql/generated/types";
 import { GET_USER } from "gql/queries";
 import { useLegacyUIURL } from "hooks";
+import { environmentalVariables } from "utils";
 import { AuxiliaryDropdown } from "./AuxiliaryDropdown";
 import { UserDropdown } from "./UserDropdown";
+
+const { getUiUrl, isBeta } = environmentalVariables;
 
 const { white, blue, gray } = uiColors;
 
@@ -20,6 +23,7 @@ export const Navbar: React.FC = () => {
   const { isAuthenticated } = useAuthStateContext();
   const legacyURL = useLegacyUIURL();
   const navbarAnalytics = useNavbarAnalytics();
+  const uiURL = getUiUrl();
 
   const { data } = useQuery<GetUserQuery>(GET_USER);
   const { user } = data || {};
@@ -38,14 +42,18 @@ export const Navbar: React.FC = () => {
           <Icon glyph="EvergreenLogo" />
         </LogoLink>
 
-        <PrimaryLink
-          to={getCommitsRoute()}
-          onClick={() =>
-            navbarAnalytics.sendEvent({ name: "Click Waterfall Link" })
-          }
-        >
-          Project Health
-        </PrimaryLink>
+        {isBeta() ? (
+          <PrimaryLink
+            to={getCommitsRoute()}
+            onClick={() =>
+              navbarAnalytics.sendEvent({ name: "Click Waterfall Link" })
+            }
+          >
+            Project Health
+          </PrimaryLink>
+        ) : (
+          <PrimaryA href={`${uiURL}/waterfall`}>Waterfall</PrimaryA>
+        )}
         <PrimaryLink to={getUserPatchesRoute(userId)}>My Patches</PrimaryLink>
         <PrimaryLink to={routes.spawnHost}>My Hosts</PrimaryLink>
         <AuxiliaryDropdown />
@@ -94,6 +102,10 @@ const NavActionContainer = styled.div`
 `;
 
 const PrimaryLink = styled(Link)`
+  color: ${white};
+`;
+
+const PrimaryA = styled.a`
   color: ${white};
 `;
 

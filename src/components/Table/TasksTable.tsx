@@ -18,6 +18,7 @@ import {
   TaskSortCategory,
 } from "gql/generated/types";
 import { TableOnChange } from "types/task";
+import { isBeta } from "utils/environmentalVariables";
 import { sortTasks } from "utils/statuses";
 
 // Type needed to render the task table
@@ -199,7 +200,7 @@ const getColumnDefs = ({
         "data-cy": "variant-input",
       })),
     render: (displayName, { projectIdentifier, buildVariant }) =>
-      projectIdentifier ? (
+      projectIdentifier && isBeta() ? (
         <StyledRouterLink
           to={getVariantHistoryRoute(projectIdentifier, buildVariant)}
         >

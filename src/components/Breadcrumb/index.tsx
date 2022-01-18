@@ -1,12 +1,16 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Breadcrumb } from "antd";
 import { useBreadcrumbAnalytics, BreadcrumbAnalytics } from "analytics";
 import { StyledRouterLink } from "components/styles";
 import { H3, P1 } from "components/Typography";
-import { getVersionRoute, getCommitsRoute } from "constants/routes";
+import {
+  getVersionRoute,
+  getCommitsRoute,
+  getProjectPatchesRoute,
+} from "constants/routes";
 import { useGetUserPatchesPageTitleAndLink } from "hooks";
+import { isBeta } from "utils/environmentalVariables";
 import { shortenGithash } from "utils/string";
 
 const { blue } = uiColors;
@@ -142,18 +146,33 @@ const VersionBreadcrumb: React.FC<VersionBreadcrumbProps> = ({
     <>
       <Breadcrumb.Item>
         <StyledP1>
-          <StyledBreadcrumbLink
-            data-cy="bc-waterfall"
-            to={getCommitsRoute(project)}
-            onClick={() =>
-              analytics.sendEvent({
-                name: "Click Link",
-                link: "waterfall",
-              })
-            }
-          >
-            {project}
-          </StyledBreadcrumbLink>
+          {isBeta() ? (
+            <StyledBreadcrumbLink
+              data-cy="bc-waterfall"
+              to={getCommitsRoute(project)}
+              onClick={() =>
+                analytics.sendEvent({
+                  name: "Click Link",
+                  link: "waterfall",
+                })
+              }
+            >
+              {project}
+            </StyledBreadcrumbLink>
+          ) : (
+            <StyledBreadcrumbLink
+              data-cy="bc-my-patches"
+              to={getProjectPatchesRoute(project)}
+              onClick={() =>
+                analytics.sendEvent({
+                  name: "Click Link",
+                  link: "myPatches",
+                })
+              }
+            >
+              {project}&apos;s patches
+            </StyledBreadcrumbLink>
+          )}
         </StyledP1>
       </Breadcrumb.Item>
       {isTask ? (
