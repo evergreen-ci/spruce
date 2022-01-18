@@ -1,43 +1,25 @@
 import React from "react";
 import { LoadingOutlined } from "@ant-design/icons";
-import LeafyGreenButton, { Variant, Size } from "@leafygreen-ui/button";
+import { ExtendableBox } from "@leafygreen-ui/box";
+import LeafyGreenButton, { ButtonProps } from "@leafygreen-ui/button";
 
-interface Props {
+type Props = ButtonProps & {
   loading?: boolean;
-  variant?: Variant;
-  onClick?: () => void;
-  disabled?: boolean;
-  "data-cy"?: string;
-  leftGlyph?: React.ReactElement;
-  size?: Size;
-  href?: string;
-  target?: string;
-}
+};
 
-export const Button: React.FC<Props> = ({
-  children,
-  loading,
-  variant = "default",
-  onClick,
-  disabled,
-  "data-cy": dataCy,
-  leftGlyph,
-  href,
-  target,
-  size,
-}) => (
-  <LeafyGreenButton
-    data-cy={dataCy}
-    variant={variant}
-    onClick={onClick}
-    disabled={disabled}
-    leftGlyph={
-      loading ? <LoadingOutlined style={{ marginRight: "8px" }} /> : leftGlyph
-    }
-    href={href}
-    target={target}
-    size={size}
-  >
-    {children}
-  </LeafyGreenButton>
+const Button: ExtendableBox<
+  Props & { ref?: React.Ref<any> },
+  "button"
+> = React.forwardRef(
+  ({ loading = false, leftGlyph, ...rest }: Props, forwardRef) => (
+    <LeafyGreenButton
+      ref={forwardRef}
+      {...rest}
+      leftGlyph={
+        loading ? <LoadingOutlined style={{ marginRight: "8px" }} /> : leftGlyph
+      }
+    />
+  )
 );
+
+export { Button };

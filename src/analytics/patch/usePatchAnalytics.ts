@@ -46,6 +46,7 @@ type Action =
       subscription: SaveSubscriptionMutationVariables["subscription"];
     }
   | { name: "Toggle Display Task Dropdown"; expanded: boolean }
+  | { name: "Click Base Commit Link" }
   | { name: "Open Schedule Tasks Modal" };
 
 interface P extends Properties {
