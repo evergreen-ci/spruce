@@ -1,12 +1,11 @@
 import { uiColors } from "@leafygreen-ui/palette";
 import Icon from "components/Icon";
+import { purple } from "constants/colors";
 import { TaskStatus } from "types/task";
 import { errorReporting } from "utils";
 
 const { reportError } = errorReporting;
 const { green, red, yellow, gray } = uiColors;
-
-const failurePurple = "#36367F";
 
 type IconProps = React.ComponentProps<typeof Icon>;
 interface TaskStatusIconProps
@@ -34,18 +33,13 @@ export const TaskStatusIcon: React.FC<TaskStatusIconProps> = ({
       return <Icon glyph="Refresh" fill={yellow.dark2} size={size} {...rest} />;
     case TaskStatus.SetupFailed:
       return (
-        <Icon glyph="SetupFailure" fill={red.base} size={size} {...rest} />
+        <Icon glyph="SetupFailure" fill={purple.base} size={size} {...rest} />
       );
     case TaskStatus.SystemUnresponsive:
     case TaskStatus.SystemTimedOut:
     case TaskStatus.SystemFailed:
       return (
-        <Icon
-          glyph="SystemFailure"
-          fill={failurePurple}
-          size={size}
-          {...rest}
-        />
+        <Icon glyph="SystemFailure" fill={purple.base} size={size} {...rest} />
       );
     case TaskStatus.TestTimedOut:
     case TaskStatus.TaskTimedOut:
@@ -53,6 +47,8 @@ export const TaskStatusIcon: React.FC<TaskStatusIconProps> = ({
     case TaskStatus.Aborted:
     case TaskStatus.Blocked:
     case TaskStatus.Unscheduled:
+    case TaskStatus.Inactive:
+    case TaskStatus.Undispatched:
       return (
         <Icon glyph="WillNotRun" fill={gray.dark1} size={size} {...rest} />
       );
