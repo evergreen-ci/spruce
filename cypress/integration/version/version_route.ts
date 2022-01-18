@@ -82,16 +82,23 @@ describe("Version route", () => {
         .first()
         .trigger("mouseover")
         .within(($el) => {
-          expect($el.text()).to.contain("1Undispatched");
+          expect($el.text()).to.contain("1Succeeded");
         });
     });
 
     it("Navigates to task tab and applies filters when clicking on grouped task status badge", () => {
+      // click on a different tab first, so that we aren't on the task tab initially
+      cy.dataCy("changes-tab").first().click();
+      cy.dataCy("task-tab")
+        .invoke("attr", "aria-selected")
+        .should("equal", "false");
+
+      // clicking on task status badge should move to the task tab
       cy.dataCy("grouped-task-status-badge").first().click();
-      cy.location("search").should(
-        "include",
-        "statuses=undispatched-umbrella,unscheduled,aborted,blocked"
-      );
+      cy.dataCy("task-tab")
+        .invoke("attr", "aria-selected")
+        .should("equal", "true");
+      cy.location("search").should("include", "statuses=success");
     });
   });
 
