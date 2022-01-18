@@ -15,7 +15,7 @@ export interface FormState extends FormDataProps {
     fileTicketWebhook: {
       endpoint: string | null;
       secret: string | null;
-    };
+    } | null;
     jiraCustomFields: Array<{
       field: string;
       displayText: string;
