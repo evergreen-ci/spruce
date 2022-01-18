@@ -5,7 +5,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { inactiveElementStyle } from "components/styles";
-import { taskStatusToCopy, mapUmbrellaStatusColors } from "constants/task";
+import { taskStatusToCopy, mapTaskToBarchartColor } from "constants/task";
 import { TaskStatus } from "types/task";
 import { ColorCount, getStatusesWithZeroCount } from "./utils";
 
@@ -49,7 +49,7 @@ export const CommitChartTooltip: React.FC<Props> = ({
           <TotalCount
             key={umbrellaStatus}
             status={umbrellaStatus}
-            color={mapUmbrellaStatusColors[umbrellaStatus].barChart}
+            color={mapTaskToBarchartColor[umbrellaStatus]}
             count={0}
             active={false}
           />

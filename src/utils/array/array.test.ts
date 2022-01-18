@@ -1,5 +1,6 @@
 import {
   toggleArray,
+  deduplicatedAppend,
   convertArrayToObject,
   convertObjectToArray,
   mapStringArrayToObject,
@@ -27,6 +28,17 @@ describe("toggleArray", () => {
   });
 });
 
+describe("deduplicatedAppend", () => {
+  it("should add an element into an array if it does not exist", () => {
+    expect(deduplicatedAppend(1, [])).toStrictEqual([1]);
+    expect(deduplicatedAppend("Mohamed", [])).toStrictEqual(["Mohamed"]);
+    expect(deduplicatedAppend(2, [1])).toStrictEqual([1, 2]);
+  });
+  it("should not add an element into an array if it already exists", () => {
+    expect(deduplicatedAppend(1, [1])).toStrictEqual([1]);
+    expect(deduplicatedAppend(1, [1, 2])).toStrictEqual([1, 2]);
+  });
+});
 describe("convertObjectToArray", () => {
   it("should return an empty array for an empty object", () => {
     expect(convertObjectToArray({})).toStrictEqual([]);
