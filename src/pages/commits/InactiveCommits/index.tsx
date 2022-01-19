@@ -5,7 +5,7 @@ import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import { string } from "utils";
 import { commitChartHeight } from "../constants";
 
-const { getDateCopy } = string;
+const { getDateCopy, shortenGithash } = string;
 const { gray } = uiColors;
 
 type rolledUpVersion = {
@@ -77,9 +77,9 @@ const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
       align="bottom"
       justify="middle"
       trigger={
-        <ButtonContainer>
+        <ButtonContainer role="button">
           <ButtonText data-cy="inactive-commits-button">
-            <TopText>{versionCount} </TopText>
+            <TopText>{versionCount}</TopText>
             {tooltipType}
           </ButtonText>
         </ButtonContainer>
@@ -99,7 +99,7 @@ const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
 };
 
 const getCommitCopy = (v: rolledUpVersion) =>
-  `${v.revision.slice(0, 5)} ${getDateCopy(v.createTime)} ${v.author} ${
+  `${shortenGithash(v.revision)} ${getDateCopy(v.createTime)} ${v.author} ${
     v.message
   } (#${v.order})`;
 
