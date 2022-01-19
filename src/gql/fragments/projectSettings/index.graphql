@@ -1,5 +1,7 @@
 #import "./access.graphql"
+#import "./aliases.graphql"
 #import "./general.graphql"
+#import "./githubCommitQueue.graphql"
 #import "./variables.graphql"
 
 fragment projectSettings on ProjectSettings {
@@ -13,6 +15,10 @@ fragment projectSettings on ProjectSettings {
   vars {
     ...variables
   }
+  ...projectGithubCommitQueue
+  aliases {
+    ...alias
+  }
 }
 
 fragment repoSettings on RepoSettings {
@@ -23,5 +29,9 @@ fragment repoSettings on RepoSettings {
   }
   vars {
     ...variables
+  }
+  ...repoGithubCommitQueue
+  aliases {
+    ...alias
   }
 }

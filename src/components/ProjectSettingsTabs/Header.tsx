@@ -120,7 +120,7 @@ const mapRouteToSection: Record<WritableTabRoutes, ProjectSettingsSection> = {
   [ProjectSettingsTabRoutes.General]: ProjectSettingsSection.General,
   [ProjectSettingsTabRoutes.Access]: ProjectSettingsSection.Access,
   [ProjectSettingsTabRoutes.Variables]: ProjectSettingsSection.Variables,
-  [ProjectSettingsTabRoutes.GitHubCommitQueue]:
+  [ProjectSettingsTabRoutes.GithubCommitQueue]:
     ProjectSettingsSection.GithubAndCommitQueue,
   [ProjectSettingsTabRoutes.Notifications]:
     ProjectSettingsSection.Notifications,

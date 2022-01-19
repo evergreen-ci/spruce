@@ -2192,6 +2192,17 @@ export type RepoAccessSettingsFragment = {
   admins: Array<string>;
 };
 
+export type AliasFragment = {
+  id: string;
+  alias: string;
+  gitTag: string;
+  variant: string;
+  task: string;
+  remotePath: string;
+  variantTags: Array<string>;
+  taskTags: Array<string>;
+};
+
 export type ProjectGeneralSettingsFragment = {
   enabled?: Maybe<boolean>;
   owner: string;
@@ -2234,6 +2245,30 @@ export type RepoGeneralSettingsFragment = {
   taskSync: { configEnabled: boolean; patchEnabled: boolean };
 };
 
+export type ProjectGithubCommitQueueFragment = {
+  gitHubWebhooksEnabled: boolean;
+  projectRef?: Maybe<{
+    prTestingEnabled?: Maybe<boolean>;
+    githubChecksEnabled?: Maybe<boolean>;
+    githubTriggerAliases?: Maybe<Array<string>>;
+    gitTagVersionsEnabled?: Maybe<boolean>;
+    gitTagAuthorizedUsers?: Maybe<Array<string>>;
+    gitTagAuthorizedTeams?: Maybe<Array<string>>;
+  }>;
+};
+
+export type RepoGithubCommitQueueFragment = {
+  gitHubWebhooksEnabled: boolean;
+  projectRef?: Maybe<{
+    prTestingEnabled: boolean;
+    githubChecksEnabled: boolean;
+    githubTriggerAliases?: Maybe<Array<string>>;
+    gitTagVersionsEnabled: boolean;
+    gitTagAuthorizedUsers?: Maybe<Array<string>>;
+    gitTagAuthorizedTeams?: Maybe<Array<string>>;
+  }>;
+};
+
 export type ProjectSettingsFragment = {
   projectRef?: Maybe<
     {
@@ -2244,14 +2279,16 @@ export type ProjectSettingsFragment = {
       ProjectAccessSettingsFragment
   >;
   vars?: Maybe<VariablesFragment>;
-};
+  aliases?: Maybe<Array<AliasFragment>>;
+} & ProjectGithubCommitQueueFragment;
 
 export type RepoSettingsFragment = {
   projectRef?: Maybe<
     { id: string } & RepoGeneralSettingsFragment & RepoAccessSettingsFragment
   >;
   vars?: Maybe<VariablesFragment>;
-};
+  aliases?: Maybe<Array<AliasFragment>>;
+} & RepoGithubCommitQueueFragment;
 
 export type VariablesFragment = {
   vars?: Maybe<{ [key: string]: any }>;

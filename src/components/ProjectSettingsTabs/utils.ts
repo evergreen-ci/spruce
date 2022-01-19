@@ -41,6 +41,61 @@ export const radioBoxOptions = (
   ),
 ];
 
+export const overrideRadioBox = (
+  propertyName: string,
+  buttonText: [string, string],
+  overrideSchema: SpruceFormProps["schema"]
+): SpruceFormProps["schema"] => {
+  const propertyNameOverride = `${propertyName}Override`;
+  return {
+    properties: {
+      [propertyNameOverride]: {
+        type: "boolean" as "boolean",
+        oneOf: [
+          {
+            type: "boolean" as "boolean",
+            title: buttonText[0],
+            enum: [true],
+          },
+          {
+            type: "boolean" as "boolean",
+            title: buttonText[1],
+            enum: [false],
+          },
+        ],
+      },
+    },
+    dependencies: {
+      [propertyNameOverride]: {
+        oneOf: [
+          {
+            properties: {
+              [propertyNameOverride]: {
+                enum: [false],
+              },
+              repoData: {
+                type: "object" as "object",
+                title: "",
+                properties: {
+                  [propertyName]: overrideSchema,
+                },
+              },
+            },
+          },
+          {
+            properties: {
+              [propertyNameOverride]: {
+                enum: [true],
+              },
+              [propertyName]: overrideSchema,
+            },
+          },
+        ],
+      },
+    },
+  };
+};
+
 export const placeholderIf = (element: string | number) =>
   element !== undefined && {
     "ui:placeholder": `${element} (Default from repo)`,
