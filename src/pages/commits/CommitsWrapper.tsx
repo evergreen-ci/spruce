@@ -10,7 +10,7 @@ import {
   getAllTaskStatsGroupedByColor,
   findMaxGroupedTaskStats,
 } from "./ActiveCommits/utils";
-import { InactiveCommits, InactiveCommitLine } from "./InactiveCommits/index";
+import InactiveCommits from "./InactiveCommits";
 
 interface Props {
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
@@ -39,7 +39,7 @@ export const CommitsWrapper: React.FC<Props> = ({
   if (isLoading) {
     return <StyledSkeleton active title={false} paragraph={{ rows: 6 }} />;
   }
-  if (!isLoading && versions?.length !== 0) {
+  if (versions?.length !== 0) {
     const versionToGroupedTaskStatsMap = getAllTaskStatsGroupedByColor(
       versions
     );
@@ -63,7 +63,6 @@ export const CommitsWrapper: React.FC<Props> = ({
               />
             ) : (
               <ColumnContainer key={rolledUpVersions[0].id}>
-                <InactiveCommitLine />
                 <InactiveCommits
                   hasFilters={hasFilters}
                   rolledUpVersions={rolledUpVersions}

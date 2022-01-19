@@ -7,7 +7,7 @@ import {
   FlexRowContainer,
   ProjectHealthWrapper,
 } from "../CommitsWrapper";
-import { InactiveCommits, InactiveCommitLine } from "../InactiveCommits/index";
+import InactiveCommits from "../InactiveCommits/index";
 import { Grid } from "./Grid";
 import { ActiveCommit } from "./index";
 import {
@@ -36,7 +36,6 @@ export const WaterfallAbsolute = () => (
           />
         ) : (
           <ColumnContainer key={rolledUpVersions[0].id}>
-            <InactiveCommitLine />
             <InactiveCommits rolledUpVersions={rolledUpVersions} />
           </ColumnContainer>
         )
@@ -62,7 +61,6 @@ export const WaterfallPercentage = () => (
           />
         ) : (
           <ColumnContainer key={rolledUpVersions[0].id}>
-            <InactiveCommitLine />
             <InactiveCommits rolledUpVersions={rolledUpVersions} />
           </ColumnContainer>
         )

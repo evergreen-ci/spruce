@@ -1,7 +1,7 @@
 import userEvent from "@testing-library/user-event";
 import { render, waitFor } from "test_utils";
 
-import { InactiveCommits } from ".";
+import InactiveCommits from ".";
 
 const RenderInactiveCommits = (versions) => (
   <InactiveCommits rolledUpVersions={versions} />
