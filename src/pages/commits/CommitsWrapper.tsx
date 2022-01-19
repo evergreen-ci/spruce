@@ -19,6 +19,7 @@ interface Props {
   chartType?: ChartTypes;
   hasTaskFilter: boolean;
   hasFilters: boolean;
+  onChangeChartType: (chartType: ChartTypes) => void;
 }
 
 export const CommitsWrapper: React.FC<Props> = ({
@@ -28,6 +29,7 @@ export const CommitsWrapper: React.FC<Props> = ({
   chartType,
   hasTaskFilter,
   hasFilters,
+  onChangeChartType,
 }) => {
   if (error) {
     return (
@@ -62,17 +64,19 @@ export const CommitsWrapper: React.FC<Props> = ({
                 hasTaskFilter={hasTaskFilter}
               />
             ) : (
-              <ColumnContainer key={rolledUpVersions[0].id}>
-                <InactiveCommits
-                  hasFilters={hasFilters}
-                  rolledUpVersions={rolledUpVersions}
-                />
-              </ColumnContainer>
+              <InactiveCommits
+                key={rolledUpVersions[0].id}
+                hasFilters={hasFilters}
+                rolledUpVersions={rolledUpVersions}
+              />
             )
           )}
         </FlexRowContainer>
         <Grid numDashedLine={5} />
-        <ChartToggle currentChartType={chartType} />
+        <ChartToggle
+          currentChartType={chartType}
+          onChangeChartType={onChangeChartType}
+        />
       </ProjectHealthWrapper>
     );
   }

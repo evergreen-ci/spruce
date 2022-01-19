@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { withKnobs, boolean } from "@storybook/addon-knobs";
 import StoryRouter from "storybook-react-router";
 import { ChartTypes } from "types/commits";
@@ -9,16 +10,20 @@ export default {
   decorators: [StoryRouter(), withKnobs],
 };
 
-export const ActualWaterfallPage = () => (
-  <CommitsWrapper
-    versions={versions}
-    isLoading={boolean("isLoading", false)}
-    error={null}
-    chartType={ChartTypes.Absolute}
-    hasTaskFilter={boolean("hasTaskFilter", false)}
-    hasFilters={boolean("hasFilters", false)}
-  />
-);
+export const ActualWaterfallPage = () => {
+  const [chartType, setChartType] = useState<ChartTypes>(ChartTypes.Absolute);
+  return (
+    <CommitsWrapper
+      versions={versions}
+      isLoading={boolean("isLoading", false)}
+      error={null}
+      chartType={chartType}
+      hasTaskFilter={boolean("hasTaskFilter", false)}
+      hasFilters={boolean("hasFilters", false)}
+      onChangeChartType={setChartType}
+    />
+  );
+};
 
 const versions = [
   {
