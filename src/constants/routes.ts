@@ -213,6 +213,25 @@ export const getCommitQueueRoute = (projectId: string) =>
 export const getCommitsRoute = (projectId: string = "") =>
   `${paths.commits}/${projectId}`;
 
+const getHistoryRoute = (
+  basePath: string,
+  filters?: {
+    failingTests?: string[];
+    passingTests?: string[];
+  }
+) => {
+  if (filters) {
+    const failingTests = toArray(filters.failingTests);
+    const passingTests = toArray(filters.passingTests);
+
+    const queryParams = stringifyQuery({
+      [TestStatus.Failed]: failingTests,
+      [TestStatus.Passed]: passingTests,
+    });
+    return `${basePath}?${queryParams}`;
+  }
+  return basePath;
+};
 export const getVariantHistoryRoute = (
   projectIdentifier: string,
   variantName: string,
@@ -220,19 +239,12 @@ export const getVariantHistoryRoute = (
     failingTests?: string[];
     passingTests?: string[];
   }
-) => {
-  if (filters) {
-    const failingTests = toArray(filters.failingTests);
-    const passingTests = toArray(filters.passingTests);
+) =>
+  getHistoryRoute(
+    `${paths.variantHistory}/${projectIdentifier}/${variantName}`,
+    filters
+  );
 
-    const queryParams = stringifyQuery({
-      [TestStatus.Failed]: failingTests,
-      [TestStatus.Passed]: passingTests,
-    });
-    return `${paths.variantHistory}/${projectIdentifier}/${variantName}?${queryParams}`;
-  }
-  return `${paths.variantHistory}/${projectIdentifier}/${variantName}`;
-};
 export const getTaskHistoryRoute = (
   projectIdentifier: string,
   taskName: string,
@@ -240,16 +252,8 @@ export const getTaskHistoryRoute = (
     failingTests?: string[];
     passingTests?: string[];
   }
-) => {
-  if (filters) {
-    const failingTests = toArray(filters.failingTests);
-    const passingTests = toArray(filters.passingTests);
-
-    const queryParams = stringifyQuery({
-      [TestStatus.Failed]: failingTests,
-      [TestStatus.Passed]: passingTests,
-    });
-    return `${paths.taskHistory}/${projectIdentifier}/${taskName}?${queryParams}`;
-  }
-  return `${paths.taskHistory}/${projectIdentifier}/${taskName}`;
-};
+) =>
+  getHistoryRoute(
+    `${paths.taskHistory}/${projectIdentifier}/${taskName}`,
+    filters
+  );
