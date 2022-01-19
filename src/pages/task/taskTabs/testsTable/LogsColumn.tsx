@@ -95,7 +95,7 @@ export const LogsColumn: React.FC<Props> = ({
           }}
           to={getTaskHistoryRoute(projectIdentifier, name, filters)}
         >
-          See history
+          History
         </Button>
       )}
     </ButtonWrapper>
