@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
@@ -31,6 +32,20 @@ export const CommitsWrapper: React.FC<Props> = ({
   hasFilters,
   onChangeChartType,
 }) => {
+  const versionToGroupedTaskStatsMap = useMemo(() => {
+    if (versions) {
+      return getAllTaskStatsGroupedByColor(versions);
+    }
+    return undefined;
+  }, [versions]);
+
+  const maxGroupedTaskStats = useMemo(() => {
+    if (versionToGroupedTaskStatsMap) {
+      return findMaxGroupedTaskStats(versionToGroupedTaskStatsMap);
+    }
+    return undefined;
+  }, [versionToGroupedTaskStatsMap]);
+  const { max } = maxGroupedTaskStats || {};
   if (error) {
     return (
       <ProjectHealthWrapper>
@@ -42,11 +57,6 @@ export const CommitsWrapper: React.FC<Props> = ({
     return <StyledSkeleton active title={false} paragraph={{ rows: 6 }} />;
   }
   if (versions?.length !== 0) {
-    const versionToGroupedTaskStatsMap = getAllTaskStatsGroupedByColor(
-      versions
-    );
-    const { max } = findMaxGroupedTaskStats(versionToGroupedTaskStatsMap);
-
     return (
       <ProjectHealthWrapper>
         <FlexRowContainer numCommits={versions.length}>
