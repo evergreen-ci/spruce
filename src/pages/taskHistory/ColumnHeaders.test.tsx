@@ -86,7 +86,12 @@ describe("columnHeaders (Task History)", () => {
         <ColumnHeaders
           loading={false}
           projectId="evergreen"
-          columns={[{ displayName: "variant1", buildVariant: "variant1" }]}
+          columns={[
+            {
+              displayName: "variant1",
+              buildVariant: "real-variant-name",
+            },
+          ]}
         />
       ),
       {
@@ -94,18 +99,18 @@ describe("columnHeaders (Task History)", () => {
           wrapper({
             children,
             state: {
-              visibleColumns: ["variant1"],
+              visibleColumns: ["real-variant-name"],
             },
           }),
       }
     );
     expect(queryByRole("link")).toHaveAttribute(
       "href",
-      "/variant-history/evergreen/variant1"
+      "/variant-history/evergreen/real-variant-name"
     );
   });
 
-  it("should truncate the variant name when only if it is too long", async () => {
+  it("should truncate the variant name only if it is too long", async () => {
     const { queryByText } = render(
       () => (
         <ColumnHeaders
