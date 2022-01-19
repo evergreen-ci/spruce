@@ -28,7 +28,12 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
   readonly,
   formContext,
 }) => {
-  const { description, "data-cy": dataCy, emptyValue } = options;
+  const {
+    ariaLabelledBy,
+    description,
+    "data-cy": dataCy,
+    emptyValue,
+  } = options;
   const errors = getInputErrors(rawErrors);
   const hasError = !!errors?.length;
   const { readonlyAsDisabled = true } = formContext;
@@ -38,7 +43,9 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
         <TextInput
           data-cy={dataCy}
           value={value === null || value === undefined ? null : `${value}`}
-          label={label}
+          // @ts-ignore
+          aria-labelledby={ariaLabelledBy}
+          label={ariaLabelledBy ? undefined : label}
           placeholder={placeholder || undefined}
           description={description as string}
           disabled={disabled || (readonlyAsDisabled && readonly)}
@@ -227,7 +234,7 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
       >
         {enumOptions.map((o) => (
           <StyledRadioBox
-            key={o.value}
+            key={valueMap.indexOf(o.value)}
             value={valueMap.indexOf(o.value)}
             disabled={disabled}
           >
