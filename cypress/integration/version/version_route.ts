@@ -82,7 +82,7 @@ describe("Version route", () => {
         .first()
         .trigger("mouseover")
         .within(($el) => {
-          expect($el.text()).to.contain("1Succeeded");
+          expect($el.text()).to.contain("1Undispatched");
         });
     });
 
@@ -98,7 +98,10 @@ describe("Version route", () => {
       cy.dataCy("task-tab")
         .invoke("attr", "aria-selected")
         .should("equal", "true");
-      cy.location("search").should("include", "statuses=success");
+      cy.location("search").should(
+        "include",
+        "statuses=undispatched-umbrella,unscheduled,aborted,blocked"
+      );
     });
   });
 
