@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { withKnobs, boolean } from "@storybook/addon-knobs";
+import { withKnobs, boolean, number } from "@storybook/addon-knobs";
 import StoryRouter from "storybook-react-router";
+import { MainlineCommitsQuery } from "gql/generated/types";
 import { ChartTypes } from "types/commits";
 import { TaskStatus } from "types/task";
 import { CommitsWrapper } from "../CommitsWrapper";
@@ -12,9 +13,16 @@ export default {
 
 export const ActualWaterfallPage = () => {
   const [chartType, setChartType] = useState<ChartTypes>(ChartTypes.Absolute);
+  const buildVariantCount = number("buildVariantCount", 2, {
+    min: 1,
+  });
+  const taskCount = number("taskCount", 1);
+  const updatedVersions = versions.map((version) =>
+    formatVersion(version, buildVariantCount, taskCount)
+  );
   return (
     <CommitsWrapper
-      versions={versions}
+      versions={updatedVersions}
       isLoading={boolean("isLoading", false)}
       error={null}
       chartType={chartType}
@@ -25,6 +33,70 @@ export const ActualWaterfallPage = () => {
   );
 };
 
+type Commits = MainlineCommitsQuery["mainlineCommits"]["versions"];
+type Commit = Commits[0];
+type Version = Commit["version"];
+
+const buildVariantUpdateLength = (
+  buildVariant: Version["buildVariants"],
+  buildVariantCount: number
+) => {
+  if (buildVariant.length === buildVariantCount) {
+    return buildVariant;
+  }
+  if (buildVariant.length < buildVariantCount) {
+    const newBuildVariant = buildVariant.concat(
+      buildVariant.slice(buildVariant.length - buildVariantCount)
+    );
+    return newBuildVariant;
+  }
+  if (buildVariant.length > buildVariantCount) {
+    const newBuildVariant = buildVariant.slice(0, buildVariantCount);
+    return newBuildVariant;
+  }
+};
+
+const taskUpdateLength = (
+  tasks: Version["buildVariants"][0]["tasks"],
+  taskCount: number
+) => {
+  if (tasks.length === taskCount) {
+    return tasks;
+  }
+  if (tasks.length < taskCount) {
+    const newTasks = tasks.concat(tasks.slice(tasks.length - taskCount));
+    return newTasks;
+  }
+  if (tasks.length > taskCount) {
+    const newTasks = tasks.slice(0, taskCount);
+    return newTasks;
+  }
+};
+
+const isRolledUpCommit = (commit: Commit) => commit.rolledUpVersions !== null;
+
+const formatVersion = (
+  version: Commit,
+  buildVariantCount: number,
+  taskCount: number
+) => {
+  if (isRolledUpCommit(version)) {
+    return version;
+  }
+  const newVersion = { ...version };
+  newVersion.version.buildVariants = buildVariantUpdateLength(
+    version.version.buildVariants,
+    buildVariantCount
+  );
+  newVersion.version.buildVariants = newVersion.version.buildVariants.map(
+    (buildVariant) => {
+      const newBuildVariant = { ...buildVariant };
+      newBuildVariant.tasks = taskUpdateLength(buildVariant.tasks, taskCount);
+      return newBuildVariant;
+    }
+  );
+  return newVersion;
+};
 const versions = [
   {
     version: {
