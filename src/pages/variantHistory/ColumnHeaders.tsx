@@ -1,15 +1,12 @@
 import styled from "@emotion/styled";
-import Tooltip from "@leafygreen-ui/tooltip";
-import { Skeleton } from "antd";
 import { context, Cell } from "components/HistoryTable";
-import { StyledRouterLink } from "components/styles";
 import { getTaskHistoryRoute } from "constants/routes";
 import { array, string } from "utils";
 
 const { mapStringArrayToObject } = array;
 const { trimMiddleText } = string;
 const { useHistoryTable } = context;
-const { HeaderCell } = Cell;
+const { LoadingCell, ColumnHeaderCell } = Cell;
 
 const maxLength = 50;
 const trailingLength = 10;
@@ -37,34 +34,18 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
           return null;
         }
         return (
-          <HeaderCell data-cy="header-cell" key={`header_cell_${vc}`}>
-            {vc.length < maxLength ? (
-              <StyledRouterLink to={getTaskHistoryRoute(projectId, vc)}>
-                {vc}
-              </StyledRouterLink>
-            ) : (
-              <Tooltip
-                align="top"
-                justify="middle"
-                trigger={
-                  <StyledRouterLink to={getTaskHistoryRoute(projectId, vc)}>
-                    {trimMiddleText(vc, maxLength, trailingLength)}
-                  </StyledRouterLink>
-                }
-                triggerEvent="hover"
-              >
-                {vc}
-              </Tooltip>
-            )}
-          </HeaderCell>
+          <ColumnHeaderCell
+            key={`header_cell_${vc}`}
+            link={getTaskHistoryRoute(projectId, vc)}
+            trimmedDisplayName={trimMiddleText(vc, maxLength, trailingLength)}
+            fullDisplayName={vc}
+          />
         );
       })}
       {loading &&
         Array.from(Array(columnLimit)).map((_, i) => (
           // eslint-disable-next-line react/no-array-index-key
-          <HeaderCell data-cy="loading-header-cell" key={`loading_cell_${i}`}>
-            <Skeleton active title paragraph={false} />
-          </HeaderCell>
+          <LoadingCell key={`loading_cell_${i}`} isHeader />
         ))}
     </RowContainer>
   );

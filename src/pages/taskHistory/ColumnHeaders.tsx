@@ -1,15 +1,12 @@
 import styled from "@emotion/styled";
-import Tooltip from "@leafygreen-ui/tooltip";
-import { Skeleton } from "antd";
 import { context, Cell } from "components/HistoryTable";
-import { StyledRouterLink } from "components/styles";
 import { getVariantHistoryRoute } from "constants/routes";
 import { array, string } from "utils";
 
 const { convertArrayToObject } = array;
 const { trimMiddleText } = string;
 const { useHistoryTable } = context;
-const { HeaderCell } = Cell;
+const { LoadingCell, ColumnHeaderCell } = Cell;
 
 const maxLength = 50;
 const trailingLength = 15;
@@ -38,45 +35,22 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
           return null;
         }
         return (
-          <HeaderCell
-            data-cy="header-cell"
-            key={`header_cell_${cell.buildVariant}`}
-          >
-            {cell.displayName.length < maxLength ? (
-              <StyledRouterLink
-                to={getVariantHistoryRoute(projectId, cell.buildVariant)}
-              >
-                {cell.displayName}
-              </StyledRouterLink>
-            ) : (
-              <Tooltip
-                align="top"
-                justify="middle"
-                trigger={
-                  <StyledRouterLink
-                    to={getVariantHistoryRoute(projectId, cell.buildVariant)}
-                  >
-                    {trimMiddleText(
-                      cell.displayName,
-                      maxLength,
-                      trailingLength
-                    )}
-                  </StyledRouterLink>
-                }
-                triggerEvent="hover"
-              >
-                {cell.displayName}
-              </Tooltip>
+          <ColumnHeaderCell
+            key={`header_cell_${cell.displayName}`}
+            link={getVariantHistoryRoute(projectId, cell.buildVariant)}
+            trimmedDisplayName={trimMiddleText(
+              cell.displayName,
+              maxLength,
+              trailingLength
             )}
-          </HeaderCell>
+            fullDisplayName={cell.displayName}
+          />
         );
       })}
       {loading &&
         Array.from(Array(columnLimit)).map((_, i) => (
           // eslint-disable-next-line react/no-array-index-key
-          <HeaderCell data-cy="loading-header-cell" key={`loading_cell_${i}`}>
-            <Skeleton active title paragraph={false} />
-          </HeaderCell>
+          <LoadingCell key={`loading_cell_${i}`} isHeader />
         ))}
     </RowContainer>
   );
