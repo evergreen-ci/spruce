@@ -90,14 +90,14 @@ describe("Version route", () => {
       // click on a different tab first, so that we aren't on the task tab initially
       cy.dataCy("changes-tab").first().click();
       cy.dataCy("task-tab")
-        .invoke("attr", "aria-selected")
-        .should("equal", "false");
+        .should("have.attr", "aria-selected")
+        .and("equal", "false");
 
       // clicking on task status badge should move to the task tab
       cy.dataCy("grouped-task-status-badge").first().click();
       cy.dataCy("task-tab")
-        .invoke("attr", "aria-selected")
-        .should("equal", "true");
+        .should("have.attr", "aria-selected")
+        .and("equal", "true");
       cy.location("search").should(
         "include",
         "statuses=undispatched-umbrella,unscheduled,aborted,blocked"
