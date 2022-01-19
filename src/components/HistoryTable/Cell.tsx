@@ -72,5 +72,6 @@ const Cell = styled.div<{ inactive?: boolean }>`
 
 export const HeaderCell = styled(Cell)`
   word-wrap: anywhere;
+  word-break: break-word; // Safari
   text-align: center;
 `;
