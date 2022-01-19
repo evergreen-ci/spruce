@@ -2,72 +2,22 @@ import { withKnobs, boolean } from "@storybook/addon-knobs";
 import StoryRouter from "storybook-react-router";
 import { ChartTypes } from "types/commits";
 import { TaskStatus } from "types/task";
-import {
-  ColumnContainer,
-  FlexRowContainer,
-  ProjectHealthWrapper,
-} from "../CommitsWrapper";
-import InactiveCommits from "../InactiveCommits/index";
-import { Grid } from "./Grid";
-import { ActiveCommit } from "./index";
-import {
-  getAllTaskStatsGroupedByColor,
-  findMaxGroupedTaskStats,
-} from "./utils";
+import { CommitsWrapper } from "../CommitsWrapper";
 
 export default {
   title: "Project Health Page",
   decorators: [StoryRouter(), withKnobs],
 };
 
-export const WaterfallAbsolute = () => (
-  <ProjectHealthWrapper>
-    <FlexRowContainer numCommits={versions.length}>
-      {versions.map(({ version, rolledUpVersions }) =>
-        version ? (
-          <ActiveCommit
-            key={version.id}
-            version={version}
-            chartType={ChartTypes.Absolute}
-            total={versionToGroupedTaskStatsMap[version.id].total}
-            max={max}
-            groupedTaskStats={versionToGroupedTaskStatsMap[version.id].stats}
-            hasTaskFilter={boolean("hasTaskFilter", false)}
-          />
-        ) : (
-          <ColumnContainer key={rolledUpVersions[0].id}>
-            <InactiveCommits rolledUpVersions={rolledUpVersions} />
-          </ColumnContainer>
-        )
-      )}
-    </FlexRowContainer>
-    <Grid numDashedLine={5} />
-  </ProjectHealthWrapper>
-);
-
-export const WaterfallPercentage = () => (
-  <ProjectHealthWrapper>
-    <FlexRowContainer numCommits={versions.length}>
-      {versions.map(({ version, rolledUpVersions }) =>
-        version ? (
-          <ActiveCommit
-            key={version.id}
-            version={version}
-            chartType={ChartTypes.Absolute}
-            total={versionToGroupedTaskStatsMap[version.id].total}
-            max={max}
-            groupedTaskStats={versionToGroupedTaskStatsMap[version.id].stats}
-            hasTaskFilter={boolean("hasTaskFilter", false)}
-          />
-        ) : (
-          <ColumnContainer key={rolledUpVersions[0].id}>
-            <InactiveCommits rolledUpVersions={rolledUpVersions} />
-          </ColumnContainer>
-        )
-      )}
-    </FlexRowContainer>
-    <Grid numDashedLine={5} />
-  </ProjectHealthWrapper>
+export const ActualWaterfallPage = () => (
+  <CommitsWrapper
+    versions={versions}
+    isLoading={boolean("isLoading", false)}
+    error={null}
+    chartType={ChartTypes.Absolute}
+    hasTaskFilter={boolean("hasTaskFilter", false)}
+    hasFilters={boolean("hasFilters", false)}
+  />
 );
 
 const versions = [
@@ -79,6 +29,7 @@ const versions = [
       message: "EVG-14901 add ssh key to EditSpawnHostModal (#805)",
       revision: "987bf57eb679c6361322c3961b30a10724a9b001",
       order: 929,
+      projectIdentifier: "spruce",
       taskStatusCounts: [
         { status: "system-timed-out", count: 4 },
         { status: "system-unresponsive", count: 3 },
@@ -88,6 +39,7 @@ const versions = [
       buildVariants: [
         {
           displayName: "01. Code Health [code_health]",
+          variant: "code_health",
           tasks: [
             {
               status: TaskStatus.Pending,
@@ -99,6 +51,7 @@ const versions = [
         },
         {
           displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+          variant: "package_rpm",
           tasks: [
             {
               status: TaskStatus.WillRun,
@@ -120,6 +73,7 @@ const versions = [
       message: "Triggered From Git Tag 'v2.11.1': v2.11.1",
       revision: "a77bd39ccf515b63327dc2355a8444955043c66a",
       order: 928,
+      projectIdentifier: "spruce",
       taskStatusCounts: [
         { status: "system-failed", count: 6 },
         { status: "pending", count: 2 },
@@ -130,6 +84,7 @@ const versions = [
       buildVariants: [
         {
           displayName: "01. Code Health [code_health]",
+          variant: "code_health",
           tasks: [
             {
               status: TaskStatus.Pending,
@@ -141,6 +96,7 @@ const versions = [
         },
         {
           displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+          variant: "package_rpm",
           tasks: [
             {
               status: TaskStatus.Pending,
@@ -163,6 +119,7 @@ const versions = [
         author: "Mohamed Khelif",
         order: 927,
         message: "v2.11.1",
+        projectIdentifier: "spruce",
         revision: "a77bd39ccf515b63327dc2355a8444955043c66a",
       },
     ],
@@ -176,6 +133,7 @@ const versions = [
         "EVG-14799 Correctly visit configure page when no tab indicated (#810)",
       revision: "9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad",
       order: 926,
+      projectIdentifier: "spruce",
       taskStatusCounts: [
         { status: "setup-failed", count: 4 },
         { status: "inactive", count: 3 },
@@ -185,6 +143,7 @@ const versions = [
       buildVariants: [
         {
           displayName: "01. Code Health [code_health]",
+          variant: "code_health",
           tasks: [
             {
               status: TaskStatus.WillRun,
@@ -196,6 +155,7 @@ const versions = [
         },
         {
           displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+          variant: "package_rpm",
           tasks: [
             {
               status: TaskStatus.Pending,
@@ -216,6 +176,7 @@ const versions = [
       createTime: new Date("2021-07-13T14:51:30Z"),
       message: "Remove navigation announcement toast (#808)",
       revision: "f7f7f1a3abdb9897dfc02b7a1de9821651b0916e",
+      projectIdentifier: "spruce",
       order: 925,
       taskStatusCounts: [
         { status: "blocked", count: 4 },
@@ -226,6 +187,7 @@ const versions = [
       buildVariants: [
         {
           displayName: "01. Code Health [code_health]",
+          variant: "code_health",
           tasks: [
             {
               status: TaskStatus.WillRun,
@@ -237,6 +199,7 @@ const versions = [
         },
         {
           displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+          variant: "package_rpm",
           tasks: [
             {
               status: TaskStatus.Succeeded,
@@ -257,6 +220,7 @@ const versions = [
       createTime: new Date("2021-07-13T14:51:30Z"),
       message: "Triggered From Git Tag 'v2.11.0': v2.11.0",
       revision: "211b3a06e2948a5afa5dbd61c2322037c300629b",
+      projectIdentifier: "spruce",
       order: 924,
       taskStatusCounts: [
         { status: "success", count: 6 },
@@ -268,6 +232,7 @@ const versions = [
       buildVariants: [
         {
           displayName: "01. Code Health [code_health]",
+          variant: "code_health",
           tasks: [
             {
               status: TaskStatus.Failed,
@@ -279,6 +244,7 @@ const versions = [
         },
         {
           displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+          variant: "package_rpm",
           tasks: [
             {
               status: TaskStatus.Failed,
@@ -293,6 +259,3 @@ const versions = [
     rolledUpVersions: null,
   },
 ];
-
-const versionToGroupedTaskStatsMap = getAllTaskStatsGroupedByColor(versions);
-const { max } = findMaxGroupedTaskStats(versionToGroupedTaskStatsMap);

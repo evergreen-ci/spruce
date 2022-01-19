@@ -133,7 +133,7 @@ const ButtonContainer = styled.div`
   justify-content: center;
 `;
 
-export const InactiveCommitLine = styled.div`
+const InactiveCommitLine = styled.div`
   height: ${commitChartHeight}px;
   border: 1px dashed ${gray.light1};
 `;
