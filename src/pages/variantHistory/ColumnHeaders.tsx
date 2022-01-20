@@ -1,5 +1,10 @@
 import styled from "@emotion/styled";
 import { context, Cell } from "components/HistoryTable";
+import {
+  variantHistoryMaxLength as maxLength,
+  variantHistoryTrailingLength as trailingLength,
+} from "constants/history";
+
 import { getTaskHistoryRoute } from "constants/routes";
 import { array, string } from "utils";
 
@@ -7,10 +12,6 @@ const { mapStringArrayToObject } = array;
 const { trimMiddleText } = string;
 const { useHistoryTable } = context;
 const { LoadingCell, ColumnHeaderCell } = Cell;
-
-const maxLength = 50;
-const trailingLength = 10;
-
 interface ColumnHeadersProps {
   projectId: string;
   columns: string[];

@@ -1,6 +1,10 @@
 import { context } from "components/HistoryTable";
 import { HistoryTableReducerState } from "components/HistoryTable/historyTableContextReducer";
 import {
+  taskHistoryMaxLength as maxLength,
+  taskHistoryTrailingLength as trailingLength,
+} from "constants/history";
+import {
   fireEvent,
   renderWithRouterMatch as render,
   waitFor,
@@ -11,7 +15,11 @@ import ColumnHeaders from "./ColumnHeaders";
 const { trimMiddleText } = string;
 const { HistoryTableProvider } = context;
 const longVariantName = "really_really_really_really_really_long_variant_name";
-const trimmedVariantName = trimMiddleText(longVariantName, 50, 15);
+const trimmedVariantName = trimMiddleText(
+  longVariantName,
+  maxLength,
+  trailingLength
+);
 
 const initialState: HistoryTableReducerState = {
   loadedCommits: [],
@@ -43,6 +51,8 @@ describe("columnHeaders (Task History)", () => {
     const { queryAllByDataCy } = render(
       () => <ColumnHeaders projectId="evergreen" columns={[]} loading />,
       {
+        route: "/task-history/evergreen/some_task",
+        path: "/task-history/:projectId/:taskName",
         wrapper,
       }
     );
@@ -63,6 +73,8 @@ describe("columnHeaders (Task History)", () => {
         />
       ),
       {
+        route: "/task-history/evergreen/some_task",
+        path: "/task-history/:projectId/:taskName",
         wrapper: ({ children }) =>
           wrapper({
             children,
@@ -91,6 +103,8 @@ describe("columnHeaders (Task History)", () => {
         />
       ),
       {
+        route: "/task-history/evergreen/some_task",
+        path: "/task-history/:projectId/:taskName",
         wrapper: ({ children }) =>
           wrapper({
             children,
@@ -122,6 +136,8 @@ describe("columnHeaders (Task History)", () => {
         />
       ),
       {
+        route: "/task-history/evergreen/some_task",
+        path: "/task-history/:projectId/:taskName",
         wrapper: ({ children }) =>
           wrapper({
             children,
@@ -155,6 +171,8 @@ describe("columnHeaders (Task History)", () => {
         />
       ),
       {
+        route: "/task-history/evergreen/some_task",
+        path: "/task-history/:projectId/:taskName",
         wrapper: ({ children }) =>
           wrapper({
             children,
