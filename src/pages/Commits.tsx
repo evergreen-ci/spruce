@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Cookies from "js-cookie";
@@ -45,6 +45,7 @@ const FAILED_STATUSES = [
 ];
 
 export const Commits = () => {
+  const pageWrapperRef = useRef<HTMLDivElement>(null);
   const dispatchToast = useToastContext();
   const { replace } = useHistory();
   const { search } = useLocation();
@@ -144,7 +145,7 @@ export const Commits = () => {
   ]);
 
   return (
-    <PageWrapper>
+    <PageWrapper ref={pageWrapperRef}>
       <PageContainer>
         <HeaderWrapper>
           <ElementWrapper width="35">
@@ -175,6 +176,7 @@ export const Commits = () => {
           hasTaskFilter={hasTaskFilter}
           hasFilters={hasFilters}
           onChangeChartType={onChangeChartType}
+          containerRef={pageWrapperRef}
         />
       </PageContainer>
     </PageWrapper>

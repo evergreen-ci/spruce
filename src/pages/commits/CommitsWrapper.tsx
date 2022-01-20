@@ -21,6 +21,7 @@ interface Props {
   hasTaskFilter: boolean;
   hasFilters: boolean;
   onChangeChartType: (chartType: ChartTypes) => void;
+  containerRef?: React.RefObject<HTMLDivElement>;
 }
 
 export const CommitsWrapper: React.FC<Props> = ({
@@ -31,6 +32,7 @@ export const CommitsWrapper: React.FC<Props> = ({
   hasTaskFilter,
   hasFilters,
   onChangeChartType,
+  containerRef,
 }) => {
   const versionToGroupedTaskStatsMap = useMemo(() => {
     if (versions) {
@@ -72,12 +74,14 @@ export const CommitsWrapper: React.FC<Props> = ({
                   versionToGroupedTaskStatsMap[version.id].stats
                 }
                 hasTaskFilter={hasTaskFilter}
+                containerRef={containerRef}
               />
             ) : (
               <InactiveCommits
                 key={rolledUpVersions[0].id}
                 hasFilters={hasFilters}
                 rolledUpVersions={rolledUpVersions}
+                containerRef={containerRef}
               />
             )
           )}

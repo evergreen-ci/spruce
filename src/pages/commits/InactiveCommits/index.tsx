@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
+import { navBarHeight } from "components/Header/Navbar";
+import StickyContainer from "components/StickyContainer";
 import { string } from "utils";
 import { commitChartHeight } from "../constants";
 
@@ -20,17 +22,21 @@ type rolledUpVersion = {
 interface InactiveCommitsProps {
   rolledUpVersions: rolledUpVersion[];
   hasFilters?: boolean;
+  containerRef?: React.RefObject<HTMLDivElement>;
 }
 const InactiveCommits: React.FC<InactiveCommitsProps> = ({
   rolledUpVersions,
   hasFilters = false,
+  containerRef,
 }) => (
   <Container>
     <InactiveCommitLine />
-    <InactiveCommitButton
-      rolledUpVersions={rolledUpVersions}
-      hasFilters={hasFilters}
-    />
+    <StickyContainer containerRef={containerRef} offset={navBarHeight}>
+      <InactiveCommitButton
+        rolledUpVersions={rolledUpVersions}
+        hasFilters={hasFilters}
+      />
+    </StickyContainer>
   </Container>
 );
 const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({

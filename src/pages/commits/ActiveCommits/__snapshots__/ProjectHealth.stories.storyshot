@@ -8,10 +8,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
     className="css-f6c9ue-FlexRowContainer ech0nhv3"
   >
     <div
-      className="css-6yhz1l-Container e1s1lwa10"
+      className="css-1ry038z-Container e1s1lwa10"
     >
       <div
-        className="css-m6knb7-ColumnContainer e1s1lwa11"
+        className="css-1cagedb-ColumnContainer e1s1lwa11"
       >
         <div
           className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
@@ -40,54 +40,60 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             height="16.666666666666664%"
           />
         </div>
+        <div />
         <div
-          className="css-1qv3l5b-LabelContainer e1cz15301"
-          data-cy="commit-label"
+          className="css-1gkww3q-StickyDiv-StickyContainer e1pdm2sm0"
+          offset={64}
         >
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-1qv3l5b-LabelContainer e1cz15301"
+            data-cy="commit-label"
           >
-            <a
-              className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
-              href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks"
-              onClick={[Function]}
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
             >
-              987bf57
-            </a>
-             
-            7/16/21 3:53 PM
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            Jonathan Brill
-             -
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            
-            <a
-              className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
-              href="https://undefined/browse/EVG-14901"
+              <a
+                className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks"
+                onClick={[Function]}
+              >
+                987bf57
+              </a>
+               
+              7/16/21 3:53 PM
+            </div>
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
             >
-              EVG-14901
-            </a>
-             add ssh key to EditSpawnHos...
+              Jonathan Brill
+               -
+            </div>
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            >
+              
+              <a
+                className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+                href="https://undefined/browse/EVG-14901"
+              >
+                EVG-14901
+              </a>
+               add ssh key to EditSpawnHos...
+            </div>
+            <small
+              className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              more
+            </small>
           </div>
-          <small
-            className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
-            onBlur={[Function]}
-            onFocus={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-          >
-            more
-          </small>
         </div>
       </div>
       <div
-        className="css-m6knb7-ColumnContainer e1s1lwa11"
+        className="css-1cagedb-ColumnContainer e1s1lwa11"
       >
         <div
           className="css-8bv1t4-Container ek3nkvx1"
@@ -190,10 +196,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
       </div>
     </div>
     <div
-      className="css-6yhz1l-Container e1s1lwa10"
+      className="css-1ry038z-Container e1s1lwa10"
     >
       <div
-        className="css-m6knb7-ColumnContainer e1s1lwa11"
+        className="css-1cagedb-ColumnContainer e1s1lwa11"
       >
         <div
           className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
@@ -228,47 +234,53 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             height="100%"
           />
         </div>
+        <div />
         <div
-          className="css-1qv3l5b-LabelContainer e1cz15301"
-          data-cy="commit-label"
+          className="css-1gkww3q-StickyDiv-StickyContainer e1pdm2sm0"
+          offset={64}
         >
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-1qv3l5b-LabelContainer e1cz15301"
+            data-cy="commit-label"
           >
-            <a
-              className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
-              href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks"
-              onClick={[Function]}
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
             >
-              a77bd39
-            </a>
-             
-            7/13/21 2:51 PM
+              <a
+                className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks"
+                onClick={[Function]}
+              >
+                a77bd39
+              </a>
+               
+              7/13/21 2:51 PM
+            </div>
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            >
+              Mohamed Khelif
+               -
+            </div>
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            >
+              Triggered From Git Tag 'v2.11.1': v2....
+            </div>
+            <small
+              className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              more
+            </small>
           </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            Mohamed Khelif
-             -
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            Triggered From Git Tag 'v2.11.1': v2....
-          </div>
-          <small
-            className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
-            onBlur={[Function]}
-            onFocus={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-          >
-            more
-          </small>
         </div>
       </div>
       <div
-        className="css-m6knb7-ColumnContainer e1s1lwa11"
+        className="css-1cagedb-ColumnContainer e1s1lwa11"
       >
         <div
           className="css-8bv1t4-Container ek3nkvx1"
@@ -376,29 +388,35 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
       <div
         className="css-1q62izj-InactiveCommitLine ezzuvrx4"
       />
+      <div />
       <div
-        className="leafygreen-ui-cssveg css-ls8suj-ButtonContainer ezzuvrx5"
-        onClick={[Function]}
-        role="button"
+        className="css-1gkww3q-StickyDiv-StickyContainer e1pdm2sm0"
+        offset={64}
       >
-        <small
-          className="css-t2ltce-ButtonText ezzuvrx2 leafygreen-ui-13bqno6"
-          data-cy="inactive-commits-button"
+        <div
+          className="leafygreen-ui-cssveg css-ls8suj-ButtonContainer ezzuvrx5"
+          onClick={[Function]}
+          role="button"
         >
-          <div
-            className="css-hifh5j-TopText ezzuvrx3"
+          <small
+            className="css-t2ltce-ButtonText ezzuvrx2 leafygreen-ui-13bqno6"
+            data-cy="inactive-commits-button"
           >
-            1
-          </div>
-          Inactive
-        </small>
+            <div
+              className="css-hifh5j-TopText ezzuvrx3"
+            >
+              1
+            </div>
+            Inactive
+          </small>
+        </div>
       </div>
     </div>
     <div
-      className="css-6yhz1l-Container e1s1lwa10"
+      className="css-1ry038z-Container e1s1lwa10"
     >
       <div
-        className="css-m6knb7-ColumnContainer e1s1lwa11"
+        className="css-1cagedb-ColumnContainer e1s1lwa11"
       >
         <div
           className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
@@ -421,54 +439,60 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             height="58.333333333333336%"
           />
         </div>
+        <div />
         <div
-          className="css-1qv3l5b-LabelContainer e1cz15301"
-          data-cy="commit-label"
+          className="css-1gkww3q-StickyDiv-StickyContainer e1pdm2sm0"
+          offset={64}
         >
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-1qv3l5b-LabelContainer e1cz15301"
+            data-cy="commit-label"
           >
-            <a
-              className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
-              href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks"
-              onClick={[Function]}
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
             >
-              9c1d1eb
-            </a>
-             
-            7/13/21 2:51 PM
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            Mohamed Khelif
-             -
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            
-            <a
-              className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
-              href="https://undefined/browse/EVG-14799"
+              <a
+                className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks"
+                onClick={[Function]}
+              >
+                9c1d1eb
+              </a>
+               
+              7/13/21 2:51 PM
+            </div>
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
             >
-              EVG-14799
-            </a>
-             Correctly visit configure p...
+              Mohamed Khelif
+               -
+            </div>
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            >
+              
+              <a
+                className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+                href="https://undefined/browse/EVG-14799"
+              >
+                EVG-14799
+              </a>
+               Correctly visit configure p...
+            </div>
+            <small
+              className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              more
+            </small>
           </div>
-          <small
-            className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
-            onBlur={[Function]}
-            onFocus={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-          >
-            more
-          </small>
         </div>
       </div>
       <div
-        className="css-m6knb7-ColumnContainer e1s1lwa11"
+        className="css-1cagedb-ColumnContainer e1s1lwa11"
       >
         <div
           className="css-8bv1t4-Container ek3nkvx1"
@@ -571,10 +595,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
       </div>
     </div>
     <div
-      className="css-6yhz1l-Container e1s1lwa10"
+      className="css-1ry038z-Container e1s1lwa10"
     >
       <div
-        className="css-m6knb7-ColumnContainer e1s1lwa11"
+        className="css-1cagedb-ColumnContainer e1s1lwa11"
       >
         <div
           className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
@@ -597,47 +621,53 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             height="58.333333333333336%"
           />
         </div>
+        <div />
         <div
-          className="css-1qv3l5b-LabelContainer e1cz15301"
-          data-cy="commit-label"
+          className="css-1gkww3q-StickyDiv-StickyContainer e1pdm2sm0"
+          offset={64}
         >
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-1qv3l5b-LabelContainer e1cz15301"
+            data-cy="commit-label"
           >
-            <a
-              className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
-              href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks"
-              onClick={[Function]}
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
             >
-              f7f7f1a
-            </a>
-             
-            7/13/21 2:51 PM
+              <a
+                className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks"
+                onClick={[Function]}
+              >
+                f7f7f1a
+              </a>
+               
+              7/13/21 2:51 PM
+            </div>
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            >
+              Sophie Stadler
+               -
+            </div>
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            >
+              Remove navigation announcement toast ...
+            </div>
+            <small
+              className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              more
+            </small>
           </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            Sophie Stadler
-             -
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            Remove navigation announcement toast ...
-          </div>
-          <small
-            className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
-            onBlur={[Function]}
-            onFocus={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-          >
-            more
-          </small>
         </div>
       </div>
       <div
-        className="css-m6knb7-ColumnContainer e1s1lwa11"
+        className="css-1cagedb-ColumnContainer e1s1lwa11"
       >
         <div
           className="css-8bv1t4-Container ek3nkvx1"
@@ -740,10 +770,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
       </div>
     </div>
     <div
-      className="css-6yhz1l-Container e1s1lwa10"
+      className="css-1ry038z-Container e1s1lwa10"
     >
       <div
-        className="css-m6knb7-ColumnContainer e1s1lwa11"
+        className="css-1cagedb-ColumnContainer e1s1lwa11"
       >
         <div
           className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
@@ -778,47 +808,53 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             height="16.666666666666664%"
           />
         </div>
+        <div />
         <div
-          className="css-1qv3l5b-LabelContainer e1cz15301"
-          data-cy="commit-label"
+          className="css-1gkww3q-StickyDiv-StickyContainer e1pdm2sm0"
+          offset={64}
         >
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-1qv3l5b-LabelContainer e1cz15301"
+            data-cy="commit-label"
           >
-            <a
-              className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
-              href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks"
-              onClick={[Function]}
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
             >
-              211b3a0
-            </a>
-             
-            7/13/21 2:51 PM
+              <a
+                className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks"
+                onClick={[Function]}
+              >
+                211b3a0
+              </a>
+               
+              7/13/21 2:51 PM
+            </div>
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            >
+              Chaya Malik
+               -
+            </div>
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            >
+              Triggered From Git Tag 'v2.11.0': v2....
+            </div>
+            <small
+              className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              more
+            </small>
           </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            Chaya Malik
-             -
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            Triggered From Git Tag 'v2.11.0': v2....
-          </div>
-          <small
-            className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
-            onBlur={[Function]}
-            onFocus={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-          >
-            more
-          </small>
         </div>
       </div>
       <div
-        className="css-m6knb7-ColumnContainer e1s1lwa11"
+        className="css-1cagedb-ColumnContainer e1s1lwa11"
       >
         <div
           className="css-8bv1t4-Container ek3nkvx1"

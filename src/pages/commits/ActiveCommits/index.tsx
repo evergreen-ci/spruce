@@ -1,6 +1,9 @@
-import React from "react";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { uiColors } from "@leafygreen-ui/palette";
 import CommitChartLabel from "components/CommitChartLabel";
+import { navBarHeight } from "components/Header/Navbar";
+import StickyContainer from "components/StickyContainer";
 import { MainlineCommitsQuery } from "gql/generated/types";
 import { ChartTypes } from "types/commits";
 import { shortenGithash } from "utils/string";
@@ -8,6 +11,7 @@ import { BuildVariantCard } from "./BuildVariantCard";
 import { CommitChart } from "./CommitChart";
 import { ColorCount } from "./utils";
 
+const { white } = uiColors;
 interface Props {
   version: MainlineCommitsQuery["mainlineCommits"]["versions"][0]["version"];
   groupedTaskStats: ColorCount[];
@@ -15,6 +19,7 @@ interface Props {
   total: number;
   chartType: ChartTypes;
   hasTaskFilter: boolean;
+  containerRef?: React.RefObject<HTMLDivElement>;
 }
 
 export const ActiveCommit: React.FC<Props> = ({
@@ -24,22 +29,29 @@ export const ActiveCommit: React.FC<Props> = ({
   total,
   chartType,
   hasTaskFilter,
+  containerRef,
 }) => (
   <Container>
-    <ColumnContainer key={version.id}>
+    <ColumnContainer>
       <CommitChart
         groupedTaskStats={groupedTaskStats}
         total={total}
         max={max}
         chartType={chartType}
       />
-      <CommitChartLabel
-        versionId={version.id}
-        githash={shortenGithash(version.revision)}
-        createTime={version.createTime}
-        author={version.author}
-        message={version.message}
-      />
+      <StickyContainer
+        offset={navBarHeight}
+        styles={stickyStyles}
+        containerRef={containerRef}
+      >
+        <CommitChartLabel
+          versionId={version.id}
+          githash={shortenGithash(version.revision)}
+          createTime={version.createTime}
+          author={version.author}
+          message={version.message}
+        />
+      </StickyContainer>
     </ColumnContainer>
     <ColumnContainer>
       {version.buildVariants.map(({ variant, displayName, tasks }) => (
@@ -62,9 +74,16 @@ const ColumnContainer = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 `;
 
 const Container = styled.div`
-  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const stickyStyles = css`
+  background-color: ${white};
+  z-index: 1;
+  width: 203.5px;
 `;
