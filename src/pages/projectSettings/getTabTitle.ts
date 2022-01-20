@@ -34,7 +34,7 @@ export const getTabTitle = (
         title: "Periodic Builds",
       },
       [ProjectSettingsTabRoutes.Plugins]: {
-        title: "Plugins & Annotations",
+        title: "Plugins",
       },
       [ProjectSettingsTabRoutes.EventLog]: {
         title: "Event Log",

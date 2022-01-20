@@ -5,21 +5,23 @@ export interface FormState extends FormDataProps {
     perfEnabled: boolean | null;
   };
   buildBaronSettings: {
+    taskAnnotationSettings: {
+      jiraCustomFields: Array<{
+        field: string;
+        displayText: string;
+      }> | null;
+    };
+    useBuildBaron: boolean | null;
     ticketSearchProjects: Array<{
       searchProject: string;
     }> | null;
-    ticketCreateProject: string | null;
-    customTicket: boolean | null;
-  };
-  taskAnnotationSettings: {
+    ticketCreateProject: {
+      createProject: string | null;
+    };
     fileTicketWebhook: {
       endpoint: string | null;
       secret: string | null;
     } | null;
-    jiraCustomFields: Array<{
-      field: string;
-      displayText: string;
-    }> | null;
   };
 }
 

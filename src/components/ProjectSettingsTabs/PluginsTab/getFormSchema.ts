@@ -36,51 +36,10 @@ export const getFormSchema = (
         type: "object" as "object",
         title: "Build Baron and Task Annotations",
         properties: {
-          ticketSearchProjects: {
-            type: "array" as "array",
-            title: "Ticket Search Projects",
-            items: {
-              type: "object" as "object",
-              properties: {
-                searchProject: {
-                  type: "string" as "string",
-                  title: "Search Project",
-                },
-              },
-            },
-          },
-          customTicket: {
-            type: "boolean" as "boolean",
-            oneOf: radioBoxOptions(
-              ["Custom Ticket Creation", "JIRA Ticket Creation"],
-              undefined
-            ),
-          },
-          ticketCreateProject: {
-            type: "string" as "string",
-            title: "Ticket Create Project",
-          },
           taskAnnotationSettings: {
-            title:
-              formData?.buildBaronSettings.customTicket === true
-                ? "Custom Ticket Creation"
-                : "",
+            title: "",
             type: "object" as "object",
             properties: {
-              fileTicketWebhook: {
-                type: "object" as "object",
-                title: "",
-                properties: {
-                  endpoint: {
-                    type: ["string", "null"],
-                    title: "Webhook Endpoint",
-                  },
-                  secret: {
-                    type: ["string", "null"],
-                    title: "Webhook Secret",
-                  },
-                },
-              },
               jiraCustomFields: {
                 type: "array" as "array",
                 title: "Custom Jira Fields",
@@ -100,6 +59,54 @@ export const getFormSchema = (
               },
             },
           },
+          useBuildBaron: {
+            type: "boolean" as "boolean",
+            oneOf: radioBoxOptions(
+              [
+                "Build Baron Ticket Search and Create",
+                "Custom Ticket Creation",
+              ],
+              undefined
+            ),
+          },
+          ticketSearchProjects: {
+            type: "array" as "array",
+            title: "Ticket Search Projects",
+            items: {
+              type: "object" as "object",
+              properties: {
+                searchProject: {
+                  type: "string" as "string",
+                  title: "Search Project",
+                },
+              },
+            },
+          },
+          ticketCreateProject: {
+            type: "object" as "object",
+            title: "Ticket Create Project",
+            properties: {
+              createProject: {
+                type: "string" as "string",
+                title: "",
+              },
+            },
+          },
+
+          fileTicketWebhook: {
+            type: "object" as "object",
+            title: "Custom Ticket Creation",
+            properties: {
+              endpoint: {
+                type: ["string", "null"],
+                title: "Webhook Endpoint",
+              },
+              secret: {
+                type: ["string", "null"],
+                title: "Webhook Secret",
+              },
+            },
+          },
         },
       },
     },
@@ -115,35 +122,6 @@ export const getFormSchema = (
     buildBaronSettings: {
       "ui:rootFieldId": "buildBaron",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
-      ticketSearchProjects: {
-        "ui:description":
-          "Specify an existing JIRA project to search for tickets related to a failing task",
-        ...placeholderIf(
-          repoData?.projectPluginsSettings?.buildBaronSettings
-            ?.ticketSearchProjects
-        ),
-        "ui:buttonText": "Add Search Project",
-        options: {
-          useRepoSettings,
-        },
-      },
-      customTicket: {
-        "ui:widget": widgets.RadioBoxWidget,
-        "ui:showLabel": false,
-        "ui:data-cy": "enabled-radio-box",
-      },
-      ticketCreateProject: {
-        "ui:description":
-          "Specify an existing JIRA project to create tickets in when the File Ticket button is clicked on a failing task.",
-        ...placeholderIf(
-          repoData?.projectPluginsSettings?.buildBaronSettings
-            ?.ticketCreateProject
-        ),
-        ...hiddenIf(formData?.buildBaronSettings.customTicket === true),
-        options: {
-          useRepoSettings,
-        },
-      },
       taskAnnotationSettings: {
         "ui:rootFieldId": "taskAnnotation",
         jiraCustomFields: {
@@ -153,28 +131,57 @@ export const getFormSchema = (
             repoData?.projectPluginsSettings?.taskAnnotationSettings
               ?.jiraCustomFields
           ),
-          "ui:fullWidth": true,
           "ui:buttonText": "Add custom Jira field",
           options: {
             useRepoSettings,
           },
         },
-        fileTicketWebhook: {
-          ...hiddenIf(formData?.buildBaronSettings.customTicket !== true),
-          "ui:description":
-            "Specify the endpoint and secret for a custom webhook to be called when the File Ticket button is clicked on a failing task.",
-          endpoint: {
-            ...placeholderIf(
-              repoData?.projectPluginsSettings?.buildBaronSettings
-                ?.fileTicketWebhook?.endpoint
-            ),
-          },
-          secret: {
-            ...placeholderIf(
-              repoData?.projectPluginsSettings?.buildBaronSettings
-                ?.fileTicketWebhook?.secret
-            ),
-          },
+      },
+      useBuildBaron: {
+        "ui:widget": widgets.RadioBoxWidget,
+        "ui:showLabel": false,
+        "ui:data-cy": "enabled-radio-box",
+      },
+      ticketSearchProjects: {
+        "ui:description":
+          "Specify an existing JIRA project to search for tickets related to a failing task",
+        ...placeholderIf(
+          repoData?.projectPluginsSettings?.buildBaronSettings
+            ?.ticketSearchProjects
+        ),
+        ...hiddenIf(formData?.buildBaronSettings.useBuildBaron !== true),
+        "ui:buttonText": "Add Search Project",
+        options: {
+          useRepoSettings,
+        },
+      },
+      ticketCreateProject: {
+        "ui:description":
+          "Specify an existing JIRA project to create tickets in when the File Ticket button is clicked on a failing task.",
+        ...placeholderIf(
+          repoData?.projectPluginsSettings?.buildBaronSettings
+            ?.ticketCreateProject
+        ),
+        ...hiddenIf(formData?.buildBaronSettings.useBuildBaron !== true),
+        options: {
+          useRepoSettings,
+        },
+      },
+      fileTicketWebhook: {
+        ...hiddenIf(formData?.buildBaronSettings.useBuildBaron === true),
+        "ui:description":
+          "Specify the endpoint and secret for a custom webhook to be called when the File Ticket button is clicked on a failing task.",
+        endpoint: {
+          ...placeholderIf(
+            repoData?.projectPluginsSettings?.buildBaronSettings
+              ?.fileTicketWebhook?.endpoint
+          ),
+        },
+        secret: {
+          ...placeholderIf(
+            repoData?.projectPluginsSettings?.buildBaronSettings
+              ?.fileTicketWebhook?.secret
+          ),
         },
       },
     },

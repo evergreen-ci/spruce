@@ -30,7 +30,7 @@ export const projectBase: ProjectSettingsQuery["projectSettings"] = {
     private: null,
     restricted: true,
     admins: [],
-    perfEnabled: null,
+    perfEnabled: true,
     buildBaronSettings: {
       ticketCreateProject: null,
       ticketSearchProjects: [],

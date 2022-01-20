@@ -28,15 +28,17 @@ describe("project data", () => {
 
 const projectForm: FormState = {
   performanceSettings: {
-    perfEnabled: null,
+    perfEnabled: true,
   },
   buildBaronSettings: {
-    ticketCreateProject: null,
+    ticketCreateProject: {
+      createProject: null,
+    },
     ticketSearchProjects: [],
-    customTicket: true,
-  },
-  taskAnnotationSettings: {
-    jiraCustomFields: [],
+    useBuildBaron: false,
+    taskAnnotationSettings: {
+      jiraCustomFields: [],
+    },
     fileTicketWebhook: {
       endpoint: null,
       secret: null,
@@ -47,15 +49,13 @@ const projectForm: FormState = {
 const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
   projectRef: {
     id: "project",
-
-    perfEnabled: null,
-    buildBaronSettings: {
-      ticketCreateProject: null,
-      ticketSearchProjects: [],
-    },
+    perfEnabled: true,
     taskAnnotationSettings: {
       jiraCustomFields: [],
-      fileTicketWebhook: null,
+      fileTicketWebhook: {
+        endpoint: null,
+        secret: null,
+      },
     },
   },
 };
@@ -70,21 +70,22 @@ const repoForm: FormState = {
         searchProject: "EVG",
       },
     ],
-    ticketCreateProject: "EVG",
-    customTicket: false,
-  },
-  taskAnnotationSettings: {
+    ticketCreateProject: {
+      createProject: "EVG",
+    },
+    useBuildBaron: false,
+    taskAnnotationSettings: {
+      jiraCustomFields: [
+        {
+          field: "customField",
+          displayText: "Custom Field",
+        },
+      ],
+    },
     fileTicketWebhook: {
       endpoint: "endpoint",
       secret: "secret",
     },
-
-    jiraCustomFields: [
-      {
-        field: "customField",
-        displayText: "Custom Field",
-      },
-    ],
   },
 };
 
@@ -92,10 +93,6 @@ const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
   projectRef: {
     id: "repo",
     perfEnabled: true,
-    buildBaronSettings: {
-      ticketCreateProject: "EVG",
-      ticketSearchProjects: ["EVG"],
-    },
     taskAnnotationSettings: {
       jiraCustomFields: [
         {
