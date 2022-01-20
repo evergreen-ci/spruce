@@ -2,7 +2,7 @@ import { Field } from "@rjsf/core";
 import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { aliasRowUiSchema } from "../AliasRow";
+import { AliasRow } from "../AliasRow";
 import { overrideRadioBox, radioBoxOptions } from "../utils";
 import { FormState } from "./types";
 
@@ -191,7 +191,9 @@ export const getFormSchema = (
         "ui:widget": widgets.RadioBoxWidget,
       },
       prTesting: {
-        "ui:disabled": !formData?.github?.prTestingEnabled,
+        "ui:disabled": useRepoSettings
+          ? !repoData?.github?.prTestingEnabled
+          : !formData?.github?.prTestingEnabled,
         githubPrAliasesOverride: {
           ...overrideStyling(repoData?.github?.prTesting?.githubPrAliases),
         },
@@ -285,4 +287,64 @@ export const getFormSchema = (
 const overrideStyling = (field) => ({
   "ui:widget": field === undefined ? "hidden" : widgets.RadioBoxWidget,
   "ui:showLabel": false,
+});
+
+type AliasRowUIParams = {
+  accordionTitle: string;
+  addButtonText?: string;
+  isRepo?: boolean;
+};
+
+const aliasRowUiSchema = ({
+  accordionTitle = "Definition",
+  addButtonText,
+  isRepo = false,
+}: AliasRowUIParams) => ({
+  "ui:showLabel": false,
+  "ui:topAlignDelete": true,
+  ...(addButtonText && { "ui:addButtonText": addButtonText }),
+  ...(isRepo && {
+    "ui:readonly": true,
+    "ui:showLabel": false,
+  }),
+  items: {
+    "ui:ObjectFieldTemplate": AliasRow,
+    "ui:accordionTitle": accordionTitle,
+    id: {
+      "ui:widget": "hidden",
+    },
+    alias: {
+      "ui:widget": "hidden",
+    },
+    variant: {
+      "ui:ariaLabelledBy": "variant-input-control",
+      "ui:data-cy": "variant-input",
+      "ui:placeholder": "Golang Regex",
+    },
+    variantTags: {
+      "ui:addButtonSize": "xsmall",
+      "ui:addButtonText": "Add Variant Tag",
+      "ui:fullWidth": true,
+      "ui:showLabel": false,
+      items: {
+        "ui:ariaLabelledBy": "variant-input-control",
+        "ui:data-cy": "variant-tags-input",
+      },
+    },
+    task: {
+      "ui:ariaLabelledBy": "task-input-control",
+      "ui:data-cy": "task-input",
+      "ui:placeholder": "Golang Regex",
+    },
+    taskTags: {
+      "ui:addButtonSize": "xsmall",
+      "ui:addButtonText": "Add Task Tag",
+      "ui:fullWidth": true,
+      "ui:showLabel": false,
+      items: {
+        "ui:ariaLabelledBy": "variant-input-control",
+        "ui:data-cy": "task-tags-input",
+      },
+    },
+  },
 });

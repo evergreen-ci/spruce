@@ -20,12 +20,14 @@ const TaskInput: Record<string, string> = {
 
 // Extract index of the current field via its ID
 const getIndex = (id: string): number => {
+  if (!id) return null;
+
   const stringIndex = id.substring(id.lastIndexOf("_") + 1);
   const index = Number(stringIndex);
   return Number.isInteger(index) ? index : null;
 };
 
-const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
+export const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
   disabled,
   formData,
   idSchema,
@@ -76,7 +78,7 @@ const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
           <TaskRegexContainer>
             <StyledSegmentedControl
               label="Variant"
-              id="variant-input"
+              id="variant-input-control"
               value={variantInput}
               onChange={(value) => {
                 setVariantInput(value);
@@ -107,7 +109,7 @@ const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
           <TaskRegexContainer>
             <StyledSegmentedControl
               label="Task"
-              id="task-input"
+              id="task-input-control"
               value={taskInput}
               onChange={(value) => {
                 setTaskInput(value);
@@ -117,22 +119,22 @@ const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
               <SegmentedControlOption
                 value={TaskInput.Tags}
                 disabled={isDisabled}
-                aria-controls={`${TaskInput.Tags}-input`}
+                aria-controls={`${TaskInput.Tags}-field`}
               >
                 Tags
               </SegmentedControlOption>
               <SegmentedControlOption
                 value={TaskInput.Regex}
                 disabled={isDisabled}
-                aria-controls={`${TaskInput.Regex}-input`}
+                aria-controls={`${TaskInput.Regex}-field`}
               >
                 Regex
               </SegmentedControlOption>
             </StyledSegmentedControl>
             {taskInput === TaskInput.Tags ? (
-              <div id={`${TaskInput.Tags}-input`}>{taskTags.content}</div>
+              <div id={`${TaskInput.Tags}-field`}>{taskTags.content}</div>
             ) : (
-              <div id={`${TaskInput.Regex}-input`}>{task.content}</div>
+              <div id={`${TaskInput.Regex}-field`}>{task.content}</div>
             )}
           </TaskRegexContainer>
         </div>
@@ -155,59 +157,3 @@ const TaskRegexContainer = styled.div`
 const StyledSegmentedControl = styled(SegmentedControl)`
   margin-bottom: 12px;
 `;
-
-type AliasRowUIParams = {
-  accordionTitle: string;
-  addButtonText?: string;
-  isRepo?: boolean;
-};
-
-export const aliasRowUiSchema = ({
-  accordionTitle = "Definition",
-  addButtonText,
-  isRepo = false,
-}: AliasRowUIParams) => ({
-  "ui:showLabel": false,
-  "ui:topAlignDelete": true,
-  ...(addButtonText && { "ui:addButtonText": addButtonText }),
-  ...(isRepo && {
-    "ui:readonly": true,
-    "ui:showLabel": false,
-  }),
-  items: {
-    "ui:ObjectFieldTemplate": AliasRow,
-    "ui:accordionTitle": accordionTitle,
-    id: {
-      "ui:widget": "hidden",
-    },
-    alias: {
-      "ui:widget": "hidden",
-    },
-    variant: {
-      "ui:ariaLabelledBy": "variant-input",
-      "ui:placeholder": "Golang Regex",
-    },
-    variantTags: {
-      "ui:addButtonSize": "xsmall",
-      "ui:addButtonText": "Add Variant Tag",
-      "ui:fullWidth": true,
-      "ui:showLabel": false,
-      items: {
-        "ui:ariaLabelledBy": "variant-input",
-      },
-    },
-    task: {
-      "ui:ariaLabelledBy": "task-input",
-      "ui:placeholder": "Golang Regex",
-    },
-    taskTags: {
-      "ui:addButtonSize": "xsmall",
-      "ui:addButtonText": "Add Task Tag",
-      "ui:fullWidth": true,
-      "ui:showLabel": false,
-      items: {
-        "ui:ariaLabelledBy": "variant-input",
-      },
-    },
-  },
-});

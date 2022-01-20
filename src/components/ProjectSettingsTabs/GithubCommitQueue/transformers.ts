@@ -8,12 +8,31 @@ enum AliasTypes {
   GitTag = "__git_tag",
 }
 
+export const mergeProjectRepo = (
+  projectData: FormState,
+  repoData: FormState
+): FormState => {
+  // Merge project and repo objects so that repo config can be displayed on project pages
+  const {
+    github: { prTesting, githubChecks, users, teams },
+  } = repoData;
+  const mergedObject: FormState = projectData;
+  mergedObject.github.prTesting.repoData = prTesting;
+  mergedObject.github.githubChecks.repoData = githubChecks;
+  mergedObject.github.users.repoData = users;
+  mergedObject.github.teams.repoData = teams;
+  return mergedObject;
+};
+
 export const gqlToForm: GqlToFormFunction = (data): FormState => {
   if (!data) return null;
 
   const { projectRef, aliases } = data;
+
+  const isRepo = Object.prototype.hasOwnProperty.call(data, "useRepoSettings");
+
   // @ts-ignore
-  const { useRepoSettings = false } = projectRef;
+  const useRepoSettings = isRepo ? false : projectRef.useRepoSettings;
 
   const { githubPrAliases, githubCheckAliases } = aliases.reduce(
     (o, a) => {
