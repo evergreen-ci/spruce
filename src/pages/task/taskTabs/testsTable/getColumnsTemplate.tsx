@@ -23,6 +23,10 @@ interface GetColumnsTemplateParams {
   onColumnHeaderClick?: (sortField) => void;
   statusSelectorProps: TreeSelectProps;
   testNameInputProps: InputFilterProps;
+  task: {
+    name: string;
+    projectIdentifier: string;
+  };
 }
 
 export const getColumnsTemplate = ({
@@ -30,6 +34,7 @@ export const getColumnsTemplate = ({
   onColumnHeaderClick = () => undefined,
   statusSelectorProps,
   testNameInputProps,
+  task,
 }: GetColumnsTemplateParams): ColumnProps<TestResult>[] => [
   {
     title: <span data-cy="name-column">Name</span>,
@@ -100,7 +105,7 @@ export const getColumnsTemplate = ({
     key: "logs",
     sorter: false,
     render: (a, b): JSX.Element => (
-      <LogsColumn taskAnalytics={taskAnalytics} testResult={b} />
+      <LogsColumn taskAnalytics={taskAnalytics} testResult={b} task={task} />
     ),
   },
 ];
