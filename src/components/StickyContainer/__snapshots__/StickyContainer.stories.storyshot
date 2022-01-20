@@ -1,0 +1,319 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`storybook Storyshots Sticky Container Sticky Container Story 1`] = `
+<div
+  className="css-sou4fc-Page e1h2hjem0"
+>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div />
+  <div
+    className="css-1gkww3q-StickyDiv-StickyContainer e1pdm2sm0"
+    offset={0}
+  >
+    <div
+      className="css-16bmt0k-StickyElement e1h2hjem1"
+    >
+      I am supposed to stick
+    </div>
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+  <div>
+    Some Element
+  </div>
+</div>
+`;
