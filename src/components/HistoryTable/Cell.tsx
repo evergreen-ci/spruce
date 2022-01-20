@@ -3,6 +3,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Skeleton } from "antd";
 import { Link } from "react-router-dom";
+import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { inactiveElementStyle, StyledRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { TaskStatus } from "types/task";
@@ -77,20 +78,21 @@ export const ColumnHeaderCell: React.FC<ColumnHeaderCellProps> = ({
   fullDisplayName,
 }) => (
   <HeaderCell data-cy="header-cell">
-    {trimmedDisplayName === fullDisplayName ? (
-      <StyledRouterLink to={link}>{fullDisplayName}</StyledRouterLink>
-    ) : (
-      <Tooltip
-        align="top"
-        justify="middle"
-        trigger={
-          <StyledRouterLink to={link}>{trimmedDisplayName}</StyledRouterLink>
-        }
-        triggerEvent="hover"
-      >
-        {fullDisplayName}
-      </Tooltip>
-    )}
+    <ConditionalWrapper
+      condition={trimmedDisplayName !== fullDisplayName}
+      wrapper={(children) => (
+        <Tooltip
+          align="top"
+          justify="middle"
+          trigger={children}
+          triggerEvent="hover"
+        >
+          {fullDisplayName}
+        </Tooltip>
+      )}
+    >
+      <StyledRouterLink to={link}>{trimmedDisplayName}</StyledRouterLink>
+    </ConditionalWrapper>
   </HeaderCell>
 );
 

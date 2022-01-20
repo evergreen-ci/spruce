@@ -288,7 +288,7 @@ describe("shortenGithash", () => {
 
 describe("trimMiddleText", () => {
   it("trims middle text according to specified params", () => {
-    expect(trimMiddleText("task_name", 7, 3)).toBe("task...ame");
+    expect(trimMiddleText("task_name", 7, 3)).toBe("t...ame");
   });
   it("doesn't trim middle text if original text is smaller than maxLength specified", () => {
     expect(trimMiddleText("task_name", 10, 1)).toBe("task_name");

@@ -169,7 +169,8 @@ export const applyStrictRegex = (str: string) => `^${str}$`;
 export const shortenGithash = (str: string) => str?.substring(0, 7);
 
 /**
- * Function that trims the middle portion of a string. ex: "Hello" -> "He...lo"
+ * Function that trims the middle portion of a string. ex: "EvergreenUI" -> "Ev...UI"
+ * If a string is longer than maxLength, it gets cropped exactly to maxLength.
  * @param {string} text - Text to trim
  * @param {number} maxLength - Max length before trimming text
  * @param {number} trailingLength - Desired length of trailing text
@@ -180,11 +181,13 @@ export const trimMiddleText = (
   maxLength: number,
   trailingLength: number
 ): string => {
+  const ellipsis = "...";
   if (text.length > maxLength) {
-    // eslint-disable-next-line
-    return `${text.substring(0, maxLength - trailingLength)}...${text.substring(
-      text.length - trailingLength
-    )}`;
+    return (
+      text.substring(0, maxLength - trailingLength - ellipsis.length) +
+      ellipsis +
+      text.substring(text.length - trailingLength)
+    );
   }
   return text;
 };

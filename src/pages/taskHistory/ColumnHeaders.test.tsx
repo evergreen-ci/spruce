@@ -1,4 +1,3 @@
-import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import { context } from "components/HistoryTable";
 import { HistoryTableReducerState } from "components/HistoryTable/historyTableContextReducer";
 import {
@@ -30,16 +29,13 @@ const initialState: HistoryTableReducerState = {
 
 interface wrapperProps {
   children: React.ReactNode;
-  mocks?: MockedResponse[];
   state?: Partial<HistoryTableReducerState>;
 }
 
-const wrapper: React.FC<wrapperProps> = ({ children, mocks = [], state }) => (
-  <MockedProvider mocks={mocks}>
-    <HistoryTableProvider initialState={{ ...initialState, ...state }}>
-      {children}
-    </HistoryTableProvider>
-  </MockedProvider>
+const wrapper: React.FC<wrapperProps> = ({ children, state }) => (
+  <HistoryTableProvider initialState={{ ...initialState, ...state }}>
+    {children}
+  </HistoryTableProvider>
 );
 
 describe("columnHeaders (Task History)", () => {
