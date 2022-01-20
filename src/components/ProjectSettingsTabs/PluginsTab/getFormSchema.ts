@@ -24,7 +24,7 @@ export const getFormSchema = (
         properties: {
           perfEnabled: {
             type: ["boolean", "null"],
-            title: "Build-break Notifications",
+            title: "",
             oneOf: radioBoxOptions(
               ["Enabled", "Disabled"],
               repoData?.performanceSettings?.perfEnabled
