@@ -76,13 +76,14 @@ export const Navbar: React.FC = () => {
   );
 };
 
+export const navBarHeight = 64;
 const StyledNav = styled.nav`
   align-items: center;
   background-color: ${gray.dark3};
   display: flex;
   justify-content: space-between;
-  height: 64px;
-  line-height: 64px;
+  height: ${navBarHeight}px;
+  line-height: ${navBarHeight}px;
   padding: 0 36px;
 `;
 
