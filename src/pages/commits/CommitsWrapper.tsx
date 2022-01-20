@@ -6,12 +6,11 @@ import { MainlineCommitsQuery } from "gql/generated/types";
 import { ChartTypes } from "types/commits";
 import { ChartToggle } from "./ActiveCommits/ChartToggle";
 import { Grid } from "./ActiveCommits/Grid";
-import { ActiveCommit } from "./ActiveCommits/index";
 import {
   getAllTaskStatsGroupedByColor,
   findMaxGroupedTaskStats,
 } from "./ActiveCommits/utils";
-import InactiveCommits from "./InactiveCommits";
+import { RenderCommitsChart, getCommitKey } from "./RenderCommit";
 
 interface Props {
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
@@ -45,6 +44,7 @@ export const CommitsWrapper: React.FC<Props> = ({
     }
     return undefined;
   }, [versionToGroupedTaskStatsMap]);
+
   const { max } = maxGroupedTaskStats || {};
   if (error) {
     return (
@@ -60,27 +60,17 @@ export const CommitsWrapper: React.FC<Props> = ({
     return (
       <ProjectHealthWrapper>
         <FlexRowContainer numCommits={versions.length}>
-          {versions.map(({ version, rolledUpVersions }) =>
-            version ? (
-              <ActiveCommit
-                key={version.id}
-                version={version}
-                chartType={chartType}
-                total={versionToGroupedTaskStatsMap[version.id].total}
-                max={max}
-                groupedTaskStats={
-                  versionToGroupedTaskStatsMap[version.id].stats
-                }
-                hasTaskFilter={hasTaskFilter}
-              />
-            ) : (
-              <InactiveCommits
-                key={rolledUpVersions[0].id}
-                hasFilters={hasFilters}
-                rolledUpVersions={rolledUpVersions}
-              />
-            )
-          )}
+          {versions.map((commit) => (
+            <RenderCommitsChart
+              hasTaskFilter={hasTaskFilter}
+              key={getCommitKey(commit)}
+              commit={commit}
+              chartType={chartType}
+              hasFilter={hasFilters}
+              max={max}
+              groupedResult={versionToGroupedTaskStatsMap}
+            />
+          ))}
         </FlexRowContainer>
         <Grid numDashedLine={5} />
         <ChartToggle
@@ -105,8 +95,8 @@ export const FlexRowContainer = styled.div<{ numCommits: number }>`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  margin-top: 65px;
-  padding: 0px 12px 0px 9px;
+  margin-top: 64px;
+  padding: 0px 16px 0px 8px;
   position: absolute;
 `;
 
@@ -125,7 +115,6 @@ export const ColumnContainer = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  margin-bottom: 40px;
 `;
 
 const NoResults = styled.div`
