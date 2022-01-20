@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import {
   ArrayFieldTemplateProps,
+  FieldProps,
   FieldTemplateProps,
   ObjectFieldTemplateProps,
 } from "@rjsf/core";
@@ -24,7 +25,9 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
 }) => {
   const isNullType = schema.type === "null";
   // fields is incorrectly typed in FieldTemplateProps, so cast to avoid type error
-  const { TitleField } = fields as any;
+  const { TitleField } = (fields as unknown) as {
+    TitleField: React.StatelessComponent<Partial<FieldProps>>;
+  };
   const { "ui:sectionTitle": sectionTitle = false } = uiSchema;
   return (
     !hidden && (
@@ -133,7 +136,7 @@ type ArrayContainerProps = {
 };
 
 const ArrayContainer = styled.div`
-  ${({ hasChildren }) => hasChildren && "margin-buttom: 24px;"}
+  ${({ hasChildren }) => hasChildren && "margin-bottom: 24px;"}
   min-width: min-content;
   width: ${({ fullWidth }: ArrayContainerProps): string =>
     fullWidth ? "100%" : "60%"};

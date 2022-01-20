@@ -409,7 +409,7 @@ exports[`spruceForm should render as expected 1`] = `
 }
 
 .emotion-36 {
-  margin-buttom: 24px;
+  margin-bottom: 24px;
   min-width: -webkit-min-content;
   min-width: -moz-min-content;
   min-width: min-content;
