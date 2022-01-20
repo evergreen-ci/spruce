@@ -1,9 +1,6 @@
 import { context } from "components/HistoryTable";
 import { HistoryTableReducerState } from "components/HistoryTable/historyTableContextReducer";
-import {
-  variantHistoryMaxLength as maxLength,
-  variantHistoryTrailingLength as trailingLength,
-} from "constants/history";
+import { variantHistoryMaxLength as maxLength } from "constants/history";
 import {
   fireEvent,
   renderWithRouterMatch as render,
@@ -12,10 +9,10 @@ import {
 import { string } from "utils";
 import ColumnHeaders from "./ColumnHeaders";
 
-const { trimMiddleText } = string;
+const { trimStringFromMiddle } = string;
 const { HistoryTableProvider } = context;
 const longTaskName = "really_really_really_really_really_really_long_task_name";
-const trimmedTaskName = trimMiddleText(longTaskName, maxLength, trailingLength);
+const trimmedTaskName = trimStringFromMiddle(longTaskName, maxLength);
 
 const initialState: HistoryTableReducerState = {
   loadedCommits: [],

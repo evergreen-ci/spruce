@@ -1,14 +1,11 @@
 import styled from "@emotion/styled";
 import { context, Cell } from "components/HistoryTable";
-import {
-  taskHistoryMaxLength as maxLength,
-  taskHistoryTrailingLength as trailingLength,
-} from "constants/history";
+import { taskHistoryMaxLength as maxLength } from "constants/history";
 import { getVariantHistoryRoute } from "constants/routes";
 import { array, string } from "utils";
 
 const { convertArrayToObject } = array;
-const { trimMiddleText } = string;
+const { trimStringFromMiddle } = string;
 const { useHistoryTable } = context;
 const { LoadingCell, ColumnHeaderCell } = Cell;
 
@@ -39,10 +36,9 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
           <ColumnHeaderCell
             key={`header_cell_${cell.displayName}`}
             link={getVariantHistoryRoute(projectId, cell.buildVariant)}
-            trimmedDisplayName={trimMiddleText(
+            trimmedDisplayName={trimStringFromMiddle(
               cell.displayName,
-              maxLength,
-              trailingLength
+              maxLength
             )}
             fullDisplayName={cell.displayName}
           />

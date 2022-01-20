@@ -6,7 +6,7 @@ import {
   getDateCopy,
   applyStrictRegex,
   shortenGithash,
-  trimMiddleText,
+  trimStringFromMiddle,
 } from ".";
 
 describe("msToDuration", () => {
@@ -286,11 +286,12 @@ describe("shortenGithash", () => {
   });
 });
 
-describe("trimMiddleText", () => {
+describe("trimStringFromMiddle", () => {
   it("trims middle text according to specified params", () => {
-    expect(trimMiddleText("task_name", 7, 3)).toBe("t...ame");
+    expect(trimStringFromMiddle("task_name", 4)).toBe("ta...me"); // odd length
+    expect(trimStringFromMiddle("task_name2", 4)).toBe("ta...e2"); // even length
   });
   it("doesn't trim middle text if original text is smaller than maxLength specified", () => {
-    expect(trimMiddleText("task_name", 10, 1)).toBe("task_name");
+    expect(trimStringFromMiddle("task_name", 10)).toBe("task_name");
   });
 });

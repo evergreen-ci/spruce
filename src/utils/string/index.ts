@@ -170,24 +170,26 @@ export const shortenGithash = (str: string) => str?.substring(0, 7);
 
 /**
  * Function that trims the middle portion of a string. ex: "EvergreenUI" -> "Ev...UI"
- * If a string is longer than maxLength, it gets cropped exactly to maxLength.
+ * The resulting length, if trimmed, is maxLength + 3 (due to ellipsis length).
  * @param {string} text - Text to trim
  * @param {number} maxLength - Max length before trimming text
- * @param {number} trailingLength - Desired length of trailing text
  * @return {string} The original or trimmed text.
  */
-export const trimMiddleText = (
-  text: string,
-  maxLength: number,
-  trailingLength: number
-): string => {
+export const trimStringFromMiddle = (text: string, maxLength: number) => {
   const ellipsis = "...";
-  if (text.length > maxLength) {
-    return (
-      text.substring(0, maxLength - trailingLength - ellipsis.length) +
-      ellipsis +
-      text.substring(text.length - trailingLength)
-    );
+  const numCharsToRemove = text.length - maxLength;
+
+  // if ellipsis would just make the string longer/same, just return original string
+  if (numCharsToRemove <= ellipsis.length) {
+    return text;
   }
-  return text;
+
+  const midpoint = Math.floor(text.length / 2);
+  const frontOffset = Math.floor(numCharsToRemove / 2);
+  const backOffset = Math.ceil(numCharsToRemove / 2);
+  return (
+    text.substring(0, midpoint - frontOffset) +
+    ellipsis +
+    text.substring(midpoint + backOffset)
+  );
 };
