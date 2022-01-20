@@ -12,7 +12,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
   >
     <form
       className="rjsf"
-      noValidate={false}
+      noValidate={true}
       onSubmit={[Function]}
     >
       <div
@@ -136,10 +136,10 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
               </button>
             </div>
             <div
-              className="css-1iijkzv-ArrayContainer e7smmlm2"
+              className="css-18s7j4r-ArrayContainer e7smmlm1"
             >
               <div
-                className="css-scktrh-ArrayItemRow e7smmlm1"
+                className="css-1hhgr19-ArrayItemRow e7smmlm2"
               >
                 <div
                   className="form-group field field-object"
@@ -252,7 +252,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                   </fieldset>
                 </div>
                 <div
-                  className="css-1w3q9da-ElementWrapper-DeleteButtonWrapper e7smmlm0"
+                  className="css-x2ce4n-ElementWrapper-DeleteButtonWrapper e7smmlm0"
                 >
                   <button
                     aria-disabled={false}
@@ -346,7 +346,7 @@ exports[`storybook Storyshots Spruce Form Example 2 1`] = `
   >
     <form
       className="rjsf"
-      noValidate={false}
+      noValidate={true}
       onSubmit={[Function]}
     >
       <div
@@ -632,7 +632,7 @@ exports[`storybook Storyshots Spruce Form Example 3 1`] = `
   >
     <form
       className="rjsf"
-      noValidate={false}
+      noValidate={true}
       onSubmit={[Function]}
     >
       <div
