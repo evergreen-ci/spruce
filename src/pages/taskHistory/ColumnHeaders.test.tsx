@@ -11,7 +11,8 @@ import ColumnHeaders from "./ColumnHeaders";
 
 const { trimStringFromMiddle } = string;
 const { HistoryTableProvider } = context;
-const longVariantName = "really_really_really_really_really_long_variant_name";
+const longVariantName =
+  "really_really_really_really_really_really_long_variant_name";
 const trimmedVariantName = trimStringFromMiddle(longVariantName, maxLength);
 
 const initialState: HistoryTableReducerState = {
