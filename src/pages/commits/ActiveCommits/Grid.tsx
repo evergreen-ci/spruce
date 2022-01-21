@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 
@@ -19,10 +18,10 @@ export const Grid: React.FC<{
 
 const ColumnContainer = styled.div`
   position: absolute;
+  top: 0;
   width: 100%;
   height: 226px;
   display: flex;
-  margin-top: 65px;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
