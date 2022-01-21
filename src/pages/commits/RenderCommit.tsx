@@ -1,12 +1,11 @@
-import React from "react";
-import { MainlineCommitsQuery } from "gql/generated/types";
-import { ChartTypes } from "types/commits";
-import { ActiveCommit } from "./ActiveCommits";
+import { ChartTypes, Commit } from "types/commits";
+import {
+  ActiveCommitChart,
+  ActiveCommitLabel,
+  BuildVariantContainer,
+} from "./ActiveCommits";
 import { GroupedResult } from "./ActiveCommits/utils";
-import InactiveCommits from "./InactiveCommits";
-
-type Commits = MainlineCommitsQuery["mainlineCommits"]["versions"];
-type Commit = Commits[0];
+import { InactiveCommitsLine, InactiveCommitButton } from "./InactiveCommits";
 
 type ActiveCommitProps = {
   groupedResult: { [key: string]: GroupedResult };
@@ -15,9 +14,7 @@ type ActiveCommitProps = {
   hasTaskFilter: boolean;
 };
 
-// type InactiveCommitProps = React.ComponentProps<typeof InactiveCommits>;
 type RenderCommitsChartProps = ActiveCommitProps & {
-  hasFilter: boolean;
   commit: Commit;
 };
 
@@ -25,32 +22,66 @@ const RenderCommitsChart: React.FC<RenderCommitsChartProps> = ({
   commit,
   chartType,
   groupedResult,
-  hasFilter,
-  hasTaskFilter,
   max,
 }) => {
   const { version, rolledUpVersions } = commit;
 
   if (version) {
     return (
-      <ActiveCommit
-        version={version}
+      <ActiveCommitChart
         chartType={chartType}
         total={groupedResult[version.id].total}
         groupedTaskStats={groupedResult[version.id].stats}
-        hasTaskFilter={hasTaskFilter}
         max={max}
       />
     );
   }
   if (rolledUpVersions) {
+    return <InactiveCommitsLine />;
+  }
+  return null;
+};
+
+interface RenderCommitsLabelProps {
+  commit: Commit;
+  hasFilters: boolean;
+}
+const RenderCommitsLabel: React.FC<RenderCommitsLabelProps> = ({
+  commit,
+  hasFilters,
+}) => {
+  const { version, rolledUpVersions } = commit;
+
+  if (version) {
+    return <ActiveCommitLabel version={version} />;
+  }
+  if (rolledUpVersions) {
     return (
-      <InactiveCommits
+      <InactiveCommitButton
         rolledUpVersions={rolledUpVersions}
-        hasFilters={hasFilter}
+        hasFilters={hasFilters}
       />
     );
   }
+  return null;
+};
+
+interface RenderCommitsBuildVariantProps {
+  commit: Commit;
+  hasTaskFilter: boolean;
+}
+export const RenderCommitsBuildVariants: React.FC<RenderCommitsBuildVariantProps> = ({
+  commit,
+  hasTaskFilter,
+}) => {
+  const { version } = commit;
+
+  if (version) {
+    return (
+      <BuildVariantContainer version={version} hasTaskFilter={hasTaskFilter} />
+    );
+  }
+
   return null;
 };
 
@@ -63,4 +94,5 @@ const getCommitKey = (commit: Commit) => {
   }
   return "";
 };
-export { RenderCommitsChart, getCommitKey };
+
+export { RenderCommitsChart, RenderCommitsLabel, getCommitKey };
