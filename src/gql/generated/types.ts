@@ -2241,16 +2241,43 @@ export type ProjectSettingsFragment = {
       useRepoSettings: boolean;
       repoRefId: string;
     } & ProjectGeneralSettingsFragment &
-      ProjectAccessSettingsFragment
+      ProjectAccessSettingsFragment &
+      ProjectPluginsSettingsFragment
   >;
   vars?: Maybe<VariablesFragment>;
 };
 
 export type RepoSettingsFragment = {
   projectRef?: Maybe<
-    { id: string } & RepoGeneralSettingsFragment & RepoAccessSettingsFragment
+    { id: string } & RepoGeneralSettingsFragment &
+      RepoAccessSettingsFragment &
+      RepoPluginsSettingsFragment
   >;
   vars?: Maybe<VariablesFragment>;
+};
+
+export type ProjectPluginsSettingsFragment = {
+  perfEnabled?: Maybe<boolean>;
+  buildBaronSettings: {
+    ticketCreateProject: string;
+    ticketSearchProjects?: Maybe<Array<string>>;
+  };
+  taskAnnotationSettings: {
+    jiraCustomFields?: Maybe<Array<{ field: string; displayText: string }>>;
+    fileTicketWebhook: { endpoint: string; secret: string };
+  };
+};
+
+export type RepoPluginsSettingsFragment = {
+  perfEnabled: boolean;
+  buildBaronSettings: {
+    ticketCreateProject: string;
+    ticketSearchProjects?: Maybe<Array<string>>;
+  };
+  taskAnnotationSettings: {
+    jiraCustomFields?: Maybe<Array<{ field: string; displayText: string }>>;
+    fileTicketWebhook: { endpoint: string; secret: string };
+  };
 };
 
 export type VariablesFragment = {

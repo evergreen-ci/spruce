@@ -1,6 +1,7 @@
 #import "./access.graphql"
 #import "./general.graphql"
 #import "./variables.graphql"
+#import "./plugins.graphql"
 
 fragment projectSettings on ProjectSettings {
   projectRef {
@@ -9,6 +10,7 @@ fragment projectSettings on ProjectSettings {
     repoRefId
     ...projectGeneralSettings
     ...projectAccessSettings
+    ...projectPluginsSettings
   }
   vars {
     ...variables
@@ -20,6 +22,7 @@ fragment repoSettings on RepoSettings {
     id
     ...repoGeneralSettings
     ...repoAccessSettings
+    ...repoPluginsSettings
   }
   vars {
     ...variables

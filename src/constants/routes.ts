@@ -34,6 +34,7 @@ export enum ProjectSettingsTabRoutes {
   VirtualWorkstation = "virtual-workstation",
   ProjectTriggers = "project-triggers",
   PeriodicBuilds = "periodic-builds",
+  Plugins = "plugins",
   EventLog = "event-log",
 }
 
@@ -65,6 +66,7 @@ const projectSettingsRoutes = {
   projectSettingsGeneral: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.General}`,
   projectSettingsGitHubCommitQueue: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.GitHubCommitQueue}`,
   projectSettingsEventLog: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.EventLog}`,
+  projectSettingsPlugins: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.Plugins}`,
   projectSettingsNotifications: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.Notifications}`,
   projectSettingsPatchAliases: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.PatchAliases}`,
   projectSettingsPeriodicBuilds: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.PeriodicBuilds}`,
