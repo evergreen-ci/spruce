@@ -5,8 +5,10 @@ import { Analytics } from "analytics/addPageAction";
 import { getTaskHistoryRoute } from "constants/routes";
 import { TestResult } from "gql/generated/types";
 import { TestStatus } from "types/test";
+import { string } from "utils";
 import { isBeta } from "utils/environmentalVariables";
 
+const { escapeRegex } = string;
 interface Props {
   taskAnalytics: Analytics<
     | { name: "Click Logs Lobster Button" }
@@ -33,7 +35,7 @@ export const LogsColumn: React.FC<Props> = ({
   let filters;
   if (status === TestStatus.Fail) {
     filters = {
-      failingTests: [testFile],
+      failingTests: [escapeRegex(testFile)],
     };
   }
   return (
