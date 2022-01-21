@@ -9,15 +9,16 @@ import { commitChartHeight } from "../constants";
 const { getDateCopy, shortenGithash } = string;
 const { gray } = uiColors;
 
-interface InactiveCommitsProps {
-  rolledUpVersions: CommitRolledUpVersions;
-  hasFilters?: boolean;
-}
 export const InactiveCommitsLine = () => (
   <Container>
     <InactiveCommitLine />
   </Container>
 );
+
+interface InactiveCommitsProps {
+  rolledUpVersions: CommitRolledUpVersions;
+  hasFilters: boolean;
+}
 export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
   rolledUpVersions,
   hasFilters = false,

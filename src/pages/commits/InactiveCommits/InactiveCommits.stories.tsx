@@ -1,19 +1,18 @@
-import { BrowserRouter } from "react-router-dom";
+import { boolean, withKnobs } from "@storybook/addon-knobs";
 import { InactiveCommitButton as InactiveCommits } from ".";
 
 export default {
   title: "Inactive Commits",
   component: InactiveCommits,
-  decorators: [
-    (Story) => (
-      <BrowserRouter>
-        <Story />
-      </BrowserRouter>
-    ),
-  ],
+  decorators: [withKnobs],
 };
 
-export const Story = () => <InactiveCommits rolledUpVersions={versions} />;
+export const Story = () => (
+  <InactiveCommits
+    rolledUpVersions={versions}
+    hasFilters={boolean("hasFilters", false)}
+  />
+);
 
 const versions = [
   {

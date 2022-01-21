@@ -1,16 +1,19 @@
 import userEvent from "@testing-library/user-event";
 import { render, waitFor } from "test_utils";
-
+import { CommitRolledUpVersions } from "types/commits";
 import { InactiveCommitButton } from ".";
 
-const RenderInactiveCommitButton = (versions) => (
-  <InactiveCommitButton rolledUpVersions={versions} />
+const RenderInactiveCommitButton = (
+  versions: CommitRolledUpVersions,
+  hasFilters: boolean = false
+) => (
+  <InactiveCommitButton hasFilters={hasFilters} rolledUpVersions={versions} />
 );
 
 describe("inactiveCommitButton", () => {
   it("displays the correct count of inactive versions with the correct copy", () => {
     const { queryByDataCy, rerender } = render(
-      <InactiveCommitButton rolledUpVersions={versions} />
+      RenderInactiveCommitButton(versions)
     );
     expect(queryByDataCy("inactive-commits-button")).toHaveTextContent(
       "6Inactive"
@@ -22,9 +25,7 @@ describe("inactiveCommitButton", () => {
   });
 
   it("clicking on the button should open a tooltip", async () => {
-    const { queryByDataCy } = render(
-      <InactiveCommitButton rolledUpVersions={versions} />
-    );
+    const { queryByDataCy } = render(RenderInactiveCommitButton(versions));
 
     expect(queryByDataCy("inactive-commits-tooltip")).toBeNull();
     userEvent.click(queryByDataCy("inactive-commits-button"));
@@ -35,7 +36,7 @@ describe("inactiveCommitButton", () => {
 
   it("should show all inactive commits if there are 5 or less commits", async () => {
     const { queryByDataCy, queryAllByDataCy } = render(
-      <InactiveCommitButton rolledUpVersions={versions.slice(0, 4)} />
+      RenderInactiveCommitButton(versions.slice(0, 4))
     );
 
     expect(queryByDataCy("inactive-commits-tooltip")).toBeNull();
@@ -48,7 +49,7 @@ describe("inactiveCommitButton", () => {
   });
   it("should collapse some commits if there are more then 5", async () => {
     const { queryByDataCy, queryAllByDataCy } = render(
-      <InactiveCommitButton rolledUpVersions={versions} />
+      RenderInactiveCommitButton(versions)
     );
 
     expect(queryByDataCy("inactive-commits-tooltip")).toBeNull();
@@ -58,6 +59,15 @@ describe("inactiveCommitButton", () => {
     );
     expect(queryAllByDataCy("commit-text")).toHaveLength(5);
     expect(queryByDataCy("hidden-commits")).toBeInTheDocument();
+  });
+
+  it("should show unmatching label when there are filters applied", () => {
+    const { queryByDataCy } = render(
+      RenderInactiveCommitButton(versions, true)
+    );
+    expect(queryByDataCy("inactive-commits-button")).toHaveTextContent(
+      "6Unmatching"
+    );
   });
 });
 
