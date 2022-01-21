@@ -2,7 +2,8 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { NotificationModal } from "components/NotificationModal";
-import { SubscriptionMethods, Trigger } from "hooks/useNotificationModal";
+import { ResourceType, Trigger } from "constants/triggers";
+import { SubscriptionMethods } from "hooks/useNotificationModal";
 import {
   SUBSCRIPTION_JIRA_COMMENT,
   SUBSCRIPTION_SLACK,
@@ -78,37 +79,37 @@ export const triggers: Trigger[] = [
   {
     trigger: "task-started",
     label: "This task starts",
-    resourceType: "TASK",
+    resourceType: ResourceType.TASK,
     payloadResourceIdKey: "id",
   },
   {
     trigger: "outcome",
     label: "This task finishes",
-    resourceType: "TASK",
+    resourceType: ResourceType.TASK,
     payloadResourceIdKey: "id",
   },
   {
     trigger: "failure",
     label: "This task fails",
-    resourceType: "TASK",
+    resourceType: ResourceType.TASK,
     payloadResourceIdKey: "id",
   },
   {
     trigger: "task-failed-or-blocked",
     label: "This task fails or is blocked",
-    resourceType: "TASK",
+    resourceType: ResourceType.TASK,
     payloadResourceIdKey: "id",
   },
   {
     trigger: "success",
     label: "This task succeeds",
-    resourceType: "TASK",
+    resourceType: ResourceType.TASK,
     payloadResourceIdKey: "id",
   },
   {
     trigger: "exceeds-duration",
     label: "The runtime for this task exceeds some duration",
-    resourceType: "TASK",
+    resourceType: ResourceType.TASK,
     payloadResourceIdKey: "id",
     extraFields: [
       {
@@ -122,7 +123,7 @@ export const triggers: Trigger[] = [
   {
     trigger: "runtime-change",
     label: "This task succeeds and its runtime changes by some percentage",
-    resourceType: "TASK",
+    resourceType: ResourceType.TASK,
     payloadResourceIdKey: "id",
     extraFields: [
       {

@@ -2,11 +2,8 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { NotificationModal } from "components/NotificationModal";
-import {
-  SubscriptionMethods,
-  Trigger,
-  RegexSelector,
-} from "hooks/useNotificationModal";
+import { RegexSelector, ResourceType, Trigger } from "constants/triggers";
+import { SubscriptionMethods } from "hooks/useNotificationModal";
 import {
   SUBSCRIPTION_JIRA_COMMENT,
   SUBSCRIPTION_SLACK,
@@ -93,25 +90,25 @@ export const triggers: Trigger[] = [
   {
     trigger: "outcome",
     label: "This version finishes",
-    resourceType: "VERSION",
+    resourceType: ResourceType.VERSION,
     payloadResourceIdKey: "id",
   },
   {
     trigger: "failure",
     label: "This version fails",
-    resourceType: "VERSION",
+    resourceType: ResourceType.VERSION,
     payloadResourceIdKey: "id",
   },
   {
     trigger: "success",
     label: "This version succeeds",
-    resourceType: "VERSION",
+    resourceType: ResourceType.VERSION,
     payloadResourceIdKey: "id",
   },
   {
     trigger: "exceeds-duration",
     label: "The runtime for this version exceeds some duration",
-    resourceType: "VERSION",
+    resourceType: ResourceType.VERSION,
     payloadResourceIdKey: "id",
     extraFields: [
       {
@@ -125,7 +122,7 @@ export const triggers: Trigger[] = [
   {
     trigger: "runtime-change",
     label: "The runtime for this version changes by some percentage",
-    resourceType: "VERSION",
+    resourceType: ResourceType.VERSION,
     payloadResourceIdKey: "id",
     extraFields: [
       {
@@ -138,21 +135,21 @@ export const triggers: Trigger[] = [
   },
   {
     trigger: "outcome",
-    resourceType: "BUILD",
+    resourceType: ResourceType.BUILD,
     payloadResourceIdKey: "in-version",
     label: "A build-variant in this version finishes",
     regexSelectors: buildRegexSelectors,
   },
   {
     trigger: "failure",
-    resourceType: "BUILD",
+    resourceType: ResourceType.BUILD,
     payloadResourceIdKey: "in-version",
     label: "A build-variant in this version fails",
     regexSelectors: buildRegexSelectors,
   },
   {
     trigger: "success",
-    resourceType: "BUILD",
+    resourceType: ResourceType.BUILD,
     payloadResourceIdKey: "in-version",
     label: "A build-variant in this version succeeds",
     regexSelectors: buildRegexSelectors,
