@@ -120,4 +120,16 @@ describe("filterBadges", () => {
 
     expect(queryByText("see 1 more")).toBeInTheDocument();
   });
+
+  it("should truncate a badge name if it's too long", () => {
+    const longVariantName = "long_long_long_long_long_long_build_variant_name";
+    const { queryAllByDataCy, queryByText } = render(Content, {
+      route: `/commits/evergreen?buildVariants=${longVariantName}`,
+      path: "/commits/:projectId",
+    });
+
+    expect(queryByText(longVariantName)).not.toBeInTheDocument();
+    fireEvent.mouseEnter(queryAllByDataCy("filter-badge")[0]);
+    expect(queryByText(longVariantName)).toBeVisible();
+  });
 });
