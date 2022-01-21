@@ -2,7 +2,7 @@
 
 exports[`storybook Storyshots Commit Charts Absolute Chart 1`] = `
 <div
-  className="css-f6c9ue-FlexRowContainer ech0nhv3"
+  className="css-1e93osx-FlexRowContainer edfkf300"
 >
   <div
     className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
@@ -192,7 +192,7 @@ exports[`storybook Storyshots Commit Charts Absolute Chart 1`] = `
 
 exports[`storybook Storyshots Commit Charts Percent Chart 1`] = `
 <div
-  className="css-f6c9ue-FlexRowContainer ech0nhv3"
+  className="css-1e93osx-FlexRowContainer edfkf300"
 >
   <div
     className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"

@@ -1,17 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
-<div
-  className="css-11f0p6-ProjectHealthWrapper ech0nhv2"
->
+Array [
   <div
-    className="css-f6c9ue-FlexRowContainer ech0nhv3"
+    className="css-w2t63c-ChartWrapper ech0nhv1"
   >
     <div
-      className="css-6yhz1l-Container e1s1lwa10"
+      className="css-gnwyka-FlexRowContainer ech0nhv4"
     >
       <div
-        className="css-m6knb7-ColumnContainer e1s1lwa11"
+        className="css-1m76x9x-CommitWrapper ech0nhv2"
+        width={200}
       >
         <div
           className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
@@ -40,6 +39,299 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             height="16.666666666666664%"
           />
         </div>
+      </div>
+      <div
+        className="css-1m76x9x-CommitWrapper ech0nhv2"
+        width={200}
+      >
+        <div
+          className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+          data-cy="commit-chart-container"
+          onBlur={[Function]}
+          onFocus={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="css-u2pqa3-Bar e1tzsy280"
+            color="#CF4A22"
+            data-cy="commit-chart-bar"
+            height="50%"
+          />
+          <div
+            className="css-1e7si1e-Bar e1tzsy280"
+            color="#4F4FBF"
+            data-cy="commit-chart-bar"
+            height="50%"
+          />
+          <div
+            className="css-16hoxq8-Bar e1tzsy280"
+            color="#89979B"
+            data-cy="commit-chart-bar"
+            height="16.666666666666664%"
+          />
+          <div
+            className="css-1n3fse1-Bar e1tzsy280"
+            color="#5D6C74"
+            data-cy="commit-chart-bar"
+            height="100%"
+          />
+        </div>
+      </div>
+      <div
+        className="css-1d47p8d-CommitWrapper ech0nhv2"
+        width={64}
+      >
+        <div
+          className="css-pi541p-Container ezzuvrx0"
+        >
+          <div
+            className="css-1q62izj-InactiveCommitLine ezzuvrx3"
+          />
+        </div>
+      </div>
+      <div
+        className="css-1m76x9x-CommitWrapper ech0nhv2"
+        width={200}
+      >
+        <div
+          className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+          data-cy="commit-chart-container"
+          onBlur={[Function]}
+          onFocus={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="css-1x4khp7-Bar e1tzsy280"
+            color="#F1F0FC"
+            data-cy="commit-chart-bar"
+            height="33.33333333333333%"
+          />
+          <div
+            className="css-1q4dzih-Bar e1tzsy280"
+            color="#89979B"
+            data-cy="commit-chart-bar"
+            height="58.333333333333336%"
+          />
+        </div>
+      </div>
+      <div
+        className="css-1m76x9x-CommitWrapper ech0nhv2"
+        width={200}
+      >
+        <div
+          className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+          data-cy="commit-chart-container"
+          onBlur={[Function]}
+          onFocus={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="css-14yldmu-Bar e1tzsy280"
+            color="#CF4A22"
+            data-cy="commit-chart-bar"
+            height="16.666666666666664%"
+          />
+          <div
+            className="css-gebqh9-Bar e1tzsy280"
+            color="#5D6C74"
+            data-cy="commit-chart-bar"
+            height="58.333333333333336%"
+          />
+        </div>
+      </div>
+      <div
+        className="css-1m76x9x-CommitWrapper ech0nhv2"
+        width={200}
+      >
+        <div
+          className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+          data-cy="commit-chart-container"
+          onBlur={[Function]}
+          onFocus={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="css-1pmbxjd-Bar e1tzsy280"
+            color="#13AA52"
+            data-cy="commit-chart-bar"
+            height="50%"
+          />
+          <div
+            className="css-14yldmu-Bar e1tzsy280"
+            color="#CF4A22"
+            data-cy="commit-chart-bar"
+            height="16.666666666666664%"
+          />
+          <div
+            className="css-1kcoqbt-Bar e1tzsy280"
+            color="#FFDD49"
+            data-cy="commit-chart-bar"
+            height="75%"
+          />
+          <div
+            className="css-16hoxq8-Bar e1tzsy280"
+            color="#89979B"
+            data-cy="commit-chart-bar"
+            height="16.666666666666664%"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="css-1kwm5h2-ColumnContainer e15dc98b2"
+    >
+      <div
+        className="css-oxpn1r-DashedLine e15dc98b1"
+      />
+      <div
+        className="css-oxpn1r-DashedLine e15dc98b1"
+      />
+      <div
+        className="css-oxpn1r-DashedLine e15dc98b1"
+      />
+      <div
+        className="css-oxpn1r-DashedLine e15dc98b1"
+      />
+      <div
+        className="css-oxpn1r-DashedLine e15dc98b1"
+      />
+      <div
+        className="css-1sahvn-SolidLine e15dc98b0"
+      />
+    </div>
+    <div
+      className="css-7yxj8m-AbsoluteContainer ech0nhv3"
+    >
+      <div
+        className="css-1isl84h-Container e1d5uzqe2"
+      >
+        <div
+          className="css-r7f5o5-ToggleWrapper e1d5uzqe0"
+        >
+          <label
+            className="leafygreen-ui-ly82bp"
+            htmlFor="chart-toggle"
+          >
+            View Options
+          </label>
+          <div
+            aria-label="chart-select"
+            className="leafygreen-ui-sgfp3 css-1ey7tse-StyledRadioGroup e1d5uzqe1"
+            role="group"
+          >
+            <div
+              className="leafygreen-ui-1s4vgyd"
+            >
+              <label
+                className="leafygreen-ui-17avto4"
+                htmlFor="chart-radio-absolute"
+              >
+                <input
+                  aria-checked={true}
+                  aria-disabled={false}
+                  checked={true}
+                  className="leafygreen-ui-x2r5fc"
+                  data-cy="cy-chart-absolute-radio"
+                  data-leafygreen-ui="input-element"
+                  disabled={false}
+                  id="chart-radio-absolute"
+                  name="chart-select"
+                  onChange={[Function]}
+                  type="radio"
+                  value="absolute"
+                />
+                <div
+                  className="leafygreen-ui-5a1vdt"
+                  data-leafygreen-ui="radio-input-display-wrapper"
+                >
+                  <div
+                    className="leafygreen-ui-1y6j5s3"
+                    data-leafygreen-ui="radio-input-display"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                  />
+                  <div
+                    className="leafygreen-ui-1cqcpzq"
+                    data-leafygreen-ui="interaction-ring"
+                  />
+                </div>
+                <div
+                  className="leafygreen-ui-3sm8z"
+                >
+                  <label
+                    className="leafygreen-ui-ly82bp"
+                    htmlFor="chart-radio-absolute"
+                  >
+                    Absolute Number
+                  </label>
+                </div>
+              </label>
+            </div>
+            <div
+              className="leafygreen-ui-1s4vgyd"
+            >
+              <label
+                className="leafygreen-ui-17avto4"
+                htmlFor="chart-radio-percent"
+              >
+                <input
+                  aria-disabled={false}
+                  className="leafygreen-ui-x2r5fc"
+                  data-cy="cy-chart-percent-radio"
+                  data-leafygreen-ui="input-element"
+                  disabled={false}
+                  id="chart-radio-percent"
+                  name="chart-select"
+                  onChange={[Function]}
+                  type="radio"
+                  value="percentage"
+                />
+                <div
+                  className="leafygreen-ui-5a1vdt"
+                  data-leafygreen-ui="radio-input-display-wrapper"
+                >
+                  <div
+                    className="leafygreen-ui-1y6j5s3"
+                    data-leafygreen-ui="radio-input-display"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                  />
+                  <div
+                    className="leafygreen-ui-1cqcpzq"
+                    data-leafygreen-ui="interaction-ring"
+                  />
+                </div>
+                <div
+                  className="leafygreen-ui-3sm8z"
+                >
+                  <label
+                    className="leafygreen-ui-ly82bp"
+                    htmlFor="chart-radio-percent"
+                  >
+                    Percentage
+                  </label>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="css-1xvil5c-StickyContainer ech0nhv6"
+  >
+    <div
+      className="css-gnwyka-FlexRowContainer ech0nhv4"
+    >
+      <div
+        className="css-1m76x9x-CommitWrapper ech0nhv2"
+        width={200}
+      >
         <div
           className="css-1qv3l5b-LabelContainer e1cz15301"
           data-cy="commit-label"
@@ -87,7 +379,215 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
         </div>
       </div>
       <div
-        className="css-m6knb7-ColumnContainer e1s1lwa11"
+        className="css-1m76x9x-CommitWrapper ech0nhv2"
+        width={200}
+      >
+        <div
+          className="css-1qv3l5b-LabelContainer e1cz15301"
+          data-cy="commit-label"
+        >
+          <div
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          >
+            <a
+              className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+              href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks"
+              onClick={[Function]}
+            >
+              a77bd39
+            </a>
+             
+            7/13/21 2:51 PM
+          </div>
+          <div
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          >
+            Mohamed Khelif
+             -
+          </div>
+          <div
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          >
+            Triggered From Git Tag 'v2.11.1': v2....
+          </div>
+          <small
+            className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+            onBlur={[Function]}
+            onFocus={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            more
+          </small>
+        </div>
+      </div>
+      <div
+        className="css-1d47p8d-CommitWrapper ech0nhv2"
+        width={64}
+      >
+        <div
+          className="leafygreen-ui-cssveg css-1ctfjby-ButtonContainer ezzuvrx4"
+          onClick={[Function]}
+          role="button"
+        >
+          <small
+            className="css-t2ltce-ButtonText ezzuvrx2 leafygreen-ui-13bqno6"
+            data-cy="inactive-commits-button"
+          >
+            <div>
+              1
+            </div>
+            Inactive
+          </small>
+        </div>
+      </div>
+      <div
+        className="css-1m76x9x-CommitWrapper ech0nhv2"
+        width={200}
+      >
+        <div
+          className="css-1qv3l5b-LabelContainer e1cz15301"
+          data-cy="commit-label"
+        >
+          <div
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          >
+            <a
+              className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+              href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks"
+              onClick={[Function]}
+            >
+              9c1d1eb
+            </a>
+             
+            7/13/21 2:51 PM
+          </div>
+          <div
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          >
+            Mohamed Khelif
+             -
+          </div>
+          <div
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          >
+            
+            <a
+              className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+              href="https://undefined/browse/EVG-14799"
+            >
+              EVG-14799
+            </a>
+             Correctly visit configure p...
+          </div>
+          <small
+            className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+            onBlur={[Function]}
+            onFocus={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            more
+          </small>
+        </div>
+      </div>
+      <div
+        className="css-1m76x9x-CommitWrapper ech0nhv2"
+        width={200}
+      >
+        <div
+          className="css-1qv3l5b-LabelContainer e1cz15301"
+          data-cy="commit-label"
+        >
+          <div
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          >
+            <a
+              className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+              href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks"
+              onClick={[Function]}
+            >
+              f7f7f1a
+            </a>
+             
+            7/13/21 2:51 PM
+          </div>
+          <div
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          >
+            Sophie Stadler
+             -
+          </div>
+          <div
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          >
+            Remove navigation announcement toast ...
+          </div>
+          <small
+            className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+            onBlur={[Function]}
+            onFocus={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            more
+          </small>
+        </div>
+      </div>
+      <div
+        className="css-1m76x9x-CommitWrapper ech0nhv2"
+        width={200}
+      >
+        <div
+          className="css-1qv3l5b-LabelContainer e1cz15301"
+          data-cy="commit-label"
+        >
+          <div
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          >
+            <a
+              className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+              href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks"
+              onClick={[Function]}
+            >
+              211b3a0
+            </a>
+             
+            7/13/21 2:51 PM
+          </div>
+          <div
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          >
+            Chaya Malik
+             -
+          </div>
+          <div
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          >
+            Triggered From Git Tag 'v2.11.0': v2....
+          </div>
+          <small
+            className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+            onBlur={[Function]}
+            onFocus={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            more
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="css-gnwyka-FlexRowContainer ech0nhv4"
+  >
+    <div
+      className="css-1m76x9x-CommitWrapper ech0nhv2"
+      width={200}
+    >
+      <div
+        className="css-ygh2q6-ColumnContainer e1s1lwa10"
       >
         <div
           className="css-8bv1t4-Container ek3nkvx1"
@@ -190,85 +690,11 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
       </div>
     </div>
     <div
-      className="css-6yhz1l-Container e1s1lwa10"
+      className="css-1m76x9x-CommitWrapper ech0nhv2"
+      width={200}
     >
       <div
-        className="css-m6knb7-ColumnContainer e1s1lwa11"
-      >
-        <div
-          className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
-          data-cy="commit-chart-container"
-          onBlur={[Function]}
-          onFocus={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <div
-            className="css-u2pqa3-Bar e1tzsy280"
-            color="#CF4A22"
-            data-cy="commit-chart-bar"
-            height="50%"
-          />
-          <div
-            className="css-1e7si1e-Bar e1tzsy280"
-            color="#4F4FBF"
-            data-cy="commit-chart-bar"
-            height="50%"
-          />
-          <div
-            className="css-16hoxq8-Bar e1tzsy280"
-            color="#89979B"
-            data-cy="commit-chart-bar"
-            height="16.666666666666664%"
-          />
-          <div
-            className="css-1n3fse1-Bar e1tzsy280"
-            color="#5D6C74"
-            data-cy="commit-chart-bar"
-            height="100%"
-          />
-        </div>
-        <div
-          className="css-1qv3l5b-LabelContainer e1cz15301"
-          data-cy="commit-label"
-        >
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            <a
-              className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
-              href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks"
-              onClick={[Function]}
-            >
-              a77bd39
-            </a>
-             
-            7/13/21 2:51 PM
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            Mohamed Khelif
-             -
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            Triggered From Git Tag 'v2.11.1': v2....
-          </div>
-          <small
-            className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
-            onBlur={[Function]}
-            onFocus={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-          >
-            more
-          </small>
-        </div>
-      </div>
-      <div
-        className="css-m6knb7-ColumnContainer e1s1lwa11"
+        className="css-ygh2q6-ColumnContainer e1s1lwa10"
       >
         <div
           className="css-8bv1t4-Container ek3nkvx1"
@@ -371,104 +797,15 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
       </div>
     </div>
     <div
-      className="css-ytrjsr-Container ezzuvrx0"
-    >
-      <div
-        className="css-1q62izj-InactiveCommitLine ezzuvrx4"
-      />
-      <div
-        className="leafygreen-ui-cssveg css-ls8suj-ButtonContainer ezzuvrx5"
-        onClick={[Function]}
-        role="button"
-      >
-        <small
-          className="css-t2ltce-ButtonText ezzuvrx2 leafygreen-ui-13bqno6"
-          data-cy="inactive-commits-button"
-        >
-          <div
-            className="css-hifh5j-TopText ezzuvrx3"
-          >
-            1
-          </div>
-          Inactive
-        </small>
-      </div>
-    </div>
+      className="css-1d47p8d-CommitWrapper ech0nhv2"
+      width={64}
+    />
     <div
-      className="css-6yhz1l-Container e1s1lwa10"
+      className="css-1m76x9x-CommitWrapper ech0nhv2"
+      width={200}
     >
       <div
-        className="css-m6knb7-ColumnContainer e1s1lwa11"
-      >
-        <div
-          className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
-          data-cy="commit-chart-container"
-          onBlur={[Function]}
-          onFocus={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <div
-            className="css-1x4khp7-Bar e1tzsy280"
-            color="#F1F0FC"
-            data-cy="commit-chart-bar"
-            height="33.33333333333333%"
-          />
-          <div
-            className="css-1q4dzih-Bar e1tzsy280"
-            color="#89979B"
-            data-cy="commit-chart-bar"
-            height="58.333333333333336%"
-          />
-        </div>
-        <div
-          className="css-1qv3l5b-LabelContainer e1cz15301"
-          data-cy="commit-label"
-        >
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            <a
-              className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
-              href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks"
-              onClick={[Function]}
-            >
-              9c1d1eb
-            </a>
-             
-            7/13/21 2:51 PM
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            Mohamed Khelif
-             -
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            
-            <a
-              className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
-              href="https://undefined/browse/EVG-14799"
-            >
-              EVG-14799
-            </a>
-             Correctly visit configure p...
-          </div>
-          <small
-            className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
-            onBlur={[Function]}
-            onFocus={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-          >
-            more
-          </small>
-        </div>
-      </div>
-      <div
-        className="css-m6knb7-ColumnContainer e1s1lwa11"
+        className="css-ygh2q6-ColumnContainer e1s1lwa10"
       >
         <div
           className="css-8bv1t4-Container ek3nkvx1"
@@ -571,73 +908,11 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
       </div>
     </div>
     <div
-      className="css-6yhz1l-Container e1s1lwa10"
+      className="css-1m76x9x-CommitWrapper ech0nhv2"
+      width={200}
     >
       <div
-        className="css-m6knb7-ColumnContainer e1s1lwa11"
-      >
-        <div
-          className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
-          data-cy="commit-chart-container"
-          onBlur={[Function]}
-          onFocus={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <div
-            className="css-14yldmu-Bar e1tzsy280"
-            color="#CF4A22"
-            data-cy="commit-chart-bar"
-            height="16.666666666666664%"
-          />
-          <div
-            className="css-gebqh9-Bar e1tzsy280"
-            color="#5D6C74"
-            data-cy="commit-chart-bar"
-            height="58.333333333333336%"
-          />
-        </div>
-        <div
-          className="css-1qv3l5b-LabelContainer e1cz15301"
-          data-cy="commit-label"
-        >
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            <a
-              className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
-              href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks"
-              onClick={[Function]}
-            >
-              f7f7f1a
-            </a>
-             
-            7/13/21 2:51 PM
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            Sophie Stadler
-             -
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            Remove navigation announcement toast ...
-          </div>
-          <small
-            className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
-            onBlur={[Function]}
-            onFocus={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-          >
-            more
-          </small>
-        </div>
-      </div>
-      <div
-        className="css-m6knb7-ColumnContainer e1s1lwa11"
+        className="css-ygh2q6-ColumnContainer e1s1lwa10"
       >
         <div
           className="css-8bv1t4-Container ek3nkvx1"
@@ -740,85 +1015,11 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
       </div>
     </div>
     <div
-      className="css-6yhz1l-Container e1s1lwa10"
+      className="css-1m76x9x-CommitWrapper ech0nhv2"
+      width={200}
     >
       <div
-        className="css-m6knb7-ColumnContainer e1s1lwa11"
-      >
-        <div
-          className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
-          data-cy="commit-chart-container"
-          onBlur={[Function]}
-          onFocus={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <div
-            className="css-1pmbxjd-Bar e1tzsy280"
-            color="#13AA52"
-            data-cy="commit-chart-bar"
-            height="50%"
-          />
-          <div
-            className="css-14yldmu-Bar e1tzsy280"
-            color="#CF4A22"
-            data-cy="commit-chart-bar"
-            height="16.666666666666664%"
-          />
-          <div
-            className="css-1kcoqbt-Bar e1tzsy280"
-            color="#FFDD49"
-            data-cy="commit-chart-bar"
-            height="75%"
-          />
-          <div
-            className="css-16hoxq8-Bar e1tzsy280"
-            color="#89979B"
-            data-cy="commit-chart-bar"
-            height="16.666666666666664%"
-          />
-        </div>
-        <div
-          className="css-1qv3l5b-LabelContainer e1cz15301"
-          data-cy="commit-label"
-        >
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            <a
-              className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
-              href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks"
-              onClick={[Function]}
-            >
-              211b3a0
-            </a>
-             
-            7/13/21 2:51 PM
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            Chaya Malik
-             -
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            Triggered From Git Tag 'v2.11.0': v2....
-          </div>
-          <small
-            className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
-            onBlur={[Function]}
-            onFocus={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-          >
-            more
-          </small>
-        </div>
-      </div>
-      <div
-        className="css-m6knb7-ColumnContainer e1s1lwa11"
+        className="css-ygh2q6-ColumnContainer e1s1lwa10"
       >
         <div
           className="css-8bv1t4-Container ek3nkvx1"
@@ -912,142 +1113,6 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
         </div>
       </div>
     </div>
-  </div>
-  <div
-    className="css-1x4jjy8-ColumnContainer e15dc98b2"
-  >
-    <div
-      className="css-oxpn1r-DashedLine e15dc98b1"
-    />
-    <div
-      className="css-oxpn1r-DashedLine e15dc98b1"
-    />
-    <div
-      className="css-oxpn1r-DashedLine e15dc98b1"
-    />
-    <div
-      className="css-oxpn1r-DashedLine e15dc98b1"
-    />
-    <div
-      className="css-oxpn1r-DashedLine e15dc98b1"
-    />
-    <div
-      className="css-1sahvn-SolidLine e15dc98b0"
-    />
-  </div>
-  <div
-    className="css-1isl84h-Container e1d5uzqe2"
-  >
-    <div
-      className="css-r7f5o5-ToggleWrapper e1d5uzqe0"
-    >
-      <label
-        className="leafygreen-ui-ly82bp"
-        htmlFor="chart-toggle"
-      >
-        View Options
-      </label>
-      <div
-        aria-label="chart-select"
-        className="leafygreen-ui-sgfp3 css-1ey7tse-StyledRadioGroup e1d5uzqe1"
-        role="group"
-      >
-        <div
-          className="leafygreen-ui-1s4vgyd"
-        >
-          <label
-            className="leafygreen-ui-17avto4"
-            htmlFor="chart-radio-absolute"
-          >
-            <input
-              aria-checked={true}
-              aria-disabled={false}
-              checked={true}
-              className="leafygreen-ui-x2r5fc"
-              data-cy="cy-chart-absolute-radio"
-              data-leafygreen-ui="input-element"
-              disabled={false}
-              id="chart-radio-absolute"
-              name="chart-select"
-              onChange={[Function]}
-              type="radio"
-              value="absolute"
-            />
-            <div
-              className="leafygreen-ui-5a1vdt"
-              data-leafygreen-ui="radio-input-display-wrapper"
-            >
-              <div
-                className="leafygreen-ui-1y6j5s3"
-                data-leafygreen-ui="radio-input-display"
-                onBlur={[Function]}
-                onFocus={[Function]}
-              />
-              <div
-                className="leafygreen-ui-1cqcpzq"
-                data-leafygreen-ui="interaction-ring"
-              />
-            </div>
-            <div
-              className="leafygreen-ui-3sm8z"
-            >
-              <label
-                className="leafygreen-ui-ly82bp"
-                htmlFor="chart-radio-absolute"
-              >
-                Absolute Number
-              </label>
-            </div>
-          </label>
-        </div>
-        <div
-          className="leafygreen-ui-1s4vgyd"
-        >
-          <label
-            className="leafygreen-ui-17avto4"
-            htmlFor="chart-radio-percent"
-          >
-            <input
-              aria-disabled={false}
-              className="leafygreen-ui-x2r5fc"
-              data-cy="cy-chart-percent-radio"
-              data-leafygreen-ui="input-element"
-              disabled={false}
-              id="chart-radio-percent"
-              name="chart-select"
-              onChange={[Function]}
-              type="radio"
-              value="percentage"
-            />
-            <div
-              className="leafygreen-ui-5a1vdt"
-              data-leafygreen-ui="radio-input-display-wrapper"
-            >
-              <div
-                className="leafygreen-ui-1y6j5s3"
-                data-leafygreen-ui="radio-input-display"
-                onBlur={[Function]}
-                onFocus={[Function]}
-              />
-              <div
-                className="leafygreen-ui-1cqcpzq"
-                data-leafygreen-ui="interaction-ring"
-              />
-            </div>
-            <div
-              className="leafygreen-ui-3sm8z"
-            >
-              <label
-                className="leafygreen-ui-ly82bp"
-                htmlFor="chart-radio-percent"
-              >
-                Percentage
-              </label>
-            </div>
-          </label>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+  </div>,
+]
 `;
