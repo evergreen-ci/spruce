@@ -43,14 +43,13 @@ describe("Repo Settings", () => {
 
     it("Successfully saves a patch definition", () => {
       cy.dataCy("add-button").contains("Add Patch Definition").parent().click();
-      cy.get("#variantTags-input").within(() => {
-        cy.dataCy("add-button").click();
-        cy.dataCy("variant-tags-input").first().type("vtag");
-      });
-      cy.get("#taskTags-input").within(() => {
-        cy.dataCy("add-button").click();
-        cy.dataCy("task-tags-input").first().type("ttag");
-      });
+
+      cy.get("#variantTags-field").find("button").click();
+      cy.dataCy("variant-tags-input").first().type("vtag");
+
+      cy.get("#taskTags-field").find("button").click();
+      cy.dataCy("task-tags-input").first().type("ttag");
+
       cy.dataCy("save-settings-button").click();
       cy.contains("Successfully updated repo");
     });
@@ -214,7 +213,7 @@ describe("Project Settings when defaulting to repo", () => {
     });
 
     it("Shows the repo's disabled patch definition", () => {
-      cy.dataCy("accordion-toggle").should("be.visible");
+      cy.dataCy("accordion-toggle").should("exist");
       cy.dataCy("accordion-toggle").first().click();
       cy.dataCy("variant-tags-input").should("have.value", "vtag");
       cy.dataCy("variant-tags-input").should("be.disabled");

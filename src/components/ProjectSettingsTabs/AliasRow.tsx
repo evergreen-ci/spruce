@@ -88,22 +88,22 @@ export const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
               <SegmentedControlOption
                 value={VariantInput.Tags}
                 disabled={isDisabled}
-                aria-controls={`${VariantInput.Tags}-input`}
+                aria-controls={`${VariantInput.Tags}-field`}
               >
                 Tags
               </SegmentedControlOption>
               <SegmentedControlOption
                 value={VariantInput.Regex}
                 disabled={isDisabled}
-                aria-controls={`${VariantInput.Regex}-input`}
+                aria-controls={`${VariantInput.Regex}-field`}
               >
                 Regex
               </SegmentedControlOption>
             </StyledSegmentedControl>
             {variantInput === VariantInput.Tags ? (
-              <div id={`${VariantInput.Tags}-input`}>{variantTags.content}</div>
+              <div id={`${VariantInput.Tags}-field`}>{variantTags.content}</div>
             ) : (
-              <div id={`${VariantInput.Regex}-input`}>{variant.content}</div>
+              <div id={`${VariantInput.Regex}-field`}>{variant.content}</div>
             )}
           </TaskRegexContainer>
           <TaskRegexContainer>

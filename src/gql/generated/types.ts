@@ -893,7 +893,7 @@ export type BuildBaronSettingsInput = {
 
 export type TaskAnnotationSettingsInput = {
   jiraCustomFields?: Maybe<Array<JiraFieldInput>>;
-  fileTicketWebhook: WebhookInput;
+  fileTicketWebhook?: Maybe<WebhookInput>;
 };
 
 export type JiraFieldInput = {
