@@ -163,6 +163,14 @@ export const sortFunctionDate = (a, b, key) => {
 export const applyStrictRegex = (str: string) => `^${str}$`;
 
 /**
+ *
+ * @param str - A string that may contain regex operators.
+ * @return {string} A regex that matches on the input.
+ */
+export const escapeRegex = (str: string) =>
+  str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+/**
  * @param str - A string that represents a githash
  * @return {string} A shortenend version of the input string.
  */
