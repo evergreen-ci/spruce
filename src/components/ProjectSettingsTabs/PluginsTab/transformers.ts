@@ -61,6 +61,7 @@ export const formToGql: FormToGqlFunction = (
   return { projectRef };
 };
 
+// conditionally include the buildBaronSettings field based on the useBuildBaron boolean
 export const buildBaronIf = (useBuildBaron: boolean, buildBaronSettings: any) =>
   useBuildBaron === true &&
   buildBaronSettings !== undefined && {
@@ -73,6 +74,7 @@ export const buildBaronIf = (useBuildBaron: boolean, buildBaronSettings: any) =>
     },
   };
 
+// conditionally include the fileTicketWebhook field based on the useBuildBaron boolean
 export const fileTicketWebhookIf = (
   useBuildBaron: boolean,
   fileTicketWebhook: any

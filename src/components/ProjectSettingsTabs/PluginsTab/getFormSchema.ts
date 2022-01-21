@@ -42,7 +42,7 @@ export const getFormSchema = (
             properties: {
               jiraCustomFields: {
                 type: "array" as "array",
-                title: "Custom Jira Fields",
+                title: "Custom JIRA Fields",
                 items: {
                   type: "object" as "object",
                   properties: {
@@ -126,12 +126,12 @@ export const getFormSchema = (
         "ui:rootFieldId": "taskAnnotation",
         jiraCustomFields: {
           "ui:description":
-            "Add any custom Jira fields that you want displayed on any listed JIRA tickets, for example: assigned teams.",
+            "Add any custom JIRA fields that you want displayed on any listed JIRA tickets, for example: assigned teams.",
           ...placeholderIf(
             repoData?.projectPluginsSettings?.taskAnnotationSettings
               ?.jiraCustomFields
           ),
-          "ui:buttonText": "Add custom Jira field",
+          "ui:buttonText": "Add custom JIRA field",
           options: {
             useRepoSettings,
           },

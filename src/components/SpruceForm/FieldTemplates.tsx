@@ -31,7 +31,6 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   const id = idSchema.$id;
   const description = uiSchema["ui:description"] || schema.description;
   const buttonText = uiSchema["ui:buttonText"] || "Add";
-  const buttonDisabled = uiSchema["ui:buttonDisabled"] || false;
   const fullWidth = !!uiSchema["ui:fullWidth"];
   const showLabel = uiSchema["ui:showLabel"] !== false;
   return (
@@ -49,7 +48,6 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
             leftGlyph={<Icon glyph="Plus" />}
             onClick={onAddClick}
             size="small"
-            disabled={buttonDisabled}
           >
             {buttonText}
           </Button>
