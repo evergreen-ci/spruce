@@ -1,3 +1,4 @@
 const commitChartHeight = 224;
 
-export { commitChartHeight };
+const tooltipZIndex = 10;
+export { commitChartHeight, tooltipZIndex };

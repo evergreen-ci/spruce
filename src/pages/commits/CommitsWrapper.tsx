@@ -147,7 +147,7 @@ const FlexRowContainer = styled.div`
 
 const AbsoluteContainer = styled.div`
   position: absolute;
-  top: 16px;
+  top: -32px;
   right: 0;
   left: auto;
 `;

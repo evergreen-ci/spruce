@@ -54,7 +54,11 @@ const CommitChartLabel: React.FC<Props> = ({
         {jiraLinkify(shortenMessage ? shortenedMessage : message, jiraHost)}
       </LabelText>
       {shortenMessage && (
-        <ExpandedText message={message} data-cy="long-commit-message-tooltip" />
+        <ExpandedText
+          zIndex={10}
+          message={message}
+          data-cy="long-commit-message-tooltip"
+        />
       )}
     </LabelContainer>
   );

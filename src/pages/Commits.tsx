@@ -163,10 +163,12 @@ export const Commits = () => {
         <BadgeWrapper>
           <FilterBadges queryParamsToDisplay={queryParamsToDisplay} />
         </BadgeWrapper>
-        <PaginationButtons
-          prevPageOrderNumber={prevPageOrderNumber}
-          nextPageOrderNumber={nextPageOrderNumber}
-        />
+        <PaginationWrapper>
+          <PaginationButtons
+            prevPageOrderNumber={prevPageOrderNumber}
+            nextPageOrderNumber={nextPageOrderNumber}
+          />
+        </PaginationWrapper>
         <CommitsWrapper
           versions={versions}
           error={error}
@@ -196,9 +198,13 @@ const HeaderWrapper = styled.div`
 `;
 
 const BadgeWrapper = styled.div`
-  padding-top: 32px;
-  padding-bottom: 32px;
-  height: 32px;
+  margin: 32px 0;
+`;
+
+const PaginationWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 0;
 `;
 
 const tupleSelectOptions = [

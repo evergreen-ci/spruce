@@ -4,7 +4,7 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import { CommitRolledUpVersions } from "types/commits";
 import { string } from "utils";
-import { commitChartHeight } from "../constants";
+import { commitChartHeight, tooltipZIndex } from "../constants";
 
 const { getDateCopy, shortenGithash } = string;
 const { gray } = uiColors;
@@ -71,7 +71,7 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
         </ButtonContainer>
       }
       triggerEvent="click"
-      popoverZIndex={10}
+      popoverZIndex={tooltipZIndex}
     >
       <TooltipContainer data-cy="inactive-commits-tooltip">
         <TitleText weight="medium">
