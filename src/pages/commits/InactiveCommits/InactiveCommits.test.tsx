@@ -1,29 +1,29 @@
 import userEvent from "@testing-library/user-event";
 import { render, waitFor } from "test_utils";
 
-import InactiveCommits from ".";
+import { InactiveCommitButton } from ".";
 
-const RenderInactiveCommits = (versions) => (
-  <InactiveCommits rolledUpVersions={versions} />
+const RenderInactiveCommitButton = (versions) => (
+  <InactiveCommitButton rolledUpVersions={versions} />
 );
 
-describe("inactiveCommits", () => {
+describe("inactiveCommitButton", () => {
   it("displays the correct count of inactive versions with the correct copy", () => {
     const { queryByDataCy, rerender } = render(
-      <InactiveCommits rolledUpVersions={versions} />
+      <InactiveCommitButton rolledUpVersions={versions} />
     );
     expect(queryByDataCy("inactive-commits-button")).toHaveTextContent(
-      "6 inactive"
+      "6Inactive"
     );
-    rerender(RenderInactiveCommits(versions.slice(0, 1)));
+    rerender(RenderInactiveCommitButton(versions.slice(0, 1)));
     expect(queryByDataCy("inactive-commits-button")).toHaveTextContent(
-      "1 inactive"
+      "1Inactive"
     );
   });
 
   it("clicking on the button should open a tooltip", async () => {
     const { queryByDataCy } = render(
-      <InactiveCommits rolledUpVersions={versions} />
+      <InactiveCommitButton rolledUpVersions={versions} />
     );
 
     expect(queryByDataCy("inactive-commits-tooltip")).toBeNull();
@@ -35,7 +35,7 @@ describe("inactiveCommits", () => {
 
   it("should show all inactive commits if there are 5 or less commits", async () => {
     const { queryByDataCy, queryAllByDataCy } = render(
-      <InactiveCommits rolledUpVersions={versions.slice(0, 4)} />
+      <InactiveCommitButton rolledUpVersions={versions.slice(0, 4)} />
     );
 
     expect(queryByDataCy("inactive-commits-tooltip")).toBeNull();
@@ -48,7 +48,7 @@ describe("inactiveCommits", () => {
   });
   it("should collapse some commits if there are more then 5", async () => {
     const { queryByDataCy, queryAllByDataCy } = render(
-      <InactiveCommits rolledUpVersions={versions} />
+      <InactiveCommitButton rolledUpVersions={versions} />
     );
 
     expect(queryByDataCy("inactive-commits-tooltip")).toBeNull();

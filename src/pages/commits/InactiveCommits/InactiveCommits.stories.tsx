@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-import InactiveCommits from ".";
+import { InactiveCommitButton as InactiveCommits } from ".";
 
 export default {
   title: "Inactive Commits",

@@ -2,38 +2,23 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
+import { CommitRolledUpVersions } from "types/commits";
 import { string } from "utils";
 import { commitChartHeight } from "../constants";
 
 const { getDateCopy, shortenGithash } = string;
 const { gray } = uiColors;
 
-type rolledUpVersion = {
-  id: string;
-  author: string;
-  createTime: Date;
-  order: number;
-  message: string;
-  revision?: string;
-};
-
 interface InactiveCommitsProps {
-  rolledUpVersions: rolledUpVersion[];
+  rolledUpVersions: CommitRolledUpVersions;
   hasFilters?: boolean;
 }
-const InactiveCommits: React.FC<InactiveCommitsProps> = ({
-  rolledUpVersions,
-  hasFilters = false,
-}) => (
+export const InactiveCommitsLine = () => (
   <Container>
     <InactiveCommitLine />
-    <InactiveCommitButton
-      rolledUpVersions={rolledUpVersions}
-      hasFilters={hasFilters}
-    />
   </Container>
 );
-const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
+export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
   rolledUpVersions,
   hasFilters = false,
 }) => {
@@ -79,7 +64,7 @@ const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
       trigger={
         <ButtonContainer role="button">
           <ButtonText data-cy="inactive-commits-button">
-            <TopText>{versionCount}</TopText>
+            <div>{versionCount}</div>
             {tooltipType}
           </ButtonText>
         </ButtonContainer>
@@ -98,7 +83,7 @@ const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
   );
 };
 
-const getCommitCopy = (v: rolledUpVersion) =>
+const getCommitCopy = (v: CommitRolledUpVersions[0]) =>
   `${shortenGithash(v.revision)} ${getDateCopy(v.createTime)} ${v.author} ${
     v.message
   } (#${v.order})`;
@@ -106,6 +91,7 @@ const getCommitCopy = (v: rolledUpVersion) =>
 const CommitText = styled(Body)`
   padding: 4px 0;
 `;
+
 const HiddenCommitsWrapper = styled.div`
   width: 60%;
   border-bottom: 1px solid ${gray.dark2};
@@ -127,7 +113,6 @@ const TooltipContainer = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-  width: 64px;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -138,9 +123,6 @@ const InactiveCommitLine = styled.div`
   border: 1px dashed ${gray.light1};
 `;
 
-const TopText = styled.div`
-  white-space: nowrap;
-`;
 const ButtonText = styled(Disclaimer)`
   margin-top: 8px;
   text-align: center;
@@ -154,10 +136,7 @@ const TitleText = styled(Body)`
 
 const Container = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
 `;
 
 const MAX_COMMIT_COUNT = 5;
-
-export default InactiveCommits;
