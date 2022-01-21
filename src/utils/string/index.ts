@@ -176,10 +176,10 @@ export const shortenGithash = (str: string) => str?.substring(0, 7);
  * @return {string} The original or trimmed text.
  */
 export const trimStringFromMiddle = (text: string, maxLength: number) => {
-  const ellipsis = "...";
+  const ellipsis = "…";
   const numCharsToRemove = text.length - maxLength;
 
-  // if ellipsis would just make the string longer/same, just return original string
+  // if ellipsis would make the string longer/same, just return original string
   if (numCharsToRemove <= ellipsis.length) {
     return text;
   }

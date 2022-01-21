@@ -28,12 +28,12 @@ const initialState: HistoryTableReducerState = {
   columnLimit: 7,
 };
 
-interface wrapperProps {
+interface WrapperProps {
   children: React.ReactNode;
   state?: Partial<HistoryTableReducerState>;
 }
 
-const wrapper: React.FC<wrapperProps> = ({ children, state }) => (
+const wrapper: React.FC<WrapperProps> = ({ children, state }) => (
   <HistoryTableProvider initialState={{ ...initialState, ...state }}>
     {children}
   </HistoryTableProvider>
