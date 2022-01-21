@@ -76,6 +76,13 @@ export const Tabs: React.FC<Props> = ({ taskCount, childPatches, isPatch }) => {
     activeTabs.indexOf(defaultTab)
   );
 
+  // This is used when the URL updates to a different tab, as the tab component won't recognize any updates to the URL
+  useEffect(() => {
+    if (selectedTab !== activeTabs.indexOf(tab)) {
+      setSelectedTab(activeTabs.indexOf(tab));
+    }
+  }, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // This is used to keep track of the first tab transition so we dont accidently trigger an analytics event for it
   const previousTab = usePrevious(selectedTab);
   useEffect(() => {

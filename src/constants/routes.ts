@@ -1,7 +1,9 @@
+import { TestStatus } from "types/history";
 import { PatchTab } from "types/patch";
 import { PatchTasksQueryParams, TaskTab } from "types/task";
-import { queryString } from "utils";
+import { queryString, array } from "utils";
 
+const { toArray } = array;
 const { stringifyQuery } = queryString;
 
 export enum PageNames {
@@ -32,6 +34,7 @@ export enum ProjectSettingsTabRoutes {
   VirtualWorkstation = "virtual-workstation",
   ProjectTriggers = "project-triggers",
   PeriodicBuilds = "periodic-builds",
+  Plugins = "plugins",
   EventLog = "event-log",
 }
 
@@ -63,6 +66,7 @@ const projectSettingsRoutes = {
   projectSettingsGeneral: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.General}`,
   projectSettingsGitHubCommitQueue: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.GitHubCommitQueue}`,
   projectSettingsEventLog: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.EventLog}`,
+  projectSettingsPlugins: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.Plugins}`,
   projectSettingsNotifications: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.Notifications}`,
   projectSettingsPatchAliases: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.PatchAliases}`,
   projectSettingsPeriodicBuilds: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.PeriodicBuilds}`,
@@ -211,12 +215,47 @@ export const getCommitQueueRoute = (projectId: string) =>
 export const getCommitsRoute = (projectId: string = "") =>
   `${paths.commits}/${projectId}`;
 
+const getHistoryRoute = (
+  basePath: string,
+  filters?: {
+    failingTests?: string[];
+    passingTests?: string[];
+  }
+) => {
+  if (filters) {
+    const failingTests = toArray(filters.failingTests);
+    const passingTests = toArray(filters.passingTests);
+
+    const queryParams = stringifyQuery({
+      [TestStatus.Failed]: failingTests,
+      [TestStatus.Passed]: passingTests,
+    });
+    return `${basePath}?${queryParams}`;
+  }
+  return basePath;
+};
 export const getVariantHistoryRoute = (
   projectIdentifier: string,
-  variantName: string
-) => `${paths.variantHistory}/${projectIdentifier}/${variantName}`;
+  variantName: string,
+  filters?: {
+    failingTests?: string[];
+    passingTests?: string[];
+  }
+) =>
+  getHistoryRoute(
+    `${paths.variantHistory}/${projectIdentifier}/${variantName}`,
+    filters
+  );
 
 export const getTaskHistoryRoute = (
   projectIdentifier: string,
-  taskName: string
-) => `${paths.taskHistory}/${projectIdentifier}/${taskName}`;
+  taskName: string,
+  filters?: {
+    failingTests?: string[];
+    passingTests?: string[];
+  }
+) =>
+  getHistoryRoute(
+    `${paths.taskHistory}/${projectIdentifier}/${taskName}`,
+    filters
+  );

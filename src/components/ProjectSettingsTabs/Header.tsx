@@ -130,6 +130,7 @@ const mapRouteToSection: Record<WritableTabRoutes, ProjectSettingsSection> = {
   [ProjectSettingsTabRoutes.ProjectTriggers]: ProjectSettingsSection.Triggers,
   [ProjectSettingsTabRoutes.PeriodicBuilds]:
     ProjectSettingsSection.PeriodicBuilds,
+  [ProjectSettingsTabRoutes.Plugins]: ProjectSettingsSection.Plugins,
 };
 
 const Container = styled.div`
