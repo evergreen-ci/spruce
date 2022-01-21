@@ -132,7 +132,11 @@ const TaskHistoryContents: React.FC = () => {
           <ColumnPaginationButtons />
         </PaginationFilterWrapper>
         <div>
-          <ColumnHeaders loading={loading} columns={selectedColumns} />
+          <ColumnHeaders
+            projectId={projectId}
+            loading={loading}
+            columns={selectedColumns}
+          />
           <TableWrapper>
             <HistoryTable
               recentlyFetchedCommits={mainlineCommits}
