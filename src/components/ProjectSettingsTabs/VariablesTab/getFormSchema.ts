@@ -64,7 +64,7 @@ export const getFormSchema = (
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     vars: {
-      "ui:buttonText": "Add Variables",
+      "ui:addButtonText": "Add Variables",
       "ui:description": getDescription(useRepoSettings),
       "ui:fullWidth": true,
       "ui:showLabel": false,

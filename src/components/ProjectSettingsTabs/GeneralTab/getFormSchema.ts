@@ -329,7 +329,7 @@ export const getFormSchema = (
       },
       files: {
         filesIgnoredFromCache: {
-          "ui:buttonText": "Add File Pattern",
+          "ui:addButtonText": "Add File Pattern",
           "ui:field": "filesIgnoredFromCacheField",
           options: { useRepoSettings },
         },

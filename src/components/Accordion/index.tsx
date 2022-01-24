@@ -9,6 +9,8 @@ interface AccordionProps {
   showCaret?: boolean;
   contents: React.ReactNode;
   allowToggleFromTitle?: boolean;
+  defaultOpen?: boolean;
+  titleTag?: React.FC;
 }
 export const Accordion: React.FC<AccordionProps> = ({
   title,
@@ -17,13 +19,18 @@ export const Accordion: React.FC<AccordionProps> = ({
   toggleFromBottom = false,
   showCaret = true,
   allowToggleFromTitle = true,
+  defaultOpen = false,
+  titleTag,
 }) => {
-  const [isAccordionDisplayed, setIsAccordionDisplayed] = useState(false);
+  const [isAccordionDisplayed, setIsAccordionDisplayed] = useState(defaultOpen);
   const toggleAccordionHandler = (): void =>
     setIsAccordionDisplayed(!isAccordionDisplayed);
 
   const showToggledTitle = isAccordionDisplayed ? toggledTitle : title;
-  const titleComp = <>{toggledTitle ? showToggledTitle : title}</>;
+  const TitleTag = titleTag ?? "span";
+  const titleComp = (
+    <TitleTag>{toggledTitle ? showToggledTitle : title}</TitleTag>
+  );
   return (
     <>
       {toggleFromBottom && (
