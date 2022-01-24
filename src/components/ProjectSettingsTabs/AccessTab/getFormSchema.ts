@@ -75,7 +75,7 @@ export const getFormSchema = (
       "ui:rootFieldId": "admin",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       admins: {
-        "ui:buttonText": "Add Username",
+        "ui:addButtonText": "Add Username",
         "ui:description": getAdminsDescription(useRepoSettings),
         "ui:showLabel": false,
         options: {
