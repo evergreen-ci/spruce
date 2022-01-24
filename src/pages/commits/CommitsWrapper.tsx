@@ -130,6 +130,7 @@ const StickyContainer = styled.div`
   z-index: 1;
   background-color: ${white};
   margin-top: 4px;
+  margin-bottom: 8px;
 `;
 
 const StyledSkeleton = styled(Skeleton)`
