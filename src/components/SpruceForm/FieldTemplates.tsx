@@ -2,13 +2,13 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import {
   ArrayFieldTemplateProps,
-  FieldProps,
   FieldTemplateProps,
   ObjectFieldTemplateProps,
 } from "@rjsf/core";
 import Icon from "components/Icon";
 import { Unpacked } from "types/utils";
 import { SpruceFormContainer } from "./Container";
+import { TitleField as CustomTitleField } from "./CustomFields";
 import ElementWrapper from "./ElementWrapper";
 
 // Custom field template that does not render fields' titles, as this is handled by LeafyGreen widgets
@@ -16,7 +16,6 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
   classNames,
   children,
   description,
-  fields,
   hidden,
   id,
   label,
@@ -24,16 +23,11 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
   uiSchema,
 }) => {
   const isNullType = schema.type === "null";
-  // fields is incorrectly typed in FieldTemplateProps, so cast to avoid type error
-  const { TitleField } = (fields as unknown) as {
-    TitleField: React.StatelessComponent<Partial<FieldProps>>;
-  };
-  const { "ui:sectionTitle": sectionTitle = false } = uiSchema;
   return (
     !hidden && (
       <>
         {isNullType && (
-          <TitleField id={id} title={label} isSectionTitle={sectionTitle} />
+          <CustomTitleField id={id} title={label} uiSchema={uiSchema} />
         )}
         {isNullType && <>{description}</>}
         <div className={classNames}>{children}</div>

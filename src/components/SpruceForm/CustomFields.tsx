@@ -1,8 +1,15 @@
 import styled from "@emotion/styled";
 import { Description, H3, Subtitle } from "@leafygreen-ui/typography";
-import { Field } from "@rjsf/core";
+import { Field, FieldProps } from "@rjsf/core";
 
-export const TitleField: Field = ({ id, isSectionTitle, title }) => {
+type TitleFieldProps = Pick<FieldProps, "id" | "title" | "uiSchema">;
+
+export const TitleField: React.FC<TitleFieldProps> = ({
+  id,
+  title,
+  uiSchema,
+}) => {
+  const isSectionTitle = uiSchema?.["ui:sectionTitle"] ?? false;
   const Component = isSectionTitle ? StyledH3 : StyledSubtitle;
   return (
     /* @ts-expect-error */
