@@ -1,0 +1,35 @@
+fragment projectPluginsSettings on Project {
+  buildBaronSettings {
+    ticketCreateProject
+    ticketSearchProjects
+  }
+  taskAnnotationSettings {
+    jiraCustomFields {
+      field
+      displayText
+    }
+    fileTicketWebhook {
+      endpoint
+      secret
+    }
+  }
+  perfEnabled
+}
+
+fragment repoPluginsSettings on RepoRef {
+  buildBaronSettings {
+    ticketCreateProject
+    ticketSearchProjects
+  }
+  taskAnnotationSettings {
+    jiraCustomFields {
+      field
+      displayText
+    }
+    fileTicketWebhook {
+      endpoint
+      secret
+    }
+  }
+  perfEnabled
+}

@@ -8,6 +8,7 @@ import {
 import * as access from "./AccessTab/types";
 import * as general from "./GeneralTab/types";
 import * as githubCommitQueue from "./GithubCommitQueue/types";
+import * as plugins from "./PluginsTab/types";
 import * as variables from "./VariablesTab/types";
 
 export type FormStateMap = {
@@ -22,6 +23,10 @@ export type TabDataProps = {
   [ProjectSettingsTabRoutes.Access]: {
     projectData: access.TabProps["projectData"];
     repoData: access.TabProps["repoData"];
+  };
+  [ProjectSettingsTabRoutes.Plugins]: {
+    projectData: plugins.TabProps["projectData"];
+    repoData: plugins.TabProps["repoData"];
   };
   [ProjectSettingsTabRoutes.Variables]: {
     projectData: variables.TabProps["projectData"];

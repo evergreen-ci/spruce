@@ -21,8 +21,10 @@ import {
   TestSortCategory,
   TestResult,
   TaskTestResult,
+  GetTaskQuery,
+  GetTaskQueryVariables,
 } from "gql/generated/types";
-import { GET_TASK_TESTS } from "gql/queries";
+import { GET_TASK_TESTS, GET_TASK } from "gql/queries";
 import {
   useUpdateURLQueryParams,
   useNetworkStatus,
@@ -41,14 +43,25 @@ export interface UpdateQueryArg {
   taskTests: TaskTestResult;
 }
 export const TestsTable: React.FC = () => {
-  const { id: resourceId } = useParams<{ id: string }>();
+  const { id: taskId } = useParams<{ id: string }>();
   const { pathname, search } = useLocation();
+  const parsed = parseQueryString(search);
   const updateQueryParams = useUpdateURLQueryParams();
   const taskAnalytics = useTaskAnalytics();
   const sendFilterTestsEvent = (filterBy: string) =>
     taskAnalytics.sendEvent({ name: "Filter Tests", filterBy });
+  const execution = Number(parsed[RequiredQueryParams.Execution]);
 
-  const queryVariables = getQueryVariables(search, resourceId);
+  const { data: taskData } = useQuery<GetTaskQuery, GetTaskQueryVariables>(
+    GET_TASK,
+    {
+      variables: { taskId, execution },
+    }
+  );
+
+  const { task } = taskData || {};
+  const { displayName, projectId } = task || {};
+  const queryVariables = getQueryVariables(search, taskId);
   const { cat, dir, pageNum, limitNum } = queryVariables;
 
   const appliedDefaultSort = useRef(null);
@@ -99,6 +112,10 @@ export const TestsTable: React.FC = () => {
       taskAnalytics.sendEvent({ name: "Sort Tests Table", sortBy: sortField }),
     statusSelectorProps,
     testNameInputProps,
+    task: {
+      name: displayName,
+      projectIdentifier: projectId,
+    },
   }).map((column) => ({
     ...column,
     ...(column.key === cat && {
@@ -184,7 +201,7 @@ export const rowKey = ({ id }: { id: string }): string => id;
 
 const getQueryVariables = (
   search: string,
-  resourceId: string
+  taskId: string
 ): TaskTestsQueryVariables => {
   const parsed = parseQueryString(search);
   const category = (parsed[RequiredQueryParams.Category] ?? "")
@@ -209,7 +226,7 @@ const getQueryVariables = (
   ).filter((v) => v && v !== TestStatus.All);
   const execution = parsed[RequiredQueryParams.Execution];
   return {
-    id: resourceId,
+    id: taskId,
     cat,
     dir,
     limitNum: getLimitFromSearch(search),

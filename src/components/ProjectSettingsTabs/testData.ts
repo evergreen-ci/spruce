@@ -38,6 +38,18 @@ export const projectBase: ProjectSettingsQuery["projectSettings"] = {
     gitTagVersionsEnabled: null,
     gitTagAuthorizedUsers: ["privileged"],
     gitTagAuthorizedTeams: [],
+    perfEnabled: true,
+    buildBaronSettings: {
+      ticketCreateProject: null,
+      ticketSearchProjects: [],
+    },
+    taskAnnotationSettings: {
+      jiraCustomFields: [],
+      fileTicketWebhook: {
+        endpoint: null,
+        secret: null,
+      },
+    },
   },
   vars: {
     vars: { test_name: "test_value" },
@@ -92,6 +104,23 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     gitTagVersionsEnabled: true,
     gitTagAuthorizedUsers: ["admin"],
     gitTagAuthorizedTeams: [],
+    perfEnabled: true,
+    buildBaronSettings: {
+      ticketCreateProject: "EVG",
+      ticketSearchProjects: ["EVG"],
+    },
+    taskAnnotationSettings: {
+      jiraCustomFields: [
+        {
+          field: "customField",
+          displayText: "Custom Field",
+        },
+      ],
+      fileTicketWebhook: {
+        endpoint: "endpoint",
+        secret: "secret",
+      },
+    },
   },
   vars: {
     vars: { repo_name: "repo_value" },

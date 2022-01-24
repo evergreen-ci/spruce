@@ -7,11 +7,7 @@ import { ProjectSettingsTabRoutes } from "constants/routes";
 /* Given a diff between a form's previous and current state, check if it represents an array field added with no content. */
 const isArrayPushUpdate = (diff: object): boolean =>
   Object.values(diff).every((val) => {
-    if (val === null) {
-      return false;
-    }
-
-    if (typeof val !== "object") {
+    if (val === null || typeof val !== "object") {
       return false;
     }
     // An empty object represents a new array element (i.e. blank input field)

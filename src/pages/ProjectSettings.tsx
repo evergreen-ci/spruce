@@ -144,6 +144,10 @@ export const ProjectSettings: React.FC = () => {
           />
           <ProjectSettingsNavItem
             {...sharedProps}
+            tab={ProjectSettingsTabRoutes.Plugins}
+          />
+          <ProjectSettingsNavItem
+            {...sharedProps}
             tab={ProjectSettingsTabRoutes.EventLog}
           />
         </SideNavGroup>

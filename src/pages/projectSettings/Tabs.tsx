@@ -12,6 +12,7 @@ import {
   PeriodicBuildsTab,
   ProjectTriggersTab,
   VariablesTab,
+  PluginsTab,
   VirtualWorkstationTab,
 } from "components/ProjectSettingsTabs";
 import { gqlToFormMap } from "components/ProjectSettingsTabs/transformers";
@@ -111,6 +112,17 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
             repoData={
               tabData[ProjectSettingsTabRoutes.GithubCommitQueue].repoData
             }
+            useRepoSettings={useRepoSettings}
+          />
+        )}
+      />
+      <Route
+        path={routes.projectSettingsPlugins}
+        render={(props) => (
+          <PluginsTab
+            {...props}
+            projectData={tabData[ProjectSettingsTabRoutes.Plugins].projectData}
+            repoData={tabData[ProjectSettingsTabRoutes.Plugins].repoData}
             useRepoSettings={useRepoSettings}
           />
         )}

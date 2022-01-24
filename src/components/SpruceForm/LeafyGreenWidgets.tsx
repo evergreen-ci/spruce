@@ -43,7 +43,7 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
         <TextInput
           data-cy={dataCy}
           value={value === null || value === undefined ? null : `${value}`}
-          // @ts-ignore
+          // @ts-expect-error
           aria-labelledby={ariaLabelledBy}
           label={ariaLabelledBy ? undefined : label}
           placeholder={placeholder || undefined}
@@ -135,7 +135,7 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
       <MaxWidthContainer>
         <Select
           allowDeselect={allowDeselect !== false}
-          // @ts-ignore
+          // @ts-expect-error
           aria-labelledby={ariaLabelledBy}
           label={ariaLabelledBy ? undefined : label}
           value={value}

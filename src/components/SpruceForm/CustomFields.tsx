@@ -1,14 +1,19 @@
 import styled from "@emotion/styled";
 import { Description, H3, Subtitle } from "@leafygreen-ui/typography";
-import { Field } from "@rjsf/core";
+import { Field, FieldProps } from "@rjsf/core";
 
-export const TitleField: Field = ({ id, isSectionTitle, title }) => {
+type TitleFieldProps = Pick<FieldProps, "id" | "title" | "uiSchema">;
+
+export const TitleField: React.FC<TitleFieldProps> = ({
+  id,
+  title,
+  uiSchema,
+}) => {
+  const isSectionTitle = uiSchema?.["ui:sectionTitle"] ?? false;
   const Component = isSectionTitle ? StyledH3 : StyledSubtitle;
   return (
-    <>
-      {/* @ts-expect-error  */}
-      <Component id={id}>{title}</Component>
-    </>
+    /* @ts-expect-error */
+    <Component id={id}>{title}</Component>
   );
 };
 
@@ -24,13 +29,10 @@ const StyledSubtitle = styled(Subtitle)`
   margin-bottom: 12px;
 `;
 
-export const DescriptionField: Field = ({ id, description }) => (
-  <>
-    {description && (
-      <StyledDescription id={id}>{description}</StyledDescription>
-    )}
-  </>
-);
+export const DescriptionField: Field = ({ id, description }) =>
+  description ? (
+    <StyledDescription id={id}>{description}</StyledDescription>
+  ) : null;
 
 const StyledDescription = styled(Description)`
   margin-bottom: 12px;
