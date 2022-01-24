@@ -1,4 +1,5 @@
-describe("Waterfall Chart Toggle", () => {
+// Will be fixed in EVG-16183
+describe.skip("Waterfall Chart Toggle", () => {
   const COMMITS_ROUTE = "/commits/evergreen";
   before(() => {
     cy.login();
