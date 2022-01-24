@@ -10,21 +10,20 @@ const { trimStringFromMiddle } = string;
 const { gray } = uiColors;
 
 const tooltipInModalZIndex = 100; // necessary due to SeeMoreModal
+const maxBadgeLength = 25;
 
 interface FilterBadgeProps {
   badge: {
     key: string;
     value: string;
   };
-  maxBadgeLength?: number;
   onClose: () => void;
 }
-export const FilterBadge: React.FC<FilterBadgeProps> = ({
-  badge,
-  maxBadgeLength = 25,
-  onClose,
-}) => {
-  const trimmedBadgeName = trimStringFromMiddle(badge.value, maxBadgeLength);
+export const FilterBadge: React.FC<FilterBadgeProps> = ({ badge, onClose }) => {
+  const trimmedBadgeName = trimStringFromMiddle(
+    badge.value,
+    maxBadgeLength - (badge.key.length + 2) // subtract "KEY :" length
+  );
 
   return (
     <ConditionalWrapper
@@ -64,6 +63,7 @@ const ClickableIcon = styled(Icon)`
 `;
 const PaddedBadge = styled(Badge)`
   position: relative;
+  width: 260px;
   :nth-of-type {
     margin-left: 16px;
   }
@@ -79,6 +79,7 @@ const BadgeContent = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 `;
 
 // @ts-expect-error
