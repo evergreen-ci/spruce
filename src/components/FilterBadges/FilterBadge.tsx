@@ -6,19 +6,24 @@ import { ConditionalWrapper } from "components/ConditionalWrapper";
 import Icon from "components/Icon";
 import { string } from "utils";
 
-const maxBadgeLength = 25;
 const { trimStringFromMiddle } = string;
-
 const { gray } = uiColors;
+
+const tooltipInModalZIndex = 100; // necessary due to SeeMoreModal
 
 interface FilterBadgeProps {
   badge: {
     key: string;
     value: string;
   };
+  maxBadgeLength?: number;
   onClose: () => void;
 }
-export const FilterBadge: React.FC<FilterBadgeProps> = ({ badge, onClose }) => {
+export const FilterBadge: React.FC<FilterBadgeProps> = ({
+  badge,
+  maxBadgeLength = 25,
+  onClose,
+}) => {
   const trimmedBadgeName = trimStringFromMiddle(badge.value, maxBadgeLength);
 
   return (
@@ -28,7 +33,7 @@ export const FilterBadge: React.FC<FilterBadgeProps> = ({ badge, onClose }) => {
         <StyledTooltip
           align="top"
           justify="middle"
-          popoverZIndex={10 /* use tooltipIndex when it's merged */}
+          popoverZIndex={tooltipInModalZIndex}
           trigger={children}
           triggerEvent="hover"
         >
