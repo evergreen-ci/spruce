@@ -22,31 +22,30 @@ export const FilterBadge: React.FC<FilterBadgeProps> = ({ badge, onClose }) => {
   const trimmedBadgeName = trimStringFromMiddle(badge.value, maxBadgeLength);
 
   return (
-    <PaddedBadge
-      key={`filter_badge_${badge.key}_${badge.value}`}
-      data-cy="filter-badge"
+    <ConditionalWrapper
+      condition={trimmedBadgeName !== badge.value}
+      wrapper={(children) => (
+        <StyledTooltip
+          align="top"
+          justify="middle"
+          popoverZIndex={10 /* use tooltipIndex when it's merged */}
+          trigger={children}
+          triggerEvent="hover"
+        >
+          {badge.value}
+        </StyledTooltip>
+      )}
     >
-      <ConditionalWrapper
-        condition={trimmedBadgeName !== badge.value}
-        wrapper={(children) => (
-          <StyledTooltip
-            align="top"
-            justify="middle"
-            popoverZIndex={10 /* use tooltipIndex when it's merged */}
-            trigger={children}
-            triggerEvent="hover"
-          >
-            {badge.value}
-          </StyledTooltip>
-        )}
+      <PaddedBadge
+        key={`filter_badge_${badge.key}_${badge.value}`}
+        data-cy="filter-badge"
       >
         <BadgeContent>
           {badge.key} : {trimmedBadgeName}
         </BadgeContent>
-      </ConditionalWrapper>
-
-      <ClickableIcon data-cy="close-badge" glyph="X" onClick={onClose} />
-    </PaddedBadge>
+        <ClickableIcon data-cy="close-badge" glyph="X" onClick={onClose} />
+      </PaddedBadge>
+    </ConditionalWrapper>
   );
 };
 
@@ -66,16 +65,19 @@ const PaddedBadge = styled(Badge)`
   margin-right: 16px;
   margin-bottom: 24px;
   padding: 0px 24px 0px 16px; // the difference in padding is to offset the "X" button visually
+  :hover {
+    cursor: default;
+  }
 `;
 
 const BadgeContent = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
 `;
 
 // @ts-expect-error
+// Reduce Tooltip padding because the default Tooltip is invasive when trying to interact with other UI elements
 const StyledTooltip = styled(Tooltip)`
   padding: 4px 8px;
 `;

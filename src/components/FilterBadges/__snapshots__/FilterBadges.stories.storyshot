@@ -5,11 +5,11 @@ exports[`storybook Storyshots FilterBadges Default 1`] = `
   className="css-19f1xe2-Container e3qndfh0"
 >
   <div
-    className="css-1mc9e8m-PaddedBadge e1vs77ku2 leafygreen-ui-13xc3rv"
+    className="css-h29ynq-PaddedBadge e1vs77ku2 leafygreen-ui-13xc3rv"
     data-cy="filter-badge"
   >
     <div
-      className="css-1i7u60d-BadgeContent e1vs77ku1"
+      className="css-1fqgdhu-BadgeContent e1vs77ku1"
     >
       buildVariants
        : 
@@ -36,11 +36,11 @@ exports[`storybook Storyshots FilterBadges Default 1`] = `
     </svg>
   </div>
   <div
-    className="css-1mc9e8m-PaddedBadge e1vs77ku2 leafygreen-ui-13xc3rv"
+    className="css-h29ynq-PaddedBadge e1vs77ku2 leafygreen-ui-13xc3rv"
     data-cy="filter-badge"
   >
     <div
-      className="css-1i7u60d-BadgeContent e1vs77ku1"
+      className="css-1fqgdhu-BadgeContent e1vs77ku1"
     >
       buildVariants
        : 
@@ -67,15 +67,15 @@ exports[`storybook Storyshots FilterBadges Default 1`] = `
     </svg>
   </div>
   <div
-    className="css-1mc9e8m-PaddedBadge e1vs77ku2 leafygreen-ui-13xc3rv"
+    className="css-h29ynq-PaddedBadge e1vs77ku2 leafygreen-ui-187420t"
     data-cy="filter-badge"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <div
-      className="leafygreen-ui-cssveg css-1i7u60d-BadgeContent e1vs77ku1"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
+      className="css-1fqgdhu-BadgeContent e1vs77ku1"
     >
       buildVariants
        : 
