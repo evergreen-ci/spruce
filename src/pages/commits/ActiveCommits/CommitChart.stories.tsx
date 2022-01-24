@@ -1,6 +1,5 @@
-import { MainlineCommitsQuery } from "gql/generated/types";
-import { ChartTypes } from "types/commits";
-import { FlexRowContainer } from "../CommitsWrapper";
+import styled from "@emotion/styled";
+import { ChartTypes, Commits } from "types/commits";
 import { CommitChart } from "./CommitChart";
 import {
   findMaxGroupedTaskStats,
@@ -13,7 +12,7 @@ export default {
 };
 
 export const AbsoluteChart = () => (
-  <FlexRowContainer numCommits={versions.length}>
+  <FlexRowContainer>
     {versions.map((item) => (
       <CommitChart
         key={item.version.id}
@@ -27,7 +26,7 @@ export const AbsoluteChart = () => (
 );
 
 export const PercentChart = () => (
-  <FlexRowContainer numCommits={versions.length}>
+  <FlexRowContainer>
     {versions.map((item) => (
       <CommitChart
         key={item.version.id}
@@ -40,7 +39,13 @@ export const PercentChart = () => (
   </FlexRowContainer>
 );
 
-const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
+const FlexRowContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+`;
+const versions: Commits = [
   {
     version: {
       projectIdentifier: "spruce",

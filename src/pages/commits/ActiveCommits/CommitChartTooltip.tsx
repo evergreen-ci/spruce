@@ -7,6 +7,7 @@ import { Disclaimer } from "@leafygreen-ui/typography";
 import { inactiveElementStyle } from "components/styles";
 import { taskStatusToCopy, mapTaskToBarchartColor } from "constants/task";
 import { TaskStatus } from "types/task";
+import { tooltipZIndex } from "../constants";
 import { ColorCount, getStatusesWithZeroCount } from "./utils";
 
 const { gray } = uiColors;
@@ -25,7 +26,7 @@ export const CommitChartTooltip: React.FC<Props> = ({
       usePortal={false}
       align="right"
       justify="middle"
-      popoverZIndex={1}
+      popoverZIndex={tooltipZIndex}
       trigger={trigger}
       triggerEvent="hover"
     >
@@ -99,7 +100,7 @@ const TotalCountContainer = styled.div<{ active?: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 8px;
   color: ${gray.dark2};
   ${({ active }) => !active && inactiveElementStyle};
 `;
@@ -109,7 +110,7 @@ const Circle = styled.div<{ color: string }>`
   border-radius: 4px;
   width: 8px;
   height: 8px;
-  margin-right: 12px;
+  margin-right: 16px;
 `;
 
 const NumberText = styled(Disclaimer)`
