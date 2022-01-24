@@ -5,7 +5,7 @@ exports[`storybook Storyshots FilterBadges Default 1`] = `
   className="css-19f1xe2-Container e3qndfh0"
 >
   <div
-    className="css-1f49uy4-PaddedBadge e1vs77ku2 leafygreen-ui-187420t"
+    className="css-lhiqu7-PaddedBadge e1vs77ku2 leafygreen-ui-187420t"
     data-cy="filter-badge"
     onBlur={[Function]}
     onFocus={[Function]}
@@ -40,7 +40,7 @@ exports[`storybook Storyshots FilterBadges Default 1`] = `
     </svg>
   </div>
   <div
-    className="css-1f49uy4-PaddedBadge e1vs77ku2 leafygreen-ui-187420t"
+    className="css-lhiqu7-PaddedBadge e1vs77ku2 leafygreen-ui-187420t"
     data-cy="filter-badge"
     onBlur={[Function]}
     onFocus={[Function]}
@@ -75,7 +75,7 @@ exports[`storybook Storyshots FilterBadges Default 1`] = `
     </svg>
   </div>
   <div
-    className="css-1f49uy4-PaddedBadge e1vs77ku2 leafygreen-ui-187420t"
+    className="css-lhiqu7-PaddedBadge e1vs77ku2 leafygreen-ui-187420t"
     data-cy="filter-badge"
     onBlur={[Function]}
     onFocus={[Function]}

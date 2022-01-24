@@ -62,14 +62,14 @@ const ClickableIcon = styled(Icon)`
   }
 `;
 const PaddedBadge = styled(Badge)`
-  position: relative;
-  width: 260px;
   :nth-of-type {
     margin-left: 16px;
   }
   margin-right: 16px;
   margin-bottom: 24px;
-  padding: 0px 24px 0px 16px; // the difference in padding is to offset the "X" button visually
+  width: 260px;
+
+  position: relative;
   :hover {
     cursor: default;
   }
