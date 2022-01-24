@@ -6,7 +6,7 @@ import { Disclaimer } from "@leafygreen-ui/typography";
 import { Select, Input } from "antd";
 import { v4 as uuid } from "uuid";
 import { InputLabel } from "components/styles";
-import { RegexSelector } from "constants/triggers";
+import { RegexSelector } from "types/triggers";
 
 const { Option } = Select;
 

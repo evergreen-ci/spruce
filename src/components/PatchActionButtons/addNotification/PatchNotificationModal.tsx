@@ -2,13 +2,13 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { NotificationModal } from "components/NotificationModal";
-import { RegexSelector, ResourceType, Trigger } from "constants/triggers";
 import { SubscriptionMethods } from "hooks/useNotificationModal";
 import {
   SUBSCRIPTION_JIRA_COMMENT,
   SUBSCRIPTION_SLACK,
   SUBSCRIPTION_EMAIL,
 } from "types/subscription";
+import { RegexSelector, ResourceType, Trigger } from "types/triggers";
 import { validators } from "utils";
 
 const {

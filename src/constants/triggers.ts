@@ -1,18 +1,14 @@
-export enum ResourceType {
-  TASK = "TASK",
-  VERSION = "VERSION",
-  BUILD = "BUILD",
-}
-
-type PayloadResourceIdKey = "in-version" | "in-build" | "id";
-export interface Trigger {
-  trigger: string;
-  label: string;
-  extraFields?: ExtraField[];
-  resourceType: ResourceType;
-  payloadResourceIdKey?: PayloadResourceIdKey;
-  regexSelectors?: RegexSelector[];
-}
+import {
+  ExtraField,
+  ExtraFieldKey,
+  RegexSelector,
+  RenotifyDefaultTime,
+  ResourceType,
+  StringMap,
+  Trigger,
+  TriggerType,
+} from "types/triggers";
+import { validateDuration, validatePercentage } from "utils/validators";
 
 export const buildRegexSelectors: RegexSelector[] = [
   {
@@ -36,24 +32,8 @@ export const taskRegexSelectors: RegexSelector[] = [
   },
 ];
 
-export interface ExtraField {
-  text: string;
-  key: string;
-  type?: string;
-  options?: StringMap;
-  default?: string;
-  validator?: (v: any) => string;
-  dataCy?: string;
-}
-
-export type RegexSelectorType = "display-name" | "build-variant";
-export interface RegexSelector {
-  type: RegexSelectorType;
-  typeLabel: string;
-}
-
 export const failureTypeSubscriberConfig = {
-  text: "Failure type",
+  text: "Failure Type",
   key: "failure-type",
   type: "select",
   options: {
@@ -66,7 +46,7 @@ export const failureTypeSubscriberConfig = {
 };
 
 export const requesterSubscriberConfig = {
-  text: "Build initiator",
+  text: "Build Initiator",
   key: "requester",
   type: "select",
   options: {
@@ -84,6 +64,155 @@ export const clearExtraFieldsInputCb = (accum: StringMap, eF: ExtraField) => ({
   [eF.key]: "10",
 });
 
-interface StringMap {
-  [index: string]: string;
-}
+export const projectTriggers: Trigger[] = [
+  {
+    trigger: TriggerType.OUTCOME,
+    resourceType: ResourceType.VERSION,
+    label: "Any Version Finishes",
+    extraFields: [requesterSubscriberConfig],
+  },
+  {
+    trigger: TriggerType.FAILURE,
+    resourceType: ResourceType.VERSION,
+    label: "Any Version Fails",
+    extraFields: [requesterSubscriberConfig],
+  },
+  {
+    trigger: TriggerType.OUTCOME,
+    resourceType: ResourceType.BUILD,
+    label: "Any Build Finishes",
+    regexSelectors: buildRegexSelectors,
+    extraFields: [requesterSubscriberConfig],
+  },
+  {
+    trigger: TriggerType.FAILURE,
+    resourceType: ResourceType.BUILD,
+    label: "Any Build Fails",
+    regexSelectors: buildRegexSelectors,
+    extraFields: [requesterSubscriberConfig],
+  },
+  {
+    trigger: TriggerType.OUTCOME,
+    resourceType: ResourceType.TASK,
+    label: "Any task finishes",
+    regexSelectors: taskRegexSelectors,
+    extraFields: [requesterSubscriberConfig],
+  },
+  {
+    trigger: TriggerType.FAILURE,
+    resourceType: ResourceType.TASK,
+    label: "Any Task Fails",
+    regexSelectors: taskRegexSelectors,
+    extraFields: [failureTypeSubscriberConfig, requesterSubscriberConfig],
+  },
+  {
+    trigger: TriggerType.FIRST_FAILURE_BUILD,
+    resourceType: ResourceType.TASK,
+    label: "The First Failure In a Version Occurs",
+    regexSelectors: taskRegexSelectors,
+    extraFields: [requesterSubscriberConfig],
+  },
+  {
+    trigger: TriggerType.FIRST_FAILURE_BUILD,
+    resourceType: ResourceType.TASK,
+    label: "The First Failure In Each Build Occurs",
+    regexSelectors: taskRegexSelectors,
+    extraFields: [requesterSubscriberConfig],
+  },
+  {
+    trigger: TriggerType.FIRST_FAILURE_VERSION_NAME,
+    resourceType: ResourceType.TASK,
+    label: "The First Failure In Each Version For Each Task Name Occurs",
+    regexSelectors: taskRegexSelectors,
+    extraFields: [requesterSubscriberConfig],
+  },
+  {
+    trigger: TriggerType.REGRESSION,
+    resourceType: ResourceType.TASK,
+    label: "A Previously Passing Task Fails",
+    regexSelectors: taskRegexSelectors,
+    extraFields: [
+      {
+        text: "Re-Notify After How Many Hours",
+        key: ExtraFieldKey.RENOTIFY_INTERVAL,
+        validator: validateDuration,
+        default: RenotifyDefaultTime,
+      },
+      failureTypeSubscriberConfig,
+    ],
+  },
+  {
+    trigger: TriggerType.TEST_REGRESSION,
+    resourceType: ResourceType.TASK,
+    label: "A Previously Passing Test In a Task Fails",
+    regexSelectors: taskRegexSelectors,
+    extraFields: [
+      {
+        text: "Test Names Matching Regex",
+        key: ExtraFieldKey.TEST_REGEX,
+        validator: null,
+      },
+      {
+        text: "Re-Notify After How Many Hours",
+        key: ExtraFieldKey.RENOTIFY_INTERVAL,
+        validator: validateDuration,
+        default: RenotifyDefaultTime,
+      },
+      failureTypeSubscriberConfig,
+    ],
+  },
+  {
+    trigger: TriggerType.EXCEEDS_DURATION,
+    resourceType: ResourceType.TASK,
+    label: "The Runtime For a Task Exceeds Some Duration",
+    regexSelectors: taskRegexSelectors,
+    extraFields: [
+      {
+        text: "Task Duration (Seconds)",
+        key: ExtraFieldKey.TASK_DURATION_SECS,
+        validator: validateDuration,
+      },
+    ],
+  },
+  {
+    trigger: TriggerType.RUNTIME_CHANGE,
+    resourceType: ResourceType.TASK,
+    label: "The Runtime For a Successful Task Changes By Some Percentage",
+    regexSelectors: taskRegexSelectors,
+    extraFields: [
+      {
+        text: "Percent Change",
+        key: ExtraFieldKey.TASK_PERCENT_CHANGE,
+        validator: validatePercentage,
+      },
+    ],
+  },
+  {
+    trigger: TriggerType.EXCEEDS_DURATION,
+    label: "The Runtime For This Version Exceeds Some Duration",
+    resourceType: ResourceType.VERSION,
+    payloadResourceIdKey: "id",
+    extraFields: [
+      {
+        text: "Version duration (seconds)",
+        key: ExtraFieldKey.VERSION_DURATION_SECS,
+        dataCy: "duration-secs-input",
+        validator: validateDuration,
+      },
+    ],
+  },
+  {
+    trigger: TriggerType.RUNTIME_CHANGE,
+    label: "The Runtime For This Version Changes By Some Percentage",
+    resourceType: ResourceType.VERSION,
+    payloadResourceIdKey: "id",
+    extraFields: [
+      {
+        text: "Percent Change",
+        key: ExtraFieldKey.VERSION_PERCENT_CHANGE,
+        dataCy: "percent-change-input",
+        validator: validatePercentage,
+      },
+    ],
+  },
+];

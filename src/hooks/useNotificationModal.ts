@@ -8,10 +8,11 @@ import {
   getNotificationTriggerCookie,
   SUBSCRIPTION_METHOD,
 } from "constants/cookies";
-import { clearExtraFieldsInputCb, Trigger } from "constants/triggers";
+import { clearExtraFieldsInputCb } from "constants/triggers";
 import { GetUserSettingsQuery, GetUserQuery } from "gql/generated/types";
 import { GET_USER_SETTINGS, GET_USER } from "gql/queries";
 import { SUBSCRIPTION_SLACK, SUBSCRIPTION_EMAIL } from "types/subscription";
+import { Trigger } from "types/triggers";
 
 export interface UseNotificationModalProps {
   subscriptionMethodControls: SubscriptionMethods;
