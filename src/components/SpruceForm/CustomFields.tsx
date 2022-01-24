@@ -5,10 +5,8 @@ import { Field } from "@rjsf/core";
 export const TitleField: Field = ({ id, isSectionTitle, title }) => {
   const Component = isSectionTitle ? StyledH3 : StyledSubtitle;
   return (
-    <>
-      {/* @ts-expect-error  */}
-      <Component id={id}>{title}</Component>
-    </>
+    /* @ts-expect-error */
+    <Component id={id}>{title}</Component>
   );
 };
 
@@ -24,13 +22,10 @@ const StyledSubtitle = styled(Subtitle)`
   margin-bottom: 12px;
 `;
 
-export const DescriptionField: Field = ({ id, description }) => (
-  <>
-    {description && (
-      <StyledDescription id={id}>{description}</StyledDescription>
-    )}
-  </>
-);
+export const DescriptionField: Field = ({ id, description }) =>
+  description ? (
+    <StyledDescription id={id}>{description}</StyledDescription>
+  ) : null;
 
 const StyledDescription = styled(Description)`
   margin-bottom: 12px;

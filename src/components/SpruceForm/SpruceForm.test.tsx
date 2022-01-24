@@ -48,7 +48,7 @@ describe("spruceForm", () => {
     fireEvent.change(queryByDataCy("valid-projects-input"), {
       target: { value: "new value" },
     });
-    await fireEvent.click(queryByDataCy("add-button"));
+    fireEvent.click(queryByDataCy("add-button"));
     await waitFor(() =>
       expect(queryAllByDataCy("new-user-input")).toHaveLength(2)
     );
