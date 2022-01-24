@@ -13,7 +13,7 @@ Array [
         width={200}
       >
         <div
-          className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+          className="leafygreen-ui-cssveg css-13ddtlk-ChartContainer e1tzsy281"
           data-cy="commit-chart-container"
           onBlur={[Function]}
           onFocus={[Function]}
@@ -21,19 +21,19 @@ Array [
           onMouseLeave={[Function]}
         >
           <div
-            className="css-6kao1w-Bar e1tzsy280"
+            className="css-1uawzcu-Bar e1tzsy280"
             color="#4F4FBF"
             data-cy="commit-chart-bar"
             height="58.333333333333336%"
           />
           <div
-            className="css-3gn9ru-Bar e1tzsy280"
+            className="css-37d21z-Bar e1tzsy280"
             color="#F1F0FC"
             data-cy="commit-chart-bar"
             height="41.66666666666667%"
           />
           <div
-            className="css-jnxlqf-Bar e1tzsy280"
+            className="css-pzgzuy-Bar e1tzsy280"
             color="#5D6C74"
             data-cy="commit-chart-bar"
             height="16.666666666666664%"
@@ -45,7 +45,7 @@ Array [
         width={200}
       >
         <div
-          className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+          className="leafygreen-ui-cssveg css-13ddtlk-ChartContainer e1tzsy281"
           data-cy="commit-chart-container"
           onBlur={[Function]}
           onFocus={[Function]}
@@ -53,25 +53,25 @@ Array [
           onMouseLeave={[Function]}
         >
           <div
-            className="css-u2pqa3-Bar e1tzsy280"
+            className="css-19dvglf-Bar e1tzsy280"
             color="#CF4A22"
             data-cy="commit-chart-bar"
             height="50%"
           />
           <div
-            className="css-1e7si1e-Bar e1tzsy280"
+            className="css-wl1o3-Bar e1tzsy280"
             color="#4F4FBF"
             data-cy="commit-chart-bar"
             height="50%"
           />
           <div
-            className="css-16hoxq8-Bar e1tzsy280"
+            className="css-n76wta-Bar e1tzsy280"
             color="#89979B"
             data-cy="commit-chart-bar"
             height="16.666666666666664%"
           />
           <div
-            className="css-1n3fse1-Bar e1tzsy280"
+            className="css-27o4eu-Bar e1tzsy280"
             color="#5D6C74"
             data-cy="commit-chart-bar"
             height="100%"
@@ -95,7 +95,7 @@ Array [
         width={200}
       >
         <div
-          className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+          className="leafygreen-ui-cssveg css-13ddtlk-ChartContainer e1tzsy281"
           data-cy="commit-chart-container"
           onBlur={[Function]}
           onFocus={[Function]}
@@ -103,13 +103,13 @@ Array [
           onMouseLeave={[Function]}
         >
           <div
-            className="css-1x4khp7-Bar e1tzsy280"
+            className="css-1yq4z3j-Bar e1tzsy280"
             color="#F1F0FC"
             data-cy="commit-chart-bar"
             height="33.33333333333333%"
           />
           <div
-            className="css-1q4dzih-Bar e1tzsy280"
+            className="css-ls2gol-Bar e1tzsy280"
             color="#89979B"
             data-cy="commit-chart-bar"
             height="58.333333333333336%"
@@ -121,7 +121,7 @@ Array [
         width={200}
       >
         <div
-          className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+          className="leafygreen-ui-cssveg css-13ddtlk-ChartContainer e1tzsy281"
           data-cy="commit-chart-container"
           onBlur={[Function]}
           onFocus={[Function]}
@@ -129,13 +129,13 @@ Array [
           onMouseLeave={[Function]}
         >
           <div
-            className="css-14yldmu-Bar e1tzsy280"
+            className="css-498gs-Bar e1tzsy280"
             color="#CF4A22"
             data-cy="commit-chart-bar"
             height="16.666666666666664%"
           />
           <div
-            className="css-gebqh9-Bar e1tzsy280"
+            className="css-69mlgf-Bar e1tzsy280"
             color="#5D6C74"
             data-cy="commit-chart-bar"
             height="58.333333333333336%"
@@ -147,7 +147,7 @@ Array [
         width={200}
       >
         <div
-          className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+          className="leafygreen-ui-cssveg css-13ddtlk-ChartContainer e1tzsy281"
           data-cy="commit-chart-container"
           onBlur={[Function]}
           onFocus={[Function]}
@@ -155,25 +155,25 @@ Array [
           onMouseLeave={[Function]}
         >
           <div
-            className="css-1pmbxjd-Bar e1tzsy280"
+            className="css-1spry57-Bar e1tzsy280"
             color="#13AA52"
             data-cy="commit-chart-bar"
             height="50%"
           />
           <div
-            className="css-14yldmu-Bar e1tzsy280"
+            className="css-498gs-Bar e1tzsy280"
             color="#CF4A22"
             data-cy="commit-chart-bar"
             height="16.666666666666664%"
           />
           <div
-            className="css-1kcoqbt-Bar e1tzsy280"
+            className="css-16n5vot-Bar e1tzsy280"
             color="#FFDD49"
             data-cy="commit-chart-bar"
             height="75%"
           />
           <div
-            className="css-16hoxq8-Bar e1tzsy280"
+            className="css-n76wta-Bar e1tzsy280"
             color="#89979B"
             data-cy="commit-chart-bar"
             height="16.666666666666664%"
@@ -323,7 +323,7 @@ Array [
     </div>
   </div>,
   <div
-    className="css-1xvil5c-StickyContainer ech0nhv6"
+    className="css-1nsrvm5-StickyContainer ech0nhv6"
   >
     <div
       className="css-gnwyka-FlexRowContainer ech0nhv4"
