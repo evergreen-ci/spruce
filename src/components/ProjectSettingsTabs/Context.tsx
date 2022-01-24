@@ -7,7 +7,7 @@ import { ProjectSettingsTabRoutes } from "constants/routes";
 /* Given a diff between a form's previous and current state, check if it represents an array field added with no content. */
 const isArrayPushUpdate = (diff: object): boolean =>
   Object.values(diff).every((val) => {
-    if (typeof val !== "object") {
+    if (val === null || typeof val !== "object") {
       return false;
     }
     // An empty object represents a new array element (i.e. blank input field)
@@ -73,9 +73,7 @@ const reducer = (state: TabState, action: Action): TabState => {
 interface ProjectSettingsState {
   tabs: TabState;
   saveTab: (tab: ProjectSettingsTabRoutes) => void;
-  getTab: (
-    tab: ProjectSettingsTabRoutes
-  ) => TabState[ProjectSettingsTabRoutes.General]; // TODO: update type as all tabs are implemented
+  getTab: (tab: ProjectSettingsTabRoutes) => FormDataProps;
   updateForm: (
     tab: ProjectSettingsTabRoutes,
     save?: boolean

@@ -1,8 +1,10 @@
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
+import Tooltip from "@leafygreen-ui/tooltip";
 import { Skeleton } from "antd";
 import { Link } from "react-router-dom";
-import { inactiveElementStyle } from "components/styles";
+import { ConditionalWrapper } from "components/ConditionalWrapper";
+import { inactiveElementStyle, StyledRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { TaskStatus } from "types/task";
 import { HistoryTableIcon } from "./HistoryTableIcon";
@@ -46,10 +48,52 @@ export const EmptyCell = () => (
   </Cell>
 );
 
-export const LoadingCell = () => (
-  <Cell data-cy="loading-cell">
-    <Skeleton.Avatar active shape="circle" size={statusIconSize} />
-  </Cell>
+interface LoadingCellProps {
+  isHeader?: boolean;
+}
+export const LoadingCell: React.FC<LoadingCellProps> = ({
+  isHeader = false,
+}) => (
+  <>
+    {isHeader ? (
+      <HeaderCell data-cy="loading-header-cell">
+        <Skeleton active title paragraph={false} />
+      </HeaderCell>
+    ) : (
+      <Cell data-cy="loading-cell">
+        <Skeleton.Avatar active shape="circle" size={statusIconSize} />
+      </Cell>
+    )}
+  </>
+);
+
+interface ColumnHeaderCellProps {
+  link: string;
+  trimmedDisplayName: string;
+  fullDisplayName: string;
+}
+export const ColumnHeaderCell: React.FC<ColumnHeaderCellProps> = ({
+  link,
+  trimmedDisplayName,
+  fullDisplayName,
+}) => (
+  <HeaderCell data-cy="header-cell">
+    <ConditionalWrapper
+      condition={trimmedDisplayName !== fullDisplayName}
+      wrapper={(children) => (
+        <Tooltip
+          align="top"
+          justify="middle"
+          trigger={children}
+          triggerEvent="hover"
+        >
+          {fullDisplayName}
+        </Tooltip>
+      )}
+    >
+      <StyledRouterLink to={link}>{trimmedDisplayName}</StyledRouterLink>
+    </ConditionalWrapper>
+  </HeaderCell>
 );
 
 const Circle = styled.div`
@@ -71,6 +115,7 @@ const Cell = styled.div<{ inactive?: boolean }>`
 `;
 
 export const HeaderCell = styled(Cell)`
+  word-break: break-all; // Safari
   word-wrap: anywhere;
   text-align: center;
 `;
