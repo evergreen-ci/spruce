@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { withKnobs, boolean, number } from "@storybook/addon-knobs";
 import StoryRouter from "storybook-react-router";
-import { MainlineCommitsQuery } from "gql/generated/types";
-import { ChartTypes } from "types/commits";
+import { ChartTypes, CommitVersion, Commit } from "types/commits";
 import { TaskStatus } from "types/task";
 import { CommitsWrapper } from "../CommitsWrapper";
 
@@ -33,12 +32,8 @@ export const ActualWaterfallPage = () => {
   );
 };
 
-type Commits = MainlineCommitsQuery["mainlineCommits"]["versions"];
-type Commit = Commits[0];
-type Version = Commit["version"];
-
 const buildVariantUpdateLength = (
-  buildVariant: Version["buildVariants"],
+  buildVariant: CommitVersion["buildVariants"],
   buildVariantCount: number
 ) => {
   if (buildVariant.length === buildVariantCount) {
@@ -57,7 +52,7 @@ const buildVariantUpdateLength = (
 };
 
 const taskUpdateLength = (
-  tasks: Version["buildVariants"][0]["tasks"],
+  tasks: CommitVersion["buildVariants"][0]["tasks"],
   taskCount: number
 ) => {
   if (tasks.length === taskCount) {

@@ -55,7 +55,7 @@ const CommitChartLabel: React.FC<Props> = ({
       </LabelText>
       {shortenMessage && (
         <ExpandedText
-          zIndex={10}
+          popoverZIndex={10}
           message={message}
           data-cy="long-commit-message-tooltip"
         />

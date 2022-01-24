@@ -42,14 +42,12 @@ export const CommitsWrapper: React.FC<Props> = ({
     if (versions) {
       return getAllTaskStatsGroupedByColor(versions);
     }
-    return undefined;
   }, [versions]);
 
   const maxGroupedTaskStats = useMemo(() => {
     if (versionToGroupedTaskStatsMap) {
       return findMaxGroupedTaskStats(versionToGroupedTaskStatsMap);
     }
-    return undefined;
   }, [versionToGroupedTaskStatsMap]);
 
   const { max } = maxGroupedTaskStats || {};

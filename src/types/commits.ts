@@ -1,4 +1,5 @@
 import { MainlineCommitsQuery } from "gql/generated/types";
+import { Unpacked } from "types/utils";
 
 export enum ProjectFilterOptions {
   BuildVariant = "buildVariants",
@@ -28,6 +29,6 @@ export enum CommitRequesterTypes {
 }
 
 export type Commits = MainlineCommitsQuery["mainlineCommits"]["versions"];
-export type Commit = Commits[0];
+export type Commit = Unpacked<Commits>;
 export type CommitVersion = Commit["version"];
 export type CommitRolledUpVersions = Commit["rolledUpVersions"];
