@@ -14,7 +14,6 @@ export const PluginsTab: React.FC<TabProps> = ({
 }) => {
   const { getTab, updateForm } = useProjectSettingsContext();
   const { formData } = getTab(tab);
-  console.log(formData);
 
   const initialFormState = projectData || repoData;
   usePopulateForm(initialFormState, tab);
