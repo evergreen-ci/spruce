@@ -31,15 +31,18 @@ export const DistroOption: React.FC<DistroOptionProps> = ({
 
 const OptionWrapper = styled.div`
   display: flex;
-  padding: 8px;
-  align-items: center;
-  overflow-y: scroll;
+  padding: 10px 12px;
+  align-items: start;
   &:hover {
     cursor: pointer;
     background-color: ${blue.light3};
   }
 `;
 const StyledBadge = styled(Badge)`
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  width: 90px;
   margin-right: 8px;
 `;
 const DistroName = styled(Disclaimer)`
