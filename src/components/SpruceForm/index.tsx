@@ -38,6 +38,7 @@ export const SpruceForm: React.FC<SpruceFormProps> = ({
     validate={validate}
     customFormats={customFormats}
     liveValidate
+    noHtml5Validate
   >
     {/*  Need to pass in an empty fragment child to remove default submit button */}
     <></>

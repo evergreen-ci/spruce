@@ -3,38 +3,25 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
 import { Label } from "@leafygreen-ui/typography";
-import { useLocation, useHistory } from "react-router-dom";
-import { ChartToggleQueryParams, ChartTypes } from "types/commits";
-import { queryString } from "utils";
+import { ChartTypes } from "types/commits";
 
 const { gray } = uiColors;
-const { stringifyQuery, parseQueryString } = queryString;
 
 export const ChartToggle: React.FC<{
   currentChartType: ChartTypes;
-}> = ({ currentChartType }) => {
-  const { pathname, search } = useLocation();
-  const { replace } = useHistory();
-
-  const onChangeChartType = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    const nextChartType = event.target.value;
-    replace(
-      `${pathname}?${stringifyQuery({
-        ...parseQueryString(search),
-        [ChartToggleQueryParams.chartType]: nextChartType,
-      })}`
-    );
+  onChangeChartType: (chartType: ChartTypes) => void;
+}> = ({ currentChartType, onChangeChartType }) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const chartType = e.target.value as ChartTypes;
+    onChangeChartType(chartType);
   };
-
   return (
     <Container>
       <ToggleWrapper>
         <Label htmlFor="chart-toggle">View Options</Label>
         <StyledRadioGroup
           size="default"
-          onChange={onChangeChartType}
+          onChange={onChange}
           value={currentChartType}
           name="chart-select"
         >
@@ -42,7 +29,6 @@ export const ChartToggle: React.FC<{
             data-cy="cy-chart-absolute-radio"
             id="chart-radio-absolute"
             value={ChartTypes.Absolute}
-            checked={currentChartType === ChartTypes.Absolute}
           >
             <Label htmlFor="chart-radio-absolute">Absolute Number</Label>
           </Radio>
@@ -50,7 +36,6 @@ export const ChartToggle: React.FC<{
             data-cy="cy-chart-percent-radio"
             id="chart-radio-percent"
             value={ChartTypes.Percentage}
-            checked={currentChartType === ChartTypes.Percentage}
           >
             <Label htmlFor="chart-radio-percent">Percentage</Label>
           </Radio>

@@ -1,3 +1,6 @@
+import { MainlineCommitsQuery } from "gql/generated/types";
+import { Unpacked } from "types/utils";
+
 export enum ProjectFilterOptions {
   BuildVariant = "buildVariants",
   Task = "taskNames",
@@ -24,3 +27,8 @@ export enum CommitRequesterTypes {
   TriggerRequester = "trigger_request",
   GitTagRequester = "git_tag_request",
 }
+
+export type Commits = MainlineCommitsQuery["mainlineCommits"]["versions"];
+export type Commit = Unpacked<Commits>;
+export type CommitVersion = Commit["version"];
+export type CommitRolledUpVersions = Commit["rolledUpVersions"];
