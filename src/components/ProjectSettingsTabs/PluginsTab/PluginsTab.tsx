@@ -51,7 +51,9 @@ const validate = (formData, errors) => {
   // if a search project is defined, a create project must be defined, and vice versa
   const searchProjectDefined =
     searchProject?.length !== 0 &&
-    searchProject?.[0]?.searchProject !== undefined;
+    searchProject?.[0]?.searchProject !== undefined &&
+    searchProject?.[0]?.searchProject.trim() !== "";
+
   const createProjectDefined =
     formData?.buildBaronSettings?.ticketCreateProject?.createProject !== "";
 
