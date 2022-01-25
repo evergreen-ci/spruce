@@ -127,13 +127,13 @@ describe("filterBadges", () => {
 
   it("should truncate a badge name if it's too long, with hover showing full name", async () => {
     const longVariantName = "long_long_long_long_long_long_build_variant_name";
-    const { queryAllByDataCy, queryByText } = render(Content, {
+    const { queryByDataCy, queryByText } = render(Content, {
       route: `/commits/evergreen?buildVariants=${longVariantName}`,
       path: "/commits/:projectId",
     });
 
     expect(queryByText(longVariantName)).not.toBeInTheDocument();
-    fireEvent.mouseEnter(queryAllByDataCy("filter-badge")[0]);
+    fireEvent.mouseEnter(queryByDataCy("filter-badge"));
     await waitFor(() => {
       expect(queryByText(longVariantName)).toBeVisible();
     });
