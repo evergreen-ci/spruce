@@ -9,7 +9,7 @@ import { string } from "utils";
 const { trimStringFromMiddle } = string;
 const { gray } = uiColors;
 
-const tooltipInModalZIndex = 100; // necessary due to SeeMoreModal
+const tooltipInModalZIndex = 50; // necessary due to SeeMoreModal, which has zIndex 40
 const maxBadgeLength = 25;
 
 interface FilterBadgeProps {
@@ -20,9 +20,10 @@ interface FilterBadgeProps {
   onClose: () => void;
 }
 export const FilterBadge: React.FC<FilterBadgeProps> = ({ badge, onClose }) => {
+  // the trimmed name needs to account for the label
   const trimmedBadgeName = trimStringFromMiddle(
     badge.value,
-    maxBadgeLength - (badge.key.length + 2) // subtract "KEY :" length
+    maxBadgeLength - badge.key.length
   );
 
   return (
