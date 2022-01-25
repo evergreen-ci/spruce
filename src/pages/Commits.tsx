@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Cookies from "js-cookie";
@@ -18,7 +18,7 @@ import {
   MainlineCommitsQueryVariables,
 } from "gql/generated/types";
 import { GET_MAINLINE_COMMITS, GET_SPRUCE_CONFIG } from "gql/queries";
-import { usePageTitle, useNetworkStatus } from "hooks";
+import { usePageTitle, useNetworkStatus, useUpdateURLQueryParams } from "hooks";
 import {
   ChartToggleQueryParams,
   ChartTypes,
@@ -48,9 +48,17 @@ export const Commits = () => {
   const dispatchToast = useToastContext();
   const { replace } = useHistory();
   const { search } = useLocation();
-  const [currentChartType, setCurrentChartType] = useState<ChartTypes>(
-    DEFAULT_CHART_TYPE
-  );
+  const updateQueryParams = useUpdateURLQueryParams();
+  const parsed = parseQueryString(search);
+  const currentChartType =
+    (getString(parsed[ChartToggleQueryParams.chartType]) as ChartTypes) ||
+    DEFAULT_CHART_TYPE;
+
+  const onChangeChartType = (chartType: ChartTypes): void => {
+    updateQueryParams({
+      [ChartToggleQueryParams.chartType]: chartType,
+    });
+  };
 
   // get query params from url
   const { id: projectId } = useParams<{ id: string }>();
@@ -74,8 +82,6 @@ export const Commits = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectId]);
 
-  const parsed = parseQueryString(search);
-  const chartTypeParam = getString(parsed[ChartToggleQueryParams.chartType]);
   const filterStatuses = toArray(parsed[ProjectFilterOptions.Status]);
   const filterVariants = toArray(parsed[ProjectFilterOptions.BuildVariant]);
   const filterTasks = toArray(parsed[ProjectFilterOptions.Task]);
@@ -86,15 +92,6 @@ export const Commits = () => {
     parsed[MainlineCommitQueryParams.SkipOrderNumber]
   );
   const skipOrderNumber = parseInt(skipOrderNumberParam, 10) || undefined;
-
-  // set current chart type based on query param
-  useEffect(() => {
-    if (Object.values(ChartTypes).includes(chartTypeParam as ChartTypes)) {
-      setCurrentChartType(chartTypeParam as ChartTypes);
-    } else {
-      setCurrentChartType(DEFAULT_CHART_TYPE);
-    }
-  }, [chartTypeParam, setCurrentChartType]);
 
   const hasTaskFilter = filterTasks.length > 0;
 
@@ -166,10 +163,12 @@ export const Commits = () => {
         <BadgeWrapper>
           <FilterBadges queryParamsToDisplay={queryParamsToDisplay} />
         </BadgeWrapper>
-        <PaginationButtons
-          prevPageOrderNumber={prevPageOrderNumber}
-          nextPageOrderNumber={nextPageOrderNumber}
-        />
+        <PaginationWrapper>
+          <PaginationButtons
+            prevPageOrderNumber={prevPageOrderNumber}
+            nextPageOrderNumber={nextPageOrderNumber}
+          />
+        </PaginationWrapper>
         <CommitsWrapper
           versions={versions}
           error={error}
@@ -177,6 +176,7 @@ export const Commits = () => {
           chartType={currentChartType}
           hasTaskFilter={hasTaskFilter}
           hasFilters={hasFilters}
+          onChangeChartType={onChangeChartType}
         />
       </PageContainer>
     </PageWrapper>
@@ -198,9 +198,13 @@ const HeaderWrapper = styled.div`
 `;
 
 const BadgeWrapper = styled.div`
-  padding-top: 32px;
-  padding-bottom: 32px;
-  height: 32px;
+  margin: 32px 0;
+`;
+
+const PaginationWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 0;
 `;
 
 const tupleSelectOptions = [

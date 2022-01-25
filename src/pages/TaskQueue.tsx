@@ -83,7 +83,7 @@ export const TaskQueue = () => {
                 <StyledBadge>{`${option?.hostCount} ${
                   option?.hostCount === 1 ? "HOST" : "HOSTS"
                 }`}</StyledBadge>
-                {option?.id}
+                <DistroName> {option?.id} </DistroName>
               </DistroLabel>
             )}
           />
@@ -102,9 +102,13 @@ const SearchableDropdownWrapper = styled.div`
 `;
 const DistroLabel = styled.div`
   display: flex;
+  align-items: center;
   white-space: nowrap;
 `;
-
 const StyledBadge = styled(Badge)`
   margin-right: 8px;
+`;
+const DistroName = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;

@@ -2,20 +2,18 @@
 
 exports[`storybook Storyshots Inactive Commits Story 1`] = `
 <div
-  className="leafygreen-ui-cssveg css-ue3t3g-ButtonContainer ezzuvrx4"
+  className="leafygreen-ui-cssveg css-1ctfjby-ButtonContainer ezzuvrx4"
   onClick={[Function]}
+  role="button"
 >
   <small
-    className="css-nr1a01-ButtonText ezzuvrx1 leafygreen-ui-13bqno6"
+    className="css-t2ltce-ButtonText ezzuvrx2 leafygreen-ui-13bqno6"
     data-cy="inactive-commits-button"
   >
-    <div
-      className="css-hifh5j-TopText ezzuvrx2"
-    >
+    <div>
       6
-       
     </div>
-    inactive
+    Inactive
   </small>
 </div>
 `;

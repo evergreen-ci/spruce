@@ -30,18 +30,16 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
     <Container>
       <StyledButton
         disabled={prevPageOrderNumber === null}
-        /* @ts-expect-error */
+        // @ts-expect-error
         onClick={onPrevClick}
-      >
-        <Icon glyph="ChevronLeft" />
-      </StyledButton>
+        leftGlyph={<Icon glyph="ChevronLeft" />}
+      />
       <StyledButton
         disabled={nextPageOrderNumber === null}
-        /* @ts-expect-error */
+        // @ts-expect-error
         onClick={onNextClick}
-      >
-        <Icon glyph="ChevronRight" />
-      </StyledButton>
+        leftGlyph={<Icon glyph="ChevronRight" />}
+      />
     </Container>
   );
 };

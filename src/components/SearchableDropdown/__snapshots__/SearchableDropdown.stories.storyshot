@@ -11,7 +11,7 @@ exports[`storybook Storyshots Searchable Dropdown Custom Option 1`] = `
     Custom option select
   </label>
   <div
-    className="css-gte0m8-Wrapper e17dnzmx3"
+    className="css-gte0m8-Wrapper e17dnzmx4"
   >
     <div
       className="css-1ry038z-Container e1yw4j304"
@@ -85,7 +85,7 @@ exports[`storybook Storyshots Searchable Dropdown Multiselect 1`] = `
     multi select
   </label>
   <div
-    className="css-gte0m8-Wrapper e17dnzmx3"
+    className="css-gte0m8-Wrapper e17dnzmx4"
   >
     <div
       className="css-1ry038z-Container e1yw4j304"
@@ -159,7 +159,7 @@ exports[`storybook Storyshots Searchable Dropdown Story 1`] = `
     standard select
   </label>
   <div
-    className="css-gte0m8-Wrapper e17dnzmx3"
+    className="css-gte0m8-Wrapper e17dnzmx4"
   >
     <div
       className="css-1ry038z-Container e1yw4j304"
