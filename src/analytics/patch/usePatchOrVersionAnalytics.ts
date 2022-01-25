@@ -6,9 +6,11 @@ import {
   SaveSubscriptionMutationVariables,
   PatchQuery,
   PatchQueryVariables,
+  VersionQuery,
+  VersionQueryVariables,
   TaskSortCategory,
 } from "gql/generated/types";
-import { GET_PATCH } from "gql/queries";
+import { GET_PATCH, GET_VERSION } from "gql/queries";
 
 type Action =
   | { name: "Filter Tasks"; filterBy: string }
@@ -73,6 +75,36 @@ export const usePatchAnalytics = (): PatchAnalytics => {
       userId,
       patchStatus: status,
       patchId: id,
+    });
+  };
+
+  return { sendEvent };
+};
+
+interface V extends Properties {
+  versionId: string;
+  versionStatus: string;
+}
+interface VersionAnalytics extends Analytics<Action> {}
+
+export const useVersionAnalytics = (): VersionAnalytics => {
+  const userId = useGetUserQuery();
+  const { id } = useParams<{ id: string }>();
+  const { data: eventData } = useQuery<VersionQuery, VersionQueryVariables>(
+    GET_VERSION,
+    {
+      variables: { id },
+      fetchPolicy: "cache-first",
+    }
+  );
+  const { status } = eventData?.version || {};
+
+  const sendEvent: VersionAnalytics["sendEvent"] = (action) => {
+    addPageAction<Action, V>(action, {
+      object: "Version",
+      userId,
+      versionStatus: status,
+      versionId: id,
     });
   };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { usePatchAnalytics } from "analytics";
+import { usePatchAnalytics, useVersionAnalytics } from "analytics";
 import { MetadataCard } from "components/MetadataCard";
 import { StyledRouterLink } from "components/styles";
 import { P2 } from "components/Typography";
@@ -70,7 +70,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
     manifest,
   } = version || {};
   const { makespan, timeTaken } = versionTiming || {};
-  const { sendEvent } = usePatchAnalytics();
+  const { sendEvent } = (isPatch ? usePatchAnalytics : useVersionAnalytics)();
   return (
     <MetadataCard
       loading={loading}

@@ -1,4 +1,7 @@
-export { usePatchAnalytics } from "./patch/usePatchAnalytics";
+export {
+  usePatchAnalytics,
+  useVersionAnalytics,
+} from "./patch/usePatchOrVersionAnalytics";
 export { useTaskAnalytics } from "./task/useTaskAnalytics";
 export type { Analytics as TaskAnalytics } from "./task/useTaskAnalytics";
 export { useAnnotationAnalytics } from "./task/useAnnotationAnalytics";

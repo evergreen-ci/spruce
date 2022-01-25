@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { usePatchAnalytics } from "analytics";
+import { usePatchAnalytics, useVersionAnalytics } from "analytics";
 import { Button } from "components/Button";
 import { PatchNotificationModal } from "./addNotification/PatchNotificationModal";
 
@@ -7,11 +7,12 @@ interface Props {
   patchId: string;
   refetchQueries: string[];
   setParentLoading?: (loading: boolean) => void; // used to toggle loading state of parent
+  isPatch: boolean;
 }
 
-export const AddNotification: React.FC<Props> = () => {
+export const AddNotification: React.FC<Props> = ({ isPatch }) => {
   const [isVisibleModal, setIsVisibleModal] = useState(false);
-  const patchAnalytics = usePatchAnalytics();
+  const { sendEvent } = (isPatch ? usePatchAnalytics : useVersionAnalytics)();
 
   return (
     <>
@@ -19,7 +20,7 @@ export const AddNotification: React.FC<Props> = () => {
         size="small"
         data-cy="notify-patch"
         onClick={() => {
-          patchAnalytics.sendEvent({ name: "Open Notification Modal" });
+          sendEvent({ name: "Open Notification Modal" });
           setIsVisibleModal(true);
         }}
       >
@@ -28,6 +29,7 @@ export const AddNotification: React.FC<Props> = () => {
       <PatchNotificationModal
         visible={isVisibleModal}
         onCancel={() => setIsVisibleModal(false)}
+        isPatch={isPatch}
       />
     </>
   );

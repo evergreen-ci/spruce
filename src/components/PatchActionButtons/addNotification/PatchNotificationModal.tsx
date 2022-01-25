@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { usePatchAnalytics } from "analytics";
+import { usePatchAnalytics, useVersionAnalytics } from "analytics";
 import { NotificationModal } from "components/NotificationModal";
 import {
   SubscriptionMethods,
@@ -25,14 +25,16 @@ const {
 interface ModalProps {
   visible: boolean;
   onCancel: () => void;
+  isPatch: boolean;
 }
 
 export const PatchNotificationModal: React.FC<ModalProps> = ({
   visible,
   onCancel,
+  isPatch,
 }) => {
   const { id: taskId } = useParams<{ id: string }>();
-  const patchAnalytics = usePatchAnalytics();
+  const { sendEvent } = (isPatch ? usePatchAnalytics : useVersionAnalytics)();
 
   return (
     <NotificationModal
@@ -44,7 +46,7 @@ export const PatchNotificationModal: React.FC<ModalProps> = ({
       subscriptionMethodDropdownOptions={subscriptionMethodDropdownOptions}
       resourceId={taskId}
       sendAnalyticsEvent={(subscription) =>
-        patchAnalytics.sendEvent({ name: "Add Notification", subscription })
+        sendEvent({ name: "Add Notification", subscription })
       }
       type="version"
     />

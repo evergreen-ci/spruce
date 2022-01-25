@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { useParams, Link } from "react-router-dom";
-import { usePatchAnalytics } from "analytics";
+import { usePatchAnalytics, useVersionAnalytics } from "analytics";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
 import { H3, P1 } from "components/Typography";
@@ -18,9 +18,13 @@ import { applyStrictRegex } from "utils/string";
 import { GroupedTaskSquare } from "./buildVariants/GroupedTaskSquare";
 import { groupTasksByUmbrellaStatus } from "./buildVariants/utils";
 
-export const BuildVariants: React.FC = () => {
+interface BuildVariantsProps {
+  isPatch: boolean;
+}
+
+export const BuildVariants: React.FC<BuildVariantsProps> = ({ isPatch }) => {
   const { id } = useParams<{ id: string }>();
-  const patchAnalytics = usePatchAnalytics();
+  const { sendEvent } = (isPatch ? usePatchAnalytics : useVersionAnalytics)();
 
   const { data, loading, error, startPolling, stopPolling } = useQuery<
     BuildVariantsQuery,
@@ -31,6 +35,7 @@ export const BuildVariants: React.FC = () => {
   });
   useNetworkStatus(startPolling, stopPolling);
   const { version } = data || {};
+
   return (
     <>
       {/* @ts-expect-error */}
@@ -51,7 +56,7 @@ export const BuildVariants: React.FC = () => {
                   variant: applyStrictRegex(variant),
                 })}`}
                 onClick={() =>
-                  patchAnalytics.sendEvent({
+                  sendEvent({
                     name: "Click Build Variant Grid Link",
                   })
                 }
@@ -59,7 +64,11 @@ export const BuildVariants: React.FC = () => {
                 {displayName}
               </Link>
             </P1>
-            <VariantTaskGroup variant={variant} tasks={tasks} />
+            <VariantTaskGroup
+              variant={variant}
+              tasks={tasks}
+              isPatch={isPatch}
+            />
           </BuildVariant>
         ))}
       </SiderCard>
@@ -70,10 +79,12 @@ export const BuildVariants: React.FC = () => {
 interface VariantTaskGroupProps {
   tasks: { status: string }[];
   variant: string;
+  isPatch: boolean;
 }
 const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
   tasks,
   variant,
+  isPatch,
 }) => {
   const groupedTasks = groupTasksByUmbrellaStatus(tasks);
   return (
@@ -86,6 +97,7 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
             count={count}
             variant={variant}
             umbrellaStatus={umbrellaStatus}
+            isPatch={isPatch}
           />
         )
       )}

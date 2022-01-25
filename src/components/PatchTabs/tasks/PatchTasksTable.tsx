@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { usePatchAnalytics } from "analytics";
+import { usePatchAnalytics, useVersionAnalytics } from "analytics";
 import { InputFilterProps } from "components/Table/Filters";
 import { TasksTable } from "components/Table/TasksTable";
 import { Task, PatchTasksQuery, SortOrder } from "gql/generated/types";
@@ -18,16 +18,21 @@ const { toSortString } = queryString;
 interface Props {
   patchTasks: PatchTasksQuery["patchTasks"];
   sorts: SortOrder[];
+  isPatch: boolean;
 }
 
-export const PatchTasksTable: React.FC<Props> = ({ patchTasks, sorts }) => {
+export const PatchTasksTable: React.FC<Props> = ({
+  patchTasks,
+  sorts,
+  isPatch,
+}) => {
   const { id: versionId } = useParams<{ id: string }>();
   const updateQueryParams = useUpdateURLQueryParams();
-  const patchAnalytics = usePatchAnalytics();
+  const { sendEvent } = (isPatch ? usePatchAnalytics : useVersionAnalytics)();
   const filterHookProps = {
     resetPage: true,
     sendAnalyticsEvent: (filterBy: string) =>
-      patchAnalytics.sendEvent({ name: "Filter Tasks", filterBy }),
+      sendEvent({ name: "Filter Tasks", filterBy }),
   };
   const currentStatusesFilter = useStatusesFilter({
     urlParam: PatchTasksQueryParams.Statuses,
@@ -86,19 +91,19 @@ export const PatchTasksTable: React.FC<Props> = ({ patchTasks, sorts }) => {
       tableChangeHandler={tableChangeHandler}
       tasks={patchTasks?.tasks}
       onExpand={(expanded) => {
-        patchAnalytics.sendEvent({
+        sendEvent({
           name: "Toggle Display Task Dropdown",
           expanded,
         });
       }}
       onClickTaskLink={(taskId) =>
-        patchAnalytics.sendEvent({
+        sendEvent({
           name: "Click Task Table Link",
           taskId,
         })
       }
       onColumnHeaderClick={(sortField) =>
-        patchAnalytics.sendEvent({
+        sendEvent({
           name: "Sort Tasks Table",
           sortBy: sortField,
         })

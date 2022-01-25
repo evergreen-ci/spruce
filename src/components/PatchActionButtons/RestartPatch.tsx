@@ -11,6 +11,7 @@ interface RestartPatchProps {
   refetchQueries: string[];
   visibilityControl?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
   childPatches: Partial<Patch>[];
+  isPatch?: boolean;
 }
 export const RestartPatch: React.FC<RestartPatchProps> = ({
   isButton,
@@ -19,6 +20,7 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
   refetchQueries,
   visibilityControl,
   childPatches,
+  isPatch = true,
 }) => {
   const fallbackVisibilityControl = useState(false);
   const [isVisible, setIsVisible] =
@@ -58,6 +60,7 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
         onCancel={() => setIsVisible(false)}
         refetchQueries={refetchQueries}
         childPatches={childPatches}
+        isPatch={isPatch}
       />
     </>
   );

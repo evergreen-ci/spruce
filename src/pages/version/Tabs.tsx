@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useHistory, useLocation } from "react-router-dom";
-import { usePatchAnalytics } from "analytics";
+import { usePatchAnalytics, useVersionAnalytics } from "analytics";
 import { CodeChanges } from "components/PatchTabs/CodeChanges";
 import { DownstreamTasks } from "components/PatchTabs/DownstreamTasks";
 import { Tasks } from "components/PatchTabs/Tasks";
@@ -16,14 +16,14 @@ const { parseQueryString } = queryString;
 
 interface Props {
   taskCount: number;
-  isPatch: boolean;
   childPatches: Partial<Patch>[];
+  isPatch: boolean;
 }
 
-const tabMap = ({ taskCount, childPatches }) => ({
+const tabMap = ({ taskCount, childPatches, isPatch }) => ({
   [PatchTab.Tasks]: (
     <Tab name="Tasks" id="task-tab" data-cy="task-tab" key="tasks-tab">
-      <Tasks taskCount={taskCount} />
+      <Tasks taskCount={taskCount} isPatch={isPatch} />
     </Tab>
   ),
   [PatchTab.Changes]: (
@@ -61,11 +61,12 @@ export const Tabs: React.FC<Props> = ({ taskCount, childPatches, isPatch }) => {
     [isPatch, childPatches]
   );
 
-  const patchAnalytics = usePatchAnalytics();
+  const { sendEvent } = (isPatch ? usePatchAnalytics : useVersionAnalytics)();
 
-  const allTabs = useMemo(() => tabMap({ taskCount, childPatches }), [
+  const allTabs = useMemo(() => tabMap({ taskCount, childPatches, isPatch }), [
     taskCount,
     childPatches,
+    isPatch,
   ]);
   const activeTabs = useMemo(
     () => Object.keys(allTabs).filter((t) => tabIsActive[t] as PatchTab[]),
@@ -94,7 +95,7 @@ export const Tabs: React.FC<Props> = ({ taskCount, childPatches, isPatch }) => {
     });
     history.replace(newRoute);
     if (previousTab !== undefined && previousTab !== selectedTab) {
-      patchAnalytics.sendEvent({
+      sendEvent({
         name: "Change Tab",
         tab: newTab as PatchTab,
       });
