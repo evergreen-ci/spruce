@@ -55,7 +55,8 @@ const validate = (formData, errors) => {
     searchProject?.[0]?.searchProject.trim() !== "";
 
   const createProjectDefined =
-    formData?.buildBaronSettings?.ticketCreateProject?.createProject !== "";
+    formData?.buildBaronSettings?.ticketCreateProject?.createProject.trim() !==
+    "";
 
   if (searchProjectDefined && !createProjectDefined) {
     errors.buildBaronSettings?.ticketCreateProject?.createProject.addError(
@@ -71,9 +72,9 @@ const validate = (formData, errors) => {
 
   // a webhook must contain both a secret and an endpoint
   const fileTicketWebhookDefined =
-    formData?.buildBaronSettings?.fileTicketWebhook?.endpoint !== "";
+    formData?.buildBaronSettings?.fileTicketWebhook?.endpoint.trim() !== "";
   const fileTicketSecretDefined =
-    formData?.buildBaronSettings?.fileTicketWebhook?.secret !== "";
+    formData?.buildBaronSettings?.fileTicketWebhook?.secret.trim() !== "";
 
   if (fileTicketSecretDefined && !fileTicketWebhookDefined) {
     errors.buildBaronSettings?.fileTicketWebhook?.endpoint.addError(
@@ -90,14 +91,10 @@ const validate = (formData, errors) => {
   // each jira custom field must contain both a display text and a custom field
   formData.buildBaronSettings?.taskAnnotationSettings?.jiraCustomFields.forEach(
     (field, i) => {
-      if (field?.field === undefined) {
-        formData.buildBaronSettings?.taskAnnotationSettings?.jiraCustomFields?.[
-          i
-        ]?.field?.addValue("");
-      }
-      const fieldUndefined = field?.field === undefined || field?.field === "";
+      const fieldUndefined =
+        field?.field === undefined || field?.field.trim() === "";
       const displayTextUndefined =
-        field?.displayText === undefined || field?.displayText === "";
+        field?.displayText === undefined || field?.displayText.trim() === "";
 
       if (!fieldUndefined && displayTextUndefined) {
         errors.buildBaronSettings?.taskAnnotationSettings?.jiraCustomFields?.[
