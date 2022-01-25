@@ -8,7 +8,12 @@ import {
   SUBSCRIPTION_SLACK,
   SUBSCRIPTION_EMAIL,
 } from "types/subscription";
-import { ResourceType, Trigger } from "types/triggers";
+import {
+  ExtraFieldKey,
+  ResourceType,
+  Trigger,
+  TriggerType,
+} from "types/triggers";
 import { validators } from "utils";
 
 const {
@@ -77,58 +82,58 @@ const subscriptionMethodDropdownOptions = [
 
 export const triggers: Trigger[] = [
   {
-    trigger: "task-started",
+    trigger: TriggerType.TASK_STARTED,
     label: "This task starts",
     resourceType: ResourceType.TASK,
     payloadResourceIdKey: "id",
   },
   {
-    trigger: "outcome",
+    trigger: TriggerType.OUTCOME,
     label: "This task finishes",
     resourceType: ResourceType.TASK,
     payloadResourceIdKey: "id",
   },
   {
-    trigger: "failure",
+    trigger: TriggerType.FAILURE,
     label: "This task fails",
     resourceType: ResourceType.TASK,
     payloadResourceIdKey: "id",
   },
   {
-    trigger: "task-failed-or-blocked",
+    trigger: TriggerType.TASK_FAILED_OR_BLOCKED,
     label: "This task fails or is blocked",
     resourceType: ResourceType.TASK,
     payloadResourceIdKey: "id",
   },
   {
-    trigger: "success",
+    trigger: TriggerType.SUCCESS,
     label: "This task succeeds",
     resourceType: ResourceType.TASK,
     payloadResourceIdKey: "id",
   },
   {
-    trigger: "exceeds-duration",
+    trigger: TriggerType.EXCEEDS_DURATION,
     label: "The runtime for this task exceeds some duration",
     resourceType: ResourceType.TASK,
     payloadResourceIdKey: "id",
     extraFields: [
       {
         text: "Task duration (seconds)",
-        key: "task-duration-secs",
+        key: ExtraFieldKey.TASK_DURATION_SECS,
         dataCy: "duration-secs-input",
         validator: validateDuration,
       },
     ],
   },
   {
-    trigger: "runtime-change",
+    trigger: TriggerType.RUNTIME_CHANGE,
     label: "This task succeeds and its runtime changes by some percentage",
     resourceType: ResourceType.TASK,
     payloadResourceIdKey: "id",
     extraFields: [
       {
         text: "Percent change",
-        key: "task-percent-change",
+        key: ExtraFieldKey.TASK_PERCENT_CHANGE,
         dataCy: "percent-change-input",
         validator: validatePercentage,
       },

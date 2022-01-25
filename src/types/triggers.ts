@@ -7,8 +7,11 @@ export enum ResourceType {
 export enum TriggerType {
   OUTCOME = "outcome",
   FAILURE = "failure",
+  SUCCESS = "success",
   RUNTIME_CHANGE = "runtime-change",
   EXCEEDS_DURATION = "exceeds-duration",
+  TASK_STARTED = "task-started",
+  TASK_FAILED_OR_BLOCKED = "task-failed-or-blocked",
   REGRESSION = "regression",
   TEST_REGRESSION = "regression-by-test",
   FIRST_FAILURE_BUILD = "first-failure-in-build",

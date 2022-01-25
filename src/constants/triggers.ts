@@ -94,7 +94,7 @@ export const projectTriggers: Trigger[] = [
   {
     trigger: TriggerType.OUTCOME,
     resourceType: ResourceType.TASK,
-    label: "Any task finishes",
+    label: "Any Task Finishes",
     regexSelectors: taskRegexSelectors,
     extraFields: [requesterSubscriberConfig],
   },

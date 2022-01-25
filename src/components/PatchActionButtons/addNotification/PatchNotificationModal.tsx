@@ -8,7 +8,13 @@ import {
   SUBSCRIPTION_SLACK,
   SUBSCRIPTION_EMAIL,
 } from "types/subscription";
-import { RegexSelector, ResourceType, Trigger } from "types/triggers";
+import {
+  ExtraFieldKey,
+  RegexSelector,
+  ResourceType,
+  Trigger,
+  TriggerType,
+} from "types/triggers";
 import { validators } from "utils";
 
 const {
@@ -88,67 +94,67 @@ const buildRegexSelectors: RegexSelector[] = [
 
 export const triggers: Trigger[] = [
   {
-    trigger: "outcome",
+    trigger: TriggerType.OUTCOME,
     label: "This version finishes",
     resourceType: ResourceType.VERSION,
     payloadResourceIdKey: "id",
   },
   {
-    trigger: "failure",
+    trigger: TriggerType.FAILURE,
     label: "This version fails",
     resourceType: ResourceType.VERSION,
     payloadResourceIdKey: "id",
   },
   {
-    trigger: "success",
+    trigger: TriggerType.SUCCESS,
     label: "This version succeeds",
     resourceType: ResourceType.VERSION,
     payloadResourceIdKey: "id",
   },
   {
-    trigger: "exceeds-duration",
+    trigger: TriggerType.EXCEEDS_DURATION,
     label: "The runtime for this version exceeds some duration",
     resourceType: ResourceType.VERSION,
     payloadResourceIdKey: "id",
     extraFields: [
       {
         text: "Version duration (seconds)",
-        key: "version-duration-secs",
+        key: ExtraFieldKey.VERSION_DURATION_SECS,
         dataCy: "duration-secs-input",
         validator: validateDuration,
       },
     ],
   },
   {
-    trigger: "runtime-change",
+    trigger: TriggerType.RUNTIME_CHANGE,
     label: "The runtime for this version changes by some percentage",
     resourceType: ResourceType.VERSION,
     payloadResourceIdKey: "id",
     extraFields: [
       {
         text: "Percent change",
-        key: "version-percent-change",
+        key: ExtraFieldKey.VERSION_PERCENT_CHANGE,
         dataCy: "percent-change-input",
         validator: validatePercentage,
       },
     ],
   },
   {
-    trigger: "outcome",
+    trigger: TriggerType.OUTCOME,
     resourceType: ResourceType.BUILD,
     payloadResourceIdKey: "in-version",
     label: "A build-variant in this version finishes",
     regexSelectors: buildRegexSelectors,
   },
   {
-    trigger: "failure",
+    trigger: TriggerType.FAILURE,
     resourceType: ResourceType.BUILD,
     payloadResourceIdKey: "in-version",
     label: "A build-variant in this version fails",
     regexSelectors: buildRegexSelectors,
   },
   {
-    trigger: "success",
+    trigger: TriggerType.SUCCESS,
     resourceType: ResourceType.BUILD,
     payloadResourceIdKey: "in-version",
     label: "A build-variant in this version succeeds",
