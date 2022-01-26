@@ -174,9 +174,13 @@ export const SearchableDropdownOption = <T extends {}>({
     data-cy="searchable-dropdown-option"
   >
     <CheckmarkContainer>
-      {isChecked && (
-        <Icon glyph="Checkmark" height={12} width={12} fill={blue.base} />
-      )}
+      <CheckmarkIcon
+        glyph="Checkmark"
+        height={12}
+        width={12}
+        fill={blue.base}
+        checked={isChecked}
+      />
     </CheckmarkContainer>
     {displayName || value}
   </Option>
@@ -193,10 +197,11 @@ const Wrapper = styled.div`
 `;
 
 const Option = styled.div`
-  width: 100%;
   padding: 10px 12px;
   display: flex;
-  flex-direction: row;
+  align-items: start;
+  word-break: break-all; // Safari
+  overflow-wrap: anywhere;
   :hover {
     cursor: pointer;
     background-color: ${gray.light1};
@@ -204,7 +209,11 @@ const Option = styled.div`
 `;
 
 const CheckmarkContainer = styled.div`
-  width: 24px;
+  margin-right: 4px;
+`;
+
+const CheckmarkIcon = styled(Icon)<{ checked: boolean }>`
+  visibility: ${({ checked }) => (checked ? "visible" : "hidden")};
 `;
 
 const Container = styled.div`
