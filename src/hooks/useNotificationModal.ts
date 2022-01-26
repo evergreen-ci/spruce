@@ -8,9 +8,11 @@ import {
   getNotificationTriggerCookie,
   SUBSCRIPTION_METHOD,
 } from "constants/cookies";
+import { clearExtraFieldsInputCb } from "constants/triggers";
 import { GetUserSettingsQuery, GetUserQuery } from "gql/generated/types";
 import { GET_USER_SETTINGS, GET_USER } from "gql/queries";
 import { SUBSCRIPTION_SLACK, SUBSCRIPTION_EMAIL } from "types/subscription";
+import { Trigger } from "types/triggers";
 
 export interface UseNotificationModalProps {
   subscriptionMethodControls: SubscriptionMethods;
@@ -272,37 +274,11 @@ interface Target {
   email?: string;
   slack?: string;
 }
-type ResourceType = "TASK" | "VERSION" | "BUILD";
+
 interface StringMap {
   [index: string]: string;
 }
 
-const clearExtraFieldsInputCb = (accum: StringMap, eF: ExtraField) => ({
-  ...accum,
-  [eF.key]: "10",
-});
-interface ExtraField {
-  text: string;
-  key: string;
-  validator: (v: any) => string;
-  dataCy: string;
-}
-
-type RegexSelectorType = "display-name" | "build-variant";
-export interface RegexSelector {
-  type: RegexSelectorType;
-  typeLabel: string;
-}
-
-type PayloadResourceIdKey = "in-version" | "in-build" | "id";
-export interface Trigger {
-  trigger: string;
-  label: string;
-  extraFields?: ExtraField[];
-  resourceType: ResourceType;
-  payloadResourceIdKey: PayloadResourceIdKey;
-  regexSelectors?: RegexSelector[];
-}
 export interface SubscriptionMethodControl {
   label: string;
   placeholder: string;
