@@ -51,15 +51,15 @@ describe("Nav Bar", () => {
       .and("include", LEGACY_URLS.distros);
   });
   it("Nav Dropdown should link to patches page of most recent project if cookie exists", () => {
-    cy.visit("/");
     cy.setCookie("mci-project-cookie", "spruce");
+    cy.visit(SPRUCE_URLS.userPatches);
     cy.dataCy("auxiliary-dropdown-link").first().click();
     cy.dataCy("auxiliary-dropdown-project-patches").first().click();
     cy.location("pathname").should("eq", "/project/spruce/patches");
   });
   it("Nav Dropdown should link to patches page of default project in SpruceConfig if cookie does not exist", () => {
-    cy.visit("/");
     cy.clearCookie("mci-project-cookie");
+    cy.visit(SPRUCE_URLS.userPatches);
     cy.dataCy("auxiliary-dropdown-link").first().click();
     cy.dataCy("auxiliary-dropdown-project-patches").first().click();
     cy.location("pathname").should("eq", "/project/evergreen/patches");
