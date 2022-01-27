@@ -1,4 +1,8 @@
-import { renderWithRouterMatch as render, fireEvent } from "test_utils";
+import {
+  renderWithRouterMatch as render,
+  fireEvent,
+  waitFor,
+} from "test_utils";
 import { ProjectFilterOptions } from "types/commits";
 import { FilterBadges } from ".";
 
@@ -119,5 +123,19 @@ describe("filterBadges", () => {
     expect(badges).toHaveLength(8);
 
     expect(queryByText("see 1 more")).toBeInTheDocument();
+  });
+
+  it("should truncate a badge name if it's too long, with hover showing full name", async () => {
+    const longVariantName = "long_long_long_long_long_long_build_variant_name";
+    const { queryByDataCy, queryByText } = render(Content, {
+      route: `/commits/evergreen?buildVariants=${longVariantName}`,
+      path: "/commits/:projectId",
+    });
+
+    expect(queryByText(longVariantName)).not.toBeInTheDocument();
+    fireEvent.mouseEnter(queryByDataCy("filter-badge"));
+    await waitFor(() => {
+      expect(queryByText(longVariantName)).toBeVisible();
+    });
   });
 });
