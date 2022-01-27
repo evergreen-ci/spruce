@@ -8,6 +8,7 @@ import {
   AgentLog,
   SystemLog,
   TaskLog,
+  AllLog,
   LogTypes,
   QueryParams,
 } from "./logs/LogTypes";
@@ -19,6 +20,7 @@ const options = {
   [LogTypes.System]: SystemLog,
   [LogTypes.Task]: TaskLog,
   [LogTypes.Event]: EventLog,
+  [LogTypes.All]: AllLog,
 };
 
 interface Props {
@@ -40,7 +42,8 @@ export const Logs: React.FC<Props> = ({ logLinks, taskId, execution }) => {
       logTypeParam === LogTypes.Agent ||
       logTypeParam === LogTypes.Event ||
       logTypeParam === LogTypes.System ||
-      logTypeParam === LogTypes.Task
+      logTypeParam === LogTypes.Task ||
+      logTypeParam === LogTypes.All
     ) {
       setCurrentLog(logTypeParam);
     } else {
@@ -90,6 +93,7 @@ const getLinks = (
       [LogTypes.Agent]: logLinks.agentLogLink,
       [LogTypes.System]: logLinks.systemLogLink,
       [LogTypes.Task]: logLinks.taskLogLink,
+      [LogTypes.All]: logLinks.allLogLink,
     }[logType] ?? ""
   }`;
   return {

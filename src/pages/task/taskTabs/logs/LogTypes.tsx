@@ -18,6 +18,8 @@ import {
   AgentLogsQueryVariables,
   TaskLogsQuery,
   TaskLogsQueryVariables,
+  AllLogsQuery,
+  AllLogsQueryVariables,
   TaskEventLogEntry,
   LogMessageFragment,
 } from "gql/generated/types";
@@ -26,6 +28,7 @@ import {
   GET_EVENT_LOGS,
   GET_SYSTEM_LOGS,
   GET_TASK_LOGS,
+  GET_ALL_LOGS,
 } from "gql/queries";
 import { useNetworkStatus, useUpdateURLQueryParams } from "hooks";
 import { RequiredQueryParams } from "types/task";
@@ -51,6 +54,7 @@ export enum LogTypes {
   System = "system",
   Task = "task",
   Event = "event",
+  All = "all",
 }
 interface Props {
   currentLog: LogTypes;
@@ -58,6 +62,31 @@ interface Props {
   rawLink: string;
   lobsterLink: string;
 }
+
+export const AllLog: React.FC<Props> = (props): JSX.Element => {
+  // All logs only includes task, system, and agent logs. Event logs are not included.
+  const { id } = useParams<{ id: string }>();
+  const location = useLocation();
+  const parsed = parseQueryString(location.search);
+  const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
+
+  const { data, loading, error, startPolling, stopPolling } = useQuery<
+    AllLogsQuery,
+    AllLogsQueryVariables
+  >(GET_ALL_LOGS, {
+    variables: { id, execution: selectedExecution },
+    pollInterval,
+  });
+  useNetworkStatus(startPolling, stopPolling);
+
+  return useRenderBody({
+    data: get(data, "taskLogs.allLogs", []),
+    loading,
+    error,
+    ...props,
+  });
+};
+
 export const EventLog: React.FC<Props> = (props): JSX.Element => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
@@ -152,7 +181,7 @@ export const TaskLog: React.FC<Props> = (props): JSX.Element => {
 const useRenderBody: React.FC<{
   loading: boolean;
   error: ApolloError;
-  data: [TaskEventLogEntryType | LogMessageType];
+  data: (TaskEventLogEntryType | LogMessageType)[];
   currentLog: LogTypes;
   LogContainer?: React.FC;
   htmlLink: string;
@@ -271,6 +300,9 @@ const useRenderBody: React.FC<{
         </Radio>
         <Radio data-cy="event-radio" id="cy-event-radio" value={LogTypes.Event}>
           Event Logs
+        </Radio>
+        <Radio data-cy="all-radio" id="cy-all-radio" value={LogTypes.All}>
+          All Logs
         </Radio>
       </StyledRadioGroup>
       {body}

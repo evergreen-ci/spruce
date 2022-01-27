@@ -38,6 +38,7 @@ export enum LogTypes {
   System = "system",
   Task = "task",
   Event = "event",
+  All = "all",
 }
 
 export enum TaskStatus {

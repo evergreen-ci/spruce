@@ -1770,6 +1770,7 @@ export type TaskLogs = {
   taskLogs: Array<LogMessage>;
   systemLogs: Array<LogMessage>;
   agentLogs: Array<LogMessage>;
+  allLogs: Array<LogMessage>;
 };
 
 export type TaskEventLogData = {
@@ -2674,6 +2675,19 @@ export type AgentLogsQuery = {
     execution: number;
     taskId: string;
     agentLogs: Array<LogMessageFragment>;
+  };
+};
+
+export type AllLogsQueryVariables = Exact<{
+  id: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type AllLogsQuery = {
+  taskLogs: {
+    execution: number;
+    taskId: string;
+    allLogs: Array<LogMessageFragment>;
   };
 };
 
