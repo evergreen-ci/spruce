@@ -9,7 +9,7 @@ import { ScheduleTasks } from "./ScheduleTasks";
 
 const ScheduleButton = () => (
   <MockedProvider mocks={[getUnscheduledTasksMock]}>
-    <ScheduleTasks versionId="version" isButton isPatch={false} />
+    <ScheduleTasks versionId="version" isButton />
   </MockedProvider>
 );
 
