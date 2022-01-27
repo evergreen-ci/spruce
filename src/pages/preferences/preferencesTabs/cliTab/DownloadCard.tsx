@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Card from "@leafygreen-ui/card";
 import { uiColors } from "@leafygreen-ui/palette";
-import { Subtitle, Body } from "@leafygreen-ui/typography";
+import { Subtitle, Body, Disclaimer } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { usePreferencesAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
@@ -82,7 +82,7 @@ const CliDownloadBox: React.FC<CliDownloadBoxProps> = ({
   return (
     <CliDownloadCard>
       <CliDownloadTitle>{title}</CliDownloadTitle>
-      {description && <span>{description}</span>}
+      {description && <Disclaimer>{description}</Disclaimer>}
       <CliDownloadButton
         onClick={() => {
           sendEvent({
@@ -155,6 +155,7 @@ const Container = styled(Card)`
 const CardGroup = styled.div`
   display: flex;
   align-items: space-between;
+  margin-bottom: 16px;
 `;
 
 // @ts-expect-error
@@ -164,7 +165,6 @@ const CliDownloadCard = styled(Card)`
   justify-content: space-between;
   padding: 16px;
   margin-right: 8px;
-  margin-bottom: 16px;
 ` as typeof Card;
 
 // @ts-expect-error
