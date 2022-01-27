@@ -5,8 +5,8 @@ exports[`storybook Storyshots Searchable Dropdown Custom Option 1`] = `
   className="css-1ry038z-Container e17dnzmx0"
 >
   <label
-    className="leafygreen-ui-ly82bp"
-    htmlFor="searchable-dropdown"
+    className="css-c0hrp-InputLabel e1xf068s2"
+    htmlFor="searchable-dropdown-Custom option select"
   >
     Custom option select
   </label>
@@ -15,6 +15,7 @@ exports[`storybook Storyshots Searchable Dropdown Custom Option 1`] = `
   >
     <div
       className="css-1ry038z-Container e1yw4j304"
+      id="searchable-dropdown-Custom option select"
     >
       <button
         aria-disabled={false}
@@ -78,8 +79,8 @@ exports[`storybook Storyshots Searchable Dropdown Multiselect 1`] = `
   className="css-1ry038z-Container e17dnzmx0"
 >
   <label
-    className="leafygreen-ui-ly82bp"
-    htmlFor="searchable-dropdown"
+    className="css-c0hrp-InputLabel e1xf068s2"
+    htmlFor="searchable-dropdown-multi select"
   >
     multi select
   </label>
@@ -88,6 +89,7 @@ exports[`storybook Storyshots Searchable Dropdown Multiselect 1`] = `
   >
     <div
       className="css-1ry038z-Container e1yw4j304"
+      id="searchable-dropdown-multi select"
     >
       <button
         aria-disabled={false}
@@ -151,8 +153,8 @@ exports[`storybook Storyshots Searchable Dropdown Story 1`] = `
   className="css-1ry038z-Container e17dnzmx0"
 >
   <label
-    className="leafygreen-ui-ly82bp"
-    htmlFor="searchable-dropdown"
+    className="css-c0hrp-InputLabel e1xf068s2"
+    htmlFor="searchable-dropdown-standard select"
   >
     standard select
   </label>
@@ -161,6 +163,7 @@ exports[`storybook Storyshots Searchable Dropdown Story 1`] = `
   >
     <div
       className="css-1ry038z-Container e1yw4j304"
+      id="searchable-dropdown-standard select"
     >
       <button
         aria-disabled={false}
