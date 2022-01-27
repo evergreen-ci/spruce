@@ -21,7 +21,6 @@ exports[`storybook Storyshots ProjectSelect Story 1`] = `
         className="leafygreen-ui-117l5vj css-mbqq81-StyledButton e1yw4j302"
         data-cy="project-select"
         disabled={true}
-        id="searchable-dropdown"
         onClick={[Function]}
         type="button"
       >

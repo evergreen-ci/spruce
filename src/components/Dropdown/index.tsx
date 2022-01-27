@@ -38,7 +38,6 @@ const Dropdown: React.FC<DropdownProps> = ({
         ref={menuButtonRef}
         onClick={() => setIsOpen(!isOpen)}
         data-cy={dataCy}
-        id="searchable-dropdown"
         disabled={disabled}
         rightGlyph={<Icon glyph={isOpen ? "ChevronUp" : "ChevronDown"} />}
       >

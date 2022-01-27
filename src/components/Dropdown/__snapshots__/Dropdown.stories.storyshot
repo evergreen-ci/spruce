@@ -9,7 +9,6 @@ exports[`storybook Storyshots Dropdown Custom Button Render 1`] = `
     className="leafygreen-ui-26sqyb css-mbqq81-StyledButton e1yw4j302"
     data-cy="dropdown-button"
     disabled={false}
-    id="searchable-dropdown"
     onClick={[Function]}
     type="button"
   >
@@ -66,7 +65,6 @@ exports[`storybook Storyshots Dropdown Story 1`] = `
     className="leafygreen-ui-26sqyb css-mbqq81-StyledButton e1yw4j302"
     data-cy="dropdown-button"
     disabled={false}
-    id="searchable-dropdown"
     onClick={[Function]}
     type="button"
   >

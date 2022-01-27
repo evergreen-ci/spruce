@@ -21,7 +21,6 @@ exports[`storybook Storyshots Searchable Dropdown Custom Option 1`] = `
         className="leafygreen-ui-26sqyb css-mbqq81-StyledButton e1yw4j302"
         data-cy="searchable-dropdown"
         disabled={false}
-        id="searchable-dropdown"
         onClick={[Function]}
         type="button"
       >
@@ -95,7 +94,6 @@ exports[`storybook Storyshots Searchable Dropdown Multiselect 1`] = `
         className="leafygreen-ui-26sqyb css-mbqq81-StyledButton e1yw4j302"
         data-cy="searchable-dropdown"
         disabled={false}
-        id="searchable-dropdown"
         onClick={[Function]}
         type="button"
       >
@@ -169,7 +167,6 @@ exports[`storybook Storyshots Searchable Dropdown Story 1`] = `
         className="leafygreen-ui-26sqyb css-mbqq81-StyledButton e1yw4j302"
         data-cy="searchable-dropdown"
         disabled={false}
-        id="searchable-dropdown"
         onClick={[Function]}
         type="button"
       >
