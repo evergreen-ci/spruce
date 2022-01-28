@@ -26,7 +26,6 @@ describe("initializeBugsnag", () => {
     jest.spyOn(Bugsnag, "start").mockImplementation(mockBugsnag);
     jest.spyOn(environmentalVariables, "isDevelopment").mockReturnValue(true);
     mockEnvironmentalVariable("REACT_APP_VERSION", "1.0.0");
-    // mock isDevelopment and isProduction
     initializeBugsnag();
     expect(Bugsnag.start).not.toHaveBeenCalled();
   });
@@ -39,7 +38,6 @@ describe("initializeBugsnag", () => {
     mockEnvironmentalVariable("REACT_APP_VERSION", "1.0.0");
     mockEnvironmentalVariable("REACT_APP_RELEASE_STAGE", "production");
 
-    // mock isDevelopment and isProduction
     initializeBugsnag();
     expect(Bugsnag.start).toHaveBeenCalledWith({
       apiKey: "i-am-a-fake-key",
