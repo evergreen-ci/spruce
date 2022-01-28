@@ -69,7 +69,7 @@ export const getFormSchema = (
             type: "null",
             title: "GitHub Webhooks",
             description: `GitHub webhooks ${
-              gitHubWebhooksEnabled ? "are" : "aren't"
+              gitHubWebhooksEnabled ? "are" : "are not"
             } enabled.`,
           },
           prTestingEnabledTitle: {
@@ -91,7 +91,7 @@ export const getFormSchema = (
             type: "object" as "object",
             title: "GitHub Patch Definitions",
             description:
-              "For patches created from GitHub pull requests, Evergreen will find variants that match each variant regex, and schedule tasks that match the corresponding task regex. All regular expressions must be valid Golang regular expressions.",
+              "For patches created from GitHub pull requests, Evergreen will schedule only the tasks and variants matching the tags/regex definitions. All regular expressions must be valid Golang regular expressions.",
             ...overrideRadioBox(
               "githubPrAliases",
               [
@@ -191,11 +191,14 @@ export const getFormSchema = (
         "ui:widget": widgets.RadioBoxWidget,
       },
       prTesting: {
-        "ui:disabled": useRepoSettings
-          ? !repoData?.github?.prTestingEnabled
-          : !formData?.github?.prTestingEnabled,
+        ...hideIf(
+          formData?.github?.prTestingEnabled,
+          repoData?.github?.prTestingEnabled
+        ),
         githubPrAliasesOverride: {
-          ...overrideStyling(repoData?.github?.prTesting?.githubPrAliases),
+          ...overrideStyling(
+            repoData?.github?.prTesting?.githubPrAliases === undefined
+          ),
         },
         githubPrAliases: {
           ...aliasRowUiSchema({
@@ -220,10 +223,13 @@ export const getFormSchema = (
         "ui:widget": widgets.RadioBoxWidget,
       },
       githubChecks: {
-        "ui:disabled": !formData?.github?.githubChecksEnabled,
+        ...hideIf(
+          formData?.github?.githubChecksEnabled,
+          repoData?.github?.githubChecksEnabled
+        ),
         githubCheckAliasesOverride: {
           ...overrideStyling(
-            repoData?.github?.githubChecks?.githubCheckAliases
+            repoData?.github?.githubChecks?.githubCheckAliases === undefined
           ),
         },
         githubCheckAliases: {
@@ -249,44 +255,60 @@ export const getFormSchema = (
         "ui:widget": widgets.RadioBoxWidget,
       },
       users: {
-        "ui:disabled": !formData?.github?.gitTagVersionsEnabled,
-        gitTagAuthorizedUsersOverride: {
-          ...overrideStyling(repoData?.github?.users?.gitTagAuthorizedUsers),
-        },
-        gitTagAuthorizedUsers: {
-          "ui:addButtonText": "Add User",
-          "ui:showLabel": false,
-        },
-        repoData: {
-          gitTagAuthorizedUsers: {
-            "ui:readonly": true,
-            "ui:showLabel": false,
-          },
-        },
+        ...userTeamStyling(
+          "gitTagAuthorizedUsers",
+          "Add User",
+          repoData?.github?.users?.gitTagAuthorizedUsers === undefined,
+          useRepoSettings &&
+            !formData?.github?.gitTagVersionsEnabled &&
+            !repoData?.github?.gitTagVersionsEnabled
+        ),
       },
       teams: {
-        "ui:disabled": !formData?.github?.gitTagVersionsEnabled,
-        gitTagAuthorizedTeamsOverride: {
-          ...overrideStyling(repoData?.github?.teams?.gitTagAuthorizedTeams),
-        },
-        gitTagAuthorizedTeams: {
-          "ui:addButtonText": "Add Team",
-          "ui:showLabel": false,
-        },
-        repoData: {
-          gitTagAuthorizedTeams: {
-            "ui:readonly": true,
-            "ui:showLabel": false,
-          },
-        },
+        ...userTeamStyling(
+          "gitTagAuthorizedTeams",
+          "Add Team",
+          repoData?.github?.teams?.gitTagAuthorizedTeams === undefined,
+          useRepoSettings &&
+            !formData?.github?.gitTagVersionsEnabled &&
+            !repoData?.github?.gitTagVersionsEnabled
+        ),
       },
     },
   },
 });
 
+const hideIf = (field, repoField) =>
+  (field === false || (field === null && repoField === false)) && {
+    "ui:widget": "hidden",
+  };
+
 const overrideStyling = (field) => ({
-  "ui:widget": field === undefined ? "hidden" : widgets.RadioBoxWidget,
+  "ui:widget": field ? "hidden" : widgets.RadioBoxWidget,
   "ui:showLabel": false,
+});
+
+const userTeamStyling = (
+  fieldName: string,
+  addButtonText: string,
+  shouldOverride: boolean,
+  shouldDisable: boolean
+) => ({
+  "ui:disabled": shouldDisable,
+  [`${fieldName}Override`]: {
+    ...overrideStyling(shouldOverride),
+  },
+  [fieldName]: {
+    "ui:addButtonText": addButtonText,
+    "ui:showLabel": false,
+  },
+  repoData: {
+    [fieldName]: {
+      "ui:disabled": true,
+      "ui:readonly": true,
+      "ui:showLabel": false,
+    },
+  },
 });
 
 type AliasRowUIParams = {

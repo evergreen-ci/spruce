@@ -56,24 +56,31 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
     github: {
       prTestingEnabled: projectRef.prTestingEnabled,
       prTesting: {
-        githubPrAliasesOverride: !useRepoSettings || !!githubPrAliases.length,
+        githubPrAliasesOverride:
+          !useRepoSettings ||
+          (!!projectRef.prTestingEnabled && !!githubPrAliases.length),
         githubPrAliases,
       },
       githubChecksEnabled: projectRef.githubChecksEnabled,
       githubChecks: {
         githubCheckAliasesOverride:
-          !useRepoSettings || !!githubCheckAliases.length,
+          !useRepoSettings ||
+          (!!projectRef.githubChecksEnabled && !!githubCheckAliases.length),
         githubCheckAliases,
       },
       gitTagVersionsEnabled: projectRef.gitTagVersionsEnabled,
       users: {
         gitTagAuthorizedUsersOverride:
-          !useRepoSettings || !!projectRef.gitTagAuthorizedUsers?.length,
+          !useRepoSettings ||
+          (!!projectRef.gitTagVersionsEnabled &&
+            !!projectRef.gitTagAuthorizedUsers?.length),
         gitTagAuthorizedUsers: projectRef.gitTagAuthorizedUsers,
       },
       teams: {
         gitTagAuthorizedTeamsOverride:
-          !useRepoSettings || !!projectRef.gitTagAuthorizedTeams?.length,
+          !useRepoSettings ||
+          (!!projectRef.gitTagVersionsEnabled &&
+            !!projectRef.gitTagAuthorizedTeams?.length),
         gitTagAuthorizedTeams: projectRef.gitTagAuthorizedTeams,
       },
     },
@@ -82,21 +89,18 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
 
 const transformAliases = (
   aliases: AliasType[],
-  aliasName: string,
-  override: boolean
+  aliasName: string
 ): ProjectAliasInput[] =>
-  override
-    ? aliases.map(({ id: aliasId, variant, variantTags, task, taskTags }) => ({
-        id: aliasId || "",
-        alias: aliasName,
-        variant: variant || "",
-        variantTags: variantTags?.filter((tag) => tag) ?? [],
-        task: task || "",
-        taskTags: taskTags?.filter((tag) => tag) ?? [],
-        gitTag: "",
-        remotePath: "",
-      }))
-    : [];
+  aliases.map(({ id: aliasId, variant, variantTags, task, taskTags }) => ({
+    id: aliasId || "",
+    alias: aliasName,
+    variant: variant || "",
+    variantTags: variantTags?.filter((tag) => tag) ?? [],
+    task: task || "",
+    taskTags: taskTags?.filter((tag) => tag) ?? [],
+    gitTag: "",
+    remotePath: "",
+  }));
 
 export const formToGql: FormToGqlFunction = (
   {
@@ -129,14 +133,12 @@ export const formToGql: FormToGqlFunction = (
 
   const githubPrAliases = transformAliases(
     prTesting.githubPrAliases,
-    AliasTypes.GithubPr,
-    prTesting.githubPrAliasesOverride
+    AliasTypes.GithubPr
   );
 
   const githubCheckAliases = transformAliases(
     githubChecks.githubCheckAliases,
-    AliasTypes.GithubCheck,
-    githubChecks.githubCheckAliasesOverride
+    AliasTypes.GithubCheck
   );
 
   const aliases = [...githubPrAliases, ...githubCheckAliases];

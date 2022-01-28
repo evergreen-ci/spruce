@@ -45,7 +45,7 @@ export const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
     formData?.variant ? VariantInput.Regex : VariantInput.Tags
   );
   const [taskInput, setTaskInput] = useState(
-    formData?.variant ? TaskInput.Regex : TaskInput.Tags
+    formData?.task ? TaskInput.Regex : TaskInput.Tags
   );
 
   // Clear form when toggling between segmented control options
@@ -66,6 +66,9 @@ export const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
       default:
     }
   };
+
+  const makeId = (fieldName: string): string =>
+    `${idSchema.$id}-${fieldName}-field`;
 
   return (
     <Accordion
@@ -88,22 +91,22 @@ export const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
               <SegmentedControlOption
                 value={VariantInput.Tags}
                 disabled={isDisabled}
-                aria-controls={`${VariantInput.Tags}-field`}
+                aria-controls={makeId(VariantInput.Tags)}
               >
                 Tags
               </SegmentedControlOption>
               <SegmentedControlOption
                 value={VariantInput.Regex}
                 disabled={isDisabled}
-                aria-controls={`${VariantInput.Regex}-field`}
+                aria-controls={makeId(VariantInput.Regex)}
               >
                 Regex
               </SegmentedControlOption>
             </StyledSegmentedControl>
             {variantInput === VariantInput.Tags ? (
-              <div id={`${VariantInput.Tags}-field`}>{variantTags.content}</div>
+              <div id={makeId(VariantInput.Tags)}>{variantTags.content}</div>
             ) : (
-              <div id={`${VariantInput.Regex}-field`}>{variant.content}</div>
+              <div id={makeId(VariantInput.Regex)}>{variant.content}</div>
             )}
           </TaskRegexContainer>
           <TaskRegexContainer>
@@ -119,22 +122,22 @@ export const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
               <SegmentedControlOption
                 value={TaskInput.Tags}
                 disabled={isDisabled}
-                aria-controls={`${TaskInput.Tags}-field`}
+                aria-controls={makeId(TaskInput.Tags)}
               >
                 Tags
               </SegmentedControlOption>
               <SegmentedControlOption
                 value={TaskInput.Regex}
                 disabled={isDisabled}
-                aria-controls={`${TaskInput.Regex}-field`}
+                aria-controls={makeId(TaskInput.Regex)}
               >
                 Regex
               </SegmentedControlOption>
             </StyledSegmentedControl>
             {taskInput === TaskInput.Tags ? (
-              <div id={`${TaskInput.Tags}-field`}>{taskTags.content}</div>
+              <div id={makeId(TaskInput.Tags)}>{taskTags.content}</div>
             ) : (
-              <div id={`${TaskInput.Regex}-field`}>{task.content}</div>
+              <div id={makeId(TaskInput.Regex)}>{task.content}</div>
             )}
           </TaskRegexContainer>
         </div>

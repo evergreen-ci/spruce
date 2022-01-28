@@ -130,7 +130,7 @@ type ArrayContainerProps = {
 };
 
 const ArrayContainer = styled.div`
-  ${({ hasChildren }) => hasChildren && "margin-buttom: 24px;"}
+  ${({ hasChildren }) => hasChildren && "margin-bottom: 24px;"}
   min-width: min-content;
   width: ${({ fullWidth }: ArrayContainerProps): string =>
     fullWidth ? "100%" : "60%"};

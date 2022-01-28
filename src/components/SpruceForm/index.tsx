@@ -22,6 +22,7 @@ export const SpruceForm: React.FC<SpruceFormProps> = ({
   tagName,
   validate,
   customFormats,
+  disabled,
 }) => (
   <Form
     fields={{ ...baseFields, ...fields }}
@@ -37,6 +38,7 @@ export const SpruceForm: React.FC<SpruceFormProps> = ({
     showErrorList={false}
     validate={validate}
     customFormats={customFormats}
+    disabled={disabled}
     liveValidate
     noHtml5Validate
   >

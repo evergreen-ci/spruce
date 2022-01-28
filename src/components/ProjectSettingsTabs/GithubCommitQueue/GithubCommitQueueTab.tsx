@@ -1,10 +1,14 @@
 import { useMemo } from "react";
-import { SpruceForm } from "components/SpruceForm";
+import Banner from "@leafygreen-ui/banner";
+import { SpruceForm, SpruceFormProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
+import { environmentalVariables } from "utils";
 import { usePopulateForm, useProjectSettingsContext } from "../Context";
 import { getFormSchema } from "./getFormSchema";
 import { mergeProjectRepo } from "./transformers";
 import { AliasType, FormState, TabProps } from "./types";
+
+const { isProduction } = environmentalVariables;
 
 const tab = ProjectSettingsTabRoutes.GithubCommitQueue;
 
@@ -50,27 +54,44 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
   if (!formData) return null;
 
   return (
-    <SpruceForm
-      fields={fields}
-      formData={formData}
-      onChange={onChange}
-      schema={schema}
-      uiSchema={uiSchema}
-      validate={validate}
-    />
+    <>
+      {!gitHubWebhooksEnabled && (
+        <Banner data-cy="disabled-webhook-banner" variant="warning">
+          GitHub features are disabled because webhooks are not enabled.
+          Webhooks are enabled after saving with a repository and branch.
+        </Banner>
+      )}
+      <SpruceForm
+        fields={fields}
+        formData={formData}
+        onChange={onChange}
+        schema={schema}
+        uiSchema={uiSchema}
+        validate={validate}
+        disabled={isProduction() && !gitHubWebhooksEnabled} // TODO: Remove once EVG-16208 is fixed
+      />
+    </>
   );
 };
 
-const pairHasError = (regex: string, tags: string[]) => {
+const pairHasError = (regex: string, tags: string[]): boolean => {
   const hasInvalidTags =
     !tags || !tags?.length || tags.every((tag) => tag === "");
   return regex === "" && hasInvalidTags;
 };
 
-const aliasHasError = ({ task, taskTags, variant, variantTags }: AliasType) =>
+const aliasHasError = ({
+  task,
+  taskTags,
+  variant,
+  variantTags,
+}: AliasType): boolean =>
   pairHasError(task, taskTags) || pairHasError(variant, variantTags);
 
-const validate = (formData: FormState, errors) => {
+const validate = (
+  formData: FormState,
+  errors
+): ReturnType<SpruceFormProps["validate"]> => {
   const {
     github: {
       prTesting: { githubPrAliases },
