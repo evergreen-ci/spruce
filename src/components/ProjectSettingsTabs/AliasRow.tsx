@@ -104,9 +104,13 @@ export const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
               </SegmentedControlOption>
             </StyledSegmentedControl>
             {variantInput === VariantInput.Tags ? (
-              <div id={makeId(VariantInput.Tags)}>{variantTags.content}</div>
+              <div data-cy="variant-tags-field" id={makeId(VariantInput.Tags)}>
+                {variantTags.content}
+              </div>
             ) : (
-              <div id={makeId(VariantInput.Regex)}>{variant.content}</div>
+              <div data-cy="variant-field" id={makeId(VariantInput.Regex)}>
+                {variant.content}
+              </div>
             )}
           </TaskRegexContainer>
           <TaskRegexContainer>
@@ -135,9 +139,13 @@ export const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
               </SegmentedControlOption>
             </StyledSegmentedControl>
             {taskInput === TaskInput.Tags ? (
-              <div id={makeId(TaskInput.Tags)}>{taskTags.content}</div>
+              <div data-cy="task-tags-field" id={makeId(TaskInput.Tags)}>
+                {taskTags.content}
+              </div>
             ) : (
-              <div id={makeId(TaskInput.Regex)}>{task.content}</div>
+              <div data-cy="task-field" id={makeId(TaskInput.Regex)}>
+                {task.content}
+              </div>
             )}
           </TaskRegexContainer>
         </div>

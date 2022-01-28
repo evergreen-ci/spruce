@@ -44,10 +44,10 @@ describe("Repo Settings", () => {
     it("Successfully saves a patch definition", () => {
       cy.dataCy("add-button").contains("Add Patch Definition").parent().click();
 
-      cy.get("#variantTags-field").find("button").click();
+      cy.dataCy("variant-tags-field").find("button").click();
       cy.dataCy("variant-tags-input").first().type("vtag");
 
-      cy.get("#taskTags-field").find("button").click();
+      cy.dataCy("task-tags-field").find("button").click();
       cy.dataCy("task-tags-input").first().type("ttag");
 
       cy.dataCy("save-settings-button").click();
@@ -241,7 +241,6 @@ describe("Project Settings when defaulting to repo", () => {
 
     it("Should enable save when the task and variant fields are filled in", () => {
       cy.dataCy("variant-input").type(".*");
-      // cy.get("button").contains("Regex").debug()
       cy.get("#task-input-control").find("button").eq(1).click();
       cy.dataCy("task-input").type(".*");
       cy.dataCy("save-settings-button").should("not.be.disabled");

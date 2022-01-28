@@ -3,7 +3,7 @@
 exports[`storybook Storyshots Spruce Form Example 1 1`] = `
 <div>
   <h3
-    className="css-7bylgw-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"
+    className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"
   >
     Distro Projects
   </h3>
@@ -136,7 +136,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
               </button>
             </div>
             <div
-              className="css-18s7j4r-ArrayContainer e7smmlm1"
+              className="css-fwqti9-ArrayContainer e7smmlm1"
             >
               <div
                 className="css-1hhgr19-ArrayItemRow e7smmlm2"
@@ -337,7 +337,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
 exports[`storybook Storyshots Spruce Form Example 2 1`] = `
 <div>
   <h3
-    className="css-7bylgw-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"
+    className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"
   >
     Admin Options
   </h3>
@@ -623,7 +623,7 @@ exports[`storybook Storyshots Spruce Form Example 2 1`] = `
 exports[`storybook Storyshots Spruce Form Example 3 1`] = `
 <div>
   <h3
-    className="css-7bylgw-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"
+    className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"
   >
     UI Options
   </h3>

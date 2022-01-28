@@ -56,31 +56,24 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
     github: {
       prTestingEnabled: projectRef.prTestingEnabled,
       prTesting: {
-        githubPrAliasesOverride:
-          !useRepoSettings ||
-          (!!projectRef.prTestingEnabled && !!githubPrAliases.length),
+        githubPrAliasesOverride: !useRepoSettings || !!githubPrAliases.length,
         githubPrAliases,
       },
       githubChecksEnabled: projectRef.githubChecksEnabled,
       githubChecks: {
         githubCheckAliasesOverride:
-          !useRepoSettings ||
-          (!!projectRef.githubChecksEnabled && !!githubCheckAliases.length),
+          !useRepoSettings || !!githubCheckAliases.length,
         githubCheckAliases,
       },
       gitTagVersionsEnabled: projectRef.gitTagVersionsEnabled,
       users: {
         gitTagAuthorizedUsersOverride:
-          !useRepoSettings ||
-          (!!projectRef.gitTagVersionsEnabled &&
-            !!projectRef.gitTagAuthorizedUsers?.length),
+          !useRepoSettings || !!projectRef.gitTagAuthorizedUsers?.length,
         gitTagAuthorizedUsers: projectRef.gitTagAuthorizedUsers,
       },
       teams: {
         gitTagAuthorizedTeamsOverride:
-          !useRepoSettings ||
-          (!!projectRef.gitTagVersionsEnabled &&
-            !!projectRef.gitTagAuthorizedTeams?.length),
+          !useRepoSettings || !!projectRef.gitTagAuthorizedTeams?.length,
         gitTagAuthorizedTeams: projectRef.gitTagAuthorizedTeams,
       },
     },
