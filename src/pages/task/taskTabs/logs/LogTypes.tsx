@@ -64,7 +64,6 @@ interface Props {
 }
 
 export const AllLog: React.FC<Props> = (props): JSX.Element => {
-  // All logs only includes task, system, and agent logs. Event logs are not included.
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
@@ -79,6 +78,7 @@ export const AllLog: React.FC<Props> = (props): JSX.Element => {
   });
   useNetworkStatus(startPolling, stopPolling);
 
+  // All logs includes task, system, and agent logs. Event logs are not included.
   return useRenderBody({
     data: get(data, "taskLogs.allLogs", []),
     loading,
