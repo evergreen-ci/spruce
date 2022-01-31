@@ -2715,6 +2715,19 @@ export type AgentLogsQuery = {
   };
 };
 
+export type AllLogsQueryVariables = Exact<{
+  id: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type AllLogsQuery = {
+  taskLogs: {
+    execution: number;
+    taskId: string;
+    allLogs: Array<LogMessageFragment>;
+  };
+};
+
 export type GetAnnotationEventDataQueryVariables = Exact<{
   taskId: Scalars["String"];
   execution?: Maybe<Scalars["Int"]>;
