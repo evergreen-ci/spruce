@@ -1,0 +1,318 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`storybook Storyshots Editable Tags Field Editable Tag Field View 1`] = `
+<div
+  className="css-1ojulcu-FlexColumnContainer e1zn6k0"
+>
+  <div
+    className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+    data-cy="user-tag-row"
+  >
+    <div
+      className="css-3oy7y7-FlexContainer e161fbrp3"
+    >
+      <div
+        className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+      >
+        <div
+          className="css-8jhme8-FlexColumnContainer-Section e161fbrp1"
+        >
+          <label
+            className="css-c0hrp-InputLabel e1xf068s2"
+            htmlFor="tag_key_undefined"
+          >
+            Key
+          </label>
+          <input
+            className="ant-input"
+            data-cy="user-tag-key-field"
+            id="tag_key_undefined"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="keyA"
+          />
+        </div>
+      </div>
+      <div
+        className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+      >
+        <div
+          className="css-8jhme8-FlexColumnContainer-Section e161fbrp1"
+        >
+          <label
+            className="css-c0hrp-InputLabel e1xf068s2"
+            htmlFor="tag_value_undefined"
+          >
+            Value
+          </label>
+          <input
+            className="ant-input"
+            data-cy="user-tag-value-field"
+            id="tag_value_undefined"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="valueA"
+          />
+        </div>
+      </div>
+      <div
+        className="css-1ys6knn-IconButtonContainer e161fbrp0"
+      >
+        <button
+          aria-disabled={false}
+          aria-label="Delete Tag"
+          className="leafygreen-ui-wn45f0"
+          tabIndex={0}
+        >
+          <div
+            className="leafygreen-ui-xhlipt"
+          >
+            <svg
+              aria-label="Trash Icon"
+              className=""
+              data-cy="user-tag-trash-icon"
+              fill="none"
+              height={16}
+              onClick={[Function]}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clipRule="evenodd"
+                d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
+                fill="currentColor"
+                fillRule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+    data-cy="user-tag-row"
+  >
+    <div
+      className="css-3oy7y7-FlexContainer e161fbrp3"
+    >
+      <div
+        className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+      >
+        <div
+          className="css-8jhme8-FlexColumnContainer-Section e161fbrp1"
+        >
+          <label
+            className="css-c0hrp-InputLabel e1xf068s2"
+            htmlFor="tag_key_undefined"
+          >
+            Key
+          </label>
+          <input
+            className="ant-input"
+            data-cy="user-tag-key-field"
+            id="tag_key_undefined"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="keyB"
+          />
+        </div>
+      </div>
+      <div
+        className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+      >
+        <div
+          className="css-8jhme8-FlexColumnContainer-Section e161fbrp1"
+        >
+          <label
+            className="css-c0hrp-InputLabel e1xf068s2"
+            htmlFor="tag_value_undefined"
+          >
+            Value
+          </label>
+          <input
+            className="ant-input"
+            data-cy="user-tag-value-field"
+            id="tag_value_undefined"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="valueB"
+          />
+        </div>
+      </div>
+      <div
+        className="css-1ys6knn-IconButtonContainer e161fbrp0"
+      >
+        <button
+          aria-disabled={false}
+          aria-label="Delete Tag"
+          className="leafygreen-ui-wn45f0"
+          tabIndex={0}
+        >
+          <div
+            className="leafygreen-ui-xhlipt"
+          >
+            <svg
+              aria-label="Trash Icon"
+              className=""
+              data-cy="user-tag-trash-icon"
+              fill="none"
+              height={16}
+              onClick={[Function]}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clipRule="evenodd"
+                d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
+                fill="currentColor"
+                fillRule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+    data-cy="user-tag-row"
+  >
+    <div
+      className="css-3oy7y7-FlexContainer e161fbrp3"
+    >
+      <div
+        className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+      >
+        <div
+          className="css-8jhme8-FlexColumnContainer-Section e161fbrp1"
+        >
+          <label
+            className="css-c0hrp-InputLabel e1xf068s2"
+            htmlFor="tag_key_undefined"
+          >
+            Key
+          </label>
+          <input
+            className="ant-input"
+            data-cy="user-tag-key-field"
+            id="tag_key_undefined"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="keyC"
+          />
+        </div>
+      </div>
+      <div
+        className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+      >
+        <div
+          className="css-8jhme8-FlexColumnContainer-Section e161fbrp1"
+        >
+          <label
+            className="css-c0hrp-InputLabel e1xf068s2"
+            htmlFor="tag_value_undefined"
+          >
+            Value
+          </label>
+          <input
+            className="ant-input"
+            data-cy="user-tag-value-field"
+            id="tag_value_undefined"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="valueC"
+          />
+        </div>
+      </div>
+      <div
+        className="css-1ys6knn-IconButtonContainer e161fbrp0"
+      >
+        <button
+          aria-disabled={false}
+          aria-label="Delete Tag"
+          className="leafygreen-ui-wn45f0"
+          tabIndex={0}
+        >
+          <div
+            className="leafygreen-ui-xhlipt"
+          >
+            <svg
+              aria-label="Trash Icon"
+              className=""
+              data-cy="user-tag-trash-icon"
+              fill="none"
+              height={16}
+              onClick={[Function]}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clipRule="evenodd"
+                d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
+                fill="currentColor"
+                fillRule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+    data-cy="add-tag-button-row"
+  >
+    <div
+      className="css-10b13qw-ButtonContainer e161fbrp4"
+    >
+      <button
+        aria-disabled={false}
+        className="leafygreen-ui-26sqyb"
+        data-cy="add-tag-button"
+        disabled={false}
+        glyph={
+          <Icon
+            glyph="Plus"
+          />
+        }
+        onClick={[Function]}
+        type="button"
+      >
+        <div
+          className="leafygreen-ui-1ktj4tm"
+        />
+        <div
+          className="leafygreen-ui-ie0uqp"
+        >
+          Add Tag
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+`;
