@@ -8,7 +8,7 @@ import {
   PatchQueryVariables,
   TaskSortCategory,
 } from "gql/generated/types";
-import { GET_VERSION } from "gql/queries";
+import { GET_PATCH } from "gql/queries";
 
 type Action =
   | { name: "Filter Tasks"; filterBy: string }
@@ -59,7 +59,7 @@ export const usePatchAnalytics = (): PatchAnalytics => {
   const userId = useGetUserQuery();
   const { id } = useParams<{ id: string }>();
   const { data: eventData } = useQuery<PatchQuery, PatchQueryVariables>(
-    GET_VERSION,
+    GET_PATCH,
     {
       variables: { id },
       fetchPolicy: "cache-first",
