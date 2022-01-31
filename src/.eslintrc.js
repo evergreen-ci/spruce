@@ -19,7 +19,6 @@ module.exports = {
     "plugin:react/recommended",
     "prettier/react",
     "prettier/@typescript-eslint",
-    "plugin:storybook/recommended",
   ],
   plugins: [
     "react",
@@ -69,10 +68,6 @@ module.exports = {
     "react/require-default-props": OFF,
     "react-hooks/rules-of-hooks": ERROR, // Checks rules of Hooks
     "react-hooks/exhaustive-deps": WARN, // Checks effect dependencies
-    "storybook/no-stories-of": ERROR,
-    "storybook/no-redundant-story-name": WARN,
-    "storybook/story-exports": errorIfStrict,
-    "storybook/csf-component": WARN, // Enables support for auto generated prop controls and documentation
     "import/order": [
       "error",
       {
@@ -104,6 +99,17 @@ module.exports = {
     ],
   },
   overrides: [
+    {
+      // or whatever matches stories specified in .storybook/main.js
+      files: ["*.stories.@(ts|tsx|js|jsx|mjs|cjs)"],
+      extends: ["plugin:storybook/recommended"],
+      rules: {
+        "storybook/story-exports": ERROR,
+        "storybook/no-stories-of": ERROR,
+        "storybook/no-redundant-story-name": WARN,
+        "storybook/csf-component": WARN, // Enables support for auto generated prop controls and documentation
+      },
+    },
     {
       files: ["*.test.ts", "*.test.tsx"],
       extends: [
