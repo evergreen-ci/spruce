@@ -103,14 +103,14 @@ const RelativeWrapper = styled.div`
 `;
 
 const OptionsWrapper = styled.div`
-  border-radius: 5px;
+  border-radius: ${size.xxs}px;
   background-color: ${white};
   border: 1px solid ${gray.light1};
   padding: ${size.xs}px;
-  box-shadow: 0 3px ${size.xs}px 0 rgba(231, 238, 236, 0.5);
+  box-shadow: 0 ${size.xs}px ${size.xs}px 0 rgba(231, 238, 236, 0.5);
   position: absolute;
   z-index: 5;
-  margin-top: 5px;
+  margin-top: ${size.xs}px;
   width: 100%;
 `;
 

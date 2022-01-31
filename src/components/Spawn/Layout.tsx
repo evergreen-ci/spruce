@@ -5,6 +5,7 @@ import { Body, H2 } from "@leafygreen-ui/typography";
 import { Table } from "antd";
 import Badge from "components/Badge";
 import Icon from "components/Icon";
+import { size } from "constants/tokens";
 
 export const Title = H2;
 
@@ -86,18 +87,18 @@ export const SectionContainer = styled.div`
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-top: 15px;
+  margin-top: ${size.s}px;
 `;
 
 export const SectionLabel = styled(Body)`
   flex-grow: 1;
-  padding-right: 15px;
-  margin-top: 22px;
+  padding-right: ${size.s}px;
+  margin-top: ${size.m}px;
 `;
 
 // @ts-expect-error
 export const PaddedButton = styled(Button)`
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: ${size.xxs}px;
+  margin-right: ${size.xxs}px;
   flex-grow: 0;
 `;

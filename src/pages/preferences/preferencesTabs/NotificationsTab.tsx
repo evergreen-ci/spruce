@@ -149,9 +149,9 @@ const StyledTextInput = styled(TextInput)`
 
 // @ts-expect-error
 const PreferencesCard = styled(Card)`
-  padding-left: 25px;
-  padding-top: 25px;
+  padding-left: ${size.m}px;
+  padding-top: ${size.m}px;
   padding-bottom: 40px;
-  margin-bottom: 30px;
+  margin-bottom: ${size.l}px;
   width: 100%;
 `;

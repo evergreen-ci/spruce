@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import Icon from "components/Icon";
 import { StyledLink as Link } from "components/styles";
 import { HIDE_FEEDBACK } from "constants/cookies";
+import { size } from "constants/tokens";
 import { GetSpruceConfigQuery } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
 
@@ -41,17 +42,16 @@ export const Feedback: React.FC = () => {
     </FloatingContainer>
   );
 };
-
 const FloatingContainer = styled.div`
   position: fixed;
   z-index: 30;
   bottom: 0;
   right: 0;
-  margin-left: 36px;
-  margin-bottom: 15px;
+  margin-left: ${size.l}px;
+  margin-bottom: ${size.s}px;
   background-color: white;
   padding: 10px;
-  border-radius: 15px;
+  border-radius: ${size.s}px;
   display: flex;
   justify-content: center;
 `;
@@ -59,6 +59,6 @@ const StyledIcon = styled(Icon)`
   cursor: pointer;
 `;
 const StyledLink = styled(Link)`
-  margin-right: 5px;
-  margin-top: 3px;
+  margin-right: ${size.xxs}px;
+  margin-top: ${size.xxs}px;
 `;

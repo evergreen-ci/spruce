@@ -77,7 +77,7 @@ export const Navbar: React.FC = () => {
   );
 };
 
-export const navBarHeight = size.l;
+export const navBarHeight = size.xl;
 const StyledNav = styled.nav`
   align-items: center;
   background-color: ${gray.dark3};

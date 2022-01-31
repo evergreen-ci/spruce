@@ -124,7 +124,7 @@ const TaskBadgeContainer = styled.div`
 const CardWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 12px 5px 12px;
+  padding: 12px ${size.xxs}px 12px;
   border-bottom: 1px solid ${gray.light2};
 `;
 

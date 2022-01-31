@@ -6,6 +6,7 @@ import TextInput from "@leafygreen-ui/text-input";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { Select, Input } from "antd";
 import { InputLabel } from "components/styles";
+import { size } from "constants/tokens";
 import { PublicKey, PublicKeyInput } from "gql/generated/types";
 
 const { Option } = Select;
@@ -135,8 +136,8 @@ const Container = styled(FlexColumnContainer)`
 `;
 
 const PaddedText = styled.span`
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: ${size.s}px;
+  padding-right: ${size.s}px;
 `;
 const SelectContainer = styled.div`
   display: flex;
@@ -151,7 +152,7 @@ const StyledInput = styled(TextInput)`
 `;
 
 const StyledTextArea = styled(TextArea)`
-  margin-bottom: 15px;
+  margin-bottom: ${size.s}px;
 `;
 
 const initialState = { disableKeySelect: false, shouldAddNewKey: false };

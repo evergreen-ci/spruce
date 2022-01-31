@@ -4,6 +4,7 @@ import Card from "@leafygreen-ui/card";
 import Toggle from "@leafygreen-ui/toggle";
 import { Body } from "@leafygreen-ui/typography";
 import { usePreferencesAnalytics } from "analytics";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   UpdateUserSettingsMutation,
@@ -73,8 +74,8 @@ export const NewUITab: React.FC = () => {
 const PreferencesCard = styled(Card)`
   display: flex;
   flex-direction: column;
-  padding-left: 25px;
-  padding-top: 25px;
+  padding-left: ${size.m}px;
+  padding-top: ${size.m}px;
   padding-bottom: 40px;
   margin-bottom: 30px;
   width: 100%;

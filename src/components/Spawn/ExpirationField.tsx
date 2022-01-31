@@ -7,6 +7,7 @@ import { set } from "date-fns";
 import DatePicker from "components/DatePicker";
 import { InputLabel } from "components/styles";
 import TimePicker from "components/TimePicker";
+import { size } from "constants/tokens";
 import {
   GetSpruceConfigQuery,
   GetSpruceConfigQueryVariables,
@@ -140,8 +141,7 @@ const FormContainer = styled.div`
 `;
 
 const PaddedBody = styled.span`
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 0 ${size.s}px;
   margin-top: 22px;
 `;
 

@@ -113,5 +113,5 @@ const Row = styled.div`
 `;
 
 const Timestamp = styled.span`
-  margin-right: 15px;
+  margin-right: ${size.s}px;
 `;

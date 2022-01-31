@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { uiColors } from "@leafygreen-ui/palette";
+import { size } from "constants/tokens";
 import { useNetworkStatus } from "hooks";
 
 const { yellow } = uiColors;
@@ -21,9 +22,9 @@ const Banner = styled.div`
   align-items: center;
   background-color: ${yellow.light3};
   display: flex;
-  padding: 5px 15px;
+  padding: ${size.xxs}px ${size.s}px;
 `;
 
 const IconWithMargin = styled(Icon)`
-  margin-right: 15px;
+  margin-right: ${size.s}px;
 `;

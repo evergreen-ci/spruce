@@ -261,10 +261,10 @@ export const CustomCreatedTicketsTable: React.FC<CreatedTicketsProps> = ({
 };
 
 export const TableWrapper = styled.div`
-  margin-top: 5px;
+  margin-top: ${size.xxs}px;
 `;
 export const StyledText = styled.div`
-  padding: 5px;
+  padding: ${size.xxs}px;
 `;
 
 const BtnContainer = styled.div`

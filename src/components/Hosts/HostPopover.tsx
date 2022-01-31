@@ -94,7 +94,8 @@ const PopoverContainer = styled.div`
   flex-direction: column;
   background-color: white;
   padding: ${size.s}px;
-  box-shadow: 0 5px 10px 0 ${gray.light2}, 0 5px 30px 5px ${gray.light2};
+  box-shadow: 0 ${size.xxs}px 10px 0 ${gray.light2},
+    0 ${size.xxs}px 30px ${size.xxs}px ${gray.light2};
 `;
 
 const ButtonWrapper = styled.div`

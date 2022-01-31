@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { H1, H2 } from "@leafygreen-ui/typography";
+import { size } from "constants/tokens";
 import { environmentalVariables } from "utils";
 import errorPage from "./errorPage.svg";
 
@@ -33,9 +34,8 @@ const StyledHeader = styled(H1)`
 const StyledSubtitle = styled(H2)`
   color: ${white};
 `;
-
 const StyledLink = styled.a`
-  padding-top: 64px;
+  padding-top: ${size.xl}px;
   color: ${white};
   text-decoration: underline;
 `;

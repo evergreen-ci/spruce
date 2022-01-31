@@ -4,6 +4,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { H2 } from "@leafygreen-ui/typography";
 import { Modal as AntdModal } from "antd";
 import { HR } from "components/styles/Layout";
+import { size } from "constants/tokens";
 import { color } from "utils";
 
 const { hexToRGBA } = color;
@@ -52,10 +53,10 @@ const StyledModal = styled(AntdModal)`
     min-width: 500px;
   }
   .ant-modal-body {
-    padding-bottom: 89px;
+    padding-bottom: ${size.xxl}px;
   }
 `;
 
 const StyledHR = styled(HR)`
-  margin-top: 15px;
+  margin-top: ${size.s}px;
 `;

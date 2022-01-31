@@ -41,9 +41,9 @@ const DependsOnWrapper = styled.div`
 `;
 
 const LeftContainer = styled.div`
-  width: 25px;
-  padding-top: 10px;
-  padding-right: 9px;
+  width: ${size.m}px;
+  padding-top: ${size.xs}px;
+  padding-right: ${size.xs}px;
 `;
 
 const RightContainer = styled.div`

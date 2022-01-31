@@ -329,7 +329,7 @@ const getCheckboxWrapper = (level: number): React.FC => styled.div`
 const OptionsWrapper = styled.div`
   position: absolute;
   z-index: 5;
-  margin-top: 5px;
+  margin-top: ${size.xxs}px;
   width: 100%;
 `;
 

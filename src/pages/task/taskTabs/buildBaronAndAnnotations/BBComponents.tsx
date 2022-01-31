@@ -136,24 +136,24 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
 
 // @ts-expect-error
 export const TicketsTitle = styled(Subtitle)<TitleProps>`
-  margin-bottom: ${(props) => (props.margin ? "15px" : "5px")};
-  margin-top: ${(props) => (props.margin ? "25px" : "35px")};
+  margin-bottom: ${(props) => (props.margin ? `${size.s}px` : `${size.xxs}px`)};
+  margin-top: ${(props) => (props.margin ? `${size.m}px` : "35px")};
   line-height: ${size.m}px;
   font-weight: bold;
 `;
 
 const JiraSummaryLink = styled(StyledLink)`
   font-weight: bold;
-  margin-right: 15px;
+  margin-right: ${size.s}px;
 `;
 
 const StyledBadge = styled(Badge)`
   justify-content: center;
-  padding: 0px 15px 0px;
+  padding: 0px ${size.s}px 0px;
 `;
 
 export const BottomMetaDataWrapper = styled.div`
-  margin-top: 7px;
+  margin-top: ${size.xs}px;
   display: grid;
   grid-template-columns: 1fr 1fr 2fr;
   gap: 10px;
@@ -163,7 +163,7 @@ export const BottomMetaDataWrapper = styled.div`
 `;
 
 export const TopMetaDataWrapper = styled.div`
-  margin-bottom: 7px;
+  margin-bottom: ${size.xs}px;
   display: grid;
   grid-template-columns: 1fr 4fr;
   gap: 10px;
@@ -173,10 +173,10 @@ export const TopMetaDataWrapper = styled.div`
 `;
 
 export const TitleAndButtons = styled.div`
-  margin-left: 15px;
+  margin-left: ${size.s}px;
 `;
 
 export const ButtonWrapper = styled.div`
   margin-right: ${size.xs}px;
-  padding-top: 15px;
+  padding-top: ${size.s}px;
 `;

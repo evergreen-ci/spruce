@@ -162,5 +162,5 @@ const Indent = styled.div`
   margin-left: ${size.s}px;
 `;
 const StyledTextArea = styled(TextArea)`
-  margin: 15px 0;
+  margin: ${size.s}px 0;
 `;

@@ -111,7 +111,7 @@ const FlexRow = styled.div`
   display: flex;
 `;
 const TrashContainer = styled.div`
-  padding-left: 27px;
+  padding-left: ${size.m}px;
   margin-top: 2px;
 `;
 const RegexContainer = styled.div`
@@ -119,7 +119,7 @@ const RegexContainer = styled.div`
 `;
 const MatchesRegexLabel = styled(Disclaimer)`
   position: relative;
-  top: 25px;
+  top: ${size.m}px;
   padding-left: ${size.xs}px;
   padding-right: ${size.xs}px;
   white-space: nowrap;

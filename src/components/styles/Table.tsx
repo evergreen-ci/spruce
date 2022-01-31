@@ -7,10 +7,10 @@ const { gray, white } = uiColors;
 export const tableInputContainerCSS = css`
   background: ${white};
   background-color: ${white};
-  border-radius: 5px;
+  border-radius: ${size.xxs}px;
   background-color: ${white};
   border: 1px solid ${gray.light1};
   padding: ${size.xs}px;
-  box-shadow: 0 3px ${size.xs}px 0 rgba(231, 238, 236, 0.5);
+  box-shadow: 0 ${size.xxs}px ${size.xs}px 0 rgba(231, 238, 236, 0.5);
   overflow: hidden;
 `;

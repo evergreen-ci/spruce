@@ -9,6 +9,7 @@ import {
   SectionContainer,
 } from "components/Spawn";
 import { ExpirationDateType } from "components/Spawn/ExpirationField";
+import { size } from "constants/tokens";
 import { VolumesField, VolumesData } from "pages/spawn/spawnHost/fields";
 import { MyVolume } from "types/spawn";
 import { SetupScriptForm } from "./SetupScriptForm";
@@ -107,7 +108,7 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
 };
 
 const SectionLabel = styled(Body)`
-  padding-right: 15px;
+  padding-right: ${size.s}px;
   margin-top: 22px;
   min-width: 175px;
 `;
@@ -122,7 +123,7 @@ const StyledSubtitle = styled(Subtitle)`
 `;
 
 const StyledTextArea = styled(TextArea)`
-  margin: 15px 0;
+  margin: ${size.s}px 0;
 `;
 
 const initialState = { hasUserDataScript: false };

@@ -70,7 +70,7 @@ const BadgeWrapper = styled.span<TitleTypographyProps>`
 
 const PageHeader = styled.div<TitleTypographyProps>`
   margin-bottom: ${(props) => (props.size === "medium" ? "11px" : "30px")};
-  margin-top: ${(props) => props.size === "large" && "15px"};
+  margin-top: ${(props) => props.size === "large" && `${tokenSize.s}px`};
   display: flex;
   justify-content: space-between;
 `;

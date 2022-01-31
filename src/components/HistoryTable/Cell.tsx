@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { inactiveElementStyle, StyledRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
+import { size } from "constants/tokens";
 import { TaskStatus } from "types/task";
 import { HistoryTableIcon } from "./HistoryTableIcon";
 
@@ -108,7 +109,7 @@ const Cell = styled.div<{ inactive?: boolean }>`
   display: flex;
   height: 100%;
   width: 150px;
-  margin: 0 5px;
+  margin: 0 ${size.xxs}px;
   justify-content: center;
   align-items: center;
   ${({ inactive }) => inactive && inactiveElementStyle}

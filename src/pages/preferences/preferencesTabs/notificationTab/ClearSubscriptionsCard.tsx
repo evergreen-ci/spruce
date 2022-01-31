@@ -5,6 +5,7 @@ import Button, { Variant } from "@leafygreen-ui/button";
 import Card from "@leafygreen-ui/card";
 import { Body } from "@leafygreen-ui/typography";
 import { usePreferencesAnalytics } from "analytics";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   ClearMySubscriptionsMutation,
@@ -84,6 +85,7 @@ const ContentWrapper = styled.div`
 
 // @ts-expect-error
 const PreferencesCard = styled(Card)`
+  padding: ${size.m}px ${size.m}px;
   padding-left: 25px;
   padding-top: 25px;
   padding-bottom: 40px;

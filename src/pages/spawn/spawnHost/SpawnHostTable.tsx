@@ -7,6 +7,7 @@ import { useSpawnAnalytics } from "analytics";
 import { HostStatusBadge } from "components/HostStatusBadge";
 import { DoesNotExpire, SpawnTable } from "components/Spawn";
 import { WordBreak } from "components/Typography";
+import { size } from "constants/tokens";
 import { MyHost } from "types/spawn";
 import { queryString, string } from "utils";
 import { SpawnHostCard } from "./SpawnHostCard";
@@ -101,7 +102,7 @@ const FlexContainer = styled.div`
 `;
 
 const WorkstationBadge = styled(Badge)`
-  margin-left: 5px;
+  margin-left: ${size.xxs}px;
 `;
 
 const NoWrap = styled.span`

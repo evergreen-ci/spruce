@@ -281,8 +281,8 @@ const HR = styled.hr`
 `;
 
 const ConfirmationMessage = styled(Body)`
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: ${size.s}px;
+  padding-bottom: ${size.s}px;
 `;
 
 const Row = styled.div`
@@ -293,7 +293,7 @@ const Row = styled.div`
 `;
 
 export const TitleContainer = styled.div`
-  margin-top: 15px;
+  margin-top: ${size.s}px;
   width: 96%;
 `;
 

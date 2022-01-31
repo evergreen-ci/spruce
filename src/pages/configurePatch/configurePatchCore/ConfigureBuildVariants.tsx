@@ -244,7 +244,7 @@ const ScrollableBuildVariantContainer = styled.div`
   // Styles to always show scrollbar
   ::-webkit-scrollbar {
     -webkit-appearance: none;
-    width: 7px;
+    width: ${size.xs}px;
   }
 
   ::-webkit-scrollbar-thumb {
