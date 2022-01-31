@@ -57,7 +57,11 @@ export const CustomOption = () => {
       options={options}
       allowMultiSelect
       optionRenderer={(option, onClick, isChecked) => (
-        <button onClick={() => onClick(option.value)} type="button">
+        <button
+          onClick={() => onClick(option.value)}
+          type="button"
+          key={option.value}
+        >
           {isChecked(option.value) && `✔️`}
           {option.label}
         </button>

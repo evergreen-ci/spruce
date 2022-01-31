@@ -10,6 +10,7 @@ const { gray, white } = uiColors;
 
 interface DropdownProps {
   ["data-cy"]?: string;
+  id?: string;
   disabled?: boolean;
   buttonRenderer?: () => React.ReactNode;
   buttonText?: string;
@@ -19,6 +20,7 @@ interface DropdownProps {
 }
 const Dropdown: React.FC<DropdownProps> = ({
   "data-cy": dataCy = "dropdown-button",
+  id,
   disabled = false,
   buttonText,
   buttonRenderer,
@@ -33,12 +35,11 @@ const Dropdown: React.FC<DropdownProps> = ({
   useOnClickOutside([listMenuRef, menuButtonRef], () => setIsOpen(false));
 
   return (
-    <Container>
+    <Container id={id}>
       <StyledButton
         ref={menuButtonRef}
         onClick={() => setIsOpen(!isOpen)}
         data-cy={dataCy}
-        id="searchable-dropdown"
         disabled={disabled}
         rightGlyph={<Icon glyph={isOpen ? "ChevronUp" : "ChevronDown"} />}
       >

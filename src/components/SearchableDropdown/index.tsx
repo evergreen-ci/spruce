@@ -1,9 +1,9 @@
 import { useState, PropsWithChildren, useRef, useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
-import { Label } from "@leafygreen-ui/typography";
 import Dropdown from "components/Dropdown";
 import Icon from "components/Icon";
+import { InputLabel } from "components/styles";
 import TextInput from "components/TextInputWithGlyph";
 import { toggleArray } from "utils/array";
 
@@ -127,9 +127,10 @@ const SearchableDropdown = <T extends {}>({
 
   return (
     <Container>
-      <Label htmlFor="searchable-dropdown">{label}</Label>
+      <InputLabel htmlFor={`searchable-dropdown-${label}`}>{label}</InputLabel>
       <Wrapper>
         <Dropdown
+          id={`searchable-dropdown-${label}`}
           data-cy={dataCy}
           disabled={disabled}
           buttonText={buttonText}
@@ -174,9 +175,13 @@ export const SearchableDropdownOption = <T extends {}>({
     data-cy="searchable-dropdown-option"
   >
     <CheckmarkContainer>
-      {isChecked && (
-        <Icon glyph="Checkmark" height={12} width={12} fill={blue.base} />
-      )}
+      <CheckmarkIcon
+        glyph="Checkmark"
+        height={12}
+        width={12}
+        fill={blue.base}
+        checked={isChecked}
+      />
     </CheckmarkContainer>
     {displayName || value}
   </Option>
@@ -193,10 +198,11 @@ const Wrapper = styled.div`
 `;
 
 const Option = styled.div`
-  width: 100%;
   padding: 10px 12px;
   display: flex;
-  flex-direction: row;
+  align-items: start;
+  word-break: break-all; // Safari
+  overflow-wrap: anywhere;
   :hover {
     cursor: pointer;
     background-color: ${gray.light1};
@@ -204,7 +210,11 @@ const Option = styled.div`
 `;
 
 const CheckmarkContainer = styled.div`
-  width: 24px;
+  margin-right: 4px;
+`;
+
+const CheckmarkIcon = styled(Icon)<{ checked: boolean }>`
+  visibility: ${({ checked }) => (checked ? "visible" : "hidden")};
 `;
 
 const Container = styled.div`
