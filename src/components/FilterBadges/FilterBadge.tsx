@@ -5,6 +5,7 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
+
 import { string } from "utils";
 
 const { trimStringFromMiddle } = string;
@@ -57,7 +58,7 @@ export const FilterBadge: React.FC<FilterBadgeProps> = ({ badge, onClose }) => {
 
 const ClickableIcon = styled(Icon)`
   position: absolute;
-  right: 4px;
+  right: ${size.xxs}px;
   :hover {
     cursor: pointer;
     color: ${gray.light1};
@@ -87,5 +88,5 @@ const BadgeContent = styled.div`
 // @ts-expect-error
 // Reduce Tooltip padding because the default Tooltip is invasive when trying to interact with other UI elements
 const StyledTooltip = styled(Tooltip)`
-  padding: 4px ${size.xs}px;
+  padding: ${size.xxs}px ${size.xs}px;
 `;

@@ -3,6 +3,7 @@ import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { StyledRouterLink } from "components/styles";
 import { getVariantHistoryRoute } from "constants/routes";
 import { size } from "constants/tokens";
+
 import {
   groupStatusesByUmbrellaStatus,
   isFailedTaskStatus,
@@ -139,5 +140,5 @@ const Container = styled.div`
 `;
 
 const GroupedTaskStatusBadgeWrapper = styled.div`
-  margin-right: 4px;
+  margin-right: ${size.xxs}px;
 `;

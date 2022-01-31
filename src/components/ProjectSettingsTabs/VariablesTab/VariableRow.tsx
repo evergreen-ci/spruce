@@ -3,6 +3,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { ObjectFieldTemplateProps } from "@rjsf/core";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
+
 import { getFields } from "../utils";
 
 const { yellow } = uiColors;
@@ -40,7 +41,7 @@ export const VariableRow: React.FC<
 };
 
 const OverrideIcon = styled(Icon)`
-  margin-right: 4px;
+  margin-right: ${size.xxs}px;
   margin-top: 1px;
   vertical-align: text-top;
 `;

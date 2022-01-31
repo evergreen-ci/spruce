@@ -7,6 +7,7 @@ import { Disclaimer } from "@leafygreen-ui/typography";
 import { inactiveElementStyle } from "components/styles";
 import { taskStatusToCopy, mapTaskToBarchartColor } from "constants/task";
 import { size } from "constants/tokens";
+
 import { TaskStatus } from "types/task";
 import { tooltipZIndex } from "../constants";
 import { ColorCount, getStatusesWithZeroCount } from "./utils";
@@ -108,7 +109,7 @@ const TotalCountContainer = styled.div<{ active?: boolean }>`
 
 const Circle = styled.div<{ color: string }>`
   background-color: ${({ color }) => color};
-  border-radius: 4px;
+  border-radius: ${size.xxs}px;
   width: ${size.xs}px;
   height: ${size.xs}px;
   margin-right: ${size.s}px;

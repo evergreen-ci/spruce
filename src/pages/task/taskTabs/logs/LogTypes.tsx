@@ -10,6 +10,7 @@ import { useTaskAnalytics } from "analytics";
 import { Button } from "components/Button";
 import { pollInterval } from "constants/index";
 import { size } from "constants/tokens";
+
 import {
   EventLogsQuery,
   EventLogsQueryVariables,
@@ -304,7 +305,7 @@ const StyledPre = styled.pre`
   word-break: break-all;
   word-wrap: break-word;
   border: 1px solid ${gray.light2};
-  border-radius: 4px;
+  border-radius: ${size.xxs}px;
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
   font-size: 13px;
 `;

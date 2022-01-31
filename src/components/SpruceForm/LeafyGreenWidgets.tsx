@@ -11,6 +11,7 @@ import { Description, Label } from "@leafygreen-ui/typography";
 import { WidgetProps } from "@rjsf/core";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
+
 import ElementWrapper from "./ElementWrapper";
 
 const { red } = uiColors;
@@ -105,7 +106,7 @@ export const LeafyGreenCheckBox: React.FC<WidgetProps> = ({
 };
 
 const IconContainer = styled.span`
-  margin-left: 4px;
+  margin-left: ${size.xxs}px;
   top: 1px;
   vertical-align: text-top;
 `;

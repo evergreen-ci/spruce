@@ -13,6 +13,7 @@ import { StyledTabs } from "components/styles/StyledTabs";
 import { P2 } from "components/Typography";
 import { getVersionRoute } from "constants/routes";
 import { size } from "constants/tokens";
+
 import { useToastContext } from "context/toast";
 import {
   SchedulePatchMutation,
@@ -270,5 +271,5 @@ const StyledInput = styled(Input)`
   font-weight: 600;
 `;
 const StyledBody = styled(Body)`
-  margin-bottom: 4px;
+  margin-bottom: ${size.xxs}px;
 `;

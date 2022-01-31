@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { H2, Subtitle } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
+import { size as tokenSize } from "constants/tokens";
 
 type Size = "large" | "medium";
 
@@ -63,7 +64,7 @@ export const PageTitle: React.FC<Props> = ({
 const BadgeWrapper = styled.span<TitleTypographyProps>`
   display: inline-flex;
   position: relative;
-  top: ${(props) => (props.size === "medium" ? "-2px" : "-4px")};
+  top: ${(props) => (props.size === "medium" ? "-2px" : `-${tokenSize.xxs}px`)};
   margin-left: ${(props) => props.size === "large" && "20px"};
 `;
 

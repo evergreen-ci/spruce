@@ -3,6 +3,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
+
 import { CommitRolledUpVersions } from "types/commits";
 import { string } from "utils";
 import { commitChartHeight, tooltipZIndex } from "../constants";
@@ -91,14 +92,14 @@ const getCommitCopy = (v: CommitRolledUpVersions[0]) =>
   } (#${v.order})`;
 
 const CommitText = styled(Body)`
-  padding: 4px 0;
+  padding: ${size.xxs}px 0;
 `;
 
 const HiddenCommitsWrapper = styled.div`
   width: 60%;
   border-bottom: 1px solid ${gray.dark2};
   text-align: center;
-  padding: 4px 0;
+  padding: ${size.xxs}px 0;
   align-self: center;
   margin: 32px 0;
 `;

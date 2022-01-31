@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
 import { Label } from "@leafygreen-ui/typography";
+import { size } from "constants/tokens";
 import { ChartTypes } from "types/commits";
 
 const { gray } = uiColors;
@@ -67,11 +68,11 @@ const StyledRadioGroup = styled(RadioGroup)`
   height: 59px;
   border-radius: 7px;
   border: 1px solid ${gray.light2};
-  margin-top: 4px;
+  margin-top: ${size.xxs}px;
   padding-bottom: 6px;
-  padding-right: 4px;
+  padding-right: ${size.xxs}px;
   background: #ffffff;
-  box-shadow: 0px 4px 10px -4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px ${size.xxs}px 10px -${size.xxs}px rgba(0, 0, 0, 0.3);
 `;
 
 const ToggleWrapper = styled.div`

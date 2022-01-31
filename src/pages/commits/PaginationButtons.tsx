@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Icon from "components/Icon";
+import { size } from "constants/tokens";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { MainlineCommitQueryParams } from "types/commits";
 
@@ -46,8 +47,8 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
 
 // @ts-expect-error
 const StyledButton = styled(Button)`
-  margin-right: 4px;
-  margin-left: 4px;
+  margin-right: ${size.xxs}px;
+  margin-left: ${size.xxs}px;
 `;
 
 const Container = styled.div`

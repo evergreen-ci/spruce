@@ -31,7 +31,7 @@ export const CheckboxGroup: React.FC<CheckboxesProps> = ({
 );
 
 const CheckboxesWrapper = styled.div`
-  padding: 4px;
+  padding: ${size.xxs}px;
 `;
 
 /* @ts-expect-error */

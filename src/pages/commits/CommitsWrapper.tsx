@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
 import { size } from "constants/tokens";
+
 import { ChartTypes, Commit, Commits } from "types/commits";
 import { ChartToggle } from "./ActiveCommits/ChartToggle";
 import { Grid } from "./ActiveCommits/Grid";
@@ -130,7 +131,7 @@ const StickyContainer = styled.div`
   top: -24px; // This is to offset the padding of PageWrapper
   z-index: 1;
   background-color: ${white};
-  margin-top: 4px;
+  margin-top: ${size.xxs}px;
   margin-bottom: ${size.xs}px;
 `;
 

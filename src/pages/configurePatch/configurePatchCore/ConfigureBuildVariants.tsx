@@ -7,6 +7,7 @@ import { Body } from "@leafygreen-ui/typography";
 import { inactiveElementStyle, SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
 import { size } from "constants/tokens";
+
 import { array } from "utils";
 
 const { toggleArray } = array;
@@ -247,7 +248,7 @@ const ScrollableBuildVariantContainer = styled.div`
   }
 
   ::-webkit-scrollbar-thumb {
-    border-radius: 4px;
+    border-radius: ${size.xxs}px;
     background-color: rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
   }
