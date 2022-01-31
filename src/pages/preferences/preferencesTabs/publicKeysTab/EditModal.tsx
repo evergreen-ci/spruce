@@ -6,6 +6,7 @@ import { Input } from "antd";
 import { usePreferencesAnalytics } from "analytics";
 import { Modal } from "components/Modal";
 import { InputLabel, ErrorMessage } from "components/styles";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   GetMyPublicKeysQuery,
@@ -185,7 +186,7 @@ export const EditModal: React.FC<EditModalProps> = ({
 
 // @ts-expect-error
 const LeftButton = styled(Button)`
-  margin-right: 16px;
+  margin-right: ${size.s}px;
 `;
 const StyledInput = styled(Input)`
   margin-bottom: 24px;

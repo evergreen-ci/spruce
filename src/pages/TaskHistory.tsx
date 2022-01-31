@@ -10,6 +10,7 @@ import HistoryTable, {
 } from "components/HistoryTable";
 import { HistoryTableTestSearch } from "components/HistoryTable/HistoryTableTestSearch/HistoryTableTestSearch";
 import { PageWrapper } from "components/styles";
+import { size } from "constants/tokens";
 import {
   MainlineCommitsForHistoryQuery,
   MainlineCommitsForHistoryQueryVariables,
@@ -164,7 +165,7 @@ const PageHeader = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-top: 16px;
+  padding-top: ${size.s}px;
 `;
 
 const PageHeaderContent = styled.div`
@@ -176,11 +177,11 @@ const PageHeaderContent = styled.div`
 const PaginationFilterWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  padding-top: 16px;
+  padding-top: ${size.s}px;
 `;
 
 const BadgeWrapper = styled.div`
-  padding-bottom: 16px;
+  padding-bottom: ${size.s}px;
 `;
 
 const TableWrapper = styled.div`

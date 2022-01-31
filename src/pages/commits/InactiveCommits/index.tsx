@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
+import { size } from "constants/tokens";
 import { CommitRolledUpVersions } from "types/commits";
 import { string } from "utils";
 import { commitChartHeight, tooltipZIndex } from "../constants";
@@ -132,7 +133,7 @@ const ButtonText = styled(Disclaimer)`
 `;
 
 const TitleText = styled(Body)`
-  margin-bottom: 16px;
+  margin-bottom: ${size.s}px;
 `;
 
 const Container = styled.div`

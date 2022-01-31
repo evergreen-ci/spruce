@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { CodeChangesBadge } from "components/CodeChangesBadge";
 import { CodeChangesTable } from "components/CodeChangesTable";
 import { H2 } from "components/Typography";
+import { size } from "constants/tokens";
 import {
   CodeChangesQuery,
   CodeChangesQueryVariables,
@@ -80,12 +81,12 @@ export const CodeChanges: React.FC = () => {
 
 // @ts-expect-error
 const StyledButton = styled(Button)`
-  margin-right: 16px;
+  margin-right: ${size.s}px;
 `;
 
 const Title = styled(H2)`
   font-weight: normal;
-  margin-right: 16px;
+  margin-right: ${size.s}px;
 `;
 
 const Container = styled.div`

@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import { size } from "constants/tokens";
 import { TaskQueueDistro } from "gql/generated/types";
 
 const { blue } = uiColors;
@@ -46,5 +47,5 @@ const StyledBadge = styled(Badge)`
   margin-right: 8px;
 `;
 const DistroName = styled(Disclaimer)`
-  margin-left: 16px;
+  margin-left: ${size.s}px;
 `;

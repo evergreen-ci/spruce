@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Input } from "antd";
 import { useLocation } from "react-router";
+import { size } from "constants/tokens";
 import {
   GetSpawnTaskQuery,
   GetSpawnTaskQueryVariables,
@@ -158,7 +159,7 @@ export const SetupScriptForm: React.FC<SetupScriptFormProps> = ({
   );
 };
 const Indent = styled.div`
-  margin-left: 16px;
+  margin-left: ${size.s}px;
 `;
 const StyledTextArea = styled(TextArea)`
   margin: 15px 0;

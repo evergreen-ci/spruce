@@ -5,6 +5,7 @@ import { Body } from "@leafygreen-ui/typography";
 import ExpandedText from "components/ExpandedText";
 import { StyledRouterLink } from "components/styles";
 import { getVersionRoute } from "constants/routes";
+import { size } from "constants/tokens";
 import {
   GetSpruceConfigQuery,
   GetSpruceConfigQueryVariables,
@@ -69,7 +70,7 @@ const LabelContainer = styled.div`
   width: 100%;
   display: flex;
   margin-top: 10px;
-  margin-bottom: 16px;
+  margin-bottom: ${size.s}px;
   flex-direction: column;
   align-items: flex-start;
   word-break: break-word;

@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { format, utcToZonedTime } from "date-fns-tz";
+import { size } from "constants/tokens";
 import { useUserTimeZone } from "hooks/useUserTimeZone";
 
 const { gray } = uiColors;
@@ -45,6 +46,6 @@ const Line = styled.div`
   height: 1px;
   background: linear-gradient(to right, transparent 50%, white 50%),
     linear-gradient(to right, ${gray.light1}, ${gray.light1});
-  background-size: 16px 2px, 100% 2px;
+  background-size: ${size.s}px 2px, 100% 2px;
   width: 100%;
 `;

@@ -6,6 +6,7 @@ import { Disclaimer } from "@leafygreen-ui/typography";
 import { Select, Input } from "antd";
 import { v4 as uuid } from "uuid";
 import { InputLabel } from "components/styles";
+import { size } from "constants/tokens";
 import { RegexSelector } from "types/triggers";
 
 const { Option } = Select;
@@ -101,7 +102,7 @@ const Container = styled.div`
   flex-direction: row;
   width: ${(props: DeleteProps): string =>
     props.canDelete ? "80%" : "calc(80% - 55px)"};
-  padding-bottom: 16px;
+  padding-bottom: ${size.s}px;
 `;
 const StyledSelect = styled(Select)`
   min-width: 160px;

@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { H2, Body } from "@leafygreen-ui/typography";
 import { Layout } from "antd";
+import { size } from "constants/tokens";
 
 const { gray, white, red } = uiColors;
 const { Content, Sider } = Layout;
@@ -37,7 +38,7 @@ export const PageSider = styled(Sider)`
   ${whiteBackground}
 `;
 export const PageContent = styled(Content)`
-  margin-left: 16px;
+  margin-left: ${size.s}px;
   overflow: hidden;
 `;
 
@@ -45,7 +46,7 @@ PageSider.defaultProps = { width: 275 };
 
 // @ts-expect-error
 export const PageTitle = styled(H2)`
-  margin-bottom: 16px;
+  margin-bottom: ${size.s}px;
 ` as typeof H2;
 
 export const TableContainer = styled.div`
@@ -65,7 +66,7 @@ export const TableControlOuterRow = styled(TableControlInnerRow)`
 export const PageButtonRow = styled.div`
   display: flex;
   > * {
-    margin-right: 16px;
+    margin-right: ${size.s}px;
   }
   > *:last-child {
     margin-right: 0;

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { uiColors } from "@leafygreen-ui/palette";
+import { size } from "constants/tokens";
 
 interface Props {
   additions: number;
@@ -37,6 +38,6 @@ const FileDiffTextContainer = styled("span")`
     props.hasValue &&
     (props.type === "+" ? `color: ${green.base};` : `color: ${red.base};`)}
   &:nth-of-type(2) {
-    margin-left: 16px;
+    margin-left: ${size.s}px;
   }
 `;

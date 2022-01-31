@@ -13,6 +13,7 @@ import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
 import { TasksTable } from "components/Table/TasksTable";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   Task,
@@ -240,7 +241,7 @@ const TableWrapper = styled.div`
 `;
 
 const AccordionContents = styled.div`
-  margin: 16px 0;
+  margin: ${size.s}px 0;
 `;
 
 const FlexContainer = styled.div`

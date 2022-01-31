@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import Popover from "@leafygreen-ui/popover";
 import { Button } from "components/Button";
+import { size } from "constants/tokens";
 import { useOnClickOutside } from "hooks";
 
 const { gray } = uiColors;
@@ -92,7 +93,7 @@ const PopoverContainer = styled.div`
   display: flex;
   flex-direction: column;
   background-color: white;
-  padding: 16px;
+  padding: ${size.s}px;
   box-shadow: 0 5px 10px 0 ${gray.light2}, 0 5px 30px 5px ${gray.light2};
 `;
 

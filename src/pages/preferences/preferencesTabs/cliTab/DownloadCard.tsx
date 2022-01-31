@@ -9,6 +9,7 @@ import { usePreferencesAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
 import { StyledLink } from "components/styles";
 import { cliDocumentationUrl } from "constants/externalResources";
+import { size } from "constants/tokens";
 import {
   ClientConfigQuery,
   ClientConfigQueryVariables,
@@ -155,7 +156,7 @@ const Container = styled(Card)`
 const CardGroup = styled.div`
   display: flex;
   align-items: space-between;
-  margin-bottom: 16px;
+  margin-bottom: ${size.s}px;
 `;
 
 // @ts-expect-error
@@ -163,7 +164,7 @@ const CliDownloadCard = styled(Card)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 16px;
+  padding: ${size.s}px;
   margin-right: 8px;
 ` as typeof Card;
 
@@ -192,5 +193,5 @@ const InlinePre = styled("pre")`
 const LinkContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 16px;
+  margin-bottom: ${size.s}px;
 `;

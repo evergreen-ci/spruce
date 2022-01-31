@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 import { Input } from "antd";
+import { size } from "constants/tokens";
 
 export const FiltersWrapper = styled.div`
   display: flex;
-  margin-bottom: 16px;
+  margin-bottom: ${size.s}px;
   align-items: center;
 `;
 

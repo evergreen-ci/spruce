@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
+import { size } from "constants/tokens";
 
 interface AccordionProps {
   title: React.ReactNode;
@@ -84,5 +85,5 @@ const AnimatedAccordion = styled.div`
 `;
 const ContentsContainer = styled.div`
   margin-left: ${(props: { indent: boolean }): string =>
-    props.indent && "16px"};
+    props.indent && `${size.s}px`};
 `;

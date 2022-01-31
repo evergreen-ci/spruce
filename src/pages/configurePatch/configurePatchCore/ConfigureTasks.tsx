@@ -7,6 +7,7 @@ import { Disclaimer } from "@leafygreen-ui/typography";
 import every from "lodash.every";
 import { Button } from "components/Button";
 import Icon from "components/Icon";
+import { size } from "constants/tokens";
 import { PatchTriggerAlias } from "gql/generated/types";
 import {
   AliasState,
@@ -415,7 +416,7 @@ const TabContentWrapper = styled.div`
   ${cardSidePadding}
 `;
 const H4 = styled.h4`
-  margin-top: 16px;
+  margin-top: ${size.s}px;
 `;
 const IconContainer = styled.span`
   margin-left: 8px;

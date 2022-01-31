@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { EditableTagField } from "components/EditableTagField";
+import { size } from "constants/tokens";
 import { ParameterInput, SchedulePatchMutation } from "gql/generated/types";
 
 interface Props {
@@ -49,9 +50,9 @@ export const ParametersContent: React.FC<Props> = ({
 );
 
 const StyledBadge = styled(Badge)`
-  margin-right: 16px;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-right: ${size.s}px;
+  margin-top: ${size.s}px;
+  margin-bottom: ${size.s}px;
 `;
 export const ParamsContainer = styled.div`
   margin-left: 20px;

@@ -11,6 +11,7 @@ import set from "lodash/set";
 import { Modal } from "components/Modal";
 import { RegexSelectorInput } from "components/NotificationModal/RegexSelectorInput";
 import { ErrorMessage } from "components/styles";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   SaveSubscriptionMutation,
@@ -278,12 +279,12 @@ const RegexSelectorInputContainer = styled.div`
   padding-top: 8px;
 `;
 const SectionLabelContainer = styled.div`
-  padding-top: 16px;
+  padding-top: ${size.s}px;
 `;
 
 /* @ts-expect-error */
 const LeftButton = styled(Button)`
-  margin-right: 16px;
+  margin-right: ${size.s}px;
 ` as typeof Button;
 
 const InputLabel = styled.label`

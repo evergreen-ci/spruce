@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { StyledRouterLink } from "components/styles";
 import { getVariantHistoryRoute } from "constants/routes";
+import { size } from "constants/tokens";
 import {
   groupStatusesByUmbrellaStatus,
   isFailedTaskStatus,
@@ -134,7 +135,7 @@ const IconContainer = styled.div`
 
 const Container = styled.div`
   width: 160px;
-  margin-bottom: 16px;
+  margin-bottom: ${size.s}px;
 `;
 
 const GroupedTaskStatusBadgeWrapper = styled.div`

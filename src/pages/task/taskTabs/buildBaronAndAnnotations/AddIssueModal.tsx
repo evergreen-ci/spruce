@@ -7,6 +7,7 @@ import { useAnnotationAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { Modal } from "components/Modal";
 import { WideButton } from "components/Spawn";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   AddAnnotationIssueMutation,
@@ -185,5 +186,5 @@ const StyledTextArea = styled(TextArea)`
 `;
 
 const ConditionalWrapperWithMargin = styled(ConditionalWrapper)`
-  margin-left: 16px;
+  margin-left: ${size.s}px;
 `;

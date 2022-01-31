@@ -7,6 +7,7 @@ import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { Modal, Carousel } from "antd";
 import { CarouselRef } from "antd/es/carousel";
 import get from "lodash/get";
+import { size } from "constants/tokens";
 import {
   GetUserSettingsQuery,
   UpdateUserSettingsMutation,
@@ -174,7 +175,7 @@ const CardContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding-bottom: 16px;
+  padding-bottom: ${size.s}px;
 `;
 
 const CardWrapper = styled.div`

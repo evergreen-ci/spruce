@@ -10,6 +10,7 @@ import { TupleSelect } from "components/TupleSelect";
 import { CURRENT_PROJECT } from "constants/cookies";
 import { pollInterval } from "constants/index";
 import { getCommitsRoute } from "constants/routes";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   GetSpruceConfigQuery,
@@ -193,7 +194,7 @@ const HeaderWrapper = styled.div`
   justify-content: space-between;
 
   > div:not(:last-of-type) {
-    margin-right: 16px;
+    margin-right: ${size.s}px;
   }
 `;
 
@@ -204,7 +205,7 @@ const BadgeWrapper = styled.div`
 const PaginationWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
-  padding: 16px 0;
+  padding: ${size.s}px 0;
 `;
 
 const tupleSelectOptions = [

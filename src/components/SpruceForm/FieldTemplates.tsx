@@ -6,6 +6,7 @@ import {
   ObjectFieldTemplateProps,
 } from "@rjsf/core";
 import Icon from "components/Icon";
+import { size } from "constants/tokens";
 import { Unpacked } from "types/utils";
 import { SpruceFormContainer } from "./Container";
 import { TitleField as CustomTitleField } from "./CustomFields";
@@ -137,7 +138,7 @@ const ArrayContainer = styled.div`
 `;
 
 const DeleteButtonWrapper = styled(ElementWrapper)`
-  margin-left: 16px;
+  margin-left: ${size.s}px;
 `;
 
 export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({

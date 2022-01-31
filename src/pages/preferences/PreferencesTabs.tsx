@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
 import { Route, useParams } from "react-router-dom";
 import { routes, PreferencesTabRoutes } from "constants/routes";
+import { size } from "constants/tokens";
 import { CliTab } from "./preferencesTabs/CliTab";
 import { NewUITab } from "./preferencesTabs/NewUITab";
 import { NotificationsTab } from "./preferencesTabs/NotificationsTab";
@@ -67,5 +68,5 @@ const TitleContainer = styled.div`
 `;
 
 const Subtitle = styled(Disclaimer)`
-  padding-top: 16px;
+  padding-top: ${size.s}px;
 `;

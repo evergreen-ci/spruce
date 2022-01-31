@@ -9,6 +9,7 @@ import {
   getCommitsRoute,
   getProjectPatchesRoute,
 } from "constants/routes";
+import { size } from "constants/tokens";
 import { useGetUserPatchesPageTitleAndLink } from "hooks";
 import { isBeta } from "utils/environmentalVariables";
 import { shortenGithash } from "utils/string";
@@ -206,7 +207,7 @@ const StyledP1 = styled(P1)`
 `;
 
 const StyledBreadcrumb = styled(Breadcrumb)`
-  margin-bottom: 16px;
+  margin-bottom: ${size.s}px;
 `;
 
 const StyledBreadcrumbLink = styled(StyledRouterLink)`

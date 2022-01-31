@@ -9,6 +9,7 @@ import { usePatchAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
 import { Modal } from "components/Modal";
 import { TaskStatusFilters } from "components/TaskStatusFilters";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   BuildVariantsWithChildrenQuery,
@@ -287,7 +288,7 @@ const ConfirmationMessage = styled(Body)`
 const Row = styled.div`
   display: flex;
   >: first-child {
-    margin-right: 16px;
+    margin-right: ${size.s}px;
   }
 `;
 

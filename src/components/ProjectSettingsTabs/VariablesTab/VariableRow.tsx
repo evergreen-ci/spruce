@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { ObjectFieldTemplateProps } from "@rjsf/core";
 import Icon from "components/Icon";
+import { size } from "constants/tokens";
 import { getFields } from "../utils";
 
 const { yellow } = uiColors;
@@ -46,7 +47,7 @@ const OverrideIcon = styled(Icon)`
 
 const LeftColumn = styled.div`
   color: ${yellow.dark2};
-  padding-right: 16px;
+  padding-right: ${size.s}px;
 
   ${(props: { showWarning?: boolean }): string =>
     props.showWarning &&
@@ -57,7 +58,7 @@ const LeftColumn = styled.div`
 
 const RowContainer = styled.div`
   display: flex;
-  margin-bottom: 16px;
+  margin-bottom: ${size.s}px;
 
   > div {
     flex-grow: 1;

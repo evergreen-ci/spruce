@@ -4,6 +4,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import Icon from "components/Icon";
+import { size } from "constants/tokens";
 import { string } from "utils";
 
 const { trimStringFromMiddle } = string;
@@ -64,9 +65,9 @@ const ClickableIcon = styled(Icon)`
 `;
 const PaddedBadge = styled(Badge)`
   :nth-of-type {
-    margin-left: 16px;
+    margin-left: ${size.s}px;
   }
-  margin-right: 16px;
+  margin-right: ${size.s}px;
   margin-bottom: 24px;
   width: 260px;
 

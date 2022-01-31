@@ -6,6 +6,7 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { inactiveElementStyle } from "components/styles";
 import { taskStatusToCopy, mapTaskToBarchartColor } from "constants/task";
+import { size } from "constants/tokens";
 import { TaskStatus } from "types/task";
 import { tooltipZIndex } from "../constants";
 import { ColorCount, getStatusesWithZeroCount } from "./utils";
@@ -110,7 +111,7 @@ const Circle = styled.div<{ color: string }>`
   border-radius: 4px;
   width: 8px;
   height: 8px;
-  margin-right: 16px;
+  margin-right: ${size.s}px;
 `;
 
 const NumberText = styled(Disclaimer)`
