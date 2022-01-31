@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
+import { size } from "constants/tokens";
 
 const { gray } = uiColors;
 
@@ -26,7 +27,7 @@ export const H1 = styled.h1`
 export const H2 = styled.h2`
   font-size: 20px;
   line-height: 23px;
-  margin-bottom: 8px;
+  margin-bottom: ${size.xs}px;
   color: ${gray.dark3};
   display: inline-flex;
 `;

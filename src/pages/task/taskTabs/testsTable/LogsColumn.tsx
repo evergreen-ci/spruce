@@ -3,6 +3,7 @@ import Button from "@leafygreen-ui/button";
 import { Link } from "react-router-dom";
 import { Analytics } from "analytics/addPageAction";
 import { getTaskHistoryRoute } from "constants/routes";
+import { size } from "constants/tokens";
 import { TestResult } from "gql/generated/types";
 import { TestStatus } from "types/test";
 import { string } from "utils";
@@ -106,7 +107,7 @@ export const LogsColumn: React.FC<Props> = ({
 
 const ButtonWrapper = styled.div`
   > * {
-    margin-right: 8px;
-    margin-top: 8px;
+    margin-right: ${size.xs}px;
+    margin-top: ${size.xs}px;
   }
 `;

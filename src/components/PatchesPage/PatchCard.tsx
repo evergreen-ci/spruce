@@ -11,6 +11,7 @@ import {
   getVersionRoute,
   getUserPatchesRoute,
 } from "constants/routes";
+import { size } from "constants/tokens";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { Unpacked } from "types/utils";
 import { groupStatusesByUmbrellaStatus } from "utils/statuses";
@@ -145,7 +146,7 @@ const Right = styled.div`
 const DescriptionLink = styled(StyledRouterLink)`
   font-size: 18px;
   font-weight: 500;
-  padding-bottom: 8px;
+  padding-bottom: ${size.xs}px;
 `;
 
 const PatchBadgeContainer = styled.div`

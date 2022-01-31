@@ -165,7 +165,7 @@ const CliDownloadCard = styled(Card)`
   flex-direction: column;
   justify-content: space-between;
   padding: ${size.s}px;
-  margin-right: 8px;
+  margin-right: ${size.xs}px;
 ` as typeof Card;
 
 // @ts-expect-error

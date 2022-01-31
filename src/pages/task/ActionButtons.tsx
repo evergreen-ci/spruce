@@ -10,6 +10,7 @@ import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { PageButtonRow } from "components/styles";
 import { getTaskHistoryRoute } from "constants/routes";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   SetTaskPriorityMutation,
@@ -325,5 +326,5 @@ export const ActionButtons: React.FC<Props> = ({
 };
 
 const StyledBody = styled(Body)`
-  padding-right: 8px;
+  padding-right: ${size.xs}px;
 `;

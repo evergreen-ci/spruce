@@ -12,6 +12,7 @@ import {
   PageWrapper,
 } from "components/styles";
 import { getTaskQueueRoute } from "constants/routes";
+import { size } from "constants/tokens";
 import {
   TaskQueueDistro,
   TaskQueueDistrosQuery,
@@ -106,7 +107,7 @@ const DistroLabel = styled.div`
   white-space: nowrap;
 `;
 const StyledBadge = styled(Badge)`
-  margin-right: 8px;
+  margin-right: ${size.xs}px;
 `;
 const DistroName = styled.div`
   overflow: hidden;

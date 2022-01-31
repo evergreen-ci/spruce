@@ -4,6 +4,7 @@ import Button from "@leafygreen-ui/button";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import Icon from "components/Icon";
+import { size } from "constants/tokens";
 import { useOnClickOutside } from "hooks";
 
 const { gray, white } = uiColors;
@@ -105,8 +106,8 @@ const OptionsWrapper = styled.div`
   border-radius: 5px;
   background-color: ${white};
   border: 1px solid ${gray.light1};
-  padding: 8px;
-  box-shadow: 0 3px 8px 0 rgba(231, 238, 236, 0.5);
+  padding: ${size.xs}px;
+  box-shadow: 0 3px ${size.xs}px 0 rgba(231, 238, 236, 0.5);
   position: absolute;
   z-index: 5;
   margin-top: 5px;

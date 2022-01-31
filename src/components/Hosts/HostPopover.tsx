@@ -106,5 +106,5 @@ const ButtonContainer = styled.div`
   justify-content: flex-end;
 `;
 const ButtonSpacer = styled.div`
-  margin-left: 8px;
+  margin-left: ${size.xs}px;
 `;

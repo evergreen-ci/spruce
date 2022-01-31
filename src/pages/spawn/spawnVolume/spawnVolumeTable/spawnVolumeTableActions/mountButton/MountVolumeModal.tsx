@@ -6,6 +6,7 @@ import { Disclaimer } from "@leafygreen-ui/typography";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
 import { Modal } from "components/Modal";
 import { ModalContent, MountVolumeSelect, WideButton } from "components/Spawn";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   AttachVolumeToHostMutation,
@@ -93,5 +94,5 @@ export const MountVolumeModal: React.FC<Props> = ({
 };
 
 const StyledDisclaimer = styled(Disclaimer)`
-  padding-top: 8px;
+  padding-top: ${size.xs}px;
 `;

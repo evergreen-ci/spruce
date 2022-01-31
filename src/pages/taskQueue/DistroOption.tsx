@@ -44,7 +44,7 @@ const StyledBadge = styled(Badge)`
   flex-shrink: 0;
   justify-content: center;
   width: 90px;
-  margin-right: 8px;
+  margin-right: ${size.xs}px;
 `;
 const DistroName = styled(Disclaimer)`
   margin-left: ${size.s}px;

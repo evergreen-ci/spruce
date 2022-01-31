@@ -6,6 +6,7 @@ import Icon from "@leafygreen-ui/icon";
 import { Table, Skeleton, Popconfirm } from "antd";
 import { usePreferencesAnalytics } from "analytics";
 import { WordBreak } from "components/Typography";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   GetMyPublicKeysQuery,
@@ -160,7 +161,7 @@ const TableContainer = styled.div`
 
 // @ts-expect-error
 const StyledButton = styled(Button)`
-  margin-left: 8px;
+  margin-left: ${size.xs}px;
 `;
 
 const BtnContainer = styled.div`

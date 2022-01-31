@@ -6,6 +6,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { inactiveElementStyle, SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
+import { size } from "constants/tokens";
 import { array } from "utils";
 
 const { toggleArray } = array;
@@ -195,8 +196,8 @@ interface UserSelectWrapperProps {
 }
 
 const cardSidePadding = css`
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: ${size.xs}px;
+  padding-right: ${size.xs}px;
 `;
 const Container = styled.div`
   ${cardSidePadding}
@@ -219,7 +220,7 @@ const BuildVariant = styled.div<VariantProps>`
   align-items: center;
   min-height: 32px;
   cursor: pointer;
-  padding: 8px 0;
+  padding: ${size.xs}px 0;
   ${cardSidePadding}
   background-color: ${(props: VariantProps): string =>
     props.isSelected ? green.light3 : "none"};
@@ -232,7 +233,7 @@ const VariantName = styled.div`
   white-space: normal;
 `;
 const StyledBadge = styled(Badge)`
-  margin-left: 8px;
+  margin-left: ${size.xs}px;
 `;
 
 const ScrollableBuildVariantContainer = styled.div`

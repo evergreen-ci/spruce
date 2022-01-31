@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import Modal, { ModalSize } from "@leafygreen-ui/modal";
 import { H3 } from "@leafygreen-ui/typography";
+import { size as tokenSize } from "constants/tokens";
 
 interface DisplayModalProps {
   "data-cy"?: string;
@@ -36,5 +37,5 @@ const StyledModal = styled(Modal)`
 
 // @ts-expect-error
 const StyledHeader = styled(H3)`
-  margin-bottom: 8px;
+  margin-bottom: ${tokenSize.xs}px;
 `;

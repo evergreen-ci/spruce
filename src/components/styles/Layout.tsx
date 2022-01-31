@@ -60,7 +60,7 @@ export const TableControlInnerRow = styled.div`
 `;
 
 export const TableControlOuterRow = styled(TableControlInnerRow)`
-  padding-bottom: 8px;
+  padding-bottom: ${size.xs}px;
 `;
 
 export const PageButtonRow = styled.div`

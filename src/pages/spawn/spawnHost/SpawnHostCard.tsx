@@ -5,6 +5,7 @@ import { DoesNotExpire, DetailsCard } from "components/Spawn";
 import { StyledLink, StyledRouterLink } from "components/styles";
 import { getIdeUrl } from "constants/externalResources";
 import { getSpawnVolumeRoute } from "constants/routes";
+import { size } from "constants/tokens";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 import { string } from "utils";
@@ -77,5 +78,5 @@ const spawnHostCardFieldMaps = {
 };
 
 const PaddedBadge = styled(Badge)`
-  margin-right: 8px;
+  margin-right: ${size.xs}px;
 `;

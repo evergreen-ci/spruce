@@ -120,8 +120,8 @@ const RegexContainer = styled.div`
 const MatchesRegexLabel = styled(Disclaimer)`
   position: relative;
   top: 25px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: ${size.xs}px;
+  padding-right: ${size.xs}px;
   white-space: nowrap;
 `;
 const StyledInput = styled(Input)`

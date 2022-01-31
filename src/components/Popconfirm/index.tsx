@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Popconfirm as AntPopconfirm } from "antd";
+import { size } from "constants/tokens";
 
 export const Popconfirm: React.FC<
   React.ComponentProps<typeof AntPopconfirm>
@@ -64,5 +65,5 @@ export const PopconfirmWithCheckbox: React.FC<PopconfirmWithCheckboxProps> = ({
 };
 
 const CheckboxContainer = styled.div`
-  padding-top: 8px;
+  padding-top: ${size.xs}px;
 `;

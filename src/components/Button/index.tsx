@@ -2,6 +2,7 @@ import React from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 import { ExtendableBox } from "@leafygreen-ui/box";
 import LeafyGreenButton, { ButtonProps } from "@leafygreen-ui/button";
+import { size } from "constants/tokens";
 
 type Props = ButtonProps & {
   loading?: boolean;
@@ -16,7 +17,11 @@ const Button: ExtendableBox<
       ref={forwardRef}
       {...rest}
       leftGlyph={
-        loading ? <LoadingOutlined style={{ marginRight: "8px" }} /> : leftGlyph
+        loading ? (
+          <LoadingOutlined style={{ marginRight: `${size.xs}px` }} />
+        ) : (
+          leftGlyph
+        )
       }
     />
   )

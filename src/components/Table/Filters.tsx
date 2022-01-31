@@ -147,7 +147,7 @@ const FilterWrapper = styled.div`
 const StyledTextInput = styled(TextInput)`
   p {
     font-size: 12px;
-    padding-bottom: 8px;
+    padding-bottom: ${size.xs}px;
   }
 `;
 

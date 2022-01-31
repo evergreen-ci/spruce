@@ -101,7 +101,7 @@ const TotalCountContainer = styled.div<{ active?: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 8px;
+  margin-top: ${size.xs}px;
   color: ${gray.dark2};
   ${({ active }) => !active && inactiveElementStyle};
 `;
@@ -109,8 +109,8 @@ const TotalCountContainer = styled.div<{ active?: boolean }>`
 const Circle = styled.div<{ color: string }>`
   background-color: ${({ color }) => color};
   border-radius: 4px;
-  width: 8px;
-  height: 8px;
+  width: ${size.xs}px;
+  height: ${size.xs}px;
   margin-right: ${size.s}px;
 `;
 

@@ -6,6 +6,7 @@ import Icon, { Size } from "@leafygreen-ui/icon";
 import { Table, Popconfirm, Tooltip } from "antd";
 import { useAnnotationAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   GetIssuesQuery,
@@ -275,7 +276,7 @@ const BtnContainer = styled.div`
 
 // @ts-expect-error
 const StyledButton = styled(Button)`
-  margin-left: 8px;
-  margin-top: 8px;
+  margin-left: ${size.xs}px;
+  margin-top: ${size.xs}px;
   height: 28px;
 `;

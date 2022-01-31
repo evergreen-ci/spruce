@@ -10,6 +10,7 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { Description, Label } from "@leafygreen-ui/typography";
 import { WidgetProps } from "@rjsf/core";
 import Icon from "components/Icon";
+import { size } from "constants/tokens";
 import ElementWrapper from "./ElementWrapper";
 
 const { red } = uiColors;
@@ -247,7 +248,7 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
 };
 
 const RadioBoxLabelContainer = styled.div`
-  margin-bottom: 8px;
+  margin-bottom: ${size.xs}px;
 `;
 
 const StyledRadioBox = styled(RadioBox)`

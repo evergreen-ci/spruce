@@ -192,7 +192,7 @@ const StyledInput = styled(Input)`
   margin-bottom: 24px;
 `;
 const ErrorContainer = styled.div`
-  margin-top: 8px;
+  margin-top: ${size.xs}px;
 `;
 const KEY_NAME_ID = "key-name-input";
 const KEY_VALUE_ID = "key-value-input";

@@ -198,8 +198,8 @@ const Dot = styled.div`
   background-color: ${(props: DotProps): string =>
     props.active ? green.base : gray.light2};
   border-radius: 50%;
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: ${size.xs}px;
+  margin-right: ${size.xs}px;
   :hover {
     cursor: pointer;
   }

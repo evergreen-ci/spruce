@@ -6,6 +6,7 @@ import { Disclaimer, Subtitle } from "@leafygreen-ui/typography";
 import { useAnnotationAnalytics } from "analytics";
 import { StyledLink } from "components/styles";
 import { getJiraTicketUrl } from "constants/externalResources";
+import { size } from "constants/tokens";
 import {
   GetSpruceConfigQuery,
   JiraTicket,
@@ -176,6 +177,6 @@ export const TitleAndButtons = styled.div`
 `;
 
 export const ButtonWrapper = styled.div`
-  margin-right: 8px;
+  margin-right: ${size.xs}px;
   padding-top: 15px;
 `;

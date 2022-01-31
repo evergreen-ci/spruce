@@ -3,6 +3,7 @@ import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
+import { size } from "constants/tokens";
 import { ChartTypes, Commit, Commits } from "types/commits";
 import { ChartToggle } from "./ActiveCommits/ChartToggle";
 import { Grid } from "./ActiveCommits/Grid";
@@ -130,7 +131,7 @@ const StickyContainer = styled.div`
   z-index: 1;
   background-color: ${white};
   margin-top: 4px;
-  margin-bottom: 8px;
+  margin-bottom: ${size.xs}px;
 `;
 
 const StyledSkeleton = styled(Skeleton)`

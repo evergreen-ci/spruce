@@ -384,7 +384,7 @@ const deduplicateTasks = (
 };
 
 const Actions = styled.div`
-  margin-bottom: 8px;
+  margin-bottom: ${size.xs}px;
   display: flex;
   align-items: center;
   & > :first-of-type {
@@ -406,11 +406,11 @@ const Tasks = styled.div`
   max-height: 60vh;
 `;
 const StyledDisclaimer = styled(Disclaimer)`
-  margin-bottom: 8px;
+  margin-bottom: ${size.xs}px;
 `;
 const cardSidePadding = css`
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: ${size.xs}px;
+  padding-right: ${size.xs}px;
 `;
 const TabContentWrapper = styled.div`
   ${cardSidePadding}
@@ -419,7 +419,7 @@ const H4 = styled.h4`
   margin-top: ${size.s}px;
 `;
 const IconContainer = styled.span`
-  margin-left: 8px;
+  margin-left: ${size.xs}px;
 `;
 // @ts-expect-error
 const InlineCheckbox = styled(Checkbox)`

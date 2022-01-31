@@ -126,7 +126,7 @@ const InactiveCommitLine = styled.div`
 `;
 
 const ButtonText = styled(Disclaimer)`
-  margin-top: 8px;
+  margin-top: ${size.xs}px;
   text-align: center;
   color: ${gray.dark2};
   font-weight: bold;

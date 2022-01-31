@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
+import { size } from "constants/tokens";
 
 interface Props {
   onClickReset: () => void;
@@ -36,5 +37,5 @@ const ButtonsWrapper = styled.div`
   margin-top: 32px;
 `;
 const ButtonWrapper = styled.div`
-  margin-right: 8px;
+  margin-right: ${size.xs}px;
 `;

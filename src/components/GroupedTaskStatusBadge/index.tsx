@@ -8,6 +8,7 @@ import {
   mapUmbrellaStatusColors,
   mapUmbrellaStatusToQueryParam,
 } from "constants/task";
+import { size } from "constants/tokens";
 import { TaskStatus } from "types/task";
 import { applyStrictRegex } from "utils/string";
 
@@ -100,11 +101,11 @@ const Row = styled.div`
 const Number = styled.span`
   font-size: 11px;
   font-weight: bold;
-  line-height: 8px;
+  line-height: ${size.xs}px;
 `;
 
 const Status = styled.span`
-  font-size: 8px;
+  font-size: ${size.xs}px;
   white-space: nowrap;
 `;
 

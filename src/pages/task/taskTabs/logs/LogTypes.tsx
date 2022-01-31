@@ -282,7 +282,7 @@ const useRenderBody: React.FC<{
 const ButtonContainer = styled.div`
   display: flex;
   > :not(:last-child) {
-    margin-right: 8px;
+    margin-right: ${size.xs}px;
   }
   margin-right: ${size.s}px;
   padding-left: 1px;
@@ -296,11 +296,11 @@ const StyledRadioGroup = styled(RadioGroup)`
   label {
     margin-right: ${size.s}px;
   }
-  padding-bottom: 8px;
+  padding-bottom: ${size.xs}px;
 `;
 
 const StyledPre = styled.pre`
-  padding: 8px;
+  padding: ${size.xs}px;
   word-break: break-all;
   word-wrap: break-word;
   border: 1px solid ${gray.light2};

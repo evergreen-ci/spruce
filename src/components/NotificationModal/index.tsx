@@ -258,7 +258,7 @@ const inputWidth = "width: calc(80% - 55px);";
 
 const StyledSelect = styled(Select)`
   ${inputWidth}
-  margin-bottom: 8px;
+  margin-bottom: ${size.xs}px;
 `;
 
 const StyledInput = styled(Input)`
@@ -266,7 +266,7 @@ const StyledInput = styled(Input)`
 `;
 
 const ExtraFieldContainer = styled.div`
-  margin-bottom: 8px;
+  margin-bottom: ${size.xs}px;
 `;
 
 const Section = styled.div`
@@ -276,7 +276,7 @@ const Section = styled.div`
 `;
 
 const RegexSelectorInputContainer = styled.div`
-  padding-top: 8px;
+  padding-top: ${size.xs}px;
 `;
 const SectionLabelContainer = styled.div`
   padding-top: ${size.s}px;

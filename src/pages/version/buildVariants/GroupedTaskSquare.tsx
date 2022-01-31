@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
+import { size } from "constants/tokens";
 import { TaskStatus } from "types/task";
 
 interface Props {
@@ -40,5 +41,5 @@ export const GroupedTaskSquare: React.FC<Props> = ({
 };
 
 const GroupedTaskSquareWrapper = styled.div`
-  margin-right: 8px;
+  margin-right: ${size.xs}px;
 `;

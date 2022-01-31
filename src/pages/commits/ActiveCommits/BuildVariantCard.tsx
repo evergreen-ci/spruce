@@ -128,8 +128,8 @@ const Label = styled(StyledRouterLink)`
 const IconContainer = styled.div`
   display: flex;
   flex-direction: row;
-  margin-bottom: 8px;
-  margin-top: 8px;
+  margin-bottom: ${size.xs}px;
+  margin-top: ${size.xs}px;
   flex-wrap: wrap;
 `;
 

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { TreeDataEntry } from "components/TreeSelect";
+import { size } from "constants/tokens";
 
 interface CheckboxesProps {
   data: TreeDataEntry[];
@@ -35,7 +36,7 @@ const CheckboxesWrapper = styled.div`
 
 /* @ts-expect-error */
 const StyledCheckbox = styled(Checkbox)`
-  margin-bottom: 8px;
+  margin-bottom: ${size.xs}px;
 
   :last-of-type {
     margin-bottom: 0;

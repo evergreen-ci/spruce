@@ -87,5 +87,5 @@ const BadgeContent = styled.div`
 // @ts-expect-error
 // Reduce Tooltip padding because the default Tooltip is invasive when trying to interact with other UI elements
 const StyledTooltip = styled(Tooltip)`
-  padding: 4px 8px;
+  padding: 4px ${size.xs}px;
 `;
