@@ -104,10 +104,12 @@ const authenticateIfSuccessfulLink = (dispatchAuthenticated): ApolloLink =>
         dispatchAuthenticated();
       }
       leaveBreadcrumb(
-        "GQL",
+        "Graphql Request",
         {
           operationName: operation.operationName,
           variables: operation.variables,
+          status: response.data ? "OK" : "ERROR",
+          errors: response.errors,
         },
         "request"
       );
