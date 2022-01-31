@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { SiderCard } from "components/styles";
+import { size } from "constants/tokens";
 import { MyHost, MyVolume } from "types/spawn";
 
 const FieldContainer = styled.div`
@@ -39,7 +40,7 @@ interface DetailsCardProps {
 
 const CardContainer = styled(SiderCard)`
   width: 80%;
-  padding-bottom: 32px;
+  padding-bottom: ${size.l};
 ` as typeof SiderCard;
 
 export const DetailsCard: React.FC<DetailsCardProps> = ({

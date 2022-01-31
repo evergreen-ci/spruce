@@ -3,7 +3,6 @@ import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
-
 import { CommitRolledUpVersions } from "types/commits";
 import { string } from "utils";
 import { commitChartHeight, tooltipZIndex } from "../constants";
@@ -101,7 +100,7 @@ const HiddenCommitsWrapper = styled.div`
   text-align: center;
   padding: ${size.xxs}px 0;
   align-self: center;
-  margin: 32px 0;
+  margin: ${size.l} 0;
 `;
 
 const TooltipContainer = styled.div`

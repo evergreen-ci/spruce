@@ -219,7 +219,7 @@ const StyledSiderCard = styled(SiderCard)`
 const BuildVariant = styled.div<VariantProps>`
   display: flex;
   align-items: center;
-  min-height: 32px;
+  min-height: ${size.l};
   cursor: pointer;
   padding: ${size.xs}px 0;
   ${cardSidePadding}

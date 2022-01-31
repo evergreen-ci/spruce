@@ -199,7 +199,7 @@ const HeaderWrapper = styled.div`
 `;
 
 const BadgeWrapper = styled.div`
-  margin: 32px 0;
+  margin: ${size.l} 0;
 `;
 
 const PaginationWrapper = styled.div`

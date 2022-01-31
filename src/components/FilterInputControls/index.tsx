@@ -34,7 +34,7 @@ const ButtonsWrapper = styled.div`
   display: flex;
   flex-wrap: nowrap;
   justify-content: flex-end;
-  margin-top: 32px;
+  margin-top: ${size.l};
 `;
 const ButtonWrapper = styled.div`
   margin-right: ${size.xs}px;
