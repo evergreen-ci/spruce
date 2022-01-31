@@ -5,8 +5,8 @@ exports[`storybook Storyshots ProjectSelect Story 1`] = `
   className="css-1ry038z-Container e17dnzmx0"
 >
   <label
-    className="leafygreen-ui-ly82bp"
-    htmlFor="searchable-dropdown"
+    className="css-c0hrp-InputLabel e1xf068s2"
+    htmlFor="searchable-dropdown-Project"
   >
     Project
   </label>
@@ -15,13 +15,13 @@ exports[`storybook Storyshots ProjectSelect Story 1`] = `
   >
     <div
       className="css-1ry038z-Container e1yw4j304"
+      id="searchable-dropdown-Project"
     >
       <button
         aria-disabled={true}
         className="leafygreen-ui-117l5vj css-mbqq81-StyledButton e1yw4j302"
         data-cy="project-select"
         disabled={true}
-        id="searchable-dropdown"
         onClick={[Function]}
         type="button"
       >

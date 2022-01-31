@@ -38,7 +38,7 @@ describe("Nav Bar", () => {
       .should("have.attr", "href")
       .and("include", LEGACY_URLS.userPatches);
   });
-  it("Visiting a page with no legacy equivelant should not display a nav link", () => {
+  it("Visiting a page with no legacy equivalent should not display a nav link", () => {
     cy.visit(SPRUCE_URLS.cli);
     cy.dataCy("legacy-ui-link").should("not.exist");
   });
@@ -49,5 +49,19 @@ describe("Nav Bar", () => {
     cy.dataCy("legacy_route")
       .should("have.attr", "href")
       .and("include", LEGACY_URLS.distros);
+  });
+  it.skip("Nav Dropdown should link to patches page of most recent project if cookie exists", () => {
+    cy.setCookie("mci-project-cookie", "spruce");
+    cy.visit(SPRUCE_URLS.userPatches);
+    cy.dataCy("auxiliary-dropdown-link").click();
+    cy.dataCy("auxiliary-dropdown-project-patches").click();
+    cy.location("pathname").should("eq", "/project/spruce/patches");
+  });
+  it.skip("Nav Dropdown should link to patches page of default project in SpruceConfig if cookie does not exist", () => {
+    cy.clearCookie("mci-project-cookie");
+    cy.visit(SPRUCE_URLS.userPatches);
+    cy.dataCy("auxiliary-dropdown-link").click();
+    cy.dataCy("auxiliary-dropdown-project-patches").click();
+    cy.location("pathname").should("eq", "/project/evergreen/patches");
   });
 });
