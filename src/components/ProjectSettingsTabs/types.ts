@@ -7,6 +7,7 @@ import {
 } from "gql/generated/types";
 import * as access from "./AccessTab/types";
 import * as general from "./GeneralTab/types";
+import * as githubCommitQueue from "./GithubCommitQueue/types";
 import * as plugins from "./PluginsTab/types";
 import * as variables from "./VariablesTab/types";
 
@@ -30,6 +31,10 @@ export type TabDataProps = {
   [ProjectSettingsTabRoutes.Variables]: {
     projectData: variables.TabProps["projectData"];
     repoData: variables.TabProps["repoData"];
+  };
+  [ProjectSettingsTabRoutes.GithubCommitQueue]: {
+    projectData: githubCommitQueue.TabProps["projectData"];
+    repoData: githubCommitQueue.TabProps["repoData"];
   };
 };
 

@@ -2,7 +2,7 @@
 
 exports[`spruceForm should render as expected 1`] = `
 .emotion-0 {
-  margin-bottom: 24px;
+  margin: 24px 0;
 }
 
 .emotion-2 {
