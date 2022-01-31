@@ -4,6 +4,7 @@ import Dropdown from ".";
 export default {
   title: "Dropdown",
   decorators: [withKnobs],
+  component: Dropdown,
 };
 
 export const Story = () => (
