@@ -1770,6 +1770,7 @@ export type TaskLogs = {
   taskLogs: Array<LogMessage>;
   systemLogs: Array<LogMessage>;
   agentLogs: Array<LogMessage>;
+  allLogs: Array<LogMessage>;
 };
 
 export type TaskEventLogData = {
