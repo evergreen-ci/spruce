@@ -1,7 +1,7 @@
 export { AccessTab } from "./AccessTab/AccessTab";
 export { EventLogTab } from "./EventLogTab";
 export { GeneralTab } from "./GeneralTab/GeneralTab";
-export { GitHubCommitQueueTab } from "./GitHubCommitQueueTab";
+export { GithubCommitQueueTab } from "./GithubCommitQueue/GithubCommitQueueTab";
 export { Header } from "./Header";
 export { NotificationsTab } from "./NotificationsTab";
 export { PatchAliasesTab } from "./PatchAliasesTab";
