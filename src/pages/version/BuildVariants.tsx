@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { useParams, Link } from "react-router-dom";
-import { usePatchAnalytics, useVersionAnalytics } from "analytics";
+import { useVersionAnalytics } from "analytics";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
 import { H3, P1 } from "components/Typography";
@@ -18,13 +18,9 @@ import { applyStrictRegex } from "utils/string";
 import { GroupedTaskSquare } from "./buildVariants/GroupedTaskSquare";
 import { groupTasksByUmbrellaStatus } from "./buildVariants/utils";
 
-interface BuildVariantsProps {
-  isPatch: boolean;
-}
-
-export const BuildVariants: React.FC<BuildVariantsProps> = ({ isPatch }) => {
+export const BuildVariants: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { sendEvent } = (isPatch ? usePatchAnalytics : useVersionAnalytics)();
+  const { sendEvent } = useVersionAnalytics();
 
   const { data, loading, error, startPolling, stopPolling } = useQuery<
     BuildVariantsQuery,
@@ -64,11 +60,7 @@ export const BuildVariants: React.FC<BuildVariantsProps> = ({ isPatch }) => {
                 {displayName}
               </Link>
             </P1>
-            <VariantTaskGroup
-              variant={variant}
-              tasks={tasks}
-              isPatch={isPatch}
-            />
+            <VariantTaskGroup variant={variant} tasks={tasks} />
           </BuildVariant>
         ))}
       </SiderCard>
@@ -79,12 +71,10 @@ export const BuildVariants: React.FC<BuildVariantsProps> = ({ isPatch }) => {
 interface VariantTaskGroupProps {
   tasks: { status: string }[];
   variant: string;
-  isPatch: boolean;
 }
 const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
   tasks,
   variant,
-  isPatch,
 }) => {
   const groupedTasks = groupTasksByUmbrellaStatus(tasks);
   return (
@@ -97,7 +87,6 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
             count={count}
             variant={variant}
             umbrellaStatus={umbrellaStatus}
-            isPatch={isPatch}
           />
         )
       )}

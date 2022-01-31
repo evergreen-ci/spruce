@@ -4,13 +4,11 @@ import { addPageAction, Properties, Analytics } from "analytics/addPageAction";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
 import {
   SaveSubscriptionMutationVariables,
-  PatchQuery,
-  PatchQueryVariables,
   VersionQuery,
   VersionQueryVariables,
   TaskSortCategory,
 } from "gql/generated/types";
-import { GET_PATCH, GET_VERSION } from "gql/queries";
+import { GET_VERSION } from "gql/queries";
 
 type Action =
   | { name: "Filter Tasks"; filterBy: string }
@@ -50,36 +48,6 @@ type Action =
   | { name: "Toggle Display Task Dropdown"; expanded: boolean }
   | { name: "Click Base Commit Link" }
   | { name: "Open Schedule Tasks Modal" };
-
-interface P extends Properties {
-  patchId: string;
-  patchStatus: string;
-}
-interface PatchAnalytics extends Analytics<Action> {}
-
-export const usePatchAnalytics = (): PatchAnalytics => {
-  const userId = useGetUserQuery();
-  const { id } = useParams<{ id: string }>();
-  const { data: eventData } = useQuery<PatchQuery, PatchQueryVariables>(
-    GET_PATCH,
-    {
-      variables: { id },
-      fetchPolicy: "cache-first",
-    }
-  );
-  const { status } = eventData?.patch || {};
-
-  const sendEvent: PatchAnalytics["sendEvent"] = (action) => {
-    addPageAction<Action, P>(action, {
-      object: "Patch",
-      userId,
-      patchStatus: status,
-      patchId: id,
-    });
-  };
-
-  return { sendEvent };
-};
 
 interface V extends Properties {
   versionId: string;

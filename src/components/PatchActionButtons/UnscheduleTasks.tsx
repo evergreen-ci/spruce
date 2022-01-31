@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Body } from "@leafygreen-ui/typography";
 import { Popconfirm } from "antd";
-import { usePatchAnalytics, useVersionAnalytics } from "analytics";
+import { useVersionAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
 import { useToastContext } from "context/toast";
 import {
@@ -17,13 +17,11 @@ interface props {
   patchId: string;
   refetchQueries: string[];
   disabled?: boolean;
-  isPatch?: boolean;
 }
 export const UnscheduleTasks: React.FC<props> = ({
   patchId,
   refetchQueries,
   disabled,
-  isPatch = true,
 }) => {
   const dispatchToast = useToastContext();
   const [abort, setAbort] = useState(false);
@@ -48,7 +46,7 @@ export const UnscheduleTasks: React.FC<props> = ({
     refetchQueries,
   });
 
-  const { sendEvent } = (isPatch ? usePatchAnalytics : useVersionAnalytics)();
+  const { sendEvent } = useVersionAnalytics();
 
   return (
     <Popconfirm

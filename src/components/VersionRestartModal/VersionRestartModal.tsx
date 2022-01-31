@@ -5,7 +5,7 @@ import Button from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
-import { usePatchAnalytics, useVersionAnalytics } from "analytics";
+import { useVersionAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
 import { Modal } from "components/Modal";
 import { TaskStatusFilters } from "components/TaskStatusFilters";
@@ -35,7 +35,6 @@ interface Props {
   versionId?: string;
   refetchQueries: string[];
   childPatches: Partial<Patch>[];
-  isPatch: boolean;
 }
 const VersionRestartModal: React.FC<Props> = ({
   visible,
@@ -43,7 +42,6 @@ const VersionRestartModal: React.FC<Props> = ({
   onCancel,
   versionId,
   refetchQueries,
-  isPatch,
 }) => {
   const dispatchToast = useToastContext();
   const [shouldAbortInProgressTasks, setShouldAbortInProgressTasks] = useState(
@@ -91,7 +89,7 @@ const VersionRestartModal: React.FC<Props> = ({
     setBaseStatusFilterTerm({ [childVersionId]: selectedFilters });
   };
 
-  const { sendEvent } = (isPatch ? usePatchAnalytics : useVersionAnalytics)();
+  const { sendEvent } = useVersionAnalytics();
 
   const handlePatchRestart = async (e): Promise<void> => {
     e.preventDefault();

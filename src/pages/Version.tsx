@@ -192,7 +192,7 @@ export const VersionPage: React.FC = () => {
       <PageLayout>
         <PageSider>
           <Metadata loading={false} version={version} />
-          <BuildVariants isPatch={isPatch} />
+          <BuildVariants />
         </PageSider>
         <PageLayout>
           <PageContent>

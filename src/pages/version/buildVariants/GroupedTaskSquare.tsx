@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
-import { usePatchAnalytics, useVersionAnalytics } from "analytics";
+import { useVersionAnalytics } from "analytics";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { TaskStatus } from "types/task";
 
@@ -9,7 +9,6 @@ interface Props {
   statuses: { [key: string]: number };
   variant: string;
   umbrellaStatus: string;
-  isPatch: boolean;
 }
 
 export const GroupedTaskSquare: React.FC<Props> = ({
@@ -17,9 +16,8 @@ export const GroupedTaskSquare: React.FC<Props> = ({
   count,
   umbrellaStatus,
   variant,
-  isPatch,
 }) => {
-  const { sendEvent } = (isPatch ? usePatchAnalytics : useVersionAnalytics)();
+  const { sendEvent } = useVersionAnalytics();
   const { id } = useParams<{ id: string }>();
 
   return (

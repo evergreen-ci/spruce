@@ -44,7 +44,6 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       patchId={versionId}
       refetchQueries={["Patch"]}
       key="unschedule-tasks"
-      isPatch={isPatch}
     />,
     <DisableTasks
       key="disable-tasks"
@@ -60,7 +59,6 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       patchId={versionId}
       key="priority"
       refetchQueries={["Patch"]}
-      isPatch={isPatch}
     />,
     <EnqueuePatch
       patchId={versionId}
@@ -78,7 +76,6 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
           versionId={versionId}
           isButton
           disabled={isPatchOnCommitQueue}
-          isPatch={isPatch}
         />
         <RestartPatch
           patchId={versionId}
@@ -86,13 +83,8 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
           isButton
           disabled={isPatchOnCommitQueue}
           refetchQueries={["Patch"]}
-          isPatch={isPatch}
         />
-        <AddNotification
-          patchId={versionId}
-          refetchQueries={["Patch"]}
-          isPatch={isPatch}
-        />
+        <AddNotification patchId={versionId} refetchQueries={["Patch"]} />
         <ButtonDropdown dropdownItems={dropdownItems} loading={false} />
       </PageButtonRow>
     </>

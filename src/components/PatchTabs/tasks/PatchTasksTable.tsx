@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { usePatchAnalytics, useVersionAnalytics } from "analytics";
+import { useVersionAnalytics } from "analytics";
 import { InputFilterProps } from "components/Table/Filters";
 import { TasksTable } from "components/Table/TasksTable";
 import { Task, PatchTasksQuery, SortOrder } from "gql/generated/types";
@@ -18,17 +18,12 @@ const { toSortString } = queryString;
 interface Props {
   patchTasks: PatchTasksQuery["patchTasks"];
   sorts: SortOrder[];
-  isPatch: boolean;
 }
 
-export const PatchTasksTable: React.FC<Props> = ({
-  patchTasks,
-  sorts,
-  isPatch,
-}) => {
+export const PatchTasksTable: React.FC<Props> = ({ patchTasks, sorts }) => {
   const { id: versionId } = useParams<{ id: string }>();
   const updateQueryParams = useUpdateURLQueryParams();
-  const { sendEvent } = (isPatch ? usePatchAnalytics : useVersionAnalytics)();
+  const { sendEvent } = useVersionAnalytics();
   const filterHookProps = {
     resetPage: true,
     sendAnalyticsEvent: (filterBy: string) =>

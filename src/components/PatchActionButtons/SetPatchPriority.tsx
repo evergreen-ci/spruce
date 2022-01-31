@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
 import { InputNumber, Popconfirm } from "antd";
-import { usePatchAnalytics, useVersionAnalytics } from "analytics";
+import { useVersionAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
 import { useToastContext } from "context/toast";
 import {
@@ -16,14 +16,12 @@ interface SetPriorityProps {
   patchId: string;
   disabled?: boolean;
   refetchQueries: string[];
-  isPatch: boolean;
 }
 
 export const SetPatchPriority: React.FC<SetPriorityProps> = ({
   patchId,
   disabled,
   refetchQueries,
-  isPatch,
 }) => {
   const [priority, setPriority] = useState<number>(0);
   const dispatchToast = useToastContext();
@@ -40,7 +38,7 @@ export const SetPatchPriority: React.FC<SetPriorityProps> = ({
     refetchQueries,
   });
 
-  const { sendEvent } = (isPatch ? usePatchAnalytics : useVersionAnalytics)();
+  const { sendEvent } = useVersionAnalytics();
 
   return (
     <Popconfirm

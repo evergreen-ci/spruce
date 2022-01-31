@@ -5,7 +5,7 @@ import Button from "@leafygreen-ui/button";
 import { Skeleton } from "antd";
 import every from "lodash.every";
 import { useParams, useLocation } from "react-router-dom";
-import { usePatchAnalytics, useVersionAnalytics } from "analytics";
+import { useVersionAnalytics } from "analytics";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { ResultCountLabel } from "components/ResultCountLabel";
@@ -26,14 +26,13 @@ const { parseQueryString, parseSortString, getString } = queryString;
 const { getPageFromSearch, getLimitFromSearch } = url;
 interface Props {
   taskCount: number;
-  isPatch: boolean;
 }
 
-export const Tasks: React.FC<Props> = ({ taskCount, isPatch }) => {
+export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const { id: versionId } = useParams<{ id: string }>();
 
   const { search } = useLocation();
-  const { sendEvent } = (isPatch ? usePatchAnalytics : useVersionAnalytics)();
+  const { sendEvent } = useVersionAnalytics();
   const dispatchToast = useToastContext();
 
   const updateQueryParams = useUpdateURLQueryParams();
@@ -116,11 +115,7 @@ export const Tasks: React.FC<Props> = ({ taskCount, isPatch }) => {
       {showSkeleton ? (
         <Skeleton active title={false} paragraph={{ rows: 8 }} />
       ) : (
-        <PatchTasksTable
-          sorts={sorts}
-          patchTasks={patchTasks}
-          isPatch={isPatch}
-        />
+        <PatchTasksTable sorts={sorts} patchTasks={patchTasks} />
       )}
     </>
   );

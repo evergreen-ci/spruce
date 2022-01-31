@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useHistory, useLocation } from "react-router-dom";
-import { usePatchAnalytics, useVersionAnalytics } from "analytics";
+import { useVersionAnalytics } from "analytics";
 import { CodeChanges } from "components/PatchTabs/CodeChanges";
 import { DownstreamTasks } from "components/PatchTabs/DownstreamTasks";
 import { Tasks } from "components/PatchTabs/Tasks";
@@ -16,14 +16,14 @@ const { parseQueryString } = queryString;
 
 interface Props {
   taskCount: number;
-  childPatches: Partial<Patch>[];
   isPatch: boolean;
+  childPatches: Partial<Patch>[];
 }
 
-const tabMap = ({ taskCount, childPatches, isPatch }) => ({
+const tabMap = ({ taskCount, childPatches }) => ({
   [PatchTab.Tasks]: (
     <Tab name="Tasks" id="task-tab" data-cy="task-tab" key="tasks-tab">
-      <Tasks taskCount={taskCount} isPatch={isPatch} />
+      <Tasks taskCount={taskCount} />
     </Tab>
   ),
   [PatchTab.Changes]: (
@@ -61,12 +61,11 @@ export const Tabs: React.FC<Props> = ({ taskCount, childPatches, isPatch }) => {
     [isPatch, childPatches]
   );
 
-  const { sendEvent } = (isPatch ? usePatchAnalytics : useVersionAnalytics)();
+  const { sendEvent } = useVersionAnalytics();
 
-  const allTabs = useMemo(() => tabMap({ taskCount, childPatches, isPatch }), [
+  const allTabs = useMemo(() => tabMap({ taskCount, childPatches }), [
     taskCount,
     childPatches,
-    isPatch,
   ]);
   const activeTabs = useMemo(
     () => Object.keys(allTabs).filter((t) => tabIsActive[t] as PatchTab[]),
