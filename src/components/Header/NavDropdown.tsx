@@ -16,6 +16,7 @@ interface MenuItemType {
   text: string;
   href?: string;
   to?: string;
+  onClick: () => void;
 }
 
 interface DropdownItemType extends MenuItemType {
@@ -68,7 +69,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
       {menuItems.map((menuItem) => (
         <DropdownItem
           key={`dropdown_${menuItem.text}`}
-          closeMenu={() => setOpenMenu(false)}
+          closeMenu={() => {
+            menuItem.onClick();
+            setOpenMenu(false);
+          }}
           {...menuItem}
         />
       ))}

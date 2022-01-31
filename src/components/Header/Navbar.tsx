@@ -22,7 +22,7 @@ const { white, blue, gray } = uiColors;
 export const Navbar: React.FC = () => {
   const { isAuthenticated } = useAuthStateContext();
   const legacyURL = useLegacyUIURL();
-  const navbarAnalytics = useNavbarAnalytics();
+  const { sendEvent } = useNavbarAnalytics();
   const uiURL = getUiUrl();
 
   const { data } = useQuery<GetUserQuery>(GET_USER);
@@ -37,7 +37,7 @@ export const Navbar: React.FC = () => {
       <NavActionContainer>
         <LogoLink
           to={routes.myPatches}
-          onClick={() => navbarAnalytics.sendEvent({ name: "Click Logo Link" })}
+          onClick={() => sendEvent({ name: "Click Logo Link" })}
         >
           <Icon glyph="EvergreenLogo" />
         </LogoLink>
@@ -45,17 +45,30 @@ export const Navbar: React.FC = () => {
         {isBeta() ? (
           <PrimaryLink
             to={getCommitsRoute()}
-            onClick={() =>
-              navbarAnalytics.sendEvent({ name: "Click Waterfall Link" })
-            }
+            onClick={() => sendEvent({ name: "Click Waterfall Link" })}
           >
             Project Health
           </PrimaryLink>
         ) : (
-          <PrimaryA href={`${uiURL}/waterfall`}>Waterfall</PrimaryA>
+          <PrimaryA
+            href={`${uiURL}/waterfall`}
+            onClick={() => sendEvent({ name: "Click Legacy Waterfall Link" })}
+          >
+            Waterfall
+          </PrimaryA>
         )}
-        <PrimaryLink to={getUserPatchesRoute(userId)}>My Patches</PrimaryLink>
-        <PrimaryLink to={routes.spawnHost}>My Hosts</PrimaryLink>
+        <PrimaryLink
+          to={getUserPatchesRoute(userId)}
+          onClick={() => sendEvent({ name: "Click My Patches Link" })}
+        >
+          My Patches
+        </PrimaryLink>
+        <PrimaryLink
+          to={routes.spawnHost}
+          onClick={() => sendEvent({ name: "Click My Hosts Link" })}
+        >
+          My Hosts
+        </PrimaryLink>
         <AuxiliaryDropdown />
       </NavActionContainer>
       <NavActionContainer>
@@ -63,9 +76,7 @@ export const Navbar: React.FC = () => {
           <SecondaryLink
             href={legacyURL}
             data-cy="legacy-ui-link"
-            onClick={() =>
-              navbarAnalytics.sendEvent({ name: "Click Legacy UI Link" })
-            }
+            onClick={() => sendEvent({ name: "Click Legacy UI Link" })}
           >
             Switch to legacy UI
           </SecondaryLink>
