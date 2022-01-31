@@ -2,7 +2,7 @@
 
 exports[`storybook Storyshots Spawn Host Card Spawn Host Card Story 1`] = `
 <div
-  className="css-fhulju-SiderCard-CardContainer e9wutqn0 leafygreen-ui-fe135o"
+  className="css-wvdt3j-SiderCard-CardContainer e9wutqn0 leafygreen-ui-fe135o"
   data-cy="spawn-host-card"
 >
   <div

@@ -390,7 +390,7 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
         className="css-3ay4yh-DependsOnWrapper e1dgw5p64"
       >
         <div
-          className="css-1ncpeg7-LeftContainer e1dgw5p63"
+          className="css-19qa7s8-LeftContainer e1dgw5p63"
         >
           <svg
             fill="currentColor"
@@ -432,7 +432,7 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
         className="css-3ay4yh-DependsOnWrapper e1dgw5p64"
       >
         <div
-          className="css-1ncpeg7-LeftContainer e1dgw5p63"
+          className="css-19qa7s8-LeftContainer e1dgw5p63"
         >
           <svg
             aria-label="Calendar Icon"
@@ -480,7 +480,7 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
         className="css-3ay4yh-DependsOnWrapper e1dgw5p64"
       >
         <div
-          className="css-1ncpeg7-LeftContainer e1dgw5p63"
+          className="css-19qa7s8-LeftContainer e1dgw5p63"
         >
           <svg
             aria-label="Checkmark Icon"
@@ -528,7 +528,7 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
         className="css-3ay4yh-DependsOnWrapper e1dgw5p64"
       >
         <div
-          className="css-1ncpeg7-LeftContainer e1dgw5p63"
+          className="css-19qa7s8-LeftContainer e1dgw5p63"
         >
           <svg
             aria-label="Refresh Icon"

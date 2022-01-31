@@ -204,7 +204,7 @@ Array [
       />
     </div>
     <div
-      className="css-7yxj8m-AbsoluteContainer ech0nhv3"
+      className="css-xsagce-AbsoluteContainer ech0nhv3"
     >
       <div
         className="css-1isl84h-Container e1d5uzqe2"
@@ -619,7 +619,7 @@ Array [
                   onClick={[Function]}
                 >
                   <div
-                    className="css-nup11h-BadgeContainer emc61an4"
+                    className="css-dfjs07-BadgeContainer emc61an4"
                     fill="#5D6C74"
                   >
                     <span
@@ -668,7 +668,7 @@ Array [
                   onClick={[Function]}
                 >
                   <div
-                    className="css-nup11h-BadgeContainer emc61an4"
+                    className="css-dfjs07-BadgeContainer emc61an4"
                     fill="#5D6C74"
                   >
                     <span
@@ -726,7 +726,7 @@ Array [
                   onClick={[Function]}
                 >
                   <div
-                    className="css-nup11h-BadgeContainer emc61an4"
+                    className="css-dfjs07-BadgeContainer emc61an4"
                     fill="#5D6C74"
                   >
                     <span
@@ -775,7 +775,7 @@ Array [
                   onClick={[Function]}
                 >
                   <div
-                    className="css-nup11h-BadgeContainer emc61an4"
+                    className="css-dfjs07-BadgeContainer emc61an4"
                     fill="#5D6C74"
                   >
                     <span
@@ -837,7 +837,7 @@ Array [
                   onClick={[Function]}
                 >
                   <div
-                    className="css-nup11h-BadgeContainer emc61an4"
+                    className="css-dfjs07-BadgeContainer emc61an4"
                     fill="#5D6C74"
                   >
                     <span
@@ -886,7 +886,7 @@ Array [
                   onClick={[Function]}
                 >
                   <div
-                    className="css-nup11h-BadgeContainer emc61an4"
+                    className="css-dfjs07-BadgeContainer emc61an4"
                     fill="#5D6C74"
                   >
                     <span
@@ -944,7 +944,7 @@ Array [
                   onClick={[Function]}
                 >
                   <div
-                    className="css-nup11h-BadgeContainer emc61an4"
+                    className="css-dfjs07-BadgeContainer emc61an4"
                     fill="#5D6C74"
                   >
                     <span
@@ -993,7 +993,7 @@ Array [
                   onClick={[Function]}
                 >
                   <div
-                    className="css-q6x9ck-BadgeContainer emc61an4"
+                    className="css-1x1jcxq-BadgeContainer emc61an4"
                     fill="#E4F4E4"
                   >
                     <span

@@ -17,7 +17,7 @@ exports[`storybook Storyshots Grouped Task Status Badge Grouped Task Status Badg
       onClick={[Function]}
     >
       <div
-        className="css-q6x9ck-BadgeContainer emc61an4"
+        className="css-1x1jcxq-BadgeContainer emc61an4"
         fill="#E4F4E4"
       >
         <span
@@ -46,7 +46,7 @@ exports[`storybook Storyshots Grouped Task Status Badge Grouped Task Status Badg
       onClick={[Function]}
     >
       <div
-        className="css-q6x9ck-BadgeContainer emc61an4"
+        className="css-1x1jcxq-BadgeContainer emc61an4"
         fill="#E4F4E4"
       >
         <span
@@ -75,7 +75,7 @@ exports[`storybook Storyshots Grouped Task Status Badge Grouped Task Status Badg
       onClick={[Function]}
     >
       <div
-        className="css-1u1pdi6-BadgeContainer emc61an4"
+        className="css-yh0j9q-BadgeContainer emc61an4"
         fill="#FCEBE2"
       >
         <span
@@ -104,7 +104,7 @@ exports[`storybook Storyshots Grouped Task Status Badge Grouped Task Status Badg
       onClick={[Function]}
     >
       <div
-        className="css-uf0at9-BadgeContainer emc61an4"
+        className="css-1bo676k-BadgeContainer emc61an4"
         fill="#FEF7E3"
       >
         <span
@@ -133,7 +133,7 @@ exports[`storybook Storyshots Grouped Task Status Badge Grouped Task Status Badg
       onClick={[Function]}
     >
       <div
-        className="css-1htjtjk-BadgeContainer emc61an4"
+        className="css-aj8vbz-BadgeContainer emc61an4"
         fill="#4F4FBF"
       >
         <span
@@ -162,7 +162,7 @@ exports[`storybook Storyshots Grouped Task Status Badge Grouped Task Status Badg
       onClick={[Function]}
     >
       <div
-        className="css-1mwonhy-BadgeContainer emc61an4"
+        className="css-bo7l6w-BadgeContainer emc61an4"
         fill="#F1F0FC"
       >
         <span
@@ -191,7 +191,7 @@ exports[`storybook Storyshots Grouped Task Status Badge Grouped Task Status Badg
       onClick={[Function]}
     >
       <div
-        className="css-1mwonhy-BadgeContainer emc61an4"
+        className="css-bo7l6w-BadgeContainer emc61an4"
         fill="#F1F0FC"
       >
         <span
@@ -220,7 +220,7 @@ exports[`storybook Storyshots Grouped Task Status Badge Grouped Task Status Badg
       onClick={[Function]}
     >
       <div
-        className="css-1kp5fxv-BadgeContainer emc61an4"
+        className="css-na0c8m-BadgeContainer emc61an4"
         fill="#F9FBFA"
       >
         <span
@@ -249,7 +249,7 @@ exports[`storybook Storyshots Grouped Task Status Badge Grouped Task Status Badg
       onClick={[Function]}
     >
       <div
-        className="css-nup11h-BadgeContainer emc61an4"
+        className="css-dfjs07-BadgeContainer emc61an4"
         fill="#5D6C74"
       >
         <span
