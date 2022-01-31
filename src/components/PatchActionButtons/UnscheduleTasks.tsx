@@ -24,7 +24,7 @@ export const UnscheduleTasks: React.FC<props> = ({
   disabled,
 }) => {
   const dispatchToast = useToastContext();
-  const [abort, setAbort] = useState(false);
+  const [abort, setAbort] = useState(true);
   const [
     unschedulePatchTasks,
     { loading: loadingUnschedulePatchTasks },
