@@ -247,9 +247,8 @@ describe("Project Settings when defaulting to repo", () => {
     });
 
     it("Disables Authorized Users section based on repo settings", () => {
-      cy.get("input[name=gitTagAuthorizedUsersOverride]").each(($el) =>
-        cy.wrap($el).should("be.disabled")
-      );
+      cy.contains("Authorized Users").should("not.exist");
+      cy.contains("Authorized Teams").should("not.exist");
     });
 
     it("Clicking on save button should show a success toast", () => {

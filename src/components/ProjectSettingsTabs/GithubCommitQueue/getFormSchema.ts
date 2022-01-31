@@ -259,9 +259,8 @@ export const getFormSchema = (
           "gitTagAuthorizedUsers",
           "Add User",
           repoData?.github?.users?.gitTagAuthorizedUsers === undefined,
-          useRepoSettings &&
-            !formData?.github?.gitTagVersionsEnabled &&
-            !repoData?.github?.gitTagVersionsEnabled
+          formData?.github?.gitTagVersionsEnabled,
+          repoData?.github?.gitTagVersionsEnabled
         ),
       },
       teams: {
@@ -269,16 +268,15 @@ export const getFormSchema = (
           "gitTagAuthorizedTeams",
           "Add Team",
           repoData?.github?.teams?.gitTagAuthorizedTeams === undefined,
-          useRepoSettings &&
-            !formData?.github?.gitTagVersionsEnabled &&
-            !repoData?.github?.gitTagVersionsEnabled
+          formData?.github?.gitTagVersionsEnabled,
+          repoData?.github?.gitTagVersionsEnabled
         ),
       },
     },
   },
 });
 
-const hideIf = (field, repoField) =>
+const hideIf = (field: boolean | null, repoField: boolean | null) =>
   (field === false || (field === null && repoField === false)) && {
     "ui:widget": "hidden",
   };
@@ -292,9 +290,10 @@ const userTeamStyling = (
   fieldName: string,
   addButtonText: string,
   shouldOverride: boolean,
-  shouldDisable: boolean
+  field: boolean | null,
+  repoField: boolean | null
 ) => ({
-  "ui:disabled": shouldDisable,
+  ...hideIf(field, repoField),
   [`${fieldName}Override`]: {
     ...overrideStyling(shouldOverride),
   },
