@@ -31,7 +31,7 @@ import {
   GET_ALL_LOGS,
 } from "gql/queries";
 import { useNetworkStatus, useUpdateURLQueryParams } from "hooks";
-import { RequiredQueryParams } from "types/task";
+import { RequiredQueryParams, LogTypes, QueryParams } from "types/task";
 import { queryString } from "utils";
 import { LogMessageLine } from "./logTypes/LogMessageLine";
 import { TaskEventLogLine } from "./logTypes/TaskEventLogLine";
@@ -45,16 +45,6 @@ interface TaskEventLogEntryType extends TaskEventLogEntry {
 }
 interface LogMessageType extends LogMessageFragment {
   kind?: "logMessage";
-}
-export enum QueryParams {
-  LogType = "logtype",
-}
-export enum LogTypes {
-  Agent = "agent",
-  System = "system",
-  Task = "task",
-  Event = "event",
-  All = "all",
 }
 interface Props {
   currentLog: LogTypes;

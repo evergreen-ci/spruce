@@ -41,6 +41,10 @@ export enum LogTypes {
   All = "all",
 }
 
+export enum QueryParams {
+  LogType = "logtype",
+}
+
 export enum TaskStatus {
   Inactive = "inactive",
 

@@ -3,14 +3,13 @@ import queryString from "query-string";
 import { useLocation } from "react-router-dom";
 import { getLobsterTaskLink } from "constants/externalResources";
 import { TaskLogLinks } from "gql/generated/types";
+import { LogTypes, QueryParams } from "types/task";
 import {
   EventLog,
   AgentLog,
   SystemLog,
   TaskLog,
   AllLog,
-  LogTypes,
-  QueryParams,
 } from "./logs/LogTypes";
 
 const DEFAULT_LOG_TYPE = LogTypes.Task;
