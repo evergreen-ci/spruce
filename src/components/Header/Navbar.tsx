@@ -7,6 +7,7 @@ import { useNavbarAnalytics } from "analytics";
 import Icon from "components/Icon";
 import { StyledLink } from "components/styles";
 import { getCommitsRoute, getUserPatchesRoute, routes } from "constants/routes";
+import { size } from "constants/tokens";
 import { useAuthStateContext } from "context/auth";
 import { GetUserQuery } from "gql/generated/types";
 import { GET_USER } from "gql/queries";
@@ -76,7 +77,7 @@ export const Navbar: React.FC = () => {
   );
 };
 
-export const navBarHeight = 64;
+export const navBarHeight = size.l;
 const StyledNav = styled.nav`
   align-items: center;
   background-color: ${gray.dark3};
@@ -84,7 +85,7 @@ const StyledNav = styled.nav`
   justify-content: space-between;
   height: ${navBarHeight}px;
   line-height: ${navBarHeight}px;
-  padding: 0 36px;
+  padding: 0 ${size.m}px;
 `;
 
 const LogoLink = styled(Link)`
