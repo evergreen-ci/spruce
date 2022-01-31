@@ -69,7 +69,7 @@ const PaddedBadge = styled(Badge)`
     margin-left: ${size.s}px;
   }
   margin-right: ${size.s}px;
-  margin-bottom: 24px;
+  margin-bottom: ${size.m}px;
   width: 260px;
 
   position: relative;

@@ -8,6 +8,7 @@ import TextInput from "@leafygreen-ui/text-input";
 import get from "lodash/get";
 import { usePreferencesAnalytics } from "analytics";
 import { timeZones } from "constants/fieldMaps";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   UpdateUserSettingsMutation,
@@ -150,14 +151,14 @@ const handleFieldUpdate = (stateUpdate) => (e) => {
 // @ts-expect-error
 const StyledSelect = styled(Select)`
   width: 100%;
-  margin-bottom: 24px;
+  margin-bottom: ${size.m}px;
   :last-child {
     margin-bottom: 40px;
   }
 `;
 
 const StyledTextInput = styled(TextInput)`
-  margin-bottom: 24px;
+  margin-bottom: ${size.m}px;
   :last-child {
     margin-bottom: 40px;
   }

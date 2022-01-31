@@ -36,7 +36,7 @@ const Container = styled.div`
 
 const DateWrapper = styled(Body)`
   white-space: nowrap;
-  padding-right: 24px;
+  padding-right: ${size.m}px;
   text-transform: uppercase;
   color: ${gray.dark2};
 `;

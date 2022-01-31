@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Subtitle } from "@leafygreen-ui/typography";
+import { size } from "constants/tokens";
 
 const { green, white } = uiColors;
 
@@ -53,7 +54,7 @@ const Index = styled(Subtitle)`
 // @ts-expect-error
 const NodeTitle = styled(Subtitle)`
   align-self: center;
-  margin-left: 24px;
+  margin-left: ${size.m}px;
 `;
 
 const NodeContainer = styled.div`

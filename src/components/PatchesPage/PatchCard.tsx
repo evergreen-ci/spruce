@@ -135,7 +135,7 @@ const Center = styled.div`
 
 const Left = styled(Center)`
   flex-direction: column;
-  padding-right: 24px;
+  padding-right: ${size.m}px;
 `;
 
 const Right = styled.div`
@@ -150,7 +150,7 @@ const DescriptionLink = styled(StyledRouterLink)`
 `;
 
 const PatchBadgeContainer = styled.div`
-  margin-right: 24px;
+  margin-right: ${size.m}px;
   min-width: 90px;
 `;
 

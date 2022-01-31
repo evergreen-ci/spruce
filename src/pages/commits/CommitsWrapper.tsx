@@ -128,7 +128,7 @@ const getCommitWidth = (commit: Commit) => {
 
 const StickyContainer = styled.div`
   position: sticky;
-  top: -24px; // This is to offset the padding of PageWrapper
+  top: -${size.m}px; // This is to offset the padding of PageWrapper
   z-index: 1;
   background-color: ${white};
   margin-top: ${size.xxs}px;

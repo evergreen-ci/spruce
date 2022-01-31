@@ -5,6 +5,7 @@ import Button, { Variant } from "@leafygreen-ui/button";
 import Card from "@leafygreen-ui/card";
 import TextInput from "@leafygreen-ui/text-input";
 import { usePreferencesAnalytics } from "analytics";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   UpdateUserSettingsMutation,
@@ -139,7 +140,7 @@ const GridField = styled.div`
 `;
 
 const StyledTextInput = styled(TextInput)`
-  margin-bottom: 24px;
+  margin-bottom: ${size.m}px;
   width: 50%;
   :last-child {
     margin-bottom: 40px;

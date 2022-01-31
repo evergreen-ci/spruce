@@ -17,7 +17,7 @@ export const PageWrapper = styled.div`
   grid-area: contents;
   overflow-x: hidden;
   overflow-y: scroll;
-  padding: 24px 36px 56px 36px;
+  padding: ${size.m}px 36px 56px 36px;
 `;
 
 export const PageGrid = styled.section`
@@ -87,6 +87,6 @@ export const HR = styled("hr")`
   border: 0;
   height: 1px;
   width: 100%;
-  margin-top: 24px;
-  margin-bottom: 24px;
+  margin-top: ${size.m}px;
+  margin-bottom: ${size.m}px;
 `;

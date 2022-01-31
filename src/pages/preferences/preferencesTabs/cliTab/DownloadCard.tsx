@@ -150,7 +150,7 @@ const filterBinaries = (binary: ClientBinary) =>
 
 // @ts-expect-error
 const Container = styled(Card)`
-  padding: 24px;
+  padding: ${size.m}px;
 ` as typeof Card;
 
 const CardGroup = styled.div`

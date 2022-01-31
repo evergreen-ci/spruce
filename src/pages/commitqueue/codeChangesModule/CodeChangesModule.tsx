@@ -58,7 +58,7 @@ const CodeChangeModuleContainer = styled.div`
 `;
 
 const DropDownTextStyle = styled("span")`
-  margin-right: 24px;
+  margin-right: ${size.m}px;
 `;
 
 const DropDownText = styled(Body)`

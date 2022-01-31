@@ -138,7 +138,7 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
 export const TicketsTitle = styled(Subtitle)<TitleProps>`
   margin-bottom: ${(props) => (props.margin ? "15px" : "5px")};
   margin-top: ${(props) => (props.margin ? "25px" : "35px")};
-  line-height: 24px;
+  line-height: ${size.m}px;
   font-weight: bold;
 `;
 

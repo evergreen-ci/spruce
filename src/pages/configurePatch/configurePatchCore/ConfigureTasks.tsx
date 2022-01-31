@@ -391,7 +391,7 @@ const Actions = styled.div`
     margin-right: 40px;
   }
   & > :not(:first-of-type) {
-    margin-right: 24px;
+    margin-right: ${size.m}px;
   }
 `;
 const Tasks = styled.div`

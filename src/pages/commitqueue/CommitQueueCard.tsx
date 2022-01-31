@@ -169,7 +169,7 @@ const CommitInfo = styled.div`
   flex-direction: column;
   grid-area: 1 / 1 / 2 / 2;
   margin-left: ${size.s}px;
-  margin-bottom: 24px;
+  margin-bottom: ${size.m}px;
   width: 100%;
 `;
 const CardMetaData = styled(Body)`
@@ -191,5 +191,5 @@ const CommitQueueCardActions = styled.div`
 `;
 
 const Container = styled.div`
-  padding-top: 24px;
+  padding-top: ${size.m}px;
 `;

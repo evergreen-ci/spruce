@@ -6,6 +6,7 @@ import { Select, Input } from "antd";
 import { useHostsTableAnalytics } from "analytics";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   UpdateHostStatusMutation,
@@ -133,7 +134,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
 // STYLES
 const StyledSelect = styled(Select)`
   width: 100%;
-  margin-bottom: 24px;
+  margin-bottom: ${size.m}px;
 `;
 const StyledTextArea = styled(TextArea)`
   resize: none;

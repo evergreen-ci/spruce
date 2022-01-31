@@ -189,7 +189,7 @@ const LeftButton = styled(Button)`
   margin-right: ${size.s}px;
 `;
 const StyledInput = styled(Input)`
-  margin-bottom: 24px;
+  margin-bottom: ${size.m}px;
 `;
 const ErrorContainer = styled.div`
   margin-top: ${size.xs}px;
