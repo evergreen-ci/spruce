@@ -2,7 +2,7 @@ import { ProjectSettingsTabRoutes } from "constants/routes";
 import { PartialRecord } from "types/utils";
 import * as access from "./AccessTab/transformers";
 import * as general from "./GeneralTab/transformers";
-import * as githubCommitQueue from "./GithubCommitQueue/transformers";
+import * as githubCommitQueue from "./GithubCommitQueueTab/transformers";
 import * as plugins from "./PluginsTab/transformers";
 import {
   FormToGqlFunction,

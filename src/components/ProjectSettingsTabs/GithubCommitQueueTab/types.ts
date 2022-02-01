@@ -1,5 +1,3 @@
-import { FormDataProps } from "components/SpruceForm";
-
 export type AliasType = {
   id: string;
   alias: string;
@@ -11,7 +9,7 @@ export type AliasType = {
   taskTags: string[];
 };
 
-export interface FormState extends FormDataProps {
+export interface FormState {
   github: {
     prTestingEnabled: boolean | null;
     prTesting: {
@@ -25,10 +23,10 @@ export interface FormState extends FormDataProps {
     githubChecksEnabled: boolean;
     githubChecks: {
       githubCheckAliasesOverride: boolean;
-      githubCheckAliases: Array<AliasType> | null;
+      githubCheckAliases: Array<AliasType>;
       repoData?: {
         githubCheckAliasesOverride: boolean;
-        githubCheckAliases: Array<AliasType> | null;
+        githubCheckAliases: Array<AliasType>;
       };
     };
     gitTagVersionsEnabled: boolean | null;
@@ -46,6 +44,19 @@ export interface FormState extends FormDataProps {
       repoData?: {
         gitTagAuthorizedTeamsOverride: boolean;
         gitTagAuthorizedTeams: Array<string> | null;
+      };
+    };
+  };
+  commitQueue: {
+    enabled: boolean | null;
+    mergeMethod: string;
+    message: string;
+    patchDefinitions: {
+      commitQueueAliasesOverride: boolean;
+      commitQueueAliases: Array<AliasType>;
+      repoData?: {
+        commitQueueAliasesOverride: boolean;
+        commitQueueAliases: Array<AliasType>;
       };
     };
   };

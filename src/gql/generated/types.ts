@@ -2255,6 +2255,11 @@ export type ProjectGithubCommitQueueFragment = {
     gitTagVersionsEnabled?: Maybe<boolean>;
     gitTagAuthorizedUsers?: Maybe<Array<string>>;
     gitTagAuthorizedTeams?: Maybe<Array<string>>;
+    commitQueue: {
+      enabled?: Maybe<boolean>;
+      mergeMethod: string;
+      message: string;
+    };
   }>;
 };
 
@@ -2267,6 +2272,7 @@ export type RepoGithubCommitQueueFragment = {
     gitTagVersionsEnabled: boolean;
     gitTagAuthorizedUsers?: Maybe<Array<string>>;
     gitTagAuthorizedTeams?: Maybe<Array<string>>;
+    commitQueue: { enabled: boolean; mergeMethod: string; message: string };
   }>;
 };
 
