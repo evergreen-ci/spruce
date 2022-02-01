@@ -87,7 +87,7 @@ export const EnqueuePatchModal: React.FC<EnqueueProps> = ({
 
 const StyledTextArea = styled(TextArea)`
   & p {
-    margin-bottom: ${size.s}px;
+    margin-bottom: ${size.s};
   }
 `;
 

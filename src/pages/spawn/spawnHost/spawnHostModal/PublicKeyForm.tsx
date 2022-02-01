@@ -136,8 +136,8 @@ const Container = styled(FlexColumnContainer)`
 `;
 
 const PaddedText = styled.span`
-  padding-left: ${size.s}px;
-  padding-right: ${size.s}px;
+  padding-left: ${size.s};
+  padding-right: ${size.s};
 `;
 const SelectContainer = styled.div`
   display: flex;
@@ -152,7 +152,7 @@ const StyledInput = styled(TextInput)`
 `;
 
 const StyledTextArea = styled(TextArea)`
-  margin-bottom: ${size.s}px;
+  margin-bottom: ${size.s};
 `;
 
 const initialState = { disableKeySelect: false, shouldAddNewKey: false };

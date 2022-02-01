@@ -26,5 +26,5 @@ export const ResultCountLabel: React.FC<Props> = ({
 
 const StyledP2 = styled(P2)`
   position: relative;
-  top: ${size.xxs}px;
+  top: ${size.xxs};
 `;

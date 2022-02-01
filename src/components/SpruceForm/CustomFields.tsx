@@ -20,13 +20,13 @@ export const TitleField: React.FC<TitleFieldProps> = ({
 
 /* @ts-expect-error  */
 const StyledH3 = styled(H3)`
-  margin-top: ${size.m}px;
+  margin-top: ${size.m};
   margin-bottom: 12px;
 `;
 
 /* @ts-expect-error  */
 const StyledSubtitle = styled(Subtitle)`
-  margin-top: ${size.s}px;
+  margin-top: ${size.s};
   margin-bottom: 12px;
 `;
 

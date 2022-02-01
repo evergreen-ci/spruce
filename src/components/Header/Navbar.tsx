@@ -83,9 +83,9 @@ const StyledNav = styled.nav`
   background-color: ${gray.dark3};
   display: flex;
   justify-content: space-between;
-  height: ${navBarHeight}px;
-  line-height: ${navBarHeight}px;
-  padding: 0 ${size.m}px;
+  height: ${navBarHeight};
+  line-height: ${navBarHeight};
+  padding: 0 ${size.m};
 `;
 
 const LogoLink = styled(Link)`

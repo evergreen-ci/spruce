@@ -56,5 +56,5 @@ export const SeeMoreModal: React.FC<SeeMoreModalProps> = ({
 };
 
 const BadgeContainer = styled.div`
-  padding-top: ${size.xs}px;
+  padding-top: ${size.xs};
 `;

@@ -46,8 +46,8 @@ const ColumPaginationButtons: React.FC = () => {
 
 // @ts-expect-error
 const StyledButton = styled(Button)`
-  margin-right: ${size.xxs}px;
-  margin-left: ${size.xxs}px;
+  margin-right: ${size.xxs};
+  margin-left: ${size.xxs};
 `;
 
 const Container = styled.div`

@@ -17,7 +17,7 @@ export const PageWrapper = styled.div`
   grid-area: contents;
   overflow-x: hidden;
   overflow-y: scroll;
-  padding: ${size.m}px 36px 56px 36px;
+  padding: ${size.m} 36px 56px 36px;
 `;
 
 export const PageGrid = styled.section`
@@ -38,7 +38,7 @@ export const PageSider = styled(Sider)`
   ${whiteBackground}
 `;
 export const PageContent = styled(Content)`
-  margin-left: ${size.s}px;
+  margin-left: ${size.s};
   overflow: hidden;
 `;
 
@@ -46,7 +46,7 @@ PageSider.defaultProps = { width: 275 };
 
 // @ts-expect-error
 export const PageTitle = styled(H2)`
-  margin-bottom: ${size.s}px;
+  margin-bottom: ${size.s};
 ` as typeof H2;
 
 export const TableContainer = styled.div`
@@ -60,13 +60,13 @@ export const TableControlInnerRow = styled.div`
 `;
 
 export const TableControlOuterRow = styled(TableControlInnerRow)`
-  padding-bottom: ${size.xs}px;
+  padding-bottom: ${size.xs};
 `;
 
 export const PageButtonRow = styled.div`
   display: flex;
   > * {
-    margin-right: ${size.s}px;
+    margin-right: ${size.s};
   }
   > *:last-child {
     margin-right: 0;
@@ -87,6 +87,6 @@ export const HR = styled("hr")`
   border: 0;
   height: 1px;
   width: 100%;
-  margin-top: ${size.m}px;
-  margin-bottom: ${size.m}px;
+  margin-top: ${size.m};
+  margin-bottom: ${size.m};
 `;

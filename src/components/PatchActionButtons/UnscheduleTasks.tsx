@@ -83,6 +83,6 @@ export const UnscheduleTasks: React.FC<props> = ({
 };
 
 const StyledBody = styled(Body)`
-  padding-bottom: ${size.xs}px;
-  padding-right: ${size.xs}px;
+  padding-bottom: ${size.xs};
+  padding-right: ${size.xs};
 `;

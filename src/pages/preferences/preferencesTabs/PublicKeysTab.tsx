@@ -161,7 +161,7 @@ const TableContainer = styled.div`
 
 // @ts-expect-error
 const StyledButton = styled(Button)`
-  margin-left: ${size.xs}px;
+  margin-left: ${size.xs};
 `;
 
 const BtnContainer = styled.div`

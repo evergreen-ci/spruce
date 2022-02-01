@@ -186,5 +186,5 @@ const StyledTextArea = styled(TextArea)`
 `;
 
 const ConditionalWrapperWithMargin = styled(ConditionalWrapper)`
-  margin-left: ${size.s}px;
+  margin-left: ${size.s};
 `;

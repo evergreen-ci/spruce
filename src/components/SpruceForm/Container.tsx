@@ -23,11 +23,11 @@ export const SpruceFormContainer: React.FC<ContainerProps> = ({
 
 /* @ts-expect-error */
 const StyledH3 = styled(H3)`
-  margin: ${size.m}px 0;
+  margin: ${size.m} 0;
 `;
 
 /* @ts-expect-error */
 const StyledCard = styled(Card)`
   margin-bottom: 48px;
-  padding: ${size.m}px;
+  padding: ${size.m};
 `;

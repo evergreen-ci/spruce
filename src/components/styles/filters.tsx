@@ -4,7 +4,7 @@ import { size } from "constants/tokens";
 
 export const FiltersWrapper = styled.div`
   display: flex;
-  margin-bottom: ${size.s}px;
+  margin-bottom: ${size.s};
   align-items: center;
 `;
 

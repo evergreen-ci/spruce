@@ -281,19 +281,19 @@ const HR = styled.hr`
 `;
 
 const ConfirmationMessage = styled(Body)`
-  padding-top: ${size.s}px;
-  padding-bottom: ${size.s}px;
+  padding-top: ${size.s};
+  padding-bottom: ${size.s};
 `;
 
 const Row = styled.div`
   display: flex;
   >: first-child {
-    margin-right: ${size.s}px;
+    margin-right: ${size.s};
   }
 `;
 
 export const TitleContainer = styled.div`
-  margin-top: ${size.s}px;
+  margin-top: ${size.s};
   width: 96%;
 `;
 

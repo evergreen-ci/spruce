@@ -236,11 +236,11 @@ const ProjectTitleWrapper = styled.div`
 `;
 
 const TableWrapper = styled.div`
-  padding: ${size.s}px 0;
+  padding: ${size.s} 0;
 `;
 
 const AccordionContents = styled.div`
-  margin: ${size.s}px 0;
+  margin: ${size.s} 0;
 `;
 
 const FlexContainer = styled.div`
@@ -250,5 +250,5 @@ const FlexContainer = styled.div`
 
 // @ts-expect-error
 const PaddedButton = styled(Button)`
-  margin-left: ${size.s}px;
+  margin-left: ${size.s};
 `;

@@ -197,8 +197,8 @@ interface UserSelectWrapperProps {
 }
 
 const cardSidePadding = css`
-  padding-left: ${size.xs}px;
-  padding-right: ${size.xs}px;
+  padding-left: ${size.xs};
+  padding-right: ${size.xs};
 `;
 const Container = styled.div`
   ${cardSidePadding}
@@ -221,7 +221,7 @@ const BuildVariant = styled.div<VariantProps>`
   align-items: center;
   min-height: ${size.l};
   cursor: pointer;
-  padding: ${size.xs}px 0;
+  padding: ${size.xs} 0;
   ${cardSidePadding}
   background-color: ${(props: VariantProps): string =>
     props.isSelected ? green.light3 : "none"};
@@ -234,7 +234,7 @@ const VariantName = styled.div`
   white-space: normal;
 `;
 const StyledBadge = styled(Badge)`
-  margin-left: ${size.xs}px;
+  margin-left: ${size.xs};
 `;
 
 const ScrollableBuildVariantContainer = styled.div`
@@ -244,11 +244,11 @@ const ScrollableBuildVariantContainer = styled.div`
   // Styles to always show scrollbar
   ::-webkit-scrollbar {
     -webkit-appearance: none;
-    width: ${size.xs}px;
+    width: ${size.xs};
   }
 
   ::-webkit-scrollbar-thumb {
-    border-radius: ${size.xxs}px;
+    border-radius: ${size.xxs};
     background-color: rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
   }

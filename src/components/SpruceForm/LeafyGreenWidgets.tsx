@@ -106,7 +106,7 @@ export const LeafyGreenCheckBox: React.FC<WidgetProps> = ({
 };
 
 const IconContainer = styled.span`
-  margin-left: ${size.xxs}px;
+  margin-left: ${size.xxs};
   top: 1px;
   vertical-align: text-top;
 `;
@@ -249,7 +249,7 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
 };
 
 const RadioBoxLabelContainer = styled.div`
-  margin-bottom: ${size.xs}px;
+  margin-bottom: ${size.xs};
 `;
 
 const StyledRadioBox = styled(RadioBox)`

@@ -211,7 +211,7 @@ const Option = styled.div`
 `;
 
 const CheckmarkContainer = styled.div`
-  margin-right: ${size.xxs}px;
+  margin-right: ${size.xxs};
 `;
 
 const CheckmarkIcon = styled(Icon)<{ checked: boolean }>`

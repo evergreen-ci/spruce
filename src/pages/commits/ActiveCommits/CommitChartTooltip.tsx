@@ -102,17 +102,17 @@ const TotalCountContainer = styled.div<{ active?: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: ${size.xs}px;
+  margin-top: ${size.xs};
   color: ${gray.dark2};
   ${({ active }) => !active && inactiveElementStyle};
 `;
 
 const Circle = styled.div<{ color: string }>`
   background-color: ${({ color }) => color};
-  border-radius: ${size.xxs}px;
-  width: ${size.xs}px;
-  height: ${size.xs}px;
-  margin-right: ${size.s}px;
+  border-radius: ${size.xxs};
+  width: ${size.xs};
+  height: ${size.xs};
+  margin-right: ${size.s};
 `;
 
 const NumberText = styled(Disclaimer)`

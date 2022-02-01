@@ -124,7 +124,7 @@ const TaskBadgeContainer = styled.div`
 const CardWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 12px ${size.xxs}px 12px;
+  padding: 12px ${size.xxs} 12px;
   border-bottom: 1px solid ${gray.light2};
 `;
 
@@ -135,7 +135,7 @@ const Center = styled.div`
 
 const Left = styled(Center)`
   flex-direction: column;
-  padding-right: ${size.m}px;
+  padding-right: ${size.m};
 `;
 
 const Right = styled.div`
@@ -146,11 +146,11 @@ const Right = styled.div`
 const DescriptionLink = styled(StyledRouterLink)`
   font-size: 18px;
   font-weight: 500;
-  padding-bottom: ${size.xs}px;
+  padding-bottom: ${size.xs};
 `;
 
 const PatchBadgeContainer = styled.div`
-  margin-right: ${size.m}px;
+  margin-right: ${size.m};
   min-width: 90px;
 `;
 

@@ -142,11 +142,11 @@ const Container = styled.div`
 
 const TitleContainer = styled.div`
   flex-basis: 40%;
-  margin-right: ${size.s}px;
+  margin-right: ${size.s};
 `;
 
 const Subtitle = styled(Disclaimer)`
-  padding-top: ${size.s}px;
+  padding-top: ${size.s};
 `;
 
 const ButtonRow = styled.div`

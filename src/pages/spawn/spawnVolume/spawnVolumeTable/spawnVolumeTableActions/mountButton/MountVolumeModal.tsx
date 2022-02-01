@@ -94,5 +94,5 @@ export const MountVolumeModal: React.FC<Props> = ({
 };
 
 const StyledDisclaimer = styled(Disclaimer)`
-  padding-top: ${size.xs}px;
+  padding-top: ${size.xs};
 `;

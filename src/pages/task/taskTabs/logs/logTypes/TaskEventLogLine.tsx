@@ -107,11 +107,11 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
 
 const Row = styled.div`
   font-size: 1.2em;
-  padding-top: ${size.xs}px;
-  margin-bottom: ${size.xs}px;
+  padding-top: ${size.xs};
+  margin-bottom: ${size.xs};
   border-top: 1px dotted #ccc;
 `;
 
 const Timestamp = styled.span`
-  margin-right: ${size.s}px;
+  margin-right: ${size.s};
 `;

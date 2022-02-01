@@ -194,7 +194,7 @@ const HeaderWrapper = styled.div`
   justify-content: space-between;
 
   > div:not(:last-of-type) {
-    margin-right: ${size.s}px;
+    margin-right: ${size.s};
   }
 `;
 
@@ -205,7 +205,7 @@ const BadgeWrapper = styled.div`
 const PaginationWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
-  padding: ${size.s}px 0;
+  padding: ${size.s} 0;
 `;
 
 const tupleSelectOptions = [

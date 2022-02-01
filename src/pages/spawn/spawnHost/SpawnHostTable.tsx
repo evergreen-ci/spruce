@@ -102,7 +102,7 @@ const FlexContainer = styled.div`
 `;
 
 const WorkstationBadge = styled(Badge)`
-  margin-left: ${size.xxs}px;
+  margin-left: ${size.xxs};
 `;
 
 const NoWrap = styled.span`

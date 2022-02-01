@@ -54,7 +54,7 @@ const Index = styled(Subtitle)`
 // @ts-expect-error
 const NodeTitle = styled(Subtitle)`
   align-self: center;
-  margin-left: ${size.m}px;
+  margin-left: ${size.m};
 `;
 
 const NodeContainer = styled.div`

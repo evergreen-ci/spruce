@@ -384,14 +384,14 @@ const deduplicateTasks = (
 };
 
 const Actions = styled.div`
-  margin-bottom: ${size.xs}px;
+  margin-bottom: ${size.xs};
   display: flex;
   align-items: center;
   & > :first-of-type {
     margin-right: 40px;
   }
   & > :not(:first-of-type) {
-    margin-right: ${size.m}px;
+    margin-right: ${size.m};
   }
 `;
 const Tasks = styled.div`
@@ -406,20 +406,20 @@ const Tasks = styled.div`
   max-height: 60vh;
 `;
 const StyledDisclaimer = styled(Disclaimer)`
-  margin-bottom: ${size.xs}px;
+  margin-bottom: ${size.xs};
 `;
 const cardSidePadding = css`
-  padding-left: ${size.xs}px;
-  padding-right: ${size.xs}px;
+  padding-left: ${size.xs};
+  padding-right: ${size.xs};
 `;
 const TabContentWrapper = styled.div`
   ${cardSidePadding}
 `;
 const H4 = styled.h4`
-  margin-top: ${size.s}px;
+  margin-top: ${size.s};
 `;
 const IconContainer = styled.span`
-  margin-left: ${size.xs}px;
+  margin-left: ${size.xs};
 `;
 // @ts-expect-error
 const InlineCheckbox = styled(Checkbox)`

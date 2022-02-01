@@ -86,5 +86,5 @@ const CodeContainer = styled.div`
 
 // @ts-expect-error
 const StyledButton = styled(Button)`
-  margin-right: ${size.s}px;
+  margin-right: ${size.s};
 `;

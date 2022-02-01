@@ -192,5 +192,5 @@ const FlexContainer = styled.div`
 
 // @ts-expect-error
 const PaddedButton = styled(Button)`
-  margin-left: ${size.m}px;
+  margin-left: ${size.m};
 `;

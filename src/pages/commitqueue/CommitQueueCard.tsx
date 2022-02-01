@@ -140,12 +140,12 @@ export const CommitQueueCard: React.FC<Props> = ({
 
 const Card = styled.div`
   display: flex;
-  margin-top: ${size.s}px;
+  margin-top: ${size.s};
   width: 100%;
 `;
 
 const cardTitleStyles = css`
-  margin-bottom: ${size.s}px;
+  margin-bottom: ${size.s};
   font-size: 18px;
   font-weight: bold;
 `;
@@ -168,8 +168,8 @@ const CommitInfo = styled.div`
   display: flex;
   flex-direction: column;
   grid-area: 1 / 1 / 2 / 2;
-  margin-left: ${size.s}px;
-  margin-bottom: ${size.m}px;
+  margin-left: ${size.s};
+  margin-bottom: ${size.m};
   width: 100%;
 `;
 const CardMetaData = styled(Body)`
@@ -191,5 +191,5 @@ const CommitQueueCardActions = styled.div`
 `;
 
 const Container = styled.div`
-  padding-top: ${size.m}px;
+  padding-top: ${size.m};
 `;

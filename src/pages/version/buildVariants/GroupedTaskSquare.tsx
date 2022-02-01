@@ -41,5 +41,5 @@ export const GroupedTaskSquare: React.FC<Props> = ({
 };
 
 const GroupedTaskSquareWrapper = styled.div`
-  margin-right: ${size.xs}px;
+  margin-right: ${size.xs};
 `;

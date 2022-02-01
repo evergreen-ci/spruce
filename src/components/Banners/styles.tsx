@@ -19,7 +19,7 @@ export const Banner = styled.div`
     }`};
   display: flex;
   justify-content: space-between;
-  padding: ${size.xxs}px ${size.s}px;
+  padding: ${size.xxs} ${size.s};
 `;
 
 export const bannerTypeToColor = {

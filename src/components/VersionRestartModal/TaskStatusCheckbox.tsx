@@ -52,7 +52,7 @@ const StateItemWrapper = styled("div")`
 `;
 
 const StyledTaskStatusIcon = styled(TaskStatusIcon)`
-  margin-right: ${size.xxs}px;
+  margin-right: ${size.xxs};
 `;
 
 // Wrapping checkboxes with fix width container

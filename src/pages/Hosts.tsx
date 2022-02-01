@@ -217,5 +217,5 @@ const HostsSelectionWrapper = styled.div`
   margin-left: ${size.l};
 `;
 const ButtonWrapper = styled.div`
-  margin-left: ${size.m}px;
+  margin-left: ${size.m};
 `;

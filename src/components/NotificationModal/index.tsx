@@ -258,7 +258,7 @@ const inputWidth = "width: calc(80% - 55px);";
 
 const StyledSelect = styled(Select)`
   ${inputWidth}
-  margin-bottom: ${size.xs}px;
+  margin-bottom: ${size.xs};
 `;
 
 const StyledInput = styled(Input)`
@@ -266,25 +266,25 @@ const StyledInput = styled(Input)`
 `;
 
 const ExtraFieldContainer = styled.div`
-  margin-bottom: ${size.xs}px;
+  margin-bottom: ${size.xs};
 `;
 
 const Section = styled.div`
-  padding-bottom: ${size.m}px;
+  padding-bottom: ${size.m};
   margin-bottom: 22px;
   border-bottom: 1px solid ${gray.light2};
 `;
 
 const RegexSelectorInputContainer = styled.div`
-  padding-top: ${size.xs}px;
+  padding-top: ${size.xs};
 `;
 const SectionLabelContainer = styled.div`
-  padding-top: ${size.s}px;
+  padding-top: ${size.s};
 `;
 
 /* @ts-expect-error */
 const LeftButton = styled(Button)`
-  margin-right: ${size.s}px;
+  margin-right: ${size.s};
 ` as typeof Button;
 
 const InputLabel = styled.label`

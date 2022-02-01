@@ -36,7 +36,7 @@ const Container = styled.div`
 
 const DateWrapper = styled(Body)`
   white-space: nowrap;
-  padding-right: ${size.m}px;
+  padding-right: ${size.m};
   text-transform: uppercase;
   color: ${gray.dark2};
 `;
@@ -46,6 +46,6 @@ const Line = styled.div`
   height: 1px;
   background: linear-gradient(to right, transparent 50%, white 50%),
     linear-gradient(to right, ${gray.light1}, ${gray.light1});
-  background-size: ${size.s}px 2px, 100% 2px;
+  background-size: ${size.s} 2px, 100% 2px;
   width: 100%;
 `;

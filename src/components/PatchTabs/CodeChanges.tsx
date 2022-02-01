@@ -81,12 +81,12 @@ export const CodeChanges: React.FC = () => {
 
 // @ts-expect-error
 const StyledButton = styled(Button)`
-  margin-right: ${size.s}px;
+  margin-right: ${size.s};
 `;
 
 const Title = styled(H2)`
   font-weight: normal;
-  margin-right: ${size.s}px;
+  margin-right: ${size.s};
 `;
 
 const Container = styled.div`

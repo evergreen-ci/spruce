@@ -65,5 +65,5 @@ export const PopconfirmWithCheckbox: React.FC<PopconfirmWithCheckboxProps> = ({
 };
 
 const CheckboxContainer = styled.div`
-  padding-top: ${size.xs}px;
+  padding-top: ${size.xs};
 `;

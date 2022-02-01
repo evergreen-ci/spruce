@@ -74,8 +74,8 @@ export const NewUITab: React.FC = () => {
 const PreferencesCard = styled(Card)`
   display: flex;
   flex-direction: column;
-  padding-left: ${size.m}px;
-  padding-top: ${size.m}px;
+  padding-left: ${size.m};
+  padding-top: ${size.m};
   padding-bottom: 40px;
   margin-bottom: 30px;
   width: 100%;

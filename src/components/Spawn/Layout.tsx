@@ -87,18 +87,18 @@ export const SectionContainer = styled.div`
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-top: ${size.s}px;
+  margin-top: ${size.s};
 `;
 
 export const SectionLabel = styled(Body)`
   flex-grow: 1;
-  padding-right: ${size.s}px;
-  margin-top: ${size.m}px;
+  padding-right: ${size.s};
+  margin-top: ${size.m};
 `;
 
 // @ts-expect-error
 export const PaddedButton = styled(Button)`
-  margin-left: ${size.xxs}px;
-  margin-right: ${size.xxs}px;
+  margin-left: ${size.xxs};
+  margin-right: ${size.xxs};
   flex-grow: 0;
 `;

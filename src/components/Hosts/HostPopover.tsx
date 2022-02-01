@@ -93,9 +93,9 @@ const PopoverContainer = styled.div`
   display: flex;
   flex-direction: column;
   background-color: white;
-  padding: ${size.s}px;
-  box-shadow: 0 ${size.xxs}px 10px 0 ${gray.light2},
-    0 ${size.xxs}px 30px ${size.xxs}px ${gray.light2};
+  padding: ${size.s};
+  box-shadow: 0 ${size.xxs} 10px 0 ${gray.light2},
+    0 ${size.xxs} 30px ${size.xxs} ${gray.light2};
 `;
 
 const ButtonWrapper = styled.div`
@@ -107,5 +107,5 @@ const ButtonContainer = styled.div`
   justify-content: flex-end;
 `;
 const ButtonSpacer = styled.div`
-  margin-left: ${size.xs}px;
+  margin-left: ${size.xs};
 `;

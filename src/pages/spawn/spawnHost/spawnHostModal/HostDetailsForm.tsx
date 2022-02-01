@@ -108,7 +108,7 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
 };
 
 const SectionLabel = styled(Body)`
-  padding-right: ${size.s}px;
+  padding-right: ${size.s};
   margin-top: 22px;
   min-width: 175px;
 `;
@@ -123,7 +123,7 @@ const StyledSubtitle = styled(Subtitle)`
 `;
 
 const StyledTextArea = styled(TextArea)`
-  margin: ${size.s}px 0;
+  margin: ${size.s} 0;
 `;
 
 const initialState = { hasUserDataScript: false };

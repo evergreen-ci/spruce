@@ -95,7 +95,7 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
 };
 
 const BuildVariant = styled.div`
-  margin-bottom: ${size.xs}px;
+  margin-bottom: ${size.xs};
 `;
 const VariantTasks = styled.div`
   display: flex;

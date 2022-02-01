@@ -131,14 +131,14 @@ type ArrayContainerProps = {
 };
 
 const ArrayContainer = styled.div`
-  ${({ hasChildren }) => hasChildren && `margin-bottom: ${size.m}px;`}
+  ${({ hasChildren }) => hasChildren && `margin-bottom: ${size.m};`}
   min-width: min-content;
   width: ${({ fullWidth }: ArrayContainerProps): string =>
     fullWidth ? "100%" : "60%"};
 `;
 
 const DeleteButtonWrapper = styled(ElementWrapper)`
-  margin-left: ${size.s}px;
+  margin-left: ${size.s};
 `;
 
 export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({

@@ -159,8 +159,8 @@ export const SetupScriptForm: React.FC<SetupScriptFormProps> = ({
   );
 };
 const Indent = styled.div`
-  margin-left: ${size.s}px;
+  margin-left: ${size.s};
 `;
 const StyledTextArea = styled(TextArea)`
-  margin: ${size.s}px 0;
+  margin: ${size.s} 0;
 `;

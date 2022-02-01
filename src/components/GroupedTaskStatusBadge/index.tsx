@@ -80,8 +80,8 @@ interface BadgeColorProps {
 
 const BadgeContainer = styled.div<BadgeColorProps>`
   height: 28px;
-  width: ${size.xl}px;
-  border-radius: ${size.xxs}px;
+  width: ${size.xl};
+  border-radius: ${size.xxs};
   border: 1px solid;
   display: flex;
   flex-direction: column;
@@ -101,15 +101,15 @@ const Row = styled.div`
 const Number = styled.span`
   font-size: 11px;
   font-weight: bold;
-  line-height: ${size.xs}px;
+  line-height: ${size.xs};
 `;
 
 const Status = styled.span`
-  font-size: ${size.xs}px;
+  font-size: ${size.xs};
   white-space: nowrap;
 `;
 
 const Count = styled.span`
   font-weight: bold;
-  margin-left: ${size.xxs}px;
+  margin-left: ${size.xxs};
 `;

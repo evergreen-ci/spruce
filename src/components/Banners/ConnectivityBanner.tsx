@@ -22,9 +22,9 @@ const Banner = styled.div`
   align-items: center;
   background-color: ${yellow.light3};
   display: flex;
-  padding: ${size.xxs}px ${size.s}px;
+  padding: ${size.xxs} ${size.s};
 `;
 
 const IconWithMargin = styled(Icon)`
-  margin-right: ${size.s}px;
+  margin-right: ${size.s};
 `;

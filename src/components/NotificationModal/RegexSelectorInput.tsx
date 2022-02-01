@@ -102,7 +102,7 @@ const Container = styled.div`
   flex-direction: row;
   width: ${(props: DeleteProps): string =>
     props.canDelete ? "80%" : "calc(80% - 55px)"};
-  padding-bottom: ${size.s}px;
+  padding-bottom: ${size.s};
 `;
 const StyledSelect = styled(Select)`
   min-width: 160px;
@@ -111,7 +111,7 @@ const FlexRow = styled.div`
   display: flex;
 `;
 const TrashContainer = styled.div`
-  padding-left: ${size.m}px;
+  padding-left: ${size.m};
   margin-top: 2px;
 `;
 const RegexContainer = styled.div`
@@ -119,9 +119,9 @@ const RegexContainer = styled.div`
 `;
 const MatchesRegexLabel = styled(Disclaimer)`
   position: relative;
-  top: ${size.m}px;
-  padding-left: ${size.xs}px;
-  padding-right: ${size.xs}px;
+  top: ${size.m};
+  padding-left: ${size.xs};
+  padding-right: ${size.xs};
   white-space: nowrap;
 `;
 const StyledInput = styled(Input)`

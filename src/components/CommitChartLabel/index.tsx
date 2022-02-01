@@ -70,7 +70,7 @@ const LabelContainer = styled.div`
   width: 100%;
   display: flex;
   margin-top: 10px;
-  margin-bottom: ${size.s}px;
+  margin-bottom: ${size.s};
   flex-direction: column;
   align-items: flex-start;
   word-break: break-word;

@@ -58,7 +58,7 @@ export const FilterBadge: React.FC<FilterBadgeProps> = ({ badge, onClose }) => {
 
 const ClickableIcon = styled(Icon)`
   position: absolute;
-  right: ${size.xxs}px;
+  right: ${size.xxs};
   :hover {
     cursor: pointer;
     color: ${gray.light1};
@@ -66,10 +66,10 @@ const ClickableIcon = styled(Icon)`
 `;
 const PaddedBadge = styled(Badge)`
   :nth-of-type {
-    margin-left: ${size.s}px;
+    margin-left: ${size.s};
   }
-  margin-right: ${size.s}px;
-  margin-bottom: ${size.m}px;
+  margin-right: ${size.s};
+  margin-bottom: ${size.m};
   width: 260px;
 
   position: relative;
@@ -88,5 +88,5 @@ const BadgeContent = styled.div`
 // @ts-expect-error
 // Reduce Tooltip padding because the default Tooltip is invasive when trying to interact with other UI elements
 const StyledTooltip = styled(Tooltip)`
-  padding: ${size.xxs}px ${size.xs}px;
+  padding: ${size.xxs} ${size.xs};
 `;

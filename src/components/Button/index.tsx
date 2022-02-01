@@ -18,7 +18,7 @@ const Button: ExtendableBox<
       {...rest}
       leftGlyph={
         loading ? (
-          <LoadingOutlined style={{ marginRight: `${size.xs}px` }} />
+          <LoadingOutlined style={{ marginRight: `${size.xs}` }} />
         ) : (
           leftGlyph
         )

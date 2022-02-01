@@ -37,5 +37,5 @@ const ButtonsWrapper = styled.div`
   margin-top: ${size.l};
 `;
 const ButtonWrapper = styled.div`
-  margin-right: ${size.xs}px;
+  margin-right: ${size.xs};
 `;

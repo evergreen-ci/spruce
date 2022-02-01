@@ -58,11 +58,11 @@ const CodeChangeModuleContainer = styled.div`
 `;
 
 const DropDownTextStyle = styled("span")`
-  margin-right: ${size.m}px;
+  margin-right: ${size.m};
 `;
 
 const DropDownText = styled(Body)`
-  font-size: ${size.s}px;
+  font-size: ${size.s};
 `;
 
 const CommitName = styled(Body)`

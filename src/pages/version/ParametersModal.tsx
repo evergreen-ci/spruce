@@ -44,6 +44,6 @@ export const ParametersModal: React.FC<ParametersProps> = ({ parameters }) => {
 
 const StyledBadge = styled(Badge)`
   :not(:last-of-type) {
-    margin-right: ${size.s}px;
+    margin-right: ${size.s};
   }
 `;

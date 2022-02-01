@@ -31,12 +31,12 @@ export const CheckboxGroup: React.FC<CheckboxesProps> = ({
 );
 
 const CheckboxesWrapper = styled.div`
-  padding: ${size.xxs}px;
+  padding: ${size.xxs};
 `;
 
 /* @ts-expect-error */
 const StyledCheckbox = styled(Checkbox)`
-  margin-bottom: ${size.xs}px;
+  margin-bottom: ${size.xs};
 
   :last-of-type {
     margin-bottom: 0;

@@ -29,5 +29,5 @@ const Container = styled.div`
   flex-wrap: wrap;
 `;
 const Wrapper = styled.div`
-  padding: ${size.xxs}px;
+  padding: ${size.xxs};
 `;

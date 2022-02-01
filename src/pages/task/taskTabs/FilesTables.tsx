@@ -129,11 +129,11 @@ export const FilesTables: React.FC = () => {
 };
 
 const StyledTable = styled(Table)`
-  padding-top: ${size.s}px;
-  padding-bottom: ${size.s}px;
+  padding-top: ${size.s};
+  padding-bottom: ${size.s};
 `;
 
 const StyledInput = styled(Input)`
-  margin-bottom: ${size.s}px;
+  margin-bottom: ${size.s};
   max-width: 500px;
 `;

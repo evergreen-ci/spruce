@@ -107,7 +107,7 @@ const DistroLabel = styled.div`
   white-space: nowrap;
 `;
 const StyledBadge = styled(Badge)`
-  margin-right: ${size.xs}px;
+  margin-right: ${size.xs};
 `;
 const DistroName = styled.div`
   overflow: hidden;

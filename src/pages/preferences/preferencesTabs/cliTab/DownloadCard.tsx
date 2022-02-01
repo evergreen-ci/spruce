@@ -150,13 +150,13 @@ const filterBinaries = (binary: ClientBinary) =>
 
 // @ts-expect-error
 const Container = styled(Card)`
-  padding: ${size.m}px;
+  padding: ${size.m};
 ` as typeof Card;
 
 const CardGroup = styled.div`
   display: flex;
   align-items: space-between;
-  margin-bottom: ${size.s}px;
+  margin-bottom: ${size.s};
 `;
 
 // @ts-expect-error
@@ -164,8 +164,8 @@ const CliDownloadCard = styled(Card)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: ${size.s}px;
-  margin-right: ${size.xs}px;
+  padding: ${size.s};
+  margin-right: ${size.xs};
 ` as typeof Card;
 
 // @ts-expect-error
@@ -193,5 +193,5 @@ const InlinePre = styled("pre")`
 const LinkContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: ${size.s}px;
+  margin-bottom: ${size.s};
 `;

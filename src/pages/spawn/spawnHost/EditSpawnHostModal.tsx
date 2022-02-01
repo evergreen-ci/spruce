@@ -347,7 +347,7 @@ const computeDiff = (defaultEditSpawnHostState, editSpawnHostState) => {
 };
 
 const PaddedIcon = styled(Icon)`
-  margin-left: ${size.s}px;
+  margin-left: ${size.s};
 `;
 const FlexContainer = styled.div`
   display: flex;

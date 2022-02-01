@@ -326,5 +326,5 @@ export const ActionButtons: React.FC<Props> = ({
 };
 
 const StyledBody = styled(Body)`
-  padding-right: ${size.xs}px;
+  padding-right: ${size.xs};
 `;

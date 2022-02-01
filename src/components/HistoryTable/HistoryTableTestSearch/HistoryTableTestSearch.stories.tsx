@@ -6,7 +6,7 @@ import { HistoryTableTestSearch } from "./HistoryTableTestSearch";
 export const TestSearch = () => (
   <div style={{ display: "flex", flexDirection: "column" }}>
     <HistoryTableTestSearch />
-    <div style={{ paddingTop: `${size.s}px` }}>
+    <div style={{ paddingTop: `${size.s}` }}>
       <FilterBadges
         queryParamsToDisplay={
           new Set([TestStatus.Failed, TestStatus.Passed, TestStatus.All])

@@ -134,7 +134,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
 // STYLES
 const StyledSelect = styled(Select)`
   width: 100%;
-  margin-bottom: ${size.m}px;
+  margin-bottom: ${size.m};
 `;
 const StyledTextArea = styled(TextArea)`
   resize: none;

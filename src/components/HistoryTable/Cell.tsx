@@ -109,7 +109,7 @@ const Cell = styled.div<{ inactive?: boolean }>`
   display: flex;
   height: 100%;
   width: 150px;
-  margin: 0 ${size.xxs}px;
+  margin: 0 ${size.xxs};
   justify-content: center;
   align-items: center;
   ${({ inactive }) => inactive && inactiveElementStyle}

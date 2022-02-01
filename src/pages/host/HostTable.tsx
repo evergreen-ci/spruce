@@ -89,7 +89,7 @@ const rowKey = (record: HostEventLogEntry): string => `${record.id}`;
 // @ts-expect-error
 const StyledSubtitle = styled(Subtitle)`
   margin-bottom: 20px;
-  margin-top: ${size.s}px;
+  margin-top: ${size.s};
 `;
 
 const TableTitle = styled.div`

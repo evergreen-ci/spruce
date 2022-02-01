@@ -319,8 +319,8 @@ const getAllValues = (tData: TreeDataEntry[]): string[] =>
 
 const getCheckboxWrapper = (level: number): React.FC => styled.div`
   padding-left: ${level}em;
-  padding-top: ${size.xxs}px;
-  padding-bottom: ${size.xxs}px;
+  padding-top: ${size.xxs};
+  padding-bottom: ${size.xxs};
   :first-of-type {
     border-bottom: 1px solid ${gray.light2};
   }
@@ -329,7 +329,7 @@ const getCheckboxWrapper = (level: number): React.FC => styled.div`
 const OptionsWrapper = styled.div`
   position: absolute;
   z-index: 5;
-  margin-top: ${size.xxs}px;
+  margin-top: ${size.xxs};
   width: 100%;
 `;
 

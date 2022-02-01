@@ -186,13 +186,13 @@ export const EditModal: React.FC<EditModalProps> = ({
 
 // @ts-expect-error
 const LeftButton = styled(Button)`
-  margin-right: ${size.s}px;
+  margin-right: ${size.s};
 `;
 const StyledInput = styled(Input)`
-  margin-bottom: ${size.m}px;
+  margin-bottom: ${size.m};
 `;
 const ErrorContainer = styled.div`
-  margin-top: ${size.xs}px;
+  margin-top: ${size.xs};
 `;
 const KEY_NAME_ID = "key-name-input";
 const KEY_VALUE_ID = "key-value-input";

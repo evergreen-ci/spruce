@@ -147,7 +147,7 @@ const FilterWrapper = styled.div`
 const StyledTextInput = styled(TextInput)`
   p {
     font-size: 12px;
-    padding-bottom: ${size.xs}px;
+    padding-bottom: ${size.xs};
   }
 `;
 
@@ -155,11 +155,11 @@ interface StyledOutlinedProps {
   active?: boolean;
 }
 const StyledFilterOutlined = styled(FilterOutlined)<StyledOutlinedProps>`
-  font-size: ${size.s}px;
+  font-size: ${size.s};
   ${({ active }) => active && `color: ${focus}`}
 `;
 
 const StyledSearchOutlined = styled(SearchOutlined)<StyledOutlinedProps>`
-  font-size: ${size.s}px;
+  font-size: ${size.s};
   ${({ active }) => active && `color: ${focus}`}
 `;

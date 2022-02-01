@@ -68,11 +68,11 @@ const StyledRadioGroup = styled(RadioGroup)`
   height: 59px;
   border-radius: 7px;
   border: 1px solid ${gray.light2};
-  margin-top: ${size.xxs}px;
+  margin-top: ${size.xxs};
   padding-bottom: 6px;
-  padding-right: ${size.xxs}px;
+  padding-right: ${size.xxs};
   background: #ffffff;
-  box-shadow: 0px ${size.xxs}px 10px -${size.xxs}px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px ${size.xxs} 10px -${size.xxs} rgba(0, 0, 0, 0.3);
 `;
 
 const ToggleWrapper = styled.div`

@@ -151,14 +151,14 @@ const handleFieldUpdate = (stateUpdate) => (e) => {
 // @ts-expect-error
 const StyledSelect = styled(Select)`
   width: 100%;
-  margin-bottom: ${size.m}px;
+  margin-bottom: ${size.m};
   :last-child {
     margin-bottom: 40px;
   }
 `;
 
 const StyledTextInput = styled(TextInput)`
-  margin-bottom: ${size.m}px;
+  margin-bottom: ${size.m};
   :last-child {
     margin-bottom: 40px;
   }

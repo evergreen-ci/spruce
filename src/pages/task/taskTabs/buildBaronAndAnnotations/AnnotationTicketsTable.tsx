@@ -261,10 +261,10 @@ export const CustomCreatedTicketsTable: React.FC<CreatedTicketsProps> = ({
 };
 
 export const TableWrapper = styled.div`
-  margin-top: ${size.xxs}px;
+  margin-top: ${size.xxs};
 `;
 export const StyledText = styled.div`
-  padding: ${size.xxs}px;
+  padding: ${size.xxs};
 `;
 
 const BtnContainer = styled.div`
@@ -276,7 +276,7 @@ const BtnContainer = styled.div`
 
 // @ts-expect-error
 const StyledButton = styled(Button)`
-  margin-left: ${size.xs}px;
-  margin-top: ${size.xs}px;
+  margin-left: ${size.xs};
+  margin-top: ${size.xs};
   height: 28px;
 `;

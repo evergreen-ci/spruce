@@ -35,7 +35,7 @@ const StyledSubtitle = styled(H2)`
   color: ${white};
 `;
 const StyledLink = styled.a`
-  padding-top: ${size.xl}px;
+  padding-top: ${size.xl};
   color: ${white};
   text-decoration: underline;
 `;

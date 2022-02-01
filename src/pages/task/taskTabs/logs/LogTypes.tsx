@@ -283,9 +283,9 @@ const useRenderBody: React.FC<{
 const ButtonContainer = styled.div`
   display: flex;
   > :not(:last-child) {
-    margin-right: ${size.xs}px;
+    margin-right: ${size.xs};
   }
-  margin-right: ${size.s}px;
+  margin-right: ${size.s};
   padding-left: 1px;
 `;
 
@@ -295,17 +295,17 @@ const StyledRadioGroup = styled(RadioGroup)`
   align-items: center;
   white-space: nowrap;
   label {
-    margin-right: ${size.s}px;
+    margin-right: ${size.s};
   }
-  padding-bottom: ${size.xs}px;
+  padding-bottom: ${size.xs};
 `;
 
 const StyledPre = styled.pre`
-  padding: ${size.xs}px;
+  padding: ${size.xs};
   word-break: break-all;
   word-wrap: break-word;
   border: 1px solid ${gray.light2};
-  border-radius: ${size.xxs}px;
+  border-radius: ${size.xxs};
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
   font-size: 13px;
 `;

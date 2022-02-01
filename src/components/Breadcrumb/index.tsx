@@ -207,7 +207,7 @@ const StyledP1 = styled(P1)`
 `;
 
 const StyledBreadcrumb = styled(Breadcrumb)`
-  margin-bottom: ${size.s}px;
+  margin-bottom: ${size.s};
 `;
 
 const StyledBreadcrumbLink = styled(StyledRouterLink)`

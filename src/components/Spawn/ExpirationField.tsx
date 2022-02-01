@@ -141,7 +141,7 @@ const FormContainer = styled.div`
 `;
 
 const PaddedBody = styled.span`
-  padding: 0 ${size.s}px;
+  padding: 0 ${size.s};
   margin-top: 22px;
 `;
 

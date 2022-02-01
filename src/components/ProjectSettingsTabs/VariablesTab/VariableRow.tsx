@@ -41,14 +41,14 @@ export const VariableRow: React.FC<
 };
 
 const OverrideIcon = styled(Icon)`
-  margin-right: ${size.xxs}px;
+  margin-right: ${size.xxs};
   margin-top: 1px;
   vertical-align: text-top;
 `;
 
 const LeftColumn = styled.div`
   color: ${yellow.dark2};
-  padding-right: ${size.s}px;
+  padding-right: ${size.s};
 
   ${(props: { showWarning?: boolean }): string =>
     props.showWarning &&
@@ -59,7 +59,7 @@ const LeftColumn = styled.div`
 
 const RowContainer = styled.div`
   display: flex;
-  margin-bottom: ${size.s}px;
+  margin-bottom: ${size.s};
 
   > div {
     flex-grow: 1;

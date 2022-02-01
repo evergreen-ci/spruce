@@ -50,9 +50,9 @@ export const ParametersContent: React.FC<Props> = ({
 );
 
 const StyledBadge = styled(Badge)`
-  margin-right: ${size.s}px;
-  margin-top: ${size.s}px;
-  margin-bottom: ${size.s}px;
+  margin-right: ${size.s};
+  margin-top: ${size.s};
+  margin-bottom: ${size.s};
 `;
 export const ParamsContainer = styled.div`
   margin-left: 20px;

@@ -40,6 +40,6 @@ const FlexRow = styled.div`
   align-items: center;
   line-height: 1;
   button {
-    margin-right: ${size.xs}px;
+    margin-right: ${size.xs};
   }
 `;

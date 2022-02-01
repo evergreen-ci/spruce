@@ -140,7 +140,7 @@ const GridField = styled.div`
 `;
 
 const StyledTextInput = styled(TextInput)`
-  margin-bottom: ${size.m}px;
+  margin-bottom: ${size.m};
   width: 50%;
   :last-child {
     margin-bottom: 40px;
@@ -149,9 +149,9 @@ const StyledTextInput = styled(TextInput)`
 
 // @ts-expect-error
 const PreferencesCard = styled(Card)`
-  padding-left: ${size.m}px;
-  padding-top: ${size.m}px;
+  padding-left: ${size.m};
+  padding-top: ${size.m};
   padding-bottom: 40px;
-  margin-bottom: ${size.l}px;
+  margin-bottom: ${size.l};
   width: 100%;
 `;

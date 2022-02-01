@@ -175,11 +175,11 @@ const PageHeaderContent = styled.div`
 const PaginationFilterWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  padding-top: ${size.s}px;
+  padding-top: ${size.s};
 `;
 
 const BadgeWrapper = styled.div`
-  padding-bottom: ${size.s}px;
+  padding-bottom: ${size.s};
 `;
 
 const TableWrapper = styled.div`

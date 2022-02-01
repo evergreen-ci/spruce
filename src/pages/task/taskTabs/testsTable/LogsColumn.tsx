@@ -107,7 +107,7 @@ export const LogsColumn: React.FC<Props> = ({
 
 const ButtonWrapper = styled.div`
   > * {
-    margin-right: ${size.xs}px;
-    margin-top: ${size.xs}px;
+    margin-right: ${size.xs};
+    margin-top: ${size.xs};
   }
 `;

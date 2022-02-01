@@ -132,7 +132,7 @@ const ButtonRow = styled.div`
   display: inline;
 
   > :not(:last-child) {
-    margin-right: ${size.xs}px;
+    margin-right: ${size.xs};
   }
 `;
 

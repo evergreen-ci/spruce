@@ -53,10 +53,10 @@ const StyledModal = styled(AntdModal)`
     min-width: 500px;
   }
   .ant-modal-body {
-    padding-bottom: ${size.xxl}px;
+    padding-bottom: ${size.xxl};
   }
 `;
 
 const StyledHR = styled(HR)`
-  margin-top: ${size.s}px;
+  margin-top: ${size.s};
 `;

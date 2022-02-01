@@ -47,11 +47,11 @@ const FloatingContainer = styled.div`
   z-index: 30;
   bottom: 0;
   right: 0;
-  margin-left: ${size.l}px;
-  margin-bottom: ${size.s}px;
+  margin-left: ${size.l};
+  margin-bottom: ${size.s};
   background-color: white;
   padding: 10px;
-  border-radius: ${size.s}px;
+  border-radius: ${size.s};
   display: flex;
   justify-content: center;
 `;
@@ -59,6 +59,6 @@ const StyledIcon = styled(Icon)`
   cursor: pointer;
 `;
 const StyledLink = styled(Link)`
-  margin-right: ${size.xxs}px;
-  margin-top: ${size.xxs}px;
+  margin-right: ${size.xxs};
+  margin-top: ${size.xxs};
 `;

@@ -267,9 +267,9 @@ const filterAliases = (
 };
 
 const StyledInput = styled(Input)`
-  margin-bottom: ${size.s}px;
+  margin-bottom: ${size.s};
   font-weight: 600;
 `;
 const StyledBody = styled(Body)`
-  margin-bottom: ${size.xxs}px;
+  margin-bottom: ${size.xxs};
 `;

@@ -43,7 +43,7 @@ const PaddedContainer = styled.div`
 
 const Info = styled(Disclaimer)`
   font-weight: 300;
-  padding-left: ${size.xs}px;
+  padding-left: ${size.xs};
   position: relative;
   top: -2px;
   font-style: italic;

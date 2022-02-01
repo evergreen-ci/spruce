@@ -129,16 +129,16 @@ const Label = styled(StyledRouterLink)`
 const IconContainer = styled.div`
   display: flex;
   flex-direction: row;
-  margin-bottom: ${size.xs}px;
-  margin-top: ${size.xs}px;
+  margin-bottom: ${size.xs};
+  margin-top: ${size.xs};
   flex-wrap: wrap;
 `;
 
 const Container = styled.div`
   width: 160px;
-  margin-bottom: ${size.s}px;
+  margin-bottom: ${size.s};
 `;
 
 const GroupedTaskStatusBadgeWrapper = styled.div`
-  margin-right: ${size.xxs}px;
+  margin-right: ${size.xxs};
 `;

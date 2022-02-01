@@ -68,5 +68,5 @@ const TitleContainer = styled.div`
 `;
 
 const Subtitle = styled(Disclaimer)`
-  padding-top: ${size.s}px;
+  padding-top: ${size.s};
 `;

@@ -78,5 +78,5 @@ const spawnHostCardFieldMaps = {
 };
 
 const PaddedBadge = styled(Badge)`
-  margin-right: ${size.xs}px;
+  margin-right: ${size.xs};
 `;

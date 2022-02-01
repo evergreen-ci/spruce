@@ -41,7 +41,7 @@ const IconContainer = styled.div`
   flex-shrink: 0;
   text-align: center;
   border: 1px solid #babdbe;
-  border-radius: ${size.xxs}px;
+  border-radius: ${size.xxs};
   display: flex;
   align-items: center;
   justify-content: center;
