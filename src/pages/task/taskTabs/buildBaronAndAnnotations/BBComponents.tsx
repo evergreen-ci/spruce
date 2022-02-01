@@ -136,8 +136,8 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
 
 // @ts-expect-error
 export const TicketsTitle = styled(Subtitle)<TitleProps>`
-  margin-bottom: ${(props) => (props.margin ? `${size.s}` : `${size.xxs}`)};
-  margin-top: ${(props) => (props.margin ? `${size.m}` : "35px")};
+  margin-bottom: ${(props) => (props.margin ? size.s : size.xxs)};
+  margin-top: ${(props) => (props.margin ? size.m : "35px")};
   line-height: ${size.m};
   font-weight: bold;
 `;

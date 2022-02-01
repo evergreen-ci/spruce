@@ -85,5 +85,5 @@ const AnimatedAccordion = styled.div`
 `;
 const ContentsContainer = styled.div`
   margin-left: ${(props: { indent: boolean }): string =>
-    props.indent && `${size.s}`};
+    props.indent && size.s};
 `;

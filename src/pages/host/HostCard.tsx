@@ -41,7 +41,7 @@ const SiderCard = styled(Card)<StylingProps>`
   padding-bottom: 25px;
   margin-bottom: 30px;
   padding-right: ${(props) => (props.metaData ? "0px" : "28px")};
-  padding-left: ${(props) => (props.metaData ? `${size.s}` : "28px")};
+  padding-left: ${(props) => (props.metaData ? size.s : "28px")};
   margin-left: ${(props) => (props.metaData ? "0px" : "20px")};
   margin-right: ${(props) => (props.metaData ? "0px" : "20px")};
   > p {
