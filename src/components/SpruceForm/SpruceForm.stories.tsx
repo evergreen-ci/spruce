@@ -72,6 +72,7 @@ export const Example3 = () => {
 };
 export default {
   title: "Spruce Form",
+  component: SpruceForm,
 };
 
 const example1Def = {

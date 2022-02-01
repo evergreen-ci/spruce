@@ -13,6 +13,7 @@ export default {
       </MemoryRouter>
     ),
   ],
+  component: GroupedTaskStatusBadge,
 };
 
 export const GroupedTaskStatusBadges = () => (
