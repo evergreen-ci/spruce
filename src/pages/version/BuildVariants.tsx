@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { useParams, Link } from "react-router-dom";
-import { usePatchAnalytics } from "analytics";
+import { useVersionAnalytics } from "analytics";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
 import { H3, P1 } from "components/Typography";
@@ -20,7 +20,7 @@ import { groupTasksByUmbrellaStatus } from "./buildVariants/utils";
 
 export const BuildVariants: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const patchAnalytics = usePatchAnalytics();
+  const { sendEvent } = useVersionAnalytics();
 
   const { data, loading, error, startPolling, stopPolling } = useQuery<
     BuildVariantsQuery,
@@ -31,6 +31,7 @@ export const BuildVariants: React.FC = () => {
   });
   useNetworkStatus(startPolling, stopPolling);
   const { version } = data || {};
+
   return (
     <>
       {/* @ts-expect-error */}
@@ -51,7 +52,7 @@ export const BuildVariants: React.FC = () => {
                   variant: applyStrictRegex(variant),
                 })}`}
                 onClick={() =>
-                  patchAnalytics.sendEvent({
+                  sendEvent({
                     name: "Click Build Variant Grid Link",
                   })
                 }

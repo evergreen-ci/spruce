@@ -5,7 +5,7 @@ import Button from "@leafygreen-ui/button";
 import { Skeleton } from "antd";
 import every from "lodash.every";
 import { useParams, useLocation } from "react-router-dom";
-import { usePatchAnalytics } from "analytics";
+import { useVersionAnalytics } from "analytics";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { ResultCountLabel } from "components/ResultCountLabel";
@@ -32,7 +32,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const { id: versionId } = useParams<{ id: string }>();
 
   const { search } = useLocation();
-  const patchAnalytics = usePatchAnalytics();
+  const { sendEvent } = useVersionAnalytics();
   const dispatchToast = useToastContext();
 
   const updateQueryParams = useUpdateURLQueryParams();
@@ -69,7 +69,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const { patchTasks } = data || {};
 
   const onClearAll = () => {
-    patchAnalytics.sendEvent({ name: "Clear all filter" });
+    sendEvent({ name: "Clear all filter" });
     updateQueryParams({
       statuses: undefined,
       baseStatuses: undefined,
@@ -108,9 +108,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
           <PageSizeSelector
             data-cy="tasks-table-page-size-selector"
             value={limit}
-            sendAnalyticsEvent={() =>
-              patchAnalytics.sendEvent({ name: "Change Page Size" })
-            }
+            sendAnalyticsEvent={() => sendEvent({ name: "Change Page Size" })}
           />
         </TableControlInnerRow>
       </TableControlOuterRow>

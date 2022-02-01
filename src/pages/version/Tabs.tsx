@@ -1,14 +1,14 @@
 import { useState, useEffect, useMemo } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useHistory, useLocation } from "react-router-dom";
-import { usePatchAnalytics } from "analytics";
-import { CodeChanges } from "components/PatchTabs/CodeChanges";
-import { DownstreamTasks } from "components/PatchTabs/DownstreamTasks";
-import { Tasks } from "components/PatchTabs/Tasks";
+import { useVersionAnalytics } from "analytics";
+import { CodeChanges } from "components/CodeChanges/CodeChanges";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { getVersionRoute, DEFAULT_PATCH_TAB } from "constants/routes";
 import { Patch } from "gql/generated/types";
 import { usePrevious } from "hooks";
+import { DownstreamTasks } from "pages/version/DownstreamTasks";
+import { Tasks } from "pages/version/Tasks";
 import { PatchTab } from "types/patch";
 import { queryString } from "utils";
 
@@ -61,7 +61,7 @@ export const Tabs: React.FC<Props> = ({ taskCount, childPatches, isPatch }) => {
     [isPatch, childPatches]
   );
 
-  const patchAnalytics = usePatchAnalytics();
+  const { sendEvent } = useVersionAnalytics();
 
   const allTabs = useMemo(() => tabMap({ taskCount, childPatches }), [
     taskCount,
@@ -94,7 +94,7 @@ export const Tabs: React.FC<Props> = ({ taskCount, childPatches, isPatch }) => {
     });
     history.replace(newRoute);
     if (previousTab !== undefined && previousTab !== selectedTab) {
-      patchAnalytics.sendEvent({
+      sendEvent({
         name: "Change Tab",
         tab: newTab as PatchTab,
       });
