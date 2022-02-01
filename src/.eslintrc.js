@@ -100,6 +100,17 @@ module.exports = {
   },
   overrides: [
     {
+      // or whatever matches stories specified in .storybook/main.js
+      files: ["*.stories.@(ts|tsx|js|jsx|mjs|cjs)"],
+      extends: ["plugin:storybook/recommended"],
+      rules: {
+        "storybook/story-exports": ERROR,
+        "storybook/no-stories-of": ERROR,
+        "storybook/no-redundant-story-name": WARN,
+        "storybook/csf-component": WARN, // Enables support for auto generated prop controls and documentation
+      },
+    },
+    {
       files: ["*.test.ts", "*.test.tsx"],
       extends: [
         "plugin:testing-library/recommended",

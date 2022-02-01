@@ -8,6 +8,7 @@ import { CommitsWrapper } from "../CommitsWrapper";
 export default {
   title: "Project Health Page",
   decorators: [StoryRouter(), withKnobs],
+  component: CommitsWrapper,
 };
 
 export const ActualWaterfallPage = () => {

@@ -4,9 +4,10 @@ import TaskStatusBadge from "./index";
 
 export default {
   title: "Task Status Badges",
+  component: TaskStatusBadge,
 };
 
-export const badges = () => {
+export const Default = () => {
   // filter out umbrella statuses
   const taskStatuses = Object.keys(TaskStatus).filter(
     (taskName) => !taskName.includes("Umbrella")

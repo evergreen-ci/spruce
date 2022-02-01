@@ -2,6 +2,7 @@ import { ProjectSettingsTabRoutes } from "constants/routes";
 import { PartialRecord } from "types/utils";
 import * as access from "./AccessTab/transformers";
 import * as general from "./GeneralTab/transformers";
+import * as githubCommitQueue from "./GithubCommitQueue/transformers";
 import * as plugins from "./PluginsTab/transformers";
 import {
   FormToGqlFunction,
@@ -19,6 +20,7 @@ export const gqlToFormMap: PartialRecord<
   [ProjectSettingsTabRoutes.Access]: access.gqlToForm,
   [ProjectSettingsTabRoutes.Plugins]: plugins.gqlToForm,
   [ProjectSettingsTabRoutes.Variables]: variables.gqlToForm,
+  [ProjectSettingsTabRoutes.GithubCommitQueue]: githubCommitQueue.gqlToForm,
 };
 
 // TODO: Convert PartialRecord to Record once all tabs have been implemented.
@@ -30,4 +32,5 @@ export const formToGqlMap: PartialRecord<
   [ProjectSettingsTabRoutes.Access]: access.formToGql,
   [ProjectSettingsTabRoutes.Plugins]: plugins.formToGql,
   [ProjectSettingsTabRoutes.Variables]: variables.formToGql,
+  [ProjectSettingsTabRoutes.GithubCommitQueue]: githubCommitQueue.formToGql,
 };
