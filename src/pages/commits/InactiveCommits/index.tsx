@@ -18,10 +18,12 @@ export const InactiveCommitsLine = () => (
 interface InactiveCommitsProps {
   rolledUpVersions: CommitRolledUpVersions;
   hasFilters: boolean;
+  isScrolled?: boolean;
 }
 export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
   rolledUpVersions,
   hasFilters = false,
+  isScrolled = false,
 }) => {
   const versionCount = rolledUpVersions.length;
 
@@ -60,6 +62,7 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
 
   return (
     <StyledTooltip
+      scrolled={isScrolled ? 1 : 0}
       usePortal={false}
       align="bottom"
       justify="middle"
@@ -147,9 +150,10 @@ const Container = styled.div`
 `;
 
 // @ts-ignore-error
-const StyledTooltip = styled(Tooltip)`
-  max-height: 350px;
+const StyledTooltip = styled(Tooltip)<{ scrolled: number }>`
+  max-height: ${({ scrolled }) => (scrolled ? "750" : "350")}px;
   overflow-y: scroll;
+  transition: max-height 0.5s ease-in-out;
 `;
 
 const CommitText = styled(Body)`

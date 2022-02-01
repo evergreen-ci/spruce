@@ -1,8 +1,9 @@
-import { useMemo } from "react";
+import { useMemo, useEffect, useRef, useState } from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
+import { navBarHeight } from "components/Header/Navbar";
 import { ChartTypes, Commit, Commits } from "types/commits";
 import { ChartToggle } from "./ActiveCommits/ChartToggle";
 import { Grid } from "./ActiveCommits/Grid";
@@ -38,6 +39,25 @@ export const CommitsWrapper: React.FC<Props> = ({
   hasFilters,
   onChangeChartType,
 }) => {
+  const commitChartRef = useRef(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // This hook determines whether or not the page has been scrolled past the commits chart.
+  useEffect(() => {
+    function onScroll(): void {
+      if (!commitChartRef.current) {
+        return;
+      }
+      const { bottom } = commitChartRef.current.getBoundingClientRect();
+      const isChartVisible = bottom >= navBarHeight;
+      setIsScrolled(!isChartVisible);
+    }
+    document.addEventListener("scroll", onScroll, true);
+    return (): void => {
+      document.removeEventListener("scroll", onScroll, true);
+    };
+  });
+
   const versionToGroupedTaskStatsMap = useMemo(() => {
     if (versions) {
       return getAllTaskStatsGroupedByColor(versions);
@@ -67,7 +87,7 @@ export const CommitsWrapper: React.FC<Props> = ({
     return (
       <>
         <ChartWrapper>
-          <FlexRowContainer>
+          <FlexRowContainer ref={commitChartRef}>
             {versions.map((commit, i) => (
               <CommitWrapper key={getCommitKey(commit)} width={widths[i]}>
                 <RenderCommitsChart
@@ -92,7 +112,11 @@ export const CommitsWrapper: React.FC<Props> = ({
           <FlexRowContainer>
             {versions.map((commit, i) => (
               <CommitWrapper key={getCommitKey(commit)} width={widths[i]}>
-                <RenderCommitsLabel commit={commit} hasFilters={hasFilters} />
+                <RenderCommitsLabel
+                  commit={commit}
+                  hasFilters={hasFilters}
+                  isScrolled={isScrolled}
+                />
               </CommitWrapper>
             ))}
           </FlexRowContainer>
