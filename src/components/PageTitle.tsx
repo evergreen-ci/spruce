@@ -64,13 +64,13 @@ export const PageTitle: React.FC<Props> = ({
 const BadgeWrapper = styled.span<TitleTypographyProps>`
   display: inline-flex;
   position: relative;
-  top: ${(props) => (props.size === "medium" ? "-2px" : `-${tokenSize.xxs}px`)};
+  top: ${(props) => (props.size === "medium" ? "-2px" : `-${tokenSize.xxs}`)};
   margin-left: ${(props) => props.size === "large" && "20px"};
 `;
 
 const PageHeader = styled.div<TitleTypographyProps>`
   margin-bottom: ${(props) => (props.size === "medium" ? "11px" : "30px")};
-  margin-top: ${(props) => props.size === "large" && `${tokenSize.s}px`};
+  margin-top: ${(props) => props.size === "large" && `${tokenSize.s}`};
   display: flex;
   justify-content: space-between;
 `;

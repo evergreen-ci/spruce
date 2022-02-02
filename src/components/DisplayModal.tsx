@@ -37,5 +37,5 @@ const StyledModal = styled(Modal)`
 
 // @ts-expect-error
 const StyledHeader = styled(H3)`
-  margin-bottom: ${tokenSize.xs}px;
+  margin-bottom: ${tokenSize.xs};
 `;
