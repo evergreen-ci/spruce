@@ -19,6 +19,7 @@ export default {
       </MemoryRouter>
     ),
   ],
+  component: HistoryTable,
 };
 
 export const TaskHistoryTable = () => (

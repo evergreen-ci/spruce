@@ -78,24 +78,36 @@ describe("task logs", () => {
     });
   });
 
-  it("Should intially load with agent log radio checked when logtype query param is agent", () => {
-    cy.visit(`${LOGS_ROUTE}?logtype=agent`);
-    cy.dataCy("agent-radio").should("be.checked");
+  it("Should update logtype query param to all after checking all radio button", () => {
+    cy.dataCy("all-radio").click({ force: true });
+    cy.location().should((loc) => {
+      expect(loc.pathname).to.equal(LOGS_ROUTE);
+      expect(loc.search).to.include("logtype=all");
+    });
   });
-  it("Should intially load with system log radio checked when logtype query param is system", () => {
-    cy.visit(`${LOGS_ROUTE}?logtype=system`);
-    cy.dataCy("system-radio").should("be.checked");
-  });
-  it("Should intially load with event log radio checked when logtype query param is event", () => {
-    cy.visit(`${LOGS_ROUTE}?logtype=event`);
-    cy.dataCy("event-radio").should("be.checked");
-  });
-  it("Should intially load with task log radio checked when logtype query param is task", () => {
+
+  it("Should initially load with task log radio checked when logtype query param is task", () => {
     cy.visit(`${LOGS_ROUTE}?logtype=task`);
     cy.dataCy("task-radio").should("be.checked");
   });
   it("Should initially load with task log radio checked as default when logtype query param is not a valid log type", () => {
     cy.visit(`${LOGS_ROUTE}?logtype=soeiantsrein`);
     cy.dataCy("task-radio").should("be.checked");
+  });
+  it("Should initially load with agent log radio checked when logtype query param is agent", () => {
+    cy.visit(`${LOGS_ROUTE}?logtype=agent`);
+    cy.dataCy("agent-radio").should("be.checked");
+  });
+  it("Should initially load with system log radio checked when logtype query param is system", () => {
+    cy.visit(`${LOGS_ROUTE}?logtype=system`);
+    cy.dataCy("system-radio").should("be.checked");
+  });
+  it("Should initially load with event log radio checked when logtype query param is event", () => {
+    cy.visit(`${LOGS_ROUTE}?logtype=event`);
+    cy.dataCy("event-radio").should("be.checked");
+  });
+  it("Should initially load with all log radio checked when logtype query param is all", () => {
+    cy.visit(`${LOGS_ROUTE}?logtype=all`);
+    cy.dataCy("all-radio").should("be.checked");
   });
 });
