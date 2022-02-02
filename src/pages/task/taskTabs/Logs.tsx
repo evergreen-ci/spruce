@@ -3,13 +3,13 @@ import queryString from "query-string";
 import { useLocation } from "react-router-dom";
 import { getLobsterTaskLink } from "constants/externalResources";
 import { TaskLogLinks } from "gql/generated/types";
+import { LogTypes, QueryParams } from "types/task";
 import {
   EventLog,
   AgentLog,
   SystemLog,
   TaskLog,
-  LogTypes,
-  QueryParams,
+  AllLog,
 } from "./logs/LogTypes";
 
 const DEFAULT_LOG_TYPE = LogTypes.Task;
@@ -19,6 +19,7 @@ const options = {
   [LogTypes.System]: SystemLog,
   [LogTypes.Task]: TaskLog,
   [LogTypes.Event]: EventLog,
+  [LogTypes.All]: AllLog,
 };
 
 interface Props {
@@ -40,7 +41,8 @@ export const Logs: React.FC<Props> = ({ logLinks, taskId, execution }) => {
       logTypeParam === LogTypes.Agent ||
       logTypeParam === LogTypes.Event ||
       logTypeParam === LogTypes.System ||
-      logTypeParam === LogTypes.Task
+      logTypeParam === LogTypes.Task ||
+      logTypeParam === LogTypes.All
     ) {
       setCurrentLog(logTypeParam);
     } else {
@@ -90,6 +92,7 @@ const getLinks = (
       [LogTypes.Agent]: logLinks.agentLogLink,
       [LogTypes.System]: logLinks.systemLogLink,
       [LogTypes.Task]: logLinks.taskLogLink,
+      [LogTypes.All]: logLinks.allLogLink,
     }[logType] ?? ""
   }`;
   return {

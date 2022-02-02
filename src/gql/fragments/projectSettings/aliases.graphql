@@ -1,0 +1,10 @@
+fragment alias on ProjectAlias {
+  id
+  alias
+  gitTag
+  variant
+  task
+  remotePath
+  variantTags
+  taskTags
+}

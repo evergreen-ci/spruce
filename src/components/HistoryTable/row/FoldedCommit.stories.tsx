@@ -2,6 +2,7 @@ import { FoldedCommit } from "./FoldedCommit";
 
 export default {
   title: "Folded Commit",
+  component: FoldedCommit,
 };
 
 export const FoldedInactiveCommits = () => (

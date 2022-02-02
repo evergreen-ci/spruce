@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Body } from "@leafygreen-ui/typography";
 import { Popconfirm } from "antd";
-import { usePatchAnalytics } from "analytics";
+import { useVersionAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
 import { useToastContext } from "context/toast";
 import {
@@ -46,7 +46,7 @@ export const UnscheduleTasks: React.FC<props> = ({
     refetchQueries,
   });
 
-  const patchAnalytics = usePatchAnalytics();
+  const { sendEvent } = useVersionAnalytics();
 
   return (
     <Popconfirm
@@ -66,7 +66,7 @@ export const UnscheduleTasks: React.FC<props> = ({
       }
       onConfirm={() => {
         unschedulePatchTasks({ variables: { patchId, abort } });
-        patchAnalytics.sendEvent({ name: "Unschedule", abort });
+        sendEvent({ name: "Unschedule", abort });
       }}
       okText="Yes"
       cancelText="Cancel"

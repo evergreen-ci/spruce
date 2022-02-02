@@ -13,6 +13,7 @@ export default {
     ),
     withQuery,
   ],
+  component: TupleSelect,
 };
 
 const options = [
@@ -27,7 +28,8 @@ const options = [
     placeHolderText: "Search Task names",
   },
 ];
-export const waterfall = () => (
+
+export const Default = () => (
   <div style={{ width: "40%" }}>
     <TupleSelect options={options} />
   </div>
