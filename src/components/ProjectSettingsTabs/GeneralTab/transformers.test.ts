@@ -21,11 +21,7 @@ describe("project data", () => {
   });
 
   it("correctly converts from a form to GQL", () => {
-    expect(
-      formToGql(projectForm, "project", {
-        useRepoSettings: true,
-      })
-    ).toStrictEqual(projectResult);
+    expect(formToGql(projectForm, "project")).toStrictEqual(projectResult);
   });
 });
 
@@ -152,7 +148,6 @@ const projectForm: FormState = {
 const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
   projectRef: {
     id: "project",
-    useRepoSettings: true,
 
     enabled: null,
     owner: "evergreen-ci",

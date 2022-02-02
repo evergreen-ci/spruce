@@ -795,8 +795,6 @@ export type ProjectInput = {
   perfEnabled?: Maybe<Scalars["Boolean"]>;
   buildBaronSettings?: Maybe<BuildBaronSettingsInput>;
   taskAnnotationSettings?: Maybe<TaskAnnotationSettingsInput>;
-  hidden?: Maybe<Scalars["Boolean"]>;
-  useRepoSettings?: Maybe<Scalars["Boolean"]>;
 };
 
 export type RepoSettingsInput = {
