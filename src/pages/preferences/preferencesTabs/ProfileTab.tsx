@@ -170,8 +170,8 @@ const ContentWrapper = styled.div`
 
 // @ts-expect-error
 const PreferencesCard = styled(Card)`
-  padding-left: 25px;
-  padding-top: 25px;
+  padding-left: ${size.m};
+  padding-top: ${size.m};
   padding-bottom: 40px;
   margin-bottom: 30px;
   width: 100%;

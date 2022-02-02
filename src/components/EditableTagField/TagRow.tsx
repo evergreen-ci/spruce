@@ -6,6 +6,7 @@ import { v4 as uuid } from "uuid";
 import Icon from "components/Icon";
 import { PlusButton } from "components/Spawn";
 import { InputLabel } from "components/styles";
+import { size } from "constants/tokens";
 import { ParameterInput, InstanceTag } from "gql/generated/types";
 import { reducer, getInitialState } from "./tagRowReducer";
 
@@ -118,7 +119,7 @@ export const TagRow: React.FC<TagRowProps> = ({
 };
 
 const ButtonContainer = styled.div`
-  margin-top: 25px;
+  margin-top: ${size.m};
 `;
 const FlexContainer = styled.div`
   display: flex;

@@ -109,7 +109,7 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
 
 const SectionLabel = styled(Body)`
   padding-right: ${size.s};
-  margin-top: 22px;
+  margin-top: ${size.m};
   min-width: 175px;
 `;
 

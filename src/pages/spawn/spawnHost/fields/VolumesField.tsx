@@ -85,5 +85,5 @@ const FlexColumnContainer = styled.div`
 const PaddedBody = styled.span`
   padding-left: ${size.s};
   padding-right: ${size.s};
-  margin-top: 22px;
+  margin-top: ${size.m};
 `;

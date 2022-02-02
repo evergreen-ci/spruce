@@ -142,10 +142,10 @@ const FormContainer = styled.div`
 
 const PaddedBody = styled.span`
   padding: 0 ${size.s};
-  margin-top: 22px;
+  margin-top: ${size.m};
 `;
 
 // @ts-ignore
 const PaddedCheckbox = styled(Checkbox)`
-  margin-top: 22px;
+  margin-top: ${size.m};
 ` as typeof Checkbox;

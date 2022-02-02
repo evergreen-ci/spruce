@@ -271,7 +271,7 @@ const ExtraFieldContainer = styled.div`
 
 const Section = styled.div`
   padding-bottom: ${size.m};
-  margin-bottom: 22px;
+  margin-bottom: ${size.m};
   border-bottom: 1px solid ${gray.light2};
 `;
 
