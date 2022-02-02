@@ -1,5 +1,6 @@
 import { spacing } from "@leafygreen-ui/tokens";
 
+// Should be used for spacing such as margins and padding.
 const size = {
   xxs: `${spacing[1]}px`, // 4px
   xs: `${spacing[2]}px`, // 8px
