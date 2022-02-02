@@ -20,6 +20,7 @@ export default {
     withKnobs,
     withQuery,
   ],
+  component: FilterBadges,
 };
 export const Default = () => {
   const updateQueryParams = useUpdateURLQueryParams();

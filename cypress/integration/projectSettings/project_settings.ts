@@ -7,6 +7,55 @@ const project = "spruce";
 const projectUseRepoEnabled = "evergreen";
 const repo = "602d70a2b2373672ee493184";
 
+describe("Repo Settings", () => {
+  const destination = getGeneralRoute(repo);
+
+  before(() => {
+    cy.login();
+    cy.visit(destination);
+  });
+
+  beforeEach(() => {
+    cy.preserveCookies();
+  });
+
+  it("Does not show a 'Default to Repo' button on page", () => {
+    cy.dataCy("default-to-repo").should("not.exist");
+  });
+
+  it("Does not show a 'Move to New Repo' button on page", () => {
+    cy.dataCy("move-repo-button").should("not.exist");
+  });
+
+  it("Sets a display name", () => {
+    cy.dataCy("display-name-input").type("evg");
+  });
+
+  it("Clicking on save button should show a success toast", () => {
+    cy.dataCy("save-settings-button").click();
+    cy.contains("Successfully updated repo");
+  });
+
+  describe("GitHub/Commit Queue page", () => {
+    before(() => {
+      cy.dataCy("navitem-github-commitqueue").click();
+    });
+
+    it("Successfully saves a patch definition", () => {
+      cy.dataCy("add-button").contains("Add Patch Definition").parent().click();
+
+      cy.dataCy("variant-tags-field").find("button").click();
+      cy.dataCy("variant-tags-input").first().type("vtag");
+
+      cy.dataCy("task-tags-field").find("button").click();
+      cy.dataCy("task-tags-input").first().type("ttag");
+
+      cy.dataCy("save-settings-button").click();
+      cy.contains("Successfully updated repo");
+    });
+  });
+});
+
 describe("Project Settings when not defaulting to repo", () => {
   const destination = getGeneralRoute(project);
 
@@ -152,38 +201,59 @@ describe("Project Settings when defaulting to repo", () => {
     cy.get("body").type("{esc}");
   });
 
-  it("Clicking on save button should show a success toast", () => {
+  // Skip until EVG-16081 is resolved
+  it.skip("Clicking on save button should show a success toast", () => {
     cy.dataCy("save-settings-button").click();
     cy.contains("Successfully updated project");
   });
-});
 
-describe("Repo Settings", () => {
-  const destination = getGeneralRoute(repo);
+  describe("GitHub/Commit Queue page", () => {
+    before(() => {
+      cy.dataCy("navitem-github-commitqueue").click();
+    });
 
-  before(() => {
-    cy.login();
-    cy.visit(destination);
-  });
+    it("Shows the repo's disabled patch definition", () => {
+      cy.dataCy("accordion-toggle").should("exist");
+      cy.dataCy("accordion-toggle").first().click();
+      cy.dataCy("variant-tags-input").should("have.value", "vtag");
+      cy.dataCy("variant-tags-input").should("be.disabled");
+      cy.dataCy("task-tags-input").should("have.value", "ttag");
+      cy.dataCy("task-tags-input").should("be.disabled");
+    });
 
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
+    it("Allows overriding repo patch definitions", () => {
+      cy.get("input[name=githubPrAliasesOverride]").first().parent().click();
+      cy.dataCy("add-button").contains("Add Patch Definition").parent().click();
+      cy.get("button").contains("Regex").first().click();
+      cy.dataCy("variant-input").type(".*");
+    });
 
-  it("Does not show a 'Default to Repo' button on page", () => {
-    cy.dataCy("default-to-repo").should("not.exist");
-  });
+    it("Disables save when the task field is empty", () => {
+      cy.dataCy("save-settings-button").should("be.disabled");
+    });
 
-  it("Does not show a 'Move to New Repo' button on page", () => {
-    cy.dataCy("move-repo-button").should("not.exist");
-  });
+    it("Clears tag/regex fields when toggling between them", () => {
+      cy.get("button").contains("Tags").first().click();
+      cy.get("button").contains("Regex").first().click();
 
-  it("Sets a display name", () => {
-    cy.dataCy("display-name-input").type("evg");
-  });
+      cy.dataCy("variant-input").should("have.value", "");
+    });
 
-  it("Clicking on save button should show a success toast", () => {
-    cy.dataCy("save-settings-button").click();
-    cy.contains("Successfully updated repo");
+    it("Should enable save when the task and variant fields are filled in", () => {
+      cy.dataCy("variant-input").type(".*");
+      cy.get("#task-input-control").find("button").eq(1).click();
+      cy.dataCy("task-input").type(".*");
+      cy.dataCy("save-settings-button").should("not.be.disabled");
+    });
+
+    it("Disables Authorized Users section based on repo settings", () => {
+      cy.contains("Authorized Users").should("not.exist");
+      cy.contains("Authorized Teams").should("not.exist");
+    });
+
+    it("Clicking on save button should show a success toast", () => {
+      cy.dataCy("save-settings-button").click();
+      cy.contains("Successfully updated project");
+    });
   });
 });

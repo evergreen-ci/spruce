@@ -2,6 +2,10 @@ import { FilterBadges } from "components/FilterBadges";
 import { TestStatus } from "types/history";
 import { HistoryTableTestSearch } from "./HistoryTableTestSearch";
 
+export default {
+  component: HistoryTableTestSearch,
+};
+
 export const TestSearch = () => (
   <div style={{ display: "flex", flexDirection: "column" }}>
     <HistoryTableTestSearch />

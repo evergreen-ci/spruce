@@ -6,7 +6,7 @@ import {
   AccessTab,
   EventLogTab,
   GeneralTab,
-  GitHubCommitQueueTab,
+  GithubCommitQueueTab,
   NotificationsTab,
   PatchAliasesTab,
   PeriodicBuildsTab,
@@ -97,10 +97,24 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           />
         )}
       />
-      <TabRoute
-        Component={GitHubCommitQueueTab}
-        path={routes.projectSettingsGitHubCommitQueue}
-        tab={ProjectSettingsTabRoutes.GitHubCommitQueue}
+      <Route
+        path={routes.projectSettingsGithubCommitQueue}
+        render={(props) => (
+          <GithubCommitQueueTab
+            {...props}
+            gitHubWebhooksEnabled={
+              projectData?.gitHubWebhooksEnabled ||
+              repoData?.gitHubWebhooksEnabled
+            }
+            projectData={
+              tabData[ProjectSettingsTabRoutes.GithubCommitQueue].projectData
+            }
+            repoData={
+              tabData[ProjectSettingsTabRoutes.GithubCommitQueue].repoData
+            }
+            useRepoSettings={useRepoSettings}
+          />
+        )}
       />
       <Route
         path={routes.projectSettingsPlugins}

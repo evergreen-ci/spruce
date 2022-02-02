@@ -120,7 +120,7 @@ export const ProjectSettings: React.FC = () => {
           />
           <ProjectSettingsNavItem
             {...sharedProps}
-            tab={ProjectSettingsTabRoutes.GitHubCommitQueue}
+            tab={ProjectSettingsTabRoutes.GithubCommitQueue}
           />
           <ProjectSettingsNavItem
             {...sharedProps}
