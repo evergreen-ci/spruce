@@ -49,7 +49,7 @@ const columns = [
     key: "host",
     sorter: (a: MyHost, b: MyHost) => sortFunctionString(a, b, "id"),
     render: (_, host: MyHost) => (
-      <HostWrapper>
+      <HostNameWrapper>
         {host?.distro?.isVirtualWorkStation ? (
           <FlexContainer>
             <NoWrap>{host.displayName || host.id}</NoWrap>
@@ -61,7 +61,7 @@ const columns = [
         <StyledRouterLink to={getHostRoute(host.id)}>
           Event Log
         </StyledRouterLink>
-      </HostWrapper>
+      </HostNameWrapper>
     ),
   },
   {
@@ -107,7 +107,7 @@ const FlexContainer = styled.div`
   display: flex;
 `;
 
-const HostWrapper = styled.div`
+const HostNameWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
