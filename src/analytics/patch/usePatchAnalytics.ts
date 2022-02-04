@@ -55,9 +55,12 @@ interface P extends Properties {
 }
 interface PatchAnalytics extends Analytics<Action> {}
 
-export const usePatchAnalytics = (): PatchAnalytics => {
+export const usePatchAnalytics = (patchId?: string): PatchAnalytics => {
   const userId = useGetUserQuery();
-  const { id } = useParams<{ id: string }>();
+  const { id: idFromURL } = useParams<{ id: string }>();
+
+  const id = patchId || idFromURL;
+
   const { data: eventData } = useQuery<PatchQuery, PatchQueryVariables>(
     GET_PATCH,
     {

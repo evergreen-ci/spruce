@@ -55,9 +55,12 @@ interface V extends Properties {
 }
 interface VersionAnalytics extends Analytics<Action> {}
 
-export const useVersionAnalytics = (): VersionAnalytics => {
+export const useVersionAnalytics = (versionId?: string): VersionAnalytics => {
   const userId = useGetUserQuery();
-  const { id } = useParams<{ id: string }>();
+  const { id: idFromURL } = useParams<{ id: string }>();
+
+  const id = versionId || idFromURL;
+
   const { data: eventData } = useQuery<VersionQuery, VersionQueryVariables>(
     GET_VERSION,
     {

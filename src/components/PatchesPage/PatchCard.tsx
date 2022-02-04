@@ -105,6 +105,7 @@ export const PatchCard: React.FC<Props> = ({
           canEnqueueToCommitQueue={canEnqueueToCommitQueue}
           isPatchOnCommitQueue={isPatchOnCommitQueue}
           patchDescription={description}
+          hasVersion={!!versionId}
         />
       </Right>
     </CardWrapper>

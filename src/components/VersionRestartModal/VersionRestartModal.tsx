@@ -89,7 +89,7 @@ const VersionRestartModal: React.FC<Props> = ({
     setBaseStatusFilterTerm({ [childVersionId]: selectedFilters });
   };
 
-  const { sendEvent } = useVersionAnalytics();
+  const { sendEvent } = useVersionAnalytics(versionId);
 
   const handlePatchRestart = async (e): Promise<void> => {
     e.preventDefault();
