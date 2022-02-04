@@ -592,6 +592,11 @@ export type BuildVariantTuple = {
   displayName: Scalars["String"];
 };
 
+export enum ProjectSettingsAccess {
+  Edit = "EDIT",
+  View = "VIEW",
+}
+
 export enum SpawnHostStatusActions {
   Start = "START",
   Stop = "STOP",
