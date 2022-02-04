@@ -44,11 +44,11 @@ describe("Navigating to Spawn Host page", () => {
     cy.dataCy("spawn-host-card").should("not.be.visible");
   });
   it("Clicking on a spawn host row should expand it and show more info about the host in a card", () => {
-    cy.get('[data-row-key="i-092593689871a50dc"] > :nth-child(2)').click();
+    cy.get('[data-row-key="i-092593689871a50dc"] > :nth-child(1)').click();
     cy.dataCy("spawn-host-card").should("be.visible");
   });
   it("Clicking on a spawn host row should toggle the card closed", () => {
-    cy.get('[data-row-key="i-092593689871a50dc"] > :nth-child(2)').click();
+    cy.get('[data-row-key="i-092593689871a50dc"] > :nth-child(1)').click();
     cy.dataCy("spawn-host-card").should("not.be.visible");
   });
   it("Visiting the spawn host page with an id in the url should open the page with the row expanded", () => {
@@ -56,6 +56,12 @@ describe("Navigating to Spawn Host page", () => {
     cy.dataCy("spawn-host-card").should("be.visible");
     cy.dataCy("spawn-host-card").should("have.length", 1);
   });
+  it("Clicking on the Event Log link should redirect to /host/:hostId", () => {
+    cy.visit("/spawn/host");
+    cy.get('[data-row-key="i-092593689871a50dc"] > :nth-child(2)').click();
+    cy.location("pathname").should("eq", "/host/i-092593689871a50dc");
+  });
+
   describe("Spawn host card sorting", () => {
     it("Visiting the spawn host page should display all of your spawned hosts not sorted by default", () => {
       cy.visit("/spawn/host");
