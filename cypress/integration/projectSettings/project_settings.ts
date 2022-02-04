@@ -51,7 +51,7 @@ describe("Repo Settings", () => {
       cy.dataCy("task-tags-input").first().type("ttag");
     });
 
-    it.only("Toggling disable commit queue hides inputs", () => {
+    it("Toggling disable commit queue hides inputs", () => {
       const countCQFields = (count: number) => {
         cy.dataCy("cq-card").children().should("have.length", count);
       };

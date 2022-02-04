@@ -14,10 +14,10 @@ export interface FormState {
     prTestingEnabled: boolean | null;
     prTesting: {
       githubPrAliasesOverride: boolean;
-      githubPrAliases: Array<AliasType> | null;
+      githubPrAliases: Array<AliasType>;
       repoData?: {
         githubPrAliasesOverride: boolean;
-        githubPrAliases: Array<AliasType> | null;
+        githubPrAliases: Array<AliasType>;
       };
     };
     githubChecksEnabled: boolean;
