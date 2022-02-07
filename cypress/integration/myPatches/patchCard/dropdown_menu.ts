@@ -26,14 +26,13 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.location("pathname").should("include", `/configure`);
   });
 
-  it("Reconfigure link is disabled for patches on commit queue", () => {
+  it("'Reconfigure' link is disabled for patches on commit queue", () => {
     getPatchCardByDescription(patchDescriptionReconfigureDisabled).within(
       () => {
         cy.dataCy("patch-card-dropdown").click();
       }
     );
-    cy.dataCy("reconfigure-link").click({ force: true });
-    cy.location("pathname").should("eq", `/user/admin/patches`);
+    cy.dataCy("reconfigure-link").should("be.disabled");
   });
 
   it("'Schedule' link opens modal and clicking on 'Cancel' closes it.", () => {
@@ -48,6 +47,13 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.dataCy("schedule-tasks-modal").should("not.be.visible");
   });
 
+  it("'Schedule' link is disabled for unfinalized patch", () => {
+    getPatchCardByDescription(patchDescriptionCanReconfigure).within(() => {
+      cy.dataCy("patch-card-dropdown").click();
+    });
+    cy.dataCy("schedule-patch").should("be.disabled");
+  });
+
   it("'Unschedule' link opens popconfirm and schedules patch", () => {
     getPatchCardByDescription(patchDescriptionReconfigureDisabled).within(
       () => {
@@ -57,6 +63,13 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.dataCy("unschedule-patch").click({ force: true });
     cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
     cy.dataCy("toast").should("exist");
+  });
+
+  it("'Unschedule' link is disabled for unfinalized patch", () => {
+    getPatchCardByDescription(patchDescriptionCanReconfigure).within(() => {
+      cy.dataCy("patch-card-dropdown").click();
+    });
+    cy.dataCy("unschedule-patch").should("be.disabled");
   });
 
   it("'Restart' link shows restart patch modal", () => {
@@ -77,6 +90,13 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.dataCy("toast").should("exist");
   });
 
+  it("'Restart' link is disabled for unfinalized patch", () => {
+    getPatchCardByDescription(patchDescriptionCanReconfigure).within(() => {
+      cy.dataCy("patch-card-dropdown").click();
+    });
+    cy.dataCy("restart-patch").should("be.disabled");
+  });
+
   it("'Add to commit queue' shows enqueue modal", () => {
     getPatchCardByDescription(patchDescriptionReconfigureDisabled).within(
       () => {
@@ -84,5 +104,12 @@ describe("Dropdown Menu of Patch Actions", () => {
       }
     );
     cy.dataCy("enqueue-patch").should("exist");
+  });
+
+  it("'Add to commit queue' is disabled for unfinalized patch", () => {
+    getPatchCardByDescription(patchDescriptionCanReconfigure).within(() => {
+      cy.dataCy("patch-card-dropdown").click();
+    });
+    cy.dataCy("enqueue-patch").should("be.disabled");
   });
 });
