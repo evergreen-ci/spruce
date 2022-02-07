@@ -592,6 +592,11 @@ export type BuildVariantTuple = {
   displayName: Scalars["String"];
 };
 
+export enum ProjectSettingsAccess {
+  Edit = "EDIT",
+  View = "VIEW",
+}
+
 export enum SpawnHostStatusActions {
   Start = "START",
   Stop = "STOP",
@@ -795,8 +800,6 @@ export type ProjectInput = {
   perfEnabled?: Maybe<Scalars["Boolean"]>;
   buildBaronSettings?: Maybe<BuildBaronSettingsInput>;
   taskAnnotationSettings?: Maybe<TaskAnnotationSettingsInput>;
-  hidden?: Maybe<Scalars["Boolean"]>;
-  useRepoSettings?: Maybe<Scalars["Boolean"]>;
 };
 
 export type RepoSettingsInput = {
@@ -2255,6 +2258,11 @@ export type ProjectGithubCommitQueueFragment = {
     gitTagVersionsEnabled?: Maybe<boolean>;
     gitTagAuthorizedUsers?: Maybe<Array<string>>;
     gitTagAuthorizedTeams?: Maybe<Array<string>>;
+    commitQueue: {
+      enabled?: Maybe<boolean>;
+      mergeMethod: string;
+      message: string;
+    };
   }>;
 };
 
@@ -2267,6 +2275,7 @@ export type RepoGithubCommitQueueFragment = {
     gitTagVersionsEnabled: boolean;
     gitTagAuthorizedUsers?: Maybe<Array<string>>;
     gitTagAuthorizedTeams?: Maybe<Array<string>>;
+    commitQueue: { enabled: boolean; mergeMethod: string; message: string };
   }>;
 };
 

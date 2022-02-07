@@ -3,7 +3,12 @@ import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { AliasRow } from "../AliasRow";
-import { overrideRadioBox, radioBoxOptions } from "../utils";
+import {
+  insertIf,
+  overrideRadioBox,
+  placeholderIf,
+  radioBoxOptions,
+} from "../utils";
 import { FormState } from "./types";
 
 export const getFormSchema = (
@@ -178,6 +183,65 @@ export const getFormSchema = (
           },
         },
       },
+      commitQueue: {
+        type: "object" as "object",
+        title: "Commit Queue",
+        properties: {
+          enabled: {
+            type: ["boolean", "null"],
+            oneOf: radioBoxOptions(
+              ["Enabled", "Disabled"],
+              repoData?.commitQueue?.enabled
+            ),
+          },
+          message: {
+            type: "string" as "string",
+            title: "Commit Queue Message",
+          },
+          mergeMethod: {
+            type: ["string"],
+            title: "Merge Method",
+            oneOf: [
+              {
+                type: "string" as "string",
+                title: "Squash",
+                enum: ["squash"],
+              },
+              {
+                type: "string" as "string",
+                title: "Merge",
+                enum: ["merge"],
+              },
+              {
+                type: "string" as "string",
+                title: "Rebase",
+                enum: ["rebase"],
+              },
+              ...insertIf(repoData, {
+                type: "string" as "string",
+                title: `Default to Repo (${repoData?.commitQueue?.mergeMethod})`,
+                enum: [""],
+              }),
+            ],
+          },
+          patchDefinitions: {
+            type: "object" as "object",
+            title: "Commit Queue Patch Definitions",
+            description:
+              "Changes on the Commit Queue are tested with all variants and tasks that match each variant and task regex pair.",
+            ...overrideRadioBox(
+              "commitQueueAliases",
+              [
+                "Override Repo Patch Definition",
+                "Default to Repo Patch Definition",
+              ],
+              {
+                $ref: "#/definitions/aliasArray",
+              }
+            ),
+          },
+        },
+      },
     },
   },
   uiSchema: {
@@ -273,6 +337,59 @@ export const getFormSchema = (
         ),
       },
     },
+    commitQueue: {
+      "ui:ObjectFieldTemplate": CardFieldTemplate,
+      "ui:data-cy": "cq-card",
+      enabled: {
+        "ui:showLabel": false,
+        "ui:widget": widgets.RadioBoxWidget,
+        "ui:data-cy": "cq-enabled-radio-box",
+      },
+      message: {
+        "ui:description": "Shown in commit queue CLI commands & web UI",
+        "ui:data-cy": "cq-message-input",
+        ...placeholderIf(repoData?.commitQueue?.message),
+        ...hideIf(
+          formData?.commitQueue?.enabled,
+          repoData?.commitQueue?.enabled
+        ),
+      },
+      mergeMethod: {
+        "ui:allowDeselect": false,
+        "ui:data-cy": "merge-method-select",
+        ...hideIf(
+          formData?.commitQueue?.enabled,
+          repoData?.commitQueue?.enabled
+        ),
+      },
+      patchDefinitions: {
+        ...hideIf(
+          formData?.commitQueue?.enabled,
+          repoData?.commitQueue?.enabled
+        ),
+        commitQueueAliasesOverride: {
+          "ui:data-cy": "cq-override-radio-box",
+          ...overrideStyling(
+            repoData?.commitQueue?.patchDefinitions?.commitQueueAliases ===
+              undefined
+          ),
+        },
+        commitQueueAliases: {
+          ...aliasRowUiSchema({
+            addButtonText: "Add Patch Definition",
+            accordionTitle: "Patch Definition",
+          }),
+        },
+        repoData: {
+          commitQueueAliases: {
+            ...aliasRowUiSchema({
+              accordionTitle: "Patch Definition",
+              isRepo: true,
+            }),
+          },
+        },
+      },
+    },
   },
 });
 
@@ -281,8 +398,8 @@ const hideIf = (field: boolean | null, repoField: boolean | null) =>
     "ui:widget": "hidden",
   };
 
-const overrideStyling = (field) => ({
-  "ui:widget": field ? "hidden" : widgets.RadioBoxWidget,
+const overrideStyling = (isMissingRepoField: boolean) => ({
+  "ui:widget": isMissingRepoField ? "hidden" : widgets.RadioBoxWidget,
   "ui:showLabel": false,
 });
 

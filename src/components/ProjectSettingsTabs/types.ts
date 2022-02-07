@@ -7,7 +7,7 @@ import {
 } from "gql/generated/types";
 import * as access from "./AccessTab/types";
 import * as general from "./GeneralTab/types";
-import * as githubCommitQueue from "./GithubCommitQueue/types";
+import * as githubCommitQueue from "./GithubCommitQueueTab/types";
 import * as plugins from "./PluginsTab/types";
 import * as variables from "./VariablesTab/types";
 

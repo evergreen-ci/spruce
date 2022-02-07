@@ -1,6 +1,4 @@
-import { FormDataProps } from "components/SpruceForm";
-
-export interface FormState extends FormDataProps {
+export interface FormState {
   performanceSettings: {
     perfEnabled: boolean | null;
   };

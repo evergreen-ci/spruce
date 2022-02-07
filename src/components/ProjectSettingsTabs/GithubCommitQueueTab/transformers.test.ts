@@ -62,6 +62,26 @@ const projectForm: FormState = {
       gitTagAuthorizedTeams: [],
     },
   },
+  commitQueue: {
+    enabled: null,
+    mergeMethod: "",
+    message: "",
+    patchDefinitions: {
+      commitQueueAliasesOverride: true,
+      commitQueueAliases: [
+        {
+          id: "3",
+          alias: "__commit_queue",
+          gitTag: "",
+          variant: "^ubuntu1604$",
+          task: "^lint$",
+          remotePath: "",
+          variantTags: [],
+          taskTags: [],
+        },
+      ],
+    },
+  },
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
@@ -72,6 +92,11 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
     gitTagVersionsEnabled: null,
     gitTagAuthorizedUsers: ["privileged"],
     gitTagAuthorizedTeams: [],
+    commitQueue: {
+      enabled: null,
+      mergeMethod: "",
+      message: "",
+    },
   },
   aliases: [
     {
@@ -83,6 +108,16 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
       taskTags: [],
       variant: ".*",
       variantTags: [],
+    },
+    {
+      id: "3",
+      alias: "__commit_queue",
+      gitTag: "",
+      variant: "^ubuntu1604$",
+      task: "^lint$",
+      remotePath: "",
+      variantTags: [],
+      taskTags: [],
     },
   ],
 };
@@ -120,6 +155,15 @@ const repoForm: FormState = {
       gitTagAuthorizedTeams: [],
     },
   },
+  commitQueue: {
+    enabled: true,
+    mergeMethod: "squash",
+    message: "Commit Queue Message",
+    patchDefinitions: {
+      commitQueueAliasesOverride: true,
+      commitQueueAliases: [],
+    },
+  },
 };
 
 const repoResult: Pick<RepoSettingsInput, "projectRef" | "aliases"> = {
@@ -130,6 +174,11 @@ const repoResult: Pick<RepoSettingsInput, "projectRef" | "aliases"> = {
     gitTagVersionsEnabled: true,
     gitTagAuthorizedUsers: ["admin"],
     gitTagAuthorizedTeams: [],
+    commitQueue: {
+      enabled: true,
+      mergeMethod: "squash",
+      message: "Commit Queue Message",
+    },
   },
   aliases: [
     {
@@ -202,6 +251,30 @@ const mergedForm: FormState = {
       repoData: {
         gitTagAuthorizedTeamsOverride: true,
         gitTagAuthorizedTeams: [],
+      },
+    },
+  },
+  commitQueue: {
+    enabled: null,
+    mergeMethod: "",
+    message: "",
+    patchDefinitions: {
+      commitQueueAliasesOverride: true,
+      commitQueueAliases: [
+        {
+          id: "3",
+          alias: "__commit_queue",
+          gitTag: "",
+          variant: "^ubuntu1604$",
+          task: "^lint$",
+          remotePath: "",
+          variantTags: [],
+          taskTags: [],
+        },
+      ],
+      repoData: {
+        commitQueueAliasesOverride: true,
+        commitQueueAliases: [],
       },
     },
   },

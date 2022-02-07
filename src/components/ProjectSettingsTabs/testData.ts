@@ -38,6 +38,11 @@ export const projectBase: ProjectSettingsQuery["projectSettings"] = {
     gitTagVersionsEnabled: null,
     gitTagAuthorizedUsers: ["privileged"],
     gitTagAuthorizedTeams: [],
+    commitQueue: {
+      enabled: null,
+      mergeMethod: "",
+      message: "",
+    },
     perfEnabled: true,
     buildBaronSettings: {
       ticketCreateProject: null,
@@ -62,6 +67,16 @@ export const projectBase: ProjectSettingsQuery["projectSettings"] = {
       gitTag: "",
       variant: ".*",
       task: ".*",
+      remotePath: "",
+      variantTags: [],
+      taskTags: [],
+    },
+    {
+      id: "3",
+      alias: "__commit_queue",
+      gitTag: "",
+      variant: "^ubuntu1604$",
+      task: "^lint$",
       remotePath: "",
       variantTags: [],
       taskTags: [],
@@ -104,6 +119,11 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     gitTagVersionsEnabled: true,
     gitTagAuthorizedUsers: ["admin"],
     gitTagAuthorizedTeams: [],
+    commitQueue: {
+      enabled: true,
+      mergeMethod: "squash",
+      message: "Commit Queue Message",
+    },
     perfEnabled: true,
     buildBaronSettings: {
       ticketCreateProject: "EVG",
