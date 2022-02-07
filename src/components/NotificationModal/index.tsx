@@ -11,7 +11,7 @@ import set from "lodash/set";
 import { Modal } from "components/Modal";
 import { RegexSelectorInput } from "components/NotificationModal/RegexSelectorInput";
 import { ErrorMessage } from "components/styles";
-import { size } from "constants/tokens";
+import { fontSize, size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   SaveSubscriptionMutation,
@@ -288,6 +288,6 @@ const LeftButton = styled(Button)`
 ` as typeof Button;
 
 const InputLabel = styled.label`
-  font-size: 14px;
+  font-size: ${fontSize.m};
   font-weight: bold;
 `;

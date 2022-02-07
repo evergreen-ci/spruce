@@ -11,7 +11,7 @@ import {
   getVersionRoute,
   getUserPatchesRoute,
 } from "constants/routes";
-import { size } from "constants/tokens";
+import { fontSize, size } from "constants/tokens";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { Unpacked } from "types/utils";
 import { groupStatusesByUmbrellaStatus } from "utils/statuses";
@@ -144,7 +144,7 @@ const Right = styled.div`
 `;
 
 const DescriptionLink = styled(StyledRouterLink)`
-  font-size: 18px;
+  font-size: ${fontSize.xl};
   font-weight: 500;
   padding-bottom: ${size.xs};
 `;

@@ -6,7 +6,7 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { inactiveElementStyle } from "components/styles";
 import { taskStatusToCopy, mapTaskToBarchartColor } from "constants/task";
-import { size } from "constants/tokens";
+import { size, fontSize } from "constants/tokens";
 
 import { TaskStatus } from "types/task";
 import { tooltipZIndex } from "../constants";
@@ -134,6 +134,6 @@ const SubStatusText = styled(Disclaimer)`
 `;
 
 const sharedCss = css`
-  font-size: ${size.xs};
+  font-size: ${fontSize.xs};
   line-height: 12px;
 `;

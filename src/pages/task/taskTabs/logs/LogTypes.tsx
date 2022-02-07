@@ -9,7 +9,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { Button } from "components/Button";
 import { pollInterval } from "constants/index";
-import { size } from "constants/tokens";
+import { size, fontSize } from "constants/tokens";
 
 import {
   EventLogsQuery,
@@ -329,5 +329,5 @@ const StyledPre = styled.pre`
   border: 1px solid ${gray.light2};
   border-radius: ${size.xxs};
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-  font-size: 13px;
+  font-size: ${fontSize.s};
 `;

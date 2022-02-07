@@ -11,7 +11,7 @@ import {
   TreeSelect,
   TreeSelectProps,
 } from "components/TreeSelect";
-import { size } from "constants/tokens";
+import { size, fontSize } from "constants/tokens";
 
 const { focus } = uiColors;
 export interface InputFilterProps {
@@ -146,7 +146,7 @@ const FilterWrapper = styled.div`
 `;
 const StyledTextInput = styled(TextInput)`
   p {
-    font-size: 12px;
+    font-size: ${fontSize.s};
     padding-bottom: ${size.xs};
   }
 `;
@@ -155,11 +155,11 @@ interface StyledOutlinedProps {
   active?: boolean;
 }
 const StyledFilterOutlined = styled(FilterOutlined)<StyledOutlinedProps>`
-  font-size: ${size.s};
+  font-size: ${fontSize.l};
   ${({ active }) => active && `color: ${focus}`}
 `;
 
 const StyledSearchOutlined = styled(SearchOutlined)<StyledOutlinedProps>`
-  font-size: ${size.s};
+  font-size: ${fontSize.l};
   ${({ active }) => active && `color: ${focus}`}
 `;

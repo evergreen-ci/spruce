@@ -5,6 +5,7 @@ import { HistoryTableTestSearch } from "./HistoryTableTestSearch";
 
 export default {
   component: HistoryTableTestSearch,
+  title: "HistoryTableTestSearch",
 };
 
 export const TestSearch = () => (

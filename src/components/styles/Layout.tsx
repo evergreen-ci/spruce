@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { H2, Body } from "@leafygreen-ui/typography";
 import { Layout } from "antd";
-import { size } from "constants/tokens";
+import { size, fontSize } from "constants/tokens";
 
 const { gray, white, red } = uiColors;
 const { Content, Sider } = Layout;
@@ -74,7 +74,7 @@ export const PageButtonRow = styled.div`
 `;
 
 export const InputLabel = styled.label`
-  font-size: 14px;
+  font-size: ${fontSize.m};
   font-weight: bold;
 `;
 

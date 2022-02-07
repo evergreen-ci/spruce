@@ -8,7 +8,7 @@ import {
   mapUmbrellaStatusColors,
   mapUmbrellaStatusToQueryParam,
 } from "constants/task";
-import { size } from "constants/tokens";
+import { fontSize, size } from "constants/tokens";
 import { TaskStatus } from "types/task";
 import { applyStrictRegex } from "utils/string";
 
@@ -99,9 +99,9 @@ const Row = styled.div`
 `;
 
 const Number = styled.span`
-  font-size: 11px;
+  font-size: ${fontSize.s};
   font-weight: bold;
-  line-height: ${size.xs};
+  line-height: ${fontSize.s};
 `;
 
 const Status = styled.span`

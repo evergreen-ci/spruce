@@ -4,7 +4,7 @@ import { Body } from "@leafygreen-ui/typography";
 import { Accordion } from "components/Accordion";
 import { CodeChangesBadge } from "components/CodeChangesBadge";
 import { CodeChangesTable } from "components/CodeChangesTable";
-import { size } from "constants/tokens";
+import { size, fontSize } from "constants/tokens";
 import {
   FileDiffsFragment,
   ModuleCodeChangeFragment,
@@ -62,10 +62,10 @@ const DropDownTextStyle = styled("span")`
 `;
 
 const DropDownText = styled(Body)`
-  font-size: ${size.s};
+  font-size: ${fontSize.l};
 `;
 
 const CommitName = styled(Body)`
-  font-size: 18px;
+  font-size: ${fontSize.xl};
   padding-bottom: 10px;
 `;

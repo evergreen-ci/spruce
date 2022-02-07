@@ -8,6 +8,7 @@ import { Popconfirm, Input } from "antd";
 import Cookies from "js-cookie";
 import { PageWrapper } from "components/styles";
 import { SLACK_NOTIFICATION_BANNER } from "constants/cookies";
+import { fontSize } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   UpdateUserSettingsMutation,
@@ -138,9 +139,9 @@ const SubscribeButton = styled.span`
   text-decoration-color: ${blue.dark2};
   cursor: pointer;
   color: ${blue.dark2};
-  font-size: 14px;
+  font-size: ${fontSize.m};
 `;
 
 const SlackUsername = styled(Body)`
-  font-size: 14px;
+  font-size: ${fontSize.m};
 `;

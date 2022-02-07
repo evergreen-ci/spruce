@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { Select } from "antd";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { P1 } from "components/Typography";
+import { fontSize } from "constants/tokens";
 import {
   GetTaskAllExecutionsQuery,
   GetTaskAllExecutionsQueryVariables,
@@ -75,7 +76,7 @@ const StyledSelect = styled(Select)`
   width: 100%;
 `;
 const StyledP1 = styled(P1)`
-  font-size: 14px;
+  font-size: ${fontSize.m};
 `;
 
 const Row = styled.div`

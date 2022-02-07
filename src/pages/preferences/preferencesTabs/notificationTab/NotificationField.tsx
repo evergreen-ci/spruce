@@ -1,7 +1,7 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { Radio } from "antd";
 import { notificationFields } from "constants/fieldMaps";
+import { fontSize } from "constants/tokens";
 import { Notifications } from "gql/generated/types";
 
 interface NotificationFieldProps {
@@ -50,5 +50,5 @@ const GridField = styled.div`
 `;
 
 const FieldLabel = styled.span`
-  font-size: 14px;
+  font-size: ${fontSize.m};
 `;

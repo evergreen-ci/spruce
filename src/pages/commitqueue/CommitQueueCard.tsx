@@ -9,7 +9,7 @@ import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { StyledLink, StyledRouterLink } from "components/styles";
 import { getGithubPullRequestUrl } from "constants/externalResources";
 import { getVersionRoute } from "constants/routes";
-import { size } from "constants/tokens";
+import { size, fontSize } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   ModuleCodeChangeFragment,
@@ -146,7 +146,7 @@ const Card = styled.div`
 
 const cardTitleStyles = css`
   margin-bottom: ${size.s};
-  font-size: 18px;
+  font-size: ${fontSize.xl};
   font-weight: bold;
 `;
 

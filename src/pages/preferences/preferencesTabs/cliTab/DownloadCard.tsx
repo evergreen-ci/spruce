@@ -9,7 +9,7 @@ import { usePreferencesAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
 import { StyledLink } from "components/styles";
 import { cliDocumentationUrl } from "constants/externalResources";
-import { size } from "constants/tokens";
+import { size, fontSize } from "constants/tokens";
 import {
   ClientConfigQuery,
   ClientConfigQueryVariables,
@@ -179,7 +179,7 @@ const CliDownloadTitle = styled(Subtitle)`
 ` as typeof Subtitle;
 
 const CardDescription = styled.div`
-  font-size: 14px;
+  font-size: ${fontSize.m};
   margin-bottom: 40px;
 `;
 

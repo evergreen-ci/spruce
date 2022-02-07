@@ -20,4 +20,12 @@ const zIndex = {
   dropdown: 50,
 } as const;
 
-export { size, zIndex };
+const fontSize = {
+  xs: "8px",
+  s: "12px",
+  m: "14px",
+  l: "16px",
+  xl: "18px",
+} as const;
+
+export { size, zIndex, fontSize };

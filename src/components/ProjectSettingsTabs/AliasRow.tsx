@@ -7,7 +7,7 @@ import {
 import { Subtitle } from "@leafygreen-ui/typography";
 import { Accordion } from "components/Accordion";
 import { SpruceFormProps } from "components/SpruceForm";
-import { size } from "constants/tokens";
+import { size, fontSize } from "constants/tokens";
 
 const VariantInput: Record<string, string> = {
   Regex: "variant",
@@ -157,7 +157,7 @@ export const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
 
 /* @ts-expect-error  */
 const AccordionTitle = styled(Subtitle)`
-  font-size: 16px;
+  font-size: ${fontSize.l};
   margin: ${size.s} 0;
 `;
 
