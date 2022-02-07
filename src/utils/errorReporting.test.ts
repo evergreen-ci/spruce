@@ -1,42 +1,45 @@
 import Bugsnag from "@bugsnag/js";
+import { mockEnvironmentalVariables } from "test_utils/utils";
 import { errorReporting } from "utils";
 
 const { reportError } = errorReporting;
+
+const { mockEnv, cleanup } = mockEnvironmentalVariables();
 const err = new Error("test error");
 
 describe("error reporting", () => {
-  const OLD_ENV = process.env;
-
   beforeEach(() => {
-    jest.resetModules(); // this is important - it clears the cache
-    process.env = { ...OLD_ENV };
-    // @ts-ignore
-    delete process.env.NODE_ENV;
+    jest.spyOn(console, "error").mockImplementation(() => {});
+    jest.spyOn(Bugsnag, "notify");
   });
-
   afterEach(() => {
-    process.env = OLD_ENV;
+    cleanup();
+    jest.restoreAllMocks();
   });
 
-  it("returns a map of empty functions when environment is not Production", async () => {
-    // spy on Bugsnag.notify and newrelic.noticeError becuase that is called when the functions are not empty
-    const notifySpy = jest.spyOn(Bugsnag, "notify");
+  it("should log errors into console instead of to bugsnag when not in production", async () => {
     const result = reportError(err);
     result.severe();
+    expect(console.error).toHaveBeenCalledWith({
+      err,
+      severity: "severe",
+    });
     result.warning();
-    expect(notifySpy).toHaveBeenCalledTimes(0);
+    expect(console.error).toHaveBeenLastCalledWith({
+      err,
+      severity: "warning",
+    });
+    expect(Bugsnag.notify).not.toHaveBeenCalled();
   });
 
-  it("returns a map of functions that call Bugsnag.notify and newrelic.noticeError with an error object when environment is Production", () => {
-    // @ts-ignore
-    process.env.NODE_ENV = "production";
-    const notifySpy = jest.spyOn(Bugsnag, "notify");
+  it("should report errors to bugsnag when in production", () => {
+    mockEnv("NODE_ENV", "production");
+    const bugsnagMock = jest.fn();
+    jest.spyOn(Bugsnag, "notify").mockImplementation(bugsnagMock);
     const result = reportError(err);
     result.severe();
-    expect(notifySpy).toHaveBeenCalledTimes(1);
-    expect(notifySpy.mock.calls[0][0]).toBe(err);
+    expect(bugsnagMock).toHaveBeenCalledWith(err, expect.any(Function));
     result.warning();
-    expect(notifySpy).toHaveBeenCalledTimes(2);
-    expect(notifySpy.mock.calls[1][0]).toBe(err);
+    expect(bugsnagMock).toHaveBeenLastCalledWith(err, expect.any(Function));
   });
 });

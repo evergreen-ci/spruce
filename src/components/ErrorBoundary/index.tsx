@@ -26,7 +26,7 @@ class DefaultErrorBoundary extends React.Component<{}, { hasError: boolean }> {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.log({ error, errorInfo });
+    console.error({ error, errorInfo });
   }
 
   render() {
