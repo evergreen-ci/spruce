@@ -97,6 +97,9 @@ const validate = (
       prTesting: { githubPrAliases },
       githubChecks: { githubCheckAliases },
     },
+    commitQueue: {
+      patchDefinitions: { commitQueueAliases },
+    },
   } = formData;
 
   githubPrAliases.forEach((alias, i) => {
@@ -108,6 +111,14 @@ const validate = (
   githubCheckAliases.forEach((alias, i) => {
     if (aliasHasError(alias)) {
       errors.github.githubChecks.githubCheckAliases[i].addError(
+        "Missing field"
+      );
+    }
+  });
+
+  commitQueueAliases.forEach((alias, i) => {
+    if (aliasHasError(alias)) {
+      errors.commitQueue.patchDefinitions.commitQueueAliases[i].addError(
         "Missing field"
       );
     }

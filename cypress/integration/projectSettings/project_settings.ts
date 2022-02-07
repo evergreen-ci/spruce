@@ -41,7 +41,7 @@ describe("Repo Settings", () => {
       cy.dataCy("navitem-github-commitqueue").click();
     });
 
-    it("Successfully saves a patch definition", () => {
+    it("Updates a patch definition", () => {
       cy.dataCy("add-button").contains("Add Patch Definition").parent().click();
 
       cy.dataCy("variant-tags-field").find("button").click();
@@ -49,7 +49,36 @@ describe("Repo Settings", () => {
 
       cy.dataCy("task-tags-field").find("button").click();
       cy.dataCy("task-tags-input").first().type("ttag");
+    });
 
+    it("Toggling disable commit queue hides inputs", () => {
+      const countCQFields = (count: number) => {
+        cy.dataCy("cq-card").children().should("have.length", count);
+      };
+
+      countCQFields(4);
+      cy.dataCy("cq-enabled-radio-box").children().eq(1).click();
+      countCQFields(1);
+      cy.dataCy("cq-enabled-radio-box").children().first().click();
+      countCQFields(4);
+    });
+
+    it("Presents three options for merge method", () => {
+      const selectId = "merge-method-select";
+      cy.get(`button[name=${selectId}]`).click();
+      cy.get(`#${selectId}-menu`).children().should("have.length", 3);
+      cy.get(`#${selectId}-menu`).children().first().click();
+    });
+
+    it("Does not show override buttons for commit queue patch definitions", () => {
+      cy.dataCy("cq-override-radio-box").should("not.exist");
+    });
+
+    it("Updates the commit queue message", () => {
+      cy.dataCy("cq-message-input").type("Repo message");
+    });
+
+    it("Successfully saves the page", () => {
       cy.dataCy("save-settings-button").click();
       cy.contains("Successfully updated repo");
     });
@@ -225,7 +254,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.get("input[name=githubPrAliasesOverride]").first().parent().click();
       cy.dataCy("add-button").contains("Add Patch Definition").parent().click();
       cy.get("button").contains("Regex").first().click();
-      cy.dataCy("variant-input").type(".*");
+      cy.dataCy("variant-input").first().type(".*");
     });
 
     it("Disables save when the task field is empty", () => {
@@ -240,15 +269,45 @@ describe("Project Settings when defaulting to repo", () => {
     });
 
     it("Should enable save when the task and variant fields are filled in", () => {
-      cy.dataCy("variant-input").type(".*");
+      cy.dataCy("variant-input").first().type(".*");
       cy.get("#task-input-control").find("button").eq(1).click();
-      cy.dataCy("task-input").type(".*");
+      cy.dataCy("task-input").first().type(".*");
       cy.dataCy("save-settings-button").should("not.be.disabled");
     });
 
     it("Disables Authorized Users section based on repo settings", () => {
       cy.contains("Authorized Users").should("not.exist");
       cy.contains("Authorized Teams").should("not.exist");
+    });
+
+    it("Displays the repo's merge method as its default", () => {
+      cy.get("button[name=merge-method-select]").should(
+        "have.text",
+        "Default to Repo (squash)"
+      );
+    });
+
+    it("Show's the repo's commit queue message as a placeholder when the field is cleared", () => {
+      cy.dataCy("cq-message-input").clear();
+      cy.dataCy("cq-message-input").should(
+        "have.attr",
+        "placeholder",
+        "Repo message (Default from repo)"
+      );
+    });
+
+    it("Defaults to overriding repo since a patch definition is defined", () => {
+      cy.dataCy("cq-override-radio-box")
+        .find("input")
+        .first()
+        .should("be.checked");
+    });
+
+    it("Shows the existing patch definition", () => {
+      cy.dataCy("variant-input").last().should("have.value", "^ubuntu1604$");
+      cy.dataCy("task-input")
+        .last()
+        .should("have.value", "^smoke-test-endpoints$");
     });
 
     it("Clicking on save button should show a success toast", () => {
