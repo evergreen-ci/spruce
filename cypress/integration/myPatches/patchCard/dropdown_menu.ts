@@ -37,9 +37,11 @@ describe("Dropdown Menu of Patch Actions", () => {
   });
 
   it("'Schedule' link opens modal and clicking on 'Cancel' closes it.", () => {
-    getPatchCardByDescription(patchDescriptionCanReconfigure).within(() => {
-      cy.dataCy("patch-card-dropdown").click();
-    });
+    getPatchCardByDescription(patchDescriptionReconfigureDisabled).within(
+      () => {
+        cy.dataCy("patch-card-dropdown").click();
+      }
+    );
     cy.dataCy("schedule-patch").click();
     cy.dataCy("schedule-tasks-modal").should("be.visible");
     cy.contains("Cancel").click();
@@ -47,9 +49,11 @@ describe("Dropdown Menu of Patch Actions", () => {
   });
 
   it("'Unschedule' link opens popconfirm and schedules patch", () => {
-    getPatchCardByDescription(patchDescriptionCanReconfigure).within(() => {
-      cy.dataCy("patch-card-dropdown").click();
-    });
+    getPatchCardByDescription(patchDescriptionReconfigureDisabled).within(
+      () => {
+        cy.dataCy("patch-card-dropdown").click();
+      }
+    );
     cy.dataCy("unschedule-patch").click({ force: true });
     cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
     cy.dataCy("toast").should("exist");
