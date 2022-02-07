@@ -128,30 +128,23 @@ const GridContainer = styled.div`
   display: grid;
   grid-template-columns: 2fr repeat(3, 1fr);
   grid-template-rows: repeat(7, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
+  column-gap: 0;
+  row-gap: 0;
   width: 50%;
-}
 `;
 
 const GridField = styled.div`
-  height: 50px;
   grid-area: ${(props: { gridArea: string }): string => props.gridArea};
 `;
 
 const StyledTextInput = styled(TextInput)`
   margin-bottom: ${size.m};
   width: 50%;
-  :last-child {
-    margin-bottom: 40px;
-  }
 `;
 
 // @ts-expect-error
 const PreferencesCard = styled(Card)`
-  padding-left: ${size.m};
-  padding-top: ${size.m};
-  padding-bottom: 40px;
-  margin-bottom: ${size.l};
+  padding: ${size.m};
+  margin-bottom: ${size.m};
   width: 100%;
 `;

@@ -29,7 +29,7 @@ export const DateSeparator: React.FC<DateSeparatorProps> = ({
 
 const Container = styled.div`
   width: 100%;
-  padding-right: 40px;
+  padding-right: ${size.l};
   display: flex;
   align-items: center;
 `;

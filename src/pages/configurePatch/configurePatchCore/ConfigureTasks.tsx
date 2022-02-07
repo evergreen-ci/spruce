@@ -400,8 +400,8 @@ const Tasks = styled.div`
   grid-template-columns: auto auto;
   grid-template-areas: "a a";
   grid-auto-rows: auto;
-  grid-column-gap: 30px;
-  grid-row-gap: 12px;
+  column-gap: ${size.l};
+  row-gap: ${size.xs};
   overflow: scroll;
   max-height: 60vh;
 `;

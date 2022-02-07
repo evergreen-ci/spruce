@@ -52,7 +52,7 @@ const RightContainer = styled.div`
 `;
 
 const Subtitle = styled(Disclaimer)`
-  padding-bottom: 3px;
+  padding-bottom: ${size.xxs};
 `;
 
 const StyledBadge = styled(Badge)`

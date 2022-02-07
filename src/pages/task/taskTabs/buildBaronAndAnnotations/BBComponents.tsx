@@ -137,7 +137,7 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
 // @ts-expect-error
 export const TicketsTitle = styled(Subtitle)<TitleProps>`
   margin-bottom: ${(props) => (props.margin ? size.s : size.xxs)};
-  margin-top: ${(props) => (props.margin ? size.m : "35px")};
+  margin-top: ${(props) => (props.margin ? size.m : size.l)};
   line-height: ${size.m};
   font-weight: bold;
 `;
@@ -156,7 +156,7 @@ export const BottomMetaDataWrapper = styled.div`
   margin-top: ${size.xs};
   display: grid;
   grid-template-columns: 1fr 1fr 2fr;
-  gap: 10px;
+  gap: ${size.xs};
   grid-template-rows: 1fr;
   grid-row-gap: 0px;
   width: 80%;
@@ -166,7 +166,7 @@ export const TopMetaDataWrapper = styled.div`
   margin-bottom: ${size.xs};
   display: grid;
   grid-template-columns: 1fr 4fr;
-  gap: 10px;
+  gap: ${size.xs};
   grid-template-rows: 1fr;
   grid-row-gap: 0px;
   width: 80%;

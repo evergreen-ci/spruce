@@ -102,7 +102,7 @@ const ButtonWrapper = styled.div`
   white-space: nowrap; // prevent button collapse when screen is small
 `;
 const ButtonContainer = styled.div`
-  margin-top: 10px;
+  margin-top: ${size.xs};
   display: flex;
   justify-content: flex-end;
 `;

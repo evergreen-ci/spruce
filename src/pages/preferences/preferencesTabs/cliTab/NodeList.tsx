@@ -21,14 +21,15 @@ export const NodeList: React.FC<NodeListProps> = ({ list }) => (
 );
 
 const NodeContainer = styled.div`
-  :after {
-    background: ${gray.light2};
-    content: "";
-    left: 28px;
-    position: absolute;
-    top: 0%;
-    height: 80%;
-    width: 1px;
-    z-index: -1;
+  :last-child:after {
+      background: ${gray.light2};
+      content: "";
+      left: 28px;
+      position: absolute;
+      top: 0%;
+      height: 90%;
+      width: 1px;
+      z-index: -1;
+    }
   }
 `;

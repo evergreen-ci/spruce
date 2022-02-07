@@ -231,7 +231,7 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
 };
 
 const ProjectTitleWrapper = styled.div`
-  margin-right: 10px;
+  margin-right: ${size.xs};
   font-weight: bold;
 `;
 

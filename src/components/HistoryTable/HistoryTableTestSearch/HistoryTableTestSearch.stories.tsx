@@ -1,3 +1,4 @@
+import StoryRouter from "storybook-react-router";
 import { FilterBadges } from "components/FilterBadges";
 import { size } from "constants/tokens";
 import { TestStatus } from "types/history";
@@ -6,6 +7,7 @@ import { HistoryTableTestSearch } from "./HistoryTableTestSearch";
 export default {
   component: HistoryTableTestSearch,
   title: "HistoryTableTestSearch",
+  decorators: [StoryRouter()],
 };
 
 export const TestSearch = () => (

@@ -116,18 +116,18 @@ const Circle = styled.div<{ color: string }>`
 `;
 
 const NumberText = styled(Disclaimer)`
-  width: 40px;
+  width: ${size.l};
   font-weight: bold;
   text-align: center;
 `;
 
 const StatusText = styled(Disclaimer)`
-  width: 90px;
+  width: ${size.xxl};
   text-align: left;
 `;
 
 const SubStatusText = styled(Disclaimer)`
-  width: 90px;
+  width: ${size.xxl};
   text-align: left;
   margin: 2px 0px 0px 20px;
   word-break: break-word;

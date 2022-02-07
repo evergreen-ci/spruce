@@ -74,13 +74,10 @@ export const NewUITab: React.FC = () => {
 const PreferencesCard = styled(Card)`
   display: flex;
   flex-direction: column;
-  padding-left: ${size.m};
-  padding-top: ${size.m};
-  padding-bottom: 40px;
-  margin-bottom: 30px;
+  padding: ${size.m};
   width: 100%;
 `;
 
 const PaddedBody = styled(Body)`
-  margin-bottom: 40px;
+  padding-bottom: ${size.l};
 `;

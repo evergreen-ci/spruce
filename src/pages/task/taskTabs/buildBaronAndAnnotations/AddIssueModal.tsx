@@ -181,7 +181,7 @@ export const AddIssueModal: React.FC<Props> = ({
 };
 
 const StyledTextArea = styled(TextArea)`
-  margin-bottom: 40px;
+  margin-bottom: ${size.l};
   resize: none;
 `;
 

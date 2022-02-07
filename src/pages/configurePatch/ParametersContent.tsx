@@ -55,7 +55,7 @@ const StyledBadge = styled(Badge)`
   margin-bottom: ${size.s};
 `;
 export const ParamsContainer = styled.div`
-  margin-left: 20px;
+  margin-left: ${size.m};
   width: 70%;
 `;
 

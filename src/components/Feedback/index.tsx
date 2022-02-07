@@ -50,7 +50,7 @@ const FloatingContainer = styled.div`
   margin-left: ${size.l};
   margin-bottom: ${size.s};
   background-color: white;
-  padding: 10px;
+  padding: ${size.xs};
   border-radius: ${size.s};
   display: flex;
   justify-content: center;

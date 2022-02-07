@@ -199,7 +199,7 @@ const Wrapper = styled.div`
 `;
 
 const Option = styled.div`
-  padding: 10px 12px;
+  padding: ${size.xs} ${size.xxs};
   display: flex;
   align-items: start;
   word-break: break-all; // Safari

@@ -119,7 +119,7 @@ const Container = styled(ModalContent)`
 
 // @ts-expect-error
 const StyledSubtitle = styled(Subtitle)`
-  padding-bottom: 20px;
+  padding-bottom: ${size.s};
 `;
 
 const StyledTextArea = styled(TextArea)`

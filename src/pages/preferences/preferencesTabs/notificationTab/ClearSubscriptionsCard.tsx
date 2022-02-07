@@ -76,7 +76,7 @@ export const ClearSubscriptionsCard: React.FC = () => {
 
 // @ts-expect-error
 const StyledClearSubscriptionButton = styled(Button)`
-  margin-top: 36px;
+  margin-top: ${size.m};
 `;
 
 const ContentWrapper = styled.div`
@@ -85,10 +85,7 @@ const ContentWrapper = styled.div`
 
 // @ts-expect-error
 const PreferencesCard = styled(Card)`
-  padding: ${size.m} ${size.m};
-  padding-left: ${size.m};
-  padding-top: ${size.m};
-  padding-bottom: 40px;
-  margin-bottom: 30px;
+  padding: ${size.m};
+  margin-bottom: ${size.m};
   width: 100%;
 `;

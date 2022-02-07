@@ -17,7 +17,7 @@ export const PageWrapper = styled.div`
   grid-area: contents;
   overflow-x: hidden;
   overflow-y: scroll;
-  padding: ${size.m} 36px 56px 36px;
+  padding: ${size.m} ${size.l};
 `;
 
 export const PageGrid = styled.section`

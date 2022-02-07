@@ -156,13 +156,13 @@ const AbsoluteContainer = styled.div`
 const CommitWrapper = styled.div<{ width: number }>`
   width: ${({ width }) => width}px;
   min-width: ${({ width }) => width * 0.75}px;
-  margin: 0px 8px;
+  margin: 0px ${size.xs};
 
   &:first-child {
-    margin-left: 0px;
+    margin-left: 0;
   }
   &:last-child {
-    margin-right: 0px;
+    margin-right: 0;
   }
 `;
 

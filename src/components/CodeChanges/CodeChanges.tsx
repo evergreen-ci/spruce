@@ -90,5 +90,5 @@ const Title = styled(H2)`
 `;
 
 const Container = styled.div`
-  padding-bottom: 48px;
+  padding-bottom: ${size.l};
 `;

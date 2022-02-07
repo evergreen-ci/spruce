@@ -47,13 +47,15 @@ export const PageTitle: React.FC<Props> = ({
     {hasData && !loading && (
       <PageHeader size={size}>
         <TitleWrapper size={size}>
-          <TitleTypography size={size}>
-            <span data-cy="page-title">
-              {title}
-              {"  "}
-              <BadgeWrapper size={size}>{badge}</BadgeWrapper>
-            </span>
-          </TitleTypography>
+          <FlexRow>
+            <TitleTypography size={size}>
+              <span data-cy="page-title">
+                {title}
+                {"  "}
+              </span>
+            </TitleTypography>
+            <BadgeWrapper size={size}>{badge}</BadgeWrapper>
+          </FlexRow>
         </TitleWrapper>
         {buttons ?? null}
       </PageHeader>
@@ -64,13 +66,19 @@ export const PageTitle: React.FC<Props> = ({
 const BadgeWrapper = styled.span<TitleTypographyProps>`
   display: inline-flex;
   position: relative;
-  top: ${(props) => (props.size === "medium" ? "-2px" : `-${tokenSize.xxs}`)};
-  margin-left: ${(props) => props.size === "large" && "20px"};
+  margin-left: ${({ size }) => (size === "large" ? tokenSize.m : tokenSize.s)};
+`;
+
+const FlexRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 const PageHeader = styled.div<TitleTypographyProps>`
-  margin-bottom: ${(props) => (props.size === "medium" ? "11px" : "30px")};
-  margin-top: ${(props) => props.size === "large" && `${tokenSize.s}`};
+  margin-bottom: ${(props) =>
+    props.size === "medium" ? tokenSize.m : tokenSize.l};
+  ${({ size }) => size === "large" && `margin-top: ${tokenSize.s};`}
   display: flex;
   justify-content: space-between;
 `;

@@ -269,7 +269,7 @@ export const StyledText = styled.div`
 
 const BtnContainer = styled.div`
   white-space: nowrap;
-  margin-bottom: 35px;
+  margin-bottom: ${size.l};
   float: right;
   white-space: nowrap;
 `;
@@ -278,5 +278,5 @@ const BtnContainer = styled.div`
 const StyledButton = styled(Button)`
   margin-left: ${size.xs};
   margin-top: ${size.xs};
-  height: 28px;
+  height: ${size.m};
 `;

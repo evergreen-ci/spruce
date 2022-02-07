@@ -79,7 +79,7 @@ interface BadgeColorProps {
 }
 
 const BadgeContainer = styled.div<BadgeColorProps>`
-  height: 28px;
+  height: ${size.l};
   width: ${size.xl};
   border-radius: ${size.xxs};
   border: 1px solid;

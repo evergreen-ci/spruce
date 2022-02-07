@@ -19,8 +19,7 @@ export const BadgeWrapper = styled.div`
 `;
 
 export const StyledBadge = styled(Badge)`
-  margin-right: 10px;
-  margin-left: 10px;
+  margin: 0 ${size.xs};
 `;
 
 export const PlusButton = ({ children, ...props }) => (

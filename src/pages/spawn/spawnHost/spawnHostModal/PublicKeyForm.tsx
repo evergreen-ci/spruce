@@ -136,8 +136,7 @@ const Container = styled(FlexColumnContainer)`
 `;
 
 const PaddedText = styled.span`
-  padding-left: ${size.s};
-  padding-right: ${size.s};
+  padding: 0 ${size.s};
 `;
 const SelectContainer = styled.div`
   display: flex;
@@ -147,7 +146,7 @@ const SelectContainer = styled.div`
 `;
 
 const StyledInput = styled(TextInput)`
-  margin-left: 10px;
+  margin-left: ${size.xs};
   flex-grow: 3;
 `;
 

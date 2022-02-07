@@ -115,8 +115,8 @@ export const PatchCard: React.FC<Props> = ({
 const TaskBadgeContainer = styled.div`
   display: flex;
   justify-content: flex-start;
-  > div {
-    margin-right: 14px;
+  > * {
+    margin-right: ${size.s};
   }
   flex-wrap: wrap;
 `;
@@ -124,7 +124,7 @@ const TaskBadgeContainer = styled.div`
 const CardWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 12px ${size.xxs} 12px;
+  padding: ${size.s} ${size.xxs};
   border-bottom: 1px solid ${gray.light2};
 `;
 
@@ -151,7 +151,7 @@ const DescriptionLink = styled(StyledRouterLink)`
 
 const PatchBadgeContainer = styled.div`
   margin-right: ${size.m};
-  min-width: 90px;
+  min-width: ${size.xxl};
 `;
 
 const TimeAndProject = styled.div`

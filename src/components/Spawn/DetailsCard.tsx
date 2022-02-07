@@ -7,8 +7,7 @@ import { MyHost, MyVolume } from "types/spawn";
 const FieldContainer = styled.div`
   display: flex;
   width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: ${size.xs};
 `;
 
 const FieldName = styled.div`

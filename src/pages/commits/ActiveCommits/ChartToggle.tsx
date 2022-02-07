@@ -65,12 +65,11 @@ const StyledRadioGroup = styled(RadioGroup)`
   align-items: center;
   justify-content: space-evenly;
   width: 286px;
-  height: 59px;
+  /* height: ${size.xl}; */
   border-radius: 7px;
   border: 1px solid ${gray.light2};
-  margin-top: ${size.xxs};
-  padding-bottom: 6px;
-  padding-right: ${size.xxs};
+  padding: ${size.s} 0;
+  /* padding-right: ${size.xxs}; */
   background: #ffffff;
   box-shadow: 0px ${size.xxs} 10px -${size.xxs} rgba(0, 0, 0, 0.3);
 `;

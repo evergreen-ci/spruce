@@ -60,7 +60,7 @@ const NodeTitle = styled(Subtitle)`
 const NodeContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 80px;
+  margin-bottom: ${size.xxl};
 `;
 
 const NodeHeader = styled.div`
@@ -68,5 +68,5 @@ const NodeHeader = styled.div`
 `;
 
 const ChildContainer = styled.div`
-  margin-left: 80px;
+  margin-left: ${size.xxl};
 `;

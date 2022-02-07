@@ -138,5 +138,5 @@ const ButtonRow = styled.div`
 
 const Container = styled.div`
   ${(props: { hasButtons: boolean }): string =>
-    props.hasButtons && "margin-bottom: 20px;"}
+    props.hasButtons && `margin-bottom: ${size.m};`}
 `;

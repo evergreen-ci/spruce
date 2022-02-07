@@ -128,13 +128,13 @@ const FlexContainer = styled.div`
 const FlexColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-right: 10px;
+  margin-right: ${size.xs};
 `;
 
 const Section = styled(FlexColumnContainer)`
-  margin-top: 20px;
+  margin-top: ${size.m};
 `;
 
 const IconButtonContainer = styled.div`
-  margin-top: 42px;
+  margin-top: ${size.l};
 `;

@@ -96,7 +96,7 @@ const StyledNav = styled.nav`
   justify-content: space-between;
   height: ${navBarHeight};
   line-height: ${navBarHeight};
-  padding: 0 ${size.m};
+  padding: 0 36px;
 `;
 
 const LogoLink = styled(Link)`

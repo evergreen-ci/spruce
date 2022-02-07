@@ -137,7 +137,7 @@ const mapRouteToSection: Record<WritableTabRoutes, ProjectSettingsSection> = {
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: ${size.l};
 `;
 
 const TitleContainer = styled.div`

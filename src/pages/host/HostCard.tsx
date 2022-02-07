@@ -37,14 +37,13 @@ export const HostCard: React.FC<Props> = ({
 
 // @ts-expect-error
 const SiderCard = styled(Card)<StylingProps>`
-  padding-top: 12px;
-  padding-bottom: ${size.m};
-  margin-bottom: 30px;
-  padding-right: ${(props) => (props.metaData ? "0px" : "28px")};
-  padding-left: ${(props) => (props.metaData ? size.s : "28px")};
-  margin-left: ${(props) => (props.metaData ? "0px" : "20px")};
-  margin-right: ${(props) => (props.metaData ? "0px" : "20px")};
-  > p {
-    margin-top: ${(props) => props.metaData && "20px"};
+  padding: ${size.xs} 0;
+  margin-bottom: ${size.l};
+  padding-right: ${(props) => (props.metaData ? 0 : size.m)};
+  padding-left: ${(props) => (props.metaData ? size.s : size.m)};
+  margin-left: ${(props) => (props.metaData ? 0 : size.m)};
+  margin-right: ${(props) => (props.metaData ? 0 : size.m)};
+  > * {
+    ${(props) => props.metaData && `margin-top: ${size.s}`};
   }
 `;

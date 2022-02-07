@@ -4,8 +4,6 @@ import { size } from "constants/tokens";
 
 /* @ts-expect-error */
 export const SiderCard = styled(Card)`
-  padding-top: 10px;
-  padding-right: ${size.xs};
-  padding-left: ${size.xs};
+  padding: ${size.xs} ${size.xs};
   margin-bottom: 12px;
 `;

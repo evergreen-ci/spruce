@@ -54,7 +54,7 @@ export const CodeChangeModule: React.FC<{
 };
 
 const CodeChangeModuleContainer = styled.div`
-  padding-bottom: 38px;
+  padding-bottom: ${size.l};
 `;
 
 const DropDownTextStyle = styled("span")`
@@ -67,5 +67,5 @@ const DropDownText = styled(Body)`
 
 const CommitName = styled(Body)`
   font-size: ${fontSize.xl};
-  padding-bottom: 10px;
+  padding-bottom: ${size.xs};
 `;

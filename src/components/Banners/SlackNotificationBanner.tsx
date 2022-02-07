@@ -130,8 +130,7 @@ export const SlackNotificationBanner = () => {
 const isNotificationSet = (field: string) =>
   field !== "" && field !== undefined;
 const StyledPageWrapper = styled(PageWrapper)`
-  padding-bottom: 12px;
-  padding-top: 12px;
+  padding: 12px 0;
 `;
 
 const SubscribeButton = styled.span`

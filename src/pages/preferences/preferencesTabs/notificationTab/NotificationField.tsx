@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Radio } from "antd";
 import { notificationFields } from "constants/fieldMaps";
-import { fontSize } from "constants/tokens";
+import { fontSize, size } from "constants/tokens";
 import { Notifications } from "gql/generated/types";
 
 interface NotificationFieldProps {
@@ -45,7 +45,7 @@ const GridCapableRadioGroup = styled(Radio.Group)`
 `;
 
 const GridField = styled.div`
-  height: 50px;
+  height: ${size.l};
   grid-area: ${(props: { gridArea: string }): string => props.gridArea};
 `;
 
