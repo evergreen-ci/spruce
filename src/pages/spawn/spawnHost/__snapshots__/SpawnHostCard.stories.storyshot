@@ -2,11 +2,11 @@
 
 exports[`storybook Storyshots Spawn Host Card Spawn Host Card Story 1`] = `
 <div
-  className="css-wvdt3j-SiderCard-CardContainer e9wutqn0 leafygreen-ui-fe135o"
+  className="css-vvf03h-SiderCard-CardContainer e9wutqn0 leafygreen-ui-fe135o"
   data-cy="spawn-host-card"
 >
   <div
-    className="css-7frn0z-FieldContainer e9wutqn2"
+    className="css-7hzhkt-FieldContainer e9wutqn2"
   >
     <div
       className="css-o728yg-FieldName e9wutqn1"
@@ -20,7 +20,7 @@ exports[`storybook Storyshots Spawn Host Card Spawn Host Card Story 1`] = `
     </div>
   </div>
   <div
-    className="css-7frn0z-FieldContainer e9wutqn2"
+    className="css-7hzhkt-FieldContainer e9wutqn2"
   >
     <div
       className="css-o728yg-FieldName e9wutqn1"
@@ -34,7 +34,7 @@ exports[`storybook Storyshots Spawn Host Card Spawn Host Card Story 1`] = `
     </div>
   </div>
   <div
-    className="css-7frn0z-FieldContainer e9wutqn2"
+    className="css-7hzhkt-FieldContainer e9wutqn2"
   >
     <div
       className="css-o728yg-FieldName e9wutqn1"
@@ -48,7 +48,7 @@ exports[`storybook Storyshots Spawn Host Card Spawn Host Card Story 1`] = `
     </div>
   </div>
   <div
-    className="css-7frn0z-FieldContainer e9wutqn2"
+    className="css-7hzhkt-FieldContainer e9wutqn2"
   >
     <div
       className="css-o728yg-FieldName e9wutqn1"
@@ -62,7 +62,7 @@ exports[`storybook Storyshots Spawn Host Card Spawn Host Card Story 1`] = `
     </div>
   </div>
   <div
-    className="css-7frn0z-FieldContainer e9wutqn2"
+    className="css-7hzhkt-FieldContainer e9wutqn2"
   >
     <div
       className="css-o728yg-FieldName e9wutqn1"
@@ -76,7 +76,7 @@ exports[`storybook Storyshots Spawn Host Card Spawn Host Card Story 1`] = `
     </div>
   </div>
   <div
-    className="css-7frn0z-FieldContainer e9wutqn2"
+    className="css-7hzhkt-FieldContainer e9wutqn2"
   >
     <div
       className="css-o728yg-FieldName e9wutqn1"
@@ -90,7 +90,7 @@ exports[`storybook Storyshots Spawn Host Card Spawn Host Card Story 1`] = `
     </div>
   </div>
   <div
-    className="css-7frn0z-FieldContainer e9wutqn2"
+    className="css-7hzhkt-FieldContainer e9wutqn2"
   >
     <div
       className="css-o728yg-FieldName e9wutqn1"
@@ -104,7 +104,7 @@ exports[`storybook Storyshots Spawn Host Card Spawn Host Card Story 1`] = `
     </div>
   </div>
   <div
-    className="css-7frn0z-FieldContainer e9wutqn2"
+    className="css-7hzhkt-FieldContainer e9wutqn2"
   >
     <div
       className="css-o728yg-FieldName e9wutqn1"
@@ -116,7 +116,7 @@ exports[`storybook Storyshots Spawn Host Card Spawn Host Card Story 1`] = `
     </div>
   </div>
   <div
-    className="css-7frn0z-FieldContainer e9wutqn2"
+    className="css-7hzhkt-FieldContainer e9wutqn2"
   >
     <div
       className="css-o728yg-FieldName e9wutqn1"
@@ -128,7 +128,7 @@ exports[`storybook Storyshots Spawn Host Card Spawn Host Card Story 1`] = `
     </div>
   </div>
   <div
-    className="css-7frn0z-FieldContainer e9wutqn2"
+    className="css-7hzhkt-FieldContainer e9wutqn2"
   >
     <div
       className="css-o728yg-FieldName e9wutqn1"
@@ -142,7 +142,7 @@ exports[`storybook Storyshots Spawn Host Card Spawn Host Card Story 1`] = `
     </div>
   </div>
   <div
-    className="css-7frn0z-FieldContainer e9wutqn2"
+    className="css-7hzhkt-FieldContainer e9wutqn2"
   >
     <div
       className="css-o728yg-FieldName e9wutqn1"
@@ -152,7 +152,7 @@ exports[`storybook Storyshots Spawn Host Card Spawn Host Card Story 1`] = `
     <div />
   </div>
   <div
-    className="css-7frn0z-FieldContainer e9wutqn2"
+    className="css-7hzhkt-FieldContainer e9wutqn2"
   >
     <div
       className="css-o728yg-FieldName e9wutqn1"
@@ -172,7 +172,7 @@ exports[`storybook Storyshots Spawn Host Card Spawn Host Card Story 1`] = `
     </div>
   </div>
   <div
-    className="css-7frn0z-FieldContainer e9wutqn2"
+    className="css-7hzhkt-FieldContainer e9wutqn2"
   >
     <div
       className="css-o728yg-FieldName e9wutqn1"

@@ -2,7 +2,7 @@
 
 exports[`storybook Storyshots Node List Node Element 1`] = `
 <div
-  className="css-1xofbf3-NodeContainer e1k5prvz2"
+  className="css-paub65-NodeContainer e1k5prvz2"
 >
   <div
     className="css-noe96r-NodeHeader e1k5prvz1"
@@ -23,7 +23,7 @@ exports[`storybook Storyshots Node List Node Element 1`] = `
     </h6>
   </div>
   <div
-    className="css-1oy5nku-ChildContainer e1k5prvz0"
+    className="css-w6wgl7-ChildContainer e1k5prvz0"
   >
     <div
       style={
@@ -49,10 +49,10 @@ exports[`storybook Storyshots Node List Node List Full 1`] = `
   }
 >
   <div
-    className="css-4kvejg-NodeContainer eb6wkmd0"
+    className="css-g6qfa2-NodeContainer eb6wkmd0"
   >
     <div
-      className="css-1xofbf3-NodeContainer e1k5prvz2"
+      className="css-paub65-NodeContainer e1k5prvz2"
     >
       <div
         className="css-noe96r-NodeHeader e1k5prvz1"
@@ -73,7 +73,7 @@ exports[`storybook Storyshots Node List Node List Full 1`] = `
         </h6>
       </div>
       <div
-        className="css-1oy5nku-ChildContainer e1k5prvz0"
+        className="css-w6wgl7-ChildContainer e1k5prvz0"
       >
         <div
           style={
@@ -89,7 +89,7 @@ exports[`storybook Storyshots Node List Node List Full 1`] = `
       </div>
     </div>
     <div
-      className="css-1xofbf3-NodeContainer e1k5prvz2"
+      className="css-paub65-NodeContainer e1k5prvz2"
     >
       <div
         className="css-noe96r-NodeHeader e1k5prvz1"
@@ -110,7 +110,7 @@ exports[`storybook Storyshots Node List Node List Full 1`] = `
         </h6>
       </div>
       <div
-        className="css-1oy5nku-ChildContainer e1k5prvz0"
+        className="css-w6wgl7-ChildContainer e1k5prvz0"
       >
         <div
           style={
