@@ -17,7 +17,7 @@ describe("error reporting", () => {
     jest.restoreAllMocks();
   });
 
-  it("should log errors into console instead of to bugsnag when not in production", async () => {
+  it("should log errors into console instead of to bugsnag when not in production", () => {
     const result = reportError(err);
     result.severe();
     expect(console.error).toHaveBeenCalledWith({
