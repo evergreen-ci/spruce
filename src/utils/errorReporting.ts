@@ -1,4 +1,4 @@
-import Bugsnag, { Event, NotifiableError } from "@bugsnag/js";
+import Bugsnag, { Event, NotifiableError, BreadcrumbType } from "@bugsnag/js";
 import { isProduction } from "utils/environmentalVariables";
 
 interface reportErrorResult {
@@ -10,7 +10,7 @@ type CustomBugsnagError = NotifiableError & {
   metadata?: any;
 };
 
-export const reportError = (err: CustomBugsnagError): reportErrorResult => {
+const reportError = (err: CustomBugsnagError): reportErrorResult => {
   if (!isProduction()) {
     return {
       severe: () => {
@@ -48,3 +48,17 @@ const sendError = (err: CustomBugsnagError, severity: Event["severity"]) => {
     }
   });
 };
+
+const leaveBreadcrumb = (
+  message: string,
+  metadata: { [key: string]: any },
+  type: BreadcrumbType
+) => {
+  if (!isProduction()) {
+    console.info({ message, metadata, type });
+  } else {
+    Bugsnag.leaveBreadcrumb(message, metadata, type);
+  }
+};
+
+export { leaveBreadcrumb, reportError };

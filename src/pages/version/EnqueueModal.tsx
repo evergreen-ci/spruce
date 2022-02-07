@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import TextArea from "@leafygreen-ui/text-area";
-import { usePatchAnalytics } from "analytics";
+import { useVersionAnalytics } from "analytics";
 import { Modal } from "components/Modal";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -41,7 +41,7 @@ export const EnqueuePatchModal: React.FC<EnqueueProps> = ({
     refetchQueries,
   });
 
-  const patchAnalytics = usePatchAnalytics();
+  const patchAnalytics = useVersionAnalytics();
   const [commitMessageValue, setCommitMessageValue] = useState<string>(
     commitMessage || ""
   );

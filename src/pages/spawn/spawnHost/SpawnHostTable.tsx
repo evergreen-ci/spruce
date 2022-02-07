@@ -6,7 +6,9 @@ import { useLocation } from "react-router";
 import { useSpawnAnalytics } from "analytics";
 import { HostStatusBadge } from "components/HostStatusBadge";
 import { DoesNotExpire, SpawnTable } from "components/Spawn";
+import { StyledRouterLink } from "components/styles";
 import { WordBreak } from "components/Typography";
+import { getHostRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { MyHost } from "types/spawn";
 import { queryString, string } from "utils";
@@ -47,15 +49,21 @@ const columns = [
     dataIndex: "id",
     key: "host",
     sorter: (a: MyHost, b: MyHost) => sortFunctionString(a, b, "id"),
-    render: (_, host: MyHost) =>
-      host?.distro?.isVirtualWorkStation ? (
-        <FlexContainer>
-          <NoWrap>{host.displayName || host.id}</NoWrap>
-          <WorkstationBadge>WORKSTATION</WorkstationBadge>
-        </FlexContainer>
-      ) : (
-        <WordBreak>{host.displayName || host.id}</WordBreak>
-      ),
+    render: (_, host: MyHost) => (
+      <HostNameWrapper>
+        {host?.distro?.isVirtualWorkStation ? (
+          <FlexContainer>
+            <NoWrap>{host.displayName || host.id}</NoWrap>
+            <WorkstationBadge>WORKSTATION</WorkstationBadge>
+          </FlexContainer>
+        ) : (
+          <WordBreak>{host.displayName || host.id}</WordBreak>
+        )}
+        <StyledRouterLink to={getHostRoute(host.id)}>
+          Event Log
+        </StyledRouterLink>
+      </HostNameWrapper>
+    ),
   },
   {
     title: "Distro",
@@ -98,7 +106,11 @@ const columns = [
 
 const FlexContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+`;
+
+const HostNameWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const WorkstationBadge = styled(Badge)`

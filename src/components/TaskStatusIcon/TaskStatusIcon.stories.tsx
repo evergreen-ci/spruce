@@ -8,6 +8,7 @@ import { TaskStatusIcon } from ".";
 export default {
   title: "Task Status Icons",
   decorators: [withKnobs],
+  component: TaskStatusIcon,
 };
 
 export const AllStatuses = () => {

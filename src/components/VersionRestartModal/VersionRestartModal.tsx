@@ -5,7 +5,7 @@ import Button from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
-import { usePatchAnalytics } from "analytics";
+import { useVersionAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
 import { Modal } from "components/Modal";
 import { TaskStatusFilters } from "components/TaskStatusFilters";
@@ -90,12 +90,12 @@ const VersionRestartModal: React.FC<Props> = ({
     setBaseStatusFilterTerm({ [childVersionId]: selectedFilters });
   };
 
-  const patchAnalytics = usePatchAnalytics();
+  const { sendEvent } = useVersionAnalytics();
 
   const handlePatchRestart = async (e): Promise<void> => {
     e.preventDefault();
     try {
-      patchAnalytics.sendEvent({
+      sendEvent({
         name: "Restart",
         abort: shouldAbortInProgressTasks,
       });

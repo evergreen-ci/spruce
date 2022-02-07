@@ -7,6 +7,7 @@ import Icon, { glyphs } from "./index";
 export default {
   title: "Spruce Icons",
   decorators: [withKnobs],
+  component: Icon,
 };
 
 export const Icons = () => (

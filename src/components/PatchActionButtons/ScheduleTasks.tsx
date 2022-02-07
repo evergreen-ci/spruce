@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { usePatchAnalytics } from "analytics";
+import { useVersionAnalytics } from "analytics";
 import { Button } from "components/Button";
 import { DropdownItem } from "components/ButtonDropdown";
 import { ScheduleTasksModal } from "components/ScheduleTasksModal";
@@ -15,10 +15,10 @@ export const ScheduleTasks: React.FC<ScheduleTasksProps> = ({
   disabled = false,
 }) => {
   const [open, setOpen] = useState(false);
-  const patchAnalytics = usePatchAnalytics();
+  const { sendEvent } = useVersionAnalytics();
   const props = {
     onClick: () => {
-      patchAnalytics.sendEvent({ name: "Open Schedule Tasks Modal" });
+      sendEvent({ name: "Open Schedule Tasks Modal" });
       setOpen(true);
     },
     "data-cy": "schedule-patch",

@@ -40,7 +40,7 @@ interface DetailsCardProps {
 
 const CardContainer = styled(SiderCard)`
   width: 80%;
-  padding-bottom: ${size.l};
+  padding: ${size.s} ${size.l};
 ` as typeof SiderCard;
 
 export const DetailsCard: React.FC<DetailsCardProps> = ({

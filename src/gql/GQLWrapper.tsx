@@ -12,7 +12,7 @@ import { routes } from "constants/routes";
 import { useAuthDispatchContext } from "context/auth";
 import { environmentalVariables, errorReporting } from "utils";
 
-const { reportError } = errorReporting;
+const { reportError, leaveBreadcrumb } = errorReporting;
 
 const { getGQLUrl } = environmentalVariables;
 
@@ -103,6 +103,16 @@ const authenticateIfSuccessfulLink = (dispatchAuthenticated): ApolloLink =>
         // if there is data in response then server responded with 200; therefore, is authenticated.
         dispatchAuthenticated();
       }
+      leaveBreadcrumb(
+        "Graphql Request",
+        {
+          operationName: operation.operationName,
+          variables: operation.variables,
+          status: response.data ? "OK" : "ERROR",
+          errors: response.errors,
+        },
+        "request"
+      );
       return response;
     })
   );

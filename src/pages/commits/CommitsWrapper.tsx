@@ -155,6 +155,15 @@ const AbsoluteContainer = styled.div`
 
 const CommitWrapper = styled.div<{ width: number }>`
   width: ${({ width }) => width}px;
+  min-width: ${({ width }) => width * 0.75}px;
+  margin: 0px 8px;
+
+  &:first-child {
+    margin-left: 0px;
+  }
+  &:last-child {
+    margin-right: 0px;
+  }
 `;
 
 const ChartWrapper = styled.div`
