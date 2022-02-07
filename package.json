@@ -122,7 +122,7 @@
   "devDependencies": {
     "@apollo/react-testing": "4.0.0",
     "@babel/core": "7.12.3",
-    "@babel/parser": "^7.12.16",
+    "@babel/parser": "^7.17.0",
     "@babel/preset-react": "^7.12.13",
     "@bugsnag/source-maps": "^2.3.0",
     "@cypress/webpack-preprocessor": "5.4.6",
