@@ -7,14 +7,11 @@ import widgets from "./Widgets";
 
 export type FormDataProps = FormProps<any>["formData"];
 
-export interface SpruceFormProps {
-  schema: FormProps<any>["schema"];
-  onChange: FormProps<any>["onChange"];
-  uiSchema?: FormProps<any>["uiSchema"];
-  formData: FormDataProps;
-  fields?: FormProps<any>["fields"];
-  tagName?: FormProps<any>["tagName"];
-}
+export type SpruceFormProps = Pick<
+  FormProps<any>,
+  "schema" | "onChange" | "formData"
+> &
+  Partial<FormProps<any>>;
 
 export const SpruceForm: React.FC<SpruceFormProps> = ({
   schema,
@@ -23,6 +20,9 @@ export const SpruceForm: React.FC<SpruceFormProps> = ({
   formData,
   fields,
   tagName,
+  validate,
+  customFormats,
+  disabled,
 }) => (
   <Form
     fields={{ ...baseFields, ...fields }}
@@ -36,7 +36,11 @@ export const SpruceForm: React.FC<SpruceFormProps> = ({
     FieldTemplate={DefaultFieldTemplate}
     transformErrors={transformErrors}
     showErrorList={false}
+    validate={validate}
+    customFormats={customFormats}
+    disabled={disabled}
     liveValidate
+    noHtml5Validate
   >
     {/*  Need to pass in an empty fragment child to remove default submit button */}
     <></>

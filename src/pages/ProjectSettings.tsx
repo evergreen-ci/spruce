@@ -120,7 +120,7 @@ export const ProjectSettings: React.FC = () => {
           />
           <ProjectSettingsNavItem
             {...sharedProps}
-            tab={ProjectSettingsTabRoutes.GitHubCommitQueue}
+            tab={ProjectSettingsTabRoutes.GithubCommitQueue}
           />
           <ProjectSettingsNavItem
             {...sharedProps}
@@ -141,6 +141,10 @@ export const ProjectSettings: React.FC = () => {
           <ProjectSettingsNavItem
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.PeriodicBuilds}
+          />
+          <ProjectSettingsNavItem
+            {...sharedProps}
+            tab={ProjectSettingsTabRoutes.Plugins}
           />
           <ProjectSettingsNavItem
             {...sharedProps}

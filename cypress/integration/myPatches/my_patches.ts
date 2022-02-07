@@ -5,7 +5,6 @@ import {
   clickOnPageSizeBtnAndAssertURLandTableSize,
 } from "../../utils";
 
-const tableRow = "[data-cy=patch-card]";
 const MY_PATCHES_ROUTE = "/user/admin/patches";
 const BOB_HICKS_PATCHES_ROUTE = "/user/bob.hicks/patches";
 const REGULAR_USER_PATCHES_ROUTE = "/user/regular/patches";
@@ -137,7 +136,7 @@ describe("My Patches Page", () => {
   describe("Clicking on status checkbox requests and renders patches for that status", () => {
     beforeEach(() => {
       cy.preserveCookies();
-      cy.get("[data-cy=my-patch-status-select] > .cy-treeselect-bar").click();
+      cy.dataCy("my-patch-status-select").click();
     });
     before(() => {
       cy.visit(MY_PATCHES_ROUTE);
@@ -162,7 +161,7 @@ describe("My Patches Page", () => {
     });
 
     it("Clicking on All status checkbox applies all of the statuses and clicking again removes them", () => {
-      cy.get("[data-cy=my-patch-status-select] > .cy-treeselect-bar").click();
+      cy.dataCy("my-patch-status-select").click();
       clickingCheckboxUpdatesUrlAndRendersFetchedResults({
         checkboxDisplayName: "All",
         pathname: MY_PATCHES_ROUTE,
@@ -175,7 +174,7 @@ describe("My Patches Page", () => {
 
 const dataCyNextPage = "[data-cy=my-patches-pagination] > .ant-pagination-next";
 const dataCyPrevPage = "[data-cy=my-patches-pagination] > .ant-pagination-prev";
-const dataCyTableRows = tableRow;
+const dataCyTableRows = "[data-cy=patch-card]";
 
 const patchOnCommitQueue =
   "'evergreen-ci/evergreen' pull request #3186 by bsamek: EVG-7425 Don't send ShouldExit to unprovisioned hosts (https://github.com/evergreen-ci/evergreen/pull/3186)";

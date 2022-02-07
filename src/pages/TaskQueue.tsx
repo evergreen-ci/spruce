@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
-import { H2, Disclaimer } from "@leafygreen-ui/typography";
-import { Select } from "antd";
+import { H2 } from "@leafygreen-ui/typography";
 import { useParams, useHistory } from "react-router-dom";
 import { useTaskQueueAnalytics } from "analytics";
+import SearchableDropdown from "components/SearchableDropdown";
 import {
   TableContainer,
   TableControlOuterRow,
@@ -13,13 +13,13 @@ import {
 } from "components/styles";
 import { getTaskQueueRoute } from "constants/routes";
 import {
+  TaskQueueDistro,
   TaskQueueDistrosQuery,
   TaskQueueDistrosQueryVariables,
 } from "gql/generated/types";
 import { TASK_QUEUE_DISTROS } from "gql/queries";
+import { DistroOption } from "pages/taskQueue/DistroOption";
 import { TaskQueueTable } from "pages/taskQueue/TaskQueueTable";
-
-const { Option } = Select;
 
 export const TaskQueue = () => {
   const taskQueueAnalytics = useTaskQueueAnalytics();
@@ -29,54 +29,67 @@ export const TaskQueue = () => {
 
   const [selectedDistro, setSelectedDistro] = useState(null);
 
-  const { data: distrosData, loading: loadingDistros } = useQuery<
+  const { data: distrosData } = useQuery<
     TaskQueueDistrosQuery,
     TaskQueueDistrosQueryVariables
   >(TASK_QUEUE_DISTROS);
 
-  const distros = distrosData?.taskQueueDistros ?? [];
+  const distros = useMemo(() => distrosData?.taskQueueDistros ?? [], [
+    distrosData,
+  ]);
   const firstDistroInList = distros[0]?.id;
 
   // SET DEFAULT DISTRO
   useEffect(() => {
     const defaultDistro = distro ?? firstDistroInList;
-
-    setSelectedDistro(defaultDistro);
+    setSelectedDistro(distros.find((d) => d.id === defaultDistro));
 
     if (defaultDistro) {
       replace(getTaskQueueRoute(defaultDistro, taskId));
     }
-  }, [firstDistroInList, distro, replace, taskId]);
-
-  const onChangeDistroSelection = (val: string) => {
-    taskQueueAnalytics.sendEvent({ name: "Select Distro", distro: val });
-
-    setSelectedDistro(val);
-
-    replace(getTaskQueueRoute(val));
+  }, [firstDistroInList, distro, replace, taskId, distros]);
+  const onChangeDistroSelection = (val: { id: string }) => {
+    taskQueueAnalytics.sendEvent({ name: "Select Distro", distro: val.id });
+    replace(getTaskQueueRoute(val.id));
   };
+
+  const handleSearch = (options: { id: string }[], match: string) =>
+    options.filter((d) => d.id.toLowerCase().includes(match.toLowerCase()));
 
   return (
     <PageWrapper>
       <H2>Task Queue</H2>
       <TableControlOuterRow>
-        <StyledSelect
-          data-cy="select-distro"
-          showSearch
-          value={selectedDistro}
-          style={{ width: 400 }}
-          onChange={onChangeDistroSelection}
-          loading={loadingDistros}
-          filterOption={(input, { key }) => key.toString().includes(input)}
-        >
-          {distros.map(({ id, queueCount }) => (
-            <Option data-cy={`${id}-distro-option`} key={id} value={id}>
-              <StyledBadge>{queueCount}</StyledBadge>
-              <DistroName>{id}</DistroName>
-            </Option>
-          ))}
-        </StyledSelect>
+        <SearchableDropdownWrapper>
+          <SearchableDropdown
+            data-cy="distro-dropdown"
+            label="Distro"
+            options={distros}
+            searchFunc={handleSearch}
+            optionRenderer={(option, onClick) => (
+              <DistroOption
+                option={option}
+                key={`distro-select-search-option-${option.id}`}
+                onClick={onClick}
+              />
+            )}
+            onChange={onChangeDistroSelection}
+            value={selectedDistro}
+            buttonRenderer={(option: Partial<TaskQueueDistro>) => (
+              <DistroLabel>
+                <StyledBadge>{`${option?.taskCount} ${
+                  option?.taskCount === 1 ? "TASK" : "TASKS"
+                }`}</StyledBadge>
+                <StyledBadge>{`${option?.hostCount} ${
+                  option?.hostCount === 1 ? "HOST" : "HOSTS"
+                }`}</StyledBadge>
+                <DistroName> {option?.id} </DistroName>
+              </DistroLabel>
+            )}
+          />
+        </SearchableDropdownWrapper>
       </TableControlOuterRow>
+
       <TableContainer hide={false}>
         <TaskQueueTable />
       </TableContainer>
@@ -84,15 +97,18 @@ export const TaskQueue = () => {
   );
 };
 
-const StyledSelect = styled(Select)`
-  margin: 44px 0;
+const SearchableDropdownWrapper = styled.div`
+  width: 400px;
+`;
+const DistroLabel = styled.div`
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
 `;
 const StyledBadge = styled(Badge)`
-  display: inline-flex;
-  justify-content: center;
-  width: 60px;
-  text-align: center;
+  margin-right: 8px;
 `;
-const DistroName = styled(Disclaimer)`
-  margin-left: 16px;
+const DistroName = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;

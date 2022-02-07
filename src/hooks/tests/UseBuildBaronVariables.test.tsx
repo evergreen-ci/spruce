@@ -67,6 +67,7 @@ const execution = 1;
 const buildBaronQuery = {
   buildBaron: {
     buildBaronConfigured: true,
+    bbTicketCreationDefined: true,
     searchReturnInfo: {
       issues: [
         {

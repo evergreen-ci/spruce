@@ -1,24 +1,32 @@
+import { useMemo } from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
+import { uiColors } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
-import { MainlineCommitsQuery } from "gql/generated/types";
-import { ChartTypes } from "types/commits";
+import { ChartTypes, Commit, Commits } from "types/commits";
 import { ChartToggle } from "./ActiveCommits/ChartToggle";
 import { Grid } from "./ActiveCommits/Grid";
-import { ActiveCommit } from "./ActiveCommits/index";
 import {
   getAllTaskStatsGroupedByColor,
   findMaxGroupedTaskStats,
 } from "./ActiveCommits/utils";
-import { InactiveCommits, InactiveCommitLine } from "./InactiveCommits/index";
+import {
+  RenderCommitsChart,
+  RenderCommitsLabel,
+  getCommitKey,
+  RenderCommitsBuildVariants,
+} from "./RenderCommit";
+
+const { white } = uiColors;
 
 interface Props {
-  versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
+  versions: Commits;
   error?: ApolloError;
   isLoading: boolean;
   chartType?: ChartTypes;
   hasTaskFilter: boolean;
   hasFilters: boolean;
+  onChangeChartType: (chartType: ChartTypes) => void;
 }
 
 export const CommitsWrapper: React.FC<Props> = ({
@@ -28,91 +36,138 @@ export const CommitsWrapper: React.FC<Props> = ({
   chartType,
   hasTaskFilter,
   hasFilters,
+  onChangeChartType,
 }) => {
+  const versionToGroupedTaskStatsMap = useMemo(() => {
+    if (versions) {
+      return getAllTaskStatsGroupedByColor(versions);
+    }
+  }, [versions]);
+
+  const maxGroupedTaskStats = useMemo(() => {
+    if (versionToGroupedTaskStatsMap) {
+      return findMaxGroupedTaskStats(versionToGroupedTaskStatsMap);
+    }
+  }, [versionToGroupedTaskStatsMap]);
+
+  const { max } = maxGroupedTaskStats || {};
   if (error) {
     return (
-      <ProjectHealthWrapper>
+      <ChartWrapper>
         <Grid numDashedLine={5} />
-      </ProjectHealthWrapper>
+      </ChartWrapper>
     );
   }
   if (isLoading) {
     return <StyledSkeleton active title={false} paragraph={{ rows: 6 }} />;
   }
-  if (!isLoading && versions?.length !== 0) {
-    const versionToGroupedTaskStatsMap = getAllTaskStatsGroupedByColor(
-      versions
-    );
-    const { max } = findMaxGroupedTaskStats(versionToGroupedTaskStatsMap);
 
+  const widths = versions.map((commit) => getCommitWidth(commit));
+  if (versions) {
     return (
-      <ProjectHealthWrapper>
-        <FlexRowContainer numCommits={versions.length}>
-          {versions.map(({ version, rolledUpVersions }) =>
-            version ? (
-              <ActiveCommit
-                key={version.id}
-                version={version}
-                chartType={chartType}
-                total={versionToGroupedTaskStatsMap[version.id].total}
-                max={max}
-                groupedTaskStats={
-                  versionToGroupedTaskStatsMap[version.id].stats
-                }
+      <>
+        <ChartWrapper>
+          <FlexRowContainer>
+            {versions.map((commit, i) => (
+              <CommitWrapper key={getCommitKey(commit)} width={widths[i]}>
+                <RenderCommitsChart
+                  hasTaskFilter={hasTaskFilter}
+                  commit={commit}
+                  chartType={chartType}
+                  max={max}
+                  groupedResult={versionToGroupedTaskStatsMap}
+                />
+              </CommitWrapper>
+            ))}
+          </FlexRowContainer>
+          <Grid numDashedLine={5} />
+          <AbsoluteContainer>
+            <ChartToggle
+              currentChartType={chartType}
+              onChangeChartType={onChangeChartType}
+            />
+          </AbsoluteContainer>
+        </ChartWrapper>
+        <StickyContainer>
+          <FlexRowContainer>
+            {versions.map((commit, i) => (
+              <CommitWrapper key={getCommitKey(commit)} width={widths[i]}>
+                <RenderCommitsLabel commit={commit} hasFilters={hasFilters} />
+              </CommitWrapper>
+            ))}
+          </FlexRowContainer>
+        </StickyContainer>
+        <FlexRowContainer>
+          {versions.map((commit, i) => (
+            <CommitWrapper key={getCommitKey(commit)} width={widths[i]}>
+              <RenderCommitsBuildVariants
+                commit={commit}
                 hasTaskFilter={hasTaskFilter}
               />
-            ) : (
-              <ColumnContainer key={rolledUpVersions[0].id}>
-                <InactiveCommitLine />
-                <InactiveCommits
-                  hasFilters={hasFilters}
-                  rolledUpVersions={rolledUpVersions}
-                />
-              </ColumnContainer>
-            )
-          )}
+            </CommitWrapper>
+          ))}
         </FlexRowContainer>
-        <Grid numDashedLine={5} />
-        <ChartToggle currentChartType={chartType} />
-      </ProjectHealthWrapper>
+      </>
     );
   }
   return <NoResults data-cy="no-commits-found">No commits found</NoResults>;
 };
 
+const getCommitWidth = (commit: Commit) => {
+  const { version, rolledUpVersions } = commit;
+  if (version) {
+    return 200;
+  }
+  if (rolledUpVersions) {
+    return 64;
+  }
+  throw new Error("Commit type not found");
+};
+
+const StickyContainer = styled.div`
+  position: sticky;
+  top: -24px; // This is to offset the padding of PageWrapper
+  z-index: 1;
+  background-color: ${white};
+  margin-top: 4px;
+  margin-bottom: 8px;
+`;
+
 const StyledSkeleton = styled(Skeleton)`
   margin-top: 12px;
 `;
 
-// If we have more than four commits, container should expand entire width
-// Else they should align left
-export const FlexRowContainer = styled.div<{ numCommits: number }>`
-  width: ${({ numCommits }) => (numCommits > 4 ? 1 : numCommits / 7) * 100}%;
+const FlexRowContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  margin-top: 65px;
-  padding: 0px 12px 0px 9px;
+`;
+
+const AbsoluteContainer = styled.div`
   position: absolute;
+  top: -32px;
+  right: 0;
+  left: auto;
 `;
 
-export const ProjectHealthWrapper = styled.div`
+const CommitWrapper = styled.div<{ width: number }>`
+  width: ${({ width }) => width}px;
+  min-width: ${({ width }) => width * 0.75}px;
+  margin: 0px 8px;
+
+  &:first-child {
+    margin-left: 0px;
+  }
+  &:last-child {
+    margin-right: 0px;
+  }
+`;
+
+const ChartWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  height: 100%;
-  width: 100%;
   position: relative;
-`;
-
-export const ColumnContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  margin-bottom: 40px;
 `;
 
 const NoResults = styled.div`

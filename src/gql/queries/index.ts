@@ -2,6 +2,7 @@ import GET_AWS_REGIONS from "./aws-regions.graphql";
 import DISTRO_TASK_QUEUE from "./distro-task-queue.graphql";
 import GET_FAILED_TASK_STATUS_ICON_TOOLTIP from "./failed-task-status-icon-tooltip.graphql";
 import GET_AGENT_LOGS from "./get-agent-logs.graphql";
+import GET_ALL_LOGS from "./get-all-logs.graphql";
 import GET_ANNOTATION_EVENT_DATA from "./get-annotation-event-data.graphql";
 import GET_BASE_VERSION_AND_TASK from "./get-base-version-and-task.graphql";
 import GET_BUILD_BARON from "./get-build-baron.graphql";
@@ -44,6 +45,7 @@ import GET_TASK_FILES from "./get-task-files.graphql";
 import GET_TASK_LOGS from "./get-task-logs.graphql";
 import GET_TASK_NAMES_FOR_BUILD_VARIANT from "./get-task-names-for-build-variant.graphql";
 import GET_TASK_STATUSES from "./get-task-statuses.graphql";
+import GET_TASK_TEST_SAMPLE from "./get-task-test-sample.graphql";
 import GET_TASK_TESTS from "./get-task-tests.graphql";
 import GET_TASK from "./get-task.graphql";
 import GET_TESTS from "./get-tests.graphql";
@@ -82,6 +84,7 @@ export {
   GET_REPO_SETTINGS,
   GET_TASK_FILES,
   GET_TASK_TESTS,
+  GET_TASK_TEST_SAMPLE,
   GET_TASK,
   GET_TASK_ALL_EXECUTIONS,
   GET_TASK_STATUSES,
@@ -112,6 +115,7 @@ export {
   GET_BUILD_VARIANTS_WITH_CHILDREN,
   GET_TASK_LOGS,
   GET_AGENT_LOGS,
+  GET_ALL_LOGS,
   GET_EVENT_LOGS,
   GET_SYSTEM_LOGS,
   GET_PROJECT_PATCHES,

@@ -66,8 +66,11 @@ export const PageButtonRow = styled.div`
   display: flex;
   justify-content: flex-end;
   > * {
-    margin-left: 16px;
+    margin-right: 16px;
     white-space: nowrap;
+  }
+  > *:last-child {
+    margin-right: 0;
   }
 `;
 

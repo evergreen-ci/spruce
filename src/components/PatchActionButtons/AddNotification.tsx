@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { usePatchAnalytics } from "analytics";
+import { useVersionAnalytics } from "analytics";
 import { Button } from "components/Button";
 import { PatchNotificationModal } from "./addNotification/PatchNotificationModal";
 
@@ -11,7 +11,7 @@ interface Props {
 
 export const AddNotification: React.FC<Props> = () => {
   const [isVisibleModal, setIsVisibleModal] = useState(false);
-  const patchAnalytics = usePatchAnalytics();
+  const { sendEvent } = useVersionAnalytics();
 
   return (
     <>
@@ -19,7 +19,7 @@ export const AddNotification: React.FC<Props> = () => {
         size="small"
         data-cy="notify-patch"
         onClick={() => {
-          patchAnalytics.sendEvent({ name: "Open Notification Modal" });
+          sendEvent({ name: "Open Notification Modal" });
           setIsVisibleModal(true);
         }}
       >

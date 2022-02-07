@@ -67,8 +67,8 @@ describe("Viewing a mainline commit", () => {
     cy.url().should("include", "/version/5e4ff3abe3c3317e352062e4");
   });
   it.skip("Clicking on the commits link should take you to that versions waterfall", () => {
-    cy.dataCy("bc-waterfall").should("include.text", "evergreen's commits");
-    cy.contains("evergreen's commits").click();
+    cy.dataCy("bc-waterfall").should("include.text", "evergreen");
+    cy.dataCy("bc-waterfall").click();
     cy.url().should("include", "/commits/evergreen");
   });
 });

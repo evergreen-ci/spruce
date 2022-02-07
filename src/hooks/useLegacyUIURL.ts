@@ -20,6 +20,7 @@ export const useLegacyUIURL = (): string | null => {
       [routes.task]: `${uiURL}/task/${id}`,
       [routes.spawnHost]: `${uiURL}/spawn#?resourcetype=hosts`,
       [routes.spawnVolume]: `${uiURL}/spawn#?resourcetype=volumes`,
+      [routes.commits]: `${uiURL}/waterfall/${id}`,
     };
     const legacyUIKeys = Object.keys(legacyUIMap);
     for (let i = 0; i < legacyUIKeys.length; i++) {

@@ -157,6 +157,16 @@ functions:
         export PATH=/opt/nodejs/node-v16.13.0-linux-x64/bin:$PATH
         yarn analyze
 
+  check-codegen:
+    command: shell.exec
+    params:
+      working_dir: spruce
+      shell: bash
+      script: |
+        export PATH=/opt/nodejs/node-v16.13.0-linux-x64/bin:$PATH
+        chmod +x check_codegen.sh
+        ./check_codegen.sh
+
   run-cypress-tests:
     command: shell.exec
     params:
@@ -272,8 +282,8 @@ functions:
     params:
       working_dir: spruce
       script: |
+        export PATH=/opt/nodejs/node-v16.13.0-linux-x64/bin:$PATH
         BUCKET=${bucket} AWS_ACCESS_KEY_ID=${aws_key} AWS_SECRET_ACCESS_KEY=${aws_secret}  yarn deploy; yarn upload-source-maps;
-
 
   build-prod:
     command: shell.exec
@@ -281,6 +291,9 @@ functions:
       working_dir: spruce
       script: |
         export PATH=/opt/nodejs/node-v16.13.0-linux-x64/bin:$PATH
+        chmod +x appVersion.sh
+        . ./appVersion.sh
+        echo "Building Production version: $REACT_APP_VERSION"
         yarn build:prod
   
   send-email:
@@ -292,6 +305,7 @@ functions:
         BODY=$(git log --no-merges $PREVIOUS_VERSION..HEAD --pretty="format:%s (%h)")
         DATE=$(date +'%m/%d/%Y')
         ~/evergreen -c .evergreen.yml notify email -f ${author_email} -r ${REACT_APP_DEPLOYS_EMAIL} -s "$DATE Spruce Deploy ${task_name}" -b "$BODY"
+
 
 #######################################
 #                Tasks                #
@@ -359,6 +373,12 @@ tasks:
     - func: setup-credentials
     - func: send-email
 
+  - name: check_codegen
+    commands:
+    - func: get-project
+    - func: sym-link
+    - func: yarn-install
+    - func: check-codegen
 
   - name: deploy_to_prod
     commands:
@@ -385,6 +405,7 @@ buildvariants:
     - name: coverage
     - name: e2e_test
     - name: storybook
+    - name: check_codegen
     - name: deploy_to_prod
       git_tag_only: true
       patchable: false

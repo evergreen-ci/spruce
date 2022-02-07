@@ -1,6 +1,6 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { ChartTypes } from "types/commits";
+import { commitChartHeight } from "../constants";
 import { CommitChartTooltip } from "./CommitChartTooltip";
 import { ColorCount, calculateBarHeight } from "./utils";
 
@@ -35,10 +35,11 @@ export const CommitChart: React.FC<Props> = ({
 );
 
 const ChartContainer = styled.div`
-  height: 224px;
+  height: ${commitChartHeight}px;
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
+  width: fit-content;
 `;
 
 interface BarProps {
@@ -49,6 +50,5 @@ interface BarProps {
 const Bar = styled.div<BarProps>`
   height: ${({ height }) => height};
   background-color: ${({ color }) => color};
-  width: 13px;
-  cursor: pointer;
+  width: 12px;
 `;

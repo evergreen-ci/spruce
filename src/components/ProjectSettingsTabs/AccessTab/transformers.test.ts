@@ -1,36 +1,30 @@
-import { data } from "./testData";
+import { ProjectSettingsInput, RepoSettingsInput } from "gql/generated/types";
+import { data } from "../testData";
 import { formToGql, gqlToForm } from "./transformers";
+import { FormState } from "./types";
 
-const { project, repo } = data;
+const { projectBase, repoBase } = data;
 
 describe("repo data", () => {
-  const {
-    form,
-    gql: { input, result },
-  } = repo;
   it("correctly converts from GQL to a form", () => {
-    expect(gqlToForm(input)).toStrictEqual(form);
+    expect(gqlToForm(repoBase)).toStrictEqual(repoForm);
   });
 
   it("correctly converts from a form to GQL", () => {
-    expect(formToGql(form, "123")).toStrictEqual(result);
+    expect(formToGql(repoForm, "repo")).toStrictEqual(repoResult);
   });
 });
 
 describe("project data", () => {
-  const {
-    form,
-    gql: { input, result },
-  } = project;
   it("correctly converts from GQL to a form", () => {
-    expect(gqlToForm(input)).toStrictEqual(form);
+    expect(gqlToForm(projectBase)).toStrictEqual(projectForm);
   });
 
   it("correctly converts from a form to GQL and omits empty strings", () => {
     expect(
       formToGql(
         {
-          ...form,
+          ...projectForm,
           ...{
             admin: {
               admins: [
@@ -41,8 +35,50 @@ describe("project data", () => {
             },
           },
         },
-        "456"
+        "project"
       )
-    ).toStrictEqual(result);
+    ).toStrictEqual(projectResult);
   });
 });
+
+const projectForm: FormState = {
+  accessSettings: {
+    private: null,
+    restricted: true,
+  },
+  admin: {
+    admins: [],
+  },
+};
+
+const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
+  projectRef: {
+    id: "project",
+    private: null,
+    restricted: true,
+    admins: [],
+  },
+};
+
+const repoForm: FormState = {
+  accessSettings: {
+    private: false,
+    restricted: true,
+  },
+  admin: {
+    admins: [
+      {
+        username: "admin",
+      },
+    ],
+  },
+};
+
+const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
+  projectRef: {
+    id: "repo",
+    private: false,
+    restricted: true,
+    admins: ["admin"],
+  },
+};

@@ -53,6 +53,7 @@ export const Header: React.FC<Props> = ({
         `There was an error saving the project: ${err.message}`
       );
     },
+    refetchQueries: ["ProjectSettings"],
   });
 
   const [saveRepoSection] = useMutation<
@@ -65,6 +66,7 @@ export const Header: React.FC<Props> = ({
     onError(err) {
       dispatchToast.error(`There was an error saving the repo: ${err.message}`);
     },
+    refetchQueries: ["RepoSettings"],
   });
 
   const onClick = () => {
@@ -118,7 +120,7 @@ const mapRouteToSection: Record<WritableTabRoutes, ProjectSettingsSection> = {
   [ProjectSettingsTabRoutes.General]: ProjectSettingsSection.General,
   [ProjectSettingsTabRoutes.Access]: ProjectSettingsSection.Access,
   [ProjectSettingsTabRoutes.Variables]: ProjectSettingsSection.Variables,
-  [ProjectSettingsTabRoutes.GitHubCommitQueue]:
+  [ProjectSettingsTabRoutes.GithubCommitQueue]:
     ProjectSettingsSection.GithubAndCommitQueue,
   [ProjectSettingsTabRoutes.Notifications]:
     ProjectSettingsSection.Notifications,
@@ -128,6 +130,7 @@ const mapRouteToSection: Record<WritableTabRoutes, ProjectSettingsSection> = {
   [ProjectSettingsTabRoutes.ProjectTriggers]: ProjectSettingsSection.Triggers,
   [ProjectSettingsTabRoutes.PeriodicBuilds]:
     ProjectSettingsSection.PeriodicBuilds,
+  [ProjectSettingsTabRoutes.Plugins]: ProjectSettingsSection.Plugins,
 };
 
 const Container = styled.div`

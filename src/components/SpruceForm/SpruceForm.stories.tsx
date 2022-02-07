@@ -47,8 +47,32 @@ export const Example2 = () => {
     </SpruceFormContainer>
   );
 };
+
+export const Example3 = () => {
+  const schema = object("schema", example3Def.schema);
+  const uiSchema = object("uiSchema", example3Def.uiSchema);
+  const defaultFormData = object("formData", example3Def.formData);
+
+  const [formState, setFormState] = useState(defaultFormData);
+  const onChange = (d) => {
+    const { formData } = d;
+    action("Change Form State")(formData);
+    setFormState(formData);
+  };
+  return (
+    <SpruceFormContainer title="UI Options">
+      <SpruceForm
+        schema={schema}
+        onChange={onChange}
+        formData={formState}
+        uiSchema={uiSchema}
+      />
+    </SpruceFormContainer>
+  );
+};
 export default {
   title: "Spruce Form",
+  component: SpruceForm,
 };
 
 const example1Def = {
@@ -152,5 +176,36 @@ const example2Def = {
     disableShallowClone: false,
     disableQueue: false,
     decommissionHosts: true,
+  },
+};
+
+const example3Def = {
+  schema: {
+    type: "object" as "object",
+    properties: {
+      invisible: {
+        type: "object" as "object",
+        title: "Invisible",
+        description: "This field should be invisible",
+        properties: {
+          child: {
+            type: "string" as "string",
+            title: "And so should its children",
+          },
+        },
+      },
+      visible: {
+        title: "This is the only visible page element",
+        type: "boolean" as "boolean",
+      },
+    },
+  },
+  uiSchema: {
+    invisible: {
+      "ui:widget": "hidden",
+    },
+  },
+  formData: {
+    visible: true,
   },
 };

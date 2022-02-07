@@ -1,15 +1,13 @@
 import { useState, PropsWithChildren, useRef, useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
 import { uiColors } from "@leafygreen-ui/palette";
-import { Body, Label } from "@leafygreen-ui/typography";
-import { Input } from "antd";
+import Dropdown from "components/Dropdown";
 import Icon from "components/Icon";
-import { useOnClickOutside } from "hooks";
+import { InputLabel } from "components/styles";
+import TextInput from "components/TextInputWithGlyph";
 import { toggleArray } from "utils/array";
 
-const { Search } = Input;
-const { gray, white, blue } = uiColors;
+const { gray, blue } = uiColors;
 
 interface SearchableDropdownProps<T> {
   label: string | React.ReactNode;
@@ -24,9 +22,10 @@ interface SearchableDropdownProps<T> {
     onClick: (selectedV) => void,
     isChecked: (selectedV) => boolean
   ) => React.ReactNode;
-  allowMultiselect?: boolean;
+  allowMultiSelect?: boolean;
   disabled?: boolean;
   ["data-cy"]?: string;
+  buttonRenderer?: (option: T | T[]) => React.ReactNode;
 }
 const SearchableDropdown = <T extends {}>({
   label,
@@ -37,20 +36,14 @@ const SearchableDropdown = <T extends {}>({
   valuePlaceholder = "Select an element",
   options,
   optionRenderer,
-  allowMultiselect = false,
+  allowMultiSelect = false,
   disabled = false,
   "data-cy": dataCy = "searchable-dropdown",
+  buttonRenderer,
 }: PropsWithChildren<SearchableDropdownProps<T>>) => {
-  const [isOpen, setisOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [visibleOptions, setVisibleOptions] = useState(options);
-
-  const listMenuRef = useRef(null);
-  const menuButtonRef = useRef(null);
-
-  // Handle onClickOutside
-  useOnClickOutside([listMenuRef, menuButtonRef], () => setisOpen(false));
-
+  const DropdownRef = useRef(null);
   // Update options when they change
   useEffect(() => {
     if (options) {
@@ -59,7 +52,7 @@ const SearchableDropdown = <T extends {}>({
   }, [options]);
 
   const onClick = (v: T) => {
-    if (allowMultiselect) {
+    if (allowMultiSelect) {
       if (Array.isArray(value)) {
         const newValue = toggleArray(v, value);
         onChange(newValue);
@@ -70,8 +63,10 @@ const SearchableDropdown = <T extends {}>({
       onChange(v);
     }
     // Close the dropdown after user makes a selection only if it isn't a multiselect
-    if (!allowMultiselect) {
-      setisOpen(false);
+    if (!allowMultiSelect) {
+      if (DropdownRef.current) {
+        DropdownRef.current.setIsOpen(false);
+      }
     }
   };
 
@@ -131,45 +126,34 @@ const SearchableDropdown = <T extends {}>({
   }
 
   return (
-    <>
-      <Label htmlFor="searchable-dropdown">{label}</Label>
+    <Container>
+      <InputLabel htmlFor={`searchable-dropdown-${label}`}>{label}</InputLabel>
       <Wrapper>
-        <StyledButton
-          ref={menuButtonRef} // @ts-expect-error
-          onClick={() => setisOpen((curr) => !curr)}
+        <Dropdown
+          id={`searchable-dropdown-${label}`}
           data-cy={dataCy}
-          id="searchable-dropdown"
-          value={value}
           disabled={disabled}
+          buttonText={buttonText}
+          buttonRenderer={
+            buttonRenderer ? () => buttonRenderer(value) : undefined
+          }
+          ref={DropdownRef}
         >
-          <ButtonContent>
-            <LabelWrapper>
-              <Body data-cy="dropdown-value">{buttonText}</Body>
-            </LabelWrapper>
-            <FlexWrapper>
-              <ArrowWrapper>
-                <Icon glyph={isOpen ? "ChevronUp" : "ChevronDown"} />
-              </ArrowWrapper>
-            </FlexWrapper>
-          </ButtonContent>
-        </StyledButton>
-        {isOpen && (
-          <RelativeWrapper>
-            <OptionsWrapper ref={listMenuRef} data-cy={`${dataCy}-options`}>
-              <Search
-                placeholder={searchPlaceholder}
-                value={search}
-                onChange={handleSearch}
-                data-cy={`${dataCy}-search-input`}
-              />
-              <ScrollableList>
-                {(visibleOptions as T[])?.map((o) => option(o))}
-              </ScrollableList>
-            </OptionsWrapper>
-          </RelativeWrapper>
-        )}
+          <TextInput
+            data-cy={`${dataCy}-search-input`}
+            placeholder={searchPlaceholder}
+            value={search}
+            onChange={handleSearch}
+            glyph="MagnifyingGlass"
+            aria-label="Search"
+            type="search"
+          />
+          <ScrollableList>
+            {(visibleOptions as T[])?.map((o) => option(o))}
+          </ScrollableList>
+        </Dropdown>
       </Wrapper>
-    </>
+    </Container>
   );
 };
 
@@ -191,45 +175,21 @@ export const SearchableDropdownOption = <T extends {}>({
     data-cy="searchable-dropdown-option"
   >
     <CheckmarkContainer>
-      {isChecked && (
-        <Icon glyph="Checkmark" height={12} width={12} fill={blue.base} />
-      )}
+      <CheckmarkIcon
+        glyph="Checkmark"
+        height={12}
+        width={12}
+        fill={blue.base}
+        checked={isChecked}
+      />
     </CheckmarkContainer>
     {displayName || value}
   </Option>
 );
 
-const LabelWrapper = styled.div`
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
-
-const OptionsWrapper = styled.div`
-  border-radius: 5px;
-  background-color: ${white};
-  border: 1px solid ${gray.light1};
-  padding: 8px;
-  box-shadow: 0 3px 8px 0 rgba(231, 238, 236, 0.5);
-  position: absolute;
-  z-index: 5;
-  margin-top: 5px;
-  width: 100%;
-`;
-
 const ScrollableList = styled.div`
   overflow: scroll;
   max-height: 400px;
-`;
-
-// Used to provide a basis for the absolutely positions OptionsWrapper
-const RelativeWrapper = styled.div`
-  position: relative;
-`;
-
-const ArrowWrapper = styled.div`
-  display: flex;
-  align-items: center;
 `;
 
 const Wrapper = styled.div`
@@ -237,15 +197,12 @@ const Wrapper = styled.div`
     props.width ? props.width : ""};
 `;
 
-const FlexWrapper = styled.div`
-  display: flex;
-`;
-
 const Option = styled.div`
-  width: 100%;
   padding: 10px 12px;
   display: flex;
-  flex-direction: row;
+  align-items: start;
+  word-break: break-all; // Safari
+  overflow-wrap: anywhere;
   :hover {
     cursor: pointer;
     background-color: ${gray.light1};
@@ -253,18 +210,16 @@ const Option = styled.div`
 `;
 
 const CheckmarkContainer = styled.div`
-  width: 24px;
+  margin-right: 4px;
 `;
 
-/* @ts-expect-error */
-const StyledButton = styled(Button)`
-  width: 100%;
-` as typeof Button;
+const CheckmarkIcon = styled(Icon)<{ checked: boolean }>`
+  visibility: ${({ checked }) => (checked ? "visible" : "hidden")};
+`;
 
-const ButtonContent = styled.div`
+const Container = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+  flex-direction: column;
 `;
+
 export default SearchableDropdown;

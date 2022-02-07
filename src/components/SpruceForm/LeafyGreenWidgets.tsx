@@ -1,17 +1,19 @@
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { uiColors } from "@leafygreen-ui/palette";
 import { RadioBox, RadioBoxGroup } from "@leafygreen-ui/radio-box-group";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import { Option, Select } from "@leafygreen-ui/select";
 import TextArea from "@leafygreen-ui/text-area";
 import TextInput from "@leafygreen-ui/text-input";
+import Tooltip from "@leafygreen-ui/tooltip";
 import { Description, Label } from "@leafygreen-ui/typography";
 import { WidgetProps } from "@rjsf/core";
+import Icon from "components/Icon";
 import ElementWrapper from "./ElementWrapper";
 
-const { red } = uiColors;
-
+const getInputErrors = (rawErrors: string[]): string[] =>
+  // Don't display empty input errors as these are too visually noisy
+  rawErrors?.filter((err) => !err.startsWith("should match format")) ?? [];
 export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
   value,
   label,
@@ -20,24 +22,37 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
   disabled,
   options,
   rawErrors,
+  readonly,
+  formContext,
 }) => {
-  const { description, "data-cy": dataCy } = options;
-  const hasError = !!rawErrors?.length;
+  const {
+    ariaLabelledBy,
+    description,
+    "data-cy": dataCy,
+    emptyValue,
+  } = options;
+  const errors = getInputErrors(rawErrors);
+  const hasError = !!errors?.length;
+  const { readonlyAsDisabled = true } = formContext;
   return (
     <ElementWrapper>
       <MaxWidthContainer>
         <TextInput
           data-cy={dataCy}
           value={value === null || value === undefined ? null : `${value}`}
-          label={label}
+          // @ts-expect-error
+          aria-labelledby={ariaLabelledBy}
+          label={ariaLabelledBy ? undefined : label}
           placeholder={placeholder || undefined}
           description={description as string}
-          disabled={disabled}
+          disabled={disabled || (readonlyAsDisabled && readonly)}
           onChange={({ target }) =>
-            onChange(target.value === "" ? null : target.value)
+            onChange(
+              target.value === "" && emptyValue ? emptyValue : target.value
+            )
           }
           aria-label={label}
-          errorMessage={hasError ? rawErrors.join(", ") : null}
+          errorMessage={hasError ? errors.join(", ") : null}
           state={hasError ? "error" : "none"}
         />
       </MaxWidthContainer>
@@ -50,20 +65,49 @@ export const LeafyGreenCheckBox: React.FC<WidgetProps> = ({
   label,
   onChange,
   disabled,
-  options: { "data-cy": dataCy },
-}) => (
-  <ElementWrapper>
-    <Checkbox
-      data-cy={dataCy}
-      checked={value}
-      label={label}
-      onChange={(e) => onChange(e.target.checked)}
-      disabled={disabled}
-    />
-  </ElementWrapper>
-);
+  options: { "data-cy": dataCy, tooltipDescription },
+  readonly,
+  formContext,
+}) => {
+  const { readonlyAsDisabled = true } = formContext;
+  return (
+    <ElementWrapper>
+      <Checkbox
+        data-cy={dataCy}
+        checked={value}
+        label={
+          <>
+            {label}
+            {tooltipDescription && (
+              <Tooltip
+                justify="middle"
+                trigger={
+                  <IconContainer>
+                    <Icon glyph="InfoWithCircle" size="small" />
+                  </IconContainer>
+                }
+                triggerEvent="hover"
+              >
+                {tooltipDescription}
+              </Tooltip>
+            )}
+          </>
+        }
+        onChange={(e) => onChange(e.target.checked)}
+        disabled={disabled || (readonlyAsDisabled && readonly)}
+      />
+    </ElementWrapper>
+  );
+};
+
+const IconContainer = styled.span`
+  margin-left: 4px;
+  top: 1px;
+  vertical-align: text-top;
+`;
 
 export const LeafyGreenSelect: React.FC<WidgetProps> = ({
+  disabled,
   label,
   options,
   placeholder,
@@ -78,7 +122,7 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
     "data-cy": dataCy,
   } = options;
 
-  const hasError = !!rawErrors?.length;
+  const hasError = !!rawErrors?.length && !disabled;
 
   if (!Array.isArray(enumOptions)) {
     console.error("Non Array passed into leafygreen select");
@@ -89,13 +133,18 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
       <MaxWidthContainer>
         <Select
           allowDeselect={allowDeselect !== false}
-          // @ts-ignore
+          // @ts-expect-error
           aria-labelledby={ariaLabelledBy}
+          disabled={disabled}
           label={ariaLabelledBy ? undefined : label}
           value={value}
           onChange={(v) => onChange(v === "" ? null : v)}
           placeholder={placeholder}
+          id={dataCy as string}
+          name={dataCy as string}
           data-cy={dataCy}
+          state={hasError ? "error" : "none"}
+          errorMessage="Selection is required."
         >
           {enumOptions.map((o) => {
             // Handle deselect value without errors
@@ -109,15 +158,10 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
             );
           })}
         </Select>
-        {hasError && <Error>Selection is required.</Error>}
       </MaxWidthContainer>
     </ElementWrapper>
   );
 };
-
-const Error = styled(Description)`
-  color: ${red.base};
-`;
 
 export const LeafyGreenRadio: React.FC<WidgetProps> = ({
   label,
@@ -188,7 +232,7 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
       >
         {enumOptions.map((o) => (
           <StyledRadioBox
-            key={o.value}
+            key={valueMap.indexOf(o.value)}
             value={valueMap.indexOf(o.value)}
             disabled={disabled}
           >
@@ -213,18 +257,28 @@ export const LeafyGreenTextArea: React.FC<WidgetProps> = ({
   disabled,
   value,
   onChange,
-  options: { "data-cy": dataCy },
-}) => (
-  <ElementWrapper>
-    <TextArea
-      data-cy={dataCy}
-      label={label}
-      disabled={disabled}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-    />
-  </ElementWrapper>
-);
+  options: { "data-cy": dataCy, marginBottom },
+  rawErrors,
+  readonly,
+  formContext,
+}) => {
+  const { readonlyAsDisabled = true } = formContext;
+  const errors = getInputErrors(rawErrors);
+  const hasError = !!errors?.length;
+  return (
+    <ElementWrapper marginBottom={marginBottom as number}>
+      <TextArea
+        data-cy={dataCy}
+        label={label}
+        disabled={disabled || (readonlyAsDisabled && readonly)}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        errorMessage={hasError ? errors.join(", ") : null}
+        state={hasError ? "error" : "none"}
+      />
+    </ElementWrapper>
+  );
+};
 
 const MaxWidthContainer = styled.div`
   max-width: 400px;

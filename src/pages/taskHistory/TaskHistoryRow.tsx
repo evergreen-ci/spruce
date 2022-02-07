@@ -1,24 +1,49 @@
 import { ListChildComponentProps } from "react-window";
-import { context, Cell, Row, types } from "components/HistoryTable";
+import {
+  context,
+  Cell,
+  Row,
+  types,
+  useTestResults,
+} from "components/HistoryTable";
+import { array } from "utils";
 
+const { convertArrayToObject } = array;
 const { TaskCell, EmptyCell } = Cell;
 const { useHistoryTable } = context;
 const { rowType } = types;
 
 const TaskHistoryRow: React.FC<ListChildComponentProps> = (props) => {
-  let orderedColumns = [];
   const { index } = props;
-  const { visibleColumns, getItem, isItemLoaded } = useHistoryTable();
-  const commit = getItem(index);
+  let orderedColumns = [];
+  const { visibleColumns, getItem } = useHistoryTable();
 
-  if (isItemLoaded(index) && commit.type === rowType.COMMIT && commit.commit) {
+  const commit = getItem(index);
+  const { getTaskMetadata } = useTestResults(index);
+
+  if (commit && commit.type === rowType.COMMIT && commit.commit) {
     const { buildVariants } = commit.commit;
+    const buildVariantMap = convertArrayToObject(buildVariants, "variant");
     orderedColumns = visibleColumns.map((c) => {
       if (buildVariants) {
-        const foundVariant = buildVariants.find((bv) => bv.variant === c);
+        const foundVariant = buildVariantMap[c];
         if (foundVariant) {
           const { tasks } = foundVariant;
-          return <TaskCell key={c} task={tasks[0]} />;
+          // the tasks array should in theory only have one item in it so we should always use it.
+          const t = tasks[0];
+          const { inactive, failingTests, label, loading } = getTaskMetadata(
+            t.id
+          );
+          return (
+            <TaskCell
+              inactive={inactive}
+              key={c}
+              task={t}
+              failingTests={failingTests}
+              label={label}
+              loading={loading}
+            />
+          );
         }
       }
       // Returned if the build variant did not run for this commit

@@ -6,12 +6,13 @@ import {
   AccessTab,
   EventLogTab,
   GeneralTab,
-  GitHubCommitQueueTab,
+  GithubCommitQueueTab,
   NotificationsTab,
   PatchAliasesTab,
   PeriodicBuildsTab,
   ProjectTriggersTab,
   VariablesTab,
+  PluginsTab,
   VirtualWorkstationTab,
 } from "components/ProjectSettingsTabs";
 import { gqlToFormMap } from "components/ProjectSettingsTabs/transformers";
@@ -83,15 +84,48 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           />
         )}
       />
-      <TabRoute
-        Component={VariablesTab}
+      <Route
         path={routes.projectSettingsVariables}
-        tab={ProjectSettingsTabRoutes.Variables}
+        render={(props) => (
+          <VariablesTab
+            {...props}
+            projectData={
+              tabData[ProjectSettingsTabRoutes.Variables].projectData
+            }
+            repoData={tabData[ProjectSettingsTabRoutes.Variables].repoData}
+            useRepoSettings={useRepoSettings}
+          />
+        )}
       />
-      <TabRoute
-        Component={GitHubCommitQueueTab}
-        path={routes.projectSettingsGitHubCommitQueue}
-        tab={ProjectSettingsTabRoutes.GitHubCommitQueue}
+      <Route
+        path={routes.projectSettingsGithubCommitQueue}
+        render={(props) => (
+          <GithubCommitQueueTab
+            {...props}
+            gitHubWebhooksEnabled={
+              projectData?.gitHubWebhooksEnabled ||
+              repoData?.gitHubWebhooksEnabled
+            }
+            projectData={
+              tabData[ProjectSettingsTabRoutes.GithubCommitQueue].projectData
+            }
+            repoData={
+              tabData[ProjectSettingsTabRoutes.GithubCommitQueue].repoData
+            }
+            useRepoSettings={useRepoSettings}
+          />
+        )}
+      />
+      <Route
+        path={routes.projectSettingsPlugins}
+        render={(props) => (
+          <PluginsTab
+            {...props}
+            projectData={tabData[ProjectSettingsTabRoutes.Plugins].projectData}
+            repoData={tabData[ProjectSettingsTabRoutes.Plugins].repoData}
+            useRepoSettings={useRepoSettings}
+          />
+        )}
       />
       <TabRoute
         Component={NotificationsTab}

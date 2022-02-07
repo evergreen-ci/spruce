@@ -1,6 +1,10 @@
+import { uiColors } from "@leafygreen-ui/palette";
+import { purple } from "constants/colors";
 import { taskStatusToCopy } from "constants/task";
 import { TaskStatus } from "types/task";
 import { groupStatusesByUmbrellaStatus } from "./groupStatusesByUmbrellaStatus";
+
+const { red, green, yellow, gray } = uiColors;
 
 describe("groupStatusesByUmbrellaStatus", () => {
   it("separates statuses into groups based on umbrella status", () => {
@@ -16,14 +20,14 @@ describe("groupStatusesByUmbrellaStatus", () => {
         {
           count: 6,
           statuses: [taskStatusToCopy[TaskStatus.Succeeded]],
-          color: "#13AA52",
+          color: green.base,
           umbrellaStatus: TaskStatus.Succeeded,
           statusCounts: { [TaskStatus.Succeeded]: 6 },
         },
         {
           count: 2,
           statuses: [taskStatusToCopy[TaskStatus.Failed]],
-          color: "#CF4A22",
+          color: red.base,
           umbrellaStatus: TaskStatus.FailedUmbrella,
           statusCounts: { failed: 2 },
         },
@@ -33,7 +37,7 @@ describe("groupStatusesByUmbrellaStatus", () => {
             taskStatusToCopy[TaskStatus.Dispatched],
             taskStatusToCopy[TaskStatus.Started],
           ],
-          color: "#FFDD49",
+          color: yellow.base,
           umbrellaStatus: TaskStatus.RunningUmbrella,
           statusCounts: { [TaskStatus.Dispatched]: 4, [TaskStatus.Started]: 5 },
         },
@@ -61,7 +65,7 @@ describe("groupStatusesByUmbrellaStatus", () => {
             taskStatusToCopy[TaskStatus.TestTimedOut],
             taskStatusToCopy[TaskStatus.Failed],
           ],
-          color: "#CF4A22",
+          color: red.base,
           umbrellaStatus: TaskStatus.FailedUmbrella,
           statusCounts: {
             [TaskStatus.TestTimedOut]: 6,
@@ -74,7 +78,7 @@ describe("groupStatusesByUmbrellaStatus", () => {
             taskStatusToCopy[TaskStatus.SystemTimedOut],
             taskStatusToCopy[TaskStatus.SystemUnresponsive],
           ],
-          color: "#4f4fbf",
+          color: purple.base,
           umbrellaStatus: TaskStatus.SystemFailureUmbrella,
           statusCounts: {
             [TaskStatus.SystemTimedOut]: 5,
@@ -84,14 +88,14 @@ describe("groupStatusesByUmbrellaStatus", () => {
         {
           count: 4,
           statuses: [taskStatusToCopy[TaskStatus.Dispatched]],
-          color: "#FFDD49",
+          color: yellow.base,
           umbrellaStatus: TaskStatus.RunningUmbrella,
           statusCounts: { [TaskStatus.Dispatched]: 4 },
         },
         {
           count: 2,
           statuses: [taskStatusToCopy[TaskStatus.WillRun]],
-          color: "#5D6C74",
+          color: gray.base,
           umbrellaStatus: TaskStatus.ScheduledUmbrella,
           statusCounts: { [TaskStatus.WillRun]: 2 },
         },
@@ -116,14 +120,14 @@ describe("groupStatusesByUmbrellaStatus", () => {
         {
           count: 4,
           statuses: [taskStatusToCopy[TaskStatus.Succeeded]],
-          color: "#13AA52",
+          color: green.base,
           umbrellaStatus: TaskStatus.Succeeded,
           statusCounts: { [TaskStatus.Succeeded]: 4 },
         },
         {
           count: 6,
           statuses: [taskStatusToCopy[TaskStatus.TaskTimedOut]],
-          color: "#CF4A22",
+          color: red.base,
           umbrellaStatus: TaskStatus.FailedUmbrella,
           statusCounts: { [TaskStatus.TaskTimedOut]: 6 },
         },
@@ -133,7 +137,7 @@ describe("groupStatusesByUmbrellaStatus", () => {
             taskStatusToCopy[TaskStatus.SystemFailed],
             taskStatusToCopy[TaskStatus.SystemUnresponsive],
           ],
-          color: "#4f4fbf",
+          color: purple.base,
           umbrellaStatus: TaskStatus.SystemFailureUmbrella,
           statusCounts: {
             [TaskStatus.SystemFailed]: 5,
@@ -143,21 +147,21 @@ describe("groupStatusesByUmbrellaStatus", () => {
         {
           count: 3,
           statuses: [taskStatusToCopy[TaskStatus.SetupFailed]],
-          color: "#f1f0fc",
+          color: purple.light1,
           umbrellaStatus: TaskStatus.SetupFailed,
           statusCounts: { [TaskStatus.SetupFailed]: 3 },
         },
         {
           count: 3,
           statuses: [taskStatusToCopy[TaskStatus.Started]],
-          color: "#FFDD49",
+          color: yellow.base,
           umbrellaStatus: TaskStatus.RunningUmbrella,
           statusCounts: { [TaskStatus.Started]: 3 },
         },
         {
           count: 2,
           statuses: [taskStatusToCopy[TaskStatus.Unscheduled]],
-          color: "#89979B",
+          color: gray.dark1,
           umbrellaStatus: TaskStatus.UndispatchedUmbrella,
           statusCounts: { [TaskStatus.Unscheduled]: 2 },
         },

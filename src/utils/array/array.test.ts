@@ -1,8 +1,10 @@
 import {
   toggleArray,
+  deduplicatedAppend,
   convertArrayToObject,
   convertObjectToArray,
   mapStringArrayToObject,
+  toArray,
 } from ".";
 
 describe("toggleArray", () => {
@@ -26,6 +28,17 @@ describe("toggleArray", () => {
   });
 });
 
+describe("deduplicatedAppend", () => {
+  it("should add an element into an array if it does not exist", () => {
+    expect(deduplicatedAppend(1, [])).toStrictEqual([1]);
+    expect(deduplicatedAppend("Mohamed", [])).toStrictEqual(["Mohamed"]);
+    expect(deduplicatedAppend(2, [1])).toStrictEqual([1, 2]);
+  });
+  it("should not add an element into an array if it already exists", () => {
+    expect(deduplicatedAppend(1, [1])).toStrictEqual([1]);
+    expect(deduplicatedAppend(1, [1, 2])).toStrictEqual([1, 2]);
+  });
+});
 describe("convertObjectToArray", () => {
   it("should return an empty array for an empty object", () => {
     expect(convertObjectToArray({})).toStrictEqual([]);
@@ -85,14 +98,14 @@ describe("convertArrayToObject", () => {
       bKey: element2,
     });
   });
-  it("should not add any elements when there is no matching key", () => {
+  it("should throw an error when the key value is not a valid type", () => {
     const element1 = { key: "aKey", value: 1 };
-    const element2 = { key: "bKey", value: 2 };
+    const element2 = { key: () => {}, value: 2 };
     const element3 = { key: "cKey", value: 3 };
 
-    expect(
-      convertArrayToObject([element1, element2, element3], "keyDNE")
-    ).toStrictEqual({});
+    expect(() =>
+      convertArrayToObject([element1, element2, element3], "key")
+    ).toThrow(TypeError("Object keys must be of type `string`"));
   });
 });
 
@@ -122,5 +135,31 @@ describe("mapStringArrayToObject", () => {
       keyC: "KEYC",
       keyD: "KEYD",
     });
+  });
+  it("should return an empty object if provided with an empty array", () => {
+    expect(mapStringArrayToObject([], "someKey")).toStrictEqual({});
+    expect(mapStringArrayToObject(undefined, "someKey")).toStrictEqual({});
+  });
+});
+
+describe("toArray", () => {
+  it("should convert a single element to an array", () => {
+    expect(toArray(1)).toStrictEqual([1]);
+    expect(toArray("a")).toStrictEqual(["a"]);
+    expect(toArray(true)).toStrictEqual([true]);
+    expect(toArray({ someKey: "someValue" })).toStrictEqual([
+      { someKey: "someValue" },
+    ]);
+  });
+  it("should convert an array to an array", () => {
+    expect(toArray([1, 2, 3])).toStrictEqual([1, 2, 3]);
+    expect(toArray(["a", "b", "c"])).toStrictEqual(["a", "b", "c"]);
+    expect(toArray([true, false, true])).toStrictEqual([true, false, true]);
+    expect(toArray([{ someKey: "someValue" }])).toStrictEqual([
+      { someKey: "someValue" },
+    ]);
+  });
+  it("an undefined value should be converted into an empty array", () => {
+    expect(toArray(undefined)).toStrictEqual([]);
   });
 });

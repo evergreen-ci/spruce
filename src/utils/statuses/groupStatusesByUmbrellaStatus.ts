@@ -1,10 +1,11 @@
 import {
   taskStatusToCopy,
   mapTaskStatusToUmbrellaStatus,
-  mapUmbrellaStatusColors,
+  mapTaskToBarchartColor,
   sortedUmbrellaStatus,
 } from "constants/task";
 import { TaskStatus } from "types/task";
+import { toArray, deduplicatedAppend } from "utils/array";
 
 type ColorCount = {
   count: number;
@@ -26,14 +27,15 @@ export const groupStatusesByUmbrellaStatus = (
     const umbrellaStatus = mapTaskStatusToUmbrellaStatus[stat.status];
     if (counts[umbrellaStatus]) {
       counts[umbrellaStatus].count += stat.count;
-      if (!counts[umbrellaStatus].statuses.includes(stat.status)) {
-        counts[umbrellaStatus].statuses.push(taskStatusToCopy[stat.status]);
-      }
+      counts[umbrellaStatus].statuses = deduplicatedAppend(
+        taskStatusToCopy[stat.status],
+        counts[umbrellaStatus].statuses
+      );
     } else {
       counts[umbrellaStatus] = {
         count: stat.count,
-        statuses: [taskStatusToCopy[stat.status]],
-        color: mapUmbrellaStatusColors[umbrellaStatus].barChart,
+        statuses: toArray(taskStatusToCopy[stat.status]),
+        color: mapTaskToBarchartColor[umbrellaStatus],
         umbrellaStatus: umbrellaStatus as TaskStatus,
         statusCounts: {},
       };

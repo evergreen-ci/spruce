@@ -47,7 +47,6 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
     timeTaken,
     revision,
     dependsOn,
-    baseTaskMetadata,
     ami,
     distroId,
     priority,
@@ -62,10 +61,11 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
     displayTask,
     project,
     expectedDuration,
+    baseTask,
   } = task || {};
 
   const baseCommit = revision?.slice(0, 10);
-  const { baseTaskDuration, baseTaskLink } = baseTaskMetadata ?? {};
+  const { id: baseTaskId, timeTaken: baseTaskDuration } = baseTask ?? {};
   const projectIdentifier = project?.identifier;
   const { author, id: versionID } = versionMetadata ?? {};
   const oomTracker = details?.oomTracker;
@@ -154,18 +154,18 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
             Base commit duration: {msToDuration(baseTaskDuration)}
           </P2>
         )}
-        {baseTaskLink && (
+        {baseTaskId && (
           <P2>
             Base commit:{" "}
-            <StyledLink
+            <StyledRouterLink
               data-cy="base-task-link"
-              href={baseTaskLink}
+              to={getTaskRoute(baseTaskId)}
               onClick={() =>
                 taskAnalytics.sendEvent({ name: "Click Base Commit" })
               }
             >
               {baseCommit}
-            </StyledLink>
+            </StyledRouterLink>
           </P2>
         )}
         {details?.status === TaskStatus.Failed && (

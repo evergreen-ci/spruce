@@ -1,47 +1,53 @@
-import { useEffect } from "react";
 import styled from "@emotion/styled";
-import { Skeleton } from "antd";
 import { context, Cell } from "components/HistoryTable";
+import { taskHistoryMaxLength as maxLength } from "constants/history";
+import { getVariantHistoryRoute } from "constants/routes";
+import { array, string } from "utils";
 
+const { convertArrayToObject } = array;
+const { trimStringFromMiddle } = string;
 const { useHistoryTable } = context;
-const { HeaderCell } = Cell;
+const { LoadingCell, ColumnHeaderCell } = Cell;
 
 interface ColumnHeadersProps {
+  projectId: string;
   columns: {
     displayName: string;
     buildVariant: string;
   }[];
   loading: boolean;
 }
-const ColumnHeaders: React.FC<ColumnHeadersProps> = ({ columns, loading }) => {
-  const { visibleColumns, addColumns, columnLimit } = useHistoryTable();
-  useEffect(() => {
-    if (columns) {
-      addColumns(columns.map((c) => c.buildVariant));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [columns]);
-
+const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
+  projectId,
+  columns,
+  loading,
+}) => {
+  const { visibleColumns, columnLimit } = useHistoryTable();
+  const columnMap = convertArrayToObject(columns, "buildVariant");
   return (
     <RowContainer>
       <LabelCellContainer />
       {visibleColumns.map((vc) => {
-        const cell = columns.find((c) => c.buildVariant === vc);
+        const cell = columnMap[vc];
         if (!cell) {
           return null;
         }
         return (
-          <HeaderCell key={`header_cell_${cell.buildVariant}`}>
-            {cell.displayName}
-          </HeaderCell>
+          <ColumnHeaderCell
+            key={`header_cell_${cell.displayName}`}
+            link={getVariantHistoryRoute(projectId, cell.buildVariant)}
+            trimmedDisplayName={trimStringFromMiddle(
+              cell.displayName,
+              maxLength
+            )}
+            fullDisplayName={cell.displayName}
+          />
         );
       })}
       {loading &&
         Array.from(Array(columnLimit)).map((_, i) => (
           // eslint-disable-next-line react/no-array-index-key
-          <HeaderCell key={`loading_cell_${i}`}>
-            <Skeleton active title paragraph={false} />
-          </HeaderCell>
+          <LoadingCell key={`loading_cell_${i}`} isHeader />
         ))}
     </RowContainer>
   );

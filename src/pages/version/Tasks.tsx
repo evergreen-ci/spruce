@@ -5,7 +5,7 @@ import Button from "@leafygreen-ui/button";
 import { Skeleton } from "antd";
 import every from "lodash.every";
 import { useParams, useLocation } from "react-router-dom";
-import { usePatchAnalytics } from "analytics";
+import { useVersionAnalytics } from "analytics";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { ResultCountLabel } from "components/ResultCountLabel";
@@ -17,10 +17,11 @@ import { GET_PATCH_TASKS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
-import { queryString, url } from "utils";
+import { queryString, url, array } from "utils";
 import { PatchTasksTable } from "./tasks/PatchTasksTable";
 
-const { parseQueryString, parseSortString } = queryString;
+const { toArray } = array;
+const { parseQueryString, parseSortString, getString } = queryString;
 
 const { getPageFromSearch, getLimitFromSearch } = url;
 interface Props {
@@ -31,7 +32,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const { id: versionId } = useParams<{ id: string }>();
 
   const { search } = useLocation();
-  const patchAnalytics = usePatchAnalytics();
+  const { sendEvent } = useVersionAnalytics();
   const dispatchToast = useToastContext();
 
   const updateQueryParams = useUpdateURLQueryParams();
@@ -68,7 +69,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const { patchTasks } = data || {};
 
   const onClearAll = () => {
-    patchAnalytics.sendEvent({ name: "Clear all filter" });
+    sendEvent({ name: "Clear all filter" });
     updateQueryParams({
       statuses: undefined,
       baseStatuses: undefined,
@@ -107,9 +108,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
           <PageSizeSelector
             data-cy="tasks-table-page-size-selector"
             value={limit}
-            sendAnalyticsEvent={() =>
-              patchAnalytics.sendEvent({ name: "Change Page Size" })
-            }
+            sendAnalyticsEvent={() => sendEvent({ name: "Change Page Size" })}
           />
         </TableControlInnerRow>
       </TableControlOuterRow>
@@ -121,11 +120,6 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     </>
   );
 };
-
-const getString = (param: string | string[]): string =>
-  Array.isArray(param) ? param[0] : param;
-const getArray = (param: string | string[]): string[] =>
-  Array.isArray(param) ? param : [param];
 
 const statusesToIncludeInQuery = {
   [TaskStatus.Aborted]: true,
@@ -150,7 +144,7 @@ const statusesToIncludeInQuery = {
 };
 
 const getStatuses = (rawStatuses: string[] | string): string[] => {
-  const statuses = getArray(rawStatuses).filter(
+  const statuses = toArray(rawStatuses).filter(
     (status) => status in statusesToIncludeInQuery
   );
   if (

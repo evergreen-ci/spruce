@@ -1,6 +1,7 @@
-  query TaskQueueDistros {
-    taskQueueDistros {
-      id
-      queueCount
-    }
+query TaskQueueDistros {
+  taskQueueDistros {
+    id
+    taskCount
+    hostCount
   }
+}

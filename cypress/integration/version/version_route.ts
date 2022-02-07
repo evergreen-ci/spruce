@@ -53,10 +53,10 @@ describe("Version route", () => {
       cy.get('button[aria-label="Close modal"]').click();
       cy.dataCy("parameters-modal").should("not.exist");
     });
-    it("'Base commit' link in metadata links to version page of legacy UI", () => {
+    it("'Base commit' link in metadata links to version page", () => {
       cy.dataCy("patch-base-commit")
         .should("have.attr", "href")
-        .and("include", `http://localhost:9090/version/${versions[5]}`);
+        .and("include", `/version/${versions[5]}`);
     });
     it("Doesn't show patch parameters if they don't exist", () => {
       cy.visit(versionRoute(versions[2]));
@@ -87,7 +87,17 @@ describe("Version route", () => {
     });
 
     it("Navigates to task tab and applies filters when clicking on grouped task status badge", () => {
+      // click on a different tab first, so that we aren't on the task tab initially
+      cy.dataCy("changes-tab").first().click();
+      cy.dataCy("task-tab")
+        .should("have.attr", "aria-selected")
+        .and("equal", "false");
+
+      // clicking on task status badge should move to the task tab
       cy.dataCy("grouped-task-status-badge").first().click();
+      cy.dataCy("task-tab")
+        .should("have.attr", "aria-selected")
+        .and("equal", "true");
       cy.location("search").should(
         "include",
         "statuses=undispatched-umbrella,unscheduled,aborted,blocked"
