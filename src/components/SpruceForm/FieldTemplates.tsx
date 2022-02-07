@@ -144,11 +144,12 @@ export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
   idSchema,
   properties,
   title,
-  uiSchema,
+  uiSchema: { "ui:title": uiTitle, "ui:data-cy": dataCy },
 }) => (
   <SpruceFormContainer
-    title={uiSchema["ui:title"] || title}
+    title={uiTitle || title}
     id={`${idSchema.$id}__title`}
+    data-cy={dataCy}
   >
     {properties.map((prop) => prop.content)}
   </SpruceFormContainer>

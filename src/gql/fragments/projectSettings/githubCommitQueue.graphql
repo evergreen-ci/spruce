@@ -8,6 +8,11 @@ fragment projectGithubCommitQueue on ProjectSettings {
     gitTagVersionsEnabled
     gitTagAuthorizedUsers
     gitTagAuthorizedTeams
+    commitQueue {
+      enabled
+      mergeMethod
+      message
+    }
   }
 }
 
@@ -21,5 +26,10 @@ fragment repoGithubCommitQueue on RepoSettings {
     gitTagVersionsEnabled
     gitTagAuthorizedUsers
     gitTagAuthorizedTeams
+    commitQueue {
+      enabled
+      mergeMethod
+      message
+    }
   }
 }

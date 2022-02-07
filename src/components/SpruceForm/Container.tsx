@@ -5,10 +5,12 @@ import { H3 } from "@leafygreen-ui/typography";
 interface ContainerProps {
   title?: string;
   id?: string;
+  "data-cy"?: string;
 }
 
 export const SpruceFormContainer: React.FC<ContainerProps> = ({
   children,
+  "data-cy": dataCy,
   id,
   title,
 }) => (
@@ -16,7 +18,7 @@ export const SpruceFormContainer: React.FC<ContainerProps> = ({
     {/* @ts-expect-error  */}
     {title && <StyledH3 id={id}>{title}</StyledH3>}
     {/* @ts-expect-error  */}
-    <StyledCard>{children}</StyledCard>
+    <StyledCard data-cy={dataCy}>{children}</StyledCard>
   </div>
 );
 

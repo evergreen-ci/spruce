@@ -3,6 +3,7 @@ import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { AliasType, FormState } from "./types";
 
 enum AliasTypes {
+  CommitQueue = "__commit_queue",
   GithubPr = "__github",
   GithubCheck = "__github_checks",
   GitTag = "__git_tag",
@@ -15,12 +16,14 @@ export const mergeProjectRepo = (
   // Merge project and repo objects so that repo config can be displayed on project pages
   const {
     github: { prTesting, githubChecks, users, teams },
+    commitQueue: { patchDefinitions },
   } = repoData;
   const mergedObject: FormState = projectData;
   mergedObject.github.prTesting.repoData = prTesting;
   mergedObject.github.githubChecks.repoData = githubChecks;
   mergedObject.github.users.repoData = users;
   mergedObject.github.teams.repoData = teams;
+  mergedObject.commitQueue.patchDefinitions.repoData = patchDefinitions;
   return mergedObject;
 };
 
@@ -34,7 +37,11 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
   // @ts-ignore
   const useRepoSettings = isRepo ? false : projectRef.useRepoSettings;
 
-  const { githubPrAliases, githubCheckAliases } = aliases.reduce(
+  const {
+    commitQueueAliases,
+    githubPrAliases,
+    githubCheckAliases,
+  } = aliases.reduce(
     (o, a) => {
       if (a.alias === AliasTypes.GithubPr) {
         o.githubPrAliases.push(a);
@@ -42,6 +49,8 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
         o.githubCheckAliases.push(a);
       } else if (a.alias === AliasTypes.GitTag) {
         o.gitTagAliases.push(a);
+      } else if (a.alias === AliasTypes.CommitQueue) {
+        o.commitQueueAliases.push(a);
       }
       return o;
     },
@@ -49,6 +58,7 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
       githubPrAliases: [],
       githubCheckAliases: [],
       gitTagAliases: [],
+      commitQueueAliases: [],
     }
   );
 
@@ -75,6 +85,16 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
         gitTagAuthorizedTeamsOverride:
           !useRepoSettings || !!projectRef.gitTagAuthorizedTeams?.length,
         gitTagAuthorizedTeams: projectRef.gitTagAuthorizedTeams,
+      },
+    },
+    commitQueue: {
+      enabled: projectRef.commitQueue.enabled,
+      message: projectRef.commitQueue.message,
+      mergeMethod: projectRef.commitQueue.mergeMethod,
+      patchDefinitions: {
+        commitQueueAliasesOverride:
+          !useRepoSettings || !!commitQueueAliases.length,
+        commitQueueAliases,
       },
     },
   };
@@ -106,6 +126,7 @@ export const formToGql: FormToGqlFunction = (
       users: { gitTagAuthorizedUsers, gitTagAuthorizedUsersOverride },
       teams: { gitTagAuthorizedTeams, gitTagAuthorizedTeamsOverride },
     },
+    commitQueue: { enabled, message, mergeMethod, patchDefinitions },
   }: FormState,
   id
 ) => {
@@ -122,6 +143,11 @@ export const formToGql: FormToGqlFunction = (
       (gitTagAuthorizedTeamsOverride &&
         gitTagAuthorizedTeams?.filter((team) => team)) ||
       [],
+    commitQueue: {
+      enabled,
+      message,
+      mergeMethod,
+    },
   };
 
   const githubPrAliases = transformAliases(
@@ -134,7 +160,16 @@ export const formToGql: FormToGqlFunction = (
     AliasTypes.GithubCheck
   );
 
-  const aliases = [...githubPrAliases, ...githubCheckAliases];
+  const commitQueueAliases = transformAliases(
+    patchDefinitions.commitQueueAliases,
+    AliasTypes.CommitQueue
+  );
+
+  const aliases = [
+    ...githubPrAliases,
+    ...githubCheckAliases,
+    ...commitQueueAliases,
+  ];
 
   return {
     projectRef,
