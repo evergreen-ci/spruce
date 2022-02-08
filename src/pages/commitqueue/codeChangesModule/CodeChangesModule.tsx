@@ -66,6 +66,6 @@ const DropDownText = styled(Body)`
 `;
 
 const CommitName = styled(Body)`
-  font-size: ${fontSize.xl};
+  font-size: ${fontSize.l};
   padding-bottom: ${size.xs};
 `;

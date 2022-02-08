@@ -106,7 +106,7 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
 };
 
 const Row = styled.div`
-  font-size: ${fontSize.xl};
+  font-size: ${fontSize.l};
   padding-top: ${size.xs};
   margin-bottom: ${size.xs};
   border-top: 1px dotted #ccc;

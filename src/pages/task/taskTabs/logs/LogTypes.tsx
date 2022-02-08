@@ -329,5 +329,5 @@ const StyledPre = styled.pre`
   border: 1px solid ${gray.light2};
   border-radius: ${size.xxs};
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-  font-size: ${fontSize.s};
+  font-size: ${fontSize.m};
 `;

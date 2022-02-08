@@ -21,11 +21,9 @@ const zIndex = {
 } as const;
 
 const fontSize = {
-  xs: "8px",
-  s: "12px",
+  s: "8px",
   m: "14px",
-  l: "16px",
-  xl: "18px",
+  l: "18px",
 } as const;
 
 export { size, zIndex, fontSize };

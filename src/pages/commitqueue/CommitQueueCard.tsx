@@ -146,7 +146,7 @@ const Card = styled.div`
 
 const cardTitleStyles = css`
   margin-bottom: ${size.s};
-  font-size: ${fontSize.xl};
+  font-size: ${fontSize.l};
   font-weight: bold;
 `;
 

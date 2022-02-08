@@ -99,9 +99,9 @@ const Row = styled.div`
 `;
 
 const Number = styled.span`
-  font-size: ${fontSize.s};
+  font-size: ${fontSize.m};
   font-weight: bold;
-  line-height: ${fontSize.s};
+  line-height: ${fontSize.m};
 `;
 
 const Status = styled.span`

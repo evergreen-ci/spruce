@@ -134,6 +134,6 @@ const SubStatusText = styled(Disclaimer)`
 `;
 
 const sharedCss = css`
-  font-size: ${fontSize.xs};
-  line-height: 12px;
+  font-size: ${fontSize.s};
+  line-height: ${size.s};
 `;

@@ -79,7 +79,7 @@ const LabelContainer = styled.div`
 const LabelText = styled(Body)`
   color: ${gray.dark2};
   width: 100%;
-  font-size: ${fontSize.s};
+  font-size: ${fontSize.m};
 `;
 
 export default CommitChartLabel;
