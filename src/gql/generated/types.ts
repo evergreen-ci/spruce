@@ -2761,6 +2761,7 @@ export type GetBaseVersionAndTaskQuery = {
     displayName: string;
     buildVariant: string;
     versionMetadata: {
+      id: string;
       isPatch: boolean;
       baseVersion?: Maybe<{
         id: string;

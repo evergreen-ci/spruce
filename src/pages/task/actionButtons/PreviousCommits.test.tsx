@@ -9,30 +9,30 @@ import { PreviousCommits } from "./PreviousCommits";
 
 describe("previous Commits", () => {
   it("when base task is passing, all dropdown items generate the same link.", async () => {
-    const { queryAllByText, queryByText } = renderWithRouterMatch(() => (
+    const { getAllByText, getByText } = renderWithRouterMatch(() => (
       <MockedProvider mocks={[getTaskWithSuccessfulBase]}>
         <PreviousCommits taskId="t1" />
       </MockedProvider>
     ));
 
     await waitFor(() => {
-      expect(queryByText("Go").closest("a")).toHaveAttribute(
+      expect(getByText("Go").closest("a")).toHaveAttribute(
         "href",
         baseTaskHref
       );
     });
-    userEvent.click(queryByText("Go to base commit"));
-    userEvent.click(queryByText("Go to last passing version"));
+    userEvent.click(getByText("Go to base commit"));
+    userEvent.click(getByText("Go to last passing version"));
     await waitFor(() => {
-      expect(queryByText("Go").closest("a")).toHaveAttribute(
+      expect(getByText("Go").closest("a")).toHaveAttribute(
         "href",
         baseTaskHref
       );
     });
-    userEvent.click(queryAllByText("Go to last passing version")[0]);
-    userEvent.click(queryByText("Go to last executed version"));
+    userEvent.click(getAllByText("Go to last passing version")[0]);
+    userEvent.click(getByText("Go to last executed version"));
     await waitFor(() => {
-      expect(queryByText("Go").closest("a")).toHaveAttribute(
+      expect(getByText("Go").closest("a")).toHaveAttribute(
         "href",
         baseTaskHref
       );
@@ -40,30 +40,31 @@ describe("previous Commits", () => {
   });
 
   it("when base task is failing, 'Go to base commit' and 'Go to last executed' dropdown items generate the same link and 'Go to last passing version' will be different.", async () => {
-    const { queryAllByText, queryByText } = renderWithRouterMatch(() => (
+    const { getAllByText, getByText } = renderWithRouterMatch(() => (
       <MockedProvider mocks={[getTaskWithFailingBase, getLastPassingVersion]}>
         <PreviousCommits taskId="t1" />
       </MockedProvider>
     ));
 
     await waitFor(() => {
-      expect(queryByText("Go").closest("a")).toHaveAttribute(
+      expect(getByText("Go")).toBeInTheDocument();
+      expect(getByText("Go").closest("a")).toHaveAttribute(
         "href",
         baseTaskHref
       );
     });
-    userEvent.click(queryByText("Go to base commit"));
-    userEvent.click(queryByText("Go to last executed version"));
+    userEvent.click(getByText("Go to base commit"));
+    userEvent.click(getByText("Go to last executed version"));
     await waitFor(() => {
-      expect(queryByText("Go").closest("a")).toHaveAttribute(
+      expect(getByText("Go").closest("a")).toHaveAttribute(
         "href",
         baseTaskHref
       );
     });
-    userEvent.click(queryAllByText("Go to last executed version")[0]);
-    userEvent.click(queryByText("Go to last passing version"));
+    userEvent.click(getAllByText("Go to last executed version")[0]);
+    userEvent.click(getByText("Go to last passing version"));
     await waitFor(() => {
-      expect(queryByText("Go").closest("a")).toHaveAttribute(
+      expect(getByText("Go").closest("a")).toHaveAttribute(
         "href",
         "/task/last_passing_task"
       );
@@ -71,7 +72,7 @@ describe("previous Commits", () => {
   });
 
   it("when base task is not in a finished state, the last executed & passing task is not the same as the base commit", async () => {
-    const { queryAllByText, queryByText } = renderWithRouterMatch(() => (
+    const { getAllByText, getByText } = renderWithRouterMatch(() => (
       <MockedProvider
         mocks={[
           getTaskWithRunningBase,
@@ -84,23 +85,23 @@ describe("previous Commits", () => {
     ));
 
     await waitFor(() => {
-      expect(queryByText("Go").closest("a")).toHaveAttribute(
+      expect(getByText("Go").closest("a")).toHaveAttribute(
         "href",
         baseTaskHref
       );
     });
-    userEvent.click(queryByText("Go to base commit"));
-    userEvent.click(queryByText("Go to last executed version"));
+    userEvent.click(getByText("Go to base commit"));
+    userEvent.click(getByText("Go to last executed version"));
     await waitFor(() => {
-      expect(queryByText("Go").closest("a")).toHaveAttribute(
+      expect(getByText("Go").closest("a")).toHaveAttribute(
         "href",
         "/task/last_executed_task"
       );
     });
-    userEvent.click(queryAllByText("Go to last executed version")[0]);
-    userEvent.click(queryByText("Go to last passing version"));
+    userEvent.click(getAllByText("Go to last executed version")[0]);
+    userEvent.click(getByText("Go to last passing version"));
     await waitFor(() => {
-      expect(queryByText("Go").closest("a")).toHaveAttribute(
+      expect(getByText("Go").closest("a")).toHaveAttribute(
         "href",
         "/task/last_passing_task"
       );
@@ -108,21 +109,22 @@ describe("previous Commits", () => {
   });
 
   it("the select is disabled when no base version exists", async () => {
-    const { queryByText } = renderWithRouterMatch(() => (
+    const { getByText } = renderWithRouterMatch(() => (
       <MockedProvider mocks={[getTaskWithNoBaseVersion]}>
         <PreviousCommits taskId="t3" />
       </MockedProvider>
     ));
     await waitFor(() => {
-      expect(queryByText("Go").closest("a")).toHaveAttribute(
+      expect(getByText("Go").closest("a")).toHaveAttribute(
         "aria-disabled",
         "true"
       );
     });
     await waitFor(() => {
-      expect(
-        queryByText("Go to base commit").closest("button")
-      ).toHaveAttribute("aria-disabled", "true");
+      expect(getByText("Go to base commit").closest("button")).toHaveAttribute(
+        "aria-disabled",
+        "true"
+      );
     });
   });
 
@@ -152,6 +154,7 @@ describe("previous Commits", () => {
               __typename: "Version",
             },
             isPatch: true,
+            id: "versionMetadataId",
             __typename: "Version",
           },
           baseTask: {
@@ -189,6 +192,7 @@ describe("previous Commits", () => {
               __typename: "Version",
             },
             isPatch: true,
+            id: "versionMetadataId",
             __typename: "Version",
           },
           baseTask: {
@@ -226,6 +230,7 @@ describe("previous Commits", () => {
               __typename: "Version",
             },
             isPatch: true,
+            id: "versionMetadataId",
             __typename: "Version",
           },
           baseTask: {
@@ -266,6 +271,7 @@ describe("previous Commits", () => {
                       {
                         id: "last_passing_task",
                         execution: 0,
+                        status: "success",
                         __typename: "Task",
                       },
                     ],
@@ -300,6 +306,7 @@ describe("previous Commits", () => {
           buildVariant: "lint",
           versionMetadata: {
             baseVersion: null,
+            id: "versionMetadataId",
             isPatch: true,
             __typename: "Version",
           },
@@ -346,6 +353,7 @@ describe("previous Commits", () => {
                       {
                         id: "last_executed_task",
                         execution: 0,
+                        status: "failed",
                         __typename: "Task",
                       },
                     ],

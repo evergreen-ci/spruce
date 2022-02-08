@@ -5,12 +5,13 @@ query GetBaseVersionAndTask($taskId: String!) {
     displayName
     buildVariant
     versionMetadata {
+      id
+      isPatch
       baseVersion {
         id
         order
         projectIdentifier
       }
-      isPatch
     }
     baseTask {
       id

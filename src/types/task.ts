@@ -1,4 +1,5 @@
 import { TableProps } from "antd/es/table";
+import { GetBaseVersionAndTaskQuery } from "gql/generated/types";
 
 export enum RequiredQueryParams {
   Sort = "sortDir",
@@ -116,3 +117,5 @@ export const finishedTaskStatuses = [
   ...failedTaskStatuses,
   TaskStatus.Succeeded,
 ];
+
+export type CommitTask = GetBaseVersionAndTaskQuery["task"]["baseTask"];

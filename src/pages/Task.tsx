@@ -76,7 +76,11 @@ export const Task: React.FC = () => {
   const isPatchOnCommitQueue = requester === commitQueueRequester;
 
   // Set the execution if it isnt provided
-  if (Number.isNaN(selectedExecution) && latestExecution !== undefined) {
+  if (
+    Number.isNaN(selectedExecution) &&
+    task?.id === id &&
+    latestExecution !== undefined
+  ) {
     updateQueryParams({
       execution: `${latestExecution}`,
     });

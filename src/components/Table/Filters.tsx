@@ -79,7 +79,9 @@ export const getColumnSearchFilterProps = ({
       data-cy={dataCy}
     />
   ),
-  filterIcon: () => <StyledSearchOutlined data-cy={dataCy} active={!!value} />,
+  filterIcon: () => (
+    <StyledSearchOutlined data-cy={dataCy} active={value ? 1 : 0} />
+  ),
 });
 
 export const getColumnTreeSelectFilterProps = ({
@@ -97,7 +99,7 @@ export const getColumnTreeSelectFilterProps = ({
     />
   ),
   filterIcon: () => (
-    <StyledFilterOutlined data-cy={dataCy} active={!!state.length} />
+    <StyledFilterOutlined data-cy={dataCy} active={state.length ? 1 : 0} />
   ),
 });
 
@@ -134,7 +136,7 @@ export const getColumnCheckboxFilterProps = ({
     />
   ),
   filterIcon: () => (
-    <StyledFilterOutlined data-cy={dataCy} active={!!value.length} />
+    <StyledFilterOutlined data-cy={dataCy} active={value.length ? 1 : 0} />
   ),
 });
 
@@ -151,7 +153,7 @@ const StyledTextInput = styled(TextInput)`
 `;
 
 interface StyledOutlinedProps {
-  active?: boolean;
+  active?: number;
 }
 const StyledFilterOutlined = styled(FilterOutlined)<StyledOutlinedProps>`
   font-size: 16px;
