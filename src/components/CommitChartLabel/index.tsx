@@ -5,7 +5,7 @@ import { Body } from "@leafygreen-ui/typography";
 import ExpandedText from "components/ExpandedText";
 import { StyledRouterLink } from "components/styles";
 import { getVersionRoute } from "constants/routes";
-import { fontSize, size } from "constants/tokens";
+import { fontSize, size, zIndex } from "constants/tokens";
 import {
   GetSpruceConfigQuery,
   GetSpruceConfigQueryVariables,
@@ -56,7 +56,7 @@ const CommitChartLabel: React.FC<Props> = ({
       </LabelText>
       {shortenMessage && (
         <ExpandedText
-          popoverZIndex={10}
+          popoverZIndex={zIndex.tooltip}
           message={message}
           data-cy="long-commit-message-tooltip"
         />

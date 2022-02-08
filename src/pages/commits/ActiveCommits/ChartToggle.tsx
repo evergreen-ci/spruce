@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
 import { Label } from "@leafygreen-ui/typography";
-import { size } from "constants/tokens";
+import { size, zIndex } from "constants/tokens";
 import { ChartTypes } from "types/commits";
 
 const { gray } = uiColors;
@@ -53,7 +53,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  z-index: 3;
+  z-index: ${zIndex.tooltip};
 `;
 
 // @ts-expect-error
@@ -65,11 +65,9 @@ const StyledRadioGroup = styled(RadioGroup)`
   align-items: center;
   justify-content: space-evenly;
   width: 286px;
-  /* height: ${size.xl}; */
   border-radius: 7px;
   border: 1px solid ${gray.light2};
   padding: ${size.s} 0;
-  /* padding-right: ${size.xxs}; */
   background: #ffffff;
   box-shadow: 0px ${size.xxs} 10px -${size.xxs} rgba(0, 0, 0, 0.3);
 `;

@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import Toast, { Variant } from "@leafygreen-ui/toast";
 import { WordBreak } from "components/Typography";
 import { TOAST_TIMEOUT } from "constants/index";
+import { zIndex } from "constants/tokens";
 
 type ToastProps = {
   variant: Variant;
@@ -160,7 +161,7 @@ const useToastContext = (): DispatchToast => {
 };
 
 const StyledToast = styled(Toast)`
-  z-index: 10;
+  z-index: ${zIndex.toast};
 `;
 
 export { ToastProvider, useToastContext };

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
+import { zIndex } from "constants/tokens";
 import { NodeType, Node } from "./nodeList/Node";
 
 const { gray } = uiColors;
@@ -29,7 +30,7 @@ const NodeContainer = styled.div`
       top: 0%;
       height: 90%;
       width: 1px;
-      z-index: -1;
+      z-index: ${zIndex.backdrop};
     }
   }
 `;

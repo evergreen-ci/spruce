@@ -12,7 +12,7 @@ const size = {
 } as const;
 
 const zIndex = {
-  backdrop: 0,
+  backdrop: -1,
   modal: 10,
   tooltip: 20,
   popover: 30,

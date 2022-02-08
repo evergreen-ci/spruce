@@ -4,14 +4,14 @@ import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import Icon from "components/Icon";
-import { size } from "constants/tokens";
+import { size, zIndex } from "constants/tokens";
 
 import { string } from "utils";
 
 const { trimStringFromMiddle } = string;
 const { gray } = uiColors;
 
-const tooltipInModalZIndex = 50; // necessary due to SeeMoreModal, which has zIndex 40
+const tooltipInModalZIndex = zIndex.tooltip; // necessary due to SeeMoreModal, which has zIndex 40
 const maxBadgeLength = 25;
 
 interface FilterBadgeProps {

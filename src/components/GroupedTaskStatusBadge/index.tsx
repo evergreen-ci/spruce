@@ -8,7 +8,7 @@ import {
   mapUmbrellaStatusColors,
   mapUmbrellaStatusToQueryParam,
 } from "constants/task";
-import { fontSize, size } from "constants/tokens";
+import { fontSize, size, zIndex } from "constants/tokens";
 import { TaskStatus } from "types/task";
 import { applyStrictRegex } from "utils/string";
 
@@ -39,7 +39,7 @@ export const GroupedTaskStatusBadge: React.FC<Props> = ({
       enabled={!!statusCounts}
       align="top"
       justify="middle"
-      popoverZIndex={1}
+      popoverZIndex={zIndex.tooltip}
       trigger={
         <div>
           <Link
