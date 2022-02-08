@@ -46,12 +46,12 @@ exports[`spruceForm should render as expected 1`] = `
   font-weight: bold;
   color: #21313C;
   font-size: 14px;
-  line-height: ${size.s}px;
+  line-height: 16px;
 }
 
 @media only screen and (max-width: 1024px) {
   .emotion-10 {
-    font-size: ${size.s}px;
+    font-size: 16px;
     line-height: 19px;
   }
 }
@@ -135,7 +135,7 @@ exports[`spruceForm should render as expected 1`] = `
 @media only screen and (max-width: 1024px) {
   .emotion-11 {
     height: 36px;
-    font-size: ${size.s}px;
+    font-size: 16px;
   }
 }
 
@@ -218,8 +218,8 @@ exports[`spruceForm should render as expected 1`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   color: #5D6C74;
-  height: ${size.s}px;
-  width: ${size.s}px;
+  height: 16px;
+  width: 16px;
   margin-left: 6px;
 }
 
@@ -236,7 +236,7 @@ exports[`spruceForm should render as expected 1`] = `
 .emotion-21 {
   font-size: 14px;
   font-weight: bold;
-  line-height: ${size.s}px;
+  line-height: 16px;
   padding-bottom: 4px;
   color: #3D4F58;
 }
@@ -272,7 +272,7 @@ exports[`spruceForm should render as expected 1`] = `
   font-size: 14px;
   font-weight: normal;
   font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
-  line-height: ${size.s}px;
+  line-height: 16px;
   z-index: 1;
   border: 1px solid;
   -webkit-transition: border-color 150ms ease-in-out;
@@ -317,13 +317,8 @@ exports[`spruceForm should render as expected 1`] = `
   margin-bottom: 12px;
 }
 
-<<<<<<< HEAD
-.emotion-27 {
-  margin-top: ${size.s}px;
-=======
 .emotion-28 {
   margin-top: 16px;
->>>>>>> upstream/main
   margin-bottom: 12px;
 }
 
@@ -427,8 +422,8 @@ exports[`spruceForm should render as expected 1`] = `
 
 .emotion-36 {
   color: #5D6C74;
-  height: ${size.s}px;
-  width: ${size.s}px;
+  height: 16px;
+  width: 16px;
   margin-right: 6px;
 }
 
@@ -569,7 +564,7 @@ exports[`spruceForm should render as expected 1`] = `
 
 .emotion-51 {
   margin-bottom: 20px;
-  margin-left: ${size.s}px;
+  margin-left: 16px;
 }
 
 .emotion-53 {
@@ -640,8 +635,8 @@ exports[`spruceForm should render as expected 1`] = `
 
 .emotion-56 {
   color: #3D4F58;
-  height: ${size.s}px;
-  width: ${size.s}px;
+  height: 16px;
+  width: 16px;
   vertical-align: text-top;
 }
 
