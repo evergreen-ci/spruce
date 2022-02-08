@@ -48,11 +48,8 @@ export const PageTitle: React.FC<Props> = ({
       <PageHeader size={size}>
         <TitleWrapper size={size}>
           <TitleTypography size={size}>
-            <span data-cy="page-title">
-              {title}
-              {"  "}
-              <BadgeWrapper size={size}>{badge}</BadgeWrapper>
-            </span>
+            <span data-cy="page-title">{title}</span>
+            <BadgeWrapper size={size}>{badge}</BadgeWrapper>
           </TitleTypography>
         </TitleWrapper>
         {buttons ?? null}

@@ -66,7 +66,7 @@ const StyledRadioGroup = styled(RadioGroup)`
   width: 286px;
   border-radius: 7px;
   border: 1px solid ${gray.light2};
-  padding: ${size.s} 0;
+  padding: ${size.xs} 0 ${size.s} 0;
   background: #ffffff;
   box-shadow: 0px ${size.xxs} 10px -${size.xxs} rgba(0, 0, 0, 0.3);
 `;
