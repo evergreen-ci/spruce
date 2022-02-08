@@ -220,7 +220,7 @@ Array [
           </label>
           <div
             aria-label="chart-select"
-            className="leafygreen-ui-sgfp3 css-1775fn8-StyledRadioGroup e1d5uzqe1"
+            className="leafygreen-ui-sgfp3 css-gfqj1c-StyledRadioGroup e1d5uzqe1"
             role="group"
           >
             <div
@@ -262,12 +262,9 @@ Array [
                 <div
                   className="leafygreen-ui-3sm8z"
                 >
-                  <label
-                    className="leafygreen-ui-ly82bp"
-                    htmlFor="chart-radio-absolute"
-                  >
+                  <b>
                     Absolute Number
-                  </label>
+                  </b>
                 </div>
               </label>
             </div>
@@ -308,12 +305,9 @@ Array [
                 <div
                   className="leafygreen-ui-3sm8z"
                 >
-                  <label
-                    className="leafygreen-ui-ly82bp"
-                    htmlFor="chart-radio-percent"
-                  >
+                  <b>
                     Percentage
-                  </label>
+                  </b>
                 </div>
               </label>
             </div>
@@ -337,7 +331,7 @@ Array [
           data-cy="commit-label"
         >
           <div
-            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             <a
               className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
@@ -350,13 +344,13 @@ Array [
             7/16/21 3:53 PM
           </div>
           <div
-            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             Jonathan Brill
              -
           </div>
           <div
-            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             
             <a
@@ -387,7 +381,7 @@ Array [
           data-cy="commit-label"
         >
           <div
-            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             <a
               className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
@@ -400,13 +394,13 @@ Array [
             7/13/21 2:51 PM
           </div>
           <div
-            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             Mohamed Khelif
              -
           </div>
           <div
-            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             Triggered From Git Tag 'v2.11.1': v2....
           </div>
@@ -450,7 +444,7 @@ Array [
           data-cy="commit-label"
         >
           <div
-            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             <a
               className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
@@ -463,13 +457,13 @@ Array [
             7/13/21 2:51 PM
           </div>
           <div
-            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             Mohamed Khelif
              -
           </div>
           <div
-            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             
             <a
@@ -500,7 +494,7 @@ Array [
           data-cy="commit-label"
         >
           <div
-            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             <a
               className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
@@ -513,13 +507,13 @@ Array [
             7/13/21 2:51 PM
           </div>
           <div
-            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             Sophie Stadler
              -
           </div>
           <div
-            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             Remove navigation announcement toast ...
           </div>
@@ -543,7 +537,7 @@ Array [
           data-cy="commit-label"
         >
           <div
-            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             <a
               className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
@@ -556,13 +550,13 @@ Array [
             7/13/21 2:51 PM
           </div>
           <div
-            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             Chaya Malik
              -
           </div>
           <div
-            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             Triggered From Git Tag 'v2.11.0': v2....
           </div>

@@ -47,15 +47,13 @@ export const PageTitle: React.FC<Props> = ({
     {hasData && !loading && (
       <PageHeader size={size}>
         <TitleWrapper size={size}>
-          <FlexRow>
-            <TitleTypography size={size}>
-              <span data-cy="page-title">
-                {title}
-                {"  "}
-              </span>
-            </TitleTypography>
-            <BadgeWrapper size={size}>{badge}</BadgeWrapper>
-          </FlexRow>
+          <TitleTypography size={size}>
+            <span data-cy="page-title">
+              {title}
+              {"  "}
+              <BadgeWrapper size={size}>{badge}</BadgeWrapper>
+            </span>
+          </TitleTypography>
         </TitleWrapper>
         {buttons ?? null}
       </PageHeader>
@@ -63,16 +61,10 @@ export const PageTitle: React.FC<Props> = ({
   </>
 );
 
-const BadgeWrapper = styled.span<TitleTypographyProps>`
+const BadgeWrapper = styled.div<TitleTypographyProps>`
   display: inline-flex;
   position: relative;
   margin-left: ${({ size }) => (size === "large" ? tokenSize.m : tokenSize.s)};
-`;
-
-const FlexRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
 `;
 
 const PageHeader = styled.div<TitleTypographyProps>`

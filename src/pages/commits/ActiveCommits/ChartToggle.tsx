@@ -31,14 +31,14 @@ export const ChartToggle: React.FC<{
             id="chart-radio-absolute"
             value={ChartTypes.Absolute}
           >
-            <Label htmlFor="chart-radio-absolute">Absolute Number</Label>
+            <b>Absolute Number</b>
           </Radio>
           <Radio
             data-cy="cy-chart-percent-radio"
             id="chart-radio-percent"
             value={ChartTypes.Percentage}
           >
-            <Label htmlFor="chart-radio-percent">Percentage</Label>
+            <b>Percentage</b>
           </Radio>
         </StyledRadioGroup>
       </ToggleWrapper>
@@ -62,7 +62,6 @@ const StyledRadioGroup = styled(RadioGroup)`
   align-items: center;
   white-space: nowrap;
   flex-direction: row;
-  align-items: center;
   justify-content: space-evenly;
   width: 286px;
   border-radius: 7px;

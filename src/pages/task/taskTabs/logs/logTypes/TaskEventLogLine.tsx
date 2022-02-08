@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { format } from "date-fns";
 import { StyledLink, StyledRouterLink } from "components/styles";
 import { getHostRoute } from "constants/routes";
-import { size, fontSize } from "constants/tokens";
+import { size } from "constants/tokens";
 import { TaskEventLogEntry } from "gql/generated/types";
 
 const FORMAT_STR = "MMM d, yyyy, h:mm:ss aaaa";
@@ -106,7 +106,7 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
 };
 
 const Row = styled.div`
-  font-size: ${fontSize.l};
+  font-size: 16px;
   padding-top: ${size.xs};
   margin-bottom: ${size.xs};
   border-top: 1px dotted #ccc;

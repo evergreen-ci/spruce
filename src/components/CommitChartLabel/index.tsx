@@ -5,7 +5,7 @@ import { Body } from "@leafygreen-ui/typography";
 import ExpandedText from "components/ExpandedText";
 import { StyledRouterLink } from "components/styles";
 import { getVersionRoute } from "constants/routes";
-import { fontSize, size, zIndex } from "constants/tokens";
+import { size, zIndex } from "constants/tokens";
 import {
   GetSpruceConfigQuery,
   GetSpruceConfigQueryVariables,
@@ -79,7 +79,7 @@ const LabelContainer = styled.div`
 const LabelText = styled(Body)`
   color: ${gray.dark2};
   width: 100%;
-  font-size: ${fontSize.m};
+  font-size: 12px;
 `;
 
 export default CommitChartLabel;
