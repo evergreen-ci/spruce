@@ -207,7 +207,7 @@ Array [
       className="css-7yxj8m-AbsoluteContainer ech0nhv3"
     >
       <div
-        className="css-1isl84h-Container e1d5uzqe2"
+        className="css-1uhv577-Container e1d5uzqe2"
       >
         <div
           className="css-r7f5o5-ToggleWrapper e1d5uzqe0"
@@ -337,7 +337,7 @@ Array [
           data-cy="commit-label"
         >
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             <a
               className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
@@ -350,13 +350,13 @@ Array [
             7/16/21 3:53 PM
           </div>
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             Jonathan Brill
              -
           </div>
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             
             <a
@@ -387,7 +387,7 @@ Array [
           data-cy="commit-label"
         >
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             <a
               className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
@@ -400,13 +400,13 @@ Array [
             7/13/21 2:51 PM
           </div>
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             Mohamed Khelif
              -
           </div>
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             Triggered From Git Tag 'v2.11.1': v2....
           </div>
@@ -450,7 +450,7 @@ Array [
           data-cy="commit-label"
         >
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             <a
               className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
@@ -463,13 +463,13 @@ Array [
             7/13/21 2:51 PM
           </div>
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             Mohamed Khelif
              -
           </div>
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             
             <a
@@ -500,7 +500,7 @@ Array [
           data-cy="commit-label"
         >
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             <a
               className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
@@ -513,13 +513,13 @@ Array [
             7/13/21 2:51 PM
           </div>
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             Sophie Stadler
              -
           </div>
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             Remove navigation announcement toast ...
           </div>
@@ -543,7 +543,7 @@ Array [
           data-cy="commit-label"
         >
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             <a
               className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
@@ -556,13 +556,13 @@ Array [
             7/13/21 2:51 PM
           </div>
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             Chaya Malik
              -
           </div>
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-jdc7lj-LabelText e1cz15300 leafygreen-ui-1mngpnd"
           >
             Triggered From Git Tag 'v2.11.0': v2....
           </div>
@@ -623,7 +623,7 @@ Array [
                     fill="#5D6C74"
                   >
                     <span
-                      className="css-195a4ez-Number emc61an2"
+                      className="css-1f81ztl-Number emc61an2"
                     >
                       1
                     </span>
@@ -672,7 +672,7 @@ Array [
                     fill="#5D6C74"
                   >
                     <span
-                      className="css-195a4ez-Number emc61an2"
+                      className="css-1f81ztl-Number emc61an2"
                     >
                       1
                     </span>
@@ -730,7 +730,7 @@ Array [
                     fill="#5D6C74"
                   >
                     <span
-                      className="css-195a4ez-Number emc61an2"
+                      className="css-1f81ztl-Number emc61an2"
                     >
                       1
                     </span>
@@ -779,7 +779,7 @@ Array [
                     fill="#5D6C74"
                   >
                     <span
-                      className="css-195a4ez-Number emc61an2"
+                      className="css-1f81ztl-Number emc61an2"
                     >
                       1
                     </span>
@@ -841,7 +841,7 @@ Array [
                     fill="#5D6C74"
                   >
                     <span
-                      className="css-195a4ez-Number emc61an2"
+                      className="css-1f81ztl-Number emc61an2"
                     >
                       1
                     </span>
@@ -890,7 +890,7 @@ Array [
                     fill="#5D6C74"
                   >
                     <span
-                      className="css-195a4ez-Number emc61an2"
+                      className="css-1f81ztl-Number emc61an2"
                     >
                       1
                     </span>
@@ -948,7 +948,7 @@ Array [
                     fill="#5D6C74"
                   >
                     <span
-                      className="css-195a4ez-Number emc61an2"
+                      className="css-1f81ztl-Number emc61an2"
                     >
                       1
                     </span>
@@ -997,7 +997,7 @@ Array [
                     fill="#E4F4E4"
                   >
                     <span
-                      className="css-195a4ez-Number emc61an2"
+                      className="css-1f81ztl-Number emc61an2"
                     >
                       1
                     </span>
