@@ -1,5 +1,3 @@
-import { FormDataProps } from "components/SpruceForm";
-
 export interface FormState {
   buildBreakSettings: {
     notifyOnBuildFailure: boolean | null;

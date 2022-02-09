@@ -4,10 +4,11 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { radioBoxOptions } from "../utils";
 import { DefaultSubscriptionsField } from "./Fields/DefaultSubscriptionsField";
+import { FormState } from "./types";
 
 export const getFormSchema = (
   useRepoSettings: boolean,
-  repoData?: any
+  repoData?: FormState
 ): {
   fields: Record<string, Field>;
   schema: SpruceFormProps["schema"];

@@ -28,14 +28,14 @@ describe("project data", () => {
 
 const projectForm: FormState = {
   buildBreakSettings: {
-    notifyOnBuildFailure: true,
+    notifyOnBuildFailure: null,
   },
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
   projectRef: {
     id: "project",
-    notifyOnBuildFailure: true,
+    notifyOnBuildFailure: null,
   },
 };
 
@@ -48,6 +48,6 @@ const repoForm: FormState = {
 const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
   projectRef: {
     id: "repo",
-    notifyOnBuildFailure: null,
+    notifyOnBuildFailure: false,
   },
 };
