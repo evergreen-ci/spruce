@@ -1,5 +1,4 @@
 import { useQuery } from "@apollo/client";
-import { useParams } from "react-router-dom";
 import { addPageAction, Properties, Analytics } from "analytics/addPageAction";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
 import {
@@ -55,11 +54,8 @@ interface P extends Properties {
 }
 interface PatchAnalytics extends Analytics<Action> {}
 
-export const usePatchAnalytics = (patchId?: string): PatchAnalytics => {
+export const usePatchAnalytics = (id: string): PatchAnalytics => {
   const userId = useGetUserQuery();
-  const { id: idFromURL } = useParams<{ id: string }>();
-
-  const id = patchId || idFromURL;
 
   const { data: eventData } = useQuery<PatchQuery, PatchQueryVariables>(
     GET_PATCH,

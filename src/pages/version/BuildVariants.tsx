@@ -20,7 +20,7 @@ import { groupTasksByUmbrellaStatus } from "./buildVariants/utils";
 
 export const BuildVariants: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { sendEvent } = useVersionAnalytics();
+  const { sendEvent } = useVersionAnalytics(id);
 
   const { data, loading, error, startPolling, stopPolling } = useQuery<
     BuildVariantsQuery,

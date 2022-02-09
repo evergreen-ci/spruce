@@ -5,6 +5,7 @@ import Button from "@leafygreen-ui/button";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { TableProps } from "antd/es/table";
+import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { Accordion, AccordionWrapper } from "components/Accordion";
 import { PageSizeSelector } from "components/PageSizeSelector";
@@ -48,7 +49,9 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
   taskCount,
 }) => {
   const dispatchToast = useToastContext();
-  const { sendEvent } = useVersionAnalytics();
+
+  const { id } = useParams<{ id: string }>();
+  const { sendEvent } = useVersionAnalytics(id);
 
   const defaultSort: SortOrder = {
     Key: TaskSortCategory.Status,

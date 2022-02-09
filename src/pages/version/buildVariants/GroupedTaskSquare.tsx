@@ -17,8 +17,8 @@ export const GroupedTaskSquare: React.FC<Props> = ({
   umbrellaStatus,
   variant,
 }) => {
-  const { sendEvent } = useVersionAnalytics();
   const { id } = useParams<{ id: string }>();
+  const { sendEvent } = useVersionAnalytics(id);
 
   return (
     <GroupedTaskSquareWrapper>

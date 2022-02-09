@@ -1,5 +1,4 @@
 import { useQuery } from "@apollo/client";
-import { useParams } from "react-router-dom";
 import { addPageAction, Properties, Analytics } from "analytics/addPageAction";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
 import {
@@ -55,11 +54,8 @@ interface V extends Properties {
 }
 interface VersionAnalytics extends Analytics<Action> {}
 
-export const useVersionAnalytics = (versionId?: string): VersionAnalytics => {
+export const useVersionAnalytics = (id: string): VersionAnalytics => {
   const userId = useGetUserQuery();
-  const { id: idFromURL } = useParams<{ id: string }>();
-
-  const id = versionId || idFromURL;
 
   const { data: eventData } = useQuery<VersionQuery, VersionQueryVariables>(
     GET_VERSION,

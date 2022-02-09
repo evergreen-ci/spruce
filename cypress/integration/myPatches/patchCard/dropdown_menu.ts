@@ -1,7 +1,8 @@
 import { popconfirmYesClassName } from "../../../utils/popconfirm";
 
-const patchDescriptionCanReconfigure = "test meee";
-const patchDescriptionReconfigureDisabled =
+const patchWithoutVersion = "test meee";
+const patchWithVersion = "dist";
+const patchWithVersionOnCommitQueue =
   "'evergreen-ci/evergreen' pull request #3186 by bsamek: EVG-7425 Don't send ShouldExit to unprovisioned hosts (https://github.com/evergreen-ci/evergreen/pull/3186)";
 
 const getPatchCardByDescription = (description: string) =>
@@ -17,7 +18,7 @@ describe("Dropdown Menu of Patch Actions", () => {
   });
 
   it("'Reconfigure' link takes user to patch configure page", () => {
-    getPatchCardByDescription(patchDescriptionCanReconfigure).within(() => {
+    getPatchCardByDescription(patchWithoutVersion).within(() => {
       cy.dataCy("patch-card-dropdown").click();
     });
     cy.dataCy("card-dropdown").should("be.visible");
@@ -27,20 +28,16 @@ describe("Dropdown Menu of Patch Actions", () => {
   });
 
   it("'Reconfigure' link is disabled for patches on commit queue", () => {
-    getPatchCardByDescription(patchDescriptionReconfigureDisabled).within(
-      () => {
-        cy.dataCy("patch-card-dropdown").click();
-      }
-    );
+    getPatchCardByDescription(patchWithVersionOnCommitQueue).within(() => {
+      cy.dataCy("patch-card-dropdown").click();
+    });
     cy.dataCy("reconfigure-link").should("be.disabled");
   });
 
   it("'Schedule' link opens modal and clicking on 'Cancel' closes it.", () => {
-    getPatchCardByDescription(patchDescriptionReconfigureDisabled).within(
-      () => {
-        cy.dataCy("patch-card-dropdown").click();
-      }
-    );
+    getPatchCardByDescription(patchWithVersion).within(() => {
+      cy.dataCy("patch-card-dropdown").click();
+    });
     cy.dataCy("schedule-patch").click();
     cy.dataCy("schedule-tasks-modal").should("be.visible");
     cy.contains("Cancel").click();
@@ -48,66 +45,57 @@ describe("Dropdown Menu of Patch Actions", () => {
   });
 
   it("'Schedule' link is disabled for unfinalized patch", () => {
-    getPatchCardByDescription(patchDescriptionCanReconfigure).within(() => {
+    getPatchCardByDescription(patchWithoutVersion).within(() => {
       cy.dataCy("patch-card-dropdown").click();
     });
     cy.dataCy("schedule-patch").should("be.disabled");
   });
 
-  it("'Unschedule' link opens popconfirm and schedules patch", () => {
-    getPatchCardByDescription(patchDescriptionReconfigureDisabled).within(
-      () => {
-        cy.dataCy("patch-card-dropdown").click();
-      }
-    );
+  it("'Unschedule' link opens popconfirm and unschedules patch", () => {
+    getPatchCardByDescription(patchWithVersion).within(() => {
+      cy.dataCy("patch-card-dropdown").click();
+    });
     cy.dataCy("unschedule-patch").click({ force: true });
     cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
     cy.dataCy("toast").should("exist");
   });
 
   it("'Unschedule' link is disabled for unfinalized patch", () => {
-    getPatchCardByDescription(patchDescriptionCanReconfigure).within(() => {
+    getPatchCardByDescription(patchWithoutVersion).within(() => {
       cy.dataCy("patch-card-dropdown").click();
     });
     cy.dataCy("unschedule-patch").should("be.disabled");
   });
 
-  it("'Restart' link shows restart patch modal", () => {
-    getPatchCardByDescription(patchDescriptionReconfigureDisabled).within(
-      () => {
-        cy.dataCy("patch-card-dropdown").click();
-      }
-    );
+  it.only("'Restart' link shows restart patch modal", () => {
+    getPatchCardByDescription(patchWithVersion).within(() => {
+      cy.dataCy("patch-card-dropdown").click();
+    });
     cy.dataCy("restart-patch").click({ force: true });
 
     cy.dataCy("accordion-toggle").first().click();
-    cy.dataCy("patch-status-selector-container")
-      .children()
-      .first()
-      .click({ force: true });
-    cy.contains("generate-lint").click();
+    cy.contains("dist").should("exist");
+    cy.contains("Ubuntu 16.04").click();
     cy.dataCy("restart-patch-button").click();
     cy.dataCy("toast").should("exist");
   });
 
   it("'Restart' link is disabled for unfinalized patch", () => {
-    getPatchCardByDescription(patchDescriptionCanReconfigure).within(() => {
+    getPatchCardByDescription(patchWithoutVersion).within(() => {
       cy.dataCy("patch-card-dropdown").click();
     });
     cy.dataCy("restart-patch").should("be.disabled");
   });
 
   it("'Add to commit queue' shows enqueue modal", () => {
-    getPatchCardByDescription(patchDescriptionReconfigureDisabled).within(
-      () => {
-        cy.dataCy("patch-card-dropdown").click();
-      }
-    );
+    getPatchCardByDescription(patchWithVersionOnCommitQueue).within(() => {
+      cy.dataCy("patch-card-dropdown").click();
+    });
     cy.dataCy("enqueue-patch").should("exist");
   });
 
   it("'Add to commit queue' is disabled for unfinalized patch", () => {
-    getPatchCardByDescription(patchDescriptionCanReconfigure).within(() => {
+    getPatchCardByDescription(patchWithoutVersion).within(() => {
       cy.dataCy("patch-card-dropdown").click();
     });
     cy.dataCy("enqueue-patch").should("be.disabled");

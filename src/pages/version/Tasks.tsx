@@ -32,7 +32,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const { id: versionId } = useParams<{ id: string }>();
 
   const { search } = useLocation();
-  const { sendEvent } = useVersionAnalytics();
+  const { sendEvent } = useVersionAnalytics(versionId);
   const dispatchToast = useToastContext();
 
   const updateQueryParams = useUpdateURLQueryParams();
