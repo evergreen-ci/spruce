@@ -73,7 +73,7 @@
     "@leafygreen-ui/checkbox": "6.0.6",
     "@leafygreen-ui/code": "9.0.0",
     "@leafygreen-ui/confirmation-modal": "2.2.2",
-    "@leafygreen-ui/expandable-card": "^0.9.1",
+    "@leafygreen-ui/expandable-card": "0.9.1",
     "@leafygreen-ui/icon": "11.4.0",
     "@leafygreen-ui/icon-button": "9.1.7",
     "@leafygreen-ui/leafygreen-provider": "2.1.3",
