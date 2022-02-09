@@ -20,7 +20,6 @@ import {
   readOnlyTabs,
   TabDataProps,
 } from "components/ProjectSettingsTabs/types";
-import { TabProps } from "components/ProjectSettingsTabs/utils";
 import { routes, ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 import { NavigationModal } from "./NavigationModal";
@@ -132,10 +131,18 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
         path={routes.projectSettingsNotifications}
         tab={ProjectSettingsTabRoutes.Notifications}
       />
-      <TabRoute
-        Component={PatchAliasesTab}
+      <Route
         path={routes.projectSettingsPatchAliases}
-        tab={ProjectSettingsTabRoutes.PatchAliases}
+        render={(props) => (
+          <PatchAliasesTab
+            {...props}
+            projectData={
+              tabData[ProjectSettingsTabRoutes.PatchAliases].projectData
+            }
+            repoData={tabData[ProjectSettingsTabRoutes.PatchAliases].repoData}
+            useRepoSettings={useRepoSettings}
+          />
+        )}
       />
       <TabRoute
         Component={VirtualWorkstationTab}
@@ -162,7 +169,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
 };
 
 interface TabRouteProps {
-  Component: ComponentType<TabProps>;
+  Component: ComponentType<any>;
   path: string;
   tab: ProjectSettingsTabRoutes;
 }

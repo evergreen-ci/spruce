@@ -2,14 +2,11 @@ import { Field } from "@rjsf/core";
 import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { AliasRow } from "../AliasRow";
-import {
-  insertIf,
-  overrideRadioBox,
-  placeholderIf,
-  radioBoxOptions,
-} from "../utils";
+import { alias, form } from "../utils";
 import { FormState } from "./types";
+
+const { aliasArraySchema, aliasRowUiSchema } = alias;
+const { insertIf, overrideRadioBox, placeholderIf, radioBoxOptions } = form;
 
 export const getFormSchema = (
   useRepoSettings: boolean,
@@ -24,45 +21,7 @@ export const getFormSchema = (
   fields: {},
   schema: {
     definitions: {
-      aliasArray: {
-        type: "array" as "array",
-        items: {
-          type: "object" as "object",
-          properties: {
-            id: {
-              type: "string" as "string",
-            },
-            alias: {
-              type: "string" as "string",
-            },
-            variant: {
-              type: "string" as "string",
-              default: "",
-            },
-            variantTags: {
-              type: "array" as "array",
-              title: "Variant Tags",
-              items: {
-                type: "string" as "string",
-                title: "Variant Tag",
-                default: "",
-              },
-            },
-            task: {
-              type: "string" as "string",
-              default: "",
-            },
-            taskTags: {
-              type: "array" as "array",
-              items: {
-                type: "string" as "string",
-                title: "Task Tag",
-                default: "",
-              },
-            },
-          },
-        },
-      },
+      aliasArray: aliasArraySchema,
     },
     type: "object" as "object",
     properties: {
@@ -423,66 +382,6 @@ const userTeamStyling = (
       "ui:disabled": true,
       "ui:readonly": true,
       "ui:showLabel": false,
-    },
-  },
-});
-
-type AliasRowUIParams = {
-  accordionTitle: string;
-  addButtonText?: string;
-  isRepo?: boolean;
-};
-
-const aliasRowUiSchema = ({
-  accordionTitle = "Definition",
-  addButtonText,
-  isRepo = false,
-}: AliasRowUIParams) => ({
-  "ui:showLabel": false,
-  "ui:topAlignDelete": true,
-  ...(addButtonText && { "ui:addButtonText": addButtonText }),
-  ...(isRepo && {
-    "ui:readonly": true,
-    "ui:showLabel": false,
-  }),
-  items: {
-    "ui:ObjectFieldTemplate": AliasRow,
-    "ui:accordionTitle": accordionTitle,
-    id: {
-      "ui:widget": "hidden",
-    },
-    alias: {
-      "ui:widget": "hidden",
-    },
-    variant: {
-      "ui:ariaLabelledBy": "variant-input-control",
-      "ui:data-cy": "variant-input",
-      "ui:placeholder": "Golang Regex",
-    },
-    variantTags: {
-      "ui:addButtonSize": "xsmall",
-      "ui:addButtonText": "Add Variant Tag",
-      "ui:fullWidth": true,
-      "ui:showLabel": false,
-      items: {
-        "ui:ariaLabelledBy": "variant-input-control",
-        "ui:data-cy": "variant-tags-input",
-      },
-    },
-    task: {
-      "ui:ariaLabelledBy": "task-input-control",
-      "ui:data-cy": "task-input",
-      "ui:placeholder": "Golang Regex",
-    },
-    taskTags: {
-      "ui:addButtonSize": "xsmall",
-      "ui:addButtonText": "Add Task Tag",
-      "ui:fullWidth": true,
-      "ui:showLabel": false,
-      items: {
-        "ui:ariaLabelledBy": "variant-input-control",
-        "ui:data-cy": "task-tags-input",
-      },
     },
   },
 });

@@ -1,11 +1,14 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
+import Button from "@leafygreen-ui/button";
+import ExpandableCard from "@leafygreen-ui/expandable-card";
 import {
   SegmentedControl,
   SegmentedControlOption,
 } from "@leafygreen-ui/segmented-control";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { Accordion } from "components/Accordion";
+import Icon from "components/Icon";
 import { SpruceFormProps } from "components/SpruceForm";
 
 const VariantInput: Record<string, string> = {
@@ -18,15 +21,6 @@ const TaskInput: Record<string, string> = {
   Tags: "taskTags",
 } as const;
 
-// Extract index of the current field via its ID
-const getIndex = (id: string): number => {
-  if (!id) return null;
-
-  const stringIndex = id.substring(id.lastIndexOf("_") + 1);
-  const index = Number(stringIndex);
-  return Number.isInteger(index) ? index : null;
-};
-
 export const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
   disabled,
   formData,
@@ -35,11 +29,13 @@ export const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
   readonly,
   uiSchema,
 }) => {
-  const [, alias, variant, variantTags, task, taskTags] = properties;
+  const { initialAlias } = formData;
+  const [alias, variant, variantTags, task, taskTags] = properties;
   const isDisabled = disabled || readonly;
   const accordionTitle = uiSchema["ui:accordionTitle"];
-
-  const index = getIndex(idSchema.$id);
+  const index = uiSchema["ui:index"];
+  const onDropIndexClick = uiSchema["ui:onDropIndexClick"];
+  const useExpandableCard = uiSchema["ui:useExpandableCard"];
 
   const [variantInput, setVariantInput] = useState(
     formData?.variant ? VariantInput.Regex : VariantInput.Tags
@@ -70,89 +66,115 @@ export const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
   const makeId = (fieldName: string): string =>
     `${idSchema.$id}-${fieldName}-field`;
 
-  return (
+  const contents = (
+    <>
+      {alias.content}
+      <TaskRegexContainer>
+        <StyledSegmentedControl
+          label="Variant"
+          id="variant-input-control"
+          value={variantInput}
+          onChange={(value) => {
+            setVariantInput(value);
+            clearForm(value);
+          }}
+        >
+          <SegmentedControlOption
+            value={VariantInput.Tags}
+            disabled={isDisabled}
+            aria-controls={makeId(VariantInput.Tags)}
+          >
+            Tags
+          </SegmentedControlOption>
+          <SegmentedControlOption
+            value={VariantInput.Regex}
+            disabled={isDisabled}
+            aria-controls={makeId(VariantInput.Regex)}
+          >
+            Regex
+          </SegmentedControlOption>
+        </StyledSegmentedControl>
+        {variantInput === VariantInput.Tags ? (
+          <div data-cy="variant-tags-field" id={makeId(VariantInput.Tags)}>
+            {variantTags.content}
+          </div>
+        ) : (
+          <div data-cy="variant-field" id={makeId(VariantInput.Regex)}>
+            {variant.content}
+          </div>
+        )}
+      </TaskRegexContainer>
+      <TaskRegexContainer>
+        <StyledSegmentedControl
+          label="Task"
+          id="task-input-control"
+          value={taskInput}
+          onChange={(value) => {
+            setTaskInput(value);
+            clearForm(value);
+          }}
+        >
+          <SegmentedControlOption
+            value={TaskInput.Tags}
+            disabled={isDisabled}
+            aria-controls={makeId(TaskInput.Tags)}
+          >
+            Tags
+          </SegmentedControlOption>
+          <SegmentedControlOption
+            value={TaskInput.Regex}
+            disabled={isDisabled}
+            aria-controls={makeId(TaskInput.Regex)}
+          >
+            Regex
+          </SegmentedControlOption>
+        </StyledSegmentedControl>
+        {taskInput === TaskInput.Tags ? (
+          <div data-cy="task-tags-field" id={makeId(TaskInput.Tags)}>
+            {taskTags.content}
+          </div>
+        ) : (
+          <div data-cy="task-field" id={makeId(TaskInput.Regex)}>
+            {task.content}
+          </div>
+        )}
+      </TaskRegexContainer>
+    </>
+  );
+
+  return useExpandableCard ? (
+    <ExpandableCard
+      defaultOpen={!isDisabled}
+      title={
+        <>
+          <TitleWrapper>{initialAlias || accordionTitle}</TitleWrapper>
+          {!readonly && (
+            <Button
+              onClick={onDropIndexClick(index)}
+              disabled={disabled || readonly}
+              leftGlyph={<Icon glyph="Trash" />}
+              data-cy="delete-item-button"
+              size="small"
+            />
+          )}
+        </>
+      }
+    >
+      {contents}
+    </ExpandableCard>
+  ) : (
     <Accordion
       title={`${accordionTitle} ${index !== null ? index + 1 : ""}`}
       defaultOpen={!isDisabled}
       titleTag={AccordionTitle}
-      contents={
-        <div>
-          {alias.content}
-          <TaskRegexContainer>
-            <StyledSegmentedControl
-              label="Variant"
-              id="variant-input-control"
-              value={variantInput}
-              onChange={(value) => {
-                setVariantInput(value);
-                clearForm(value);
-              }}
-            >
-              <SegmentedControlOption
-                value={VariantInput.Tags}
-                disabled={isDisabled}
-                aria-controls={makeId(VariantInput.Tags)}
-              >
-                Tags
-              </SegmentedControlOption>
-              <SegmentedControlOption
-                value={VariantInput.Regex}
-                disabled={isDisabled}
-                aria-controls={makeId(VariantInput.Regex)}
-              >
-                Regex
-              </SegmentedControlOption>
-            </StyledSegmentedControl>
-            {variantInput === VariantInput.Tags ? (
-              <div data-cy="variant-tags-field" id={makeId(VariantInput.Tags)}>
-                {variantTags.content}
-              </div>
-            ) : (
-              <div data-cy="variant-field" id={makeId(VariantInput.Regex)}>
-                {variant.content}
-              </div>
-            )}
-          </TaskRegexContainer>
-          <TaskRegexContainer>
-            <StyledSegmentedControl
-              label="Task"
-              id="task-input-control"
-              value={taskInput}
-              onChange={(value) => {
-                setTaskInput(value);
-                clearForm(value);
-              }}
-            >
-              <SegmentedControlOption
-                value={TaskInput.Tags}
-                disabled={isDisabled}
-                aria-controls={makeId(TaskInput.Tags)}
-              >
-                Tags
-              </SegmentedControlOption>
-              <SegmentedControlOption
-                value={TaskInput.Regex}
-                disabled={isDisabled}
-                aria-controls={makeId(TaskInput.Regex)}
-              >
-                Regex
-              </SegmentedControlOption>
-            </StyledSegmentedControl>
-            {taskInput === TaskInput.Tags ? (
-              <div data-cy="task-tags-field" id={makeId(TaskInput.Tags)}>
-                {taskTags.content}
-              </div>
-            ) : (
-              <div data-cy="task-field" id={makeId(TaskInput.Regex)}>
-                {task.content}
-              </div>
-            )}
-          </TaskRegexContainer>
-        </div>
-      }
+      contents={contents}
     />
   );
 };
+
+const TitleWrapper = styled.span`
+  margin-right: 16px;
+`;
 
 /* @ts-expect-error  */
 const AccordionTitle = styled(Subtitle)`
@@ -161,8 +183,7 @@ const AccordionTitle = styled(Subtitle)`
 `;
 
 const TaskRegexContainer = styled.div`
-  margin-bottom: 32px;
-  margin-top: 12px;
+  margin-bottom: 36px;
 `;
 
 const StyledSegmentedControl = styled(SegmentedControl)`

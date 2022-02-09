@@ -1,3 +1,1 @@
-import { TabProps } from "./utils";
-
-export const ProjectTriggersTab: React.FC<TabProps> = () => null;
+export const ProjectTriggersTab: React.FC = () => null;

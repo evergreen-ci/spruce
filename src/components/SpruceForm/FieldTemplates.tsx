@@ -1,3 +1,4 @@
+import { cloneElement } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import {
@@ -37,7 +38,9 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
 };
 
 const ArrayItem: React.FC<
-  { topAlignDelete: boolean } & Unpacked<ArrayFieldTemplateProps["items"]>
+  { topAlignDelete: boolean; useExpandableCard: boolean } & Unpacked<
+    ArrayFieldTemplateProps["items"]
+  >
 > = ({
   children,
   disabled,
@@ -46,10 +49,17 @@ const ArrayItem: React.FC<
   onDropIndexClick,
   readonly,
   topAlignDelete,
+  useExpandableCard,
 }) => (
   <ArrayItemRow key={index} topAlignDelete={topAlignDelete}>
-    {children}
-    {hasRemove && (
+    {cloneElement(children, {
+      uiSchema: {
+        ...children.props.uiSchema,
+        "ui:index": index,
+        "ui:onDropIndexClick": onDropIndexClick,
+      },
+    })}
+    {hasRemove && !useExpandableCard && (
       <DeleteButtonWrapper>
         <Button
           onClick={onDropIndexClick(index)}
@@ -93,6 +103,7 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   const fullWidth = !!uiSchema["ui:fullWidth"];
   const showLabel = uiSchema["ui:showLabel"] !== false;
   const topAlignDelete = uiSchema["ui:topAlignDelete"] ?? false;
+  const useExpandableCard = uiSchema["ui:useExpandableCard"] ?? false;
   const isDisabled = disabled || readonly;
   return (
     <>
@@ -117,7 +128,12 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
       )}
       <ArrayContainer fullWidth={fullWidth} hasChildren={!!items?.length}>
         {items.map((p) => (
-          <ArrayItem key={p.key} topAlignDelete={topAlignDelete} {...p} />
+          <ArrayItem
+            key={p.key}
+            topAlignDelete={topAlignDelete}
+            useExpandableCard={useExpandableCard}
+            {...p}
+          />
         ))}
       </ArrayContainer>
     </>

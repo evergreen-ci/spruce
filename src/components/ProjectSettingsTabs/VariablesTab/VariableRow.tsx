@@ -2,8 +2,9 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { ObjectFieldTemplateProps } from "@rjsf/core";
 import Icon from "components/Icon";
-import { getFields } from "../utils";
+import { form } from "../utils";
 
+const { getFields } = form;
 const { yellow } = uiColors;
 
 export const VariableRow: React.FC<

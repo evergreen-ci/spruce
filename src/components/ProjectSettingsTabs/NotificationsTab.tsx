@@ -1,3 +1,1 @@
-import { TabProps } from "./utils";
-
-export const NotificationsTab: React.FC<TabProps> = () => null;
+export const NotificationsTab: React.FC = () => null;

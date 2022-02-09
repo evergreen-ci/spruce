@@ -1,3 +1,1 @@
-import { TabProps } from "./utils";
-
-export const PeriodicBuildsTab: React.FC<TabProps> = () => null;
+export const PeriodicBuildsTab: React.FC = () => null;
