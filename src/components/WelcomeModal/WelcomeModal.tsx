@@ -7,6 +7,7 @@ import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { Modal, Carousel } from "antd";
 import { CarouselRef } from "antd/es/carousel";
 import get from "lodash/get";
+import { size } from "constants/tokens";
 import {
   GetUserSettingsQuery,
   UpdateUserSettingsMutation,
@@ -174,7 +175,7 @@ const CardContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding-bottom: 16px;
+  padding-bottom: ${size.s};
 `;
 
 const CardWrapper = styled.div`
@@ -197,8 +198,8 @@ const Dot = styled.div`
   background-color: ${(props: DotProps): string =>
     props.active ? green.base : gray.light2};
   border-radius: 50%;
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: ${size.xs};
+  margin-right: ${size.xs};
   :hover {
     cursor: pointer;
   }

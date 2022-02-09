@@ -2,26 +2,27 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip, { TriggerEvent } from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import { zIndex } from "constants/tokens";
 
 const { blue } = uiColors;
 
 interface ExpandedTextProps {
   message: string;
   triggerEvent?: typeof TriggerEvent[keyof typeof TriggerEvent];
-  zIndex?: number;
+  popoverZIndex?: number;
   ["data-cy"]?: string;
 }
 
 const ExpandedText: React.FC<ExpandedTextProps> = ({
   message,
   triggerEvent = TriggerEvent.Hover,
-  zIndex = 0,
+  popoverZIndex = zIndex.popover,
   "data-cy": dataCy,
 }) => (
   <Tooltip
     trigger={<ButtonText>more</ButtonText>}
     triggerEvent={triggerEvent}
-    popoverZIndex={zIndex}
+    popoverZIndex={popoverZIndex}
   >
     <MessageWrapper data-cy={dataCy}>{message}</MessageWrapper>
   </Tooltip>
@@ -30,7 +31,7 @@ const ExpandedText: React.FC<ExpandedTextProps> = ({
 const ButtonText = styled(Disclaimer)`
   color: ${blue.dark2};
   text-decoration: underline;
-  cursor: pointer;
+  cursor: default;
 `;
 
 const MessageWrapper = styled.div`

@@ -1,0 +1,35 @@
+fragment projectGithubCommitQueue on ProjectSettings {
+  gitHubWebhooksEnabled
+
+  projectRef {
+    prTestingEnabled
+    githubChecksEnabled
+    githubTriggerAliases
+    gitTagVersionsEnabled
+    gitTagAuthorizedUsers
+    gitTagAuthorizedTeams
+    commitQueue {
+      enabled
+      mergeMethod
+      message
+    }
+  }
+}
+
+fragment repoGithubCommitQueue on RepoSettings {
+  gitHubWebhooksEnabled
+
+  projectRef {
+    prTestingEnabled
+    githubChecksEnabled
+    githubTriggerAliases
+    gitTagVersionsEnabled
+    gitTagAuthorizedUsers
+    gitTagAuthorizedTeams
+    commitQueue {
+      enabled
+      mergeMethod
+      message
+    }
+  }
+}

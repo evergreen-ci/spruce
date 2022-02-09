@@ -5,6 +5,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { FilterInputControls } from "components/FilterInputControls";
 import { tableInputContainerCSS } from "components/styles/Table";
+import { size } from "constants/tokens";
 
 const { gray } = uiColors;
 
@@ -20,6 +21,7 @@ export interface TreeSelectProps {
   onReset?: () => void;
   onFilter?: () => void;
   "data-cy"?: string;
+  hasStyling?: boolean;
 }
 export interface TreeDataChildEntry {
   title: string;
@@ -33,6 +35,7 @@ export interface TreeDataEntry extends TreeDataChildEntry {
 export const TreeSelect: React.FC<TreeSelectProps> = ({
   isDropdown = false,
   isVisible = true,
+  hasStyling = true,
   onChange,
   setOptionsLabel = () => undefined,
   state,
@@ -80,7 +83,10 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
         </RelativeWrapper>
       )}
     >
-      <CheckboxContainer data-cy={dataCy || "tree-select-options"}>
+      <CheckboxContainer
+        hasStyling={hasStyling}
+        data-cy={dataCy || "tree-select-options"}
+      >
         {renderCheckboxes({
           state: filteredState,
           tData,
@@ -313,8 +319,8 @@ const getAllValues = (tData: TreeDataEntry[]): string[] =>
 
 const getCheckboxWrapper = (level: number): React.FC => styled.div`
   padding-left: ${level}em;
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding-top: ${size.xxs};
+  padding-bottom: ${size.xxs};
   :first-of-type {
     border-bottom: 1px solid ${gray.light2};
   }
@@ -322,13 +328,14 @@ const getCheckboxWrapper = (level: number): React.FC => styled.div`
 
 const OptionsWrapper = styled.div`
   position: absolute;
-  z-index: 5;
-  margin-top: 5px;
+  margin-top: ${size.xxs};
   width: 100%;
 `;
 
 const CheckboxContainer = styled.div`
-  ${tableInputContainerCSS}
+  /* props for styled component */
+  ${(props: { hasStyling: boolean }) =>
+    props.hasStyling && tableInputContainerCSS}
   min-width: 150px; // need to set this as side effect of getPopupContainer
   font-weight: normal; // need to set this as side effect of getPopupContainer
 `;

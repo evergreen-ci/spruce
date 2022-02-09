@@ -5,10 +5,11 @@ import Button from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
-import { usePatchAnalytics } from "analytics";
+import { useVersionAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
 import { Modal } from "components/Modal";
 import { TaskStatusFilters } from "components/TaskStatusFilters";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   BuildVariantsWithChildrenQuery,
@@ -89,12 +90,12 @@ const VersionRestartModal: React.FC<Props> = ({
     setBaseStatusFilterTerm({ [childVersionId]: selectedFilters });
   };
 
-  const patchAnalytics = usePatchAnalytics();
+  const { sendEvent } = useVersionAnalytics();
 
   const handlePatchRestart = async (e): Promise<void> => {
     e.preventDefault();
     try {
-      patchAnalytics.sendEvent({
+      sendEvent({
         name: "Restart",
         abort: shouldAbortInProgressTasks,
       });
@@ -280,19 +281,19 @@ const HR = styled.hr`
 `;
 
 const ConfirmationMessage = styled(Body)`
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: ${size.s};
+  padding-bottom: ${size.s};
 `;
 
 const Row = styled.div`
   display: flex;
   >: first-child {
-    margin-right: 16px;
+    margin-right: ${size.s};
   }
 `;
 
 export const TitleContainer = styled.div`
-  margin-top: 15px;
+  margin-top: ${size.s};
   width: 96%;
 `;
 

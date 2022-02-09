@@ -282,6 +282,7 @@ functions:
     params:
       working_dir: spruce
       script: |
+        export PATH=/opt/nodejs/node-v16.13.0-linux-x64/bin:$PATH
         BUCKET=${bucket} AWS_ACCESS_KEY_ID=${aws_key} AWS_SECRET_ACCESS_KEY=${aws_secret}  yarn deploy; yarn upload-source-maps;
 
   build-prod:
@@ -290,6 +291,9 @@ functions:
       working_dir: spruce
       script: |
         export PATH=/opt/nodejs/node-v16.13.0-linux-x64/bin:$PATH
+        chmod +x appVersion.sh
+        . ./appVersion.sh
+        echo "Building Production version: $REACT_APP_VERSION"
         yarn build:prod
   
   send-email:
@@ -301,6 +305,7 @@ functions:
         BODY=$(git log --no-merges $PREVIOUS_VERSION..HEAD --pretty="format:%s (%h)")
         DATE=$(date +'%m/%d/%Y')
         ~/evergreen -c .evergreen.yml notify email -f ${author_email} -r ${REACT_APP_DEPLOYS_EMAIL} -s "$DATE Spruce Deploy ${task_name}" -b "$BODY"
+
 
 #######################################
 #                Tasks                #

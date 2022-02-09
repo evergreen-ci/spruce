@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import { size } from "constants/tokens";
 import { TaskQueueDistro } from "gql/generated/types";
 
 const { blue } = uiColors;
@@ -31,17 +32,20 @@ export const DistroOption: React.FC<DistroOptionProps> = ({
 
 const OptionWrapper = styled.div`
   display: flex;
-  padding: 8px;
-  align-items: center;
-  overflow-y: scroll;
+  padding: 10px 12px;
+  align-items: start;
   &:hover {
     cursor: pointer;
     background-color: ${blue.light3};
   }
 `;
 const StyledBadge = styled(Badge)`
-  margin-right: 8px;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  width: 90px;
+  margin-right: ${size.xs};
 `;
 const DistroName = styled(Disclaimer)`
-  margin-left: 16px;
+  margin-left: ${size.s};
 `;

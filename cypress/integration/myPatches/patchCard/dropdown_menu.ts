@@ -51,8 +51,6 @@ describe("Dropdown Menu of Patch Actions", () => {
       cy.dataCy("patch-card-dropdown").click();
     });
     cy.dataCy("unschedule-patch").click({ force: true });
-
-    cy.dataCy("abort-checkbox").check({ force: true });
     cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
     cy.validateToast("success");
   });

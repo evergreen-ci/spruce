@@ -10,7 +10,7 @@ import {
 import TaskStatusBadge from "components/TaskStatusBadge";
 import { TreeSelectProps } from "components/TreeSelect";
 import { WordBreak } from "components/Typography";
-import { getTaskRoute } from "constants/routes";
+import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
 import {
   Task,
   SortDirection,
@@ -18,6 +18,7 @@ import {
   TaskSortCategory,
 } from "gql/generated/types";
 import { TableOnChange } from "types/task";
+import { isBeta } from "utils/environmentalVariables";
 import { sortTasks } from "utils/statuses";
 
 // Type needed to render the task table
@@ -30,6 +31,7 @@ type TaskTableInfo = {
   };
   buildVariantDisplayName?: string;
   executionTasksFull?: TaskTableInfo[];
+  projectIdentifier?: string;
 };
 
 interface TasksTableProps {
@@ -197,6 +199,16 @@ const getColumnDefs = ({
         ...variantInputProps,
         "data-cy": "variant-input",
       })),
+    render: (displayName, { projectIdentifier, buildVariant }) =>
+      projectIdentifier && isBeta() ? (
+        <StyledRouterLink
+          to={getVariantHistoryRoute(projectIdentifier, buildVariant)}
+        >
+          {displayName}
+        </StyledRouterLink>
+      ) : (
+        <>{displayName}</>
+      ),
   },
 ];
 

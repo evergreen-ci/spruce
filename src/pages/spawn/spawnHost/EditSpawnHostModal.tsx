@@ -20,6 +20,7 @@ import {
 import { ExpirationDateType } from "components/Spawn/ExpirationField";
 import { InputLabel, StyledLink } from "components/styles";
 import { windowsPasswordRulesURL } from "constants/externalResources";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   InstanceTypesQuery,
@@ -346,7 +347,7 @@ const computeDiff = (defaultEditSpawnHostState, editSpawnHostState) => {
 };
 
 const PaddedIcon = styled(Icon)`
-  margin-left: 16px;
+  margin-left: ${size.s};
 `;
 const FlexContainer = styled.div`
   display: flex;

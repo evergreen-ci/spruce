@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
+import { size } from "constants/tokens";
 
 interface AccordionProps {
   title: React.ReactNode;
@@ -9,6 +10,8 @@ interface AccordionProps {
   showCaret?: boolean;
   contents: React.ReactNode;
   allowToggleFromTitle?: boolean;
+  defaultOpen?: boolean;
+  titleTag?: React.FC;
 }
 export const Accordion: React.FC<AccordionProps> = ({
   title,
@@ -17,13 +20,18 @@ export const Accordion: React.FC<AccordionProps> = ({
   toggleFromBottom = false,
   showCaret = true,
   allowToggleFromTitle = true,
+  defaultOpen = false,
+  titleTag,
 }) => {
-  const [isAccordionDisplayed, setIsAccordionDisplayed] = useState(false);
+  const [isAccordionDisplayed, setIsAccordionDisplayed] = useState(defaultOpen);
   const toggleAccordionHandler = (): void =>
     setIsAccordionDisplayed(!isAccordionDisplayed);
 
   const showToggledTitle = isAccordionDisplayed ? toggledTitle : title;
-  const titleComp = <>{toggledTitle ? showToggledTitle : title}</>;
+  const TitleTag = titleTag ?? "span";
+  const titleComp = (
+    <TitleTag>{toggledTitle ? showToggledTitle : title}</TitleTag>
+  );
   return (
     <>
       {toggleFromBottom && (
@@ -53,8 +61,7 @@ export const Accordion: React.FC<AccordionProps> = ({
 };
 
 export const AccordionWrapper = styled.div`
-  padding-bottom: 12px;
-  padding-top: 12px;
+  padding: 12px 0;
 `;
 const Row = styled.div`
   display: flex;
@@ -77,5 +84,5 @@ const AnimatedAccordion = styled.div`
 `;
 const ContentsContainer = styled.div`
   margin-left: ${(props: { indent: boolean }): string =>
-    props.indent && "16px"};
+    props.indent && size.s};
 `;

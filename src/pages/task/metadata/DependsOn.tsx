@@ -5,6 +5,7 @@ import Badge, { Variant } from "components/Badge";
 import { StyledRouterLink } from "components/styles";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { getTaskRoute } from "constants/routes";
+import { size } from "constants/tokens";
 import { MetStatus, RequiredStatus } from "gql/generated/types";
 import { TaskStatus } from "types/task";
 
@@ -36,13 +37,13 @@ export const DependsOn: React.FC<Props> = ({
 
 const DependsOnWrapper = styled.div`
   display: flex;
-  padding-bottom: 8px;
+  padding-bottom: ${size.xs};
 `;
 
 const LeftContainer = styled.div`
-  width: 25px;
-  padding-top: 10px;
-  padding-right: 9px;
+  width: ${size.m};
+  padding-top: ${size.xs};
+  padding-right: ${size.xs};
 `;
 
 const RightContainer = styled.div`
@@ -51,7 +52,7 @@ const RightContainer = styled.div`
 `;
 
 const Subtitle = styled(Disclaimer)`
-  padding-bottom: 3px;
+  padding-bottom: ${size.xxs};
 `;
 
 const StyledBadge = styled(Badge)`
@@ -59,6 +60,7 @@ const StyledBadge = styled(Badge)`
 `;
 
 const metStatusToIcon = {
+  [MetStatus.Started]: <TaskStatusIcon status={TaskStatus.Started} />,
   [MetStatus.Met]: <TaskStatusIcon status={TaskStatus.Succeeded} />,
   [MetStatus.Unmet]: <TaskStatusIcon status={TaskStatus.Failed} />,
   [MetStatus.Pending]: <TaskStatusIcon status={TaskStatus.Pending} />,

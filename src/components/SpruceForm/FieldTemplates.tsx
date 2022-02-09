@@ -6,21 +6,81 @@ import {
   ObjectFieldTemplateProps,
 } from "@rjsf/core";
 import Icon from "components/Icon";
+import { size } from "constants/tokens";
+import { Unpacked } from "types/utils";
 import { SpruceFormContainer } from "./Container";
+import { TitleField as CustomTitleField } from "./CustomFields";
 import ElementWrapper from "./ElementWrapper";
 
 // Custom field template that does not render fields' titles, as this is handled by LeafyGreen widgets
 export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
   classNames,
   children,
-}) => <div className={classNames}>{children}</div>;
+  description,
+  hidden,
+  id,
+  label,
+  schema,
+  uiSchema,
+}) => {
+  const isNullType = schema.type === "null";
+  return (
+    !hidden && (
+      <>
+        {isNullType && (
+          <CustomTitleField id={id} title={label} uiSchema={uiSchema} />
+        )}
+        {isNullType && <>{description}</>}
+        <div className={classNames}>{children}</div>
+      </>
+    )
+  );
+};
+
+const ArrayItem: React.FC<
+  { topAlignDelete: boolean } & Unpacked<ArrayFieldTemplateProps["items"]>
+> = ({
+  children,
+  disabled,
+  hasRemove,
+  index,
+  onDropIndexClick,
+  readonly,
+  topAlignDelete,
+}) => (
+  <ArrayItemRow key={index} topAlignDelete={topAlignDelete}>
+    {children}
+    {hasRemove && (
+      <DeleteButtonWrapper>
+        <Button
+          onClick={onDropIndexClick(index)}
+          disabled={disabled || readonly}
+          leftGlyph={<Icon glyph="Trash" />}
+          data-cy="delete-item-button"
+        />
+      </DeleteButtonWrapper>
+    )}
+  </ArrayItemRow>
+);
+
+const ArrayItemRow = styled.div`
+  align-items: ${({ topAlignDelete }: { topAlignDelete: boolean }) =>
+    topAlignDelete ? "flex-start" : "flex-end"};
+  display: flex;
+
+  .field-object {
+    flex-grow: 1;
+  }
+`;
 
 export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   canAdd,
   DescriptionField,
+  disabled,
   idSchema,
   items,
   onAddClick,
+  readonly,
   required,
   schema,
   title,
@@ -29,74 +89,68 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
 }) => {
   const id = idSchema.$id;
   const description = uiSchema["ui:description"] || schema.description;
-  const buttonText = uiSchema["ui:buttonText"] || "Add";
-  const showLabel = uiSchema["ui:showLabel"];
+  const addButtonSize = uiSchema["ui:addButtonSize"] || "small";
+  const addButtonText = uiSchema["ui:addButtonText"] || "Add";
+  const fullWidth = !!uiSchema["ui:fullWidth"];
+  const showLabel = uiSchema["ui:showLabel"] !== false;
+  const topAlignDelete = uiSchema["ui:topAlignDelete"] ?? false;
+  const isDisabled = disabled || readonly;
   return (
     <>
-      {showLabel !== false && (
+      {showLabel && (
         <TitleField id={`${id}__title`} required={required} title={title} />
       )}
       {description && (
         <DescriptionField id={`${id}__description`} description={description} />
       )}
-      {canAdd && (
+      {!readonly && canAdd && (
         <ElementWrapper>
           <Button
             data-cy="add-button"
+            disabled={isDisabled}
             leftGlyph={<Icon glyph="Plus" />}
             onClick={onAddClick}
-            size="small"
+            size={addButtonSize}
           >
-            {buttonText}
+            {addButtonText}
           </Button>
         </ElementWrapper>
       )}
-      <ArrayContainer>
-        {items.map(({ children, hasRemove, index, onDropIndexClick }) => (
-          <ArrayItemRow key={index}>
-            {children}
-            {hasRemove && (
-              <DeleteButtonWrapper>
-                <Button onClick={onDropIndexClick(index)}>
-                  <Icon glyph="Trash" />
-                </Button>
-              </DeleteButtonWrapper>
-            )}
-          </ArrayItemRow>
+      <ArrayContainer fullWidth={fullWidth} hasChildren={!!items?.length}>
+        {items.map((p) => (
+          <ArrayItem key={p.key} topAlignDelete={topAlignDelete} {...p} />
         ))}
       </ArrayContainer>
     </>
   );
 };
 
+type ArrayContainerProps = {
+  hasChildren: boolean;
+  fullWidth?: boolean;
+};
+
 const ArrayContainer = styled.div`
+  ${({ hasChildren }) => hasChildren && `margin-bottom: ${size.m};`}
   min-width: min-content;
-  width: 60%;
-`;
-
-const ArrayItemRow = styled.div`
-  align-items: flex-start;
-  display: flex;
-
-  .field-object {
-    flex-grow: 1;
-  }
+  width: ${({ fullWidth }: ArrayContainerProps): string =>
+    fullWidth ? "100%" : "60%"};
 `;
 
 const DeleteButtonWrapper = styled(ElementWrapper)`
-  margin-left: 16px;
-  margin-top: 20px;
+  margin-left: ${size.s};
 `;
 
 export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
   idSchema,
   properties,
   title,
-  uiSchema,
+  uiSchema: { "ui:title": uiTitle, "ui:data-cy": dataCy },
 }) => (
   <SpruceFormContainer
-    title={uiSchema["ui:title"] || title}
+    title={uiTitle || title}
     id={`${idSchema.$id}__title`}
+    data-cy={dataCy}
   >
     {properties.map((prop) => prop.content)}
   </SpruceFormContainer>

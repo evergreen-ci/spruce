@@ -15,7 +15,7 @@ export const getTabTitle = (
       [ProjectSettingsTabRoutes.Variables]: {
         title: "Variables",
       },
-      [ProjectSettingsTabRoutes.GitHubCommitQueue]: {
+      [ProjectSettingsTabRoutes.GithubCommitQueue]: {
         title: "GitHub & Commit Queue",
       },
       [ProjectSettingsTabRoutes.Notifications]: {
@@ -32,6 +32,9 @@ export const getTabTitle = (
       },
       [ProjectSettingsTabRoutes.PeriodicBuilds]: {
         title: "Periodic Builds",
+      },
+      [ProjectSettingsTabRoutes.Plugins]: {
+        title: "Plugins",
       },
       [ProjectSettingsTabRoutes.EventLog]: {
         title: "Event Log",

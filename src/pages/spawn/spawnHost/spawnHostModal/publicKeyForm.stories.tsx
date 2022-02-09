@@ -31,4 +31,5 @@ export const PublicKeyFormView = () => {
 
 export default {
   title: "Public Key Form",
+  component: PublicKeyForm,
 };

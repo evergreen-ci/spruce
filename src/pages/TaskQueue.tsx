@@ -12,6 +12,7 @@ import {
   PageWrapper,
 } from "components/styles";
 import { getTaskQueueRoute } from "constants/routes";
+import { size } from "constants/tokens";
 import {
   TaskQueueDistro,
   TaskQueueDistrosQuery,
@@ -83,7 +84,7 @@ export const TaskQueue = () => {
                 <StyledBadge>{`${option?.hostCount} ${
                   option?.hostCount === 1 ? "HOST" : "HOSTS"
                 }`}</StyledBadge>
-                {option?.id}
+                <DistroName> {option?.id} </DistroName>
               </DistroLabel>
             )}
           />
@@ -102,9 +103,13 @@ const SearchableDropdownWrapper = styled.div`
 `;
 const DistroLabel = styled.div`
   display: flex;
+  align-items: center;
   white-space: nowrap;
 `;
-
 const StyledBadge = styled(Badge)`
-  margin-right: 8px;
+  margin-right: ${size.xs};
+`;
+const DistroName = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;

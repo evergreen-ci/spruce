@@ -7,6 +7,7 @@ import { Disclaimer } from "@leafygreen-ui/typography";
 import every from "lodash.every";
 import { Button } from "components/Button";
 import Icon from "components/Icon";
+import { size } from "constants/tokens";
 import { PatchTriggerAlias } from "gql/generated/types";
 import {
   AliasState,
@@ -383,14 +384,14 @@ const deduplicateTasks = (
 };
 
 const Actions = styled.div`
-  margin-bottom: 8px;
+  margin-bottom: ${size.xs};
   display: flex;
   align-items: center;
   & > :first-of-type {
     margin-right: 40px;
   }
   & > :not(:first-of-type) {
-    margin-right: 24px;
+    margin-right: ${size.m};
   }
 `;
 const Tasks = styled.div`
@@ -399,26 +400,26 @@ const Tasks = styled.div`
   grid-template-columns: auto auto;
   grid-template-areas: "a a";
   grid-auto-rows: auto;
-  grid-column-gap: 30px;
-  grid-row-gap: 12px;
+  column-gap: ${size.l};
+  row-gap: ${size.xs};
   overflow: scroll;
   max-height: 60vh;
 `;
 const StyledDisclaimer = styled(Disclaimer)`
-  margin-bottom: 8px;
+  margin-bottom: ${size.xs};
 `;
 const cardSidePadding = css`
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: ${size.xs};
+  padding-right: ${size.xs};
 `;
 const TabContentWrapper = styled.div`
   ${cardSidePadding}
 `;
 const H4 = styled.h4`
-  margin-top: 16px;
+  margin-top: ${size.s};
 `;
 const IconContainer = styled.span`
-  margin-left: 8px;
+  margin-left: ${size.xs};
 `;
 // @ts-expect-error
 const InlineCheckbox = styled(Checkbox)`

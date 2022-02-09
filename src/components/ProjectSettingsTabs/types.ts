@@ -7,6 +7,9 @@ import {
 } from "gql/generated/types";
 import * as access from "./AccessTab/types";
 import * as general from "./GeneralTab/types";
+import * as githubCommitQueue from "./GithubCommitQueueTab/types";
+import * as plugins from "./PluginsTab/types";
+import * as variables from "./VariablesTab/types";
 
 export type FormStateMap = {
   [ProjectSettingsTabRoutes.General]: general.FormState;
@@ -20,6 +23,18 @@ export type TabDataProps = {
   [ProjectSettingsTabRoutes.Access]: {
     projectData: access.TabProps["projectData"];
     repoData: access.TabProps["repoData"];
+  };
+  [ProjectSettingsTabRoutes.Plugins]: {
+    projectData: plugins.TabProps["projectData"];
+    repoData: plugins.TabProps["repoData"];
+  };
+  [ProjectSettingsTabRoutes.Variables]: {
+    projectData: variables.TabProps["projectData"];
+    repoData: variables.TabProps["repoData"];
+  };
+  [ProjectSettingsTabRoutes.GithubCommitQueue]: {
+    projectData: githubCommitQueue.TabProps["projectData"];
+    repoData: githubCommitQueue.TabProps["repoData"];
   };
 };
 

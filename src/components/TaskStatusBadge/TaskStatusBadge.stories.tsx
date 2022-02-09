@@ -1,12 +1,14 @@
 import styled from "@emotion/styled";
+import { size } from "constants/tokens";
 import { TaskStatus } from "types/task";
 import TaskStatusBadge from "./index";
 
 export default {
   title: "Task Status Badges",
+  component: TaskStatusBadge,
 };
 
-export const badges = () => {
+export const Default = () => {
   // filter out umbrella statuses
   const taskStatuses = Object.keys(TaskStatus).filter(
     (taskName) => !taskName.includes("Umbrella")
@@ -23,8 +25,10 @@ export const badges = () => {
 };
 
 const Container = styled.div`
-  width: 80%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 `;
 const Wrapper = styled.div`
-  padding: 5px;
+  padding: ${size.xxs};
 `;

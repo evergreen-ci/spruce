@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
+import { size } from "constants/tokens";
 
 interface TaskStatusCheckboxProps {
   displayName: string;
@@ -51,7 +52,7 @@ const StateItemWrapper = styled("div")`
 `;
 
 const StyledTaskStatusIcon = styled(TaskStatusIcon)`
-  margin-right: 3px;
+  margin-right: ${size.xxs};
 `;
 
 // Wrapping checkboxes with fix width container

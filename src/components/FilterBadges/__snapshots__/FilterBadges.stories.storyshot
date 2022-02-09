@@ -5,97 +5,109 @@ exports[`storybook Storyshots FilterBadges Default 1`] = `
   className="css-19f1xe2-Container e3qndfh0"
 >
   <div
-    className="css-ks018z-PaddedBadge e1vs77ku1 leafygreen-ui-13xc3rv"
+    className="css-1cf5xhz-PaddedBadge e1vs77ku2 leafygreen-ui-187420t"
     data-cy="filter-badge"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <div
-      className="css-d7bq0k-BadgeContent e1vs77ku0"
+      className="css-1i7u60d-BadgeContent e1vs77ku1"
     >
       buildVariants
        : 
-      ! Enterprise Clang Tidy
-      <svg
-        aria-label="X Icon"
-        className="css-1qoqp9c-ClickableIcon e1vs77ku2"
-        data-cy="close-badge"
-        fill="none"
-        height={16}
-        onClick={[Function]}
-        role="img"
-        viewBox="0 0 16 16"
-        width={16}
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          clipRule="evenodd"
-          d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
-          fill="currentColor"
-          fillRule="evenodd"
-        />
-      </svg>
+      ! Ente…g Tidy
     </div>
+    <svg
+      aria-label="X Icon"
+      className="css-4ijbt0-ClickableIcon e1vs77ku3"
+      data-cy="close-badge"
+      fill="none"
+      height={16}
+      onClick={[Function]}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
   </div>
   <div
-    className="css-ks018z-PaddedBadge e1vs77ku1 leafygreen-ui-13xc3rv"
+    className="css-1cf5xhz-PaddedBadge e1vs77ku2 leafygreen-ui-187420t"
     data-cy="filter-badge"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <div
-      className="css-d7bq0k-BadgeContent e1vs77ku0"
+      className="css-1i7u60d-BadgeContent e1vs77ku1"
     >
       buildVariants
        : 
-      ! Enterprise Windows
-      <svg
-        aria-label="X Icon"
-        className="css-1qoqp9c-ClickableIcon e1vs77ku2"
-        data-cy="close-badge"
-        fill="none"
-        height={16}
-        onClick={[Function]}
-        role="img"
-        viewBox="0 0 16 16"
-        width={16}
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          clipRule="evenodd"
-          d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
-          fill="currentColor"
-          fillRule="evenodd"
-        />
-      </svg>
+      ! Ente…indows
     </div>
+    <svg
+      aria-label="X Icon"
+      className="css-4ijbt0-ClickableIcon e1vs77ku3"
+      data-cy="close-badge"
+      fill="none"
+      height={16}
+      onClick={[Function]}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
   </div>
   <div
-    className="css-ks018z-PaddedBadge e1vs77ku1 leafygreen-ui-13xc3rv"
+    className="css-1cf5xhz-PaddedBadge e1vs77ku2 leafygreen-ui-187420t"
     data-cy="filter-badge"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <div
-      className="css-d7bq0k-BadgeContent e1vs77ku0"
+      className="css-1i7u60d-BadgeContent e1vs77ku1"
     >
       buildVariants
        : 
-      Enterprise RHEL 8.0 (Lock Free Reads disabled)
-      <svg
-        aria-label="X Icon"
-        className="css-1qoqp9c-ClickableIcon e1vs77ku2"
-        data-cy="close-badge"
-        fill="none"
-        height={16}
-        onClick={[Function]}
-        role="img"
-        viewBox="0 0 16 16"
-        width={16}
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          clipRule="evenodd"
-          d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
-          fill="currentColor"
-          fillRule="evenodd"
-        />
-      </svg>
+      Enterp…abled)
     </div>
+    <svg
+      aria-label="X Icon"
+      className="css-4ijbt0-ClickableIcon e1vs77ku3"
+      data-cy="close-badge"
+      fill="none"
+      height={16}
+      onClick={[Function]}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
   </div>
   <button
     aria-disabled={false}

@@ -1,70 +1,71 @@
-import React from "react";
 import styled from "@emotion/styled";
 import CommitChartLabel from "components/CommitChartLabel";
-import { MainlineCommitsQuery } from "gql/generated/types";
-import { ChartTypes } from "types/commits";
+import { ChartTypes, CommitVersion } from "types/commits";
 import { shortenGithash } from "utils/string";
 import { BuildVariantCard } from "./BuildVariantCard";
 import { CommitChart } from "./CommitChart";
 import { ColorCount } from "./utils";
 
-interface Props {
-  version: MainlineCommitsQuery["mainlineCommits"]["versions"][0]["version"];
+interface ActiveCommitChartProps {
   groupedTaskStats: ColorCount[];
   max: number;
   total: number;
   chartType: ChartTypes;
-  hasTaskFilter: boolean;
 }
 
-export const ActiveCommit: React.FC<Props> = ({
-  version,
+export const ActiveCommitChart: React.FC<ActiveCommitChartProps> = ({
   groupedTaskStats,
   max,
   total,
   chartType,
+}) => (
+  <CommitChart
+    groupedTaskStats={groupedTaskStats}
+    total={total}
+    max={max}
+    chartType={chartType}
+  />
+);
+
+interface ActiveCommitLabelProps {
+  version: CommitVersion;
+}
+export const ActiveCommitLabel: React.FC<ActiveCommitLabelProps> = ({
+  version,
+}) => (
+  <CommitChartLabel
+    versionId={version.id}
+    githash={shortenGithash(version.revision)}
+    createTime={version.createTime}
+    author={version.author}
+    message={version.message}
+  />
+);
+
+interface BuildVariantContainerProps {
+  version: CommitVersion;
+  hasTaskFilter: boolean;
+}
+export const BuildVariantContainer: React.FC<BuildVariantContainerProps> = ({
+  version,
   hasTaskFilter,
 }) => (
-  <Container>
-    <ColumnContainer key={version.id}>
-      <CommitChart
-        groupedTaskStats={groupedTaskStats}
-        total={total}
-        max={max}
-        chartType={chartType}
-      />
-      <CommitChartLabel
+  <ColumnContainer>
+    {version.buildVariants.map(({ variant, displayName, tasks }) => (
+      <BuildVariantCard
         versionId={version.id}
-        githash={shortenGithash(version.revision)}
-        createTime={version.createTime}
-        author={version.author}
-        message={version.message}
+        buildVariantDisplayName={displayName}
+        variant={variant}
+        tasks={tasks}
+        key={`${version.id}_${variant}`}
+        shouldGroupTasks={!hasTaskFilter}
+        projectIdentifier={version.projectIdentifier}
       />
-    </ColumnContainer>
-    <ColumnContainer>
-      {version.buildVariants.map(({ variant, displayName, tasks }) => (
-        <BuildVariantCard
-          versionId={version.id}
-          buildVariantDisplayName={displayName}
-          variant={variant}
-          tasks={tasks}
-          key={`${version.id}_${variant}`}
-          shouldGroupTasks={!hasTaskFilter}
-          projectIdentifier={version.projectIdentifier}
-        />
-      ))}
-    </ColumnContainer>
-  </Container>
+    ))}
+  </ColumnContainer>
 );
 
 const ColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  margin-bottom: 15px;
-`;
-
-const Container = styled.div`
-  margin-bottom: 50px;
 `;

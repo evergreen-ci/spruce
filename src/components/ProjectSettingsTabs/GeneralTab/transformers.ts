@@ -59,10 +59,8 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
 
 export const formToGql: FormToGqlFunction = (
   { generalConfiguration, projectFlags, historicalDataCaching }: FormState,
-  id,
-  options = {}
+  id
 ) => {
-  const { useRepoSettings } = options;
   const filteredFiles =
     historicalDataCaching?.files?.filesIgnoredFromCache
       ?.map(({ filePattern }) => filePattern)
@@ -89,7 +87,6 @@ export const formToGql: FormToGqlFunction = (
     },
     disabledStatsCache: historicalDataCaching.disabledStatsCache,
     filesIgnoredFromCache: filteredFiles.length ? filteredFiles : null,
-    ...(useRepoSettings !== undefined && { useRepoSettings }),
   };
 
   return { projectRef };

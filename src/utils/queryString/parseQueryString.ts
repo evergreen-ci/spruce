@@ -9,8 +9,5 @@ export const parseQueryString = (search: string): ParseQueryString =>
 export const getString = (param: string | string[] = ""): string =>
   Array.isArray(param) ? param[0] : param;
 
-export const getArray = (param: string | string[] = []): string[] =>
-  Array.isArray(param) ? param : [param];
-
 export const queryParamAsNumber = (str: string | string[]) =>
   !Number.isNaN(Number(str)) ? Number(str) : null;

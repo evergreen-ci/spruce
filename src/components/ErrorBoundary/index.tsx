@@ -4,11 +4,17 @@ import BugsnagPluginReact from "@bugsnag/plugin-react";
 import { environmentalVariables } from "utils";
 import ErrorFallback from "./ErrorFallback";
 
-const { getBugsnagApiKey, isProduction } = environmentalVariables;
+const {
+  getBugsnagApiKey,
+  isProduction,
+  getAppVersion,
+  getReleaseStage,
+} = environmentalVariables;
+
 let bugsnagStarted = false;
 
 // This error boundary is used during local development
-class DefaultErrorBoundary extends React.Component {
+class DefaultErrorBoundary extends React.Component<{}, { hasError: boolean }> {
   constructor(props) {
     super(props);
     this.state = { hasError: false };
@@ -20,11 +26,11 @@ class DefaultErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.log({ error, errorInfo });
+    console.error({ error, errorInfo });
   }
 
   render() {
-    const { hasError } = this.state as { hasError: boolean };
+    const { hasError } = this.state;
     if (hasError) {
       return <ErrorFallback />;
     }
@@ -40,18 +46,26 @@ const getBoundary = () => {
   return DefaultErrorBoundary;
 };
 
-export const initializeBugsnag = () => {
+const initializeBugsnag = () => {
   // Only need to Bugsnag.start once, will throw console warnings otherwise
   if (bugsnagStarted || !isProduction()) {
+    console.log("Bugsnag started");
+    console.log(getAppVersion());
     return;
   }
+
   try {
     Bugsnag.start({
       apiKey: getBugsnagApiKey(),
       plugins: [new BugsnagPluginReact()],
+      appVersion: getAppVersion(),
+      releaseStage: getReleaseStage(),
     });
     bugsnagStarted = true;
-  } catch (e) {}
+  } catch (e) {
+    // If bugsnag fails we have no where to log it and we can't do anything about it
+    console.error("Failed to initialize Bugsnag", e);
+  }
 };
 
 const ErrorBoundary: React.FC = ({ children }) => {
@@ -65,4 +79,8 @@ const ErrorBoundary: React.FC = ({ children }) => {
   );
 };
 
-export { ErrorBoundary };
+const resetBugsnag = () => {
+  bugsnagStarted = false;
+};
+
+export { ErrorBoundary, resetBugsnag, initializeBugsnag };

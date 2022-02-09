@@ -52,7 +52,6 @@ describe("Action Buttons", () => {
 
       it("Clicking 'Unschedule' button show popconfirm with abort checkbox and a toast on success", () => {
         cy.dataCy("unschedule-patch").click();
-        cy.dataCy("abort-checkbox").check({ force: true });
         cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
         cy.validateToast("success");
       });

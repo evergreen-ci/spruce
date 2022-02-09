@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
-import { usePatchAnalytics } from "analytics";
+import { useVersionAnalytics } from "analytics";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
+import { size } from "constants/tokens";
 import { TaskStatus } from "types/task";
 
 interface Props {
@@ -17,7 +18,7 @@ export const GroupedTaskSquare: React.FC<Props> = ({
   umbrellaStatus,
   variant,
 }) => {
-  const patchAnalytics = usePatchAnalytics();
+  const { sendEvent } = useVersionAnalytics();
   const { id } = useParams<{ id: string }>();
 
   return (
@@ -28,7 +29,7 @@ export const GroupedTaskSquare: React.FC<Props> = ({
         status={umbrellaStatus as TaskStatus}
         count={count}
         onClick={() =>
-          patchAnalytics.sendEvent({
+          sendEvent({
             name: "Click Grouped Task Square",
             taskSquareStatuses: Object.keys(statuses),
           })
@@ -40,5 +41,5 @@ export const GroupedTaskSquare: React.FC<Props> = ({
 };
 
 const GroupedTaskSquareWrapper = styled.div`
-  margin-right: 8px;
+  margin-right: ${size.xs};
 `;

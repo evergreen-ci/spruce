@@ -19,6 +19,18 @@ export const toggleArray = <T>(value: T, array: T[]) => {
 };
 
 /**
+ * deduplicatedAppend takes in an array of values regardless of type and a new value and safely inserts the value if it doesn't exist in the array.
+ * if it does exist it will do nothing
+ * @param value The value to insert into the array.
+ * @param array The array to insert the value into.
+ */
+export const deduplicatedAppend = <T>(value: T, array: T[]) => {
+  let tempArray = new Set(array);
+  tempArray = tempArray.add(value);
+  return Array.from(tempArray);
+};
+
+/**
  * Takes an array of objects and a key
  * and returns an object using the provided value of the key as a key and the rest of the object as the value
  * @param array The array of objects to convert to an object

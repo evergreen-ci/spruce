@@ -5,7 +5,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
   className="css-e47j2m-Container e7xdko1"
 >
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Activity Feed Icon"
@@ -29,7 +29,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Add File Icon"
@@ -53,7 +53,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Apps Icon"
@@ -77,7 +77,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Arrow Down Icon"
@@ -99,7 +99,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Arrow Left Icon"
@@ -121,7 +121,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Arrow Right Icon"
@@ -143,7 +143,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Arrow Up Icon"
@@ -165,7 +165,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Beaker Icon"
@@ -189,7 +189,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Bell Icon"
@@ -213,7 +213,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Building Icon"
@@ -237,7 +237,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Bulb Icon"
@@ -263,7 +263,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Calendar Icon"
@@ -287,7 +287,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Caret Down Icon"
@@ -309,7 +309,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Caret Left Icon"
@@ -331,7 +331,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Caret Right Icon"
@@ -353,7 +353,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Caret Up Icon"
@@ -375,7 +375,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Charts Icon"
@@ -397,7 +397,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Checkmark Icon"
@@ -421,7 +421,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Checkmark With Circle Icon"
@@ -445,7 +445,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Chevron Down Icon"
@@ -469,7 +469,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Chevron Left Icon"
@@ -493,7 +493,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Chevron Right Icon"
@@ -517,7 +517,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Chevron Up Icon"
@@ -541,7 +541,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Clone Icon"
@@ -567,7 +567,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Cloud Icon"
@@ -589,7 +589,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Code Icon"
@@ -610,7 +610,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Copy Icon"
@@ -634,7 +634,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Credit Card Icon"
@@ -656,7 +656,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Curly Braces Icon"
@@ -678,7 +678,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Database Icon"
@@ -708,7 +708,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Download Icon"
@@ -732,7 +732,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Edit Icon"
@@ -770,7 +770,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Ellipsis Icon"
@@ -794,7 +794,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Export Icon"
@@ -820,7 +820,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Favorite Icon"
@@ -842,7 +842,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="File Icon"
@@ -867,7 +867,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Filter Icon"
@@ -891,7 +891,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Full Screen Enter Icon"
@@ -912,7 +912,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Full Screen Exit Icon"
@@ -933,7 +933,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Folder Icon"
@@ -955,7 +955,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Globe Americas Icon"
@@ -978,7 +978,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Government Building Icon"
@@ -1006,7 +1006,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Important With Circle Icon"
@@ -1030,7 +1030,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Info With Circle Icon"
@@ -1054,7 +1054,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Invite User Icon"
@@ -1080,7 +1080,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Laptop Icon"
@@ -1108,7 +1108,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Lock Icon"
@@ -1132,7 +1132,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Magnifying Glass Icon"
@@ -1156,7 +1156,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Megaphone Icon"
@@ -1180,7 +1180,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Menu Icon"
@@ -1202,7 +1202,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Minus Icon"
@@ -1224,7 +1224,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Not Allowed Icon"
@@ -1248,7 +1248,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Open New Tab Icon"
@@ -1274,7 +1274,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Pause Icon"
@@ -1296,7 +1296,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Person Icon"
@@ -1322,7 +1322,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Person Group Icon"
@@ -1343,7 +1343,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Person With Lock Icon"
@@ -1371,7 +1371,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Play Icon"
@@ -1393,7 +1393,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Plus Icon"
@@ -1417,7 +1417,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Plus With Circle Icon"
@@ -1441,7 +1441,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Question Mark With Circle Icon"
@@ -1465,7 +1465,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Refresh Icon"
@@ -1487,7 +1487,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Save Icon"
@@ -1515,7 +1515,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Settings Icon"
@@ -1539,7 +1539,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Shell Icon"
@@ -1560,7 +1560,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Sort Ascending Icon"
@@ -1582,7 +1582,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Sort Descending Icon"
@@ -1604,7 +1604,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Stitch Icon"
@@ -1626,7 +1626,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Support Icon"
@@ -1650,7 +1650,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Time Series Icon"
@@ -1672,7 +1672,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Trash Icon"
@@ -1696,7 +1696,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="University Icon"
@@ -1718,7 +1718,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Unlock Icon"
@@ -1742,7 +1742,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Unsorted Icon"
@@ -1764,7 +1764,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Up Down Carets Icon"
@@ -1786,7 +1786,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Upload Icon"
@@ -1810,7 +1810,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Vertical Ellipsis Icon"
@@ -1834,7 +1834,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Visibility Icon"
@@ -1858,7 +1858,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Visibility Off Icon"
@@ -1882,7 +1882,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="Warning Icon"
@@ -1906,7 +1906,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="X Icon"
@@ -1930,7 +1930,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       aria-label="XWith Circle Icon"
@@ -1954,7 +1954,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       height="28"
@@ -1972,7 +1972,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       fill="none"
@@ -1991,7 +1991,25 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
+      fill="currentColor"
+      height={16}
+      viewBox="0 0 21 21"
+      width={16}
+    >
+      <path
+        d="M17.7783.807588c-.7811-.7810482-2.0474-.7810486-2.8285 0L10.0001 5.75734 5.05035.807588c-.78105-.7810484-2.04738-.7810482-2.82843 0L.80771 2.2218c-.7810481.78105-.7810485 2.04738 0 2.82843l4.94975 4.94975L.80771 14.9497c-.7810474.7811-.7810481 2.0474 0 2.8285l1.41421 1.4142c.78105.781 2.04738.781 2.82843 0l4.94975-4.9498 4.9497 4.9498c.7811.781 2.0474.781 2.8285 0l1.4142-1.4142c.781-.7811.781-2.0474 0-2.8285l-4.9498-4.94972 4.9498-4.94975c.781-.78105.781-2.04738 0-2.82843L17.7783.807588Z"
+        fill="black"
+      />
+    </svg>
+    <span>
+      FailureIcon
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       fill="currentColor"
@@ -2021,7 +2039,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       fill="none"
@@ -2044,7 +2062,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       fill="none"
@@ -2066,7 +2084,7 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </span>
   </div>
   <div
-    className="css-319pve-IconContainer e7xdko0"
+    className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
       fill="none"

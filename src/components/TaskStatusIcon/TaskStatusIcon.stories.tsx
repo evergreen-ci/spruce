@@ -1,12 +1,14 @@
 import styled from "@emotion/styled";
 import { withKnobs, select } from "@storybook/addon-knobs";
 import { Size } from "components/Icon";
+import { size } from "constants/tokens";
 import { TaskStatus } from "types/task";
 import { TaskStatusIcon } from ".";
 
 export default {
   title: "Task Status Icons",
   decorators: [withKnobs],
+  component: TaskStatusIcon,
 };
 
 export const AllStatuses = () => {
@@ -46,7 +48,7 @@ const IconContainer = styled.div`
   flex-shrink: 0;
   text-align: center;
   border: 1px solid #babdbe;
-  border-radius: 5px;
+  border-radius: ${size.xxs};
   display: flex;
   align-items: center;
   justify-content: center;

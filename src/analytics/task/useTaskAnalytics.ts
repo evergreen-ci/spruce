@@ -61,7 +61,8 @@ type Action =
   | { name: "Click Build Variant Link" }
   | { name: "Click Execution Task Link" }
   | { name: "Click Display Task Link" }
-  | { name: "Click Project Link" };
+  | { name: "Click Project Link" }
+  | { name: "Click See History Button" };
 
 interface P extends Properties {
   taskId: string;
@@ -70,7 +71,7 @@ interface P extends Properties {
   execution: number;
   isLatestExecution: string;
 }
-interface Analytics extends A<Action> {}
+export interface Analytics extends A<Action> {}
 
 export const useTaskAnalytics = (): Analytics => {
   const userId = useGetUserQuery();

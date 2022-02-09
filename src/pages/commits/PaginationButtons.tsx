@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Icon from "components/Icon";
+import { size } from "constants/tokens";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { MainlineCommitQueryParams } from "types/commits";
 
@@ -30,26 +31,24 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
     <Container>
       <StyledButton
         disabled={prevPageOrderNumber === null}
-        /* @ts-expect-error */
+        // @ts-expect-error
         onClick={onPrevClick}
-      >
-        <Icon glyph="ChevronLeft" />
-      </StyledButton>
+        leftGlyph={<Icon glyph="ChevronLeft" />}
+      />
       <StyledButton
         disabled={nextPageOrderNumber === null}
-        /* @ts-expect-error */
+        // @ts-expect-error
         onClick={onNextClick}
-      >
-        <Icon glyph="ChevronRight" />
-      </StyledButton>
+        leftGlyph={<Icon glyph="ChevronRight" />}
+      />
     </Container>
   );
 };
 
 // @ts-expect-error
 const StyledButton = styled(Button)`
-  margin-right: 4px;
-  margin-left: 4px;
+  margin-right: ${size.xxs};
+  margin-left: ${size.xxs};
 `;
 
 const Container = styled.div`

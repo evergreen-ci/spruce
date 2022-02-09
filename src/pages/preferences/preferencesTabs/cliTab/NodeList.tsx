@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
+import { zIndex } from "constants/tokens";
 import { NodeType, Node } from "./nodeList/Node";
 
 const { gray } = uiColors;
@@ -21,14 +22,15 @@ export const NodeList: React.FC<NodeListProps> = ({ list }) => (
 );
 
 const NodeContainer = styled.div`
-  :after {
-    background: ${gray.light2};
-    content: "";
-    left: 28px;
-    position: absolute;
-    top: 0%;
-    height: 80%;
-    width: 1px;
-    z-index: -1;
+  :last-child:after {
+      background: ${gray.light2};
+      content: "";
+      left: 28px;
+      position: absolute;
+      top: 0%;
+      height: 90%;
+      width: 1px;
+      z-index: ${zIndex.backdrop};
+    }
   }
 `;

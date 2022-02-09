@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import Icon from "components/Icon";
+import { size } from "constants/tokens";
 import { useHistoryTable } from "./HistoryTableContext";
 
 const ColumPaginationButtons: React.FC = () => {
@@ -45,8 +46,8 @@ const ColumPaginationButtons: React.FC = () => {
 
 // @ts-expect-error
 const StyledButton = styled(Button)`
-  margin-right: 4px;
-  margin-left: 4px;
+  margin-right: ${size.xxs};
+  margin-left: ${size.xxs};
 `;
 
 const Container = styled.div`

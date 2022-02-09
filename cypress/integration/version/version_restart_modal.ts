@@ -52,9 +52,9 @@ describe("Restarting a patch", () => {
   });
 
   it("Selecting on the patch status filter should toggle the tasks that have matching statuses to it", () => {
-    cy.get(statusFilter).click();
+    cy.dataCy("task-status-filter").click();
     cy.getInputByLabel("All").check({ force: true });
-    cy.get(statusFilter).click();
+    cy.dataCy("task-status-filter").click();
 
     // ideally this would target the text field itself but leafygreen Body tags dont
     // support cy-data elements currently
@@ -62,16 +62,16 @@ describe("Restarting a patch", () => {
       "contain.text",
       "Are you sure you want to restart the 1 selected tasks?"
     );
-    cy.get(statusFilter).click();
+    cy.dataCy("task-status-filter").click();
     cy.getInputByLabel("All").check({ force: true });
-    cy.get(statusFilter).click();
+    cy.dataCy("task-status-filter").click();
   });
 
   it("Selecting on the base status filter should toggle the tasks that have matching statuses to it", () => {
     cy.dataCy("version-restart-modal").within(() => {
-      cy.get(baseStatusFilter).click();
+      cy.dataCy("base-task-status-filter").click();
       cy.getInputByLabel("Succeeded").check({ force: true });
-      cy.get(baseStatusFilter).click();
+      cy.dataCy("base-task-status-filter").click();
 
       // ideally this would target the text field itself but leafygreen Body tags dont
       // support cy-data elements currently
@@ -79,26 +79,22 @@ describe("Restarting a patch", () => {
         "contain.text",
         "Are you sure you want to restart the 1 selected tasks?"
       );
-      cy.get(baseStatusFilter).click();
+      cy.dataCy("base-task-status-filter").click();
 
       cy.getInputByLabel("Succeeded").check({ force: true });
-      cy.get(baseStatusFilter).click();
+      cy.dataCy("base-task-status-filter").click();
     });
   });
 
   it("Restarting a task should close the modal and display a success message if it occurs successfully.", () => {
     cy.dataCy("version-restart-modal").within(() => {
-      cy.get(statusFilter).click();
+      cy.dataCy("task-status-filter").click();
       cy.getInputByLabel("Unscheduled").check({ force: true });
-      cy.get(statusFilter).click();
+      cy.dataCy("task-status-filter").click();
       cy.dataCy("restart-patch-button").click();
     });
     cy.dataCy("version-restart-modal").should("not.be.be.visible");
     cy.validateToast("success", "Successfully restarted tasks!");
   });
-
-  const path = `/version/5ecedafb562343215a7ff297`;
-  const statusFilter = ".ant-modal-body > div > [data-cy=task-status-filter]";
-  const baseStatusFilter =
-    ".ant-modal-body > div >  [data-cy=task-base-status-filter]";
 });
+const path = `/version/5ecedafb562343215a7ff297`;

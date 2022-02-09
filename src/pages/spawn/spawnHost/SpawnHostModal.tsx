@@ -10,6 +10,7 @@ import { Modal } from "components/Modal";
 import { ModalContent, RegionSelector } from "components/Spawn";
 import { InputLabel } from "components/styles";
 import { HR } from "components/styles/Layout";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   DistrosQuery,
@@ -283,7 +284,7 @@ const renderItem = (title: string) => ({
 });
 
 const Section = styled(ModalContent)`
-  margin-top: 20px;
+  margin-top: ${size.m};
 `;
 
 // @ts-expect-error

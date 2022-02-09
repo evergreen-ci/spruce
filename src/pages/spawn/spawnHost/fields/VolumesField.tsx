@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { Select, Input } from "antd";
 import { InputLabel } from "components/styles";
+import { size } from "constants/tokens";
 import { MyVolume } from "types/spawn";
 
 const { Option } = Select;
@@ -82,7 +83,7 @@ const FlexColumnContainer = styled.div`
 `;
 
 const PaddedBody = styled.span`
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-top: 22px;
+  padding-left: ${size.s};
+  padding-right: ${size.s};
+  margin-top: ${size.m};
 `;

@@ -3,38 +3,26 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
 import { Label } from "@leafygreen-ui/typography";
-import { useLocation, useHistory } from "react-router-dom";
-import { ChartToggleQueryParams, ChartTypes } from "types/commits";
-import { queryString } from "utils";
+import { size, zIndex } from "constants/tokens";
+import { ChartTypes } from "types/commits";
 
 const { gray } = uiColors;
-const { stringifyQuery, parseQueryString } = queryString;
 
 export const ChartToggle: React.FC<{
   currentChartType: ChartTypes;
-}> = ({ currentChartType }) => {
-  const { pathname, search } = useLocation();
-  const { replace } = useHistory();
-
-  const onChangeChartType = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    const nextChartType = event.target.value;
-    replace(
-      `${pathname}?${stringifyQuery({
-        ...parseQueryString(search),
-        [ChartToggleQueryParams.chartType]: nextChartType,
-      })}`
-    );
+  onChangeChartType: (chartType: ChartTypes) => void;
+}> = ({ currentChartType, onChangeChartType }) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const chartType = e.target.value as ChartTypes;
+    onChangeChartType(chartType);
   };
-
   return (
     <Container>
       <ToggleWrapper>
         <Label htmlFor="chart-toggle">View Options</Label>
         <StyledRadioGroup
           size="default"
-          onChange={onChangeChartType}
+          onChange={onChange}
           value={currentChartType}
           name="chart-select"
         >
@@ -42,17 +30,15 @@ export const ChartToggle: React.FC<{
             data-cy="cy-chart-absolute-radio"
             id="chart-radio-absolute"
             value={ChartTypes.Absolute}
-            checked={currentChartType === ChartTypes.Absolute}
           >
-            <Label htmlFor="chart-radio-absolute">Absolute Number</Label>
+            <b>Absolute Number</b>
           </Radio>
           <Radio
             data-cy="cy-chart-percent-radio"
             id="chart-radio-percent"
             value={ChartTypes.Percentage}
-            checked={currentChartType === ChartTypes.Percentage}
           >
-            <Label htmlFor="chart-radio-percent">Percentage</Label>
+            <b>Percentage</b>
           </Radio>
         </StyledRadioGroup>
       </ToggleWrapper>
@@ -67,7 +53,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  z-index: 3;
+  z-index: ${zIndex.tooltip};
 `;
 
 // @ts-expect-error
@@ -76,17 +62,13 @@ const StyledRadioGroup = styled(RadioGroup)`
   align-items: center;
   white-space: nowrap;
   flex-direction: row;
-  align-items: center;
   justify-content: space-evenly;
   width: 286px;
-  height: 59px;
   border-radius: 7px;
   border: 1px solid ${gray.light2};
-  margin-top: 4px;
-  padding-bottom: 6px;
-  padding-right: 4px;
+  padding: ${size.xs} 0 ${size.s} 0;
   background: #ffffff;
-  box-shadow: 0px 4px 10px -4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px ${size.xxs} 10px -${size.xxs} rgba(0, 0, 0, 0.3);
 `;
 
 const ToggleWrapper = styled.div`

@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { Modal } from "antd";
+import { size } from "constants/tokens";
 
 interface PreferencesModalProps {
   title: string;
@@ -47,11 +48,11 @@ const WideButton = styled(Button)`
 
 // @ts-expect-error
 const Title = styled(Subtitle)`
-  margin-top: 25px;
+  margin-top: ${size.m};
   text-align: center;
 `;
 const ModalActionContainer = styled.div`
-  margin-top: 65px;
+  margin-top: ${size.xl};
   display: flex;
   justify-content: space-between;
   width: 300px;

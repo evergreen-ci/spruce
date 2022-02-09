@@ -1,7 +1,9 @@
+import { TestStatus } from "types/history";
 import { PatchTab } from "types/patch";
 import { PatchTasksQueryParams, TaskTab } from "types/task";
-import { queryString } from "utils";
+import { queryString, array } from "utils";
 
+const { toArray } = array;
 const { stringifyQuery } = queryString;
 
 export enum PageNames {
@@ -26,12 +28,13 @@ export enum ProjectSettingsTabRoutes {
   General = "general",
   Access = "access",
   Variables = "variables",
-  GitHubCommitQueue = "github-commitqueue",
+  GithubCommitQueue = "github-commitqueue",
   Notifications = "notifications",
   PatchAliases = "patch-aliases",
   VirtualWorkstation = "virtual-workstation",
   ProjectTriggers = "project-triggers",
   PeriodicBuilds = "periodic-builds",
+  Plugins = "plugins",
   EventLog = "event-log",
 }
 
@@ -61,8 +64,9 @@ const projectSettingsRoutes = {
   projectSettings: `${projectSettingsSlug}/:tab?`,
   projectSettingsAccess: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.Access}`,
   projectSettingsGeneral: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.General}`,
-  projectSettingsGitHubCommitQueue: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.GitHubCommitQueue}`,
+  projectSettingsGithubCommitQueue: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.GithubCommitQueue}`,
   projectSettingsEventLog: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.EventLog}`,
+  projectSettingsPlugins: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.Plugins}`,
   projectSettingsNotifications: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.Notifications}`,
   projectSettingsPatchAliases: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.PatchAliases}`,
   projectSettingsPeriodicBuilds: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.PeriodicBuilds}`,
@@ -95,7 +99,7 @@ export const routes = {
   projectSettingsRedirect: paths.projects,
   userPatches: `${paths.user}/:id/${PageNames.Patches}`,
   version: `${paths.version}/:id/:tab?`,
-  commits: `${paths.commits}/:projectId?`,
+  commits: `${paths.commits}/:id?`,
   variantHistory: `${paths.variantHistory}/:projectId/:variantName`,
   taskHistory: `${paths.taskHistory}/:projectId/:taskName`,
   jobLogs: `${paths.jobLogs}/:taskId/:execution/:groupId?`,
@@ -208,10 +212,50 @@ export const getProjectSettingsRoute = (
 export const getCommitQueueRoute = (projectId: string) =>
   `${paths.commitQueue}/${projectId}`;
 
-export const getCommitsRoute = (projectId: string) =>
+export const getCommitsRoute = (projectId: string = "") =>
   `${paths.commits}/${projectId}`;
 
+const getHistoryRoute = (
+  basePath: string,
+  filters?: {
+    failingTests?: string[];
+    passingTests?: string[];
+  }
+) => {
+  if (filters) {
+    const failingTests = toArray(filters.failingTests);
+    const passingTests = toArray(filters.passingTests);
+
+    const queryParams = stringifyQuery({
+      [TestStatus.Failed]: failingTests,
+      [TestStatus.Passed]: passingTests,
+    });
+    return `${basePath}?${queryParams}`;
+  }
+  return basePath;
+};
 export const getVariantHistoryRoute = (
-  projectId: string,
-  variantName: string
-) => `${paths.variantHistory}/${projectId}/${variantName}`;
+  projectIdentifier: string,
+  variantName: string,
+  filters?: {
+    failingTests?: string[];
+    passingTests?: string[];
+  }
+) =>
+  getHistoryRoute(
+    `${paths.variantHistory}/${projectIdentifier}/${variantName}`,
+    filters
+  );
+
+export const getTaskHistoryRoute = (
+  projectIdentifier: string,
+  taskName: string,
+  filters?: {
+    failingTests?: string[];
+    passingTests?: string[];
+  }
+) =>
+  getHistoryRoute(
+    `${paths.taskHistory}/${projectIdentifier}/${taskName}`,
+    filters
+  );

@@ -5,13 +5,14 @@ import { Tab } from "@leafygreen-ui/tabs";
 import { Body } from "@leafygreen-ui/typography";
 import { Input } from "antd";
 import { useHistory } from "react-router-dom";
+import { CodeChanges } from "components/CodeChanges/CodeChanges";
 import { MetadataCard } from "components/MetadataCard";
-import { CodeChanges } from "components/PatchTabs/CodeChanges";
-import { ParametersContent } from "components/PatchTabs/ParametersContent";
 import { PageContent, PageLayout, PageSider } from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { P2 } from "components/Typography";
 import { getVersionRoute } from "constants/routes";
+import { size } from "constants/tokens";
+
 import { useToastContext } from "context/toast";
 import {
   SchedulePatchMutation,
@@ -30,6 +31,7 @@ import {
   VariantTasksState,
   useConfigurePatch,
 } from "hooks/useConfigurePatch";
+import { ParametersContent } from "pages/configurePatch/ParametersContent";
 import { ConfigureBuildVariants } from "./configurePatchCore/ConfigureBuildVariants";
 import { ConfigureTasks } from "./configurePatchCore/ConfigureTasks";
 
@@ -265,9 +267,9 @@ const filterAliases = (
 };
 
 const StyledInput = styled(Input)`
-  margin-bottom: 16px;
+  margin-bottom: ${size.s};
   font-weight: 600;
 `;
 const StyledBody = styled(Body)`
-  margin-bottom: 4px;
+  margin-bottom: ${size.xxs};
 `;

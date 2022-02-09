@@ -9,6 +9,8 @@ import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { Button } from "components/Button";
 import { pollInterval } from "constants/index";
+import { size, fontSize } from "constants/tokens";
+
 import {
   EventLogsQuery,
   EventLogsQueryVariables,
@@ -18,6 +20,8 @@ import {
   AgentLogsQueryVariables,
   TaskLogsQuery,
   TaskLogsQueryVariables,
+  AllLogsQuery,
+  AllLogsQueryVariables,
   TaskEventLogEntry,
   LogMessageFragment,
 } from "gql/generated/types";
@@ -26,9 +30,10 @@ import {
   GET_EVENT_LOGS,
   GET_SYSTEM_LOGS,
   GET_TASK_LOGS,
+  GET_ALL_LOGS,
 } from "gql/queries";
 import { useNetworkStatus, useUpdateURLQueryParams } from "hooks";
-import { RequiredQueryParams } from "types/task";
+import { RequiredQueryParams, LogTypes, QueryParams } from "types/task";
 import { queryString } from "utils";
 import { LogMessageLine } from "./logTypes/LogMessageLine";
 import { TaskEventLogLine } from "./logTypes/TaskEventLogLine";
@@ -43,21 +48,37 @@ interface TaskEventLogEntryType extends TaskEventLogEntry {
 interface LogMessageType extends LogMessageFragment {
   kind?: "logMessage";
 }
-export enum QueryParams {
-  LogType = "logtype",
-}
-export enum LogTypes {
-  Agent = "agent",
-  System = "system",
-  Task = "task",
-  Event = "event",
-}
 interface Props {
   currentLog: LogTypes;
   htmlLink: string;
   rawLink: string;
   lobsterLink: string;
 }
+
+export const AllLog: React.FC<Props> = (props): JSX.Element => {
+  const { id } = useParams<{ id: string }>();
+  const location = useLocation();
+  const parsed = parseQueryString(location.search);
+  const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
+
+  const { data, loading, error, startPolling, stopPolling } = useQuery<
+    AllLogsQuery,
+    AllLogsQueryVariables
+  >(GET_ALL_LOGS, {
+    variables: { id, execution: selectedExecution },
+    pollInterval,
+  });
+  useNetworkStatus(startPolling, stopPolling);
+
+  // All logs includes task, system, and agent logs. Event logs are not included.
+  return useRenderBody({
+    data: get(data, "taskLogs.allLogs", []),
+    loading,
+    error,
+    ...props,
+  });
+};
+
 export const EventLog: React.FC<Props> = (props): JSX.Element => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
@@ -152,7 +173,7 @@ export const TaskLog: React.FC<Props> = (props): JSX.Element => {
 const useRenderBody: React.FC<{
   loading: boolean;
   error: ApolloError;
-  data: [TaskEventLogEntryType | LogMessageType];
+  data: (TaskEventLogEntryType | LogMessageType)[];
   currentLog: LogTypes;
   LogContainer?: React.FC;
   htmlLink: string;
@@ -272,6 +293,9 @@ const useRenderBody: React.FC<{
         <Radio data-cy="event-radio" id="cy-event-radio" value={LogTypes.Event}>
           Event Logs
         </Radio>
+        <Radio data-cy="all-radio" id="cy-all-radio" value={LogTypes.All}>
+          All Logs
+        </Radio>
       </StyledRadioGroup>
       {body}
     </>
@@ -281,9 +305,9 @@ const useRenderBody: React.FC<{
 const ButtonContainer = styled.div`
   display: flex;
   > :not(:last-child) {
-    margin-right: 8px;
+    margin-right: ${size.xs};
   }
-  margin-right: 16px;
+  margin-right: ${size.s};
   padding-left: 1px;
 `;
 
@@ -293,17 +317,17 @@ const StyledRadioGroup = styled(RadioGroup)`
   align-items: center;
   white-space: nowrap;
   label {
-    margin-right: 16px;
+    margin-right: ${size.s};
   }
-  padding-bottom: 8px;
+  padding-bottom: ${size.xs};
 `;
 
 const StyledPre = styled.pre`
-  padding: 8px;
+  padding: ${size.xs};
   word-break: break-all;
   word-wrap: break-word;
   border: 1px solid ${gray.light2};
-  border-radius: 4px;
+  border-radius: ${size.xxs};
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-  font-size: 13px;
+  font-size: ${fontSize.m};
 `;

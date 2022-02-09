@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { H2, Body } from "@leafygreen-ui/typography";
 import { Layout } from "antd";
+import { size, fontSize } from "constants/tokens";
 
 const { gray, white, red } = uiColors;
 const { Content, Sider } = Layout;
@@ -16,7 +17,7 @@ export const PageWrapper = styled.div`
   grid-area: contents;
   overflow-x: hidden;
   overflow-y: scroll;
-  padding: 24px 36px 56px 36px;
+  padding: ${size.m} ${size.l};
 `;
 
 export const PageGrid = styled.section`
@@ -37,7 +38,7 @@ export const PageSider = styled(Sider)`
   ${whiteBackground}
 `;
 export const PageContent = styled(Content)`
-  margin-left: 16px;
+  margin-left: ${size.s};
   overflow: hidden;
 `;
 
@@ -45,7 +46,7 @@ PageSider.defaultProps = { width: 275 };
 
 // @ts-expect-error
 export const PageTitle = styled(H2)`
-  margin-bottom: 16px;
+  margin-bottom: ${size.s};
 ` as typeof H2;
 
 export const TableContainer = styled.div`
@@ -59,19 +60,21 @@ export const TableControlInnerRow = styled.div`
 `;
 
 export const TableControlOuterRow = styled(TableControlInnerRow)`
-  padding-bottom: 8px;
+  padding-bottom: ${size.xs};
 `;
 
 export const PageButtonRow = styled.div`
   display: flex;
-  button {
-    margin-left: 24px;
+  > * {
+    margin-right: ${size.s};
   }
-  flex-wrap: wrap;
+  > *:last-child {
+    margin-right: 0;
+  }
 `;
 
 export const InputLabel = styled.label`
-  font-size: 14px;
+  font-size: ${fontSize.m};
   font-weight: bold;
 `;
 
@@ -84,6 +87,6 @@ export const HR = styled("hr")`
   border: 0;
   height: 1px;
   width: 100%;
-  margin-top: 24px;
-  margin-bottom: 24px;
+  margin-top: ${size.m};
+  margin-bottom: ${size.m};
 `;

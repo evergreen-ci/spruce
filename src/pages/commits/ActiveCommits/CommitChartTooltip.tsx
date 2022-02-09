@@ -5,8 +5,11 @@ import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { inactiveElementStyle } from "components/styles";
-import { taskStatusToCopy, mapUmbrellaStatusColors } from "constants/task";
+import { taskStatusToCopy, mapTaskToBarchartColor } from "constants/task";
+import { size } from "constants/tokens";
+
 import { TaskStatus } from "types/task";
+import { tooltipZIndex } from "../constants";
 import { ColorCount, getStatusesWithZeroCount } from "./utils";
 
 const { gray } = uiColors;
@@ -25,7 +28,7 @@ export const CommitChartTooltip: React.FC<Props> = ({
       usePortal={false}
       align="right"
       justify="middle"
-      popoverZIndex={1}
+      popoverZIndex={tooltipZIndex}
       trigger={trigger}
       triggerEvent="hover"
     >
@@ -49,7 +52,7 @@ export const CommitChartTooltip: React.FC<Props> = ({
           <TotalCount
             key={umbrellaStatus}
             status={umbrellaStatus}
-            color={mapUmbrellaStatusColors[umbrellaStatus].barChart}
+            color={mapTaskToBarchartColor[umbrellaStatus]}
             count={0}
             active={false}
           />
@@ -99,32 +102,32 @@ const TotalCountContainer = styled.div<{ active?: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 10px;
+  margin-top: ${size.xs};
   color: ${gray.dark2};
   ${({ active }) => !active && inactiveElementStyle};
 `;
 
 const Circle = styled.div<{ color: string }>`
   background-color: ${({ color }) => color};
-  border-radius: 4px;
-  width: 8px;
-  height: 8px;
-  margin-right: 12px;
+  border-radius: ${size.xxs};
+  width: ${size.xs};
+  height: ${size.xs};
+  margin-right: ${size.s};
 `;
 
 const NumberText = styled(Disclaimer)`
-  width: 40px;
+  width: ${size.l};
   font-weight: bold;
   text-align: center;
 `;
 
 const StatusText = styled(Disclaimer)`
-  width: 90px;
+  width: ${size.xxl};
   text-align: left;
 `;
 
 const SubStatusText = styled(Disclaimer)`
-  width: 90px;
+  width: ${size.xxl};
   text-align: left;
   margin: 2px 0px 0px 20px;
   word-break: break-word;
@@ -132,5 +135,5 @@ const SubStatusText = styled(Disclaimer)`
 
 const sharedCss = css`
   font-size: 9px;
-  line-height: 12px;
+  line-height: ${size.s};
 `;

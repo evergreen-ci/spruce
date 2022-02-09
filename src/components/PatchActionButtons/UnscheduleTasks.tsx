@@ -4,8 +4,9 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Body } from "@leafygreen-ui/typography";
 import { Popconfirm } from "antd";
-import { usePatchAnalytics } from "analytics";
+import { useVersionAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   UnschedulePatchTasksMutation,
@@ -24,7 +25,7 @@ export const UnscheduleTasks: React.FC<props> = ({
   disabled,
 }) => {
   const dispatchToast = useToastContext();
-  const [abort, setAbort] = useState(false);
+  const [abort, setAbort] = useState(true);
   const [
     unschedulePatchTasks,
     { loading: loadingUnschedulePatchTasks },
@@ -46,7 +47,7 @@ export const UnscheduleTasks: React.FC<props> = ({
     refetchQueries,
   });
 
-  const patchAnalytics = usePatchAnalytics();
+  const { sendEvent } = useVersionAnalytics();
 
   return (
     <Popconfirm
@@ -66,7 +67,7 @@ export const UnscheduleTasks: React.FC<props> = ({
       }
       onConfirm={() => {
         unschedulePatchTasks({ variables: { patchId, abort } });
-        patchAnalytics.sendEvent({ name: "Unschedule", abort });
+        sendEvent({ name: "Unschedule", abort });
       }}
       okText="Yes"
       cancelText="Cancel"
@@ -82,6 +83,6 @@ export const UnscheduleTasks: React.FC<props> = ({
 };
 
 const StyledBody = styled(Body)`
-  padding-bottom: 8px;
-  padding-right: 8px;
+  padding-bottom: ${size.xs};
+  padding-right: ${size.xs};
 `;

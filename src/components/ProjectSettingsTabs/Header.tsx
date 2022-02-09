@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
 import { Button } from "components/Button";
 import { ProjectSettingsTabRoutes } from "constants/routes";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   ProjectSettingsSection,
@@ -53,6 +54,7 @@ export const Header: React.FC<Props> = ({
         `There was an error saving the project: ${err.message}`
       );
     },
+    refetchQueries: ["ProjectSettings"],
   });
 
   const [saveRepoSection] = useMutation<
@@ -65,6 +67,7 @@ export const Header: React.FC<Props> = ({
     onError(err) {
       dispatchToast.error(`There was an error saving the repo: ${err.message}`);
     },
+    refetchQueries: ["RepoSettings"],
   });
 
   const onClick = () => {
@@ -118,7 +121,7 @@ const mapRouteToSection: Record<WritableTabRoutes, ProjectSettingsSection> = {
   [ProjectSettingsTabRoutes.General]: ProjectSettingsSection.General,
   [ProjectSettingsTabRoutes.Access]: ProjectSettingsSection.Access,
   [ProjectSettingsTabRoutes.Variables]: ProjectSettingsSection.Variables,
-  [ProjectSettingsTabRoutes.GitHubCommitQueue]:
+  [ProjectSettingsTabRoutes.GithubCommitQueue]:
     ProjectSettingsSection.GithubAndCommitQueue,
   [ProjectSettingsTabRoutes.Notifications]:
     ProjectSettingsSection.Notifications,
@@ -128,21 +131,22 @@ const mapRouteToSection: Record<WritableTabRoutes, ProjectSettingsSection> = {
   [ProjectSettingsTabRoutes.ProjectTriggers]: ProjectSettingsSection.Triggers,
   [ProjectSettingsTabRoutes.PeriodicBuilds]:
     ProjectSettingsSection.PeriodicBuilds,
+  [ProjectSettingsTabRoutes.Plugins]: ProjectSettingsSection.Plugins,
 };
 
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: ${size.l};
 `;
 
 const TitleContainer = styled.div`
   flex-basis: 40%;
-  margin-right: 16px;
+  margin-right: ${size.s};
 `;
 
 const Subtitle = styled(Disclaimer)`
-  padding-top: 16px;
+  padding-top: ${size.s};
 `;
 
 const ButtonRow = styled.div`

@@ -1,15 +1,15 @@
-import React from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
+import Card from "@leafygreen-ui/card";
 import { uiColors } from "@leafygreen-ui/palette";
-import { Subtitle, Body } from "@leafygreen-ui/typography";
+import { Subtitle, Body, Disclaimer } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
-import get from "lodash/get";
 import { usePreferencesAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
-import { SiderCard, StyledLink } from "components/styles";
+import { StyledLink } from "components/styles";
 import { cliDocumentationUrl } from "constants/externalResources";
+import { size, fontSize } from "constants/tokens";
 import {
   ClientConfigQuery,
   ClientConfigQueryVariables,
@@ -28,76 +28,76 @@ export const DownloadCard = () => {
   if (loading) {
     return <Skeleton active paragraph={{ rows: 6 }} />;
   }
-  const clientBinaries = get(data, "clientConfig.clientBinaries", []);
+  const { clientConfig } = data;
+  const { clientBinaries } = clientConfig || {};
   const topBinaries = clientBinaries.filter(filterBinaries);
   const otherBinaries = clientBinaries.filter(
     (binary) => !filterBinaries(binary)
   );
 
   return (
-    <>
-      {/* @ts-expect-error */}
-      <Container>
-        <Subtitle>Command-Line Client</Subtitle>
-        <CardDescription>
-          <Body>
-            View the{" "}
-            <StyledLink href={cliDocumentationUrl}>documentation</StyledLink> or
-            run &nbsp;{" "}
-          </Body>
-          <InlinePre>evergreen --help or evergreen [command] --help</InlinePre>{" "}
-          <Body>for additional assistance.</Body>
-        </CardDescription>
-        <CardGroup>
-          {topBinaries.map((binary) => (
-            <CliDownloadBox
-              key={`downloadBox_${binary.url}`}
-              title={
-                prettyDisplayNameTop[binary.displayName] || binary.displayName
-              }
-              link={binary.url}
-            />
-          ))}
-        </CardGroup>
-        <Accordion
-          title={<StyledLink>Show More</StyledLink>}
-          toggledTitle={<StyledLink>Show Less</StyledLink>}
-          contents={<ExpandableLinkContents clientBinaries={otherBinaries} />}
-          toggleFromBottom
-          showCaret={false}
-        />
-      </Container>
-    </>
+    <Container>
+      <Subtitle>Command-Line Client</Subtitle>
+      <CardDescription>
+        <Body>
+          View the{" "}
+          <StyledLink href={cliDocumentationUrl}>documentation</StyledLink> or
+          run &nbsp;{" "}
+        </Body>
+        <InlinePre>evergreen --help or evergreen [command] --help</InlinePre>{" "}
+        <Body>for additional assistance.</Body>
+      </CardDescription>
+      <CardGroup>
+        {topBinaries.map((binary) => (
+          <CliDownloadBox
+            key={`downloadBox_${binary.url}`}
+            title={
+              prettyDisplayNameTop[binary.displayName] || binary.displayName
+            }
+            link={binary.url}
+            description={descriptions[binary.displayName]}
+          />
+        ))}
+      </CardGroup>
+      <Accordion
+        title="Show More"
+        toggledTitle="Show Less"
+        contents={<ExpandableLinkContents clientBinaries={otherBinaries} />}
+        showCaret={false}
+      />
+    </Container>
   );
 };
 
 interface CliDownloadBoxProps {
   title: string;
   link: string | null;
+  description?: string;
 }
-const CliDownloadBox: React.FC<CliDownloadBoxProps> = ({ title, link }) => {
+const CliDownloadBox: React.FC<CliDownloadBoxProps> = ({
+  title,
+  description,
+  link,
+}) => {
   const { sendEvent } = usePreferencesAnalytics();
   return (
-    <>
-      {/* @ts-expect-error */}
-      <CliDownloadCard>
-        {/* @ts-expect-error */}
-        <CliDownloadTitle>{title}</CliDownloadTitle>
-        <CliDownloadButton
-          onClick={() => {
-            sendEvent({
-              name: "CLI Download Link",
-              downloadName: title,
-            });
-          }}
-          href={link}
-          disabled={!link} // @ts-expect-error
-          as="a"
-        >
-          Download
-        </CliDownloadButton>
-      </CliDownloadCard>
-    </>
+    <CliDownloadCard>
+      <CliDownloadTitle>{title}</CliDownloadTitle>
+      {description && <Disclaimer>{description}</Disclaimer>}
+      <CliDownloadButton
+        onClick={() => {
+          sendEvent({
+            name: "CLI Download Link",
+            downloadName: title,
+          });
+        }}
+        href={link}
+        disabled={!link} // @ts-expect-error
+        as="a"
+      >
+        Download
+      </CliDownloadButton>
+    </CliDownloadCard>
   );
 };
 
@@ -128,8 +128,13 @@ const ExpandableLinkContents: React.FC<ExpandableLinkContentsProps> = ({
   );
 };
 
+const descriptions = {
+  "OSX 64-bit": "Intel CPU",
+  "OSX ARM 64-bit": "M1 CPU",
+};
 const prettyDisplayNameTop = {
   "OSX 64-bit": "macOS",
+  "OSX ARM 64-bit": "macOS ARM",
   "Windows 64-bit": "Windows",
   "Linux 64-bit": "Linux (64-bit)",
 };
@@ -139,25 +144,30 @@ const prettyDisplayNameAccordion = {
 };
 
 const filterBinaries = (binary: ClientBinary) =>
-  /darwin_amd64\/|linux_amd64\/|windows_amd64\//.test(binary.url);
+  /darwin_arm64\/|darwin_amd64\/|linux_amd64\/|windows_amd64\//.test(
+    binary.url
+  );
 
-const Container = styled(SiderCard)`
-  padding-left: 20px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-`;
+// @ts-expect-error
+const Container = styled(Card)`
+  padding: ${size.m};
+` as typeof Card;
+
 const CardGroup = styled.div`
   display: flex;
+  align-items: space-between;
+  margin-bottom: ${size.s};
 `;
-const CliDownloadCard = styled(SiderCard)`
+
+// @ts-expect-error
+const CliDownloadCard = styled(Card)`
   display: flex;
   flex-direction: column;
-  width: 180px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-left: 20px;
-  margin-right: 16px;
-`;
+  justify-content: space-between;
+  padding: ${size.s};
+  margin-right: ${size.xs};
+` as typeof Card;
+
 // @ts-expect-error
 const CliDownloadButton = styled(Button)`
   align-self: flex-start;
@@ -166,10 +176,10 @@ const CliDownloadButton = styled(Button)`
 // @ts-expect-error
 const CliDownloadTitle = styled(Subtitle)`
   font-weight: bold;
-  padding-bottom: 45px;
-`;
+` as typeof Subtitle;
+
 const CardDescription = styled.div`
-  font-size: 14px;
+  font-size: ${fontSize.m};
   margin-bottom: 40px;
 `;
 
@@ -183,5 +193,5 @@ const InlinePre = styled("pre")`
 const LinkContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 16px;
+  margin-bottom: ${size.s};
 `;

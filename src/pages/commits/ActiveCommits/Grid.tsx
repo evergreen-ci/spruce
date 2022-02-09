@@ -1,6 +1,6 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
+import { zIndex } from "constants/tokens";
 
 const { gray } = uiColors;
 
@@ -19,14 +19,14 @@ export const Grid: React.FC<{
 
 const ColumnContainer = styled.div`
   position: absolute;
+  top: 0;
   width: 100%;
   height: 226px;
   display: flex;
-  margin-top: 65px;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
-  z-index: -1;
+  z-index: ${zIndex.backdrop};
 `;
 
 const DashedLine = styled.div`

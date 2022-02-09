@@ -3,12 +3,14 @@ import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
 import { InputNumber, Popconfirm } from "antd";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { Button } from "components/Button";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { PageButtonRow } from "components/styles";
+import { getTaskHistoryRoute } from "constants/routes";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   SetTaskPriorityMutation,
@@ -33,6 +35,7 @@ import {
   UNSCHEDULE_TASK,
 } from "gql/mutations";
 import { useUpdateURLQueryParams } from "hooks";
+import { isBeta } from "utils/environmentalVariables";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
 interface Props {
@@ -43,6 +46,8 @@ interface Props {
   canUnschedule: boolean;
   canSetPriority: boolean;
   canOverrideDependencies: boolean;
+  taskName: string;
+  projectIdentifier: string;
 }
 
 export const ActionButtons: React.FC<Props> = ({
@@ -53,6 +58,8 @@ export const ActionButtons: React.FC<Props> = ({
   canUnschedule,
   initialPriority = 1,
   canOverrideDependencies,
+  projectIdentifier,
+  taskName,
 }) => {
   const dispatchToast = useToastContext();
   const [isVisibleModal, setIsVisibleModal] = useState(false);
@@ -250,6 +257,20 @@ export const ActionButtons: React.FC<Props> = ({
   return (
     <>
       <PageButtonRow>
+        {isBeta() ? (
+          <Button
+            size="small"
+            as={Link}
+            data-cy="task-history"
+            key="task-history"
+            onClick={() => {
+              taskAnalytics.sendEvent({ name: "Click See History Button" });
+            }}
+            to={getTaskHistoryRoute(projectIdentifier, taskName)}
+          >
+            See history
+          </Button>
+        ) : null}
         <Button
           size="small"
           data-cy="schedule-task"
@@ -305,5 +326,5 @@ export const ActionButtons: React.FC<Props> = ({
 };
 
 const StyledBody = styled(Body)`
-  padding-right: 8px;
+  padding-right: ${size.xs};
 `;

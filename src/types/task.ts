@@ -38,6 +38,11 @@ export enum LogTypes {
   System = "system",
   Task = "task",
   Event = "event",
+  All = "all",
+}
+
+export enum QueryParams {
+  LogType = "logtype",
 }
 
 export enum TaskStatus {
@@ -88,7 +93,6 @@ export enum TaskStatus {
   Aborted = "aborted",
 
   KnownIssue = "known-issue",
-  StatusBlocked = "StatusBlocked",
 
   FailedUmbrella = "failed-umbrella",
   SystemFailureUmbrella = "system-failure-umbrella",

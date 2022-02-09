@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { size } from "constants/tokens";
 import { MyVolume } from "types/spawn";
 import { DeleteVolumeBtn } from "./spawnVolumeTableActions/DeleteVolumeBtn";
 import { EditButton } from "./spawnVolumeTableActions/EditButton";
@@ -39,6 +40,6 @@ const FlexRow = styled.div`
   align-items: center;
   line-height: 1;
   button {
-    margin-right: 8px;
+    margin-right: ${size.xs};
   }
 `;

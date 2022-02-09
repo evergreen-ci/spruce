@@ -18,6 +18,7 @@ import {
   TableControlInnerRow,
   PageWrapper,
 } from "components/styles";
+import { size } from "constants/tokens";
 import {
   HostsQuery,
   HostsQueryVariables,
@@ -26,10 +27,11 @@ import {
 } from "gql/generated/types";
 import { HOSTS } from "gql/queries";
 import { HostsTable } from "pages/hosts/HostsTable";
-import { queryString, url } from "utils";
+import { array, queryString, url } from "utils";
 
+const { toArray } = array;
 const { getPageFromSearch, getLimitFromSearch } = url;
-const { getArray, getString, parseQueryString } = queryString;
+const { getString, parseQueryString } = queryString;
 
 export const Hosts: React.FC = () => {
   const hostsTableAnalytics = useHostsTableAnalytics();
@@ -193,7 +195,7 @@ const getQueryVariables = (search: string): HostsQueryVariables => {
     hostId: getString(hostId),
     distroId: getString(distroId),
     currentTaskId: getString(currentTaskId),
-    statuses: getArray(statuses),
+    statuses: toArray(statuses),
     startedBy: getString(startedBy),
     sortBy: getSortBy(sortBy),
     sortDir: getSortDir(sortDir),
@@ -212,8 +214,8 @@ const HostsSelectionWrapper = styled.div`
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  margin-left: 32px;
+  margin-left: ${size.l};
 `;
 const ButtonWrapper = styled.div`
-  margin-left: 24px;
+  margin-left: ${size.m};
 `;

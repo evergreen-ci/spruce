@@ -1,12 +1,17 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Breadcrumb } from "antd";
-import { useBreadcrumbAnalytics } from "analytics";
+import { useBreadcrumbAnalytics, BreadcrumbAnalytics } from "analytics";
 import { StyledRouterLink } from "components/styles";
 import { H3, P1 } from "components/Typography";
-import { getVersionRoute, getProjectPatchesRoute } from "constants/routes";
+import {
+  getVersionRoute,
+  getCommitsRoute,
+  getProjectPatchesRoute,
+} from "constants/routes";
+import { size } from "constants/tokens";
 import { useGetUserPatchesPageTitleAndLink } from "hooks";
+import { isBeta } from "utils/environmentalVariables";
 import { shortenGithash } from "utils/string";
 
 const { blue } = uiColors;
@@ -128,7 +133,7 @@ interface VersionBreadcrumbProps {
     project: string;
   };
   isTask: boolean;
-  analytics: ReturnType<typeof useBreadcrumbAnalytics>;
+  analytics: BreadcrumbAnalytics;
 }
 const VersionBreadcrumb: React.FC<VersionBreadcrumbProps> = ({
   versionMetadata,
@@ -142,18 +147,33 @@ const VersionBreadcrumb: React.FC<VersionBreadcrumbProps> = ({
     <>
       <Breadcrumb.Item>
         <StyledP1>
-          <StyledBreadcrumbLink
-            data-cy="bc-my-patches"
-            to={getProjectPatchesRoute(project)}
-            onClick={() =>
-              analytics.sendEvent({
-                name: "Click Link",
-                link: "myPatches",
-              })
-            }
-          >
-            {project}&apos;s patches
-          </StyledBreadcrumbLink>
+          {isBeta() ? (
+            <StyledBreadcrumbLink
+              data-cy="bc-waterfall"
+              to={getCommitsRoute(project)}
+              onClick={() =>
+                analytics.sendEvent({
+                  name: "Click Link",
+                  link: "waterfall",
+                })
+              }
+            >
+              {project}
+            </StyledBreadcrumbLink>
+          ) : (
+            <StyledBreadcrumbLink
+              data-cy="bc-my-patches"
+              to={getProjectPatchesRoute(project)}
+              onClick={() =>
+                analytics.sendEvent({
+                  name: "Click Link",
+                  link: "myPatches",
+                })
+              }
+            >
+              {project}&apos;s patches
+            </StyledBreadcrumbLink>
+          )}
         </StyledP1>
       </Breadcrumb.Item>
       {isTask ? (
@@ -187,7 +207,7 @@ const StyledP1 = styled(P1)`
 `;
 
 const StyledBreadcrumb = styled(Breadcrumb)`
-  margin-bottom: 16px;
+  margin-bottom: ${size.s};
 `;
 
 const StyledBreadcrumbLink = styled(StyledRouterLink)`

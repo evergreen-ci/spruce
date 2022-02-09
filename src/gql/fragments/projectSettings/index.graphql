@@ -1,0 +1,40 @@
+#import "./access.graphql"
+#import "./aliases.graphql"
+#import "./general.graphql"
+#import "./githubCommitQueue.graphql"
+#import "./variables.graphql"
+#import "./plugins.graphql"
+
+fragment projectSettings on ProjectSettings {
+  projectRef {
+    id
+    useRepoSettings
+    repoRefId
+    ...projectGeneralSettings
+    ...projectAccessSettings
+    ...projectPluginsSettings
+  }
+  vars {
+    ...variables
+  }
+  ...projectGithubCommitQueue
+  aliases {
+    ...alias
+  }
+}
+
+fragment repoSettings on RepoSettings {
+  projectRef {
+    id
+    ...repoGeneralSettings
+    ...repoAccessSettings
+    ...repoPluginsSettings
+  }
+  vars {
+    ...variables
+  }
+  ...repoGithubCommitQueue
+  aliases {
+    ...alias
+  }
+}

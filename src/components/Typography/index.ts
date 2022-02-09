@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
+import { size } from "constants/tokens";
 
 const { gray } = uiColors;
 
@@ -18,22 +19,22 @@ export const WordBreak = styled.span`
 export const H1 = styled.h1`
   font-size: 30px;
   line-height: 36px;
-  margin-bottom: 17px;
+  margin-bottom: ${size.s};
   color: ${gray.dark3};
   display: inline-flex;
 `;
 
 export const H2 = styled.h2`
   font-size: 20px;
-  line-height: 23px;
-  margin-bottom: 8px;
+  line-height: ${size.m};
+  margin-bottom: ${size.xs};
   color: ${gray.dark3};
   display: inline-flex;
 `;
 
 export const H3 = styled.h3`
   font-size: 15px;
-  line-height: 17px;
+  line-height: ${size.s};
   margin-bottom: 5px;
   color: ${gray.dark3};
   display: inline-flex;
@@ -41,7 +42,7 @@ export const H3 = styled.h3`
 
 export const P1 = styled.p`
   font-size: 15px;
-  line-height: 17px;
+  line-height: ${size.s};
   margin-bottom: 5px;
   color: ${gray.dark3};
   ${wordBreakCss};

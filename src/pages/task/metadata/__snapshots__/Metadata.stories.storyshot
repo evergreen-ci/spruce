@@ -5,7 +5,7 @@ exports[`storybook Storyshots Metadata Base 1`] = `
   className="css-1ej7kz3-Container egzqr3n0"
 >
   <div
-    className="css-1u7q4a0-SiderCard e1am38ss0 leafygreen-ui-fe135o"
+    className="css-1sz2cbo-SiderCard e1am38ss0 leafygreen-ui-fe135o"
   >
     <div
       className="leafygreen-ui-1sqf492"
@@ -63,20 +63,13 @@ exports[`storybook Storyshots Metadata Base 1`] = `
     </p>
     <p
       className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
-      data-cy="task-metadata-base-commit-duration"
-    >
-      Base commit duration: 
-      20m 28s
-    </p>
-    <p
-      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
     >
       Base commit:
        
       <a
-        className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
         data-cy="base-task-link"
-        href="https://evergreen.mongodb.com/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
+        href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
         onClick={[Function]}
       >
         e0ece5ad52
@@ -138,7 +131,7 @@ exports[`storybook Storyshots Metadata With Abort Message 1`] = `
   className="css-1ej7kz3-Container egzqr3n0"
 >
   <div
-    className="css-1u7q4a0-SiderCard e1am38ss0 leafygreen-ui-fe135o"
+    className="css-1sz2cbo-SiderCard e1am38ss0 leafygreen-ui-fe135o"
   >
     <div
       className="leafygreen-ui-1sqf492"
@@ -196,20 +189,13 @@ exports[`storybook Storyshots Metadata With Abort Message 1`] = `
     </p>
     <p
       className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
-      data-cy="task-metadata-base-commit-duration"
-    >
-      Base commit duration: 
-      20m 28s
-    </p>
-    <p
-      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
     >
       Base commit:
        
       <a
-        className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
         data-cy="base-task-link"
-        href="https://evergreen.mongodb.com/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
+        href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
         onClick={[Function]}
       >
         e0ece5ad52
@@ -271,7 +257,7 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
   className="css-1ej7kz3-Container egzqr3n0"
 >
   <div
-    className="css-1u7q4a0-SiderCard e1am38ss0 leafygreen-ui-fe135o"
+    className="css-1sz2cbo-SiderCard e1am38ss0 leafygreen-ui-fe135o"
   >
     <div
       className="leafygreen-ui-1sqf492"
@@ -329,20 +315,13 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
     </p>
     <p
       className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
-      data-cy="task-metadata-base-commit-duration"
-    >
-      Base commit duration: 
-      20m 28s
-    </p>
-    <p
-      className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
     >
       Base commit:
        
       <a
-        className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
         data-cy="base-task-link"
-        href="https://evergreen.mongodb.com/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
+        href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
         onClick={[Function]}
       >
         e0ece5ad52
@@ -399,7 +378,7 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
       data-cy="depends-on-container"
     >
       <h3
-        className="css-1el4fgd-H3 eplk6ht2"
+        className="css-1dp2png-H3 eplk6ht2"
       >
         Depends On
       </h3>
@@ -411,23 +390,17 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
         className="css-3ay4yh-DependsOnWrapper e1dgw5p64"
       >
         <div
-          className="css-1ncpeg7-LeftContainer e1dgw5p63"
+          className="css-19qa7s8-LeftContainer e1dgw5p63"
         >
           <svg
-            aria-label="X Icon"
-            className="leafygreen-ui-14toih"
-            fill="none"
+            fill="currentColor"
             height={16}
-            role="img"
-            viewBox="0 0 16 16"
+            viewBox="0 0 21 21"
             width={16}
-            xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              clipRule="evenodd"
-              d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
-              fill="currentColor"
-              fillRule="evenodd"
+              d="M17.7783.807588c-.7811-.7810482-2.0474-.7810486-2.8285 0L10.0001 5.75734 5.05035.807588c-.78105-.7810484-2.04738-.7810482-2.82843 0L.80771 2.2218c-.7810481.78105-.7810485 2.04738 0 2.82843l4.94975 4.94975L.80771 14.9497c-.7810474.7811-.7810481 2.0474 0 2.8285l1.41421 1.4142c.78105.781 2.04738.781 2.82843 0l4.94975-4.9498 4.9497 4.9498c.7811.781 2.0474.781 2.8285 0l1.4142-1.4142c.781-.7811.781-2.0474 0-2.8285l-4.9498-4.94972 4.9498-4.94975c.781-.78105.781-2.04738 0-2.82843L17.7783.807588Z"
+              fill="#CF4A22"
             />
           </svg>
         </div>
@@ -443,7 +416,7 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
             Some dep
           </a>
           <small
-            className="css-51mu5l-Subtitle e1dgw5p61 leafygreen-ui-13bqno6"
+            className="css-ojz0s8-Subtitle e1dgw5p61 leafygreen-ui-13bqno6"
           >
             in 
             ubuntu1604
@@ -459,7 +432,7 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
         className="css-3ay4yh-DependsOnWrapper e1dgw5p64"
       >
         <div
-          className="css-1ncpeg7-LeftContainer e1dgw5p63"
+          className="css-19qa7s8-LeftContainer e1dgw5p63"
         >
           <svg
             aria-label="Calendar Icon"
@@ -491,7 +464,7 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
             Some dep
           </a>
           <small
-            className="css-51mu5l-Subtitle e1dgw5p61 leafygreen-ui-13bqno6"
+            className="css-ojz0s8-Subtitle e1dgw5p61 leafygreen-ui-13bqno6"
           >
             in 
             ubuntu1604
@@ -507,7 +480,7 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
         className="css-3ay4yh-DependsOnWrapper e1dgw5p64"
       >
         <div
-          className="css-1ncpeg7-LeftContainer e1dgw5p63"
+          className="css-19qa7s8-LeftContainer e1dgw5p63"
         >
           <svg
             aria-label="Checkmark Icon"
@@ -539,7 +512,53 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
             Some dep
           </a>
           <small
-            className="css-51mu5l-Subtitle e1dgw5p61 leafygreen-ui-13bqno6"
+            className="css-ojz0s8-Subtitle e1dgw5p61 leafygreen-ui-13bqno6"
+          >
+            in 
+            ubuntu1604
+          </small>
+          <div
+            className="css-18qx7zk-StyledBadge-StyledBadge e1dgw5p60 leafygreen-ui-1sq0is2"
+          >
+            Must fail
+          </div>
+        </div>
+      </div>
+      <div
+        className="css-3ay4yh-DependsOnWrapper e1dgw5p64"
+      >
+        <div
+          className="css-19qa7s8-LeftContainer e1dgw5p63"
+        >
+          <svg
+            aria-label="Refresh Icon"
+            className="leafygreen-ui-3qal07"
+            fill="none"
+            height={16}
+            role="img"
+            viewBox="0 0 16 16"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8.033 2c2.699 0 4.95 1.718 5.467 4h1.414c.542 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 01-.765 0l-2.482-2.15A.584.584 0 019.951 6h1.447c-.469-1.085-1.68-2-3.365-2-1.026 0-1.877.34-2.491.85-.243.202-.618.203-.817-.043l-.61-.754a.468.468 0 01.044-.651C5.163 2.534 6.53 2 8.033 2zM3.95 6.843a.584.584 0 00-.765 0L.703 8.992a.584.584 0 00.383 1.026h1.418C3.03 12.291 5.275 14 7.967 14c1.505 0 2.87-.534 3.874-1.402a.468.468 0 00.044-.65l-.61-.755c-.2-.246-.574-.245-.817-.043-.614.51-1.465.85-2.49.85-1.676 0-2.883-.904-3.358-1.982H6.05a.584.584 0 00.383-1.026L3.95 6.842z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          className="css-yr1wle-RightContainer e1dgw5p62"
+        >
+          <a
+            className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+            data-cy="depends-on-link"
+            href="/task/some_task_id_4"
+            onClick={[Function]}
+          >
+            Some dep
+          </a>
+          <small
+            className="css-ojz0s8-Subtitle e1dgw5p61 leafygreen-ui-13bqno6"
           >
             in 
             ubuntu1604
