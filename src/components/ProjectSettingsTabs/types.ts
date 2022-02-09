@@ -8,6 +8,7 @@ import {
 import * as access from "./AccessTab/types";
 import * as general from "./GeneralTab/types";
 import * as githubCommitQueue from "./GithubCommitQueueTab/types";
+import * as notifications from "./NotificationsTab/types";
 import * as plugins from "./PluginsTab/types";
 import * as variables from "./VariablesTab/types";
 
@@ -35,6 +36,10 @@ export type TabDataProps = {
   [ProjectSettingsTabRoutes.GithubCommitQueue]: {
     projectData: githubCommitQueue.TabProps["projectData"];
     repoData: githubCommitQueue.TabProps["repoData"];
+  };
+  [ProjectSettingsTabRoutes.Notifications]: {
+    projectData: notifications.TabProps["projectData"];
+    repoData: notifications.TabProps["repoData"];
   };
 };
 

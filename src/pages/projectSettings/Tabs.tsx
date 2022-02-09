@@ -127,10 +127,19 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           />
         )}
       />
-      <TabRoute
-        Component={NotificationsTab}
+      <Route
         path={routes.projectSettingsNotifications}
-        tab={ProjectSettingsTabRoutes.Notifications}
+        render={(props) => (
+          <NotificationsTab
+            {...props}
+            id={projectId || repoData?.projectRef?.id}
+            projectData={
+              tabData[ProjectSettingsTabRoutes.Notifications].projectData
+            }
+            repoData={tabData[ProjectSettingsTabRoutes.Notifications].repoData}
+            useRepoSettings={useRepoSettings}
+          />
+        )}
       />
       <TabRoute
         Component={PatchAliasesTab}
