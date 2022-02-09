@@ -39,7 +39,7 @@ export const SetPatchPriority: React.FC<SetPriorityProps> = ({
     refetchQueries,
   });
 
-  const { sendEvent } = useVersionAnalytics();
+  const { sendEvent } = useVersionAnalytics(patchId);
 
   return (
     <Popconfirm
