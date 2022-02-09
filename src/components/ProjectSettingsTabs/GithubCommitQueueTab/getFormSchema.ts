@@ -194,6 +194,14 @@ export const getFormSchema = (
               repoData?.commitQueue?.enabled
             ),
           },
+          requireSigned: {
+            type: ["boolean", "null"],
+            title: "Require Signed Commits on Pull Request Merges",
+            oneOf: radioBoxOptions(
+              ["Enabled", "Disabled"],
+              repoData?.commitQueue?.requireSigned
+            ),
+          },
           message: {
             type: "string" as "string",
             title: "Commit Queue Message",
@@ -344,6 +352,9 @@ export const getFormSchema = (
         "ui:showLabel": false,
         "ui:widget": widgets.RadioBoxWidget,
         "ui:data-cy": "cq-enabled-radio-box",
+      },
+      requireSigned: {
+        "ui:widget": widgets.RadioBoxWidget,
       },
       message: {
         "ui:description": "Shown in commit queue CLI commands & web UI",

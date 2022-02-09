@@ -875,6 +875,7 @@ export type PeriodicBuildInput = {
 
 export type CommitQueueParamsInput = {
   enabled?: Maybe<Scalars["Boolean"]>;
+  requireSigned?: Maybe<Scalars["Boolean"]>;
   mergeMethod?: Maybe<Scalars["String"]>;
   message?: Maybe<Scalars["String"]>;
 };
@@ -1682,12 +1683,14 @@ export type PeriodicBuild = {
 
 export type CommitQueueParams = {
   enabled?: Maybe<Scalars["Boolean"]>;
+  requireSigned?: Maybe<Scalars["Boolean"]>;
   mergeMethod: Scalars["String"];
   message: Scalars["String"];
 };
 
 export type RepoCommitQueueParams = {
   enabled: Scalars["Boolean"];
+  requireSigned: Scalars["Boolean"];
   mergeMethod: Scalars["String"];
   message: Scalars["String"];
 };
@@ -2260,6 +2263,7 @@ export type ProjectGithubCommitQueueFragment = {
     gitTagAuthorizedTeams?: Maybe<Array<string>>;
     commitQueue: {
       enabled?: Maybe<boolean>;
+      requireSigned?: Maybe<boolean>;
       mergeMethod: string;
       message: string;
     };
@@ -2275,7 +2279,12 @@ export type RepoGithubCommitQueueFragment = {
     gitTagVersionsEnabled: boolean;
     gitTagAuthorizedUsers?: Maybe<Array<string>>;
     gitTagAuthorizedTeams?: Maybe<Array<string>>;
-    commitQueue: { enabled: boolean; mergeMethod: string; message: string };
+    commitQueue: {
+      enabled: boolean;
+      requireSigned: boolean;
+      mergeMethod: string;
+      message: string;
+    };
   }>;
 };
 
