@@ -51,13 +51,16 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.dataCy("schedule-patch").should("be.disabled");
   });
 
+  // We shouldn't actually unschedule patchWithVersion because patchWithVersionOnCommitQueue is a downstream task
+  // and other integration tests will be affected.
   it("'Unschedule' link opens popconfirm and unschedules patch", () => {
     getPatchCardByDescription(patchWithVersion).within(() => {
       cy.dataCy("patch-card-dropdown").click();
     });
     cy.dataCy("unschedule-patch").click({ force: true });
-    cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
-    cy.dataCy("toast").should("exist");
+    cy.get(popconfirmYesClassName).contains("Yes").should("be.visible");
+    cy.contains("Cancel").click();
+    cy.get(popconfirmYesClassName).should("not.be.visible");
   });
 
   it("'Unschedule' link is disabled for unfinalized patch", () => {
