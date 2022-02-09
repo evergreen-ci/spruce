@@ -5,6 +5,7 @@ import Button from "@leafygreen-ui/button";
 import { Option, Select } from "@leafygreen-ui/select";
 import { Link } from "react-router-dom";
 import { getTaskRoute } from "constants/routes";
+import { size } from "constants/tokens";
 import {
   GetBaseVersionAndTaskQuery,
   GetBaseVersionAndTaskQueryVariables,
@@ -182,13 +183,16 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
 
 const PreviousCommitsWrapper = styled.div`
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
 `;
 
 // @ts-expect-error
 const StyledSelect = styled(Select)`
   width: 220px;
-  margin-right: 8px;
+  margin-right: ${size.xs};
+
+  position: relative;
+  bottom: 20px; // to offset the label
 `;
 
 const getTaskFromMainlineCommitsQuery = (
