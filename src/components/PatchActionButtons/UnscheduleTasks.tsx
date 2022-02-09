@@ -6,6 +6,7 @@ import { Body } from "@leafygreen-ui/typography";
 import { Popconfirm } from "antd";
 import { useVersionAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   UnschedulePatchTasksMutation,
@@ -82,6 +83,6 @@ export const UnscheduleTasks: React.FC<props> = ({
 };
 
 const StyledBody = styled(Body)`
-  padding-bottom: 8px;
-  padding-right: 8px;
+  padding-bottom: ${size.xs};
+  padding-right: ${size.xs};
 `;

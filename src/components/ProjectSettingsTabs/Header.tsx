@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
 import { Button } from "components/Button";
 import { ProjectSettingsTabRoutes } from "constants/routes";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   ProjectSettingsSection,
@@ -136,16 +137,16 @@ const mapRouteToSection: Record<WritableTabRoutes, ProjectSettingsSection> = {
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: ${size.l};
 `;
 
 const TitleContainer = styled.div`
   flex-basis: 40%;
-  margin-right: 16px;
+  margin-right: ${size.s};
 `;
 
 const Subtitle = styled(Disclaimer)`
-  padding-top: 16px;
+  padding-top: ${size.s};
 `;
 
 const ButtonRow = styled.div`

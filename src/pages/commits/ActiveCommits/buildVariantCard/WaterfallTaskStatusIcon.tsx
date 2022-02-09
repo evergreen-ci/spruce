@@ -7,6 +7,7 @@ import { Skeleton } from "antd";
 import { Link } from "react-router-dom";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { getTaskRoute } from "constants/routes";
+import { zIndex } from "constants/tokens";
 import {
   GetFailedTaskStatusIconTooltipQuery,
   GetFailedTaskStatusIconTooltipQueryVariables,
@@ -46,7 +47,7 @@ export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = (
       usePortal={false}
       align="top"
       justify="middle"
-      popoverZIndex={4} // One more than the Absolute/Percentage chart toggle
+      popoverZIndex={zIndex.tooltip} // One more than the Absolute/Percentage chart toggle
       trigger={
         <IconButton
           onMouseOver={loadDataCb}

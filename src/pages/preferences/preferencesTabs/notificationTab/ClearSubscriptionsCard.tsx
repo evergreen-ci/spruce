@@ -5,6 +5,7 @@ import Button, { Variant } from "@leafygreen-ui/button";
 import Card from "@leafygreen-ui/card";
 import { Body } from "@leafygreen-ui/typography";
 import { usePreferencesAnalytics } from "analytics";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   ClearMySubscriptionsMutation,
@@ -75,7 +76,7 @@ export const ClearSubscriptionsCard: React.FC = () => {
 
 // @ts-expect-error
 const StyledClearSubscriptionButton = styled(Button)`
-  margin-top: 36px;
+  margin-top: ${size.m};
 `;
 
 const ContentWrapper = styled.div`
@@ -84,9 +85,7 @@ const ContentWrapper = styled.div`
 
 // @ts-expect-error
 const PreferencesCard = styled(Card)`
-  padding-left: 25px;
-  padding-top: 25px;
-  padding-bottom: 40px;
-  margin-bottom: 30px;
+  padding: ${size.m};
+  margin-bottom: ${size.m};
   width: 100%;
 `;

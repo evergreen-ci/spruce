@@ -2,20 +2,20 @@
 
 exports[`storybook Storyshots Editable Tags Field Editable Tag Field View 1`] = `
 <div
-  className="css-1ojulcu-FlexColumnContainer e1zn6k0"
+  className="css-1l8756f-FlexColumnContainer e1zn6k0"
 >
   <div
-    className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+    className="css-1lpxfqd-FlexColumnContainer e161fbrp2"
     data-cy="user-tag-row"
   >
     <div
       className="css-3oy7y7-FlexContainer e161fbrp3"
     >
       <div
-        className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+        className="css-1lpxfqd-FlexColumnContainer e161fbrp2"
       >
         <div
-          className="css-8jhme8-FlexColumnContainer-Section e161fbrp1"
+          className="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
         >
           <label
             className="css-c0hrp-InputLabel e1xf068s2"
@@ -37,10 +37,10 @@ exports[`storybook Storyshots Editable Tags Field Editable Tag Field View 1`] = 
         </div>
       </div>
       <div
-        className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+        className="css-1lpxfqd-FlexColumnContainer e161fbrp2"
       >
         <div
-          className="css-8jhme8-FlexColumnContainer-Section e161fbrp1"
+          className="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
         >
           <label
             className="css-c0hrp-InputLabel e1xf068s2"
@@ -62,7 +62,7 @@ exports[`storybook Storyshots Editable Tags Field Editable Tag Field View 1`] = 
         </div>
       </div>
       <div
-        className="css-1ys6knn-IconButtonContainer e161fbrp0"
+        className="css-1ehyxtd-IconButtonContainer e161fbrp0"
       >
         <button
           aria-disabled={false}
@@ -98,17 +98,17 @@ exports[`storybook Storyshots Editable Tags Field Editable Tag Field View 1`] = 
     </div>
   </div>
   <div
-    className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+    className="css-1lpxfqd-FlexColumnContainer e161fbrp2"
     data-cy="user-tag-row"
   >
     <div
       className="css-3oy7y7-FlexContainer e161fbrp3"
     >
       <div
-        className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+        className="css-1lpxfqd-FlexColumnContainer e161fbrp2"
       >
         <div
-          className="css-8jhme8-FlexColumnContainer-Section e161fbrp1"
+          className="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
         >
           <label
             className="css-c0hrp-InputLabel e1xf068s2"
@@ -130,10 +130,10 @@ exports[`storybook Storyshots Editable Tags Field Editable Tag Field View 1`] = 
         </div>
       </div>
       <div
-        className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+        className="css-1lpxfqd-FlexColumnContainer e161fbrp2"
       >
         <div
-          className="css-8jhme8-FlexColumnContainer-Section e161fbrp1"
+          className="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
         >
           <label
             className="css-c0hrp-InputLabel e1xf068s2"
@@ -155,7 +155,7 @@ exports[`storybook Storyshots Editable Tags Field Editable Tag Field View 1`] = 
         </div>
       </div>
       <div
-        className="css-1ys6knn-IconButtonContainer e161fbrp0"
+        className="css-1ehyxtd-IconButtonContainer e161fbrp0"
       >
         <button
           aria-disabled={false}
@@ -191,17 +191,17 @@ exports[`storybook Storyshots Editable Tags Field Editable Tag Field View 1`] = 
     </div>
   </div>
   <div
-    className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+    className="css-1lpxfqd-FlexColumnContainer e161fbrp2"
     data-cy="user-tag-row"
   >
     <div
       className="css-3oy7y7-FlexContainer e161fbrp3"
     >
       <div
-        className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+        className="css-1lpxfqd-FlexColumnContainer e161fbrp2"
       >
         <div
-          className="css-8jhme8-FlexColumnContainer-Section e161fbrp1"
+          className="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
         >
           <label
             className="css-c0hrp-InputLabel e1xf068s2"
@@ -223,10 +223,10 @@ exports[`storybook Storyshots Editable Tags Field Editable Tag Field View 1`] = 
         </div>
       </div>
       <div
-        className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+        className="css-1lpxfqd-FlexColumnContainer e161fbrp2"
       >
         <div
-          className="css-8jhme8-FlexColumnContainer-Section e161fbrp1"
+          className="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
         >
           <label
             className="css-c0hrp-InputLabel e1xf068s2"
@@ -248,7 +248,7 @@ exports[`storybook Storyshots Editable Tags Field Editable Tag Field View 1`] = 
         </div>
       </div>
       <div
-        className="css-1ys6knn-IconButtonContainer e161fbrp0"
+        className="css-1ehyxtd-IconButtonContainer e161fbrp0"
       >
         <button
           aria-disabled={false}
@@ -284,11 +284,11 @@ exports[`storybook Storyshots Editable Tags Field Editable Tag Field View 1`] = 
     </div>
   </div>
   <div
-    className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+    className="css-1lpxfqd-FlexColumnContainer e161fbrp2"
     data-cy="add-tag-button-row"
   >
     <div
-      className="css-10b13qw-ButtonContainer e161fbrp4"
+      className="css-pylksp-ButtonContainer e161fbrp4"
     >
       <button
         aria-disabled={false}

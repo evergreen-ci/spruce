@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
+import { size } from "constants/tokens";
 import { CommitRolledUpVersions } from "types/commits";
 import { string } from "utils";
 import { commitChartHeight, tooltipZIndex } from "../constants";
@@ -90,16 +91,16 @@ const getCommitCopy = (v: CommitRolledUpVersions[0]) =>
   } (#${v.order})`;
 
 const CommitText = styled(Body)`
-  padding: 4px 0;
+  padding: ${size.xxs} 0;
 `;
 
 const HiddenCommitsWrapper = styled.div`
   width: 60%;
   border-bottom: 1px solid ${gray.dark2};
   text-align: center;
-  padding: 4px 0;
+  padding: ${size.xxs} 0;
   align-self: center;
-  margin: 32px 0;
+  margin: ${size.l} 0;
 `;
 
 const TooltipContainer = styled.div`
@@ -125,14 +126,14 @@ const InactiveCommitLine = styled.div`
 `;
 
 const ButtonText = styled(Disclaimer)`
-  margin-top: 8px;
+  margin-top: ${size.xs};
   text-align: center;
   color: ${gray.dark2};
   font-weight: bold;
 `;
 
 const TitleText = styled(Body)`
-  margin-bottom: 16px;
+  margin-bottom: ${size.s};
 `;
 
 const Container = styled.div`

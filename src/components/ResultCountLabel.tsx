@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { size } from "constants/tokens";
 import { P2 } from "./Typography";
 
 interface Props {
@@ -25,5 +26,5 @@ export const ResultCountLabel: React.FC<Props> = ({
 
 const StyledP2 = styled(P2)`
   position: relative;
-  top: 5px;
+  top: ${size.xxs};
 `;

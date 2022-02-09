@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Description, H3, Subtitle } from "@leafygreen-ui/typography";
 import { Field, FieldProps } from "@rjsf/core";
+import { size } from "constants/tokens";
 
 type TitleFieldProps = Pick<FieldProps, "id" | "title" | "uiSchema">;
 
@@ -19,13 +20,13 @@ export const TitleField: React.FC<TitleFieldProps> = ({
 
 /* @ts-expect-error  */
 const StyledH3 = styled(H3)`
-  margin-top: 24px;
+  margin-top: ${size.m};
   margin-bottom: 12px;
 `;
 
 /* @ts-expect-error  */
 const StyledSubtitle = styled(Subtitle)`
-  margin-top: 16px;
+  margin-top: ${size.s};
   margin-bottom: 12px;
 `;
 

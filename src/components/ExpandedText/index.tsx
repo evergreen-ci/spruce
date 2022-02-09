@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip, { TriggerEvent } from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import { zIndex } from "constants/tokens";
 
 const { blue } = uiColors;
 
@@ -15,7 +16,7 @@ interface ExpandedTextProps {
 const ExpandedText: React.FC<ExpandedTextProps> = ({
   message,
   triggerEvent = TriggerEvent.Hover,
-  popoverZIndex = 0,
+  popoverZIndex = zIndex.popover,
   "data-cy": dataCy,
 }) => (
   <Tooltip

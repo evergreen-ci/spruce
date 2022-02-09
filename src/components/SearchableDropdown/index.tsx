@@ -5,6 +5,7 @@ import Dropdown from "components/Dropdown";
 import Icon from "components/Icon";
 import { InputLabel } from "components/styles";
 import TextInput from "components/TextInputWithGlyph";
+import { size } from "constants/tokens";
 import { toggleArray } from "utils/array";
 
 const { gray, blue } = uiColors;
@@ -198,7 +199,7 @@ const Wrapper = styled.div`
 `;
 
 const Option = styled.div`
-  padding: 10px 12px;
+  padding: ${size.xs} ${size.xxs};
   display: flex;
   align-items: start;
   word-break: break-all; // Safari
@@ -210,7 +211,7 @@ const Option = styled.div`
 `;
 
 const CheckmarkContainer = styled.div`
-  margin-right: 4px;
+  margin-right: ${size.xxs};
 `;
 
 const CheckmarkIcon = styled(Icon)<{ checked: boolean }>`
