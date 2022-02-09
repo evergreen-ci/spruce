@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
+import { size } from "constants/tokens";
 
 const { yellow, blue, green, red } = uiColors;
 
@@ -18,7 +19,7 @@ export const Banner = styled.div`
     }`};
   display: flex;
   justify-content: space-between;
-  padding: 5px 15px;
+  padding: ${size.xxs} ${size.s};
 `;
 
 export const bannerTypeToColor = {

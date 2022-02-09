@@ -5,6 +5,7 @@ import Button, { Variant } from "@leafygreen-ui/button";
 import Card from "@leafygreen-ui/card";
 import TextInput from "@leafygreen-ui/text-input";
 import { usePreferencesAnalytics } from "analytics";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   UpdateUserSettingsMutation,
@@ -127,30 +128,23 @@ const GridContainer = styled.div`
   display: grid;
   grid-template-columns: 2fr repeat(3, 1fr);
   grid-template-rows: repeat(7, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
+  column-gap: 0;
+  row-gap: 0;
   width: 50%;
-}
 `;
 
 const GridField = styled.div`
-  height: 50px;
   grid-area: ${(props: { gridArea: string }): string => props.gridArea};
 `;
 
 const StyledTextInput = styled(TextInput)`
-  margin-bottom: 24px;
+  margin-bottom: ${size.m};
   width: 50%;
-  :last-child {
-    margin-bottom: 40px;
-  }
 `;
 
 // @ts-expect-error
 const PreferencesCard = styled(Card)`
-  padding-left: 25px;
-  padding-top: 25px;
-  padding-bottom: 40px;
-  margin-bottom: 30px;
+  padding: ${size.m};
+  margin-bottom: ${size.m};
   width: 100%;
 `;

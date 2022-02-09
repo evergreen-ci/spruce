@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import Icon from "components/Icon";
+import { size } from "constants/tokens";
 import { MainlineCommitsForHistoryQuery } from "gql/generated/types";
 import { Unpacked } from "types/utils";
 
@@ -38,6 +39,6 @@ const Row = styled.div`
 `;
 
 const Copy = styled(Body)`
-  margin-left: 6px;
+  margin-left: ${size.xs};
   color: ${gray.dark2};
 `;

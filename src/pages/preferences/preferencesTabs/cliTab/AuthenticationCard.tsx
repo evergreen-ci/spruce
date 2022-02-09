@@ -8,6 +8,7 @@ import { Skeleton } from "antd";
 import get from "lodash/get";
 import { usePreferencesAnalytics } from "analytics";
 import { SiderCard } from "components/styles";
+import { size } from "constants/tokens";
 import {
   GetUserConfigQuery,
   GetUserConfigQueryVariables,
@@ -85,5 +86,5 @@ const CodeContainer = styled.div`
 
 // @ts-expect-error
 const StyledButton = styled(Button)`
-  margin-right: 16px;
+  margin-right: ${size.s};
 `;

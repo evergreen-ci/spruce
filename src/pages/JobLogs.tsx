@@ -9,6 +9,7 @@ import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { StyledRouterLink, StyledLink, PageWrapper } from "components/styles";
 import { getLobsterTestLogCompleteUrl } from "constants/externalResources";
 import { getTaskRoute } from "constants/routes";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   GetDisplayTaskQuery,
@@ -138,16 +139,16 @@ export const JobLogs = () => {
 };
 
 const SubtitleContainer = styled.div`
-  margin-bottom: 16px;
+  margin-bottom: ${size.s};
 `;
 const Row = styled.div`
   display: flex;
   justify-content: center;
-  padding: 16px;
+  padding: ${size.s};
 `;
 const Column = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 16px;
+  padding: ${size.s};
   word-break: break-all;
 `;

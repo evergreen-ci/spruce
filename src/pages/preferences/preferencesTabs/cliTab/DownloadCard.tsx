@@ -9,6 +9,7 @@ import { usePreferencesAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
 import { StyledLink } from "components/styles";
 import { cliDocumentationUrl } from "constants/externalResources";
+import { size, fontSize } from "constants/tokens";
 import {
   ClientConfigQuery,
   ClientConfigQueryVariables,
@@ -149,13 +150,13 @@ const filterBinaries = (binary: ClientBinary) =>
 
 // @ts-expect-error
 const Container = styled(Card)`
-  padding: 24px;
+  padding: ${size.m};
 ` as typeof Card;
 
 const CardGroup = styled.div`
   display: flex;
   align-items: space-between;
-  margin-bottom: 16px;
+  margin-bottom: ${size.s};
 `;
 
 // @ts-expect-error
@@ -163,8 +164,8 @@ const CliDownloadCard = styled(Card)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 16px;
-  margin-right: 8px;
+  padding: ${size.s};
+  margin-right: ${size.xs};
 ` as typeof Card;
 
 // @ts-expect-error
@@ -178,7 +179,7 @@ const CliDownloadTitle = styled(Subtitle)`
 ` as typeof Subtitle;
 
 const CardDescription = styled.div`
-  font-size: 14px;
+  font-size: ${fontSize.m};
   margin-bottom: 40px;
 `;
 
@@ -192,5 +193,5 @@ const InlinePre = styled("pre")`
 const LinkContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 16px;
+  margin-bottom: ${size.s};
 `;

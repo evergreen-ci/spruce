@@ -13,6 +13,7 @@ import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
 import { TasksTable } from "components/Table/TasksTable";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   Task,
@@ -230,17 +231,16 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
 };
 
 const ProjectTitleWrapper = styled.div`
-  margin-right: 10px;
+  margin-right: ${size.xs};
   font-weight: bold;
 `;
 
 const TableWrapper = styled.div`
-  padding-bottom: 15px;
-  padding-top: 15px;
+  padding: ${size.s} 0;
 `;
 
 const AccordionContents = styled.div`
-  margin: 16px 0;
+  margin: ${size.s} 0;
 `;
 
 const FlexContainer = styled.div`
@@ -250,5 +250,5 @@ const FlexContainer = styled.div`
 
 // @ts-expect-error
 const PaddedButton = styled(Button)`
-  margin-left: 15px;
+  margin-left: ${size.s};
 `;

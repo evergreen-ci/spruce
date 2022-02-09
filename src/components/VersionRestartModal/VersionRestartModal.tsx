@@ -9,6 +9,7 @@ import { useVersionAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
 import { Modal } from "components/Modal";
 import { TaskStatusFilters } from "components/TaskStatusFilters";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   BuildVariantsWithChildrenQuery,
@@ -280,19 +281,19 @@ const HR = styled.hr`
 `;
 
 const ConfirmationMessage = styled(Body)`
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: ${size.s};
+  padding-bottom: ${size.s};
 `;
 
 const Row = styled.div`
   display: flex;
   >: first-child {
-    margin-right: 16px;
+    margin-right: ${size.s};
   }
 `;
 
 export const TitleContainer = styled.div`
-  margin-top: 15px;
+  margin-top: ${size.s};
   width: 96%;
 `;
 

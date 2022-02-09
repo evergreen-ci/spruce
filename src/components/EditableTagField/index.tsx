@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
+import { size } from "constants/tokens";
 import { InstanceTag, ParameterInput } from "gql/generated/types";
 import { array } from "utils";
 import { TagRow } from "./TagRow";
@@ -82,6 +83,6 @@ export const EditableTagField: React.FC<EditableTagFieldProps> = ({
 const FlexColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-right: 10px;
+  margin-right: ${size.xs};
   max-width: 70%;
 `;

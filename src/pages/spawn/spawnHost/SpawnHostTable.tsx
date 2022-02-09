@@ -9,6 +9,7 @@ import { DoesNotExpire, SpawnTable } from "components/Spawn";
 import { StyledRouterLink } from "components/styles";
 import { WordBreak } from "components/Typography";
 import { getHostRoute } from "constants/routes";
+import { size } from "constants/tokens";
 import { MyHost } from "types/spawn";
 import { queryString, string } from "utils";
 import { SpawnHostCard } from "./SpawnHostCard";
@@ -113,7 +114,7 @@ const HostNameWrapper = styled.div`
 `;
 
 const WorkstationBadge = styled(Badge)`
-  margin-left: 5px;
+  margin-left: ${size.xxs};
 `;
 
 const NoWrap = styled.span`

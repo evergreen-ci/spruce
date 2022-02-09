@@ -6,6 +6,7 @@ import { Disclaimer, Subtitle } from "@leafygreen-ui/typography";
 import { useAnnotationAnalytics } from "analytics";
 import { StyledLink } from "components/styles";
 import { getJiraTicketUrl } from "constants/externalResources";
+import { size } from "constants/tokens";
 import {
   GetSpruceConfigQuery,
   JiraTicket,
@@ -135,47 +136,47 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
 
 // @ts-expect-error
 export const TicketsTitle = styled(Subtitle)<TitleProps>`
-  margin-bottom: ${(props) => (props.margin ? "15px" : "5px")};
-  margin-top: ${(props) => (props.margin ? "25px" : "35px")};
-  line-height: 24px;
+  margin-bottom: ${(props) => (props.margin ? size.s : size.xxs)};
+  margin-top: ${(props) => (props.margin ? size.m : size.l)};
+  line-height: ${size.m};
   font-weight: bold;
 `;
 
 const JiraSummaryLink = styled(StyledLink)`
   font-weight: bold;
-  margin-right: 15px;
+  margin-right: ${size.s};
 `;
 
 const StyledBadge = styled(Badge)`
   justify-content: center;
-  padding: 0px 15px 0px;
+  padding: 0px ${size.s} 0px;
 `;
 
 export const BottomMetaDataWrapper = styled.div`
-  margin-top: 7px;
+  margin-top: ${size.xs};
   display: grid;
   grid-template-columns: 1fr 1fr 2fr;
-  gap: 10px;
+  gap: ${size.xs};
   grid-template-rows: 1fr;
   grid-row-gap: 0px;
   width: 80%;
 `;
 
 export const TopMetaDataWrapper = styled.div`
-  margin-bottom: 7px;
+  margin-bottom: ${size.xs};
   display: grid;
   grid-template-columns: 1fr 4fr;
-  gap: 10px;
+  gap: ${size.xs};
   grid-template-rows: 1fr;
   grid-row-gap: 0px;
   width: 80%;
 `;
 
 export const TitleAndButtons = styled.div`
-  margin-left: 15px;
+  margin-left: ${size.s};
 `;
 
 export const ButtonWrapper = styled.div`
-  margin-right: 8px;
-  padding-top: 15px;
+  margin-right: ${size.xs};
+  padding-top: ${size.s};
 `;
