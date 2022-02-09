@@ -6,6 +6,7 @@ import Icon, { Size } from "@leafygreen-ui/icon";
 import { Table, Popconfirm, Tooltip } from "antd";
 import { useAnnotationAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   GetIssuesQuery,
@@ -260,22 +261,22 @@ export const CustomCreatedTicketsTable: React.FC<CreatedTicketsProps> = ({
 };
 
 export const TableWrapper = styled.div`
-  margin-top: 5px;
+  margin-top: ${size.xxs};
 `;
 export const StyledText = styled.div`
-  padding: 5px;
+  padding: ${size.xxs};
 `;
 
 const BtnContainer = styled.div`
   white-space: nowrap;
-  margin-bottom: 35px;
+  margin-bottom: ${size.l};
   float: right;
   white-space: nowrap;
 `;
 
 // @ts-expect-error
 const StyledButton = styled(Button)`
-  margin-left: 8px;
-  margin-top: 8px;
-  height: 28px;
+  margin-left: ${size.xs};
+  margin-top: ${size.xs};
+  height: ${size.m};
 `;

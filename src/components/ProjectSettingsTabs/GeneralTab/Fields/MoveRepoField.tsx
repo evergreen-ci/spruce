@@ -4,6 +4,7 @@ import { Field } from "@rjsf/core";
 import { Button } from "components/Button";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { SpruceForm } from "components/SpruceForm";
+import { size } from "constants/tokens";
 
 interface ModalProps {
   onCancel: () => void;
@@ -131,11 +132,11 @@ const ButtonRow = styled.div`
   display: inline;
 
   > :not(:last-child) {
-    margin-right: 8px;
+    margin-right: ${size.xs};
   }
 `;
 
 const Container = styled.div`
   ${(props: { hasButtons: boolean }): string =>
-    props.hasButtons && "margin-bottom: 20px;"}
+    props.hasButtons && `margin-bottom: ${size.m};`}
 `;

@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import Button, { Variant, Size } from "@leafygreen-ui/button";
 import { Link } from "@leafygreen-ui/typography";
 import { DisplayModal } from "components/DisplayModal";
+import { size } from "constants/tokens";
 import { FilterBadge } from "./FilterBadge";
 
 interface SeeMoreModalProps {
@@ -55,5 +56,5 @@ export const SeeMoreModal: React.FC<SeeMoreModalProps> = ({
 };
 
 const BadgeContainer = styled.div`
-  padding-top: 8px;
+  padding-top: ${size.xs};
 `;

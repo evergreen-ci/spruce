@@ -7,6 +7,7 @@ import { ColumnProps } from "antd/es/table";
 import { useHostsTableAnalytics } from "analytics";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
+import { size } from "constants/tokens";
 import { HostEventsQuery, HostEventLogEntry } from "gql/generated/types";
 import { getHostEventString } from "pages/host/getHostEventString";
 import { HostCard } from "pages/host/HostCard";
@@ -88,7 +89,7 @@ const rowKey = (record: HostEventLogEntry): string => `${record.id}`;
 // @ts-expect-error
 const StyledSubtitle = styled(Subtitle)`
   margin-bottom: 20px;
-  margin-top: 15px;
+  margin-top: ${size.s};
 `;
 
 const TableTitle = styled.div`

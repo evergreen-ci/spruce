@@ -11,6 +11,7 @@ import {
   TreeSelect,
   TreeSelectProps,
 } from "components/TreeSelect";
+import { fontSize } from "constants/tokens";
 
 const { focus } = uiColors;
 export interface InputFilterProps {
@@ -44,7 +45,7 @@ export const InputFilter: React.FC<InputFilterProps> = ({
 
   return (
     <FilterWrapper data-cy={`${dataCy}-wrapper`}>
-      <StyledTextInput
+      <TextInput
         description="Press enter to filter."
         type="search"
         aria-label="input-filter"
@@ -143,22 +144,16 @@ const FilterWrapper = styled.div`
   min-width: 200px; // need to set this as side effect of getPopupContainer
   font-weight: normal; // need to set this as side effect of getPopupContainer
 `;
-const StyledTextInput = styled(TextInput)`
-  p {
-    font-size: 12px;
-    padding-bottom: 8px;
-  }
-`;
 
 interface StyledOutlinedProps {
   active?: boolean;
 }
 const StyledFilterOutlined = styled(FilterOutlined)<StyledOutlinedProps>`
-  font-size: 16px;
+  font-size: ${fontSize.l};
   ${({ active }) => active && `color: ${focus}`}
 `;
 
 const StyledSearchOutlined = styled(SearchOutlined)<StyledOutlinedProps>`
-  font-size: 16px;
+  font-size: ${fontSize.l};
   ${({ active }) => active && `color: ${focus}`}
 `;

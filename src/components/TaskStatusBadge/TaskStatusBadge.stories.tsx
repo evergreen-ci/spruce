@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { size } from "constants/tokens";
 import { TaskStatus } from "types/task";
 import TaskStatusBadge from "./index";
 
@@ -29,5 +30,5 @@ const Container = styled.div`
   flex-wrap: wrap;
 `;
 const Wrapper = styled.div`
-  padding: 5px;
+  padding: ${size.xxs};
 `;

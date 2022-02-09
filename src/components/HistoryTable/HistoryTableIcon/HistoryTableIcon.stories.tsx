@@ -5,6 +5,7 @@ import { HistoryTableIcon } from "./index";
 
 export default {
   component: HistoryTableIcon,
+  title: "HistoryTableIcon",
 };
 
 const failingTests = [

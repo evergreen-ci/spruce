@@ -5,6 +5,7 @@ import { Tooltip } from "antd";
 import { useAnnotationAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { PlusButton } from "components/Spawn";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   GetIssuesQuery,
@@ -190,6 +191,5 @@ export const SuspectedIssues: React.FC<SuspectedIssuesProps> = ({
 };
 
 const StyledButton = styled(PlusButton)`
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: ${size.xs} 0;
 `;

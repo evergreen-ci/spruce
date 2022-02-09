@@ -6,6 +6,7 @@ import { Input } from "antd";
 import { usePreferencesAnalytics } from "analytics";
 import { Modal } from "components/Modal";
 import { InputLabel, ErrorMessage } from "components/styles";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   GetMyPublicKeysQuery,
@@ -185,13 +186,13 @@ export const EditModal: React.FC<EditModalProps> = ({
 
 // @ts-expect-error
 const LeftButton = styled(Button)`
-  margin-right: 16px;
+  margin-right: ${size.s};
 `;
 const StyledInput = styled(Input)`
-  margin-bottom: 24px;
+  margin-bottom: ${size.m};
 `;
 const ErrorContainer = styled.div`
-  margin-top: 8px;
+  margin-top: ${size.xs};
 `;
 const KEY_NAME_ID = "key-name-input";
 const KEY_VALUE_ID = "key-value-input";

@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { H2, Subtitle } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
+import { size as tokenSize } from "constants/tokens";
 
 type Size = "large" | "medium";
 
@@ -47,11 +48,8 @@ export const PageTitle: React.FC<Props> = ({
       <PageHeader size={size}>
         <TitleWrapper size={size}>
           <TitleTypography size={size}>
-            <span data-cy="page-title">
-              {title}
-              {"  "}
-              <BadgeWrapper size={size}>{badge}</BadgeWrapper>
-            </span>
+            <span data-cy="page-title">{title}</span>
+            <BadgeWrapper size={size}>{badge}</BadgeWrapper>
           </TitleTypography>
         </TitleWrapper>
         {buttons ?? null}
@@ -60,16 +58,16 @@ export const PageTitle: React.FC<Props> = ({
   </>
 );
 
-const BadgeWrapper = styled.span<TitleTypographyProps>`
+const BadgeWrapper = styled.div<TitleTypographyProps>`
   display: inline-flex;
   position: relative;
-  top: ${(props) => (props.size === "medium" ? "-2px" : "-4px")};
-  margin-left: ${(props) => props.size === "large" && "20px"};
+  margin-left: ${({ size }) => (size === "large" ? tokenSize.m : tokenSize.s)};
 `;
 
 const PageHeader = styled.div<TitleTypographyProps>`
-  margin-bottom: ${(props) => (props.size === "medium" ? "11px" : "30px")};
-  margin-top: ${(props) => props.size === "large" && "15px"};
+  margin-bottom: ${(props) =>
+    props.size === "medium" ? tokenSize.m : tokenSize.l};
+  ${({ size }) => size === "large" && `margin-top: ${tokenSize.s};`}
   display: flex;
   justify-content: space-between;
 `;

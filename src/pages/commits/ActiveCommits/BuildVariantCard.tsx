@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { StyledRouterLink } from "components/styles";
 import { getVariantHistoryRoute } from "constants/routes";
+import { size } from "constants/tokens";
+
 import {
   groupStatusesByUmbrellaStatus,
   isFailedTaskStatus,
@@ -127,16 +129,16 @@ const Label = styled(StyledRouterLink)`
 const IconContainer = styled.div`
   display: flex;
   flex-direction: row;
-  margin-bottom: 8px;
-  margin-top: 8px;
+  margin-bottom: ${size.xs};
+  margin-top: ${size.xs};
   flex-wrap: wrap;
 `;
 
 const Container = styled.div`
   width: 160px;
-  margin-bottom: 16px;
+  margin-bottom: ${size.s};
 `;
 
 const GroupedTaskStatusBadgeWrapper = styled.div`
-  margin-right: 4px;
+  margin-right: ${size.xxs};
 `;

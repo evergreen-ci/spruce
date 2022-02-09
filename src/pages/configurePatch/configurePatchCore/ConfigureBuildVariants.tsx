@@ -6,6 +6,8 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { inactiveElementStyle, SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
+import { size } from "constants/tokens";
+
 import { array } from "utils";
 
 const { toggleArray } = array;
@@ -195,8 +197,8 @@ interface UserSelectWrapperProps {
 }
 
 const cardSidePadding = css`
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: ${size.xs};
+  padding-right: ${size.xs};
 `;
 const Container = styled.div`
   ${cardSidePadding}
@@ -217,9 +219,9 @@ const StyledSiderCard = styled(SiderCard)`
 const BuildVariant = styled.div<VariantProps>`
   display: flex;
   align-items: center;
-  min-height: 32px;
+  min-height: ${size.l};
   cursor: pointer;
-  padding: 8px 0;
+  padding: ${size.xs} 0;
   ${cardSidePadding}
   background-color: ${(props: VariantProps): string =>
     props.isSelected ? green.light3 : "none"};
@@ -232,7 +234,7 @@ const VariantName = styled.div`
   white-space: normal;
 `;
 const StyledBadge = styled(Badge)`
-  margin-left: 8px;
+  margin-left: ${size.xs};
 `;
 
 const ScrollableBuildVariantContainer = styled.div`
@@ -242,11 +244,11 @@ const ScrollableBuildVariantContainer = styled.div`
   // Styles to always show scrollbar
   ::-webkit-scrollbar {
     -webkit-appearance: none;
-    width: 7px;
+    width: ${size.xs};
   }
 
   ::-webkit-scrollbar-thumb {
-    border-radius: 4px;
+    border-radius: ${size.xxs};
     background-color: rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
   }

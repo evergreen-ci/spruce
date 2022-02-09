@@ -8,6 +8,7 @@ import { Divider } from "components/styles/Divider";
 import { H3, P1 } from "components/Typography";
 import { pollInterval } from "constants/index";
 import { getVersionRoute } from "constants/routes";
+import { size } from "constants/tokens";
 import {
   BuildVariantsQuery,
   BuildVariantsQueryVariables,
@@ -95,7 +96,7 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
 };
 
 const BuildVariant = styled.div`
-  margin-bottom: 8px;
+  margin-bottom: ${size.xs};
 `;
 const VariantTasks = styled.div`
   display: flex;

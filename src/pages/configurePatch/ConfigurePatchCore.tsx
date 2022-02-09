@@ -11,6 +11,8 @@ import { PageContent, PageLayout, PageSider } from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { P2 } from "components/Typography";
 import { getVersionRoute } from "constants/routes";
+import { size } from "constants/tokens";
+
 import { useToastContext } from "context/toast";
 import {
   SchedulePatchMutation,
@@ -265,9 +267,9 @@ const filterAliases = (
 };
 
 const StyledInput = styled(Input)`
-  margin-bottom: 16px;
+  margin-bottom: ${size.s};
   font-weight: 600;
 `;
 const StyledBody = styled(Body)`
-  margin-bottom: 4px;
+  margin-bottom: ${size.xxs};
 `;

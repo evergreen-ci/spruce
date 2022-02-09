@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { format } from "date-fns";
 import { StyledLink, StyledRouterLink } from "components/styles";
 import { getHostRoute } from "constants/routes";
+import { size } from "constants/tokens";
 import { TaskEventLogEntry } from "gql/generated/types";
 
 const FORMAT_STR = "MMM d, yyyy, h:mm:ss aaaa";
@@ -105,12 +106,12 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
 };
 
 const Row = styled.div`
-  font-size: 1.2em;
-  padding-top: 8px;
-  margin-bottom: 8px;
+  font-size: 16px;
+  padding-top: ${size.xs};
+  margin-bottom: ${size.xs};
   border-top: 1px dotted #ccc;
 `;
 
 const Timestamp = styled.span`
-  margin-right: 15px;
+  margin-right: ${size.s};
 `;

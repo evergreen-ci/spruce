@@ -5,6 +5,7 @@ import Code from "@leafygreen-ui/code";
 import { InlineCode, Body } from "@leafygreen-ui/typography";
 import get from "lodash/get";
 import { SiderCard } from "components/styles";
+import { size } from "constants/tokens";
 import {
   ClientConfigQuery,
   ClientConfigQueryVariables,
@@ -39,13 +40,9 @@ export const VerifyCard = () => {
 };
 
 const Container = styled(SiderCard)`
-  padding-left: 20px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: ${size.m};
 `;
 
 const CodeContainer = styled.div`
-  margin-top: 30px;
-  margin-bottom: 30px;
   width: 80%;
 `;

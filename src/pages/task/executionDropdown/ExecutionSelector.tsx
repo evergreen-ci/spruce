@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { Select } from "antd";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { P1 } from "components/Typography";
+import { fontSize, size } from "constants/tokens";
 import {
   GetTaskAllExecutionsQuery,
   GetTaskAllExecutionsQueryVariables,
@@ -71,11 +72,11 @@ export const ExecutionSelect: React.FC<ExecutionSelectProps> = ({
 };
 
 const StyledSelect = styled(Select)`
-  margin-bottom: 10px;
+  margin-bottom: ${size.xs};
   width: 100%;
 `;
 const StyledP1 = styled(P1)`
-  font-size: 14px;
+  font-size: ${fontSize.m};
 `;
 
 const Row = styled.div`
@@ -83,5 +84,5 @@ const Row = styled.div`
 `;
 
 const StyledTaskStatusIcon = styled(TaskStatusIcon)`
-  margin-right: 3px;
+  margin-right: ${size.xxs};
 `;

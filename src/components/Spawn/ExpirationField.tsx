@@ -7,6 +7,7 @@ import { set } from "date-fns";
 import DatePicker from "components/DatePicker";
 import { InputLabel } from "components/styles";
 import TimePicker from "components/TimePicker";
+import { size } from "constants/tokens";
 import {
   GetSpruceConfigQuery,
   GetSpruceConfigQueryVariables,
@@ -140,12 +141,11 @@ const FormContainer = styled.div`
 `;
 
 const PaddedBody = styled.span`
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-top: 22px;
+  padding: 0 ${size.s};
+  margin-top: ${size.m};
 `;
 
 // @ts-ignore
 const PaddedCheckbox = styled(Checkbox)`
-  margin-top: 22px;
+  margin-top: ${size.m};
 ` as typeof Checkbox;

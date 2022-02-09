@@ -9,6 +9,7 @@ import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { StyledLink, StyledRouterLink } from "components/styles";
 import { getGithubPullRequestUrl } from "constants/externalResources";
 import { getVersionRoute } from "constants/routes";
+import { size, fontSize } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   ModuleCodeChangeFragment,
@@ -139,13 +140,13 @@ export const CommitQueueCard: React.FC<Props> = ({
 
 const Card = styled.div`
   display: flex;
-  margin-top: 16px;
+  margin-top: ${size.s};
   width: 100%;
 `;
 
 const cardTitleStyles = css`
-  margin-bottom: 16px;
-  font-size: 18px;
+  margin-bottom: ${size.s};
+  font-size: ${fontSize.l};
   font-weight: bold;
 `;
 
@@ -167,8 +168,8 @@ const CommitInfo = styled.div`
   display: flex;
   flex-direction: column;
   grid-area: 1 / 1 / 2 / 2;
-  margin-left: 16px;
-  margin-bottom: 24px;
+  margin-left: ${size.s};
+  margin-bottom: ${size.m};
   width: 100%;
 `;
 const CardMetaData = styled(Body)`
@@ -190,5 +191,5 @@ const CommitQueueCardActions = styled.div`
 `;
 
 const Container = styled.div`
-  padding-top: 24px;
+  padding-top: ${size.m};
 `;

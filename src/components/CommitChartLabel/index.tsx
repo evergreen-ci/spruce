@@ -5,6 +5,7 @@ import { Body } from "@leafygreen-ui/typography";
 import ExpandedText from "components/ExpandedText";
 import { StyledRouterLink } from "components/styles";
 import { getVersionRoute } from "constants/routes";
+import { size, zIndex } from "constants/tokens";
 import {
   GetSpruceConfigQuery,
   GetSpruceConfigQueryVariables,
@@ -55,7 +56,7 @@ const CommitChartLabel: React.FC<Props> = ({
       </LabelText>
       {shortenMessage && (
         <ExpandedText
-          popoverZIndex={10}
+          popoverZIndex={zIndex.tooltip}
           message={message}
           data-cy="long-commit-message-tooltip"
         />
@@ -68,8 +69,8 @@ const LabelContainer = styled.div`
   height: 100px;
   width: 100%;
   display: flex;
-  margin-top: 10px;
-  margin-bottom: 16px;
+  margin-top: ${size.xs};
+  margin-bottom: ${size.s};
   flex-direction: column;
   align-items: flex-start;
   word-break: break-word;

@@ -54,6 +54,7 @@ const TextInputWrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 `;
 
 const StyledIcon = styled(Icon)`
