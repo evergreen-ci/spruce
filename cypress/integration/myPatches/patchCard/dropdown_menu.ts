@@ -1,7 +1,7 @@
 import { popconfirmYesClassName } from "../../../utils/popconfirm";
 
 const patchWithoutVersion = "test meee";
-const patchWithVersion = "dist";
+const patchWithVersion = "main: EVG-7823 add a commit queue message (#4048)";
 const patchWithVersionOnCommitQueue =
   "'evergreen-ci/evergreen' pull request #3186 by bsamek: EVG-7425 Don't send ShouldExit to unprovisioned hosts (https://github.com/evergreen-ci/evergreen/pull/3186)";
 
@@ -67,15 +67,19 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.dataCy("unschedule-patch").should("be.disabled");
   });
 
-  it.only("'Restart' link shows restart patch modal", () => {
-    getPatchCardByDescription(patchWithVersion).within(() => {
+  // This will generate a 'Will Run' status that is used in version/task_filters.ts
+  it("'Restart' link shows restart patch modal", () => {
+    getPatchCardByDescription(patchWithVersionOnCommitQueue).within(() => {
       cy.dataCy("patch-card-dropdown").click();
     });
     cy.dataCy("restart-patch").click({ force: true });
 
     cy.dataCy("accordion-toggle").first().click();
-    cy.contains("dist").should("exist");
-    cy.contains("Ubuntu 16.04").click();
+    cy.dataCy("patch-status-selector-container")
+      .children()
+      .first()
+      .click({ force: true });
+    cy.contains("generate-lint").click();
     cy.dataCy("restart-patch-button").click();
     cy.dataCy("toast").should("exist");
   });
