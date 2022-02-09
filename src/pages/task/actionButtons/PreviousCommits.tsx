@@ -137,7 +137,6 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
   let link: string;
   if (parentTask) {
     switch (selectState) {
-      // The task may not exist on the base version if base version is inactive or task is generated.
       case CommitType.Base:
         link = getTaskRoute(parentTask.id);
         break;
