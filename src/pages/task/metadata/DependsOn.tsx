@@ -42,13 +42,15 @@ const DependsOnWrapper = styled.div`
 
 const LeftContainer = styled.div`
   width: ${size.m};
-  padding-top: ${size.xs};
+  padding-top: ${size.xxs};
   padding-right: ${size.xs};
 `;
 
 const RightContainer = styled.div`
   display: flex;
   flex-direction: column;
+  word-break: break-all;
+  padding-right: ${size.xs};
 `;
 
 const Subtitle = styled(Disclaimer)`
