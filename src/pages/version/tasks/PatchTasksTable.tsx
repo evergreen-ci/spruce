@@ -23,7 +23,7 @@ interface Props {
 export const PatchTasksTable: React.FC<Props> = ({ patchTasks, sorts }) => {
   const { id: versionId } = useParams<{ id: string }>();
   const updateQueryParams = useUpdateURLQueryParams();
-  const { sendEvent } = useVersionAnalytics();
+  const { sendEvent } = useVersionAnalytics(versionId);
   const filterHookProps = {
     resetPage: true,
     sendAnalyticsEvent: (filterBy: string) =>
