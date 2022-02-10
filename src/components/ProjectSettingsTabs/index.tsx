@@ -3,7 +3,7 @@ export { EventLogTab } from "./EventLogTab";
 export { GeneralTab } from "./GeneralTab/GeneralTab";
 export { GithubCommitQueueTab } from "./GithubCommitQueueTab/GithubCommitQueueTab";
 export { Header } from "./Header";
-export { NotificationsTab } from "./NotificationsTab";
+export { NotificationsTab } from "./NotificationsTab/NotificationsTab";
 export { PatchAliasesTab } from "./PatchAliasesTab/PatchAliasesTab";
 export { PeriodicBuildsTab } from "./PeriodicBuildsTab";
 export { ProjectTriggersTab } from "./ProjectTriggersTab";
