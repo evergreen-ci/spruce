@@ -44,7 +44,6 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                     aria-describedby="select-1-description"
                     aria-disabled={false}
                     aria-expanded={false}
-                    aria-invalid={false}
                     aria-labelledby="select-1-label"
                     className="leafygreen-ui-p6v5m8"
                     data-testid="leafygreen-ui-select-menubutton"
@@ -60,13 +59,9 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                       className="leafygreen-ui-sl5lf4"
                     >
                       <div
-                        className="leafygreen-ui-e32n5q"
+                        className="leafygreen-ui-17aj16e"
                       >
-                        <div
-                          className="leafygreen-ui-17aj16e"
-                        >
-                          Legacy SSH
-                        </div>
+                        Legacy SSH
                       </div>
                       <span
                         className="leafygreen-ui-18n6mp2"
