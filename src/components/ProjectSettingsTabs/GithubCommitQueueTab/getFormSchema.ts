@@ -355,6 +355,7 @@ export const getFormSchema = (
       },
       requireSigned: {
         "ui:widget": widgets.RadioBoxWidget,
+        ...(formData?.commitQueue?.enabled === false && { "ui:hide": true }),
       },
       message: {
         "ui:description": "Shown in commit queue CLI commands & web UI",

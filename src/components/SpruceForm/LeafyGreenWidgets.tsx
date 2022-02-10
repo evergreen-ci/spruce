@@ -203,12 +203,19 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
   value,
   onChange,
   disabled,
+  uiSchema,
 }) => {
   const { description, enumOptions, "data-cy": dataCy, showLabel } = options;
   if (!Array.isArray(enumOptions)) {
     console.error(
       "enumOptions must be an array passed into LeafyGreen Radio Box"
     );
+    return null;
+  }
+
+  // Workaround because {ui:widget: hidden} does not play nicely with this widget
+  const hide = uiSchema["ui:hide"] ?? false;
+  if (hide) {
     return null;
   }
 
