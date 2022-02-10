@@ -1,27 +1,29 @@
 import { mapTaskStatusToUmbrellaStatus } from "constants/task";
 
-export const groupTasksByUmbrellaStatus = (tasks: { status: string }[]) => {
+export const groupTaskStatsByUmbrellaStatus = (
+  stats: { status: string; count: number }[]
+) => {
   const result: {
     [key: string]: {
       count: number;
       statuses: { [key: string]: number };
     };
   } = {};
-  tasks.forEach((task) => {
-    const umbrellaStatus = mapTaskStatusToUmbrellaStatus[task.status];
+  stats.forEach((stat) => {
+    const umbrellaStatus = mapTaskStatusToUmbrellaStatus[stat.status];
     if (result[umbrellaStatus]) {
-      result[umbrellaStatus].count += 1;
+      result[umbrellaStatus].count += stat.count;
     } else {
       result[umbrellaStatus] = {
-        count: 1,
+        count: stat.count,
         statuses: {},
       };
     }
     const statusCounts = result[umbrellaStatus].statuses;
-    if (statusCounts[task.status]) {
-      statusCounts[task.status] += 1;
+    if (statusCounts[stat.status]) {
+      statusCounts[stat.status] += stat.count;
     } else {
-      statusCounts[task.status] = 1;
+      statusCounts[stat.status] = stat.count;
     }
   });
   return result;

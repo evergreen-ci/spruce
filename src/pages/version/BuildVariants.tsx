@@ -1,32 +1,33 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
-import { SiderCard } from "components/styles";
+import { StyledRouterLink, SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
-import { H3, P1 } from "components/Typography";
+import { H3 } from "components/Typography";
 import { pollInterval } from "constants/index";
 import { getVersionRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import {
-  BuildVariantsQuery,
-  BuildVariantsQueryVariables,
+  GetBuildVariantStatsQuery,
+  GetBuildVariantStatsQueryVariables,
+  StatusCount,
 } from "gql/generated/types";
-import { GET_BUILD_VARIANTS } from "gql/queries";
+import { GET_BUILD_VARIANTS_STATS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
 import { applyStrictRegex } from "utils/string";
 import { GroupedTaskSquare } from "./buildVariants/GroupedTaskSquare";
-import { groupTasksByUmbrellaStatus } from "./buildVariants/utils";
+import { groupTaskStatsByUmbrellaStatus } from "./buildVariants/utils";
 
 export const BuildVariants: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { sendEvent } = useVersionAnalytics(id);
 
   const { data, loading, error, startPolling, stopPolling } = useQuery<
-    BuildVariantsQuery,
-    BuildVariantsQueryVariables
-  >(GET_BUILD_VARIANTS, {
+    GetBuildVariantStatsQuery,
+    GetBuildVariantStatsQueryVariables
+  >(GET_BUILD_VARIANTS_STATS, {
     variables: { id },
     pollInterval,
   });
@@ -41,13 +42,13 @@ export const BuildVariants: React.FC = () => {
         <Divider />
         {error && <div>{error.message}</div>}{" "}
         {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
-        {version?.buildVariants?.map(({ displayName, tasks, variant }) => (
-          <BuildVariant
-            key={`buildVariant_${displayName}_${tasks.length}`}
-            data-cy="patch-build-variant"
-          >
-            <P1>
-              <Link
+        {version?.buildVariantStats?.map(
+          ({ displayName, statusCounts, variant }) => (
+            <BuildVariant
+              key={`buildVariant_${displayName}_${variant}`}
+              data-cy="patch-build-variant"
+            >
+              <StyledRouterLink
                 to={`${getVersionRoute(id, {
                   page: 0,
                   variant: applyStrictRegex(variant),
@@ -59,35 +60,42 @@ export const BuildVariants: React.FC = () => {
                 }
               >
                 {displayName}
-              </Link>
-            </P1>
-            <VariantTaskGroup variant={variant} tasks={tasks} />
-          </BuildVariant>
-        ))}
+              </StyledRouterLink>
+              <VariantTaskGroup
+                variant={variant}
+                statusCounts={statusCounts}
+                versionId={id}
+              />
+            </BuildVariant>
+          )
+        )}
       </SiderCard>
     </>
   );
 };
 
 interface VariantTaskGroupProps {
-  tasks: { status: string }[];
   variant: string;
+  statusCounts: StatusCount[];
+  versionId: string;
 }
 const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
-  tasks,
+  statusCounts,
   variant,
+  versionId,
 }) => {
-  const groupedTasks = groupTasksByUmbrellaStatus(tasks);
+  const orderedStatusCounts = groupTaskStatsByUmbrellaStatus(statusCounts);
   return (
     <VariantTasks>
-      {Object.entries(groupedTasks).map(
+      {Object.entries(orderedStatusCounts).map(
         ([umbrellaStatus, { statuses, count }]) => (
           <GroupedTaskSquare
             key={`${variant}_${umbrellaStatus}`}
-            statuses={statuses}
-            count={count}
             variant={variant}
             umbrellaStatus={umbrellaStatus}
+            count={count}
+            versionId={versionId}
+            statuses={statuses}
           />
         )
       )}
