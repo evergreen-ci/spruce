@@ -37,6 +37,13 @@ describe("Task Queue", () => {
     cy.get(".ant-table-row").should("have.length", 13);
   });
 
+  it("Renders link to host page filtered to that particular distro", () => {
+    cy.visit("/task-queue/debian71-test");
+    cy.contains("View hosts")
+      .should("have.attr", "href")
+      .and("eq", "/hosts?distroId=debian71-test");
+  });
+
   it("Searching for a distro shows results that match search term", () => {
     cy.visit("/task-queue/debian71-test");
 
@@ -48,10 +55,10 @@ describe("Task Queue", () => {
     });
   });
 
-  it("Bogus distro url param values shows an empty list", () => {
+  it("Bogus distro url param values do not display any results", () => {
     cy.visit("/task-queue/peace");
-
-    cy.get(".ant-table-row").should("have.length", 0);
+    cy.contains("Sorry, we couldn't find that distro.");
+    cy.get(".ant-table-row").should("not.exist");
   });
 
   it("Scrolls to current task if taskId param in url", () => {
