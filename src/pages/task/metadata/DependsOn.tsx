@@ -50,7 +50,7 @@ const RightContainer = styled.div`
   display: flex;
   flex-direction: column;
   word-break: break-all;
-  padding-right: ${size.xs};
+  padding-right: ${size.xxs};
 `;
 
 const Subtitle = styled(Disclaimer)`
