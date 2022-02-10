@@ -34,8 +34,8 @@ export const PatchNotificationModal: React.FC<ModalProps> = ({
   visible,
   onCancel,
 }) => {
-  const { id: taskId } = useParams<{ id: string }>();
-  const { sendEvent } = useVersionAnalytics();
+  const { id: patchId } = useParams<{ id: string }>();
+  const { sendEvent } = useVersionAnalytics(patchId);
 
   return (
     <NotificationModal
@@ -45,7 +45,7 @@ export const PatchNotificationModal: React.FC<ModalProps> = ({
       triggers={triggers}
       subscriptionMethodControls={subscriptionMethodControls}
       subscriptionMethodDropdownOptions={subscriptionMethodDropdownOptions}
-      resourceId={taskId}
+      resourceId={patchId}
       sendAnalyticsEvent={(subscription) =>
         sendEvent({ name: "Add Notification", subscription })
       }

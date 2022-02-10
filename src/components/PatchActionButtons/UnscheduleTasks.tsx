@@ -47,7 +47,7 @@ export const UnscheduleTasks: React.FC<props> = ({
     refetchQueries,
   });
 
-  const { sendEvent } = useVersionAnalytics();
+  const { sendEvent } = useVersionAnalytics(patchId);
 
   return (
     <Popconfirm
