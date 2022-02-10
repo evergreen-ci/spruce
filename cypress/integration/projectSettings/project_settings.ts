@@ -56,11 +56,12 @@ describe("Repo Settings", () => {
         cy.dataCy("cq-card").children().should("have.length", count);
       };
 
-      countCQFields(4);
+      countCQFields(5);
       cy.dataCy("cq-enabled-radio-box").children().eq(1).click();
-      countCQFields(1);
+      countCQFields(2);
+      cy.dataCy("cq-card").children().eq(1).should("be.empty");
       cy.dataCy("cq-enabled-radio-box").children().first().click();
-      countCQFields(4);
+      countCQFields(5);
     });
 
     it("Presents three options for merge method", () => {
