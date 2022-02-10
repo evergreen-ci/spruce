@@ -43,6 +43,7 @@ export const getFormSchema = (
             ? "hidden"
             : widgets.RadioBoxWidget,
         "ui:showLabel": false,
+        "ui:data-cy": "patch-aliases-override-radio-box",
       },
       aliases: {
         ...aliasRowUiSchema({

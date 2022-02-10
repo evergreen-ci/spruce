@@ -130,11 +130,12 @@ export const aliasRowUiSchema = ({
     "ui:ObjectFieldTemplate": AliasRow,
     "ui:accordionTitle": accordionTitle,
     "ui:useExpandableCard": useExpandableCard,
-    ...(aliasHidden && {
-      alias: {
+    alias: {
+      "ui:data-cy": "alias-input",
+      ...(aliasHidden && {
         "ui:widget": "hidden",
-      },
-    }),
+      }),
+    },
     variant: {
       "ui:ariaLabelledBy": "variant-input-control",
       "ui:data-cy": "variant-input",

@@ -145,9 +145,12 @@ export const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
   return useExpandableCard ? (
     <ExpandableCard
       defaultOpen={!isDisabled}
+      contentClassName="patch-alias-card-content"
       title={
         <>
-          <TitleWrapper>{initialAlias || accordionTitle}</TitleWrapper>
+          <TitleWrapper data-cy="expandable-card-title">
+            {initialAlias || accordionTitle}
+          </TitleWrapper>
           {!readonly && (
             <Button
               onClick={onDropIndexClick(index)}
