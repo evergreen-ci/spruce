@@ -1,31 +1,22 @@
 import Bugsnag from "@bugsnag/js";
 import BugsnagPluginReact from "@bugsnag/plugin-react";
+import { render } from "test_utils";
+import { mockEnvironmentalVariables } from "test_utils/utils";
 import * as environmentalVariables from "utils/environmentalVariables";
-import { resetBugsnag, initializeBugsnag } from ".";
+import { resetBugsnag, initializeBugsnag, ErrorBoundary } from ".";
 
-const restoreCalls = [];
-const mockEnvironmentalVariable = (variable: string, value: string) => {
-  const before = process.env[variable];
-  process.env[variable] = value;
-
-  const restore = () => {
-    process.env[variable] = before;
-  };
-  restoreCalls.push(restore);
-  return { restore };
-};
-
+const { cleanup, mockEnv } = mockEnvironmentalVariables();
 describe("initializeBugsnag", () => {
   afterEach(() => {
     jest.restoreAllMocks();
     resetBugsnag();
-    restoreCalls.forEach((restore) => restore());
+    cleanup();
   });
   it("should not initialize bugsnag if on development environment", () => {
     const mockBugsnag = jest.fn();
     jest.spyOn(Bugsnag, "start").mockImplementation(mockBugsnag);
     jest.spyOn(environmentalVariables, "isDevelopment").mockReturnValue(true);
-    mockEnvironmentalVariable("REACT_APP_VERSION", "1.0.0");
+    mockEnv("REACT_APP_VERSION", "1.0.0");
     initializeBugsnag();
     expect(Bugsnag.start).not.toHaveBeenCalled();
   });
@@ -34,9 +25,9 @@ describe("initializeBugsnag", () => {
     const mockBugsnag = jest.fn();
     jest.spyOn(Bugsnag, "start").mockImplementation(mockBugsnag);
 
-    mockEnvironmentalVariable("NODE_ENV", "production");
-    mockEnvironmentalVariable("REACT_APP_VERSION", "1.0.0");
-    mockEnvironmentalVariable("REACT_APP_RELEASE_STAGE", "production");
+    mockEnv("NODE_ENV", "production");
+    mockEnv("REACT_APP_VERSION", "1.0.0");
+    mockEnv("REACT_APP_RELEASE_STAGE", "production");
 
     initializeBugsnag();
     expect(Bugsnag.start).toHaveBeenCalledWith({
@@ -50,14 +41,14 @@ describe("initializeBugsnag", () => {
     afterEach(() => {
       jest.restoreAllMocks();
       resetBugsnag();
-      restoreCalls.forEach((restore) => restore());
+      cleanup();
     });
     it("beta", () => {
       const mockBugsnag = jest.fn();
       jest.spyOn(Bugsnag, "start").mockImplementation(mockBugsnag);
-      mockEnvironmentalVariable("REACT_APP_RELEASE_STAGE", "beta");
-      mockEnvironmentalVariable("NODE_ENV", "production");
-      mockEnvironmentalVariable("REACT_APP_VERSION", "1.0.0");
+      mockEnv("REACT_APP_RELEASE_STAGE", "beta");
+      mockEnv("NODE_ENV", "production");
+      mockEnv("REACT_APP_VERSION", "1.0.0");
 
       initializeBugsnag();
       expect(mockBugsnag).toHaveBeenCalledWith({
@@ -70,9 +61,9 @@ describe("initializeBugsnag", () => {
     it("staging", () => {
       const mockBugsnag = jest.fn();
       jest.spyOn(Bugsnag, "start").mockImplementation(mockBugsnag);
-      mockEnvironmentalVariable("NODE_ENV", "production");
-      mockEnvironmentalVariable("REACT_APP_VERSION", "1.0.0");
-      mockEnvironmentalVariable("REACT_APP_RELEASE_STAGE", "staging");
+      mockEnv("NODE_ENV", "production");
+      mockEnv("REACT_APP_VERSION", "1.0.0");
+      mockEnv("REACT_APP_RELEASE_STAGE", "staging");
       initializeBugsnag();
       expect(mockBugsnag).toHaveBeenCalledWith({
         apiKey: "i-am-a-fake-key",
@@ -81,5 +72,47 @@ describe("initializeBugsnag", () => {
         plugins: [new BugsnagPluginReact()],
       });
     });
+  });
+});
+
+describe("error boundary", () => {
+  beforeEach(() => {
+    jest.spyOn(console, "error").mockImplementation(() => {});
+    jest.spyOn(Bugsnag, "notify");
+  });
+  afterEach(() => {
+    cleanup();
+    jest.restoreAllMocks();
+  });
+  it("should render the passed in component", () => {
+    const TestComponent = () => <div>Hello</div>;
+    const TestErrorBoundary = () => (
+      <ErrorBoundary>
+        <TestComponent />
+      </ErrorBoundary>
+    );
+    const { getByText } = render(<TestErrorBoundary />);
+    expect(getByText("Hello")).toBeInTheDocument();
+  });
+  it("should display the fallback when an error occurs", () => {
+    const err = new Error("Test error");
+
+    const TestComponent = () => {
+      throw err;
+    };
+    const TestErrorBoundary = () => (
+      <ErrorBoundary>
+        <TestComponent />
+      </ErrorBoundary>
+    );
+    const { getByText } = render(<TestErrorBoundary />);
+    expect(getByText("Error")).toBeInTheDocument();
+    expect(console.error).toHaveBeenCalledWith({
+      error: err,
+      errorInfo: expect.objectContaining({
+        componentStack: expect.any(String),
+      }),
+    });
+    expect(Bugsnag.notify).not.toHaveBeenCalled();
   });
 });

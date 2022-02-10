@@ -4,12 +4,14 @@ import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import Icon from "components/Icon";
+import { size, zIndex } from "constants/tokens";
+
 import { string } from "utils";
 
 const { trimStringFromMiddle } = string;
 const { gray } = uiColors;
 
-const tooltipInModalZIndex = 50; // necessary due to SeeMoreModal, which has zIndex 40
+const tooltipInModalZIndex = zIndex.tooltip; // necessary due to SeeMoreModal, which has zIndex 40
 const maxBadgeLength = 25;
 
 interface FilterBadgeProps {
@@ -56,7 +58,7 @@ export const FilterBadge: React.FC<FilterBadgeProps> = ({ badge, onClose }) => {
 
 const ClickableIcon = styled(Icon)`
   position: absolute;
-  right: 4px;
+  right: ${size.xxs};
   :hover {
     cursor: pointer;
     color: ${gray.light1};
@@ -64,10 +66,10 @@ const ClickableIcon = styled(Icon)`
 `;
 const PaddedBadge = styled(Badge)`
   :nth-of-type {
-    margin-left: 16px;
+    margin-left: ${size.s};
   }
-  margin-right: 16px;
-  margin-bottom: 24px;
+  margin-right: ${size.s};
+  margin-bottom: ${size.m};
   width: 260px;
 
   position: relative;
@@ -86,5 +88,5 @@ const BadgeContent = styled.div`
 // @ts-expect-error
 // Reduce Tooltip padding because the default Tooltip is invasive when trying to interact with other UI elements
 const StyledTooltip = styled(Tooltip)`
-  padding: 4px 8px;
+  padding: ${size.xxs} ${size.xs};
 `;

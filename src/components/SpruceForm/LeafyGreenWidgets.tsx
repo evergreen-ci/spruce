@@ -9,6 +9,8 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { Description, Label } from "@leafygreen-ui/typography";
 import { WidgetProps } from "@rjsf/core";
 import Icon from "components/Icon";
+import { size } from "constants/tokens";
+
 import ElementWrapper from "./ElementWrapper";
 
 const getInputErrors = (rawErrors: string[]): string[] =>
@@ -101,7 +103,7 @@ export const LeafyGreenCheckBox: React.FC<WidgetProps> = ({
 };
 
 const IconContainer = styled.span`
-  margin-left: 4px;
+  margin-left: ${size.xxs};
   top: 1px;
   vertical-align: text-top;
 `;
@@ -201,12 +203,19 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
   value,
   onChange,
   disabled,
+  uiSchema,
 }) => {
   const { description, enumOptions, "data-cy": dataCy, showLabel } = options;
   if (!Array.isArray(enumOptions)) {
     console.error(
       "enumOptions must be an array passed into LeafyGreen Radio Box"
     );
+    return null;
+  }
+
+  // Workaround because {ui:widget: hidden} does not play nicely with this widget
+  const hide = uiSchema["ui:hide"] ?? false;
+  if (hide) {
     return null;
   }
 
@@ -245,7 +254,7 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
 };
 
 const RadioBoxLabelContainer = styled.div`
-  margin-bottom: 8px;
+  margin-bottom: ${size.xs};
 `;
 
 const StyledRadioBox = styled(RadioBox)`

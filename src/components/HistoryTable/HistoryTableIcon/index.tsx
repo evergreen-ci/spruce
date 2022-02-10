@@ -4,6 +4,7 @@ import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
+import { size, zIndex } from "constants/tokens";
 import { TaskStatus } from "types/task";
 
 interface HistoryTableIconProps {
@@ -31,7 +32,7 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
         align="right"
         justify="middle"
         enabled={!inactive && !!failingTests.length}
-        popoverZIndex={1}
+        popoverZIndex={zIndex.tooltip}
         trigger={children}
         triggerEvent="hover"
       >
@@ -68,8 +69,8 @@ const Container = styled.div<ContainerProps>`
 `;
 
 const IconContainer = styled.div`
-  height: 30px;
-  width: 30px;
+  height: ${size.l};
+  width: ${size.l};
   text-align: center;
 `;
 

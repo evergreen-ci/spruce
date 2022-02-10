@@ -4,6 +4,7 @@ import Badge from "@leafygreen-ui/badge";
 import { DisplayModal } from "components/DisplayModal";
 import { StyledLink } from "components/styles";
 import { P2 } from "components/Typography";
+import { size } from "constants/tokens";
 import { Parameter } from "gql/generated/types";
 
 interface ParametersProps {
@@ -43,6 +44,6 @@ export const ParametersModal: React.FC<ParametersProps> = ({ parameters }) => {
 
 const StyledBadge = styled(Badge)`
   :not(:last-of-type) {
-    margin-right: 16px;
+    margin-right: ${size.s};
   }
 `;

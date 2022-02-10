@@ -10,6 +10,7 @@ import { Subtitle } from "@leafygreen-ui/typography";
 import { Accordion } from "components/Accordion";
 import Icon from "components/Icon";
 import { SpruceFormProps } from "components/SpruceForm";
+import { size, fontSize } from "constants/tokens";
 
 const VariantInput: Record<string, string> = {
   Regex: "variant",
@@ -181,14 +182,14 @@ const TitleWrapper = styled.span`
 
 /* @ts-expect-error  */
 const AccordionTitle = styled(Subtitle)`
-  font-size: 16px;
-  margin: 8px 0;
+  font-size: ${fontSize.l};
+  margin: ${size.s} 0;
 `;
 
 const TaskRegexContainer = styled.div`
-  margin-bottom: 36px;
+  margin-bottom: ${size.l};
 `;
 
 const StyledSegmentedControl = styled(SegmentedControl)`
-  margin-bottom: 12px;
+  margin-bottom: ${size.s};
 `;

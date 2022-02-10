@@ -9,6 +9,8 @@ import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { Button } from "components/Button";
 import { pollInterval } from "constants/index";
+import { size, fontSize } from "constants/tokens";
+
 import {
   EventLogsQuery,
   EventLogsQueryVariables,
@@ -303,9 +305,9 @@ const useRenderBody: React.FC<{
 const ButtonContainer = styled.div`
   display: flex;
   > :not(:last-child) {
-    margin-right: 8px;
+    margin-right: ${size.xs};
   }
-  margin-right: 16px;
+  margin-right: ${size.s};
   padding-left: 1px;
 `;
 
@@ -315,17 +317,17 @@ const StyledRadioGroup = styled(RadioGroup)`
   align-items: center;
   white-space: nowrap;
   label {
-    margin-right: 16px;
+    margin-right: ${size.s};
   }
-  padding-bottom: 8px;
+  padding-bottom: ${size.xs};
 `;
 
 const StyledPre = styled.pre`
-  padding: 8px;
+  padding: ${size.xs};
   word-break: break-all;
   word-wrap: break-word;
   border: 1px solid ${gray.light2};
-  border-radius: 4px;
+  border-radius: ${size.xxs};
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-  font-size: 13px;
+  font-size: ${fontSize.m};
 `;

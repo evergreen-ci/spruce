@@ -6,6 +6,7 @@ import { useLocation } from "react-router";
 import { useSpawnAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { PlusButton } from "components/Spawn";
+import { size } from "constants/tokens";
 import {
   MyHostsQuery,
   MyHostsQueryVariables,
@@ -75,6 +76,5 @@ export const SpawnHostButton = () => {
 };
 
 const PaddedContainer = styled.div`
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding: ${size.l} 0;
 `;

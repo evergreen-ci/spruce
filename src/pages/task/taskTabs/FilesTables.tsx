@@ -9,6 +9,7 @@ import debounce from "lodash.debounce";
 import get from "lodash/get";
 import { useParams, useLocation } from "react-router-dom";
 import { H3, WordBreak } from "components/Typography";
+import { size } from "constants/tokens";
 import {
   TaskFilesQuery,
   TaskFilesQueryVariables,
@@ -128,11 +129,11 @@ export const FilesTables: React.FC = () => {
 };
 
 const StyledTable = styled(Table)`
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: ${size.s};
+  padding-bottom: ${size.s};
 `;
 
 const StyledInput = styled(Input)`
-  margin-bottom: 15px;
+  margin-bottom: ${size.s};
   max-width: 500px;
 `;

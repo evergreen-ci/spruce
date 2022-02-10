@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
+import { zIndex } from "constants/tokens";
 
 const { gray } = uiColors;
 
@@ -25,7 +26,7 @@ const ColumnContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
-  z-index: -1;
+  z-index: ${zIndex.backdrop};
 `;
 
 const DashedLine = styled.div`

@@ -17,11 +17,11 @@ exports[`storybook Storyshots Grouped Task Status Badge Grouped Task Status Badg
       onClick={[Function]}
     >
       <div
-        className="css-q6x9ck-BadgeContainer emc61an4"
+        className="css-1qehxmj-BadgeContainer emc61an4"
         fill="#E4F4E4"
       >
         <span
-          className="css-wtl5ix-Number emc61an2"
+          className="css-1f81ztl-Number emc61an2"
         >
           20
         </span>
@@ -46,11 +46,11 @@ exports[`storybook Storyshots Grouped Task Status Badge Grouped Task Status Badg
       onClick={[Function]}
     >
       <div
-        className="css-q6x9ck-BadgeContainer emc61an4"
+        className="css-1qehxmj-BadgeContainer emc61an4"
         fill="#E4F4E4"
       >
         <span
-          className="css-wtl5ix-Number emc61an2"
+          className="css-1f81ztl-Number emc61an2"
         >
           1
         </span>
@@ -75,11 +75,11 @@ exports[`storybook Storyshots Grouped Task Status Badge Grouped Task Status Badg
       onClick={[Function]}
     >
       <div
-        className="css-1u1pdi6-BadgeContainer emc61an4"
+        className="css-ftil97-BadgeContainer emc61an4"
         fill="#FCEBE2"
       >
         <span
-          className="css-wtl5ix-Number emc61an2"
+          className="css-1f81ztl-Number emc61an2"
         >
           1
         </span>
@@ -104,11 +104,11 @@ exports[`storybook Storyshots Grouped Task Status Badge Grouped Task Status Badg
       onClick={[Function]}
     >
       <div
-        className="css-uf0at9-BadgeContainer emc61an4"
+        className="css-7bsavb-BadgeContainer emc61an4"
         fill="#FEF7E3"
       >
         <span
-          className="css-wtl5ix-Number emc61an2"
+          className="css-1f81ztl-Number emc61an2"
         >
           2
         </span>
@@ -133,11 +133,11 @@ exports[`storybook Storyshots Grouped Task Status Badge Grouped Task Status Badg
       onClick={[Function]}
     >
       <div
-        className="css-1htjtjk-BadgeContainer emc61an4"
+        className="css-xlmamw-BadgeContainer emc61an4"
         fill="#4F4FBF"
       >
         <span
-          className="css-wtl5ix-Number emc61an2"
+          className="css-1f81ztl-Number emc61an2"
         >
           3
         </span>
@@ -162,11 +162,11 @@ exports[`storybook Storyshots Grouped Task Status Badge Grouped Task Status Badg
       onClick={[Function]}
     >
       <div
-        className="css-1mwonhy-BadgeContainer emc61an4"
+        className="css-4rwrk2-BadgeContainer emc61an4"
         fill="#F1F0FC"
       >
         <span
-          className="css-wtl5ix-Number emc61an2"
+          className="css-1f81ztl-Number emc61an2"
         >
           4
         </span>
@@ -191,11 +191,11 @@ exports[`storybook Storyshots Grouped Task Status Badge Grouped Task Status Badg
       onClick={[Function]}
     >
       <div
-        className="css-1mwonhy-BadgeContainer emc61an4"
+        className="css-4rwrk2-BadgeContainer emc61an4"
         fill="#F1F0FC"
       >
         <span
-          className="css-wtl5ix-Number emc61an2"
+          className="css-1f81ztl-Number emc61an2"
         >
           1
         </span>
@@ -220,11 +220,11 @@ exports[`storybook Storyshots Grouped Task Status Badge Grouped Task Status Badg
       onClick={[Function]}
     >
       <div
-        className="css-1kp5fxv-BadgeContainer emc61an4"
+        className="css-v2ro5c-BadgeContainer emc61an4"
         fill="#F9FBFA"
       >
         <span
-          className="css-wtl5ix-Number emc61an2"
+          className="css-1f81ztl-Number emc61an2"
         >
           5
         </span>
@@ -249,11 +249,11 @@ exports[`storybook Storyshots Grouped Task Status Badge Grouped Task Status Badg
       onClick={[Function]}
     >
       <div
-        className="css-nup11h-BadgeContainer emc61an4"
+        className="css-8oeas8-BadgeContainer emc61an4"
         fill="#5D6C74"
       >
         <span
-          className="css-wtl5ix-Number emc61an2"
+          className="css-1f81ztl-Number emc61an2"
         >
           5
         </span>

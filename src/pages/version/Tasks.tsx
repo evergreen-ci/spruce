@@ -11,6 +11,7 @@ import { Pagination } from "components/Pagination";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
 import { pollInterval } from "constants/index";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
@@ -32,7 +33,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const { id: versionId } = useParams<{ id: string }>();
 
   const { search } = useLocation();
-  const { sendEvent } = useVersionAnalytics();
+  const { sendEvent } = useVersionAnalytics(versionId);
   const dispatchToast = useToastContext();
 
   const updateQueryParams = useUpdateURLQueryParams();
@@ -189,5 +190,5 @@ const FlexContainer = styled.div`
 
 // @ts-expect-error
 const PaddedButton = styled(Button)`
-  margin-left: 15px;
+  margin-left: ${size.m};
 `;

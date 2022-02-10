@@ -9,9 +9,9 @@ interface Props {
   setParentLoading?: (loading: boolean) => void; // used to toggle loading state of parent
 }
 
-export const AddNotification: React.FC<Props> = () => {
+export const AddNotification: React.FC<Props> = ({ patchId }) => {
   const [isVisibleModal, setIsVisibleModal] = useState(false);
-  const { sendEvent } = useVersionAnalytics();
+  const { sendEvent } = useVersionAnalytics(patchId);
 
   return (
     <>

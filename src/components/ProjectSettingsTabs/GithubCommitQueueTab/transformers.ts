@@ -66,6 +66,7 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
     },
     commitQueue: {
       enabled: projectRef.commitQueue.enabled,
+      requireSigned: projectRef.commitQueue.requireSigned,
       message: projectRef.commitQueue.message,
       mergeMethod: projectRef.commitQueue.mergeMethod,
       patchDefinitions: {
@@ -88,7 +89,13 @@ export const formToGql: FormToGqlFunction = (
       users: { gitTagAuthorizedUsers, gitTagAuthorizedUsersOverride },
       teams: { gitTagAuthorizedTeams, gitTagAuthorizedTeamsOverride },
     },
-    commitQueue: { enabled, message, mergeMethod, patchDefinitions },
+    commitQueue: {
+      enabled,
+      requireSigned,
+      message,
+      mergeMethod,
+      patchDefinitions,
+    },
   }: FormState,
   id
 ) => {
@@ -107,6 +114,7 @@ export const formToGql: FormToGqlFunction = (
       [],
     commitQueue: {
       enabled,
+      requireSigned,
       message,
       mergeMethod,
     },

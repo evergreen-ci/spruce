@@ -5,6 +5,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
 import { PlusButton } from "components/Spawn";
+import { size } from "constants/tokens";
 import { GetSpruceConfigQuery } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
 import { SpawnVolumeModal } from "./spawnVolumeButton/SpawnVolumeModal";
@@ -35,16 +36,15 @@ export const SpawnVolumeButton: React.FC = () => {
 };
 
 const PaddedContainer = styled.div`
-  padding: 30px 0px 30px 0px;
+  padding: ${size.l} 0;
   display: flex;
   align-items: center;
 `;
 
 const Info = styled(Disclaimer)`
   font-weight: 300;
-  padding-left: 8px;
+  padding-left: ${size.xs};
   position: relative;
-  top: -2px;
   font-style: italic;
   color: ${uiColors.gray.dark2};
 `;

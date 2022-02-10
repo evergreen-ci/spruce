@@ -5,6 +5,7 @@ import Button from "@leafygreen-ui/button";
 import TextArea from "@leafygreen-ui/text-area";
 import { useVersionAnalytics } from "analytics";
 import { Modal } from "components/Modal";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   EnqueuePatchMutation,
@@ -40,7 +41,7 @@ export const EnqueuePatchModal: React.FC<EnqueueProps> = ({
     refetchQueries,
   });
 
-  const patchAnalytics = useVersionAnalytics();
+  const { sendEvent } = useVersionAnalytics(patchId);
   const [commitMessageValue, setCommitMessageValue] = useState<string>(
     commitMessage || ""
   );
@@ -64,7 +65,7 @@ export const EnqueuePatchModal: React.FC<EnqueueProps> = ({
             enqueuePatch({
               variables: { patchId, commitMessage: commitMessageValue },
             });
-            patchAnalytics.sendEvent({ name: "Enqueue" });
+            sendEvent({ name: "Enqueue" });
           }}
           variant="primary"
         >
@@ -86,7 +87,7 @@ export const EnqueuePatchModal: React.FC<EnqueueProps> = ({
 
 const StyledTextArea = styled(TextArea)`
   & p {
-    margin-bottom: 15px;
+    margin-bottom: ${size.s};
   }
 `;
 

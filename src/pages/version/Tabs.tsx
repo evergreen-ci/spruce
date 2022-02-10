@@ -61,7 +61,7 @@ export const Tabs: React.FC<Props> = ({ taskCount, childPatches, isPatch }) => {
     [isPatch, childPatches]
   );
 
-  const { sendEvent } = useVersionAnalytics();
+  const { sendEvent } = useVersionAnalytics(id);
 
   const allTabs = useMemo(() => tabMap({ taskCount, childPatches }), [
     taskCount,

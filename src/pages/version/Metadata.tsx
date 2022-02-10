@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { MetadataCard } from "components/MetadataCard";
 import { StyledRouterLink } from "components/styles";
@@ -69,8 +70,11 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
     parameters,
     manifest,
   } = version || {};
+  const { id } = useParams<{ id: string }>();
+  const { sendEvent } = useVersionAnalytics(id);
+
   const { makespan, timeTaken } = versionTiming || {};
-  const { sendEvent } = useVersionAnalytics();
+
   return (
     <MetadataCard
       loading={loading}

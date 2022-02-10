@@ -5,6 +5,7 @@ import { Body } from "@leafygreen-ui/typography";
 import { InputNumber, Popconfirm } from "antd";
 import { useVersionAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   SetPatchPriorityMutation,
@@ -38,7 +39,7 @@ export const SetPatchPriority: React.FC<SetPriorityProps> = ({
     refetchQueries,
   });
 
-  const { sendEvent } = useVersionAnalytics();
+  const { sendEvent } = useVersionAnalytics(patchId);
 
   return (
     <Popconfirm
@@ -77,6 +78,6 @@ export const SetPatchPriority: React.FC<SetPriorityProps> = ({
 };
 
 const StyledBody = styled(Body)`
-  padding-bottom: 8px;
-  padding-right: 8px;
+  padding-bottom: ${size.xs};
+  padding-right: ${size.xs};
 `;

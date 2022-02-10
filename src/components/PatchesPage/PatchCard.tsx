@@ -11,6 +11,7 @@ import {
   getVersionRoute,
   getUserPatchesRoute,
 } from "constants/routes";
+import { fontSize, size } from "constants/tokens";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { Unpacked } from "types/utils";
 import { groupStatusesByUmbrellaStatus } from "utils/statuses";
@@ -105,6 +106,7 @@ export const PatchCard: React.FC<Props> = ({
           canEnqueueToCommitQueue={canEnqueueToCommitQueue}
           isPatchOnCommitQueue={isPatchOnCommitQueue}
           patchDescription={description}
+          hasVersion={!!versionId}
         />
       </Right>
     </CardWrapper>
@@ -114,8 +116,8 @@ export const PatchCard: React.FC<Props> = ({
 const TaskBadgeContainer = styled.div`
   display: flex;
   justify-content: flex-start;
-  > div {
-    margin-right: 14px;
+  > * {
+    margin-right: ${size.s};
   }
   flex-wrap: wrap;
 `;
@@ -123,7 +125,7 @@ const TaskBadgeContainer = styled.div`
 const CardWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 12px 5px 12px;
+  padding: ${size.s} ${size.xxs};
   border-bottom: 1px solid ${gray.light2};
 `;
 
@@ -134,7 +136,7 @@ const Center = styled.div`
 
 const Left = styled(Center)`
   flex-direction: column;
-  padding-right: 24px;
+  padding-right: ${size.m};
 `;
 
 const Right = styled.div`
@@ -143,14 +145,14 @@ const Right = styled.div`
 `;
 
 const DescriptionLink = styled(StyledRouterLink)`
-  font-size: 18px;
+  font-size: ${fontSize.l};
   font-weight: 500;
-  padding-bottom: 8px;
+  padding-bottom: ${size.xs};
 `;
 
 const PatchBadgeContainer = styled.div`
-  margin-right: 24px;
-  min-width: 90px;
+  margin-right: ${size.m};
+  min-width: ${size.xxl};
 `;
 
 const TimeAndProject = styled.div`

@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { ObjectFieldTemplateProps } from "@rjsf/core";
 import Icon from "components/Icon";
+import { size } from "constants/tokens";
 import { form } from "../utils";
 
 const { getFields } = form;
@@ -40,14 +41,14 @@ export const VariableRow: React.FC<
 };
 
 const OverrideIcon = styled(Icon)`
-  margin-right: 4px;
+  margin-right: ${size.xxs};
   margin-top: 1px;
   vertical-align: text-top;
 `;
 
 const LeftColumn = styled.div`
   color: ${yellow.dark2};
-  padding-right: 16px;
+  padding-right: ${size.s};
 
   ${(props: { showWarning?: boolean }): string =>
     props.showWarning &&
@@ -58,7 +59,7 @@ const LeftColumn = styled.div`
 
 const RowContainer = styled.div`
   display: flex;
-  margin-bottom: 16px;
+  margin-bottom: ${size.s};
 
   > div {
     flex-grow: 1;

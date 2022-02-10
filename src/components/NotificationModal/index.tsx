@@ -11,6 +11,7 @@ import set from "lodash/set";
 import { Modal } from "components/Modal";
 import { RegexSelectorInput } from "components/NotificationModal/RegexSelectorInput";
 import { ErrorMessage } from "components/styles";
+import { fontSize, size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   SaveSubscriptionMutation,
@@ -257,7 +258,7 @@ const inputWidth = "width: calc(80% - 55px);";
 
 const StyledSelect = styled(Select)`
   ${inputWidth}
-  margin-bottom: 8px;
+  margin-bottom: ${size.xs};
 `;
 
 const StyledInput = styled(Input)`
@@ -265,28 +266,28 @@ const StyledInput = styled(Input)`
 `;
 
 const ExtraFieldContainer = styled.div`
-  margin-bottom: 8px;
+  margin-bottom: ${size.xs};
 `;
 
 const Section = styled.div`
-  padding-bottom: 24px;
-  margin-bottom: 22px;
+  padding-bottom: ${size.m};
+  margin-bottom: ${size.m};
   border-bottom: 1px solid ${gray.light2};
 `;
 
 const RegexSelectorInputContainer = styled.div`
-  padding-top: 8px;
+  padding-top: ${size.xs};
 `;
 const SectionLabelContainer = styled.div`
-  padding-top: 16px;
+  padding-top: ${size.s};
 `;
 
 /* @ts-expect-error */
 const LeftButton = styled(Button)`
-  margin-right: 16px;
+  margin-right: ${size.s};
 ` as typeof Button;
 
 const InputLabel = styled.label`
-  font-size: 14px;
+  font-size: ${fontSize.m};
   font-weight: bold;
 `;
