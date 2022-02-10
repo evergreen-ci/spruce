@@ -98,6 +98,8 @@ export const VersionPage: React.FC = () => {
   ] = useLazyQuery<VersionQuery, VersionQueryVariables>(GET_VERSION, {
     variables: { id },
     pollInterval,
+    fetchPolicy: "network-only",
+    nextFetchPolicy: "cache-and-network",
     onError: (e) => {
       dispatchToast.error(
         `There was an error loading the version: ${e.message}`
