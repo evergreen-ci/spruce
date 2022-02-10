@@ -1,8 +1,10 @@
+import React from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { useParams, Link, Redirect } from "react-router-dom";
 import { ProjectSettingsProvider } from "components/ProjectSettingsTabs/Context";
+import { CreateProjectModal } from "components/ProjectSettingsTabs/CreateProjectModal";
 import {
   SideNav,
   SideNavGroup,
@@ -105,6 +107,7 @@ export const ProjectSettings: React.FC = () => {
     <ProjectSettingsProvider>
       <SideNav aria-label="Project Settings">
         <SideNavGroup header="Project" />
+        <CreateProjectModal />
         <SideNavGroup>
           <ProjectSettingsNavItem
             {...sharedProps}
