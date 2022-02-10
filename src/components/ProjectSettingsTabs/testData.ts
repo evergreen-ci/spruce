@@ -41,6 +41,7 @@ export const projectBase: ProjectSettingsQuery["projectSettings"] = {
     gitTagAuthorizedTeams: [],
     commitQueue: {
       enabled: null,
+      requireSigned: null,
       mergeMethod: "",
       message: "",
     },
@@ -123,6 +124,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     gitTagAuthorizedTeams: [],
     commitQueue: {
       enabled: true,
+      requireSigned: true,
       mergeMethod: "squash",
       message: "Commit Queue Message",
     },
