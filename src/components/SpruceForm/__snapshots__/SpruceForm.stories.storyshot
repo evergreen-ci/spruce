@@ -161,7 +161,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                           >
                             <label
                               className="leafygreen-ui-ly82bp"
-                              htmlFor="textinput-3"
+                              htmlFor="textinput-1"
                             >
                               key
                             </label>
@@ -176,7 +176,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                                   autoComplete="on"
                                   className="leafygreen-ui-1il5lef"
                                   disabled={false}
-                                  id="textinput-3"
+                                  id="textinput-1"
                                   onBlur={[Function]}
                                   onChange={[Function]}
                                   onFocus={[Function]}
@@ -212,7 +212,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                           >
                             <label
                               className="leafygreen-ui-ly82bp"
-                              htmlFor="textinput-4"
+                              htmlFor="textinput-2"
                             >
                               value
                             </label>
@@ -227,7 +227,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                                   autoComplete="on"
                                   className="leafygreen-ui-1il5lef"
                                   disabled={false}
-                                  id="textinput-4"
+                                  id="textinput-2"
                                   onBlur={[Function]}
                                   onChange={[Function]}
                                   onFocus={[Function]}
