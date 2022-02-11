@@ -367,7 +367,10 @@ describe("Project Settings when defaulting to repo", () => {
     });
 
     it("Displays disabled fields when the card is expanded", () => {
-      cy.dataCy("expandable-card-title").parentsUntil("div").first().click();
+      cy.dataCy("expandable-card-title")
+        .parentsUntil("div")
+        .first()
+        .click({ force: true });
       cy.get(".patch-alias-card-content").find("input").should("be.disabled");
       cy.get(".patch-alias-card-content").find("button").should("be.disabled");
     });
@@ -379,7 +382,10 @@ describe("Project Settings when defaulting to repo", () => {
         .parent()
         .click();
 
-      cy.dataCy("add-button").contains("Add Patch Alias").parent().click();
+      cy.dataCy("add-button")
+        .contains("Add Patch Alias")
+        .parent()
+        .click({ force: true });
       cy.dataCy("alias-input").type("my overriden alias name");
       cy.dataCy("variant-tags-field").find("button").click();
       cy.dataCy("variant-tags-input").first().type("alias variant tag 2");
@@ -388,7 +394,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("task-tags-input").first().type("alias task tag 2");
 
       cy.dataCy("save-settings-button").click();
-      cy.contains("Successfully updated repo");
+      cy.contains("Successfully updated project");
     });
   });
 });
