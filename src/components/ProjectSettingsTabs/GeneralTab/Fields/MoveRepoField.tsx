@@ -1,10 +1,22 @@
 import { useState } from "react";
+import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Field } from "@rjsf/core";
 import { Button } from "components/Button";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { SpruceForm } from "components/SpruceForm";
 import { size } from "constants/tokens";
+import { useToastContext } from "context/toast";
+import {
+  AttachProjectToRepoMutation,
+  AttachProjectToRepoMutationVariables,
+  DetachProjectFromRepoMutation,
+  DetachProjectFromRepoMutationVariables,
+} from "gql/generated/types";
+import {
+  ATTACH_PROJECT_TO_REPO,
+  DETACH_PROJECT_FROM_REPO,
+} from "gql/mutations";
 
 interface ModalProps {
   onCancel: () => void;
@@ -50,6 +62,84 @@ export const MoveRepoModal: React.FC<ModalProps> = ({
   );
 };
 
+const AttachDetachModal: React.FC<{
+  handleClose: () => void;
+  open: boolean;
+  projectId: string;
+  repoName: string;
+  repoOwner: string;
+  shouldAttach: boolean;
+}> = ({ handleClose, open, projectId, repoName, repoOwner, shouldAttach }) => {
+  const dispatchToast = useToastContext();
+
+  const [attachProjectToRepo] = useMutation<
+    AttachProjectToRepoMutation,
+    AttachProjectToRepoMutationVariables
+  >(ATTACH_PROJECT_TO_REPO, {
+    variables: { projectId },
+    onCompleted() {
+      dispatchToast.success("Successfully attached project to repo");
+    },
+    onError(err) {
+      dispatchToast.error(
+        `There was an error attaching the project: ${err.message}`
+      );
+    },
+    refetchQueries: ["ProjectSettings", "RepoSettings"],
+  });
+
+  const [detachProjectFromRepo] = useMutation<
+    DetachProjectFromRepoMutation,
+    DetachProjectFromRepoMutationVariables
+  >(DETACH_PROJECT_FROM_REPO, {
+    variables: { projectId },
+    onCompleted() {
+      dispatchToast.success("Successfully detached project from repo");
+    },
+    onError(err) {
+      dispatchToast.error(
+        `There was an error detaching the project: ${err.message}`
+      );
+    },
+    refetchQueries: ["ProjectSettings", "RepoSettings"],
+  });
+
+  return (
+    <ConfirmationModal
+      buttonText={shouldAttach ? "Attach" : "Detach"}
+      onCancel={handleClose}
+      onConfirm={() => {
+        if (shouldAttach) {
+          attachProjectToRepo();
+        } else {
+          detachProjectFromRepo();
+        }
+        handleClose();
+      }}
+      open={open}
+      title={`Are you sure you want to ${
+        shouldAttach ? "attach to" : "detach from"
+      } ${repoOwner}/${repoName}?`}
+      variant="danger"
+    >
+      {shouldAttach ? (
+        <>
+          Attaching to repo means that for each project setting, users will have
+          the option of using the value defined at the repo level instead of
+          setting it individually for this branch.
+        </>
+      ) : (
+        <>
+          Detaching means that this branch will no longer use defaults defined
+          at the repo level. For any settings that are currently using the
+          default, the current state will be saved to this branch, but
+          repo-level settings will not be considered in the future.
+        </>
+      )}
+    </ConfirmationModal>
+  );
+};
+
 export const MoveRepoField: Field = ({
   formData,
   onChange,
@@ -57,16 +147,11 @@ export const MoveRepoField: Field = ({
   uiSchema,
 }) => {
   const {
-    options: { useRepoSettings },
+    options: { projectId, repoName, repoOwner, useRepoSettings },
   } = uiSchema;
   const isRepo = useRepoSettings === undefined;
-  const [open, setOpen] = useState(false);
-
-  const onCancel = () => setOpen(false);
-  const onConfirm = (formUpdate) => {
-    setOpen(false);
-    onChange(formUpdate);
-  };
+  const [moveModalOpen, setMoveModalOpen] = useState(false);
+  const [attachModalOpen, setAttachModalOpen] = useState(false);
 
   return (
     <Container hasButtons={!isRepo}>
@@ -78,24 +163,41 @@ export const MoveRepoField: Field = ({
         uiSchema={uiSchema}
       />
       {!isRepo && (
-        <ButtonRow>
-          {useRepoSettings && (
-            <Button
-              onClick={() => setOpen(true)}
-              size="small"
-              data-cy="move-repo-button"
-            >
-              Move to New Repo
+        <>
+          <ButtonRow>
+            {useRepoSettings && (
+              <Button
+                onClick={() => setMoveModalOpen(true)}
+                size="small"
+                data-cy="move-repo-button"
+              >
+                Move to New Repo
+              </Button>
+            )}
+            <Button size="small" onClick={() => setAttachModalOpen(true)}>
+              {useRepoSettings
+                ? "Detach from Current Repo"
+                : "Attach to Current Repo"}
             </Button>
-          )}
-          <Button size="small">
-            {useRepoSettings
-              ? "Detach from Current Repo"
-              : "Attach to Current Repo"}
-          </Button>
-        </ButtonRow>
+          </ButtonRow>
+          <AttachDetachModal
+            handleClose={() => setAttachModalOpen(false)}
+            open={attachModalOpen}
+            projectId={projectId}
+            repoName={repoName || formData.repo}
+            repoOwner={repoOwner || formData.owner}
+            shouldAttach={!useRepoSettings}
+          />
+        </>
       )}
-      <MoveRepoModal onCancel={onCancel} onConfirm={onConfirm} open={open} />
+      <MoveRepoModal
+        onCancel={() => setMoveModalOpen(false)}
+        onConfirm={(formUpdate) => {
+          setMoveModalOpen(false);
+          onChange(formUpdate);
+        }}
+        open={moveModalOpen}
+      />
     </Container>
   );
 };

@@ -237,7 +237,12 @@ export const getFormSchema = (
       repositoryInfo: {
         "ui:field": "moveRepoField",
         "ui:disabled": !!useRepoSettings,
-        options: { useRepoSettings },
+        options: {
+          projectId,
+          repoName: repoData?.generalConfiguration?.repositoryInfo?.repo,
+          repoOwner: repoData?.generalConfiguration?.repositoryInfo?.owner,
+          useRepoSettings,
+        },
       },
       branch: {
         ...placeholderIf(repoData?.generalConfiguration?.branch),

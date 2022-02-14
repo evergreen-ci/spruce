@@ -1,0 +1,5 @@
+mutation DetachProjectFromRepo($projectId: String!) {
+  detachProjectFromRepo(projectId: $projectId) {
+    id
+  }
+}
