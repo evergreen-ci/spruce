@@ -19,6 +19,96 @@ import { AddIssueModal } from "./AddIssueModal";
 import { AnnotationTicketsTable } from "./AnnotationTicketsTable";
 import { TicketsTitle, TitleAndButtons } from "./BBComponents";
 
+interface IssuesProps {
+  taskId: string;
+  execution: number;
+  isIssue: boolean;
+  userCanModify: boolean;
+  selectedRowKey: string;
+  setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export const Issues: React.FC<IssuesProps> = ({
+  taskId,
+  execution,
+  isIssue,
+  userCanModify,
+  selectedRowKey,
+  setSelectedRowKey,
+}) => {
+  const dispatchToast = useToastContext();
+  // Query Jira ticket data
+  const { data, loading } = useQuery<GetIssuesQuery, GetIssuesQueryVariables>(
+    GET_JIRA_ISSUES,
+    {
+      variables: { taskId, execution },
+      onError: (err) => {
+        dispatchToast.error(
+          `There was an error loading the ticket information from Jira: ${err.message}`
+        );
+      },
+    }
+  );
+  return (
+    <AnnotationTickets
+      tickets={data?.task?.annotation?.issues}
+      isIssue={isIssue}
+      taskId={taskId}
+      execution={execution}
+      userCanModify={userCanModify}
+      selectedRowKey={selectedRowKey}
+      setSelectedRowKey={setSelectedRowKey}
+      loading={loading}
+    />
+  );
+};
+
+interface SuspectedIssuesProps {
+  taskId: string;
+  execution: number;
+  isIssue: boolean;
+  userCanModify: boolean;
+  selectedRowKey: string;
+  setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export const SuspectedIssues: React.FC<SuspectedIssuesProps> = ({
+  taskId,
+  execution,
+  isIssue,
+  userCanModify,
+  selectedRowKey,
+  setSelectedRowKey,
+}) => {
+  const dispatchToast = useToastContext();
+  // Query Jira ticket data
+  const { data, loading } = useQuery<
+    GetSuspectedIssuesQuery,
+    GetSuspectedIssuesQueryVariables
+  >(GET_JIRA_SUSPECTED_ISSUES, {
+    variables: { taskId, execution },
+    onError: (err) => {
+      dispatchToast.error(
+        `There was an error loading the ticket information from Jira: ${err.message}`
+      );
+    },
+  });
+
+  const suspectedIssues = data?.task?.annotation?.suspectedIssues;
+  return (
+    <AnnotationTickets
+      tickets={suspectedIssues}
+      isIssue={isIssue}
+      taskId={taskId}
+      execution={execution}
+      userCanModify={userCanModify}
+      selectedRowKey={selectedRowKey}
+      setSelectedRowKey={setSelectedRowKey}
+      loading={loading}
+    />
+  );
+};
+
 interface AnnotationTicketsProps {
   taskId: string;
   execution: number;
@@ -27,6 +117,7 @@ interface AnnotationTicketsProps {
   userCanModify: boolean;
   selectedRowKey: string;
   setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
+  loading: boolean;
 }
 
 const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
@@ -37,6 +128,7 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
   userCanModify,
   selectedRowKey,
   setSelectedRowKey,
+  loading,
 }) => {
   const annotationAnalytics = useAnnotationAnalytics();
   const title = isIssue ? "Issues" : "Suspected Issues";
@@ -77,17 +169,16 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
           </StyledButton>
         </ConditionalWrapper>
       </TitleAndButtons>
-      {tickets?.length > 0 && (
-        <AnnotationTicketsTable
-          jiraIssues={tickets}
-          taskId={taskId}
-          execution={execution}
-          isIssue={isIssue}
-          userCanModify={userCanModify}
-          selectedRowKey={selectedRowKey}
-          setSelectedRowKey={setSelectedRowKey}
-        />
-      )}
+      <AnnotationTicketsTable
+        jiraIssues={tickets}
+        taskId={taskId}
+        execution={execution}
+        isIssue={isIssue}
+        userCanModify={userCanModify}
+        selectedRowKey={selectedRowKey}
+        setSelectedRowKey={setSelectedRowKey}
+        loading={loading}
+      />
       <AddIssueModal
         dataCy="addIssueModal"
         visible={isAddAnnotationModalVisible}
@@ -98,95 +189,6 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
         isIssue={isIssue}
       />
     </>
-  );
-};
-
-interface IssuesProps {
-  taskId: string;
-  execution: number;
-  isIssue: boolean;
-  userCanModify: boolean;
-  selectedRowKey: string;
-  setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
-}
-
-export const Issues: React.FC<IssuesProps> = ({
-  taskId,
-  execution,
-  isIssue,
-  userCanModify,
-  selectedRowKey,
-  setSelectedRowKey,
-}) => {
-  const dispatchToast = useToastContext();
-  // Query Jira ticket data
-  const { data } = useQuery<GetIssuesQuery, GetIssuesQueryVariables>(
-    GET_JIRA_ISSUES,
-    {
-      variables: { taskId, execution },
-      onError: (err) => {
-        dispatchToast.error(
-          `There was an error loading the ticket information from Jira: ${err.message}`
-        );
-      },
-    }
-  );
-
-  return (
-    <AnnotationTickets
-      tickets={data?.task?.annotation?.issues}
-      isIssue={isIssue}
-      taskId={taskId}
-      execution={execution}
-      userCanModify={userCanModify}
-      selectedRowKey={selectedRowKey}
-      setSelectedRowKey={setSelectedRowKey}
-    />
-  );
-};
-
-interface SuspectedIssuesProps {
-  taskId: string;
-  execution: number;
-  isIssue: boolean;
-  userCanModify: boolean;
-  selectedRowKey: string;
-  setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
-}
-
-export const SuspectedIssues: React.FC<SuspectedIssuesProps> = ({
-  taskId,
-  execution,
-  isIssue,
-  userCanModify,
-  selectedRowKey,
-  setSelectedRowKey,
-}) => {
-  const dispatchToast = useToastContext();
-  // Query Jira ticket data
-  const { data } = useQuery<
-    GetSuspectedIssuesQuery,
-    GetSuspectedIssuesQueryVariables
-  >(GET_JIRA_SUSPECTED_ISSUES, {
-    variables: { taskId, execution },
-    onError: (err) => {
-      dispatchToast.error(
-        `There was an error loading the ticket information from Jira: ${err.message}`
-      );
-    },
-  });
-
-  const suspectedIssues = data?.task?.annotation?.suspectedIssues;
-  return (
-    <AnnotationTickets
-      tickets={suspectedIssues}
-      isIssue={isIssue}
-      taskId={taskId}
-      execution={execution}
-      userCanModify={userCanModify}
-      selectedRowKey={selectedRowKey}
-      setSelectedRowKey={setSelectedRowKey}
-    />
   );
 };
 

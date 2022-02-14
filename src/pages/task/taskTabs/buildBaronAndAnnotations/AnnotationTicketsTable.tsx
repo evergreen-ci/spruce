@@ -28,6 +28,7 @@ interface AnnotationTicketsProps {
   userCanModify: boolean;
   selectedRowKey: string;
   setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
+  loading: boolean;
 }
 
 export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
@@ -38,6 +39,7 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
   isIssue,
   selectedRowKey,
   setSelectedRowKey,
+  loading,
 }) => {
   const annotationAnalytics = useAnnotationAnalytics();
   const dispatchToast = useToastContext();
@@ -47,10 +49,12 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
     {
       title: "Ticket",
       width: "70%",
-      render: (
-        text: string,
-        { issueKey, url, source, jiraTicket }: AnnotationTicket
-      ): JSX.Element => (
+      render: ({
+        issueKey,
+        url,
+        source,
+        jiraTicket,
+      }: AnnotationTicket): JSX.Element => (
         <AnnotationTicketRow
           issueKey={issueKey}
           url={url}
@@ -60,11 +64,7 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
       ),
     },
     {
-      title: "Delete",
-      render: (
-        text: string,
-        { issueKey, url }: AnnotationTicket
-      ): JSX.Element => (
+      render: ({ issueKey, url }: AnnotationTicket): JSX.Element => (
         <ConditionalWrapper
           condition={!userCanModify}
           wrapper={(children) => (
@@ -156,7 +156,7 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
     refetchQueries: ["GetSuspectedIssues", "GetIssues"],
   });
 
-  const onClickRemove = (url, issueKey) => {
+  const onClickRemove = (url: string, issueKey: string) => {
     const apiIssue = {
       url,
       issueKey,
@@ -170,7 +170,7 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
     });
   };
 
-  const onClickMove = (url, issueKey) => {
+  const onClickMove = (url: string, issueKey: string) => {
     const apiIssue = {
       url,
       issueKey,
@@ -189,7 +189,6 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
   // Will add a span with a ref to the row that matches the selectedRowKey
   // And will scroll to that ref.
   const rowRef = useRef<HTMLSpanElement>(null);
-
   useEffect(() => {
     if (selectedRowKey && rowRef.current) {
       rowRef.current.scrollIntoView({
@@ -199,6 +198,13 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
     }
   });
 
+  // if (loading) {
+  //   return (
+  //     <TableWrapper>
+  //       <Skeleton active title={false} />
+  //     </TableWrapper>
+  //   );
+  // }
   return (
     <TableWrapper>
       <Table
@@ -207,8 +213,9 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
         dataSource={jiraIssues}
         rowKey={({ issueKey }) => issueKey}
         columns={columns}
+        loading={loading}
         pagination={false}
-        showHeader={false}
+        // showHeader={false}
         rowSelection={{
           renderCell: (checked, record) =>
             record.issueKey === selectedRowKey && <span ref={rowRef} />,
@@ -218,6 +225,26 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
       />
     </TableWrapper>
   );
+  // return jiraIssues?.length > 0 ? (
+  //   <TableWrapper>
+  //     <Table
+  //       tableLayout="fixed"
+  //       data-test-id={isIssue ? "issues-table" : "suspected-issues-table"}
+  //       dataSource={jiraIssues}
+  //       rowKey={({ issueKey }) => issueKey}
+  //       columns={columns}
+  //       loading={loading}
+  //       pagination={false}
+  //       showHeader={false}
+  //       rowSelection={{
+  //         renderCell: (checked, record) =>
+  //           record.issueKey === selectedRowKey && <span ref={rowRef} />,
+  //         selectedRowKeys: [selectedRowKey],
+  //         columnWidth: 0,
+  //       }}
+  //     />
+  //   </TableWrapper>
+  // ) : null;
 };
 
 // CREATED TICKETS
@@ -231,10 +258,12 @@ export const CustomCreatedTicketsTable: React.FC<CreatedTicketsProps> = ({
   const columns = [
     {
       title: "Ticket",
-      render: (
-        text: string,
-        { issueKey, url, source, jiraTicket }: AnnotationTicket
-      ): JSX.Element => (
+      render: ({
+        issueKey,
+        url,
+        source,
+        jiraTicket,
+      }: AnnotationTicket): JSX.Element => (
         <AnnotationTicketRow
           issueKey={issueKey}
           url={url}
@@ -262,6 +291,7 @@ export const CustomCreatedTicketsTable: React.FC<CreatedTicketsProps> = ({
 
 export const TableWrapper = styled.div`
   margin-top: ${size.xxs};
+  margin-left: ${size.s};
 `;
 export const StyledText = styled.div`
   padding: ${size.xxs};
@@ -269,7 +299,6 @@ export const StyledText = styled.div`
 
 const BtnContainer = styled.div`
   white-space: nowrap;
-  margin-bottom: ${size.l};
   float: right;
   white-space: nowrap;
 `;
@@ -277,6 +306,5 @@ const BtnContainer = styled.div`
 // @ts-expect-error
 const StyledButton = styled(Button)`
   margin-left: ${size.xs};
-  margin-top: ${size.xs};
   height: ${size.m};
 `;
