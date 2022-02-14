@@ -107,6 +107,7 @@ const AttachDetachModal: React.FC<{
   return (
     <ConfirmationModal
       buttonText={shouldAttach ? "Attach" : "Detach"}
+      data-cy="attach-repo-modal"
       onCancel={handleClose}
       onConfirm={() => {
         if (shouldAttach) {
@@ -174,7 +175,11 @@ export const MoveRepoField: Field = ({
                 Move to New Repo
               </Button>
             )}
-            <Button size="small" onClick={() => setAttachModalOpen(true)}>
+            <Button
+              size="small"
+              onClick={() => setAttachModalOpen(true)}
+              data-cy="attach-repo-button"
+            >
               {useRepoSettings
                 ? "Detach from Current Repo"
                 : "Attach to Current Repo"}
