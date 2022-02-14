@@ -144,7 +144,7 @@ export const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
   );
 
   return useExpandableCard ? (
-    <ExpandableCard
+    <StyledExpandableCard
       defaultOpen={!isDisabled}
       contentClassName="patch-alias-card-content"
       title={
@@ -165,7 +165,7 @@ export const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
       }
     >
       {contents}
-    </ExpandableCard>
+    </StyledExpandableCard>
   ) : (
     <Accordion
       title={`${accordionTitle} ${index !== null ? index + 1 : ""}`}
@@ -176,14 +176,18 @@ export const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
   );
 };
 
+const StyledExpandableCard = styled(ExpandableCard)`
+  margin-bottom: ${size.l};
+`;
+
 const TitleWrapper = styled.span`
-  margin-right: 16px;
+  margin-right: ${size.s};
 `;
 
 /* @ts-expect-error  */
 const AccordionTitle = styled(Subtitle)`
   font-size: ${fontSize.l};
-  margin: ${size.s} 0;
+  margin: 11px 0; // Align title precisely with delete button
 `;
 
 const TaskRegexContainer = styled.div`

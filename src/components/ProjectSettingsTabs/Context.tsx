@@ -57,7 +57,6 @@ const reducer = (state: TabState, action: Action): TabState => {
       if (Object.keys(diff).length > 0) {
         saveableUpdate = !isArrayPushUpdate(diff);
       }
-      console.log(saveableUpdate);
       return {
         ...state,
         [action.tab]: {

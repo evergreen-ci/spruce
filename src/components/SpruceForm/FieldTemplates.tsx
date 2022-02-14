@@ -52,7 +52,7 @@ const ArrayItem: React.FC<
   topAlignDelete,
   useExpandableCard,
 }) => (
-  <ArrayItemRow key={index} topAlignDelete={topAlignDelete}>
+  <ArrayItemRow key={index}>
     {cloneElement(children, {
       uiSchema: {
         ...children.props.uiSchema,
@@ -61,7 +61,7 @@ const ArrayItem: React.FC<
       },
     })}
     {hasRemove && !useExpandableCard && (
-      <DeleteButtonWrapper>
+      <DeleteButtonWrapper topAlignDelete={topAlignDelete}>
         <Button
           onClick={onDropIndexClick(index)}
           disabled={disabled || readonly}
@@ -74,8 +74,6 @@ const ArrayItem: React.FC<
 );
 
 const ArrayItemRow = styled.div`
-  align-items: ${({ topAlignDelete }: { topAlignDelete: boolean }) =>
-    topAlignDelete ? "flex-start" : "flex-end"};
   display: flex;
 
   .field-object {
@@ -155,6 +153,9 @@ const ArrayContainer = styled.div`
 
 const DeleteButtonWrapper = styled(ElementWrapper)`
   margin-left: ${size.s};
+  // Align button with top of input unless it should specifically align to the top of the ArrayItemRow
+  align-items: ${({ topAlignDelete }: { topAlignDelete: boolean }) =>
+    topAlignDelete ? "0px" : "20px"};
 `;
 
 export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({

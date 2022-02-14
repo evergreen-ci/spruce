@@ -23,7 +23,10 @@ export const aliasHasError = ({
 }: AliasType): boolean =>
   pairHasError(task, taskTags) || pairHasError(variant, variantTags);
 
-export const sortAliases = (aliases) =>
+// Bucket aliases according to their "alias" field
+export const sortAliases = (
+  aliases: AliasType[]
+): Record<string, AliasType[]> =>
   aliases.reduce(
     (o, a) => {
       if (a.alias === AliasNames.GithubPr) {
@@ -48,6 +51,7 @@ export const sortAliases = (aliases) =>
     }
   );
 
+// Given alias form data, transform it to be safely saved
 export const transformAliases = (
   aliases: AliasType[],
   aliasName?: AliasNames
