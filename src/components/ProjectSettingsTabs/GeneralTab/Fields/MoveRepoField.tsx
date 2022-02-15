@@ -62,7 +62,7 @@ export const MoveRepoModal: React.FC<ModalProps> = ({
   );
 };
 
-const AttachDetachModal: React.FC<{
+export const AttachDetachModal: React.FC<{
   handleClose: () => void;
   open: boolean;
   projectId: string;
@@ -78,7 +78,7 @@ const AttachDetachModal: React.FC<{
   >(ATTACH_PROJECT_TO_REPO, {
     variables: { projectId },
     onCompleted() {
-      dispatchToast.success("Successfully attached project to repo");
+      dispatchToast.success("Successfully attached to repo");
     },
     onError(err) {
       dispatchToast.error(
@@ -94,7 +94,7 @@ const AttachDetachModal: React.FC<{
   >(DETACH_PROJECT_FROM_REPO, {
     variables: { projectId },
     onCompleted() {
-      dispatchToast.success("Successfully detached project from repo");
+      dispatchToast.success("Successfully detached from repo");
     },
     onError(err) {
       dispatchToast.error(
@@ -185,14 +185,16 @@ export const MoveRepoField: Field = ({
                 : "Attach to Current Repo"}
             </Button>
           </ButtonRow>
-          <AttachDetachModal
-            handleClose={() => setAttachModalOpen(false)}
-            open={attachModalOpen}
-            projectId={projectId}
-            repoName={repoName || formData.repo}
-            repoOwner={repoOwner || formData.owner}
-            shouldAttach={!useRepoSettings}
-          />
+          {attachModalOpen && (
+            <AttachDetachModal
+              handleClose={() => setAttachModalOpen(false)}
+              open={attachModalOpen}
+              projectId={projectId}
+              repoName={repoName || formData.repo}
+              repoOwner={repoOwner || formData.owner}
+              shouldAttach={!useRepoSettings}
+            />
+          )}
         </>
       )}
       <MoveRepoModal
