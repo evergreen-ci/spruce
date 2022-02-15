@@ -27,6 +27,10 @@ describe("Repo Settings", () => {
     cy.dataCy("move-repo-button").should("not.exist");
   });
 
+  it("Does not show an Attach/Detach to Repo button on page", () => {
+    cy.dataCy("attach-repo-button").should("not.exist");
+  });
+
   it("Sets a display name", () => {
     cy.dataCy("display-name-input").type("evg");
   });
@@ -113,7 +117,7 @@ describe("Project Settings when not defaulting to repo", () => {
       .contains("Attach")
       .parent()
       .click();
-    cy.contains("Successfully attached project to repo");
+    cy.contains("Successfully attached to repo");
   });
 
   it("Successfully detaches from repo", () => {
@@ -123,7 +127,7 @@ describe("Project Settings when not defaulting to repo", () => {
       .contains("Detach")
       .parent()
       .click();
-    cy.contains("Successfully detached project from repo");
+    cy.contains("Successfully detached from repo");
   });
 
   describe("Access page", () => {
