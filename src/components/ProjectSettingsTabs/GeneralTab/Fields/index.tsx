@@ -1,5 +1,5 @@
 import { FilesIgnoredFromCacheField } from "./FilesIgnoredFromCacheField";
-import { MoveRepoField } from "./MoveRepoField";
+import { RepoConfigField } from "./RepoConfigField";
 import { RepotrackerField } from "./RepotrackerField";
 
-export { FilesIgnoredFromCacheField, MoveRepoField, RepotrackerField };
+export { FilesIgnoredFromCacheField, RepoConfigField, RepotrackerField };

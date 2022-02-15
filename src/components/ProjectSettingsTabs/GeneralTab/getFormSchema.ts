@@ -6,7 +6,7 @@ import { Project } from "gql/generated/types";
 import { insertIf, placeholderIf, radioBoxOptions } from "../utils";
 import {
   FilesIgnoredFromCacheField,
-  MoveRepoField,
+  RepoConfigField,
   RepotrackerField,
 } from "./Fields";
 import { FormState } from "./types";
@@ -22,7 +22,7 @@ export const getFormSchema = (
   uiSchema: SpruceFormProps["uiSchema"];
 } => ({
   fields: {
-    moveRepoField: MoveRepoField,
+    repoConfigField: RepoConfigField,
     filesIgnoredFromCacheField: FilesIgnoredFromCacheField,
     repotrackerField: RepotrackerField,
   },
@@ -235,7 +235,7 @@ export const getFormSchema = (
         "ui:data-cy": "enabled-radio-box",
       },
       repositoryInfo: {
-        "ui:field": "moveRepoField",
+        "ui:field": "repoConfigField",
         "ui:disabled": !!useRepoSettings,
         options: {
           projectId,

@@ -8,9 +8,9 @@ import {
 import { render, fireEvent, waitFor } from "test_utils";
 import {
   AttachDetachModal,
-  MoveRepoField,
   MoveRepoModal,
-} from "./MoveRepoField";
+  RepoConfigField,
+} from "./RepoConfigField";
 import { defaultFieldProps } from "./utils";
 
 const fieldProps = {
@@ -23,7 +23,7 @@ const fieldProps = {
 
 const Field = () => (
   <MockedProvider mocks={[attachProjectToRepoMock, detachProjectFromRepoMock]}>
-    <MoveRepoField
+    <RepoConfigField
       {...fieldProps}
       uiSchema={{
         options: {
@@ -54,10 +54,10 @@ const AttachmentModal = ({
   </MockedProvider>
 );
 
-describe("moveRepoField", () => {
+describe("repoConfigField", () => {
   it("does not show the move repo button when not attached to repo", async () => {
     const { queryByDataCy } = render(
-      <MoveRepoField
+      <RepoConfigField
         {...fieldProps}
         uiSchema={{
           options: { useRepoSettings: false },
@@ -69,7 +69,7 @@ describe("moveRepoField", () => {
 
   it("clicking the button opens the modal", async () => {
     const { queryByDataCy } = render(
-      <MoveRepoField
+      <RepoConfigField
         {...fieldProps}
         uiSchema={{
           options: { useRepoSettings: true },

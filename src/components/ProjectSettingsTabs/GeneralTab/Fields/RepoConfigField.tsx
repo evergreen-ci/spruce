@@ -141,7 +141,7 @@ export const AttachDetachModal: React.FC<{
   );
 };
 
-export const MoveRepoField: Field = ({
+export const RepoConfigField: Field = ({
   formData,
   onChange,
   schema,
