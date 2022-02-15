@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useParams, useLocation } from "react-router-dom";
@@ -76,15 +76,13 @@ export const Task: React.FC = () => {
   const isPatchOnCommitQueue = requester === commitQueueRequester;
 
   // Set the execution if it isnt provided
-  if (
-    Number.isNaN(selectedExecution) &&
-    task?.id === id &&
-    latestExecution !== undefined
-  ) {
-    updateQueryParams({
-      execution: `${latestExecution}`,
-    });
-  }
+  useEffect(() => {
+    if (Number.isNaN(selectedExecution) && latestExecution !== undefined) {
+      updateQueryParams({
+        execution: `${latestExecution}`,
+      });
+    }
+  }, [task]); // eslint-disable-line react-hooks/exhaustive-deps
 
   usePageTitle(`Task${displayName ? ` - ${displayName}` : ""}`);
 

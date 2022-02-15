@@ -3,8 +3,11 @@ import { useLazyQuery, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Option, Select } from "@leafygreen-ui/select";
+import Tooltip from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
+import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { getTaskRoute } from "constants/routes";
+import { finishedTaskStatuses } from "constants/task";
 import { size } from "constants/tokens";
 import {
   GetBaseVersionAndTaskQuery,
@@ -16,11 +19,11 @@ import {
   GET_BASE_VERSION_AND_TASK,
   GET_LAST_MAINLINE_COMMIT,
 } from "gql/queries";
-import { TaskStatus, finishedTaskStatuses, CommitTask } from "types/task";
-import { errorReporting } from "utils";
-import { isFinishedTaskStatus } from "utils/statuses";
-import { applyStrictRegex } from "utils/string";
+import { TaskStatus, CommitTask } from "types/task";
+import { errorReporting, statuses, string } from "utils";
 
+const { isFinishedTaskStatus } = statuses;
+const { applyStrictRegex } = string;
 const { reportError } = errorReporting;
 
 enum CommitType {
@@ -28,11 +31,10 @@ enum CommitType {
   LastPassing = "lastPassing",
   LastExecuted = "lastExecuted",
 }
-interface Props {
+interface PreviousCommitsProps {
   taskId: string;
 }
-
-export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
+export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
   const [selectState, setSelectState] = useState<CommitType>(CommitType.Base);
   const [parentTask, setParentTask] = useState<CommitTask>(null);
   const [lastPassingTask, setLastPassingTask] = useState<CommitTask>(null);
@@ -87,51 +89,59 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
   // Hook to determine the parent task. If mainline commit, use fetchParentTask function to get task from
   // previous mainline commit. Otherwise, just extract the base task from the task data.
   useEffect(() => {
-    if (versionMetadata?.isPatch === false) {
-      fetchParentTask({
-        variables: {
-          projectIdentifier,
-          skipOrderNumber,
-          buildVariantOptions: {
-            ...bvOptionsBase,
+    if (versionMetadata) {
+      if (!versionMetadata.isPatch) {
+        fetchParentTask({
+          variables: {
+            projectIdentifier,
+            skipOrderNumber,
+            buildVariantOptions: {
+              ...bvOptionsBase,
+            },
           },
-        },
-      });
-    } else if (versionMetadata?.isPatch === true) {
-      setParentTask(baseTask);
+        });
+      } else {
+        setParentTask(baseTask);
+      }
     }
   }, [versionMetadata]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Hook to find last passing & last executed tasks. This is a separate hook because the parent task must be
-  // known before proceeding.
+  // Hook to find last passing & last executed tasks. This is a separate hook because the queries should only
+  // run if the user selects these options. Additionally, these queries can only be run after the parentTask
+  // is known.
   useEffect(() => {
     if (parentTask) {
-      if (parentTask.status !== TaskStatus.Succeeded) {
-        fetchLastPassing({
-          variables: {
-            projectIdentifier,
-            skipOrderNumber,
-            buildVariantOptions: {
-              ...bvOptionsBase,
-              statuses: [TaskStatus.Succeeded],
+      if (selectState === CommitType.LastPassing) {
+        if (parentTask.status !== TaskStatus.Succeeded) {
+          fetchLastPassing({
+            variables: {
+              projectIdentifier,
+              skipOrderNumber,
+              buildVariantOptions: {
+                ...bvOptionsBase,
+                statuses: [TaskStatus.Succeeded],
+              },
             },
-          },
-        });
+          });
+        }
       }
-      if (!isFinishedTaskStatus(parentTask.status)) {
-        fetchLastExecuted({
-          variables: {
-            projectIdentifier,
-            skipOrderNumber,
-            buildVariantOptions: {
-              ...bvOptionsBase,
-              statuses: finishedTaskStatuses,
+
+      if (selectState === CommitType.LastExecuted) {
+        if (!isFinishedTaskStatus(parentTask.status)) {
+          fetchLastExecuted({
+            variables: {
+              projectIdentifier,
+              skipOrderNumber,
+              buildVariantOptions: {
+                ...bvOptionsBase,
+                statuses: finishedTaskStatuses,
+              },
             },
-          },
-        });
+          });
+        }
       }
     }
-  }, [parentTask]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [parentTask, selectState]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // The default link should be undefined so that the GO button is disabled if links do not exist.
   let link: string;
@@ -140,17 +150,32 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
       case CommitType.Base:
         link = getTaskRoute(parentTask.id);
         break;
-      // If a base task succeeded, the last passing commit is the base task.
+      // If a base task succeeded, the last passing commit is the parent task.
       case CommitType.LastPassing:
         link = getTaskRoute(lastPassingTask?.id || parentTask.id);
         break;
-      // If a base task exists and has finished, the last executed commit is the base task.
+      // If a base task exists and has finished, the last executed commit is the parent task.
       case CommitType.LastExecuted:
         link = getTaskRoute(lastExecutedTask?.id || parentTask.id);
         break;
       default:
     }
   }
+
+  const lastPassingTaskDoesNotExist =
+    !parentTask ||
+    (selectState === CommitType.LastPassing &&
+      !lastPassingTask &&
+      parentTask.status !== TaskStatus.Succeeded);
+
+  const lastExecutedTaskDoesNotExist =
+    !parentTask ||
+    (selectState === CommitType.LastExecuted &&
+      !lastExecutedTask &&
+      !isFinishedTaskStatus(parentTask.status));
+
+  const disableButton =
+    !link || lastPassingTaskDoesNotExist || lastExecutedTaskDoesNotExist;
 
   return versionMetadata?.isPatch !== undefined ? (
     <PreviousCommitsWrapper>
@@ -163,37 +188,49 @@ export const PreviousCommits: React.FC<Props> = ({ taskId }) => {
         value={selectState}
         disabled={!versionMetadata?.baseVersion}
       >
-        <Option value={CommitType.Base} key={CommitType.Base}>
+        <Option value={CommitType.Base}>
           Go to {versionMetadata?.isPatch ? "base commit" : "parent commit"}
         </Option>
-        <Option value={CommitType.LastPassing} key={CommitType.LastPassing}>
+        <Option value={CommitType.LastPassing}>
           Go to last passing version
         </Option>
-        <Option value={CommitType.LastExecuted} key={CommitType.LastExecuted}>
+        <Option value={CommitType.LastExecuted}>
           Go to last executed version
         </Option>
       </StyledSelect>
-      <Button as={Link} to={link || "/"} disabled={!link} size="small">
-        Go
-      </Button>
+
+      <ConditionalWrapper
+        condition={disableButton}
+        wrapper={(children) => (
+          <Tooltip
+            align="top"
+            justify="middle"
+            triggerEvent="hover"
+            trigger={children}
+            darkMode
+          >
+            There is no version that satisfies this criteria.
+          </Tooltip>
+        )}
+      >
+        {/* This div is necessary, or else the tooltip will not show. */}
+        <div>
+          <Button
+            as={Link}
+            to={link || "/"}
+            disabled={disableButton}
+            size="small"
+          >
+            Go
+          </Button>
+        </div>
+      </ConditionalWrapper>
     </PreviousCommitsWrapper>
   ) : null;
 };
 
-const PreviousCommitsWrapper = styled.div`
-  display: flex;
-  align-items: flex-start;
-`;
-
-// @ts-expect-error
-const StyledSelect = styled(Select)`
-  width: 220px;
-  margin-right: ${size.xs};
-
-  position: relative;
-  bottom: 20px; // to offset the label
-`;
-
+// The return value from GetLastMainlineCommitQuery has a lot of nested fields that may or may
+// not exist. The logic to extract the task from it is written in this function.
 const getTaskFromMainlineCommitsQuery = (
   data: GetLastMainlineCommitQuery
 ): CommitTask => {
@@ -210,3 +247,17 @@ const getTaskFromMainlineCommitsQuery = (
   }
   return buildVariants[0]?.tasks[0];
 };
+
+const PreviousCommitsWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+`;
+
+// @ts-expect-error
+const StyledSelect = styled(Select)`
+  width: 220px;
+  margin-right: ${size.xs};
+
+  position: relative;
+  bottom: 20px; // to offset the label
+`;
