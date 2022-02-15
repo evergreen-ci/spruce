@@ -114,7 +114,6 @@ describe("Project Settings when not defaulting to repo", () => {
       .parent()
       .click();
     cy.contains("Successfully attached project to repo");
-    cy.dataCy("enabled-radio-box").children().should("have.length", 3);
   });
 
   it("Successfully detaches from repo", () => {
@@ -256,28 +255,6 @@ describe("Project Settings when defaulting to repo", () => {
   it.skip("Clicking on save button should show a success toast", () => {
     cy.dataCy("save-settings-button").click();
     cy.contains("Successfully updated project");
-  });
-
-  it("Successfully detaches from repo and no longer shows 'Default to Repo' options", () => {
-    cy.dataCy("attach-repo-button").click();
-    cy.dataCy("attach-repo-modal")
-      .find("button")
-      .contains("Detach")
-      .parent()
-      .click();
-    cy.contains("Successfully detached project from repo");
-
-    cy.dataCy("enabled-radio-box").children().should("have.length", 2);
-  });
-
-  it("Successfully attaches to existing repo", () => {
-    cy.dataCy("attach-repo-button").click();
-    cy.dataCy("attach-repo-modal")
-      .find("button")
-      .contains("Attach")
-      .parent()
-      .click();
-    cy.contains("Successfully attached project to repo");
   });
 
   describe("GitHub/Commit Queue page", () => {
