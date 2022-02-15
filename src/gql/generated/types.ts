@@ -2307,8 +2307,10 @@ export type ProjectSettingsFragment = {
       repoRefId: string;
     } & ProjectGeneralSettingsFragment &
       ProjectAccessSettingsFragment &
-      ProjectPluginsSettingsFragment
+      ProjectPluginsSettingsFragment &
+      ProjectNotificationSettingsFragment
   >;
+  subscriptions?: Maybe<Array<SubscriptionsFragment>>;
   vars?: Maybe<VariablesFragment>;
   aliases?: Maybe<Array<AliasFragment>>;
 } & ProjectGithubCommitQueueFragment;
@@ -2317,11 +2319,56 @@ export type RepoSettingsFragment = {
   projectRef?: Maybe<
     { id: string } & RepoGeneralSettingsFragment &
       RepoAccessSettingsFragment &
-      RepoPluginsSettingsFragment
+      RepoPluginsSettingsFragment &
+      RepoNotificationSettingsFragment
   >;
   vars?: Maybe<VariablesFragment>;
+  subscriptions?: Maybe<Array<SubscriptionsFragment>>;
   aliases?: Maybe<Array<AliasFragment>>;
 } & RepoGithubCommitQueueFragment;
+
+export type ProjectNotificationSettingsFragment = {
+  notifyOnBuildFailure?: Maybe<boolean>;
+};
+
+export type RepoNotificationSettingsFragment = {
+  notifyOnBuildFailure: boolean;
+};
+
+export type SubscriptionsFragment = {
+  id: string;
+  resourceType: string;
+  trigger: string;
+  ownerType: string;
+  triggerData?: Maybe<{ [key: string]: any }>;
+  selectors: Array<{ type: string; data: string }>;
+  regexSelectors: Array<{ type: string; data: string }>;
+  subscriber?: Maybe<{
+    type: string;
+    subscriber: {
+      jiraCommentSubscriber?: Maybe<string>;
+      emailSubscriber?: Maybe<string>;
+      slackSubscriber?: Maybe<string>;
+      githubPRSubscriber?: Maybe<{
+        owner: string;
+        repo: string;
+        ref: string;
+        prNumber?: Maybe<number>;
+      }>;
+      githubCheckSubscriber?: Maybe<{
+        owner: string;
+        repo: string;
+        ref: string;
+      }>;
+      webhookSubscriber?: Maybe<{
+        url: string;
+        secret: string;
+        headers: Array<Maybe<{ key: string; value: string }>>;
+      }>;
+      jiraIssueSubscriber?: Maybe<{ project: string; issueType: string }>;
+    };
+  }>;
+};
 
 export type ProjectPluginsSettingsFragment = {
   perfEnabled?: Maybe<boolean>;

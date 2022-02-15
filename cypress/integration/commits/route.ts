@@ -19,7 +19,7 @@ describe("Mainline Commits page route", () => {
     cy.location("pathname").should("eq", "/commits/evergreen");
   });
 
-  it("Should update the mci-project-cookie upon selecting a project from the Project Selector", () => {
+  it("Should save what ever project the user viewed last", () => {
     cy.visit("/commits/spruce");
     cy.dataCy("project-select").click();
     cy.contains("evergreen smoke test").click();
@@ -29,11 +29,11 @@ describe("Mainline Commits page route", () => {
       "evergreen"
     );
     cy.dataCy("project-select").click();
-    cy.contains("mongo-test").click();
+    cy.contains("System Performance").click();
     cy.getCookie("mci-project-cookie").should(
       "have.property",
       "value",
-      "mongodb-mongo-test"
+      "sys-perf"
     );
   });
 });
