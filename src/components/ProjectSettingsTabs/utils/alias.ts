@@ -53,19 +53,22 @@ export const sortAliases = (
 
 // Given alias form data, transform it to be safely saved
 export const transformAliases = (
-  aliases: AliasType[],
+  aliases: Partial<AliasType>[],
+  override: boolean,
   aliasName?: AliasNames
 ): ProjectAliasInput[] =>
-  aliases.map(({ id, alias, variant, variantTags, task, taskTags }) => ({
-    id: id || "",
-    alias: alias || aliasName,
-    variant: variant || "",
-    variantTags: variantTags?.filter((tag) => tag) ?? [],
-    task: task || "",
-    taskTags: taskTags?.filter((tag) => tag) ?? [],
-    gitTag: "",
-    remotePath: "",
-  }));
+  override
+    ? aliases.map(({ id, alias, variant, variantTags, task, taskTags }) => ({
+        id: id || "",
+        alias: alias || aliasName,
+        variant: variant || "",
+        variantTags: variantTags?.filter((tag) => tag) ?? [],
+        task: task || "",
+        taskTags: taskTags?.filter((tag) => tag) ?? [],
+        gitTag: "",
+        remotePath: "",
+      }))
+    : [];
 
 type AliasRowUIParams = {
   accordionTitle: string;

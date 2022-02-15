@@ -227,6 +227,7 @@ export const getFormSchema = (
           repoData?.github?.prTestingEnabled
         ),
         githubPrAliasesOverride: {
+          "ui:data-cy": "pr-testing-override-radio-box",
           ...overrideStyling(
             repoData?.github?.prTesting?.githubPrAliases === undefined
           ),

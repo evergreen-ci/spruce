@@ -68,7 +68,7 @@ export const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
     `${idSchema.$id}-${fieldName}-field`;
 
   const contents = (
-    <>
+    <div data-cy="alias-row">
       {alias.content}
       <TaskRegexContainer>
         <StyledSegmentedControl
@@ -140,7 +140,7 @@ export const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
           </div>
         )}
       </TaskRegexContainer>
-    </>
+    </div>
   );
 
   return useExpandableCard ? (

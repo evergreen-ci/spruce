@@ -31,7 +31,10 @@ export const formToGql: FormToGqlFunction = (
   { patchAliases }: FormState,
   id
 ) => {
-  const aliases = transformAliases(patchAliases.aliases);
+  const aliases = transformAliases(
+    patchAliases.aliases,
+    patchAliases.aliasesOverride
+  );
 
   return {
     projectRef: { id },

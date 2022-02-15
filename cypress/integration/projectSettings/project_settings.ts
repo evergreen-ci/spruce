@@ -285,7 +285,11 @@ describe("Project Settings when defaulting to repo", () => {
     });
 
     it("Allows overriding repo patch definitions", () => {
-      cy.get("input[name=githubPrAliasesOverride]").first().parent().click();
+      cy.dataCy("pr-testing-override-radio-box")
+        .find("input")
+        .first()
+        .parent()
+        .click();
       cy.dataCy("add-button").contains("Add Patch Definition").parent().click();
       cy.get("button").contains("Regex").first().click();
       cy.dataCy("variant-input").first().type(".*");
@@ -395,6 +399,31 @@ describe("Project Settings when defaulting to repo", () => {
 
       cy.dataCy("save-settings-button").click();
       cy.contains("Successfully updated project");
+    });
+
+    it("Allows defaulting to repo patch definitions", () => {
+      cy.dataCy("patch-aliases-override-radio-box")
+        .find("input")
+        .eq(1)
+        .parent()
+        .click();
+
+      cy.dataCy("save-settings-button").click();
+      cy.contains("Successfully updated project");
+
+      cy.dataCy("patch-aliases-override-radio-box")
+        .find("input")
+        .eq(1)
+        .should("be.checked");
+    });
+
+    it("Has cleared previously saved alias definitions", () => {
+      cy.dataCy("patch-aliases-override-radio-box")
+        .find("input")
+        .first()
+        .parent()
+        .click();
+      cy.dataCy("alias-row").should("have.length", 0);
     });
   });
 });

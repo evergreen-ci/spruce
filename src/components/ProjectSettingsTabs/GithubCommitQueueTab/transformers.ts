@@ -122,16 +122,19 @@ export const formToGql: FormToGqlFunction = (
 
   const githubPrAliases = transformAliases(
     prTesting.githubPrAliases,
+    prTesting.githubPrAliasesOverride,
     AliasNames.GithubPr
   );
 
   const githubCheckAliases = transformAliases(
     githubChecks.githubCheckAliases,
+    githubChecks.githubCheckAliasesOverride,
     AliasNames.GithubCheck
   );
 
   const commitQueueAliases = transformAliases(
     patchDefinitions.commitQueueAliases,
+    patchDefinitions.commitQueueAliasesOverride,
     AliasNames.CommitQueue
   );
 
