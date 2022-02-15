@@ -111,34 +111,36 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
   // is known.
   useEffect(() => {
     if (parentTask) {
-      if (selectState === CommitType.LastPassing) {
-        if (parentTask.status !== TaskStatus.Succeeded) {
-          fetchLastPassing({
-            variables: {
-              projectIdentifier,
-              skipOrderNumber,
-              buildVariantOptions: {
-                ...bvOptionsBase,
-                statuses: [TaskStatus.Succeeded],
-              },
+      if (
+        selectState === CommitType.LastPassing &&
+        parentTask.status !== TaskStatus.Succeeded
+      ) {
+        fetchLastPassing({
+          variables: {
+            projectIdentifier,
+            skipOrderNumber,
+            buildVariantOptions: {
+              ...bvOptionsBase,
+              statuses: [TaskStatus.Succeeded],
             },
-          });
-        }
+          },
+        });
       }
 
-      if (selectState === CommitType.LastExecuted) {
-        if (!isFinishedTaskStatus(parentTask.status)) {
-          fetchLastExecuted({
-            variables: {
-              projectIdentifier,
-              skipOrderNumber,
-              buildVariantOptions: {
-                ...bvOptionsBase,
-                statuses: finishedTaskStatuses,
-              },
+      if (
+        selectState === CommitType.LastExecuted &&
+        !isFinishedTaskStatus(parentTask.status)
+      ) {
+        fetchLastExecuted({
+          variables: {
+            projectIdentifier,
+            skipOrderNumber,
+            buildVariantOptions: {
+              ...bvOptionsBase,
+              statuses: finishedTaskStatuses,
             },
-          });
-        }
+          },
+        });
       }
     }
   }, [parentTask, selectState]); // eslint-disable-line react-hooks/exhaustive-deps
