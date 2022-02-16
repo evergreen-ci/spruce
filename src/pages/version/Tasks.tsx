@@ -3,13 +3,13 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Skeleton } from "antd";
-import every from "lodash.every";
 import { useParams, useLocation } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
+import { ALL_VALUE } from "components/TreeSelect";
 import { pollInterval } from "constants/index";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -145,17 +145,12 @@ const statusesToIncludeInQuery = {
 };
 
 const getStatuses = (rawStatuses: string[] | string): string[] => {
+  if (toArray(rawStatuses).includes(ALL_VALUE)) {
+    return [];
+  }
   const statuses = toArray(rawStatuses).filter(
     (status) => status in statusesToIncludeInQuery
   );
-  if (
-    every(Object.keys(statusesToIncludeInQuery), (status) =>
-      statuses.includes(status)
-    )
-  ) {
-    // passing empty array for `All` value is also more performant for filtering on the backend as opposed to passing array of all statuses
-    return [];
-  }
   return statuses;
 };
 
