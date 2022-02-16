@@ -3,13 +3,15 @@ import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { Project } from "gql/generated/types";
-import { insertIf, placeholderIf, radioBoxOptions } from "../utils";
+import { form } from "../utils";
 import {
   FilesIgnoredFromCacheField,
   MoveRepoField,
   RepotrackerField,
 } from "./Fields";
 import { FormState } from "./types";
+
+const { insertIf, placeholderIf, radioBoxOptions } = form;
 
 export const getFormSchema = (
   projectId: string,

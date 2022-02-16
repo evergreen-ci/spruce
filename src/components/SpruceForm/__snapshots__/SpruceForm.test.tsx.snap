@@ -436,10 +436,6 @@ exports[`spruceForm should render as expected 1`] = `
 }
 
 .emotion-39 {
-  -webkit-align-items: flex-end;
-  -webkit-box-align: flex-end;
-  -ms-flex-align: flex-end;
-  align-items: flex-end;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -565,6 +561,10 @@ exports[`spruceForm should render as expected 1`] = `
 .emotion-51 {
   margin-bottom: 20px;
   margin-left: 16px;
+  -webkit-align-items: 20px;
+  -webkit-box-align: 20px;
+  -ms-flex-align: 20px;
+  align-items: 20px;
 }
 
 .emotion-53 {

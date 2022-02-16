@@ -1,3 +1,4 @@
+import { cloneElement } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import {
@@ -38,7 +39,9 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
 };
 
 const ArrayItem: React.FC<
-  { topAlignDelete: boolean } & Unpacked<ArrayFieldTemplateProps["items"]>
+  { topAlignDelete: boolean; useExpandableCard: boolean } & Unpacked<
+    ArrayFieldTemplateProps["items"]
+  >
 > = ({
   children,
   disabled,
@@ -47,11 +50,18 @@ const ArrayItem: React.FC<
   onDropIndexClick,
   readonly,
   topAlignDelete,
+  useExpandableCard,
 }) => (
-  <ArrayItemRow key={index} topAlignDelete={topAlignDelete}>
-    {children}
-    {hasRemove && (
-      <DeleteButtonWrapper>
+  <ArrayItemRow key={index}>
+    {cloneElement(children, {
+      uiSchema: {
+        ...children.props.uiSchema,
+        "ui:index": index,
+        "ui:onDropIndexClick": onDropIndexClick,
+      },
+    })}
+    {hasRemove && !useExpandableCard && (
+      <DeleteButtonWrapper topAlignDelete={topAlignDelete}>
         <Button
           onClick={onDropIndexClick(index)}
           disabled={disabled || readonly}
@@ -64,8 +74,6 @@ const ArrayItem: React.FC<
 );
 
 const ArrayItemRow = styled.div`
-  align-items: ${({ topAlignDelete }: { topAlignDelete: boolean }) =>
-    topAlignDelete ? "flex-start" : "flex-end"};
   display: flex;
 
   .field-object {
@@ -94,6 +102,7 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   const fullWidth = !!uiSchema["ui:fullWidth"];
   const showLabel = uiSchema["ui:showLabel"] !== false;
   const topAlignDelete = uiSchema["ui:topAlignDelete"] ?? false;
+  const useExpandableCard = uiSchema["ui:useExpandableCard"] ?? false;
   const isDisabled = disabled || readonly;
   return (
     <>
@@ -118,7 +127,12 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
       )}
       <ArrayContainer fullWidth={fullWidth} hasChildren={!!items?.length}>
         {items.map((p) => (
-          <ArrayItem key={p.key} topAlignDelete={topAlignDelete} {...p} />
+          <ArrayItem
+            key={p.key}
+            topAlignDelete={topAlignDelete}
+            useExpandableCard={useExpandableCard}
+            {...p}
+          />
         ))}
       </ArrayContainer>
     </>
@@ -139,6 +153,9 @@ const ArrayContainer = styled.div`
 
 const DeleteButtonWrapper = styled(ElementWrapper)`
   margin-left: ${size.s};
+  // Align button with top of input unless it should specifically align to the top of the ArrayItemRow
+  align-items: ${({ topAlignDelete }: { topAlignDelete: boolean }) =>
+    topAlignDelete ? "0px" : "20px"};
 `;
 
 export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({

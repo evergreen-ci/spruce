@@ -108,6 +108,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   const awsRegions = awsData?.awsRegions;
   const volumes = volumesData?.myVolumes ?? [];
 
+  // When the modal is opened, reset to the "default" state of the Modal contents.
   useEffect(() => {
     dispatch({ type: "reset" });
     if (awsRegions && awsRegions.length) {
@@ -130,10 +131,10 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   }, [visible]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (awsRegions) {
+    if (awsRegions && awsRegions.length) {
       dispatch({ type: "editAWSRegion", region: awsRegions[0] });
     }
-    if (publicKeys) {
+    if (publicKeys && publicKeys.length) {
       dispatch({
         type: "editPublicKey",
         publicKey: publicKeys[0],
