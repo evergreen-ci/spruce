@@ -1,13 +1,4 @@
-export type AliasType = {
-  id: string;
-  alias: string;
-  gitTag: string;
-  remotePath: string;
-  variant: string;
-  variantTags: string[];
-  task: string;
-  taskTags: string[];
-};
+import { AliasType } from "../utils";
 
 export interface FormState {
   github: {
