@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
+import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { StyledRouterLink, SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
 import { H3 } from "components/Typography";
@@ -16,9 +17,8 @@ import {
 } from "gql/generated/types";
 import { GET_BUILD_VARIANTS_STATS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
+import { groupStatusesByUmbrellaStatus } from "utils/statuses";
 import { applyStrictRegex } from "utils/string";
-import { GroupedTaskSquare } from "./buildVariants/GroupedTaskSquare";
-import { groupTaskStatsByUmbrellaStatus } from "./buildVariants/utils";
 
 export const BuildVariants: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -40,7 +40,7 @@ export const BuildVariants: React.FC = () => {
       <SiderCard>
         <H3>Build Variants</H3>
         <Divider />
-        {error && <div>{error.message}</div>}{" "}
+        {error && <div>{error.message}</div>}
         {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
         {version?.buildVariantStats?.map(
           ({ displayName, statusCounts, variant }) => (
@@ -80,23 +80,32 @@ interface VariantTaskGroupProps {
   versionId: string;
 }
 const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
-  statusCounts,
   variant,
+  statusCounts,
   versionId,
 }) => {
-  const orderedStatusCounts = groupTaskStatsByUmbrellaStatus(statusCounts);
+  const { stats } = groupStatusesByUmbrellaStatus(statusCounts ?? []);
+  const { sendEvent } = useVersionAnalytics(versionId);
+
   return (
     <VariantTasks>
-      {Object.entries(orderedStatusCounts).map(
-        ([umbrellaStatus, { statuses, count }]) => (
-          <GroupedTaskSquare
-            key={`${variant}_${umbrellaStatus}`}
-            variant={variant}
-            umbrellaStatus={umbrellaStatus}
-            count={count}
-            versionId={versionId}
-            statuses={statuses}
-          />
+      {stats.map(
+        ({ umbrellaStatus, count, statusCounts: groupedStatusCounts }) => (
+          <>
+            <GroupedTaskStatusBadge
+              variant={variant}
+              versionId={versionId}
+              status={umbrellaStatus}
+              count={count}
+              onClick={() =>
+                sendEvent({
+                  name: "Click Grouped Task Square",
+                  taskSquareStatuses: Object.keys(groupedStatusCounts),
+                })
+              }
+              statusCounts={groupedStatusCounts}
+            />
+          </>
         )
       )}
     </VariantTasks>
@@ -109,4 +118,7 @@ const BuildVariant = styled.div`
 const VariantTasks = styled.div`
   display: flex;
   flex-wrap: wrap;
+  > * {
+    margin-right: ${size.xs};
+  }
 `;
