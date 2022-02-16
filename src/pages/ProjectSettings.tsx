@@ -101,13 +101,17 @@ export const ProjectSettings: React.FC = () => {
     currentTab: tab,
   };
 
+  const project =
+    projectData !== null
+      ? projectData?.projectSettings
+      : repoData?.repoSettings;
   const hasData = projectData ? !useRepoSettings || repoData : repoData;
 
   return (
     <ProjectSettingsProvider>
       <SideNav aria-label="Project Settings">
         <SideNavGroup header="Project" />
-        <CreateProjectModal />
+        <CreateProjectModal project={project} />
         <SideNavGroup>
           <ProjectSettingsNavItem
             {...sharedProps}

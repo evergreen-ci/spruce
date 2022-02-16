@@ -10,11 +10,61 @@ import { useToastContext } from "context/toast";
 import {
   CreateProjectMutation,
   CreateProjectMutationVariables,
+  ProjectSettingsFragment,
+  RepoSettingsFragment,
 } from "gql/generated/types";
 import { CREATE_PROJECT } from "gql/mutations";
 
-export const CreateProjectModal = () => {
-  const isAdmin = true; // todo
+const getModalFormDefinition = (project: any) => ({
+  schema: {
+    type: "object" as "object",
+    properties: {
+      projectName: {
+        type: "string" as "string",
+        title: "Project Name",
+      },
+      projectId: {
+        type: "string" as "string",
+        title: "Project Id",
+        value: "hi",
+        description:
+          "Optionally enter immutable project ID that would be used by Evergreen internally and defaults to a random hash; should only be user-specified with good reason, such as if the project will be using performance tooling. Cannot be changed!",
+      },
+      owner: {
+        type: "string" as "string",
+        title: "Owner",
+        default: project?.projectRef?.owner,
+      },
+      repo: {
+        type: "string" as "string",
+        title: "Repo",
+        default: project?.projectRef?.repo,
+      },
+    },
+  },
+  uiSchema: {
+    projectName: {
+      "ui:data-cy": "project-name-input",
+    },
+    projectId: {
+      "ui:data-cy": "project-id-input",
+      "ui:description":
+        "Optionally enter an immutable project ID that would be used by Evergreen internally instead of defaulting to a random hash; An id should only be user-specified with good reason, such as if the project will be using performance tooling. \n It cannot be changed!",
+    },
+    owner: {
+      "ui:data-cy": "new-owner-input",
+    },
+    repo: {
+      "ui:data-cy": "new-repo-input",
+    },
+  },
+});
+interface Props {
+  project: ProjectSettingsFragment | RepoSettingsFragment;
+}
+export const CreateProjectModal: React.FC<Props> = ({ project }) => {
+  const modalFormDefinition = getModalFormDefinition(project);
+  const isAdmin = true; // todo after EVG-16353
   const [open, setOpen] = useState(false);
 
   const onCancel = () => setOpen(false);
@@ -44,8 +94,12 @@ export const CreateProjectModal = () => {
     CreateProjectMutation,
     CreateProjectMutationVariables
   >(CREATE_PROJECT, {
-    onCompleted() {
-      dispatchToast.success("Successfully created the project");
+    onCompleted(data) {
+      dispatchToast.success(
+        `Successfully created the project: ${JSON.stringify(
+          data?.createProject.id
+        )}`
+      );
     },
     onError(err) {
       dispatchToast.error(
@@ -91,49 +145,6 @@ export const CreateProjectModal = () => {
       </ConfirmationModal>
     </Container>
   );
-};
-
-const modalFormDefinition = {
-  schema: {
-    type: "object" as "object",
-    properties: {
-      projectName: {
-        type: "string" as "string",
-        title: "Project Name",
-      },
-      projectId: {
-        type: "string" as "string",
-        title: "Project Id",
-        description:
-          "Optionally enter immutable project ID that would be used by Evergreen internally and defaults to a random hash; should only be user-specified with good reason, such as if the project will be using performance tooling. Cannot be changed!",
-      },
-      // todo: owner and repo should  be pre-populated if the project is attached to a repo
-      owner: {
-        type: "string" as "string",
-        title: "Owner",
-      },
-      repo: {
-        type: "string" as "string",
-        title: "Repo",
-      },
-    },
-  },
-  uiSchema: {
-    projectName: {
-      "ui:data-cy": "project-name-input",
-    },
-    projectId: {
-      "ui:data-cy": "project-id-input",
-      "ui:description":
-        "Optionally enter an immutable project ID that would be used by Evergreen internally instead of defaulting to a random hash; An id should only be user-specified with good reason, such as if the project will be using performance tooling. \n It cannot be changed!",
-    },
-    owner: {
-      "ui:data-cy": "new-owner-input",
-    },
-    repo: {
-      "ui:data-cy": "new-repo-input",
-    },
-  },
 };
 
 const Container = styled.div`
