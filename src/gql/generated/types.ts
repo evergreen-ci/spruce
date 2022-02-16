@@ -531,7 +531,7 @@ export type Version = {
   activated?: Maybe<Scalars["Boolean"]>;
   taskStatusCounts?: Maybe<Array<StatusCount>>;
   buildVariants?: Maybe<Array<Maybe<GroupedBuildVariant>>>;
-  buildVariantStats?: Maybe<Array<GroupedStatusCount>>;
+  buildVariantStats?: Maybe<Array<GroupedTaskStatusCount>>;
   isPatch: Scalars["Boolean"];
   patch?: Maybe<Patch>;
   childVersions?: Maybe<Array<Maybe<Version>>>;
@@ -578,7 +578,7 @@ export type StatusCount = {
   count: Scalars["Int"];
 };
 
-export type GroupedStatusCount = {
+export type GroupedTaskStatusCount = {
   variant: Scalars["String"];
   displayName: Scalars["String"];
   statusCounts: Array<StatusCount>;
