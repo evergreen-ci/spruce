@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useParams, useLocation } from "react-router-dom";
@@ -82,7 +82,7 @@ export const Task: React.FC = () => {
         execution: `${latestExecution}`,
       });
     }
-  }, [task]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [task?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   usePageTitle(`Task${displayName ? ` - ${displayName}` : ""}`);
 
