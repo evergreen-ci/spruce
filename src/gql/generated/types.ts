@@ -2431,6 +2431,14 @@ export type AddFavoriteProjectMutation = {
   };
 };
 
+export type AttachProjectToRepoMutationVariables = Exact<{
+  projectId: Scalars["String"];
+}>;
+
+export type AttachProjectToRepoMutation = {
+  attachProjectToRepo: { id: string };
+};
+
 export type AttachVolumeToHostMutationVariables = Exact<{
   volumeAndHost: VolumeHost;
 }>;
@@ -2449,6 +2457,14 @@ export type CreatePublicKeyMutationVariables = Exact<{
 
 export type CreatePublicKeyMutation = {
   createPublicKey: Array<{ key: string; name: string }>;
+};
+
+export type DetachProjectFromRepoMutationVariables = Exact<{
+  projectId: Scalars["String"];
+}>;
+
+export type DetachProjectFromRepoMutation = {
+  detachProjectFromRepo: { id: string };
 };
 
 export type DetachVolumeFromHostMutationVariables = Exact<{
@@ -2845,6 +2861,23 @@ export type BuildBaronQuery = {
   };
 };
 
+export type GetBuildVariantStatsQueryVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type GetBuildVariantStatsQuery = {
+  version: {
+    id: string;
+    buildVariantStats?: Maybe<
+      Array<{
+        variant: string;
+        displayName: string;
+        statusCounts: Array<{ count: number; status: string }>;
+      }>
+    >;
+  };
+};
+
 export type GetBuildVariantsForTaskNameQueryVariables = Exact<{
   projectId: Scalars["String"];
   taskName: Scalars["String"];
@@ -2904,35 +2937,6 @@ export type BuildVariantsWithChildrenQuery = {
                     }>
                   >
                 >;
-              }>
-            >
-          >;
-        }>
-      >
-    >;
-  };
-};
-
-export type BuildVariantsQueryVariables = Exact<{
-  id: Scalars["String"];
-}>;
-
-export type BuildVariantsQuery = {
-  version: {
-    id: string;
-    buildVariants?: Maybe<
-      Array<
-        Maybe<{
-          variant: string;
-          displayName: string;
-          tasks?: Maybe<
-            Array<
-              Maybe<{
-                id: string;
-                execution: number;
-                status: string;
-                displayName: string;
-                baseStatus?: Maybe<string>;
               }>
             >
           >;
