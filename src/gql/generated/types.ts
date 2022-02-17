@@ -2845,6 +2845,23 @@ export type BuildBaronQuery = {
   };
 };
 
+export type GetBuildVariantStatsQueryVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type GetBuildVariantStatsQuery = {
+  version: {
+    id: string;
+    buildVariantStats?: Maybe<
+      Array<{
+        variant: string;
+        displayName: string;
+        statusCounts: Array<{ count: number; status: string }>;
+      }>
+    >;
+  };
+};
+
 export type GetBuildVariantsForTaskNameQueryVariables = Exact<{
   projectId: Scalars["String"];
   taskName: Scalars["String"];
@@ -2904,35 +2921,6 @@ export type BuildVariantsWithChildrenQuery = {
                     }>
                   >
                 >;
-              }>
-            >
-          >;
-        }>
-      >
-    >;
-  };
-};
-
-export type BuildVariantsQueryVariables = Exact<{
-  id: Scalars["String"];
-}>;
-
-export type BuildVariantsQuery = {
-  version: {
-    id: string;
-    buildVariants?: Maybe<
-      Array<
-        Maybe<{
-          variant: string;
-          displayName: string;
-          tasks?: Maybe<
-            Array<
-              Maybe<{
-                id: string;
-                execution: number;
-                status: string;
-                displayName: string;
-                baseStatus?: Maybe<string>;
               }>
             >
           >;
