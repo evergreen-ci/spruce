@@ -4,10 +4,12 @@ import { SpruceForm, SpruceFormProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { environmentalVariables } from "utils";
 import { usePopulateForm, useProjectSettingsContext } from "../Context";
+import { alias as aliasUtils } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { mergeProjectRepo } from "./transformers";
-import { AliasType, FormState, TabProps } from "./types";
+import { FormState, TabProps } from "./types";
 
+const { aliasHasError } = aliasUtils;
 const { isProduction } = environmentalVariables;
 
 const tab = ProjectSettingsTabRoutes.GithubCommitQueue;
@@ -73,20 +75,6 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
     </>
   );
 };
-
-const pairHasError = (regex: string, tags: string[]): boolean => {
-  const hasInvalidTags =
-    !tags || !tags?.length || tags.every((tag) => tag === "");
-  return regex === "" && hasInvalidTags;
-};
-
-const aliasHasError = ({
-  task,
-  taskTags,
-  variant,
-  variantTags,
-}: AliasType): boolean =>
-  pairHasError(task, taskTags) || pairHasError(variant, variantTags);
 
 const validate = (
   formData: FormState,

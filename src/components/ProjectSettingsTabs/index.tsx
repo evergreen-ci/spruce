@@ -4,7 +4,7 @@ export { GeneralTab } from "./GeneralTab/GeneralTab";
 export { GithubCommitQueueTab } from "./GithubCommitQueueTab/GithubCommitQueueTab";
 export { Header } from "./Header";
 export { NotificationsTab } from "./NotificationsTab/NotificationsTab";
-export { PatchAliasesTab } from "./PatchAliasesTab";
+export { PatchAliasesTab } from "./PatchAliasesTab/PatchAliasesTab";
 export { PeriodicBuildsTab } from "./PeriodicBuildsTab";
 export { ProjectTriggersTab } from "./ProjectTriggersTab";
 export { VariablesTab } from "./VariablesTab/VariablesTab";

@@ -2634,7 +2634,7 @@
     "@emotion/react" "^11.4.0"
     "@emotion/server" "^11.4.0"
 
-"@leafygreen-ui/expandable-card@^0.9.1":
+"@leafygreen-ui/expandable-card@0.9.1":
   version "0.9.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/expandable-card/-/expandable-card-0.9.1.tgz#d58118e0be9e12e3a57d95e2b3385389e76267ba"
   integrity sha512-Ol02Hktud95Yv6ln224lunlIYn3DUorxyD9sDrTiJFzK3D186pg6EGn6RArgG4t1rkqTGLgTMQzeRwLa0igKSQ==

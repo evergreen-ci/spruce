@@ -1,13 +1,9 @@
-import { ProjectAliasInput, ProjectInput } from "gql/generated/types";
+import { ProjectInput } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
-import { AliasType, FormState } from "./types";
+import { alias } from "../utils";
+import { FormState } from "./types";
 
-enum AliasTypes {
-  CommitQueue = "__commit_queue",
-  GithubPr = "__github",
-  GithubCheck = "__github_checks",
-  GitTag = "__git_tag",
-}
+const { AliasNames, sortAliases, transformAliases } = alias;
 
 export const mergeProjectRepo = (
   projectData: FormState,
@@ -41,26 +37,7 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
     commitQueueAliases,
     githubPrAliases,
     githubCheckAliases,
-  } = aliases.reduce(
-    (o, a) => {
-      if (a.alias === AliasTypes.GithubPr) {
-        o.githubPrAliases.push(a);
-      } else if (a.alias === AliasTypes.GithubCheck) {
-        o.githubCheckAliases.push(a);
-      } else if (a.alias === AliasTypes.GitTag) {
-        o.gitTagAliases.push(a);
-      } else if (a.alias === AliasTypes.CommitQueue) {
-        o.commitQueueAliases.push(a);
-      }
-      return o;
-    },
-    {
-      githubPrAliases: [],
-      githubCheckAliases: [],
-      gitTagAliases: [],
-      commitQueueAliases: [],
-    }
-  );
+  } = sortAliases(aliases);
 
   return {
     github: {
@@ -100,21 +77,6 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
     },
   };
 };
-
-const transformAliases = (
-  aliases: AliasType[],
-  aliasName: string
-): ProjectAliasInput[] =>
-  aliases.map(({ id: aliasId, variant, variantTags, task, taskTags }) => ({
-    id: aliasId || "",
-    alias: aliasName,
-    variant: variant || "",
-    variantTags: variantTags?.filter((tag) => tag) ?? [],
-    task: task || "",
-    taskTags: taskTags?.filter((tag) => tag) ?? [],
-    gitTag: "",
-    remotePath: "",
-  }));
 
 export const formToGql: FormToGqlFunction = (
   {
@@ -160,17 +122,20 @@ export const formToGql: FormToGqlFunction = (
 
   const githubPrAliases = transformAliases(
     prTesting.githubPrAliases,
-    AliasTypes.GithubPr
+    prTesting.githubPrAliasesOverride,
+    AliasNames.GithubPr
   );
 
   const githubCheckAliases = transformAliases(
     githubChecks.githubCheckAliases,
-    AliasTypes.GithubCheck
+    githubChecks.githubCheckAliasesOverride,
+    AliasNames.GithubCheck
   );
 
   const commitQueueAliases = transformAliases(
     patchDefinitions.commitQueueAliases,
-    AliasTypes.CommitQueue
+    patchDefinitions.commitQueueAliasesOverride,
+    AliasNames.CommitQueue
   );
 
   const aliases = [

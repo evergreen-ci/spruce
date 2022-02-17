@@ -88,6 +88,39 @@ describe("Repo Settings", () => {
       cy.contains("Successfully updated repo");
     });
   });
+
+  describe("Patch Aliases page", () => {
+    before(() => {
+      cy.dataCy("navitem-patch-aliases").click();
+    });
+
+    it("Does not show override buttons for patch aliases", () => {
+      cy.dataCy("patch-aliases-override-radio-box").should("not.exist");
+    });
+
+    it("Prevents saving an incomplete patch alias", () => {
+      cy.dataCy("add-button").contains("Add Patch Alias").parent().click();
+      cy.dataCy("expandable-card-title").contains("New Patch Alias");
+
+      cy.dataCy("alias-input").type("my alias name");
+      cy.dataCy("save-settings-button").should("be.disabled");
+    });
+
+    it("Successfully saves a complete alias", () => {
+      cy.dataCy("variant-tags-field").find("button").click();
+      cy.dataCy("variant-tags-input").first().type("alias variant tag");
+
+      cy.dataCy("task-tags-field").find("button").click();
+      cy.dataCy("task-tags-input").first().type("alias task tag");
+
+      cy.dataCy("save-settings-button").click();
+      cy.contains("Successfully updated repo");
+    });
+
+    it("Shows the alias name in the card title upon save", () => {
+      cy.dataCy("expandable-card-title").contains("my alias name");
+    });
+  });
 });
 
 describe("Project Settings when not defaulting to repo", () => {
@@ -276,7 +309,11 @@ describe("Project Settings when defaulting to repo", () => {
     });
 
     it("Allows overriding repo patch definitions", () => {
-      cy.get("input[name=githubPrAliasesOverride]").first().parent().click();
+      cy.dataCy("pr-testing-override-radio-box")
+        .find("input")
+        .first()
+        .parent()
+        .click();
       cy.dataCy("add-button").contains("Add Patch Definition").parent().click();
       cy.get("button").contains("Regex").first().click();
       cy.dataCy("variant-input").first().type(".*");
@@ -338,6 +375,79 @@ describe("Project Settings when defaulting to repo", () => {
     it("Clicking on save button should show a success toast", () => {
       cy.dataCy("save-settings-button").click();
       cy.contains("Successfully updated project");
+    });
+  });
+
+  describe("Patch Aliases page", () => {
+    before(() => {
+      cy.dataCy("navitem-patch-aliases").click();
+    });
+
+    it("Defaults to repo patch aliases", () => {
+      cy.dataCy("patch-aliases-override-radio-box")
+        .find("input")
+        .eq(1)
+        .should("be.checked");
+    });
+
+    it("Shows the saved repo patch alias", () => {
+      cy.dataCy("expandable-card-title").contains("my alias name");
+    });
+
+    it("Displays disabled fields when the card is expanded", () => {
+      cy.dataCy("expandable-card-title")
+        .parentsUntil("div")
+        .first()
+        .click({ force: true });
+      cy.get(".patch-alias-card-content").find("input").should("be.disabled");
+      cy.get(".patch-alias-card-content").find("button").should("be.disabled");
+    });
+
+    it("Allows adding a patch alias", () => {
+      cy.dataCy("patch-aliases-override-radio-box")
+        .find("input")
+        .first()
+        .parent()
+        .click();
+
+      cy.dataCy("add-button")
+        .contains("Add Patch Alias")
+        .parent()
+        .click({ force: true });
+      cy.dataCy("alias-input").type("my overriden alias name");
+      cy.dataCy("variant-tags-field").find("button").click();
+      cy.dataCy("variant-tags-input").first().type("alias variant tag 2");
+
+      cy.dataCy("task-tags-field").find("button").click();
+      cy.dataCy("task-tags-input").first().type("alias task tag 2");
+
+      cy.dataCy("save-settings-button").click();
+      cy.contains("Successfully updated project");
+    });
+
+    it("Allows defaulting to repo patch definitions", () => {
+      cy.dataCy("patch-aliases-override-radio-box")
+        .find("input")
+        .eq(1)
+        .parent()
+        .click();
+
+      cy.dataCy("save-settings-button").click();
+      cy.contains("Successfully updated project");
+
+      cy.dataCy("patch-aliases-override-radio-box")
+        .find("input")
+        .eq(1)
+        .should("be.checked");
+    });
+
+    it("Has cleared previously saved alias definitions", () => {
+      cy.dataCy("patch-aliases-override-radio-box")
+        .find("input")
+        .first()
+        .parent()
+        .click();
+      cy.dataCy("alias-row").should("have.length", 0);
     });
   });
 });
