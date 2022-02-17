@@ -1,26 +1,24 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
-import { addedDiff } from "deep-object-diff";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useReducer,
+} from "react";
+import debounce from "lodash.debounce";
+import isEqual from "lodash.isequal";
 import { FormStateMap } from "components/ProjectSettingsTabs/types";
 import { FormDataProps, SpruceFormProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-
-/* Given a diff between a form's previous and current state, check if it represents an array field added with no content. */
-const isArrayPushUpdate = (diff: object): boolean =>
-  Object.values(diff).every((val) => {
-    if (val === null || typeof val !== "object") {
-      return false;
-    }
-    // An empty object represents a new array element (i.e. blank input field)
-    if (Object.keys(val).length === 0) {
-      return true;
-    }
-    return isArrayPushUpdate(val);
-  });
+import { formToGqlMap } from "./transformers";
+import { FormToGqlFunction } from "./types";
 
 type TabState = {
   [K in keyof FormStateMap]: {
     hasChanges: boolean;
     hasError: boolean;
+    initialData: ReturnType<FormToGqlFunction>;
     formData: FormStateMap[K];
   };
 };
@@ -32,11 +30,19 @@ type Action =
       formData: FormDataProps;
       errors: Parameters<SpruceFormProps["onChange"]>[0]["errors"];
     }
-  | { type: "saveTab"; tab: ProjectSettingsTabRoutes };
+  | { type: "saveTab"; tab: ProjectSettingsTabRoutes }
+  | {
+      type: "setHasChanges";
+      tab: ProjectSettingsTabRoutes;
+      formData: FormDataProps;
+    }
+  | {
+      type: "setInitialData";
+      tab: ProjectSettingsTabRoutes;
+      data: ReturnType<FormToGqlFunction>;
+    };
 
 const reducer = (state: TabState, action: Action): TabState => {
-  let diff;
-  let saveableUpdate = true;
   switch (action.type) {
     case "saveTab":
       return state[action.tab].hasChanges
@@ -53,16 +59,31 @@ const reducer = (state: TabState, action: Action): TabState => {
       if (state[action.tab].formData === action.formData) {
         return state;
       }
-      diff = addedDiff(state[action.tab].formData, action.formData);
-      if (Object.keys(diff).length > 0) {
-        saveableUpdate = !isArrayPushUpdate(diff);
-      }
       return {
         ...state,
         [action.tab]: {
+          ...state[action.tab],
           formData: action.formData,
-          hasChanges: saveableUpdate,
           hasError: !!action.errors.length,
+        },
+      };
+    case "setHasChanges":
+      return {
+        ...state,
+        [action.tab]: {
+          ...state[action.tab],
+          hasChanges: !isEqual(
+            state[action.tab].initialData,
+            formToGqlMap[action.tab](action.formData)
+          ),
+        },
+      };
+    case "setInitialData":
+      return {
+        ...state,
+        [action.tab]: {
+          ...state[action.tab],
+          initialData: formToGqlMap[action.tab](action.data),
         },
       };
     default:
@@ -78,6 +99,10 @@ interface ProjectSettingsState {
     tab: ProjectSettingsTabRoutes,
     save?: boolean
   ) => (formData: FormDataProps) => void;
+  setInitialData: (
+    tab: ProjectSettingsTabRoutes,
+    data: Parameters<FormToGqlFunction>[0]
+  ) => void;
 }
 
 const ProjectSettingsContext = createContext<ProjectSettingsState | null>(null);
@@ -88,14 +113,24 @@ const ProjectSettingsProvider: React.FC = ({ children }) => {
     getDefaultRouteObject({
       hasChanges: false,
       hasError: false,
+      initialData: null,
       formData: null,
     })
+  );
+
+  const setHasChanges = useMemo(
+    () =>
+      debounce((tab, formData) => {
+        dispatch({ type: "setHasChanges", tab, formData });
+      }, 400),
+    []
   );
 
   const updateForm = (tab: ProjectSettingsTabRoutes) => ({
     formData,
     errors = [],
   }: Parameters<SpruceFormProps["onChange"]>[0]): void => {
+    setHasChanges(tab, formData);
     dispatch({ type: "updateForm", tab, formData, errors });
   };
 
@@ -105,12 +140,20 @@ const ProjectSettingsProvider: React.FC = ({ children }) => {
 
   const getTab = (tab: ProjectSettingsTabRoutes) => state[tab];
 
+  const setInitialData = useCallback(
+    (tab: ProjectSettingsTabRoutes, data: Parameters<FormToGqlFunction>[0]) => {
+      dispatch({ type: "setInitialData", tab, data });
+    },
+    []
+  );
+
   return (
     <ProjectSettingsContext.Provider
       value={{
         updateForm,
         saveTab,
         getTab,
+        setInitialData,
         tabs: state,
       }}
     >

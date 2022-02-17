@@ -1,4 +1,4 @@
-import { useMemo, ComponentType } from "react";
+import { useEffect, useMemo, ComponentType } from "react";
 import styled from "@emotion/styled";
 import { Route, useParams } from "react-router-dom";
 import {
@@ -15,6 +15,7 @@ import {
   PluginsTab,
   VirtualWorkstationTab,
 } from "components/ProjectSettingsTabs";
+import { useProjectSettingsContext } from "components/ProjectSettingsTabs/Context";
 import { gqlToFormMap } from "components/ProjectSettingsTabs/transformers";
 import {
   readOnlyTabs,
@@ -37,6 +38,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
   repoData,
 }) => {
   const { tab } = useParams<{ tab: ProjectSettingsTabRoutes }>();
+  const { setInitialData } = useProjectSettingsContext();
 
   const projectId = projectData?.projectRef?.id;
   const useRepoSettings = projectData?.projectRef?.useRepoSettings;
@@ -45,6 +47,15 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
     projectData,
     repoData,
   ]);
+
+  useEffect(() => {
+    Object.entries(tabData).forEach(([tabName, data]) => {
+      setInitialData(
+        tabName as ProjectSettingsTabRoutes,
+        data.projectData ?? data.repoData
+      );
+    });
+  }, [setInitialData, tabData]);
 
   return (
     <Container>

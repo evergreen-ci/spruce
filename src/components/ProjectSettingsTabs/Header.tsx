@@ -17,7 +17,7 @@ import {
   SAVE_REPO_SETTINGS_FOR_SECTION,
 } from "gql/mutations";
 import { getTabTitle } from "pages/projectSettings/getTabTitle";
-import { useIsTabSaved, useProjectSettingsContext } from "./Context";
+import { useProjectSettingsContext } from "./Context";
 import { formToGqlMap } from "./transformers";
 import { WritableTabRoutes } from "./types";
 
@@ -39,8 +39,7 @@ export const Header: React.FC<Props> = ({
   const dispatchToast = useToastContext();
   const { title, subtitle } = getTabTitle(tab);
   const { getTab, saveTab } = useProjectSettingsContext();
-  const { hasError } = getTab(tab);
-  const saved = useIsTabSaved(tab);
+  const { formData, hasChanges, hasError } = getTab(tab);
 
   const [saveProjectSection] = useMutation<
     SaveProjectSettingsForSectionMutation,
@@ -71,7 +70,6 @@ export const Header: React.FC<Props> = ({
   });
 
   const onClick = () => {
-    const { formData } = getTab(tab);
     const newData = formToGqlMap[tab](formData, id, { useRepoSettings });
     const save = (update, section) =>
       isRepo
@@ -104,7 +102,7 @@ export const Header: React.FC<Props> = ({
             data-cy="save-settings-button"
             variant="primary"
             onClick={onClick}
-            disabled={hasError || saved}
+            disabled={hasError || !hasChanges}
           >
             Save Changes on Page
           </Button>
