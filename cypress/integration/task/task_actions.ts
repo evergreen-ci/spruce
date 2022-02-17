@@ -23,20 +23,22 @@ describe("Task Action Buttons", () => {
     });
 
     it("Clicking Unschedule button should unschedule a task and display a success toast", () => {
-      cy.visit(tasks[3]);
       cy.dataCy("ellipsis-btn").click();
+      cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("unschedule-task").click();
 
       cy.validateToast("success", unscheduleSuccessBannerText);
     });
 
     it("Abort button should be disabled on completed tasks", () => {
-      cy.visit(tasks[3]);
       cy.dataCy("ellipsis-btn").click();
+      cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("abort-task").should("have.attr", "disabled");
     });
 
     it("Clicking on set priority, entering a priority value and submitting should result in a success toast.", () => {
+      cy.dataCy("ellipsis-btn").click();
+      cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("prioritize-task").click();
       cy.get(".ant-input-number-input").clear().type("99");
       cy.get(popconfirmYesClassName).contains("Set").click({ force: true });
@@ -45,7 +47,10 @@ describe("Task Action Buttons", () => {
     });
 
     it("Should be able to abort an incomplete task", () => {
+      cy.visit(tasks[2]);
+
       cy.dataCy("ellipsis-btn").click();
+      cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("abort-task").click();
 
       cy.validateToast("success", "Task aborted");
@@ -54,12 +59,14 @@ describe("Task Action Buttons", () => {
     it("Should correctly disable/enable the task when clicked", () => {
       cy.visit(tasks[1]);
       cy.dataCy("ellipsis-btn").click();
+      cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("disable-enable").click();
       cy.dataCy("ellipsis-btn").click(); // temporary manually close menu button TODO: Remove when PD-1207 is fixed
 
       cy.validateToast("success", "Task was successfully disabled");
 
       cy.dataCy("ellipsis-btn").click();
+      cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("disable-enable").click();
 
       cy.validateToast("success", "Priority for task updated to 0");
