@@ -1,6 +1,6 @@
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 
-export const projectBase: ProjectSettingsQuery["projectSettings"] = {
+const projectBase: ProjectSettingsQuery["projectSettings"] = {
   gitHubWebhooksEnabled: true,
 
   projectRef: {

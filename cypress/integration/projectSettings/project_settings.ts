@@ -7,6 +7,8 @@ const project = "spruce";
 const projectUseRepoEnabled = "evergreen";
 const repo = "602d70a2b2373672ee493184";
 
+const HAS_CHANGES_TIMEOUT_MS = 410;
+
 describe("Repo Settings", () => {
   const destination = getGeneralRoute(repo);
 
@@ -17,6 +19,10 @@ describe("Repo Settings", () => {
 
   beforeEach(() => {
     cy.preserveCookies();
+  });
+
+  it("Should not have the save button enabled on load", () => {
+    cy.dataCy("save-settings-button").should("be.disabled");
   });
 
   it("Does not show a 'Default to Repo' button on page", () => {
@@ -39,6 +45,10 @@ describe("Repo Settings", () => {
   describe("GitHub/Commit Queue page", () => {
     before(() => {
       cy.dataCy("navitem-github-commitqueue").click();
+    });
+
+    it("Should not have the save button enabled on load", () => {
+      cy.dataCy("save-settings-button").should("be.disabled");
     });
 
     it("Updates a patch definition", () => {
@@ -90,6 +100,10 @@ describe("Repo Settings", () => {
       cy.dataCy("navitem-patch-aliases").click();
     });
 
+    it("Should not have the save button enabled on load", () => {
+      cy.dataCy("save-settings-button").should("be.disabled");
+    });
+
     it("Does not show override buttons for patch aliases", () => {
       cy.dataCy("patch-aliases-override-radio-box").should("not.exist");
     });
@@ -129,6 +143,10 @@ describe("Project Settings when not defaulting to repo", () => {
 
   beforeEach(() => {
     cy.preserveCookies();
+  });
+
+  it("Should not have the save button enabled on load", () => {
+    cy.dataCy("save-settings-button").should("be.disabled");
   });
 
   it("Does not show a 'Default to Repo' button on page", () => {
@@ -229,13 +247,14 @@ describe("Project Settings when defaulting to repo", () => {
     cy.preserveCookies();
   });
 
-  it("Loads with the save button disabled initially", () => {
+  it("Should not have the save button enabled on load", () => {
     cy.dataCy("save-settings-button").should("be.disabled");
   });
 
   it("Preserves edits to the form when navigating between settings tabs and does not show a warning modal", () => {
     cy.dataCy("spawn-host-input").should("have.value", "/path");
     cy.dataCy("spawn-host-input").type("/test");
+    cy.wait(HAS_CHANGES_TIMEOUT_MS); // eslint-disable-line cypress/no-unnecessary-waiting
     cy.dataCy("navitem-access").click();
     cy.dataCy("navigation-warning-modal").should("not.be.visible");
     cy.dataCy("navitem-general").click();
@@ -273,6 +292,10 @@ describe("Project Settings when defaulting to repo", () => {
   describe("GitHub/Commit Queue page", () => {
     before(() => {
       cy.dataCy("navitem-github-commitqueue").click();
+    });
+
+    it("Should not have the save button enabled on load", () => {
+      cy.dataCy("save-settings-button").should("be.disabled");
     });
 
     it("Shows the repo's disabled patch definition", () => {
@@ -325,7 +348,7 @@ describe("Project Settings when defaulting to repo", () => {
       );
     });
 
-    it("Show's the repo's commit queue message as a placeholder when the field is cleared", () => {
+    it("Shows the repo's commit queue message as a placeholder when the field is cleared", () => {
       cy.dataCy("cq-message-input").clear();
       cy.dataCy("cq-message-input").should(
         "have.attr",
@@ -359,6 +382,10 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("navitem-patch-aliases").click();
     });
 
+    it("Should not have the save button enabled on load", () => {
+      cy.dataCy("save-settings-button").should("be.disabled");
+    });
+
     it("Defaults to repo patch aliases", () => {
       cy.dataCy("patch-aliases-override-radio-box")
         .find("input")
@@ -385,12 +412,16 @@ describe("Project Settings when defaulting to repo", () => {
         .first()
         .parent()
         .click();
+      cy.dataCy("save-settings-button").should("be.disabled");
 
       cy.dataCy("add-button")
         .contains("Add Patch Alias")
         .parent()
         .click({ force: true });
+      cy.dataCy("save-settings-button").should("be.disabled");
+
       cy.dataCy("alias-input").type("my overriden alias name");
+
       cy.dataCy("variant-tags-field").find("button").click();
       cy.dataCy("variant-tags-input").first().type("alias variant tag 2");
 
