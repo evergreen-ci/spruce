@@ -44,7 +44,7 @@ export const BuildVariants: React.FC = () => {
         {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
         {version?.buildVariantStats?.map(
           ({ displayName, statusCounts, variant }) => (
-            <BuildVariant
+            <div
               key={`buildVariant_${displayName}_${variant}`}
               data-cy="patch-build-variant"
             >
@@ -66,7 +66,7 @@ export const BuildVariants: React.FC = () => {
                 statusCounts={statusCounts}
                 versionId={id}
               />
-            </BuildVariant>
+            </div>
           )
         )}
       </SiderCard>
@@ -112,13 +112,12 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
   );
 };
 
-const BuildVariant = styled.div`
-  margin-bottom: ${size.xs};
-`;
 const VariantTasks = styled.div`
   display: flex;
   flex-wrap: wrap;
+  margin-top: ${size.xs};
   > * {
     margin-right: ${size.xs};
+    margin-bottom: ${size.xs};
   }
 `;
