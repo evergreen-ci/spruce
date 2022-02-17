@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
-import { H2, H3, Body } from "@leafygreen-ui/typography";
+import { H2, H3 } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { useParams, useHistory } from "react-router-dom";
 import { useTaskQueueAnalytics } from "analytics";
@@ -64,19 +64,9 @@ export const TaskQueue = () => {
       {/* @ts-expect-error  */}
       <StyledH2>Task Queue</StyledH2>
 
-      {
-        /* The page is still loading. */
-        selectedDistro === null && <Skeleton active />
-      }
-
-      {
-        /* The distro doesn't exist. Happens if user mistypes the distro. */
-        selectedDistro === undefined && (
-          <Body> Sorry, we couldn&apos;t find that distro. </Body>
-        )
-      }
-
-      {selectedDistro && (
+      {selectedDistro === null ? (
+        <Skeleton active />
+      ) : (
         <>
           <TableControlOuterRow>
             <SearchableDropdownWrapper>
@@ -96,26 +86,31 @@ export const TaskQueue = () => {
                 value={selectedDistro}
                 buttonRenderer={(option: Partial<TaskQueueDistro>) => (
                   <DistroLabel>
-                    <StyledBadge>{`${option.taskCount} ${
-                      option.taskCount === 1 ? "TASK" : "TASKS"
+                    <StyledBadge>{`${option?.taskCount || 0} ${
+                      option?.taskCount === 1 ? "TASK" : "TASKS"
                     }`}</StyledBadge>
-                    <StyledBadge>{`${option.hostCount} ${
-                      option.hostCount === 1 ? "HOST" : "HOSTS"
+                    <StyledBadge>{`${option?.hostCount || 0} ${
+                      option?.hostCount === 1 ? "HOST" : "HOSTS"
                     }`}</StyledBadge>
-                    <DistroName> {option.id} </DistroName>
+                    <DistroName> {option?.id} </DistroName>
                   </DistroLabel>
                 )}
               />
             </SearchableDropdownWrapper>
           </TableControlOuterRow>
 
-          <TableHeader>
-            {/* @ts-expect-error  */}
-            <StyledH3> {selectedDistro.id} </StyledH3>
-            <StyledRouterLink to={`/hosts?distroId=${selectedDistro.id}`}>
-              View hosts
-            </StyledRouterLink>
-          </TableHeader>
+          {
+            /* Only show name & link if distro exists. */
+            selectedDistro && (
+              <TableHeader>
+                {/* @ts-expect-error  */}
+                <StyledH3> {selectedDistro.id} </StyledH3>
+                <StyledRouterLink to={`/hosts?distroId=${selectedDistro.id}`}>
+                  View hosts
+                </StyledRouterLink>
+              </TableHeader>
+            )
+          }
 
           <TableContainer hide={false}>
             <TaskQueueTable />

@@ -57,8 +57,7 @@ describe("Task Queue", () => {
 
   it("Bogus distro url param values do not display any results", () => {
     cy.visit("/task-queue/peace");
-    cy.contains("Sorry, we couldn't find that distro.");
-    cy.get(".ant-table-row").should("not.exist");
+    cy.get(".ant-table-row").should("have.length", 0);
   });
 
   it("Scrolls to current task if taskId param in url", () => {
