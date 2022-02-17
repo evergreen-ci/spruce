@@ -2431,6 +2431,14 @@ export type AddFavoriteProjectMutation = {
   };
 };
 
+export type AttachProjectToRepoMutationVariables = Exact<{
+  projectId: Scalars["String"];
+}>;
+
+export type AttachProjectToRepoMutation = {
+  attachProjectToRepo: { id: string };
+};
+
 export type AttachVolumeToHostMutationVariables = Exact<{
   volumeAndHost: VolumeHost;
 }>;
@@ -2449,6 +2457,14 @@ export type CreatePublicKeyMutationVariables = Exact<{
 
 export type CreatePublicKeyMutation = {
   createPublicKey: Array<{ key: string; name: string }>;
+};
+
+export type DetachProjectFromRepoMutationVariables = Exact<{
+  projectId: Scalars["String"];
+}>;
+
+export type DetachProjectFromRepoMutation = {
+  detachProjectFromRepo: { id: string };
 };
 
 export type DetachVolumeFromHostMutationVariables = Exact<{

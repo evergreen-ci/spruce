@@ -1,0 +1,5 @@
+mutation AttachProjectToRepo($projectId: String!) {
+  attachProjectToRepo(projectId: $projectId) {
+    id
+  }
+}

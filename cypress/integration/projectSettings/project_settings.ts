@@ -27,6 +27,10 @@ describe("Repo Settings", () => {
     cy.dataCy("move-repo-button").should("not.exist");
   });
 
+  it("Does not show an Attach/Detach to Repo button on page", () => {
+    cy.dataCy("attach-repo-button").should("not.exist");
+  });
+
   it("Sets a display name", () => {
     cy.dataCy("display-name-input").type("evg");
   });
@@ -137,6 +141,26 @@ describe("Project Settings when not defaulting to repo", () => {
 
   it("Shows two radio boxes", () => {
     cy.dataCy("enabled-radio-box").children().should("have.length", 2);
+  });
+
+  it("Successfully attaches to a repo that does not yet exist and shows 'Default to Repo' options", () => {
+    cy.dataCy("attach-repo-button").click();
+    cy.dataCy("attach-repo-modal")
+      .find("button")
+      .contains("Attach")
+      .parent()
+      .click();
+    cy.contains("Successfully attached to repo");
+  });
+
+  it("Successfully detaches from repo", () => {
+    cy.dataCy("attach-repo-button").click();
+    cy.dataCy("attach-repo-modal")
+      .find("button")
+      .contains("Detach")
+      .parent()
+      .click();
+    cy.contains("Successfully detached from repo");
   });
 
   describe("Access page", () => {
