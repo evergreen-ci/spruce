@@ -3,9 +3,9 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { ObjectFieldTemplateProps } from "@rjsf/core";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
+import { form } from "../utils";
 
-import { getFields } from "../utils";
-
+const { getFields } = form;
 const { yellow } = uiColors;
 
 export const VariableRow: React.FC<

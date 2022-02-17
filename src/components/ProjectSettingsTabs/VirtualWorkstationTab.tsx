@@ -1,3 +1,1 @@
-import { TabProps } from "./utils";
-
-export const VirtualWorkstationTab: React.FC<TabProps> = () => null;
+export const VirtualWorkstationTab: React.FC = () => null;

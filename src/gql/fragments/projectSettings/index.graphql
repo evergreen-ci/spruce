@@ -4,6 +4,7 @@
 #import "./githubCommitQueue.graphql"
 #import "./variables.graphql"
 #import "./plugins.graphql"
+#import "./notifications.graphql"
 
 fragment projectSettings on ProjectSettings {
   projectRef {
@@ -13,6 +14,10 @@ fragment projectSettings on ProjectSettings {
     ...projectGeneralSettings
     ...projectAccessSettings
     ...projectPluginsSettings
+    ...projectNotificationSettings
+  }
+  subscriptions {
+    ...subscriptions
   }
   vars {
     ...variables
@@ -29,9 +34,13 @@ fragment repoSettings on RepoSettings {
     ...repoGeneralSettings
     ...repoAccessSettings
     ...repoPluginsSettings
+    ...repoNotificationSettings
   }
   vars {
     ...variables
+  }
+  subscriptions {
+    ...subscriptions
   }
   ...repoGithubCommitQueue
   aliases {
