@@ -6,7 +6,7 @@ import { useVersionAnalytics } from "analytics";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { StyledRouterLink, SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
-import { H3 } from "components/Typography";
+import { H3, wordBreakCss } from "components/Typography";
 import { pollInterval } from "constants/index";
 import { getVersionRoute } from "constants/routes";
 import { size } from "constants/tokens";
@@ -49,6 +49,7 @@ export const BuildVariants: React.FC = () => {
               data-cy="patch-build-variant"
             >
               <StyledRouterLink
+                css={wordBreakCss}
                 to={`${getVersionRoute(id, {
                   page: 0,
                   variant: applyStrictRegex(variant),
