@@ -32,9 +32,16 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
     description,
     "data-cy": dataCy,
     emptyValue,
+    showErrors = true,
   } = options;
   const errors = getInputErrors(rawErrors);
   const hasError = !!errors?.length;
+  const errorProps = showErrors
+    ? {
+        errorMessage: hasError ? errors.join(", ") : null,
+        state: hasError ? "error" : "none",
+      }
+    : {};
   const { readonlyAsDisabled = true } = formContext;
   return (
     <ElementWrapper>
@@ -54,8 +61,7 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
             )
           }
           aria-label={label}
-          errorMessage={hasError ? errors.join(", ") : null}
-          state={hasError ? "error" : "none"}
+          {...errorProps}
         />
       </MaxWidthContainer>
     </ElementWrapper>
@@ -203,12 +209,19 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
   value,
   onChange,
   disabled,
+  uiSchema,
 }) => {
   const { description, enumOptions, "data-cy": dataCy, showLabel } = options;
   if (!Array.isArray(enumOptions)) {
     console.error(
       "enumOptions must be an array passed into LeafyGreen Radio Box"
     );
+    return null;
+  }
+
+  // Workaround because {ui:widget: hidden} does not play nicely with this widget
+  const hide = uiSchema["ui:hide"] ?? false;
+  if (hide) {
     return null;
   }
 

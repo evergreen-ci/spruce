@@ -6,10 +6,10 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { inactiveElementStyle } from "components/styles";
 import { taskStatusToCopy, mapTaskToBarchartColor } from "constants/task";
-import { size } from "constants/tokens";
+import { size, zIndex } from "constants/tokens";
 
 import { TaskStatus } from "types/task";
-import { tooltipZIndex } from "../constants";
+
 import { ColorCount, getStatusesWithZeroCount } from "./utils";
 
 const { gray } = uiColors;
@@ -28,7 +28,7 @@ export const CommitChartTooltip: React.FC<Props> = ({
       usePortal={false}
       align="right"
       justify="middle"
-      popoverZIndex={tooltipZIndex}
+      popoverZIndex={zIndex.popover}
       trigger={trigger}
       triggerEvent="hover"
     >

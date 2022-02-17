@@ -3,7 +3,6 @@
 describe("Restarting a patch with Downstream Tasks", () => {
   before(() => {
     cy.login();
-    cy.viewport(1920, 1600);
     cy.preserveCookies();
   });
 
@@ -23,7 +22,6 @@ describe("Restarting a patch", () => {
   });
 
   beforeEach(() => {
-    cy.viewport(1920, 1600);
     cy.preserveCookies();
   });
 

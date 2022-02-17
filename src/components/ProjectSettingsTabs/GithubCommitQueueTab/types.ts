@@ -1,13 +1,4 @@
-export type AliasType = {
-  id: string;
-  alias: string;
-  gitTag: string;
-  remotePath: string;
-  variant: string;
-  variantTags: string[];
-  task: string;
-  taskTags: string[];
-};
+import { AliasType } from "../utils";
 
 export interface FormState {
   github: {
@@ -49,6 +40,7 @@ export interface FormState {
   };
   commitQueue: {
     enabled: boolean | null;
+    requireSigned: boolean | null;
     mergeMethod: string;
     message: string;
     patchDefinitions: {

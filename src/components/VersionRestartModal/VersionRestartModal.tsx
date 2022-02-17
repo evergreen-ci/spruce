@@ -5,6 +5,7 @@ import Button from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
+import { Skeleton } from "antd";
 import { useVersionAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
 import { Modal } from "components/Modal";
@@ -63,11 +64,12 @@ const VersionRestartModal: React.FC<Props> = ({
     refetchQueries,
   });
 
-  const { data } = useQuery<
+  const { data, loading } = useQuery<
     BuildVariantsWithChildrenQuery,
     BuildVariantsWithChildrenQueryVariables
   >(GET_BUILD_VARIANTS_WITH_CHILDREN, {
     variables: { id: versionId },
+    skip: !visible,
   });
 
   const { version } = data || {};
@@ -139,59 +141,68 @@ const VersionRestartModal: React.FC<Props> = ({
       ]}
       data-cy="version-restart-modal"
     >
-      <VersionTasks
-        version={version}
-        selectedTasks={selectedTasks}
-        setBaseStatusFilterTerm={setVersionBaseStatus(version?.id)}
-        setVersionStatusFilterTerm={setVersionStatus(version?.id)}
-        toggleSelectedTask={toggleSelectedTask}
-        baseStatusFilterTerm={baseStatusFilterTerm[version?.id]}
-        versionStatusFilterTerm={versionStatusFilterTerm[version?.id]}
-      />
+      {loading ? (
+        <Skeleton active />
+      ) : (
+        <>
+          <VersionTasks
+            version={version}
+            selectedTasks={selectedTasks}
+            setBaseStatusFilterTerm={setVersionBaseStatus(version?.id)}
+            setVersionStatusFilterTerm={setVersionStatus(version?.id)}
+            toggleSelectedTask={toggleSelectedTask}
+            baseStatusFilterTerm={baseStatusFilterTerm[version?.id]}
+            versionStatusFilterTerm={versionStatusFilterTerm[version?.id]}
+          />
 
-      {childVersions && (
-        <div data-cy="select-downstream">
+          {childVersions && (
+            <div data-cy="select-downstream">
+              <ConfirmationMessage
+                weight="medium"
+                data-cy="confirmation-message"
+              >
+                Downstream Tasks
+              </ConfirmationMessage>
+              {childVersions?.map((v) => (
+                <Accordion
+                  key={v?.id}
+                  title={
+                    <BoldTextStyle>
+                      {v?.projectIdentifier ? v?.projectIdentifier : v?.project}
+                    </BoldTextStyle>
+                  }
+                  contents={
+                    <TitleContainer>
+                      <VersionTasks
+                        version={v}
+                        selectedTasks={selectedTasks}
+                        setBaseStatusFilterTerm={setVersionBaseStatus(v?.id)}
+                        setVersionStatusFilterTerm={setVersionStatus(v?.id)}
+                        toggleSelectedTask={toggleSelectedTask}
+                        baseStatusFilterTerm={baseStatusFilterTerm[v.id]}
+                        versionStatusFilterTerm={versionStatusFilterTerm[v.id]}
+                      />
+                    </TitleContainer>
+                  }
+                />
+              ))}
+              <br />
+            </div>
+          )}
+
           <ConfirmationMessage weight="medium" data-cy="confirmation-message">
-            Downstream Tasks
+            Are you sure you want to restart the {selectedTotal} selected tasks?
           </ConfirmationMessage>
-          {childVersions?.map((v) => (
-            <Accordion
-              key={v?.id}
-              title={
-                <BoldTextStyle>
-                  {v?.projectIdentifier ? v?.projectIdentifier : v?.project}
-                </BoldTextStyle>
-              }
-              contents={
-                <TitleContainer>
-                  <VersionTasks
-                    version={v}
-                    selectedTasks={selectedTasks}
-                    setBaseStatusFilterTerm={setVersionBaseStatus(v?.id)}
-                    setVersionStatusFilterTerm={setVersionStatus(v?.id)}
-                    toggleSelectedTask={toggleSelectedTask}
-                    baseStatusFilterTerm={baseStatusFilterTerm[v.id]}
-                    versionStatusFilterTerm={versionStatusFilterTerm[v.id]}
-                  />
-                </TitleContainer>
-              }
-            />
-          ))}
-          <br />
-        </div>
+          <Checkbox
+            onChange={() =>
+              setShouldAbortInProgressTasks(!shouldAbortInProgressTasks)
+            }
+            label="Abort in progress tasks"
+            checked={shouldAbortInProgressTasks}
+            bold={false}
+          />
+        </>
       )}
-
-      <ConfirmationMessage weight="medium" data-cy="confirmation-message">
-        Are you sure you want to restart the {selectedTotal} selected tasks?
-      </ConfirmationMessage>
-      <Checkbox
-        onChange={() =>
-          setShouldAbortInProgressTasks(!shouldAbortInProgressTasks)
-        }
-        label="Abort in progress tasks"
-        checked={shouldAbortInProgressTasks}
-        bold={false}
-      />
     </Modal>
   );
 };
