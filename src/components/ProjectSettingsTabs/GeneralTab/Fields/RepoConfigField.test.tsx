@@ -109,48 +109,48 @@ describe("repoConfigField", () => {
     it("disables the confirm button on initial render", () => {
       const mockOnConfirm = jest.fn();
       const mockOnCancel = jest.fn();
-      const { getAllByText } = render(
+      const { getByRole } = render(
         <MoveRepoModal onCancel={mockOnCancel} onConfirm={mockOnConfirm} open />
       );
 
-      const moveRepoButton = getAllByText("Move Repo")[1].closest("button");
+      const moveRepoButton = getByRole("button", { name: "Move Repo" });
       expect(moveRepoButton).toHaveAttribute("disabled");
     });
 
     it("disables the confirm button when only owner field is updated", () => {
       const mockOnConfirm = jest.fn();
       const mockOnCancel = jest.fn();
-      const { getAllByText, queryByDataCy } = render(
+      const { getByRole, queryByDataCy } = render(
         <MoveRepoModal onCancel={mockOnCancel} onConfirm={mockOnConfirm} open />
       );
       userEvent.type(queryByDataCy("new-owner-input"), "new-owner-name");
 
-      const moveRepoButton = getAllByText("Move Repo")[1].closest("button");
+      const moveRepoButton = getByRole("button", { name: "Move Repo" });
       expect(moveRepoButton).toHaveAttribute("disabled");
     });
 
     it("disables the confirm button when only repo field is updated", () => {
       const mockOnConfirm = jest.fn();
       const mockOnCancel = jest.fn();
-      const { getAllByText, queryByDataCy } = render(
+      const { getByRole, queryByDataCy } = render(
         <MoveRepoModal onCancel={mockOnCancel} onConfirm={mockOnConfirm} open />
       );
       userEvent.type(queryByDataCy("new-repo-input"), "new-repo-name");
 
-      const moveRepoButton = getAllByText("Move Repo")[1].closest("button");
+      const moveRepoButton = getByRole("button", { name: "Move Repo" });
       expect(moveRepoButton).toHaveAttribute("disabled");
     });
 
     it("enables the confirm button when both fields are updated", () => {
       const mockOnConfirm = jest.fn();
       const mockOnCancel = jest.fn();
-      const { getAllByText, queryByDataCy } = render(
+      const { getByRole, queryByDataCy } = render(
         <MoveRepoModal onCancel={mockOnCancel} onConfirm={mockOnConfirm} open />
       );
       userEvent.type(queryByDataCy("new-owner-input"), "new-owner-name");
       userEvent.type(queryByDataCy("new-repo-input"), "new-repo-name");
 
-      const moveRepoButton = getAllByText("Move Repo")[1].closest("button");
+      const moveRepoButton = getByRole("button", { name: "Move Repo" });
       expect(moveRepoButton).not.toHaveAttribute("disabled");
     });
   });

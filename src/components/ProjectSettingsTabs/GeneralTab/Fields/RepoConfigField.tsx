@@ -31,10 +31,6 @@ export const MoveRepoModal: React.FC<ModalProps> = ({
 }) => {
   const [formState, setFormState] = useState({});
   const [hasError, setHasError] = useState(false);
-  const isDisabled =
-    Object.keys(formState).length === 0 ||
-    Object.values(formState).some((input) => input === "") ||
-    hasError;
 
   return (
     <ConfirmationModal
@@ -43,7 +39,7 @@ export const MoveRepoModal: React.FC<ModalProps> = ({
       onCancel={onCancel}
       onConfirm={() => onConfirm(formState)}
       open={open}
-      submitDisabled={isDisabled}
+      submitDisabled={hasError}
       title="Move Repo"
       variant="danger"
     >
@@ -216,12 +212,17 @@ const modalFormDefinition = {
       owner: {
         type: "string" as "string",
         title: "New Owner",
+        default: "",
+        minLength: 1,
       },
       repo: {
         type: "string" as "string",
         title: "New Repository",
+        default: "",
+        minLength: 1,
       },
     },
+    required: ["owner", "repo"],
     dependencies: {
       owner: ["repo"],
       repo: ["owner"],
@@ -230,9 +231,11 @@ const modalFormDefinition = {
   uiSchema: {
     owner: {
       "ui:data-cy": "new-owner-input",
+      "ui:showErrors": false,
     },
     repo: {
       "ui:data-cy": "new-repo-input",
+      "ui:showErrors": false,
     },
   },
 };
