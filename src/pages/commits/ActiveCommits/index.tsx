@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import CommitChartLabel from "components/CommitChartLabel";
 import { ChartTypes, CommitVersion } from "types/commits";
+import { convertArrayToObject } from "utils/array";
 import { shortenGithash } from "utils/string";
 import { BuildVariantCard } from "./BuildVariantCard";
 import { CommitChart } from "./CommitChart";
@@ -44,26 +45,28 @@ export const ActiveCommitLabel: React.FC<ActiveCommitLabelProps> = ({
 
 interface BuildVariantContainerProps {
   version: CommitVersion;
-  hasTaskFilter: boolean;
 }
 export const BuildVariantContainer: React.FC<BuildVariantContainerProps> = ({
   version,
-  hasTaskFilter,
-}) => (
-  <ColumnContainer>
-    {version.buildVariants.map(({ variant, displayName, tasks }) => (
-      <BuildVariantCard
-        versionId={version.id}
-        buildVariantDisplayName={displayName}
-        variant={variant}
-        tasks={tasks}
-        key={`${version.id}_${variant}`}
-        shouldGroupTasks={!hasTaskFilter}
-        projectIdentifier={version.projectIdentifier}
-      />
-    ))}
-  </ColumnContainer>
-);
+}) => {
+  const { buildVariants, buildVariantStats } = version;
+  const groupedVariants = convertArrayToObject(buildVariantStats, "variant");
+  return (
+    <ColumnContainer>
+      {buildVariants.map(({ variant, displayName, tasks }) => (
+        <BuildVariantCard
+          versionId={version.id}
+          buildVariantDisplayName={displayName}
+          variant={variant}
+          tasks={tasks}
+          key={`${version.id}_${variant}`}
+          projectIdentifier={version.projectIdentifier}
+          groupedVariantStats={groupedVariants[variant]}
+        />
+      ))}
+    </ColumnContainer>
+  );
+};
 
 const ColumnContainer = styled.div`
   display: flex;
