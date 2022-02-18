@@ -45,12 +45,10 @@ const RenderCommitsChart: React.FC<RenderCommitsChartProps> = ({
 interface RenderCommitsLabelProps {
   commit: Commit;
   hasFilters: boolean;
-  isScrolled: boolean;
 }
 const RenderCommitsLabel: React.FC<RenderCommitsLabelProps> = ({
   commit,
   hasFilters,
-  isScrolled,
 }) => {
   const { version, rolledUpVersions } = commit;
 
@@ -62,7 +60,6 @@ const RenderCommitsLabel: React.FC<RenderCommitsLabelProps> = ({
       <InactiveCommitButton
         rolledUpVersions={rolledUpVersions}
         hasFilters={hasFilters}
-        isScrolled={isScrolled}
       />
     );
   }

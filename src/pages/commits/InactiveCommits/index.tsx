@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Body, Disclaimer } from "@leafygreen-ui/typography";
+import { Disclaimer } from "@leafygreen-ui/typography";
 import { size, zIndex } from "constants/tokens";
 import { CommitRolledUpVersions } from "types/commits";
 import { string } from "utils";
@@ -19,12 +19,10 @@ export const InactiveCommitsLine = () => (
 interface InactiveCommitsProps {
   rolledUpVersions: CommitRolledUpVersions;
   hasFilters: boolean;
-  isScrolled?: boolean;
 }
 export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
   rolledUpVersions,
   hasFilters = false,
-  isScrolled = false,
 }) => {
   const versionCount = rolledUpVersions.length;
 
@@ -36,18 +34,18 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
   if (shouldSplitCommits) {
     const hiddenCommitCount = versionCount - MAX_COMMIT_COUNT;
     returnedCommits = [
-      ...rolledUpVersions.slice(0, 2).map((v) => (
+      ...rolledUpVersions.slice(0, 1).map((v) => (
         <CommitText key={v.revision} data-cy="commit-text">
           {getCommitCopy(v)}
         </CommitText>
       )),
       <HiddenCommitsWrapper key="hidden_commits" data-cy="hidden-commits">
         <Disclaimer>
-          {hiddenCommitCount}
-          {` more commit${hiddenCommitCount !== 1 ? "s" : ""}`}
+          ({hiddenCommitCount}
+          {` more commit${hiddenCommitCount !== 1 ? "s" : ""}...`})
         </Disclaimer>
       </HiddenCommitsWrapper>,
-      ...rolledUpVersions.slice(-3).map((v) => (
+      ...rolledUpVersions.slice(-2).map((v) => (
         <CommitText key={v.revision} data-cy="commit-text">
           {getCommitCopy(v)}
         </CommitText>
@@ -62,8 +60,7 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
   }
 
   return (
-    <StyledTooltip
-      scrolled={isScrolled ? 1 : 0}
+    <Tooltip
       usePortal={false}
       align="bottom"
       justify="middle"
@@ -79,13 +76,13 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
       popoverZIndex={zIndex.tooltip}
     >
       <TooltipContainer data-cy="inactive-commits-tooltip">
-        <TitleText weight="medium">
+        <TitleText>
           {versionCount} {tooltipType}
           {` Commit${versionCount !== 1 ? "s" : ""}`}
         </TitleText>
         {returnedCommits}
       </TooltipContainer>
-    </StyledTooltip>
+    </Tooltip>
   );
 };
 
@@ -100,27 +97,18 @@ const getCommitCopy = (v: CommitRolledUpVersions[0]) => (
   </>
 );
 
-const tooltipWidth = 300;
-const padding = 16;
-
 const HiddenCommitsWrapper = styled.div`
-  width: 60%;
-  border-top: 1px solid ${gray.dark2};
-  border-bottom: 1px solid ${gray.dark2};
-  text-align: center;
-  padding: ${size.xxs} 0;
   align-self: center;
-  margin: ${size.l} 0;
+  padding: ${size.xs} 0;
+  opacity: 0.5;
 `;
 
 const TooltipContainer = styled.div`
-  width: ${tooltipWidth}px;
+  width: 300px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-  background-color: ${gray.light3};
-  color: ${gray.dark3};
 `;
 
 const ButtonContainer = styled.div`
@@ -141,8 +129,9 @@ const ButtonText = styled(Disclaimer)`
   font-weight: bold;
 `;
 
-const TitleText = styled(Body)`
-  margin-bottom: ${size.s};
+const TitleText = styled.div`
+  margin-bottom: ${size.xs};
+  font-weight: 700;
 `;
 
 const Container = styled.div`
@@ -150,25 +139,18 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-// @ts-ignore-error
-const StyledTooltip = styled(Tooltip)<{ scrolled: number }>`
-  max-height: ${({ scrolled }) => (scrolled ? "750" : "350")}px;
-  overflow-y: scroll;
-  transition: max-height 0.5s ease-in-out;
-`;
-
-const CommitText = styled(Body)`
+const CommitText = styled.div`
   padding: ${size.xxs} 0;
   word-break: break-all;
+  font-size: 13px;
 `;
 
-const CommitTitleText = styled(Body)`
+const CommitTitleText = styled.div`
   font-weight: bold;
 `;
 
-const CommitBodyText = styled(Body)`
-  width: ${tooltipWidth - padding}px;
-  padding-left: ${padding}px;
+const CommitBodyText = styled.div`
+  padding-left: ${size.s};
 `;
 
-const MAX_COMMIT_COUNT = 5;
+const MAX_COMMIT_COUNT = 3;
