@@ -103,3 +103,30 @@ export const toArray = <T>(value: T | T[]): T[] => {
   }
   return value === undefined ? [] : [value];
 };
+
+/** arrayIntersection takes in two arrays and returns the intersecting elements of the two arrays */
+export const arrayIntersection = (a: string[], b: string[]) => {
+  const setA = new Set(a);
+  const setB = new Set(b);
+  const intersection = Array.from(setA).filter((x) => setB.has(x));
+  return intersection;
+};
+
+/** arraySymmetricDifference takes in two arrays and returns only the elements not in common between the two arrays
+ * ie: the opposite of arrayIntersection
+ */
+export const arraySymmetricDifference = (a: string[], b: string[]) => {
+  const setA = new Set(a);
+  const setB = new Set(b);
+  let difference = Array.from(setA).filter((x) => !setB.has(x));
+  difference = difference.concat(Array.from(setB).filter((x) => !setA.has(x)));
+  return difference;
+};
+
+/* arraySetDifference returns the elements in a that are not in b */
+export const arraySetDifference = (a: string[], b: string[]) => {
+  const setA = new Set(a);
+  const setB = new Set(b);
+  const difference = Array.from(setA).filter((x) => !setB.has(x));
+  return difference;
+};

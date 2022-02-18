@@ -5,6 +5,9 @@ import {
   convertObjectToArray,
   mapStringArrayToObject,
   toArray,
+  arrayIntersection,
+  arraySymmetricDifference,
+  arraySetDifference,
 } from ".";
 
 describe("toggleArray", () => {
@@ -161,5 +164,86 @@ describe("toArray", () => {
   });
   it("an undefined value should be converted into an empty array", () => {
     expect(toArray(undefined)).toStrictEqual([]);
+  });
+});
+
+describe("arrayIntersection", () => {
+  it("should return an empty array when the arrays are empty", () => {
+    expect(arrayIntersection([], [])).toStrictEqual([]);
+  });
+  it("should return an empty array when the first array is empty", () => {
+    expect(arrayIntersection([], ["1", "2", "3"])).toStrictEqual([]);
+  });
+  it("should return an empty array when the second array is empty", () => {
+    expect(arrayIntersection(["1", "2", "3"], [])).toStrictEqual([]);
+  });
+  it("should return an empty array when the arrays have no common elements", () => {
+    expect(arrayIntersection(["1", "2", "3"], ["4", "5", "6"])).toStrictEqual(
+      []
+    );
+  });
+  it("should return the common elements when the arrays have common elements", () => {
+    expect(arrayIntersection(["1", "2", "3"], ["3", "4", "5"])).toStrictEqual([
+      "3",
+    ]);
+  });
+});
+
+describe("arraySymmetricDifference", () => {
+  it("should return an empty array when the arrays are empty", () => {
+    expect(arraySymmetricDifference([], [])).toStrictEqual([]);
+  });
+  it("should return the differing values when the first array is empty", () => {
+    expect(arraySymmetricDifference([], ["1", "2", "3"])).toStrictEqual([
+      "1",
+      "2",
+      "3",
+    ]);
+  });
+  it("should return the differing values when the second array is empty", () => {
+    expect(arraySymmetricDifference(["1", "2", "3"], [])).toStrictEqual([
+      "1",
+      "2",
+      "3",
+    ]);
+  });
+  it("should return the symmetric difference when the arrays have no common elements", () => {
+    expect(
+      arraySymmetricDifference(["1", "2", "3"], ["4", "5", "6"])
+    ).toStrictEqual(["1", "2", "3", "4", "5", "6"]);
+  });
+  it("should return the symmetric difference when the arrays have common elements", () => {
+    expect(
+      arraySymmetricDifference(["1", "2", "3"], ["3", "4", "5"])
+    ).toStrictEqual(["1", "2", "4", "5"]);
+  });
+});
+
+describe("arraySetDifference", () => {
+  it("should return an empty array when the arrays are empty", () => {
+    expect(arraySetDifference([], [])).toStrictEqual([]);
+  });
+  it("should return the differing values when the first array is empty", () => {
+    expect(arraySetDifference([], ["1", "2", "3"])).toStrictEqual([]);
+  });
+  it("should return the differing values when the second array is empty", () => {
+    expect(arraySetDifference(["1", "2", "3"], [])).toStrictEqual([
+      "1",
+      "2",
+      "3",
+    ]);
+  });
+  it("should return the differing values when the arrays have no common elements", () => {
+    expect(arraySetDifference(["1", "2", "3"], ["4", "5", "6"])).toStrictEqual([
+      "1",
+      "2",
+      "3",
+    ]);
+  });
+  it("should return the differing values when the arrays have common elements", () => {
+    expect(arraySetDifference(["1", "2", "3"], ["3", "4", "5"])).toStrictEqual([
+      "1",
+      "2",
+    ]);
   });
 });
