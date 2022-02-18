@@ -102,4 +102,10 @@ export enum TaskStatus {
   ScheduledUmbrella = "scheduled-umbrella",
 }
 
+export enum CommitType {
+  Base = "base",
+  LastPassing = "lastPassing",
+  LastExecuted = "lastExecuted",
+}
+
 export type CommitTask = GetBaseVersionAndTaskQuery["task"]["baseTask"];

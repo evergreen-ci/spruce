@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useReducer, useEffect } from "react";
 import { useLazyQuery, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
@@ -6,7 +6,6 @@ import { Option, Select } from "@leafygreen-ui/select";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
-import { getTaskRoute } from "constants/routes";
 import { finishedTaskStatuses } from "constants/task";
 import { size } from "constants/tokens";
 import {
@@ -19,26 +18,29 @@ import {
   GET_BASE_VERSION_AND_TASK,
   GET_LAST_MAINLINE_COMMIT,
 } from "gql/queries";
-import { TaskStatus, CommitTask } from "types/task";
-import { errorReporting, statuses, string } from "utils";
+import { TaskStatus, CommitTask, CommitType } from "types/task";
+import { errorReporting, string } from "utils";
+import { initialState, reducer } from "./reducer";
 
-const { isFinishedTaskStatus } = statuses;
 const { applyStrictRegex } = string;
 const { reportError } = errorReporting;
 
-enum CommitType {
-  Base = "base",
-  LastPassing = "lastPassing",
-  LastExecuted = "lastExecuted",
-}
 interface PreviousCommitsProps {
   taskId: string;
 }
 export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
-  const [selectState, setSelectState] = useState<CommitType>(CommitType.Base);
-  const [parentTask, setParentTask] = useState<CommitTask>(null);
-  const [lastPassingTask, setLastPassingTask] = useState<CommitTask>(null);
-  const [lastExecutedTask, setLastExecutedTask] = useState<CommitTask>(null);
+  const [
+    {
+      selectState,
+      disableButton,
+      link,
+      shouldFetchPassing,
+      shouldFetchExecuted,
+      hasFetchedPassing,
+      hasFetchedExecuted,
+    },
+    dispatch,
+  ] = useReducer(reducer, initialState);
 
   const { data: taskData } = useQuery<
     GetBaseVersionAndTaskQuery,
@@ -52,8 +54,10 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     GetLastMainlineCommitQueryVariables
   >(GET_LAST_MAINLINE_COMMIT, {
     onCompleted: (data) => {
-      const task = getTaskFromMainlineCommitsQuery(data);
-      if (task) setParentTask(task);
+      dispatch({
+        type: "setParentTask",
+        task: getTaskFromMainlineCommitsQuery(data),
+      });
     },
   });
 
@@ -62,8 +66,10 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     GetLastMainlineCommitQueryVariables
   >(GET_LAST_MAINLINE_COMMIT, {
     onCompleted: (data) => {
-      const task = getTaskFromMainlineCommitsQuery(data);
-      if (task) setLastPassingTask(task);
+      dispatch({
+        type: "setLastPassingTask",
+        task: getTaskFromMainlineCommitsQuery(data),
+      });
     },
   });
 
@@ -72,8 +78,10 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     GetLastMainlineCommitQueryVariables
   >(GET_LAST_MAINLINE_COMMIT, {
     onCompleted: (data) => {
-      const task = getTaskFromMainlineCommitsQuery(data);
-      if (task) setLastExecutedTask(task);
+      dispatch({
+        type: "setLastExecutedTask",
+        task: getTaskFromMainlineCommitsQuery(data),
+      });
     },
   });
 
@@ -101,83 +109,40 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
           },
         });
       } else {
-        setParentTask(baseTask);
+        dispatch({ type: "setParentTask", task: baseTask });
       }
     }
   }, [versionMetadata]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Hook to find last passing & last executed tasks. This is a separate hook because the queries should only
-  // run if the user selects these options. Additionally, these queries can only be run after the parentTask
-  // is known.
   useEffect(() => {
-    if (parentTask) {
-      if (
-        selectState === CommitType.LastPassing &&
-        parentTask.status !== TaskStatus.Succeeded
-      ) {
-        fetchLastPassing({
-          variables: {
-            projectIdentifier,
-            skipOrderNumber,
-            buildVariantOptions: {
-              ...bvOptionsBase,
-              statuses: [TaskStatus.Succeeded],
-            },
+    if (!hasFetchedPassing && shouldFetchPassing) {
+      fetchLastPassing({
+        variables: {
+          projectIdentifier,
+          skipOrderNumber,
+          buildVariantOptions: {
+            ...bvOptionsBase,
+            statuses: [TaskStatus.Succeeded],
           },
-        });
-      }
+        },
+      });
+    }
+  }, [shouldFetchPassing]); // eslint-disable-line react-hooks/exhaustive-deps
 
-      if (
-        selectState === CommitType.LastExecuted &&
-        !isFinishedTaskStatus(parentTask.status)
-      ) {
-        fetchLastExecuted({
-          variables: {
-            projectIdentifier,
-            skipOrderNumber,
-            buildVariantOptions: {
-              ...bvOptionsBase,
-              statuses: finishedTaskStatuses,
-            },
+  useEffect(() => {
+    if (!hasFetchedExecuted && shouldFetchExecuted) {
+      fetchLastExecuted({
+        variables: {
+          projectIdentifier,
+          skipOrderNumber,
+          buildVariantOptions: {
+            ...bvOptionsBase,
+            statuses: finishedTaskStatuses,
           },
-        });
-      }
+        },
+      });
     }
-  }, [parentTask, selectState]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // The default link should be undefined so that the GO button is disabled if links do not exist.
-  let link: string;
-  if (parentTask) {
-    switch (selectState) {
-      case CommitType.Base:
-        link = getTaskRoute(parentTask.id);
-        break;
-      // If a base task succeeded, the last passing commit is the parent task.
-      case CommitType.LastPassing:
-        link = getTaskRoute(lastPassingTask?.id || parentTask.id);
-        break;
-      // If a base task exists and has finished, the last executed commit is the parent task.
-      case CommitType.LastExecuted:
-        link = getTaskRoute(lastExecutedTask?.id || parentTask.id);
-        break;
-      default:
-    }
-  }
-
-  const lastPassingTaskDoesNotExist =
-    !parentTask ||
-    (selectState === CommitType.LastPassing &&
-      !lastPassingTask &&
-      parentTask.status !== TaskStatus.Succeeded);
-
-  const lastExecutedTaskDoesNotExist =
-    !parentTask ||
-    (selectState === CommitType.LastExecuted &&
-      !lastExecutedTask &&
-      !isFinishedTaskStatus(parentTask.status));
-
-  const disableButton =
-    !link || lastPassingTaskDoesNotExist || lastExecutedTaskDoesNotExist;
+  }, [shouldFetchExecuted]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return versionMetadata?.isPatch !== undefined ? (
     <PreviousCommitsWrapper>
@@ -186,7 +151,9 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
         data-cy="previous-commits"
         label="Previous commits for this task"
         allowDeselect={false}
-        onChange={(v: CommitType) => setSelectState(v)}
+        onChange={(v: CommitType) =>
+          dispatch({ type: "setSelectState", selectState: v })
+        }
         value={selectState}
         disabled={!versionMetadata?.baseVersion}
       >
