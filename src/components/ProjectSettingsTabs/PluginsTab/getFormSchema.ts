@@ -8,7 +8,6 @@ import { FormState } from "./types";
 const { hiddenIf, placeholderIf, radioBoxOptions } = form;
 
 export const getFormSchema = (
-  useRepoSettings: boolean,
   repoData?: FormState,
   formData?: FormState
 ): {
@@ -130,9 +129,6 @@ export const getFormSchema = (
           "ui:description":
             "Add any custom JIRA fields that you want displayed on any listed JIRA tickets, for example: assigned teams.",
           "ui:buttonText": "Add custom JIRA field",
-          options: {
-            useRepoSettings,
-          },
         },
       },
       useBuildBaron: {
@@ -145,17 +141,11 @@ export const getFormSchema = (
           "Specify an existing JIRA project to search for tickets related to a failing task",
         ...hiddenIf(formData?.buildBaronSettings.useBuildBaron !== true),
         "ui:buttonText": "Add Search Project",
-        options: {
-          useRepoSettings,
-        },
       },
       ticketCreateProject: {
         "ui:description":
           "Specify an existing JIRA project to create tickets in when the File Ticket button is clicked on a failing task.",
         ...hiddenIf(formData?.buildBaronSettings.useBuildBaron !== true),
-        options: {
-          useRepoSettings,
-        },
       },
       fileTicketWebhook: {
         ...hiddenIf(formData?.buildBaronSettings.useBuildBaron === true),

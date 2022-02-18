@@ -3,19 +3,15 @@ import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { Project } from "gql/generated/types";
-import { form } from "../utils";
-import {
-  FilesIgnoredFromCacheField,
-  RepoConfigField,
-  RepotrackerField,
-} from "./Fields";
+import { form, ProjectVariant } from "../utils";
+import { RepoConfigField, RepotrackerField } from "./Fields";
 import { FormState } from "./types";
 
-const { insertIf, placeholderIf, radioBoxOptions } = form;
+const { insertIf, overrideRadioBox, placeholderIf, radioBoxOptions } = form;
 
 export const getFormSchema = (
   projectId: string,
-  useRepoSettings: boolean,
+  projectVariant: ProjectVariant,
   validDefaultLoggers: Project["validDefaultLoggers"],
   repoData?: FormState
 ): {
@@ -25,7 +21,6 @@ export const getFormSchema = (
 } => ({
   fields: {
     repoConfigField: RepoConfigField,
-    filesIgnoredFromCacheField: FilesIgnoredFromCacheField,
     repotrackerField: RepotrackerField,
   },
   schema: {
@@ -208,20 +203,18 @@ export const getFormSchema = (
             title: "File Patterns to Ignore",
             description:
               "Comma-separated list of regular expression patterns that specify test filenames to ignore when caching test and task history.",
-            properties: {
-              filesIgnoredFromCache: {
+            ...overrideRadioBox(
+              "filesIgnoredFromCache",
+              ["Override Repo File Pattern", "Default to Repo File Pattern"],
+              {
                 type: ["array", "null"],
                 items: {
-                  type: "object" as "object",
-                  properties: {
-                    filePattern: {
-                      type: "string" as "string",
-                      title: "File Pattern",
-                    },
-                  },
+                  type: "string" as "string",
+                  title: "File Pattern",
+                  default: "",
                 },
-              },
-            },
+              }
+            ),
           },
         },
       },
@@ -238,12 +231,12 @@ export const getFormSchema = (
       },
       repositoryInfo: {
         "ui:field": "repoConfigField",
-        "ui:disabled": !!useRepoSettings,
+        "ui:disabled": projectVariant !== ProjectVariant.AttachedProject,
         options: {
           projectId,
+          projectVariant,
           repoName: repoData?.generalConfiguration?.repositoryInfo?.repo,
           repoOwner: repoData?.generalConfiguration?.repositoryInfo?.owner,
-          useRepoSettings,
         },
       },
       branch: {
@@ -335,10 +328,20 @@ export const getFormSchema = (
         "ui:widget": widgets.RadioBoxWidget,
       },
       files: {
+        filesIgnoredFromCacheOverride: {
+          "ui:widget": widgets.RadioBoxWidget,
+          "ui:showLabel": false,
+        },
         filesIgnoredFromCache: {
           "ui:addButtonText": "Add File Pattern",
-          "ui:field": "filesIgnoredFromCacheField",
-          options: { useRepoSettings },
+          "ui:showLabel": false,
+        },
+        repoData: {
+          filesIgnoredFromCache: {
+            "ui:disabled": true,
+            "ui:readonly": true,
+            "ui:showLabel": false,
+          },
         },
       },
     },

@@ -7,11 +7,7 @@ import { TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.Plugins;
 
-export const PluginsTab: React.FC<TabProps> = ({
-  projectData,
-  repoData,
-  useRepoSettings,
-}) => {
+export const PluginsTab: React.FC<TabProps> = ({ projectData, repoData }) => {
   const { getTab, updateForm } = useProjectSettingsContext();
   const { formData } = getTab(tab);
 
@@ -21,13 +17,8 @@ export const PluginsTab: React.FC<TabProps> = ({
   const onChange = updateForm(tab);
 
   const { fields, schema, uiSchema } = useMemo(
-    () =>
-      getFormSchema(
-        useRepoSettings,
-        useRepoSettings ? repoData : null,
-        formData
-      ),
-    [repoData, useRepoSettings, formData]
+    () => getFormSchema(repoData, formData),
+    [repoData, formData]
   );
 
   if (!formData) return null;

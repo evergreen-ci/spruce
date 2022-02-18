@@ -26,5 +26,4 @@ export interface FormState {
 export type TabProps = {
   projectData?: FormState;
   repoData?: FormState;
-  useRepoSettings: boolean;
 };

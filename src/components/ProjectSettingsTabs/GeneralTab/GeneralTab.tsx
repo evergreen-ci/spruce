@@ -10,8 +10,8 @@ const tab = ProjectSettingsTabRoutes.General;
 export const GeneralTab: React.FC<TabProps> = ({
   projectData,
   projectId,
+  projectVariant,
   repoData,
-  useRepoSettings,
   validDefaultLoggers,
 }) => {
   const { getTab, updateForm } = useProjectSettingsContext();
@@ -24,13 +24,8 @@ export const GeneralTab: React.FC<TabProps> = ({
 
   const { fields, schema, uiSchema } = useMemo(
     () =>
-      getFormSchema(
-        projectId,
-        useRepoSettings,
-        validDefaultLoggers,
-        useRepoSettings ? repoData : null
-      ),
-    [projectId, repoData, useRepoSettings, validDefaultLoggers]
+      getFormSchema(projectId, projectVariant, validDefaultLoggers, repoData),
+    [projectId, projectVariant, repoData, validDefaultLoggers]
   );
 
   if (!formData) return null;

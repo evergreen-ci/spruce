@@ -2,11 +2,12 @@ import { Field } from "@rjsf/core";
 import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
+import { ProjectVariant } from "../utils";
 import { FormState } from "./types";
 import { VariableRow } from "./VariableRow";
 
 export const getFormSchema = (
-  useRepoSettings: boolean,
+  projectVariant: ProjectVariant,
   repoData?: FormState
 ): {
   fields: Record<string, Field>;
@@ -65,7 +66,7 @@ export const getFormSchema = (
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     vars: {
       "ui:addButtonText": "Add Variables",
-      "ui:description": getDescription(useRepoSettings),
+      "ui:description": getDescription(projectVariant),
       "ui:fullWidth": true,
       "ui:showLabel": false,
       items: {
@@ -103,13 +104,11 @@ export const getFormSchema = (
   },
 });
 
-const getDescription = (useRepoSettings: boolean): string => {
-  // Repo page, where useRepoSettings field does not exist
-  if (useRepoSettings === undefined) {
+const getDescription = (projectVariant: ProjectVariant): string => {
+  if (projectVariant === ProjectVariant.Repo) {
     return "Variables defined here will be used by all branches attached to this project, unless a variable is specifically overridden in the branch.";
   }
-  // Project page
-  return useRepoSettings
-    ? "Variables are sourced from both the repo-level and branch-level settings. If a variable name is defined at both the repo-level and branch-level, then the branch variable will override the repo variable."
-    : null;
+  if (projectVariant === ProjectVariant.AttachedProject) {
+    return "Variables are sourced from both the repo-level and branch-level settings. If a variable name is defined at both the repo-level and branch-level, then the branch variable will override the repo variable.";
+  }
 };

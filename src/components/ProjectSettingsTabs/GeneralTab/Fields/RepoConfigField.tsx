@@ -17,6 +17,7 @@ import {
   ATTACH_PROJECT_TO_REPO,
   DETACH_PROJECT_FROM_REPO,
 } from "gql/mutations";
+import { ProjectVariant } from "../../utils";
 
 interface ModalProps {
   onCancel: () => void;
@@ -144,9 +145,9 @@ export const RepoConfigField: Field = ({
   uiSchema,
 }) => {
   const {
-    options: { projectId, repoName, repoOwner, useRepoSettings },
+    options: { projectId, projectVariant, repoName, repoOwner },
   } = uiSchema;
-  const isRepo = useRepoSettings === undefined;
+  const isRepo = projectVariant === ProjectVariant.Repo;
   const [moveModalOpen, setMoveModalOpen] = useState(false);
   const [attachModalOpen, setAttachModalOpen] = useState(false);
 
@@ -162,7 +163,7 @@ export const RepoConfigField: Field = ({
       {!isRepo && (
         <>
           <ButtonRow>
-            {useRepoSettings && (
+            {projectVariant === ProjectVariant.AttachedProject && (
               <Button
                 onClick={() => setMoveModalOpen(true)}
                 size="small"
@@ -176,7 +177,7 @@ export const RepoConfigField: Field = ({
               onClick={() => setAttachModalOpen(true)}
               data-cy="attach-repo-button"
             >
-              {useRepoSettings
+              {projectVariant === ProjectVariant.AttachedProject
                 ? "Detach from Current Repo"
                 : "Attach to Current Repo"}
             </Button>
@@ -188,7 +189,7 @@ export const RepoConfigField: Field = ({
               projectId={projectId}
               repoName={repoName || formData.repo}
               repoOwner={repoOwner || formData.owner}
-              shouldAttach={!useRepoSettings}
+              shouldAttach={projectVariant === ProjectVariant.Project}
             />
           )}
         </>

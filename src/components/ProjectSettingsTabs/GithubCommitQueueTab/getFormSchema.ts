@@ -2,14 +2,14 @@ import { Field } from "@rjsf/core";
 import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { alias, form } from "../utils";
+import { alias, form, ProjectVariant } from "../utils";
 import { FormState } from "./types";
 
 const { aliasArraySchema, aliasRowUiSchema } = alias;
 const { insertIf, overrideRadioBox, placeholderIf, radioBoxOptions } = form;
 
 export const getFormSchema = (
-  useRepoSettings: boolean,
+  projectVariant: ProjectVariant,
   gitHubWebhooksEnabled: boolean,
   formData: FormState,
   repoData?: FormState
@@ -39,7 +39,7 @@ export const getFormSchema = (
           prTestingEnabledTitle: {
             type: "null",
             title: "GitHub Pull Request Testing",
-            ...(useRepoSettings === undefined && {
+            ...(projectVariant === ProjectVariant.Repo && {
               description:
                 "If enabled, then untracked branches will also use the file patterns defined here for PR testing.",
             }),

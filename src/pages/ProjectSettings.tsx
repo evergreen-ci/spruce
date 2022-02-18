@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { useParams, Link, Redirect } from "react-router-dom";
 import { ProjectSettingsProvider } from "components/ProjectSettingsTabs/Context";
+import { ProjectVariant } from "components/ProjectSettingsTabs/utils";
 import {
   SideNav,
   SideNavGroup,
@@ -55,20 +56,27 @@ export const ProjectSettings: React.FC = () => {
     },
   });
 
-  const repoRefId =
+  const repoId =
     projectData?.projectSettings?.projectRef?.repoRefId || identifier;
-  const useRepoSettings =
-    projectData?.projectSettings?.projectRef?.useRepoSettings;
+
+  let projectVariant;
+  if (isRepo) {
+    projectVariant = ProjectVariant.Repo;
+  } else if (projectData?.projectSettings?.projectRef?.repoRefId) {
+    projectVariant = ProjectVariant.AttachedProject;
+  } else {
+    projectVariant = ProjectVariant.Project;
+  }
 
   const { data: repoData } = useQuery<
     RepoSettingsQuery,
     RepoSettingsQueryVariables
   >(GET_REPO_SETTINGS, {
-    skip: projectLoading || useRepoSettings === false,
-    variables: { repoId: repoRefId },
+    skip: projectLoading || projectVariant === ProjectVariant.Project,
+    variables: { repoId },
     onError: (e) => {
       dispatchToast.error(
-        `There was an error loading the repo ${repoRefId}: ${e.message}`
+        `There was an error loading the repo ${repoId}: ${e.message}`
       );
     },
   });
@@ -99,7 +107,10 @@ export const ProjectSettings: React.FC = () => {
     currentTab: tab,
   };
 
-  const hasData = projectData ? !useRepoSettings || repoData : repoData;
+  const hasData = projectData
+    ? projectVariant === ProjectVariant.Project || repoData
+    : repoData;
+  console.log(repoData);
 
   return (
     <ProjectSettingsProvider>
@@ -156,6 +167,7 @@ export const ProjectSettings: React.FC = () => {
         {hasData ? (
           <ProjectSettingsTabs
             projectData={projectData?.projectSettings}
+            projectVariant={projectVariant}
             repoData={repoData?.repoSettings}
           />
         ) : (

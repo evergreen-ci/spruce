@@ -8,3 +8,9 @@ export type AliasType = {
   task: string;
   taskTags: string[];
 };
+
+export enum ProjectVariant {
+  AttachedProject,
+  Project,
+  Repo,
+}

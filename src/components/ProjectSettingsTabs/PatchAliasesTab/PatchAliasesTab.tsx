@@ -26,7 +26,6 @@ const getInitialFormState = (projectData, repoData) => {
 export const PatchAliasesTab: React.FC<TabProps> = ({
   projectData,
   repoData,
-  useRepoSettings,
 }) => {
   const { getTab, updateForm } = useProjectSettingsContext();
   const { formData } = getTab(tab);
@@ -39,10 +38,9 @@ export const PatchAliasesTab: React.FC<TabProps> = ({
 
   const onChange = updateForm(tab);
 
-  const { fields, schema, uiSchema } = useMemo(
-    () => getFormSchema(useRepoSettings ? repoData : null),
-    [repoData, useRepoSettings]
-  );
+  const { fields, schema, uiSchema } = useMemo(() => getFormSchema(repoData), [
+    repoData,
+  ]);
 
   if (!formData) return null;
 

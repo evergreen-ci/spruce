@@ -28,8 +28,8 @@ const getInitialFormState = (
 export const GithubCommitQueueTab: React.FC<TabProps> = ({
   gitHubWebhooksEnabled,
   projectData,
+  projectVariant,
   repoData,
-  useRepoSettings,
 }) => {
   const { getTab, updateForm } = useProjectSettingsContext();
   const { formData } = getTab(tab);
@@ -44,13 +44,8 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
 
   const { fields, schema, uiSchema } = useMemo(
     () =>
-      getFormSchema(
-        useRepoSettings,
-        gitHubWebhooksEnabled,
-        formData,
-        useRepoSettings ? repoData : null
-      ),
-    [formData, gitHubWebhooksEnabled, repoData, useRepoSettings]
+      getFormSchema(projectVariant, gitHubWebhooksEnabled, formData, repoData),
+    [formData, gitHubWebhooksEnabled, projectVariant, repoData]
   );
 
   if (!formData) return null;

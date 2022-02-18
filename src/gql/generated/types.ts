@@ -26,6 +26,7 @@ export type Query = {
   version: Version;
   projects: Array<Maybe<GroupedProjects>>;
   viewableProjectRefs: Array<Maybe<GroupedProjects>>;
+  githubProjectConflicts: GithubProjectConflicts;
   project: Project;
   patchTasks: PatchTasks;
   taskTests: TaskTestResult;
@@ -79,6 +80,10 @@ export type QueryPatchArgs = {
 
 export type QueryVersionArgs = {
   id: Scalars["String"];
+};
+
+export type QueryGithubProjectConflictsArgs = {
+  projectId: Scalars["String"];
 };
 
 export type QueryProjectArgs = {
@@ -1461,6 +1466,12 @@ export type GroupedProjects = {
   projects: Array<Project>;
 };
 
+export type GithubProjectConflicts = {
+  commitQueueIdentifiers?: Maybe<Array<Scalars["String"]>>;
+  prTestingIdentifiers?: Maybe<Array<Scalars["String"]>>;
+  commitCheckIdentifiers?: Maybe<Array<Scalars["String"]>>;
+};
+
 export type ProjectSettings = {
   gitHubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<Project>;
@@ -2301,11 +2312,7 @@ export type RepoGithubCommitQueueFragment = {
 
 export type ProjectSettingsFragment = {
   projectRef?: Maybe<
-    {
-      id: string;
-      useRepoSettings: boolean;
-      repoRefId: string;
-    } & ProjectGeneralSettingsFragment &
+    { id: string; repoRefId: string } & ProjectGeneralSettingsFragment &
       ProjectAccessSettingsFragment &
       ProjectPluginsSettingsFragment &
       ProjectNotificationSettingsFragment

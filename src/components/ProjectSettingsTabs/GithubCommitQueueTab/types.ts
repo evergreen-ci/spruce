@@ -1,4 +1,4 @@
-import { AliasType } from "../utils";
+import { AliasType, ProjectVariant } from "../utils";
 
 export interface FormState {
   github: {
@@ -57,6 +57,6 @@ export interface FormState {
 export type TabProps = {
   gitHubWebhooksEnabled: boolean;
   projectData?: FormState;
+  projectVariant: ProjectVariant;
   repoData?: FormState;
-  useRepoSettings: boolean;
 };

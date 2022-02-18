@@ -15,8 +15,8 @@ const getInitialFormState = (projectData, repoData) => {
 
 export const VariablesTab: React.FC<TabProps> = ({
   projectData,
+  projectVariant,
   repoData,
-  useRepoSettings,
 }) => {
   const { getTab, updateForm } = useProjectSettingsContext();
   const { formData } = getTab(tab);
@@ -30,8 +30,8 @@ export const VariablesTab: React.FC<TabProps> = ({
   const onChange = updateForm(tab);
 
   const { fields, schema, uiSchema } = useMemo(
-    () => getFormSchema(useRepoSettings, useRepoSettings ? repoData : null),
-    [repoData, useRepoSettings]
+    () => getFormSchema(projectVariant, repoData),
+    [projectVariant, repoData]
   );
 
   if (!formData) return null;

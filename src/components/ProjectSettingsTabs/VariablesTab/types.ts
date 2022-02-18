@@ -1,3 +1,5 @@
+import { ProjectVariant } from "../utils";
+
 export interface FormState {
   vars: Array<{
     varName: string;
@@ -9,6 +11,6 @@ export interface FormState {
 
 export type TabProps = {
   projectData?: FormState;
+  projectVariant: ProjectVariant;
   repoData?: FormState;
-  useRepoSettings: boolean;
 };
