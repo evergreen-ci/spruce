@@ -13,8 +13,10 @@ describe("Public Key Management Page", () => {
   });
 
   describe("Public keys list", () => {
-    it("Displays the user's public keys", () => {
+    before(() => {
       cy.visit(route);
+    });
+    it("Displays the user's public keys", () => {
       cy.dataCy("table-key-name").each(($el, index) =>
         cy.wrap($el).contains([keyName1, keyName2][index])
       );
@@ -22,6 +24,7 @@ describe("Public Key Management Page", () => {
     it("Removes a public key from the table after deletion", () => {
       cy.dataCy("delete-btn").first().click();
       cy.get(popconfirmYesClassName).click();
+      cy.dataCy("table-key-name").first().should("not.contain", keyName1);
       cy.dataCy("table-key-name").first().contains(keyName2);
     });
     it('Displays "No keys saved. Add a new key to populate the list." when no keys are available', () => {
@@ -32,8 +35,10 @@ describe("Public Key Management Page", () => {
   });
 
   describe("Add New Key Modal", () => {
-    it("Displays errors when the modal opens", () => {
+    before(() => {
       cy.visit(route);
+    });
+    it("Displays errors when the modal opens", () => {
       cy.dataCy("add-key-button").click();
       cy.dataCy("error-message").each(($el, index) =>
         cy.wrap($el).contains([err1, err2][index])
@@ -42,18 +47,15 @@ describe("Public Key Management Page", () => {
 
     it("Error messages go away after typing valid input", () => {
       cy.dataCy("key-name-input").type(keyName3);
-      cy.dataCy("key-value-input").type("ssh-dss");
+      cy.dataCy("key-value-input").paste("ssh-dss");
       cy.dataCy("error-message").should("have.length", 0);
     });
 
     it("Should include the public in the public key list after adding", () => {
       cy.dataCy("key-value-input").clear();
-      cy.dataCy("key-value-input")
-        .type(pubKey)
-        .then(() => {
-          cy.dataCy("save-key-button").click();
-          cy.dataCy("table-key-name").first().contains(keyName3);
-        });
+      cy.dataCy("key-value-input").paste(pubKey);
+      cy.dataCy("save-key-button").click();
+      cy.dataCy("table-key-name").first().contains(keyName3);
     });
 
     it("Should show an error if the key name already exists", () => {
@@ -68,8 +70,10 @@ describe("Public Key Management Page", () => {
   });
 
   describe("Edit Key Modal", () => {
-    it("Should not have any errors when the modal opens", () => {
+    before(() => {
       cy.visit(route);
+    });
+    it("Should not have any errors when the modal opens", () => {
       cy.dataCy("edit-btn").first().click();
       cy.dataCy("error-message").should("have.length", 0);
     });
@@ -78,7 +82,7 @@ describe("Public Key Management Page", () => {
       cy.dataCy("key-name-input").clear();
       cy.dataCy("key-name-input").type(keyName4);
       cy.dataCy("key-value-input").clear();
-      cy.dataCy("key-value-input").type(pubKey2);
+      cy.dataCy("key-value-input").paste(pubKey2);
       cy.dataCy("save-key-button").click();
       cy.dataCy("key-edit-modal").should("not.be.visible");
       cy.dataCy("table-key-name").first().contains(keyName4);
@@ -92,14 +96,14 @@ describe("Public Key Management Page", () => {
     });
   });
 
-  describe("Network errors", () => {
+  describe("Error State", () => {
     it("should show an error toast after submitting an invalid public key", () => {
       cy.visit(route);
       cy.dataCy("add-key-button").click();
       cy.dataCy("key-name-input").type("rsioeantarsn");
-      cy.dataCy("key-value-input").type("ssh-rsa");
+      cy.dataCy("key-value-input").paste("ssh-rsa");
       cy.dataCy("save-key-button").click();
-      cy.dataCy("toast").first().should("exist");
+      cy.validateToast("error");
     });
   });
 });

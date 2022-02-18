@@ -292,7 +292,7 @@ export const HostsTable: React.FC<Props> = ({
 
   return (
     <Table
-      data-test-id="hosts-table"
+      data-cy="hosts-table"
       rowKey={rowKey}
       pagination={false}
       columns={columnsTemplate}

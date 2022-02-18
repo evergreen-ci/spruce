@@ -1,19 +1,18 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
-import { MemoryRouter, Route } from "react-router-dom";
-import {
-  InputFilterTestComponent,
-  CheckboxFilterTestComponent,
-} from "./TestComponent";
+import { useLocation } from "react-router";
+import { CheckboxFilter, InputFilter } from "components/Table/Filters";
+import { useTableInputFilter, useTableCheckboxFilter } from "hooks";
+import { renderWithRouterMatch as render, fireEvent } from "test_utils";
+import { queryString } from "utils";
 
 describe("useTableInputFilter", () => {
   it("accepts an input value", async () => {
     const { getByText, getByPlaceholderText } = render(
-      <MemoryRouter initialEntries={[`/hosts?hostId=123`]}>
-        <Route path="/hosts">
-          <InputFilterTestComponent />
-        </Route>
-      </MemoryRouter>
+      () => <InputFilterTestComponent />,
+      {
+        route: "/hosts?hostId=123",
+        path: "/hosts",
+      }
     );
 
     const input = getByPlaceholderText("Search ID") as HTMLInputElement;
@@ -51,11 +50,11 @@ describe("useTableInputFilter", () => {
 
   it("useTableInputFilter - trims whitespace from input value", async () => {
     const { getByText, getByPlaceholderText } = render(
-      <MemoryRouter initialEntries={[`/hosts?hostId=123`]}>
-        <Route path="/hosts">
-          <InputFilterTestComponent />
-        </Route>
-      </MemoryRouter>
+      () => <InputFilterTestComponent />,
+      {
+        route: "/hosts?hostId=123",
+        path: "/hosts",
+      }
     );
 
     const input = getByPlaceholderText("Search ID") as HTMLInputElement;
@@ -73,11 +72,11 @@ describe("useTableInputFilter", () => {
 describe("useTableCheckboxFilter", () => {
   it("useTableCheckboxFilter", async () => {
     const { getByText, getByLabelText } = render(
-      <MemoryRouter initialEntries={[`/hosts?statuses=running,terminated`]}>
-        <Route path="/hosts">
-          <CheckboxFilterTestComponent />
-        </Route>
-      </MemoryRouter>
+      () => <CheckboxFilterTestComponent />,
+      {
+        route: "/hosts?statuses=running,terminated",
+        path: "/hosts",
+      }
     );
 
     const runningCheckbox = getByLabelText("Running") as HTMLInputElement;
@@ -105,3 +104,73 @@ describe("useTableCheckboxFilter", () => {
     getByText("statuses from url: none");
   });
 });
+
+const { parseQueryString } = queryString;
+const hostIdUrlParam = "hostId";
+
+const InputFilterTestComponent = () => {
+  const [value, onChange, onFilter] = useTableInputFilter({
+    urlSearchParam: hostIdUrlParam,
+    sendAnalyticsEvent: () => undefined,
+  });
+
+  const { search } = useLocation();
+  const queryParams = parseQueryString(search);
+
+  return (
+    <>
+      <div>host id from url: {queryParams[hostIdUrlParam] ?? "N/A"}</div>
+      <InputFilter
+        {...{
+          placeholder: "Search ID",
+          value,
+          onChange,
+          onFilter,
+        }}
+      />
+    </>
+  );
+};
+
+const statusesUrlParam = "statuses";
+
+const CheckboxFilterTestComponent = () => {
+  const [value, onChange] = useTableCheckboxFilter({
+    urlSearchParam: statusesUrlParam,
+    sendAnalyticsEvent: () => undefined,
+  });
+
+  const { search } = useLocation();
+  const queryParams = parseQueryString(search);
+  const statusesFromUrl = queryParams[statusesUrlParam];
+
+  const urlValue = Array.isArray(statusesFromUrl)
+    ? statusesFromUrl.join()
+    : statusesFromUrl ?? "none";
+
+  return (
+    <>
+      <div>statuses from url: {urlValue}</div>
+      <CheckboxFilter
+        {...{
+          statuses,
+          value,
+          onChange,
+        }}
+      />
+    </>
+  );
+};
+
+const statuses = [
+  {
+    title: "Running",
+    value: "running",
+    key: "running",
+  },
+  {
+    title: "Terminated",
+    value: "terminated",
+    key: "terminated",
+  },
+];
