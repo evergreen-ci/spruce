@@ -107,7 +107,7 @@ export const toArray = <T>(value: T | T[]): T[] => {
 /** arrayIntersection takes in two arrays and returns the intersecting elements of the two arrays */
 export const arrayIntersection = <T>(a: T[], b: T[]) => {
   if (typeof a[0] === "object" || typeof b[0] === "object") {
-    throw new Error("arrayIntersection does not support objects");
+    throw new TypeError("arrayIntersection does not support objects");
   }
   const setA = new Set(a);
   const setB = new Set(b);
@@ -120,7 +120,7 @@ export const arrayIntersection = <T>(a: T[], b: T[]) => {
  */
 export const arraySymmetricDifference = <T>(a: T[], b: T[]) => {
   if (typeof a[0] === "object" || typeof b[0] === "object") {
-    throw new Error("arraySymmetricDifference does not support objects");
+    throw new TypeError("arraySymmetricDifference does not support objects");
   }
   const setA = new Set(a);
   const setB = new Set(b);
@@ -132,7 +132,7 @@ export const arraySymmetricDifference = <T>(a: T[], b: T[]) => {
 /* arraySetDifference returns the elements in a that are not in b */
 export const arraySetDifference = <T>(a: T[], b: T[]) => {
   if (typeof a[0] === "object" || typeof b[0] === "object") {
-    throw new Error("arraySetDifference does not support objects");
+    throw new TypeError("arraySetDifference does not support objects");
   }
   const setA = new Set(a);
   const setB = new Set(b);
