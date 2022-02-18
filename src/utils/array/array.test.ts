@@ -168,6 +168,11 @@ describe("toArray", () => {
 });
 
 describe("arrayIntersection", () => {
+  it("should throw an error if an object is passed in", () => {
+    expect(() => arrayIntersection([{}], [{}])).toThrow(
+      TypeError("arrayIntersection does not support objects")
+    );
+  });
   it("should return an empty array when the arrays are empty", () => {
     expect(arrayIntersection([], [])).toStrictEqual([]);
   });
@@ -190,6 +195,11 @@ describe("arrayIntersection", () => {
 });
 
 describe("arraySymmetricDifference", () => {
+  it("should throw an error if an object is passed in", () => {
+    expect(() => arraySymmetricDifference([{}], [{}])).toThrow(
+      TypeError("arraySymmetricDifference does not support objects")
+    );
+  });
   it("should return an empty array when the arrays are empty", () => {
     expect(arraySymmetricDifference([], [])).toStrictEqual([]);
   });
@@ -220,6 +230,11 @@ describe("arraySymmetricDifference", () => {
 });
 
 describe("arraySetDifference", () => {
+  it("should throw an error if an object is passed in", () => {
+    expect(() => arraySetDifference([{}], [{}])).toThrow(
+      TypeError("arraySetDifference does not support objects")
+    );
+  });
   it("should return an empty array when the arrays are empty", () => {
     expect(arraySetDifference([], [])).toStrictEqual([]);
   });
