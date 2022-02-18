@@ -26,6 +26,7 @@ export type Query = {
   version: Version;
   projects: Array<Maybe<GroupedProjects>>;
   viewableProjectRefs: Array<Maybe<GroupedProjects>>;
+  githubProjectConflicts: GithubProjectConflicts;
   project: Project;
   patchTasks: PatchTasks;
   taskTests: TaskTestResult;
@@ -79,6 +80,10 @@ export type QueryPatchArgs = {
 
 export type QueryVersionArgs = {
   id: Scalars["String"];
+};
+
+export type QueryGithubProjectConflictsArgs = {
+  projectId: Scalars["String"];
 };
 
 export type QueryProjectArgs = {
@@ -1459,6 +1464,12 @@ export type GroupedProjects = {
   name: Scalars["String"];
   repo?: Maybe<RepoRef>;
   projects: Array<Project>;
+};
+
+export type GithubProjectConflicts = {
+  commitQueueIdentifiers?: Maybe<Array<Scalars["String"]>>;
+  prTestingIdentifiers?: Maybe<Array<Scalars["String"]>>;
+  commitCheckIdentifiers?: Maybe<Array<Scalars["String"]>>;
 };
 
 export type ProjectSettings = {
