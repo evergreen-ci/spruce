@@ -8,6 +8,7 @@ import {
   arrayIntersection,
   arraySymmetricDifference,
   arraySetDifference,
+  arrayUnion,
 } from ".";
 
 describe("toggleArray", () => {
@@ -259,6 +260,48 @@ describe("arraySetDifference", () => {
     expect(arraySetDifference(["1", "2", "3"], ["3", "4", "5"])).toStrictEqual([
       "1",
       "2",
+    ]);
+  });
+});
+
+describe("arrayUnion", () => {
+  it("should throw an error if an object is passed in", () => {
+    expect(() => arrayUnion([{}], [{}])).toThrow(
+      TypeError("arrayUnion does not support objects")
+    );
+  });
+  it("should return an empty array when the arrays are empty", () => {
+    expect(arrayUnion([], [])).toStrictEqual([]);
+  });
+  it("should return the union when the arrays have no common elements", () => {
+    expect(arrayUnion(["1", "2", "3"], ["4", "5", "6"])).toStrictEqual([
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+    ]);
+  });
+  it("should return the union when the arrays have common elements", () => {
+    expect(arrayUnion(["1", "2", "3"], ["3", "4", "5"])).toStrictEqual([
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+    ]);
+  });
+  it("should apply a sort when a sort function is provided", () => {
+    expect(
+      arrayUnion(["1"], ["3", "2", "5", "4"], (a, b) => a.localeCompare(b))
+    ).toStrictEqual(["1", "2", "3", "4", "5"]);
+    expect(arrayUnion([1], [3, 2, 5, 4], (a, b) => a - b)).toStrictEqual([
+      1,
+      2,
+      3,
+      4,
+      5,
     ]);
   });
 });

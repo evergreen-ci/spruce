@@ -139,3 +139,18 @@ export const arraySetDifference = <T>(a: T[], b: T[]) => {
   const difference = Array.from(setA).filter((x) => !setB.has(x));
   return difference;
 };
+
+// sort function type
+export type SortFunction<T> = (a: T, b: T) => number;
+
+export const arrayUnion = <T>(a: T[], b: T[], sort?: SortFunction<T>) => {
+  if (typeof a[0] === "object" || typeof b[0] === "object") {
+    throw new TypeError("arrayUnion does not support objects");
+  }
+
+  const difference = Array.from(new Set([...a, ...b]));
+  if (sort) {
+    return difference.sort(sort);
+  }
+  return difference;
+};
