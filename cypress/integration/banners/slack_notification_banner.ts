@@ -39,7 +39,8 @@ describe("Slack notification banner", () => {
     cy.get(popconfirmYesClassName).click();
 
     cy.dataCy(slackNotificationBanner).should("not.exist");
-    cy.dataCy("toast").contains(
+    cy.validateToast(
+      "success",
       "You will now receive Slack notifications when your patches fail or succeed"
     );
   });

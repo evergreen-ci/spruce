@@ -4,6 +4,7 @@ import Toast, { Variant } from "@leafygreen-ui/toast";
 import { WordBreak } from "components/Typography";
 import { TOAST_TIMEOUT } from "constants/index";
 import { zIndex } from "constants/tokens";
+import { InvertedObject } from "types/utils";
 
 type ToastProps = {
   variant: Variant;
@@ -41,6 +42,15 @@ const mapToastToLeafyGreenVariant: { [key in ToastTypeKeys]: Variant } = {
   info: Variant.Note,
 };
 
+const mapLeafyGreenVariantToToastVariant: Omit<
+  InvertedObject<typeof mapToastToLeafyGreenVariant>,
+  "progress"
+> = {
+  [Variant.Success]: "success",
+  [Variant.Important]: "warning",
+  [Variant.Warning]: "error",
+  [Variant.Note]: "info",
+};
 interface DispatchToast {
   success: AddToast;
   warning: AddToast;
@@ -147,6 +157,7 @@ const ToastProvider: React.FC = ({ children }) => {
             : undefined
         }
         data-cy="toast"
+        data-variant={mapLeafyGreenVariantToToastVariant[visibleToast.variant]}
       />
     </ToastDispatchContext.Provider>
   );

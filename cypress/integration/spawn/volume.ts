@@ -154,12 +154,6 @@ describe("Navigating to Spawn Volume page", () => {
     cy.contains(errorBannerCopy).should("exist");
   });
 
-  it("Switching tabs should clear the error toast.", () => {
-    cy.dataCy("host-nav-tab").click();
-    cy.dataCy("volume-nav-tab").click();
-    cy.contains(errorBannerCopy).should("not.exist");
-  });
-
   it("Clicking on mount, selecting a host and submitting should result in a new error toast appearing.", () => {
     cy.dataCy("attach-btn-vol-0ea662ac92f611ed4").click();
     cy.contains(errorBannerCopy2).should("not.exist");
