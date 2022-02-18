@@ -75,8 +75,11 @@ const generateGroupedBuildVariantOptionsFromState = (
     ? arraySetDifference(statuses, FAILED_STATUSES)
     : statuses;
 
+  const shouldShowGroupedBuildVariants = hasFilters && !hasTasks;
   const groupedBuildVariantOptions = {
-    tasks: hasFilters ? filterState.tasks : ["impossibleMatch123asd"],
+    tasks: shouldShowGroupedBuildVariants
+      ? filterState.tasks
+      : ["impossibleMatchxzsif"], // this is a hack to make the query fail
     variants: filterState.variants,
     statuses: updatedStatuses,
   };
