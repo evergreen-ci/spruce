@@ -3,7 +3,6 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Skeleton } from "antd";
-import every from "lodash.every";
 import { useParams, useLocation } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { PageSizeSelector } from "components/PageSizeSelector";
@@ -17,7 +16,7 @@ import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { PatchTasksQueryParams, TaskStatus } from "types/task";
+import { PatchTasksQueryParams } from "types/task";
 import { queryString, url, array } from "utils";
 import { PatchTasksTable } from "./tasks/PatchTasksTable";
 
@@ -122,43 +121,6 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   );
 };
 
-const statusesToIncludeInQuery = {
-  [TaskStatus.Aborted]: true,
-  [TaskStatus.Blocked]: true,
-  [TaskStatus.Dispatched]: true,
-  [TaskStatus.Failed]: true,
-  [TaskStatus.Inactive]: true,
-  [TaskStatus.KnownIssue]: true,
-  [TaskStatus.Pending]: true,
-  [TaskStatus.SetupFailed]: true,
-  [TaskStatus.Started]: true,
-  [TaskStatus.Succeeded]: true,
-  [TaskStatus.SystemFailed]: true,
-  [TaskStatus.SystemTimedOut]: true,
-  [TaskStatus.SystemUnresponsive]: true,
-  [TaskStatus.TaskTimedOut]: true,
-  [TaskStatus.TestTimedOut]: true,
-  [TaskStatus.Undispatched]: true,
-  [TaskStatus.Unscheduled]: true,
-  [TaskStatus.Unstarted]: true,
-  [TaskStatus.WillRun]: true,
-};
-
-const getStatuses = (rawStatuses: string[] | string): string[] => {
-  const statuses = toArray(rawStatuses).filter(
-    (status) => status in statusesToIncludeInQuery
-  );
-  if (
-    every(Object.keys(statusesToIncludeInQuery), (status) =>
-      statuses.includes(status)
-    )
-  ) {
-    // passing empty array for `All` value is also more performant for filtering on the backend as opposed to passing array of all statuses
-    return [];
-  }
-  return statuses;
-};
-
 const getQueryVariables = (
   search: string,
   versionId: string
@@ -166,8 +128,8 @@ const getQueryVariables = (
   const {
     [PatchTasksQueryParams.Variant]: variant,
     [PatchTasksQueryParams.TaskName]: taskName,
-    [PatchTasksQueryParams.Statuses]: rawStatuses,
-    [PatchTasksQueryParams.BaseStatuses]: rawBaseStatuses,
+    [PatchTasksQueryParams.Statuses]: statuses,
+    [PatchTasksQueryParams.BaseStatuses]: baseStatuses,
     [PatchTasksQueryParams.Sorts]: sorts,
   } = parseQueryString(search);
 
@@ -176,8 +138,8 @@ const getQueryVariables = (
     sorts: parseSortString(sorts),
     variant: getString(variant),
     taskName: getString(taskName),
-    statuses: getStatuses(rawStatuses),
-    baseStatuses: getStatuses(rawBaseStatuses),
+    statuses: toArray(statuses),
+    baseStatuses: toArray(baseStatuses),
     page: getPageFromSearch(search),
     limit: getLimitFromSearch(search),
   };

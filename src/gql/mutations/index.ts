@@ -1,9 +1,11 @@
 import ABORT_TASK from "./abort-task.graphql";
 import ADD_ANNOTATION from "./add-annotation.graphql";
 import ADD_FAVORITE_PROJECT from "./add-favorite-project.graphql";
+import ATTACH_PROJECT_TO_REPO from "./attach-project-to-repo.graphql";
 import ATTACH_VOLUME from "./attach-volume.graphql";
 import CLEAR_MY_SUBSCRIPTIONS from "./clear-my-subscriptions.graphql";
 import CREATE_PUBLIC_KEY from "./create-public-key.graphql";
+import DETACH_PROJECT_FROM_REPO from "./detach-project-from-repo.graphql";
 import DETACH_VOLUME from "./detach-volume.graphql";
 import EDIT_ANNOTATION_NOTE from "./edit-annotation-note.graphql";
 import EDIT_SPAWN_HOST from "./edit-spawn-host.graphql";
@@ -43,9 +45,11 @@ export {
   ABORT_TASK,
   ADD_ANNOTATION,
   ADD_FAVORITE_PROJECT,
+  ATTACH_PROJECT_TO_REPO,
   ATTACH_VOLUME,
   CLEAR_MY_SUBSCRIPTIONS,
   CREATE_PUBLIC_KEY,
+  DETACH_PROJECT_FROM_REPO,
   DETACH_VOLUME,
   EDIT_ANNOTATION_NOTE,
   EDIT_SPAWN_HOST,
