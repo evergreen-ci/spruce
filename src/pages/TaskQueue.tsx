@@ -13,7 +13,7 @@ import {
   PageWrapper,
   StyledRouterLink,
 } from "components/styles";
-import { getTaskQueueRoute } from "constants/routes";
+import { getTaskQueueRoute, getAllHostsRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import {
   TaskQueueDistro,
@@ -105,7 +105,9 @@ export const TaskQueue = () => {
               <TableHeader>
                 {/* @ts-expect-error  */}
                 <StyledH3> {selectedDistro.id} </StyledH3>
-                <StyledRouterLink to={`/hosts?distroId=${selectedDistro.id}`}>
+                <StyledRouterLink
+                  to={getAllHostsRoute({ distroId: selectedDistro.id })}
+                >
                   View hosts
                 </StyledRouterLink>
               </TableHeader>
