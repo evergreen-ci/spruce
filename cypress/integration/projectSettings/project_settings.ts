@@ -43,7 +43,7 @@ describe("Repo Settings", () => {
 
   it("Clicking on save button should show a success toast", () => {
     cy.dataCy("save-settings-button").click();
-    cy.contains("Successfully updated repo");
+    cy.validateToast("success", "Successfully updated repo");
   });
 
   describe("GitHub/Commit Queue page", () => {
@@ -95,7 +95,7 @@ describe("Repo Settings", () => {
 
     it("Successfully saves the page", () => {
       cy.dataCy("save-settings-button").click();
-      cy.contains("Successfully updated repo");
+      cy.validateToast("success", "Successfully updated repo");
     });
   });
 
@@ -128,7 +128,7 @@ describe("Repo Settings", () => {
       cy.dataCy("task-tags-input").first().type("alias task tag");
 
       cy.dataCy("save-settings-button").click();
-      cy.contains("Successfully updated repo");
+      cy.validateToast("success", "Successfully updated repo");
     });
 
     it("Shows the alias name in the card title upon save", () => {
@@ -168,7 +168,7 @@ describe("Project Settings when not defaulting to repo", () => {
       .contains("Attach")
       .parent()
       .click();
-    cy.contains("Successfully attached to repo");
+    cy.validateToast("success", "Successfully attached to repo");
   });
 
   it("Successfully detaches from repo", () => {
@@ -178,7 +178,7 @@ describe("Project Settings when not defaulting to repo", () => {
       .contains("Detach")
       .parent()
       .click();
-    cy.contains("Successfully detached from repo");
+    cy.validateToast("success", "Successfully detached from repo");
   });
 
   describe("Access page", () => {
@@ -310,7 +310,7 @@ describe("Project Settings when defaulting to repo", () => {
   // Skip until EVG-16081 is resolved
   it.skip("Clicking on save button should show a success toast", () => {
     cy.dataCy("save-settings-button").click();
-    cy.contains("Successfully updated project");
+    cy.validateToast("success", "Successfully updated project");
   });
 
   describe("GitHub/Commit Queue page", () => {
@@ -397,7 +397,7 @@ describe("Project Settings when defaulting to repo", () => {
 
     it("Clicking on save button should show a success toast", () => {
       cy.dataCy("save-settings-button").click();
-      cy.contains("Successfully updated project");
+      cy.validateToast("success", "Successfully updated project");
     });
   });
 
@@ -453,7 +453,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("task-tags-input").first().type("alias task tag 2");
 
       cy.dataCy("save-settings-button").click();
-      cy.contains("Successfully updated project");
+      cy.validateToast("success", "Successfully updated project");
     });
 
     it("Allows defaulting to repo patch definitions", () => {
@@ -464,7 +464,7 @@ describe("Project Settings when defaulting to repo", () => {
         .click();
 
       cy.dataCy("save-settings-button").click();
-      cy.contains("Successfully updated project");
+      cy.validateToast("success", "Successfully updated project");
 
       cy.dataCy("patch-aliases-override-radio-box")
         .find("input")
