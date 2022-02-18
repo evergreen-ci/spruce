@@ -16,19 +16,18 @@ export const mockErrorResponse = ({
   errorCode = "INTERNAL_SERVER_ERROR",
   path = "i am a path", // the name of the query
 }: Args) => {
-  cy.server();
-  cy.route({
-    method: "POST",
-    url: "/graphql/query",
-    response: {
-      errors: [
-        {
-          message: errorMessage,
-          path: [path],
-          extensions: { code: errorCode },
-        },
-      ],
-      data: null,
-    },
+  cy.route2("/graphql/query", (req) => {
+    req.reply((res) => {
+      res.body = {
+        errors: [
+          {
+            message: errorMessage,
+            path: [path],
+            extensions: { code: errorCode },
+          },
+        ],
+        data: null,
+      };
+    });
   });
 };

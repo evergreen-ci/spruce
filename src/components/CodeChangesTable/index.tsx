@@ -5,6 +5,7 @@ import { ColumnProps } from "antd/es/table";
 import { FileDiffText } from "components/CodeChangesBadge";
 import { StyledLink } from "components/styles";
 import { WordBreak } from "components/Typography";
+import { size } from "constants/tokens";
 import { FileDiffsFragment } from "gql/generated/types";
 
 interface CodeChangesTableProps {
@@ -67,5 +68,5 @@ const columns: (
 ];
 
 const StyledTable = styled(Table)`
-  margin-top: 13px;
+  margin-top: ${size.s};
 `;

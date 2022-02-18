@@ -8,6 +8,7 @@ import {
   mapUmbrellaStatusColors,
   mapUmbrellaStatusToQueryParam,
 } from "constants/task";
+import { fontSize, size, zIndex } from "constants/tokens";
 import { TaskStatus } from "types/task";
 import { applyStrictRegex } from "utils/string";
 
@@ -38,7 +39,7 @@ export const GroupedTaskStatusBadge: React.FC<Props> = ({
       enabled={!!statusCounts}
       align="top"
       justify="middle"
-      popoverZIndex={1}
+      popoverZIndex={zIndex.tooltip}
       trigger={
         <div>
           <Link
@@ -78,9 +79,9 @@ interface BadgeColorProps {
 }
 
 const BadgeContainer = styled.div<BadgeColorProps>`
-  height: 28px;
-  width: 64px;
-  border-radius: 3px;
+  height: ${size.l};
+  width: ${size.xl};
+  border-radius: ${size.xxs};
   border: 1px solid;
   display: flex;
   flex-direction: column;
@@ -98,17 +99,17 @@ const Row = styled.div`
 `;
 
 const Number = styled.span`
-  font-size: 11px;
+  font-size: ${fontSize.m};
   font-weight: bold;
-  line-height: 8px;
+  line-height: ${fontSize.m};
 `;
 
 const Status = styled.span`
-  font-size: 8px;
+  font-size: ${size.xs};
   white-space: nowrap;
 `;
 
 const Count = styled.span`
   font-weight: bold;
-  margin-left: 5px;
+  margin-left: ${size.xxs};
 `;

@@ -27,6 +27,10 @@ describe("Repo Settings", () => {
     cy.dataCy("move-repo-button").should("not.exist");
   });
 
+  it("Does not show an Attach/Detach to Repo button on page", () => {
+    cy.dataCy("attach-repo-button").should("not.exist");
+  });
+
   it("Sets a display name", () => {
     cy.dataCy("display-name-input").type("evg");
   });
@@ -41,7 +45,7 @@ describe("Repo Settings", () => {
       cy.dataCy("navitem-github-commitqueue").click();
     });
 
-    it("Successfully saves a patch definition", () => {
+    it("Updates a patch definition", () => {
       cy.dataCy("add-button").contains("Add Patch Definition").parent().click();
 
       cy.dataCy("variant-tags-field").find("button").click();
@@ -49,9 +53,72 @@ describe("Repo Settings", () => {
 
       cy.dataCy("task-tags-field").find("button").click();
       cy.dataCy("task-tags-input").first().type("ttag");
+    });
+
+    it("Toggling disable commit queue hides inputs", () => {
+      const countCQFields = (count: number) => {
+        cy.dataCy("cq-card").children().should("have.length", count);
+      };
+
+      countCQFields(5);
+      cy.dataCy("cq-enabled-radio-box").children().eq(1).click();
+      countCQFields(2);
+      cy.dataCy("cq-card").children().eq(1).should("be.empty");
+      cy.dataCy("cq-enabled-radio-box").children().first().click();
+      countCQFields(5);
+    });
+
+    it("Presents three options for merge method", () => {
+      const selectId = "merge-method-select";
+      cy.get(`button[name=${selectId}]`).click();
+      cy.get(`#${selectId}-menu`).children().should("have.length", 3);
+      cy.get(`#${selectId}-menu`).children().first().click();
+    });
+
+    it("Does not show override buttons for commit queue patch definitions", () => {
+      cy.dataCy("cq-override-radio-box").should("not.exist");
+    });
+
+    it("Updates the commit queue message", () => {
+      cy.dataCy("cq-message-input").type("Repo message");
+    });
+
+    it("Successfully saves the page", () => {
+      cy.dataCy("save-settings-button").click();
+      cy.contains("Successfully updated repo");
+    });
+  });
+
+  describe("Patch Aliases page", () => {
+    before(() => {
+      cy.dataCy("navitem-patch-aliases").click();
+    });
+
+    it("Does not show override buttons for patch aliases", () => {
+      cy.dataCy("patch-aliases-override-radio-box").should("not.exist");
+    });
+
+    it("Prevents saving an incomplete patch alias", () => {
+      cy.dataCy("add-button").contains("Add Patch Alias").parent().click();
+      cy.dataCy("expandable-card-title").contains("New Patch Alias");
+
+      cy.dataCy("alias-input").type("my alias name");
+      cy.dataCy("save-settings-button").should("be.disabled");
+    });
+
+    it("Successfully saves a complete alias", () => {
+      cy.dataCy("variant-tags-field").find("button").click();
+      cy.dataCy("variant-tags-input").first().type("alias variant tag");
+
+      cy.dataCy("task-tags-field").find("button").click();
+      cy.dataCy("task-tags-input").first().type("alias task tag");
 
       cy.dataCy("save-settings-button").click();
       cy.contains("Successfully updated repo");
+    });
+
+    it("Shows the alias name in the card title upon save", () => {
+      cy.dataCy("expandable-card-title").contains("my alias name");
     });
   });
 });
@@ -74,6 +141,26 @@ describe("Project Settings when not defaulting to repo", () => {
 
   it("Shows two radio boxes", () => {
     cy.dataCy("enabled-radio-box").children().should("have.length", 2);
+  });
+
+  it("Successfully attaches to a repo that does not yet exist and shows 'Default to Repo' options", () => {
+    cy.dataCy("attach-repo-button").click();
+    cy.dataCy("attach-repo-modal")
+      .find("button")
+      .contains("Attach")
+      .parent()
+      .click();
+    cy.contains("Successfully attached to repo");
+  });
+
+  it("Successfully detaches from repo", () => {
+    cy.dataCy("attach-repo-button").click();
+    cy.dataCy("attach-repo-modal")
+      .find("button")
+      .contains("Detach")
+      .parent()
+      .click();
+    cy.contains("Successfully detached from repo");
   });
 
   describe("Access page", () => {
@@ -222,10 +309,14 @@ describe("Project Settings when defaulting to repo", () => {
     });
 
     it("Allows overriding repo patch definitions", () => {
-      cy.get("input[name=githubPrAliasesOverride]").first().parent().click();
+      cy.dataCy("pr-testing-override-radio-box")
+        .find("input")
+        .first()
+        .parent()
+        .click();
       cy.dataCy("add-button").contains("Add Patch Definition").parent().click();
       cy.get("button").contains("Regex").first().click();
-      cy.dataCy("variant-input").type(".*");
+      cy.dataCy("variant-input").first().type(".*");
     });
 
     it("Disables save when the task field is empty", () => {
@@ -240,9 +331,9 @@ describe("Project Settings when defaulting to repo", () => {
     });
 
     it("Should enable save when the task and variant fields are filled in", () => {
-      cy.dataCy("variant-input").type(".*");
+      cy.dataCy("variant-input").first().type(".*");
       cy.get("#task-input-control").find("button").eq(1).click();
-      cy.dataCy("task-input").type(".*");
+      cy.dataCy("task-input").first().type(".*");
       cy.dataCy("save-settings-button").should("not.be.disabled");
     });
 
@@ -251,9 +342,112 @@ describe("Project Settings when defaulting to repo", () => {
       cy.contains("Authorized Teams").should("not.exist");
     });
 
+    it("Displays the repo's merge method as its default", () => {
+      cy.get("button[name=merge-method-select]").should(
+        "have.text",
+        "Default to Repo (squash)"
+      );
+    });
+
+    it("Show's the repo's commit queue message as a placeholder when the field is cleared", () => {
+      cy.dataCy("cq-message-input").clear();
+      cy.dataCy("cq-message-input").should(
+        "have.attr",
+        "placeholder",
+        "Repo message (Default from repo)"
+      );
+    });
+
+    it("Defaults to overriding repo since a patch definition is defined", () => {
+      cy.dataCy("cq-override-radio-box")
+        .find("input")
+        .first()
+        .should("be.checked");
+    });
+
+    it("Shows the existing patch definition", () => {
+      cy.dataCy("variant-input").last().should("have.value", "^ubuntu1604$");
+      cy.dataCy("task-input")
+        .last()
+        .should("have.value", "^smoke-test-endpoints$");
+    });
+
     it("Clicking on save button should show a success toast", () => {
       cy.dataCy("save-settings-button").click();
       cy.contains("Successfully updated project");
+    });
+  });
+
+  describe("Patch Aliases page", () => {
+    before(() => {
+      cy.dataCy("navitem-patch-aliases").click();
+    });
+
+    it("Defaults to repo patch aliases", () => {
+      cy.dataCy("patch-aliases-override-radio-box")
+        .find("input")
+        .eq(1)
+        .should("be.checked");
+    });
+
+    it("Shows the saved repo patch alias", () => {
+      cy.dataCy("expandable-card-title").contains("my alias name");
+    });
+
+    it("Displays disabled fields when the card is expanded", () => {
+      cy.dataCy("expandable-card-title")
+        .parentsUntil("div")
+        .first()
+        .click({ force: true });
+      cy.get(".patch-alias-card-content").find("input").should("be.disabled");
+      cy.get(".patch-alias-card-content").find("button").should("be.disabled");
+    });
+
+    it("Allows adding a patch alias", () => {
+      cy.dataCy("patch-aliases-override-radio-box")
+        .find("input")
+        .first()
+        .parent()
+        .click();
+
+      cy.dataCy("add-button")
+        .contains("Add Patch Alias")
+        .parent()
+        .click({ force: true });
+      cy.dataCy("alias-input").type("my overriden alias name");
+      cy.dataCy("variant-tags-field").find("button").click();
+      cy.dataCy("variant-tags-input").first().type("alias variant tag 2");
+
+      cy.dataCy("task-tags-field").find("button").click();
+      cy.dataCy("task-tags-input").first().type("alias task tag 2");
+
+      cy.dataCy("save-settings-button").click();
+      cy.contains("Successfully updated project");
+    });
+
+    it("Allows defaulting to repo patch definitions", () => {
+      cy.dataCy("patch-aliases-override-radio-box")
+        .find("input")
+        .eq(1)
+        .parent()
+        .click();
+
+      cy.dataCy("save-settings-button").click();
+      cy.contains("Successfully updated project");
+
+      cy.dataCy("patch-aliases-override-radio-box")
+        .find("input")
+        .eq(1)
+        .should("be.checked");
+    });
+
+    it("Has cleared previously saved alias definitions", () => {
+      cy.dataCy("patch-aliases-override-radio-box")
+        .find("input")
+        .first()
+        .parent()
+        .click();
+      cy.dataCy("alias-row").should("have.length", 0);
     });
   });
 });

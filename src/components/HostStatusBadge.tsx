@@ -1,6 +1,6 @@
-import React from "react";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
+import { size } from "constants/tokens";
 import { HostStatus } from "types/host";
 
 interface Props {
@@ -50,5 +50,5 @@ const hostStatusToCopy = {
 const StyledBadge = styled(Badge)`
   display: flex;
   justify-content: center;
-  width: 90px;
+  width: ${size.xxl};
 `;

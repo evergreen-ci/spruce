@@ -1,7 +1,8 @@
 import { popconfirmYesClassName } from "../../../utils/popconfirm";
 
-const patchDescriptionCanReconfigure = "test meee";
-const patchDescriptionReconfigureDisabled =
+const patchWithoutVersion = "test meee";
+const patchWithVersion = "main: EVG-7823 add a commit queue message (#4048)";
+const patchWithVersionOnCommitQueue =
   "'evergreen-ci/evergreen' pull request #3186 by bsamek: EVG-7425 Don't send ShouldExit to unprovisioned hosts (https://github.com/evergreen-ci/evergreen/pull/3186)";
 
 const getPatchCardByDescription = (description: string) =>
@@ -17,7 +18,7 @@ describe("Dropdown Menu of Patch Actions", () => {
   });
 
   it("'Reconfigure' link takes user to patch configure page", () => {
-    getPatchCardByDescription(patchDescriptionCanReconfigure).within(() => {
+    getPatchCardByDescription(patchWithoutVersion).within(() => {
       cy.dataCy("patch-card-dropdown").click();
     });
     cy.dataCy("card-dropdown").should("be.visible");
@@ -26,18 +27,15 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.location("pathname").should("include", `/configure`);
   });
 
-  it("Reconfigure link is disabled for patches on commit queue", () => {
-    getPatchCardByDescription(patchDescriptionReconfigureDisabled).within(
-      () => {
-        cy.dataCy("patch-card-dropdown").click();
-      }
-    );
-    cy.dataCy("reconfigure-link").click({ force: true });
-    cy.location("pathname").should("eq", `/user/admin/patches`);
+  it("'Reconfigure' link is disabled for patches on commit queue", () => {
+    getPatchCardByDescription(patchWithVersionOnCommitQueue).within(() => {
+      cy.dataCy("patch-card-dropdown").click();
+    });
+    cy.dataCy("reconfigure-link").should("be.disabled");
   });
 
   it("'Schedule' link opens modal and clicking on 'Cancel' closes it.", () => {
-    getPatchCardByDescription(patchDescriptionCanReconfigure).within(() => {
+    getPatchCardByDescription(patchWithVersion).within(() => {
       cy.dataCy("patch-card-dropdown").click();
     });
     cy.dataCy("schedule-patch").click();
@@ -46,23 +44,37 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.dataCy("schedule-tasks-modal").should("not.be.visible");
   });
 
-  it("'Unschedule' link opens popconfirm and schedules patch", () => {
-    getPatchCardByDescription(patchDescriptionCanReconfigure).within(() => {
+  it("'Schedule' link is disabled for unfinalized patch", () => {
+    getPatchCardByDescription(patchWithoutVersion).within(() => {
+      cy.dataCy("patch-card-dropdown").click();
+    });
+    cy.dataCy("schedule-patch").should("be.disabled");
+  });
+
+  // We shouldn't actually unschedule patchWithVersion because patchWithVersionOnCommitQueue is a downstream task
+  // and other integration tests will be affected.
+  it("'Unschedule' link opens popconfirm and unschedules patch", () => {
+    getPatchCardByDescription(patchWithVersion).within(() => {
       cy.dataCy("patch-card-dropdown").click();
     });
     cy.dataCy("unschedule-patch").click({ force: true });
-
-    cy.dataCy("abort-checkbox").check({ force: true });
-    cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
-    cy.dataCy("toast").should("exist");
+    cy.get(popconfirmYesClassName).contains("Yes").should("be.visible");
+    cy.contains("Cancel").click();
+    cy.get(popconfirmYesClassName).should("not.be.visible");
   });
 
+  it("'Unschedule' link is disabled for unfinalized patch", () => {
+    getPatchCardByDescription(patchWithoutVersion).within(() => {
+      cy.dataCy("patch-card-dropdown").click();
+    });
+    cy.dataCy("unschedule-patch").should("be.disabled");
+  });
+
+  // This will generate a 'Will Run' status that is used in version/task_filters.ts
   it("'Restart' link shows restart patch modal", () => {
-    getPatchCardByDescription(patchDescriptionReconfigureDisabled).within(
-      () => {
-        cy.dataCy("patch-card-dropdown").click();
-      }
-    );
+    getPatchCardByDescription(patchWithVersionOnCommitQueue).within(() => {
+      cy.dataCy("patch-card-dropdown").click();
+    });
     cy.dataCy("restart-patch").click({ force: true });
 
     cy.dataCy("accordion-toggle").first().click();
@@ -72,15 +84,27 @@ describe("Dropdown Menu of Patch Actions", () => {
       .click({ force: true });
     cy.contains("generate-lint").click();
     cy.dataCy("restart-patch-button").click();
-    cy.dataCy("toast").should("exist");
+    cy.validateToast("success");
+  });
+
+  it("'Restart' link is disabled for unfinalized patch", () => {
+    getPatchCardByDescription(patchWithoutVersion).within(() => {
+      cy.dataCy("patch-card-dropdown").click();
+    });
+    cy.dataCy("restart-patch").should("be.disabled");
   });
 
   it("'Add to commit queue' shows enqueue modal", () => {
-    getPatchCardByDescription(patchDescriptionReconfigureDisabled).within(
-      () => {
-        cy.dataCy("patch-card-dropdown").click();
-      }
-    );
+    getPatchCardByDescription(patchWithVersionOnCommitQueue).within(() => {
+      cy.dataCy("patch-card-dropdown").click();
+    });
     cy.dataCy("enqueue-patch").should("exist");
+  });
+
+  it("'Add to commit queue' is disabled for unfinalized patch", () => {
+    getPatchCardByDescription(patchWithoutVersion).within(() => {
+      cy.dataCy("patch-card-dropdown").click();
+    });
+    cy.dataCy("enqueue-patch").should("be.disabled");
   });
 });

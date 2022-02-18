@@ -44,6 +44,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                     aria-describedby="select-1-description"
                     aria-disabled={false}
                     aria-expanded={false}
+                    aria-invalid={false}
                     aria-labelledby="select-1-label"
                     className="leafygreen-ui-p6v5m8"
                     data-testid="leafygreen-ui-select-menubutton"
@@ -59,9 +60,13 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                       className="leafygreen-ui-sl5lf4"
                     >
                       <div
-                        className="leafygreen-ui-17aj16e"
+                        className="leafygreen-ui-e32n5q"
                       >
-                        Legacy SSH
+                        <div
+                          className="leafygreen-ui-17aj16e"
+                        >
+                          Legacy SSH
+                        </div>
                       </div>
                       <span
                         className="leafygreen-ui-18n6mp2"
@@ -139,7 +144,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
               className="css-fwqti9-ArrayContainer e7smmlm1"
             >
               <div
-                className="css-1hhgr19-ArrayItemRow e7smmlm2"
+                className="css-11bkg7q-ArrayItemRow e7smmlm2"
               >
                 <div
                   className="form-group field field-object"
@@ -161,7 +166,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                           >
                             <label
                               className="leafygreen-ui-ly82bp"
-                              htmlFor="textinput-2"
+                              htmlFor="textinput-3"
                             >
                               key
                             </label>
@@ -173,57 +178,6 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                               >
                                 <input
                                   aria-label="key"
-                                  autoComplete="on"
-                                  className="leafygreen-ui-1il5lef"
-                                  disabled={false}
-                                  id="textinput-2"
-                                  onBlur={[Function]}
-                                  onChange={[Function]}
-                                  onFocus={[Function]}
-                                  required={true}
-                                  type="text"
-                                  value="Sample Input"
-                                />
-                                <div
-                                  className="leafygreen-ui-3x1o6h"
-                                  data-leafygreen-ui="interaction-ring"
-                                />
-                              </div>
-                              <div
-                                className="leafygreen-ui-m329s1"
-                                data-leafygreen-ui="icon-selector"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      className="form-group field field-string"
-                    >
-                      <div
-                        className="css-bm42zs-ElementWrapper ee4bs9n0"
-                      >
-                        <div
-                          className="css-12pm1mq-MaxWidthContainer eyx6h6k0"
-                        >
-                          <div
-                            className="leafygreen-ui-1iyoj2o"
-                          >
-                            <label
-                              className="leafygreen-ui-ly82bp"
-                              htmlFor="textinput-3"
-                            >
-                              value
-                            </label>
-                            <div
-                              className="leafygreen-ui-lzja97"
-                            >
-                              <div
-                                className="leafygreen-ui-1i2djk5"
-                              >
-                                <input
-                                  aria-label="value"
                                   autoComplete="on"
                                   className="leafygreen-ui-1il5lef"
                                   disabled={false}
@@ -249,10 +203,61 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                         </div>
                       </div>
                     </div>
+                    <div
+                      className="form-group field field-string"
+                    >
+                      <div
+                        className="css-bm42zs-ElementWrapper ee4bs9n0"
+                      >
+                        <div
+                          className="css-12pm1mq-MaxWidthContainer eyx6h6k0"
+                        >
+                          <div
+                            className="leafygreen-ui-1iyoj2o"
+                          >
+                            <label
+                              className="leafygreen-ui-ly82bp"
+                              htmlFor="textinput-4"
+                            >
+                              value
+                            </label>
+                            <div
+                              className="leafygreen-ui-lzja97"
+                            >
+                              <div
+                                className="leafygreen-ui-1i2djk5"
+                              >
+                                <input
+                                  aria-label="value"
+                                  autoComplete="on"
+                                  className="leafygreen-ui-1il5lef"
+                                  disabled={false}
+                                  id="textinput-4"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onFocus={[Function]}
+                                  required={true}
+                                  type="text"
+                                  value="Sample Input"
+                                />
+                                <div
+                                  className="leafygreen-ui-3x1o6h"
+                                  data-leafygreen-ui="interaction-ring"
+                                />
+                              </div>
+                              <div
+                                className="leafygreen-ui-m329s1"
+                                data-leafygreen-ui="icon-selector"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </fieldset>
                 </div>
                 <div
-                  className="css-x2ce4n-ElementWrapper-DeleteButtonWrapper e7smmlm0"
+                  className="css-8g8z67-ElementWrapper-DeleteButtonWrapper e7smmlm0"
                 >
                   <button
                     aria-disabled={false}

@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
 import { Label } from "@leafygreen-ui/typography";
+import { size, zIndex } from "constants/tokens";
 import { ChartTypes } from "types/commits";
 
 const { gray } = uiColors;
@@ -30,14 +31,14 @@ export const ChartToggle: React.FC<{
             id="chart-radio-absolute"
             value={ChartTypes.Absolute}
           >
-            <Label htmlFor="chart-radio-absolute">Absolute Number</Label>
+            <b>Absolute Number</b>
           </Radio>
           <Radio
             data-cy="cy-chart-percent-radio"
             id="chart-radio-percent"
             value={ChartTypes.Percentage}
           >
-            <Label htmlFor="chart-radio-percent">Percentage</Label>
+            <b>Percentage</b>
           </Radio>
         </StyledRadioGroup>
       </ToggleWrapper>
@@ -52,7 +53,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  z-index: 3;
+  z-index: ${zIndex.tooltip};
 `;
 
 // @ts-expect-error
@@ -61,17 +62,13 @@ const StyledRadioGroup = styled(RadioGroup)`
   align-items: center;
   white-space: nowrap;
   flex-direction: row;
-  align-items: center;
   justify-content: space-evenly;
   width: 286px;
-  height: 59px;
   border-radius: 7px;
   border: 1px solid ${gray.light2};
-  margin-top: 4px;
-  padding-bottom: 6px;
-  padding-right: 4px;
+  padding: ${size.xs} 0 ${size.s} 0;
   background: #ffffff;
-  box-shadow: 0px 4px 10px -4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px ${size.xxs} 10px -${size.xxs} rgba(0, 0, 0, 0.3);
 `;
 
 const ToggleWrapper = styled.div`

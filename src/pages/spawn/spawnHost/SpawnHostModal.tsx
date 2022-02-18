@@ -10,6 +10,7 @@ import { Modal } from "components/Modal";
 import { ModalContent, RegionSelector } from "components/Spawn";
 import { InputLabel } from "components/styles";
 import { HR } from "components/styles/Layout";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   DistrosQuery,
@@ -107,6 +108,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   const awsRegions = awsData?.awsRegions;
   const volumes = volumesData?.myVolumes ?? [];
 
+  // When the modal is opened, reset to the "default" state of the Modal contents.
   useEffect(() => {
     dispatch({ type: "reset" });
     if (awsRegions && awsRegions.length) {
@@ -129,10 +131,10 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   }, [visible]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (awsRegions) {
+    if (awsRegions && awsRegions.length) {
       dispatch({ type: "editAWSRegion", region: awsRegions[0] });
     }
-    if (publicKeys) {
+    if (publicKeys && publicKeys.length) {
       dispatch({
         type: "editPublicKey",
         publicKey: publicKeys[0],
@@ -283,7 +285,7 @@ const renderItem = (title: string) => ({
 });
 
 const Section = styled(ModalContent)`
-  margin-top: 20px;
+  margin-top: ${size.m};
 `;
 
 // @ts-expect-error

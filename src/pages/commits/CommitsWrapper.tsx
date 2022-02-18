@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
 import { navBarHeight } from "components/Header/Navbar";
+import { size } from "constants/tokens";
 import { ChartTypes, Commit, Commits } from "types/commits";
 import { ChartToggle } from "./ActiveCommits/ChartToggle";
 import { Grid } from "./ActiveCommits/Grid";
@@ -150,11 +151,11 @@ const getCommitWidth = (commit: Commit) => {
 
 const StickyContainer = styled.div`
   position: sticky;
-  top: -24px; // This is to offset the padding of PageWrapper
+  top: -${size.m}; // This is to offset the padding of PageWrapper
   z-index: 1;
   background-color: ${white};
-  margin-top: 4px;
-  margin-bottom: 8px;
+  margin-top: ${size.xxs};
+  margin-bottom: ${size.xs};
 `;
 
 const StyledSkeleton = styled(Skeleton)`
@@ -170,13 +171,22 @@ const FlexRowContainer = styled.div`
 
 const AbsoluteContainer = styled.div`
   position: absolute;
-  top: -32px;
+  top: -${size.l};
   right: 0;
   left: auto;
 `;
 
 const CommitWrapper = styled.div<{ width: number }>`
   width: ${({ width }) => width}px;
+  min-width: ${({ width }) => width * 0.75}px;
+  margin: 0px ${size.xs};
+
+  &:first-child {
+    margin-left: 0;
+  }
+  &:last-child {
+    margin-right: 0;
+  }
 `;
 
 const ChartWrapper = styled.div`

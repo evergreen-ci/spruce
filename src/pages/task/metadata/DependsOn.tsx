@@ -5,6 +5,7 @@ import Badge, { Variant } from "components/Badge";
 import { StyledRouterLink } from "components/styles";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { getTaskRoute } from "constants/routes";
+import { size } from "constants/tokens";
 import { MetStatus, RequiredStatus } from "gql/generated/types";
 import { TaskStatus } from "types/task";
 
@@ -36,22 +37,24 @@ export const DependsOn: React.FC<Props> = ({
 
 const DependsOnWrapper = styled.div`
   display: flex;
-  padding-bottom: 8px;
+  padding-bottom: ${size.xs};
 `;
 
 const LeftContainer = styled.div`
-  width: 25px;
-  padding-top: 10px;
-  padding-right: 9px;
+  width: ${size.m};
+  padding-top: ${size.xxs};
+  padding-right: ${size.xs};
 `;
 
 const RightContainer = styled.div`
   display: flex;
   flex-direction: column;
+  word-break: break-all;
+  padding-right: ${size.xxs};
 `;
 
 const Subtitle = styled(Disclaimer)`
-  padding-bottom: 3px;
+  padding-bottom: ${size.xxs};
 `;
 
 const StyledBadge = styled(Badge)`

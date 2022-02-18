@@ -15,7 +15,7 @@ export const ScheduleTasks: React.FC<ScheduleTasksProps> = ({
   disabled = false,
 }) => {
   const [open, setOpen] = useState(false);
-  const { sendEvent } = useVersionAnalytics();
+  const { sendEvent } = useVersionAnalytics(versionId);
   const props = {
     onClick: () => {
       sendEvent({ name: "Open Schedule Tasks Modal" });
@@ -29,7 +29,9 @@ export const ScheduleTasks: React.FC<ScheduleTasksProps> = ({
       Schedule
     </Button>
   ) : (
-    <DropdownItem {...props}>Schedule</DropdownItem>
+    <DropdownItem disabled={disabled} {...props}>
+      Schedule
+    </DropdownItem>
   );
   return (
     <>

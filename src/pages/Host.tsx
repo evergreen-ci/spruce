@@ -15,6 +15,7 @@ import {
   PageLayout,
   PageContent,
 } from "components/styles";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   HostQuery,
@@ -165,7 +166,7 @@ export const Host: React.FC = () => {
   );
 };
 const ButtonSpacer = styled.span`
-  margin-right: 32px;
+  margin-right: ${size.l};
 `;
 
 const ButtonsWrapper = styled.div`

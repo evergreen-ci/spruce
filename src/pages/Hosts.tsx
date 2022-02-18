@@ -18,6 +18,7 @@ import {
   TableControlInnerRow,
   PageWrapper,
 } from "components/styles";
+import { size } from "constants/tokens";
 import {
   HostsQuery,
   HostsQueryVariables,
@@ -213,8 +214,8 @@ const HostsSelectionWrapper = styled.div`
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  margin-left: 32px;
+  margin-left: ${size.l};
 `;
 const ButtonWrapper = styled.div`
-  margin-left: 24px;
+  margin-left: ${size.m};
 `;

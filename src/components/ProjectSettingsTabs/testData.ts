@@ -13,6 +13,7 @@ export const projectBase: ProjectSettingsQuery["projectSettings"] = {
     repo: "evergreen",
     branch: null,
     displayName: null,
+    notifyOnBuildFailure: null,
     batchTime: 0,
     remotePath: null,
     spawnHostScriptPath: null,
@@ -38,6 +39,12 @@ export const projectBase: ProjectSettingsQuery["projectSettings"] = {
     gitTagVersionsEnabled: null,
     gitTagAuthorizedUsers: ["privileged"],
     gitTagAuthorizedTeams: [],
+    commitQueue: {
+      enabled: null,
+      requireSigned: null,
+      mergeMethod: "",
+      message: "",
+    },
     perfEnabled: true,
     buildBaronSettings: {
       ticketCreateProject: null,
@@ -66,6 +73,16 @@ export const projectBase: ProjectSettingsQuery["projectSettings"] = {
       variantTags: [],
       taskTags: [],
     },
+    {
+      id: "3",
+      alias: "__commit_queue",
+      gitTag: "",
+      variant: "^ubuntu1604$",
+      task: "^lint$",
+      remotePath: "",
+      variantTags: [],
+      taskTags: [],
+    },
   ],
 };
 
@@ -85,6 +102,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     dispatchingDisabled: true,
     deactivatePrevious: true,
     repotrackerDisabled: false,
+    notifyOnBuildFailure: false,
     defaultLogger: "buildlogger",
     cedarTestResultsEnabled: false,
     patchingDisabled: false,
@@ -104,6 +122,12 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     gitTagVersionsEnabled: true,
     gitTagAuthorizedUsers: ["admin"],
     gitTagAuthorizedTeams: [],
+    commitQueue: {
+      enabled: true,
+      requireSigned: true,
+      mergeMethod: "squash",
+      message: "Commit Queue Message",
+    },
     perfEnabled: true,
     buildBaronSettings: {
       ticketCreateProject: "EVG",

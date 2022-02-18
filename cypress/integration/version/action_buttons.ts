@@ -26,33 +26,34 @@ describe("Action Buttons", () => {
     });
 
     it("Clicking ellipses dropdown shows ellipses options", () => {
+      cy.dataCy("ellipses-btn").should("not.be.visible");
       cy.dataCy("ellipsis-btn").click();
-      cy.dataCy("card-dropdown").should("exist");
+      cy.dataCy("card-dropdown").should("be.visible");
+
       cy.dataCy("ellipsis-btn").click();
-      cy.dataCy("card-dropdown").should("not.exist");
+      cy.dataCy("card-dropdown").should("not.be.visible");
     });
     describe("Version dropdown options", () => {
+      before(() => {
+        cy.dataCy("ellipsis-btn").click();
+      });
       beforeEach(() => {
-        cy.dataCy("ellipsis-btn").click();
-        cy.dataCy("card-dropdown").should("exist");
+        cy.dataCy("card-dropdown").should("be.visible");
       });
-      afterEach(() => {
-        cy.dataCy("ellipsis-btn").click();
-      });
+
       it("Error unscheduling a version shows error toast", () => {
         cy.dataCy("unschedule-patch").click();
         mockErrorResponse({
           errorMessage: "There was an error unscheduling tasks",
         });
         cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
-        cy.dataCy("toast").contains("error").should("exist");
+        cy.validateToast("error");
       });
 
       it("Clicking 'Unschedule' button show popconfirm with abort checkbox and a toast on success", () => {
         cy.dataCy("unschedule-patch").click();
-        cy.dataCy("abort-checkbox").check({ force: true });
         cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
-        cy.dataCy("toast").should("exist");
+        cy.validateToast("success");
       });
 
       it("Clicking 'Set Priority' button shows popconfirm with input and toast on success", () => {
@@ -60,7 +61,7 @@ describe("Action Buttons", () => {
         cy.dataCy("prioritize-patch").click();
         cy.dataCy("priority-input").clear().type(priority);
         cy.get(popconfirmYesClassName).contains("Set").click({ force: true });
-        cy.dataCy("toast").contains(priority).should("exist");
+        cy.validateToast("success", priority);
       });
 
       it("Error setting priority shows error toast", () => {
@@ -70,7 +71,7 @@ describe("Action Buttons", () => {
           errorMessage: "There was an error setting priority",
         });
         cy.get(popconfirmYesClassName).contains("Set").click({ force: true });
-        cy.dataCy("toast").contains("error").should("exist");
+        cy.validateToast("error");
       });
       it("Should be able to reconfigure the patch", () => {
         cy.dataCy("reconfigure-link").should("not.be.disabled");
@@ -88,7 +89,7 @@ describe("Action Buttons", () => {
     describe("Version dropdown options", () => {
       beforeEach(() => {
         cy.dataCy("ellipsis-btn").click();
-        cy.dataCy("card-dropdown").should("exist");
+        cy.dataCy("card-dropdown").should("be.visible");
       });
       afterEach(() => {
         cy.dataCy("ellipsis-btn").click();

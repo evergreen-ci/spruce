@@ -1,0 +1,54 @@
+fragment projectNotificationSettings on Project {
+  notifyOnBuildFailure
+}
+
+fragment repoNotificationSettings on RepoRef {
+  notifyOnBuildFailure
+}
+
+fragment subscriptions on ProjectSubscription {
+  id
+  resourceType
+  trigger
+  selectors {
+    type
+    data
+  }
+  regexSelectors {
+    type
+    data
+  }
+  subscriber {
+    type
+    subscriber {
+      githubPRSubscriber {
+        owner
+        repo
+        ref
+        prNumber
+      }
+      githubCheckSubscriber {
+        owner
+        repo
+        ref
+      }
+      webhookSubscriber {
+        url
+        secret
+        headers {
+          key
+          value
+        }
+      }
+      jiraIssueSubscriber {
+        project
+        issueType
+      }
+      jiraCommentSubscriber
+      emailSubscriber
+      slackSubscriber
+    }
+  }
+  ownerType
+  triggerData
+}

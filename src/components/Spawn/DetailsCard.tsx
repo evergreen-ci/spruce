@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { SiderCard } from "components/styles";
+import { size } from "constants/tokens";
 import { MyHost, MyVolume } from "types/spawn";
 
 const FieldContainer = styled.div`
   display: flex;
   width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: ${size.xs};
 `;
 
 const FieldName = styled.div`
@@ -39,7 +39,7 @@ interface DetailsCardProps {
 
 const CardContainer = styled(SiderCard)`
   width: 80%;
-  padding-bottom: 32px;
+  padding: ${size.s} ${size.l};
 ` as typeof SiderCard;
 
 export const DetailsCard: React.FC<DetailsCardProps> = ({

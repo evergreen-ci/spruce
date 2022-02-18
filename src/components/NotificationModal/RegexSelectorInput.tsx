@@ -6,6 +6,7 @@ import { Disclaimer } from "@leafygreen-ui/typography";
 import { Select, Input } from "antd";
 import { v4 as uuid } from "uuid";
 import { InputLabel } from "components/styles";
+import { size } from "constants/tokens";
 import { RegexSelector } from "types/triggers";
 
 const { Option } = Select;
@@ -101,7 +102,7 @@ const Container = styled.div`
   flex-direction: row;
   width: ${(props: DeleteProps): string =>
     props.canDelete ? "80%" : "calc(80% - 55px)"};
-  padding-bottom: 16px;
+  padding-bottom: ${size.s};
 `;
 const StyledSelect = styled(Select)`
   min-width: 160px;
@@ -110,7 +111,7 @@ const FlexRow = styled.div`
   display: flex;
 `;
 const TrashContainer = styled.div`
-  padding-left: 27px;
+  padding-left: ${size.m};
   margin-top: 2px;
 `;
 const RegexContainer = styled.div`
@@ -118,9 +119,9 @@ const RegexContainer = styled.div`
 `;
 const MatchesRegexLabel = styled(Disclaimer)`
   position: relative;
-  top: 25px;
-  padding-left: 8px;
-  padding-right: 8px;
+  top: ${size.m};
+  padding-left: ${size.xs};
+  padding-right: ${size.xs};
   white-space: nowrap;
 `;
 const StyledInput = styled(Input)`

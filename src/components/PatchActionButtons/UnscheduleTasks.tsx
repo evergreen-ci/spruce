@@ -6,6 +6,7 @@ import { Body } from "@leafygreen-ui/typography";
 import { Popconfirm } from "antd";
 import { useVersionAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   UnschedulePatchTasksMutation,
@@ -24,7 +25,7 @@ export const UnscheduleTasks: React.FC<props> = ({
   disabled,
 }) => {
   const dispatchToast = useToastContext();
-  const [abort, setAbort] = useState(false);
+  const [abort, setAbort] = useState(true);
   const [
     unschedulePatchTasks,
     { loading: loadingUnschedulePatchTasks },
@@ -46,7 +47,7 @@ export const UnscheduleTasks: React.FC<props> = ({
     refetchQueries,
   });
 
-  const { sendEvent } = useVersionAnalytics();
+  const { sendEvent } = useVersionAnalytics(patchId);
 
   return (
     <Popconfirm
@@ -82,6 +83,6 @@ export const UnscheduleTasks: React.FC<props> = ({
 };
 
 const StyledBody = styled(Body)`
-  padding-bottom: 8px;
-  padding-right: 8px;
+  padding-bottom: ${size.xs};
+  padding-right: ${size.xs};
 `;

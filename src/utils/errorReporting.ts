@@ -14,10 +14,10 @@ const reportError = (err: CustomBugsnagError): reportErrorResult => {
   if (!isProduction()) {
     return {
       severe: () => {
-        console.log({ err, severity: "severe" });
+        console.error({ err, severity: "severe" });
       },
       warning: () => {
-        console.log({ err, severity: "warning" });
+        console.error({ err, severity: "warning" });
       },
     };
   }
@@ -39,7 +39,7 @@ const sendError = (err: CustomBugsnagError, severity: Event["severity"]) => {
     metadata = err.metadata;
   }
   Bugsnag.notify(err, (event) => {
-    // reassigning param is reccomended useage in bugsnag docs
+    // reassigning param is recommended usage in bugsnag docs
     // eslint-disable-next-line no-param-reassign
     event.severity = severity;
     event.setUser(userId);

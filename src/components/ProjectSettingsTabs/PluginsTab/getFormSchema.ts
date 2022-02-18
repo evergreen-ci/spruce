@@ -1,14 +1,16 @@
 import { Field } from "@rjsf/core";
-import { FormDataProps, SpruceFormProps } from "components/SpruceForm";
+import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { hiddenIf, placeholderIf, radioBoxOptions } from "../utils";
+import { form } from "../utils";
 import { FormState } from "./types";
+
+const { hiddenIf, placeholderIf, radioBoxOptions } = form;
 
 export const getFormSchema = (
   useRepoSettings: boolean,
   repoData?: FormState,
-  formData?: FormDataProps
+  formData?: FormState
 ): {
   fields: Record<string, Field>;
   schema: SpruceFormProps["schema"];
@@ -127,10 +129,6 @@ export const getFormSchema = (
         jiraCustomFields: {
           "ui:description":
             "Add any custom JIRA fields that you want displayed on any listed JIRA tickets, for example: assigned teams.",
-          ...placeholderIf(
-            repoData?.projectPluginsSettings?.taskAnnotationSettings
-              ?.jiraCustomFields
-          ),
           "ui:buttonText": "Add custom JIRA field",
           options: {
             useRepoSettings,
@@ -145,10 +143,6 @@ export const getFormSchema = (
       ticketSearchProjects: {
         "ui:description":
           "Specify an existing JIRA project to search for tickets related to a failing task",
-        ...placeholderIf(
-          repoData?.projectPluginsSettings?.buildBaronSettings
-            ?.ticketSearchProjects
-        ),
         ...hiddenIf(formData?.buildBaronSettings.useBuildBaron !== true),
         "ui:buttonText": "Add Search Project",
         options: {
@@ -158,10 +152,6 @@ export const getFormSchema = (
       ticketCreateProject: {
         "ui:description":
           "Specify an existing JIRA project to create tickets in when the File Ticket button is clicked on a failing task.",
-        ...placeholderIf(
-          repoData?.projectPluginsSettings?.buildBaronSettings
-            ?.ticketCreateProject
-        ),
         ...hiddenIf(formData?.buildBaronSettings.useBuildBaron !== true),
         options: {
           useRepoSettings,
@@ -171,18 +161,12 @@ export const getFormSchema = (
         ...hiddenIf(formData?.buildBaronSettings.useBuildBaron === true),
         "ui:description":
           "Specify the endpoint and secret for a custom webhook to be called when the File Ticket button is clicked on a failing task.",
-        endpoint: {
-          ...placeholderIf(
-            repoData?.projectPluginsSettings?.buildBaronSettings
-              ?.fileTicketWebhook?.endpoint
-          ),
-        },
-        secret: {
-          ...placeholderIf(
-            repoData?.projectPluginsSettings?.buildBaronSettings
-              ?.fileTicketWebhook?.secret
-          ),
-        },
+        endpoint: placeholderIf(
+          repoData?.buildBaronSettings?.fileTicketWebhook?.endpoint
+        ),
+        secret: placeholderIf(
+          repoData?.buildBaronSettings?.fileTicketWebhook?.secret
+        ),
       },
     },
   },

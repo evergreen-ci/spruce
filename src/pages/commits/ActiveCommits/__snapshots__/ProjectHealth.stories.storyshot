@@ -9,7 +9,7 @@ Array [
       className="css-gnwyka-FlexRowContainer ech0nhv4"
     >
       <div
-        className="css-1m76x9x-CommitWrapper ech0nhv2"
+        className="css-mf02jn-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -41,7 +41,7 @@ Array [
         </div>
       </div>
       <div
-        className="css-1m76x9x-CommitWrapper ech0nhv2"
+        className="css-mf02jn-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -79,7 +79,7 @@ Array [
         </div>
       </div>
       <div
-        className="css-1d47p8d-CommitWrapper ech0nhv2"
+        className="css-1nmxwji-CommitWrapper ech0nhv2"
         width={64}
       >
         <div
@@ -91,7 +91,7 @@ Array [
         </div>
       </div>
       <div
-        className="css-1m76x9x-CommitWrapper ech0nhv2"
+        className="css-mf02jn-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -117,7 +117,7 @@ Array [
         </div>
       </div>
       <div
-        className="css-1m76x9x-CommitWrapper ech0nhv2"
+        className="css-mf02jn-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -143,7 +143,7 @@ Array [
         </div>
       </div>
       <div
-        className="css-1m76x9x-CommitWrapper ech0nhv2"
+        className="css-mf02jn-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -207,7 +207,7 @@ Array [
       className="css-7yxj8m-AbsoluteContainer ech0nhv3"
     >
       <div
-        className="css-1isl84h-Container e1d5uzqe2"
+        className="css-1uhv577-Container e1d5uzqe2"
       >
         <div
           className="css-r7f5o5-ToggleWrapper e1d5uzqe0"
@@ -220,7 +220,7 @@ Array [
           </label>
           <div
             aria-label="chart-select"
-            className="leafygreen-ui-sgfp3 css-1ey7tse-StyledRadioGroup e1d5uzqe1"
+            className="leafygreen-ui-sgfp3 css-xzqy6f-StyledRadioGroup e1d5uzqe1"
             role="group"
           >
             <div
@@ -262,12 +262,9 @@ Array [
                 <div
                   className="leafygreen-ui-3sm8z"
                 >
-                  <label
-                    className="leafygreen-ui-ly82bp"
-                    htmlFor="chart-radio-absolute"
-                  >
+                  <b>
                     Absolute Number
-                  </label>
+                  </b>
                 </div>
               </label>
             </div>
@@ -308,12 +305,9 @@ Array [
                 <div
                   className="leafygreen-ui-3sm8z"
                 >
-                  <label
-                    className="leafygreen-ui-ly82bp"
-                    htmlFor="chart-radio-percent"
-                  >
+                  <b>
                     Percentage
-                  </label>
+                  </b>
                 </div>
               </label>
             </div>
@@ -329,11 +323,11 @@ Array [
       className="css-gnwyka-FlexRowContainer ech0nhv4"
     >
       <div
-        className="css-1m76x9x-CommitWrapper ech0nhv2"
+        className="css-mf02jn-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
-          className="css-1qv3l5b-LabelContainer e1cz15301"
+          className="css-v9tci9-LabelContainer e1cz15301"
           data-cy="commit-label"
         >
           <div
@@ -379,11 +373,11 @@ Array [
         </div>
       </div>
       <div
-        className="css-1m76x9x-CommitWrapper ech0nhv2"
+        className="css-mf02jn-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
-          className="css-1qv3l5b-LabelContainer e1cz15301"
+          className="css-v9tci9-LabelContainer e1cz15301"
           data-cy="commit-label"
         >
           <div
@@ -422,7 +416,7 @@ Array [
         </div>
       </div>
       <div
-        className="css-1d47p8d-CommitWrapper ech0nhv2"
+        className="css-1nmxwji-CommitWrapper ech0nhv2"
         width={64}
       >
         <div
@@ -442,11 +436,11 @@ Array [
         </div>
       </div>
       <div
-        className="css-1m76x9x-CommitWrapper ech0nhv2"
+        className="css-mf02jn-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
-          className="css-1qv3l5b-LabelContainer e1cz15301"
+          className="css-v9tci9-LabelContainer e1cz15301"
           data-cy="commit-label"
         >
           <div
@@ -492,11 +486,11 @@ Array [
         </div>
       </div>
       <div
-        className="css-1m76x9x-CommitWrapper ech0nhv2"
+        className="css-mf02jn-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
-          className="css-1qv3l5b-LabelContainer e1cz15301"
+          className="css-v9tci9-LabelContainer e1cz15301"
           data-cy="commit-label"
         >
           <div
@@ -535,11 +529,11 @@ Array [
         </div>
       </div>
       <div
-        className="css-1m76x9x-CommitWrapper ech0nhv2"
+        className="css-mf02jn-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
-          className="css-1qv3l5b-LabelContainer e1cz15301"
+          className="css-v9tci9-LabelContainer e1cz15301"
           data-cy="commit-label"
         >
           <div
@@ -583,7 +577,7 @@ Array [
     className="css-gnwyka-FlexRowContainer ech0nhv4"
   >
     <div
-      className="css-1m76x9x-CommitWrapper ech0nhv2"
+      className="css-mf02jn-CommitWrapper ech0nhv2"
       width={200}
     >
       <div
@@ -619,11 +613,11 @@ Array [
                   onClick={[Function]}
                 >
                   <div
-                    className="css-nup11h-BadgeContainer emc61an4"
+                    className="css-8oeas8-BadgeContainer emc61an4"
                     fill="#5D6C74"
                   >
                     <span
-                      className="css-wtl5ix-Number emc61an2"
+                      className="css-1f81ztl-Number emc61an2"
                     >
                       1
                     </span>
@@ -668,11 +662,11 @@ Array [
                   onClick={[Function]}
                 >
                   <div
-                    className="css-nup11h-BadgeContainer emc61an4"
+                    className="css-8oeas8-BadgeContainer emc61an4"
                     fill="#5D6C74"
                   >
                     <span
-                      className="css-wtl5ix-Number emc61an2"
+                      className="css-1f81ztl-Number emc61an2"
                     >
                       1
                     </span>
@@ -690,7 +684,7 @@ Array [
       </div>
     </div>
     <div
-      className="css-1m76x9x-CommitWrapper ech0nhv2"
+      className="css-mf02jn-CommitWrapper ech0nhv2"
       width={200}
     >
       <div
@@ -726,11 +720,11 @@ Array [
                   onClick={[Function]}
                 >
                   <div
-                    className="css-nup11h-BadgeContainer emc61an4"
+                    className="css-8oeas8-BadgeContainer emc61an4"
                     fill="#5D6C74"
                   >
                     <span
-                      className="css-wtl5ix-Number emc61an2"
+                      className="css-1f81ztl-Number emc61an2"
                     >
                       1
                     </span>
@@ -775,11 +769,11 @@ Array [
                   onClick={[Function]}
                 >
                   <div
-                    className="css-nup11h-BadgeContainer emc61an4"
+                    className="css-8oeas8-BadgeContainer emc61an4"
                     fill="#5D6C74"
                   >
                     <span
-                      className="css-wtl5ix-Number emc61an2"
+                      className="css-1f81ztl-Number emc61an2"
                     >
                       1
                     </span>
@@ -797,11 +791,11 @@ Array [
       </div>
     </div>
     <div
-      className="css-1d47p8d-CommitWrapper ech0nhv2"
+      className="css-1nmxwji-CommitWrapper ech0nhv2"
       width={64}
     />
     <div
-      className="css-1m76x9x-CommitWrapper ech0nhv2"
+      className="css-mf02jn-CommitWrapper ech0nhv2"
       width={200}
     >
       <div
@@ -837,11 +831,11 @@ Array [
                   onClick={[Function]}
                 >
                   <div
-                    className="css-nup11h-BadgeContainer emc61an4"
+                    className="css-8oeas8-BadgeContainer emc61an4"
                     fill="#5D6C74"
                   >
                     <span
-                      className="css-wtl5ix-Number emc61an2"
+                      className="css-1f81ztl-Number emc61an2"
                     >
                       1
                     </span>
@@ -886,11 +880,11 @@ Array [
                   onClick={[Function]}
                 >
                   <div
-                    className="css-nup11h-BadgeContainer emc61an4"
+                    className="css-8oeas8-BadgeContainer emc61an4"
                     fill="#5D6C74"
                   >
                     <span
-                      className="css-wtl5ix-Number emc61an2"
+                      className="css-1f81ztl-Number emc61an2"
                     >
                       1
                     </span>
@@ -908,7 +902,7 @@ Array [
       </div>
     </div>
     <div
-      className="css-1m76x9x-CommitWrapper ech0nhv2"
+      className="css-mf02jn-CommitWrapper ech0nhv2"
       width={200}
     >
       <div
@@ -944,11 +938,11 @@ Array [
                   onClick={[Function]}
                 >
                   <div
-                    className="css-nup11h-BadgeContainer emc61an4"
+                    className="css-8oeas8-BadgeContainer emc61an4"
                     fill="#5D6C74"
                   >
                     <span
-                      className="css-wtl5ix-Number emc61an2"
+                      className="css-1f81ztl-Number emc61an2"
                     >
                       1
                     </span>
@@ -993,11 +987,11 @@ Array [
                   onClick={[Function]}
                 >
                   <div
-                    className="css-q6x9ck-BadgeContainer emc61an4"
+                    className="css-1qehxmj-BadgeContainer emc61an4"
                     fill="#E4F4E4"
                   >
                     <span
-                      className="css-wtl5ix-Number emc61an2"
+                      className="css-1f81ztl-Number emc61an2"
                     >
                       1
                     </span>
@@ -1015,7 +1009,7 @@ Array [
       </div>
     </div>
     <div
-      className="css-1m76x9x-CommitWrapper ech0nhv2"
+      className="css-mf02jn-CommitWrapper ech0nhv2"
       width={200}
     >
       <div

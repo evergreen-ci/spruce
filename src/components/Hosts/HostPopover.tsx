@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import Popover from "@leafygreen-ui/popover";
 import { Button } from "components/Button";
+import { size } from "constants/tokens";
 import { useOnClickOutside } from "hooks";
 
 const { gray } = uiColors;
@@ -92,18 +93,19 @@ const PopoverContainer = styled.div`
   display: flex;
   flex-direction: column;
   background-color: white;
-  padding: 16px;
-  box-shadow: 0 5px 10px 0 ${gray.light2}, 0 5px 30px 5px ${gray.light2};
+  padding: ${size.s};
+  box-shadow: 0 ${size.xxs} 10px 0 ${gray.light2},
+    0 ${size.xxs} 30px ${size.xxs} ${gray.light2};
 `;
 
 const ButtonWrapper = styled.div`
   white-space: nowrap; // prevent button collapse when screen is small
 `;
 const ButtonContainer = styled.div`
-  margin-top: 10px;
+  margin-top: ${size.xs};
   display: flex;
   justify-content: flex-end;
 `;
 const ButtonSpacer = styled.div`
-  margin-left: 8px;
+  margin-left: ${size.xs};
 `;

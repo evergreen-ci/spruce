@@ -2,9 +2,10 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
+import { size, zIndex } from "constants/tokens";
 import { CommitRolledUpVersions } from "types/commits";
 import { string } from "utils";
-import { commitChartHeight, tooltipZIndex } from "../constants";
+import { commitChartHeight } from "../constants";
 
 const { getDateCopy, shortenGithash, trimStringFromMiddle } = string;
 const { gray } = uiColors;
@@ -75,7 +76,7 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
         </ButtonContainer>
       }
       triggerEvent="click"
-      popoverZIndex={tooltipZIndex}
+      popoverZIndex={zIndex.tooltip}
     >
       <TooltipContainer data-cy="inactive-commits-tooltip">
         <TitleText weight="medium">
@@ -107,9 +108,9 @@ const HiddenCommitsWrapper = styled.div`
   border-top: 1px solid ${gray.dark2};
   border-bottom: 1px solid ${gray.dark2};
   text-align: center;
-  padding: 4px 0;
+  padding: ${size.xxs} 0;
   align-self: center;
-  margin: 16px 0;
+  margin: ${size.l} 0;
 `;
 
 const TooltipContainer = styled.div`
@@ -134,14 +135,14 @@ const InactiveCommitLine = styled.div`
 `;
 
 const ButtonText = styled(Disclaimer)`
-  margin-top: 8px;
+  margin-top: ${size.xs};
   text-align: center;
   color: ${gray.dark2};
   font-weight: bold;
 `;
 
 const TitleText = styled(Body)`
-  margin-bottom: 16px;
+  margin-bottom: ${size.s};
 `;
 
 const Container = styled.div`
@@ -157,7 +158,7 @@ const StyledTooltip = styled(Tooltip)<{ scrolled: number }>`
 `;
 
 const CommitText = styled(Body)`
-  padding: 8px 0;
+  padding: ${size.xxs} 0;
   word-break: break-all;
 `;
 

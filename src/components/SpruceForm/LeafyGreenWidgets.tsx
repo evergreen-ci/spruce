@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { uiColors } from "@leafygreen-ui/palette";
 import { RadioBox, RadioBoxGroup } from "@leafygreen-ui/radio-box-group";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import { Option, Select } from "@leafygreen-ui/select";
@@ -10,9 +9,9 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { Description, Label } from "@leafygreen-ui/typography";
 import { WidgetProps } from "@rjsf/core";
 import Icon from "components/Icon";
-import ElementWrapper from "./ElementWrapper";
+import { size } from "constants/tokens";
 
-const { red } = uiColors;
+import ElementWrapper from "./ElementWrapper";
 
 const getInputErrors = (rawErrors: string[]): string[] =>
   // Don't display empty input errors as these are too visually noisy
@@ -33,9 +32,16 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
     description,
     "data-cy": dataCy,
     emptyValue,
+    showErrors = true,
   } = options;
   const errors = getInputErrors(rawErrors);
   const hasError = !!errors?.length;
+  const errorProps = showErrors
+    ? {
+        errorMessage: hasError ? errors.join(", ") : null,
+        state: hasError ? "error" : "none",
+      }
+    : {};
   const { readonlyAsDisabled = true } = formContext;
   return (
     <ElementWrapper>
@@ -55,8 +61,7 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
             )
           }
           aria-label={label}
-          errorMessage={hasError ? errors.join(", ") : null}
-          state={hasError ? "error" : "none"}
+          {...errorProps}
         />
       </MaxWidthContainer>
     </ElementWrapper>
@@ -104,12 +109,13 @@ export const LeafyGreenCheckBox: React.FC<WidgetProps> = ({
 };
 
 const IconContainer = styled.span`
-  margin-left: 4px;
+  margin-left: ${size.xxs};
   top: 1px;
   vertical-align: text-top;
 `;
 
 export const LeafyGreenSelect: React.FC<WidgetProps> = ({
+  disabled,
   label,
   options,
   placeholder,
@@ -124,7 +130,7 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
     "data-cy": dataCy,
   } = options;
 
-  const hasError = !!rawErrors?.length;
+  const hasError = !!rawErrors?.length && !disabled;
 
   if (!Array.isArray(enumOptions)) {
     console.error("Non Array passed into leafygreen select");
@@ -137,11 +143,16 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
           allowDeselect={allowDeselect !== false}
           // @ts-expect-error
           aria-labelledby={ariaLabelledBy}
+          disabled={disabled}
           label={ariaLabelledBy ? undefined : label}
           value={value}
           onChange={(v) => onChange(v === "" ? null : v)}
           placeholder={placeholder}
+          id={dataCy as string}
+          name={dataCy as string}
           data-cy={dataCy}
+          state={hasError ? "error" : "none"}
+          errorMessage="Selection is required."
         >
           {enumOptions.map((o) => {
             // Handle deselect value without errors
@@ -155,15 +166,10 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
             );
           })}
         </Select>
-        {hasError && <Error>Selection is required.</Error>}
       </MaxWidthContainer>
     </ElementWrapper>
   );
 };
-
-const Error = styled(Description)`
-  color: ${red.base};
-`;
 
 export const LeafyGreenRadio: React.FC<WidgetProps> = ({
   label,
@@ -203,12 +209,19 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
   value,
   onChange,
   disabled,
+  uiSchema,
 }) => {
   const { description, enumOptions, "data-cy": dataCy, showLabel } = options;
   if (!Array.isArray(enumOptions)) {
     console.error(
       "enumOptions must be an array passed into LeafyGreen Radio Box"
     );
+    return null;
+  }
+
+  // Workaround because {ui:widget: hidden} does not play nicely with this widget
+  const hide = uiSchema["ui:hide"] ?? false;
+  if (hide) {
     return null;
   }
 
@@ -247,7 +260,7 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
 };
 
 const RadioBoxLabelContainer = styled.div`
-  margin-bottom: 8px;
+  margin-bottom: ${size.xs};
 `;
 
 const StyledRadioBox = styled(RadioBox)`

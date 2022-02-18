@@ -1,3 +1,4 @@
+import { cloneElement } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import {
@@ -6,6 +7,7 @@ import {
   ObjectFieldTemplateProps,
 } from "@rjsf/core";
 import Icon from "components/Icon";
+import { size } from "constants/tokens";
 import { Unpacked } from "types/utils";
 import { SpruceFormContainer } from "./Container";
 import { TitleField as CustomTitleField } from "./CustomFields";
@@ -37,7 +39,9 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
 };
 
 const ArrayItem: React.FC<
-  { topAlignDelete: boolean } & Unpacked<ArrayFieldTemplateProps["items"]>
+  { topAlignDelete: boolean; useExpandableCard: boolean } & Unpacked<
+    ArrayFieldTemplateProps["items"]
+  >
 > = ({
   children,
   disabled,
@@ -46,11 +50,18 @@ const ArrayItem: React.FC<
   onDropIndexClick,
   readonly,
   topAlignDelete,
+  useExpandableCard,
 }) => (
-  <ArrayItemRow key={index} topAlignDelete={topAlignDelete}>
-    {children}
-    {hasRemove && (
-      <DeleteButtonWrapper>
+  <ArrayItemRow key={index}>
+    {cloneElement(children, {
+      uiSchema: {
+        ...children.props.uiSchema,
+        "ui:index": index,
+        "ui:onDropIndexClick": onDropIndexClick,
+      },
+    })}
+    {hasRemove && !useExpandableCard && (
+      <DeleteButtonWrapper topAlignDelete={topAlignDelete}>
         <Button
           onClick={onDropIndexClick(index)}
           disabled={disabled || readonly}
@@ -63,8 +74,6 @@ const ArrayItem: React.FC<
 );
 
 const ArrayItemRow = styled.div`
-  align-items: ${({ topAlignDelete }: { topAlignDelete: boolean }) =>
-    topAlignDelete ? "flex-start" : "flex-end"};
   display: flex;
 
   .field-object {
@@ -93,6 +102,7 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   const fullWidth = !!uiSchema["ui:fullWidth"];
   const showLabel = uiSchema["ui:showLabel"] !== false;
   const topAlignDelete = uiSchema["ui:topAlignDelete"] ?? false;
+  const useExpandableCard = uiSchema["ui:useExpandableCard"] ?? false;
   const isDisabled = disabled || readonly;
   return (
     <>
@@ -117,7 +127,12 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
       )}
       <ArrayContainer fullWidth={fullWidth} hasChildren={!!items?.length}>
         {items.map((p) => (
-          <ArrayItem key={p.key} topAlignDelete={topAlignDelete} {...p} />
+          <ArrayItem
+            key={p.key}
+            topAlignDelete={topAlignDelete}
+            useExpandableCard={useExpandableCard}
+            {...p}
+          />
         ))}
       </ArrayContainer>
     </>
@@ -130,25 +145,29 @@ type ArrayContainerProps = {
 };
 
 const ArrayContainer = styled.div`
-  ${({ hasChildren }) => hasChildren && "margin-bottom: 24px;"}
+  ${({ hasChildren }) => hasChildren && `margin-bottom: ${size.m};`}
   min-width: min-content;
   width: ${({ fullWidth }: ArrayContainerProps): string =>
     fullWidth ? "100%" : "60%"};
 `;
 
 const DeleteButtonWrapper = styled(ElementWrapper)`
-  margin-left: 16px;
+  margin-left: ${size.s};
+  // Align button with top of input unless it should specifically align to the top of the ArrayItemRow
+  align-items: ${({ topAlignDelete }: { topAlignDelete: boolean }) =>
+    topAlignDelete ? "0px" : "20px"};
 `;
 
 export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
   idSchema,
   properties,
   title,
-  uiSchema,
+  uiSchema: { "ui:title": uiTitle, "ui:data-cy": dataCy },
 }) => (
   <SpruceFormContainer
-    title={uiSchema["ui:title"] || title}
+    title={uiTitle || title}
     id={`${idSchema.$id}__title`}
+    data-cy={dataCy}
   >
     {properties.map((prop) => prop.content)}
   </SpruceFormContainer>
