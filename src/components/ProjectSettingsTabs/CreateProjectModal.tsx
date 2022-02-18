@@ -10,12 +10,10 @@ import { useToastContext } from "context/toast";
 import {
   CreateProjectMutation,
   CreateProjectMutationVariables,
-  ProjectSettingsFragment,
-  RepoSettingsFragment,
 } from "gql/generated/types";
 import { CREATE_PROJECT } from "gql/mutations";
 
-const getModalFormDefinition = (project: any) => ({
+const getModalFormDefinition = (owner: string, repo: string) => ({
   schema: {
     type: "object" as "object",
     properties: {
@@ -27,18 +25,16 @@ const getModalFormDefinition = (project: any) => ({
         type: "string" as "string",
         title: "Project Id",
         value: "hi",
-        description:
-          "Optionally enter immutable project ID that would be used by Evergreen internally and defaults to a random hash; should only be user-specified with good reason, such as if the project will be using performance tooling. Cannot be changed!",
       },
       owner: {
         type: "string" as "string",
         title: "Owner",
-        default: project?.projectRef?.owner,
+        default: owner,
       },
       repo: {
         type: "string" as "string",
         title: "Repo",
-        default: project?.projectRef?.repo,
+        default: repo,
       },
     },
   },
@@ -52,18 +48,20 @@ const getModalFormDefinition = (project: any) => ({
         "Optionally enter an immutable project ID that would be used by Evergreen internally instead of defaulting to a random hash; An id should only be user-specified with good reason, such as if the project will be using performance tooling. \n It cannot be changed!",
     },
     owner: {
-      "ui:data-cy": "new-owner-input",
+      "ui:data-cy": "owner-input",
     },
     repo: {
-      "ui:data-cy": "new-repo-input",
+      "ui:data-cy": "repo-input",
     },
   },
 });
 interface Props {
-  project: ProjectSettingsFragment | RepoSettingsFragment;
+  owner: string;
+  repo: string;
 }
-export const CreateProjectModal: React.FC<Props> = ({ project }) => {
-  const modalFormDefinition = getModalFormDefinition(project);
+export const CreateProjectModal: React.FC<Props> = ({ owner, repo }) => {
+  const dispatchToast = useToastContext();
+  const modalFormDefinition = getModalFormDefinition(owner, repo);
   const isAdmin = true; // todo after EVG-16353
   const [open, setOpen] = useState(false);
 
@@ -87,8 +85,6 @@ export const CreateProjectModal: React.FC<Props> = ({ project }) => {
     Object.keys(formState).length === 0 ||
     Object.values(formState).some((input) => input === "") ||
     hasError;
-
-  const dispatchToast = useToastContext();
 
   const [createProject] = useMutation<
     CreateProjectMutation,
@@ -149,6 +145,5 @@ export const CreateProjectModal: React.FC<Props> = ({ project }) => {
 
 const Container = styled.div`
   display: inline;
-
   margin-left: ${size.s};
 `;

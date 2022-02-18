@@ -59,7 +59,6 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
     return filteredProjects;
   };
 
-  // PROJECT DROPDOWN
   return (
     <SearchableDropdown
       label="Project"

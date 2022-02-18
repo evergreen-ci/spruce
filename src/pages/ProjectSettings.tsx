@@ -111,7 +111,10 @@ export const ProjectSettings: React.FC = () => {
     <ProjectSettingsProvider>
       <SideNav aria-label="Project Settings">
         <SideNavGroup header="Project" />
-        <CreateProjectModal project={project} />
+        <CreateProjectModal
+          owner={project?.projectRef?.owner}
+          repo={project?.projectRef?.repo}
+        />
         <SideNavGroup>
           <ProjectSettingsNavItem
             {...sharedProps}

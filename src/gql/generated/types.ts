@@ -1441,6 +1441,7 @@ export type Task = {
   restarts?: Maybe<Scalars["Int"]>;
   revision?: Maybe<Scalars["String"]>;
   scheduledTime?: Maybe<Scalars["Time"]>;
+  containerAllocatedTime?: Maybe<Scalars["Time"]>;
   spawnHostLink?: Maybe<Scalars["String"]>;
   startTime?: Maybe<Scalars["Time"]>;
   status: Scalars["String"];
