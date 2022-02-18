@@ -11,10 +11,10 @@ interface State {
   selectState: CommitType;
   disableButton: boolean;
   link: string;
-  shouldFetchPassing: boolean;
-  hasFetchedPassing: boolean;
-  shouldFetchExecuted: boolean;
-  hasFetchedExecuted: boolean;
+  shouldFetchLastPassing: boolean;
+  hasFetchedLastPassing: boolean;
+  shouldFetchLastExecuted: boolean;
+  hasFetchedLastExecuted: boolean;
 }
 
 // Note that the state doesn't include a field for shouldFetchParent / hasFetchedParent as the parent task
@@ -26,10 +26,10 @@ export const initialState: State = {
   selectState: CommitType.Base,
   disableButton: false,
   link: "/",
-  shouldFetchPassing: false,
-  hasFetchedPassing: false,
-  shouldFetchExecuted: false,
-  hasFetchedExecuted: false,
+  shouldFetchLastPassing: false,
+  hasFetchedLastPassing: false,
+  shouldFetchLastExecuted: false,
+  hasFetchedLastExecuted: false,
 };
 
 type Action =
@@ -43,8 +43,8 @@ export const reducer = (state: State, action: Action): State => {
     parentTask,
     lastPassingTask,
     lastExecutedTask,
-    hasFetchedPassing,
-    hasFetchedExecuted,
+    hasFetchedLastPassing,
+    hasFetchedLastExecuted,
   } = state;
 
   switch (action.type) {
@@ -67,14 +67,16 @@ export const reducer = (state: State, action: Action): State => {
         return {
           ...state,
           lastPassingTask: action.task,
-          hasFetchedPassing: true,
+          hasFetchedLastPassing: true,
+          shouldFetchLastPassing: false,
           link: getTaskRoute(action.task.id),
           disableButton: false,
         };
       }
       return {
         ...state,
-        hasFetchedPassing: true,
+        hasFetchedLastPassing: true,
+        shouldFetchLastPassing: false,
         disableButton: true,
       };
     }
@@ -83,71 +85,82 @@ export const reducer = (state: State, action: Action): State => {
         return {
           ...state,
           lastExecutedTask: action.task,
-          hasFetchedExecuted: true,
+          hasFetchedLastExecuted: true,
+          shouldFetchLastExecuted: false,
           link: getTaskRoute(action.task.id),
           disableButton: false,
         };
       }
       return {
         ...state,
-        hasFetchedExecuted: true,
+        hasFetchedLastExecuted: true,
+        shouldFetchLastExecuted: false,
         disableButton: true,
       };
     }
     case "setSelectState": {
       const newSelectState = action.selectState;
 
-      const shouldFetchLastPassing = shouldFetchLastPassingTask(
-        parentTask,
-        lastPassingTask
-      );
-      const shouldFetchLastExecuted = shouldFetchLastExecutedTask(
-        parentTask,
-        lastExecutedTask
-      );
+      // If the user has selected the Last Passing option, set shouldFetchPassing to true if the task needs
+      // to be fetched. This will trigger the query in the useEffect hook.
+      if (newSelectState === CommitType.LastPassing) {
+        const triggerFetchLastPassing = shouldFetchLastPassingTask(
+          parentTask,
+          lastPassingTask
+        );
 
-      if (
-        !hasFetchedPassing &&
-        shouldFetchLastPassing &&
-        newSelectState === CommitType.LastPassing
-      ) {
-        return {
-          ...state,
-          selectState: newSelectState,
-          shouldFetchPassing: true,
-        };
-      }
-      if (
-        !hasFetchedExecuted &&
-        shouldFetchLastExecuted &&
-        newSelectState === CommitType.LastExecuted
-      ) {
-        return {
-          ...state,
-          selectState: newSelectState,
-          shouldFetchExecuted: true,
-        };
+        if (!hasFetchedLastPassing && triggerFetchLastPassing) {
+          return {
+            ...state,
+            selectState: newSelectState,
+            shouldFetchLastPassing: true,
+          };
+        }
       }
 
-      const newLink = determineLink(
+      // If the user has selected the Last Executed option, set shouldFetchExecuted to true if the task
+      // needs to be fetched. This will trigger the query in the useEffect hook.
+      if (newSelectState === CommitType.LastExecuted) {
+        const triggerFetchLastExecuted = shouldFetchLastExecutedTask(
+          parentTask,
+          lastExecutedTask
+        );
+        if (!hasFetchedLastExecuted && triggerFetchLastExecuted) {
+          return {
+            ...state,
+            selectState: newSelectState,
+            shouldFetchLastExecuted: true,
+          };
+        }
+      }
+
+      // If the selectState has changed and nothing needs to be fetched, just update the link and determine
+      // if the GO button should be disabled.
+      const newLink = determineNewLink(
         parentTask,
         lastPassingTask,
         lastExecutedTask,
         newSelectState
       );
 
+      const lastPassingTaskDoesNotExist =
+        newSelectState === CommitType.LastPassing &&
+        hasFetchedLastPassing &&
+        !lastPassingTask;
+
+      const lastExecutedTaskDoesNotExist =
+        newSelectState === CommitType.LastExecuted &&
+        hasFetchedLastExecuted &&
+        !lastExecutedTask;
+
       return {
         ...state,
         selectState: newSelectState,
         link: newLink,
-        disableButton: determineDisabledButton(
-          hasFetchedPassing,
-          lastPassingTask,
-          hasFetchedExecuted,
-          lastExecutedTask,
-          newSelectState,
-          newLink
-        ),
+        disableButton:
+          newLink === "/" ||
+          lastPassingTaskDoesNotExist ||
+          lastExecutedTaskDoesNotExist,
       };
     }
     default:
@@ -185,7 +198,7 @@ const shouldFetchLastExecutedTask = (
 
 // Determine the value of the link which will be used to redirect the user when they
 // press the GO button.
-const determineLink = (
+const determineNewLink = (
   parentTask: CommitTask,
   lastPassingTask: CommitTask,
   lastExecutedTask: CommitTask,
@@ -206,28 +219,4 @@ const determineLink = (
     }
   }
   return "/";
-};
-
-// Determine whether or not the GO button should be disabled.
-const determineDisabledButton = (
-  hasFetchedPassing: boolean,
-  lastPassingTask: CommitTask,
-  hasFetchedExecuted: boolean,
-  lastExecutedTask: CommitTask,
-  selectState: CommitType,
-  link: string
-): boolean => {
-  const lastPassingTaskDoesNotExist =
-    selectState === CommitType.LastPassing &&
-    hasFetchedPassing &&
-    !lastPassingTask;
-
-  const lastExecutedTaskDoesNotExist =
-    selectState === CommitType.LastExecuted &&
-    hasFetchedExecuted &&
-    !lastExecutedTask;
-
-  return (
-    link === "/" || lastPassingTaskDoesNotExist || lastExecutedTaskDoesNotExist
-  );
 };

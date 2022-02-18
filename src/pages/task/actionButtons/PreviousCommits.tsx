@@ -34,10 +34,10 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
       selectState,
       disableButton,
       link,
-      shouldFetchPassing,
-      shouldFetchExecuted,
-      hasFetchedPassing,
-      hasFetchedExecuted,
+      shouldFetchLastPassing,
+      shouldFetchLastExecuted,
+      hasFetchedLastPassing,
+      hasFetchedLastExecuted,
     },
     dispatch,
   ] = useReducer(reducer, initialState);
@@ -114,8 +114,9 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     }
   }, [versionMetadata]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Hook that triggers fetching the last passing task if it needs to be fetched.
   useEffect(() => {
-    if (!hasFetchedPassing && shouldFetchPassing) {
+    if (!hasFetchedLastPassing && shouldFetchLastPassing) {
       fetchLastPassing({
         variables: {
           projectIdentifier,
@@ -127,10 +128,11 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
         },
       });
     }
-  }, [shouldFetchPassing]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [shouldFetchLastPassing]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Hook that triggers fetching the last executed task if it needs to be fetched.
   useEffect(() => {
-    if (!hasFetchedExecuted && shouldFetchExecuted) {
+    if (!hasFetchedLastExecuted && shouldFetchLastExecuted) {
       fetchLastExecuted({
         variables: {
           projectIdentifier,
@@ -142,7 +144,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
         },
       });
     }
-  }, [shouldFetchExecuted]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [shouldFetchLastExecuted]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return versionMetadata?.isPatch !== undefined ? (
     <PreviousCommitsWrapper>
@@ -184,12 +186,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
       >
         {/* This div is necessary, or else the tooltip will not show. */}
         <div>
-          <Button
-            as={Link}
-            to={link || "/"}
-            disabled={disableButton}
-            size="small"
-          >
+          <Button as={Link} to={link} disabled={disableButton} size="small">
             Go
           </Button>
         </div>
