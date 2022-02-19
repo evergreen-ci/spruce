@@ -11,9 +11,9 @@ const { getDateCopy, shortenGithash, trimStringFromMiddle } = string;
 const { gray } = uiColors;
 
 export const InactiveCommitsLine = () => (
-  <Container>
+  <InactiveCommitContainer>
     <InactiveCommitLine />
-  </Container>
+  </InactiveCommitContainer>
 );
 
 interface InactiveCommitsProps {
@@ -76,10 +76,10 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
       popoverZIndex={zIndex.tooltip}
     >
       <TooltipContainer data-cy="inactive-commits-tooltip">
-        <TitleText>
+        <TooltipTitleText>
           {versionCount} {tooltipType}
           {` Commit${versionCount !== 1 ? "s" : ""}`}
-        </TitleText>
+        </TooltipTitleText>
         {returnedCommits}
       </TooltipContainer>
     </Tooltip>
@@ -97,10 +97,14 @@ const getCommitCopy = (v: CommitRolledUpVersions[0]) => (
   </>
 );
 
-const HiddenCommitsWrapper = styled.div`
-  align-self: center;
-  padding: ${size.xs} 0;
-  opacity: 0.5;
+const InactiveCommitContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const InactiveCommitLine = styled.div`
+  height: ${commitChartHeight}px;
+  border: 1px dashed ${gray.light1};
 `;
 
 const TooltipContainer = styled.div`
@@ -117,11 +121,6 @@ const ButtonContainer = styled.div`
   justify-content: center;
 `;
 
-const InactiveCommitLine = styled.div`
-  height: ${commitChartHeight}px;
-  border: 1px dashed ${gray.light1};
-`;
-
 const ButtonText = styled(Disclaimer)`
   margin-top: ${size.xs};
   text-align: center;
@@ -129,14 +128,15 @@ const ButtonText = styled(Disclaimer)`
   font-weight: bold;
 `;
 
-const TitleText = styled.div`
-  margin-bottom: ${size.xs};
-  font-weight: 700;
+const HiddenCommitsWrapper = styled.div`
+  align-self: center;
+  padding: ${size.xs} 0;
+  opacity: 0.5;
 `;
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
+const TooltipTitleText = styled.div`
+  margin-bottom: ${size.xs};
+  font-weight: bold;
 `;
 
 const CommitText = styled.div`
