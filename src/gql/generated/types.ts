@@ -3265,9 +3265,10 @@ export type MainlineCommitsForHistoryQuery = {
 
 export type MainlineCommitsQueryVariables = Exact<{
   mainlineCommitsOptions: MainlineCommitsOptions;
-  buildVariantOptionsForGraph: BuildVariantOptions;
   buildVariantOptions: BuildVariantOptions;
-  groupedBuildVariantOptions: BuildVariantOptions;
+  buildVariantOptionsForGraph: BuildVariantOptions;
+  buildVariantOptionsForTaskIcons: BuildVariantOptions;
+  buildVariantOptionsForGroupedTasks: BuildVariantOptions;
 }>;
 
 export type MainlineCommitsQuery = {
