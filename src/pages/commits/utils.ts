@@ -1,6 +1,7 @@
 import { MainlineCommitsQueryVariables } from "gql/generated/types";
 import { TaskStatus } from "types/task";
 import { array } from "utils";
+import { arrayIntersection } from "utils/array";
 
 const { arraySetDifference } = array;
 
@@ -20,7 +21,7 @@ interface commitsPageReducerState {
   mainlineCommitOptions: mainlineCommitOptions;
 }
 
-export const getMainlineCommitsQueryVariables = (
+const getMainlineCommitsQueryVariables = (
   state: commitsPageReducerState
 ): MainlineCommitsQueryVariables => {
   const variables = {
@@ -29,7 +30,10 @@ export const getMainlineCommitsQueryVariables = (
     buildVariantOptionsForGraph: generateBuildVariantOptionsForGraphFromState(
       state
     ),
-    groupedBuildVariantOptions: generateGroupedBuildVariantOptionsFromState(
+    buildVariantOptionsForGroupedTasks: generateBuildVariantOptionsForGroupedTasksFromState(
+      state
+    ),
+    buildVariantOptionsForTaskIcons: generateBuildVariantOptionsForTaskIconsFromState(
       state
     ),
   };
@@ -37,7 +41,7 @@ export const getMainlineCommitsQueryVariables = (
 };
 
 /** getFilterStatus returns an object containing booleans that describe what filters have been applied. */
-export const getFilterStatus = (state: filterState) => ({
+const getFilterStatus = (state: filterState) => ({
   hasFilters:
     state.requesters.length > 0 ||
     state.statuses.length > 0 ||
@@ -51,22 +55,53 @@ export const getFilterStatus = (state: filterState) => ({
 
 const generateBuildVariantOptionsFromState = (
   state: commitsPageReducerState
+) => {
+  const { filterState } = state;
+  const { statuses, tasks, variants } = filterState;
+
+  const buildVariantOptions = {
+    tasks,
+    variants,
+    statuses,
+  };
+
+  return buildVariantOptions;
+};
+
+const generateBuildVariantOptionsForTaskIconsFromState = (
+  state: commitsPageReducerState
 ): MainlineCommitsQueryVariables["buildVariantOptions"] => {
   const { filterState } = state;
-  const { hasTasks } = getFilterStatus(filterState);
+  const { hasTasks, hasFilters } = getFilterStatus(filterState);
+  const failingStatuses = arrayIntersection(
+    FAILED_STATUSES,
+    filterState.statuses
+  );
 
-  const updatedStatuses = hasTasks ? filterState.statuses : FAILED_STATUSES;
+  // no filters should show failing icons only
+  // yes filters should show failing icons only if there are failing statuses
+  // yes task filters and status filters should show all icons
+  // yes task filters and no status filters should show all icons
+
+  const shouldShowFailingIcons =
+    !hasFilters || (failingStatuses.length > 0 && !hasTasks);
+  const shouldShowAllIcons = hasTasks;
+  const shouldShowIcons = shouldShowFailingIcons || shouldShowAllIcons;
+
+  const statusesToShowIconsFor =
+    hasTasks && hasFilters ? filterState.statuses : failingStatuses;
+
   const buildVariantOptions = {
-    tasks: filterState.tasks,
+    tasks: shouldShowIcons ? filterState.tasks : [impossibleMatch],
     variants: filterState.variants,
-    statuses: updatedStatuses,
+    statuses: hasFilters ? statusesToShowIconsFor : FAILED_STATUSES,
   };
   return buildVariantOptions;
 };
 
-const generateGroupedBuildVariantOptionsFromState = (
+const generateBuildVariantOptionsForGroupedTasksFromState = (
   state: commitsPageReducerState
-): MainlineCommitsQueryVariables["groupedBuildVariantOptions"] => {
+): MainlineCommitsQueryVariables["buildVariantOptionsForGroupedTasks"] => {
   const { filterState } = state;
   const { hasTasks, hasFilters } = getFilterStatus(filterState);
   const { statuses } = filterState;
@@ -79,7 +114,7 @@ const generateGroupedBuildVariantOptionsFromState = (
   const groupedBuildVariantOptions = {
     tasks: shouldShowGroupedBuildVariants
       ? filterState.tasks
-      : ["impossibleMatchxzsif"], // this is a hack to make the query fail
+      : [impossibleMatch], // this is a hack to make the query fail
     variants: filterState.variants,
     statuses: updatedStatuses,
   };
@@ -117,3 +152,12 @@ const FAILED_STATUSES = [
   TaskStatus.KnownIssue,
   TaskStatus.Aborted,
 ];
+
+const impossibleMatch = "^\b$"; // this will never match anything
+
+export {
+  impossibleMatch,
+  getFilterStatus,
+  getMainlineCommitsQueryVariables,
+  FAILED_STATUSES,
+};
