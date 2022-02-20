@@ -32,7 +32,6 @@ export const BuildVariantCard: React.FC<Props> = ({
   groupedVariantStats,
 }) => {
   let render = null;
-
   render = (
     <>
       {groupedVariantStats && (
@@ -42,7 +41,7 @@ export const BuildVariantCard: React.FC<Props> = ({
           variant={variant}
         />
       )}
-      <RenderTaskIcons tasks={tasks} />
+      {tasks && <RenderTaskIcons tasks={tasks} />}
     </>
   );
   return (

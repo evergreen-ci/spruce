@@ -1,12 +1,14 @@
+import { useMemo } from "react";
 import styled from "@emotion/styled";
 import CommitChartLabel from "components/CommitChartLabel";
 import { ChartTypes, CommitVersion } from "types/commits";
-import { convertArrayToObject } from "utils/array";
-import { shortenGithash } from "utils/string";
+import { array, string } from "utils";
 import { BuildVariantCard } from "./BuildVariantCard";
 import { CommitChart } from "./CommitChart";
 import { ColorCount } from "./utils";
 
+const { arrayUnion, convertArrayToObject } = array;
+const { shortenGithash } = string;
 interface ActiveCommitChartProps {
   groupedTaskStats: ColorCount[];
   max: number;
@@ -49,23 +51,44 @@ interface BuildVariantContainerProps {
 export const BuildVariantContainer: React.FC<BuildVariantContainerProps> = ({
   version,
 }) => {
-  const { buildVariants, buildVariantStats } = version;
-  const groupedVariants = convertArrayToObject(buildVariantStats, "variant");
-  return (
-    <ColumnContainer>
-      {buildVariants.map(({ variant, displayName, tasks }) => (
+  const { buildVariants, buildVariantStats, projectIdentifier, id } = version;
+
+  const memoizedBuildVariantCards = useMemo(() => {
+    const groupedVariantStats = convertArrayToObject(
+      buildVariantStats,
+      "variant"
+    );
+    const groupedBuildVariants = convertArrayToObject(buildVariants, "variant");
+    // Create a list of all the build variants we fetched and sort them by name
+    const allBuildVariants = arrayUnion(
+      Object.keys(groupedVariantStats),
+      Object.keys(groupedBuildVariants),
+      (a, b) => a.localeCompare(b)
+    );
+    const buildVariantCards = allBuildVariants.map((variant) => {
+      const variantStats = groupedVariantStats[variant];
+      const buildVariant = groupedBuildVariants[variant];
+      const displayName = buildVariant
+        ? buildVariant.displayName
+        : variantStats.displayName;
+      const variantString = buildVariant
+        ? buildVariant.variant
+        : variantStats.variant;
+      return (
         <BuildVariantCard
-          versionId={version.id}
+          key={`${id}_${variant}`}
+          variant={variantString}
           buildVariantDisplayName={displayName}
-          variant={variant}
-          tasks={tasks}
-          key={`${version.id}_${variant}`}
-          projectIdentifier={version.projectIdentifier}
-          groupedVariantStats={groupedVariants[variant]}
+          groupedVariantStats={variantStats}
+          versionId={id}
+          projectIdentifier={projectIdentifier}
+          tasks={buildVariant?.tasks}
         />
-      ))}
-    </ColumnContainer>
-  );
+      );
+    });
+    return buildVariantCards;
+  }, [buildVariantStats, buildVariants, id, projectIdentifier]);
+  return <ColumnContainer>{memoizedBuildVariantCards}</ColumnContainer>;
 };
 
 const ColumnContainer = styled.div`
