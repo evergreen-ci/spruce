@@ -2,7 +2,9 @@ import { Field } from "@rjsf/core";
 import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { radioBoxOptions } from "../utils";
+import { form } from "../utils";
+
+const { radioBoxOptions } = form;
 
 export const getFormSchema = (
   useRepoSettings: boolean,

@@ -26,6 +26,7 @@ export type Query = {
   version: Version;
   projects: Array<Maybe<GroupedProjects>>;
   viewableProjectRefs: Array<Maybe<GroupedProjects>>;
+  githubProjectConflicts: GithubProjectConflicts;
   project: Project;
   patchTasks: PatchTasks;
   taskTests: TaskTestResult;
@@ -79,6 +80,10 @@ export type QueryPatchArgs = {
 
 export type QueryVersionArgs = {
   id: Scalars["String"];
+};
+
+export type QueryGithubProjectConflictsArgs = {
+  projectId: Scalars["String"];
 };
 
 export type QueryProjectArgs = {
@@ -531,6 +536,7 @@ export type Version = {
   activated?: Maybe<Scalars["Boolean"]>;
   taskStatusCounts?: Maybe<Array<StatusCount>>;
   buildVariants?: Maybe<Array<Maybe<GroupedBuildVariant>>>;
+  buildVariantStats?: Maybe<Array<GroupedTaskStatusCount>>;
   isPatch: Scalars["Boolean"];
   patch?: Maybe<Patch>;
   childVersions?: Maybe<Array<Maybe<Version>>>;
@@ -553,6 +559,10 @@ export type VersionBuildVariantsArgs = {
   options?: Maybe<BuildVariantOptions>;
 };
 
+export type VersionBuildVariantStatsArgs = {
+  options?: Maybe<BuildVariantOptions>;
+};
+
 export type Manifest = {
   id: Scalars["String"];
   revision: Scalars["String"];
@@ -571,6 +581,12 @@ export type VersionTiming = {
 export type StatusCount = {
   status: Scalars["String"];
   count: Scalars["Int"];
+};
+
+export type GroupedTaskStatusCount = {
+  variant: Scalars["String"];
+  displayName: Scalars["String"];
+  statusCounts: Array<StatusCount>;
 };
 
 export type BuildVariantOptions = {
@@ -1448,6 +1464,12 @@ export type GroupedProjects = {
   name: Scalars["String"];
   repo?: Maybe<RepoRef>;
   projects: Array<Project>;
+};
+
+export type GithubProjectConflicts = {
+  commitQueueIdentifiers?: Maybe<Array<Scalars["String"]>>;
+  prTestingIdentifiers?: Maybe<Array<Scalars["String"]>>;
+  commitCheckIdentifiers?: Maybe<Array<Scalars["String"]>>;
 };
 
 export type ProjectSettings = {
@@ -2420,6 +2442,14 @@ export type AddFavoriteProjectMutation = {
   };
 };
 
+export type AttachProjectToRepoMutationVariables = Exact<{
+  projectId: Scalars["String"];
+}>;
+
+export type AttachProjectToRepoMutation = {
+  attachProjectToRepo: { id: string };
+};
+
 export type AttachVolumeToHostMutationVariables = Exact<{
   volumeAndHost: VolumeHost;
 }>;
@@ -2438,6 +2468,14 @@ export type CreatePublicKeyMutationVariables = Exact<{
 
 export type CreatePublicKeyMutation = {
   createPublicKey: Array<{ key: string; name: string }>;
+};
+
+export type DetachProjectFromRepoMutationVariables = Exact<{
+  projectId: Scalars["String"];
+}>;
+
+export type DetachProjectFromRepoMutation = {
+  detachProjectFromRepo: { id: string };
 };
 
 export type DetachVolumeFromHostMutationVariables = Exact<{
@@ -2834,6 +2872,23 @@ export type BuildBaronQuery = {
   };
 };
 
+export type GetBuildVariantStatsQueryVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type GetBuildVariantStatsQuery = {
+  version: {
+    id: string;
+    buildVariantStats?: Maybe<
+      Array<{
+        variant: string;
+        displayName: string;
+        statusCounts: Array<{ count: number; status: string }>;
+      }>
+    >;
+  };
+};
+
 export type GetBuildVariantsForTaskNameQueryVariables = Exact<{
   projectId: Scalars["String"];
   taskName: Scalars["String"];
@@ -2893,35 +2948,6 @@ export type BuildVariantsWithChildrenQuery = {
                     }>
                   >
                 >;
-              }>
-            >
-          >;
-        }>
-      >
-    >;
-  };
-};
-
-export type BuildVariantsQueryVariables = Exact<{
-  id: Scalars["String"];
-}>;
-
-export type BuildVariantsQuery = {
-  version: {
-    id: string;
-    buildVariants?: Maybe<
-      Array<
-        Maybe<{
-          variant: string;
-          displayName: string;
-          tasks?: Maybe<
-            Array<
-              Maybe<{
-                id: string;
-                execution: number;
-                status: string;
-                displayName: string;
-                baseStatus?: Maybe<string>;
               }>
             >
           >;

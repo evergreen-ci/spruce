@@ -84,7 +84,7 @@ describe("Dropdown Menu of Patch Actions", () => {
       .click({ force: true });
     cy.contains("generate-lint").click();
     cy.dataCy("restart-patch-button").click();
-    cy.dataCy("toast").should("exist");
+    cy.validateToast("success");
   });
 
   it("'Restart' link is disabled for unfinalized patch", () => {
