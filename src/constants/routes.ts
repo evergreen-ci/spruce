@@ -154,6 +154,21 @@ export const getPatchRoute = (
 
 export const getHostRoute = (hostId: string) => `${paths.host}/${hostId}`;
 
+interface GetAllHostsRouteOptions {
+  hostId?: string;
+  distroId?: string;
+  statuses?: string[];
+  currentTaskId?: string;
+}
+
+export const getAllHostsRoute = (options?: GetAllHostsRouteOptions) => {
+  const { ...rest } = options || {};
+  const queryParams = stringifyQuery({
+    ...rest,
+  });
+  return `${paths.hosts}?${queryParams}`;
+};
+
 interface GetTaskRouteOptions {
   tab?: TaskTab;
   [key: string]: any;
