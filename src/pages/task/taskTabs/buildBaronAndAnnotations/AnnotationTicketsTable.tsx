@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Icon, { Size } from "@leafygreen-ui/icon";
-import { Table, Popconfirm, Tooltip } from "antd";
+import { Table, Popconfirm, Tooltip, Skeleton } from "antd";
 import { useAnnotationAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { size } from "constants/tokens";
@@ -156,7 +156,7 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
     refetchQueries: ["GetSuspectedIssues", "GetIssues"],
   });
 
-  const onClickRemove = (url: string, issueKey: string) => {
+  const onClickRemove = (url: string, issueKey: string): void => {
     const apiIssue = {
       url,
       issueKey,
@@ -170,7 +170,7 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
     });
   };
 
-  const onClickMove = (url: string, issueKey: string) => {
+  const onClickMove = (url: string, issueKey: string): void => {
     const apiIssue = {
       url,
       issueKey,
@@ -198,14 +198,14 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
     }
   });
 
-  // if (loading) {
-  //   return (
-  //     <TableWrapper>
-  //       <Skeleton active title={false} />
-  //     </TableWrapper>
-  //   );
-  // }
-  return (
+  if (loading) {
+    return (
+      <TableWrapper>
+        <Skeleton active title={false} />
+      </TableWrapper>
+    );
+  }
+  return jiraIssues?.length > 0 ? (
     <TableWrapper>
       <Table
         tableLayout="fixed"
@@ -215,36 +215,16 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
         columns={columns}
         loading={loading}
         pagination={false}
-        // showHeader={false}
+        showHeader={false}
         rowSelection={{
-          renderCell: (checked, record) =>
+          renderCell: (_checked, record) =>
             record.issueKey === selectedRowKey && <span ref={rowRef} />,
           selectedRowKeys: [selectedRowKey],
           columnWidth: 0,
         }}
       />
     </TableWrapper>
-  );
-  // return jiraIssues?.length > 0 ? (
-  //   <TableWrapper>
-  //     <Table
-  //       tableLayout="fixed"
-  //       data-test-id={isIssue ? "issues-table" : "suspected-issues-table"}
-  //       dataSource={jiraIssues}
-  //       rowKey={({ issueKey }) => issueKey}
-  //       columns={columns}
-  //       loading={loading}
-  //       pagination={false}
-  //       showHeader={false}
-  //       rowSelection={{
-  //         renderCell: (checked, record) =>
-  //           record.issueKey === selectedRowKey && <span ref={rowRef} />,
-  //         selectedRowKeys: [selectedRowKey],
-  //         columnWidth: 0,
-  //       }}
-  //     />
-  //   </TableWrapper>
-  // ) : null;
+  ) : null;
 };
 
 // CREATED TICKETS
