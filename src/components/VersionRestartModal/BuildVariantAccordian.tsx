@@ -52,6 +52,7 @@ export const BuildVariantAccordian: React.FC<BuildVariantAccordianProps> = ({
     <AccordionWrapper data-cy="variant-accordion">
       <Accordion
         title={variantTitle}
+        titleTag={FlexContainer}
         contents={
           <TaskStatusCheckboxContainer
             versionId={versionId}
@@ -80,4 +81,9 @@ const countMatchingTasks = (
 
 const BadgeWrapper = styled("div")`
   padding-left: 10px;
+`;
+
+const FlexContainer = styled("div")`
+  display: flex;
+  flex-direction: row;
 `;
