@@ -127,8 +127,20 @@ export const getFormSchema = (
             properties: {
               defaultLogger: {
                 default: null,
-                type: ["string", ...insertIf(repoData, "null")],
-                enum: [...validDefaultLoggers, ...insertIf(repoData, null)],
+                type: [
+                  "string",
+                  ...insertIf(
+                    projectVariant === ProjectVariant.AttachedProject,
+                    "null"
+                  ),
+                ],
+                enum: [
+                  ...validDefaultLoggers,
+                  ...insertIf(
+                    projectVariant === ProjectVariant.AttachedProject,
+                    null
+                  ),
+                ],
               },
             },
           },
@@ -291,7 +303,7 @@ export const getFormSchema = (
           "ui:placeholder": repoData
             ? `Default to Repo (${repoData?.projectFlags?.logger?.defaultLogger})`
             : "Select Default Logger",
-          ...(!repoData && {
+          ...(projectVariant !== ProjectVariant.AttachedProject && {
             "ui:allowDeselect": false,
           }),
           "ui:ariaLabelledBy": "projectFlags_logger__title",

@@ -17,353 +17,354 @@ export const getFormSchema = (
   fields: Record<string, Field>;
   schema: SpruceFormProps["schema"];
   uiSchema: SpruceFormProps["uiSchema"];
-} => ({
-  fields: {},
-  schema: {
-    definitions: {
-      aliasArray: aliasArraySchema,
-    },
-    type: "object" as "object",
-    properties: {
-      github: {
-        type: "object" as "object",
-        title: "GitHub",
-        properties: {
-          gitHubWebhooksEnabled: {
-            type: "null",
-            title: "GitHub Webhooks",
-            description: `GitHub webhooks ${
-              gitHubWebhooksEnabled ? "are" : "are not"
-            } enabled.`,
-          },
-          prTestingEnabledTitle: {
-            type: "null",
-            title: "GitHub Pull Request Testing",
-            ...(projectVariant === ProjectVariant.Repo && {
+} => {
+  const overrideStyling = {
+    "ui:widget":
+      projectVariant === ProjectVariant.AttachedProject
+        ? widgets.RadioBoxWidget
+        : "hidden",
+    "ui:showLabel": false,
+  };
+
+  return {
+    fields: {},
+    schema: {
+      definitions: {
+        aliasArray: aliasArraySchema,
+      },
+      type: "object" as "object",
+      properties: {
+        github: {
+          type: "object" as "object",
+          title: "GitHub",
+          properties: {
+            gitHubWebhooksEnabled: {
+              type: "null",
+              title: "GitHub Webhooks",
+              description: `GitHub webhooks ${
+                gitHubWebhooksEnabled ? "are" : "are not"
+              } enabled.`,
+            },
+            prTestingEnabledTitle: {
+              type: "null",
+              title: "GitHub Pull Request Testing",
+              ...(projectVariant === ProjectVariant.Repo && {
+                description:
+                  "If enabled, then untracked branches will also use the file patterns defined here for PR testing.",
+              }),
+            },
+            prTestingEnabled: {
+              type: ["boolean", "null"],
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.github?.prTestingEnabled
+              ),
+            },
+            prTesting: {
+              type: "object" as "object",
+              title: "GitHub Patch Definitions",
               description:
-                "If enabled, then untracked branches will also use the file patterns defined here for PR testing.",
+                "For patches created from GitHub pull requests, Evergreen will schedule only the tasks and variants matching the tags/regex definitions. All regular expressions must be valid Golang regular expressions.",
+              ...overrideRadioBox(
+                "githubPrAliases",
+                [
+                  "Override Repo Patch Definition",
+                  "Default to Repo Patch Definition",
+                ],
+                {
+                  $ref: "#/definitions/aliasArray",
+                }
+              ),
+            },
+            githubChecksEnabledTitle: {
+              type: "null",
+              title: "GitHub Commit Checks",
+              description:
+                "Commits will send their status as a Github Check (the check will pass/fail based only on the tasks matching the tags/regexes definitions).",
+            },
+            githubChecksEnabled: {
+              type: ["boolean", "null"],
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.github?.githubChecksEnabled
+              ),
+            },
+            githubChecks: {
+              title: "Commit Check Definitions",
+              ...overrideRadioBox(
+                "githubCheckAliases",
+                ["Override Repo Definition", "Default to Repo Definition"],
+                {
+                  $ref: "#/definitions/aliasArray",
+                }
+              ),
+            },
+            gitTagVersionsTitle: {
+              type: "null",
+              title: "Trigger Versions With Git Tags",
+            },
+            gitTagVersionsEnabled: {
+              type: ["boolean", "null"],
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.github?.gitTagVersionsEnabled
+              ),
+            },
+            users: {
+              title: "Authorized Users",
+              description:
+                "MANA entitlements may also be used to manage this authorization.",
+              ...overrideRadioBox(
+                "gitTagAuthorizedUsers",
+                ["Override Repo Users", "Default to Repo Users"],
+                {
+                  type: ["array", "null"],
+                  items: {
+                    type: "string" as "string",
+                    title: "Username",
+                    default: "",
+                  },
+                }
+              ),
+            },
+            teams: {
+              title: "Authorized Teams",
+              description:
+                "This should be the team slug, i.e. the team name with dashes instead of spaces. For example, the team Evergreen Users would be evergreen-users. MANA entitlements may also be used to manage this authorization.",
+              ...overrideRadioBox(
+                "gitTagAuthorizedTeams",
+                ["Override Repo Teams", "Default to Repo Teams"],
+                {
+                  type: ["array", "null"],
+                  items: {
+                    type: "string" as "string",
+                    title: "Team",
+                    default: "",
+                  },
+                }
+              ),
+            },
+            gitTagVersions: {
+              type: "null",
+              title: "Git Tag Version Definitions",
+              description: "TODO: EVG-16117",
+            },
+          },
+        },
+        commitQueue: {
+          type: "object" as "object",
+          title: "Commit Queue",
+          properties: {
+            enabled: {
+              type: ["boolean", "null"],
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.commitQueue?.enabled
+              ),
+            },
+            requireSigned: {
+              type: ["boolean", "null"],
+              title: "Require Signed Commits on Pull Request Merges",
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.commitQueue?.requireSigned
+              ),
+            },
+            message: {
+              type: "string" as "string",
+              title: "Commit Queue Message",
+            },
+            mergeMethod: {
+              type: ["string"],
+              title: "Merge Method",
+              oneOf: [
+                {
+                  type: "string" as "string",
+                  title: "Squash",
+                  enum: ["squash"],
+                },
+                {
+                  type: "string" as "string",
+                  title: "Merge",
+                  enum: ["merge"],
+                },
+                {
+                  type: "string" as "string",
+                  title: "Rebase",
+                  enum: ["rebase"],
+                },
+                ...insertIf(projectVariant === ProjectVariant.AttachedProject, {
+                  type: "string" as "string",
+                  title: `Default to Repo (${repoData?.commitQueue?.mergeMethod})`,
+                  enum: [""],
+                }),
+              ],
+            },
+            patchDefinitions: {
+              type: "object" as "object",
+              title: "Commit Queue Patch Definitions",
+              description:
+                "Changes on the Commit Queue are tested with all variants and tasks that match each variant and task regex pair.",
+              ...overrideRadioBox(
+                "commitQueueAliases",
+                [
+                  "Override Repo Patch Definition",
+                  "Default to Repo Patch Definition",
+                ],
+                {
+                  $ref: "#/definitions/aliasArray",
+                }
+              ),
+            },
+          },
+        },
+      },
+    },
+    uiSchema: {
+      github: {
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
+        prTestingEnabledTitle: {
+          "ui:sectionTitle": true,
+        },
+        prTestingEnabled: {
+          "ui:showLabel": false,
+          "ui:widget": widgets.RadioBoxWidget,
+        },
+        prTesting: {
+          ...hideIf(
+            formData?.github?.prTestingEnabled,
+            repoData?.github?.prTestingEnabled
+          ),
+          githubPrAliasesOverride: {
+            "ui:data-cy": "pr-testing-override-radio-box",
+            ...overrideStyling,
+          },
+          githubPrAliases: {
+            ...aliasRowUiSchema({
+              addButtonText: "Add Patch Definition",
+              accordionTitle: "Patch Definition",
             }),
           },
-          prTestingEnabled: {
-            type: ["boolean", "null"],
-            oneOf: radioBoxOptions(
-              ["Enabled", "Disabled"],
-              repoData?.github?.prTestingEnabled
-            ),
+          repoData: {
+            githubPrAliases: {
+              ...aliasRowUiSchema({
+                accordionTitle: "Patch Definition",
+                isRepo: true,
+              }),
+            },
           },
-          prTesting: {
-            type: "object" as "object",
-            title: "GitHub Patch Definitions",
-            description:
-              "For patches created from GitHub pull requests, Evergreen will schedule only the tasks and variants matching the tags/regex definitions. All regular expressions must be valid Golang regular expressions.",
-            ...overrideRadioBox(
-              "githubPrAliases",
-              [
-                "Override Repo Patch Definition",
-                "Default to Repo Patch Definition",
-              ],
-              {
-                $ref: "#/definitions/aliasArray",
-              }
-            ),
+        },
+        githubChecksEnabledTitle: {
+          "ui:sectionTitle": true,
+        },
+        githubChecksEnabled: {
+          "ui:showLabel": false,
+          "ui:widget": widgets.RadioBoxWidget,
+        },
+        githubChecks: {
+          ...hideIf(
+            formData?.github?.githubChecksEnabled,
+            repoData?.github?.githubChecksEnabled
+          ),
+          githubCheckAliasesOverride: overrideStyling,
+          githubCheckAliases: {
+            ...aliasRowUiSchema({
+              addButtonText: "Add Definition",
+              accordionTitle: "Commit Check Definition",
+            }),
           },
-          githubChecksEnabledTitle: {
-            type: "null",
-            title: "GitHub Commit Checks",
-            description:
-              "Commits will send their status as a Github Check (the check will pass/fail based only on the tasks matching the tags/regexes definitions).",
+          repoData: {
+            githubCheckAliases: {
+              ...aliasRowUiSchema({
+                accordionTitle: "Commit Check Definition",
+                isRepo: true,
+              }),
+            },
           },
-          githubChecksEnabled: {
-            type: ["boolean", "null"],
-            oneOf: radioBoxOptions(
-              ["Enabled", "Disabled"],
-              repoData?.github?.githubChecksEnabled
-            ),
-          },
-          githubChecks: {
-            title: "Commit Check Definitions",
-            ...overrideRadioBox(
-              "githubCheckAliases",
-              ["Override Repo Definition", "Default to Repo Definition"],
-              {
-                $ref: "#/definitions/aliasArray",
-              }
-            ),
-          },
-          gitTagVersionsTitle: {
-            type: "null",
-            title: "Trigger Versions With Git Tags",
-          },
-          gitTagVersionsEnabled: {
-            type: ["boolean", "null"],
-            oneOf: radioBoxOptions(
-              ["Enabled", "Disabled"],
-              repoData?.github?.gitTagVersionsEnabled
-            ),
-          },
-          users: {
-            title: "Authorized Users",
-            description:
-              "MANA entitlements may also be used to manage this authorization.",
-            ...overrideRadioBox(
-              "gitTagAuthorizedUsers",
-              ["Override Repo Users", "Default to Repo Users"],
-              {
-                type: ["array", "null"],
-                items: {
-                  type: "string" as "string",
-                  title: "Username",
-                  default: "",
-                },
-              }
-            ),
-          },
-          teams: {
-            title: "Authorized Teams",
-            description:
-              "This should be the team slug, i.e. the team name with dashes instead of spaces. For example, the team Evergreen Users would be evergreen-users. MANA entitlements may also be used to manage this authorization.",
-            ...overrideRadioBox(
-              "gitTagAuthorizedTeams",
-              ["Override Repo Teams", "Default to Repo Teams"],
-              {
-                type: ["array", "null"],
-                items: {
-                  type: "string" as "string",
-                  title: "Team",
-                  default: "",
-                },
-              }
-            ),
-          },
-          gitTagVersions: {
-            type: "null",
-            title: "Git Tag Version Definitions",
-            description: "TODO: EVG-16117",
-          },
+        },
+        gitTagVersionsTitle: {
+          "ui:sectionTitle": true,
+        },
+        gitTagVersionsEnabled: {
+          "ui:showLabel": false,
+          "ui:widget": widgets.RadioBoxWidget,
+        },
+        users: {
+          ...userTeamStyling(
+            "gitTagAuthorizedUsers",
+            "Add User",
+            repoData?.github?.users?.gitTagAuthorizedUsers === undefined,
+            formData?.github?.gitTagVersionsEnabled,
+            repoData?.github?.gitTagVersionsEnabled
+          ),
+        },
+        teams: {
+          ...userTeamStyling(
+            "gitTagAuthorizedTeams",
+            "Add Team",
+            repoData?.github?.teams?.gitTagAuthorizedTeams === undefined,
+            formData?.github?.gitTagVersionsEnabled,
+            repoData?.github?.gitTagVersionsEnabled
+          ),
         },
       },
       commitQueue: {
-        type: "object" as "object",
-        title: "Commit Queue",
-        properties: {
-          enabled: {
-            type: ["boolean", "null"],
-            oneOf: radioBoxOptions(
-              ["Enabled", "Disabled"],
-              repoData?.commitQueue?.enabled
-            ),
-          },
-          requireSigned: {
-            type: ["boolean", "null"],
-            title: "Require Signed Commits on Pull Request Merges",
-            oneOf: radioBoxOptions(
-              ["Enabled", "Disabled"],
-              repoData?.commitQueue?.requireSigned
-            ),
-          },
-          message: {
-            type: "string" as "string",
-            title: "Commit Queue Message",
-          },
-          mergeMethod: {
-            type: ["string"],
-            title: "Merge Method",
-            oneOf: [
-              {
-                type: "string" as "string",
-                title: "Squash",
-                enum: ["squash"],
-              },
-              {
-                type: "string" as "string",
-                title: "Merge",
-                enum: ["merge"],
-              },
-              {
-                type: "string" as "string",
-                title: "Rebase",
-                enum: ["rebase"],
-              },
-              ...insertIf(repoData, {
-                type: "string" as "string",
-                title: `Default to Repo (${repoData?.commitQueue?.mergeMethod})`,
-                enum: [""],
-              }),
-            ],
-          },
-          patchDefinitions: {
-            type: "object" as "object",
-            title: "Commit Queue Patch Definitions",
-            description:
-              "Changes on the Commit Queue are tested with all variants and tasks that match each variant and task regex pair.",
-            ...overrideRadioBox(
-              "commitQueueAliases",
-              [
-                "Override Repo Patch Definition",
-                "Default to Repo Patch Definition",
-              ],
-              {
-                $ref: "#/definitions/aliasArray",
-              }
-            ),
-          },
+        "ui:ObjectFieldTemplate": CardFieldTemplate,
+        "ui:data-cy": "cq-card",
+        enabled: {
+          "ui:showLabel": false,
+          "ui:widget": widgets.RadioBoxWidget,
+          "ui:data-cy": "cq-enabled-radio-box",
         },
-      },
-    },
-  },
-  uiSchema: {
-    github: {
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      prTestingEnabledTitle: {
-        "ui:sectionTitle": true,
-      },
-      prTestingEnabled: {
-        "ui:showLabel": false,
-        "ui:widget": widgets.RadioBoxWidget,
-      },
-      prTesting: {
-        ...hideIf(
-          formData?.github?.prTestingEnabled,
-          repoData?.github?.prTestingEnabled
-        ),
-        githubPrAliasesOverride: {
-          "ui:data-cy": "pr-testing-override-radio-box",
-          ...overrideStyling(
-            repoData?.github?.prTesting?.githubPrAliases === undefined
+        requireSigned: {
+          "ui:widget": widgets.RadioBoxWidget,
+          ...(formData?.commitQueue?.enabled === false && { "ui:hide": true }),
+        },
+        message: {
+          "ui:description": "Shown in commit queue CLI commands & web UI",
+          "ui:data-cy": "cq-message-input",
+          ...placeholderIf(repoData?.commitQueue?.message),
+          ...hideIf(
+            formData?.commitQueue?.enabled,
+            repoData?.commitQueue?.enabled
           ),
         },
-        githubPrAliases: {
-          ...aliasRowUiSchema({
-            addButtonText: "Add Patch Definition",
-            accordionTitle: "Patch Definition",
-          }),
-        },
-        repoData: {
-          githubPrAliases: {
-            ...aliasRowUiSchema({
-              accordionTitle: "Patch Definition",
-              isRepo: true,
-            }),
-          },
-        },
-      },
-      githubChecksEnabledTitle: {
-        "ui:sectionTitle": true,
-      },
-      githubChecksEnabled: {
-        "ui:showLabel": false,
-        "ui:widget": widgets.RadioBoxWidget,
-      },
-      githubChecks: {
-        ...hideIf(
-          formData?.github?.githubChecksEnabled,
-          repoData?.github?.githubChecksEnabled
-        ),
-        githubCheckAliasesOverride: {
-          ...overrideStyling(
-            repoData?.github?.githubChecks?.githubCheckAliases === undefined
+        mergeMethod: {
+          "ui:allowDeselect": false,
+          "ui:data-cy": "merge-method-select",
+          ...hideIf(
+            formData?.commitQueue?.enabled,
+            repoData?.commitQueue?.enabled
           ),
         },
-        githubCheckAliases: {
-          ...aliasRowUiSchema({
-            addButtonText: "Add Definition",
-            accordionTitle: "Commit Check Definition",
-          }),
-        },
-        repoData: {
-          githubCheckAliases: {
-            ...aliasRowUiSchema({
-              accordionTitle: "Commit Check Definition",
-              isRepo: true,
-            }),
-          },
-        },
-      },
-      gitTagVersionsTitle: {
-        "ui:sectionTitle": true,
-      },
-      gitTagVersionsEnabled: {
-        "ui:showLabel": false,
-        "ui:widget": widgets.RadioBoxWidget,
-      },
-      users: {
-        ...userTeamStyling(
-          "gitTagAuthorizedUsers",
-          "Add User",
-          repoData?.github?.users?.gitTagAuthorizedUsers === undefined,
-          formData?.github?.gitTagVersionsEnabled,
-          repoData?.github?.gitTagVersionsEnabled
-        ),
-      },
-      teams: {
-        ...userTeamStyling(
-          "gitTagAuthorizedTeams",
-          "Add Team",
-          repoData?.github?.teams?.gitTagAuthorizedTeams === undefined,
-          formData?.github?.gitTagVersionsEnabled,
-          repoData?.github?.gitTagVersionsEnabled
-        ),
-      },
-    },
-    commitQueue: {
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      "ui:data-cy": "cq-card",
-      enabled: {
-        "ui:showLabel": false,
-        "ui:widget": widgets.RadioBoxWidget,
-        "ui:data-cy": "cq-enabled-radio-box",
-      },
-      requireSigned: {
-        "ui:widget": widgets.RadioBoxWidget,
-        ...(formData?.commitQueue?.enabled === false && { "ui:hide": true }),
-      },
-      message: {
-        "ui:description": "Shown in commit queue CLI commands & web UI",
-        "ui:data-cy": "cq-message-input",
-        ...placeholderIf(repoData?.commitQueue?.message),
-        ...hideIf(
-          formData?.commitQueue?.enabled,
-          repoData?.commitQueue?.enabled
-        ),
-      },
-      mergeMethod: {
-        "ui:allowDeselect": false,
-        "ui:data-cy": "merge-method-select",
-        ...hideIf(
-          formData?.commitQueue?.enabled,
-          repoData?.commitQueue?.enabled
-        ),
-      },
-      patchDefinitions: {
-        ...hideIf(
-          formData?.commitQueue?.enabled,
-          repoData?.commitQueue?.enabled
-        ),
-        commitQueueAliasesOverride: {
-          "ui:data-cy": "cq-override-radio-box",
-          ...overrideStyling(
-            repoData?.commitQueue?.patchDefinitions?.commitQueueAliases ===
-              undefined
+        patchDefinitions: {
+          ...hideIf(
+            formData?.commitQueue?.enabled,
+            repoData?.commitQueue?.enabled
           ),
-        },
-        commitQueueAliases: {
-          ...aliasRowUiSchema({
-            addButtonText: "Add Patch Definition",
-            accordionTitle: "Patch Definition",
-          }),
-        },
-        repoData: {
+          commitQueueAliasesOverride: {
+            "ui:data-cy": "cq-override-radio-box",
+            ...overrideStyling,
+          },
           commitQueueAliases: {
             ...aliasRowUiSchema({
+              addButtonText: "Add Patch Definition",
               accordionTitle: "Patch Definition",
-              isRepo: true,
             }),
+          },
+          repoData: {
+            commitQueueAliases: {
+              ...aliasRowUiSchema({
+                accordionTitle: "Patch Definition",
+                isRepo: true,
+              }),
+            },
           },
         },
       },
     },
-  },
-});
+  };
+};
 
 const hideIf = (field: boolean | null, repoField: boolean | null) =>
   (field === false || (field === null && repoField === false)) && {

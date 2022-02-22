@@ -1,4 +1,4 @@
-import { AliasType } from "../utils";
+import { AliasType, ProjectVariant } from "../utils";
 
 export interface FormState {
   patchAliases: {
@@ -9,5 +9,6 @@ export interface FormState {
 
 export type TabProps = {
   projectData?: FormState;
+  projectVariant: ProjectVariant;
   repoData?: FormState;
 };

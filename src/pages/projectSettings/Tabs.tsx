@@ -124,6 +124,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           <PluginsTab
             {...props}
             projectData={tabData[ProjectSettingsTabRoutes.Plugins].projectData}
+            projectVariant={projectVariant}
             repoData={tabData[ProjectSettingsTabRoutes.Plugins].repoData}
           />
         )}
@@ -137,6 +138,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
             projectData={
               tabData[ProjectSettingsTabRoutes.Notifications].projectData
             }
+            projectVariant={projectVariant}
             repoData={tabData[ProjectSettingsTabRoutes.Notifications].repoData}
           />
         )}
@@ -149,6 +151,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
             projectData={
               tabData[ProjectSettingsTabRoutes.PatchAliases].projectData
             }
+            projectVariant={projectVariant}
             repoData={tabData[ProjectSettingsTabRoutes.PatchAliases].repoData}
           />
         )}

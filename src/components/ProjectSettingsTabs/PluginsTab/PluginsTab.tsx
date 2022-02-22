@@ -2,12 +2,17 @@ import { useMemo } from "react";
 import { SpruceForm } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { usePopulateForm, useProjectSettingsContext } from "../Context";
+import { ProjectVariant } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.Plugins;
 
-export const PluginsTab: React.FC<TabProps> = ({ projectData, repoData }) => {
+export const PluginsTab: React.FC<TabProps> = ({
+  projectData,
+  projectVariant,
+  repoData,
+}) => {
   const { getTab, updateForm } = useProjectSettingsContext();
   const { formData } = getTab(tab);
 
@@ -17,8 +22,12 @@ export const PluginsTab: React.FC<TabProps> = ({ projectData, repoData }) => {
   const onChange = updateForm(tab);
 
   const { fields, schema, uiSchema } = useMemo(
-    () => getFormSchema(repoData, formData),
-    [repoData, formData]
+    () =>
+      getFormSchema(
+        projectVariant === ProjectVariant.AttachedProject ? repoData : null,
+        formData
+      ),
+    [projectVariant, repoData, formData]
   );
 
   if (!formData) return null;

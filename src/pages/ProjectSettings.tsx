@@ -110,7 +110,6 @@ export const ProjectSettings: React.FC = () => {
   const hasData = projectData
     ? projectVariant === ProjectVariant.Project || repoData
     : repoData;
-  console.log(repoData);
 
   return (
     <ProjectSettingsProvider>

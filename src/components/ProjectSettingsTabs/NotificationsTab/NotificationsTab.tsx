@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { SpruceForm } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { usePopulateForm, useProjectSettingsContext } from "../Context";
+import { ProjectVariant } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { TabProps } from "./types";
 
@@ -9,6 +10,7 @@ const tab = ProjectSettingsTabRoutes.Notifications;
 
 export const NotificationsTab: React.FC<TabProps> = ({
   projectData,
+  projectVariant,
   repoData,
 }) => {
   const { getTab, updateForm } = useProjectSettingsContext();
@@ -19,9 +21,13 @@ export const NotificationsTab: React.FC<TabProps> = ({
 
   const onChange = updateForm(tab);
 
-  const { fields, schema, uiSchema } = useMemo(() => getFormSchema(repoData), [
-    repoData,
-  ]);
+  const { fields, schema, uiSchema } = useMemo(
+    () =>
+      getFormSchema(
+        projectVariant === ProjectVariant.AttachedProject ? repoData : null
+      ),
+    [projectVariant, repoData]
+  );
   if (!formData) return null;
 
   return (

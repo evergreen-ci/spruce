@@ -1,3 +1,5 @@
+import { ProjectVariant } from "../utils";
+
 export interface FormState {
   performanceSettings: {
     perfEnabled: boolean | null;
@@ -25,5 +27,6 @@ export interface FormState {
 
 export type TabProps = {
   projectData?: FormState;
+  projectVariant: ProjectVariant;
   repoData?: FormState;
 };
