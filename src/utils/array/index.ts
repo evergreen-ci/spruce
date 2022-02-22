@@ -104,7 +104,9 @@ export const toArray = <T>(value: T | T[]): T[] => {
   return value === undefined ? [] : [value];
 };
 
-/** arrayIntersection takes in two arrays and returns the intersecting elements of the two arrays */
+/** arrayIntersection takes in two arrays and returns the intersecting elements of the two arrays
+ * @example arrayIntersection([1, 2, 3], [2, 3, 4]) // [2, 3]
+ */
 export const arrayIntersection = <T>(a: T[], b: T[]) => {
   if (typeof a[0] === "object" || typeof b[0] === "object") {
     throw new TypeError("arrayIntersection does not support objects");
@@ -116,7 +118,7 @@ export const arrayIntersection = <T>(a: T[], b: T[]) => {
 };
 
 /** arraySymmetricDifference takes in two arrays and returns only the elements not in common between the two arrays
- * ie: the opposite of arrayIntersection
+ * @example arraySymmetricDifference([1, 2, 3], [2, 3, 4]) // [1, 4]
  */
 export const arraySymmetricDifference = <T>(a: T[], b: T[]) => {
   if (typeof a[0] === "object" || typeof b[0] === "object") {
@@ -129,7 +131,9 @@ export const arraySymmetricDifference = <T>(a: T[], b: T[]) => {
   return difference;
 };
 
-/* arraySetDifference returns the elements in a that are not in b */
+/** arraySetDifference returns the elements in a that are not in b
+ * @example arraySetDifference([1, 2, 3], [2, 3, 4]) // [1]
+ */
 export const arraySetDifference = <T>(a: T[], b: T[]) => {
   if (typeof a[0] === "object" || typeof b[0] === "object") {
     throw new TypeError("arraySetDifference does not support objects");
@@ -140,9 +144,12 @@ export const arraySetDifference = <T>(a: T[], b: T[]) => {
   return difference;
 };
 
-// sort function type
-export type SortFunction<T> = (a: T, b: T) => number;
+type SortFunction<T> = (a: T, b: T) => number;
 
+/** arrayUnion takes in two arrays and returns the union of the two arrays it also takes in an optional sort function
+ * @example arrayUnion([1, 2, 3], [2, 3, 4]) // [1, 2, 3, 4]
+ * @example arrayUnion([1, 2, 3], [2, 3, 4], (a, b) => b - a) // [4, 3, 2, 1]
+ */
 export const arrayUnion = <T>(a: T[], b: T[], sort?: SortFunction<T>) => {
   if (typeof a[0] === "object" || typeof b[0] === "object") {
     throw new TypeError("arrayUnion does not support objects");
