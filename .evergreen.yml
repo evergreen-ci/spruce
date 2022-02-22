@@ -302,9 +302,22 @@ functions:
       working_dir: spruce
       script: |
         PREVIOUS_VERSION=$(git describe --tags  --abbrev=0  `git rev-list --tags --max-count=1 --skip=1`)
-        BODY=$(git log --no-merges $PREVIOUS_VERSION..HEAD --pretty="format:%s (%h)")
+        git log --no-merges $PREVIOUS_VERSION..HEAD --pretty="format:%s (%h)" > body.txt
+        sed -i ':a;N;$!ba;s/\n/<br \/>/g' body.txt
+        BODY_HTML=$(cat body.txt)
         DATE=$(date +'%m/%d/%Y')
-        ~/evergreen -c .evergreen.yml notify email -f ${author_email} -r ${REACT_APP_DEPLOYS_EMAIL} -s "$DATE Spruce Deploy ${task_name}" -b "$BODY"
+        COMMAND="evergreen -c ~/.evergreen.yml notify email -f ${author_email} -r ${REACT_APP_DEPLOYS_EMAIL} -s "
+        COMMAND+="'"
+        COMMAND+="$DATE"
+        COMMAND+=" Spruce Deploy ${task_name}"
+        COMMAND+="'"
+        COMMAND+=" -b"
+        COMMAND+=" '"
+        COMMAND+="$BODY_HTML"
+        COMMAND+="'"
+        echo $COMMAND
+        eval $COMMAND
+        rm body.txt
 
 
 #######################################
