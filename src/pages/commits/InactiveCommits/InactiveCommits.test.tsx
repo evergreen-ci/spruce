@@ -34,9 +34,9 @@ describe("inactiveCommitButton", () => {
     );
   });
 
-  it("should show all inactive commits if there are 5 or less commits", async () => {
+  it("should show all inactive commits if there are 3 or less commits", async () => {
     const { queryByDataCy, queryAllByDataCy } = render(
-      RenderInactiveCommitButton(versions.slice(0, 4))
+      RenderInactiveCommitButton(versions.slice(0, 2))
     );
 
     expect(queryByDataCy("inactive-commits-tooltip")).toBeNull();
@@ -44,10 +44,10 @@ describe("inactiveCommitButton", () => {
     await waitFor(() =>
       expect(queryByDataCy("inactive-commits-tooltip")).toBeVisible()
     );
-    expect(queryAllByDataCy("commit-text")).toHaveLength(4);
+    expect(queryAllByDataCy("commit-text")).toHaveLength(2);
     expect(queryByDataCy("hidden-commits")).toBeNull();
   });
-  it("should collapse some commits if there are more then 5", async () => {
+  it("should collapse commits if there are more than 3", async () => {
     const { queryByDataCy, queryAllByDataCy } = render(
       RenderInactiveCommitButton(versions)
     );
@@ -57,7 +57,7 @@ describe("inactiveCommitButton", () => {
     await waitFor(() =>
       expect(queryByDataCy("inactive-commits-tooltip")).toBeVisible()
     );
-    expect(queryAllByDataCy("commit-text")).toHaveLength(5);
+    expect(queryAllByDataCy("commit-text")).toHaveLength(3);
     expect(queryByDataCy("hidden-commits")).toBeInTheDocument();
   });
 

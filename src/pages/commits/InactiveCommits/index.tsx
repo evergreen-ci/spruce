@@ -92,7 +92,7 @@ const getCommitCopy = (v: CommitRolledUpVersions[0]) => (
       {shortenGithash(v.revision)} — {getDateCopy(v.createTime)}
     </CommitTitleText>
     <CommitBodyText>
-      {v.author} - {trimStringFromMiddle(v.message, 120)} (#{v.order})
+      {v.author} - {trimStringFromMiddle(v.message, 100)} (#{v.order})
     </CommitBodyText>
   </>
 );
