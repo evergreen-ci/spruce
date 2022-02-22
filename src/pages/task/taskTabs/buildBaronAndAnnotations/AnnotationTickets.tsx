@@ -19,6 +19,17 @@ import { AddIssueModal } from "./AddIssueModal";
 import { AnnotationTicketsTable } from "./AnnotationTicketsTable";
 import { TicketsTitle, TitleAndButtons } from "./BBComponents";
 
+interface AnnotationTicketsProps {
+  taskId: string;
+  execution: number;
+  tickets: IssueLink[];
+  isIssue: boolean;
+  userCanModify: boolean;
+  selectedRowKey: string;
+  setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
+  loading: boolean;
+}
+
 const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
   tickets,
   taskId,
@@ -180,17 +191,6 @@ export const SuspectedIssues: React.FC<SuspectedIssuesProps> = ({
     />
   );
 };
-
-interface AnnotationTicketsProps {
-  taskId: string;
-  execution: number;
-  tickets: IssueLink[];
-  isIssue: boolean;
-  userCanModify: boolean;
-  selectedRowKey: string;
-  setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
-  loading: boolean;
-}
 
 const StyledButton = styled(PlusButton)`
   margin: ${size.xs} 0;
