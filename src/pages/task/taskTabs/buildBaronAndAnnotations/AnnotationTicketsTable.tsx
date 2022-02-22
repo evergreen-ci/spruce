@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
@@ -216,7 +216,7 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
         pagination={false}
         showHeader={false}
         rowSelection={{
-          renderCell: (_checked, record) =>
+          renderCell: (checked, record) =>
             record.issueKey === selectedRowKey && <span ref={rowRef} />,
           selectedRowKeys: [selectedRowKey],
           columnWidth: 0,
