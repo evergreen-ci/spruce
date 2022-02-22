@@ -213,7 +213,6 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
         dataSource={jiraIssues}
         rowKey={({ issueKey }) => issueKey}
         columns={columns}
-        loading={loading}
         pagination={false}
         showHeader={false}
         rowSelection={{
