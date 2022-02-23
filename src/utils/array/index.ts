@@ -111,9 +111,8 @@ export const arrayIntersection = <T>(a: T[], b: T[]) => {
   if (typeof a[0] === "object" || typeof b[0] === "object") {
     throw new TypeError("arrayIntersection does not support objects");
   }
-  const setA = new Set(a);
   const setB = new Set(b);
-  const intersection = Array.from(setA).filter((x) => setB.has(x));
+  const intersection = a.filter((x) => setB.has(x));
   return intersection;
 };
 
@@ -126,8 +125,10 @@ export const arraySymmetricDifference = <T>(a: T[], b: T[]) => {
   }
   const setA = new Set(a);
   const setB = new Set(b);
-  let difference = Array.from(setA).filter((x) => !setB.has(x));
-  difference = difference.concat(Array.from(setB).filter((x) => !setA.has(x)));
+  const difference = Array.from(
+    new Set(a.concat(b).filter((x) => !setA.has(x) || !setB.has(x)))
+  );
+
   return difference;
 };
 
@@ -138,9 +139,8 @@ export const arraySetDifference = <T>(a: T[], b: T[]) => {
   if (typeof a[0] === "object" || typeof b[0] === "object") {
     throw new TypeError("arraySetDifference does not support objects");
   }
-  const setA = new Set(a);
   const setB = new Set(b);
-  const difference = Array.from(setA).filter((x) => !setB.has(x));
+  const difference = a.filter((x) => !setB.has(x));
   return difference;
 };
 
@@ -155,9 +155,9 @@ export const arrayUnion = <T>(a: T[], b: T[], sort?: SortFunction<T>) => {
     throw new TypeError("arrayUnion does not support objects");
   }
 
-  const difference = Array.from(new Set([...a, ...b]));
+  const union = Array.from(new Set([...a, ...b]));
   if (sort) {
-    return difference.sort(sort);
+    return union.sort(sort);
   }
-  return difference;
+  return union;
 };
