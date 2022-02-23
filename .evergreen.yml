@@ -411,7 +411,6 @@ buildvariants:
       git_tag_only: true
       patchable: false
       priority: 100
-    - name: send_email
 
 post:
   - func: attach-results
