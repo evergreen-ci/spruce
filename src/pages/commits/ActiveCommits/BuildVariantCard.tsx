@@ -69,15 +69,14 @@ const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
     <VariantTasks>
       {stats.map(
         ({ umbrellaStatus, count, statusCounts: groupedStatusCounts }) => (
-          <>
-            <GroupedTaskStatusBadge
-              variant={variant}
-              versionId={versionId}
-              status={umbrellaStatus}
-              count={count}
-              statusCounts={groupedStatusCounts}
-            />
-          </>
+          <GroupedTaskStatusBadge
+            variant={variant}
+            versionId={versionId}
+            status={umbrellaStatus}
+            count={count}
+            statusCounts={groupedStatusCounts}
+            key={`${versionId}_${variant}_${umbrellaStatus}`}
+          />
         )
       )}
     </VariantTasks>
