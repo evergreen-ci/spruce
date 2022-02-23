@@ -87,8 +87,8 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
 
   const { baseTask, versionMetadata, buildVariant, displayName } =
     taskData?.task ?? {};
-  const { projectIdentifier, order } = versionMetadata?.baseVersion ?? {};
-  const skipOrderNumber = versionMetadata?.isPatch ? order + 1 : order;
+  const { projectIdentifier, order: skipOrderNumber } =
+    versionMetadata?.baseVersion ?? {};
   const bvOptionsBase = {
     tasks: [applyStrictRegex(displayName)],
     variants: [applyStrictRegex(buildVariant)],
@@ -157,10 +157,10 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
           dispatch({ type: "setSelectState", selectState: v })
         }
         value={selectState}
-        disabled={!versionMetadata?.baseVersion}
+        disabled={!versionMetadata.baseVersion}
       >
         <Option value={CommitType.Base}>
-          Go to {versionMetadata?.isPatch ? "base commit" : "parent commit"}
+          Go to {versionMetadata.isPatch ? "base commit" : "parent commit"}
         </Option>
         <Option value={CommitType.LastPassing}>
           Go to last passing version
