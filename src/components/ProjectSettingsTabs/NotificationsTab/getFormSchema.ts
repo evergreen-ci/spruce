@@ -3,22 +3,18 @@ import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { form } from "../utils";
-import { DefaultSubscriptionsField } from "./Fields/DefaultSubscriptionsField";
 import { FormState } from "./types";
 
 const { radioBoxOptions } = form;
 
 export const getFormSchema = (
-  useRepoSettings: boolean,
   repoData?: FormState
 ): {
   fields: Record<string, Field>;
   schema: SpruceFormProps["schema"];
   uiSchema: SpruceFormProps["uiSchema"];
 } => ({
-  fields: {
-    defaultSubscriptionsField: DefaultSubscriptionsField,
-  },
+  fields: {},
   schema: {
     type: "object" as "object",
     properties: {
@@ -67,8 +63,6 @@ export const getFormSchema = (
     defaultSubscriptions: {
       defaultToRepo: {
         "ui:addButtonText": "Add New Subscription",
-        "ui:field": "defaultSubscriptionsField",
-        options: { useRepoSettings },
       },
     },
   },

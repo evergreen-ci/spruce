@@ -1,3 +1,5 @@
+import { ProjectType } from "../utils";
+
 export interface FormState {
   buildBreakSettings: {
     notifyOnBuildFailure: boolean | null;
@@ -6,7 +8,7 @@ export interface FormState {
 
 export type TabProps = {
   projectData?: FormState;
+  projectType: ProjectType;
   repoData?: FormState;
-  useRepoSettings: boolean;
   id?: string;
 };
