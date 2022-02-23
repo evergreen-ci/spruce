@@ -5,14 +5,9 @@ import {
   useIsAnyTabUnsaved,
   useProjectSettingsContext,
 } from "./Context";
-
-const DEBOUNCE_MS = 400;
+import { TabDataProps } from "./types";
 
 describe("projectSettingsContext", () => {
-  afterEach(() => {
-    jest.useRealTimers();
-  });
-
   it("ensure that tabs are initially saved", async () => {
     const { result } = renderHook(() => useIsAnyTabUnsaved(), {
       wrapper: ProjectSettingsProvider,
@@ -21,7 +16,7 @@ describe("projectSettingsContext", () => {
   });
 
   it("updating the form state unsaves the tab", async () => {
-    const { result } = renderHook(
+    const { result, waitForNextUpdate } = renderHook(
       () => ({
         projectSettings: useProjectSettingsContext(),
         tabUnsaved: useIsAnyTabUnsaved(),
@@ -32,16 +27,15 @@ describe("projectSettingsContext", () => {
     );
 
     act(() => {
-      result.current.projectSettings.setInitialData(
-        ProjectSettingsTabRoutes.Variables,
-        {
-          vars: [],
-        }
-      );
+      result.current.projectSettings.setInitialData({
+        [ProjectSettingsTabRoutes.Variables]: {
+          projectData: { vars: [] },
+          repoData: null,
+        },
+      } as TabDataProps);
     });
 
-    jest.useFakeTimers("modern");
-    await act(async () => {
+    act(() => {
       result.current.projectSettings.updateForm(
         ProjectSettingsTabRoutes.Variables
       )({
@@ -57,15 +51,15 @@ describe("projectSettingsContext", () => {
         },
         errors: [],
       });
-      jest.advanceTimersByTime(DEBOUNCE_MS);
     });
 
+    await waitForNextUpdate();
     expect(result.current.tabUnsaved.hasUnsaved).toBe(true);
     expect(result.current.tabUnsaved.unsavedTabs).toStrictEqual(["variables"]);
   });
 
   it("updating the form state with identical data does not unsave the tab", async () => {
-    const { result } = renderHook(
+    const { result, waitForNextUpdate } = renderHook(
       () => ({
         projectSettings: useProjectSettingsContext(),
         tabUnsaved: useIsAnyTabUnsaved(),
@@ -76,23 +70,24 @@ describe("projectSettingsContext", () => {
     );
 
     act(() => {
-      result.current.projectSettings.setInitialData(
-        ProjectSettingsTabRoutes.Variables,
-        {
-          vars: [
-            {
-              varName: "test_name",
-              varValue: "test_value",
-              isPrivate: "false",
-              isDisabled: "false",
-            },
-          ],
-        }
-      );
+      result.current.projectSettings.setInitialData({
+        [ProjectSettingsTabRoutes.Variables]: {
+          projectData: null,
+          repoData: {
+            vars: [
+              {
+                varName: "test_name",
+                varValue: "test_value",
+                isPrivate: "false",
+                isDisabled: "false",
+              },
+            ],
+          },
+        },
+      } as TabDataProps);
     });
 
-    jest.useFakeTimers("modern");
-    await act(async () => {
+    act(() => {
       result.current.projectSettings.updateForm(
         ProjectSettingsTabRoutes.Variables
       )({
@@ -108,15 +103,15 @@ describe("projectSettingsContext", () => {
         },
         errors: [],
       });
-      jest.advanceTimersByTime(DEBOUNCE_MS);
     });
 
+    await waitForNextUpdate();
     expect(result.current.tabUnsaved.hasUnsaved).toBe(false);
     expect(result.current.tabUnsaved.unsavedTabs).toStrictEqual([]);
   });
 
   it("updating push an error updates the tab's hasError state", async () => {
-    const { result } = renderHook(
+    const { result, waitForNextUpdate } = renderHook(
       () => ({
         projectSettings: useProjectSettingsContext(),
         tabUnsaved: useIsAnyTabUnsaved(),
@@ -127,16 +122,15 @@ describe("projectSettingsContext", () => {
     );
 
     act(() => {
-      result.current.projectSettings.setInitialData(
-        ProjectSettingsTabRoutes.Variables,
-        {
-          vars: [],
-        }
-      );
+      result.current.projectSettings.setInitialData({
+        [ProjectSettingsTabRoutes.Variables]: {
+          projectData: { vars: [] },
+          repoData: null,
+        },
+      } as TabDataProps);
     });
 
-    jest.useFakeTimers("modern");
-    await act(async () => {
+    act(() => {
       result.current.projectSettings.updateForm(
         ProjectSettingsTabRoutes.Variables
       )({
@@ -145,9 +139,9 @@ describe("projectSettingsContext", () => {
         },
         errors: ["err"],
       });
-      jest.advanceTimersByTime(DEBOUNCE_MS);
     });
 
+    await waitForNextUpdate();
     expect(
       result.current.projectSettings.getTab(ProjectSettingsTabRoutes.Variables)
         .hasError

@@ -8,20 +8,21 @@ import {
 } from "react";
 import debounce from "lodash.debounce";
 import isEqual from "lodash.isequal";
-import { FormStateMap } from "components/ProjectSettingsTabs/types";
+import { TabDataProps } from "components/ProjectSettingsTabs/types";
 import { FormDataProps, SpruceFormProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { formToGqlMap } from "./transformers";
 import { FormToGqlFunction } from "./types";
 
-type TabState = {
-  [K in keyof FormStateMap]: {
+type TabState = Record<
+  ProjectSettingsTabRoutes,
+  {
     hasChanges: boolean;
     hasError: boolean;
     initialData: ReturnType<FormToGqlFunction>;
-    formData: FormStateMap[K];
-  };
-};
+    formData: FormDataProps;
+  }
+>;
 
 type Action =
   | {
@@ -38,8 +39,7 @@ type Action =
     }
   | {
       type: "setInitialData";
-      tab: ProjectSettingsTabRoutes;
-      data: ReturnType<FormToGqlFunction>;
+      tabData: TabDataProps;
     };
 
 const reducer = (state: TabState, action: Action): TabState => {
@@ -79,13 +79,16 @@ const reducer = (state: TabState, action: Action): TabState => {
         },
       };
     case "setInitialData":
-      return {
-        ...state,
-        [action.tab]: {
-          ...state[action.tab],
-          initialData: formToGqlMap[action.tab](action.data),
-        },
-      };
+      return Object.entries(action.tabData).reduce(
+        (s, [tab, data]) => ({
+          ...s,
+          [tab]: {
+            ...s[tab],
+            initialData: formToGqlMap[tab](data.projectData ?? data.repoData),
+          },
+        }),
+        state
+      );
     default:
       throw new Error("Unknown action type");
   }
@@ -99,10 +102,7 @@ interface ProjectSettingsState {
     tab: ProjectSettingsTabRoutes,
     save?: boolean
   ) => (formData: FormDataProps) => void;
-  setInitialData: (
-    tab: ProjectSettingsTabRoutes,
-    data: Parameters<FormToGqlFunction>[0]
-  ) => void;
+  setInitialData: (tabData: TabDataProps) => void;
 }
 
 const ProjectSettingsContext = createContext<ProjectSettingsState | null>(null);
@@ -140,12 +140,9 @@ const ProjectSettingsProvider: React.FC = ({ children }) => {
 
   const getTab = (tab: ProjectSettingsTabRoutes) => state[tab];
 
-  const setInitialData = useCallback(
-    (tab: ProjectSettingsTabRoutes, data: Parameters<FormToGqlFunction>[0]) => {
-      dispatch({ type: "setInitialData", tab, data });
-    },
-    []
-  );
+  const setInitialData = useCallback((tabData: TabDataProps) => {
+    dispatch({ type: "setInitialData", tabData });
+  }, []);
 
   return (
     <ProjectSettingsContext.Provider

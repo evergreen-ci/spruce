@@ -49,12 +49,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
   ]);
 
   useEffect(() => {
-    Object.entries(tabData).forEach(([tabName, data]) => {
-      setInitialData(
-        tabName as ProjectSettingsTabRoutes,
-        data.projectData ?? data.repoData
-      );
-    });
+    setInitialData(tabData);
   }, [setInitialData, tabData]);
 
   return (
