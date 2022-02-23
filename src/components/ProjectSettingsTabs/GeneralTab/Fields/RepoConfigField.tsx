@@ -190,7 +190,7 @@ export const RepoConfigField: Field = ({
               projectId={projectId}
               repoName={repoName || formData.repo}
               repoOwner={repoOwner || formData.owner}
-              shouldAttach={isAttachedProject}
+              shouldAttach={!isAttachedProject}
             />
           )}
         </>
