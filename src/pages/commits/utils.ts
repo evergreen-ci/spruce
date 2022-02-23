@@ -4,24 +4,24 @@ import { array } from "utils";
 
 const { arraySetDifference, arrayIntersection } = array;
 
-interface filterState {
+interface FilterState {
   statuses: string[];
   tasks: string[];
   variants: string[];
   requesters: string[];
 }
-interface mainlineCommitOptions {
+interface MainlineCommitOptions {
   projectID: string;
   limit: number;
   skipOrderNumber: number;
 }
-interface commitsPageReducerState {
-  filterState: filterState;
-  mainlineCommitOptions: mainlineCommitOptions;
+interface CommitsPageReducerState {
+  filterState: FilterState;
+  mainlineCommitOptions: MainlineCommitOptions;
 }
 
 const getMainlineCommitsQueryVariables = (
-  state: commitsPageReducerState
+  state: CommitsPageReducerState
 ): MainlineCommitsQueryVariables => {
   const variables = {
     mainlineCommitsOptions: generateMainlineCommitOptionsFromState(state),
@@ -40,7 +40,7 @@ const getMainlineCommitsQueryVariables = (
 };
 
 /** getFilterStatus returns an object containing booleans that describe what filters have been applied. */
-const getFilterStatus = (state: filterState) => ({
+const getFilterStatus = (state: FilterState) => ({
   hasFilters:
     state.requesters.length > 0 ||
     state.statuses.length > 0 ||
@@ -53,7 +53,7 @@ const getFilterStatus = (state: filterState) => ({
 });
 
 const generateBuildVariantOptionsFromState = (
-  state: commitsPageReducerState
+  state: CommitsPageReducerState
 ) => {
   const { filterState } = state;
   const { statuses, tasks, variants } = filterState;
@@ -68,7 +68,7 @@ const generateBuildVariantOptionsFromState = (
 };
 
 const generateBuildVariantOptionsForTaskIconsFromState = (
-  state: commitsPageReducerState
+  state: CommitsPageReducerState
 ): MainlineCommitsQueryVariables["buildVariantOptions"] => {
   const { filterState } = state;
   const { hasTasks, hasFilters, hasStatuses } = getFilterStatus(filterState);
@@ -95,7 +95,7 @@ const generateBuildVariantOptionsForTaskIconsFromState = (
 };
 
 const generateBuildVariantOptionsForGroupedTasksFromState = (
-  state: commitsPageReducerState
+  state: CommitsPageReducerState
 ): MainlineCommitsQueryVariables["buildVariantOptionsForGroupedTasks"] => {
   const { filterState } = state;
   const { hasTasks, hasFilters, hasStatuses } = getFilterStatus(filterState);
@@ -118,7 +118,7 @@ const generateBuildVariantOptionsForGroupedTasksFromState = (
 };
 
 const generateBuildVariantOptionsForGraphFromState = (
-  state: commitsPageReducerState
+  state: CommitsPageReducerState
 ): MainlineCommitsQueryVariables["buildVariantOptionsForGraph"] => {
   const { filterState } = state;
   const buildVariantOptionsForGraph = {
@@ -130,7 +130,7 @@ const generateBuildVariantOptionsForGraphFromState = (
 };
 
 const generateMainlineCommitOptionsFromState = (
-  state: commitsPageReducerState
+  state: CommitsPageReducerState
 ): MainlineCommitsQueryVariables["mainlineCommitsOptions"] => {
   const { filterState, mainlineCommitOptions } = state;
   const { hasFilters } = getFilterStatus(filterState);
