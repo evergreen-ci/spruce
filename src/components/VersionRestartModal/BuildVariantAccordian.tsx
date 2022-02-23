@@ -79,11 +79,11 @@ const countMatchingTasks = (
   return matchingTasks;
 };
 
-const BadgeWrapper = styled("div")`
+const BadgeWrapper = styled.div`
   padding-left: 10px;
 `;
 
-const FlexContainer = styled("div")`
+const FlexContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  align-items: center;
 `;
