@@ -1,6 +1,6 @@
 import { ProjectSettingsInput, RepoSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
-import { ProjectVariant } from "../utils";
+import { ProjectType } from "../utils";
 import { formToGql, gqlToForm } from "./transformers";
 import { FormState } from "./types";
 
@@ -9,7 +9,7 @@ const { projectBase, repoBase } = data;
 describe("repo data", () => {
   it("correctly converts from GQL to a form", () => {
     expect(
-      gqlToForm(repoBase, { projectVariant: ProjectVariant.Repo })
+      gqlToForm(repoBase, { projectType: ProjectType.Repo })
     ).toStrictEqual(repoForm);
   });
 
@@ -21,7 +21,7 @@ describe("repo data", () => {
 describe("project data", () => {
   it("correctly converts from GQL to a form", () => {
     expect(
-      gqlToForm(projectBase, { projectVariant: ProjectVariant.AttachedProject })
+      gqlToForm(projectBase, { projectType: ProjectType.AttachedProject })
     ).toStrictEqual(projectForm);
   });
 

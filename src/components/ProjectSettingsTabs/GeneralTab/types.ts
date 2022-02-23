@@ -1,4 +1,4 @@
-import { ProjectVariant } from "../utils";
+import { ProjectType } from "../utils";
 
 export interface FormState {
   generalConfiguration: {
@@ -49,7 +49,7 @@ export interface FormState {
 export type TabProps = {
   projectData?: FormState;
   projectId?: string;
-  projectVariant: ProjectVariant;
+  projectType: ProjectType;
   repoData?: FormState;
   validDefaultLoggers: string[];
 };

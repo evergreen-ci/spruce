@@ -4,7 +4,7 @@ import {
   RepoSettingsQuery,
 } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
-import { alias, ProjectVariant } from "../utils";
+import { alias, ProjectType } from "../utils";
 import { FormState } from "./types";
 
 const { AliasNames, sortAliases, transformAliases } = alias;
@@ -31,12 +31,12 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
   data:
     | ProjectSettingsQuery["projectSettings"]
     | RepoSettingsQuery["repoSettings"],
-  options: { projectVariant: ProjectVariant }
+  options: { projectType: ProjectType }
 ): ReturnType<GqlToFormFunction> => {
   if (!data) return null;
 
   const { projectRef, aliases } = data;
-  const { projectVariant } = options;
+  const { projectType } = options;
 
   const {
     commitQueueAliases,
@@ -45,7 +45,7 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
   } = sortAliases(aliases);
 
   const override = (field: Array<any>) =>
-    projectVariant !== ProjectVariant.AttachedProject || !!field?.length;
+    projectType !== ProjectType.AttachedProject || !!field?.length;
 
   return {
     github: {

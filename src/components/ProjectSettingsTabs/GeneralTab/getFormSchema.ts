@@ -3,7 +3,7 @@ import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { Project } from "gql/generated/types";
-import { form, ProjectVariant } from "../utils";
+import { form, ProjectType } from "../utils";
 import { RepoConfigField, RepotrackerField } from "./Fields";
 import { FormState } from "./types";
 
@@ -11,7 +11,7 @@ const { insertIf, overrideRadioBox, placeholderIf, radioBoxOptions } = form;
 
 export const getFormSchema = (
   projectId: string,
-  projectVariant: ProjectVariant,
+  projectType: ProjectType,
   validDefaultLoggers: Project["validDefaultLoggers"],
   repoData?: FormState
 ): {
@@ -130,14 +130,14 @@ export const getFormSchema = (
                 type: [
                   "string",
                   ...insertIf(
-                    projectVariant === ProjectVariant.AttachedProject,
+                    projectType === ProjectType.AttachedProject,
                     "null"
                   ),
                 ],
                 enum: [
                   ...validDefaultLoggers,
                   ...insertIf(
-                    projectVariant === ProjectVariant.AttachedProject,
+                    projectType === ProjectType.AttachedProject,
                     null
                   ),
                 ],
@@ -243,10 +243,10 @@ export const getFormSchema = (
       },
       repositoryInfo: {
         "ui:field": "repoConfigField",
-        "ui:disabled": projectVariant !== ProjectVariant.AttachedProject,
+        "ui:disabled": projectType !== ProjectType.AttachedProject,
         options: {
           projectId,
-          projectVariant,
+          projectType,
           repoName: repoData?.generalConfiguration?.repositoryInfo?.repo,
           repoOwner: repoData?.generalConfiguration?.repositoryInfo?.owner,
         },
@@ -303,7 +303,7 @@ export const getFormSchema = (
           "ui:placeholder": repoData
             ? `Default to Repo (${repoData?.projectFlags?.logger?.defaultLogger})`
             : "Select Default Logger",
-          ...(projectVariant !== ProjectVariant.AttachedProject && {
+          ...(projectType !== ProjectType.AttachedProject && {
             "ui:allowDeselect": false,
           }),
           "ui:ariaLabelledBy": "projectFlags_logger__title",

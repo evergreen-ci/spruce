@@ -10,7 +10,7 @@ import * as general from "./GeneralTab/types";
 import * as githubCommitQueue from "./GithubCommitQueueTab/types";
 import * as notifications from "./NotificationsTab/types";
 import * as plugins from "./PluginsTab/types";
-import { ProjectVariant } from "./utils";
+import { ProjectType } from "./utils";
 import * as variables from "./VariablesTab/types";
 
 export type FormStateMap = {
@@ -48,7 +48,7 @@ export type GqlToFormFunction<T = FormDataProps> = (
   data:
     | ProjectSettingsQuery["projectSettings"]
     | RepoSettingsQuery["repoSettings"],
-  options?: { projectVariant?: ProjectVariant }
+  options?: { projectType?: ProjectType }
 ) => T;
 
 export type FormToGqlFunction = (

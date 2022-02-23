@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { useParams, Link, Redirect } from "react-router-dom";
 import { ProjectSettingsProvider } from "components/ProjectSettingsTabs/Context";
-import { ProjectVariant } from "components/ProjectSettingsTabs/utils";
+import { ProjectType } from "components/ProjectSettingsTabs/utils";
 import {
   SideNav,
   SideNavGroup,
@@ -59,20 +59,21 @@ export const ProjectSettings: React.FC = () => {
   const repoId =
     projectData?.projectSettings?.projectRef?.repoRefId || identifier;
 
-  let projectVariant;
+  // Assign project type in order to show/hide elements that should only appear for repos, attached projects, etc.
+  let projectType;
   if (isRepo) {
-    projectVariant = ProjectVariant.Repo;
+    projectType = ProjectType.Repo;
   } else if (projectData?.projectSettings?.projectRef?.repoRefId) {
-    projectVariant = ProjectVariant.AttachedProject;
+    projectType = ProjectType.AttachedProject;
   } else {
-    projectVariant = ProjectVariant.Project;
+    projectType = ProjectType.Project;
   }
 
   const { data: repoData } = useQuery<
     RepoSettingsQuery,
     RepoSettingsQueryVariables
   >(GET_REPO_SETTINGS, {
-    skip: projectLoading || projectVariant === ProjectVariant.Project,
+    skip: projectLoading || projectType === ProjectType.Project,
     variables: { repoId },
     onError: (e) => {
       dispatchToast.error(
@@ -108,7 +109,7 @@ export const ProjectSettings: React.FC = () => {
   };
 
   const hasData = projectData
-    ? projectVariant === ProjectVariant.Project || repoData
+    ? projectType === ProjectType.Project || repoData
     : repoData;
 
   return (
@@ -166,7 +167,7 @@ export const ProjectSettings: React.FC = () => {
         {hasData ? (
           <ProjectSettingsTabs
             projectData={projectData?.projectSettings}
-            projectVariant={projectVariant}
+            projectType={projectType}
             repoData={repoData?.repoSettings}
           />
         ) : (

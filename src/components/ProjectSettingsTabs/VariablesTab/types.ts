@@ -1,4 +1,4 @@
-import { ProjectVariant } from "../utils";
+import { ProjectType } from "../utils";
 
 export interface FormState {
   vars: Array<{
@@ -11,6 +11,6 @@ export interface FormState {
 
 export type TabProps = {
   projectData?: FormState;
-  projectVariant: ProjectVariant;
+  projectType: ProjectType;
   repoData?: FormState;
 };

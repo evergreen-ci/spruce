@@ -20,12 +20,12 @@ import { getTabTitle } from "pages/projectSettings/getTabTitle";
 import { useIsTabSaved, useProjectSettingsContext } from "./Context";
 import { formToGqlMap } from "./transformers";
 import { WritableTabRoutes } from "./types";
-import { ProjectVariant } from "./utils";
+import { ProjectType } from "./utils";
 
 interface Props {
   id: string;
   isRepo: boolean;
-  projectVariant: ProjectVariant;
+  projectType: ProjectType;
   saveable: boolean;
   tab: ProjectSettingsTabRoutes;
 }
@@ -33,7 +33,7 @@ interface Props {
 export const Header: React.FC<Props> = ({
   id,
   isRepo,
-  projectVariant,
+  projectType,
   saveable,
   tab,
 }) => {
@@ -110,7 +110,7 @@ export const Header: React.FC<Props> = ({
             Save Changes on Page
           </Button>
         )}
-        {projectVariant === ProjectVariant.AttachedProject && (
+        {projectType === ProjectType.AttachedProject && (
           <Button data-cy="default-to-repo">Default to Repo on Page</Button>
         )}
       </ButtonRow>

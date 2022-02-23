@@ -2,14 +2,14 @@ import { Field } from "@rjsf/core";
 import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { alias, form, ProjectVariant } from "../utils";
+import { alias, form, ProjectType } from "../utils";
 import { FormState } from "./types";
 
 const { aliasArraySchema, aliasRowUiSchema } = alias;
 const { insertIf, overrideRadioBox, placeholderIf, radioBoxOptions } = form;
 
 export const getFormSchema = (
-  projectVariant: ProjectVariant,
+  projectType: ProjectType,
   gitHubWebhooksEnabled: boolean,
   formData: FormState,
   repoData?: FormState
@@ -20,7 +20,7 @@ export const getFormSchema = (
 } => {
   const overrideStyling = {
     "ui:widget":
-      projectVariant === ProjectVariant.AttachedProject
+      projectType === ProjectType.AttachedProject
         ? widgets.RadioBoxWidget
         : "hidden",
     "ui:showLabel": false,
@@ -48,7 +48,7 @@ export const getFormSchema = (
             prTestingEnabledTitle: {
               type: "null",
               title: "GitHub Pull Request Testing",
-              ...(projectVariant === ProjectVariant.Repo && {
+              ...(projectType === ProjectType.Repo && {
                 description:
                   "If enabled, then untracked branches will also use the file patterns defined here for PR testing.",
               }),
@@ -193,7 +193,7 @@ export const getFormSchema = (
                   title: "Rebase",
                   enum: ["rebase"],
                 },
-                ...insertIf(projectVariant === ProjectVariant.AttachedProject, {
+                ...insertIf(projectType === ProjectType.AttachedProject, {
                   type: "string" as "string",
                   title: `Default to Repo (${repoData?.commitQueue?.mergeMethod})`,
                   enum: [""],

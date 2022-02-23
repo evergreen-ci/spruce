@@ -4,7 +4,7 @@ import { SpruceForm, SpruceFormProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { environmentalVariables } from "utils";
 import { usePopulateForm, useProjectSettingsContext } from "../Context";
-import { alias as aliasUtils, ProjectVariant } from "../utils";
+import { alias as aliasUtils, ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { mergeProjectRepo } from "./transformers";
 import { FormState, TabProps } from "./types";
@@ -28,7 +28,7 @@ const getInitialFormState = (
 export const GithubCommitQueueTab: React.FC<TabProps> = ({
   gitHubWebhooksEnabled,
   projectData,
-  projectVariant,
+  projectType,
   repoData,
 }) => {
   const { getTab, updateForm } = useProjectSettingsContext();
@@ -45,12 +45,12 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
   const { fields, schema, uiSchema } = useMemo(
     () =>
       getFormSchema(
-        projectVariant,
+        projectType,
         gitHubWebhooksEnabled,
         formData,
-        projectVariant === ProjectVariant.AttachedProject ? repoData : null
+        projectType === ProjectType.AttachedProject ? repoData : null
       ),
-    [formData, gitHubWebhooksEnabled, projectVariant, repoData]
+    [formData, gitHubWebhooksEnabled, projectType, repoData]
   );
 
   if (!formData) return null;

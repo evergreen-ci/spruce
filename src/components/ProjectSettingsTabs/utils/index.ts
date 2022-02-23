@@ -1,6 +1,6 @@
 import * as alias from "./alias";
 import * as form from "./form";
-import { AliasType, ProjectVariant } from "./types";
+import { AliasType, ProjectType } from "./types";
 
-export { alias, form, ProjectVariant };
+export { alias, form, ProjectType };
 export type { AliasType };

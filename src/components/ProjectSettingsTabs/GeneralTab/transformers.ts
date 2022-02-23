@@ -5,19 +5,19 @@ import {
   RepoSettingsQuery,
 } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
-import { ProjectVariant } from "../utils";
+import { ProjectType } from "../utils";
 import { FormState } from "./types";
 
 export const gqlToForm: GqlToFormFunction<FormState> = (
   data:
     | ProjectSettingsQuery["projectSettings"]
     | RepoSettingsQuery["repoSettings"],
-  options: { projectVariant: ProjectVariant }
+  options: { projectType: ProjectType }
 ): ReturnType<GqlToFormFunction> => {
   if (!data) return null;
 
   const { projectRef } = data;
-  const { projectVariant } = options;
+  const { projectType } = options;
 
   return {
     generalConfiguration: {
@@ -61,7 +61,7 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
       disabledStatsCache: projectRef.disabledStatsCache,
       files: {
         filesIgnoredFromCacheOverride:
-          projectVariant !== ProjectVariant.AttachedProject ||
+          projectType !== ProjectType.AttachedProject ||
           !!projectRef.filesIgnoredFromCache?.length,
         filesIgnoredFromCache: projectRef.filesIgnoredFromCache ?? [],
       },
