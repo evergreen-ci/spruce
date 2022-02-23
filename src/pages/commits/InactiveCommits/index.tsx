@@ -92,7 +92,8 @@ const getCommitCopy = (v: CommitRolledUpVersions[0]) => (
       {shortenGithash(v.revision)} — {getDateCopy(v.createTime)}
     </CommitTitleText>
     <CommitBodyText>
-      {v.author} - {trimStringFromMiddle(v.message, 100)} (#{v.order})
+      {v.author} - {trimStringFromMiddle(v.message, maxCommitMessageLength)} (#
+      {v.order})
     </CommitBodyText>
   </>
 );
@@ -153,4 +154,6 @@ const CommitBodyText = styled.div`
   padding-left: ${size.s};
 `;
 
-const MAX_COMMIT_COUNT = 3;
+const maxCommitMessageLength = 100;
+
+export const MAX_COMMIT_COUNT = 3;

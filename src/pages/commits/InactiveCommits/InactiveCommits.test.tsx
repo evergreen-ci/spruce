@@ -1,7 +1,7 @@
 import userEvent from "@testing-library/user-event";
 import { render, waitFor } from "test_utils";
 import { CommitRolledUpVersions } from "types/commits";
-import { InactiveCommitButton } from ".";
+import { InactiveCommitButton, MAX_COMMIT_COUNT } from ".";
 
 const RenderInactiveCommitButton = (
   versions: CommitRolledUpVersions,
@@ -36,7 +36,7 @@ describe("inactiveCommitButton", () => {
 
   it("should show all inactive commits if there are 3 or less commits", async () => {
     const { queryByDataCy, queryAllByDataCy } = render(
-      RenderInactiveCommitButton(versions.slice(0, 2))
+      RenderInactiveCommitButton(versions.slice(0, MAX_COMMIT_COUNT - 1))
     );
 
     expect(queryByDataCy("inactive-commits-tooltip")).toBeNull();
@@ -44,7 +44,7 @@ describe("inactiveCommitButton", () => {
     await waitFor(() =>
       expect(queryByDataCy("inactive-commits-tooltip")).toBeVisible()
     );
-    expect(queryAllByDataCy("commit-text")).toHaveLength(2);
+    expect(queryAllByDataCy("commit-text")).toHaveLength(MAX_COMMIT_COUNT - 1);
     expect(queryByDataCy("hidden-commits")).toBeNull();
   });
   it("should collapse commits if there are more than 3", async () => {
@@ -57,7 +57,7 @@ describe("inactiveCommitButton", () => {
     await waitFor(() =>
       expect(queryByDataCy("inactive-commits-tooltip")).toBeVisible()
     );
-    expect(queryAllByDataCy("commit-text")).toHaveLength(3);
+    expect(queryAllByDataCy("commit-text")).toHaveLength(MAX_COMMIT_COUNT);
     expect(queryByDataCy("hidden-commits")).toBeInTheDocument();
   });
 
