@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { Size, Variant } from "@leafygreen-ui/button";
 import { Button } from "components/Button";
 import { ConfirmationModal } from "components/ConfirmationModal";
-import { SpruceForm } from "components/SpruceForm";
+import { SpruceForm, SpruceFormProps } from "components/SpruceForm";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -41,6 +41,7 @@ const getModalFormDefinition = (owner: string, repo: string) => ({
   uiSchema: {
     projectName: {
       "ui:data-cy": "project-name-input",
+      "ui:showErrors": false,
     },
     projectId: {
       "ui:data-cy": "project-id-input",
@@ -49,9 +50,11 @@ const getModalFormDefinition = (owner: string, repo: string) => ({
     },
     owner: {
       "ui:data-cy": "owner-input",
+      "ui:showErrors": false,
     },
     repo: {
       "ui:data-cy": "repo-input",
+      "ui:showErrors": false,
     },
   },
 });
@@ -136,6 +139,7 @@ export const CreateProjectModal: React.FC<Props> = ({ owner, repo }) => {
             }}
             schema={modalFormDefinition.schema}
             uiSchema={modalFormDefinition.uiSchema}
+            validate={validate}
           />
         </Container>
       </ConfirmationModal>
@@ -147,3 +151,29 @@ const Container = styled.div`
   display: inline;
   margin-left: ${size.s};
 `;
+
+interface FormState {
+  projectName: string;
+  projectId: string;
+  owner: string;
+  repo: string;
+}
+
+const validate = (
+  formData: FormState,
+  errors
+): ReturnType<SpruceFormProps["validate"]> => {
+  const { projectName, owner, repo } = formData;
+
+  if (projectName === "" || projectName === undefined) {
+    errors.projectName.addError("Project name is required.");
+  }
+
+  if (owner === "" || owner === undefined) {
+    errors.owner.addError("Owner is required.");
+  }
+  if (repo === "" || repo === undefined) {
+    errors.repo.addError("Repo is required.");
+  }
+  return errors;
+};

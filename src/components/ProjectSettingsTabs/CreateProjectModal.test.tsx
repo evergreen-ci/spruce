@@ -118,11 +118,6 @@ describe("createProjectField", () => {
 
     expect(queryByDataCy("owner-input")).toHaveValue(owner);
     expect(queryByDataCy("repo-input")).toHaveValue(repo);
-
-    await waitFor(() => {
-      const confirmButton = queryByText("Create Project").closest("button");
-      expect(confirmButton).not.toBeDisabled();
-    });
   });
 });
 
