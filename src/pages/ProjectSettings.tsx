@@ -68,7 +68,7 @@ export const ProjectSettings: React.FC = () => {
     variables: { repoId: repoRefId },
     onError: (e) => {
       dispatchToast.error(
-        `There was an error loading the repo ${repoRefId}: ${e.message}`
+        `There was an error loading ${repoRefId}: ${e.message}`
       );
     },
   });
