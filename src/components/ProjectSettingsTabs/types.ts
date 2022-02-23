@@ -10,6 +10,7 @@ import * as general from "./GeneralTab/types";
 import * as githubCommitQueue from "./GithubCommitQueueTab/types";
 import * as notifications from "./NotificationsTab/types";
 import * as plugins from "./PluginsTab/types";
+import { ProjectType } from "./utils";
 import * as variables from "./VariablesTab/types";
 
 export type FormStateMap = {
@@ -43,18 +44,16 @@ export type TabDataProps = {
   };
 };
 
-export type GqlToFormFunction = (
+export type GqlToFormFunction<T = FormDataProps> = (
   data:
     | ProjectSettingsQuery["projectSettings"]
-    | RepoSettingsQuery["repoSettings"]
-) => FormDataProps;
+    | RepoSettingsQuery["repoSettings"],
+  options?: { projectType?: ProjectType }
+) => T;
 
 export type FormToGqlFunction = (
   form: FormDataProps,
-  id: string,
-  options?: {
-    useRepoSettings?: boolean;
-  }
+  id: string
 ) => Partial<ProjectSettingsInput>;
 
 export const readOnlyTabs = [ProjectSettingsTabRoutes.EventLog] as const;
