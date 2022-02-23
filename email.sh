@@ -10,6 +10,7 @@ then
     TASK_NAME=$(git rev-parse HEAD)
 fi
 
+# Validate necessary variables are set
 if [ '$REACT_APP_DEPLOYS_EMAIL' == '' ]
 then
     echo "REACT_APP_DEPLOYS_EMAIL is not set"
@@ -28,10 +29,11 @@ then
     exit 1
 fi
 
+# Fetch previous release tag and get the commits since that tag
 PREVIOUS_VERSION=$(git describe --tags  --abbrev=0  `git rev-list --tags --max-count=1 --skip=1`)
 git log --no-merges $PREVIOUS_VERSION..HEAD --pretty="format:%s (%h)" > body.txt
 
-
+# Determine which verson of evergreen is available and use that
 if ! [ -x "$(command -v evergreen)" ]
 then
   echo 'Error: evergreen is not on $PATH.'
@@ -50,6 +52,7 @@ else
   EVERGREEN=evergreen
 fi
 
+# Detect which version of sed we have available to format the email
 case "$OSTYPE" in
   darwin*)
     echo "OSX detected using gsed"
@@ -62,7 +65,6 @@ case "$OSTYPE" in
   ;;
   *)        echo "unknown: $OSTYPE";;
 esac
-
 
 
 BODY_HTML=$(cat body.txt)

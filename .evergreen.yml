@@ -301,8 +301,10 @@ functions:
     params:
       working_dir: spruce
       script: |
-        chmod +x email.sh
-        ./email.sh
+        export AUTHOR_EMAIL=${author_email}
+        export REACT_APP_DEPLOYS_EMAIL=${REACT_APP_DEPLOYS_EMAIL}
+        export TASK_NAME=${task_name}
+        bash email.sh
 
 
 #######################################
@@ -388,6 +390,7 @@ tasks:
     - func: deploy-to-prod
     - func: send-email
 
+
 buildvariants:
   - name: ubuntu1604
     display_name: Ubuntu 16.04
@@ -408,6 +411,7 @@ buildvariants:
       git_tag_only: true
       patchable: false
       priority: 100
+    - name: send_email
 
 post:
   - func: attach-results
