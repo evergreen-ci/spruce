@@ -1,16 +1,18 @@
-import React, { useReducer } from "react";
+import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { RadioBox } from "@leafygreen-ui/radio-box-group";
+import { RadioBox, RadioBoxGroup } from "@leafygreen-ui/radio-box-group";
+import { Select, Option } from "@leafygreen-ui/select";
+import TextArea from "@leafygreen-ui/text-area";
 import TextInput from "@leafygreen-ui/text-input";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { Select, Input } from "antd";
-import { InputLabel } from "components/styles";
-import { size } from "constants/tokens";
+import { size, zIndex } from "constants/tokens";
 import { PublicKey, PublicKeyInput } from "gql/generated/types";
 
-const { Option } = Select;
-const { TextArea } = Input;
+enum PublicKeyType {
+  Existing = "existingKey",
+  New = "newKey",
+}
 
 export type publicKeyStateType = {
   publicKey: PublicKeyInput;
@@ -27,8 +29,10 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
   onChange,
   data,
 }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const { shouldAddNewKey, disableKeySelect } = state;
+  const [selectState, setSelectState] = useState<PublicKeyType>(
+    PublicKeyType.Existing
+  );
+
   const { savePublicKey } = data;
   const publicKey = data?.publicKey?.key;
   const keyName = data?.publicKey?.name;
@@ -42,51 +46,63 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
     oldState.publicKey = selectedKey;
     onChange(oldState);
   };
+
+  // Clear public key data if user opts to add a new key. (Or else it will be pre-populated
+  // with an existing key.)
+  useEffect(() => {
+    if (selectState === PublicKeyType.New) {
+      updatePublicKeyState({ key: "", name: "" });
+    }
+  }, [selectState]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <Container>
       <Subtitle>Public Key</Subtitle>
-      <SelectContainer>
-        <Select
-          showSearch
-          style={{ width: 200 }}
-          placeholder="Select existing key"
+
+      <StyledRadioBoxGroup
+        onChange={(e) => setSelectState(e.target.value as PublicKeyType)}
+        value={selectState}
+      >
+        <RadioBox
+          value={PublicKeyType.Existing}
+          data-cy="existing_public_key_button"
+        >
+          Select existing key
+        </RadioBox>
+        <RadioBox value={PublicKeyType.New} data-cy="add_public_key_button">
+          Add new key
+        </RadioBox>
+      </StyledRadioBoxGroup>
+
+      {selectState === PublicKeyType.Existing && (
+        <StyledSelect
+          data-cy="public_key_dropdown"
+          placeholder="Select an existing key"
+          label="Existing Key"
           onChange={selectPublicKey}
           value={keyName}
-          data-cy="public_key_dropdown"
-          disabled={disableKeySelect || !data.publicKey}
+          disabled={!data.publicKey}
+          usePortal={false}
+          allowDeselect={false}
         >
           {publicKeys?.map((pk) => (
             <Option key={`public_key_option_${pk.name}`} value={pk.name}>
               {pk.name}
             </Option>
           ))}
-        </Select>
-        <PaddedText>or</PaddedText>
-        <RadioBox
-          value="addKey"
-          onClick={() => {
-            updatePublicKeyState({ key: "", name: "" });
-            dispatch({ type: "toggleNewKey" });
-          }}
-          onChange={() => undefined}
-          checked={shouldAddNewKey}
-          size="full"
-          data-cy="add_public_key_button"
-        >
-          Add new key
-        </RadioBox>
-      </SelectContainer>
-      {shouldAddNewKey && (
+        </StyledSelect>
+      )}
+      {selectState === PublicKeyType.New && (
         <FlexColumnContainer data-cy="add_new_key_form">
-          <InputLabel htmlFor="keyValueInput">Public Key</InputLabel>
           <StyledTextArea
             id="keyValueInput"
+            label="Public Key"
             data-cy="key-value-input"
             value={publicKey}
-            autoSize={{ minRows: 4, maxRows: 6 }}
             onChange={(e) =>
               updatePublicKeyState({ key: e.target.value, name: keyName })
             }
+            spellCheck={false}
           />
           <KeyNameContainer>
             <Checkbox
@@ -99,17 +115,17 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
                 })
               }
             />
-            {/* @ts-expect-error */}
             <StyledInput
               id="keyNameInput"
-              value={keyName}
+              aria-labelledby="Public Key Name"
               placeholder="Key name"
+              value={keyName}
               onChange={(e) => {
                 updatePublicKeyState({ key: publicKey, name: e.target.value });
               }}
               disabled={!savePublicKey}
               data-cy="key-name-input"
-              aria-label="Public Key Name"
+              spellCheck={false}
             />
           </KeyNameContainer>
         </FlexColumnContainer>
@@ -123,11 +139,8 @@ const FlexColumnContainer = styled.div`
   flex-direction: column;
 `;
 
-const FlexContainer = styled.div`
+const KeyNameContainer = styled.div`
   display: flex;
-`;
-
-const KeyNameContainer = styled(FlexContainer)`
   align-items: center;
 `;
 
@@ -135,14 +148,16 @@ const Container = styled(FlexColumnContainer)`
   width: 80%;
 `;
 
-const PaddedText = styled.span`
-  padding: 0 ${size.s};
+// @ts-expect-error
+const StyledRadioBoxGroup = styled(RadioBoxGroup)`
+  height: 40px;
+  margin: ${size.s} 0;
 `;
-const SelectContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
+
+// @ts-expect-error
+const StyledSelect = styled(Select)`
+  position: relative;
+  z-index: ${zIndex.tooltip};
 `;
 
 const StyledInput = styled(TextInput)`
@@ -151,18 +166,8 @@ const StyledInput = styled(TextInput)`
 `;
 
 const StyledTextArea = styled(TextArea)`
+  textarea {
+    height: 100px;
+  }
   margin-bottom: ${size.s};
 `;
-
-const initialState = { disableKeySelect: false, shouldAddNewKey: false };
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "toggleNewKey":
-      return {
-        disableKeySelect: !state.disableKeySelect,
-        shouldAddNewKey: !state.shouldAddNewKey,
-      };
-    default:
-      throw new Error();
-  }
-};

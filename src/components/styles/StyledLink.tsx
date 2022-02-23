@@ -12,6 +12,7 @@ const linkStyles = css`
   padding: 0;
   cursor: pointer;
   color: ${blue.base};
+  width: fit-content;
   &:hover {
     text-decoration: underline;
   }
