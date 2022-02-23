@@ -47,12 +47,7 @@ functions:
       type: setup
       params:
         working_dir: spruce/evergreen
-        command: make check-mongod
-    - command: subprocess.exec
-      type: setup
-      params:
-        working_dir: spruce/evergreen
-        command: make init-rs
+        command: make configure-mongod
 
   run-make:
     command: subprocess.exec

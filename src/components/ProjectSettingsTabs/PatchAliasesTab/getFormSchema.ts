@@ -1,14 +1,13 @@
 import { Field } from "@rjsf/core";
 import { SpruceFormProps } from "components/SpruceForm";
 import widgets from "components/SpruceForm/Widgets";
-import { alias, form } from "../utils";
-import { FormState } from "./types";
+import { alias, form, ProjectType } from "../utils";
 
 const { aliasArraySchema, aliasRowUiSchema } = alias;
 const { overrideRadioBox } = form;
 
 export const getFormSchema = (
-  repoData?: FormState
+  projectType: ProjectType
 ): {
   fields: Record<string, Field>;
   schema: SpruceFormProps["schema"];
@@ -39,9 +38,9 @@ export const getFormSchema = (
     patchAliases: {
       aliasesOverride: {
         "ui:widget":
-          repoData?.patchAliases?.aliases === undefined
-            ? "hidden"
-            : widgets.RadioBoxWidget,
+          projectType === ProjectType.AttachedProject
+            ? widgets.RadioBoxWidget
+            : "hidden",
         "ui:showLabel": false,
         "ui:data-cy": "patch-aliases-override-radio-box",
       },

@@ -9,7 +9,6 @@
 fragment projectSettings on ProjectSettings {
   projectRef {
     id
-    useRepoSettings
     repoRefId
     ...projectGeneralSettings
     ...projectAccessSettings

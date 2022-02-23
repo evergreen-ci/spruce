@@ -1,3 +1,5 @@
+import { ProjectType } from "../utils";
+
 export interface FormState {
   generalConfiguration: {
     enabled: boolean | null;
@@ -38,9 +40,8 @@ export interface FormState {
   historicalDataCaching: {
     disabledStatsCache: boolean | null;
     files: {
-      filesIgnoredFromCache: Array<{
-        filePattern: string;
-      }> | null;
+      filesIgnoredFromCacheOverride: boolean;
+      filesIgnoredFromCache: Array<string> | null;
     };
   };
 }
@@ -48,7 +49,7 @@ export interface FormState {
 export type TabProps = {
   projectData?: FormState;
   projectId?: string;
+  projectType: ProjectType;
   repoData?: FormState;
-  useRepoSettings: boolean;
   validDefaultLoggers: string[];
 };
