@@ -2406,6 +2406,7 @@ export type RepoPluginsSettingsFragment = {
 export type VariablesFragment = {
   vars?: Maybe<{ [key: string]: any }>;
   privateVars?: Maybe<Array<Maybe<string>>>;
+  adminOnlyVars?: Maybe<Array<Maybe<string>>>;
 };
 
 export type AbortTaskMutationVariables = Exact<{

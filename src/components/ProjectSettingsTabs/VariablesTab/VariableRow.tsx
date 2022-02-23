@@ -11,7 +11,7 @@ const { yellow } = uiColors;
 export const VariableRow: React.FC<
   Pick<ObjectFieldTemplateProps, "formData" | "properties" | "uiSchema">
 > = ({ formData, properties, uiSchema }) => {
-  const [variableName, variableValue, isPrivate] = getFields(
+  const [variableName, variableValue, isPrivate, isAdminOnly] = getFields(
     properties,
     formData.isDisabled
   );
@@ -34,7 +34,10 @@ export const VariableRow: React.FC<
       </LeftColumn>
       <div>
         {variableValue}
-        {isPrivate}
+        <OptionRow>
+          {isPrivate}
+          {isAdminOnly}
+        </OptionRow>
       </div>
     </RowContainer>
   );
@@ -64,5 +67,15 @@ const RowContainer = styled.div`
   > div {
     flex-grow: 1;
     max-width: 50%;
+  }
+`;
+
+const OptionRow = styled.div`
+  display: flex;
+  margin-bottom: ${size.s};
+
+  > div {
+    flex-grow: 1;
+    max-width: 20%;
   }
 `;

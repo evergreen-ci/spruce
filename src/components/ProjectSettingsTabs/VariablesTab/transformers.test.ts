@@ -28,6 +28,7 @@ const form: FormState = {
       varName: "test_name",
       varValue: "test_value",
       isPrivate: true,
+      isAdminOnly: false,
       isDisabled: true,
     },
   ],
