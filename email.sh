@@ -36,7 +36,7 @@ git log --no-merges $PREVIOUS_VERSION..HEAD --pretty="format:%s (%h)" > body.txt
 # Determine which verson of evergreen is available and use that
 if ! [ -x "$(command -v evergreen)" ]
 then
-  echo 'Error: evergreen is not on $PATH.'
+  echo 'evergreen is not on $PATH.'
   echo 'Trying to use the local binary'
   if ! [ -x "$(command -v ~/evergreen)" ]
   then
@@ -80,4 +80,3 @@ COMMAND+="$BODY_HTML"
 COMMAND+="'"
 echo $COMMAND
 eval $COMMAND
-rm body.txt
