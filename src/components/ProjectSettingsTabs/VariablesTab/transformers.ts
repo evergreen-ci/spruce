@@ -7,7 +7,6 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
   const {
     vars: { adminOnlyVars, privateVars, vars },
   } = data;
-  console.log("isDisabled: ", adminOnlyVars);
 
   return {
     vars: Object.entries(vars).map(([varName, varValue]) => ({

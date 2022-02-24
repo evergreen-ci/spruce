@@ -60,6 +60,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
   vars: {
     vars: { test_name: "test_value" },
     privateVars: ["test_name"],
+    adminOnlyVars: ["test_name"],
   },
   aliases: [
     {
