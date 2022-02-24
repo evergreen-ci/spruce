@@ -20,21 +20,22 @@ import { getTabTitle } from "pages/projectSettings/getTabTitle";
 import { useProjectSettingsContext } from "./Context";
 import { formToGqlMap } from "./transformers";
 import { WritableTabRoutes } from "./types";
+import { ProjectType } from "./utils";
 
 interface Props {
   id: string;
   isRepo: boolean;
+  projectType: ProjectType;
   saveable: boolean;
   tab: ProjectSettingsTabRoutes;
-  useRepoSettings: boolean;
 }
 
 export const Header: React.FC<Props> = ({
   id,
   isRepo,
+  projectType,
   saveable,
   tab,
-  useRepoSettings,
 }) => {
   const dispatchToast = useToastContext();
   const { title, subtitle } = getTabTitle(tab);
@@ -70,7 +71,7 @@ export const Header: React.FC<Props> = ({
   });
 
   const onClick = () => {
-    const newData = formToGqlMap[tab](formData, id, { useRepoSettings });
+    const newData = formToGqlMap[tab](formData, id);
     const save = (update, section) =>
       isRepo
         ? saveRepoSection({
@@ -107,7 +108,7 @@ export const Header: React.FC<Props> = ({
             Save Changes on Page
           </Button>
         )}
-        {!isRepo && useRepoSettings && (
+        {projectType === ProjectType.AttachedProject && (
           <Button data-cy="default-to-repo">Default to Repo on Page</Button>
         )}
       </ButtonRow>

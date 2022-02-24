@@ -6,7 +6,6 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
   projectRef: {
     id: "project",
     repoRefId: "repo",
-    useRepoSettings: true,
 
     enabled: null,
     owner: "evergreen-ci",

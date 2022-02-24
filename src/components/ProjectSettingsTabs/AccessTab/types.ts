@@ -1,3 +1,5 @@
+import { ProjectType } from "../utils";
+
 export interface FormState {
   accessSettings: {
     private: boolean | null;
@@ -12,6 +14,6 @@ export interface FormState {
 
 export type TabProps = {
   projectData?: FormState;
+  projectType: ProjectType;
   repoData?: FormState;
-  useRepoSettings: boolean;
 };

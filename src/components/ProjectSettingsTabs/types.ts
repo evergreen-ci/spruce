@@ -5,6 +5,7 @@ import {
   ProjectSettingsQuery,
   RepoSettingsQuery,
 } from "gql/generated/types";
+import { ProjectType } from "./utils";
 
 export type TabDataProps = Record<
   CompletedRoutes,
@@ -14,18 +15,16 @@ export type TabDataProps = Record<
   }
 >;
 
-export type GqlToFormFunction = (
+export type GqlToFormFunction<T = FormDataProps> = (
   data:
     | ProjectSettingsQuery["projectSettings"]
-    | RepoSettingsQuery["repoSettings"]
-) => FormDataProps;
+    | RepoSettingsQuery["repoSettings"],
+  options?: { projectType?: ProjectType }
+) => T;
 
 export type FormToGqlFunction = (
   form: FormDataProps,
-  id?: string,
-  options?: {
-    useRepoSettings?: boolean;
-  }
+  id?: string
 ) => Partial<ProjectSettingsInput>;
 
 export const readOnlyTabs = [ProjectSettingsTabRoutes.EventLog] as const;

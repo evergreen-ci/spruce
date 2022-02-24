@@ -2313,11 +2313,7 @@ export type RepoGithubCommitQueueFragment = {
 
 export type ProjectSettingsFragment = {
   projectRef?: Maybe<
-    {
-      id: string;
-      useRepoSettings: boolean;
-      repoRefId: string;
-    } & ProjectGeneralSettingsFragment &
+    { id: string; repoRefId: string } & ProjectGeneralSettingsFragment &
       ProjectAccessSettingsFragment &
       ProjectPluginsSettingsFragment &
       ProjectNotificationSettingsFragment

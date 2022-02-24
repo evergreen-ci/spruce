@@ -307,8 +307,7 @@ describe("Project Settings when defaulting to repo", () => {
     cy.get("body").type("{esc}");
   });
 
-  // Skip until EVG-16081 is resolved
-  it.skip("Clicking on save button should show a success toast", () => {
+  it("Clicking on save button should show a success toast", () => {
     cy.dataCy("save-settings-button").click();
     cy.validateToast("success", "Successfully updated project");
   });
