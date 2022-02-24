@@ -20,6 +20,8 @@ import {
   readOnlyTabs,
   TabDataProps,
 } from "components/ProjectSettingsTabs/types";
+import { ProjectType } from "components/ProjectSettingsTabs/utils";
+
 import { routes, ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 import { NavigationModal } from "./NavigationModal";
@@ -29,22 +31,23 @@ type RepoSettings = RepoSettingsQuery["repoSettings"];
 
 interface Props {
   projectData?: ProjectSettings;
+  projectType: ProjectType;
   repoData?: RepoSettings;
 }
 
 export const ProjectSettingsTabs: React.FC<Props> = ({
   projectData,
+  projectType,
   repoData,
 }) => {
   const { tab } = useParams<{ tab: ProjectSettingsTabRoutes }>();
 
   const projectId = projectData?.projectRef?.id;
-  const useRepoSettings = projectData?.projectRef?.useRepoSettings;
 
-  const tabData = useMemo(() => getTabData(projectData, repoData), [
-    projectData,
-    repoData,
-  ]);
+  const tabData = useMemo(
+    () => getTabData(projectData, projectType, repoData),
+    [projectData, projectType, repoData]
+  );
 
   return (
     <Container>
@@ -52,9 +55,9 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
       <Header
         id={projectId || repoData?.projectRef?.id}
         isRepo={!projectData}
+        projectType={projectType}
         saveable={!(readOnlyTabs as ReadonlyArray<string>).includes(tab)}
         tab={tab}
-        useRepoSettings={useRepoSettings}
       />
       <Route
         path={routes.projectSettingsGeneral}
@@ -63,8 +66,8 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
             {...props}
             projectId={projectId}
             projectData={tabData[ProjectSettingsTabRoutes.General].projectData}
+            projectType={projectType}
             repoData={tabData[ProjectSettingsTabRoutes.General].repoData}
-            useRepoSettings={useRepoSettings}
             validDefaultLoggers={
               projectData?.projectRef?.validDefaultLoggers ||
               repoData?.projectRef?.validDefaultLoggers
@@ -78,8 +81,8 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           <AccessTab
             {...props}
             projectData={tabData[ProjectSettingsTabRoutes.Access].projectData}
+            projectType={projectType}
             repoData={tabData[ProjectSettingsTabRoutes.Access].repoData}
-            useRepoSettings={useRepoSettings}
           />
         )}
       />
@@ -91,8 +94,8 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
             projectData={
               tabData[ProjectSettingsTabRoutes.Variables].projectData
             }
+            projectType={projectType}
             repoData={tabData[ProjectSettingsTabRoutes.Variables].repoData}
-            useRepoSettings={useRepoSettings}
           />
         )}
       />
@@ -108,10 +111,10 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
             projectData={
               tabData[ProjectSettingsTabRoutes.GithubCommitQueue].projectData
             }
+            projectType={projectType}
             repoData={
               tabData[ProjectSettingsTabRoutes.GithubCommitQueue].repoData
             }
-            useRepoSettings={useRepoSettings}
           />
         )}
       />
@@ -121,8 +124,8 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           <PluginsTab
             {...props}
             projectData={tabData[ProjectSettingsTabRoutes.Plugins].projectData}
+            projectType={projectType}
             repoData={tabData[ProjectSettingsTabRoutes.Plugins].repoData}
-            useRepoSettings={useRepoSettings}
           />
         )}
       />
@@ -135,8 +138,8 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
             projectData={
               tabData[ProjectSettingsTabRoutes.Notifications].projectData
             }
+            projectType={projectType}
             repoData={tabData[ProjectSettingsTabRoutes.Notifications].repoData}
-            useRepoSettings={useRepoSettings}
           />
         )}
       />
@@ -148,8 +151,8 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
             projectData={
               tabData[ProjectSettingsTabRoutes.PatchAliases].projectData
             }
+            projectType={projectType}
             repoData={tabData[ProjectSettingsTabRoutes.PatchAliases].repoData}
-            useRepoSettings={useRepoSettings}
           />
         )}
       />
@@ -190,14 +193,15 @@ const TabRoute: React.FC<TabRouteProps> = ({ Component, path, tab }) => (
 /* Map data from query to the tab to which it will be passed */
 const getTabData = (
   projectData: ProjectSettings,
+  projectType: ProjectType,
   repoData?: RepoSettings
 ): TabDataProps =>
   Object.keys(gqlToFormMap).reduce(
     (obj, tab) => ({
       ...obj,
       [tab]: {
-        projectData: gqlToFormMap[tab](projectData),
-        repoData: gqlToFormMap[tab](repoData),
+        projectData: gqlToFormMap[tab](projectData, { projectType }),
+        repoData: gqlToFormMap[tab](repoData, { projectType }),
       },
     }),
     {} as TabDataProps
