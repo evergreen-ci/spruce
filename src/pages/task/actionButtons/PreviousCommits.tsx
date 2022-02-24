@@ -18,9 +18,10 @@ import {
   GET_BASE_VERSION_AND_TASK,
   GET_LAST_MAINLINE_COMMIT,
 } from "gql/queries";
-import { TaskStatus, CommitTask, CommitType } from "types/task";
+import { TaskStatus } from "types/task";
 import { errorReporting, string } from "utils";
 import { initialState, reducer } from "./reducer";
+import { CommitTask, CommitType } from "./types";
 
 const { applyStrictRegex } = string;
 const { reportError } = errorReporting;

@@ -1,6 +1,7 @@
 import { getTaskRoute } from "constants/routes";
-import { TaskStatus, CommitTask, CommitType } from "types/task";
+import { TaskStatus } from "types/task";
 import { statuses } from "utils";
+import { CommitTask, CommitType } from "./types";
 
 const { isFinishedTaskStatus } = statuses;
 
