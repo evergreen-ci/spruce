@@ -109,7 +109,7 @@ describe("publicKeyForm", () => {
         onChange={updateData}
       />
     );
-    // Since 'Use Existing Key' is selected by default, the existing key select should be visible.
+    // Since 'Use Existing Key' is selected by default, the existing key select input should be visible.
     // The textarea should not be visible.
     expect(data).toStrictEqual(defaultData);
     expect(queryByLabelText("Public Key")).toBeNull();
@@ -117,8 +117,8 @@ describe("publicKeyForm", () => {
     updateData(defaultState);
     expect(data).toStrictEqual(defaultState);
 
-    // If 'Add New Key' option is selected, the textarea should be visible, and the select
-    // input should not be visible.
+    // If 'Add New Key' option is selected, the textarea should be visible, and the select input should
+    // not be visible.
     fireEvent.click(getByText("Add new key"));
     expect(queryByLabelText("Public Key")).toBeInTheDocument();
     expect(queryByLabelText("Existing Key")).toBeNull();
