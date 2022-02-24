@@ -250,7 +250,7 @@ describe("previous Commits", () => {
       query: GET_LAST_MAINLINE_COMMIT,
       variables: {
         projectIdentifier: "evergreen",
-        skipOrderNumber: 3677,
+        skipOrderNumber: 3676,
         buildVariantOptions: {
           tasks: ["^lint-agent$"],
           variants: ["^lint$"],
@@ -322,7 +322,7 @@ describe("previous Commits", () => {
       query: GET_LAST_MAINLINE_COMMIT,
       variables: {
         projectIdentifier: "evergreen",
-        skipOrderNumber: 3677,
+        skipOrderNumber: 3676,
         buildVariantOptions: {
           tasks: ["^lint-agent$"],
           variants: ["^lint$"],
