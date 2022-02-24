@@ -45,14 +45,23 @@ const renderWithRouterMatch = (
     path = "/",
     ...rest
   } = options;
+  const { rerender, ...renderRest } = customRender(
+    <Router history={history}>
+      <Route path={path} component={ui} />
+    </Router>,
+    rest
+  );
+  const customRerender = (element: () => React.ReactElement) => {
+    rerender(
+      <Router history={history}>
+        <Route path={path} component={element} />
+      </Router>
+    );
+  };
   return {
     history,
-    ...customRender(
-      <Router history={history}>
-        <Route path={path} component={ui} />
-      </Router>,
-      rest
-    ),
+    rerender: customRerender,
+    ...renderRest,
   };
 };
 
