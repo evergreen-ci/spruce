@@ -111,8 +111,9 @@ export const arrayIntersection = <T>(a: T[], b: T[]) => {
   if (typeof a[0] === "object" || typeof b[0] === "object") {
     throw new TypeError("arrayIntersection does not support objects");
   }
+  const setA = new Set(a);
   const setB = new Set(b);
-  const intersection = a.filter((x) => setB.has(x));
+  const intersection = Array.from(setA).filter((x) => setB.has(x));
   return intersection;
 };
 
@@ -139,8 +140,9 @@ export const arraySetDifference = <T>(a: T[], b: T[]) => {
   if (typeof a[0] === "object" || typeof b[0] === "object") {
     throw new TypeError("arraySetDifference does not support objects");
   }
+  const setA = new Set(a);
   const setB = new Set(b);
-  const difference = a.filter((x) => !setB.has(x));
+  const difference = Array.from(setA).filter((x) => !setB.has(x));
   return difference;
 };
 

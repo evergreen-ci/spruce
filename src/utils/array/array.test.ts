@@ -192,6 +192,9 @@ describe("arrayIntersection", () => {
     expect(arrayIntersection(["1", "2", "3"], ["3", "4", "5"])).toStrictEqual([
       "3",
     ]);
+    expect(
+      arrayIntersection(["1", "1", "2", "2", "3"], ["2", "3", "4"])
+    ).toStrictEqual(["2", "3"]);
   });
 });
 
