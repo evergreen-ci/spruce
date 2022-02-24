@@ -47,12 +47,10 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
     onChange(oldState);
   };
 
-  // Clear public key data if user opts to add a new key. (Or else it will be pre-populated
-  // with an existing key.)
+  // Clear public key data if user toggles between options. This is to prevent old public key data from
+  // persisting, so that the Spawn button is properly disabled.
   useEffect(() => {
-    if (selectState === PublicKeyFormType.New) {
-      updatePublicKeyState({ key: "", name: "" });
-    }
+    updatePublicKeyState({ key: "", name: "" });
   }, [selectState]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -85,7 +83,7 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
         </StyledSelect>
       )}
       {selectState === PublicKeyFormType.New && (
-        <FlexColumnContainer>
+        <>
           <StyledTextArea
             id="keyValueInput"
             label="Public Key"
@@ -114,28 +112,28 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
               spellCheck={false}
               value={keyName}
               onChange={(e) => {
-                updatePublicKeyState({ key: publicKey, name: e.target.value });
+                updatePublicKeyState({
+                  key: publicKey,
+                  name: e.target.value,
+                });
               }}
             />
           </KeyNameContainer>
-        </FlexColumnContainer>
+        </>
       )}
     </Container>
   );
 };
 
-const FlexColumnContainer = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
+  width: 80%;
 `;
 
 const KeyNameContainer = styled.div`
   display: flex;
   align-items: center;
-`;
-
-const Container = styled(FlexColumnContainer)`
-  width: 80%;
 `;
 
 // @ts-expect-error
