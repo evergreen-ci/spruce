@@ -1,6 +1,10 @@
-import { ProjectInput } from "gql/generated/types";
+import {
+  ProjectInput,
+  ProjectSettingsQuery,
+  RepoSettingsQuery,
+} from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
-import { alias } from "../utils";
+import { alias, ProjectType } from "../utils";
 import { FormState } from "./types";
 
 const { AliasNames, sortAliases, transformAliases } = alias;
@@ -23,15 +27,16 @@ export const mergeProjectRepo = (
   return mergedObject;
 };
 
-export const gqlToForm: GqlToFormFunction = (data): FormState => {
+export const gqlToForm: GqlToFormFunction<FormState> = (
+  data:
+    | ProjectSettingsQuery["projectSettings"]
+    | RepoSettingsQuery["repoSettings"],
+  options: { projectType: ProjectType }
+): ReturnType<GqlToFormFunction> => {
   if (!data) return null;
 
   const { projectRef, aliases } = data;
-
-  const isRepo = Object.prototype.hasOwnProperty.call(data, "useRepoSettings");
-
-  // @ts-ignore
-  const useRepoSettings = isRepo ? false : projectRef.useRepoSettings;
+  const { projectType } = options;
 
   const {
     commitQueueAliases,
@@ -39,28 +44,32 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
     githubCheckAliases,
   } = sortAliases(aliases);
 
+  const override = (field: Array<any>) =>
+    projectType !== ProjectType.AttachedProject || !!field?.length;
+
   return {
     github: {
       prTestingEnabled: projectRef.prTestingEnabled,
       prTesting: {
-        githubPrAliasesOverride: !useRepoSettings || !!githubPrAliases.length,
+        githubPrAliasesOverride: override(githubPrAliases),
         githubPrAliases,
       },
       githubChecksEnabled: projectRef.githubChecksEnabled,
       githubChecks: {
-        githubCheckAliasesOverride:
-          !useRepoSettings || !!githubCheckAliases.length,
+        githubCheckAliasesOverride: override(githubCheckAliases),
         githubCheckAliases,
       },
       gitTagVersionsEnabled: projectRef.gitTagVersionsEnabled,
       users: {
-        gitTagAuthorizedUsersOverride:
-          !useRepoSettings || !!projectRef.gitTagAuthorizedUsers?.length,
+        gitTagAuthorizedUsersOverride: override(
+          projectRef.gitTagAuthorizedUsers
+        ),
         gitTagAuthorizedUsers: projectRef.gitTagAuthorizedUsers,
       },
       teams: {
-        gitTagAuthorizedTeamsOverride:
-          !useRepoSettings || !!projectRef.gitTagAuthorizedTeams?.length,
+        gitTagAuthorizedTeamsOverride: override(
+          projectRef.gitTagAuthorizedTeams
+        ),
         gitTagAuthorizedTeams: projectRef.gitTagAuthorizedTeams,
       },
     },
@@ -70,8 +79,7 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
       message: projectRef.commitQueue.message,
       mergeMethod: projectRef.commitQueue.mergeMethod,
       patchDefinitions: {
-        commitQueueAliasesOverride:
-          !useRepoSettings || !!commitQueueAliases.length,
+        commitQueueAliasesOverride: override(commitQueueAliases),
         commitQueueAliases,
       },
     },

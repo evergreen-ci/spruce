@@ -6,6 +6,7 @@ import {
   DETACH_PROJECT_FROM_REPO,
 } from "gql/mutations";
 import { render, fireEvent, waitFor } from "test_utils";
+import { ProjectType } from "../../utils";
 import {
   AttachDetachModal,
   MoveRepoModal,
@@ -30,7 +31,7 @@ const Field = () => (
           projectId: "evergreen",
           repoName: "evergreen",
           repoOwner: "evergreen-ci",
-          useRepoSettings: true,
+          projectType: ProjectType.AttachedProject,
         },
       }}
     />
@@ -60,7 +61,7 @@ describe("repoConfigField", () => {
       <RepoConfigField
         {...fieldProps}
         uiSchema={{
-          options: { useRepoSettings: false },
+          options: { projectType: ProjectType.Project },
         }}
       />
     );
@@ -72,7 +73,7 @@ describe("repoConfigField", () => {
       <RepoConfigField
         {...fieldProps}
         uiSchema={{
-          options: { useRepoSettings: true },
+          options: { projectType: ProjectType.AttachedProject },
         }}
       />
     );
