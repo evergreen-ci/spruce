@@ -8,7 +8,7 @@ import { TaskCell } from "./Cell";
 
 describe("taskCell", () => {
   it("should render a task cell corresponding to a passed in status", () => {
-    const { queryByDataCy, queryByLabelText } = render(() => (
+    const { queryByDataCy, rerender, queryByLabelText } = render(() => (
       <TaskCell
         task={{
           id: "some-task-id",
@@ -17,21 +17,22 @@ describe("taskCell", () => {
         loading={false}
       />
     ));
+
     expect(queryByLabelText("Checkmark Icon")).toBeInTheDocument();
     expect(queryByDataCy("task-cell")).toBeInTheDocument();
 
     // Disabled this condition temporarily until EVG-15959 is resolved.
-    // rerender(() => (
-    //   <TaskCell
-    //     task={{
-    //       id: "some-task-id",
-    //       status: TaskStatus.Failed,
-    //     }}
-    //     loading={false}
-    //   />
-    // ));
-    // expect(queryByLabelText("X Icon")).toBeInTheDocument();
-    // expect(queryByDataCy("task-cell")).toBeInTheDocument();
+    rerender(() => (
+      <TaskCell
+        task={{
+          id: "some-task-id",
+          status: TaskStatus.Failed,
+        }}
+        loading={false}
+      />
+    ));
+    expect(queryByLabelText("Failure Icon")).toBeInTheDocument();
+    expect(queryByDataCy("task-cell")).toBeInTheDocument();
   });
   it("should link to the task page", () => {
     const { queryByRole } = render(() => (
