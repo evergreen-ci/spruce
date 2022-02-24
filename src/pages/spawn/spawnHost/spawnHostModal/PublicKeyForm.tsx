@@ -9,15 +9,15 @@ import { Subtitle } from "@leafygreen-ui/typography";
 import { size, zIndex } from "constants/tokens";
 import { PublicKey, PublicKeyInput } from "gql/generated/types";
 
-enum PublicKeyType {
-  Existing = "existingKey",
-  New = "newKey",
-}
-
 export type publicKeyStateType = {
   publicKey: PublicKeyInput;
   savePublicKey: boolean;
 };
+
+enum PublicKeyFormType {
+  Existing = "existingKey",
+  New = "newKey",
+}
 
 interface PublicKeyFormProps {
   publicKeys: PublicKey[];
@@ -29,8 +29,8 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
   onChange,
   data,
 }) => {
-  const [selectState, setSelectState] = useState<PublicKeyType>(
-    PublicKeyType.Existing
+  const [selectState, setSelectState] = useState<PublicKeyFormType>(
+    PublicKeyFormType.Existing
   );
 
   const { savePublicKey } = data;
@@ -50,7 +50,7 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
   // Clear public key data if user opts to add a new key. (Or else it will be pre-populated
   // with an existing key.)
   useEffect(() => {
-    if (selectState === PublicKeyType.New) {
+    if (selectState === PublicKeyFormType.New) {
       updatePublicKeyState({ key: "", name: "" });
     }
   }, [selectState]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -60,23 +60,15 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
       <Subtitle>Public Key</Subtitle>
 
       <StyledRadioBoxGroup
-        onChange={(e) => setSelectState(e.target.value as PublicKeyType)}
         value={selectState}
+        onChange={(e) => setSelectState(e.target.value as PublicKeyFormType)}
       >
-        <RadioBox
-          value={PublicKeyType.Existing}
-          data-cy="existing_public_key_button"
-        >
-          Select existing key
-        </RadioBox>
-        <RadioBox value={PublicKeyType.New} data-cy="add_public_key_button">
-          Add new key
-        </RadioBox>
+        <RadioBox value={PublicKeyFormType.Existing}>Use existing key</RadioBox>
+        <RadioBox value={PublicKeyFormType.New}>Add new key</RadioBox>
       </StyledRadioBoxGroup>
 
-      {selectState === PublicKeyType.Existing && (
+      {selectState === PublicKeyFormType.Existing && (
         <StyledSelect
-          data-cy="public_key_dropdown"
           placeholder="Select an existing key"
           label="Existing Key"
           onChange={selectPublicKey}
@@ -92,12 +84,11 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
           ))}
         </StyledSelect>
       )}
-      {selectState === PublicKeyType.New && (
-        <FlexColumnContainer data-cy="add_new_key_form">
+      {selectState === PublicKeyFormType.New && (
+        <FlexColumnContainer>
           <StyledTextArea
             id="keyValueInput"
             label="Public Key"
-            data-cy="key-value-input"
             value={publicKey}
             onChange={(e) =>
               updatePublicKeyState({ key: e.target.value, name: keyName })
@@ -119,13 +110,12 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
               id="keyNameInput"
               aria-labelledby="Public Key Name"
               placeholder="Key name"
+              disabled={!savePublicKey}
+              spellCheck={false}
               value={keyName}
               onChange={(e) => {
                 updatePublicKeyState({ key: publicKey, name: e.target.value });
               }}
-              disabled={!savePublicKey}
-              data-cy="key-name-input"
-              spellCheck={false}
             />
           </KeyNameContainer>
         </FlexColumnContainer>

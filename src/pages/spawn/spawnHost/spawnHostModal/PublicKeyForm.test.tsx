@@ -1,4 +1,3 @@
-import React from "react";
 import { render, fireEvent, act } from "test_utils";
 import { PublicKeyForm } from "./PublicKeyForm";
 
@@ -22,7 +21,7 @@ const defaultData = {
   savePublicKey: false,
 };
 describe("publicKeyForm", () => {
-  it("public Key state should be initialized correctly", async () => {
+  it("public Key state should be initialized correctly", () => {
     let data = { ...defaultData };
     const updateData = jest.fn((x) => {
       data = x;
@@ -44,18 +43,19 @@ describe("publicKeyForm", () => {
       data = x;
     });
 
-    const { queryByDataCy, getAllByText } = render(
+    const { getByText, getByLabelText } = render(
       <PublicKeyForm
         publicKeys={publicKeys}
         data={data}
         onChange={updateData}
       />
     );
-    fireEvent.mouseDown(queryByDataCy("public_key_dropdown").firstElementChild);
-    const selectChoice = getAllByText("MyFirstKey.pub")[1];
-    expect(selectChoice).toBeInTheDocument();
+    fireEvent.click(getByLabelText("Existing Key"));
+
+    const myKey = getByText("MyFirstKey.pub");
+    expect(myKey).toBeInTheDocument();
     await act(async () => {
-      fireEvent.click(selectChoice);
+      fireEvent.click(myKey);
     });
     expect(data).toStrictEqual({
       publicKey: { ...publicKeys[0] },
@@ -63,7 +63,7 @@ describe("publicKeyForm", () => {
     });
   });
 
-  it("clicking on Add new key should reset the state to the default", async () => {
+  it("clicking on Add new key should reset the state to the default", () => {
     const defaultState = {
       publicKey: { ...publicKeys[0] },
       savePublicKey: false,
@@ -74,7 +74,7 @@ describe("publicKeyForm", () => {
       data = x;
     });
 
-    const { queryByDataCy } = render(
+    const { getByText, queryByLabelText } = render(
       <PublicKeyForm
         publicKeys={publicKeys}
         data={data}
@@ -82,15 +82,16 @@ describe("publicKeyForm", () => {
       />
     );
     expect(data).toStrictEqual(defaultData);
-    expect(queryByDataCy("add_new_key_form")).toBeNull();
+    expect(queryByLabelText("Public Key")).toBeNull();
     updateData(defaultState);
     expect(data).toStrictEqual(defaultState);
-    fireEvent.click(queryByDataCy("add_public_key_button"));
-    expect(queryByDataCy("add_new_key_form")).toBeInTheDocument();
+
+    fireEvent.click(getByText("Add new key"));
+    expect(queryByLabelText("Public Key")).toBeInTheDocument();
     expect(data).toStrictEqual(defaultData);
   });
 
-  it("toggling add new key should disable and enable the select input", async () => {
+  it("textarea should not be visible when using existing key, select input should not be visible when adding new key", () => {
     const defaultState = {
       publicKey: { ...publicKeys[0] },
       savePublicKey: false,
@@ -101,26 +102,45 @@ describe("publicKeyForm", () => {
       data = x;
     });
 
-    const { queryByDataCy } = render(
+    const { getByText, queryByLabelText } = render(
       <PublicKeyForm
         publicKeys={publicKeys}
         data={data}
         onChange={updateData}
       />
     );
+    // Since 'Use Existing Key' is selected by default, the existing key select should be visible.
+    // The textarea should not be visible.
     expect(data).toStrictEqual(defaultData);
-    expect(queryByDataCy("add_new_key_form")).toBeNull();
+    expect(queryByLabelText("Public Key")).toBeNull();
+    expect(queryByLabelText("Existing Key")).toBeInTheDocument();
     updateData(defaultState);
     expect(data).toStrictEqual(defaultState);
-    fireEvent.click(queryByDataCy("add_public_key_button"));
-    expect(queryByDataCy("add_new_key_form")).toBeInTheDocument();
-    expect(queryByDataCy("public_key_dropdown")).toHaveClass(
-      "ant-select-disabled"
+
+    // If 'Add New Key' option is selected, the textarea should be visible, and the select
+    // input should not be visible.
+    fireEvent.click(getByText("Add new key"));
+    expect(queryByLabelText("Public Key")).toBeInTheDocument();
+    expect(queryByLabelText("Existing Key")).toBeNull();
+  });
+
+  it("textinput to specify new key name should be disabled until checkbox is checked", () => {
+    let data = { ...defaultData };
+    const updateData = jest.fn((x) => {
+      data = x;
+    });
+
+    const { getByText, getByPlaceholderText } = render(
+      <PublicKeyForm
+        publicKeys={publicKeys}
+        data={data}
+        onChange={updateData}
+      />
     );
-    fireEvent.click(queryByDataCy("add_public_key_button"));
-    expect(queryByDataCy("add_new_key_form")).toBeNull();
-    expect(queryByDataCy("public_key_dropdown")).not.toHaveClass(
-      "ant-select-disabled"
-    );
+
+    fireEvent.click(getByText("Add new key"));
+    expect(getByPlaceholderText("Key name")).toHaveAttribute("disabled");
+    fireEvent.click(getByText("Save public key"));
+    expect(getByPlaceholderText("Key name")).toHaveAttribute("disabled", "");
   });
 });

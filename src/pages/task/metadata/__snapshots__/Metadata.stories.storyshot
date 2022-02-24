@@ -23,7 +23,7 @@ exports[`storybook Storyshots Metadata Base 1`] = `
       Build Variant Name:
        
       <a
-        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+        className="css-18wk0e9-StyledRouterLink-linkStyles es7lfqt0"
         data-cy="build-variant-link"
         href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=ubuntu1604"
         onClick={[Function]}
@@ -38,7 +38,7 @@ exports[`storybook Storyshots Metadata Base 1`] = `
       Project:
        
       <a
-        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+        className="css-18wk0e9-StyledRouterLink-linkStyles es7lfqt0"
         data-cy="project-link"
         href="/project/spruce/patches"
         onClick={[Function]}
@@ -67,7 +67,7 @@ exports[`storybook Storyshots Metadata Base 1`] = `
       Base commit:
        
       <a
-        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+        className="css-18wk0e9-StyledRouterLink-linkStyles es7lfqt0"
         data-cy="base-task-link"
         href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
         onClick={[Function]}
@@ -81,7 +81,7 @@ exports[`storybook Storyshots Metadata Base 1`] = `
       Distro:
        
       <a
-        className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+        className="css-vfyban-StyledLink-linkStyles es7lfqt2"
         data-cy="task-distro-link"
         href="/distros##ubuntu1604-small"
         onClick={[Function]}
@@ -102,7 +102,7 @@ exports[`storybook Storyshots Metadata Base 1`] = `
       Host:
        
       <a
-        className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+        className="css-vfyban-StyledLink-linkStyles es7lfqt2"
         data-cy="task-host-link"
         href="/host/i-0e0e62799806e037d"
         onClick={[Function]}
@@ -114,7 +114,7 @@ exports[`storybook Storyshots Metadata Base 1`] = `
       className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
     >
       <a
-        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+        className="css-18wk0e9-StyledRouterLink-linkStyles es7lfqt0"
         data-cy="task-spawn-host-link"
         href="/spawn/host?distroId=ubuntu1604-small&spawnHost=True&taskId=someTaskId"
         onClick={[Function]}
@@ -149,7 +149,7 @@ exports[`storybook Storyshots Metadata With Abort Message 1`] = `
       Build Variant Name:
        
       <a
-        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+        className="css-18wk0e9-StyledRouterLink-linkStyles es7lfqt0"
         data-cy="build-variant-link"
         href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=ubuntu1604"
         onClick={[Function]}
@@ -164,7 +164,7 @@ exports[`storybook Storyshots Metadata With Abort Message 1`] = `
       Project:
        
       <a
-        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+        className="css-18wk0e9-StyledRouterLink-linkStyles es7lfqt0"
         data-cy="project-link"
         href="/project/spruce/patches"
         onClick={[Function]}
@@ -193,7 +193,7 @@ exports[`storybook Storyshots Metadata With Abort Message 1`] = `
       Base commit:
        
       <a
-        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+        className="css-18wk0e9-StyledRouterLink-linkStyles es7lfqt0"
         data-cy="base-task-link"
         href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
         onClick={[Function]}
@@ -207,7 +207,7 @@ exports[`storybook Storyshots Metadata With Abort Message 1`] = `
       Distro:
        
       <a
-        className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+        className="css-vfyban-StyledLink-linkStyles es7lfqt2"
         data-cy="task-distro-link"
         href="/distros##ubuntu1604-small"
         onClick={[Function]}
@@ -228,7 +228,7 @@ exports[`storybook Storyshots Metadata With Abort Message 1`] = `
       Host:
        
       <a
-        className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+        className="css-vfyban-StyledLink-linkStyles es7lfqt2"
         data-cy="task-host-link"
         href="/host/i-0e0e62799806e037d"
         onClick={[Function]}
@@ -240,7 +240,7 @@ exports[`storybook Storyshots Metadata With Abort Message 1`] = `
       className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
     >
       <a
-        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+        className="css-18wk0e9-StyledRouterLink-linkStyles es7lfqt0"
         data-cy="task-spawn-host-link"
         href="/spawn/host?distroId=ubuntu1604-small&spawnHost=True&taskId=someTaskId"
         onClick={[Function]}
@@ -275,7 +275,7 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
       Build Variant Name:
        
       <a
-        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+        className="css-18wk0e9-StyledRouterLink-linkStyles es7lfqt0"
         data-cy="build-variant-link"
         href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=ubuntu1604"
         onClick={[Function]}
@@ -290,7 +290,7 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
       Project:
        
       <a
-        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+        className="css-18wk0e9-StyledRouterLink-linkStyles es7lfqt0"
         data-cy="project-link"
         href="/project/spruce/patches"
         onClick={[Function]}
@@ -319,7 +319,7 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
       Base commit:
        
       <a
-        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+        className="css-18wk0e9-StyledRouterLink-linkStyles es7lfqt0"
         data-cy="base-task-link"
         href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
         onClick={[Function]}
@@ -333,7 +333,7 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
       Distro:
        
       <a
-        className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+        className="css-vfyban-StyledLink-linkStyles es7lfqt2"
         data-cy="task-distro-link"
         href="/distros##ubuntu1604-small"
         onClick={[Function]}
@@ -354,7 +354,7 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
       Host:
        
       <a
-        className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+        className="css-vfyban-StyledLink-linkStyles es7lfqt2"
         data-cy="task-host-link"
         href="/host/i-0e0e62799806e037d"
         onClick={[Function]}
@@ -366,7 +366,7 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
       className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
     >
       <a
-        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+        className="css-18wk0e9-StyledRouterLink-linkStyles es7lfqt0"
         data-cy="task-spawn-host-link"
         href="/spawn/host?distroId=ubuntu1604-small&spawnHost=True&taskId=someTaskId"
         onClick={[Function]}
@@ -408,7 +408,7 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
           className="css-19njn6m-RightContainer e1dgw5p62"
         >
           <a
-            className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+            className="css-18wk0e9-StyledRouterLink-linkStyles es7lfqt0"
             data-cy="depends-on-link"
             href="/task/some_task_id_1"
             onClick={[Function]}
@@ -456,7 +456,7 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
           className="css-19njn6m-RightContainer e1dgw5p62"
         >
           <a
-            className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+            className="css-18wk0e9-StyledRouterLink-linkStyles es7lfqt0"
             data-cy="depends-on-link"
             href="/task/some_task_id_2"
             onClick={[Function]}
@@ -504,7 +504,7 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
           className="css-19njn6m-RightContainer e1dgw5p62"
         >
           <a
-            className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+            className="css-18wk0e9-StyledRouterLink-linkStyles es7lfqt0"
             data-cy="depends-on-link"
             href="/task/some_task_id_3"
             onClick={[Function]}
@@ -550,7 +550,7 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
           className="css-19njn6m-RightContainer e1dgw5p62"
         >
           <a
-            className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+            className="css-18wk0e9-StyledRouterLink-linkStyles es7lfqt0"
             data-cy="depends-on-link"
             href="/task/some_task_id_4"
             onClick={[Function]}

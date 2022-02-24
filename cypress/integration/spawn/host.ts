@@ -56,9 +56,9 @@ describe("Navigating to Spawn Host page", () => {
     cy.dataCy("spawn-host-card").should("be.visible");
     cy.dataCy("spawn-host-card").should("have.length", 1);
   });
-  it("Clicking on the Event Log link should redirect to /host/:hostId", () => {
+  it.only("Clicking on the Event Log link should redirect to /host/:hostId", () => {
     cy.visit("/spawn/host");
-    cy.get('[data-row-key="i-092593689871a50dc"] > :nth-child(2)').click();
+    cy.contains("Event Log").click();
     cy.location("pathname").should("eq", "/host/i-092593689871a50dc");
   });
 

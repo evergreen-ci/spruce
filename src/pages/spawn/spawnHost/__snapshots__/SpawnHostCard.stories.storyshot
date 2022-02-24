@@ -162,7 +162,7 @@ exports[`storybook Storyshots Spawn Host Card Spawn Host Card Story 1`] = `
     <div>
       <span>
         <a
-          className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+          className="css-18wk0e9-StyledRouterLink-linkStyles es7lfqt0"
           href="/spawn/volume?volume=vol-0ea662ac92f611ed4"
           onClick={[Function]}
         >
@@ -182,7 +182,7 @@ exports[`storybook Storyshots Spawn Host Card Spawn Host Card Story 1`] = `
     <div>
       <span>
         <a
-          className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+          className="css-vfyban-StyledLink-linkStyles es7lfqt2"
           href="/host/i-04ade558e1e26b0ad/ide"
         >
           Open IDE
