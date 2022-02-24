@@ -91,7 +91,7 @@ export const getFormSchema = (
         },
         isAdminOnly: {
           "ui:tooltipDescription":
-            "Admin only variables are only accessible by project admins.",
+            "Admin only variables can only be used by project admins.",
           "ui:data-cy": "var-admin-input",
         },
       },
