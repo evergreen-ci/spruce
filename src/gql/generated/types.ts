@@ -955,6 +955,7 @@ export type TaskSpecifierInput = {
 export type ProjectVarsInput = {
   vars?: Maybe<Scalars["StringMap"]>;
   privateVarsList?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  adminOnlyVarsList?: Maybe<Array<Maybe<Scalars["String"]>>>;
 };
 
 export type VariantTaskInput = {
@@ -1516,6 +1517,7 @@ export type RepoEventLogEntry = {
 export type ProjectVars = {
   vars?: Maybe<Scalars["StringMap"]>;
   privateVars?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  adminOnlyVars?: Maybe<Array<Maybe<Scalars["String"]>>>;
 };
 
 export type ProjectAlias = {
