@@ -1,13 +1,4 @@
-export type AliasType = {
-  id: string;
-  alias: string;
-  gitTag: string;
-  remotePath: string;
-  variant: string;
-  variantTags: string[];
-  task: string;
-  taskTags: string[];
-};
+import { AliasType, ProjectType } from "../utils";
 
 export interface FormState {
   github: {
@@ -49,6 +40,7 @@ export interface FormState {
   };
   commitQueue: {
     enabled: boolean | null;
+    requireSigned: boolean | null;
     mergeMethod: string;
     message: string;
     patchDefinitions: {
@@ -65,6 +57,6 @@ export interface FormState {
 export type TabProps = {
   gitHubWebhooksEnabled: boolean;
   projectData?: FormState;
+  projectType: ProjectType;
   repoData?: FormState;
-  useRepoSettings: boolean;
 };

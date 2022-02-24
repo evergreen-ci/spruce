@@ -26,6 +26,7 @@ export type Query = {
   version: Version;
   projects: Array<Maybe<GroupedProjects>>;
   viewableProjectRefs: Array<Maybe<GroupedProjects>>;
+  githubProjectConflicts: GithubProjectConflicts;
   project: Project;
   patchTasks: PatchTasks;
   taskTests: TaskTestResult;
@@ -79,6 +80,10 @@ export type QueryPatchArgs = {
 
 export type QueryVersionArgs = {
   id: Scalars["String"];
+};
+
+export type QueryGithubProjectConflictsArgs = {
+  projectId: Scalars["String"];
 };
 
 export type QueryProjectArgs = {
@@ -531,6 +536,7 @@ export type Version = {
   activated?: Maybe<Scalars["Boolean"]>;
   taskStatusCounts?: Maybe<Array<StatusCount>>;
   buildVariants?: Maybe<Array<Maybe<GroupedBuildVariant>>>;
+  buildVariantStats?: Maybe<Array<GroupedTaskStatusCount>>;
   isPatch: Scalars["Boolean"];
   patch?: Maybe<Patch>;
   childVersions?: Maybe<Array<Maybe<Version>>>;
@@ -553,6 +559,10 @@ export type VersionBuildVariantsArgs = {
   options?: Maybe<BuildVariantOptions>;
 };
 
+export type VersionBuildVariantStatsArgs = {
+  options?: Maybe<BuildVariantOptions>;
+};
+
 export type Manifest = {
   id: Scalars["String"];
   revision: Scalars["String"];
@@ -571,6 +581,12 @@ export type VersionTiming = {
 export type StatusCount = {
   status: Scalars["String"];
   count: Scalars["Int"];
+};
+
+export type GroupedTaskStatusCount = {
+  variant: Scalars["String"];
+  displayName: Scalars["String"];
+  statusCounts: Array<StatusCount>;
 };
 
 export type BuildVariantOptions = {
@@ -1425,6 +1441,7 @@ export type Task = {
   restarts?: Maybe<Scalars["Int"]>;
   revision?: Maybe<Scalars["String"]>;
   scheduledTime?: Maybe<Scalars["Time"]>;
+  containerAllocatedTime?: Maybe<Scalars["Time"]>;
   spawnHostLink?: Maybe<Scalars["String"]>;
   startTime?: Maybe<Scalars["Time"]>;
   status: Scalars["String"];
@@ -1448,6 +1465,12 @@ export type GroupedProjects = {
   name: Scalars["String"];
   repo?: Maybe<RepoRef>;
   projects: Array<Project>;
+};
+
+export type GithubProjectConflicts = {
+  commitQueueIdentifiers?: Maybe<Array<Scalars["String"]>>;
+  prTestingIdentifiers?: Maybe<Array<Scalars["String"]>>;
+  commitCheckIdentifiers?: Maybe<Array<Scalars["String"]>>;
 };
 
 export type ProjectSettings = {
@@ -2263,6 +2286,7 @@ export type ProjectGithubCommitQueueFragment = {
     gitTagAuthorizedTeams?: Maybe<Array<string>>;
     commitQueue: {
       enabled?: Maybe<boolean>;
+      requireSigned?: Maybe<boolean>;
       mergeMethod: string;
       message: string;
     };
@@ -2278,20 +2302,23 @@ export type RepoGithubCommitQueueFragment = {
     gitTagVersionsEnabled: boolean;
     gitTagAuthorizedUsers?: Maybe<Array<string>>;
     gitTagAuthorizedTeams?: Maybe<Array<string>>;
-    commitQueue: { enabled: boolean; mergeMethod: string; message: string };
+    commitQueue: {
+      enabled: boolean;
+      requireSigned: boolean;
+      mergeMethod: string;
+      message: string;
+    };
   }>;
 };
 
 export type ProjectSettingsFragment = {
   projectRef?: Maybe<
-    {
-      id: string;
-      useRepoSettings: boolean;
-      repoRefId: string;
-    } & ProjectGeneralSettingsFragment &
+    { id: string; repoRefId: string } & ProjectGeneralSettingsFragment &
       ProjectAccessSettingsFragment &
-      ProjectPluginsSettingsFragment
+      ProjectPluginsSettingsFragment &
+      ProjectNotificationSettingsFragment
   >;
+  subscriptions?: Maybe<Array<SubscriptionsFragment>>;
   vars?: Maybe<VariablesFragment>;
   aliases?: Maybe<Array<AliasFragment>>;
 } & ProjectGithubCommitQueueFragment;
@@ -2300,11 +2327,56 @@ export type RepoSettingsFragment = {
   projectRef?: Maybe<
     { id: string } & RepoGeneralSettingsFragment &
       RepoAccessSettingsFragment &
-      RepoPluginsSettingsFragment
+      RepoPluginsSettingsFragment &
+      RepoNotificationSettingsFragment
   >;
   vars?: Maybe<VariablesFragment>;
+  subscriptions?: Maybe<Array<SubscriptionsFragment>>;
   aliases?: Maybe<Array<AliasFragment>>;
 } & RepoGithubCommitQueueFragment;
+
+export type ProjectNotificationSettingsFragment = {
+  notifyOnBuildFailure?: Maybe<boolean>;
+};
+
+export type RepoNotificationSettingsFragment = {
+  notifyOnBuildFailure: boolean;
+};
+
+export type SubscriptionsFragment = {
+  id: string;
+  resourceType: string;
+  trigger: string;
+  ownerType: string;
+  triggerData?: Maybe<{ [key: string]: any }>;
+  selectors: Array<{ type: string; data: string }>;
+  regexSelectors: Array<{ type: string; data: string }>;
+  subscriber?: Maybe<{
+    type: string;
+    subscriber: {
+      jiraCommentSubscriber?: Maybe<string>;
+      emailSubscriber?: Maybe<string>;
+      slackSubscriber?: Maybe<string>;
+      githubPRSubscriber?: Maybe<{
+        owner: string;
+        repo: string;
+        ref: string;
+        prNumber?: Maybe<number>;
+      }>;
+      githubCheckSubscriber?: Maybe<{
+        owner: string;
+        repo: string;
+        ref: string;
+      }>;
+      webhookSubscriber?: Maybe<{
+        url: string;
+        secret: string;
+        headers: Array<Maybe<{ key: string; value: string }>>;
+      }>;
+      jiraIssueSubscriber?: Maybe<{ project: string; issueType: string }>;
+    };
+  }>;
+};
 
 export type ProjectPluginsSettingsFragment = {
   perfEnabled?: Maybe<boolean>;
@@ -2367,6 +2439,14 @@ export type AddFavoriteProjectMutation = {
   };
 };
 
+export type AttachProjectToRepoMutationVariables = Exact<{
+  projectId: Scalars["String"];
+}>;
+
+export type AttachProjectToRepoMutation = {
+  attachProjectToRepo: { id: string };
+};
+
 export type AttachVolumeToHostMutationVariables = Exact<{
   volumeAndHost: VolumeHost;
 }>;
@@ -2385,6 +2465,14 @@ export type CreatePublicKeyMutationVariables = Exact<{
 
 export type CreatePublicKeyMutation = {
   createPublicKey: Array<{ key: string; name: string }>;
+};
+
+export type DetachProjectFromRepoMutationVariables = Exact<{
+  projectId: Scalars["String"];
+}>;
+
+export type DetachProjectFromRepoMutation = {
+  detachProjectFromRepo: { id: string };
 };
 
 export type DetachVolumeFromHostMutationVariables = Exact<{
@@ -2804,6 +2892,23 @@ export type BuildBaronQuery = {
   };
 };
 
+export type GetBuildVariantStatsQueryVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type GetBuildVariantStatsQuery = {
+  version: {
+    id: string;
+    buildVariantStats?: Maybe<
+      Array<{
+        variant: string;
+        displayName: string;
+        statusCounts: Array<{ count: number; status: string }>;
+      }>
+    >;
+  };
+};
+
 export type GetBuildVariantsForTaskNameQueryVariables = Exact<{
   projectId: Scalars["String"];
   taskName: Scalars["String"];
@@ -2863,35 +2968,6 @@ export type BuildVariantsWithChildrenQuery = {
                     }>
                   >
                 >;
-              }>
-            >
-          >;
-        }>
-      >
-    >;
-  };
-};
-
-export type BuildVariantsQueryVariables = Exact<{
-  id: Scalars["String"];
-}>;
-
-export type BuildVariantsQuery = {
-  version: {
-    id: string;
-    buildVariants?: Maybe<
-      Array<
-        Maybe<{
-          variant: string;
-          displayName: string;
-          tasks?: Maybe<
-            Array<
-              Maybe<{
-                id: string;
-                execution: number;
-                status: string;
-                displayName: string;
-                baseStatus?: Maybe<string>;
               }>
             >
           >;

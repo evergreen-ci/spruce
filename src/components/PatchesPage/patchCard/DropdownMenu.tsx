@@ -15,6 +15,7 @@ interface Props {
   isPatchOnCommitQueue: boolean;
   patchDescription: string;
   childPatches: Partial<Patch>[];
+  hasVersion: boolean;
 }
 export const DropdownMenu: React.FC<Props> = ({
   patchId,
@@ -22,6 +23,7 @@ export const DropdownMenu: React.FC<Props> = ({
   canEnqueueToCommitQueue,
   isPatchOnCommitQueue,
   patchDescription,
+  hasVersion,
 }) => {
   const restartModalVisibilityControl = useState(false);
   const enqueueModalVisibilityControl = useState(false);
@@ -30,12 +32,14 @@ export const DropdownMenu: React.FC<Props> = ({
       key="reconfigure"
       patchId={patchId}
       disabled={isPatchOnCommitQueue}
+      hasVersion={hasVersion}
     />,
-    <ScheduleTasks key="schedule" versionId={patchId} />,
+    <ScheduleTasks key="schedule" versionId={patchId} disabled={!hasVersion} />,
     <UnscheduleTasks
       key="unschedule"
       patchId={patchId}
       refetchQueries={refetchQueries}
+      disabled={!hasVersion}
     />,
     <RestartPatch
       visibilityControl={restartModalVisibilityControl}
@@ -43,13 +47,14 @@ export const DropdownMenu: React.FC<Props> = ({
       patchId={patchId}
       childPatches={childPatches}
       refetchQueries={refetchQueries}
+      disabled={!hasVersion}
     />,
     <EnqueuePatch
       visibilityControl={enqueueModalVisibilityControl}
       key="enqueue"
       patchId={patchId}
       commitMessage={patchDescription}
-      disabled={!canEnqueueToCommitQueue}
+      disabled={!canEnqueueToCommitQueue || !hasVersion}
       refetchQueries={refetchQueries}
     />,
   ];

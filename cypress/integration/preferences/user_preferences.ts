@@ -28,9 +28,6 @@ describe("user preferences pages", () => {
   });
   it("saving changes to a field should work", () => {
     cy.dataCy("save-profile-changes-button").click();
-    cy.dataCy("toast").should(
-      "contain.text",
-      "Your changes have successfully been saved."
-    );
+    cy.validateToast("success", "Your changes have successfully been saved.");
   });
 });

@@ -2,10 +2,12 @@ import { Field } from "@rjsf/core";
 import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { radioBoxOptions } from "../utils";
+import { form, ProjectType } from "../utils";
+
+const { radioBoxOptions } = form;
 
 export const getFormSchema = (
-  useRepoSettings: boolean,
+  projectType: ProjectType,
   repoData?: any
 ): {
   fields: Record<string, Field>;
@@ -76,23 +78,19 @@ export const getFormSchema = (
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       admins: {
         "ui:addButtonText": "Add Username",
-        "ui:description": getAdminsDescription(useRepoSettings),
+        "ui:description": getAdminsDescription(projectType),
         "ui:showLabel": false,
-        options: {
-          useRepoSettings,
-        },
       },
     },
   },
 });
 
-const getAdminsDescription = (useRepoSettings: boolean): string => {
-  // Repo page, where useRepoSettings field does not exist
-  if (useRepoSettings === undefined) {
+const getAdminsDescription = (projectType: ProjectType): string => {
+  if (projectType === ProjectType.Repo) {
     return "Admins for this repo will be able to edit repo settings and any attached branches’ settings.";
   }
-  // Project page
-  return useRepoSettings
-    ? "Admins for this branch will be able to edit branch settings and view repo settings."
-    : "Admins for this branch will be able to edit branch settings.";
+  if (projectType === ProjectType.AttachedProject) {
+    return "Admins for this branch will be able to edit branch settings and view repo settings.";
+  }
+  return "Admins for this branch will be able to edit branch settings.";
 };

@@ -1,11 +1,6 @@
 import { ObjectFieldTemplateProps } from "@rjsf/core";
 import { SpruceFormProps } from "components/SpruceForm";
-import { ProjectSettingsTabRoutes } from "constants/routes";
 import { Unpacked } from "types/utils";
-
-export interface TabProps {
-  tab: ProjectSettingsTabRoutes;
-}
 
 export const insertIf = (condition, ...elements) => (condition ? elements : []);
 

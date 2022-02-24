@@ -10,6 +10,7 @@ fragment projectGithubCommitQueue on ProjectSettings {
     gitTagAuthorizedTeams
     commitQueue {
       enabled
+      requireSigned
       mergeMethod
       message
     }
@@ -28,6 +29,7 @@ fragment repoGithubCommitQueue on RepoSettings {
     gitTagAuthorizedTeams
     commitQueue {
       enabled
+      requireSigned
       mergeMethod
       message
     }

@@ -6,13 +6,13 @@ export const projectBase: ProjectSettingsQuery["projectSettings"] = {
   projectRef: {
     id: "project",
     repoRefId: "repo",
-    useRepoSettings: true,
 
     enabled: null,
     owner: "evergreen-ci",
     repo: "evergreen",
     branch: null,
     displayName: null,
+    notifyOnBuildFailure: null,
     batchTime: 0,
     remotePath: null,
     spawnHostScriptPath: null,
@@ -40,6 +40,7 @@ export const projectBase: ProjectSettingsQuery["projectSettings"] = {
     gitTagAuthorizedTeams: [],
     commitQueue: {
       enabled: null,
+      requireSigned: null,
       mergeMethod: "",
       message: "",
     },
@@ -100,6 +101,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     dispatchingDisabled: true,
     deactivatePrevious: true,
     repotrackerDisabled: false,
+    notifyOnBuildFailure: false,
     defaultLogger: "buildlogger",
     cedarTestResultsEnabled: false,
     patchingDisabled: false,
@@ -121,6 +123,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     gitTagAuthorizedTeams: [],
     commitQueue: {
       enabled: true,
+      requireSigned: true,
       mergeMethod: "squash",
       message: "Commit Queue Message",
     },

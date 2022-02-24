@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "2.27.0",
+  "version": "2.28.3",
   "private": true,
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js' --html | sed 1d > build/source_map.html",
@@ -18,8 +18,8 @@
     "deploy": "aws s3 sync build/ s3://${BUCKET}/ --acl public-read --follow-symlinks --delete --exclude env/.cmdrc.json",
     "deploy-prod:do-not-use-directly": "yarn build:prod && BUCKET=evergreen.spruce yarn deploy; yarn upload-source-maps;",
     "deploy:prod": "node cli-scripts/deploy-prod.js",
-    "deploy:staging": "yarn build:staging && BUCKET=evergreen-staging.spruce yarn deploy",
-    "deploy:beta": "yarn build:beta && BUCKET=evergreen-beta.spruce yarn deploy",
+    "deploy:staging": ". ./appVersion.sh && yarn build:staging && BUCKET=evergreen-staging.spruce yarn deploy",
+    "deploy:beta": ". ./appVersion.sh && yarn build:beta && BUCKET=evergreen-beta.spruce yarn deploy",
     "dev": "env-cmd -e devServer -r env/.cmdrc.json yarn start",
     "eslint": "eslint -c src/.eslintrc.js 'src/**/*.ts?(x)' && eslint -c cypress/.eslintrc.js 'cypress/**/*.ts'",
     "eslint-fix": "STRICT=1 eslint -c src/.eslintrc.js --fix 'src/**/*.ts?(x)' && eslint -c cypress/.eslintrc.js 'cypress/**/*.ts'",
@@ -73,6 +73,7 @@
     "@leafygreen-ui/checkbox": "6.0.6",
     "@leafygreen-ui/code": "9.0.0",
     "@leafygreen-ui/confirmation-modal": "2.2.2",
+    "@leafygreen-ui/expandable-card": "0.9.1",
     "@leafygreen-ui/icon": "11.4.0",
     "@leafygreen-ui/icon-button": "9.1.7",
     "@leafygreen-ui/leafygreen-provider": "2.1.3",

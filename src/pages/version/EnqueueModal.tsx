@@ -41,7 +41,7 @@ export const EnqueuePatchModal: React.FC<EnqueueProps> = ({
     refetchQueries,
   });
 
-  const patchAnalytics = useVersionAnalytics();
+  const { sendEvent } = useVersionAnalytics(patchId);
   const [commitMessageValue, setCommitMessageValue] = useState<string>(
     commitMessage || ""
   );
@@ -65,7 +65,7 @@ export const EnqueuePatchModal: React.FC<EnqueueProps> = ({
             enqueuePatch({
               variables: { patchId, commitMessage: commitMessageValue },
             });
-            patchAnalytics.sendEvent({ name: "Enqueue" });
+            sendEvent({ name: "Enqueue" });
           }}
           variant="primary"
         >

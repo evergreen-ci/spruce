@@ -25,7 +25,7 @@ describe("Update Status Modal", () => {
 
     cy.dataCy("modal-update-button").click();
 
-    cy.dataCy("toast").should("exist");
+    cy.validateToast("success");
 
     // MODAL FORM VALUES SHOULD BE CLEARED AFTER MUTATION
     cy.dataCy("update-status-button").click();
