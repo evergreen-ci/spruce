@@ -1,10 +1,9 @@
 import styled from "@emotion/styled";
-import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { StyledRouterLink } from "components/styles";
+import { VariantGroupedTaskStatusBadges } from "components/VariantGroupedTaskStatusBadges";
 import { getVariantHistoryRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { StatusCount } from "gql/generated/types";
-import { groupStatusesByUmbrellaStatus } from "utils/statuses";
 import { WaterfallTaskStatusIcon } from "./buildVariantCard/WaterfallTaskStatusIcon";
 
 type taskList = {
@@ -35,7 +34,7 @@ export const BuildVariantCard: React.FC<Props> = ({
   render = (
     <>
       {groupedVariantStats && (
-        <RenderGroupedIcons
+        <VariantGroupedTaskStatusBadges
           statusCounts={groupedVariantStats.statusCounts}
           versionId={versionId}
           variant={variant}
@@ -54,34 +53,6 @@ export const BuildVariantCard: React.FC<Props> = ({
   );
 };
 
-interface RenderGroupedIconsProps {
-  statusCounts: StatusCount[];
-  versionId: string;
-  variant: string;
-}
-const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
-  statusCounts,
-  versionId,
-  variant,
-}) => {
-  const { stats } = groupStatusesByUmbrellaStatus(statusCounts);
-  return (
-    <VariantTasks>
-      {stats.map(
-        ({ umbrellaStatus, count, statusCounts: groupedStatusCounts }) => (
-          <GroupedTaskStatusBadge
-            variant={variant}
-            versionId={versionId}
-            status={umbrellaStatus}
-            count={count}
-            statusCounts={groupedStatusCounts}
-            key={`${versionId}_${variant}_${umbrellaStatus}`}
-          />
-        )
-      )}
-    </VariantTasks>
-  );
-};
 interface RenderTaskIconsProps {
   tasks: taskList;
 }
@@ -116,14 +87,4 @@ const IconContainer = styled.div`
 const Container = styled.div`
   width: 160px;
   margin-bottom: ${size.s};
-`;
-
-const VariantTasks = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: ${size.xs};
-  > * {
-    margin-right: ${size.xs};
-    margin-bottom: ${size.xs};
-  }
 `;
