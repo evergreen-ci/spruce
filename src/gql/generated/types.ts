@@ -1441,6 +1441,7 @@ export type Task = {
   restarts?: Maybe<Scalars["Int"]>;
   revision?: Maybe<Scalars["String"]>;
   scheduledTime?: Maybe<Scalars["Time"]>;
+  containerAllocatedTime?: Maybe<Scalars["Time"]>;
   spawnHostLink?: Maybe<Scalars["String"]>;
   startTime?: Maybe<Scalars["Time"]>;
   status: Scalars["String"];
@@ -2312,11 +2313,7 @@ export type RepoGithubCommitQueueFragment = {
 
 export type ProjectSettingsFragment = {
   projectRef?: Maybe<
-    {
-      id: string;
-      useRepoSettings: boolean;
-      repoRefId: string;
-    } & ProjectGeneralSettingsFragment &
+    { id: string; repoRefId: string } & ProjectGeneralSettingsFragment &
       ProjectAccessSettingsFragment &
       ProjectPluginsSettingsFragment &
       ProjectNotificationSettingsFragment

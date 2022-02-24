@@ -1,24 +1,27 @@
+import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
-import { alias } from "../utils";
+import { alias, ProjectType } from "../utils";
 import { FormState } from "./types";
 
 const { sortAliases, transformAliases } = alias;
 
-export const gqlToForm: GqlToFormFunction = (data): FormState => {
+export const gqlToForm: GqlToFormFunction<FormState> = (
+  data:
+    | ProjectSettingsQuery["projectSettings"]
+    | RepoSettingsQuery["repoSettings"],
+  options: { projectType: ProjectType }
+): ReturnType<GqlToFormFunction> => {
   if (!data) return null;
 
-  const { projectRef, aliases } = data;
-
-  const isRepo = Object.prototype.hasOwnProperty.call(data, "useRepoSettings");
-
-  // @ts-ignore
-  const useRepoSettings = isRepo ? false : projectRef.useRepoSettings;
+  const { aliases } = data;
+  const { projectType } = options;
 
   const { patchAliases } = sortAliases(aliases);
 
   return {
     patchAliases: {
-      aliasesOverride: !useRepoSettings || !!patchAliases.length,
+      aliasesOverride:
+        projectType !== ProjectType.AttachedProject || !!patchAliases.length,
       aliases: patchAliases.map((a) => ({
         ...a,
         initialAlias: a.alias,
