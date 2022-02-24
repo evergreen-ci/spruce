@@ -76,9 +76,7 @@ export const ProjectSettings: React.FC = () => {
     skip: projectLoading || projectType === ProjectType.Project,
     variables: { repoId },
     onError: (e) => {
-      dispatchToast.error(
-        `There was an error loading the repo ${repoId}: ${e.message}`
-      );
+      dispatchToast.error(`There was an error loading ${repoId}: ${e.message}`);
     },
   });
 
