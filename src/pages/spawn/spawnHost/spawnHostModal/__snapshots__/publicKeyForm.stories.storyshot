@@ -2,7 +2,7 @@
 
 exports[`storybook Storyshots Public Key Form Public Key Form View 1`] = `
 <div
-  className="css-1s5fzt1-FlexColumnContainer-Container edx7lnf4"
+  className="css-exgxg0-Container edx7lnf5"
 >
   <h6
     className="leafygreen-ui-11wdjex"
@@ -10,7 +10,7 @@ exports[`storybook Storyshots Public Key Form Public Key Form View 1`] = `
     Public Key
   </h6>
   <div
-    className="leafygreen-ui-ov1ktg css-rvn1f1-StyledRadioBoxGroup edx7lnf3"
+    className="leafygreen-ui-ov1ktg css-y45jrx-StyledRadioBoxGroup edx7lnf3"
     role="group"
   >
     <label
@@ -91,7 +91,7 @@ exports[`storybook Storyshots Public Key Form Public Key Form View 1`] = `
     </label>
   </div>
   <div
-    className="css-1qfdn0g-StyledSelect edx7lnf2"
+    className="css-1q3n7yk-StyledSelect edx7lnf2"
   >
     <label
       className="leafygreen-ui-1v870ns"
