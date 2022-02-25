@@ -73,21 +73,29 @@ const generateBuildVariantOptionsForTaskIconsFromState = (
   const { filterState } = state;
   const { hasTasks, hasFilters, hasStatuses } = getFilterStatus(filterState);
 
-  let statusesToShow = FAILED_STATUSES as string[];
+  let shouldShowTaskIcons = true;
+  let statusesToShow = [];
+  if (hasFilters) {
+    if (hasTasks) {
+      statusesToShow = filterState.statuses;
+    } else if (hasStatuses) {
+      const onlyHasNonFailingStatuses =
+        arrayIntersection(filterState.statuses, FAILED_STATUSES).length === 0;
+      if (onlyHasNonFailingStatuses) {
+        shouldShowTaskIcons = false;
+      } else {
+        statusesToShow = arrayIntersection(
+          filterState.statuses,
+          FAILED_STATUSES
+        );
+      }
+    }
+  } else {
+    statusesToShow = FAILED_STATUSES;
+  }
 
-  if (hasFilters && !hasTasks && !hasStatuses) {
-    statusesToShow = [];
-  }
-  if (hasStatuses && !hasTasks) {
-    statusesToShow = arrayIntersection(FAILED_STATUSES, filterState.statuses);
-  }
-  if (hasTasks) {
-    statusesToShow = filterState.statuses;
-  }
-
-  const shouldShowIcons = hasTasks || statusesToShow.length > 0;
   const buildVariantOptions = {
-    tasks: shouldShowIcons ? filterState.tasks : [impossibleMatch],
+    tasks: shouldShowTaskIcons ? filterState.tasks : [impossibleMatch],
     variants: filterState.variants,
     statuses: statusesToShow,
   };
@@ -99,29 +107,31 @@ const generateBuildVariantOptionsForGroupedTasksFromState = (
 ): MainlineCommitsQueryVariables["buildVariantOptionsForGroupedTasks"] => {
   const { filterState } = state;
   const { hasTasks, hasFilters, hasStatuses } = getFilterStatus(filterState);
-  const { statuses } = filterState;
 
-  let shouldShowGroupedTasks = false;
   let statusesToShow = [];
+  if (hasFilters) {
+    if (!hasStatuses) {
+      statusesToShow = ALL_NON_FAILING_STATUSES;
+    } else {
+      const nonFailingStatusFilters = arrayIntersection(
+        filterState.statuses,
+        ALL_NON_FAILING_STATUSES
+      );
+      statusesToShow =
+        nonFailingStatusFilters.length > 0
+          ? nonFailingStatusFilters
+          : [impossibleMatch];
+    }
+  } else {
+    statusesToShow = [impossibleMatch];
+  }
 
-  if (hasFilters && !hasTasks) {
-    statusesToShow = statuses;
-    shouldShowGroupedTasks = true;
-  }
-  if (hasStatuses && !hasTasks) {
-    statusesToShow = arraySetDifference(statuses, FAILED_STATUSES);
-    shouldShowGroupedTasks = true;
+  if (hasTasks) {
+    statusesToShow = [impossibleMatch];
   }
 
-  // If we have tasks or every task status filter is failed we don't want grouped tasks
-  if (
-    hasTasks ||
-    (hasStatuses && arraySetDifference(statuses, FAILED_STATUSES).length === 0)
-  ) {
-    shouldShowGroupedTasks = false;
-  }
   const groupedBuildVariantOptions = {
-    tasks: shouldShowGroupedTasks ? filterState.tasks : [impossibleMatch],
+    tasks: filterState.tasks,
     variants: filterState.variants,
     statuses: statusesToShow,
   };
@@ -161,6 +171,11 @@ const FAILED_STATUSES = [
   TaskStatus.Aborted,
 ];
 
+const ALL_STATUSES = Object.values(TaskStatus);
+const ALL_NON_FAILING_STATUSES = arraySetDifference(
+  ALL_STATUSES,
+  FAILED_STATUSES
+);
 const impossibleMatch = "^\b$"; // this will never match anything
 
 export {
@@ -168,4 +183,6 @@ export {
   getFilterStatus,
   getMainlineCommitsQueryVariables,
   FAILED_STATUSES,
+  ALL_STATUSES,
+  ALL_NON_FAILING_STATUSES,
 };
