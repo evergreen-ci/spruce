@@ -258,8 +258,8 @@ export const ActionButtons: React.FC<Props> = ({
   return (
     <>
       <PageButtonRow>
-        <PreviousCommits taskId={taskId} />
-        {isBeta() ? (
+        {isBeta() && <PreviousCommits taskId={taskId} />}
+        {isBeta() && (
           <Button
             size="small"
             as={Link}
@@ -272,7 +272,7 @@ export const ActionButtons: React.FC<Props> = ({
           >
             See history
           </Button>
-        ) : null}
+        )}
         <Button
           size="small"
           data-cy="schedule-task"
