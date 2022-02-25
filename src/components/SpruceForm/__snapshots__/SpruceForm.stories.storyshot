@@ -257,7 +257,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                   </fieldset>
                 </div>
                 <div
-                  className="css-8g8z67-ElementWrapper-DeleteButtonWrapper e7smmlm0"
+                  className="css-1w3q9da-ElementWrapper-DeleteButtonWrapper e7smmlm0"
                 >
                   <button
                     aria-disabled={false}

@@ -561,10 +561,7 @@ exports[`spruceForm should render as expected 1`] = `
 .emotion-51 {
   margin-bottom: 20px;
   margin-left: 16px;
-  -webkit-align-items: 20px;
-  -webkit-box-align: 20px;
-  -ms-flex-align: 20px;
-  align-items: 20px;
+  margin-top: 20px;
 }
 
 .emotion-53 {

@@ -7,6 +7,8 @@ const project = "spruce";
 const projectUseRepoEnabled = "evergreen";
 const repo = "602d70a2b2373672ee493184";
 
+const HAS_CHANGES_TIMEOUT_MS = 410;
+
 describe("Repo Settings", () => {
   const destination = getGeneralRoute(repo);
 
@@ -17,6 +19,10 @@ describe("Repo Settings", () => {
 
   beforeEach(() => {
     cy.preserveCookies();
+  });
+
+  it("Should not have the save button enabled on load", () => {
+    cy.dataCy("save-settings-button").should("be.disabled");
   });
 
   it("Does not show a 'Default to Repo' button on page", () => {
@@ -37,12 +43,16 @@ describe("Repo Settings", () => {
 
   it("Clicking on save button should show a success toast", () => {
     cy.dataCy("save-settings-button").click();
-    cy.contains("Successfully updated repo");
+    cy.validateToast("success", "Successfully updated repo");
   });
 
   describe("GitHub/Commit Queue page", () => {
     before(() => {
       cy.dataCy("navitem-github-commitqueue").click();
+    });
+
+    it("Should not have the save button enabled on load", () => {
+      cy.dataCy("save-settings-button").should("be.disabled");
     });
 
     it("Updates a patch definition", () => {
@@ -85,13 +95,17 @@ describe("Repo Settings", () => {
 
     it("Successfully saves the page", () => {
       cy.dataCy("save-settings-button").click();
-      cy.contains("Successfully updated repo");
+      cy.validateToast("success", "Successfully updated repo");
     });
   });
 
   describe("Patch Aliases page", () => {
     before(() => {
       cy.dataCy("navitem-patch-aliases").click();
+    });
+
+    it("Should not have the save button enabled on load", () => {
+      cy.dataCy("save-settings-button").should("be.disabled");
     });
 
     it("Does not show override buttons for patch aliases", () => {
@@ -114,7 +128,7 @@ describe("Repo Settings", () => {
       cy.dataCy("task-tags-input").first().type("alias task tag");
 
       cy.dataCy("save-settings-button").click();
-      cy.contains("Successfully updated repo");
+      cy.validateToast("success", "Successfully updated repo");
     });
 
     it("Shows the alias name in the card title upon save", () => {
@@ -135,6 +149,10 @@ describe("Project Settings when not defaulting to repo", () => {
     cy.preserveCookies();
   });
 
+  it("Should not have the save button enabled on load", () => {
+    cy.dataCy("save-settings-button").should("be.disabled");
+  });
+
   it("Does not show a 'Default to Repo' button on page", () => {
     cy.dataCy("default-to-repo").should("not.exist");
   });
@@ -150,7 +168,7 @@ describe("Project Settings when not defaulting to repo", () => {
       .contains("Attach")
       .parent()
       .click();
-    cy.contains("Successfully attached to repo");
+    cy.validateToast("success", "Successfully attached to repo");
   });
 
   it("Successfully detaches from repo", () => {
@@ -160,7 +178,7 @@ describe("Project Settings when not defaulting to repo", () => {
       .contains("Detach")
       .parent()
       .click();
-    cy.contains("Successfully detached from repo");
+    cy.validateToast("success", "Successfully detached from repo");
   });
 
   describe("Access page", () => {
@@ -253,13 +271,14 @@ describe("Project Settings when defaulting to repo", () => {
     cy.preserveCookies();
   });
 
-  it("Loads with the save button disabled initially", () => {
+  it("Should not have the save button enabled on load", () => {
     cy.dataCy("save-settings-button").should("be.disabled");
   });
 
   it("Preserves edits to the form when navigating between settings tabs and does not show a warning modal", () => {
     cy.dataCy("spawn-host-input").should("have.value", "/path");
     cy.dataCy("spawn-host-input").type("/test");
+    cy.wait(HAS_CHANGES_TIMEOUT_MS); // eslint-disable-line cypress/no-unnecessary-waiting
     cy.dataCy("navitem-access").click();
     cy.dataCy("navigation-warning-modal").should("not.be.visible");
     cy.dataCy("navitem-general").click();
@@ -290,12 +309,16 @@ describe("Project Settings when defaulting to repo", () => {
 
   it("Clicking on save button should show a success toast", () => {
     cy.dataCy("save-settings-button").click();
-    cy.contains("Successfully updated project");
+    cy.validateToast("success", "Successfully updated project");
   });
 
   describe("GitHub/Commit Queue page", () => {
     before(() => {
       cy.dataCy("navitem-github-commitqueue").click();
+    });
+
+    it("Should not have the save button enabled on load", () => {
+      cy.dataCy("save-settings-button").should("be.disabled");
     });
 
     it("Shows the repo's disabled patch definition", () => {
@@ -348,7 +371,7 @@ describe("Project Settings when defaulting to repo", () => {
       );
     });
 
-    it("Show's the repo's commit queue message as a placeholder when the field is cleared", () => {
+    it("Shows the repo's commit queue message as a placeholder when the field is cleared", () => {
       cy.dataCy("cq-message-input").clear();
       cy.dataCy("cq-message-input").should(
         "have.attr",
@@ -373,13 +396,17 @@ describe("Project Settings when defaulting to repo", () => {
 
     it("Clicking on save button should show a success toast", () => {
       cy.dataCy("save-settings-button").click();
-      cy.contains("Successfully updated project");
+      cy.validateToast("success", "Successfully updated project");
     });
   });
 
   describe("Patch Aliases page", () => {
     before(() => {
       cy.dataCy("navitem-patch-aliases").click();
+    });
+
+    it("Should not have the save button enabled on load", () => {
+      cy.dataCy("save-settings-button").should("be.disabled");
     });
 
     it("Defaults to repo patch aliases", () => {
@@ -408,12 +435,16 @@ describe("Project Settings when defaulting to repo", () => {
         .first()
         .parent()
         .click();
+      cy.dataCy("save-settings-button").should("be.disabled");
 
       cy.dataCy("add-button")
         .contains("Add Patch Alias")
         .parent()
         .click({ force: true });
+      cy.dataCy("save-settings-button").should("be.disabled");
+
       cy.dataCy("alias-input").type("my overriden alias name");
+
       cy.dataCy("variant-tags-field").find("button").click();
       cy.dataCy("variant-tags-input").first().type("alias variant tag 2");
 
@@ -421,7 +452,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("task-tags-input").first().type("alias task tag 2");
 
       cy.dataCy("save-settings-button").click();
-      cy.contains("Successfully updated project");
+      cy.validateToast("success", "Successfully updated project");
     });
 
     it("Allows defaulting to repo patch definitions", () => {
@@ -432,7 +463,7 @@ describe("Project Settings when defaulting to repo", () => {
         .click();
 
       cy.dataCy("save-settings-button").click();
-      cy.contains("Successfully updated project");
+      cy.validateToast("success", "Successfully updated project");
 
       cy.dataCy("patch-aliases-override-radio-box")
         .find("input")
