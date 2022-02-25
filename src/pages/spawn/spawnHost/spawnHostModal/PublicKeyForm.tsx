@@ -69,8 +69,8 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
         <StyledSelect
           placeholder="Select an existing key"
           label="Existing Key"
-          onChange={selectPublicKey}
           value={keyName}
+          onChange={selectPublicKey}
           disabled={!data.publicKey}
           usePortal={false}
           allowDeselect={false}
@@ -87,11 +87,11 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
           <StyledTextArea
             id="keyValueInput"
             label="Public Key"
+            spellCheck={false}
             value={publicKey}
             onChange={(e) =>
               updatePublicKeyState({ key: e.target.value, name: keyName })
             }
-            spellCheck={false}
           />
           <KeyNameContainer>
             <Checkbox
@@ -138,13 +138,12 @@ const KeyNameContainer = styled.div`
 
 // @ts-expect-error
 const StyledRadioBoxGroup = styled(RadioBoxGroup)`
-  height: 40px;
+  height: 48px;
   margin: ${size.s} 0;
 `;
 
 // @ts-expect-error
 const StyledSelect = styled(Select)`
-  position: relative;
   z-index: ${zIndex.tooltip};
 `;
 
