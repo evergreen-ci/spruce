@@ -76,7 +76,7 @@ const generateBuildVariantOptionsForTaskIconsFromState = (
   let statusesToShow = FAILED_STATUSES as string[];
 
   if (hasFilters && !hasTasks && !hasStatuses) {
-    statusesToShow = arraySetDifference(statusesToShow, filterState.statuses);
+    statusesToShow = [];
   }
   if (hasStatuses && !hasTasks) {
     statusesToShow = arrayIntersection(FAILED_STATUSES, filterState.statuses);
@@ -101,19 +101,31 @@ const generateBuildVariantOptionsForGroupedTasksFromState = (
   const { hasTasks, hasFilters, hasStatuses } = getFilterStatus(filterState);
   const { statuses } = filterState;
 
-  const updatedStatuses = hasStatuses
-    ? arraySetDifference(statuses, FAILED_STATUSES)
-    : arraySetDifference(allStatuses, FAILED_STATUSES);
+  let shouldShowTasks = false;
+  let statusesToShow = [];
 
-  const shouldShowGroupedBuildVariants = hasFilters && !hasTasks;
+  if (hasFilters && !hasTasks) {
+    statusesToShow = statuses;
+    shouldShowTasks = true;
+  }
+  if (hasStatuses && !hasTasks) {
+    statusesToShow = arraySetDifference(statuses, FAILED_STATUSES);
+    shouldShowTasks = true;
+  }
 
+  // If we have tasks or every task status filter is failed we don't want grouped tasks
+  if (
+    hasTasks ||
+    (hasStatuses && arraySetDifference(statuses, FAILED_STATUSES).length === 0)
+  ) {
+    shouldShowTasks = false;
+  }
   const groupedBuildVariantOptions = {
-    tasks: shouldShowGroupedBuildVariants
-      ? filterState.tasks
-      : [impossibleMatch], // this is a hack to make the query fail
+    tasks: shouldShowTasks ? filterState.tasks : [impossibleMatch],
     variants: filterState.variants,
-    statuses: shouldShowGroupedBuildVariants ? updatedStatuses : [],
+    statuses: statusesToShow,
   };
+
   return groupedBuildVariantOptions;
 };
 
@@ -148,8 +160,6 @@ const FAILED_STATUSES = [
   TaskStatus.KnownIssue,
   TaskStatus.Aborted,
 ];
-
-const allStatuses = Object.values(TaskStatus);
 
 const impossibleMatch = "^\b$"; // this will never match anything
 

@@ -234,4 +234,94 @@ describe("getMainlineCommitsQueryVariables", () => {
       },
     });
   });
+  it("failing status filters should not be grouped and should return task icons", () => {
+    expect(
+      getMainlineCommitsQueryVariables({
+        mainlineCommitOptions: {
+          projectID: "projectID",
+          limit: 5,
+          skipOrderNumber: 0,
+        },
+        filterState: {
+          statuses: [TaskStatus.Failed],
+          tasks: [],
+          variants: [],
+          requesters: [],
+        },
+      })
+    ).toStrictEqual({
+      mainlineCommitsOptions: {
+        limit: 5,
+        projectID: "projectID",
+        skipOrderNumber: 0,
+        shouldCollapse: true,
+        requesters: [],
+      },
+      buildVariantOptions: {
+        tasks: [],
+        variants: [],
+        statuses: [TaskStatus.Failed],
+      },
+      buildVariantOptionsForGraph: {
+        tasks: [],
+        variants: [],
+        statuses: [TaskStatus.Failed],
+      },
+      buildVariantOptionsForGroupedTasks: {
+        tasks: [impossibleMatch],
+        variants: [],
+        statuses: [],
+      },
+      buildVariantOptionsForTaskIcons: {
+        tasks: [],
+        variants: [],
+        statuses: [TaskStatus.Failed],
+      },
+    });
+  });
+  it("failing and non failing status filters should only group the non failing ones", () => {
+    expect(
+      getMainlineCommitsQueryVariables({
+        mainlineCommitOptions: {
+          projectID: "projectID",
+          limit: 5,
+          skipOrderNumber: 0,
+        },
+        filterState: {
+          statuses: [TaskStatus.Failed, TaskStatus.Succeeded],
+          tasks: [],
+          variants: [],
+          requesters: [],
+        },
+      })
+    ).toStrictEqual({
+      mainlineCommitsOptions: {
+        limit: 5,
+        projectID: "projectID",
+        skipOrderNumber: 0,
+        shouldCollapse: true,
+        requesters: [],
+      },
+      buildVariantOptions: {
+        tasks: [],
+        variants: [],
+        statuses: [TaskStatus.Failed, TaskStatus.Succeeded],
+      },
+      buildVariantOptionsForGraph: {
+        tasks: [],
+        variants: [],
+        statuses: [TaskStatus.Failed, TaskStatus.Succeeded],
+      },
+      buildVariantOptionsForGroupedTasks: {
+        tasks: [],
+        variants: [],
+        statuses: [TaskStatus.Succeeded],
+      },
+      buildVariantOptionsForTaskIcons: {
+        tasks: [],
+        variants: [],
+        statuses: [TaskStatus.Failed],
+      },
+    });
+  });
 });
