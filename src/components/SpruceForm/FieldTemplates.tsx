@@ -154,7 +154,7 @@ const ArrayContainer = styled.div`
 const DeleteButtonWrapper = styled(ElementWrapper)`
   margin-left: ${size.s};
   // Align button with top of input unless it should specifically align to the top of the ArrayItemRow
-  align-items: ${({ topAlignDelete }: { topAlignDelete: boolean }) =>
+  margin-top: ${({ topAlignDelete }: { topAlignDelete: boolean }) =>
     topAlignDelete ? "0px" : "20px"};
 `;
 

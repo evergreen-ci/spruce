@@ -1631,7 +1631,6 @@ export type Project = {
   buildBaronSettings: BuildBaronSettings;
   taskAnnotationSettings: TaskAnnotationSettings;
   hidden?: Maybe<Scalars["Boolean"]>;
-  useRepoSettings: Scalars["Boolean"];
   repoRefId: Scalars["String"];
   isFavorite: Scalars["Boolean"];
   validDefaultLoggers: Array<Scalars["String"]>;
@@ -2843,6 +2842,29 @@ export type GetAnnotationEventDataQuery = {
   }>;
 };
 
+export type GetBaseVersionAndTaskQueryVariables = Exact<{
+  taskId: Scalars["String"];
+}>;
+
+export type GetBaseVersionAndTaskQuery = {
+  task?: Maybe<{
+    id: string;
+    execution: number;
+    displayName: string;
+    buildVariant: string;
+    versionMetadata: {
+      id: string;
+      isPatch: boolean;
+      baseVersion?: Maybe<{
+        id: string;
+        order: number;
+        projectIdentifier: string;
+      }>;
+    };
+    baseTask?: Maybe<{ id: string; execution: number; status: string }>;
+  }>;
+};
+
 export type BuildBaronQueryVariables = Exact<{
   taskId: Scalars["String"];
   execution: Scalars["Int"];
@@ -3219,6 +3241,31 @@ export type GetSuspectedIssuesQuery = {
           }>
         >
       >;
+    }>;
+  }>;
+};
+
+export type GetLastMainlineCommitQueryVariables = Exact<{
+  projectIdentifier: Scalars["String"];
+  skipOrderNumber: Scalars["Int"];
+  buildVariantOptions: BuildVariantOptions;
+}>;
+
+export type GetLastMainlineCommitQuery = {
+  mainlineCommits?: Maybe<{
+    versions: Array<{
+      version?: Maybe<{
+        id: string;
+        buildVariants?: Maybe<
+          Array<
+            Maybe<{
+              tasks?: Maybe<
+                Array<Maybe<{ id: string; execution: number; status: string }>>
+              >;
+            }>
+          >
+        >;
+      }>;
     }>;
   }>;
 };

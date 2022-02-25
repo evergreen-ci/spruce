@@ -1,4 +1,3 @@
-import React from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useParams, useLocation } from "react-router-dom";
@@ -75,8 +74,11 @@ export const Task: React.FC = () => {
 
   const isPatchOnCommitQueue = requester === commitQueueRequester;
 
-  // Set the execution if it isnt provided
-  if (Number.isNaN(selectedExecution) && latestExecution !== undefined) {
+  if (
+    id === task?.id &&
+    Number.isNaN(selectedExecution) &&
+    latestExecution !== undefined
+  ) {
     updateQueryParams({
       execution: `${latestExecution}`,
     });
