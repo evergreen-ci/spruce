@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Icon, { Size } from "@leafygreen-ui/icon";
-import { Table, Popconfirm, Tooltip, Skeleton } from "antd";
+import { Table, Popconfirm, Tooltip } from "antd";
 import { useAnnotationAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { size } from "constants/tokens";
@@ -14,14 +14,22 @@ import {
   MoveAnnotationIssueMutationVariables,
   RemoveAnnotationIssueMutation,
   RemoveAnnotationIssueMutationVariables,
+  Annotation,
+  IssueLink,
 } from "gql/generated/types";
 import { MOVE_ANNOTATION, REMOVE_ANNOTATION } from "gql/mutations";
-import { AnnotationTicketRow } from "./BBComponents";
+import {
+  AnnotationTicketRow,
+  LoadingAnnotationTicketRow,
+} from "./BBComponents";
 
 type AnnotationTickets = GetIssuesQuery["task"]["annotation"]["issues"];
 type AnnotationTicket = AnnotationTickets[0];
+type AnnotationIssues = Annotation["issues"];
+
 interface AnnotationTicketsProps {
   jiraIssues: AnnotationTickets;
+  annotationIssues: AnnotationIssues;
   taskId: string;
   execution: number;
   isIssue: boolean;
@@ -32,10 +40,11 @@ interface AnnotationTicketsProps {
 }
 
 export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
+  jiraIssues,
+  annotationIssues,
   taskId,
   execution,
   userCanModify,
-  jiraIssues,
   isIssue,
   selectedRowKey,
   setSelectedRowKey,
@@ -45,6 +54,19 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
   const dispatchToast = useToastContext();
   const issueString = isIssue ? "issue" : "suspected issue";
   const icon = <Icon glyph={isIssue ? "ArrowDown" : "ArrowUp"} />;
+
+  // The annotationIssues contains the issueKey and the url, so it can be displayed while fetching for complete
+  // ticket info.
+  const loadingColumns = [
+    {
+      title: "Ticket",
+      width: "70%",
+      render: ({ issueKey, url }: IssueLink): JSX.Element => (
+        <LoadingAnnotationTicketRow issueKey={issueKey} url={url} />
+      ),
+    },
+  ];
+
   const columns = [
     {
       title: "Ticket",
@@ -122,6 +144,7 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
       ),
     },
   ];
+
   const [removeAnnotation] = useMutation<
     RemoveAnnotationIssueMutation,
     RemoveAnnotationIssueMutationVariables
@@ -198,14 +221,22 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
     }
   });
 
-  if (loading) {
-    return (
-      <TableWrapper>
-        <Skeleton active title={false} />
-      </TableWrapper>
-    );
+  if (!annotationIssues.length) {
+    return null;
   }
-  return jiraIssues?.length > 0 ? (
+
+  return loading ? (
+    <TableWrapper>
+      <Table
+        tableLayout="fixed"
+        dataSource={annotationIssues}
+        rowKey={({ issueKey }) => issueKey}
+        columns={loadingColumns}
+        pagination={false}
+        showHeader={false}
+      />
+    </TableWrapper>
+  ) : (
     <TableWrapper>
       <Table
         tableLayout="fixed"
@@ -223,7 +254,7 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
         }}
       />
     </TableWrapper>
-  ) : null;
+  );
 };
 
 // CREATED TICKETS

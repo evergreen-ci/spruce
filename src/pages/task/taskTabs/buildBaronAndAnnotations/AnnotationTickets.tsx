@@ -13,16 +13,20 @@ import {
   GetSuspectedIssuesQuery,
   GetSuspectedIssuesQueryVariables,
   IssueLink,
+  Annotation,
 } from "gql/generated/types";
 import { GET_JIRA_ISSUES, GET_JIRA_SUSPECTED_ISSUES } from "gql/queries";
 import { AddIssueModal } from "./AddIssueModal";
 import { AnnotationTicketsTable } from "./AnnotationTicketsTable";
 import { TicketsTitle, TitleAndButtons } from "./BBComponents";
 
+type AnnotationIssues = Annotation["issues"];
+
 interface AnnotationTicketsProps {
+  tickets: IssueLink[];
+  annotationIssues: AnnotationIssues;
   taskId: string;
   execution: number;
-  tickets: IssueLink[];
   isIssue: boolean;
   userCanModify: boolean;
   selectedRowKey: string;
@@ -32,6 +36,7 @@ interface AnnotationTicketsProps {
 
 const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
   tickets,
+  annotationIssues,
   taskId,
   execution,
   isIssue,
@@ -81,6 +86,7 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
       </TitleAndButtons>
       <AnnotationTicketsTable
         jiraIssues={tickets}
+        annotationIssues={annotationIssues}
         taskId={taskId}
         execution={execution}
         isIssue={isIssue}
@@ -109,6 +115,7 @@ interface IssuesProps {
   userCanModify: boolean;
   selectedRowKey: string;
   setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
+  annotation: Annotation;
 }
 
 export const Issues: React.FC<IssuesProps> = ({
@@ -118,6 +125,7 @@ export const Issues: React.FC<IssuesProps> = ({
   userCanModify,
   selectedRowKey,
   setSelectedRowKey,
+  annotation,
 }) => {
   const dispatchToast = useToastContext();
   // Query Jira ticket data
@@ -135,6 +143,7 @@ export const Issues: React.FC<IssuesProps> = ({
   return (
     <AnnotationTickets
       tickets={data?.task?.annotation?.issues}
+      annotationIssues={annotation?.issues || []}
       isIssue={isIssue}
       taskId={taskId}
       execution={execution}
@@ -153,6 +162,7 @@ interface SuspectedIssuesProps {
   userCanModify: boolean;
   selectedRowKey: string;
   setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
+  annotation: Annotation;
 }
 
 export const SuspectedIssues: React.FC<SuspectedIssuesProps> = ({
@@ -162,6 +172,7 @@ export const SuspectedIssues: React.FC<SuspectedIssuesProps> = ({
   userCanModify,
   selectedRowKey,
   setSelectedRowKey,
+  annotation,
 }) => {
   const dispatchToast = useToastContext();
   // Query Jira ticket data
@@ -181,6 +192,7 @@ export const SuspectedIssues: React.FC<SuspectedIssuesProps> = ({
   return (
     <AnnotationTickets
       tickets={suspectedIssues}
+      annotationIssues={annotation?.suspectedIssues || []}
       isIssue={isIssue}
       taskId={taskId}
       execution={execution}

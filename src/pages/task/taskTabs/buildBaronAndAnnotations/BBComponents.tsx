@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { Disclaimer, Subtitle } from "@leafygreen-ui/typography";
+import { Skeleton } from "antd";
 import { useAnnotationAnalytics } from "analytics";
 import { StyledLink } from "components/styles";
 import { getJiraTicketUrl } from "constants/externalResources";
@@ -72,8 +73,8 @@ export const JiraTicketRow: React.FC<JiraTicketRowProps> = ({
 interface AnnotationTicketRowProps {
   issueKey: string;
   url: string;
-  source: Source;
-  jiraTicket: JiraTicket;
+  source?: Source;
+  jiraTicket?: JiraTicket;
 }
 
 export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
@@ -96,6 +97,7 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
     <div data-cy="annotation-ticket-row">
       <JiraSummaryLink
         href={url}
+        target="_blank"
         data-cy={issueKey}
         onClick={() =>
           annotationAnalytics.sendEvent({
@@ -134,12 +136,43 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
   );
 };
 
+export const LoadingAnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
+  issueKey,
+  url,
+}) => {
+  const annotationAnalytics = useAnnotationAnalytics();
+
+  return (
+    <div data-cy="loading-annotation-ticket-row">
+      <Spacer>
+        <JiraSummaryLink
+          href={url}
+          target="_blank"
+          data-cy={issueKey}
+          onClick={() =>
+            annotationAnalytics.sendEvent({
+              name: "Click Annotation Ticket Link",
+            })
+          }
+        >
+          {issueKey}
+        </JiraSummaryLink>
+      </Spacer>
+      <Skeleton active title={false} />
+    </div>
+  );
+};
+
 // @ts-expect-error
 export const TicketsTitle = styled(Subtitle)<TitleProps>`
   margin-bottom: ${(props) => (props.margin ? size.s : size.xxs)};
   margin-top: ${(props) => (props.margin ? size.m : size.l)};
   line-height: ${size.m};
   font-weight: bold;
+`;
+
+const Spacer = styled.div`
+  margin-bottom: ${size.xs};
 `;
 
 const JiraSummaryLink = styled(StyledLink)`
