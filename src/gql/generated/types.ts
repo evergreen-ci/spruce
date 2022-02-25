@@ -1631,7 +1631,6 @@ export type Project = {
   buildBaronSettings: BuildBaronSettings;
   taskAnnotationSettings: TaskAnnotationSettings;
   hidden?: Maybe<Scalars["Boolean"]>;
-  useRepoSettings: Scalars["Boolean"];
   repoRefId: Scalars["String"];
   isFavorite: Scalars["Boolean"];
   validDefaultLoggers: Array<Scalars["String"]>;
