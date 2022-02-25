@@ -432,8 +432,8 @@ describe("getMainlineCommitsQueryVariables", () => {
           },
         }).buildVariantOptionsForGroupedTasks
       ).toStrictEqual({
-        tasks: [],
-        statuses: [impossibleMatch],
+        tasks: [impossibleMatch],
+        statuses: [],
         variants: [],
       });
     });
@@ -495,9 +495,9 @@ describe("getMainlineCommitsQueryVariables", () => {
           },
         }).buildVariantOptionsForGroupedTasks
       ).toStrictEqual({
-        tasks: [],
+        tasks: [impossibleMatch],
         variants: [],
-        statuses: [impossibleMatch],
+        statuses: [],
       });
     });
     it("should not group failing statuses when there are other filters applied", () => {
@@ -537,9 +537,9 @@ describe("getMainlineCommitsQueryVariables", () => {
           },
         }).buildVariantOptionsForGroupedTasks
       ).toStrictEqual({
-        tasks: ["task1"],
+        tasks: [impossibleMatch],
         variants: [],
-        statuses: [impossibleMatch],
+        statuses: [],
       });
       expect(
         getMainlineCommitsQueryVariables({
@@ -556,9 +556,9 @@ describe("getMainlineCommitsQueryVariables", () => {
           },
         }).buildVariantOptionsForGroupedTasks
       ).toStrictEqual({
-        tasks: ["task1"],
+        tasks: [impossibleMatch],
         variants: [],
-        statuses: [impossibleMatch],
+        statuses: [],
       });
     });
   });

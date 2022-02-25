@@ -109,7 +109,11 @@ const generateBuildVariantOptionsForGroupedTasksFromState = (
   const { hasTasks, hasFilters, hasStatuses } = getFilterStatus(filterState);
 
   let statusesToShow = [];
-  if (hasFilters) {
+  let shouldShowGroupedTaskIcons = true;
+  if (hasTasks) {
+    shouldShowGroupedTaskIcons = false;
+  }
+  if (hasFilters && shouldShowGroupedTaskIcons) {
     if (!hasStatuses) {
       statusesToShow = ALL_NON_FAILING_STATUSES;
     } else {
@@ -117,21 +121,18 @@ const generateBuildVariantOptionsForGroupedTasksFromState = (
         filterState.statuses,
         ALL_NON_FAILING_STATUSES
       );
-      statusesToShow =
-        nonFailingStatusFilters.length > 0
-          ? nonFailingStatusFilters
-          : [impossibleMatch];
+      if (!nonFailingStatusFilters.length) {
+        shouldShowGroupedTaskIcons = false;
+      } else {
+        statusesToShow = nonFailingStatusFilters;
+      }
     }
   } else {
-    statusesToShow = [impossibleMatch];
-  }
-
-  if (hasTasks) {
-    statusesToShow = [impossibleMatch];
+    shouldShowGroupedTaskIcons = false;
   }
 
   const groupedBuildVariantOptions = {
-    tasks: filterState.tasks,
+    tasks: shouldShowGroupedTaskIcons ? filterState.tasks : [impossibleMatch],
     variants: filterState.variants,
     statuses: statusesToShow,
   };
