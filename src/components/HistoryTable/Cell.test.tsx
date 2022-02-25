@@ -21,7 +21,6 @@ describe("taskCell", () => {
     expect(queryByLabelText("Checkmark Icon")).toBeInTheDocument();
     expect(queryByDataCy("task-cell")).toBeInTheDocument();
 
-    // Disabled this condition temporarily until EVG-15959 is resolved.
     rerender(() => (
       <TaskCell
         task={{
