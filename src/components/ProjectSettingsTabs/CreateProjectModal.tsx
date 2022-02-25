@@ -23,7 +23,7 @@ const getModalFormDefinition = (owner: string, repo: string) => ({
       },
       projectId: {
         type: "string" as "string",
-        title: "Project Id",
+        title: "Project ID",
         value: "hi",
       },
       owner: {
