@@ -89,7 +89,7 @@ const generateBuildVariantOptionsForTaskIconsFromState = (
   const buildVariantOptions = {
     tasks: shouldShowIcons ? filterState.tasks : [impossibleMatch],
     variants: filterState.variants,
-    statuses: shouldShowIcons ? statusesToShow : [],
+    statuses: statusesToShow,
   };
   return buildVariantOptions;
 };
@@ -101,16 +101,16 @@ const generateBuildVariantOptionsForGroupedTasksFromState = (
   const { hasTasks, hasFilters, hasStatuses } = getFilterStatus(filterState);
   const { statuses } = filterState;
 
-  let shouldShowTasks = false;
+  let shouldShowGroupedTasks = false;
   let statusesToShow = [];
 
   if (hasFilters && !hasTasks) {
     statusesToShow = statuses;
-    shouldShowTasks = true;
+    shouldShowGroupedTasks = true;
   }
   if (hasStatuses && !hasTasks) {
     statusesToShow = arraySetDifference(statuses, FAILED_STATUSES);
-    shouldShowTasks = true;
+    shouldShowGroupedTasks = true;
   }
 
   // If we have tasks or every task status filter is failed we don't want grouped tasks
@@ -118,10 +118,10 @@ const generateBuildVariantOptionsForGroupedTasksFromState = (
     hasTasks ||
     (hasStatuses && arraySetDifference(statuses, FAILED_STATUSES).length === 0)
   ) {
-    shouldShowTasks = false;
+    shouldShowGroupedTasks = false;
   }
   const groupedBuildVariantOptions = {
-    tasks: shouldShowTasks ? filterState.tasks : [impossibleMatch],
+    tasks: shouldShowGroupedTasks ? filterState.tasks : [impossibleMatch],
     variants: filterState.variants,
     statuses: statusesToShow,
   };
