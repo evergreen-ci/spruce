@@ -54,30 +54,26 @@ export const BuildVariantContainer: React.FC<BuildVariantContainerProps> = ({
   const { buildVariants, buildVariantStats, projectIdentifier, id } = version;
 
   const memoizedBuildVariantCards = useMemo(() => {
-    const groupedVariantStats = convertArrayToObject(
+    const groupedBuildVariantStats = convertArrayToObject(
       buildVariantStats,
       "variant"
     );
     const groupedBuildVariants = convertArrayToObject(buildVariants, "variant");
     // Create a list of all the build variants we fetched and sort them by name
     const allBuildVariants = arrayUnion(
-      Object.keys(groupedVariantStats),
+      Object.keys(groupedBuildVariantStats),
       Object.keys(groupedBuildVariants),
       (a, b) => a.localeCompare(b)
     );
-    const buildVariantCards = allBuildVariants.map((variant) => {
-      const variantStats = groupedVariantStats[variant];
-      const buildVariant = groupedBuildVariants[variant];
-      const displayName = buildVariant
-        ? buildVariant.displayName
-        : variantStats.displayName;
-      const variantString = buildVariant
-        ? buildVariant.variant
-        : variantStats.variant;
+    const buildVariantCards = allBuildVariants.map((v) => {
+      const variantStats = groupedBuildVariantStats[v];
+      const buildVariant = groupedBuildVariants[v];
+      const { displayName, variant } = buildVariant ?? variantStats;
+
       return (
         <BuildVariantCard
           key={`${id}_${variant}`}
-          variant={variantString}
+          variant={variant}
           buildVariantDisplayName={displayName}
           groupedVariantStats={variantStats}
           versionId={id}
