@@ -222,6 +222,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("var-name-input").should("be.disabled");
       cy.dataCy("var-value-input").should("be.disabled");
       cy.dataCy("var-private-input").should("be.disabled");
+      cy.dataCy("var-admin-input").should("be.disabled");
     });
 
     it("Should error when a duplicate variable name is entered and disable saving", () => {
@@ -240,14 +241,24 @@ describe("Project Settings when not defaulting to repo", () => {
       );
     });
 
-    it("Should show two populated fields when navigating back from another page", () => {
-      cy.dataCy("navitem-access").click();
-      cy.dataCy("navitem-variables").click();
-      cy.dataCy("var-name-input").eq(0).should("have.value", "sample_name");
-      cy.dataCy("var-name-input").eq(1).should("have.value", "sample_name_2");
+    it("Should correctly save an admin only variable", () => {
+      cy.dataCy("add-button").click();
+      cy.dataCy("var-name-input").last().type("admin_var");
+      cy.dataCy("var-value-input").last().type("admin_value");
+      cy.dataCy("var-admin-input").last().check({ force: true });
+      cy.dataCy("save-settings-button").click();
     });
 
-    it("Should allow deleting both items", () => {
+    it("Should show three populated fields when navigating back from another page", () => {
+      cy.dataCy("navitem-access").click();
+      cy.dataCy("navitem-variables").click();
+      cy.dataCy("var-name-input").eq(0).should("have.value", "admin_var");
+      cy.dataCy("var-name-input").eq(1).should("have.value", "sample_name");
+      cy.dataCy("var-name-input").eq(2).should("have.value", "sample_name_2");
+    });
+
+    it("Should allow deleting all items", () => {
+      cy.dataCy("delete-item-button").first().click();
       cy.dataCy("delete-item-button").first().click();
       cy.dataCy("delete-item-button").first().click();
       cy.dataCy("save-settings-button").click();

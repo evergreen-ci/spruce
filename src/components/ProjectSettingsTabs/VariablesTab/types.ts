@@ -5,6 +5,7 @@ export interface FormState {
     varName: string;
     varValue: string;
     isPrivate: boolean;
+    isAdminOnly: boolean;
     isDisabled: boolean;
   }>;
 }
