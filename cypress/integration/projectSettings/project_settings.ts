@@ -257,7 +257,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("var-name-input").eq(2).should("have.value", "sample_name_2");
     });
 
-    it("Should allow deleting both items", () => {
+    it("Should allow deleting all items", () => {
       cy.dataCy("delete-item-button").first().click();
       cy.dataCy("delete-item-button").first().click();
       cy.dataCy("delete-item-button").first().click();
