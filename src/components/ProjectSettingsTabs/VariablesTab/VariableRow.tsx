@@ -76,5 +76,6 @@ const OptionRow = styled.div`
 
   > div {
     flex-shrink: 0;
+    margin-right: ${size.s};
   }
 `;
