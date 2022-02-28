@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import Card from "@leafygreen-ui/card";
 import { Option, Select } from "@leafygreen-ui/select";
 import TextInput from "@leafygreen-ui/text-input";
-import get from "lodash/get";
 import { usePreferencesAnalytics } from "analytics";
 import { timeZones } from "constants/fieldMaps";
 import { size } from "constants/tokens";
@@ -23,21 +22,25 @@ import { string } from "utils";
 const { omitTypename } = string;
 
 export const ProfileTab: React.FC = () => {
+  const { sendEvent } = usePreferencesAnalytics();
+  const dispatchToast = useToastContext();
+
   const { data, loadingComp } = useUserSettingsQuery();
   const { githubUser, timezone, region } = data?.userSettings ?? {};
-  const lastKnownAs = get(githubUser, "githubUser.lastKnownAs", "");
+  const { lastKnownAs = "" } = githubUser || {};
+
   const [timezoneField, setTimezoneField] = useState<string>(timezone);
   const [regionField, setRegionField] = useState<string>(region);
-  const { sendEvent } = usePreferencesAnalytics();
   const [githubUsernameField, setGithubUsernameField] = useState<string>(
-    get(githubUser, "githubUser.lastKnownAs")
+    lastKnownAs
   );
+
   useEffect(() => {
     setGithubUsernameField(githubUser?.lastKnownAs);
     setTimezoneField(timezone);
     setRegionField(region);
   }, [githubUser, timezone, region]);
-  const dispatchToast = useToastContext();
+
   const [updateUserSettings, { loading: updateLoading }] = useMutation<
     UpdateUserSettingsMutation,
     UpdateUserSettingsMutationVariables
@@ -50,13 +53,12 @@ export const ProfileTab: React.FC = () => {
     },
   });
 
-  const { data: awsRegionData } = useQuery<AwsRegionsQuery>(GET_AWS_REGIONS);
+  const {
+    data: awsRegionData,
+    loading: loadingAWSRegion,
+  } = useQuery<AwsRegionsQuery>(GET_AWS_REGIONS);
+  const { awsRegions = [] } = awsRegionData || {};
 
-  if (loadingComp) {
-    return loadingComp;
-  }
-
-  const awsRegions = get(awsRegionData, "awsRegions", []);
   const handleSave = async (e): Promise<void> => {
     e.preventDefault();
 
@@ -87,55 +89,63 @@ export const ProfileTab: React.FC = () => {
     timezone !== timezoneField ||
     region !== regionField;
 
+  if (loadingComp) {
+    return loadingComp;
+  }
+
   return (
     <div>
-      {/* @ts-expect-error */}
-      <PreferencesCard>
-        <ContentWrapper>
-          <StyledTextInput
-            label="Github Username"
-            onChange={handleFieldUpdate(setGithubUsernameField)}
-            value={githubUsernameField}
-          />
-          <StyledSelect
-            label="Timezone"
-            placeholder="Select timezone"
-            defaultValue={timezoneField}
-            onChange={handleFieldUpdate(setTimezoneField)}
-            data-cy="timezone-field"
-          >
-            {timeZones.map((timeZone) => (
-              <Option
-                value={timeZone.value}
-                key={timeZone.value}
-                data-cy={`${timeZone.str}-option`}
-              >
-                {timeZone.str}
-              </Option>
-            ))}
-          </StyledSelect>
-          <StyledSelect
-            label="AWS Region"
-            placeholder="Select AWS Region"
-            defaultValue={regionField}
-            onChange={handleFieldUpdate(setRegionField)}
-          >
-            {(awsRegions as any[])?.map((awsRegion) => (
-              <Option value={awsRegion} key={awsRegion}>
-                {awsRegion}
-              </Option>
-            ))}
-          </StyledSelect>
-          <Button
-            data-cy="save-profile-changes-button"
-            variant={Variant.Primary}
-            disabled={!hasFieldUpdates || updateLoading}
-            onClick={handleSave}
-          >
-            Save Changes
-          </Button>
-        </ContentWrapper>
-      </PreferencesCard>
+      {!loadingAWSRegion && (
+        /* @ts-expect-error */
+        <PreferencesCard>
+          <ContentWrapper>
+            <StyledTextInput
+              label="Github Username"
+              onChange={handleFieldUpdate(setGithubUsernameField)}
+              value={githubUsernameField}
+            />
+            <StyledSelect
+              label="Timezone"
+              placeholder="Select timezone"
+              defaultValue={timezoneField}
+              onChange={handleFieldUpdate(setTimezoneField)}
+              data-cy="timezone-field"
+            >
+              {timeZones.map((timeZone) => (
+                <Option
+                  value={timeZone.value}
+                  key={timeZone.value}
+                  data-cy={`${timeZone.str}-option`}
+                >
+                  {timeZone.str}
+                </Option>
+              ))}
+            </StyledSelect>
+
+            <StyledSelect
+              label="AWS Region"
+              placeholder="Select AWS Region"
+              defaultValue={regionField}
+              onChange={handleFieldUpdate(setRegionField)}
+            >
+              {(awsRegions as any[])?.map((awsRegion) => (
+                <Option value={awsRegion} key={awsRegion}>
+                  {awsRegion}
+                </Option>
+              ))}
+            </StyledSelect>
+
+            <Button
+              data-cy="save-profile-changes-button"
+              variant={Variant.Primary}
+              disabled={!hasFieldUpdates || updateLoading}
+              onClick={handleSave}
+            >
+              Save Changes
+            </Button>
+          </ContentWrapper>
+        </PreferencesCard>
+      )}
     </div>
   );
 };
