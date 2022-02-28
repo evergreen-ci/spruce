@@ -19,6 +19,7 @@ exports[`storybook Storyshots WaterfallTaskStatusIcon Failed Icon 1`] = `
     className="leafygreen-ui-xhlipt"
   >
     <svg
+      aria-label="Failure Icon"
       fill="currentColor"
       height={16}
       viewBox="0 0 21 21"

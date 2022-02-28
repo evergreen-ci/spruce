@@ -1046,6 +1046,7 @@ Array [
                 className="leafygreen-ui-xhlipt"
               >
                 <svg
+                  aria-label="Failure Icon"
                   fill="currentColor"
                   height={16}
                   viewBox="0 0 21 21"
@@ -1091,6 +1092,7 @@ Array [
                 className="leafygreen-ui-xhlipt"
               >
                 <svg
+                  aria-label="Failure Icon"
                   fill="currentColor"
                   height={16}
                   viewBox="0 0 21 21"
