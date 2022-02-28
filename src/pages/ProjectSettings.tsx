@@ -24,6 +24,7 @@ import {
 import { GET_PROJECT_SETTINGS, GET_REPO_SETTINGS } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { environmentalVariables, validators } from "utils";
+import { ProjectSelect } from "../components/projectSelect";
 import { getTabTitle } from "./projectSettings/getTabTitle";
 import { ProjectSettingsTabs } from "./projectSettings/Tabs";
 
@@ -113,7 +114,12 @@ export const ProjectSettings: React.FC = () => {
   return (
     <ProjectSettingsProvider>
       <SideNav aria-label="Project Settings">
-        <SideNavGroup header="Project" />
+        <DropdownContainer>
+          <ProjectSelect
+            selectedProjectIdentifier={identifier}
+            isProjectSettingsPage
+          />
+        </DropdownContainer>
         <SideNavGroup>
           <ProjectSettingsNavItem
             {...sharedProps}
@@ -196,4 +202,8 @@ const tabRouteValues = Object.values(ProjectSettingsTabRoutes);
 
 const PageContainer = styled.div`
   display: flex;
+`;
+
+const DropdownContainer = styled.div`
+  padding: 0.5rem;
 `;

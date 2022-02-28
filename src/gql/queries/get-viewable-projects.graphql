@@ -1,7 +1,13 @@
 query GetViewableProjectRefs {
   viewableProjectRefs {
+    name
     projects {
+      id
       identifier
+      repo
+      owner
+      displayName
+      isFavorite
     }
   }
 }

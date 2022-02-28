@@ -3945,7 +3945,17 @@ export type GetViewableProjectRefsQueryVariables = Exact<{
 
 export type GetViewableProjectRefsQuery = {
   viewableProjectRefs: Array<
-    Maybe<{ projects: Array<{ identifier: string }> }>
+    Maybe<{
+      name: string;
+      projects: Array<{
+        id: string;
+        identifier: string;
+        repo: string;
+        owner: string;
+        displayName: string;
+        isFavorite: boolean;
+      }>;
+    }>
   >;
 };
 

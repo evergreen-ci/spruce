@@ -4,28 +4,32 @@ import Cookies from "js-cookie";
 import { useHistory } from "react-router-dom";
 import SearchableDropdown from "components/SearchableDropdown";
 import { CURRENT_PROJECT } from "constants/cookies";
-import { getCommitsRoute } from "constants/routes";
+import {
+  getCommitsRoute,
+  getProjectSettingsRoute,
+  ProjectSettingsTabRoutes,
+} from "constants/routes";
 import {
   GetProjectsQuery,
   GetProjectsQueryVariables,
+  GetViewableProjectRefsQuery,
+  GetViewableProjectRefsQueryVariables,
 } from "gql/generated/types";
-import { GET_PROJECTS } from "gql/queries";
+import { GET_PROJECTS, GET_VIEWABLE_PROJECTS } from "gql/queries";
 import { ProjectOptionGroup } from "./ProjectOptionGroup";
 
 interface ProjectSelectProps {
   selectedProjectIdentifier: string;
+  isProjectSettingsPage?: boolean;
 }
 export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   selectedProjectIdentifier,
+  isProjectSettingsPage,
 }) => {
-  const { data, loading } = useQuery<
-    GetProjectsQuery,
-    GetProjectsQueryVariables
-  >(GET_PROJECTS);
+  const { projects, loading } = getProjects(isProjectSettingsPage);
   const history = useHistory();
-  const { projects } = data || { projects: [] };
 
-  const favoriteProjects = projects?.flatMap((g) =>
+  const favoriteProjects = projects.flatMap((g) =>
     g.projects.filter((p) => p.isFavorite)
   );
 
@@ -66,7 +70,14 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
       options={allProjects}
       onChange={(projectIdentifier: any) => {
         Cookies.set(CURRENT_PROJECT, projectIdentifier, { expires: 365 });
-        history.push(getCommitsRoute(projectIdentifier));
+        history.push(
+          isProjectSettingsPage
+            ? getProjectSettingsRoute(
+                projectIdentifier,
+                ProjectSettingsTabRoutes.General
+              )
+            : getCommitsRoute(projectIdentifier)
+        );
       }}
       optionRenderer={(projectGroup, onClick) => (
         <ProjectOptionGroup
@@ -82,4 +93,25 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
       data-cy="project-select"
     />
   );
+};
+
+export const getProjects = (isProjectSettingsPage) => {
+  if (!isProjectSettingsPage) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { data, loading } = useQuery<
+      GetProjectsQuery,
+      GetProjectsQueryVariables
+    >(GET_PROJECTS);
+    const { projects } = data || { projects: [] };
+
+    return { projects, loading };
+  }
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { data, loading } = useQuery<
+    GetViewableProjectRefsQuery,
+    GetViewableProjectRefsQueryVariables
+  >(GET_VIEWABLE_PROJECTS);
+  const { viewableProjectRefs } = data || { viewableProjectRefs: [] };
+  // const projects = ;
+  return { projects: viewableProjectRefs.map((p) => ({ ...p })), loading };
 };

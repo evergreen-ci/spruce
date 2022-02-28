@@ -28,10 +28,10 @@ import {
 } from "types/commits";
 import { TaskStatus } from "types/task";
 import { array, queryString } from "utils";
+import { ProjectSelect } from "../components/projectSelect";
 import { CommitsWrapper } from "./commits/CommitsWrapper";
 import CommitTypeSelect from "./commits/commitTypeSelect";
 import { PaginationButtons } from "./commits/PaginationButtons";
-import { ProjectSelect } from "./commits/projectSelect";
 import { StatusSelect } from "./commits/StatusSelect";
 
 const { toArray } = array;
