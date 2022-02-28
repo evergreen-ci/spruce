@@ -20,11 +20,8 @@ import { AddIssueModal } from "./AddIssueModal";
 import { AnnotationTicketsTable } from "./AnnotationTicketsTable";
 import { TicketsTitle, TitleAndButtons } from "./BBComponents";
 
-type AnnotationIssues = Annotation["issues"];
-
 interface AnnotationTicketsProps {
   tickets: IssueLink[];
-  annotationIssues: AnnotationIssues;
   taskId: string;
   execution: number;
   isIssue: boolean;
@@ -36,7 +33,6 @@ interface AnnotationTicketsProps {
 
 const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
   tickets,
-  annotationIssues,
   taskId,
   execution,
   isIssue,
@@ -86,7 +82,6 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
       </TitleAndButtons>
       <AnnotationTicketsTable
         jiraIssues={tickets}
-        annotationIssues={annotationIssues}
         taskId={taskId}
         execution={execution}
         isIssue={isIssue}
@@ -111,7 +106,6 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
 interface IssuesProps {
   taskId: string;
   execution: number;
-  isIssue: boolean;
   userCanModify: boolean;
   selectedRowKey: string;
   setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
@@ -121,7 +115,6 @@ interface IssuesProps {
 export const Issues: React.FC<IssuesProps> = ({
   taskId,
   execution,
-  isIssue,
   userCanModify,
   selectedRowKey,
   setSelectedRowKey,
@@ -142,15 +135,14 @@ export const Issues: React.FC<IssuesProps> = ({
   );
   return (
     <AnnotationTickets
-      tickets={data?.task?.annotation?.issues}
-      annotationIssues={annotation?.issues || []}
-      isIssue={isIssue}
+      tickets={data?.task?.annotation?.issues || annotation?.issues || []}
       taskId={taskId}
       execution={execution}
       userCanModify={userCanModify}
       selectedRowKey={selectedRowKey}
       setSelectedRowKey={setSelectedRowKey}
       loading={loading}
+      isIssue
     />
   );
 };
@@ -158,7 +150,6 @@ export const Issues: React.FC<IssuesProps> = ({
 interface SuspectedIssuesProps {
   taskId: string;
   execution: number;
-  isIssue: boolean;
   userCanModify: boolean;
   selectedRowKey: string;
   setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
@@ -168,7 +159,6 @@ interface SuspectedIssuesProps {
 export const SuspectedIssues: React.FC<SuspectedIssuesProps> = ({
   taskId,
   execution,
-  isIssue,
   userCanModify,
   selectedRowKey,
   setSelectedRowKey,
@@ -191,15 +181,14 @@ export const SuspectedIssues: React.FC<SuspectedIssuesProps> = ({
   const suspectedIssues = data?.task?.annotation?.suspectedIssues;
   return (
     <AnnotationTickets
-      tickets={suspectedIssues}
-      annotationIssues={annotation?.suspectedIssues || []}
-      isIssue={isIssue}
+      tickets={suspectedIssues || annotation?.suspectedIssues || []}
       taskId={taskId}
       execution={execution}
       userCanModify={userCanModify}
       selectedRowKey={selectedRowKey}
       setSelectedRowKey={setSelectedRowKey}
       loading={loading}
+      isIssue={false}
     />
   );
 };

@@ -110,7 +110,6 @@ export const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
         userCanModify={userCanModify}
       />
       <Issues
-        isIssue
         taskId={taskId}
         execution={execution}
         userCanModify={userCanModify}
@@ -119,7 +118,6 @@ export const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
         annotation={annotation}
       />
       <SuspectedIssues
-        isIssue={false}
         taskId={taskId}
         execution={execution}
         userCanModify={userCanModify}

@@ -14,7 +14,6 @@ import {
   MoveAnnotationIssueMutationVariables,
   RemoveAnnotationIssueMutation,
   RemoveAnnotationIssueMutationVariables,
-  Annotation,
   IssueLink,
 } from "gql/generated/types";
 import { MOVE_ANNOTATION, REMOVE_ANNOTATION } from "gql/mutations";
@@ -25,11 +24,9 @@ import {
 
 type AnnotationTickets = GetIssuesQuery["task"]["annotation"]["issues"];
 type AnnotationTicket = AnnotationTickets[0];
-type AnnotationIssues = Annotation["issues"];
 
 interface AnnotationTicketsProps {
   jiraIssues: AnnotationTickets;
-  annotationIssues: AnnotationIssues;
   taskId: string;
   execution: number;
   isIssue: boolean;
@@ -41,7 +38,6 @@ interface AnnotationTicketsProps {
 
 export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
   jiraIssues,
-  annotationIssues,
   taskId,
   execution,
   userCanModify,
@@ -60,7 +56,6 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
   const loadingColumns = [
     {
       title: "Ticket",
-      width: "70%",
       render: ({ issueKey, url }: IssueLink): JSX.Element => (
         <LoadingAnnotationTicketRow issueKey={issueKey} url={url} />
       ),
@@ -70,7 +65,7 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
   const columns = [
     {
       title: "Ticket",
-      width: "70%",
+      width: "60%",
       render: ({
         issueKey,
         url,
@@ -221,7 +216,9 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
     }
   });
 
-  if (!annotationIssues.length) {
+  console.log(jiraIssues);
+
+  if (!jiraIssues.length) {
     return null;
   }
 
@@ -229,7 +226,7 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
     <TableWrapper>
       <Table
         tableLayout="fixed"
-        dataSource={annotationIssues}
+        dataSource={jiraIssues}
         rowKey={({ issueKey }) => issueKey}
         columns={loadingColumns}
         pagination={false}
@@ -309,7 +306,6 @@ export const StyledText = styled.div`
 
 const BtnContainer = styled.div`
   white-space: nowrap;
-  float: right;
   white-space: nowrap;
 `;
 
