@@ -75,12 +75,14 @@ interface AnnotationTicketRowProps {
   url: string;
   source?: Source;
   jiraTicket?: JiraTicket;
+  loading?: boolean;
 }
 
 export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
   issueKey,
   url,
   jiraTicket,
+  loading = false,
 }) => {
   const annotationAnalytics = useAnnotationAnalytics();
   const fields = jiraTicket?.fields;
@@ -91,7 +93,7 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
     updated,
     summary,
     status,
-  } = jiraTicket?.fields ?? {};
+  } = fields ?? {};
 
   return (
     <div data-cy="annotation-ticket-row">
@@ -108,57 +110,40 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
         {issueKey}
         {summary && `: ${summary}`}
       </JiraSummaryLink>
-
-      {jiraTicket && (
-        <StyledBadge data-cy={`${issueKey}-badge`} variant="lightgray">
-          {status.name}
-        </StyledBadge>
+      {loading ? (
+        <Spacer>
+          <Skeleton active title={false} />
+        </Spacer>
+      ) : (
+        <>
+          {jiraTicket && (
+            <StyledBadge data-cy={`${issueKey}-badge`} variant="lightgray">
+              {status.name}
+            </StyledBadge>
+          )}
+          <BottomMetaDataWrapper data-cy={`${issueKey}-metadata`}>
+            {created && (
+              <Disclaimer>
+                Created: {getDateCopy(created, { dateOnly: true })}
+              </Disclaimer>
+            )}
+            {updated && (
+              <Disclaimer>
+                Updated: {getDateCopy(updated, { dateOnly: true })}
+              </Disclaimer>
+            )}
+            {fields && !assigneeDisplayName && (
+              <Disclaimer>Unassigned</Disclaimer>
+            )}
+            {assigneeDisplayName && (
+              <Disclaimer>Assignee: {assigneeDisplayName}</Disclaimer>
+            )}
+            {assignedTeam && (
+              <Disclaimer>Assigned Team: {assignedTeam}</Disclaimer>
+            )}
+          </BottomMetaDataWrapper>
+        </>
       )}
-
-      <BottomMetaDataWrapper data-cy={`${issueKey}-metadata`}>
-        {created && (
-          <Disclaimer>
-            Created: {getDateCopy(created, { dateOnly: true })}
-          </Disclaimer>
-        )}
-        {updated && (
-          <Disclaimer>
-            Updated: {getDateCopy(updated, { dateOnly: true })}
-          </Disclaimer>
-        )}
-        {fields && !assigneeDisplayName && <Disclaimer>Unassigned</Disclaimer>}{" "}
-        {assigneeDisplayName && (
-          <Disclaimer>Assignee: {assigneeDisplayName}</Disclaimer>
-        )}
-        {assignedTeam && <Disclaimer>Assigned Team: {assignedTeam}</Disclaimer>}{" "}
-      </BottomMetaDataWrapper>
-    </div>
-  );
-};
-
-export const LoadingAnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
-  issueKey,
-  url,
-}) => {
-  const annotationAnalytics = useAnnotationAnalytics();
-
-  return (
-    <div data-cy="loading-annotation-ticket-row">
-      <Spacer>
-        <JiraSummaryLink
-          href={url}
-          target="_blank"
-          data-cy={issueKey}
-          onClick={() =>
-            annotationAnalytics.sendEvent({
-              name: "Click Annotation Ticket Link",
-            })
-          }
-        >
-          {issueKey}
-        </JiraSummaryLink>
-      </Spacer>
-      <Skeleton active title={false} />
     </div>
   );
 };
@@ -172,7 +157,7 @@ export const TicketsTitle = styled(Subtitle)<TitleProps>`
 `;
 
 const Spacer = styled.div`
-  margin-bottom: ${size.xs};
+  margin-top: ${size.xs};
 `;
 
 const JiraSummaryLink = styled(StyledLink)`

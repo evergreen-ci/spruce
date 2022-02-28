@@ -17,14 +17,10 @@ import {
   IssueLink,
 } from "gql/generated/types";
 import { MOVE_ANNOTATION, REMOVE_ANNOTATION } from "gql/mutations";
-import {
-  AnnotationTicketRow,
-  LoadingAnnotationTicketRow,
-} from "./BBComponents";
+import { AnnotationTicketRow } from "./BBComponents";
 
 type AnnotationTickets = GetIssuesQuery["task"]["annotation"]["issues"];
 type AnnotationTicket = AnnotationTickets[0];
-
 interface AnnotationTicketsProps {
   jiraIssues: AnnotationTickets;
   taskId: string;
@@ -51,17 +47,17 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
   const issueString = isIssue ? "issue" : "suspected issue";
   const icon = <Icon glyph={isIssue ? "ArrowDown" : "ArrowUp"} />;
 
-  // The annotationIssues contains the issueKey and the url, so it can be displayed while fetching for complete
-  // ticket info.
+  // While fetching for JIRA tickets, display the information we already have (the issueKey and the url).
   const loadingColumns = [
     {
       title: "Ticket",
       render: ({ issueKey, url }: IssueLink): JSX.Element => (
-        <LoadingAnnotationTicketRow issueKey={issueKey} url={url} />
+        <AnnotationTicketRow issueKey={issueKey} url={url} loading />
       ),
     },
   ];
 
+  // Once JIRA tickets are fetched, display the complete information.
   const columns = [
     {
       title: "Ticket",
@@ -139,7 +135,6 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
       ),
     },
   ];
-
   const [removeAnnotation] = useMutation<
     RemoveAnnotationIssueMutation,
     RemoveAnnotationIssueMutationVariables
@@ -207,6 +202,7 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
   // Will add a span with a ref to the row that matches the selectedRowKey
   // And will scroll to that ref.
   const rowRef = useRef<HTMLSpanElement>(null);
+
   useEffect(() => {
     if (selectedRowKey && rowRef.current) {
       rowRef.current.scrollIntoView({
@@ -215,8 +211,6 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
       });
     }
   });
-
-  console.log(jiraIssues);
 
   if (!jiraIssues.length) {
     return null;
