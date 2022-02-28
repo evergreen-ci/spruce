@@ -47,6 +47,7 @@ exports[`storybook Storyshots History Table Active Icons 1`] = `
       className="css-amsv4f-IconContainer e12dzyme1"
     >
       <svg
+        aria-label="Failure Icon"
         fill="currentColor"
         height={30}
         viewBox="0 0 21 21"
@@ -77,6 +78,7 @@ exports[`storybook Storyshots History Table Active Icons 1`] = `
       className="css-amsv4f-IconContainer e12dzyme1"
     >
       <svg
+        aria-label="Known failure Icon"
         fill="none"
         height={30}
         viewBox="0 0 21 21"
@@ -136,6 +138,7 @@ exports[`storybook Storyshots History Table Active Icons 1`] = `
       className="css-amsv4f-IconContainer e12dzyme1"
     >
       <svg
+        aria-label="Setup failure Icon"
         fill="currentColor"
         height={30}
         viewBox="0 0 28 28"
@@ -178,6 +181,7 @@ exports[`storybook Storyshots History Table Active Icons 1`] = `
       className="css-amsv4f-IconContainer e12dzyme1"
     >
       <svg
+        aria-label="System failure Icon"
         fill="none"
         height={30}
         viewBox="0 0 32 32"
@@ -213,6 +217,7 @@ exports[`storybook Storyshots History Table Active Icons 1`] = `
       className="css-amsv4f-IconContainer e12dzyme1"
     >
       <svg
+        aria-label="Timed out Icon"
         fill="none"
         height={30}
         viewBox="0 0 30 29"
@@ -247,6 +252,7 @@ exports[`storybook Storyshots History Table Active Icons 1`] = `
       className="css-amsv4f-IconContainer e12dzyme1"
     >
       <svg
+        aria-label="Will not run Icon"
         fill="none"
         height={30}
         viewBox="0 0 30 28"
@@ -315,6 +321,7 @@ exports[`storybook Storyshots History Table Active Icons 1`] = `
       className="css-amsv4f-IconContainer e12dzyme1"
     >
       <svg
+        aria-label="Will not run Icon"
         fill="none"
         height={30}
         viewBox="0 0 30 28"
@@ -393,6 +400,7 @@ exports[`storybook Storyshots History Table Inactive Icons 1`] = `
       className="css-amsv4f-IconContainer e12dzyme1"
     >
       <svg
+        aria-label="Failure Icon"
         fill="currentColor"
         height={30}
         viewBox="0 0 21 21"
@@ -418,6 +426,7 @@ exports[`storybook Storyshots History Table Inactive Icons 1`] = `
       className="css-amsv4f-IconContainer e12dzyme1"
     >
       <svg
+        aria-label="Known failure Icon"
         fill="none"
         height={30}
         viewBox="0 0 21 21"
@@ -473,6 +482,7 @@ exports[`storybook Storyshots History Table Inactive Icons 1`] = `
       className="css-amsv4f-IconContainer e12dzyme1"
     >
       <svg
+        aria-label="Setup failure Icon"
         fill="currentColor"
         height={30}
         viewBox="0 0 28 28"
@@ -510,6 +520,7 @@ exports[`storybook Storyshots History Table Inactive Icons 1`] = `
       className="css-amsv4f-IconContainer e12dzyme1"
     >
       <svg
+        aria-label="System failure Icon"
         fill="none"
         height={30}
         viewBox="0 0 32 32"
@@ -540,6 +551,7 @@ exports[`storybook Storyshots History Table Inactive Icons 1`] = `
       className="css-amsv4f-IconContainer e12dzyme1"
     >
       <svg
+        aria-label="Timed out Icon"
         fill="none"
         height={30}
         viewBox="0 0 30 29"
@@ -569,6 +581,7 @@ exports[`storybook Storyshots History Table Inactive Icons 1`] = `
       className="css-amsv4f-IconContainer e12dzyme1"
     >
       <svg
+        aria-label="Will not run Icon"
         fill="none"
         height={30}
         viewBox="0 0 30 28"
@@ -637,6 +650,7 @@ exports[`storybook Storyshots History Table Inactive Icons 1`] = `
       className="css-amsv4f-IconContainer e12dzyme1"
     >
       <svg
+        aria-label="Will not run Icon"
         fill="none"
         height={30}
         viewBox="0 0 30 28"
