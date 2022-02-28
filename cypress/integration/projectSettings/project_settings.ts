@@ -7,8 +7,6 @@ const project = "spruce";
 const projectUseRepoEnabled = "evergreen";
 const repo = "602d70a2b2373672ee493184";
 
-const HAS_CHANGES_TIMEOUT_MS = 410;
-
 describe("Repo Settings", () => {
   const destination = getGeneralRoute(repo);
 
@@ -278,7 +276,7 @@ describe("Project Settings when defaulting to repo", () => {
   it("Preserves edits to the form when navigating between settings tabs and does not show a warning modal", () => {
     cy.dataCy("spawn-host-input").should("have.value", "/path");
     cy.dataCy("spawn-host-input").type("/test");
-    cy.wait(HAS_CHANGES_TIMEOUT_MS); // eslint-disable-line cypress/no-unnecessary-waiting
+    cy.dataCy("save-settings-button").should("not.be.disabled");
     cy.dataCy("navitem-access").click();
     cy.dataCy("navigation-warning-modal").should("not.be.visible");
     cy.dataCy("navitem-general").click();

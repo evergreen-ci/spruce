@@ -1,14 +1,11 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
-import ExpandableCard from "@leafygreen-ui/expandable-card";
 import {
   SegmentedControl,
   SegmentedControlOption,
 } from "@leafygreen-ui/segmented-control";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { Accordion } from "components/Accordion";
-import Icon from "components/Icon";
 import { SpruceFormProps } from "components/SpruceForm";
 import { size, fontSize } from "constants/tokens";
 
@@ -22,6 +19,15 @@ const TaskInput: Record<string, string> = {
   Tags: "taskTags",
 } as const;
 
+// Extract index of the current field via its ID
+const getIndex = (id: string): number => {
+  if (!id) return null;
+
+  const stringIndex = id.substring(id.lastIndexOf("_") + 1);
+  const index = Number(stringIndex);
+  return Number.isInteger(index) ? index : null;
+};
+
 export const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
   disabled,
   formData,
@@ -30,13 +36,11 @@ export const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
   readonly,
   uiSchema,
 }) => {
-  const { initialAlias } = formData;
   const [alias, variant, variantTags, task, taskTags] = properties;
   const isDisabled = disabled || readonly;
-  const accordionTitle = uiSchema["ui:accordionTitle"];
-  const index = uiSchema["ui:index"];
-  const onDropIndexClick = uiSchema["ui:onDropIndexClick"];
-  const useExpandableCard = uiSchema["ui:useExpandableCard"];
+  const displayTitle = uiSchema["ui:displayTitle"];
+  const useAccordion = uiSchema["ui:useAccordion"] ?? true;
+  const index = getIndex(idSchema.$id);
 
   const [variantInput, setVariantInput] = useState(
     formData?.variant ? VariantInput.Regex : VariantInput.Tags
@@ -143,46 +147,17 @@ export const AliasRow: SpruceFormProps["ObjectFieldTemplate"] = ({
     </div>
   );
 
-  return useExpandableCard ? (
-    <StyledExpandableCard
-      defaultOpen={!isDisabled}
-      contentClassName="patch-alias-card-content"
-      title={
-        <>
-          <TitleWrapper data-cy="expandable-card-title">
-            {initialAlias || accordionTitle}
-          </TitleWrapper>
-          {!readonly && (
-            <Button
-              onClick={onDropIndexClick(index)}
-              disabled={disabled || readonly}
-              leftGlyph={<Icon glyph="Trash" />}
-              data-cy="delete-item-button"
-              size="small"
-            />
-          )}
-        </>
-      }
-    >
-      {contents}
-    </StyledExpandableCard>
-  ) : (
+  return useAccordion ? (
     <Accordion
-      title={`${accordionTitle} ${index !== null ? index + 1 : ""}`}
+      title={`${displayTitle} ${index !== null ? index + 1 : ""}`}
       defaultOpen={!isDisabled}
       titleTag={AccordionTitle}
       contents={contents}
     />
+  ) : (
+    contents
   );
 };
-
-const StyledExpandableCard = styled(ExpandableCard)`
-  margin-bottom: ${size.l};
-`;
-
-const TitleWrapper = styled.span`
-  margin-right: ${size.s};
-`;
 
 /* @ts-expect-error  */
 const AccordionTitle = styled(Subtitle)`

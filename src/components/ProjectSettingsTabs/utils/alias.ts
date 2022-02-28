@@ -77,9 +77,9 @@ export const transformAliases = (
     : [];
 
 type AliasRowUIParams = {
-  accordionTitle: string;
   addButtonText?: string;
   aliasHidden?: boolean;
+  displayTitle: string;
   isRepo?: boolean;
   useAccordion?: boolean;
   useExpandableCard?: boolean;
@@ -124,16 +124,15 @@ export const aliasArraySchema = {
 };
 
 export const aliasRowUiSchema = ({
-  accordionTitle = "Definition",
   addButtonText,
   aliasHidden = true,
+  displayTitle = "Definition",
   isRepo = false,
   useExpandableCard = false,
 }: AliasRowUIParams) => ({
   "ui:showLabel": false,
   "ui:topAlignDelete": true,
   "ui:useExpandableCard": useExpandableCard,
-  ...(useExpandableCard && { "ui:fullWidth": true }),
   ...(addButtonText && { "ui:addButtonText": addButtonText }),
   ...(isRepo && {
     "ui:readonly": true,
@@ -141,8 +140,8 @@ export const aliasRowUiSchema = ({
   }),
   items: {
     "ui:ObjectFieldTemplate": AliasRow,
-    "ui:accordionTitle": accordionTitle,
-    "ui:useExpandableCard": useExpandableCard,
+    "ui:displayTitle": displayTitle,
+    "ui:useAccordion": !useExpandableCard,
     alias: {
       "ui:data-cy": "alias-input",
       ...(aliasHidden && {

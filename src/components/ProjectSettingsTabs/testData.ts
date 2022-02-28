@@ -56,6 +56,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
         secret: null,
       },
     },
+    patchTriggerAliases: [],
   },
   vars: {
     vars: { test_name: "test_value" },
@@ -144,6 +145,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
         secret: "secret",
       },
     },
+    patchTriggerAliases: [],
   },
   vars: {
     vars: { repo_name: "repo_value" },

@@ -1,7 +1,9 @@
 import { Field } from "@rjsf/core";
 import { SpruceFormProps } from "components/SpruceForm";
+import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { alias, form, ProjectType } from "../utils";
+import { TaskSpecifiers } from "./types";
 
 const { aliasArraySchema, aliasRowUiSchema } = alias;
 const { overrideRadioBox } = form;
@@ -32,6 +34,121 @@ export const getFormSchema = (
           }
         ),
       },
+      patchTriggerAliases: {
+        title: "Patch Trigger Aliases",
+        ...overrideRadioBox(
+          "aliases",
+          [
+            "Override Repo Patch Trigger Aliases",
+            "Default to Repo Patch Trigger Aliases",
+          ],
+          {
+            type: "array" as "array",
+            items: {
+              type: "object" as "object",
+              required: ["alias", "childProjectIdentifier"],
+              properties: {
+                alias: {
+                  type: "string" as "string",
+                  title: "Alias",
+                },
+                childProjectIdentifier: {
+                  type: "string" as "string",
+                  title: "Project",
+                },
+                parentAsModule: {
+                  type: "string" as "string",
+                  title: "Module",
+                },
+                status: {
+                  type: ["string", "null"],
+                  title: "Wait on",
+                  oneOf: [
+                    {
+                      type: "string" as "string",
+                      title: "Any completed status",
+                      enum: ["*"],
+                    },
+                    {
+                      type: "string" as "string",
+                      title: "Success",
+                      enum: ["succeeded"],
+                    },
+                    {
+                      type: "string" as "string",
+                      title: "Failure",
+                      enum: ["failed"],
+                    },
+                    { enum: [null] },
+                  ],
+                },
+                taskSpecifiers: {
+                  type: "array" as "array",
+                  items: {
+                    type: "object" as "object",
+                    title: "Variant/Task Pair",
+                    properties: {
+                      specifier: {
+                        type: "string" as "string",
+                        title: "Specify Via",
+                        default: TaskSpecifiers.PatchAlias,
+                        oneOf: [
+                          {
+                            type: "string" as "string",
+                            title: "Patch Alias",
+                            enum: [TaskSpecifiers.PatchAlias],
+                          },
+                          {
+                            type: "string" as "string",
+                            title: "Variant/Task",
+                            enum: [TaskSpecifiers.VariantTask],
+                          },
+                        ],
+                      },
+                    },
+                    dependencies: {
+                      specifier: {
+                        oneOf: [
+                          {
+                            properties: {
+                              specifier: {
+                                enum: [TaskSpecifiers.PatchAlias],
+                              },
+                              patchAlias: {
+                                type: "string" as "string",
+                                title: "Patch Alias",
+                              },
+                            },
+                          },
+                          {
+                            properties: {
+                              specifier: {
+                                enum: [TaskSpecifiers.VariantTask],
+                              },
+                              variantRegex: {
+                                type: "string" as "string",
+                                title: "Variant Regex",
+                              },
+                              taskRegex: {
+                                type: "string" as "string",
+                                title: "Task Regex",
+                              },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  },
+                },
+                isGithubTriggerAlias: {
+                  type: "boolean" as "boolean",
+                  title: "Add to GitHub Trigger Alias",
+                },
+              },
+            },
+          }
+        ),
+      },
     },
   },
   uiSchema: {
@@ -47,19 +164,56 @@ export const getFormSchema = (
       aliases: {
         ...aliasRowUiSchema({
           addButtonText: "Add Patch Alias",
-          accordionTitle: "New Patch Alias",
           aliasHidden: false,
+          displayTitle: "New Patch Alias",
           useExpandableCard: true,
         }),
       },
       repoData: {
         aliases: {
           ...aliasRowUiSchema({
-            accordionTitle: "Patch Alias",
             aliasHidden: false,
+            displayTitle: "Patch Alias",
             isRepo: true,
             useExpandableCard: true,
           }),
+        },
+      },
+    },
+    patchTriggerAliases: {
+      aliasesOverride: {
+        "ui:widget": widgets.RadioBoxWidget,
+        "ui:showLabel": false,
+        "ui:data-cy": "patch-trigger-aliases-override-radio-box",
+      },
+      aliases: {
+        "ui:addButtonText": "Add Patch Trigger Alias",
+        "ui:showLabel": false,
+        "ui:useExpandableCard": true,
+        items: {
+          "ui:displayTitle": "New Patch Trigger Alias",
+          alias: {
+            "ui:showErrors": false,
+          },
+          childProjectIdentifier: {
+            "ui:showErrors": false,
+          },
+          status: {
+            "ui:placeholder": "Select event…",
+          },
+          taskSpecifiers: {
+            "ui:addButtonText": "Add Task Regex Pair",
+            "ui:showLabel": false,
+            "ui:topAlignDelete": true,
+            items: {
+              "ui:ObjectFieldTemplate": AccordionFieldTemplate,
+              "ui:defaultOpen": true,
+              specifier: {
+                "ui:widget": widgets.SegmentedControlWidget,
+                "ui:aria-controls": ["patchAlias", "taskRegex", "variantRegex"],
+              },
+            },
+          },
         },
       },
     },

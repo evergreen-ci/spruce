@@ -1,9 +1,9 @@
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
-import { alias, ProjectType } from "../utils";
-import { FormState } from "./types";
+import { alias as aliasUtils, ProjectType } from "../utils";
+import { FormState, TaskSpecifiers } from "./types";
 
-const { sortAliases, transformAliases } = alias;
+const { sortAliases, transformAliases } = aliasUtils;
 
 export const gqlToForm: GqlToFormFunction<FormState> = (
   data:
@@ -13,25 +13,46 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
 ): ReturnType<GqlToFormFunction> => {
   if (!data) return null;
 
-  const { aliases } = data;
+  const {
+    projectRef: { patchTriggerAliases, githubTriggerAliases },
+    aliases,
+  } = data;
   const { projectType } = options;
+  const isAttachedProject = projectType === ProjectType.AttachedProject;
 
   const { patchAliases } = sortAliases(aliases);
 
   return {
     patchAliases: {
-      aliasesOverride:
-        projectType !== ProjectType.AttachedProject || !!patchAliases.length,
+      aliasesOverride: !isAttachedProject || !!patchAliases.length,
       aliases: patchAliases.map((a) => ({
         ...a,
-        initialAlias: a.alias,
+        displayTitle: a.alias,
       })),
+    },
+    patchTriggerAliases: {
+      aliasesOverride: !isAttachedProject || !!patchTriggerAliases,
+      aliases:
+        patchTriggerAliases?.map((p) => ({
+          ...p,
+          taskSpecifiers:
+            p.taskSpecifiers?.map((t) => ({
+              ...t,
+              specifier: t.patchAlias
+                ? TaskSpecifiers.PatchAlias
+                : TaskSpecifiers.VariantTask,
+            })) ?? [],
+          status: p.status ?? "",
+          parentAsModule: p.parentAsModule ?? "",
+          isGithubTriggerAlias: githubTriggerAliases.includes(p.alias),
+          displayTitle: p.alias,
+        })) ?? null,
     },
   };
 };
 
 export const formToGql: FormToGqlFunction = (
-  { patchAliases }: FormState,
+  { patchAliases, patchTriggerAliases: ptaData }: FormState,
   id
 ) => {
   const aliases = transformAliases(
@@ -39,8 +60,40 @@ export const formToGql: FormToGqlFunction = (
     patchAliases.aliasesOverride
   );
 
+  const githubTriggerAliases = [];
+  const patchTriggerAliases = ptaData.aliasesOverride
+    ? ptaData.aliases?.map((a) => {
+        if (a.isGithubTriggerAlias) {
+          githubTriggerAliases.push(a.alias);
+        }
+        return {
+          alias: a.alias,
+          childProjectId: a.childProjectIdentifier,
+          childProjectIdentifier: a.childProjectIdentifier,
+          taskSpecifiers:
+            a.taskSpecifiers?.map(
+              ({ patchAlias, specifier, taskRegex, variantRegex }) =>
+                specifier === TaskSpecifiers.PatchAlias
+                  ? {
+                      patchAlias,
+                      taskRegex: "",
+                      variantRegex: "",
+                    }
+                  : {
+                      patchAlias: "",
+                      taskRegex,
+                      variantRegex,
+                    }
+            ) ?? [],
+          status: a.status || null,
+          parentAsModule: a.parentAsModule || null,
+          variantsTasks: a.variantsTasks,
+        };
+      }) ?? []
+    : null;
+
   return {
-    projectRef: { id },
+    projectRef: { id, patchTriggerAliases, githubTriggerAliases },
     aliases,
   };
 };

@@ -35,6 +35,10 @@ const projectForm: FormState = {
     aliasesOverride: false,
     aliases: [],
   },
+  patchTriggerAliases: {
+    aliasesOverride: true,
+    aliases: [],
+  },
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
@@ -46,6 +50,10 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
 
 const repoForm: FormState = {
   patchAliases: {
+    aliasesOverride: true,
+    aliases: [],
+  },
+  patchTriggerAliases: {
     aliasesOverride: true,
     aliases: [],
   },

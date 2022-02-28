@@ -2316,7 +2316,8 @@ export type ProjectSettingsFragment = {
     { id: string; repoRefId: string } & ProjectGeneralSettingsFragment &
       ProjectAccessSettingsFragment &
       ProjectPluginsSettingsFragment &
-      ProjectNotificationSettingsFragment
+      ProjectNotificationSettingsFragment &
+      ProjectPatchAliasSettingsFragment
   >;
   subscriptions?: Maybe<Array<SubscriptionsFragment>>;
   vars?: Maybe<VariablesFragment>;
@@ -2328,7 +2329,8 @@ export type RepoSettingsFragment = {
     { id: string } & RepoGeneralSettingsFragment &
       RepoAccessSettingsFragment &
       RepoPluginsSettingsFragment &
-      RepoNotificationSettingsFragment
+      RepoNotificationSettingsFragment &
+      RepoPatchAliasSettingsFragment
   >;
   vars?: Maybe<VariablesFragment>;
   subscriptions?: Maybe<Array<SubscriptionsFragment>>;
@@ -2376,6 +2378,44 @@ export type SubscriptionsFragment = {
       jiraIssueSubscriber?: Maybe<{ project: string; issueType: string }>;
     };
   }>;
+};
+
+export type ProjectPatchAliasSettingsFragment = {
+  githubTriggerAliases?: Maybe<Array<string>>;
+  patchTriggerAliases?: Maybe<
+    Array<{
+      alias: string;
+      childProjectId: string;
+      childProjectIdentifier: string;
+      status?: Maybe<string>;
+      parentAsModule?: Maybe<string>;
+      taskSpecifiers?: Maybe<
+        Array<
+          Maybe<{ patchAlias: string; taskRegex: string; variantRegex: string }>
+        >
+      >;
+      variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
+    }>
+  >;
+};
+
+export type RepoPatchAliasSettingsFragment = {
+  githubTriggerAliases?: Maybe<Array<string>>;
+  patchTriggerAliases?: Maybe<
+    Array<{
+      alias: string;
+      childProjectId: string;
+      childProjectIdentifier: string;
+      status?: Maybe<string>;
+      parentAsModule?: Maybe<string>;
+      taskSpecifiers?: Maybe<
+        Array<
+          Maybe<{ patchAlias: string; taskRegex: string; variantRegex: string }>
+        >
+      >;
+      variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
+    }>
+  >;
 };
 
 export type ProjectPluginsSettingsFragment = {

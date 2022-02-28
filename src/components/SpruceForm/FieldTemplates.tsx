@@ -1,13 +1,15 @@
-import { cloneElement } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
+import ExpandableCard from "@leafygreen-ui/expandable-card";
+import { Subtitle } from "@leafygreen-ui/typography";
 import {
   ArrayFieldTemplateProps,
   FieldTemplateProps,
   ObjectFieldTemplateProps,
 } from "@rjsf/core";
+import { Accordion } from "components/Accordion";
 import Icon from "components/Icon";
-import { size } from "constants/tokens";
+import { fontSize, size } from "constants/tokens";
 import { Unpacked } from "types/utils";
 import { SpruceFormContainer } from "./Container";
 import { TitleField as CustomTitleField } from "./CustomFields";
@@ -39,9 +41,11 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
 };
 
 const ArrayItem: React.FC<
-  { topAlignDelete: boolean; useExpandableCard: boolean } & Unpacked<
-    ArrayFieldTemplateProps["items"]
-  >
+  {
+    topAlignDelete: boolean;
+    useExpandableCard: boolean;
+    title: string;
+  } & Unpacked<ArrayFieldTemplateProps["items"]>
 > = ({
   children,
   disabled,
@@ -49,29 +53,43 @@ const ArrayItem: React.FC<
   index,
   onDropIndexClick,
   readonly,
+  title,
   topAlignDelete,
   useExpandableCard,
-}) => (
-  <ArrayItemRow key={index}>
-    {cloneElement(children, {
-      uiSchema: {
-        ...children.props.uiSchema,
-        "ui:index": index,
-        "ui:onDropIndexClick": onDropIndexClick,
-      },
-    })}
-    {hasRemove && !useExpandableCard && (
-      <DeleteButtonWrapper topAlignDelete={topAlignDelete}>
-        <Button
-          onClick={onDropIndexClick(index)}
-          disabled={disabled || readonly}
-          leftGlyph={<Icon glyph="Trash" />}
-          data-cy="delete-item-button"
-        />
-      </DeleteButtonWrapper>
-    )}
-  </ArrayItemRow>
-);
+}) => {
+  const deleteButton = (
+    <Button
+      onClick={onDropIndexClick(index)}
+      disabled={disabled || readonly}
+      leftGlyph={<Icon glyph="Trash" />}
+      data-cy="delete-item-button"
+    />
+  );
+  return useExpandableCard ? (
+    <ExpandableCard
+      title={
+        <>
+          <TitleWrapper data-cy="expandable-card-title">{title}</TitleWrapper>
+          {deleteButton}
+        </>
+      }
+    >
+      {children}
+    </ExpandableCard>
+  ) : (
+    <ArrayItemRow key={index}>
+      {children}
+      {hasRemove && !useExpandableCard && (
+        <DeleteButtonWrapper topAlignDelete={topAlignDelete}>
+          {deleteButton}
+        </DeleteButtonWrapper>
+      )}
+    </ArrayItemRow>
+  );
+};
+const TitleWrapper = styled.span`
+  margin-right: ${size.s};
+`;
 
 const ArrayItemRow = styled.div`
   display: flex;
@@ -85,6 +103,7 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   canAdd,
   DescriptionField,
   disabled,
+  formData,
   idSchema,
   items,
   onAddClick,
@@ -100,7 +119,7 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   const addButtonSize = uiSchema["ui:addButtonSize"] || "small";
   const addButtonText = uiSchema["ui:addButtonText"] || "Add";
   const fullWidth = !!uiSchema["ui:fullWidth"];
-  const showLabel = uiSchema["ui:showLabel"] !== false;
+  const showLabel = uiSchema["ui:showLabel"] ?? true;
   const topAlignDelete = uiSchema["ui:topAlignDelete"] ?? false;
   const useExpandableCard = uiSchema["ui:useExpandableCard"] ?? false;
   const isDisabled = disabled || readonly;
@@ -125,13 +144,20 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
           </Button>
         </ElementWrapper>
       )}
-      <ArrayContainer fullWidth={fullWidth} hasChildren={!!items?.length}>
-        {items.map((p) => (
+      <ArrayContainer
+        fullWidth={fullWidth || useExpandableCard}
+        hasChildren={!!items?.length}
+      >
+        {items.map((p, i) => (
           <ArrayItem
+            {...p}
             key={p.key}
+            title={
+              formData?.[i]?.displayTitle ??
+              uiSchema?.items?.["ui:displayTitle"]
+            }
             topAlignDelete={topAlignDelete}
             useExpandableCard={useExpandableCard}
-            {...p}
           />
         ))}
       </ArrayContainer>
@@ -172,3 +198,27 @@ export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
     {properties.map((prop) => prop.content)}
   </SpruceFormContainer>
 );
+
+export const AccordionFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
+  properties,
+  title,
+  uiSchema,
+}) => {
+  const defaultOpen = uiSchema["ui:defaultOpen"] ?? false;
+  const displayTitle = uiSchema["ui:displayTitle"];
+
+  return (
+    <Accordion
+      defaultOpen={defaultOpen}
+      title={displayTitle || title}
+      titleTag={AccordionTitle}
+      contents={properties.map(({ content }) => content)}
+    />
+  );
+};
+
+/* @ts-expect-error  */
+const AccordionTitle = styled(Subtitle)`
+  font-size: ${fontSize.l};
+  margin: 11px 0; // Align title precisely with delete button
+`;

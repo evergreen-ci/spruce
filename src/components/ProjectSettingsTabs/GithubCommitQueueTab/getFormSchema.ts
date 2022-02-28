@@ -242,13 +242,13 @@ export const getFormSchema = (
           githubPrAliases: {
             ...aliasRowUiSchema({
               addButtonText: "Add Patch Definition",
-              accordionTitle: "Patch Definition",
+              displayTitle: "Patch Definition",
             }),
           },
           repoData: {
             githubPrAliases: {
               ...aliasRowUiSchema({
-                accordionTitle: "Patch Definition",
+                displayTitle: "Patch Definition",
                 isRepo: true,
               }),
             },
@@ -270,13 +270,13 @@ export const getFormSchema = (
           githubCheckAliases: {
             ...aliasRowUiSchema({
               addButtonText: "Add Definition",
-              accordionTitle: "Commit Check Definition",
+              displayTitle: "Commit Check Definition",
             }),
           },
           repoData: {
             githubCheckAliases: {
               ...aliasRowUiSchema({
-                accordionTitle: "Commit Check Definition",
+                displayTitle: "Commit Check Definition",
                 isRepo: true,
               }),
             },
@@ -349,13 +349,13 @@ export const getFormSchema = (
           commitQueueAliases: {
             ...aliasRowUiSchema({
               addButtonText: "Add Patch Definition",
-              accordionTitle: "Patch Definition",
+              displayTitle: "Patch Definition",
             }),
           },
           repoData: {
             commitQueueAliases: {
               ...aliasRowUiSchema({
-                accordionTitle: "Patch Definition",
+                displayTitle: "Patch Definition",
                 isRepo: true,
               }),
             },
