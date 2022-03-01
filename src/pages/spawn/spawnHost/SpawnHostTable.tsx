@@ -1,4 +1,5 @@
 import React from "react";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { formatDistanceToNow } from "date-fns";
@@ -59,7 +60,7 @@ const columns = [
         ) : (
           <WordBreak>{host.displayName || host.id}</WordBreak>
         )}
-        <StyledRouterLink to={getHostRoute(host.id)}>
+        <StyledRouterLink to={getHostRoute(host.id)} css={linkStyle}>
           Event Log
         </StyledRouterLink>
       </HostNameWrapper>
@@ -111,6 +112,10 @@ const FlexContainer = styled.div`
 const HostNameWrapper = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const linkStyle = css`
+  width: fit-content;
 `;
 
 const WorkstationBadge = styled(Badge)`

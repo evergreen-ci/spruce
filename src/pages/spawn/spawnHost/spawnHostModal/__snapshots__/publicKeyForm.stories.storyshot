@@ -10,7 +10,7 @@ exports[`storybook Storyshots Public Key Form Public Key Form View 1`] = `
     Public Key
   </h6>
   <div
-    className="leafygreen-ui-ov1ktg css-y45jrx-StyledRadioBoxGroup edx7lnf3"
+    className="leafygreen-ui-ov1ktg css-1cwslpf-StyledRadioBoxGroup edx7lnf3"
     role="group"
   >
     <label
@@ -106,12 +106,12 @@ exports[`storybook Storyshots Public Key Form Public Key Form View 1`] = `
       aria-expanded={false}
       aria-invalid={false}
       aria-labelledby="select-3-label"
-      className="leafygreen-ui-ua6xkt"
+      className="leafygreen-ui-p6v5m8"
       data-testid="leafygreen-ui-select-menubutton"
       disabled={false}
       onClick={[Function]}
       type="button"
-      value=""
+      value="MyFirstKey.pub"
     >
       <div
         className="leafygreen-ui-1ktj4tm"
@@ -125,7 +125,7 @@ exports[`storybook Storyshots Public Key Form Public Key Form View 1`] = `
           <div
             className="leafygreen-ui-17aj16e"
           >
-            Select an existing key
+            MyFirstKey.pub
           </div>
         </div>
         <span

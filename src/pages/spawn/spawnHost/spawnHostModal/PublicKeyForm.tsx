@@ -47,10 +47,14 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
     onChange(oldState);
   };
 
-  // Clear public key data if user toggles between options. This is to prevent old public key data from
+  // Update public key data when user toggles between options. This is to prevent old public key data from
   // persisting, so that the Spawn button is properly disabled.
   useEffect(() => {
-    updatePublicKeyState({ key: "", name: "" });
+    if (selectState === PublicKeyFormType.Existing && publicKeys.length) {
+      updatePublicKeyState(publicKeys[0]);
+    } else {
+      updatePublicKeyState({ key: "", name: "" });
+    }
   }, [selectState]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -138,7 +142,6 @@ const KeyNameContainer = styled.div`
 
 // @ts-expect-error
 const StyledRadioBoxGroup = styled(RadioBoxGroup)`
-  height: 48px;
   margin: ${size.s} 0;
 `;
 
