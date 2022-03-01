@@ -1,6 +1,6 @@
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 
-export const projectBase: ProjectSettingsQuery["projectSettings"] = {
+const projectBase: ProjectSettingsQuery["projectSettings"] = {
   gitHubWebhooksEnabled: true,
 
   projectRef: {
@@ -60,6 +60,7 @@ export const projectBase: ProjectSettingsQuery["projectSettings"] = {
   vars: {
     vars: { test_name: "test_value" },
     privateVars: ["test_name"],
+    adminOnlyVars: ["test_name"],
   },
   aliases: [
     {

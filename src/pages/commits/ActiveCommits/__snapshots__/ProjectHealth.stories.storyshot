@@ -9,7 +9,7 @@ Array [
       className="css-gnwyka-FlexRowContainer ech0nhv4"
     >
       <div
-        className="css-mf02jn-CommitWrapper ech0nhv2"
+        className="css-mgqp2w-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -41,7 +41,7 @@ Array [
         </div>
       </div>
       <div
-        className="css-mf02jn-CommitWrapper ech0nhv2"
+        className="css-mgqp2w-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -79,19 +79,19 @@ Array [
         </div>
       </div>
       <div
-        className="css-1nmxwji-CommitWrapper ech0nhv2"
+        className="css-11x1fi4-CommitWrapper ech0nhv2"
         width={64}
       >
         <div
-          className="css-pi541p-Container ezzuvrx0"
+          className="css-316fn7-InactiveCommitContainer ezzuvrx9"
         >
           <div
-            className="css-1q62izj-InactiveCommitLine ezzuvrx3"
+            className="css-1q62izj-InactiveCommitLine ezzuvrx8"
           />
         </div>
       </div>
       <div
-        className="css-mf02jn-CommitWrapper ech0nhv2"
+        className="css-mgqp2w-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -117,7 +117,7 @@ Array [
         </div>
       </div>
       <div
-        className="css-mf02jn-CommitWrapper ech0nhv2"
+        className="css-mgqp2w-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -143,7 +143,7 @@ Array [
         </div>
       </div>
       <div
-        className="css-mf02jn-CommitWrapper ech0nhv2"
+        className="css-mgqp2w-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -323,7 +323,7 @@ Array [
       className="css-gnwyka-FlexRowContainer ech0nhv4"
     >
       <div
-        className="css-mf02jn-CommitWrapper ech0nhv2"
+        className="css-mgqp2w-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -373,7 +373,7 @@ Array [
         </div>
       </div>
       <div
-        className="css-mf02jn-CommitWrapper ech0nhv2"
+        className="css-mgqp2w-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -416,16 +416,16 @@ Array [
         </div>
       </div>
       <div
-        className="css-1nmxwji-CommitWrapper ech0nhv2"
+        className="css-11x1fi4-CommitWrapper ech0nhv2"
         width={64}
       >
         <div
-          className="leafygreen-ui-cssveg css-1ctfjby-ButtonContainer ezzuvrx4"
+          className="leafygreen-ui-cssveg css-1ctfjby-ButtonContainer ezzuvrx6"
           onClick={[Function]}
           role="button"
         >
           <small
-            className="css-t2ltce-ButtonText ezzuvrx2 leafygreen-ui-13bqno6"
+            className="css-t2ltce-ButtonText ezzuvrx5 leafygreen-ui-13bqno6"
             data-cy="inactive-commits-button"
           >
             <div>
@@ -436,7 +436,7 @@ Array [
         </div>
       </div>
       <div
-        className="css-mf02jn-CommitWrapper ech0nhv2"
+        className="css-mgqp2w-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -486,7 +486,7 @@ Array [
         </div>
       </div>
       <div
-        className="css-mf02jn-CommitWrapper ech0nhv2"
+        className="css-mgqp2w-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -529,7 +529,7 @@ Array [
         </div>
       </div>
       <div
-        className="css-mf02jn-CommitWrapper ech0nhv2"
+        className="css-mgqp2w-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -577,7 +577,7 @@ Array [
     className="css-gnwyka-FlexRowContainer ech0nhv4"
   >
     <div
-      className="css-mf02jn-CommitWrapper ech0nhv2"
+      className="css-mgqp2w-CommitWrapper ech0nhv2"
       width={200}
     >
       <div
@@ -684,7 +684,7 @@ Array [
       </div>
     </div>
     <div
-      className="css-mf02jn-CommitWrapper ech0nhv2"
+      className="css-mgqp2w-CommitWrapper ech0nhv2"
       width={200}
     >
       <div
@@ -791,11 +791,11 @@ Array [
       </div>
     </div>
     <div
-      className="css-1nmxwji-CommitWrapper ech0nhv2"
+      className="css-11x1fi4-CommitWrapper ech0nhv2"
       width={64}
     />
     <div
-      className="css-mf02jn-CommitWrapper ech0nhv2"
+      className="css-mgqp2w-CommitWrapper ech0nhv2"
       width={200}
     >
       <div
@@ -902,7 +902,7 @@ Array [
       </div>
     </div>
     <div
-      className="css-mf02jn-CommitWrapper ech0nhv2"
+      className="css-mgqp2w-CommitWrapper ech0nhv2"
       width={200}
     >
       <div
@@ -1009,7 +1009,7 @@ Array [
       </div>
     </div>
     <div
-      className="css-mf02jn-CommitWrapper ech0nhv2"
+      className="css-mgqp2w-CommitWrapper ech0nhv2"
       width={200}
     >
       <div
@@ -1046,6 +1046,7 @@ Array [
                 className="leafygreen-ui-xhlipt"
               >
                 <svg
+                  aria-label="Failure Icon"
                   fill="currentColor"
                   height={16}
                   viewBox="0 0 21 21"
@@ -1091,6 +1092,7 @@ Array [
                 className="leafygreen-ui-xhlipt"
               >
                 <svg
+                  aria-label="Failure Icon"
                   fill="currentColor"
                   height={16}
                   viewBox="0 0 21 21"

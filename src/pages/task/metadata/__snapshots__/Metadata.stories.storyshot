@@ -393,6 +393,7 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
           className="css-dcee98-LeftContainer e1dgw5p63"
         >
           <svg
+            aria-label="Failure Icon"
             fill="currentColor"
             height={16}
             viewBox="0 0 21 21"

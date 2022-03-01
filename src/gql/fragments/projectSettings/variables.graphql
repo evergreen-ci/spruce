@@ -1,4 +1,5 @@
 fragment variables on ProjectVars {
   vars
   privateVars
+  adminOnlyVars
 }
