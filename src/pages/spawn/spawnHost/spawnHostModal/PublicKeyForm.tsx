@@ -71,8 +71,8 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
 
       {selectState === PublicKeyFormType.Existing && (
         <StyledSelect
-          placeholder="Select an existing key"
           label="Existing Key"
+          placeholder="Select an existing key"
           value={keyName}
           onChange={selectPublicKey}
           disabled={!data.publicKey}
@@ -91,11 +91,11 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
           <StyledTextArea
             id="keyValueInput"
             label="Public Key"
-            spellCheck={false}
             value={publicKey}
             onChange={(e) =>
               updatePublicKeyState({ key: e.target.value, name: keyName })
             }
+            spellCheck={false}
           />
           <KeyNameContainer>
             <Checkbox
@@ -112,8 +112,6 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
               id="keyNameInput"
               aria-labelledby="Public Key Name"
               placeholder="Key name"
-              disabled={!savePublicKey}
-              spellCheck={false}
               value={keyName}
               onChange={(e) => {
                 updatePublicKeyState({
@@ -121,6 +119,8 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
                   name: e.target.value,
                 });
               }}
+              disabled={!savePublicKey}
+              spellCheck={false}
             />
           </KeyNameContainer>
         </>

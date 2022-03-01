@@ -13,13 +13,14 @@ const publicKeys = [
   },
 ];
 
-const defaultData = {
+const emptyState = {
   publicKey: {
     name: "",
     key: "",
   },
   savePublicKey: false,
 };
+
 describe("publicKeyForm", () => {
   it("public Key state should be initialized correctly", () => {
     const defaultState = {
@@ -27,7 +28,7 @@ describe("publicKeyForm", () => {
       savePublicKey: false,
     };
 
-    let data = { ...defaultData };
+    let data = { ...emptyState };
     const updateData = jest.fn((x) => {
       data = x;
     });
@@ -43,7 +44,7 @@ describe("publicKeyForm", () => {
   });
 
   it("selecting a public key from the dropdown should select it", async () => {
-    let data = { ...defaultData };
+    let data = { ...emptyState };
     const updateData = jest.fn((x) => {
       data = x;
     });
@@ -73,7 +74,7 @@ describe("publicKeyForm", () => {
       publicKey: { ...publicKeys[0] },
       savePublicKey: false,
     };
-    let data = { ...defaultData };
+    let data = { ...emptyState };
 
     const updateData = jest.fn((x) => {
       data = x;
@@ -91,7 +92,7 @@ describe("publicKeyForm", () => {
 
     fireEvent.click(getByText("Add new key"));
     expect(queryByLabelText("Public Key")).toBeInTheDocument();
-    expect(data).toStrictEqual(defaultData);
+    expect(data).toStrictEqual(emptyState);
   });
 
   it("textarea should not be visible when using existing key, select input should not be visible when adding new key", () => {
@@ -99,7 +100,7 @@ describe("publicKeyForm", () => {
       publicKey: { ...publicKeys[0] },
       savePublicKey: false,
     };
-    let data = { ...defaultData };
+    let data = { ...emptyState };
 
     const updateData = jest.fn((x) => {
       data = x;
@@ -123,11 +124,11 @@ describe("publicKeyForm", () => {
     fireEvent.click(getByText("Add new key"));
     expect(queryByLabelText("Public Key")).toBeInTheDocument();
     expect(queryByLabelText("Existing Key")).toBeNull();
-    expect(data).toStrictEqual(defaultData);
+    expect(data).toStrictEqual(emptyState);
   });
 
   it("textinput to specify new key name should be disabled until checkbox is checked", () => {
-    let data = { ...defaultData };
+    let data = { ...emptyState };
     const updateData = jest.fn((x) => {
       data = x;
     });
