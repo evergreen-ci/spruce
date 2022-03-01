@@ -112,7 +112,7 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
       </JiraSummaryLink>
       {loading ? (
         <Spacer>
-          <Skeleton active title={false} />
+          <Skeleton active title={false} data-cy="loading-annotation-ticket" />
         </Spacer>
       ) : (
         <>

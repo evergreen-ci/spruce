@@ -212,10 +212,6 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
     }
   });
 
-  if (!jiraIssues.length) {
-    return null;
-  }
-
   return loading ? (
     <TableWrapper>
       <Table

@@ -80,16 +80,18 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
           </StyledButton>
         </ConditionalWrapper>
       </TitleAndButtons>
-      <AnnotationTicketsTable
-        jiraIssues={tickets}
-        taskId={taskId}
-        execution={execution}
-        isIssue={isIssue}
-        userCanModify={userCanModify}
-        selectedRowKey={selectedRowKey}
-        setSelectedRowKey={setSelectedRowKey}
-        loading={loading}
-      />
+      {tickets.length > 0 && (
+        <AnnotationTicketsTable
+          jiraIssues={tickets}
+          taskId={taskId}
+          execution={execution}
+          isIssue={isIssue}
+          userCanModify={userCanModify}
+          selectedRowKey={selectedRowKey}
+          setSelectedRowKey={setSelectedRowKey}
+          loading={loading}
+        />
+      )}
       <AddIssueModal
         dataCy="addIssueModal"
         visible={isAddAnnotationModalVisible}

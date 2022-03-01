@@ -131,7 +131,7 @@ describe("buildBaron", () => {
 });
 
 describe("annotationTicketsTable", () => {
-  it("should display the link and jiraIssue key while waiting for data to fetch.", () => {
+  it("should display the link and jiraIssue key while waiting for data to fetch.", async () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={ticketsTableMocks} addTypename={false}>
         <AnnotationTicketsTable
@@ -156,7 +156,9 @@ describe("annotationTicketsTable", () => {
       path: "/task/:id",
     });
 
-    expect(queryByDataCy("loading-annotation-ticket-row")).toBeInTheDocument();
+    waitFor(() =>
+      expect(queryByDataCy("loading-annotation-ticket")).toBeInTheDocument()
+    );
     expect(getByText("EVG-1234567")).toBeInTheDocument();
   });
 });
