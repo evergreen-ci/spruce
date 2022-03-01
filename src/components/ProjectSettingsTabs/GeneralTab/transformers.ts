@@ -1,11 +1,24 @@
-import { ProjectInput } from "gql/generated/types";
+import {
+  ProjectInput,
+  ProjectSettingsInput,
+  ProjectSettingsQuery,
+  RepoSettingsQuery,
+} from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
+import { ProjectType } from "../utils";
 import { FormState } from "./types";
 
-export const gqlToForm: GqlToFormFunction = (data): FormState => {
+export const gqlToForm: GqlToFormFunction<FormState> = (
+  data:
+    | ProjectSettingsQuery["projectSettings"]
+    | RepoSettingsQuery["repoSettings"],
+  options: { projectType: ProjectType }
+): ReturnType<GqlToFormFunction> => {
   if (!data) return null;
 
   const { projectRef } = data;
+  const { projectType } = options;
+
   return {
     generalConfiguration: {
       enabled: projectRef.enabled,
@@ -47,24 +60,27 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
     historicalDataCaching: {
       disabledStatsCache: projectRef.disabledStatsCache,
       files: {
-        filesIgnoredFromCache: projectRef.filesIgnoredFromCache
-          ? projectRef.filesIgnoredFromCache.map((filePattern) => ({
-              filePattern,
-            }))
-          : null,
+        filesIgnoredFromCacheOverride:
+          projectType !== ProjectType.AttachedProject ||
+          !!projectRef.filesIgnoredFromCache?.length,
+        filesIgnoredFromCache: projectRef.filesIgnoredFromCache ?? [],
       },
     },
   };
 };
 
 export const formToGql: FormToGqlFunction = (
-  { generalConfiguration, projectFlags, historicalDataCaching }: FormState,
-  id
-) => {
-  const filteredFiles =
-    historicalDataCaching?.files?.filesIgnoredFromCache
-      ?.map(({ filePattern }) => filePattern)
-      .filter((str) => !!str) || [];
+  {
+    generalConfiguration,
+    projectFlags,
+    historicalDataCaching: {
+      disabledStatsCache,
+      files: { filesIgnoredFromCache, filesIgnoredFromCacheOverride },
+    },
+  }: FormState,
+  id: string
+): Pick<ProjectSettingsInput, "projectRef"> => {
+  const filteredFiles = filesIgnoredFromCache.filter((file) => file);
   const projectRef: ProjectInput = {
     id,
     enabled: generalConfiguration.enabled,
@@ -85,8 +101,11 @@ export const formToGql: FormToGqlFunction = (
       configEnabled: projectFlags.taskSync.configEnabled,
       patchEnabled: projectFlags.taskSync.patchEnabled,
     },
-    disabledStatsCache: historicalDataCaching.disabledStatsCache,
-    filesIgnoredFromCache: filteredFiles.length ? filteredFiles : null,
+    disabledStatsCache,
+    filesIgnoredFromCache:
+      filesIgnoredFromCacheOverride && filteredFiles.length
+        ? filteredFiles
+        : null,
   };
 
   return { projectRef };

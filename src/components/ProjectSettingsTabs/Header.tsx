@@ -17,30 +17,30 @@ import {
   SAVE_REPO_SETTINGS_FOR_SECTION,
 } from "gql/mutations";
 import { getTabTitle } from "pages/projectSettings/getTabTitle";
-import { useIsTabSaved, useProjectSettingsContext } from "./Context";
+import { useProjectSettingsContext } from "./Context";
 import { formToGqlMap } from "./transformers";
 import { WritableTabRoutes } from "./types";
+import { ProjectType } from "./utils";
 
 interface Props {
   id: string;
   isRepo: boolean;
+  projectType: ProjectType;
   saveable: boolean;
   tab: ProjectSettingsTabRoutes;
-  useRepoSettings: boolean;
 }
 
 export const Header: React.FC<Props> = ({
   id,
   isRepo,
+  projectType,
   saveable,
   tab,
-  useRepoSettings,
 }) => {
   const dispatchToast = useToastContext();
   const { title, subtitle } = getTabTitle(tab);
   const { getTab, saveTab } = useProjectSettingsContext();
-  const { hasError } = getTab(tab);
-  const saved = useIsTabSaved(tab);
+  const { formData, hasChanges, hasError } = getTab(tab);
 
   const [saveProjectSection] = useMutation<
     SaveProjectSettingsForSectionMutation,
@@ -71,8 +71,7 @@ export const Header: React.FC<Props> = ({
   });
 
   const onClick = () => {
-    const { formData } = getTab(tab);
-    const newData = formToGqlMap[tab](formData, id, { useRepoSettings });
+    const newData = formToGqlMap[tab](formData, id);
     const save = (update, section) =>
       isRepo
         ? saveRepoSection({
@@ -104,12 +103,12 @@ export const Header: React.FC<Props> = ({
             data-cy="save-settings-button"
             variant="primary"
             onClick={onClick}
-            disabled={hasError || saved}
+            disabled={hasError || !hasChanges}
           >
             Save Changes on Page
           </Button>
         )}
-        {!isRepo && useRepoSettings && (
+        {projectType === ProjectType.AttachedProject && (
           <Button data-cy="default-to-repo">Default to Repo on Page</Button>
         )}
       </ButtonRow>

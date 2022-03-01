@@ -2,11 +2,12 @@ import { Field } from "@rjsf/core";
 import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
+import { ProjectType } from "../utils";
 import { FormState } from "./types";
 import { VariableRow } from "./VariableRow";
 
 export const getFormSchema = (
-  useRepoSettings: boolean,
+  projectType: ProjectType,
   repoData?: FormState
 ): {
   fields: Record<string, Field>;
@@ -37,6 +38,10 @@ export const getFormSchema = (
               type: "boolean" as "boolean",
               title: "Private",
             },
+            isAdminOnly: {
+              type: "boolean" as "boolean",
+              title: "Admin Only",
+            },
             isDisabled: {
               type: "boolean" as "boolean",
             },
@@ -65,7 +70,7 @@ export const getFormSchema = (
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     vars: {
       "ui:addButtonText": "Add Variables",
-      "ui:description": getDescription(useRepoSettings),
+      "ui:description": getDescription(projectType),
       "ui:fullWidth": true,
       "ui:showLabel": false,
       items: {
@@ -83,6 +88,11 @@ export const getFormSchema = (
           "ui:tooltipDescription":
             "Private variables have redacted values on the Project Page and the API and cannot be updated.",
           "ui:data-cy": "var-private-input",
+        },
+        isAdminOnly: {
+          "ui:tooltipDescription":
+            "Admin only variables can only be used by project admins.",
+          "ui:data-cy": "var-admin-input",
         },
       },
     },
@@ -103,13 +113,11 @@ export const getFormSchema = (
   },
 });
 
-const getDescription = (useRepoSettings: boolean): string => {
-  // Repo page, where useRepoSettings field does not exist
-  if (useRepoSettings === undefined) {
+const getDescription = (projectType: ProjectType): string => {
+  if (projectType === ProjectType.Repo) {
     return "Variables defined here will be used by all branches attached to this project, unless a variable is specifically overridden in the branch.";
   }
-  // Project page
-  return useRepoSettings
-    ? "Variables are sourced from both the repo-level and branch-level settings. If a variable name is defined at both the repo-level and branch-level, then the branch variable will override the repo variable."
-    : null;
+  if (projectType === ProjectType.AttachedProject) {
+    return "Variables are sourced from both the repo-level and branch-level settings. If a variable name is defined at both the repo-level and branch-level, then the branch variable will override the repo variable.";
+  }
 };

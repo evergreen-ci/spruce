@@ -955,6 +955,7 @@ export type TaskSpecifierInput = {
 export type ProjectVarsInput = {
   vars?: Maybe<Scalars["StringMap"]>;
   privateVarsList?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  adminOnlyVarsList?: Maybe<Array<Maybe<Scalars["String"]>>>;
 };
 
 export type VariantTaskInput = {
@@ -1441,6 +1442,7 @@ export type Task = {
   restarts?: Maybe<Scalars["Int"]>;
   revision?: Maybe<Scalars["String"]>;
   scheduledTime?: Maybe<Scalars["Time"]>;
+  containerAllocatedTime?: Maybe<Scalars["Time"]>;
   spawnHostLink?: Maybe<Scalars["String"]>;
   startTime?: Maybe<Scalars["Time"]>;
   status: Scalars["String"];
@@ -1515,6 +1517,7 @@ export type RepoEventLogEntry = {
 export type ProjectVars = {
   vars?: Maybe<Scalars["StringMap"]>;
   privateVars?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  adminOnlyVars?: Maybe<Array<Maybe<Scalars["String"]>>>;
 };
 
 export type ProjectAlias = {
@@ -1628,7 +1631,6 @@ export type Project = {
   buildBaronSettings: BuildBaronSettings;
   taskAnnotationSettings: TaskAnnotationSettings;
   hidden?: Maybe<Scalars["Boolean"]>;
-  useRepoSettings: Scalars["Boolean"];
   repoRefId: Scalars["String"];
   isFavorite: Scalars["Boolean"];
   validDefaultLoggers: Array<Scalars["String"]>;
@@ -2312,11 +2314,7 @@ export type RepoGithubCommitQueueFragment = {
 
 export type ProjectSettingsFragment = {
   projectRef?: Maybe<
-    {
-      id: string;
-      useRepoSettings: boolean;
-      repoRefId: string;
-    } & ProjectGeneralSettingsFragment &
+    { id: string; repoRefId: string } & ProjectGeneralSettingsFragment &
       ProjectAccessSettingsFragment &
       ProjectPluginsSettingsFragment &
       ProjectNotificationSettingsFragment
@@ -2408,6 +2406,7 @@ export type RepoPluginsSettingsFragment = {
 export type VariablesFragment = {
   vars?: Maybe<{ [key: string]: any }>;
   privateVars?: Maybe<Array<Maybe<string>>>;
+  adminOnlyVars?: Maybe<Array<Maybe<string>>>;
 };
 
 export type AbortTaskMutationVariables = Exact<{
@@ -2844,6 +2843,29 @@ export type GetAnnotationEventDataQuery = {
   }>;
 };
 
+export type GetBaseVersionAndTaskQueryVariables = Exact<{
+  taskId: Scalars["String"];
+}>;
+
+export type GetBaseVersionAndTaskQuery = {
+  task?: Maybe<{
+    id: string;
+    execution: number;
+    displayName: string;
+    buildVariant: string;
+    versionMetadata: {
+      id: string;
+      isPatch: boolean;
+      baseVersion?: Maybe<{
+        id: string;
+        order: number;
+        projectIdentifier: string;
+      }>;
+    };
+    baseTask?: Maybe<{ id: string; execution: number; status: string }>;
+  }>;
+};
+
 export type BuildBaronQueryVariables = Exact<{
   taskId: Scalars["String"];
   execution: Scalars["Int"];
@@ -3220,6 +3242,31 @@ export type GetSuspectedIssuesQuery = {
           }>
         >
       >;
+    }>;
+  }>;
+};
+
+export type GetLastMainlineCommitQueryVariables = Exact<{
+  projectIdentifier: Scalars["String"];
+  skipOrderNumber: Scalars["Int"];
+  buildVariantOptions: BuildVariantOptions;
+}>;
+
+export type GetLastMainlineCommitQuery = {
+  mainlineCommits?: Maybe<{
+    versions: Array<{
+      version?: Maybe<{
+        id: string;
+        buildVariants?: Maybe<
+          Array<
+            Maybe<{
+              tasks?: Maybe<
+                Array<Maybe<{ id: string; execution: number; status: string }>>
+              >;
+            }>
+          >
+        >;
+      }>;
     }>;
   }>;
 };

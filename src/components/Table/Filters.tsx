@@ -80,7 +80,11 @@ export const getColumnSearchFilterProps = ({
       data-cy={dataCy}
     />
   ),
-  filterIcon: () => <StyledSearchOutlined data-cy={dataCy} active={!!value} />,
+  filterIcon: () => (
+    <StyledSearchWrapper active={!!value}>
+      <SearchOutlined data-cy={dataCy} />
+    </StyledSearchWrapper>
+  ),
 });
 
 export const getColumnTreeSelectFilterProps = ({
@@ -98,7 +102,9 @@ export const getColumnTreeSelectFilterProps = ({
     />
   ),
   filterIcon: () => (
-    <StyledFilterOutlined data-cy={dataCy} active={!!state.length} />
+    <StyledFilterWrapper active={!!state.length}>
+      <FilterOutlined data-cy={dataCy} />
+    </StyledFilterWrapper>
   ),
 });
 
@@ -135,7 +141,9 @@ export const getColumnCheckboxFilterProps = ({
     />
   ),
   filterIcon: () => (
-    <StyledFilterOutlined data-cy={dataCy} active={!!value.length} />
+    <StyledFilterWrapper active={!!value.length}>
+      <FilterOutlined data-cy={dataCy} />
+    </StyledFilterWrapper>
   ),
 });
 
@@ -148,12 +156,11 @@ const FilterWrapper = styled.div`
 interface StyledOutlinedProps {
   active?: boolean;
 }
-const StyledFilterOutlined = styled(FilterOutlined)<StyledOutlinedProps>`
+const StyledFilterWrapper = styled.div<StyledOutlinedProps>`
   font-size: ${fontSize.l};
   ${({ active }) => active && `color: ${focus}`}
 `;
-
-const StyledSearchOutlined = styled(SearchOutlined)<StyledOutlinedProps>`
+const StyledSearchWrapper = styled.div<StyledOutlinedProps>`
   font-size: ${fontSize.l};
   ${({ active }) => active && `color: ${focus}`}
 `;

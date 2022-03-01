@@ -1,23 +1,15 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import { PartialRecord } from "types/utils";
 import * as access from "./AccessTab/transformers";
 import * as general from "./GeneralTab/transformers";
 import * as githubCommitQueue from "./GithubCommitQueueTab/transformers";
 import * as notifications from "./NotificationsTab/transformers";
 import * as patchAliases from "./PatchAliasesTab/transformers";
 import * as plugins from "./PluginsTab/transformers";
-import {
-  FormToGqlFunction,
-  GqlToFormFunction,
-  WritableTabRoutes,
-} from "./types";
+import { CompletedRoutes, FormToGqlFunction, GqlToFormFunction } from "./types";
 import * as variables from "./VariablesTab/transformers";
 
-// TODO: Convert PartialRecord to Record once all tabs have been implemented.
-export const gqlToFormMap: PartialRecord<
-  WritableTabRoutes,
-  GqlToFormFunction
-> = {
+// TODO: Convert CompletedRoutes to WritableRoutes once all tabs have been implemented.
+export const gqlToFormMap: Record<CompletedRoutes, GqlToFormFunction> = {
   [ProjectSettingsTabRoutes.General]: general.gqlToForm,
   [ProjectSettingsTabRoutes.Access]: access.gqlToForm,
   [ProjectSettingsTabRoutes.Plugins]: plugins.gqlToForm,
@@ -27,11 +19,8 @@ export const gqlToFormMap: PartialRecord<
   [ProjectSettingsTabRoutes.PatchAliases]: patchAliases.gqlToForm,
 };
 
-// TODO: Convert PartialRecord to Record once all tabs have been implemented.
-export const formToGqlMap: PartialRecord<
-  WritableTabRoutes,
-  FormToGqlFunction
-> = {
+// TODO: Convert CompletedRoutes to WritableRoutes once all tabs have been implemented.
+export const formToGqlMap: Record<CompletedRoutes, FormToGqlFunction> = {
   [ProjectSettingsTabRoutes.General]: general.formToGql,
   [ProjectSettingsTabRoutes.Access]: access.formToGql,
   [ProjectSettingsTabRoutes.Plugins]: plugins.formToGql,
