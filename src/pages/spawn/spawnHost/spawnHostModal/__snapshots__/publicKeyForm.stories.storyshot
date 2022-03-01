@@ -2,7 +2,7 @@
 
 exports[`storybook Storyshots Public Key Form Public Key Form View 1`] = `
 <div
-  className="css-1s5fzt1-FlexColumnContainer-Container edx7lnf4"
+  className="css-exgxg0-Container edx7lnf5"
 >
   <h6
     className="leafygreen-ui-11wdjex"
@@ -10,129 +10,73 @@ exports[`storybook Storyshots Public Key Form Public Key Form View 1`] = `
     Public Key
   </h6>
   <div
-    className="css-17t3jqf-SelectContainer edx7lnf2"
+    className="leafygreen-ui-ov1ktg css-1cwslpf-StyledRadioBoxGroup edx7lnf3"
+    role="group"
   >
-    <div
-      className="ant-select ant-select-single ant-select-show-arrow ant-select-show-search"
-      data-cy="public_key_dropdown"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      style={
-        Object {
-          "width": 200,
-        }
-      }
-    >
-      <div
-        className="ant-select-selector"
-        onClick={[Function]}
-        onMouseDown={[Function]}
-      >
-        <span
-          className="ant-select-selection-search"
-        >
-          <input
-            aria-activedescendant="undefined_list_0"
-            aria-autocomplete="list"
-            aria-controls="undefined_list"
-            aria-haspopup="listbox"
-            aria-owns="undefined_list"
-            autoComplete="off"
-            className="ant-select-selection-search-input"
-            disabled={false}
-            onChange={[Function]}
-            onCompositionEnd={[Function]}
-            onCompositionStart={[Function]}
-            onKeyDown={[Function]}
-            onMouseDown={[Function]}
-            onPaste={[Function]}
-            readOnly={false}
-            role="combobox"
-            style={
-              Object {
-                "opacity": null,
-              }
-            }
-            type="search"
-            unselectable={null}
-            value=""
-          />
-        </span>
-        <span
-          className="ant-select-selection-item"
-          title=""
-        >
-          
-        </span>
-      </div>
-      <span
-        aria-hidden={true}
-        className="ant-select-arrow"
-        onMouseDown={[Function]}
-        style={
-          Object {
-            "WebkitUserSelect": "none",
-            "userSelect": "none",
-          }
-        }
-        unselectable="on"
-      >
-        <span
-          aria-label="down"
-          className="anticon anticon-down ant-select-suffix"
-          role="img"
-        >
-          <svg
-            aria-hidden="true"
-            data-icon="down"
-            fill="currentColor"
-            focusable="false"
-            height="1em"
-            viewBox="64 64 896 896"
-            width="1em"
-          >
-            <path
-              d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-            />
-          </svg>
-        </span>
-      </span>
-    </div>
-    <span
-      className="css-1swi9qz-PaddedText edx7lnf3"
-    >
-      or
-    </span>
     <label
-      className="leafygreen-ui-179725f"
+      className="leafygreen-ui-uy9cic"
       data-leafygreen-ui="radio-box-wrapper"
       htmlFor="radio-box-1"
+    >
+      <input
+        aria-checked={true}
+        aria-disabled={false}
+        checked={true}
+        className="leafygreen-ui-sjbfy8"
+        data-leafygreen-ui="radio-box-input"
+        disabled={false}
+        id="radio-box-1"
+        name="radio-box-group-1"
+        onChange={[Function]}
+        type="radio"
+        value="existingKey"
+      />
+      <div
+        className="leafygreen-ui-127vqa1"
+      >
+        <div
+          className="leafygreen-ui-16kk2uc"
+        >
+          <div
+            className="leafygreen-ui-15zg8ja"
+            onBlur={[Function]}
+            onFocus={[Function]}
+          >
+            Use existing key
+          </div>
+          <div
+            className="leafygreen-ui-lmd64m"
+            data-leafygreen-ui="interaction-ring"
+          />
+        </div>
+      </div>
+    </label>
+    <label
+      className="leafygreen-ui-uy9cic"
+      data-leafygreen-ui="radio-box-wrapper"
+      htmlFor="radio-box-2"
     >
       <input
         aria-checked={false}
         aria-disabled={false}
         checked={false}
         className="leafygreen-ui-sjbfy8"
-        data-cy="add_public_key_button"
         data-leafygreen-ui="radio-box-input"
         disabled={false}
-        id="radio-box-1"
+        id="radio-box-2"
+        name="radio-box-group-1"
         onChange={[Function]}
-        onClick={[Function]}
         type="radio"
-        value="addKey"
+        value="newKey"
       />
       <div
-        className="leafygreen-ui-od3kvw"
+        className="leafygreen-ui-127vqa1"
       >
         <div
           className="leafygreen-ui-1ozjte4"
         >
           <div
-            className="leafygreen-ui-2hwukf"
+            className="leafygreen-ui-15zg8ja"
             onBlur={[Function]}
             onFocus={[Function]}
           >
@@ -145,6 +89,65 @@ exports[`storybook Storyshots Public Key Form Public Key Form View 1`] = `
         </div>
       </div>
     </label>
+  </div>
+  <div
+    className="css-1q3n7yk-StyledSelect edx7lnf2"
+  >
+    <label
+      className="leafygreen-ui-1v870ns"
+      id="select-3-label"
+    >
+      Existing Key
+    </label>
+    <button
+      aria-controls="select-3-menu"
+      aria-describedby="select-3-description"
+      aria-disabled={false}
+      aria-expanded={false}
+      aria-invalid={false}
+      aria-labelledby="select-3-label"
+      className="leafygreen-ui-p6v5m8"
+      data-testid="leafygreen-ui-select-menubutton"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+      value="MyFirstKey.pub"
+    >
+      <div
+        className="leafygreen-ui-1ktj4tm"
+      />
+      <div
+        className="leafygreen-ui-sl5lf4"
+      >
+        <div
+          className="leafygreen-ui-e32n5q"
+        >
+          <div
+            className="leafygreen-ui-17aj16e"
+          >
+            MyFirstKey.pub
+          </div>
+        </div>
+        <span
+          className="leafygreen-ui-18n6mp2"
+        >
+          <svg
+            alt=""
+            aria-hidden={true}
+            className="leafygreen-ui-195unnb"
+            height={16}
+            role="presentation"
+            viewBox="0 0 16 16"
+            width={16}
+          >
+            <path
+              d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+      </div>
+    </button>
   </div>
 </div>
 `;
