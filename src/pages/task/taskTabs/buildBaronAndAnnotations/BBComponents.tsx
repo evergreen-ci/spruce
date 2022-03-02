@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { Disclaimer, Subtitle } from "@leafygreen-ui/typography";
+import { Skeleton } from "antd";
 import { useAnnotationAnalytics } from "analytics";
 import { StyledLink } from "components/styles";
 import { getJiraTicketUrl } from "constants/externalResources";
@@ -72,14 +73,16 @@ export const JiraTicketRow: React.FC<JiraTicketRowProps> = ({
 interface AnnotationTicketRowProps {
   issueKey: string;
   url: string;
-  source: Source;
-  jiraTicket: JiraTicket;
+  source?: Source;
+  jiraTicket?: JiraTicket;
+  loading?: boolean;
 }
 
 export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
   issueKey,
   url,
   jiraTicket,
+  loading = false,
 }) => {
   const annotationAnalytics = useAnnotationAnalytics();
   const fields = jiraTicket?.fields;
@@ -90,12 +93,13 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
     updated,
     summary,
     status,
-  } = jiraTicket?.fields ?? {};
+  } = fields ?? {};
 
   return (
     <div data-cy="annotation-ticket-row">
       <JiraSummaryLink
         href={url}
+        target="_blank"
         data-cy={issueKey}
         onClick={() =>
           annotationAnalytics.sendEvent({
@@ -106,30 +110,40 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
         {issueKey}
         {summary && `: ${summary}`}
       </JiraSummaryLink>
-
-      {jiraTicket && (
-        <StyledBadge data-cy={`${issueKey}-badge`} variant="lightgray">
-          {status.name}
-        </StyledBadge>
+      {loading ? (
+        <LoadingWrapper>
+          <Skeleton active title={false} data-cy="loading-annotation-ticket" />
+        </LoadingWrapper>
+      ) : (
+        <>
+          {jiraTicket && (
+            <StyledBadge data-cy={`${issueKey}-badge`} variant="lightgray">
+              {status.name}
+            </StyledBadge>
+          )}
+          <BottomMetaDataWrapper data-cy={`${issueKey}-metadata`}>
+            {created && (
+              <Disclaimer>
+                Created: {getDateCopy(created, { dateOnly: true })}
+              </Disclaimer>
+            )}
+            {updated && (
+              <Disclaimer>
+                Updated: {getDateCopy(updated, { dateOnly: true })}
+              </Disclaimer>
+            )}
+            {fields && !assigneeDisplayName && (
+              <Disclaimer>Unassigned</Disclaimer>
+            )}
+            {assigneeDisplayName && (
+              <Disclaimer>Assignee: {assigneeDisplayName}</Disclaimer>
+            )}
+            {assignedTeam && (
+              <Disclaimer>Assigned Team: {assignedTeam}</Disclaimer>
+            )}
+          </BottomMetaDataWrapper>
+        </>
       )}
-
-      <BottomMetaDataWrapper data-cy={`${issueKey}-metadata`}>
-        {created && (
-          <Disclaimer>
-            Created: {getDateCopy(created, { dateOnly: true })}
-          </Disclaimer>
-        )}
-        {updated && (
-          <Disclaimer>
-            Updated: {getDateCopy(updated, { dateOnly: true })}
-          </Disclaimer>
-        )}
-        {fields && !assigneeDisplayName && <Disclaimer>Unassigned</Disclaimer>}{" "}
-        {assigneeDisplayName && (
-          <Disclaimer>Assignee: {assigneeDisplayName}</Disclaimer>
-        )}
-        {assignedTeam && <Disclaimer>Assigned Team: {assignedTeam}</Disclaimer>}{" "}
-      </BottomMetaDataWrapper>
     </div>
   );
 };
@@ -140,6 +154,10 @@ export const TicketsTitle = styled(Subtitle)<TitleProps>`
   margin-top: ${(props) => (props.margin ? size.m : size.l)};
   line-height: ${size.m};
   font-weight: bold;
+`;
+
+const LoadingWrapper = styled.div`
+  margin-top: ${size.xs};
 `;
 
 const JiraSummaryLink = styled(StyledLink)`
