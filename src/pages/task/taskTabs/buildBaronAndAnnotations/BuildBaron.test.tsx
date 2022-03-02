@@ -304,14 +304,14 @@ const ticketsTableMocks = [
       query: MOVE_ANNOTATION,
       variables: { taskId, execution, apiIssue, isIssue: true },
     },
-    result: { success: true },
+    result: { data: { moveAnnotationIssue: true } },
   },
   {
     request: {
       query: REMOVE_ANNOTATION,
       variables: { taskId, execution, apiIssue, isIssue: true },
     },
-    result: { success: true },
+    result: { data: { removeAnnotationIssue: true } },
   },
   {
     request: {
