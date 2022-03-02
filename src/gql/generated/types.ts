@@ -3323,8 +3323,10 @@ export type MainlineCommitsForHistoryQuery = {
 
 export type MainlineCommitsQueryVariables = Exact<{
   mainlineCommitsOptions: MainlineCommitsOptions;
-  buildVariantOptionsForTask: BuildVariantOptions;
   buildVariantOptions: BuildVariantOptions;
+  buildVariantOptionsForGraph: BuildVariantOptions;
+  buildVariantOptionsForTaskIcons: BuildVariantOptions;
+  buildVariantOptionsForGroupedTasks: BuildVariantOptions;
 }>;
 
 export type MainlineCommitsQuery = {
@@ -3341,6 +3343,13 @@ export type MainlineCommitsQuery = {
         revision: string;
         order: number;
         taskStatusCounts?: Maybe<Array<{ status: string; count: number }>>;
+        buildVariantStats?: Maybe<
+          Array<{
+            displayName: string;
+            variant: string;
+            statusCounts: Array<{ count: number; status: string }>;
+          }>
+        >;
         buildVariants?: Maybe<
           Array<
             Maybe<{

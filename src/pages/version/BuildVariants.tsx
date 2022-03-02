@@ -1,15 +1,13 @@
 import { useQuery } from "@apollo/client";
-import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
-import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { StyledRouterLink, SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
 import { H3, wordBreakCss } from "components/Typography";
+import { VariantGroupedTaskStatusBadges } from "components/VariantGroupedTaskStatusBadges";
 import { pollInterval } from "constants/index";
 import { getVersionRoute } from "constants/routes";
-import { size } from "constants/tokens";
 import {
   GetBuildVariantStatsQuery,
   GetBuildVariantStatsQueryVariables,
@@ -17,7 +15,6 @@ import {
 } from "gql/generated/types";
 import { GET_BUILD_VARIANTS_STATS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
-import { groupStatusesByUmbrellaStatus } from "utils/statuses";
 import { applyStrictRegex } from "utils/string";
 
 export const BuildVariants: React.FC = () => {
@@ -85,40 +82,20 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
   statusCounts,
   versionId,
 }) => {
-  const { stats } = groupStatusesByUmbrellaStatus(statusCounts ?? []);
   const { sendEvent } = useVersionAnalytics(versionId);
 
+  const callBack = (statuses: string[]) => () => {
+    sendEvent({
+      name: "Click Grouped Task Square",
+      taskSquareStatuses: statuses,
+    });
+  };
   return (
-    <VariantTasks>
-      {stats.map(
-        ({ umbrellaStatus, count, statusCounts: groupedStatusCounts }) => (
-          <>
-            <GroupedTaskStatusBadge
-              variant={variant}
-              versionId={versionId}
-              status={umbrellaStatus}
-              count={count}
-              onClick={() =>
-                sendEvent({
-                  name: "Click Grouped Task Square",
-                  taskSquareStatuses: Object.keys(groupedStatusCounts),
-                })
-              }
-              statusCounts={groupedStatusCounts}
-            />
-          </>
-        )
-      )}
-    </VariantTasks>
+    <VariantGroupedTaskStatusBadges
+      variant={variant}
+      statusCounts={statusCounts}
+      versionId={versionId}
+      onClick={callBack}
+    />
   );
 };
-
-const VariantTasks = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: ${size.xs};
-  > * {
-    margin-right: ${size.xs};
-    margin-bottom: ${size.xs};
-  }
-`;
