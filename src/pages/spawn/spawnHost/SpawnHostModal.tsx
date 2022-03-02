@@ -155,7 +155,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
         savePublicKey: false,
       });
     }
-  }, [awsRegions, publicKeys, dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [awsRegions, userAwsRegion, publicKeys, dispatch]);
 
   const unexpirableCountReached = useDisableSpawnExpirationCheckbox(false);
 

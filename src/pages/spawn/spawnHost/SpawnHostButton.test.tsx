@@ -83,7 +83,7 @@ const userSettingsMock = {
     variables: {},
   },
   result: {
-    data: { region: "eu-west-1" },
+    data: { userSettings: { region: "eu-west-1" } },
   },
 };
 

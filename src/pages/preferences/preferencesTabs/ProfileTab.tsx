@@ -120,7 +120,6 @@ export const ProfileTab: React.FC = () => {
               </Option>
             ))}
           </StyledSelect>
-
           <StyledSelect
             label="AWS Region"
             placeholder="Select AWS Region"
@@ -133,7 +132,6 @@ export const ProfileTab: React.FC = () => {
               </Option>
             ))}
           </StyledSelect>
-
           <Button
             data-cy="save-profile-changes-button"
             variant={Variant.Primary}
