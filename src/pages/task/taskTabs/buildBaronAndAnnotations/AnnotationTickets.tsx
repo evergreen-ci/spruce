@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Tooltip } from "antd";
@@ -13,6 +13,7 @@ import {
   GetSuspectedIssuesQuery,
   GetSuspectedIssuesQueryVariables,
   IssueLink,
+  Annotation,
 } from "gql/generated/types";
 import { GET_JIRA_ISSUES, GET_JIRA_SUSPECTED_ISSUES } from "gql/queries";
 import { AddIssueModal } from "./AddIssueModal";
@@ -20,13 +21,14 @@ import { AnnotationTicketsTable } from "./AnnotationTicketsTable";
 import { TicketsTitle, TitleAndButtons } from "./BBComponents";
 
 interface AnnotationTicketsProps {
+  tickets: IssueLink[];
   taskId: string;
   execution: number;
-  tickets: IssueLink[];
   isIssue: boolean;
   userCanModify: boolean;
   selectedRowKey: string;
   setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
+  loading: boolean;
 }
 
 const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
@@ -37,6 +39,7 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
   userCanModify,
   selectedRowKey,
   setSelectedRowKey,
+  loading,
 }) => {
   const annotationAnalytics = useAnnotationAnalytics();
   const title = isIssue ? "Issues" : "Suspected Issues";
@@ -77,7 +80,7 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
           </StyledButton>
         </ConditionalWrapper>
       </TitleAndButtons>
-      {tickets?.length > 0 && (
+      {tickets.length > 0 && (
         <AnnotationTicketsTable
           jiraIssues={tickets}
           taskId={taskId}
@@ -86,6 +89,7 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
           userCanModify={userCanModify}
           selectedRowKey={selectedRowKey}
           setSelectedRowKey={setSelectedRowKey}
+          loading={loading}
         />
       )}
       <AddIssueModal
@@ -104,23 +108,23 @@ const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
 interface IssuesProps {
   taskId: string;
   execution: number;
-  isIssue: boolean;
   userCanModify: boolean;
   selectedRowKey: string;
   setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
+  annotation: Annotation;
 }
 
 export const Issues: React.FC<IssuesProps> = ({
   taskId,
   execution,
-  isIssue,
   userCanModify,
   selectedRowKey,
   setSelectedRowKey,
+  annotation,
 }) => {
   const dispatchToast = useToastContext();
   // Query Jira ticket data
-  const { data } = useQuery<GetIssuesQuery, GetIssuesQueryVariables>(
+  const { data, loading } = useQuery<GetIssuesQuery, GetIssuesQueryVariables>(
     GET_JIRA_ISSUES,
     {
       variables: { taskId, execution },
@@ -131,16 +135,16 @@ export const Issues: React.FC<IssuesProps> = ({
       },
     }
   );
-
   return (
     <AnnotationTickets
-      tickets={data?.task?.annotation?.issues}
-      isIssue={isIssue}
+      tickets={data?.task?.annotation?.issues || annotation?.issues || []}
       taskId={taskId}
       execution={execution}
       userCanModify={userCanModify}
       selectedRowKey={selectedRowKey}
       setSelectedRowKey={setSelectedRowKey}
+      loading={loading}
+      isIssue
     />
   );
 };
@@ -148,23 +152,23 @@ export const Issues: React.FC<IssuesProps> = ({
 interface SuspectedIssuesProps {
   taskId: string;
   execution: number;
-  isIssue: boolean;
   userCanModify: boolean;
   selectedRowKey: string;
   setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
+  annotation: Annotation;
 }
 
 export const SuspectedIssues: React.FC<SuspectedIssuesProps> = ({
   taskId,
   execution,
-  isIssue,
   userCanModify,
   selectedRowKey,
   setSelectedRowKey,
+  annotation,
 }) => {
   const dispatchToast = useToastContext();
   // Query Jira ticket data
-  const { data } = useQuery<
+  const { data, loading } = useQuery<
     GetSuspectedIssuesQuery,
     GetSuspectedIssuesQueryVariables
   >(GET_JIRA_SUSPECTED_ISSUES, {
@@ -179,13 +183,14 @@ export const SuspectedIssues: React.FC<SuspectedIssuesProps> = ({
   const suspectedIssues = data?.task?.annotation?.suspectedIssues;
   return (
     <AnnotationTickets
-      tickets={suspectedIssues}
-      isIssue={isIssue}
+      tickets={suspectedIssues || annotation?.suspectedIssues || []}
       taskId={taskId}
       execution={execution}
       userCanModify={userCanModify}
       selectedRowKey={selectedRowKey}
       setSelectedRowKey={setSelectedRowKey}
+      loading={loading}
+      isIssue={false}
     />
   );
 };

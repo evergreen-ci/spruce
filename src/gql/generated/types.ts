@@ -228,6 +228,7 @@ export type Mutation = {
   attachProjectToNewRepo: Project;
   saveProjectSettingsForSection: ProjectSettings;
   saveRepoSettingsForSection: RepoSettings;
+  defaultSectionToRepo?: Maybe<Scalars["String"]>;
   attachProjectToRepo: Project;
   detachProjectFromRepo: Project;
   forceRepotrackerRun: Scalars["Boolean"];
@@ -300,6 +301,11 @@ export type MutationSaveProjectSettingsForSectionArgs = {
 
 export type MutationSaveRepoSettingsForSectionArgs = {
   repoSettings?: Maybe<RepoSettingsInput>;
+  section: ProjectSettingsSection;
+};
+
+export type MutationDefaultSectionToRepoArgs = {
+  projectId: Scalars["String"];
   section: ProjectSettingsSection;
 };
 
@@ -2406,6 +2412,7 @@ export type RepoPluginsSettingsFragment = {
 export type VariablesFragment = {
   vars?: Maybe<{ [key: string]: any }>;
   privateVars?: Maybe<Array<Maybe<string>>>;
+  adminOnlyVars?: Maybe<Array<Maybe<string>>>;
 };
 
 export type AbortTaskMutationVariables = Exact<{
@@ -3322,8 +3329,10 @@ export type MainlineCommitsForHistoryQuery = {
 
 export type MainlineCommitsQueryVariables = Exact<{
   mainlineCommitsOptions: MainlineCommitsOptions;
-  buildVariantOptionsForTask: BuildVariantOptions;
   buildVariantOptions: BuildVariantOptions;
+  buildVariantOptionsForGraph: BuildVariantOptions;
+  buildVariantOptionsForTaskIcons: BuildVariantOptions;
+  buildVariantOptionsForGroupedTasks: BuildVariantOptions;
 }>;
 
 export type MainlineCommitsQuery = {
@@ -3340,6 +3349,13 @@ export type MainlineCommitsQuery = {
         revision: string;
         order: number;
         taskStatusCounts?: Maybe<Array<{ status: string; count: number }>>;
+        buildVariantStats?: Maybe<
+          Array<{
+            displayName: string;
+            variant: string;
+            statusCounts: Array<{ count: number; status: string }>;
+          }>
+        >;
         buildVariants?: Maybe<
           Array<
             Maybe<{

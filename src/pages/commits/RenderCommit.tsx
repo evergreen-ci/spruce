@@ -68,18 +68,14 @@ const RenderCommitsLabel: React.FC<RenderCommitsLabelProps> = ({
 
 interface RenderCommitsBuildVariantProps {
   commit: Commit;
-  hasTaskFilter: boolean;
 }
 export const RenderCommitsBuildVariants: React.FC<RenderCommitsBuildVariantProps> = ({
   commit,
-  hasTaskFilter,
 }) => {
   const { version } = commit;
 
   if (version) {
-    return (
-      <BuildVariantContainer version={version} hasTaskFilter={hasTaskFilter} />
-    );
+    return <BuildVariantContainer version={version} />;
   }
 
   return null;
