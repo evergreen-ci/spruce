@@ -27,7 +27,7 @@ export const ProfileTab: React.FC = () => {
 
   const { data, loadingComp } = useUserSettingsQuery();
   const { githubUser, timezone, region } = data?.userSettings ?? {};
-  const { lastKnownAs = "" } = githubUser || {};
+  const lastKnownAs = githubUser?.lastKnownAs || "";
 
   const [timezoneField, setTimezoneField] = useState<string>(timezone);
   const [regionField, setRegionField] = useState<string>(region);
@@ -55,9 +55,9 @@ export const ProfileTab: React.FC = () => {
 
   const {
     data: awsRegionData,
-    loading: loadingAWSRegion,
+    loading: awsRegionLoading,
   } = useQuery<AwsRegionsQuery>(GET_AWS_REGIONS);
-  const { awsRegions = [] } = awsRegionData || {};
+  const awsRegions = awsRegionData?.awsRegions || [];
 
   const handleSave = async (e): Promise<void> => {
     e.preventDefault();
@@ -89,63 +89,61 @@ export const ProfileTab: React.FC = () => {
     timezone !== timezoneField ||
     region !== regionField;
 
-  if (loadingComp) {
+  if (loadingComp || awsRegionLoading) {
     return loadingComp;
   }
 
   return (
     <div>
-      {!loadingAWSRegion && (
-        /* @ts-expect-error */
-        <PreferencesCard>
-          <ContentWrapper>
-            <StyledTextInput
-              label="Github Username"
-              onChange={handleFieldUpdate(setGithubUsernameField)}
-              value={githubUsernameField}
-            />
-            <StyledSelect
-              label="Timezone"
-              placeholder="Select timezone"
-              defaultValue={timezoneField}
-              onChange={handleFieldUpdate(setTimezoneField)}
-              data-cy="timezone-field"
-            >
-              {timeZones.map((timeZone) => (
-                <Option
-                  value={timeZone.value}
-                  key={timeZone.value}
-                  data-cy={`${timeZone.str}-option`}
-                >
-                  {timeZone.str}
-                </Option>
-              ))}
-            </StyledSelect>
+      {/* @ts-expect-error */}
+      <PreferencesCard>
+        <ContentWrapper>
+          <StyledTextInput
+            label="Github Username"
+            onChange={handleFieldUpdate(setGithubUsernameField)}
+            value={githubUsernameField}
+          />
+          <StyledSelect
+            label="Timezone"
+            placeholder="Select timezone"
+            defaultValue={timezoneField}
+            onChange={handleFieldUpdate(setTimezoneField)}
+            data-cy="timezone-field"
+          >
+            {timeZones.map((timeZone) => (
+              <Option
+                value={timeZone.value}
+                key={timeZone.value}
+                data-cy={`${timeZone.str}-option`}
+              >
+                {timeZone.str}
+              </Option>
+            ))}
+          </StyledSelect>
 
-            <StyledSelect
-              label="AWS Region"
-              placeholder="Select AWS Region"
-              defaultValue={regionField}
-              onChange={handleFieldUpdate(setRegionField)}
-            >
-              {(awsRegions as any[])?.map((awsRegion) => (
-                <Option value={awsRegion} key={awsRegion}>
-                  {awsRegion}
-                </Option>
-              ))}
-            </StyledSelect>
+          <StyledSelect
+            label="AWS Region"
+            placeholder="Select AWS Region"
+            defaultValue={regionField}
+            onChange={handleFieldUpdate(setRegionField)}
+          >
+            {awsRegions.map((awsRegion) => (
+              <Option value={awsRegion} key={awsRegion}>
+                {awsRegion}
+              </Option>
+            ))}
+          </StyledSelect>
 
-            <Button
-              data-cy="save-profile-changes-button"
-              variant={Variant.Primary}
-              disabled={!hasFieldUpdates || updateLoading}
-              onClick={handleSave}
-            >
-              Save Changes
-            </Button>
-          </ContentWrapper>
-        </PreferencesCard>
-      )}
+          <Button
+            data-cy="save-profile-changes-button"
+            variant={Variant.Primary}
+            disabled={!hasFieldUpdates || updateLoading}
+            onClick={handleSave}
+          >
+            Save Changes
+          </Button>
+        </ContentWrapper>
+      </PreferencesCard>
     </div>
   );
 };
