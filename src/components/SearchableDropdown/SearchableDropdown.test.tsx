@@ -62,28 +62,6 @@ describe("searchableDropdown", () => {
     expect(queryAllByDataCy("searchable-dropdown-option")).toHaveLength(1);
   });
 
-  it("should reset the search input and options after user selects an option", () => {
-    const onChange = jest.fn();
-    const { queryByDataCy, queryAllByDataCy, queryByText } = render(
-      RenderSearchableDropdown({
-        value: "evergreen",
-        onChange,
-        options: ["evergreen", "spruce"],
-      })
-    );
-    // use text input to filter and select an option.
-    userEvent.click(queryByDataCy("searchable-dropdown"));
-    expect(queryAllByDataCy("searchable-dropdown-option")).toHaveLength(2);
-    userEvent.type(queryByDataCy("searchable-dropdown-search-input"), "spru");
-    expect(queryAllByDataCy("searchable-dropdown-option")).toHaveLength(1);
-    userEvent.click(queryByText("spruce"));
-
-    // when reopening the dropdown, the text input should be cleared and all options should be visible.
-    userEvent.click(queryByDataCy("searchable-dropdown"));
-    expect(queryAllByDataCy("searchable-dropdown-option")).toHaveLength(2);
-    expect(queryByDataCy("searchable-dropdown-search-input")).toHaveValue("");
-  });
-
   it("should reset the search input and options after SearchableDropdown closes", () => {
     const onChange = jest.fn();
     const { queryByDataCy, queryAllByDataCy } = render(
@@ -161,6 +139,28 @@ describe("searchableDropdown", () => {
       );
       expect(queryByText("spruce")).toBeInTheDocument();
     });
+
+    it("should reset the search input and options after user selects an option", () => {
+      const onChange = jest.fn();
+      const { queryByDataCy, queryAllByDataCy, queryByText } = render(
+        RenderSearchableDropdown({
+          value: "evergreen",
+          onChange,
+          options: ["evergreen", "spruce"],
+        })
+      );
+      // use text input to filter and select an option.
+      userEvent.click(queryByDataCy("searchable-dropdown"));
+      expect(queryAllByDataCy("searchable-dropdown-option")).toHaveLength(2);
+      userEvent.type(queryByDataCy("searchable-dropdown-search-input"), "spru");
+      expect(queryAllByDataCy("searchable-dropdown-option")).toHaveLength(1);
+      userEvent.click(queryByText("spruce"));
+
+      // when reopening the dropdown, the text input should be cleared and all options should be visible.
+      userEvent.click(queryByDataCy("searchable-dropdown"));
+      expect(queryAllByDataCy("searchable-dropdown-option")).toHaveLength(2);
+      expect(queryByDataCy("searchable-dropdown-search-input")).toHaveValue("");
+    });
   });
 
   describe("when multiselect == true", () => {
@@ -200,6 +200,30 @@ describe("searchableDropdown", () => {
       );
       userEvent.click(queryByText("evergreen"));
       expect(onChange).toHaveBeenCalledWith(["spruce", "evergreen"]);
+    });
+
+    it("should NOT reset the search input and options after user selects an option", () => {
+      const onChange = jest.fn();
+      const { queryByDataCy, queryAllByDataCy, queryByText } = render(
+        RenderSearchableDropdown({
+          value: "evergreen",
+          onChange,
+          options: ["evergreen", "spruce", "sandbox"],
+          allowMultiSelect: true,
+        })
+      );
+      // use text input to filter and select an option.
+      userEvent.click(queryByDataCy("searchable-dropdown"));
+      expect(queryAllByDataCy("searchable-dropdown-option")).toHaveLength(3);
+      userEvent.type(queryByDataCy("searchable-dropdown-search-input"), "s");
+      expect(queryAllByDataCy("searchable-dropdown-option")).toHaveLength(2);
+      userEvent.click(queryByText("spruce"));
+
+      // the dropdown should not be closed and the search state should not be reset.
+      expect(queryByDataCy("searchable-dropdown-search-input")).toHaveValue(
+        "s"
+      );
+      expect(queryAllByDataCy("searchable-dropdown-option")).toHaveLength(2);
     });
   });
 

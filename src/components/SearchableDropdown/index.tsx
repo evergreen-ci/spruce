@@ -74,8 +74,8 @@ const SearchableDropdown = <T extends {}>({
       if (DropdownRef.current) {
         DropdownRef.current.setIsOpen(false);
       }
+      resetSearch();
     }
-    resetSearch();
   };
 
   const option = optionRenderer
