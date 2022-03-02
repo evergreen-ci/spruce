@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { useParams, Link, Redirect } from "react-router-dom";
+import { ProjectSelect } from "components/projectSelect";
 import { ProjectSettingsProvider } from "components/ProjectSettingsTabs/Context";
 import { ProjectType } from "components/ProjectSettingsTabs/utils";
 import {
@@ -14,6 +15,7 @@ import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
 } from "constants/routes";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   ProjectSettingsQuery,
@@ -24,7 +26,6 @@ import {
 import { GET_PROJECT_SETTINGS, GET_REPO_SETTINGS } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { environmentalVariables, validators } from "utils";
-import { ProjectSelect } from "../components/projectSelect";
 import { getTabTitle } from "./projectSettings/getTabTitle";
 import { ProjectSettingsTabs } from "./projectSettings/Tabs";
 
@@ -205,5 +206,5 @@ const PageContainer = styled.div`
 `;
 
 const DropdownContainer = styled.div`
-  padding: 0.5rem;
+  padding: ${size.xs};
 `;

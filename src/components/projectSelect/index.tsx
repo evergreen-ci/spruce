@@ -26,17 +26,38 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   selectedProjectIdentifier,
   isProjectSettingsPage,
 }) => {
-  const { projects, loading } = getProjects(isProjectSettingsPage);
+  const { data: projectsData, loading: projectsLoading } = useQuery<
+    GetProjectsQuery,
+    GetProjectsQueryVariables
+  >(GET_PROJECTS, {
+    skip: isProjectSettingsPage,
+  });
+
+  const {
+    data: viewableProjectsData,
+    loading: viewableProjectsLoading,
+  } = useQuery<
+    GetViewableProjectRefsQuery,
+    GetViewableProjectRefsQueryVariables
+  >(GET_VIEWABLE_PROJECTS, {
+    skip: !isProjectSettingsPage,
+  });
+
+  const projects = getProjects(projectsData, viewableProjectsData);
+  const loading = viewableProjectsLoading || projectsLoading;
+
   const history = useHistory();
 
   const favoriteProjects = projects.flatMap((g) =>
     g.projects.filter((p) => p.isFavorite)
   );
 
-  const allProjects = [
-    { name: "Favorites", projects: favoriteProjects },
-    ...projects,
-  ];
+  const favorites =
+    favoriteProjects.length > 0
+      ? { name: "Favorites", projects: favoriteProjects }
+      : {};
+
+  const allProjects = [favorites, ...projects];
   // Find the project with the selectedProjectIdentifier and set it as the selected project
   const selectedProject = useMemo(
     () =>
@@ -95,23 +116,15 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   );
 };
 
-export const getProjects = (isProjectSettingsPage) => {
-  if (!isProjectSettingsPage) {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const { data, loading } = useQuery<
-      GetProjectsQuery,
-      GetProjectsQueryVariables
-    >(GET_PROJECTS);
-    const { projects } = data || { projects: [] };
+export const getProjects = (nonFilteredProjects, filteredProjects) => {
+  const { projects } = nonFilteredProjects || { projects: [] };
+  const { viewableProjectRefs } = filteredProjects || {
+    viewableProjectRefs: [],
+  };
+  const mappedFilteredProjects = viewableProjectRefs.map((p) => ({ ...p }));
 
-    return { projects, loading };
+  if (mappedFilteredProjects.length !== 0) {
+    return mappedFilteredProjects;
   }
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { data, loading } = useQuery<
-    GetViewableProjectRefsQuery,
-    GetViewableProjectRefsQueryVariables
-  >(GET_VIEWABLE_PROJECTS);
-  const { viewableProjectRefs } = data || { viewableProjectRefs: [] };
-  // const projects = ;
-  return { projects: viewableProjectRefs.map((p) => ({ ...p })), loading };
+  return projects;
 };

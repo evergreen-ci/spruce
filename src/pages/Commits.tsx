@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Cookies from "js-cookie";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { FilterBadges } from "components/FilterBadges";
+import { ProjectSelect } from "components/projectSelect";
 import { PageWrapper } from "components/styles";
 import { ALL_VALUE } from "components/TreeSelect";
 import { TupleSelect } from "components/TupleSelect";
@@ -28,7 +29,6 @@ import {
 } from "types/commits";
 import { TaskStatus } from "types/task";
 import { array, queryString } from "utils";
-import { ProjectSelect } from "../components/projectSelect";
 import { CommitsWrapper } from "./commits/CommitsWrapper";
 import CommitTypeSelect from "./commits/commitTypeSelect";
 import { PaginationButtons } from "./commits/PaginationButtons";
