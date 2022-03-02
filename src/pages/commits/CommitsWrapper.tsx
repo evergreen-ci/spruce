@@ -102,10 +102,7 @@ export const CommitsWrapper: React.FC<Props> = ({
         <FlexRowContainer>
           {versions.map((commit, i) => (
             <CommitWrapper key={getCommitKey(commit)} width={widths[i]}>
-              <RenderCommitsBuildVariants
-                commit={commit}
-                hasTaskFilter={hasTaskFilter}
-              />
+              <RenderCommitsBuildVariants commit={commit} />
             </CommitWrapper>
           ))}
         </FlexRowContainer>

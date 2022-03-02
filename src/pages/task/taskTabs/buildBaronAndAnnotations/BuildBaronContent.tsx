@@ -110,20 +110,20 @@ export const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
         userCanModify={userCanModify}
       />
       <Issues
-        isIssue
         taskId={taskId}
         execution={execution}
         userCanModify={userCanModify}
         selectedRowKey={selectedRowKey}
         setSelectedRowKey={setSelectedRowKey}
+        annotation={annotation}
       />
       <SuspectedIssues
-        isIssue={false}
         taskId={taskId}
         execution={execution}
         userCanModify={userCanModify}
         selectedRowKey={selectedRowKey}
         setSelectedRowKey={setSelectedRowKey}
+        annotation={annotation}
       />
       {bbData?.searchReturnInfo?.issues.length > 0 && (
         <>

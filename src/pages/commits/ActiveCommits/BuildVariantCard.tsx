@@ -1,13 +1,9 @@
 import styled from "@emotion/styled";
-import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { StyledRouterLink } from "components/styles";
+import { VariantGroupedTaskStatusBadges } from "components/VariantGroupedTaskStatusBadges";
 import { getVariantHistoryRoute } from "constants/routes";
 import { size } from "constants/tokens";
-
-import {
-  groupStatusesByUmbrellaStatus,
-  isFailedTaskStatus,
-} from "utils/statuses";
+import { StatusCount } from "gql/generated/types";
 import { WaterfallTaskStatusIcon } from "./buildVariantCard/WaterfallTaskStatusIcon";
 
 type taskList = {
@@ -20,39 +16,33 @@ interface Props {
   variant: string;
   buildVariantDisplayName: string;
   tasks?: taskList;
-  shouldGroupTasks: boolean;
   versionId: string;
   projectIdentifier: string;
+  groupedVariantStats: {
+    statusCounts: StatusCount[];
+  };
 }
 export const BuildVariantCard: React.FC<Props> = ({
   buildVariantDisplayName,
   variant,
   tasks,
-  shouldGroupTasks,
   versionId,
   projectIdentifier,
+  groupedVariantStats,
 }) => {
   let render = null;
-  if (shouldGroupTasks) {
-    const nonFailingTasks = tasks.filter(
-      (task) => !isFailedTaskStatus(task.status)
-    );
-    const failingTasks = tasks.filter((task) =>
-      isFailedTaskStatus(task.status)
-    );
-    render = (
-      <>
-        <RenderGroupedIcons
-          tasks={nonFailingTasks}
+  render = (
+    <>
+      {groupedVariantStats && (
+        <VariantGroupedTaskStatusBadges
+          statusCounts={groupedVariantStats.statusCounts}
           versionId={versionId}
           variant={variant}
         />
-        <RenderTaskIcons tasks={failingTasks} />
-      </>
-    );
-  } else {
-    render = <RenderTaskIcons tasks={tasks} />;
-  }
+      )}
+      {tasks && <RenderTaskIcons tasks={tasks} />}
+    </>
+  );
   return (
     <Container>
       <Label to={getVariantHistoryRoute(projectIdentifier, variant)}>
@@ -60,46 +50,6 @@ export const BuildVariantCard: React.FC<Props> = ({
       </Label>
       {render}
     </Container>
-  );
-};
-
-interface RenderGroupedIconsProps {
-  tasks: {
-    id: string;
-    status: string;
-  }[];
-  versionId: string;
-  variant: string;
-}
-const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
-  tasks,
-  versionId,
-  variant,
-}) => {
-  // get the count of the amount of tasks in each status
-  const { stats } = groupStatusesByUmbrellaStatus(
-    tasks.map(({ status }) => ({ status, count: 1 }))
-  );
-  if (!stats.length) {
-    return null;
-  }
-  return (
-    <IconContainer>
-      {stats.map(({ count, umbrellaStatus, statusCounts }) => (
-        <GroupedTaskStatusBadgeWrapper
-          key={umbrellaStatus}
-          data-cy="grouped-task-status-badge"
-        >
-          <GroupedTaskStatusBadge
-            status={umbrellaStatus}
-            count={count}
-            statusCounts={statusCounts}
-            versionId={versionId}
-            variant={variant}
-          />
-        </GroupedTaskStatusBadgeWrapper>
-      ))}
-    </IconContainer>
   );
 };
 
@@ -137,8 +87,4 @@ const IconContainer = styled.div`
 const Container = styled.div`
   width: 160px;
   margin-bottom: ${size.s};
-`;
-
-const GroupedTaskStatusBadgeWrapper = styled.div`
-  margin-right: ${size.xxs};
 `;
