@@ -29,14 +29,14 @@ const Dropdown: React.FC<DropdownProps> = ({
   children,
   isOpen,
   setIsOpen,
-  onClose,
+  onClose = () => {},
 }) => {
   const listMenuRef = useRef(null);
   const menuButtonRef = useRef(null);
 
   const handleClickOutside = () => {
     setIsOpen(false);
-    onClose?.(); // call if exists
+    onClose();
   };
 
   // Handle onClickOutside
