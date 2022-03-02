@@ -57,7 +57,9 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
           disabled={disabled || (readonlyAsDisabled && readonly)}
           onChange={({ target }) =>
             onChange(
-              target.value === "" && emptyValue ? emptyValue : target.value
+              target.value === "" && emptyValue !== undefined
+                ? emptyValue
+                : target.value
             )
           }
           aria-label={label}
