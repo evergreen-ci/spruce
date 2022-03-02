@@ -14,7 +14,6 @@ import {
   MoveAnnotationIssueMutationVariables,
   RemoveAnnotationIssueMutation,
   RemoveAnnotationIssueMutationVariables,
-  IssueLink,
 } from "gql/generated/types";
 import { MOVE_ANNOTATION, REMOVE_ANNOTATION } from "gql/mutations";
 import { AnnotationTicketRow } from "./BBComponents";
@@ -51,13 +50,13 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
   const loadingColumns = [
     {
       title: "Ticket",
-      render: ({ issueKey, url }: IssueLink): JSX.Element => (
+      render: ({ issueKey, url }: AnnotationTicket): JSX.Element => (
         <AnnotationTicketRow issueKey={issueKey} url={url} loading />
       ),
     },
   ];
 
-  // Once JIRA tickets are fetched, display the complete information.
+  // Once JIRA tickets have been fetched, display the complete information.
   const columns = [
     {
       title: "Ticket",

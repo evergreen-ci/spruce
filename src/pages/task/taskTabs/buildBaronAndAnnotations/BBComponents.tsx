@@ -111,9 +111,9 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
         {summary && `: ${summary}`}
       </JiraSummaryLink>
       {loading ? (
-        <Spacer>
+        <LoadingWrapper>
           <Skeleton active title={false} data-cy="loading-annotation-ticket" />
-        </Spacer>
+        </LoadingWrapper>
       ) : (
         <>
           {jiraTicket && (
@@ -156,7 +156,7 @@ export const TicketsTitle = styled(Subtitle)<TitleProps>`
   font-weight: bold;
 `;
 
-const Spacer = styled.div`
+const LoadingWrapper = styled.div`
   margin-top: ${size.xs};
 `;
 
