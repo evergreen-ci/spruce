@@ -413,6 +413,27 @@ describe("getMainlineCommitsQueryVariables", () => {
         statuses: [TaskStatus.Succeeded],
       });
     });
+    it("should only return failing tasks when a variant filter is applied with no other filters", () => {
+      expect(
+        getMainlineCommitsQueryVariables({
+          mainlineCommitOptions: {
+            projectID: "projectID",
+            limit: 5,
+            skipOrderNumber: 0,
+          },
+          filterState: {
+            statuses: [],
+            tasks: [],
+            variants: ["variant1"],
+            requesters: [],
+          },
+        }).buildVariantOptionsForTaskIcons
+      ).toStrictEqual({
+        tasks: [],
+        variants: ["variant1"],
+        statuses: FAILED_STATUSES,
+      });
+    });
   });
 
   describe("buildVariantOptionsForGroupedTasks", () => {
