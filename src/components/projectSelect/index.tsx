@@ -84,7 +84,11 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   return (
     <SearchableDropdown
       label="Project"
-      value={selectedProject?.displayName || selectedProject?.identifier}
+      value={
+        selectedProject?.displayName ||
+        selectedProject?.identifier ||
+        selectedProjectIdentifier
+      }
       options={allProjects}
       onChange={(projectIdentifier: any) => {
         Cookies.set(CURRENT_PROJECT, projectIdentifier, { expires: 365 });

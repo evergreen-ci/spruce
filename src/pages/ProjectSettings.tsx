@@ -117,7 +117,9 @@ export const ProjectSettings: React.FC = () => {
       <SideNav aria-label="Project Settings">
         <DropdownContainer>
           <ProjectSelect
-            selectedProjectIdentifier={identifier}
+            selectedProjectIdentifier={
+              repoData?.repoSettings?.projectRef?.displayName || identifier
+            }
             getRoute={getProjectSettingsRoute}
             isProjectSettingsPage
           />

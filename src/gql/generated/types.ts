@@ -2332,7 +2332,7 @@ export type ProjectSettingsFragment = {
 
 export type RepoSettingsFragment = {
   projectRef?: Maybe<
-    { id: string } & RepoGeneralSettingsFragment &
+    { id: string; displayName: string } & RepoGeneralSettingsFragment &
       RepoAccessSettingsFragment &
       RepoPluginsSettingsFragment &
       RepoNotificationSettingsFragment
