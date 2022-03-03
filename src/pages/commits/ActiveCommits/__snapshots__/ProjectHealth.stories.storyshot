@@ -598,7 +598,7 @@ Array [
           >
             <a
               aria-disabled={false}
-              aria-label="task icon"
+              aria-label="pending icon"
               className="leafygreen-ui-12hedrr"
               data-cy="waterfall-task-status-icon"
               href="/task/code_health"
@@ -649,7 +649,7 @@ Array [
           >
             <a
               aria-disabled={false}
-              aria-label="task icon"
+              aria-label="will-run icon"
               className="leafygreen-ui-12hedrr"
               data-cy="waterfall-task-status-icon"
               href="/task/code_health"
@@ -709,7 +709,7 @@ Array [
           >
             <a
               aria-disabled={false}
-              aria-label="task icon"
+              aria-label="pending icon"
               className="leafygreen-ui-12hedrr"
               data-cy="waterfall-task-status-icon"
               href="/task/code_health"
@@ -760,7 +760,7 @@ Array [
           >
             <a
               aria-disabled={false}
-              aria-label="task icon"
+              aria-label="pending icon"
               className="leafygreen-ui-12hedrr"
               data-cy="waterfall-task-status-icon"
               href="/task/code_health"
@@ -824,7 +824,7 @@ Array [
           >
             <a
               aria-disabled={false}
-              aria-label="task icon"
+              aria-label="will-run icon"
               className="leafygreen-ui-12hedrr"
               data-cy="waterfall-task-status-icon"
               href="/task/code_health"
@@ -875,7 +875,7 @@ Array [
           >
             <a
               aria-disabled={false}
-              aria-label="task icon"
+              aria-label="pending icon"
               className="leafygreen-ui-12hedrr"
               data-cy="waterfall-task-status-icon"
               href="/task/code_health"
@@ -935,7 +935,7 @@ Array [
           >
             <a
               aria-disabled={false}
-              aria-label="task icon"
+              aria-label="will-run icon"
               className="leafygreen-ui-12hedrr"
               data-cy="waterfall-task-status-icon"
               href="/task/code_health"
@@ -986,7 +986,7 @@ Array [
           >
             <a
               aria-disabled={false}
-              aria-label="task icon"
+              aria-label="success icon"
               className="leafygreen-ui-12hedrr"
               data-cy="waterfall-task-status-icon"
               href="/task/code_health"
@@ -1046,7 +1046,7 @@ Array [
           >
             <a
               aria-disabled={false}
-              aria-label="task icon"
+              aria-label="failed icon"
               className="leafygreen-ui-12hedrr"
               data-cy="waterfall-task-status-icon"
               href="/task/code_health"
@@ -1092,7 +1092,7 @@ Array [
           >
             <a
               aria-disabled={false}
-              aria-label="task icon"
+              aria-label="failed icon"
               className="leafygreen-ui-12hedrr"
               data-cy="waterfall-task-status-icon"
               href="/task/code_health"
