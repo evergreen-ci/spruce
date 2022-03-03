@@ -89,6 +89,8 @@ const generateBuildVariantOptionsForTaskIconsFromState = (
           FAILED_STATUSES
         );
       }
+    } else {
+      statusesToShow = FAILED_STATUSES;
     }
   } else {
     statusesToShow = FAILED_STATUSES;
