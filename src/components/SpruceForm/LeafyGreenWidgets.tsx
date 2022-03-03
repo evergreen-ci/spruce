@@ -2,6 +2,10 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { RadioBox, RadioBoxGroup } from "@leafygreen-ui/radio-box-group";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
+import {
+  SegmentedControl,
+  SegmentedControlOption,
+} from "@leafygreen-ui/segmented-control";
 import { Option, Select } from "@leafygreen-ui/select";
 import TextArea from "@leafygreen-ui/text-area";
 import TextInput from "@leafygreen-ui/text-input";
@@ -294,6 +298,46 @@ export const LeafyGreenTextArea: React.FC<WidgetProps> = ({
     </ElementWrapper>
   );
 };
+
+export const LeafyGreenSegmentedControl: React.FC<WidgetProps> = ({
+  id,
+  label,
+  onChange,
+  options,
+  value,
+}) => {
+  const { "aria-controls": ariaControls, enumOptions } = options;
+
+  if (!Array.isArray(enumOptions)) {
+    console.error("Non-Array passed into Segmented Control");
+    return null;
+  }
+
+  const idPrefix = id.substring(0, id.lastIndexOf("_"));
+
+  return (
+    <ElementWrapper>
+      <StyledSegmentedControl
+        label={label}
+        value={value}
+        onChange={onChange}
+        aria-controls={(ariaControls as string[])
+          ?.map((childId) => `${idPrefix}_${childId}`)
+          ?.join(" ")}
+      >
+        {enumOptions.map((o) => (
+          <SegmentedControlOption key={o.value} value={o.value}>
+            {o.label}
+          </SegmentedControlOption>
+        ))}
+      </StyledSegmentedControl>
+    </ElementWrapper>
+  );
+};
+
+const StyledSegmentedControl = styled(SegmentedControl)`
+  margin-bottom: ${size.s};
+`;
 
 const MaxWidthContainer = styled.div`
   max-width: 400px;

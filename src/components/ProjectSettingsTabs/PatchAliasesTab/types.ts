@@ -1,9 +1,10 @@
-import { AliasType, ProjectType } from "../utils";
+import { ProjectAlias } from "gql/generated/types";
+import { ProjectType } from "../utils";
 
 export interface FormState {
   patchAliases: {
     aliasesOverride: boolean;
-    aliases: Array<{ initialAlias: string } & AliasType>;
+    aliases: Array<{ initialAlias: string } & ProjectAlias>;
   };
 }
 

@@ -1,17 +1,28 @@
 import { cloneElement } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
+import { Subtitle } from "@leafygreen-ui/typography";
 import {
   ArrayFieldTemplateProps,
   FieldTemplateProps,
   ObjectFieldTemplateProps,
 } from "@rjsf/core";
+import { Accordion } from "components/Accordion";
 import Icon from "components/Icon";
-import { size } from "constants/tokens";
+import { fontSize, size } from "constants/tokens";
 import { Unpacked } from "types/utils";
 import { SpruceFormContainer } from "./Container";
 import { TitleField as CustomTitleField } from "./CustomFields";
 import ElementWrapper from "./ElementWrapper";
+
+// Extract index of the current field via its ID
+const getIndex = (id: string): number => {
+  if (!id) return null;
+
+  const stringIndex = id.substring(id.lastIndexOf("_") + 1);
+  const index = Number(stringIndex);
+  return Number.isInteger(index) ? index : null;
+};
 
 // Custom field template that does not render fields' titles, as this is handled by LeafyGreen widgets
 export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
@@ -172,3 +183,32 @@ export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
     {properties.map((prop) => prop.content)}
   </SpruceFormContainer>
 );
+
+export const AccordionFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
+  idSchema,
+  properties,
+  title,
+  uiSchema,
+}) => {
+  const defaultOpen = uiSchema["ui:defaultOpen"] ?? false;
+  const displayTitle = uiSchema["ui:displayTitle"];
+  const numberedTitle = uiSchema["ui:numberedTitle"];
+  const index = getIndex(idSchema.$id);
+
+  return (
+    <Accordion
+      defaultOpen={defaultOpen}
+      title={
+        numberedTitle ? `${numberedTitle} ${index + 1}` : displayTitle || title
+      }
+      titleTag={AccordionTitle}
+      contents={properties.map(({ content }) => content)}
+    />
+  );
+};
+
+/* @ts-expect-error  */
+const AccordionTitle = styled(Subtitle)`
+  font-size: ${fontSize.l};
+  margin: ${size.xs} 0;
+`;

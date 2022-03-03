@@ -5,7 +5,7 @@ import widgets from "components/SpruceForm/Widgets";
 import { alias, form, ProjectType } from "../utils";
 import { FormState } from "./types";
 
-const { aliasArraySchema, aliasRowUiSchema } = alias;
+const { aliasArray, aliasRowUiSchema, gitTagArray } = alias;
 const { insertIf, overrideRadioBox, placeholderIf, radioBoxOptions } = form;
 
 export const getFormSchema = (
@@ -30,7 +30,7 @@ export const getFormSchema = (
     fields: {},
     schema: {
       definitions: {
-        aliasArray: aliasArraySchema,
+        aliasArray: aliasArray.schema,
       },
       type: "object" as "object",
       properties: {
@@ -144,10 +144,13 @@ export const getFormSchema = (
                 }
               ),
             },
-            gitTagVersions: {
-              type: "null",
+            gitTags: {
               title: "Git Tag Version Definitions",
-              description: "TODO: EVG-16117",
+              ...overrideRadioBox(
+                "gitTagAliases",
+                ["Override Repo Git Tags", "Default to Repo Git Tags"],
+                gitTagArray.schema
+              ),
             },
           },
         },
@@ -267,19 +270,15 @@ export const getFormSchema = (
             repoData?.github?.githubChecksEnabled
           ),
           githubCheckAliasesOverride: overrideStyling,
-          githubCheckAliases: {
-            ...aliasRowUiSchema({
-              addButtonText: "Add Definition",
-              accordionTitle: "Commit Check Definition",
-            }),
-          },
+          githubCheckAliases: aliasRowUiSchema({
+            addButtonText: "Add Definition",
+            accordionTitle: "Commit Check Definition",
+          }),
           repoData: {
-            githubCheckAliases: {
-              ...aliasRowUiSchema({
-                accordionTitle: "Commit Check Definition",
-                isRepo: true,
-              }),
-            },
+            githubCheckAliases: aliasRowUiSchema({
+              accordionTitle: "Commit Check Definition",
+              isRepo: true,
+            }),
           },
         },
         gitTagVersionsTitle: {
@@ -289,23 +288,33 @@ export const getFormSchema = (
           "ui:showLabel": false,
           "ui:widget": widgets.RadioBoxWidget,
         },
-        users: {
-          ...userTeamStyling(
-            "gitTagAuthorizedUsers",
-            "Add User",
-            repoData?.github?.users?.gitTagAuthorizedUsers === undefined,
+        users: userTeamStyling(
+          "gitTagAuthorizedUsers",
+          "Add User",
+          repoData?.github?.users?.gitTagAuthorizedUsers === undefined,
+          formData?.github?.gitTagVersionsEnabled,
+          repoData?.github?.gitTagVersionsEnabled
+        ),
+        teams: userTeamStyling(
+          "gitTagAuthorizedTeams",
+          "Add Team",
+          repoData?.github?.teams?.gitTagAuthorizedTeams === undefined,
+          formData?.github?.gitTagVersionsEnabled,
+          repoData?.github?.gitTagVersionsEnabled
+        ),
+        gitTags: {
+          ...hideIf(
             formData?.github?.gitTagVersionsEnabled,
             repoData?.github?.gitTagVersionsEnabled
           ),
-        },
-        teams: {
-          ...userTeamStyling(
-            "gitTagAuthorizedTeams",
-            "Add Team",
-            repoData?.github?.teams?.gitTagAuthorizedTeams === undefined,
-            formData?.github?.gitTagVersionsEnabled,
-            repoData?.github?.gitTagVersionsEnabled
-          ),
+          gitTagAliasesOverride: overrideStyling,
+          gitTagAliases: gitTagArray.uiSchema,
+          repoData: {
+            gitTagAliases: {
+              ...gitTagArray.uiSchema,
+              "ui:readonly": true,
+            },
+          },
         },
       },
       commitQueue: {
