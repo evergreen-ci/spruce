@@ -24,15 +24,19 @@ export const formToGql: FormToGqlFunction = (
   id
 ) => {
   const vars = varsData.reduce(
-    (acc, { varName, varValue, isPrivate, isAdminOnly }) => {
+    (acc, { varName, varValue, isPrivate, isAdminOnly, isDisabled }) => {
       if (!varName || !varValue) return acc;
+
+      let val = varValue;
       if (isPrivate) {
         acc.privateVarsList.push(varName);
+        // Overwrite {REDACTED} for variables that have been previously saved as private variables
+        if (isDisabled) val = "";
       }
       if (isAdminOnly) {
         acc.adminOnlyVarsList.push(varName);
       }
-      acc.vars[varName] = varValue;
+      acc.vars[varName] = val;
       return acc;
     },
     {
