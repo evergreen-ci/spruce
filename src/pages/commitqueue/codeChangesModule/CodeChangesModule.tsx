@@ -9,7 +9,9 @@ import {
   FileDiffsFragment,
   ModuleCodeChangeFragment,
 } from "gql/generated/types";
-import { bucketByCommit } from "./bucketByCommit";
+import { commits } from "utils";
+
+const { bucketByCommit } = commits;
 
 const totalFileDiffs = (
   fileDiffs: FileDiffsFragment[]

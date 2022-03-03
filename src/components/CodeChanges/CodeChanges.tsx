@@ -15,7 +15,9 @@ import {
   FileDiffsFragment,
 } from "gql/generated/types";
 import { GET_CODE_CHANGES } from "gql/queries";
-import { bucketByCommit } from "pages/commitqueue/codeChangesModule/bucketByCommit";
+import { commits } from "utils";
+
+const { bucketByCommit } = commits;
 
 export const CodeChanges: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -51,29 +53,25 @@ export const CodeChanges: React.FC = () => {
           0
         );
 
-        let modules;
+        let codeChanges;
 
         if (shouldPreserveCommits(fileDiffs)) {
-          modules = bucketByCommit(fileDiffs).map((commitDiffs, idx) => {
+          codeChanges = bucketByCommit(fileDiffs).map((commitDiffs, idx) => {
             const { description } = commitDiffs[0] ?? {};
-
             const sortedFileDiffs = [...commitDiffs].sort((a, b) =>
               a.fileName.localeCompare(b.fileName)
             );
-
             return (
               <CodeChangeModuleContainer key={`code_change_${description}`}>
                 <CommitContainer>
-                  <CommitTitle data-cy="commit-name">
-                    Commit {idx + 1}
-                  </CommitTitle>
+                  <CommitTitle>Commit {idx + 1}</CommitTitle>
                   {description && (
                     <CommitMessage data-cy="commit-name">
                       {description}
                     </CommitMessage>
                   )}
                 </CommitContainer>
-                <CodeChangesTable fileDiffs={sortedFileDiffs} showHeader />
+                <CodeChangesTable fileDiffs={sortedFileDiffs} />
               </CodeChangeModuleContainer>
             );
           });
@@ -81,8 +79,7 @@ export const CodeChanges: React.FC = () => {
           const sortedFileDiffs = [...fileDiffs].sort((a, b) =>
             a.fileName.localeCompare(b.fileName)
           );
-
-          modules = <CodeChangesTable fileDiffs={sortedFileDiffs} />;
+          codeChanges = <CodeChangesTable fileDiffs={sortedFileDiffs} />;
         }
 
         return (
@@ -107,7 +104,7 @@ export const CodeChanges: React.FC = () => {
               Raw
             </StyledButton>
             <CodeChangesBadge additions={additions} deletions={deletions} />
-            {modules}
+            {codeChanges}
           </Container>
         );
       })}
@@ -134,8 +131,6 @@ const Title = styled(H2)`
 `;
 
 const CommitTitle = styled(H3)`
-  font-weight: bold;
-  font-size: 16px;
   flex-shrink: 0;
 `;
 
@@ -143,6 +138,9 @@ const CommitMessage = styled(Description)`
   margin-left: ${size.s};
 `;
 
+const CodeChangeModuleContainer = styled.div`
+  padding-bottom: ${size.l};
+`;
 const CommitContainer = styled.div`
   display: flex;
   align-items: flex-start;
@@ -151,9 +149,5 @@ const CommitContainer = styled.div`
 `;
 
 const Container = styled.div`
-  padding-bottom: ${size.l};
-`;
-
-const CodeChangeModuleContainer = styled.div`
   padding-bottom: ${size.l};
 `;

@@ -1,5 +1,6 @@
 import * as array from "./array";
 import * as color from "./color";
+import * as commits from "./commits";
 import * as environmentalVariables from "./environmentalVariables";
 import * as errorReporting from "./errorReporting";
 import * as queryString from "./queryString";
@@ -14,6 +15,7 @@ export {
   statuses,
   array,
   url,
+  commits,
   color,
   validators,
   environmentalVariables,
