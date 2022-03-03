@@ -24,7 +24,6 @@ const getModalFormDefinition = (owner: string, repo: string) => ({
       projectId: {
         type: "string" as "string",
         title: "Project ID",
-        value: "hi",
       },
       owner: {
         type: "string" as "string",
@@ -46,7 +45,7 @@ const getModalFormDefinition = (owner: string, repo: string) => ({
     projectId: {
       "ui:data-cy": "project-id-input",
       "ui:description":
-        "Optionally enter an immutable project ID that would be used by Evergreen internally instead of defaulting to a random hash; An id should only be user-specified with good reason, such as if the project will be using performance tooling. \n It cannot be changed!",
+        "Optionally enter an immutable project ID that would be used by Evergreen internally instead of defaulting to a random hash; An ID should only be user-specified with good reason, such as if the project will be using performance tooling. It cannot be changed!",
     },
     owner: {
       "ui:data-cy": "owner-input",
@@ -107,6 +106,10 @@ export const CreateProjectModal: React.FC<Props> = ({ owner, repo }) => {
     },
     refetchQueries: ["ProjectSettings", "RepoSettings"],
   });
+
+  if (!isAdmin) {
+    return null;
+  }
 
   return (
     <Container>
