@@ -3,9 +3,16 @@ import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
+import { useLocation } from "react-router-dom";
 import { size } from "constants/tokens";
-
-import { ChartTypes, Commit, Commits } from "types/commits";
+import { useUpdateURLQueryParams } from "hooks";
+import {
+  ChartTypes,
+  Commit,
+  Commits,
+  ChartToggleQueryParams,
+} from "types/commits";
+import { queryString } from "utils";
 import { ChartToggle } from "./ActiveCommits/ChartToggle";
 import { Grid } from "./ActiveCommits/Grid";
 import {
@@ -19,27 +26,40 @@ import {
   RenderCommitsBuildVariants,
 } from "./RenderCommit";
 
+const { parseQueryString, getString } = queryString;
 const { white } = uiColors;
+
+const DEFAULT_CHART_TYPE = ChartTypes.Absolute;
 
 interface Props {
   versions: Commits;
   error?: ApolloError;
   isLoading: boolean;
-  chartType?: ChartTypes;
   hasTaskFilter: boolean;
   hasFilters: boolean;
-  onChangeChartType: (chartType: ChartTypes) => void;
 }
 
 export const CommitsWrapper: React.FC<Props> = ({
   versions,
   isLoading,
   error,
-  chartType,
   hasTaskFilter,
   hasFilters,
-  onChangeChartType,
 }) => {
+  const { search } = useLocation();
+  const updateQueryParams = useUpdateURLQueryParams();
+  const parsed = parseQueryString(search);
+
+  const onChangeChartType = (chartType: ChartTypes): void => {
+    updateQueryParams({
+      [ChartToggleQueryParams.chartType]: chartType,
+    });
+  };
+
+  const chartType =
+    (getString(parsed[ChartToggleQueryParams.chartType]) as ChartTypes) ||
+    DEFAULT_CHART_TYPE;
+
   const versionToGroupedTaskStatsMap = useMemo(() => {
     if (versions) {
       return getAllTaskStatsGroupedByColor(versions);

@@ -1,4 +1,4 @@
-import React from "react";
+import { ClassNames } from "@emotion/react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
@@ -17,32 +17,42 @@ export const ChartToggle: React.FC<{
     onChangeChartType(chartType);
   };
   return (
-    <Container>
-      <ToggleWrapper>
-        <Label htmlFor="chart-toggle">View Options</Label>
-        <StyledRadioGroup
-          size="default"
-          onChange={onChange}
-          value={currentChartType}
-          name="chart-select"
-        >
-          <Radio
-            data-cy="cy-chart-absolute-radio"
-            id="chart-radio-absolute"
-            value={ChartTypes.Absolute}
-          >
-            <b>Absolute Number</b>
-          </Radio>
-          <Radio
-            data-cy="cy-chart-percent-radio"
-            id="chart-radio-percent"
-            value={ChartTypes.Percentage}
-          >
-            <b>Percentage</b>
-          </Radio>
-        </StyledRadioGroup>
-      </ToggleWrapper>
-    </Container>
+    <ClassNames>
+      {({ css }) => (
+        <Container>
+          <ToggleWrapper>
+            <Label htmlFor="chart-toggle">View Options</Label>
+            <StyledRadioGroup
+              size="default"
+              onChange={onChange}
+              value={currentChartType}
+              name="chart-select"
+              className={css`
+                font-weight: bold;
+              `}
+            >
+              <Radio
+                data-cy="cy-chart-absolute-radio"
+                id="chart-radio-absolute"
+                value={ChartTypes.Absolute}
+              >
+                Absolute Number
+              </Radio>
+              <Radio
+                data-cy="cy-chart-percent-radio"
+                id="chart-radio-percent"
+                value={ChartTypes.Percentage}
+                className={css`
+                  font-weight: bold;
+                `}
+              >
+                Percentage
+              </Radio>
+            </StyledRadioGroup>
+          </ToggleWrapper>
+        </Container>
+      )}
+    </ClassNames>
   );
 };
 
