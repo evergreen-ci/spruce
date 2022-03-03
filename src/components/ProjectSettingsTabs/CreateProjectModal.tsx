@@ -133,7 +133,6 @@ export const CreateProjectModal: React.FC<Props> = ({ owner, repo }) => {
         open={open}
         submitDisabled={hasError}
         title="Create New Project"
-        variant="danger"
       >
         <Container>
           <SpruceForm
