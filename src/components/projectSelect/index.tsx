@@ -112,7 +112,7 @@ export const getRepoIdentifier = (projects) => {
   if (!projects || projects.length === 0) {
     return "";
   }
-  return projects[0].repo;
+  return projects[0].repoRefId;
 };
 
 export const getProjects = (nonFilteredProjects, filteredProjects) => {

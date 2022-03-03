@@ -3966,6 +3966,7 @@ export type GetViewableProjectRefsQuery = {
         id: string;
         identifier: string;
         repo: string;
+        repoRefId: string;
         owner: string;
         displayName: string;
         isFavorite: boolean;
