@@ -187,4 +187,33 @@ describe("commits page", () => {
       cy.dataCy("inactive-commits-tooltip").should("contain.text", "e695f65");
     });
   });
+  describe("task icons", () => {
+    before(() => {
+      cy.visit("/commits/spruce");
+    });
+    it("hovering on a failing task should reveal task metadata along side test results", () => {
+      cy.dataCy("waterfall-task-status-icon").should("exist");
+      cy.dataCy("waterfall-task-status-icon").should("have.length", 1);
+      cy.dataCy("waterfall-task-status-icon").should(
+        "have.attr",
+        "aria-label",
+        "failed icon"
+      );
+      cy.dataCy("waterfall-task-status-icon").first().trigger("mouseover");
+      cy.dataCy("waterfall-task-status-icon-tooltip").should("exist");
+      cy.dataCy("waterfall-task-status-icon-tooltip").should("be.visible");
+      cy.dataCy("waterfall-task-status-icon-tooltip").should(
+        "contain.text",
+        "check_codegen"
+      );
+      cy.dataCy("waterfall-task-status-icon-tooltip").should(
+        "contain.text",
+        "JustAFakeTestInALonelyWorld"
+      );
+    });
+    it("clicking on a task icon should direct you to the task page", () => {
+      cy.dataCy("waterfall-task-status-icon").first().click();
+      cy.location("pathname").should("contain", "/task/");
+    });
+  });
 });
