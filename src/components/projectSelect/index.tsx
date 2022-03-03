@@ -5,11 +5,6 @@ import { useHistory } from "react-router-dom";
 import SearchableDropdown from "components/SearchableDropdown";
 import { CURRENT_PROJECT } from "constants/cookies";
 import {
-  getCommitsRoute,
-  getProjectSettingsRoute,
-  ProjectSettingsTabRoutes,
-} from "constants/routes";
-import {
   GetProjectsQuery,
   GetProjectsQueryVariables,
   GetViewableProjectRefsQuery,
@@ -21,10 +16,12 @@ import { ProjectOptionGroup } from "./ProjectOptionGroup";
 interface ProjectSelectProps {
   selectedProjectIdentifier: string;
   isProjectSettingsPage?: boolean;
+  getRoute: (projectIdentifier: string) => string;
 }
 export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   selectedProjectIdentifier,
-  isProjectSettingsPage,
+  isProjectSettingsPage = false,
+  getRoute,
 }) => {
   const { data: projectsData, loading: projectsLoading } = useQuery<
     GetProjectsQuery,
@@ -91,14 +88,7 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
       options={allProjects}
       onChange={(projectIdentifier: any) => {
         Cookies.set(CURRENT_PROJECT, projectIdentifier, { expires: 365 });
-        history.push(
-          isProjectSettingsPage
-            ? getProjectSettingsRoute(
-                projectIdentifier,
-                ProjectSettingsTabRoutes.General
-              )
-            : getCommitsRoute(projectIdentifier)
-        );
+        history.push(getRoute(projectIdentifier));
       }}
       optionRenderer={(projectGroup, onClick) => (
         <ProjectOptionGroup
@@ -106,6 +96,8 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
           projects={projectGroup.projects}
           name={projectGroup.name}
           onClick={onClick}
+          repoIdentifier={getRepoIdentifier(projectGroup.projects)}
+          isProjectSettingsPage={isProjectSettingsPage}
         />
       )}
       searchFunc={handleSearch}
@@ -114,6 +106,13 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
       data-cy="project-select"
     />
   );
+};
+
+export const getRepoIdentifier = (projects) => {
+  if (!projects || projects.length === 0) {
+    return "";
+  }
+  return projects[0].repo;
 };
 
 export const getProjects = (nonFilteredProjects, filteredProjects) => {

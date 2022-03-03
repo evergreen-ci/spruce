@@ -142,7 +142,10 @@ export const Commits = () => {
             <CommitTypeSelect />
           </ElementWrapper>
           <ElementWrapper width="25">
-            <ProjectSelect selectedProjectIdentifier={projectId} />
+            <ProjectSelect
+              selectedProjectIdentifier={projectId}
+              getRoute={getCommitsRoute}
+            />
           </ElementWrapper>
         </HeaderWrapper>
         <BadgeWrapper>

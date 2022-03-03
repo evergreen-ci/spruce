@@ -26,6 +26,8 @@ const ProjectOption: React.FC<OptionProps> = ({
 
 interface OptionGroupProps {
   name: string;
+  repoIdentifier?: string;
+  isProjectSettingsPage?: boolean;
   projects: {
     displayName: string;
     identifier: string;
@@ -37,9 +39,18 @@ export const ProjectOptionGroup: React.FC<OptionGroupProps> = ({
   name,
   projects,
   onClick,
+  repoIdentifier,
+  isProjectSettingsPage = false,
 }) => (
   <OptionGroupContainer>
-    <Overline>{name}</Overline>
+    {repoIdentifier === "" || !isProjectSettingsPage ? (
+      <Overline>{name} </Overline>
+    ) : (
+      <OverlineHover>
+        <Overline onClick={() => onClick(repoIdentifier)}>{name} </Overline>
+      </OverlineHover>
+    )}
+
     <ListContainer>
       {projects?.map((project) => (
         <ProjectOption
@@ -70,4 +81,11 @@ const ProjectContainer = styled.div`
 
 const OptionGroupContainer = styled.div`
   padding: ${size.xs};
+`;
+
+const OverlineHover = styled.div`
+  :hover {
+    cursor: pointer;
+    background-color: ${gray.light1};
+  }
 `;

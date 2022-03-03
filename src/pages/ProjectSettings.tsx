@@ -118,6 +118,7 @@ export const ProjectSettings: React.FC = () => {
         <DropdownContainer>
           <ProjectSelect
             selectedProjectIdentifier={identifier}
+            getRoute={getProjectSettingsRoute}
             isProjectSettingsPage
           />
         </DropdownContainer>
