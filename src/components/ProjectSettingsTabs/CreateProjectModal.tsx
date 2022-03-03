@@ -49,8 +49,9 @@ const getModalFormDefinition = (owner: string, repo: string) => ({
     },
     projectId: {
       "ui:data-cy": "project-id-input",
+      "ui:optional": true,
       "ui:description":
-        "Optionally enter an immutable project ID that would be used by Evergreen internally instead of defaulting to a random hash; An ID should only be user-specified with good reason, such as if the project will be using performance tooling. It cannot be changed!",
+        "The project ID would be used by Evergreen internally instead of defaulting to a random hash; An ID should only be user-specified with good reason, such as if the project will be using performance tooling. It cannot be changed!",
     },
     owner: {
       "ui:data-cy": "owner-input",

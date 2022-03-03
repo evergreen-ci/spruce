@@ -33,6 +33,7 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
     "data-cy": dataCy,
     emptyValue,
     showErrors = true,
+    optional,
   } = options;
   const errors = getInputErrors(rawErrors);
   const hasError = !!errors?.length;
@@ -54,6 +55,7 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
           label={ariaLabelledBy ? undefined : label}
           placeholder={placeholder || undefined}
           description={description as string}
+          optional={optional as boolean}
           disabled={disabled || (readonlyAsDisabled && readonly)}
           onChange={({ target }) =>
             onChange(
