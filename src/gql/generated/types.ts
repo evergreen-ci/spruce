@@ -228,7 +228,6 @@ export type Mutation = {
   attachProjectToNewRepo: Project;
   saveProjectSettingsForSection: ProjectSettings;
   saveRepoSettingsForSection: RepoSettings;
-  defaultSectionToRepo?: Maybe<Scalars["String"]>;
   attachProjectToRepo: Project;
   detachProjectFromRepo: Project;
   forceRepotrackerRun: Scalars["Boolean"];
@@ -301,11 +300,6 @@ export type MutationSaveProjectSettingsForSectionArgs = {
 
 export type MutationSaveRepoSettingsForSectionArgs = {
   repoSettings?: Maybe<RepoSettingsInput>;
-  section: ProjectSettingsSection;
-};
-
-export type MutationDefaultSectionToRepoArgs = {
-  projectId: Scalars["String"];
   section: ProjectSettingsSection;
 };
 
@@ -2471,7 +2465,7 @@ export type CreateProjectMutationVariables = Exact<{
   project: CreateProjectInput;
 }>;
 
-export type CreateProjectMutation = { createProject: { id: string } };
+export type CreateProjectMutation = { createProject: { identifier: string } };
 
 export type CreatePublicKeyMutationVariables = Exact<{
   publicKeyInput: PublicKeyInput;

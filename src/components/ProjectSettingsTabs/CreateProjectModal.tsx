@@ -95,9 +95,10 @@ export const CreateProjectModal: React.FC<Props> = ({ owner, repo }) => {
     CreateProjectMutationVariables
   >(CREATE_PROJECT, {
     onCompleted(data) {
+      console.log(`data: ${JSON.stringify(data)}}`);
       dispatchToast.success(
         `Successfully created the project: ${JSON.stringify(
-          data?.createProject.id
+          data?.createProject.identifier
         )}`
       );
     },
