@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
@@ -28,29 +28,45 @@ interface AnnotationTicketsProps {
   userCanModify: boolean;
   selectedRowKey: string;
   setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
+  loading: boolean;
 }
 
 export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
+  jiraIssues,
   taskId,
   execution,
   userCanModify,
-  jiraIssues,
   isIssue,
   selectedRowKey,
   setSelectedRowKey,
+  loading,
 }) => {
   const annotationAnalytics = useAnnotationAnalytics();
   const dispatchToast = useToastContext();
   const issueString = isIssue ? "issue" : "suspected issue";
   const icon = <Icon glyph={isIssue ? "ArrowDown" : "ArrowUp"} />;
+
+  // While fetching for JIRA tickets, display the information we already have (the issueKey and the url).
+  const loadingColumns = [
+    {
+      title: "Ticket",
+      render: ({ issueKey, url }: AnnotationTicket): JSX.Element => (
+        <AnnotationTicketRow issueKey={issueKey} url={url} loading />
+      ),
+    },
+  ];
+
+  // Once JIRA tickets have been fetched, display the complete information.
   const columns = [
     {
       title: "Ticket",
-      width: "70%",
-      render: (
-        text: string,
-        { issueKey, url, source, jiraTicket }: AnnotationTicket
-      ): JSX.Element => (
+      width: "60%",
+      render: ({
+        issueKey,
+        url,
+        source,
+        jiraTicket,
+      }: AnnotationTicket): JSX.Element => (
         <AnnotationTicketRow
           issueKey={issueKey}
           url={url}
@@ -60,11 +76,7 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
       ),
     },
     {
-      title: "Delete",
-      render: (
-        text: string,
-        { issueKey, url }: AnnotationTicket
-      ): JSX.Element => (
+      render: ({ issueKey, url }: AnnotationTicket): JSX.Element => (
         <ConditionalWrapper
           condition={!userCanModify}
           wrapper={(children) => (
@@ -156,7 +168,7 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
     refetchQueries: ["GetSuspectedIssues", "GetIssues"],
   });
 
-  const onClickRemove = (url, issueKey) => {
+  const onClickRemove = (url: string, issueKey: string): void => {
     const apiIssue = {
       url,
       issueKey,
@@ -170,7 +182,7 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
     });
   };
 
-  const onClickMove = (url, issueKey) => {
+  const onClickMove = (url: string, issueKey: string): void => {
     const apiIssue = {
       url,
       issueKey,
@@ -199,7 +211,18 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
     }
   });
 
-  return (
+  return loading ? (
+    <TableWrapper>
+      <Table
+        tableLayout="fixed"
+        dataSource={jiraIssues}
+        rowKey={({ issueKey }) => issueKey}
+        columns={loadingColumns}
+        pagination={false}
+        showHeader={false}
+      />
+    </TableWrapper>
+  ) : (
     <TableWrapper>
       <Table
         tableLayout="fixed"
@@ -231,10 +254,12 @@ export const CustomCreatedTicketsTable: React.FC<CreatedTicketsProps> = ({
   const columns = [
     {
       title: "Ticket",
-      render: (
-        text: string,
-        { issueKey, url, source, jiraTicket }: AnnotationTicket
-      ): JSX.Element => (
+      render: ({
+        issueKey,
+        url,
+        source,
+        jiraTicket,
+      }: AnnotationTicket): JSX.Element => (
         <AnnotationTicketRow
           issueKey={issueKey}
           url={url}
@@ -262,6 +287,7 @@ export const CustomCreatedTicketsTable: React.FC<CreatedTicketsProps> = ({
 
 export const TableWrapper = styled.div`
   margin-top: ${size.xxs};
+  margin-left: ${size.s};
 `;
 export const StyledText = styled.div`
   padding: ${size.xxs};
@@ -269,14 +295,11 @@ export const StyledText = styled.div`
 
 const BtnContainer = styled.div`
   white-space: nowrap;
-  margin-bottom: ${size.l};
-  float: right;
   white-space: nowrap;
 `;
 
 // @ts-expect-error
 const StyledButton = styled(Button)`
   margin-left: ${size.xs};
-  margin-top: ${size.xs};
   height: ${size.m};
 `;

@@ -1,7 +1,9 @@
 query MainlineCommits(
   $mainlineCommitsOptions: MainlineCommitsOptions!
-  $buildVariantOptionsForTask: BuildVariantOptions!
   $buildVariantOptions: BuildVariantOptions!
+  $buildVariantOptionsForGraph: BuildVariantOptions!
+  $buildVariantOptionsForTaskIcons: BuildVariantOptions!
+  $buildVariantOptionsForGroupedTasks: BuildVariantOptions!
 ) {
   mainlineCommits(
     options: $mainlineCommitsOptions
@@ -16,11 +18,19 @@ query MainlineCommits(
         message
         revision
         order
-        taskStatusCounts(options: $buildVariantOptionsForTask) {
+        taskStatusCounts(options: $buildVariantOptionsForGraph) {
           status
           count
         }
-        buildVariants(options: $buildVariantOptions) {
+        buildVariantStats(options: $buildVariantOptionsForGroupedTasks) {
+          displayName
+          variant
+          statusCounts {
+            count
+            status
+          }
+        }
+        buildVariants(options: $buildVariantOptionsForTaskIcons) {
           displayName
           variant
           tasks {

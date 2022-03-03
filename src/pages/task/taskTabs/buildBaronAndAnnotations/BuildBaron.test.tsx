@@ -1,8 +1,11 @@
-import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import MatchMediaMock from "jest-matchmedia-mock";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
-import { FILE_JIRA_TICKET } from "gql/mutations";
+import {
+  FILE_JIRA_TICKET,
+  MOVE_ANNOTATION,
+  REMOVE_ANNOTATION,
+} from "gql/mutations";
 import {
   GET_BUILD_BARON,
   GET_SPRUCE_CONFIG,
@@ -14,6 +17,7 @@ import {
   fireEvent,
   waitFor,
 } from "test_utils";
+import { AnnotationTicketsTable } from "./AnnotationTicketsTable";
 import BuildBaron from "./BuildBaron";
 
 const taskId =
@@ -33,7 +37,7 @@ describe("buildBaron", () => {
 
   it("the BuildBaron component renders without crashing.", () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={mocks} addTypename={false}>
+      <MockedProvider mocks={buildBaronMocks} addTypename={false}>
         <BuildBaron
           annotation={null}
           bbData={buildBaronQuery}
@@ -57,7 +61,7 @@ describe("buildBaron", () => {
 
   it("clicking on file a new ticket dispatches a banner.", async () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={mocks} addTypename={false}>
+      <MockedProvider mocks={buildBaronMocks} addTypename={false}>
         <BuildBaron
           annotation={null}
           bbData={buildBaronQuery}
@@ -86,7 +90,7 @@ describe("buildBaron", () => {
 
   it("the correct JiraTicket rows are rendered in the component", () => {
     const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={mocks} addTypename={false}>
+      <MockedProvider mocks={buildBaronMocks} addTypename={false}>
         <BuildBaron
           annotation={null}
           bbData={buildBaronQuery}
@@ -123,6 +127,39 @@ describe("buildBaron", () => {
     expect(queryByDataCy("EVG-12347-metadata")).toHaveTextContent(
       "Created: Sep 18, 2020 Updated: Sep 18, 2020 Assignee: Backlog - Evergreen Team"
     );
+  });
+});
+
+describe("annotationTicketsTable", () => {
+  it("should display the link and jiraIssue key while waiting for data to fetch.", async () => {
+    const { Component } = RenderFakeToastContext(
+      <MockedProvider mocks={ticketsTableMocks} addTypename={false}>
+        <AnnotationTicketsTable
+          jiraIssues={[
+            {
+              issueKey: "EVG-1234567",
+              url: "https://fake-url/EVG-1234567",
+            },
+          ]}
+          isIssue
+          taskId={taskId}
+          execution={execution}
+          userCanModify={false}
+          selectedRowKey=""
+          setSelectedRowKey={() => {}}
+          loading
+        />
+      </MockedProvider>
+    );
+    const { getByText, queryByDataCy } = render(() => <Component />, {
+      route: `/task/${taskId}`,
+      path: "/task/:id",
+    });
+
+    waitFor(() =>
+      expect(queryByDataCy("loading-annotation-ticket")).toBeInTheDocument()
+    );
+    expect(getByText("EVG-1234567")).toBeInTheDocument();
   });
 });
 
@@ -183,7 +220,7 @@ const buildBaronQuery = {
   },
 };
 
-const mocks = [
+const buildBaronMocks = [
   {
     request: {
       query: GET_BUILD_BARON,
@@ -251,6 +288,39 @@ const mocks = [
       data: {
         userId: "mohamed.khelif",
         displayName: "Mohamed Khelif",
+      },
+    },
+  },
+];
+
+const apiIssue = {
+  url: "https://fake-url/EVG-1234567",
+  issueKey: "EVG-1234567",
+};
+
+const ticketsTableMocks = [
+  {
+    request: {
+      query: MOVE_ANNOTATION,
+      variables: { taskId, execution, apiIssue, isIssue: true },
+    },
+    result: { success: true },
+  },
+  {
+    request: {
+      query: REMOVE_ANNOTATION,
+      variables: { taskId, execution, apiIssue, isIssue: true },
+    },
+    result: { success: true },
+  },
+  {
+    request: {
+      query: GET_USER,
+    },
+    result: {
+      data: {
+        userId: "minna.kt",
+        displayName: "Minna K-T",
       },
     },
   },
