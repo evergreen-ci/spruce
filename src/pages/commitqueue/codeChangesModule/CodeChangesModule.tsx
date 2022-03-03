@@ -43,7 +43,9 @@ export const CodeChangeModule: React.FC<{
             </DropDownText>
           }
           contents={
-            <CodeChangesTable fileDiffs={commitDiffs} showHeader={false} />
+            <TableWrapper>
+              <CodeChangesTable fileDiffs={commitDiffs} showHeader={false} />
+            </TableWrapper>
           }
         />
       </CodeChangeModuleContainer>
@@ -68,4 +70,8 @@ const DropDownText = styled(Body)`
 const CommitName = styled(Body)`
   font-size: ${fontSize.l};
   padding-bottom: ${size.xs};
+`;
+
+const TableWrapper = styled.div`
+  margin-top: ${size.xs};
 `;
