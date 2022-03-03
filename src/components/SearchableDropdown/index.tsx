@@ -52,6 +52,12 @@ const SearchableDropdown = <T extends {}>({
     }
   }, [options]);
 
+  // Clear search text input and reset visible options to show every option.
+  const resetSearch = () => {
+    setSearch("");
+    setVisibleOptions(options);
+  };
+
   const onClick = (v: T) => {
     if (allowMultiSelect) {
       if (Array.isArray(value)) {
@@ -68,6 +74,7 @@ const SearchableDropdown = <T extends {}>({
       if (DropdownRef.current) {
         DropdownRef.current.setIsOpen(false);
       }
+      resetSearch();
     }
   };
 
@@ -138,6 +145,7 @@ const SearchableDropdown = <T extends {}>({
           buttonRenderer={
             buttonRenderer ? () => buttonRenderer(value) : undefined
           }
+          onClose={resetSearch}
           ref={DropdownRef}
         >
           <TextInput
