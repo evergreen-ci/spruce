@@ -102,10 +102,7 @@ export const CommitsWrapper: React.FC<Props> = ({
         <FlexRowContainer>
           {versions.map((commit, i) => (
             <CommitWrapper key={getCommitKey(commit)} width={widths[i]}>
-              <RenderCommitsBuildVariants
-                commit={commit}
-                hasTaskFilter={hasTaskFilter}
-              />
+              <RenderCommitsBuildVariants commit={commit} />
             </CommitWrapper>
           ))}
         </FlexRowContainer>
@@ -158,10 +155,10 @@ const CommitWrapper = styled.div<{ width: number }>`
   min-width: ${({ width }) => width * 0.75}px;
   margin: 0px ${size.xs};
 
-  &:first-child {
+  &:first-of-type {
     margin-left: 0;
   }
-  &:last-child {
+  &:last-of-type {
     margin-right: 0;
   }
 `;

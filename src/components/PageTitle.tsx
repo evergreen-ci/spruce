@@ -60,8 +60,8 @@ export const PageTitle: React.FC<Props> = ({
 
 const BadgeWrapper = styled.div<TitleTypographyProps>`
   display: inline-flex;
-  position: relative;
   margin-left: ${({ size }) => (size === "large" ? tokenSize.m : tokenSize.s)};
+  vertical-align: text-bottom;
 `;
 
 const PageHeader = styled.div<TitleTypographyProps>`
@@ -70,6 +70,7 @@ const PageHeader = styled.div<TitleTypographyProps>`
   ${({ size }) => size === "large" && `margin-top: ${tokenSize.s};`}
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
 `;
 
 const TitleWrapper = styled.div<TitleTypographyProps>`

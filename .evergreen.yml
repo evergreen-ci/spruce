@@ -296,10 +296,10 @@ functions:
     params:
       working_dir: spruce
       script: |
-        PREVIOUS_VERSION=$(git describe --tags  --abbrev=0  `git rev-list --tags --max-count=1 --skip=1`)
-        BODY=$(git log --no-merges $PREVIOUS_VERSION..HEAD --pretty="format:%s (%h)")
-        DATE=$(date +'%m/%d/%Y')
-        ~/evergreen -c .evergreen.yml notify email -f ${author_email} -r ${REACT_APP_DEPLOYS_EMAIL} -s "$DATE Spruce Deploy ${task_name}" -b "$BODY"
+        export AUTHOR_EMAIL=${author_email}
+        export REACT_APP_DEPLOYS_EMAIL=${REACT_APP_DEPLOYS_EMAIL}
+        export TASK_NAME=${task_name}
+        bash email.sh
 
 
 #######################################
@@ -384,6 +384,7 @@ tasks:
     - func: build-prod
     - func: deploy-to-prod
     - func: send-email
+
 
 buildvariants:
   - name: ubuntu1604

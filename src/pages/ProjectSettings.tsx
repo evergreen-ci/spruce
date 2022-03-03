@@ -5,6 +5,7 @@ import { Skeleton } from "antd";
 import { useParams, Link, Redirect } from "react-router-dom";
 import { ProjectSettingsProvider } from "components/ProjectSettingsTabs/Context";
 import { CreateProjectModal } from "components/ProjectSettingsTabs/CreateProjectModal";
+import { ProjectType } from "components/ProjectSettingsTabs/utils";
 import {
   SideNav,
   SideNavGroup,
@@ -57,21 +58,27 @@ export const ProjectSettings: React.FC = () => {
     },
   });
 
-  const repoRefId =
+  const repoId =
     projectData?.projectSettings?.projectRef?.repoRefId || identifier;
-  const useRepoSettings =
-    projectData?.projectSettings?.projectRef?.useRepoSettings;
+
+  // Assign project type in order to show/hide elements that should only appear for repos, attached projects, etc.
+  let projectType;
+  if (isRepo) {
+    projectType = ProjectType.Repo;
+  } else if (projectData?.projectSettings?.projectRef?.repoRefId) {
+    projectType = ProjectType.AttachedProject;
+  } else {
+    projectType = ProjectType.Project;
+  }
 
   const { data: repoData } = useQuery<
     RepoSettingsQuery,
     RepoSettingsQueryVariables
   >(GET_REPO_SETTINGS, {
-    skip: projectLoading || useRepoSettings === false,
-    variables: { repoId: repoRefId },
+    skip: projectLoading || projectType === ProjectType.Project,
+    variables: { repoId },
     onError: (e) => {
-      dispatchToast.error(
-        `There was an error loading the repo ${repoRefId}: ${e.message}`
-      );
+      dispatchToast.error(`There was an error loading ${repoId}: ${e.message}`);
     },
   });
 
@@ -105,7 +112,10 @@ export const ProjectSettings: React.FC = () => {
     projectData !== null
       ? projectData?.projectSettings
       : repoData?.repoSettings;
-  const hasData = projectData ? !useRepoSettings || repoData : repoData;
+
+  const hasData = projectData
+    ? projectType === ProjectType.Project || repoData
+    : repoData;
 
   return (
     <ProjectSettingsProvider>
@@ -166,6 +176,7 @@ export const ProjectSettings: React.FC = () => {
         {hasData ? (
           <ProjectSettingsTabs
             projectData={projectData?.projectSettings}
+            projectType={projectType}
             repoData={repoData?.repoSettings}
           />
         ) : (

@@ -9,7 +9,7 @@ Array [
       className="css-gnwyka-FlexRowContainer ech0nhv4"
     >
       <div
-        className="css-mf02jn-CommitWrapper ech0nhv2"
+        className="css-mgqp2w-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -41,7 +41,7 @@ Array [
         </div>
       </div>
       <div
-        className="css-mf02jn-CommitWrapper ech0nhv2"
+        className="css-mgqp2w-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -79,19 +79,19 @@ Array [
         </div>
       </div>
       <div
-        className="css-1nmxwji-CommitWrapper ech0nhv2"
+        className="css-11x1fi4-CommitWrapper ech0nhv2"
         width={64}
       >
         <div
-          className="css-pi541p-Container ezzuvrx0"
+          className="css-316fn7-InactiveCommitContainer ezzuvrx9"
         >
           <div
-            className="css-1q62izj-InactiveCommitLine ezzuvrx3"
+            className="css-1q62izj-InactiveCommitLine ezzuvrx8"
           />
         </div>
       </div>
       <div
-        className="css-mf02jn-CommitWrapper ech0nhv2"
+        className="css-mgqp2w-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -117,7 +117,7 @@ Array [
         </div>
       </div>
       <div
-        className="css-mf02jn-CommitWrapper ech0nhv2"
+        className="css-mgqp2w-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -143,7 +143,7 @@ Array [
         </div>
       </div>
       <div
-        className="css-mf02jn-CommitWrapper ech0nhv2"
+        className="css-mgqp2w-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -323,7 +323,7 @@ Array [
       className="css-gnwyka-FlexRowContainer ech0nhv4"
     >
       <div
-        className="css-mf02jn-CommitWrapper ech0nhv2"
+        className="css-mgqp2w-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -373,7 +373,7 @@ Array [
         </div>
       </div>
       <div
-        className="css-mf02jn-CommitWrapper ech0nhv2"
+        className="css-mgqp2w-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -416,16 +416,16 @@ Array [
         </div>
       </div>
       <div
-        className="css-1nmxwji-CommitWrapper ech0nhv2"
+        className="css-11x1fi4-CommitWrapper ech0nhv2"
         width={64}
       >
         <div
-          className="leafygreen-ui-cssveg css-1ctfjby-ButtonContainer ezzuvrx4"
+          className="leafygreen-ui-cssveg css-1ctfjby-ButtonContainer ezzuvrx6"
           onClick={[Function]}
           role="button"
         >
           <small
-            className="css-t2ltce-ButtonText ezzuvrx2 leafygreen-ui-13bqno6"
+            className="css-t2ltce-ButtonText ezzuvrx5 leafygreen-ui-13bqno6"
             data-cy="inactive-commits-button"
           >
             <div>
@@ -436,7 +436,7 @@ Array [
         </div>
       </div>
       <div
-        className="css-mf02jn-CommitWrapper ech0nhv2"
+        className="css-mgqp2w-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -486,7 +486,7 @@ Array [
         </div>
       </div>
       <div
-        className="css-mf02jn-CommitWrapper ech0nhv2"
+        className="css-mgqp2w-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -529,7 +529,7 @@ Array [
         </div>
       </div>
       <div
-        className="css-mf02jn-CommitWrapper ech0nhv2"
+        className="css-mgqp2w-CommitWrapper ech0nhv2"
         width={200}
       >
         <div
@@ -577,456 +577,24 @@ Array [
     className="css-gnwyka-FlexRowContainer ech0nhv4"
   >
     <div
-      className="css-mf02jn-CommitWrapper ech0nhv2"
+      className="css-mgqp2w-CommitWrapper ech0nhv2"
       width={200}
     >
       <div
         className="css-ygh2q6-ColumnContainer e1s1lwa10"
       >
         <div
-          className="css-8bv1t4-Container ek3nkvx1"
+          className="css-8bv1t4-Container ek3nkvx0"
         >
           <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             href="/variant-history/spruce/code_health"
             onClick={[Function]}
           >
             01. Code Health [code_health]
           </a>
           <div
-            className="css-100ar08-IconContainer ek3nkvx2"
-          >
-            <div
-              className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
-              data-cy="grouped-task-status-badge"
-            >
-              <div
-                className="leafygreen-ui-cssveg"
-                onBlur={[Function]}
-                onFocus={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-              >
-                <a
-                  data-cy="grouped-task-status-badge"
-                  href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ecode_health%24"
-                  onClick={[Function]}
-                >
-                  <div
-                    className="css-8oeas8-BadgeContainer emc61an4"
-                    fill="#5D6C74"
-                  >
-                    <span
-                      className="css-1f81ztl-Number emc61an2"
-                    >
-                      1
-                    </span>
-                    <span
-                      className="css-oqj204-Status emc61an1"
-                    >
-                      Scheduled
-                    </span>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="css-8bv1t4-Container ek3nkvx1"
-        >
-          <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
-            href="/variant-history/spruce/package_rpm"
-            onClick={[Function]}
-          >
-            02. Packaging (RPM - RHEL7) [package_rpm]
-          </a>
-          <div
-            className="css-100ar08-IconContainer ek3nkvx2"
-          >
-            <div
-              className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
-              data-cy="grouped-task-status-badge"
-            >
-              <div
-                className="leafygreen-ui-cssveg"
-                onBlur={[Function]}
-                onFocus={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-              >
-                <a
-                  data-cy="grouped-task-status-badge"
-                  href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Epackage_rpm%24"
-                  onClick={[Function]}
-                >
-                  <div
-                    className="css-8oeas8-BadgeContainer emc61an4"
-                    fill="#5D6C74"
-                  >
-                    <span
-                      className="css-1f81ztl-Number emc61an2"
-                    >
-                      1
-                    </span>
-                    <span
-                      className="css-oqj204-Status emc61an1"
-                    >
-                      Scheduled
-                    </span>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="css-mf02jn-CommitWrapper ech0nhv2"
-      width={200}
-    >
-      <div
-        className="css-ygh2q6-ColumnContainer e1s1lwa10"
-      >
-        <div
-          className="css-8bv1t4-Container ek3nkvx1"
-        >
-          <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
-            href="/variant-history/spruce/code_health"
-            onClick={[Function]}
-          >
-            01. Code Health [code_health]
-          </a>
-          <div
-            className="css-100ar08-IconContainer ek3nkvx2"
-          >
-            <div
-              className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
-              data-cy="grouped-task-status-badge"
-            >
-              <div
-                className="leafygreen-ui-cssveg"
-                onBlur={[Function]}
-                onFocus={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-              >
-                <a
-                  data-cy="grouped-task-status-badge"
-                  href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ecode_health%24"
-                  onClick={[Function]}
-                >
-                  <div
-                    className="css-8oeas8-BadgeContainer emc61an4"
-                    fill="#5D6C74"
-                  >
-                    <span
-                      className="css-1f81ztl-Number emc61an2"
-                    >
-                      1
-                    </span>
-                    <span
-                      className="css-oqj204-Status emc61an1"
-                    >
-                      Scheduled
-                    </span>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="css-8bv1t4-Container ek3nkvx1"
-        >
-          <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
-            href="/variant-history/spruce/package_rpm"
-            onClick={[Function]}
-          >
-            02. Packaging (RPM - RHEL7) [package_rpm]
-          </a>
-          <div
-            className="css-100ar08-IconContainer ek3nkvx2"
-          >
-            <div
-              className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
-              data-cy="grouped-task-status-badge"
-            >
-              <div
-                className="leafygreen-ui-cssveg"
-                onBlur={[Function]}
-                onFocus={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-              >
-                <a
-                  data-cy="grouped-task-status-badge"
-                  href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Epackage_rpm%24"
-                  onClick={[Function]}
-                >
-                  <div
-                    className="css-8oeas8-BadgeContainer emc61an4"
-                    fill="#5D6C74"
-                  >
-                    <span
-                      className="css-1f81ztl-Number emc61an2"
-                    >
-                      1
-                    </span>
-                    <span
-                      className="css-oqj204-Status emc61an1"
-                    >
-                      Scheduled
-                    </span>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="css-1nmxwji-CommitWrapper ech0nhv2"
-      width={64}
-    />
-    <div
-      className="css-mf02jn-CommitWrapper ech0nhv2"
-      width={200}
-    >
-      <div
-        className="css-ygh2q6-ColumnContainer e1s1lwa10"
-      >
-        <div
-          className="css-8bv1t4-Container ek3nkvx1"
-        >
-          <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
-            href="/variant-history/spruce/code_health"
-            onClick={[Function]}
-          >
-            01. Code Health [code_health]
-          </a>
-          <div
-            className="css-100ar08-IconContainer ek3nkvx2"
-          >
-            <div
-              className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
-              data-cy="grouped-task-status-badge"
-            >
-              <div
-                className="leafygreen-ui-cssveg"
-                onBlur={[Function]}
-                onFocus={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-              >
-                <a
-                  data-cy="grouped-task-status-badge"
-                  href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ecode_health%24"
-                  onClick={[Function]}
-                >
-                  <div
-                    className="css-8oeas8-BadgeContainer emc61an4"
-                    fill="#5D6C74"
-                  >
-                    <span
-                      className="css-1f81ztl-Number emc61an2"
-                    >
-                      1
-                    </span>
-                    <span
-                      className="css-oqj204-Status emc61an1"
-                    >
-                      Scheduled
-                    </span>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="css-8bv1t4-Container ek3nkvx1"
-        >
-          <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
-            href="/variant-history/spruce/package_rpm"
-            onClick={[Function]}
-          >
-            02. Packaging (RPM - RHEL7) [package_rpm]
-          </a>
-          <div
-            className="css-100ar08-IconContainer ek3nkvx2"
-          >
-            <div
-              className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
-              data-cy="grouped-task-status-badge"
-            >
-              <div
-                className="leafygreen-ui-cssveg"
-                onBlur={[Function]}
-                onFocus={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-              >
-                <a
-                  data-cy="grouped-task-status-badge"
-                  href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Epackage_rpm%24"
-                  onClick={[Function]}
-                >
-                  <div
-                    className="css-8oeas8-BadgeContainer emc61an4"
-                    fill="#5D6C74"
-                  >
-                    <span
-                      className="css-1f81ztl-Number emc61an2"
-                    >
-                      1
-                    </span>
-                    <span
-                      className="css-oqj204-Status emc61an1"
-                    >
-                      Scheduled
-                    </span>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="css-mf02jn-CommitWrapper ech0nhv2"
-      width={200}
-    >
-      <div
-        className="css-ygh2q6-ColumnContainer e1s1lwa10"
-      >
-        <div
-          className="css-8bv1t4-Container ek3nkvx1"
-        >
-          <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
-            href="/variant-history/spruce/code_health"
-            onClick={[Function]}
-          >
-            01. Code Health [code_health]
-          </a>
-          <div
-            className="css-100ar08-IconContainer ek3nkvx2"
-          >
-            <div
-              className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
-              data-cy="grouped-task-status-badge"
-            >
-              <div
-                className="leafygreen-ui-cssveg"
-                onBlur={[Function]}
-                onFocus={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-              >
-                <a
-                  data-cy="grouped-task-status-badge"
-                  href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ecode_health%24"
-                  onClick={[Function]}
-                >
-                  <div
-                    className="css-8oeas8-BadgeContainer emc61an4"
-                    fill="#5D6C74"
-                  >
-                    <span
-                      className="css-1f81ztl-Number emc61an2"
-                    >
-                      1
-                    </span>
-                    <span
-                      className="css-oqj204-Status emc61an1"
-                    >
-                      Scheduled
-                    </span>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="css-8bv1t4-Container ek3nkvx1"
-        >
-          <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
-            href="/variant-history/spruce/package_rpm"
-            onClick={[Function]}
-          >
-            02. Packaging (RPM - RHEL7) [package_rpm]
-          </a>
-          <div
-            className="css-100ar08-IconContainer ek3nkvx2"
-          >
-            <div
-              className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
-              data-cy="grouped-task-status-badge"
-            >
-              <div
-                className="leafygreen-ui-cssveg"
-                onBlur={[Function]}
-                onFocus={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-              >
-                <a
-                  data-cy="grouped-task-status-badge"
-                  href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks?statuses=success&variant=%5Epackage_rpm%24"
-                  onClick={[Function]}
-                >
-                  <div
-                    className="css-1qehxmj-BadgeContainer emc61an4"
-                    fill="#E4F4E4"
-                  >
-                    <span
-                      className="css-1f81ztl-Number emc61an2"
-                    >
-                      1
-                    </span>
-                    <span
-                      className="css-oqj204-Status emc61an1"
-                    >
-                      Succeeded
-                    </span>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="css-mf02jn-CommitWrapper ech0nhv2"
-      width={200}
-    >
-      <div
-        className="css-ygh2q6-ColumnContainer e1s1lwa10"
-      >
-        <div
-          className="css-8bv1t4-Container ek3nkvx1"
-        >
-          <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
-            href="/variant-history/spruce/code_health"
-            onClick={[Function]}
-          >
-            01. Code Health [code_health]
-          </a>
-          <div
-            className="css-100ar08-IconContainer ek3nkvx2"
+            className="css-100ar08-IconContainer ek3nkvx1"
           >
             <a
               aria-disabled={false}
@@ -1046,6 +614,455 @@ Array [
                 className="leafygreen-ui-xhlipt"
               >
                 <svg
+                  aria-label="Calendar Icon"
+                  className="leafygreen-ui-foqtcf"
+                  fill="none"
+                  height={16}
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width={16}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clipRule="evenodd"
+                    d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
+                    fill="currentColor"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div
+          className="css-8bv1t4-Container ek3nkvx0"
+        >
+          <a
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
+            href="/variant-history/spruce/package_rpm"
+            onClick={[Function]}
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm]
+          </a>
+          <div
+            className="css-100ar08-IconContainer ek3nkvx1"
+          >
+            <a
+              aria-disabled={false}
+              aria-label="task icon"
+              className="leafygreen-ui-12hedrr"
+              data-cy="waterfall-task-status-icon"
+              href="/task/code_health"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onMouseOver={[Function]}
+              tabIndex={0}
+            >
+              <div
+                className="leafygreen-ui-xhlipt"
+              >
+                <svg
+                  aria-label="Calendar Icon"
+                  className="leafygreen-ui-foqtcf"
+                  fill="none"
+                  height={16}
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width={16}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clipRule="evenodd"
+                    d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
+                    fill="currentColor"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="css-mgqp2w-CommitWrapper ech0nhv2"
+      width={200}
+    >
+      <div
+        className="css-ygh2q6-ColumnContainer e1s1lwa10"
+      >
+        <div
+          className="css-8bv1t4-Container ek3nkvx0"
+        >
+          <a
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
+            href="/variant-history/spruce/code_health"
+            onClick={[Function]}
+          >
+            01. Code Health [code_health]
+          </a>
+          <div
+            className="css-100ar08-IconContainer ek3nkvx1"
+          >
+            <a
+              aria-disabled={false}
+              aria-label="task icon"
+              className="leafygreen-ui-12hedrr"
+              data-cy="waterfall-task-status-icon"
+              href="/task/code_health"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onMouseOver={[Function]}
+              tabIndex={0}
+            >
+              <div
+                className="leafygreen-ui-xhlipt"
+              >
+                <svg
+                  aria-label="Calendar Icon"
+                  className="leafygreen-ui-foqtcf"
+                  fill="none"
+                  height={16}
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width={16}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clipRule="evenodd"
+                    d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
+                    fill="currentColor"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div
+          className="css-8bv1t4-Container ek3nkvx0"
+        >
+          <a
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
+            href="/variant-history/spruce/package_rpm"
+            onClick={[Function]}
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm]
+          </a>
+          <div
+            className="css-100ar08-IconContainer ek3nkvx1"
+          >
+            <a
+              aria-disabled={false}
+              aria-label="task icon"
+              className="leafygreen-ui-12hedrr"
+              data-cy="waterfall-task-status-icon"
+              href="/task/code_health"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onMouseOver={[Function]}
+              tabIndex={0}
+            >
+              <div
+                className="leafygreen-ui-xhlipt"
+              >
+                <svg
+                  aria-label="Calendar Icon"
+                  className="leafygreen-ui-foqtcf"
+                  fill="none"
+                  height={16}
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width={16}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clipRule="evenodd"
+                    d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
+                    fill="currentColor"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="css-11x1fi4-CommitWrapper ech0nhv2"
+      width={64}
+    />
+    <div
+      className="css-mgqp2w-CommitWrapper ech0nhv2"
+      width={200}
+    >
+      <div
+        className="css-ygh2q6-ColumnContainer e1s1lwa10"
+      >
+        <div
+          className="css-8bv1t4-Container ek3nkvx0"
+        >
+          <a
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
+            href="/variant-history/spruce/code_health"
+            onClick={[Function]}
+          >
+            01. Code Health [code_health]
+          </a>
+          <div
+            className="css-100ar08-IconContainer ek3nkvx1"
+          >
+            <a
+              aria-disabled={false}
+              aria-label="task icon"
+              className="leafygreen-ui-12hedrr"
+              data-cy="waterfall-task-status-icon"
+              href="/task/code_health"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onMouseOver={[Function]}
+              tabIndex={0}
+            >
+              <div
+                className="leafygreen-ui-xhlipt"
+              >
+                <svg
+                  aria-label="Calendar Icon"
+                  className="leafygreen-ui-foqtcf"
+                  fill="none"
+                  height={16}
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width={16}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clipRule="evenodd"
+                    d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
+                    fill="currentColor"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div
+          className="css-8bv1t4-Container ek3nkvx0"
+        >
+          <a
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
+            href="/variant-history/spruce/package_rpm"
+            onClick={[Function]}
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm]
+          </a>
+          <div
+            className="css-100ar08-IconContainer ek3nkvx1"
+          >
+            <a
+              aria-disabled={false}
+              aria-label="task icon"
+              className="leafygreen-ui-12hedrr"
+              data-cy="waterfall-task-status-icon"
+              href="/task/code_health"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onMouseOver={[Function]}
+              tabIndex={0}
+            >
+              <div
+                className="leafygreen-ui-xhlipt"
+              >
+                <svg
+                  aria-label="Calendar Icon"
+                  className="leafygreen-ui-foqtcf"
+                  fill="none"
+                  height={16}
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width={16}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clipRule="evenodd"
+                    d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
+                    fill="currentColor"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="css-mgqp2w-CommitWrapper ech0nhv2"
+      width={200}
+    >
+      <div
+        className="css-ygh2q6-ColumnContainer e1s1lwa10"
+      >
+        <div
+          className="css-8bv1t4-Container ek3nkvx0"
+        >
+          <a
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
+            href="/variant-history/spruce/code_health"
+            onClick={[Function]}
+          >
+            01. Code Health [code_health]
+          </a>
+          <div
+            className="css-100ar08-IconContainer ek3nkvx1"
+          >
+            <a
+              aria-disabled={false}
+              aria-label="task icon"
+              className="leafygreen-ui-12hedrr"
+              data-cy="waterfall-task-status-icon"
+              href="/task/code_health"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onMouseOver={[Function]}
+              tabIndex={0}
+            >
+              <div
+                className="leafygreen-ui-xhlipt"
+              >
+                <svg
+                  aria-label="Calendar Icon"
+                  className="leafygreen-ui-foqtcf"
+                  fill="none"
+                  height={16}
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width={16}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clipRule="evenodd"
+                    d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
+                    fill="currentColor"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div
+          className="css-8bv1t4-Container ek3nkvx0"
+        >
+          <a
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
+            href="/variant-history/spruce/package_rpm"
+            onClick={[Function]}
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm]
+          </a>
+          <div
+            className="css-100ar08-IconContainer ek3nkvx1"
+          >
+            <a
+              aria-disabled={false}
+              aria-label="task icon"
+              className="leafygreen-ui-12hedrr"
+              data-cy="waterfall-task-status-icon"
+              href="/task/code_health"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onMouseOver={[Function]}
+              tabIndex={0}
+            >
+              <div
+                className="leafygreen-ui-xhlipt"
+              >
+                <svg
+                  aria-label="Checkmark Icon"
+                  className="leafygreen-ui-ifwzrn"
+                  fill="none"
+                  height={16}
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width={16}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clipRule="evenodd"
+                    d="M6.306 9.05l5.455-5.455a1 1 0 011.414 0l.707.707a1 1 0 010 1.414l-7.067 7.068a1 1 0 01-1.5-.098l-3.049-3.97a1 1 0 01.184-1.402l.595-.457a1.25 1.25 0 011.753.23L6.306 9.05z"
+                    fill="currentColor"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="css-mgqp2w-CommitWrapper ech0nhv2"
+      width={200}
+    >
+      <div
+        className="css-ygh2q6-ColumnContainer e1s1lwa10"
+      >
+        <div
+          className="css-8bv1t4-Container ek3nkvx0"
+        >
+          <a
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
+            href="/variant-history/spruce/code_health"
+            onClick={[Function]}
+          >
+            01. Code Health [code_health]
+          </a>
+          <div
+            className="css-100ar08-IconContainer ek3nkvx1"
+          >
+            <a
+              aria-disabled={false}
+              aria-label="task icon"
+              className="leafygreen-ui-12hedrr"
+              data-cy="waterfall-task-status-icon"
+              href="/task/code_health"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onMouseOver={[Function]}
+              tabIndex={0}
+            >
+              <div
+                className="leafygreen-ui-xhlipt"
+              >
+                <svg
+                  aria-label="Failure Icon"
                   fill="currentColor"
                   height={16}
                   viewBox="0 0 21 21"
@@ -1061,17 +1078,17 @@ Array [
           </div>
         </div>
         <div
-          className="css-8bv1t4-Container ek3nkvx1"
+          className="css-8bv1t4-Container ek3nkvx0"
         >
           <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             href="/variant-history/spruce/package_rpm"
             onClick={[Function]}
           >
             02. Packaging (RPM - RHEL7) [package_rpm]
           </a>
           <div
-            className="css-100ar08-IconContainer ek3nkvx2"
+            className="css-100ar08-IconContainer ek3nkvx1"
           >
             <a
               aria-disabled={false}
@@ -1091,6 +1108,7 @@ Array [
                 className="leafygreen-ui-xhlipt"
               >
                 <svg
+                  aria-label="Failure Icon"
                   fill="currentColor"
                   height={16}
                   viewBox="0 0 21 21"

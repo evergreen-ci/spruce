@@ -20,7 +20,7 @@ export const aliasHasError = ({
   taskTags,
   variant,
   variantTags,
-}: AliasType): boolean =>
+}: Partial<AliasType>): boolean =>
   pairHasError(task, taskTags) || pairHasError(variant, variantTags);
 
 // Bucket aliases according to their "alias" field
@@ -58,16 +58,22 @@ export const transformAliases = (
   aliasName?: AliasNames
 ): ProjectAliasInput[] =>
   override
-    ? aliases.map(({ id, alias, variant, variantTags, task, taskTags }) => ({
-        id: id || "",
-        alias: alias || aliasName,
-        variant: variant || "",
-        variantTags: variantTags?.filter((tag) => tag) ?? [],
-        task: task || "",
-        taskTags: taskTags?.filter((tag) => tag) ?? [],
-        gitTag: "",
-        remotePath: "",
-      }))
+    ? aliases.map((a) => {
+        if (aliasHasError(a)) {
+          return;
+        }
+        const { id, alias, variant, variantTags, task, taskTags } = a;
+        return {
+          id: id || "",
+          alias: alias || aliasName,
+          variant: variant || "",
+          variantTags: variantTags?.filter((tag) => tag) ?? [],
+          task: task || "",
+          taskTags: taskTags?.filter((tag) => tag) ?? [],
+          gitTag: "",
+          remotePath: "",
+        };
+      })
     : [];
 
 type AliasRowUIParams = {
@@ -153,6 +159,7 @@ export const aliasRowUiSchema = ({
       "ui:addButtonText": "Add Variant Tag",
       "ui:fullWidth": true,
       "ui:showLabel": false,
+      "ui:topAlignDelete": true,
       items: {
         "ui:ariaLabelledBy": "variant-input-control",
         "ui:data-cy": "variant-tags-input",
@@ -168,6 +175,7 @@ export const aliasRowUiSchema = ({
       "ui:addButtonText": "Add Task Tag",
       "ui:fullWidth": true,
       "ui:showLabel": false,
+      "ui:topAlignDelete": true,
       items: {
         "ui:ariaLabelledBy": "variant-input-control",
         "ui:data-cy": "task-tags-input",
