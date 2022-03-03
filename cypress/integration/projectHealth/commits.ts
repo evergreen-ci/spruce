@@ -188,32 +188,70 @@ describe("commits page", () => {
     });
   });
   describe("task icons", () => {
-    before(() => {
-      cy.visit("/commits/spruce");
+    describe("individual task icons", () => {
+      before(() => {
+        cy.visit("/commits/spruce");
+      });
+      it("hovering on a failing task should reveal task metadata along side test results", () => {
+        cy.dataCy("waterfall-task-status-icon").should("exist");
+        cy.dataCy("waterfall-task-status-icon").should("have.length", 1);
+        cy.dataCy("waterfall-task-status-icon").should(
+          "have.attr",
+          "aria-label",
+          "failed icon"
+        );
+        cy.dataCy("waterfall-task-status-icon").first().trigger("mouseover");
+        cy.dataCy("waterfall-task-status-icon-tooltip").should("exist");
+        cy.dataCy("waterfall-task-status-icon-tooltip").should("be.visible");
+        cy.dataCy("waterfall-task-status-icon-tooltip").should(
+          "contain.text",
+          "check_codegen"
+        );
+        cy.dataCy("waterfall-task-status-icon-tooltip").should(
+          "contain.text",
+          "JustAFakeTestInALonelyWorld"
+        );
+      });
+      it("clicking on a task icon should direct you to the task page", () => {
+        cy.dataCy("waterfall-task-status-icon").first().click();
+        cy.location("pathname").should("contain", "/task/");
+      });
     });
-    it("hovering on a failing task should reveal task metadata along side test results", () => {
-      cy.dataCy("waterfall-task-status-icon").should("exist");
-      cy.dataCy("waterfall-task-status-icon").should("have.length", 1);
-      cy.dataCy("waterfall-task-status-icon").should(
-        "have.attr",
-        "aria-label",
-        "failed icon"
-      );
-      cy.dataCy("waterfall-task-status-icon").first().trigger("mouseover");
-      cy.dataCy("waterfall-task-status-icon-tooltip").should("exist");
-      cy.dataCy("waterfall-task-status-icon-tooltip").should("be.visible");
-      cy.dataCy("waterfall-task-status-icon-tooltip").should(
-        "contain.text",
-        "check_codegen"
-      );
-      cy.dataCy("waterfall-task-status-icon-tooltip").should(
-        "contain.text",
-        "JustAFakeTestInALonelyWorld"
-      );
-    });
-    it("clicking on a task icon should direct you to the task page", () => {
-      cy.dataCy("waterfall-task-status-icon").first().click();
-      cy.location("pathname").should("contain", "/task/");
+
+    describe("grouped task status badges", () => {
+      before(() => {
+        cy.visit("/commits/spruce");
+        cy.dataCy("project-task-status-select").should("exist");
+        cy.dataCy("project-task-status-select").click();
+        cy.dataCy("project-task-status-select-options").should("be.visible");
+        cy.dataCy("project-task-status-select-options").within(() => {
+          cy.getInputByLabel("All").should("exist");
+          cy.getInputByLabel("All").should("not.be.checked");
+          cy.getInputByLabel("All").check({ force: true });
+        });
+        cy.dataCy("project-task-status-select").click();
+        cy.dataCy("project-task-status-select-options").should(
+          "not.be.visible"
+        );
+      });
+      it("hovering over a badge should show metadata about the task statuses", () => {
+        cy.dataCy("grouped-task-status-badge").should("exist");
+        cy.dataCy("grouped-task-status-badge").first().scrollIntoView();
+        cy.dataCy("grouped-task-status-badge").should("have.length", 5);
+        cy.dataCy("grouped-task-status-badge").first().trigger("mouseover");
+        cy.dataCy("grouped-task-status-badge-tooltip").should("exist");
+        cy.dataCy("grouped-task-status-badge-tooltip").should("be.visible");
+        cy.dataCy("grouped-task-status-badge-tooltip").should(
+          "contain.text",
+          "8 Succeeded"
+        );
+      });
+      it("should direct you to the version page with the build variant and task status filters applied", () => {
+        cy.dataCy("grouped-task-status-badge").first().click();
+        cy.location("pathname").should("contain", "/version/");
+        cy.location("search").should("contain", "statuses=success");
+        cy.location("search").should("contain", "variant=%5Eubuntu1604%24"); // %5E and %24 are the url encoded values used for strictRegex matching
+      });
     });
   });
 });
