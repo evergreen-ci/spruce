@@ -2481,6 +2481,15 @@ export type CreatePublicKeyMutation = {
   createPublicKey: Array<{ key: string; name: string }>;
 };
 
+export type DefaultSectionToRepoMutationVariables = Exact<{
+  projectId: Scalars["String"];
+  section: ProjectSettingsSection;
+}>;
+
+export type DefaultSectionToRepoMutation = {
+  defaultSectionToRepo?: Maybe<string>;
+};
+
 export type DetachProjectFromRepoMutationVariables = Exact<{
   projectId: Scalars["String"];
 }>;

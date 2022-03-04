@@ -26,7 +26,7 @@ describe("Repo Settings", () => {
   });
 
   it("Does not show a 'Default to Repo' button on page", () => {
-    cy.dataCy("default-to-repo").should("not.exist");
+    cy.dataCy("default-to-repo-button").should("not.exist");
   });
 
   it("Does not show a 'Move to New Repo' button on page", () => {
@@ -154,7 +154,7 @@ describe("Project Settings when not defaulting to repo", () => {
   });
 
   it("Does not show a 'Default to Repo' button on page", () => {
-    cy.dataCy("default-to-repo").should("not.exist");
+    cy.dataCy("default-to-repo-button").should("not.exist");
   });
 
   it("Shows two radio boxes", () => {
@@ -301,7 +301,7 @@ describe("Project Settings when defaulting to repo", () => {
   });
 
   it("Shows a 'Default to Repo' button on page", () => {
-    cy.dataCy("default-to-repo").should("exist");
+    cy.dataCy("default-to-repo-button").should("exist");
   });
 
   it("Shows a third radio box when rendering a project that inherits from repo", () => {
@@ -408,6 +408,22 @@ describe("Project Settings when defaulting to repo", () => {
     it("Clicking on save button should show a success toast", () => {
       cy.dataCy("save-settings-button").click();
       cy.validateToast("success", "Successfully updated project");
+    });
+
+    it("Defaults to repo", () => {
+      cy.dataCy("default-to-repo-button").click();
+      cy.dataCy("default-to-repo-modal").should("be.visible");
+      cy.dataCy("default-to-repo-modal")
+        .find("button")
+        .contains("Confirm")
+        .parent()
+        .click();
+      cy.validateToast("success");
+    });
+
+    it.only("Again shows the repo's disabled patch definition", () => {
+      cy.dataCy("accordion-toggle").should("exist");
+      cy.dataCy("accordion-toggle").contains("Patch Definition 1");
     });
   });
 
