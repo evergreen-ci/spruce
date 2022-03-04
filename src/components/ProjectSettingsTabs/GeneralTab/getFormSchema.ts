@@ -243,12 +243,22 @@ export const getFormSchema = (
       },
       repositoryInfo: {
         "ui:field": "repoConfigField",
-        "ui:disabled": projectType !== ProjectType.AttachedProject,
+        "ui:disabled": projectType !== ProjectType.Project,
         options: {
           projectId,
           projectType,
           repoName: repoData?.generalConfiguration?.repositoryInfo?.repo,
           repoOwner: repoData?.generalConfiguration?.repositoryInfo?.owner,
+        },
+        owner: {
+          ...placeholderIf(
+            repoData?.generalConfiguration?.repositoryInfo?.owner
+          ),
+        },
+        repo: {
+          ...placeholderIf(
+            repoData?.generalConfiguration?.repositoryInfo?.repo
+          ),
         },
       },
       branch: {
