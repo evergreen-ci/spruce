@@ -96,7 +96,7 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
       }}
       optionRenderer={(projectGroup, onClick) => (
         <ProjectOptionGroup
-          key={projectGroup.name}
+          key={projectGroup.name + projectGroup.projects.length}
           projects={projectGroup.projects}
           name={projectGroup.name}
           onClick={onClick}
