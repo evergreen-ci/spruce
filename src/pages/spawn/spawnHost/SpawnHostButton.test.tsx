@@ -8,6 +8,7 @@ import {
   GET_MY_PUBLIC_KEYS,
   GET_MY_VOLUMES,
   GET_USER,
+  GET_USER_SETTINGS,
 } from "gql/queries";
 import { renderWithRouterMatch as render, waitFor } from "test_utils";
 import { SpawnHostButton } from "./SpawnHostButton";
@@ -21,6 +22,7 @@ describe("spawnHostButton", () => {
       <MockedProvider
         mocks={[
           awsRegionsMock,
+          userSettingsMock,
           getDistrosMock,
           getMyPublicKeysMock,
           getUserMock,
@@ -43,6 +45,7 @@ describe("spawnHostButton", () => {
       <MockedProvider
         mocks={[
           awsRegionsMock,
+          userSettingsMock,
           getDistrosMock,
           getMyPublicKeysMock,
           getUserMock,
@@ -71,6 +74,16 @@ const awsRegionsMock = {
     data: {
       awsRegions: ["us-east-1", "us-west-1", "eu-west-1", "ap-southeast-2"],
     },
+  },
+};
+
+const userSettingsMock = {
+  request: {
+    query: GET_USER_SETTINGS,
+    variables: {},
+  },
+  result: {
+    data: { userSettings: { region: "eu-west-1" } },
   },
 };
 

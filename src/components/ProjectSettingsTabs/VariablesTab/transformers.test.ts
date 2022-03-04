@@ -26,10 +26,17 @@ const form: FormState = {
   vars: [
     {
       varName: "test_name",
-      varValue: "test_value",
+      varValue: "{REDACTED}",
       isPrivate: true,
       isAdminOnly: true,
       isDisabled: true,
+    },
+    {
+      varName: "test_two",
+      varValue: "val",
+      isPrivate: false,
+      isAdminOnly: false,
+      isDisabled: false,
     },
   ],
 };
@@ -39,7 +46,7 @@ const result: Pick<ProjectSettingsInput, "projectRef" | "vars"> = {
     id: "project",
   },
   vars: {
-    vars: { test_name: "test_value" },
+    vars: { test_name: "", test_two: "val" },
     privateVarsList: ["test_name"],
     adminOnlyVarsList: ["test_name"],
   },

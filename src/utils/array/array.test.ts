@@ -5,6 +5,10 @@ import {
   convertObjectToArray,
   mapStringArrayToObject,
   toArray,
+  arrayIntersection,
+  arraySymmetricDifference,
+  arraySetDifference,
+  arrayUnion,
 } from ".";
 
 describe("toggleArray", () => {
@@ -161,5 +165,146 @@ describe("toArray", () => {
   });
   it("an undefined value should be converted into an empty array", () => {
     expect(toArray(undefined)).toStrictEqual([]);
+  });
+});
+
+describe("arrayIntersection", () => {
+  it("should throw an error if an object is passed in", () => {
+    expect(() => arrayIntersection([{}], [{}])).toThrow(
+      TypeError("arrayIntersection does not support objects")
+    );
+  });
+  it("should return an empty array when the arrays are empty", () => {
+    expect(arrayIntersection([], [])).toStrictEqual([]);
+  });
+  it("should return an empty array when the first array is empty", () => {
+    expect(arrayIntersection([], ["1", "2", "3"])).toStrictEqual([]);
+  });
+  it("should return an empty array when the second array is empty", () => {
+    expect(arrayIntersection(["1", "2", "3"], [])).toStrictEqual([]);
+  });
+  it("should return an empty array when the arrays have no common elements", () => {
+    expect(arrayIntersection(["1", "2", "3"], ["4", "5", "6"])).toStrictEqual(
+      []
+    );
+  });
+  it("should return the common elements when the arrays have common elements", () => {
+    expect(arrayIntersection(["1", "2", "3"], ["3", "4", "5"])).toStrictEqual([
+      "3",
+    ]);
+    expect(
+      arrayIntersection(["1", "1", "2", "2", "3"], ["2", "3", "4"])
+    ).toStrictEqual(["2", "3"]);
+  });
+});
+
+describe("arraySymmetricDifference", () => {
+  it("should throw an error if an object is passed in", () => {
+    expect(() => arraySymmetricDifference([{}], [{}])).toThrow(
+      TypeError("arraySymmetricDifference does not support objects")
+    );
+  });
+  it("should return an empty array when the arrays are empty", () => {
+    expect(arraySymmetricDifference([], [])).toStrictEqual([]);
+  });
+  it("should return the differing values when the first array is empty", () => {
+    expect(arraySymmetricDifference([], ["1", "2", "3"])).toStrictEqual([
+      "1",
+      "2",
+      "3",
+    ]);
+  });
+  it("should return the differing values when the second array is empty", () => {
+    expect(arraySymmetricDifference(["1", "2", "3"], [])).toStrictEqual([
+      "1",
+      "2",
+      "3",
+    ]);
+  });
+  it("should return the symmetric difference when the arrays have no common elements", () => {
+    expect(
+      arraySymmetricDifference(["1", "2", "3"], ["4", "5", "6"])
+    ).toStrictEqual(["1", "2", "3", "4", "5", "6"]);
+  });
+  it("should return the symmetric difference when the arrays have common elements", () => {
+    expect(
+      arraySymmetricDifference(["1", "2", "3"], ["3", "4", "5"])
+    ).toStrictEqual(["1", "2", "4", "5"]);
+  });
+});
+
+describe("arraySetDifference", () => {
+  it("should throw an error if an object is passed in", () => {
+    expect(() => arraySetDifference([{}], [{}])).toThrow(
+      TypeError("arraySetDifference does not support objects")
+    );
+  });
+  it("should return an empty array when the arrays are empty", () => {
+    expect(arraySetDifference([], [])).toStrictEqual([]);
+  });
+  it("should return the differing values when the first array is empty", () => {
+    expect(arraySetDifference([], ["1", "2", "3"])).toStrictEqual([]);
+  });
+  it("should return the differing values when the second array is empty", () => {
+    expect(arraySetDifference(["1", "2", "3"], [])).toStrictEqual([
+      "1",
+      "2",
+      "3",
+    ]);
+  });
+  it("should return the differing values when the arrays have no common elements", () => {
+    expect(arraySetDifference(["1", "2", "3"], ["4", "5", "6"])).toStrictEqual([
+      "1",
+      "2",
+      "3",
+    ]);
+  });
+  it("should return the differing values when the arrays have common elements", () => {
+    expect(arraySetDifference(["1", "2", "3"], ["3", "4", "5"])).toStrictEqual([
+      "1",
+      "2",
+    ]);
+  });
+});
+
+describe("arrayUnion", () => {
+  it("should throw an error if an object is passed in", () => {
+    expect(() => arrayUnion([{}], [{}])).toThrow(
+      TypeError("arrayUnion does not support objects")
+    );
+  });
+  it("should return an empty array when the arrays are empty", () => {
+    expect(arrayUnion([], [])).toStrictEqual([]);
+  });
+  it("should return the union when the arrays have no common elements", () => {
+    expect(arrayUnion(["1", "2", "3"], ["4", "5", "6"])).toStrictEqual([
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+    ]);
+  });
+  it("should return the union when the arrays have common elements", () => {
+    expect(arrayUnion(["1", "2", "3"], ["3", "4", "5"])).toStrictEqual([
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+    ]);
+  });
+  it("should apply a sort when a sort function is provided", () => {
+    expect(
+      arrayUnion(["1"], ["3", "2", "5", "4"], (a, b) => a.localeCompare(b))
+    ).toStrictEqual(["1", "2", "3", "4", "5"]);
+    expect(arrayUnion([1], [3, 2, 5, 4], (a, b) => a - b)).toStrictEqual([
+      1,
+      2,
+      3,
+      4,
+      5,
+    ]);
   });
 });
