@@ -91,7 +91,7 @@ export const LogsColumn: React.FC<Props> = ({
         <Button
           size="xsmall"
           as={Link}
-          data-cy="task-history"
+          data-cy="task-history-tests-btn"
           key="task-history"
           onClick={() => {
             taskAnalytics.sendEvent({ name: "Click See History Button" });
