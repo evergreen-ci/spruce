@@ -58,7 +58,7 @@ export const CodeChanges: React.FC = () => {
         if (shouldPreserveCommits(fileDiffs)) {
           codeChanges = bucketByCommit(fileDiffs).map((commitDiffs, idx) => {
             const { description } = commitDiffs[0] ?? {};
-            const sortedFileDiffs = [...commitDiffs].sort((a, b) =>
+            const sortedFileDiffs = commitDiffs.sort((a, b) =>
               a.fileName.localeCompare(b.fileName)
             );
             return (
@@ -112,6 +112,8 @@ export const CodeChanges: React.FC = () => {
   );
 };
 
+// We can tell that the user opted to preserve commits if the description of a fileDiff is non-empty,
+// as it will contain the associated commit message.
 const shouldPreserveCommits = (fileDiffs: FileDiffsFragment[]): boolean => {
   if (fileDiffs.length && fileDiffs[0].description !== "") {
     return true;
