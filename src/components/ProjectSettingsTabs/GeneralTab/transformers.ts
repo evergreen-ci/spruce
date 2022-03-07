@@ -29,7 +29,7 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
       branch: projectRef.branch,
       other: {
         displayName: projectRef.displayName,
-        batchTime: projectRef.batchTime,
+        batchTime: projectRef.batchTime || null,
         remotePath: projectRef.remotePath,
         spawnHostScriptPath: projectRef.spawnHostScriptPath,
       },
@@ -88,7 +88,7 @@ export const formToGql: FormToGqlFunction = (
     repo: generalConfiguration.repositoryInfo.repo,
     branch: generalConfiguration.branch,
     displayName: generalConfiguration.other.displayName,
-    batchTime: generalConfiguration.other.batchTime,
+    batchTime: generalConfiguration.other.batchTime ?? 0,
     remotePath: generalConfiguration.other.remotePath,
     spawnHostScriptPath: generalConfiguration.other.spawnHostScriptPath,
     dispatchingDisabled: projectFlags.dispatchingDisabled,

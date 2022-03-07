@@ -56,9 +56,6 @@ const reducer = (state: TabState, action: Action): TabState => {
           }
         : state;
     case "updateForm":
-      if (state[action.tab].formData === action.formData) {
-        return state;
-      }
       return {
         ...state,
         [action.tab]: {

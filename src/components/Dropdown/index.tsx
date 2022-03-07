@@ -18,6 +18,7 @@ interface DropdownProps {
   children?: React.ReactNode;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  onClose?: () => void;
 }
 const Dropdown: React.FC<DropdownProps> = ({
   "data-cy": dataCy = "dropdown-button",
@@ -28,12 +29,18 @@ const Dropdown: React.FC<DropdownProps> = ({
   children,
   isOpen,
   setIsOpen,
+  onClose = () => {},
 }) => {
   const listMenuRef = useRef(null);
   const menuButtonRef = useRef(null);
 
+  const handleClickOutside = () => {
+    setIsOpen(false);
+    onClose();
+  };
+
   // Handle onClickOutside
-  useOnClickOutside([listMenuRef, menuButtonRef], () => setIsOpen(false));
+  useOnClickOutside([listMenuRef, menuButtonRef], handleClickOutside);
 
   return (
     <Container id={id}>

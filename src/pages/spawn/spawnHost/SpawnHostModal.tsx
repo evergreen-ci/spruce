@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
@@ -23,6 +23,7 @@ import {
   MyHostsQueryVariables,
   SpawnHostMutation,
   SpawnHostMutationVariables,
+  GetUserSettingsQuery,
 } from "gql/generated/types";
 import { SPAWN_HOST } from "gql/mutations";
 import {
@@ -30,6 +31,7 @@ import {
   GET_MY_PUBLIC_KEYS,
   GET_AWS_REGIONS,
   GET_MY_VOLUMES,
+  GET_USER_SETTINGS,
 } from "gql/queries";
 import { useDisableSpawnExpirationCheckbox } from "hooks";
 import { string } from "utils";
@@ -66,6 +68,12 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     AwsRegionsQuery,
     AwsRegionsQueryVariables
   >(GET_AWS_REGIONS);
+
+  // QUERY user settings to get user's preferred aws region
+  const { data: userSettingsData } = useQuery<GetUserSettingsQuery>(
+    GET_USER_SETTINGS
+  );
+  const { region: userAwsRegion } = userSettingsData?.userSettings ?? {};
 
   // QUERY public keys
   const { data: publicKeysData, loading: publicKeyLoading } = useQuery<
@@ -112,7 +120,10 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   useEffect(() => {
     dispatch({ type: "reset" });
     if (awsRegions && awsRegions.length) {
-      dispatch({ type: "editAWSRegion", region: awsRegions[0] });
+      dispatch({
+        type: "editAWSRegion",
+        region: userAwsRegion || awsRegions[0],
+      });
     }
     if (publicKeys && publicKeys.length) {
       dispatch({
@@ -132,7 +143,10 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 
   useEffect(() => {
     if (awsRegions && awsRegions.length) {
-      dispatch({ type: "editAWSRegion", region: awsRegions[0] });
+      dispatch({
+        type: "editAWSRegion",
+        region: userAwsRegion || awsRegions[0],
+      });
     }
     if (publicKeys && publicKeys.length) {
       dispatch({
@@ -141,7 +155,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
         savePublicKey: false,
       });
     }
-  }, [awsRegions, publicKeys, dispatch]);
+  }, [awsRegions, userAwsRegion, publicKeys, dispatch]);
 
   const unexpirableCountReached = useDisableSpawnExpirationCheckbox(false);
 
