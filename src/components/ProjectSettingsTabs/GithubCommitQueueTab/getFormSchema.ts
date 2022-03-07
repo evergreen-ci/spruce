@@ -245,14 +245,14 @@ export const getFormSchema = (
           githubPrAliases: {
             ...aliasRowUiSchema({
               addButtonText: "Add Patch Definition",
-              accordionTitle: "Patch Definition",
+              numberedTitle: "Patch Definition",
             }),
           },
           repoData: {
             githubPrAliases: {
               ...aliasRowUiSchema({
-                accordionTitle: "Patch Definition",
                 isRepo: true,
+                numberedTitle: "Repo Patch Definition",
               }),
             },
           },
@@ -272,12 +272,12 @@ export const getFormSchema = (
           githubCheckAliasesOverride: overrideStyling,
           githubCheckAliases: aliasRowUiSchema({
             addButtonText: "Add Definition",
-            accordionTitle: "Commit Check Definition",
+            numberedTitle: "Commit Check Definition",
           }),
           repoData: {
             githubCheckAliases: aliasRowUiSchema({
-              accordionTitle: "Commit Check Definition",
               isRepo: true,
+              numberedTitle: "Repo Commit Check Definition",
             }),
           },
         },
@@ -313,6 +313,10 @@ export const getFormSchema = (
             gitTagAliases: {
               ...gitTagArray.uiSchema,
               "ui:readonly": true,
+              items: {
+                ...gitTagArray.uiSchema.items,
+                "ui:numberedTitle": "Repo Git Tag",
+              },
             },
           },
         },
@@ -358,13 +362,13 @@ export const getFormSchema = (
           commitQueueAliases: {
             ...aliasRowUiSchema({
               addButtonText: "Add Patch Definition",
-              accordionTitle: "Patch Definition",
+              numberedTitle: "Patch Definition",
             }),
           },
           repoData: {
             commitQueueAliases: {
               ...aliasRowUiSchema({
-                accordionTitle: "Patch Definition",
+                numberedTitle: "Repo Patch Definition",
                 isRepo: true,
               }),
             },

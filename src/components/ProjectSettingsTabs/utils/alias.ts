@@ -33,8 +33,8 @@ export const aliasHasError = ({
   variants,
 }: Partial<AliasFormType>): boolean => {
   const variantTaskHasError =
-    pairHasError(tasks.task, tasks.taskTags) ||
-    pairHasError(variants.variant, variants.variantTags);
+    pairHasError(tasks?.task, tasks?.taskTags) ||
+    pairHasError(variants?.variant, variants?.variantTags);
   if (alias === AliasNames.GitTag) {
     return variantTaskHasError || !gitTag || !remotePath;
   }
@@ -166,15 +166,6 @@ export const transformAliases = (
         };
       })
     : [];
-
-type AliasRowUIParams = {
-  accordionTitle: string;
-  addButtonText?: string;
-  aliasHidden?: boolean;
-  isRepo?: boolean;
-  useAccordion?: boolean;
-  useExpandableCard?: boolean;
-};
 
 const baseProps = {
   alias: {
@@ -404,7 +395,7 @@ export const gitTagArray = {
             },
             {
               type: "string" as "string",
-              title: "Variant Tags",
+              title: "Variant/Task",
               enum: [GitTagSpecifier.VariantTask],
             },
           ],
@@ -465,11 +456,21 @@ export const aliasArray = {
   uiSchema: {},
 };
 
+type AliasRowUIParams = {
+  addButtonText?: string;
+  aliasHidden?: boolean;
+  displayTitle?: string;
+  numberedTitle?: string;
+  isRepo?: boolean;
+  useExpandableCard?: boolean;
+};
+
 export const aliasRowUiSchema = ({
-  accordionTitle = "Definition",
   addButtonText,
   aliasHidden = true,
+  displayTitle,
   isRepo = false,
+  numberedTitle,
   useExpandableCard = false,
 }: AliasRowUIParams) => ({
   "ui:showLabel": false,
@@ -479,8 +480,11 @@ export const aliasRowUiSchema = ({
   ...(addButtonText && { "ui:addButtonText": addButtonText }),
   ...(isRepo && { "ui:readonly": true }),
   items: {
-    "ui:ObjectFieldTemplate": AccordionFieldTemplate,
-    "ui:numberedTitle": accordionTitle,
+    ...(!useExpandableCard && {
+      "ui:ObjectFieldTemplate": AccordionFieldTemplate,
+    }),
+    ...(displayTitle && { "ui:displayTitle": displayTitle }),
+    ...(numberedTitle && { "ui:numberedTitle": numberedTitle }),
     "ui:useExpandableCard": useExpandableCard,
     ...(!aliasHidden && { alias: alias.uiSchema }),
     variants: variants.uiSchema,
@@ -502,14 +506,14 @@ export const patchAliasArray = {
   },
   uiSchema: aliasRowUiSchema({
     addButtonText: "Add Patch Alias",
-    accordionTitle: "New Patch Alias",
+    displayTitle: "New Patch Alias",
     aliasHidden: false,
     useExpandableCard: true,
   }),
   repoData: {
     uiSchema: aliasRowUiSchema({
-      accordionTitle: "New Patch Alias",
       aliasHidden: false,
+      displayTitle: "New Patch Alias",
       isRepo: true,
       useExpandableCard: true,
     }),

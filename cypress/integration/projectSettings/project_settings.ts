@@ -421,7 +421,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.validateToast("success");
     });
 
-    it.only("Again shows the repo's disabled patch definition", () => {
+    it("Again shows the repo's disabled patch definition", () => {
       cy.dataCy("accordion-toggle").should("exist");
       cy.dataCy("accordion-toggle").contains("Patch Definition 1");
     });
