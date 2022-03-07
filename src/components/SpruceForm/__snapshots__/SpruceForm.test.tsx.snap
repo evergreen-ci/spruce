@@ -449,11 +449,11 @@ exports[`spruceForm should render as expected 1`] = `
   flex-grow: 1;
 }
 
-.emotion-50 p {
+.emotion-46 p {
   margin: 0;
 }
 
-.emotion-50 {
+.emotion-48 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -562,7 +562,7 @@ exports[`spruceForm should render as expected 1`] = `
   z-index: 1;
 }
 
-.emotion-55 {
+.emotion-53 {
   margin-bottom: 20px;
   margin-left: 16px;
   margin-top: 20px;
@@ -736,7 +736,7 @@ exports[`spruceForm should render as expected 1`] = `
               class="emotion-6 emotion-7"
             >
               <div
-               class="emotion-20 emotion-50 emotion-49"
+               class="emotion-20"
               >
                 <label
                   class="emotion-21"
@@ -834,10 +834,10 @@ exports[`spruceForm should render as expected 1`] = `
                       class="emotion-8 emotion-9"
                     >
                       <div
-                       class="emotion-20 emotion-50 emotion-49"
+                       class="emotion-20 emotion-46 emotion-47"
                       >
                         <div
-                          class="emotion-50"
+                          class="emotion-48"
                         >
                           <div
                             class="emotion-49"
