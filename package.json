@@ -104,7 +104,7 @@
     "graphql": "15.5.0",
     "html-react-parser": "1.2.4",
     "js-cookie": "2.2.1",
-    "linkifyjs": "2.1.9",
+    "linkifyjs": "3.0.5",
     "lodash.debounce": "4.0.8",
     "lodash.every": "4.6.0",
     "lodash.get": "4.4.2",
