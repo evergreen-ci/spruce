@@ -3839,10 +3839,15 @@ export type GetTestsQueryVariables = Exact<{
   execution?: Maybe<Scalars["Int"]>;
   groupId?: Maybe<Scalars["String"]>;
   taskId: Scalars["String"];
+  pageNum?: Maybe<Scalars["Int"]>;
+  limitNum?: Maybe<Scalars["Int"]>;
+  testName?: Maybe<Scalars["String"]>;
 }>;
 
 export type GetTestsQuery = {
   taskTests: {
+    totalTestCount: number;
+    filteredTestCount: number;
     testResults: Array<{
       id: string;
       testFile: string;

@@ -1,12 +1,11 @@
-import { useEffect } from "react";
-import { useQuery, useLazyQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import Card from "@leafygreen-ui/card";
-import { H2, Subtitle, Body } from "@leafygreen-ui/typography";
+import { H2, Subtitle } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { useParams } from "react-router-dom";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
-import { StyledRouterLink, StyledLink, PageWrapper } from "components/styles";
+import { Button } from "components/Button";
+import { StyledRouterLink, PageWrapper } from "components/styles";
 import { getLobsterTestLogCompleteUrl } from "constants/externalResources";
 import { getTaskRoute } from "constants/routes";
 import { size } from "constants/tokens";
@@ -14,21 +13,22 @@ import { useToastContext } from "context/toast";
 import {
   GetDisplayTaskQuery,
   GetDisplayTaskQueryVariables,
-  GetTestsQuery,
-  GetTestsQueryVariables,
 } from "gql/generated/types";
-import { GET_DISPLAY_TASK, GET_TESTS } from "gql/queries";
+import { GET_DISPLAY_TASK } from "gql/queries";
 import { PageDoesNotExist } from "pages/404";
+import { JobLogsTable } from "pages/jobLogs/JobLogsTable";
 
 export const JobLogs = () => {
   const dispatchToast = useToastContext();
   const { sendEvent } = useJobLogsAnalytics();
+
   const { taskId, execution: execStr, groupId } = useParams<{
     taskId: string;
     execution: string;
     groupId: string;
   }>();
   const execution = parseInt(execStr, 10);
+
   const {
     data: displayTaskResult,
     loading: isLoadingDisplayTask,
@@ -43,112 +43,79 @@ export const JobLogs = () => {
         ),
     }
   );
-  const [
-    getTests,
-    { data: testsResult, loading: isLoadingTests, error: errorTests },
-  ] = useLazyQuery<GetTestsQuery, GetTestsQueryVariables>(GET_TESTS, {
-    onError: (err) =>
-      dispatchToast.error(
-        `There was an error loading test result data: ${err.message}`
-      ),
-  });
-
   const task = displayTaskResult?.task?.displayTask ?? displayTaskResult?.task;
-  useEffect(() => {
-    if (task) {
-      getTests({
-        variables: {
-          taskId: task.id,
-          execution: task.execution,
-          ...(groupId && { groupId }),
-        },
-      });
-    }
-  }, [task, groupId, getTests]);
 
-  if (errorTests || errorDisplayTask) {
+  if (errorDisplayTask) {
     return <PageDoesNotExist />;
   }
+
   const isDisplayTask = displayTaskResult?.task.executionTasks;
-  const { testResults } = testsResult?.taskTests ?? {};
-  const hasTestResults = !!testResults?.length;
-  const contents =
-    isLoadingDisplayTask || isLoadingTests ? (
-      <Skeleton paragraph={{ rows: 8 }} />
-    ) : (
-      <Row>
-        <Card>
-          <Column>
-            <H2>
-              <StyledRouterLink to={getTaskRoute(task?.id)} data-cy="task-link">
-                {task?.id}
-              </StyledRouterLink>
-            </H2>
-            <SubtitleContainer>
-              <Subtitle data-cy="execution">
-                Execution: {task?.execution}
-              </Subtitle>
-              {groupId && (
-                <Subtitle data-cy="groupId">Job Number: {groupId}</Subtitle>
-              )}
-            </SubtitleContainer>
-            {hasTestResults && !isDisplayTask ? (
+
+  return (
+    <PageWrapper>
+      <ContentWrapper>
+        {isLoadingDisplayTask ? (
+          <Skeleton paragraph={{ rows: 8 }} />
+        ) : (
+          <>
+            <TaskMetadata>
+              <H2>
+                <StyledRouterLink
+                  to={getTaskRoute(task?.id)}
+                  data-cy="task-link"
+                >
+                  {task?.id}
+                </StyledRouterLink>
+              </H2>
               <SubtitleContainer>
-                <Subtitle>
-                  <StyledLink
-                    data-cy="complete-test-logs-link"
-                    onClick={() => {
-                      sendEvent({ name: "Clicked complete logs link", taskId });
-                    }}
-                    href={getLobsterTestLogCompleteUrl({
-                      taskId,
-                      groupId,
-                      execution,
-                    })}
-                  >
-                    Complete logs for all
-                  </StyledLink>
+                <Subtitle data-cy="execution">
+                  Execution: {task?.execution}
                 </Subtitle>
+                {groupId && (
+                  <Subtitle data-cy="groupId">Job Number: {groupId}</Subtitle>
+                )}
               </SubtitleContainer>
-            ) : null}
-            {testResults?.map(({ id, logs, testFile }) => {
-              const { urlLobster, url } = logs;
-              return (
-                <StyledLink
-                  href={urlLobster || url}
-                  data-cy="testlog-link"
-                  key={id}
+            </TaskMetadata>
+
+            {!isDisplayTask ? (
+              <CompleteLogsLink>
+                <Button
+                  data-cy="complete-test-logs-link"
+                  href={getLobsterTestLogCompleteUrl({
+                    taskId,
+                    groupId,
+                    execution,
+                  })}
+                  target="_blank"
                   onClick={() => {
-                    sendEvent({
-                      name: "Clicked lobster testlog url",
-                      testId: id,
-                    });
+                    sendEvent({ name: "Clicked complete logs link", taskId });
                   }}
                 >
-                  {testFile}
-                </StyledLink>
-              );
-            })}
-            {!hasTestResults && <Body>No test results found.</Body>}
-          </Column>
-        </Card>
-      </Row>
-    );
+                  Complete logs for all tests
+                </Button>
+              </CompleteLogsLink>
+            ) : null}
 
-  return <PageWrapper>{contents}</PageWrapper>;
+            <JobLogsTable task={task} groupId={groupId} />
+          </>
+        )}
+      </ContentWrapper>
+    </PageWrapper>
+  );
 };
 
 const SubtitleContainer = styled.div`
+  margin: ${size.xs} 0 ${size.m} 0;
+`;
+const CompleteLogsLink = styled.div`
   margin-bottom: ${size.s};
 `;
-const Row = styled.div`
+const ContentWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   padding: ${size.s};
 `;
-const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: ${size.s};
+const TaskMetadata = styled.div`
   word-break: break-all;
 `;
