@@ -43,12 +43,12 @@ export const JobLogs = () => {
         ),
     }
   );
-  const task = displayTaskResult?.task?.displayTask ?? displayTaskResult?.task;
 
   if (errorDisplayTask) {
     return <PageDoesNotExist />;
   }
 
+  const task = displayTaskResult?.task?.displayTask ?? displayTaskResult?.task;
   const isDisplayTask = displayTaskResult?.task.executionTasks;
 
   return (
@@ -77,7 +77,7 @@ export const JobLogs = () => {
               </SubtitleContainer>
             </TaskMetadata>
 
-            {!isDisplayTask ? (
+            {!isDisplayTask && (
               <CompleteLogsLink>
                 <Button
                   data-cy="complete-test-logs-link"
@@ -94,7 +94,7 @@ export const JobLogs = () => {
                   Complete logs for all tests
                 </Button>
               </CompleteLogsLink>
-            ) : null}
+            )}
 
             <JobLogsTable task={task} groupId={groupId} />
           </>
