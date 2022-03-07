@@ -6,7 +6,7 @@ export const jiraLinkify = (
   unlinkified: string | React.ReactNodeArray,
   jiraHost: string
 ) =>
-  reactStringReplace(unlinkified, /([A-Z]{1,10}-\d{1,6})/gi, (match, i) => (
+  reactStringReplace(unlinkified, /([A-Z]{1,10}-\d{1,6})/g, (match, i) => (
     <StyledLink key={`${match}${i}`} href={getJiraTicketUrl(jiraHost, match)}>
       {match}
     </StyledLink>
