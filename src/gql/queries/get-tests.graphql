@@ -24,7 +24,6 @@ query GetTests(
       }
       testFile
     }
-    totalTestCount
     filteredTestCount
   }
 }

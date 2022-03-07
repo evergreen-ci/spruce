@@ -10,13 +10,7 @@ import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 
 const { gray, focus } = uiColors;
 
-interface PopoverProps {
-  "data-cy"?: string;
-}
-
-export const JobLogsPopover: React.FC<PopoverProps> = ({
-  "data-cy": dataCy,
-}) => {
+export const JobLogsPopover: React.FC = () => {
   const updateQueryParams = useUpdateURLQueryParams();
 
   const [active, setActive] = useState(false);
@@ -35,12 +29,12 @@ export const JobLogsPopover: React.FC<PopoverProps> = ({
   };
 
   return (
-    <PopoverWrapper>
+    <div>
       <IconWrapper
-        onClick={() => setActive(!active)}
-        ref={buttonRef}
-        data-cy={dataCy}
         active={active}
+        onClick={() => setActive(!active)}
+        data-cy="test-filter-popover"
+        ref={buttonRef}
       >
         <Icon glyph="MagnifyingGlass" small="xsmall" color={iconColor} />
       </IconWrapper>
@@ -58,7 +52,7 @@ export const JobLogsPopover: React.FC<PopoverProps> = ({
           />
         </PopoverContainer>
       </Popover>
-    </PopoverWrapper>
+    </div>
   );
 };
 
@@ -67,8 +61,8 @@ const PopoverContainer = styled.div`
   flex-direction: column;
   background-color: white;
   padding: ${size.s};
-  box-shadow: 0 ${size.xxs} 10px 0 ${gray.light2},
-    0 ${size.xxs} 30px ${size.xxs} ${gray.light2};
+  box-shadow: 0 ${size.xxs} ${size.xs} 0 ${gray.light2},
+    0 ${size.xxs} ${size.l} ${size.xxs} ${gray.light2};
 `;
 
 const IconWrapper = styled.div<{ active: boolean }>`
@@ -84,5 +78,3 @@ const IconWrapper = styled.div<{ active: boolean }>`
     cursor: pointer;
   }
 `;
-
-const PopoverWrapper = styled.div``;

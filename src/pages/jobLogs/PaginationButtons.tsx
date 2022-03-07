@@ -6,12 +6,12 @@ import { size } from "constants/tokens";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 
 interface PaginationButtonsProps {
-  pageCount: number;
+  numPages: number;
   currentPage: number;
 }
 
 export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
-  pageCount,
+  numPages,
   currentPage,
 }) => {
   const updateQueryParams = useUpdateURLQueryParams();
@@ -30,25 +30,23 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
         data-cy="prev-page-button"
         /* @ts-expect-error */
         onClick={handlePrevClick}
-      >
-        <Icon glyph="ChevronLeft" size="small" />
-      </StyledButton>
+        leftGlyph={<Icon glyph="ChevronLeft" size="small" />}
+      />
 
       <PageLabel>
         <Disclaimer>
-          {currentPage + 1} / {pageCount}
+          {currentPage + 1} / {numPages}
         </Disclaimer>
       </PageLabel>
 
       <StyledButton
-        disabled={currentPage === pageCount - 1}
+        disabled={currentPage === numPages - 1}
         data-cy="next-page-button"
         size="small"
         /* @ts-expect-error */
         onClick={handleNextClick}
-      >
-        <Icon glyph="ChevronRight" size="small" />
-      </StyledButton>
+        leftGlyph={<Icon glyph="ChevronRight" size="small" />}
+      />
     </Container>
   );
 };

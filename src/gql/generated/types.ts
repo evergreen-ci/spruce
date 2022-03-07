@@ -3846,7 +3846,6 @@ export type GetTestsQueryVariables = Exact<{
 
 export type GetTestsQuery = {
   taskTests: {
-    totalTestCount: number;
     filteredTestCount: number;
     testResults: Array<{
       id: string;

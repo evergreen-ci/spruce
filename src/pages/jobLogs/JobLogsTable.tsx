@@ -28,7 +28,6 @@ const { gray } = uiColors;
 enum JobLogsQueryParams {
   Category = "sortBy",
   SortDir = "sortDir",
-  Sorts = "sorts",
   Page = "page",
   Limit = "limit",
   Test = "test",
@@ -74,7 +73,7 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
     <Container>
       <PaginationWrapper>
         <PageSizeSelect limitNum={limitNum} />
-        <PaginationButtons currentPage={pageNum} pageCount={numPages} />
+        <PaginationButtons currentPage={pageNum} numPages={numPages} />
       </PaginationWrapper>
       <TableWrapper>
         <Table
@@ -133,12 +132,6 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
           )}
         </Table>
       </TableWrapper>
-      {isLoadingTests && !testResults && (
-        <NoTestResults>
-          <SpinningIcon glyph="Refresh" size="large" />
-          <Message> Loading...</Message>
-        </NoTestResults>
-      )}
       {!isLoadingTests && testResults.length === 0 && (
         <NoTestResults>
           <Icon glyph="CurlyBraces" size="large" />
@@ -202,17 +195,6 @@ const NoTestResults = styled.div`
   padding: ${size.l} 0;
   background-color: ${gray.light2};
   opacity: 50%;
-`;
-const SpinningIcon = styled(Icon)`
-  animation: spin infinite 2s linear;
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
 `;
 const Message = styled.div`
   margin-top: ${size.xs};
