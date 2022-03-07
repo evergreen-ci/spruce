@@ -736,7 +736,7 @@ exports[`spruceForm should render as expected 1`] = `
               class="emotion-6 emotion-7"
             >
               <div
-               class="emotion-20"
+                class="emotion-20"
               >
                 <label
                   class="emotion-21"
@@ -834,7 +834,7 @@ exports[`spruceForm should render as expected 1`] = `
                       class="emotion-8 emotion-9"
                     >
                       <div
-                       class="emotion-20 emotion-46 emotion-47"
+                        class="emotion-20 emotion-46 emotion-47"
                       >
                         <div
                           class="emotion-48"
