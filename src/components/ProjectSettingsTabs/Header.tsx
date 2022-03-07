@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
@@ -18,6 +19,7 @@ import {
 } from "gql/mutations";
 import { getTabTitle } from "pages/projectSettings/getTabTitle";
 import { useProjectSettingsContext } from "./Context";
+import { DefaultSectionToRepoModal } from "./DefaultSectionToRepoModal";
 import { formToGqlMap } from "./transformers";
 import { WritableTabRoutes } from "./types";
 import { ProjectType } from "./utils";
@@ -41,6 +43,8 @@ export const Header: React.FC<Props> = ({
   const { title, subtitle } = getTabTitle(tab);
   const { getTab, saveTab } = useProjectSettingsContext();
   const { formData, hasChanges, hasError } = getTab(tab);
+
+  const [defaultModalOpen, setDefaultModalOpen] = useState(false);
 
   const [saveProjectSection] = useMutation<
     SaveProjectSettingsForSectionMutation,
@@ -109,7 +113,20 @@ export const Header: React.FC<Props> = ({
           </Button>
         )}
         {projectType === ProjectType.AttachedProject && (
-          <Button data-cy="default-to-repo">Default to Repo on Page</Button>
+          <>
+            <Button
+              onClick={() => setDefaultModalOpen(true)}
+              data-cy="default-to-repo-button"
+            >
+              Default to Repo on Page
+            </Button>
+            <DefaultSectionToRepoModal
+              handleClose={() => setDefaultModalOpen(false)}
+              open={defaultModalOpen}
+              projectId={id}
+              section={mapRouteToSection[tab]}
+            />
+          </>
         )}
       </ButtonRow>
     </Container>
