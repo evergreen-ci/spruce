@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
@@ -45,7 +44,6 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
   const dispatchToast = useToastContext();
   const { sendEvent } = useJobLogsAnalytics();
 
-  const [numPages, setNumPages] = useState(0);
   const { search } = useLocation();
   const queryVariables = getQueryVariables(search, task, groupId);
   const { limitNum, pageNum } = queryVariables;
@@ -57,17 +55,13 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
     variables: queryVariables,
     fetchPolicy: "network-only",
     nextFetchPolicy: "cache-and-network",
-    onCompleted: (data) => {
-      const { filteredTestCount } = data.taskTests ?? {};
-      const newNumPages = Math.ceil(filteredTestCount / limitNum);
-      if (newNumPages !== numPages) setNumPages(newNumPages);
-    },
     onError: (err) =>
       dispatchToast.error(
         `There was an error loading test result data: ${err.message}`
       ),
   });
-  const { testResults } = testData?.taskTests ?? {};
+  const { testResults, filteredTestCount } = testData?.taskTests ?? {};
+  const numPages = Math.ceil(filteredTestCount / limitNum);
 
   return (
     <Container>
