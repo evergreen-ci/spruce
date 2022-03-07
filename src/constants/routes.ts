@@ -224,7 +224,7 @@ export const getProjectSettingsRoute = (
   tab?: ProjectSettingsTabRoutes
 ) => {
   if (!tab) {
-    return `${paths.project}/${projectId}/${PageNames.Settings}/${ProjectSettingsTabRoutes.General}`;
+    return `${paths.project}/${projectId}/${PageNames.Settings}`;
   }
 
   return `${paths.project}/${projectId}/${PageNames.Settings}/${tab}`;

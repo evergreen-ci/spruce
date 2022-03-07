@@ -43,6 +43,7 @@ export const ProjectOptionGroup: React.FC<OptionGroupProps> = ({
   isProjectSettingsPage = false,
 }) => (
   <OptionGroupContainer>
+    {/* if it's the project settings page and it's not the "" group, make the header clickable */}
     {repoIdentifier === "" || !isProjectSettingsPage ? (
       <Overline>{name} </Overline>
     ) : (
