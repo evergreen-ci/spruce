@@ -28,7 +28,7 @@ export const LogsColumn: React.FC<Props> = ({
 }) => {
   const { status, testFile } = testResult;
   const { url: urlHTML, urlRaw, urlLobster } = testResult.logs ?? {};
-  const { projectId, displayName, displayTask } = task ?? {};
+  const { projectIdentifier, displayName, displayTask } = task ?? {};
 
   const filters =
     status === TestStatus.Fail
@@ -95,7 +95,7 @@ export const LogsColumn: React.FC<Props> = ({
           onClick={() => {
             taskAnalytics.sendEvent({ name: "Click See History Button" });
           }}
-          to={getTaskHistoryRoute(projectId, displayName, filters)}
+          to={getTaskHistoryRoute(projectIdentifier, displayName, filters)}
         >
           History
         </Button>

@@ -8,6 +8,6 @@ query GetTaskForTestsTable($taskId: String!, $execution: Int) {
       execution
     }
     displayName
-    projectId
+    projectIdentifier
   }
 }

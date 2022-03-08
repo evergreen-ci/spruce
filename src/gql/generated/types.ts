@@ -3662,7 +3662,7 @@ export type GetTaskForTestsTableQuery = {
   task?: Maybe<
     {
       displayName: string;
-      projectId: string;
+      projectIdentifier?: Maybe<string>;
       displayTask?: Maybe<{ id: string; execution: number }>;
     } & BaseTaskFragment
   >;
