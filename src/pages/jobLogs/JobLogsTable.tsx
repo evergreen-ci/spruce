@@ -6,6 +6,8 @@ import { Table, TableHeader, Row, Cell } from "@leafygreen-ui/table";
 import { useLocation } from "react-router-dom";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { Button } from "components/Button";
+import { PageSizeSelector } from "components/PageSizeSelector";
+import { Pagination } from "components/Pagination";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -14,11 +16,8 @@ import {
   GetTestsQueryVariables,
 } from "gql/generated/types";
 import { GET_TESTS } from "gql/queries";
-import { JobLogsPopover } from "pages/jobLogs/JobLogsPopover";
-import { PageSizeSelect } from "pages/jobLogs/PageSizeSelect";
-import { PaginationButtons } from "pages/jobLogs/PaginationButtons";
-
 import { queryString, url } from "utils";
+import { JobLogsPopover } from "./JobLogsPopover";
 
 const { parseQueryString, getString } = queryString;
 const { getPageFromSearch, getLimitFromSearch } = url;
@@ -53,21 +52,22 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
     GetTestsQueryVariables
   >(GET_TESTS, {
     variables: queryVariables,
-    fetchPolicy: "network-only",
-    nextFetchPolicy: "cache-and-network",
+    fetchPolicy: "cache-first",
     onError: (err) =>
       dispatchToast.error(
         `There was an error loading test result data: ${err.message}`
       ),
   });
   const { testResults, filteredTestCount } = testData?.taskTests ?? {};
-  const numPages = Math.ceil(filteredTestCount / limitNum);
+  const numPages = Math.ceil(filteredTestCount / limitNum) || 0;
 
   return (
     <Container>
       <PaginationWrapper>
-        <PageSizeSelect limitNum={limitNum} />
-        <PaginationButtons currentPage={pageNum} numPages={numPages} />
+        <ButtonSpacer>
+          <PageSizeSelector value={limitNum} useLeafygreen />
+        </ButtonSpacer>
+        <Pagination value={pageNum} numPages={numPages} useLeafygreen />
       </PaginationWrapper>
       <TableWrapper>
         <Table
@@ -164,6 +164,10 @@ const PaginationWrapper = styled.div`
 `;
 const TableWrapper = styled.div`
   border-top: 3px solid ${gray.light2};
+  th:first-of-type {
+    width: 80%;
+    padding-right: ${size.xl};
+  }
 `;
 const StyledRow = styled(Row)`
   td:first-of-type {

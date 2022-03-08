@@ -1,18 +1,20 @@
-import React from "react";
-import { Select } from "antd";
+import { css } from "@emotion/react";
+import { Select, Option } from "@leafygreen-ui/select";
+import { Select as AntdSelect } from "antd";
 import { useHistory, useLocation } from "react-router-dom";
 import { PAGE_SIZES, RECENT_PAGE_SIZE_KEY } from "constants/index";
 import { queryString } from "utils";
 
 const { stringifyQuery, parseQueryString } = queryString;
 
-const { Option } = Select;
+const { Option: AntdOption } = AntdSelect;
 
 interface Props {
   value: number;
   "data-cy"?: string;
   onClick?: (i: number) => void;
   sendAnalyticsEvent?: () => void;
+  useLeafygreen?: boolean;
 }
 
 export const PageSizeSelector: React.FC<Props> = ({
@@ -20,6 +22,7 @@ export const PageSizeSelector: React.FC<Props> = ({
   "data-cy": dataCy,
   onClick,
   sendAnalyticsEvent = () => undefined,
+  useLeafygreen = false,
 }) => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
@@ -38,20 +41,38 @@ export const PageSizeSelector: React.FC<Props> = ({
       sendAnalyticsEvent();
     });
 
-  return (
+  return useLeafygreen ? (
     <Select
+      aria-labelledby="page-size-select"
+      size="small"
+      value={value.toString()}
+      onChange={(pageSize: string) => handleChange(parseInt(pageSize, 10))}
+      allowDeselect={false}
+      css={css`
+        width: 130px;
+      `}
+    >
+      {PAGE_SIZES.map((limit) => (
+        <Option
+          key={limit}
+          value={limit.toString()}
+        >{`${limit} / page`}</Option>
+      ))}
+    </Select>
+  ) : (
+    <AntdSelect
       data-cy={dataCy}
       value={value}
       style={{ width: 120 }}
       onChange={handleChange}
     >
       {PAGE_SIZES.map((limit) => (
-        <Option
+        <AntdOption
           data-cy={`${dataCy}-${limit}`}
           key={limit}
           value={limit}
-        >{`${limit} / page`}</Option>
+        >{`${limit} / page`}</AntdOption>
       ))}
-    </Select>
+    </AntdSelect>
   );
 };
