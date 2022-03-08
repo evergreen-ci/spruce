@@ -27,6 +27,7 @@ export const CodeChanges: React.FC = () => {
   >(GET_CODE_CHANGES, {
     variables: { id },
   });
+  const { moduleCodeChanges } = data?.patch ?? {};
 
   if (loading) {
     return <Skeleton active title paragraph={{ rows: 8 }} />;
@@ -34,8 +35,6 @@ export const CodeChanges: React.FC = () => {
   if (error) {
     return <div id="patch-error">{error.message}</div>;
   }
-
-  const { moduleCodeChanges } = data.patch;
   if (!moduleCodeChanges.length) {
     return <Title className="cy-no-code-changes">No code changes</Title>;
   }
@@ -58,27 +57,19 @@ export const CodeChanges: React.FC = () => {
         if (shouldPreserveCommits(fileDiffs)) {
           codeChanges = bucketByCommit(fileDiffs).map((commitDiffs, idx) => {
             const { description } = commitDiffs[0] ?? {};
-            const sortedFileDiffs = commitDiffs.sort((a, b) =>
-              a.fileName.localeCompare(b.fileName)
-            );
+            const sortedFileDiffs = sortFileDiffs(commitDiffs);
             return (
               <CodeChangeModuleContainer key={`code_change_${description}`}>
                 <CommitContainer>
                   <CommitTitle>Commit {idx + 1}</CommitTitle>
-                  {description && (
-                    <CommitMessage data-cy="commit-name">
-                      {description}
-                    </CommitMessage>
-                  )}
+                  {description && <Description>{description}</Description>}
                 </CommitContainer>
                 <CodeChangesTable fileDiffs={sortedFileDiffs} />
               </CodeChangeModuleContainer>
             );
           });
         } else {
-          const sortedFileDiffs = [...fileDiffs].sort((a, b) =>
-            a.fileName.localeCompare(b.fileName)
-          );
+          const sortedFileDiffs = sortFileDiffs(fileDiffs);
           codeChanges = <CodeChangesTable fileDiffs={sortedFileDiffs} />;
         }
 
@@ -121,6 +112,9 @@ const shouldPreserveCommits = (fileDiffs: FileDiffsFragment[]): boolean => {
   return false;
 };
 
+const sortFileDiffs = (fileDiffs: FileDiffsFragment[]): FileDiffsFragment[] =>
+  [...fileDiffs].sort((a, b) => a.fileName.localeCompare(b.fileName));
+
 // @ts-expect-error
 const StyledButton = styled(Button)`
   margin-right: ${size.s};
@@ -134,15 +128,13 @@ const Title = styled(H2)`
 
 const CommitTitle = styled(H3)`
   flex-shrink: 0;
-`;
-
-const CommitMessage = styled(Description)`
-  margin-left: ${size.s};
+  margin-right: ${size.s};
 `;
 
 const CodeChangeModuleContainer = styled.div`
   padding-bottom: ${size.l};
 `;
+
 const CommitContainer = styled.div`
   display: flex;
   align-items: flex-start;
