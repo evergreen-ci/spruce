@@ -77,10 +77,9 @@ describe("variant history", () => {
   describe("applying a test filter", () => {
     before(() => {
       cy.getInputByLabel("Filter by Failed Tests").should("exist");
-      cy.getInputByLabel("Filter by Failed Tests").type(
-        "JustAFakeTestInALonelyWorld"
-      );
-      cy.getInputByLabel("Filter by Failed Tests").type("{enter}");
+      cy.getInputByLabel("Filter by Failed Tests")
+        .type("JustAFakeTestInALonelyWorld")
+        .type("{enter}");
       cy.dataCy("filter-badge").should("exist");
       cy.dataCy("filter-badge").should("contain.text", "JustAFake");
     });

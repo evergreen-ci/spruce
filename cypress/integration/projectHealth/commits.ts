@@ -47,7 +47,7 @@ describe("commits page", () => {
     );
     cy.location("search").should("contain", "?chartType=absolute");
   });
-  it("Should be able to paginate between pages", () => {
+  it("Should be able to paginate between commits", () => {
     cy.dataCy("prev-page-button").should("be.disabled");
     cy.dataCy("next-page-button").should("not.be.disabled");
     cy.dataCy("next-page-button").click();
@@ -110,8 +110,9 @@ describe("commits page", () => {
       cy.dataCy("waterfall-task-status-icon").should("not.exist");
     });
     it("applying a build variant filter should show all task statuses by default", () => {
-      cy.getInputByLabel("Add New Build Variant Filter").type("Ubuntu");
-      cy.getInputByLabel("Add New Build Variant Filter").type("{enter}");
+      cy.getInputByLabel("Add New Build Variant Filter")
+        .type("Ubuntu")
+        .type("{enter}");
       cy.dataCy("filter-badge").should("exist");
       cy.dataCy("filter-badge").should("have.length", 1);
       cy.dataCy("filter-badge").should("have.text", "buildVariants : Ubuntu");
@@ -131,8 +132,7 @@ describe("commits page", () => {
       cy.dataCy("tuple-select-dropdown").click();
       cy.dataCy("tuple-select-option-taskNames").should("be.visible");
       cy.dataCy("tuple-select-option-taskNames").click();
-      cy.getInputByLabel("Add New Task Filter").type(".");
-      cy.getInputByLabel("Add New Task Filter").type("{enter}");
+      cy.getInputByLabel("Add New Task Filter").type(".").type("{enter}");
       cy.dataCy("grouped-task-status-badge").should("not.exist");
       cy.dataCy("waterfall-task-status-icon").should("exist");
       cy.dataCy("waterfall-task-status-icon").should("have.length", 33);
@@ -146,7 +146,6 @@ describe("commits page", () => {
         .get("[aria-label='success icon']")
         .should("exist");
       cy.dataCy("waterfall-task-status-icon")
-
         .get("[aria-label='success icon']")
         .should("have.length", 32);
     });
