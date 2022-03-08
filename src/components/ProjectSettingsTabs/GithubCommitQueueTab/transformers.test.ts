@@ -4,7 +4,7 @@ import { alias, ProjectType } from "../utils";
 import { formToGql, gqlToForm, mergeProjectRepo } from "./transformers";
 import { FormState } from "./types";
 
-const { VariantTaskSpecifier } = alias;
+const { GitTagSpecifier, VariantTaskSpecifier } = alias;
 const { projectBase, repoBase } = data;
 
 describe("repo data", () => {
@@ -74,8 +74,26 @@ const projectForm: FormState = {
       gitTagAuthorizedTeams: [],
     },
     gitTags: {
-      gitTagAliasesOverride: false,
-      gitTagAliases: [],
+      gitTagAliasesOverride: true,
+      gitTagAliases: [
+        {
+          id: "5",
+          alias: "__git_tag",
+          specifier: GitTagSpecifier.ConfigFile,
+          remotePath: "./evergreen.yml",
+          gitTag: "tagName",
+          variants: {
+            specifier: VariantTaskSpecifier.Tags,
+            variant: "",
+            variantTags: [],
+          },
+          tasks: {
+            specifier: VariantTaskSpecifier.Tags,
+            task: "",
+            taskTags: [],
+          },
+        },
+      ],
     },
   },
   commitQueue: {
@@ -132,6 +150,16 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
       taskTags: [],
       variant: ".*",
       variantTags: [],
+    },
+    {
+      id: "5",
+      alias: "__git_tag",
+      gitTag: "tagName",
+      variant: "",
+      task: "",
+      remotePath: "./evergreen.yml",
+      variantTags: [],
+      taskTags: [],
     },
     {
       id: "3",
@@ -302,8 +330,26 @@ const mergedForm: FormState = {
       },
     },
     gitTags: {
-      gitTagAliasesOverride: false,
-      gitTagAliases: [],
+      gitTagAliasesOverride: true,
+      gitTagAliases: [
+        {
+          id: "5",
+          alias: "__git_tag",
+          specifier: GitTagSpecifier.ConfigFile,
+          remotePath: "./evergreen.yml",
+          gitTag: "tagName",
+          variants: {
+            specifier: VariantTaskSpecifier.Tags,
+            variant: "",
+            variantTags: [],
+          },
+          tasks: {
+            specifier: VariantTaskSpecifier.Tags,
+            task: "",
+            taskTags: [],
+          },
+        },
+      ],
       repoData: {
         gitTagAliasesOverride: true,
         gitTagAliases: [],

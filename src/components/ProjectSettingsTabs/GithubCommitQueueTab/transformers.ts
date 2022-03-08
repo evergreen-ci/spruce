@@ -1,20 +1,13 @@
 import {
-  ProjectAlias,
   ProjectInput,
   ProjectSettingsQuery,
   RepoSettingsQuery,
 } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
-import { alias as aliasUtils, AliasFormType, ProjectType } from "../utils";
+import { alias as aliasUtils, ProjectType } from "../utils";
 import { FormState } from "./types";
 
-const {
-  AliasNames,
-  GitTagSpecifier,
-  sortAliases,
-  transformAliases,
-  VariantTaskSpecifier,
-} = aliasUtils;
+const { AliasNames, sortAliases, transformAliases } = aliasUtils;
 
 export const mergeProjectRepo = (
   projectData: FormState,
@@ -34,44 +27,6 @@ export const mergeProjectRepo = (
   mergedObject.commitQueue.patchDefinitions.repoData = patchDefinitions;
   return mergedObject;
 };
-
-const aliasesToForm = (aliases: ProjectAlias[]): AliasFormType[] =>
-  aliases.map(
-    ({
-      id,
-      alias,
-      gitTag,
-      remotePath,
-      variant,
-      variantTags,
-      task,
-      taskTags,
-    }) => ({
-      id,
-      alias,
-      gitTag,
-      remotePath,
-      ...(alias === AliasNames.GitTag && {
-        specifier: remotePath
-          ? GitTagSpecifier.ConfigFile
-          : GitTagSpecifier.VariantTask,
-      }),
-      variants: {
-        specifier: variant
-          ? VariantTaskSpecifier.Regex
-          : VariantTaskSpecifier.Tags,
-        variant,
-        variantTags,
-      },
-      tasks: {
-        specifier: task
-          ? VariantTaskSpecifier.Regex
-          : VariantTaskSpecifier.Tags,
-        task,
-        taskTags,
-      },
-    })
-  );
 
 export const gqlToForm: GqlToFormFunction<FormState> = (
   data:
@@ -99,12 +54,12 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
       prTestingEnabled: projectRef.prTestingEnabled,
       prTesting: {
         githubPrAliasesOverride: override(githubPrAliases),
-        githubPrAliases: aliasesToForm(githubPrAliases),
+        githubPrAliases,
       },
       githubChecksEnabled: projectRef.githubChecksEnabled,
       githubChecks: {
         githubCheckAliasesOverride: override(githubCheckAliases),
-        githubCheckAliases: aliasesToForm(githubCheckAliases),
+        githubCheckAliases,
       },
       gitTagVersionsEnabled: projectRef.gitTagVersionsEnabled,
       users: {
@@ -121,7 +76,7 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
       },
       gitTags: {
         gitTagAliasesOverride: override(gitTagAliases),
-        gitTagAliases: aliasesToForm(gitTagAliases),
+        gitTagAliases,
       },
     },
     commitQueue: {
@@ -131,7 +86,7 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
       mergeMethod: projectRef.commitQueue.mergeMethod,
       patchDefinitions: {
         commitQueueAliasesOverride: override(commitQueueAliases),
-        commitQueueAliases: aliasesToForm(commitQueueAliases),
+        commitQueueAliases,
       },
     },
   };

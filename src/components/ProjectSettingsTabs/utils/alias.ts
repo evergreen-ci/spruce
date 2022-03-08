@@ -19,10 +19,29 @@ export enum VariantTaskSpecifier {
   Tags = "TAGS",
 }
 
+export type AliasFormType = {
+  id: string;
+  alias: string;
+  displayTitle?: string;
+  specifier?: GitTagSpecifier;
+  gitTag: string;
+  remotePath: string;
+  variants: {
+    specifier: VariantTaskSpecifier;
+    variant: string;
+    variantTags: string[];
+  };
+  tasks: {
+    specifier: VariantTaskSpecifier;
+    task: string;
+    taskTags: string[];
+  };
+};
+
 const pairHasError = (regex: string, tags: string[]): boolean => {
   const hasInvalidTags =
     !tags || !tags?.length || tags.every((tag) => tag === "");
-  return regex === "" && hasInvalidTags;
+  return !regex && hasInvalidTags;
 };
 
 export const aliasHasError = ({
@@ -36,27 +55,62 @@ export const aliasHasError = ({
     pairHasError(tasks?.task, tasks?.taskTags) ||
     pairHasError(variants?.variant, variants?.variantTags);
   if (alias === AliasNames.GitTag) {
-    return variantTaskHasError || !gitTag || !remotePath;
+    return (variantTaskHasError && !remotePath) || !gitTag;
   }
   return variantTaskHasError;
 };
 
+const aliasToForm = ({
+  id,
+  alias,
+  gitTag,
+  remotePath,
+  variant,
+  variantTags,
+  task,
+  taskTags,
+}: ProjectAlias): AliasFormType => ({
+  id,
+  alias,
+  gitTag,
+  remotePath,
+  variants: {
+    specifier: variant ? VariantTaskSpecifier.Regex : VariantTaskSpecifier.Tags,
+    variant,
+    variantTags,
+  },
+  tasks: {
+    specifier: task ? VariantTaskSpecifier.Regex : VariantTaskSpecifier.Tags,
+    task,
+    taskTags,
+  },
+  ...(alias === AliasNames.GitTag && {
+    specifier: remotePath
+      ? GitTagSpecifier.ConfigFile
+      : GitTagSpecifier.VariantTask,
+  }),
+  ...(!Object.values(AliasNames).includes(alias as AliasNames) && {
+    displayTitle: alias,
+  }),
+});
+
 // Bucket aliases according to their "alias" field
 export const sortAliases = (
   aliases: ProjectAlias[]
-): Record<string, ProjectAlias[]> =>
+): Record<string, AliasFormType[]> =>
   aliases.reduce(
     (o, a) => {
+      const transformedAlias = aliasToForm(a);
       if (a.alias === AliasNames.GithubPr) {
-        o.githubPrAliases.push(a);
+        o.githubPrAliases.push(transformedAlias);
       } else if (a.alias === AliasNames.GithubCheck) {
-        o.githubCheckAliases.push(a);
+        o.githubCheckAliases.push(transformedAlias);
       } else if (a.alias === AliasNames.GitTag) {
-        o.gitTagAliases.push(a);
+        o.gitTagAliases.push(transformedAlias);
       } else if (a.alias === AliasNames.CommitQueue) {
-        o.commitQueueAliases.push(a);
+        o.commitQueueAliases.push(transformedAlias);
       } else {
-        o.patchAliases.push(a);
+        o.patchAliases.push(transformedAlias);
       }
       return o;
     },
@@ -69,7 +123,7 @@ export const sortAliases = (
     }
   );
 
-const tranformVariants = ({
+const transformVariants = ({
   specifier,
   variant,
   variantTags,
@@ -105,24 +159,6 @@ const transformTasks = ({
         taskTags: taskTags?.filter((tag) => tag) ?? [],
       };
 
-export type AliasFormType = {
-  id: string;
-  alias: string;
-  specifier?: GitTagSpecifier;
-  gitTag: string;
-  remotePath: string;
-  variants: {
-    specifier: VariantTaskSpecifier;
-    variant: string;
-    variantTags: string[];
-  };
-  tasks: {
-    specifier: VariantTaskSpecifier;
-    task: string;
-    taskTags: string[];
-  };
-};
-
 // Given alias form data, transform it to be safely saved
 export const transformAliases = (
   aliases: Partial<AliasFormType>[],
@@ -152,14 +188,14 @@ export const transformAliases = (
                 alias: aliasName,
                 gitTag,
                 remotePath: "",
-                ...(variants && tranformVariants(variants)),
+                ...(variants && transformVariants(variants)),
                 ...(tasks && transformTasks(tasks)),
               };
         }
         return {
           id: id || "",
           alias: alias || aliasName,
-          ...(variants && tranformVariants(variants)),
+          ...(variants && transformVariants(variants)),
           ...(tasks && transformTasks(tasks)),
           gitTag: "",
           remotePath: "",
@@ -315,6 +351,7 @@ const variants = {
   uiSchema: {
     specifier: {
       "ui:widget": widgets.SegmentedControlWidget,
+      "ui:data-cy": "variant-input-control",
     },
     variant: variant.uiSchema,
     variantTags: variantTags.uiSchema,
@@ -370,6 +407,7 @@ const tasks = {
   uiSchema: {
     specifier: {
       "ui:widget": widgets.SegmentedControlWidget,
+      "ui:data-cy": "task-input-control",
     },
     task: task.uiSchema,
     taskTags: taskTags.uiSchema,

@@ -58,10 +58,10 @@ describe("Repo Settings", () => {
     it("Updates a patch definition", () => {
       cy.dataCy("add-button").contains("Add Patch Definition").parent().click();
 
-      cy.dataCy("variant-tags-field").find("button").click();
+      cy.dataCy("add-button").contains("Add Variant Tag").parent().click();
       cy.dataCy("variant-tags-input").first().type("vtag");
 
-      cy.dataCy("task-tags-field").find("button").click();
+      cy.dataCy("add-button").contains("Add Task Tag").parent().click();
       cy.dataCy("task-tags-input").first().type("ttag");
     });
 
@@ -121,10 +121,10 @@ describe("Repo Settings", () => {
     });
 
     it("Successfully saves a complete alias", () => {
-      cy.dataCy("variant-tags-field").find("button").click();
+      cy.dataCy("add-button").contains("Add Variant Tag").parent().click();
       cy.dataCy("variant-tags-input").first().type("alias variant tag");
 
-      cy.dataCy("task-tags-field").find("button").click();
+      cy.dataCy("add-button").contains("Add Task Tag").parent().click();
       cy.dataCy("task-tags-input").first().type("alias task tag");
 
       cy.dataCy("save-settings-button").click();
@@ -348,7 +348,10 @@ describe("Project Settings when defaulting to repo", () => {
         .parent()
         .click();
       cy.dataCy("add-button").contains("Add Patch Definition").parent().click();
-      cy.get("button").contains("Regex").first().click();
+      cy.dataCy("variant-input-control")
+        .find("button")
+        .contains("Regex")
+        .click();
       cy.dataCy("variant-input").first().type(".*");
     });
 
@@ -356,16 +359,9 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("save-settings-button").should("be.disabled");
     });
 
-    it("Clears tag/regex fields when toggling between them", () => {
-      cy.get("button").contains("Tags").first().click();
-      cy.get("button").contains("Regex").first().click();
-
-      cy.dataCy("variant-input").should("have.value", "");
-    });
-
     it("Should enable save when the task and variant fields are filled in", () => {
       cy.dataCy("variant-input").first().type(".*");
-      cy.get("#task-input-control").find("button").eq(1).click();
+      cy.dataCy("task-input-control").find("button").contains("Regex").click();
       cy.dataCy("task-input").first().type(".*");
       cy.dataCy("save-settings-button").should("not.be.disabled");
     });
@@ -472,10 +468,10 @@ describe("Project Settings when defaulting to repo", () => {
 
       cy.dataCy("alias-input").type("my overriden alias name");
 
-      cy.dataCy("variant-tags-field").find("button").click();
+      cy.dataCy("add-button").contains("Add Variant Tag").parent().click();
       cy.dataCy("variant-tags-input").first().type("alias variant tag 2");
 
-      cy.dataCy("task-tags-field").find("button").click();
+      cy.dataCy("add-button").contains("Add Task Tag").parent().click();
       cy.dataCy("task-tags-input").first().type("alias task tag 2");
 
       cy.dataCy("save-settings-button").click();

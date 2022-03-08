@@ -76,6 +76,8 @@ const ArrayItem: React.FC<
   );
   return useExpandableCard ? (
     <ExpandableCard
+      defaultOpen={!disabled}
+      contentClassName="patch-alias-card-content"
       title={
         <>
           <TitleWrapper data-cy="expandable-card-title">{title}</TitleWrapper>
@@ -215,7 +217,7 @@ export const AccordionFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
   title,
   uiSchema,
 }) => {
-  const defaultOpen = uiSchema["ui:defaultOpen"] ?? false;
+  const defaultOpen = uiSchema["ui:defaultOpen"] ?? true;
   const displayTitle = uiSchema["ui:displayTitle"];
   const numberedTitle = uiSchema["ui:numberedTitle"];
   const index = getIndex(idSchema.$id);

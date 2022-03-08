@@ -308,7 +308,11 @@ export const LeafyGreenSegmentedControl: React.FC<WidgetProps> = ({
   options,
   value,
 }) => {
-  const { "aria-controls": ariaControls, enumOptions } = options;
+  const {
+    "aria-controls": ariaControls,
+    "data-cy": dataCy,
+    enumOptions,
+  } = options;
 
   if (!Array.isArray(enumOptions)) {
     console.error("Non-Array passed into Segmented Control");
@@ -320,6 +324,7 @@ export const LeafyGreenSegmentedControl: React.FC<WidgetProps> = ({
   return (
     <ElementWrapper>
       <StyledSegmentedControl
+        data-cy={dataCy}
         label={label}
         value={value}
         onChange={onChange}
