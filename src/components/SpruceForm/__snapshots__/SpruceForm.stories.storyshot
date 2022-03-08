@@ -141,10 +141,10 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
               </button>
             </div>
             <div
-              className="css-fwqti9-ArrayContainer e7smmlm1"
+              className="css-fwqti9-ArrayContainer e7smmlm2"
             >
               <div
-                className="css-11bkg7q-ArrayItemRow e7smmlm2"
+                className="css-11bkg7q-ArrayItemRow e7smmlm3"
               >
                 <div
                   className="form-group field field-object"
@@ -257,7 +257,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                   </fieldset>
                 </div>
                 <div
-                  className="css-1w3q9da-ElementWrapper-DeleteButtonWrapper e7smmlm0"
+                  className="css-1w3q9da-ElementWrapper-DeleteButtonWrapper e7smmlm1"
                 >
                   <button
                     aria-disabled={false}
