@@ -2467,6 +2467,12 @@ export type ClearMySubscriptionsMutationVariables = Exact<{
 
 export type ClearMySubscriptionsMutation = { clearMySubscriptions: number };
 
+export type CreateProjectMutationVariables = Exact<{
+  project: CreateProjectInput;
+}>;
+
+export type CreateProjectMutation = { createProject: { identifier: string } };
+
 export type CreatePublicKeyMutationVariables = Exact<{
   publicKeyInput: PublicKeyInput;
 }>;

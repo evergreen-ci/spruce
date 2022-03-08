@@ -33,6 +33,7 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
     "data-cy": dataCy,
     emptyValue,
     showErrors = true,
+    optional,
   } = options;
   const errors = getInputErrors(rawErrors);
   const hasError = !!errors?.length;
@@ -46,7 +47,7 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
   return (
     <ElementWrapper>
       <MaxWidthContainer>
-        <TextInput
+        <StyledTextInput
           data-cy={dataCy}
           value={value === null || value === undefined ? null : `${value}`}
           // @ts-expect-error
@@ -54,6 +55,7 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
           label={ariaLabelledBy ? undefined : label}
           placeholder={placeholder || undefined}
           description={description as string}
+          optional={optional as boolean}
           disabled={disabled || (readonlyAsDisabled && readonly)}
           onChange={({ target }) =>
             onChange(
@@ -299,4 +301,10 @@ export const LeafyGreenTextArea: React.FC<WidgetProps> = ({
 
 const MaxWidthContainer = styled.div`
   max-width: 400px;
+`;
+
+const StyledTextInput = styled(TextInput)`
+  p {
+    margin: 0;
+  }
 `;
