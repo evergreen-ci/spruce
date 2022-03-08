@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
 import {
   ATTACH_PROJECT_TO_REPO,
+  ATTACH_PROJECT_TO_NEW_REPO,
   DETACH_PROJECT_FROM_REPO,
 } from "gql/mutations";
 import { render, fireEvent, waitFor } from "test_utils";
@@ -22,7 +23,11 @@ const fieldProps = {
   },
 };
 
-const Field = () => (
+const Field = ({
+  projectType = ProjectType.AttachedProject,
+}: {
+  projectType?: ProjectType;
+}) => (
   <MockedProvider mocks={[attachProjectToRepoMock, detachProjectFromRepoMock]}>
     <RepoConfigField
       {...fieldProps}
@@ -31,7 +36,7 @@ const Field = () => (
           projectId: "evergreen",
           repoName: "evergreen",
           repoOwner: "evergreen-ci",
-          projectType: ProjectType.AttachedProject,
+          projectType,
         },
       }}
     />
@@ -55,28 +60,47 @@ const AttachmentModal = ({
   </MockedProvider>
 );
 
+const MoveModal = ({ open = true }: { open?: boolean }) => (
+  <MockedProvider mocks={[attachProjectToNewRepoMock]}>
+    <MoveRepoModal
+      handleClose={() => {}}
+      open={open}
+      projectId="evergreen"
+      repoName="spruce"
+      repoOwner="evergreen-ci"
+    />
+  </MockedProvider>
+);
+
 describe("repoConfigField", () => {
-  it("does not show the move repo button when not attached to repo", async () => {
-    const { queryByDataCy } = render(
-      <RepoConfigField
-        {...fieldProps}
-        uiSchema={{
-          options: { projectType: ProjectType.Project },
-        }}
-      />
+  it("only shows the attach to repo button when not attached to repo", async () => {
+    const { Component } = RenderFakeToastContext(
+      <Field projectType={ProjectType.Project} />
     );
+    const { queryByDataCy } = render(<Component />);
     expect(queryByDataCy("move-repo-button")).not.toBeInTheDocument();
+    expect(queryByDataCy("attach-repo-button")).toBeInTheDocument();
+  });
+
+  it("shows both buttons for an attached project", async () => {
+    const { Component } = RenderFakeToastContext(<Field />);
+    const { queryByDataCy } = render(<Component />);
+    expect(queryByDataCy("move-repo-button")).toBeInTheDocument();
+    expect(queryByDataCy("attach-repo-button")).toBeInTheDocument();
+  });
+
+  it("does not show either button for project type repo", async () => {
+    const { Component } = RenderFakeToastContext(
+      <Field projectType={ProjectType.Repo} />
+    );
+    const { queryByDataCy } = render(<Component />);
+    expect(queryByDataCy("move-repo-button")).not.toBeInTheDocument();
+    expect(queryByDataCy("attach-repo-button")).not.toBeInTheDocument();
   });
 
   it("clicking the button opens the modal", async () => {
-    const { queryByDataCy } = render(
-      <RepoConfigField
-        {...fieldProps}
-        uiSchema={{
-          options: { projectType: ProjectType.AttachedProject },
-        }}
-      />
-    );
+    const { Component } = RenderFakeToastContext(<Field />);
+    const { queryByDataCy } = render(<Component />);
     expect(queryByDataCy("move-repo-modal")).not.toBeInTheDocument();
 
     const moveRepoButton = queryByDataCy("move-repo-button");
@@ -86,72 +110,50 @@ describe("repoConfigField", () => {
 
   describe("moveRepoModal", () => {
     it("renders the Move Repo Modal when the open prop is true", () => {
-      const mockOnConfirm = jest.fn();
-      const mockOnCancel = jest.fn();
-      const { queryByDataCy } = render(
-        <MoveRepoModal onCancel={mockOnCancel} onConfirm={mockOnConfirm} open />
-      );
+      const { Component } = RenderFakeToastContext(<MoveModal />);
+      const { queryByDataCy } = render(<Component />);
       expect(queryByDataCy("move-repo-modal")).toBeVisible();
     });
 
     it("does not render the Move Repo Modal when the open prop is false", () => {
-      const mockOnConfirm = jest.fn();
-      const mockOnCancel = jest.fn();
-      const { queryByDataCy } = render(
-        <MoveRepoModal
-          onCancel={mockOnCancel}
-          onConfirm={mockOnConfirm}
-          open={false}
-        />
-      );
+      const { Component } = RenderFakeToastContext(<MoveModal open={false} />);
+      const { queryByDataCy } = render(<Component />);
       expect(queryByDataCy("move-repo-modal")).not.toBeInTheDocument();
     });
 
     it("disables the confirm button on initial render", () => {
-      const mockOnConfirm = jest.fn();
-      const mockOnCancel = jest.fn();
-      const { getByRole } = render(
-        <MoveRepoModal onCancel={mockOnCancel} onConfirm={mockOnConfirm} open />
-      );
+      const { Component } = RenderFakeToastContext(<MoveModal />);
+      const { getByRole } = render(<Component />);
 
-      const moveRepoButton = getByRole("button", { name: "Move Repo" });
+      const moveRepoButton = getByRole("button", { name: "Move Project" });
       expect(moveRepoButton).toHaveAttribute("disabled");
     });
 
     it("disables the confirm button when only owner field is updated", () => {
-      const mockOnConfirm = jest.fn();
-      const mockOnCancel = jest.fn();
-      const { getByRole, queryByDataCy } = render(
-        <MoveRepoModal onCancel={mockOnCancel} onConfirm={mockOnConfirm} open />
-      );
+      const { Component } = RenderFakeToastContext(<MoveModal />);
+      const { getByRole, queryByDataCy } = render(<Component />);
       userEvent.type(queryByDataCy("new-owner-input"), "new-owner-name");
 
-      const moveRepoButton = getByRole("button", { name: "Move Repo" });
+      const moveRepoButton = getByRole("button", { name: "Move Project" });
       expect(moveRepoButton).toHaveAttribute("disabled");
     });
 
     it("disables the confirm button when only repo field is updated", () => {
-      const mockOnConfirm = jest.fn();
-      const mockOnCancel = jest.fn();
-      const { getByRole, queryByDataCy } = render(
-        <MoveRepoModal onCancel={mockOnCancel} onConfirm={mockOnConfirm} open />
-      );
+      const { Component } = RenderFakeToastContext(<MoveModal />);
+      const { getByRole, queryByDataCy } = render(<Component />);
       userEvent.type(queryByDataCy("new-repo-input"), "new-repo-name");
 
-      const moveRepoButton = getByRole("button", { name: "Move Repo" });
+      const moveRepoButton = getByRole("button", { name: "Move Project" });
       expect(moveRepoButton).toHaveAttribute("disabled");
     });
 
     it("enables the confirm button when both fields are updated", () => {
-      const mockOnConfirm = jest.fn();
-      const mockOnCancel = jest.fn();
-      const { getByRole, queryByDataCy } = render(
-        <MoveRepoModal onCancel={mockOnCancel} onConfirm={mockOnConfirm} open />
-      );
+      const { Component } = RenderFakeToastContext(<MoveModal />);
+      const { getByRole, queryByDataCy } = render(<Component />);
       userEvent.type(queryByDataCy("new-owner-input"), "new-owner-name");
       userEvent.type(queryByDataCy("new-repo-input"), "new-repo-name");
 
-      const moveRepoButton = getByRole("button", { name: "Move Repo" });
+      const moveRepoButton = getByRole("button", { name: "Move Project" });
       expect(moveRepoButton).not.toHaveAttribute("disabled");
     });
   });
@@ -230,6 +232,22 @@ describe("repoConfigField", () => {
     });
   });
 });
+
+const attachProjectToNewRepoMock = {
+  request: {
+    query: ATTACH_PROJECT_TO_NEW_REPO,
+    variables: {
+      projectId: "evergreen",
+      newOwner: "evergreen-ci",
+      newRepo: "logkeeper",
+    },
+  },
+  result: {
+    data: {
+      id: "evergreen",
+    },
+  },
+};
 
 const attachProjectToRepoMock = {
   request: {

@@ -944,18 +944,16 @@ export type WorkstationSetupCommandInput = {
 
 export type PatchTriggerAliasInput = {
   alias: Scalars["String"];
-  childProjectId: Scalars["String"];
   childProjectIdentifier: Scalars["String"];
-  taskSpecifiers?: Maybe<Array<Maybe<TaskSpecifierInput>>>;
+  taskSpecifiers: Array<TaskSpecifierInput>;
   status?: Maybe<Scalars["String"]>;
   parentAsModule?: Maybe<Scalars["String"]>;
-  variantsTasks: Array<Maybe<VariantTaskInput>>;
 };
 
 export type TaskSpecifierInput = {
-  patchAlias: Scalars["String"];
-  taskRegex: Scalars["String"];
-  variantRegex: Scalars["String"];
+  patchAlias?: Maybe<Scalars["String"]>;
+  taskRegex?: Maybe<Scalars["String"]>;
+  variantRegex?: Maybe<Scalars["String"]>;
 };
 
 export type ProjectVarsInput = {
@@ -2445,6 +2443,14 @@ export type AddFavoriteProjectMutation = {
     displayName: string;
     isFavorite: boolean;
   };
+};
+
+export type AttachProjectToNewRepoMutationVariables = Exact<{
+  project: MoveProjectInput;
+}>;
+
+export type AttachProjectToNewRepoMutation = {
+  attachProjectToNewRepo: { id: string };
 };
 
 export type AttachProjectToRepoMutationVariables = Exact<{
