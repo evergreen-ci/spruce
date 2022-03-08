@@ -18,22 +18,23 @@ export const useFilterInputChangeHandler = ({
   sendAnalyticsEvent = () => undefined,
 }: FilterHookParams): FilterHookResult<string> => {
   const { search } = useLocation();
+  const { [urlParam]: rawValue } = parseQueryString(search);
+  const urlValue = (rawValue || "").toString();
+
   const updateQueryParams = useUpdateURLQueryParams();
   const updateQueryParamWithDebounce = useMemo(
     () => debounce(updateQueryParams, 250),
     [updateQueryParams]
   );
-  const { [urlParam]: rawValue } = parseQueryString(search);
-  const urlValue = (rawValue || "").toString();
 
   const [inputValue, setInputValue] = useState(urlValue);
+  const page = resetPage && { page: "0" };
+
   useEffect(() => {
     if (!urlValue && inputValue) {
       setInputValue("");
     }
   }, [urlValue]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const page = resetPage && { page: "0" };
 
   const updateUrl = (newValue: string) => {
     updateQueryParams({
@@ -51,7 +52,10 @@ export const useFilterInputChangeHandler = ({
     sendAnalyticsEvent(urlParam);
   };
 
-  const submitInputValue = () => updateUrl(inputValue);
+  const submitInputValue = () => {
+    updateUrl(inputValue);
+    sendAnalyticsEvent(urlParam);
+  };
 
   const reset = () => {
     setInputValue("");
