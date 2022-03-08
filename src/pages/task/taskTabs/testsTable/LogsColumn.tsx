@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Analytics } from "analytics/addPageAction";
 import { getTaskHistoryRoute } from "constants/routes";
 import { size } from "constants/tokens";
-import { TestResult } from "gql/generated/types";
+import { TestResult, GetTaskForTestsTableQuery } from "gql/generated/types";
 import { TestStatus } from "types/test";
 import { string } from "utils";
 import { isBeta } from "utils/environmentalVariables";
@@ -18,10 +18,7 @@ interface Props {
     | { name: "Click See History Button" }
   >;
   testResult: TestResult;
-  task: {
-    name: string;
-    projectIdentifier: string;
-  };
+  task: GetTaskForTestsTableQuery["task"];
 }
 
 export const LogsColumn: React.FC<Props> = ({
@@ -31,14 +28,16 @@ export const LogsColumn: React.FC<Props> = ({
 }) => {
   const { status, testFile } = testResult;
   const { url: urlHTML, urlRaw, urlLobster } = testResult.logs ?? {};
-  const { projectIdentifier, name } = task ?? {};
+  const { projectId, displayName, displayTask } = task ?? {};
 
-  let filters;
-  if (status === TestStatus.Fail) {
-    filters = {
-      failingTests: [escapeRegex(testFile)],
-    };
-  }
+  const filters =
+    status === TestStatus.Fail
+      ? {
+          failingTests: [escapeRegex(testFile)],
+        }
+      : null;
+
+  const isExecutionTask = displayTask !== null;
   return (
     <ButtonWrapper>
       {urlLobster && (
@@ -87,7 +86,7 @@ export const LogsColumn: React.FC<Props> = ({
           Raw
         </Button>
       )}
-      {isBeta() && filters && (
+      {isBeta() && filters && !isExecutionTask && (
         <Button
           size="xsmall"
           as={Link}
@@ -96,7 +95,7 @@ export const LogsColumn: React.FC<Props> = ({
           onClick={() => {
             taskAnalytics.sendEvent({ name: "Click See History Button" });
           }}
-          to={getTaskHistoryRoute(projectIdentifier, name, filters)}
+          to={getTaskHistoryRoute(projectId, displayName, filters)}
         >
           History
         </Button>
