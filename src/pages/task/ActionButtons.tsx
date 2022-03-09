@@ -47,6 +47,7 @@ interface Props {
   canUnschedule: boolean;
   canSetPriority: boolean;
   canOverrideDependencies: boolean;
+  isExecutionTask: boolean;
   taskName: string;
   projectIdentifier: string;
 }
@@ -61,6 +62,7 @@ export const ActionButtons: React.FC<Props> = ({
   canOverrideDependencies,
   projectIdentifier,
   taskName,
+  isExecutionTask,
 }) => {
   const dispatchToast = useToastContext();
   const [isVisibleModal, setIsVisibleModal] = useState(false);
@@ -259,7 +261,7 @@ export const ActionButtons: React.FC<Props> = ({
     <>
       <PageButtonRow>
         {isBeta() && <PreviousCommits taskId={taskId} />}
-        {isBeta() && (
+        {isBeta() && !isExecutionTask && (
           <Button
             size="small"
             as={Link}
