@@ -8,7 +8,7 @@ import {
   GetTaskStatusesQueryVariables,
 } from "gql/generated/types";
 import { GET_TASK_STATUSES } from "gql/queries";
-import { useNetworkStatus } from "hooks";
+import { usePollForQueries } from "hooks";
 import { getCurrentStatuses } from "utils/statuses";
 
 interface UseTaskStatusesProps {
@@ -28,7 +28,7 @@ export const useTaskStatuses = ({
     GetTaskStatusesQueryVariables
   >(GET_TASK_STATUSES, { variables: { id: versionId }, pollInterval });
 
-  useNetworkStatus(startPolling, stopPolling);
+  usePollForQueries(startPolling, stopPolling);
 
   const { version } = data || {};
   const { taskStatuses, baseTaskStatuses } = version || {};

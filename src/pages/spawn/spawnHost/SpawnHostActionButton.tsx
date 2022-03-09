@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useMutation, useLazyQuery } from "@apollo/client";
 import { Size } from "@leafygreen-ui/button";
 import { useSpawnAnalytics } from "analytics";
@@ -15,7 +15,7 @@ import {
 } from "gql/generated/types";
 import { UPDATE_SPAWN_HOST_STATUS } from "gql/mutations";
 import { GET_MY_HOSTS } from "gql/queries";
-import { useNetworkStatus } from "hooks";
+import { usePollForQueries } from "hooks";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 
@@ -40,7 +40,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
       );
     },
   });
-  useNetworkStatus(startPolling, stopPolling);
+  usePollForQueries(startPolling, stopPolling);
   // Stop polling when we get updated host data
   useEffect(() => {
     if (stopPolling) {

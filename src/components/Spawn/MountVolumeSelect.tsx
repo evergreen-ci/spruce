@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { Select } from "antd";
 import { ModalContent } from "components/Spawn";
@@ -7,7 +7,7 @@ import { pollInterval } from "constants/index";
 import { useToastContext } from "context/toast";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { GET_MY_HOSTS } from "gql/queries";
-import { useNetworkStatus } from "hooks/useNetworkStatus";
+import { usePollForQueries } from "hooks";
 import { HostStatus } from "types/host";
 
 const { Option } = Select;
@@ -42,7 +42,7 @@ export const MountVolumeSelect = ({
       dispatchToast.error(`There was an error loading hosts: ${e.message}`);
     },
   });
-  useNetworkStatus(startPolling, stopPolling);
+  usePollForQueries(startPolling, stopPolling);
 
   // set host dropdown options
   useEffect(() => {

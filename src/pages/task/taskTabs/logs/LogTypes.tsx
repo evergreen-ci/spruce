@@ -1,4 +1,3 @@
-import React from "react";
 import { useQuery, ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -32,7 +31,7 @@ import {
   GET_TASK_LOGS,
   GET_ALL_LOGS,
 } from "gql/queries";
-import { useNetworkStatus, useUpdateURLQueryParams } from "hooks";
+import { usePollForQueries, useUpdateURLQueryParams } from "hooks";
 import { RequiredQueryParams, LogTypes, QueryParams } from "types/task";
 import { queryString } from "utils";
 import { LogMessageLine } from "./logTypes/LogMessageLine";
@@ -68,7 +67,7 @@ export const AllLog: React.FC<Props> = (props): JSX.Element => {
     variables: { id, execution: selectedExecution },
     pollInterval,
   });
-  useNetworkStatus(startPolling, stopPolling);
+  usePollForQueries(startPolling, stopPolling);
 
   // All logs includes task, system, and agent logs. Event logs are not included.
   return useRenderBody({
@@ -91,7 +90,8 @@ export const EventLog: React.FC<Props> = (props): JSX.Element => {
     variables: { id, execution: selectedExecution },
     pollInterval,
   });
-  useNetworkStatus(startPolling, stopPolling);
+  usePollForQueries(startPolling, stopPolling);
+
   return useRenderBody({
     data: get(data, "taskLogs.eventLogs", []).map((v: TaskEventLogEntry) => ({
       ...v,
@@ -116,7 +116,7 @@ export const SystemLog: React.FC<Props> = (props): JSX.Element => {
     variables: { id, execution: selectedExecution },
     pollInterval,
   });
-  useNetworkStatus(startPolling, stopPolling);
+  usePollForQueries(startPolling, stopPolling);
 
   return useRenderBody({
     data: get(data, "taskLogs.systemLogs", []),
@@ -138,7 +138,7 @@ export const AgentLog: React.FC<Props> = (props): JSX.Element => {
     variables: { id, execution: selectedExecution },
     pollInterval,
   });
-  useNetworkStatus(startPolling, stopPolling);
+  usePollForQueries(startPolling, stopPolling);
 
   return useRenderBody({
     data: get(data, "taskLogs.agentLogs", []),
@@ -160,7 +160,7 @@ export const TaskLog: React.FC<Props> = (props): JSX.Element => {
     variables: { id, execution: selectedExecution },
     pollInterval,
   });
-  useNetworkStatus(startPolling, stopPolling);
+  usePollForQueries(startPolling, stopPolling);
 
   return useRenderBody({
     data: get(data, "taskLogs.taskLogs", []),

@@ -13,7 +13,7 @@ import {
   ProjectPatchesQueryVariables,
 } from "gql/generated/types";
 import { GET_PROJECT_PATCHES } from "gql/queries";
-import { useNetworkStatus, useUpdateURLQueryParams } from "hooks";
+import { usePollForQueries, useUpdateURLQueryParams } from "hooks";
 import { PatchPageQueryParams } from "types/patch";
 import { queryString } from "utils";
 
@@ -57,7 +57,7 @@ export const ProjectPatches = () => {
       );
     },
   });
-  useNetworkStatus(startPolling, stopPolling);
+  usePollForQueries(startPolling, stopPolling);
   const { displayName, patches } = data?.project ?? {};
   return (
     <PatchesPage

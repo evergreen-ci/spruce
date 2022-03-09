@@ -7,6 +7,8 @@ export { useVersionTaskStatusSelect } from "hooks/useVersionTaskStatusSelect";
 export { useLegacyUIURL } from "hooks/useLegacyUIURL";
 export { usePageTitle } from "hooks/usePageTitle";
 export { useNetworkStatus } from "hooks/useNetworkStatus";
+export { usePageVisibility } from "hooks/usePageVisibility";
+export { usePollForQueries } from "hooks/usePollForQueries";
 export { useStatusesFilter } from "hooks/useStatusesFilter";
 export {
   useTableInputFilter,

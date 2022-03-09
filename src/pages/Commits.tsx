@@ -19,7 +19,11 @@ import {
   MainlineCommitsQueryVariables,
 } from "gql/generated/types";
 import { GET_MAINLINE_COMMITS, GET_SPRUCE_CONFIG } from "gql/queries";
-import { usePageTitle, useNetworkStatus, useUpdateURLQueryParams } from "hooks";
+import {
+  usePageTitle,
+  usePollForQueries,
+  useUpdateURLQueryParams,
+} from "hooks";
 import {
   ChartToggleQueryParams,
   ChartTypes,
@@ -117,7 +121,7 @@ export const Commits = () => {
     onError: (e) =>
       dispatchToast.error(`There was an error loading the page: ${e.message}`),
   });
-  useNetworkStatus(startPolling, stopPolling);
+  usePollForQueries(startPolling, stopPolling);
 
   const { mainlineCommits } = data || {};
   const { versions, nextPageOrderNumber, prevPageOrderNumber } =

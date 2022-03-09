@@ -1,4 +1,3 @@
-import React from "react";
 import { useQuery } from "@apollo/client";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
@@ -13,7 +12,7 @@ import { pollInterval } from "constants/index";
 import { useToastContext } from "context/toast";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { GET_MY_HOSTS } from "gql/queries";
-import { useNetworkStatus, usePageTitle } from "hooks";
+import { usePollForQueries, usePageTitle } from "hooks";
 import { SpawnHostButton, SpawnHostTable } from "pages/spawn/spawnHost/index";
 import { HostStatus } from "types/host";
 
@@ -31,7 +30,7 @@ export const SpawnHost = () => {
       );
     },
   });
-  useNetworkStatus(startPolling, stopPolling);
+  usePollForQueries(startPolling, stopPolling);
 
   usePageTitle("My Hosts");
 
