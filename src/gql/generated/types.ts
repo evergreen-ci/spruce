@@ -944,16 +944,18 @@ export type WorkstationSetupCommandInput = {
 
 export type PatchTriggerAliasInput = {
   alias: Scalars["String"];
+  childProjectId: Scalars["String"];
   childProjectIdentifier: Scalars["String"];
-  taskSpecifiers: Array<TaskSpecifierInput>;
+  taskSpecifiers?: Maybe<Array<Maybe<TaskSpecifierInput>>>;
   status?: Maybe<Scalars["String"]>;
   parentAsModule?: Maybe<Scalars["String"]>;
+  variantsTasks: Array<Maybe<VariantTaskInput>>;
 };
 
 export type TaskSpecifierInput = {
-  patchAlias?: Maybe<Scalars["String"]>;
-  taskRegex?: Maybe<Scalars["String"]>;
-  variantRegex?: Maybe<Scalars["String"]>;
+  patchAlias: Scalars["String"];
+  taskRegex: Scalars["String"];
+  variantRegex: Scalars["String"];
 };
 
 export type ProjectVarsInput = {
