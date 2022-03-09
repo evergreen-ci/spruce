@@ -18,7 +18,7 @@ describe("Navigating to Spawn Volume page", () => {
       cy.dataCy("update-volume-modal").should("be.visible");
     });
 
-    it.skip("Volume name & expiration inputs should be populated with the volume display name & expiration on initial render", () => {
+    it("Volume name & expiration inputs should be populated with the volume display name & expiration on initial render", () => {
       cy.dataCy("volume-name-input").should(
         "have.value",
         "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
