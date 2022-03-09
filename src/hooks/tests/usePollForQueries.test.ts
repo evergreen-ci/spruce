@@ -88,7 +88,7 @@ describe("usePollForQueries", () => {
       expect(result.current).toBe("stopped");
     });
 
-    it("usePollForQueries should only call stopPolling once if user first stops viewing document, then goes offline", () => {
+    it("usePollForQueries should only call stopPolling once if first user stops viewing document, then goes offline", () => {
       const startPolling = jest.fn();
       const stopPolling = jest.fn();
 

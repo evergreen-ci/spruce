@@ -18,7 +18,7 @@ export const usePollForQueries: usePollForQueriesType = (
   const isOffline = useNetworkStatus();
   const visibility = usePageVisibility();
 
-  // If online and polling, stop polling.
+  // If offline and polling, stop polling.
   if (isOffline && pollState === "started") {
     setPollState("stopped");
     stopPolling();
