@@ -18,7 +18,7 @@ describe("usePollForQueries", () => {
     );
     expect(startPolling).toHaveBeenCalledTimes(0);
     expect(stopPolling).toHaveBeenCalledTimes(0);
-    expect(result.current).toBe("started");
+    expect(result.current).toBe(true);
   });
 
   describe("stopPolling", () => {
@@ -29,14 +29,14 @@ describe("usePollForQueries", () => {
       const { result } = renderHook(() =>
         usePollForQueries(startPolling, stopPolling)
       );
-      expect(result.current).toBe("started");
+      expect(result.current).toBe(true);
 
       act(() => {
         fireEvent(window, new Event("offline"));
       });
       expect(startPolling).toHaveBeenCalledTimes(0);
       expect(stopPolling).toHaveBeenCalledTimes(1);
-      expect(result.current).toBe("stopped");
+      expect(result.current).toBe(false);
     });
 
     it("usePollForQueries should stop polling when user is not viewing document", () => {
@@ -46,7 +46,7 @@ describe("usePollForQueries", () => {
       const { result } = renderHook(() =>
         usePollForQueries(startPolling, stopPolling)
       );
-      expect(result.current).toBe("started");
+      expect(result.current).toBe(true);
 
       act(() => {
         Object.defineProperty(document, "visibilityState", {
@@ -56,7 +56,7 @@ describe("usePollForQueries", () => {
       });
       expect(startPolling).toHaveBeenCalledTimes(0);
       expect(stopPolling).toHaveBeenCalledTimes(1);
-      expect(result.current).toBe("stopped");
+      expect(result.current).toBe(false);
     });
 
     it("usePollForQueries should only call stopPolling once if first user goes offline, then stops viewing document", () => {
@@ -66,7 +66,7 @@ describe("usePollForQueries", () => {
       const { result } = renderHook(() =>
         usePollForQueries(startPolling, stopPolling)
       );
-      expect(result.current).toBe("started");
+      expect(result.current).toBe(true);
 
       // go offline
       act(() => {
@@ -74,7 +74,7 @@ describe("usePollForQueries", () => {
       });
       expect(startPolling).toHaveBeenCalledTimes(0);
       expect(stopPolling).toHaveBeenCalledTimes(1);
-      expect(result.current).toBe("stopped");
+      expect(result.current).toBe(false);
 
       // document hidden
       act(() => {
@@ -85,7 +85,7 @@ describe("usePollForQueries", () => {
       });
       expect(startPolling).toHaveBeenCalledTimes(0);
       expect(stopPolling).toHaveBeenCalledTimes(1);
-      expect(result.current).toBe("stopped");
+      expect(result.current).toBe(false);
     });
 
     it("usePollForQueries should only call stopPolling once if first user stops viewing document, then goes offline", () => {
@@ -95,7 +95,7 @@ describe("usePollForQueries", () => {
       const { result } = renderHook(() =>
         usePollForQueries(startPolling, stopPolling)
       );
-      expect(result.current).toBe("started");
+      expect(result.current).toBe(true);
 
       // document hidden
       act(() => {
@@ -106,7 +106,7 @@ describe("usePollForQueries", () => {
       });
       expect(startPolling).toHaveBeenCalledTimes(0);
       expect(stopPolling).toHaveBeenCalledTimes(1);
-      expect(result.current).toBe("stopped");
+      expect(result.current).toBe(false);
 
       // go offline
       act(() => {
@@ -114,7 +114,7 @@ describe("usePollForQueries", () => {
       });
       expect(startPolling).toHaveBeenCalledTimes(0);
       expect(stopPolling).toHaveBeenCalledTimes(1);
-      expect(result.current).toBe("stopped");
+      expect(result.current).toBe(false);
     });
   });
 
@@ -126,7 +126,7 @@ describe("usePollForQueries", () => {
       const { result } = renderHook(() =>
         usePollForQueries(startPolling, stopPolling)
       );
-      expect(result.current).toBe("started");
+      expect(result.current).toBe(true);
 
       // go offline
       act(() => {
@@ -134,7 +134,7 @@ describe("usePollForQueries", () => {
       });
       expect(startPolling).toHaveBeenCalledTimes(0);
       expect(stopPolling).toHaveBeenCalledTimes(1);
-      expect(result.current).toBe("stopped");
+      expect(result.current).toBe(false);
 
       // document hidden
       act(() => {
@@ -145,7 +145,7 @@ describe("usePollForQueries", () => {
       });
       expect(startPolling).toHaveBeenCalledTimes(0);
       expect(stopPolling).toHaveBeenCalledTimes(1);
-      expect(result.current).toBe("stopped");
+      expect(result.current).toBe(false);
 
       // go online - should not start polling because document is still hidden
       act(() => {
@@ -153,7 +153,7 @@ describe("usePollForQueries", () => {
       });
       expect(startPolling).toHaveBeenCalledTimes(0);
       expect(stopPolling).toHaveBeenCalledTimes(1);
-      expect(result.current).toBe("stopped");
+      expect(result.current).toBe(false);
 
       // document visible - start polling
       act(() => {
@@ -164,7 +164,7 @@ describe("usePollForQueries", () => {
       });
       expect(startPolling).toHaveBeenCalledTimes(1);
       expect(stopPolling).toHaveBeenCalledTimes(1);
-      expect(result.current).toBe("started");
+      expect(result.current).toBe(true);
     });
   });
 });

@@ -6,9 +6,9 @@ import { useNetworkStatus } from "hooks";
 
 const { yellow } = uiColors;
 export const ConnectivityBanner = () => {
-  const isOffline = useNetworkStatus();
+  const isOnline = useNetworkStatus();
   return (
-    isOffline && (
+    !isOnline && (
       <Banner>
         <IconWithMargin glyph="InfoWithCircle" /> You are Offline
       </Banner>

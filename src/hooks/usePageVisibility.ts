@@ -2,14 +2,18 @@ import { useEffect, useState } from "react";
 
 /**
  * This hook sets a eventListener to monitor if the tab is visible (being viewed by the user).
- * @returns string - one of "visible" or "hidden"
+ * @returns boolean - true if visible, false if hidden
  */
 export const usePageVisibility = () => {
-  const [visibility, setVisibility] = useState("visible");
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
-      setVisibility(document.visibilityState);
+      if (document.visibilityState === "visible") {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
     };
     document.addEventListener("visibilitychange", handleVisibilityChange);
     return () => {
@@ -17,5 +21,5 @@ export const usePageVisibility = () => {
     };
   }, []);
 
-  return visibility;
+  return isVisible;
 };
