@@ -83,7 +83,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   if (host.noExpiration && host.distro?.isVirtualWorkStation) {
     checkboxLabel = `${copyPrefix} a workstation and unexpirable.`;
   } else if (host.noExpiration) {
-    checkboxLabel = `${copyPrefix} is unexpirable.`;
+    checkboxLabel = `${copyPrefix} unexpirable.`;
   } else if (host.distro?.isVirtualWorkStation) {
     checkboxLabel = `${copyPrefix} a virtual workstation.`;
   }
