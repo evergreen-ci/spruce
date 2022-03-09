@@ -13,6 +13,12 @@ import {
 import { GET_PROJECTS, GET_VIEWABLE_PROJECTS } from "gql/queries";
 import { ProjectOptionGroup } from "./ProjectOptionGroup";
 
+type project = {
+  displayName: string;
+  identifier: string;
+  repoRefId: string;
+  isFavorite: boolean;
+};
 interface ProjectSelectProps {
   selectedProjectIdentifier: string;
   isProjectSettingsPage?: boolean;
@@ -96,12 +102,12 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
       }}
       optionRenderer={(projectGroup, onClick) => (
         <ProjectOptionGroup
-          key={projectGroup.name + projectGroup.projects.length}
+          key={projectGroup.name}
           projects={projectGroup.projects}
           name={projectGroup.name}
           onClick={onClick}
           repoIdentifier={getRepoIdentifier(projectGroup.projects)}
-          isProjectSettingsPage={isProjectSettingsPage}
+          canClickOnRepoGroup={isProjectSettingsPage}
         />
       )}
       searchFunc={handleSearch}
@@ -112,14 +118,17 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   );
 };
 
-export const getRepoIdentifier = (projects) => {
+export const getRepoIdentifier = (projects: project[]) => {
   if (!projects || projects.length === 0) {
     return "";
   }
   return projects[0].repoRefId;
 };
 
-export const getProjects = (nonFilteredProjects, filteredProjects) => {
+export const getProjects = (
+  nonFilteredProjects: GetProjectsQuery,
+  filteredProjects: GetViewableProjectRefsQuery
+) => {
   const { projects } = nonFilteredProjects || { projects: [] };
   const { viewableProjectRefs } = filteredProjects || {
     viewableProjectRefs: [],

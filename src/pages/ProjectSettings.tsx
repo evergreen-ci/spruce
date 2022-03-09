@@ -112,14 +112,18 @@ export const ProjectSettings: React.FC = () => {
     ? projectType === ProjectType.Project || repoData
     : repoData;
 
-  const repoDisplay = `${repoData?.repoSettings?.projectRef?.owner}/${repoData?.repoSettings?.projectRef?.repo}`;
+  const { repoSettings } = repoData || {};
+  const { projectRef } = repoSettings || {};
+  const { owner, repo } = projectRef || {};
+
+  const repoDisplay = owner && repo ? `${owner}/${repo}` : identifier;
 
   return (
     <ProjectSettingsProvider>
       <SideNav aria-label="Project Settings">
         <DropdownContainer>
           <ProjectSelect
-            selectedProjectIdentifier={repoDisplay || identifier}
+            selectedProjectIdentifier={repoDisplay}
             getRoute={getProjectSettingsRoute}
             isProjectSettingsPage
           />

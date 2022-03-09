@@ -27,7 +27,7 @@ const ProjectOption: React.FC<OptionProps> = ({
 interface OptionGroupProps {
   name: string;
   repoIdentifier?: string;
-  isProjectSettingsPage?: boolean;
+  canClickOnRepoGroup?: boolean;
   projects: {
     displayName: string;
     identifier: string;
@@ -40,15 +40,17 @@ export const ProjectOptionGroup: React.FC<OptionGroupProps> = ({
   projects,
   onClick,
   repoIdentifier,
-  isProjectSettingsPage = false,
+  canClickOnRepoGroup = false,
 }) => (
   <OptionGroupContainer>
     {/* if it's the project settings page and it's not the "" group, make the header clickable */}
-    {repoIdentifier === "" || !isProjectSettingsPage ? (
+    {repoIdentifier === "" || !canClickOnRepoGroup ? (
       <Overline>{name} </Overline>
     ) : (
       <OverlineHover>
-        <Overline onClick={() => onClick(repoIdentifier)}>{name} </Overline>
+        <Overline role="button" onClick={() => onClick(repoIdentifier)}>
+          {name}
+        </Overline>
       </OverlineHover>
     )}
 
