@@ -73,7 +73,7 @@ const MoveModal = ({ open = true }: { open?: boolean }) => (
 );
 
 describe("repoConfigField", () => {
-  it("only shows the attach to repo button when not attached to repo", async () => {
+  it("only shows the attach to repo button when not attached to repo", () => {
     const { Component } = RenderFakeToastContext(
       <Field projectType={ProjectType.Project} />
     );
@@ -82,14 +82,14 @@ describe("repoConfigField", () => {
     expect(queryByDataCy("attach-repo-button")).toBeInTheDocument();
   });
 
-  it("shows both buttons for an attached project", async () => {
+  it("shows both buttons for an attached project", () => {
     const { Component } = RenderFakeToastContext(<Field />);
     const { queryByDataCy } = render(<Component />);
     expect(queryByDataCy("move-repo-button")).toBeInTheDocument();
     expect(queryByDataCy("attach-repo-button")).toBeInTheDocument();
   });
 
-  it("does not show either button for project type repo", async () => {
+  it("does not show either button for project type repo", () => {
     const { Component } = RenderFakeToastContext(
       <Field projectType={ProjectType.Repo} />
     );
