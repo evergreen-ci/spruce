@@ -3661,6 +3661,21 @@ export type TaskFilesQuery = {
   };
 };
 
+export type GetTaskForTestsTableQueryVariables = Exact<{
+  taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type GetTaskForTestsTableQuery = {
+  task?: Maybe<
+    {
+      displayName: string;
+      projectIdentifier?: Maybe<string>;
+      displayTask?: Maybe<{ id: string; execution: number }>;
+    } & BaseTaskFragment
+  >;
+};
+
 export type TaskLogsQueryVariables = Exact<{
   id: Scalars["String"];
   execution?: Maybe<Scalars["Int"]>;
