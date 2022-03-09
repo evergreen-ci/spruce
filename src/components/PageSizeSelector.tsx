@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import { Select, Option } from "@leafygreen-ui/select";
 import { Select as AntdSelect } from "antd";
 import { useHistory, useLocation } from "react-router-dom";
@@ -42,15 +42,12 @@ export const PageSizeSelector: React.FC<Props> = ({
     });
 
   return useLeafygreen ? (
-    <Select
+    <StyledSelect
       aria-labelledby="page-size-select"
       size="small"
       value={value.toString()}
       onChange={(pageSize: string) => handleChange(parseInt(pageSize, 10))}
       allowDeselect={false}
-      css={css`
-        width: 130px;
-      `}
     >
       {PAGE_SIZES.map((limit) => (
         <Option
@@ -58,7 +55,7 @@ export const PageSizeSelector: React.FC<Props> = ({
           value={limit.toString()}
         >{`${limit} / page`}</Option>
       ))}
-    </Select>
+    </StyledSelect>
   ) : (
     <AntdSelect
       data-cy={dataCy}
@@ -76,3 +73,8 @@ export const PageSizeSelector: React.FC<Props> = ({
     </AntdSelect>
   );
 };
+
+// @ts-expect-error
+const StyledSelect = styled(Select)`
+  width: 120px;
+`;

@@ -8,6 +8,7 @@ import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { Button } from "components/Button";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
+import { TableFilterPopover } from "components/TableFilterPopover";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -16,8 +17,8 @@ import {
   GetTestsQueryVariables,
 } from "gql/generated/types";
 import { GET_TESTS } from "gql/queries";
+import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { queryString, url } from "utils";
-import { JobLogsPopover } from "./JobLogsPopover";
 
 const { parseQueryString, getString } = queryString;
 const { getPageFromSearch, getLimitFromSearch } = url;
@@ -44,6 +45,7 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
   const { sendEvent } = useJobLogsAnalytics();
 
   const { search } = useLocation();
+  const updateQueryParams = useUpdateURLQueryParams();
   const queryVariables = getQueryVariables(search, task, groupId);
   const { limitNum, pageNum } = queryVariables;
 
@@ -78,7 +80,14 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
               label={
                 <LabelWrapper>
                   Test Name
-                  <JobLogsPopover data-cy="test-filter-popover" />
+                  <TableFilterPopover
+                    onConfirm={(filter: string) =>
+                      updateQueryParams({
+                        test: filter || undefined,
+                        page: `${0}`,
+                      })
+                    }
+                  />
                 </LabelWrapper>
               }
             />,

@@ -6,13 +6,16 @@ import Popover from "@leafygreen-ui/popover";
 import TextInput from "@leafygreen-ui/text-input";
 import { size } from "constants/tokens";
 import { useOnClickOutside } from "hooks";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 
 const { gray, focus } = uiColors;
 
-export const JobLogsPopover: React.FC = () => {
-  const updateQueryParams = useUpdateURLQueryParams();
+interface TableFilterPopoverProps {
+  onConfirm: (filter: string) => void;
+}
 
+export const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
+  onConfirm,
+}) => {
   const [active, setActive] = useState(false);
   const [filter, setFilter] = useState("");
   const iconColor = filter === "" ? gray.dark2 : focus;
@@ -24,7 +27,7 @@ export const JobLogsPopover: React.FC = () => {
   useOnClickOutside([buttonRef, popoverRef], () => setActive(false));
 
   const closePopup = () => {
-    updateQueryParams({ test: filter || undefined, page: `${0}` });
+    onConfirm(filter);
     setActive(false);
   };
 
@@ -73,8 +76,5 @@ const IconWrapper = styled.div<{ active: boolean }>`
   border-radius: 50%;
   background-color: ${({ active }) => (active ? gray.light2 : "white")};
   transition: background-color 0.3s ease-in-out;
-
-  :hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
