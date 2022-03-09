@@ -107,7 +107,10 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
           name={projectGroup.name}
           onClick={onClick}
           repoIdentifier={getRepoIdentifier(projectGroup.projects)}
-          canClickOnRepoGroup={isProjectSettingsPage}
+          canClickOnRepoGroup={
+            isProjectSettingsPage &&
+            getRepoIdentifier(projectGroup.projects) !== ""
+          }
         />
       )}
       searchFunc={handleSearch}
