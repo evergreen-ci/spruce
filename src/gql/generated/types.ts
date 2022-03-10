@@ -2467,6 +2467,12 @@ export type ClearMySubscriptionsMutationVariables = Exact<{
 
 export type ClearMySubscriptionsMutation = { clearMySubscriptions: number };
 
+export type CreateProjectMutationVariables = Exact<{
+  project: CreateProjectInput;
+}>;
+
+export type CreateProjectMutation = { createProject: { identifier: string } };
+
 export type CreatePublicKeyMutationVariables = Exact<{
   publicKeyInput: PublicKeyInput;
 }>;
@@ -3645,6 +3651,21 @@ export type TaskFilesQuery = {
       files?: Maybe<Array<{ name: string; link: string }>>;
     }>;
   };
+};
+
+export type GetTaskForTestsTableQueryVariables = Exact<{
+  taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type GetTaskForTestsTableQuery = {
+  task?: Maybe<
+    {
+      displayName: string;
+      projectIdentifier?: Maybe<string>;
+      displayTask?: Maybe<{ id: string; execution: number }>;
+    } & BaseTaskFragment
+  >;
 };
 
 export type TaskLogsQueryVariables = Exact<{

@@ -1,11 +1,8 @@
-import React from "react";
-import styled from "@emotion/styled";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { FileDiffText } from "components/CodeChangesBadge";
 import { StyledLink } from "components/styles";
 import { WordBreak } from "components/Typography";
-import { size } from "constants/tokens";
 import { FileDiffsFragment } from "gql/generated/types";
 
 interface CodeChangesTableProps {
@@ -16,7 +13,7 @@ export const CodeChangesTable: React.FC<CodeChangesTableProps> = ({
   fileDiffs,
   showHeader = true,
 }) => (
-  <StyledTable
+  <Table
     data-cy="code-changes-table"
     rowKey={rowKey}
     columns={columns(showHeader)}
@@ -34,6 +31,7 @@ const columns: (
 ) => Array<ColumnProps<FileDiffsFragment>> = (showHeader: boolean) => [
   {
     title: <span data-cy="file-column">File</span>,
+    width: "60%",
     dataIndex: "fileName",
     key: "fileName",
     render: (text: string, record: FileDiffsFragment): JSX.Element => (
@@ -66,7 +64,3 @@ const columns: (
     ),
   },
 ];
-
-const StyledTable = styled(Table)`
-  margin-top: ${size.s};
-`;
