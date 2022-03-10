@@ -11,6 +11,7 @@ import HistoryTable, {
 import { HistoryTableTestSearch } from "components/HistoryTable/HistoryTableTestSearch/HistoryTableTestSearch";
 import { PageWrapper } from "components/styles";
 import { size } from "constants/tokens";
+import { useToastContext } from "context/toast";
 import {
   MainlineCommitsForHistoryQuery,
   MainlineCommitsForHistoryQueryVariables,
@@ -38,7 +39,7 @@ const TaskHistoryContents: React.FC = () => {
     projectId: string;
     taskName: string;
   }>();
-
+  const dispatchToast = useToastContext();
   usePageTitle(`Task History | ${projectId} | ${taskName}`);
   const [nextPageOrderNumber, setNextPageOrderNumber] = useState(null);
   const variables = {
@@ -67,6 +68,11 @@ const TaskHistoryContents: React.FC = () => {
     variables: {
       projectId,
       taskName,
+    },
+    onCompleted: ({ buildVariantsForTaskName }) => {
+      if (!buildVariantsForTaskName) {
+        dispatchToast.error(`No build variants found for task ${taskName}`);
+      }
     },
   });
 
