@@ -45,7 +45,10 @@ export const BuildVariantCard: React.FC<Props> = ({
   );
   return (
     <Container>
-      <Label to={getVariantHistoryRoute(projectIdentifier, variant)}>
+      <Label
+        data-cy="variant-header"
+        to={getVariantHistoryRoute(projectIdentifier, variant)}
+      >
         {buildVariantDisplayName}
       </Label>
       {render}
