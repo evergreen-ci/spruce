@@ -42,7 +42,7 @@ export const convertArrayToObject = <T = { [key: string]: any }>(
   key: keyof T
 ): { [key: string]: T } => {
   const initialValue = {};
-  if (array === undefined) {
+  if (!Array.isArray(array)) {
     return initialValue;
   }
   return array.reduce((obj, item) => {
@@ -84,7 +84,7 @@ export const mapStringArrayToObject = <T>(
   array: string[],
   v: T
 ): { [key: string]: T } => {
-  if (array === undefined) {
+  if (!Array.isArray(array)) {
     return {};
   }
   return array.reduce((prev, curr) => {
@@ -101,7 +101,7 @@ export const toArray = <T>(value: T | T[]): T[] => {
   if (Array.isArray(value)) {
     return value;
   }
-  return value === undefined ? [] : [value];
+  return value === undefined || value === null ? [] : [value];
 };
 
 /** arrayIntersection takes in two arrays and returns the intersecting elements of the two arrays

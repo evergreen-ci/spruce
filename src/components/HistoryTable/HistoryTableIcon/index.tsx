@@ -36,7 +36,7 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
         trigger={children}
         triggerEvent="hover"
       >
-        <TestNameContainer>
+        <TestNameContainer data-cy="test-tooltip">
           {failingTests.map((testName) => (
             <TestName key={testName}>{testName}</TestName>
           ))}
@@ -45,7 +45,12 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
       </Tooltip>
     )}
   >
-    <Container onClick={() => onClick()} data-cy="history-table-icon">
+    <Container
+      onClick={() => onClick()}
+      data-cy="history-table-icon"
+      data-status={status}
+      aria-disabled={inactive}
+    >
       <IconContainer>
         <TaskStatusIcon status={status} size={30} />
       </IconContainer>

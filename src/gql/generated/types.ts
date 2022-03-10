@@ -944,12 +944,10 @@ export type WorkstationSetupCommandInput = {
 
 export type PatchTriggerAliasInput = {
   alias: Scalars["String"];
-  childProjectId: Scalars["String"];
   childProjectIdentifier: Scalars["String"];
-  taskSpecifiers?: Maybe<Array<Maybe<TaskSpecifierInput>>>;
+  taskSpecifiers: Array<TaskSpecifierInput>;
   status?: Maybe<Scalars["String"]>;
   parentAsModule?: Maybe<Scalars["String"]>;
-  variantsTasks: Array<Maybe<VariantTaskInput>>;
 };
 
 export type TaskSpecifierInput = {
@@ -1167,8 +1165,6 @@ export type ChildPatchAlias = {
 
 export type PatchTriggerAlias = {
   alias: Scalars["String"];
-  /** @deprecated Field no longer supported */
-  childProject?: Maybe<Scalars["String"]>;
   childProjectId: Scalars["String"];
   childProjectIdentifier: Scalars["String"];
   taskSpecifiers?: Maybe<Array<Maybe<TaskSpecifier>>>;
@@ -1472,6 +1468,11 @@ export type GroupedProjects = {
   name: Scalars["String"];
   repo?: Maybe<RepoRef>;
   projects: Array<Project>;
+};
+
+export type Permissions = {
+  userId: Scalars["String"];
+  canCreateProject: Scalars["Boolean"];
 };
 
 export type GithubProjectConflicts = {
@@ -1792,6 +1793,7 @@ export type User = {
   userId: Scalars["String"];
   emailAddress: Scalars["String"];
   patches: Patches;
+  permissions: Permissions;
 };
 
 export type UserPatchesArgs = {
@@ -2465,6 +2467,14 @@ export type AddFavoriteProjectMutation = {
     displayName: string;
     isFavorite: boolean;
   };
+};
+
+export type AttachProjectToNewRepoMutationVariables = Exact<{
+  project: MoveProjectInput;
+}>;
+
+export type AttachProjectToNewRepoMutation = {
+  attachProjectToNewRepo: { repoRefId: string };
 };
 
 export type AttachProjectToRepoMutationVariables = Exact<{
@@ -3671,6 +3681,21 @@ export type TaskFilesQuery = {
       files?: Maybe<Array<{ name: string; link: string }>>;
     }>;
   };
+};
+
+export type GetTaskForTestsTableQueryVariables = Exact<{
+  taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type GetTaskForTestsTableQuery = {
+  task?: Maybe<
+    {
+      displayName: string;
+      projectIdentifier?: Maybe<string>;
+      displayTask?: Maybe<{ id: string; execution: number }>;
+    } & BaseTaskFragment
+  >;
 };
 
 export type TaskLogsQueryVariables = Exact<{
