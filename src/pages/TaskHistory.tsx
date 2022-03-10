@@ -24,12 +24,13 @@ import {
 } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { TestStatus } from "types/history";
-import { array, string } from "utils";
+import { array, string, errorReporting } from "utils";
 import { parseQueryString } from "utils/queryString";
 import { BuildVariantSelector } from "./taskHistory/BuildVariantSelector";
 import ColumnHeaders from "./taskHistory/ColumnHeaders";
 import TaskHistoryRow from "./taskHistory/TaskHistoryRow";
 
+const { reportError } = errorReporting;
 const { applyStrictRegex } = string;
 const { toArray } = array;
 const { HistoryTableProvider, useHistoryTable } = context;
@@ -71,7 +72,10 @@ const TaskHistoryContents: React.FC = () => {
     },
     onCompleted: ({ buildVariantsForTaskName }) => {
       if (!buildVariantsForTaskName) {
-        dispatchToast.error(`No build variants found for task ${taskName}`);
+        reportError(
+          new Error("No build variants found for task name")
+        ).severe();
+        dispatchToast.error(`No build variants found for task: ${taskName}`);
       }
     },
   });
