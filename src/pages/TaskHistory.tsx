@@ -11,6 +11,7 @@ import HistoryTable, {
 import { HistoryTableTestSearch } from "components/HistoryTable/HistoryTableTestSearch/HistoryTableTestSearch";
 import { PageWrapper } from "components/styles";
 import { size } from "constants/tokens";
+import { useToastContext } from "context/toast";
 import {
   MainlineCommitsForHistoryQuery,
   MainlineCommitsForHistoryQueryVariables,
@@ -23,12 +24,13 @@ import {
 } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { TestStatus } from "types/history";
-import { array, string } from "utils";
+import { array, string, errorReporting } from "utils";
 import { parseQueryString } from "utils/queryString";
 import { BuildVariantSelector } from "./taskHistory/BuildVariantSelector";
 import ColumnHeaders from "./taskHistory/ColumnHeaders";
 import TaskHistoryRow from "./taskHistory/TaskHistoryRow";
 
+const { reportError } = errorReporting;
 const { applyStrictRegex } = string;
 const { toArray } = array;
 const { HistoryTableProvider, useHistoryTable } = context;
@@ -38,7 +40,7 @@ const TaskHistoryContents: React.FC = () => {
     projectId: string;
     taskName: string;
   }>();
-
+  const dispatchToast = useToastContext();
   usePageTitle(`Task History | ${projectId} | ${taskName}`);
   const [nextPageOrderNumber, setNextPageOrderNumber] = useState(null);
   const variables = {
@@ -67,6 +69,14 @@ const TaskHistoryContents: React.FC = () => {
     variables: {
       projectId,
       taskName,
+    },
+    onCompleted: ({ buildVariantsForTaskName }) => {
+      if (!buildVariantsForTaskName) {
+        reportError(
+          new Error("No build variants found for task name")
+        ).severe();
+        dispatchToast.error(`No build variants found for task: ${taskName}`);
+      }
     },
   });
 
