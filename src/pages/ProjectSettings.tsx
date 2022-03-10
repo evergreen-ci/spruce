@@ -4,6 +4,7 @@ import { Skeleton } from "antd";
 import { useParams, Link, Redirect } from "react-router-dom";
 import { ProjectSelect } from "components/projectSelect";
 import { ProjectSettingsProvider } from "components/ProjectSettingsTabs/Context";
+import { CreateProjectModal } from "components/ProjectSettingsTabs/CreateProjectModal";
 import { ProjectType } from "components/ProjectSettingsTabs/utils";
 import {
   SideNav,
@@ -108,6 +109,11 @@ export const ProjectSettings: React.FC = () => {
     currentTab: tab,
   };
 
+  const project =
+    projectData !== null
+      ? projectData?.projectSettings
+      : repoData?.repoSettings;
+
   const hasData = projectData
     ? projectType === ProjectType.Project || repoData
     : repoData;
@@ -128,6 +134,11 @@ export const ProjectSettings: React.FC = () => {
             isProjectSettingsPage
           />
         </DropdownContainer>
+        <SideNavGroup header="Project" />
+        <CreateProjectModal
+          owner={project?.projectRef?.owner}
+          repo={project?.projectRef?.repo}
+        />
         <SideNavGroup>
           <ProjectSettingsNavItem
             {...sharedProps}

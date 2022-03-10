@@ -938,18 +938,16 @@ export type WorkstationConfigInput = {
 };
 
 export type WorkstationSetupCommandInput = {
-  Command: Scalars["String"];
-  Directory?: Maybe<Scalars["String"]>;
+  command: Scalars["String"];
+  directory?: Maybe<Scalars["String"]>;
 };
 
 export type PatchTriggerAliasInput = {
   alias: Scalars["String"];
-  childProjectId: Scalars["String"];
   childProjectIdentifier: Scalars["String"];
-  taskSpecifiers?: Maybe<Array<Maybe<TaskSpecifierInput>>>;
+  taskSpecifiers: Array<TaskSpecifierInput>;
   status?: Maybe<Scalars["String"]>;
   parentAsModule?: Maybe<Scalars["String"]>;
-  variantsTasks: Array<Maybe<VariantTaskInput>>;
 };
 
 export type TaskSpecifierInput = {
@@ -1167,8 +1165,6 @@ export type ChildPatchAlias = {
 
 export type PatchTriggerAlias = {
   alias: Scalars["String"];
-  /** @deprecated Field no longer supported */
-  childProject?: Maybe<Scalars["String"]>;
   childProjectId: Scalars["String"];
   childProjectIdentifier: Scalars["String"];
   taskSpecifiers?: Maybe<Array<Maybe<TaskSpecifier>>>;
@@ -1771,8 +1767,8 @@ export type RepoWorkstationConfig = {
 };
 
 export type WorkstationSetupCommand = {
-  Command: Scalars["String"];
-  Directory: Scalars["String"];
+  command: Scalars["String"];
+  directory: Scalars["String"];
 };
 
 export type TaskSpecifier = {
@@ -2466,6 +2462,12 @@ export type ClearMySubscriptionsMutationVariables = Exact<{
 }>;
 
 export type ClearMySubscriptionsMutation = { clearMySubscriptions: number };
+
+export type CreateProjectMutationVariables = Exact<{
+  project: CreateProjectInput;
+}>;
+
+export type CreateProjectMutation = { createProject: { identifier: string } };
 
 export type CreatePublicKeyMutationVariables = Exact<{
   publicKeyInput: PublicKeyInput;
@@ -3645,6 +3647,21 @@ export type TaskFilesQuery = {
       files?: Maybe<Array<{ name: string; link: string }>>;
     }>;
   };
+};
+
+export type GetTaskForTestsTableQueryVariables = Exact<{
+  taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type GetTaskForTestsTableQuery = {
+  task?: Maybe<
+    {
+      displayName: string;
+      projectIdentifier?: Maybe<string>;
+      displayTask?: Maybe<{ id: string; execution: number }>;
+    } & BaseTaskFragment
+  >;
 };
 
 export type TaskLogsQueryVariables = Exact<{

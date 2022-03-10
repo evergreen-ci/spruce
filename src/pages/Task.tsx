@@ -69,6 +69,7 @@ export const Task: React.FC = () => {
     requester,
     canOverrideDependencies,
     project,
+    displayTask,
   } = task ?? {};
   const attributed = annotation?.issues?.length > 0;
 
@@ -119,6 +120,7 @@ export const Task: React.FC = () => {
             canOverrideDependencies={canOverrideDependencies}
             taskName={displayName}
             projectIdentifier={project?.identifier}
+            isExecutionTask={!!displayTask}
           />
         }
       />

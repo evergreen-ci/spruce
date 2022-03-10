@@ -4,6 +4,7 @@ import ADD_FAVORITE_PROJECT from "./add-favorite-project.graphql";
 import ATTACH_PROJECT_TO_REPO from "./attach-project-to-repo.graphql";
 import ATTACH_VOLUME from "./attach-volume.graphql";
 import CLEAR_MY_SUBSCRIPTIONS from "./clear-my-subscriptions.graphql";
+import CREATE_PROJECT from "./create-project.graphql";
 import CREATE_PUBLIC_KEY from "./create-public-key.graphql";
 import DEFAULT_SECTION_TO_REPO from "./default-section-to-repo.graphql";
 import DETACH_PROJECT_FROM_REPO from "./detach-project-from-repo.graphql";
@@ -49,6 +50,7 @@ export {
   ATTACH_PROJECT_TO_REPO,
   ATTACH_VOLUME,
   CLEAR_MY_SUBSCRIPTIONS,
+  CREATE_PROJECT,
   CREATE_PUBLIC_KEY,
   DEFAULT_SECTION_TO_REPO,
   DETACH_PROJECT_FROM_REPO,

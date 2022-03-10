@@ -71,24 +71,19 @@ const generateBuildVariantOptionsForTaskIconsFromState = (
   state: CommitsPageReducerState
 ): MainlineCommitsQueryVariables["buildVariantOptions"] => {
   const { filterState } = state;
-  const { hasTasks, hasFilters, hasStatuses } = getFilterStatus(filterState);
+  const { hasTasks, hasStatuses } = getFilterStatus(filterState);
 
   let shouldShowTaskIcons = true;
   let statusesToShow = [];
-  if (hasFilters) {
-    if (hasTasks) {
-      statusesToShow = filterState.statuses;
-    } else if (hasStatuses) {
-      const onlyHasNonFailingStatuses =
-        arrayIntersection(filterState.statuses, FAILED_STATUSES).length === 0;
-      if (onlyHasNonFailingStatuses) {
-        shouldShowTaskIcons = false;
-      } else {
-        statusesToShow = arrayIntersection(
-          filterState.statuses,
-          FAILED_STATUSES
-        );
-      }
+  if (hasTasks) {
+    statusesToShow = filterState.statuses;
+  } else if (hasStatuses) {
+    const onlyHasNonFailingStatuses =
+      arrayIntersection(filterState.statuses, FAILED_STATUSES).length === 0;
+    if (onlyHasNonFailingStatuses) {
+      shouldShowTaskIcons = false;
+    } else {
+      statusesToShow = arrayIntersection(filterState.statuses, FAILED_STATUSES);
     }
   } else {
     statusesToShow = FAILED_STATUSES;
