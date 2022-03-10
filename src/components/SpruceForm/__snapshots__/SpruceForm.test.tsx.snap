@@ -440,6 +440,9 @@ exports[`spruceForm should render as expected 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  margin-bottom: 24px;
+  margin: 0 -24px;
+  padding: 24px;
 }
 
 .emotion-39 .field-object {
