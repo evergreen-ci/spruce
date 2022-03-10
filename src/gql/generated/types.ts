@@ -933,7 +933,7 @@ export type WebhookInput = {
 };
 
 export type WorkstationConfigInput = {
-  setupCommands?: Maybe<Array<Maybe<WorkstationSetupCommandInput>>>;
+  setupCommands?: Maybe<Array<WorkstationSetupCommandInput>>;
   gitClone?: Maybe<Scalars["Boolean"]>;
 };
 
