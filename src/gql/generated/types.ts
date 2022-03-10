@@ -1470,6 +1470,11 @@ export type GroupedProjects = {
   projects: Array<Project>;
 };
 
+export type Permissions = {
+  userId: Scalars["String"];
+  canCreateProject: Scalars["Boolean"];
+};
+
 export type GithubProjectConflicts = {
   commitQueueIdentifiers?: Maybe<Array<Scalars["String"]>>;
   prTestingIdentifiers?: Maybe<Array<Scalars["String"]>>;
@@ -1788,6 +1793,7 @@ export type User = {
   userId: Scalars["String"];
   emailAddress: Scalars["String"];
   patches: Patches;
+  permissions: Permissions;
 };
 
 export type UserPatchesArgs = {
