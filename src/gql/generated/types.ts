@@ -2449,6 +2449,14 @@ export type AddFavoriteProjectMutation = {
   };
 };
 
+export type AttachProjectToNewRepoMutationVariables = Exact<{
+  project: MoveProjectInput;
+}>;
+
+export type AttachProjectToNewRepoMutation = {
+  attachProjectToNewRepo: { repoRefId: string };
+};
+
 export type AttachProjectToRepoMutationVariables = Exact<{
   projectId: Scalars["String"];
 }>;
