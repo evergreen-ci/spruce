@@ -1,8 +1,8 @@
 import { fireEvent } from "@testing-library/react";
 import { renderHook, act } from "@testing-library/react-hooks";
-import { usePollForQueries } from "hooks";
+import { usePolling } from "hooks";
 
-describe("usePollForQueries", () => {
+describe("usePolling", () => {
   beforeEach(() => {
     Object.defineProperty(document, "visibilityState", {
       value: "visible",
@@ -10,24 +10,22 @@ describe("usePollForQueries", () => {
     });
   });
 
-  it("usePollForQueries should not call the functions when initialized", () => {
+  it("usePolling should not call the functions when initialized", () => {
     const startPolling = jest.fn();
     const stopPolling = jest.fn();
-    const { result } = renderHook(() =>
-      usePollForQueries(startPolling, stopPolling)
-    );
+    const { result } = renderHook(() => usePolling(startPolling, stopPolling));
     expect(startPolling).toHaveBeenCalledTimes(0);
     expect(stopPolling).toHaveBeenCalledTimes(0);
     expect(result.current).toBe(true);
   });
 
   describe("stopPolling", () => {
-    it("usePollForQueries should stop polling when user's browser is offline", () => {
+    it("usePolling should stop polling when user's browser is offline", () => {
       const startPolling = jest.fn();
       const stopPolling = jest.fn();
 
       const { result } = renderHook(() =>
-        usePollForQueries(startPolling, stopPolling)
+        usePolling(startPolling, stopPolling)
       );
       expect(result.current).toBe(true);
 
@@ -39,12 +37,12 @@ describe("usePollForQueries", () => {
       expect(result.current).toBe(false);
     });
 
-    it("usePollForQueries should stop polling when user is not viewing document", () => {
+    it("usePolling should stop polling when user is not viewing document", () => {
       const startPolling = jest.fn();
       const stopPolling = jest.fn();
 
       const { result } = renderHook(() =>
-        usePollForQueries(startPolling, stopPolling)
+        usePolling(startPolling, stopPolling)
       );
       expect(result.current).toBe(true);
 
@@ -59,12 +57,12 @@ describe("usePollForQueries", () => {
       expect(result.current).toBe(false);
     });
 
-    it("usePollForQueries should only call stopPolling once if first user goes offline, then stops viewing document", () => {
+    it("usePolling should only call stopPolling once if first user goes offline, then stops viewing document", () => {
       const startPolling = jest.fn();
       const stopPolling = jest.fn();
 
       const { result } = renderHook(() =>
-        usePollForQueries(startPolling, stopPolling)
+        usePolling(startPolling, stopPolling)
       );
       expect(result.current).toBe(true);
 
@@ -88,12 +86,12 @@ describe("usePollForQueries", () => {
       expect(result.current).toBe(false);
     });
 
-    it("usePollForQueries should only call stopPolling once if first user stops viewing document, then goes offline", () => {
+    it("usePolling should only call stopPolling once if first user stops viewing document, then goes offline", () => {
       const startPolling = jest.fn();
       const stopPolling = jest.fn();
 
       const { result } = renderHook(() =>
-        usePollForQueries(startPolling, stopPolling)
+        usePolling(startPolling, stopPolling)
       );
       expect(result.current).toBe(true);
 
@@ -119,12 +117,12 @@ describe("usePollForQueries", () => {
   });
 
   describe("startPolling", () => {
-    it("usePollForQueries should only restart polling when the browser is online AND document is visible", () => {
+    it("usePolling should only restart polling when the browser is online AND document is visible", () => {
       const startPolling = jest.fn();
       const stopPolling = jest.fn();
 
       const { result } = renderHook(() =>
-        usePollForQueries(startPolling, stopPolling)
+        usePolling(startPolling, stopPolling)
       );
       expect(result.current).toBe(true);
 

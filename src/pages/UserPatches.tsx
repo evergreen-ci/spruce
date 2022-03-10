@@ -14,7 +14,7 @@ import {
 } from "gql/generated/types";
 import { GET_USER_PATCHES } from "gql/queries";
 import {
-  usePollForQueries,
+  usePolling,
   useGetUserPatchesPageTitleAndLink,
   useUpdateURLQueryParams,
 } from "hooks";
@@ -60,7 +60,7 @@ export const UserPatches = () => {
       dispatchToast.error(`Error while fetching user patches: ${err.message}`);
     },
   });
-  usePollForQueries(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling);
   const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId);
   return (
     <PatchesPage

@@ -12,7 +12,7 @@ import { pollInterval } from "constants/index";
 import { useToastContext } from "context/toast";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { GET_MY_HOSTS } from "gql/queries";
-import { usePollForQueries, usePageTitle } from "hooks";
+import { usePolling, usePageTitle } from "hooks";
 import { SpawnHostButton, SpawnHostTable } from "pages/spawn/spawnHost/index";
 import { HostStatus } from "types/host";
 
@@ -30,7 +30,7 @@ export const SpawnHost = () => {
       );
     },
   });
-  usePollForQueries(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling);
 
   usePageTitle("My Hosts");
 

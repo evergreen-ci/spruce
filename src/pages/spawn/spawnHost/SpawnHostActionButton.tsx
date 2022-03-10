@@ -15,7 +15,7 @@ import {
 } from "gql/generated/types";
 import { UPDATE_SPAWN_HOST_STATUS } from "gql/mutations";
 import { GET_MY_HOSTS } from "gql/queries";
-import { usePollForQueries } from "hooks";
+import { usePolling } from "hooks";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 
@@ -40,7 +40,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
       );
     },
   });
-  usePollForQueries(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling);
   // Stop polling when we get updated host data
   useEffect(() => {
     if (stopPolling) {

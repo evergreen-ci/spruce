@@ -8,7 +8,7 @@ export { useLegacyUIURL } from "hooks/useLegacyUIURL";
 export { usePageTitle } from "hooks/usePageTitle";
 export { useNetworkStatus } from "hooks/useNetworkStatus";
 export { usePageVisibility } from "hooks/usePageVisibility";
-export { usePollForQueries } from "hooks/usePollForQueries";
+export { usePolling } from "hooks/usePolling";
 export { useStatusesFilter } from "hooks/useStatusesFilter";
 export {
   useTableInputFilter,

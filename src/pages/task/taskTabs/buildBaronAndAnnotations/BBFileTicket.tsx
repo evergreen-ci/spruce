@@ -15,7 +15,7 @@ import {
 
 import { FILE_JIRA_TICKET } from "gql/mutations";
 import { GET_CREATED_TICKETS } from "gql/queries";
-import { usePollForQueries } from "hooks";
+import { usePolling } from "hooks";
 import { ButtonWrapper } from "./BBComponents";
 
 interface FileTicketProps {
@@ -43,7 +43,7 @@ export const FileTicket: React.FC<FileTicketProps> = ({
       );
     },
   });
-  usePollForQueries(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling);
 
   // Stop polling when we get updated created ticket data
   useEffect(() => {

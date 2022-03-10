@@ -12,7 +12,7 @@ import { pollInterval } from "constants/index";
 import { useToastContext } from "context/toast";
 import { MyVolumesQuery, MyVolumesQueryVariables } from "gql/generated/types";
 import { GET_MY_VOLUMES } from "gql/queries";
-import { usePollForQueries, usePageTitle } from "hooks";
+import { usePolling, usePageTitle } from "hooks";
 import { SpawnVolumeTable } from "pages/spawn/spawnVolume/SpawnVolumeTable";
 import { SpawnVolumeButton } from "./spawnVolume/SpawnVolumeButton";
 
@@ -29,7 +29,7 @@ export const SpawnVolume = () => {
       );
     },
   });
-  usePollForQueries(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling);
   usePageTitle("My Volumes");
 
   if (loading) {

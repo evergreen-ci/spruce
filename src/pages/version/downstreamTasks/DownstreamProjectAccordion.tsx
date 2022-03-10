@@ -25,7 +25,7 @@ import {
   PatchTasksQueryVariables,
 } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
-import { usePollForQueries, useTaskStatuses } from "hooks";
+import { usePolling, useTaskStatuses } from "hooks";
 import { environmentalVariables, queryString } from "utils";
 import { reducer } from "./reducer";
 
@@ -138,7 +138,7 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
     },
   });
   const showSkeleton = !data;
-  usePollForQueries(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling);
   const { patchTasks } = data || {};
 
   const variantTitle = (

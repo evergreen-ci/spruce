@@ -14,7 +14,7 @@ import {
   StatusCount,
 } from "gql/generated/types";
 import { GET_BUILD_VARIANTS_STATS } from "gql/queries";
-import { usePollForQueries } from "hooks";
+import { usePolling } from "hooks";
 import { applyStrictRegex } from "utils/string";
 
 export const BuildVariants: React.FC = () => {
@@ -28,7 +28,7 @@ export const BuildVariants: React.FC = () => {
     variables: { id },
     pollInterval,
   });
-  usePollForQueries(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling);
   const { version } = data || {};
 
   return (

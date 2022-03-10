@@ -7,7 +7,7 @@ import { pollInterval } from "constants/index";
 import { useToastContext } from "context/toast";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { GET_MY_HOSTS } from "gql/queries";
-import { usePollForQueries } from "hooks";
+import { usePolling } from "hooks";
 import { HostStatus } from "types/host";
 
 const { Option } = Select;
@@ -42,7 +42,7 @@ export const MountVolumeSelect = ({
       dispatchToast.error(`There was an error loading hosts: ${e.message}`);
     },
   });
-  usePollForQueries(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling);
 
   // set host dropdown options
   useEffect(() => {
