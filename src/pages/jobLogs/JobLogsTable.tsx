@@ -8,7 +8,7 @@ import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { Button } from "components/Button";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
-import { TableFilterPopover } from "components/TableFilterPopover";
+import { TableSearchPopover } from "components/TableSearchPopover";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -66,9 +66,7 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
   return (
     <Container>
       <PaginationWrapper>
-        <ButtonSpacer>
-          <PageSizeSelector value={limitNum} useLeafygreen />
-        </ButtonSpacer>
+        <PageSizeSelector value={limitNum} useLeafygreen />
         <Pagination value={pageNum} numPages={numPages} useLeafygreen />
       </PaginationWrapper>
       <TableWrapper>
@@ -80,7 +78,7 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
               label={
                 <LabelWrapper>
                   Test Name
-                  <TableFilterPopover
+                  <TableSearchPopover
                     onConfirm={(filter: string) =>
                       updateQueryParams({
                         test: filter || undefined,
@@ -99,22 +97,20 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
               <Cell>{datum?.testFile}</Cell>
               <Cell>
                 <ButtonWrapper>
-                  <ButtonSpacer>
-                    <Button
-                      disabled={!datum?.logs?.urlLobster}
-                      href={datum?.logs?.urlLobster}
-                      target="_blank"
-                      onClick={() =>
-                        sendEvent({
-                          name: "Clicked lobster testlog url",
-                          testId: datum?.id,
-                        })
-                      }
-                      size="xsmall"
-                    >
-                      Lobster
-                    </Button>
-                  </ButtonSpacer>
+                  <Button
+                    disabled={!datum?.logs?.urlLobster}
+                    href={datum?.logs?.urlLobster}
+                    target="_blank"
+                    onClick={() =>
+                      sendEvent({
+                        name: "Clicked lobster testlog url",
+                        testId: datum?.id,
+                      })
+                    }
+                    size="xsmall"
+                  >
+                    Lobster
+                  </Button>
                   <Button
                     disabled={!datum?.logs?.url}
                     href={datum?.logs?.url}
@@ -170,6 +166,9 @@ const PaginationWrapper = styled.div`
   align-items: center;
   justify-content: flex-end;
   margin-bottom: ${size.s};
+  > :first-of-type {
+    margin-right: ${size.s};
+  }
 `;
 const TableWrapper = styled.div`
   border-top: 3px solid ${gray.light2};
@@ -191,9 +190,9 @@ const LabelWrapper = styled.div`
 `;
 const ButtonWrapper = styled.div`
   display: flex;
-`;
-const ButtonSpacer = styled.div`
-  margin-right: ${size.s};
+  > :first-of-type {
+    margin-right: ${size.s};
+  }
 `;
 const NoTestResults = styled.div`
   display: flex;

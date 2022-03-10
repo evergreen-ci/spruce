@@ -9,11 +9,11 @@ import { useOnClickOutside } from "hooks";
 
 const { gray, focus } = uiColors;
 
-interface TableFilterPopoverProps {
+interface TableSearchPopoverProps {
   onConfirm: (filter: string) => void;
 }
 
-export const TableFilterPopover: React.FC<TableFilterPopoverProps> = ({
+export const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
   onConfirm,
 }) => {
   const [active, setActive] = useState(false);
