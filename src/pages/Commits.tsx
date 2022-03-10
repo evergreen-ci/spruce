@@ -19,13 +19,8 @@ import {
   MainlineCommitsQueryVariables,
 } from "gql/generated/types";
 import { GET_MAINLINE_COMMITS, GET_SPRUCE_CONFIG } from "gql/queries";
-import { usePageTitle, usePolling, useUpdateURLQueryParams } from "hooks";
-import {
-  ChartToggleQueryParams,
-  ChartTypes,
-  ProjectFilterOptions,
-  MainlineCommitQueryParams,
-} from "types/commits";
+import { usePageTitle, usePolling } from "hooks";
+import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
 import { array, queryString } from "utils";
 import { CommitsWrapper } from "./commits/CommitsWrapper";
 import CommitTypeSelect from "./commits/commitTypeSelect";
@@ -39,24 +34,12 @@ import {
 
 const { toArray } = array;
 const { parseQueryString, getString } = queryString;
-const DEFAULT_CHART_TYPE = ChartTypes.Absolute;
 
 export const Commits = () => {
   const dispatchToast = useToastContext();
   const { replace } = useHistory();
   const { search } = useLocation();
-  const updateQueryParams = useUpdateURLQueryParams();
   const parsed = parseQueryString(search);
-
-  const currentChartType =
-    (getString(parsed[ChartToggleQueryParams.chartType]) as ChartTypes) ||
-    DEFAULT_CHART_TYPE;
-
-  const onChangeChartType = (chartType: ChartTypes): void => {
-    updateQueryParams({
-      [ChartToggleQueryParams.chartType]: chartType,
-    });
-  };
 
   // get query params from url
   const { id: projectId } = useParams<{ id: string }>();
@@ -158,10 +141,8 @@ export const Commits = () => {
           versions={versions}
           error={error}
           isLoading={loading || !projectId}
-          chartType={currentChartType}
           hasTaskFilter={hasTasks}
           hasFilters={hasFilters}
-          onChangeChartType={onChangeChartType}
         />
       </PageContainer>
     </PageWrapper>

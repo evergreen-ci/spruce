@@ -27,9 +27,9 @@ const ColumPaginationButtons: React.FC = () => {
         disabled={!hasPreviousPage}
         /* @ts-expect-error */
         onClick={onPrevClick}
-      >
-        <Icon glyph="ChevronLeft" />
-      </StyledButton>
+        data-cy="prev-page-button"
+        leftGlyph={<Icon glyph="ChevronLeft" />}
+      />
       <Disclaimer>
         {currentPage + 1} / {pageCount}
       </Disclaimer>
@@ -37,9 +37,9 @@ const ColumPaginationButtons: React.FC = () => {
         disabled={!hasNextPage}
         /* @ts-expect-error */
         onClick={onNextClick}
-      >
-        <Icon glyph="ChevronRight" />
-      </StyledButton>
+        data-cy="next-page-button"
+        leftGlyph={<Icon glyph="ChevronRight" />}
+      />
     </Container>
   );
 };
