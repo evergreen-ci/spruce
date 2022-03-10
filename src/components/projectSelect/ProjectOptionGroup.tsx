@@ -90,5 +90,6 @@ const OverlineHover = styled.div`
   :hover {
     cursor: pointer;
     background-color: ${gray.light1};
+    padding: ${size.xs};
   }
 `;

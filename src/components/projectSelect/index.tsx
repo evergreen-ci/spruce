@@ -55,9 +55,11 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
     g.projects.filter((p) => p.isFavorite)
   );
 
-  const favorites = { name: "Favorites", projects: favoriteProjects }
+  const favorites = { name: "Favorites", projects: favoriteProjects };
 
-  const allProjects = favoriteProjects.length > 0 ? [favorites, ...projects] : projects;
+  const allProjects =
+    favoriteProjects.length > 0 ? [favorites, ...projects] : projects;
+
   // Find the project with the selectedProjectIdentifier and set it as the selected project
   const selectedProject = useMemo(
     () =>
