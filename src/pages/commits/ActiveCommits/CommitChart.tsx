@@ -20,7 +20,7 @@ export const CommitChart: React.FC<Props> = ({
   <CommitChartTooltip
     groupedTaskStats={groupedTaskStats}
     trigger={
-      <ChartContainer data-cy="commit-chart-container">
+      <ChartContainer data-cy="commit-chart-container" data-type={chartType}>
         {groupedTaskStats.map(({ color, count }) => (
           <Bar
             data-cy="commit-chart-bar"
