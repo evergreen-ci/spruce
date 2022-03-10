@@ -938,18 +938,16 @@ export type WorkstationConfigInput = {
 };
 
 export type WorkstationSetupCommandInput = {
-  Command: Scalars["String"];
-  Directory?: Maybe<Scalars["String"]>;
+  command: Scalars["String"];
+  directory?: Maybe<Scalars["String"]>;
 };
 
 export type PatchTriggerAliasInput = {
   alias: Scalars["String"];
-  childProjectId: Scalars["String"];
   childProjectIdentifier: Scalars["String"];
-  taskSpecifiers?: Maybe<Array<Maybe<TaskSpecifierInput>>>;
+  taskSpecifiers: Array<TaskSpecifierInput>;
   status?: Maybe<Scalars["String"]>;
   parentAsModule?: Maybe<Scalars["String"]>;
-  variantsTasks: Array<Maybe<VariantTaskInput>>;
 };
 
 export type TaskSpecifierInput = {
@@ -1167,8 +1165,6 @@ export type ChildPatchAlias = {
 
 export type PatchTriggerAlias = {
   alias: Scalars["String"];
-  /** @deprecated Field no longer supported */
-  childProject?: Maybe<Scalars["String"]>;
   childProjectId: Scalars["String"];
   childProjectIdentifier: Scalars["String"];
   taskSpecifiers?: Maybe<Array<Maybe<TaskSpecifier>>>;
@@ -1771,8 +1767,8 @@ export type RepoWorkstationConfig = {
 };
 
 export type WorkstationSetupCommand = {
-  Command: Scalars["String"];
-  Directory: Scalars["String"];
+  command: Scalars["String"];
+  directory: Scalars["String"];
 };
 
 export type TaskSpecifier = {
