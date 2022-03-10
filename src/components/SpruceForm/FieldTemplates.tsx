@@ -1,6 +1,7 @@
 import { cloneElement } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
+import { uiColors } from "@leafygreen-ui/palette";
 import {
   ArrayFieldTemplateProps,
   FieldTemplateProps,
@@ -12,6 +13,8 @@ import { Unpacked } from "types/utils";
 import { SpruceFormContainer } from "./Container";
 import { TitleField as CustomTitleField } from "./CustomFields";
 import ElementWrapper from "./ElementWrapper";
+
+const { gray } = uiColors;
 
 // Custom field template that does not render fields' titles, as this is handled by LeafyGreen widgets
 export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
@@ -39,20 +42,44 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
 };
 
 const ArrayItem: React.FC<
-  { topAlignDelete: boolean; useExpandableCard: boolean } & Unpacked<
-    ArrayFieldTemplateProps["items"]
-  >
+  {
+    topAlignDelete: boolean;
+    useExpandableCard: boolean;
+    border: boolean;
+  } & Unpacked<ArrayFieldTemplateProps["items"]>
 > = ({
+  border,
   children,
   disabled,
+  hasMoveDown,
+  hasMoveUp,
   hasRemove,
   index,
   onDropIndexClick,
+  onReorderClick,
   readonly,
   topAlignDelete,
   useExpandableCard,
 }) => (
-  <ArrayItemRow key={index}>
+  <ArrayItemRow key={index} border={border} index={index}>
+    {(hasMoveUp || hasMoveDown) && !readonly && (
+      <OrderControls topAlignDelete={topAlignDelete}>
+        {hasMoveUp && (
+          <Button
+            data-cy="array-up-button"
+            onClick={onReorderClick(index, index - 1)}
+            leftGlyph={<Icon glyph="ArrowUp" />}
+          />
+        )}
+        {hasMoveDown && (
+          <Button
+            data-cy="array-down-button"
+            onClick={onReorderClick(index, index + 1)}
+            leftGlyph={<Icon glyph="ArrowDown" />}
+          />
+        )}
+      </OrderControls>
+    )}
     {cloneElement(children, {
       uiSchema: {
         ...children.props.uiSchema,
@@ -60,7 +87,7 @@ const ArrayItem: React.FC<
         "ui:onDropIndexClick": onDropIndexClick,
       },
     })}
-    {hasRemove && !useExpandableCard && (
+    {hasRemove && !useExpandableCard && !readonly && (
       <DeleteButtonWrapper topAlignDelete={topAlignDelete}>
         <Button
           onClick={onDropIndexClick(index)}
@@ -73,8 +100,25 @@ const ArrayItem: React.FC<
   </ArrayItemRow>
 );
 
-const ArrayItemRow = styled.div`
+const OrderControls = styled.div<{ topAlignDelete: boolean }>`
   display: flex;
+  flex-direction: column;
+  margin-right: ${size.s};
+  margin-top: ${({ topAlignDelete }) => (topAlignDelete ? "0px" : "20px")};
+
+  > :not(:last-of-type) {
+    margin-bottom: ${size.xs};
+  }
+`;
+
+const ArrayItemRow = styled.div<{ border: boolean; index: number }>`
+  display: flex;
+  margin-bottom: ${size.m};
+  ${({ border, index }) =>
+    border && index === 0 && `border-top: 1px solid ${gray.light1}`};
+  ${({ border }) => border && `border-bottom: 1px solid ${gray.light1}`};
+  margin: 0 -${size.m};
+  padding: ${size.m};
 
   .field-object {
     flex-grow: 1;
@@ -99,6 +143,7 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   const description = uiSchema["ui:description"] || schema.description;
   const addButtonSize = uiSchema["ui:addButtonSize"] || "small";
   const addButtonText = uiSchema["ui:addButtonText"] || "Add";
+  const border = uiSchema["ui:border"] ?? false;
   const fullWidth = !!uiSchema["ui:fullWidth"];
   const showLabel = uiSchema["ui:showLabel"] !== false;
   const topAlignDelete = uiSchema["ui:topAlignDelete"] ?? false;
@@ -129,6 +174,7 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
         {items.map((p) => (
           <ArrayItem
             key={p.key}
+            border={border}
             topAlignDelete={topAlignDelete}
             useExpandableCard={useExpandableCard}
             {...p}

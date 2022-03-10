@@ -934,12 +934,12 @@ export type WebhookInput = {
 
 export type WorkstationConfigInput = {
   setupCommands?: Maybe<Array<Maybe<WorkstationSetupCommandInput>>>;
-  gitClone: Scalars["Boolean"];
+  gitClone?: Maybe<Scalars["Boolean"]>;
 };
 
 export type WorkstationSetupCommandInput = {
-  Command: Scalars["String"];
-  Directory?: Maybe<Scalars["String"]>;
+  command: Scalars["String"];
+  directory?: Maybe<Scalars["String"]>;
 };
 
 export type PatchTriggerAliasInput = {
@@ -1771,8 +1771,8 @@ export type RepoWorkstationConfig = {
 };
 
 export type WorkstationSetupCommand = {
-  Command: Scalars["String"];
-  Directory: Scalars["String"];
+  command: Scalars["String"];
+  directory: Scalars["String"];
 };
 
 export type TaskSpecifier = {
@@ -2320,10 +2320,15 @@ export type RepoGithubCommitQueueFragment = {
 
 export type ProjectSettingsFragment = {
   projectRef?: Maybe<
-    { id: string; repoRefId: string } & ProjectGeneralSettingsFragment &
+    {
+      id: string;
+      identifier: string;
+      repoRefId: string;
+    } & ProjectGeneralSettingsFragment &
       ProjectAccessSettingsFragment &
       ProjectPluginsSettingsFragment &
-      ProjectNotificationSettingsFragment
+      ProjectNotificationSettingsFragment &
+      ProjectVirtualWorkstationSettingsFragment
   >;
   subscriptions?: Maybe<Array<SubscriptionsFragment>>;
   vars?: Maybe<VariablesFragment>;
@@ -2335,7 +2340,8 @@ export type RepoSettingsFragment = {
     { id: string } & RepoGeneralSettingsFragment &
       RepoAccessSettingsFragment &
       RepoPluginsSettingsFragment &
-      RepoNotificationSettingsFragment
+      RepoNotificationSettingsFragment &
+      RepoVirtualWorkstationSettingsFragment
   >;
   vars?: Maybe<VariablesFragment>;
   subscriptions?: Maybe<Array<SubscriptionsFragment>>;
@@ -2413,6 +2419,20 @@ export type VariablesFragment = {
   vars?: Maybe<{ [key: string]: any }>;
   privateVars?: Maybe<Array<Maybe<string>>>;
   adminOnlyVars?: Maybe<Array<Maybe<string>>>;
+};
+
+export type ProjectVirtualWorkstationSettingsFragment = {
+  workstationConfig: {
+    gitClone?: Maybe<boolean>;
+    setupCommands?: Maybe<Array<{ command: string; directory: string }>>;
+  };
+};
+
+export type RepoVirtualWorkstationSettingsFragment = {
+  workstationConfig: {
+    gitClone: boolean;
+    setupCommands?: Maybe<Array<{ command: string; directory: string }>>;
+  };
 };
 
 export type AbortTaskMutationVariables = Exact<{

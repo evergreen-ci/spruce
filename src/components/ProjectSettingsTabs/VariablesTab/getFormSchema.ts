@@ -72,6 +72,7 @@ export const getFormSchema = (
       "ui:addButtonText": "Add Variables",
       "ui:description": getDescription(projectType),
       "ui:fullWidth": true,
+      "ui:orderable": false,
       "ui:showLabel": false,
       items: {
         "ui:ObjectFieldTemplate": VariableRow,
@@ -98,7 +99,6 @@ export const getFormSchema = (
     },
     repoData: {
       vars: {
-        "ui:addable": false,
         "ui:fullWidth": true,
         "ui:readonly": true,
         "ui:showLabel": false,

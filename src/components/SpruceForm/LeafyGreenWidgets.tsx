@@ -13,9 +13,18 @@ import { size } from "constants/tokens";
 
 import ElementWrapper from "./ElementWrapper";
 
-const getInputErrors = (rawErrors: string[]): string[] =>
+const getInputErrors = (rawErrors: string[]): string[] => {
   // Don't display empty input errors as these are too visually noisy
-  rawErrors?.filter((err) => !err.startsWith("should match format")) ?? [];
+  const errorMsgs = [
+    "should match format",
+    "should NOT be shorter than 1 characters",
+  ];
+  return (
+    rawErrors?.filter((err) => !errorMsgs.some((msg) => err.startsWith(msg))) ??
+    []
+  );
+};
+
 export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
   value,
   label,

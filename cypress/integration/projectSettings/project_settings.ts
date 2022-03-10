@@ -135,6 +135,36 @@ describe("Repo Settings", () => {
       cy.dataCy("expandable-card-title").contains("my alias name");
     });
   });
+
+  describe("Virtual Workstation page", () => {
+    before(() => {
+      cy.dataCy("navitem-virtual-workstation").click();
+    });
+
+    it("Adds two commands", () => {
+      cy.dataCy("save-settings-button").should("be.disabled");
+
+      cy.dataCy("add-button").click();
+      cy.dataCy("command-input").type("command 1");
+      cy.dataCy("directory-input").type("mongodb.user.directory");
+
+      cy.dataCy("add-button").click();
+      cy.dataCy("command-input").eq(1).type("command 2");
+
+      cy.dataCy("save-settings-button").click();
+      cy.validateToast("success", "Successfully updated repo");
+    });
+
+    it("Reorders the commands", () => {
+      cy.dataCy("array-down-button").click();
+
+      cy.dataCy("save-settings-button").click();
+      cy.validateToast("success", "Successfully updated repo");
+
+      cy.dataCy("command-input").first().should("have.value", "command 2");
+      cy.dataCy("command-input").eq(1).should("have.value", "command 1");
+    });
+  });
 });
 
 describe("Project Settings when not defaulting to repo", () => {
@@ -421,7 +451,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.validateToast("success");
     });
 
-    it.only("Again shows the repo's disabled patch definition", () => {
+    it("Again shows the repo's disabled patch definition", () => {
       cy.dataCy("accordion-toggle").should("exist");
       cy.dataCy("accordion-toggle").contains("Patch Definition 1");
     });
@@ -505,6 +535,37 @@ describe("Project Settings when defaulting to repo", () => {
         .parent()
         .click();
       cy.dataCy("alias-row").should("have.length", 0);
+    });
+  });
+
+  describe("Virtual Workstation page", () => {
+    before(() => {
+      cy.dataCy("navitem-virtual-workstation").click();
+    });
+
+    it("Shows repo commands", () => {
+      cy.dataCy("add-button").should("not.exist");
+      cy.dataCy("command-row").should("have.length", 2);
+      cy.dataCy("command-row").each(() => {
+        cy.get("input").should("be.disabled");
+        cy.get("textarea").should("be.disabled");
+      });
+    });
+
+    it("Allows overriding without adding a command", () => {
+      cy.dataCy("commands-override-radio-box")
+        .find("input")
+        .first()
+        .parent()
+        .click();
+
+      cy.dataCy("save-settings-button").click();
+      cy.validateToast("success", "Successfully updated project");
+
+      cy.dataCy("commands-override-radio-box")
+        .find("input")
+        .first()
+        .should("be.checked");
     });
   });
 });
