@@ -38,28 +38,6 @@ export type AliasFormType = {
   };
 };
 
-const pairHasError = (regex: string, tags: string[]): boolean => {
-  const hasInvalidTags =
-    !tags || !tags?.length || tags.every((tag) => tag === "");
-  return !regex && hasInvalidTags;
-};
-
-export const aliasHasError = ({
-  alias,
-  gitTag,
-  remotePath,
-  tasks,
-  variants,
-}: Partial<AliasFormType>): boolean => {
-  const variantTaskHasError =
-    pairHasError(tasks?.task, tasks?.taskTags) ||
-    pairHasError(variants?.variant, variants?.variantTags);
-  if (alias === AliasNames.GitTag) {
-    return (variantTaskHasError && !remotePath) || !gitTag;
-  }
-  return variantTaskHasError;
-};
-
 const aliasToForm = ({
   id,
   alias,
@@ -161,15 +139,12 @@ const transformTasks = ({
 
 // Given alias form data, transform it to be safely saved
 export const transformAliases = (
-  aliases: Partial<AliasFormType>[],
+  aliases: AliasFormType[],
   override: boolean,
   aliasName?: AliasNames
 ): ProjectAliasInput[] =>
   override
     ? aliases.map((a) => {
-        if (aliasHasError(a)) {
-          return;
-        }
         const { id, alias, gitTag, remotePath, specifier, tasks, variants } = a;
         if (aliasName === AliasNames.GitTag) {
           return specifier === GitTagSpecifier.ConfigFile
@@ -217,32 +192,47 @@ const baseProps = {
     schema: {
       type: "string" as "string",
       title: "Git Tag Regex",
+      default: "",
+      minLength: 1,
+    },
+    uiSchema: {
+      "ui:data-cy": "git-tag-input",
+      "ui:showErrors": false,
     },
   },
   remotePath: {
     schema: {
       type: "string" as "string",
       title: "Config File",
+      default: "",
+      minLength: 1,
+    },
+    uiSchema: {
+      "ui:data-cy": "remote-path-input",
+      "ui:showErrors": false,
     },
   },
   task: {
     schema: {
       type: "string" as "string",
       default: "",
+      minLength: 1,
     },
     uiSchema: {
       "ui:ariaLabelledBy": "task-input-control",
       "ui:data-cy": "task-input",
       "ui:placeholder": "Golang Regex",
+      "ui:showErrors": false,
     },
   },
   taskTags: {
     schema: {
       type: "array" as "array",
+      minItems: 1,
       items: {
         type: "string" as "string",
         title: "Task Tag",
-        default: "",
+        minLength: 1,
       },
     },
     uiSchema: {
@@ -254,6 +244,7 @@ const baseProps = {
       items: {
         "ui:ariaLabelledBy": "variant-input-control",
         "ui:data-cy": "task-tags-input",
+        "ui:showErrors": false,
       },
     },
   },
@@ -261,21 +252,25 @@ const baseProps = {
     schema: {
       type: "string" as "string",
       default: "",
+      minLength: 1,
     },
     uiSchema: {
       "ui:ariaLabelledBy": "variant-input-control",
       "ui:data-cy": "variant-input",
       "ui:placeholder": "Golang Regex",
+      "ui:showErrors": false,
     },
   },
   variantTags: {
     schema: {
       type: "array" as "array",
       title: "Variant Tags",
+      minItems: 1,
       items: {
         type: "string" as "string",
         title: "Variant Tag",
         default: "",
+        minLength: 1,
       },
     },
     uiSchema: {
@@ -287,6 +282,7 @@ const baseProps = {
       items: {
         "ui:ariaLabelledBy": "variant-input-control",
         "ui:data-cy": "variant-tags-input",
+        "ui:showErrors": false,
       },
     },
   },
@@ -471,6 +467,8 @@ export const gitTagArray = {
     items: {
       "ui:ObjectFieldTemplate": AccordionFieldTemplate,
       "ui:numberedTitle": "Git Tag",
+      remotePath: remotePath.uiSchema,
+      gitTag: gitTag.uiSchema,
       specifier: {
         "ui:widget": widgets.SegmentedControlWidget,
       },

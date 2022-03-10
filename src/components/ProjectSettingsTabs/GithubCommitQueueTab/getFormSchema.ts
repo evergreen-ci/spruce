@@ -29,9 +29,6 @@ export const getFormSchema = (
   return {
     fields: {},
     schema: {
-      definitions: {
-        aliasArray: aliasArray.schema,
-      },
       type: "object" as "object",
       properties: {
         github: {
@@ -71,9 +68,7 @@ export const getFormSchema = (
                   "Override Repo Patch Definition",
                   "Default to Repo Patch Definition",
                 ],
-                {
-                  $ref: "#/definitions/aliasArray",
-                }
+                aliasArray.schema
               ),
             },
             githubChecksEnabledTitle: {
@@ -94,9 +89,7 @@ export const getFormSchema = (
               ...overrideRadioBox(
                 "githubCheckAliases",
                 ["Override Repo Definition", "Default to Repo Definition"],
-                {
-                  $ref: "#/definitions/aliasArray",
-                }
+                aliasArray.schema
               ),
             },
             gitTagVersionsTitle: {
@@ -214,9 +207,7 @@ export const getFormSchema = (
                   "Override Repo Patch Definition",
                   "Default to Repo Patch Definition",
                 ],
-                {
-                  $ref: "#/definitions/aliasArray",
-                }
+                aliasArray.schema
               ),
             },
           },
@@ -285,6 +276,7 @@ export const getFormSchema = (
           "ui:sectionTitle": true,
         },
         gitTagVersionsEnabled: {
+          "ui:data-cy": "git-tag-enabled-radio-box",
           "ui:showLabel": false,
           "ui:widget": widgets.RadioBoxWidget,
         },
@@ -330,6 +322,7 @@ export const getFormSchema = (
           "ui:data-cy": "cq-enabled-radio-box",
         },
         requireSigned: {
+          "ui:data-cy": "require-signed-radio-box",
           "ui:widget": widgets.RadioBoxWidget,
           ...(formData?.commitQueue?.enabled === false && { "ui:hide": true }),
         },
