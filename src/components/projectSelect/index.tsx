@@ -13,7 +13,7 @@ import {
 import { GET_PROJECTS, GET_VIEWABLE_PROJECTS } from "gql/queries";
 import { ProjectOptionGroup } from "./ProjectOptionGroup";
 
-type project = {
+type Project = {
   displayName: string;
   identifier: string;
   repoRefId: string;
@@ -119,7 +119,7 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   );
 };
 
-export const getRepoId = (projects: project[]) => {
+export const getRepoId = (projects: Project[]) => {
   if (!projects || projects.length === 0) {
     return "";
   }
