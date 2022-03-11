@@ -30,7 +30,7 @@ import {
   GET_SPRUCE_CONFIG,
   GET_HAS_VERSION,
 } from "gql/queries";
-import { usePageTitle, useNetworkStatus } from "hooks";
+import { usePageTitle, usePolling } from "hooks";
 import { PageDoesNotExist } from "pages/404";
 import { shortenGithash, githubPRLinkify } from "utils/string";
 
@@ -107,8 +107,7 @@ export const VersionPage: React.FC = () => {
       setIsLoadingData(false);
     },
   });
-
-  useNetworkStatus(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling);
 
   // Decide where to redirect the user based off of whether or not the patch has been activated
   // If this patch is activated and not on the commit queue we can safely fetch the associated version

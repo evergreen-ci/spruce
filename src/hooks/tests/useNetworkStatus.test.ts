@@ -3,50 +3,16 @@ import { renderHook, act } from "@testing-library/react-hooks";
 import { useNetworkStatus } from "hooks";
 
 describe("useNetworkStatus", () => {
-  it("useNetworkStatus should return online when the users browser is online and polling to not have been interrupted", () => {
-    const startPolling = jest.fn();
-    const stopPolling = jest.fn();
-    const { result } = renderHook(() =>
-      useNetworkStatus(startPolling, stopPolling)
-    );
-    expect(startPolling).toHaveBeenCalledTimes(0);
-    expect(stopPolling).toHaveBeenCalledTimes(0);
-    expect(result.current).toBe(false);
-  });
-
-  it("useNetworkStatus should return offline when the users browser is offline and polling to have been stopped", () => {
-    const startPolling = jest.fn();
-    const stopPolling = jest.fn();
-
-    const { result } = renderHook(() =>
-      useNetworkStatus(startPolling, stopPolling)
-    );
-    act(() => {
-      fireEvent(window, new Event("offline"));
-    });
-    expect(startPolling).toHaveBeenCalledTimes(0);
-    expect(stopPolling).toHaveBeenCalledTimes(1);
+  it("useNetworkStatus should return true when the user's browser is online", () => {
+    const { result } = renderHook(() => useNetworkStatus());
     expect(result.current).toBe(true);
   });
 
-  it("useNetworkStatus should restart polling when the browser is back to online", () => {
-    const startPolling = jest.fn();
-    const stopPolling = jest.fn();
-
-    const { result } = renderHook(() =>
-      useNetworkStatus(startPolling, stopPolling)
-    );
+  it("useNetworkStatus should return false when the user's browser is offline", () => {
+    const { result } = renderHook(() => useNetworkStatus());
     act(() => {
       fireEvent(window, new Event("offline"));
     });
-    expect(startPolling).toHaveBeenCalledTimes(0);
-    expect(stopPolling).toHaveBeenCalledTimes(1);
-    expect(result.current).toBe(true);
-    act(() => {
-      fireEvent(window, new Event("online"));
-    });
-    expect(startPolling).toHaveBeenCalledTimes(1);
-    expect(stopPolling).toHaveBeenCalledTimes(1);
     expect(result.current).toBe(false);
   });
 });
