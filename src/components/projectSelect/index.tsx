@@ -51,14 +51,14 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
 
   const history = useHistory();
 
-  const favoriteProjects = projects.flatMap((g) =>
+  const favoriteProjects = projects?.flatMap((g) =>
     g.projects.filter((p) => p.isFavorite)
   );
 
-  const favorites = { name: "Favorites", projects: favoriteProjects };
-
-  const allProjects =
-    favoriteProjects.length > 0 ? [favorites, ...projects] : projects;
+  const allProjects = [
+    { name: "Favorites", projects: favoriteProjects },
+    ...projects,
+  ];
 
   // Find the project with the selectedProjectIdentifier and set it as the selected project
   const selectedProject = useMemo(
@@ -105,10 +105,9 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
           projects={projectGroup.projects}
           name={projectGroup.name}
           onClick={onClick}
-          repoIdentifier={getRepoIdentifier(projectGroup.projects)}
+          repoIdentifier={getRepoId(projectGroup.projects)}
           canClickOnRepoGroup={
-            isProjectSettingsPage &&
-            getRepoIdentifier(projectGroup.projects) !== ""
+            isProjectSettingsPage && getRepoId(projectGroup.projects) !== ""
           }
         />
       )}
@@ -120,7 +119,7 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   );
 };
 
-export const getRepoIdentifier = (projects: project[]) => {
+export const getRepoId = (projects: project[]) => {
   if (!projects || projects.length === 0) {
     return "";
   }

@@ -127,18 +127,18 @@ export const ProjectSettings: React.FC = () => {
   return (
     <ProjectSettingsProvider>
       <SideNav aria-label="Project Settings">
-        <DropdownContainer>
+        <ButtonsContainer>
           <ProjectSelect
             selectedProjectIdentifier={repoDisplay}
             getRoute={getProjectSettingsRoute}
             isProjectSettingsPage
           />
-        </DropdownContainer>
-        <SideNavGroup header="Project" />
-        <CreateProjectModal
-          owner={project?.projectRef?.owner}
-          repo={project?.projectRef?.repo}
-        />
+          <CreateProjectModal
+            owner={project?.projectRef?.owner}
+            repo={project?.projectRef?.repo}
+          />
+        </ButtonsContainer>
+
         <SideNavGroup>
           <ProjectSettingsNavItem
             {...sharedProps}
@@ -223,6 +223,6 @@ const PageContainer = styled.div`
   display: flex;
 `;
 
-const DropdownContainer = styled.div`
+const ButtonsContainer = styled.div`
   padding: ${size.xs};
 `;

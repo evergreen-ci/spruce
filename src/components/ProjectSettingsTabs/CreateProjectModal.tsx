@@ -116,14 +116,16 @@ export const CreateProjectModal: React.FC<Props> = ({ owner, repo }) => {
   return (
     <Container>
       {isAdmin && (
-        <Button
-          onClick={() => setOpen(true)}
-          size={Size.Small}
-          data-cy="create-project-button"
-          variant={Variant.Primary}
-        >
-          Create New Project
-        </Button>
+        <ButtonContainer>
+          <Button
+            onClick={() => setOpen(true)}
+            size={Size.Small}
+            data-cy="create-project-button"
+            variant={Variant.Primary}
+          >
+            Create New Project
+          </Button>
+        </ButtonContainer>
       )}
       <ConfirmationModal
         buttonText="Create Project"
@@ -152,5 +154,8 @@ export const CreateProjectModal: React.FC<Props> = ({ owner, repo }) => {
 
 const Container = styled.div`
   display: inline;
-  margin-left: ${size.s};
+`;
+
+const ButtonContainer = styled.div`
+  margin-top: ${size.xs};
 `;
