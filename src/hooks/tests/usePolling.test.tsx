@@ -1,6 +1,12 @@
+import { MockedProvider } from "@apollo/client/testing";
 import { fireEvent } from "@testing-library/react";
 import { renderHook, act } from "@testing-library/react-hooks";
+import { GET_USER } from "gql/queries";
 import { usePolling } from "hooks";
+
+const Provider = ({ children }) => (
+  <MockedProvider mocks={[getUserMock]}>{children}</MockedProvider>
+);
 
 describe("usePolling", () => {
   beforeEach(() => {
@@ -10,23 +16,31 @@ describe("usePolling", () => {
     });
   });
 
-  it("usePolling should not call the functions when initialized", () => {
+  it("usePolling should not call the functions when initialized", async () => {
     const startPolling = jest.fn();
     const stopPolling = jest.fn();
-    const { result } = renderHook(() => usePolling(startPolling, stopPolling));
+    const { result, waitForNextUpdate } = renderHook(
+      () => usePolling(startPolling, stopPolling),
+      {
+        wrapper: Provider,
+      }
+    );
+    await waitForNextUpdate();
     expect(startPolling).toHaveBeenCalledTimes(0);
     expect(stopPolling).toHaveBeenCalledTimes(0);
     expect(result.current).toBe(true);
   });
 
   describe("stopPolling", () => {
-    it("usePolling should stop polling when user's browser is offline", () => {
+    it("usePolling should stop polling when user's browser is offline", async () => {
       const startPolling = jest.fn();
       const stopPolling = jest.fn();
 
-      const { result } = renderHook(() =>
-        usePolling(startPolling, stopPolling)
+      const { result, waitForNextUpdate } = renderHook(
+        () => usePolling(startPolling, stopPolling),
+        { wrapper: Provider }
       );
+      await waitForNextUpdate();
       expect(result.current).toBe(true);
 
       act(() => {
@@ -37,13 +51,15 @@ describe("usePolling", () => {
       expect(result.current).toBe(false);
     });
 
-    it("usePolling should stop polling when user is not viewing document", () => {
+    it("usePolling should stop polling when user is not viewing document", async () => {
       const startPolling = jest.fn();
       const stopPolling = jest.fn();
 
-      const { result } = renderHook(() =>
-        usePolling(startPolling, stopPolling)
+      const { result, waitForNextUpdate } = renderHook(
+        () => usePolling(startPolling, stopPolling),
+        { wrapper: Provider }
       );
+      await waitForNextUpdate();
       expect(result.current).toBe(true);
 
       act(() => {
@@ -57,13 +73,15 @@ describe("usePolling", () => {
       expect(result.current).toBe(false);
     });
 
-    it("usePolling should only call stopPolling once if first user goes offline, then stops viewing document", () => {
+    it("usePolling should only call stopPolling once if first user goes offline, then stops viewing document", async () => {
       const startPolling = jest.fn();
       const stopPolling = jest.fn();
 
-      const { result } = renderHook(() =>
-        usePolling(startPolling, stopPolling)
+      const { result, waitForNextUpdate } = renderHook(
+        () => usePolling(startPolling, stopPolling),
+        { wrapper: Provider }
       );
+      await waitForNextUpdate();
       expect(result.current).toBe(true);
 
       // go offline
@@ -86,13 +104,15 @@ describe("usePolling", () => {
       expect(result.current).toBe(false);
     });
 
-    it("usePolling should only call stopPolling once if first user stops viewing document, then goes offline", () => {
+    it("usePolling should only call stopPolling once if first user stops viewing document, then goes offline", async () => {
       const startPolling = jest.fn();
       const stopPolling = jest.fn();
 
-      const { result } = renderHook(() =>
-        usePolling(startPolling, stopPolling)
+      const { result, waitForNextUpdate } = renderHook(
+        () => usePolling(startPolling, stopPolling),
+        { wrapper: Provider }
       );
+      await waitForNextUpdate();
       expect(result.current).toBe(true);
 
       // document hidden
@@ -117,13 +137,15 @@ describe("usePolling", () => {
   });
 
   describe("startPolling", () => {
-    it("usePolling should only restart polling when the browser is online AND document is visible", () => {
+    it("usePolling should only restart polling when the browser is online AND document is visible", async () => {
       const startPolling = jest.fn();
       const stopPolling = jest.fn();
 
-      const { result } = renderHook(() =>
-        usePolling(startPolling, stopPolling)
+      const { result, waitForNextUpdate } = renderHook(
+        () => usePolling(startPolling, stopPolling),
+        { wrapper: Provider }
       );
+      await waitForNextUpdate();
       expect(result.current).toBe(true);
 
       // go offline
@@ -166,3 +188,19 @@ describe("usePolling", () => {
     });
   });
 });
+
+const getUserMock = {
+  request: {
+    query: GET_USER,
+  },
+  result: {
+    data: {
+      user: {
+        userId: "",
+        displayName: "",
+        emailAddress: "fake.user@mongodb.com",
+        __typename: "User",
+      },
+    },
+  },
+};
