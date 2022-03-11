@@ -933,8 +933,8 @@ export type WebhookInput = {
 };
 
 export type WorkstationConfigInput = {
-  setupCommands?: Maybe<Array<Maybe<WorkstationSetupCommandInput>>>;
-  gitClone: Scalars["Boolean"];
+  setupCommands?: Maybe<Array<WorkstationSetupCommandInput>>;
+  gitClone?: Maybe<Scalars["Boolean"]>;
 };
 
 export type WorkstationSetupCommandInput = {
@@ -3907,6 +3907,15 @@ export type GetUserConfigQuery = {
     ui_server_host: string;
     user: string;
   }>;
+};
+
+export type GetUserPermissionsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetUserPermissionsQuery = {
+  user: {
+    userId: string;
+    permissions: { canCreateProject: boolean; userId: string };
+  };
 };
 
 export type GetUserSettingsQueryVariables = Exact<{ [key: string]: never }>;
