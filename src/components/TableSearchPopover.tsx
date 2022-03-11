@@ -7,7 +7,7 @@ import TextInput from "@leafygreen-ui/text-input";
 import { size } from "constants/tokens";
 import { useOnClickOutside } from "hooks";
 
-const { gray, focus } = uiColors;
+const { gray, white, focus } = uiColors;
 
 interface TableSearchPopoverProps {
   onConfirm: (filter: string) => void;
@@ -62,7 +62,7 @@ export const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
 const PopoverContainer = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: ${white};
   padding: ${size.s};
   box-shadow: 0 ${size.xxs} ${size.xs} 0 ${gray.light2},
     0 ${size.xxs} ${size.l} ${size.xxs} ${gray.light2};
@@ -74,7 +74,7 @@ const IconWrapper = styled.div<{ active: boolean }>`
   margin-left: ${size.xs};
   padding: ${size.xxs};
   border-radius: 50%;
-  background-color: ${({ active }) => (active ? gray.light2 : "white")};
+  background-color: ${({ active }) => (active ? gray.light2 : white)};
   transition: background-color 0.3s ease-in-out;
   cursor: pointer;
 `;

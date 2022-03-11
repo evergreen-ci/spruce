@@ -15,6 +15,7 @@ import {
   GetDisplayTaskQueryVariables,
 } from "gql/generated/types";
 import { GET_DISPLAY_TASK } from "gql/queries";
+import { usePageTitle } from "hooks";
 import { PageDoesNotExist } from "pages/404";
 import { JobLogsTable } from "pages/jobLogs/JobLogsTable";
 
@@ -28,6 +29,7 @@ export const JobLogs = () => {
     groupId: string;
   }>();
   const execution = parseInt(execStr, 10);
+  usePageTitle(`Job Logs - ${taskId}`);
 
   const {
     data: displayTaskResult,
