@@ -43,7 +43,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const defaultSortMethod = "STATUS:ASC;BASE_STATUS:DESC";
 
   useEffect(() => {
-    if (sorts.length === 0) {
+    if (noQueryVariables) {
       updateQueryParams({
         sorts: defaultSortMethod,
       });
