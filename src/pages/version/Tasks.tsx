@@ -37,6 +37,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
 
   const updateQueryParams = useUpdateURLQueryParams();
   const queryVariables = getQueryVariables(search, versionId);
+  const noQueryVariables = !search.length;
 
   const { sorts, limit, page } = queryVariables;
   const defaultSortMethod = "STATUS:ASC;BASE_STATUS:DESC";
@@ -54,6 +55,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     PatchTasksQueryVariables
   >(GET_PATCH_TASKS, {
     variables: queryVariables,
+    skip: noQueryVariables,
     pollInterval,
     fetchPolicy: "network-only",
     nextFetchPolicy: "cache-and-network",
@@ -61,10 +63,6 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
       dispatchToast.error(`Error fetching patch tasks ${err}`);
     },
   });
-  let showSkeleton = true;
-  if (data) {
-    showSkeleton = false;
-  }
   usePolling(startPolling, stopPolling);
   const { patchTasks } = data || {};
 
@@ -112,7 +110,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
           />
         </TableControlInnerRow>
       </TableControlOuterRow>
-      {showSkeleton ? (
+      {!data ? (
         <Skeleton active title={false} paragraph={{ rows: 8 }} />
       ) : (
         <PatchTasksTable sorts={sorts} patchTasks={patchTasks} />
