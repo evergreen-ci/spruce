@@ -1,4 +1,10 @@
-import { AliasNames, transformAliases } from "./alias";
+import {
+  AliasFormType,
+  AliasNames,
+  GitTagSpecifier,
+  transformAliases,
+  VariantTaskSpecifier,
+} from "./alias";
 
 describe("transformAliases", () => {
   it("should return a list of aliases using an AliasName if provided", () => {
@@ -7,9 +13,17 @@ describe("transformAliases", () => {
         [
           {
             id: "123",
-            variant: ".*",
-            task: ".*",
-          },
+            variants: {
+              specifier: VariantTaskSpecifier.Regex,
+              variant: ".*",
+              variantTags: ["hi"],
+            },
+            tasks: {
+              specifier: VariantTaskSpecifier.Regex,
+              task: ".*",
+              taskTags: ["hello"],
+            },
+          } as AliasFormType,
         ],
         true,
         AliasNames.GithubPr
@@ -34,9 +48,7 @@ describe("transformAliases", () => {
         [
           {
             id: "123",
-            variantTags: ["new"],
-            taskTags: ["test"],
-          },
+          } as AliasFormType,
         ],
         false,
         AliasNames.GithubPr
@@ -50,9 +62,17 @@ describe("transformAliases", () => {
         [
           {
             id: "456",
-            variantTags: ["new", "", ""],
-            taskTags: ["test"],
-          },
+            variants: {
+              specifier: VariantTaskSpecifier.Tags,
+              variant: "something",
+              variantTags: ["new", "", ""],
+            },
+            tasks: {
+              specifier: VariantTaskSpecifier.Tags,
+              task: "",
+              taskTags: ["test"],
+            },
+          } as AliasFormType,
         ],
         true,
         AliasNames.CommitQueue
@@ -78,9 +98,17 @@ describe("transformAliases", () => {
           {
             id: "",
             alias: "myAlias",
-            variantTags: ["hello"],
-            taskTags: ["goodbye"],
-          },
+            variants: {
+              specifier: VariantTaskSpecifier.Tags,
+              variant: "",
+              variantTags: ["hello"],
+            },
+            tasks: {
+              specifier: VariantTaskSpecifier.Tags,
+              task: "",
+              taskTags: ["goodbye"],
+            },
+          } as AliasFormType,
         ],
         true
       )
@@ -96,5 +124,83 @@ describe("transformAliases", () => {
         remotePath: "",
       },
     ]);
+  });
+
+  describe("git tag aliases", () => {
+    it("correctly uses a config file", () => {
+      expect(
+        transformAliases(
+          [
+            {
+              id: "",
+              gitTag: "test",
+              specifier: GitTagSpecifier.ConfigFile,
+              remotePath: "evergreen.yml",
+              variants: {
+                specifier: VariantTaskSpecifier.Tags,
+                variant: "",
+                variantTags: ["hello"],
+              },
+              tasks: {
+                specifier: VariantTaskSpecifier.Tags,
+                task: "",
+                taskTags: ["goodbye"],
+              },
+            } as AliasFormType,
+          ],
+          true,
+          AliasNames.GitTag
+        )
+      ).toStrictEqual([
+        {
+          id: "",
+          alias: "__git_tag",
+          gitTag: "test",
+          remotePath: "evergreen.yml",
+          variantTags: [],
+          taskTags: [],
+          variant: "",
+          task: "",
+        },
+      ]);
+    });
+
+    it("correctly uses a variant/task pair", () => {
+      expect(
+        transformAliases(
+          [
+            {
+              id: "",
+              gitTag: "test",
+              specifier: GitTagSpecifier.VariantTask,
+              remotePath: "evergreen.yml",
+              variants: {
+                specifier: VariantTaskSpecifier.Tags,
+                variant: "",
+                variantTags: ["hello"],
+              },
+              tasks: {
+                specifier: VariantTaskSpecifier.Tags,
+                task: "",
+                taskTags: ["goodbye"],
+              },
+            } as AliasFormType,
+          ],
+          true,
+          AliasNames.GitTag
+        )
+      ).toStrictEqual([
+        {
+          id: "",
+          alias: "__git_tag",
+          gitTag: "test",
+          remotePath: "",
+          variantTags: ["hello"],
+          taskTags: ["goodbye"],
+          variant: "",
+          task: "",
+        },
+      ]);
+    });
   });
 });

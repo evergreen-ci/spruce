@@ -2,6 +2,10 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { RadioBox, RadioBoxGroup } from "@leafygreen-ui/radio-box-group";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
+import {
+  SegmentedControl,
+  SegmentedControlOption,
+} from "@leafygreen-ui/segmented-control";
 import { Option, Select } from "@leafygreen-ui/select";
 import TextArea from "@leafygreen-ui/text-area";
 import TextInput from "@leafygreen-ui/text-input";
@@ -10,8 +14,10 @@ import { Description, Label } from "@leafygreen-ui/typography";
 import { WidgetProps } from "@rjsf/core";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
-
+import { errorReporting } from "utils";
 import ElementWrapper from "./ElementWrapper";
+
+const { reportError } = errorReporting;
 
 const getInputErrors = (rawErrors: string[]): string[] => {
   // Don't display empty input errors as these are too visually noisy
@@ -146,7 +152,9 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
   const hasError = !!rawErrors?.length && !disabled;
 
   if (!Array.isArray(enumOptions)) {
-    console.error("Non Array passed into leafygreen select");
+    reportError(
+      new Error("LeafyGreen Select expects enumOptions to be an array")
+    ).warning();
     return null;
   }
   return (
@@ -193,7 +201,9 @@ export const LeafyGreenRadio: React.FC<WidgetProps> = ({
 }) => {
   const { enumOptions, "data-cy": dataCy } = options;
   if (!Array.isArray(enumOptions)) {
-    console.error("Non Array passed into leafygreen radio");
+    reportError(
+      new Error("LeafyGreen Radio expects enumOptions to be an array")
+    ).warning();
     return null;
   }
 
@@ -226,9 +236,9 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
 }) => {
   const { description, enumOptions, "data-cy": dataCy, showLabel } = options;
   if (!Array.isArray(enumOptions)) {
-    console.error(
-      "enumOptions must be an array passed into LeafyGreen Radio Box"
-    );
+    reportError(
+      new Error("LeafyGreen Radio Box expects enumOptions to be an array")
+    ).warning();
     return null;
   }
 
@@ -307,6 +317,50 @@ export const LeafyGreenTextArea: React.FC<WidgetProps> = ({
     </ElementWrapper>
   );
 };
+
+export const LeafyGreenSegmentedControl: React.FC<WidgetProps> = ({
+  label,
+  onChange,
+  options,
+  value,
+}) => {
+  const {
+    "aria-controls": ariaControls,
+    "data-cy": dataCy,
+    enumOptions,
+  } = options;
+
+  if (!Array.isArray(enumOptions)) {
+    reportError(
+      new Error(
+        "LeafyGreen Segmented Control expects enumOptions to be an array"
+      )
+    ).warning();
+    return null;
+  }
+
+  return (
+    <ElementWrapper>
+      <StyledSegmentedControl
+        data-cy={dataCy}
+        label={label}
+        value={value}
+        onChange={onChange}
+        aria-controls={(ariaControls as string[])?.join(" ")}
+      >
+        {enumOptions.map((o) => (
+          <SegmentedControlOption key={o.value} value={o.value}>
+            {o.label}
+          </SegmentedControlOption>
+        ))}
+      </StyledSegmentedControl>
+    </ElementWrapper>
+  );
+};
+
+const StyledSegmentedControl = styled(SegmentedControl)`
+  margin-bottom: ${size.s};
+`;
 
 const MaxWidthContainer = styled.div`
   max-width: 400px;

@@ -93,6 +93,16 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
       variantTags: [],
       taskTags: [],
     },
+    {
+      id: "5",
+      alias: "__git_tag",
+      gitTag: "tagName",
+      variant: "",
+      task: "",
+      remotePath: "./evergreen.yml",
+      variantTags: [],
+      taskTags: [],
+    },
   ],
 };
 
@@ -174,6 +184,16 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
       remotePath: "",
       variantTags: ["vTag"],
       taskTags: ["tTag"],
+    },
+    {
+      id: "4",
+      alias: "my alias name",
+      gitTag: "",
+      variant: "",
+      task: "",
+      remotePath: "",
+      variantTags: ["okay"],
+      taskTags: ["hi"],
     },
   ],
 };

@@ -58,10 +58,8 @@ describe("Repo Settings", () => {
     it("Updates a patch definition", () => {
       cy.dataCy("add-button").contains("Add Patch Definition").parent().click();
 
-      cy.dataCy("variant-tags-field").find("button").click();
       cy.dataCy("variant-tags-input").first().type("vtag");
 
-      cy.dataCy("task-tags-field").find("button").click();
       cy.dataCy("task-tags-input").first().type("ttag");
     });
 
@@ -121,10 +119,8 @@ describe("Repo Settings", () => {
     });
 
     it("Successfully saves a complete alias", () => {
-      cy.dataCy("variant-tags-field").find("button").click();
       cy.dataCy("variant-tags-input").first().type("alias variant tag");
 
-      cy.dataCy("task-tags-field").find("button").click();
       cy.dataCy("task-tags-input").first().type("alias task tag");
 
       cy.dataCy("save-settings-button").click();
@@ -298,6 +294,30 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("var-name-input").should("not.exist");
     });
   });
+
+  describe("GitHub/Commit Queue page", () => {
+    before(() => {
+      cy.dataCy("navitem-github-commitqueue").click();
+    });
+
+    it("Allows adding a git tag alias", () => {
+      cy.dataCy("git-tag-enabled-radio-box").children().first().click();
+      cy.dataCy("add-button").contains("Add Git Tag").parent().click();
+      cy.dataCy("git-tag-input").type("myGitTag");
+      cy.dataCy("remote-path-input").type("./evergreen.yml");
+    });
+
+    it("Updates the Require Signed field and saves", () => {
+      cy.dataCy("require-signed-radio-box").children().first().click();
+
+      cy.dataCy("save-settings-button").click();
+      cy.validateToast("success", "Successfully updated project");
+    });
+
+    it("Shows the saved Git Tag", () => {
+      cy.dataCy("remote-path-input").should("have.value", "./evergreen.yml");
+    });
+  });
 });
 
 describe("Project Settings when defaulting to repo", () => {
@@ -378,7 +398,10 @@ describe("Project Settings when defaulting to repo", () => {
         .parent()
         .click();
       cy.dataCy("add-button").contains("Add Patch Definition").parent().click();
-      cy.get("button").contains("Regex").first().click();
+      cy.dataCy("variant-input-control")
+        .find("button")
+        .contains("Regex")
+        .click();
       cy.dataCy("variant-input").first().type(".*");
     });
 
@@ -386,16 +409,15 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("save-settings-button").should("be.disabled");
     });
 
-    it("Clears tag/regex fields when toggling between them", () => {
+    it("Does not clear tag/regex fields when toggling between them", () => {
       cy.get("button").contains("Tags").first().click();
       cy.get("button").contains("Regex").first().click();
 
-      cy.dataCy("variant-input").should("have.value", "");
+      cy.dataCy("variant-input").should("have.value", ".*");
     });
 
     it("Should enable save when the task and variant fields are filled in", () => {
-      cy.dataCy("variant-input").first().type(".*");
-      cy.get("#task-input-control").find("button").eq(1).click();
+      cy.dataCy("task-input-control").find("button").contains("Regex").click();
       cy.dataCy("task-input").first().type(".*");
       cy.dataCy("save-settings-button").should("not.be.disabled");
     });
@@ -502,11 +524,11 @@ describe("Project Settings when defaulting to repo", () => {
 
       cy.dataCy("alias-input").type("my overriden alias name");
 
-      cy.dataCy("variant-tags-field").find("button").click();
       cy.dataCy("variant-tags-input").first().type("alias variant tag 2");
 
-      cy.dataCy("task-tags-field").find("button").click();
       cy.dataCy("task-tags-input").first().type("alias task tag 2");
+      cy.dataCy("add-button").contains("Add Task Tag").parent().click();
+      cy.dataCy("task-tags-input").eq(1).type("alias task tag 3");
 
       cy.dataCy("save-settings-button").click();
       cy.validateToast("success", "Successfully updated project");
