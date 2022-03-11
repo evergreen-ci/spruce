@@ -127,6 +127,7 @@ export const getRepoId = (projects: Project[]) => {
     reportError(
       new Error("No projects provided when fetching repo id")
     ).warning();
+    return "";
   }
   return projects[0].repoRefId;
 };
