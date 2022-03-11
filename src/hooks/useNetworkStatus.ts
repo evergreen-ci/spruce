@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 /**
- * This hook sets a eventListener to monitor if the browser is offline.
+ * This hook sets an eventListener to monitor if the browser is online or offline.
  * @returns boolean - true if online, false if offline
  */
 export const useNetworkStatus = () => {
