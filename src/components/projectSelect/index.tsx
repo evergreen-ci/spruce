@@ -11,6 +11,7 @@ import {
   GetViewableProjectRefsQueryVariables,
 } from "gql/generated/types";
 import { GET_PROJECTS, GET_VIEWABLE_PROJECTS } from "gql/queries";
+import { errorReporting } from "utils";
 import { ProjectOptionGroup } from "./ProjectOptionGroup";
 
 type Project = {
@@ -119,9 +120,13 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   );
 };
 
+const { reportError } = errorReporting;
+
 export const getRepoId = (projects: Project[]) => {
   if (!projects || projects.length === 0) {
-    return "";
+    reportError(
+      new Error("No projects provided when fetching repo id")
+    ).warning();
   }
   return projects[0].repoRefId;
 };
