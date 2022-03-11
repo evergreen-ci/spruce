@@ -27,7 +27,7 @@ import {
 import { GET_TASK_TESTS, GET_TASKS_FOR_TESTS_TABLE } from "gql/queries";
 import {
   useUpdateURLQueryParams,
-  useNetworkStatus,
+  usePolling,
   useStatusesFilter,
   useFilterInputChangeHandler,
 } from "hooks";
@@ -128,7 +128,8 @@ export const TestsTable: React.FC = () => {
     variables: queryVariables,
     pollInterval,
   });
-  useNetworkStatus(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling);
+
   // update url query params when user event triggers change
   const tableChangeHandler: TableOnChange<TestResult> = (...[, , sorter]) => {
     const { order, columnKey } = Array.isArray(sorter) ? sorter[0] : sorter;
