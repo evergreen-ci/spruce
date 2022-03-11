@@ -8,65 +8,101 @@ import { SpruceForm } from "components/SpruceForm";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
+  AttachProjectToNewRepoMutation,
+  AttachProjectToNewRepoMutationVariables,
   AttachProjectToRepoMutation,
   AttachProjectToRepoMutationVariables,
   DetachProjectFromRepoMutation,
   DetachProjectFromRepoMutationVariables,
 } from "gql/generated/types";
 import {
+  ATTACH_PROJECT_TO_NEW_REPO,
   ATTACH_PROJECT_TO_REPO,
   DETACH_PROJECT_FROM_REPO,
 } from "gql/mutations";
 import { ProjectType } from "../../utils";
 
 interface ModalProps {
-  onCancel: () => void;
-  onConfirm: (formUpdate: any) => void;
+  handleClose: () => void;
   open: boolean;
+  projectId: string;
+  repoName: string;
+  repoOwner: string;
 }
 
 export const MoveRepoModal: React.FC<ModalProps> = ({
-  onCancel,
-  onConfirm,
+  handleClose,
   open,
+  projectId,
+  repoName,
+  repoOwner,
 }) => {
-  const [formState, setFormState] = useState({});
-  const [hasError, setHasError] = useState(false);
+  const dispatchToast = useToastContext();
+
+  const [formState, setFormState] = useState(moveRepoForm.defaultFormData);
+  const [hasError, setHasError] = useState(true);
+
+  const [attachProjectToNewRepo] = useMutation<
+    AttachProjectToNewRepoMutation,
+    AttachProjectToNewRepoMutationVariables
+  >(ATTACH_PROJECT_TO_NEW_REPO, {
+    onCompleted(attachProjectMutation) {
+      const { repoRefId } = attachProjectMutation?.attachProjectToNewRepo;
+      dispatchToast.success(`Successfully attached to repo ${repoRefId}`);
+    },
+    onError(err) {
+      dispatchToast.error(
+        `There was an error attaching the project: ${err.message}`
+      );
+    },
+    refetchQueries: ["ProjectSettings", "RepoSettings"],
+  });
 
   return (
     <ConfirmationModal
-      buttonText="Move Repo"
+      buttonText="Move Project"
       data-cy="move-repo-modal"
-      onCancel={onCancel}
-      onConfirm={() => onConfirm(formState)}
+      onCancel={handleClose}
+      onConfirm={() => {
+        attachProjectToNewRepo({
+          variables: {
+            project: {
+              projectId,
+              newOwner: formState.owner,
+              newRepo: formState.repo,
+            },
+          },
+        });
+        handleClose();
+      }}
       open={open}
       submitDisabled={hasError}
-      title="Move Repo"
+      title="Move to New Repo"
       variant="danger"
     >
-      Select an existing repository or add a new one.
-      {/* TODO: Add select component upon completion of EVG-15037 */}
+      <p>
+        Currently this project is using default settings for the repo{" "}
+        {repoOwner}/{repoName}. Attach to an existing repo or create a new one
+        to which unconfigured settings in this project will default.
+      </p>
       <SpruceForm
         formData={formState}
         onChange={({ formData, errors }) => {
           setHasError(errors.length > 0);
           setFormState(formData);
         }}
-        schema={modalFormDefinition.schema}
-        uiSchema={modalFormDefinition.uiSchema}
+        schema={moveRepoForm.schema}
+        uiSchema={moveRepoForm.uiSchema}
       />
     </ConfirmationModal>
   );
 };
 
-export const AttachDetachModal: React.FC<{
-  handleClose: () => void;
-  open: boolean;
-  projectId: string;
-  repoName: string;
-  repoOwner: string;
-  shouldAttach: boolean;
-}> = ({ handleClose, open, projectId, repoName, repoOwner, shouldAttach }) => {
+export const AttachDetachModal: React.FC<
+  ModalProps & {
+    shouldAttach: boolean;
+  }
+> = ({ handleClose, open, projectId, repoName, repoOwner, shouldAttach }) => {
   const dispatchToast = useToastContext();
 
   const [attachProjectToRepo] = useMutation<
@@ -183,52 +219,47 @@ export const RepoConfigField: Field = ({
                 : "Attach to Current Repo"}
             </Button>
           </ButtonRow>
-          {attachModalOpen && (
-            <AttachDetachModal
-              handleClose={() => setAttachModalOpen(false)}
-              open={attachModalOpen}
-              projectId={projectId}
-              repoName={repoName || formData.repo}
-              repoOwner={repoOwner || formData.owner}
-              shouldAttach={!isAttachedProject}
-            />
-          )}
+          <AttachDetachModal
+            handleClose={() => setAttachModalOpen(false)}
+            open={attachModalOpen}
+            projectId={projectId}
+            repoName={repoName || formData.repo}
+            repoOwner={repoOwner || formData.owner}
+            shouldAttach={!isAttachedProject}
+          />
+          <MoveRepoModal
+            handleClose={() => setMoveModalOpen(false)}
+            open={moveModalOpen}
+            projectId={projectId}
+            repoName={repoName}
+            repoOwner={repoOwner}
+          />
         </>
       )}
-      <MoveRepoModal
-        onCancel={() => setMoveModalOpen(false)}
-        onConfirm={(formUpdate) => {
-          setMoveModalOpen(false);
-          onChange(formUpdate);
-        }}
-        open={moveModalOpen}
-      />
     </Container>
   );
 };
 
-const modalFormDefinition = {
+const moveRepoForm = {
+  defaultFormData: {
+    owner: "",
+    repo: "",
+  },
   schema: {
     type: "object" as "object",
     properties: {
       owner: {
         type: "string" as "string",
         title: "New Owner",
-        default: "",
         minLength: 1,
       },
       repo: {
         type: "string" as "string",
-        title: "New Repository",
-        default: "",
+        title: "New Repository Name",
         minLength: 1,
       },
     },
     required: ["owner", "repo"],
-    dependencies: {
-      owner: ["repo"],
-      repo: ["owner"],
-    },
   },
   uiSchema: {
     owner: {

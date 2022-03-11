@@ -7,7 +7,11 @@ import {
 } from "components/Table/Filters";
 import { TreeSelectProps } from "components/TreeSelect";
 import { WordBreak } from "components/Typography";
-import { TestSortCategory, TestResult } from "gql/generated/types";
+import {
+  TestSortCategory,
+  TestResult,
+  GetTaskForTestsTableQuery,
+} from "gql/generated/types";
 import { string } from "utils";
 import { LogsColumn } from "./LogsColumn";
 import { TestStatusBadge } from "./TestStatusBadge";
@@ -23,10 +27,7 @@ interface GetColumnsTemplateParams {
   onColumnHeaderClick?: (sortField) => void;
   statusSelectorProps: TreeSelectProps;
   testNameInputProps: InputFilterProps;
-  task: {
-    name: string;
-    projectIdentifier: string;
-  };
+  task: GetTaskForTestsTableQuery["task"];
 }
 
 export const getColumnsTemplate = ({

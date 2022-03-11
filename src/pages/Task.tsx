@@ -16,7 +16,7 @@ import { commitQueueRequester } from "constants/patch";
 import { useToastContext } from "context/toast";
 import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
 import { GET_TASK } from "gql/queries";
-import { usePageTitle, useNetworkStatus } from "hooks";
+import { usePageTitle, usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PageDoesNotExist } from "pages/404";
 import { RequiredQueryParams, TaskStatus } from "types/task";
@@ -50,8 +50,8 @@ export const Task: React.FC = () => {
         `There was an error loading the task: ${err.message}`
       ),
   });
+  usePolling(startPolling, stopPolling);
 
-  useNetworkStatus(startPolling, stopPolling);
   const { task, taskFiles } = data ?? {};
   const {
     canAbort,
@@ -69,6 +69,7 @@ export const Task: React.FC = () => {
     requester,
     canOverrideDependencies,
     project,
+    displayTask,
   } = task ?? {};
   const attributed = annotation?.issues?.length > 0;
 
@@ -119,6 +120,7 @@ export const Task: React.FC = () => {
             canOverrideDependencies={canOverrideDependencies}
             taskName={displayName}
             projectIdentifier={project?.identifier}
+            isExecutionTask={!!displayTask}
           />
         }
       />

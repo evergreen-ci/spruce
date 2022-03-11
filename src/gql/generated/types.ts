@@ -933,8 +933,8 @@ export type WebhookInput = {
 };
 
 export type WorkstationConfigInput = {
-  setupCommands?: Maybe<Array<Maybe<WorkstationSetupCommandInput>>>;
-  gitClone: Scalars["Boolean"];
+  setupCommands?: Maybe<Array<WorkstationSetupCommandInput>>;
+  gitClone?: Maybe<Scalars["Boolean"]>;
 };
 
 export type WorkstationSetupCommandInput = {
@@ -1470,6 +1470,11 @@ export type GroupedProjects = {
   projects: Array<Project>;
 };
 
+export type Permissions = {
+  userId: Scalars["String"];
+  canCreateProject: Scalars["Boolean"];
+};
+
 export type GithubProjectConflicts = {
   commitQueueIdentifiers?: Maybe<Array<Scalars["String"]>>;
   prTestingIdentifiers?: Maybe<Array<Scalars["String"]>>;
@@ -1788,6 +1793,7 @@ export type User = {
   userId: Scalars["String"];
   emailAddress: Scalars["String"];
   patches: Patches;
+  permissions: Permissions;
 };
 
 export type UserPatchesArgs = {
@@ -2441,6 +2447,14 @@ export type AddFavoriteProjectMutation = {
     displayName: string;
     isFavorite: boolean;
   };
+};
+
+export type AttachProjectToNewRepoMutationVariables = Exact<{
+  project: MoveProjectInput;
+}>;
+
+export type AttachProjectToNewRepoMutation = {
+  attachProjectToNewRepo: { repoRefId: string };
 };
 
 export type AttachProjectToRepoMutationVariables = Exact<{
@@ -3647,6 +3661,21 @@ export type TaskFilesQuery = {
       files?: Maybe<Array<{ name: string; link: string }>>;
     }>;
   };
+};
+
+export type GetTaskForTestsTableQueryVariables = Exact<{
+  taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type GetTaskForTestsTableQuery = {
+  task?: Maybe<
+    {
+      displayName: string;
+      projectIdentifier?: Maybe<string>;
+      displayTask?: Maybe<{ id: string; execution: number }>;
+    } & BaseTaskFragment
+  >;
 };
 
 export type TaskLogsQueryVariables = Exact<{
