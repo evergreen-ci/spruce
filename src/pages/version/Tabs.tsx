@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, useLocation } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { CodeChanges } from "components/CodeChanges/CodeChanges";
 import { StyledTabs } from "components/styles/StyledTabs";
@@ -10,6 +10,9 @@ import { usePrevious } from "hooks";
 import { DownstreamTasks } from "pages/version/DownstreamTasks";
 import { Tasks } from "pages/version/Tasks";
 import { PatchTab } from "types/patch";
+import { queryString } from "utils";
+
+const { parseQueryString } = queryString;
 
 interface Props {
   taskCount: number;
@@ -48,6 +51,7 @@ export const Tabs: React.FC<Props> = ({ taskCount, childPatches, isPatch }) => {
   const { id, tab } = useParams<{ id: string; tab: PatchTab }>();
   const { sendEvent } = useVersionAnalytics(id);
   const history = useHistory();
+  const location = useLocation();
 
   const tabIsActive = useMemo(
     () => ({
@@ -66,32 +70,30 @@ export const Tabs: React.FC<Props> = ({ taskCount, childPatches, isPatch }) => {
     () => Object.keys(allTabs).filter((t) => tabIsActive[t] as PatchTab[]),
     [allTabs, tabIsActive]
   );
-  const defaultTab = tabIsActive[tab] ? tab : DEFAULT_PATCH_TAB;
+  const isValidTab = tabIsActive[tab];
   const [selectedTab, setSelectedTab] = useState(
-    activeTabs.indexOf(defaultTab)
+    activeTabs.indexOf(isValidTab ? tab : DEFAULT_PATCH_TAB)
   );
   const previousTab = usePrevious(selectedTab);
 
   useEffect(() => {
-    // If tab is undefined, set to task tab.
-    if (!tab) {
-      history.replace(
-        getVersionRoute(id, {
-          tab: PatchTab.Tasks,
-        })
-      );
+    // If tab is not valid, set to task tab.
+    if (!isValidTab) {
+      history.replace(getVersionRoute(id));
     }
-    // If tab updates in URL without having clicked a tab (e.g. clicked build variant), update here.
-    if (tab && selectedTab !== activeTabs.indexOf(tab)) {
+    // If tab updates in URL without having clicked a tab (e.g. clicked build variant), update state here.
+    if (isValidTab && selectedTab !== activeTabs.indexOf(tab)) {
       setSelectedTab(activeTabs.indexOf(tab));
     }
   }, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Function to update the URL and selectedTab state based on new tab selected.
-  const processNewTab = (newTabIndex: number) => {
+  // Update the URL and selectedTab state based on new tab selected.
+  const selectNewTab = (newTabIndex: number) => {
+    const queryParams = parseQueryString(location.search);
     const newTab = Object.keys(allTabs)[newTabIndex];
     const newRoute = getVersionRoute(id, {
       tab: newTab as PatchTab,
+      ...queryParams,
     });
     history.replace(newRoute);
 
@@ -107,7 +109,7 @@ export const Tabs: React.FC<Props> = ({ taskCount, childPatches, isPatch }) => {
   return (
     <StyledTabs
       selected={selectedTab}
-      setSelected={processNewTab}
+      setSelected={selectNewTab}
       aria-label="Patch Tabs"
     >
       {activeTabs.map((t: string) => allTabs[t])}

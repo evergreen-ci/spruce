@@ -103,44 +103,6 @@ describe("Version route", () => {
     });
   });
 
-  describe("Patch tabs", () => {
-    it("Defaults to the task tab and applies default sorts when visiting a version page", () => {
-      cy.visit(versionRoute(versions[0]));
-      cy.location("search").should(
-        "contain",
-        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
-      );
-    });
-
-    it("Applies default sorts on task tab when switching from another tab", () => {
-      cy.visit(`${versionRoute(versions[0])}/changes`);
-      cy.dataCy("task-tab").first().click();
-      cy.location("search").should(
-        "contain",
-        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
-      );
-    });
-
-    it("Removes sort filters when moving to a tab that isn't a task tab", () => {
-      cy.visit(`${versionRoute(versions[0])}`);
-      cy.location("search").should(
-        "contain",
-        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
-      );
-
-      cy.dataCy("changes-tab").first().click();
-      cy.location().should((loc) => {
-        expect(loc.pathname).to.equal(
-          `/version/5ecedafb562343215a7ff297/changes`
-        );
-      });
-      cy.location("search").should(
-        "not.contain",
-        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
-      );
-    });
-  });
-
   describe("Page title", () => {
     before(() => {
       cy.preserveCookies();
