@@ -4,10 +4,10 @@ import {
   RepoSettingsQuery,
 } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
-import { alias, ProjectType } from "../utils";
+import { alias as aliasUtils, ProjectType } from "../utils";
 import { FormState } from "./types";
 
-const { AliasNames, sortAliases, transformAliases } = alias;
+const { AliasNames, sortAliases, transformAliases } = aliasUtils;
 
 export const mergeProjectRepo = (
   projectData: FormState,
@@ -15,7 +15,7 @@ export const mergeProjectRepo = (
 ): FormState => {
   // Merge project and repo objects so that repo config can be displayed on project pages
   const {
-    github: { prTesting, githubChecks, users, teams },
+    github: { prTesting, githubChecks, users, teams, gitTags },
     commitQueue: { patchDefinitions },
   } = repoData;
   const mergedObject: FormState = projectData;
@@ -23,6 +23,7 @@ export const mergeProjectRepo = (
   mergedObject.github.githubChecks.repoData = githubChecks;
   mergedObject.github.users.repoData = users;
   mergedObject.github.teams.repoData = teams;
+  mergedObject.github.gitTags.repoData = gitTags;
   mergedObject.commitQueue.patchDefinitions.repoData = patchDefinitions;
   return mergedObject;
 };
@@ -42,6 +43,7 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
     commitQueueAliases,
     githubPrAliases,
     githubCheckAliases,
+    gitTagAliases,
   } = sortAliases(aliases);
 
   const override = (field: Array<any>) =>
@@ -72,6 +74,10 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
         ),
         gitTagAuthorizedTeams: projectRef.gitTagAuthorizedTeams,
       },
+      gitTags: {
+        gitTagAliasesOverride: override(gitTagAliases),
+        gitTagAliases,
+      },
     },
     commitQueue: {
       enabled: projectRef.commitQueue.enabled,
@@ -96,6 +102,7 @@ export const formToGql: FormToGqlFunction = (
       gitTagVersionsEnabled,
       users: { gitTagAuthorizedUsers, gitTagAuthorizedUsersOverride },
       teams: { gitTagAuthorizedTeams, gitTagAuthorizedTeamsOverride },
+      gitTags,
     },
     commitQueue: {
       enabled,
@@ -140,6 +147,12 @@ export const formToGql: FormToGqlFunction = (
     AliasNames.GithubCheck
   );
 
+  const gitTagAliases = transformAliases(
+    gitTags.gitTagAliases,
+    gitTags.gitTagAliasesOverride,
+    AliasNames.GitTag
+  );
+
   const commitQueueAliases = transformAliases(
     patchDefinitions.commitQueueAliases,
     patchDefinitions.commitQueueAliasesOverride,
@@ -149,6 +162,7 @@ export const formToGql: FormToGqlFunction = (
   const aliases = [
     ...githubPrAliases,
     ...githubCheckAliases,
+    ...gitTagAliases,
     ...commitQueueAliases,
   ];
 
