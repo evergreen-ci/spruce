@@ -277,11 +277,9 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("remote-path-input").type("./evergreen.yml");
     });
 
-    it("Updates the Require Signed field", () => {
+    it("Updates the Require Signed field and saves", () => {
       cy.dataCy("require-signed-radio-box").children().first().click();
-    });
 
-    it("Successfully saves the page", () => {
       cy.dataCy("save-settings-button").click();
       cy.validateToast("success", "Successfully updated project");
     });

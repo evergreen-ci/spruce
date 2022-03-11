@@ -36,6 +36,7 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
   uiSchema,
 }) => {
   const isNullType = schema.type === "null";
+  const sectionId = uiSchema["ui:sectionId"] ?? "";
   return (
     !hidden && (
       <>
@@ -43,7 +44,9 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
           <CustomTitleField id={id} title={label} uiSchema={uiSchema} />
         )}
         {isNullType && <>{description}</>}
-        <div className={classNames}>{children}</div>
+        <div id={`${sectionId} ${id}`} className={classNames}>
+          {children}
+        </div>
       </>
     )
   );

@@ -209,6 +209,7 @@ const baseProps = {
     },
     uiSchema: {
       "ui:data-cy": "remote-path-input",
+      "ui:sectionId": "remote-path-field",
       "ui:showErrors": false,
     },
   },
@@ -222,6 +223,7 @@ const baseProps = {
       "ui:ariaLabelledBy": "task-input-control",
       "ui:data-cy": "task-input",
       "ui:placeholder": "Golang Regex",
+      "ui:sectionId": "task-regex-field",
       "ui:showErrors": false,
     },
   },
@@ -239,6 +241,7 @@ const baseProps = {
       "ui:addButtonSize": "xsmall",
       "ui:addButtonText": "Add Task Tag",
       "ui:fullWidth": true,
+      "ui:sectionId": "task-tags-field",
       "ui:showLabel": false,
       "ui:topAlignDelete": true,
       items: {
@@ -258,6 +261,7 @@ const baseProps = {
       "ui:ariaLabelledBy": "variant-input-control",
       "ui:data-cy": "variant-input",
       "ui:placeholder": "Golang Regex",
+      "ui:sectionId": "variant-regex-field",
       "ui:showErrors": false,
     },
   },
@@ -277,6 +281,7 @@ const baseProps = {
       "ui:addButtonSize": "xsmall",
       "ui:addButtonText": "Add Variant Tag",
       "ui:fullWidth": true,
+      "ui:sectionId": "variant-tags-field",
       "ui:showLabel": false,
       "ui:topAlignDelete": true,
       items: {
@@ -348,6 +353,8 @@ const variants = {
     specifier: {
       "ui:widget": widgets.SegmentedControlWidget,
       "ui:data-cy": "variant-input-control",
+      "ui:sectionId": "variant-task-field",
+      "ui:aria-controls": ["variant-regex-field", "variant-tags-field"],
     },
     variant: variant.uiSchema,
     variantTags: variantTags.uiSchema,
@@ -404,6 +411,7 @@ const tasks = {
     specifier: {
       "ui:widget": widgets.SegmentedControlWidget,
       "ui:data-cy": "task-input-control",
+      "ui:aria-controls": ["task-regex-field", "task-tags-field"],
     },
     task: task.uiSchema,
     taskTags: taskTags.uiSchema,
@@ -471,6 +479,7 @@ export const gitTagArray = {
       gitTag: gitTag.uiSchema,
       specifier: {
         "ui:widget": widgets.SegmentedControlWidget,
+        "ui:aria-controls": ["variant-task-field", "remote-path-field"],
       },
       variants: variants.uiSchema,
       tasks: tasks.uiSchema,
