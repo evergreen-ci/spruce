@@ -80,7 +80,6 @@ export const CreateProjectModal: React.FC<Props> = ({ owner, repo }) => {
   const { user } = userPermissionsData || {};
   const { permissions } = user || {};
   const canCreateProject = permissions?.canCreateProject;
-  console.log("userPermissionsData: ", userPermissionsData);
 
   const [open, setOpen] = useState(false);
 
