@@ -19,12 +19,15 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
   children,
 }) => {
   const {
-    itemHeight,
+    getItemHeight,
     fetchNewCommit,
     isItemLoaded,
+    toggleRowSize,
     commitCount,
+    rowSizes,
   } = useHistoryTable();
   const listRef = useRef<List>(null);
+
   useEffect(() => {
     if (recentlyFetchedCommits) {
       fetchNewCommit(recentlyFetchedCommits);
@@ -38,7 +41,14 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
     }
   }, [recentlyFetchedCommits]);
 
-  return (
+  const toggleRow = (index: number, commitLength: number) => {
+    toggleRowSize(index, commitLength);
+    if (listRef.current) {
+      listRef.current.resetAfterIndex(index);
+    }
+  };
+
+  return rowSizes && rowSizes.length ? (
     <AutoSizer>
       {({ height, width }) => (
         <InfiniteLoader
@@ -50,10 +60,11 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
             <List
               height={height}
               itemCount={commitCount}
-              itemSize={itemHeight}
+              itemSize={getItemHeight}
               onItemsRendered={onItemsRendered}
               ref={listRef}
               width={width}
+              itemData={{ toggleRow }}
             >
               {children}
             </List>
@@ -61,7 +72,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
         </InfiniteLoader>
       )}
     </AutoSizer>
-  );
+  ) : null;
 };
 
 export default HistoryTable;

@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
 import { Skeleton } from "antd";
-import { LoadingCell } from "../Cell";
+import { LoadingCell } from "../Cell/Cell";
+import { LabelCellContainer } from "./styles";
 
 interface LoadingRowProps {
   numVisibleCols: number;
@@ -8,7 +8,7 @@ interface LoadingRowProps {
 export const LoadingRow: React.FC<LoadingRowProps> = ({ numVisibleCols }) => (
   <>
     <LabelCellContainer>
-      <Skeleton active title={false} paragraph={{ rows: 3 }} />
+      <Skeleton title={false} paragraph={{ rows: 3 }} />
     </LabelCellContainer>
     {Array.from(Array(numVisibleCols)).map((_, index) => (
       // Disabling key index rules since there is nothing unique about these rows
@@ -16,8 +16,3 @@ export const LoadingRow: React.FC<LoadingRowProps> = ({ numVisibleCols }) => (
     ))}
   </>
 );
-
-const LabelCellContainer = styled.div`
-  width: 200px;
-  padding-right: 40px;
-`;

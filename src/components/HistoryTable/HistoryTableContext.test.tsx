@@ -14,7 +14,8 @@ describe("historyTableContext", () => {
       fetchNewCommit: expect.any(Function),
       getItem: expect.any(Function),
       isItemLoaded: expect.any(Function),
-      itemHeight: expect.any(Function),
+      getItemHeight: expect.any(Function),
+      toggleRowSize: expect.any(Function),
       hasNextPage: false,
       hasPreviousPage: false,
       historyTableFilters: [],
@@ -28,6 +29,7 @@ describe("historyTableContext", () => {
       pageCount: 0,
       columnLimit: 7,
       commitCount: 10,
+      rowSizes: [],
     });
   });
   it("should process new commits when they are passed in", () => {
@@ -46,6 +48,10 @@ describe("historyTableContext", () => {
     // Should have processed the new commits and have every real commit
     expect(processedCommits).toHaveLength(
       splitMainlineCommitDataPart1.versions.length
+    );
+    // Should have processed the row sizes correctly
+    expect(result.current.rowSizes).toHaveLength(
+      result.current.processedCommits.length
     );
     // First element should be the date separator
     expect(result.current.isItemLoaded(0)).toBe(true);

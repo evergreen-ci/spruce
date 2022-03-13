@@ -5,7 +5,7 @@ import Icon from "components/Icon";
 import { size } from "constants/tokens";
 import { useHistoryTable } from "./HistoryTableContext";
 
-const ColumPaginationButtons: React.FC = () => {
+const ColumnPaginationButtons: React.FC = () => {
   const {
     nextPage,
     previousPage,
@@ -57,4 +57,4 @@ const Container = styled.div`
   flex-shrink: 0;
 `;
 
-export default ColumPaginationButtons;
+export default ColumnPaginationButtons;

@@ -5,9 +5,9 @@ import { TestStatus } from "types/history";
 import {
   HistoryTableProvider,
   useHistoryTable as useHistoryTableActual,
-} from "./HistoryTableContext";
-import { mainlineCommitData } from "./testData";
-import { rowType } from "./types";
+} from "../HistoryTableContext";
+import { mainlineCommitData } from "../testData";
+import { rowType } from "../types";
 import useTestResultsActual from "./useTestResults";
 
 interface ProviderProps {
@@ -47,7 +47,8 @@ describe("useMergedHookRender - sanity check", () => {
       fetchNewCommit: expect.any(Function),
       getItem: expect.any(Function),
       isItemLoaded: expect.any(Function),
-      itemHeight: expect.any(Function),
+      getItemHeight: expect.any(Function),
+      toggleRowSize: expect.any(Function),
       hasNextPage: false,
       hasPreviousPage: false,
       historyTableFilters: [],
@@ -61,6 +62,7 @@ describe("useMergedHookRender - sanity check", () => {
       pageCount: 0,
       columnLimit: 7,
       commitCount: 10,
+      rowSizes: [],
     });
   });
 });

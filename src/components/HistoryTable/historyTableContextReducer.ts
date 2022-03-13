@@ -1,6 +1,6 @@
 import { TestFilter } from "gql/generated/types";
 import { CommitRowType, mainlineCommits } from "./types";
-import { processCommits } from "./utils";
+import { processCommits, processRowSizes, changeRowSizeAtIndex } from "./utils";
 
 type Action =
   | { type: "ingestNewCommits"; commits: mainlineCommits }
@@ -8,7 +8,8 @@ type Action =
   | { type: "nextPageColumns" }
   | { type: "prevPageColumns" }
   | { type: "setColumnLimit"; limit: number }
-  | { type: "setHistoryTableFilters"; filters: TestFilter[] };
+  | { type: "setHistoryTableFilters"; filters: TestFilter[] }
+  | { type: "changeRowSizeAtIndex"; index: number; numCommits: number };
 
 type cacheShape = Map<
   number,
@@ -27,6 +28,7 @@ export interface HistoryTableReducerState {
   columnLimit: number;
   historyTableFilters: TestFilter[];
   commitCount: number;
+  rowSizes: number[];
 }
 
 export const reducer = (state: HistoryTableReducerState, action: Action) => {
@@ -43,6 +45,9 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
           action.commits.versions,
           state.processedCommits
         );
+
+        const rowSizes = processRowSizes(processedCommits, state.rowSizes);
+
         let { commitCount } = state;
         // If there are no previous commits, we can set the commitCount to be the first commit's order.
         if (action.commits.prevPageOrderNumber == null) {
@@ -63,9 +68,21 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
           processedCommits,
           processedCommitCount: processedCommits.length,
           commitCount,
+          rowSizes,
         };
       }
       return state;
+    }
+    case "changeRowSizeAtIndex": {
+      const newRowSizes = changeRowSizeAtIndex(
+        state.rowSizes,
+        action.numCommits,
+        action.index
+      );
+      return {
+        ...state,
+        rowSizes: newRowSizes,
+      };
     }
     case "addColumns":
       return {
