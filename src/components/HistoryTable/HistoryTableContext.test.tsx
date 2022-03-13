@@ -1,4 +1,9 @@
 import { renderHook, act } from "@testing-library/react-hooks";
+import {
+  FOLDED_COMMITS_HEIGHT,
+  COMMIT_HEIGHT,
+  DATE_SEPARATOR_HEIGHT,
+} from "./constants";
 import { HistoryTableProvider, useHistoryTable } from "./HistoryTableContext";
 import { mainlineCommitData } from "./testData";
 import { rowType } from "./types";
@@ -41,17 +46,13 @@ describe("historyTableContext", () => {
     act(() => {
       result.current.fetchNewCommit(splitMainlineCommitDataPart1);
     });
-    // Filter out the column date seperators
+    // Filter out the column date separators
     const processedCommits = result.current.processedCommits.filter(
       (c) => c.type !== rowType.DATE_SEPARATOR
     );
     // Should have processed the new commits and have every real commit
     expect(processedCommits).toHaveLength(
       splitMainlineCommitDataPart1.versions.length
-    );
-    // Should have processed the row sizes correctly
-    expect(result.current.rowSizes).toHaveLength(
-      result.current.processedCommits.length
     );
     // First element should be the date separator
     expect(result.current.isItemLoaded(0)).toBe(true);
@@ -66,6 +67,14 @@ describe("historyTableContext", () => {
       commit: splitMainlineCommitDataPart1.versions[0].version,
     });
     expect(result.current.isItemLoaded(2)).toBe(false);
+    // Should have processed the row sizes correctly
+    expect(result.current.rowSizes).toHaveLength(
+      result.current.processedCommits.length
+    );
+    expect(result.current.rowSizes).toStrictEqual([
+      DATE_SEPARATOR_HEIGHT,
+      COMMIT_HEIGHT,
+    ]);
   });
   it("should process additional commits when they are passed in", () => {
     const { result } = renderHook(() => useHistoryTable(), { wrapper });
@@ -77,6 +86,7 @@ describe("historyTableContext", () => {
       ...mainlineCommitData,
       versions: mainlineCommitData.versions.slice(1, 2),
     };
+    // Fetch new commit
     act(() => {
       result.current.fetchNewCommit(splitMainlineCommitDataPart1);
     });
@@ -87,6 +97,15 @@ describe("historyTableContext", () => {
     });
     expect(result.current.isItemLoaded(1)).toBeTruthy();
     expect(result.current.isItemLoaded(2)).toBeFalsy();
+    expect(result.current.rowSizes).toHaveLength(
+      result.current.processedCommits.length
+    );
+    expect(result.current.rowSizes).toStrictEqual([
+      DATE_SEPARATOR_HEIGHT,
+      COMMIT_HEIGHT,
+    ]);
+
+    // Fetch another new commit
     act(() => {
       result.current.fetchNewCommit(splitMainlineCommitDataPart2);
     });
@@ -96,6 +115,14 @@ describe("historyTableContext", () => {
       date: splitMainlineCommitDataPart2.versions[0].version.createTime,
       commit: splitMainlineCommitDataPart2.versions[0].version,
     });
+    expect(result.current.rowSizes).toHaveLength(
+      result.current.processedCommits.length
+    );
+    expect(result.current.rowSizes).toStrictEqual([
+      DATE_SEPARATOR_HEIGHT,
+      COMMIT_HEIGHT,
+      COMMIT_HEIGHT,
+    ]);
   });
   it("should handle calculating the commitCount based off of the passed in values", () => {
     const { result } = renderHook(() => useHistoryTable(), { wrapper });
@@ -158,6 +185,65 @@ describe("historyTableContext", () => {
       date: commitDate2.versions[0].version.createTime,
       commit: commitDate2.versions[0].version,
     });
+  });
+  it("should handle expanding rows", () => {
+    const { result } = renderHook(() => useHistoryTable(), { wrapper });
+    const expandableMainlineCommitData = {
+      ...mainlineCommitData,
+      versions: mainlineCommitData.versions.slice(-2),
+    };
+    const { version } = expandableMainlineCommitData.versions[0];
+    const { rolledUpVersions } = expandableMainlineCommitData.versions[1];
+    act(() => {
+      result.current.fetchNewCommit(expandableMainlineCommitData);
+    });
+    // Verify elements
+    expect(result.current.isItemLoaded(0)).toBe(true);
+    expect(result.current.getItem(0)).toStrictEqual({
+      type: rowType.DATE_SEPARATOR,
+      date: version.createTime,
+    });
+    expect(result.current.isItemLoaded(1)).toBe(true);
+    expect(result.current.getItem(1)).toStrictEqual({
+      type: rowType.COMMIT,
+      date: version.createTime,
+      commit: version,
+    });
+    expect(result.current.isItemLoaded(2)).toBe(true);
+    expect(result.current.getItem(2)).toStrictEqual({
+      type: rowType.DATE_SEPARATOR,
+      date: rolledUpVersions[0].createTime,
+    });
+    expect(result.current.isItemLoaded(3)).toBe(true);
+    expect(result.current.getItem(3)).toStrictEqual({
+      type: rowType.FOLDED_COMMITS,
+      date: rolledUpVersions[0].createTime,
+      rolledUpCommits: rolledUpVersions,
+    });
+    expect(result.current.isItemLoaded(4)).toBe(false);
+    // Verify row sizes
+    expect(result.current.rowSizes).toHaveLength(
+      result.current.processedCommits.length
+    );
+    expect(result.current.rowSizes).toStrictEqual([
+      DATE_SEPARATOR_HEIGHT,
+      COMMIT_HEIGHT,
+      DATE_SEPARATOR_HEIGHT,
+      FOLDED_COMMITS_HEIGHT,
+    ]);
+    // Now trigger an update to size of the folded commit
+    act(() => {
+      result.current.toggleRowSize(3, rolledUpVersions.length);
+    });
+    // Check the new row sizes
+    const expandedRowSize =
+      FOLDED_COMMITS_HEIGHT + COMMIT_HEIGHT * rolledUpVersions.length;
+    expect(result.current.rowSizes).toStrictEqual([
+      DATE_SEPARATOR_HEIGHT,
+      COMMIT_HEIGHT,
+      DATE_SEPARATOR_HEIGHT,
+      expandedRowSize,
+    ]);
   });
   it("should deduplicate passed in versions", () => {
     const { result } = renderHook(() => useHistoryTable(), { wrapper });
@@ -247,7 +333,7 @@ describe("historyTableContext", () => {
       expect(result.current.visibleColumns).toHaveLength(7);
       expect(result.current.visibleColumns).toStrictEqual(columns.slice(0, 7));
     });
-    it("should not be able to paginate backwards on non existant pages", () => {
+    it("should not be able to paginate backwards on non existent pages", () => {
       const { result } = renderHook(() => useHistoryTable(), { wrapper });
       act(() => {
         result.current.addColumns(columns);
