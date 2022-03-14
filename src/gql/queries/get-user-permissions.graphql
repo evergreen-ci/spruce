@@ -1,6 +1,5 @@
 query GetUserPermissions {
   user {
-    userId
     permissions {
       canCreateProject
     }
