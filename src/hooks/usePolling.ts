@@ -7,7 +7,8 @@ import { usePageVisibility } from "./usePageVisibility";
 type usePollingType = {
   (
     startPolling: (pollInterval?: number) => void,
-    stopPolling: () => void
+    stopPolling: () => void,
+    initialPollingState?: boolean
   ): boolean;
 };
 
@@ -19,10 +20,14 @@ type usePollingType = {
  * @param stopPolling - Function from useQuery that is called when offline or not visible
  * @returns boolean - true if polling, false if not polling
  */
-export const usePolling: usePollingType = (startPolling, stopPolling) => {
+export const usePolling: usePollingType = (
+  startPolling,
+  stopPolling,
+  initialPollingState = true
+) => {
   const { sendEvent } = usePollingAnalytics();
 
-  const [isPolling, setIsPolling] = useState(true);
+  const [isPolling, setIsPolling] = useState(initialPollingState);
   const isOnline = useNetworkStatus();
   const isVisible = usePageVisibility();
 
