@@ -77,17 +77,18 @@ const ArrayItem: React.FC<
   topAlignDelete,
   useExpandableCard,
 }) => {
+  const isDisabled = disabled || readonly;
   const deleteButton = (
     <Button
       onClick={onDropIndexClick(index)}
-      disabled={disabled || readonly}
+      disabled={isDisabled}
       leftGlyph={<Icon glyph="Trash" />}
       data-cy="delete-item-button"
     />
   );
   return useExpandableCard ? (
     <ExpandableCard
-      defaultOpen={!disabled}
+      defaultOpen={!isDisabled}
       contentClassName="patch-alias-card-content"
       title={
         <>
@@ -145,12 +146,14 @@ const OrderControls = styled.div<{ topAlignDelete: boolean }>`
 
 const ArrayItemRow = styled.div<{ border: boolean; index: number }>`
   display: flex;
-  margin-bottom: ${size.m};
   ${({ border, index }) =>
     border && index === 0 && `border-top: 1px solid ${gray.light1}`};
-  ${({ border }) => border && `border-bottom: 1px solid ${gray.light1}`};
+  ${({ border }) =>
+    border &&
+    `border-bottom: 1px solid ${gray.light1};
   margin: 0 -${size.m};
   padding: ${size.m};
+    `};
 
   .field-object {
     flex-grow: 1;

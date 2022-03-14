@@ -140,11 +140,11 @@ describe("Repo Settings", () => {
     it("Adds two commands", () => {
       cy.dataCy("save-settings-button").should("be.disabled");
 
-      cy.dataCy("add-button").click();
+      cy.dataCy("add-button").click({ force: true });
       cy.dataCy("command-input").type("command 1");
       cy.dataCy("directory-input").type("mongodb.user.directory");
 
-      cy.dataCy("add-button").click();
+      cy.dataCy("add-button").click({ force: true });
       cy.dataCy("command-input").eq(1).type("command 2");
 
       cy.dataCy("save-settings-button").click();

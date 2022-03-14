@@ -319,9 +319,11 @@ export const LeafyGreenTextArea: React.FC<WidgetProps> = ({
 };
 
 export const LeafyGreenSegmentedControl: React.FC<WidgetProps> = ({
+  disabled,
   label,
   onChange,
   options,
+  readonly,
   value,
 }) => {
   const {
@@ -329,6 +331,8 @@ export const LeafyGreenSegmentedControl: React.FC<WidgetProps> = ({
     "data-cy": dataCy,
     enumOptions,
   } = options;
+
+  const isDisabled = disabled || readonly;
 
   if (!Array.isArray(enumOptions)) {
     reportError(
@@ -349,7 +353,11 @@ export const LeafyGreenSegmentedControl: React.FC<WidgetProps> = ({
         aria-controls={(ariaControls as string[])?.join(" ")}
       >
         {enumOptions.map((o) => (
-          <SegmentedControlOption key={o.value} value={o.value}>
+          <SegmentedControlOption
+            key={o.value}
+            value={o.value}
+            disabled={isDisabled}
+          >
             {o.label}
           </SegmentedControlOption>
         ))}
