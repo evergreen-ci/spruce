@@ -1,15 +1,14 @@
 import { useMemo } from "react";
 import Banner from "@leafygreen-ui/banner";
-import { SpruceForm, SpruceFormProps } from "components/SpruceForm";
+import { SpruceForm } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { environmentalVariables } from "utils";
 import { usePopulateForm, useProjectSettingsContext } from "../Context";
-import { alias as aliasUtils, ProjectType } from "../utils";
+import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { mergeProjectRepo } from "./transformers";
 import { FormState, TabProps } from "./types";
 
-const { aliasHasError } = aliasUtils;
 const { isProduction } = environmentalVariables;
 
 const tab = ProjectSettingsTabRoutes.GithubCommitQueue;
@@ -69,48 +68,8 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
         onChange={onChange}
         schema={schema}
         uiSchema={uiSchema}
-        validate={validate}
         disabled={isProduction() && !gitHubWebhooksEnabled} // TODO: Remove once EVG-16208 is fixed
       />
     </>
   );
-};
-
-const validate = (
-  formData: FormState,
-  errors
-): ReturnType<SpruceFormProps["validate"]> => {
-  const {
-    github: {
-      prTesting: { githubPrAliases },
-      githubChecks: { githubCheckAliases },
-    },
-    commitQueue: {
-      patchDefinitions: { commitQueueAliases },
-    },
-  } = formData;
-
-  githubPrAliases.forEach((alias, i) => {
-    if (aliasHasError(alias)) {
-      errors.github.prTesting.githubPrAliases[i].addError("Missing field");
-    }
-  });
-
-  githubCheckAliases.forEach((alias, i) => {
-    if (aliasHasError(alias)) {
-      errors.github.githubChecks.githubCheckAliases[i].addError(
-        "Missing field"
-      );
-    }
-  });
-
-  commitQueueAliases.forEach((alias, i) => {
-    if (aliasHasError(alias)) {
-      errors.commitQueue.patchDefinitions.commitQueueAliases[i].addError(
-        "Missing field"
-      );
-    }
-  });
-
-  return errors;
 };
