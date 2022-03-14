@@ -1,8 +1,18 @@
-query GetTests($execution: Int, $groupId: String, $taskId: String!) {
+query GetTests(
+  $execution: Int
+  $groupId: String
+  $taskId: String!
+  $pageNum: Int
+  $limitNum: Int
+  $testName: String
+) {
   taskTests(
     execution: $execution
     groupId: $groupId
     sortCategory: START_TIME
+    page: $pageNum
+    limit: $limitNum
+    testName: $testName
     sortDirection: ASC
     taskId: $taskId
   ) {
@@ -14,5 +24,6 @@ query GetTests($execution: Int, $groupId: String, $taskId: String!) {
       }
       testFile
     }
+    filteredTestCount
   }
 }

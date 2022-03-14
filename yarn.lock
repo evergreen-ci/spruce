@@ -2587,7 +2587,7 @@
     "@leafygreen-ui/lib" "^9.0.0"
     "@leafygreen-ui/palette" "^3.2.2"
 
-"@leafygreen-ui/checkbox@6.0.6":
+"@leafygreen-ui/checkbox@6.0.6", "@leafygreen-ui/checkbox@^6.0.6":
   version "6.0.6"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/checkbox/-/checkbox-6.0.6.tgz#4569dc8cdb03862917a131aa01a002628559272e"
   integrity sha512-YAB0xDlGB3I7l8Ud/Ea3SGMKd5uMXFMAiY3We34dh5oROtMJ/OmRI8A6x3n/xILQGqnapF2qryteykhBjgPjrQ==
@@ -2772,6 +2772,11 @@
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/palette/-/palette-3.2.2.tgz#9fc9a8051d9a07cbc50a7f8918f33e146d717070"
   integrity sha512-Oqjz6Qfapm8jB9rw4r9C1yq5XFJRSZ6xSCCGu6Oz8nR0o66xzCxsp0h96tPcrSFWwOrJJxYsQPSGHVsUmTJDzw==
 
+"@leafygreen-ui/palette@3.3.0":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/palette/-/palette-3.3.0.tgz#4757c53a9f0249f52e16640beb0c43840a64344b"
+  integrity sha512-B3fveUzs7r+yoNRscAJ3Tfjcdb2xnXhAlfYDgSUwlr9PFnCcZs2y/8lEBmsnRAdQzN37vGY2LiUbVW0gJ9DgxA==
+
 "@leafygreen-ui/popover@7.2.2", "@leafygreen-ui/popover@^7.2.2":
   version "7.2.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/popover/-/popover-7.2.2.tgz#f8a4e2241c210b17a868883afb600641c2255d43"
@@ -2879,6 +2884,22 @@
     "@leafygreen-ui/palette" "^3.2.2"
     "@leafygreen-ui/portal" "^4.0.0"
     "@leafygreen-ui/tooltip" "^6.3.1"
+
+"@leafygreen-ui/table@2.0.6":
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/table/-/table-2.0.6.tgz#540e47bb816a4e288b10aa2fabf24d5f11004e0e"
+  integrity sha512-+qfbZALld7OxGuH50TRC3chJo4074xprnVmfZA45boOLhHD+C6NFlswCqt8p/1NAqo1yJUTnbp2KsZFrjSuDjQ==
+  dependencies:
+    "@leafygreen-ui/checkbox" "^6.0.6"
+    "@leafygreen-ui/emotion" "^4.0.0"
+    "@leafygreen-ui/hooks" "^7.0.0"
+    "@leafygreen-ui/icon" "^11.6.0"
+    "@leafygreen-ui/icon-button" "^9.1.6"
+    "@leafygreen-ui/lib" "^9.0.1"
+    "@leafygreen-ui/palette" "3.3.0"
+    lodash "^4.17.21"
+    react-transition-group "^4.4.1"
+    use-ssr "^1.0.23"
 
 "@leafygreen-ui/tabs@5.1.4":
   version "5.1.4"
@@ -17796,6 +17817,11 @@ use-latest@^1.0.0:
   integrity sha512-d2TEuG6nSLKQLAfW3By8mKr8HurOlTkul0sOpxbClIv4SQ4iOd7BYr7VIzdbktUCnv7dua/60xzd8igMU6jmyw==
   dependencies:
     use-isomorphic-layout-effect "^1.0.0"
+
+use-ssr@^1.0.23:
+  version "1.0.24"
+  resolved "https://registry.yarnpkg.com/use-ssr/-/use-ssr-1.0.24.tgz#213a3df58f5ab9268e6fe1a57ad0a9de91e514d1"
+  integrity sha512-0MFps7ezL57/3o0yl4CvrHLlp9z20n1rQZV/lSRz7if+TUoM6POU1XdOvEjIgjgKeIhTEye1U0khrIYWCTWw4g==
 
 use@^3.1.0:
   version "3.1.1"
