@@ -84,6 +84,7 @@ const ProjectContainer = styled.div`
 
 const OptionGroupContainer = styled.div`
   padding: ${size.xs};
+  word-break: break-word;
 `;
 
 const OverlineHover = styled.div`
