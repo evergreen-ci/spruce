@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import ExpandableCard from "@leafygreen-ui/expandable-card";
+import { uiColors } from "@leafygreen-ui/palette";
 import { Subtitle } from "@leafygreen-ui/typography";
 import {
   ArrayFieldTemplateProps,
@@ -14,6 +15,8 @@ import { Unpacked } from "types/utils";
 import { SpruceFormContainer } from "./Container";
 import { TitleField as CustomTitleField } from "./CustomFields";
 import ElementWrapper from "./ElementWrapper";
+
+const { gray } = uiColors;
 
 // Extract index of the current field via its ID
 const getIndex = (id: string): number => {
@@ -37,6 +40,7 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
 }) => {
   const isNullType = schema.type === "null";
   const sectionId = uiSchema["ui:sectionId"] ?? "";
+  const border = uiSchema["ui:border"];
   return (
     !hidden && (
       <>
@@ -44,13 +48,23 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
           <CustomTitleField id={id} title={label} uiSchema={uiSchema} />
         )}
         {isNullType && <>{description}</>}
-        <div id={`${sectionId} ${id}`} className={classNames}>
+        <DefaultFieldContainer
+          id={`${sectionId} ${id}`}
+          className={classNames}
+          border={border}
+        >
           {children}
-        </div>
+        </DefaultFieldContainer>
       </>
     )
   );
 };
+
+const DefaultFieldContainer = styled.div<{ border?: "top" | "bottom" }>`
+  ${({ border }) =>
+    border &&
+    `border-${border}: 1px solid ${gray.light1}; padding-${border}: ${size.s};`}
+`;
 
 const ArrayItem: React.FC<
   {
@@ -78,22 +92,22 @@ const ArrayItem: React.FC<
     />
   );
   return useExpandableCard ? (
-    <ExpandableCard
+    <StyledExpandableCard
       defaultOpen={!disabled}
       contentClassName="patch-alias-card-content"
       title={
         <>
           <TitleWrapper data-cy="expandable-card-title">{title}</TitleWrapper>
-          {deleteButton}
+          {hasRemove && deleteButton}
         </>
       }
     >
       {children}
-    </ExpandableCard>
+    </StyledExpandableCard>
   ) : (
     <ArrayItemRow key={index}>
       {children}
-      {hasRemove && !useExpandableCard && (
+      {hasRemove && !useExpandableCard && !readonly && (
         <DeleteButtonWrapper topAlignDelete={topAlignDelete}>
           {deleteButton}
         </DeleteButtonWrapper>
@@ -104,6 +118,10 @@ const ArrayItem: React.FC<
 
 const TitleWrapper = styled.span`
   margin-right: ${size.s};
+`;
+
+const StyledExpandableCard = styled(ExpandableCard)`
+  margin-bottom: ${size.l};
 `;
 
 const ArrayItemRow = styled.div`

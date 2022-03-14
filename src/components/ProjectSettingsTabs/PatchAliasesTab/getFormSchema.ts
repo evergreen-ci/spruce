@@ -56,9 +56,14 @@ export const getFormSchema = (
                   title: "Module",
                 },
                 status: {
-                  type: ["string", "null"],
+                  type: "string" as "string",
                   title: "Wait on",
                   oneOf: [
+                    {
+                      type: "string" as "string",
+                      title: "Select event…",
+                      enum: [""],
+                    },
                     {
                       type: "string" as "string",
                       title: "Any completed status",
@@ -74,11 +79,11 @@ export const getFormSchema = (
                       title: "Failure",
                       enum: ["failed"],
                     },
-                    { enum: [null] },
                   ],
                 },
                 taskSpecifiers: {
                   type: "array" as "array",
+                  minItems: 1,
                   items: {
                     type: "object" as "object",
                     title: "Variant/Task Pair",
@@ -112,6 +117,8 @@ export const getFormSchema = (
                               patchAlias: {
                                 type: "string" as "string",
                                 title: "Patch Alias",
+                                default: "",
+                                minLength: 1,
                               },
                             },
                           },
@@ -123,10 +130,14 @@ export const getFormSchema = (
                               variantRegex: {
                                 type: "string" as "string",
                                 title: "Variant Regex",
+                                default: "",
+                                minLength: 1,
                               },
                               taskRegex: {
                                 type: "string" as "string",
                                 title: "Task Regex",
+                                default: "",
+                                minLength: 1,
                               },
                             },
                           },
@@ -179,7 +190,11 @@ export const getFormSchema = (
           childProjectIdentifier: {
             "ui:showErrors": false,
           },
+          parentAsModule: {
+            "ui:optional": true,
+          },
           status: {
+            "ui:allowDeselect": false,
             "ui:placeholder": "Select event…",
           },
           taskSpecifiers: {
@@ -194,6 +209,9 @@ export const getFormSchema = (
                 "ui:aria-controls": ["patchAlias", "taskRegex", "variantRegex"],
               },
             },
+          },
+          isGithubTriggerAlias: {
+            "ui:border": "top",
           },
         },
       },

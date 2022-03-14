@@ -3,6 +3,7 @@ import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { alias, form, ProjectType } from "../utils";
+import { GithubTriggerAliasField } from "./GithubTriggerAliasField";
 import { FormState } from "./types";
 
 const { aliasArray, aliasRowUiSchema, gitTagArray } = alias;
@@ -27,7 +28,9 @@ export const getFormSchema = (
   };
 
   return {
-    fields: {},
+    fields: {
+      githubTriggerAliasField: GithubTriggerAliasField,
+    },
     schema: {
       type: "object" as "object",
       properties: {
@@ -70,6 +73,13 @@ export const getFormSchema = (
                 ],
                 aliasArray.schema
               ),
+            },
+            githubTriggerAliases: {
+              type: "array" as "array",
+              title: "GiHub Trigger Aliases",
+              items: {
+                type: "object" as "object",
+              },
             },
             githubChecksEnabledTitle: {
               type: "null",
@@ -246,6 +256,15 @@ export const getFormSchema = (
                 numberedTitle: "Repo Patch Definition",
               }),
             },
+          },
+        },
+        githubTriggerAliases: {
+          "ui:addable": false,
+          "ui:orderable": false,
+          "ui:readonly": true,
+          "ui:removable": false,
+          items: {
+            "ui:field": "githubTriggerAliasField",
           },
         },
         githubChecksEnabledTitle: {

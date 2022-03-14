@@ -42,11 +42,11 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
                 ? TaskSpecifiers.PatchAlias
                 : TaskSpecifiers.VariantTask,
             })) ?? [],
-          status: p.status ?? "",
-          parentAsModule: p.parentAsModule ?? "",
-          isGithubTriggerAlias: githubTriggerAliases.includes(p.alias),
+          status: p.status,
+          parentAsModule: p.parentAsModule,
+          isGithubTriggerAlias: githubTriggerAliases?.includes(p.alias),
           displayTitle: p.alias,
-        })) ?? null,
+        })) ?? [],
     },
   };
 };
@@ -62,7 +62,7 @@ export const formToGql: FormToGqlFunction = (
 
   const githubTriggerAliases = [];
   const patchTriggerAliases = ptaData.aliasesOverride
-    ? ptaData.aliases?.map((a) => {
+    ? ptaData.aliases.map((a) => {
         if (a.isGithubTriggerAlias) {
           githubTriggerAliases.push(a.alias);
         }
@@ -84,10 +84,10 @@ export const formToGql: FormToGqlFunction = (
                       variantRegex,
                     }
             ) ?? [],
-          status: a.status || null,
-          parentAsModule: a.parentAsModule || null,
+          status: a.status ?? "",
+          parentAsModule: a.parentAsModule ?? "",
         };
-      }) ?? []
+      })
     : null;
 
   return {

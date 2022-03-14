@@ -59,6 +59,7 @@ const projectForm: FormState = {
         },
       ],
     },
+    githubTriggerAliases: [],
     githubChecksEnabled: null,
     githubChecks: {
       githubCheckAliasesOverride: false,
@@ -181,6 +182,7 @@ const repoForm: FormState = {
       githubPrAliasesOverride: true,
       githubPrAliases: [],
     },
+    githubTriggerAliases: [],
     githubChecksEnabled: true,
     githubChecks: {
       githubCheckAliasesOverride: true,
@@ -286,6 +288,7 @@ const mergedForm: FormState = {
         githubPrAliases: [],
       },
     },
+    githubTriggerAliases: [],
     githubChecksEnabled: null,
     githubChecks: {
       githubCheckAliasesOverride: false,
