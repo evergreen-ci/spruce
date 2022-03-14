@@ -48,7 +48,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
     }
   };
 
-  return rowSizes && rowSizes.length ? (
+  return rowSizes.length ? (
     <AutoSizer>
       {({ height, width }) => (
         <InfiniteLoader
