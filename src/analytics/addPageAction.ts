@@ -29,7 +29,8 @@ type AnalyticsObject =
   | "SpawnPages"
   | "PreferencesPages"
   | "ProjectPatches"
-  | "JobLogs";
+  | "JobLogs"
+  | "Polling";
 
 interface RequiredProperties {
   object: AnalyticsObject;

@@ -13,7 +13,7 @@ Array [
         width={200}
       >
         <div
-          className="leafygreen-ui-cssveg css-13ddtlk-ChartContainer e1tzsy281"
+          className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
           data-cy="commit-chart-container"
           data-type="absolute"
           onBlur={[Function]}
@@ -46,7 +46,7 @@ Array [
         width={200}
       >
         <div
-          className="leafygreen-ui-cssveg css-13ddtlk-ChartContainer e1tzsy281"
+          className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
           data-cy="commit-chart-container"
           data-type="absolute"
           onBlur={[Function]}
@@ -97,7 +97,7 @@ Array [
         width={200}
       >
         <div
-          className="leafygreen-ui-cssveg css-13ddtlk-ChartContainer e1tzsy281"
+          className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
           data-cy="commit-chart-container"
           data-type="absolute"
           onBlur={[Function]}
@@ -124,7 +124,7 @@ Array [
         width={200}
       >
         <div
-          className="leafygreen-ui-cssveg css-13ddtlk-ChartContainer e1tzsy281"
+          className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
           data-cy="commit-chart-container"
           data-type="absolute"
           onBlur={[Function]}
@@ -151,7 +151,7 @@ Array [
         width={200}
       >
         <div
-          className="leafygreen-ui-cssveg css-13ddtlk-ChartContainer e1tzsy281"
+          className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
           data-cy="commit-chart-container"
           data-type="absolute"
           onBlur={[Function]}
