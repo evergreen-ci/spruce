@@ -24,7 +24,6 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
     isItemLoaded,
     toggleRowSize,
     commitCount,
-    rowSizes,
   } = useHistoryTable();
   const listRef = useRef<List>(null);
 
@@ -48,7 +47,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
     }
   };
 
-  return rowSizes.length ? (
+  return (
     <AutoSizer>
       {({ height, width }) => (
         <InfiniteLoader
@@ -72,7 +71,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
         </InfiniteLoader>
       )}
     </AutoSizer>
-  ) : null;
+  );
 };
 
 export default HistoryTable;
