@@ -17,18 +17,20 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
     >
       <div
         className="form-group field field-object"
+        id=" root"
       >
         <fieldset
           id="root"
         >
           <div
             className="form-group field field-string"
+            id=" root_cloneMethod"
           >
             <div
               className="css-bm42zs-ElementWrapper ee4bs9n0"
             >
               <div
-                className="css-12pm1mq-MaxWidthContainer eyx6h6k0"
+                className="css-12pm1mq-MaxWidthContainer eyx6h6k1"
               >
                 <div
                   className=""
@@ -94,6 +96,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
           </div>
           <div
             className="form-group field field-array"
+            id=" root_expansions"
           >
             <h6
               className="css-ho1tq1-StyledSubtitle e63qz861 leafygreen-ui-11wdjex"
@@ -141,28 +144,30 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
               </button>
             </div>
             <div
-              className="css-fwqti9-ArrayContainer e7smmlm1"
+              className="css-fwqti9-ArrayContainer e7smmlm2"
             >
               <div
-                className="css-11bkg7q-ArrayItemRow e7smmlm2"
+                className="css-11bkg7q-ArrayItemRow e7smmlm3"
               >
                 <div
                   className="form-group field field-object"
+                  id=" root_expansions_0"
                 >
                   <fieldset
                     id="root_expansions_0"
                   >
                     <div
                       className="form-group field field-string"
+                      id=" root_expansions_0_key"
                     >
                       <div
                         className="css-bm42zs-ElementWrapper ee4bs9n0"
                       >
                         <div
-                          className="css-12pm1mq-MaxWidthContainer eyx6h6k0"
+                          className="css-12pm1mq-MaxWidthContainer eyx6h6k1"
                         >
                           <div
-                            className="leafygreen-ui-1iyoj2o"
+                            className="leafygreen-ui-1iyoj2o css-1kbcljo-StyledTextInput eyx6h6k0"
                           >
                             <label
                               className="leafygreen-ui-ly82bp"
@@ -205,15 +210,16 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                     </div>
                     <div
                       className="form-group field field-string"
+                      id=" root_expansions_0_value"
                     >
                       <div
                         className="css-bm42zs-ElementWrapper ee4bs9n0"
                       >
                         <div
-                          className="css-12pm1mq-MaxWidthContainer eyx6h6k0"
+                          className="css-12pm1mq-MaxWidthContainer eyx6h6k1"
                         >
                           <div
-                            className="leafygreen-ui-1iyoj2o"
+                            className="leafygreen-ui-1iyoj2o css-1kbcljo-StyledTextInput eyx6h6k0"
                           >
                             <label
                               className="leafygreen-ui-ly82bp"
@@ -257,7 +263,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                   </fieldset>
                 </div>
                 <div
-                  className="css-1w3q9da-ElementWrapper-DeleteButtonWrapper e7smmlm0"
+                  className="css-1w3q9da-ElementWrapper-DeleteButtonWrapper e7smmlm1"
                 >
                   <button
                     aria-disabled={false}
@@ -298,6 +304,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
           </div>
           <div
             className="form-group field field-string"
+            id=" root_validProjects"
           >
             <div
               className="css-bm42zs-ElementWrapper ee4bs9n0"
@@ -356,12 +363,14 @@ exports[`storybook Storyshots Spruce Form Example 2 1`] = `
     >
       <div
         className="form-group field field-object"
+        id=" root"
       >
         <fieldset
           id="root"
         >
           <div
             className="form-group field field-boolean"
+            id=" root_distroIsCluster"
           >
             <div
               className="css-bm42zs-ElementWrapper ee4bs9n0"
@@ -402,6 +411,7 @@ exports[`storybook Storyshots Spruce Form Example 2 1`] = `
           </div>
           <div
             className="form-group field field-boolean"
+            id=" root_disableShallowClone"
           >
             <div
               className="css-bm42zs-ElementWrapper ee4bs9n0"
@@ -442,6 +452,7 @@ exports[`storybook Storyshots Spruce Form Example 2 1`] = `
           </div>
           <div
             className="form-group field field-boolean"
+            id=" root_disableQueue"
           >
             <div
               className="css-bm42zs-ElementWrapper ee4bs9n0"
@@ -482,6 +493,7 @@ exports[`storybook Storyshots Spruce Form Example 2 1`] = `
           </div>
           <div
             className="form-group field field-boolean"
+            id=" root_decommissionHosts"
           >
             <div
               className="css-bm42zs-ElementWrapper ee4bs9n0"
@@ -522,6 +534,7 @@ exports[`storybook Storyshots Spruce Form Example 2 1`] = `
           </div>
           <div
             className="form-group field field-string"
+            id=" root_reprovisionMethod"
           >
             <div
               className="css-bm42zs-ElementWrapper ee4bs9n0"
@@ -642,12 +655,14 @@ exports[`storybook Storyshots Spruce Form Example 3 1`] = `
     >
       <div
         className="form-group field field-object"
+        id=" root"
       >
         <fieldset
           id="root"
         >
           <div
             className="form-group field field-boolean"
+            id=" root_visible"
           >
             <div
               className="css-bm42zs-ElementWrapper ee4bs9n0"

@@ -24,7 +24,7 @@ describe("Repo Settings", () => {
   });
 
   it("Does not show a 'Default to Repo' button on page", () => {
-    cy.dataCy("default-to-repo").should("not.exist");
+    cy.dataCy("default-to-repo-button").should("not.exist");
   });
 
   it("Does not show a 'Move to New Repo' button on page", () => {
@@ -56,10 +56,8 @@ describe("Repo Settings", () => {
     it("Updates a patch definition", () => {
       cy.dataCy("add-button").contains("Add Patch Definition").parent().click();
 
-      cy.dataCy("variant-tags-field").find("button").click();
       cy.dataCy("variant-tags-input").first().type("vtag");
 
-      cy.dataCy("task-tags-field").find("button").click();
       cy.dataCy("task-tags-input").first().type("ttag");
     });
 
@@ -119,10 +117,8 @@ describe("Repo Settings", () => {
     });
 
     it("Successfully saves a complete alias", () => {
-      cy.dataCy("variant-tags-field").find("button").click();
       cy.dataCy("variant-tags-input").first().type("alias variant tag");
 
-      cy.dataCy("task-tags-field").find("button").click();
       cy.dataCy("task-tags-input").first().type("alias task tag");
 
       cy.dataCy("save-settings-button").click();
@@ -152,7 +148,7 @@ describe("Project Settings when not defaulting to repo", () => {
   });
 
   it("Does not show a 'Default to Repo' button on page", () => {
-    cy.dataCy("default-to-repo").should("not.exist");
+    cy.dataCy("default-to-repo-button").should("not.exist");
   });
 
   it("Shows two radio boxes", () => {
@@ -220,6 +216,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("var-name-input").should("be.disabled");
       cy.dataCy("var-value-input").should("be.disabled");
       cy.dataCy("var-private-input").should("be.disabled");
+      cy.dataCy("var-admin-input").should("be.disabled");
     });
 
     it("Should error when a duplicate variable name is entered and disable saving", () => {
@@ -238,14 +235,24 @@ describe("Project Settings when not defaulting to repo", () => {
       );
     });
 
-    it("Should show two populated fields when navigating back from another page", () => {
-      cy.dataCy("navitem-access").click();
-      cy.dataCy("navitem-variables").click();
-      cy.dataCy("var-name-input").eq(0).should("have.value", "sample_name");
-      cy.dataCy("var-name-input").eq(1).should("have.value", "sample_name_2");
+    it("Should correctly save an admin only variable", () => {
+      cy.dataCy("add-button").click();
+      cy.dataCy("var-name-input").last().type("admin_var");
+      cy.dataCy("var-value-input").last().type("admin_value");
+      cy.dataCy("var-admin-input").last().check({ force: true });
+      cy.dataCy("save-settings-button").click();
     });
 
-    it("Should allow deleting both items", () => {
+    it("Should show three populated fields when navigating back from another page", () => {
+      cy.dataCy("navitem-access").click();
+      cy.dataCy("navitem-variables").click();
+      cy.dataCy("var-name-input").eq(0).should("have.value", "admin_var");
+      cy.dataCy("var-name-input").eq(1).should("have.value", "sample_name");
+      cy.dataCy("var-name-input").eq(2).should("have.value", "sample_name_2");
+    });
+
+    it("Should allow deleting all items", () => {
+      cy.dataCy("delete-item-button").first().click();
       cy.dataCy("delete-item-button").first().click();
       cy.dataCy("delete-item-button").first().click();
       cy.dataCy("save-settings-button").click();
@@ -253,6 +260,30 @@ describe("Project Settings when not defaulting to repo", () => {
 
     it("Should show no variables after deleting", () => {
       cy.dataCy("var-name-input").should("not.exist");
+    });
+  });
+
+  describe("GitHub/Commit Queue page", () => {
+    before(() => {
+      cy.dataCy("navitem-github-commitqueue").click();
+    });
+
+    it("Allows adding a git tag alias", () => {
+      cy.dataCy("git-tag-enabled-radio-box").children().first().click();
+      cy.dataCy("add-button").contains("Add Git Tag").parent().click();
+      cy.dataCy("git-tag-input").type("myGitTag");
+      cy.dataCy("remote-path-input").type("./evergreen.yml");
+    });
+
+    it("Updates the Require Signed field and saves", () => {
+      cy.dataCy("require-signed-radio-box").children().first().click();
+
+      cy.dataCy("save-settings-button").click();
+      cy.validateToast("success", "Successfully updated project");
+    });
+
+    it("Shows the saved Git Tag", () => {
+      cy.dataCy("remote-path-input").should("have.value", "./evergreen.yml");
     });
   });
 });
@@ -288,7 +319,7 @@ describe("Project Settings when defaulting to repo", () => {
   });
 
   it("Shows a 'Default to Repo' button on page", () => {
-    cy.dataCy("default-to-repo").should("exist");
+    cy.dataCy("default-to-repo-button").should("exist");
   });
 
   it("Shows a third radio box when rendering a project that inherits from repo", () => {
@@ -335,7 +366,10 @@ describe("Project Settings when defaulting to repo", () => {
         .parent()
         .click();
       cy.dataCy("add-button").contains("Add Patch Definition").parent().click();
-      cy.get("button").contains("Regex").first().click();
+      cy.dataCy("variant-input-control")
+        .find("button")
+        .contains("Regex")
+        .click();
       cy.dataCy("variant-input").first().type(".*");
     });
 
@@ -343,16 +377,15 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("save-settings-button").should("be.disabled");
     });
 
-    it("Clears tag/regex fields when toggling between them", () => {
+    it("Does not clear tag/regex fields when toggling between them", () => {
       cy.get("button").contains("Tags").first().click();
       cy.get("button").contains("Regex").first().click();
 
-      cy.dataCy("variant-input").should("have.value", "");
+      cy.dataCy("variant-input").should("have.value", ".*");
     });
 
     it("Should enable save when the task and variant fields are filled in", () => {
-      cy.dataCy("variant-input").first().type(".*");
-      cy.get("#task-input-control").find("button").eq(1).click();
+      cy.dataCy("task-input-control").find("button").contains("Regex").click();
       cy.dataCy("task-input").first().type(".*");
       cy.dataCy("save-settings-button").should("not.be.disabled");
     });
@@ -395,6 +428,22 @@ describe("Project Settings when defaulting to repo", () => {
     it("Clicking on save button should show a success toast", () => {
       cy.dataCy("save-settings-button").click();
       cy.validateToast("success", "Successfully updated project");
+    });
+
+    it("Defaults to repo", () => {
+      cy.dataCy("default-to-repo-button").click();
+      cy.dataCy("default-to-repo-modal").should("be.visible");
+      cy.dataCy("default-to-repo-modal")
+        .find("button")
+        .contains("Confirm")
+        .parent()
+        .click();
+      cy.validateToast("success");
+    });
+
+    it("Again shows the repo's disabled patch definition", () => {
+      cy.dataCy("accordion-toggle").should("exist");
+      cy.dataCy("accordion-toggle").contains("Patch Definition 1");
     });
   });
 
@@ -443,11 +492,11 @@ describe("Project Settings when defaulting to repo", () => {
 
       cy.dataCy("alias-input").type("my overriden alias name");
 
-      cy.dataCy("variant-tags-field").find("button").click();
       cy.dataCy("variant-tags-input").first().type("alias variant tag 2");
 
-      cy.dataCy("task-tags-field").find("button").click();
       cy.dataCy("task-tags-input").first().type("alias task tag 2");
+      cy.dataCy("add-button").contains("Add Task Tag").parent().click();
+      cy.dataCy("task-tags-input").eq(1).type("alias task tag 3");
 
       cy.dataCy("save-settings-button").click();
       cy.validateToast("success", "Successfully updated project");

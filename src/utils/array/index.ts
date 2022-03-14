@@ -42,7 +42,7 @@ export const convertArrayToObject = <T = { [key: string]: any }>(
   key: keyof T
 ): { [key: string]: T } => {
   const initialValue = {};
-  if (array === undefined) {
+  if (!Array.isArray(array)) {
     return initialValue;
   }
   return array.reduce((obj, item) => {
@@ -84,7 +84,7 @@ export const mapStringArrayToObject = <T>(
   array: string[],
   v: T
 ): { [key: string]: T } => {
-  if (array === undefined) {
+  if (!Array.isArray(array)) {
     return {};
   }
   return array.reduce((prev, curr) => {
@@ -101,5 +101,65 @@ export const toArray = <T>(value: T | T[]): T[] => {
   if (Array.isArray(value)) {
     return value;
   }
-  return value === undefined ? [] : [value];
+  return value === undefined || value === null ? [] : [value];
+};
+
+/** arrayIntersection takes in two arrays and returns the intersecting elements of the two arrays
+ * @example arrayIntersection([1, 2, 3], [2, 3, 4]) // [2, 3]
+ */
+export const arrayIntersection = <T>(a: T[], b: T[]) => {
+  if (typeof a[0] === "object" || typeof b[0] === "object") {
+    throw new TypeError("arrayIntersection does not support objects");
+  }
+  const setA = new Set(a);
+  const setB = new Set(b);
+  const intersection = Array.from(setA).filter((x) => setB.has(x));
+  return intersection;
+};
+
+/** arraySymmetricDifference takes in two arrays and returns only the elements not in common between the two arrays
+ * @example arraySymmetricDifference([1, 2, 3], [2, 3, 4]) // [1, 4]
+ */
+export const arraySymmetricDifference = <T>(a: T[], b: T[]) => {
+  if (typeof a[0] === "object" || typeof b[0] === "object") {
+    throw new TypeError("arraySymmetricDifference does not support objects");
+  }
+  const setA = new Set(a);
+  const setB = new Set(b);
+  const difference = Array.from(
+    new Set(a.concat(b).filter((x) => !setA.has(x) || !setB.has(x)))
+  );
+
+  return difference;
+};
+
+/** arraySetDifference returns the elements in a that are not in b
+ * @example arraySetDifference([1, 2, 3], [2, 3, 4]) // [1]
+ */
+export const arraySetDifference = <T>(a: T[], b: T[]) => {
+  if (typeof a[0] === "object" || typeof b[0] === "object") {
+    throw new TypeError("arraySetDifference does not support objects");
+  }
+  const setA = new Set(a);
+  const setB = new Set(b);
+  const difference = Array.from(setA).filter((x) => !setB.has(x));
+  return difference;
+};
+
+type SortFunction<T> = (a: T, b: T) => number;
+
+/** arrayUnion takes in two arrays and returns the union of the two arrays it also takes in an optional sort function
+ * @example arrayUnion([1, 2, 3], [2, 3, 4]) // [1, 2, 3, 4]
+ * @example arrayUnion([1, 2, 3], [2, 3, 4], (a, b) => b - a) // [4, 3, 2, 1]
+ */
+export const arrayUnion = <T>(a: T[], b: T[], sort?: SortFunction<T>) => {
+  if (typeof a[0] === "object" || typeof b[0] === "object") {
+    throw new TypeError("arrayUnion does not support objects");
+  }
+
+  const union = Array.from(new Set([...a, ...b]));
+  if (sort) {
+    return union.sort(sort);
+  }
+  return union;
 };

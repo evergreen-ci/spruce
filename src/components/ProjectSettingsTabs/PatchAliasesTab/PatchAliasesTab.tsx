@@ -1,12 +1,9 @@
 import { useMemo } from "react";
-import { SpruceForm, SpruceFormProps } from "components/SpruceForm";
+import { SpruceForm } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { usePopulateForm, useProjectSettingsContext } from "../Context";
-import { alias } from "../utils";
 import { getFormSchema } from "./getFormSchema";
-import { FormState, TabProps } from "./types";
-
-const { aliasHasError } = alias;
+import { TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.PatchAliases;
 
@@ -57,22 +54,6 @@ export const PatchAliasesTab: React.FC<TabProps> = ({
       onChange={onChange}
       schema={schema}
       uiSchema={uiSchema}
-      validate={validate}
     />
   );
-};
-
-const validate = (
-  formData: FormState,
-  errors
-): ReturnType<SpruceFormProps["validate"]> => {
-  const { patchAliases } = formData;
-
-  patchAliases.aliases.forEach((a, i) => {
-    if (aliasHasError(a) || !a.alias) {
-      errors.patchAliases.aliases[i].addError("Missing field");
-    }
-  });
-
-  return errors;
 };

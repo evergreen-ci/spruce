@@ -15,6 +15,15 @@ import { SpruceFormContainer } from "./Container";
 import { TitleField as CustomTitleField } from "./CustomFields";
 import ElementWrapper from "./ElementWrapper";
 
+// Extract index of the current field via its ID
+const getIndex = (id: string): number => {
+  if (!id) return null;
+
+  const stringIndex = id.substring(id.lastIndexOf("_") + 1);
+  const index = Number(stringIndex);
+  return Number.isInteger(index) ? index : null;
+};
+
 // Custom field template that does not render fields' titles, as this is handled by LeafyGreen widgets
 export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
   classNames,
@@ -27,6 +36,7 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
   uiSchema,
 }) => {
   const isNullType = schema.type === "null";
+  const sectionId = uiSchema["ui:sectionId"] ?? "";
   return (
     !hidden && (
       <>
@@ -34,7 +44,9 @@ export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
           <CustomTitleField id={id} title={label} uiSchema={uiSchema} />
         )}
         {isNullType && <>{description}</>}
-        <div className={classNames}>{children}</div>
+        <div id={`${sectionId} ${id}`} className={classNames}>
+          {children}
+        </div>
       </>
     )
   );
@@ -67,6 +79,8 @@ const ArrayItem: React.FC<
   );
   return useExpandableCard ? (
     <ExpandableCard
+      defaultOpen={!disabled}
+      contentClassName="patch-alias-card-content"
       title={
         <>
           <TitleWrapper data-cy="expandable-card-title">{title}</TitleWrapper>
@@ -87,6 +101,7 @@ const ArrayItem: React.FC<
     </ArrayItemRow>
   );
 };
+
 const TitleWrapper = styled.span`
   margin-right: ${size.s};
 `;
@@ -200,17 +215,22 @@ export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
 );
 
 export const AccordionFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
+  idSchema,
   properties,
   title,
   uiSchema,
 }) => {
-  const defaultOpen = uiSchema["ui:defaultOpen"] ?? false;
+  const defaultOpen = uiSchema["ui:defaultOpen"] ?? true;
   const displayTitle = uiSchema["ui:displayTitle"];
+  const numberedTitle = uiSchema["ui:numberedTitle"];
+  const index = getIndex(idSchema.$id);
 
   return (
     <Accordion
       defaultOpen={defaultOpen}
-      title={displayTitle || title}
+      title={
+        numberedTitle ? `${numberedTitle} ${index + 1}` : displayTitle || title
+      }
       titleTag={AccordionTitle}
       contents={properties.map(({ content }) => content)}
     />
@@ -220,5 +240,5 @@ export const AccordionFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
 /* @ts-expect-error  */
 const AccordionTitle = styled(Subtitle)`
   font-size: ${fontSize.l};
-  margin: 11px 0; // Align title precisely with delete button
+  margin: ${size.xs} 0;
 `;

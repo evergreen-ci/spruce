@@ -3,7 +3,7 @@
 exports[`storybook Storyshots WaterfallTaskStatusIcon Failed Icon 1`] = `
 <a
   aria-disabled={false}
-  aria-label="task icon"
+  aria-label="failed icon"
   className="leafygreen-ui-12hedrr"
   data-cy="waterfall-task-status-icon"
   href="/task/task"
@@ -19,6 +19,7 @@ exports[`storybook Storyshots WaterfallTaskStatusIcon Failed Icon 1`] = `
     className="leafygreen-ui-xhlipt"
   >
     <svg
+      aria-label="Failure Icon"
       fill="currentColor"
       height={16}
       viewBox="0 0 21 21"
@@ -36,7 +37,7 @@ exports[`storybook Storyshots WaterfallTaskStatusIcon Failed Icon 1`] = `
 exports[`storybook Storyshots WaterfallTaskStatusIcon Success Icon 1`] = `
 <a
   aria-disabled={false}
-  aria-label="task icon"
+  aria-label="success icon"
   className="leafygreen-ui-12hedrr"
   data-cy="waterfall-task-status-icon"
   href="/task/task"

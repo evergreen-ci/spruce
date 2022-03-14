@@ -36,6 +36,7 @@ import {
 } from "gql/mutations";
 import { useUpdateURLQueryParams } from "hooks";
 import { isBeta } from "utils/environmentalVariables";
+import { PreviousCommits } from "./actionButtons/PreviousCommits";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
 interface Props {
@@ -46,6 +47,7 @@ interface Props {
   canUnschedule: boolean;
   canSetPriority: boolean;
   canOverrideDependencies: boolean;
+  isExecutionTask: boolean;
   taskName: string;
   projectIdentifier: string;
 }
@@ -60,6 +62,7 @@ export const ActionButtons: React.FC<Props> = ({
   canOverrideDependencies,
   projectIdentifier,
   taskName,
+  isExecutionTask,
 }) => {
   const dispatchToast = useToastContext();
   const [isVisibleModal, setIsVisibleModal] = useState(false);
@@ -257,7 +260,8 @@ export const ActionButtons: React.FC<Props> = ({
   return (
     <>
       <PageButtonRow>
-        {isBeta() ? (
+        {isBeta() && <PreviousCommits taskId={taskId} />}
+        {isBeta() && !isExecutionTask && (
           <Button
             size="small"
             as={Link}
@@ -270,7 +274,7 @@ export const ActionButtons: React.FC<Props> = ({
           >
             See history
           </Button>
-        ) : null}
+        )}
         <Button
           size="small"
           data-cy="schedule-task"

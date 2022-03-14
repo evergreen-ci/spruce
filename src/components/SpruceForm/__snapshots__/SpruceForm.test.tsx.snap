@@ -449,7 +449,11 @@ exports[`spruceForm should render as expected 1`] = `
   flex-grow: 1;
 }
 
-.emotion-46 {
+.emotion-46 p {
+  margin: 0;
+}
+
+.emotion-48 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -462,7 +466,7 @@ exports[`spruceForm should render as expected 1`] = `
   z-index: 0;
 }
 
-.emotion-47 {
+.emotion-49 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -476,11 +480,11 @@ exports[`spruceForm should render as expected 1`] = `
   width: 100%;
 }
 
-.emotion-47:hover>[data-leafygreen-ui="interaction-ring"] {
+.emotion-49:hover>[data-leafygreen-ui="interaction-ring"] {
   box-shadow: 0 0 0 3px #E7EEEC;
 }
 
-.emotion-48 {
+.emotion-50 {
   width: 100%;
   height: 100%;
   font-family: inherit;
@@ -503,38 +507,38 @@ exports[`spruceForm should render as expected 1`] = `
   border-color: #89979B;
 }
 
-.emotion-48::-webkit-input-placeholder {
+.emotion-50::-webkit-input-placeholder {
   color: #89979B;
 }
 
-.emotion-48::-moz-placeholder {
+.emotion-50::-moz-placeholder {
   color: #89979B;
 }
 
-.emotion-48:-ms-input-placeholder {
+.emotion-50:-ms-input-placeholder {
   color: #89979B;
 }
 
-.emotion-48::placeholder {
+.emotion-50::placeholder {
   color: #89979B;
 }
 
-.emotion-48:disabled {
+.emotion-50:disabled {
   cursor: not-allowed;
 }
 
-.emotion-48:focus {
+.emotion-50:focus {
   border: 1px solid #FFFFFF;
 }
 
-.emotion-48:disabled {
+.emotion-50:disabled {
   color: #89979B;
   background-color: #E7EEEC;
 }
 
-.emotion-48:disabled:-webkit-autofill,
-.emotion-48:disabled:-webkit-autofill:hover,
-.emotion-48:disabled:-webkit-autofill:focus {
+.emotion-50:disabled:-webkit-autofill,
+.emotion-50:disabled:-webkit-autofill:hover,
+.emotion-50:disabled:-webkit-autofill:focus {
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
@@ -544,7 +548,7 @@ exports[`spruceForm should render as expected 1`] = `
   -webkit-box-shadow: 0 0 0px 1000px #E7EEEC inset;
 }
 
-.emotion-50 {
+.emotion-52 {
   position: absolute;
   display: -webkit-box;
   display: -webkit-flex;
@@ -558,13 +562,13 @@ exports[`spruceForm should render as expected 1`] = `
   z-index: 1;
 }
 
-.emotion-51 {
+.emotion-53 {
   margin-bottom: 20px;
   margin-left: 16px;
   margin-top: 20px;
 }
 
-.emotion-53 {
+.emotion-55 {
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
@@ -597,40 +601,40 @@ exports[`spruceForm should render as expected 1`] = `
   height: 36px;
 }
 
-.emotion-53:focus {
+.emotion-55:focus {
   outline: none;
 }
 
-.emotion-53:disabled {
+.emotion-55:disabled {
   pointer-events: none;
 }
 
-.emotion-53:active,
-.emotion-53:focus,
-.emotion-53:hover {
+.emotion-55:active,
+.emotion-55:focus,
+.emotion-55:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.emotion-53:focus {
+.emotion-55:focus {
   color: #3D4F58;
 }
 
-.emotion-53:hover,
-.emotion-53:active {
+.emotion-55:hover,
+.emotion-55:active {
   color: #3D4F58;
   background-color: #FFFFFF;
   border: 1px solid #5D6C74;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3),0px 0px 0px 3px #E7EEEC;
 }
 
-.emotion-53:focus {
+.emotion-55:focus {
   background: #FFFFFF;
   border: 1px solid #5D6C74;
   box-shadow: 0px 4px 4px rgba(0, 124, 173, 0.4),0px 0px 0px 3px #019EE2;
 }
 
-.emotion-56 {
+.emotion-58 {
   color: #3D4F58;
   height: 16px;
   width: 16px;
@@ -652,12 +656,14 @@ exports[`spruceForm should render as expected 1`] = `
     >
       <div
         class="form-group field field-object"
+        id=" root"
       >
         <fieldset
           id="root"
         >
           <div
             class="form-group field field-string"
+            id=" root_cloneMethod"
           >
             <div
               class="emotion-6 emotion-7"
@@ -727,6 +733,7 @@ exports[`spruceForm should render as expected 1`] = `
           </div>
           <div
             class="form-group field field-string"
+            id=" root_validProjects"
           >
             <div
               class="emotion-6 emotion-7"
@@ -767,9 +774,11 @@ exports[`spruceForm should render as expected 1`] = `
           </h3>
           <div
             class="form-group field field-null"
+            id=" root_access"
           />
           <div
             class="form-group field field-array"
+            id=" root_users"
           >
             <h6
               class="emotion-28 emotion-29 emotion-30"
@@ -822,6 +831,7 @@ exports[`spruceForm should render as expected 1`] = `
               >
                 <div
                   class="form-group field field-string"
+                  id=" root_users_0"
                 >
                   <div
                     class="emotion-6 emotion-7"
@@ -830,19 +840,19 @@ exports[`spruceForm should render as expected 1`] = `
                       class="emotion-8 emotion-9"
                     >
                       <div
-                        class="emotion-20"
+                        class="emotion-20 emotion-46 emotion-47"
                       >
                         <div
-                          class="emotion-46"
+                          class="emotion-48"
                         >
                           <div
-                            class="emotion-47"
+                            class="emotion-49"
                           >
                             <input
                               aria-label="Username Label"
                               aria-labelledby="root_access"
                               autocomplete="on"
-                              class="emotion-48"
+                              class="emotion-50"
                               data-cy="new-user-input"
                               id="textinput-1"
                               required=""
@@ -855,7 +865,7 @@ exports[`spruceForm should render as expected 1`] = `
                             />
                           </div>
                           <div
-                            class="emotion-50"
+                            class="emotion-52"
                             data-leafygreen-ui="icon-selector"
                           />
                         </div>
@@ -864,11 +874,11 @@ exports[`spruceForm should render as expected 1`] = `
                   </div>
                 </div>
                 <div
-                  class="emotion-51 emotion-52"
+                  class="emotion-53 emotion-54"
                 >
                   <button
                     aria-disabled="false"
-                    class="emotion-53"
+                    class="emotion-55"
                     data-cy="delete-item-button"
                     type="button"
                   >
@@ -880,7 +890,7 @@ exports[`spruceForm should render as expected 1`] = `
                     >
                       <svg
                         aria-label="Trash Icon"
-                        class="emotion-56"
+                        class="emotion-58"
                         fill="none"
                         height="16"
                         role="img"

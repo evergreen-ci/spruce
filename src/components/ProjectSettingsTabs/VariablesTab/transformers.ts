@@ -5,7 +5,7 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
   if (!data) return null;
 
   const {
-    vars: { privateVars, vars },
+    vars: { adminOnlyVars, privateVars, vars },
   } = data;
 
   return {
@@ -13,6 +13,7 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
       varName,
       varValue: varValue || "{REDACTED}",
       isPrivate: privateVars.includes(varName),
+      isAdminOnly: adminOnlyVars.includes(varName),
       isDisabled: privateVars.includes(varName),
     })),
   };
@@ -23,17 +24,25 @@ export const formToGql: FormToGqlFunction = (
   id
 ) => {
   const vars = varsData.reduce(
-    (acc, { varName, varValue, isPrivate }) => {
+    (acc, { varName, varValue, isPrivate, isAdminOnly, isDisabled }) => {
       if (!varName || !varValue) return acc;
+
+      let val = varValue;
       if (isPrivate) {
         acc.privateVarsList.push(varName);
+        // Overwrite {REDACTED} for variables that have been previously saved as private variables
+        if (isDisabled) val = "";
       }
-      acc.vars[varName] = varValue;
+      if (isAdminOnly) {
+        acc.adminOnlyVarsList.push(varName);
+      }
+      acc.vars[varName] = val;
       return acc;
     },
     {
       vars: {},
       privateVarsList: [],
+      adminOnlyVarsList: [],
     }
   );
   return {

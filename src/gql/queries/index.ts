@@ -4,6 +4,7 @@ import GET_FAILED_TASK_STATUS_ICON_TOOLTIP from "./failed-task-status-icon-toolt
 import GET_AGENT_LOGS from "./get-agent-logs.graphql";
 import GET_ALL_LOGS from "./get-all-logs.graphql";
 import GET_ANNOTATION_EVENT_DATA from "./get-annotation-event-data.graphql";
+import GET_BASE_VERSION_AND_TASK from "./get-base-version-and-task.graphql";
 import GET_BUILD_BARON from "./get-build-baron.graphql";
 import GET_BUILD_VARIANTS_STATS from "./get-build-variant-stats.graphql";
 import GET_BUILD_VARIANTS_FOR_TASK_NAME from "./get-build-variants-for-task-name.graphql";
@@ -23,6 +24,7 @@ import GET_IS_PATCH_CONFIGURED from "./get-is-patch-configured.graphql";
 import GET_JIRA_CUSTOM_CREATED_ISSUES from "./get-jira-custom-created-issues.graphql";
 import GET_JIRA_ISSUES from "./get-jira-issues.graphql";
 import GET_JIRA_SUSPECTED_ISSUES from "./get-jira-suspected-issues.graphql";
+import GET_LAST_MAINLINE_COMMIT from "./get-last-mainline-commit.graphql";
 import GET_MAINLINE_COMMITS_FOR_HISTORY from "./get-mainline-commits-for-history.graphql";
 import GET_MAINLINE_COMMITS from "./get-mainline-commits.graphql";
 import GET_MY_HOSTS from "./get-my-hosts.graphql";
@@ -40,6 +42,7 @@ import GET_SPRUCE_CONFIG from "./get-spruce-config.graphql";
 import GET_SYSTEM_LOGS from "./get-system-logs.graphql";
 import GET_TASK_ALL_EXECUTIONS from "./get-task-all-executions.graphql";
 import GET_TASK_FILES from "./get-task-files.graphql";
+import GET_TASKS_FOR_TESTS_TABLE from "./get-task-for-tests-table.graphql";
 import GET_TASK_LOGS from "./get-task-logs.graphql";
 import GET_TASK_NAMES_FOR_BUILD_VARIANT from "./get-task-names-for-build-variant.graphql";
 import GET_TASK_STATUSES from "./get-task-statuses.graphql";
@@ -66,6 +69,7 @@ export {
   GET_AWS_REGIONS,
   DISTRO_TASK_QUEUE,
   GET_ANNOTATION_EVENT_DATA,
+  GET_BASE_VERSION_AND_TASK,
   GET_BUILD_BARON,
   GET_TASK_NAMES_FOR_BUILD_VARIANT,
   GET_CLIENT_CONFIG,
@@ -83,6 +87,7 @@ export {
   GET_TASK_TESTS,
   GET_TASK_TEST_SAMPLE,
   GET_TASK,
+  GET_TASKS_FOR_TESTS_TABLE,
   GET_TASK_ALL_EXECUTIONS,
   GET_TASK_STATUSES,
   GET_TESTS,
@@ -98,6 +103,7 @@ export {
   GET_MY_VOLUMES,
   GET_INSTANCE_TYPES,
   GET_JIRA_SUSPECTED_ISSUES,
+  GET_LAST_MAINLINE_COMMIT,
   GET_JIRA_ISSUES,
   GET_JIRA_CUSTOM_CREATED_ISSUES,
   GET_SPRUCE_CONFIG,

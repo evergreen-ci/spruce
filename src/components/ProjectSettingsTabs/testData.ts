@@ -59,8 +59,9 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     patchTriggerAliases: [],
   },
   vars: {
-    vars: { test_name: "test_value" },
+    vars: { test_name: "", test_two: "val" },
     privateVars: ["test_name"],
+    adminOnlyVars: ["test_name"],
   },
   aliases: [
     {
@@ -80,6 +81,16 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
       variant: "^ubuntu1604$",
       task: "^lint$",
       remotePath: "",
+      variantTags: [],
+      taskTags: [],
+    },
+    {
+      id: "5",
+      alias: "__git_tag",
+      gitTag: "tagName",
+      variant: "",
+      task: "",
+      remotePath: "./evergreen.yml",
       variantTags: [],
       taskTags: [],
     },
@@ -161,6 +172,16 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
       remotePath: "",
       variantTags: ["vTag"],
       taskTags: ["tTag"],
+    },
+    {
+      id: "4",
+      alias: "my alias name",
+      gitTag: "",
+      variant: "",
+      task: "",
+      remotePath: "",
+      variantTags: ["okay"],
+      taskTags: ["hi"],
     },
   ],
 };

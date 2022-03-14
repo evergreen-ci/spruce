@@ -5,7 +5,7 @@ import widgets from "components/SpruceForm/Widgets";
 import { alias, form, ProjectType } from "../utils";
 import { TaskSpecifiers } from "./types";
 
-const { aliasArraySchema, aliasRowUiSchema } = alias;
+const { patchAliasArray } = alias;
 const { overrideRadioBox } = form;
 
 export const getFormSchema = (
@@ -17,9 +17,6 @@ export const getFormSchema = (
 } => ({
   fields: {},
   schema: {
-    definitions: {
-      aliasArray: aliasArraySchema,
-    },
     type: "object" as "object",
     properties: {
       patchAliases: {
@@ -29,9 +26,7 @@ export const getFormSchema = (
         ...overrideRadioBox(
           "aliases",
           ["Override Repo Patch Aliases", "Default to Repo Patch Aliases"],
-          {
-            $ref: "#/definitions/aliasArray",
-          }
+          patchAliasArray.schema
         ),
       },
       patchTriggerAliases: {
@@ -161,23 +156,9 @@ export const getFormSchema = (
         "ui:showLabel": false,
         "ui:data-cy": "patch-aliases-override-radio-box",
       },
-      aliases: {
-        ...aliasRowUiSchema({
-          addButtonText: "Add Patch Alias",
-          aliasHidden: false,
-          displayTitle: "New Patch Alias",
-          useExpandableCard: true,
-        }),
-      },
+      aliases: patchAliasArray.uiSchema,
       repoData: {
-        aliases: {
-          ...aliasRowUiSchema({
-            aliasHidden: false,
-            displayTitle: "Patch Alias",
-            isRepo: true,
-            useExpandableCard: true,
-          }),
-        },
+        aliases: patchAliasArray.repoData.uiSchema,
       },
     },
     patchTriggerAliases: {

@@ -1,7 +1,6 @@
 fragment projectPatchAliasSettings on Project {
   patchTriggerAliases {
     alias
-    childProjectId
     childProjectIdentifier
     taskSpecifiers {
       patchAlias
@@ -10,10 +9,6 @@ fragment projectPatchAliasSettings on Project {
     }
     status
     parentAsModule
-    variantsTasks {
-      name
-      tasks
-    }
   }
   githubTriggerAliases
 }
@@ -21,7 +16,6 @@ fragment projectPatchAliasSettings on Project {
 fragment repoPatchAliasSettings on RepoRef {
   patchTriggerAliases {
     alias
-    childProjectId
     childProjectIdentifier
     taskSpecifiers {
       patchAlias
@@ -30,10 +24,6 @@ fragment repoPatchAliasSettings on RepoRef {
     }
     status
     parentAsModule
-    variantsTasks {
-      name
-      tasks
-    }
   }
   githubTriggerAliases
 }

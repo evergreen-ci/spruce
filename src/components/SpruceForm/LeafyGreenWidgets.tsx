@@ -14,8 +14,10 @@ import { Description, Label } from "@leafygreen-ui/typography";
 import { WidgetProps } from "@rjsf/core";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
-
+import { errorReporting } from "utils";
 import ElementWrapper from "./ElementWrapper";
+
+const { reportError } = errorReporting;
 
 const getInputErrors = (rawErrors: string[]): string[] =>
   // Don't display empty input errors as these are too visually noisy
@@ -38,6 +40,7 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
     "data-cy": dataCy,
     emptyValue,
     showErrors = true,
+    optional,
   } = options;
   const errors = getInputErrors(rawErrors);
   const hasError = !!errors?.length;
@@ -51,7 +54,7 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
   return (
     <ElementWrapper>
       <MaxWidthContainer>
-        <TextInput
+        <StyledTextInput
           data-cy={dataCy}
           value={value === null || value === undefined ? null : `${value}`}
           // @ts-expect-error
@@ -59,10 +62,13 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
           label={ariaLabelledBy ? undefined : label}
           placeholder={placeholder || undefined}
           description={description as string}
+          optional={optional as boolean}
           disabled={disabled || (readonlyAsDisabled && readonly)}
           onChange={({ target }) =>
             onChange(
-              target.value === "" && emptyValue ? emptyValue : target.value
+              target.value === "" && emptyValue !== undefined
+                ? emptyValue
+                : target.value
             )
           }
           aria-label={label}
@@ -139,7 +145,9 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
   const hasError = !!rawErrors?.length && !disabled;
 
   if (!Array.isArray(enumOptions)) {
-    console.error("Non Array passed into leafygreen select");
+    reportError(
+      new Error("LeafyGreen Select expects enumOptions to be an array")
+    ).warning();
     return null;
   }
   return (
@@ -186,7 +194,9 @@ export const LeafyGreenRadio: React.FC<WidgetProps> = ({
 }) => {
   const { enumOptions, "data-cy": dataCy } = options;
   if (!Array.isArray(enumOptions)) {
-    console.error("Non Array passed into leafygreen radio");
+    reportError(
+      new Error("LeafyGreen Radio expects enumOptions to be an array")
+    ).warning();
     return null;
   }
 
@@ -219,9 +229,9 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
 }) => {
   const { description, enumOptions, "data-cy": dataCy, showLabel } = options;
   if (!Array.isArray(enumOptions)) {
-    console.error(
-      "enumOptions must be an array passed into LeafyGreen Radio Box"
-    );
+    reportError(
+      new Error("LeafyGreen Radio Box expects enumOptions to be an array")
+    ).warning();
     return null;
   }
 
@@ -302,30 +312,34 @@ export const LeafyGreenTextArea: React.FC<WidgetProps> = ({
 };
 
 export const LeafyGreenSegmentedControl: React.FC<WidgetProps> = ({
-  id,
   label,
   onChange,
   options,
   value,
 }) => {
-  const { "aria-controls": ariaControls, enumOptions } = options;
+  const {
+    "aria-controls": ariaControls,
+    "data-cy": dataCy,
+    enumOptions,
+  } = options;
 
   if (!Array.isArray(enumOptions)) {
-    console.error("Non-Array passed into Segmented Control");
+    reportError(
+      new Error(
+        "LeafyGreen Segmented Control expects enumOptions to be an array"
+      )
+    ).warning();
     return null;
   }
-
-  const idPrefix = id.substring(0, id.lastIndexOf("_"));
 
   return (
     <ElementWrapper>
       <StyledSegmentedControl
+        data-cy={dataCy}
         label={label}
         value={value}
         onChange={onChange}
-        aria-controls={(ariaControls as string[])
-          .map((childId) => `${idPrefix}_${childId}`)
-          .join(" ")}
+        aria-controls={(ariaControls as string[])?.join(" ")}
       >
         {enumOptions.map((o) => (
           <SegmentedControlOption key={o.value} value={o.value}>
@@ -343,4 +357,10 @@ const StyledSegmentedControl = styled(SegmentedControl)`
 
 const MaxWidthContainer = styled.div`
   max-width: 400px;
+`;
+
+const StyledTextInput = styled(TextInput)`
+  p {
+    margin: 0;
+  }
 `;

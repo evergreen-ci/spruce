@@ -228,6 +228,7 @@ export type Mutation = {
   attachProjectToNewRepo: Project;
   saveProjectSettingsForSection: ProjectSettings;
   saveRepoSettingsForSection: RepoSettings;
+  defaultSectionToRepo?: Maybe<Scalars["String"]>;
   attachProjectToRepo: Project;
   detachProjectFromRepo: Project;
   forceRepotrackerRun: Scalars["Boolean"];
@@ -300,6 +301,11 @@ export type MutationSaveProjectSettingsForSectionArgs = {
 
 export type MutationSaveRepoSettingsForSectionArgs = {
   repoSettings?: Maybe<RepoSettingsInput>;
+  section: ProjectSettingsSection;
+};
+
+export type MutationDefaultSectionToRepoArgs = {
+  projectId: Scalars["String"];
   section: ProjectSettingsSection;
 };
 
@@ -927,23 +933,21 @@ export type WebhookInput = {
 };
 
 export type WorkstationConfigInput = {
-  setupCommands?: Maybe<Array<Maybe<WorkstationSetupCommandInput>>>;
-  gitClone: Scalars["Boolean"];
+  setupCommands?: Maybe<Array<WorkstationSetupCommandInput>>;
+  gitClone?: Maybe<Scalars["Boolean"]>;
 };
 
 export type WorkstationSetupCommandInput = {
-  Command: Scalars["String"];
-  Directory?: Maybe<Scalars["String"]>;
+  command: Scalars["String"];
+  directory?: Maybe<Scalars["String"]>;
 };
 
 export type PatchTriggerAliasInput = {
   alias: Scalars["String"];
-  childProjectId: Scalars["String"];
   childProjectIdentifier: Scalars["String"];
-  taskSpecifiers?: Maybe<Array<Maybe<TaskSpecifierInput>>>;
+  taskSpecifiers: Array<TaskSpecifierInput>;
   status?: Maybe<Scalars["String"]>;
   parentAsModule?: Maybe<Scalars["String"]>;
-  variantsTasks: Array<Maybe<VariantTaskInput>>;
 };
 
 export type TaskSpecifierInput = {
@@ -955,6 +959,7 @@ export type TaskSpecifierInput = {
 export type ProjectVarsInput = {
   vars?: Maybe<Scalars["StringMap"]>;
   privateVarsList?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  adminOnlyVarsList?: Maybe<Array<Maybe<Scalars["String"]>>>;
 };
 
 export type VariantTaskInput = {
@@ -1160,8 +1165,6 @@ export type ChildPatchAlias = {
 
 export type PatchTriggerAlias = {
   alias: Scalars["String"];
-  /** @deprecated Field no longer supported */
-  childProject?: Maybe<Scalars["String"]>;
   childProjectId: Scalars["String"];
   childProjectIdentifier: Scalars["String"];
   taskSpecifiers?: Maybe<Array<Maybe<TaskSpecifier>>>;
@@ -1467,6 +1470,11 @@ export type GroupedProjects = {
   projects: Array<Project>;
 };
 
+export type Permissions = {
+  userId: Scalars["String"];
+  canCreateProject: Scalars["Boolean"];
+};
+
 export type GithubProjectConflicts = {
   commitQueueIdentifiers?: Maybe<Array<Scalars["String"]>>;
   prTestingIdentifiers?: Maybe<Array<Scalars["String"]>>;
@@ -1516,6 +1524,7 @@ export type RepoEventLogEntry = {
 export type ProjectVars = {
   vars?: Maybe<Scalars["StringMap"]>;
   privateVars?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  adminOnlyVars?: Maybe<Array<Maybe<Scalars["String"]>>>;
 };
 
 export type ProjectAlias = {
@@ -1629,7 +1638,6 @@ export type Project = {
   buildBaronSettings: BuildBaronSettings;
   taskAnnotationSettings: TaskAnnotationSettings;
   hidden?: Maybe<Scalars["Boolean"]>;
-  useRepoSettings: Scalars["Boolean"];
   repoRefId: Scalars["String"];
   isFavorite: Scalars["Boolean"];
   validDefaultLoggers: Array<Scalars["String"]>;
@@ -1764,8 +1772,8 @@ export type RepoWorkstationConfig = {
 };
 
 export type WorkstationSetupCommand = {
-  Command: Scalars["String"];
-  Directory: Scalars["String"];
+  command: Scalars["String"];
+  directory: Scalars["String"];
 };
 
 export type TaskSpecifier = {
@@ -1785,6 +1793,7 @@ export type User = {
   userId: Scalars["String"];
   emailAddress: Scalars["String"];
   patches: Patches;
+  permissions: Permissions;
 };
 
 export type UserPatchesArgs = {
@@ -2385,7 +2394,6 @@ export type ProjectPatchAliasSettingsFragment = {
   patchTriggerAliases?: Maybe<
     Array<{
       alias: string;
-      childProjectId: string;
       childProjectIdentifier: string;
       status?: Maybe<string>;
       parentAsModule?: Maybe<string>;
@@ -2394,7 +2402,6 @@ export type ProjectPatchAliasSettingsFragment = {
           Maybe<{ patchAlias: string; taskRegex: string; variantRegex: string }>
         >
       >;
-      variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
     }>
   >;
 };
@@ -2404,7 +2411,6 @@ export type RepoPatchAliasSettingsFragment = {
   patchTriggerAliases?: Maybe<
     Array<{
       alias: string;
-      childProjectId: string;
       childProjectIdentifier: string;
       status?: Maybe<string>;
       parentAsModule?: Maybe<string>;
@@ -2413,7 +2419,6 @@ export type RepoPatchAliasSettingsFragment = {
           Maybe<{ patchAlias: string; taskRegex: string; variantRegex: string }>
         >
       >;
-      variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
     }>
   >;
 };
@@ -2445,6 +2450,7 @@ export type RepoPluginsSettingsFragment = {
 export type VariablesFragment = {
   vars?: Maybe<{ [key: string]: any }>;
   privateVars?: Maybe<Array<Maybe<string>>>;
+  adminOnlyVars?: Maybe<Array<Maybe<string>>>;
 };
 
 export type AbortTaskMutationVariables = Exact<{
@@ -2479,6 +2485,14 @@ export type AddFavoriteProjectMutation = {
   };
 };
 
+export type AttachProjectToNewRepoMutationVariables = Exact<{
+  project: MoveProjectInput;
+}>;
+
+export type AttachProjectToNewRepoMutation = {
+  attachProjectToNewRepo: { repoRefId: string };
+};
+
 export type AttachProjectToRepoMutationVariables = Exact<{
   projectId: Scalars["String"];
 }>;
@@ -2499,12 +2513,27 @@ export type ClearMySubscriptionsMutationVariables = Exact<{
 
 export type ClearMySubscriptionsMutation = { clearMySubscriptions: number };
 
+export type CreateProjectMutationVariables = Exact<{
+  project: CreateProjectInput;
+}>;
+
+export type CreateProjectMutation = { createProject: { identifier: string } };
+
 export type CreatePublicKeyMutationVariables = Exact<{
   publicKeyInput: PublicKeyInput;
 }>;
 
 export type CreatePublicKeyMutation = {
   createPublicKey: Array<{ key: string; name: string }>;
+};
+
+export type DefaultSectionToRepoMutationVariables = Exact<{
+  projectId: Scalars["String"];
+  section: ProjectSettingsSection;
+}>;
+
+export type DefaultSectionToRepoMutation = {
+  defaultSectionToRepo?: Maybe<string>;
 };
 
 export type DetachProjectFromRepoMutationVariables = Exact<{
@@ -2878,6 +2907,29 @@ export type GetAnnotationEventDataQuery = {
     id: string;
     execution: number;
     annotation?: Maybe<AnnotationFragment>;
+  }>;
+};
+
+export type GetBaseVersionAndTaskQueryVariables = Exact<{
+  taskId: Scalars["String"];
+}>;
+
+export type GetBaseVersionAndTaskQuery = {
+  task?: Maybe<{
+    id: string;
+    execution: number;
+    displayName: string;
+    buildVariant: string;
+    versionMetadata: {
+      id: string;
+      isPatch: boolean;
+      baseVersion?: Maybe<{
+        id: string;
+        order: number;
+        projectIdentifier: string;
+      }>;
+    };
+    baseTask?: Maybe<{ id: string; execution: number; status: string }>;
   }>;
 };
 
@@ -3261,6 +3313,31 @@ export type GetSuspectedIssuesQuery = {
   }>;
 };
 
+export type GetLastMainlineCommitQueryVariables = Exact<{
+  projectIdentifier: Scalars["String"];
+  skipOrderNumber: Scalars["Int"];
+  buildVariantOptions: BuildVariantOptions;
+}>;
+
+export type GetLastMainlineCommitQuery = {
+  mainlineCommits?: Maybe<{
+    versions: Array<{
+      version?: Maybe<{
+        id: string;
+        buildVariants?: Maybe<
+          Array<
+            Maybe<{
+              tasks?: Maybe<
+                Array<Maybe<{ id: string; execution: number; status: string }>>
+              >;
+            }>
+          >
+        >;
+      }>;
+    }>;
+  }>;
+};
+
 export type MainlineCommitsForHistoryQueryVariables = Exact<{
   mainlineCommitsOptions: MainlineCommitsOptions;
   buildVariantOptions: BuildVariantOptions;
@@ -3313,8 +3390,10 @@ export type MainlineCommitsForHistoryQuery = {
 
 export type MainlineCommitsQueryVariables = Exact<{
   mainlineCommitsOptions: MainlineCommitsOptions;
-  buildVariantOptionsForTask: BuildVariantOptions;
   buildVariantOptions: BuildVariantOptions;
+  buildVariantOptionsForGraph: BuildVariantOptions;
+  buildVariantOptionsForTaskIcons: BuildVariantOptions;
+  buildVariantOptionsForGroupedTasks: BuildVariantOptions;
 }>;
 
 export type MainlineCommitsQuery = {
@@ -3331,6 +3410,13 @@ export type MainlineCommitsQuery = {
         revision: string;
         order: number;
         taskStatusCounts?: Maybe<Array<{ status: string; count: number }>>;
+        buildVariantStats?: Maybe<
+          Array<{
+            displayName: string;
+            variant: string;
+            statusCounts: Array<{ count: number; status: string }>;
+          }>
+        >;
         buildVariants?: Maybe<
           Array<
             Maybe<{
@@ -3613,6 +3699,21 @@ export type TaskFilesQuery = {
   };
 };
 
+export type GetTaskForTestsTableQueryVariables = Exact<{
+  taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type GetTaskForTestsTableQuery = {
+  task?: Maybe<
+    {
+      displayName: string;
+      projectIdentifier?: Maybe<string>;
+      displayTask?: Maybe<{ id: string; execution: number }>;
+    } & BaseTaskFragment
+  >;
+};
+
 export type TaskLogsQueryVariables = Exact<{
   id: Scalars["String"];
   execution?: Maybe<Scalars["Int"]>;
@@ -3805,10 +3906,14 @@ export type GetTestsQueryVariables = Exact<{
   execution?: Maybe<Scalars["Int"]>;
   groupId?: Maybe<Scalars["String"]>;
   taskId: Scalars["String"];
+  pageNum?: Maybe<Scalars["Int"]>;
+  limitNum?: Maybe<Scalars["Int"]>;
+  testName?: Maybe<Scalars["String"]>;
 }>;
 
 export type GetTestsQuery = {
   taskTests: {
+    filteredTestCount: number;
     testResults: Array<{
       id: string;
       testFile: string;

@@ -38,6 +38,10 @@ export const getFormSchema = (
               type: "boolean" as "boolean",
               title: "Private",
             },
+            isAdminOnly: {
+              type: "boolean" as "boolean",
+              title: "Admin Only",
+            },
             isDisabled: {
               type: "boolean" as "boolean",
             },
@@ -84,6 +88,11 @@ export const getFormSchema = (
           "ui:tooltipDescription":
             "Private variables have redacted values on the Project Page and the API and cannot be updated.",
           "ui:data-cy": "var-private-input",
+        },
+        isAdminOnly: {
+          "ui:tooltipDescription":
+            "Admin only variables can only be used by project admins.",
+          "ui:data-cy": "var-admin-input",
         },
       },
     },

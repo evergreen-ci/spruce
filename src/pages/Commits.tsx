@@ -19,47 +19,27 @@ import {
   MainlineCommitsQueryVariables,
 } from "gql/generated/types";
 import { GET_MAINLINE_COMMITS, GET_SPRUCE_CONFIG } from "gql/queries";
-import { usePageTitle, useNetworkStatus, useUpdateURLQueryParams } from "hooks";
-import {
-  ChartToggleQueryParams,
-  ChartTypes,
-  ProjectFilterOptions,
-  MainlineCommitQueryParams,
-} from "types/commits";
-import { TaskStatus } from "types/task";
+import { usePageTitle, usePolling } from "hooks";
+import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
 import { array, queryString } from "utils";
 import { CommitsWrapper } from "./commits/CommitsWrapper";
 import CommitTypeSelect from "./commits/commitTypeSelect";
 import { PaginationButtons } from "./commits/PaginationButtons";
 import { ProjectSelect } from "./commits/projectSelect";
 import { StatusSelect } from "./commits/StatusSelect";
+import {
+  getMainlineCommitsQueryVariables,
+  getFilterStatus,
+} from "./commits/utils";
 
 const { toArray } = array;
 const { parseQueryString, getString } = queryString;
-const DEFAULT_CHART_TYPE = ChartTypes.Absolute;
-const FAILED_STATUSES = [
-  TaskStatus.Failed,
-  TaskStatus.TaskTimedOut,
-  TaskStatus.TestTimedOut,
-  TaskStatus.KnownIssue,
-  TaskStatus.Aborted,
-];
 
 export const Commits = () => {
   const dispatchToast = useToastContext();
   const { replace } = useHistory();
   const { search } = useLocation();
-  const updateQueryParams = useUpdateURLQueryParams();
   const parsed = parseQueryString(search);
-  const currentChartType =
-    (getString(parsed[ChartToggleQueryParams.chartType]) as ChartTypes) ||
-    DEFAULT_CHART_TYPE;
-
-  const onChangeChartType = (chartType: ChartTypes): void => {
-    updateQueryParams({
-      [ChartToggleQueryParams.chartType]: chartType,
-    });
-  };
 
   // get query params from url
   const { id: projectId } = useParams<{ id: string }>();
@@ -83,57 +63,44 @@ export const Commits = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectId]);
 
-  const filterStatuses = toArray(parsed[ProjectFilterOptions.Status]);
-  const filterVariants = toArray(parsed[ProjectFilterOptions.BuildVariant]);
-  const filterTasks = toArray(parsed[ProjectFilterOptions.Task]);
-  const filterRequesters = toArray(
+  const statusFilters = toArray(parsed[ProjectFilterOptions.Status]);
+  const variantFilters = toArray(parsed[ProjectFilterOptions.BuildVariant]);
+  const taskFilters = toArray(parsed[ProjectFilterOptions.Task]);
+  const requesterFilters = toArray(
     parsed[MainlineCommitQueryParams.Requester]
   ).filter((r) => r !== ALL_VALUE);
   const skipOrderNumberParam = getString(
     parsed[MainlineCommitQueryParams.SkipOrderNumber]
   );
   const skipOrderNumber = parseInt(skipOrderNumberParam, 10) || undefined;
-
-  const hasTaskFilter = filterTasks.length > 0;
-
-  const buildVariantOptionsForTask = {
-    statuses: filterStatuses,
-    variants: filterVariants,
-    tasks: filterTasks,
+  const filterState = {
+    statuses: statusFilters,
+    variants: variantFilters,
+    tasks: taskFilters,
+    requesters: requesterFilters,
   };
+  const variables = getMainlineCommitsQueryVariables({
+    mainlineCommitOptions: {
+      projectID: projectId,
+      skipOrderNumber,
+      limit: 5,
+    },
+    filterState,
+  });
 
-  const hasFilters =
-    filterStatuses.length > 0 || filterVariants.length > 0 || hasTaskFilter;
-
-  const mainlineCommitsOptions = {
-    projectID: projectId,
-    limit: 5,
-    skipOrderNumber,
-    shouldCollapse: hasFilters,
-    requesters: filterRequesters,
-  };
-
-  const buildVariantOptions = {
-    statuses: hasFilters ? filterStatuses : FAILED_STATUSES,
-    variants: filterVariants,
-    tasks: filterTasks,
-  };
+  const { hasTasks, hasFilters } = getFilterStatus(filterState);
 
   const { data, loading, error, startPolling, stopPolling } = useQuery<
     MainlineCommitsQuery,
     MainlineCommitsQueryVariables
   >(GET_MAINLINE_COMMITS, {
     skip: !projectId,
-    variables: {
-      mainlineCommitsOptions,
-      buildVariantOptionsForTask,
-      buildVariantOptions,
-    },
+    variables,
     pollInterval,
     onError: (e) =>
       dispatchToast.error(`There was an error loading the page: ${e.message}`),
   });
-  useNetworkStatus(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling);
 
   const { mainlineCommits } = data || {};
   const { versions, nextPageOrderNumber, prevPageOrderNumber } =
@@ -174,10 +141,8 @@ export const Commits = () => {
           versions={versions}
           error={error}
           isLoading={loading || !projectId}
-          chartType={currentChartType}
-          hasTaskFilter={hasTaskFilter}
+          hasTaskFilter={hasTasks}
           hasFilters={hasFilters}
-          onChangeChartType={onChangeChartType}
         />
       </PageContainer>
     </PageWrapper>

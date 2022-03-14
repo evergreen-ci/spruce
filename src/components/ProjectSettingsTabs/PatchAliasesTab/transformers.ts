@@ -68,7 +68,6 @@ export const formToGql: FormToGqlFunction = (
         }
         return {
           alias: a.alias,
-          childProjectId: a.childProjectIdentifier,
           childProjectIdentifier: a.childProjectIdentifier,
           taskSpecifiers:
             a.taskSpecifiers?.map(
@@ -87,7 +86,6 @@ export const formToGql: FormToGqlFunction = (
             ) ?? [],
           status: a.status || null,
           parentAsModule: a.parentAsModule || null,
-          variantsTasks: a.variantsTasks,
         };
       }) ?? []
     : null;
