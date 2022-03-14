@@ -27,21 +27,21 @@ export const usePolling: usePollingType = (startPolling, stopPolling) => {
   const isVisible = usePageVisibility();
 
   // If offline and polling, stop polling.
-  if (!isOnline && isPolling) {
+  if (!isOnline && isPolling && stopPolling) {
     sendEvent({ name: "Tab Not Active", status: "offline" });
     setIsPolling(false);
     stopPolling();
   }
 
   // If not visible and polling, stop polling.
-  if (!isVisible && isPolling) {
+  if (!isVisible && isPolling && stopPolling) {
     sendEvent({ name: "Tab Not Active", status: "hidden" });
     setIsPolling(false);
     stopPolling();
   }
 
   // If online and visible and not polling, start polling.
-  if (isOnline && isVisible && !isPolling) {
+  if (isOnline && isVisible && !isPolling && startPolling) {
     sendEvent({ name: "Tab Active" });
     setIsPolling(true);
     startPolling(pollInterval);
