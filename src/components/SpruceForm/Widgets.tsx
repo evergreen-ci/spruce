@@ -5,12 +5,14 @@ import {
   LeafyGreenRadio,
   LeafyGreenRadioBox,
   LeafyGreenCheckBox,
+  LeafyGreenSegmentedControl,
 } from "./LeafyGreenWidgets";
 
 const widgets = {
   TextWidget: LeafyGreenTextInput,
   TextareaWidget: LeafyGreenTextArea,
   CheckboxWidget: LeafyGreenCheckBox,
+  SegmentedControlWidget: LeafyGreenSegmentedControl,
   SelectWidget: LeafyGreenSelect,
   RadioWidget: LeafyGreenRadio,
   RadioBoxWidget: LeafyGreenRadioBox,
