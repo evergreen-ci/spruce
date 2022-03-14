@@ -16,6 +16,19 @@ describe.skip("task history", () => {
     cy.contains("See history").click();
     cy.location("pathname").should("eq", "/task-history/spruce/check_codegen");
   });
+  it("should be able expand and collapse inactive commits", () => {
+    // Expand
+    cy.contains("EVG-16356").should("not.exist");
+    cy.contains("Expand 1 inactive").should("exist");
+    cy.contains("Expand 1 inactive").click();
+    cy.contains("EVG-16356").should("exist");
+
+    // Collapse
+    cy.contains("Expand 1 inactive").should("not.exist");
+    cy.contains("Collapse 1 inactive").should("exist");
+    cy.contains("Collapse 1 inactive").click();
+    cy.contains("EVG-16356").should("not.exist");
+  });
   it("clicking on a failing test history button should show the task history view with the failing test filter applied", () => {
     cy.visit(`/task/${taskId}`);
 

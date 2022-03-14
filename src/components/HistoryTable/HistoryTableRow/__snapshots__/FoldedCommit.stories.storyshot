@@ -2,10 +2,19 @@
 
 exports[`storybook Storyshots Folded Commit Folded Inactive Commits 1`] = `
 <div
-  className="css-fgbiei-Column e1jt0kpn2"
+  className="css-6mwrce-Column e17hahfs3"
+  style={
+    Object {
+      "height": 40,
+      "left": 20,
+      "position": "absolute",
+      "top": 20,
+    }
+  }
 >
   <div
-    className="css-18bb9p3-Row e1jt0kpn1"
+    className="css-u83vs3-AccordionTitle e17hahfs2"
+    onClick={[Function]}
   >
     <svg
       aria-label="Chevron Right Icon"
@@ -25,9 +34,10 @@ exports[`storybook Storyshots Folded Commit Folded Inactive Commits 1`] = `
       />
     </svg>
     <div
-      className="css-1cs4i4a-Copy e1jt0kpn0 leafygreen-ui-1mngpnd"
+      className="css-1cs4i4a-Copy e17hahfs1 leafygreen-ui-1mngpnd"
     >
-      Expand 
+      Expand
+       
       5
        inactive
     </div>

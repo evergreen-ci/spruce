@@ -726,17 +726,7 @@ exports[`storybook Storyshots History Table Task History Table 1`] = `
       "width": "100%",
     }
   }
->
-  <div
-    style={
-      Object {
-        "height": 0,
-        "overflow": "visible",
-        "width": 0,
-      }
-    }
-  />
-</div>
+/>
 `;
 
 exports[`storybook Storyshots History Table Test Search 1`] = `
@@ -837,15 +827,5 @@ exports[`storybook Storyshots History Table Variant History Table 1`] = `
       "width": "100%",
     }
   }
->
-  <div
-    style={
-      Object {
-        "height": 0,
-        "overflow": "visible",
-        "width": 0,
-      }
-    }
-  />
-</div>
+/>
 `;
