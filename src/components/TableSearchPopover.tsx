@@ -10,15 +10,15 @@ import { useOnClickOutside } from "hooks";
 const { gray, white, focus } = uiColors;
 
 interface TableSearchPopoverProps {
-  onConfirm: (filter: string) => void;
+  onConfirm: (search: string) => void;
 }
 
 export const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
   onConfirm,
 }) => {
   const [active, setActive] = useState(false);
-  const [filter, setFilter] = useState("");
-  const iconColor = filter === "" ? gray.dark2 : focus;
+  const [search, setSearch] = useState("");
+  const iconColor = search === "" ? gray.dark2 : focus;
 
   const buttonRef = useRef(null);
   const popoverRef = useRef(null);
@@ -27,7 +27,7 @@ export const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
   useOnClickOutside([buttonRef, popoverRef], () => setActive(false));
 
   const closePopup = () => {
-    onConfirm(filter);
+    onConfirm(search);
     setActive(false);
   };
 
@@ -48,8 +48,8 @@ export const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
             type="search"
             aria-label="input-filter"
             data-cy="input-filter"
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             onKeyPress={(e) => e.key === "Enter" && closePopup()}
             autoFocus
           />

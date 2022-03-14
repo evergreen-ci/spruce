@@ -79,9 +79,9 @@ export const JobLogsTable: React.FC<JobLogsTableProps> = ({
                 <LabelWrapper>
                   Test Name
                   <TableSearchPopover
-                    onConfirm={(filter: string) =>
+                    onConfirm={(testName: string) =>
                       updateQueryParams({
-                        test: filter || undefined,
+                        test: testName || undefined,
                         page: `${0}`,
                       })
                     }
