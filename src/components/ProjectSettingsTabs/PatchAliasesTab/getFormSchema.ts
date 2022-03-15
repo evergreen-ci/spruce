@@ -3,7 +3,7 @@ import { SpruceFormProps } from "components/SpruceForm";
 import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { alias, form, ProjectType } from "../utils";
-import { TaskSpecifiers } from "./types";
+import { TaskSpecifier } from "./types";
 
 const { patchAliasArray } = alias;
 const { overrideRadioBox } = form;
@@ -41,15 +41,18 @@ export const getFormSchema = (
             type: "array" as "array",
             items: {
               type: "object" as "object",
-              required: ["alias", "childProjectIdentifier"],
               properties: {
                 alias: {
                   type: "string" as "string",
                   title: "Alias",
+                  default: "",
+                  minLength: 1,
                 },
                 childProjectIdentifier: {
                   type: "string" as "string",
                   title: "Project",
+                  default: "",
+                  minLength: 1,
                 },
                 parentAsModule: {
                   type: "string" as "string",
@@ -58,6 +61,7 @@ export const getFormSchema = (
                 status: {
                   type: "string" as "string",
                   title: "Wait on",
+                  default: "",
                   oneOf: [
                     {
                       type: "string" as "string",
@@ -91,17 +95,17 @@ export const getFormSchema = (
                       specifier: {
                         type: "string" as "string",
                         title: "Specify Via",
-                        default: TaskSpecifiers.PatchAlias,
+                        default: TaskSpecifier.PatchAlias,
                         oneOf: [
                           {
                             type: "string" as "string",
                             title: "Patch Alias",
-                            enum: [TaskSpecifiers.PatchAlias],
+                            enum: [TaskSpecifier.PatchAlias],
                           },
                           {
                             type: "string" as "string",
                             title: "Variant/Task",
-                            enum: [TaskSpecifiers.VariantTask],
+                            enum: [TaskSpecifier.VariantTask],
                           },
                         ],
                       },
@@ -112,7 +116,7 @@ export const getFormSchema = (
                           {
                             properties: {
                               specifier: {
-                                enum: [TaskSpecifiers.PatchAlias],
+                                enum: [TaskSpecifier.PatchAlias],
                               },
                               patchAlias: {
                                 type: "string" as "string",
@@ -125,7 +129,7 @@ export const getFormSchema = (
                           {
                             properties: {
                               specifier: {
-                                enum: [TaskSpecifiers.VariantTask],
+                                enum: [TaskSpecifier.VariantTask],
                               },
                               variantRegex: {
                                 type: "string" as "string",
@@ -174,47 +178,51 @@ export const getFormSchema = (
     },
     patchTriggerAliases: {
       aliasesOverride: {
-        "ui:widget": widgets.RadioBoxWidget,
+        "ui:widget":
+          projectType === ProjectType.AttachedProject
+            ? widgets.RadioBoxWidget
+            : "hidden",
         "ui:showLabel": false,
         "ui:data-cy": "patch-trigger-aliases-override-radio-box",
       },
-      aliases: {
-        "ui:addButtonText": "Add Patch Trigger Alias",
-        "ui:showLabel": false,
-        "ui:useExpandableCard": true,
-        items: {
-          "ui:displayTitle": "New Patch Trigger Alias",
-          alias: {
-            "ui:showErrors": false,
-          },
-          childProjectIdentifier: {
-            "ui:showErrors": false,
-          },
-          parentAsModule: {
-            "ui:optional": true,
-          },
-          status: {
-            "ui:allowDeselect": false,
-            "ui:placeholder": "Select event…",
-          },
-          taskSpecifiers: {
-            "ui:addButtonText": "Add Task Regex Pair",
-            "ui:showLabel": false,
-            "ui:topAlignDelete": true,
-            items: {
-              "ui:ObjectFieldTemplate": AccordionFieldTemplate,
-              "ui:defaultOpen": true,
-              specifier: {
-                "ui:widget": widgets.SegmentedControlWidget,
-                "ui:aria-controls": ["patchAlias", "taskRegex", "variantRegex"],
-              },
-            },
-          },
-          isGithubTriggerAlias: {
-            "ui:border": "top",
-          },
+      aliases: aliasesUiSchema,
+      repoData: {
+        aliases: {
+          ...aliasesUiSchema,
+          "ui:readonly": true,
         },
       },
     },
   },
 });
+
+const aliasesUiSchema = {
+  "ui:addButtonText": "Add Patch Trigger Alias",
+  "ui:showLabel": false,
+  "ui:useExpandableCard": true,
+  items: {
+    "ui:displayTitle": "New Patch Trigger Alias",
+    parentAsModule: {
+      "ui:optional": true,
+    },
+    status: {
+      "ui:allowDeselect": false,
+    },
+    taskSpecifiers: {
+      "ui:addButtonText": "Add Task Regex Pair",
+      "ui:showLabel": false,
+      "ui:topAlignDelete": true,
+      items: {
+        "ui:ObjectFieldTemplate": AccordionFieldTemplate,
+        "ui:defaultOpen": true,
+        specifier: {
+          "ui:widget": widgets.SegmentedControlWidget,
+          "ui:aria-controls": ["patchAlias", "taskRegex", "variantRegex"],
+        },
+      },
+    },
+    isGithubTriggerAlias: {
+      "ui:border": "top",
+    },
+  },
+};

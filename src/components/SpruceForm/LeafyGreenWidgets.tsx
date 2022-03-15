@@ -13,7 +13,7 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { Description, Label } from "@leafygreen-ui/typography";
 import { WidgetProps } from "@rjsf/core";
 import Icon from "components/Icon";
-import { size } from "constants/tokens";
+import { size, zIndex } from "constants/tokens";
 import { errorReporting } from "utils";
 import ElementWrapper from "./ElementWrapper";
 
@@ -22,7 +22,6 @@ const { reportError } = errorReporting;
 export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
   value,
   label,
-  id,
   placeholder,
   onChange,
   disabled,
@@ -68,7 +67,6 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
             )
           }
           aria-label={label}
-          id={id}
           {...errorProps}
         />
       </MaxWidthContainer>
@@ -127,6 +125,7 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
   label,
   options,
   placeholder,
+  readonly,
   value,
   onChange,
   rawErrors,
@@ -139,6 +138,7 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
   } = options;
 
   const hasError = !!rawErrors?.length && !disabled;
+  const isDisabled = disabled || readonly;
 
   if (!Array.isArray(enumOptions)) {
     reportError(
@@ -153,7 +153,7 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
           allowDeselect={allowDeselect !== false}
           // @ts-expect-error
           aria-labelledby={ariaLabelledBy}
-          disabled={disabled}
+          disabled={isDisabled}
           label={ariaLabelledBy ? undefined : label}
           value={value}
           onChange={(v) => onChange(v === "" ? null : v)}
@@ -163,6 +163,7 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
           data-cy={dataCy}
           state={hasError ? "error" : "none"}
           errorMessage="Selection is required."
+          popoverZIndex={zIndex.dropdown}
         >
           {enumOptions.map((o) => {
             // Handle deselect value without errors

@@ -1,7 +1,7 @@
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { alias as aliasUtils, ProjectType } from "../utils";
-import { FormState, TaskSpecifiers } from "./types";
+import { FormState, TaskSpecifier } from "./types";
 
 const { sortAliases, transformAliases } = aliasUtils;
 
@@ -39,11 +39,9 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
             p.taskSpecifiers?.map((t) => ({
               ...t,
               specifier: t.patchAlias
-                ? TaskSpecifiers.PatchAlias
-                : TaskSpecifiers.VariantTask,
+                ? TaskSpecifier.PatchAlias
+                : TaskSpecifier.VariantTask,
             })) ?? [],
-          status: p.status,
-          parentAsModule: p.parentAsModule,
           isGithubTriggerAlias: githubTriggerAliases?.includes(p.alias),
           displayTitle: p.alias,
         })) ?? [],
@@ -72,7 +70,7 @@ export const formToGql: FormToGqlFunction = (
           taskSpecifiers:
             a.taskSpecifiers?.map(
               ({ patchAlias, specifier, taskRegex, variantRegex }) =>
-                specifier === TaskSpecifiers.PatchAlias
+                specifier === TaskSpecifier.PatchAlias
                   ? {
                       patchAlias,
                       taskRegex: "",

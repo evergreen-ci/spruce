@@ -261,6 +261,7 @@ export const getFormSchema = (
         githubTriggerAliases: {
           "ui:addable": false,
           "ui:orderable": false,
+          "ui:placeholder": "No GitHub Trigger Aliases are defined.",
           "ui:readonly": true,
           "ui:removable": false,
           items: {

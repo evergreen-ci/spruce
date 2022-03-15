@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import ExpandableCard from "@leafygreen-ui/expandable-card";
 import { uiColors } from "@leafygreen-ui/palette";
-import { Subtitle } from "@leafygreen-ui/typography";
+import { Body, Subtitle } from "@leafygreen-ui/typography";
 import {
   ArrayFieldTemplateProps,
   FieldTemplateProps,
@@ -104,7 +104,7 @@ const ArrayItem: React.FC<
       title={
         <>
           <TitleWrapper data-cy="expandable-card-title">{title}</TitleWrapper>
-          {hasRemove && deleteButton}
+          {hasRemove && !readonly && deleteButton}
         </>
       }
     >
@@ -196,6 +196,7 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   const addButtonText = uiSchema["ui:addButtonText"] || "Add";
   const border = uiSchema["ui:border"] ?? false;
   const fullWidth = !!uiSchema["ui:fullWidth"];
+  const placeholder = uiSchema["ui:placeholder"];
   const showLabel = uiSchema["ui:showLabel"] ?? true;
   const topAlignDelete = uiSchema["ui:topAlignDelete"] ?? false;
   const useExpandableCard = uiSchema["ui:useExpandableCard"] ?? false;
@@ -225,19 +226,23 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
         fullWidth={fullWidth || useExpandableCard}
         hasChildren={!!items?.length}
       >
-        {items.map((p, i) => (
-          <ArrayItem
-            {...p}
-            key={p.key}
-            border={border}
-            title={
-              formData?.[i]?.displayTitle ??
-              uiSchema?.items?.["ui:displayTitle"]
-            }
-            topAlignDelete={topAlignDelete}
-            useExpandableCard={useExpandableCard}
-          />
-        ))}
+        {items.length === 0 ? (
+          <Body>{placeholder}</Body>
+        ) : (
+          items.map((p, i) => (
+            <ArrayItem
+              {...p}
+              key={p.key}
+              border={border}
+              title={
+                formData?.[i]?.displayTitle ??
+                uiSchema?.items?.["ui:displayTitle"]
+              }
+              topAlignDelete={topAlignDelete}
+              useExpandableCard={useExpandableCard}
+            />
+          ))
+        )}
       </ArrayContainer>
     </>
   );
@@ -278,12 +283,15 @@ export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
 );
 
 export const AccordionFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
+  disabled,
   idSchema,
   properties,
+  readonly,
   title,
   uiSchema,
 }) => {
-  const defaultOpen = uiSchema["ui:defaultOpen"] ?? true;
+  const isDisabled = disabled || readonly;
+  const defaultOpen = uiSchema["ui:defaultOpen"] ?? !isDisabled;
   const displayTitle = uiSchema["ui:displayTitle"];
   const numberedTitle = uiSchema["ui:numberedTitle"];
   const index = getIndex(idSchema.$id);

@@ -1,6 +1,6 @@
 import { AliasFormType, ProjectType } from "../utils";
 
-export enum TaskSpecifiers {
+export enum TaskSpecifier {
   PatchAlias = "PATCH_ALIAS",
   VariantTask = "VARIANT_TASK",
 }
@@ -17,7 +17,7 @@ export interface FormState {
       childProjectIdentifier: string;
       taskSpecifiers: Array<{
         patchAlias: string;
-        specifier: TaskSpecifiers;
+        specifier: TaskSpecifier;
         taskRegex: string;
         variantRegex: string;
       }>;
