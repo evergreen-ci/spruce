@@ -7,8 +7,8 @@ import { FilterBadges } from "components/FilterBadges";
 import HistoryTable, {
   context,
   ColumnPaginationButtons,
+  HistoryTableTestSearch,
 } from "components/HistoryTable";
-import { HistoryTableTestSearch } from "components/HistoryTable/HistoryTableTestSearch/HistoryTableTestSearch";
 import { PageWrapper } from "components/styles";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
