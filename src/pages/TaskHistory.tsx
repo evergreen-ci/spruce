@@ -26,9 +26,11 @@ import { usePageTitle } from "hooks";
 import { TestStatus } from "types/history";
 import { array, string, errorReporting } from "utils";
 import { parseQueryString } from "utils/queryString";
-import { BuildVariantSelector } from "./taskHistory/BuildVariantSelector";
-import ColumnHeaders from "./taskHistory/ColumnHeaders";
-import TaskHistoryRow from "./taskHistory/TaskHistoryRow";
+import {
+  BuildVariantSelector,
+  ColumnHeaders,
+  TaskHistoryRow,
+} from "./taskHistory/index";
 
 const { reportError } = errorReporting;
 const { applyStrictRegex } = string;

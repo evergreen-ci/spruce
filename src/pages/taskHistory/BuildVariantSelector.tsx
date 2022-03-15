@@ -19,7 +19,7 @@ interface BuildVariantSelectorProps {
   taskName: string;
 }
 
-export const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
+const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
   projectId,
   taskName,
 }) => {
@@ -87,3 +87,5 @@ export const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
 const Container = styled.div`
   width: 300px;
 `;
+
+export default BuildVariantSelector;

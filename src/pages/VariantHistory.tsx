@@ -25,9 +25,12 @@ import {
 import { usePageTitle } from "hooks";
 import { TestStatus } from "types/history";
 import { queryString, string, array, errorReporting } from "utils";
-import ColumnHeaders from "./variantHistory/ColumnHeaders";
-import { TaskSelector } from "./variantHistory/TaskSelector";
-import VariantHistoryRow from "./variantHistory/VariantHistoryRow";
+
+import {
+  ColumnHeaders,
+  TaskSelector,
+  VariantHistoryRow,
+} from "./variantHistory/index";
 
 const { reportError } = errorReporting;
 const { HistoryTableProvider, useHistoryTable } = context;
