@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body, Overline } from "@leafygreen-ui/typography";
@@ -45,11 +46,13 @@ export const ProjectOptionGroup: React.FC<OptionGroupProps> = ({
   <OptionGroupContainer>
     {/* if it's the project settings page and it's not the "" group, make the header clickable */}
     {canClickOnRepoGroup ? (
-      <OverlineHover>
-        <Overline role="button" onClick={() => onClick(repoIdentifier)}>
-          {name}
-        </Overline>
-      </OverlineHover>
+      <Overline
+        css={hoverStyles}
+        role="button"
+        onClick={() => onClick(repoIdentifier)}
+      >
+        {name}
+      </Overline>
     ) : (
       <Overline>{name} </Overline>
     )}
@@ -87,10 +90,10 @@ const OptionGroupContainer = styled.div`
   word-break: break-word;
 `;
 
-const OverlineHover = styled.div`
+const hoverStyles = css`
   :hover {
     cursor: pointer;
     background-color: ${gray.light1};
-    padding: ${size.xs};
   }
+  padding: ${size.xs};
 `;
