@@ -82,7 +82,7 @@ export const Tabs: React.FC<Props> = ({ taskCount, childPatches, isPatch }) => {
       history.replace(getVersionRoute(id));
     }
     // If tab updates in URL without having clicked a tab (e.g. clicked build variant), update state here.
-    if (isValidTab && selectedTab !== activeTabs.indexOf(tab)) {
+    else if (selectedTab !== activeTabs.indexOf(tab)) {
       setSelectedTab(activeTabs.indexOf(tab));
     }
   }, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
