@@ -19,9 +19,6 @@ import ElementWrapper from "./ElementWrapper";
 
 const { reportError } = errorReporting;
 
-const getInputErrors = (rawErrors: string[]): string[] =>
-  // Don't display empty input errors as these are too visually noisy
-  rawErrors?.filter((err) => !err.startsWith("should match format")) ?? [];
 export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
   value,
   label,
@@ -42,11 +39,10 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
     showErrors = true,
     optional,
   } = options;
-  const errors = getInputErrors(rawErrors);
-  const hasError = !!errors?.length;
+  const hasError = !!rawErrors?.length;
   const errorProps = showErrors
     ? {
-        errorMessage: hasError ? errors.join(", ") : null,
+        errorMessage: hasError ? rawErrors.join(", ") : null,
         state: hasError ? "error" : "none",
       }
     : {};
@@ -294,8 +290,7 @@ export const LeafyGreenTextArea: React.FC<WidgetProps> = ({
   formContext,
 }) => {
   const { readonlyAsDisabled = true } = formContext;
-  const errors = getInputErrors(rawErrors);
-  const hasError = !!errors?.length;
+  const hasError = !!rawErrors?.length;
   return (
     <ElementWrapper marginBottom={marginBottom as number}>
       <TextArea
@@ -304,7 +299,7 @@ export const LeafyGreenTextArea: React.FC<WidgetProps> = ({
         disabled={disabled || (readonlyAsDisabled && readonly)}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        errorMessage={hasError ? errors.join(", ") : null}
+        errorMessage={hasError ? rawErrors.join(", ") : null}
         state={hasError ? "error" : "none"}
       />
     </ElementWrapper>
@@ -312,9 +307,11 @@ export const LeafyGreenTextArea: React.FC<WidgetProps> = ({
 };
 
 export const LeafyGreenSegmentedControl: React.FC<WidgetProps> = ({
+  disabled,
   label,
   onChange,
   options,
+  readonly,
   value,
 }) => {
   const {
@@ -322,6 +319,8 @@ export const LeafyGreenSegmentedControl: React.FC<WidgetProps> = ({
     "data-cy": dataCy,
     enumOptions,
   } = options;
+
+  const isDisabled = disabled || readonly;
 
   if (!Array.isArray(enumOptions)) {
     reportError(
@@ -342,7 +341,11 @@ export const LeafyGreenSegmentedControl: React.FC<WidgetProps> = ({
         aria-controls={(ariaControls as string[])?.join(" ")}
       >
         {enumOptions.map((o) => (
-          <SegmentedControlOption key={o.value} value={o.value}>
+          <SegmentedControlOption
+            key={o.value}
+            value={o.value}
+            disabled={isDisabled}
+          >
             {o.label}
           </SegmentedControlOption>
         ))}

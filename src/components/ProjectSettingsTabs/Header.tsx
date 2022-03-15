@@ -51,6 +51,7 @@ export const Header: React.FC<Props> = ({
     SaveProjectSettingsForSectionMutationVariables
   >(SAVE_PROJECT_SETTINGS_FOR_SECTION, {
     onCompleted() {
+      saveTab(tab);
       dispatchToast.success("Successfully updated project");
     },
     onError(err) {
@@ -66,6 +67,7 @@ export const Header: React.FC<Props> = ({
     SaveRepoSettingsForSectionMutationVariables
   >(SAVE_REPO_SETTINGS_FOR_SECTION, {
     onCompleted() {
+      saveTab(tab);
       dispatchToast.success("Successfully updated repo");
     },
     onError(err) {
@@ -92,7 +94,6 @@ export const Header: React.FC<Props> = ({
           });
 
     save(newData, mapRouteToSection[tab]);
-    saveTab(tab);
   };
 
   return (
@@ -157,7 +158,6 @@ const Container = styled.div`
 `;
 
 const TitleContainer = styled.div`
-  flex-basis: 40%;
   margin-right: ${size.s};
 `;
 
@@ -167,7 +167,6 @@ const Subtitle = styled(Disclaimer)`
 
 const ButtonRow = styled.div`
   display: flex;
-  flex-grow: 4;
   justify-content: flex-end;
 
   > :not(:last-child) {

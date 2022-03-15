@@ -5,6 +5,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
 
   projectRef: {
     id: "project",
+    identifier: "project",
     repoRefId: "repo",
 
     enabled: null,
@@ -57,6 +58,15 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
       },
     },
     patchTriggerAliases: [],
+    workstationConfig: {
+      setupCommands: [
+        {
+          command: 'echo "hello spruce"',
+          directory: "sophie.stadler",
+        },
+      ],
+      gitClone: null,
+    },
   },
   vars: {
     vars: { test_name: "", test_two: "val" },
@@ -157,6 +167,10 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
       },
     },
     patchTriggerAliases: [],
+    workstationConfig: {
+      setupCommands: [],
+      gitClone: true,
+    },
   },
   vars: {
     vars: { repo_name: "repo_value" },

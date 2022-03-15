@@ -7,6 +7,7 @@ import * as patchAliases from "./PatchAliasesTab/transformers";
 import * as plugins from "./PluginsTab/transformers";
 import { CompletedRoutes, FormToGqlFunction, GqlToFormFunction } from "./types";
 import * as variables from "./VariablesTab/transformers";
+import * as virtualWorkstation from "./VirtualWorkstationTab/transformers";
 
 // TODO: Convert CompletedRoutes to WritableRoutes once all tabs have been implemented.
 export const gqlToFormMap: Record<CompletedRoutes, GqlToFormFunction> = {
@@ -17,6 +18,7 @@ export const gqlToFormMap: Record<CompletedRoutes, GqlToFormFunction> = {
   [ProjectSettingsTabRoutes.GithubCommitQueue]: githubCommitQueue.gqlToForm,
   [ProjectSettingsTabRoutes.Notifications]: notifications.gqlToForm,
   [ProjectSettingsTabRoutes.PatchAliases]: patchAliases.gqlToForm,
+  [ProjectSettingsTabRoutes.VirtualWorkstation]: virtualWorkstation.gqlToForm,
 };
 
 // TODO: Convert CompletedRoutes to WritableRoutes once all tabs have been implemented.
@@ -28,4 +30,5 @@ export const formToGqlMap: Record<CompletedRoutes, FormToGqlFunction> = {
   [ProjectSettingsTabRoutes.GithubCommitQueue]: githubCommitQueue.formToGql,
   [ProjectSettingsTabRoutes.Notifications]: notifications.formToGql,
   [ProjectSettingsTabRoutes.PatchAliases]: patchAliases.formToGql,
+  [ProjectSettingsTabRoutes.VirtualWorkstation]: virtualWorkstation.formToGql,
 };
