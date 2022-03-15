@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import Button, { Variant, Size } from "@leafygreen-ui/button";
 import { Popconfirm } from "antd";
@@ -15,7 +15,7 @@ import {
 
 import { FILE_JIRA_TICKET } from "gql/mutations";
 import { GET_CREATED_TICKETS } from "gql/queries";
-import { useNetworkStatus } from "hooks";
+import { usePolling } from "hooks";
 import { ButtonWrapper } from "./BBComponents";
 
 interface FileTicketProps {
@@ -43,8 +43,8 @@ export const FileTicket: React.FC<FileTicketProps> = ({
       );
     },
   });
+  usePolling(startPolling, stopPolling, false);
 
-  useNetworkStatus(startPolling, stopPolling);
   // Stop polling when we get updated created ticket data
   useEffect(() => {
     if (stopPolling) {

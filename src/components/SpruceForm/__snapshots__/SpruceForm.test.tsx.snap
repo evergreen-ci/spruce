@@ -656,12 +656,14 @@ exports[`spruceForm should render as expected 1`] = `
     >
       <div
         class="form-group field field-object"
+        id=" root"
       >
         <fieldset
           id="root"
         >
           <div
             class="form-group field field-string"
+            id=" root_cloneMethod"
           >
             <div
               class="emotion-6 emotion-7"
@@ -731,6 +733,7 @@ exports[`spruceForm should render as expected 1`] = `
           </div>
           <div
             class="form-group field field-string"
+            id=" root_validProjects"
           >
             <div
               class="emotion-6 emotion-7"
@@ -771,9 +774,11 @@ exports[`spruceForm should render as expected 1`] = `
           </h3>
           <div
             class="form-group field field-null"
+            id=" root_access"
           />
           <div
             class="form-group field field-array"
+            id=" root_users"
           >
             <h6
               class="emotion-28 emotion-29 emotion-30"
@@ -826,6 +831,7 @@ exports[`spruceForm should render as expected 1`] = `
               >
                 <div
                   class="form-group field field-string"
+                  id=" root_users_0"
                 >
                   <div
                     class="emotion-6 emotion-7"

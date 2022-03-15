@@ -20,7 +20,7 @@ import {
   MainlineCommitsQueryVariables,
 } from "gql/generated/types";
 import { GET_MAINLINE_COMMITS, GET_SPRUCE_CONFIG } from "gql/queries";
-import { usePageTitle, useNetworkStatus } from "hooks";
+import { usePageTitle, usePolling } from "hooks";
 import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
 import { array, queryString } from "utils";
 import { CommitsWrapper } from "./commits/CommitsWrapper";
@@ -100,7 +100,7 @@ export const Commits = () => {
     onError: (e) =>
       dispatchToast.error(`There was an error loading the page: ${e.message}`),
   });
-  useNetworkStatus(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling);
 
   const { mainlineCommits } = data || {};
   const { versions, nextPageOrderNumber, prevPageOrderNumber } =

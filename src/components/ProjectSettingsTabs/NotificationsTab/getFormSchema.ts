@@ -63,6 +63,7 @@ export const getFormSchema = (
     defaultSubscriptions: {
       defaultToRepo: {
         "ui:addButtonText": "Add New Subscription",
+        "ui:orderable": false,
       },
     },
   },

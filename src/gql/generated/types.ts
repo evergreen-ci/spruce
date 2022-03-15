@@ -933,8 +933,8 @@ export type WebhookInput = {
 };
 
 export type WorkstationConfigInput = {
-  setupCommands?: Maybe<Array<Maybe<WorkstationSetupCommandInput>>>;
-  gitClone: Scalars["Boolean"];
+  setupCommands?: Maybe<Array<WorkstationSetupCommandInput>>;
+  gitClone?: Maybe<Scalars["Boolean"]>;
 };
 
 export type WorkstationSetupCommandInput = {
@@ -1167,10 +1167,10 @@ export type PatchTriggerAlias = {
   alias: Scalars["String"];
   childProjectId: Scalars["String"];
   childProjectIdentifier: Scalars["String"];
-  taskSpecifiers?: Maybe<Array<Maybe<TaskSpecifier>>>;
+  taskSpecifiers?: Maybe<Array<TaskSpecifier>>;
   status?: Maybe<Scalars["String"]>;
   parentAsModule?: Maybe<Scalars["String"]>;
-  variantsTasks: Array<Maybe<VariantTask>>;
+  variantsTasks: Array<VariantTask>;
 };
 
 export type UserPatches = {
@@ -1468,6 +1468,11 @@ export type GroupedProjects = {
   name: Scalars["String"];
   repo?: Maybe<RepoRef>;
   projects: Array<Project>;
+};
+
+export type Permissions = {
+  userId: Scalars["String"];
+  canCreateProject: Scalars["Boolean"];
 };
 
 export type GithubProjectConflicts = {
@@ -1788,6 +1793,7 @@ export type User = {
   userId: Scalars["String"];
   emailAddress: Scalars["String"];
   patches: Patches;
+  permissions: Permissions;
 };
 
 export type UserPatchesArgs = {
@@ -2316,10 +2322,15 @@ export type RepoGithubCommitQueueFragment = {
 
 export type ProjectSettingsFragment = {
   projectRef?: Maybe<
-    { id: string; repoRefId: string } & ProjectGeneralSettingsFragment &
+    {
+      id: string;
+      identifier: string;
+      repoRefId: string;
+    } & ProjectGeneralSettingsFragment &
       ProjectAccessSettingsFragment &
       ProjectPluginsSettingsFragment &
-      ProjectNotificationSettingsFragment
+      ProjectNotificationSettingsFragment &
+      ProjectVirtualWorkstationSettingsFragment
   >;
   subscriptions?: Maybe<Array<SubscriptionsFragment>>;
   vars?: Maybe<VariablesFragment>;
@@ -2331,7 +2342,8 @@ export type RepoSettingsFragment = {
     { id: string; displayName: string } & RepoGeneralSettingsFragment &
       RepoAccessSettingsFragment &
       RepoPluginsSettingsFragment &
-      RepoNotificationSettingsFragment
+      RepoNotificationSettingsFragment &
+      RepoVirtualWorkstationSettingsFragment
   >;
   vars?: Maybe<VariablesFragment>;
   subscriptions?: Maybe<Array<SubscriptionsFragment>>;
@@ -2411,6 +2423,20 @@ export type VariablesFragment = {
   adminOnlyVars?: Maybe<Array<Maybe<string>>>;
 };
 
+export type ProjectVirtualWorkstationSettingsFragment = {
+  workstationConfig: {
+    gitClone?: Maybe<boolean>;
+    setupCommands?: Maybe<Array<{ command: string; directory: string }>>;
+  };
+};
+
+export type RepoVirtualWorkstationSettingsFragment = {
+  workstationConfig: {
+    gitClone: boolean;
+    setupCommands?: Maybe<Array<{ command: string; directory: string }>>;
+  };
+};
+
 export type AbortTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
@@ -2441,6 +2467,14 @@ export type AddFavoriteProjectMutation = {
     displayName: string;
     isFavorite: boolean;
   };
+};
+
+export type AttachProjectToNewRepoMutationVariables = Exact<{
+  project: MoveProjectInput;
+}>;
+
+export type AttachProjectToNewRepoMutation = {
+  attachProjectToNewRepo: { repoRefId: string };
 };
 
 export type AttachProjectToRepoMutationVariables = Exact<{
@@ -3459,7 +3493,7 @@ export type ConfigurePatchQuery = {
       alias: string;
       childProjectId: string;
       childProjectIdentifier: string;
-      variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
+      variantsTasks: Array<{ name: string; tasks: Array<string> }>;
     }>;
     childPatchAliases?: Maybe<Array<{ alias: string; patchId: string }>>;
   } & BasePatchFragment;
@@ -3856,10 +3890,14 @@ export type GetTestsQueryVariables = Exact<{
   execution?: Maybe<Scalars["Int"]>;
   groupId?: Maybe<Scalars["String"]>;
   taskId: Scalars["String"];
+  pageNum?: Maybe<Scalars["Int"]>;
+  limitNum?: Maybe<Scalars["Int"]>;
+  testName?: Maybe<Scalars["String"]>;
 }>;
 
 export type GetTestsQuery = {
   taskTests: {
+    filteredTestCount: number;
     testResults: Array<{
       id: string;
       testFile: string;

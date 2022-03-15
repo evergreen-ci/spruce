@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -7,9 +6,9 @@ import { useNetworkStatus } from "hooks";
 
 const { yellow } = uiColors;
 export const ConnectivityBanner = () => {
-  const isOffline = useNetworkStatus();
+  const isOnline = useNetworkStatus();
   return (
-    isOffline && (
+    !isOnline && (
       <Banner>
         <IconWithMargin glyph="InfoWithCircle" /> You are Offline
       </Banner>
