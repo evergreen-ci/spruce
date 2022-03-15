@@ -40,7 +40,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
       );
     },
   });
-  usePolling(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling, false);
   // Stop polling when we get updated host data
   useEffect(() => {
     if (stopPolling) {
