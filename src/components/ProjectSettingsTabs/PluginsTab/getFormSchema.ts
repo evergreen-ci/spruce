@@ -128,7 +128,8 @@ export const getFormSchema = (
         jiraCustomFields: {
           "ui:description":
             "Add any custom JIRA fields that you want displayed on any listed JIRA tickets, for example: assigned teams.",
-          "ui:buttonText": "Add custom JIRA field",
+          "ui:addButtonText": "Add custom JIRA field",
+          "ui:orderable": false,
         },
       },
       useBuildBaron: {
@@ -140,7 +141,8 @@ export const getFormSchema = (
         "ui:description":
           "Specify an existing JIRA project to search for tickets related to a failing task",
         ...hiddenIf(formData?.buildBaronSettings.useBuildBaron !== true),
-        "ui:buttonText": "Add Search Project",
+        "ui:addButtonText": "Add Search Project",
+        "ui:orderable": false,
       },
       ticketCreateProject: {
         "ui:description":

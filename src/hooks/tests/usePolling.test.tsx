@@ -31,6 +31,19 @@ describe("usePolling", () => {
     expect(result.current).toBe(true);
   });
 
+  it("usePolling should be able to be initialized with an initialPollingState", async () => {
+    const startPolling = undefined;
+    const stopPolling = undefined;
+    const { result, waitForNextUpdate } = renderHook(
+      () => usePolling(startPolling, stopPolling, false),
+      {
+        wrapper: Provider,
+      }
+    );
+    await waitForNextUpdate();
+    expect(result.current).toBe(false);
+  });
+
   describe("stopPolling", () => {
     it("usePolling should stop polling when user's browser is offline", async () => {
       const startPolling = jest.fn();

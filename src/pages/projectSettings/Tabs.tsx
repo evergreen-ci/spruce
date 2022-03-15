@@ -45,6 +45,9 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
   const { setInitialData } = useProjectSettingsContext();
 
   const projectId = projectData?.projectRef?.id;
+  const repoId = repoData?.projectRef?.id;
+  const repoBranch = repoData?.projectRef?.branch;
+  const identifier = projectData?.projectRef?.identifier;
 
   const tabData = useMemo(
     () => getTabData(projectData, projectType, repoData),
@@ -59,7 +62,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
     <Container>
       <NavigationModal />
       <Header
-        id={projectId || repoData?.projectRef?.id}
+        id={projectId || repoId}
         isRepo={!projectData}
         projectType={projectType}
         saveable={!(readOnlyTabs as ReadonlyArray<string>).includes(tab)}
@@ -162,10 +165,21 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
           />
         )}
       />
-      <TabRoute
-        Component={VirtualWorkstationTab}
+      <Route
         path={routes.projectSettingsVirtualWorkstation}
-        tab={ProjectSettingsTabRoutes.VirtualWorkstation}
+        render={(props) => (
+          <VirtualWorkstationTab
+            {...props}
+            identifier={identifier || repoBranch}
+            projectData={
+              tabData[ProjectSettingsTabRoutes.VirtualWorkstation].projectData
+            }
+            projectType={projectType}
+            repoData={
+              tabData[ProjectSettingsTabRoutes.VirtualWorkstation].repoData
+            }
+          />
+        )}
       />
       <TabRoute
         Component={ProjectTriggersTab}

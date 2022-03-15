@@ -1,0 +1,19 @@
+fragment projectVirtualWorkstationSettings on Project {
+  workstationConfig {
+    gitClone
+    setupCommands {
+      command
+      directory
+    }
+  }
+}
+
+fragment repoVirtualWorkstationSettings on RepoRef {
+  workstationConfig {
+    gitClone
+    setupCommands {
+      command
+      directory
+    }
+  }
+}

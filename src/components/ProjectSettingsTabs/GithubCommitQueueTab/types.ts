@@ -1,23 +1,23 @@
-import { AliasType, ProjectType } from "../utils";
+import { AliasFormType, ProjectType } from "../utils";
 
 export interface FormState {
   github: {
     prTestingEnabled: boolean | null;
     prTesting: {
       githubPrAliasesOverride: boolean;
-      githubPrAliases: Array<AliasType>;
+      githubPrAliases: Array<AliasFormType>;
       repoData?: {
         githubPrAliasesOverride: boolean;
-        githubPrAliases: Array<AliasType>;
+        githubPrAliases: Array<AliasFormType>;
       };
     };
     githubChecksEnabled: boolean;
     githubChecks: {
       githubCheckAliasesOverride: boolean;
-      githubCheckAliases: Array<AliasType>;
+      githubCheckAliases: Array<AliasFormType>;
       repoData?: {
         githubCheckAliasesOverride: boolean;
-        githubCheckAliases: Array<AliasType>;
+        githubCheckAliases: Array<AliasFormType>;
       };
     };
     gitTagVersionsEnabled: boolean | null;
@@ -37,6 +37,14 @@ export interface FormState {
         gitTagAuthorizedTeams: Array<string> | null;
       };
     };
+    gitTags: {
+      gitTagAliasesOverride: boolean;
+      gitTagAliases: Array<AliasFormType>;
+      repoData?: {
+        gitTagAliasesOverride: boolean;
+        gitTagAliases: Array<AliasFormType>;
+      };
+    };
   };
   commitQueue: {
     enabled: boolean | null;
@@ -45,10 +53,10 @@ export interface FormState {
     message: string;
     patchDefinitions: {
       commitQueueAliasesOverride: boolean;
-      commitQueueAliases: Array<AliasType>;
+      commitQueueAliases: Array<AliasFormType>;
       repoData?: {
         commitQueueAliasesOverride: boolean;
-        commitQueueAliases: Array<AliasType>;
+        commitQueueAliases: Array<AliasFormType>;
       };
     };
   };
