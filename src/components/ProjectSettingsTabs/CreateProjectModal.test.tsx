@@ -3,6 +3,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
 import { CREATE_PROJECT } from "gql/mutations";
+import { GET_USER_PERMISSIONS } from "gql/queries";
 import { render, fireEvent, waitFor } from "test_utils";
 import { CreateProjectModal } from "./CreateProjectModal";
 
@@ -11,13 +12,13 @@ describe("createProjectField", () => {
   const repo = "existing_repo";
 
   const NewProjectModal = () => (
-    <MockedProvider mocks={[createProjectMock]}>
+    <MockedProvider mocks={[createProjectMock, userPermissionsMock]}>
       <CreateProjectModal owner={null} repo={null} />
     </MockedProvider>
   );
 
   const NewProjectModalWithOwner = () => (
-    <MockedProvider mocks={[createProjectMock]}>
+    <MockedProvider mocks={[createProjectMock, userPermissionsMock]}>
       <CreateProjectModal owner={owner} repo={repo} />
     </MockedProvider>
   );
@@ -136,6 +137,23 @@ const createProjectMock = {
   result: {
     data: {
       id: "projectName",
+    },
+  },
+};
+
+const userPermissionsMock = {
+  request: {
+    query: GET_USER_PERMISSIONS,
+    variables: {},
+  },
+  result: {
+    data: {
+      user: {
+        userId: "string",
+        permissions: {
+          canCreateProject: true,
+        },
+      },
     },
   },
 };
