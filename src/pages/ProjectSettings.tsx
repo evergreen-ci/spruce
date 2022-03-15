@@ -122,7 +122,7 @@ export const ProjectSettings: React.FC = () => {
   const { projectRef } = repoSettings || {};
   const { owner, repo } = projectRef || {};
 
-  const repoDisplay = owner && repo ? `${owner}/${repo}` : identifier;
+  const repoDisplay = isRepo && owner && repo ? `${owner}/${repo}` : identifier;
 
   return (
     <ProjectSettingsProvider>
