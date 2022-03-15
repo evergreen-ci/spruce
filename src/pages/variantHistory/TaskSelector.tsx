@@ -16,7 +16,7 @@ interface TaskSelectorProps {
   buildVariant: string;
 }
 
-export const TaskSelector: React.FC<TaskSelectorProps> = ({
+const TaskSelector: React.FC<TaskSelectorProps> = ({
   projectId,
   buildVariant,
 }) => {
@@ -66,3 +66,5 @@ export const TaskSelector: React.FC<TaskSelectorProps> = ({
 const Container = styled.div`
   width: 300px;
 `;
+
+export default TaskSelector;
