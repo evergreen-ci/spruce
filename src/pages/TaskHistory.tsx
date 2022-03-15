@@ -24,8 +24,7 @@ import {
 } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { TestStatus } from "types/history";
-import { array, string, errorReporting } from "utils";
-import { parseQueryString } from "utils/queryString";
+import { array, string, errorReporting, queryString } from "utils";
 import {
   BuildVariantSelector,
   ColumnHeaders,
@@ -33,9 +32,10 @@ import {
 } from "./taskHistory/index";
 
 const { reportError } = errorReporting;
-const { applyStrictRegex } = string;
-const { toArray } = array;
 const { HistoryTableProvider, useHistoryTable } = context;
+const { toArray } = array;
+const { applyStrictRegex } = string;
+const { parseQueryString } = queryString;
 
 const TaskHistoryContents: React.FC = () => {
   const { projectId, taskName } = useParams<{
