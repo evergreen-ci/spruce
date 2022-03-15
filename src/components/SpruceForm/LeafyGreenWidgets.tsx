@@ -19,18 +19,6 @@ import ElementWrapper from "./ElementWrapper";
 
 const { reportError } = errorReporting;
 
-const getInputErrors = (rawErrors: string[]): string[] => {
-  // Don't display empty input errors as these are too visually noisy
-  const errorMsgs = [
-    "should match format",
-    "should NOT be shorter than 1 characters",
-  ];
-  return (
-    rawErrors?.filter((err) => !errorMsgs.some((msg) => err.startsWith(msg))) ??
-    []
-  );
-};
-
 export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
   value,
   label,
@@ -50,11 +38,10 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
     showErrors = true,
     optional,
   } = options;
-  const errors = getInputErrors(rawErrors);
-  const hasError = !!errors?.length;
+  const hasError = !!rawErrors?.length;
   const errorProps = showErrors
     ? {
-        errorMessage: hasError ? errors.join(", ") : null,
+        errorMessage: hasError ? rawErrors.join(", ") : null,
         state: hasError ? "error" : "none",
       }
     : {};
@@ -301,8 +288,7 @@ export const LeafyGreenTextArea: React.FC<WidgetProps> = ({
   formContext,
 }) => {
   const { readonlyAsDisabled = true } = formContext;
-  const errors = getInputErrors(rawErrors);
-  const hasError = !!errors?.length;
+  const hasError = !!rawErrors?.length;
   return (
     <ElementWrapper marginBottom={marginBottom as number}>
       <TextArea
@@ -311,7 +297,7 @@ export const LeafyGreenTextArea: React.FC<WidgetProps> = ({
         disabled={disabled || (readonlyAsDisabled && readonly)}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        errorMessage={hasError ? errors.join(", ") : null}
+        errorMessage={hasError ? rawErrors.join(", ") : null}
         state={hasError ? "error" : "none"}
       />
     </ElementWrapper>

@@ -46,9 +46,8 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
 
   const projectId = projectData?.projectRef?.id;
   const repoId = repoData?.projectRef?.id;
-  const {
-    projectRef: { identifier },
-  } = projectData ?? { projectRef: {} };
+  const repoBranch = repoData?.projectRef?.branch;
+  const identifier = projectData?.projectRef?.identifier;
 
   const tabData = useMemo(
     () => getTabData(projectData, projectType, repoData),
@@ -171,7 +170,7 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
         render={(props) => (
           <VirtualWorkstationTab
             {...props}
-            identifier={identifier || repoId}
+            identifier={identifier || repoBranch}
             projectData={
               tabData[ProjectSettingsTabRoutes.VirtualWorkstation].projectData
             }

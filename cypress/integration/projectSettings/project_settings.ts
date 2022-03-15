@@ -392,11 +392,9 @@ describe("Project Settings when defaulting to repo", () => {
     });
 
     it("Allows overriding repo patch definitions", () => {
-      cy.dataCy("pr-testing-override-radio-box")
-        .find("input")
-        .first()
-        .parent()
-        .click();
+      cy.getInputByLabel("Override Repo Patch Definition").first().click({
+        force: true,
+      });
       cy.dataCy("add-button").contains("Add Patch Definition").parent().click();
       cy.dataCy("variant-input-control")
         .find("button")
@@ -534,20 +532,15 @@ describe("Project Settings when defaulting to repo", () => {
       cy.validateToast("success", "Successfully updated project");
     });
 
-    it("Allows defaulting to repo patch definitions", () => {
-      cy.dataCy("patch-aliases-override-radio-box")
-        .find("input")
-        .eq(1)
-        .parent()
-        .click();
+    it("Allows defaulting to repo patch aliases", () => {
+      cy.getInputByLabel("Default to Repo Patch Aliases").click({
+        force: true,
+      });
 
       cy.dataCy("save-settings-button").click();
       cy.validateToast("success", "Successfully updated project");
 
-      cy.dataCy("patch-aliases-override-radio-box")
-        .find("input")
-        .eq(1)
-        .should("be.checked");
+      cy.getInputByLabel("Default to Repo Patch Aliases").should("be.checked");
     });
 
     it("Has cleared previously saved alias definitions", () => {
@@ -575,19 +568,14 @@ describe("Project Settings when defaulting to repo", () => {
     });
 
     it("Allows overriding without adding a command", () => {
-      cy.dataCy("commands-override-radio-box")
-        .find("input")
-        .first()
-        .parent()
-        .click();
+      cy.getInputByLabel("Override Repo Commands").click({ force: true });
 
       cy.dataCy("save-settings-button").click();
       cy.validateToast("success", "Successfully updated project");
 
-      cy.dataCy("commands-override-radio-box")
-        .find("input")
-        .first()
-        .should("be.checked");
+      // TODO: Re-add test when EVG-16541 is completed.
+      /* cy.reload();
+      cy.getInputByLabel("Override Repo Commands").should("be.checked"); */
     });
   });
 });

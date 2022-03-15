@@ -25,14 +25,14 @@ export const getFormSchema = (
             varName: {
               type: "string" as "string",
               title: "Variable Name",
-              format: "not-empty-string",
               default: "",
+              minLength: 1,
             },
             varValue: {
               type: "string" as "string",
               title: "Variable",
-              format: "not-empty-string",
               default: "",
+              minLength: 1,
             },
             isPrivate: {
               type: "boolean" as "boolean",

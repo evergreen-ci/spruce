@@ -17,13 +17,9 @@ export const CommandRow: SpruceFormProps["ObjectFieldTemplate"] = ({
 
 const LeftColumn = styled.div`
   padding-right: ${size.s};
+  flex-grow: 1;
 `;
 
 const RowContainer = styled.div`
   display: flex;
-
-  > div {
-    flex-grow: 1;
-    max-width: 50%;
-  }
 `;
