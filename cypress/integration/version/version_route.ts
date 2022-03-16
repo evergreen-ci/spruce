@@ -3,7 +3,7 @@
 
 const versions = {
   0: "5ecedafb562343215a7ff297", // normal patch
-  1: "i-dont-exist", // non existant patch
+  1: "i-dont-exist", // non existent patch
   2: "52a630633ff1227909000021", // patch 2
   3: "5e6bb9e23066155a993e0f1a", // unconfigured patch
   4: "5e94c2dfe3c3312519b59480", // unactivated patch on commit queue
