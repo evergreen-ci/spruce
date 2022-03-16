@@ -178,7 +178,7 @@ export const transformAliases = (
       })
     : [];
 
-const baseProps = {
+export const baseProps = {
   alias: {
     schema: {
       type: "string" as "string",
@@ -216,6 +216,7 @@ const baseProps = {
   task: {
     schema: {
       type: "string" as "string",
+      title: "Task Regex",
       default: "",
       minLength: 1,
     },
@@ -224,7 +225,6 @@ const baseProps = {
       "ui:data-cy": "task-input",
       "ui:placeholder": "Golang Regex",
       "ui:sectionId": "task-regex-field",
-      "ui:showErrors": false,
     },
   },
   taskTags: {
@@ -254,6 +254,7 @@ const baseProps = {
   variant: {
     schema: {
       type: "string" as "string",
+      title: "Variant Regex",
       default: "",
       minLength: 1,
     },
@@ -262,7 +263,6 @@ const baseProps = {
       "ui:data-cy": "variant-input",
       "ui:placeholder": "Golang Regex",
       "ui:sectionId": "variant-regex-field",
-      "ui:showErrors": false,
     },
   },
   variantTags: {

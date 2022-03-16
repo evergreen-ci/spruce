@@ -15,6 +15,7 @@ export interface FormState {
     aliases: Array<{
       alias: string;
       childProjectIdentifier: string;
+      displayTitle?: string;
       taskSpecifiers: Array<{
         patchAlias: string;
         specifier: TaskSpecifier;

@@ -128,6 +128,42 @@ describe("Repo Settings", () => {
     it("Shows the alias name in the card title upon save", () => {
       cy.dataCy("expandable-card-title").contains("my alias name");
     });
+
+    it("Saves a Patch Trigger Alias", () => {
+      cy.dataCy("add-button")
+        .contains("Add Patch Trigger Alias")
+        .parent()
+        .click();
+      cy.dataCy("pta-alias-input").type("my-alias");
+      cy.dataCy("project-input").type("spruce");
+      cy.dataCy("module-input").type("module_name");
+      cy.get("button").contains("Variant/Task").click();
+      cy.dataCy("variant-regex-input").type(".*");
+      cy.dataCy("task-regex-input").type(".*");
+      cy.dataCy("github-trigger-alias-checkbox").check({ force: true });
+
+      cy.dataCy("save-settings-button").click();
+      cy.validateToast("success", "Successfully updated repo");
+    });
+  });
+
+  describe("GitHub/Commit Queue page after adding patch trigger alias", () => {
+    before(() => {
+      cy.dataCy("navitem-github-commitqueue").click();
+    });
+
+    it("Shows the patch trigger alias", () => {
+      cy.dataCy("pta-item").should("have.length", 1);
+    });
+
+    it("Hovering over the alias name shows its details", () => {
+      cy.dataCy("pta-item").scrollIntoView();
+      cy.dataCy("pta-item").trigger("mouseover");
+      cy.dataCy("pta-tooltip").should("be.visible");
+      cy.dataCy("pta-tooltip").contains("spruce");
+      cy.dataCy("pta-tooltip").contains("module_name");
+      cy.dataCy("pta-tooltip").contains("Variant/Task Regex Pairs");
+    });
   });
 
   describe("Virtual Workstation page", () => {

@@ -13,7 +13,11 @@ export const GithubTriggerAliasField: Field = ({ formData }) => {
     taskSpecifiers,
   } = formData;
   return (
-    <Tooltip align="right" trigger={<Body>{alias}</Body>}>
+    <Tooltip
+      align="right"
+      trigger={<TooltipTrigger data-cy="pta-item">{alias}</TooltipTrigger>}
+      data-cy="pta-tooltip"
+    >
       <Body>
         <strong>Project:</strong> {childProjectIdentifier}
       </Body>
@@ -38,9 +42,7 @@ export const GithubTriggerAliasField: Field = ({ formData }) => {
                 // eslint-disable-next-line react/no-array-index-key
                 <li key={i}>
                   {patchAlias ? (
-                    <>
-                      <strong>Patch Alias:</strong> {patchAlias}
-                    </>
+                    <>Patch Alias: {patchAlias}</>
                   ) : (
                     <>
                       Variants: <InlineCode>{variantRegex}</InlineCode>
@@ -58,6 +60,11 @@ export const GithubTriggerAliasField: Field = ({ formData }) => {
   );
 };
 
+const TooltipTrigger = styled(Body)`
+  width: fit-content;
+`;
+
 const Ul = styled.ul`
+  margin-bottom: 0;
   padding-left: ${size.s};
 `;

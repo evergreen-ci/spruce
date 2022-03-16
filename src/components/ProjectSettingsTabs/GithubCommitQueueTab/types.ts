@@ -1,4 +1,4 @@
-import { PatchTriggerAlias } from "gql/generated/types";
+import { ProjectPatchAliasSettingsFragment } from "gql/generated/types";
 import { AliasFormType, ProjectType } from "../utils";
 
 export interface FormState {
@@ -12,7 +12,7 @@ export interface FormState {
         githubPrAliases: Array<AliasFormType>;
       };
     };
-    githubTriggerAliases: Array<PatchTriggerAlias>;
+    githubTriggerAliases: ProjectPatchAliasSettingsFragment["patchTriggerAliases"];
     githubChecksEnabled: boolean;
     githubChecks: {
       githubCheckAliasesOverride: boolean;

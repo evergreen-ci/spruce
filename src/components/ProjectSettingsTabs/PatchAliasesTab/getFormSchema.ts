@@ -5,7 +5,10 @@ import widgets from "components/SpruceForm/Widgets";
 import { alias, form, ProjectType } from "../utils";
 import { TaskSpecifier } from "./types";
 
-const { patchAliasArray } = alias;
+const {
+  baseProps: { task, variant },
+  patchAliasArray,
+} = alias;
 const { overrideRadioBox } = form;
 
 export const getFormSchema = (
@@ -131,18 +134,8 @@ export const getFormSchema = (
                               specifier: {
                                 enum: [TaskSpecifier.VariantTask],
                               },
-                              variantRegex: {
-                                type: "string" as "string",
-                                title: "Variant Regex",
-                                default: "",
-                                minLength: 1,
-                              },
-                              taskRegex: {
-                                type: "string" as "string",
-                                title: "Task Regex",
-                                default: "",
-                                minLength: 1,
-                              },
+                              variantRegex: variant.schema,
+                              taskRegex: task.schema,
                             },
                           },
                         ],
@@ -202,8 +195,15 @@ const aliasesUiSchema = {
   "ui:useExpandableCard": true,
   items: {
     "ui:displayTitle": "New Patch Trigger Alias",
+    alias: {
+      "ui:data-cy": "pta-alias-input",
+    },
+    childProjectIdentifier: {
+      "ui:data-cy": "project-input",
+    },
     parentAsModule: {
       "ui:optional": true,
+      "ui:data-cy": "module-input",
     },
     status: {
       "ui:allowDeselect": false,
@@ -219,10 +219,20 @@ const aliasesUiSchema = {
           "ui:widget": widgets.SegmentedControlWidget,
           "ui:aria-controls": ["patchAlias", "taskRegex", "variantRegex"],
         },
+        patchAlias: {
+          "ui:data-cy": "patch-alias-input",
+        },
+        taskRegex: {
+          "ui:data-cy": "task-regex-input",
+        },
+        variantRegex: {
+          "ui:data-cy": "variant-regex-input",
+        },
       },
     },
     isGithubTriggerAlias: {
       "ui:border": "top",
+      "ui:data-cy": "github-trigger-alias-checkbox",
     },
   },
 };

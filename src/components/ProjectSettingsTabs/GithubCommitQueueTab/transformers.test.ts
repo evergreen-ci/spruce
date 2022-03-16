@@ -182,7 +182,26 @@ const repoForm: FormState = {
       githubPrAliasesOverride: true,
       githubPrAliases: [],
     },
-    githubTriggerAliases: [],
+    githubTriggerAliases: [
+      {
+        alias: "alias1",
+        childProjectIdentifier: "spruce",
+        taskSpecifiers: [
+          {
+            patchAlias: "alias2",
+            taskRegex: "",
+            variantRegex: "",
+          },
+          {
+            patchAlias: "",
+            taskRegex: ".*",
+            variantRegex: ".*",
+          },
+        ],
+        status: "succeeded",
+        parentAsModule: "",
+      },
+    ],
     githubChecksEnabled: true,
     githubChecks: {
       githubCheckAliasesOverride: true,

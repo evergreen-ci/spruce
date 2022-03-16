@@ -2,7 +2,7 @@ import { ProjectSettingsInput, RepoSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
 import { alias, ProjectType } from "../utils";
 import { formToGql, gqlToForm } from "./transformers";
-import { FormState } from "./types";
+import { FormState, TaskSpecifier } from "./types";
 
 const { VariantTaskSpecifier } = alias;
 const { projectBase, repoBase } = data;
@@ -37,7 +37,7 @@ const projectForm: FormState = {
     aliases: [],
   },
   patchTriggerAliases: {
-    aliasesOverride: true,
+    aliasesOverride: false,
     aliases: [],
   },
 };
@@ -45,6 +45,8 @@ const projectForm: FormState = {
 const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
   projectRef: {
     id: "project",
+    patchTriggerAliases: null,
+    githubTriggerAliases: [],
   },
   aliases: [],
 };
@@ -74,13 +76,57 @@ const repoForm: FormState = {
   },
   patchTriggerAliases: {
     aliasesOverride: true,
-    aliases: [],
+    aliases: [
+      {
+        alias: "alias1",
+        childProjectIdentifier: "spruce",
+        status: "succeeded",
+        displayTitle: "alias1",
+        parentAsModule: "",
+        isGithubTriggerAlias: true,
+        taskSpecifiers: [
+          {
+            specifier: TaskSpecifier.PatchAlias,
+            patchAlias: "alias2",
+            taskRegex: "",
+            variantRegex: "",
+          },
+          {
+            specifier: TaskSpecifier.VariantTask,
+            patchAlias: "",
+            taskRegex: ".*",
+            variantRegex: ".*",
+          },
+        ],
+      },
+    ],
   },
 };
 
 const repoResult: Pick<RepoSettingsInput, "projectRef" | "aliases"> = {
   projectRef: {
     id: "repo",
+    patchTriggerAliases: [
+      {
+        alias: "alias1",
+        childProjectIdentifier: "spruce",
+        taskSpecifiers: [
+          {
+            patchAlias: "alias2",
+            taskRegex: "",
+            variantRegex: "",
+          },
+          {
+            patchAlias: "",
+            taskRegex: ".*",
+            variantRegex: ".*",
+          },
+        ],
+        status: "succeeded",
+        parentAsModule: "",
+      },
+    ],
+    githubTriggerAliases: ["alias1"],
   },
   aliases: [
     {
