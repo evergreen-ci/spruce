@@ -150,24 +150,32 @@ describe("getVariantHistoryRoute", () => {
   it("generates a link with failing or passing tests", () => {
     expect(
       getVariantHistoryRoute("someProject", "someVariant", {
-        failingTests: ["someFailingTest"],
+        filters: {
+          failingTests: ["someFailingTest"],
+        },
       })
     ).toBe("/variant-history/someProject/someVariant?failed=someFailingTest");
     expect(
       getVariantHistoryRoute("someProject", "someVariant", {
-        failingTests: ["someFailingTest", "someOtherFailingTest"],
+        filters: {
+          failingTests: ["someFailingTest", "someOtherFailingTest"],
+        },
       })
     ).toBe(
       "/variant-history/someProject/someVariant?failed=someFailingTest,someOtherFailingTest"
     );
     expect(
       getVariantHistoryRoute("someProject", "someVariant", {
-        passingTests: ["somePassingTests"],
+        filters: {
+          passingTests: ["somePassingTests"],
+        },
       })
     ).toBe("/variant-history/someProject/someVariant?passed=somePassingTests");
     expect(
       getVariantHistoryRoute("someProject", "someVariant", {
-        passingTests: ["somePassingTests", "someOtherPassingTests"],
+        filters: {
+          passingTests: ["somePassingTests", "someOtherPassingTests"],
+        },
       })
     ).toBe(
       "/variant-history/someProject/someVariant?passed=somePassingTests,someOtherPassingTests"
@@ -176,19 +184,30 @@ describe("getVariantHistoryRoute", () => {
   it("generates a link with failing and passing tests", () => {
     expect(
       getVariantHistoryRoute("someProject", "someVariant", {
-        failingTests: ["someFailingTest"],
-        passingTests: ["somePassingTests"],
+        filters: {
+          failingTests: ["someFailingTest"],
+          passingTests: ["somePassingTests"],
+        },
       })
     ).toBe(
       "/variant-history/someProject/someVariant?failed=someFailingTest&passed=somePassingTests"
     );
     expect(
       getVariantHistoryRoute("someProject", "someVariant", {
-        failingTests: ["someFailingTest", "someOtherFailingTest"],
-        passingTests: ["somePassingTests", "someOtherPassingTests"],
+        filters: {
+          failingTests: ["someFailingTest", "someOtherFailingTest"],
+          passingTests: ["somePassingTests", "someOtherPassingTests"],
+        },
       })
     ).toBe(
       "/variant-history/someProject/someVariant?failed=someFailingTest,someOtherFailingTest&passed=somePassingTests,someOtherPassingTests"
     );
+  });
+  it("generates a link with a skip query param", () => {
+    expect(
+      getVariantHistoryRoute("someProject", "someVariant", {
+        skipOrderNumber: 1,
+      })
+    ).toBe("/variant-history/someProject/someVariant?skipOrderNumber=1");
   });
 });

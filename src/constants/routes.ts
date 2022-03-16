@@ -1,4 +1,4 @@
-import { TestStatus } from "types/history";
+import { TestStatus, HistoryQueryParams } from "types/history";
 import { PatchTab } from "types/patch";
 import { PatchTasksQueryParams, TaskTab } from "types/task";
 import { queryString, array } from "utils";
@@ -235,15 +235,17 @@ const getHistoryRoute = (
   filters?: {
     failingTests?: string[];
     passingTests?: string[];
-  }
+  },
+  skipOrderNumber?: number
 ) => {
-  if (filters) {
-    const failingTests = toArray(filters.failingTests);
-    const passingTests = toArray(filters.passingTests);
+  if (filters || skipOrderNumber) {
+    const failingTests = toArray(filters?.failingTests);
+    const passingTests = toArray(filters?.passingTests);
 
     const queryParams = stringifyQuery({
       [TestStatus.Failed]: failingTests,
       [TestStatus.Passed]: passingTests,
+      [HistoryQueryParams.SkipOrderNumber]: skipOrderNumber,
     });
     return `${basePath}?${queryParams}`;
   }
@@ -252,15 +254,21 @@ const getHistoryRoute = (
 export const getVariantHistoryRoute = (
   projectIdentifier: string,
   variantName: string,
-  filters?: {
-    failingTests?: string[];
-    passingTests?: string[];
+  options?: {
+    filters?: {
+      failingTests?: string[];
+      passingTests?: string[];
+    };
+    skipOrderNumber?: number;
   }
-) =>
-  getHistoryRoute(
+) => {
+  const { filters, skipOrderNumber } = options || {};
+  return getHistoryRoute(
     `${paths.variantHistory}/${projectIdentifier}/${variantName}`,
-    filters
+    filters,
+    skipOrderNumber
   );
+};
 
 export const getTaskHistoryRoute = (
   projectIdentifier: string,
