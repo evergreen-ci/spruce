@@ -92,4 +92,5 @@ const Copy = styled(Body)`
 
 const StyledRowContainer = styled(RowContainer)`
   height: ${COMMIT_HEIGHT}px;
+  opacity: 60%;
 `;
