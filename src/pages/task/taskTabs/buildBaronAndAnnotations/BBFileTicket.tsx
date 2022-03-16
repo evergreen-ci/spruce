@@ -43,7 +43,7 @@ export const FileTicket: React.FC<FileTicketProps> = ({
       );
     },
   });
-  usePolling(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling, false);
 
   // Stop polling when we get updated created ticket data
   useEffect(() => {
