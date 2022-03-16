@@ -9,6 +9,7 @@ import HistoryTable, {
   ColumnPaginationButtons,
   HistoryTableTestSearch,
   useTestFilters,
+  constants,
 } from "components/HistoryTable";
 import { PageWrapper } from "components/styles";
 import { size } from "constants/tokens";
@@ -24,7 +25,7 @@ import {
   GET_TASK_NAMES_FOR_BUILD_VARIANT,
 } from "gql/queries";
 import { usePageTitle } from "hooks";
-import { TestStatus, HistoryQueryParams } from "types/history";
+import { HistoryQueryParams } from "types/history";
 import { queryString, string, array, errorReporting } from "utils";
 
 import {
@@ -102,12 +103,6 @@ export const VariantHistoryContents: React.FC = () => {
     queryParams.tasks,
   ]);
 
-  const queryParamsToDisplay = new Set([
-    TestStatus.Failed,
-    TestStatus.Passed,
-    TestStatus.All,
-  ]);
-
   const selectedColumns = useMemo(
     () =>
       selectedTaskNames.length
@@ -135,7 +130,9 @@ export const VariantHistoryContents: React.FC = () => {
         </PageHeader>
         <PaginationFilterWrapper>
           <BadgeWrapper>
-            <FilterBadges queryParamsToDisplay={queryParamsToDisplay} />
+            <FilterBadges
+              queryParamsToDisplay={constants.queryParamsToDisplay}
+            />
           </BadgeWrapper>
           <ColumnPaginationButtons />
         </PaginationFilterWrapper>

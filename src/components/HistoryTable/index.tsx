@@ -1,5 +1,6 @@
 import * as Cell from "./Cell/Cell";
 import ColumnPaginationButtons from "./ColumnPaginationButtons";
+import * as constants from "./constants";
 import HistoryTable from "./HistoryTable";
 import * as context from "./HistoryTableContext";
 import Row from "./HistoryTableRow/Row";
@@ -17,5 +18,6 @@ export {
   useTestResults,
   HistoryTableTestSearch,
   useTestFilters,
+  constants,
 };
 export default HistoryTable;
