@@ -574,6 +574,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("save-settings-button").click();
       cy.validateToast("success", "Successfully updated project");
 
+      cy.dataCy("save-settings-button").should("be.disabled");
       cy.getInputByLabel("Default to Repo Patch Aliases").should(
         "have.attr",
         "checked"
