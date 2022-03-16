@@ -8,7 +8,7 @@ import HistoryTable, {
   context,
   ColumnPaginationButtons,
   HistoryTableTestSearch,
-  useTestFilters,
+  hooks,
   constants,
 } from "components/HistoryTable";
 import { PageWrapper } from "components/styles";
@@ -37,6 +37,7 @@ const { HistoryTableProvider, useHistoryTable } = context;
 const { toArray } = array;
 const { applyStrictRegex } = string;
 const { parseQueryString } = queryString;
+const { useTestFilters } = hooks;
 
 const TaskHistoryContents: React.FC = () => {
   const { projectId, taskName } = useParams<{

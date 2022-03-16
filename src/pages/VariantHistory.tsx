@@ -8,7 +8,7 @@ import HistoryTable, {
   context,
   ColumnPaginationButtons,
   HistoryTableTestSearch,
-  useTestFilters,
+  hooks,
   constants,
 } from "components/HistoryTable";
 import { PageWrapper } from "components/styles";
@@ -36,6 +36,7 @@ import {
 
 const { reportError } = errorReporting;
 const { HistoryTableProvider, useHistoryTable } = context;
+const { useTestFilters } = hooks;
 const { toArray } = array;
 const { parseQueryString, getString } = queryString;
 const { applyStrictRegex } = string;
@@ -51,11 +52,13 @@ export const VariantHistoryContents: React.FC = () => {
     queryParams[HistoryQueryParams.SkipOrderNumber]
   );
   const skipOrderNumber = parseInt(skipOrderNumberParam, 10) || undefined;
+
   const dispatchToast = useToastContext();
   usePageTitle(`Variant History | ${projectId} | ${variantName}`);
   const [nextPageOrderNumber, setNextPageOrderNumber] = useState(
     skipOrderNumber
   );
+
   const variables = {
     mainlineCommitsOptions: {
       projectID: projectId,

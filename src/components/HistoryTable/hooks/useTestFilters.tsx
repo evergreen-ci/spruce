@@ -2,7 +2,7 @@ import { useEffect, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import { TestStatus } from "types/history";
 import { queryString, array } from "utils";
-import { useHistoryTable } from "./HistoryTableContext";
+import { useHistoryTable } from "../HistoryTableContext";
 
 const { parseQueryString } = queryString;
 const { toArray } = array;
