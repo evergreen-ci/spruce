@@ -5,9 +5,9 @@ import { TestStatus } from "types/history";
 import {
   HistoryTableProvider,
   useHistoryTable as useHistoryTableActual,
-} from "./HistoryTableContext";
-import { mainlineCommitData } from "./testData";
-import { rowType } from "./types";
+} from "../HistoryTableContext";
+import { mainlineCommitData } from "../testData";
+import { rowType } from "../types";
 import useTestResultsActual from "./useTestResults";
 
 interface ProviderProps {

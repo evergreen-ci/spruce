@@ -4,10 +4,9 @@ import * as constants from "./constants";
 import HistoryTable from "./HistoryTable";
 import * as context from "./HistoryTableContext";
 import { HistoryTableTestSearch } from "./HistoryTableTestSearch";
+import * as hooks from "./hooks";
 import Row from "./Row";
 import * as types from "./types";
-import useTestFilters from "./useTestFilters";
-import useTestResults from "./useTestResults";
 
 export {
   Row,
@@ -15,9 +14,8 @@ export {
   ColumnPaginationButtons,
   context,
   types,
-  useTestResults,
   HistoryTableTestSearch,
-  useTestFilters,
+  hooks,
   constants,
 };
 export default HistoryTable;

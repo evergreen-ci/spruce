@@ -7,8 +7,8 @@ import {
 } from "gql/generated/types";
 import { GET_TASK_TEST_SAMPLE } from "gql/queries";
 import { array } from "utils";
-import { useHistoryTable } from "./HistoryTableContext";
-import { rowType } from "./types";
+import { useHistoryTable } from "../HistoryTableContext";
+import { rowType } from "../types";
 
 const { convertArrayToObject } = array;
 
