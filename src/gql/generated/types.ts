@@ -933,23 +933,21 @@ export type WebhookInput = {
 };
 
 export type WorkstationConfigInput = {
-  setupCommands?: Maybe<Array<Maybe<WorkstationSetupCommandInput>>>;
-  gitClone: Scalars["Boolean"];
+  setupCommands?: Maybe<Array<WorkstationSetupCommandInput>>;
+  gitClone?: Maybe<Scalars["Boolean"]>;
 };
 
 export type WorkstationSetupCommandInput = {
-  Command: Scalars["String"];
-  Directory?: Maybe<Scalars["String"]>;
+  command: Scalars["String"];
+  directory?: Maybe<Scalars["String"]>;
 };
 
 export type PatchTriggerAliasInput = {
   alias: Scalars["String"];
-  childProjectId: Scalars["String"];
   childProjectIdentifier: Scalars["String"];
-  taskSpecifiers?: Maybe<Array<Maybe<TaskSpecifierInput>>>;
+  taskSpecifiers: Array<TaskSpecifierInput>;
   status?: Maybe<Scalars["String"]>;
   parentAsModule?: Maybe<Scalars["String"]>;
-  variantsTasks: Array<Maybe<VariantTaskInput>>;
 };
 
 export type TaskSpecifierInput = {
@@ -1167,14 +1165,12 @@ export type ChildPatchAlias = {
 
 export type PatchTriggerAlias = {
   alias: Scalars["String"];
-  /** @deprecated Field no longer supported */
-  childProject?: Maybe<Scalars["String"]>;
   childProjectId: Scalars["String"];
   childProjectIdentifier: Scalars["String"];
-  taskSpecifiers?: Maybe<Array<Maybe<TaskSpecifier>>>;
+  taskSpecifiers?: Maybe<Array<TaskSpecifier>>;
   status?: Maybe<Scalars["String"]>;
   parentAsModule?: Maybe<Scalars["String"]>;
-  variantsTasks: Array<Maybe<VariantTask>>;
+  variantsTasks: Array<VariantTask>;
 };
 
 export type UserPatches = {
@@ -1474,6 +1470,11 @@ export type GroupedProjects = {
   projects: Array<Project>;
 };
 
+export type Permissions = {
+  userId: Scalars["String"];
+  canCreateProject: Scalars["Boolean"];
+};
+
 export type GithubProjectConflicts = {
   commitQueueIdentifiers?: Maybe<Array<Scalars["String"]>>;
   prTestingIdentifiers?: Maybe<Array<Scalars["String"]>>;
@@ -1771,8 +1772,8 @@ export type RepoWorkstationConfig = {
 };
 
 export type WorkstationSetupCommand = {
-  Command: Scalars["String"];
-  Directory: Scalars["String"];
+  command: Scalars["String"];
+  directory: Scalars["String"];
 };
 
 export type TaskSpecifier = {
@@ -1792,6 +1793,7 @@ export type User = {
   userId: Scalars["String"];
   emailAddress: Scalars["String"];
   patches: Patches;
+  permissions: Permissions;
 };
 
 export type UserPatchesArgs = {
@@ -3463,7 +3465,7 @@ export type ConfigurePatchQuery = {
       alias: string;
       childProjectId: string;
       childProjectIdentifier: string;
-      variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
+      variantsTasks: Array<{ name: string; tasks: Array<string> }>;
     }>;
     childPatchAliases?: Maybe<Array<{ alias: string; patchId: string }>>;
   } & BasePatchFragment;
