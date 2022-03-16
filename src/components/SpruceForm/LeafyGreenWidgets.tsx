@@ -35,16 +35,13 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
     description,
     "data-cy": dataCy,
     emptyValue,
-    showErrors = true,
     optional,
   } = options;
   const hasError = !!rawErrors?.length;
-  const errorProps = showErrors
-    ? {
-        errorMessage: hasError ? rawErrors.join(", ") : null,
-        state: hasError ? "error" : "none",
-      }
-    : {};
+  const errorProps = {
+    errorMessage: hasError ? rawErrors.join(", ") : null,
+    state: hasError ? "error" : "none",
+  };
   const { readonlyAsDisabled = true } = formContext;
   return (
     <ElementWrapper>

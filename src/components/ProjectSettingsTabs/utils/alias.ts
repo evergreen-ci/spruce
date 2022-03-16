@@ -197,7 +197,6 @@ export const baseProps = {
     },
     uiSchema: {
       "ui:data-cy": "git-tag-input",
-      "ui:showErrors": false,
     },
   },
   remotePath: {
@@ -210,7 +209,6 @@ export const baseProps = {
     uiSchema: {
       "ui:data-cy": "remote-path-input",
       "ui:sectionId": "remote-path-field",
-      "ui:showErrors": false,
     },
   },
   task: {
@@ -234,6 +232,7 @@ export const baseProps = {
       items: {
         type: "string" as "string",
         title: "Task Tag",
+        default: "",
         minLength: 1,
       },
     },
@@ -247,7 +246,6 @@ export const baseProps = {
       items: {
         "ui:ariaLabelledBy": "variant-input-control",
         "ui:data-cy": "task-tags-input",
-        "ui:showErrors": false,
       },
     },
   },
@@ -287,7 +285,6 @@ export const baseProps = {
       items: {
         "ui:ariaLabelledBy": "variant-input-control",
         "ui:data-cy": "variant-tags-input",
-        "ui:showErrors": false,
       },
     },
   },
