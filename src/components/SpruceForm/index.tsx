@@ -1,6 +1,6 @@
 import Form, { FormProps } from "@rjsf/core";
 import { SpruceFormContainer } from "./Container";
-import { transformErrors } from "./Errors";
+import { transformErrors } from "./errors";
 import baseFields from "./Fields";
 import { ArrayFieldTemplate, DefaultFieldTemplate } from "./FieldTemplates";
 import widgets from "./Widgets";
@@ -21,7 +21,6 @@ export const SpruceForm: React.FC<SpruceFormProps> = ({
   fields,
   tagName,
   validate,
-  customFormats,
   disabled,
 }) => (
   <Form
@@ -37,7 +36,6 @@ export const SpruceForm: React.FC<SpruceFormProps> = ({
     transformErrors={transformErrors}
     showErrorList={false}
     validate={validate}
-    customFormats={customFormats}
     disabled={disabled}
     liveValidate
     noHtml5Validate

@@ -5,6 +5,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
 
   projectRef: {
     id: "project",
+    identifier: "project",
     repoRefId: "repo",
 
     enabled: null,
@@ -55,6 +56,15 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
         endpoint: null,
         secret: null,
       },
+    },
+    workstationConfig: {
+      setupCommands: [
+        {
+          command: 'echo "hello spruce"',
+          directory: "sophie.stadler",
+        },
+      ],
+      gitClone: null,
     },
   },
   vars: {
@@ -154,6 +164,10 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
         endpoint: "endpoint",
         secret: "secret",
       },
+    },
+    workstationConfig: {
+      setupCommands: [],
+      gitClone: true,
     },
   },
   vars: {

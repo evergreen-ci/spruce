@@ -8,5 +8,5 @@ export { PatchAliasesTab } from "./PatchAliasesTab/PatchAliasesTab";
 export { PeriodicBuildsTab } from "./PeriodicBuildsTab";
 export { ProjectTriggersTab } from "./ProjectTriggersTab";
 export { VariablesTab } from "./VariablesTab/VariablesTab";
-export { VirtualWorkstationTab } from "./VirtualWorkstationTab";
+export { VirtualWorkstationTab } from "./VirtualWorkstationTab/VirtualWorkstationTab";
 export { PluginsTab } from "./PluginsTab/PluginsTab";
