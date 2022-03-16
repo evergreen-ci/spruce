@@ -23,7 +23,7 @@ import {
   GET_TASK_NAMES_FOR_BUILD_VARIANT,
 } from "gql/queries";
 import { usePageTitle } from "hooks";
-import { TestStatus } from "types/history";
+import { TestStatus, HistoryQueryParams } from "types/history";
 import { queryString, string, array, errorReporting } from "utils";
 
 import {
@@ -35,7 +35,7 @@ import {
 const { reportError } = errorReporting;
 const { HistoryTableProvider, useHistoryTable } = context;
 const { toArray } = array;
-const { parseQueryString } = queryString;
+const { parseQueryString, getString } = queryString;
 const { applyStrictRegex } = string;
 
 export const VariantHistoryContents: React.FC = () => {
@@ -43,9 +43,17 @@ export const VariantHistoryContents: React.FC = () => {
     projectId: string;
     variantName: string;
   }>();
+  const { search } = useLocation();
+  const queryParams = useMemo(() => parseQueryString(search), [search]);
+  const skipOrderNumberParam = getString(
+    queryParams[HistoryQueryParams.SkipOrderNumber]
+  );
+  const skipOrderNumber = parseInt(skipOrderNumberParam, 10) || undefined;
   const dispatchToast = useToastContext();
   usePageTitle(`Variant History | ${projectId} | ${variantName}`);
-  const [nextPageOrderNumber, setNextPageOrderNumber] = useState(null);
+  const [nextPageOrderNumber, setNextPageOrderNumber] = useState(
+    skipOrderNumber
+  );
   const variables = {
     mainlineCommitsOptions: {
       projectID: projectId,
@@ -87,8 +95,6 @@ export const VariantHistoryContents: React.FC = () => {
 
   const { taskNamesForBuildVariant } = columnData || {};
   const { mainlineCommits } = data || {};
-  const { search } = useLocation();
-  const queryParams = useMemo(() => parseQueryString(search), [search]);
 
   const selectedTaskNames = useMemo(() => toArray(queryParams.tasks), [
     queryParams.tasks,

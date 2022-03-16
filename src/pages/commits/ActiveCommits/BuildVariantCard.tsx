@@ -21,6 +21,7 @@ interface Props {
   groupedVariantStats: {
     statusCounts: StatusCount[];
   };
+  order: number;
 }
 export const BuildVariantCard: React.FC<Props> = ({
   buildVariantDisplayName,
@@ -29,6 +30,7 @@ export const BuildVariantCard: React.FC<Props> = ({
   versionId,
   projectIdentifier,
   groupedVariantStats,
+  order,
 }) => {
   let render = null;
   render = (
@@ -47,7 +49,9 @@ export const BuildVariantCard: React.FC<Props> = ({
     <Container>
       <Label
         data-cy="variant-header"
-        to={getVariantHistoryRoute(projectIdentifier, variant)}
+        to={getVariantHistoryRoute(projectIdentifier, variant, {
+          skipOrderNumber: order + 1,
+        })}
       >
         {buildVariantDisplayName}
       </Label>
