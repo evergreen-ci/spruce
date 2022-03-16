@@ -18,6 +18,9 @@ interface State {
   hasFetchedLastExecuted: boolean;
 }
 
+// a link cannot be null, so it's common to use # as a substitute.
+const nullLink = "#";
+
 // Note that the state doesn't include a field for shouldFetchParent / hasFetchedParent as the parent task
 // is always fetched on render.
 export const initialState: State = {
@@ -25,8 +28,8 @@ export const initialState: State = {
   lastPassingTask: null,
   lastExecutedTask: null,
   selectState: CommitType.Base,
-  disableButton: false,
-  link: "/",
+  disableButton: true,
+  link: nullLink,
   shouldFetchLastPassing: false,
   hasFetchedLastPassing: false,
   shouldFetchLastExecuted: false,
@@ -159,7 +162,7 @@ export const reducer = (state: State, action: Action): State => {
         selectState: newSelectState,
         link: newLink,
         disableButton:
-          newLink === "/" ||
+          newLink === nullLink ||
           lastPassingTaskDoesNotExist ||
           lastExecutedTaskDoesNotExist,
       };
@@ -219,5 +222,5 @@ const determineNewLink = (
         break;
     }
   }
-  return "/";
+  return nullLink;
 };

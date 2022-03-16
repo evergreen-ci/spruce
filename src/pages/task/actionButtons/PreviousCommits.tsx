@@ -147,7 +147,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     }
   }, [shouldFetchLastExecuted]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return versionMetadata?.isPatch !== undefined ? (
+  return (
     <PreviousCommitsWrapper>
       <StyledSelect
         size="small"
@@ -158,10 +158,10 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
           dispatch({ type: "setSelectState", selectState: v })
         }
         value={selectState}
-        disabled={!versionMetadata.baseVersion}
+        disabled={!versionMetadata?.baseVersion}
       >
         <Option value={CommitType.Base}>
-          Go to {versionMetadata.isPatch ? "base commit" : "parent commit"}
+          Go to {versionMetadata?.isPatch ? "base commit" : "parent commit"}
         </Option>
         <Option value={CommitType.LastPassing}>
           Go to last passing version
@@ -193,7 +193,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
         </div>
       </ConditionalWrapper>
     </PreviousCommitsWrapper>
-  ) : null;
+  );
 };
 
 // The return value from GetLastMainlineCommitQuery has a lot of nested fields that may or may

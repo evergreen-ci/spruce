@@ -260,7 +260,7 @@ export const ActionButtons: React.FC<Props> = ({
   return (
     <>
       <PageButtonRow>
-        {isBeta() && <PreviousCommits taskId={taskId} />}
+        {isBeta() && !isExecutionTask && <PreviousCommits taskId={taskId} />}
         {isBeta() && !isExecutionTask && (
           <Button
             size="small"
