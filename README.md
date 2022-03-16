@@ -100,10 +100,25 @@ We use Code generation to generate our types for our GraphQL queries and mutatio
 Spruce has a combination of unit tests using Jest, and integration tests using Cypress.
 
 ### Unit tests
-TODO: write more here. The Jest tests can be run by typing `yarn test`
+Unit Tests are used to test individual features in isolation. We utilize the [Jest Test Runner](https://jestjs.io/) to execute our Unit Tests and generate reports.
 
+There are 3 types of unit tests you may encounter in this codebase. 
+
+#### Component Tests
+These test React Componenents. We utilize [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) to help us write our component tests. React Testing Library provides several utilities that are useful for making assertions on React Componenents. When writing component tests you should import [test_utils](https://github.com/evergreen-ci/spruce/blob/main/src/test_utils/index.tsx) instead of React Testing Library, `test_utils` is a wrapper around React Testing Library which provides a series of helpful utilities for common testing scenarios such as `queryByDataCy` which is a helper for selecting `data-cy` attributes  or `renderWithRouterMatch` which is helpful for testing components that rely on React Router.
+
+#### Hook Tests
+Often times you may find yourself writing [custom react hooks](https://reactjs.org/docs/hooks-custom.html). The best way to test these is using [React Hooks Testing Library](https://react-hooks-testing-library.com/). React Hooks Testing Library allows you to test your custom Hooks in isolation without needing to wrap them in a Component. It provides several methods that make it easy to assert and test different behaviors in your hooks. Such as [`waitForNextUpdate`](https://react-hooks-testing-library.com/reference/api#waitfornextupdate) which will wait for your hook to rerender before allowing a test to proceed. 
+
+#### Standard utility tests
+These are the most basic of tests. They do not require any special libraries to run and often just test standard javascript functions.
+
+* You can run all Unit Tests using `yarn test`
+* You can run a specific Unit Test using `yarn test -t <test_name>`
+* You can run jest in watch mode using `yarn test:watch` This will open an interactive CLI you can use to automatically run tests as you update them. 
+ 
 ### E2E tests
-At a high level, we use Cypress to start a virtual browser that is running Spruce. Cypress then is able to run our test specs, which tell it to interact with the browser in certain ways and makes assertions about what happens in the UI. Note that you must be running the Evergreen server on localhost:9090 for the front-end to work.
+At a high level, we use [Cypress](https://www.cypress.io/) to start a virtual browser that is running Spruce. Cypress then is able to run our test specs, which tell it to interact with the browser in certain ways and makes assertions about what happens in the UI. Note that you must be running the Evergreen server on localhost:9090 for the front-end to work.
 
 In order to run the Cypress tests, do the following, assuming you have this repo checked out and all the dependencies installed by yarn:
 1. Start the evergreen back-end with the sample local test data. You can do this by typing `make local-evergreen` in your evergreen folder.
@@ -112,6 +127,10 @@ In order to run the Cypress tests, do the following, assuming you have this repo
     - `yarn cy:open` - opens the Cypress app in interactive mode. You can select tests to run from here in the Cypress browser.
     - `yarn cy:run` - runs all the Cypress tests at the command-line and reports the results
     - `yarn cy:test cypress/integration/hosts/hosts-filtering.ts` - runs tests in a specific file at the command-line. Replace the final argument with the relative path to your test file
+
+### Snapshot Tests
+Snapshot tests are automatically generated when we create storybook stories. These Tests create a snapshot of the UI and compare them to previous snapshots which are stored as files along side your storybook stories in a `__snapshots__` directory. They try to catch unexpected UI regressions. Read more about them [Here](https://jestjs.io/docs/snapshot-testing).
+
 
 ## How to get data for your feature
 If you need more data to be able to test out your feature locally the easiest way to do it is to populate the local db using real data from the staging or production environments.

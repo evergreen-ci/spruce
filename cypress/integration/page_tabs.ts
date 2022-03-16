@@ -8,22 +8,50 @@ describe("Tabs", () => {
   });
 
   describe("Patches page", () => {
-    before(() => {
+    it("Defaults to the task tab and applies default sorts", () => {
       cy.visit(patchRoute);
-    });
-    it("selects tasks tab by default", () => {
-      cy.dataCy(patches.tasks.btn)
+      cy.get(`button[data-cy='${patches.tasks.btn}']`)
         .should("have.attr", "aria-selected")
         .and("eq", "true");
-    });
-
-    it("includes selected tab name in url path", () => {
       locationPathEquals(patches.tasks.route);
+      cy.location("search").should(
+        "contain",
+        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
+      );
     });
 
-    it("updates the url path when another tab is selected", () => {
+    it("Applies default sorts on task tab when switching from another tab without any filters", () => {
+      cy.visit(`${patchRoute}/changes`);
+      cy.get(`button[data-cy='${patches.changes.btn}']`)
+        .should("have.attr", "aria-selected")
+        .and("eq", "true");
+      locationPathEquals(patches.changes.route);
+      cy.location("search").should(
+        "not.contain",
+        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
+      );
+
+      cy.dataCy("task-tab").first().click();
+      locationPathEquals(patches.tasks.route);
+      cy.location("search").should(
+        "contain",
+        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
+      );
+    });
+
+    it("Retains filters even when moving to a tab that isn't a task tab", () => {
+      cy.visit(patchRoute);
+      cy.location("search").should(
+        "contain",
+        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
+      );
+
       cy.get(`button[data-cy='${patches.changes.btn}']`).click();
       locationPathEquals(patches.changes.route);
+      cy.location("search").should(
+        "contain",
+        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
+      );
     });
 
     it("replaces invalid tab names in url path with default", () => {

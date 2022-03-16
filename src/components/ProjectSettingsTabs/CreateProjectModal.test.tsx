@@ -3,6 +3,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
 import { CREATE_PROJECT } from "gql/mutations";
+import { GET_USER_PERMISSIONS } from "gql/queries";
 import { render, fireEvent, waitFor } from "test_utils";
 import { CreateProjectModal } from "./CreateProjectModal";
 
@@ -11,13 +12,13 @@ describe("createProjectField", () => {
   const repo = "existing_repo";
 
   const NewProjectModal = () => (
-    <MockedProvider mocks={[createProjectMock]}>
+    <MockedProvider mocks={[createProjectMock, userPermissionsMock]}>
       <CreateProjectModal owner={null} repo={null} />
     </MockedProvider>
   );
 
   const NewProjectModalWithOwner = () => (
-    <MockedProvider mocks={[createProjectMock]}>
+    <MockedProvider mocks={[createProjectMock, userPermissionsMock]}>
       <CreateProjectModal owner={owner} repo={repo} />
     </MockedProvider>
   );
@@ -26,6 +27,10 @@ describe("createProjectField", () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     const { queryByDataCy } = render(<Component />);
     expect(queryByDataCy("create-project-modal")).not.toBeInTheDocument();
+
+    await waitFor(() =>
+      expect(queryByDataCy("create-project-button")).toBeVisible()
+    );
 
     const createProjectButton = queryByDataCy("create-project-button");
     fireEvent.click(createProjectButton);
@@ -37,6 +42,10 @@ describe("createProjectField", () => {
   it("disables the confirm button on initial render", async () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     const { queryByDataCy, queryByText } = render(<Component />);
+
+    await waitFor(() =>
+      expect(queryByDataCy("create-project-button")).toBeVisible()
+    );
 
     const createProjectButton = queryByDataCy("create-project-button");
     fireEvent.click(createProjectButton);
@@ -53,6 +62,9 @@ describe("createProjectField", () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     const { queryByDataCy, queryByText } = render(<Component />);
 
+    await waitFor(() =>
+      expect(queryByDataCy("create-project-button")).toBeVisible()
+    );
     const createProjectButton = queryByDataCy("create-project-button");
     fireEvent.click(createProjectButton);
 
@@ -68,7 +80,11 @@ describe("createProjectField", () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     const { queryByDataCy, queryByText } = render(<Component />);
 
+    await waitFor(() =>
+      expect(queryByDataCy("create-project-button")).toBeVisible()
+    );
     const createProjectButton = queryByDataCy("create-project-button");
+
     fireEvent.click(createProjectButton);
 
     await waitFor(() => expect(queryByText("Project Name")).toBeVisible());
@@ -89,6 +105,9 @@ describe("createProjectField", () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     const { queryByDataCy, queryByText } = render(<Component />);
 
+    await waitFor(() =>
+      expect(queryByDataCy("create-project-button")).toBeVisible()
+    );
     const createProjectButton = queryByDataCy("create-project-button");
     fireEvent.click(createProjectButton);
 
@@ -111,6 +130,9 @@ describe("createProjectField", () => {
     const { Component } = RenderFakeToastContext(<NewProjectModalWithOwner />);
     const { queryByDataCy, queryByText } = render(<Component />);
 
+    await waitFor(() =>
+      expect(queryByDataCy("create-project-button")).toBeVisible()
+    );
     const createProjectButton = queryByDataCy("create-project-button");
     fireEvent.click(createProjectButton);
 
@@ -136,6 +158,23 @@ const createProjectMock = {
   result: {
     data: {
       id: "projectName",
+    },
+  },
+};
+
+const userPermissionsMock = {
+  request: {
+    query: GET_USER_PERMISSIONS,
+    variables: {},
+  },
+  result: {
+    data: {
+      user: {
+        userId: "string",
+        permissions: {
+          canCreateProject: true,
+        },
+      },
     },
   },
 };
