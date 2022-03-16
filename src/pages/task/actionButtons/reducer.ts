@@ -118,6 +118,8 @@ export const reducer = (state: State, action: Action): State => {
             ...state,
             selectState: newSelectState,
             shouldFetchLastPassing: true,
+            link: nullLink,
+            disableButton: true,
           };
         }
       }
@@ -134,6 +136,8 @@ export const reducer = (state: State, action: Action): State => {
             ...state,
             selectState: newSelectState,
             shouldFetchLastExecuted: true,
+            link: nullLink,
+            disableButton: true,
           };
         }
       }
