@@ -2,7 +2,7 @@ import { Field } from "@rjsf/core";
 import { SpruceFormProps } from "components/SpruceForm";
 import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { alias, form, ProjectType } from "../utils";
+import { alias, form, PatchTriggerAliasStatus, ProjectType } from "../utils";
 import { TaskSpecifier } from "./types";
 
 const {
@@ -71,21 +71,13 @@ export const getFormSchema = (
                       title: "Select event…",
                       enum: [""],
                     },
-                    {
-                      type: "string" as "string",
-                      title: "Any completed status",
-                      enum: ["*"],
-                    },
-                    {
-                      type: "string" as "string",
-                      title: "Success",
-                      enum: ["succeeded"],
-                    },
-                    {
-                      type: "string" as "string",
-                      title: "Failure",
-                      enum: ["failed"],
-                    },
+                    ...Object.entries(PatchTriggerAliasStatus).map(
+                      ([value, title]) => ({
+                        type: "string" as "string",
+                        title,
+                        enum: [value],
+                      })
+                    ),
                   ],
                 },
                 taskSpecifiers: {

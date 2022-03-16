@@ -3,6 +3,7 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { Body, InlineCode } from "@leafygreen-ui/typography";
 import { Field } from "@rjsf/core";
 import { size } from "constants/tokens";
+import { PatchTriggerAliasStatus } from "../utils";
 
 export const GithubTriggerAliasField: Field = ({ formData }) => {
   const {
@@ -28,7 +29,7 @@ export const GithubTriggerAliasField: Field = ({ formData }) => {
       )}
       {status && (
         <Body>
-          <strong>Wait On:</strong> {status}
+          <strong>Wait On:</strong> {PatchTriggerAliasStatus[status]}
         </Body>
       )}
       {!!taskSpecifiers.length && (
