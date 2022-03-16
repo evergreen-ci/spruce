@@ -41,7 +41,7 @@ exports[`storybook Storyshots ProjectSelect Story 1`] = `
                 className="css-197mxpc-OverflowBody e1yw4j300 leafygreen-ui-1mngpnd"
                 data-cy="dropdown-value"
               >
-                Select a project
+                evergreen
               </div>
             </div>
           </div>
