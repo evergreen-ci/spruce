@@ -25,12 +25,11 @@ export type GqlToFormFunction<T = FormDataProps> = (
 export type FormToGqlFunction = (
   form: FormDataProps,
   id?: string
-) => Partial<ProjectSettingsInput>;
+) => ProjectSettingsInput;
 
 export const readOnlyTabs = [ProjectSettingsTabRoutes.EventLog] as const;
 
 type UnfinishedPages =
-  | ProjectSettingsTabRoutes.VirtualWorkstation
   | ProjectSettingsTabRoutes.ProjectTriggers
   | ProjectSettingsTabRoutes.PeriodicBuilds
   | ProjectSettingsTabRoutes.EventLog;
