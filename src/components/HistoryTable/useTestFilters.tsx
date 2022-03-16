@@ -11,9 +11,9 @@ const useTestFilters = () => {
   const { search } = useLocation();
   const { setHistoryTableFilters } = useHistoryTable();
   const queryParams = useMemo(() => parseQueryString(search), [search]);
-  const failingTests = toArray(queryParams[TestStatus.Failed]);
-  const passingTests = toArray(queryParams[TestStatus.Passed]);
   useEffect(() => {
+    const failingTests = toArray(queryParams[TestStatus.Failed]);
+    const passingTests = toArray(queryParams[TestStatus.Passed]);
     const failingTestFilters = failingTests.map((test) => ({
       testName: test,
       testStatus: TestStatus.Failed,
@@ -24,7 +24,7 @@ const useTestFilters = () => {
     }));
     setHistoryTableFilters([...failingTestFilters, ...passingTestFilters]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [failingTests, passingTests]);
+  }, [queryParams]);
 };
 
 export default useTestFilters;
