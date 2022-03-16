@@ -74,7 +74,6 @@ export const FoldedCommit: React.FC<FoldedCommitProps> = ({
 };
 
 const Column = styled.div`
-  cursor: pointer;
   display: flex;
   flex-direction: column;
 `;
@@ -83,6 +82,7 @@ const AccordionTitle = styled.div`
   display: flex;
   align-items: center;
   height: ${FOLDED_COMMITS_HEIGHT}px;
+  cursor: pointer;
 `;
 
 const Copy = styled(Body)`
