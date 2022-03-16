@@ -28,6 +28,10 @@ describe("createProjectField", () => {
     const { queryByDataCy } = render(<Component />);
     expect(queryByDataCy("create-project-modal")).not.toBeInTheDocument();
 
+    await waitFor(() =>
+      expect(queryByDataCy("create-project-button")).toBeVisible()
+    );
+
     const createProjectButton = queryByDataCy("create-project-button");
     fireEvent.click(createProjectButton);
     await waitFor(() =>
@@ -38,6 +42,10 @@ describe("createProjectField", () => {
   it("disables the confirm button on initial render", async () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     const { queryByDataCy, queryByText } = render(<Component />);
+
+    await waitFor(() =>
+      expect(queryByDataCy("create-project-button")).toBeVisible()
+    );
 
     const createProjectButton = queryByDataCy("create-project-button");
     fireEvent.click(createProjectButton);
@@ -54,6 +62,9 @@ describe("createProjectField", () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     const { queryByDataCy, queryByText } = render(<Component />);
 
+    await waitFor(() =>
+      expect(queryByDataCy("create-project-button")).toBeVisible()
+    );
     const createProjectButton = queryByDataCy("create-project-button");
     fireEvent.click(createProjectButton);
 
@@ -69,7 +80,11 @@ describe("createProjectField", () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     const { queryByDataCy, queryByText } = render(<Component />);
 
+    await waitFor(() =>
+      expect(queryByDataCy("create-project-button")).toBeVisible()
+    );
     const createProjectButton = queryByDataCy("create-project-button");
+
     fireEvent.click(createProjectButton);
 
     await waitFor(() => expect(queryByText("Project Name")).toBeVisible());
@@ -90,6 +105,9 @@ describe("createProjectField", () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     const { queryByDataCy, queryByText } = render(<Component />);
 
+    await waitFor(() =>
+      expect(queryByDataCy("create-project-button")).toBeVisible()
+    );
     const createProjectButton = queryByDataCy("create-project-button");
     fireEvent.click(createProjectButton);
 
@@ -112,6 +130,9 @@ describe("createProjectField", () => {
     const { Component } = RenderFakeToastContext(<NewProjectModalWithOwner />);
     const { queryByDataCy, queryByText } = render(<Component />);
 
+    await waitFor(() =>
+      expect(queryByDataCy("create-project-button")).toBeVisible()
+    );
     const createProjectButton = queryByDataCy("create-project-button");
     fireEvent.click(createProjectButton);
 
