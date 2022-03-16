@@ -144,6 +144,8 @@ describe("Repo Settings", () => {
 
       cy.dataCy("save-settings-button").click();
       cy.validateToast("success", "Successfully updated repo");
+
+      cy.dataCy("save-settings-button").should("be.disabled");
     });
   });
 
@@ -521,10 +523,10 @@ describe("Project Settings when defaulting to repo", () => {
     });
 
     it("Defaults to repo patch aliases", () => {
-      cy.dataCy("patch-aliases-override-radio-box")
-        .find("input")
-        .eq(1)
-        .should("be.checked");
+      cy.getInputByLabel("Default to Repo Patch Aliases").should(
+        "have.attr",
+        "checked"
+      );
     });
 
     it("Shows the saved repo patch alias", () => {
@@ -541,11 +543,9 @@ describe("Project Settings when defaulting to repo", () => {
     });
 
     it("Allows adding a patch alias", () => {
-      cy.dataCy("patch-aliases-override-radio-box")
-        .find("input")
-        .first()
-        .parent()
-        .click();
+      cy.getInputByLabel("Override Repo Patch Aliases").click({
+        force: true,
+      });
       cy.dataCy("save-settings-button").should("be.disabled");
 
       cy.dataCy("add-button")
@@ -574,15 +574,16 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("save-settings-button").click();
       cy.validateToast("success", "Successfully updated project");
 
-      cy.getInputByLabel("Default to Repo Patch Aliases").should("be.checked");
+      cy.getInputByLabel("Default to Repo Patch Aliases").should(
+        "have.attr",
+        "checked"
+      );
     });
 
     it("Has cleared previously saved alias definitions", () => {
-      cy.dataCy("patch-aliases-override-radio-box")
-        .find("input")
-        .first()
-        .parent()
-        .click();
+      cy.getInputByLabel("Override Repo Patch Aliases").click({
+        force: true,
+      });
       cy.dataCy("alias-row").should("have.length", 0);
     });
   });
