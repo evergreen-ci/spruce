@@ -8,6 +8,7 @@ import HistoryTable, {
   context,
   ColumnPaginationButtons,
   HistoryTableTestSearch,
+  useTestFilters,
 } from "components/HistoryTable";
 import { PageWrapper } from "components/styles";
 import { size } from "constants/tokens";
@@ -82,8 +83,8 @@ const TaskHistoryContents: React.FC = () => {
     },
   });
 
-  const { setHistoryTableFilters, addColumns } = useHistoryTable();
-
+  const { addColumns } = useHistoryTable();
+  useTestFilters();
   const { buildVariantsForTaskName } = columnData || {};
   const { mainlineCommits } = data || {};
   const { search } = useLocation();
@@ -93,21 +94,7 @@ const TaskHistoryContents: React.FC = () => {
     () => toArray(queryParams.buildVariants),
     [queryParams.buildVariants]
   );
-  useEffect(() => {
-    const failingTests = toArray(queryParams[TestStatus.Failed]);
-    const passingTests = toArray(queryParams[TestStatus.Passed]);
 
-    const failingTestFilters = failingTests.map((test) => ({
-      testName: test,
-      testStatus: TestStatus.Failed,
-    }));
-    const passingTestFilters = passingTests.map((test) => ({
-      testName: test,
-      testStatus: TestStatus.Passed,
-    }));
-    setHistoryTableFilters([...failingTestFilters, ...passingTestFilters]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [queryParams]);
   const queryParamsToDisplay = new Set([
     TestStatus.Failed,
     TestStatus.Passed,
