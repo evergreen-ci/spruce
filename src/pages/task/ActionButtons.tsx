@@ -36,7 +36,7 @@ import {
 } from "gql/mutations";
 import { useUpdateURLQueryParams } from "hooks";
 import { isBeta } from "utils/environmentalVariables";
-import { PreviousCommits } from "./actionButtons/PreviousCommits";
+import { PreviousCommits } from "./actionButtons/previousCommits/PreviousCommits";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
 interface Props {
@@ -260,20 +260,22 @@ export const ActionButtons: React.FC<Props> = ({
   return (
     <>
       <PageButtonRow>
-        {isBeta() && <PreviousCommits taskId={taskId} />}
         {isBeta() && !isExecutionTask && (
-          <Button
-            size="small"
-            as={Link}
-            data-cy="task-history"
-            key="task-history"
-            onClick={() => {
-              taskAnalytics.sendEvent({ name: "Click See History Button" });
-            }}
-            to={getTaskHistoryRoute(projectIdentifier, taskName)}
-          >
-            See history
-          </Button>
+          <>
+            <PreviousCommits taskId={taskId} />
+            <Button
+              size="small"
+              as={Link}
+              data-cy="task-history"
+              key="task-history"
+              onClick={() => {
+                taskAnalytics.sendEvent({ name: "Click See History Button" });
+              }}
+              to={getTaskHistoryRoute(projectIdentifier, taskName)}
+            >
+              See history
+            </Button>
+          </>
         )}
         <Button
           size="small"
