@@ -3932,6 +3932,12 @@ export type GetUserConfigQuery = {
   }>;
 };
 
+export type GetUserPermissionsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetUserPermissionsQuery = {
+  user: { userId: string; permissions: { canCreateProject: boolean } };
+};
+
 export type GetUserSettingsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetUserSettingsQuery = {
