@@ -52,6 +52,7 @@ import GET_TASK from "./get-task.graphql";
 import GET_TESTS from "./get-tests.graphql";
 import GET_UNSCHEDULED_TASKS from "./get-undispatched-tasks.graphql";
 import GET_USER_CONFIG from "./get-user-config.graphql";
+import GET_USER_PERMISSIONS from "./get-user-permissions.graphql";
 import GET_USER_SETTINGS from "./get-user-settings.graphql";
 import GET_USER from "./get-user.graphql";
 import GET_VERSION from "./get-version.graphql";
@@ -112,6 +113,7 @@ export {
   GET_SUBNET_AVAILABILITY_ZONES,
   GET_CREATED_TICKETS,
   GET_USER_SETTINGS,
+  GET_USER_PERMISSIONS,
   GET_CODE_CHANGES,
   GET_BUILD_VARIANTS_FOR_TASK_NAME,
   GET_BUILD_VARIANTS_WITH_CHILDREN,

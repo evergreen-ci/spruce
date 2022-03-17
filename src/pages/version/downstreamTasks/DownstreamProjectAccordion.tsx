@@ -160,6 +160,7 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
     <AccordionWrapper data-cy="project-accordion">
       <Accordion
         title={variantTitle}
+        titleTag={FlexContainer}
         contents={
           <AccordionContents>
             <p>

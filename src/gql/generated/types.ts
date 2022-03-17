@@ -1167,10 +1167,10 @@ export type PatchTriggerAlias = {
   alias: Scalars["String"];
   childProjectId: Scalars["String"];
   childProjectIdentifier: Scalars["String"];
-  taskSpecifiers?: Maybe<Array<Maybe<TaskSpecifier>>>;
+  taskSpecifiers?: Maybe<Array<TaskSpecifier>>;
   status?: Maybe<Scalars["String"]>;
   parentAsModule?: Maybe<Scalars["String"]>;
-  variantsTasks: Array<Maybe<VariantTask>>;
+  variantsTasks: Array<VariantTask>;
 };
 
 export type UserPatches = {
@@ -2322,10 +2322,15 @@ export type RepoGithubCommitQueueFragment = {
 
 export type ProjectSettingsFragment = {
   projectRef?: Maybe<
-    { id: string; repoRefId: string } & ProjectGeneralSettingsFragment &
+    {
+      id: string;
+      identifier: string;
+      repoRefId: string;
+    } & ProjectGeneralSettingsFragment &
       ProjectAccessSettingsFragment &
       ProjectPluginsSettingsFragment &
-      ProjectNotificationSettingsFragment
+      ProjectNotificationSettingsFragment &
+      ProjectVirtualWorkstationSettingsFragment
   >;
   subscriptions?: Maybe<Array<SubscriptionsFragment>>;
   vars?: Maybe<VariablesFragment>;
@@ -2337,7 +2342,8 @@ export type RepoSettingsFragment = {
     { id: string } & RepoGeneralSettingsFragment &
       RepoAccessSettingsFragment &
       RepoPluginsSettingsFragment &
-      RepoNotificationSettingsFragment
+      RepoNotificationSettingsFragment &
+      RepoVirtualWorkstationSettingsFragment
   >;
   vars?: Maybe<VariablesFragment>;
   subscriptions?: Maybe<Array<SubscriptionsFragment>>;
@@ -2415,6 +2421,20 @@ export type VariablesFragment = {
   vars?: Maybe<{ [key: string]: any }>;
   privateVars?: Maybe<Array<Maybe<string>>>;
   adminOnlyVars?: Maybe<Array<Maybe<string>>>;
+};
+
+export type ProjectVirtualWorkstationSettingsFragment = {
+  workstationConfig: {
+    gitClone?: Maybe<boolean>;
+    setupCommands?: Maybe<Array<{ command: string; directory: string }>>;
+  };
+};
+
+export type RepoVirtualWorkstationSettingsFragment = {
+  workstationConfig: {
+    gitClone: boolean;
+    setupCommands?: Maybe<Array<{ command: string; directory: string }>>;
+  };
 };
 
 export type AbortTaskMutationVariables = Exact<{
@@ -3473,7 +3493,7 @@ export type ConfigurePatchQuery = {
       alias: string;
       childProjectId: string;
       childProjectIdentifier: string;
-      variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
+      variantsTasks: Array<{ name: string; tasks: Array<string> }>;
     }>;
     childPatchAliases?: Maybe<Array<{ alias: string; patchId: string }>>;
   } & BasePatchFragment;
@@ -3911,6 +3931,12 @@ export type GetUserConfigQuery = {
     ui_server_host: string;
     user: string;
   }>;
+};
+
+export type GetUserPermissionsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetUserPermissionsQuery = {
+  user: { userId: string; permissions: { canCreateProject: boolean } };
 };
 
 export type GetUserSettingsQueryVariables = Exact<{ [key: string]: never }>;

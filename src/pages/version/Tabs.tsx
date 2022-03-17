@@ -49,6 +49,7 @@ const tabMap = ({ taskCount, childPatches }) => ({
 });
 export const Tabs: React.FC<Props> = ({ taskCount, childPatches, isPatch }) => {
   const { id, tab } = useParams<{ id: string; tab: PatchTab }>();
+  const { sendEvent } = useVersionAnalytics(id);
   const history = useHistory();
   const location = useLocation();
 
@@ -61,8 +62,6 @@ export const Tabs: React.FC<Props> = ({ taskCount, childPatches, isPatch }) => {
     [isPatch, childPatches]
   );
 
-  const { sendEvent } = useVersionAnalytics(id);
-
   const allTabs = useMemo(() => tabMap({ taskCount, childPatches }), [
     taskCount,
     childPatches,
@@ -71,40 +70,46 @@ export const Tabs: React.FC<Props> = ({ taskCount, childPatches, isPatch }) => {
     () => Object.keys(allTabs).filter((t) => tabIsActive[t] as PatchTab[]),
     [allTabs, tabIsActive]
   );
-  const defaultTab = tabIsActive[tab] ? tab : DEFAULT_PATCH_TAB;
+  const isValidTab = tabIsActive[tab];
   const [selectedTab, setSelectedTab] = useState(
-    activeTabs.indexOf(defaultTab)
+    activeTabs.indexOf(isValidTab ? tab : DEFAULT_PATCH_TAB)
   );
+  const previousTab = usePrevious(selectedTab);
 
-  // This is used when the URL updates to a different tab, as the tab component won't recognize any updates to the URL
   useEffect(() => {
-    if (selectedTab !== activeTabs.indexOf(tab)) {
+    // If tab is not valid, set to task tab.
+    if (!isValidTab) {
+      history.replace(getVersionRoute(id));
+    }
+    // If tab updates in URL without having clicked a tab (e.g. clicked build variant), update state here.
+    else {
       setSelectedTab(activeTabs.indexOf(tab));
     }
   }, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // This is used to keep track of the first tab transition so we dont accidently trigger an analytics event for it
-  const previousTab = usePrevious(selectedTab);
-  useEffect(() => {
-    const query = parseQueryString(location.search);
-    const newTab = Object.keys(allTabs)[selectedTab];
+  // Update the URL and selectedTab state based on new tab selected.
+  const selectNewTab = (newTabIndex: number) => {
+    const queryParams = parseQueryString(location.search);
+    const newTab = Object.keys(allTabs)[newTabIndex];
     const newRoute = getVersionRoute(id, {
       tab: newTab as PatchTab,
-      ...query,
+      ...queryParams,
     });
     history.replace(newRoute);
-    if (previousTab !== undefined && previousTab !== selectedTab) {
+
+    if (previousTab !== undefined && previousTab !== newTabIndex) {
       sendEvent({
         name: "Change Tab",
         tab: newTab as PatchTab,
       });
     }
-  }, [selectedTab]); // eslint-disable-line react-hooks/exhaustive-deps
+    setSelectedTab(newTabIndex);
+  };
 
   return (
     <StyledTabs
       selected={selectedTab}
-      setSelected={setSelectedTab}
+      setSelected={selectNewTab}
       aria-label="Patch Tabs"
     >
       {activeTabs.map((t: string) => allTabs[t])}
