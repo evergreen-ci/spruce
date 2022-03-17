@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useLocation } from "react-router";
@@ -11,8 +12,10 @@ import {
 } from "gql/generated/types";
 import { GET_BUILD_VARIANTS_FOR_TASK_NAME } from "gql/queries";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { queryString } from "utils";
+import { HistoryQueryParams } from "types/history";
+import { queryString, array } from "utils";
 
+const { toArray } = array;
 const { parseQueryString } = queryString;
 interface BuildVariantSelectorProps {
   projectId: string;
@@ -27,12 +30,10 @@ const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
   const { search } = useLocation();
   const queryParams = parseQueryString(search);
 
-  let value = [];
-  if (typeof queryParams.buildVariants === "string") {
-    value = [queryParams.buildVariants];
-  } else {
-    value = queryParams.buildVariants;
-  }
+  const value = useMemo(
+    () => toArray(queryParams[HistoryQueryParams.VisibleColumns]) as unknown[],
+    [queryParams]
+  ); // This component will be replaced by the ComboBox in the future.
 
   const { data, loading } = useQuery<
     GetBuildVariantsForTaskNameQuery,
@@ -46,7 +47,7 @@ const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
 
   const onChange = (selectedBuildVariants: string[]) => {
     updateQueryParams({
-      buildVariants: selectedBuildVariants,
+      [HistoryQueryParams.VisibleColumns]: selectedBuildVariants,
     });
   };
 

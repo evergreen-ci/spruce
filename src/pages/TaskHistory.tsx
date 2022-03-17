@@ -86,7 +86,6 @@ const TaskHistoryContents: React.FC = () => {
   const { buildVariantsForTaskName } = columnData || {};
   const { mainlineCommits } = data || {};
   const selectedColumns = useColumns(
-    "buildVariants",
     buildVariantsForTaskName,
     ({ buildVariant }) => buildVariant
   );
