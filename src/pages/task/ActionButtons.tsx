@@ -274,7 +274,7 @@ export const ActionButtons: React.FC<Props> = ({
               to={getTaskHistoryRoute(projectIdentifier, taskName)}
             >
               See history
-            </Button>{" "}
+            </Button>
           </>
         )}
         <Button
