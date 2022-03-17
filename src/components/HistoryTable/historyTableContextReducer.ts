@@ -1,6 +1,6 @@
 import { TestFilter } from "gql/generated/types";
 import { CommitRowType, mainlineCommits } from "./types";
-import { processCommits, processRowSizes, changeRowSizeAtIndex } from "./utils";
+import { processCommits, changeRowSizeAtIndex } from "./utils";
 
 type Action =
   | { type: "ingestNewCommits"; commits: mainlineCommits }
@@ -28,7 +28,6 @@ export interface HistoryTableReducerState {
   columnLimit: number;
   historyTableFilters: TestFilter[];
   commitCount: number;
-  rowSizes: number[];
 }
 
 export const reducer = (state: HistoryTableReducerState, action: Action) => {
@@ -45,8 +44,6 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
           action.commits.versions,
           state.processedCommits
         );
-
-        const rowSizes = processRowSizes(processedCommits, state.rowSizes);
 
         let { commitCount } = state;
         // If there are no previous commits, we can set the commitCount to be the first commit's order.
@@ -68,20 +65,19 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
           processedCommits,
           processedCommitCount: processedCommits.length,
           commitCount,
-          rowSizes,
         };
       }
       return state;
     }
     case "changeRowSizeAtIndex": {
-      const newRowSizes = changeRowSizeAtIndex(
-        state.rowSizes,
+      const newProcessedCommits = changeRowSizeAtIndex(
+        state.processedCommits,
         action.numCommits,
         action.index
       );
       return {
         ...state,
-        rowSizes: newRowSizes,
+        processedCommits: newProcessedCommits,
       };
     }
     case "addColumns":

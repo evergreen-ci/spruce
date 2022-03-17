@@ -27,7 +27,6 @@ const initialState: HistoryTableReducerState = {
   commitCount: 10,
   visibleColumns: [],
   columnLimit: 7,
-  rowSizes: [],
 };
 
 interface WrapperProps {

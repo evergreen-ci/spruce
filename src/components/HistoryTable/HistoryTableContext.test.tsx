@@ -34,7 +34,6 @@ describe("historyTableContext", () => {
       pageCount: 0,
       columnLimit: 7,
       commitCount: 10,
-      rowSizes: [],
     });
   });
   it("should process new commits when they are passed in", () => {
@@ -59,22 +58,16 @@ describe("historyTableContext", () => {
     expect(result.current.getItem(0)).toStrictEqual({
       type: rowType.DATE_SEPARATOR,
       date: splitMainlineCommitDataPart1.versions[0].version.createTime,
+      rowHeight: DATE_SEPARATOR_HEIGHT,
     });
     expect(result.current.isItemLoaded(1)).toBe(true);
     expect(result.current.getItem(1)).toStrictEqual({
       type: rowType.COMMIT,
       date: splitMainlineCommitDataPart1.versions[0].version.createTime,
       commit: splitMainlineCommitDataPart1.versions[0].version,
+      rowHeight: COMMIT_HEIGHT,
     });
     expect(result.current.isItemLoaded(2)).toBe(false);
-    // Should have processed the row sizes correctly
-    expect(result.current.rowSizes).toHaveLength(
-      result.current.processedCommits.length
-    );
-    expect(result.current.rowSizes).toStrictEqual([
-      DATE_SEPARATOR_HEIGHT,
-      COMMIT_HEIGHT,
-    ]);
   });
   it("should process additional commits when they are passed in", () => {
     const { result } = renderHook(() => useHistoryTable(), { wrapper });
@@ -94,16 +87,10 @@ describe("historyTableContext", () => {
     expect(result.current.getItem(0)).toStrictEqual({
       type: rowType.DATE_SEPARATOR,
       date: splitMainlineCommitDataPart1.versions[0].version.createTime,
+      rowHeight: DATE_SEPARATOR_HEIGHT,
     });
     expect(result.current.isItemLoaded(1)).toBeTruthy();
     expect(result.current.isItemLoaded(2)).toBeFalsy();
-    expect(result.current.rowSizes).toHaveLength(
-      result.current.processedCommits.length
-    );
-    expect(result.current.rowSizes).toStrictEqual([
-      DATE_SEPARATOR_HEIGHT,
-      COMMIT_HEIGHT,
-    ]);
 
     // Fetch another new commit
     act(() => {
@@ -114,15 +101,8 @@ describe("historyTableContext", () => {
       type: rowType.COMMIT,
       date: splitMainlineCommitDataPart2.versions[0].version.createTime,
       commit: splitMainlineCommitDataPart2.versions[0].version,
+      rowHeight: COMMIT_HEIGHT,
     });
-    expect(result.current.rowSizes).toHaveLength(
-      result.current.processedCommits.length
-    );
-    expect(result.current.rowSizes).toStrictEqual([
-      DATE_SEPARATOR_HEIGHT,
-      COMMIT_HEIGHT,
-      COMMIT_HEIGHT,
-    ]);
   });
   it("should handle calculating the commitCount based off of the passed in values", () => {
     const { result } = renderHook(() => useHistoryTable(), { wrapper });
@@ -163,12 +143,14 @@ describe("historyTableContext", () => {
     expect(result.current.getItem(0)).toStrictEqual({
       type: rowType.DATE_SEPARATOR,
       date: commitDate1.versions[0].version.createTime,
+      rowHeight: DATE_SEPARATOR_HEIGHT,
     });
     expect(result.current.isItemLoaded(1)).toBeTruthy();
     expect(result.current.getItem(1)).toStrictEqual({
       type: rowType.COMMIT,
       date: commitDate1.versions[0].version.createTime,
       commit: commitDate1.versions[0].version,
+      rowHeight: COMMIT_HEIGHT,
     });
     expect(result.current.isItemLoaded(2)).toBeFalsy();
     act(() => {
@@ -178,12 +160,14 @@ describe("historyTableContext", () => {
     expect(result.current.getItem(2)).toStrictEqual({
       type: rowType.DATE_SEPARATOR,
       date: commitDate2.versions[0].version.createTime,
+      rowHeight: DATE_SEPARATOR_HEIGHT,
     });
     expect(result.current.isItemLoaded(3)).toBeTruthy();
     expect(result.current.getItem(3)).toStrictEqual({
       type: rowType.COMMIT,
       date: commitDate2.versions[0].version.createTime,
       commit: commitDate2.versions[0].version,
+      rowHeight: COMMIT_HEIGHT,
     });
   });
   it("should handle expanding rows", () => {
@@ -202,48 +186,42 @@ describe("historyTableContext", () => {
     expect(result.current.getItem(0)).toStrictEqual({
       type: rowType.DATE_SEPARATOR,
       date: version.createTime,
+      rowHeight: DATE_SEPARATOR_HEIGHT,
     });
     expect(result.current.isItemLoaded(1)).toBe(true);
     expect(result.current.getItem(1)).toStrictEqual({
       type: rowType.COMMIT,
       date: version.createTime,
       commit: version,
+      rowHeight: COMMIT_HEIGHT,
     });
     expect(result.current.isItemLoaded(2)).toBe(true);
     expect(result.current.getItem(2)).toStrictEqual({
       type: rowType.DATE_SEPARATOR,
       date: rolledUpVersions[0].createTime,
+      rowHeight: DATE_SEPARATOR_HEIGHT,
     });
     expect(result.current.isItemLoaded(3)).toBe(true);
     expect(result.current.getItem(3)).toStrictEqual({
       type: rowType.FOLDED_COMMITS,
       date: rolledUpVersions[0].createTime,
       rolledUpCommits: rolledUpVersions,
+      rowHeight: FOLDED_COMMITS_HEIGHT,
     });
     expect(result.current.isItemLoaded(4)).toBe(false);
-    // Verify row sizes
-    expect(result.current.rowSizes).toHaveLength(
-      result.current.processedCommits.length
-    );
-    expect(result.current.rowSizes).toStrictEqual([
-      DATE_SEPARATOR_HEIGHT,
-      COMMIT_HEIGHT,
-      DATE_SEPARATOR_HEIGHT,
-      FOLDED_COMMITS_HEIGHT,
-    ]);
     // Now trigger an update to size of the folded commit
     act(() => {
       result.current.toggleRowSize(3, rolledUpVersions.length);
     });
-    // Check the new row sizes
-    const expandedRowSize =
+    // Check the new row size
+    const expandedRowHeight =
       FOLDED_COMMITS_HEIGHT + COMMIT_HEIGHT * rolledUpVersions.length;
-    expect(result.current.rowSizes).toStrictEqual([
-      DATE_SEPARATOR_HEIGHT,
-      COMMIT_HEIGHT,
-      DATE_SEPARATOR_HEIGHT,
-      expandedRowSize,
-    ]);
+    expect(result.current.getItem(3)).toStrictEqual({
+      type: rowType.FOLDED_COMMITS,
+      date: rolledUpVersions[0].createTime,
+      rolledUpCommits: rolledUpVersions,
+      rowHeight: expandedRowHeight,
+    });
   });
   it("should deduplicate passed in versions", () => {
     const { result } = renderHook(() => useHistoryTable(), { wrapper });
