@@ -5,15 +5,18 @@
 #import "./variables.graphql"
 #import "./plugins.graphql"
 #import "./notifications.graphql"
+#import "./virtualWorkstation.graphql"
 
 fragment projectSettings on ProjectSettings {
   projectRef {
     id
+    identifier
     repoRefId
     ...projectGeneralSettings
     ...projectAccessSettings
     ...projectPluginsSettings
     ...projectNotificationSettings
+    ...projectVirtualWorkstationSettings
   }
   subscriptions {
     ...subscriptions
@@ -34,6 +37,7 @@ fragment repoSettings on RepoSettings {
     ...repoAccessSettings
     ...repoPluginsSettings
     ...repoNotificationSettings
+    ...repoVirtualWorkstationSettings
   }
   vars {
     ...variables

@@ -5,7 +5,7 @@ import widgets from "components/SpruceForm/Widgets";
 import { alias, form, ProjectType } from "../utils";
 import { FormState } from "./types";
 
-const { aliasArraySchema, aliasRowUiSchema } = alias;
+const { aliasArray, aliasRowUiSchema, gitTagArray } = alias;
 const { insertIf, overrideRadioBox, placeholderIf, radioBoxOptions } = form;
 
 export const getFormSchema = (
@@ -29,9 +29,6 @@ export const getFormSchema = (
   return {
     fields: {},
     schema: {
-      definitions: {
-        aliasArray: aliasArraySchema,
-      },
       type: "object" as "object",
       properties: {
         github: {
@@ -71,9 +68,7 @@ export const getFormSchema = (
                   "Override Repo Patch Definition",
                   "Default to Repo Patch Definition",
                 ],
-                {
-                  $ref: "#/definitions/aliasArray",
-                }
+                aliasArray.schema
               ),
             },
             githubChecksEnabledTitle: {
@@ -94,9 +89,7 @@ export const getFormSchema = (
               ...overrideRadioBox(
                 "githubCheckAliases",
                 ["Override Repo Definition", "Default to Repo Definition"],
-                {
-                  $ref: "#/definitions/aliasArray",
-                }
+                aliasArray.schema
               ),
             },
             gitTagVersionsTitle: {
@@ -144,10 +137,13 @@ export const getFormSchema = (
                 }
               ),
             },
-            gitTagVersions: {
-              type: "null",
+            gitTags: {
               title: "Git Tag Version Definitions",
-              description: "TODO: EVG-16117",
+              ...overrideRadioBox(
+                "gitTagAliases",
+                ["Override Repo Git Tags", "Default to Repo Git Tags"],
+                gitTagArray.schema
+              ),
             },
           },
         },
@@ -211,9 +207,7 @@ export const getFormSchema = (
                   "Override Repo Patch Definition",
                   "Default to Repo Patch Definition",
                 ],
-                {
-                  $ref: "#/definitions/aliasArray",
-                }
+                aliasArray.schema
               ),
             },
           },
@@ -242,14 +236,14 @@ export const getFormSchema = (
           githubPrAliases: {
             ...aliasRowUiSchema({
               addButtonText: "Add Patch Definition",
-              accordionTitle: "Patch Definition",
+              numberedTitle: "Patch Definition",
             }),
           },
           repoData: {
             githubPrAliases: {
               ...aliasRowUiSchema({
-                accordionTitle: "Patch Definition",
                 isRepo: true,
+                numberedTitle: "Repo Patch Definition",
               }),
             },
           },
@@ -267,45 +261,56 @@ export const getFormSchema = (
             repoData?.github?.githubChecksEnabled
           ),
           githubCheckAliasesOverride: overrideStyling,
-          githubCheckAliases: {
-            ...aliasRowUiSchema({
-              addButtonText: "Add Definition",
-              accordionTitle: "Commit Check Definition",
-            }),
-          },
+          githubCheckAliases: aliasRowUiSchema({
+            addButtonText: "Add Definition",
+            numberedTitle: "Commit Check Definition",
+          }),
           repoData: {
-            githubCheckAliases: {
-              ...aliasRowUiSchema({
-                accordionTitle: "Commit Check Definition",
-                isRepo: true,
-              }),
-            },
+            githubCheckAliases: aliasRowUiSchema({
+              isRepo: true,
+              numberedTitle: "Repo Commit Check Definition",
+            }),
           },
         },
         gitTagVersionsTitle: {
           "ui:sectionTitle": true,
         },
         gitTagVersionsEnabled: {
+          "ui:data-cy": "git-tag-enabled-radio-box",
           "ui:showLabel": false,
           "ui:widget": widgets.RadioBoxWidget,
         },
-        users: {
-          ...userTeamStyling(
-            "gitTagAuthorizedUsers",
-            "Add User",
-            repoData?.github?.users?.gitTagAuthorizedUsers === undefined,
+        users: userTeamStyling(
+          "gitTagAuthorizedUsers",
+          "Add User",
+          repoData?.github?.users?.gitTagAuthorizedUsers === undefined,
+          formData?.github?.gitTagVersionsEnabled,
+          repoData?.github?.gitTagVersionsEnabled
+        ),
+        teams: userTeamStyling(
+          "gitTagAuthorizedTeams",
+          "Add Team",
+          repoData?.github?.teams?.gitTagAuthorizedTeams === undefined,
+          formData?.github?.gitTagVersionsEnabled,
+          repoData?.github?.gitTagVersionsEnabled
+        ),
+        gitTags: {
+          ...hideIf(
             formData?.github?.gitTagVersionsEnabled,
             repoData?.github?.gitTagVersionsEnabled
           ),
-        },
-        teams: {
-          ...userTeamStyling(
-            "gitTagAuthorizedTeams",
-            "Add Team",
-            repoData?.github?.teams?.gitTagAuthorizedTeams === undefined,
-            formData?.github?.gitTagVersionsEnabled,
-            repoData?.github?.gitTagVersionsEnabled
-          ),
+          gitTagAliasesOverride: overrideStyling,
+          gitTagAliases: gitTagArray.uiSchema,
+          repoData: {
+            gitTagAliases: {
+              ...gitTagArray.uiSchema,
+              "ui:readonly": true,
+              items: {
+                ...gitTagArray.uiSchema.items,
+                "ui:numberedTitle": "Repo Git Tag",
+              },
+            },
+          },
         },
       },
       commitQueue: {
@@ -317,6 +322,7 @@ export const getFormSchema = (
           "ui:data-cy": "cq-enabled-radio-box",
         },
         requireSigned: {
+          "ui:data-cy": "require-signed-radio-box",
           "ui:widget": widgets.RadioBoxWidget,
           ...(formData?.commitQueue?.enabled === false && { "ui:hide": true }),
         },
@@ -349,13 +355,13 @@ export const getFormSchema = (
           commitQueueAliases: {
             ...aliasRowUiSchema({
               addButtonText: "Add Patch Definition",
-              accordionTitle: "Patch Definition",
+              numberedTitle: "Patch Definition",
             }),
           },
           repoData: {
             commitQueueAliases: {
               ...aliasRowUiSchema({
-                accordionTitle: "Patch Definition",
+                numberedTitle: "Repo Patch Definition",
                 isRepo: true,
               }),
             },

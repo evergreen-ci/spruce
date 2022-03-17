@@ -1,6 +1,7 @@
 import ABORT_TASK from "./abort-task.graphql";
 import ADD_ANNOTATION from "./add-annotation.graphql";
 import ADD_FAVORITE_PROJECT from "./add-favorite-project.graphql";
+import ATTACH_PROJECT_TO_NEW_REPO from "./attach-project-to-new-repo.graphql";
 import ATTACH_PROJECT_TO_REPO from "./attach-project-to-repo.graphql";
 import ATTACH_VOLUME from "./attach-volume.graphql";
 import CLEAR_MY_SUBSCRIPTIONS from "./clear-my-subscriptions.graphql";
@@ -47,6 +48,7 @@ export {
   ABORT_TASK,
   ADD_ANNOTATION,
   ADD_FAVORITE_PROJECT,
+  ATTACH_PROJECT_TO_NEW_REPO,
   ATTACH_PROJECT_TO_REPO,
   ATTACH_VOLUME,
   CLEAR_MY_SUBSCRIPTIONS,

@@ -14,6 +14,16 @@ export const transformErrors = (errors: AjvError[]) =>
             ...error,
             message: `Value should be a ${error.params.type}.`,
           };
+        case "minLength":
+          return {
+            ...error,
+            message: "",
+          };
+        case "format":
+          return {
+            ...error,
+            message: "",
+          };
         default:
           return error;
       }

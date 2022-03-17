@@ -61,6 +61,7 @@ export const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
   return (
     <Container>
       <SearchableDropdown
+        data-cy="build-variant-selector"
         label="Build Variant"
         valuePlaceholder="Select Build Variant to View"
         value={value}

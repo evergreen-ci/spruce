@@ -14,7 +14,7 @@ import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
-import { useNetworkStatus } from "hooks";
+import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
 import { queryString, url, array } from "utils";
@@ -37,23 +37,25 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
 
   const updateQueryParams = useUpdateURLQueryParams();
   const queryVariables = getQueryVariables(search, versionId);
+  const noQueryVariables = !search.length;
 
   const { sorts, limit, page } = queryVariables;
   const defaultSortMethod = "STATUS:ASC;BASE_STATUS:DESC";
 
   useEffect(() => {
-    if (sorts.length === 0) {
+    if (noQueryVariables) {
       updateQueryParams({
         sorts: defaultSortMethod,
       });
     }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [search]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { data, startPolling, stopPolling } = useQuery<
     PatchTasksQuery,
     PatchTasksQueryVariables
   >(GET_PATCH_TASKS, {
     variables: queryVariables,
+    skip: noQueryVariables,
     pollInterval,
     fetchPolicy: "network-only",
     nextFetchPolicy: "cache-and-network",
@@ -61,11 +63,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
       dispatchToast.error(`Error fetching patch tasks ${err}`);
     },
   });
-  let showSkeleton = true;
-  if (data) {
-    showSkeleton = false;
-  }
-  useNetworkStatus(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling);
   const { patchTasks } = data || {};
 
   const onClearAll = () => {
@@ -112,7 +110,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
           />
         </TableControlInnerRow>
       </TableControlOuterRow>
-      {showSkeleton ? (
+      {!data ? (
         <Skeleton active title={false} paragraph={{ rows: 8 }} />
       ) : (
         <PatchTasksTable sorts={sorts} patchTasks={patchTasks} />

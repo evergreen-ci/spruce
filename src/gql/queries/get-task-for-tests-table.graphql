@@ -1,0 +1,13 @@
+#import "../fragments/baseTask.graphql"
+
+query GetTaskForTestsTable($taskId: String!, $execution: Int) {
+  task(taskId: $taskId, execution: $execution) {
+    ...baseTask
+    displayTask {
+      id
+      execution
+    }
+    displayName
+    projectIdentifier
+  }
+}

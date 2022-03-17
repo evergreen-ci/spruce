@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Size, Variant } from "@leafygreen-ui/button";
 import { Button } from "components/Button";
@@ -10,8 +10,10 @@ import { useToastContext } from "context/toast";
 import {
   CreateProjectMutation,
   CreateProjectMutationVariables,
+  GetUserPermissionsQuery,
 } from "gql/generated/types";
 import { CREATE_PROJECT } from "gql/mutations";
+import { GET_USER_PERMISSIONS } from "gql/queries";
 
 const getModalFormDefinition = (owner: string, repo: string) => ({
   schema: {
@@ -70,7 +72,15 @@ interface Props {
 export const CreateProjectModal: React.FC<Props> = ({ owner, repo }) => {
   const dispatchToast = useToastContext();
   const modalFormDefinition = getModalFormDefinition(owner, repo);
-  const isAdmin = true; // todo after EVG-16353
+
+  // USER PERMISSIONS QUERY
+  const { data: userPermissionsData } = useQuery<GetUserPermissionsQuery>(
+    GET_USER_PERMISSIONS
+  );
+  const { user } = userPermissionsData || {};
+  const { permissions } = user || {};
+  const canCreateProject = permissions?.canCreateProject;
+
   const [open, setOpen] = useState(false);
 
   const onCancel = () => setOpen(false);
@@ -109,13 +119,13 @@ export const CreateProjectModal: React.FC<Props> = ({ owner, repo }) => {
     refetchQueries: ["ProjectSettings", "RepoSettings"],
   });
 
-  if (!isAdmin) {
+  if (!canCreateProject) {
     return null;
   }
 
   return (
     <Container>
-      {isAdmin && (
+      {canCreateProject && (
         <Button
           onClick={() => setOpen(true)}
           size={Size.Small}

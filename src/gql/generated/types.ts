@@ -2321,10 +2321,15 @@ export type RepoGithubCommitQueueFragment = {
 
 export type ProjectSettingsFragment = {
   projectRef?: Maybe<
-    { id: string; repoRefId: string } & ProjectGeneralSettingsFragment &
+    {
+      id: string;
+      identifier: string;
+      repoRefId: string;
+    } & ProjectGeneralSettingsFragment &
       ProjectAccessSettingsFragment &
       ProjectPluginsSettingsFragment &
-      ProjectNotificationSettingsFragment
+      ProjectNotificationSettingsFragment &
+      ProjectVirtualWorkstationSettingsFragment
   >;
   subscriptions?: Maybe<Array<SubscriptionsFragment>>;
   vars?: Maybe<VariablesFragment>;
@@ -2336,7 +2341,8 @@ export type RepoSettingsFragment = {
     { id: string } & RepoGeneralSettingsFragment &
       RepoAccessSettingsFragment &
       RepoPluginsSettingsFragment &
-      RepoNotificationSettingsFragment
+      RepoNotificationSettingsFragment &
+      RepoVirtualWorkstationSettingsFragment
   >;
   vars?: Maybe<VariablesFragment>;
   subscriptions?: Maybe<Array<SubscriptionsFragment>>;
@@ -2416,6 +2422,20 @@ export type VariablesFragment = {
   adminOnlyVars?: Maybe<Array<Maybe<string>>>;
 };
 
+export type ProjectVirtualWorkstationSettingsFragment = {
+  workstationConfig: {
+    gitClone?: Maybe<boolean>;
+    setupCommands?: Maybe<Array<{ command: string; directory: string }>>;
+  };
+};
+
+export type RepoVirtualWorkstationSettingsFragment = {
+  workstationConfig: {
+    gitClone: boolean;
+    setupCommands?: Maybe<Array<{ command: string; directory: string }>>;
+  };
+};
+
 export type AbortTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
@@ -2446,6 +2466,14 @@ export type AddFavoriteProjectMutation = {
     displayName: string;
     isFavorite: boolean;
   };
+};
+
+export type AttachProjectToNewRepoMutationVariables = Exact<{
+  project: MoveProjectInput;
+}>;
+
+export type AttachProjectToNewRepoMutation = {
+  attachProjectToNewRepo: { repoRefId: string };
 };
 
 export type AttachProjectToRepoMutationVariables = Exact<{
@@ -3654,6 +3682,21 @@ export type TaskFilesQuery = {
   };
 };
 
+export type GetTaskForTestsTableQueryVariables = Exact<{
+  taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type GetTaskForTestsTableQuery = {
+  task?: Maybe<
+    {
+      displayName: string;
+      projectIdentifier?: Maybe<string>;
+      displayTask?: Maybe<{ id: string; execution: number }>;
+    } & BaseTaskFragment
+  >;
+};
+
 export type TaskLogsQueryVariables = Exact<{
   id: Scalars["String"];
   execution?: Maybe<Scalars["Int"]>;
@@ -3846,10 +3889,14 @@ export type GetTestsQueryVariables = Exact<{
   execution?: Maybe<Scalars["Int"]>;
   groupId?: Maybe<Scalars["String"]>;
   taskId: Scalars["String"];
+  pageNum?: Maybe<Scalars["Int"]>;
+  limitNum?: Maybe<Scalars["Int"]>;
+  testName?: Maybe<Scalars["String"]>;
 }>;
 
 export type GetTestsQuery = {
   taskTests: {
+    filteredTestCount: number;
     testResults: Array<{
       id: string;
       testFile: string;
@@ -3883,6 +3930,12 @@ export type GetUserConfigQuery = {
     ui_server_host: string;
     user: string;
   }>;
+};
+
+export type GetUserPermissionsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetUserPermissionsQuery = {
+  user: { userId: string; permissions: { canCreateProject: boolean } };
 };
 
 export type GetUserSettingsQueryVariables = Exact<{ [key: string]: never }>;

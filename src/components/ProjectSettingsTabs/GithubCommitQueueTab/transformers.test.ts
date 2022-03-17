@@ -1,9 +1,10 @@
 import { ProjectSettingsInput, RepoSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
-import { ProjectType } from "../utils";
+import { alias, ProjectType } from "../utils";
 import { formToGql, gqlToForm, mergeProjectRepo } from "./transformers";
 import { FormState } from "./types";
 
+const { GitTagSpecifier, VariantTaskSpecifier } = alias;
 const { projectBase, repoBase } = data;
 
 describe("repo data", () => {
@@ -45,10 +46,16 @@ const projectForm: FormState = {
           alias: "__github",
           gitTag: "",
           remotePath: "",
-          variant: ".*",
-          task: ".*",
-          variantTags: [],
-          taskTags: [],
+          variants: {
+            specifier: VariantTaskSpecifier.Regex,
+            variant: ".*",
+            variantTags: [],
+          },
+          tasks: {
+            specifier: VariantTaskSpecifier.Regex,
+            task: ".*",
+            taskTags: [],
+          },
         },
       ],
     },
@@ -66,6 +73,28 @@ const projectForm: FormState = {
       gitTagAuthorizedTeamsOverride: false,
       gitTagAuthorizedTeams: [],
     },
+    gitTags: {
+      gitTagAliasesOverride: true,
+      gitTagAliases: [
+        {
+          id: "5",
+          alias: "__git_tag",
+          specifier: GitTagSpecifier.ConfigFile,
+          remotePath: "./evergreen.yml",
+          gitTag: "tagName",
+          variants: {
+            specifier: VariantTaskSpecifier.Tags,
+            variant: "",
+            variantTags: [],
+          },
+          tasks: {
+            specifier: VariantTaskSpecifier.Tags,
+            task: "",
+            taskTags: [],
+          },
+        },
+      ],
+    },
   },
   commitQueue: {
     enabled: null,
@@ -79,11 +108,17 @@ const projectForm: FormState = {
           id: "3",
           alias: "__commit_queue",
           gitTag: "",
-          variant: "^ubuntu1604$",
-          task: "^lint$",
           remotePath: "",
-          variantTags: [],
-          taskTags: [],
+          variants: {
+            specifier: VariantTaskSpecifier.Regex,
+            variant: "^ubuntu1604$",
+            variantTags: [],
+          },
+          tasks: {
+            specifier: VariantTaskSpecifier.Regex,
+            task: "^lint$",
+            taskTags: [],
+          },
         },
       ],
     },
@@ -117,6 +152,16 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
       variantTags: [],
     },
     {
+      id: "5",
+      alias: "__git_tag",
+      gitTag: "tagName",
+      variant: "",
+      task: "",
+      remotePath: "./evergreen.yml",
+      variantTags: [],
+      taskTags: [],
+    },
+    {
       id: "3",
       alias: "__commit_queue",
       gitTag: "",
@@ -145,10 +190,16 @@ const repoForm: FormState = {
           alias: "__github_checks",
           gitTag: "",
           remotePath: "",
-          task: "",
-          taskTags: ["tTag"],
-          variant: "",
-          variantTags: ["vTag"],
+          variants: {
+            specifier: VariantTaskSpecifier.Tags,
+            variant: "",
+            variantTags: ["vTag"],
+          },
+          tasks: {
+            specifier: VariantTaskSpecifier.Tags,
+            task: "",
+            taskTags: ["tTag"],
+          },
         },
       ],
     },
@@ -160,6 +211,10 @@ const repoForm: FormState = {
     teams: {
       gitTagAuthorizedTeamsOverride: true,
       gitTagAuthorizedTeams: [],
+    },
+    gitTags: {
+      gitTagAliasesOverride: true,
+      gitTagAliases: [],
     },
   },
   commitQueue: {
@@ -214,10 +269,16 @@ const mergedForm: FormState = {
           alias: "__github",
           gitTag: "",
           remotePath: "",
-          task: ".*",
-          taskTags: [],
-          variant: ".*",
-          variantTags: [],
+          variants: {
+            specifier: VariantTaskSpecifier.Regex,
+            variant: ".*",
+            variantTags: [],
+          },
+          tasks: {
+            specifier: VariantTaskSpecifier.Regex,
+            task: ".*",
+            taskTags: [],
+          },
         },
       ],
       repoData: {
@@ -237,10 +298,16 @@ const mergedForm: FormState = {
             alias: "__github_checks",
             gitTag: "",
             remotePath: "",
-            variant: "",
-            task: "",
-            variantTags: ["vTag"],
-            taskTags: ["tTag"],
+            variants: {
+              specifier: VariantTaskSpecifier.Tags,
+              variant: "",
+              variantTags: ["vTag"],
+            },
+            tasks: {
+              specifier: VariantTaskSpecifier.Tags,
+              task: "",
+              taskTags: ["tTag"],
+            },
           },
         ],
       },
@@ -262,6 +329,32 @@ const mergedForm: FormState = {
         gitTagAuthorizedTeams: [],
       },
     },
+    gitTags: {
+      gitTagAliasesOverride: true,
+      gitTagAliases: [
+        {
+          id: "5",
+          alias: "__git_tag",
+          specifier: GitTagSpecifier.ConfigFile,
+          remotePath: "./evergreen.yml",
+          gitTag: "tagName",
+          variants: {
+            specifier: VariantTaskSpecifier.Tags,
+            variant: "",
+            variantTags: [],
+          },
+          tasks: {
+            specifier: VariantTaskSpecifier.Tags,
+            task: "",
+            taskTags: [],
+          },
+        },
+      ],
+      repoData: {
+        gitTagAliasesOverride: true,
+        gitTagAliases: [],
+      },
+    },
   },
   commitQueue: {
     enabled: null,
@@ -275,11 +368,17 @@ const mergedForm: FormState = {
           id: "3",
           alias: "__commit_queue",
           gitTag: "",
-          variant: "^ubuntu1604$",
-          task: "^lint$",
+          variants: {
+            specifier: VariantTaskSpecifier.Regex,
+            variant: "^ubuntu1604$",
+            variantTags: [],
+          },
+          tasks: {
+            specifier: VariantTaskSpecifier.Regex,
+            task: "^lint$",
+            taskTags: [],
+          },
           remotePath: "",
-          variantTags: [],
-          taskTags: [],
         },
       ],
       repoData: {

@@ -58,10 +58,8 @@ describe("Repo Settings", () => {
     it("Updates a patch definition", () => {
       cy.dataCy("add-button").contains("Add Patch Definition").parent().click();
 
-      cy.dataCy("variant-tags-field").find("button").click();
       cy.dataCy("variant-tags-input").first().type("vtag");
 
-      cy.dataCy("task-tags-field").find("button").click();
       cy.dataCy("task-tags-input").first().type("ttag");
     });
 
@@ -121,10 +119,8 @@ describe("Repo Settings", () => {
     });
 
     it("Successfully saves a complete alias", () => {
-      cy.dataCy("variant-tags-field").find("button").click();
       cy.dataCy("variant-tags-input").first().type("alias variant tag");
 
-      cy.dataCy("task-tags-field").find("button").click();
       cy.dataCy("task-tags-input").first().type("alias task tag");
 
       cy.dataCy("save-settings-button").click();
@@ -133,6 +129,36 @@ describe("Repo Settings", () => {
 
     it("Shows the alias name in the card title upon save", () => {
       cy.dataCy("expandable-card-title").contains("my alias name");
+    });
+  });
+
+  describe("Virtual Workstation page", () => {
+    before(() => {
+      cy.dataCy("navitem-virtual-workstation").click();
+    });
+
+    it("Adds two commands", () => {
+      cy.dataCy("save-settings-button").should("be.disabled");
+
+      cy.dataCy("add-button").click({ force: true });
+      cy.dataCy("command-input").type("command 1");
+      cy.dataCy("directory-input").type("mongodb.user.directory");
+
+      cy.dataCy("add-button").click({ force: true });
+      cy.dataCy("command-input").eq(1).type("command 2");
+
+      cy.dataCy("save-settings-button").click();
+      cy.validateToast("success", "Successfully updated repo");
+    });
+
+    it("Reorders the commands", () => {
+      cy.dataCy("array-down-button").click();
+
+      cy.dataCy("save-settings-button").click();
+      cy.validateToast("success", "Successfully updated repo");
+
+      cy.dataCy("command-input").first().should("have.value", "command 2");
+      cy.dataCy("command-input").eq(1).should("have.value", "command 1");
     });
   });
 });
@@ -268,6 +294,30 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("var-name-input").should("not.exist");
     });
   });
+
+  describe("GitHub/Commit Queue page", () => {
+    before(() => {
+      cy.dataCy("navitem-github-commitqueue").click();
+    });
+
+    it("Allows adding a git tag alias", () => {
+      cy.dataCy("git-tag-enabled-radio-box").children().first().click();
+      cy.dataCy("add-button").contains("Add Git Tag").parent().click();
+      cy.dataCy("git-tag-input").type("myGitTag");
+      cy.dataCy("remote-path-input").type("./evergreen.yml");
+    });
+
+    it("Updates the Require Signed field and saves", () => {
+      cy.dataCy("require-signed-radio-box").children().first().click();
+
+      cy.dataCy("save-settings-button").click();
+      cy.validateToast("success", "Successfully updated project");
+    });
+
+    it("Shows the saved Git Tag", () => {
+      cy.dataCy("remote-path-input").should("have.value", "./evergreen.yml");
+    });
+  });
 });
 
 describe("Project Settings when defaulting to repo", () => {
@@ -342,13 +392,14 @@ describe("Project Settings when defaulting to repo", () => {
     });
 
     it("Allows overriding repo patch definitions", () => {
-      cy.dataCy("pr-testing-override-radio-box")
-        .find("input")
-        .first()
-        .parent()
-        .click();
+      cy.getInputByLabel("Override Repo Patch Definition").first().click({
+        force: true,
+      });
       cy.dataCy("add-button").contains("Add Patch Definition").parent().click();
-      cy.get("button").contains("Regex").first().click();
+      cy.dataCy("variant-input-control")
+        .find("button")
+        .contains("Regex")
+        .click();
       cy.dataCy("variant-input").first().type(".*");
     });
 
@@ -356,16 +407,15 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("save-settings-button").should("be.disabled");
     });
 
-    it("Clears tag/regex fields when toggling between them", () => {
+    it("Does not clear tag/regex fields when toggling between them", () => {
       cy.get("button").contains("Tags").first().click();
       cy.get("button").contains("Regex").first().click();
 
-      cy.dataCy("variant-input").should("have.value", "");
+      cy.dataCy("variant-input").should("have.value", ".*");
     });
 
     it("Should enable save when the task and variant fields are filled in", () => {
-      cy.dataCy("variant-input").first().type(".*");
-      cy.get("#task-input-control").find("button").eq(1).click();
+      cy.dataCy("task-input-control").find("button").contains("Regex").click();
       cy.dataCy("task-input").first().type(".*");
       cy.dataCy("save-settings-button").should("not.be.disabled");
     });
@@ -421,7 +471,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.validateToast("success");
     });
 
-    it.only("Again shows the repo's disabled patch definition", () => {
+    it("Again shows the repo's disabled patch definition", () => {
       cy.dataCy("accordion-toggle").should("exist");
       cy.dataCy("accordion-toggle").contains("Patch Definition 1");
     });
@@ -472,30 +522,25 @@ describe("Project Settings when defaulting to repo", () => {
 
       cy.dataCy("alias-input").type("my overriden alias name");
 
-      cy.dataCy("variant-tags-field").find("button").click();
       cy.dataCy("variant-tags-input").first().type("alias variant tag 2");
 
-      cy.dataCy("task-tags-field").find("button").click();
       cy.dataCy("task-tags-input").first().type("alias task tag 2");
+      cy.dataCy("add-button").contains("Add Task Tag").parent().click();
+      cy.dataCy("task-tags-input").eq(1).type("alias task tag 3");
 
       cy.dataCy("save-settings-button").click();
       cy.validateToast("success", "Successfully updated project");
     });
 
-    it("Allows defaulting to repo patch definitions", () => {
-      cy.dataCy("patch-aliases-override-radio-box")
-        .find("input")
-        .eq(1)
-        .parent()
-        .click();
+    it("Allows defaulting to repo patch aliases", () => {
+      cy.getInputByLabel("Default to Repo Patch Aliases").click({
+        force: true,
+      });
 
       cy.dataCy("save-settings-button").click();
       cy.validateToast("success", "Successfully updated project");
 
-      cy.dataCy("patch-aliases-override-radio-box")
-        .find("input")
-        .eq(1)
-        .should("be.checked");
+      cy.getInputByLabel("Default to Repo Patch Aliases").should("be.checked");
     });
 
     it("Has cleared previously saved alias definitions", () => {
@@ -505,6 +550,32 @@ describe("Project Settings when defaulting to repo", () => {
         .parent()
         .click();
       cy.dataCy("alias-row").should("have.length", 0);
+    });
+  });
+
+  describe("Virtual Workstation page", () => {
+    before(() => {
+      cy.dataCy("navitem-virtual-workstation").click();
+    });
+
+    it("Shows repo commands", () => {
+      cy.dataCy("add-button").should("not.exist");
+      cy.dataCy("command-row").should("have.length", 2);
+      cy.dataCy("command-row").each(() => {
+        cy.get("input").should("be.disabled");
+        cy.get("textarea").should("be.disabled");
+      });
+    });
+
+    it("Allows overriding without adding a command", () => {
+      cy.getInputByLabel("Override Repo Commands").click({ force: true });
+
+      cy.dataCy("save-settings-button").click();
+      cy.validateToast("success", "Successfully updated project");
+
+      // TODO: Re-add test when EVG-16541 is completed.
+      /* cy.reload();
+      cy.getInputByLabel("Override Repo Commands").should("be.checked"); */
     });
   });
 });

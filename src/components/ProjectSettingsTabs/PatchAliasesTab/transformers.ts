@@ -24,7 +24,7 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
         projectType !== ProjectType.AttachedProject || !!patchAliases.length,
       aliases: patchAliases.map((a) => ({
         ...a,
-        initialAlias: a.alias,
+        displayTitle: a.alias,
       })),
     },
   };
