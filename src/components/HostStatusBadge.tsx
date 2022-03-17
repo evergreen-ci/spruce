@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
+import { IconTooltip } from "components/Spawn";
 import { size } from "constants/tokens";
 import { HostStatus } from "types/host";
 
@@ -8,9 +9,19 @@ interface Props {
 }
 
 export const HostStatusBadge: React.FC<Props> = ({ status }) => (
-  <StyledBadge variant={statusToBadgeVariant[status]}>
-    {hostStatusToCopy[status]}
-  </StyledBadge>
+  <BadgeWrapper>
+    <StyledBadge variant={statusToBadgeVariant[status]}>
+      {hostStatusToCopy[status]}
+    </StyledBadge>
+    {status === HostStatus.Terminated && (
+      <IconTooltip
+        color="red"
+        shade="base"
+        tooltipText="Terminated hosts will disappear in 5 minutes. See Event Log for more details."
+        iconType="InfoWithCircle"
+      />
+    )}
+  </BadgeWrapper>
 );
 
 const statusToBadgeVariant = {
@@ -46,6 +57,11 @@ const hostStatusToCopy = {
   [HostStatus.Failed]: "Failed",
   [HostStatus.ExternalUserName]: "External",
 };
+
+const BadgeWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 const StyledBadge = styled(Badge)`
   display: flex;

@@ -49,8 +49,8 @@ export const PageTitle: React.FC<Props> = ({
         <TitleWrapper size={size}>
           <TitleTypography size={size}>
             <span data-cy="page-title">{title}</span>
-            <BadgeWrapper size={size}>{badge}</BadgeWrapper>
           </TitleTypography>
+          <BadgeWrapper size={size}>{badge}</BadgeWrapper>
         </TitleWrapper>
         {buttons ?? null}
       </PageHeader>
@@ -61,7 +61,6 @@ export const PageTitle: React.FC<Props> = ({
 const BadgeWrapper = styled.div<TitleTypographyProps>`
   display: inline-flex;
   margin-left: ${({ size }) => (size === "large" ? tokenSize.m : tokenSize.s)};
-  vertical-align: text-bottom;
 `;
 
 const PageHeader = styled.div<TitleTypographyProps>`
@@ -74,5 +73,7 @@ const PageHeader = styled.div<TitleTypographyProps>`
 `;
 
 const TitleWrapper = styled.div<TitleTypographyProps>`
+  display: flex;
+  align-items: center;
   max-width: ${(props) => (props.size === "medium" ? "70%" : "100%")};
 `;

@@ -16,6 +16,7 @@ export const TitleContainer = styled.div`
 
 export const BadgeWrapper = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 export const StyledBadge = styled(Badge)`

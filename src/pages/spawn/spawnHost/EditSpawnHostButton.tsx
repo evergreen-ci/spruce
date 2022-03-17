@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import styled from "@emotion/styled";
 import { Size } from "@leafygreen-ui/button";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { useSpawnAnalytics } from "analytics";
@@ -28,14 +29,14 @@ export const EditSpawnHostButton: React.FC<EditSpawnHostButtonProps> = ({
       <ConditionalWrapper
         condition={!canEditSpawnHost}
         wrapper={(children) => (
-          <Tooltip
+          <StyledTooltip
             align="top"
             justify="middle"
             triggerEvent="hover"
             trigger={children}
           >
             {`Can only edit a spawn host when the status is ${HostStatus.Stopped} or ${HostStatus.Running}`}
-          </Tooltip>
+          </StyledTooltip>
         )}
       >
         <span>
@@ -64,3 +65,10 @@ export const EditSpawnHostButton: React.FC<EditSpawnHostButtonProps> = ({
     </span>
   );
 };
+
+// @ts-expect-error
+// For leafygreen Tooltip, there is a bug where you have to set the width to prevent misalignment when
+// the trigger element is near the right side of a page. Ticket: https://jira.mongodb.org/browse/PD-1542
+const StyledTooltip = styled(Tooltip)`
+  width: 250px;
+`;
