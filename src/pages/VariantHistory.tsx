@@ -99,11 +99,7 @@ export const VariantHistoryContents: React.FC = () => {
   const { mainlineCommits } = data || {};
 
   useTestFilters();
-  const selectedColumns = useColumns(
-    "tasks",
-    taskNamesForBuildVariant,
-    (c) => c
-  );
+  const selectedColumns = useColumns(taskNamesForBuildVariant, (c) => c);
 
   return (
     <PageWrapper>

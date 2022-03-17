@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useLocation } from "react-router";
@@ -8,8 +9,10 @@ import {
 } from "gql/generated/types";
 import { GET_TASK_NAMES_FOR_BUILD_VARIANT } from "gql/queries";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { queryString } from "utils";
+import { HistoryQueryParams } from "types/history";
+import { queryString, array } from "utils";
 
+const { toArray } = array;
 const { parseQueryString } = queryString;
 interface TaskSelectorProps {
   projectId: string;
@@ -24,12 +27,10 @@ const TaskSelector: React.FC<TaskSelectorProps> = ({
   const { search } = useLocation();
   const queryParams = parseQueryString(search);
 
-  let value = [];
-  if (typeof queryParams.tasks === "string") {
-    value = [queryParams.tasks];
-  } else {
-    value = queryParams.tasks;
-  }
+  const value = useMemo(
+    () => toArray(queryParams[HistoryQueryParams.VisibleColumns]),
+    [queryParams]
+  );
 
   const { data, loading } = useQuery<
     GetTaskNamesForBuildVariantQuery,
@@ -43,7 +44,7 @@ const TaskSelector: React.FC<TaskSelectorProps> = ({
 
   const onChange = (selectedTasks: string[]) => {
     updateQueryParams({
-      tasks: selectedTasks,
+      [HistoryQueryParams.VisibleColumns]: selectedTasks,
     });
   };
 

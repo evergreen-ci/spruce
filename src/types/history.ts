@@ -6,4 +6,5 @@ export enum TestStatus {
 
 export enum HistoryQueryParams {
   SkipOrderNumber = "skipOrderNumber",
+  VisibleColumns = "visibleColumns",
 }
