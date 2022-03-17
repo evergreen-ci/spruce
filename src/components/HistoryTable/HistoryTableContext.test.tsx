@@ -209,11 +209,11 @@ describe("historyTableContext", () => {
       rowHeight: FOLDED_COMMITS_HEIGHT,
     });
     expect(result.current.isItemLoaded(4)).toBe(false);
-    // Now trigger an update to size of the folded commit
+    // Now trigger a size update to the folded commit
     act(() => {
       result.current.toggleRowSize(3, rolledUpVersions.length);
     });
-    // Check the new row size
+    // Check the new row height
     const expandedRowHeight =
       FOLDED_COMMITS_HEIGHT + COMMIT_HEIGHT * rolledUpVersions.length;
     expect(result.current.getItem(3)).toStrictEqual({
