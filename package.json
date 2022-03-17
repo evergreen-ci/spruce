@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "2.28.7",
+  "version": "2.29.1",
   "private": true,
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js' --html | sed 1d > build/source_map.html",
@@ -86,6 +86,7 @@
     "@leafygreen-ui/segmented-control": "0.9.1",
     "@leafygreen-ui/select": "3.1.0",
     "@leafygreen-ui/side-nav": "7.2.1",
+    "@leafygreen-ui/table": "2.0.6",
     "@leafygreen-ui/tabs": "5.1.4",
     "@leafygreen-ui/text-area": "4.0.3",
     "@leafygreen-ui/text-input": "6.0.5",
@@ -93,7 +94,7 @@
     "@leafygreen-ui/toggle": "7.0.4",
     "@leafygreen-ui/tooltip": "6.3.1",
     "@leafygreen-ui/typography": "8.1.0",
-    "@rjsf/core": "3.2.1",
+    "@rjsf/core": "4.1.0",
     "ansi_up": "5.0.0",
     "antd": "4.12.1",
     "axios": "0.21.2",

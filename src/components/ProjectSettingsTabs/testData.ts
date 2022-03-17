@@ -5,6 +5,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
 
   projectRef: {
     id: "project",
+    identifier: "project",
     repoRefId: "repo",
 
     enabled: null,
@@ -56,6 +57,15 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
         secret: null,
       },
     },
+    workstationConfig: {
+      setupCommands: [
+        {
+          command: 'echo "hello spruce"',
+          directory: "sophie.stadler",
+        },
+      ],
+      gitClone: null,
+    },
   },
   vars: {
     vars: { test_name: "", test_two: "val" },
@@ -80,6 +90,16 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
       variant: "^ubuntu1604$",
       task: "^lint$",
       remotePath: "",
+      variantTags: [],
+      taskTags: [],
+    },
+    {
+      id: "5",
+      alias: "__git_tag",
+      gitTag: "tagName",
+      variant: "",
+      task: "",
+      remotePath: "./evergreen.yml",
       variantTags: [],
       taskTags: [],
     },
@@ -145,6 +165,10 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
         secret: "secret",
       },
     },
+    workstationConfig: {
+      setupCommands: [],
+      gitClone: true,
+    },
   },
   vars: {
     vars: { repo_name: "repo_value" },
@@ -160,6 +184,16 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
       remotePath: "",
       variantTags: ["vTag"],
       taskTags: ["tTag"],
+    },
+    {
+      id: "4",
+      alias: "my alias name",
+      gitTag: "",
+      variant: "",
+      task: "",
+      remotePath: "",
+      variantTags: ["okay"],
+      taskTags: ["hi"],
     },
   ],
 };

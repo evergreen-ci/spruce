@@ -42,6 +42,7 @@ import GET_SPRUCE_CONFIG from "./get-spruce-config.graphql";
 import GET_SYSTEM_LOGS from "./get-system-logs.graphql";
 import GET_TASK_ALL_EXECUTIONS from "./get-task-all-executions.graphql";
 import GET_TASK_FILES from "./get-task-files.graphql";
+import GET_TASKS_FOR_TESTS_TABLE from "./get-task-for-tests-table.graphql";
 import GET_TASK_LOGS from "./get-task-logs.graphql";
 import GET_TASK_NAMES_FOR_BUILD_VARIANT from "./get-task-names-for-build-variant.graphql";
 import GET_TASK_STATUSES from "./get-task-statuses.graphql";
@@ -51,6 +52,7 @@ import GET_TASK from "./get-task.graphql";
 import GET_TESTS from "./get-tests.graphql";
 import GET_UNSCHEDULED_TASKS from "./get-undispatched-tasks.graphql";
 import GET_USER_CONFIG from "./get-user-config.graphql";
+import GET_USER_PERMISSIONS from "./get-user-permissions.graphql";
 import GET_USER_SETTINGS from "./get-user-settings.graphql";
 import GET_USER from "./get-user.graphql";
 import GET_VERSION from "./get-version.graphql";
@@ -86,6 +88,7 @@ export {
   GET_TASK_TESTS,
   GET_TASK_TEST_SAMPLE,
   GET_TASK,
+  GET_TASKS_FOR_TESTS_TABLE,
   GET_TASK_ALL_EXECUTIONS,
   GET_TASK_STATUSES,
   GET_TESTS,
@@ -110,6 +113,7 @@ export {
   GET_SUBNET_AVAILABILITY_ZONES,
   GET_CREATED_TICKETS,
   GET_USER_SETTINGS,
+  GET_USER_PERMISSIONS,
   GET_CODE_CHANGES,
   GET_BUILD_VARIANTS_FOR_TASK_NAME,
   GET_BUILD_VARIANTS_WITH_CHILDREN,

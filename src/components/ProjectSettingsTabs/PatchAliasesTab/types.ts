@@ -1,9 +1,9 @@
-import { AliasType, ProjectType } from "../utils";
+import { AliasFormType, ProjectType } from "../utils";
 
 export interface FormState {
   patchAliases: {
     aliasesOverride: boolean;
-    aliases: Array<{ initialAlias: string } & AliasType>;
+    aliases: AliasFormType[];
   };
 }
 
