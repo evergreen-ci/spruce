@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
@@ -35,7 +35,7 @@ import {
 } from "./variantHistory/index";
 
 const { reportError } = errorReporting;
-const { HistoryTableProvider } = context;
+const { HistoryTableProvider, useHistoryTable } = context;
 const { useTestFilters, useColumns } = hooks;
 const { parseQueryString, getString } = queryString;
 const { applyStrictRegex } = string;
@@ -51,12 +51,15 @@ export const VariantHistoryContents: React.FC = () => {
     queryParams[HistoryQueryParams.SkipOrderNumber]
   );
   const skipOrderNumber = parseInt(skipOrderNumberParam, 10) || undefined;
-
+  const { setSelectedCommit } = useHistoryTable();
+  useEffect(() => {
+    if (skipOrderNumber) {
+      setSelectedCommit(skipOrderNumber);
+    }
+  }, [skipOrderNumber]);
   const dispatchToast = useToastContext();
   usePageTitle(`Variant History | ${projectId} | ${variantName}`);
-  const [nextPageOrderNumber, setNextPageOrderNumber] = useState(
-    skipOrderNumber
-  );
+  const [nextPageOrderNumber, setNextPageOrderNumber] = useState(null);
 
   const variables = {
     mainlineCommitsOptions: {

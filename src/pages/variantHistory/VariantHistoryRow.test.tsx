@@ -27,6 +27,7 @@ const initialState: HistoryTableReducerState = {
   columnLimit: 7,
   historyTableFilters: [],
   commitCount: 10,
+  selectedCommit: null,
 };
 
 interface wrapperProps {
@@ -281,6 +282,7 @@ const taskRow = {
     ],
   },
   date: new Date("2021-09-02T14:20:04Z"),
+  selected: false,
 };
 
 const noFilterData = {

@@ -9,7 +9,8 @@ import { mainlineCommits, CommitRowType, rowType } from "./types";
 // They are ordered by the order of the commits in the table.
 export const processCommits = (
   newCommits: mainlineCommits["versions"],
-  existingCommits: CommitRowType[]
+  existingCommits: CommitRowType[],
+  selectedCommitOrder: number | null
 ) => {
   const processedCommits: CommitRowType[] = [...existingCommits];
   for (let i = 0; i < newCommits.length; i++) {
@@ -26,16 +27,19 @@ export const processCommits = (
           type: rowType.COMMIT,
           commit: version,
           date: version.createTime,
+          selected: version.order === selectedCommitOrder,
         });
       } else {
         processedCommits.push({
           type: rowType.DATE_SEPARATOR,
           date: version.createTime,
+          selected: false,
         });
         processedCommits.push({
           type: rowType.COMMIT,
           commit: version,
           date: version.createTime,
+          selected: false,
         });
       }
     } else if (commitType === rowType.FOLDED_COMMITS) {
@@ -49,16 +53,19 @@ export const processCommits = (
           type: rowType.FOLDED_COMMITS,
           rolledUpCommits: rolledUpVersions,
           date: firstRolledUpVersion.createTime,
+          selected: false,
         });
       } else {
         processedCommits.push({
           type: rowType.DATE_SEPARATOR,
           date: firstRolledUpVersion.createTime,
+          selected: false,
         });
         processedCommits.push({
           type: rowType.FOLDED_COMMITS,
           rolledUpCommits: rolledUpVersions,
           date: firstRolledUpVersion.createTime,
+          selected: false,
         });
       }
     }

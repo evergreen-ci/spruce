@@ -5,13 +5,13 @@ import { processCommits } from "./utils";
 describe("historyTable utils", () => {
   describe("processCommits", () => {
     it("should return empty array if no commits", () => {
-      const result = processCommits([], []);
+      const result = processCommits([], [], null);
       expect(result).toStrictEqual([]);
     });
 
     it("should handle adding new commits when none exist", () => {
       const firstCommit = mainlineCommitData.versions[0];
-      const result = processCommits([firstCommit], []);
+      const result = processCommits([firstCommit], [], null);
       expect(result).toStrictEqual([
         {
           date: firstCommit.version.createTime,
@@ -29,7 +29,7 @@ describe("historyTable utils", () => {
       const secondCommit = mainlineCommitData.versions[1];
       const thirdCommit = mainlineCommitData.versions[2];
       it("should not seperate commits when they subsequent commits are of the same date", () => {
-        const result = processCommits([firstCommit, secondCommit], []);
+        const result = processCommits([firstCommit, secondCommit], [], null);
         expect(result).toStrictEqual([
           {
             date: firstCommit.version.createTime,
@@ -48,7 +48,7 @@ describe("historyTable utils", () => {
         ]);
       });
       it("should seperate commits when they are not of the same date", () => {
-        const result = processCommits([firstCommit, thirdCommit], []);
+        const result = processCommits([firstCommit, thirdCommit], [], null);
         expect(result).toStrictEqual([
           {
             date: firstCommit.version.createTime,
@@ -58,6 +58,7 @@ describe("historyTable utils", () => {
             commit: firstCommit.version,
             date: firstCommit.version.createTime,
             type: rowType.COMMIT,
+            selected: false,
           },
           {
             date: thirdCommit.version.createTime,
@@ -67,6 +68,7 @@ describe("historyTable utils", () => {
             commit: thirdCommit.version,
             date: thirdCommit.version.createTime,
             type: rowType.COMMIT,
+            selected: false,
           },
         ]);
       });
@@ -75,7 +77,7 @@ describe("historyTable utils", () => {
       const firstCommit = mainlineCommitData.versions[0];
       const foldedUpCommits = mainlineCommitData.versions[5];
       it("should add a folded up commit when it is the first commit", () => {
-        const result = processCommits([foldedUpCommits], []);
+        const result = processCommits([foldedUpCommits], [], null);
         expect(result).toStrictEqual([
           {
             date: foldedUpCommits.rolledUpVersions[0].createTime,
@@ -95,13 +97,16 @@ describe("historyTable utils", () => {
             {
               date: firstCommit.version.createTime,
               type: rowType.DATE_SEPARATOR,
+              selected: false,
             },
             {
               commit: firstCommit.version,
               date: firstCommit.version.createTime,
               type: rowType.COMMIT,
+              selected: false,
             },
-          ]
+          ],
+          null
         );
         expect(result).toStrictEqual([
           {

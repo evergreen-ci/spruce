@@ -11,12 +11,19 @@ import { rowType } from "./types";
 interface RowProps extends ListChildComponentProps {
   columns: React.ReactNode[];
   numVisibleCols: number;
+  selected: boolean;
 }
-const Row: React.FC<RowProps> = ({ columns, numVisibleCols, index, style }) => {
+const Row: React.FC<RowProps> = ({
+  columns,
+  numVisibleCols,
+  index,
+  style,
+  selected,
+}) => {
   const { isItemLoaded, getItem, columnLimit } = useHistoryTable();
   if (!isItemLoaded(index)) {
     return (
-      <RowContainer style={style}>
+      <RowContainer selected={selected} style={style}>
         <LoadingRow numVisibleCols={numVisibleCols || columnLimit} />
       </RowContainer>
     );
@@ -35,7 +42,7 @@ const Row: React.FC<RowProps> = ({ columns, numVisibleCols, index, style }) => {
     } = commit.commit;
 
     return (
-      <RowContainer style={style}>
+      <RowContainer selected={selected} style={style}>
         <LabelCellContainer>
           <CommitChartLabel
             versionId={versionId}
@@ -61,10 +68,11 @@ const LabelCellContainer = styled.div`
   padding-right: 40px;
 `;
 
-const RowContainer = styled.div`
+const RowContainer = styled.div<{ selected: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
+  background-color: ${({ selected }) => (selected ? "#e6f7ff" : "white")};
 `;
 
 export { Cell };

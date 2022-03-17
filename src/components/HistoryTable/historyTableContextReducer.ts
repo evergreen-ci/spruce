@@ -8,7 +8,8 @@ type Action =
   | { type: "nextPageColumns" }
   | { type: "prevPageColumns" }
   | { type: "setColumnLimit"; limit: number }
-  | { type: "setHistoryTableFilters"; filters: TestFilter[] };
+  | { type: "setHistoryTableFilters"; filters: TestFilter[] }
+  | { type: "setSelectedCommit"; order: number };
 
 type cacheShape = Map<
   number,
@@ -27,6 +28,7 @@ export interface HistoryTableReducerState {
   columnLimit: number;
   historyTableFilters: TestFilter[];
   commitCount: number;
+  selectedCommit: number;
 }
 
 export const reducer = (state: HistoryTableReducerState, action: Action) => {
@@ -41,7 +43,8 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
       if (updatedObjectCache.size > state.commitCache.size) {
         const processedCommits = processCommits(
           action.commits.versions,
-          state.processedCommits
+          state.processedCommits,
+          state.selectedCommit
         );
         let { commitCount } = state;
         // If there are no previous commits, we can set the commitCount to be the first commit's order.
@@ -114,6 +117,11 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
       return {
         ...state,
         historyTableFilters: action.filters,
+      };
+    case "setSelectedCommit":
+      return {
+        ...state,
+        selectedCommit: action.order,
       };
     default:
       throw new Error(`Unknown reducer action${action}`);

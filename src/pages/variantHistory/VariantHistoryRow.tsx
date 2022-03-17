@@ -45,6 +45,7 @@ const VariantHistoryRow: React.FC<ListChildComponentProps> = (props) => {
       {...props}
       columns={orderedColumns}
       numVisibleCols={visibleColumns.length}
+      selected={commit?.selected}
     />
   );
 };
