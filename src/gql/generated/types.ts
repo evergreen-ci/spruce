@@ -1441,7 +1441,6 @@ export type Task = {
   dependsOn?: Maybe<Array<Dependency>>;
   canOverrideDependencies: Scalars["Boolean"];
   requester: Scalars["String"];
-  restarts?: Maybe<Scalars["Int"]>;
   revision?: Maybe<Scalars["String"]>;
   scheduledTime?: Maybe<Scalars["Time"]>;
   containerAllocatedTime?: Maybe<Scalars["Time"]>;
