@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
@@ -26,7 +26,7 @@ import {
 } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { HistoryQueryParams } from "types/history";
-import { queryString, string, array, errorReporting } from "utils";
+import { queryString, string, errorReporting } from "utils";
 
 import {
   ColumnHeaders,
@@ -35,9 +35,8 @@ import {
 } from "./variantHistory/index";
 
 const { reportError } = errorReporting;
-const { HistoryTableProvider, useHistoryTable } = context;
-const { useTestFilters } = hooks;
-const { toArray } = array;
+const { HistoryTableProvider } = context;
+const { useTestFilters, useColumns } = hooks;
 const { parseQueryString, getString } = queryString;
 const { applyStrictRegex } = string;
 
@@ -96,30 +95,15 @@ export const VariantHistoryContents: React.FC = () => {
     },
   });
 
-  const { addColumns } = useHistoryTable();
-  useTestFilters();
-
   const { taskNamesForBuildVariant } = columnData || {};
   const { mainlineCommits } = data || {};
 
-  const selectedTaskNames = useMemo(() => toArray(queryParams.tasks), [
-    queryParams.tasks,
-  ]);
-
-  const selectedColumns = useMemo(
-    () =>
-      selectedTaskNames.length
-        ? taskNamesForBuildVariant?.filter((task) =>
-            selectedTaskNames.includes(task)
-          )
-        : taskNamesForBuildVariant,
-    [selectedTaskNames, taskNamesForBuildVariant]
+  useTestFilters();
+  const selectedColumns = useColumns(
+    "tasks",
+    taskNamesForBuildVariant,
+    (c) => c
   );
-
-  useEffect(() => {
-    addColumns(toArray(selectedColumns));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedColumns]);
 
   return (
     <PageWrapper>

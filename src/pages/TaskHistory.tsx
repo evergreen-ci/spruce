@@ -1,8 +1,8 @@
-import { useEffect, useState, useMemo } from "react";
+import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { FilterBadges } from "components/FilterBadges";
 import HistoryTable, {
   context,
@@ -25,7 +25,7 @@ import {
   GET_BUILD_VARIANTS_FOR_TASK_NAME,
 } from "gql/queries";
 import { usePageTitle } from "hooks";
-import { array, string, errorReporting, queryString } from "utils";
+import { string, errorReporting } from "utils";
 import {
   BuildVariantSelector,
   ColumnHeaders,
@@ -33,11 +33,9 @@ import {
 } from "./taskHistory/index";
 
 const { reportError } = errorReporting;
-const { HistoryTableProvider, useHistoryTable } = context;
-const { toArray } = array;
+const { HistoryTableProvider } = context;
 const { applyStrictRegex } = string;
-const { parseQueryString } = queryString;
-const { useTestFilters } = hooks;
+const { useTestFilters, useColumns } = hooks;
 
 const TaskHistoryContents: React.FC = () => {
   const { projectId, taskName } = useParams<{
@@ -84,32 +82,14 @@ const TaskHistoryContents: React.FC = () => {
     },
   });
 
-  const { addColumns } = useHistoryTable();
   useTestFilters();
   const { buildVariantsForTaskName } = columnData || {};
   const { mainlineCommits } = data || {};
-  const { search } = useLocation();
-  const queryParams = useMemo(() => parseQueryString(search), [search]);
-
-  const selectedBuildVariants = useMemo(
-    () => toArray(queryParams.buildVariants),
-    [queryParams.buildVariants]
+  const selectedColumns = useColumns(
+    "buildVariants",
+    buildVariantsForTaskName,
+    ({ buildVariant }) => buildVariant
   );
-
-  const selectedColumns = useMemo(
-    () =>
-      selectedBuildVariants?.length
-        ? buildVariantsForTaskName?.filter((bv) =>
-            selectedBuildVariants.includes(bv.buildVariant)
-          )
-        : buildVariantsForTaskName,
-    [buildVariantsForTaskName, selectedBuildVariants]
-  );
-
-  useEffect(() => {
-    addColumns(toArray(selectedColumns).map((c) => c.buildVariant));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedColumns]);
   return (
     <PageWrapper>
       <CenterPage>
