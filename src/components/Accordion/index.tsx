@@ -12,6 +12,8 @@ interface AccordionProps {
   allowToggleFromTitle?: boolean;
   defaultOpen?: boolean;
   titleTag?: React.FC;
+  onClick?: () => void;
+  useIndent?: boolean;
 }
 export const Accordion: React.FC<AccordionProps> = ({
   title,
@@ -22,10 +24,14 @@ export const Accordion: React.FC<AccordionProps> = ({
   allowToggleFromTitle = true,
   defaultOpen = false,
   titleTag,
+  onClick = () => {},
+  useIndent = true,
 }) => {
   const [isAccordionDisplayed, setIsAccordionDisplayed] = useState(defaultOpen);
-  const toggleAccordionHandler = (): void =>
+  const toggleAccordionHandler = (): void => {
     setIsAccordionDisplayed(!isAccordionDisplayed);
+    onClick();
+  };
 
   const showToggledTitle = isAccordionDisplayed ? toggledTitle : title;
   const TitleTag = titleTag ?? "span";
@@ -53,7 +59,9 @@ export const Accordion: React.FC<AccordionProps> = ({
       </Row>
       {!toggleFromBottom && (
         <AnimatedAccordion hide={!isAccordionDisplayed}>
-          <ContentsContainer indent={showCaret}>{contents}</ContentsContainer>
+          <ContentsContainer indent={showCaret && useIndent}>
+            {contents}
+          </ContentsContainer>
         </AnimatedAccordion>
       )}
     </>

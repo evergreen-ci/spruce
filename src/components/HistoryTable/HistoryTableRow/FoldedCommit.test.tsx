@@ -35,11 +35,6 @@ describe("foldedCommit", () => {
     const { queryByText } = render(Content);
     expect(queryByText("Expand 5 inactive")).toBeInTheDocument();
     expect(queryByText("Collapse 5 inactive")).toBeNull();
-
-    for (let i = 0; i < rolledUpCommits.length; i++) {
-      const commit = rolledUpCommits[i];
-      expect(queryByText(commit.message)).toBeNull();
-    }
   });
 
   it("can be expanded to show all of the commits", () => {
@@ -50,7 +45,7 @@ describe("foldedCommit", () => {
 
     for (let i = 0; i < rolledUpCommits.length; i++) {
       const commit = rolledUpCommits[i];
-      expect(queryByText(commit.message)).toBeInTheDocument();
+      expect(queryByText(commit.message)).toBeVisible();
     }
   });
 });
