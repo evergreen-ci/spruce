@@ -18,16 +18,16 @@ describe.skip("task history", () => {
   });
   it("should be able expand and collapse inactive commits", () => {
     // Expand
-    cy.contains("EVG-16356").should("not.exist");
+    cy.contains("EVG-16356").should("not.be.visible");
     cy.contains("Expand 1 inactive").should("exist");
     cy.contains("Expand 1 inactive").click();
-    cy.contains("EVG-16356").should("exist");
+    cy.contains("EVG-16356").should("be.visible");
 
     // Collapse
     cy.contains("Expand 1 inactive").should("not.exist");
     cy.contains("Collapse 1 inactive").should("exist");
     cy.contains("Collapse 1 inactive").click();
-    cy.contains("EVG-16356").should("not.exist");
+    cy.contains("EVG-16356").should("not.be.visible");
   });
   it("clicking on a failing test history button should show the task history view with the failing test filter applied", () => {
     cy.visit(`/task/${taskId}`);
