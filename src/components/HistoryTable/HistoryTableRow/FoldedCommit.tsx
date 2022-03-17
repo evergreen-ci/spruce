@@ -55,7 +55,7 @@ export const FoldedCommit: React.FC<FoldedCommitProps> = ({
         titleTag={AccordionTitle}
         contents={commits}
         defaultOpen={defaultOpen}
-        onClick={() => toggleRow(index, rolledUpCommits.length)}
+        onToggle={() => toggleRow(index, rolledUpCommits.length)}
         useIndent={false}
       />
     </Column>

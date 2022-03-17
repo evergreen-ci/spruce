@@ -48,7 +48,7 @@ describe("useMergedHookRender - sanity check", () => {
       getItem: expect.any(Function),
       isItemLoaded: expect.any(Function),
       getItemHeight: expect.any(Function),
-      toggleRowSize: expect.any(Function),
+      toggleRowSizeAtIndex: expect.any(Function),
       hasNextPage: false,
       hasPreviousPage: false,
       historyTableFilters: [],
