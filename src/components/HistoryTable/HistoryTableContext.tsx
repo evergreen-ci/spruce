@@ -9,7 +9,7 @@ import { mainlineCommits, CommitRowType } from "./types";
 
 interface HistoryTableState {
   getItemHeight: (index: number) => number;
-  toggleRowSize: (index: number, numCommits: number) => void;
+  toggleRowSizeAtIndex: (index: number, numCommits: number) => void;
   fetchNewCommit: (data: mainlineCommits) => void;
   isItemLoaded: (index: number) => boolean;
   getItem: (index: number) => CommitRowType;
@@ -77,8 +77,8 @@ const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
   const historyTableState: HistoryTableState = useMemo(
     () => ({
       getItemHeight,
-      toggleRowSize: (index: number, numCommits: number) =>
-        dispatch({ type: "changeRowSizeAtIndex", index, numCommits }),
+      toggleRowSizeAtIndex: (index: number, numCommits: number) =>
+        dispatch({ type: "toggleRowSizeAtIndex", index, numCommits }),
       fetchNewCommit: (commits) =>
         dispatch({ type: "ingestNewCommits", commits }),
       isItemLoaded,

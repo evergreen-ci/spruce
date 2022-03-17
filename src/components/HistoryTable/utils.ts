@@ -97,7 +97,7 @@ const isSameDay = (date1: string | Date, date2: string | Date) => {
   );
 };
 
-export const changeRowSizeAtIndex = (
+export const toggleRowSizeAtIndex = (
   processedCommits: CommitRowType[],
   numCommits: number,
   idx: number

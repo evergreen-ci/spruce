@@ -20,7 +20,7 @@ describe("historyTableContext", () => {
       getItem: expect.any(Function),
       isItemLoaded: expect.any(Function),
       getItemHeight: expect.any(Function),
-      toggleRowSize: expect.any(Function),
+      toggleRowSizeAtIndex: expect.any(Function),
       hasNextPage: false,
       hasPreviousPage: false,
       historyTableFilters: [],
@@ -211,7 +211,7 @@ describe("historyTableContext", () => {
     expect(result.current.isItemLoaded(4)).toBe(false);
     // Now trigger a size update to the folded commit
     act(() => {
-      result.current.toggleRowSize(3, rolledUpVersions.length);
+      result.current.toggleRowSizeAtIndex(3, rolledUpVersions.length);
     });
     // Check the new row height
     const expandedRowHeight =
