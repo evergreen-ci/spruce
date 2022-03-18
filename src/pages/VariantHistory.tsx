@@ -52,10 +52,12 @@ export const VariantHistoryContents: React.FC = () => {
   );
   const skipOrderNumber = parseInt(skipOrderNumberParam, 10) || undefined;
   const { setSelectedCommit } = useHistoryTable();
+
   useEffect(() => {
     if (skipOrderNumber) {
       setSelectedCommit(skipOrderNumber);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [skipOrderNumber]);
   const dispatchToast = useToastContext();
   usePageTitle(`Variant History | ${projectId} | ${variantName}`);
