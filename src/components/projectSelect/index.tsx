@@ -87,6 +87,10 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
     return filteredProjects;
   };
 
+  if (allProjects.length === 0 || loading) {
+    return null;
+  }
+
   return (
     <SearchableDropdown
       label="Project"
