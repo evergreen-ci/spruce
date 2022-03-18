@@ -8,7 +8,7 @@ import { inactiveElementStyle, StyledRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { TaskStatus } from "types/task";
-import { HistoryTableIcon } from "./HistoryTableIcon";
+import { HistoryTableIcon } from "../HistoryTableIcon";
 
 const { gray } = uiColors;
 const statusIconSize = 20;
@@ -115,7 +115,7 @@ const Cell = styled.div<{ inactive?: boolean }>`
   ${({ inactive }) => inactive && inactiveElementStyle}
 `;
 
-export const HeaderCell = styled(Cell)`
+const HeaderCell = styled(Cell)`
   word-break: break-all; // Safari
   word-wrap: anywhere;
   text-align: center;
