@@ -17,6 +17,7 @@ export const processCommits = (
   existingCommits: CommitRowType[],
   selectedCommitOrder: number | null
 ) => {
+  let selectedCommitRowIndex: number | null = null;
   const processedCommits: CommitRowType[] = [...existingCommits];
   for (let i = 0; i < newCommits.length; i++) {
     const commit = newCommits[i];
@@ -35,20 +36,25 @@ export const processCommits = (
           selected: version.order === selectedCommitOrder,
           rowHeight: COMMIT_HEIGHT,
         });
+        if (version.order === selectedCommitOrder) {
+          selectedCommitRowIndex = processedCommits.length - 1;
+        }
       } else {
         processedCommits.push({
           type: rowType.DATE_SEPARATOR,
           date: version.createTime,
-          selected: false,
           rowHeight: DATE_SEPARATOR_HEIGHT,
         });
         processedCommits.push({
           type: rowType.COMMIT,
           commit: version,
           date: version.createTime,
-          selected: false,
+          selected: version.order === selectedCommitOrder,
           rowHeight: COMMIT_HEIGHT,
         });
+        if (version.order === selectedCommitOrder) {
+          selectedCommitRowIndex = processedCommits.length - 1;
+        }
       }
     } else if (commitType === rowType.FOLDED_COMMITS) {
       const { rolledUpVersions } = commit;
@@ -61,27 +67,24 @@ export const processCommits = (
           type: rowType.FOLDED_COMMITS,
           rolledUpCommits: rolledUpVersions,
           date: firstRolledUpVersion.createTime,
-          selected: false,
           rowHeight: FOLDED_COMMITS_HEIGHT,
         });
       } else {
         processedCommits.push({
           type: rowType.DATE_SEPARATOR,
           date: firstRolledUpVersion.createTime,
-          selected: false,
           rowHeight: DATE_SEPARATOR_HEIGHT,
         });
         processedCommits.push({
           type: rowType.FOLDED_COMMITS,
           rolledUpCommits: rolledUpVersions,
           date: firstRolledUpVersion.createTime,
-          selected: false,
           rowHeight: FOLDED_COMMITS_HEIGHT,
         });
       }
     }
   }
-  return processedCommits;
+  return { processedCommits, selectedCommitRowIndex };
 };
 
 const identifyCommitType = (commit: mainlineCommits["versions"][0]) => {
