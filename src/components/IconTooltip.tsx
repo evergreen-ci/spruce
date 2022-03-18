@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
@@ -8,31 +7,26 @@ interface IconTooltipProps {
   tooltipText: string;
   iconType: string;
   color: string;
-  shade: string;
 }
 
 export const IconTooltip: React.FC<IconTooltipProps> = ({
   tooltipText,
   iconType,
   color,
-  shade,
-}) => {
-  const iconColor = uiColors[color][shade];
-  return (
-    <StyledTooltip
-      align="top"
-      justify="middle"
-      triggerEvent="hover"
-      trigger={
-        <IconWrapper>
-          <Icon glyph={iconType} fill={iconColor} />
-        </IconWrapper>
-      }
-    >
-      {tooltipText}
-    </StyledTooltip>
-  );
-};
+}) => (
+  <StyledTooltip
+    align="top"
+    justify="middle"
+    triggerEvent="hover"
+    trigger={
+      <IconWrapper>
+        <Icon glyph={iconType} fill={color} />
+      </IconWrapper>
+    }
+  >
+    {tooltipText}
+  </StyledTooltip>
+);
 
 // @ts-expect-error
 const StyledTooltip = styled(Tooltip)`

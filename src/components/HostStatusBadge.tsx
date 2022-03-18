@@ -1,8 +1,11 @@
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
-import { IconTooltip } from "components/Spawn";
+import { uiColors } from "@leafygreen-ui/palette";
+import { IconTooltip } from "components/IconTooltip";
 import { size } from "constants/tokens";
 import { HostStatus } from "types/host";
+
+const { red } = uiColors;
 
 interface Props {
   status: HostStatus;
@@ -15,8 +18,7 @@ export const HostStatusBadge: React.FC<Props> = ({ status }) => (
     </StyledBadge>
     {status === HostStatus.Terminated && (
       <IconTooltip
-        color="red"
-        shade="base"
+        color={red.base}
         tooltipText="Terminated hosts will disappear in 5 minutes. See Event Log for more details."
         iconType="InfoWithCircle"
       />
