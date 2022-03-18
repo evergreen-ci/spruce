@@ -20,7 +20,7 @@ export const IconTooltip: React.FC<IconTooltipProps> = ({
     triggerEvent="hover"
     trigger={
       <IconWrapper>
-        <Icon glyph={iconType} fill={color} />
+        <StyledIcon glyph={iconType} fill={color} />
       </IconWrapper>
     }
   >
@@ -34,6 +34,11 @@ const StyledTooltip = styled(Tooltip)`
 `;
 
 const IconWrapper = styled.div`
+  font-size: 0;
   height: ${size.s};
   margin-left: ${size.xxs};
+`;
+
+const StyledIcon = styled(Icon)`
+  display: block;
 `;
