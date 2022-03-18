@@ -3,6 +3,7 @@ import { context, types } from "components/HistoryTable";
 import { COMMIT_HEIGHT } from "components/HistoryTable/constants";
 import { HistoryTableReducerState } from "components/HistoryTable/historyTableContextReducer";
 import { mainlineCommitData } from "components/HistoryTable/testData";
+import { CommitRowType } from "components/HistoryTable/types";
 import { GET_TASK_TEST_SAMPLE } from "gql/queries";
 import {
   fireEvent,
@@ -221,7 +222,7 @@ describe("variantHistoryRow", () => {
   });
 });
 
-const taskRow = {
+const taskRow: CommitRowType = {
   type: rowType.COMMIT,
   rowHeight: COMMIT_HEIGHT,
   commit: {
