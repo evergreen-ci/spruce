@@ -9,11 +9,13 @@ export type CommitRowType =
       >["rolledUpVersions"];
       rowHeight: number;
       date: Date;
+      selected: boolean;
     }
   | {
       type: rowType.DATE_SEPARATOR;
       date: Date;
       rowHeight: number;
+      selected: boolean;
     }
   | {
       type: rowType.COMMIT;
