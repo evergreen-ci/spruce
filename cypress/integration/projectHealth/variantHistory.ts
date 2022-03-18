@@ -24,6 +24,19 @@ describe("variant history", () => {
     cy.dataCy("prev-page-button").click();
     cy.dataCy("header-cell").should("have.length", 7);
   });
+  it("should be able expand and collapse inactive commits", () => {
+    // Expand
+    cy.contains("EVG-16356").should("not.be.visible");
+    cy.contains("Expand 1 inactive").should("exist");
+    cy.contains("Expand 1 inactive").click();
+    cy.contains("EVG-16356").should("be.visible");
+
+    // Collapse
+    cy.contains("Expand 1 inactive").should("not.exist");
+    cy.contains("Collapse 1 inactive").should("exist");
+    cy.contains("Collapse 1 inactive").click();
+    cy.contains("EVG-16356").should("not.be.visible");
+  });
   it("should be able to filter column headers", () => {
     cy.dataCy("header-cell").should("have.length", 7);
     cy.getInputByLabel("Tasks").click();

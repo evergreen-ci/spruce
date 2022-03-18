@@ -197,7 +197,6 @@ const baseProps = {
     },
     uiSchema: {
       "ui:data-cy": "git-tag-input",
-      "ui:showErrors": false,
     },
   },
   remotePath: {
@@ -210,7 +209,6 @@ const baseProps = {
     uiSchema: {
       "ui:data-cy": "remote-path-input",
       "ui:sectionId": "remote-path-field",
-      "ui:showErrors": false,
     },
   },
   task: {
@@ -224,7 +222,6 @@ const baseProps = {
       "ui:data-cy": "task-input",
       "ui:placeholder": "Golang Regex",
       "ui:sectionId": "task-regex-field",
-      "ui:showErrors": false,
     },
   },
   taskTags: {
@@ -234,6 +231,7 @@ const baseProps = {
       items: {
         type: "string" as "string",
         title: "Task Tag",
+        default: "",
         minLength: 1,
       },
     },
@@ -247,7 +245,6 @@ const baseProps = {
       items: {
         "ui:ariaLabelledBy": "variant-input-control",
         "ui:data-cy": "task-tags-input",
-        "ui:showErrors": false,
       },
     },
   },
@@ -262,7 +259,6 @@ const baseProps = {
       "ui:data-cy": "variant-input",
       "ui:placeholder": "Golang Regex",
       "ui:sectionId": "variant-regex-field",
-      "ui:showErrors": false,
     },
   },
   variantTags: {
@@ -287,7 +283,6 @@ const baseProps = {
       items: {
         "ui:ariaLabelledBy": "variant-input-control",
         "ui:data-cy": "variant-tags-input",
-        "ui:showErrors": false,
       },
     },
   },
