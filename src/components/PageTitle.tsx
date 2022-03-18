@@ -61,7 +61,8 @@ export const PageTitle: React.FC<Props> = ({
 const BadgeWrapper = styled.div<TitleTypographyProps>`
   display: inline-flex;
   margin-left: ${({ size }) => (size === "large" ? tokenSize.m : tokenSize.s)};
-  vertical-align: middle;
+  vertical-align: ${({ size }) =>
+    size === "large" ? "middle" : "text-bottom"};
 `;
 
 const PageHeader = styled.div<TitleTypographyProps>`
