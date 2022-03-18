@@ -1,6 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { GET_USER } from "gql/queries";
 import { act, fireEvent, render } from "test_utils";
+import { HostStatus } from "types/host";
 import { CopySSHCommandButton } from "./SpawnHostTableActions";
 
 const execCommand = jest.fn();
@@ -18,7 +19,7 @@ describe("copySSHCommandButton", () => {
         <CopySSHCommandButton
           user={user}
           hostUrl={hostUrl}
-          hostStatus="running"
+          hostStatus={HostStatus.Running}
         />
       </MockedProvider>
     );

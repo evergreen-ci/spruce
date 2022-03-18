@@ -4,7 +4,7 @@ import { Size } from "@leafygreen-ui/button";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { useSpawnAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
-import { PaddedButton } from "components/Spawn";
+import { PaddedButton, tooltipWidth } from "components/Spawn";
 import { EditSpawnHostModal } from "pages/spawn/spawnHost/index";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
@@ -70,5 +70,5 @@ export const EditSpawnHostButton: React.FC<EditSpawnHostButtonProps> = ({
 // For leafygreen Tooltip, there is a bug where you have to set the width to prevent misalignment when
 // the trigger element is near the right side of a page. Ticket: https://jira.mongodb.org/browse/PD-1542
 const StyledTooltip = styled(Tooltip)`
-  width: 250px;
+  width: ${tooltipWidth};
 `;
