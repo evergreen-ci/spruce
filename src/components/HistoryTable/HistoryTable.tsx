@@ -24,9 +24,10 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
     isItemLoaded,
     toggleRowSizeAtIndex,
     commitCount,
+    selectedCommit,
+    markSelectedVisited,
   } = useHistoryTable();
   const listRef = useRef<List>(null);
-
   useEffect(() => {
     if (recentlyFetchedCommits) {
       fetchNewCommit(recentlyFetchedCommits);
@@ -38,7 +39,26 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
     if (listRef.current) {
       listRef.current.resetAfterIndex(0);
     }
-  }, [recentlyFetchedCommits]);
+  }, [commitCount]);
+
+  useEffect(() => {
+    if (selectedCommit) {
+      if (selectedCommit.loaded && !selectedCommit.visited) {
+        if (listRef.current) {
+          listRef.current.scrollToItem(selectedCommit.rowIndex, "start");
+          markSelectedVisited();
+        }
+      }
+    }
+  }, [selectedCommit, commitCount, markSelectedVisited]);
+
+  useEffect(() => {
+    if (selectedCommit) {
+      if (!selectedCommit.loaded && !selectedCommit.visited) {
+        loadMoreItems();
+      }
+    }
+  }, [selectedCommit, commitCount, loadMoreItems]);
 
   const toggleRowSize = (index: number, numCommits: number) => {
     toggleRowSizeAtIndex(index, numCommits);
@@ -55,13 +75,17 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
           itemCount={commitCount}
           loadMoreItems={loadMoreItems}
         >
-          {({ onItemsRendered }) => (
+          {({ onItemsRendered, ref }) => (
             <List
               height={height}
               itemCount={commitCount}
               itemSize={getItemHeight}
               onItemsRendered={onItemsRendered}
-              ref={listRef}
+              ref={(list) => {
+                // @ts-ignore next-line
+                ref?.(list); // This is the syntax recommended by react-window's creator https://github.com/bvaughn/react-window/issues/324#issuecomment-528887341
+                listRef.current = list;
+              }}
               width={width}
               itemData={{ toggleRowSize }}
             >

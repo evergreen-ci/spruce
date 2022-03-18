@@ -10,7 +10,8 @@ type Action =
   | { type: "setColumnLimit"; limit: number }
   | { type: "setHistoryTableFilters"; filters: TestFilter[] }
   | { type: "setSelectedCommit"; order: number }
-  | { type: "toggleRowSizeAtIndex"; index: number; numCommits: number };
+  | { type: "toggleRowSizeAtIndex"; index: number; numCommits: number }
+  | { type: "markSelectedVisited" };
 
 type cacheShape = Map<
   number,
@@ -29,7 +30,12 @@ export interface HistoryTableReducerState {
   columnLimit: number;
   historyTableFilters: TestFilter[];
   commitCount: number;
-  selectedCommit: number;
+  selectedCommit: {
+    order: number;
+    loaded: boolean;
+    visited: boolean;
+    rowIndex: number;
+  };
 }
 
 export const reducer = (state: HistoryTableReducerState, action: Action) => {
@@ -42,10 +48,11 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
         action.commits.versions
       );
       if (updatedObjectCache.size > state.commitCache.size) {
-        const processedCommits = processCommits(
+        // Check if our selected commit has been loaded
+        const { processedCommits, selectedCommitRowIndex } = processCommits(
           action.commits.versions,
           state.processedCommits,
-          state.selectedCommit
+          state.selectedCommit?.order
         );
         let { commitCount } = state;
         // If there are no previous commits, we can set the commitCount to be the first commit's order.
@@ -61,12 +68,21 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
         } else if (action.commits.nextPageOrderNumber == null) {
           commitCount = processedCommits.length;
         }
+        const selectedLoaded =
+          state.selectedCommit &&
+          updatedObjectCache.has(state.selectedCommit.order);
+
         return {
           ...state,
           commitCache: updatedObjectCache,
           processedCommits,
           processedCommitCount: processedCommits.length,
           commitCount,
+          selectedCommit: state.selectedCommit && {
+            ...state.selectedCommit,
+            loaded: selectedLoaded,
+            rowIndex: selectedCommitRowIndex || state.selectedCommit.rowIndex,
+          },
         };
       }
       return state;
@@ -133,7 +149,20 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
     case "setSelectedCommit":
       return {
         ...state,
-        selectedCommit: action.order,
+        selectedCommit: {
+          order: action.order,
+          loaded: state.commitCache[action.order] != null,
+          visited: false,
+          rowIndex: null,
+        },
+      };
+    case "markSelectedVisited":
+      return {
+        ...state,
+        selectedCommit: {
+          ...state.selectedCommit,
+          visited: true,
+        },
       };
     default:
       throw new Error(`Unknown reducer action${action}`);
