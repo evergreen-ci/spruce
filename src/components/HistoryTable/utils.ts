@@ -1,3 +1,8 @@
+import {
+  FOLDED_COMMITS_HEIGHT,
+  COMMIT_HEIGHT,
+  DATE_SEPARATOR_HEIGHT,
+} from "./constants";
 import { mainlineCommits, CommitRowType, rowType } from "./types";
 
 // Processed commits are the order of commits in the table.
@@ -28,18 +33,21 @@ export const processCommits = (
           commit: version,
           date: version.createTime,
           selected: version.order === selectedCommitOrder,
+          rowHeight: COMMIT_HEIGHT,
         });
       } else {
         processedCommits.push({
           type: rowType.DATE_SEPARATOR,
           date: version.createTime,
           selected: false,
+          rowHeight: DATE_SEPARATOR_HEIGHT,
         });
         processedCommits.push({
           type: rowType.COMMIT,
           commit: version,
           date: version.createTime,
           selected: false,
+          rowHeight: COMMIT_HEIGHT,
         });
       }
     } else if (commitType === rowType.FOLDED_COMMITS) {
@@ -54,18 +62,21 @@ export const processCommits = (
           rolledUpCommits: rolledUpVersions,
           date: firstRolledUpVersion.createTime,
           selected: false,
+          rowHeight: FOLDED_COMMITS_HEIGHT,
         });
       } else {
         processedCommits.push({
           type: rowType.DATE_SEPARATOR,
           date: firstRolledUpVersion.createTime,
           selected: false,
+          rowHeight: DATE_SEPARATOR_HEIGHT,
         });
         processedCommits.push({
           type: rowType.FOLDED_COMMITS,
           rolledUpCommits: rolledUpVersions,
           date: firstRolledUpVersion.createTime,
           selected: false,
+          rowHeight: FOLDED_COMMITS_HEIGHT,
         });
       }
     }
@@ -91,4 +102,22 @@ const isSameDay = (date1: string | Date, date2: string | Date) => {
     d1.getMonth() === d2.getMonth() &&
     d1.getDate() === d2.getDate()
   );
+};
+
+export const toggleRowSizeAtIndex = (
+  processedCommits: CommitRowType[],
+  numCommits: number,
+  idx: number
+): CommitRowType[] => {
+  const newCommits = [...processedCommits];
+  const expandedHeight = FOLDED_COMMITS_HEIGHT + COMMIT_HEIGHT * numCommits;
+  const collapsedHeight = FOLDED_COMMITS_HEIGHT;
+
+  // If size does not equal expandedHeight, that means it can be expanded. Otherwise it should be collapsed.
+  if (newCommits[idx].rowHeight !== expandedHeight) {
+    newCommits[idx].rowHeight = expandedHeight;
+  } else {
+    newCommits[idx].rowHeight = collapsedHeight;
+  }
+  return newCommits;
 };

@@ -1,3 +1,8 @@
+import {
+  FOLDED_COMMITS_HEIGHT,
+  COMMIT_HEIGHT,
+  DATE_SEPARATOR_HEIGHT,
+} from "./constants";
 import { mainlineCommitData } from "./testData";
 import { rowType } from "./types";
 import { processCommits } from "./utils";
@@ -16,11 +21,13 @@ describe("historyTable utils", () => {
         {
           date: firstCommit.version.createTime,
           type: rowType.DATE_SEPARATOR,
+          rowHeight: DATE_SEPARATOR_HEIGHT,
         },
         {
           commit: firstCommit.version,
           date: firstCommit.version.createTime,
           type: rowType.COMMIT,
+          rowHeight: COMMIT_HEIGHT,
         },
       ]);
     });
@@ -34,16 +41,19 @@ describe("historyTable utils", () => {
           {
             date: firstCommit.version.createTime,
             type: rowType.DATE_SEPARATOR,
+            rowHeight: DATE_SEPARATOR_HEIGHT,
           },
           {
             commit: firstCommit.version,
             date: firstCommit.version.createTime,
             type: rowType.COMMIT,
+            rowHeight: COMMIT_HEIGHT,
           },
           {
             commit: secondCommit.version,
             date: secondCommit.version.createTime,
             type: rowType.COMMIT,
+            rowHeight: COMMIT_HEIGHT,
           },
         ]);
       });
@@ -53,22 +63,26 @@ describe("historyTable utils", () => {
           {
             date: firstCommit.version.createTime,
             type: rowType.DATE_SEPARATOR,
+            rowHeight: DATE_SEPARATOR_HEIGHT,
           },
           {
             commit: firstCommit.version,
             date: firstCommit.version.createTime,
             type: rowType.COMMIT,
             selected: false,
+            rowHeight: COMMIT_HEIGHT,
           },
           {
             date: thirdCommit.version.createTime,
             type: rowType.DATE_SEPARATOR,
+            rowHeight: DATE_SEPARATOR_HEIGHT,
           },
           {
             commit: thirdCommit.version,
             date: thirdCommit.version.createTime,
             type: rowType.COMMIT,
             selected: false,
+            rowHeight: COMMIT_HEIGHT,
           },
         ]);
       });
@@ -82,11 +96,13 @@ describe("historyTable utils", () => {
           {
             date: foldedUpCommits.rolledUpVersions[0].createTime,
             type: rowType.DATE_SEPARATOR,
+            rowHeight: DATE_SEPARATOR_HEIGHT,
           },
           {
             rolledUpCommits: foldedUpCommits.rolledUpVersions,
             date: foldedUpCommits.rolledUpVersions[0].createTime,
             type: rowType.FOLDED_COMMITS,
+            rowHeight: FOLDED_COMMITS_HEIGHT,
           },
         ]);
       });
@@ -98,12 +114,14 @@ describe("historyTable utils", () => {
               date: firstCommit.version.createTime,
               type: rowType.DATE_SEPARATOR,
               selected: false,
+              rowHeight: DATE_SEPARATOR_HEIGHT,
             },
             {
               commit: firstCommit.version,
               date: firstCommit.version.createTime,
               type: rowType.COMMIT,
               selected: false,
+              rowHeight: COMMIT_HEIGHT,
             },
           ],
           null
@@ -112,20 +130,24 @@ describe("historyTable utils", () => {
           {
             date: firstCommit.version.createTime,
             type: rowType.DATE_SEPARATOR,
+            rowHeight: DATE_SEPARATOR_HEIGHT,
           },
           {
             commit: firstCommit.version,
             date: firstCommit.version.createTime,
             type: rowType.COMMIT,
+            rowHeight: COMMIT_HEIGHT,
           },
           {
             date: foldedUpCommits.rolledUpVersions[0].createTime,
             type: rowType.DATE_SEPARATOR,
+            rowHeight: DATE_SEPARATOR_HEIGHT,
           },
           {
             rolledUpCommits: foldedUpCommits.rolledUpVersions,
             date: foldedUpCommits.rolledUpVersions[0].createTime,
             type: rowType.FOLDED_COMMITS,
+            rowHeight: FOLDED_COMMITS_HEIGHT,
           },
         ]);
       });

@@ -1441,7 +1441,6 @@ export type Task = {
   dependsOn?: Maybe<Array<Dependency>>;
   canOverrideDependencies: Scalars["Boolean"];
   requester: Scalars["String"];
-  restarts?: Maybe<Scalars["Int"]>;
   revision?: Maybe<Scalars["String"]>;
   scheduledTime?: Maybe<Scalars["Time"]>;
   containerAllocatedTime?: Maybe<Scalars["Time"]>;
@@ -3931,6 +3930,12 @@ export type GetUserConfigQuery = {
     ui_server_host: string;
     user: string;
   }>;
+};
+
+export type GetUserPermissionsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetUserPermissionsQuery = {
+  user: { userId: string; permissions: { canCreateProject: boolean } };
 };
 
 export type GetUserSettingsQueryVariables = Exact<{ [key: string]: never }>;

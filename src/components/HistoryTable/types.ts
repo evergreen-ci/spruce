@@ -6,6 +6,7 @@ export type CommitRowType = {
   rolledUpCommits?: MainlineCommitsForHistoryQuery["mainlineCommits"]["versions"][0]["rolledUpVersions"];
   date: Date;
   selected: boolean;
+  rowHeight: number;
 };
 export type mainlineCommits = MainlineCommitsForHistoryQuery["mainlineCommits"];
 
