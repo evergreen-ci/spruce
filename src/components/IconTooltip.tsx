@@ -1,18 +1,21 @@
 import styled from "@emotion/styled";
+import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
-import Icon from "components/Icon";
+import Icon, { glyphs } from "components/Icon";
 import { size } from "constants/tokens";
+
+const { black } = uiColors;
 
 interface IconTooltipProps {
   tooltipText: string;
-  iconType: string;
-  color: string;
+  iconType: keyof typeof glyphs;
+  color?: string;
 }
 
 export const IconTooltip: React.FC<IconTooltipProps> = ({
   tooltipText,
   iconType,
-  color,
+  color = black,
 }) => (
   <StyledTooltip
     align="top"
