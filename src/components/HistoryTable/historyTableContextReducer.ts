@@ -44,7 +44,6 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
           action.commits.versions,
           state.processedCommits
         );
-
         let { commitCount } = state;
         // If there are no previous commits, we can set the commitCount to be the first commit's order.
         if (action.commits.prevPageOrderNumber == null) {

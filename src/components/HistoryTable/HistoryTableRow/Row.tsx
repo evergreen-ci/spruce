@@ -59,7 +59,7 @@ const Row: React.FC<RowProps> = ({
       <FoldedCommit
         index={index}
         rolledUpCommits={commit.rolledUpCommits}
-        toggleRow={data.toggleRow}
+        toggleRowSize={data.toggleRowSize}
         numVisibleCols={numVisibleCols || columnLimit}
         style={style}
       />

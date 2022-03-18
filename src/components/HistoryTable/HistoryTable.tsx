@@ -40,7 +40,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
     }
   }, [recentlyFetchedCommits]);
 
-  const toggleRow = (index: number, numCommits: number) => {
+  const toggleRowSize = (index: number, numCommits: number) => {
     toggleRowSizeAtIndex(index, numCommits);
     if (listRef.current) {
       listRef.current.resetAfterIndex(index);
@@ -63,7 +63,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
               onItemsRendered={onItemsRendered}
               ref={listRef}
               width={width}
-              itemData={{ toggleRow }}
+              itemData={{ toggleRowSize }}
             >
               {children}
             </List>

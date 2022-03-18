@@ -13,20 +13,21 @@ interface FoldedCommitProps {
   rolledUpCommits: Unpacked<
     MainlineCommitsForHistoryQuery["mainlineCommits"]["versions"]
   >["rolledUpVersions"];
-  toggleRow: (idx: number, numCommits: number) => void;
+  toggleRowSize: (idx: number, numCommits: number) => void;
   numVisibleCols: number;
   style?: CSSProperties;
 }
 export const FoldedCommit: React.FC<FoldedCommitProps> = ({
   index,
   rolledUpCommits,
-  toggleRow,
+  toggleRowSize,
   numVisibleCols,
   style,
 }) => {
   // The commits are expanded if the height of the element is not equal to FOLDED_COMMITS_HEIGHT.
   const { height } = style;
   const defaultOpen = height !== FOLDED_COMMITS_HEIGHT;
+  const numCommits = rolledUpCommits.length;
 
   const columns = Array.from(Array(numVisibleCols)).map((_, idx) => (
     <EmptyCell key={`loading_row_${idx}`} /> // eslint-disable-line react/no-array-index-key
@@ -50,12 +51,12 @@ export const FoldedCommit: React.FC<FoldedCommitProps> = ({
   return (
     <Column style={style}>
       <Accordion
-        title={`Expand ${rolledUpCommits.length} inactive`}
-        toggledTitle={`Collapse ${rolledUpCommits.length} inactive`}
+        title={`Expand ${numCommits} inactive`}
+        toggledTitle={`Collapse ${numCommits} inactive`}
         titleTag={AccordionTitle}
         contents={commits}
         defaultOpen={defaultOpen}
-        onToggle={() => toggleRow(index, rolledUpCommits.length)}
+        onToggle={() => toggleRowSize(index, numCommits)}
         useIndent={false}
       />
     </Column>

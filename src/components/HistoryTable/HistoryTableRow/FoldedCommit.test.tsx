@@ -15,14 +15,14 @@ const style: CSSProperties = {
 const Content = () => {
   // The params are ignored because they're only needed in the context of the History Table.
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const toggleRow = (idx: number, numCommits: number) => {};
+  const toggleRowSize = (idx: number, numCommits: number) => {};
 
   return (
     <MockedProvider mocks={[getSpruceConfigMock]}>
       <FoldedCommit
         index={0}
         rolledUpCommits={rolledUpCommits}
-        toggleRow={toggleRow}
+        toggleRowSize={toggleRowSize}
         numVisibleCols={5}
         style={style}
       />
