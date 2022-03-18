@@ -259,16 +259,13 @@ const moveRepoForm = {
         minLength: 1,
       },
     },
-    required: ["owner", "repo"],
   },
   uiSchema: {
     owner: {
       "ui:data-cy": "new-owner-input",
-      "ui:showErrors": false,
     },
     repo: {
       "ui:data-cy": "new-repo-input",
-      "ui:showErrors": false,
     },
   },
 };

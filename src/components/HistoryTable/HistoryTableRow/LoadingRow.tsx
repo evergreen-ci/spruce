@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
 import { Skeleton } from "antd";
-import { LoadingCell } from "../Cell";
+import { LoadingCell } from "../Cell/Cell";
+import { LabelCellContainer } from "./styles";
 
 interface LoadingRowProps {
   numVisibleCols: number;
@@ -16,8 +16,3 @@ export const LoadingRow: React.FC<LoadingRowProps> = ({ numVisibleCols }) => (
     ))}
   </>
 );
-
-const LabelCellContainer = styled.div`
-  width: 200px;
-  padding-right: 40px;
-`;

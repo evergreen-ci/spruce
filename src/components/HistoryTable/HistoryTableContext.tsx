@@ -1,13 +1,15 @@
 import { useContext, createContext, useReducer, useMemo } from "react";
 import { TestFilter } from "gql/generated/types";
+import { COMMIT_HEIGHT } from "./constants";
 import {
   HistoryTableReducerState,
   reducer,
 } from "./historyTableContextReducer";
-import { rowType, mainlineCommits, CommitRowType } from "./types";
+import { mainlineCommits, CommitRowType } from "./types";
 
 interface HistoryTableState {
-  itemHeight: (index: number) => number;
+  getItemHeight: (index: number) => number;
+  toggleRowSizeAtIndex: (index: number, numCommits: number) => void;
   fetchNewCommit: (data: mainlineCommits) => void;
   isItemLoaded: (index: number) => boolean;
   getItem: (index: number) => CommitRowType;
@@ -64,29 +66,19 @@ const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
   ] = useReducer(reducer, {
     ...initialState,
   });
-  const itemHeight = (index: number) => {
-    if (processedCommits[index]) {
-      switch (processedCommits[index].type) {
-        case rowType.COMMIT:
-          return 120;
-        case rowType.DATE_SEPARATOR:
-          return 40;
-        case rowType.FOLDED_COMMITS:
-          return 40;
-        default:
-          return 100;
-      }
-    } else {
-      return 120;
-    }
-  };
+
   const isItemLoaded = (index: number) => processedCommitCount > index;
 
   const getItem = (index: number) => processedCommits[index];
 
+  const getItemHeight = (index: number) =>
+    processedCommits[index]?.rowHeight || COMMIT_HEIGHT;
+
   const historyTableState: HistoryTableState = useMemo(
     () => ({
-      itemHeight,
+      getItemHeight,
+      toggleRowSizeAtIndex: (index: number, numCommits: number) =>
+        dispatch({ type: "toggleRowSizeAtIndex", index, numCommits }),
       fetchNewCommit: (commits) =>
         dispatch({ type: "ingestNewCommits", commits }),
       isItemLoaded,
