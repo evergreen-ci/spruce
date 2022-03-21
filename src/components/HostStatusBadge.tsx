@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const HostStatusBadge: React.FC<Props> = ({ status }) => (
-  <BadgeWrapper>
+  <HostStatusWrapper>
     <StyledBadge variant={statusToBadgeVariant[status]}>
       {hostStatusToCopy[status]}
     </StyledBadge>
@@ -23,7 +23,7 @@ export const HostStatusBadge: React.FC<Props> = ({ status }) => (
         iconType="InfoWithCircle"
       />
     )}
-  </BadgeWrapper>
+  </HostStatusWrapper>
 );
 
 const statusToBadgeVariant = {
@@ -60,7 +60,7 @@ const hostStatusToCopy = {
   [HostStatus.ExternalUserName]: "External",
 };
 
-const BadgeWrapper = styled.div`
+const HostStatusWrapper = styled.div`
   display: flex;
   align-items: center;
 `;

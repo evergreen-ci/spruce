@@ -37,7 +37,6 @@ const StyledTooltip = styled(Tooltip)`
 `;
 
 const IconWrapper = styled.div`
-  font-size: 0;
   height: ${size.s};
   margin-left: ${size.xxs};
 `;
