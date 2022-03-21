@@ -101,3 +101,5 @@ export const PaddedButton = styled(Button)`
   margin-right: ${size.xxs};
   flex-grow: 0;
 `;
+
+export const tooltipWidth = "250px";

@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { Size } from "@leafygreen-ui/button";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { useSpawnAnalytics } from "analytics";
 import Icon from "components/Icon";
-import { PaddedButton } from "components/Spawn";
+import { PaddedButton, tooltipWidth } from "components/Spawn";
 import { SECOND } from "constants/index";
+import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 import { string } from "utils";
 import { EditSpawnHostButton } from "./EditSpawnHostButton";
@@ -16,7 +17,11 @@ const { copyToClipboard } = string;
 export const SpawnHostTableActions: React.FC<{ host: MyHost }> = ({ host }) => (
   <FlexContainer>
     <SpawnHostActionButton host={host} />
-    <CopySSHCommandButton user={host.user} hostUrl={host.hostUrl} />
+    <CopySSHCommandButton
+      user={host.user}
+      hostUrl={host.hostUrl}
+      hostStatus={host.status}
+    />
     <EditSpawnHostButton host={host} />
   </FlexContainer>
 );
@@ -24,9 +29,12 @@ export const SpawnHostTableActions: React.FC<{ host: MyHost }> = ({ host }) => (
 export const CopySSHCommandButton: React.FC<{
   user: string;
   hostUrl: string;
-}> = ({ user, hostUrl }) => {
+  hostStatus: string;
+}> = ({ user, hostUrl, hostStatus }) => {
   const sshCommand = `ssh ${user}@${hostUrl}`;
   const spawnAnalytics = useSpawnAnalytics();
+
+  const canSsh = hostStatus !== HostStatus.Terminated;
   const [hasCopied, setHasCopied] = useState(false);
   const [openTooltip, setOpenTooltip] = useState(false);
   useEffect(() => {
@@ -45,7 +53,7 @@ export const CopySSHCommandButton: React.FC<{
         setOpenTooltip(false);
       }}
     >
-      <Tooltip
+      <StyledTooltip
         align="top"
         justify="middle"
         open={openTooltip}
@@ -60,6 +68,7 @@ export const CopySSHCommandButton: React.FC<{
             size={Size.XSmall}
             data-cy="copy-ssh-button"
             leftGlyph={<Icon glyph="Copy" />}
+            disabled={!canSsh}
           >
             <Label>SSH Command</Label>
           </PaddedButton>
@@ -70,10 +79,17 @@ export const CopySSHCommandButton: React.FC<{
         ) : (
           <Center>Must be on VPN to connect to host</Center>
         )}
-      </Tooltip>
+      </StyledTooltip>
     </div>
   );
 };
+
+// @ts-expect-error
+// For leafygreen Tooltip, there is a bug where you have to set the width to prevent misalignment when
+// the trigger element is near the right side of a page. Ticket: https://jira.mongodb.org/browse/PD-1542
+const StyledTooltip = styled(Tooltip)`
+  width: ${tooltipWidth};
+`;
 
 const FlexContainer = styled.div`
   display: flex;
