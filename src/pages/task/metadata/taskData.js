@@ -67,5 +67,6 @@ export const taskQuery = {
     minQueuePosition: 0,
     projectId: "spruce",
     expectedDuration: 123,
+    order: 1,
   },
 };

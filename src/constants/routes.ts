@@ -273,12 +273,19 @@ export const getVariantHistoryRoute = (
 export const getTaskHistoryRoute = (
   projectIdentifier: string,
   taskName: string,
-  filters?: {
-    failingTests?: string[];
-    passingTests?: string[];
+  options?: {
+    filters?: {
+      failingTests?: string[];
+      passingTests?: string[];
+    };
+    skipOrderNumber?: number;
   }
-) =>
-  getHistoryRoute(
+) => {
+  const { filters, skipOrderNumber } = options || {};
+
+  return getHistoryRoute(
     `${paths.taskHistory}/${projectIdentifier}/${taskName}`,
-    filters
+    filters,
+    skipOrderNumber
   );
+};

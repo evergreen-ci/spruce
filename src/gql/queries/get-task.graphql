@@ -108,5 +108,6 @@ query GetTask($taskId: String!, $execution: Int) {
     annotation {
       ...annotation
     }
+    order
   }
 }
