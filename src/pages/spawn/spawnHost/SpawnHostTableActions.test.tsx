@@ -1,6 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { GET_USER } from "gql/queries";
 import { act, fireEvent, render } from "test_utils";
+import { HostStatus } from "types/host";
 import { CopySSHCommandButton } from "./SpawnHostTableActions";
 
 const execCommand = jest.fn();
@@ -15,7 +16,11 @@ describe("copySSHCommandButton", () => {
   it("tooltip text should change after clicking on the copy button", async () => {
     const { queryByDataCy, queryByText } = render(
       <MockedProvider mocks={[getUserMock]}>
-        <CopySSHCommandButton user={user} hostUrl={hostUrl} />
+        <CopySSHCommandButton
+          user={user}
+          hostUrl={hostUrl}
+          hostStatus={HostStatus.Running}
+        />
       </MockedProvider>
     );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
