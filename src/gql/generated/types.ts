@@ -2330,6 +2330,7 @@ export type ProjectSettingsFragment = {
       ProjectAccessSettingsFragment &
       ProjectPluginsSettingsFragment &
       ProjectNotificationSettingsFragment &
+      ProjectPatchAliasSettingsFragment &
       ProjectVirtualWorkstationSettingsFragment
   >;
   subscriptions?: Maybe<Array<SubscriptionsFragment>>;
@@ -2343,6 +2344,7 @@ export type RepoSettingsFragment = {
       RepoAccessSettingsFragment &
       RepoPluginsSettingsFragment &
       RepoNotificationSettingsFragment &
+      RepoPatchAliasSettingsFragment &
       RepoVirtualWorkstationSettingsFragment
   >;
   vars?: Maybe<VariablesFragment>;
@@ -2391,6 +2393,36 @@ export type SubscriptionsFragment = {
       jiraIssueSubscriber?: Maybe<{ project: string; issueType: string }>;
     };
   }>;
+};
+
+export type ProjectPatchAliasSettingsFragment = {
+  githubTriggerAliases?: Maybe<Array<string>>;
+  patchTriggerAliases?: Maybe<
+    Array<{
+      alias: string;
+      childProjectIdentifier: string;
+      status?: Maybe<string>;
+      parentAsModule?: Maybe<string>;
+      taskSpecifiers?: Maybe<
+        Array<{ patchAlias: string; taskRegex: string; variantRegex: string }>
+      >;
+    }>
+  >;
+};
+
+export type RepoPatchAliasSettingsFragment = {
+  githubTriggerAliases?: Maybe<Array<string>>;
+  patchTriggerAliases?: Maybe<
+    Array<{
+      alias: string;
+      childProjectIdentifier: string;
+      status?: Maybe<string>;
+      parentAsModule?: Maybe<string>;
+      taskSpecifiers?: Maybe<
+        Array<{ patchAlias: string; taskRegex: string; variantRegex: string }>
+      >;
+    }>
+  >;
 };
 
 export type ProjectPluginsSettingsFragment = {

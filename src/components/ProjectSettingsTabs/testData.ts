@@ -57,6 +57,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
         secret: null,
       },
     },
+    patchTriggerAliases: null,
     workstationConfig: {
       setupCommands: [
         {
@@ -165,6 +166,26 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
         secret: "secret",
       },
     },
+    patchTriggerAliases: [
+      {
+        alias: "alias1",
+        childProjectIdentifier: "spruce",
+        taskSpecifiers: [
+          {
+            patchAlias: "alias2",
+            taskRegex: "",
+            variantRegex: "",
+          },
+          {
+            patchAlias: "",
+            taskRegex: ".*",
+            variantRegex: ".*",
+          },
+        ],
+        status: "succeeded",
+        parentAsModule: "",
+      },
+    ],
     workstationConfig: {
       setupCommands: [],
       gitClone: true,

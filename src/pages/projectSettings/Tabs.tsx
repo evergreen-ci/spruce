@@ -228,6 +228,6 @@ const getTabData = (
   );
 
 const Container = styled.div`
-  min-width: min-content;
+  min-width: 600px;
   width: 60%;
 `;
