@@ -24,6 +24,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
 
   const glyph = mapStatusToGlyph[host.status];
   const action = mapStatusToAction[host.status];
+  const canTerminate = host.status !== HostStatus.Terminated;
 
   // When the UPDATE_SPAWN_HOST_STATUS mutation occurs the host state is not immediately updated, It gets updated a few seconds later.
   // Since the GET_MY_HOSTS query on this components parent polls at a slower rate, this component triggers a poll at a faster interval for that
@@ -104,7 +105,11 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
         checkboxLabel={checkboxLabel}
       >
         {/* @ts-expect-error */}
-        <PaddedButton leftGlyph={<Icon glyph="Trash" />} size={Size.XSmall} />
+        <PaddedButton
+          leftGlyph={<Icon glyph="Trash" />}
+          size={Size.XSmall}
+          disabled={!canTerminate}
+        />
       </PopconfirmWithCheckbox>
     </>
   );

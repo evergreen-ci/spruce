@@ -1,6 +1,6 @@
 import { TestFilter } from "gql/generated/types";
 import { CommitRowType, mainlineCommits } from "./types";
-import { processCommits } from "./utils";
+import { processCommits, toggleRowSizeAtIndex } from "./utils";
 
 type Action =
   | { type: "ingestNewCommits"; commits: mainlineCommits }
@@ -8,7 +8,8 @@ type Action =
   | { type: "nextPageColumns" }
   | { type: "prevPageColumns" }
   | { type: "setColumnLimit"; limit: number }
-  | { type: "setHistoryTableFilters"; filters: TestFilter[] };
+  | { type: "setHistoryTableFilters"; filters: TestFilter[] }
+  | { type: "toggleRowSizeAtIndex"; index: number; numCommits: number };
 
 type cacheShape = Map<
   number,
@@ -66,6 +67,17 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
         };
       }
       return state;
+    }
+    case "toggleRowSizeAtIndex": {
+      const newProcessedCommits = toggleRowSizeAtIndex(
+        state.processedCommits,
+        action.numCommits,
+        action.index
+      );
+      return {
+        ...state,
+        processedCommits: newProcessedCommits,
+      };
     }
     case "addColumns":
       return {

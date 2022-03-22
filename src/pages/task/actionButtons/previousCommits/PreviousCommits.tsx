@@ -50,7 +50,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     variables: { taskId },
   });
 
-  const [fetchParentTask] = useLazyQuery<
+  const [fetchParentTask, { loading: parentLoading }] = useLazyQuery<
     GetLastMainlineCommitQuery,
     GetLastMainlineCommitQueryVariables
   >(GET_LAST_MAINLINE_COMMIT, {
@@ -62,7 +62,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     },
   });
 
-  const [fetchLastPassing] = useLazyQuery<
+  const [fetchLastPassing, { loading: passingLoading }] = useLazyQuery<
     GetLastMainlineCommitQuery,
     GetLastMainlineCommitQueryVariables
   >(GET_LAST_MAINLINE_COMMIT, {
@@ -74,7 +74,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     },
   });
 
-  const [fetchLastExecuted] = useLazyQuery<
+  const [fetchLastExecuted, { loading: executedLoading }] = useLazyQuery<
     GetLastMainlineCommitQuery,
     GetLastMainlineCommitQueryVariables
   >(GET_LAST_MAINLINE_COMMIT, {
@@ -94,6 +94,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     tasks: [applyStrictRegex(displayName)],
     variants: [applyStrictRegex(buildVariant)],
   };
+  const loading = parentLoading || passingLoading || executedLoading;
 
   // Hook to determine the parent task. If mainline commit, use fetchParentTask function to get task from
   // previous mainline commit. Otherwise, just extract the base task from the task data.
@@ -147,7 +148,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
     }
   }, [shouldFetchLastExecuted]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return versionMetadata?.isPatch !== undefined ? (
+  return (
     <PreviousCommitsWrapper>
       <StyledSelect
         size="small"
@@ -158,10 +159,10 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
           dispatch({ type: "setSelectState", selectState: v })
         }
         value={selectState}
-        disabled={!versionMetadata.baseVersion}
+        disabled={!versionMetadata?.baseVersion}
       >
         <Option value={CommitType.Base}>
-          Go to {versionMetadata.isPatch ? "base commit" : "parent commit"}
+          Go to {versionMetadata?.isPatch ? "base commit" : "parent commit"}
         </Option>
         <Option value={CommitType.LastPassing}>
           Go to last passing version
@@ -181,7 +182,9 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
             trigger={children}
             darkMode
           >
-            There is no version that satisfies this criteria.
+            {loading
+              ? `Fetching...`
+              : `There is no version that satisfies this criteria.`}
           </Tooltip>
         )}
       >
@@ -193,7 +196,7 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
         </div>
       </ConditionalWrapper>
     </PreviousCommitsWrapper>
-  ) : null;
+  );
 };
 
 // The return value from GetLastMainlineCommitQuery has a lot of nested fields that may or may

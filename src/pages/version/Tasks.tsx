@@ -48,7 +48,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
         sorts: defaultSortMethod,
       });
     }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [search]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { data, startPolling, stopPolling } = useQuery<
     PatchTasksQuery,
