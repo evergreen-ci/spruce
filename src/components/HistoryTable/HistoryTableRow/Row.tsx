@@ -23,7 +23,7 @@ const Row: React.FC<RowProps> = ({
   const { isItemLoaded, getItem, columnLimit } = useHistoryTable();
   if (!isItemLoaded(index)) {
     return (
-      <RowContainer selected={selected} style={style}>
+      <RowContainer style={style}>
         <LoadingRow numVisibleCols={numVisibleCols || columnLimit} />
       </RowContainer>
     );
@@ -42,7 +42,7 @@ const Row: React.FC<RowProps> = ({
     } = commit.commit;
 
     return (
-      <RowContainer selected={selected} style={style}>
+      <RowContainer data-selected={selected} selected={selected} style={style}>
         <LabelCellContainer>
           <CommitChartLabel
             versionId={versionId}
