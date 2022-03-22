@@ -9,6 +9,7 @@ import {
   arraySymmetricDifference,
   arraySetDifference,
   arrayUnion,
+  range,
 } from ".";
 
 describe("toggleArray", () => {
@@ -306,5 +307,21 @@ describe("arrayUnion", () => {
       4,
       5,
     ]);
+  });
+});
+
+describe("range", () => {
+  it("uses 1 as default step when no step param is given", () => {
+    expect(range(1, 10)).toStrictEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  });
+  describe("uses correct step when step param is given", () => {
+    it("works when the step divides cleanly", () => {
+      expect(range(0, 10, 2)).toStrictEqual([0, 2, 4, 6, 8, 10]);
+      expect(range(0, 10, 5)).toStrictEqual([0, 5, 10]);
+    });
+    it("works when the step does not divide cleanly", () => {
+      expect(range(1, 10, 2)).toStrictEqual([1, 3, 5, 7, 9]);
+      expect(range(1, 10, 4)).toStrictEqual([1, 5, 9]);
+    });
   });
 });

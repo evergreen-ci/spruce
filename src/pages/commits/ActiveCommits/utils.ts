@@ -59,8 +59,30 @@ export function calculateBarHeight(
   if (chartType === ChartTypes.Percentage) {
     return `${(value / total) * 100}%`;
   }
-  return `${(value / max) * 100}%`;
+  const maxRounded = roundMax(max);
+  return `${(value / maxRounded) * 100}%`;
 }
+
+export const roundMax = (max: number) => {
+  if (max < 100) {
+    // Round up to nearest 10
+    return Math.ceil(max / 10) * 10;
+  }
+  if (max < 500) {
+    // Round up to nearest 50
+    return Math.ceil(max / 50) * 50;
+  }
+  if (max < 1000) {
+    // Round up to nearest 100
+    return Math.ceil(max / 100) * 100;
+  }
+  if (max < 5000) {
+    // Round up to nearest 500
+    return Math.ceil(max / 500) * 500;
+  }
+  // Else round up to nearest 1000
+  return Math.ceil(max / 1000) * 1000;
+};
 
 // Find zero count statuses for commit chart tooltip
 export const getStatusesWithZeroCount = (colors: ColorCount[]) => {

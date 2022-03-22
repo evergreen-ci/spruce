@@ -15,6 +15,7 @@ import {
 import { queryString } from "utils";
 import { ChartToggle } from "./ActiveCommits/ChartToggle";
 import { Grid } from "./ActiveCommits/Grid";
+import { GridLabel } from "./ActiveCommits/GridLabel";
 import {
   getAllTaskStatsGroupedByColor,
   findMaxGroupedTaskStats,
@@ -87,7 +88,7 @@ export const CommitsWrapper: React.FC<Props> = ({
   const widths = versions.map((commit) => getCommitWidth(commit));
   if (versions) {
     return (
-      <>
+      <ChartContainer>
         <ChartWrapper>
           <FlexRowContainer>
             {versions.map((commit, i) => (
@@ -102,6 +103,7 @@ export const CommitsWrapper: React.FC<Props> = ({
               </CommitWrapper>
             ))}
           </FlexRowContainer>
+          <GridLabel chartType={chartType} max={max} numDashedLine={5} />
           <Grid numDashedLine={5} />
           <AbsoluteContainer>
             <ChartToggle
@@ -126,7 +128,7 @@ export const CommitsWrapper: React.FC<Props> = ({
             </CommitWrapper>
           ))}
         </FlexRowContainer>
-      </>
+      </ChartContainer>
     );
   }
   return <NoResults data-cy="no-commits-found">No commits found</NoResults>;
@@ -142,6 +144,10 @@ const getCommitWidth = (commit: Commit) => {
   }
   throw new Error("Commit type not found");
 };
+
+const ChartContainer = styled.div`
+  padding: 0 ${size.m};
+`;
 
 const StickyContainer = styled.div`
   position: sticky;

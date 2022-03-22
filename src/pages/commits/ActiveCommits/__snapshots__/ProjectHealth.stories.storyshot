@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
-Array [
+<div
+  className="css-5uyor4-ChartContainer ech0nhv7"
+>
   <div
     className="css-w2t63c-ChartWrapper ech0nhv1"
   >
@@ -22,22 +24,22 @@ Array [
           onMouseLeave={[Function]}
         >
           <div
-            className="css-1uawzcu-Bar e1tzsy280"
+            className="css-118ut8l-Bar e1tzsy280"
             color="#4F4FBF"
             data-cy="commit-chart-bar"
-            height="58.333333333333336%"
+            height="35%"
           />
           <div
-            className="css-37d21z-Bar e1tzsy280"
+            className="css-1ciyyzm-Bar e1tzsy280"
             color="#F1F0FC"
             data-cy="commit-chart-bar"
-            height="41.66666666666667%"
+            height="25%"
           />
           <div
-            className="css-pzgzuy-Bar e1tzsy280"
+            className="css-1wnnau0-Bar e1tzsy280"
             color="#5D6C74"
             data-cy="commit-chart-bar"
-            height="16.666666666666664%"
+            height="10%"
           />
         </div>
       </div>
@@ -55,28 +57,28 @@ Array [
           onMouseLeave={[Function]}
         >
           <div
-            className="css-19dvglf-Bar e1tzsy280"
+            className="css-13lwr9o-Bar e1tzsy280"
             color="#CF4A22"
             data-cy="commit-chart-bar"
-            height="50%"
+            height="30%"
           />
           <div
-            className="css-wl1o3-Bar e1tzsy280"
+            className="css-1l8kjo3-Bar e1tzsy280"
             color="#4F4FBF"
             data-cy="commit-chart-bar"
-            height="50%"
+            height="30%"
           />
           <div
-            className="css-n76wta-Bar e1tzsy280"
+            className="css-1sxj9ug-Bar e1tzsy280"
             color="#89979B"
             data-cy="commit-chart-bar"
-            height="16.666666666666664%"
+            height="10%"
           />
           <div
-            className="css-27o4eu-Bar e1tzsy280"
+            className="css-1pry9ok-Bar e1tzsy280"
             color="#5D6C74"
             data-cy="commit-chart-bar"
-            height="100%"
+            height="60%"
           />
         </div>
       </div>
@@ -106,16 +108,16 @@ Array [
           onMouseLeave={[Function]}
         >
           <div
-            className="css-1yq4z3j-Bar e1tzsy280"
+            className="css-o4mlxh-Bar e1tzsy280"
             color="#F1F0FC"
             data-cy="commit-chart-bar"
-            height="33.33333333333333%"
+            height="20%"
           />
           <div
-            className="css-ls2gol-Bar e1tzsy280"
+            className="css-17vb51y-Bar e1tzsy280"
             color="#89979B"
             data-cy="commit-chart-bar"
-            height="58.333333333333336%"
+            height="35%"
           />
         </div>
       </div>
@@ -133,16 +135,16 @@ Array [
           onMouseLeave={[Function]}
         >
           <div
-            className="css-498gs-Bar e1tzsy280"
+            className="css-zz768j-Bar e1tzsy280"
             color="#CF4A22"
             data-cy="commit-chart-bar"
-            height="16.666666666666664%"
+            height="10%"
           />
           <div
-            className="css-69mlgf-Bar e1tzsy280"
+            className="css-1etxla3-Bar e1tzsy280"
             color="#5D6C74"
             data-cy="commit-chart-bar"
-            height="58.333333333333336%"
+            height="35%"
           />
         </div>
       </div>
@@ -160,30 +162,64 @@ Array [
           onMouseLeave={[Function]}
         >
           <div
-            className="css-1spry57-Bar e1tzsy280"
+            className="css-d68zij-Bar e1tzsy280"
             color="#13AA52"
             data-cy="commit-chart-bar"
-            height="50%"
+            height="30%"
           />
           <div
-            className="css-498gs-Bar e1tzsy280"
+            className="css-zz768j-Bar e1tzsy280"
             color="#CF4A22"
             data-cy="commit-chart-bar"
-            height="16.666666666666664%"
+            height="10%"
           />
           <div
-            className="css-16n5vot-Bar e1tzsy280"
+            className="css-1wqr4kq-Bar e1tzsy280"
             color="#FFDD49"
             data-cy="commit-chart-bar"
-            height="75%"
+            height="45%"
           />
           <div
-            className="css-n76wta-Bar e1tzsy280"
+            className="css-1sxj9ug-Bar e1tzsy280"
             color="#89979B"
             data-cy="commit-chart-bar"
-            height="16.666666666666664%"
+            height="10%"
           />
         </div>
+      </div>
+    </div>
+    <div
+      className="css-1wqw1o0-GridLabelContainer e18agri1"
+    >
+      <div
+        className="css-1dwm295-YAxisValue e18agri0"
+      >
+        20
+      </div>
+      <div
+        className="css-1dwm295-YAxisValue e18agri0"
+      >
+        16
+      </div>
+      <div
+        className="css-1dwm295-YAxisValue e18agri0"
+      >
+        12
+      </div>
+      <div
+        className="css-1dwm295-YAxisValue e18agri0"
+      >
+        8
+      </div>
+      <div
+        className="css-1dwm295-YAxisValue e18agri0"
+      >
+        4
+      </div>
+      <div
+        className="css-1dwm295-YAxisValue e18agri0"
+      >
+        0
       </div>
     </div>
     <div
@@ -316,7 +352,7 @@ Array [
         </div>
       </div>
     </div>
-  </div>,
+  </div>
   <div
     className="css-1nsrvm5-StickyContainer ech0nhv6"
   >
@@ -573,7 +609,7 @@ Array [
         </div>
       </div>
     </div>
-  </div>,
+  </div>
   <div
     className="css-gnwyka-FlexRowContainer ech0nhv4"
   >
@@ -1136,6 +1172,6 @@ Array [
         </div>
       </div>
     </div>
-  </div>,
-]
+  </div>
+</div>
 `;
