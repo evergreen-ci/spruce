@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Tooltip from "@leafygreen-ui/tooltip";
+import InlineDefinition from "@leafygreen-ui/inline-definition";
 import { Body, InlineCode } from "@leafygreen-ui/typography";
 import { Field } from "@rjsf/core";
 import { size } from "constants/tokens";
@@ -13,12 +13,9 @@ export const GithubTriggerAliasField: Field = ({ formData }) => {
     status,
     taskSpecifiers,
   } = formData;
-  return (
-    <Tooltip
-      align="right"
-      trigger={<TooltipTrigger data-cy="pta-item">{alias}</TooltipTrigger>}
-      data-cy="pta-tooltip"
-    >
+
+  const hoverContent = (
+    <>
       <Body>
         <strong>Project:</strong> {childProjectIdentifier}
       </Body>
@@ -57,13 +54,15 @@ export const GithubTriggerAliasField: Field = ({ formData }) => {
           </Ul>
         </>
       )}
-    </Tooltip>
+    </>
+  );
+
+  return (
+    <InlineDefinition align="right" justify="start" definition={hoverContent}>
+      {alias}
+    </InlineDefinition>
   );
 };
-
-const TooltipTrigger = styled(Body)`
-  width: fit-content;
-`;
 
 const Ul = styled.ul`
   margin-bottom: 0;

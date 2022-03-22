@@ -1,7 +1,14 @@
+import { Description } from "@leafygreen-ui/typography";
 import { Field } from "@rjsf/core";
 import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
+import { StyledRouterLink } from "components/styles";
+import {
+  getProjectSettingsRoute,
+  ProjectSettingsTabRoutes,
+} from "constants/routes";
+import { getTabTitle } from "pages/projectSettings/getTabTitle";
 import { alias, form, ProjectType } from "../utils";
 import { GithubTriggerAliasField } from "./GithubTriggerAliasField";
 import { FormState } from "./types";
@@ -264,6 +271,7 @@ export const getFormSchema = (
           "ui:placeholder": "No GitHub Trigger Aliases are defined.",
           "ui:readonly": true,
           "ui:removable": false,
+          "ui:descriptionNode": GithubTriggerAliasDescription,
           items: {
             "ui:field": "githubTriggerAliasField",
           },
@@ -425,3 +433,16 @@ const userTeamStyling = (
     },
   },
 });
+
+const GithubTriggerAliasDescription = () => {
+  const tab = ProjectSettingsTabRoutes.PatchAliases;
+  return (
+    <Description>
+      GitHub Trigger Aliases can be configured on the{" "}
+      <StyledRouterLink to={getProjectSettingsRoute("evergreen", tab)}>
+        {getTabTitle(tab).title}
+      </StyledRouterLink>{" "}
+      page.
+    </Description>
+  );
+};

@@ -195,6 +195,7 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   const addButtonSize = uiSchema["ui:addButtonSize"] || "small";
   const addButtonText = uiSchema["ui:addButtonText"] || "Add";
   const border = uiSchema["ui:border"] ?? false;
+  const descriptionNode = uiSchema["ui:descriptionNode"];
   const fullWidth = !!uiSchema["ui:fullWidth"];
   const placeholder = uiSchema["ui:placeholder"];
   const showLabel = uiSchema["ui:showLabel"] ?? true;
@@ -206,9 +207,14 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
       {showLabel && (
         <TitleField id={`${id}__title`} required={required} title={title} />
       )}
-      {description && (
-        <DescriptionField id={`${id}__description`} description={description} />
-      )}
+      {descriptionNode
+        ? descriptionNode()
+        : description && (
+            <DescriptionField
+              id={`${id}__description`}
+              description={description}
+            />
+          )}
       {!readonly && canAdd && (
         <ElementWrapper>
           <Button
