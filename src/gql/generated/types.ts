@@ -1454,6 +1454,7 @@ export type Task = {
   /** @deprecated version is deprecated. Use versionMetadata instead. */
   version: Scalars["String"];
   versionMetadata: Version;
+  order: Scalars["Int"];
 };
 
 export type BaseTaskInfo = {

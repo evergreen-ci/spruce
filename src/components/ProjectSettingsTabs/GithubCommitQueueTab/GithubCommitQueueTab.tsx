@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import Banner from "@leafygreen-ui/banner";
+import { useParams } from "react-router-dom";
 import { SpruceForm } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { environmentalVariables } from "utils";
@@ -30,6 +31,7 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
   projectType,
   repoData,
 }) => {
+  const { identifier } = useParams<{ identifier: string }>();
   const { getTab, updateForm } = useProjectSettingsContext();
   const { formData } = getTab(tab);
 
@@ -44,12 +46,13 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
   const { fields, schema, uiSchema } = useMemo(
     () =>
       getFormSchema(
+        identifier,
         projectType,
         gitHubWebhooksEnabled,
         formData,
         projectType === ProjectType.AttachedProject ? repoData : null
       ),
-    [formData, gitHubWebhooksEnabled, projectType, repoData]
+    [formData, gitHubWebhooksEnabled, identifier, projectType, repoData]
   );
 
   if (!formData) return null;

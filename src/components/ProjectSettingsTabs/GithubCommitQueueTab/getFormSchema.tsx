@@ -17,6 +17,7 @@ const { aliasArray, aliasRowUiSchema, gitTagArray } = alias;
 const { insertIf, overrideRadioBox, placeholderIf, radioBoxOptions } = form;
 
 export const getFormSchema = (
+  identifier: string,
   projectType: ProjectType,
   gitHubWebhooksEnabled: boolean,
   formData: FormState,
@@ -271,7 +272,9 @@ export const getFormSchema = (
           "ui:placeholder": "No GitHub Trigger Aliases are defined.",
           "ui:readonly": true,
           "ui:removable": false,
-          "ui:descriptionNode": GithubTriggerAliasDescription,
+          "ui:descriptionNode": (
+            <GithubTriggerAliasDescription identifier={identifier} />
+          ),
           items: {
             "ui:field": "githubTriggerAliasField",
           },
@@ -434,12 +437,16 @@ const userTeamStyling = (
   },
 });
 
-const GithubTriggerAliasDescription = () => {
+const GithubTriggerAliasDescription = ({
+  identifier,
+}: {
+  identifier: string;
+}) => {
   const tab = ProjectSettingsTabRoutes.PatchAliases;
   return (
     <Description>
       GitHub Trigger Aliases can be configured on the{" "}
-      <StyledRouterLink to={getProjectSettingsRoute("evergreen", tab)}>
+      <StyledRouterLink to={getProjectSettingsRoute(identifier, tab)}>
         {getTabTitle(tab).title}
       </StyledRouterLink>{" "}
       page.

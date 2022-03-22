@@ -207,14 +207,9 @@ export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
       {showLabel && (
         <TitleField id={`${id}__title`} required={required} title={title} />
       )}
-      {descriptionNode
-        ? descriptionNode()
-        : description && (
-            <DescriptionField
-              id={`${id}__description`}
-              description={description}
-            />
-          )}
+      {descriptionNode || (
+        <DescriptionField id={`${id}__description`} description={description} />
+      )}
       {!readonly && canAdd && (
         <ElementWrapper>
           <Button
