@@ -575,10 +575,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.validateToast("success", "Successfully updated project");
 
       cy.dataCy("save-settings-button").should("be.disabled");
-      cy.getInputByLabel("Default to Repo Patch Aliases").should(
-        "have.attr",
-        "checked"
-      );
+      cy.dataCy("expandable-card-title").contains("my alias name");
     });
 
     it("Has cleared previously saved alias definitions", () => {
