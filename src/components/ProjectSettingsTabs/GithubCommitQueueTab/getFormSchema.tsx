@@ -84,7 +84,7 @@ export const getFormSchema = (
             },
             githubTriggerAliases: {
               type: "array" as "array",
-              title: "GiHub Trigger Aliases",
+              title: "GitHub Trigger Aliases",
               items: {
                 type: "object" as "object",
               },
