@@ -1454,6 +1454,7 @@ export type Task = {
   /** @deprecated version is deprecated. Use versionMetadata instead. */
   version: Scalars["String"];
   versionMetadata: Version;
+  order: Scalars["Int"];
 };
 
 export type BaseTaskInfo = {
@@ -2338,7 +2339,7 @@ export type ProjectSettingsFragment = {
 
 export type RepoSettingsFragment = {
   projectRef?: Maybe<
-    { id: string } & RepoGeneralSettingsFragment &
+    { id: string; displayName: string } & RepoGeneralSettingsFragment &
       RepoAccessSettingsFragment &
       RepoPluginsSettingsFragment &
       RepoNotificationSettingsFragment &
@@ -4029,7 +4030,18 @@ export type GetViewableProjectRefsQueryVariables = Exact<{
 
 export type GetViewableProjectRefsQuery = {
   viewableProjectRefs: Array<
-    Maybe<{ projects: Array<{ identifier: string }> }>
+    Maybe<{
+      name: string;
+      projects: Array<{
+        id: string;
+        identifier: string;
+        repo: string;
+        repoRefId: string;
+        owner: string;
+        displayName: string;
+        isFavorite: boolean;
+      }>;
+    }>
   >;
 };
 
