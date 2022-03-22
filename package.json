@@ -11,7 +11,6 @@
     "build:beta": "env-cmd -e beta -r env/.cmdrc.json yarn build",
     "check-types": "tsc -p tsconfig.json --noEmit",
     "codegen": "graphql-codegen --config codegen.yml",
-    "coverage": "yarn test -- --coverage --watchAll=false",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "cy:test": "cypress run --spec",
