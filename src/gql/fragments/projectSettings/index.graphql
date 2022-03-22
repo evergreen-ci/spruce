@@ -35,6 +35,7 @@ fragment projectSettings on ProjectSettings {
 fragment repoSettings on RepoSettings {
   projectRef {
     id
+    displayName
     ...repoGeneralSettings
     ...repoAccessSettings
     ...repoPluginsSettings

@@ -221,8 +221,14 @@ export const getProjectPatchesRoute = (projectId: string) =>
 
 export const getProjectSettingsRoute = (
   projectId: string,
-  tab: ProjectSettingsTabRoutes
-) => `${paths.project}/${projectId}/${PageNames.Settings}/${tab}`;
+  tab?: ProjectSettingsTabRoutes
+) => {
+  if (!tab) {
+    return `${paths.project}/${projectId}/${PageNames.Settings}`;
+  }
+
+  return `${paths.project}/${projectId}/${PageNames.Settings}/${tab}`;
+};
 
 export const getCommitQueueRoute = (projectId: string) =>
   `${paths.commitQueue}/${projectId}`;
