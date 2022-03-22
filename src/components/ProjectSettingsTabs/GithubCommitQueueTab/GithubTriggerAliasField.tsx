@@ -58,8 +58,13 @@ export const GithubTriggerAliasField: Field = ({ formData }) => {
   );
 
   return (
-    <InlineDefinition align="right" justify="start" definition={hoverContent}>
-      {alias}
+    <InlineDefinition
+      align="right"
+      justify="start"
+      definition={hoverContent}
+      data-cy="pta-tooltip"
+    >
+      <span data-cy="pta-item">{alias}</span>
     </InlineDefinition>
   );
 };
