@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Cookies from "js-cookie";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { FilterBadges } from "components/FilterBadges";
+import { ProjectSelect } from "components/projectSelect";
 import { PageWrapper } from "components/styles";
 import { ALL_VALUE } from "components/TreeSelect";
 import { TupleSelect } from "components/TupleSelect";
@@ -25,7 +26,6 @@ import { array, queryString } from "utils";
 import { CommitsWrapper } from "./commits/CommitsWrapper";
 import CommitTypeSelect from "./commits/commitTypeSelect";
 import { PaginationButtons } from "./commits/PaginationButtons";
-import { ProjectSelect } from "./commits/projectSelect";
 import { StatusSelect } from "./commits/StatusSelect";
 import {
   getMainlineCommitsQueryVariables,
@@ -125,7 +125,10 @@ export const Commits = () => {
             <CommitTypeSelect />
           </ElementWrapper>
           <ElementWrapper width="25">
-            <ProjectSelect selectedProjectIdentifier={projectId} />
+            <ProjectSelect
+              selectedProjectIdentifier={projectId}
+              getRoute={getCommitsRoute}
+            />
           </ElementWrapper>
         </HeaderWrapper>
         <BadgeWrapper>
