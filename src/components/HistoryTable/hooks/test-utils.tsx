@@ -1,15 +1,13 @@
+import { useMemo } from "react";
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
-import {
-  HistoryTableProvider,
-  useHistoryTable as useHistoryTableActual,
-} from "../HistoryTableContext";
+import { HistoryTableProvider, useHistoryTable } from "../HistoryTableContext";
 
 type UseHistoryTableTestHookType = <T extends (...args: any) => any | any[]>(
   useHook: T,
   args: Parameters<T>
 ) => {
   hookResponse: ReturnType<T>;
-  historyTable: ReturnType<typeof useHistoryTableActual>;
+  historyTable: ReturnType<typeof useHistoryTable>;
 };
 /** useHistoryTableTestHook takes a hook and useHistoryTable hooks
  * and combines them into a shared hook which can be rendered under the same wrapper context
@@ -18,10 +16,10 @@ const useHistoryTableTestHook: UseHistoryTableTestHookType = (
   useHook,
   args
 ) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const hookResponse = useHook(...args);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const historyTable = useHistoryTableActual();
+  const memoizedArgs = useMemo(() => args, [args]);
+  const hookResponse = useHook(...memoizedArgs);
+  const historyTable = useHistoryTable();
+
   return {
     hookResponse,
     historyTable,
