@@ -49,6 +49,13 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
   const override = (field: Array<any>) =>
     projectType !== ProjectType.AttachedProject || !!field?.length;
 
+  const githubTriggerAliases =
+    projectRef.githubTriggerAliases
+      ?.map((aliasName) =>
+        projectRef.patchTriggerAliases.find(({ alias }) => alias === aliasName)
+      )
+      ?.filter((a) => a) ?? [];
+
   return {
     github: {
       prTestingEnabled: projectRef.prTestingEnabled,
@@ -56,6 +63,7 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
         githubPrAliasesOverride: override(githubPrAliases),
         githubPrAliases,
       },
+      githubTriggerAliases,
       githubChecksEnabled: projectRef.githubChecksEnabled,
       githubChecks: {
         githubCheckAliasesOverride: override(githubCheckAliases),

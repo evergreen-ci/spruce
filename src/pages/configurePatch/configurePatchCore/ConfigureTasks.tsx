@@ -8,10 +8,10 @@ import every from "lodash.every";
 import { Button } from "components/Button";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
-import { PatchTriggerAlias } from "gql/generated/types";
 import {
   AliasState,
   ChildPatchAliased,
+  PatchTriggerAlias,
   VariantTasksState,
 } from "hooks/useConfigurePatch";
 

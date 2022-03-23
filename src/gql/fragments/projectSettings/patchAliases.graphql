@@ -1,0 +1,29 @@
+fragment projectPatchAliasSettings on Project {
+  patchTriggerAliases {
+    alias
+    childProjectIdentifier
+    taskSpecifiers {
+      patchAlias
+      taskRegex
+      variantRegex
+    }
+    status
+    parentAsModule
+  }
+  githubTriggerAliases
+}
+
+fragment repoPatchAliasSettings on RepoRef {
+  patchTriggerAliases {
+    alias
+    childProjectIdentifier
+    taskSpecifiers {
+      patchAlias
+      taskRegex
+      variantRegex
+    }
+    status
+    parentAsModule
+  }
+  githubTriggerAliases
+}

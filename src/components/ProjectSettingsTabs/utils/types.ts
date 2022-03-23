@@ -6,3 +6,9 @@ export enum ProjectType {
   Project,
   Repo,
 }
+
+export const PatchTriggerAliasStatus = {
+  "*": "Any completed status",
+  succeeded: "Success",
+  failed: "Failure",
+} as const;

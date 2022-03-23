@@ -178,7 +178,7 @@ export const transformAliases = (
       })
     : [];
 
-const baseProps = {
+export const baseProps = {
   alias: {
     schema: {
       type: "string" as "string",
@@ -214,6 +214,7 @@ const baseProps = {
   task: {
     schema: {
       type: "string" as "string",
+      title: "Task Regex",
       default: "",
       minLength: 1,
     },
@@ -251,6 +252,7 @@ const baseProps = {
   variant: {
     schema: {
       type: "string" as "string",
+      title: "Variant Regex",
       default: "",
       minLength: 1,
     },
@@ -516,7 +518,6 @@ export const aliasRowUiSchema = ({
   "ui:showLabel": false,
   "ui:topAlignDelete": true,
   "ui:useExpandableCard": useExpandableCard,
-  ...(useExpandableCard && { "ui:fullWidth": true }),
   ...(addButtonText && { "ui:addButtonText": addButtonText }),
   ...(isRepo && { "ui:readonly": true }),
   items: {

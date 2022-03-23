@@ -1,14 +1,23 @@
+import { Description } from "@leafygreen-ui/typography";
 import { Field } from "@rjsf/core";
 import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
+import { StyledRouterLink } from "components/styles";
+import {
+  getProjectSettingsRoute,
+  ProjectSettingsTabRoutes,
+} from "constants/routes";
+import { getTabTitle } from "pages/projectSettings/getTabTitle";
 import { alias, form, ProjectType } from "../utils";
+import { GithubTriggerAliasField } from "./GithubTriggerAliasField";
 import { FormState } from "./types";
 
 const { aliasArray, aliasRowUiSchema, gitTagArray } = alias;
 const { insertIf, overrideRadioBox, placeholderIf, radioBoxOptions } = form;
 
 export const getFormSchema = (
+  identifier: string,
   projectType: ProjectType,
   gitHubWebhooksEnabled: boolean,
   formData: FormState,
@@ -27,7 +36,9 @@ export const getFormSchema = (
   };
 
   return {
-    fields: {},
+    fields: {
+      githubTriggerAliasField: GithubTriggerAliasField,
+    },
     schema: {
       type: "object" as "object",
       properties: {
@@ -70,6 +81,13 @@ export const getFormSchema = (
                 ],
                 aliasArray.schema
               ),
+            },
+            githubTriggerAliases: {
+              type: "array" as "array",
+              title: "GitHub Trigger Aliases",
+              items: {
+                type: "object" as "object",
+              },
             },
             githubChecksEnabledTitle: {
               type: "null",
@@ -248,6 +266,19 @@ export const getFormSchema = (
             },
           },
         },
+        githubTriggerAliases: {
+          "ui:addable": false,
+          "ui:orderable": false,
+          "ui:placeholder": "No GitHub Trigger Aliases are defined.",
+          "ui:readonly": true,
+          "ui:removable": false,
+          "ui:descriptionNode": (
+            <GithubTriggerAliasDescription identifier={identifier} />
+          ),
+          items: {
+            "ui:field": "githubTriggerAliasField",
+          },
+        },
         githubChecksEnabledTitle: {
           "ui:sectionTitle": true,
         },
@@ -405,3 +436,20 @@ const userTeamStyling = (
     },
   },
 });
+
+const GithubTriggerAliasDescription = ({
+  identifier,
+}: {
+  identifier: string;
+}) => {
+  const tab = ProjectSettingsTabRoutes.PatchAliases;
+  return (
+    <Description>
+      GitHub Trigger Aliases can be configured on the{" "}
+      <StyledRouterLink to={getProjectSettingsRoute(identifier, tab)}>
+        {getTabTitle(tab).title}
+      </StyledRouterLink>{" "}
+      page.
+    </Description>
+  );
+};
