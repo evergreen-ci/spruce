@@ -1454,6 +1454,7 @@ export type Task = {
   /** @deprecated version is deprecated. Use versionMetadata instead. */
   version: Scalars["String"];
   versionMetadata: Version;
+  order: Scalars["Int"];
 };
 
 export type BaseTaskInfo = {
@@ -2329,6 +2330,7 @@ export type ProjectSettingsFragment = {
       ProjectAccessSettingsFragment &
       ProjectPluginsSettingsFragment &
       ProjectNotificationSettingsFragment &
+      ProjectPatchAliasSettingsFragment &
       ProjectVirtualWorkstationSettingsFragment
   >;
   subscriptions?: Maybe<Array<SubscriptionsFragment>>;
@@ -2338,10 +2340,11 @@ export type ProjectSettingsFragment = {
 
 export type RepoSettingsFragment = {
   projectRef?: Maybe<
-    { id: string } & RepoGeneralSettingsFragment &
+    { id: string; displayName: string } & RepoGeneralSettingsFragment &
       RepoAccessSettingsFragment &
       RepoPluginsSettingsFragment &
       RepoNotificationSettingsFragment &
+      RepoPatchAliasSettingsFragment &
       RepoVirtualWorkstationSettingsFragment
   >;
   vars?: Maybe<VariablesFragment>;
@@ -2390,6 +2393,36 @@ export type SubscriptionsFragment = {
       jiraIssueSubscriber?: Maybe<{ project: string; issueType: string }>;
     };
   }>;
+};
+
+export type ProjectPatchAliasSettingsFragment = {
+  githubTriggerAliases?: Maybe<Array<string>>;
+  patchTriggerAliases?: Maybe<
+    Array<{
+      alias: string;
+      childProjectIdentifier: string;
+      status?: Maybe<string>;
+      parentAsModule?: Maybe<string>;
+      taskSpecifiers?: Maybe<
+        Array<{ patchAlias: string; taskRegex: string; variantRegex: string }>
+      >;
+    }>
+  >;
+};
+
+export type RepoPatchAliasSettingsFragment = {
+  githubTriggerAliases?: Maybe<Array<string>>;
+  patchTriggerAliases?: Maybe<
+    Array<{
+      alias: string;
+      childProjectIdentifier: string;
+      status?: Maybe<string>;
+      parentAsModule?: Maybe<string>;
+      taskSpecifiers?: Maybe<
+        Array<{ patchAlias: string; taskRegex: string; variantRegex: string }>
+      >;
+    }>
+  >;
 };
 
 export type ProjectPluginsSettingsFragment = {
@@ -3854,6 +3887,7 @@ export type GetTaskQuery = {
         isPatch: boolean;
         revision: string;
         project: string;
+        projectIdentifier: string;
       };
       project?: Maybe<{ identifier: string }>;
       dependsOn?: Maybe<
@@ -4029,7 +4063,18 @@ export type GetViewableProjectRefsQueryVariables = Exact<{
 
 export type GetViewableProjectRefsQuery = {
   viewableProjectRefs: Array<
-    Maybe<{ projects: Array<{ identifier: string }> }>
+    Maybe<{
+      name: string;
+      projects: Array<{
+        id: string;
+        identifier: string;
+        repo: string;
+        repoRefId: string;
+        owner: string;
+        displayName: string;
+        isFavorite: boolean;
+      }>;
+    }>
   >;
 };
 

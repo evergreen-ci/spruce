@@ -4,7 +4,6 @@ import { getPatchRoute } from "constants/routes";
 import {
   ConfigurePatchQuery,
   ParameterInput,
-  PatchTriggerAlias,
   VariantTask,
 } from "gql/generated/types";
 import { PatchTab } from "types/patch";
@@ -121,6 +120,10 @@ export interface ChildPatchAliased
   extends Unpacked<ConfigurePatchQuery["patch"]["childPatches"]> {
   alias: string;
 }
+
+export type PatchTriggerAlias = Unpacked<
+  ConfigurePatchQuery["patch"]["patchTriggerAliases"]
+>;
 
 export type AliasState = {
   [alias: string]: boolean;

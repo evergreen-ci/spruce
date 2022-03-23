@@ -59,6 +59,7 @@ const projectForm: FormState = {
         },
       ],
     },
+    githubTriggerAliases: [],
     githubChecksEnabled: null,
     githubChecks: {
       githubCheckAliasesOverride: false,
@@ -181,6 +182,26 @@ const repoForm: FormState = {
       githubPrAliasesOverride: true,
       githubPrAliases: [],
     },
+    githubTriggerAliases: [
+      {
+        alias: "alias1",
+        childProjectIdentifier: "spruce",
+        taskSpecifiers: [
+          {
+            patchAlias: "alias2",
+            taskRegex: "",
+            variantRegex: "",
+          },
+          {
+            patchAlias: "",
+            taskRegex: ".*",
+            variantRegex: ".*",
+          },
+        ],
+        status: "succeeded",
+        parentAsModule: "",
+      },
+    ],
     githubChecksEnabled: true,
     githubChecks: {
       githubCheckAliasesOverride: true,
@@ -286,6 +307,7 @@ const mergedForm: FormState = {
         githubPrAliases: [],
       },
     },
+    githubTriggerAliases: [],
     githubChecksEnabled: null,
     githubChecks: {
       githubCheckAliasesOverride: false,

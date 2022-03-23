@@ -1,7 +1,7 @@
 import * as alias from "./alias";
 import { AliasFormType } from "./alias";
 import * as form from "./form";
-import { ProjectType } from "./types";
+import { PatchTriggerAliasStatus, ProjectType } from "./types";
 
-export { alias, form, ProjectType };
+export { alias, form, PatchTriggerAliasStatus, ProjectType };
 export type { AliasFormType };

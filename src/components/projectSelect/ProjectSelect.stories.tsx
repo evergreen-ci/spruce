@@ -1,4 +1,5 @@
 import StoryRouter from "storybook-react-router";
+import { getCommitsRoute } from "constants/routes";
 import { ADD_FAVORITE_PROJECT, REMOVE_FAVORITE_PROJECT } from "gql/mutations";
 import { GET_PROJECTS } from "gql/queries";
 import WithToastContext from "test_utils/toast-decorator";
@@ -11,7 +12,10 @@ export default {
 };
 
 export const Story = () => (
-  <ProjectSelect selectedProjectIdentifier="evergreen" />
+  <ProjectSelect
+    selectedProjectIdentifier="evergreen"
+    getRoute={getCommitsRoute}
+  />
 );
 
 Story.parameters = {
