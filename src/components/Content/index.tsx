@@ -1,5 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
+import styled from "@emotion/styled";
 import get from "lodash/get";
 import { Route, Switch } from "react-router-dom";
 import { useAnalyticsAttributes } from "analytics";
@@ -8,9 +9,11 @@ import { Header } from "components/Header";
 import { FullPageLoad } from "components/Loading/FullPageLoad";
 import { ProjectSettingsRedirect } from "components/ProjectSettingsRedirect";
 import { PageGrid } from "components/styles/Layout";
+import { TaskStatusIconLegend } from "components/TaskStatusIconLegend";
 import { UserPatchesRedirect } from "components/UserPatchesRedirect";
 import { WelcomeModal } from "components/WelcomeModal";
 import { routes } from "constants/routes";
+import { zIndex, size } from "constants/tokens";
 import { useAuthStateContext } from "context/auth";
 import { GetUserQuery, GetUserSettingsQuery } from "gql/generated/types";
 import { GET_USER, GET_USER_SETTINGS } from "gql/queries";
@@ -93,7 +96,22 @@ export const Content: React.FC = () => {
         <Route component={PageDoesNotExist} />
       </Switch>
       {hasUsedSpruceBefore && <WelcomeModal />}
-      <Feedback />
+      <FloatingContent>
+        <TaskStatusIconLegend />
+        <Feedback />
+      </FloatingContent>
     </PageGrid>
   );
 };
+
+const FloatingContent = styled.div`
+  position: fixed;
+  z-index: ${zIndex.tooltip};
+  bottom: 0;
+  right: 0;
+  margin-left: ${size.l};
+  margin-bottom: ${size.s};
+  background-color: white;
+  padding: ${size.xs};
+  border-radius: ${size.s};
+`;
