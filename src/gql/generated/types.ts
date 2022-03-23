@@ -3887,6 +3887,7 @@ export type GetTaskQuery = {
         isPatch: boolean;
         revision: string;
         project: string;
+        projectIdentifier: string;
       };
       project?: Maybe<{ identifier: string }>;
       dependsOn?: Maybe<
