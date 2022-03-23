@@ -15,6 +15,10 @@ const getInitialFormState = (projectData, repoData) => {
         ...projectData.patchAliases,
         repoData: repoData.patchAliases,
       },
+      patchTriggerAliases: {
+        ...projectData.patchTriggerAliases,
+        repoData: repoData.patchTriggerAliases,
+      },
     };
   }
   return projectData;

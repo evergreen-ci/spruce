@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body, Overline } from "@leafygreen-ui/typography";
@@ -26,6 +27,8 @@ const ProjectOption: React.FC<OptionProps> = ({
 
 interface OptionGroupProps {
   name: string;
+  repoIdentifier?: string;
+  canClickOnRepoGroup?: boolean;
   projects: {
     displayName: string;
     identifier: string;
@@ -37,9 +40,23 @@ export const ProjectOptionGroup: React.FC<OptionGroupProps> = ({
   name,
   projects,
   onClick,
+  repoIdentifier,
+  canClickOnRepoGroup = false,
 }) => (
   <OptionGroupContainer>
-    <Overline>{name}</Overline>
+    {/* if it's the project settings page and it's not the "" group, make the header clickable */}
+    {canClickOnRepoGroup ? (
+      <Overline
+        css={hoverStyles}
+        role="button"
+        onClick={() => onClick(repoIdentifier)}
+      >
+        {name}
+      </Overline>
+    ) : (
+      <Overline>{name} </Overline>
+    )}
+
     <ListContainer>
       {projects?.map((project) => (
         <ProjectOption
@@ -69,5 +86,14 @@ const ProjectContainer = styled.div`
 `;
 
 const OptionGroupContainer = styled.div`
+  padding: ${size.xs};
+  word-break: break-word;
+`;
+
+const hoverStyles = css`
+  :hover {
+    cursor: pointer;
+    background-color: ${gray.light1};
+  }
   padding: ${size.xs};
 `;
