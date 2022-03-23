@@ -12,6 +12,7 @@ interface DisplayModalProps {
   ) => void | React.Dispatch<React.SetStateAction<boolean>>;
   size?: ModalSize;
   title?: string;
+  popoverZIndex?: number;
 }
 
 export const DisplayModal: React.FC<DisplayModalProps> = ({
@@ -21,8 +22,15 @@ export const DisplayModal: React.FC<DisplayModalProps> = ({
   setOpen,
   size,
   title,
+  popoverZIndex = zIndex.modal,
 }) => (
-  <StyledModal data-cy={dataCy} open={open} setOpen={setOpen} size={size}>
+  <StyledModal
+    data-cy={dataCy}
+    open={open}
+    setOpen={setOpen}
+    size={size}
+    zindex={popoverZIndex}
+  >
     {/* @ts-expect-error */}
     {title && <StyledHeader>{title}</StyledHeader>}
     {children}
@@ -30,9 +38,9 @@ export const DisplayModal: React.FC<DisplayModalProps> = ({
 );
 
 // @ts-expect-error
-const StyledModal = styled(Modal)`
+const StyledModal = styled(Modal)<{ zindex: number }>`
   /* Ensure modal appears above feedback dialog */
-  z-index: ${zIndex.modal};
+  z-index: ${({ zindex }) => zindex};
 `;
 
 // @ts-expect-error

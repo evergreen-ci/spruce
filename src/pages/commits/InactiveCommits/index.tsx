@@ -1,14 +1,18 @@
+import { useState } from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import { size, zIndex } from "constants/tokens";
+import { DisplayModal } from "components/DisplayModal";
+import { StyledRouterLink } from "components/styles";
+import { getVersionRoute } from "constants/routes";
+import { size, zIndex, fontSize } from "constants/tokens";
 import { CommitRolledUpVersions } from "types/commits";
 import { string } from "utils";
 import { commitChartHeight } from "../constants";
 
 const { getDateCopy, shortenGithash, trimStringFromMiddle } = string;
-const { gray } = uiColors;
+const { focus, gray } = uiColors;
 
 export const InactiveCommitsLine = () => (
   <InactiveCommitContainer>
@@ -24,6 +28,7 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
   rolledUpVersions,
   hasFilters = false,
 }) => {
+  const [showModal, setShowModal] = useState(false);
   const versionCount = rolledUpVersions.length;
 
   const shouldSplitCommits = versionCount > MAX_COMMIT_COUNT;
@@ -34,68 +39,74 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
   if (shouldSplitCommits) {
     const hiddenCommitCount = versionCount - MAX_COMMIT_COUNT;
     returnedCommits = [
-      ...rolledUpVersions.slice(0, 1).map((v) => (
-        <CommitText key={v.revision} data-cy="commit-text">
-          {getCommitCopy(v)}
-        </CommitText>
-      )),
+      ...rolledUpVersions.slice(0, 1).map((v) => getCommitCopy(v, true)),
       <HiddenCommitsWrapper key="hidden_commits" data-cy="hidden-commits">
-        <Disclaimer>
+        <StyledDisclaimer onClick={() => setShowModal(true)}>
           ({hiddenCommitCount}
           {` more commit${hiddenCommitCount !== 1 ? "s" : ""}...`})
-        </Disclaimer>
+        </StyledDisclaimer>
       </HiddenCommitsWrapper>,
-      ...rolledUpVersions.slice(-2).map((v) => (
-        <CommitText key={v.revision} data-cy="commit-text">
-          {getCommitCopy(v)}
-        </CommitText>
-      )),
+      ...rolledUpVersions.slice(-2).map((v) => getCommitCopy(v, true)),
     ];
   } else {
-    returnedCommits = rolledUpVersions.map((v) => (
-      <CommitText key={v.revision} data-cy="commit-text">
-        {getCommitCopy(v)}
-      </CommitText>
-    ));
+    returnedCommits = rolledUpVersions.map((v) => getCommitCopy(v, true));
   }
 
   return (
-    <Tooltip
-      usePortal={false}
-      align="bottom"
-      justify="middle"
-      trigger={
-        <ButtonContainer role="button">
-          <ButtonText data-cy="inactive-commits-button">
-            <div>{versionCount}</div>
-            {tooltipType}
-          </ButtonText>
-        </ButtonContainer>
-      }
-      triggerEvent="click"
-      popoverZIndex={zIndex.tooltip}
-    >
-      <TooltipContainer data-cy="inactive-commits-tooltip">
-        <TooltipTitleText>
-          {versionCount} {tooltipType}
-          {` Commit${versionCount !== 1 ? "s" : ""}`}
-        </TooltipTitleText>
-        {returnedCommits}
-      </TooltipContainer>
-    </Tooltip>
+    <>
+      <DisplayModal
+        open={showModal}
+        setOpen={setShowModal}
+        popoverZIndex={zIndex.popover}
+        title={`${versionCount} ${tooltipType} Commits`}
+      >
+        {rolledUpVersions?.map((version) => getCommitCopy(version, false))}
+      </DisplayModal>
+      <Tooltip
+        usePortal={false}
+        align="bottom"
+        justify="middle"
+        trigger={
+          <ButtonContainer role="button">
+            <ButtonText data-cy="inactive-commits-button">
+              <div>{versionCount}</div>
+              {tooltipType}
+            </ButtonText>
+          </ButtonContainer>
+        }
+        triggerEvent="click"
+        popoverZIndex={zIndex.tooltip}
+      >
+        <TooltipContainer data-cy="inactive-commits-tooltip">
+          <TooltipTitleText>
+            {versionCount} {tooltipType}
+            {` Commit${versionCount !== 1 ? "s" : ""}`}
+          </TooltipTitleText>
+          {returnedCommits}
+        </TooltipContainer>
+      </Tooltip>
+    </>
   );
 };
 
-const getCommitCopy = (v: CommitRolledUpVersions[0]) => (
-  <>
+// Function that returns formatted information about commits.
+// If isTooltip is true, the commit message is truncated.
+const getCommitCopy = (v: CommitRolledUpVersions[0], isTooltip: boolean) => (
+  <CommitText key={v.revision} data-cy="commit-text" tooltip={isTooltip}>
     <CommitTitleText>
-      {shortenGithash(v.revision)} — {getDateCopy(v.createTime)}
+      <StyledRouterLink to={getVersionRoute(v.id)}>
+        {shortenGithash(v.revision)}
+      </StyledRouterLink>{" "}
+      {getDateCopy(v.createTime)}
     </CommitTitleText>
     <CommitBodyText>
-      {v.author} - {trimStringFromMiddle(v.message, maxCommitMessageLength)} (#
-      {v.order})
+      {v.author} -{" "}
+      {isTooltip
+        ? trimStringFromMiddle(v.message, maxCommitMessageLength)
+        : v.message}{" "}
+      (#{v.order})
     </CommitBodyText>
-  </>
+  </CommitText>
 );
 
 const InactiveCommitContainer = styled.div`
@@ -132,7 +143,7 @@ const ButtonText = styled(Disclaimer)`
 const HiddenCommitsWrapper = styled.div`
   align-self: center;
   padding: ${size.xs} 0;
-  opacity: 0.5;
+  opacity: 0.7;
 `;
 
 const TooltipTitleText = styled.div`
@@ -140,10 +151,17 @@ const TooltipTitleText = styled.div`
   font-weight: bold;
 `;
 
-const CommitText = styled.div`
-  padding: ${size.xxs} 0;
+const StyledDisclaimer = styled(Disclaimer)`
+  cursor: pointer;
+  :hover {
+    color: ${focus};
+  }
+`;
+
+const CommitText = styled.div<{ tooltip: boolean }>`
+  padding: ${({ tooltip }) => (tooltip ? `${size.xxs} 0` : `${size.xs} 0`)};
   word-break: break-all;
-  font-size: 13px;
+  font-size: ${({ tooltip }) => (tooltip ? `13px` : `${fontSize.m}`)};
 `;
 
 const CommitTitleText = styled.div`
