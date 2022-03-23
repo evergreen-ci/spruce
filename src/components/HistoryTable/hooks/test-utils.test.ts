@@ -6,7 +6,7 @@ import { useHistoryTableTestHook, ProviderWrapper } from "./test-utils";
 describe("useHistoryTableTestHook - sanity check", () => {
   it("should return the correct hooks", () => {
     const { result } = renderHook(
-      () => useHistoryTableTestHook(useTestHook)(0),
+      () => useHistoryTableTestHook(useTestHook, [0]),
       {
         wrapper: ProviderWrapper,
       }
@@ -38,7 +38,7 @@ describe("useHistoryTableTestHook - sanity check", () => {
 
   it("should be able to perform hook actions", async () => {
     const { result } = renderHook(
-      () => useHistoryTableTestHook(useTestHook)(0),
+      () => useHistoryTableTestHook(useTestHook, [0]),
       {
         wrapper: ProviderWrapper,
       }

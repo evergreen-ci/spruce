@@ -9,7 +9,7 @@ import useTestResultsActual from "./useTestResults";
 describe("useTestResults", () => {
   it("should return an empty map when nothing is loaded", () => {
     const { result } = renderHook(
-      () => useHistoryTableTestHook(useTestResultsActual)(0),
+      () => useHistoryTableTestHook(useTestResultsActual, [0]),
       {
         wrapper: ({ children }) => ProviderWrapper({ children }),
       }
@@ -20,7 +20,7 @@ describe("useTestResults", () => {
   });
   it("should return the default state when there is no valid data for a row", () => {
     const { result } = renderHook(
-      () => useHistoryTableTestHook(useTestResultsActual)(0),
+      () => useHistoryTableTestHook(useTestResultsActual, [0]),
       {
         wrapper: ({ children }) => ProviderWrapper({ children }),
       }
@@ -37,7 +37,7 @@ describe("useTestResults", () => {
   });
   it("should not attempt to fetch data for non commit rows", () => {
     const { result } = renderHook(
-      () => useHistoryTableTestHook(useTestResultsActual)(0),
+      () => useHistoryTableTestHook(useTestResultsActual, [0]),
       {
         wrapper: ({ children }) => ProviderWrapper({ children, mocks }),
       }
@@ -66,7 +66,7 @@ describe("useTestResults", () => {
   });
   it("should return all matching test results when there are no filters applied and the row is a commit", async () => {
     const { result, waitForNextUpdate } = renderHook(
-      () => useHistoryTableTestHook(useTestResultsActual)(1),
+      () => useHistoryTableTestHook(useTestResultsActual, [1]),
       {
         wrapper: ({ children }) => ProviderWrapper({ children, mocks }),
       }
@@ -100,7 +100,7 @@ describe("useTestResults", () => {
   });
   it("should return all matching test results when there are matching filters applied and the row is a commit", async () => {
     const { result, waitForNextUpdate } = renderHook(
-      () => useHistoryTableTestHook(useTestResultsActual)(1),
+      () => useHistoryTableTestHook(useTestResultsActual, [1]),
       {
         wrapper: ({ children }) => ProviderWrapper({ children, mocks }),
       }
@@ -141,7 +141,7 @@ describe("useTestResults", () => {
   });
   it("should not return matching test results when there are non matching filters applied and the row is a commit", async () => {
     const { result, waitForNextUpdate } = renderHook(
-      () => useHistoryTableTestHook(useTestResultsActual)(1),
+      () => useHistoryTableTestHook(useTestResultsActual, [1]),
       {
         wrapper: ({ children }) => ProviderWrapper({ children, mocks }),
       }

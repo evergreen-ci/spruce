@@ -5,9 +5,8 @@ import {
 } from "../HistoryTableContext";
 
 type UseHistoryTableTestHookType = <T extends (...args: any) => any | any[]>(
-  useHook: T
-) => (
-  ...args: Parameters<T>
+  useHook: T,
+  args: Parameters<T>
 ) => {
   hookResponse: ReturnType<T>;
   historyTable: ReturnType<typeof useHistoryTableActual>;
@@ -15,7 +14,8 @@ type UseHistoryTableTestHookType = <T extends (...args: any) => any | any[]>(
 /** useHistoryTableTestHook takes a hook and useHistoryTable hooks
  * and combines them into a shared hook which can be rendered under the same wrapper context
  * and can be used together */
-const useHistoryTableTestHook: UseHistoryTableTestHookType = (useHook) => (
+const useHistoryTableTestHook: UseHistoryTableTestHookType = (
+  useHook,
   args
 ) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
