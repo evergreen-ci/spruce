@@ -16,14 +16,14 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
       onSubmit={[Function]}
     >
       <div
-        className="form-group field field-object"
+        className="form-group field field-object css-ejwhfc-DefaultFieldContainer e7smmlm7"
         id=" root"
       >
         <fieldset
           id="root"
         >
           <div
-            className="form-group field field-string"
+            className="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm7"
             id=" root_cloneMethod"
           >
             <div
@@ -95,7 +95,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
             </div>
           </div>
           <div
-            className="form-group field field-array"
+            className="form-group field field-array css-ejwhfc-DefaultFieldContainer e7smmlm7"
             id=" root_expansions"
           >
             <h6
@@ -150,14 +150,14 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                 className="css-nbhfvd-ArrayItemRow e7smmlm3"
               >
                 <div
-                  className="form-group field field-object"
+                  className="form-group field field-object css-ejwhfc-DefaultFieldContainer e7smmlm7"
                   id=" root_expansions_0"
                 >
                   <fieldset
                     id="root_expansions_0"
                   >
                     <div
-                      className="form-group field field-string"
+                      className="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm7"
                       id=" root_expansions_0_key"
                     >
                       <div
@@ -209,7 +209,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                       </div>
                     </div>
                     <div
-                      className="form-group field field-string"
+                      className="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm7"
                       id=" root_expansions_0_value"
                     >
                       <div
@@ -303,7 +303,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
             </div>
           </div>
           <div
-            className="form-group field field-string"
+            className="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm7"
             id=" root_validProjects"
           >
             <div
@@ -362,14 +362,14 @@ exports[`storybook Storyshots Spruce Form Example 2 1`] = `
       onSubmit={[Function]}
     >
       <div
-        className="form-group field field-object"
+        className="form-group field field-object css-ejwhfc-DefaultFieldContainer e7smmlm7"
         id=" root"
       >
         <fieldset
           id="root"
         >
           <div
-            className="form-group field field-boolean"
+            className="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm7"
             id=" root_distroIsCluster"
           >
             <div
@@ -410,7 +410,7 @@ exports[`storybook Storyshots Spruce Form Example 2 1`] = `
             </div>
           </div>
           <div
-            className="form-group field field-boolean"
+            className="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm7"
             id=" root_disableShallowClone"
           >
             <div
@@ -451,7 +451,7 @@ exports[`storybook Storyshots Spruce Form Example 2 1`] = `
             </div>
           </div>
           <div
-            className="form-group field field-boolean"
+            className="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm7"
             id=" root_disableQueue"
           >
             <div
@@ -492,7 +492,7 @@ exports[`storybook Storyshots Spruce Form Example 2 1`] = `
             </div>
           </div>
           <div
-            className="form-group field field-boolean"
+            className="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm7"
             id=" root_decommissionHosts"
           >
             <div
@@ -533,7 +533,7 @@ exports[`storybook Storyshots Spruce Form Example 2 1`] = `
             </div>
           </div>
           <div
-            className="form-group field field-string"
+            className="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm7"
             id=" root_reprovisionMethod"
           >
             <div
@@ -654,14 +654,14 @@ exports[`storybook Storyshots Spruce Form Example 3 1`] = `
       onSubmit={[Function]}
     >
       <div
-        className="form-group field field-object"
+        className="form-group field field-object css-ejwhfc-DefaultFieldContainer e7smmlm7"
         id=" root"
       >
         <fieldset
           id="root"
         >
           <div
-            className="form-group field field-boolean"
+            className="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm7"
             id=" root_visible"
           >
             <div

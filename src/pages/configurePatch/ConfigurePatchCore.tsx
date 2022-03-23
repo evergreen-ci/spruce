@@ -21,13 +21,13 @@ import {
   VariantTasks,
   ChildPatchAlias,
   ConfigurePatchQuery,
-  PatchTriggerAlias,
   ProjectBuildVariant,
 } from "gql/generated/types";
 import { SCHEDULE_PATCH } from "gql/mutations";
 import {
   AliasState,
   ChildPatchAliased,
+  PatchTriggerAlias,
   VariantTasksState,
   useConfigurePatch,
 } from "hooks/useConfigurePatch";
