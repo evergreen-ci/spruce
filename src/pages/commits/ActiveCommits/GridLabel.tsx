@@ -16,18 +16,18 @@ export const GridLabel: React.FC<{
   max: number;
   numDashedLine: number;
 }> = ({ chartType, max, numDashedLine }) => {
-  const axisLabels =
+  const yAxisLabels =
     chartType === ChartTypes.Percentage
       ? percentages
       : calculateAxisLabels(max, numDashedLine);
 
   return (
     <GridLabelContainer>
-      {axisLabels.map((yAxisValue, index) => (
+      {yAxisLabels.map((yValue, index) => (
         // Y-axis labels do not need to represent a unique value
         // eslint-disable-next-line react/no-array-index-key
         <YAxisValue key={index}>
-          {yAxisValue}
+          {yValue}
           {chartType === ChartTypes.Percentage && <>%</>}
         </YAxisValue>
       ))}
@@ -42,17 +42,17 @@ const calculateAxisLabels = (max: number, numLines: number): number[] => {
 };
 
 const GridLabelContainer = styled.div`
-  width: ${size.l};
-  font-size: 12px;
-  color: ${gray.dark1};
-  position: absolute;
-  top: 0;
-  left: -40px;
-  height: ${gridHeight}px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
+  position: absolute;
+  top: 0;
+  left: -40px;
+  font-size: 12px;
+  color: ${gray.dark1};
+  width: ${size.l};
+  height: ${gridHeight}px;
   z-index: ${zIndex.backdrop};
 `;
 
