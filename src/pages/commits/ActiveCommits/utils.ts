@@ -59,8 +59,8 @@ export function calculateBarHeight(
   if (chartType === ChartTypes.Percentage) {
     return `${(value / total) * 100}%`;
   }
-  const maxRounded = roundMax(max);
-  return `${(value / maxRounded) * 100}%`;
+  const roundedMax = roundMax(max);
+  return `${(value / roundedMax) * 100}%`;
 }
 
 export const roundMax = (max: number) => {
