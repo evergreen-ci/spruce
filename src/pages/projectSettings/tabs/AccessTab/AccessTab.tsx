@@ -1,14 +1,17 @@
 import { useMemo } from "react";
 import { SpruceForm } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import { usePopulateForm, useProjectSettingsContext } from "../Context";
+import {
+  usePopulateForm,
+  useProjectSettingsContext,
+} from "context/projectSettings";
 import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { TabProps } from "./types";
 
-const tab = ProjectSettingsTabRoutes.Notifications;
+const tab = ProjectSettingsTabRoutes.Access;
 
-export const NotificationsTab: React.FC<TabProps> = ({
+export const AccessTab: React.FC<TabProps> = ({
   projectData,
   projectType,
   repoData,
@@ -24,10 +27,12 @@ export const NotificationsTab: React.FC<TabProps> = ({
   const { fields, schema, uiSchema } = useMemo(
     () =>
       getFormSchema(
+        projectType,
         projectType === ProjectType.AttachedProject ? repoData : null
       ),
     [projectType, repoData]
   );
+
   if (!formData) return null;
 
   return (

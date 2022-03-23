@@ -1,29 +1,17 @@
 import { useMemo } from "react";
 import { SpruceForm } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import { usePopulateForm, useProjectSettingsContext } from "../Context";
+import {
+  usePopulateForm,
+  useProjectSettingsContext,
+} from "context/projectSettings";
 import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { TabProps } from "./types";
 
-const tab = ProjectSettingsTabRoutes.VirtualWorkstation;
+const tab = ProjectSettingsTabRoutes.Notifications;
 
-const getInitialFormState = (projectData, repoData) => {
-  if (!projectData) return repoData;
-  if (repoData) {
-    return {
-      ...projectData,
-      commands: {
-        ...projectData.commands,
-        repoData: repoData.commands,
-      },
-    };
-  }
-  return projectData;
-};
-
-export const VirtualWorkstationTab: React.FC<TabProps> = ({
-  identifier,
+export const NotificationsTab: React.FC<TabProps> = ({
   projectData,
   projectType,
   repoData,
@@ -31,10 +19,7 @@ export const VirtualWorkstationTab: React.FC<TabProps> = ({
   const { getTab, updateForm } = useProjectSettingsContext();
   const { formData } = getTab(tab);
 
-  const initialFormState = useMemo(
-    () => getInitialFormState(projectData, repoData),
-    [projectData, repoData]
-  );
+  const initialFormState = projectData || repoData;
   usePopulateForm(initialFormState, tab);
 
   const onChange = updateForm(tab);
@@ -42,13 +27,10 @@ export const VirtualWorkstationTab: React.FC<TabProps> = ({
   const { fields, schema, uiSchema } = useMemo(
     () =>
       getFormSchema(
-        identifier,
-        projectType,
         projectType === ProjectType.AttachedProject ? repoData : null
       ),
-    [identifier, projectType, repoData]
+    [projectType, repoData]
   );
-
   if (!formData) return null;
 
   return (
