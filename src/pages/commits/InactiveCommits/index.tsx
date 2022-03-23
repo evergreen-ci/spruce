@@ -22,7 +22,7 @@ export const InactiveCommitsLine = () => (
 
 interface InactiveCommitsProps {
   rolledUpVersions: CommitRolledUpVersions;
-  hasFilters: boolean;
+  hasFilters?: boolean;
 }
 export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
   rolledUpVersions,
@@ -40,8 +40,12 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
     const hiddenCommitCount = versionCount - MAX_COMMIT_COUNT;
     returnedCommits = [
       ...rolledUpVersions.slice(0, 1).map((v) => getCommitCopy(v, true)),
-      <HiddenCommitsWrapper key="hidden_commits" data-cy="hidden-commits">
-        <StyledDisclaimer onClick={() => setShowModal(true)}>
+      <HiddenCommitsWrapper
+        key="hidden_commits"
+        data-cy="hidden-commits"
+        onClick={() => setShowModal(true)}
+      >
+        <StyledDisclaimer>
           ({hiddenCommitCount}
           {` more commit${hiddenCommitCount !== 1 ? "s" : ""}...`})
         </StyledDisclaimer>
@@ -55,6 +59,7 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
   return (
     <>
       <DisplayModal
+        data-cy="inactive-commits-modal"
         open={showModal}
         setOpen={setShowModal}
         popoverZIndex={zIndex.popover}

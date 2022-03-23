@@ -85,10 +85,10 @@ Array [
         width={64}
       >
         <div
-          className="css-316fn7-InactiveCommitContainer ezzuvrx9"
+          className="css-316fn7-InactiveCommitContainer ezzuvrx10"
         >
           <div
-            className="css-1q62izj-InactiveCommitLine ezzuvrx8"
+            className="css-1q62izj-InactiveCommitLine ezzuvrx9"
           />
         </div>
       </div>
@@ -421,12 +421,12 @@ Array [
         width={64}
       >
         <div
-          className="leafygreen-ui-cssveg css-1ctfjby-ButtonContainer ezzuvrx6"
+          className="leafygreen-ui-cssveg css-1ctfjby-ButtonContainer ezzuvrx7"
           onClick={[Function]}
           role="button"
         >
           <small
-            className="css-t2ltce-ButtonText ezzuvrx5 leafygreen-ui-13bqno6"
+            className="css-t2ltce-ButtonText ezzuvrx6 leafygreen-ui-13bqno6"
             data-cy="inactive-commits-button"
           >
             <div>
