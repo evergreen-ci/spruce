@@ -64,16 +64,14 @@ const StyledIcon = styled(Icon)`
 const Row = styled.div`
   display: flex;
   align-items: flex-start;
-  width: 125px;
   margin-bottom: ${size.xs};
   margin-right: ${size.xs};
 `;
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
   width: 400px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 `;
 
 const LabelContainer = styled.div`
