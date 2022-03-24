@@ -62,7 +62,6 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
         data-cy="inactive-commits-modal"
         open={showModal}
         setOpen={setShowModal}
-        popoverZIndex={zIndex.popover}
         title={`${versionCount} ${tooltipType} Commits`}
       >
         {rolledUpVersions?.map((version) => getCommitCopy(version, false))}
