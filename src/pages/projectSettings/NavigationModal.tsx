@@ -2,7 +2,7 @@ import { matchPath } from "react-router";
 import NavigationPrompt from "react-router-navigation-prompt";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { routes } from "constants/routes";
-import { useIsAnyTabUnsaved } from "context/projectSettings";
+import { useIsAnyTabUnsaved } from "./Context";
 import { getTabTitle } from "./getTabTitle";
 
 export const NavigationModal: React.FC = () => {

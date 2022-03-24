@@ -14,7 +14,6 @@ import {
   getProjectSettingsRoute,
 } from "constants/routes";
 import { size } from "constants/tokens";
-import { ProjectSettingsProvider } from "context/projectSettings";
 import { useToastContext } from "context/toast";
 import {
   ProjectSettingsQuery,
@@ -25,6 +24,7 @@ import {
 import { GET_PROJECT_SETTINGS, GET_REPO_SETTINGS } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { environmentalVariables, validators } from "utils";
+import { ProjectSettingsProvider } from "./projectSettings/Context";
 import { CreateProjectModal } from "./projectSettings/CreateProjectModal";
 import { getTabTitle } from "./projectSettings/getTabTitle";
 import { ProjectSettingsTabs } from "./projectSettings/Tabs";

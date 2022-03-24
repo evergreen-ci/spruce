@@ -5,7 +5,7 @@ import {
   ProjectSettingsProvider,
   useIsAnyTabUnsaved,
   useProjectSettingsContext,
-} from "./projectSettings";
+} from "./Context";
 
 describe("projectSettingsContext", () => {
   it("ensure that tabs are initially saved", async () => {

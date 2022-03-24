@@ -4,7 +4,7 @@ import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
   usePopulateForm,
   useProjectSettingsContext,
-} from "context/projectSettings";
+} from "pages/projectSettings/Context";
 import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { TabProps } from "./types";

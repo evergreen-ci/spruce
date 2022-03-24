@@ -5,7 +5,6 @@ import { H2, Disclaimer } from "@leafygreen-ui/typography";
 import { Button } from "components/Button";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { size } from "constants/tokens";
-import { useProjectSettingsContext } from "context/projectSettings";
 import { useToastContext } from "context/toast";
 import {
   ProjectSettingsSection,
@@ -18,6 +17,7 @@ import {
   SAVE_PROJECT_SETTINGS_FOR_SECTION,
   SAVE_REPO_SETTINGS_FOR_SECTION,
 } from "gql/mutations";
+import { useProjectSettingsContext } from "./Context";
 import { DefaultSectionToRepoModal } from "./DefaultSectionToRepoModal";
 import { getTabTitle } from "./getTabTitle";
 import { formToGqlMap } from "./tabs/transformers";
