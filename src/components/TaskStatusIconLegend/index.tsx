@@ -63,7 +63,7 @@ const StyledIcon = styled(Icon)`
 
 const Row = styled.div`
   display: flex;
-  align-items: top;
+  align-items: flex-start;
   width: 125px;
   margin-bottom: ${size.xs};
   margin-right: ${size.xs};
