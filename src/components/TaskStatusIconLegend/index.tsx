@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import Popover from "@leafygreen-ui/popover";
@@ -8,7 +8,7 @@ import Icon from "components/Icon";
 import { PopoverContainer } from "components/styles/Popover";
 import { groupedIconStatuses } from "components/TaskStatusIcon";
 import { taskStatusToCopy } from "constants/task";
-import { size } from "constants/tokens";
+import { size, zIndex } from "constants/tokens";
 
 export const LegendContent = () => (
   <>
@@ -47,6 +47,7 @@ export const TaskStatusIconLegend: React.FC = () => {
         active={isActive}
         usePortal
         spacing={spacing[2]}
+        popoverZIndex={zIndex.popover}
       >
         <PopoverContainer>
           <LegendContent />
