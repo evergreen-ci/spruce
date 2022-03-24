@@ -3,6 +3,8 @@ import { environmentalVariables } from "utils";
 
 const { getLobsterURL, getUiUrl } = environmentalVariables;
 
+export const wikiUrl = "https://github.com/evergreen-ci/evergreen/wiki";
+
 export const cliDocumentationUrl =
   "https://github.com/evergreen-ci/evergreen/wiki/Using-the-Command-Line-Tool";
 
@@ -28,9 +30,6 @@ export const getGithubPullRequestUrl = (
   repo: string,
   issue: number | string
 ) => `https://github.com/${owner}/${repo}/pull/${issue}`;
-
-export const getWikiUrl = () =>
-  `https://github.com/evergreen-ci/evergreen/wiki`;
 
 export const getLobsterTaskLink = (
   logType: LogTypes,

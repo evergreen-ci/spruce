@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useNavbarAnalytics } from "analytics";
 import Icon from "components/Icon";
 import { StyledLink } from "components/styles";
-import { getWikiUrl } from "constants/externalResources";
+import { wikiUrl } from "constants/externalResources";
 import { getCommitsRoute, getUserPatchesRoute, routes } from "constants/routes";
 import { size } from "constants/tokens";
 import { useAuthStateContext } from "context/auth";
@@ -84,7 +84,7 @@ export const Navbar: React.FC = () => {
           </SecondaryLink>
         )}
         <PrimaryAWithIcon
-          href={getWikiUrl()}
+          href={wikiUrl}
           target="_blank"
           onClick={() => sendEvent({ name: "Click EVG Wiki Link" })}
         >
