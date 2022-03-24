@@ -26,9 +26,8 @@ const useColumns = <T>(allColumns: T[], accessFunc: (column: T) => string) => {
             selectedColumnsInQuery.includes(accessFunc(column))
           )
         : allColumns,
-    // allColumns is not a stable reference and will cause a recalculation of the memoized value
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [selectedColumnsInQuery]
+    [selectedColumnsInQuery, allColumns]
   );
 
   const visibleColumns = useMemo(
@@ -43,7 +42,6 @@ const useColumns = <T>(allColumns: T[], accessFunc: (column: T) => string) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visibleColumns]);
-
   return activeColumns || [];
 };
 
