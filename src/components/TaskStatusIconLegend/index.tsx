@@ -53,9 +53,9 @@ export const TaskStatusIconLegend: React.FC = () => {
         spacing={spacing[2]}
         popoverZIndex={zIndex.popover}
       >
-        <PopoverContainer>
+        <StyledPopoverContainer>
           <LegendContent />
-        </PopoverContainer>
+        </StyledPopoverContainer>
       </Popover>
     </IconButton>
   );
@@ -87,4 +87,8 @@ const TitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
+
+const StyledPopoverContainer = styled(PopoverContainer)`
+  border-radius: ${size.xs};
 `;
