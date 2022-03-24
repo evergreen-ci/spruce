@@ -1,8 +1,8 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { FilterBadges } from "components/FilterBadges";
 import HistoryTable, {
   context,
@@ -19,8 +19,7 @@ import {
 } from "gql/generated/types";
 import { GET_MAINLINE_COMMITS_FOR_HISTORY } from "gql/queries";
 import { usePageTitle } from "hooks";
-import { HistoryQueryParams } from "types/history";
-import { queryString, string } from "utils";
+import { string } from "utils";
 import {
   ColumnHeaders,
   TaskSelector,
@@ -29,7 +28,6 @@ import {
 
 const { HistoryTableProvider } = context;
 const { useTestFilters } = hooks;
-const { parseQueryString, getString } = queryString;
 const { applyStrictRegex } = string;
 
 export const VariantHistoryContents: React.FC = () => {
@@ -37,17 +35,9 @@ export const VariantHistoryContents: React.FC = () => {
     projectId: string;
     variantName: string;
   }>();
-  const { search } = useLocation();
-  const queryParams = useMemo(() => parseQueryString(search), [search]);
-  const skipOrderNumberParam = getString(
-    queryParams[HistoryQueryParams.SkipOrderNumber]
-  );
-  const skipOrderNumber = parseInt(skipOrderNumberParam, 10) || undefined;
 
   usePageTitle(`Variant History | ${projectId} | ${variantName}`);
-  const [nextPageOrderNumber, setNextPageOrderNumber] = useState(
-    skipOrderNumber
-  );
+  const [nextPageOrderNumber, setNextPageOrderNumber] = useState(null);
 
   const variables = {
     mainlineCommitsOptions: {
