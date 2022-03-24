@@ -1482,7 +1482,7 @@ export type GithubProjectConflicts = {
 };
 
 export type ProjectSettings = {
-  gitHubWebhooksEnabled: Scalars["Boolean"];
+  githubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<Project>;
   vars?: Maybe<ProjectVars>;
   aliases?: Maybe<Array<ProjectAlias>>;
@@ -1490,7 +1490,7 @@ export type ProjectSettings = {
 };
 
 export type RepoSettings = {
-  gitHubWebhooksEnabled: Scalars["Boolean"];
+  githubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<RepoRef>;
   vars?: Maybe<ProjectVars>;
   aliases?: Maybe<Array<ProjectAlias>>;
@@ -2285,7 +2285,7 @@ export type RepoGeneralSettingsFragment = {
 };
 
 export type ProjectGithubCommitQueueFragment = {
-  gitHubWebhooksEnabled: boolean;
+  githubWebhooksEnabled: boolean;
   projectRef?: Maybe<{
     prTestingEnabled?: Maybe<boolean>;
     githubChecksEnabled?: Maybe<boolean>;
@@ -2303,7 +2303,7 @@ export type ProjectGithubCommitQueueFragment = {
 };
 
 export type RepoGithubCommitQueueFragment = {
-  gitHubWebhooksEnabled: boolean;
+  githubWebhooksEnabled: boolean;
   projectRef?: Maybe<{
     prTestingEnabled: boolean;
     githubChecksEnabled: boolean;
@@ -3887,6 +3887,7 @@ export type GetTaskQuery = {
         isPatch: boolean;
         revision: string;
         project: string;
+        projectIdentifier: string;
       };
       project?: Maybe<{ identifier: string }>;
       dependsOn?: Maybe<

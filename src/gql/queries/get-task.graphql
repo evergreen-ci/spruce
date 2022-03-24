@@ -50,6 +50,7 @@ query GetTask($taskId: String!, $execution: Int) {
       isPatch
       revision
       project
+      projectIdentifier
     }
     requester
     projectId
