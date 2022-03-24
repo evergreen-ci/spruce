@@ -12,8 +12,12 @@ import { size, zIndex } from "constants/tokens";
 
 export const LegendContent = () => (
   <>
-    {/* @ts-expect-error */}
-    <LegendTitle>NEW ICONS LEGEND</LegendTitle>
+    <TitleContainer>
+      <Overline>NEW ICONS LEGEND</Overline>
+      <IconButton aria-label="Close Task Status Icon Legend">
+        <Icon glyph="X" />
+      </IconButton>
+    </TitleContainer>
     <Container>
       {groupedIconStatuses.map(({ icon, statuses }) => {
         const label = statuses.map((status) => (
@@ -78,7 +82,9 @@ const LabelContainer = styled.div`
   margin-left: ${size.xs};
 `;
 
-/* @ts-expect-error  */
-const LegendTitle = styled(Overline)`
+const TitleContainer = styled.div`
   margin-bottom: ${size.m};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
