@@ -8,11 +8,13 @@ import {
 } from "react";
 import debounce from "lodash.debounce";
 import isEqual from "lodash.isequal";
-import { TabDataProps } from "components/ProjectSettingsTabs/types";
 import { FormDataProps, SpruceFormProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import { formToGqlMap } from "./transformers";
-import { FormToGqlFunction } from "./types";
+import { formToGqlMap } from "pages/projectSettings/tabs/transformers";
+import {
+  FormToGqlFunction,
+  TabDataProps,
+} from "pages/projectSettings/tabs/types";
 
 type TabState = Record<
   ProjectSettingsTabRoutes,

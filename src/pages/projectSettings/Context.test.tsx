@@ -1,11 +1,11 @@
 import { act, renderHook } from "@testing-library/react-hooks";
 import { ProjectSettingsTabRoutes } from "constants/routes";
+import { TabDataProps } from "pages/projectSettings/tabs/types";
 import {
   ProjectSettingsProvider,
   useIsAnyTabUnsaved,
   useProjectSettingsContext,
 } from "./Context";
-import { TabDataProps } from "./types";
 
 describe("projectSettingsContext", () => {
   it("ensure that tabs are initially saved", async () => {

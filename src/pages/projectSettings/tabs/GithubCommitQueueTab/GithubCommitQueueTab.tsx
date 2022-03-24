@@ -3,8 +3,11 @@ import Banner from "@leafygreen-ui/banner";
 import { useParams } from "react-router-dom";
 import { SpruceForm } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
+import {
+  usePopulateForm,
+  useProjectSettingsContext,
+} from "pages/projectSettings/Context";
 import { environmentalVariables } from "utils";
-import { usePopulateForm, useProjectSettingsContext } from "../Context";
 import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { mergeProjectRepo } from "./transformers";
@@ -26,7 +29,7 @@ const getInitialFormState = (
 };
 
 export const GithubCommitQueueTab: React.FC<TabProps> = ({
-  gitHubWebhooksEnabled,
+  githubWebhooksEnabled,
   projectData,
   projectType,
   repoData,
@@ -48,18 +51,18 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
       getFormSchema(
         identifier,
         projectType,
-        gitHubWebhooksEnabled,
+        githubWebhooksEnabled,
         formData,
         projectType === ProjectType.AttachedProject ? repoData : null
       ),
-    [formData, gitHubWebhooksEnabled, identifier, projectType, repoData]
+    [formData, githubWebhooksEnabled, identifier, projectType, repoData]
   );
 
   if (!formData) return null;
 
   return (
     <>
-      {!gitHubWebhooksEnabled && (
+      {!githubWebhooksEnabled && (
         <Banner data-cy="disabled-webhook-banner" variant="warning">
           GitHub features are disabled because webhooks are not enabled.
           Webhooks are enabled after saving with a repository and branch.
@@ -71,7 +74,7 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
         onChange={onChange}
         schema={schema}
         uiSchema={uiSchema}
-        disabled={isProduction() && !gitHubWebhooksEnabled} // TODO: Remove once EVG-16208 is fixed
+        disabled={isProduction() && !githubWebhooksEnabled} // TODO: Remove once EVG-16208 is fixed
       />
     </>
   );
