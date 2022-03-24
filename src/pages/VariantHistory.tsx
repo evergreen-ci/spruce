@@ -13,30 +13,22 @@ import HistoryTable, {
 } from "components/HistoryTable";
 import { PageWrapper } from "components/styles";
 import { size } from "constants/tokens";
-import { useToastContext } from "context/toast";
 import {
   MainlineCommitsForHistoryQuery,
   MainlineCommitsForHistoryQueryVariables,
-  GetTaskNamesForBuildVariantQuery,
-  GetTaskNamesForBuildVariantQueryVariables,
 } from "gql/generated/types";
-import {
-  GET_MAINLINE_COMMITS_FOR_HISTORY,
-  GET_TASK_NAMES_FOR_BUILD_VARIANT,
-} from "gql/queries";
+import { GET_MAINLINE_COMMITS_FOR_HISTORY } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { HistoryQueryParams } from "types/history";
-import { queryString, string, errorReporting } from "utils";
-
+import { queryString, string } from "utils";
 import {
   ColumnHeaders,
   TaskSelector,
   VariantHistoryRow,
 } from "./variantHistory/index";
 
-const { reportError } = errorReporting;
 const { HistoryTableProvider } = context;
-const { useTestFilters, useColumns } = hooks;
+const { useTestFilters } = hooks;
 const { parseQueryString, getString } = queryString;
 const { applyStrictRegex } = string;
 
@@ -52,7 +44,6 @@ export const VariantHistoryContents: React.FC = () => {
   );
   const skipOrderNumber = parseInt(skipOrderNumberParam, 10) || undefined;
 
-  const dispatchToast = useToastContext();
   usePageTitle(`Variant History | ${projectId} | ${variantName}`);
   const [nextPageOrderNumber, setNextPageOrderNumber] = useState(
     skipOrderNumber
@@ -76,30 +67,10 @@ export const VariantHistoryContents: React.FC = () => {
     variables,
   });
 
-  // Fetch the column headers from the same query used on the dropdown.
-  const { data: columnData, loading } = useQuery<
-    GetTaskNamesForBuildVariantQuery,
-    GetTaskNamesForBuildVariantQueryVariables
-  >(GET_TASK_NAMES_FOR_BUILD_VARIANT, {
-    variables: {
-      projectId,
-      buildVariant: variantName,
-    },
-    onCompleted: ({ taskNamesForBuildVariant }) => {
-      if (!taskNamesForBuildVariant) {
-        reportError(
-          new Error("No task names found for build variant")
-        ).severe();
-        dispatchToast.error(`No tasks found for buildVariant: ${variantName}}`);
-      }
-    },
-  });
-
-  const { taskNamesForBuildVariant } = columnData || {};
   const { mainlineCommits } = data || {};
 
   useTestFilters();
-  const selectedColumns = useColumns(taskNamesForBuildVariant, (c) => c);
+  // const selectedColumns = useColumns(taskNamesForBuildVariant, (c) => c);
 
   return (
     <PageWrapper>
@@ -120,11 +91,7 @@ export const VariantHistoryContents: React.FC = () => {
           <ColumnPaginationButtons />
         </PaginationFilterWrapper>
         <div>
-          <ColumnHeaders
-            projectId={projectId}
-            loading={loading}
-            columns={selectedColumns}
-          />
+          <ColumnHeaders projectId={projectId} variantName={variantName} />
           <TableWrapper>
             <HistoryTable
               recentlyFetchedCommits={mainlineCommits}

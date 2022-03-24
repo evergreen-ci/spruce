@@ -13,36 +13,28 @@ import HistoryTable, {
 } from "components/HistoryTable";
 import { PageWrapper } from "components/styles";
 import { size } from "constants/tokens";
-import { useToastContext } from "context/toast";
 import {
   MainlineCommitsForHistoryQuery,
   MainlineCommitsForHistoryQueryVariables,
-  GetBuildVariantsForTaskNameQuery,
-  GetBuildVariantsForTaskNameQueryVariables,
 } from "gql/generated/types";
-import {
-  GET_MAINLINE_COMMITS_FOR_HISTORY,
-  GET_BUILD_VARIANTS_FOR_TASK_NAME,
-} from "gql/queries";
+import { GET_MAINLINE_COMMITS_FOR_HISTORY } from "gql/queries";
 import { usePageTitle } from "hooks";
-import { string, errorReporting } from "utils";
+import { string } from "utils";
 import {
   BuildVariantSelector,
   ColumnHeaders,
   TaskHistoryRow,
 } from "./taskHistory/index";
 
-const { reportError } = errorReporting;
 const { HistoryTableProvider } = context;
 const { applyStrictRegex } = string;
-const { useTestFilters, useColumns } = hooks;
+const { useTestFilters } = hooks;
 
 const TaskHistoryContents: React.FC = () => {
   const { projectId, taskName } = useParams<{
     projectId: string;
     taskName: string;
   }>();
-  const dispatchToast = useToastContext();
   usePageTitle(`Task History | ${projectId} | ${taskName}`);
   const [nextPageOrderNumber, setNextPageOrderNumber] = useState(null);
   const variables = {
@@ -63,32 +55,9 @@ const TaskHistoryContents: React.FC = () => {
     variables,
   });
 
-  // Fetch the column headers from the same query used on the dropdown.
-  const { data: columnData, loading } = useQuery<
-    GetBuildVariantsForTaskNameQuery,
-    GetBuildVariantsForTaskNameQueryVariables
-  >(GET_BUILD_VARIANTS_FOR_TASK_NAME, {
-    variables: {
-      projectId,
-      taskName,
-    },
-    onCompleted: ({ buildVariantsForTaskName }) => {
-      if (!buildVariantsForTaskName) {
-        reportError(
-          new Error("No build variants found for task name")
-        ).severe();
-        dispatchToast.error(`No build variants found for task: ${taskName}`);
-      }
-    },
-  });
-
   useTestFilters();
-  const { buildVariantsForTaskName } = columnData || {};
   const { mainlineCommits } = data || {};
-  const selectedColumns = useColumns(
-    buildVariantsForTaskName,
-    ({ buildVariant }) => buildVariant
-  );
+
   return (
     <PageWrapper>
       <CenterPage>
@@ -108,11 +77,7 @@ const TaskHistoryContents: React.FC = () => {
           <ColumnPaginationButtons />
         </PaginationFilterWrapper>
         <div>
-          <ColumnHeaders
-            projectId={projectId}
-            loading={loading}
-            columns={selectedColumns}
-          />
+          <ColumnHeaders projectId={projectId} taskName={taskName} />
           <TableWrapper>
             <HistoryTable
               recentlyFetchedCommits={mainlineCommits}
