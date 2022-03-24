@@ -29,6 +29,9 @@ export const getGithubPullRequestUrl = (
   issue: number | string
 ) => `https://github.com/${owner}/${repo}/pull/${issue}`;
 
+export const getWikiUrl = () =>
+  `https://github.com/evergreen-ci/evergreen/wiki`;
+
 export const getLobsterTaskLink = (
   logType: LogTypes,
   taskId: string,

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useNavbarAnalytics } from "analytics";
 import Icon from "components/Icon";
 import { StyledLink } from "components/styles";
+import { getWikiUrl } from "constants/externalResources";
 import { getCommitsRoute, getUserPatchesRoute, routes } from "constants/routes";
 import { size } from "constants/tokens";
 import { useAuthStateContext } from "context/auth";
@@ -82,6 +83,14 @@ export const Navbar: React.FC = () => {
             Switch to legacy UI
           </SecondaryLink>
         )}
+        <PrimaryAWithIcon
+          href={getWikiUrl()}
+          target="_blank"
+          onClick={() => sendEvent({ name: "Click EVG Wiki Link" })}
+        >
+          <Icon glyph="QuestionMarkWithCircle" />
+          EVG Documentation
+        </PrimaryAWithIcon>
         <UserDropdown />
       </NavActionContainer>
     </StyledNav>
@@ -124,6 +133,14 @@ const PrimaryLink = styled(Link)`
 
 const PrimaryA = styled.a`
   ${primaryLinkStyle}
+`;
+
+const PrimaryAWithIcon = styled(PrimaryA)`
+  display: flex;
+  align-items: center;
+  > svg {
+    margin-right: ${size.xxs};
+  }
 `;
 
 const secondaryStyle = css`
