@@ -1,5 +1,5 @@
 fragment projectGithubCommitQueue on ProjectSettings {
-  gitHubWebhooksEnabled
+  githubWebhooksEnabled
 
   projectRef {
     prTestingEnabled
@@ -18,7 +18,7 @@ fragment projectGithubCommitQueue on ProjectSettings {
 }
 
 fragment repoGithubCommitQueue on RepoSettings {
-  gitHubWebhooksEnabled
+  githubWebhooksEnabled
 
   projectRef {
     prTestingEnabled

@@ -109,9 +109,9 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
         render={(props) => (
           <GithubCommitQueueTab
             {...props}
-            gitHubWebhooksEnabled={
-              projectData?.gitHubWebhooksEnabled ||
-              repoData?.gitHubWebhooksEnabled
+            githubWebhooksEnabled={
+              projectData?.githubWebhooksEnabled ||
+              repoData?.githubWebhooksEnabled
             }
             projectData={
               tabData[ProjectSettingsTabRoutes.GithubCommitQueue].projectData
