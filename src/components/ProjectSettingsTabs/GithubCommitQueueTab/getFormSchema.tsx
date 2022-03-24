@@ -19,7 +19,7 @@ const { insertIf, overrideRadioBox, placeholderIf, radioBoxOptions } = form;
 export const getFormSchema = (
   identifier: string,
   projectType: ProjectType,
-  gitHubWebhooksEnabled: boolean,
+  githubWebhooksEnabled: boolean,
   formData: FormState,
   repoData?: FormState
 ): {
@@ -46,11 +46,11 @@ export const getFormSchema = (
           type: "object" as "object",
           title: "GitHub",
           properties: {
-            gitHubWebhooksEnabled: {
+            githubWebhooksEnabled: {
               type: "null",
               title: "GitHub Webhooks",
               description: `GitHub webhooks ${
-                gitHubWebhooksEnabled ? "are" : "are not"
+                githubWebhooksEnabled ? "are" : "are not"
               } enabled.`,
             },
             prTestingEnabledTitle: {

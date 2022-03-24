@@ -1,7 +1,7 @@
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 
 const projectBase: ProjectSettingsQuery["projectSettings"] = {
-  gitHubWebhooksEnabled: true,
+  githubWebhooksEnabled: true,
 
   projectRef: {
     id: "project",
@@ -108,7 +108,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
 };
 
 const repoBase: RepoSettingsQuery["repoSettings"] = {
-  gitHubWebhooksEnabled: true,
+  githubWebhooksEnabled: true,
 
   projectRef: {
     id: "123",
