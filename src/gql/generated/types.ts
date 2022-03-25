@@ -3185,6 +3185,18 @@ export type EventLogsQuery = {
   };
 };
 
+export type GithubProjectConflictsQueryVariables = Exact<{
+  projectId: Scalars["String"];
+}>;
+
+export type GithubProjectConflictsQuery = {
+  githubProjectConflicts: {
+    commitQueueIdentifiers?: Maybe<Array<string>>;
+    prTestingIdentifiers?: Maybe<Array<string>>;
+    commitCheckIdentifiers?: Maybe<Array<string>>;
+  };
+};
+
 export type GetHasVersionQueryVariables = Exact<{
   id: Scalars["String"];
 }>;

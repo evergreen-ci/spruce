@@ -1,19 +1,26 @@
 import { useMemo } from "react";
+import { useQuery } from "@apollo/client";
 import Banner from "@leafygreen-ui/banner";
 import { useParams } from "react-router-dom";
 import { SpruceForm } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
+  GithubProjectConflictsQuery,
+  GithubProjectConflictsQueryVariables,
+} from "gql/generated/types";
+import { GET_GITHUB_PROJECT_CONFLICTS } from "gql/queries";
+import {
   usePopulateForm,
   useProjectSettingsContext,
 } from "pages/projectSettings/Context";
-import { environmentalVariables } from "utils";
+import { environmentalVariables, errorReporting } from "utils";
 import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { mergeProjectRepo } from "./transformers";
 import { FormState, TabProps } from "./types";
 
 const { isProduction } = environmentalVariables;
+const { reportError } = errorReporting;
 
 const tab = ProjectSettingsTabRoutes.GithubCommitQueue;
 
@@ -38,6 +45,19 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
   const { getTab, updateForm } = useProjectSettingsContext();
   const { formData } = getTab(tab);
 
+  const { data } = useQuery<
+    GithubProjectConflictsQuery,
+    GithubProjectConflictsQueryVariables
+  >(GET_GITHUB_PROJECT_CONFLICTS, {
+    skip: projectType === ProjectType.Repo,
+    variables: { projectId: identifier },
+    onError: (e) => {
+      reportError(
+        new Error(`Error fetching GitHub Project Conflicts: ${e}`)
+      ).warning();
+    },
+  });
+
   const initialFormState = useMemo(
     () => getInitialFormState(projectData, repoData),
     [projectData, repoData]
@@ -53,9 +73,10 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
         projectType,
         githubWebhooksEnabled,
         formData,
+        data?.githubProjectConflicts,
         projectType === ProjectType.AttachedProject ? repoData : null
       ),
-    [formData, githubWebhooksEnabled, identifier, projectType, repoData]
+    [data, formData, githubWebhooksEnabled, identifier, projectType, repoData]
   );
 
   if (!formData) return null;

@@ -1,0 +1,7 @@
+query GithubProjectConflicts($projectId: String!) {
+  githubProjectConflicts(projectId: $projectId) {
+    commitQueueIdentifiers
+    prTestingIdentifiers
+    commitCheckIdentifiers
+  }
+}

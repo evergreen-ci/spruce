@@ -8,6 +8,7 @@ import {
   getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
 } from "constants/routes";
+import { GithubProjectConflicts } from "gql/generated/types";
 import { getTabTitle } from "pages/projectSettings/getTabTitle";
 import { alias, form, ProjectType } from "../utils";
 import { GithubTriggerAliasField } from "./GithubTriggerAliasField";
@@ -21,6 +22,7 @@ export const getFormSchema = (
   projectType: ProjectType,
   githubWebhooksEnabled: boolean,
   formData: FormState,
+  githubProjectConflicts: GithubProjectConflicts,
   repoData?: FormState
 ): {
   fields: Record<string, Field>;
@@ -239,13 +241,25 @@ export const getFormSchema = (
           "ui:sectionTitle": true,
         },
         prTestingEnabled: {
+          "ui:data-cy": "pr-testing-enabled-radio-box",
           "ui:showLabel": false,
           "ui:widget": widgets.RadioBoxWidget,
+          ...(!!githubProjectConflicts?.prTestingIdentifiers?.length && {
+            "ui:disabled": true,
+            "ui:rawErrors": [
+              `Enabling PR testing would introduce conflicts with the following project(s): ${githubProjectConflicts.commitQueueIdentifiers.join(
+                ", "
+              )}. To enable PR testing for this project please disable it elsewhere.`,
+            ],
+          }),
         },
         prTesting: {
           ...hideIf(
-            formData?.github?.prTestingEnabled,
-            repoData?.github?.prTestingEnabled
+            !!githubProjectConflicts?.prTestingIdentifiers?.length ||
+              fieldDisabled(
+                formData?.github?.prTestingEnabled,
+                repoData?.github?.prTestingEnabled
+              )
           ),
           githubPrAliasesOverride: {
             "ui:data-cy": "pr-testing-override-radio-box",
@@ -283,13 +297,25 @@ export const getFormSchema = (
           "ui:sectionTitle": true,
         },
         githubChecksEnabled: {
+          "ui:data-cy": "github-checks-enabled-radio-box",
           "ui:showLabel": false,
           "ui:widget": widgets.RadioBoxWidget,
+          ...(!!githubProjectConflicts?.commitCheckIdentifiers?.length && {
+            "ui:disabled": true,
+            "ui:rawErrors": [
+              `Enabling commit checks would introduce conflicts with the following project(s): ${githubProjectConflicts.commitQueueIdentifiers.join(
+                ", "
+              )}. To enable commit checks for this project please disable it elsewhere.`,
+            ],
+          }),
         },
         githubChecks: {
           ...hideIf(
-            formData?.github?.githubChecksEnabled,
-            repoData?.github?.githubChecksEnabled
+            !!githubProjectConflicts?.commitCheckIdentifiers?.length ||
+              fieldDisabled(
+                formData?.github?.githubChecksEnabled,
+                repoData?.github?.githubChecksEnabled
+              )
           ),
           githubCheckAliasesOverride: overrideStyling,
           githubCheckAliases: aliasRowUiSchema({
@@ -327,8 +353,10 @@ export const getFormSchema = (
         ),
         gitTags: {
           ...hideIf(
-            formData?.github?.gitTagVersionsEnabled,
-            repoData?.github?.gitTagVersionsEnabled
+            fieldDisabled(
+              formData?.github?.gitTagVersionsEnabled,
+              repoData?.github?.gitTagVersionsEnabled
+            )
           ),
           gitTagAliasesOverride: overrideStyling,
           gitTagAliases: gitTagArray.uiSchema,
@@ -351,33 +379,53 @@ export const getFormSchema = (
           "ui:showLabel": false,
           "ui:widget": widgets.RadioBoxWidget,
           "ui:data-cy": "cq-enabled-radio-box",
+          ...(!!githubProjectConflicts?.commitQueueIdentifiers?.length && {
+            "ui:disabled": true,
+            "ui:rawErrors": [
+              `Enabling the Commit Queue would introduce conflicts with the following project(s): ${githubProjectConflicts.commitQueueIdentifiers.join(
+                ", "
+              )}. To enable the Commit Queue for this project please disable it elsewhere.`,
+            ],
+          }),
         },
         requireSigned: {
           "ui:data-cy": "require-signed-radio-box",
           "ui:widget": widgets.RadioBoxWidget,
-          ...(formData?.commitQueue?.enabled === false && { "ui:hide": true }),
+          ...((formData?.commitQueue?.enabled === false ||
+            !!githubProjectConflicts?.commitQueueIdentifiers?.length) && {
+            "ui:hide": true,
+          }),
         },
         message: {
           "ui:description": "Shown in commit queue CLI commands & web UI",
           "ui:data-cy": "cq-message-input",
           ...placeholderIf(repoData?.commitQueue?.message),
           ...hideIf(
-            formData?.commitQueue?.enabled,
-            repoData?.commitQueue?.enabled
+            !!githubProjectConflicts?.commitQueueIdentifiers?.length ||
+              fieldDisabled(
+                formData?.commitQueue?.enabled,
+                repoData?.commitQueue?.enabled
+              )
           ),
         },
         mergeMethod: {
           "ui:allowDeselect": false,
           "ui:data-cy": "merge-method-select",
           ...hideIf(
-            formData?.commitQueue?.enabled,
-            repoData?.commitQueue?.enabled
+            !!githubProjectConflicts?.commitQueueIdentifiers?.length ||
+              fieldDisabled(
+                formData?.commitQueue?.enabled,
+                repoData?.commitQueue?.enabled
+              )
           ),
         },
         patchDefinitions: {
           ...hideIf(
-            formData?.commitQueue?.enabled,
-            repoData?.commitQueue?.enabled
+            !!githubProjectConflicts?.commitQueueIdentifiers?.length ||
+              fieldDisabled(
+                formData?.commitQueue?.enabled,
+                repoData?.commitQueue?.enabled
+              )
           ),
           commitQueueAliasesOverride: {
             "ui:data-cy": "cq-override-radio-box",
@@ -403,8 +451,11 @@ export const getFormSchema = (
   };
 };
 
-const hideIf = (field: boolean | null, repoField: boolean | null) =>
-  (field === false || (field === null && repoField === false)) && {
+const fieldDisabled = (field: boolean | null, repoField: boolean | null) =>
+  field === false || (field === null && repoField === false);
+
+const hideIf = (shouldDisable: boolean) =>
+  shouldDisable && {
     "ui:widget": "hidden",
   };
 
@@ -420,7 +471,7 @@ const userTeamStyling = (
   field: boolean | null,
   repoField: boolean | null
 ) => ({
-  ...hideIf(field, repoField),
+  ...hideIf(fieldDisabled(field, repoField)),
   [`${fieldName}Override`]: {
     ...overrideStyling(shouldOverride),
   },
