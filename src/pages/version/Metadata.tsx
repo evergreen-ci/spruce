@@ -1,5 +1,3 @@
-import React from "react";
-import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { MetadataCard } from "components/MetadataCard";
 import { StyledRouterLink } from "components/styles";
@@ -9,6 +7,7 @@ import {
   getProjectPatchesRoute,
   getVersionRoute,
 } from "constants/routes";
+import { VersionQuery } from "gql/generated/types";
 import { string } from "utils";
 import ManifestBlob from "./ManifestBlob";
 import { ParametersModal } from "./ParametersModal";
@@ -17,41 +16,7 @@ const { msToDuration, getDateCopy } = string;
 
 interface Props {
   loading: boolean;
-  version: {
-    project: string;
-    author: string;
-    revision: string;
-    createTime: Date;
-    startTime?: Date;
-    finishTime?: Date;
-    projectIdentifier: string;
-    baseVersionID?: string;
-    versionTiming?: {
-      makespan?: number;
-      timeTaken?: number;
-    };
-    commitQueuePosition?: number;
-    isPatch: boolean;
-    parameters: {
-      key: string;
-      value: string;
-    }[];
-    manifest?: {
-      id: string;
-      revision: string;
-      project: string;
-      branch: string;
-      isBase: boolean;
-      moduleOverrides?: {
-        [key: string]: string;
-      };
-      modules?: {
-        [key: string]: {
-          [key: string]: string;
-        };
-      };
-    };
-  };
+  version: VersionQuery["version"];
 }
 
 export const Metadata: React.FC<Props> = ({ loading, version }) => {
@@ -63,18 +28,18 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
     createTime,
     startTime,
     finishTime,
-    commitQueuePosition,
+    patch,
     projectIdentifier,
-    baseVersionID,
+    baseVersion,
     isPatch,
     parameters,
     manifest,
+    id,
+    previousVersion,
   } = version || {};
-  const { id } = useParams<{ id: string }>();
   const { sendEvent } = useVersionAnalytics(id);
-
+  const { commitQueuePosition } = patch || {};
   const { makespan, timeTaken } = versionTiming || {};
-
   return (
     <MetadataCard
       loading={loading}
@@ -93,19 +58,30 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
       <P2>Started: {startTime && getDateCopy(startTime)}</P2>
       <P2>Finished: {finishTime && getDateCopy(finishTime)}</P2>
       <P2>{`Submitted by: ${author}`}</P2>
-      {baseVersionID && revision && (
+      {isPatch ? (
         <P2>
           Base commit:{" "}
           <StyledRouterLink
             data-cy="patch-base-commit"
-            to={getVersionRoute(baseVersionID)}
+            to={getVersionRoute(baseVersion.id)}
             onClick={() => sendEvent({ name: "Click Base Commit Link" })}
           >
             {revision.slice(0, 10)}
           </StyledRouterLink>
         </P2>
+      ) : (
+        <P2>
+          Previous commit:{" "}
+          <StyledRouterLink
+            data-cy="version-previous-commit"
+            to={getVersionRoute(previousVersion?.id)}
+            onClick={() => sendEvent({ name: "Click Previous Version Link" })}
+          >
+            {previousVersion?.revision.slice(0, 10)}
+          </StyledRouterLink>
+        </P2>
       )}
-      {isPatch && commitQueuePosition !== undefined && (
+      {isPatch && commitQueuePosition !== null && (
         <P2>
           <StyledRouterLink
             data-cy="commit-queue-position"

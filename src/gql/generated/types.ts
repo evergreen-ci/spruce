@@ -550,6 +550,7 @@ export type Version = {
   /** @deprecated baseVersionId is deprecated, use baseVersion.id instead */
   baseVersionID?: Maybe<Scalars["String"]>;
   baseVersion?: Maybe<Version>;
+  previousVersion?: Maybe<Version>;
   versionTiming?: Maybe<VersionTiming>;
   parameters: Array<Parameter>;
   taskStatuses: Array<Scalars["String"]>;
@@ -4025,8 +4026,8 @@ export type VersionQuery = {
     message: string;
     isPatch: boolean;
     taskCount?: Maybe<number>;
-    baseVersionID?: Maybe<string>;
     projectIdentifier: string;
+    baseVersion?: Maybe<{ id: string }>;
     versionTiming?: Maybe<{
       makespan?: Maybe<number>;
       timeTaken?: Maybe<number>;
@@ -4041,6 +4042,7 @@ export type VersionQuery = {
       moduleOverrides?: Maybe<{ [key: string]: any }>;
       modules?: Maybe<any>;
     }>;
+    previousVersion?: Maybe<{ id: string; revision: string }>;
     patch?: Maybe<{
       id: string;
       patchNumber: number;

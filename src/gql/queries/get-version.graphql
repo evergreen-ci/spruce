@@ -15,7 +15,9 @@ query Version($id: String!) {
     isPatch
     taskCount
     project
-    baseVersionID
+    baseVersion {
+      id
+    }
     projectIdentifier
     versionTiming {
       makespan
@@ -33,6 +35,10 @@ query Version($id: String!) {
       isBase
       moduleOverrides
       modules
+    }
+    previousVersion {
+      id
+      revision
     }
     patch {
       id
