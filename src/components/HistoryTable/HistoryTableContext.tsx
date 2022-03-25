@@ -1,6 +1,6 @@
 import { useContext, createContext, useReducer, useMemo } from "react";
 import { TestFilter } from "gql/generated/types";
-import { COMMIT_HEIGHT } from "./constants";
+import { COMMIT_HEIGHT, DEFAULT_COLUMN_LIMIT } from "./constants";
 import {
   HistoryTableReducerState,
   reducer,
@@ -26,6 +26,7 @@ interface HistoryTableState {
   columnLimit: number;
   historyTableFilters: TestFilter[];
   setHistoryTableFilters: (filters: TestFilter[]) => void;
+  onChangeTableWidth: (width: number) => void;
   commitCount: number;
 }
 
@@ -35,6 +36,7 @@ interface HistoryTableProviderProps {
   children: React.ReactNode;
   initialState?: HistoryTableReducerState;
 }
+
 const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
   children,
   initialState = {
@@ -46,7 +48,7 @@ const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
     currentPage: 0,
     pageCount: 0,
     columns: [],
-    columnLimit: 7,
+    columnLimit: DEFAULT_COLUMN_LIMIT,
     historyTableFilters: [],
     commitCount: 10,
   },
@@ -95,6 +97,8 @@ const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
       pageCount,
       columnLimit,
       historyTableFilters,
+      onChangeTableWidth: (width) =>
+        dispatch({ type: "onChangeTableWidth", width }),
       setHistoryTableFilters: (filters) =>
         dispatch({ type: "setHistoryTableFilters", filters }),
       commitCount,

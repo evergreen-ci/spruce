@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { context, Cell } from "components/HistoryTable";
+import { ROW_LABEL_WIDTH } from "components/HistoryTable/constants";
 import { variantHistoryMaxLength as maxLength } from "constants/history";
 
 import { getTaskHistoryRoute } from "constants/routes";
@@ -51,7 +52,7 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
 
 // LabelCellContainer is used to provide padding for the first column in the table since we do not have a header for it
 const LabelCellContainer = styled.div`
-  width: 200px;
+  width: ${ROW_LABEL_WIDTH}px;
   padding-right: 40px;
 `;
 

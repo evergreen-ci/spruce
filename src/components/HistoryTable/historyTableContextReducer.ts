@@ -1,4 +1,9 @@
 import { TestFilter } from "gql/generated/types";
+import {
+  COLUMN_LABEL_WIDTH,
+  DEFAULT_COLUMN_LIMIT,
+  ROW_LABEL_WIDTH,
+} from "./constants";
 import { CommitRowType, mainlineCommits } from "./types";
 import { processCommits, toggleRowSizeAtIndex } from "./utils";
 
@@ -9,7 +14,8 @@ type Action =
   | { type: "prevPageColumns" }
   | { type: "setColumnLimit"; limit: number }
   | { type: "setHistoryTableFilters"; filters: TestFilter[] }
-  | { type: "toggleRowSizeAtIndex"; index: number; numCommits: number };
+  | { type: "toggleRowSizeAtIndex"; index: number; numCommits: number }
+  | { type: "onChangeTableWidth"; width: number };
 
 type cacheShape = Map<
   number,
@@ -122,6 +128,21 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
         ...state,
         columnLimit: action.limit,
       };
+    case "onChangeTableWidth":
+      if (calcColumnLimitFromWidth(action.width) === state.columnLimit) {
+        return state;
+      }
+      return {
+        ...state,
+        visibleColumns: state.columns.slice(
+          0,
+          calcColumnLimitFromWidth(action.width)
+        ),
+        currentPage: 0,
+        pageCount: Math.ceil(
+          state.columns.length / calcColumnLimitFromWidth(action.width)
+        ),
+      };
     case "setHistoryTableFilters":
       return {
         ...state,
@@ -149,4 +170,11 @@ const objectifyCommits = (
     }
   });
   return obj;
+};
+
+const calcColumnLimitFromWidth = (tableWidth: number) => {
+  const colLimit = Math.floor(
+    (tableWidth - ROW_LABEL_WIDTH) / COLUMN_LABEL_WIDTH
+  );
+  return colLimit > DEFAULT_COLUMN_LIMIT ? colLimit : DEFAULT_COLUMN_LIMIT;
 };
