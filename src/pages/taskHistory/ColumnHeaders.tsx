@@ -1,29 +1,61 @@
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { context, Cell } from "components/HistoryTable";
+import { context, Cell, hooks } from "components/HistoryTable";
 import { taskHistoryMaxLength as maxLength } from "constants/history";
 import { getVariantHistoryRoute } from "constants/routes";
-import { array, string } from "utils";
+import { useToastContext } from "context/toast";
+import {
+  GetBuildVariantsForTaskNameQuery,
+  GetBuildVariantsForTaskNameQueryVariables,
+} from "gql/generated/types";
+import { GET_BUILD_VARIANTS_FOR_TASK_NAME } from "gql/queries";
+import { array, string, errorReporting } from "utils";
 
+const { reportError } = errorReporting;
+
+const { useColumns } = hooks;
 const { convertArrayToObject } = array;
 const { trimStringFromMiddle } = string;
 const { useHistoryTable } = context;
-const { LoadingCell, ColumnHeaderCell } = Cell;
+const { LoadingCell, ColumnHeaderCell, LabelCellContainer } = Cell;
 
 interface ColumnHeadersProps {
   projectId: string;
-  columns: {
-    displayName: string;
-    buildVariant: string;
-  }[];
-  loading: boolean;
+  taskName: string;
 }
 const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
   projectId,
-  columns,
-  loading,
+  taskName,
 }) => {
+  const dispatchToast = useToastContext();
+
+  // Fetch the column headers from the same query used on the dropdown.
+  const { data: columnData, loading } = useQuery<
+    GetBuildVariantsForTaskNameQuery,
+    GetBuildVariantsForTaskNameQueryVariables
+  >(GET_BUILD_VARIANTS_FOR_TASK_NAME, {
+    variables: {
+      projectId,
+      taskName,
+    },
+    onCompleted: ({ buildVariantsForTaskName }) => {
+      if (!buildVariantsForTaskName) {
+        reportError(
+          new Error("No build variants found for task name")
+        ).severe();
+        dispatchToast.error(`No build variants found for task: ${taskName}`);
+      }
+    },
+  });
+
   const { visibleColumns, columnLimit } = useHistoryTable();
-  const columnMap = convertArrayToObject(columns, "buildVariant");
+  const { buildVariantsForTaskName } = columnData || {};
+
+  const activeColumns = useColumns(
+    buildVariantsForTaskName,
+    ({ buildVariant }) => buildVariant
+  );
+  const columnMap = convertArrayToObject(activeColumns, "buildVariant");
   return (
     <RowContainer>
       <LabelCellContainer />
@@ -52,12 +84,6 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
     </RowContainer>
   );
 };
-
-// LabelCellContainer is used to provide padding for the first column in the table since we do not have a header for it
-const LabelCellContainer = styled.div`
-  width: 200px;
-  padding-right: 40px;
-`;
 
 const RowContainer = styled.div`
   display: flex;

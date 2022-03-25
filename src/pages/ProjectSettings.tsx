@@ -3,9 +3,6 @@ import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { useParams, Link, Redirect } from "react-router-dom";
 import { ProjectSelect } from "components/projectSelect";
-import { ProjectSettingsProvider } from "components/ProjectSettingsTabs/Context";
-import { CreateProjectModal } from "components/ProjectSettingsTabs/CreateProjectModal";
-import { ProjectType } from "components/ProjectSettingsTabs/utils";
 import {
   SideNav,
   SideNavGroup,
@@ -27,8 +24,11 @@ import {
 import { GET_PROJECT_SETTINGS, GET_REPO_SETTINGS } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { environmentalVariables, validators } from "utils";
+import { ProjectSettingsProvider } from "./projectSettings/Context";
+import { CreateProjectModal } from "./projectSettings/CreateProjectModal";
 import { getTabTitle } from "./projectSettings/getTabTitle";
 import { ProjectSettingsTabs } from "./projectSettings/Tabs";
+import { ProjectType } from "./projectSettings/tabs/utils";
 
 const { isProduction } = environmentalVariables;
 const { validateObjectId } = validators;

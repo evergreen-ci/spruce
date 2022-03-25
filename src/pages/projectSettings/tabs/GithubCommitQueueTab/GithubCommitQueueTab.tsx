@@ -3,8 +3,11 @@ import Banner from "@leafygreen-ui/banner";
 import { useParams } from "react-router-dom";
 import { SpruceForm } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
+import {
+  usePopulateForm,
+  useProjectSettingsContext,
+} from "pages/projectSettings/Context";
 import { environmentalVariables } from "utils";
-import { usePopulateForm, useProjectSettingsContext } from "../Context";
 import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { mergeProjectRepo } from "./transformers";

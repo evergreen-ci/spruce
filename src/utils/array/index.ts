@@ -163,3 +163,17 @@ export const arrayUnion = <T>(a: T[], b: T[], sort?: SortFunction<T>) => {
   }
   return union;
 };
+
+/**
+ * Function that works like Python range function. Returns an array that starts at the START value,
+ * incrementing by the STEP value, and stopping once the STOP value has been reached or surpassed.
+ * START & STOP are inclusive.
+ * @example range(0, 10, 2) = [0, 2, 4, 6, 8, 10]
+ * Taken from official docs:
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from#sequence_generator_range
+ */
+export const range = (start: number, stop: number, step?: number): number[] => {
+  const stepValue = step ?? 1;
+  const arrLength = (stop - start) / stepValue + 1;
+  return Array.from({ length: arrLength }, (_, i) => start + i * stepValue);
+};
