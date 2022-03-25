@@ -28,7 +28,7 @@ import {
 
 const { HistoryTableProvider } = context;
 const { applyStrictRegex } = string;
-const { useTestFilters } = hooks;
+const { useTestFilters, useJumpToCommit } = hooks;
 
 const TaskHistoryContents: React.FC = () => {
   const { projectId, taskName } = useParams<{
@@ -37,25 +37,25 @@ const TaskHistoryContents: React.FC = () => {
   }>();
   usePageTitle(`Task History | ${projectId} | ${taskName}`);
   const [nextPageOrderNumber, setNextPageOrderNumber] = useState(null);
-  const variables = {
-    mainlineCommitsOptions: {
-      projectID: projectId,
-      limit: 5,
-      skipOrderNumber: nextPageOrderNumber,
-    },
-    buildVariantOptions: {
-      tasks: [applyStrictRegex(taskName)],
-    },
-  };
+  useTestFilters();
+  useJumpToCommit();
 
   const { data } = useQuery<
     MainlineCommitsForHistoryQuery,
     MainlineCommitsForHistoryQueryVariables
   >(GET_MAINLINE_COMMITS_FOR_HISTORY, {
-    variables,
+    variables: {
+      mainlineCommitsOptions: {
+        projectID: projectId,
+        limit: 5,
+        skipOrderNumber: nextPageOrderNumber,
+      },
+      buildVariantOptions: {
+        tasks: [applyStrictRegex(taskName)],
+      },
+    },
   });
 
-  useTestFilters();
   const { mainlineCommits } = data || {};
 
   return (
