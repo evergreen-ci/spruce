@@ -10,40 +10,35 @@ import { taskStatusToCopy } from "constants/task";
 import { size, zIndex } from "constants/tokens";
 
 export const LegendContent = () => (
-  <>
-    <TitleContainer>
-      <Overline>NEW ICONS LEGEND</Overline>
-      <IconButton aria-label="Close Task Status Icon Legend">
-        <Icon glyph="X" />
-      </IconButton>
-    </TitleContainer>
-    <Container>
-      {groupedIconStatuses.map(({ icon, statuses }) => {
-        const label = statuses.map((status) => (
-          <Disclaimer key={status}>{taskStatusToCopy[status]}</Disclaimer>
-        ));
-        return (
-          <Row key={statuses.join()}>
-            {icon}
-            <LabelContainer>{label}</LabelContainer>
-          </Row>
-        );
-      })}
-    </Container>
-  </>
+  <Container>
+    {groupedIconStatuses.map(({ icon, statuses }) => {
+      const label = statuses.map((status) => (
+        <Disclaimer key={status}>{taskStatusToCopy[status]}</Disclaimer>
+      ));
+      return (
+        <Row key={statuses.join()}>
+          {icon}
+          <LabelContainer>{label}</LabelContainer>
+        </Row>
+      );
+    })}
+  </Container>
 );
 
 export const TaskStatusIconLegend: React.FC = () => {
   const [isActive, setIsActive] = useState(false);
 
   return (
-    <IconButton
-      onClick={() => {
-        setIsActive(!isActive);
-      }}
-      aria-label="Task Status Icon Legend"
-    >
-      <StyledIcon glyph="QuestionMarkWithCircle" />
+    <div>
+      <IconButton
+        onClick={() => {
+          setIsActive(!isActive);
+        }}
+        aria-label="Task Status Icon Legend"
+      >
+        {" "}
+        <StyledIcon glyph="QuestionMarkWithCircle" />
+      </IconButton>
       <Popover
         align="top"
         justify="end"
@@ -52,10 +47,19 @@ export const TaskStatusIconLegend: React.FC = () => {
         popoverZIndex={zIndex.popover}
       >
         <StyledPopoverContainer>
+          <TitleContainer>
+            <Overline>NEW ICONS LEGEND</Overline>
+            <IconButton
+              onClick={() => setIsActive(false)}
+              aria-label="Close Task Status Icon Legend"
+            >
+              <Icon glyph="X" />
+            </IconButton>
+          </TitleContainer>
           <LegendContent />
         </StyledPopoverContainer>
       </Popover>
-    </IconButton>
+    </div>
   );
 };
 
