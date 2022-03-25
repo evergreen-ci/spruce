@@ -22,7 +22,7 @@ export const InactiveCommitsLine = () => (
 
 interface InactiveCommitsProps {
   rolledUpVersions: CommitRolledUpVersions;
-  hasFilters?: boolean;
+  hasFilters: boolean;
 }
 export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
   rolledUpVersions,
@@ -93,8 +93,12 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
   );
 };
 
-// Function that returns formatted information about commits.
-// If isTooltip is true, the commit message is truncated.
+/**
+ * Function that returns formatted information about commits.
+ * If isTooltip is true, the commit message is truncated.
+ * @param {CommitRolledUpVersions[0]} v: rolled up version
+ * @param {boolean} isTooltip: boolean to indicate if used in tooltip
+ */
 const getCommitCopy = (v: CommitRolledUpVersions[0], isTooltip: boolean) => (
   <CommitText key={v.revision} data-cy="commit-text" tooltip={isTooltip}>
     <CommitTitleText>
