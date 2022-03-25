@@ -63,7 +63,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
           Base commit:{" "}
           <StyledRouterLink
             data-cy="patch-base-commit"
-            to={getVersionRoute(baseVersion.id)}
+            to={getVersionRoute(baseVersion?.id)}
             onClick={() => sendEvent({ name: "Click Base Commit Link" })}
           >
             {revision.slice(0, 10)}
