@@ -23,7 +23,6 @@ interface ActionButtonProps {
   versionId: string;
   childPatches: Partial<Patch>[];
   isPatch: boolean;
-  activated: boolean;
 }
 
 export const ActionButtons: React.FC<ActionButtonProps> = ({
@@ -34,7 +33,6 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
   versionId,
   childPatches,
   isPatch,
-  activated,
 }) => {
   const dropdownItems = [
     <LinkToReconfigurePage
@@ -77,7 +75,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
         <ScheduleTasks
           versionId={versionId}
           isButton
-          disabled={isPatchOnCommitQueue && activated}
+          disabled={isPatchOnCommitQueue}
         />
         <RestartPatch
           patchId={versionId}
