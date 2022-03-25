@@ -136,7 +136,7 @@ describe("columnHeaders (Variant History)", () => {
 });
 
 const mock = (
-  buildVariants: GetTaskNamesForBuildVariantQuery["taskNamesForBuildVariant"]
+  taskNames: GetTaskNamesForBuildVariantQuery["taskNamesForBuildVariant"]
 ) => ({
   request: {
     query: GET_TASK_NAMES_FOR_BUILD_VARIANT,
@@ -147,7 +147,7 @@ const mock = (
   },
   result: {
     data: {
-      taskNamesForBuildVariant: buildVariants,
+      taskNamesForBuildVariant: taskNames,
     },
   },
 });
