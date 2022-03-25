@@ -7,8 +7,6 @@ const project = "spruce";
 const projectUseRepoEnabled = "evergreen";
 const repo = "602d70a2b2373672ee493184";
 
-const HAS_CHANGES_TIMEOUT_MS = 410;
-
 describe("Repo Settings", () => {
   const destination = getGeneralRoute(repo);
 
@@ -129,6 +127,44 @@ describe("Repo Settings", () => {
 
     it("Shows the alias name in the card title upon save", () => {
       cy.dataCy("expandable-card-title").contains("my alias name");
+    });
+
+    it("Saves a Patch Trigger Alias", () => {
+      cy.dataCy("add-button")
+        .contains("Add Patch Trigger Alias")
+        .parent()
+        .click();
+      cy.dataCy("pta-alias-input").type("my-alias");
+      cy.dataCy("project-input").type("spruce");
+      cy.dataCy("module-input").type("module_name");
+      cy.get("button").contains("Variant/Task").click();
+      cy.dataCy("variant-regex-input").type(".*");
+      cy.dataCy("task-regex-input").type(".*");
+      cy.dataCy("github-trigger-alias-checkbox").check({ force: true });
+
+      cy.dataCy("save-settings-button").click();
+      cy.validateToast("success", "Successfully updated repo");
+
+      cy.dataCy("save-settings-button").should("be.disabled");
+    });
+  });
+
+  describe("GitHub/Commit Queue page after adding patch trigger alias", () => {
+    before(() => {
+      cy.dataCy("navitem-github-commitqueue").click();
+    });
+
+    it("Shows the patch trigger alias", () => {
+      cy.dataCy("pta-item").should("have.length", 1);
+    });
+
+    it("Hovering over the alias name shows its details", () => {
+      cy.dataCy("pta-item").scrollIntoView();
+      cy.dataCy("pta-item").trigger("mouseover");
+      cy.dataCy("pta-tooltip").should("be.visible");
+      cy.dataCy("pta-tooltip").contains("spruce");
+      cy.dataCy("pta-tooltip").contains("module_name");
+      cy.dataCy("pta-tooltip").contains("Variant/Task Regex Pairs");
     });
   });
 
@@ -339,7 +375,7 @@ describe("Project Settings when defaulting to repo", () => {
   it("Preserves edits to the form when navigating between settings tabs and does not show a warning modal", () => {
     cy.dataCy("spawn-host-input").should("have.value", "/path");
     cy.dataCy("spawn-host-input").type("/test");
-    cy.wait(HAS_CHANGES_TIMEOUT_MS); // eslint-disable-line cypress/no-unnecessary-waiting
+    cy.dataCy("save-settings-button").should("not.be.disabled");
     cy.dataCy("navitem-access").click();
     cy.dataCy("navigation-warning-modal").should("not.be.visible");
     cy.dataCy("navitem-general").click();
@@ -487,10 +523,10 @@ describe("Project Settings when defaulting to repo", () => {
     });
 
     it("Defaults to repo patch aliases", () => {
-      cy.dataCy("patch-aliases-override-radio-box")
-        .find("input")
-        .eq(1)
-        .should("be.checked");
+      cy.getInputByLabel("Default to Repo Patch Aliases").should(
+        "have.attr",
+        "checked"
+      );
     });
 
     it("Shows the saved repo patch alias", () => {
@@ -507,11 +543,9 @@ describe("Project Settings when defaulting to repo", () => {
     });
 
     it("Allows adding a patch alias", () => {
-      cy.dataCy("patch-aliases-override-radio-box")
-        .find("input")
-        .first()
-        .parent()
-        .click();
+      cy.getInputByLabel("Override Repo Patch Aliases").click({
+        force: true,
+      });
       cy.dataCy("save-settings-button").should("be.disabled");
 
       cy.dataCy("add-button")
@@ -540,15 +574,14 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("save-settings-button").click();
       cy.validateToast("success", "Successfully updated project");
 
-      cy.getInputByLabel("Default to Repo Patch Aliases").should("be.checked");
+      cy.dataCy("save-settings-button").should("be.disabled");
+      cy.dataCy("expandable-card-title").contains("my alias name");
     });
 
     it("Has cleared previously saved alias definitions", () => {
-      cy.dataCy("patch-aliases-override-radio-box")
-        .find("input")
-        .first()
-        .parent()
-        .click();
+      cy.getInputByLabel("Override Repo Patch Aliases").click({
+        force: true,
+      });
       cy.dataCy("alias-row").should("have.length", 0);
     });
   });

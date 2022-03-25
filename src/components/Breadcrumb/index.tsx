@@ -26,6 +26,7 @@ interface Props {
     project: string;
     isPatch: boolean;
     author: string;
+    projectIdentifier: string;
   };
 }
 
@@ -131,6 +132,7 @@ interface VersionBreadcrumbProps {
     id: string;
     revision: string;
     project: string;
+    projectIdentifier: string;
   };
   isTask: boolean;
   analytics: BreadcrumbAnalytics;
@@ -140,7 +142,7 @@ const VersionBreadcrumb: React.FC<VersionBreadcrumbProps> = ({
   analytics,
   isTask,
 }) => {
-  const { project, revision, id } = versionMetadata;
+  const { project, projectIdentifier, revision, id } = versionMetadata;
   // We need to case on revision since periodic builds do not have a revision
   const breadcrumbText = shortenGithash(revision.length ? revision : id);
   return (
@@ -150,7 +152,7 @@ const VersionBreadcrumb: React.FC<VersionBreadcrumbProps> = ({
           {isBeta() ? (
             <StyledBreadcrumbLink
               data-cy="bc-waterfall"
-              to={getCommitsRoute(project)}
+              to={getCommitsRoute(projectIdentifier)}
               onClick={() =>
                 analytics.sendEvent({
                   name: "Click Link",
@@ -158,7 +160,7 @@ const VersionBreadcrumb: React.FC<VersionBreadcrumbProps> = ({
                 })
               }
             >
-              {project}
+              {projectIdentifier}
             </StyledBreadcrumbLink>
           ) : (
             <StyledBreadcrumbLink
@@ -171,7 +173,7 @@ const VersionBreadcrumb: React.FC<VersionBreadcrumbProps> = ({
                 })
               }
             >
-              {project}&apos;s patches
+              {projectIdentifier}&apos;s patches
             </StyledBreadcrumbLink>
           )}
         </StyledP1>
