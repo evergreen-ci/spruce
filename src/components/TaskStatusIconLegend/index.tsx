@@ -2,7 +2,6 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import Popover from "@leafygreen-ui/popover";
-import { spacing } from "@leafygreen-ui/tokens";
 import { Disclaimer, Overline } from "@leafygreen-ui/typography";
 import Icon from "components/Icon";
 import { PopoverContainer } from "components/styles/Popover";
@@ -50,7 +49,6 @@ export const TaskStatusIconLegend: React.FC = () => {
         justify="end"
         active={isActive}
         usePortal
-        spacing={spacing[2]}
         popoverZIndex={zIndex.popover}
       >
         <StyledPopoverContainer>
