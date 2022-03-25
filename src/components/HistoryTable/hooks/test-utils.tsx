@@ -1,40 +1,35 @@
-import { useMemo } from "react";
-import { MockedProvider, MockedResponse } from "@apollo/client/testing";
-import { HistoryTableProvider, useHistoryTable } from "../HistoryTableContext";
+import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
+import { HistoryTableProvider } from "../HistoryTableContext";
+import { HistoryTableReducerState } from "../historyTableContextReducer";
 
-type UseHistoryTableTestHookType = <T extends (...args: any) => any | any[]>(
-  useHook: T,
-  args: Parameters<T>
-) => {
-  hookResponse: ReturnType<T>;
-  historyTable: ReturnType<typeof useHistoryTable>;
-};
-/** useHistoryTableTestHook takes a hook and useHistoryTable hooks
- * and combines them into a shared hook which can be rendered under the same wrapper context
- * and can be used together */
-const useHistoryTableTestHook: UseHistoryTableTestHookType = (
-  useHook,
-  args
-) => {
-  const memoizedArgs = useMemo(() => args, [args]);
-  const hookResponse = useHook(...memoizedArgs);
-  const historyTable = useHistoryTable();
-
-  return {
-    hookResponse,
-    historyTable,
-  };
+const initialState: HistoryTableReducerState = {
+  loadedCommits: [],
+  processedCommits: [],
+  processedCommitCount: 0,
+  commitCache: new Map(),
+  currentPage: 0,
+  pageCount: 0,
+  columns: [],
+  historyTableFilters: [],
+  commitCount: 10,
+  visibleColumns: [],
+  columnLimit: 7,
 };
 
 interface ProviderProps {
-  children: React.ReactNode;
-  mocks?: MockedResponse[];
+  mocks?: MockedProviderProps["mocks"];
+  state?: Partial<HistoryTableReducerState>;
 }
-
-const ProviderWrapper: React.FC<ProviderProps> = ({ children, mocks = [] }) => (
+const ProviderWrapper: React.FC<ProviderProps> = ({
+  children,
+  state = {},
+  mocks = [],
+}) => (
   <MockedProvider mocks={mocks}>
-    <HistoryTableProvider>{children}</HistoryTableProvider>
+    <HistoryTableProvider initialState={{ ...initialState, ...state }}>
+      {children}
+    </HistoryTableProvider>
   </MockedProvider>
 );
 
-export { useHistoryTableTestHook, ProviderWrapper };
+export { ProviderWrapper };

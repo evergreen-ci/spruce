@@ -1,6 +1,4 @@
-import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
-import { context } from "components/HistoryTable";
-import { HistoryTableReducerState } from "components/HistoryTable/historyTableContextReducer";
+import { ProviderWrapper } from "components/HistoryTable/hooks/test-utils";
 import { taskHistoryMaxLength as maxLength } from "constants/history";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
 import { GetBuildVariantsForTaskNameQuery } from "gql/generated/types";
@@ -14,38 +12,9 @@ import { string } from "utils";
 import ColumnHeaders from "./ColumnHeaders";
 
 const { trimStringFromMiddle } = string;
-const { HistoryTableProvider } = context;
 const longVariantName =
   "really_really_really_really_really_really_long_variant_name";
 const trimmedVariantName = trimStringFromMiddle(longVariantName, maxLength);
-
-const initialState: HistoryTableReducerState = {
-  loadedCommits: [],
-  processedCommits: [],
-  processedCommitCount: 0,
-  commitCache: new Map(),
-  currentPage: 0,
-  pageCount: 0,
-  columns: [],
-  historyTableFilters: [],
-  commitCount: 10,
-  visibleColumns: [],
-  columnLimit: 7,
-};
-
-interface WrapperProps {
-  children: React.ReactNode;
-  state?: Partial<HistoryTableReducerState>;
-  mocks?: MockedProviderProps["mocks"];
-}
-
-const wrapper: React.FC<WrapperProps> = ({ children, state, mocks }) => (
-  <MockedProvider mocks={mocks}>
-    <HistoryTableProvider initialState={{ ...initialState, ...state }}>
-      {children}
-    </HistoryTableProvider>
-  </MockedProvider>
-);
 
 describe("columnHeaders (Task History)", () => {
   it("renders an initial skeleton for the 7 column headers when loading", () => {
@@ -55,7 +24,7 @@ describe("columnHeaders (Task History)", () => {
     const { queryAllByDataCy } = render(() => <Component />, {
       route: "/task-history/evergreen/some_task",
       path: "/task-history/:projectId/:taskName",
-      wrapper,
+      wrapper: ProviderWrapper,
     });
     expect(queryAllByDataCy("loading-header-cell")).toHaveLength(7);
   });
@@ -69,7 +38,7 @@ describe("columnHeaders (Task History)", () => {
       route: "/task-history/evergreen/some_task",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
-        wrapper({
+        ProviderWrapper({
           children,
           state: {
             visibleColumns: ["variant1", "variant2", "variant3"],
@@ -97,7 +66,7 @@ describe("columnHeaders (Task History)", () => {
       route: "/task-history/evergreen/some_task",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
-        wrapper({
+        ProviderWrapper({
           children,
           state: {
             visibleColumns: ["variant1", "variant2", "variant3", "variant4"],
@@ -127,7 +96,7 @@ describe("columnHeaders (Task History)", () => {
       route: "/task-history/evergreen/some_task",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
-        wrapper({
+        ProviderWrapper({
           children,
           state: {
             visibleColumns: ["real-variant-name"],
@@ -158,7 +127,7 @@ describe("columnHeaders (Task History)", () => {
       route: "/task-history/evergreen/some_task",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
-        wrapper({
+        ProviderWrapper({
           children,
           state: {
             visibleColumns: [longVariantName, "variant2"],
@@ -191,7 +160,7 @@ describe("columnHeaders (Task History)", () => {
       route: "/task-history/evergreen/some_task",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
-        wrapper({
+        ProviderWrapper({
           children,
           state: {
             visibleColumns: [longVariantName],

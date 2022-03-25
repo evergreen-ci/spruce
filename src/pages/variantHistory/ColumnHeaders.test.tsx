@@ -1,6 +1,4 @@
-import { MockedProvider, MockedProviderProps } from "@apollo/client/testing";
-import { context } from "components/HistoryTable";
-import { HistoryTableReducerState } from "components/HistoryTable/historyTableContextReducer";
+import { ProviderWrapper } from "components/HistoryTable/hooks/test-utils";
 import { variantHistoryMaxLength as maxLength } from "constants/history";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
 import { GetTaskNamesForBuildVariantQuery } from "gql/generated/types";
@@ -14,37 +12,8 @@ import { string } from "utils";
 import ColumnHeaders from "./ColumnHeaders";
 
 const { trimStringFromMiddle } = string;
-const { HistoryTableProvider } = context;
 const longTaskName = "really_really_really_really_really_really_long_task_name";
 const trimmedTaskName = trimStringFromMiddle(longTaskName, maxLength);
-
-const initialState: HistoryTableReducerState = {
-  loadedCommits: [],
-  processedCommits: [],
-  processedCommitCount: 0,
-  commitCache: new Map(),
-  currentPage: 0,
-  pageCount: 0,
-  columns: [],
-  historyTableFilters: [],
-  commitCount: 10,
-  visibleColumns: [],
-  columnLimit: 7,
-};
-
-interface WrapperProps {
-  children: React.ReactNode;
-  state?: Partial<HistoryTableReducerState>;
-  mocks?: MockedProviderProps["mocks"];
-}
-
-const wrapper: React.FC<WrapperProps> = ({ children, state, mocks }) => (
-  <MockedProvider mocks={mocks}>
-    <HistoryTableProvider initialState={{ ...initialState, ...state }}>
-      {children}
-    </HistoryTableProvider>
-  </MockedProvider>
-);
 
 describe("columnHeaders (Variant History)", () => {
   it("renders an initial skeleton for the 7 column headers when loading", () => {
@@ -52,7 +21,7 @@ describe("columnHeaders (Variant History)", () => {
       <ColumnHeaders projectId="evergreen" variantName="some_variant" />
     );
     const { queryAllByDataCy } = render(() => <Component />, {
-      wrapper,
+      wrapper: ProviderWrapper,
     });
     expect(queryAllByDataCy("loading-header-cell")).toHaveLength(7);
   });
@@ -63,7 +32,7 @@ describe("columnHeaders (Variant History)", () => {
     );
     const { queryAllByDataCy } = render(() => <Component />, {
       wrapper: ({ children }) =>
-        wrapper({
+        ProviderWrapper({
           children,
           state: {
             visibleColumns: ["task1", "task2", "task3"],
@@ -84,7 +53,7 @@ describe("columnHeaders (Variant History)", () => {
     );
     const { queryByRole, queryAllByDataCy } = render(() => <Component />, {
       wrapper: ({ children }) =>
-        wrapper({
+        ProviderWrapper({
           children,
           state: {
             visibleColumns: ["task1"],
@@ -107,7 +76,7 @@ describe("columnHeaders (Variant History)", () => {
     );
     const { queryAllByDataCy } = render(() => <Component />, {
       wrapper: ({ children }) =>
-        wrapper({
+        ProviderWrapper({
           children,
           state: {
             visibleColumns: ["task1", "task2", "task3", "task4", "task5"],
@@ -127,7 +96,7 @@ describe("columnHeaders (Variant History)", () => {
     );
     const { queryByText, queryAllByDataCy } = render(() => <Component />, {
       wrapper: ({ children }) =>
-        wrapper({
+        ProviderWrapper({
           children,
           state: {
             visibleColumns: [longTaskName, "task2"],
@@ -148,7 +117,7 @@ describe("columnHeaders (Variant History)", () => {
     );
     const { queryByText, queryAllByDataCy } = render(() => <Component />, {
       wrapper: ({ children }) =>
-        wrapper({
+        ProviderWrapper({
           children,
           state: {
             visibleColumns: [longTaskName],
