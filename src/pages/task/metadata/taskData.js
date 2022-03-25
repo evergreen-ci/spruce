@@ -27,6 +27,7 @@ export const taskQuery = {
       isPatch: false,
       revision: "123j9123u9123",
       project: "spruce",
+      projectIdentifier: "spruce",
     },
     requester: "github_pull_request",
     patchNumber: 417,

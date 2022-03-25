@@ -9,26 +9,39 @@ const { toArray } = array;
 
 const useColumns = <T>(allColumns: T[], accessFunc: (column: T) => string) => {
   const { search } = useLocation();
-  const queryParams = useMemo(() => parseQueryString(search), [search]);
+  const { [HistoryQueryParams.VisibleColumns]: queryParams } = useMemo(
+    () => parseQueryString(search),
+    [search]
+  );
   const { addColumns } = useHistoryTable();
 
-  const selectedColumnsInQuery = useMemo(
-    () => toArray(queryParams[HistoryQueryParams.VisibleColumns]),
-    [queryParams]
+  const selectedColumnsInQuery = useMemo(() => toArray(queryParams), [
+    queryParams,
+  ]);
+
+  const activeColumns = useMemo(
+    () =>
+      selectedColumnsInQuery.length
+        ? allColumns?.filter((column) =>
+            selectedColumnsInQuery.includes(accessFunc(column))
+          )
+        : allColumns,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selectedColumnsInQuery, allColumns]
   );
 
-  const activeColumns = selectedColumnsInQuery.length
-    ? allColumns?.filter((column) =>
-        selectedColumnsInQuery.includes(accessFunc(column))
-      )
-    : allColumns;
+  const visibleColumns = useMemo(
+    () => activeColumns?.map((column) => accessFunc(column)) ?? [],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [activeColumns]
+  );
 
   useEffect(() => {
-    if (allColumns) {
-      addColumns(activeColumns.map((column) => accessFunc(column)) ?? []);
+    if (visibleColumns) {
+      addColumns(visibleColumns);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedColumnsInQuery, allColumns]);
+  }, [visibleColumns]);
   return activeColumns || [];
 };
 

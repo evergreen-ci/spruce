@@ -6,8 +6,15 @@ const queryParamsToDisplay = new Set([
   TestStatus.All,
 ]);
 
-export { queryParamsToDisplay };
-export const FOLDED_COMMITS_HEIGHT = 40;
-export const COMMIT_HEIGHT = 120;
-export const DATE_SEPARATOR_HEIGHT = 40;
-export const DEFAULT_HEIGHT = 100;
+const FOLDED_COMMITS_HEIGHT = 40;
+const COMMIT_HEIGHT = 120;
+const DATE_SEPARATOR_HEIGHT = 40;
+const DEFAULT_HEIGHT = 100;
+
+export {
+  queryParamsToDisplay,
+  FOLDED_COMMITS_HEIGHT,
+  COMMIT_HEIGHT,
+  DATE_SEPARATOR_HEIGHT,
+  DEFAULT_HEIGHT,
+};

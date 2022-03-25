@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { TestStatus } from "types/history";
 import { queryString, array } from "utils";
@@ -10,8 +10,8 @@ const { toArray } = array;
 const useTestFilters = () => {
   const { search } = useLocation();
   const { setHistoryTableFilters } = useHistoryTable();
-  const queryParams = useMemo(() => parseQueryString(search), [search]);
   useEffect(() => {
+    const queryParams = parseQueryString(search);
     const failingTests = toArray(queryParams[TestStatus.Failed]);
     const passingTests = toArray(queryParams[TestStatus.Passed]);
     const failingTestFilters = failingTests.map((test) => ({
@@ -24,7 +24,7 @@ const useTestFilters = () => {
     }));
     setHistoryTableFilters([...failingTestFilters, ...passingTestFilters]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [queryParams]);
+  }, [search]);
 };
 
 export default useTestFilters;

@@ -2,9 +2,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { useParams, Link, Redirect } from "react-router-dom";
-import { ProjectSettingsProvider } from "components/ProjectSettingsTabs/Context";
-import { CreateProjectModal } from "components/ProjectSettingsTabs/CreateProjectModal";
-import { ProjectType } from "components/ProjectSettingsTabs/utils";
+import { ProjectSelect } from "components/projectSelect";
 import {
   SideNav,
   SideNavGroup,
@@ -15,6 +13,7 @@ import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
 } from "constants/routes";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   ProjectSettingsQuery,
@@ -25,8 +24,11 @@ import {
 import { GET_PROJECT_SETTINGS, GET_REPO_SETTINGS } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { environmentalVariables, validators } from "utils";
+import { ProjectSettingsProvider } from "./projectSettings/Context";
+import { CreateProjectModal } from "./projectSettings/CreateProjectModal";
 import { getTabTitle } from "./projectSettings/getTabTitle";
 import { ProjectSettingsTabs } from "./projectSettings/Tabs";
+import { ProjectType } from "./projectSettings/tabs/utils";
 
 const { isProduction } = environmentalVariables;
 const { validateObjectId } = validators;
@@ -116,14 +118,27 @@ export const ProjectSettings: React.FC = () => {
     ? projectType === ProjectType.Project || repoData
     : repoData;
 
+  const { repoSettings } = repoData || {};
+  const { projectRef } = repoSettings || {};
+  const { owner, repo } = projectRef || {};
+
+  const repoDisplay = isRepo && owner && repo ? `${owner}/${repo}` : identifier;
+
   return (
     <ProjectSettingsProvider>
       <SideNav aria-label="Project Settings">
-        <SideNavGroup header="Project" />
-        <CreateProjectModal
-          owner={project?.projectRef?.owner}
-          repo={project?.projectRef?.repo}
-        />
+        <ButtonsContainer>
+          <ProjectSelect
+            selectedProjectIdentifier={repoDisplay}
+            getRoute={getProjectSettingsRoute}
+            isProjectSettingsPage
+          />
+          <CreateProjectModal
+            owner={project?.projectRef?.owner}
+            repo={project?.projectRef?.repo}
+          />
+        </ButtonsContainer>
+
         <SideNavGroup>
           <ProjectSettingsNavItem
             {...sharedProps}
@@ -206,4 +221,8 @@ const tabRouteValues = Object.values(ProjectSettingsTabRoutes);
 
 const PageContainer = styled.div`
   display: flex;
+`;
+
+const ButtonsContainer = styled.div`
+  padding: ${size.xs};
 `;

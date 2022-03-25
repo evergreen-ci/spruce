@@ -3,7 +3,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 
 const { blue } = uiColors;
 export const LabelCellContainer = styled.div`
-  width: 200px;
+  min-width: 200px;
   padding-right: 40px;
 `;
 

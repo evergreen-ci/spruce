@@ -1,11 +1,12 @@
 import { ListChildComponentProps } from "react-window";
 import CommitChartLabel from "components/CommitChartLabel";
+import { LabelCellContainer } from "../Cell/Cell";
 import { useHistoryTable } from "../HistoryTableContext";
 import { rowType } from "../types";
 import { DateSeparator } from "./DateSeparator";
 import { FoldedCommit } from "./FoldedCommit";
 import { LoadingRow } from "./LoadingRow";
-import { LabelCellContainer, RowContainer } from "./styles";
+import { RowContainer } from "./styles";
 
 interface RowProps extends ListChildComponentProps {
   columns: React.ReactNode[];
