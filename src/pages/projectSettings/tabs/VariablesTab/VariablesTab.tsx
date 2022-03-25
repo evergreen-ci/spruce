@@ -1,7 +1,10 @@
 import { useMemo } from "react";
 import { SpruceForm } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import { usePopulateForm, useProjectSettingsContext } from "../Context";
+import {
+  usePopulateForm,
+  useProjectSettingsContext,
+} from "pages/projectSettings/Context";
 import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { TabProps } from "./types";
