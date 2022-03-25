@@ -17,7 +17,7 @@ const { useColumns } = hooks;
 const { convertArrayToObject } = array;
 const { trimStringFromMiddle } = string;
 const { useHistoryTable } = context;
-const { LoadingCell, ColumnHeaderCell } = Cell;
+const { LoadingCell, ColumnHeaderCell, LabelCellContainer } = Cell;
 
 interface ColumnHeadersProps {
   projectId: string;
@@ -84,12 +84,6 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
     </RowContainer>
   );
 };
-
-// LabelCellContainer is used to provide padding for the first column in the table since we do not have a header for it
-const LabelCellContainer = styled.div`
-  width: 200px;
-  padding-right: 40px;
-`;
 
 const RowContainer = styled.div`
   display: flex;
