@@ -1,5 +1,8 @@
 import { useContext, createContext, useReducer, useMemo } from "react";
-import { TestFilter } from "gql/generated/types";
+import {
+  MainlineCommitsForHistoryQuery,
+  TestFilter,
+} from "gql/generated/types";
 import { COMMIT_HEIGHT } from "./constants";
 import {
   HistoryTableReducerState,
@@ -37,7 +40,9 @@ interface HistoryTableState {
   commitCount: number;
 }
 
-const HistoryTableDispatchContext = createContext<any | null>(null);
+const HistoryTableDispatchContext = createContext<HistoryTableState | null>(
+  null
+);
 
 interface HistoryTableProviderProps {
   children: React.ReactNode;
@@ -84,19 +89,21 @@ const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
   const getItemHeight = (index: number) =>
     processedCommits[index]?.rowHeight || COMMIT_HEIGHT;
 
-  const historyTableState: HistoryTableState = useMemo(
+  const historyTableState = useMemo(
     () => ({
       getItemHeight,
       toggleRowSizeAtIndex: (index: number, numCommits: number) =>
         dispatch({ type: "toggleRowSizeAtIndex", index, numCommits }),
-      fetchNewCommit: (commits) =>
-        dispatch({ type: "ingestNewCommits", commits }),
+      fetchNewCommit: (
+        commits: MainlineCommitsForHistoryQuery["mainlineCommits"]
+      ) => dispatch({ type: "ingestNewCommits", commits }),
       isItemLoaded,
       getItem,
       processedCommitCount,
       processedCommits,
       visibleColumns,
-      addColumns: (columns) => dispatch({ type: "addColumns", columns }),
+      addColumns: (columns: string[]) =>
+        dispatch({ type: "addColumns", columns }),
       nextPage: () => dispatch({ type: "nextPageColumns" }),
       previousPage: () => dispatch({ type: "prevPageColumns" }),
       hasNextPage: currentPage < pageCount - 1,
@@ -105,7 +112,7 @@ const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
       pageCount,
       columnLimit,
       historyTableFilters,
-      setHistoryTableFilters: (filters) =>
+      setHistoryTableFilters: (filters: TestFilter[]) =>
         dispatch({ type: "setHistoryTableFilters", filters }),
       setSelectedCommit: (order: number) =>
         dispatch({ type: "setSelectedCommit", order }),
@@ -128,7 +135,7 @@ const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
   );
 };
 
-const useHistoryTable = (): HistoryTableState => {
+const useHistoryTable = () => {
   const context = useContext(HistoryTableDispatchContext);
   if (context === undefined) {
     throw new Error(
