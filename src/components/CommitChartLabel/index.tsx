@@ -67,13 +67,14 @@ const CommitChartLabel: React.FC<Props> = ({
 
 const LabelContainer = styled.div`
   height: 100px;
-  width: 100%;
+  min-width: 100%;
   display: flex;
   margin-top: ${size.xs};
   margin-bottom: ${size.s};
   flex-direction: column;
   align-items: flex-start;
   word-break: break-word;
+  overflow-y: scroll;
 `;
 
 const LabelText = styled(Body)`

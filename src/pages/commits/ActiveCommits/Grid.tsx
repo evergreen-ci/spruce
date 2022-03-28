@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { zIndex } from "constants/tokens";
+import { gridHeight } from "pages/commits/constants";
 
 const { gray } = uiColors;
 
@@ -21,7 +22,7 @@ const ColumnContainer = styled.div`
   position: absolute;
   top: 0;
   width: 100%;
-  height: 226px;
+  height: ${gridHeight}px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

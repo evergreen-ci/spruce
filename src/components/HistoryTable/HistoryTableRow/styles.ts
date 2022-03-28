@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const LabelCellContainer = styled.div`
-  width: 200px;
+  min-width: 200px;
   padding-right: 40px;
 `;
 

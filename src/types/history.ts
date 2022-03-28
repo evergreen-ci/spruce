@@ -3,3 +3,8 @@ export enum TestStatus {
   Passed = "passed",
   All = "all",
 }
+
+export enum HistoryQueryParams {
+  SkipOrderNumber = "skipOrderNumber",
+  VisibleColumns = "visibleColumns",
+}

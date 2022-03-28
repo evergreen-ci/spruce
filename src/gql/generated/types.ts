@@ -797,6 +797,7 @@ export type ProjectInput = {
   patchingDisabled?: Maybe<Scalars["Boolean"]>;
   repotrackerDisabled?: Maybe<Scalars["Boolean"]>;
   dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
+  versionControlEnabled?: Maybe<Scalars["Boolean"]>;
   prTestingEnabled?: Maybe<Scalars["Boolean"]>;
   githubChecksEnabled?: Maybe<Scalars["Boolean"]>;
   batchTime?: Maybe<Scalars["Int"]>;
@@ -845,6 +846,7 @@ export type RepoRefInput = {
   patchingDisabled?: Maybe<Scalars["Boolean"]>;
   repotrackerDisabled?: Maybe<Scalars["Boolean"]>;
   dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
+  versionControlEnabled?: Maybe<Scalars["Boolean"]>;
   prTestingEnabled?: Maybe<Scalars["Boolean"]>;
   githubChecksEnabled?: Maybe<Scalars["Boolean"]>;
   batchTime?: Maybe<Scalars["Int"]>;
@@ -1612,6 +1614,7 @@ export type Project = {
   patchingDisabled?: Maybe<Scalars["Boolean"]>;
   repotrackerDisabled?: Maybe<Scalars["Boolean"]>;
   dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
+  versionControlEnabled?: Maybe<Scalars["Boolean"]>;
   prTestingEnabled?: Maybe<Scalars["Boolean"]>;
   githubChecksEnabled?: Maybe<Scalars["Boolean"]>;
   batchTime: Scalars["Int"];
@@ -1661,6 +1664,7 @@ export type RepoRef = {
   patchingDisabled: Scalars["Boolean"];
   repotrackerDisabled: Scalars["Boolean"];
   dispatchingDisabled: Scalars["Boolean"];
+  versionControlEnabled: Scalars["Boolean"];
   prTestingEnabled: Scalars["Boolean"];
   githubChecksEnabled: Scalars["Boolean"];
   batchTime: Scalars["Int"];
