@@ -1,4 +1,5 @@
-import { useEffect, useRef, ComponentType } from "react";
+import { useEffect, useRef, ComponentType, useMemo } from "react";
+import throttle from "lodash.throttle";
 import AutoSizer from "react-virtualized-auto-sizer";
 import {
   VariableSizeList as List,
@@ -33,9 +34,14 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
   } = useHistoryTable();
   const listRef = useRef<List>(null);
 
+  const throttleOnChangeTableWidth = useMemo(
+    () => throttle(onChangeTableWidth, 400),
+    [onChangeTableWidth]
+  );
+
   useEffect(() => {
-    onChangeTableWidth(width);
-  }, [width, onChangeTableWidth]);
+    throttleOnChangeTableWidth(width);
+  }, [width, throttleOnChangeTableWidth]);
 
   useEffect(() => {
     if (recentlyFetchedCommits) {
