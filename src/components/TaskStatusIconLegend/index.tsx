@@ -36,7 +36,6 @@ export const TaskStatusIconLegend: React.FC = () => {
         }}
         aria-label="Task Status Icon Legend"
       >
-        {" "}
         <StyledIcon glyph="QuestionMarkWithCircle" />
       </IconButton>
       <Popover
