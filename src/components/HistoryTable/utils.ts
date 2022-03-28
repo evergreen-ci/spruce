@@ -2,6 +2,9 @@ import {
   FOLDED_COMMITS_HEIGHT,
   COMMIT_HEIGHT,
   DATE_SEPARATOR_HEIGHT,
+  COLUMN_LABEL_WIDTH,
+  DEFAULT_COLUMN_LIMIT,
+  ROW_LABEL_WIDTH,
 } from "./constants";
 import { mainlineCommits, CommitRowType, rowType } from "./types";
 
@@ -113,4 +116,11 @@ export const toggleRowSizeAtIndex = (
     newCommits[idx].rowHeight = collapsedHeight;
   }
   return newCommits;
+};
+
+export const calcColumnLimitFromWidth = (tableWidth: number) => {
+  const colLimit = Math.floor(
+    (tableWidth - ROW_LABEL_WIDTH) / COLUMN_LABEL_WIDTH
+  );
+  return colLimit > DEFAULT_COLUMN_LIMIT ? colLimit : DEFAULT_COLUMN_LIMIT;
 };

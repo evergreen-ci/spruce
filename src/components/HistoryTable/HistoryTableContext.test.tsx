@@ -34,6 +34,7 @@ describe("historyTableContext", () => {
       pageCount: 0,
       columnLimit: 7,
       commitCount: 10,
+      onChangeTableWidth: expect.any(Function),
     });
   });
   it("should process new commits when they are passed in", () => {

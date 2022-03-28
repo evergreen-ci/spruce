@@ -1,11 +1,10 @@
 import { TestFilter } from "gql/generated/types";
-import {
-  COLUMN_LABEL_WIDTH,
-  DEFAULT_COLUMN_LIMIT,
-  ROW_LABEL_WIDTH,
-} from "./constants";
 import { CommitRowType, mainlineCommits } from "./types";
-import { processCommits, toggleRowSizeAtIndex } from "./utils";
+import {
+  calcColumnLimitFromWidth,
+  processCommits,
+  toggleRowSizeAtIndex,
+} from "./utils";
 
 type Action =
   | { type: "ingestNewCommits"; commits: mainlineCommits }
@@ -171,11 +170,4 @@ const objectifyCommits = (
     }
   });
   return obj;
-};
-
-const calcColumnLimitFromWidth = (tableWidth: number) => {
-  const colLimit = Math.floor(
-    (tableWidth - ROW_LABEL_WIDTH) / COLUMN_LABEL_WIDTH
-  );
-  return colLimit > DEFAULT_COLUMN_LIMIT ? colLimit : DEFAULT_COLUMN_LIMIT;
 };

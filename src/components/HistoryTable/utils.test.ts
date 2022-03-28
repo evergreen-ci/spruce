@@ -2,12 +2,28 @@ import {
   FOLDED_COMMITS_HEIGHT,
   COMMIT_HEIGHT,
   DATE_SEPARATOR_HEIGHT,
+  DEFAULT_COLUMN_LIMIT,
 } from "./constants";
 import { mainlineCommitData } from "./testData";
 import { rowType } from "./types";
-import { processCommits } from "./utils";
+import { calcColumnLimitFromWidth, processCommits } from "./utils";
 
 describe("historyTable utils", () => {
+  describe("calcColumnLimitFromWidth", () => {
+    it("should not return a value below the default column limit", () => {
+      expect(calcColumnLimitFromWidth(-100)).toStrictEqual(
+        DEFAULT_COLUMN_LIMIT
+      );
+      expect(calcColumnLimitFromWidth(0)).toStrictEqual(DEFAULT_COLUMN_LIMIT);
+      expect(calcColumnLimitFromWidth(800)).toStrictEqual(DEFAULT_COLUMN_LIMIT);
+      expect(calcColumnLimitFromWidth(801)).toStrictEqual(DEFAULT_COLUMN_LIMIT);
+    });
+    it("should return the number of columns to display in the history table based on the provided width", () => {
+      expect(calcColumnLimitFromWidth(2800)).toBe(17);
+      expect(calcColumnLimitFromWidth(2850)).toBe(17);
+      expect(calcColumnLimitFromWidth(4000)).toBe(25);
+    });
+  });
   describe("processCommits", () => {
     it("should return empty array if no commits", () => {
       const result = processCommits([], []);
