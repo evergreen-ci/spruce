@@ -11,5 +11,5 @@ export const RowContainer = styled.div<{ selected?: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: ${({ selected }) => (selected ? blue.light3 : "white")};
+  ${({ selected }) => selected && `background-color: ${blue.light3};`};
 `;

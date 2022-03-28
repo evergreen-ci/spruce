@@ -49,11 +49,12 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
       );
       if (updatedObjectCache.size > state.commitCache.size) {
         // Check if our selected commit has been loaded
-        const { processedCommits, selectedCommitRowIndex } = processCommits(
-          action.commits.versions,
-          state.processedCommits,
-          state.selectedCommit?.order
-        );
+        const { processedCommits, selectedCommitRowIndex } = processCommits({
+          newCommits: action.commits.versions,
+          existingCommits: state.processedCommits,
+          selectedCommitOrder: state.selectedCommit?.order,
+          selectedCommitRow: state.selectedCommit?.rowIndex,
+        });
         let { commitCount } = state;
         // If there are no previous commits, we can set the commitCount to be the first commit's order.
         if (action.commits.prevPageOrderNumber == null) {
@@ -81,7 +82,7 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
           selectedCommit: state.selectedCommit && {
             ...state.selectedCommit,
             loaded: selectedLoaded,
-            rowIndex: selectedCommitRowIndex || state.selectedCommit.rowIndex,
+            rowIndex: selectedCommitRowIndex,
           },
         };
       }
@@ -157,6 +158,7 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
         },
       };
     case "markSelectedVisited":
+      console.log("marking selected visited");
       return {
         ...state,
         selectedCommit: {

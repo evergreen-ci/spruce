@@ -1,3 +1,4 @@
+import { Unpacked } from "types/utils";
 import {
   FOLDED_COMMITS_HEIGHT,
   COMMIT_HEIGHT,
@@ -12,12 +13,18 @@ import { mainlineCommits, CommitRowType, rowType } from "./types";
 // - A set of commits that are rolled up into a single commit
 // The processed commits are used to calculate the height of each row in the table.
 // They are ordered by the order of the commits in the table.
-export const processCommits = (
-  newCommits: mainlineCommits["versions"],
-  existingCommits: CommitRowType[],
-  selectedCommitOrder: number | null
-) => {
-  let selectedCommitRowIndex: number | null = null;
+export const processCommits = ({
+  newCommits,
+  existingCommits,
+  selectedCommitOrder,
+  selectedCommitRow,
+}: {
+  newCommits: mainlineCommits["versions"];
+  existingCommits: CommitRowType[];
+  selectedCommitOrder: number | null;
+  selectedCommitRow: number | null;
+}) => {
+  let selectedCommitRowIndex: number | null = selectedCommitRow;
   const processedCommits: CommitRowType[] = [...existingCommits];
   for (let i = 0; i < newCommits.length; i++) {
     const commit = newCommits[i];
@@ -36,6 +43,7 @@ export const processCommits = (
           selected: version.order === selectedCommitOrder,
           rowHeight: COMMIT_HEIGHT,
         });
+
         if (version.order === selectedCommitOrder) {
           selectedCommitRowIndex = processedCommits.length - 1;
         }
@@ -60,6 +68,10 @@ export const processCommits = (
     } else if (commitType === rowType.FOLDED_COMMITS) {
       const { rolledUpVersions } = commit;
       const firstRolledUpVersion = rolledUpVersions[0];
+      const selected = isRolledUpSelected(
+        rolledUpVersions,
+        selectedCommitOrder
+      );
       if (
         priorCommit &&
         isSameDay(firstRolledUpVersion.createTime, priorCommit.date)
@@ -69,7 +81,8 @@ export const processCommits = (
           rolledUpCommits: rolledUpVersions,
           date: firstRolledUpVersion.createTime,
           rowHeight: FOLDED_COMMITS_HEIGHT,
-          selected: false,
+          selected,
+          expanded: false,
         });
       } else {
         processedCommits.push({
@@ -84,7 +97,11 @@ export const processCommits = (
           date: firstRolledUpVersion.createTime,
           rowHeight: FOLDED_COMMITS_HEIGHT,
           selected: false,
+          expanded: false,
         });
+      }
+      if (selected) {
+        selectedCommitRowIndex = processedCommits.length - 1;
       }
     }
   }
@@ -111,6 +128,17 @@ const isSameDay = (date1: string | Date, date2: string | Date) => {
   );
 };
 
+const isRolledUpSelected = (
+  rolledUpUpVersions: Unpacked<mainlineCommits["versions"]>["rolledUpVersions"],
+  selectedCommitOrder: number | null
+) => {
+  if (selectedCommitOrder === null) {
+    return false;
+  }
+  return rolledUpUpVersions.some(
+    (version) => version.order === selectedCommitOrder
+  );
+};
 export const toggleRowSizeAtIndex = (
   processedCommits: CommitRowType[],
   numCommits: number,

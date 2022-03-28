@@ -65,6 +65,7 @@ const Row: React.FC<RowProps> = ({
         toggleRowSize={data.toggleRowSize}
         numVisibleCols={numVisibleCols || columnLimit}
         style={style}
+        selected={selected}
       />
     );
   }

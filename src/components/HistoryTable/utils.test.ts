@@ -10,13 +10,23 @@ import { processCommits } from "./utils";
 describe("historyTable utils", () => {
   describe("processCommits", () => {
     it("should return empty array if no commits", () => {
-      const { processedCommits } = processCommits([], [], null);
+      const { processedCommits } = processCommits({
+        newCommits: [],
+        existingCommits: [],
+        selectedCommitOrder: null,
+        selectedCommitRow: null,
+      });
       expect(processedCommits).toStrictEqual([]);
     });
 
     it("should handle adding new commits when none exist", () => {
       const firstCommit = mainlineCommitData.versions[0];
-      const { processedCommits } = processCommits([firstCommit], [], null);
+      const { processedCommits } = processCommits({
+        newCommits: [firstCommit],
+        existingCommits: [],
+        selectedCommitOrder: null,
+        selectedCommitRow: null,
+      });
       expect(processedCommits).toStrictEqual<CommitRowType[]>([
         {
           date: firstCommit.version.createTime,
@@ -38,11 +48,12 @@ describe("historyTable utils", () => {
       const secondCommit = mainlineCommitData.versions[1];
       const thirdCommit = mainlineCommitData.versions[2];
       it("should not seperate commits when they subsequent commits are of the same date", () => {
-        const { processedCommits } = processCommits(
-          [firstCommit, secondCommit],
-          [],
-          null
-        );
+        const { processedCommits } = processCommits({
+          newCommits: [firstCommit, secondCommit],
+          existingCommits: [],
+          selectedCommitOrder: null,
+          selectedCommitRow: null,
+        });
         expect(processedCommits).toStrictEqual<CommitRowType[]>([
           {
             date: firstCommit.version.createTime,
@@ -67,11 +78,12 @@ describe("historyTable utils", () => {
         ]);
       });
       it("should seperate commits when they are not of the same date", () => {
-        const { processedCommits } = processCommits(
-          [firstCommit, thirdCommit],
-          [],
-          null
-        );
+        const { processedCommits } = processCommits({
+          newCommits: [firstCommit, thirdCommit],
+          existingCommits: [],
+          selectedCommitOrder: null,
+          selectedCommitRow: null,
+        });
         expect(processedCommits).toStrictEqual<CommitRowType[]>([
           {
             date: firstCommit.version.createTime,
@@ -106,11 +118,12 @@ describe("historyTable utils", () => {
       const firstCommit = mainlineCommitData.versions[0];
       const foldedUpCommits = mainlineCommitData.versions[5];
       it("should add a folded up commit when it is the first commit", () => {
-        const { processedCommits } = processCommits(
-          [foldedUpCommits],
-          [],
-          null
-        );
+        const { processedCommits } = processCommits({
+          newCommits: [foldedUpCommits],
+          existingCommits: [],
+          selectedCommitOrder: null,
+          selectedCommitRow: null,
+        });
         expect(processedCommits).toStrictEqual<CommitRowType[]>([
           {
             date: foldedUpCommits.rolledUpVersions[0].createTime,
@@ -124,13 +137,14 @@ describe("historyTable utils", () => {
             type: rowType.FOLDED_COMMITS,
             rowHeight: FOLDED_COMMITS_HEIGHT,
             selected: false,
+            expanded: false,
           },
         ]);
       });
       it("should add a folded up commit when there are prior commits", () => {
-        const { processedCommits } = processCommits(
-          [foldedUpCommits],
-          [
+        const { processedCommits } = processCommits({
+          newCommits: [foldedUpCommits],
+          existingCommits: [
             {
               date: firstCommit.version.createTime,
               type: rowType.DATE_SEPARATOR,
@@ -145,8 +159,9 @@ describe("historyTable utils", () => {
               rowHeight: COMMIT_HEIGHT,
             },
           ],
-          null
-        );
+          selectedCommitOrder: null,
+          selectedCommitRow: null,
+        });
         expect(processedCommits).toStrictEqual<CommitRowType[]>([
           {
             date: firstCommit.version.createTime,
@@ -173,8 +188,84 @@ describe("historyTable utils", () => {
             type: rowType.FOLDED_COMMITS,
             rowHeight: FOLDED_COMMITS_HEIGHT,
             selected: false,
+            expanded: false,
           },
         ]);
+      });
+    });
+
+    describe("selected commits", () => {
+      it("should return the correct row number for selected commits", () => {
+        const { processedCommits, selectedCommitRowIndex } = processCommits({
+          newCommits: [mainlineCommitData.versions[0]],
+          existingCommits: [],
+          selectedCommitOrder: 3399,
+          selectedCommitRow: null,
+        });
+        expect(processedCommits).toStrictEqual([
+          {
+            date: mainlineCommitData.versions[0].version.createTime,
+            type: rowType.DATE_SEPARATOR,
+            rowHeight: DATE_SEPARATOR_HEIGHT,
+            selected: false,
+          },
+          {
+            commit: mainlineCommitData.versions[0].version,
+            date: mainlineCommitData.versions[0].version.createTime,
+            type: rowType.COMMIT,
+            rowHeight: COMMIT_HEIGHT,
+            selected: true,
+          },
+        ]);
+        expect(selectedCommitRowIndex).toBe(1);
+      });
+      it("should not return a selected commit if it does not exist", () => {
+        const { processedCommits, selectedCommitRowIndex } = processCommits({
+          newCommits: [mainlineCommitData.versions[0]],
+          existingCommits: [],
+          selectedCommitOrder: 1996,
+          selectedCommitRow: null,
+        });
+        expect(processedCommits).toStrictEqual([
+          {
+            date: mainlineCommitData.versions[0].version.createTime,
+            type: rowType.DATE_SEPARATOR,
+            rowHeight: DATE_SEPARATOR_HEIGHT,
+            selected: false,
+          },
+          {
+            commit: mainlineCommitData.versions[0].version,
+            date: mainlineCommitData.versions[0].version.createTime,
+            type: rowType.COMMIT,
+            rowHeight: COMMIT_HEIGHT,
+            selected: false,
+          },
+        ]);
+        expect(selectedCommitRowIndex).toBeNull();
+      });
+      it("should not overwrite a previously found row", () => {
+        const { processedCommits, selectedCommitRowIndex } = processCommits({
+          newCommits: [mainlineCommitData.versions[0]],
+          existingCommits: [],
+          selectedCommitOrder: 3399,
+          selectedCommitRow: 2,
+        });
+        expect(processedCommits).toStrictEqual([
+          {
+            date: mainlineCommitData.versions[0].version.createTime,
+            type: rowType.DATE_SEPARATOR,
+            rowHeight: DATE_SEPARATOR_HEIGHT,
+            selected: false,
+          },
+          {
+            commit: mainlineCommitData.versions[0].version,
+            date: mainlineCommitData.versions[0].version.createTime,
+            type: rowType.COMMIT,
+            rowHeight: COMMIT_HEIGHT,
+            selected: true,
+          },
+        ]);
+        expect(selectedCommitRowIndex).toBe(1);
       });
     });
   });
