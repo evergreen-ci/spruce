@@ -1,8 +1,12 @@
 import { useEffect, useMemo, ComponentType } from "react";
 import styled from "@emotion/styled";
 import { Route, useParams } from "react-router-dom";
+import { routes, ProjectSettingsTabRoutes } from "constants/routes";
+import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
+import { useProjectSettingsContext } from "./Context";
+import { Header } from "./Header";
+import { NavigationModal } from "./NavigationModal";
 import {
-  Header,
   AccessTab,
   EventLogTab,
   GeneralTab,
@@ -14,18 +18,10 @@ import {
   VariablesTab,
   PluginsTab,
   VirtualWorkstationTab,
-} from "components/ProjectSettingsTabs";
-import { useProjectSettingsContext } from "components/ProjectSettingsTabs/Context";
-import { gqlToFormMap } from "components/ProjectSettingsTabs/transformers";
-import {
-  readOnlyTabs,
-  TabDataProps,
-} from "components/ProjectSettingsTabs/types";
-import { ProjectType } from "components/ProjectSettingsTabs/utils";
-
-import { routes, ProjectSettingsTabRoutes } from "constants/routes";
-import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
-import { NavigationModal } from "./NavigationModal";
+} from "./tabs/index";
+import { gqlToFormMap } from "./tabs/transformers";
+import { readOnlyTabs, TabDataProps } from "./tabs/types";
+import { ProjectType } from "./tabs/utils";
 
 type ProjectSettings = ProjectSettingsQuery["projectSettings"];
 type RepoSettings = RepoSettingsQuery["repoSettings"];

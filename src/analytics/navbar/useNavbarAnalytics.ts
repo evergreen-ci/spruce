@@ -16,6 +16,7 @@ type Action =
   | { name: "Click Distros Link" }
   | { name: "Click Projects Link" }
   | { name: "Click Project Patches Link" }
+  | { name: "Click EVG Wiki Link" }
   | { name: "Click Preferences Link" }
   | { name: "Click Notifications Link" };
 

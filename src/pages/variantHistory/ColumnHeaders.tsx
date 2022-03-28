@@ -1,32 +1,62 @@
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { context, Cell } from "components/HistoryTable";
+import { context, Cell, hooks } from "components/HistoryTable";
 import { variantHistoryMaxLength as maxLength } from "constants/history";
-
 import { getTaskHistoryRoute } from "constants/routes";
-import { array, string } from "utils";
+import { useToastContext } from "context/toast";
+import {
+  GetTaskNamesForBuildVariantQuery,
+  GetTaskNamesForBuildVariantQueryVariables,
+} from "gql/generated/types";
+import { GET_TASK_NAMES_FOR_BUILD_VARIANT } from "gql/queries";
+import { array, string, errorReporting } from "utils";
+
+const { reportError } = errorReporting;
 
 const { mapStringArrayToObject } = array;
-const { trimStringFromMiddle } = string;
+const { LoadingCell, ColumnHeaderCell, LabelCellContainer } = Cell;
 const { useHistoryTable } = context;
-const { LoadingCell, ColumnHeaderCell } = Cell;
+const { useColumns } = hooks;
+const { trimStringFromMiddle } = string;
 interface ColumnHeadersProps {
   projectId: string;
-  columns: string[];
-  loading: boolean;
+  variantName: string;
 }
 
 const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
   projectId,
-  columns,
-  loading,
+  variantName,
 }) => {
-  const { visibleColumns, columnLimit } = useHistoryTable();
-  const columnMap = mapStringArrayToObject(columns, "name");
+  const dispatchToast = useToastContext();
 
+  // Fetch the column headers from the same query used on the dropdown.
+  const { data: columnData, loading } = useQuery<
+    GetTaskNamesForBuildVariantQuery,
+    GetTaskNamesForBuildVariantQueryVariables
+  >(GET_TASK_NAMES_FOR_BUILD_VARIANT, {
+    variables: {
+      projectId,
+      buildVariant: variantName,
+    },
+    onCompleted: ({ taskNamesForBuildVariant }) => {
+      if (!taskNamesForBuildVariant) {
+        reportError(
+          new Error("No task names found for build variant")
+        ).severe();
+        dispatchToast.error(`No tasks found for buildVariant: ${variantName}}`);
+      }
+    },
+  });
+
+  const { taskNamesForBuildVariant } = columnData || {};
+  const { visibleColumns, columnLimit } = useHistoryTable();
+
+  const columnMap = mapStringArrayToObject(visibleColumns, "name");
+  const activeColumns = useColumns(taskNamesForBuildVariant, (c) => c);
   return (
     <RowContainer>
       <LabelCellContainer />
-      {visibleColumns.map((vc) => {
+      {activeColumns.map((vc) => {
         const cell = columnMap[vc];
         if (!cell) {
           return null;
@@ -48,12 +78,6 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
     </RowContainer>
   );
 };
-
-// LabelCellContainer is used to provide padding for the first column in the table since we do not have a header for it
-const LabelCellContainer = styled.div`
-  width: 200px;
-  padding-right: 40px;
-`;
 
 const RowContainer = styled.div`
   display: flex;

@@ -17,12 +17,12 @@ import {
   SAVE_PROJECT_SETTINGS_FOR_SECTION,
   SAVE_REPO_SETTINGS_FOR_SECTION,
 } from "gql/mutations";
-import { getTabTitle } from "pages/projectSettings/getTabTitle";
 import { useProjectSettingsContext } from "./Context";
 import { DefaultSectionToRepoModal } from "./DefaultSectionToRepoModal";
-import { formToGqlMap } from "./transformers";
-import { WritableTabRoutes } from "./types";
-import { ProjectType } from "./utils";
+import { getTabTitle } from "./getTabTitle";
+import { formToGqlMap } from "./tabs/transformers";
+import { WritableTabRoutes } from "./tabs/types";
+import { ProjectType } from "./tabs/utils";
 
 interface Props {
   id: string;
