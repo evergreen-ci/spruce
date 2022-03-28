@@ -5,7 +5,7 @@ import {
   DATE_SEPARATOR_HEIGHT,
 } from "./constants";
 import { HistoryTableProvider, useHistoryTable } from "./HistoryTableContext";
-import { mainlineCommitData } from "./testData";
+import { columns, mainlineCommitData } from "./testData";
 import { rowType } from "./types";
 
 const wrapper = ({ children }) => (
@@ -242,34 +242,7 @@ describe("historyTableContext", () => {
     expect(result.current.processedCommits).toHaveLength(2);
   });
   describe("columns", () => {
-    const columns = [
-      "enterprise-windows-required",
-      "enterprise-windows-all-feature-flags-required",
-      "enterprise-rhel-80-64-bit-dynamic-required",
-      "enterprise-rhel-80-64-bit-dynamic-all-feature-flags-required",
-      "linux-64-debug-required",
-      "ubuntu1804-debug-aubsan-lite-required",
-      "ubuntu1804-debug-aubsan-lite-all-feature-flags-required",
-      "enterprise-rhel-80-64-bit-suggested",
-      "enterprise-windows-suggested",
-      "enterprise-windows-all-feature-flags-suggested",
-      "ubuntu1804-debug-suggested",
-      "macos-debug-suggested",
-      "windows-debug-suggested",
-      "amazon",
-      "amazon2",
-      "amazon2-arm64",
-      "debian10",
-      "debian92",
-      "enterprise-linux-64-amazon-ami",
-      "enterprise-amazon2",
-      "enterprise-amazon2-arm64",
-      "enterprise-debian10-64",
-      "enterprise-debian92-64",
-      "enterprise-rhel-70-64-bit",
-      "enterprise-rhel-72-s390x",
-    ];
-    it("should load in a set of columns and only display the first 7", () => {
+    it("should initially load in a set of columns and only display the first 7", () => {
       const { result } = renderHook(() => useHistoryTable(), { wrapper });
       act(() => {
         result.current.addColumns(columns);
@@ -325,6 +298,58 @@ describe("historyTableContext", () => {
       });
       expect(result.current.visibleColumns).toHaveLength(7);
       expect(result.current.visibleColumns).toStrictEqual(columns.slice(0, 7));
+    });
+  });
+  describe("change table width", () => {
+    it(`should adjust the number of visible columns, current page, and page count after changing the 
+    screen width to a value where the number of columns that fit on the screen changes`, () => {
+      const { result } = renderHook(() => useHistoryTable(), { wrapper });
+      act(() => {
+        result.current.addColumns(columns);
+        result.current.onChangeTableWidth(3000);
+      });
+      expect(result.current.pageCount).toBe(2);
+      expect(result.current.visibleColumns).toHaveLength(18);
+      expect(result.current.visibleColumns).toStrictEqual(columns.slice(0, 18));
+      expect(result.current.currentPage).toBe(0);
+      act(() => {
+        result.current.onChangeTableWidth(5000);
+      });
+      expect(result.current.pageCount).toBe(1);
+      expect(result.current.visibleColumns).toHaveLength(25);
+      expect(result.current.visibleColumns).toStrictEqual(columns);
+      act(() => {
+        result.current.onChangeTableWidth(200);
+      });
+      expect(result.current.pageCount).toBe(4);
+      expect(result.current.visibleColumns).toHaveLength(7);
+      expect(result.current.visibleColumns).toStrictEqual(columns.slice(0, 7));
+      expect(result.current.currentPage).toBe(0);
+    });
+    it(`should not mutate the reducer state if the screen width is adjusted and number of columns 
+    that fit on the screen is unchanged`, () => {
+      const { result } = renderHook(() => useHistoryTable(), { wrapper });
+      act(() => {
+        result.current.addColumns(columns);
+      });
+      const initialState = { ...result.current };
+      act(() => {
+        result.current.onChangeTableWidth(200);
+      });
+      expect(result.current).toStrictEqual(initialState);
+    });
+    it(`should reset the current page to 0 if the screen width is adjusted and the number of columns 
+      that fit on the screen changes`, () => {
+      const { result } = renderHook(() => useHistoryTable(), { wrapper });
+      act(() => {
+        result.current.addColumns(columns);
+        result.current.nextPage();
+      });
+      expect(result.current.currentPage).toBe(1);
+      act(() => {
+        result.current.onChangeTableWidth(6000);
+      });
+      expect(result.current.currentPage).toBe(0);
     });
   });
   describe("test filters", () => {
