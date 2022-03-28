@@ -1,6 +1,6 @@
 import { useContext, createContext, useReducer, useMemo } from "react";
 
-// REDUCER ---- move to another file if it gets too big
+// REDUCER
 export interface CommitsReducerState {
   hoveredTaskIcon: string;
 }
@@ -19,7 +19,7 @@ const reducer = (state: CommitsReducerState, action: Action) => {
   }
 };
 
-// CONTEXT ---- uses reducer
+// CONTEXT
 interface CommitsState {
   hoveredTaskIcon: string;
   setTaskIcon: (taskIcon: string) => void;
@@ -40,8 +40,6 @@ const CommitsProvider: React.FC<CommitsProviderProps> = ({
   const [{ hoveredTaskIcon }, dispatch] = useReducer(reducer, {
     ...initialState,
   });
-
-  // If you need any other functions write them here.
 
   const commitsState: CommitsState = useMemo(
     () => ({
