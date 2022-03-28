@@ -138,6 +138,7 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
           0,
           calcColumnLimitFromWidth(action.width)
         ),
+        columnLimit: calcColumnLimitFromWidth(action.width),
         currentPage: 0,
         pageCount: Math.ceil(
           state.columns.length / calcColumnLimitFromWidth(action.width)
