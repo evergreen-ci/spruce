@@ -1,16 +1,11 @@
 import { ListChildComponentProps } from "react-window";
-import {
-  context,
-  Cell,
-  Row,
-  types,
-  useTestResults,
-} from "components/HistoryTable";
+import { context, Cell, Row, types, hooks } from "components/HistoryTable";
 import { array } from "utils";
 
 const { convertArrayToObject } = array;
 const { TaskCell, EmptyCell } = Cell;
 const { useHistoryTable } = context;
+const { useTestResults } = hooks;
 const { rowType } = types;
 
 const VariantHistoryRow: React.FC<ListChildComponentProps> = (props) => {

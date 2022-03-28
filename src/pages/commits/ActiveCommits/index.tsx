@@ -51,7 +51,13 @@ interface BuildVariantContainerProps {
 export const BuildVariantContainer: React.FC<BuildVariantContainerProps> = ({
   version,
 }) => {
-  const { buildVariants, buildVariantStats, projectIdentifier, id } = version;
+  const {
+    buildVariants,
+    buildVariantStats,
+    projectIdentifier,
+    id,
+    order,
+  } = version;
 
   const memoizedBuildVariantCards = useMemo(() => {
     const groupedBuildVariantStats = convertArrayToObject(
@@ -79,11 +85,12 @@ export const BuildVariantContainer: React.FC<BuildVariantContainerProps> = ({
           versionId={id}
           projectIdentifier={projectIdentifier}
           tasks={buildVariant?.tasks}
+          order={order}
         />
       );
     });
     return buildVariantCards;
-  }, [buildVariantStats, buildVariants, id, projectIdentifier]);
+  }, [buildVariantStats, buildVariants, id, projectIdentifier, order]);
   return <ColumnContainer>{memoizedBuildVariantCards}</ColumnContainer>;
 };
 

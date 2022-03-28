@@ -110,7 +110,9 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
           projects={projectGroup.projects}
           name={projectGroup.name}
           onClick={onClick}
-          repoIdentifier={getRepoId(projectGroup.projects)}
+          repoIdentifier={
+            isProjectSettingsPage && getRepoId(projectGroup.projects)
+          }
           canClickOnRepoGroup={
             isProjectSettingsPage && getRepoId(projectGroup.projects) !== ""
           }

@@ -24,7 +24,7 @@ interface TaskCellProps {
   label?: string;
   loading?: boolean;
 }
-export const TaskCell: React.FC<TaskCellProps> = ({
+const TaskCell: React.FC<TaskCellProps> = ({
   task,
   inactive,
   failingTests,
@@ -44,7 +44,7 @@ export const TaskCell: React.FC<TaskCellProps> = ({
   </Cell>
 );
 
-export const EmptyCell = () => (
+const EmptyCell = () => (
   <Cell data-cy="empty-cell">
     <Circle />
   </Cell>
@@ -53,9 +53,7 @@ export const EmptyCell = () => (
 interface LoadingCellProps {
   isHeader?: boolean;
 }
-export const LoadingCell: React.FC<LoadingCellProps> = ({
-  isHeader = false,
-}) => (
+const LoadingCell: React.FC<LoadingCellProps> = ({ isHeader = false }) => (
   <>
     {isHeader ? (
       <HeaderCell data-cy="loading-header-cell">
@@ -74,7 +72,7 @@ interface ColumnHeaderCellProps {
   trimmedDisplayName: string;
   fullDisplayName: string;
 }
-export const ColumnHeaderCell: React.FC<ColumnHeaderCellProps> = ({
+const ColumnHeaderCell: React.FC<ColumnHeaderCellProps> = ({
   link,
   trimmedDisplayName,
   fullDisplayName,
@@ -121,3 +119,17 @@ const HeaderCell = styled(Cell)`
   word-wrap: anywhere;
   text-align: center;
 `;
+
+// LabelCellContainer is used to provide padding for the first column in the table since we do not have a header for it
+const LabelCellContainer = styled.div`
+  width: 200px;
+  margin-right: 40px;
+`;
+
+export {
+  LabelCellContainer,
+  ColumnHeaderCell,
+  LoadingCell,
+  TaskCell,
+  EmptyCell,
+};
