@@ -78,7 +78,6 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
           ref={listRef}
           width={width}
           itemData={{ toggleRowSize }}
-          style={{ border: "1px solid black" }}
         >
           {children}
         </List>
