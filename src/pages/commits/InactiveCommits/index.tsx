@@ -151,7 +151,7 @@ const ButtonText = styled(Disclaimer)`
 const HiddenCommitsWrapper = styled.div`
   align-self: center;
   padding: ${size.xs} 0;
-  opacity: 0.7;
+  opacity: 0.75;
 `;
 
 const TooltipTitleText = styled.div`
