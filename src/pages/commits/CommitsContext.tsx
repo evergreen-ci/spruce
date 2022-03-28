@@ -1,4 +1,5 @@
 import { useContext, createContext, useReducer, useMemo } from "react";
+import debounce from "lodash.debounce";
 
 // REDUCER
 export interface CommitsReducerState {
@@ -41,15 +42,21 @@ const CommitsProvider: React.FC<CommitsProviderProps> = ({
     ...initialState,
   });
 
+  // It's possible for hundreds of hoverable icons to be visible. We should debounce so that
+  // we don't trigger the task highlight on every hover event.
+  const debounceSetTaskIcon = debounce((taskIcon) => {
+    dispatch({ type: "setTaskIcon", taskIcon });
+  }, 200);
+
   const commitsState: CommitsState = useMemo(
     () => ({
       hoveredTaskIcon,
-      setTaskIcon: (taskIcon: string) =>
-        dispatch({ type: "setTaskIcon", taskIcon }),
+      setTaskIcon: (taskIcon: string) => debounceSetTaskIcon(taskIcon),
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [hoveredTaskIcon]
   );
+
   return (
     <CommitsDispatchContext.Provider value={commitsState}>
       {children}

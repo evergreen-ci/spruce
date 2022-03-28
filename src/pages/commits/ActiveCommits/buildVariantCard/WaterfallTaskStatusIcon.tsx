@@ -48,6 +48,7 @@ export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = (
       loadData();
     }
   };
+
   const onUnhover = () => {
     setTaskIcon(null);
   };
@@ -67,11 +68,9 @@ export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = (
           to={getTaskRoute(taskId)}
           data-cy="waterfall-task-status-icon"
         >
-          <StyledTaskStatusIcon
-            status={status}
-            size={16}
-            highlight={shouldHighlight}
-          />
+          <TaskStatusIconWrapper highlight={shouldHighlight}>
+            <TaskStatusIcon status={status} size={16} />
+          </TaskStatusIconWrapper>
         </IconWrapper>
       }
       triggerEvent="hover"
@@ -112,6 +111,6 @@ const IconWrapper = styled(StyledRouterLink)`
   border-radius: 50%;
   cursor: pointer;
 `;
-const StyledTaskStatusIcon = styled(TaskStatusIcon)<{ highlight: boolean }>`
+const TaskStatusIconWrapper = styled.div<{ highlight: boolean }>`
   opacity: ${({ highlight }) => (highlight ? 1 : 0.25)};
 `;
