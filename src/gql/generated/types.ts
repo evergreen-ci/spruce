@@ -550,6 +550,7 @@ export type Version = {
   /** @deprecated baseVersionId is deprecated, use baseVersion.id instead */
   baseVersionID?: Maybe<Scalars["String"]>;
   baseVersion?: Maybe<Version>;
+  previousVersion?: Maybe<Version>;
   versionTiming?: Maybe<VersionTiming>;
   parameters: Array<Parameter>;
   taskStatuses: Array<Scalars["String"]>;
