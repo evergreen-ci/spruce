@@ -42,7 +42,7 @@ export const BuildVariantCard: React.FC<Props> = ({
           variant={variant}
         />
       )}
-      {tasks && <RenderTaskIcons tasks={tasks} />}
+      {tasks && <RenderTaskIcons tasks={tasks} variant={variant} />}
     </>
   );
   return (
@@ -62,9 +62,10 @@ export const BuildVariantCard: React.FC<Props> = ({
 
 interface RenderTaskIconsProps {
   tasks: taskList;
+  variant: string;
 }
 
-const RenderTaskIcons: React.FC<RenderTaskIconsProps> = ({ tasks }) =>
+const RenderTaskIcons: React.FC<RenderTaskIconsProps> = ({ tasks, variant }) =>
   tasks.length ? (
     <IconContainer>
       {tasks.map(({ id, status, displayName, timeTaken }) => (
@@ -74,6 +75,7 @@ const RenderTaskIcons: React.FC<RenderTaskIconsProps> = ({ tasks }) =>
           status={status}
           displayName={displayName}
           timeTaken={timeTaken}
+          identifier={variant.concat(displayName)}
         />
       ))}
     </IconContainer>

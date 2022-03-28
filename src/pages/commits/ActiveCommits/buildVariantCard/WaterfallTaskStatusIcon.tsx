@@ -1,13 +1,12 @@
 import { useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import IconButton from "@leafygreen-ui/icon-button";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
-import { Link } from "react-router-dom";
+import { StyledRouterLink } from "components/styles";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { getTaskRoute } from "constants/routes";
-import { zIndex } from "constants/tokens";
+import { size, zIndex } from "constants/tokens";
 import {
   GetFailedTaskStatusIconTooltipQuery,
   GetFailedTaskStatusIconTooltipQueryVariables,
@@ -15,12 +14,14 @@ import {
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
 import { isFailedTaskStatus } from "utils/statuses";
 import { msToDuration } from "utils/string";
+import { useCommits } from "../../CommitsContext";
 
 interface WaterfallTaskStatusIconProps {
   taskId: string;
   status: string;
   displayName: string;
   timeTaken?: number;
+  identifier: string;
 }
 
 export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = ({
@@ -28,38 +29,50 @@ export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = (
   status,
   displayName,
   timeTaken,
+  identifier,
 }) => {
+  const { hoveredTaskIcon, setTaskIcon } = useCommits();
+  const shouldHighlight = !hoveredTaskIcon || identifier === hoveredTaskIcon;
+
   const [loadData, { data, loading }] = useLazyQuery<
     GetFailedTaskStatusIconTooltipQuery,
     GetFailedTaskStatusIconTooltipQueryVariables
   >(GET_FAILED_TASK_STATUS_ICON_TOOLTIP, { variables: { taskId } });
   const { testResults, filteredTestCount } = data?.taskTests ?? {};
-  const loadDataCb = () => {
+  const failedTestDifference = filteredTestCount - testResults?.length;
+
+  const onHover = () => {
+    setTaskIcon(identifier);
     // Only query failing test names if the task has failed.
     if (isFailedTaskStatus(status)) {
       loadData();
     }
   };
-  const failedTestDifference = filteredTestCount - testResults?.length;
+  const onUnhover = () => {
+    setTaskIcon(null);
+  };
 
   return (
     <Tooltip
       usePortal={false}
       align="top"
       justify="middle"
-      popoverZIndex={zIndex.tooltip} // One more than the Absolute/Percentage chart toggle
+      popoverZIndex={zIndex.tooltip}
       trigger={
-        <IconButton
-          onMouseOver={loadDataCb}
-          onFocus={loadDataCb}
+        <IconWrapper
+          onMouseEnter={onHover}
+          onMouseLeave={onUnhover}
           key={`task_${taskId}`}
           aria-label={`${status} icon`}
-          as={Link}
           to={getTaskRoute(taskId)}
           data-cy="waterfall-task-status-icon"
         >
-          <TaskStatusIcon status={status} size={16} />
-        </IconButton>
+          <StyledTaskStatusIcon
+            status={status}
+            size={16}
+            highlight={shouldHighlight}
+          />
+        </IconWrapper>
       }
       triggerEvent="hover"
     >
@@ -91,4 +104,14 @@ const TestName = styled.div`
 `;
 const TooltipTitle = styled(Body)`
   white-space: nowrap;
+`;
+const IconWrapper = styled(StyledRouterLink)`
+  height: ${size.m};
+  width: ${size.m};
+  padding: ${size.xxs};
+  border-radius: 50%;
+  cursor: pointer;
+`;
+const StyledTaskStatusIcon = styled(TaskStatusIcon)<{ highlight: boolean }>`
+  opacity: ${({ highlight }) => (highlight ? 1 : 0.25)};
 `;

@@ -1,10 +1,22 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { MemoryRouter } from "react-router-dom";
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
+import { CommitsProvider } from "../../CommitsContext";
 import { WaterfallTaskStatusIcon } from "./WaterfallTaskStatusIcon";
 
 export default {
   title: "WaterfallTaskStatusIcon",
+  decorators: [
+    (Story) => (
+      <MemoryRouter>
+        <MockedProvider mocks={[getTooltipQueryMock]} addTypename={false}>
+          <CommitsProvider>
+            <Story />
+          </CommitsProvider>
+        </MockedProvider>
+      </MemoryRouter>
+    ),
+  ],
   component: WaterfallTaskStatusIcon,
 };
 
@@ -12,22 +24,15 @@ const props = {
   displayName: "multiversion",
   timeTaken: 2754729,
   taskId: "task",
+  identifier: "ubuntu1604-multiversion",
 };
 
 export const FailedIcon = () => (
-  <MemoryRouter>
-    <MockedProvider mocks={[getTooltipQueryMock]} addTypename={false}>
-      <WaterfallTaskStatusIcon {...props} status="failed" />
-    </MockedProvider>
-  </MemoryRouter>
+  <WaterfallTaskStatusIcon {...props} status="failed" />
 );
 
 export const SuccessIcon = () => (
-  <MemoryRouter>
-    <MockedProvider mocks={[getTooltipQueryMock]} addTypename={false}>
-      <WaterfallTaskStatusIcon {...props} status="success" />
-    </MockedProvider>
-  </MemoryRouter>
+  <WaterfallTaskStatusIcon {...props} status="success" />
 );
 
 const getTooltipQueryMock = {
