@@ -4,9 +4,9 @@ import { Accordion } from "components/Accordion";
 import CommitChartLabel from "components/CommitChartLabel";
 import { MainlineCommitsForHistoryQuery } from "gql/generated/types";
 import { Unpacked } from "types/utils";
-import { EmptyCell } from "../Cell/Cell";
+import { EmptyCell, LabelCellContainer } from "../Cell/Cell";
 import { FOLDED_COMMITS_HEIGHT, COMMIT_HEIGHT } from "../constants";
-import { LabelCellContainer, RowContainer } from "./styles";
+import { RowContainer } from "./styles";
 
 interface FoldedCommitProps {
   index: number;

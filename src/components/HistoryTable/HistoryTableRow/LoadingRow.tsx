@@ -1,6 +1,5 @@
 import { Skeleton } from "antd";
-import { LoadingCell } from "../Cell/Cell";
-import { LabelCellContainer } from "./styles";
+import { LoadingCell, LabelCellContainer } from "../Cell/Cell";
 
 interface LoadingRowProps {
   numVisibleCols: number;
