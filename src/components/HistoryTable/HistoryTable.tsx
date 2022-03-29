@@ -23,7 +23,6 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
   height,
   width,
 }) => {
-  useEffect(() => {}, [width, height]);
   const {
     getItemHeight,
     fetchNewCommit,
