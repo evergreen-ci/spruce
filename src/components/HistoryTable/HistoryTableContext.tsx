@@ -3,7 +3,7 @@ import {
   MainlineCommitsForHistoryQuery,
   TestFilter,
 } from "gql/generated/types";
-import { COMMIT_HEIGHT } from "./constants";
+import { DEFAULT_HEIGHT } from "./constants";
 import {
   HistoryTableReducerState,
   reducer,
@@ -87,7 +87,7 @@ const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
   const getItem = (index: number) => processedCommits[index];
 
   const getItemHeight = (index: number) =>
-    processedCommits[index]?.rowHeight || COMMIT_HEIGHT;
+    processedCommits[index]?.rowHeight || DEFAULT_HEIGHT;
 
   const historyTableState = useMemo(
     () => ({

@@ -43,6 +43,14 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
   }, [processedCommitCount]);
 
   useEffect(() => {
+    if (processedCommitCount > 0) {
+      if (listRef.current) {
+        listRef.current.resetAfterIndex(0);
+      }
+    }
+  }, [processedCommitCount]);
+
+  useEffect(() => {
     if (selectedCommit) {
       if (
         selectedCommit.loaded &&
