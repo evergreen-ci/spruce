@@ -122,5 +122,5 @@ export const calcColumnLimitFromWidth = (tableWidth: number) => {
   const colLimit = Math.floor(
     (tableWidth - ROW_LABEL_WIDTH) / COLUMN_LABEL_WIDTH
   );
-  return colLimit > DEFAULT_COLUMN_LIMIT ? colLimit : DEFAULT_COLUMN_LIMIT;
+  return Math.max(colLimit, 1);
 };

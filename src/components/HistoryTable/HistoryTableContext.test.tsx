@@ -334,7 +334,7 @@ describe("historyTableContext", () => {
       });
       const initialState = { ...result.current };
       act(() => {
-        result.current.onChangeTableWidth(200);
+        result.current.onChangeTableWidth(1300);
       });
       expect(result.current).toStrictEqual(initialState);
     });
