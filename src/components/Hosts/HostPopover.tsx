@@ -1,12 +1,10 @@
 import { useState, useRef } from "react";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
 import Popover from "@leafygreen-ui/popover";
 import { Button } from "components/Button";
+import { PopoverContainer } from "components/styles/Popover";
 import { size } from "constants/tokens";
 import { useOnClickOutside } from "hooks";
-
-const { gray } = uiColors;
 
 interface Props {
   buttonText: string;
@@ -87,15 +85,6 @@ export const HostPopover: React.FC<Props> = ({
 // the trigger element is near the right side of a page. Ticket: https://jira.mongodb.org/browse/PD-1542
 const StyledPopover = styled(Popover)`
   width: 300px;
-`;
-
-const PopoverContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  padding: ${size.s};
-  box-shadow: 0 ${size.xxs} 10px 0 ${gray.light2},
-    0 ${size.xxs} 30px ${size.xxs} ${gray.light2};
 `;
 
 const ButtonWrapper = styled.div`
