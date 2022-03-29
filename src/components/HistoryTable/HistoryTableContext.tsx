@@ -97,7 +97,7 @@ const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
       pageCount,
       columnLimit,
       historyTableFilters,
-      onChangeTableWidth: (width) =>
+      onChangeTableWidth: (width: number): void =>
         dispatch({ type: "onChangeTableWidth", width }),
       setHistoryTableFilters: (filters) =>
         dispatch({ type: "setHistoryTableFilters", filters }),
