@@ -251,7 +251,7 @@ const getHistoryRoute = (
     const queryParams = stringifyQuery({
       [TestStatus.Failed]: failingTests,
       [TestStatus.Passed]: passingTests,
-      [HistoryQueryParams.SkipOrderNumber]: skipOrderNumber,
+      [HistoryQueryParams.SelectedCommit]: skipOrderNumber,
     });
     return `${basePath}?${queryParams}`;
   }
