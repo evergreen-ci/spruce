@@ -21,7 +21,6 @@ import {
 } from "gql/generated/types";
 import { GET_MAINLINE_COMMITS, GET_SPRUCE_CONFIG } from "gql/queries";
 import { usePageTitle, usePolling } from "hooks";
-import { CommitsProvider } from "pages/commits/CommitsContext";
 import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
 import { array, queryString } from "utils";
 import { CommitsWrapper } from "./commits/CommitsWrapper";
@@ -141,15 +140,13 @@ export const Commits = () => {
             nextPageOrderNumber={nextPageOrderNumber}
           />
         </PaginationWrapper>
-        <CommitsProvider>
-          <CommitsWrapper
-            versions={versions}
-            error={error}
-            isLoading={loading || !projectId}
-            hasTaskFilter={hasTasks}
-            hasFilters={hasFilters}
-          />
-        </CommitsProvider>
+        <CommitsWrapper
+          versions={versions}
+          error={error}
+          isLoading={loading || !projectId}
+          hasTaskFilter={hasTasks}
+          hasFilters={hasFilters}
+        />
       </PageContainer>
     </PageWrapper>
   );

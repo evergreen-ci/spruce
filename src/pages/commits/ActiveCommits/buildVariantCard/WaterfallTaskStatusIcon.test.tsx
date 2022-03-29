@@ -1,6 +1,6 @@
+import { MockedProvider } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
-import { ProviderWrapper } from "pages/commits/test-utils";
 import { renderWithRouterMatch as render, waitFor } from "test_utils";
 import { WaterfallTaskStatusIcon } from "./WaterfallTaskStatusIcon";
 
@@ -12,17 +12,14 @@ const props = {
 };
 
 const Content = (status: string) => () => (
-  <WaterfallTaskStatusIcon {...props} status={status} />
+  <MockedProvider mocks={[getTooltipQueryMock]} addTypename={false}>
+    <WaterfallTaskStatusIcon {...props} status={status} />
+  </MockedProvider>
 );
 describe("waterfallTaskStatusIcon", () => {
   it("tooltip should contain task name, duration, list of failing test names and additonal test count", async () => {
     const { queryByDataCy, queryByText } = render(Content("failed"), {
       route: "/commits/evergreen",
-      wrapper: ({ children }) =>
-        ProviderWrapper({
-          children,
-          mocks: [getTooltipQueryMock],
-        }),
     });
     userEvent.hover(queryByDataCy("waterfall-task-status-icon"));
     await waitFor(() => {
@@ -45,11 +42,6 @@ describe("waterfallTaskStatusIcon", () => {
   it("icon should link to task page", async () => {
     const { queryByDataCy } = render(Content("failed"), {
       route: "/commits/evergreen",
-      wrapper: ({ children }) =>
-        ProviderWrapper({
-          children,
-          mocks: [getTooltipQueryMock],
-        }),
     });
     await waitFor(() => {
       expect(queryByDataCy("waterfall-task-status-icon")).toBeInTheDocument();

@@ -2,7 +2,6 @@ import { withKnobs, boolean, number } from "@storybook/addon-knobs";
 import { MemoryRouter } from "react-router-dom";
 import { CommitVersion, Commit } from "types/commits";
 import { TaskStatus } from "types/task";
-import { CommitsProvider } from "../CommitsContext";
 import { CommitsWrapper } from "../CommitsWrapper";
 
 export default {
@@ -10,9 +9,7 @@ export default {
   decorators: [
     (Story) => (
       <MemoryRouter>
-        <CommitsProvider>
-          <Story />
-        </CommitsProvider>
+        <Story />
       </MemoryRouter>
     ),
     withKnobs,

@@ -14,7 +14,6 @@ import {
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
 import { isFailedTaskStatus } from "utils/statuses";
 import { msToDuration } from "utils/string";
-import { useCommits } from "../../CommitsContext";
 
 interface WaterfallTaskStatusIconProps {
   taskId: string;
@@ -31,9 +30,6 @@ export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = (
   timeTaken,
   identifier,
 }) => {
-  const { hoveredTaskIcon, setTaskIcon } = useCommits();
-  const shouldHighlight = !hoveredTaskIcon || identifier === hoveredTaskIcon;
-
   const [loadData, { data, loading }] = useLazyQuery<
     GetFailedTaskStatusIconTooltipQuery,
     GetFailedTaskStatusIconTooltipQueryVariables
@@ -42,15 +38,10 @@ export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = (
   const failedTestDifference = filteredTestCount - testResults?.length;
 
   const onHover = () => {
-    setTaskIcon(identifier);
     // Only query failing test names if the task has failed.
     if (isFailedTaskStatus(status)) {
       loadData();
     }
-  };
-
-  const onUnhover = () => {
-    setTaskIcon(null);
   };
 
   return (
@@ -62,15 +53,14 @@ export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = (
       trigger={
         <IconWrapper
           onMouseEnter={onHover}
-          onMouseLeave={onUnhover}
           key={`task_${taskId}`}
           aria-label={`${status} icon`}
           to={getTaskRoute(taskId)}
           data-cy="waterfall-task-status-icon"
         >
-          <TaskStatusIconWrapper highlight={shouldHighlight}>
+          <TaskStatusWrapper className={`icon_${identifier}`}>
             <TaskStatusIcon status={status} size={16} />
-          </TaskStatusIconWrapper>
+          </TaskStatusWrapper>
         </IconWrapper>
       }
       triggerEvent="hover"
@@ -105,12 +95,11 @@ const TooltipTitle = styled(Body)`
   white-space: nowrap;
 `;
 const IconWrapper = styled(StyledRouterLink)`
+  cursor: pointer;
+`;
+const TaskStatusWrapper = styled.div`
   height: ${size.m};
   width: ${size.m};
   padding: ${size.xxs};
-  border-radius: 50%;
   cursor: pointer;
-`;
-const TaskStatusIconWrapper = styled.div<{ highlight: boolean }>`
-  opacity: ${({ highlight }) => (highlight ? 1 : 0.25)};
 `;

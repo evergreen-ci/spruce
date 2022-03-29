@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -50,6 +50,33 @@ export const CommitsWrapper: React.FC<Props> = ({
   const { search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
   const parsed = parseQueryString(search);
+
+  useEffect(() => {
+    if (!isLoading) {
+      hoverUpdateClassName();
+    }
+  }, [isLoading]);
+
+  const hoverUpdateClassName = () => {
+    // find all icons on page
+    const icons = document.querySelectorAll<HTMLElement>(`div[class^=icon_]`);
+
+    // define mouseover and mouseout behavior for all icons
+    for (let i = 0; i < icons.length; i++) {
+      icons[i].onmouseover = () => {
+        for (let j = 0; j < icons.length; j++) {
+          if (icons[j].className !== icons[i].className) {
+            icons[j].style.opacity = "0.25";
+          }
+        }
+      };
+      icons[i].onmouseout = () => {
+        for (let k = 0; k < icons.length; k++) {
+          icons[k].style.opacity = "1";
+        }
+      };
+    }
+  };
 
   const onChangeChartType = (chartType: ChartTypes): void => {
     updateQueryParams({
