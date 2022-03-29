@@ -44,18 +44,18 @@ const CommitsProvider: React.FC<CommitsProviderProps> = ({
 
   // It's possible for hundreds of hoverable icons to be visible. We should debounce so that
   // we don't trigger the task highlight on every hover event.
-  const debounceSetTaskIcon = debounce((taskIcon) => {
-    dispatch({ type: "setTaskIcon", taskIcon });
-  }, 200);
-
-  const commitsState: CommitsState = useMemo(
-    () => ({
-      hoveredTaskIcon,
-      setTaskIcon: (taskIcon: string) => debounceSetTaskIcon(taskIcon),
-    }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [hoveredTaskIcon]
+  const debounceSetTaskIcon = useMemo(
+    () =>
+      debounce((taskIcon) => {
+        dispatch({ type: "setTaskIcon", taskIcon });
+      }, 200),
+    []
   );
+
+  const commitsState: CommitsState = {
+    hoveredTaskIcon,
+    setTaskIcon: (taskIcon: string) => debounceSetTaskIcon(taskIcon),
+  };
 
   return (
     <CommitsDispatchContext.Provider value={commitsState}>
@@ -67,9 +67,7 @@ const CommitsProvider: React.FC<CommitsProviderProps> = ({
 const useCommits = (): CommitsState => {
   const context = useContext(CommitsDispatchContext);
   if (context === undefined) {
-    throw new Error(
-      "useActiveCommits must be used within a ActiveCommitsProvider"
-    );
+    throw new Error("useCommits must be used within a CommitsProvider");
   }
   return context;
 };

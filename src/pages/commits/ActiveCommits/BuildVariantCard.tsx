@@ -75,7 +75,7 @@ const RenderTaskIcons: React.FC<RenderTaskIconsProps> = ({ tasks, variant }) =>
           status={status}
           displayName={displayName}
           timeTaken={timeTaken}
-          identifier={variant.concat(`-${displayName}`)}
+          identifier={`${variant}-${displayName}`}
         />
       ))}
     </IconContainer>
