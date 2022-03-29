@@ -4,6 +4,7 @@ import Icon from "@leafygreen-ui/icon";
 import { uiColors } from "@leafygreen-ui/palette";
 import Popover from "@leafygreen-ui/popover";
 import TextInput from "@leafygreen-ui/text-input";
+import { PopoverContainer } from "components/styles/Popover";
 import { size } from "constants/tokens";
 import { useOnClickOutside } from "hooks";
 
@@ -58,15 +59,6 @@ export const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
     </div>
   );
 };
-
-const PopoverContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: ${white};
-  padding: ${size.s};
-  box-shadow: 0 ${size.xxs} ${size.xs} 0 ${gray.light2},
-    0 ${size.xxs} ${size.l} ${size.xxs} ${gray.light2};
-`;
 
 const IconWrapper = styled.div<{ active: boolean }>`
   width: ${size.m};
