@@ -2,12 +2,12 @@
 
 exports[`storybook Storyshots Inactive Commits Story 1`] = `
 <div
-  className="leafygreen-ui-cssveg css-1ctfjby-ButtonContainer ezzuvrx6"
+  className="leafygreen-ui-cssveg css-1ctfjby-ButtonContainer ezzuvrx7"
   onClick={[Function]}
   role="button"
 >
   <small
-    className="css-t2ltce-ButtonText ezzuvrx5 leafygreen-ui-13bqno6"
+    className="css-t2ltce-ButtonText ezzuvrx6 leafygreen-ui-13bqno6"
     data-cy="inactive-commits-button"
   >
     <div>
