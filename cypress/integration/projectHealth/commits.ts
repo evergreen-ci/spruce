@@ -176,6 +176,11 @@ describe("commits page", () => {
         "1 Inactive Commit"
       );
       cy.dataCy("inactive-commits-tooltip").should("contain.text", "e695f65");
+      cy.contains("e695f65").should(
+        "have.attr",
+        "href",
+        "/version/spruce_e695f654c8b4b959d3e12e71696c3e318bcd4c33/tasks"
+      );
     });
   });
   describe("task icons", () => {
