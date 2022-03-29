@@ -54,6 +54,7 @@ const VariantHistoryContents: React.FC = () => {
         variants: [applyStrictRegex(variantName)],
       },
     },
+    fetchPolicy: "network-only",
   });
 
   const { mainlineCommits } = data || {};

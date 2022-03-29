@@ -54,6 +54,7 @@ const TaskHistoryContents: React.FC = () => {
         tasks: [applyStrictRegex(taskName)],
       },
     },
+    fetchPolicy: "network-only",
   });
 
   const { mainlineCommits } = data || {};
