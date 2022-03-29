@@ -13,14 +13,13 @@ import {
   usePopulateForm,
   useProjectSettingsContext,
 } from "pages/projectSettings/Context";
-import { environmentalVariables, errorReporting } from "utils";
+import { environmentalVariables } from "utils";
 import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { mergeProjectRepo } from "./transformers";
 import { FormState, TabProps } from "./types";
 
 const { isProduction } = environmentalVariables;
-const { reportError } = errorReporting;
 
 const tab = ProjectSettingsTabRoutes.GithubCommitQueue;
 
@@ -51,11 +50,6 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
   >(GET_GITHUB_PROJECT_CONFLICTS, {
     skip: projectType === ProjectType.Repo,
     variables: { projectId: identifier },
-    onError: (e) => {
-      reportError(
-        new Error(`Error fetching GitHub Project Conflicts: ${e}`)
-      ).warning();
-    },
   });
 
   const initialFormState = useMemo(
