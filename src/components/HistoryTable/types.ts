@@ -10,7 +10,6 @@ export type CommitRowType =
       rowHeight: number;
       date: Date;
       selected: boolean;
-      expanded: boolean;
     }
   | {
       type: rowType.DATE_SEPARATOR;
