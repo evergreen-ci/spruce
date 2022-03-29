@@ -16,13 +16,13 @@ interface HistoryTableProps {
   height: number;
   width: number;
 }
-const HistoryTable: React.FC<HistoryTableProps> = ({
+const HistoryTable = ({
   loadMoreItems,
   recentlyFetchedCommits,
   children,
   height,
   width,
-}) => {
+}: HistoryTableProps): JSX.Element => {
   const {
     getItemHeight,
     fetchNewCommit,
@@ -84,10 +84,10 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
     </InfiniteLoader>
   );
 };
-export interface WrapperInterface
+export interface WrapperProps
   extends Omit<HistoryTableProps, "height" | "width"> {}
 
-const Wrapper: React.FC<WrapperInterface> = (props) => (
+const Wrapper = (props: WrapperProps): JSX.Element => (
   <AutoSizer>
     {({ height, width }) => (
       <HistoryTable height={height} width={width} {...props} />
