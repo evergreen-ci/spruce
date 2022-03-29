@@ -70,7 +70,7 @@ export const processCommits = ({
         {
           const { rolledUpVersions } = commit;
           const firstRolledUpVersion = rolledUpVersions[0];
-          const selected = isRolledUpSelected(
+          const selected = hasSelectedCommit(
             rolledUpVersions,
             selectedCommitOrder
           );
@@ -90,7 +90,7 @@ export const processCommits = ({
               type: rowType.DATE_SEPARATOR,
               date: firstRolledUpVersion.createTime,
               rowHeight: DATE_SEPARATOR_HEIGHT,
-              selected: false,
+              selected,
             });
             processedCommits.push({
               type: rowType.FOLDED_COMMITS,
@@ -134,7 +134,7 @@ const isSameDay = (date1: string | Date, date2: string | Date) => {
   );
 };
 
-const isRolledUpSelected = (
+const hasSelectedCommit = (
   rolledUpUpVersions: Unpacked<mainlineCommits["versions"]>["rolledUpVersions"],
   selectedCommitOrder: number | null
 ) => {
