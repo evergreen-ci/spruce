@@ -27,7 +27,7 @@ import { TaskTabs } from "./task/TaskTabs";
 
 const { parseQueryString } = queryString;
 
-export const Task: React.FC = () => {
+export const Task = () => {
   const { id } = useParams<{ id: string; tab: string | null }>();
   const dispatchToast = useToastContext();
   const taskAnalytics = useTaskAnalytics();
@@ -60,7 +60,6 @@ export const Task: React.FC = () => {
     annotation,
     latestExecution,
     versionMetadata,
-
     displayTask,
   } = task ?? {};
   const attributed = annotation?.issues?.length > 0;

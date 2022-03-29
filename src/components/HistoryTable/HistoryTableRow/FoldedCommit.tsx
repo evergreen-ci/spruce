@@ -10,7 +10,7 @@ import { EmptyCell, LabelCellContainer } from "../Cell/Cell";
 import {
   FOLDED_COMMITS_HEIGHT,
   COMMIT_HEIGHT,
-  DEFAULT_HEIGHT,
+  LOADING_HEIGHT,
 } from "../constants";
 import { RowContainer } from "./styles";
 
@@ -43,7 +43,7 @@ export const FoldedCommit = memo(
     // So we instead look at its height which is cached by the table and determine if it is expanded or not.
     // It will be expanded if the height is not one of the 2 default values.
     const defaultOpen =
-      height !== FOLDED_COMMITS_HEIGHT && height !== DEFAULT_HEIGHT;
+      height !== FOLDED_COMMITS_HEIGHT && height !== LOADING_HEIGHT;
     const numCommits = rolledUpCommits.length;
 
     const columns = Array.from(Array(numVisibleCols)).map((_, idx) => (
@@ -51,7 +51,7 @@ export const FoldedCommit = memo(
     ));
 
     const commits = rolledUpCommits.map((commit) => (
-      <StyledRowContainer selected={selected} key={commit.id}>
+      <StyledRowContainer key={commit.id}>
         <LabelCellContainer>
           <CommitChartLabel
             versionId={commit.id}

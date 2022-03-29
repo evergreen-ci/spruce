@@ -37,12 +37,6 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
   }, [recentlyFetchedCommits]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (listRef.current) {
-      listRef.current.resetAfterIndex(0);
-    }
-  }, [processedCommitCount]);
-
-  useEffect(() => {
     if (processedCommitCount > 0) {
       if (listRef.current) {
         listRef.current.resetAfterIndex(0);

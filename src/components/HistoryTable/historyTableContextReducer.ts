@@ -158,7 +158,6 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
         },
       };
     case "markSelectedVisited":
-      console.log("marking selected visited");
       return {
         ...state,
         selectedCommit: {
