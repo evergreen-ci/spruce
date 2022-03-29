@@ -127,22 +127,19 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
         ...state,
         columnLimit: action.limit,
       };
-    case "onChangeTableWidth":
-      if (calcColumnLimitFromWidth(action.width) === state.columnLimit) {
+    case "onChangeTableWidth": {
+      const nextColumnLimit = calcColumnLimitFromWidth(action.width);
+      if (nextColumnLimit === state.columnLimit) {
         return state;
       }
       return {
         ...state,
-        visibleColumns: state.columns.slice(
-          0,
-          calcColumnLimitFromWidth(action.width)
-        ),
-        columnLimit: calcColumnLimitFromWidth(action.width),
+        visibleColumns: state.columns.slice(0, nextColumnLimit),
+        columnLimit: nextColumnLimit,
         currentPage: 0,
-        pageCount: Math.ceil(
-          state.columns.length / calcColumnLimitFromWidth(action.width)
-        ),
+        pageCount: Math.ceil(state.columns.length / nextColumnLimit),
       };
+    }
     case "setHistoryTableFilters":
       return {
         ...state,
