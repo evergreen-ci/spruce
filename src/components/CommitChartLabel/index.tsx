@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import ExpandedText from "components/ExpandedText";
 import { StyledRouterLink } from "components/styles";
 import { getVersionRoute } from "constants/routes";
@@ -33,6 +34,7 @@ const CommitChartLabel: React.FC<Props> = ({
   message,
   versionId,
 }) => {
+  const { sendEvent } = useProjectHealthAnalytics();
   const createDate = new Date(createTime);
   const shortenMessage = message.length > MAX_CHAR;
   const shortenedMessage = message.substring(0, MAX_CHAR - 3).concat("...");
@@ -45,14 +47,24 @@ const CommitChartLabel: React.FC<Props> = ({
   return (
     <LabelContainer data-cy="commit-label">
       <LabelText>
-        <StyledRouterLink to={getVersionRoute(versionId)}>
+        <StyledRouterLink
+          onClick={() => {
+            sendEvent({ name: "Click commit label version link", versionId });
+          }}
+          to={getVersionRoute(versionId)}
+        >
           {shortenGithash(githash)}
         </StyledRouterLink>{" "}
         {shortDate(createDate)}
       </LabelText>
       <LabelText>{author} -</LabelText>
       <LabelText>
-        {jiraLinkify(shortenMessage ? shortenedMessage : message, jiraHost)}
+        {jiraLinkify(
+          shortenMessage ? shortenedMessage : message,
+          jiraHost,
+          (jiraTicket) => () =>
+            sendEvent({ name: "Click commit label jira link", jiraTicket })
+        )}
       </LabelText>
       {shortenMessage && (
         <ExpandedText
