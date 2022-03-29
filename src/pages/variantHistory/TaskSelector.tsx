@@ -1,8 +1,9 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { useLocation } from "react-router";
-import SearchableDropdown from "components/SearchableDropdown";
+import { size } from "constants/tokens";
 import {
   GetTaskNamesForBuildVariantQuery,
   GetTaskNamesForBuildVariantQueryVariables,
@@ -41,6 +42,7 @@ const TaskSelector: React.FC<TaskSelectorProps> = ({
       buildVariant,
     },
   });
+  const taskNames = data?.taskNamesForBuildVariant ?? [];
 
   const onChange = (selectedTasks: string[]) => {
     updateQueryParams({
@@ -48,24 +50,34 @@ const TaskSelector: React.FC<TaskSelectorProps> = ({
     });
   };
 
-  const { taskNamesForBuildVariant } = data || {};
   return (
-    <Container>
-      <SearchableDropdown
-        label="Tasks"
-        valuePlaceholder="Select Tasks to View"
-        value={value}
-        onChange={onChange}
-        options={taskNamesForBuildVariant}
-        disabled={loading}
-        allowMultiSelect
-      />
-    </Container>
+    <StyledCombobox
+      data-cy="task-selector"
+      label="Tasks"
+      placeholder="Select Tasks to View"
+      disabled={loading}
+      overflow="scroll-x"
+      multiselect
+      onChange={onChange}
+      value={value}
+      clearable
+    >
+      {taskNames.map((name) => (
+        <ComboboxOption
+          key={`combobox_option_${name}`}
+          data-cy="combobox-option"
+          value={name}
+        />
+      ))}
+    </StyledCombobox>
   );
 };
 
-const Container = styled.div`
-  width: 300px;
+const StyledCombobox = styled(Combobox)`
+  width: 350px;
+  [role="option"]:first-of-type {
+    margin-left: ${size.xs};
+  }
 `;
 
 export default TaskSelector;

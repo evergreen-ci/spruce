@@ -39,34 +39,20 @@ describe("variant history", () => {
   });
   it("should be able to filter column headers", () => {
     cy.dataCy("header-cell").should("have.length", 7);
-    cy.getInputByLabel("Tasks").click();
-    cy.getInputByLabel("Tasks").within(($el) => {
-      cy.wrap($el)
-        .dataCy("searchable-dropdown-option")
-        .contains("compile")
-        .click();
-      cy.wrap($el)
-        .dataCy("searchable-dropdown-option")
-        .contains("e2e_test")
-        .click();
-    });
-    cy.getInputByLabel("Tasks").click();
+    cy.getInputByLabel("Tasks").click({ force: true });
+    cy.get(`[aria-label="compile"]`).click();
+    cy.get(`[aria-label="e2e_test"]`).click();
+    // need to click somewhere else on page to close combobox
+    cy.contains("Build Variant").click();
     cy.dataCy("header-cell").should("have.length", 2);
   });
   it("removing column header filters should restore all columns", () => {
     cy.dataCy("header-cell").should("have.length", 2);
-    cy.getInputByLabel("Tasks").click();
-    cy.getInputByLabel("Tasks").within(($el) => {
-      cy.wrap($el)
-        .dataCy("searchable-dropdown-option")
-        .contains("compile")
-        .click();
-      cy.wrap($el)
-        .dataCy("searchable-dropdown-option")
-        .contains("e2e_test")
-        .click();
-    });
-    cy.getInputByLabel("Tasks").click();
+    cy.getInputByLabel("Tasks").click({ force: true });
+    cy.get(`[aria-label="compile"]`).click();
+    cy.get(`[aria-label="e2e_test"]`).click();
+    // need to click somewhere else on page to close combobox
+    cy.contains("Build Variant").click();
     cy.dataCy("header-cell").should("have.length", 7);
   });
   it("hovering over a failing task should show test results", () => {

@@ -1,14 +1,12 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import { useLocation } from "react-router";
-import SearchableDropdown, {
-  SearchableDropdownOption,
-} from "components/SearchableDropdown";
+import { size } from "constants/tokens";
 import {
   GetBuildVariantsForTaskNameQuery,
   GetBuildVariantsForTaskNameQueryVariables,
-  BuildVariantTuple,
 } from "gql/generated/types";
 import { GET_BUILD_VARIANTS_FOR_TASK_NAME } from "gql/queries";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
@@ -31,9 +29,9 @@ const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
   const queryParams = parseQueryString(search);
 
   const value = useMemo(
-    () => toArray(queryParams[HistoryQueryParams.VisibleColumns]) as unknown[],
+    () => toArray(queryParams[HistoryQueryParams.VisibleColumns]),
     [queryParams]
-  ); // This component will be replaced by the ComboBox in the future.
+  );
 
   const { data, loading } = useQuery<
     GetBuildVariantsForTaskNameQuery,
@@ -44,6 +42,7 @@ const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
       taskName,
     },
   });
+  const buildVariants = data?.buildVariantsForTaskName ?? [];
 
   const onChange = (selectedBuildVariants: string[]) => {
     updateQueryParams({
@@ -51,42 +50,35 @@ const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
     });
   };
 
-  const { buildVariantsForTaskName } = data || {};
-
-  const handleSearch = (options: BuildVariantTuple[], match: string) =>
-    options.filter(
-      (option) =>
-        option.buildVariant.includes(match) ||
-        option.displayName.includes(match)
-    );
   return (
-    <Container>
-      <SearchableDropdown
-        data-cy="build-variant-selector"
-        label="Build Variant"
-        valuePlaceholder="Select Build Variant to View"
-        value={value}
-        onChange={onChange}
-        options={buildVariantsForTaskName}
-        disabled={loading}
-        allowMultiSelect
-        searchFunc={handleSearch}
-        optionRenderer={(option: BuildVariantTuple, onClick, isChecked) => (
-          <SearchableDropdownOption
-            key={`searchable_dropdown_option_${option.buildVariant}`}
-            value={option.buildVariant}
-            displayName={option.displayName}
-            onClick={() => onClick(option.buildVariant)}
-            isChecked={isChecked(option.buildVariant)}
-          />
-        )}
-      />
-    </Container>
+    <StyledCombobox
+      data-cy="build-variant-selector"
+      label="Build Variant"
+      placeholder="Select Build Variant to View"
+      disabled={loading}
+      overflow="scroll-x"
+      multiselect
+      onChange={onChange}
+      value={value}
+      clearable
+    >
+      {buildVariants.map(({ displayName, buildVariant }) => (
+        <ComboboxOption
+          key={`combobox_option_${buildVariant}`}
+          data-cy="combobox-option"
+          value={buildVariant}
+          displayName={displayName}
+        />
+      ))}
+    </StyledCombobox>
   );
 };
 
-const Container = styled.div`
-  width: 300px;
+const StyledCombobox = styled(Combobox)`
+  width: 350px;
+  [role="option"]:first-of-type {
+    margin-left: ${size.xs};
+  }
 `;
 
 export default BuildVariantSelector;
