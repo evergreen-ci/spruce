@@ -36,6 +36,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
     // Remove fetchNewCommit from the effect list to avoid infinite loop
   }, [recentlyFetchedCommits]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // When we fetch new commits we need to tell react-window to re-render the list and update the heights for each of the rows since they will have changed based off of the new commits
   useEffect(() => {
     if (processedCommitCount > 0) {
       if (listRef.current) {
