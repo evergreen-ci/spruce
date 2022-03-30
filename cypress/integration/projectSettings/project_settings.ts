@@ -606,9 +606,78 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("save-settings-button").click();
       cy.validateToast("success", "Successfully updated project");
 
-      // TODO: Re-add test when EVG-16541 is completed.
-      /* cy.reload();
-      cy.getInputByLabel("Override Repo Commands").should("be.checked"); */
+      cy.getInputByLabel("Override Repo Commands").should("be.checked");
+    });
+  });
+});
+
+describe("Attaching Spruce to a repo", () => {
+  const destination = getGeneralRoute(project);
+
+  before(() => {
+    cy.login();
+    cy.visit(destination);
+  });
+
+  beforeEach(() => {
+    cy.preserveCookies();
+  });
+
+  it("Saves a new repo", () => {
+    cy.dataCy("repo-input").clear().type("evergreen");
+
+    // TODO: Re-add test when EVG-16604 is completed.
+    // cy.dataCy("attach-repo-button").should("be.disabled");
+
+    cy.dataCy("save-settings-button").click();
+    cy.validateToast("success", "Successfully updated project");
+  });
+
+  it("Attaches to new repo", () => {
+    cy.dataCy("attach-repo-button").click();
+    cy.dataCy("attach-repo-modal")
+      .find("button")
+      .contains("Attach")
+      .parent()
+      .click();
+    cy.validateToast("success", "Successfully attached to repo");
+  });
+
+  describe("GitHub/Commit Queue page", () => {
+    before(() => {
+      cy.dataCy("navitem-github-commitqueue").click();
+    });
+
+    it("Disables PR testing buttons and shows a warning", () => {
+      cy.dataCy("pr-testing-enabled-radio-box")
+        .find("input")
+        .should("have.length", 3);
+      cy.dataCy("pr-testing-enabled-radio-box")
+        .find("input")
+        .should("be.disabled");
+      cy.contains(
+        "Enabling PR testing would introduce conflicts with the following project(s): evergreen."
+      );
+    });
+
+    it("Disables commit check buttons and shows a warning", () => {
+      cy.dataCy("github-checks-enabled-radio-box")
+        .find("input")
+        .should("have.length", 3);
+      cy.dataCy("github-checks-enabled-radio-box")
+        .find("input")
+        .should("be.disabled");
+      cy.contains(
+        "Enabling commit checks would introduce conflicts with the following project(s): evergreen."
+      );
+    });
+
+    it("Disables commit queue buttons and shows a warning", () => {
+      cy.dataCy("cq-enabled-radio-box").find("input").should("have.length", 3);
+      cy.dataCy("cq-enabled-radio-box").find("input").should("be.disabled");
+      cy.dataCy("cq-card").contains(
+        "Enabling the Commit Queue would introduce conflicts with the following project(s): evergreen."
+      );
     });
   });
 });

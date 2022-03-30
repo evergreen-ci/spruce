@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
+import { uiColors } from "@leafygreen-ui/palette";
 import { RadioBox, RadioBoxGroup } from "@leafygreen-ui/radio-box-group";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import {
@@ -18,6 +19,7 @@ import { errorReporting } from "utils";
 import ElementWrapper from "./ElementWrapper";
 
 const { reportError } = errorReporting;
+const { red } = uiColors;
 
 export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
   value,
@@ -223,13 +225,27 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
   disabled,
   uiSchema,
 }) => {
-  const { description, enumOptions, "data-cy": dataCy, showLabel } = options;
+  const {
+    description,
+    enumOptions,
+    "data-cy": dataCy,
+    rawErrors,
+    showLabel,
+  } = options;
   if (!Array.isArray(enumOptions)) {
     reportError(
       new Error("LeafyGreen Radio Box expects enumOptions to be an array")
     ).warning();
     return null;
   }
+
+  if (rawErrors && !Array.isArray(rawErrors)) {
+    reportError(
+      new Error("LeafyGreen Radio Box expects rawErrors to be an array")
+    ).warning();
+    return null;
+  }
+  const errs = rawErrors as string[];
 
   // Workaround because {ui:widget: hidden} does not play nicely with this widget
   const hide = uiSchema["ui:hide"] ?? false;
@@ -250,6 +266,7 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
           {description && <Description>{description}</Description>}
         </RadioBoxLabelContainer>
       )}
+      {!!errs?.length && <ErrorText>{errs?.join(", ")}</ErrorText>}
       <RadioBoxGroup
         id={id}
         name={label}
@@ -353,6 +370,10 @@ export const LeafyGreenSegmentedControl: React.FC<WidgetProps> = ({
     </ElementWrapper>
   );
 };
+
+const ErrorText = styled.p`
+  color: ${red.base};
+`;
 
 const StyledSegmentedControl = styled(SegmentedControl)`
   margin-bottom: ${size.s};

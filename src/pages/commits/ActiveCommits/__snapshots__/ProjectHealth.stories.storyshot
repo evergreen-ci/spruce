@@ -87,10 +87,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
         width={64}
       >
         <div
-          className="css-316fn7-InactiveCommitContainer ezzuvrx9"
+          className="css-316fn7-InactiveCommitContainer ezzuvrx10"
         >
           <div
-            className="css-1q62izj-InactiveCommitLine ezzuvrx8"
+            className="css-1q62izj-InactiveCommitLine ezzuvrx9"
           />
         </div>
       </div>
@@ -248,106 +248,102 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
       className="css-7yxj8m-AbsoluteContainer ech0nhv3"
     >
       <div
-        className="css-1uhv577-Container e1d5uzqe2"
+        className="css-r7f5o5-ToggleWrapper e1d5uzqe0"
       >
-        <div
-          className="css-r7f5o5-ToggleWrapper e1d5uzqe0"
+        <label
+          className="leafygreen-ui-ly82bp"
+          htmlFor="chart-toggle"
         >
-          <label
-            className="leafygreen-ui-ly82bp"
-            htmlFor="chart-toggle"
-          >
-            View Options
-          </label>
+          View Options
+        </label>
+        <div
+          aria-label="chart-select"
+          className="leafygreen-ui-sgfp3 css-7kc8m7-StyledRadioGroup e1d5uzqe1"
+          role="group"
+        >
           <div
-            aria-label="chart-select"
-            className="leafygreen-ui-sgfp3 css-1507vqp-StyledRadioGroup e1d5uzqe1"
-            role="group"
+            className="leafygreen-ui-1s4vgyd"
           >
-            <div
-              className="leafygreen-ui-1s4vgyd"
+            <label
+              className="leafygreen-ui-17avto4"
+              htmlFor="chart-radio-absolute"
             >
-              <label
-                className="leafygreen-ui-17avto4"
-                htmlFor="chart-radio-absolute"
+              <input
+                aria-checked={true}
+                aria-disabled={false}
+                checked={true}
+                className="leafygreen-ui-x2r5fc"
+                data-cy="cy-chart-absolute-radio"
+                data-leafygreen-ui="input-element"
+                disabled={false}
+                id="chart-radio-absolute"
+                name="chart-select"
+                onChange={[Function]}
+                type="radio"
+                value="absolute"
+              />
+              <div
+                className="leafygreen-ui-5a1vdt"
+                data-leafygreen-ui="radio-input-display-wrapper"
               >
-                <input
-                  aria-checked={true}
-                  aria-disabled={false}
-                  checked={true}
-                  className="leafygreen-ui-x2r5fc"
-                  data-cy="cy-chart-absolute-radio"
-                  data-leafygreen-ui="input-element"
-                  disabled={false}
-                  id="chart-radio-absolute"
-                  name="chart-select"
-                  onChange={[Function]}
-                  type="radio"
-                  value="absolute"
+                <div
+                  className="leafygreen-ui-1y6j5s3"
+                  data-leafygreen-ui="radio-input-display"
+                  onBlur={[Function]}
+                  onFocus={[Function]}
                 />
                 <div
-                  className="leafygreen-ui-5a1vdt"
-                  data-leafygreen-ui="radio-input-display-wrapper"
-                >
-                  <div
-                    className="leafygreen-ui-1y6j5s3"
-                    data-leafygreen-ui="radio-input-display"
-                    onBlur={[Function]}
-                    onFocus={[Function]}
-                  />
-                  <div
-                    className="leafygreen-ui-1cqcpzq"
-                    data-leafygreen-ui="interaction-ring"
-                  />
-                </div>
-                <div
-                  className="leafygreen-ui-3sm8z"
-                >
-                  Absolute Number
-                </div>
-              </label>
-            </div>
-            <div
-              className="leafygreen-ui-1s4vgyd"
-            >
-              <label
-                className="css-1wysqsr leafygreen-ui-17avto4"
-                htmlFor="chart-radio-percent"
+                  className="leafygreen-ui-1cqcpzq"
+                  data-leafygreen-ui="interaction-ring"
+                />
+              </div>
+              <div
+                className="leafygreen-ui-3sm8z"
               >
-                <input
-                  aria-disabled={false}
-                  className="leafygreen-ui-x2r5fc"
-                  data-cy="cy-chart-percent-radio"
-                  data-leafygreen-ui="input-element"
-                  disabled={false}
-                  id="chart-radio-percent"
-                  name="chart-select"
-                  onChange={[Function]}
-                  type="radio"
-                  value="percentage"
+                Absolute Number
+              </div>
+            </label>
+          </div>
+          <div
+            className="leafygreen-ui-1s4vgyd"
+          >
+            <label
+              className="css-r3dzpj leafygreen-ui-17avto4"
+              htmlFor="chart-radio-percent"
+            >
+              <input
+                aria-disabled={false}
+                className="leafygreen-ui-x2r5fc"
+                data-cy="cy-chart-percent-radio"
+                data-leafygreen-ui="input-element"
+                disabled={false}
+                id="chart-radio-percent"
+                name="chart-select"
+                onChange={[Function]}
+                type="radio"
+                value="percentage"
+              />
+              <div
+                className="leafygreen-ui-5a1vdt"
+                data-leafygreen-ui="radio-input-display-wrapper"
+              >
+                <div
+                  className="leafygreen-ui-1y6j5s3"
+                  data-leafygreen-ui="radio-input-display"
+                  onBlur={[Function]}
+                  onFocus={[Function]}
                 />
                 <div
-                  className="leafygreen-ui-5a1vdt"
-                  data-leafygreen-ui="radio-input-display-wrapper"
-                >
-                  <div
-                    className="leafygreen-ui-1y6j5s3"
-                    data-leafygreen-ui="radio-input-display"
-                    onBlur={[Function]}
-                    onFocus={[Function]}
-                  />
-                  <div
-                    className="leafygreen-ui-1cqcpzq"
-                    data-leafygreen-ui="interaction-ring"
-                  />
-                </div>
-                <div
-                  className="leafygreen-ui-3sm8z"
-                >
-                  Percentage
-                </div>
-              </label>
-            </div>
+                  className="leafygreen-ui-1cqcpzq"
+                  data-leafygreen-ui="interaction-ring"
+                />
+              </div>
+              <div
+                className="leafygreen-ui-3sm8z"
+              >
+                Percentage
+              </div>
+            </label>
           </div>
         </div>
       </div>
@@ -364,7 +360,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
         width={200}
       >
         <div
-          className="css-v9tci9-LabelContainer e1cz15301"
+          className="css-12k4aue-LabelContainer e1cz15301"
           data-cy="commit-label"
         >
           <div
@@ -414,7 +410,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
         width={200}
       >
         <div
-          className="css-v9tci9-LabelContainer e1cz15301"
+          className="css-12k4aue-LabelContainer e1cz15301"
           data-cy="commit-label"
         >
           <div
@@ -457,12 +453,12 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
         width={64}
       >
         <div
-          className="leafygreen-ui-cssveg css-1ctfjby-ButtonContainer ezzuvrx6"
+          className="leafygreen-ui-cssveg css-1ctfjby-ButtonContainer ezzuvrx7"
           onClick={[Function]}
           role="button"
         >
           <small
-            className="css-t2ltce-ButtonText ezzuvrx5 leafygreen-ui-13bqno6"
+            className="css-t2ltce-ButtonText ezzuvrx6 leafygreen-ui-13bqno6"
             data-cy="inactive-commits-button"
           >
             <div>
@@ -477,7 +473,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
         width={200}
       >
         <div
-          className="css-v9tci9-LabelContainer e1cz15301"
+          className="css-12k4aue-LabelContainer e1cz15301"
           data-cy="commit-label"
         >
           <div
@@ -527,7 +523,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
         width={200}
       >
         <div
-          className="css-v9tci9-LabelContainer e1cz15301"
+          className="css-12k4aue-LabelContainer e1cz15301"
           data-cy="commit-label"
         >
           <div
@@ -570,7 +566,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
         width={200}
       >
         <div
-          className="css-v9tci9-LabelContainer e1cz15301"
+          className="css-12k4aue-LabelContainer e1cz15301"
           data-cy="commit-label"
         >
           <div
@@ -626,7 +622,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             data-cy="variant-header"
-            href="/variant-history/spruce/code_health"
+            href="/variant-history/spruce/code_health?skipOrderNumber=930"
             onClick={[Function]}
           >
             01. Code Health [code_health]
@@ -678,7 +674,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             data-cy="variant-header"
-            href="/variant-history/spruce/package_rpm"
+            href="/variant-history/spruce/package_rpm?skipOrderNumber=930"
             onClick={[Function]}
           >
             02. Packaging (RPM - RHEL7) [package_rpm]
@@ -739,7 +735,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             data-cy="variant-header"
-            href="/variant-history/spruce/code_health"
+            href="/variant-history/spruce/code_health?skipOrderNumber=929"
             onClick={[Function]}
           >
             01. Code Health [code_health]
@@ -791,7 +787,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             data-cy="variant-header"
-            href="/variant-history/spruce/package_rpm"
+            href="/variant-history/spruce/package_rpm?skipOrderNumber=929"
             onClick={[Function]}
           >
             02. Packaging (RPM - RHEL7) [package_rpm]
@@ -856,7 +852,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             data-cy="variant-header"
-            href="/variant-history/spruce/code_health"
+            href="/variant-history/spruce/code_health?skipOrderNumber=927"
             onClick={[Function]}
           >
             01. Code Health [code_health]
@@ -908,7 +904,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             data-cy="variant-header"
-            href="/variant-history/spruce/package_rpm"
+            href="/variant-history/spruce/package_rpm?skipOrderNumber=927"
             onClick={[Function]}
           >
             02. Packaging (RPM - RHEL7) [package_rpm]
@@ -969,7 +965,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             data-cy="variant-header"
-            href="/variant-history/spruce/code_health"
+            href="/variant-history/spruce/code_health?skipOrderNumber=926"
             onClick={[Function]}
           >
             01. Code Health [code_health]
@@ -1021,7 +1017,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             data-cy="variant-header"
-            href="/variant-history/spruce/package_rpm"
+            href="/variant-history/spruce/package_rpm?skipOrderNumber=926"
             onClick={[Function]}
           >
             02. Packaging (RPM - RHEL7) [package_rpm]
@@ -1082,7 +1078,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             data-cy="variant-header"
-            href="/variant-history/spruce/code_health"
+            href="/variant-history/spruce/code_health?skipOrderNumber=925"
             onClick={[Function]}
           >
             01. Code Health [code_health]
@@ -1129,7 +1125,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             data-cy="variant-header"
-            href="/variant-history/spruce/package_rpm"
+            href="/variant-history/spruce/package_rpm?skipOrderNumber=925"
             onClick={[Function]}
           >
             02. Packaging (RPM - RHEL7) [package_rpm]
