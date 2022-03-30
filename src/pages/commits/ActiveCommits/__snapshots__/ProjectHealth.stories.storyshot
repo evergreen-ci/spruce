@@ -642,7 +642,8 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               onMouseLeave={[Function]}
             >
               <div
-                className="icon_code_health-Code Health css-ntipxn-TaskStatusWrapper enafhlo0"
+                className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                data-task-icon="icon_code_health-Code Health"
               >
                 <svg
                   aria-label="Calendar Icon"
@@ -691,7 +692,8 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               onMouseLeave={[Function]}
             >
               <div
-                className="icon_package_rpm-Code Health css-ntipxn-TaskStatusWrapper enafhlo0"
+                className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                data-task-icon="icon_package_rpm-Code Health"
               >
                 <svg
                   aria-label="Calendar Icon"
@@ -749,7 +751,8 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               onMouseLeave={[Function]}
             >
               <div
-                className="icon_code_health-Code Health css-ntipxn-TaskStatusWrapper enafhlo0"
+                className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                data-task-icon="icon_code_health-Code Health"
               >
                 <svg
                   aria-label="Calendar Icon"
@@ -798,7 +801,8 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               onMouseLeave={[Function]}
             >
               <div
-                className="icon_package_rpm-Code Health css-ntipxn-TaskStatusWrapper enafhlo0"
+                className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                data-task-icon="icon_package_rpm-Code Health"
               >
                 <svg
                   aria-label="Calendar Icon"
@@ -860,7 +864,8 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               onMouseLeave={[Function]}
             >
               <div
-                className="icon_code_health-Code Health css-ntipxn-TaskStatusWrapper enafhlo0"
+                className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                data-task-icon="icon_code_health-Code Health"
               >
                 <svg
                   aria-label="Calendar Icon"
@@ -909,7 +914,8 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               onMouseLeave={[Function]}
             >
               <div
-                className="icon_package_rpm-Code Health css-ntipxn-TaskStatusWrapper enafhlo0"
+                className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                data-task-icon="icon_package_rpm-Code Health"
               >
                 <svg
                   aria-label="Calendar Icon"
@@ -967,7 +973,8 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               onMouseLeave={[Function]}
             >
               <div
-                className="icon_code_health-Code Health css-ntipxn-TaskStatusWrapper enafhlo0"
+                className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                data-task-icon="icon_code_health-Code Health"
               >
                 <svg
                   aria-label="Calendar Icon"
@@ -1016,7 +1023,8 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               onMouseLeave={[Function]}
             >
               <div
-                className="icon_package_rpm-Code Health css-ntipxn-TaskStatusWrapper enafhlo0"
+                className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                data-task-icon="icon_package_rpm-Code Health"
               >
                 <svg
                   aria-label="Checkmark Icon"
@@ -1074,7 +1082,8 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               onMouseLeave={[Function]}
             >
               <div
-                className="icon_code_health-Code Health css-ntipxn-TaskStatusWrapper enafhlo0"
+                className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                data-task-icon="icon_code_health-Code Health"
               >
                 <svg
                   aria-label="Failure Icon"
@@ -1118,7 +1127,8 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               onMouseLeave={[Function]}
             >
               <div
-                className="icon_package_rpm-Code Health css-ntipxn-TaskStatusWrapper enafhlo0"
+                className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                data-task-icon="icon_package_rpm-Code Health"
               >
                 <svg
                   aria-label="Failure Icon"

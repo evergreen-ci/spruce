@@ -13,7 +13,8 @@ exports[`storybook Storyshots WaterfallTaskStatusIcon Failed Icon 1`] = `
   onMouseLeave={[Function]}
 >
   <div
-    className="icon_ubuntu1604-multiversion css-ntipxn-TaskStatusWrapper enafhlo0"
+    className="css-h1k2k-TaskStatusWrapper enafhlo0"
+    data-task-icon="icon_ubuntu1604-multiversion"
   >
     <svg
       aria-label="Failure Icon"
@@ -44,7 +45,8 @@ exports[`storybook Storyshots WaterfallTaskStatusIcon Success Icon 1`] = `
   onMouseLeave={[Function]}
 >
   <div
-    className="icon_ubuntu1604-multiversion css-ntipxn-TaskStatusWrapper enafhlo0"
+    className="css-h1k2k-TaskStatusWrapper enafhlo0"
+    data-task-icon="icon_ubuntu1604-multiversion"
   >
     <svg
       aria-label="Checkmark Icon"

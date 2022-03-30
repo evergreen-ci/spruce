@@ -19,6 +19,7 @@ import { GridLabel } from "./ActiveCommits/GridLabel";
 import {
   getAllTaskStatsGroupedByColor,
   findMaxGroupedTaskStats,
+  hoverTaskIcons,
 } from "./ActiveCommits/utils";
 import {
   RenderCommitsChart,
@@ -53,30 +54,9 @@ export const CommitsWrapper: React.FC<Props> = ({
 
   useEffect(() => {
     if (!isLoading) {
-      hoverUpdateClassName();
+      hoverTaskIcons();
     }
-  }, [isLoading]);
-
-  const hoverUpdateClassName = () => {
-    // find all icons on page
-    const icons = document.querySelectorAll<HTMLElement>(`div[class^=icon_]`);
-
-    // define mouseover and mouseout behavior for all icons
-    for (let i = 0; i < icons.length; i++) {
-      icons[i].onmouseover = () => {
-        for (let j = 0; j < icons.length; j++) {
-          if (icons[j].className !== icons[i].className) {
-            icons[j].style.opacity = "0.25";
-          }
-        }
-      };
-      icons[i].onmouseout = () => {
-        for (let k = 0; k < icons.length; k++) {
-          icons[k].style.opacity = "1";
-        }
-      };
-    }
-  };
+  }, [isLoading, versions]);
 
   const onChangeChartType = (chartType: ChartTypes): void => {
     updateQueryParams({

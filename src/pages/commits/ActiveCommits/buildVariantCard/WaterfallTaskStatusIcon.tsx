@@ -58,7 +58,7 @@ export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = (
           to={getTaskRoute(taskId)}
           data-cy="waterfall-task-status-icon"
         >
-          <TaskStatusWrapper className={`icon_${identifier}`}>
+          <TaskStatusWrapper data-task-icon={`icon_${identifier}`}>
             <TaskStatusIcon status={status} size={16} />
           </TaskStatusWrapper>
         </IconWrapper>
@@ -101,5 +101,4 @@ const TaskStatusWrapper = styled.div`
   height: ${size.m};
   width: ${size.m};
   padding: ${size.xxs};
-  cursor: pointer;
 `;

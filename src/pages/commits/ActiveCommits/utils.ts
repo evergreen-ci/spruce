@@ -92,3 +92,29 @@ export const getStatusesWithZeroCount = (colors: ColorCount[]) => {
     new Set(allStatuses.filter((status) => !availableStatuses.includes(status)))
   );
 };
+
+export const hoverTaskIcons = () => {
+  const property = "data-task-icon";
+
+  // find all icons on page
+  const icons = document.querySelectorAll<HTMLElement>(
+    `div[${property}^=icon_]`
+  );
+  // define mouseover and mouseout behavior for all icons
+  for (let i = 0; i < icons.length; i++) {
+    icons[i].onmouseover = () => {
+      for (let j = 0; j < icons.length; j++) {
+        if (
+          icons[j].getAttribute(property) !== icons[i].getAttribute(property)
+        ) {
+          icons[j].style.opacity = "0.25";
+        }
+      }
+    };
+    icons[i].onmouseout = () => {
+      for (let k = 0; k < icons.length; k++) {
+        icons[k].style.opacity = "1";
+      }
+    };
+  }
+};
