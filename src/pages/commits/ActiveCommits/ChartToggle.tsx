@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
 import { Label } from "@leafygreen-ui/typography";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { size } from "constants/tokens";
 import { ChartTypes } from "types/commits";
 
@@ -12,9 +13,11 @@ export const ChartToggle: React.FC<{
   currentChartType: ChartTypes;
   onChangeChartType: (chartType: ChartTypes) => void;
 }> = ({ currentChartType, onChangeChartType }) => {
+  const { sendEvent } = useProjectHealthAnalytics();
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const chartType = e.target.value as ChartTypes;
     onChangeChartType(chartType);
+    sendEvent({ name: "Click view option", viewOption: chartType });
   };
   return (
     <ClassNames>

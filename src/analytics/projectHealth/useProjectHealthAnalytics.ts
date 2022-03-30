@@ -7,7 +7,8 @@ import { useGetUserQuery } from "analytics/useGetUserQuery";
 
 type Action =
   | { name: "Click commit label version link"; versionId: string }
-  | { name: "Click commit label jira link"; jiraTicket: string };
+  | { name: "Click commit label jira link"; jiraTicket: string }
+  | { name: "Click view option"; viewOption: string };
 
 interface P extends Properties {}
 interface Analytics extends A<Action> {}
