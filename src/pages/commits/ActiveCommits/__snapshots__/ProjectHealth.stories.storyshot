@@ -622,7 +622,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             data-cy="variant-header"
-            href="/variant-history/spruce/code_health?skipOrderNumber=930"
+            href="/variant-history/spruce/code_health?selectedCommit=929"
             onClick={[Function]}
           >
             01. Code Health [code_health]
@@ -674,7 +674,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             data-cy="variant-header"
-            href="/variant-history/spruce/package_rpm?skipOrderNumber=930"
+            href="/variant-history/spruce/package_rpm?selectedCommit=929"
             onClick={[Function]}
           >
             02. Packaging (RPM - RHEL7) [package_rpm]
@@ -735,7 +735,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             data-cy="variant-header"
-            href="/variant-history/spruce/code_health?skipOrderNumber=929"
+            href="/variant-history/spruce/code_health?selectedCommit=928"
             onClick={[Function]}
           >
             01. Code Health [code_health]
@@ -787,7 +787,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             data-cy="variant-header"
-            href="/variant-history/spruce/package_rpm?skipOrderNumber=929"
+            href="/variant-history/spruce/package_rpm?selectedCommit=928"
             onClick={[Function]}
           >
             02. Packaging (RPM - RHEL7) [package_rpm]
@@ -852,7 +852,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             data-cy="variant-header"
-            href="/variant-history/spruce/code_health?skipOrderNumber=927"
+            href="/variant-history/spruce/code_health?selectedCommit=926"
             onClick={[Function]}
           >
             01. Code Health [code_health]
@@ -904,7 +904,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             data-cy="variant-header"
-            href="/variant-history/spruce/package_rpm?skipOrderNumber=927"
+            href="/variant-history/spruce/package_rpm?selectedCommit=926"
             onClick={[Function]}
           >
             02. Packaging (RPM - RHEL7) [package_rpm]
@@ -965,7 +965,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             data-cy="variant-header"
-            href="/variant-history/spruce/code_health?skipOrderNumber=926"
+            href="/variant-history/spruce/code_health?selectedCommit=925"
             onClick={[Function]}
           >
             01. Code Health [code_health]
@@ -1017,7 +1017,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             data-cy="variant-header"
-            href="/variant-history/spruce/package_rpm?skipOrderNumber=926"
+            href="/variant-history/spruce/package_rpm?selectedCommit=925"
             onClick={[Function]}
           >
             02. Packaging (RPM - RHEL7) [package_rpm]
@@ -1078,7 +1078,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             data-cy="variant-header"
-            href="/variant-history/spruce/code_health?skipOrderNumber=925"
+            href="/variant-history/spruce/code_health?selectedCommit=924"
             onClick={[Function]}
           >
             01. Code Health [code_health]
@@ -1125,7 +1125,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             data-cy="variant-header"
-            href="/variant-history/spruce/package_rpm?skipOrderNumber=925"
+            href="/variant-history/spruce/package_rpm?selectedCommit=924"
             onClick={[Function]}
           >
             02. Packaging (RPM - RHEL7) [package_rpm]
