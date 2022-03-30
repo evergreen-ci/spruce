@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from "react";
-import { FilterOutlined, SearchOutlined } from "@ant-design/icons";
+import { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import TextInput from "@leafygreen-ui/text-input";
 import { FilterDropdownProps } from "antd/es/table/interface";
 import { CheckboxGroup } from "components/Checkbox";
+import Icon from "components/Icon";
 import { tableInputContainerCSS } from "components/styles/Table";
 import {
   TreeDataEntry,
@@ -13,7 +13,8 @@ import {
 } from "components/TreeSelect";
 import { fontSize } from "constants/tokens";
 
-const { focus } = uiColors;
+const { black } = uiColors;
+
 export interface InputFilterProps {
   "data-cy"?: string;
   placeholder: string;
@@ -81,9 +82,13 @@ export const getColumnSearchFilterProps = ({
     />
   ),
   filterIcon: () => (
-    <StyledSearchWrapper active={!!value}>
-      <SearchOutlined data-cy={dataCy} />
-    </StyledSearchWrapper>
+    <StyledFilterWrapper>
+      <Icon
+        glyph="MagnifyingGlass"
+        fill={value.length > 0 && black}
+        data-cy={dataCy}
+      />
+    </StyledFilterWrapper>
   ),
 });
 
@@ -102,8 +107,8 @@ export const getColumnTreeSelectFilterProps = ({
     />
   ),
   filterIcon: () => (
-    <StyledFilterWrapper active={!!state.length}>
-      <FilterOutlined data-cy={dataCy} />
+    <StyledFilterWrapper>
+      <Icon glyph="Filter" fill={state.length > 0 && black} data-cy={dataCy} />
     </StyledFilterWrapper>
   ),
 });
@@ -141,8 +146,8 @@ export const getColumnCheckboxFilterProps = ({
     />
   ),
   filterIcon: () => (
-    <StyledFilterWrapper active={!!value.length}>
-      <FilterOutlined data-cy={dataCy} />
+    <StyledFilterWrapper>
+      <Icon glyph="Filter" fill={value.length > 0 && black} data-cy={dataCy} />
     </StyledFilterWrapper>
   ),
 });
@@ -157,10 +162,10 @@ interface StyledOutlinedProps {
   active?: boolean;
 }
 const StyledFilterWrapper = styled.div<StyledOutlinedProps>`
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
   font-size: ${fontSize.l};
-  ${({ active }) => active && `color: ${focus}`}
-`;
-const StyledSearchWrapper = styled.div<StyledOutlinedProps>`
-  font-size: ${fontSize.l};
-  ${({ active }) => active && `color: ${focus}`}
 `;
