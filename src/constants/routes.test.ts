@@ -152,23 +152,23 @@ describe("getTaskHistoryRoute", () => {
       "/task-history/someProject/someTaskId?failed=someFailingTest,someOtherFailingTest&passed=somePassingTests,someOtherPassingTests"
     );
   });
-  it("generates a link with a skipOrderNumber", () => {
+  it("generates a link with a selectedCommit", () => {
     expect(
       getTaskHistoryRoute("someProject", "someTaskId", {
-        skipOrderNumber: 1,
+        selectedCommit: 1,
       })
-    ).toBe("/task-history/someProject/someTaskId?skipOrderNumber=1");
+    ).toBe("/task-history/someProject/someTaskId?selectedCommit=1");
   });
-  it("generates a link with a skipOrderNumber and test filters", () => {
+  it("generates a link with a selectedCommit and test filters", () => {
     expect(
       getTaskHistoryRoute("someProject", "someTaskId", {
         filters: {
           failingTests: ["someFailingTest", "someOtherFailingTest"],
         },
-        skipOrderNumber: 1,
+        selectedCommit: 1,
       })
     ).toBe(
-      "/task-history/someProject/someTaskId?failed=someFailingTest,someOtherFailingTest&skipOrderNumber=1"
+      "/task-history/someProject/someTaskId?failed=someFailingTest,someOtherFailingTest&selectedCommit=1"
     );
   });
 });
@@ -237,8 +237,8 @@ describe("getVariantHistoryRoute", () => {
   it("generates a link with a skip query param", () => {
     expect(
       getVariantHistoryRoute("someProject", "someVariant", {
-        skipOrderNumber: 1,
+        selectedCommit: 1,
       })
-    ).toBe("/variant-history/someProject/someVariant?skipOrderNumber=1");
+    ).toBe("/variant-history/someProject/someVariant?selectedCommit=1");
   });
 });

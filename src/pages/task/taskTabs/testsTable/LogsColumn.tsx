@@ -97,7 +97,7 @@ export const LogsColumn: React.FC<Props> = ({
           }}
           to={getTaskHistoryRoute(projectIdentifier, displayName, {
             filters,
-            skipOrderNumber: order,
+            selectedCommit: order,
           })}
         >
           History

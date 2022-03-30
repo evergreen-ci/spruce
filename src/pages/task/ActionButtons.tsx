@@ -275,7 +275,7 @@ export const ActionButtons: React.FC<Props> = ({
                 taskAnalytics.sendEvent({ name: "Click See History Button" });
               }}
               to={getTaskHistoryRoute(project.identifier, displayName, {
-                skipOrderNumber: order,
+                selectedCommit: order,
               })}
             >
               See history
