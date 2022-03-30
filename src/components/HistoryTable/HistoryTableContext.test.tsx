@@ -62,7 +62,6 @@ describe("historyTableContext", () => {
       type: rowType.DATE_SEPARATOR,
       date: splitMainlineCommitDataPart1.versions[0].version.createTime,
       rowHeight: DATE_SEPARATOR_HEIGHT,
-      selected: false,
     });
     expect(result.current.isItemLoaded(1)).toBe(true);
     expect(result.current.getItem(1)).toStrictEqual<CommitRowType>({
@@ -93,7 +92,6 @@ describe("historyTableContext", () => {
       type: rowType.DATE_SEPARATOR,
       date: splitMainlineCommitDataPart1.versions[0].version.createTime,
       rowHeight: DATE_SEPARATOR_HEIGHT,
-      selected: false,
     });
     expect(result.current.isItemLoaded(1)).toBeTruthy();
     expect(result.current.isItemLoaded(2)).toBeFalsy();
@@ -151,7 +149,6 @@ describe("historyTableContext", () => {
       type: rowType.DATE_SEPARATOR,
       date: commitDate1.versions[0].version.createTime,
       rowHeight: DATE_SEPARATOR_HEIGHT,
-      selected: false,
     });
     expect(result.current.isItemLoaded(1)).toBeTruthy();
     expect(result.current.getItem(1)).toStrictEqual<CommitRowType>({
@@ -170,7 +167,6 @@ describe("historyTableContext", () => {
       type: rowType.DATE_SEPARATOR,
       date: commitDate2.versions[0].version.createTime,
       rowHeight: DATE_SEPARATOR_HEIGHT,
-      selected: false,
     });
     expect(result.current.isItemLoaded(3)).toBeTruthy();
     expect(result.current.getItem(3)).toStrictEqual<CommitRowType>({
@@ -198,7 +194,6 @@ describe("historyTableContext", () => {
       type: rowType.DATE_SEPARATOR,
       date: version.createTime,
       rowHeight: DATE_SEPARATOR_HEIGHT,
-      selected: false,
     });
     expect(result.current.isItemLoaded(1)).toBe(true);
     expect(result.current.getItem(1)).toStrictEqual<CommitRowType>({
@@ -213,7 +208,6 @@ describe("historyTableContext", () => {
       type: rowType.DATE_SEPARATOR,
       date: rolledUpVersions[0].createTime,
       rowHeight: DATE_SEPARATOR_HEIGHT,
-      selected: false,
     });
     expect(result.current.isItemLoaded(3)).toBe(true);
     expect(result.current.getItem(3)).toStrictEqual<CommitRowType>({

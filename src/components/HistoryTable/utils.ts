@@ -51,7 +51,6 @@ export const processCommits = ({
               type: rowType.DATE_SEPARATOR,
               date: version.createTime,
               rowHeight: DATE_SEPARATOR_HEIGHT,
-              selected: false,
             });
             processedCommits.push({
               type: rowType.COMMIT,
@@ -90,14 +89,13 @@ export const processCommits = ({
               type: rowType.DATE_SEPARATOR,
               date: firstRolledUpVersion.createTime,
               rowHeight: DATE_SEPARATOR_HEIGHT,
-              selected,
             });
             processedCommits.push({
               type: rowType.FOLDED_COMMITS,
               rolledUpCommits: rolledUpVersions,
               date: firstRolledUpVersion.createTime,
               rowHeight: FOLDED_COMMITS_HEIGHT,
-              selected: false,
+              selected,
             });
           }
           if (selected) {
