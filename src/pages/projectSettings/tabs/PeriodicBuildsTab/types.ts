@@ -9,7 +9,7 @@ export interface FormState {
     displayTitle?: string;
     alias: string;
     message: string;
-    nextRunTime: Date;
+    nextRunTime: string;
   }>;
 }
 

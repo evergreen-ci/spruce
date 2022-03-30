@@ -1,15 +1,15 @@
 import { Field } from "@rjsf/core";
-import { utcToZonedTime } from "date-fns-tz";
 import { SpruceFormProps } from "components/SpruceForm";
 import widgets from "components/SpruceForm/Widgets";
 import { DateTimePicker } from "components/SpruceForm/widgets/DateTimePicker";
+import { timeZones } from "constants/fieldMaps";
 import { form, ProjectType } from "../utils";
 
 const { overrideRadioBox } = form;
 
 export const getFormSchema = (
   projectType: ProjectType,
-  timezone: { str: string; value: string } = { str: "", value: "" }
+  timezone: string
 ): {
   fields: Record<string, Field>;
   schema: SpruceFormProps["schema"];
@@ -51,19 +51,17 @@ export const getFormSchema = (
             timezone: {
               type: "string" as "string",
               title: "Time Zone",
-              default: timezone.value,
-              oneOf: [
-                {
-                  type: "string" as "string",
-                  title: timezone.str,
-                  enum: [timezone.value],
-                },
-              ],
+              default: timezone,
+              oneOf: timeZones.map(({ str, value }) => ({
+                type: "string" as "string",
+                title: str,
+                enum: [value],
+              })),
             },
             nextRunTime: {
               type: "string" as "string",
               title: "Next Run Time",
-              default: utcToZonedTime(new Date(), timezone.value).toString(),
+              default: new Date().toString(),
             },
           },
         },
@@ -105,7 +103,7 @@ export const getFormSchema = (
           "ui:disabled": true,
         },
         nextRunTime: {
-          "ui:timezone": timezone.value,
+          "ui:timezone": timezone,
           "ui:widget": DateTimePicker,
         },
       },

@@ -36,11 +36,13 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
     periodicBuildsOverride:
       projectType !== ProjectType.AttachedProject || !!periodicBuilds,
     periodicBuilds:
-      omitTypename(periodicBuilds)?.map((definition) => ({
-        ...definition,
-        nextRunTime: definition.nextRunTime.toString(),
-        displayTitle: getTitle(definition),
-      })) ?? [],
+      periodicBuilds?.map((definition) =>
+        omitTypename({
+          ...definition,
+          nextRunTime: definition.nextRunTime.toString(),
+          displayTitle: getTitle(definition),
+        })
+      ) ?? [],
   };
 };
 

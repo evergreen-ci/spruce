@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import { SpruceForm } from "components/SpruceForm";
-import { timeZones } from "constants/fieldMaps";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { useUserTimeZone } from "hooks/useUserTimeZone";
 import {
@@ -35,11 +34,10 @@ export const PeriodicBuildsTab: React.FC<TabProps> = ({
   const onChange = updateForm(tab);
 
   const timezone = useUserTimeZone();
-  const selectedTimezone = timeZones.find((tz) => tz.value === timezone);
 
   const { fields, schema, uiSchema } = useMemo(
-    () => getFormSchema(projectType, selectedTimezone),
-    [projectType, selectedTimezone]
+    () => getFormSchema(projectType, timezone),
+    [projectType, timezone]
   );
 
   if (!formData) return null;
