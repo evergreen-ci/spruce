@@ -1,7 +1,6 @@
 import { Field } from "@rjsf/core";
 import { SpruceFormProps } from "components/SpruceForm";
 import widgets from "components/SpruceForm/Widgets";
-import { DateTimePicker } from "components/SpruceForm/widgets/DateTimePicker";
 import { timeZones } from "constants/fieldMaps";
 import { form, ProjectType } from "../utils";
 
@@ -84,9 +83,11 @@ export const getFormSchema = (
       items: {
         "ui:displayTitle": "New Periodic Build",
         intervalHours: {
+          "ui:data-cy": "interval-input",
           "ui:description": "Number of hours between runs.",
         },
         configFile: {
+          "ui:data-cy": "config-file-input",
           "ui:placeholder": ".evergreen.yml",
         },
         alias: {
@@ -104,7 +105,7 @@ export const getFormSchema = (
         },
         nextRunTime: {
           "ui:timezone": timezone,
-          "ui:widget": DateTimePicker,
+          "ui:widget": "date-time",
         },
       },
     },
@@ -116,7 +117,7 @@ export const getFormSchema = (
         "ui:useExpandableCard": true,
         items: {
           nextRunTime: {
-            "ui:widget": DateTimePicker,
+            "ui:widget": "date-time",
           },
         },
       },

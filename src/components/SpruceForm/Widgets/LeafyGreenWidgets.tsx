@@ -16,7 +16,7 @@ import { WidgetProps } from "@rjsf/core";
 import Icon from "components/Icon";
 import { size, zIndex } from "constants/tokens";
 import { errorReporting } from "utils";
-import ElementWrapper from "./ElementWrapper";
+import ElementWrapper from "../ElementWrapper";
 
 const { reportError } = errorReporting;
 const { red } = uiColors;
