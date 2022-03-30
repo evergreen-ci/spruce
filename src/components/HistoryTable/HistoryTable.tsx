@@ -60,13 +60,14 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCommit?.loaded]);
 
+  //
   useEffect(() => {
     if (selectedCommit) {
-      if (!selectedCommit.loaded && !selectedCommit.visited) {
+      if (!selectedCommit.loaded) {
         loadMoreItems();
       }
     }
-  }, [selectedCommit, processedCommitCount, loadMoreItems]);
+  }, [selectedCommit, loadMoreItems]);
 
   const toggleRowSize = (index: number, numCommits: number) => {
     toggleRowSizeAtIndex(index, numCommits);

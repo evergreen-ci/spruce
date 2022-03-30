@@ -69,9 +69,6 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
         } else if (action.commits.nextPageOrderNumber == null) {
           commitCount = processedCommits.length;
         }
-        const selectedLoaded =
-          state.selectedCommit &&
-          updatedObjectCache.has(state.selectedCommit.order);
 
         return {
           ...state,
@@ -81,7 +78,7 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
           commitCount,
           selectedCommit: state.selectedCommit && {
             ...state.selectedCommit,
-            loaded: selectedLoaded,
+            loaded: updatedObjectCache.has(state.selectedCommit.order),
             rowIndex: selectedCommitRowIndex,
           },
         };
@@ -166,7 +163,7 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
         },
       };
     default:
-      throw new Error(`Unknown reducer action${action}`);
+      throw new Error(`Unknown reducer action ${action}`);
   }
 };
 

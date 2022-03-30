@@ -35,7 +35,6 @@ export const FoldedCommit = memo(
     style,
     selected,
   }: FoldedCommitProps) => {
-    // The commits are expanded if the height of the element is not equal to FOLDED_COMMITS_HEIGHT.
     const { height } = style;
 
     // The virtualized table will unmount the row when it is scrolled out of view but it will cache its height in memory.
