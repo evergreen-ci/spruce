@@ -16,10 +16,18 @@ type option = {
   displayName: string;
   placeHolderText: string;
 };
+export interface TupleAnalytics {
+  type: string;
+  value: string;
+}
 interface TupleSelectProps {
   options: option[];
+  sendAnalytics?: (t: TupleAnalytics) => void;
 }
-export const TupleSelect: React.FC<TupleSelectProps> = ({ options }) => {
+export const TupleSelect: React.FC<TupleSelectProps> = ({
+  options,
+  sendAnalytics,
+}) => {
   const [input, setInput] = useState("");
   const [selected, setSelected] = useState(options[0].value);
   const updateQueryParams = useUpdateURLQueryParams();
@@ -29,6 +37,9 @@ export const TupleSelect: React.FC<TupleSelectProps> = ({ options }) => {
   const onClick = () => {
     const selectedParams = queryParams[selected] as string[];
     const updatedParams = upsertQueryParam(selectedParams, input);
+    if (sendAnalytics) {
+      sendAnalytics({ type: selected, value: input });
+    }
     updateQueryParams({ [selected]: updatedParams });
     setInput("");
   };

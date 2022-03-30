@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Cookies from "js-cookie";
 import { useParams, useLocation, useHistory } from "react-router-dom";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { FilterBadges } from "components/FilterBadges";
 import { ProjectSelect } from "components/projectSelect";
 import { PageWrapper } from "components/styles";
@@ -39,6 +40,7 @@ export const Commits = () => {
   const dispatchToast = useToastContext();
   const { replace } = useHistory();
   const { search } = useLocation();
+  const { sendEvent } = useProjectHealthAnalytics();
   const parsed = parseQueryString(search);
 
   // get query params from url
@@ -111,12 +113,18 @@ export const Commits = () => {
     ProjectFilterOptions.Task,
   ]);
 
+  const sendAnalytics = (t) =>
+    sendEvent({ name: "Submit Waterfall bv/task tuple", ...t });
+
   return (
     <PageWrapper>
       <PageContainer>
         <HeaderWrapper>
           <ElementWrapper width="35">
-            <TupleSelect options={tupleSelectOptions} />
+            <TupleSelect
+              sendAnalytics={sendAnalytics}
+              options={tupleSelectOptions}
+            />
           </ElementWrapper>
           <ElementWrapper width="20">
             <StatusSelect />
