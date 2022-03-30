@@ -33,8 +33,6 @@ interface HistoryTableState {
   markSelectedVisited: () => void;
   selectedCommit: {
     order: number;
-    loaded: boolean;
-    visited: boolean;
     rowIndex: number;
   };
   commitCount: number;

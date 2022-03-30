@@ -32,8 +32,6 @@ export interface HistoryTableReducerState {
   commitCount: number;
   selectedCommit: {
     order: number;
-    loaded: boolean;
-    visited: boolean;
     rowIndex: number;
   };
 }
@@ -78,7 +76,6 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
           commitCount,
           selectedCommit: state.selectedCommit && {
             ...state.selectedCommit,
-            loaded: updatedObjectCache.has(state.selectedCommit.order),
             rowIndex: selectedCommitRowIndex,
           },
         };

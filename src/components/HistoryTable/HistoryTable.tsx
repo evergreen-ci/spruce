@@ -45,25 +45,16 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
   }, [processedCommitCount]);
 
   useEffect(() => {
-    if (selectedCommit) {
-      if (
-        selectedCommit.loaded &&
-        !selectedCommit.visited &&
-        selectedCommit.rowIndex
-      ) {
-        if (listRef.current) {
-          listRef.current.scrollToItem(selectedCommit.rowIndex, "center");
-          markSelectedVisited();
-        }
-      }
+    if (selectedCommit && selectedCommit.rowIndex && listRef.current) {
+      listRef.current.scrollToItem(selectedCommit.rowIndex, "center");
+      markSelectedVisited();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCommit?.loaded]);
+  }, [selectedCommit?.rowIndex]);
 
-  //
   useEffect(() => {
     if (selectedCommit) {
-      if (!selectedCommit.loaded) {
+      if (!selectedCommit.rowIndex) {
         loadMoreItems();
       }
     }
