@@ -550,6 +550,7 @@ export type Version = {
   /** @deprecated baseVersionId is deprecated, use baseVersion.id instead */
   baseVersionID?: Maybe<Scalars["String"]>;
   baseVersion?: Maybe<Version>;
+  previousVersion?: Maybe<Version>;
   versionTiming?: Maybe<VersionTiming>;
   parameters: Array<Parameter>;
   taskStatuses: Array<Scalars["String"]>;
@@ -2335,7 +2336,8 @@ export type ProjectSettingsFragment = {
       ProjectPluginsSettingsFragment &
       ProjectNotificationSettingsFragment &
       ProjectPatchAliasSettingsFragment &
-      ProjectVirtualWorkstationSettingsFragment
+      ProjectVirtualWorkstationSettingsFragment &
+      ProjectPeriodicBuildsSettingsFragment
   >;
   subscriptions?: Maybe<Array<SubscriptionsFragment>>;
   vars?: Maybe<VariablesFragment>;
@@ -2349,7 +2351,8 @@ export type RepoSettingsFragment = {
       RepoPluginsSettingsFragment &
       RepoNotificationSettingsFragment &
       RepoPatchAliasSettingsFragment &
-      RepoVirtualWorkstationSettingsFragment
+      RepoVirtualWorkstationSettingsFragment &
+      RepoPeriodicBuildsSettingsFragment
   >;
   vars?: Maybe<VariablesFragment>;
   subscriptions?: Maybe<Array<SubscriptionsFragment>>;
@@ -2425,6 +2428,32 @@ export type RepoPatchAliasSettingsFragment = {
       taskSpecifiers?: Maybe<
         Array<{ patchAlias: string; taskRegex: string; variantRegex: string }>
       >;
+    }>
+  >;
+};
+
+export type ProjectPeriodicBuildsSettingsFragment = {
+  periodicBuilds?: Maybe<
+    Array<{
+      id: string;
+      configFile: string;
+      intervalHours: number;
+      alias: string;
+      message: string;
+      nextRunTime: Date;
+    }>
+  >;
+};
+
+export type RepoPeriodicBuildsSettingsFragment = {
+  periodicBuilds?: Maybe<
+    Array<{
+      id: string;
+      configFile: string;
+      intervalHours: number;
+      alias: string;
+      message: string;
+      nextRunTime: Date;
     }>
   >;
 };
