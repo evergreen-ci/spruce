@@ -16,13 +16,10 @@ describe("variant history", () => {
     cy.dataCy("variant-header").should("contain.text", "Ubuntu 16.04");
     cy.dataCy("variant-header").click();
     cy.location("pathname").should("eq", "/variant-history/spruce/ubuntu1604");
-    cy.location("search").should("eq", "?skipOrderNumber=1237");
+    cy.location("search").should("eq", "?selectedCommit=1236");
     cy.contains("Triggered From Git Tag").should("be.visible");
     cy.get("[data-selected='true']").should("exist");
-    cy.get("[data-selected='true']").should(
-      "contain.text",
-      "Triggered From Git Tag"
-    );
+    cy.get("[data-selected='true']").should("contain.text", "v2.28.5");
   });
   it("should be able to paginate column headers", () => {
     cy.dataCy("header-cell").should("have.length", 7);
