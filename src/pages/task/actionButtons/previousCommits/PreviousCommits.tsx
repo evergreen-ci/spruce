@@ -5,6 +5,7 @@ import Button from "@leafygreen-ui/button";
 import { Option, Select } from "@leafygreen-ui/select";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
+import { useTaskAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { finishedTaskStatuses } from "constants/task";
 import { size } from "constants/tokens";
@@ -30,6 +31,7 @@ interface PreviousCommitsProps {
   taskId: string;
 }
 export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
+  const { sendEvent } = useTaskAnalytics();
   const [
     {
       selectState,
@@ -190,7 +192,18 @@ export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
       >
         {/* This div is necessary, or else the tooltip will not show. */}
         <div>
-          <Button as={Link} to={link} disabled={disableButton} size="small">
+          <Button
+            onClick={() =>
+              sendEvent({
+                name: "Submit Previous Commit Selector",
+                type: selectState,
+              })
+            }
+            as={Link}
+            to={link}
+            disabled={disableButton}
+            size="small"
+          >
             Go
           </Button>
         </div>
