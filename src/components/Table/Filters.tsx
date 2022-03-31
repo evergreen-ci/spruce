@@ -36,7 +36,7 @@ export const InputFilter: React.FC<InputFilterProps> = ({
 
   useEffect(() => {
     if (visible && inputEl?.current) {
-      // timeout prevents race conditon with antd table animation
+      // timeout prevents race condition with antd table animation
       const timer = setTimeout(() => {
         inputEl.current.focus();
       }, 100);
