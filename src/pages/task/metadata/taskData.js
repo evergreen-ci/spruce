@@ -28,6 +28,7 @@ export const taskQuery = {
       revision: "123j9123u9123",
       project: "spruce",
       projectIdentifier: "spruce",
+      order: 1,
     },
     requester: "github_pull_request",
     patchNumber: 417,
@@ -68,6 +69,5 @@ export const taskQuery = {
     minQueuePosition: 0,
     projectId: "spruce",
     expectedDuration: 123,
-    order: 1,
   },
 };
