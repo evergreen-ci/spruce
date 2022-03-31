@@ -16,7 +16,8 @@ type Action =
   | { name: "Filter commit chart by requester"; requesters: string[] }
   | ({ name: "Select commit chart project" } & ProjectSelectAnalytics)
   | { name: "Click commit chart grouped status badge"; statuses: string[] }
-  | { name: "Click commit chart task status icon"; status: string };
+  | { name: "Click commit chart task status icon"; status: string }
+  | { name: "Submit bv history failed test filter"; failedTests: string[] };
 
 interface P extends Properties {}
 interface Analytics extends A<Action> {}

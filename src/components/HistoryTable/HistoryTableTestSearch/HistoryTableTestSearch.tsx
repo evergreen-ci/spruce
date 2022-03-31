@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import TextInput from "@leafygreen-ui/text-input";
 import { useLocation } from "react-router-dom";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { queryString, url } from "utils";
 
@@ -10,6 +11,7 @@ const { upsertQueryParam } = url;
 const { parseQueryString } = queryString;
 
 export const HistoryTableTestSearch = () => {
+  const { sendEvent } = useProjectHealthAnalytics();
   const [input, setInput] = useState("");
 
   const updateQueryParams = useUpdateURLQueryParams();
@@ -20,6 +22,10 @@ export const HistoryTableTestSearch = () => {
   const onClick = () => {
     const selectedParams = queryParams.failed as string[];
     const updatedParams = upsertQueryParam(selectedParams, input);
+    sendEvent({
+      name: "Submit bv history failed test filter",
+      failedTests: updatedParams,
+    });
     updateQueryParams({ failed: updatedParams });
     setInput("");
   };
