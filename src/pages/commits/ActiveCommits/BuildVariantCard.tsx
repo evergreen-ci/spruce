@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { StyledRouterLink } from "components/styles";
 import { VariantGroupedTaskStatusBadges } from "components/VariantGroupedTaskStatusBadges";
 import { getVariantHistoryRoute } from "constants/routes";
@@ -32,6 +33,7 @@ export const BuildVariantCard: React.FC<Props> = ({
   groupedVariantStats,
   order,
 }) => {
+  const { sendEvent } = useProjectHealthAnalytics();
   let render = null;
   render = (
     <>
@@ -40,6 +42,12 @@ export const BuildVariantCard: React.FC<Props> = ({
           statusCounts={groupedVariantStats.statusCounts}
           versionId={versionId}
           variant={variant}
+          onClick={(statuses) => () => {
+            sendEvent({
+              name: "Click commit chart grouped status badge",
+              statuses,
+            });
+          }}
         />
       )}
       {tasks && <RenderTaskIcons tasks={tasks} />}

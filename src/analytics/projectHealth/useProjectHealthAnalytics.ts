@@ -14,7 +14,8 @@ type Action =
   | ({ name: "Submit commit chart bv/task tuple" } & TupleAnalytics)
   | { name: "Filter commit chart by task status"; statuses: string[] }
   | { name: "Filter commit chart by requester"; requesters: string[] }
-  | ({ name: "Select commit chart project" } & ProjectSelectAnalytics);
+  | ({ name: "Select commit chart project" } & ProjectSelectAnalytics)
+  | { name: "Click commit chart grouped status badge"; statuses: string[] };
 
 interface P extends Properties {}
 interface Analytics extends A<Action> {}
