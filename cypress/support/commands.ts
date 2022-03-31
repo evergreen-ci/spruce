@@ -1,12 +1,13 @@
 const LOGIN_COOKIE = "mci-token";
 const TOAST_COOKIE = "announcement-toast";
+const APRIL_FOOLS = "april-fools-cookie";
 const loginURL = "http://localhost:9090/login";
 const user = {
   username: "admin",
   password: "password",
 };
 Cypress.Cookies.defaults({
-  preserve: TOAST_COOKIE,
+  preserve: [TOAST_COOKIE, APRIL_FOOLS],
 });
 
 function enterLoginCredentials() {
@@ -16,6 +17,7 @@ function enterLoginCredentials() {
 }
 
 Cypress.Commands.add("login", () => {
+  cy.setCookie(APRIL_FOOLS, "false");
   cy.getCookie(LOGIN_COOKIE).then((c) => {
     if (!c) {
       cy.request("POST", loginURL, { ...user });
