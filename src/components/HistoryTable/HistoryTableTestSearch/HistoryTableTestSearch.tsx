@@ -3,15 +3,21 @@ import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import TextInput from "@leafygreen-ui/text-input";
 import { useLocation } from "react-router-dom";
-import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { queryString, url } from "utils";
 
 const { upsertQueryParam } = url;
 const { parseQueryString } = queryString;
+export interface HistoryTableTestSearchAnalytics {
+  failedTests: string[];
+}
+interface HistoryTableTestSearchProps {
+  sendAnalytics?: (v: HistoryTableTestSearchAnalytics) => void;
+}
 
-export const HistoryTableTestSearch = () => {
-  const { sendEvent } = useProjectHealthAnalytics();
+export const HistoryTableTestSearch = ({
+  sendAnalytics,
+}: HistoryTableTestSearchProps): JSX.Element => {
   const [input, setInput] = useState("");
 
   const updateQueryParams = useUpdateURLQueryParams();
@@ -22,10 +28,9 @@ export const HistoryTableTestSearch = () => {
   const onClick = () => {
     const selectedParams = queryParams.failed as string[];
     const updatedParams = upsertQueryParam(selectedParams, input);
-    sendEvent({
-      name: "Submit variant history failed test filter",
-      failedTests: updatedParams,
-    });
+    if (sendAnalytics) {
+      sendAnalytics({ failedTests: updatedParams });
+    }
     updateQueryParams({ failed: updatedParams });
     setInput("");
   };

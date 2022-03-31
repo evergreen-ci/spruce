@@ -4,6 +4,7 @@ import {
   Analytics as A,
 } from "analytics/addPageAction";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
+import { HistoryTableTestSearchAnalytics } from "components/HistoryTable/HistoryTableTestSearch/HistoryTableTestSearch";
 import { ProjectSelectAnalytics } from "components/projectSelect";
 import { TupleAnalytics } from "components/TupleSelect";
 
@@ -17,7 +18,12 @@ type Action =
   | ({ name: "Select commit chart project" } & ProjectSelectAnalytics)
   | { name: "Click commit chart grouped status badge"; statuses: string[] }
   | { name: "Click commit chart task status icon"; status: string }
-  | { name: "Submit variant history failed test filter"; failedTests: string[] }
+  | ({
+      name: "Submit variant history failed test filter";
+    } & HistoryTableTestSearchAnalytics)
+  | ({
+      name: "Submit task history failed test filter";
+    } & HistoryTableTestSearchAnalytics)
   | { name: "Remove commit chart badge" }
   | { name: "Clear all commit chart badges" }
   | { name: "Remove task history badge" }

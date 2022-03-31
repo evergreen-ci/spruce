@@ -12,6 +12,7 @@ import HistoryTable, {
   hooks,
   constants,
 } from "components/HistoryTable";
+import { HistoryTableTestSearchAnalytics } from "components/HistoryTable/HistoryTableTestSearch/HistoryTableTestSearch";
 import { PageWrapper } from "components/styles";
 import { size } from "constants/tokens";
 import {
@@ -66,7 +67,14 @@ const TaskHistoryContents: React.FC = () => {
         <PageHeader>
           <H2>Task Name: {taskName}</H2>
           <PageHeaderContent>
-            <HistoryTableTestSearch />
+            <HistoryTableTestSearch
+              sendAnalytics={(v: HistoryTableTestSearchAnalytics) => {
+                sendEvent({
+                  name: "Submit task history failed test filter",
+                  ...v,
+                });
+              }}
+            />
             <BuildVariantSelector projectId={projectId} taskName={taskName} />
           </PageHeaderContent>
         </PageHeader>

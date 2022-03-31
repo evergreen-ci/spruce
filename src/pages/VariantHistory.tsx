@@ -12,6 +12,7 @@ import HistoryTable, {
   hooks,
   constants,
 } from "components/HistoryTable";
+import { HistoryTableTestSearchAnalytics } from "components/HistoryTable/HistoryTableTestSearch/HistoryTableTestSearch";
 import { PageWrapper } from "components/styles";
 import { size } from "constants/tokens";
 import {
@@ -68,7 +69,14 @@ export const VariantHistoryContents: React.FC = () => {
         <PageHeader>
           <H2>Build Variant: {variantName}</H2>
           <PageHeaderContent>
-            <HistoryTableTestSearch />
+            <HistoryTableTestSearch
+              sendAnalytics={(v: HistoryTableTestSearchAnalytics) => {
+                sendEvent({
+                  name: "Submit variant history failed test filter",
+                  ...v,
+                });
+              }}
+            />
             <TaskSelector projectId={projectId} buildVariant={variantName} />
           </PageHeaderContent>
         </PageHeader>
