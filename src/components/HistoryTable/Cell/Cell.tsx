@@ -70,11 +70,13 @@ interface ColumnHeaderCellProps {
   link: string;
   trimmedDisplayName: string;
   fullDisplayName: string;
+  onClick?: () => void;
 }
 const ColumnHeaderCell: React.FC<ColumnHeaderCellProps> = ({
   link,
   trimmedDisplayName,
   fullDisplayName,
+  onClick,
 }) => (
   <HeaderCell data-cy="header-cell">
     <ConditionalWrapper
@@ -90,7 +92,9 @@ const ColumnHeaderCell: React.FC<ColumnHeaderCellProps> = ({
         </Tooltip>
       )}
     >
-      <StyledRouterLink to={link}>{trimmedDisplayName}</StyledRouterLink>
+      <StyledRouterLink onClick={onClick} to={link}>
+        {trimmedDisplayName}
+      </StyledRouterLink>
     </ConditionalWrapper>
   </HeaderCell>
 );
