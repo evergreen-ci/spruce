@@ -32,7 +32,11 @@ type Action =
   | { name: "Clear all variant history badges" }
   | { name: "Click variant history task selector"; tasks: string[] }
   | { name: "Click variant history column header"; task: string }
-  | { name: "Click task history column header"; variant: string };
+  | { name: "Click task history column header"; variant: string }
+  | {
+      name: "Submit task history build variant selector";
+      buildVariants: string[];
+    };
 interface P extends Properties {}
 interface Analytics extends A<Action> {}
 
