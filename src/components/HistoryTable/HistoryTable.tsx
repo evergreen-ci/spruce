@@ -13,15 +13,11 @@ interface HistoryTableProps {
   loadMoreItems: () => void;
   recentlyFetchedCommits: MainlineCommitsForHistoryQuery["mainlineCommits"];
   children: ComponentType<ListChildComponentProps<any>>;
-  height: number;
-  width: number;
 }
 const HistoryTable = ({
   loadMoreItems,
   recentlyFetchedCommits,
   children,
-  height,
-  width,
 }: HistoryTableProps): JSX.Element => {
   const {
     getItemHeight,
@@ -37,10 +33,6 @@ const HistoryTable = ({
     () => throttle(onChangeTableWidth, 400),
     [onChangeTableWidth]
   );
-
-  useEffect(() => {
-    throttleOnChangeTableWidth(width);
-  }, [width, throttleOnChangeTableWidth]);
 
   useEffect(() => {
     if (recentlyFetchedCommits) {
@@ -63,35 +55,30 @@ const HistoryTable = ({
   };
 
   return (
-    <InfiniteLoader
-      isItemLoaded={isItemLoaded}
-      itemCount={commitCount}
-      loadMoreItems={loadMoreItems}
-    >
-      {({ onItemsRendered }) => (
-        <List
-          height={height}
+    <AutoSizer onResize={({ width }) => throttleOnChangeTableWidth(width)}>
+      {({ height, width }) => (
+        <InfiniteLoader
+          isItemLoaded={isItemLoaded}
           itemCount={commitCount}
-          itemSize={getItemHeight}
-          onItemsRendered={onItemsRendered}
-          ref={listRef}
-          width={width}
-          itemData={{ toggleRowSize }}
+          loadMoreItems={loadMoreItems}
         >
-          {children}
-        </List>
+          {({ onItemsRendered }) => (
+            <List
+              height={height}
+              itemCount={commitCount}
+              itemSize={getItemHeight}
+              onItemsRendered={onItemsRendered}
+              ref={listRef}
+              width={width}
+              itemData={{ toggleRowSize }}
+            >
+              {children}
+            </List>
+          )}
+        </InfiniteLoader>
       )}
-    </InfiniteLoader>
+    </AutoSizer>
   );
 };
-export interface WrapperProps
-  extends Omit<HistoryTableProps, "height" | "width"> {}
 
-const Wrapper = (props: WrapperProps): JSX.Element => (
-  <AutoSizer>
-    {({ height, width }) => (
-      <HistoryTable height={height} width={width} {...props} />
-    )}
-  </AutoSizer>
-);
-export default Wrapper;
+export default HistoryTable;

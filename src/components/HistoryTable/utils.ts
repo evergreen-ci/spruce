@@ -3,7 +3,6 @@ import {
   COMMIT_HEIGHT,
   DATE_SEPARATOR_HEIGHT,
   COLUMN_LABEL_WIDTH,
-  DEFAULT_COLUMN_LIMIT,
   ROW_LABEL_WIDTH,
 } from "./constants";
 import { mainlineCommits, CommitRowType, rowType } from "./types";
