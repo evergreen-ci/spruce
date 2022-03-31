@@ -23,7 +23,8 @@ type Action =
   | { name: "Remove task history badge" }
   | { name: "Clear all task history badges" }
   | { name: "Remove variant history badge" }
-  | { name: "Clear all variant history badges" };
+  | { name: "Clear all variant history badges" }
+  | { name: "Click variant history task selector"; tasks: string[] };
 interface P extends Properties {}
 interface Analytics extends A<Action> {}
 
