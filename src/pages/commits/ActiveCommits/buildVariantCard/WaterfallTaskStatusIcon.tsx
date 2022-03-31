@@ -58,7 +58,7 @@ export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = (
           to={getTaskRoute(taskId)}
           data-cy="waterfall-task-status-icon"
         >
-          <TaskStatusWrapper data-task-icon={`icon_${identifier}`}>
+          <TaskStatusWrapper data-task-icon={identifier}>
             <TaskStatusIcon status={status} size={16} />
           </TaskStatusWrapper>
         </IconWrapper>

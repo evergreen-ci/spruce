@@ -97,9 +97,7 @@ export const hoverTaskIcons = () => {
   const property = "data-task-icon";
 
   // find all icons on page
-  const icons = document.querySelectorAll<HTMLElement>(
-    `div[${property}^=icon_]`
-  );
+  const icons = document.querySelectorAll<HTMLElement>(`div[${property}]`);
   // define mouseover and mouseout behavior for all icons
   for (let i = 0; i < icons.length; i++) {
     icons[i].onmouseover = () => {

@@ -414,9 +414,8 @@ describe("hoverTaskIcons", () => {
     document.body.innerHTML = "";
   });
 
-  const constructTaskIcon = (className: string, dataTaskIconName: string) => {
+  const constructTaskIcon = (dataTaskIconName: string) => {
     const element = document.createElement("div");
-    element.setAttribute("class", className);
     element.setAttribute("data-task-icon", dataTaskIconName);
     element.setAttribute("style", "opacity: 1;");
     document.body.appendChild(element);
@@ -424,12 +423,9 @@ describe("hoverTaskIcons", () => {
   };
 
   it("should deemphasize task icons that don't match with current hovered icon", () => {
-    const testUtilIcon1 = constructTaskIcon("1", "icon_ubuntu1604-test_util");
-    const testUtilIcon2 = constructTaskIcon("2", "icon_ubuntu1604-test_util");
-    const testCodegenIcon = constructTaskIcon(
-      "3",
-      "icon_ubuntu1604-test_codegen"
-    );
+    const testUtilIcon1 = constructTaskIcon("ubuntu1604-test_util");
+    const testUtilIcon2 = constructTaskIcon("ubuntu1604-test_util");
+    const testCodegenIcon = constructTaskIcon("ubuntu1604-test_codegen");
 
     // Call function to set the mouseover behavior
     hoverTaskIcons();

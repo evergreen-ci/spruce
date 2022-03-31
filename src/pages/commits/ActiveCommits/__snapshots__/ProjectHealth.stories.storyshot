@@ -643,7 +643,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             >
               <div
                 className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                data-task-icon="icon_code_health-Code Health"
+                data-task-icon="code_health-Code Health"
               >
                 <svg
                   aria-label="Calendar Icon"
@@ -693,7 +693,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             >
               <div
                 className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                data-task-icon="icon_package_rpm-Code Health"
+                data-task-icon="package_rpm-Code Health"
               >
                 <svg
                   aria-label="Calendar Icon"
@@ -752,7 +752,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             >
               <div
                 className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                data-task-icon="icon_code_health-Code Health"
+                data-task-icon="code_health-Code Health"
               >
                 <svg
                   aria-label="Calendar Icon"
@@ -802,7 +802,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             >
               <div
                 className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                data-task-icon="icon_package_rpm-Code Health"
+                data-task-icon="package_rpm-Code Health"
               >
                 <svg
                   aria-label="Calendar Icon"
@@ -865,7 +865,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             >
               <div
                 className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                data-task-icon="icon_code_health-Code Health"
+                data-task-icon="code_health-Code Health"
               >
                 <svg
                   aria-label="Calendar Icon"
@@ -915,7 +915,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             >
               <div
                 className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                data-task-icon="icon_package_rpm-Code Health"
+                data-task-icon="package_rpm-Code Health"
               >
                 <svg
                   aria-label="Calendar Icon"
@@ -974,7 +974,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             >
               <div
                 className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                data-task-icon="icon_code_health-Code Health"
+                data-task-icon="code_health-Code Health"
               >
                 <svg
                   aria-label="Calendar Icon"
@@ -1024,7 +1024,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             >
               <div
                 className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                data-task-icon="icon_package_rpm-Code Health"
+                data-task-icon="package_rpm-Code Health"
               >
                 <svg
                   aria-label="Checkmark Icon"
@@ -1083,7 +1083,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             >
               <div
                 className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                data-task-icon="icon_code_health-Code Health"
+                data-task-icon="code_health-Code Health"
               >
                 <svg
                   aria-label="Failure Icon"
@@ -1128,7 +1128,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             >
               <div
                 className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                data-task-icon="icon_package_rpm-Code Health"
+                data-task-icon="package_rpm-Code Health"
               >
                 <svg
                   aria-label="Failure Icon"
