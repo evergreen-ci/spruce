@@ -62,9 +62,10 @@ export const ActionButtons: React.FC<Props> = ({
     project,
     requester,
     canSchedule,
-    order,
+    versionMetadata,
   } = task;
 
+  const { isPatch, order } = versionMetadata || {};
   const isPatchOnCommitQueue = requester === commitQueueRequester;
 
   const dispatchToast = useToastContext();
@@ -275,7 +276,7 @@ export const ActionButtons: React.FC<Props> = ({
                 taskAnalytics.sendEvent({ name: "Click See History Button" });
               }}
               to={getTaskHistoryRoute(project.identifier, displayName, {
-                selectedCommit: order,
+                selectedCommit: !isPatch && order,
               })}
             >
               See history

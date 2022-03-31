@@ -3869,7 +3869,6 @@ export type GetTaskQuery = {
       minQueuePosition: number;
       expectedDuration?: Maybe<number>;
       canModifyAnnotation: boolean;
-      order: number;
       abortInfo?: Maybe<{
         user: string;
         taskDisplayName: string;
@@ -3907,6 +3906,7 @@ export type GetTaskQuery = {
         revision: string;
         project: string;
         projectIdentifier: string;
+        order: number;
       };
       project?: Maybe<{ identifier: string }>;
       dependsOn?: Maybe<

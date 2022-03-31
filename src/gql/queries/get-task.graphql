@@ -51,6 +51,7 @@ query GetTask($taskId: String!, $execution: Int) {
       revision
       project
       projectIdentifier
+      order
     }
     requester
     projectId
@@ -109,6 +110,5 @@ query GetTask($taskId: String!, $execution: Int) {
     annotation {
       ...annotation
     }
-    order
   }
 }
