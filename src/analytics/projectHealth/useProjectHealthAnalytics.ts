@@ -4,6 +4,7 @@ import {
   Analytics as A,
 } from "analytics/addPageAction";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
+import { ProjectSelectAnalytics } from "components/projectSelect";
 import { TupleAnalytics } from "components/TupleSelect";
 
 type Action =
@@ -12,7 +13,8 @@ type Action =
   | { name: "Click commit chart view option"; viewOption: string }
   | ({ name: "Submit commit chart bv/task tuple" } & TupleAnalytics)
   | { name: "Filter commit chart by task status"; statuses: string[] }
-  | { name: "Filter commit chart by requester"; requesters: string[] };
+  | { name: "Filter commit chart by requester"; requesters: string[] }
+  | ({ name: "Select commit chart project" } & ProjectSelectAnalytics);
 
 interface P extends Properties {}
 interface Analytics extends A<Action> {}
