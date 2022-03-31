@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -19,6 +19,7 @@ import { GridLabel } from "./ActiveCommits/GridLabel";
 import {
   getAllTaskStatsGroupedByColor,
   findMaxGroupedTaskStats,
+  hoverTaskIcons,
 } from "./ActiveCommits/utils";
 import {
   RenderCommitsChart,
@@ -50,6 +51,12 @@ export const CommitsWrapper: React.FC<Props> = ({
   const { search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
   const parsed = parseQueryString(search);
+
+  useEffect(() => {
+    if (!isLoading) {
+      hoverTaskIcons();
+    }
+  }, [isLoading, versions]);
 
   const onChangeChartType = (chartType: ChartTypes): void => {
     updateQueryParams({
