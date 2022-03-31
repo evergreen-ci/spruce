@@ -631,9 +631,8 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             className="css-100ar08-IconContainer ek3nkvx1"
           >
             <a
-              aria-disabled={false}
               aria-label="pending icon"
-              className="leafygreen-ui-12hedrr"
+              className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
               data-cy="waterfall-task-status-icon"
               href="/task/code_health"
               onBlur={[Function]}
@@ -641,11 +640,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               onFocus={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              onMouseOver={[Function]}
-              tabIndex={0}
             >
               <div
-                className="leafygreen-ui-xhlipt"
+                className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                data-task-icon="code_health-Code Health"
               >
                 <svg
                   aria-label="Calendar Icon"
@@ -683,9 +681,8 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             className="css-100ar08-IconContainer ek3nkvx1"
           >
             <a
-              aria-disabled={false}
               aria-label="will-run icon"
-              className="leafygreen-ui-12hedrr"
+              className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
               data-cy="waterfall-task-status-icon"
               href="/task/code_health"
               onBlur={[Function]}
@@ -693,11 +690,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               onFocus={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              onMouseOver={[Function]}
-              tabIndex={0}
             >
               <div
-                className="leafygreen-ui-xhlipt"
+                className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                data-task-icon="package_rpm-Code Health"
               >
                 <svg
                   aria-label="Calendar Icon"
@@ -744,9 +740,8 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             className="css-100ar08-IconContainer ek3nkvx1"
           >
             <a
-              aria-disabled={false}
               aria-label="pending icon"
-              className="leafygreen-ui-12hedrr"
+              className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
               data-cy="waterfall-task-status-icon"
               href="/task/code_health"
               onBlur={[Function]}
@@ -754,11 +749,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               onFocus={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              onMouseOver={[Function]}
-              tabIndex={0}
             >
               <div
-                className="leafygreen-ui-xhlipt"
+                className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                data-task-icon="code_health-Code Health"
               >
                 <svg
                   aria-label="Calendar Icon"
@@ -796,9 +790,8 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             className="css-100ar08-IconContainer ek3nkvx1"
           >
             <a
-              aria-disabled={false}
               aria-label="pending icon"
-              className="leafygreen-ui-12hedrr"
+              className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
               data-cy="waterfall-task-status-icon"
               href="/task/code_health"
               onBlur={[Function]}
@@ -806,11 +799,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               onFocus={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              onMouseOver={[Function]}
-              tabIndex={0}
             >
               <div
-                className="leafygreen-ui-xhlipt"
+                className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                data-task-icon="package_rpm-Code Health"
               >
                 <svg
                   aria-label="Calendar Icon"
@@ -861,9 +853,8 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             className="css-100ar08-IconContainer ek3nkvx1"
           >
             <a
-              aria-disabled={false}
               aria-label="will-run icon"
-              className="leafygreen-ui-12hedrr"
+              className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
               data-cy="waterfall-task-status-icon"
               href="/task/code_health"
               onBlur={[Function]}
@@ -871,11 +862,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               onFocus={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              onMouseOver={[Function]}
-              tabIndex={0}
             >
               <div
-                className="leafygreen-ui-xhlipt"
+                className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                data-task-icon="code_health-Code Health"
               >
                 <svg
                   aria-label="Calendar Icon"
@@ -913,9 +903,8 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             className="css-100ar08-IconContainer ek3nkvx1"
           >
             <a
-              aria-disabled={false}
               aria-label="pending icon"
-              className="leafygreen-ui-12hedrr"
+              className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
               data-cy="waterfall-task-status-icon"
               href="/task/code_health"
               onBlur={[Function]}
@@ -923,11 +912,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               onFocus={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              onMouseOver={[Function]}
-              tabIndex={0}
             >
               <div
-                className="leafygreen-ui-xhlipt"
+                className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                data-task-icon="package_rpm-Code Health"
               >
                 <svg
                   aria-label="Calendar Icon"
@@ -974,9 +962,8 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             className="css-100ar08-IconContainer ek3nkvx1"
           >
             <a
-              aria-disabled={false}
               aria-label="will-run icon"
-              className="leafygreen-ui-12hedrr"
+              className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
               data-cy="waterfall-task-status-icon"
               href="/task/code_health"
               onBlur={[Function]}
@@ -984,11 +971,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               onFocus={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              onMouseOver={[Function]}
-              tabIndex={0}
             >
               <div
-                className="leafygreen-ui-xhlipt"
+                className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                data-task-icon="code_health-Code Health"
               >
                 <svg
                   aria-label="Calendar Icon"
@@ -1026,9 +1012,8 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             className="css-100ar08-IconContainer ek3nkvx1"
           >
             <a
-              aria-disabled={false}
               aria-label="success icon"
-              className="leafygreen-ui-12hedrr"
+              className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
               data-cy="waterfall-task-status-icon"
               href="/task/code_health"
               onBlur={[Function]}
@@ -1036,11 +1021,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               onFocus={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              onMouseOver={[Function]}
-              tabIndex={0}
             >
               <div
-                className="leafygreen-ui-xhlipt"
+                className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                data-task-icon="package_rpm-Code Health"
               >
                 <svg
                   aria-label="Checkmark Icon"
@@ -1087,9 +1071,8 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             className="css-100ar08-IconContainer ek3nkvx1"
           >
             <a
-              aria-disabled={false}
               aria-label="failed icon"
-              className="leafygreen-ui-12hedrr"
+              className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
               data-cy="waterfall-task-status-icon"
               href="/task/code_health"
               onBlur={[Function]}
@@ -1097,11 +1080,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               onFocus={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              onMouseOver={[Function]}
-              tabIndex={0}
             >
               <div
-                className="leafygreen-ui-xhlipt"
+                className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                data-task-icon="code_health-Code Health"
               >
                 <svg
                   aria-label="Failure Icon"
@@ -1134,9 +1116,8 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             className="css-100ar08-IconContainer ek3nkvx1"
           >
             <a
-              aria-disabled={false}
               aria-label="failed icon"
-              className="leafygreen-ui-12hedrr"
+              className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
               data-cy="waterfall-task-status-icon"
               href="/task/code_health"
               onBlur={[Function]}
@@ -1144,11 +1125,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               onFocus={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              onMouseOver={[Function]}
-              tabIndex={0}
             >
               <div
-                className="leafygreen-ui-xhlipt"
+                className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                data-task-icon="package_rpm-Code Health"
               >
                 <svg
                   aria-label="Failure Icon"

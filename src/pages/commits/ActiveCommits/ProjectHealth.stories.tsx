@@ -1,12 +1,19 @@
 import { withKnobs, boolean, number } from "@storybook/addon-knobs";
-import StoryRouter from "storybook-react-router";
+import { MemoryRouter } from "react-router-dom";
 import { CommitVersion, Commit } from "types/commits";
 import { TaskStatus } from "types/task";
 import { CommitsWrapper } from "../CommitsWrapper";
 
 export default {
   title: "Project Health Page",
-  decorators: [StoryRouter(), withKnobs],
+  decorators: [
+    (Story) => (
+      <MemoryRouter>
+        <Story />
+      </MemoryRouter>
+    ),
+    withKnobs,
+  ],
   component: CommitsWrapper,
 };
 
