@@ -38,12 +38,13 @@ export const processCommits = ({
       case rowType.COMMIT:
         {
           const { version } = commit;
+          const selected = version.order === selectedCommitOrder;
           if (priorCommit && isSameDay(version.createTime, priorCommit.date)) {
             processedCommits.push({
               type: rowType.COMMIT,
               commit: version,
               date: version.createTime,
-              selected: version.order === selectedCommitOrder,
+              selected,
               rowHeight: COMMIT_HEIGHT,
             });
           } else {
@@ -56,11 +57,11 @@ export const processCommits = ({
               type: rowType.COMMIT,
               commit: version,
               date: version.createTime,
-              selected: version.order === selectedCommitOrder,
+              selected,
               rowHeight: COMMIT_HEIGHT,
             });
           }
-          if (version.order === selectedCommitOrder) {
+          if (selected) {
             selectedCommitRowIndex = processedCommits.length - 1;
           }
         }

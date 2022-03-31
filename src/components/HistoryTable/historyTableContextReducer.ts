@@ -10,8 +10,7 @@ type Action =
   | { type: "setColumnLimit"; limit: number }
   | { type: "setHistoryTableFilters"; filters: TestFilter[] }
   | { type: "setSelectedCommit"; order: number }
-  | { type: "toggleRowSizeAtIndex"; index: number; numCommits: number }
-  | { type: "markSelectedVisited" };
+  | { type: "toggleRowSizeAtIndex"; index: number; numCommits: number };
 
 type cacheShape = Map<
   number,
@@ -146,17 +145,7 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
         ...state,
         selectedCommit: {
           order: action.order,
-          loaded: state.commitCache[action.order] != null,
-          visited: false,
           rowIndex: null,
-        },
-      };
-    case "markSelectedVisited":
-      return {
-        ...state,
-        selectedCommit: {
-          ...state.selectedCommit,
-          visited: true,
         },
       };
     default:

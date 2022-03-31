@@ -25,7 +25,6 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
     toggleRowSizeAtIndex,
     commitCount,
     selectedCommit,
-    markSelectedVisited,
     processedCommitCount,
   } = useHistoryTable();
   const listRef = useRef<List>(null);
@@ -48,16 +47,8 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
   useEffect(() => {
     if (selectedCommit && selectedCommit.rowIndex && listRef.current) {
       listRef.current.scrollToItem(selectedCommit.rowIndex, "center");
-      markSelectedVisited();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCommit?.rowIndex]);
-
-  useEffect(() => {
-    if (selectedCommit) {
-      if (!selectedCommit.rowIndex) {
-        loadMoreItems();
-      }
+    } else {
+      loadMoreItems();
     }
   }, [selectedCommit, loadMoreItems]);
 
