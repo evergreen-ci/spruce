@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { FilterBadges } from "components/FilterBadges";
 import HistoryTable, {
   context,
@@ -31,6 +32,7 @@ const { applyStrictRegex } = string;
 const { useTestFilters } = hooks;
 
 const TaskHistoryContents: React.FC = () => {
+  const { sendEvent } = useProjectHealthAnalytics();
   const { projectId, taskName } = useParams<{
     projectId: string;
     taskName: string;
@@ -72,6 +74,12 @@ const TaskHistoryContents: React.FC = () => {
           <BadgeWrapper>
             <FilterBadges
               queryParamsToDisplay={constants.queryParamsToDisplay}
+              onRemoveAnalytics={() => {
+                sendEvent({ name: "Remove task history badge" });
+              }}
+              onClearAllAnalytics={() => {
+                sendEvent({ name: "Clear all task history badges" });
+              }}
             />
           </BadgeWrapper>
           <ColumnPaginationButtons />

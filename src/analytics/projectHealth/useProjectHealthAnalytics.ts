@@ -17,8 +17,13 @@ type Action =
   | ({ name: "Select commit chart project" } & ProjectSelectAnalytics)
   | { name: "Click commit chart grouped status badge"; statuses: string[] }
   | { name: "Click commit chart task status icon"; status: string }
-  | { name: "Submit bv history failed test filter"; failedTests: string[] };
-
+  | { name: "Submit bv history failed test filter"; failedTests: string[] }
+  | { name: "Remove commit chart badge" }
+  | { name: "Clear all commit chart badges" }
+  | { name: "Remove task history badge" }
+  | { name: "Clear all task history badges" }
+  | { name: "Remove variant history badge" }
+  | { name: "Clear all variant history badges" };
 interface P extends Properties {}
 interface Analytics extends A<Action> {}
 

@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { FilterBadges } from "components/FilterBadges";
 import HistoryTable, {
   context,
@@ -35,7 +36,7 @@ export const VariantHistoryContents: React.FC = () => {
     projectId: string;
     variantName: string;
   }>();
-
+  const { sendEvent } = useProjectHealthAnalytics();
   usePageTitle(`Variant History | ${projectId} | ${variantName}`);
   const [nextPageOrderNumber, setNextPageOrderNumber] = useState(null);
 
@@ -75,6 +76,12 @@ export const VariantHistoryContents: React.FC = () => {
           <BadgeWrapper>
             <FilterBadges
               queryParamsToDisplay={constants.queryParamsToDisplay}
+              onRemoveAnalytics={() => {
+                sendEvent({ name: "Remove variant history badge" });
+              }}
+              onClearAllAnalytics={() => {
+                sendEvent({ name: "Clear all variant history badges" });
+              }}
             />
           </BadgeWrapper>
           <ColumnPaginationButtons />

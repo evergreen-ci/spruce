@@ -151,7 +151,15 @@ export const Commits = () => {
           </ElementWrapper>
         </HeaderWrapper>
         <BadgeWrapper>
-          <FilterBadges queryParamsToDisplay={queryParamsToDisplay} />
+          <FilterBadges
+            onRemoveAnalytics={() => {
+              sendEvent({ name: "Remove commit chart badge" });
+            }}
+            onClearAllAnalytics={() => {
+              sendEvent({ name: "Clear all commit chart badges" });
+            }}
+            queryParamsToDisplay={queryParamsToDisplay}
+          />
         </BadgeWrapper>
         <PaginationWrapper>
           <PaginationButtons

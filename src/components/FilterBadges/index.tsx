@@ -11,9 +11,13 @@ const { parseQueryString } = queryString;
 
 interface FilterBadgesProps {
   queryParamsToDisplay: Set<string>;
+  onRemoveAnalytics?: () => void;
+  onClearAllAnalytics?: () => void;
 }
 export const FilterBadges: React.FC<FilterBadgesProps> = ({
   queryParamsToDisplay,
+  onRemoveAnalytics,
+  onClearAllAnalytics,
 }) => {
   const updateQueryParams = useUpdateURLQueryParams();
   const location = useLocation();
@@ -25,6 +29,9 @@ export const FilterBadges: React.FC<FilterBadgesProps> = ({
 
   const onRemove = (key: string, value: string) => {
     const updatedParam = popQueryParams(queryParams[key], value);
+    if (onRemoveAnalytics) {
+      onRemoveAnalytics();
+    }
     updateQueryParams({ [key]: updatedParam });
   };
 
@@ -34,6 +41,9 @@ export const FilterBadges: React.FC<FilterBadgesProps> = ({
     Object.keys(params).forEach((v) => {
       params[v] = undefined;
     });
+    if (onClearAllAnalytics) {
+      onClearAllAnalytics();
+    }
     updateQueryParams(params);
   };
   const visibileQueryParams = queryParamsList.slice(0, 8);
