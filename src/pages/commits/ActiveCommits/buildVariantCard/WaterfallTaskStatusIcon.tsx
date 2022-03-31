@@ -5,6 +5,7 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { Link } from "react-router-dom";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { getTaskRoute } from "constants/routes";
 import { zIndex } from "constants/tokens";
@@ -29,6 +30,7 @@ export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = (
   displayName,
   timeTaken,
 }) => {
+  const { sendEvent } = useProjectHealthAnalytics();
   const [loadData, { data, loading }] = useLazyQuery<
     GetFailedTaskStatusIconTooltipQuery,
     GetFailedTaskStatusIconTooltipQueryVariables
@@ -56,6 +58,9 @@ export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = (
           aria-label={`${status} icon`}
           as={Link}
           to={getTaskRoute(taskId)}
+          onClick={() => {
+            sendEvent({ name: "Click commit chart task status icon", status });
+          }}
           data-cy="waterfall-task-status-icon"
         >
           <TaskStatusIcon status={status} size={16} />
