@@ -5,3 +5,4 @@ export const getNotificationTriggerCookie = (type: string) =>
   `${type}-notification-trigger`;
 export const SLACK_NOTIFICATION_BANNER = "has-closed-slack-banner";
 export const CURRENT_PROJECT = "mci-project-cookie";
+export const APRIL_FOOLS = "april-fools-cookie";
