@@ -8,7 +8,7 @@ import { FilterBadges } from "components/FilterBadges";
 import { ProjectSelect } from "components/projectSelect";
 import { PageWrapper } from "components/styles";
 import { ALL_VALUE } from "components/TreeSelect";
-import { TupleSelect } from "components/TupleSelect";
+import { TupleAnalytics, TupleSelect } from "components/TupleSelect";
 import { CURRENT_PROJECT } from "constants/cookies";
 import { pollInterval } from "constants/index";
 import { getCommitsRoute } from "constants/routes";
@@ -113,8 +113,8 @@ export const Commits = () => {
     ProjectFilterOptions.Task,
   ]);
 
-  const sendAnalytics = (t) =>
-    sendEvent({ name: "Submit Waterfall bv/task tuple", ...t });
+  const sendAnalytics = (t: TupleAnalytics) =>
+    sendEvent({ name: "Submit commit chart bv/task tuple", ...t });
 
   return (
     <PageWrapper>

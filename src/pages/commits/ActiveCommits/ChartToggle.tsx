@@ -17,7 +17,10 @@ export const ChartToggle: React.FC<{
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const chartType = e.target.value as ChartTypes;
     onChangeChartType(chartType);
-    sendEvent({ name: "Click view option", viewOption: chartType });
+    sendEvent({
+      name: "Click commit chart view option",
+      viewOption: chartType,
+    });
   };
   return (
     <ClassNames>

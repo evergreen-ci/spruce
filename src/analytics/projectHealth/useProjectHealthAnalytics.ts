@@ -9,8 +9,8 @@ import { TupleAnalytics } from "components/TupleSelect";
 type Action =
   | { name: "Click commit label version link"; versionId: string }
   | { name: "Click commit label jira link"; jiraTicket: string }
-  | { name: "Click view option"; viewOption: string }
-  | ({ name: "Submit Waterfall bv/task tuple" } & TupleAnalytics);
+  | { name: "Click commit chart view option"; viewOption: string }
+  | ({ name: "Submit commit chart bv/task tuple" } & TupleAnalytics);
 
 interface P extends Properties {}
 interface Analytics extends A<Action> {}
