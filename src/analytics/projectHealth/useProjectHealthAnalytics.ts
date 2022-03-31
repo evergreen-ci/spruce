@@ -11,13 +11,13 @@ type Action =
   | { name: "Click commit label version link"; versionId: string }
   | { name: "Click commit label jira link"; jiraTicket: string }
   | { name: "Click commit chart view option"; viewOption: string }
-  | ({ name: "Submit commit chart bv/task tuple" } & TupleAnalytics)
+  | ({ name: "Submit commit chart variant/task tuple" } & TupleAnalytics)
   | { name: "Filter commit chart by task status"; statuses: string[] }
   | { name: "Filter commit chart by requester"; requesters: string[] }
   | ({ name: "Select commit chart project" } & ProjectSelectAnalytics)
   | { name: "Click commit chart grouped status badge"; statuses: string[] }
   | { name: "Click commit chart task status icon"; status: string }
-  | { name: "Submit bv history failed test filter"; failedTests: string[] }
+  | { name: "Submit variant history failed test filter"; failedTests: string[] }
   | { name: "Remove commit chart badge" }
   | { name: "Clear all commit chart badges" }
   | { name: "Remove task history badge" }

@@ -23,7 +23,7 @@ export const HistoryTableTestSearch = () => {
     const selectedParams = queryParams.failed as string[];
     const updatedParams = upsertQueryParam(selectedParams, input);
     sendEvent({
-      name: "Submit bv history failed test filter",
+      name: "Submit variant history failed test filter",
       failedTests: updatedParams,
     });
     updateQueryParams({ failed: updatedParams });

@@ -117,7 +117,7 @@ export const Commits = () => {
   ]);
 
   const sendAnalytics = (t: TupleAnalytics) =>
-    sendEvent({ name: "Submit commit chart bv/task tuple", ...t });
+    sendEvent({ name: "Submit commit chart variant/task tuple", ...t });
 
   return (
     <PageWrapper>
