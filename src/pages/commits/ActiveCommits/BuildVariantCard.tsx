@@ -60,6 +60,12 @@ export const BuildVariantCard: React.FC<Props> = ({
         to={getVariantHistoryRoute(projectIdentifier, variant, {
           skipOrderNumber: order + 1,
         })}
+        onClick={() => {
+          sendEvent({
+            name: "Click commit chart variant label",
+            variant,
+          });
+        }}
       >
         {buildVariantDisplayName}
       </Label>
