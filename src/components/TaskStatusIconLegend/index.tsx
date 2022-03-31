@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import Popover from "@leafygreen-ui/popover";
 import { Disclaimer, Overline } from "@leafygreen-ui/typography";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import Icon from "components/Icon";
 import { PopoverContainer } from "components/styles/Popover";
 import { groupedIconStatuses } from "components/TaskStatusIcon";
@@ -26,6 +27,7 @@ export const LegendContent = () => (
 );
 
 export const TaskStatusIconLegend: React.FC = () => {
+  const { sendEvent } = useProjectHealthAnalytics();
   const [isActive, setIsActive] = useState(false);
 
   return (
@@ -33,6 +35,9 @@ export const TaskStatusIconLegend: React.FC = () => {
       <IconButton
         onClick={() => {
           setIsActive(!isActive);
+          if (!isActive) {
+            sendEvent({ name: "Open task icons legend" });
+          }
         }}
         aria-label="Task Status Icon Legend"
       >

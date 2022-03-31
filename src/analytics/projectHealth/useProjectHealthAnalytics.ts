@@ -40,7 +40,8 @@ type Action =
   | {
       name: "Submit task history build variant selector";
       buildVariants: string[];
-    };
+    }
+  | { name: "Open task icons legend" };
 interface P extends Properties {}
 interface Analytics extends A<Action> {}
 
