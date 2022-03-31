@@ -4,6 +4,7 @@ import {
   Analytics as A,
 } from "analytics/addPageAction";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
+import { TaskCellAnalytics } from "components/HistoryTable/Cell/Cell";
 import { HistoryTableTestSearchAnalytics } from "components/HistoryTable/HistoryTableTestSearch/HistoryTableTestSearch";
 import { ProjectSelectAnalytics } from "components/projectSelect";
 import { TupleAnalytics } from "components/TupleSelect";
@@ -27,6 +28,8 @@ type Action =
   | { name: "Click commit label jira link"; jiraTicket: string }
   | { name: "Click commit label version link"; versionId: string }
   | { name: "Click task history column header"; variant: string }
+  | ({ name: "Click task history task cell" } & TaskCellAnalytics)
+  | ({ name: "Click variant history task cell" } & TaskCellAnalytics)
   | { name: "Click variant history column header"; task: string }
   | { name: "Click variant history task selector"; tasks: string[] }
   | { name: "Filter commit chart by requester"; requesters: string[] }

@@ -1,5 +1,7 @@
 import { ListChildComponentProps } from "react-window";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { context, Cell, Row, types, hooks } from "components/HistoryTable";
+import { TaskCellAnalytics } from "components/HistoryTable/Cell/Cell";
 import { array } from "utils";
 
 const { convertArrayToObject } = array;
@@ -9,6 +11,7 @@ const { useTestResults } = hooks;
 const { rowType } = types;
 
 const VariantHistoryRow: React.FC<ListChildComponentProps> = (props) => {
+  const { sendEvent } = useProjectHealthAnalytics();
   const { index } = props;
   let orderedColumns = [];
   const { visibleColumns, getItem } = useHistoryTable();
@@ -32,6 +35,9 @@ const VariantHistoryRow: React.FC<ListChildComponentProps> = (props) => {
               task={t}
               failingTests={failingTests}
               label={label}
+              sendAnalytics={(v: TaskCellAnalytics) => {
+                sendEvent({ name: "Click variant history task cell", ...v });
+              }}
             />
           );
         }

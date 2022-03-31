@@ -13,6 +13,10 @@ import { HistoryTableIcon } from "../HistoryTableIcon";
 const { gray } = uiColors;
 const statusIconSize = 20;
 
+export interface TaskCellAnalytics {
+  taskId: string;
+  taskStatus: string;
+}
 interface TaskCellProps {
   task: {
     id: string;
@@ -22,6 +26,7 @@ interface TaskCellProps {
   failingTests?: string[];
   label?: string;
   loading?: boolean;
+  sendAnalytics?: (v: TaskCellAnalytics) => void;
 }
 const TaskCell: React.FC<TaskCellProps> = ({
   task,
@@ -29,9 +34,15 @@ const TaskCell: React.FC<TaskCellProps> = ({
   failingTests,
   label,
   loading = false,
+  sendAnalytics = () => {},
 }) => (
   <Cell inactive={inactive} aria-disabled={inactive} data-cy="task-cell">
-    <Link to={getTaskRoute(task.id)}>
+    <Link
+      onClick={() =>
+        sendAnalytics({ taskId: task.id, taskStatus: task.status })
+      }
+      to={getTaskRoute(task.id)}
+    >
       <HistoryTableIcon
         inactive={inactive}
         status={task.status as TaskStatus}
