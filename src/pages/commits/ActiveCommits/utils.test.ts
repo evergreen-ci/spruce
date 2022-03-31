@@ -409,11 +409,6 @@ const groupedTaskStats = [
 ];
 
 describe("hoverTaskIcons", () => {
-  // Clean up document.
-  afterEach(() => {
-    document.body.innerHTML = "";
-  });
-
   const constructTaskIcon = (dataTaskIconName: string) => {
     const element = document.createElement("div");
     element.setAttribute("data-task-icon", dataTaskIconName);
