@@ -1,11 +1,13 @@
 import { uiColors } from "@leafygreen-ui/palette";
 import { purple } from "constants/colors";
 import { taskStatusToCopy } from "constants/task";
+import { fireEvent } from "test_utils";
 import { TaskStatus } from "types/task";
 import {
   getAllTaskStatsGroupedByColor,
   getStatusesWithZeroCount,
   roundMax,
+  hoverTaskIcons,
 } from "./utils";
 
 const { red, green, yellow, gray } = uiColors;
@@ -405,3 +407,40 @@ const groupedTaskStats = [
     color: purple.light1,
   },
 ];
+
+describe("hoverTaskIcons", () => {
+  const constructTaskIcon = (dataTaskIconName: string) => {
+    const element = document.createElement("div");
+    element.setAttribute("data-task-icon", dataTaskIconName);
+    element.setAttribute("style", "opacity: 1;");
+    document.body.appendChild(element);
+    return element;
+  };
+
+  it("should deemphasize task icons that don't match with current hovered icon", () => {
+    const testUtilIcon1 = constructTaskIcon("ubuntu1604-test_util");
+    const testUtilIcon2 = constructTaskIcon("ubuntu1604-test_util");
+    const testCodegenIcon = constructTaskIcon("ubuntu1604-test_codegen");
+
+    // Call function to set the mouseover behavior
+    hoverTaskIcons();
+
+    // Check default opacity
+    expect(testUtilIcon1.style.opacity).toBe("1");
+    expect(testUtilIcon2.style.opacity).toBe("1");
+    expect(testCodegenIcon.style.opacity).toBe("1");
+
+    // Styles should change on hover
+    fireEvent.mouseOver(testUtilIcon1);
+    expect(testUtilIcon1.style.opacity).toBe("1");
+    expect(testUtilIcon2.style.opacity).toBe("1");
+    expect(testCodegenIcon.style.opacity).toBe("0.25");
+    fireEvent.mouseOut(testUtilIcon1);
+
+    // Styles should change on hover
+    fireEvent.mouseOver(testCodegenIcon);
+    expect(testUtilIcon1.style.opacity).toBe("0.25");
+    expect(testUtilIcon2.style.opacity).toBe("0.25");
+    expect(testCodegenIcon.style.opacity).toBe("1");
+  });
+});
