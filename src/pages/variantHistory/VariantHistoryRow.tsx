@@ -1,4 +1,5 @@
-import { ListChildComponentProps } from "react-window";
+import { memo } from "react";
+import { ListChildComponentProps, areEqual } from "react-window";
 import { context, Cell, Row, types, hooks } from "components/HistoryTable";
 import { array } from "utils";
 
@@ -8,7 +9,7 @@ const { useHistoryTable } = context;
 const { useTestResults } = hooks;
 const { rowType } = types;
 
-const VariantHistoryRow: React.FC<ListChildComponentProps> = (props) => {
+const VariantHistoryRow = memo((props: ListChildComponentProps) => {
   const { index } = props;
   let orderedColumns = [];
   const { visibleColumns, getItem } = useHistoryTable();
@@ -45,8 +46,9 @@ const VariantHistoryRow: React.FC<ListChildComponentProps> = (props) => {
       {...props}
       columns={orderedColumns}
       numVisibleCols={visibleColumns.length}
+      selected={commit?.selected}
     />
   );
-};
+}, areEqual);
 
 export default VariantHistoryRow;

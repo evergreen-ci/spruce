@@ -40,6 +40,9 @@ export const ETATimer: React.FC<ETATimerProps> = ({
       setEta(newEta > 0 ? newEta : 0);
       setRunningTime(newRunningTime > 0 ? newRunningTime : 0);
     }, 1000);
+    if (eta === 0 || runningTime === 0) {
+      clearInterval(timer);
+    }
     return () => clearInterval(timer);
   });
 

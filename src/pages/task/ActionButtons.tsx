@@ -9,6 +9,7 @@ import { Button } from "components/Button";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { PageButtonRow } from "components/styles";
+import { commitQueueRequester } from "constants/patch";
 import { getTaskHistoryRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -25,6 +26,7 @@ import {
   UnscheduleTaskMutationVariables,
   OverrideTaskDependenciesMutation,
   OverrideTaskDependenciesMutationVariables,
+  GetTaskQuery,
 } from "gql/generated/types";
 import {
   ABORT_TASK,
@@ -41,29 +43,31 @@ import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
 interface Props {
   initialPriority?: number;
-  canAbort: boolean;
-  canRestart: boolean;
-  canSchedule: boolean;
-  canUnschedule: boolean;
-  canSetPriority: boolean;
-  canOverrideDependencies: boolean;
   isExecutionTask: boolean;
-  taskName: string;
-  projectIdentifier: string;
+  task: GetTaskQuery["task"];
 }
 
 export const ActionButtons: React.FC<Props> = ({
-  canAbort,
-  canRestart,
-  canSchedule,
-  canSetPriority,
-  canUnschedule,
   initialPriority = 1,
-  canOverrideDependencies,
-  projectIdentifier,
-  taskName,
+  task,
   isExecutionTask,
 }) => {
+  const {
+    canAbort,
+    canUnschedule,
+    canRestart,
+    canSetPriority,
+    canOverrideDependencies,
+    displayName,
+    project,
+    requester,
+    canSchedule,
+    versionMetadata,
+  } = task;
+
+  const { isPatch, order } = versionMetadata || {};
+  const isPatchOnCommitQueue = requester === commitQueueRequester;
+
   const dispatchToast = useToastContext();
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const [priority, setPriority] = useState<number>(initialPriority);
@@ -271,7 +275,9 @@ export const ActionButtons: React.FC<Props> = ({
               onClick={() => {
                 taskAnalytics.sendEvent({ name: "Click See History Button" });
               }}
-              to={getTaskHistoryRoute(projectIdentifier, taskName)}
+              to={getTaskHistoryRoute(project.identifier, displayName, {
+                selectedCommit: !isPatch && order,
+              })}
             >
               See history
             </Button>
@@ -281,7 +287,7 @@ export const ActionButtons: React.FC<Props> = ({
           size="small"
           data-cy="schedule-task"
           key="schedule"
-          disabled={disabled || !canSchedule}
+          disabled={disabled || !canSchedule || isPatchOnCommitQueue}
           loading={loadingScheduleTask}
           onClick={() => {
             scheduleTask();
@@ -294,7 +300,7 @@ export const ActionButtons: React.FC<Props> = ({
           size="small"
           data-cy="restart-task"
           key="restart"
-          disabled={disabled || !canRestart}
+          disabled={disabled || !canRestart || isPatchOnCommitQueue}
           loading={loadingRestartTask}
           onClick={() => {
             restartTask();

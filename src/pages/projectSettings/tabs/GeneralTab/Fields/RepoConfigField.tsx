@@ -118,7 +118,11 @@ export const AttachDetachModal: React.FC<
         `There was an error attaching the project: ${err.message}`
       );
     },
-    refetchQueries: ["ProjectSettings", "RepoSettings"],
+    refetchQueries: [
+      "ProjectSettings",
+      "RepoSettings",
+      "GetViewableProjectRefs",
+    ],
   });
 
   const [detachProjectFromRepo] = useMutation<
@@ -134,7 +138,11 @@ export const AttachDetachModal: React.FC<
         `There was an error detaching the project: ${err.message}`
       );
     },
-    refetchQueries: ["ProjectSettings", "RepoSettings"],
+    refetchQueries: [
+      "ProjectSettings",
+      "RepoSettings",
+      "GetViewableProjectRefs",
+    ],
   });
 
   return (

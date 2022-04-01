@@ -88,8 +88,7 @@ describe("My Patches Page", () => {
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyNextPage,
         secondPageDisplayNames,
-        1,
-        dataCyTableRows
+        1
       );
     });
 
@@ -97,32 +96,18 @@ describe("My Patches Page", () => {
       clickOnPageBtnAndAssertURLandTableResults(
         dataCyPrevPage,
         firstPageDisplayNames,
-        0,
-        dataCyTableRows
+        0
       );
     });
 
-    it("Does not update results or URL when left arrow is clicked and previous page does not exist", () => {
-      clickOnPageBtnAndAssertURLandTableResults(
-        dataCyPrevPage,
-        firstPageDisplayNames,
-        0,
-        dataCyTableRows
-      );
-    });
-
-    it("Does not update results or URL when right arrow is clicked and next page does not exist", () => {
+    it("Should disable pagination when there are no more pages", () => {
+      cy.get(dataCyPrevPage).should("be.disabled");
       cy.visit(`${MY_PATCHES_ROUTE}?page=2`);
-      clickOnPageBtnAndAssertURLandTableResults(
-        dataCyNextPage,
-        thirdPageDisplayNames,
-        2,
-        dataCyTableRows
-      );
+      cy.get(dataCyNextPage).should("be.disabled");
     });
 
     it("Changing page size updates URL and renders less than or equal to that many rows ", () => {
-      cy.wrap([20, 10, 50, 100]).each((pageSize) => {
+      [20, 10, 50, 100].forEach((pageSize) => {
         clickOnPageSizeBtnAndAssertURLandTableSize(
           pageSize,
           "my-patches-page-size-selector",
@@ -172,8 +157,10 @@ describe("My Patches Page", () => {
   });
 });
 
-const dataCyNextPage = "[data-cy=my-patches-pagination] > .ant-pagination-next";
-const dataCyPrevPage = "[data-cy=my-patches-pagination] > .ant-pagination-prev";
+const dataCyNextPage =
+  "[data-cy=my-patches-pagination] > .ant-pagination-next > button";
+const dataCyPrevPage =
+  "[data-cy=my-patches-pagination] > .ant-pagination-prev > button";
 const dataCyTableRows = "[data-cy=patch-card]";
 
 const patchOnCommitQueue =
@@ -202,14 +189,7 @@ const secondPageDisplayNames = [
   "SERVER-11183 test run",
   "SERVER-10992 SERVER-11130 test run",
 ];
-const thirdPageDisplayNames = [
-  "linux-64-duroff,linux-64-debug-duroff",
-  "all",
-  "linux-64",
-  "osx-108-cxx11-debug",
-  "windows-64,windows-32,solaris-64-bit",
-  "no description",
-];
+
 const clickingCheckboxUpdatesUrlAndRendersFetchedResults = ({
   selector = ".cy-checkbox",
   checkboxDisplayName,

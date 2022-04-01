@@ -99,24 +99,32 @@ describe("getTaskHistoryRoute", () => {
   it("generates a link with failing or passing tests", () => {
     expect(
       getTaskHistoryRoute("someProject", "someTaskId", {
-        failingTests: ["someFailingTest"],
+        filters: {
+          failingTests: ["someFailingTest"],
+        },
       })
     ).toBe("/task-history/someProject/someTaskId?failed=someFailingTest");
     expect(
       getTaskHistoryRoute("someProject", "someTaskId", {
-        failingTests: ["someFailingTest", "someOtherFailingTest"],
+        filters: {
+          failingTests: ["someFailingTest", "someOtherFailingTest"],
+        },
       })
     ).toBe(
       "/task-history/someProject/someTaskId?failed=someFailingTest,someOtherFailingTest"
     );
     expect(
       getTaskHistoryRoute("someProject", "someTaskId", {
-        passingTests: ["somePassingTests"],
+        filters: {
+          passingTests: ["somePassingTests"],
+        },
       })
     ).toBe("/task-history/someProject/someTaskId?passed=somePassingTests");
     expect(
       getTaskHistoryRoute("someProject", "someTaskId", {
-        passingTests: ["somePassingTests", "someOtherPassingTests"],
+        filters: {
+          passingTests: ["somePassingTests", "someOtherPassingTests"],
+        },
       })
     ).toBe(
       "/task-history/someProject/someTaskId?passed=somePassingTests,someOtherPassingTests"
@@ -125,19 +133,42 @@ describe("getTaskHistoryRoute", () => {
   it("generates a link with failing and passing tests", () => {
     expect(
       getTaskHistoryRoute("someProject", "someTaskId", {
-        failingTests: ["someFailingTest"],
-        passingTests: ["somePassingTests"],
+        filters: {
+          failingTests: ["someFailingTest"],
+          passingTests: ["somePassingTests"],
+        },
       })
     ).toBe(
       "/task-history/someProject/someTaskId?failed=someFailingTest&passed=somePassingTests"
     );
     expect(
       getTaskHistoryRoute("someProject", "someTaskId", {
-        failingTests: ["someFailingTest", "someOtherFailingTest"],
-        passingTests: ["somePassingTests", "someOtherPassingTests"],
+        filters: {
+          failingTests: ["someFailingTest", "someOtherFailingTest"],
+          passingTests: ["somePassingTests", "someOtherPassingTests"],
+        },
       })
     ).toBe(
       "/task-history/someProject/someTaskId?failed=someFailingTest,someOtherFailingTest&passed=somePassingTests,someOtherPassingTests"
+    );
+  });
+  it("generates a link with a selectedCommit", () => {
+    expect(
+      getTaskHistoryRoute("someProject", "someTaskId", {
+        selectedCommit: 1,
+      })
+    ).toBe("/task-history/someProject/someTaskId?selectedCommit=1");
+  });
+  it("generates a link with a selectedCommit and test filters", () => {
+    expect(
+      getTaskHistoryRoute("someProject", "someTaskId", {
+        filters: {
+          failingTests: ["someFailingTest", "someOtherFailingTest"],
+        },
+        selectedCommit: 1,
+      })
+    ).toBe(
+      "/task-history/someProject/someTaskId?failed=someFailingTest,someOtherFailingTest&selectedCommit=1"
     );
   });
 });
@@ -206,8 +237,8 @@ describe("getVariantHistoryRoute", () => {
   it("generates a link with a skip query param", () => {
     expect(
       getVariantHistoryRoute("someProject", "someVariant", {
-        skipOrderNumber: 1,
+        selectedCommit: 1,
       })
-    ).toBe("/variant-history/someProject/someVariant?skipOrderNumber=1");
+    ).toBe("/variant-history/someProject/someVariant?selectedCommit=1");
   });
 });

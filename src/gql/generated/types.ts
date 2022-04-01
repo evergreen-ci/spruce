@@ -3186,6 +3186,18 @@ export type EventLogsQuery = {
   };
 };
 
+export type GithubProjectConflictsQueryVariables = Exact<{
+  projectId: Scalars["String"];
+}>;
+
+export type GithubProjectConflictsQuery = {
+  githubProjectConflicts: {
+    commitQueueIdentifiers?: Maybe<Array<string>>;
+    prTestingIdentifiers?: Maybe<Array<string>>;
+    commitCheckIdentifiers?: Maybe<Array<string>>;
+  };
+};
+
 export type GetHasVersionQueryVariables = Exact<{
   id: Scalars["String"];
 }>;
@@ -3728,6 +3740,7 @@ export type GetTaskForTestsTableQueryVariables = Exact<{
 export type GetTaskForTestsTableQuery = {
   task?: Maybe<
     {
+      order: number;
       displayName: string;
       projectIdentifier?: Maybe<string>;
       displayTask?: Maybe<{ id: string; execution: number }>;
@@ -3893,6 +3906,7 @@ export type GetTaskQuery = {
         revision: string;
         project: string;
         projectIdentifier: string;
+        order: number;
       };
       project?: Maybe<{ identifier: string }>;
       dependsOn?: Maybe<
