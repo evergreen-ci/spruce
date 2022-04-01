@@ -5,11 +5,17 @@ import {
 } from "analytics/addPageAction";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
 import { TaskCellAnalytics } from "components/HistoryTable/Cell/Cell";
+import { PaginationAnalytics } from "components/HistoryTable/ColumnPaginationButtons";
 import { HistoryTableTestSearchAnalytics } from "components/HistoryTable/HistoryTableTestSearch/HistoryTableTestSearch";
 import { ProjectSelectAnalytics } from "components/projectSelect";
 import { TupleAnalytics } from "components/TupleSelect";
 
 type Action =
+  | ({ name: "Click task history task cell" } & TaskCellAnalytics)
+  | ({ name: "Click variant history task cell" } & TaskCellAnalytics)
+  | ({ name: "Paginate commit chart" } & PaginationAnalytics)
+  | ({ name: "Paginate task history" } & PaginationAnalytics)
+  | ({ name: "Paginate variant history" } & PaginationAnalytics)
   | ({ name: "Select commit chart project" } & ProjectSelectAnalytics)
   | ({ name: "Submit commit chart variant/task tuple" } & TupleAnalytics)
   | ({
@@ -28,20 +34,19 @@ type Action =
   | { name: "Click commit label jira link"; jiraTicket: string }
   | { name: "Click commit label version link"; versionId: string }
   | { name: "Click task history column header"; variant: string }
-  | ({ name: "Click task history task cell" } & TaskCellAnalytics)
-  | ({ name: "Click variant history task cell" } & TaskCellAnalytics)
   | { name: "Click variant history column header"; task: string }
   | { name: "Click variant history task selector"; tasks: string[] }
   | { name: "Filter commit chart by requester"; requesters: string[] }
   | { name: "Filter commit chart by task status"; statuses: string[] }
+  | { name: "Open task icons legend" }
   | { name: "Remove commit chart badge" }
   | { name: "Remove task history badge" }
   | { name: "Remove variant history badge" }
   | {
       name: "Submit task history build variant selector";
       buildVariants: string[];
-    }
-  | { name: "Open task icons legend" };
+    };
+
 interface P extends Properties {}
 interface Analytics extends A<Action> {}
 

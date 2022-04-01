@@ -12,6 +12,7 @@ import HistoryTable, {
   hooks,
   constants,
 } from "components/HistoryTable";
+import { PaginationAnalytics } from "components/HistoryTable/ColumnPaginationButtons";
 import { HistoryTableTestSearchAnalytics } from "components/HistoryTable/HistoryTableTestSearch/HistoryTableTestSearch";
 import { PageWrapper } from "components/styles";
 import { size } from "constants/tokens";
@@ -92,7 +93,11 @@ export const VariantHistoryContents: React.FC = () => {
               }}
             />
           </BadgeWrapper>
-          <ColumnPaginationButtons />
+          <ColumnPaginationButtons
+            sendAnalytics={(v: PaginationAnalytics) => {
+              sendEvent({ name: "Paginate variant history", ...v });
+            }}
+          />
         </PaginationFilterWrapper>
         <div>
           <ColumnHeaders projectId={projectId} variantName={variantName} />

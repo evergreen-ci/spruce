@@ -5,7 +5,15 @@ import Icon from "components/Icon";
 import { size } from "constants/tokens";
 import { useHistoryTable } from "./HistoryTableContext";
 
-const ColumnPaginationButtons: React.FC = () => {
+export interface PaginationAnalytics {
+  direction: "previous" | "next";
+}
+interface ColumnPaginationButtonsProps {
+  sendAnalytics?: (analytics: PaginationAnalytics) => void;
+}
+const ColumnPaginationButtons = ({
+  sendAnalytics,
+}: ColumnPaginationButtonsProps): JSX.Element => {
   const {
     nextPage,
     previousPage,
@@ -16,9 +24,15 @@ const ColumnPaginationButtons: React.FC = () => {
   } = useHistoryTable();
 
   const onNextClick = () => {
+    if (sendAnalytics) {
+      sendAnalytics({ direction: "next" });
+    }
     nextPage();
   };
   const onPrevClick = () => {
+    if (sendAnalytics) {
+      sendAnalytics({ direction: "previous" });
+    }
     previousPage();
   };
   return (
