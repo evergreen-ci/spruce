@@ -201,3 +201,23 @@ export const trimStringFromMiddle = (str: string, maxLength: number) => {
     str.substring(midpoint + backOffset)
   );
 };
+
+/**
+ * Convert an array of strings into a string that lists them, separated by commas and with a coordinating conjunction (i.e. "and" or "or") preceding the last word.
+ * E.g. listifyStrings(["spruce", "app", "plt"], "and") => "spruce, app, and plt"
+ * @param {string[]} listItems - List of words.
+ * @param {string} coordinatingConjunction - Word such as "and" or "or" that should precede the last list item.
+ * @return {string} List items joined by a comma with the coordinating conjunction
+ */
+export const listifyStrings = (
+  listItems: string[],
+  coordinatingConjunction: string
+) =>
+  listItems.reduce(
+    (text, word, i, wordList) =>
+      `${text}${
+        i < wordList.length - 1
+          ? ","
+          : `${i !== 1 ? "," : ""} ${coordinatingConjunction}`
+      } ${word}`
+  );

@@ -6,6 +6,7 @@ import {
   getDateCopy,
   applyStrictRegex,
   shortenGithash,
+  listifyStrings,
   trimStringFromMiddle,
 } from ".";
 
@@ -293,5 +294,21 @@ describe("trimStringFromMiddle", () => {
   });
   it("doesn't trim middle text if original text is smaller than maxLength specified", () => {
     expect(trimStringFromMiddle("task_name", 10)).toBe("task_name");
+  });
+});
+
+describe("listifyStrings", () => {
+  it("creates a list from strings", () => {
+    expect(listifyStrings(["evergreen", "spruce", "app", "plt"], "and")).toBe(
+      "evergreen, spruce, app, and plt"
+    );
+  });
+
+  it("does not include a comma for a list of two elements", () => {
+    expect(listifyStrings(["heads", "tails"], "or")).toBe("heads or tails");
+  });
+
+  it("handles a list with one element", () => {
+    expect(listifyStrings(["one"], "and")).toBe("one");
   });
 });

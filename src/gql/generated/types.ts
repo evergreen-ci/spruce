@@ -1492,6 +1492,22 @@ export type ProjectSettings = {
   subscriptions?: Maybe<Array<ProjectSubscription>>;
 };
 
+export type ProjectEventSettings = {
+  githubWebhooksEnabled: Scalars["Boolean"];
+  projectRef?: Maybe<Project>;
+  vars?: Maybe<ProjectVars>;
+  aliases?: Maybe<Array<ProjectAlias>>;
+  subscriptions?: Maybe<Array<ProjectSubscription>>;
+};
+
+export type RepoEventSettings = {
+  githubWebhooksEnabled: Scalars["Boolean"];
+  projectRef?: Maybe<Project>;
+  vars?: Maybe<ProjectVars>;
+  aliases?: Maybe<Array<ProjectAlias>>;
+  subscriptions?: Maybe<Array<ProjectSubscription>>;
+};
+
 export type RepoSettings = {
   githubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<RepoRef>;
@@ -1508,8 +1524,8 @@ export type ProjectEvents = {
 export type ProjectEventLogEntry = {
   timestamp: Scalars["Time"];
   user: Scalars["String"];
-  before?: Maybe<ProjectSettings>;
-  after?: Maybe<ProjectSettings>;
+  before?: Maybe<ProjectEventSettings>;
+  after?: Maybe<ProjectEventSettings>;
 };
 
 export type RepoEvents = {
@@ -1520,8 +1536,8 @@ export type RepoEvents = {
 export type RepoEventLogEntry = {
   timestamp: Scalars["Time"];
   user: Scalars["String"];
-  before?: Maybe<RepoSettings>;
-  after?: Maybe<RepoSettings>;
+  before?: Maybe<RepoEventSettings>;
+  after?: Maybe<RepoEventSettings>;
 };
 
 export type ProjectVars = {
@@ -2257,6 +2273,7 @@ export type ProjectGeneralSettingsFragment = {
   remotePath: string;
   spawnHostScriptPath: string;
   dispatchingDisabled?: Maybe<boolean>;
+  versionControlEnabled?: Maybe<boolean>;
   deactivatePrevious?: Maybe<boolean>;
   repotrackerDisabled?: Maybe<boolean>;
   defaultLogger: string;
@@ -2278,6 +2295,7 @@ export type RepoGeneralSettingsFragment = {
   remotePath: string;
   spawnHostScriptPath: string;
   dispatchingDisabled: boolean;
+  versionControlEnabled: boolean;
   deactivatePrevious: boolean;
   repotrackerDisabled: boolean;
   defaultLogger: string;
@@ -2730,7 +2748,7 @@ export type SaveProjectSettingsForSectionMutationVariables = Exact<{
 }>;
 
 export type SaveProjectSettingsForSectionMutation = {
-  saveProjectSettingsForSection: ProjectSettingsFragment;
+  saveProjectSettingsForSection: { projectRef?: Maybe<{ id: string }> };
 };
 
 export type SaveRepoSettingsForSectionMutationVariables = Exact<{
@@ -2739,7 +2757,7 @@ export type SaveRepoSettingsForSectionMutationVariables = Exact<{
 }>;
 
 export type SaveRepoSettingsForSectionMutation = {
-  saveRepoSettingsForSection: RepoSettingsFragment;
+  saveRepoSettingsForSection: { projectRef?: Maybe<{ id: string }> };
 };
 
 export type SaveSubscriptionMutationVariables = Exact<{

@@ -10,12 +10,14 @@ import {
 } from "constants/routes";
 import { GithubProjectConflicts } from "gql/generated/types";
 import { getTabTitle } from "pages/projectSettings/getTabTitle";
-import { alias, form, ProjectType } from "../utils";
+import { string } from "utils";
+import { alias, form, AliasFormType, ProjectType } from "../utils";
 import { GithubTriggerAliasField } from "./GithubTriggerAliasField";
 import { FormState } from "./types";
 
 const { aliasArray, aliasRowUiSchema, gitTagArray } = alias;
 const { insertIf, overrideRadioBox, placeholderIf, radioBoxOptions } = form;
+const { listifyStrings } = string;
 
 export const getFormSchema = (
   identifier: string,
@@ -23,6 +25,7 @@ export const getFormSchema = (
   githubWebhooksEnabled: boolean,
   formData: FormState,
   githubProjectConflicts: GithubProjectConflicts,
+  versionControlEnabled: boolean,
   repoData?: FormState
 ): {
   fields: Record<string, Field>;
@@ -36,6 +39,8 @@ export const getFormSchema = (
         : "hidden",
     "ui:showLabel": false,
   };
+
+  const errorStyling = sectionHasError(versionControlEnabled, projectType);
 
   return {
     fields: {
@@ -246,7 +251,7 @@ export const getFormSchema = (
           "ui:widget": widgets.RadioBoxWidget,
           ...(!!githubProjectConflicts?.prTestingIdentifiers?.length && {
             "ui:disabled": true,
-            "ui:rawErrors": [
+            "ui:errors": [
               `Enabling PR testing would introduce conflicts with the following project(s): ${githubProjectConflicts.commitQueueIdentifiers.join(
                 ", "
               )}. To enable PR testing for this project please disable it elsewhere.`,
@@ -260,6 +265,12 @@ export const getFormSchema = (
                 formData?.github?.prTestingEnabled,
                 repoData?.github?.prTestingEnabled
               )
+          ),
+          ...errorStyling(
+            formData?.github?.prTesting?.githubPrAliasesOverride,
+            formData?.github?.prTesting?.githubPrAliases,
+            repoData?.github?.prTesting?.githubPrAliases,
+            "GitHub Patch Definition"
           ),
           githubPrAliasesOverride: {
             "ui:data-cy": "pr-testing-override-radio-box",
@@ -302,7 +313,7 @@ export const getFormSchema = (
           "ui:widget": widgets.RadioBoxWidget,
           ...(!!githubProjectConflicts?.commitCheckIdentifiers?.length && {
             "ui:disabled": true,
-            "ui:rawErrors": [
+            "ui:errors": [
               `Enabling commit checks would introduce conflicts with the following project(s): ${githubProjectConflicts.commitQueueIdentifiers.join(
                 ", "
               )}. To enable commit checks for this project please disable it elsewhere.`,
@@ -316,6 +327,12 @@ export const getFormSchema = (
                 formData?.github?.githubChecksEnabled,
                 repoData?.github?.githubChecksEnabled
               )
+          ),
+          ...errorStyling(
+            formData?.github?.githubChecks?.githubCheckAliasesOverride,
+            formData?.github?.githubChecks?.githubCheckAliases,
+            repoData?.github?.githubChecks?.githubCheckAliases,
+            "Commit Check Definition"
           ),
           githubCheckAliasesOverride: overrideStyling,
           githubCheckAliases: aliasRowUiSchema({
@@ -358,6 +375,12 @@ export const getFormSchema = (
               repoData?.github?.gitTagVersionsEnabled
             )
           ),
+          ...errorStyling(
+            formData?.github?.gitTags?.gitTagAliasesOverride,
+            formData?.github?.gitTags?.gitTagAliases,
+            repoData?.github?.gitTags?.gitTagAliases,
+            "Git Tag Version Definition"
+          ),
           gitTagAliasesOverride: overrideStyling,
           gitTagAliases: gitTagArray.uiSchema,
           repoData: {
@@ -381,7 +404,7 @@ export const getFormSchema = (
           "ui:data-cy": "cq-enabled-radio-box",
           ...(!!githubProjectConflicts?.commitQueueIdentifiers?.length && {
             "ui:disabled": true,
-            "ui:rawErrors": [
+            "ui:errors": [
               `Enabling the Commit Queue would introduce conflicts with the following project(s): ${githubProjectConflicts.commitQueueIdentifiers.join(
                 ", "
               )}. To enable the Commit Queue for this project please disable it elsewhere.`,
@@ -426,6 +449,12 @@ export const getFormSchema = (
                 formData?.commitQueue?.enabled,
                 repoData?.commitQueue?.enabled
               )
+          ),
+          ...errorStyling(
+            formData?.commitQueue?.patchDefinitions?.commitQueueAliasesOverride,
+            formData?.commitQueue?.patchDefinitions?.commitQueueAliases,
+            repoData?.commitQueue?.patchDefinitions?.commitQueueAliases,
+            "Commit Queue Patch Definition"
           ),
           commitQueueAliasesOverride: {
             "ui:data-cy": "cq-override-radio-box",
@@ -502,5 +531,82 @@ const GithubTriggerAliasDescription = ({
       </StyledRouterLink>{" "}
       page.
     </Description>
+  );
+};
+
+enum ErrorType {
+  Error,
+  Warning,
+  None,
+}
+
+const getErrorStyle = (
+  errorType: ErrorType,
+  versionControlEnabled: boolean,
+  projectType: ProjectType,
+  fieldName: string
+) => {
+  if (errorType === ErrorType.Warning) {
+    const whereToDefine = ["project"];
+    if (projectType === ProjectType.AttachedProject) whereToDefine.push("repo");
+    if (versionControlEnabled) {
+      whereToDefine.push("Evergreen configuration file");
+    }
+
+    return {
+      "ui:warnings": [
+        `This feature will only run if a ${fieldName} is defined in the ${listifyStrings(
+          whereToDefine,
+          "or"
+        )}.`,
+      ],
+    };
+  }
+  if (errorType === ErrorType.Error) {
+    return {
+      "ui:errors": [
+        `A ${fieldName} must be specified for this feature to run.`,
+      ],
+    };
+  }
+  return {};
+};
+
+const sectionHasError = (
+  versionControlEnabled: boolean,
+  projectType: ProjectType
+) => (
+  override: boolean,
+  aliases: Array<AliasFormType>,
+  repoAliases: Array<AliasFormType>,
+  fieldName: string
+) => {
+  let errorType = ErrorType.None;
+  switch (projectType) {
+    case ProjectType.AttachedProject:
+      if (override && !aliases?.length) {
+        if (versionControlEnabled) {
+          errorType = ErrorType.Warning;
+        } else {
+          errorType = ErrorType.Error;
+        }
+      } else if (!override && !repoAliases?.length) {
+        errorType = ErrorType.Warning;
+      }
+      break;
+    default:
+      if (!aliases?.length) {
+        if (versionControlEnabled) {
+          errorType = ErrorType.Warning;
+        } else {
+          errorType = ErrorType.Error;
+        }
+      }
+  }
+  return getErrorStyle(
+    errorType,
+    versionControlEnabled,
+    projectType,
+    fieldName
   );
 };

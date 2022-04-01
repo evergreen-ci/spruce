@@ -120,6 +120,10 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
             repoData={
               tabData[ProjectSettingsTabRoutes.GithubCommitQueue].repoData
             }
+            versionControlEnabled={
+              projectData?.projectRef?.versionControlEnabled ??
+              repoData?.projectRef?.versionControlEnabled
+            }
           />
         )}
       />

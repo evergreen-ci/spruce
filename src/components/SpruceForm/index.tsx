@@ -2,7 +2,11 @@ import Form, { FormProps } from "@rjsf/core";
 import { SpruceFormContainer } from "./Container";
 import { transformErrors } from "./errors";
 import baseFields from "./Fields";
-import { ArrayFieldTemplate, DefaultFieldTemplate } from "./FieldTemplates";
+import {
+  ArrayFieldTemplate,
+  DefaultFieldTemplate,
+  ObjectFieldTemplate,
+} from "./FieldTemplates";
 import widgets from "./Widgets";
 
 export type FormDataProps = FormProps<any>["formData"];
@@ -33,6 +37,7 @@ export const SpruceForm: React.FC<SpruceFormProps> = ({
     tagName={tagName}
     ArrayFieldTemplate={ArrayFieldTemplate}
     FieldTemplate={DefaultFieldTemplate}
+    ObjectFieldTemplate={ObjectFieldTemplate}
     transformErrors={transformErrors}
     showErrorList={false}
     validate={validate}

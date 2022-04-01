@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
+import Banner from "@leafygreen-ui/banner";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { uiColors } from "@leafygreen-ui/palette";
 import { RadioBox, RadioBoxGroup } from "@leafygreen-ui/radio-box-group";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import {
@@ -19,7 +19,6 @@ import { errorReporting } from "utils";
 import ElementWrapper from "./ElementWrapper";
 
 const { reportError } = errorReporting;
-const { red } = uiColors;
 
 export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
   value,
@@ -225,9 +224,9 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
 }) => {
   const {
     description,
-    enumOptions,
     "data-cy": dataCy,
-    rawErrors,
+    enumOptions,
+    errors,
     showLabel,
   } = options;
   if (!Array.isArray(enumOptions)) {
@@ -237,13 +236,13 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
     return null;
   }
 
-  if (rawErrors && !Array.isArray(rawErrors)) {
+  if (errors && !Array.isArray(errors)) {
     reportError(
-      new Error("LeafyGreen Radio Box expects rawErrors to be an array")
+      new Error("LeafyGreen Radio Box expects errors to be an array")
     ).warning();
     return null;
   }
-  const errs = rawErrors as string[];
+  const errs = errors as string[];
 
   // Workaround because {ui:widget: hidden} does not play nicely with this widget
   const hide = uiSchema["ui:hide"] ?? false;
@@ -264,7 +263,9 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
           {description && <Description>{description}</Description>}
         </RadioBoxLabelContainer>
       )}
-      {!!errs?.length && <ErrorText>{errs?.join(", ")}</ErrorText>}
+      {!!errs?.length && (
+        <StyledBanner variant="danger">{errs?.join(", ")}</StyledBanner>
+      )}
       <RadioBoxGroup
         id={id}
         name={label}
@@ -285,6 +286,10 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
     </ElementWrapper>
   );
 };
+
+const StyledBanner = styled(Banner)`
+  margin-bottom: ${size.s};
+`;
 
 const RadioBoxLabelContainer = styled.div`
   margin-bottom: ${size.xs};
@@ -368,10 +373,6 @@ export const LeafyGreenSegmentedControl: React.FC<WidgetProps> = ({
     </ElementWrapper>
   );
 };
-
-const ErrorText = styled.p`
-  color: ${red.base};
-`;
 
 const StyledSegmentedControl = styled(SegmentedControl)`
   margin-bottom: ${size.s};
