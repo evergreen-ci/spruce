@@ -4,13 +4,14 @@ import { LabelCellContainer } from "../Cell/Cell";
 import { useHistoryTable } from "../HistoryTableContext";
 import { rowType } from "../types";
 import { DateSeparator } from "./DateSeparator";
-import { FoldedCommit } from "./FoldedCommit";
+import { FoldedCommit, FoldedCommitAnalytics } from "./FoldedCommit";
 import { LoadingRow } from "./LoadingRow";
 import { RowContainer } from "./styles";
 
 interface RowProps extends ListChildComponentProps {
   columns: React.ReactNode[];
   numVisibleCols: number;
+  sendFoldedCommitAnalytics?: (analytics: FoldedCommitAnalytics) => void;
 }
 const Row: React.FC<RowProps> = ({
   columns,
@@ -18,6 +19,7 @@ const Row: React.FC<RowProps> = ({
   index,
   style,
   data,
+  sendFoldedCommitAnalytics = () => {},
 }) => {
   const { isItemLoaded, getItem, columnLimit } = useHistoryTable();
   if (!isItemLoaded(index)) {
@@ -63,6 +65,7 @@ const Row: React.FC<RowProps> = ({
         toggleRowSize={data.toggleRowSize}
         numVisibleCols={numVisibleCols || columnLimit}
         style={style}
+        sendAnalytics={sendFoldedCommitAnalytics}
       />
     );
   }

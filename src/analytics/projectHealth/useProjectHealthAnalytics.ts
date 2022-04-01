@@ -6,6 +6,7 @@ import {
 import { useGetUserQuery } from "analytics/useGetUserQuery";
 import { TaskCellAnalytics } from "components/HistoryTable/Cell/Cell";
 import { PaginationAnalytics } from "components/HistoryTable/ColumnPaginationButtons";
+import { FoldedCommitAnalytics } from "components/HistoryTable/HistoryTableRow/FoldedCommit";
 import { HistoryTableTestSearchAnalytics } from "components/HistoryTable/HistoryTableTestSearch/HistoryTableTestSearch";
 import { ProjectSelectAnalytics } from "components/projectSelect";
 import { TupleAnalytics } from "components/TupleSelect";
@@ -45,7 +46,9 @@ type Action =
   | {
       name: "Submit task history build variant selector";
       buildVariants: string[];
-    };
+    }
+  | ({ name: "Toggle task history folded commit" } & FoldedCommitAnalytics)
+  | ({ name: "Toggle variant history folded commit" } & FoldedCommitAnalytics);
 
 interface P extends Properties {}
 interface Analytics extends A<Action> {}

@@ -2,6 +2,7 @@ import { ListChildComponentProps } from "react-window";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { context, Cell, Row, types, hooks } from "components/HistoryTable";
 import { TaskCellAnalytics } from "components/HistoryTable/Cell/Cell";
+import { FoldedCommitAnalytics } from "components/HistoryTable/HistoryTableRow/FoldedCommit";
 import { array } from "utils";
 
 const { convertArrayToObject } = array;
@@ -56,6 +57,9 @@ const TaskHistoryRow: React.FC<ListChildComponentProps> = (props) => {
       {...props}
       columns={orderedColumns}
       numVisibleCols={visibleColumns.length}
+      sendFoldedCommitAnalytics={(v: FoldedCommitAnalytics) => {
+        sendEvent({ name: "Toggle task history folded commit", ...v });
+      }}
     />
   );
 };

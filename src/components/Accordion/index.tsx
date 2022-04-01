@@ -12,7 +12,7 @@ interface AccordionProps {
   allowToggleFromTitle?: boolean;
   defaultOpen?: boolean;
   titleTag?: React.FC;
-  onToggle?: () => void;
+  onToggle?: (nextState?: boolean) => void;
   useIndent?: boolean;
 }
 export const Accordion: React.FC<AccordionProps> = ({
@@ -29,8 +29,9 @@ export const Accordion: React.FC<AccordionProps> = ({
 }) => {
   const [isAccordionDisplayed, setIsAccordionDisplayed] = useState(defaultOpen);
   const toggleAccordionHandler = (): void => {
-    setIsAccordionDisplayed(!isAccordionDisplayed);
-    onToggle();
+    const nextState = !isAccordionDisplayed;
+    setIsAccordionDisplayed(nextState);
+    onToggle(nextState);
   };
 
   const showToggledTitle = isAccordionDisplayed ? toggledTitle : title;

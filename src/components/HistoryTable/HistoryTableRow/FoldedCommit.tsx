@@ -8,6 +8,9 @@ import { EmptyCell, LabelCellContainer } from "../Cell/Cell";
 import { FOLDED_COMMITS_HEIGHT, COMMIT_HEIGHT } from "../constants";
 import { RowContainer } from "./styles";
 
+export interface FoldedCommitAnalytics {
+  toggle: "open" | "close";
+}
 interface FoldedCommitProps {
   index: number;
   rolledUpCommits: Unpacked<
@@ -16,6 +19,7 @@ interface FoldedCommitProps {
   toggleRowSize: (idx: number, numCommits: number) => void;
   numVisibleCols: number;
   style?: CSSProperties;
+  sendAnalytics?: (analytics: FoldedCommitAnalytics) => void;
 }
 export const FoldedCommit: React.FC<FoldedCommitProps> = ({
   index,
@@ -23,6 +27,7 @@ export const FoldedCommit: React.FC<FoldedCommitProps> = ({
   toggleRowSize,
   numVisibleCols,
   style,
+  sendAnalytics = () => {},
 }) => {
   // The commits are expanded if the height of the element is not equal to FOLDED_COMMITS_HEIGHT.
   const { height } = style;
@@ -56,7 +61,10 @@ export const FoldedCommit: React.FC<FoldedCommitProps> = ({
         titleTag={AccordionTitle}
         contents={commits}
         defaultOpen={defaultOpen}
-        onToggle={() => toggleRowSize(index, numCommits)}
+        onToggle={(isVisible) => {
+          sendAnalytics({ toggle: isVisible ? "open" : "close" });
+          toggleRowSize(index, numCommits);
+        }}
         useIndent={false}
       />
     </Column>
