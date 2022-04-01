@@ -77,7 +77,9 @@ export const FoldedCommit = memo(
           titleTag={AccordionTitle}
           contents={commits}
           onToggle={(isVisible: boolean) => {
-            sendAnalytics({ toggle: isVisible ? "open" : "close" });
+            if (sendAnalytics) {
+              sendAnalytics({ toggle: isVisible ? "open" : "close" });
+            }
             toggleRowSize(index, numCommits);
           }}
           useIndent={false}
