@@ -21,6 +21,18 @@ describe("commits page", () => {
     );
     cy.dataCy("grouped-task-status-badge").should("not.exist");
   });
+  it("should be able to collapse/expand commit graph which retains state when paginating", () => {
+    cy.dataCy("commit-chart-container").should("be.visible");
+    cy.contains("Project Health").click();
+    cy.dataCy("commit-chart-container").should("not.be.visible");
+    cy.dataCy("next-page-button").click();
+    cy.dataCy("commit-chart-container").should("not.be.visible");
+
+    cy.contains("Project Health").click();
+    cy.dataCy("commit-chart-container").should("be.visible");
+    cy.dataCy("prev-page-button").click();
+    cy.dataCy("commit-chart-container").should("be.visible");
+  });
   it("toggling chart types should change the charts in view", () => {
     cy.getInputByLabel("Absolute Number").should("be.checked");
     cy.dataCy("commit-chart-container").should(
