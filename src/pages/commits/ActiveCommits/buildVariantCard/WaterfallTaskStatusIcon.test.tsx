@@ -8,6 +8,7 @@ const props = {
   displayName: "multiversion",
   timeTaken: 2754729,
   taskId: "task",
+  identifier: "ubuntu1604-multiversion",
 };
 
 const Content = (status: string) => () => (

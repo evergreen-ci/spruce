@@ -44,7 +44,7 @@ export const clickOnPageBtnAndAssertURLandTableResults = (
 ) => {
   cy.get(dataCyPageBtn).should("be.visible");
   cy.get(dataCyPageBtn).should("not.be.disabled");
-  cy.get(dataCyPageBtn).click();
+  cy.get(dataCyPageBtn).click({ force: true });
   tableDisplayNames.forEach((displayName) => {
     cy.contains(displayName);
   });

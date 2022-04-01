@@ -256,6 +256,7 @@ export const getFormSchema = (
           ),
         },
         repo: {
+          "ui:data-cy": "repo-input",
           ...placeholderIf(
             repoData?.generalConfiguration?.repositoryInfo?.repo
           ),

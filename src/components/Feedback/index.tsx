@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 import Icon from "components/Icon";
 import { StyledLink as Link } from "components/styles";
 import { HIDE_FEEDBACK } from "constants/cookies";
-import { size, zIndex } from "constants/tokens";
+import { size } from "constants/tokens";
 import { GetSpruceConfigQuery } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
 
@@ -18,13 +18,10 @@ export const Feedback: React.FC = () => {
 
   const userVoiceUrl = data?.spruceConfig?.ui?.userVoice;
 
-  const hideFeeback =
-    Cookies.get(HIDE_FEEDBACK) !== undefined
-      ? Cookies.get(HIDE_FEEDBACK) === "true"
-      : false;
-  const [isHidden, setIsHidden] = useState(hideFeeback);
+  const hideFeeback = Boolean(Cookies.get(HIDE_FEEDBACK));
+  const [isHidden, setIsHidden] = useState(!hideFeeback);
   return (
-    <FloatingContainer>
+    <div>
       {!isHidden && (
         <StyledLink target="_blank" href={userVoiceUrl}>
           Feature Requests/Feedback
@@ -39,26 +36,18 @@ export const Feedback: React.FC = () => {
       >
         <StyledIcon glyph="Megaphone" color={green.base} />
       </IconButton>
-    </FloatingContainer>
+    </div>
   );
 };
-const FloatingContainer = styled.div`
-  position: fixed;
-  z-index: ${zIndex.tooltip};
-  bottom: 0;
-  right: 0;
-  margin-left: ${size.l};
-  margin-bottom: ${size.s};
-  background-color: white;
-  padding: ${size.xs};
-  border-radius: ${size.s};
-  display: flex;
-  justify-content: center;
-`;
+
 const StyledIcon = styled(Icon)`
   cursor: pointer;
 `;
 const StyledLink = styled(Link)`
-  margin-right: ${size.xxs};
   margin-top: ${size.xxs};
+  margin-right: ${size.xs};
+  position: fixed;
+  background-color: ${uiColors.white};
+  white-space: nowrap;
+  right: ${size.l};
 `;

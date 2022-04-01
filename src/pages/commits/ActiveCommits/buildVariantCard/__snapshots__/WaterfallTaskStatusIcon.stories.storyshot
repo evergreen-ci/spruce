@@ -2,9 +2,8 @@
 
 exports[`storybook Storyshots WaterfallTaskStatusIcon Failed Icon 1`] = `
 <a
-  aria-disabled={false}
   aria-label="failed icon"
-  className="leafygreen-ui-12hedrr"
+  className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
   data-cy="waterfall-task-status-icon"
   href="/task/task"
   onBlur={[Function]}
@@ -12,11 +11,10 @@ exports[`storybook Storyshots WaterfallTaskStatusIcon Failed Icon 1`] = `
   onFocus={[Function]}
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
-  onMouseOver={[Function]}
-  tabIndex={0}
 >
   <div
-    className="leafygreen-ui-xhlipt"
+    className="css-h1k2k-TaskStatusWrapper enafhlo0"
+    data-task-icon="ubuntu1604-multiversion"
   >
     <svg
       aria-label="Failure Icon"
@@ -36,9 +34,8 @@ exports[`storybook Storyshots WaterfallTaskStatusIcon Failed Icon 1`] = `
 
 exports[`storybook Storyshots WaterfallTaskStatusIcon Success Icon 1`] = `
 <a
-  aria-disabled={false}
   aria-label="success icon"
-  className="leafygreen-ui-12hedrr"
+  className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
   data-cy="waterfall-task-status-icon"
   href="/task/task"
   onBlur={[Function]}
@@ -46,11 +43,10 @@ exports[`storybook Storyshots WaterfallTaskStatusIcon Success Icon 1`] = `
   onFocus={[Function]}
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
-  onMouseOver={[Function]}
-  tabIndex={0}
 >
   <div
-    className="leafygreen-ui-xhlipt"
+    className="css-h1k2k-TaskStatusWrapper enafhlo0"
+    data-task-icon="ubuntu1604-multiversion"
   >
     <svg
       aria-label="Checkmark Icon"
