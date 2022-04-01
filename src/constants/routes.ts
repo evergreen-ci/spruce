@@ -103,6 +103,7 @@ export const routes = {
   variantHistory: `${paths.variantHistory}/:projectId/:variantName`,
   taskHistory: `${paths.taskHistory}/:projectId/:taskName`,
   jobLogs: `${paths.jobLogs}/:taskId/:execution/:groupId?`,
+  aprilFools: `/april-fools`,
   ...projectSettingsRoutes,
 };
 

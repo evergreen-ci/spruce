@@ -1,31 +1,36 @@
 import React from "react";
 import styled from "@emotion/styled";
-import Modal, { ModalSize } from "@leafygreen-ui/modal";
+import Modal from "@leafygreen-ui/modal";
 import { H3 } from "@leafygreen-ui/typography";
 import { size as tokenSize, zIndex } from "constants/tokens";
 
-interface DisplayModalProps {
+interface DisplayModalProps extends React.ComponentProps<typeof Modal> {
   "data-cy"?: string;
-  open?: boolean;
-  setOpen?: (
-    open: boolean
-  ) => void | React.Dispatch<React.SetStateAction<boolean>>;
-  size?: ModalSize;
   title?: string;
+  darkMode?: boolean;
+  wrapper?: (children: JSX.Element) => JSX.Element;
 }
 
-export const DisplayModal: React.FC<DisplayModalProps> = ({
+export const DisplayModal = ({
   children,
   "data-cy": dataCy,
-  open,
-  setOpen,
-  size,
   title,
-}) => (
-  <StyledModal data-cy={dataCy} open={open} setOpen={setOpen} size={size}>
-    {/* @ts-expect-error */}
-    {title && <StyledHeader>{title}</StyledHeader>}
-    {children}
+  darkMode,
+  wrapper = (c) => c,
+  ...rest
+}: DisplayModalProps) => (
+  <StyledModal data-cy={dataCy} {...rest} darkMode={darkMode}>
+    {wrapper(
+      <>
+        {title && (
+          // @ts-expect-error
+          <StyledHeader style={{ color: darkMode && "white" }}>
+            {title}
+          </StyledHeader>
+        )}
+        {children}
+      </>
+    )}
   </StyledModal>
 );
 
