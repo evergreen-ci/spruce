@@ -357,7 +357,7 @@ describe("Project Settings when not defaulting to repo", () => {
 
   describe("Periodic Builds page", () => {
     before(() => {
-      cy.dataCy("navitem-periodic-builds").click();
+      cy.dataCy("navitem-periodic-builds").click({ force: true });
     });
 
     it("Does not allow saving when interval is not a number", () => {
