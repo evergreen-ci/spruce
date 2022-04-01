@@ -243,16 +243,16 @@ const getHistoryRoute = (
     failingTests?: string[];
     passingTests?: string[];
   },
-  skipOrderNumber?: number
+  selectedCommit?: number
 ) => {
-  if (filters || skipOrderNumber) {
+  if (filters || selectedCommit) {
     const failingTests = toArray(filters?.failingTests);
     const passingTests = toArray(filters?.passingTests);
 
     const queryParams = stringifyQuery({
       [TestStatus.Failed]: failingTests,
       [TestStatus.Passed]: passingTests,
-      [HistoryQueryParams.SkipOrderNumber]: skipOrderNumber,
+      [HistoryQueryParams.SelectedCommit]: selectedCommit,
     });
     return `${basePath}?${queryParams}`;
   }
@@ -266,26 +266,33 @@ export const getVariantHistoryRoute = (
       failingTests?: string[];
       passingTests?: string[];
     };
-    skipOrderNumber?: number;
+    selectedCommit?: number;
   }
 ) => {
-  const { filters, skipOrderNumber } = options || {};
+  const { filters, selectedCommit } = options || {};
   return getHistoryRoute(
     `${paths.variantHistory}/${projectIdentifier}/${variantName}`,
     filters,
-    skipOrderNumber
+    selectedCommit
   );
 };
 
 export const getTaskHistoryRoute = (
   projectIdentifier: string,
   taskName: string,
-  filters?: {
-    failingTests?: string[];
-    passingTests?: string[];
+  options?: {
+    filters?: {
+      failingTests?: string[];
+      passingTests?: string[];
+    };
+    selectedCommit?: number;
   }
-) =>
-  getHistoryRoute(
+) => {
+  const { filters, selectedCommit } = options || {};
+
+  return getHistoryRoute(
     `${paths.taskHistory}/${projectIdentifier}/${taskName}`,
-    filters
+    filters,
+    selectedCommit
   );
+};
