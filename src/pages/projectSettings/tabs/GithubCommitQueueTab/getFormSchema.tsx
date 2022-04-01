@@ -252,7 +252,7 @@ export const getFormSchema = (
           ...(!!githubProjectConflicts?.prTestingIdentifiers?.length && {
             "ui:disabled": true,
             "ui:errors": [
-              `Enabling PR testing would introduce conflicts with the following project(s): ${githubProjectConflicts.commitQueueIdentifiers.join(
+              `Enabling PR testing would introduce conflicts with the following project(s): ${githubProjectConflicts.prTestingIdentifiers.join(
                 ", "
               )}. To enable PR testing for this project please disable it elsewhere.`,
             ],
@@ -314,7 +314,7 @@ export const getFormSchema = (
           ...(!!githubProjectConflicts?.commitCheckIdentifiers?.length && {
             "ui:disabled": true,
             "ui:errors": [
-              `Enabling commit checks would introduce conflicts with the following project(s): ${githubProjectConflicts.commitQueueIdentifiers.join(
+              `Enabling commit checks would introduce conflicts with the following project(s): ${githubProjectConflicts.commitCheckIdentifiers.join(
                 ", "
               )}. To enable commit checks for this project please disable it elsewhere.`,
             ],

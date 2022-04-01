@@ -100,11 +100,6 @@ describe("Repo Settings", () => {
       cy.dataCy("cq-enabled-radio-box").children().eq(1).click();
       countCQFields(2);
       cy.dataCy("cq-card").children().eq(1).should("be.empty");
-      cy.dataCy("error-banner")
-        .contains(
-          "A Commit Check Definition must be specified for this feature to run."
-        )
-        .should("not.exist");
       cy.dataCy("cq-enabled-radio-box").children().first().click();
       countCQFields(5);
     });
