@@ -374,7 +374,9 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               987bf57
             </a>
              
-            7/16/21 3:53 PM
+            <b>
+              7/16/21 3:53 PM
+            </b>
           </div>
           <div
             className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
@@ -424,7 +426,9 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               a77bd39
             </a>
              
-            7/13/21 2:51 PM
+            <b>
+              7/13/21 2:51 PM
+            </b>
           </div>
           <div
             className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
@@ -487,7 +491,9 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               9c1d1eb
             </a>
              
-            7/13/21 2:51 PM
+            <b>
+              7/13/21 2:51 PM
+            </b>
           </div>
           <div
             className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
@@ -537,7 +543,9 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               f7f7f1a
             </a>
              
-            7/13/21 2:51 PM
+            <b>
+              7/13/21 2:51 PM
+            </b>
           </div>
           <div
             className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
@@ -580,7 +588,9 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
               211b3a0
             </a>
              
-            7/13/21 2:51 PM
+            <b>
+              7/13/21 2:51 PM
+            </b>
           </div>
           <div
             className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"

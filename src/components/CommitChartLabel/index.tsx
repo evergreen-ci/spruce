@@ -48,7 +48,7 @@ const CommitChartLabel: React.FC<Props> = ({
         <StyledRouterLink to={getVersionRoute(versionId)}>
           {shortenGithash(githash)}
         </StyledRouterLink>{" "}
-        {shortDate(createDate)}
+        <b>{shortDate(createDate)}</b>
       </LabelText>
       <LabelText>{author} -</LabelText>
       <LabelText>
