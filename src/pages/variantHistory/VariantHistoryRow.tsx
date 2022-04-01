@@ -1,4 +1,5 @@
-import { ListChildComponentProps } from "react-window";
+import { memo } from "react";
+import { ListChildComponentProps, areEqual } from "react-window";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { context, Cell, Row, types, hooks } from "components/HistoryTable";
 import { TaskCellAnalytics } from "components/HistoryTable/Cell/Cell";
@@ -11,7 +12,7 @@ const { useHistoryTable } = context;
 const { useTestResults } = hooks;
 const { rowType } = types;
 
-const VariantHistoryRow: React.FC<ListChildComponentProps> = (props) => {
+const VariantHistoryRow = memo((props: ListChildComponentProps) => {
   const { sendEvent } = useProjectHealthAnalytics();
   const { index } = props;
   let orderedColumns = [];
@@ -55,8 +56,9 @@ const VariantHistoryRow: React.FC<ListChildComponentProps> = (props) => {
       sendFoldedCommitAnalytics={(v: FoldedCommitAnalytics) => {
         sendEvent({ name: "Toggle variant history folded commit", ...v });
       }}
+      selected={commit?.selected}
     />
   );
-};
+}, areEqual);
 
 export default VariantHistoryRow;

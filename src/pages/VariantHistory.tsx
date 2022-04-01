@@ -30,10 +30,10 @@ import {
 } from "./variantHistory/index";
 
 const { HistoryTableProvider } = context;
-const { useTestFilters } = hooks;
+const { useTestFilters, useJumpToCommit } = hooks;
 const { applyStrictRegex } = string;
 
-export const VariantHistoryContents: React.FC = () => {
+const VariantHistoryContents: React.FC = () => {
   const { projectId, variantName } = useParams<{
     projectId: string;
     variantName: string;
@@ -41,28 +41,27 @@ export const VariantHistoryContents: React.FC = () => {
   const { sendEvent } = useProjectHealthAnalytics();
   usePageTitle(`Variant History | ${projectId} | ${variantName}`);
   const [nextPageOrderNumber, setNextPageOrderNumber] = useState(null);
-
-  const variables = {
-    mainlineCommitsOptions: {
-      projectID: projectId,
-      limit: 5,
-      skipOrderNumber: nextPageOrderNumber,
-    },
-    buildVariantOptions: {
-      variants: [applyStrictRegex(variantName)],
-    },
-  };
+  useJumpToCommit();
+  useTestFilters();
 
   const { data } = useQuery<
     MainlineCommitsForHistoryQuery,
     MainlineCommitsForHistoryQueryVariables
   >(GET_MAINLINE_COMMITS_FOR_HISTORY, {
-    variables,
+    variables: {
+      mainlineCommitsOptions: {
+        projectID: projectId,
+        limit: 5,
+        skipOrderNumber: nextPageOrderNumber,
+      },
+      buildVariantOptions: {
+        variants: [applyStrictRegex(variantName)],
+      },
+    },
+    fetchPolicy: "network-only",
   });
 
   const { mainlineCommits } = data || {};
-
-  useTestFilters();
 
   return (
     <PageWrapper>

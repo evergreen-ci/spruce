@@ -1,12 +1,30 @@
 import { MainlineCommitsForHistoryQuery } from "gql/generated/types";
+import { Unpacked } from "types/utils";
 
-export type CommitRowType = {
-  type: rowType;
-  commit?: MainlineCommitsForHistoryQuery["mainlineCommits"]["versions"][0]["version"];
-  rolledUpCommits?: MainlineCommitsForHistoryQuery["mainlineCommits"]["versions"][0]["rolledUpVersions"];
-  date: Date;
-  rowHeight: number;
-};
+export type CommitRowType =
+  | {
+      type: rowType.FOLDED_COMMITS;
+      rolledUpCommits: Unpacked<
+        mainlineCommits["versions"]
+      >["rolledUpVersions"];
+      rowHeight: number;
+      date: Date;
+      selected: boolean;
+    }
+  | {
+      type: rowType.DATE_SEPARATOR;
+      date: Date;
+      rowHeight: number;
+      selected?: boolean;
+    }
+  | {
+      type: rowType.COMMIT;
+      commit: Unpacked<mainlineCommits["versions"]>["version"];
+      date: Date;
+      selected: boolean;
+      rowHeight: number;
+    };
+
 export type mainlineCommits = MainlineCommitsForHistoryQuery["mainlineCommits"];
 
 export enum rowType {

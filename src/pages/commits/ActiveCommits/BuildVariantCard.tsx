@@ -58,7 +58,7 @@ export const BuildVariantCard: React.FC<Props> = ({
       <Label
         data-cy="variant-header"
         to={getVariantHistoryRoute(projectIdentifier, variant, {
-          skipOrderNumber: order + 1,
+          selectedCommit: order,
         })}
         onClick={() => {
           sendEvent({

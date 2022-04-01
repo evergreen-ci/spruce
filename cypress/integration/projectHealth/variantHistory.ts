@@ -8,7 +8,7 @@ describe("variant history", () => {
     cy.preserveCookies();
   });
 
-  it("should be linked to the variant history page from the project health page", () => {
+  it("should link to a specific commit from the project health page", () => {
     cy.visit("/commits/spruce");
     cy.dataCy("variant-header").should("exist");
     cy.dataCy("variant-header").scrollIntoView();
@@ -16,6 +16,10 @@ describe("variant history", () => {
     cy.dataCy("variant-header").should("contain.text", "Ubuntu 16.04");
     cy.dataCy("variant-header").click();
     cy.location("pathname").should("eq", "/variant-history/spruce/ubuntu1604");
+    cy.location("search").should("eq", "?selectedCommit=1236");
+    cy.contains("Triggered From Git Tag").should("be.visible");
+    cy.get("[data-selected='true']").should("exist");
+    cy.get("[data-selected='true']").should("contain.text", "v2.28.5");
   });
   it("should be able to paginate column headers", () => {
     cy.dataCy("header-cell").should("have.length", 7);
@@ -25,6 +29,7 @@ describe("variant history", () => {
     cy.dataCy("header-cell").should("have.length", 7);
   });
   it("should be able expand and collapse inactive commits", () => {
+    cy.visit("/variant-history/spruce/ubuntu1604");
     // Expand
     cy.contains("EVG-16356").should("not.be.visible");
     cy.contains("Expand 1 inactive").should("exist");

@@ -12,12 +12,14 @@ interface RowProps extends ListChildComponentProps {
   columns: React.ReactNode[];
   numVisibleCols: number;
   sendFoldedCommitAnalytics?: (analytics: FoldedCommitAnalytics) => void;
+  selected: boolean;
 }
 const Row: React.FC<RowProps> = ({
   columns,
   numVisibleCols,
   index,
   style,
+  selected,
   data,
   sendFoldedCommitAnalytics = () => {},
 }) => {
@@ -43,7 +45,7 @@ const Row: React.FC<RowProps> = ({
     } = commit.commit;
 
     return (
-      <RowContainer style={style}>
+      <RowContainer data-selected={selected} selected={selected} style={style}>
         <LabelCellContainer>
           <CommitChartLabel
             versionId={versionId}
@@ -66,6 +68,7 @@ const Row: React.FC<RowProps> = ({
         numVisibleCols={numVisibleCols || columnLimit}
         style={style}
         sendAnalytics={sendFoldedCommitAnalytics}
+        selected={selected}
       />
     );
   }
