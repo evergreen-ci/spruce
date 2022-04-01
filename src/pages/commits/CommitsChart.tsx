@@ -31,7 +31,7 @@ interface Props {
   hasError?: boolean;
 }
 
-export const CommitChartWrapper: React.FC<Props> = ({
+export const CommitsChart: React.FC<Props> = ({
   versions,
   hasTaskFilter,
   hasError = false,
@@ -83,6 +83,7 @@ export const CommitChartWrapper: React.FC<Props> = ({
     <>
       <Accordion
         title="Project Health"
+        useIndent={false}
         defaultOpen={chartOpen}
         onToggle={() => onChangeChartOpen(!chartOpen)}
         contents={

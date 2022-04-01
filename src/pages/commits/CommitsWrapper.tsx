@@ -6,7 +6,7 @@ import { Skeleton } from "antd";
 import { size } from "constants/tokens";
 import { Commits } from "types/commits";
 import { hoverTaskIcons } from "./ActiveCommits/utils";
-import { CommitChartWrapper } from "./CommitChartWrapper";
+import { CommitsChart } from "./CommitsChart";
 import {
   getCommitKey,
   getCommitWidth,
@@ -39,7 +39,7 @@ export const CommitsWrapper: React.FC<Props> = ({
   }, [isLoading, versions]);
 
   if (error) {
-    return <CommitChartWrapper hasError />;
+    return <CommitsChart hasError />;
   }
   if (isLoading) {
     return <StyledSkeleton active title={false} paragraph={{ rows: 6 }} />;
@@ -47,7 +47,7 @@ export const CommitsWrapper: React.FC<Props> = ({
   if (versions) {
     return (
       <ChartContainer>
-        <CommitChartWrapper versions={versions} hasTaskFilter={hasTaskFilter} />
+        <CommitsChart versions={versions} hasTaskFilter={hasTaskFilter} />
         <StickyContainer>
           <FlexRowContainer>
             {versions.map((commit) => (
