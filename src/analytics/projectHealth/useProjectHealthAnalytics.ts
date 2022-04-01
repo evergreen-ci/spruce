@@ -49,7 +49,11 @@ type Action =
     }
   | ({ name: "Toggle task history folded commit" } & FoldedCommitAnalytics)
   | ({ name: "Toggle variant history folded commit" } & FoldedCommitAnalytics)
-  | { name: "Toggle inactive/unmatching commit chart label tooltip" };
+  | {
+      name: "Toggle commit chart label tooltip";
+      type: "Unmatching" | "Inactive";
+      toggle: "open" | "close";
+    };
 
 interface P extends Properties {}
 interface Analytics extends A<Action> {}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
@@ -32,7 +32,7 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
   const { sendEvent } = useProjectHealthAnalytics();
   const [showModal, setShowModal] = useState(false);
   const versionCount = rolledUpVersions.length;
-
+  const tooltipRef = useRef(null);
   const shouldSplitCommits = versionCount > MAX_COMMIT_COUNT;
 
   const tooltipType = hasFilters ? "Unmatching" : "Inactive";
@@ -76,7 +76,9 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
           <ButtonContainer
             onClick={() => {
               sendEvent({
-                name: "Toggle inactive/unmatching commit chart label tooltip",
+                name: "Toggle commit chart label tooltip",
+                type: tooltipType,
+                toggle: tooltipRef?.current ? "close" : "open",
               });
             }}
             role="button"
@@ -90,7 +92,7 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
         triggerEvent="click"
         popoverZIndex={zIndex.tooltip}
       >
-        <TooltipContainer data-cy="inactive-commits-tooltip">
+        <TooltipContainer ref={tooltipRef} data-cy="inactive-commits-tooltip">
           <TooltipTitleText>
             {versionCount} {tooltipType}
             {` Commit${versionCount !== 1 ? "s" : ""}`}
