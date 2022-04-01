@@ -321,9 +321,9 @@ describe("historyTableContext", () => {
       act(() => {
         result.current.onChangeTableWidth(200);
       });
-      expect(result.current.pageCount).toBe(4);
-      expect(result.current.visibleColumns).toHaveLength(7);
-      expect(result.current.visibleColumns).toStrictEqual(columns.slice(0, 7));
+      expect(result.current.pageCount).toBe(25);
+      expect(result.current.visibleColumns).toHaveLength(1);
+      expect(result.current.visibleColumns).toStrictEqual(columns.slice(0, 1));
       expect(result.current.currentPage).toBe(0);
     });
     it(`should not mutate the reducer state if the screen width is adjusted and number of columns 
