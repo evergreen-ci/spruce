@@ -212,7 +212,7 @@
     "mutation-observer": "1.0.3",
     "path": "0.12.7",
     "pnp-webpack-plugin": "1.6.4",
-    "prettier": "2.2.1",
+    "prettier": "2.6.1",
     "prompt": "^1.0.0",
     "prompt-run": "^1.4.5",
     "prompts": "2.4.0",
