@@ -1,9 +1,11 @@
+import { useEffect } from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
 import { size } from "constants/tokens";
 import { Commits } from "types/commits";
+import { hoverTaskIcons } from "./ActiveCommits/utils";
 import { CommitChartWrapper } from "./CommitChartWrapper";
 import {
   getCommitKey,
@@ -30,13 +32,18 @@ export const CommitsWrapper: React.FC<Props> = ({
   hasTaskFilter,
   hasFilters,
 }) => {
+  useEffect(() => {
+    if (!isLoading) {
+      hoverTaskIcons();
+    }
+  }, [isLoading, versions]);
+
   if (error) {
     return <CommitChartWrapper hasError />;
   }
   if (isLoading) {
     return <StyledSkeleton active title={false} paragraph={{ rows: 6 }} />;
   }
-
   if (versions) {
     return (
       <ChartContainer>
