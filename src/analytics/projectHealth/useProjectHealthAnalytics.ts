@@ -48,7 +48,8 @@ type Action =
       buildVariants: string[];
     }
   | ({ name: "Toggle task history folded commit" } & FoldedCommitAnalytics)
-  | ({ name: "Toggle variant history folded commit" } & FoldedCommitAnalytics);
+  | ({ name: "Toggle variant history folded commit" } & FoldedCommitAnalytics)
+  | { name: "Toggle inactive/unmatching commit chart label tooltip" };
 
 interface P extends Properties {}
 interface Analytics extends A<Action> {}

@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { DisplayModal } from "components/DisplayModal";
 import { StyledRouterLink } from "components/styles";
 import { getVersionRoute } from "constants/routes";
@@ -28,6 +29,7 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
   rolledUpVersions,
   hasFilters = false,
 }) => {
+  const { sendEvent } = useProjectHealthAnalytics();
   const [showModal, setShowModal] = useState(false);
   const versionCount = rolledUpVersions.length;
 
@@ -71,7 +73,14 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
         align="bottom"
         justify="middle"
         trigger={
-          <ButtonContainer role="button">
+          <ButtonContainer
+            onClick={() => {
+              sendEvent({
+                name: "Toggle inactive/unmatching commit chart label tooltip",
+              });
+            }}
+            role="button"
+          >
             <ButtonText data-cy="inactive-commits-button">
               <div>{versionCount}</div>
               {tooltipType}
