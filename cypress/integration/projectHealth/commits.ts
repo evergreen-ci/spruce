@@ -51,7 +51,10 @@ describe("commits page", () => {
       "data-type",
       "percentage"
     );
-    cy.location("search").should("contain", "?chartType=percentage");
+    cy.location("search").should(
+      "contain",
+      "?chartOpen=True&chartType=percentage"
+    );
     cy.getInputByLabel("Absolute Number").click({ force: true });
     cy.getInputByLabel("Absolute Number").should("be.checked");
     cy.getInputByLabel("Percentage").should("not.be.checked");
@@ -60,7 +63,10 @@ describe("commits page", () => {
       "data-type",
       "absolute"
     );
-    cy.location("search").should("contain", "?chartType=absolute");
+    cy.location("search").should(
+      "contain",
+      "?chartOpen=True&chartType=absolute"
+    );
   });
   it("Should be able to paginate between commits", () => {
     cy.dataCy("prev-page-button").should("be.disabled");
