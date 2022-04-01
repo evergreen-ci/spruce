@@ -3758,6 +3758,7 @@ export type GetTaskForTestsTableQueryVariables = Exact<{
 export type GetTaskForTestsTableQuery = {
   task?: Maybe<
     {
+      order: number;
       displayName: string;
       projectIdentifier?: Maybe<string>;
       displayTask?: Maybe<{ id: string; execution: number }>;
@@ -3923,6 +3924,7 @@ export type GetTaskQuery = {
         revision: string;
         project: string;
         projectIdentifier: string;
+        order: number;
       };
       project?: Maybe<{ identifier: string }>;
       dependsOn?: Maybe<

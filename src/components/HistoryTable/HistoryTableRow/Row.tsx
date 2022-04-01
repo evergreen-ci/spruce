@@ -11,12 +11,14 @@ import { RowContainer } from "./styles";
 interface RowProps extends ListChildComponentProps {
   columns: React.ReactNode[];
   numVisibleCols: number;
+  selected: boolean;
 }
 const Row: React.FC<RowProps> = ({
   columns,
   numVisibleCols,
   index,
   style,
+  selected,
   data,
 }) => {
   const { isItemLoaded, getItem, columnLimit } = useHistoryTable();
@@ -41,7 +43,7 @@ const Row: React.FC<RowProps> = ({
     } = commit.commit;
 
     return (
-      <RowContainer style={style}>
+      <RowContainer data-selected={selected} selected={selected} style={style}>
         <LabelCellContainer>
           <CommitChartLabel
             versionId={versionId}
@@ -63,6 +65,7 @@ const Row: React.FC<RowProps> = ({
         toggleRowSize={data.toggleRowSize}
         numVisibleCols={numVisibleCols || columnLimit}
         style={style}
+        selected={selected}
       />
     );
   }

@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import get from "lodash/get";
 import { Route, Switch } from "react-router-dom";
 import { useAnalyticsAttributes } from "analytics";
+import AprilFoolsModal from "components/AprilFools";
 import { Feedback } from "components/Feedback";
 import { Header } from "components/Header";
 import { FullPageLoad } from "components/Loading/FullPageLoad";
@@ -18,6 +19,7 @@ import { GetUserQuery, GetUserSettingsQuery } from "gql/generated/types";
 import { GET_USER, GET_USER_SETTINGS } from "gql/queries";
 import { useAnnouncementToast } from "hooks/useAnnouncementToast";
 import { PageDoesNotExist } from "pages/404";
+import { AprilFools } from "pages/AprilFools";
 import { CommitQueue } from "pages/CommitQueue";
 import { Commits } from "pages/Commits";
 import { ConfigurePatch } from "pages/ConfigurePatch";
@@ -90,11 +92,13 @@ export const Content: React.FC = () => {
         <Route path={routes.commits} component={Commits} />
         <Route path={routes.taskHistory} component={TaskHistory} />
         <Route path={routes.variantHistory} component={VariantHistory} />
+        <Route path={routes.aprilFools} component={AprilFools} />
         <Route exact path="/" component={MyPatches} />
 
         <Route component={PageDoesNotExist} />
       </Switch>
       {hasUsedSpruceBefore && <WelcomeModal />}
+      <AprilFoolsModal />
       <FloatingContent>
         <TaskStatusIconLegend />
         <Feedback />
