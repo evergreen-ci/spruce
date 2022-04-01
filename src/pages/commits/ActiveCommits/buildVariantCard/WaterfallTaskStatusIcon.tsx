@@ -1,14 +1,13 @@
 import { useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import IconButton from "@leafygreen-ui/icon-button";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
-import { Link } from "react-router-dom";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
+import { StyledRouterLink } from "components/styles";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { getTaskRoute } from "constants/routes";
-import { zIndex } from "constants/tokens";
+import { size, zIndex } from "constants/tokens";
 import {
   GetFailedTaskStatusIconTooltipQuery,
   GetFailedTaskStatusIconTooltipQueryVariables,
@@ -22,6 +21,7 @@ interface WaterfallTaskStatusIconProps {
   status: string;
   displayName: string;
   timeTaken?: number;
+  identifier: string;
 }
 
 export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = ({
@@ -29,6 +29,7 @@ export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = (
   status,
   displayName,
   timeTaken,
+  identifier,
 }) => {
   const { sendEvent } = useProjectHealthAnalytics();
   const [loadData, { data, loading }] = useLazyQuery<
@@ -36,35 +37,36 @@ export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = (
     GetFailedTaskStatusIconTooltipQueryVariables
   >(GET_FAILED_TASK_STATUS_ICON_TOOLTIP, { variables: { taskId } });
   const { testResults, filteredTestCount } = data?.taskTests ?? {};
-  const loadDataCb = () => {
+  const failedTestDifference = filteredTestCount - testResults?.length;
+
+  const onHover = () => {
     // Only query failing test names if the task has failed.
     if (isFailedTaskStatus(status)) {
       loadData();
     }
   };
-  const failedTestDifference = filteredTestCount - testResults?.length;
 
   return (
     <Tooltip
       usePortal={false}
       align="top"
       justify="middle"
-      popoverZIndex={zIndex.tooltip} // One more than the Absolute/Percentage chart toggle
+      popoverZIndex={zIndex.tooltip}
       trigger={
-        <IconButton
-          onMouseOver={loadDataCb}
-          onFocus={loadDataCb}
+        <IconWrapper
+          onMouseEnter={onHover}
           key={`task_${taskId}`}
           aria-label={`${status} icon`}
-          as={Link}
           to={getTaskRoute(taskId)}
           onClick={() => {
             sendEvent({ name: "Click commit chart task status icon", status });
           }}
           data-cy="waterfall-task-status-icon"
         >
-          <TaskStatusIcon status={status} size={16} />
-        </IconButton>
+          <TaskStatusWrapper data-task-icon={identifier}>
+            <TaskStatusIcon status={status} size={16} />
+          </TaskStatusWrapper>
+        </IconWrapper>
       }
       triggerEvent="hover"
     >
@@ -96,4 +98,12 @@ const TestName = styled.div`
 `;
 const TooltipTitle = styled(Body)`
   white-space: nowrap;
+`;
+const IconWrapper = styled(StyledRouterLink)`
+  cursor: pointer;
+`;
+const TaskStatusWrapper = styled.div`
+  height: ${size.m};
+  width: ${size.m};
+  padding: ${size.xxs};
 `;
