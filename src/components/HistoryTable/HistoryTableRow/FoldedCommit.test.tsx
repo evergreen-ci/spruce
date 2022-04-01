@@ -25,6 +25,7 @@ const Content = () => {
         toggleRowSize={toggleRowSize}
         numVisibleCols={5}
         style={style}
+        selected={false}
       />
     </MockedProvider>
   );

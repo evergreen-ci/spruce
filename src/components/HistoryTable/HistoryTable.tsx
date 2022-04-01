@@ -26,14 +26,16 @@ const HistoryTable = ({
     toggleRowSizeAtIndex,
     commitCount,
     onChangeTableWidth,
+    selectedCommit,
+    processedCommitCount,
   } = useHistoryTable();
-  const listRef = useRef<List>(null);
 
   const throttleOnChangeTableWidth = useMemo(
     () => throttle(onChangeTableWidth, 400),
     [onChangeTableWidth]
   );
 
+  const listRef = useRef<List>(null);
   useEffect(() => {
     if (recentlyFetchedCommits) {
       fetchNewCommit(recentlyFetchedCommits);
@@ -41,11 +43,22 @@ const HistoryTable = ({
     // Remove fetchNewCommit from the effect list to avoid infinite loop
   }, [recentlyFetchedCommits]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // When we fetch new commits we need to tell react-window to re-render the list and update the heights for each of the rows since they will have changed based off of the new commits
   useEffect(() => {
-    if (listRef.current) {
-      listRef.current.resetAfterIndex(0);
+    if (processedCommitCount > 0) {
+      if (listRef.current) {
+        listRef.current.resetAfterIndex(0);
+      }
     }
-  }, [recentlyFetchedCommits]);
+  }, [processedCommitCount]);
+
+  useEffect(() => {
+    if (selectedCommit && selectedCommit.rowIndex && listRef.current) {
+      listRef.current.scrollToItem(selectedCommit.rowIndex, "center");
+    } else {
+      loadMoreItems();
+    }
+  }, [selectedCommit, loadMoreItems]);
 
   const toggleRowSize = (index: number, numCommits: number) => {
     toggleRowSizeAtIndex(index, numCommits);
@@ -62,13 +75,17 @@ const HistoryTable = ({
           itemCount={commitCount}
           loadMoreItems={loadMoreItems}
         >
-          {({ onItemsRendered }) => (
+          {({ onItemsRendered, ref }) => (
             <List
               height={height}
               itemCount={commitCount}
               itemSize={getItemHeight}
               onItemsRendered={onItemsRendered}
-              ref={listRef}
+              ref={(list) => {
+                // @ts-ignore next-line
+                ref?.(list); // This is the syntax recommended by react-window's creator https://github.com/bvaughn/react-window/issues/324#issuecomment-528887341
+                listRef.current = list;
+              }}
               width={width}
               itemData={{ toggleRowSize }}
             >

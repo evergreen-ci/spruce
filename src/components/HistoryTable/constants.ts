@@ -13,6 +13,7 @@ const DEFAULT_HEIGHT = 100;
 const DEFAULT_COLUMN_LIMIT = 7;
 const COLUMN_LABEL_WIDTH = 150;
 const ROW_LABEL_WIDTH = 200;
+const LOADING_HEIGHT = 100;
 
 export {
   queryParamsToDisplay,
@@ -23,4 +24,5 @@ export {
   DEFAULT_COLUMN_LIMIT,
   COLUMN_LABEL_WIDTH,
   ROW_LABEL_WIDTH,
+  LOADING_HEIGHT,
 };
