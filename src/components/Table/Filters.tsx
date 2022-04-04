@@ -158,10 +158,7 @@ const FilterWrapper = styled.div`
   font-weight: normal; // need to set this as side effect of getPopupContainer
 `;
 
-interface StyledOutlinedProps {
-  active?: boolean;
-}
-const StyledFilterWrapper = styled.div<StyledOutlinedProps>`
+const StyledFilterWrapper = styled.div`
   display: flex;
   align-items: center;
   height: 100%;
