@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from "react";
-import { FilterOutlined, SearchOutlined } from "@ant-design/icons";
+import { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import TextInput from "@leafygreen-ui/text-input";
 import { FilterDropdownProps } from "antd/es/table/interface";
 import { CheckboxGroup } from "components/Checkbox";
+import Icon from "components/Icon";
 import { tableInputContainerCSS } from "components/styles/Table";
 import {
   TreeDataEntry,
@@ -14,6 +14,7 @@ import {
 import { fontSize } from "constants/tokens";
 
 const { focus } = uiColors;
+
 export interface InputFilterProps {
   "data-cy"?: string;
   placeholder: string;
@@ -23,19 +24,19 @@ export interface InputFilterProps {
   visible?: boolean;
 }
 
-export const InputFilter: React.FC<InputFilterProps> = ({
+export const InputFilter = ({
   placeholder,
   value,
   onChange,
   onFilter,
   "data-cy": dataCy,
   visible,
-}) => {
+}: InputFilterProps) => {
   const inputEl = useRef(null);
 
   useEffect(() => {
     if (visible && inputEl?.current) {
-      // timeout prevents race conditon with antd table animation
+      // timeout prevents race condition with antd table animation
       const timer = setTimeout(() => {
         inputEl.current.focus();
       }, 100);
@@ -81,9 +82,13 @@ export const getColumnSearchFilterProps = ({
     />
   ),
   filterIcon: () => (
-    <StyledSearchWrapper active={!!value}>
-      <SearchOutlined data-cy={dataCy} />
-    </StyledSearchWrapper>
+    <StyledFilterWrapper>
+      <Icon
+        glyph="MagnifyingGlass"
+        fill={value.length > 0 && focus}
+        data-cy={dataCy}
+      />
+    </StyledFilterWrapper>
   ),
 });
 
@@ -102,8 +107,8 @@ export const getColumnTreeSelectFilterProps = ({
     />
   ),
   filterIcon: () => (
-    <StyledFilterWrapper active={!!state.length}>
-      <FilterOutlined data-cy={dataCy} />
+    <StyledFilterWrapper>
+      <Icon glyph="Filter" fill={state.length > 0 && focus} data-cy={dataCy} />
     </StyledFilterWrapper>
   ),
 });
@@ -115,12 +120,12 @@ export interface CheckboxFilterProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>, key: string) => void;
 }
 
-export const CheckboxFilter: React.FC<CheckboxFilterProps> = ({
+export const CheckboxFilter = ({
   statuses,
   value,
   onChange,
   dataCy,
-}) => (
+}: CheckboxFilterProps) => (
   <FilterWrapper data-cy={`${dataCy}-wrapper`}>
     <CheckboxGroup value={value} data={statuses} onChange={onChange} />
   </FilterWrapper>
@@ -141,8 +146,8 @@ export const getColumnCheckboxFilterProps = ({
     />
   ),
   filterIcon: () => (
-    <StyledFilterWrapper active={!!value.length}>
-      <FilterOutlined data-cy={dataCy} />
+    <StyledFilterWrapper>
+      <Icon glyph="Filter" fill={value.length > 0 && focus} data-cy={dataCy} />
     </StyledFilterWrapper>
   ),
 });
@@ -153,14 +158,11 @@ const FilterWrapper = styled.div`
   font-weight: normal; // need to set this as side effect of getPopupContainer
 `;
 
-interface StyledOutlinedProps {
-  active?: boolean;
-}
-const StyledFilterWrapper = styled.div<StyledOutlinedProps>`
+const StyledFilterWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
   font-size: ${fontSize.l};
-  ${({ active }) => active && `color: ${focus}`}
-`;
-const StyledSearchWrapper = styled.div<StyledOutlinedProps>`
-  font-size: ${fontSize.l};
-  ${({ active }) => active && `color: ${focus}`}
 `;
