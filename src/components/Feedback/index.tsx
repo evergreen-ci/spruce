@@ -18,8 +18,11 @@ export const Feedback: React.FC = () => {
 
   const userVoiceUrl = data?.spruceConfig?.ui?.userVoice;
 
-  const hideFeeback = Boolean(Cookies.get(HIDE_FEEDBACK));
-  const [isHidden, setIsHidden] = useState(!hideFeeback);
+  const hideFeeback =
+    Cookies.get(HIDE_FEEDBACK) !== undefined
+      ? Cookies.get(HIDE_FEEDBACK) === "true"
+      : false;
+  const [isHidden, setIsHidden] = useState(hideFeeback);
   return (
     <div>
       {!isHidden && (
