@@ -18,7 +18,7 @@ const HistoryTable = ({
   loadMoreItems,
   recentlyFetchedCommits,
   children,
-}: HistoryTableProps): JSX.Element => {
+}: HistoryTableProps) => {
   const {
     getItemHeight,
     fetchNewCommit,
