@@ -49,6 +49,7 @@ const TaskHistoryContents: React.FC = () => {
         projectID: projectId,
         limit: 5,
         skipOrderNumber: nextPageOrderNumber,
+        shouldCollapse: true,
       },
       buildVariantOptions: {
         tasks: [applyStrictRegex(taskName)],

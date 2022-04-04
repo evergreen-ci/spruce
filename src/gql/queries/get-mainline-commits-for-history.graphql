@@ -2,7 +2,10 @@ query MainlineCommitsForHistory(
   $mainlineCommitsOptions: MainlineCommitsOptions!
   $buildVariantOptions: BuildVariantOptions!
 ) {
-  mainlineCommits(options: $mainlineCommitsOptions) {
+  mainlineCommits(
+    options: $mainlineCommitsOptions
+    buildVariantOptions: $buildVariantOptions
+  ) {
     versions {
       version {
         id

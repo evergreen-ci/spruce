@@ -49,6 +49,7 @@ const VariantHistoryContents: React.FC = () => {
         projectID: projectId,
         limit: 5,
         skipOrderNumber: nextPageOrderNumber,
+        shouldCollapse: true,
       },
       buildVariantOptions: {
         variants: [applyStrictRegex(variantName)],
