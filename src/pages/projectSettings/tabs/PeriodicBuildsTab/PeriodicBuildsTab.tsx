@@ -7,11 +7,14 @@ import {
   useProjectSettingsContext,
 } from "pages/projectSettings/Context";
 import { getFormSchema } from "./getFormSchema";
-import { TabProps } from "./types";
+import { FormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.PeriodicBuilds;
 
-const getInitialFormState = (projectData, repoData) => {
+const getInitialFormState = (
+  projectData: TabProps["projectData"],
+  repoData: TabProps["repoData"]
+): FormState => {
   if (!projectData) return repoData;
   if (repoData) return { ...projectData, repoData };
   return projectData;

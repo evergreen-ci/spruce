@@ -1,16 +1,22 @@
 import { ProjectType } from "../utils";
 
+type FormPeriodicBuild = {
+  id: string;
+  intervalHours: number;
+  configFile: string;
+  displayTitle?: string;
+  alias: string;
+  message: string;
+  nextRunTime: string;
+};
+
 export interface FormState {
   periodicBuildsOverride: boolean;
-  periodicBuilds: Array<{
-    id: string;
-    intervalHours: number;
-    configFile: string;
-    displayTitle?: string;
-    alias: string;
-    message: string;
-    nextRunTime: string;
-  }>;
+  periodicBuilds: FormPeriodicBuild[];
+  repoData?: {
+    periodicBuildsOverride: boolean;
+    periodicBuilds: FormPeriodicBuild[];
+  };
 }
 
 export type TabProps = {
