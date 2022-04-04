@@ -13,7 +13,7 @@ import {
 } from "components/TreeSelect";
 import { fontSize } from "constants/tokens";
 
-const { black } = uiColors;
+const { focus } = uiColors;
 
 export interface InputFilterProps {
   "data-cy"?: string;
@@ -24,14 +24,14 @@ export interface InputFilterProps {
   visible?: boolean;
 }
 
-export const InputFilter: React.FC<InputFilterProps> = ({
+export const InputFilter = ({
   placeholder,
   value,
   onChange,
   onFilter,
   "data-cy": dataCy,
   visible,
-}) => {
+}: InputFilterProps) => {
   const inputEl = useRef(null);
 
   useEffect(() => {
@@ -85,7 +85,7 @@ export const getColumnSearchFilterProps = ({
     <StyledFilterWrapper>
       <Icon
         glyph="MagnifyingGlass"
-        fill={value.length > 0 && black}
+        fill={value.length > 0 && focus}
         data-cy={dataCy}
       />
     </StyledFilterWrapper>
@@ -108,7 +108,7 @@ export const getColumnTreeSelectFilterProps = ({
   ),
   filterIcon: () => (
     <StyledFilterWrapper>
-      <Icon glyph="Filter" fill={state.length > 0 && black} data-cy={dataCy} />
+      <Icon glyph="Filter" fill={state.length > 0 && focus} data-cy={dataCy} />
     </StyledFilterWrapper>
   ),
 });
@@ -120,12 +120,12 @@ export interface CheckboxFilterProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>, key: string) => void;
 }
 
-export const CheckboxFilter: React.FC<CheckboxFilterProps> = ({
+export const CheckboxFilter = ({
   statuses,
   value,
   onChange,
   dataCy,
-}) => (
+}: CheckboxFilterProps) => (
   <FilterWrapper data-cy={`${dataCy}-wrapper`}>
     <CheckboxGroup value={value} data={statuses} onChange={onChange} />
   </FilterWrapper>
@@ -147,7 +147,7 @@ export const getColumnCheckboxFilterProps = ({
   ),
   filterIcon: () => (
     <StyledFilterWrapper>
-      <Icon glyph="Filter" fill={value.length > 0 && black} data-cy={dataCy} />
+      <Icon glyph="Filter" fill={value.length > 0 && focus} data-cy={dataCy} />
     </StyledFilterWrapper>
   ),
 });
