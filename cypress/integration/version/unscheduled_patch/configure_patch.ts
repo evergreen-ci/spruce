@@ -442,8 +442,7 @@ describe("Configure Patch Page", () => {
       });
     });
 
-    // Skip until EVG-15085 is completed, since the patch trigger alias data is currently being overwritten
-    describe.skip("Selecting a trigger alias", () => {
+    describe("Selecting a trigger alias", () => {
       before(() => {
         cy.dataCy("trigger-alias-list-item")
           .contains("logkeeper-alias")
