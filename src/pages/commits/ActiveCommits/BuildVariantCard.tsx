@@ -14,6 +14,7 @@ type taskList = {
 }[];
 interface Props {
   variant: string;
+  height: number;
   buildVariantDisplayName: string;
   tasks?: taskList;
   versionId: string;
@@ -25,6 +26,7 @@ interface Props {
 }
 export const BuildVariantCard: React.FC<Props> = ({
   buildVariantDisplayName,
+  height,
   variant,
   tasks,
   versionId,
@@ -55,7 +57,7 @@ export const BuildVariantCard: React.FC<Props> = ({
       >
         {buildVariantDisplayName}
       </Label>
-      {render}
+      <div style={{ height }}>{render}</div>
     </Container>
   );
 };
@@ -87,9 +89,7 @@ const Label = styled(StyledRouterLink)`
 
 const IconContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  margin-bottom: ${size.xs};
-  margin-top: ${size.xs};
+  padding: ${size.xs} 0;
   flex-wrap: wrap;
 `;
 

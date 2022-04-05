@@ -40,10 +40,10 @@ const VariantGroupedTaskStatusBadges: React.FC<Props> = ({
 const VariantTasks = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin-top: ${size.xs};
+  padding-top: ${size.xs};
   > * {
-    margin-right: ${size.xs};
-    margin-bottom: ${size.xs};
+    padding-right: ${size.xs};
+    padding-bottom: ${size.xs};
   }
 `;
 

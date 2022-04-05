@@ -1,4 +1,4 @@
-import { ChartTypes, Commit } from "types/commits";
+import { ChartTypes, Commit, BuildVariantDict } from "types/commits";
 import {
   ActiveCommitChart,
   ActiveCommitLabel,
@@ -68,14 +68,21 @@ const RenderCommitsLabel: React.FC<RenderCommitsLabelProps> = ({
 
 interface RenderCommitsBuildVariantProps {
   commit: Commit;
+  buildVariantDict: BuildVariantDict;
 }
 export const RenderCommitsBuildVariants: React.FC<RenderCommitsBuildVariantProps> = ({
   commit,
+  buildVariantDict,
 }) => {
   const { version } = commit;
 
   if (version) {
-    return <BuildVariantContainer version={version} />;
+    return (
+      <BuildVariantContainer
+        version={version}
+        buildVariantDict={buildVariantDict}
+      />
+    );
   }
 
   return null;

@@ -32,3 +32,10 @@ export type Commits = MainlineCommitsQuery["mainlineCommits"]["versions"];
 export type Commit = Unpacked<Commits>;
 export type CommitVersion = Commit["version"];
 export type CommitRolledUpVersions = Commit["rolledUpVersions"];
+export type BuildVariantDict = {
+  [key: string]: {
+    priority: number;
+    iconHeight: number;
+    cardHeight: number;
+  };
+};

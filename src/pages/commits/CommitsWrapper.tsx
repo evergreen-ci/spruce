@@ -17,6 +17,7 @@ import { ChartToggle } from "./ActiveCommits/ChartToggle";
 import { Grid } from "./ActiveCommits/Grid";
 import { GridLabel } from "./ActiveCommits/GridLabel";
 import {
+  constructBuildVariantDict,
   getAllTaskStatsGroupedByColor,
   findMaxGroupedTaskStats,
   hoverTaskIcons,
@@ -80,6 +81,12 @@ export const CommitsWrapper: React.FC<Props> = ({
     }
   }, [versionToGroupedTaskStatsMap]);
 
+  const buildVariantDict = useMemo(() => {
+    if (versions) {
+      return constructBuildVariantDict(versions);
+    }
+  }, [versions]);
+
   const { max } = maxGroupedTaskStats || {};
   if (error) {
     return (
@@ -131,7 +138,10 @@ export const CommitsWrapper: React.FC<Props> = ({
         <FlexRowContainer>
           {versions.map((commit, i) => (
             <CommitWrapper key={getCommitKey(commit)} width={widths[i]}>
-              <RenderCommitsBuildVariants commit={commit} />
+              <RenderCommitsBuildVariants
+                commit={commit}
+                buildVariantDict={buildVariantDict}
+              />
             </CommitWrapper>
           ))}
         </FlexRowContainer>
