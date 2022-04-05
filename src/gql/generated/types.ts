@@ -1492,6 +1492,22 @@ export type ProjectSettings = {
   subscriptions?: Maybe<Array<ProjectSubscription>>;
 };
 
+export type ProjectEventSettings = {
+  githubWebhooksEnabled: Scalars["Boolean"];
+  projectRef?: Maybe<Project>;
+  vars?: Maybe<ProjectVars>;
+  aliases?: Maybe<Array<ProjectAlias>>;
+  subscriptions?: Maybe<Array<ProjectSubscription>>;
+};
+
+export type RepoEventSettings = {
+  githubWebhooksEnabled: Scalars["Boolean"];
+  projectRef?: Maybe<Project>;
+  vars?: Maybe<ProjectVars>;
+  aliases?: Maybe<Array<ProjectAlias>>;
+  subscriptions?: Maybe<Array<ProjectSubscription>>;
+};
+
 export type RepoSettings = {
   githubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<RepoRef>;
@@ -1508,8 +1524,8 @@ export type ProjectEvents = {
 export type ProjectEventLogEntry = {
   timestamp: Scalars["Time"];
   user: Scalars["String"];
-  before?: Maybe<ProjectSettings>;
-  after?: Maybe<ProjectSettings>;
+  before?: Maybe<ProjectEventSettings>;
+  after?: Maybe<ProjectEventSettings>;
 };
 
 export type RepoEvents = {
@@ -1520,8 +1536,8 @@ export type RepoEvents = {
 export type RepoEventLogEntry = {
   timestamp: Scalars["Time"];
   user: Scalars["String"];
-  before?: Maybe<RepoSettings>;
-  after?: Maybe<RepoSettings>;
+  before?: Maybe<RepoEventSettings>;
+  after?: Maybe<RepoEventSettings>;
 };
 
 export type ProjectVars = {
@@ -3740,6 +3756,7 @@ export type GetTaskForTestsTableQueryVariables = Exact<{
 export type GetTaskForTestsTableQuery = {
   task?: Maybe<
     {
+      order: number;
       displayName: string;
       projectIdentifier?: Maybe<string>;
       displayTask?: Maybe<{ id: string; execution: number }>;
@@ -3905,6 +3922,7 @@ export type GetTaskQuery = {
         revision: string;
         project: string;
         projectIdentifier: string;
+        order: number;
       };
       project?: Maybe<{ identifier: string }>;
       dependsOn?: Maybe<
