@@ -242,17 +242,17 @@ describe("getStatusesWithZeroCount", () => {
 describe("constructBuildVariantDict", () => {
   it("correctly determines priority, iconHeight, and cardHeight", () => {
     expect(constructBuildVariantDict(versions)).toStrictEqual({
-      code_health: {
+      "enterprise-macos-cxx20": {
         iconHeight: TASK_ICON_HEIGHT + TASK_ICON_PADDING,
         cardHeight: GROUPED_BADGE_HEIGHT * 2 + GROUPED_BADGE_PADDING,
         priority: 4,
       },
-      package_rpm: {
+      "enterprise-windows-benchmarks": {
         iconHeight: TASK_ICON_HEIGHT + TASK_ICON_PADDING,
         cardHeight: 0,
         priority: 2,
       },
-      unit_java: {
+      "enterprise-rhel-80-64-bit-inmem": {
         iconHeight: TASK_ICON_HEIGHT + TASK_ICON_PADDING,
         cardHeight: 0,
         priority: 1,
@@ -262,47 +262,47 @@ describe("constructBuildVariantDict", () => {
 });
 
 const buildVariant1 = {
-  displayName: "01. Code Health [code_health]",
-  variant: "code_health",
+  displayName: "Enterprise macOS C++20 DEBUG",
+  variant: "enterprise-macos-cxx20",
   tasks: [
     {
       status: TaskStatus.WillRun,
-      id: "code_health",
+      id: "auth",
       execution: 0,
-      displayName: "Code Health",
+      displayName: "auth",
     },
   ],
 };
 
 const buildVariant2 = {
-  displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
-  variant: "package_rpm",
+  displayName: "~ Enterprise Windows (Benchmarks)",
+  variant: "enterprise-windows-benchmarks",
   tasks: [
     {
       status: TaskStatus.Pending,
-      id: "code_health",
+      id: "benchmarks",
       execution: 0,
-      displayName: "Code Health",
+      displayName: "benchmarks",
     },
   ],
 };
 
 const buildVariant3 = {
-  displayName: "03a. Unit Tests Java [unit_java]",
-  variant: "unit_java",
+  displayName: "Enterprise RHEL 8.0 (inMemory)",
+  variant: "enterprise-rhel-80-64-bit-inmem",
   tasks: [
     {
       status: TaskStatus.Failed,
-      id: "unit_java",
+      id: "fuzzer",
       execution: 0,
-      displayName: "Unit Tests",
+      displayName: "fuzzer",
     },
   ],
 };
 
-const buildVariantStat1 = {
-  displayName: "01. Code Health [code_health]",
-  variant: "code_health",
+const buildVariantStat = {
+  displayName: "Enterprise macOS C++20 DEBUG",
+  variant: "enterprise-macos-cxx20",
   statusCounts: [
     {
       count: 4,
@@ -323,7 +323,7 @@ const versions = [
   {
     version: {
       id: "123",
-      projectIdentifier: "mms",
+      projectIdentifier: "mongodb-mongo-master",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
       order: 39369,
@@ -339,14 +339,14 @@ const versions = [
         { status: TaskStatus.SystemUnresponsive, count: 2 },
       ],
       buildVariants: [buildVariant1],
-      buildVariantStats: [buildVariantStat1],
+      buildVariantStats: [buildVariantStat],
     },
     rolledUpVersions: null,
   },
   {
     version: {
       id: "12",
-      projectIdentifier: "mms",
+      projectIdentifier: "mongodb-mongo-master",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57333 Some complicated server commit",
       order: 39368,
@@ -368,7 +368,7 @@ const versions = [
   {
     version: {
       id: "13",
-      projectIdentifier: "mms",
+      projectIdentifier: "mongodb-mongo-master",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
       order: 39367,
@@ -388,7 +388,7 @@ const versions = [
   {
     version: {
       id: "14",
-      projectIdentifier: "mms",
+      projectIdentifier: "mongodb-mongo-master",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57333 Some complicated server commit",
       order: 39366,
