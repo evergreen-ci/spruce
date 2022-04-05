@@ -35,3 +35,41 @@ fragment repoGithubCommitQueue on RepoSettings {
     }
   }
 }
+
+fragment projectEventGithubCommitQueue on ProjectEventSettings {
+  githubWebhooksEnabled
+
+  projectRef {
+    prTestingEnabled
+    githubChecksEnabled
+    githubTriggerAliases
+    gitTagVersionsEnabled
+    gitTagAuthorizedUsers
+    gitTagAuthorizedTeams
+    commitQueue {
+      enabled
+      requireSigned
+      mergeMethod
+      message
+    }
+  }
+}
+
+fragment repoEventGithubCommitQueue on RepoEventSettings {
+  githubWebhooksEnabled
+
+  projectRef {
+    prTestingEnabled
+    githubChecksEnabled
+    githubTriggerAliases
+    gitTagVersionsEnabled
+    gitTagAuthorizedUsers
+    gitTagAuthorizedTeams
+    commitQueue {
+      enabled
+      requireSigned
+      mergeMethod
+      message
+    }
+  }
+}

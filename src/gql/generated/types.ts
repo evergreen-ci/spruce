@@ -1502,7 +1502,7 @@ export type ProjectEventSettings = {
 
 export type RepoEventSettings = {
   githubWebhooksEnabled: Scalars["Boolean"];
-  projectRef?: Maybe<Project>;
+  projectRef?: Maybe<RepoRef>;
   vars?: Maybe<ProjectVars>;
   aliases?: Maybe<Array<ProjectAlias>>;
   subscriptions?: Maybe<Array<ProjectSubscription>>;
@@ -2341,6 +2341,42 @@ export type RepoGithubCommitQueueFragment = {
   }>;
 };
 
+export type ProjectEventGithubCommitQueueFragment = {
+  githubWebhooksEnabled: boolean;
+  projectRef?: Maybe<{
+    prTestingEnabled?: Maybe<boolean>;
+    githubChecksEnabled?: Maybe<boolean>;
+    githubTriggerAliases?: Maybe<Array<string>>;
+    gitTagVersionsEnabled?: Maybe<boolean>;
+    gitTagAuthorizedUsers?: Maybe<Array<string>>;
+    gitTagAuthorizedTeams?: Maybe<Array<string>>;
+    commitQueue: {
+      enabled?: Maybe<boolean>;
+      requireSigned?: Maybe<boolean>;
+      mergeMethod: string;
+      message: string;
+    };
+  }>;
+};
+
+export type RepoEventGithubCommitQueueFragment = {
+  githubWebhooksEnabled: boolean;
+  projectRef?: Maybe<{
+    prTestingEnabled: boolean;
+    githubChecksEnabled: boolean;
+    githubTriggerAliases?: Maybe<Array<string>>;
+    gitTagVersionsEnabled: boolean;
+    gitTagAuthorizedUsers?: Maybe<Array<string>>;
+    gitTagAuthorizedTeams?: Maybe<Array<string>>;
+    commitQueue: {
+      enabled: boolean;
+      requireSigned: boolean;
+      mergeMethod: string;
+      message: string;
+    };
+  }>;
+};
+
 export type ProjectSettingsFragment = {
   projectRef?: Maybe<
     {
@@ -2497,6 +2533,94 @@ export type RepoPluginsSettingsFragment = {
     fileTicketWebhook: { endpoint: string; secret: string };
   };
 };
+
+export type ProjectEventSettingsFragment = {
+  projectRef?: Maybe<
+    {
+      id: string;
+      identifier: string;
+      repoRefId: string;
+      versionControlEnabled?: Maybe<boolean>;
+      tracksPushEvents?: Maybe<boolean>;
+      hidden?: Maybe<boolean>;
+      triggers?: Maybe<
+        Array<{
+          project?: Maybe<string>;
+          level: string;
+          definitionID: string;
+          buildVariantRegex: string;
+          taskRegex: string;
+          status: string;
+          dateCutoff: number;
+          configFile: string;
+          generateFile: string;
+          command: string;
+          alias: string;
+        }>
+      >;
+      periodicBuilds?: Maybe<
+        Array<{
+          id: string;
+          configFile: string;
+          intervalHours: number;
+          alias: string;
+          message: string;
+          nextRunTime: Date;
+        }>
+      >;
+    } & ProjectGeneralSettingsFragment &
+      ProjectAccessSettingsFragment &
+      ProjectPluginsSettingsFragment &
+      ProjectNotificationSettingsFragment &
+      ProjectPatchAliasSettingsFragment &
+      ProjectVirtualWorkstationSettingsFragment
+  >;
+  subscriptions?: Maybe<Array<SubscriptionsFragment>>;
+  vars?: Maybe<VariablesFragment>;
+  aliases?: Maybe<Array<AliasFragment>>;
+} & ProjectEventGithubCommitQueueFragment;
+
+export type RepoEventSettingsFragment = {
+  projectRef?: Maybe<
+    {
+      id: string;
+      displayName: string;
+      versionControlEnabled: boolean;
+      tracksPushEvents: boolean;
+      triggers: Array<{
+        project?: Maybe<string>;
+        level: string;
+        definitionID: string;
+        buildVariantRegex: string;
+        taskRegex: string;
+        status: string;
+        dateCutoff: number;
+        configFile: string;
+        generateFile: string;
+        command: string;
+        alias: string;
+      }>;
+      periodicBuilds?: Maybe<
+        Array<{
+          id: string;
+          configFile: string;
+          intervalHours: number;
+          alias: string;
+          message: string;
+          nextRunTime: Date;
+        }>
+      >;
+    } & RepoGeneralSettingsFragment &
+      RepoAccessSettingsFragment &
+      RepoPluginsSettingsFragment &
+      RepoNotificationSettingsFragment &
+      RepoPatchAliasSettingsFragment &
+      RepoVirtualWorkstationSettingsFragment
+  >;
+  vars?: Maybe<VariablesFragment>;
+  subscriptions?: Maybe<Array<SubscriptionsFragment>>;
+  aliases?: Maybe<Array<AliasFragment>>;
+} & RepoEventGithubCommitQueueFragment;
 
 export type VariablesFragment = {
   vars?: Maybe<{ [key: string]: any }>;
@@ -3205,31 +3329,6 @@ export type DistrosQuery = {
   >;
 };
 
-export type EventLogsQueryVariables = Exact<{
-  id: Scalars["String"];
-  execution?: Maybe<Scalars["Int"]>;
-}>;
-
-export type EventLogsQuery = {
-  taskLogs: {
-    execution: number;
-    taskId: string;
-    eventLogs: Array<{
-      timestamp?: Maybe<Date>;
-      eventType?: Maybe<string>;
-      data: {
-        hostId?: Maybe<string>;
-        jiraIssue?: Maybe<string>;
-        jiraLink?: Maybe<string>;
-        priority?: Maybe<number>;
-        status?: Maybe<string>;
-        timestamp?: Maybe<Date>;
-        userId?: Maybe<string>;
-      };
-    }>;
-  };
-};
-
 export type GithubProjectConflictsQueryVariables = Exact<{
   projectId: Scalars["String"];
 }>;
@@ -3679,6 +3778,22 @@ export type PatchQuery = {
   } & BasePatchFragment;
 };
 
+export type ProjectEventLogsQueryVariables = Exact<{
+  identifier: Scalars["String"];
+}>;
+
+export type ProjectEventLogsQuery = {
+  projectEvents: {
+    count: number;
+    eventLogEntries: Array<{
+      timestamp: Date;
+      user: string;
+      before?: Maybe<ProjectEventSettingsFragment>;
+      after?: Maybe<ProjectEventSettingsFragment>;
+    }>;
+  };
+};
+
 export type ProjectSettingsQueryVariables = Exact<{
   identifier: Scalars["String"];
 }>;
@@ -3707,6 +3822,22 @@ export type GetMyPublicKeysQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetMyPublicKeysQuery = {
   myPublicKeys: Array<{ name: string; key: string }>;
+};
+
+export type RepoEventLogsQueryVariables = Exact<{
+  identifier: Scalars["String"];
+}>;
+
+export type RepoEventLogsQuery = {
+  repoEvents: {
+    count: number;
+    eventLogEntries: Array<{
+      timestamp: Date;
+      user: string;
+      before?: Maybe<RepoEventSettingsFragment>;
+      after?: Maybe<RepoEventSettingsFragment>;
+    }>;
+  };
 };
 
 export type RepoSettingsQueryVariables = Exact<{
@@ -3759,6 +3890,31 @@ export type GetTaskAllExecutionsQuery = {
     ingestTime?: Maybe<Date>;
     activatedTime?: Maybe<Date>;
   }>;
+};
+
+export type TaskEventLogsQueryVariables = Exact<{
+  id: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type TaskEventLogsQuery = {
+  taskLogs: {
+    execution: number;
+    taskId: string;
+    eventLogs: Array<{
+      timestamp?: Maybe<Date>;
+      eventType?: Maybe<string>;
+      data: {
+        hostId?: Maybe<string>;
+        jiraIssue?: Maybe<string>;
+        jiraLink?: Maybe<string>;
+        priority?: Maybe<number>;
+        status?: Maybe<string>;
+        timestamp?: Maybe<Date>;
+        userId?: Maybe<string>;
+      };
+    }>;
+  };
 };
 
 export type TaskFilesQueryVariables = Exact<{
