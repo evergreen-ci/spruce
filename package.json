@@ -134,7 +134,7 @@
     "@graphql-codegen/typescript": "1.19.0",
     "@graphql-codegen/typescript-operations": "1.17.12",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.2",
-    "@storybook/addon-a11y": "^6.1.18",
+    "@storybook/addon-a11y": "^6.4.20",
     "@storybook/addon-actions": "^6.1.18",
     "@storybook/addon-knobs": "^6.1.18",
     "@storybook/addon-links": "6.1.18",
