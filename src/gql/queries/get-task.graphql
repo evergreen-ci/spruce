@@ -32,9 +32,6 @@ query GetTask($taskId: String!, $execution: Int) {
       buildVariant
       buildVariantDisplayName
     }
-    baseTaskMetadata {
-      baseTaskDuration
-    }
     displayTask {
       id
       execution

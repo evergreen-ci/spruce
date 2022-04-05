@@ -527,8 +527,6 @@ export type Version = {
   patch?: Maybe<Patch>;
   childVersions?: Maybe<Array<Maybe<Version>>>;
   taskCount?: Maybe<Scalars["Int"]>;
-  /** @deprecated baseVersionId is deprecated, use baseVersion.id instead */
-  baseVersionID?: Maybe<Scalars["String"]>;
   baseVersion?: Maybe<Version>;
   previousVersion?: Maybe<Version>;
   versionTiming?: Maybe<VersionTiming>;
@@ -1176,8 +1174,6 @@ export type Patch = {
   patchNumber: Scalars["Int"];
   author: Scalars["String"];
   authorDisplayName: Scalars["String"];
-  /** @deprecated version is deprecated, use versionFull.id instead */
-  version: Scalars["String"];
   versionFull?: Maybe<Version>;
   status: Scalars["String"];
   variants: Array<Scalars["String"]>;
@@ -1317,8 +1313,6 @@ export type TestResult = {
   status: Scalars["String"];
   baseStatus?: Maybe<Scalars["String"]>;
   testFile: Scalars["String"];
-  /** @deprecated displayTestName deprecated, use testFile instead (EVG-15379) */
-  displayTestName?: Maybe<Scalars["String"]>;
   logs: TestLog;
   exitCode?: Maybe<Scalars["Int"]>;
   startTime?: Maybe<Scalars["Time"]>;
@@ -1341,18 +1335,11 @@ export type Dependency = {
   requiredStatus: RequiredStatus;
   buildVariant: Scalars["String"];
   taskId: Scalars["String"];
-  /** @deprecated uiLink is deprecated and should not be used */
-  uiLink: Scalars["String"];
 };
 
 export type PatchMetadata = {
   author: Scalars["String"];
   patchID: Scalars["String"];
-};
-
-export type BaseTaskMetadata = {
-  baseTaskDuration?: Maybe<Scalars["Duration"]>;
-  baseTaskLink: Scalars["String"];
 };
 
 export type AbortInfo = {
@@ -1374,8 +1361,6 @@ export type Task = {
   annotation?: Maybe<Annotation>;
   baseTask?: Maybe<Task>;
   baseStatus?: Maybe<Scalars["String"]>;
-  /** @deprecated baseTaskMetadata is deprecated. Use baseTask instead */
-  baseTaskMetadata?: Maybe<BaseTaskMetadata>;
   blocked: Scalars["Boolean"];
   buildId: Scalars["String"];
   buildVariant: Scalars["String"];
@@ -3888,7 +3873,6 @@ export type GetTaskQuery = {
           buildVariantDisplayName?: Maybe<string>;
         }>
       >;
-      baseTaskMetadata?: Maybe<{ baseTaskDuration?: Maybe<number> }>;
       displayTask?: Maybe<{
         id: string;
         execution: number;
