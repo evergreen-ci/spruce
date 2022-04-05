@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ButtonDropdown } from "components/ButtonDropdown";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
@@ -17,14 +17,14 @@ interface Props {
   childPatches: Partial<Patch>[];
   hasVersion: boolean;
 }
-export const DropdownMenu: React.FC<Props> = ({
+export const DropdownMenu = ({
   patchId,
   childPatches,
   canEnqueueToCommitQueue,
   isPatchOnCommitQueue,
   patchDescription,
   hasVersion,
-}) => {
+}: Props): JSX.Element => {
   const restartModalVisibilityControl = useState(false);
   const enqueueModalVisibilityControl = useState(false);
   const dropdownItems = [
@@ -67,4 +67,4 @@ export const DropdownMenu: React.FC<Props> = ({
   );
 };
 
-const refetchQueries = ["PatchBuildVariants"];
+const refetchQueries = ["Version"];
