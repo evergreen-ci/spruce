@@ -51,11 +51,18 @@ export const getFormSchema = (
               type: "string" as "string",
               title: "Time Zone",
               default: timezone,
-              oneOf: timeZones.map(({ str, value }) => ({
-                type: "string" as "string",
-                title: str,
-                enum: [value],
-              })),
+              oneOf: [
+                ...timeZones.map(({ str, value }) => ({
+                  type: "string" as "string",
+                  title: str,
+                  enum: [value],
+                })),
+                {
+                  type: "string" as "string",
+                  title: "Local Time",
+                  enum: [""],
+                },
+              ],
             },
             nextRunTime: {
               type: "string" as "string",

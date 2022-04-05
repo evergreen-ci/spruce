@@ -19,10 +19,14 @@ export const DateTimePicker: Widget = ({
   const { description, showLabel } = options;
 
   const timezone = useUserTimeZone();
-  const currentDateTime = utcToZonedTime(new Date(value), timezone);
+  const currentDateTime = timezone
+    ? utcToZonedTime(new Date(value), timezone)
+    : new Date(value);
   const isDisabled = disabled || readonly;
   const handleChange = (d: Date) =>
-    onChange(zonedTimeToUtc(d, timezone).toString());
+    onChange(
+      timezone ? zonedTimeToUtc(d, timezone).toString() : new Date(d).toString()
+    );
 
   return (
     <>
