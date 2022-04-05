@@ -12,7 +12,6 @@ import {
 } from "components/styles";
 import TaskStatusBadge from "components/TaskStatusBadge";
 import { pollInterval } from "constants/index";
-import { commitQueueRequester } from "constants/patch";
 import { useToastContext } from "context/toast";
 import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
 import { GET_TASK } from "gql/queries";
@@ -28,7 +27,7 @@ import { TaskTabs } from "./task/TaskTabs";
 
 const { parseQueryString } = queryString;
 
-export const Task: React.FC = () => {
+export const Task = () => {
   const { id } = useParams<{ id: string; tab: string | null }>();
   const dispatchToast = useToastContext();
   const taskAnalytics = useTaskAnalytics();
@@ -54,11 +53,6 @@ export const Task: React.FC = () => {
 
   const { task, taskFiles } = data ?? {};
   const {
-    canAbort,
-    canRestart,
-    canSchedule,
-    canUnschedule,
-    canSetPriority,
     displayName,
     patchNumber,
     priority,
@@ -66,14 +60,9 @@ export const Task: React.FC = () => {
     annotation,
     latestExecution,
     versionMetadata,
-    requester,
-    canOverrideDependencies,
-    project,
     displayTask,
   } = task ?? {};
   const attributed = annotation?.issues?.length > 0;
-
-  const isPatchOnCommitQueue = requester === commitQueueRequester;
 
   if (
     id === task?.id &&
@@ -111,16 +100,9 @@ export const Task: React.FC = () => {
         }
         buttons={
           <ActionButtons
-            canAbort={canAbort}
-            canRestart={!isPatchOnCommitQueue && canRestart}
-            canSchedule={!isPatchOnCommitQueue && canSchedule}
-            canUnschedule={canUnschedule}
-            canSetPriority={canSetPriority}
             initialPriority={priority}
-            canOverrideDependencies={canOverrideDependencies}
-            taskName={displayName}
-            projectIdentifier={project?.identifier}
             isExecutionTask={!!displayTask}
+            task={task}
           />
         }
       />
