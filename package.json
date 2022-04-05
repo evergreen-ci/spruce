@@ -153,7 +153,7 @@
     "@types/jest": "^26.0.20",
     "@types/js-cookie": "^2.2.7",
     "@types/lodash.debounce": "4.0.6",
-    "@types/new-relic-browser": "0.1118.0",
+    "@types/new-relic-browser": "0.1212.1",
     "@types/node": "14.14.10",
     "@types/react": "17.0.0",
     "@types/react-dom": "17.0.0",

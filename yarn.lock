@@ -4218,10 +4218,10 @@
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
   integrity sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
 
-"@types/new-relic-browser@0.1118.0":
-  version "0.1118.0"
-  resolved "https://registry.yarnpkg.com/@types/new-relic-browser/-/new-relic-browser-0.1118.0.tgz#7ed70448fb99dbfa4b278d6c0f2b959d169c78bb"
-  integrity sha512-Sz2N7HiD9yJvtBCWV9i+7kzBY/mjG0TdoeZm2ZbloS5nTpkcqdy5QmIijzA3BUDzv+gkwZmpQg5TVhdC4SiR5g==
+"@types/new-relic-browser@0.1212.1":
+  version "0.1212.1"
+  resolved "https://registry.yarnpkg.com/@types/new-relic-browser/-/new-relic-browser-0.1212.1.tgz#625c943f817d81bbbd59335de138d706953037a7"
+  integrity sha512-AL4QsFgHPARxb9h8PLPznLarRqr0MEAZpW0yM6SU9auWja0geYB3S+MnFEBIatLKJxv8CcI0i5ZLF5ZYCfXVyA==
 
 "@types/node-fetch@^2.5.4":
   version "2.5.8"
