@@ -84,10 +84,10 @@ const TaskHistoryContents: React.FC = () => {
           <BadgeWrapper>
             <FilterBadges
               queryParamsToDisplay={constants.queryParamsToDisplay}
-              onRemoveAnalytics={() => {
+              onRemove={() => {
                 sendEvent({ name: "Remove task history badge" });
               }}
-              onClearAllAnalytics={() => {
+              onClearAll={() => {
                 sendEvent({ name: "Clear all task history badges" });
               }}
             />

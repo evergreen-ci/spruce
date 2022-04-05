@@ -84,10 +84,10 @@ const VariantHistoryContents: React.FC = () => {
           <BadgeWrapper>
             <FilterBadges
               queryParamsToDisplay={constants.queryParamsToDisplay}
-              onRemoveAnalytics={() => {
+              onRemove={() => {
                 sendEvent({ name: "Remove variant history badge" });
               }}
-              onClearAllAnalytics={() => {
+              onClearAll={() => {
                 sendEvent({ name: "Clear all variant history badges" });
               }}
             />

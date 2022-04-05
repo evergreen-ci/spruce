@@ -152,10 +152,10 @@ export const Commits = () => {
         </HeaderWrapper>
         <BadgeWrapper>
           <FilterBadges
-            onRemoveAnalytics={() => {
+            onRemove={() => {
               sendEvent({ name: "Remove commit chart badge" });
             }}
-            onClearAllAnalytics={() => {
+            onClearAll={() => {
               sendEvent({ name: "Clear all commit chart badges" });
             }}
             queryParamsToDisplay={queryParamsToDisplay}
