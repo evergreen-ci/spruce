@@ -22,11 +22,11 @@ describe("variant history", () => {
     cy.get("[data-selected='true']").should("contain.text", "v2.28.5");
   });
   it("should be able to paginate column headers", () => {
-    cy.dataCy("header-cell").should("have.length", 7);
+    cy.dataCy("header-cell").should("have.length", 4);
     cy.dataCy("next-page-button").click();
-    cy.dataCy("header-cell").should("have.length", 2);
+    cy.dataCy("header-cell").should("have.length", 4);
     cy.dataCy("prev-page-button").click();
-    cy.dataCy("header-cell").should("have.length", 7);
+    cy.dataCy("header-cell").should("have.length", 4);
   });
   it("should be able expand and collapse inactive commits", () => {
     cy.visit("/variant-history/spruce/ubuntu1604");
@@ -43,7 +43,7 @@ describe("variant history", () => {
     cy.contains("EVG-16356").should("not.be.visible");
   });
   it("should be able to filter column headers", () => {
-    cy.dataCy("header-cell").should("have.length", 7);
+    cy.dataCy("header-cell").should("have.length", 4);
     cy.getInputByLabel("Tasks").click();
     cy.getInputByLabel("Tasks").within(($el) => {
       cy.wrap($el)
@@ -72,7 +72,7 @@ describe("variant history", () => {
         .click();
     });
     cy.getInputByLabel("Tasks").click();
-    cy.dataCy("header-cell").should("have.length", 7);
+    cy.dataCy("header-cell").should("have.length", 4);
   });
   it("hovering over a failing task should show test results", () => {
     cy.dataCy("history-table-icon")
