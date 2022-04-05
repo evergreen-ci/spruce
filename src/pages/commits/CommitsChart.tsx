@@ -23,7 +23,6 @@ import { FlexRowContainer, CommitWrapper } from "./styles";
 const { parseQueryString, getString } = queryString;
 
 const DEFAULT_CHART_TYPE = ChartTypes.Absolute;
-const DEFAULT_OPEN_STATE = "True";
 
 interface Props {
   versions?: Commits;
@@ -51,15 +50,14 @@ export const CommitsChart: React.FC<Props> = ({
     DEFAULT_CHART_TYPE;
 
   const onChangeChartOpen = (open: boolean): void => {
-    const chartOpen = open ? "True" : "False";
     updateQueryParams({
-      [ChartToggleQueryParams.chartOpen]: chartOpen,
+      [ChartToggleQueryParams.chartOpen]: open.toString(),
     });
   };
 
-  const chartOpen =
-    ((getString(parsed[ChartToggleQueryParams.chartOpen]) as ChartTypes) ||
-      DEFAULT_OPEN_STATE) === "True";
+  const chartOpen = parsed[ChartToggleQueryParams.chartOpen]
+    ? parsed[ChartToggleQueryParams.chartOpen] === "true"
+    : true;
 
   const versionToGroupedTaskStatsMap = useMemo(() => {
     if (versions) {
