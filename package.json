@@ -215,7 +215,7 @@
     "prettier": "2.2.1",
     "prompt": "^1.0.0",
     "prompt-run": "^1.4.5",
-    "prompts": "2.4.0",
+    "prompts": "2.4.2",
     "react-app-polyfill": "^2.0.0",
     "react-dev-utils": "^11.0.1",
     "react-refresh": "^0.8.3",
