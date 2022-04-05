@@ -3,7 +3,8 @@ import {
   MainlineCommitsForHistoryQuery,
   TestFilter,
 } from "gql/generated/types";
-import { LOADING_HEIGHT } from "./constants";
+import { DEFAULT_COLUMN_LIMIT, LOADING_HEIGHT } from "./constants";
+
 import {
   HistoryTableReducerState,
   reducer,
@@ -29,6 +30,7 @@ interface HistoryTableState {
   columnLimit: number;
   historyTableFilters: TestFilter[];
   setHistoryTableFilters: (filters: TestFilter[]) => void;
+  onChangeTableWidth: (width: number) => void;
   setSelectedCommit: (order: number) => void;
   selectedCommit: {
     order: number;
@@ -45,6 +47,7 @@ interface HistoryTableProviderProps {
   children: React.ReactNode;
   initialState?: HistoryTableReducerState;
 }
+
 const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
   children,
   initialState = {
@@ -56,7 +59,7 @@ const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
     currentPage: 0,
     pageCount: 0,
     columns: [],
-    columnLimit: 7,
+    columnLimit: DEFAULT_COLUMN_LIMIT,
     historyTableFilters: [],
     commitCount: 10,
     selectedCommit: null,
@@ -109,6 +112,8 @@ const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
       pageCount,
       columnLimit,
       historyTableFilters,
+      onChangeTableWidth: (width: number): void =>
+        dispatch({ type: "onChangeTableWidth", width }),
       setHistoryTableFilters: (filters: TestFilter[]) =>
         dispatch({ type: "setHistoryTableFilters", filters }),
       setSelectedCommit: (order: number) =>

@@ -112,6 +112,7 @@ const projectForm: FormState = {
     branch: null,
     other: {
       displayName: null,
+      identifier: "project",
       batchTime: null,
       remotePath: null,
       spawnHostScriptPath: null,
@@ -157,6 +158,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
     repo: "evergreen",
     branch: null,
     displayName: null,
+    identifier: "project",
     batchTime: 0,
     remotePath: null,
     spawnHostScriptPath: null,
