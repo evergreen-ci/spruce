@@ -10,6 +10,7 @@ export interface FormState {
     branch: string;
     other: {
       displayName: string;
+      identifier?: string;
       batchTime: number;
       remotePath: string;
       spawnHostScriptPath: string;
