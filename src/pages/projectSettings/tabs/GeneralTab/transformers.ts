@@ -91,7 +91,9 @@ export const formToGql: FormToGqlFunction = (
     repo: generalConfiguration.repositoryInfo.repo,
     branch: generalConfiguration.branch,
     displayName: generalConfiguration.other.displayName,
-    identifier: generalConfiguration.other.identifier,
+    ...(generalConfiguration.other.identifier && {
+      identifier: generalConfiguration.other.identifier,
+    }),
     batchTime: generalConfiguration.other.batchTime ?? 0,
     remotePath: generalConfiguration.other.remotePath,
     spawnHostScriptPath: generalConfiguration.other.spawnHostScriptPath,
