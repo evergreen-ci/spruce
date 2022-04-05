@@ -34,8 +34,6 @@ export type Query = {
   taskFiles: TaskFiles;
   user: User;
   taskLogs: TaskLogs;
-  /** @deprecated Use version.buildVariants instead */
-  patchBuildVariants: Array<GroupedBuildVariant>;
   commitQueue: CommitQueue;
   userSettings?: Maybe<UserSettings>;
   spruceConfig?: Maybe<SpruceConfig>;
@@ -131,10 +129,6 @@ export type QueryUserArgs = {
 export type QueryTaskLogsArgs = {
   taskId: Scalars["String"];
   execution?: Maybe<Scalars["Int"]>;
-};
-
-export type QueryPatchBuildVariantsArgs = {
-  patchId: Scalars["String"];
 };
 
 export type QueryCommitQueueArgs = {
@@ -236,13 +230,9 @@ export type Mutation = {
   schedulePatchTasks?: Maybe<Scalars["String"]>;
   unschedulePatchTasks?: Maybe<Scalars["String"]>;
   restartVersions?: Maybe<Array<Version>>;
-  /** @deprecated restartPatch deprecated, Use restartVersions instead */
-  restartPatch?: Maybe<Scalars["String"]>;
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   enqueuePatch: Patch;
   setPatchPriority?: Maybe<Scalars["String"]>;
-  /** @deprecated scheduleTask deprecated, Use scheduleTasks instead */
-  scheduleTask: Task;
   scheduleTasks: Array<Task>;
   unscheduleTask: Task;
   abortTask: Task;
@@ -341,12 +331,6 @@ export type MutationRestartVersionsArgs = {
   versionsToRestart: Array<VersionToRestart>;
 };
 
-export type MutationRestartPatchArgs = {
-  patchId: Scalars["String"];
-  abort: Scalars["Boolean"];
-  taskIds: Array<Scalars["String"]>;
-};
-
 export type MutationScheduleUndispatchedBaseTasksArgs = {
   patchId: Scalars["String"];
 };
@@ -359,10 +343,6 @@ export type MutationEnqueuePatchArgs = {
 export type MutationSetPatchPriorityArgs = {
   patchId: Scalars["String"];
   priority: Scalars["Int"];
-};
-
-export type MutationScheduleTaskArgs = {
-  taskId: Scalars["String"];
 };
 
 export type MutationScheduleTasksArgs = {
@@ -2771,9 +2751,9 @@ export type SchedulePatchMutationVariables = Exact<{
 
 export type SchedulePatchMutation = {
   schedulePatch: {
-    version: string;
     tasks: Array<string>;
     variants: Array<string>;
+    versionFull?: Maybe<{ id: string }>;
   } & BasePatchFragment;
 };
 
@@ -3628,7 +3608,6 @@ export type PatchQuery = {
     projectIdentifier: string;
     githash: string;
     patchNumber: number;
-    version: string;
     taskCount?: Maybe<number>;
     baseVersionID?: Maybe<string>;
     canEnqueueToCommitQueue: boolean;
@@ -3642,6 +3621,7 @@ export type PatchQuery = {
         status: string;
       }>
     >;
+    versionFull?: Maybe<{ id: string }>;
     duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
     time?: Maybe<{
       started?: Maybe<string>;
@@ -3865,7 +3845,6 @@ export type GetTaskQuery = {
       canOverrideDependencies: boolean;
       startTime?: Maybe<Date>;
       timeTaken?: Maybe<number>;
-      version: string;
       totalTestCount: number;
       failedTestCount: number;
       spawnHostLink?: Maybe<string>;

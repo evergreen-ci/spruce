@@ -76,7 +76,6 @@ query GetTask($taskId: String!, $execution: Int) {
     }
     startTime
     timeTaken
-    version
     totalTestCount
     failedTestCount
     spawnHostLink
