@@ -80,7 +80,7 @@ export const Navbar: React.FC = () => {
             data-cy="legacy-ui-link"
             onClick={() => sendEvent({ name: "Click Legacy UI Link" })}
           >
-            Switch to legacy UI
+            Switch to Legacy UI
           </SecondaryLink>
         )}
         <PrimaryAWithIcon
@@ -89,7 +89,7 @@ export const Navbar: React.FC = () => {
           onClick={() => sendEvent({ name: "Click EVG Wiki Link" })}
         >
           <Icon glyph="QuestionMarkWithCircle" />
-          EVG Documentation
+          Documentation
         </PrimaryAWithIcon>
         <UserDropdown />
       </NavActionContainer>
