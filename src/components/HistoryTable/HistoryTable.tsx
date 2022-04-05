@@ -1,4 +1,5 @@
-import { useEffect, useRef, ComponentType } from "react";
+import { useEffect, useRef, ComponentType, useMemo } from "react";
+import throttle from "lodash.throttle";
 import AutoSizer from "react-virtualized-auto-sizer";
 import {
   VariableSizeList as List,
@@ -13,20 +14,27 @@ interface HistoryTableProps {
   recentlyFetchedCommits: MainlineCommitsForHistoryQuery["mainlineCommits"];
   children: ComponentType<ListChildComponentProps<any>>;
 }
-const HistoryTable: React.FC<HistoryTableProps> = ({
+const HistoryTable = ({
   loadMoreItems,
   recentlyFetchedCommits,
   children,
-}) => {
+}: HistoryTableProps) => {
   const {
     getItemHeight,
     fetchNewCommit,
     isItemLoaded,
     toggleRowSizeAtIndex,
     commitCount,
+    onChangeTableWidth,
     selectedCommit,
     processedCommitCount,
   } = useHistoryTable();
+
+  const throttleOnChangeTableWidth = useMemo(
+    () => throttle(onChangeTableWidth, 400),
+    [onChangeTableWidth]
+  );
+
   const listRef = useRef<List>(null);
   useEffect(() => {
     if (recentlyFetchedCommits) {
@@ -60,7 +68,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
   };
 
   return (
-    <AutoSizer>
+    <AutoSizer onResize={({ width }) => throttleOnChangeTableWidth(width)}>
       {({ height, width }) => (
         <InfiniteLoader
           isItemLoaded={isItemLoaded}
