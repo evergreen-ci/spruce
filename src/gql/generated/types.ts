@@ -1032,8 +1032,6 @@ export type TaskQueueItem = {
 
 export type TaskQueueDistro = {
   id: Scalars["ID"];
-  /** @deprecated queueCount is deprecated, use taskCount instead */
-  queueCount: Scalars["Int"];
   taskCount: Scalars["Int"];
   hostCount: Scalars["Int"];
 };
@@ -1186,6 +1184,7 @@ export type Patch = {
   duration?: Maybe<PatchDuration>;
   time?: Maybe<PatchTime>;
   taskCount?: Maybe<Scalars["Int"]>;
+  /** @deprecated Use versionFull.baseVersion.id instead */
   baseVersionID?: Maybe<Scalars["String"]>;
   parameters: Array<Parameter>;
   moduleCodeChanges: Array<ModuleCodeChange>;
@@ -1337,11 +1336,6 @@ export type Dependency = {
   taskId: Scalars["String"];
 };
 
-export type PatchMetadata = {
-  author: Scalars["String"];
-  patchID: Scalars["String"];
-};
-
 export type AbortInfo = {
   user: Scalars["String"];
   taskID: Scalars["String"];
@@ -1397,15 +1391,11 @@ export type Task = {
   logs: TaskLogLinks;
   minQueuePosition: Scalars["Int"];
   patch?: Maybe<Patch>;
-  /** @deprecated patchMetadata is deprecated. Use versionMetadata instead. */
-  patchMetadata: PatchMetadata;
   patchNumber?: Maybe<Scalars["Int"]>;
   priority?: Maybe<Scalars["Int"]>;
   project?: Maybe<Project>;
   projectId: Scalars["String"];
   projectIdentifier?: Maybe<Scalars["String"]>;
-  /** @deprecated reliesOn is deprecated. Use dependsOn instead. */
-  reliesOn: Array<Dependency>;
   dependsOn?: Maybe<Array<Dependency>>;
   canOverrideDependencies: Scalars["Boolean"];
   requester: Scalars["String"];
@@ -1419,8 +1409,6 @@ export type Task = {
   taskGroupMaxHosts?: Maybe<Scalars["Int"]>;
   timeTaken?: Maybe<Scalars["Duration"]>;
   totalTestCount: Scalars["Int"];
-  /** @deprecated version is deprecated. Use versionMetadata instead. */
-  version: Scalars["String"];
   versionMetadata: Version;
   order: Scalars["Int"];
 };
