@@ -4,6 +4,7 @@ import * as general from "./GeneralTab/transformers";
 import * as githubCommitQueue from "./GithubCommitQueueTab/transformers";
 import * as notifications from "./NotificationsTab/transformers";
 import * as patchAliases from "./PatchAliasesTab/transformers";
+import * as periodicBuilds from "./PeriodicBuildsTab/transformers";
 import * as plugins from "./PluginsTab/transformers";
 import { CompletedRoutes, FormToGqlFunction, GqlToFormFunction } from "./types";
 import * as variables from "./VariablesTab/transformers";
@@ -19,6 +20,7 @@ export const gqlToFormMap: Record<CompletedRoutes, GqlToFormFunction> = {
   [ProjectSettingsTabRoutes.Notifications]: notifications.gqlToForm,
   [ProjectSettingsTabRoutes.PatchAliases]: patchAliases.gqlToForm,
   [ProjectSettingsTabRoutes.VirtualWorkstation]: virtualWorkstation.gqlToForm,
+  [ProjectSettingsTabRoutes.PeriodicBuilds]: periodicBuilds.gqlToForm,
 };
 
 // TODO: Convert CompletedRoutes to WritableRoutes once all tabs have been implemented.
@@ -31,4 +33,5 @@ export const formToGqlMap: Record<CompletedRoutes, FormToGqlFunction> = {
   [ProjectSettingsTabRoutes.Notifications]: notifications.formToGql,
   [ProjectSettingsTabRoutes.PatchAliases]: patchAliases.formToGql,
   [ProjectSettingsTabRoutes.VirtualWorkstation]: virtualWorkstation.formToGql,
+  [ProjectSettingsTabRoutes.PeriodicBuilds]: periodicBuilds.formToGql,
 };
