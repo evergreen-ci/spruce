@@ -22,11 +22,11 @@ export interface TupleAnalytics {
 }
 interface TupleSelectProps {
   options: option[];
-  sendAnalytics?: (t: TupleAnalytics) => void;
+  onSubmit?: (t: TupleAnalytics) => void;
 }
 export const TupleSelect: React.FC<TupleSelectProps> = ({
   options,
-  sendAnalytics,
+  onSubmit = () => {},
 }) => {
   const [input, setInput] = useState("");
   const [selected, setSelected] = useState(options[0].value);
@@ -37,9 +37,7 @@ export const TupleSelect: React.FC<TupleSelectProps> = ({
   const onClick = () => {
     const selectedParams = queryParams[selected] as string[];
     const updatedParams = upsertQueryParam(selectedParams, input);
-    if (sendAnalytics) {
-      sendAnalytics({ type: selected, value: input });
-    }
+    onSubmit({ type: selected, value: input });
     updateQueryParams({ [selected]: updatedParams });
     setInput("");
   };

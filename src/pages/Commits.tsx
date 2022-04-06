@@ -125,7 +125,7 @@ export const Commits = () => {
         <HeaderWrapper>
           <ElementWrapper width="35">
             <TupleSelect
-              sendAnalytics={sendAnalytics}
+              onSubmit={sendAnalytics}
               options={tupleSelectOptions}
             />
           </ElementWrapper>
