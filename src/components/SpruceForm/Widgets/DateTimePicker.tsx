@@ -5,7 +5,6 @@ import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
 import DatePicker from "components/DatePicker";
 import TimePicker from "components/TimePicker";
 import { size } from "constants/tokens";
-import { useUserTimeZone } from "hooks/useUserTimeZone";
 
 export const DateTimePicker: Widget = ({
   disabled,
@@ -16,9 +15,13 @@ export const DateTimePicker: Widget = ({
   readonly,
   value,
 }) => {
-  const { description, showLabel } = options;
+  const { description, disablePastDatetime, showLabel, timezone } = options as {
+    description: string;
+    disablePastDatetime: string;
+    showLabel: boolean;
+    timezone: string;
+  };
 
-  const timezone = useUserTimeZone();
   const currentDateTime = timezone
     ? utcToZonedTime(new Date(value), timezone)
     : new Date(value);
@@ -27,6 +30,12 @@ export const DateTimePicker: Widget = ({
     onChange(
       timezone ? zonedTimeToUtc(d, timezone).toString() : new Date(d).toString()
     );
+  const disabledDate = disablePastDatetime
+    ? (current) =>
+        timezone
+          ? utcToZonedTime(current, timezone) < currentDateTime
+          : current < Date.now()
+    : undefined;
 
   return (
     <>
@@ -43,6 +52,7 @@ export const DateTimePicker: Widget = ({
           value={currentDateTime}
           allowClear={false}
           disabled={isDisabled}
+          disabledDate={disabledDate}
         />
         <TimePicker
           data-cy="time-picker"
@@ -50,6 +60,7 @@ export const DateTimePicker: Widget = ({
           value={currentDateTime}
           allowClear={false}
           disabled={isDisabled}
+          disabledDate={disabledDate}
         />
       </DateTimeContainer>
     </>

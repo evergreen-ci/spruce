@@ -111,6 +111,7 @@ export const getFormSchema = (
           "ui:disabled": true,
         },
         nextRunTime: {
+          "ui:disablePastDatetime": true,
           "ui:timezone": timezone,
           "ui:widget": "date-time",
         },
