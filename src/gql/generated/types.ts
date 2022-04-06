@@ -2774,7 +2774,9 @@ export type SaveProjectSettingsForSectionMutationVariables = Exact<{
 }>;
 
 export type SaveProjectSettingsForSectionMutation = {
-  saveProjectSettingsForSection: ProjectSettingsFragment;
+  saveProjectSettingsForSection: {
+    projectRef?: Maybe<{ id: string; identifier: string }>;
+  };
 };
 
 export type SaveRepoSettingsForSectionMutationVariables = Exact<{
@@ -2783,7 +2785,7 @@ export type SaveRepoSettingsForSectionMutationVariables = Exact<{
 }>;
 
 export type SaveRepoSettingsForSectionMutation = {
-  saveRepoSettingsForSection: RepoSettingsFragment;
+  saveRepoSettingsForSection: { projectRef?: Maybe<{ id: string }> };
 };
 
 export type SaveSubscriptionMutationVariables = Exact<{

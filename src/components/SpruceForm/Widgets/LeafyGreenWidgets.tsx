@@ -68,7 +68,11 @@ export const LeafyGreenTextInput: React.VFC<
           aria-label={label}
           {...errorProps}
         />
-        {!!warnings?.length && <WarningText>{warnings.join(", ")}</WarningText>}
+        {!!warnings?.length && (
+          <WarningText data-cy="input-warning">
+            {warnings.join(", ")}
+          </WarningText>
+        )}
       </MaxWidthContainer>
     </ElementWrapper>
   );

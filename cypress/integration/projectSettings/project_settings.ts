@@ -702,3 +702,34 @@ describe("Attaching Spruce to a repo", () => {
     });
   });
 });
+
+describe("Renaming the identifier", () => {
+  const destination = getGeneralRoute(project);
+
+  before(() => {
+    cy.login();
+    cy.visit(destination);
+  });
+
+  beforeEach(() => {
+    cy.preserveCookies();
+  });
+
+  it("Shows warning text when identifier is changed", () => {
+    const warningText =
+      "Updates made to the project identifier will change the identifier used for the CLI, inter-project dependencies, etc. Project users should be made aware of this change, as the old identifier will no longer work.";
+
+    cy.dataCy("input-warning").should("not.contain", warningText);
+    cy.dataCy("identifier-input").clear().type("new-identifier");
+    cy.dataCy("input-warning").should("contain", warningText);
+  });
+
+  it("Successfully saves", () => {
+    cy.dataCy("save-settings-button").click();
+    cy.validateToast("success");
+  });
+
+  it("Redirects to a new URL", () => {
+    cy.url().should("include", "new-identifier");
+  });
+});

@@ -278,13 +278,14 @@ export const getFormSchema = (
         displayName: {
           "ui:data-cy": "display-name-input",
         },
-        ...(identifierHasChanges && {
-          identifier: {
+        identifier: {
+          "ui:data-cy": "identifier-input",
+          ...(identifierHasChanges && {
             "ui:warnings": [
               "Updates made to the project identifier will change the identifier used for the CLI, inter-project dependencies, etc. Project users should be made aware of this change, as the old identifier will no longer work.",
             ],
-          },
-        }),
+          }),
+        },
         batchTime: {
           "ui:description":
             "The interval of time (in minutes) that Evergreen should wait in between activating the latest version.",
