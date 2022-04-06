@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
@@ -47,7 +47,7 @@ const TaskHistoryContents: React.FC = () => {
     variables: {
       mainlineCommitsOptions: {
         projectID: projectId,
-        limit: 5,
+        limit: 10,
         skipOrderNumber: nextPageOrderNumber,
         shouldCollapse: true,
       },
@@ -60,6 +60,12 @@ const TaskHistoryContents: React.FC = () => {
 
   const { mainlineCommits } = data || {};
 
+  const loadMoreItems = useCallback(() => {
+    if (mainlineCommits) {
+      setNextPageOrderNumber(mainlineCommits.nextPageOrderNumber);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mainlineCommits?.nextPageOrderNumber]);
   return (
     <PageWrapper>
       <CenterPage>
@@ -83,11 +89,7 @@ const TaskHistoryContents: React.FC = () => {
           <TableWrapper>
             <HistoryTable
               recentlyFetchedCommits={mainlineCommits}
-              loadMoreItems={() => {
-                if (mainlineCommits) {
-                  setNextPageOrderNumber(mainlineCommits.nextPageOrderNumber);
-                }
-              }}
+              loadMoreItems={loadMoreItems}
             >
               {TaskHistoryRow}
             </HistoryTable>

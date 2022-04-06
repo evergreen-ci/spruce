@@ -58,7 +58,7 @@ const HistoryTable = ({
     } else {
       loadMoreItems();
     }
-  }, [selectedCommit, loadMoreItems]);
+  }, [selectedCommit?.rowIndex, loadMoreItems, selectedCommit]);
 
   const toggleRowSize = (index: number, numCommits: number) => {
     toggleRowSizeAtIndex(index, numCommits);
