@@ -8,6 +8,7 @@ import { inactiveElementStyle, StyledRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { TaskStatus } from "types/task";
+import { COLUMN_LABEL_WIDTH, ROW_LABEL_WIDTH } from "../constants";
 import { HistoryTableIcon } from "../HistoryTableIcon";
 
 const { gray } = uiColors;
@@ -119,7 +120,7 @@ const Circle = styled.div`
 const Cell = styled.div<{ inactive?: boolean }>`
   display: flex;
   height: 100%;
-  width: 150px;
+  width: ${COLUMN_LABEL_WIDTH}px;
   margin: 0 ${size.xxs};
   justify-content: center;
   align-items: center;
@@ -134,7 +135,7 @@ const HeaderCell = styled(Cell)`
 
 // LabelCellContainer is used to provide padding for the first column in the table since we do not have a header for it
 const LabelCellContainer = styled.div`
-  width: 200px;
+  width: ${ROW_LABEL_WIDTH}px;
   margin-right: 40px;
 `;
 
