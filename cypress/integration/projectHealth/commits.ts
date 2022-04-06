@@ -28,13 +28,13 @@ describe("commits page", () => {
     cy.dataCy("commit-chart-container").should("not.be.visible");
     cy.dataCy("next-page-button").click();
     cy.dataCy("commit-chart-container").should("not.be.visible");
-    cy.location("search").should("contain", "?chartOpen=False");
+    cy.location("search").should("contain", "?chartOpen=false");
 
     cy.contains("Project Health").click();
     cy.dataCy("commit-chart-container").should("be.visible");
     cy.dataCy("prev-page-button").click();
     cy.dataCy("commit-chart-container").should("be.visible");
-    cy.location("search").should("contain", "?chartOpen=True");
+    cy.location("search").should("contain", "?chartOpen=true");
   });
   it("toggling chart types should change the charts in view", () => {
     cy.getInputByLabel("Absolute Number").should("be.checked");
@@ -53,7 +53,7 @@ describe("commits page", () => {
     );
     cy.location("search").should(
       "contain",
-      "?chartOpen=True&chartType=percentage"
+      "?chartOpen=true&chartType=percentage"
     );
     cy.getInputByLabel("Absolute Number").click({ force: true });
     cy.getInputByLabel("Absolute Number").should("be.checked");
@@ -65,7 +65,7 @@ describe("commits page", () => {
     );
     cy.location("search").should(
       "contain",
-      "?chartOpen=True&chartType=absolute"
+      "?chartOpen=true&chartType=absolute"
     );
   });
   it("Should be able to paginate between commits", () => {
