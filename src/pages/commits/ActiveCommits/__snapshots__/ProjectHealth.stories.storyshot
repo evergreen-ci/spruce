@@ -738,7 +738,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             data-cy="variant-header"
-            href="/variant-history/spruce/js?skipOrderNumber=930"
+            href="/variant-history/spruce/js?selectedCommit=929"
             onClick={[Function]}
           >
             03b. JavaScript Tests [js]
@@ -921,7 +921,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             data-cy="variant-header"
-            href="/variant-history/spruce/unit_java?skipOrderNumber=929"
+            href="/variant-history/spruce/unit_java?selectedCommit=928"
             onClick={[Function]}
           >
             03a. Unit Tests Java [unit_java]
@@ -1343,7 +1343,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
             data-cy="variant-header"
-            href="/variant-history/spruce/unit_java?skipOrderNumber=925"
+            href="/variant-history/spruce/unit_java?selectedCommit=924"
             onClick={[Function]}
           >
             03a. Unit Tests Java [unit_java]
