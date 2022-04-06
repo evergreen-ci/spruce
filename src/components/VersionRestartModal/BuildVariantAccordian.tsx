@@ -50,18 +50,14 @@ export const BuildVariantAccordian: React.VFC<BuildVariantAccordianProps> = ({
   );
   return (
     <AccordionWrapper data-cy="variant-accordion">
-      <Accordion
-        title={variantTitle}
-        titleTag={FlexContainer}
-        contents={
-          <TaskStatusCheckboxContainer
-            versionId={versionId}
-            tasks={tasks}
-            selectedTasks={selectedTasks}
-            toggleSelectedTask={toggleSelectedTask}
-          />
-        }
-      />
+      <Accordion title={variantTitle} titleTag={FlexContainer}>
+        <TaskStatusCheckboxContainer
+          versionId={versionId}
+          tasks={tasks}
+          selectedTasks={selectedTasks}
+          toggleSelectedTask={toggleSelectedTask}
+        />
+      </Accordion>
     </AccordionWrapper>
   );
 };

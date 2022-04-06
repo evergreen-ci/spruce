@@ -304,8 +304,9 @@ export const AccordionFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
         numberedTitle ? `${numberedTitle} ${index + 1}` : displayTitle || title
       }
       titleTag={AccordionTitle}
-      contents={properties.map(({ content }) => content)}
-    />
+    >
+      {properties.map(({ content }) => content)}
+    </Accordion>
   );
 };
 

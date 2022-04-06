@@ -137,7 +137,8 @@ export const ScheduleTasksModal: React.VFC<ScheduleTasksModalProps> = ({
                           }}
                         />
                       }
-                      contents={tasks.map(({ id, displayName }) => (
+                    >
+                      {tasks.map(({ id, displayName }) => (
                         <Checkbox
                           key={id}
                           data-cy={`${buildVariant}-${displayName}-task-checkbox`}
@@ -154,7 +155,7 @@ export const ScheduleTasksModal: React.VFC<ScheduleTasksModalProps> = ({
                           }}
                         />
                       ))}
-                    />
+                    </Accordion>
                   </AccordionWrapper>
                 );
               }

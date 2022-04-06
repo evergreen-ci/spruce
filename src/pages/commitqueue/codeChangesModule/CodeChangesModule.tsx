@@ -44,12 +44,11 @@ export const CodeChangeModule: React.VFC<{
               <CodeChangesBadge {...totalFileDiffs(commitDiffs)} />
             </DropDownText>
           }
-          contents={
-            <TableWrapper>
-              <CodeChangesTable fileDiffs={commitDiffs} showHeader={false} />
-            </TableWrapper>
-          }
-        />
+        >
+          <TableWrapper>
+            <CodeChangesTable fileDiffs={commitDiffs} showHeader={false} />
+          </TableWrapper>
+        </Accordion>
       </CodeChangeModuleContainer>
     );
   });

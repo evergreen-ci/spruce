@@ -70,11 +70,12 @@ export const FoldedCommit = memo(
           title={`Expand ${numCommits} inactive`}
           toggledTitle={`Collapse ${numCommits} inactive`}
           titleTag={AccordionTitle}
-          contents={commits}
           onToggle={() => toggleRowSize(index, numCommits)}
           useIndent={false}
           defaultOpen={defaultOpen}
-        />
+        >
+          {commits}
+        </Accordion>
       </Column>
     );
   },

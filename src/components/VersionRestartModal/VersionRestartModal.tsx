@@ -171,20 +171,19 @@ const VersionRestartModal: React.VFC<Props> = ({
                       {v?.projectIdentifier ? v?.projectIdentifier : v?.project}
                     </BoldTextStyle>
                   }
-                  contents={
-                    <TitleContainer>
-                      <VersionTasks
-                        version={v}
-                        selectedTasks={selectedTasks}
-                        setBaseStatusFilterTerm={setVersionBaseStatus(v?.id)}
-                        setVersionStatusFilterTerm={setVersionStatus(v?.id)}
-                        toggleSelectedTask={toggleSelectedTask}
-                        baseStatusFilterTerm={baseStatusFilterTerm[v.id]}
-                        versionStatusFilterTerm={versionStatusFilterTerm[v.id]}
-                      />
-                    </TitleContainer>
-                  }
-                />
+                >
+                  <TitleContainer>
+                    <VersionTasks
+                      version={v}
+                      selectedTasks={selectedTasks}
+                      setBaseStatusFilterTerm={setVersionBaseStatus(v?.id)}
+                      setVersionStatusFilterTerm={setVersionStatus(v?.id)}
+                      toggleSelectedTask={toggleSelectedTask}
+                      baseStatusFilterTerm={baseStatusFilterTerm[v.id]}
+                      versionStatusFilterTerm={versionStatusFilterTerm[v.id]}
+                    />
+                  </TitleContainer>
+                </Accordion>
               ))}
               <br />
             </div>

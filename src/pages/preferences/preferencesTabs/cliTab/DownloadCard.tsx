@@ -59,12 +59,9 @@ export const DownloadCard = () => {
           />
         ))}
       </CardGroup>
-      <Accordion
-        title="Show More"
-        toggledTitle="Show Less"
-        contents={<ExpandableLinkContents clientBinaries={otherBinaries} />}
-        showCaret={false}
-      />
+      <Accordion title="Show More" toggledTitle="Show Less" showCaret={false}>
+        <ExpandableLinkContents clientBinaries={otherBinaries} />
+      </Accordion>
     </Container>
   );
 };

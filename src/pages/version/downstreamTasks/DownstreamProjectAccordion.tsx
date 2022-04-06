@@ -158,78 +158,72 @@ export const DownstreamProjectAccordion: React.VFC<DownstreamProjectAccordionPro
 
   return (
     <AccordionWrapper data-cy="project-accordion">
-      <Accordion
-        title={variantTitle}
-        titleTag={FlexContainer}
-        contents={
-          <AccordionContents>
-            <p>
-              Base commit:{" "}
-              <InlineCode href={`${getUiUrl()}/version/${baseVersionID}`}>
-                {githash.slice(0, 10)}
-              </InlineCode>
-            </p>
-            <TableWrapper>
-              <TableControlOuterRow>
-                <FlexContainer>
-                  <ResultCountLabel
-                    dataCyNumerator="current-task-count"
-                    dataCyDenominator="total-task-count"
-                    label="tasks"
-                    numerator={patchTasks?.count}
-                    denominator={taskCount}
-                  />
-                  <PaddedButton // @ts-expect-error
-                    onClick={() => {
-                      dispatch({ type: "clearAllFilters" });
-                    }}
-                    data-cy="clear-all-filters"
-                  >
-                    Clear All Filters
-                  </PaddedButton>
-                </FlexContainer>
-                <TableControlInnerRow>
-                  <Pagination
-                    data-cy="downstream-tasks-table-pagination"
-                    onChange={(p) =>
-                      dispatch({ type: "onChangePagination", page: p - 1 })
-                    }
-                    pageSize={state.limit}
-                    totalResults={patchTasks?.count}
-                    value={variables.page}
-                  />
-                  <PageSizeSelector
-                    data-cy="tasks-table-page-size-selector"
-                    value={variables.limit}
-                    onClick={(l) =>
-                      dispatch({ type: "onChangeLimit", limit: l })
-                    }
-                  />
-                </TableControlInnerRow>
-              </TableControlOuterRow>
-              {showSkeleton ? (
-                <Skeleton active title={false} paragraph={{ rows: 8 }} />
-              ) : (
-                <TasksTable
-                  sorts={variables.sorts}
-                  tableChangeHandler={tableChangeHandler}
-                  tasks={patchTasks?.tasks}
-                  statusSelectorProps={statusSelectorProps}
-                  baseStatusSelectorProps={baseStatusSelectorProps}
-                  taskNameInputProps={taskNameInputProps}
-                  variantInputProps={variantInputProps}
-                  onColumnHeaderClick={(sortField) =>
-                    sendEvent({
-                      name: "Sort Downstream Tasks Table",
-                      sortBy: sortField,
-                    })
-                  }
+      <Accordion title={variantTitle} titleTag={FlexContainer}>
+        <AccordionContents>
+          <p>
+            Base commit:{" "}
+            <InlineCode href={`${getUiUrl()}/version/${baseVersionID}`}>
+              {githash.slice(0, 10)}
+            </InlineCode>
+          </p>
+          <TableWrapper>
+            <TableControlOuterRow>
+              <FlexContainer>
+                <ResultCountLabel
+                  dataCyNumerator="current-task-count"
+                  dataCyDenominator="total-task-count"
+                  label="tasks"
+                  numerator={patchTasks?.count}
+                  denominator={taskCount}
                 />
-              )}
-            </TableWrapper>
-          </AccordionContents>
-        }
-      />
+                <PaddedButton // @ts-expect-error
+                  onClick={() => {
+                    dispatch({ type: "clearAllFilters" });
+                  }}
+                  data-cy="clear-all-filters"
+                >
+                  Clear All Filters
+                </PaddedButton>
+              </FlexContainer>
+              <TableControlInnerRow>
+                <Pagination
+                  data-cy="downstream-tasks-table-pagination"
+                  onChange={(p) =>
+                    dispatch({ type: "onChangePagination", page: p - 1 })
+                  }
+                  pageSize={state.limit}
+                  totalResults={patchTasks?.count}
+                  value={variables.page}
+                />
+                <PageSizeSelector
+                  data-cy="tasks-table-page-size-selector"
+                  value={variables.limit}
+                  onClick={(l) => dispatch({ type: "onChangeLimit", limit: l })}
+                />
+              </TableControlInnerRow>
+            </TableControlOuterRow>
+            {showSkeleton ? (
+              <Skeleton active title={false} paragraph={{ rows: 8 }} />
+            ) : (
+              <TasksTable
+                sorts={variables.sorts}
+                tableChangeHandler={tableChangeHandler}
+                tasks={patchTasks?.tasks}
+                statusSelectorProps={statusSelectorProps}
+                baseStatusSelectorProps={baseStatusSelectorProps}
+                taskNameInputProps={taskNameInputProps}
+                variantInputProps={variantInputProps}
+                onColumnHeaderClick={(sortField) =>
+                  sendEvent({
+                    name: "Sort Downstream Tasks Table",
+                    sortBy: sortField,
+                  })
+                }
+              />
+            )}
+          </TableWrapper>
+        </AccordionContents>
+      </Accordion>
     </AccordionWrapper>
   );
 };
