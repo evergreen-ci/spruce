@@ -47,7 +47,7 @@ interface SpawnHostModalProps {
   visible: boolean;
   onCancel: () => void;
 }
-export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
+export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   visible,
   onCancel,
 }) => {

@@ -11,7 +11,7 @@ import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import { usePageTitle } from "hooks";
 import { PreferencesTabs } from "pages/preferences/PreferencesTabs";
 
-export const Preferences: React.FC = () => {
+export const Preferences: React.VFC = () => {
   usePageTitle("Preferences");
   const { tab } = useParams<{ tab: string }>();
   const { sendEvent } = usePreferencesAnalytics();

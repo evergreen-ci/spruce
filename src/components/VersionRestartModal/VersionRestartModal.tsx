@@ -38,7 +38,7 @@ interface Props {
   refetchQueries: string[];
   childPatches: Partial<Patch>[];
 }
-const VersionRestartModal: React.FC<Props> = ({
+const VersionRestartModal: React.VFC<Props> = ({
   visible,
   onOk,
   onCancel,
@@ -219,7 +219,7 @@ interface VersionTasksProps {
   versionStatusFilterTerm: string[];
 }
 
-const VersionTasks: React.FC<VersionTasksProps> = ({
+const VersionTasks: React.VFC<VersionTasksProps> = ({
   version,
   selectedTasks,
   setBaseStatusFilterTerm,

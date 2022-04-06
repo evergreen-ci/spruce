@@ -16,6 +16,7 @@ interface Props {
 
 interface TitleTypographyProps {
   size: Size;
+  children: React.ReactNode | string;
 }
 
 const TitleTypography: React.FC<TitleTypographyProps> = ({
@@ -30,7 +31,7 @@ const TitleTypography: React.FC<TitleTypographyProps> = ({
   }
 };
 
-export const PageTitle: React.FC<Props> = ({
+export const PageTitle: React.VFC<Props> = ({
   loading,
   hasData,
   title,

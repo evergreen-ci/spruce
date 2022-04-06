@@ -26,7 +26,7 @@ interface Props {
   isIssue: boolean;
 }
 
-export const AddIssueModal: React.FC<Props> = ({
+export const AddIssueModal: React.VFC<Props> = ({
   visible,
   dataCy,
   closeModal,

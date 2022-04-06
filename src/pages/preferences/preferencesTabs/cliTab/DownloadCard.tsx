@@ -74,7 +74,7 @@ interface CliDownloadBoxProps {
   link: string | null;
   description?: string;
 }
-const CliDownloadBox: React.FC<CliDownloadBoxProps> = ({
+const CliDownloadBox: React.VFC<CliDownloadBoxProps> = ({
   title,
   description,
   link,
@@ -104,7 +104,7 @@ const CliDownloadBox: React.FC<CliDownloadBoxProps> = ({
 interface ExpandableLinkContentsProps {
   clientBinaries: ClientBinary[];
 }
-const ExpandableLinkContents: React.FC<ExpandableLinkContentsProps> = ({
+const ExpandableLinkContents: React.VFC<ExpandableLinkContentsProps> = ({
   clientBinaries,
 }) => {
   const { sendEvent } = usePreferencesAnalytics();

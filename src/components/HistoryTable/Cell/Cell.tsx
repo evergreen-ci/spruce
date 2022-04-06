@@ -24,7 +24,7 @@ interface TaskCellProps {
   label?: string;
   loading?: boolean;
 }
-const TaskCell: React.FC<TaskCellProps> = ({
+const TaskCell: React.VFC<TaskCellProps> = ({
   task,
   inactive,
   failingTests,
@@ -53,7 +53,7 @@ const EmptyCell = () => (
 interface LoadingCellProps {
   isHeader?: boolean;
 }
-const LoadingCell: React.FC<LoadingCellProps> = ({ isHeader = false }) => (
+const LoadingCell: React.VFC<LoadingCellProps> = ({ isHeader = false }) => (
   <>
     {isHeader ? (
       <HeaderCell data-cy="loading-header-cell">
@@ -72,7 +72,7 @@ interface ColumnHeaderCellProps {
   trimmedDisplayName: string;
   fullDisplayName: string;
 }
-const ColumnHeaderCell: React.FC<ColumnHeaderCellProps> = ({
+const ColumnHeaderCell: React.VFC<ColumnHeaderCellProps> = ({
   link,
   trimmedDisplayName,
   fullDisplayName,

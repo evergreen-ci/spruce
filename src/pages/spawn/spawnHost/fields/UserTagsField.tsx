@@ -15,7 +15,7 @@ interface UserTagsFieldProps {
   visible?: boolean;
 }
 
-export const UserTagsField: React.FC<UserTagsFieldProps> = ({
+export const UserTagsField: React.VFC<UserTagsFieldProps> = ({
   onChange,
   instanceTags,
   visible = true,

@@ -15,7 +15,7 @@ const columns = [
   },
 ];
 
-export const BuildBaronTable: React.FC<{
+export const BuildBaronTable: React.VFC<{
   jiraIssues: CreatedTickets;
 }> = ({ jiraIssues }) => (
   <Table

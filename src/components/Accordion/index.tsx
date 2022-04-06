@@ -11,11 +11,11 @@ interface AccordionProps {
   contents: React.ReactNode;
   allowToggleFromTitle?: boolean;
   defaultOpen?: boolean;
-  titleTag?: React.FC;
+  titleTag?: React.VFC;
   onToggle?: () => void;
   useIndent?: boolean;
 }
-export const Accordion: React.FC<AccordionProps> = ({
+export const Accordion: React.VFC<AccordionProps> = ({
   title,
   toggledTitle,
   contents,

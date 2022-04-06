@@ -12,6 +12,7 @@ interface DisplayModalProps {
   ) => void | React.Dispatch<React.SetStateAction<boolean>>;
   size?: ModalSize;
   title?: string;
+  children: React.ReactNode;
 }
 
 export const DisplayModal: React.FC<DisplayModalProps> = ({

@@ -35,7 +35,7 @@ const { validateObjectId } = validators;
 
 const disablePage = isProduction();
 
-export const ProjectSettings: React.FC = () => {
+export const ProjectSettings: React.VFC = () => {
   usePageTitle(`Project Settings`);
   const dispatchToast = useToastContext();
   const { identifier, tab } = useParams<{
@@ -201,7 +201,7 @@ export const ProjectSettings: React.FC = () => {
   );
 };
 
-const ProjectSettingsNavItem: React.FC<{
+const ProjectSettingsNavItem: React.VFC<{
   currentTab: ProjectSettingsTabRoutes;
   identifier: string;
   tab: ProjectSettingsTabRoutes;

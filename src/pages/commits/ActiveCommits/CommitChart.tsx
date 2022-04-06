@@ -11,7 +11,7 @@ interface Props {
   chartType: ChartTypes;
 }
 
-export const CommitChart: React.FC<Props> = ({
+export const CommitChart: React.VFC<Props> = ({
   max,
   chartType,
   groupedTaskStats,

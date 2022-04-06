@@ -1,1 +1,1 @@
-export const PeriodicBuildsTab: React.FC = () => null;
+export const PeriodicBuildsTab: React.VFC = () => null;

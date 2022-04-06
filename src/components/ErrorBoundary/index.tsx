@@ -68,7 +68,9 @@ const initializeBugsnag = () => {
   }
 };
 
-const ErrorBoundary: React.FC = ({ children }) => {
+const ErrorBoundary: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   // In some cases we do not want to enable bugsnag (ex: testing environments).
   // In these cases we will return a fallback element
   const ErrorBoundaryComp = getBoundary();

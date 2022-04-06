@@ -5,7 +5,9 @@ interface TestStatusBadgeProps {
   status: string;
 }
 
-export const TestStatusBadge: React.FC<TestStatusBadgeProps> = ({ status }) => (
+export const TestStatusBadge: React.VFC<TestStatusBadgeProps> = ({
+  status,
+}) => (
   <Badge variant={statusToBadgeColor[status] || Variant.LightGray} key={status}>
     {statusCopy[status] || status}
   </Badge>

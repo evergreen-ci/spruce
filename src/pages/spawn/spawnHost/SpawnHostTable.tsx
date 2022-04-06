@@ -22,7 +22,7 @@ const { sortFunctionDate, sortFunctionString } = string;
 interface SpawnHostTableProps {
   hosts: MyHost[];
 }
-export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
+export const SpawnHostTable: React.VFC<SpawnHostTableProps> = ({ hosts }) => {
   const { search } = useLocation();
   const host = parseQueryString(search)?.host;
   const spawnAnalytics = useSpawnAnalytics();

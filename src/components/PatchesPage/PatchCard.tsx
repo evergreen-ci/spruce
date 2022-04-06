@@ -33,7 +33,7 @@ interface Props extends PatchProps {
   >;
 }
 
-export const PatchCard: React.FC<Props> = ({
+export const PatchCard: React.VFC<Props> = ({
   id,
   childPatches,
   description,

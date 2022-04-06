@@ -19,7 +19,7 @@ interface Props {
   version: VersionQuery["version"];
 }
 
-export const Metadata: React.FC<Props> = ({ loading, version }) => {
+export const Metadata: React.VFC<Props> = ({ loading, version }) => {
   const {
     author,
     revision,

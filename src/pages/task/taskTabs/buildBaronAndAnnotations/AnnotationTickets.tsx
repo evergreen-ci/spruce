@@ -31,7 +31,7 @@ interface AnnotationTicketsProps {
   loading: boolean;
 }
 
-const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
+const AnnotationTickets: React.VFC<AnnotationTicketsProps> = ({
   tickets,
   taskId,
   execution,
@@ -114,7 +114,7 @@ interface IssuesProps {
   annotation: Annotation;
 }
 
-export const Issues: React.FC<IssuesProps> = ({
+export const Issues: React.VFC<IssuesProps> = ({
   taskId,
   execution,
   userCanModify,
@@ -158,7 +158,7 @@ interface SuspectedIssuesProps {
   annotation: Annotation;
 }
 
-export const SuspectedIssues: React.FC<SuspectedIssuesProps> = ({
+export const SuspectedIssues: React.VFC<SuspectedIssuesProps> = ({
   taskId,
   execution,
   userCanModify,

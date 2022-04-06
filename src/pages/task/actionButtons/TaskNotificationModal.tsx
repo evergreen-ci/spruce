@@ -29,7 +29,7 @@ interface ModalProps {
   onCancel: () => void;
 }
 
-export const TaskNotificationModal: React.FC<ModalProps> = ({
+export const TaskNotificationModal: React.VFC<ModalProps> = ({
   visible,
   onCancel,
 }) => {

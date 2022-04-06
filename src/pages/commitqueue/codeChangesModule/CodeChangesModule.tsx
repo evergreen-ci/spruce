@@ -25,7 +25,7 @@ const totalFileDiffs = (
   return { additions, deletions };
 };
 
-export const CodeChangeModule: React.FC<{
+export const CodeChangeModule: React.VFC<{
   moduleCodeChange: ModuleCodeChangeFragment;
 }> = ({ moduleCodeChange }) => {
   const { fileDiffs } = moduleCodeChange;

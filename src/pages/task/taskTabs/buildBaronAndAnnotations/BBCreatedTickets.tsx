@@ -10,7 +10,7 @@ interface CreatedTicketsProps {
   tickets: JiraTicket[] | IssueLink[];
 }
 
-export const CreatedTickets: React.FC<CreatedTicketsProps> = ({
+export const CreatedTickets: React.VFC<CreatedTicketsProps> = ({
   taskId,
   execution,
   buildBaronConfigured,
@@ -42,7 +42,7 @@ interface CustomCreatedTicketProps {
   tickets: JiraTicket[] | IssueLink[];
 }
 
-export const CustomCreatedTickets: React.FC<CustomCreatedTicketProps> = ({
+export const CustomCreatedTickets: React.VFC<CustomCreatedTicketProps> = ({
   taskId,
   execution,
   tickets,

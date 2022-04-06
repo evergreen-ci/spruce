@@ -10,6 +10,7 @@ interface Props {
   error: ApolloError;
   loading?: boolean;
   metaData: boolean;
+  children: React.ReactNode;
 }
 interface StylingProps {
   metaData: boolean;

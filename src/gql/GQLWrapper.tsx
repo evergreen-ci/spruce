@@ -16,7 +16,7 @@ const { reportError, leaveBreadcrumb } = errorReporting;
 
 const { getGQLUrl } = environmentalVariables;
 
-const GQLWrapper: React.FC = ({ children }) => {
+const GQLWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { logoutAndRedirect, dispatchAuthenticated } = useAuthDispatchContext();
   return (
     <ApolloProvider

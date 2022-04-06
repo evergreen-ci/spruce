@@ -20,7 +20,7 @@ interface BuildVariantAccordianProps {
     taskIds: { [versionId: string]: string } | { [versionId: string]: string[] }
   ) => void;
 }
-export const BuildVariantAccordian: React.FC<BuildVariantAccordianProps> = ({
+export const BuildVariantAccordian: React.VFC<BuildVariantAccordianProps> = ({
   versionId,
   tasks,
   displayName,
