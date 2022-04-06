@@ -1,6 +1,10 @@
 import { TestFilter } from "gql/generated/types";
 import { CommitRowType, mainlineCommits } from "./types";
-import { processCommits, toggleRowSizeAtIndex } from "./utils";
+import {
+  calcColumnLimitFromWidth,
+  processCommits,
+  toggleRowSizeAtIndex,
+} from "./utils";
 
 type Action =
   | { type: "ingestNewCommits"; commits: mainlineCommits }
@@ -9,6 +13,8 @@ type Action =
   | { type: "prevPageColumns" }
   | { type: "setColumnLimit"; limit: number }
   | { type: "setHistoryTableFilters"; filters: TestFilter[] }
+  | { type: "toggleRowSizeAtIndex"; index: number; numCommits: number }
+  | { type: "onChangeTableWidth"; width: number }
   | { type: "setSelectedCommit"; order: number }
   | { type: "toggleRowSizeAtIndex"; index: number; numCommits: number };
 
@@ -135,6 +141,19 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
         ...state,
         columnLimit: action.limit,
       };
+    case "onChangeTableWidth": {
+      const nextColumnLimit = calcColumnLimitFromWidth(action.width);
+      if (nextColumnLimit === state.columnLimit) {
+        return state;
+      }
+      return {
+        ...state,
+        visibleColumns: state.columns.slice(0, nextColumnLimit),
+        columnLimit: nextColumnLimit,
+        currentPage: 0,
+        pageCount: Math.ceil(state.columns.length / nextColumnLimit),
+      };
+    }
     case "setHistoryTableFilters":
       return {
         ...state,
