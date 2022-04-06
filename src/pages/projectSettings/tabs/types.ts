@@ -31,7 +31,6 @@ export const readOnlyTabs = [ProjectSettingsTabRoutes.EventLog] as const;
 
 type UnfinishedPages =
   | ProjectSettingsTabRoutes.ProjectTriggers
-  | ProjectSettingsTabRoutes.PeriodicBuilds
   | ProjectSettingsTabRoutes.EventLog;
 
 type ReadOnlyTabs = typeof readOnlyTabs[number];
