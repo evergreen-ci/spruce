@@ -17,6 +17,11 @@ import { RowContainer } from "./styles";
 export interface FoldedCommitAnalytics {
   toggle: "open" | "close";
 }
+
+export const foldedCommitAnalytics = (
+  isVisible: boolean
+): FoldedCommitAnalytics => ({ toggle: isVisible ? "open" : "close" });
+
 const { blue } = uiColors;
 
 interface FoldedCommitProps {
@@ -28,7 +33,7 @@ interface FoldedCommitProps {
   numVisibleCols: number;
   style?: CSSProperties;
   selected: boolean;
-  sendAnalytics?: (analytics: FoldedCommitAnalytics) => void;
+  onToggle?: (isVisible: boolean) => void;
 }
 export const FoldedCommit = memo(
   ({
@@ -38,7 +43,7 @@ export const FoldedCommit = memo(
     numVisibleCols,
     style,
     selected,
-    sendAnalytics,
+    onToggle,
   }: FoldedCommitProps) => {
     const { height } = style;
 
@@ -77,9 +82,7 @@ export const FoldedCommit = memo(
           titleTag={AccordionTitle}
           contents={commits}
           onToggle={(isVisible: boolean) => {
-            if (sendAnalytics) {
-              sendAnalytics({ toggle: isVisible ? "open" : "close" });
-            }
+            onToggle(isVisible);
             toggleRowSize(index, numCommits);
           }}
           useIndent={false}
