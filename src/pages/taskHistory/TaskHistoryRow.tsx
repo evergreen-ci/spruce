@@ -42,8 +42,12 @@ const TaskHistoryRow = memo((props: ListChildComponentProps) => {
               failingTests={failingTests}
               label={label}
               loading={loading}
-              sendAnalytics={(v: TaskCellAnalytics) => {
-                sendEvent({ name: "Click task history task cell", ...v });
+              onClick={(v: TaskCellAnalytics) => {
+                sendEvent({
+                  name: "Click task cell",
+                  page: "Task history",
+                  ...v,
+                });
               }}
             />
           );

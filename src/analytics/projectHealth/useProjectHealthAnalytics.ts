@@ -12,8 +12,10 @@ import { ProjectSelectAnalytics } from "components/projectSelect";
 import { TupleAnalytics } from "components/TupleSelect";
 
 type Action =
-  | ({ name: "Click task history task cell" } & TaskCellAnalytics)
-  | ({ name: "Click variant history task cell" } & TaskCellAnalytics)
+  | ({
+      name: "Click task cell";
+      page: "Task history" | "Variant history";
+    } & TaskCellAnalytics)
   | ({ name: "Paginate commit chart" } & PaginationAnalytics)
   | ({ name: "Paginate task history" } & PaginationAnalytics)
   | ({ name: "Paginate variant history" } & PaginationAnalytics)

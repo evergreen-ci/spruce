@@ -26,7 +26,7 @@ interface TaskCellProps {
   failingTests?: string[];
   label?: string;
   loading?: boolean;
-  sendAnalytics?: (v: TaskCellAnalytics) => void;
+  onClick?: (v: TaskCellAnalytics) => void;
 }
 const TaskCell: React.FC<TaskCellProps> = ({
   task,
@@ -34,13 +34,11 @@ const TaskCell: React.FC<TaskCellProps> = ({
   failingTests,
   label,
   loading = false,
-  sendAnalytics = () => {},
+  onClick = () => {},
 }) => (
   <Cell inactive={inactive} aria-disabled={inactive} data-cy="task-cell">
     <Link
-      onClick={() =>
-        sendAnalytics({ taskId: task.id, taskStatus: task.status })
-      }
+      onClick={() => onClick({ taskId: task.id, taskStatus: task.status })}
       to={getTaskRoute(task.id)}
     >
       <HistoryTableIcon

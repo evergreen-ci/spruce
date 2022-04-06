@@ -37,8 +37,12 @@ const VariantHistoryRow = memo((props: ListChildComponentProps) => {
               task={t}
               failingTests={failingTests}
               label={label}
-              sendAnalytics={(v: TaskCellAnalytics) => {
-                sendEvent({ name: "Click variant history task cell", ...v });
+              onClick={(v: TaskCellAnalytics) => {
+                sendEvent({
+                  name: "Click task cell",
+                  page: "Variant history",
+                  ...v,
+                });
               }}
             />
           );
