@@ -1,26 +1,20 @@
 import styled from "@emotion/styled";
 import { Description, Label } from "@leafygreen-ui/typography";
-import { Widget } from "@rjsf/core";
 import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
 import DatePicker from "components/DatePicker";
 import TimePicker from "components/TimePicker";
 import { size } from "constants/tokens";
+import { SpruceWidgetProps } from "./types";
 
-export const DateTimePicker: Widget = ({
-  disabled,
-  id,
-  label,
-  onChange,
-  options,
-  readonly,
-  value,
-}) => {
-  const { description, disablePastDatetime, showLabel, timezone } = options as {
-    description: string;
-    disablePastDatetime: string;
-    showLabel: boolean;
-    timezone: string;
-  };
+export const DateTimePicker: React.VFC<
+  {
+    options: {
+      disablePastDatetime?: boolean;
+      timezone?: string;
+    };
+  } & SpruceWidgetProps
+> = ({ disabled, id, label, onChange, options, readonly, value }) => {
+  const { description, disablePastDatetime, showLabel, timezone } = options;
 
   const currentDateTime = timezone
     ? utcToZonedTime(new Date(value), timezone)

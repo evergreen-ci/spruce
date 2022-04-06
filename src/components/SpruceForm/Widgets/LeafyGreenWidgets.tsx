@@ -12,36 +12,17 @@ import TextArea from "@leafygreen-ui/text-area";
 import TextInput, { State as TextInputState } from "@leafygreen-ui/text-input";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Description, Label } from "@leafygreen-ui/typography";
-import { WidgetProps } from "@rjsf/core";
 import Icon from "components/Icon";
 import { size, zIndex } from "constants/tokens";
 import { OneOf } from "types/utils";
 import ElementWrapper from "../ElementWrapper";
+import { EnumSpruceWidgetProps, SpruceWidgetProps } from "./types";
 
 const { red, yellow } = uiColors;
 
-interface SpruceWidgetProps extends WidgetProps {
-  options: Partial<{
-    allowDeselect: boolean;
-    ariaLabelledBy: string;
-    "aria-controls": string[];
-    "data-cy": string;
-    description: string;
-    emptyValue: string | null;
-    enumOptions: Array<{
-      label: string;
-      value: string;
-    }>;
-    marginBottom: number;
-    optional: boolean;
-    rawErrors: string[];
-    showLabel: boolean;
-    tooltipDescription: string;
-    warnings: string[];
-  }>;
-}
-
-export const LeafyGreenTextInput: React.VFC<SpruceWidgetProps> = ({
+export const LeafyGreenTextInput: React.VFC<
+  { options: { optional?: boolean } } & SpruceWidgetProps
+> = ({
   value,
   label,
   placeholder,
@@ -56,6 +37,7 @@ export const LeafyGreenTextInput: React.VFC<SpruceWidgetProps> = ({
     description,
     "data-cy": dataCy,
     emptyValue,
+    marginBottom,
     optional,
     warnings,
   } = options;
@@ -65,7 +47,7 @@ export const LeafyGreenTextInput: React.VFC<SpruceWidgetProps> = ({
     state: hasError ? TextInputState.Error : TextInputState.None,
   };
   return (
-    <ElementWrapper>
+    <ElementWrapper marginBottom={marginBottom}>
       <MaxWidthContainer>
         <StyledTextInput
           data-cy={dataCy}
@@ -94,6 +76,7 @@ export const LeafyGreenTextInput: React.VFC<SpruceWidgetProps> = ({
 
 const StyledTextInput = styled(TextInput)`
   p {
+    /* Fixes positioning of "Optional" label */
     margin: 0;
   }
 `;
@@ -106,9 +89,9 @@ export const LeafyGreenCheckBox: React.VFC<SpruceWidgetProps> = ({
   options,
   readonly,
 }) => {
-  const { "data-cy": dataCy, tooltipDescription } = options;
+  const { "data-cy": dataCy, marginBottom, tooltipDescription } = options;
   return (
-    <ElementWrapper>
+    <ElementWrapper marginBottom={marginBottom}>
       <Checkbox
         data-cy={dataCy}
         checked={value}
@@ -143,7 +126,9 @@ const IconContainer = styled.span`
   vertical-align: text-top;
 `;
 
-export const LeafyGreenSelect: React.VFC<SpruceWidgetProps> = ({
+export const LeafyGreenSelect: React.VFC<
+  { options: { allowDeselect?: boolean } } & EnumSpruceWidgetProps
+> = ({
   disabled,
   label,
   options,
@@ -159,6 +144,7 @@ export const LeafyGreenSelect: React.VFC<SpruceWidgetProps> = ({
     description,
     enumOptions,
     "data-cy": dataCy,
+    marginBottom,
   } = options;
 
   const hasError = !!rawErrors?.length && !disabled;
@@ -169,7 +155,7 @@ export const LeafyGreenSelect: React.VFC<SpruceWidgetProps> = ({
   > = ariaLabelledBy ? { "aria-labelledby": ariaLabelledBy } : { label };
 
   return (
-    <ElementWrapper>
+    <ElementWrapper marginBottom={marginBottom}>
       <MaxWidthContainer>
         <Select
           allowDeselect={allowDeselect !== false}
@@ -203,16 +189,16 @@ export const LeafyGreenSelect: React.VFC<SpruceWidgetProps> = ({
   );
 };
 
-export const LeafyGreenRadio: React.VFC<SpruceWidgetProps> = ({
+export const LeafyGreenRadio: React.VFC<EnumSpruceWidgetProps> = ({
   label,
   options,
   value,
   onChange,
   disabled,
 }) => {
-  const { enumOptions, "data-cy": dataCy } = options;
+  const { "data-cy": dataCy, enumOptions, marginBottom } = options;
   return (
-    <ElementWrapper>
+    <ElementWrapper marginBottom={marginBottom}>
       <RadioGroup
         name={label}
         value={value}
@@ -229,7 +215,7 @@ export const LeafyGreenRadio: React.VFC<SpruceWidgetProps> = ({
   );
 };
 
-export const LeafyGreenRadioBox: React.VFC<SpruceWidgetProps> = ({
+export const LeafyGreenRadioBox: React.VFC<EnumSpruceWidgetProps> = ({
   id,
   label,
   options,
@@ -242,6 +228,7 @@ export const LeafyGreenRadioBox: React.VFC<SpruceWidgetProps> = ({
     description,
     enumOptions,
     "data-cy": dataCy,
+    marginBottom,
     rawErrors,
     showLabel,
   } = options;
@@ -255,7 +242,7 @@ export const LeafyGreenRadioBox: React.VFC<SpruceWidgetProps> = ({
   const valueMap = enumOptions.map(({ value: val }) => val);
 
   return (
-    <ElementWrapper>
+    <ElementWrapper marginBottom={marginBottom}>
       {showLabel !== false && (
         <RadioBoxLabelContainer>
           <Label htmlFor={id} disabled={disabled}>
@@ -320,7 +307,7 @@ export const LeafyGreenTextArea: React.VFC<SpruceWidgetProps> = ({
   );
 };
 
-export const LeafyGreenSegmentedControl: React.VFC<SpruceWidgetProps> = ({
+export const LeafyGreenSegmentedControl: React.VFC<EnumSpruceWidgetProps> = ({
   disabled,
   label,
   onChange,
@@ -332,12 +319,13 @@ export const LeafyGreenSegmentedControl: React.VFC<SpruceWidgetProps> = ({
     "aria-controls": ariaControls,
     "data-cy": dataCy,
     enumOptions,
+    marginBottom,
   } = options;
 
   const isDisabled = disabled || readonly;
 
   return (
-    <ElementWrapper>
+    <ElementWrapper marginBottom={marginBottom}>
       <StyledSegmentedControl
         data-cy={dataCy}
         label={label}
