@@ -13,7 +13,6 @@ import HistoryTable, {
   constants,
 } from "components/HistoryTable";
 import { PaginationAnalytics } from "components/HistoryTable/ColumnPaginationButtons";
-import { HistoryTableTestSearchAnalytics } from "components/HistoryTable/HistoryTableTestSearch/HistoryTableTestSearch";
 import { PageWrapper } from "components/styles";
 import { size } from "constants/tokens";
 import {
@@ -70,10 +69,10 @@ const VariantHistoryContents: React.FC = () => {
           <H2>Build Variant: {variantName}</H2>
           <PageHeaderContent>
             <HistoryTableTestSearch
-              sendAnalytics={(v: HistoryTableTestSearchAnalytics) => {
+              onSubmit={(failedTests: string[]) => {
                 sendEvent({
                   name: "Submit variant history failed test filter",
-                  ...v,
+                  failedTests,
                 });
               }}
             />

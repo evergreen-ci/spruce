@@ -12,11 +12,11 @@ export interface HistoryTableTestSearchAnalytics {
   failedTests: string[];
 }
 interface HistoryTableTestSearchProps {
-  sendAnalytics?: (v: HistoryTableTestSearchAnalytics) => void;
+  onSubmit?: (failedTests: string[]) => void;
 }
 
 export const HistoryTableTestSearch = ({
-  sendAnalytics,
+  onSubmit = () => {},
 }: HistoryTableTestSearchProps): JSX.Element => {
   const [input, setInput] = useState("");
 
@@ -28,9 +28,7 @@ export const HistoryTableTestSearch = ({
   const onClick = () => {
     const selectedParams = queryParams.failed as string[];
     const updatedParams = upsertQueryParam(selectedParams, input);
-    if (sendAnalytics) {
-      sendAnalytics({ failedTests: updatedParams });
-    }
+    onSubmit(updatedParams);
     updateQueryParams({ failed: updatedParams });
     setInput("");
   };
