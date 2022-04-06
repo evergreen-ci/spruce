@@ -7,7 +7,7 @@ export interface FormState {
     setupCommands: Array<{
       command: string;
       directory: string;
-    }> | null;
+    }>;
   };
 }
 
