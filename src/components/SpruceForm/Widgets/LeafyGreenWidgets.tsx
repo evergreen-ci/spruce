@@ -16,7 +16,7 @@ import { WidgetProps } from "@rjsf/core";
 import Icon from "components/Icon";
 import { size, zIndex } from "constants/tokens";
 import { OneOf } from "types/utils";
-import ElementWrapper from "./ElementWrapper";
+import ElementWrapper from "../ElementWrapper";
 
 const { red, yellow } = uiColors;
 
@@ -156,6 +156,7 @@ export const LeafyGreenSelect: React.VFC<SpruceWidgetProps> = ({
   const {
     allowDeselect,
     ariaLabelledBy,
+    description,
     enumOptions,
     "data-cy": dataCy,
   } = options;
@@ -172,6 +173,7 @@ export const LeafyGreenSelect: React.VFC<SpruceWidgetProps> = ({
       <MaxWidthContainer>
         <Select
           allowDeselect={allowDeselect !== false}
+          description={description}
           disabled={isDisabled}
           value={value}
           {...labelProps}
