@@ -2,6 +2,7 @@ import { CSSProperties, memo } from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { areEqual } from "react-window";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { Accordion } from "components/Accordion";
 import CommitChartLabel from "components/CommitChartLabel";
 import { MainlineCommitsForHistoryQuery } from "gql/generated/types";
@@ -14,14 +15,6 @@ import {
 } from "../constants";
 import { RowContainer } from "./styles";
 
-export interface FoldedCommitAnalytics {
-  toggle: "open" | "close";
-}
-
-export const foldedCommitAnalytics = (
-  isVisible: boolean
-): FoldedCommitAnalytics => ({ toggle: isVisible ? "open" : "close" });
-
 const { blue } = uiColors;
 
 interface FoldedCommitProps {
@@ -33,7 +26,6 @@ interface FoldedCommitProps {
   numVisibleCols: number;
   style?: CSSProperties;
   selected: boolean;
-  onToggle?: (isVisible: boolean) => void;
 }
 export const FoldedCommit = memo(
   ({
@@ -43,8 +35,8 @@ export const FoldedCommit = memo(
     numVisibleCols,
     style,
     selected,
-    onToggle,
   }: FoldedCommitProps) => {
+    const { sendEvent } = useProjectHealthAnalytics();
     const { height } = style;
 
     // The virtualized table will unmount the row when it is scrolled out of view but it will cache its height in memory.
@@ -82,7 +74,10 @@ export const FoldedCommit = memo(
           titleTag={AccordionTitle}
           contents={commits}
           onToggle={(isVisible: boolean) => {
-            onToggle(isVisible);
+            sendEvent({
+              name: "Toggle folded commit",
+              toggle: isVisible ? "open" : "close",
+            });
             toggleRowSize(index, numCommits);
           }}
           useIndent={false}

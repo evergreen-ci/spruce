@@ -11,7 +11,6 @@ import { RowContainer } from "./styles";
 interface RowProps extends ListChildComponentProps {
   columns: React.ReactNode[];
   numVisibleCols: number;
-  onToggleFoldedCommit?: (isVisible: boolean) => void;
   selected: boolean;
 }
 const Row: React.FC<RowProps> = ({
@@ -21,7 +20,6 @@ const Row: React.FC<RowProps> = ({
   style,
   selected,
   data,
-  onToggleFoldedCommit = () => {},
 }) => {
   const { isItemLoaded, getItem, columnLimit } = useHistoryTable();
   if (!isItemLoaded(index)) {
@@ -67,7 +65,6 @@ const Row: React.FC<RowProps> = ({
         toggleRowSize={data.toggleRowSize}
         numVisibleCols={numVisibleCols || columnLimit}
         style={style}
-        onToggle={onToggleFoldedCommit}
         selected={selected}
       />
     );

@@ -3,6 +3,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Skeleton } from "antd";
 import { Link } from "react-router-dom";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { inactiveElementStyle, StyledRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
@@ -14,10 +15,6 @@ import { HistoryTableIcon } from "../HistoryTableIcon";
 const { gray } = uiColors;
 const statusIconSize = 20;
 
-export interface TaskCellAnalytics {
-  taskId: string;
-  taskStatus: string;
-}
 interface TaskCellProps {
   task: {
     id: string;
@@ -27,7 +24,6 @@ interface TaskCellProps {
   failingTests?: string[];
   label?: string;
   loading?: boolean;
-  onClick?: (v: TaskCellAnalytics) => void;
 }
 const TaskCell: React.FC<TaskCellProps> = ({
   task,
@@ -35,23 +31,27 @@ const TaskCell: React.FC<TaskCellProps> = ({
   failingTests,
   label,
   loading = false,
-  onClick = () => {},
-}) => (
-  <Cell inactive={inactive} aria-disabled={inactive} data-cy="task-cell">
-    <Link
-      onClick={() => onClick({ taskId: task.id, taskStatus: task.status })}
-      to={getTaskRoute(task.id)}
-    >
-      <HistoryTableIcon
-        inactive={inactive}
-        status={task.status as TaskStatus}
-        failingTests={failingTests}
-        label={label}
-        loadingTestResults={loading}
-      />
-    </Link>
-  </Cell>
-);
+}) => {
+  const { sendEvent } = useProjectHealthAnalytics();
+  return (
+    <Cell inactive={inactive} aria-disabled={inactive} data-cy="task-cell">
+      <Link
+        onClick={() =>
+          sendEvent({ name: "Click task cell", taskStatus: task.status })
+        }
+        to={getTaskRoute(task.id)}
+      >
+        <HistoryTableIcon
+          inactive={inactive}
+          status={task.status as TaskStatus}
+          failingTests={failingTests}
+          label={label}
+          loadingTestResults={loading}
+        />
+      </Link>
+    </Cell>
+  );
+};
 
 const EmptyCell = () => (
   <Cell data-cy="empty-cell">

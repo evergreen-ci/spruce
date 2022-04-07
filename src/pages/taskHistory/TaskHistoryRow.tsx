@@ -1,9 +1,6 @@
 import { memo } from "react";
 import { ListChildComponentProps, areEqual } from "react-window";
-import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { context, Cell, Row, types, hooks } from "components/HistoryTable";
-import { TaskCellAnalytics } from "components/HistoryTable/Cell/Cell";
-import { foldedCommitAnalytics } from "components/HistoryTable/HistoryTableRow/FoldedCommit";
 import { array } from "utils";
 
 const { convertArrayToObject } = array;
@@ -13,7 +10,6 @@ const { useTestResults } = hooks;
 const { rowType } = types;
 
 const TaskHistoryRow = memo((props: ListChildComponentProps) => {
-  const { sendEvent } = useProjectHealthAnalytics();
   const { index } = props;
   let orderedColumns = [];
   const { visibleColumns, getItem } = useHistoryTable();
@@ -42,13 +38,6 @@ const TaskHistoryRow = memo((props: ListChildComponentProps) => {
               failingTests={failingTests}
               label={label}
               loading={loading}
-              onClick={(v: TaskCellAnalytics) => {
-                sendEvent({
-                  name: "Click task cell",
-                  page: "Task history",
-                  ...v,
-                });
-              }}
             />
           );
         }
@@ -62,12 +51,6 @@ const TaskHistoryRow = memo((props: ListChildComponentProps) => {
       {...props}
       columns={orderedColumns}
       numVisibleCols={visibleColumns.length}
-      onToggleFoldedCommit={(isVisible: boolean) =>
-        sendEvent({
-          name: "Toggle task history folded commit",
-          ...foldedCommitAnalytics(isVisible),
-        })
-      }
       selected={commit?.selected}
     />
   );

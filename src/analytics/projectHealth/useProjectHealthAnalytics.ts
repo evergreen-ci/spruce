@@ -4,18 +4,16 @@ import {
   Analytics as A,
 } from "analytics/addPageAction";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
-import { TaskCellAnalytics } from "components/HistoryTable/Cell/Cell";
 import { PaginationAnalytics } from "components/HistoryTable/ColumnPaginationButtons";
-import { FoldedCommitAnalytics } from "components/HistoryTable/HistoryTableRow/FoldedCommit";
 import { HistoryTableTestSearchAnalytics } from "components/HistoryTable/HistoryTableTestSearch/HistoryTableTestSearch";
 import { ProjectSelectAnalytics } from "components/projectSelect";
 import { TupleAnalytics } from "components/TupleSelect";
 
 type Action =
-  | ({
+  | {
       name: "Click task cell";
-      page: "Task history" | "Variant history";
-    } & TaskCellAnalytics)
+      taskStatus: string;
+    }
   | ({ name: "Paginate commit chart" } & PaginationAnalytics)
   | ({ name: "History table pagination" } & PaginationAnalytics)
   | ({ name: "Select commit chart project" } & ProjectSelectAnalytics)
@@ -40,7 +38,7 @@ type Action =
   | { name: "Click variant history task selector"; tasks: string[] }
   | { name: "Filter commit chart by requester"; requesters: string[] }
   | { name: "Filter commit chart by task status"; statuses: string[] }
-  | { name: "Toggle task icons legend"; action: "open" | "close" }
+  | { name: "Toggle task icons legend"; toggle: "open" | "close" }
   | { name: "Remove commit chart badge" }
   | { name: "Remove task history badge" }
   | { name: "Remove variant history badge" }
@@ -48,8 +46,7 @@ type Action =
       name: "Submit task history build variant selector";
       buildVariants: string[];
     }
-  | ({ name: "Toggle task history folded commit" } & FoldedCommitAnalytics)
-  | ({ name: "Toggle variant history folded commit" } & FoldedCommitAnalytics)
+  | { name: "Toggle folded commit"; toggle: "open" | "close" }
   | {
       name: "Toggle commit chart label tooltip";
     };

@@ -37,7 +37,7 @@ export const TaskStatusIconLegend: React.FC = () => {
           setIsActive(!isActive);
           sendEvent({
             name: "Toggle task icons legend",
-            action: isActive ? "close" : "open",
+            toggle: isActive ? "close" : "open",
           });
         }}
         aria-label="Task Status Icon Legend"
@@ -58,7 +58,7 @@ export const TaskStatusIconLegend: React.FC = () => {
               onClick={() => {
                 sendEvent({
                   name: "Toggle task icons legend",
-                  action: "close",
+                  toggle: "close",
                 });
                 setIsActive(false);
               }}
