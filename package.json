@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "2.31.2",
+  "version": "2.31.5",
   "private": true,
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js' --html | sed 1d > build/source_map.html",
@@ -111,6 +111,7 @@
     "lodash.get": "4.4.2",
     "lodash.isequal": "4.5.0",
     "lodash.set": "4.3.2",
+    "lodash.throttle": "4.1.1",
     "query-string": "6.13.8",
     "react": "17.0.1",
     "react-dom": "17.0.1",

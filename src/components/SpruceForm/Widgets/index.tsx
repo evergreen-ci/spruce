@@ -1,3 +1,4 @@
+import { DateTimePicker } from "./DateTimePicker";
 import {
   LeafyGreenTextInput,
   LeafyGreenTextArea,
@@ -9,6 +10,7 @@ import {
 } from "./LeafyGreenWidgets";
 
 const widgets = {
+  DateTimeWidget: DateTimePicker,
   TextWidget: LeafyGreenTextInput,
   TextareaWidget: LeafyGreenTextArea,
   CheckboxWidget: LeafyGreenCheckBox,

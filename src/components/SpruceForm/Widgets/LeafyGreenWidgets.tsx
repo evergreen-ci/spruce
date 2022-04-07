@@ -16,7 +16,7 @@ import { WidgetProps } from "@rjsf/core";
 import Icon from "components/Icon";
 import { size, zIndex } from "constants/tokens";
 import { errorReporting } from "utils";
-import ElementWrapper from "./ElementWrapper";
+import ElementWrapper from "../ElementWrapper";
 
 const { reportError } = errorReporting;
 
@@ -131,6 +131,7 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
   const {
     allowDeselect,
     ariaLabelledBy,
+    description,
     enumOptions,
     "data-cy": dataCy,
   } = options;
@@ -151,6 +152,7 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
           allowDeselect={allowDeselect !== false}
           // @ts-expect-error
           aria-labelledby={ariaLabelledBy}
+          description={description as string}
           disabled={isDisabled}
           label={ariaLabelledBy ? undefined : label}
           value={value}

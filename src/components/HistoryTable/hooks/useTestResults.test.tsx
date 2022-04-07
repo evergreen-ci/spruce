@@ -220,6 +220,7 @@ describe("useMergedHookRender - sanity check", () => {
       pageCount: 0,
       columnLimit: 7,
       commitCount: 10,
+      onChangeTableWidth: expect.any(Function),
       selectedCommit: null,
       setSelectedCommit: expect.any(Function),
     });

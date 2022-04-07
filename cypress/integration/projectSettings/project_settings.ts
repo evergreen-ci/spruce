@@ -384,6 +384,27 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("remote-path-input").should("have.value", "./evergreen.yml");
     });
   });
+
+  describe("Periodic Builds page", () => {
+    before(() => {
+      cy.dataCy("navitem-periodic-builds").click({ force: true });
+    });
+
+    it("Does not allow saving when interval is not a number", () => {
+      cy.dataCy("add-button").click();
+      cy.dataCy("interval-input").type("NaN");
+      cy.dataCy("config-file-input").type("config.yml");
+      cy.dataCy("save-settings-button").should("be.disabled");
+      cy.contains("Value should be a number.");
+    });
+
+    it("Saves when a number is entered", () => {
+      // Use extra clear to handle RJSF bug (EVG-16641)
+      cy.dataCy("interval-input").clear().clear().type("12");
+      cy.dataCy("save-settings-button").click();
+      cy.validateToast("success", "Successfully updated project");
+    });
+  });
 });
 
 describe("Project Settings when defaulting to repo", () => {
