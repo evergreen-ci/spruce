@@ -62,8 +62,7 @@ const CommitChartLabel: React.FC<Props> = ({
         {jiraLinkify(
           shortenMessage ? shortenedMessage : message,
           jiraHost,
-          (jiraTicket) => () =>
-            sendEvent({ name: "Click commit label jira link", jiraTicket })
+          () => sendEvent({ name: "Click commit label jira link" })
         )}
       </LabelText>
       {shortenMessage && (

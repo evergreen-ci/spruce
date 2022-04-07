@@ -34,7 +34,7 @@ type Action =
   | { name: "Click commit chart task status icon"; status: string }
   | { name: "Click commit chart variant label"; variant: string }
   | { name: "Click commit chart view option"; viewOption: string }
-  | { name: "Click commit label jira link"; jiraTicket: string }
+  | { name: "Click commit label jira link" }
   | { name: "Click commit label version link"; versionId: string }
   | { name: "Click task history column header"; variant: string }
   | { name: "Click variant history column header"; task: string }

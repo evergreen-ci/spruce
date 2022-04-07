@@ -5,11 +5,11 @@ import { getJiraTicketUrl } from "constants/externalResources";
 export const jiraLinkify = (
   unlinkified: string | React.ReactNodeArray,
   jiraHost: string,
-  onClick?: (match: string) => () => void
+  onClick: () => void = () => {}
 ) =>
   reactStringReplace(unlinkified, /([A-Z]{1,10}-\d{1,6})/g, (match, i) => (
     <StyledLink
-      onClick={onClick ? onClick(match) : undefined}
+      onClick={onClick}
       key={`${match}${i}`}
       href={getJiraTicketUrl(jiraHost, match)}
     >
