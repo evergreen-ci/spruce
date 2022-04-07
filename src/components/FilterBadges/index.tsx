@@ -17,7 +17,7 @@ interface FilterBadgesProps {
 export const FilterBadges: React.FC<FilterBadgesProps> = ({
   queryParamsToDisplay,
   onRemove = () => {},
-  onClearAll: clearAllCb = () => {},
+  onClearAll = () => {},
 }) => {
   const updateQueryParams = useUpdateURLQueryParams();
   const location = useLocation();
@@ -27,19 +27,19 @@ export const FilterBadges: React.FC<FilterBadgesProps> = ({
     queryParamsToDisplay.has(key as any)
   );
 
-  const onClose = (key: string, value: string) => {
+  const handleOnRemove = (key: string, value: string) => {
     const updatedParam = popQueryParams(queryParams[key], value);
     onRemove();
     updateQueryParams({ [key]: updatedParam });
   };
 
-  const onClearAll = () => {
+  const handleClearAll = () => {
     // Need to manually set keys to undefined inorder to overwrite and clear queryParams
     const params = { ...queryParams };
     Object.keys(params).forEach((v) => {
       params[v] = undefined;
     });
-    clearAllCb();
+    onClearAll();
     updateQueryParams(params);
   };
   const visibileQueryParams = queryParamsList.slice(0, 8);
@@ -52,7 +52,7 @@ export const FilterBadges: React.FC<FilterBadgesProps> = ({
           key={`filter_badge_${p.key}_${p.value}`}
           badge={p}
           onClose={() => {
-            onClose(p.key, p.value);
+            handleOnRemove(p.key, p.value);
           }}
         />
       ))}
@@ -60,15 +60,15 @@ export const FilterBadges: React.FC<FilterBadgesProps> = ({
         <SeeMoreModal
           badges={queryParamsList}
           notVisibleCount={notVisibleCount}
-          onRemoveBadge={onRemove}
-          onClearAll={onClearAll}
+          onRemoveBadge={handleOnRemove}
+          onClearAll={handleClearAll}
         />
       )}
       {queryParamsList.length > 0 && (
         <Button
           variant={Variant.Default}
           size={Size.XSmall}
-          onClick={onClearAll}
+          onClick={handleClearAll}
           data-cy="clear-all-filters"
         >
           CLEAR ALL FILTERS
