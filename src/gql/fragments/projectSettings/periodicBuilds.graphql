@@ -1,0 +1,21 @@
+fragment projectPeriodicBuildsSettings on Project {
+  periodicBuilds {
+    id
+    configFile
+    intervalHours
+    alias
+    message
+    nextRunTime
+  }
+}
+
+fragment repoPeriodicBuildsSettings on RepoRef {
+  periodicBuilds {
+    id
+    configFile
+    intervalHours
+    alias
+    message
+    nextRunTime
+  }
+}

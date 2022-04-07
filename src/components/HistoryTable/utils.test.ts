@@ -5,9 +5,17 @@ import {
 } from "./constants";
 import { mainlineCommitData } from "./testData";
 import { rowType, CommitRowType } from "./types";
-import { processCommits } from "./utils";
+import { calcColumnLimitFromWidth, processCommits } from "./utils";
 
 describe("historyTable utils", () => {
+  describe("calcColumnLimitFromWidth", () => {
+    it("should return the number of columns to display in the history table based on the provided width", () => {
+      expect(calcColumnLimitFromWidth(-100)).toBe(1);
+      expect(calcColumnLimitFromWidth(2800)).toBe(17);
+      expect(calcColumnLimitFromWidth(2850)).toBe(17);
+      expect(calcColumnLimitFromWidth(4000)).toBe(25);
+    });
+  });
   describe("processCommits", () => {
     it("should return empty array if no commits", () => {
       const { processedCommits } = processCommits({
