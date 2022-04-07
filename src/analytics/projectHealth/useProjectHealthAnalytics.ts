@@ -40,7 +40,7 @@ type Action =
   | { name: "Click variant history task selector"; tasks: string[] }
   | { name: "Filter commit chart by requester"; requesters: string[] }
   | { name: "Filter commit chart by task status"; statuses: string[] }
-  | { name: "Open task icons legend" }
+  | { name: "Toggle task icons legend"; action: "open" | "close" }
   | { name: "Remove commit chart badge" }
   | { name: "Remove task history badge" }
   | { name: "Remove variant history badge" }
