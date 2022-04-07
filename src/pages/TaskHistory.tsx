@@ -12,7 +12,6 @@ import HistoryTable, {
   hooks,
   constants,
 } from "components/HistoryTable";
-import { PaginationAnalytics } from "components/HistoryTable/ColumnPaginationButtons";
 import { PageWrapper } from "components/styles";
 import { size } from "constants/tokens";
 import {
@@ -91,11 +90,7 @@ const TaskHistoryContents: React.FC = () => {
               }}
             />
           </BadgeWrapper>
-          <ColumnPaginationButtons
-            sendAnalytics={(v: PaginationAnalytics) => {
-              sendEvent({ name: "Paginate task history", ...v });
-            }}
-          />
+          <ColumnPaginationButtons />
         </PaginationFilterWrapper>
         <div>
           <ColumnHeaders projectId={projectId} taskName={taskName} />

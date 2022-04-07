@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
 import { useHistoryTable } from "./HistoryTableContext";
@@ -8,12 +9,7 @@ import { useHistoryTable } from "./HistoryTableContext";
 export interface PaginationAnalytics {
   direction: "previous" | "next";
 }
-interface ColumnPaginationButtonsProps {
-  sendAnalytics?: (analytics: PaginationAnalytics) => void;
-}
-const ColumnPaginationButtons = ({
-  sendAnalytics,
-}: ColumnPaginationButtonsProps): JSX.Element => {
+const ColumnPaginationButtons: React.VFC = () => {
   const {
     nextPage,
     previousPage,
@@ -22,17 +18,13 @@ const ColumnPaginationButtons = ({
     pageCount,
     currentPage,
   } = useHistoryTable();
-
-  const onNextClick = () => {
-    if (sendAnalytics) {
-      sendAnalytics({ direction: "next" });
-    }
+  const { sendEvent } = useProjectHealthAnalytics();
+  const onClickNext = () => {
+    sendEvent({ name: "History table pagination", direction: "next" });
     nextPage();
   };
-  const onPrevClick = () => {
-    if (sendAnalytics) {
-      sendAnalytics({ direction: "previous" });
-    }
+  const onClickPrev = () => {
+    sendEvent({ name: "History table pagination", direction: "previous" });
     previousPage();
   };
   return (
@@ -40,7 +32,7 @@ const ColumnPaginationButtons = ({
       <StyledButton
         disabled={!hasPreviousPage}
         /* @ts-expect-error */
-        onClick={onPrevClick}
+        onClick={onClickPrev}
         data-cy="prev-page-button"
         leftGlyph={<Icon glyph="ChevronLeft" />}
       />
@@ -50,7 +42,7 @@ const ColumnPaginationButtons = ({
       <StyledButton
         disabled={!hasNextPage}
         /* @ts-expect-error */
-        onClick={onNextClick}
+        onClick={onClickNext}
         data-cy="next-page-button"
         leftGlyph={<Icon glyph="ChevronRight" />}
       />

@@ -17,8 +17,7 @@ type Action =
       page: "Task history" | "Variant history";
     } & TaskCellAnalytics)
   | ({ name: "Paginate commit chart" } & PaginationAnalytics)
-  | ({ name: "Paginate task history" } & PaginationAnalytics)
-  | ({ name: "Paginate variant history" } & PaginationAnalytics)
+  | ({ name: "History table pagination" } & PaginationAnalytics)
   | ({ name: "Select commit chart project" } & ProjectSelectAnalytics)
   | ({ name: "Submit commit chart variant/task tuple" } & TupleAnalytics)
   | ({
