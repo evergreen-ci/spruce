@@ -20,11 +20,11 @@ const ColumnPaginationButtons: React.VFC = () => {
   } = useHistoryTable();
   const { sendEvent } = useProjectHealthAnalytics();
   const onClickNext = () => {
-    sendEvent({ name: "History table pagination", direction: "next" });
+    sendEvent({ name: "Paginate history table", direction: "next" });
     nextPage();
   };
   const onClickPrev = () => {
-    sendEvent({ name: "History table pagination", direction: "previous" });
+    sendEvent({ name: "Paginate history table", direction: "previous" });
     previousPage();
   };
   return (

@@ -15,7 +15,7 @@ type Action =
       taskStatus: string;
     }
   | ({ name: "Paginate commit chart" } & PaginationAnalytics)
-  | ({ name: "History table pagination" } & PaginationAnalytics)
+  | ({ name: "Paginate history table" } & PaginationAnalytics)
   | ({ name: "Select commit chart project" } & ProjectSelectAnalytics)
   | ({ name: "Submit commit chart variant/task tuple" } & TupleAnalytics)
   | ({
