@@ -11,7 +11,7 @@ import {
 } from "components/projectSelect";
 import { PageWrapper } from "components/styles";
 import { ALL_VALUE } from "components/TreeSelect";
-import { TupleAnalytics, TupleSelect } from "components/TupleSelect";
+import { TupleSelect } from "components/TupleSelect";
 import { CURRENT_PROJECT } from "constants/cookies";
 import { pollInterval } from "constants/index";
 import { getCommitsRoute } from "constants/routes";
@@ -116,18 +116,12 @@ export const Commits = () => {
     ProjectFilterOptions.Task,
   ]);
 
-  const sendAnalytics = (t: TupleAnalytics) =>
-    sendEvent({ name: "Submit commit chart variant/task tuple", ...t });
-
   return (
     <PageWrapper>
       <PageContainer>
         <HeaderWrapper>
           <ElementWrapper width="35">
-            <TupleSelect
-              onSubmit={sendAnalytics}
-              options={tupleSelectOptions}
-            />
+            <TupleSelect options={tupleSelectOptions} />
           </ElementWrapper>
           <ElementWrapper width="20">
             <StatusSelect />

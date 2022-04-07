@@ -31,11 +31,11 @@ type AnalyticsObject =
   | "ProjectPatches"
   | "JobLogs"
   | "Polling"
-  | "ProjectHealthPages";
+  | "ProjectHealthPages"
+  | "TupleSelect";
 
 interface RequiredProperties {
   object: AnalyticsObject;
-  userId: string;
 }
 interface ActionType {
   name: string;

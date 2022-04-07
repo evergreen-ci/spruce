@@ -14,3 +14,4 @@ export { useSpawnAnalytics } from "./spawn/useSpawnAnalytics";
 export { usePreferencesAnalytics } from "./preferences/usePreferencesAnalytics";
 export { useJobLogsAnalytics } from "./joblogs/useJobLogsAnalytics";
 export { usePollingAnalytics } from "./polling/usePollingAnalytics";
+export { useTupleSelectAnalytics } from "./tupleSelect/useTupleSelectAnalytics";

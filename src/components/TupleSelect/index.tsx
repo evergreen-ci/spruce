@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { Label } from "@leafygreen-ui/typography";
 import { Input, Select } from "antd";
 import { useLocation } from "react-router";
+import { useTupleSelectAnalytics } from "analytics";
 import Icon from "components/Icon";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { queryString, url } from "utils";
@@ -16,18 +17,12 @@ type option = {
   displayName: string;
   placeHolderText: string;
 };
-export interface TupleAnalytics {
-  type: string;
-  value: string;
-}
+
 interface TupleSelectProps {
   options: option[];
-  onSubmit?: (t: TupleAnalytics) => void;
 }
-export const TupleSelect: React.FC<TupleSelectProps> = ({
-  options,
-  onSubmit = () => {},
-}) => {
+export const TupleSelect: React.FC<TupleSelectProps> = ({ options }) => {
+  const { sendEvent } = useTupleSelectAnalytics();
   const [input, setInput] = useState("");
   const [selected, setSelected] = useState(options[0].value);
   const updateQueryParams = useUpdateURLQueryParams();
@@ -37,7 +32,7 @@ export const TupleSelect: React.FC<TupleSelectProps> = ({
   const onClick = () => {
     const selectedParams = queryParams[selected] as string[];
     const updatedParams = upsertQueryParam(selectedParams, input);
-    onSubmit({ type: selected, value: input });
+    sendEvent({ name: "Submit tuple select", type: selected, value: input });
     updateQueryParams({ [selected]: updatedParams });
     setInput("");
   };

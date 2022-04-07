@@ -7,7 +7,6 @@ import { useGetUserQuery } from "analytics/useGetUserQuery";
 import { PaginationAnalytics } from "components/HistoryTable/ColumnPaginationButtons";
 import { HistoryTableTestSearchAnalytics } from "components/HistoryTable/HistoryTableTestSearch/HistoryTableTestSearch";
 import { ProjectSelectAnalytics } from "components/projectSelect";
-import { TupleAnalytics } from "components/TupleSelect";
 
 type Action =
   | {
@@ -17,7 +16,6 @@ type Action =
   | ({ name: "Paginate commit chart" } & PaginationAnalytics)
   | ({ name: "Paginate history table" } & PaginationAnalytics)
   | ({ name: "Select commit chart project" } & ProjectSelectAnalytics)
-  | ({ name: "Submit commit chart variant/task tuple" } & TupleAnalytics)
   | ({
       name: "Submit task history failed test filter";
     } & HistoryTableTestSearchAnalytics)
