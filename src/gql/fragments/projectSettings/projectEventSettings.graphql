@@ -7,6 +7,7 @@
 #import "./notifications.graphql"
 #import "./patchAliases.graphql"
 #import "./virtualWorkstation.graphql"
+#import "./periodicBuilds.graphql"
 
 fragment projectEventSettings on ProjectEventSettings {
   projectRef {
@@ -20,31 +21,24 @@ fragment projectEventSettings on ProjectEventSettings {
     ...projectPatchAliasSettings
     ...projectVirtualWorkstationSettings
 
-     versionControlEnabled  
-    
-    triggers{
+    versionControlEnabled
+
+    triggers {
       project
-      level      
-      definitionID      
-      buildVariantRegex      
-      taskRegex      
-      status      
+      level
+      definitionID
+      buildVariantRegex
+      taskRegex
+      status
       dateCutoff
-      configFile      
-      generateFile      
-      command      
-      alias      
-    }     
-    periodicBuilds{
-      id
       configFile
-      intervalHours
+      generateFile
+      command
       alias
-      message
-      nextRunTime
     }
-    tracksPushEvents    
-    hidden   
+    ...projectPeriodicBuildsSettings
+    tracksPushEvents
+    hidden
   }
   subscriptions {
     ...subscriptions
@@ -69,30 +63,23 @@ fragment repoEventSettings on RepoEventSettings {
     ...repoPatchAliasSettings
     ...repoVirtualWorkstationSettings
 
-     versionControlEnabled  
-    
-    triggers{
+    versionControlEnabled
+
+    triggers {
       project
-      level      
-      definitionID      
-      buildVariantRegex      
-      taskRegex      
-      status      
+      level
+      definitionID
+      buildVariantRegex
+      taskRegex
+      status
       dateCutoff
-      configFile      
-      generateFile      
-      command      
-      alias      
-    }     
-    periodicBuilds{
-      id
       configFile
-      intervalHours
+      generateFile
+      command
       alias
-      message
-      nextRunTime
     }
-    tracksPushEvents       
+    ...repoPeriodicBuildsSettings
+    tracksPushEvents
   }
   vars {
     ...variables

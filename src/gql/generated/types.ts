@@ -2305,76 +2305,54 @@ export type RepoGeneralSettingsFragment = {
   taskSync: { configEnabled: boolean; patchEnabled: boolean };
 };
 
+export type ProjectGithubSettingsFragment = {
+  prTestingEnabled?: Maybe<boolean>;
+  githubChecksEnabled?: Maybe<boolean>;
+  githubTriggerAliases?: Maybe<Array<string>>;
+  gitTagVersionsEnabled?: Maybe<boolean>;
+  gitTagAuthorizedUsers?: Maybe<Array<string>>;
+  gitTagAuthorizedTeams?: Maybe<Array<string>>;
+  commitQueue: {
+    enabled?: Maybe<boolean>;
+    requireSigned?: Maybe<boolean>;
+    mergeMethod: string;
+    message: string;
+  };
+};
+
+export type RepoGithubSettingsFragment = {
+  prTestingEnabled: boolean;
+  githubChecksEnabled: boolean;
+  githubTriggerAliases?: Maybe<Array<string>>;
+  gitTagVersionsEnabled: boolean;
+  gitTagAuthorizedUsers?: Maybe<Array<string>>;
+  gitTagAuthorizedTeams?: Maybe<Array<string>>;
+  commitQueue: {
+    enabled: boolean;
+    requireSigned: boolean;
+    mergeMethod: string;
+    message: string;
+  };
+};
+
 export type ProjectGithubCommitQueueFragment = {
   githubWebhooksEnabled: boolean;
-  projectRef?: Maybe<{
-    prTestingEnabled?: Maybe<boolean>;
-    githubChecksEnabled?: Maybe<boolean>;
-    githubTriggerAliases?: Maybe<Array<string>>;
-    gitTagVersionsEnabled?: Maybe<boolean>;
-    gitTagAuthorizedUsers?: Maybe<Array<string>>;
-    gitTagAuthorizedTeams?: Maybe<Array<string>>;
-    commitQueue: {
-      enabled?: Maybe<boolean>;
-      requireSigned?: Maybe<boolean>;
-      mergeMethod: string;
-      message: string;
-    };
-  }>;
+  projectRef?: Maybe<ProjectGithubSettingsFragment>;
 };
 
 export type RepoGithubCommitQueueFragment = {
   githubWebhooksEnabled: boolean;
-  projectRef?: Maybe<{
-    prTestingEnabled: boolean;
-    githubChecksEnabled: boolean;
-    githubTriggerAliases?: Maybe<Array<string>>;
-    gitTagVersionsEnabled: boolean;
-    gitTagAuthorizedUsers?: Maybe<Array<string>>;
-    gitTagAuthorizedTeams?: Maybe<Array<string>>;
-    commitQueue: {
-      enabled: boolean;
-      requireSigned: boolean;
-      mergeMethod: string;
-      message: string;
-    };
-  }>;
+  projectRef?: Maybe<RepoGithubSettingsFragment>;
 };
 
 export type ProjectEventGithubCommitQueueFragment = {
   githubWebhooksEnabled: boolean;
-  projectRef?: Maybe<{
-    prTestingEnabled?: Maybe<boolean>;
-    githubChecksEnabled?: Maybe<boolean>;
-    githubTriggerAliases?: Maybe<Array<string>>;
-    gitTagVersionsEnabled?: Maybe<boolean>;
-    gitTagAuthorizedUsers?: Maybe<Array<string>>;
-    gitTagAuthorizedTeams?: Maybe<Array<string>>;
-    commitQueue: {
-      enabled?: Maybe<boolean>;
-      requireSigned?: Maybe<boolean>;
-      mergeMethod: string;
-      message: string;
-    };
-  }>;
+  projectRef?: Maybe<ProjectGithubSettingsFragment>;
 };
 
 export type RepoEventGithubCommitQueueFragment = {
   githubWebhooksEnabled: boolean;
-  projectRef?: Maybe<{
-    prTestingEnabled: boolean;
-    githubChecksEnabled: boolean;
-    githubTriggerAliases?: Maybe<Array<string>>;
-    gitTagVersionsEnabled: boolean;
-    gitTagAuthorizedUsers?: Maybe<Array<string>>;
-    gitTagAuthorizedTeams?: Maybe<Array<string>>;
-    commitQueue: {
-      enabled: boolean;
-      requireSigned: boolean;
-      mergeMethod: string;
-      message: string;
-    };
-  }>;
+  projectRef?: Maybe<RepoGithubSettingsFragment>;
 };
 
 export type ProjectSettingsFragment = {
@@ -2558,22 +2536,13 @@ export type ProjectEventSettingsFragment = {
           alias: string;
         }>
       >;
-      periodicBuilds?: Maybe<
-        Array<{
-          id: string;
-          configFile: string;
-          intervalHours: number;
-          alias: string;
-          message: string;
-          nextRunTime: Date;
-        }>
-      >;
     } & ProjectGeneralSettingsFragment &
       ProjectAccessSettingsFragment &
       ProjectPluginsSettingsFragment &
       ProjectNotificationSettingsFragment &
       ProjectPatchAliasSettingsFragment &
-      ProjectVirtualWorkstationSettingsFragment
+      ProjectVirtualWorkstationSettingsFragment &
+      ProjectPeriodicBuildsSettingsFragment
   >;
   subscriptions?: Maybe<Array<SubscriptionsFragment>>;
   vars?: Maybe<VariablesFragment>;
@@ -2600,22 +2569,13 @@ export type RepoEventSettingsFragment = {
         command: string;
         alias: string;
       }>;
-      periodicBuilds?: Maybe<
-        Array<{
-          id: string;
-          configFile: string;
-          intervalHours: number;
-          alias: string;
-          message: string;
-          nextRunTime: Date;
-        }>
-      >;
     } & RepoGeneralSettingsFragment &
       RepoAccessSettingsFragment &
       RepoPluginsSettingsFragment &
       RepoNotificationSettingsFragment &
       RepoPatchAliasSettingsFragment &
-      RepoVirtualWorkstationSettingsFragment
+      RepoVirtualWorkstationSettingsFragment &
+      RepoPeriodicBuildsSettingsFragment
   >;
   vars?: Maybe<VariablesFragment>;
   subscriptions?: Maybe<Array<SubscriptionsFragment>>;
