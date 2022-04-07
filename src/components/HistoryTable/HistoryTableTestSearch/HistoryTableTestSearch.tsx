@@ -15,9 +15,9 @@ interface HistoryTableTestSearchProps {
   onSubmit?: (failedTests: string[]) => void;
 }
 
-export const HistoryTableTestSearch = ({
+export const HistoryTableTestSearch: React.VFC<HistoryTableTestSearchProps> = ({
   onSubmit = () => {},
-}: HistoryTableTestSearchProps): JSX.Element => {
+}) => {
   const [input, setInput] = useState("");
 
   const updateQueryParams = useUpdateURLQueryParams();
