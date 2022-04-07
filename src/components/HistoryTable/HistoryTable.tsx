@@ -28,6 +28,7 @@ const HistoryTable = ({
     onChangeTableWidth,
     selectedCommit,
     processedCommitCount,
+    markSelectedVisited,
   } = useHistoryTable();
 
   const throttleOnChangeTableWidth = useMemo(
@@ -52,13 +53,21 @@ const HistoryTable = ({
     }
   }, [processedCommitCount]);
 
+  console.log({ processedCommitCount });
   useEffect(() => {
-    if (selectedCommit && selectedCommit.rowIndex && listRef.current) {
+    if (
+      selectedCommit &&
+      selectedCommit.rowIndex &&
+      listRef.current &&
+      !selectedCommit.visited
+    ) {
       listRef.current.scrollToItem(selectedCommit.rowIndex, "center");
+      markSelectedVisited();
     } else {
       loadMoreItems();
     }
-  }, [selectedCommit?.rowIndex, loadMoreItems, selectedCommit]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCommit]);
 
   const toggleRowSize = (index: number, numCommits: number) => {
     toggleRowSizeAtIndex(index, numCommits);

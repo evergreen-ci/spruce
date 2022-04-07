@@ -32,9 +32,11 @@ interface HistoryTableState {
   setHistoryTableFilters: (filters: TestFilter[]) => void;
   onChangeTableWidth: (width: number) => void;
   setSelectedCommit: (order: number) => void;
+  markSelectedVisited: () => void;
   selectedCommit: {
     order: number;
     rowIndex: number;
+    visited: boolean;
   };
   commitCount: number;
 }
@@ -118,6 +120,7 @@ const HistoryTableProvider: React.FC<HistoryTableProviderProps> = ({
         dispatch({ type: "setHistoryTableFilters", filters }),
       setSelectedCommit: (order: number) =>
         dispatch({ type: "setSelectedCommit", order }),
+      markSelectedVisited: () => dispatch({ type: "markSelectedVisited" }),
       commitCount,
       selectedCommit,
     }),
