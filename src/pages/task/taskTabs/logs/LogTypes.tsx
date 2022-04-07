@@ -78,7 +78,7 @@ export const AllLog: React.VFC<Props> = (props) => {
   });
 };
 
-export const EventLog: React.VFC<Props> = (props): JSX.Element => {
+export const EventLog: React.VFC<Props> = (props) => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
@@ -104,7 +104,7 @@ export const EventLog: React.VFC<Props> = (props): JSX.Element => {
   });
 };
 
-export const SystemLog: React.VFC<Props> = (props): JSX.Element => {
+export const SystemLog: React.VFC<Props> = (props) => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
@@ -126,7 +126,7 @@ export const SystemLog: React.VFC<Props> = (props): JSX.Element => {
   });
 };
 
-export const AgentLog: React.VFC<Props> = (props): JSX.Element => {
+export const AgentLog: React.VFC<Props> = (props) => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
@@ -148,7 +148,7 @@ export const AgentLog: React.VFC<Props> = (props): JSX.Element => {
   });
 };
 
-export const TaskLog: React.VFC<Props> = (props): JSX.Element => {
+export const TaskLog: React.VFC<Props> = (props) => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
