@@ -69,7 +69,7 @@ const AnnotationTickets: React.VFC<AnnotationTicketsProps> = ({
             </Tooltip>
           )}
         >
-          <StyledButton
+          <StyledButton // @ts-expect-error
             onClick={onClickAdd}
             data-cy={
               isIssue ? "add-issue-button" : "add-suspected-issue-button"
@@ -195,6 +195,7 @@ export const SuspectedIssues: React.VFC<SuspectedIssuesProps> = ({
   );
 };
 
+// @ts-expect-error
 const StyledButton = styled(PlusButton)`
   margin: ${size.xs} 0;
 `;
