@@ -106,7 +106,7 @@ interface ProjectSettingsState {
 
 const ProjectSettingsContext = createContext<ProjectSettingsState | null>(null);
 
-const ProjectSettingsProvider: React.FC<{ children: React.ReactNode }> = ({
+const ProjectSettingsProvider: React.VFC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [state, dispatch] = useReducer(

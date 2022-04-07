@@ -31,7 +31,7 @@ const reducer = (state: AuthState, action: Action): AuthState => {
 const AuthDispatchContext = React.createContext<DispatchContext | null>(null);
 const AuthStateContext = React.createContext<AuthState | null>(null);
 
-const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+const AuthProvider: React.VFC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [state, dispatch] = useReducer(reducer, {

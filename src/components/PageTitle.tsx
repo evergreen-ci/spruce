@@ -19,7 +19,7 @@ interface TitleTypographyProps {
   children: React.ReactNode | string;
 }
 
-const TitleTypography: React.FC<TitleTypographyProps> = ({
+const TitleTypography: React.VFC<TitleTypographyProps> = ({
   children,
   size,
 }) => {

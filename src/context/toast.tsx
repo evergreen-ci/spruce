@@ -70,7 +70,7 @@ export const ToastDispatchContext = React.createContext<DispatchToast | null>(
   null
 );
 
-const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
+const ToastProvider: React.VFC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [visibleToast, setVisibleToast] = useState<ToastProps>({

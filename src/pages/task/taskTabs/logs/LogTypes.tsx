@@ -175,7 +175,7 @@ const useRenderBody: React.VFC<{
   error: ApolloError;
   data: (TaskEventLogEntryType | LogMessageType)[];
   currentLog: LogTypes;
-  LogContainer?: React.FC<{ children: React.ReactNode }>;
+  LogContainer?: React.VFC<{ children: React.ReactNode }>;
   htmlLink: string;
   rawLink: string;
   lobsterLink: string;

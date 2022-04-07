@@ -14,7 +14,7 @@ export const ButtonDropdown: React.VFC<Props> = ({
   loading = false,
   dropdownItems,
   "data-cy": dataCy = "ellipsis-btn",
-}: Props) => (
+}) => (
   <Menu
     trigger={
       <Button

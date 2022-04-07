@@ -319,7 +319,7 @@ const getAllValues = (tData: TreeDataEntry[]): string[] =>
 
 const getCheckboxWrapper = (
   level: number
-): React.FC<{ children: React.ReactNode }> => styled.div`
+): React.VFC<{ children: React.ReactNode }> => styled.div`
   padding-left: ${level}em;
   padding-top: ${size.xxs};
   padding-bottom: ${size.xxs};

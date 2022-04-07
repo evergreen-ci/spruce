@@ -15,7 +15,7 @@ interface AccordionProps {
   useIndent?: boolean;
   children: React.ReactNode;
 }
-export const Accordion: React.FC<AccordionProps> = ({
+export const Accordion: React.VFC<AccordionProps> = ({
   title,
   toggledTitle,
   children,

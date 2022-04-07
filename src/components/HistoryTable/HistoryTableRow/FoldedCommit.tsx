@@ -26,7 +26,7 @@ interface FoldedCommitProps {
   style?: CSSProperties;
   selected: boolean;
 }
-export const FoldedCommit = memo(
+export const FoldedCommit = memo<FoldedCommitProps>(
   ({
     index,
     rolledUpCommits,
@@ -34,7 +34,7 @@ export const FoldedCommit = memo(
     numVisibleCols,
     style,
     selected,
-  }: FoldedCommitProps) => {
+  }) => {
     const { height } = style;
 
     // The virtualized table will unmount the row when it is scrolled out of view but it will cache its height in memory.
