@@ -55,14 +55,14 @@ export const ObjectFieldTemplate = ({
           description={description}
         />
       )}
-      {!!errors?.length && (
+      {!!errors.length && (
         <StyledBanner variant="danger" data-cy="error-banner">
-          {errors?.join(", ")}
+          {errors.join(", ")}
         </StyledBanner>
       )}
-      {!!warnings?.length && (
+      {!!warnings.length && (
         <StyledBanner variant="warning" data-cy="warning-banner">
-          {warnings?.join(", ")}
+          {warnings.join(", ")}
         </StyledBanner>
       )}
       {properties.map((prop) => prop.content)}

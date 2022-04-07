@@ -10,14 +10,13 @@ import {
 } from "constants/routes";
 import { GithubProjectConflicts } from "gql/generated/types";
 import { getTabTitle } from "pages/projectSettings/getTabTitle";
-import { string } from "utils";
-import { alias, form, AliasFormType, ProjectType } from "../utils";
+import { alias, form, ProjectType } from "../utils";
+import { sectionHasError } from "./getErrors";
 import { GithubTriggerAliasField } from "./GithubTriggerAliasField";
 import { FormState } from "./types";
 
 const { aliasArray, aliasRowUiSchema, gitTagArray } = alias;
 const { insertIf, overrideRadioBox, placeholderIf, radioBoxOptions } = form;
-const { listifyStrings } = string;
 
 export const getFormSchema = (
   identifier: string,
@@ -531,82 +530,5 @@ const GithubTriggerAliasDescription = ({
       </StyledRouterLink>{" "}
       page.
     </Description>
-  );
-};
-
-enum ErrorType {
-  Error,
-  Warning,
-  None,
-}
-
-const getErrorStyle = (
-  errorType: ErrorType,
-  versionControlEnabled: boolean,
-  projectType: ProjectType,
-  fieldName: string
-) => {
-  if (errorType === ErrorType.Warning) {
-    const whereToDefine = ["project"];
-    if (projectType === ProjectType.AttachedProject) whereToDefine.push("repo");
-    if (versionControlEnabled) {
-      whereToDefine.push("Evergreen configuration file");
-    }
-
-    return {
-      "ui:warnings": [
-        `This feature will only run if a ${fieldName} is defined in the ${listifyStrings(
-          whereToDefine,
-          "or"
-        )}.`,
-      ],
-    };
-  }
-  if (errorType === ErrorType.Error) {
-    return {
-      "ui:errors": [
-        `A ${fieldName} must be specified for this feature to run.`,
-      ],
-    };
-  }
-  return {};
-};
-
-const sectionHasError = (
-  versionControlEnabled: boolean,
-  projectType: ProjectType
-) => (
-  override: boolean,
-  aliases: Array<AliasFormType>,
-  repoAliases: Array<AliasFormType>,
-  fieldName: string
-) => {
-  let errorType = ErrorType.None;
-  switch (projectType) {
-    case ProjectType.AttachedProject:
-      if (override && !aliases?.length) {
-        if (versionControlEnabled) {
-          errorType = ErrorType.Warning;
-        } else {
-          errorType = ErrorType.Error;
-        }
-      } else if (!override && !repoAliases?.length) {
-        errorType = ErrorType.Warning;
-      }
-      break;
-    default:
-      if (!aliases?.length) {
-        if (versionControlEnabled) {
-          errorType = ErrorType.Warning;
-        } else {
-          errorType = ErrorType.Error;
-        }
-      }
-  }
-  return getErrorStyle(
-    errorType,
-    versionControlEnabled,
-    projectType,
-    fieldName
   );
 };

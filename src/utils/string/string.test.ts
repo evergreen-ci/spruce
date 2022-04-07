@@ -6,7 +6,7 @@ import {
   getDateCopy,
   applyStrictRegex,
   shortenGithash,
-  listifyStrings,
+  joinWithConjunction,
   trimStringFromMiddle,
 } from ".";
 
@@ -297,18 +297,20 @@ describe("trimStringFromMiddle", () => {
   });
 });
 
-describe("listifyStrings", () => {
+describe("joinWithConjunction", () => {
   it("creates a list from strings", () => {
-    expect(listifyStrings(["evergreen", "spruce", "app", "plt"], "and")).toBe(
-      "evergreen, spruce, app, and plt"
-    );
+    expect(
+      joinWithConjunction(["evergreen", "spruce", "app", "plt"], "and")
+    ).toBe("evergreen, spruce, app, and plt");
   });
 
   it("does not include a comma for a list of two elements", () => {
-    expect(listifyStrings(["heads", "tails"], "or")).toBe("heads or tails");
+    expect(joinWithConjunction(["heads", "tails"], "or")).toBe(
+      "heads or tails"
+    );
   });
 
   it("handles a list with one element", () => {
-    expect(listifyStrings(["one"], "and")).toBe("one");
+    expect(joinWithConjunction(["one"], "and")).toBe("one");
   });
 });
