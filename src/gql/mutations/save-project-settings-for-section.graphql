@@ -8,6 +8,7 @@ mutation SaveProjectSettingsForSection(
   ) {
     projectRef {
       id
+      identifier
     }
   }
 }

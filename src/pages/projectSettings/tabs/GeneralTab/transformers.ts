@@ -108,10 +108,7 @@ export const formToGql: FormToGqlFunction = (
       patchEnabled: projectFlags.taskSync.patchEnabled,
     },
     disabledStatsCache,
-    filesIgnoredFromCache:
-      filesIgnoredFromCacheOverride && filteredFiles.length
-        ? filteredFiles
-        : null,
+    filesIgnoredFromCache: filesIgnoredFromCacheOverride ? filteredFiles : null,
   };
 
   return { projectRef };

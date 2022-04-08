@@ -19,22 +19,38 @@ export const GeneralTab: React.VFC<TabProps> = ({
   validDefaultLoggers,
 }) => {
   const { getTab, updateForm } = useProjectSettingsContext();
-  const { formData } = getTab(tab);
+  const { formData, initialData } = getTab(tab);
 
   const initialFormState = projectData || repoData;
   usePopulateForm(initialFormState, tab);
 
   const onChange = updateForm(tab);
 
+  const identifierHasChanges = useMemo(
+    () =>
+      initialData?.projectRef?.identifier !==
+      formData?.generalConfiguration?.other?.identifier,
+    [
+      initialData?.projectRef?.identifier,
+      formData?.generalConfiguration?.other?.identifier,
+    ]
+  );
   const { fields, schema, uiSchema } = useMemo(
     () =>
       getFormSchema(
         projectId,
         projectType,
         validDefaultLoggers,
+        identifierHasChanges,
         projectType === ProjectType.AttachedProject ? repoData : null
       ),
-    [projectId, projectType, repoData, validDefaultLoggers]
+    [
+      identifierHasChanges,
+      projectId,
+      projectType,
+      repoData,
+      validDefaultLoggers,
+    ]
   );
 
   if (!formData) return null;
