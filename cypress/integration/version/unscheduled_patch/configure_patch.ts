@@ -442,8 +442,7 @@ describe("Configure Patch Page", () => {
       });
     });
 
-    // Skip until EVG-15085 is completed, since the patch trigger alias data is currently being overwritten
-    describe.skip("Selecting a trigger alias", () => {
+    describe("Selecting a trigger alias", () => {
       before(() => {
         cy.dataCy("trigger-alias-list-item")
           .contains("logkeeper-alias")
@@ -536,7 +535,7 @@ describe("Configure Patch Page", () => {
 
     it("Shows error toast if unsuccessful and keeps data", () => {
       const val = "hello world";
-      cy.dataCy(`patch-name-input`).as("patchNameInput").clear().type(val);
+      cy.dataCy(`patch-name-input`).clear().type(val);
       cy.dataCy("task-checkbox").first().check({ force: true });
       // TODO: Replace this with cy.intercept() once we upgrade to > Cypress 6.0.0
       cy.route2("/graphql/query", (req) => {
@@ -568,105 +567,6 @@ const mockedErrorConfigureResponse = {
 };
 
 const mockedSuccessfulConfigureResponse = {
-  data: {
-    schedulePatch: {
-      id: unactivatedPatchId,
-      activated: true,
-      __typename: "Patch",
-    },
-    patchTasks: {
-      count: 3,
-      tasks: [
-        {
-          id:
-            "mci_osx_dist_patch_c12773e028910390ab4fda66e4b1745cfdc9ee65_5ea99425b23736089a09a98f_20_04_29_14_53_16",
-          status: "success",
-          baseStatus: "success",
-          displayName: "dist",
-          buildVariant: "osx",
-          __typename: "TaskResult",
-        },
-        {
-          id:
-            "mci_osx_test_auth_patch_c12773e028910390ab4fda66e4b1745cfdc9ee65_5ea99425b23736089a09a98f_20_04_29_14_53_16",
-          status: "success",
-          baseStatus: "success",
-          displayName: "test-auth",
-          buildVariant: "osx",
-          __typename: "TaskResult",
-        },
-        {
-          id:
-            "mci_osx_test_graphql_patch_c12773e028910390ab4fda66e4b1745cfdc9ee65_5ea99425b23736089a09a98f_20_04_29_14_53_16",
-          status: "success",
-          baseStatus: "success",
-          displayName: "test-graphql",
-          buildVariant: "osx",
-          __typename: "TaskResult",
-        },
-      ],
-      __typename: "PatchTasks",
-    },
-    patchBuildVariants: [
-      {
-        variant: "osx",
-        tasks: [
-          {
-            id:
-              "mci_osx_dist_patch_c12773e028910390ab4fda66e4b1745cfdc9ee65_5ea99425b23736089a09a98f_20_04_29_14_53_16",
-            name: "dist",
-            status: "success",
-            __typename: "Task",
-          },
-          {
-            id:
-              "mci_osx_test_auth_patch_c12773e028910390ab4fda66e4b1745cfdc9ee65_5ea99425b23736089a09a98f_20_04_29_14_53_16",
-            name: "test-auth",
-            status: "success",
-            __typename: "Task",
-          },
-          {
-            id:
-              "mci_osx_test_graphql_patch_c12773e028910390ab4fda66e4b1745cfdc9ee65_5ea99425b23736089a09a98f_20_04_29_14_53_16",
-            name: "test-graphql",
-            status: "success",
-            __typename: "Task",
-          },
-        ],
-        __typename: "GroupedBuildVariant",
-      },
-    ],
-    patch: {
-      id: unactivatedPatchId,
-      description: "whoaaaaaa mama!!!",
-      projectID: "mci",
-      githash: "c12773e028910390ab4fda66e4b1745cfdc9ee65",
-      patchNumber: 6,
-      author: "trey.granderson",
-      version: "5ea99425b23736089a09a98f",
-      status: "succeeded",
-      activated: true,
-      alias: "",
-      taskCount: 3,
-      duration: {
-        makespan: "18m31s",
-        timeTaken: null,
-        __typename: "PatchDuration",
-      },
-      time: {
-        started: "April 29, 2020, 11:09AM",
-        submittedAt: "April 29, 2020, 10:50AM",
-        finished: "April 29, 2020, 11:27AM",
-        __typename: "PatchTime",
-      },
-      variantsTasks: [
-        {
-          name: "osx",
-          tasks: ["test-graphql", "test-auth", "dist"],
-          __typename: "VariantTask",
-        },
-      ],
-      __typename: "Patch",
-    },
-  },
+  data: {},
+  errors: null,
 };
