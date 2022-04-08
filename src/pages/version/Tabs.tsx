@@ -47,7 +47,11 @@ const tabMap = ({ taskCount, childPatches }) => ({
     </Tab>
   ),
 });
-export const Tabs: React.FC<Props> = ({ taskCount, childPatches, isPatch }) => {
+export const Tabs: React.VFC<Props> = ({
+  taskCount,
+  childPatches,
+  isPatch,
+}) => {
   const { id, tab } = useParams<{ id: string; tab: PatchTab }>();
   const { sendEvent } = useVersionAnalytics(id);
   const history = useHistory();

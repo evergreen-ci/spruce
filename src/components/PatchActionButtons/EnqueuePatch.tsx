@@ -10,7 +10,7 @@ interface EnqueuePatchProps {
   visibilityControl?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
 
-export const EnqueuePatch: React.FC<EnqueuePatchProps> = ({
+export const EnqueuePatch: React.VFC<EnqueuePatchProps> = ({
   patchId,
   commitMessage,
   disabled,

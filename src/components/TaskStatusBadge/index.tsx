@@ -30,7 +30,7 @@ const StyledBadge = styled(Badge)<BadgeColorProps>`
 interface TaskStatusBadgeProps {
   status: string;
 }
-const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({ status }) => {
+const TaskStatusBadge: React.VFC<TaskStatusBadgeProps> = ({ status }) => {
   let displayStatus = getStatusBadgeCopy(status);
 
   if (taskStatusToCopy[status] === undefined) {

@@ -17,7 +17,7 @@ interface Props {
   childPatches: Partial<Patch>[];
   hasVersion: boolean;
 }
-export const DropdownMenu: React.FC<Props> = ({
+export const DropdownMenu: React.VFC<Props> = ({
   patchId,
   childPatches,
   canEnqueueToCommitQueue,

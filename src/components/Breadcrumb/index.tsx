@@ -30,7 +30,7 @@ interface Props {
   };
 }
 
-export const BreadCrumb: React.FC<Props> = ({
+export const BreadCrumb: React.VFC<Props> = ({
   taskName,
   patchNumber,
   versionMetadata,
@@ -72,7 +72,7 @@ interface PatchBreadcrumbProps {
   patchNumber?: number;
   isTask: boolean;
 }
-const PatchBreadcrumb: React.FC<PatchBreadcrumbProps> = ({
+const PatchBreadcrumb: React.VFC<PatchBreadcrumbProps> = ({
   patchAuthor,
   analytics,
   versionId,
@@ -137,7 +137,7 @@ interface VersionBreadcrumbProps {
   isTask: boolean;
   analytics: BreadcrumbAnalytics;
 }
-const VersionBreadcrumb: React.FC<VersionBreadcrumbProps> = ({
+const VersionBreadcrumb: React.VFC<VersionBreadcrumbProps> = ({
   versionMetadata,
   analytics,
   isTask,

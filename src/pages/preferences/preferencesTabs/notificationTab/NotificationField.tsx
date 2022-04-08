@@ -10,7 +10,7 @@ interface NotificationFieldProps {
   index: number;
   setNotificationStatus: (e) => void;
 }
-export const NotificationField: React.FC<NotificationFieldProps> = ({
+export const NotificationField: React.VFC<NotificationFieldProps> = ({
   notification,
   setNotificationStatus,
   notificationStatus,

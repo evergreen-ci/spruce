@@ -7,7 +7,7 @@ interface Props {
   volume: MyVolume;
 }
 
-export const EditButton: React.FC<Props> = ({ volume }) => {
+export const EditButton: React.VFC<Props> = ({ volume }) => {
   const [openModal, setOpenModal] = useState(false);
 
   return (

@@ -1,10 +1,14 @@
 import styled from "@emotion/styled";
 
-const getLogLineComp = (color: string): React.FC => styled.div`
+const getLogLineComp = (
+  color: string
+): React.VFC<{ children: React.ReactNode }> => styled.div`
   color: ${color};
 `;
 
-export const getLogLineWrapper = (severity: string): React.FC => {
+export const getLogLineWrapper = (
+  severity: string
+): React.VFC<{ children: React.ReactNode }> => {
   switch (severity) {
     case "D":
     case "DEBUG":

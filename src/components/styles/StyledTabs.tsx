@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Tabs, Tab } from "@leafygreen-ui/tabs";
 
 type StyledTabsProps = React.ComponentProps<typeof Tabs>;
-export const StyledTabs: React.FC<StyledTabsProps> = ({
+export const StyledTabs: React.VFC<StyledTabsProps> = ({
   children,
   ...rest
 }) => (

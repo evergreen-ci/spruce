@@ -32,7 +32,7 @@ export interface TreeDataEntry extends TreeDataChildEntry {
   children?: TreeDataChildEntry[];
 }
 
-export const TreeSelect: React.FC<TreeSelectProps> = ({
+export const TreeSelect: React.VFC<TreeSelectProps> = ({
   isDropdown = false,
   isVisible = true,
   hasStyling = true,
@@ -317,7 +317,9 @@ const getAllValues = (tData: TreeDataEntry[]): string[] =>
     return accum.concat([currNode.value]).concat(childrenValues);
   }, []);
 
-const getCheckboxWrapper = (level: number): React.FC => styled.div`
+const getCheckboxWrapper = (
+  level: number
+): React.VFC<{ children: React.ReactNode }> => styled.div`
   padding-left: ${level}em;
   padding-top: ${size.xxs};
   padding-bottom: ${size.xxs};

@@ -13,7 +13,7 @@ export type SpruceFormProps = Pick<
 > &
   Partial<FormProps<any>>;
 
-export const SpruceForm: React.FC<SpruceFormProps> = ({
+export const SpruceForm: React.VFC<SpruceFormProps> = ({
   schema,
   onChange,
   uiSchema,

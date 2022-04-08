@@ -27,7 +27,7 @@ interface Props {
   disabled: boolean;
 }
 
-export const ConfigureBuildVariants: React.FC<Props> = ({
+export const ConfigureBuildVariants: React.VFC<Props> = ({
   variants,
   aliases,
   selectedBuildVariants,
@@ -123,7 +123,7 @@ interface CardProps {
   title: string;
 }
 
-const Card: React.FC<CardProps> = ({
+const Card: React.VFC<CardProps> = ({
   "data-cy": dataCy,
   onClick,
   menuItems,

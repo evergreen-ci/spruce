@@ -16,7 +16,7 @@ interface Props {
   volume: MyVolume;
 }
 
-export const DeleteVolumeBtn: React.FC<Props> = ({ volume }) => {
+export const DeleteVolumeBtn: React.VFC<Props> = ({ volume }) => {
   const dispatchToast = useToastContext();
   const [removeVolume, { loading: loadingRemoveVolume }] = useMutation<
     RemoveVolumeMutation,

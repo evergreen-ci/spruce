@@ -8,7 +8,7 @@ interface Props {
   taskId: string;
 }
 
-const TrendChartsPlugin: React.FC<Props> = ({ taskId }) => (
+const TrendChartsPlugin: React.VFC<Props> = ({ taskId }) => (
   <StyledIframe
     src={`${getSignalProcessingUrl()}/task/${taskId}/performanceData`}
     title="Task Performance Data"

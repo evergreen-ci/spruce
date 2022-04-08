@@ -20,7 +20,7 @@ interface BuildVariantAccordianProps {
     taskIds: { [versionId: string]: string } | { [versionId: string]: string[] }
   ) => void;
 }
-export const BuildVariantAccordian: React.FC<BuildVariantAccordianProps> = ({
+export const BuildVariantAccordian: React.VFC<BuildVariantAccordianProps> = ({
   versionId,
   tasks,
   displayName,
@@ -50,18 +50,14 @@ export const BuildVariantAccordian: React.FC<BuildVariantAccordianProps> = ({
   );
   return (
     <AccordionWrapper data-cy="variant-accordion">
-      <Accordion
-        title={variantTitle}
-        titleTag={FlexContainer}
-        contents={
-          <TaskStatusCheckboxContainer
-            versionId={versionId}
-            tasks={tasks}
-            selectedTasks={selectedTasks}
-            toggleSelectedTask={toggleSelectedTask}
-          />
-        }
-      />
+      <Accordion title={variantTitle} titleTag={FlexContainer}>
+        <TaskStatusCheckboxContainer
+          versionId={versionId}
+          tasks={tasks}
+          selectedTasks={selectedTasks}
+          toggleSelectedTask={toggleSelectedTask}
+        />
+      </Accordion>
     </AccordionWrapper>
   );
 };
