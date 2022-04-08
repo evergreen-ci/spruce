@@ -30,7 +30,7 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
     toggleRowSizeAtIndex,
   } = useHistoryTable();
 
-  const throttleOnChangeTableWidth = useMemo(
+  const throttledOnChangeTableWidth = useMemo(
     () => throttle(onChangeTableWidth, 400),
     [onChangeTableWidth]
   );
@@ -68,7 +68,7 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
   };
 
   return (
-    <AutoSizer onResize={({ width }) => throttleOnChangeTableWidth(width)}>
+    <AutoSizer onResize={({ width }) => throttledOnChangeTableWidth(width)}>
       {({ height, width }) => (
         <InfiniteLoader
           isItemLoaded={isItemLoaded}
