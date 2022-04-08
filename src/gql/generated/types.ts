@@ -34,8 +34,6 @@ export type Query = {
   taskFiles: TaskFiles;
   user: User;
   taskLogs: TaskLogs;
-  /** @deprecated Use version.buildVariants instead */
-  patchBuildVariants: Array<GroupedBuildVariant>;
   commitQueue: CommitQueue;
   userSettings?: Maybe<UserSettings>;
   spruceConfig?: Maybe<SpruceConfig>;
@@ -131,10 +129,6 @@ export type QueryUserArgs = {
 export type QueryTaskLogsArgs = {
   taskId: Scalars["String"];
   execution?: Maybe<Scalars["Int"]>;
-};
-
-export type QueryPatchBuildVariantsArgs = {
-  patchId: Scalars["String"];
 };
 
 export type QueryCommitQueueArgs = {
@@ -236,13 +230,9 @@ export type Mutation = {
   schedulePatchTasks?: Maybe<Scalars["String"]>;
   unschedulePatchTasks?: Maybe<Scalars["String"]>;
   restartVersions?: Maybe<Array<Version>>;
-  /** @deprecated restartPatch deprecated, Use restartVersions instead */
-  restartPatch?: Maybe<Scalars["String"]>;
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   enqueuePatch: Patch;
   setPatchPriority?: Maybe<Scalars["String"]>;
-  /** @deprecated scheduleTask deprecated, Use scheduleTasks instead */
-  scheduleTask: Task;
   scheduleTasks: Array<Task>;
   unscheduleTask: Task;
   abortTask: Task;
@@ -341,12 +331,6 @@ export type MutationRestartVersionsArgs = {
   versionsToRestart: Array<VersionToRestart>;
 };
 
-export type MutationRestartPatchArgs = {
-  patchId: Scalars["String"];
-  abort: Scalars["Boolean"];
-  taskIds: Array<Scalars["String"]>;
-};
-
 export type MutationScheduleUndispatchedBaseTasksArgs = {
   patchId: Scalars["String"];
 };
@@ -359,10 +343,6 @@ export type MutationEnqueuePatchArgs = {
 export type MutationSetPatchPriorityArgs = {
   patchId: Scalars["String"];
   priority: Scalars["Int"];
-};
-
-export type MutationScheduleTaskArgs = {
-  taskId: Scalars["String"];
 };
 
 export type MutationScheduleTasksArgs = {
@@ -547,8 +527,6 @@ export type Version = {
   patch?: Maybe<Patch>;
   childVersions?: Maybe<Array<Maybe<Version>>>;
   taskCount?: Maybe<Scalars["Int"]>;
-  /** @deprecated baseVersionId is deprecated, use baseVersion.id instead */
-  baseVersionID?: Maybe<Scalars["String"]>;
   baseVersion?: Maybe<Version>;
   previousVersion?: Maybe<Version>;
   versionTiming?: Maybe<VersionTiming>;
@@ -1054,8 +1032,6 @@ export type TaskQueueItem = {
 
 export type TaskQueueDistro = {
   id: Scalars["ID"];
-  /** @deprecated queueCount is deprecated, use taskCount instead */
-  queueCount: Scalars["Int"];
   taskCount: Scalars["Int"];
   hostCount: Scalars["Int"];
 };
@@ -1196,8 +1172,6 @@ export type Patch = {
   patchNumber: Scalars["Int"];
   author: Scalars["String"];
   authorDisplayName: Scalars["String"];
-  /** @deprecated version is deprecated, use versionFull.id instead */
-  version: Scalars["String"];
   versionFull?: Maybe<Version>;
   status: Scalars["String"];
   variants: Array<Scalars["String"]>;
@@ -1210,6 +1184,7 @@ export type Patch = {
   duration?: Maybe<PatchDuration>;
   time?: Maybe<PatchTime>;
   taskCount?: Maybe<Scalars["Int"]>;
+  /** @deprecated Use versionFull.baseVersion.id instead */
   baseVersionID?: Maybe<Scalars["String"]>;
   parameters: Array<Parameter>;
   moduleCodeChanges: Array<ModuleCodeChange>;
@@ -1337,8 +1312,6 @@ export type TestResult = {
   status: Scalars["String"];
   baseStatus?: Maybe<Scalars["String"]>;
   testFile: Scalars["String"];
-  /** @deprecated displayTestName deprecated, use testFile instead (EVG-15379) */
-  displayTestName?: Maybe<Scalars["String"]>;
   logs: TestLog;
   exitCode?: Maybe<Scalars["Int"]>;
   startTime?: Maybe<Scalars["Time"]>;
@@ -1361,18 +1334,6 @@ export type Dependency = {
   requiredStatus: RequiredStatus;
   buildVariant: Scalars["String"];
   taskId: Scalars["String"];
-  /** @deprecated uiLink is deprecated and should not be used */
-  uiLink: Scalars["String"];
-};
-
-export type PatchMetadata = {
-  author: Scalars["String"];
-  patchID: Scalars["String"];
-};
-
-export type BaseTaskMetadata = {
-  baseTaskDuration?: Maybe<Scalars["Duration"]>;
-  baseTaskLink: Scalars["String"];
 };
 
 export type AbortInfo = {
@@ -1394,8 +1355,6 @@ export type Task = {
   annotation?: Maybe<Annotation>;
   baseTask?: Maybe<Task>;
   baseStatus?: Maybe<Scalars["String"]>;
-  /** @deprecated baseTaskMetadata is deprecated. Use baseTask instead */
-  baseTaskMetadata?: Maybe<BaseTaskMetadata>;
   blocked: Scalars["Boolean"];
   buildId: Scalars["String"];
   buildVariant: Scalars["String"];
@@ -1432,15 +1391,11 @@ export type Task = {
   logs: TaskLogLinks;
   minQueuePosition: Scalars["Int"];
   patch?: Maybe<Patch>;
-  /** @deprecated patchMetadata is deprecated. Use versionMetadata instead. */
-  patchMetadata: PatchMetadata;
   patchNumber?: Maybe<Scalars["Int"]>;
   priority?: Maybe<Scalars["Int"]>;
   project?: Maybe<Project>;
   projectId: Scalars["String"];
   projectIdentifier?: Maybe<Scalars["String"]>;
-  /** @deprecated reliesOn is deprecated. Use dependsOn instead. */
-  reliesOn: Array<Dependency>;
   dependsOn?: Maybe<Array<Dependency>>;
   canOverrideDependencies: Scalars["Boolean"];
   requester: Scalars["String"];
@@ -1454,8 +1409,6 @@ export type Task = {
   taskGroupMaxHosts?: Maybe<Scalars["Int"]>;
   timeTaken?: Maybe<Scalars["Duration"]>;
   totalTestCount: Scalars["Int"];
-  /** @deprecated version is deprecated. Use versionMetadata instead. */
-  version: Scalars["String"];
   versionMetadata: Version;
   order: Scalars["Int"];
 };
@@ -2799,9 +2752,9 @@ export type SchedulePatchMutationVariables = Exact<{
 
 export type SchedulePatchMutation = {
   schedulePatch: {
-    version: string;
     tasks: Array<string>;
     variants: Array<string>;
+    versionFull?: Maybe<{ id: string }>;
   } & BasePatchFragment;
 };
 
@@ -3656,7 +3609,6 @@ export type PatchQuery = {
     projectIdentifier: string;
     githash: string;
     patchNumber: number;
-    version: string;
     taskCount?: Maybe<number>;
     baseVersionID?: Maybe<string>;
     canEnqueueToCommitQueue: boolean;
@@ -3670,6 +3622,7 @@ export type PatchQuery = {
         status: string;
       }>
     >;
+    versionFull?: Maybe<{ id: string }>;
     duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
     time?: Maybe<{
       started?: Maybe<string>;
@@ -3893,7 +3846,6 @@ export type GetTaskQuery = {
       canOverrideDependencies: boolean;
       startTime?: Maybe<Date>;
       timeTaken?: Maybe<number>;
-      version: string;
       totalTestCount: number;
       failedTestCount: number;
       spawnHostLink?: Maybe<string>;
@@ -3937,7 +3889,6 @@ export type GetTaskQuery = {
           buildVariantDisplayName?: Maybe<string>;
         }>
       >;
-      baseTaskMetadata?: Maybe<{ baseTaskDuration?: Maybe<number> }>;
       displayTask?: Maybe<{
         id: string;
         execution: number;

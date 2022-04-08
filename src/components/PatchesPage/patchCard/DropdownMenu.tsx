@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ButtonDropdown } from "components/ButtonDropdown";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
@@ -67,4 +67,4 @@ export const DropdownMenu: React.VFC<Props> = ({
   );
 };
 
-const refetchQueries = ["PatchBuildVariants"];
+const refetchQueries = ["Version"];

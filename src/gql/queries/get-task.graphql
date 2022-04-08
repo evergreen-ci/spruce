@@ -32,9 +32,6 @@ query GetTask($taskId: String!, $execution: Int) {
       buildVariant
       buildVariantDisplayName
     }
-    baseTaskMetadata {
-      baseTaskDuration
-    }
     displayTask {
       id
       execution
@@ -76,7 +73,6 @@ query GetTask($taskId: String!, $execution: Int) {
     }
     startTime
     timeTaken
-    version
     totalTestCount
     failedTestCount
     spawnHostLink
