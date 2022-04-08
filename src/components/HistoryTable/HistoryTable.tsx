@@ -53,6 +53,8 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
     }
   }, [processedCommitCount]);
 
+  // This useEffect handles the jump to row functionality
+  // When we have a selected commit that we have not yet scrolled to we need to scroll to that row
   useEffect(() => {
     if (
       selectedCommit &&
@@ -61,7 +63,9 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
       listRef.current
     ) {
       listRef.current.scrollToItem(selectedCommit.rowIndex, "center");
+      // We mark the selected commit as visited so that we don't keep trying to scroll to it.
       markSelectedRowVisited();
+      // If we have not loaded the commit yet we need to keep fetching rows until we do.
     } else if (selectedCommit && !selectedCommit.loaded) {
       loadMoreItems();
     }

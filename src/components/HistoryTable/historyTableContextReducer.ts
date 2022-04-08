@@ -164,16 +164,23 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
     case "setSelectedCommit": {
       let rowIndex = null;
       let loaded = false;
-      const matchingCommit = state.commitCache.get(action.order);
-      if (matchingCommit) {
+      const updatedProcessedCommits = state.processedCommits;
+      // If we already loaded the commit we need to search for it in the processed commits
+      // to set its selected state to true. This is in the case where we have the commit in the cache.
+      const hasMatchingCommit = state.commitCache.has(action.order);
+      if (hasMatchingCommit) {
         rowIndex = state.processedCommits.findIndex((commit) =>
           commitOrderToRowIndex(action.order, commit)
         );
+        updatedProcessedCommits[rowIndex].selected = true;
         loaded = true;
       }
 
       return {
         ...state,
+        ...(hasMatchingCommit && {
+          processedCommits: updatedProcessedCommits,
+        }),
         selectedCommit: {
           order: action.order,
           rowIndex,
