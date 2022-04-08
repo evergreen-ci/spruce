@@ -8,7 +8,7 @@ import { form } from "../utils";
 const { getFields } = form;
 const { yellow } = uiColors;
 
-export const VariableRow: React.FC<
+export const VariableRow: React.VFC<
   Pick<ObjectFieldTemplateProps, "formData" | "properties" | "uiSchema">
 > = ({ formData, properties, uiSchema }) => {
   const [variableName, variableValue, isPrivate, isAdminOnly] = getFields(

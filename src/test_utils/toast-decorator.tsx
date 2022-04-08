@@ -7,7 +7,9 @@ const WithToastContext = (Story) => (
   </MockToastProvider>
 );
 
-const MockToastProvider = ({ children }) => {
+const MockToastProvider: React.VFC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const toastContext = {
     success: (message: string, closable: boolean = true) =>
       action(`Toast Success`)({ message, closable }),

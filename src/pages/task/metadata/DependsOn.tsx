@@ -16,7 +16,7 @@ interface Props {
   name: string;
   taskId: string;
 }
-export const DependsOn: React.FC<Props> = ({
+export const DependsOn: React.VFC<Props> = ({
   buildVariant,
   metStatus,
   name,

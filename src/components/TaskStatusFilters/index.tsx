@@ -13,7 +13,7 @@ interface Props {
   filterWidth?: string;
 }
 
-export const TaskStatusFilters: React.FC<Props> = ({
+export const TaskStatusFilters: React.VFC<Props> = ({
   onChangeBaseStatusFilter,
   onChangeStatusFilter,
   versionId,

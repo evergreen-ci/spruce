@@ -14,7 +14,7 @@ import {
 import { CLEAR_MY_SUBSCRIPTIONS } from "gql/mutations";
 import { PreferencesModal } from "pages/preferences/preferencesTabs/PreferencesModal";
 
-export const ClearSubscriptionsCard: React.FC = () => {
+export const ClearSubscriptionsCard: React.VFC = () => {
   const [showModal, setShowModal] = useState(false);
   const { sendEvent } = usePreferencesAnalytics();
   const dispatchToast = useToastContext();

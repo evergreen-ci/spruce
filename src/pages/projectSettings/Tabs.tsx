@@ -32,7 +32,7 @@ interface Props {
   repoData?: RepoSettings;
 }
 
-export const ProjectSettingsTabs: React.FC<Props> = ({
+export const ProjectSettingsTabs: React.VFC<Props> = ({
   projectData,
   projectType,
   repoData,
@@ -210,7 +210,7 @@ interface TabRouteProps {
   tab: ProjectSettingsTabRoutes;
 }
 
-const TabRoute: React.FC<TabRouteProps> = ({ Component, path, tab }) => (
+const TabRoute: React.VFC<TabRouteProps> = ({ Component, path, tab }) => (
   <Route path={path} render={(props) => <Component {...props} tab={tab} />} />
 );
 

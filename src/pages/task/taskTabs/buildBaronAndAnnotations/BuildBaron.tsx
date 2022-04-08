@@ -14,7 +14,7 @@ interface Props {
   userCanModify: boolean;
 }
 
-const BuildBaron: React.FC<Props> = ({
+const BuildBaron: React.VFC<Props> = ({
   bbData,
   error,
   taskId,

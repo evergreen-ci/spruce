@@ -28,7 +28,7 @@ interface Props {
   taskCount: number;
 }
 
-export const Tasks: React.FC<Props> = ({ taskCount }) => {
+export const Tasks: React.VFC<Props> = ({ taskCount }) => {
   const { id: versionId } = useParams<{ id: string }>();
 
   const { search } = useLocation();

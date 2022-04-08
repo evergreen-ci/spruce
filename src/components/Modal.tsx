@@ -15,9 +15,10 @@ interface ModalProps {
   visible: boolean;
   onCancel: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   onOk?: () => void;
+  children: React.ReactNode;
 }
 
-export const Modal: React.FC<ModalProps> = ({
+export const Modal: React.VFC<ModalProps> = ({
   footer,
   title,
   onCancel,

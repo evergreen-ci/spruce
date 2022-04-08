@@ -24,7 +24,7 @@ interface InactiveCommitsProps {
   rolledUpVersions: CommitRolledUpVersions;
   hasFilters: boolean;
 }
-export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
+export const InactiveCommitButton: React.VFC<InactiveCommitsProps> = ({
   rolledUpVersions,
   hasFilters = false,
 }) => {

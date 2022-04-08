@@ -21,7 +21,7 @@ const { getUiUrl, isBeta } = environmentalVariables;
 
 const { white, blue, gray } = uiColors;
 
-export const Navbar: React.FC = () => {
+export const Navbar: React.VFC = () => {
   const { isAuthenticated } = useAuthStateContext();
   const legacyURL = useLegacyUIURL();
   const { sendEvent } = useNavbarAnalytics();

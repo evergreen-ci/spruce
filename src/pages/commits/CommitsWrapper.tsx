@@ -41,7 +41,7 @@ interface Props {
   hasFilters: boolean;
 }
 
-export const CommitsWrapper: React.FC<Props> = ({
+export const CommitsWrapper: React.VFC<Props> = ({
   versions,
   isLoading,
   error,

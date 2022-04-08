@@ -14,7 +14,7 @@ interface TaskStatusCheckboxContainerProps {
   selectedTasks: selectedStrings;
   toggleSelectedTask: (taskIds: { [patchId: string]: string }) => void;
 }
-export const TaskStatusCheckboxContainer: React.FC<TaskStatusCheckboxContainerProps> = ({
+export const TaskStatusCheckboxContainer: React.VFC<TaskStatusCheckboxContainerProps> = ({
   versionId,
   tasks,
   selectedTasks,

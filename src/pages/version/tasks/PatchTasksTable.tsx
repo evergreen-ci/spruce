@@ -20,7 +20,7 @@ interface Props {
   sorts: SortOrder[];
 }
 
-export const PatchTasksTable: React.FC<Props> = ({ patchTasks, sorts }) => {
+export const PatchTasksTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
   const { id: versionId } = useParams<{ id: string }>();
   const updateQueryParams = useUpdateURLQueryParams();
   const { sendEvent } = useVersionAnalytics(versionId);

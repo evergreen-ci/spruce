@@ -7,7 +7,7 @@ interface Props {
   badgeVariant: Variant;
   dataCyBadge?: string;
 }
-export const TabLabelWithBadge: React.FC<Props> = ({
+export const TabLabelWithBadge: React.VFC<Props> = ({
   tabLabel,
   badgeText,
   badgeVariant,

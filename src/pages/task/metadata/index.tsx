@@ -33,7 +33,12 @@ interface Props {
   error: ApolloError;
 }
 
-export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
+export const Metadata: React.VFC<Props> = ({
+  loading,
+  task,
+  error,
+  taskId,
+}) => {
   const taskAnalytics = useTaskAnalytics();
   const tz = useUserTimeZone();
   const {

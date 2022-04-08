@@ -6,7 +6,7 @@ import {
 } from "components/Banners";
 import { Navbar } from "./Navbar";
 
-export const Header: React.FC = () => (
+export const Header: React.VFC = () => (
   <StyledHeader>
     <Navbar />
     <ConnectivityBanner />

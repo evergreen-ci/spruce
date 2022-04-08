@@ -10,9 +10,10 @@ interface Props {
   title: string;
   error: ApolloError;
   loading?: boolean;
+  children: React.ReactNode;
 }
 
-export const MetadataCard: React.FC<Props> = ({
+export const MetadataCard: React.VFC<Props> = ({
   title,
   children,
   error,

@@ -21,7 +21,7 @@ interface Props {
   volume: MyVolume;
 }
 
-export const MountVolumeModal: React.FC<Props> = ({
+export const MountVolumeModal: React.VFC<Props> = ({
   visible,
   onCancel,
   volume,

@@ -20,7 +20,7 @@ const getInitialFormState = (
   return projectData;
 };
 
-export const PeriodicBuildsTab: React.FC<TabProps> = ({
+export const PeriodicBuildsTab: React.VFC<TabProps> = ({
   projectData,
   projectType,
   repoData,

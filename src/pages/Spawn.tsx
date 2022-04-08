@@ -11,7 +11,7 @@ import { routes, SpawnTab } from "constants/routes";
 import { SpawnHost } from "pages/spawn/SpawnHost";
 import { SpawnVolume } from "pages/spawn/SpawnVolume";
 
-export const Spawn: React.FC = () => {
+export const Spawn: React.VFC = () => {
   const { tab } = useParams<{ tab: string }>();
   const spawnAnalytics = useSpawnAnalytics();
   useEffect(() => {}, [tab]); // eslint-disable-line react-hooks/exhaustive-deps

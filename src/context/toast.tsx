@@ -66,9 +66,13 @@ const variantToTitleMap = {
   [Variant.Note]: "Something Happened!",
 };
 
-export const ToastDispatchContext = React.createContext<any | null>(null);
+export const ToastDispatchContext = React.createContext<DispatchToast | null>(
+  null
+);
 
-const ToastProvider: React.FC = ({ children }) => {
+const ToastProvider: React.VFC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [visibleToast, setVisibleToast] = useState<ToastProps>({
     variant: Variant.Note,
     message: "",
@@ -97,7 +101,7 @@ const ToastProvider: React.FC = ({ children }) => {
     title: null,
   };
 
-  const toastContext: DispatchToast = {
+  const toastContext = {
     success: (message = "", closable = true, options = defaultOptions) =>
       addToast({
         variant: mapToastToLeafyGreenVariant.success,
