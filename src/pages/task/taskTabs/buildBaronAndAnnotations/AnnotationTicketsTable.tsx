@@ -31,7 +31,7 @@ interface AnnotationTicketsProps {
   loading: boolean;
 }
 
-export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
+export const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
   jiraIssues,
   taskId,
   execution,
@@ -248,7 +248,7 @@ interface CreatedTicketsProps {
   createdIssues: AnnotationTickets;
 }
 
-export const CustomCreatedTicketsTable: React.FC<CreatedTicketsProps> = ({
+export const CustomCreatedTicketsTable: React.VFC<CreatedTicketsProps> = ({
   createdIssues,
 }) => {
   const columns = [

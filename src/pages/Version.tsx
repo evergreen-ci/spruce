@@ -40,7 +40,7 @@ import { ActionButtons } from "./version/index";
 import { Metadata } from "./version/Metadata";
 import { Tabs } from "./version/Tabs";
 
-export const VersionPage: React.FC = () => {
+export const VersionPage: React.VFC = () => {
   const { data: spruceConfigData } = useQuery<GetSpruceConfigQuery>(
     GET_SPRUCE_CONFIG
   );

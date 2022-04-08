@@ -36,7 +36,7 @@ import { UserPatches } from "pages/UserPatches";
 import { VariantHistory } from "pages/VariantHistory";
 import { VersionPage } from "pages/Version";
 
-export const Content: React.FC = () => {
+export const Content: React.VFC = () => {
   const { isAuthenticated } = useAuthStateContext();
 
   // this top-level query is required for authentication to work

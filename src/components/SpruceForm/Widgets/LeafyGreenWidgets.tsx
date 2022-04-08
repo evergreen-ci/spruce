@@ -20,7 +20,7 @@ import ElementWrapper from "../ElementWrapper";
 
 const { reportError } = errorReporting;
 
-export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
+export const LeafyGreenTextInput: React.VFC<WidgetProps> = ({
   value,
   label,
   placeholder,
@@ -72,7 +72,7 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
   );
 };
 
-export const LeafyGreenCheckBox: React.FC<WidgetProps> = ({
+export const LeafyGreenCheckBox: React.VFC<WidgetProps> = ({
   value,
   label,
   onChange,
@@ -118,7 +118,7 @@ const IconContainer = styled.span`
   vertical-align: text-top;
 `;
 
-export const LeafyGreenSelect: React.FC<WidgetProps> = ({
+export const LeafyGreenSelect: React.VFC<WidgetProps> = ({
   disabled,
   label,
   options,
@@ -182,7 +182,7 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
   );
 };
 
-export const LeafyGreenRadio: React.FC<WidgetProps> = ({
+export const LeafyGreenRadio: React.VFC<WidgetProps> = ({
   label,
   options,
   value,
@@ -215,7 +215,7 @@ export const LeafyGreenRadio: React.FC<WidgetProps> = ({
   );
 };
 
-export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
+export const LeafyGreenRadioBox: React.VFC<WidgetProps> = ({
   id,
   label,
   options,
@@ -301,7 +301,7 @@ const StyledRadioBox = styled(RadioBox)`
   line-height: 1.25;
 `;
 
-export const LeafyGreenTextArea: React.FC<WidgetProps> = ({
+export const LeafyGreenTextArea: React.VFC<WidgetProps> = ({
   label,
   disabled,
   value,
@@ -328,7 +328,7 @@ export const LeafyGreenTextArea: React.FC<WidgetProps> = ({
   );
 };
 
-export const LeafyGreenSegmentedControl: React.FC<WidgetProps> = ({
+export const LeafyGreenSegmentedControl: React.VFC<WidgetProps> = ({
   disabled,
   label,
   onChange,

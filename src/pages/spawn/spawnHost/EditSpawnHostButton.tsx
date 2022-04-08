@@ -12,7 +12,7 @@ import { MyHost } from "types/spawn";
 interface EditSpawnHostButtonProps {
   host: MyHost;
 }
-export const EditSpawnHostButton: React.FC<EditSpawnHostButtonProps> = ({
+export const EditSpawnHostButton: React.VFC<EditSpawnHostButtonProps> = ({
   host,
 }) => {
   const [openModal, setOpenModal] = useState(false);

@@ -23,7 +23,7 @@ interface TaskTabProps {
   task: GetTaskQuery["task"];
   taskFiles: GetTaskQuery["taskFiles"];
 }
-export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
+export const TaskTabs: React.VFC<TaskTabProps> = ({ task, taskFiles }) => {
   const { tab: urlTab } = useParams<{ id: string; tab: TaskTab | null }>();
 
   const history = useHistory();

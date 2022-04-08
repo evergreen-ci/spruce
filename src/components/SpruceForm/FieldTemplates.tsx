@@ -75,7 +75,7 @@ const StyledBanner = styled(Banner)`
 `;
 
 // Custom field template that does not render fields' titles, as this is handled by LeafyGreen widgets
-export const DefaultFieldTemplate: React.FC<FieldTemplateProps> = ({
+export const DefaultFieldTemplate: React.VFC<FieldTemplateProps> = ({
   classNames,
   children,
   description,
@@ -113,7 +113,7 @@ const DefaultFieldContainer = styled.div<{ border?: "top" | "bottom" }>`
     `border-${border}: 1px solid ${gray.light1}; padding-${border}: ${size.s};`}
 `;
 
-const ArrayItem: React.FC<
+const ArrayItem: React.VFC<
   {
     border: boolean;
     title: string;
@@ -222,7 +222,7 @@ const ArrayItemRow = styled.div<{ border: boolean; index: number }>`
   }
 `;
 
-export const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
+export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
   canAdd,
   DescriptionField,
   disabled,
@@ -315,7 +315,7 @@ const DeleteButtonWrapper = styled(ElementWrapper)`
     topAlignDelete ? "0px" : "20px"};
 `;
 
-export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
+export const CardFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
   idSchema,
   properties,
   title,
@@ -330,7 +330,7 @@ export const CardFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
   </SpruceFormContainer>
 );
 
-export const AccordionFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
+export const AccordionFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
   disabled,
   idSchema,
   properties,
@@ -351,8 +351,9 @@ export const AccordionFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
         numberedTitle ? `${numberedTitle} ${index + 1}` : displayTitle || title
       }
       titleTag={AccordionTitle}
-      contents={properties.map(({ content }) => content)}
-    />
+    >
+      {properties.map(({ content }) => content)}
+    </Accordion>
   );
 };
 

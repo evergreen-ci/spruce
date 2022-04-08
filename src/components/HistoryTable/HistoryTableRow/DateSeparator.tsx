@@ -12,7 +12,7 @@ interface DateSeparatorProps {
   date: Date;
 }
 
-export const DateSeparator: React.FC<DateSeparatorProps> = ({
+export const DateSeparator: React.VFC<DateSeparatorProps> = ({
   style,
   date,
 }) => {

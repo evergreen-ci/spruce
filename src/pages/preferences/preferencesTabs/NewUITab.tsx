@@ -13,7 +13,7 @@ import {
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { useUserSettingsQuery } from "hooks/useUserSettingsQuery";
 
-export const NewUITab: React.FC = () => {
+export const NewUITab: React.VFC = () => {
   const { sendEvent } = usePreferencesAnalytics();
   const { data, loadingComp } = useUserSettingsQuery();
   const { spruceV1, hasUsedSpruceBefore } =

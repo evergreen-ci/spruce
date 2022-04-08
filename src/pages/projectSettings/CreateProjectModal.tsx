@@ -69,7 +69,7 @@ interface Props {
   owner: string;
   repo: string;
 }
-export const CreateProjectModal: React.FC<Props> = ({ owner, repo }) => {
+export const CreateProjectModal: React.VFC<Props> = ({ owner, repo }) => {
   const dispatchToast = useToastContext();
   const modalFormDefinition = getModalFormDefinition(owner, repo);
 

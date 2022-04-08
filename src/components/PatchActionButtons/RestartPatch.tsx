@@ -12,7 +12,7 @@ interface RestartPatchProps {
   visibilityControl?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
   childPatches: Partial<Patch>[];
 }
-export const RestartPatch: React.FC<RestartPatchProps> = ({
+export const RestartPatch: React.VFC<RestartPatchProps> = ({
   isButton,
   disabled = false,
   patchId,

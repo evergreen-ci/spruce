@@ -8,7 +8,7 @@ interface ETATimerProps {
   startTime: Date;
   expectedDuration: number;
 }
-export const ETATimer: React.FC<ETATimerProps> = ({
+export const ETATimer: React.VFC<ETATimerProps> = ({
   startTime,
   expectedDuration,
 }) => {

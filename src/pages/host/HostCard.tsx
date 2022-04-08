@@ -10,12 +10,13 @@ interface Props {
   error: ApolloError;
   loading?: boolean;
   metaData: boolean;
+  children: React.ReactNode;
 }
 interface StylingProps {
   metaData: boolean;
 }
 
-export const HostCard: React.FC<Props> = ({
+export const HostCard: React.VFC<Props> = ({
   children,
   error,
   loading,

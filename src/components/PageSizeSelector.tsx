@@ -17,7 +17,7 @@ interface Props {
   useLeafygreen?: boolean;
 }
 
-export const PageSizeSelector: React.FC<Props> = ({
+export const PageSizeSelector: React.VFC<Props> = ({
   value,
   "data-cy": dataCy,
   onClick,

@@ -15,7 +15,7 @@ interface SeeMoreModalProps {
   onRemoveBadge: (key: string, value: string) => void;
   onClearAll: () => void;
 }
-export const SeeMoreModal: React.FC<SeeMoreModalProps> = ({
+export const SeeMoreModal: React.VFC<SeeMoreModalProps> = ({
   badges,
   notVisibleCount,
   onRemoveBadge,

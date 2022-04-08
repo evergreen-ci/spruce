@@ -15,7 +15,7 @@ import { string } from "utils";
 
 const { getDateCopy } = string;
 
-export const HostTable: React.FC<{
+export const HostTable: React.VFC<{
   loading: boolean;
   eventData: HostEventsQuery;
   error: ApolloError;

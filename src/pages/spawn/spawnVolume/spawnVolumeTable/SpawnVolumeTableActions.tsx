@@ -11,7 +11,7 @@ interface Props {
   volume: MyVolume;
 }
 
-export const SpawnVolumeTableActions: React.FC<Props> = ({ volume }) => (
+export const SpawnVolumeTableActions: React.VFC<Props> = ({ volume }) => (
   <FlexRow>
     <DeleteVolumeBtn
       data-cy={`trash-${volume.displayName || volume.id}`}

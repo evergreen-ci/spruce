@@ -29,7 +29,7 @@ interface ExpirationFieldProps {
   targetItem?: MyHost | MyVolume;
 }
 
-export const ExpirationField: React.FC<ExpirationFieldProps> = ({
+export const ExpirationField: React.VFC<ExpirationFieldProps> = ({
   onChange,
   data,
   isVolume,

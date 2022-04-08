@@ -9,7 +9,7 @@ interface Props {
   onChange: (s: number) => void;
 }
 
-export const SizeSelector: React.FC<Props> = ({ value, onChange, limit }) => (
+export const SizeSelector: React.VFC<Props> = ({ value, onChange, limit }) => (
   <SectionContainer>
     <SectionLabel weight="medium">Volume Size</SectionLabel>
     <ModalContent>

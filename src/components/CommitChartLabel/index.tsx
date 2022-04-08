@@ -26,7 +26,7 @@ interface Props {
   versionId: string;
 }
 
-const CommitChartLabel: React.FC<Props> = ({
+const CommitChartLabel: React.VFC<Props> = ({
   githash,
   createTime,
   author,

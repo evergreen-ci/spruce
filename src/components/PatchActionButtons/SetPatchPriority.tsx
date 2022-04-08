@@ -19,7 +19,7 @@ interface SetPriorityProps {
   refetchQueries: string[];
 }
 
-export const SetPatchPriority: React.FC<SetPriorityProps> = ({
+export const SetPatchPriority: React.VFC<SetPriorityProps> = ({
   patchId,
   disabled,
   refetchQueries,

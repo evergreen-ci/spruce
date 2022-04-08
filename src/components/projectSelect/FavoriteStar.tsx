@@ -18,7 +18,7 @@ interface FavoriteStarProps {
   isFavorite: boolean;
   ["data-cy"]?: string;
 }
-export const FavoriteStar: React.FC<FavoriteStarProps> = ({
+export const FavoriteStar: React.VFC<FavoriteStarProps> = ({
   identifier,
   isFavorite,
   "data-cy": dataCy,

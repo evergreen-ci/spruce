@@ -11,7 +11,7 @@ interface Props {
   awsRegions: string[];
 }
 
-export const RegionSelector: React.FC<Props> = ({
+export const RegionSelector: React.VFC<Props> = ({
   onChange,
   selectedRegion,
   awsRegions,
