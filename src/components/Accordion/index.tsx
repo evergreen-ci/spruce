@@ -8,17 +8,17 @@ interface AccordionProps {
   toggledTitle?: React.ReactNode;
   toggleFromBottom?: boolean;
   showCaret?: boolean;
-  contents: React.ReactNode;
   allowToggleFromTitle?: boolean;
   defaultOpen?: boolean;
-  titleTag?: React.FC;
+  titleTag?: React.VFC;
   onToggle?: () => void;
   useIndent?: boolean;
+  children: React.ReactNode;
 }
-export const Accordion: React.FC<AccordionProps> = ({
+export const Accordion: React.VFC<AccordionProps> = ({
   title,
   toggledTitle,
-  contents,
+  children,
   toggleFromBottom = false,
   showCaret = true,
   allowToggleFromTitle = true,
@@ -42,7 +42,7 @@ export const Accordion: React.FC<AccordionProps> = ({
     <>
       {toggleFromBottom && (
         <AnimatedAccordion hide={!isAccordionDisplayed}>
-          {contents}
+          {children}
         </AnimatedAccordion>
       )}
       <Row>
@@ -60,7 +60,7 @@ export const Accordion: React.FC<AccordionProps> = ({
       {!toggleFromBottom && (
         <AnimatedAccordion hide={!isAccordionDisplayed}>
           <ContentsContainer indent={showCaret && useIndent}>
-            {contents}
+            {children}
           </ContentsContainer>
         </AnimatedAccordion>
       )}

@@ -12,7 +12,7 @@ interface Props {
   setPatchParams: (p: ParameterInput[]) => void;
 }
 
-export const ParametersContent: React.FC<Props> = ({
+export const ParametersContent: React.VFC<Props> = ({
   patchActivated,
   patchParameters,
   setPatchParams,

@@ -37,7 +37,7 @@ interface wrapperProps {
   state?: Partial<HistoryTableReducerState>;
 }
 
-const wrapper: React.FC<wrapperProps> = ({ children, mocks = [], state }) => (
+const wrapper: React.VFC<wrapperProps> = ({ children, mocks = [], state }) => (
   <MockedProvider mocks={mocks}>
     <HistoryTableProvider initialState={{ ...initialState, ...state }}>
       {children}

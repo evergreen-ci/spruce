@@ -33,7 +33,7 @@ interface Props {
   selectableAliases: PatchTriggerAlias[];
 }
 
-export const ConfigureTasks: React.FC<Props> = ({
+export const ConfigureTasks: React.VFC<Props> = ({
   selectedBuildVariants,
   selectedBuildVariantTasks,
   setSelectedBuildVariantTasks,
@@ -263,7 +263,7 @@ interface VariantTasksListProps {
   tasks: string[];
 }
 
-const VariantTasksList: React.FC<VariantTasksListProps> = ({
+const VariantTasksList: React.VFC<VariantTasksListProps> = ({
   "data-cy": dataCy,
   name,
   status,

@@ -24,7 +24,7 @@ interface PublicKeyFormProps {
   onChange: React.Dispatch<React.SetStateAction<publicKeyStateType>>;
   data: publicKeyStateType;
 }
-export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
+export const PublicKeyForm: React.VFC<PublicKeyFormProps> = ({
   publicKeys,
   onChange,
   data,

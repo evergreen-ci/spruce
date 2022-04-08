@@ -19,7 +19,7 @@ import { NotificationField } from "./notificationTab/NotificationField";
 
 const { omitTypename } = string;
 
-export const NotificationsTab: React.FC = () => {
+export const NotificationsTab: React.VFC = () => {
   const dispatchToast = useToastContext();
   const { data, loadingComp } = useUserSettingsQuery();
   const { slackUsername, notifications } = data?.userSettings ?? {};

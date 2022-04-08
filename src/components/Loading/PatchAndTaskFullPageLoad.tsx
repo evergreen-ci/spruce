@@ -9,7 +9,7 @@ import {
 } from "components/styles";
 import { H2 } from "components/Typography";
 
-export const PatchAndTaskFullPageLoad: React.FC = () => (
+export const PatchAndTaskFullPageLoad: React.VFC = () => (
   <PageWrapper>
     <H2>
       <Skeleton active paragraph={{ rows: 0 }} />

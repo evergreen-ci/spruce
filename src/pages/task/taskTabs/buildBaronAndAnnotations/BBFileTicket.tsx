@@ -24,7 +24,7 @@ interface FileTicketProps {
   tickets: JiraTicket[] | IssueLink[];
 }
 
-export const FileTicket: React.FC<FileTicketProps> = ({
+export const FileTicket: React.VFC<FileTicketProps> = ({
   taskId,
   execution,
   tickets,

@@ -37,7 +37,7 @@ export const VariantHistoryTable = () => (
 interface HistoryTableWrapperProps {
   type?: "variant" | "task";
 }
-const HistoryTableWrapper: React.FC<HistoryTableWrapperProps> = ({ type }) => {
+const HistoryTableWrapper: React.VFC<HistoryTableWrapperProps> = ({ type }) => {
   const { addColumns } = useHistoryTable();
   const [commitData, setCommitData] = useState(mainlineCommitData);
   useEffect(() => {

@@ -30,7 +30,7 @@ interface EditModalProps extends EditModalPropsState {
   onCancel: () => void;
 }
 
-export const EditModal: React.FC<EditModalProps> = ({
+export const EditModal: React.VFC<EditModalProps> = ({
   initialPublicKey,
   visible,
   onCancel,

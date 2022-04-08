@@ -5,7 +5,7 @@ interface DownstreamTasksProps {
   childPatches: Partial<Patch>[];
 }
 
-export const DownstreamTasks: React.FC<DownstreamTasksProps> = ({
+export const DownstreamTasks: React.VFC<DownstreamTasksProps> = ({
   childPatches,
 }) => (
   <>

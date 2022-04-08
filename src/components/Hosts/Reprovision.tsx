@@ -20,7 +20,7 @@ interface Props {
   reprovisionTooltipMessage: string;
 }
 
-export const Reprovision: React.FC<Props> = ({
+export const Reprovision: React.VFC<Props> = ({
   selectedHostIds,
   hostUrl,
   isSingleHost,

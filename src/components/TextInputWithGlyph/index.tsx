@@ -5,7 +5,7 @@ import Icon from "components/Icon";
 type TextInputWithGlyphProps = {
   glyph: string;
 } & React.ComponentProps<typeof TextInput>;
-const TextInputWithGlyph: React.FC<TextInputWithGlyphProps> = (props) => {
+const TextInputWithGlyph: React.VFC<TextInputWithGlyphProps> = (props) => {
   const { glyph, ...rest } = props;
   return (
     <TextInputWrapper>

@@ -1,1 +1,1 @@
-export const EventLogTab: React.FC = () => null;
+export const EventLogTab: React.VFC = () => null;

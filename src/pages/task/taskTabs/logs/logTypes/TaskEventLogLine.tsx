@@ -8,7 +8,7 @@ import { TaskEventLogEntry } from "gql/generated/types";
 
 const FORMAT_STR = "MMM d, yyyy, h:mm:ss aaaa";
 
-export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
+export const TaskEventLogLine: React.VFC<TaskEventLogEntry> = ({
   timestamp,
   eventType,
   data,

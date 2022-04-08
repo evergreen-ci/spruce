@@ -25,7 +25,7 @@ export const LegendContent = () => (
   </Container>
 );
 
-export const TaskStatusIconLegend: React.FC = () => {
+export const TaskStatusIconLegend: React.VFC = () => {
   const [isActive, setIsActive] = useState(false);
 
   return (

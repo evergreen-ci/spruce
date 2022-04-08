@@ -19,7 +19,7 @@ import { commits } from "utils";
 
 const { bucketByCommit } = commits;
 
-export const CodeChanges: React.FC = () => {
+export const CodeChanges: React.VFC = () => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error } = useQuery<
     CodeChangesQuery,

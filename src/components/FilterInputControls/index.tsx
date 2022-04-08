@@ -8,7 +8,7 @@ interface Props {
   submitButtonCopy?: string;
 }
 
-export const FilterInputControls: React.FC<Props> = ({
+export const FilterInputControls: React.VFC<Props> = ({
   onClickSubmit,
   onClickReset,
   submitButtonCopy = "Filter",
