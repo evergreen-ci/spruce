@@ -2226,6 +2226,7 @@ export type ProjectGeneralSettingsFragment = {
   remotePath: string;
   spawnHostScriptPath: string;
   dispatchingDisabled?: Maybe<boolean>;
+  versionControlEnabled?: Maybe<boolean>;
   deactivatePrevious?: Maybe<boolean>;
   repotrackerDisabled?: Maybe<boolean>;
   defaultLogger: string;
@@ -2247,6 +2248,7 @@ export type RepoGeneralSettingsFragment = {
   remotePath: string;
   spawnHostScriptPath: string;
   dispatchingDisabled: boolean;
+  versionControlEnabled: boolean;
   deactivatePrevious: boolean;
   repotrackerDisabled: boolean;
   defaultLogger: string;
@@ -2727,7 +2729,7 @@ export type SaveProjectSettingsForSectionMutationVariables = Exact<{
 }>;
 
 export type SaveProjectSettingsForSectionMutation = {
-  saveProjectSettingsForSection: ProjectSettingsFragment;
+  saveProjectSettingsForSection: { projectRef?: Maybe<{ id: string }> };
 };
 
 export type SaveRepoSettingsForSectionMutationVariables = Exact<{
@@ -2736,7 +2738,7 @@ export type SaveRepoSettingsForSectionMutationVariables = Exact<{
 }>;
 
 export type SaveRepoSettingsForSectionMutation = {
-  saveRepoSettingsForSection: RepoSettingsFragment;
+  saveRepoSettingsForSection: { projectRef?: Maybe<{ id: string }> };
 };
 
 export type SaveSubscriptionMutationVariables = Exact<{
