@@ -23,6 +23,7 @@ import { FlexRowContainer, CommitWrapper } from "./styles";
 const { parseQueryString, getString } = queryString;
 
 const DEFAULT_CHART_TYPE = ChartTypes.Absolute;
+const DEFAULT_OPEN_STATE = true;
 
 interface Props {
   versions?: Commits;
@@ -30,7 +31,7 @@ interface Props {
   hasError?: boolean;
 }
 
-export const CommitsChart: React.FC<Props> = ({
+export const CommitsChart: React.VFC<Props> = ({
   versions,
   hasTaskFilter,
   hasError = false,
@@ -57,7 +58,7 @@ export const CommitsChart: React.FC<Props> = ({
 
   const chartOpen = parsed[ChartToggleQueryParams.chartOpen]
     ? parsed[ChartToggleQueryParams.chartOpen] === "true"
-    : true;
+    : DEFAULT_OPEN_STATE;
 
   const versionToGroupedTaskStatsMap = useMemo(() => {
     if (versions) {
@@ -84,35 +85,34 @@ export const CommitsChart: React.FC<Props> = ({
         useIndent={false}
         defaultOpen={chartOpen}
         onToggle={() => onChangeChartOpen(!chartOpen)}
-        contents={
-          <ChartWrapper>
-            <FlexRowContainer>
-              {versions.map((commit) => (
-                <CommitWrapper
-                  key={getCommitKey(commit)}
-                  width={getCommitWidth(commit)}
-                >
-                  <RenderCommitsChart
-                    hasTaskFilter={hasTaskFilter}
-                    commit={commit}
-                    chartType={chartType}
-                    max={max}
-                    groupedResult={versionToGroupedTaskStatsMap}
-                  />
-                </CommitWrapper>
-              ))}
-            </FlexRowContainer>
-            <GridLabel chartType={chartType} max={max} numDashedLine={5} />
-            <Grid numDashedLine={5} />
-            <AbsoluteContainer>
-              <ChartToggle
-                currentChartType={chartType}
-                onChangeChartType={onChangeChartType}
-              />
-            </AbsoluteContainer>
-          </ChartWrapper>
-        }
-      />
+      >
+        <ChartWrapper>
+          <FlexRowContainer>
+            {versions.map((commit) => (
+              <CommitWrapper
+                key={getCommitKey(commit)}
+                width={getCommitWidth(commit)}
+              >
+                <RenderCommitsChart
+                  hasTaskFilter={hasTaskFilter}
+                  commit={commit}
+                  chartType={chartType}
+                  max={max}
+                  groupedResult={versionToGroupedTaskStatsMap}
+                />
+              </CommitWrapper>
+            ))}
+          </FlexRowContainer>
+          <GridLabel chartType={chartType} max={max} numDashedLine={5} />
+          <Grid numDashedLine={5} />
+          <AbsoluteContainer>
+            <ChartToggle
+              currentChartType={chartType}
+              onChangeChartType={onChangeChartType}
+            />
+          </AbsoluteContainer>
+        </ChartWrapper>
+      </Accordion>
       {!chartOpen && <PaddedLine />}
     </>
   );
