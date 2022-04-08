@@ -24,25 +24,33 @@ type cacheShape = Map<
   | mainlineCommits["versions"][0]["rolledUpVersions"][0]
 >;
 export interface HistoryTableReducerState {
-  loadedCommits: mainlineCommits["versions"];
-  processedCommits: CommitRowType[];
-  processedCommitCount: number;
   commitCache: cacheShape;
-  visibleColumns: string[];
   currentPage: number;
-  pageCount: number;
   columns: string[];
   columnLimit: number;
-  historyTableFilters: TestFilter[];
   commitCount: number;
+  loadedCommits: mainlineCommits["versions"];
+  pageCount: number;
+  processedCommits: CommitRowType[];
+  processedCommitCount: number;
+  historyTableFilters: TestFilter[];
   selectedCommit: {
     order: number;
     rowIndex: number;
   };
+  visibleColumns: string[];
 }
 
 export const reducer = (state: HistoryTableReducerState, action: Action) => {
   switch (action.type) {
+    case "addColumns":
+      return {
+        ...state,
+        columns: action.columns,
+        visibleColumns: action.columns.slice(0, state.columnLimit),
+        currentPage: 0,
+        pageCount: Math.ceil(action.columns.length / state.columnLimit),
+      };
     case "ingestNewCommits": {
       // We cache the commits and use this to determine if a new commit was added in this action
       // This also performantly handles deduplication of commits at the expense of memory
@@ -87,25 +95,7 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
       }
       return state;
     }
-    case "toggleRowSizeAtIndex": {
-      const newProcessedCommits = toggleRowSizeAtIndex(
-        state.processedCommits,
-        action.numCommits,
-        action.index
-      );
-      return {
-        ...state,
-        processedCommits: newProcessedCommits,
-      };
-    }
-    case "addColumns":
-      return {
-        ...state,
-        columns: action.columns,
-        visibleColumns: action.columns.slice(0, state.columnLimit),
-        currentPage: 0,
-        pageCount: Math.ceil(action.columns.length / state.columnLimit),
-      };
+
     case "nextPageColumns": {
       const pageCount = Math.ceil(state.columns.length / state.columnLimit);
       if (pageCount <= state.currentPage + 1) {
@@ -120,6 +110,19 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
         ...state,
         currentPage: state.currentPage + 1,
         visibleColumns: nextPageColumns,
+      };
+    }
+    case "onChangeTableWidth": {
+      const nextColumnLimit = calcColumnLimitFromWidth(action.width);
+      if (nextColumnLimit === state.columnLimit) {
+        return state;
+      }
+      return {
+        ...state,
+        visibleColumns: state.columns.slice(0, nextColumnLimit),
+        columnLimit: nextColumnLimit,
+        currentPage: 0,
+        pageCount: Math.ceil(state.columns.length / nextColumnLimit),
       };
     }
     case "prevPageColumns": {
@@ -141,19 +144,6 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
         ...state,
         columnLimit: action.limit,
       };
-    case "onChangeTableWidth": {
-      const nextColumnLimit = calcColumnLimitFromWidth(action.width);
-      if (nextColumnLimit === state.columnLimit) {
-        return state;
-      }
-      return {
-        ...state,
-        visibleColumns: state.columns.slice(0, nextColumnLimit),
-        columnLimit: nextColumnLimit,
-        currentPage: 0,
-        pageCount: Math.ceil(state.columns.length / nextColumnLimit),
-      };
-    }
     case "setHistoryTableFilters":
       return {
         ...state,
@@ -167,6 +157,17 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
           rowIndex: null,
         },
       };
+    case "toggleRowSizeAtIndex": {
+      const newProcessedCommits = toggleRowSizeAtIndex(
+        state.processedCommits,
+        action.numCommits,
+        action.index
+      );
+      return {
+        ...state,
+        processedCommits: newProcessedCommits,
+      };
+    }
     default:
       throw new Error(`Unknown reducer action ${action}`);
   }
