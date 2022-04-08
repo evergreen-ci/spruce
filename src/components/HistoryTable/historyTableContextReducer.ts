@@ -99,7 +99,6 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
       }
       return state;
     }
-
     case "markSelectedRowVisited":
       return {
         ...state,
@@ -175,7 +174,6 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
         updatedProcessedCommits[rowIndex].selected = true;
         loaded = true;
       }
-
       return {
         ...state,
         ...(hasMatchingCommit && {
