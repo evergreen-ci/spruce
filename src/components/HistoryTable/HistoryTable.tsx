@@ -26,6 +26,7 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
     getItemHeight,
     ingestNewCommits,
     isItemLoaded,
+    markSelectedRowVisited,
     onChangeTableWidth,
     toggleRowSizeAtIndex,
   } = useHistoryTable();
@@ -53,12 +54,23 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
   }, [processedCommitCount]);
 
   useEffect(() => {
-    if (selectedCommit && selectedCommit.rowIndex && listRef.current) {
+    if (
+      selectedCommit &&
+      selectedCommit.rowIndex &&
+      !selectedCommit.visited &&
+      listRef.current
+    ) {
       listRef.current.scrollToItem(selectedCommit.rowIndex, "center");
-    } else {
+      markSelectedRowVisited();
+    } else if (selectedCommit && !selectedCommit.loaded) {
       loadMoreItems();
     }
-  }, [selectedCommit, loadMoreItems]);
+  }, [
+    processedCommitCount,
+    selectedCommit,
+    markSelectedRowVisited,
+    loadMoreItems,
+  ]);
 
   const toggleRowSize = (index: number, numCommits: number) => {
     toggleRowSizeAtIndex(index, numCommits);

@@ -24,6 +24,8 @@ interface HistoryTableState {
   selectedCommit: {
     order: number;
     rowIndex: number;
+    visited: boolean;
+    loaded: boolean;
   };
   visibleColumns: string[];
   addColumns: (columns: string[]) => void;
@@ -31,6 +33,7 @@ interface HistoryTableState {
   getItemHeight: (index: number) => number;
   ingestNewCommits: (data: mainlineCommits) => void;
   isItemLoaded: (index: number) => boolean;
+  markSelectedRowVisited: () => void;
   nextPage: () => void;
   onChangeTableWidth: (width: number) => void;
   previousPage: () => void;
@@ -42,7 +45,6 @@ interface HistoryTableState {
 const HistoryTableDispatchContext = createContext<HistoryTableState | null>(
   null
 );
-
 interface HistoryTableProviderProps {
   children: React.ReactNode;
   initialState?: HistoryTableReducerState;
@@ -78,9 +80,7 @@ const HistoryTableProvider: React.VFC<HistoryTableProviderProps> = ({
       visibleColumns,
     },
     dispatch,
-  ] = useReducer(reducer, {
-    ...initialState,
-  });
+  ] = useReducer(reducer, initialState);
 
   const isItemLoaded = (index: number) => processedCommitCount > index;
 
@@ -112,6 +112,8 @@ const HistoryTableProvider: React.VFC<HistoryTableProviderProps> = ({
       ingestNewCommits: (
         commits: MainlineCommitsForHistoryQuery["mainlineCommits"]
       ) => dispatch({ type: "ingestNewCommits", commits }),
+      markSelectedRowVisited: () =>
+        dispatch({ type: "markSelectedRowVisited" }),
       nextPage: () => dispatch({ type: "nextPageColumns" }),
       onChangeTableWidth: (width: number): void =>
         dispatch({ type: "onChangeTableWidth", width }),
@@ -124,6 +126,7 @@ const HistoryTableProvider: React.VFC<HistoryTableProviderProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [visibleColumns, processedCommitCount, historyTableFilters]
   );
+
   return (
     <HistoryTableDispatchContext.Provider value={historyTableState}>
       {children}

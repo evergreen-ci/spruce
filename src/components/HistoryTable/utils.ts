@@ -19,14 +19,12 @@ export const processCommits = ({
   newCommits,
   existingCommits,
   selectedCommitOrder,
-  selectedCommitRow,
 }: {
   newCommits: mainlineCommits["versions"];
   existingCommits: CommitRowType[];
   selectedCommitOrder: number | null;
-  selectedCommitRow: number | null;
 }) => {
-  let selectedCommitRowIndex: number | null = selectedCommitRow;
+  let selectedCommitRowIndex: number | null = null;
   const processedCommits: CommitRowType[] = [...existingCommits];
   for (let i = 0; i < newCommits.length; i++) {
     const commit = newCommits[i];

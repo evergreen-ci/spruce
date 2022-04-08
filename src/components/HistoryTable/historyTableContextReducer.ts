@@ -1,5 +1,5 @@
 import { TestFilter } from "gql/generated/types";
-import { CommitRowType, mainlineCommits } from "./types";
+import { CommitRowType, mainlineCommits, rowType } from "./types";
 import {
   calcColumnLimitFromWidth,
   processCommits,
@@ -13,7 +13,7 @@ type Action =
   | { type: "prevPageColumns" }
   | { type: "setColumnLimit"; limit: number }
   | { type: "setHistoryTableFilters"; filters: TestFilter[] }
-  | { type: "toggleRowSizeAtIndex"; index: number; numCommits: number }
+  | { type: "markSelectedRowVisited" }
   | { type: "onChangeTableWidth"; width: number }
   | { type: "setSelectedCommit"; order: number }
   | { type: "toggleRowSizeAtIndex"; index: number; numCommits: number };
@@ -37,6 +37,8 @@ export interface HistoryTableReducerState {
   selectedCommit: {
     order: number;
     rowIndex: number;
+    visited: boolean;
+    loaded: boolean;
   };
   visibleColumns: string[];
 }
@@ -64,7 +66,6 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
           newCommits: action.commits.versions,
           existingCommits: state.processedCommits,
           selectedCommitOrder: state.selectedCommit?.order,
-          selectedCommitRow: state.selectedCommit?.rowIndex,
         });
         let { commitCount } = state;
         // If there are no previous commits, we can set the commitCount to be the first commit's order.
@@ -83,19 +84,30 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
 
         return {
           ...state,
+          ...(selectedCommitRowIndex !== null && {
+            selectedCommit: {
+              ...state.selectedCommit,
+              rowIndex: selectedCommitRowIndex,
+              loaded: true,
+            },
+          }),
           commitCache: updatedObjectCache,
           processedCommits,
           processedCommitCount: processedCommits.length,
           commitCount,
-          selectedCommit: state.selectedCommit && {
-            ...state.selectedCommit,
-            rowIndex: selectedCommitRowIndex,
-          },
         };
       }
       return state;
     }
 
+    case "markSelectedRowVisited":
+      return {
+        ...state,
+        selectedCommit: {
+          ...state.selectedCommit,
+          visited: true,
+        },
+      };
     case "nextPageColumns": {
       const pageCount = Math.ceil(state.columns.length / state.columnLimit);
       if (pageCount <= state.currentPage + 1) {
@@ -149,14 +161,27 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
         ...state,
         historyTableFilters: action.filters,
       };
-    case "setSelectedCommit":
+    case "setSelectedCommit": {
+      let rowIndex = null;
+      let loaded = false;
+      const matchingCommit = state.commitCache.get(action.order);
+      if (matchingCommit) {
+        rowIndex = state.processedCommits.findIndex((commit) =>
+          commitOrderToRowIndex(action.order, commit)
+        );
+        loaded = true;
+      }
+
       return {
         ...state,
         selectedCommit: {
           order: action.order,
-          rowIndex: null,
+          rowIndex,
+          visited: false,
+          loaded,
         },
       };
+    }
     case "toggleRowSizeAtIndex": {
       const newProcessedCommits = toggleRowSizeAtIndex(
         state.processedCommits,
@@ -190,4 +215,14 @@ const objectifyCommits = (
     }
   });
   return obj;
+};
+
+const commitOrderToRowIndex = (order: number, commit: CommitRowType) => {
+  if (commit.type === rowType.COMMIT) {
+    return commit.commit.order === order;
+  }
+  if (commit.type === rowType.FOLDED_COMMITS) {
+    return commit.rolledUpCommits.some((elem) => elem.order === order);
+  }
+  return false;
 };
