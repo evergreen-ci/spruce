@@ -42,7 +42,7 @@ describe("useTestResults", () => {
       failingTests: [],
     });
     act(() => {
-      result.current.historyTable.fetchNewCommit(mainlineCommitData);
+      result.current.historyTable.ingestNewCommits(mainlineCommitData);
     });
     expect(result.current.historyTable.processedCommitCount).toBe(9);
     expect(result.current.historyTable.getItem(0)).toMatchObject({
@@ -73,7 +73,7 @@ describe("useTestResults", () => {
       failingTests: [],
     });
     act(() => {
-      result.current.historyTable.fetchNewCommit(mainlineCommitData);
+      result.current.historyTable.ingestNewCommits(mainlineCommitData);
     });
     expect(result.current.historyTable.processedCommitCount).toBe(9);
     expect(result.current.historyTable.getItem(2)).toMatchObject({
@@ -108,7 +108,7 @@ describe("useTestResults", () => {
       loading: false,
     });
     act(() => {
-      result.current.historyTable.fetchNewCommit(mainlineCommitData);
+      result.current.historyTable.ingestNewCommits(mainlineCommitData);
     });
     expect(result.current.historyTable.processedCommitCount).toBe(9);
     expect(result.current.historyTable.getItem(2)).toMatchObject({
@@ -148,7 +148,7 @@ describe("useTestResults", () => {
       failingTests: [],
     });
     act(() => {
-      result.current.historyTable.fetchNewCommit(mainlineCommitData);
+      result.current.historyTable.ingestNewCommits(mainlineCommitData);
     });
     expect(result.current.historyTable.processedCommitCount).toBe(9);
     expect(result.current.historyTable.getItem(2)).toMatchObject({
@@ -202,7 +202,7 @@ describe("useMergedHookRender - sanity check", () => {
     });
     expect(result.current.historyTable).toStrictEqual({
       processedCommitCount: 0,
-      fetchNewCommit: expect.any(Function),
+      ingestNewCommits: expect.any(Function),
       getItem: expect.any(Function),
       isItemLoaded: expect.any(Function),
       getItemHeight: expect.any(Function),

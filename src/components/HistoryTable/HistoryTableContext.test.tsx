@@ -16,7 +16,7 @@ describe("historyTableContext", () => {
     const { result } = renderHook(() => useHistoryTable(), { wrapper });
     expect(result.current).toStrictEqual({
       processedCommitCount: 0,
-      fetchNewCommit: expect.any(Function),
+      ingestNewCommits: expect.any(Function),
       getItem: expect.any(Function),
       isItemLoaded: expect.any(Function),
       getItemHeight: expect.any(Function),
@@ -46,7 +46,7 @@ describe("historyTableContext", () => {
       versions: mainlineCommitData.versions.slice(0, 1),
     };
     act(() => {
-      result.current.fetchNewCommit(splitMainlineCommitDataPart1);
+      result.current.ingestNewCommits(splitMainlineCommitDataPart1);
     });
     // Filter out the column date separators
     const processedCommits = result.current.processedCommits.filter(
@@ -85,7 +85,7 @@ describe("historyTableContext", () => {
     };
     // Fetch new commit
     act(() => {
-      result.current.fetchNewCommit(splitMainlineCommitDataPart1);
+      result.current.ingestNewCommits(splitMainlineCommitDataPart1);
     });
     expect(result.current.isItemLoaded(0)).toBeTruthy();
     expect(result.current.getItem(0)).toStrictEqual<CommitRowType>({
@@ -98,7 +98,7 @@ describe("historyTableContext", () => {
 
     // Fetch another new commit
     act(() => {
-      result.current.fetchNewCommit(splitMainlineCommitDataPart2);
+      result.current.ingestNewCommits(splitMainlineCommitDataPart2);
     });
     expect(result.current.isItemLoaded(2)).toBeTruthy();
     expect(result.current.getItem(2)).toStrictEqual<CommitRowType>({
@@ -123,11 +123,11 @@ describe("historyTableContext", () => {
       prevPageOrderNumber: 6798,
     };
     act(() => {
-      result.current.fetchNewCommit(commitDate1);
+      result.current.ingestNewCommits(commitDate1);
     });
     expect(result.current.commitCount).toBe(6798);
     act(() => {
-      result.current.fetchNewCommit(commitDate2);
+      result.current.ingestNewCommits(commitDate2);
     });
     expect(result.current.commitCount).toBe(4);
   });
@@ -142,7 +142,7 @@ describe("historyTableContext", () => {
       versions: [mainlineCommitData.versions[2]],
     };
     act(() => {
-      result.current.fetchNewCommit(commitDate1);
+      result.current.ingestNewCommits(commitDate1);
     });
     expect(result.current.isItemLoaded(0)).toBeTruthy();
     expect(result.current.getItem(0)).toStrictEqual<CommitRowType>({
@@ -160,7 +160,7 @@ describe("historyTableContext", () => {
     });
     expect(result.current.isItemLoaded(2)).toBeFalsy();
     act(() => {
-      result.current.fetchNewCommit(commitDate2);
+      result.current.ingestNewCommits(commitDate2);
     });
     expect(result.current.isItemLoaded(2)).toBeTruthy();
     expect(result.current.getItem(2)).toStrictEqual<CommitRowType>({
@@ -186,7 +186,7 @@ describe("historyTableContext", () => {
     const { version } = expandableMainlineCommitData.versions[0];
     const { rolledUpVersions } = expandableMainlineCommitData.versions[1];
     act(() => {
-      result.current.fetchNewCommit(expandableMainlineCommitData);
+      result.current.ingestNewCommits(expandableMainlineCommitData);
     });
     // Verify elements
     expect(result.current.isItemLoaded(0)).toBe(true);
@@ -240,12 +240,12 @@ describe("historyTableContext", () => {
       versions: [mainlineCommitData.versions[0]],
     };
     act(() => {
-      result.current.fetchNewCommit(duplicateCommitData);
+      result.current.ingestNewCommits(duplicateCommitData);
     });
 
     expect(result.current.processedCommits).toHaveLength(2);
     act(() => {
-      result.current.fetchNewCommit(duplicateCommitData);
+      result.current.ingestNewCommits(duplicateCommitData);
     });
 
     expect(result.current.processedCommits).toHaveLength(2);

@@ -29,7 +29,7 @@ interface HistoryTableState {
   addColumns: (columns: string[]) => void;
   getItem: (index: number) => CommitRowType;
   getItemHeight: (index: number) => number;
-  fetchNewCommit: (data: mainlineCommits) => void;
+  ingestNewCommits: (data: mainlineCommits) => void;
   isItemLoaded: (index: number) => boolean;
   nextPage: () => void;
   onChangeTableWidth: (width: number) => void;
@@ -109,7 +109,7 @@ const HistoryTableProvider: React.VFC<HistoryTableProviderProps> = ({
         dispatch({ type: "addColumns", columns }),
       toggleRowSizeAtIndex: (index: number, numCommits: number) =>
         dispatch({ type: "toggleRowSizeAtIndex", index, numCommits }),
-      fetchNewCommit: (
+      ingestNewCommits: (
         commits: MainlineCommitsForHistoryQuery["mainlineCommits"]
       ) => dispatch({ type: "ingestNewCommits", commits }),
       nextPage: () => dispatch({ type: "nextPageColumns" }),

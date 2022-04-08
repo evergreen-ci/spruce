@@ -20,14 +20,14 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
   children,
 }) => {
   const {
-    getItemHeight,
-    fetchNewCommit,
-    isItemLoaded,
-    toggleRowSizeAtIndex,
     commitCount,
-    onChangeTableWidth,
-    selectedCommit,
     processedCommitCount,
+    selectedCommit,
+    getItemHeight,
+    ingestNewCommits,
+    isItemLoaded,
+    onChangeTableWidth,
+    toggleRowSizeAtIndex,
   } = useHistoryTable();
 
   const throttleOnChangeTableWidth = useMemo(
@@ -38,9 +38,9 @@ const HistoryTable: React.VFC<HistoryTableProps> = ({
   const listRef = useRef<List>(null);
   useEffect(() => {
     if (recentlyFetchedCommits) {
-      fetchNewCommit(recentlyFetchedCommits);
+      ingestNewCommits(recentlyFetchedCommits);
     }
-    // Remove fetchNewCommit from the effect list to avoid infinite loop
+    // Remove ingestNewCommits from the effect list to avoid infinite loop
   }, [recentlyFetchedCommits]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // When we fetch new commits we need to tell react-window to re-render the list and update the heights for each of the rows since they will have changed based off of the new commits
