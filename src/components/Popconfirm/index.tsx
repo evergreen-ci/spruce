@@ -4,9 +4,11 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import { Popconfirm as AntPopconfirm } from "antd";
 import { size } from "constants/tokens";
 
-export const Popconfirm: React.FC<
-  React.ComponentProps<typeof AntPopconfirm>
-> = ({ children, ...props }) => (
+interface Props extends React.ComponentProps<typeof AntPopconfirm> {
+  children: React.ReactNode;
+}
+
+export const Popconfirm: React.VFC<Props> = ({ children, ...props }) => (
   // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
   <span
     onClick={(e) => {
@@ -21,9 +23,10 @@ interface PopconfirmWithCheckboxProps {
   onConfirm: (e: React.MouseEvent) => void;
   title: string;
   checkboxLabel?: string;
+  children: React.ReactNode;
 }
 
-export const PopconfirmWithCheckbox: React.FC<PopconfirmWithCheckboxProps> = ({
+export const PopconfirmWithCheckbox: React.VFC<PopconfirmWithCheckboxProps> = ({
   checkboxLabel, // truthiness determines if checkbox is rendered
   children,
   onConfirm,

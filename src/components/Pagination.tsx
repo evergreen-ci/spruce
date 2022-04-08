@@ -17,7 +17,7 @@ interface Props {
   useLeafygreen?: boolean;
 }
 
-export const Pagination: React.FC<Props> = ({
+export const Pagination: React.VFC<Props> = ({
   value,
   totalResults,
   numPages,

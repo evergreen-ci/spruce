@@ -33,7 +33,7 @@ import { url } from "utils";
 
 const { getPageFromSearch, getLimitFromSearch } = url;
 
-export const Host: React.FC = () => {
+export const Host: React.VFC = () => {
   const dispatchToast = useToastContext();
   const { id } = useParams<{ id: string }>();
   // Query host data

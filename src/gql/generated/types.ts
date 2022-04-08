@@ -1455,7 +1455,7 @@ export type ProjectEventSettings = {
 
 export type RepoEventSettings = {
   githubWebhooksEnabled: Scalars["Boolean"];
-  projectRef?: Maybe<Project>;
+  projectRef?: Maybe<RepoRef>;
   vars?: Maybe<ProjectVars>;
   aliases?: Maybe<Array<ProjectAlias>>;
   subscriptions?: Maybe<Array<ProjectSubscription>>;

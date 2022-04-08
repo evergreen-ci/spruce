@@ -13,7 +13,7 @@ interface RowProps extends ListChildComponentProps {
   numVisibleCols: number;
   selected: boolean;
 }
-const Row: React.FC<RowProps> = ({
+const Row: React.VFC<RowProps> = ({
   columns,
   numVisibleCols,
   index,

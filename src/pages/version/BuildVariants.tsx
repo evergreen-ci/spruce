@@ -17,7 +17,7 @@ import { GET_BUILD_VARIANTS_STATS } from "gql/queries";
 import { usePolling } from "hooks";
 import { applyStrictRegex } from "utils/string";
 
-export const BuildVariants: React.FC = () => {
+export const BuildVariants: React.VFC = () => {
   const { id } = useParams<{ id: string }>();
   const { sendEvent } = useVersionAnalytics(id);
 
@@ -77,7 +77,7 @@ interface VariantTaskGroupProps {
   statusCounts: StatusCount[];
   versionId: string;
 }
-const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
+const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
   variant,
   statusCounts,
   versionId,

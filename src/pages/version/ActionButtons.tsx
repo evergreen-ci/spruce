@@ -26,7 +26,7 @@ interface ActionButtonProps {
   activated: boolean;
 }
 
-export const ActionButtons: React.FC<ActionButtonProps> = ({
+export const ActionButtons: React.VFC<ActionButtonProps> = ({
   canEnqueueToCommitQueue,
   isPatchOnCommitQueue,
   canReconfigure,

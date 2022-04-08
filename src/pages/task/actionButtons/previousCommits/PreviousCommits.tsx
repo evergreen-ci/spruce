@@ -29,7 +29,9 @@ const { reportError } = errorReporting;
 interface PreviousCommitsProps {
   taskId: string;
 }
-export const PreviousCommits: React.FC<PreviousCommitsProps> = ({ taskId }) => {
+export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
+  taskId,
+}) => {
   const [
     {
       selectState,

@@ -17,14 +17,14 @@ interface Props {
   childPatches: Partial<Patch>[];
   hasVersion: boolean;
 }
-export const DropdownMenu = ({
+export const DropdownMenu: React.VFC<Props> = ({
   patchId,
   childPatches,
   canEnqueueToCommitQueue,
   isPatchOnCommitQueue,
   patchDescription,
   hasVersion,
-}: Props): JSX.Element => {
+}) => {
   const restartModalVisibilityControl = useState(false);
   const enqueueModalVisibilityControl = useState(false);
   const dropdownItems = [

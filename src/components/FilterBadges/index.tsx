@@ -12,7 +12,7 @@ const { parseQueryString } = queryString;
 interface FilterBadgesProps {
   queryParamsToDisplay: Set<string>;
 }
-export const FilterBadges: React.FC<FilterBadgesProps> = ({
+export const FilterBadges: React.VFC<FilterBadgesProps> = ({
   queryParamsToDisplay,
 }) => {
   const updateQueryParams = useUpdateURLQueryParams();

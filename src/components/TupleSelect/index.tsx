@@ -19,7 +19,7 @@ type option = {
 interface TupleSelectProps {
   options: option[];
 }
-export const TupleSelect: React.FC<TupleSelectProps> = ({ options }) => {
+export const TupleSelect: React.VFC<TupleSelectProps> = ({ options }) => {
   const [input, setInput] = useState("");
   const [selected, setSelected] = useState(options[0].value);
   const updateQueryParams = useUpdateURLQueryParams();

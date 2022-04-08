@@ -38,7 +38,7 @@ import { ConfigureTasks } from "./configurePatchCore/ConfigureTasks";
 interface Props {
   patch: ConfigurePatchQuery["patch"];
 }
-export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
+export const ConfigurePatchCore: React.VFC<Props> = ({ patch }) => {
   const history = useHistory();
   const dispatchToast = useToastContext();
 

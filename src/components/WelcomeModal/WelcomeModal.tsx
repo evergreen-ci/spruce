@@ -127,7 +127,7 @@ type CarouselCardProps = {
   description: string;
 };
 
-const CarouselCard: React.FC<CarouselCardProps> = ({
+const CarouselCard: React.VFC<CarouselCardProps> = ({
   img,
   subtitle,
   description,
@@ -147,7 +147,7 @@ interface CarouselDotProps {
   slider: React.MutableRefObject<CarouselRef>;
 }
 
-const CarouselDots: React.FC<CarouselDotProps> = ({
+const CarouselDots: React.VFC<CarouselDotProps> = ({
   activeSlide,
   cards,
   slider,

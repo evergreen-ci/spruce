@@ -25,7 +25,7 @@ const totalFileDiffs = (
   return { additions, deletions };
 };
 
-export const CodeChangeModule: React.FC<{
+export const CodeChangeModule: React.VFC<{
   moduleCodeChange: ModuleCodeChangeFragment;
 }> = ({ moduleCodeChange }) => {
   const { fileDiffs } = moduleCodeChange;
@@ -44,12 +44,11 @@ export const CodeChangeModule: React.FC<{
               <CodeChangesBadge {...totalFileDiffs(commitDiffs)} />
             </DropDownText>
           }
-          contents={
-            <TableWrapper>
-              <CodeChangesTable fileDiffs={commitDiffs} showHeader={false} />
-            </TableWrapper>
-          }
-        />
+        >
+          <TableWrapper>
+            <CodeChangesTable fileDiffs={commitDiffs} showHeader={false} />
+          </TableWrapper>
+        </Accordion>
       </CodeChangeModuleContainer>
     );
   });

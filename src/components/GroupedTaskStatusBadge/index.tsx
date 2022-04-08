@@ -21,7 +21,7 @@ interface Props {
   variant?: string;
 }
 
-export const GroupedTaskStatusBadge: React.FC<Props> = ({
+export const GroupedTaskStatusBadge: React.VFC<Props> = ({
   count,
   status,
   onClick = () => undefined,

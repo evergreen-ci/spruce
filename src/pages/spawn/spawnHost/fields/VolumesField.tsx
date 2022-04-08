@@ -21,7 +21,7 @@ interface VolumesFieldProps {
   allowHomeVolume?: boolean;
 }
 
-export const VolumesField: React.FC<VolumesFieldProps> = ({
+export const VolumesField: React.VFC<VolumesFieldProps> = ({
   onChange,
   data,
   volumes,
