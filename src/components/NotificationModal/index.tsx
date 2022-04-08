@@ -37,7 +37,7 @@ interface NotificationModalProps extends UseNotificationModalProps {
   type: "task" | "version";
 }
 
-export const NotificationModal: React.FC<NotificationModalProps> = ({
+export const NotificationModal: React.VFC<NotificationModalProps> = ({
   visible,
   onCancel,
   subscriptionMethodDropdownOptions,

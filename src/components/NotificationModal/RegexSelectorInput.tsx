@@ -24,7 +24,7 @@ export interface RegexSelectorProps {
   selectedOption: string;
 }
 
-export const RegexSelectorInput: React.FC<RegexSelectorProps> = ({
+export const RegexSelectorInput: React.VFC<RegexSelectorProps> = ({
   disabledDropdownOptions,
   dropdownOptions,
   onChangeRegexValue,

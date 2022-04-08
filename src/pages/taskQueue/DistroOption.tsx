@@ -12,7 +12,7 @@ interface DistroOptionProps {
   onClick: (val: TaskQueueDistro) => void;
 }
 
-export const DistroOption: React.FC<DistroOptionProps> = ({
+export const DistroOption: React.VFC<DistroOptionProps> = ({
   option,
   onClick,
 }) => {

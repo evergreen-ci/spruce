@@ -30,7 +30,7 @@ interface ModalProps {
   onCancel: () => void;
 }
 
-export const PatchNotificationModal: React.FC<ModalProps> = ({
+export const PatchNotificationModal: React.VFC<ModalProps> = ({
   visible,
   onCancel,
 }) => {

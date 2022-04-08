@@ -10,7 +10,7 @@ interface OptionGroupProps {
   options: string[];
   onClick: (value: string) => void;
 }
-export const DistroOptionGroup: React.FC<OptionGroupProps> = ({
+export const DistroOptionGroup: React.VFC<OptionGroupProps> = ({
   label,
   options,
   onClick,

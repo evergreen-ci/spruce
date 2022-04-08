@@ -54,7 +54,7 @@ interface Props {
   lobsterLink: string;
 }
 
-export const AllLog: React.FC<Props> = (props): JSX.Element => {
+export const AllLog: React.VFC<Props> = (props) => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
@@ -78,7 +78,7 @@ export const AllLog: React.FC<Props> = (props): JSX.Element => {
   });
 };
 
-export const EventLog: React.FC<Props> = (props): JSX.Element => {
+export const EventLog: React.VFC<Props> = (props) => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
@@ -104,7 +104,7 @@ export const EventLog: React.FC<Props> = (props): JSX.Element => {
   });
 };
 
-export const SystemLog: React.FC<Props> = (props): JSX.Element => {
+export const SystemLog: React.VFC<Props> = (props) => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
@@ -126,7 +126,7 @@ export const SystemLog: React.FC<Props> = (props): JSX.Element => {
   });
 };
 
-export const AgentLog: React.FC<Props> = (props): JSX.Element => {
+export const AgentLog: React.VFC<Props> = (props) => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
@@ -148,7 +148,7 @@ export const AgentLog: React.FC<Props> = (props): JSX.Element => {
   });
 };
 
-export const TaskLog: React.FC<Props> = (props): JSX.Element => {
+export const TaskLog: React.VFC<Props> = (props) => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const parsed = parseQueryString(location.search);
@@ -170,12 +170,12 @@ export const TaskLog: React.FC<Props> = (props): JSX.Element => {
   });
 };
 
-const useRenderBody: React.FC<{
+const useRenderBody: React.VFC<{
   loading: boolean;
   error: ApolloError;
   data: (TaskEventLogEntryType | LogMessageType)[];
   currentLog: LogTypes;
-  LogContainer?: React.FC;
+  LogContainer?: React.VFC<{ children: React.ReactNode }>;
   htmlLink: string;
   rawLink: string;
   lobsterLink: string;

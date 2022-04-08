@@ -11,7 +11,7 @@ interface Props {
   onChange: (t: string) => void;
 }
 
-export const TypeSelector: React.FC<Props> = ({ value, onChange }) => (
+export const TypeSelector: React.VFC<Props> = ({ value, onChange }) => (
   <SectionContainer>
     <SectionLabel weight="medium">Type</SectionLabel>
     <ModalContent>

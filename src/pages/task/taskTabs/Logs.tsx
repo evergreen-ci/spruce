@@ -27,7 +27,7 @@ interface Props {
   taskId: string;
   execution: number;
 }
-export const Logs: React.FC<Props> = ({ logLinks, taskId, execution }) => {
+export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
   const { search } = useLocation();
   const [currentLog, setCurrentLog] = useState<LogTypes>(DEFAULT_LOG_TYPE);
   const parsed = queryString.parse(search);

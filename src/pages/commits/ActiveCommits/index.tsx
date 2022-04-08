@@ -16,7 +16,7 @@ interface ActiveCommitChartProps {
   chartType: ChartTypes;
 }
 
-export const ActiveCommitChart: React.FC<ActiveCommitChartProps> = ({
+export const ActiveCommitChart: React.VFC<ActiveCommitChartProps> = ({
   groupedTaskStats,
   max,
   total,
@@ -33,7 +33,7 @@ export const ActiveCommitChart: React.FC<ActiveCommitChartProps> = ({
 interface ActiveCommitLabelProps {
   version: CommitVersion;
 }
-export const ActiveCommitLabel: React.FC<ActiveCommitLabelProps> = ({
+export const ActiveCommitLabel: React.VFC<ActiveCommitLabelProps> = ({
   version,
 }) => (
   <CommitChartLabel
@@ -49,7 +49,7 @@ interface BuildVariantContainerProps {
   version: CommitVersion;
   buildVariantDict: BuildVariantDict;
 }
-export const BuildVariantContainer: React.FC<BuildVariantContainerProps> = ({
+export const BuildVariantContainer: React.VFC<BuildVariantContainerProps> = ({
   version,
   buildVariantDict,
 }) => {

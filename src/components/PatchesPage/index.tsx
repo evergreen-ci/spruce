@@ -43,7 +43,7 @@ interface Props {
   pageType: "project" | "user";
 }
 
-export const PatchesPage: React.FC<Props> = ({
+export const PatchesPage: React.VFC<Props> = ({
   analyticsObject,
   pageTitle,
   patches,

@@ -13,7 +13,7 @@ interface TaskStatusCheckboxProps {
   style: React.CSSProperties; // passed in by react-window to handle list virtualization
 }
 
-const CheckboxComponent: React.FC<TaskStatusCheckboxProps> = ({
+const CheckboxComponent: React.VFC<TaskStatusCheckboxProps> = ({
   taskId,
   status,
   baseStatus,

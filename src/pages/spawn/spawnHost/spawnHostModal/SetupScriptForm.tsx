@@ -29,7 +29,7 @@ interface SetupScriptFormProps {
   onChange: React.Dispatch<SpawnHostModalAction>;
   data: setupScriptType;
 }
-export const SetupScriptForm: React.FC<SetupScriptFormProps> = ({
+export const SetupScriptForm: React.VFC<SetupScriptFormProps> = ({
   onChange,
   data,
 }) => {

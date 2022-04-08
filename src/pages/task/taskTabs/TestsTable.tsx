@@ -42,7 +42,7 @@ const { parseQueryString, queryParamAsNumber } = queryString;
 export interface UpdateQueryArg {
   taskTests: TaskTestResult;
 }
-export const TestsTable: React.FC = () => {
+export const TestsTable: React.VFC = () => {
   const { id: taskId } = useParams<{ id: string }>();
   const { pathname, search } = useLocation();
   const parsed = parseQueryString(search);

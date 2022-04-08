@@ -36,7 +36,7 @@ interface HostDetailsFormProps {
   volumes: MyVolume[];
   isSpawnHostModal: boolean;
 }
-export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
+export const HostDetailsForm: React.VFC<HostDetailsFormProps> = ({
   onChange,
   data,
   volumes,

@@ -20,7 +20,7 @@ interface EnqueueProps {
   onFinished: () => void;
   refetchQueries: string[];
 }
-export const EnqueuePatchModal: React.FC<EnqueueProps> = ({
+export const EnqueuePatchModal: React.VFC<EnqueueProps> = ({
   patchId,
   commitMessage,
   visible,

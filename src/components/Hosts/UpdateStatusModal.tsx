@@ -26,7 +26,7 @@ interface Props {
   isSingleHost?: boolean;
 }
 
-export const UpdateStatusModal: React.FC<Props> = ({
+export const UpdateStatusModal: React.VFC<Props> = ({
   visible,
   "data-cy": dataCy,
   hostIds,

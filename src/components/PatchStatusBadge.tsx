@@ -8,7 +8,7 @@ interface Props {
   status: string;
 }
 
-export const PatchStatusBadge: React.FC<Props> = ({ status }) => (
+export const PatchStatusBadge: React.VFC<Props> = ({ status }) => (
   <StyledBadge variant={statusToBadgeVariant[status as PatchStatus]}>
     {patchStatusToCopy[status as PatchStatus]}
   </StyledBadge>

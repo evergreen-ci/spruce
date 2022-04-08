@@ -20,7 +20,7 @@ interface Props {
   jasperTooltipMessage: string;
 }
 
-export const RestartJasper: React.FC<Props> = ({
+export const RestartJasper: React.VFC<Props> = ({
   selectedHostIds,
   hostUrl,
   isSingleHost,

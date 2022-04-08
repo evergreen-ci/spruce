@@ -9,12 +9,12 @@ interface Props {
   "data-cy"?: string;
 }
 
-export const ButtonDropdown: React.FC<Props> = ({
+export const ButtonDropdown: React.VFC<Props> = ({
   disabled = false,
   loading = false,
   dropdownItems,
   "data-cy": dataCy = "ellipsis-btn",
-}: Props) => (
+}) => (
   <Menu
     trigger={
       <Button

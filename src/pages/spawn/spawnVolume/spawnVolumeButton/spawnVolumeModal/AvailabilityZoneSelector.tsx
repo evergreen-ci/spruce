@@ -17,7 +17,7 @@ interface Props {
   value: string;
 }
 
-export const AvailabilityZoneSelector: React.FC<Props> = ({
+export const AvailabilityZoneSelector: React.VFC<Props> = ({
   onChange,
   value,
 }) => {

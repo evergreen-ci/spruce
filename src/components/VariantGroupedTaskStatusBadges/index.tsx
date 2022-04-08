@@ -10,7 +10,7 @@ interface Props {
   versionId: string;
   onClick?: (statuses: string[]) => () => void;
 }
-const VariantGroupedTaskStatusBadges: React.FC<Props> = ({
+const VariantGroupedTaskStatusBadges: React.VFC<Props> = ({
   variant,
   statusCounts,
   versionId,

@@ -13,7 +13,7 @@ interface ExpandedTextProps {
   ["data-cy"]?: string;
 }
 
-const ExpandedText: React.FC<ExpandedTextProps> = ({
+const ExpandedText: React.VFC<ExpandedTextProps> = ({
   message,
   triggerEvent = TriggerEvent.Hover,
   popoverZIndex = zIndex.popover,
