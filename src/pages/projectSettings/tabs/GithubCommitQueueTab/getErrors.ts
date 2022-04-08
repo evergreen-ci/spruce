@@ -14,7 +14,7 @@ const getErrorStyle = (
   versionControlEnabled: boolean,
   projectType: ProjectType,
   fieldName: string
-) => {
+): { "ui:warnings": string[] } | { "ui:errors": string[] } | {} => {
   if (errorType === ErrorType.Warning) {
     const definitionLocations =
       projectType === ProjectType.Repo ? ["repo"] : ["project"];
@@ -52,7 +52,7 @@ export const sectionHasError = (
   aliases: Array<AliasFormType>,
   repoAliases: Array<AliasFormType>,
   fieldName: string
-) => {
+): ReturnType<typeof getErrorStyle> => {
   let errorType = ErrorType.None;
   switch (projectType) {
     case ProjectType.AttachedProject:
