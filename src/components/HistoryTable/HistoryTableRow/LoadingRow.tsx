@@ -4,7 +4,7 @@ import { LoadingCell, LabelCellContainer } from "../Cell/Cell";
 interface LoadingRowProps {
   numVisibleCols: number;
 }
-export const LoadingRow: React.FC<LoadingRowProps> = ({ numVisibleCols }) => (
+export const LoadingRow: React.VFC<LoadingRowProps> = ({ numVisibleCols }) => (
   <>
     <LabelCellContainer>
       <Skeleton active title={false} paragraph={{ rows: 3 }} />

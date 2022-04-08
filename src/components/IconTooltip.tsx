@@ -12,7 +12,7 @@ interface IconTooltipProps {
   color?: string;
 }
 
-export const IconTooltip: React.FC<IconTooltipProps> = ({
+export const IconTooltip: React.VFC<IconTooltipProps> = ({
   tooltipText,
   iconType,
   color = black,

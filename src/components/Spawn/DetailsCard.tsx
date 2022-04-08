@@ -19,7 +19,7 @@ interface CardItem {
   value: JSX.Element;
 }
 
-const CardField: React.FC<CardItem> = ({ label, value }) =>
+const CardField: React.VFC<CardItem> = ({ label, value }) =>
   value !== undefined && (
     <FieldContainer>
       <FieldName>{label}</FieldName>
@@ -42,7 +42,7 @@ const CardContainer = styled(SiderCard)`
   padding: ${size.s} ${size.l};
 ` as typeof SiderCard;
 
-export const DetailsCard: React.FC<DetailsCardProps> = ({
+export const DetailsCard: React.VFC<DetailsCardProps> = ({
   type,
   "data-cy": dataCy,
   fieldMaps,

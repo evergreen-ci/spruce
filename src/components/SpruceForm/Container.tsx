@@ -7,9 +7,10 @@ interface ContainerProps {
   title?: string;
   id?: string;
   "data-cy"?: string;
+  children: React.ReactNode;
 }
 
-export const SpruceFormContainer: React.FC<ContainerProps> = ({
+export const SpruceFormContainer: React.VFC<ContainerProps> = ({
   children,
   "data-cy": dataCy,
   id,

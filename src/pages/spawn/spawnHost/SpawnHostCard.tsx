@@ -16,7 +16,7 @@ interface SpawnHostCardProps {
   host: MyHost;
 }
 
-export const SpawnHostCard: React.FC<SpawnHostCardProps> = ({ host }) => (
+export const SpawnHostCard: React.VFC<SpawnHostCardProps> = ({ host }) => (
   <DetailsCard
     data-cy="spawn-host-card"
     fieldMaps={spawnHostCardFieldMaps}

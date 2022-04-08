@@ -9,7 +9,7 @@ interface ScheduleTasksProps {
   isButton?: boolean;
   disabled?: boolean;
 }
-export const ScheduleTasks: React.FC<ScheduleTasksProps> = ({
+export const ScheduleTasks: React.VFC<ScheduleTasksProps> = ({
   versionId,
   isButton,
   disabled = false,

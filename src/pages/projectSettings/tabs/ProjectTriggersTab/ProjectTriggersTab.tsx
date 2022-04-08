@@ -1,1 +1,1 @@
-export const ProjectTriggersTab: React.FC = () => null;
+export const ProjectTriggersTab: React.VFC = () => null;

@@ -5,7 +5,7 @@ import { routes } from "constants/routes";
 import { useIsAnyTabUnsaved } from "./Context";
 import { getTabTitle } from "./getTabTitle";
 
-export const NavigationModal: React.FC = () => {
+export const NavigationModal: React.VFC = () => {
   const { hasUnsaved, unsavedTabs } = useIsAnyTabUnsaved();
 
   const shouldConfirmNavigation = (currentLocation, nextLocation): boolean => {

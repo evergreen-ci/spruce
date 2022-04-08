@@ -34,11 +34,12 @@ const getInitialFormState = (
   return projectData;
 };
 
-export const GithubCommitQueueTab: React.FC<TabProps> = ({
+export const GithubCommitQueueTab: React.VFC<TabProps> = ({
   githubWebhooksEnabled,
   projectData,
   projectType,
   repoData,
+  versionControlEnabled,
 }) => {
   const { identifier } = useParams<{ identifier: string }>();
   const { getTab, updateForm } = useProjectSettingsContext();
@@ -68,9 +69,18 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
         githubWebhooksEnabled,
         formData,
         data?.githubProjectConflicts,
+        versionControlEnabled,
         projectType === ProjectType.AttachedProject ? repoData : null
       ),
-    [data, formData, githubWebhooksEnabled, identifier, projectType, repoData]
+    [
+      data,
+      formData,
+      githubWebhooksEnabled,
+      identifier,
+      projectType,
+      repoData,
+      versionControlEnabled,
+    ]
   );
 
   if (!formData) return null;
@@ -89,7 +99,7 @@ export const GithubCommitQueueTab: React.FC<TabProps> = ({
         onChange={onChange}
         schema={schema}
         uiSchema={uiSchema}
-        disabled={isProduction() && !githubWebhooksEnabled} // TODO: Remove once EVG-16208 is fixed
+        disabled={isProduction() && !githubWebhooksEnabled} // TODO: Remove once EVG-16608 is fixed
       />
     </>
   );

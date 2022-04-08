@@ -14,11 +14,11 @@ interface HistoryTableProps {
   recentlyFetchedCommits: MainlineCommitsForHistoryQuery["mainlineCommits"];
   children: ComponentType<ListChildComponentProps<any>>;
 }
-const HistoryTable = ({
+const HistoryTable: React.VFC<HistoryTableProps> = ({
   loadMoreItems,
   recentlyFetchedCommits,
   children,
-}: HistoryTableProps) => {
+}) => {
   const {
     getItemHeight,
     fetchNewCommit,

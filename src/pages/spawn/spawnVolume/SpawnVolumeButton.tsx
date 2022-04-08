@@ -10,7 +10,7 @@ import { GetSpruceConfigQuery } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
 import { SpawnVolumeModal } from "./spawnVolumeButton/SpawnVolumeModal";
 
-export const SpawnVolumeButton: React.FC = () => {
+export const SpawnVolumeButton: React.VFC = () => {
   const [openModal, setOpenModal] = useState(false);
   const spawnAnalytics = useSpawnAnalytics();
   const { data } = useQuery<GetSpruceConfigQuery>(GET_SPRUCE_CONFIG);

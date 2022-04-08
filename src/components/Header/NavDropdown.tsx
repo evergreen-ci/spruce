@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const { white } = uiColors;
 
-const DropdownMenuIcon: React.FC<{ open: boolean }> = ({ open }) => (
+const DropdownMenuIcon: React.VFC<{ open: boolean }> = ({ open }) => (
   <Icon glyph={open ? "CaretUp" : "CaretDown"} role="presentation" />
 );
 
@@ -23,7 +23,7 @@ interface DropdownItemType extends MenuItemType {
   closeMenu: () => void;
 }
 
-const DropdownItem: React.FC<DropdownItemType> = ({
+const DropdownItem: React.VFC<DropdownItemType> = ({
   "data-cy": itemDataCy,
   closeMenu,
   href,
@@ -47,7 +47,7 @@ interface DropdownProps {
   title: string;
 }
 
-export const Dropdown: React.FC<DropdownProps> = ({
+export const Dropdown: React.VFC<DropdownProps> = ({
   dataCy,
   menuItems,
   title,

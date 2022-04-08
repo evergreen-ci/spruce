@@ -11,6 +11,7 @@ import {
 import { GithubProjectConflicts } from "gql/generated/types";
 import { getTabTitle } from "pages/projectSettings/getTabTitle";
 import { alias, form, ProjectType } from "../utils";
+import { sectionHasError } from "./getErrors";
 import { GithubTriggerAliasField } from "./GithubTriggerAliasField";
 import { FormState } from "./types";
 
@@ -23,6 +24,7 @@ export const getFormSchema = (
   githubWebhooksEnabled: boolean,
   formData: FormState,
   githubProjectConflicts: GithubProjectConflicts,
+  versionControlEnabled: boolean,
   repoData?: FormState
 ): {
   fields: Record<string, Field>;
@@ -36,6 +38,8 @@ export const getFormSchema = (
         : "hidden",
     "ui:showLabel": false,
   };
+
+  const errorStyling = sectionHasError(versionControlEnabled, projectType);
 
   return {
     fields: {
@@ -246,8 +250,8 @@ export const getFormSchema = (
           "ui:widget": widgets.RadioBoxWidget,
           ...(!!githubProjectConflicts?.prTestingIdentifiers?.length && {
             "ui:disabled": true,
-            "ui:rawErrors": [
-              `Enabling PR testing would introduce conflicts with the following project(s): ${githubProjectConflicts.commitQueueIdentifiers.join(
+            "ui:errors": [
+              `Enabling PR testing would introduce conflicts with the following project(s): ${githubProjectConflicts.prTestingIdentifiers.join(
                 ", "
               )}. To enable PR testing for this project please disable it elsewhere.`,
             ],
@@ -260,6 +264,12 @@ export const getFormSchema = (
                 formData?.github?.prTestingEnabled,
                 repoData?.github?.prTestingEnabled
               )
+          ),
+          ...errorStyling(
+            formData?.github?.prTesting?.githubPrAliasesOverride,
+            formData?.github?.prTesting?.githubPrAliases,
+            repoData?.github?.prTesting?.githubPrAliases,
+            "GitHub Patch Definition"
           ),
           githubPrAliasesOverride: {
             "ui:data-cy": "pr-testing-override-radio-box",
@@ -302,8 +312,8 @@ export const getFormSchema = (
           "ui:widget": widgets.RadioBoxWidget,
           ...(!!githubProjectConflicts?.commitCheckIdentifiers?.length && {
             "ui:disabled": true,
-            "ui:rawErrors": [
-              `Enabling commit checks would introduce conflicts with the following project(s): ${githubProjectConflicts.commitQueueIdentifiers.join(
+            "ui:errors": [
+              `Enabling commit checks would introduce conflicts with the following project(s): ${githubProjectConflicts.commitCheckIdentifiers.join(
                 ", "
               )}. To enable commit checks for this project please disable it elsewhere.`,
             ],
@@ -316,6 +326,12 @@ export const getFormSchema = (
                 formData?.github?.githubChecksEnabled,
                 repoData?.github?.githubChecksEnabled
               )
+          ),
+          ...errorStyling(
+            formData?.github?.githubChecks?.githubCheckAliasesOverride,
+            formData?.github?.githubChecks?.githubCheckAliases,
+            repoData?.github?.githubChecks?.githubCheckAliases,
+            "Commit Check Definition"
           ),
           githubCheckAliasesOverride: overrideStyling,
           githubCheckAliases: aliasRowUiSchema({
@@ -358,6 +374,12 @@ export const getFormSchema = (
               repoData?.github?.gitTagVersionsEnabled
             )
           ),
+          ...errorStyling(
+            formData?.github?.gitTags?.gitTagAliasesOverride,
+            formData?.github?.gitTags?.gitTagAliases,
+            repoData?.github?.gitTags?.gitTagAliases,
+            "Git Tag Version Definition"
+          ),
           gitTagAliasesOverride: overrideStyling,
           gitTagAliases: gitTagArray.uiSchema,
           repoData: {
@@ -381,7 +403,7 @@ export const getFormSchema = (
           "ui:data-cy": "cq-enabled-radio-box",
           ...(!!githubProjectConflicts?.commitQueueIdentifiers?.length && {
             "ui:disabled": true,
-            "ui:rawErrors": [
+            "ui:errors": [
               `Enabling the Commit Queue would introduce conflicts with the following project(s): ${githubProjectConflicts.commitQueueIdentifiers.join(
                 ", "
               )}. To enable the Commit Queue for this project please disable it elsewhere.`,
@@ -426,6 +448,12 @@ export const getFormSchema = (
                 formData?.commitQueue?.enabled,
                 repoData?.commitQueue?.enabled
               )
+          ),
+          ...errorStyling(
+            formData?.commitQueue?.patchDefinitions?.commitQueueAliasesOverride,
+            formData?.commitQueue?.patchDefinitions?.commitQueueAliases,
+            repoData?.commitQueue?.patchDefinitions?.commitQueueAliases,
+            "Commit Queue Patch Definition"
           ),
           commitQueueAliasesOverride: {
             "ui:data-cy": "cq-override-radio-box",

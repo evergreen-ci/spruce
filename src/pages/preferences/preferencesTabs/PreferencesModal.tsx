@@ -13,7 +13,7 @@ interface PreferencesModalProps {
   visible: boolean;
   disabled?: boolean;
 }
-export const PreferencesModal: React.FC<PreferencesModalProps> = ({
+export const PreferencesModal: React.VFC<PreferencesModalProps> = ({
   title,
   action,
   onSubmit,

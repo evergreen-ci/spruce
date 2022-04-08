@@ -312,7 +312,7 @@ export const StyledCollapse = styled(Collapse)`
   }
 `;
 
-export const HostEventLog: React.FC<{
+export const HostEventLog: React.VFC<{
   title: string;
   logs: string;
   isCode: boolean;

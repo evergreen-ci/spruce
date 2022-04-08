@@ -69,4 +69,5 @@ export type TabProps = {
   projectData?: FormState;
   projectType: ProjectType;
   repoData?: FormState;
+  versionControlEnabled: boolean;
 };

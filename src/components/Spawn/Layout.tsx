@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
+import { ExtendableBox } from "@leafygreen-ui/box";
+import Button, { ButtonProps } from "@leafygreen-ui/button";
 import { Body, H2 } from "@leafygreen-ui/typography";
 import { Table } from "antd";
 import Badge from "components/Badge";
@@ -22,18 +23,25 @@ export const StyledBadge = styled(Badge)`
   margin: 0 ${size.xs};
 `;
 
-export const PlusButton = ({ children, ...props }) => (
-  <Button {...{ ...props, glyph: <Icon glyph="Plus" /> }} as="button">
-    {children}
-  </Button>
-);
+export const PlusButton: ExtendableBox<
+  ButtonProps & { ref?: React.Ref<any> },
+  "button"
+> = React.forwardRef(({ leftGlyph, ...rest }: ButtonProps, forwardRef) => (
+  <Button
+    ref={forwardRef}
+    {...{ ...rest, leftGlyph: <Icon glyph="Plus" /> }}
+    as="button"
+  />
+));
 
 const TableContainer = styled.div`
   overflow-x: scroll;
   width: 100%;
 `;
 
-export const SpawnTable = (props: React.ComponentProps<typeof Table>) => (
+export const SpawnTable: React.VFC<React.ComponentProps<typeof Table>> = (
+  props
+) => (
   <TableContainer>
     <Table
       {...{

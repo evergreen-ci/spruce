@@ -1,10 +1,12 @@
 #import "../fragments/basePatch.graphql"
 
-  mutation SchedulePatch($patchId: String!, $configure: PatchConfigure!) {
-    schedulePatch(patchId: $patchId, configure: $configure) {
-      ...basePatch
-      version
-      tasks
-      variants
+mutation SchedulePatch($patchId: String!, $configure: PatchConfigure!) {
+  schedulePatch(patchId: $patchId, configure: $configure) {
+    ...basePatch
+    versionFull {
+      id
     }
+    tasks
+    variants
   }
+}

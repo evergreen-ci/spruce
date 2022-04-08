@@ -30,7 +30,7 @@ const { HistoryTableProvider } = context;
 const { applyStrictRegex } = string;
 const { useTestFilters, useJumpToCommit } = hooks;
 
-const TaskHistoryContents: React.FC = () => {
+const TaskHistoryContents: React.VFC = () => {
   const { projectId, taskName } = useParams<{
     projectId: string;
     taskName: string;

@@ -37,7 +37,7 @@ interface JobLogsTableProps {
   groupId?: string;
 }
 
-export const JobLogsTable: React.FC<JobLogsTableProps> = ({
+export const JobLogsTable: React.VFC<JobLogsTableProps> = ({
   task,
   groupId,
 }) => {

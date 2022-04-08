@@ -38,7 +38,7 @@ interface Props {
   refetchQueries: string[];
   childPatches: Partial<Patch>[];
 }
-const VersionRestartModal: React.FC<Props> = ({
+const VersionRestartModal: React.VFC<Props> = ({
   visible,
   onOk,
   onCancel,
@@ -171,20 +171,19 @@ const VersionRestartModal: React.FC<Props> = ({
                       {v?.projectIdentifier ? v?.projectIdentifier : v?.project}
                     </BoldTextStyle>
                   }
-                  contents={
-                    <TitleContainer>
-                      <VersionTasks
-                        version={v}
-                        selectedTasks={selectedTasks}
-                        setBaseStatusFilterTerm={setVersionBaseStatus(v?.id)}
-                        setVersionStatusFilterTerm={setVersionStatus(v?.id)}
-                        toggleSelectedTask={toggleSelectedTask}
-                        baseStatusFilterTerm={baseStatusFilterTerm[v.id]}
-                        versionStatusFilterTerm={versionStatusFilterTerm[v.id]}
-                      />
-                    </TitleContainer>
-                  }
-                />
+                >
+                  <TitleContainer>
+                    <VersionTasks
+                      version={v}
+                      selectedTasks={selectedTasks}
+                      setBaseStatusFilterTerm={setVersionBaseStatus(v?.id)}
+                      setVersionStatusFilterTerm={setVersionStatus(v?.id)}
+                      toggleSelectedTask={toggleSelectedTask}
+                      baseStatusFilterTerm={baseStatusFilterTerm[v.id]}
+                      versionStatusFilterTerm={versionStatusFilterTerm[v.id]}
+                    />
+                  </TitleContainer>
+                </Accordion>
               ))}
               <br />
             </div>
@@ -219,7 +218,7 @@ interface VersionTasksProps {
   versionStatusFilterTerm: string[];
 }
 
-const VersionTasks: React.FC<VersionTasksProps> = ({
+const VersionTasks: React.VFC<VersionTasksProps> = ({
   version,
   selectedTasks,
   setBaseStatusFilterTerm,

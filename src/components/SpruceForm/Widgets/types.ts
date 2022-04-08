@@ -7,8 +7,8 @@ export interface SpruceWidgetProps extends WidgetProps {
     "data-cy": string;
     description: string;
     emptyValue: string | null;
+    errors: string[];
     marginBottom: number;
-    rawErrors: string[];
     showLabel: boolean;
     tooltipDescription: string;
     warnings: string[];

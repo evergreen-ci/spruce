@@ -4,7 +4,7 @@ import { P2 } from "components/Typography";
 import { getTaskRoute, getVersionRoute } from "constants/routes";
 import { AbortInfo } from "gql/generated/types";
 
-export const AbortMessage: React.FC<AbortInfo> = ({
+export const AbortMessage: React.VFC<AbortInfo> = ({
   buildVariantDisplayName,
   newVersion,
   prClosed,

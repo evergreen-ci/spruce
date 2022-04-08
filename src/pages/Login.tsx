@@ -11,7 +11,7 @@ const getReferrer = (location: Location<{ referrer?: string }>): string => {
   return "/";
 };
 
-export const Login: React.FC<RouteComponentProps> = ({ location }) => {
+export const Login: React.VFC<RouteComponentProps> = ({ location }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 

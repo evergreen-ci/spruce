@@ -38,7 +38,7 @@ import { ConfigureTasks } from "./configurePatchCore/ConfigureTasks";
 interface Props {
   patch: ConfigurePatchQuery["patch"];
 }
-export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
+export const ConfigurePatchCore: React.VFC<Props> = ({ patch }) => {
   const history = useHistory();
   const dispatchToast = useToastContext();
 
@@ -94,7 +94,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
     onCompleted(data) {
       const { schedulePatch: scheduledPatch } = data;
       dispatchToast.success("Successfully scheduled the patch");
-      history.push(getVersionRoute(scheduledPatch.id));
+      history.push(getVersionRoute(scheduledPatch.versionFull.id));
     },
     onError(err) {
       dispatchToast.error(

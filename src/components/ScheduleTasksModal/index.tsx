@@ -22,7 +22,7 @@ interface ScheduleTasksModalProps {
   setOpen: (open: boolean) => void;
   versionId: string;
 }
-export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
+export const ScheduleTasksModal: React.VFC<ScheduleTasksModalProps> = ({
   open,
   setOpen,
   versionId,
@@ -137,7 +137,8 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
                           }}
                         />
                       }
-                      contents={tasks.map(({ id, displayName }) => (
+                    >
+                      {tasks.map(({ id, displayName }) => (
                         <Checkbox
                           key={id}
                           data-cy={`${buildVariant}-${displayName}-task-checkbox`}
@@ -154,7 +155,7 @@ export const ScheduleTasksModal: React.FC<ScheduleTasksModalProps> = ({
                           }}
                         />
                       ))}
-                    />
+                    </Accordion>
                   </AccordionWrapper>
                 );
               }

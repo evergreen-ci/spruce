@@ -32,7 +32,7 @@ interface Props {
   repoData?: RepoSettings;
 }
 
-export const ProjectSettingsTabs: React.FC<Props> = ({
+export const ProjectSettingsTabs: React.VFC<Props> = ({
   projectData,
   projectType,
   repoData,
@@ -119,6 +119,10 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
             projectType={projectType}
             repoData={
               tabData[ProjectSettingsTabRoutes.GithubCommitQueue].repoData
+            }
+            versionControlEnabled={
+              projectData?.projectRef?.versionControlEnabled ??
+              repoData?.projectRef?.versionControlEnabled
             }
           />
         )}
@@ -210,7 +214,7 @@ interface TabRouteProps {
   tab: ProjectSettingsTabRoutes;
 }
 
-const TabRoute: React.FC<TabRouteProps> = ({ Component, path, tab }) => (
+const TabRoute: React.VFC<TabRouteProps> = ({ Component, path, tab }) => (
   <Route path={path} render={(props) => <Component {...props} tab={tab} />} />
 );
 

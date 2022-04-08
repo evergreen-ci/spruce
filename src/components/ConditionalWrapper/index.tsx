@@ -6,7 +6,7 @@ interface ConditionalWrapperProps {
   altWrapper?: (children: any) => JSX.Element;
   children: JSX.Element;
 }
-export const ConditionalWrapper: React.FC<ConditionalWrapperProps> = ({
+export const ConditionalWrapper: React.VFC<ConditionalWrapperProps> = ({
   condition,
   wrapper,
   altWrapper,

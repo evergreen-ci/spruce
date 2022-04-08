@@ -20,7 +20,7 @@ interface Props {
   volume: MyVolume;
 }
 
-export const UnmountBtn: React.FC<Props> = ({ volume }) => {
+export const UnmountBtn: React.VFC<Props> = ({ volume }) => {
   const dispatchToast = useToastContext();
   const spawnAnalytics = useSpawnAnalytics();
 

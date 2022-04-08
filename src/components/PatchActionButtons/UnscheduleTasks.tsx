@@ -19,7 +19,7 @@ interface props {
   refetchQueries: string[];
   disabled?: boolean;
 }
-export const UnscheduleTasks: React.FC<props> = ({
+export const UnscheduleTasks: React.VFC<props> = ({
   patchId,
   refetchQueries,
   disabled,

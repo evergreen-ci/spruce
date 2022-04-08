@@ -18,7 +18,7 @@ interface ModalProps {
   projectId: string;
 }
 
-export const Modal: React.FC<ModalProps> = ({
+export const Modal: React.VFC<ModalProps> = ({
   closeModal,
   open,
   projectId,

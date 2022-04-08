@@ -14,7 +14,7 @@ interface TableSearchPopoverProps {
   onConfirm: (search: string) => void;
 }
 
-export const TableSearchPopover: React.FC<TableSearchPopoverProps> = ({
+export const TableSearchPopover: React.VFC<TableSearchPopoverProps> = ({
   onConfirm,
 }) => {
   const [active, setActive] = useState(false);

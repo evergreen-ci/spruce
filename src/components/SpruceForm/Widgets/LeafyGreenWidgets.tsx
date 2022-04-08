@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import Banner from "@leafygreen-ui/banner";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { uiColors } from "@leafygreen-ui/palette";
 import { RadioBox, RadioBoxGroup } from "@leafygreen-ui/radio-box-group";
@@ -18,7 +19,7 @@ import { OneOf } from "types/utils";
 import ElementWrapper from "../ElementWrapper";
 import { EnumSpruceWidgetProps, SpruceWidgetProps } from "./types";
 
-const { red, yellow } = uiColors;
+const { yellow } = uiColors;
 
 export const LeafyGreenTextInput: React.VFC<
   { options: { optional?: boolean } } & SpruceWidgetProps
@@ -83,6 +84,11 @@ const StyledTextInput = styled(TextInput)`
     /* Fixes positioning of "Optional" label */
     margin: 0;
   }
+`;
+
+const WarningText = styled.p`
+  color: ${yellow.dark2};
+  line-height: 1.2;
 `;
 
 export const LeafyGreenCheckBox: React.VFC<SpruceWidgetProps> = ({
@@ -230,12 +236,13 @@ export const LeafyGreenRadioBox: React.VFC<EnumSpruceWidgetProps> = ({
 }) => {
   const {
     description,
-    enumOptions,
     "data-cy": dataCy,
+    enumOptions,
+    errors,
     marginBottom,
-    rawErrors,
     showLabel,
   } = options;
+
   // Workaround because {ui:widget: hidden} does not play nicely with this widget
   const hide = uiSchema["ui:hide"] ?? false;
   if (hide) {
@@ -255,7 +262,9 @@ export const LeafyGreenRadioBox: React.VFC<EnumSpruceWidgetProps> = ({
           {description && <Description>{description}</Description>}
         </RadioBoxLabelContainer>
       )}
-      {!!rawErrors?.length && <ErrorText>{rawErrors?.join(", ")}</ErrorText>}
+      {!!errors?.length && (
+        <StyledBanner variant="danger">{errors?.join(", ")}</StyledBanner>
+      )}
       <RadioBoxGroup
         id={id}
         name={label}
@@ -276,6 +285,10 @@ export const LeafyGreenRadioBox: React.VFC<EnumSpruceWidgetProps> = ({
     </ElementWrapper>
   );
 };
+
+const StyledBanner = styled(Banner)`
+  margin-bottom: ${size.s};
+`;
 
 const RadioBoxLabelContainer = styled.div`
   margin-bottom: ${size.xs};
@@ -353,15 +366,6 @@ export const LeafyGreenSegmentedControl: React.VFC<EnumSpruceWidgetProps> = ({
 
 const StyledSegmentedControl = styled(SegmentedControl)`
   margin-bottom: ${size.s};
-`;
-
-const ErrorText = styled.p`
-  color: ${red.base};
-`;
-
-const WarningText = styled.p`
-  color: ${yellow.dark2};
-  line-height: 1.2;
 `;
 
 const MaxWidthContainer = styled.div`
