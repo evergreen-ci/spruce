@@ -2,6 +2,10 @@ import styled from "@emotion/styled";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { size } from "constants/tokens";
 import { StatusCount } from "gql/generated/types";
+import {
+  GROUPED_BADGE_PADDING,
+  GROUPED_BADGE_HEIGHT,
+} from "pages/commits/constants";
 import { groupStatusesByUmbrellaStatus } from "utils/statuses";
 
 interface Props {
@@ -40,10 +44,11 @@ const VariantGroupedTaskStatusBadges: React.VFC<Props> = ({
 const VariantTasks = styled.div`
   display: flex;
   flex-wrap: wrap;
-  padding-top: ${size.xs};
+  padding: ${GROUPED_BADGE_PADDING}px 0;
   > * {
+    height: ${GROUPED_BADGE_HEIGHT}px;
+    padding: ${size.xxs} 0;
     padding-right: ${size.xs};
-    padding-bottom: ${size.xs};
   }
 `;
 

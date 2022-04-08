@@ -73,15 +73,23 @@ export const constructBuildVariantDict = (
       Object.keys(allBuildVariants).reduce((acc, curr) => {
         const { tasks, statusCounts, variant } = allBuildVariants[curr];
 
-        const iconHeight = tasks
-          ? Math.ceil(tasks.length / TASK_ICONS_PER_ROW) * TASK_ICON_HEIGHT +
-            TASK_ICON_PADDING
-          : 0;
-        const cardHeight = statusCounts
-          ? Math.ceil(statusCounts.length / GROUPED_BADGE_PER_ROW) *
-              GROUPED_BADGE_HEIGHT +
-            GROUPED_BADGE_PADDING
-          : 0;
+        let iconHeight = 0;
+        if (tasks) {
+          const numRows = Math.ceil(tasks.length / TASK_ICONS_PER_ROW);
+          const iconContainerHeight = numRows * TASK_ICON_HEIGHT;
+          const iconContainerPadding = TASK_ICON_PADDING * 2;
+          iconHeight = iconContainerHeight + iconContainerPadding;
+        }
+
+        let cardHeight = 0;
+        if (statusCounts) {
+          const numRows = Math.ceil(
+            statusCounts.length / GROUPED_BADGE_PER_ROW
+          );
+          const cardContainerHeight = numRows * GROUPED_BADGE_HEIGHT;
+          const cardContainerPadding = GROUPED_BADGE_PADDING * 2;
+          cardHeight = cardContainerHeight + cardContainerPadding;
+        }
 
         if (acc[variant]) {
           if (iconHeight > acc[variant].iconHeight) {
