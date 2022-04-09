@@ -20,7 +20,7 @@ export const taskQuery = {
     hostId: "i-0e0e62799806e037d",
     hostLink: "https://evergreen.mongodb.com/host/i-0e0e62799806e037d",
     versionMetadata: {
-      __typename: "PatchMetadata",
+      __typename: "Version",
       author: "mohamed.khelif",
       id:
         "spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41",
