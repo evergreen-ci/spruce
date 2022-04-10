@@ -76,8 +76,8 @@ export const BuildVariantContainer: React.VFC<BuildVariantContainerProps> = ({
     );
 
     const buildVariantCards = allBuildVariants.map((v) => {
-      const { iconHeight, cardHeight } = buildVariantDict[v];
-      const height = iconHeight + cardHeight;
+      const { iconHeight, badgeHeight } = buildVariantDict[v];
+      const height = iconHeight + badgeHeight;
 
       const buildVariant = groupedBuildVariants[v];
       const variantStats = groupedBuildVariantStats[v];

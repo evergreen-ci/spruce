@@ -58,7 +58,7 @@ export const BuildVariantCard: React.VFC<Props> = ({
       >
         {buildVariantDisplayName}
       </Label>
-      <div style={{ height }}>{render}</div>
+      <Content height={`${height}px`}>{render}</Content>
     </Container>
   );
 };
@@ -97,4 +97,8 @@ const IconContainer = styled.div`
 const Container = styled.div`
   width: 160px;
   margin-bottom: ${size.s};
+`;
+
+const Content = styled.div<{ height: string }>`
+  height: ${({ height }) => height};
 `;
