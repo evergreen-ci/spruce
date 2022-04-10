@@ -34,3 +34,8 @@ export type RequireAtMostOne<T, Keys extends keyof T = keyof T> = Partial<
 export type InvertedObject<T extends Record<PropertyKey, PropertyKey>> = {
   [K in keyof T as T[K]]: K;
 };
+
+/** Helper to require either of two types - not both. */
+export type OneOf<T1, T2> =
+  | (T1 & Partial<Record<Exclude<keyof T2, keyof T1>, never>>)
+  | (T2 & Partial<Record<Exclude<keyof T1, keyof T2>, never>>);

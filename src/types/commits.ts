@@ -10,6 +10,7 @@ export enum ProjectFilterOptions {
 
 export enum ChartToggleQueryParams {
   chartType = "chartType",
+  chartOpen = "chartOpen",
 }
 
 export enum MainlineCommitQueryParams {

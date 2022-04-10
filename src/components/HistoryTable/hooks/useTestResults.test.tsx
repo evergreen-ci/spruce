@@ -42,7 +42,7 @@ describe("useTestResults", () => {
       failingTests: [],
     });
     act(() => {
-      result.current.historyTable.fetchNewCommit(mainlineCommitData);
+      result.current.historyTable.ingestNewCommits(mainlineCommitData);
     });
     expect(result.current.historyTable.processedCommitCount).toBe(9);
     expect(result.current.historyTable.getItem(0)).toMatchObject({
@@ -73,7 +73,7 @@ describe("useTestResults", () => {
       failingTests: [],
     });
     act(() => {
-      result.current.historyTable.fetchNewCommit(mainlineCommitData);
+      result.current.historyTable.ingestNewCommits(mainlineCommitData);
     });
     expect(result.current.historyTable.processedCommitCount).toBe(9);
     expect(result.current.historyTable.getItem(2)).toMatchObject({
@@ -108,7 +108,7 @@ describe("useTestResults", () => {
       loading: false,
     });
     act(() => {
-      result.current.historyTable.fetchNewCommit(mainlineCommitData);
+      result.current.historyTable.ingestNewCommits(mainlineCommitData);
     });
     expect(result.current.historyTable.processedCommitCount).toBe(9);
     expect(result.current.historyTable.getItem(2)).toMatchObject({
@@ -148,7 +148,7 @@ describe("useTestResults", () => {
       failingTests: [],
     });
     act(() => {
-      result.current.historyTable.fetchNewCommit(mainlineCommitData);
+      result.current.historyTable.ingestNewCommits(mainlineCommitData);
     });
     expect(result.current.historyTable.processedCommitCount).toBe(9);
     expect(result.current.historyTable.getItem(2)).toMatchObject({
@@ -201,27 +201,28 @@ describe("useMergedHookRender - sanity check", () => {
       getTaskMetadata: expect.any(Function),
     });
     expect(result.current.historyTable).toStrictEqual({
-      processedCommitCount: 0,
-      fetchNewCommit: expect.any(Function),
-      getItem: expect.any(Function),
-      isItemLoaded: expect.any(Function),
-      getItemHeight: expect.any(Function),
-      toggleRowSizeAtIndex: expect.any(Function),
+      columnLimit: 7,
+      commitCount: 10,
+      currentPage: 0,
       hasNextPage: false,
       hasPreviousPage: false,
       historyTableFilters: [],
-      setHistoryTableFilters: expect.any(Function),
+      pageCount: 0,
+      processedCommitCount: 0,
       processedCommits: [],
+      selectedCommit: null,
       visibleColumns: [],
       addColumns: expect.any(Function),
+      getItem: expect.any(Function),
+      getItemHeight: expect.any(Function),
+      ingestNewCommits: expect.any(Function),
+      isItemLoaded: expect.any(Function),
+      toggleRowSizeAtIndex: expect.any(Function),
+      markSelectedRowVisited: expect.any(Function),
       nextPage: expect.any(Function),
-      previousPage: expect.any(Function),
-      currentPage: 0,
-      pageCount: 0,
-      columnLimit: 7,
-      commitCount: 10,
       onChangeTableWidth: expect.any(Function),
-      selectedCommit: null,
+      previousPage: expect.any(Function),
+      setHistoryTableFilters: expect.any(Function),
       setSelectedCommit: expect.any(Function),
     });
   });

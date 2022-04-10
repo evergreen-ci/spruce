@@ -13,6 +13,7 @@ export const getFormSchema = (
   projectId: string,
   projectType: ProjectType,
   validDefaultLoggers: Project["validDefaultLoggers"],
+  identifierHasChanges: boolean,
   repoData?: FormState
 ): {
   fields: Record<string, Field>;
@@ -63,6 +64,14 @@ export const getFormSchema = (
                 type: ["string", "null"],
                 title: "Display Name",
               },
+              ...(projectType !== ProjectType.Repo && {
+                identifier: {
+                  type: "string" as "string",
+                  title: "Identifier",
+                  default: "",
+                  minLength: 1,
+                },
+              }),
               batchTime: {
                 type: ["number", "null"],
                 title: "Batch Time",
@@ -268,6 +277,14 @@ export const getFormSchema = (
       other: {
         displayName: {
           "ui:data-cy": "display-name-input",
+        },
+        identifier: {
+          "ui:data-cy": "identifier-input",
+          ...(identifierHasChanges && {
+            "ui:warnings": [
+              "Updates made to the project identifier will change the identifier used for the CLI, inter-project dependencies, etc. Project users should be made aware of this change, as the old identifier will no longer work.",
+            ],
+          }),
         },
         batchTime: {
           "ui:description":

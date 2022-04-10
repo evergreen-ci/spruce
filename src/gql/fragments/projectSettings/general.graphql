@@ -8,6 +8,7 @@ fragment projectGeneralSettings on Project {
   remotePath
   spawnHostScriptPath
   dispatchingDisabled
+  versionControlEnabled
   deactivatePrevious
   repotrackerDisabled
   defaultLogger
@@ -32,6 +33,7 @@ fragment repoGeneralSettings on RepoRef {
   remotePath
   spawnHostScriptPath
   dispatchingDisabled
+  versionControlEnabled
   deactivatePrevious
   repotrackerDisabled
   defaultLogger

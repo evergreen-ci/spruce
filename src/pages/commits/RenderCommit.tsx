@@ -98,4 +98,15 @@ const getCommitKey = (commit: Commit) => {
   return "";
 };
 
-export { RenderCommitsChart, RenderCommitsLabel, getCommitKey };
+const getCommitWidth = (commit: Commit) => {
+  const { version, rolledUpVersions } = commit;
+  if (version) {
+    return 200;
+  }
+  if (rolledUpVersions) {
+    return 64;
+  }
+  throw new Error("Commit type not found");
+};
+
+export { RenderCommitsChart, RenderCommitsLabel, getCommitKey, getCommitWidth };

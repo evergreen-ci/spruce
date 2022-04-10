@@ -94,7 +94,7 @@ export const ConfigurePatchCore: React.VFC<Props> = ({ patch }) => {
     onCompleted(data) {
       const { schedulePatch: scheduledPatch } = data;
       dispatchToast.success("Successfully scheduled the patch");
-      history.push(getVersionRoute(scheduledPatch.id));
+      history.push(getVersionRoute(scheduledPatch.versionFull.id));
     },
     onError(err) {
       dispatchToast.error(
