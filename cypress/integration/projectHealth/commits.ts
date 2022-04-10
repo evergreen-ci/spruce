@@ -21,6 +21,21 @@ describe("commits page", () => {
     );
     cy.dataCy("grouped-task-status-badge").should("not.exist");
   });
+  it("should be able to collapse/expand commit graph which retains state when paginating", () => {
+    cy.dataCy("commit-chart-container").should("be.visible");
+
+    cy.contains("Project Health").click();
+    cy.dataCy("commit-chart-container").should("not.be.visible");
+    cy.dataCy("next-page-button").click();
+    cy.dataCy("commit-chart-container").should("not.be.visible");
+    cy.location("search").should("contain", "?chartOpen=false");
+
+    cy.contains("Project Health").click();
+    cy.dataCy("commit-chart-container").should("be.visible");
+    cy.dataCy("prev-page-button").click();
+    cy.dataCy("commit-chart-container").should("be.visible");
+    cy.location("search").should("contain", "?chartOpen=true");
+  });
   it("toggling chart types should change the charts in view", () => {
     cy.getInputByLabel("Absolute Number").should("be.checked");
     cy.dataCy("commit-chart-container").should(
@@ -36,7 +51,10 @@ describe("commits page", () => {
       "data-type",
       "percentage"
     );
-    cy.location("search").should("contain", "?chartType=percentage");
+    cy.location("search").should(
+      "contain",
+      "?chartOpen=true&chartType=percentage"
+    );
     cy.getInputByLabel("Absolute Number").click({ force: true });
     cy.getInputByLabel("Absolute Number").should("be.checked");
     cy.getInputByLabel("Percentage").should("not.be.checked");
@@ -45,7 +63,10 @@ describe("commits page", () => {
       "data-type",
       "absolute"
     );
-    cy.location("search").should("contain", "?chartType=absolute");
+    cy.location("search").should(
+      "contain",
+      "?chartOpen=true&chartType=absolute"
+    );
   });
   it("Should be able to paginate between commits", () => {
     cy.dataCy("prev-page-button").should("be.disabled");
