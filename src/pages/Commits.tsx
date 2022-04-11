@@ -20,9 +20,15 @@ import {
   MainlineCommitsQueryVariables,
 } from "gql/generated/types";
 import { GET_MAINLINE_COMMITS, GET_SPRUCE_CONFIG } from "gql/queries";
-import { usePageTitle, usePolling } from "hooks";
-import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
+import { usePageTitle, usePolling, useUpdateURLQueryParams } from "hooks";
+import {
+  ProjectFilterOptions,
+  MainlineCommitQueryParams,
+  ChartTypes,
+  ChartToggleQueryParams,
+} from "types/commits";
 import { array, queryString } from "utils";
+import { ChartToggle } from "./commits/ActiveCommits/ChartToggle";
 import { CommitsWrapper } from "./commits/CommitsWrapper";
 import CommitTypeSelect from "./commits/commitTypeSelect";
 import { PaginationButtons } from "./commits/PaginationButtons";
@@ -36,6 +42,12 @@ const { toArray } = array;
 const { parseQueryString, getString } = queryString;
 
 export const Commits = () => {
+  const updateQueryParams = useUpdateURLQueryParams();
+  const onChangeChartType = (chartType: ChartTypes): void => {
+    updateQueryParams({
+      [ChartToggleQueryParams.chartType]: chartType,
+    });
+  };
   const dispatchToast = useToastContext();
   const { replace } = useHistory();
   const { search } = useLocation();
@@ -43,6 +55,10 @@ export const Commits = () => {
 
   // get query params from url
   const { id: projectId } = useParams<{ id: string }>();
+  const chartType =
+    (getString(parsed[ChartToggleQueryParams.chartType]) as ChartTypes) ||
+    ChartTypes.Absolute;
+
   usePageTitle(`Project Health | ${projectId}`);
   const recentlySelectedProject = Cookies.get(CURRENT_PROJECT);
   // Push default project to URL if there isn't a project in
@@ -140,12 +156,19 @@ export const Commits = () => {
             nextPageOrderNumber={nextPageOrderNumber}
           />
         </PaginationWrapper>
+        <ChartToggleWrapper>
+          <ChartToggle
+            currentChartType={chartType}
+            onChangeChartType={onChangeChartType}
+          />
+        </ChartToggleWrapper>
         <CommitsWrapper
           versions={versions}
           error={error}
           isLoading={loading || !projectId}
           hasTaskFilter={hasTasks}
           hasFilters={hasFilters}
+          chartType={chartType}
         />
       </PageContainer>
     </PageWrapper>
@@ -169,12 +192,15 @@ const HeaderWrapper = styled.div`
 const BadgeWrapper = styled.div`
   margin: ${size.s} 0;
 `;
-
-const PaginationWrapper = styled.div`
+const ControlWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
-  padding: ${size.s} 0;
-  margin-bottom: ${size.m};
+`;
+const PaginationWrapper = styled(ControlWrapper)`
+  padding-bottom: ${size.xs};
+`;
+const ChartToggleWrapper = styled(ControlWrapper)`
+  padding-bottom: ${size.l};
 `;
 
 const tupleSelectOptions = [

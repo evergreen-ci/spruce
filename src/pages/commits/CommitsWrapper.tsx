@@ -3,17 +3,8 @@ import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
-import { useLocation } from "react-router-dom";
 import { size } from "constants/tokens";
-import { useUpdateURLQueryParams } from "hooks";
-import {
-  ChartTypes,
-  Commit,
-  Commits,
-  ChartToggleQueryParams,
-} from "types/commits";
-import { queryString } from "utils";
-import { ChartToggle } from "./ActiveCommits/ChartToggle";
+import { ChartTypes, Commit, Commits } from "types/commits";
 import { Grid } from "./ActiveCommits/Grid";
 import { GridLabel } from "./ActiveCommits/GridLabel";
 import {
@@ -28,10 +19,7 @@ import {
   RenderCommitsBuildVariants,
 } from "./RenderCommit";
 
-const { parseQueryString, getString } = queryString;
 const { white } = uiColors;
-
-const DEFAULT_CHART_TYPE = ChartTypes.Absolute;
 
 interface Props {
   versions: Commits;
@@ -39,6 +27,7 @@ interface Props {
   isLoading: boolean;
   hasTaskFilter: boolean;
   hasFilters: boolean;
+  chartType: ChartTypes;
 }
 
 export const CommitsWrapper: React.VFC<Props> = ({
@@ -47,26 +36,13 @@ export const CommitsWrapper: React.VFC<Props> = ({
   error,
   hasTaskFilter,
   hasFilters,
+  chartType,
 }) => {
-  const { search } = useLocation();
-  const updateQueryParams = useUpdateURLQueryParams();
-  const parsed = parseQueryString(search);
-
   useEffect(() => {
     if (!isLoading) {
       hoverTaskIcons();
     }
   }, [isLoading, versions]);
-
-  const onChangeChartType = (chartType: ChartTypes): void => {
-    updateQueryParams({
-      [ChartToggleQueryParams.chartType]: chartType,
-    });
-  };
-
-  const chartType =
-    (getString(parsed[ChartToggleQueryParams.chartType]) as ChartTypes) ||
-    DEFAULT_CHART_TYPE;
 
   const versionToGroupedTaskStatsMap = useMemo(() => {
     if (versions) {
@@ -112,12 +88,7 @@ export const CommitsWrapper: React.VFC<Props> = ({
           </FlexRowContainer>
           <GridLabel chartType={chartType} max={max} numDashedLine={5} />
           <Grid numDashedLine={5} />
-          <AbsoluteContainer>
-            <ChartToggle
-              currentChartType={chartType}
-              onChangeChartType={onChangeChartType}
-            />
-          </AbsoluteContainer>
+          <AbsoluteContainer />
         </ChartWrapper>
         <StickyContainer>
           <FlexRowContainer>

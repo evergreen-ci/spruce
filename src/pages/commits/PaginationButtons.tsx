@@ -53,8 +53,7 @@ export const PaginationButtons: React.VFC<PaginationButtonsProps> = ({
 
 // @ts-expect-error
 const StyledButton = styled(Button)`
-  margin-right: ${size.xxs};
-  margin-left: ${size.xxs};
+  margin-left: ${size.xs};
 `;
 
 const Container = styled.div`

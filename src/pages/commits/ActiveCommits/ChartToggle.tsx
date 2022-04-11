@@ -2,7 +2,7 @@ import { ClassNames } from "@emotion/react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
-import { Label } from "@leafygreen-ui/typography";
+import { Accordion } from "components/Accordion";
 import { size } from "constants/tokens";
 import { ChartTypes } from "types/commits";
 
@@ -17,40 +17,43 @@ export const ChartToggle: React.VFC<{
     onChangeChartType(chartType);
   };
   return (
-    <ClassNames>
-      {({ css }) => (
-        <ToggleWrapper>
-          <Label htmlFor="chart-toggle">View Options</Label>
-          <StyledRadioGroup
-            size="default"
-            onChange={onChange}
-            value={currentChartType}
-            name="chart-select"
-            className={css`
-              font-weight: bold;
-            `}
-          >
-            <Radio
-              data-cy="cy-chart-absolute-radio"
-              id="chart-radio-absolute"
-              value={ChartTypes.Absolute}
-            >
-              Absolute Number
-            </Radio>
-            <Radio
-              data-cy="cy-chart-percent-radio"
-              id="chart-radio-percent"
-              value={ChartTypes.Percentage}
-              className={css`
-                font-weight: bold;
-              `}
-            >
-              Percentage
-            </Radio>
-          </StyledRadioGroup>
-        </ToggleWrapper>
-      )}
-    </ClassNames>
+    <AccordionContainer>
+      <Accordion title="View options">
+        <ClassNames>
+          {({ css }) => (
+            <ToggleWrapper>
+              <StyledRadioGroup
+                size="default"
+                onChange={onChange}
+                value={currentChartType}
+                name="chart-select"
+                className={css`
+                  font-weight: bold;
+                `}
+              >
+                <Radio
+                  data-cy="cy-chart-absolute-radio"
+                  id="chart-radio-absolute"
+                  value={ChartTypes.Absolute}
+                >
+                  Absolute Number
+                </Radio>
+                <Radio
+                  data-cy="cy-chart-percent-radio"
+                  id="chart-radio-percent"
+                  value={ChartTypes.Percentage}
+                  className={css`
+                    font-weight: bold;
+                  `}
+                >
+                  Percentage
+                </Radio>
+              </StyledRadioGroup>
+            </ToggleWrapper>
+          )}
+        </ClassNames>
+      </Accordion>
+    </AccordionContainer>
   );
 };
 
@@ -70,4 +73,13 @@ const StyledRadioGroup = styled(RadioGroup)`
 
 const ToggleWrapper = styled.div`
   width: 286px;
+`;
+
+const AccordionContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: absolute;
+  z-index: 5000;
+  padding-bottom: 8px;
 `;

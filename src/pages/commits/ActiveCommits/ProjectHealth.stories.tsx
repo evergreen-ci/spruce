@@ -1,6 +1,6 @@
 import { withKnobs, boolean, number } from "@storybook/addon-knobs";
 import { MemoryRouter } from "react-router-dom";
-import { CommitVersion, Commit } from "types/commits";
+import { CommitVersion, Commit, ChartTypes } from "types/commits";
 import { TaskStatus } from "types/task";
 import { CommitsWrapper } from "../CommitsWrapper";
 
@@ -32,6 +32,7 @@ export const ActualWaterfallPage = () => {
       error={null}
       hasTaskFilter={boolean("hasTaskFilter", false)}
       hasFilters={boolean("hasFilters", false)}
+      chartType={ChartTypes.Absolute}
     />
   );
 };
