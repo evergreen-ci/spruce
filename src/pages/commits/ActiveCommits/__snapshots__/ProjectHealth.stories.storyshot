@@ -2,260 +2,431 @@
 
 exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
 <div
-  className="css-5uyor4-ChartContainer ech0nhv7"
+  className="css-5uyor4-ChartContainer ech0nhv3"
 >
   <div
-    className="css-w2t63c-ChartWrapper ech0nhv1"
+    className="css-1r6zuyg-Row ev0bopr3"
   >
-    <div
-      className="css-gnwyka-FlexRowContainer ech0nhv4"
+    <span
+      className="css-58nl5l-AccordionToggle ev0bopr2"
+      data-cy="accordion-toggle"
+      onClick={[Function]}
     >
-      <div
-        className="css-mgqp2w-CommitWrapper ech0nhv2"
-        width={200}
+      <svg
+        aria-label="Caret Down Icon"
+        className=""
+        fill="none"
+        height={16}
+        role="img"
+        viewBox="0 0 16 16"
+        width={16}
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <div
-          className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
-          data-cy="commit-chart-container"
-          data-type="absolute"
-          onBlur={[Function]}
-          onFocus={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <div
-            className="css-118ut8l-Bar e1tzsy280"
-            color="#4F4FBF"
-            data-cy="commit-chart-bar"
-            height="35%"
-          />
-          <div
-            className="css-1ciyyzm-Bar e1tzsy280"
-            color="#F1F0FC"
-            data-cy="commit-chart-bar"
-            height="25%"
-          />
-          <div
-            className="css-1wnnau0-Bar e1tzsy280"
-            color="#5D6C74"
-            data-cy="commit-chart-bar"
-            height="10%"
-          />
-        </div>
-      </div>
-      <div
-        className="css-mgqp2w-CommitWrapper ech0nhv2"
-        width={200}
-      >
-        <div
-          className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
-          data-cy="commit-chart-container"
-          data-type="absolute"
-          onBlur={[Function]}
-          onFocus={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <div
-            className="css-13lwr9o-Bar e1tzsy280"
-            color="#CF4A22"
-            data-cy="commit-chart-bar"
-            height="30%"
-          />
-          <div
-            className="css-1l8kjo3-Bar e1tzsy280"
-            color="#4F4FBF"
-            data-cy="commit-chart-bar"
-            height="30%"
-          />
-          <div
-            className="css-1sxj9ug-Bar e1tzsy280"
-            color="#89979B"
-            data-cy="commit-chart-bar"
-            height="10%"
-          />
-          <div
-            className="css-1pry9ok-Bar e1tzsy280"
-            color="#5D6C74"
-            data-cy="commit-chart-bar"
-            height="60%"
-          />
-        </div>
-      </div>
-      <div
-        className="css-11x1fi4-CommitWrapper ech0nhv2"
-        width={64}
-      >
-        <div
-          className="css-316fn7-InactiveCommitContainer ezzuvrx10"
-        >
-          <div
-            className="css-1q62izj-InactiveCommitLine ezzuvrx9"
-          />
-        </div>
-      </div>
-      <div
-        className="css-mgqp2w-CommitWrapper ech0nhv2"
-        width={200}
-      >
-        <div
-          className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
-          data-cy="commit-chart-container"
-          data-type="absolute"
-          onBlur={[Function]}
-          onFocus={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <div
-            className="css-o4mlxh-Bar e1tzsy280"
-            color="#F1F0FC"
-            data-cy="commit-chart-bar"
-            height="20%"
-          />
-          <div
-            className="css-17vb51y-Bar e1tzsy280"
-            color="#89979B"
-            data-cy="commit-chart-bar"
-            height="35%"
-          />
-        </div>
-      </div>
-      <div
-        className="css-mgqp2w-CommitWrapper ech0nhv2"
-        width={200}
-      >
-        <div
-          className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
-          data-cy="commit-chart-container"
-          data-type="absolute"
-          onBlur={[Function]}
-          onFocus={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <div
-            className="css-zz768j-Bar e1tzsy280"
-            color="#CF4A22"
-            data-cy="commit-chart-bar"
-            height="10%"
-          />
-          <div
-            className="css-1etxla3-Bar e1tzsy280"
-            color="#5D6C74"
-            data-cy="commit-chart-bar"
-            height="35%"
-          />
-        </div>
-      </div>
-      <div
-        className="css-mgqp2w-CommitWrapper ech0nhv2"
-        width={200}
-      >
-        <div
-          className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
-          data-cy="commit-chart-container"
-          data-type="absolute"
-          onBlur={[Function]}
-          onFocus={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <div
-            className="css-d68zij-Bar e1tzsy280"
-            color="#13AA52"
-            data-cy="commit-chart-bar"
-            height="30%"
-          />
-          <div
-            className="css-zz768j-Bar e1tzsy280"
-            color="#CF4A22"
-            data-cy="commit-chart-bar"
-            height="10%"
-          />
-          <div
-            className="css-1wqr4kq-Bar e1tzsy280"
-            color="#FFDD49"
-            data-cy="commit-chart-bar"
-            height="45%"
-          />
-          <div
-            className="css-1sxj9ug-Bar e1tzsy280"
-            color="#89979B"
-            data-cy="commit-chart-bar"
-            height="10%"
-          />
-        </div>
-      </div>
-    </div>
-    <div
-      className="css-an2uwi-GridLabelContainer e18agri1"
-    >
-      <div
-        className="css-1dwm295-YAxisValue e18agri0"
-      >
-        20
-      </div>
-      <div
-        className="css-1dwm295-YAxisValue e18agri0"
-      >
-        16
-      </div>
-      <div
-        className="css-1dwm295-YAxisValue e18agri0"
-      >
-        12
-      </div>
-      <div
-        className="css-1dwm295-YAxisValue e18agri0"
-      >
-        8
-      </div>
-      <div
-        className="css-1dwm295-YAxisValue e18agri0"
-      >
-        4
-      </div>
-      <div
-        className="css-1dwm295-YAxisValue e18agri0"
-      >
-        0
-      </div>
-    </div>
-    <div
-      className="css-1kwm5h2-ColumnContainer e15dc98b2"
-    >
-      <div
-        className="css-oxpn1r-DashedLine e15dc98b1"
-      />
-      <div
-        className="css-oxpn1r-DashedLine e15dc98b1"
-      />
-      <div
-        className="css-oxpn1r-DashedLine e15dc98b1"
-      />
-      <div
-        className="css-oxpn1r-DashedLine e15dc98b1"
-      />
-      <div
-        className="css-oxpn1r-DashedLine e15dc98b1"
-      />
-      <div
-        className="css-1sahvn-SolidLine e15dc98b0"
-      />
-    </div>
-    <div
-      className="css-7yxj8m-AbsoluteContainer ech0nhv3"
-    />
+        <path
+          d="M8.679 10.796a.554.554 0 01-.858 0L4.64 6.976C4.32 6.594 4.582 6 5.069 6h6.362c.487 0 .748.594.43.976l-3.182 3.82z"
+          fill="currentColor"
+        />
+      </svg>
+      <span>
+        Project Health
+      </span>
+    </span>
   </div>
   <div
-    className="css-1nsrvm5-StickyContainer ech0nhv6"
+    className="css-1ofqqce-AnimatedAccordion ev0bopr1"
   >
     <div
-      className="css-gnwyka-FlexRowContainer ech0nhv4"
+      className="css-1ds08bm-ContentsContainer ev0bopr0"
     >
       <div
-        className="css-mgqp2w-CommitWrapper ech0nhv2"
+        className="css-pctbch-AbsoluteContainer e3d007b2"
+      >
+        <div
+          className="css-qo77zm-AccordionContainer e1d5uzqe0"
+        >
+          <div
+            className="css-1r6zuyg-Row ev0bopr3"
+          >
+            <span
+              className="css-58nl5l-AccordionToggle ev0bopr2"
+              data-cy="accordion-toggle"
+              onClick={[Function]}
+            >
+              <svg
+                aria-label="Caret Right Icon"
+                className=""
+                fill="none"
+                height={16}
+                role="img"
+                viewBox="0 0 16 16"
+                width={16}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z"
+                  fill="currentColor"
+                />
+              </svg>
+              <span>
+                View options
+              </span>
+            </span>
+          </div>
+          <div
+            className="css-8qd0v1-AnimatedAccordion ev0bopr1"
+          >
+            <div
+              className="css-1nylm8s-ContentsContainer ev0bopr0"
+            >
+              <div
+                className="css-r7f5o5-ToggleWrapper e1d5uzqe1"
+              >
+                <div
+                  aria-label="chart-select"
+                  className="leafygreen-ui-sgfp3 css-9dmnhj-StyledRadioGroup e1d5uzqe2"
+                  role="group"
+                >
+                  <div
+                    className="leafygreen-ui-1s4vgyd"
+                  >
+                    <label
+                      className="leafygreen-ui-17avto4"
+                      htmlFor="chart-radio-absolute"
+                    >
+                      <input
+                        aria-checked={true}
+                        aria-disabled={false}
+                        checked={true}
+                        className="leafygreen-ui-x2r5fc"
+                        data-cy="cy-chart-absolute-radio"
+                        data-leafygreen-ui="input-element"
+                        disabled={false}
+                        id="chart-radio-absolute"
+                        name="chart-select"
+                        onChange={[Function]}
+                        type="radio"
+                        value="absolute"
+                      />
+                      <div
+                        className="leafygreen-ui-5a1vdt"
+                        data-leafygreen-ui="radio-input-display-wrapper"
+                      >
+                        <div
+                          className="leafygreen-ui-1y6j5s3"
+                          data-leafygreen-ui="radio-input-display"
+                          onBlur={[Function]}
+                          onFocus={[Function]}
+                        />
+                        <div
+                          className="leafygreen-ui-1cqcpzq"
+                          data-leafygreen-ui="interaction-ring"
+                        />
+                      </div>
+                      <div
+                        className="leafygreen-ui-3sm8z"
+                      >
+                        Absolute Number
+                      </div>
+                    </label>
+                  </div>
+                  <div
+                    className="leafygreen-ui-1s4vgyd"
+                  >
+                    <label
+                      className="css-p102ix leafygreen-ui-17avto4"
+                      htmlFor="chart-radio-percent"
+                    >
+                      <input
+                        aria-disabled={false}
+                        className="leafygreen-ui-x2r5fc"
+                        data-cy="cy-chart-percent-radio"
+                        data-leafygreen-ui="input-element"
+                        disabled={false}
+                        id="chart-radio-percent"
+                        name="chart-select"
+                        onChange={[Function]}
+                        type="radio"
+                        value="percentage"
+                      />
+                      <div
+                        className="leafygreen-ui-5a1vdt"
+                        data-leafygreen-ui="radio-input-display-wrapper"
+                      >
+                        <div
+                          className="leafygreen-ui-1y6j5s3"
+                          data-leafygreen-ui="radio-input-display"
+                          onBlur={[Function]}
+                          onFocus={[Function]}
+                        />
+                        <div
+                          className="leafygreen-ui-1cqcpzq"
+                          data-leafygreen-ui="interaction-ring"
+                        />
+                      </div>
+                      <div
+                        className="leafygreen-ui-3sm8z"
+                      >
+                        Percentage
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="css-j6oyur-ChartWrapper e3d007b1"
+      >
+        <div
+          className="css-gnwyka-FlexRowContainer eq4i7ol1"
+        >
+          <div
+            className="css-mgqp2w-CommitWrapper eq4i7ol0"
+            width={200}
+          >
+            <div
+              className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+              data-cy="commit-chart-container"
+              data-type="absolute"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              <div
+                className="css-118ut8l-Bar e1tzsy280"
+                color="#4F4FBF"
+                data-cy="commit-chart-bar"
+                height="35%"
+              />
+              <div
+                className="css-1ciyyzm-Bar e1tzsy280"
+                color="#F1F0FC"
+                data-cy="commit-chart-bar"
+                height="25%"
+              />
+              <div
+                className="css-1wnnau0-Bar e1tzsy280"
+                color="#5D6C74"
+                data-cy="commit-chart-bar"
+                height="10%"
+              />
+            </div>
+          </div>
+          <div
+            className="css-mgqp2w-CommitWrapper eq4i7ol0"
+            width={200}
+          >
+            <div
+              className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+              data-cy="commit-chart-container"
+              data-type="absolute"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              <div
+                className="css-13lwr9o-Bar e1tzsy280"
+                color="#CF4A22"
+                data-cy="commit-chart-bar"
+                height="30%"
+              />
+              <div
+                className="css-1l8kjo3-Bar e1tzsy280"
+                color="#4F4FBF"
+                data-cy="commit-chart-bar"
+                height="30%"
+              />
+              <div
+                className="css-1sxj9ug-Bar e1tzsy280"
+                color="#89979B"
+                data-cy="commit-chart-bar"
+                height="10%"
+              />
+              <div
+                className="css-1pry9ok-Bar e1tzsy280"
+                color="#5D6C74"
+                data-cy="commit-chart-bar"
+                height="60%"
+              />
+            </div>
+          </div>
+          <div
+            className="css-11x1fi4-CommitWrapper eq4i7ol0"
+            width={64}
+          >
+            <div
+              className="css-316fn7-InactiveCommitContainer ezzuvrx10"
+            >
+              <div
+                className="css-1q62izj-InactiveCommitLine ezzuvrx9"
+              />
+            </div>
+          </div>
+          <div
+            className="css-mgqp2w-CommitWrapper eq4i7ol0"
+            width={200}
+          >
+            <div
+              className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+              data-cy="commit-chart-container"
+              data-type="absolute"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              <div
+                className="css-o4mlxh-Bar e1tzsy280"
+                color="#F1F0FC"
+                data-cy="commit-chart-bar"
+                height="20%"
+              />
+              <div
+                className="css-17vb51y-Bar e1tzsy280"
+                color="#89979B"
+                data-cy="commit-chart-bar"
+                height="35%"
+              />
+            </div>
+          </div>
+          <div
+            className="css-mgqp2w-CommitWrapper eq4i7ol0"
+            width={200}
+          >
+            <div
+              className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+              data-cy="commit-chart-container"
+              data-type="absolute"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              <div
+                className="css-zz768j-Bar e1tzsy280"
+                color="#CF4A22"
+                data-cy="commit-chart-bar"
+                height="10%"
+              />
+              <div
+                className="css-1etxla3-Bar e1tzsy280"
+                color="#5D6C74"
+                data-cy="commit-chart-bar"
+                height="35%"
+              />
+            </div>
+          </div>
+          <div
+            className="css-mgqp2w-CommitWrapper eq4i7ol0"
+            width={200}
+          >
+            <div
+              className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+              data-cy="commit-chart-container"
+              data-type="absolute"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              <div
+                className="css-d68zij-Bar e1tzsy280"
+                color="#13AA52"
+                data-cy="commit-chart-bar"
+                height="30%"
+              />
+              <div
+                className="css-zz768j-Bar e1tzsy280"
+                color="#CF4A22"
+                data-cy="commit-chart-bar"
+                height="10%"
+              />
+              <div
+                className="css-1wqr4kq-Bar e1tzsy280"
+                color="#FFDD49"
+                data-cy="commit-chart-bar"
+                height="45%"
+              />
+              <div
+                className="css-1sxj9ug-Bar e1tzsy280"
+                color="#89979B"
+                data-cy="commit-chart-bar"
+                height="10%"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="css-an2uwi-GridLabelContainer e18agri1"
+        >
+          <div
+            className="css-1dwm295-YAxisValue e18agri0"
+          >
+            20
+          </div>
+          <div
+            className="css-1dwm295-YAxisValue e18agri0"
+          >
+            16
+          </div>
+          <div
+            className="css-1dwm295-YAxisValue e18agri0"
+          >
+            12
+          </div>
+          <div
+            className="css-1dwm295-YAxisValue e18agri0"
+          >
+            8
+          </div>
+          <div
+            className="css-1dwm295-YAxisValue e18agri0"
+          >
+            4
+          </div>
+          <div
+            className="css-1dwm295-YAxisValue e18agri0"
+          >
+            0
+          </div>
+        </div>
+        <div
+          className="css-1kwm5h2-ColumnContainer e15dc98b2"
+        >
+          <div
+            className="css-oxpn1r-DashedLine e15dc98b1"
+          />
+          <div
+            className="css-oxpn1r-DashedLine e15dc98b1"
+          />
+          <div
+            className="css-oxpn1r-DashedLine e15dc98b1"
+          />
+          <div
+            className="css-oxpn1r-DashedLine e15dc98b1"
+          />
+          <div
+            className="css-oxpn1r-DashedLine e15dc98b1"
+          />
+          <div
+            className="css-1sahvn-SolidLine e15dc98b0"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="css-1nsrvm5-StickyContainer ech0nhv2"
+  >
+    <div
+      className="css-gnwyka-FlexRowContainer eq4i7ol1"
+    >
+      <div
+        className="css-mgqp2w-CommitWrapper eq4i7ol0"
         width={200}
       >
         <div
@@ -307,7 +478,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
         </div>
       </div>
       <div
-        className="css-mgqp2w-CommitWrapper ech0nhv2"
+        className="css-mgqp2w-CommitWrapper eq4i7ol0"
         width={200}
       >
         <div
@@ -352,7 +523,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
         </div>
       </div>
       <div
-        className="css-11x1fi4-CommitWrapper ech0nhv2"
+        className="css-11x1fi4-CommitWrapper eq4i7ol0"
         width={64}
       >
         <div
@@ -372,7 +543,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
         </div>
       </div>
       <div
-        className="css-mgqp2w-CommitWrapper ech0nhv2"
+        className="css-mgqp2w-CommitWrapper eq4i7ol0"
         width={200}
       >
         <div
@@ -424,7 +595,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
         </div>
       </div>
       <div
-        className="css-mgqp2w-CommitWrapper ech0nhv2"
+        className="css-mgqp2w-CommitWrapper eq4i7ol0"
         width={200}
       >
         <div
@@ -469,7 +640,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
         </div>
       </div>
       <div
-        className="css-mgqp2w-CommitWrapper ech0nhv2"
+        className="css-mgqp2w-CommitWrapper eq4i7ol0"
         width={200}
       >
         <div
@@ -516,10 +687,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
     </div>
   </div>
   <div
-    className="css-gnwyka-FlexRowContainer ech0nhv4"
+    className="css-gnwyka-FlexRowContainer eq4i7ol1"
   >
     <div
-      className="css-mgqp2w-CommitWrapper ech0nhv2"
+      className="css-mgqp2w-CommitWrapper eq4i7ol0"
       width={200}
     >
       <div
@@ -628,7 +799,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
       </div>
     </div>
     <div
-      className="css-mgqp2w-CommitWrapper ech0nhv2"
+      className="css-mgqp2w-CommitWrapper eq4i7ol0"
       width={200}
     >
       <div
@@ -737,11 +908,11 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
       </div>
     </div>
     <div
-      className="css-11x1fi4-CommitWrapper ech0nhv2"
+      className="css-11x1fi4-CommitWrapper eq4i7ol0"
       width={64}
     />
     <div
-      className="css-mgqp2w-CommitWrapper ech0nhv2"
+      className="css-mgqp2w-CommitWrapper eq4i7ol0"
       width={200}
     >
       <div
@@ -850,7 +1021,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
       </div>
     </div>
     <div
-      className="css-mgqp2w-CommitWrapper ech0nhv2"
+      className="css-mgqp2w-CommitWrapper eq4i7ol0"
       width={200}
     >
       <div
@@ -959,7 +1130,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
       </div>
     </div>
     <div
-      className="css-mgqp2w-CommitWrapper ech0nhv2"
+      className="css-mgqp2w-CommitWrapper eq4i7ol0"
       width={200}
     >
       <div

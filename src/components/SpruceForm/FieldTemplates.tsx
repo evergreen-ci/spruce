@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import Banner from "@leafygreen-ui/banner";
 import Button from "@leafygreen-ui/button";
 import ExpandableCard from "@leafygreen-ui/expandable-card";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -26,6 +27,52 @@ const getIndex = (id: string): number => {
   const index = Number(stringIndex);
   return Number.isInteger(index) ? index : null;
 };
+
+export const ObjectFieldTemplate = ({
+  DescriptionField,
+  description,
+  TitleField,
+  title,
+  properties,
+  required,
+  uiSchema,
+  idSchema,
+}: ObjectFieldTemplateProps) => {
+  const errors = uiSchema["ui:errors"] ?? [];
+  const warnings = uiSchema["ui:warnings"] ?? [];
+  return (
+    <fieldset id={idSchema.$id}>
+      {(uiSchema["ui:title"] || title) && (
+        <TitleField
+          id={`${idSchema.$id}__title`}
+          title={title || uiSchema["ui:title"]}
+          required={required}
+        />
+      )}
+      {description && (
+        <DescriptionField
+          id={`${idSchema.$id}__description`}
+          description={description}
+        />
+      )}
+      {!!errors.length && (
+        <StyledBanner variant="danger" data-cy="error-banner">
+          {errors.join(", ")}
+        </StyledBanner>
+      )}
+      {!!warnings.length && (
+        <StyledBanner variant="warning" data-cy="warning-banner">
+          {warnings.join(", ")}
+        </StyledBanner>
+      )}
+      {properties.map((prop) => prop.content)}
+    </fieldset>
+  );
+};
+
+const StyledBanner = styled(Banner)`
+  margin-bottom: ${size.s};
+`;
 
 // Custom field template that does not render fields' titles, as this is handled by LeafyGreen widgets
 export const DefaultFieldTemplate: React.VFC<FieldTemplateProps> = ({

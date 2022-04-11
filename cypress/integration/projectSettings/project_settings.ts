@@ -53,12 +53,42 @@ describe("Repo Settings", () => {
       cy.dataCy("save-settings-button").should("be.disabled");
     });
 
+    it("Shows an error banner when a patch definition does not exist", () => {
+      cy.dataCy("error-banner")
+        .contains(
+          "A GitHub Patch Definition must be specified for this feature to run."
+        )
+        .should("exist");
+    });
+
+    it("Shows an error banner when a commit check definition does not exist", () => {
+      cy.dataCy("error-banner")
+        .contains(
+          "A Commit Check Definition must be specified for this feature to run."
+        )
+        .should("exist");
+    });
+
+    it("Shows an error banner when a commit queue definition does not exist", () => {
+      cy.dataCy("error-banner")
+        .contains(
+          "A Commit Queue Patch Definition must be specified for this feature to run."
+        )
+        .should("exist");
+    });
+
     it("Updates a patch definition", () => {
       cy.dataCy("add-button").contains("Add Patch Definition").parent().click();
 
       cy.dataCy("variant-tags-input").first().type("vtag");
 
       cy.dataCy("task-tags-input").first().type("ttag");
+    });
+
+    it("Does not show an error banner when a patch definition is added", () => {
+      cy.contains(
+        "A GitHub Patch Definition must be specified for this feature to run."
+      ).should("not.exist");
     });
 
     it("Toggling disable commit queue hides inputs", () => {
@@ -448,10 +478,21 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("task-tags-input").should("be.disabled");
     });
 
+    it("Does not show an error banner when a patch definition is defined in the repo", () => {
+      cy.contains(
+        "A GitHub Patch Definition must be specified for this feature to run."
+      ).should("not.exist");
+    });
+
     it("Allows overriding repo patch definitions", () => {
       cy.getInputByLabel("Override Repo Patch Definition").first().click({
         force: true,
       });
+      cy.dataCy("error-banner")
+        .contains(
+          "A GitHub Patch Definition must be specified for this feature to run."
+        )
+        .should("exist");
       cy.dataCy("add-button").contains("Add Patch Definition").parent().click();
       cy.dataCy("variant-input-control")
         .find("button")
@@ -475,6 +516,14 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("task-input-control").find("button").contains("Regex").click();
       cy.dataCy("task-input").first().type(".*");
       cy.dataCy("save-settings-button").should("not.be.disabled");
+    });
+
+    it("Shows a warning banner when a commit check definition does not exist", () => {
+      cy.dataCy("warning-banner")
+        .contains(
+          "This feature will only run if a Commit Check Definition is defined in the project or repo."
+        )
+        .should("exist");
     });
 
     it("Disables Authorized Users section based on repo settings", () => {
@@ -700,5 +749,36 @@ describe("Attaching Spruce to a repo", () => {
         "Enabling the Commit Queue would introduce conflicts with the following project(s): evergreen."
       );
     });
+  });
+});
+
+describe("Renaming the identifier", () => {
+  const destination = getGeneralRoute(project);
+
+  before(() => {
+    cy.login();
+    cy.visit(destination);
+  });
+
+  beforeEach(() => {
+    cy.preserveCookies();
+  });
+
+  it("Shows warning text when identifier is changed", () => {
+    const warningText =
+      "Updates made to the project identifier will change the identifier used for the CLI, inter-project dependencies, etc. Project users should be made aware of this change, as the old identifier will no longer work.";
+
+    cy.dataCy("input-warning").should("not.contain", warningText);
+    cy.dataCy("identifier-input").clear().type("new-identifier");
+    cy.dataCy("input-warning").should("contain", warningText);
+  });
+
+  it("Successfully saves", () => {
+    cy.dataCy("save-settings-button").click();
+    cy.validateToast("success");
+  });
+
+  it("Redirects to a new URL", () => {
+    cy.url().should("include", "new-identifier");
   });
 });

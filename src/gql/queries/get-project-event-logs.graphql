@@ -1,0 +1,16 @@
+#import "../fragments/projectSettings/projectEventSettings.graphql"
+query ProjectEventLogs($identifier: String!) {
+  projectEvents(identifier: $identifier) {
+    count
+    eventLogEntries {
+      timestamp
+      user
+      before {
+        ...projectEventSettings
+      }
+      after {
+        ...projectEventSettings
+      }
+    }
+  }
+}

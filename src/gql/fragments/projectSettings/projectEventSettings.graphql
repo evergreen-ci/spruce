@@ -1,0 +1,94 @@
+#import "./access.graphql"
+#import "./aliases.graphql"
+#import "./general.graphql"
+#import "./githubCommitQueue.graphql"
+#import "./variables.graphql"
+#import "./plugins.graphql"
+#import "./notifications.graphql"
+#import "./patchAliases.graphql"
+#import "./virtualWorkstation.graphql"
+#import "./periodicBuilds.graphql"
+
+fragment projectEventSettings on ProjectEventSettings {
+  projectRef {
+    id
+    identifier
+    repoRefId
+    ...projectGeneralSettings
+    ...projectAccessSettings
+    ...projectPluginsSettings
+    ...projectNotificationSettings
+    ...projectPatchAliasSettings
+    ...projectVirtualWorkstationSettings
+
+    versionControlEnabled
+
+    triggers {
+      project
+      level
+      definitionID
+      buildVariantRegex
+      taskRegex
+      status
+      dateCutoff
+      configFile
+      generateFile
+      command
+      alias
+    }
+    ...projectPeriodicBuildsSettings
+    tracksPushEvents
+    hidden
+  }
+  subscriptions {
+    ...subscriptions
+  }
+  vars {
+    ...variables
+  }
+  ...projectEventGithubCommitQueue
+  aliases {
+    ...alias
+  }
+}
+
+fragment repoEventSettings on RepoEventSettings {
+  projectRef {
+    id
+    displayName
+    ...repoGeneralSettings
+    ...repoAccessSettings
+    ...repoPluginsSettings
+    ...repoNotificationSettings
+    ...repoPatchAliasSettings
+    ...repoVirtualWorkstationSettings
+
+    versionControlEnabled
+
+    triggers {
+      project
+      level
+      definitionID
+      buildVariantRegex
+      taskRegex
+      status
+      dateCutoff
+      configFile
+      generateFile
+      command
+      alias
+    }
+    ...repoPeriodicBuildsSettings
+    tracksPushEvents
+  }
+  vars {
+    ...variables
+  }
+  subscriptions {
+    ...subscriptions
+  }
+  ...repoEventGithubCommitQueue
+  aliases {
+    ...alias
+  }
+}
