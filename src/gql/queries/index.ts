@@ -15,7 +15,6 @@ import GET_COMMIT_QUEUE from "./get-commit-queue.graphql";
 import GET_CREATED_TICKETS from "./get-created-tickets.graphql";
 import GET_DISPLAY_TASK from "./get-display-task.graphql";
 import GET_DISTROS from "./get-distros.graphql";
-import GET_EVENT_LOGS from "./get-event-logs.graphql";
 import GET_GITHUB_PROJECT_CONFLICTS from "./get-github-project-conflicts.graphql";
 import GET_HAS_VERSION from "./get-has-version.graphql";
 import GET_HOST_EVENTS from "./get-host-events.graphql";
@@ -35,13 +34,16 @@ import GET_PATCH_CONFIGURE from "./get-patch-configure.graphql";
 import GET_PATCH_TASK_STATUSES from "./get-patch-task-statuses.graphql";
 import GET_PATCH_TASKS from "./get-patch-tasks.graphql";
 import GET_PATCH from "./get-patch.graphql";
+import GET_PROJECT_EVENT_LOGS from "./get-project-event-logs.graphql";
 import GET_PROJECT_SETTINGS from "./get-project-settings.graphql";
 import GET_PROJECTS from "./get-projects.graphql";
 import GET_MY_PUBLIC_KEYS from "./get-public-keys.graphql";
+import GET_REPO_EVENT_LOGS from "./get-repo-event-logs.graphql";
 import GET_REPO_SETTINGS from "./get-repo-settings.graphql";
 import GET_SPRUCE_CONFIG from "./get-spruce-config.graphql";
 import GET_SYSTEM_LOGS from "./get-system-logs.graphql";
 import GET_TASK_ALL_EXECUTIONS from "./get-task-all-executions.graphql";
+import GET_TASK_EVENT_LOGS from "./get-task-event-logs.graphql";
 import GET_TASK_FILES from "./get-task-files.graphql";
 import GET_TASKS_FOR_TESTS_TABLE from "./get-task-for-tests-table.graphql";
 import GET_TASK_LOGS from "./get-task-logs.graphql";
@@ -84,7 +86,9 @@ export {
   GET_IS_PATCH_CONFIGURED,
   GET_PATCH_TASKS,
   GET_PROJECT_SETTINGS,
+  GET_PROJECT_EVENT_LOGS,
   GET_PROJECTS,
+  GET_REPO_EVENT_LOGS,
   GET_REPO_SETTINGS,
   GET_TASK_FILES,
   GET_TASK_TESTS,
@@ -122,7 +126,7 @@ export {
   GET_TASK_LOGS,
   GET_AGENT_LOGS,
   GET_ALL_LOGS,
-  GET_EVENT_LOGS,
+  GET_TASK_EVENT_LOGS,
   GET_SYSTEM_LOGS,
   GET_PROJECT_PATCHES,
   GET_USER_PATCHES,
