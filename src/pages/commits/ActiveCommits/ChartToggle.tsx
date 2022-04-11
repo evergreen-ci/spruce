@@ -81,5 +81,4 @@ const AccordionContainer = styled.div`
   align-items: flex-end;
   position: absolute;
   z-index: ${zIndex.toast};
-  padding-bottom: 8px;
 `;

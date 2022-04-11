@@ -39,10 +39,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
       className="css-1ds08bm-ContentsContainer ev0bopr0"
     >
       <div
-        className="css-pctbch-AbsoluteContainer e3d007b2"
+        className="css-1a2lfbq-RelativeContainer e3d007b2"
       >
         <div
-          className="css-qo77zm-AccordionContainer e1d5uzqe0"
+          className="css-ujk0q5-AccordionContainer e1d5uzqe0"
         >
           <div
             className="css-1r6zuyg-Row ev0bopr3"
