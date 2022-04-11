@@ -60,7 +60,7 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
                   onConfirm={(task: string) =>
                     updateQueryParams({
                       taskName: task || undefined,
-                      page: `${0}`,
+                      page: "0",
                     })
                   }
                   data-cy="task-name-filter-popover"
@@ -77,7 +77,7 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
                   onConfirm={(buildVariant: string) =>
                     updateQueryParams({
                       variant: buildVariant || undefined,
-                      page: `${0}`,
+                      page: "0",
                     })
                   }
                   data-cy="build-variant-filter-popover"
@@ -210,9 +210,6 @@ const TableWrapper = styled.div`
     :nth-of-type(3) {
       span {
         width: 100%;
-      }
-      svg {
-        float: right;
       }
     }
   }
