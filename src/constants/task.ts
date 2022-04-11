@@ -235,30 +235,36 @@ export const mapUmbrellaStatusColors = {
 };
 
 export const mapTaskToBarchartColor = {
+  [TaskStatus.UndispatchedUmbrella]: gray.dark1,
+  [TaskStatus.RunningUmbrella]: yellow.base,
+  [TaskStatus.SystemFailureUmbrella]: purple.base,
+  [TaskStatus.ScheduledUmbrella]: gray.base,
+  [TaskStatus.FailedUmbrella]: red.base,
+  [TaskStatus.Succeeded]: green.base,
+  [TaskStatus.SetupFailed]: purple.light1,
+};
+
+export const mapTaskToUmbrellaColor = {
   // Success
   [TaskStatus.Succeeded]: green.base,
 
   // System failures
-  [TaskStatus.SystemFailureUmbrella]: purple.base,
   [TaskStatus.SetupFailed]: purple.base,
   [TaskStatus.SystemFailed]: purple.base,
   [TaskStatus.SystemTimedOut]: purple.base,
   [TaskStatus.SystemUnresponsive]: purple.base,
 
   // Running
-  [TaskStatus.RunningUmbrella]: yellow.base,
   [TaskStatus.Started]: yellow.base,
   [TaskStatus.Dispatched]: yellow.base,
 
   // Failed
-  [TaskStatus.FailedUmbrella]: red.base,
   [TaskStatus.KnownIssue]: red.base,
   [TaskStatus.Failed]: red.base,
   [TaskStatus.TaskTimedOut]: red.base,
   [TaskStatus.TestTimedOut]: red.base,
 
   // Scheduled
-  [TaskStatus.UndispatchedUmbrella]: gray.base,
   [TaskStatus.Aborted]: gray.base,
   [TaskStatus.Blocked]: gray.base,
   [TaskStatus.Inactive]: gray.base,
@@ -266,7 +272,6 @@ export const mapTaskToBarchartColor = {
   [TaskStatus.Undispatched]: gray.base,
 
   // Undispatched
-  [TaskStatus.ScheduledUmbrella]: gray.dark1,
   [TaskStatus.Pending]: gray.dark1,
   [TaskStatus.Unstarted]: gray.dark1,
   [TaskStatus.WillRun]: gray.dark1,

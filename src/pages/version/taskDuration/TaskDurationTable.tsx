@@ -6,7 +6,7 @@ import { Skeleton } from "antd";
 import Icon from "components/Icon";
 import { TableSearchPopover } from "components/TableSearchPopover";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
-import { mapTaskToBarchartColor } from "constants/task";
+import { mapTaskToUmbrellaColor } from "constants/task";
 import { size } from "constants/tokens";
 import { PatchTasksQuery, SortOrder, SortDirection } from "gql/generated/types";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
@@ -122,7 +122,7 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
               <GraphWrapper>
                 <Bar
                   width={calculateBarWidth(datum?.taskDuration, max)}
-                  color={mapTaskToBarchartColor[datum?.status]}
+                  color={mapTaskToUmbrellaColor[datum?.status]}
                 />
                 <TimeLabel>{msToDuration(datum?.taskDuration)}</TimeLabel>
               </GraphWrapper>
@@ -142,7 +142,7 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
                     <GraphWrapper>
                       <Bar
                         width={calculateBarWidth(task.taskDuration, max)}
-                        color={mapTaskToBarchartColor[task.status]}
+                        color={mapTaskToUmbrellaColor[task.status]}
                       />
                       <TimeLabel>{msToDuration(task.taskDuration)}</TimeLabel>
                     </GraphWrapper>
