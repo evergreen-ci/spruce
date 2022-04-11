@@ -11,6 +11,7 @@ import { DownstreamTasks } from "pages/version/DownstreamTasks";
 import { Tasks } from "pages/version/Tasks";
 import { PatchTab } from "types/patch";
 import { queryString } from "utils";
+import { TaskDuration } from "./TaskDuration";
 
 const { parseQueryString } = queryString;
 
@@ -24,6 +25,16 @@ const tabMap = ({ taskCount, childPatches }) => ({
   [PatchTab.Tasks]: (
     <Tab name="Tasks" id="task-tab" data-cy="task-tab" key="tasks-tab">
       <Tasks taskCount={taskCount} />
+    </Tab>
+  ),
+  [PatchTab.TaskDuration]: (
+    <Tab
+      name="Task Duration"
+      id="duration-tab"
+      data-cy="duration-tab"
+      key="duration-tab"
+    >
+      <TaskDuration taskCount={taskCount} />
     </Tab>
   ),
   [PatchTab.Changes]: (
@@ -60,6 +71,7 @@ export const Tabs: React.VFC<Props> = ({
   const tabIsActive = useMemo(
     () => ({
       [PatchTab.Tasks]: true,
+      [PatchTab.TaskDuration]: true,
       [PatchTab.Changes]: isPatch,
       [PatchTab.DownstreamTasks]: childPatches,
     }),

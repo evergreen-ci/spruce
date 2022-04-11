@@ -1,6 +1,6 @@
 import { SorterResult } from "antd/es/table/interface";
 import { SortDirection, TaskSortCategory, Task } from "gql/generated/types";
-import { parseSortString, toSortString } from "./sortString";
+import { parseSortString, updateSortString, toSortString } from "./sortString";
 
 describe("parseSortString", () => {
   it("should parse a sort string with multiple sorts", () => {
@@ -17,6 +17,44 @@ describe("parseSortString", () => {
   });
   it("should not parse an invalid sort string", () => {
     expect(parseSortString("FOO:ASC")).toStrictEqual([]);
+  });
+});
+
+describe("updateSortString", () => {
+  it("should convert a sort value into a sort string", () => {
+    const sortOrders = [
+      {
+        Key: TaskSortCategory.Name,
+        Direction: SortDirection.Asc,
+      },
+      {
+        Key: TaskSortCategory.Status,
+        Direction: SortDirection.Desc,
+      },
+    ];
+    expect(updateSortString(sortOrders)).toBe("NAME:ASC;STATUS:DESC");
+  });
+  it("should return undefined when there is an invalid sort value", () => {
+    const sortOrders = [
+      {
+        Key: TaskSortCategory.Name,
+        Direction: undefined,
+      },
+    ];
+    expect(updateSortString(sortOrders)).toBeUndefined();
+  });
+  it("should take a multi sort and convert it into a sort string", () => {
+    const sortOrders = [
+      {
+        Key: TaskSortCategory.Status,
+        Direction: undefined,
+      },
+      {
+        Key: TaskSortCategory.BaseStatus,
+        Direction: SortDirection.Asc,
+      },
+    ];
+    expect(updateSortString(sortOrders)).toBe("BASE_STATUS:ASC");
   });
 });
 

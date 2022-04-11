@@ -16,7 +16,19 @@ describe("Tabs", () => {
       locationPathEquals(patches.tasks.route);
       cy.location("search").should(
         "contain",
-        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
+        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BDURATION%3ADESC"
+      );
+    });
+
+    it("Applies default sorts on task duration tab", () => {
+      cy.visit(`${patchRoute}/task-duration`);
+      cy.get(`button[data-cy='${patches.duration.btn}']`)
+        .should("have.attr", "aria-selected")
+        .and("eq", "true");
+      locationPathEquals(patches.duration.route);
+      cy.location("search").should(
+        "contain",
+        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BDURATION%3ADESC"
       );
     });
 
@@ -28,14 +40,14 @@ describe("Tabs", () => {
       locationPathEquals(patches.changes.route);
       cy.location("search").should(
         "not.contain",
-        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
+        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BDURATION%3ADESC"
       );
 
       cy.dataCy("task-tab").first().click();
       locationPathEquals(patches.tasks.route);
       cy.location("search").should(
         "contain",
-        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
+        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BDURATION%3ADESC"
       );
     });
 
@@ -43,14 +55,14 @@ describe("Tabs", () => {
       cy.visit(patchRoute);
       cy.location("search").should(
         "contain",
-        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
+        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BDURATION%3ADESC"
       );
 
       cy.get(`button[data-cy='${patches.changes.btn}']`).click();
       locationPathEquals(patches.changes.route);
       cy.location("search").should(
         "contain",
-        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
+        "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BDURATION%3ADESC"
       );
     });
 
@@ -122,6 +134,7 @@ describe("Tabs", () => {
   const patches = {
     changes: { route: `${patchRoute}/changes`, btn: "changes-tab" },
     tasks: { route: `${patchRoute}/tasks`, btn: "task-tab" },
+    duration: { route: `${patchRoute}/task-duration`, btn: "duration-tab" },
   };
 
   const tasks = {

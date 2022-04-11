@@ -609,6 +609,7 @@ export enum TaskSortCategory {
   Status = "STATUS",
   BaseStatus = "BASE_STATUS",
   Variant = "VARIANT",
+  Duration = "DURATION",
 }
 
 export enum TestSortCategory {
@@ -1408,6 +1409,7 @@ export type Task = {
   taskGroup?: Maybe<Scalars["String"]>;
   taskGroupMaxHosts?: Maybe<Scalars["Int"]>;
   timeTaken?: Maybe<Scalars["Duration"]>;
+  taskDuration?: Maybe<Scalars["Duration"]>;
   totalTestCount: Scalars["Int"];
   versionMetadata: Version;
   order: Scalars["Int"];
@@ -3643,6 +3645,7 @@ export type PatchTasksQuery = {
       buildVariant: string;
       buildVariantDisplayName?: Maybe<string>;
       blocked: boolean;
+      taskDuration?: Maybe<number>;
       projectIdentifier?: Maybe<string>;
       executionTasksFull?: Maybe<
         Array<{
@@ -3654,6 +3657,7 @@ export type PatchTasksQuery = {
           baseStatus?: Maybe<string>;
           buildVariantDisplayName?: Maybe<string>;
           projectIdentifier?: Maybe<string>;
+          taskDuration?: Maybe<number>;
           baseTask?: Maybe<{ id: string; execution: number; status: string }>;
         }>
       >;

@@ -28,6 +28,7 @@ query PatchTasks(
       buildVariant
       buildVariantDisplayName
       blocked
+      taskDuration
       executionTasksFull {
         id
         execution
@@ -42,6 +43,7 @@ query PatchTasks(
         baseStatus
         buildVariantDisplayName
         projectIdentifier
+        taskDuration
       }
       baseTask {
         id

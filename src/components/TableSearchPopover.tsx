@@ -12,10 +12,12 @@ const { gray, white, focus } = uiColors;
 
 interface TableSearchPopoverProps {
   onConfirm: (search: string) => void;
+  "data-cy"?: string;
 }
 
 export const TableSearchPopover: React.VFC<TableSearchPopoverProps> = ({
   onConfirm,
+  "data-cy": dataCy,
 }) => {
   const [active, setActive] = useState(false);
   const [search, setSearch] = useState("");
@@ -37,7 +39,7 @@ export const TableSearchPopover: React.VFC<TableSearchPopoverProps> = ({
       <IconWrapper
         active={active}
         onClick={() => setActive(!active)}
-        data-cy="test-filter-popover"
+        data-cy={dataCy}
         ref={buttonRef}
       >
         <Icon glyph="MagnifyingGlass" small="xsmall" color={iconColor} />

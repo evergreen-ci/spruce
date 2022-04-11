@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { Skeleton } from "antd";
 import { useParams, useLocation } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { PageSizeSelector } from "components/PageSizeSelector";
@@ -17,10 +16,9 @@ import { GET_PATCH_TASKS } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
-import { queryString, url, array } from "utils";
-import { PatchTasksTable } from "./tasks/PatchTasksTable";
+import { queryString, url } from "utils";
+import { TaskDurationTable } from "./taskDuration/TaskDurationTable";
 
-const { toArray } = array;
 const { parseQueryString, parseSortString, getString } = queryString;
 
 const { getPageFromSearch, getLimitFromSearch } = url;
@@ -28,7 +26,7 @@ interface Props {
   taskCount: number;
 }
 
-export const Tasks: React.VFC<Props> = ({ taskCount }) => {
+export const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
   const { id: versionId } = useParams<{ id: string }>();
 
   const { search } = useLocation();
@@ -39,8 +37,11 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
   const queryVariables = getQueryVariables(search, versionId);
   const noQueryVariables = !search.length;
 
-  const { sorts, limit, page } = queryVariables;
+  const { limit, page } = queryVariables;
   const defaultSortMethod = "STATUS:ASC;BASE_STATUS:DESC;DURATION:DESC";
+
+  const { sorts: allSorts } = parseQueryString(search);
+  const sortOrders = parseSortString(allSorts);
 
   useEffect(() => {
     if (noQueryVariables) {
@@ -69,8 +70,6 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
   const onClearAll = () => {
     sendEvent({ name: "Clear all filter" });
     updateQueryParams({
-      statuses: undefined,
-      baseStatuses: undefined,
       taskName: undefined,
       variant: undefined,
       page: undefined,
@@ -110,11 +109,7 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
           />
         </TableControlInnerRow>
       </TableControlOuterRow>
-      {!data ? (
-        <Skeleton active title={false} paragraph={{ rows: 8 }} />
-      ) : (
-        <PatchTasksTable sorts={sorts} patchTasks={patchTasks} />
-      )}
+      <TaskDurationTable patchTasks={patchTasks} sorts={sortOrders} />
     </>
   );
 };
@@ -126,14 +121,12 @@ const getQueryVariables = (
   const {
     [PatchTasksQueryParams.Variant]: variant,
     [PatchTasksQueryParams.TaskName]: taskName,
-    [PatchTasksQueryParams.Statuses]: statuses,
-    [PatchTasksQueryParams.BaseStatuses]: baseStatuses,
     [PatchTasksQueryParams.Sorts]: sorts,
   } = parseQueryString(search);
 
-  // Don't include duration when sorting on PatchTasks table.
+  // Only include duration when sorting on TaskDuration table.
   const filteredSorts = parseSortString(sorts).filter(
-    (sort) => sort.Key !== "DURATION"
+    (sort) => sort.Key === "DURATION"
   );
 
   return {
@@ -141,8 +134,6 @@ const getQueryVariables = (
     sorts: filteredSorts,
     variant: getString(variant),
     taskName: getString(taskName),
-    statuses: toArray(statuses),
-    baseStatuses: toArray(baseStatuses),
     page: getPageFromSearch(search),
     limit: getLimitFromSearch(search),
   };

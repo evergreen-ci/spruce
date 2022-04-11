@@ -85,6 +85,7 @@ export const JobLogsTable: React.VFC<JobLogsTableProps> = ({
                         page: `${0}`,
                       })
                     }
+                    data-cy="test-filter-popover"
                   />
                 </LabelWrapper>
               }
