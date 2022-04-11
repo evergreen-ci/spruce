@@ -1,10 +1,10 @@
-#import "../fragments/projectSettings/index.graphql"
-
 mutation SaveRepoSettingsForSection(
   $repoSettings: RepoSettingsInput!
   $section: ProjectSettingsSection!
 ) {
   saveRepoSettingsForSection(repoSettings: $repoSettings, section: $section) {
-    ...repoSettings
+    projectRef {
+      id
+    }
   }
 }

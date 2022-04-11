@@ -22,7 +22,6 @@ describe("historyTable utils", () => {
         newCommits: [],
         existingCommits: [],
         selectedCommitOrder: null,
-        selectedCommitRow: null,
       });
       expect(processedCommits).toStrictEqual([]);
     });
@@ -33,7 +32,6 @@ describe("historyTable utils", () => {
         newCommits: [firstCommit],
         existingCommits: [],
         selectedCommitOrder: null,
-        selectedCommitRow: null,
       });
       expect(processedCommits).toStrictEqual<CommitRowType[]>([
         {
@@ -59,7 +57,6 @@ describe("historyTable utils", () => {
           newCommits: [firstCommit, secondCommit],
           existingCommits: [],
           selectedCommitOrder: null,
-          selectedCommitRow: null,
         });
         expect(processedCommits).toStrictEqual<CommitRowType[]>([
           {
@@ -88,7 +85,6 @@ describe("historyTable utils", () => {
           newCommits: [firstCommit, thirdCommit],
           existingCommits: [],
           selectedCommitOrder: null,
-          selectedCommitRow: null,
         });
         expect(processedCommits).toStrictEqual<CommitRowType[]>([
           {
@@ -126,7 +122,6 @@ describe("historyTable utils", () => {
           newCommits: [foldedUpCommits],
           existingCommits: [],
           selectedCommitOrder: null,
-          selectedCommitRow: null,
         });
         expect(processedCommits).toStrictEqual<CommitRowType[]>([
           {
@@ -161,7 +156,6 @@ describe("historyTable utils", () => {
             },
           ],
           selectedCommitOrder: null,
-          selectedCommitRow: null,
         });
         expect(processedCommits).toStrictEqual<CommitRowType[]>([
           {
@@ -198,7 +192,6 @@ describe("historyTable utils", () => {
           newCommits: [mainlineCommitData.versions[0]],
           existingCommits: [],
           selectedCommitOrder: 3399,
-          selectedCommitRow: null,
         });
         expect(processedCommits).toStrictEqual([
           {
@@ -221,7 +214,6 @@ describe("historyTable utils", () => {
           newCommits: [mainlineCommitData.versions[0]],
           existingCommits: [],
           selectedCommitOrder: 1996,
-          selectedCommitRow: null,
         });
         expect(processedCommits).toStrictEqual([
           {
@@ -238,29 +230,6 @@ describe("historyTable utils", () => {
           },
         ]);
         expect(selectedCommitRowIndex).toBeNull();
-      });
-      it("should not overwrite a previously found row", () => {
-        const { processedCommits, selectedCommitRowIndex } = processCommits({
-          newCommits: [mainlineCommitData.versions[0]],
-          existingCommits: [],
-          selectedCommitOrder: 3399,
-          selectedCommitRow: 2,
-        });
-        expect(processedCommits).toStrictEqual([
-          {
-            date: mainlineCommitData.versions[0].version.createTime,
-            type: rowType.DATE_SEPARATOR,
-            rowHeight: DATE_SEPARATOR_HEIGHT,
-          },
-          {
-            commit: mainlineCommitData.versions[0].version,
-            date: mainlineCommitData.versions[0].version.createTime,
-            type: rowType.COMMIT,
-            rowHeight: COMMIT_HEIGHT,
-            selected: true,
-          },
-        ]);
-        expect(selectedCommitRowIndex).toBe(1);
       });
     });
   });

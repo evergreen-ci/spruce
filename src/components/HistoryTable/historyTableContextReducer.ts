@@ -1,5 +1,5 @@
 import { TestFilter } from "gql/generated/types";
-import { CommitRowType, mainlineCommits } from "./types";
+import { CommitRowType, mainlineCommits, rowType } from "./types";
 import {
   calcColumnLimitFromWidth,
   processCommits,
@@ -13,7 +13,7 @@ type Action =
   | { type: "prevPageColumns" }
   | { type: "setColumnLimit"; limit: number }
   | { type: "setHistoryTableFilters"; filters: TestFilter[] }
-  | { type: "toggleRowSizeAtIndex"; index: number; numCommits: number }
+  | { type: "markSelectedRowVisited" }
   | { type: "onChangeTableWidth"; width: number }
   | { type: "setSelectedCommit"; order: number }
   | { type: "toggleRowSizeAtIndex"; index: number; numCommits: number };
@@ -24,25 +24,35 @@ type cacheShape = Map<
   | mainlineCommits["versions"][0]["rolledUpVersions"][0]
 >;
 export interface HistoryTableReducerState {
-  loadedCommits: mainlineCommits["versions"];
-  processedCommits: CommitRowType[];
-  processedCommitCount: number;
   commitCache: cacheShape;
-  visibleColumns: string[];
   currentPage: number;
-  pageCount: number;
   columns: string[];
   columnLimit: number;
-  historyTableFilters: TestFilter[];
   commitCount: number;
+  loadedCommits: mainlineCommits["versions"];
+  pageCount: number;
+  processedCommits: CommitRowType[];
+  processedCommitCount: number;
+  historyTableFilters: TestFilter[];
   selectedCommit: {
     order: number;
     rowIndex: number;
+    visited: boolean;
+    loaded: boolean;
   };
+  visibleColumns: string[];
 }
 
 export const reducer = (state: HistoryTableReducerState, action: Action) => {
   switch (action.type) {
+    case "addColumns":
+      return {
+        ...state,
+        columns: action.columns,
+        visibleColumns: action.columns.slice(0, state.columnLimit),
+        currentPage: 0,
+        pageCount: Math.ceil(action.columns.length / state.columnLimit),
+      };
     case "ingestNewCommits": {
       // We cache the commits and use this to determine if a new commit was added in this action
       // This also performantly handles deduplication of commits at the expense of memory
@@ -56,7 +66,6 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
           newCommits: action.commits.versions,
           existingCommits: state.processedCommits,
           selectedCommitOrder: state.selectedCommit?.order,
-          selectedCommitRow: state.selectedCommit?.rowIndex,
         });
         let { commitCount } = state;
         // If there are no previous commits, we can set the commitCount to be the first commit's order.
@@ -75,36 +84,28 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
 
         return {
           ...state,
+          ...(selectedCommitRowIndex !== null && {
+            selectedCommit: {
+              ...state.selectedCommit,
+              rowIndex: selectedCommitRowIndex,
+              loaded: true,
+            },
+          }),
           commitCache: updatedObjectCache,
           processedCommits,
           processedCommitCount: processedCommits.length,
           commitCount,
-          selectedCommit: state.selectedCommit && {
-            ...state.selectedCommit,
-            rowIndex: selectedCommitRowIndex,
-          },
         };
       }
       return state;
     }
-    case "toggleRowSizeAtIndex": {
-      const newProcessedCommits = toggleRowSizeAtIndex(
-        state.processedCommits,
-        action.numCommits,
-        action.index
-      );
+    case "markSelectedRowVisited":
       return {
         ...state,
-        processedCommits: newProcessedCommits,
-      };
-    }
-    case "addColumns":
-      return {
-        ...state,
-        columns: action.columns,
-        visibleColumns: action.columns.slice(0, state.columnLimit),
-        currentPage: 0,
-        pageCount: Math.ceil(action.columns.length / state.columnLimit),
+        selectedCommit: {
+          ...state.selectedCommit,
+          visited: true,
+        },
       };
     case "nextPageColumns": {
       const pageCount = Math.ceil(state.columns.length / state.columnLimit);
@@ -120,6 +121,19 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
         ...state,
         currentPage: state.currentPage + 1,
         visibleColumns: nextPageColumns,
+      };
+    }
+    case "onChangeTableWidth": {
+      const nextColumnLimit = calcColumnLimitFromWidth(action.width);
+      if (nextColumnLimit === state.columnLimit) {
+        return state;
+      }
+      return {
+        ...state,
+        visibleColumns: state.columns.slice(0, nextColumnLimit),
+        columnLimit: nextColumnLimit,
+        currentPage: 0,
+        pageCount: Math.ceil(state.columns.length / nextColumnLimit),
       };
     }
     case "prevPageColumns": {
@@ -141,32 +155,49 @@ export const reducer = (state: HistoryTableReducerState, action: Action) => {
         ...state,
         columnLimit: action.limit,
       };
-    case "onChangeTableWidth": {
-      const nextColumnLimit = calcColumnLimitFromWidth(action.width);
-      if (nextColumnLimit === state.columnLimit) {
-        return state;
-      }
-      return {
-        ...state,
-        visibleColumns: state.columns.slice(0, nextColumnLimit),
-        columnLimit: nextColumnLimit,
-        currentPage: 0,
-        pageCount: Math.ceil(state.columns.length / nextColumnLimit),
-      };
-    }
     case "setHistoryTableFilters":
       return {
         ...state,
         historyTableFilters: action.filters,
       };
-    case "setSelectedCommit":
+    case "setSelectedCommit": {
+      let rowIndex = null;
+      let loaded = false;
+      const updatedProcessedCommits = state.processedCommits;
+      // If we already loaded the commit we need to search for it in the processed commits
+      // to set its selected state to true. This is in the case where we have the commit in the cache.
+      const hasMatchingCommit = state.commitCache.has(action.order);
+      if (hasMatchingCommit) {
+        rowIndex = state.processedCommits.findIndex((commit) =>
+          commitOrderToRowIndex(action.order, commit)
+        );
+        updatedProcessedCommits[rowIndex].selected = true;
+        loaded = true;
+      }
       return {
         ...state,
+        ...(hasMatchingCommit && {
+          processedCommits: updatedProcessedCommits,
+        }),
         selectedCommit: {
           order: action.order,
-          rowIndex: null,
+          rowIndex,
+          visited: false,
+          loaded,
         },
       };
+    }
+    case "toggleRowSizeAtIndex": {
+      const newProcessedCommits = toggleRowSizeAtIndex(
+        state.processedCommits,
+        action.numCommits,
+        action.index
+      );
+      return {
+        ...state,
+        processedCommits: newProcessedCommits,
+      };
+    }
     default:
       throw new Error(`Unknown reducer action ${action}`);
   }
@@ -189,4 +220,14 @@ const objectifyCommits = (
     }
   });
   return obj;
+};
+
+const commitOrderToRowIndex = (order: number, commit: CommitRowType) => {
+  if (commit.type === rowType.COMMIT) {
+    return commit.commit.order === order;
+  }
+  if (commit.type === rowType.FOLDED_COMMITS) {
+    return commit.rolledUpCommits.some((elem) => elem.order === order);
+  }
+  return false;
 };
