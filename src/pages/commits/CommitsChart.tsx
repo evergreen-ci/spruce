@@ -86,6 +86,12 @@ export const CommitsChart: React.VFC<Props> = ({
         defaultOpen={chartOpen}
         onToggle={() => onChangeChartOpen(!chartOpen)}
       >
+        <RelativeContainer>
+          <ChartToggle
+            currentChartType={chartType}
+            onChangeChartType={onChangeChartType}
+          />
+        </RelativeContainer>
         <ChartWrapper>
           <FlexRowContainer>
             {versions.map((commit) => (
@@ -105,12 +111,6 @@ export const CommitsChart: React.VFC<Props> = ({
           </FlexRowContainer>
           <GridLabel chartType={chartType} max={max} numDashedLine={5} />
           <Grid numDashedLine={5} />
-          <AbsoluteContainer>
-            <ChartToggle
-              currentChartType={chartType}
-              onChangeChartType={onChangeChartType}
-            />
-          </AbsoluteContainer>
         </ChartWrapper>
       </Accordion>
       {!chartOpen && <PaddedLine />}
@@ -118,11 +118,11 @@ export const CommitsChart: React.VFC<Props> = ({
   );
 };
 
-const AbsoluteContainer = styled.div`
-  position: absolute;
-  top: -${size.l};
-  right: 0;
-  left: auto;
+const RelativeContainer = styled.div`
+  position: relative;
+  right: 278px;
+  top: -38px;
+  float: right;
 `;
 
 const ChartWrapper = styled.div`
