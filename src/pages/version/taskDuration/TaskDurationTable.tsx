@@ -153,10 +153,10 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
         )}
       </Table>
       {tasks.length === 0 && (
-        <NoTestResults>
+        <NoResults>
           <Icon glyph="CurlyBraces" size="large" />
-          <Message> No test results found.</Message>
-        </NoTestResults>
+          <Message> No tasks found.</Message>
+        </NoResults>
       )}
     </TableWrapper>
   );
@@ -223,7 +223,7 @@ const SortIcon = styled(Icon)`
   margin-left: ${size.xs};
 `;
 
-const NoTestResults = styled.div`
+const NoResults = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
