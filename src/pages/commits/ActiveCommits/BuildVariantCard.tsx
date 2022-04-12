@@ -63,7 +63,6 @@ export const BuildVariantCard: React.FC<Props> = ({
         onClick={() => {
           sendEvent({
             name: "Click variant label",
-            variant,
           });
         }}
       >

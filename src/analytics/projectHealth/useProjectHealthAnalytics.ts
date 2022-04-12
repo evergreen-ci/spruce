@@ -25,7 +25,7 @@ type Action =
       link: "jira" | "githash";
       commitType: "active" | "inactive";
     }
-  | { name: "Click variant label"; variant: string }
+  | { name: "Click variant label" }
   | { name: "Select chart view option"; viewOption: string }
   | { name: "Click column header" }
   | { name: "Filter by task" }
