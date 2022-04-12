@@ -68,10 +68,9 @@ const TaskHistoryContents: React.FC = () => {
           <H2>Task Name: {taskName}</H2>
           <PageHeaderContent>
             <HistoryTableTestSearch
-              onSubmit={(failedTests: string[]) => {
+              onSubmit={() => {
                 sendEvent({
                   name: "Submit failed test filter",
-                  failedTests,
                 });
               }}
             />

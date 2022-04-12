@@ -3,8 +3,6 @@ import {
   Properties,
   Analytics as A,
 } from "analytics/addPageAction";
-import { HistoryTableTestSearchAnalytics } from "components/HistoryTable/HistoryTableTestSearch/HistoryTableTestSearch";
-import { ProjectSelectAnalytics } from "components/projectSelect";
 
 type pageType = "Commit chart" | "Task history" | "Variant history";
 type Action =
@@ -13,10 +11,8 @@ type Action =
       taskStatus: string;
     }
   | { name: "Paginate"; direction: "previous" | "next" }
-  | ({ name: "Select project" } & ProjectSelectAnalytics)
-  | ({
-      name: "Submit failed test filter";
-    } & HistoryTableTestSearchAnalytics)
+  | { name: "Select project" }
+  | { name: "Submit failed test filter" }
   | { name: "Clear all badges" }
   | { name: "Click grouped task status badge"; statuses: string[] }
   | { name: "Click task status icon"; status: string }

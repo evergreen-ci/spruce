@@ -5,10 +5,7 @@ import Cookies from "js-cookie";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { FilterBadges } from "components/FilterBadges";
-import {
-  ProjectSelect,
-  ProjectSelectAnalytics,
-} from "components/projectSelect";
+import { ProjectSelect } from "components/projectSelect";
 import { PageWrapper } from "components/styles";
 import { ALL_VALUE } from "components/TreeSelect";
 import { TupleSelect } from "components/TupleSelect";
@@ -147,12 +144,9 @@ export const Commits = () => {
             <ProjectSelect
               selectedProjectIdentifier={projectId}
               getRoute={getCommitsRoute}
-              sendAnalytics={({
-                projectIdentifier,
-              }: ProjectSelectAnalytics) => {
+              onSubmit={() => {
                 sendEvent({
                   name: "Select project",
-                  projectIdentifier,
                 });
               }}
             />

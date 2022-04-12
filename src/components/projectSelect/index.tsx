@@ -24,17 +24,14 @@ interface ProjectSelectProps {
   selectedProjectIdentifier: string;
   isProjectSettingsPage?: boolean;
   getRoute: (projectIdentifier: string) => string;
-  sendAnalytics?: (p: ProjectSelectAnalytics) => void;
-}
-export interface ProjectSelectAnalytics {
-  projectIdentifier: string;
+  onSubmit?: (projectIdentifier: string) => void;
 }
 
 export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   selectedProjectIdentifier,
   isProjectSettingsPage = false,
   getRoute,
-  sendAnalytics,
+  onSubmit = () => {},
 }) => {
   const { data: projectsData, loading: projectsLoading } = useQuery<
     GetProjectsQuery,
@@ -108,9 +105,7 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
       options={allProjects}
       onChange={(projectIdentifier: any) => {
         Cookies.set(CURRENT_PROJECT, projectIdentifier, { expires: 365 });
-        if (sendAnalytics) {
-          sendAnalytics({ projectIdentifier });
-        }
+        onSubmit(projectIdentifier);
         history.push(getRoute(projectIdentifier));
       }}
       optionRenderer={(projectGroup, onClick) => (

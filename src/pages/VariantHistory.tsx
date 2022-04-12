@@ -68,10 +68,9 @@ const VariantHistoryContents: React.FC = () => {
           <H2>Build Variant: {variantName}</H2>
           <PageHeaderContent>
             <HistoryTableTestSearch
-              onSubmit={(failedTests: string[]) => {
+              onSubmit={() => {
                 sendEvent({
                   name: "Submit failed test filter",
-                  failedTests,
                 });
               }}
             />

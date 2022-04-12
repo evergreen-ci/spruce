@@ -8,9 +8,6 @@ import { queryString, url } from "utils";
 
 const { upsertQueryParam } = url;
 const { parseQueryString } = queryString;
-export interface HistoryTableTestSearchAnalytics {
-  failedTests: string[];
-}
 interface HistoryTableTestSearchProps {
   onSubmit?: (failedTests: string[]) => void;
 }
