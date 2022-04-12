@@ -38,7 +38,7 @@ export enum ProjectSettingsTabRoutes {
   EventLog = "event-log",
 }
 
-const paths = {
+export const paths = {
   commitQueue: "/commit-queue",
   host: "/host",
   hosts: "/hosts",
