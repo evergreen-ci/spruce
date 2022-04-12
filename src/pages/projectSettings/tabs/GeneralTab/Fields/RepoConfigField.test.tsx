@@ -88,7 +88,7 @@ describe("repoConfigField", () => {
     expect(queryByDataCy("attach-repo-button")).toBeInTheDocument();
   });
 
-  it("disables the attach button when the owner field has been changed", () => {
+  it("disables the attach button when the owner field has been changed and shows a tooltip", async () => {
     const { Component } = RenderFakeToastContext(
       <Field
         projectType={ProjectType.Project}
@@ -97,9 +97,17 @@ describe("repoConfigField", () => {
     );
     const { queryByDataCy } = render(<Component />);
     expect(queryByDataCy("attach-repo-button")).toHaveAttribute("disabled");
+
+    expect(
+      queryByDataCy("attach-repo-disabled-tooltip")
+    ).not.toBeInTheDocument();
+    fireEvent.mouseEnter(queryByDataCy("attach-repo-button"));
+    await waitFor(() => {
+      expect(queryByDataCy("attach-repo-disabled-tooltip")).toBeVisible();
+    });
   });
 
-  it("disables the attach button when the repo field has been changed", () => {
+  it("disables the attach button when the repo field has been changed and shows a tooltip", async () => {
     const { Component } = RenderFakeToastContext(
       <Field
         projectType={ProjectType.Project}
@@ -108,6 +116,14 @@ describe("repoConfigField", () => {
     );
     const { queryByDataCy } = render(<Component />);
     expect(queryByDataCy("attach-repo-button")).toHaveAttribute("disabled");
+
+    expect(
+      queryByDataCy("attach-repo-disabled-tooltip")
+    ).not.toBeInTheDocument();
+    fireEvent.mouseEnter(queryByDataCy("attach-repo-button"));
+    await waitFor(() => {
+      expect(queryByDataCy("attach-repo-disabled-tooltip")).toBeVisible();
+    });
   });
 
   it("shows both buttons for an attached project", () => {
