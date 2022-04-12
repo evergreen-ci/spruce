@@ -19,7 +19,7 @@ type Action =
       name: "Submit failed test filter";
     } & HistoryTableTestSearchAnalytics)
   | { name: "Clear all badges" }
-  | { name: "Click commit chart grouped status badge"; statuses: string[] }
+  | { name: "Click grouped task status badge"; statuses: string[] }
   | { name: "Click commit chart task status icon"; status: string }
   | { name: "Click commit chart variant label"; variant: string }
   | { name: "Click commit chart view option"; viewOption: string }
