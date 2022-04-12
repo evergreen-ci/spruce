@@ -663,10 +663,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
         className="css-ygh2q6-ColumnContainer e1s1lwa10"
       >
         <div
-          className="css-8bv1t4-Container ek3nkvx0"
+          className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
             href="/variant-history/spruce/code_health?selectedCommit=929"
             onClick={[Function]}
@@ -674,14 +674,11 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             01. Code Health [code_health]
           </a>
           <div
-            style={
-              Object {
-                "height": 40,
-              }
-            }
+            className="css-xlhdy3-Content ek3nkvx0"
+            height="40px"
           >
             <div
-              className="css-cdgbn2-IconContainer ek3nkvx1"
+              className="css-cdgbn2-IconContainer ek3nkvx2"
             >
               <a
                 aria-label="pending icon"
@@ -721,10 +718,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           </div>
         </div>
         <div
-          className="css-8bv1t4-Container ek3nkvx0"
+          className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
             href="/variant-history/spruce/package_rpm?selectedCommit=929"
             onClick={[Function]}
@@ -732,14 +729,11 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             02. Packaging (RPM - RHEL7) [package_rpm]
           </a>
           <div
-            style={
-              Object {
-                "height": 40,
-              }
-            }
+            className="css-xlhdy3-Content ek3nkvx0"
+            height="40px"
           >
             <div
-              className="css-cdgbn2-IconContainer ek3nkvx1"
+              className="css-cdgbn2-IconContainer ek3nkvx2"
             >
               <a
                 aria-label="will-run icon"
@@ -779,10 +773,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           </div>
         </div>
         <div
-          className="css-8bv1t4-Container ek3nkvx0"
+          className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
             href="/variant-history/spruce/js?selectedCommit=929"
             onClick={[Function]}
@@ -790,14 +784,11 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             03b. JavaScript Tests [js]
           </a>
           <div
-            style={
-              Object {
-                "height": 40,
-              }
-            }
+            className="css-xlhdy3-Content ek3nkvx0"
+            height="40px"
           >
             <div
-              className="css-cdgbn2-IconContainer ek3nkvx1"
+              className="css-cdgbn2-IconContainer ek3nkvx2"
             >
               <a
                 aria-label="will-run icon"
@@ -846,10 +837,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
         className="css-ygh2q6-ColumnContainer e1s1lwa10"
       >
         <div
-          className="css-8bv1t4-Container ek3nkvx0"
+          className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
             href="/variant-history/spruce/code_health?selectedCommit=928"
             onClick={[Function]}
@@ -857,14 +848,11 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             01. Code Health [code_health]
           </a>
           <div
-            style={
-              Object {
-                "height": 40,
-              }
-            }
+            className="css-xlhdy3-Content ek3nkvx0"
+            height="40px"
           >
             <div
-              className="css-cdgbn2-IconContainer ek3nkvx1"
+              className="css-cdgbn2-IconContainer ek3nkvx2"
             >
               <a
                 aria-label="pending icon"
@@ -904,10 +892,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           </div>
         </div>
         <div
-          className="css-8bv1t4-Container ek3nkvx0"
+          className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
             href="/variant-history/spruce/package_rpm?selectedCommit=928"
             onClick={[Function]}
@@ -915,14 +903,11 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             02. Packaging (RPM - RHEL7) [package_rpm]
           </a>
           <div
-            style={
-              Object {
-                "height": 40,
-              }
-            }
+            className="css-xlhdy3-Content ek3nkvx0"
+            height="40px"
           >
             <div
-              className="css-cdgbn2-IconContainer ek3nkvx1"
+              className="css-cdgbn2-IconContainer ek3nkvx2"
             >
               <a
                 aria-label="pending icon"
@@ -962,10 +947,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           </div>
         </div>
         <div
-          className="css-8bv1t4-Container ek3nkvx0"
+          className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
             href="/variant-history/spruce/unit_java?selectedCommit=928"
             onClick={[Function]}
@@ -973,14 +958,11 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             03a. Unit Tests Java [unit_java]
           </a>
           <div
-            style={
-              Object {
-                "height": 40,
-              }
-            }
+            className="css-xlhdy3-Content ek3nkvx0"
+            height="40px"
           >
             <div
-              className="css-cdgbn2-IconContainer ek3nkvx1"
+              className="css-cdgbn2-IconContainer ek3nkvx2"
             >
               <a
                 aria-label="failed icon"
@@ -1028,10 +1010,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
         className="css-ygh2q6-ColumnContainer e1s1lwa10"
       >
         <div
-          className="css-8bv1t4-Container ek3nkvx0"
+          className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
             href="/variant-history/spruce/code_health?selectedCommit=926"
             onClick={[Function]}
@@ -1039,14 +1021,11 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             01. Code Health [code_health]
           </a>
           <div
-            style={
-              Object {
-                "height": 40,
-              }
-            }
+            className="css-xlhdy3-Content ek3nkvx0"
+            height="40px"
           >
             <div
-              className="css-cdgbn2-IconContainer ek3nkvx1"
+              className="css-cdgbn2-IconContainer ek3nkvx2"
             >
               <a
                 aria-label="will-run icon"
@@ -1086,10 +1065,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           </div>
         </div>
         <div
-          className="css-8bv1t4-Container ek3nkvx0"
+          className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
             href="/variant-history/spruce/package_rpm?selectedCommit=926"
             onClick={[Function]}
@@ -1097,14 +1076,11 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             02. Packaging (RPM - RHEL7) [package_rpm]
           </a>
           <div
-            style={
-              Object {
-                "height": 40,
-              }
-            }
+            className="css-xlhdy3-Content ek3nkvx0"
+            height="40px"
           >
             <div
-              className="css-cdgbn2-IconContainer ek3nkvx1"
+              className="css-cdgbn2-IconContainer ek3nkvx2"
             >
               <a
                 aria-label="pending icon"
@@ -1153,10 +1129,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
         className="css-ygh2q6-ColumnContainer e1s1lwa10"
       >
         <div
-          className="css-8bv1t4-Container ek3nkvx0"
+          className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
             href="/variant-history/spruce/code_health?selectedCommit=925"
             onClick={[Function]}
@@ -1164,14 +1140,11 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             01. Code Health [code_health]
           </a>
           <div
-            style={
-              Object {
-                "height": 40,
-              }
-            }
+            className="css-xlhdy3-Content ek3nkvx0"
+            height="40px"
           >
             <div
-              className="css-cdgbn2-IconContainer ek3nkvx1"
+              className="css-cdgbn2-IconContainer ek3nkvx2"
             >
               <a
                 aria-label="will-run icon"
@@ -1211,10 +1184,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           </div>
         </div>
         <div
-          className="css-8bv1t4-Container ek3nkvx0"
+          className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
             href="/variant-history/spruce/package_rpm?selectedCommit=925"
             onClick={[Function]}
@@ -1222,14 +1195,11 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             02. Packaging (RPM - RHEL7) [package_rpm]
           </a>
           <div
-            style={
-              Object {
-                "height": 40,
-              }
-            }
+            className="css-xlhdy3-Content ek3nkvx0"
+            height="40px"
           >
             <div
-              className="css-cdgbn2-IconContainer ek3nkvx1"
+              className="css-cdgbn2-IconContainer ek3nkvx2"
             >
               <a
                 aria-label="success icon"
@@ -1278,10 +1248,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
         className="css-ygh2q6-ColumnContainer e1s1lwa10"
       >
         <div
-          className="css-8bv1t4-Container ek3nkvx0"
+          className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
             href="/variant-history/spruce/code_health?selectedCommit=924"
             onClick={[Function]}
@@ -1289,14 +1259,11 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             01. Code Health [code_health]
           </a>
           <div
-            style={
-              Object {
-                "height": 40,
-              }
-            }
+            className="css-xlhdy3-Content ek3nkvx0"
+            height="40px"
           >
             <div
-              className="css-cdgbn2-IconContainer ek3nkvx1"
+              className="css-cdgbn2-IconContainer ek3nkvx2"
             >
               <a
                 aria-label="failed icon"
@@ -1331,10 +1298,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           </div>
         </div>
         <div
-          className="css-8bv1t4-Container ek3nkvx0"
+          className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
             href="/variant-history/spruce/package_rpm?selectedCommit=924"
             onClick={[Function]}
@@ -1342,14 +1309,11 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             02. Packaging (RPM - RHEL7) [package_rpm]
           </a>
           <div
-            style={
-              Object {
-                "height": 40,
-              }
-            }
+            className="css-xlhdy3-Content ek3nkvx0"
+            height="40px"
           >
             <div
-              className="css-cdgbn2-IconContainer ek3nkvx1"
+              className="css-cdgbn2-IconContainer ek3nkvx2"
             >
               <a
                 aria-label="failed icon"
@@ -1384,10 +1348,10 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           </div>
         </div>
         <div
-          className="css-8bv1t4-Container ek3nkvx0"
+          className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx2"
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
             href="/variant-history/spruce/unit_java?selectedCommit=924"
             onClick={[Function]}
@@ -1395,14 +1359,11 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             03a. Unit Tests Java [unit_java]
           </a>
           <div
-            style={
-              Object {
-                "height": 40,
-              }
-            }
+            className="css-xlhdy3-Content ek3nkvx0"
+            height="40px"
           >
             <div
-              className="css-cdgbn2-IconContainer ek3nkvx1"
+              className="css-cdgbn2-IconContainer ek3nkvx2"
             >
               <a
                 aria-label="failed icon"
