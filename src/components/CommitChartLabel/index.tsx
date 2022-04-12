@@ -9,6 +9,7 @@ import { size, zIndex } from "constants/tokens";
 import {
   GetSpruceConfigQuery,
   GetSpruceConfigQueryVariables,
+  UpstreamProjectFragment,
 } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
 import { ProjectTriggerLevel } from "types/triggers";
@@ -25,17 +26,7 @@ interface Props {
   author: string;
   message: string;
   versionId: string;
-  upstreamProject?: {
-    triggerType: string;
-    project: string;
-
-    task?: {
-      id: string;
-    };
-    version?: {
-      id: string;
-    };
-  };
+  upstreamProject?: UpstreamProjectFragment["upstreamProject"];
 }
 
 const CommitChartLabel: React.VFC<Props> = ({
@@ -58,9 +49,8 @@ const CommitChartLabel: React.VFC<Props> = ({
     triggerType,
     project: upstreamProjectIdentifier,
     task: upstreamTask,
-    task: upstreamVersion,
+    version: upstreamVersion,
   } = upstreamProject || {};
-  console.log(upstreamProject);
   return (
     <LabelContainer data-cy="commit-label">
       <LabelText>
@@ -75,15 +65,14 @@ const CommitChartLabel: React.VFC<Props> = ({
           <StyledRouterLink
             to={
               triggerType === ProjectTriggerLevel.TASK
-                ? getTaskRoute(upstreamTask?.id)
-                : getVersionRoute(upstreamVersion?.id)
+                ? getTaskRoute(upstreamTask.id)
+                : getVersionRoute(upstreamVersion.id)
             }
           >
             {upstreamProjectIdentifier}
           </StyledRouterLink>
         </LabelText>
       )}
-
       <LabelText>{author} -</LabelText>
       <LabelText>
         {jiraLinkify(shortenMessage ? shortenedMessage : message, jiraHost)}
