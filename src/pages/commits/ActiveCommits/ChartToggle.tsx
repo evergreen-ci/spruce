@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
 import { Accordion } from "components/Accordion";
-import { size, zIndex } from "constants/tokens";
+import { size } from "constants/tokens";
 import { ChartTypes } from "types/commits";
 
 const { gray } = uiColors;
@@ -79,6 +79,4 @@ const AccordionContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  position: absolute;
-  z-index: ${zIndex.toast};
 `;
