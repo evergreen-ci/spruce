@@ -55,6 +55,40 @@ const VariantHistoryRow = memo((props: ListChildComponentProps) => {
       columns={orderedColumns}
       numVisibleCols={visibleColumns.length}
       selected={commit?.selected}
+      onClickGithash={() =>
+        sendEvent({
+          name: "Click commit label",
+          link: "githash",
+          commitType: "active",
+        })
+      }
+      onClickFoldedGithash={() =>
+        sendEvent({
+          name: "Click commit label",
+          link: "githash",
+          commitType: "inactive",
+        })
+      }
+      onClickJiraTicket={() => {
+        sendEvent({
+          name: "Click commit label",
+          link: "jira",
+          commitType: "active",
+        });
+      }}
+      onClickFoldedJiraTicket={() => {
+        sendEvent({
+          name: "Click commit label",
+          link: "jira",
+          commitType: "inactive",
+        });
+      }}
+      onToggleFoldedCommit={(isVisible) => {
+        sendEvent({
+          name: "Toggle folded commit",
+          toggle: isVisible ? "open" : "close",
+        });
+      }}
     />
   );
 }, areEqual);

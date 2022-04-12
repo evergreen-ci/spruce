@@ -2,7 +2,6 @@ import { CSSProperties, memo } from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { areEqual } from "react-window";
-import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { Accordion } from "components/Accordion";
 import CommitChartLabel from "components/CommitChartLabel";
 import { MainlineCommitsForHistoryQuery } from "gql/generated/types";
@@ -26,6 +25,9 @@ interface FoldedCommitProps {
   numVisibleCols: number;
   style?: CSSProperties;
   selected: boolean;
+  onToggleFoldedCommit: (isVisible: boolean) => void;
+  onClickJiraTicket: () => void;
+  onClickGithash: () => void;
 }
 export const FoldedCommit = memo(
   ({
@@ -35,8 +37,10 @@ export const FoldedCommit = memo(
     numVisibleCols,
     style,
     selected,
+    onToggleFoldedCommit,
+    onClickGithash,
+    onClickJiraTicket,
   }: FoldedCommitProps) => {
-    const { sendEvent } = useProjectHealthAnalytics();
     const { height } = style;
 
     // The virtualized table will unmount the row when it is scrolled out of view but it will cache its height in memory.
@@ -60,6 +64,8 @@ export const FoldedCommit = memo(
             createTime={commit.createTime}
             author={commit.author}
             message={commit.message}
+            onClickGithash={onClickGithash}
+            onClickJiraTicket={onClickJiraTicket}
           />
         </LabelCellContainer>
         {columns}
@@ -73,11 +79,8 @@ export const FoldedCommit = memo(
           toggledTitle={`Collapse ${numCommits} inactive`}
           titleTag={AccordionTitle}
           contents={commits}
-          onToggle={(isVisible: boolean) => {
-            sendEvent({
-              name: "Toggle folded commit",
-              toggle: isVisible ? "open" : "close",
-            });
+          onToggle={(isVisible) => {
+            onToggleFoldedCommit(isVisible);
             toggleRowSize(index, numCommits);
           }}
           useIndent={false}

@@ -21,7 +21,12 @@ type Action =
   | { name: "Clear all badges" }
   | { name: "Click grouped task status badge"; statuses: string[] }
   | { name: "Click task status icon"; status: string }
-  | { name: "Click commit chart variant label"; variant: string }
+  | {
+      name: "Click commit label";
+      link: "jira" | "githash";
+      commitType: "active" | "inactive";
+    }
+  | { name: "Click variant label"; variant: string }
   | { name: "Select chart view option"; viewOption: string }
   | { name: "Click commit label jira link" }
   | { name: "Click commit label version link"; versionId: string }

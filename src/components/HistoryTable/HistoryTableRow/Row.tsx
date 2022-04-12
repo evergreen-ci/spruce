@@ -12,6 +12,11 @@ interface RowProps extends ListChildComponentProps {
   columns: React.ReactNode[];
   numVisibleCols: number;
   selected: boolean;
+  onClickGithash: () => void;
+  onClickJiraTicket: () => void;
+  onClickFoldedGithash: () => void;
+  onClickFoldedJiraTicket: () => void;
+  onToggleFoldedCommit: (isVisible: boolean) => void;
 }
 const Row: React.FC<RowProps> = ({
   columns,
@@ -20,6 +25,11 @@ const Row: React.FC<RowProps> = ({
   style,
   selected,
   data,
+  onClickGithash,
+  onClickJiraTicket,
+  onClickFoldedGithash,
+  onClickFoldedJiraTicket,
+  onToggleFoldedCommit,
 }) => {
   const { isItemLoaded, getItem, columnLimit } = useHistoryTable();
   if (!isItemLoaded(index)) {
@@ -51,6 +61,8 @@ const Row: React.FC<RowProps> = ({
             createTime={createTime}
             author={author}
             message={message}
+            onClickGithash={onClickGithash}
+            onClickJiraTicket={onClickJiraTicket}
           />
         </LabelCellContainer>
         {columns}
@@ -66,6 +78,9 @@ const Row: React.FC<RowProps> = ({
         numVisibleCols={numVisibleCols || columnLimit}
         style={style}
         selected={selected}
+        onClickGithash={onClickFoldedGithash}
+        onClickJiraTicket={onClickFoldedJiraTicket}
+        onToggleFoldedCommit={onToggleFoldedCommit}
       />
     );
   }

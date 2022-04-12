@@ -25,6 +25,8 @@ interface Props {
   author: string;
   message: string;
   versionId: string;
+  onClickGithash?: () => void;
+  onClickJiraTicket?: () => void;
 }
 
 const CommitChartLabel: React.FC<Props> = ({
@@ -33,8 +35,9 @@ const CommitChartLabel: React.FC<Props> = ({
   author,
   message,
   versionId,
+  onClickGithash = () => {},
+  onClickJiraTicket = () => {},
 }) => {
-  const { sendEvent } = useProjectHealthAnalytics();
   const createDate = new Date(createTime);
   const shortenMessage = message.length > MAX_CHAR;
   const shortenedMessage = message.substring(0, MAX_CHAR - 3).concat("...");
@@ -48,9 +51,7 @@ const CommitChartLabel: React.FC<Props> = ({
     <LabelContainer data-cy="commit-label">
       <LabelText>
         <StyledRouterLink
-          onClick={() => {
-            sendEvent({ name: "Click commit label version link", versionId });
-          }}
+          onClick={onClickGithash}
           to={getVersionRoute(versionId)}
         >
           {shortenGithash(githash)}
@@ -62,7 +63,7 @@ const CommitChartLabel: React.FC<Props> = ({
         {jiraLinkify(
           shortenMessage ? shortenedMessage : message,
           jiraHost,
-          () => sendEvent({ name: "Click commit label jira link" })
+          onClickJiraTicket
         )}
       </LabelText>
       {shortenMessage && (
