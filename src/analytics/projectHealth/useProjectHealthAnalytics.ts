@@ -28,14 +28,13 @@ type Action =
   | { name: "Click variant label"; variant: string }
   | { name: "Select chart view option"; viewOption: string }
   | { name: "Click column header" }
-  | { name: "Filter by tasks" }
+  | { name: "Filter by task" }
   | { name: "Filter by requester"; requesters: string[] }
   | { name: "Filter by task status"; statuses: string[] }
   | { name: "Toggle task icons legend"; toggle: "open" | "close" }
   | { name: "Remove badge" }
   | {
-      name: "Submit task history build variant selector";
-      buildVariants: string[];
+      name: "Filter by build variant";
     }
   | { name: "Toggle folded commit"; toggle: "open" | "close" }
   | {

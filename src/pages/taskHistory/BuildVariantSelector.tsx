@@ -27,7 +27,7 @@ const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
   projectId,
   taskName,
 }) => {
-  const { sendEvent } = useProjectHealthAnalytics();
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Task history" });
   const updateQueryParams = useUpdateURLQueryParams();
   const { search } = useLocation();
   const queryParams = parseQueryString(search);
@@ -49,8 +49,7 @@ const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
 
   const onChange = (selectedBuildVariants: string[]) => {
     sendEvent({
-      name: "Submit task history build variant selector",
-      buildVariants: selectedBuildVariants,
+      name: "Filter by build variant",
     });
     updateQueryParams({
       [HistoryQueryParams.VisibleColumns]: selectedBuildVariants,

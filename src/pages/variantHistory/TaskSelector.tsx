@@ -46,7 +46,7 @@ const TaskSelector: React.FC<TaskSelectorProps> = ({
 
   const onChange = (selectedTasks: string[]) => {
     sendEvent({
-      name: "Filter by tasks",
+      name: "Filter by task",
     });
     updateQueryParams({
       [HistoryQueryParams.VisibleColumns]: selectedTasks,
