@@ -20,7 +20,7 @@ type Action =
     } & HistoryTableTestSearchAnalytics)
   | { name: "Clear all badges" }
   | { name: "Click grouped task status badge"; statuses: string[] }
-  | { name: "Click commit chart task status icon"; status: string }
+  | { name: "Click task status icon"; status: string }
   | { name: "Click commit chart variant label"; variant: string }
   | { name: "Click commit chart view option"; viewOption: string }
   | { name: "Click commit label jira link" }

@@ -31,7 +31,7 @@ export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = (
   timeTaken,
   identifier,
 }) => {
-  const { sendEvent } = useProjectHealthAnalytics();
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const [loadData, { data, loading }] = useLazyQuery<
     GetFailedTaskStatusIconTooltipQuery,
     GetFailedTaskStatusIconTooltipQueryVariables
@@ -59,7 +59,7 @@ export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = (
           aria-label={`${status} icon`}
           to={getTaskRoute(taskId)}
           onClick={() => {
-            sendEvent({ name: "Click commit chart task status icon", status });
+            sendEvent({ name: "Click task status icon", status });
           }}
           data-cy="waterfall-task-status-icon"
         >
