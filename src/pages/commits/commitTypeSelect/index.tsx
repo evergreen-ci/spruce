@@ -36,7 +36,7 @@ const TreeData = [
 ];
 
 const CommitTypeSelector = () => {
-  const { sendEvent } = useProjectHealthAnalytics();
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const updateQueryParams = useUpdateURLQueryParams();
   const { search } = useLocation();
   const queryParams = parseQueryString(search);
@@ -46,7 +46,7 @@ const CommitTypeSelector = () => {
   );
   const onChange = (value: string[]) => {
     updateQueryParams({ [MainlineCommitQueryParams.Requester]: value });
-    sendEvent({ name: "Filter commit chart by requester", requesters: value });
+    sendEvent({ name: "Filter by requester", requesters: value });
   };
 
   return (

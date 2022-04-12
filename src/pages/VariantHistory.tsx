@@ -83,14 +83,21 @@ const VariantHistoryContents: React.FC = () => {
             <FilterBadges
               queryParamsToDisplay={constants.queryParamsToDisplay}
               onRemove={() => {
-                sendEvent({ name: "Remove variant history badge" });
+                sendEvent({ name: "Remove badge" });
               }}
               onClearAll={() => {
                 sendEvent({ name: "Clear all badges" });
               }}
             />
           </BadgeWrapper>
-          <ColumnPaginationButtons />
+          <ColumnPaginationButtons
+            onClickNext={() =>
+              sendEvent({ name: "Paginate", direction: "next" })
+            }
+            onClickPrev={() =>
+              sendEvent({ name: "Paginate", direction: "previous" })
+            }
+          />
         </PaginationFilterWrapper>
         <div>
           <ColumnHeaders projectId={projectId} variantName={variantName} />

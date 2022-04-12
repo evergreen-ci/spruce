@@ -147,7 +147,7 @@ export const Commits = () => {
         <BadgeWrapper>
           <FilterBadges
             onRemove={() => {
-              sendEvent({ name: "Remove commit chart badge" });
+              sendEvent({ name: "Remove badge" });
             }}
             onClearAll={() => {
               sendEvent({ name: "Clear all badges" });

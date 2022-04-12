@@ -3,7 +3,6 @@ import {
   Properties,
   Analytics as A,
 } from "analytics/addPageAction";
-import { PaginationAnalytics } from "components/HistoryTable/ColumnPaginationButtons";
 import { HistoryTableTestSearchAnalytics } from "components/HistoryTable/HistoryTableTestSearch/HistoryTableTestSearch";
 import { ProjectSelectAnalytics } from "components/projectSelect";
 
@@ -13,7 +12,7 @@ type Action =
       name: "Click task cell";
       taskStatus: string;
     }
-  | ({ name: "Paginate" } & PaginationAnalytics)
+  | { name: "Paginate"; direction: "previous" | "next" }
   | ({ name: "Select project" } & ProjectSelectAnalytics)
   | ({
       name: "Submit failed test filter";
@@ -30,12 +29,10 @@ type Action =
   | { name: "Select chart view option"; viewOption: string }
   | { name: "Click column header" }
   | { name: "Filter by tasks" }
-  | { name: "Filter commit chart by requester"; requesters: string[] }
-  | { name: "Filter commit chart by task status"; statuses: string[] }
+  | { name: "Filter by requester"; requesters: string[] }
+  | { name: "Filter by task status"; statuses: string[] }
   | { name: "Toggle task icons legend"; toggle: "open" | "close" }
-  | { name: "Remove commit chart badge" }
-  | { name: "Remove task history badge" }
-  | { name: "Remove variant history badge" }
+  | { name: "Remove badge" }
   | {
       name: "Submit task history build variant selector";
       buildVariants: string[];

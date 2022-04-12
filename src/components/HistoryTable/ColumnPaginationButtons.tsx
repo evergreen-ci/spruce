@@ -1,15 +1,19 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
 import { useHistoryTable } from "./HistoryTableContext";
 
-export interface PaginationAnalytics {
-  direction: "previous" | "next";
+interface ColumnPaginationButtonProps {
+  onClickNext?: () => void;
+  onClickPrev?: () => void;
 }
-const ColumnPaginationButtons: React.VFC = () => {
+
+const ColumnPaginationButtons: React.VFC<ColumnPaginationButtonProps> = ({
+  onClickNext = () => {},
+  onClickPrev = () => {},
+}) => {
   const {
     nextPage,
     previousPage,
@@ -18,13 +22,12 @@ const ColumnPaginationButtons: React.VFC = () => {
     pageCount,
     currentPage,
   } = useHistoryTable();
-  const { sendEvent } = useProjectHealthAnalytics();
-  const onClickNext = () => {
-    sendEvent({ name: "Paginate history table", direction: "next" });
+  const handleOnClickNext = () => {
+    onClickNext();
     nextPage();
   };
-  const onClickPrev = () => {
-    sendEvent({ name: "Paginate history table", direction: "previous" });
+  const handleOnClickPrev = () => {
+    onClickPrev();
     previousPage();
   };
   return (
@@ -32,7 +35,7 @@ const ColumnPaginationButtons: React.VFC = () => {
       <StyledButton
         disabled={!hasPreviousPage}
         /* @ts-expect-error */
-        onClick={onClickPrev}
+        onClick={handleOnClickPrev}
         data-cy="prev-page-button"
         leftGlyph={<Icon glyph="ChevronLeft" />}
       />
@@ -42,7 +45,7 @@ const ColumnPaginationButtons: React.VFC = () => {
       <StyledButton
         disabled={!hasNextPage}
         /* @ts-expect-error */
-        onClick={onClickNext}
+        onClick={handleOnClickNext}
         data-cy="next-page-button"
         leftGlyph={<Icon glyph="ChevronRight" />}
       />
