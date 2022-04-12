@@ -31,8 +31,7 @@ type AnalyticsObject =
   | "ProjectPatches"
   | "JobLogs"
   | "Polling"
-  | "ProjectHealthPages"
-  | "TupleSelect";
+  | "ProjectHealthPages";
 
 interface RequiredProperties {
   object: AnalyticsObject;
