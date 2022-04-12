@@ -14,7 +14,7 @@ type Action =
       taskStatus: string;
     }
   | ({ name: "Paginate" } & PaginationAnalytics)
-  | ({ name: "Select commit chart project" } & ProjectSelectAnalytics)
+  | ({ name: "Select project" } & ProjectSelectAnalytics)
   | ({
       name: "Submit task history failed test filter";
     } & HistoryTableTestSearchAnalytics)

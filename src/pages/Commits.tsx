@@ -43,7 +43,7 @@ export const Commits = () => {
   const dispatchToast = useToastContext();
   const { replace } = useHistory();
   const { search } = useLocation();
-  const { sendEvent } = useProjectHealthAnalytics();
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const parsed = parseQueryString(search);
 
   // get query params from url
@@ -137,7 +137,7 @@ export const Commits = () => {
                 projectIdentifier,
               }: ProjectSelectAnalytics) => {
                 sendEvent({
-                  name: "Select commit chart project",
+                  name: "Select project",
                   projectIdentifier,
                 });
               }}
