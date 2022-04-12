@@ -8,10 +8,12 @@ import { PaginationAnalytics } from "components/HistoryTable/ColumnPaginationBut
 import { HistoryTableTestSearchAnalytics } from "components/HistoryTable/HistoryTableTestSearch/HistoryTableTestSearch";
 import { ProjectSelectAnalytics } from "components/projectSelect";
 
+type pageType = "Commit chart" | "Task history" | "Variant history";
 type Action =
   | {
       name: "Click task cell";
       taskStatus: string;
+      page: pageType;
     }
   | ({ name: "Paginate commit chart" } & PaginationAnalytics)
   | ({ name: "Paginate history table" } & PaginationAnalytics)

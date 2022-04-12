@@ -3,7 +3,6 @@ import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Skeleton } from "antd";
 import { Link } from "react-router-dom";
-import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { inactiveElementStyle, StyledRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
@@ -24,6 +23,7 @@ interface TaskCellProps {
   failingTests?: string[];
   label?: string;
   loading?: boolean;
+  onClick?: ({ taskStatus }: { taskStatus: string }) => void;
 }
 const TaskCell: React.FC<TaskCellProps> = ({
   task,
@@ -31,27 +31,25 @@ const TaskCell: React.FC<TaskCellProps> = ({
   failingTests,
   label,
   loading = false,
-}) => {
-  const { sendEvent } = useProjectHealthAnalytics();
-  return (
-    <Cell inactive={inactive} aria-disabled={inactive} data-cy="task-cell">
-      <Link
-        onClick={() =>
-          sendEvent({ name: "Click task cell", taskStatus: task.status })
-        }
-        to={getTaskRoute(task.id)}
-      >
-        <HistoryTableIcon
-          inactive={inactive}
-          status={task.status as TaskStatus}
-          failingTests={failingTests}
-          label={label}
-          loadingTestResults={loading}
-        />
-      </Link>
-    </Cell>
-  );
-};
+  onClick = () => {},
+}) => (
+  <Cell inactive={inactive} aria-disabled={inactive} data-cy="task-cell">
+    <Link
+      onClick={() => {
+        onClick({ taskStatus: task.status });
+      }}
+      to={getTaskRoute(task.id)}
+    >
+      <HistoryTableIcon
+        inactive={inactive}
+        status={task.status as TaskStatus}
+        failingTests={failingTests}
+        label={label}
+        loadingTestResults={loading}
+      />
+    </Link>
+  </Cell>
+);
 
 const EmptyCell = () => (
   <Cell data-cy="empty-cell">

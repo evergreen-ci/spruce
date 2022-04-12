@@ -1,5 +1,6 @@
 import { memo } from "react";
 import { ListChildComponentProps, areEqual } from "react-window";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { context, Cell, Row, types, hooks } from "components/HistoryTable";
 import { array } from "utils";
 
@@ -11,6 +12,7 @@ const { rowType } = types;
 
 const VariantHistoryRow = memo((props: ListChildComponentProps) => {
   const { index } = props;
+  const { sendEvent } = useProjectHealthAnalytics();
   let orderedColumns = [];
   const { visibleColumns, getItem } = useHistoryTable();
 
@@ -28,6 +30,13 @@ const VariantHistoryRow = memo((props: ListChildComponentProps) => {
           const { inactive, failingTests, label } = getTaskMetadata(t.id);
           return (
             <TaskCell
+              onClick={({ taskStatus }) => {
+                sendEvent({
+                  name: "Click task cell",
+                  page: "Variant history",
+                  taskStatus,
+                });
+              }}
               inactive={inactive}
               key={c}
               task={t}
