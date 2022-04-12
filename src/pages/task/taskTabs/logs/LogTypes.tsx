@@ -11,8 +11,8 @@ import { pollInterval } from "constants/index";
 import { size, fontSize } from "constants/tokens";
 
 import {
-  EventLogsQuery,
-  EventLogsQueryVariables,
+  TaskEventLogsQuery,
+  TaskEventLogsQueryVariables,
   SystemLogsQuery,
   SystemLogsQueryVariables,
   AgentLogsQuery,
@@ -26,7 +26,7 @@ import {
 } from "gql/generated/types";
 import {
   GET_AGENT_LOGS,
-  GET_EVENT_LOGS,
+  GET_TASK_EVENT_LOGS,
   GET_SYSTEM_LOGS,
   GET_TASK_LOGS,
   GET_ALL_LOGS,
@@ -84,9 +84,9 @@ export const EventLog: React.VFC<Props> = (props) => {
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
   const { data, loading, error, startPolling, stopPolling } = useQuery<
-    EventLogsQuery,
-    EventLogsQueryVariables
-  >(GET_EVENT_LOGS, {
+    TaskEventLogsQuery,
+    TaskEventLogsQueryVariables
+  >(GET_TASK_EVENT_LOGS, {
     variables: { id, execution: selectedExecution },
     pollInterval,
   });
