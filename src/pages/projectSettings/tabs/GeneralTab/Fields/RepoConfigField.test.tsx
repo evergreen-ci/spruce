@@ -1,4 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
+import { FieldProps } from "@rjsf/core";
 import userEvent from "@testing-library/user-event";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
 import {
@@ -8,34 +9,39 @@ import {
 } from "gql/mutations";
 import { render, fireEvent, waitFor } from "test_utils";
 import { ProjectType } from "../../utils";
-import {
-  AttachDetachModal,
-  MoveRepoModal,
-  RepoConfigField,
-} from "./RepoConfigField";
-import { defaultFieldProps } from "./utils";
+import { AttachDetachModal } from "./AttachDetachModal";
+import { MoveRepoModal } from "./MoveRepoModal";
+import { RepoConfigField } from "./RepoConfigField";
 
-const fieldProps = {
-  ...defaultFieldProps,
-  formData: {
-    owner: "evergreen-ci",
-    repo: "logkeeper",
-  },
+const fieldProps = ({
+  onChange: () => {},
+  schema: {},
+  uiSchema: {},
+} as unknown) as FieldProps;
+
+const defaultFormData = {
+  owner: "evergreen-ci",
+  repo: "logkeeper",
 };
 
 const Field = ({
   projectType = ProjectType.AttachedProject,
+  formData = defaultFormData,
 }: {
   projectType?: ProjectType;
+  formData?: { owner: string; repo: string };
 }) => (
   <MockedProvider mocks={[attachProjectToRepoMock, detachProjectFromRepoMock]}>
     <RepoConfigField
       {...fieldProps}
+      formData={formData}
       uiSchema={{
         options: {
-          projectId: "evergreen",
+          initialOwner: "evergreen-ci",
+          initialRepo: "logkeeper",
           repoName: "evergreen",
           repoOwner: "evergreen-ci",
+          projectId: "evergreen",
           projectType,
         },
       }}
@@ -53,8 +59,8 @@ const AttachmentModal = ({
       handleClose={() => {}}
       open
       projectId="evergreen"
-      repoName={fieldProps.formData.repo}
-      repoOwner={fieldProps.formData.owner}
+      repoName={defaultFormData.repo}
+      repoOwner={defaultFormData.owner}
       shouldAttach={shouldAttach}
     />
   </MockedProvider>
@@ -80,6 +86,28 @@ describe("repoConfigField", () => {
     const { queryByDataCy } = render(<Component />);
     expect(queryByDataCy("move-repo-button")).not.toBeInTheDocument();
     expect(queryByDataCy("attach-repo-button")).toBeInTheDocument();
+  });
+
+  it("disables the attach button when the owner field has been changed", () => {
+    const { Component } = RenderFakeToastContext(
+      <Field
+        projectType={ProjectType.Project}
+        formData={{ owner: "newOwner", repo: defaultFormData.repo }}
+      />
+    );
+    const { queryByDataCy } = render(<Component />);
+    expect(queryByDataCy("attach-repo-button")).toHaveAttribute("disabled");
+  });
+
+  it("disables the attach button when the repo field has been changed", () => {
+    const { Component } = RenderFakeToastContext(
+      <Field
+        projectType={ProjectType.Project}
+        formData={{ owner: defaultFormData.owner, repo: "newRepo" }}
+      />
+    );
+    const { queryByDataCy } = render(<Component />);
+    expect(queryByDataCy("attach-repo-button")).toHaveAttribute("disabled");
   });
 
   it("shows both buttons for an attached project", () => {
