@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import { Label } from "@leafygreen-ui/typography";
 import { Input, Select } from "antd";
 import { useLocation } from "react-router";
-import { useTupleSelectAnalytics } from "analytics";
 import Icon from "components/Icon";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { queryString, url } from "utils";
@@ -20,19 +19,22 @@ type option = {
 
 interface TupleSelectProps {
   options: option[];
+  onSubmit?: ({ category, value }: { category: string; value: string }) => void;
 }
-export const TupleSelect: React.FC<TupleSelectProps> = ({ options }) => {
-  const { sendEvent } = useTupleSelectAnalytics();
+export const TupleSelect: React.FC<TupleSelectProps> = ({
+  options,
+  onSubmit = () => {},
+}) => {
   const [input, setInput] = useState("");
   const [selected, setSelected] = useState(options[0].value);
   const updateQueryParams = useUpdateURLQueryParams();
   const { search } = useLocation();
   const queryParams = parseQueryString(search);
 
-  const onClick = () => {
+  const handleOnSubmit = () => {
     const selectedParams = queryParams[selected] as string[];
     const updatedParams = upsertQueryParam(selectedParams, input);
-    sendEvent({ name: "Submit tuple select", type: selected, value: input });
+    onSubmit({ category: selected, value: input });
     updateQueryParams({ [selected]: updatedParams });
     setInput("");
   };
@@ -71,12 +73,12 @@ export const TupleSelect: React.FC<TupleSelectProps> = ({ options }) => {
           suffix={
             <Icon
               glyph="Plus"
-              onClick={onClick}
+              onClick={handleOnSubmit}
               aria-label="Select plus button"
               data-cy="tuple-select-button"
             />
           }
-          onPressEnter={onClick}
+          onPressEnter={handleOnSubmit}
         />
       </Input.Group>
     </Container>

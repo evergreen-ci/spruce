@@ -25,9 +25,9 @@ interface FoldedCommitProps {
   numVisibleCols: number;
   style?: CSSProperties;
   selected: boolean;
-  onToggleFoldedCommit: (isVisible: boolean) => void;
-  onClickJiraTicket: () => void;
-  onClickGithash: () => void;
+  onToggleFoldedCommit?: (isVisible: boolean) => void;
+  onClickJiraTicket?: () => void;
+  onClickGithash?: () => void;
 }
 export const FoldedCommit = memo(
   ({

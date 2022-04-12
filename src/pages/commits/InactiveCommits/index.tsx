@@ -29,7 +29,7 @@ export const InactiveCommitButton: React.FC<InactiveCommitsProps> = ({
   rolledUpVersions,
   hasFilters = false,
 }) => {
-  const { sendEvent } = useProjectHealthAnalytics();
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const [showModal, setShowModal] = useState(false);
   const versionCount = rolledUpVersions.length;
   const shouldSplitCommits = versionCount > MAX_COMMIT_COUNT;

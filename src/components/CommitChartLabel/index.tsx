@@ -2,7 +2,6 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
-import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import ExpandedText from "components/ExpandedText";
 import { StyledRouterLink } from "components/styles";
 import { getVersionRoute } from "constants/routes";

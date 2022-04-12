@@ -116,12 +116,26 @@ export const Commits = () => {
     ProjectFilterOptions.Task,
   ]);
 
+  const onSubmitTupleSelect = ({ category }: { category: string }) => {
+    switch (category) {
+      case ProjectFilterOptions.BuildVariant:
+        sendEvent({ name: "Filter by build variant" });
+        break;
+      case ProjectFilterOptions.Task:
+        sendEvent({ name: "Filter by task" });
+        break;
+      default:
+    }
+  };
   return (
     <PageWrapper>
       <PageContainer>
         <HeaderWrapper>
           <ElementWrapper width="35">
-            <TupleSelect options={tupleSelectOptions} />
+            <TupleSelect
+              options={tupleSelectOptions}
+              onSubmit={onSubmitTupleSelect}
+            />
           </ElementWrapper>
           <ElementWrapper width="20">
             <StatusSelect />
