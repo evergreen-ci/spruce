@@ -12,7 +12,7 @@ const { rowType } = types;
 
 const VariantHistoryRow = memo((props: ListChildComponentProps) => {
   const { index } = props;
-  const { sendEvent } = useProjectHealthAnalytics();
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Variant history" });
   let orderedColumns = [];
   const { visibleColumns, getItem } = useHistoryTable();
 
@@ -33,7 +33,6 @@ const VariantHistoryRow = memo((props: ListChildComponentProps) => {
               onClick={({ taskStatus }) => {
                 sendEvent({
                   name: "Click task cell",
-                  page: "Variant history",
                   taskStatus,
                 });
               }}

@@ -3,7 +3,6 @@ import {
   Properties,
   Analytics as A,
 } from "analytics/addPageAction";
-import { useGetUserQuery } from "analytics/useGetUserQuery";
 import { PaginationAnalytics } from "components/HistoryTable/ColumnPaginationButtons";
 import { HistoryTableTestSearchAnalytics } from "components/HistoryTable/HistoryTableTestSearch/HistoryTableTestSearch";
 import { ProjectSelectAnalytics } from "components/projectSelect";
@@ -13,10 +12,8 @@ type Action =
   | {
       name: "Click task cell";
       taskStatus: string;
-      page: pageType;
     }
-  | ({ name: "Paginate commit chart" } & PaginationAnalytics)
-  | ({ name: "Paginate history table" } & PaginationAnalytics)
+  | ({ name: "Paginate" } & PaginationAnalytics)
   | ({ name: "Select commit chart project" } & ProjectSelectAnalytics)
   | ({
       name: "Submit task history failed test filter";
@@ -54,12 +51,13 @@ type Action =
 interface P extends Properties {}
 interface Analytics extends A<Action> {}
 
-export const useProjectHealthAnalytics = (): Analytics => {
-  const userId = useGetUserQuery();
+export const useProjectHealthAnalytics: (p: {
+  page: pageType;
+}) => Analytics = ({ page }) => {
   const sendEvent: Analytics["sendEvent"] = (action) => {
     addPageAction<Action, P>(action, {
       object: "ProjectHealthPages",
-      userId,
+      page,
     });
   };
 

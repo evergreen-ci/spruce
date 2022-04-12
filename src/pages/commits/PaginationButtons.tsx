@@ -14,17 +14,20 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
   prevPageOrderNumber,
   nextPageOrderNumber,
 }) => {
-  const { sendEvent } = useProjectHealthAnalytics();
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const updateQueryParams = useUpdateURLQueryParams();
 
   const onNextClick = () => {
-    sendEvent({ name: "Paginate commit chart", direction: "next" });
+    sendEvent({ name: "Paginate", direction: "next" });
     updateQueryParams({
       [MainlineCommitQueryParams.SkipOrderNumber]: nextPageOrderNumber.toString(),
     });
   };
   const onPrevClick = () => {
-    sendEvent({ name: "Paginate commit chart", direction: "previous" });
+    sendEvent({
+      name: "Paginate",
+      direction: "previous",
+    });
     // 0 is the first page so we can just omit the query param
     updateQueryParams({
       [MainlineCommitQueryParams.SkipOrderNumber]:

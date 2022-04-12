@@ -11,7 +11,7 @@ const { useTestResults } = hooks;
 const { rowType } = types;
 
 const TaskHistoryRow = memo((props: ListChildComponentProps) => {
-  const { sendEvent } = useProjectHealthAnalytics();
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Task history" });
   const { index } = props;
   let orderedColumns = [];
   const { visibleColumns, getItem } = useHistoryTable();
@@ -37,7 +37,6 @@ const TaskHistoryRow = memo((props: ListChildComponentProps) => {
               onClick={({ taskStatus }) => {
                 sendEvent({
                   name: "Click task cell",
-                  page: "Task history",
                   taskStatus,
                 });
               }}
