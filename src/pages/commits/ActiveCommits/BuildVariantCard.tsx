@@ -33,7 +33,7 @@ export const BuildVariantCard: React.FC<Props> = ({
   groupedVariantStats,
   order,
 }) => {
-  const { sendEvent } = useProjectHealthAnalytics();
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   let render = null;
   render = (
     <>
@@ -62,7 +62,7 @@ export const BuildVariantCard: React.FC<Props> = ({
         })}
         onClick={() => {
           sendEvent({
-            name: "Click commit chart variant label",
+            name: "Click variant label",
             variant,
           });
         }}

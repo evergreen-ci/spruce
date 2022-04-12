@@ -13,12 +13,12 @@ export const ChartToggle: React.FC<{
   currentChartType: ChartTypes;
   onChangeChartType: (chartType: ChartTypes) => void;
 }> = ({ currentChartType, onChangeChartType }) => {
-  const { sendEvent } = useProjectHealthAnalytics();
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const chartType = e.target.value as ChartTypes;
     onChangeChartType(chartType);
     sendEvent({
-      name: "Click commit chart view option",
+      name: "Select chart view option",
       viewOption: chartType,
     });
   };

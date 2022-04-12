@@ -22,7 +22,7 @@ type Action =
   | { name: "Click grouped task status badge"; statuses: string[] }
   | { name: "Click task status icon"; status: string }
   | { name: "Click commit chart variant label"; variant: string }
-  | { name: "Click commit chart view option"; viewOption: string }
+  | { name: "Select chart view option"; viewOption: string }
   | { name: "Click commit label jira link" }
   | { name: "Click commit label version link"; versionId: string }
   | { name: "Click task history column header"; variant: string }
