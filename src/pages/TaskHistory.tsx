@@ -47,8 +47,9 @@ const TaskHistoryContents: React.VFC = () => {
     variables: {
       mainlineCommitsOptions: {
         projectID: projectId,
-        limit: 5,
+        limit: 10,
         skipOrderNumber: nextPageOrderNumber,
+        shouldCollapse: true,
       },
       buildVariantOptions: {
         tasks: [applyStrictRegex(taskName)],
