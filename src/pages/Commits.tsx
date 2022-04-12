@@ -150,7 +150,7 @@ export const Commits = () => {
               sendEvent({ name: "Remove commit chart badge" });
             }}
             onClearAll={() => {
-              sendEvent({ name: "Clear all commit chart badges" });
+              sendEvent({ name: "Clear all badges" });
             }}
             queryParamsToDisplay={queryParamsToDisplay}
           />

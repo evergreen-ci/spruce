@@ -86,7 +86,7 @@ const TaskHistoryContents: React.FC = () => {
                 sendEvent({ name: "Remove task history badge" });
               }}
               onClearAll={() => {
-                sendEvent({ name: "Clear all task history badges" });
+                sendEvent({ name: "Clear all badges" });
               }}
             />
           </BadgeWrapper>

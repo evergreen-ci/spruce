@@ -86,7 +86,7 @@ const VariantHistoryContents: React.FC = () => {
                 sendEvent({ name: "Remove variant history badge" });
               }}
               onClearAll={() => {
-                sendEvent({ name: "Clear all variant history badges" });
+                sendEvent({ name: "Clear all badges" });
               }}
             />
           </BadgeWrapper>
