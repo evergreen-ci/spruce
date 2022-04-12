@@ -32,6 +32,7 @@ type Action =
   | { name: "Filter by requester"; requesters: string[] }
   | { name: "Filter by task status"; statuses: string[] }
   | { name: "Toggle task icons legend"; toggle: "open" | "close" }
+  | { name: "Open hidden commits modal" }
   | { name: "Remove badge" }
   | {
       name: "Filter by build variant";
