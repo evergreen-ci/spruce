@@ -28,10 +28,7 @@ type Action =
     }
   | { name: "Click variant label"; variant: string }
   | { name: "Select chart view option"; viewOption: string }
-  | { name: "Click commit label jira link" }
-  | { name: "Click commit label version link"; versionId: string }
-  | { name: "Click task history column header"; variant: string }
-  | { name: "Click variant history column header"; task: string }
+  | { name: "Click column header" }
   | { name: "Click variant history task selector"; tasks: string[] }
   | { name: "Filter commit chart by requester"; requesters: string[] }
   | { name: "Filter commit chart by task status"; statuses: string[] }

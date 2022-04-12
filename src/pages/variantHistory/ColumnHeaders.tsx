@@ -28,7 +28,7 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
   projectId,
   variantName,
 }) => {
-  const { sendEvent } = useProjectHealthAnalytics();
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Variant history" });
   const dispatchToast = useToastContext();
 
   // Fetch the column headers from the same query used on the dropdown.
@@ -71,8 +71,7 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
             fullDisplayName={vc}
             onClick={() => {
               sendEvent({
-                name: "Click variant history column header",
-                task: vc,
+                name: "Click column header",
               });
             }}
           />

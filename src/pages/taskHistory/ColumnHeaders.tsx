@@ -28,7 +28,7 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
   projectId,
   taskName,
 }) => {
-  const { sendEvent } = useProjectHealthAnalytics();
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Task history" });
   const dispatchToast = useToastContext();
 
   // Fetch the column headers from the same query used on the dropdown.
@@ -76,8 +76,7 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({
             )}
             onClick={() => {
               sendEvent({
-                name: "Click task history column header",
-                variant: cell.buildVariant,
+                name: "Click column header",
               });
             }}
             fullDisplayName={cell.displayName}
