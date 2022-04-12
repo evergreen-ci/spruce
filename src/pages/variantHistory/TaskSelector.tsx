@@ -24,7 +24,7 @@ const TaskSelector: React.FC<TaskSelectorProps> = ({
   projectId,
   buildVariant,
 }) => {
-  const { sendEvent } = useProjectHealthAnalytics();
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Variant history" });
   const updateQueryParams = useUpdateURLQueryParams();
   const { search } = useLocation();
   const queryParams = parseQueryString(search);
@@ -46,8 +46,7 @@ const TaskSelector: React.FC<TaskSelectorProps> = ({
 
   const onChange = (selectedTasks: string[]) => {
     sendEvent({
-      name: "Click variant history task selector",
-      tasks: selectedTasks,
+      name: "Filter by tasks",
     });
     updateQueryParams({
       [HistoryQueryParams.VisibleColumns]: selectedTasks,

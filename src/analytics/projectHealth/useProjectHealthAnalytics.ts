@@ -29,7 +29,7 @@ type Action =
   | { name: "Click variant label"; variant: string }
   | { name: "Select chart view option"; viewOption: string }
   | { name: "Click column header" }
-  | { name: "Click variant history task selector"; tasks: string[] }
+  | { name: "Filter by tasks" }
   | { name: "Filter commit chart by requester"; requesters: string[] }
   | { name: "Filter commit chart by task status"; statuses: string[] }
   | { name: "Toggle task icons legend"; toggle: "open" | "close" }
