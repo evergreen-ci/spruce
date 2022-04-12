@@ -16,10 +16,7 @@ type Action =
   | ({ name: "Paginate" } & PaginationAnalytics)
   | ({ name: "Select project" } & ProjectSelectAnalytics)
   | ({
-      name: "Submit task history failed test filter";
-    } & HistoryTableTestSearchAnalytics)
-  | ({
-      name: "Submit variant history failed test filter";
+      name: "Submit failed test filter";
     } & HistoryTableTestSearchAnalytics)
   | { name: "Clear all commit chart badges" }
   | { name: "Clear all task history badges" }

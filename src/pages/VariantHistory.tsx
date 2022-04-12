@@ -36,7 +36,7 @@ const VariantHistoryContents: React.FC = () => {
     projectId: string;
     variantName: string;
   }>();
-  const { sendEvent } = useProjectHealthAnalytics();
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Variant history" });
   usePageTitle(`Variant History | ${projectId} | ${variantName}`);
   const [nextPageOrderNumber, setNextPageOrderNumber] = useState(null);
   useJumpToCommit();
@@ -70,7 +70,7 @@ const VariantHistoryContents: React.FC = () => {
             <HistoryTableTestSearch
               onSubmit={(failedTests: string[]) => {
                 sendEvent({
-                  name: "Submit variant history failed test filter",
+                  name: "Submit failed test filter",
                   failedTests,
                 });
               }}

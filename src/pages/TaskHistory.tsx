@@ -32,7 +32,7 @@ const { applyStrictRegex } = string;
 const { useTestFilters, useJumpToCommit } = hooks;
 
 const TaskHistoryContents: React.FC = () => {
-  const { sendEvent } = useProjectHealthAnalytics();
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Task history" });
   const { projectId, taskName } = useParams<{
     projectId: string;
     taskName: string;
@@ -70,7 +70,7 @@ const TaskHistoryContents: React.FC = () => {
             <HistoryTableTestSearch
               onSubmit={(failedTests: string[]) => {
                 sendEvent({
-                  name: "Submit task history failed test filter",
+                  name: "Submit failed test filter",
                   failedTests,
                 });
               }}
