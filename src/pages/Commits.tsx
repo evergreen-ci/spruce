@@ -43,7 +43,6 @@ export const Commits = () => {
 
   // get query params from url
   const { id: projectId } = useParams<{ id: string }>();
-
   usePageTitle(`Project Health | ${projectId}`);
   const recentlySelectedProject = Cookies.get(CURRENT_PROJECT);
   // Push default project to URL if there isn't a project in
@@ -166,7 +165,6 @@ const HeaderWrapper = styled.div`
     margin-right: ${size.s};
   }
 `;
-
 const BadgeWrapper = styled.div`
   margin: ${size.s} 0;
 `;
