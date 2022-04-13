@@ -62,7 +62,6 @@ export const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
     skip: noQueryVariables,
     pollInterval,
     fetchPolicy: "network-only",
-    nextFetchPolicy: "cache-and-network",
     onError: (err) => {
       dispatchToast.error(`Error fetching patch tasks ${err}`);
     },
