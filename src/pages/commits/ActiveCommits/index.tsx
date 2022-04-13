@@ -42,6 +42,7 @@ export const ActiveCommitLabel: React.VFC<ActiveCommitLabelProps> = ({
     createTime={version.createTime}
     author={version.author}
     message={version.message}
+    upstreamProject={version.upstreamProject}
   />
 );
 
