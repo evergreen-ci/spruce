@@ -37,7 +37,7 @@ export const FoldedCommit = memo<FoldedCommitProps>(
     numVisibleCols,
     style,
     selected,
-    onToggleFoldedCommit,
+    onToggleFoldedCommit = () => {},
     onClickGithash,
     onClickJiraTicket,
   }: FoldedCommitProps) => {
