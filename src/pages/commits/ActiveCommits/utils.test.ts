@@ -4,8 +4,15 @@ import { taskStatusToCopy } from "constants/task";
 import { fireEvent } from "test_utils";
 import { TaskStatus } from "types/task";
 import {
+  TASK_ICON_HEIGHT,
+  TASK_ICON_PADDING,
+  GROUPED_BADGE_HEIGHT,
+  GROUPED_BADGE_PADDING,
+} from "../constants";
+import {
   getAllTaskStatsGroupedByColor,
   getStatusesWithZeroCount,
+  constructBuildVariantDict,
   roundMax,
   hoverTaskIcons,
 } from "./utils";
@@ -232,22 +239,94 @@ describe("getStatusesWithZeroCount", () => {
   });
 });
 
-describe("roundMax", () => {
-  it("properly rounds numbers", () => {
-    expect(roundMax(8)).toBe(10); // 0 <= x < 100
-    expect(roundMax(147)).toBe(150); // 100 <= x < 500
-    expect(roundMax(712)).toBe(800); // 500 <= x < 1000
-    expect(roundMax(1320)).toBe(1500); // 1000 <= x < 5000
-    expect(roundMax(6430)).toBe(7000); // 5000 <= x
+describe("constructBuildVariantDict", () => {
+  it("correctly determines priority, iconHeight, and badgeHeight", () => {
+    expect(constructBuildVariantDict(versions)).toStrictEqual({
+      "enterprise-macos-cxx20": {
+        iconHeight: TASK_ICON_HEIGHT + TASK_ICON_PADDING * 2,
+        badgeHeight: GROUPED_BADGE_HEIGHT * 2 + GROUPED_BADGE_PADDING * 2,
+        priority: 4,
+      },
+      "enterprise-windows-benchmarks": {
+        iconHeight: TASK_ICON_HEIGHT + TASK_ICON_PADDING * 2,
+        badgeHeight: 0,
+        priority: 2,
+      },
+      "enterprise-rhel-80-64-bit-inmem": {
+        iconHeight: TASK_ICON_HEIGHT + TASK_ICON_PADDING * 2,
+        badgeHeight: 0,
+        priority: 1,
+      },
+    });
   });
 });
+
+const buildVariant1 = {
+  displayName: "Enterprise macOS C++20 DEBUG",
+  variant: "enterprise-macos-cxx20",
+  tasks: [
+    {
+      status: TaskStatus.WillRun,
+      id: "auth",
+      execution: 0,
+      displayName: "auth",
+    },
+  ],
+};
+
+const buildVariant2 = {
+  displayName: "~ Enterprise Windows (Benchmarks)",
+  variant: "enterprise-windows-benchmarks",
+  tasks: [
+    {
+      status: TaskStatus.Pending,
+      id: "benchmarks",
+      execution: 0,
+      displayName: "benchmarks",
+    },
+  ],
+};
+
+const buildVariant3 = {
+  displayName: "Enterprise RHEL 8.0 (inMemory)",
+  variant: "enterprise-rhel-80-64-bit-inmem",
+  tasks: [
+    {
+      status: TaskStatus.Failed,
+      id: "fuzzer",
+      execution: 0,
+      displayName: "fuzzer",
+    },
+  ],
+};
+
+const buildVariantStat = {
+  displayName: "Enterprise macOS C++20 DEBUG",
+  variant: "enterprise-macos-cxx20",
+  statusCounts: [
+    {
+      count: 4,
+      status: TaskStatus.Blocked,
+    },
+    {
+      count: 1,
+      status: TaskStatus.Succeeded,
+    },
+    {
+      count: 1,
+      status: TaskStatus.Failed,
+    },
+  ],
+};
 
 const versions = [
   {
     version: {
       id: "123",
+      projectIdentifier: "mongodb-mongo-master",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
+      order: 39369,
       author: "Mohamed Khelif",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
@@ -259,14 +338,18 @@ const versions = [
         { status: TaskStatus.SetupFailed, count: 3 },
         { status: TaskStatus.SystemUnresponsive, count: 2 },
       ],
+      buildVariants: [buildVariant1],
+      buildVariantStats: [buildVariantStat],
     },
     rolledUpVersions: null,
   },
   {
     version: {
       id: "12",
+      projectIdentifier: "mongodb-mongo-master",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57333 Some complicated server commit",
+      order: 39368,
       author: "Arjun Patel",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
@@ -277,14 +360,18 @@ const versions = [
         { status: TaskStatus.SystemTimedOut, count: 5 },
         { status: TaskStatus.SystemUnresponsive, count: 2 },
       ],
+      buildVariants: [buildVariant1, buildVariant2],
+      buildVariantStats: [],
     },
     rolledUpVersions: null,
   },
   {
     version: {
       id: "13",
+      projectIdentifier: "mongodb-mongo-master",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
+      order: 39367,
       author: "Mohamed Khelif",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
@@ -293,12 +380,15 @@ const versions = [
         { status: TaskStatus.Dispatched, count: 4 },
         { status: TaskStatus.Started, count: 5 },
       ],
+      buildVariants: [buildVariant1, buildVariant2, buildVariant3],
+      buildVariantStats: [],
     },
     rolledUpVersions: null,
   },
   {
     version: {
       id: "14",
+      projectIdentifier: "mongodb-mongo-master",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57333 Some complicated server commit",
       order: 39366,
@@ -313,6 +403,8 @@ const versions = [
         { status: TaskStatus.SetupFailed, count: 3 },
         { status: TaskStatus.SystemUnresponsive, count: 2 },
       ],
+      buildVariants: [buildVariant1],
+      buildVariantStats: [],
     },
     rolledUpVersions: null,
   },
@@ -407,6 +499,16 @@ const groupedTaskStats = [
     color: purple.light1,
   },
 ];
+
+describe("roundMax", () => {
+  it("properly rounds numbers", () => {
+    expect(roundMax(8)).toBe(10); // 0 <= x < 100
+    expect(roundMax(147)).toBe(150); // 100 <= x < 500
+    expect(roundMax(712)).toBe(800); // 500 <= x < 1000
+    expect(roundMax(1320)).toBe(1500); // 1000 <= x < 5000
+    expect(roundMax(6430)).toBe(7000); // 5000 <= x
+  });
+});
 
 describe("hoverTaskIcons", () => {
   const constructTaskIcon = (dataTaskIconName: string) => {
