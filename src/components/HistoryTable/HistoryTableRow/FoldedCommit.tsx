@@ -25,7 +25,7 @@ interface FoldedCommitProps {
   numVisibleCols: number;
   style?: CSSProperties;
   selected: boolean;
-  onToggleFoldedCommit?: (isVisible: boolean) => void;
+  onToggleFoldedCommit?: (s: { isVisible: boolean }) => void;
   onClickJiraTicket?: () => void;
   onClickGithash?: () => void;
 }
@@ -78,8 +78,8 @@ export const FoldedCommit = memo<FoldedCommitProps>(
           title={`Expand ${numCommits} inactive`}
           toggledTitle={`Collapse ${numCommits} inactive`}
           titleTag={AccordionTitle}
-          onToggle={(isVisible) => {
-            onToggleFoldedCommit(isVisible);
+          onToggle={({ isVisible }) => {
+            onToggleFoldedCommit({ isVisible });
             toggleRowSize(index, numCommits);
           }}
           useIndent={false}

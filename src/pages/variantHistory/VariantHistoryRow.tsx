@@ -83,7 +83,7 @@ const VariantHistoryRow = memo((props: ListChildComponentProps) => {
           commitType: "inactive",
         });
       }}
-      onToggleFoldedCommit={(isVisible) => {
+      onToggleFoldedCommit={({ isVisible }) => {
         sendEvent({
           name: "Toggle folded commit",
           toggle: isVisible ? "open" : "close",
