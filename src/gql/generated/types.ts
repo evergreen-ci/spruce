@@ -3680,7 +3680,6 @@ export type PatchTasksQuery = {
       buildVariant: string;
       buildVariantDisplayName?: Maybe<string>;
       blocked: boolean;
-      taskDuration?: Maybe<number>;
       projectIdentifier?: Maybe<string>;
       executionTasksFull?: Maybe<
         Array<{
@@ -3692,7 +3691,6 @@ export type PatchTasksQuery = {
           baseStatus?: Maybe<string>;
           buildVariantDisplayName?: Maybe<string>;
           projectIdentifier?: Maybe<string>;
-          taskDuration?: Maybe<number>;
           baseTask?: Maybe<{ id: string; execution: number; status: string }>;
         }>
       >;
