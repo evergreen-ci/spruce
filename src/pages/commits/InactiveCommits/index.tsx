@@ -5,9 +5,11 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { DisplayModal } from "components/DisplayModal";
 import { StyledRouterLink } from "components/styles";
-import { getVersionRoute } from "constants/routes";
+import { getVersionRoute, getTaskRoute } from "constants/routes";
 import { size, zIndex, fontSize } from "constants/tokens";
 import { CommitRolledUpVersions } from "types/commits";
+import { ProjectTriggerLevel } from "types/triggers";
+import { Unpacked } from "types/utils";
 import { string } from "utils";
 import { commitChartHeight } from "../constants";
 
@@ -99,7 +101,10 @@ export const InactiveCommitButton: React.VFC<InactiveCommitsProps> = ({
  * @param {CommitRolledUpVersions[0]} v: rolled up version
  * @param {boolean} isTooltip: boolean to indicate if used in tooltip
  */
-const getCommitCopy = (v: CommitRolledUpVersions[0], isTooltip: boolean) => (
+const getCommitCopy = (
+  v: Unpacked<CommitRolledUpVersions>,
+  isTooltip: boolean
+) => (
   <CommitText key={v.revision} data-cy="commit-text" tooltip={isTooltip}>
     <CommitTitleText>
       <StyledRouterLink to={getVersionRoute(v.id)}>
@@ -107,6 +112,20 @@ const getCommitCopy = (v: CommitRolledUpVersions[0], isTooltip: boolean) => (
       </StyledRouterLink>{" "}
       {getDateCopy(v.createTime)}
     </CommitTitleText>
+    {v.upstreamProject && (
+      <>
+        Triggered from:{" "}
+        <StyledRouterLink
+          to={
+            v.upstreamProject.triggerType === ProjectTriggerLevel.TASK
+              ? getTaskRoute(v.upstreamProject.task.id)
+              : getVersionRoute(v.upstreamProject.version.id)
+          }
+        >
+          {v.upstreamProject.project}
+        </StyledRouterLink>
+      </>
+    )}
     <CommitBodyText>
       {v.author} -{" "}
       {isTooltip
