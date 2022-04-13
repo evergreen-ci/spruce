@@ -3,7 +3,6 @@ import {
   SiteBanner,
   ConnectivityBanner,
   SlackNotificationBanner,
-  GithubUsernameBanner,
 } from "components/Banners";
 import { Navbar } from "./Navbar";
 
@@ -13,7 +12,6 @@ export const Header: React.VFC = () => (
     <ConnectivityBanner />
     <SiteBanner />
     <SlackNotificationBanner />
-    <GithubUsernameBanner />
   </StyledHeader>
 );
 
