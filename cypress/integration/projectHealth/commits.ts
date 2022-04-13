@@ -149,7 +149,7 @@ describe("commits page", () => {
       cy.dataCy("tuple-select-option-taskNames").click();
       cy.getInputByLabel("Add New Task Filter").type(".").type("{enter}");
       cy.dataCy("grouped-task-status-badge").should("not.exist");
-      cy.dataCy("waterfall-task-status-icon").should("have.length", 33);
+      cy.dataCy("waterfall-task-status-icon").should("have.length", 26);
       cy.dataCy("waterfall-task-status-icon")
         .get("[aria-label='failed icon']")
         .should("exist");
@@ -161,7 +161,7 @@ describe("commits page", () => {
         .should("exist");
       cy.dataCy("waterfall-task-status-icon")
         .get("[aria-label='success icon']")
-        .should("have.length", 32);
+        .should("have.length", 25);
     });
     it("should hide commits that don't match applied filters", () => {
       cy.dataCy("project-task-status-select").should("exist");
@@ -259,7 +259,7 @@ describe("commits page", () => {
         cy.dataCy("grouped-task-status-badge-tooltip").should("be.visible");
         cy.dataCy("grouped-task-status-badge-tooltip").should(
           "contain.text",
-          "8 Succeeded"
+          "1 Succeeded"
         );
       });
       it("should direct you to the version page with the build variant and task status filters applied", () => {
