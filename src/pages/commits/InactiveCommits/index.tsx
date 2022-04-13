@@ -167,8 +167,7 @@ const CommitCopy = ({
             link: "jira",
           });
         })}{" "}
-        (#
-        {v.order})
+        (#{v.order})
       </CommitBodyText>
     </CommitText>
   );
