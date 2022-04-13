@@ -107,8 +107,8 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
           <StyledRouterLink
             to={
               triggerType === ProjectTriggerLevel.TASK
-                ? getTaskRoute(upstreamTask?.id)
-                : getVersionRoute(upstreamVersion?.id)
+                ? getTaskRoute(upstreamTask.id)
+                : getVersionRoute(upstreamVersion.id)
             }
           >
             {upstreamProjectIdentifier}
