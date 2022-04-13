@@ -1,4 +1,21 @@
 const commitChartHeight = 224;
 const gridHeight = 226;
 
-export { commitChartHeight, gridHeight };
+const TASK_ICONS_PER_ROW = 6;
+const TASK_ICON_HEIGHT = 24;
+const TASK_ICON_PADDING = 8;
+
+const GROUPED_BADGES_PER_ROW = 2;
+const GROUPED_BADGE_HEIGHT = 40;
+const GROUPED_BADGE_PADDING = 4;
+
+export {
+  commitChartHeight,
+  gridHeight,
+  TASK_ICONS_PER_ROW,
+  TASK_ICON_HEIGHT,
+  TASK_ICON_PADDING,
+  GROUPED_BADGES_PER_ROW,
+  GROUPED_BADGE_HEIGHT,
+  GROUPED_BADGE_PADDING,
+};
