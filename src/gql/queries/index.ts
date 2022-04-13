@@ -31,6 +31,7 @@ import GET_MY_HOSTS from "./get-my-hosts.graphql";
 import GET_MY_VOLUMES from "./get-my-volumes.graphql";
 import GET_OTHER_USER from "./get-other-user.graphql";
 import GET_PATCH_CONFIGURE from "./get-patch-configure.graphql";
+import GET_PATCH_TASK_DURATIONS from "./get-patch-task-durations.graphql";
 import GET_PATCH_TASK_STATUSES from "./get-patch-task-statuses.graphql";
 import GET_PATCH_TASKS from "./get-patch-tasks.graphql";
 import GET_PATCH from "./get-patch.graphql";
@@ -98,6 +99,7 @@ export {
   GET_TASK_ALL_EXECUTIONS,
   GET_TASK_STATUSES,
   GET_TESTS,
+  GET_PATCH_TASK_DURATIONS,
   GET_PATCH_TASK_STATUSES,
   GET_USER_CONFIG,
   HOSTS,

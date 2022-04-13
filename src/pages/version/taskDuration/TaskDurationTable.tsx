@@ -4,11 +4,19 @@ import { Table, TableHeader, Row, Cell } from "@leafygreen-ui/table";
 import { Description } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import Icon from "components/Icon";
+import { NoTableResults } from "components/Table/NoTableResults";
 import { TableSearchPopover } from "components/TableSearchPopover";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
-import { mapTaskToUmbrellaColor } from "constants/task";
+import {
+  mapTaskToBarchartColor,
+  mapTaskStatusToUmbrellaStatus,
+} from "constants/task";
 import { size } from "constants/tokens";
-import { PatchTasksQuery, SortOrder, SortDirection } from "gql/generated/types";
+import {
+  PatchTaskDurationsQuery,
+  SortOrder,
+  SortDirection,
+} from "gql/generated/types";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { string, queryString } from "utils";
 
@@ -17,7 +25,7 @@ const { updateSortString } = queryString;
 const { gray, focus } = uiColors;
 
 interface Props {
-  patchTasks: PatchTasksQuery["patchTasks"];
+  patchTasks: PatchTaskDurationsQuery["patchTasks"];
   sorts: SortOrder[];
 }
 
@@ -51,7 +59,7 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
       <Table
         data={tasks}
         columns={[
-          <TableHeader
+          <StyledTableHeader
             key="task-name-duration"
             label={
               <LabelWrapper>
@@ -68,7 +76,7 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
               </LabelWrapper>
             }
           />,
-          <TableHeader
+          <StyledTableHeader
             key="build-variant-duration"
             label={
               <LabelWrapper>
@@ -90,7 +98,7 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
             label={
               <LabelWrapper>
                 Task Duration
-                <SortIcon
+                <DurationSortIcon
                   glyph={
                     sortDirection === SortDirection.Asc
                       ? "SortAscending"
@@ -112,135 +120,119 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
             expanded={false}
           >
             <Cell>
-              <span>
+              <TaskNameWrapper>
                 {datum.displayName}
-                <StyledTaskStatusIcon status={datum.status} />
-              </span>
+                <TaskStatusIcon status={datum.status} />
+              </TaskNameWrapper>
             </Cell>
             <Cell>{datum.buildVariantDisplayName}</Cell>
             <Cell>
-              <GraphWrapper>
+              <DurationWrapper>
                 <Bar
                   width={calculateBarWidth(datum?.taskDuration, max)}
-                  color={mapTaskToUmbrellaColor[datum?.status]}
+                  color={
+                    mapTaskToBarchartColor[
+                      mapTaskStatusToUmbrellaStatus[datum?.status]
+                    ]
+                  }
                 />
                 <TimeLabel>{msToDuration(datum?.taskDuration)}</TimeLabel>
-              </GraphWrapper>
+              </DurationWrapper>
             </Cell>
 
             {datum?.executionTasksFull &&
               datum?.executionTasksFull.map((task) => (
                 <Row key={task.id}>
                   <Cell>
-                    <span>
+                    <TaskNameWrapper>
                       {task.displayName}
-                      <StyledTaskStatusIcon status={task.status} />
-                    </span>
+                      <TaskStatusIcon status={task.status} />
+                    </TaskNameWrapper>
                   </Cell>
                   <Cell>{task.buildVariantDisplayName}</Cell>
                   <Cell>
-                    <GraphWrapper>
+                    <DurationWrapper>
                       <Bar
                         width={calculateBarWidth(task.taskDuration, max)}
-                        color={mapTaskToUmbrellaColor[task.status]}
+                        color={
+                          mapTaskToBarchartColor[
+                            mapTaskStatusToUmbrellaStatus[datum?.status]
+                          ]
+                        }
                       />
                       <TimeLabel>{msToDuration(task.taskDuration)}</TimeLabel>
-                    </GraphWrapper>
+                    </DurationWrapper>
                   </Cell>
                 </Row>
               ))}
           </Row>
         )}
       </Table>
-      {tasks.length === 0 && (
-        <NoResults>
-          <Icon glyph="CurlyBraces" size="large" />
-          <Message> No tasks found.</Message>
-        </NoResults>
-      )}
+      {tasks.length === 0 && <NoTableResults message="No tasks found." />}
     </TableWrapper>
   );
 };
 
-export const findMax = (patchTasks: PatchTasksQuery["patchTasks"]["tasks"]) =>
-  patchTasks.reduce((prev, curr) => {
-    const prevTimeTaken = prev?.taskDuration;
-    const currTimeTaken = curr?.taskDuration;
-    return prevTimeTaken > currTimeTaken ? prev : curr;
-  }).taskDuration;
+export const findMax = (
+  tasks: PatchTaskDurationsQuery["patchTasks"]["tasks"]
+) => {
+  const durations = tasks.map((t) => t.taskDuration);
+  return Math.max(...durations);
+};
 
 export function calculateBarWidth(value: number, max: number) {
   return `${(value / max) * 100}%`;
 }
+
+const TableWrapper = styled.div`
+  border-top: 3px solid ${gray.light2};
+
+  // Styling the Cell directly doesn't work, so styling is done through the table.
+  td {
+    word-break: break-all;
+    padding-right: ${size.m};
+    :nth-of-type(3) {
+      span {
+        width: 100%;
+    }
+  }
+`;
+
+const StyledTableHeader = styled(TableHeader)`
+  width: 20%;
+`;
 
 const LabelWrapper = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const StyledTaskStatusIcon = styled(TaskStatusIcon)`
-  margin-left: ${size.xxs};
-  vertical-align: text-bottom;
-`;
-
-const GraphWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const TimeLabel = styled(Description)`
-  font-size: 12px;
-  flex-shrink: 0;
-  padding-top: ${size.xxs};
-`;
-
-const TableWrapper = styled.div`
-  border-top: 3px solid ${gray.light2};
-  th,
-  td {
-    word-break: break-all;
-    :first-of-type {
-      width: 20%;
-      padding-right: ${size.l};
-    }
-    :nth-of-type(2) {
-      width: 20%;
-      padding-right: ${size.l};
-    }
-    :nth-of-type(3) {
-      span {
-        width: 100%;
-      }
-    }
-  }
-`;
-
-const SortIcon = styled(Icon)`
+const DurationSortIcon = styled(Icon)`
   cursor: pointer;
   margin-left: ${size.xs};
 `;
 
-const NoResults = styled.div`
+const TaskNameWrapper = styled.span`
+  svg {
+    margin-left: ${size.xxs};
+    vertical-align: text-bottom;
+  }
+`;
+
+const DurationWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: ${size.l} 0;
-  background-color: ${gray.light2};
-  opacity: 50%;
 `;
 
-const Message = styled.div`
-  margin-top: ${size.xs};
-`;
-
-interface BarProps {
-  width: string;
-  color: string;
-}
-
-const Bar = styled.div<BarProps>`
+const Bar = styled.div<{ width: string; color: string }>`
   width: ${({ width }) => width};
   background-color: ${({ color }) => color};
   border-radius: ${size.m};
   height: 12px;
+`;
+
+const TimeLabel = styled(Description)`
+  font-size: 12px;
+  padding-top: ${size.xxs};
+  flex-shrink: 0;
 `;

@@ -11,8 +11,11 @@ import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
 import { pollInterval } from "constants/index";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
-import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
-import { GET_PATCH_TASKS } from "gql/queries";
+import {
+  PatchTaskDurationsQuery,
+  PatchTaskDurationsQueryVariables,
+} from "gql/generated/types";
+import { GET_PATCH_TASK_DURATIONS } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
@@ -52,9 +55,9 @@ export const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
   }, [search]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { data, startPolling, stopPolling } = useQuery<
-    PatchTasksQuery,
-    PatchTasksQueryVariables
-  >(GET_PATCH_TASKS, {
+    PatchTaskDurationsQuery,
+    PatchTaskDurationsQueryVariables
+  >(GET_PATCH_TASK_DURATIONS, {
     variables: queryVariables,
     skip: noQueryVariables,
     pollInterval,
@@ -117,7 +120,7 @@ export const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
 const getQueryVariables = (
   search: string,
   versionId: string
-): PatchTasksQueryVariables => {
+): PatchTaskDurationsQueryVariables => {
   const {
     [PatchTasksQueryParams.Variant]: variant,
     [PatchTasksQueryParams.TaskName]: taskName,

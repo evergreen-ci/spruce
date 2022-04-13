@@ -11,6 +11,7 @@ import { DownstreamTasks } from "pages/version/DownstreamTasks";
 import { Tasks } from "pages/version/Tasks";
 import { PatchTab } from "types/patch";
 import { queryString } from "utils";
+import { isBeta } from "utils/environmentalVariables";
 import { TaskDuration } from "./TaskDuration";
 
 const { parseQueryString } = queryString;
@@ -71,7 +72,7 @@ export const Tabs: React.VFC<Props> = ({
   const tabIsActive = useMemo(
     () => ({
       [PatchTab.Tasks]: true,
-      [PatchTab.TaskDuration]: true,
+      [PatchTab.TaskDuration]: isBeta(),
       [PatchTab.Changes]: isPatch,
       [PatchTab.DownstreamTasks]: childPatches,
     }),
@@ -106,7 +107,7 @@ export const Tabs: React.VFC<Props> = ({
   // Update the URL and selectedTab state based on new tab selected.
   const selectNewTab = (newTabIndex: number) => {
     const queryParams = parseQueryString(location.search);
-    const newTab = Object.keys(allTabs)[newTabIndex];
+    const newTab = activeTabs[newTabIndex];
     const newRoute = getVersionRoute(id, {
       tab: newTab as PatchTab,
       ...queryParams,

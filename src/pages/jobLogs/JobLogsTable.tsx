@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import Icon from "@leafygreen-ui/icon";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Table, TableHeader, Row, Cell } from "@leafygreen-ui/table";
 import { useLocation } from "react-router-dom";
@@ -8,6 +7,7 @@ import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { Button } from "components/Button";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
+import { NoTableResults } from "components/Table/NoTableResults";
 import { TableSearchPopover } from "components/TableSearchPopover";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -133,10 +133,7 @@ export const JobLogsTable: React.VFC<JobLogsTableProps> = ({
         </Table>
       </TableWrapper>
       {!isLoadingTests && testResults.length === 0 && (
-        <NoTestResults>
-          <Icon glyph="CurlyBraces" size="large" />
-          <Message> No test results found.</Message>
-        </NoTestResults>
+        <NoTableResults message="No test results found." />
       )}
     </Container>
   );
@@ -194,15 +191,4 @@ const ButtonWrapper = styled.div`
   > :first-of-type {
     margin-right: ${size.s};
   }
-`;
-const NoTestResults = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: ${size.l} 0;
-  background-color: ${gray.light2};
-  opacity: 50%;
-`;
-const Message = styled.div`
-  margin-top: ${size.xs};
 `;

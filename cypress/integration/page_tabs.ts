@@ -20,7 +20,8 @@ describe("Tabs", () => {
       );
     });
 
-    it("Applies default sorts on task duration tab", () => {
+    // Can't test due to isBeta() flag.
+    it.skip("Applies default sorts on task duration tab", () => {
       cy.visit(`${patchRoute}/task-duration`);
       cy.get(`button[data-cy='${patches.duration.btn}']`)
         .should("have.attr", "aria-selected")

@@ -244,39 +244,6 @@ export const mapTaskToBarchartColor = {
   [TaskStatus.SetupFailed]: purple.light1,
 };
 
-export const mapTaskToUmbrellaColor = {
-  // Success
-  [TaskStatus.Succeeded]: green.base,
-
-  // System failures
-  [TaskStatus.SetupFailed]: purple.base,
-  [TaskStatus.SystemFailed]: purple.base,
-  [TaskStatus.SystemTimedOut]: purple.base,
-  [TaskStatus.SystemUnresponsive]: purple.base,
-
-  // Running
-  [TaskStatus.Started]: yellow.base,
-  [TaskStatus.Dispatched]: yellow.base,
-
-  // Failed
-  [TaskStatus.KnownIssue]: red.base,
-  [TaskStatus.Failed]: red.base,
-  [TaskStatus.TaskTimedOut]: red.base,
-  [TaskStatus.TestTimedOut]: red.base,
-
-  // Scheduled
-  [TaskStatus.Aborted]: gray.base,
-  [TaskStatus.Blocked]: gray.base,
-  [TaskStatus.Inactive]: gray.base,
-  [TaskStatus.Unscheduled]: gray.base,
-  [TaskStatus.Undispatched]: gray.base,
-
-  // Undispatched
-  [TaskStatus.Pending]: gray.dark1,
-  [TaskStatus.Unstarted]: gray.dark1,
-  [TaskStatus.WillRun]: gray.dark1,
-};
-
 // Represents order for waterfall barchart
 export const sortedUmbrellaStatus = [
   TaskStatus.Succeeded,

@@ -3610,6 +3610,41 @@ export type ConfigurePatchQuery = {
   } & BasePatchFragment;
 };
 
+export type PatchTaskDurationsQueryVariables = Exact<{
+  patchId: Scalars["String"];
+  sorts?: Maybe<Array<SortOrder>>;
+  page?: Maybe<Scalars["Int"]>;
+  statuses?: Maybe<Array<Scalars["String"]>>;
+  baseStatuses?: Maybe<Array<Scalars["String"]>>;
+  variant?: Maybe<Scalars["String"]>;
+  taskName?: Maybe<Scalars["String"]>;
+  limit?: Maybe<Scalars["Int"]>;
+}>;
+
+export type PatchTaskDurationsQuery = {
+  patchTasks: {
+    count: number;
+    tasks: Array<{
+      id: string;
+      execution: number;
+      status: string;
+      displayName: string;
+      buildVariantDisplayName?: Maybe<string>;
+      taskDuration?: Maybe<number>;
+      executionTasksFull?: Maybe<
+        Array<{
+          id: string;
+          execution: number;
+          displayName: string;
+          status: string;
+          buildVariantDisplayName?: Maybe<string>;
+          taskDuration?: Maybe<number>;
+        }>
+      >;
+    }>;
+  };
+};
+
 export type GetPatchTaskStatusesQueryVariables = Exact<{
   id: Scalars["String"];
 }>;
