@@ -26,8 +26,7 @@ interface ProjectSelectProps {
   getRoute: (projectIdentifier: string) => string;
   onSubmit?: (projectIdentifier: string) => void;
 }
-
-export const ProjectSelect: React.FC<ProjectSelectProps> = ({
+export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
   selectedProjectIdentifier,
   isProjectSettingsPage = false,
   getRoute,

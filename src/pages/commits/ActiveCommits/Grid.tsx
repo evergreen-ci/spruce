@@ -5,7 +5,7 @@ import { gridHeight } from "pages/commits/constants";
 
 const { gray } = uiColors;
 
-export const Grid: React.FC<{
+export const Grid: React.VFC<{
   numDashedLine: number;
 }> = ({ numDashedLine }) => (
   <ColumnContainer>
@@ -35,7 +35,7 @@ const DashedLine = styled.div`
   border: 1px dashed ${gray.light2};
 `;
 
-const SolidLine = styled.div`
+export const SolidLine = styled.div`
   width: 100%;
   border: 1px solid ${gray.light1};
 `;

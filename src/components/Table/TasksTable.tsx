@@ -47,7 +47,7 @@ interface TasksTableProps {
   variantInputProps?: InputFilterProps;
 }
 
-export const TasksTable: React.FC<TasksTableProps> = ({
+export const TasksTable: React.VFC<TasksTableProps> = ({
   baseStatusSelectorProps,
   taskNameInputProps,
   onClickTaskLink = () => {},
@@ -269,7 +269,7 @@ interface TaskLinkProps {
   taskName: string;
   onClick: (taskId: string) => void;
 }
-const TaskLink: React.FC<TaskLinkProps> = ({ taskId, taskName, onClick }) => (
+const TaskLink: React.VFC<TaskLinkProps> = ({ taskId, taskName, onClick }) => (
   <StyledRouterLink onClick={() => onClick(taskId)} to={getTaskRoute(taskId)}>
     <WordBreak>{taskName}</WordBreak>
   </StyledRouterLink>

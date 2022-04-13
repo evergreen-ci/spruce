@@ -1,4 +1,4 @@
-query EventLogs($id: String!, $execution: Int) {
+query TaskEventLogs($id: String!, $execution: Int) {
   taskLogs(taskId: $id, execution: $execution) {
     execution
     taskId

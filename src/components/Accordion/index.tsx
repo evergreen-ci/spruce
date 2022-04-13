@@ -8,17 +8,17 @@ interface AccordionProps {
   toggledTitle?: React.ReactNode;
   toggleFromBottom?: boolean;
   showCaret?: boolean;
-  contents: React.ReactNode;
   allowToggleFromTitle?: boolean;
   defaultOpen?: boolean;
-  titleTag?: React.FC;
+  titleTag?: React.VFC;
   onToggle?: (nextState?: boolean) => void;
   useIndent?: boolean;
+  children: React.ReactNode;
 }
-export const Accordion: React.FC<AccordionProps> = ({
+export const Accordion: React.VFC<AccordionProps> = ({
   title,
   toggledTitle,
-  contents,
+  children,
   toggleFromBottom = false,
   showCaret = true,
   allowToggleFromTitle = true,
@@ -43,7 +43,7 @@ export const Accordion: React.FC<AccordionProps> = ({
     <>
       {toggleFromBottom && (
         <AnimatedAccordion hide={!isAccordionDisplayed}>
-          {contents}
+          {children}
         </AnimatedAccordion>
       )}
       <Row>
@@ -61,7 +61,7 @@ export const Accordion: React.FC<AccordionProps> = ({
       {!toggleFromBottom && (
         <AnimatedAccordion hide={!isAccordionDisplayed}>
           <ContentsContainer indent={showCaret && useIndent}>
-            {contents}
+            {children}
           </ContentsContainer>
         </AnimatedAccordion>
       )}
@@ -83,13 +83,15 @@ const AccordionToggle = styled.span`
   }
 `;
 const AnimatedAccordion = styled.div`
-  max-height: 0;
   /* This is used to calculate a fixed height for the Accordion since height
-     transitions require a fixed height for their end height */
-  max-height: ${(props: { hide: boolean }): string => !props.hide && "6000px"};
-  overflow-y: ${(props: { hide: boolean }): string =>
-    props.hide ? "hidden" : "visible"};
-  transition: max-height 0.3s ease-in-out;
+      transitions require a fixed height for their end height */
+  max-height: ${(props: { hide: boolean }): string =>
+    props.hide ? "0px" : "9999px"};
+  overflow-y: ${(props: { hide: boolean }): string => props.hide && "hidden"};
+  transition: ${(props: { hide: boolean }): string =>
+    props.hide
+      ? "max-height 0.3s cubic-bezier(0, 1, 0, 1)"
+      : "max-height 0.6s ease-in-out"};
 `;
 const ContentsContainer = styled.div`
   margin-left: ${(props: { indent: boolean }): string =>

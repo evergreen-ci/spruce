@@ -26,7 +26,7 @@ interface JiraTicketRowProps {
   jiraKey: string;
   fields: TicketFields;
 }
-export const JiraTicketRow: React.FC<JiraTicketRowProps> = ({
+export const JiraTicketRow: React.VFC<JiraTicketRowProps> = ({
   jiraKey,
   fields,
 }) => {
@@ -78,7 +78,7 @@ interface AnnotationTicketRowProps {
   loading?: boolean;
 }
 
-export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
+export const AnnotationTicketRow: React.VFC<AnnotationTicketRowProps> = ({
   issueKey,
   url,
   jiraTicket,

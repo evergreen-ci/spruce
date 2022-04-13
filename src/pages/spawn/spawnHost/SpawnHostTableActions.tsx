@@ -14,7 +14,9 @@ import { SpawnHostActionButton } from "./SpawnHostActionButton";
 
 const { copyToClipboard } = string;
 
-export const SpawnHostTableActions: React.FC<{ host: MyHost }> = ({ host }) => (
+export const SpawnHostTableActions: React.VFC<{ host: MyHost }> = ({
+  host,
+}) => (
   <FlexContainer>
     <SpawnHostActionButton host={host} />
     <CopySSHCommandButton
@@ -26,7 +28,7 @@ export const SpawnHostTableActions: React.FC<{ host: MyHost }> = ({ host }) => (
   </FlexContainer>
 );
 
-export const CopySSHCommandButton: React.FC<{
+export const CopySSHCommandButton: React.VFC<{
   user: string;
   hostUrl: string;
   hostStatus: string;

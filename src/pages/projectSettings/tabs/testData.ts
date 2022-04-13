@@ -18,6 +18,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     remotePath: null,
     spawnHostScriptPath: null,
     dispatchingDisabled: null,
+    versionControlEnabled: true,
     deactivatePrevious: null,
     repotrackerDisabled: null,
     defaultLogger: null,
@@ -67,6 +68,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
       ],
       gitClone: null,
     },
+    periodicBuilds: [],
   },
   vars: {
     vars: { test_name: "", test_two: "val" },
@@ -121,6 +123,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     remotePath: "evergreen.yml",
     spawnHostScriptPath: "/test/path",
     dispatchingDisabled: true,
+    versionControlEnabled: false,
     deactivatePrevious: true,
     repotrackerDisabled: false,
     notifyOnBuildFailure: false,
@@ -190,6 +193,24 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
       setupCommands: [],
       gitClone: true,
     },
+    periodicBuilds: [
+      {
+        alias: "",
+        configFile: "evergreen.yml",
+        id: "123",
+        intervalHours: 24,
+        message: "",
+        nextRunTime: new Date("2022-03-30T17:07:10.942Z"),
+      },
+      {
+        alias: "test",
+        configFile: "evergreen.yml",
+        id: "456",
+        intervalHours: 12,
+        message: "Build Message",
+        nextRunTime: new Date("2022-03-30T17:07:10.942Z"),
+      },
+    ],
   },
   vars: {
     vars: { repo_name: "repo_value" },

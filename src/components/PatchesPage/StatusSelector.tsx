@@ -8,7 +8,7 @@ import {
   ALL_PATCH_STATUS,
 } from "types/patch";
 
-export const StatusSelector: React.FC = () => {
+export const StatusSelector: React.VFC = () => {
   const {
     inputValue: statusVal,
     setAndSubmitInputValue: statusValOnChange,

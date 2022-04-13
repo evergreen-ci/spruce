@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import Banner from "@leafygreen-ui/banner";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { uiColors } from "@leafygreen-ui/palette";
 import { RadioBox, RadioBoxGroup } from "@leafygreen-ui/radio-box-group";
@@ -9,19 +10,20 @@ import {
 } from "@leafygreen-ui/segmented-control";
 import { Option, Select } from "@leafygreen-ui/select";
 import TextArea from "@leafygreen-ui/text-area";
-import TextInput from "@leafygreen-ui/text-input";
+import TextInput, { State as TextInputState } from "@leafygreen-ui/text-input";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Description, Label } from "@leafygreen-ui/typography";
-import { WidgetProps } from "@rjsf/core";
 import Icon from "components/Icon";
 import { size, zIndex } from "constants/tokens";
-import { errorReporting } from "utils";
-import ElementWrapper from "./ElementWrapper";
+import { OneOf } from "types/utils";
+import ElementWrapper from "../ElementWrapper";
+import { EnumSpruceWidgetProps, SpruceWidgetProps } from "./types";
 
-const { reportError } = errorReporting;
-const { red } = uiColors;
+const { yellow } = uiColors;
 
-export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
+export const LeafyGreenTextInput: React.VFC<
+  { options: { optional?: boolean } } & SpruceWidgetProps
+> = ({
   value,
   label,
   placeholder,
@@ -30,34 +32,33 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
   options,
   rawErrors,
   readonly,
-  formContext,
 }) => {
   const {
     ariaLabelledBy,
     description,
     "data-cy": dataCy,
     emptyValue,
+    marginBottom,
     optional,
+    warnings,
   } = options;
   const hasError = !!rawErrors?.length;
   const errorProps = {
     errorMessage: hasError ? rawErrors.join(", ") : null,
-    state: hasError ? "error" : "none",
+    state: hasError ? TextInputState.Error : TextInputState.None,
   };
-  const { readonlyAsDisabled = true } = formContext;
   return (
-    <ElementWrapper>
+    <ElementWrapper marginBottom={marginBottom}>
       <MaxWidthContainer>
         <StyledTextInput
           data-cy={dataCy}
           value={value === null || value === undefined ? null : `${value}`}
-          // @ts-expect-error
           aria-labelledby={ariaLabelledBy}
           label={ariaLabelledBy ? undefined : label}
           placeholder={placeholder || undefined}
-          description={description as string}
-          optional={optional as boolean}
-          disabled={disabled || (readonlyAsDisabled && readonly)}
+          description={description}
+          optional={optional}
+          disabled={disabled || readonly}
           onChange={({ target }) =>
             onChange(
               target.value === "" && emptyValue !== undefined
@@ -68,23 +69,39 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
           aria-label={label}
           {...errorProps}
         />
+        {!!warnings?.length && (
+          <WarningText data-cy="input-warning">
+            {warnings.join(", ")}
+          </WarningText>
+        )}
       </MaxWidthContainer>
     </ElementWrapper>
   );
 };
 
-export const LeafyGreenCheckBox: React.FC<WidgetProps> = ({
+const StyledTextInput = styled(TextInput)`
+  p {
+    /* Fixes positioning of "Optional" label */
+    margin: 0;
+  }
+`;
+
+const WarningText = styled.p`
+  color: ${yellow.dark2};
+  line-height: 1.2;
+`;
+
+export const LeafyGreenCheckBox: React.VFC<SpruceWidgetProps> = ({
   value,
   label,
   onChange,
   disabled,
-  options: { "data-cy": dataCy, tooltipDescription },
+  options,
   readonly,
-  formContext,
 }) => {
-  const { readonlyAsDisabled = true } = formContext;
+  const { "data-cy": dataCy, marginBottom, tooltipDescription } = options;
   return (
-    <ElementWrapper>
+    <ElementWrapper marginBottom={marginBottom}>
       <Checkbox
         data-cy={dataCy}
         checked={value}
@@ -107,7 +124,7 @@ export const LeafyGreenCheckBox: React.FC<WidgetProps> = ({
           </>
         }
         onChange={(e) => onChange(e.target.checked)}
-        disabled={disabled || (readonlyAsDisabled && readonly)}
+        disabled={disabled || readonly}
       />
     </ElementWrapper>
   );
@@ -119,7 +136,9 @@ const IconContainer = styled.span`
   vertical-align: text-top;
 `;
 
-export const LeafyGreenSelect: React.FC<WidgetProps> = ({
+export const LeafyGreenSelect: React.VFC<
+  { options: { allowDeselect?: boolean } } & EnumSpruceWidgetProps
+> = ({
   disabled,
   label,
   options,
@@ -132,33 +151,32 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
   const {
     allowDeselect,
     ariaLabelledBy,
+    description,
     enumOptions,
     "data-cy": dataCy,
+    marginBottom,
   } = options;
 
   const hasError = !!rawErrors?.length && !disabled;
   const isDisabled = disabled || readonly;
+  const labelProps: OneOf<
+    { label: string },
+    { "aria-labelledby": string }
+  > = ariaLabelledBy ? { "aria-labelledby": ariaLabelledBy } : { label };
 
-  if (!Array.isArray(enumOptions)) {
-    reportError(
-      new Error("LeafyGreen Select expects enumOptions to be an array")
-    ).warning();
-    return null;
-  }
   return (
-    <ElementWrapper>
+    <ElementWrapper marginBottom={marginBottom}>
       <MaxWidthContainer>
         <Select
           allowDeselect={allowDeselect !== false}
-          // @ts-expect-error
-          aria-labelledby={ariaLabelledBy}
+          description={description}
           disabled={isDisabled}
-          label={ariaLabelledBy ? undefined : label}
           value={value}
+          {...labelProps}
           onChange={(v) => onChange(v === "" ? null : v)}
           placeholder={placeholder}
-          id={dataCy as string}
-          name={dataCy as string}
+          id={dataCy}
+          name={dataCy}
           data-cy={dataCy}
           state={hasError ? "error" : "none"}
           errorMessage="Selection is required."
@@ -181,23 +199,16 @@ export const LeafyGreenSelect: React.FC<WidgetProps> = ({
   );
 };
 
-export const LeafyGreenRadio: React.FC<WidgetProps> = ({
+export const LeafyGreenRadio: React.VFC<EnumSpruceWidgetProps> = ({
   label,
   options,
   value,
   onChange,
   disabled,
 }) => {
-  const { enumOptions, "data-cy": dataCy } = options;
-  if (!Array.isArray(enumOptions)) {
-    reportError(
-      new Error("LeafyGreen Radio expects enumOptions to be an array")
-    ).warning();
-    return null;
-  }
-
+  const { "data-cy": dataCy, enumOptions, marginBottom } = options;
   return (
-    <ElementWrapper>
+    <ElementWrapper marginBottom={marginBottom}>
       <RadioGroup
         name={label}
         value={value}
@@ -214,7 +225,7 @@ export const LeafyGreenRadio: React.FC<WidgetProps> = ({
   );
 };
 
-export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
+export const LeafyGreenRadioBox: React.VFC<EnumSpruceWidgetProps> = ({
   id,
   label,
   options,
@@ -225,25 +236,12 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
 }) => {
   const {
     description,
-    enumOptions,
     "data-cy": dataCy,
-    rawErrors,
+    enumOptions,
+    errors,
+    marginBottom,
     showLabel,
   } = options;
-  if (!Array.isArray(enumOptions)) {
-    reportError(
-      new Error("LeafyGreen Radio Box expects enumOptions to be an array")
-    ).warning();
-    return null;
-  }
-
-  if (rawErrors && !Array.isArray(rawErrors)) {
-    reportError(
-      new Error("LeafyGreen Radio Box expects rawErrors to be an array")
-    ).warning();
-    return null;
-  }
-  const errs = rawErrors as string[];
 
   // Workaround because {ui:widget: hidden} does not play nicely with this widget
   const hide = uiSchema["ui:hide"] ?? false;
@@ -255,7 +253,7 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
   const valueMap = enumOptions.map(({ value: val }) => val);
 
   return (
-    <ElementWrapper>
+    <ElementWrapper marginBottom={marginBottom}>
       {showLabel !== false && (
         <RadioBoxLabelContainer>
           <Label htmlFor={id} disabled={disabled}>
@@ -264,7 +262,9 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
           {description && <Description>{description}</Description>}
         </RadioBoxLabelContainer>
       )}
-      {!!errs?.length && <ErrorText>{errs?.join(", ")}</ErrorText>}
+      {!!errors?.length && (
+        <StyledBanner variant="danger">{errors?.join(", ")}</StyledBanner>
+      )}
       <RadioBoxGroup
         id={id}
         name={label}
@@ -286,6 +286,10 @@ export const LeafyGreenRadioBox: React.FC<WidgetProps> = ({
   );
 };
 
+const StyledBanner = styled(Banner)`
+  margin-bottom: ${size.s};
+`;
+
 const RadioBoxLabelContainer = styled.div`
   margin-bottom: ${size.xs};
 `;
@@ -294,24 +298,23 @@ const StyledRadioBox = styled(RadioBox)`
   line-height: 1.25;
 `;
 
-export const LeafyGreenTextArea: React.FC<WidgetProps> = ({
+export const LeafyGreenTextArea: React.VFC<SpruceWidgetProps> = ({
   label,
   disabled,
   value,
   onChange,
-  options: { "data-cy": dataCy, marginBottom },
+  options,
   rawErrors,
   readonly,
-  formContext,
 }) => {
-  const { readonlyAsDisabled = true } = formContext;
+  const { "data-cy": dataCy, marginBottom } = options;
   const hasError = !!rawErrors?.length;
   return (
-    <ElementWrapper marginBottom={marginBottom as number}>
+    <ElementWrapper marginBottom={marginBottom}>
       <TextArea
         data-cy={dataCy}
         label={label}
-        disabled={disabled || (readonlyAsDisabled && readonly)}
+        disabled={disabled || readonly}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         errorMessage={hasError ? rawErrors.join(", ") : null}
@@ -321,7 +324,7 @@ export const LeafyGreenTextArea: React.FC<WidgetProps> = ({
   );
 };
 
-export const LeafyGreenSegmentedControl: React.FC<WidgetProps> = ({
+export const LeafyGreenSegmentedControl: React.VFC<EnumSpruceWidgetProps> = ({
   disabled,
   label,
   onChange,
@@ -333,27 +336,19 @@ export const LeafyGreenSegmentedControl: React.FC<WidgetProps> = ({
     "aria-controls": ariaControls,
     "data-cy": dataCy,
     enumOptions,
+    marginBottom,
   } = options;
 
   const isDisabled = disabled || readonly;
 
-  if (!Array.isArray(enumOptions)) {
-    reportError(
-      new Error(
-        "LeafyGreen Segmented Control expects enumOptions to be an array"
-      )
-    ).warning();
-    return null;
-  }
-
   return (
-    <ElementWrapper>
+    <ElementWrapper marginBottom={marginBottom}>
       <StyledSegmentedControl
         data-cy={dataCy}
         label={label}
         value={value}
         onChange={onChange}
-        aria-controls={(ariaControls as string[])?.join(" ")}
+        aria-controls={ariaControls?.join(" ")}
       >
         {enumOptions.map((o) => (
           <SegmentedControlOption
@@ -369,20 +364,10 @@ export const LeafyGreenSegmentedControl: React.FC<WidgetProps> = ({
   );
 };
 
-const ErrorText = styled.p`
-  color: ${red.base};
-`;
-
 const StyledSegmentedControl = styled(SegmentedControl)`
   margin-bottom: ${size.s};
 `;
 
 const MaxWidthContainer = styled.div`
   max-width: 400px;
-`;
-
-const StyledTextInput = styled(TextInput)`
-  p {
-    margin: 0;
-  }
 `;

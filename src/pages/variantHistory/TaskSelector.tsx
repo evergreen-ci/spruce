@@ -20,7 +20,7 @@ interface TaskSelectorProps {
   buildVariant: string;
 }
 
-const TaskSelector: React.FC<TaskSelectorProps> = ({
+const TaskSelector: React.VFC<TaskSelectorProps> = ({
   projectId,
   buildVariant,
 }) => {

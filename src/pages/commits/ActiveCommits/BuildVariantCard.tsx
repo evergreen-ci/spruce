@@ -24,7 +24,7 @@ interface Props {
   };
   order: number;
 }
-export const BuildVariantCard: React.FC<Props> = ({
+export const BuildVariantCard: React.VFC<Props> = ({
   buildVariantDisplayName,
   variant,
   tasks,
@@ -78,7 +78,7 @@ interface RenderTaskIconsProps {
   variant: string;
 }
 
-const RenderTaskIcons: React.FC<RenderTaskIconsProps> = ({ tasks, variant }) =>
+const RenderTaskIcons: React.VFC<RenderTaskIconsProps> = ({ tasks, variant }) =>
   tasks.length ? (
     <IconContainer>
       {tasks.map(({ id, status, displayName, timeTaken }) => (

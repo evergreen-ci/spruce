@@ -1,19 +1,38 @@
+fragment projectGithubSettings on Project {
+  prTestingEnabled
+  githubChecksEnabled
+  githubTriggerAliases
+  gitTagVersionsEnabled
+  gitTagAuthorizedUsers
+  gitTagAuthorizedTeams
+  commitQueue {
+    enabled
+    requireSigned
+    mergeMethod
+    message
+  }
+}
+
+fragment repoGithubSettings on RepoRef {
+  prTestingEnabled
+  githubChecksEnabled
+  githubTriggerAliases
+  gitTagVersionsEnabled
+  gitTagAuthorizedUsers
+  gitTagAuthorizedTeams
+  commitQueue {
+    enabled
+    requireSigned
+    mergeMethod
+    message
+  }
+}
+
 fragment projectGithubCommitQueue on ProjectSettings {
   githubWebhooksEnabled
 
   projectRef {
-    prTestingEnabled
-    githubChecksEnabled
-    githubTriggerAliases
-    gitTagVersionsEnabled
-    gitTagAuthorizedUsers
-    gitTagAuthorizedTeams
-    commitQueue {
-      enabled
-      requireSigned
-      mergeMethod
-      message
-    }
+    ...projectGithubSettings
   }
 }
 
@@ -21,17 +40,22 @@ fragment repoGithubCommitQueue on RepoSettings {
   githubWebhooksEnabled
 
   projectRef {
-    prTestingEnabled
-    githubChecksEnabled
-    githubTriggerAliases
-    gitTagVersionsEnabled
-    gitTagAuthorizedUsers
-    gitTagAuthorizedTeams
-    commitQueue {
-      enabled
-      requireSigned
-      mergeMethod
-      message
-    }
+    ...repoGithubSettings
+  }
+}
+
+fragment projectEventGithubCommitQueue on ProjectEventSettings {
+  githubWebhooksEnabled
+
+  projectRef {
+    ...projectGithubSettings
+  }
+}
+
+fragment repoEventGithubCommitQueue on RepoEventSettings {
+  githubWebhooksEnabled
+
+  projectRef {
+    ...repoGithubSettings
   }
 }

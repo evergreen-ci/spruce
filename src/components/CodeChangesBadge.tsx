@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -9,7 +8,10 @@ interface Props {
   deletions: number;
 }
 
-export const CodeChangesBadge: React.FC<Props> = ({ additions, deletions }) => (
+export const CodeChangesBadge: React.VFC<Props> = ({
+  additions,
+  deletions,
+}) => (
   <Badge>
     <FileDiffText type="+" value={additions} />
     <FileDiffText type="-" value={deletions} />
@@ -21,7 +23,7 @@ interface FileDiffTextProps {
   value: number;
 }
 
-export const FileDiffText: React.FC<FileDiffTextProps> = ({ value, type }) => {
+export const FileDiffText: React.VFC<FileDiffTextProps> = ({ value, type }) => {
   const hasValue = value > 0;
   return (
     <FileDiffTextContainer hasValue={hasValue} type={type}>

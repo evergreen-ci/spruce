@@ -32,7 +32,7 @@ interface Props {
   repoData?: RepoSettings;
 }
 
-export const ProjectSettingsTabs: React.FC<Props> = ({
+export const ProjectSettingsTabs: React.VFC<Props> = ({
   projectData,
   projectType,
   repoData,
@@ -120,6 +120,10 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
             repoData={
               tabData[ProjectSettingsTabRoutes.GithubCommitQueue].repoData
             }
+            versionControlEnabled={
+              projectData?.projectRef?.versionControlEnabled ??
+              repoData?.projectRef?.versionControlEnabled
+            }
           />
         )}
       />
@@ -182,10 +186,18 @@ export const ProjectSettingsTabs: React.FC<Props> = ({
         path={routes.projectSettingsProjectTriggers}
         tab={ProjectSettingsTabRoutes.ProjectTriggers}
       />
-      <TabRoute
-        Component={PeriodicBuildsTab}
+      <Route
         path={routes.projectSettingsPeriodicBuilds}
-        tab={ProjectSettingsTabRoutes.PeriodicBuilds}
+        render={(props) => (
+          <PeriodicBuildsTab
+            {...props}
+            projectData={
+              tabData[ProjectSettingsTabRoutes.PeriodicBuilds].projectData
+            }
+            projectType={projectType}
+            repoData={tabData[ProjectSettingsTabRoutes.PeriodicBuilds].repoData}
+          />
+        )}
       />
       <TabRoute
         Component={EventLogTab}
@@ -202,7 +214,7 @@ interface TabRouteProps {
   tab: ProjectSettingsTabRoutes;
 }
 
-const TabRoute: React.FC<TabRouteProps> = ({ Component, path, tab }) => (
+const TabRoute: React.VFC<TabRouteProps> = ({ Component, path, tab }) => (
   <Route path={path} render={(props) => <Component {...props} tab={tab} />} />
 );
 

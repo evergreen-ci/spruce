@@ -11,7 +11,7 @@ interface Props {
   status: HostStatus;
 }
 
-export const HostStatusBadge: React.FC<Props> = ({ status }) => (
+export const HostStatusBadge: React.VFC<Props> = ({ status }) => (
   <HostStatusWrapper>
     <StyledBadge variant={statusToBadgeVariant[status]}>
       {hostStatusToCopy[status]}

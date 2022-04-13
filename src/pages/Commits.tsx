@@ -203,7 +203,6 @@ const PaginationWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   padding: ${size.s} 0;
-  margin-bottom: ${size.m};
 `;
 
 const tupleSelectOptions = [

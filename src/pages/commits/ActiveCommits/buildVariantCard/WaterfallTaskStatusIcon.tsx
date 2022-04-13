@@ -24,7 +24,7 @@ interface WaterfallTaskStatusIconProps {
   identifier: string;
 }
 
-export const WaterfallTaskStatusIcon: React.FC<WaterfallTaskStatusIconProps> = ({
+export const WaterfallTaskStatusIcon: React.VFC<WaterfallTaskStatusIconProps> = ({
   taskId,
   status,
   displayName,

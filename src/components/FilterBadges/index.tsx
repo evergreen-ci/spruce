@@ -14,7 +14,7 @@ interface FilterBadgesProps {
   onRemove?: () => void;
   onClearAll?: () => void;
 }
-export const FilterBadges: React.FC<FilterBadgesProps> = ({
+export const FilterBadges: React.VFC<FilterBadgesProps> = ({
   queryParamsToDisplay,
   onRemove = () => {},
   onClearAll = () => {},

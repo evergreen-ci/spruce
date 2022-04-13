@@ -17,7 +17,7 @@ describe("real Toast", () => {
   // Since useToastContext relies on the toastProvider which in turn relies on the react.createPortal api we cannot test it directly
   // because the react.createPortal api is not available in the testing-library/react-hooks test environment. So we need to create a wrapper
   // component that will render the toastProvider and useToastContext and test the useToastContext hook internally.
-  const UseToastComponent: React.FC<UseToastComponentProps> = (props) => {
+  const UseToastComponent: React.VFC<UseToastComponentProps> = (props) => {
     const type = Object.keys(props)[0];
     const params = Object.values(props)[0] as [];
     const dispatchToast = useToastContext();
@@ -191,7 +191,7 @@ describe("real Toast", () => {
 });
 
 describe("mocked Fake Toast", () => {
-  const UseToastComponent: React.FC = () => {
+  const UseToastComponent: React.VFC = () => {
     const dispatchToast = useToastContext();
     return (
       <button type="button" onClick={() => dispatchToast.success("test")}>

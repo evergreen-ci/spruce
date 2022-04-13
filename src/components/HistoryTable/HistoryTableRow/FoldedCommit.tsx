@@ -29,7 +29,7 @@ interface FoldedCommitProps {
   onClickJiraTicket?: () => void;
   onClickGithash?: () => void;
 }
-export const FoldedCommit = memo(
+export const FoldedCommit = memo<FoldedCommitProps>(
   ({
     index,
     rolledUpCommits,
@@ -78,14 +78,15 @@ export const FoldedCommit = memo(
           title={`Expand ${numCommits} inactive`}
           toggledTitle={`Collapse ${numCommits} inactive`}
           titleTag={AccordionTitle}
-          contents={commits}
           onToggle={(isVisible) => {
             onToggleFoldedCommit(isVisible);
             toggleRowSize(index, numCommits);
           }}
           useIndent={false}
           defaultOpen={defaultOpen}
-        />
+        >
+          {commits}
+        </Accordion>
       </Column>
     );
   },

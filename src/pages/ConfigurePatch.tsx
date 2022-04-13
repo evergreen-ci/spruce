@@ -16,7 +16,7 @@ import { PageDoesNotExist } from "pages/404";
 import { ConfigurePatchCore } from "pages/configurePatch/ConfigurePatchCore";
 import { validateObjectId } from "utils/validators";
 
-export const ConfigurePatch: React.FC = () => {
+export const ConfigurePatch: React.VFC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatchToast = useToastContext();
   const { data, loading, error } = useQuery<

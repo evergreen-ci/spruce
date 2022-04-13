@@ -14,23 +14,24 @@ interface HistoryTableProps {
   recentlyFetchedCommits: MainlineCommitsForHistoryQuery["mainlineCommits"];
   children: ComponentType<ListChildComponentProps<any>>;
 }
-const HistoryTable = ({
+const HistoryTable: React.VFC<HistoryTableProps> = ({
   loadMoreItems,
   recentlyFetchedCommits,
   children,
-}: HistoryTableProps) => {
+}) => {
   const {
-    getItemHeight,
-    fetchNewCommit,
-    isItemLoaded,
-    toggleRowSizeAtIndex,
     commitCount,
-    onChangeTableWidth,
-    selectedCommit,
     processedCommitCount,
+    selectedCommit,
+    getItemHeight,
+    ingestNewCommits,
+    isItemLoaded,
+    markSelectedRowVisited,
+    onChangeTableWidth,
+    toggleRowSizeAtIndex,
   } = useHistoryTable();
 
-  const throttleOnChangeTableWidth = useMemo(
+  const throttledOnChangeTableWidth = useMemo(
     () => throttle(onChangeTableWidth, 400),
     [onChangeTableWidth]
   );
@@ -38,9 +39,9 @@ const HistoryTable = ({
   const listRef = useRef<List>(null);
   useEffect(() => {
     if (recentlyFetchedCommits) {
-      fetchNewCommit(recentlyFetchedCommits);
+      ingestNewCommits(recentlyFetchedCommits);
     }
-    // Remove fetchNewCommit from the effect list to avoid infinite loop
+    // Remove ingestNewCommits from the effect list to avoid infinite loop
   }, [recentlyFetchedCommits]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // When we fetch new commits we need to tell react-window to re-render the list and update the heights for each of the rows since they will have changed based off of the new commits
@@ -52,13 +53,25 @@ const HistoryTable = ({
     }
   }, [processedCommitCount]);
 
+  // This useEffect handles the jump to row functionality
   useEffect(() => {
-    if (selectedCommit && selectedCommit.rowIndex && listRef.current) {
-      listRef.current.scrollToItem(selectedCommit.rowIndex, "center");
-    } else {
-      loadMoreItems();
+    if (selectedCommit) {
+      const { rowIndex, visited, loaded } = selectedCommit;
+      if (rowIndex && !visited && listRef.current) {
+        listRef.current.scrollToItem(selectedCommit.rowIndex, "center");
+        // We mark the selected commit as visited so that we don't keep trying to scroll to it.
+        markSelectedRowVisited();
+        // If we have not loaded the commit yet we need to keep fetching rows until we do.
+      } else if (!loaded) {
+        loadMoreItems();
+      }
     }
-  }, [selectedCommit, loadMoreItems]);
+  }, [
+    processedCommitCount,
+    selectedCommit,
+    markSelectedRowVisited,
+    loadMoreItems,
+  ]);
 
   const toggleRowSize = (index: number, numCommits: number) => {
     toggleRowSizeAtIndex(index, numCommits);
@@ -68,7 +81,7 @@ const HistoryTable = ({
   };
 
   return (
-    <AutoSizer onResize={({ width }) => throttleOnChangeTableWidth(width)}>
+    <AutoSizer onResize={({ width }) => throttledOnChangeTableWidth(width)}>
       {({ height, width }) => (
         <InfiniteLoader
           isItemLoaded={isItemLoaded}

@@ -37,7 +37,7 @@ export const VariantHistoryTable = () => (
 interface HistoryTableWrapperProps {
   type?: "variant" | "task";
 }
-const HistoryTableWrapper: React.FC<HistoryTableWrapperProps> = ({ type }) => {
+const HistoryTableWrapper: React.VFC<HistoryTableWrapperProps> = ({ type }) => {
   const { addColumns } = useHistoryTable();
   const [commitData, setCommitData] = useState(mainlineCommitData);
   useEffect(() => {
@@ -47,7 +47,7 @@ const HistoryTableWrapper: React.FC<HistoryTableWrapperProps> = ({ type }) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadMore = () => {
-    setCommitData(fetchNewCommitData(commitData));
+    setCommitData(ingestNewCommitData(commitData));
   };
 
   return (
@@ -63,7 +63,7 @@ const HistoryTableWrapper: React.FC<HistoryTableWrapperProps> = ({ type }) => {
 };
 
 // This is a helper function to generate new commit data
-const fetchNewCommitData = (oldData: typeof mainlineCommitData) => {
+const ingestNewCommitData = (oldData: typeof mainlineCommitData) => {
   const commitData = { ...oldData };
   // get last 5 versions from commit data
   const last5Versions = commitData.versions.slice(-5);

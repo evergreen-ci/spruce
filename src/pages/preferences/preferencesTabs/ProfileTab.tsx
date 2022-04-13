@@ -21,7 +21,7 @@ import { string } from "utils";
 
 const { omitTypename } = string;
 
-export const ProfileTab: React.FC = () => {
+export const ProfileTab: React.VFC = () => {
   const { sendEvent } = usePreferencesAnalytics();
   const dispatchToast = useToastContext();
 

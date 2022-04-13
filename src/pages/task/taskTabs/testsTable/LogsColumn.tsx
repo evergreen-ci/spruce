@@ -21,7 +21,7 @@ interface Props {
   task: GetTaskForTestsTableQuery["task"];
 }
 
-export const LogsColumn: React.FC<Props> = ({
+export const LogsColumn: React.VFC<Props> = ({
   testResult,
   taskAnalytics,
   task,

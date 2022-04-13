@@ -30,7 +30,7 @@ interface ModalProps {
   repoOwner: string;
 }
 
-export const MoveRepoModal: React.FC<ModalProps> = ({
+export const MoveRepoModal: React.VFC<ModalProps> = ({
   handleClose,
   open,
   projectId,
@@ -98,7 +98,7 @@ export const MoveRepoModal: React.FC<ModalProps> = ({
   );
 };
 
-export const AttachDetachModal: React.FC<
+export const AttachDetachModal: React.VFC<
   ModalProps & {
     shouldAttach: boolean;
   }

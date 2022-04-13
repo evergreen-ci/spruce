@@ -18,7 +18,7 @@ const globalStyles = css`
   }
 `;
 
-const App: React.FC = () => (
+const App: React.VFC = () => (
   <ErrorBoundary>
     <ContextProviders>
       <Router>

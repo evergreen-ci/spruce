@@ -18,7 +18,7 @@ interface RowProps extends ListChildComponentProps {
   onClickFoldedJiraTicket: () => void;
   onToggleFoldedCommit: (isVisible: boolean) => void;
 }
-const Row: React.FC<RowProps> = ({
+const Row: React.VFC<RowProps> = ({
   columns,
   numVisibleCols,
   index,

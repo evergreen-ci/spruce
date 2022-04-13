@@ -21,7 +21,7 @@ interface TupleSelectProps {
   options: option[];
   onSubmit?: ({ category, value }: { category: string; value: string }) => void;
 }
-export const TupleSelect: React.FC<TupleSelectProps> = ({
+export const TupleSelect: React.VFC<TupleSelectProps> = ({
   options,
   onSubmit = () => {},
 }) => {

@@ -11,7 +11,7 @@ interface Props {
   patchId: string;
   refetchQueries: string[];
 }
-export const DisableTasks: React.FC<Props> = ({ patchId, refetchQueries }) => {
+export const DisableTasks: React.VFC<Props> = ({ patchId, refetchQueries }) => {
   const dispatchToast = useToastContext();
   const [disablePatch] = useMutation<
     SetPatchPriorityMutation,

@@ -9,7 +9,7 @@ import { ChartTypes } from "types/commits";
 
 const { gray } = uiColors;
 
-export const ChartToggle: React.FC<{
+export const ChartToggle: React.VFC<{
   currentChartType: ChartTypes;
   onChangeChartType: (chartType: ChartTypes) => void;
 }> = ({ currentChartType, onChangeChartType }) => {

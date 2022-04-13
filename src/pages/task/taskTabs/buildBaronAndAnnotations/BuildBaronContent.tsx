@@ -34,7 +34,7 @@ interface BuildBaronCoreProps {
   userCanModify: boolean;
 }
 
-export const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
+export const BuildBaronContent: React.VFC<BuildBaronCoreProps> = ({
   bbData,
   taskId,
   execution,

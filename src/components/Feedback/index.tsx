@@ -13,7 +13,7 @@ import { GET_SPRUCE_CONFIG } from "gql/queries";
 
 const { green } = uiColors;
 
-export const Feedback: React.FC = () => {
+export const Feedback: React.VFC = () => {
   const { data } = useQuery<GetSpruceConfigQuery>(GET_SPRUCE_CONFIG);
 
   const userVoiceUrl = data?.spruceConfig?.ui?.userVoice;

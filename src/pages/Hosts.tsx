@@ -33,7 +33,7 @@ const { toArray } = array;
 const { getPageFromSearch, getLimitFromSearch } = url;
 const { getString, parseQueryString } = queryString;
 
-export const Hosts: React.FC = () => {
+export const Hosts: React.VFC = () => {
   const hostsTableAnalytics = useHostsTableAnalytics();
 
   const { search } = useLocation();

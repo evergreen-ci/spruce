@@ -9,7 +9,7 @@ interface Props {
   manifest: Manifest;
 }
 
-const ManifestBlob: React.FC<Props> = ({ manifest }) => {
+const ManifestBlob: React.VFC<Props> = ({ manifest }) => {
   const cleanedManifest = omitTypename(manifest);
   const blob = new Blob([JSON.stringify(cleanedManifest, null, 3)], {
     type: "text/json",

@@ -38,7 +38,7 @@ interface Props {
 }
 const { blue, gray } = uiColors;
 
-export const CommitQueueCard: React.FC<Props> = ({
+export const CommitQueueCard: React.VFC<Props> = ({
   issue,
   index,
   title,

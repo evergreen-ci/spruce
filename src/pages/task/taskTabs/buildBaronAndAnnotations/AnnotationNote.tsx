@@ -31,7 +31,7 @@ interface Props {
   userCanModify: boolean;
 }
 
-export const AnnotationNote: React.FC<Props> = ({
+export const AnnotationNote: React.VFC<Props> = ({
   note,
   taskId,
   execution,

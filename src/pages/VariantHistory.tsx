@@ -31,7 +31,7 @@ const { HistoryTableProvider } = context;
 const { useTestFilters, useJumpToCommit } = hooks;
 const { applyStrictRegex } = string;
 
-const VariantHistoryContents: React.FC = () => {
+const VariantHistoryContents: React.VFC = () => {
   const { projectId, variantName } = useParams<{
     projectId: string;
     variantName: string;
@@ -49,14 +49,14 @@ const VariantHistoryContents: React.FC = () => {
     variables: {
       mainlineCommitsOptions: {
         projectID: projectId,
-        limit: 5,
+        limit: 10,
         skipOrderNumber: nextPageOrderNumber,
+        shouldCollapse: true,
       },
       buildVariantOptions: {
         variants: [applyStrictRegex(variantName)],
       },
     },
-    fetchPolicy: "network-only",
   });
 
   const { mainlineCommits } = data || {};

@@ -32,7 +32,7 @@ interface SpawnVolumeModalProps {
   onCancel: () => void;
 }
 
-export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
+export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
   visible,
   onCancel,
 }) => {

@@ -2,8 +2,12 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
+import { useHistory, useParams } from "react-router-dom";
 import { Button } from "components/Button";
-import { ProjectSettingsTabRoutes } from "constants/routes";
+import {
+  getProjectSettingsRoute,
+  ProjectSettingsTabRoutes,
+} from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -32,7 +36,7 @@ interface Props {
   tab: ProjectSettingsTabRoutes;
 }
 
-export const Header: React.FC<Props> = ({
+export const Header: React.VFC<Props> = ({
   id,
   isRepo,
   projectType,
@@ -43,6 +47,8 @@ export const Header: React.FC<Props> = ({
   const { title, subtitle } = getTabTitle(tab);
   const { getTab, saveTab } = useProjectSettingsContext();
   const { formData, hasChanges, hasError } = getTab(tab);
+  const { replace } = useHistory();
+  const { identifier } = useParams<{ identifier: string }>();
 
   const [defaultModalOpen, setDefaultModalOpen] = useState(false);
 
@@ -50,16 +56,30 @@ export const Header: React.FC<Props> = ({
     SaveProjectSettingsForSectionMutation,
     SaveProjectSettingsForSectionMutationVariables
   >(SAVE_PROJECT_SETTINGS_FOR_SECTION, {
-    onCompleted() {
+    onCompleted({
+      saveProjectSettingsForSection: {
+        projectRef: { identifier: newIdentifier },
+      },
+    }) {
       saveTab(tab);
       dispatchToast.success("Successfully updated project");
+
+      if (identifier !== newIdentifier) {
+        replace(getProjectSettingsRoute(newIdentifier, tab));
+      }
     },
     onError(err) {
       dispatchToast.error(
         `There was an error saving the project: ${err.message}`
       );
     },
-    refetchQueries: ["ProjectSettings"],
+    refetchQueries: ({
+      data: {
+        saveProjectSettingsForSection: {
+          projectRef: { identifier: newIdentifier },
+        },
+      },
+    }) => (identifier === newIdentifier ? ["ProjectSettings"] : []),
   });
 
   const [saveRepoSection] = useMutation<

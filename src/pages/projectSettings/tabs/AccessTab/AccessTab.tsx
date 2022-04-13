@@ -11,7 +11,7 @@ import { TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.Access;
 
-export const AccessTab: React.FC<TabProps> = ({
+export const AccessTab: React.VFC<TabProps> = ({
   projectData,
   projectType,
   repoData,

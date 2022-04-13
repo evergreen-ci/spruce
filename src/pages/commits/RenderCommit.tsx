@@ -18,7 +18,7 @@ type RenderCommitsChartProps = ActiveCommitProps & {
   commit: Commit;
 };
 
-const RenderCommitsChart: React.FC<RenderCommitsChartProps> = ({
+const RenderCommitsChart: React.VFC<RenderCommitsChartProps> = ({
   commit,
   chartType,
   groupedResult,
@@ -46,7 +46,7 @@ interface RenderCommitsLabelProps {
   commit: Commit;
   hasFilters: boolean;
 }
-const RenderCommitsLabel: React.FC<RenderCommitsLabelProps> = ({
+const RenderCommitsLabel: React.VFC<RenderCommitsLabelProps> = ({
   commit,
   hasFilters,
 }) => {
@@ -69,7 +69,7 @@ const RenderCommitsLabel: React.FC<RenderCommitsLabelProps> = ({
 interface RenderCommitsBuildVariantProps {
   commit: Commit;
 }
-export const RenderCommitsBuildVariants: React.FC<RenderCommitsBuildVariantProps> = ({
+export const RenderCommitsBuildVariants: React.VFC<RenderCommitsBuildVariantProps> = ({
   commit,
 }) => {
   const { version } = commit;
@@ -91,4 +91,15 @@ const getCommitKey = (commit: Commit) => {
   return "";
 };
 
-export { RenderCommitsChart, RenderCommitsLabel, getCommitKey };
+const getCommitWidth = (commit: Commit) => {
+  const { version, rolledUpVersions } = commit;
+  if (version) {
+    return 200;
+  }
+  if (rolledUpVersions) {
+    return 64;
+  }
+  throw new Error("Commit type not found");
+};
+
+export { RenderCommitsChart, RenderCommitsLabel, getCommitKey, getCommitWidth };

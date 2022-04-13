@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "2.31.4",
+  "version": "2.31.6",
   "private": true,
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js' --html | sed 1d > build/source_map.html",

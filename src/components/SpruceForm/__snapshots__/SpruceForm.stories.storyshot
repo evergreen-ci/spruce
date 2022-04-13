@@ -30,7 +30,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
               className="css-bm42zs-ElementWrapper ee4bs9n0"
             >
               <div
-                className="css-12pm1mq-MaxWidthContainer eyx6h6k1"
+                className="css-12pm1mq-MaxWidthContainer eevpusu0"
               >
                 <div
                   className=""
@@ -164,10 +164,10 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                         className="css-bm42zs-ElementWrapper ee4bs9n0"
                       >
                         <div
-                          className="css-12pm1mq-MaxWidthContainer eyx6h6k1"
+                          className="css-12pm1mq-MaxWidthContainer eevpusu0"
                         >
                           <div
-                            className="leafygreen-ui-1iyoj2o css-1kbcljo-StyledTextInput eyx6h6k0"
+                            className="leafygreen-ui-1iyoj2o css-1kbcljo-StyledTextInput eevpusu7"
                           >
                             <label
                               className="leafygreen-ui-ly82bp"
@@ -216,10 +216,10 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                         className="css-bm42zs-ElementWrapper ee4bs9n0"
                       >
                         <div
-                          className="css-12pm1mq-MaxWidthContainer eyx6h6k1"
+                          className="css-12pm1mq-MaxWidthContainer eevpusu0"
                         >
                           <div
-                            className="leafygreen-ui-1iyoj2o css-1kbcljo-StyledTextInput eyx6h6k0"
+                            className="leafygreen-ui-1iyoj2o css-1kbcljo-StyledTextInput eevpusu7"
                           >
                             <label
                               className="leafygreen-ui-ly82bp"

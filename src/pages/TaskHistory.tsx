@@ -31,7 +31,7 @@ const { HistoryTableProvider } = context;
 const { applyStrictRegex } = string;
 const { useTestFilters, useJumpToCommit } = hooks;
 
-const TaskHistoryContents: React.FC = () => {
+const TaskHistoryContents: React.VFC = () => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Task history" });
   const { projectId, taskName } = useParams<{
     projectId: string;
@@ -49,14 +49,14 @@ const TaskHistoryContents: React.FC = () => {
     variables: {
       mainlineCommitsOptions: {
         projectID: projectId,
-        limit: 5,
+        limit: 10,
         skipOrderNumber: nextPageOrderNumber,
+        shouldCollapse: true,
       },
       buildVariantOptions: {
         tasks: [applyStrictRegex(taskName)],
       },
     },
-    fetchPolicy: "network-only",
   });
 
   const { mainlineCommits } = data || {};

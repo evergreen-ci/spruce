@@ -13,7 +13,7 @@ interface OptionProps {
   isFavorite: boolean;
   onClick: (identifier: string) => void;
 }
-const ProjectOption: React.FC<OptionProps> = ({
+const ProjectOption: React.VFC<OptionProps> = ({
   displayName,
   isFavorite,
   identifier,
@@ -36,7 +36,7 @@ interface OptionGroupProps {
   }[];
   onClick: (identifier: string) => void;
 }
-export const ProjectOptionGroup: React.FC<OptionGroupProps> = ({
+export const ProjectOptionGroup: React.VFC<OptionGroupProps> = ({
   name,
   projects,
   onClick,

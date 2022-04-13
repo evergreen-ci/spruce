@@ -17,7 +17,7 @@ const getInitialFormState = (projectData, repoData) => {
   return projectData;
 };
 
-export const VariablesTab: React.FC<TabProps> = ({
+export const VariablesTab: React.VFC<TabProps> = ({
   projectData,
   projectType,
   repoData,
