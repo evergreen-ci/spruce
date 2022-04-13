@@ -3614,8 +3614,6 @@ export type PatchTaskDurationsQueryVariables = Exact<{
   patchId: Scalars["String"];
   sorts?: Maybe<Array<SortOrder>>;
   page?: Maybe<Scalars["Int"]>;
-  statuses?: Maybe<Array<Scalars["String"]>>;
-  baseStatuses?: Maybe<Array<Scalars["String"]>>;
   variant?: Maybe<Scalars["String"]>;
   taskName?: Maybe<Scalars["String"]>;
   limit?: Maybe<Scalars["Int"]>;
