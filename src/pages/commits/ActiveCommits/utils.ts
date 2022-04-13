@@ -1,6 +1,14 @@
 import { mapTaskStatusToUmbrellaStatus } from "constants/task";
-import { ChartTypes } from "types/commits";
+import { ChartTypes, Commits, BuildVariantDict } from "types/commits";
 import { groupStatusesByUmbrellaStatus } from "utils/statuses";
+import {
+  TASK_ICONS_PER_ROW,
+  TASK_ICON_HEIGHT,
+  TASK_ICON_PADDING,
+  GROUPED_BADGES_PER_ROW,
+  GROUPED_BADGE_HEIGHT,
+  GROUPED_BADGE_PADDING,
+} from "../constants";
 
 export type ColorCount = {
   count: number;
@@ -26,17 +34,7 @@ export const findMaxGroupedTaskStats = (groupedTaskStats: {
   );
 };
 
-export const getAllTaskStatsGroupedByColor = (
-  versions: {
-    version?: {
-      id: string;
-      taskStatusCounts?: {
-        status: string;
-        count: number;
-      }[];
-    };
-  }[]
-) => {
+export const getAllTaskStatsGroupedByColor = (versions: Commits) => {
   const idToGroupedTaskStats: { [id: string]: GroupedResult } = {};
   versions.forEach(({ version }) => {
     if (version != null) {
@@ -47,6 +45,69 @@ export const getAllTaskStatsGroupedByColor = (
   });
 
   return idToGroupedTaskStats;
+};
+
+export const constructBuildVariantDict = (
+  versions: Commits
+): BuildVariantDict => {
+  const buildVariantDict: BuildVariantDict = {};
+
+  for (let i = 0; i < versions.length; i++) {
+    const { version } = versions[i];
+
+    // skip if inactive/unmatching
+    if (version) {
+      // Deduplicate build variants and build variant stats by consolidating into a single object.
+      const allBuildVariants = [
+        ...version.buildVariants,
+        ...version.buildVariantStats,
+      ].reduce((acc, curr) => {
+        const { variant } = curr;
+        acc[variant] = { ...acc[variant], ...curr };
+        return acc;
+      }, {});
+
+      // Construct build variant dict which will contain information needed for rendering.
+      Object.values(allBuildVariants).reduce(
+        (acc, { tasks, statusCounts, variant }) => {
+          // Determine height to allocate for icons.
+          let iconHeight = 0;
+          if (tasks) {
+            const numRows = Math.ceil(tasks.length / TASK_ICONS_PER_ROW);
+            const iconContainerHeight = numRows * TASK_ICON_HEIGHT;
+            const iconContainerPadding = TASK_ICON_PADDING * 2;
+            iconHeight = iconContainerHeight + iconContainerPadding;
+          }
+
+          // Determine height to allocate for grouped badges.
+          let badgeHeight = 0;
+          if (statusCounts) {
+            const numRows = Math.ceil(
+              statusCounts.length / GROUPED_BADGES_PER_ROW
+            );
+            const badgeContainerHeight = numRows * GROUPED_BADGE_HEIGHT;
+            const badgeContainerPadding = GROUPED_BADGE_PADDING * 2;
+            badgeHeight = badgeContainerHeight + badgeContainerPadding;
+          }
+
+          if (acc[variant]) {
+            if (iconHeight > acc[variant].iconHeight) {
+              acc[variant].iconHeight = iconHeight;
+            }
+            if (badgeHeight > acc[variant].badgeHeight) {
+              acc[variant].badgeHeight = badgeHeight;
+            }
+            acc[variant].priority += 1;
+          } else {
+            acc[variant] = { priority: 1, iconHeight, badgeHeight };
+          }
+          return acc;
+        },
+        buildVariantDict
+      );
+    }
+  }
+  return buildVariantDict;
 };
 
 // Used in Commit Chart Component to calculate bar heights
