@@ -30,6 +30,16 @@ const versions = [
     order: 39365,
     author: "Mohamed Khelif",
     revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
+    upstreamProject: {
+      triggerID: "123",
+      triggerType: "task",
+      repo: "evergreen-ci",
+      project: "spruce",
+      task: {
+        id: "123",
+        execution: 0,
+      },
+    },
   },
   {
     id: "123",
