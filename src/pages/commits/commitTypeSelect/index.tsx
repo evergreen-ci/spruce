@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Label } from "@leafygreen-ui/typography";
 import { useLocation } from "react-router-dom";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import Dropdown from "components/Dropdown";
 import { ALL_VALUE, TreeSelect } from "components/TreeSelect";
 import { noFilterMessage } from "constants/strings";
@@ -35,6 +36,7 @@ const TreeData = [
 ];
 
 const CommitTypeSelector = () => {
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const updateQueryParams = useUpdateURLQueryParams();
   const { search } = useLocation();
   const queryParams = parseQueryString(search);
@@ -44,6 +46,7 @@ const CommitTypeSelector = () => {
   );
   const onChange = (value: string[]) => {
     updateQueryParams({ [MainlineCommitQueryParams.Requester]: value });
+    sendEvent({ name: "Filter by requester", requesters: value });
   };
 
   return (

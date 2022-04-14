@@ -25,6 +25,10 @@ interface FoldedCommitProps {
   numVisibleCols: number;
   style?: CSSProperties;
   selected: boolean;
+  onToggleFoldedCommit?: (s: { isVisible: boolean }) => void;
+  onClickJiraTicket?: () => void;
+  onClickGithash?: () => void;
+  onClickUpstreamProject?: () => void;
 }
 export const FoldedCommit = memo<FoldedCommitProps>(
   ({
@@ -34,7 +38,11 @@ export const FoldedCommit = memo<FoldedCommitProps>(
     numVisibleCols,
     style,
     selected,
-  }) => {
+    onToggleFoldedCommit = () => {},
+    onClickGithash,
+    onClickJiraTicket,
+    onClickUpstreamProject,
+  }: FoldedCommitProps) => {
     const { height } = style;
 
     // The virtualized table will unmount the row when it is scrolled out of view but it will cache its height in memory.
@@ -58,7 +66,10 @@ export const FoldedCommit = memo<FoldedCommitProps>(
             createTime={commit.createTime}
             author={commit.author}
             message={commit.message}
+            onClickGithash={onClickGithash}
+            onClickJiraTicket={onClickJiraTicket}
             upstreamProject={commit.upstreamProject}
+            onClickUpstreamProject={onClickUpstreamProject}
           />
         </LabelCellContainer>
         {columns}
@@ -71,7 +82,10 @@ export const FoldedCommit = memo<FoldedCommitProps>(
           title={`Expand ${numCommits} inactive`}
           toggledTitle={`Collapse ${numCommits} inactive`}
           titleTag={AccordionTitle}
-          onToggle={() => toggleRowSize(index, numCommits)}
+          onToggle={({ isVisible }) => {
+            onToggleFoldedCommit({ isVisible });
+            toggleRowSize(index, numCommits);
+          }}
           useIndent={false}
           defaultOpen={defaultOpen}
         >

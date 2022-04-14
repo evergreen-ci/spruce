@@ -1,16 +1,24 @@
 import { useState } from "react";
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { DisplayModal } from "components/DisplayModal";
 import { StyledRouterLink } from "components/styles";
 import { getVersionRoute, getTaskRoute } from "constants/routes";
 import { size, zIndex, fontSize } from "constants/tokens";
+import {
+  GetSpruceConfigQuery,
+  GetSpruceConfigQueryVariables,
+} from "gql/generated/types";
+import { GET_SPRUCE_CONFIG } from "gql/queries";
 import { CommitRolledUpVersions } from "types/commits";
 import { ProjectTriggerLevel } from "types/triggers";
 import { Unpacked } from "types/utils";
 import { string } from "utils";
+import { jiraLinkify } from "utils/string/jiraLinkify";
 import { commitChartHeight } from "../constants";
 
 const { getDateCopy, shortenGithash, trimStringFromMiddle } = string;
@@ -30,9 +38,9 @@ export const InactiveCommitButton: React.VFC<InactiveCommitsProps> = ({
   rolledUpVersions,
   hasFilters = false,
 }) => {
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const [showModal, setShowModal] = useState(false);
   const versionCount = rolledUpVersions.length;
-
   const shouldSplitCommits = versionCount > MAX_COMMIT_COUNT;
 
   const tooltipType = hasFilters ? "Unmatching" : "Inactive";
@@ -41,21 +49,30 @@ export const InactiveCommitButton: React.VFC<InactiveCommitsProps> = ({
   if (shouldSplitCommits) {
     const hiddenCommitCount = versionCount - MAX_COMMIT_COUNT;
     returnedCommits = [
-      ...rolledUpVersions.slice(0, 1).map((v) => getCommitCopy(v, true)),
+      ...rolledUpVersions
+        .slice(0, 1)
+        .map((v) => <CommitCopy v={v} isTooltip key={v.id} />),
       <HiddenCommitsWrapper
         key="hidden_commits"
         data-cy="hidden-commits"
-        onClick={() => setShowModal(true)}
+        onClick={() => {
+          sendEvent({ name: "Open hidden commits modal" });
+          setShowModal(true);
+        }}
       >
         <StyledDisclaimer>
           ({hiddenCommitCount}
           {` more commit${hiddenCommitCount !== 1 ? "s" : ""}...`})
         </StyledDisclaimer>
       </HiddenCommitsWrapper>,
-      ...rolledUpVersions.slice(-2).map((v) => getCommitCopy(v, true)),
+      ...rolledUpVersions
+        .slice(-2)
+        .map((v) => <CommitCopy v={v} isTooltip key={v.id} />),
     ];
   } else {
-    returnedCommits = rolledUpVersions.map((v) => getCommitCopy(v, true));
+    returnedCommits = rolledUpVersions.map((v) => (
+      <CommitCopy v={v} isTooltip key={v.id} />
+    ));
   }
 
   return (
@@ -66,14 +83,23 @@ export const InactiveCommitButton: React.VFC<InactiveCommitsProps> = ({
         setOpen={setShowModal}
         title={`${versionCount} ${tooltipType} Commits`}
       >
-        {rolledUpVersions?.map((version) => getCommitCopy(version, false))}
+        {rolledUpVersions?.map((v) => (
+          <CommitCopy v={v} isTooltip={false} key={v.id} />
+        ))}
       </DisplayModal>
       <Tooltip
         usePortal={false}
         align="bottom"
         justify="middle"
         trigger={
-          <ButtonContainer role="button">
+          <ButtonContainer
+            onClick={() => {
+              sendEvent({
+                name: "Toggle commit chart label tooltip",
+              });
+            }}
+            role="button"
+          >
             <ButtonText data-cy="inactive-commits-button">
               <div>{versionCount}</div>
               {tooltipType}
@@ -101,40 +127,67 @@ export const InactiveCommitButton: React.VFC<InactiveCommitsProps> = ({
  * @param {CommitRolledUpVersions[0]} v: rolled up version
  * @param {boolean} isTooltip: boolean to indicate if used in tooltip
  */
-const getCommitCopy = (
-  v: Unpacked<CommitRolledUpVersions>,
-  isTooltip: boolean
-) => (
-  <CommitText key={v.revision} data-cy="commit-text" tooltip={isTooltip}>
-    <CommitTitleText>
-      <StyledRouterLink to={getVersionRoute(v.id)}>
-        {shortenGithash(v.revision)}
-      </StyledRouterLink>{" "}
-      {getDateCopy(v.createTime)}
-    </CommitTitleText>
-    {v.upstreamProject && (
-      <>
-        Triggered from:{" "}
+const CommitCopy = ({
+  v,
+  isTooltip,
+}: {
+  v: Unpacked<CommitRolledUpVersions>;
+  isTooltip: boolean;
+}) => {
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
+  const { data: configData } = useQuery<
+    GetSpruceConfigQuery,
+    GetSpruceConfigQueryVariables
+  >(GET_SPRUCE_CONFIG, { fetchPolicy: "cache-only" });
+  const jiraHost = configData?.spruceConfig?.jira?.host;
+  const message = isTooltip
+    ? trimStringFromMiddle(v.message, maxCommitMessageLength)
+    : v.message;
+  return (
+    <CommitText key={v.revision} data-cy="commit-text" tooltip={isTooltip}>
+      <CommitTitleText>
         <StyledRouterLink
-          to={
-            v.upstreamProject.triggerType === ProjectTriggerLevel.TASK
-              ? getTaskRoute(v.upstreamProject.task.id)
-              : getVersionRoute(v.upstreamProject.version.id)
+          onClick={() =>
+            sendEvent({
+              name: "Click commit label",
+              commitType: "inactive",
+              link: "githash",
+            })
           }
+          to={getVersionRoute(v.id)}
         >
-          {v.upstreamProject.project}
-        </StyledRouterLink>
-      </>
-    )}
-    <CommitBodyText>
-      {v.author} -{" "}
-      {isTooltip
-        ? trimStringFromMiddle(v.message, maxCommitMessageLength)
-        : v.message}{" "}
-      (#{v.order})
-    </CommitBodyText>
-  </CommitText>
-);
+          {shortenGithash(v.revision)}
+        </StyledRouterLink>{" "}
+        {getDateCopy(v.createTime)}
+      </CommitTitleText>
+      {v.upstreamProject && (
+        <>
+          Triggered from:{" "}
+          <StyledRouterLink
+            to={
+              v.upstreamProject.triggerType === ProjectTriggerLevel.TASK
+                ? getTaskRoute(v.upstreamProject.task.id)
+                : getVersionRoute(v.upstreamProject.version.id)
+            }
+          >
+            {v.upstreamProject.project}
+          </StyledRouterLink>
+        </>
+      )}
+      <CommitBodyText>
+        {v.author} -{" "}
+        {jiraLinkify(message, jiraHost, () => {
+          sendEvent({
+            name: "Click commit label",
+            commitType: "inactive",
+            link: "jira",
+          });
+        })}{" "}
+        (#{v.order})
+      </CommitBodyText>
+    </CommitText>
+  );
+};
 
 const InactiveCommitContainer = styled.div`
   display: flex;

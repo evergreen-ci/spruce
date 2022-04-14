@@ -12,6 +12,13 @@ interface RowProps extends ListChildComponentProps {
   columns: React.ReactNode[];
   numVisibleCols: number;
   selected: boolean;
+  onClickGithash: () => void;
+  onClickJiraTicket: () => void;
+  onClickFoldedGithash: () => void;
+  onClickFoldedJiraTicket: () => void;
+  onClickFoldedUpstreamProject: () => void;
+  onClickUpstreamProject: () => void;
+  onToggleFoldedCommit: (s: { isVisible: boolean }) => void;
 }
 const Row: React.VFC<RowProps> = ({
   columns,
@@ -20,6 +27,13 @@ const Row: React.VFC<RowProps> = ({
   style,
   selected,
   data,
+  onClickGithash,
+  onClickJiraTicket,
+  onClickUpstreamProject,
+  onClickFoldedGithash,
+  onClickFoldedJiraTicket,
+  onClickFoldedUpstreamProject,
+  onToggleFoldedCommit,
 }) => {
   const { isItemLoaded, getItem, columnLimit } = useHistoryTable();
   if (!isItemLoaded(index)) {
@@ -52,7 +66,10 @@ const Row: React.VFC<RowProps> = ({
             createTime={createTime}
             author={author}
             message={message}
+            onClickGithash={onClickGithash}
+            onClickJiraTicket={onClickJiraTicket}
             upstreamProject={upstreamProject}
+            onClickUpstreamProject={onClickUpstreamProject}
           />
         </LabelCellContainer>
         {columns}
@@ -68,6 +85,10 @@ const Row: React.VFC<RowProps> = ({
         numVisibleCols={numVisibleCols || columnLimit}
         style={style}
         selected={selected}
+        onClickGithash={onClickFoldedGithash}
+        onClickJiraTicket={onClickFoldedJiraTicket}
+        onToggleFoldedCommit={onToggleFoldedCommit}
+        onClickUpstreamProject={onClickFoldedUpstreamProject}
       />
     );
   }

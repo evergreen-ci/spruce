@@ -24,11 +24,13 @@ interface ProjectSelectProps {
   selectedProjectIdentifier: string;
   isProjectSettingsPage?: boolean;
   getRoute: (projectIdentifier: string) => string;
+  onSubmit?: (projectIdentifier: string) => void;
 }
 export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
   selectedProjectIdentifier,
   isProjectSettingsPage = false,
   getRoute,
+  onSubmit = () => {},
 }) => {
   const { data: projectsData, loading: projectsLoading } = useQuery<
     GetProjectsQuery,
@@ -102,6 +104,7 @@ export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
       options={allProjects}
       onChange={(projectIdentifier: any) => {
         Cookies.set(CURRENT_PROJECT, projectIdentifier, { expires: 365 });
+        onSubmit(projectIdentifier);
         history.push(getRoute(projectIdentifier));
       }}
       optionRenderer={(projectGroup, onClick) => (

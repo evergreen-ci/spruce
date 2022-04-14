@@ -11,7 +11,7 @@ interface AccordionProps {
   allowToggleFromTitle?: boolean;
   defaultOpen?: boolean;
   titleTag?: React.VFC;
-  onToggle?: () => void;
+  onToggle?: (s: { isVisible: boolean }) => void;
   useIndent?: boolean;
   children: React.ReactNode;
 }
@@ -29,8 +29,9 @@ export const Accordion: React.VFC<AccordionProps> = ({
 }) => {
   const [isAccordionDisplayed, setIsAccordionDisplayed] = useState(defaultOpen);
   const toggleAccordionHandler = (): void => {
-    setIsAccordionDisplayed(!isAccordionDisplayed);
-    onToggle();
+    const nextState = !isAccordionDisplayed;
+    setIsAccordionDisplayed(nextState);
+    onToggle({ isVisible: nextState });
   };
 
   const showToggledTitle = isAccordionDisplayed ? toggledTitle : title;

@@ -5,7 +5,15 @@ import Icon from "components/Icon";
 import { size } from "constants/tokens";
 import { useHistoryTable } from "./HistoryTableContext";
 
-const ColumnPaginationButtons: React.VFC = () => {
+interface ColumnPaginationButtonProps {
+  onClickNext?: () => void;
+  onClickPrev?: () => void;
+}
+
+const ColumnPaginationButtons: React.VFC<ColumnPaginationButtonProps> = ({
+  onClickNext = () => {},
+  onClickPrev = () => {},
+}) => {
   const {
     nextPage,
     previousPage,
@@ -14,11 +22,12 @@ const ColumnPaginationButtons: React.VFC = () => {
     pageCount,
     currentPage,
   } = useHistoryTable();
-
-  const onNextClick = () => {
+  const handleOnClickNext = () => {
+    onClickNext();
     nextPage();
   };
-  const onPrevClick = () => {
+  const handleOnClickPrev = () => {
+    onClickPrev();
     previousPage();
   };
   return (
@@ -26,7 +35,7 @@ const ColumnPaginationButtons: React.VFC = () => {
       <StyledButton
         disabled={!hasPreviousPage}
         /* @ts-expect-error */
-        onClick={onPrevClick}
+        onClick={handleOnClickPrev}
         data-cy="prev-page-button"
         leftGlyph={<Icon glyph="ChevronLeft" />}
       />
@@ -36,7 +45,7 @@ const ColumnPaginationButtons: React.VFC = () => {
       <StyledButton
         disabled={!hasNextPage}
         /* @ts-expect-error */
-        onClick={onNextClick}
+        onClick={handleOnClickNext}
         data-cy="next-page-button"
         leftGlyph={<Icon glyph="ChevronRight" />}
       />
