@@ -5,9 +5,11 @@ import { P2 } from "components/Typography";
 import {
   getCommitQueueRoute,
   getProjectPatchesRoute,
+  getTaskRoute,
   getVersionRoute,
 } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
+import { ProjectTriggerLevel } from "types/triggers";
 import { string } from "utils";
 import ManifestBlob from "./ManifestBlob";
 import { ParametersModal } from "./ParametersModal";
@@ -36,10 +38,17 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
     manifest,
     id,
     previousVersion,
+    upstreamProject,
   } = version || {};
   const { sendEvent } = useVersionAnalytics(id);
   const { commitQueuePosition } = patch || {};
   const { makespan, timeTaken } = versionTiming || {};
+  const {
+    project: upstreamProjectIdentifier,
+    triggerType,
+    task: upstreamTask,
+    version: upstreamVersion,
+  } = upstreamProject || {};
   return (
     <MetadataCard
       loading={loading}
@@ -92,6 +101,20 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
         </P2>
       )}
       {manifest && <ManifestBlob manifest={manifest} />}
+      {upstreamProject && (
+        <P2>
+          Triggered from:{" "}
+          <StyledRouterLink
+            to={
+              triggerType === ProjectTriggerLevel.TASK
+                ? getTaskRoute(upstreamTask.id)
+                : getVersionRoute(upstreamVersion.id)
+            }
+          >
+            {upstreamProjectIdentifier}
+          </StyledRouterLink>
+        </P2>
+      )}
       <ParametersModal parameters={parameters} />
     </MetadataCard>
   );

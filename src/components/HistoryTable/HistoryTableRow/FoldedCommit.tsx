@@ -58,6 +58,7 @@ export const FoldedCommit = memo<FoldedCommitProps>(
             createTime={commit.createTime}
             author={commit.author}
             message={commit.message}
+            upstreamProject={commit.upstreamProject}
           />
         </LabelCellContainer>
         {columns}
