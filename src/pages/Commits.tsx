@@ -209,12 +209,12 @@ const tupleSelectOptions = [
   {
     value: ProjectFilterOptions.BuildVariant,
     displayName: "Build Variant",
-    placeHolderText: "Search Build Variant names",
+    placeHolderText: "Search Build Variant regex",
   },
   {
     value: ProjectFilterOptions.Task,
     displayName: "Task",
-    placeHolderText: "Search Task names",
+    placeHolderText: "Search Task regex",
   },
 ];
 
