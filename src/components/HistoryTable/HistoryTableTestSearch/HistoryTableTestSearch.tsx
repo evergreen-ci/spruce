@@ -38,7 +38,7 @@ export const HistoryTableTestSearch: React.VFC<HistoryTableTestSearchProps> = ({
           label="Filter by Failed Tests"
           aria-label="history-table-test-search-input"
           value={input}
-          placeholder="Search Test Name regex"
+          placeholder="Search test name regex"
           onChange={(e) => setInput(e.target.value)}
           onKeyPress={(e) => e.key === "Enter" && onClick()}
         />

@@ -217,7 +217,7 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
                   id="instanceTypeDropdown"
                   showSearch
                   style={{ width: 200 }}
-                  placeholder="Select Instance Type"
+                  placeholder="Select instance type"
                   onChange={(v) =>
                     dispatch({
                       type: "editInstanceType",

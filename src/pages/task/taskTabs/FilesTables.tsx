@@ -117,7 +117,7 @@ export const FilesTables: React.VFC = () => {
     <>
       <div>
         <StyledInput
-          placeholder="Search File Names"
+          placeholder="Search file names"
           onChange={onSearch}
           suffix={<Icon glyph="MagnifyingGlass" />}
           data-cy="file-input"
