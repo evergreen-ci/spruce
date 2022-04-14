@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import Popover from "@leafygreen-ui/popover";
 import { Disclaimer, Overline } from "@leafygreen-ui/typography";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import Icon from "components/Icon";
 import { PopoverContainer } from "components/styles/Popover";
 import { groupedIconStatuses } from "components/TaskStatusIcon";
@@ -26,6 +27,7 @@ export const LegendContent = () => (
 );
 
 export const TaskStatusIconLegend: React.VFC = () => {
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const [isActive, setIsActive] = useState(false);
 
   return (
@@ -33,6 +35,10 @@ export const TaskStatusIconLegend: React.VFC = () => {
       <IconButton
         onClick={() => {
           setIsActive(!isActive);
+          sendEvent({
+            name: "Toggle task icons legend",
+            toggle: isActive ? "close" : "open",
+          });
         }}
         aria-label="Task Status Icon Legend"
       >
@@ -49,7 +55,13 @@ export const TaskStatusIconLegend: React.VFC = () => {
           <TitleContainer>
             <Overline>NEW ICONS LEGEND</Overline>
             <IconButton
-              onClick={() => setIsActive(false)}
+              onClick={() => {
+                sendEvent({
+                  name: "Toggle task icons legend",
+                  toggle: "close",
+                });
+                setIsActive(false);
+              }}
               aria-label="Close Task Status Icon Legend"
             >
               <Icon glyph="X" />

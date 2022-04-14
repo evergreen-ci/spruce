@@ -1,0 +1,15 @@
+fragment upstreamProject on Version {
+  upstreamProject {
+    triggerID
+    triggerType
+    repo
+    project
+    task {
+      id
+      execution
+    }
+    version {
+      id
+    }
+  }
+}

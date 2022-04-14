@@ -26,14 +26,18 @@ export const GeneralTab: React.VFC<TabProps> = ({
 
   const onChange = updateForm(tab);
 
+  const {
+    projectRef: {
+      identifier: initialIdentifier,
+      owner: initialOwner,
+      repo: initialRepo,
+    },
+  } = initialData ?? { projectRef: {} };
+
   const identifierHasChanges = useMemo(
     () =>
-      initialData?.projectRef?.identifier !==
-      formData?.generalConfiguration?.other?.identifier,
-    [
-      initialData?.projectRef?.identifier,
-      formData?.generalConfiguration?.other?.identifier,
-    ]
+      initialIdentifier !== formData?.generalConfiguration?.other?.identifier,
+    [initialIdentifier, formData?.generalConfiguration?.other?.identifier]
   );
   const { fields, schema, uiSchema } = useMemo(
     () =>
@@ -42,10 +46,14 @@ export const GeneralTab: React.VFC<TabProps> = ({
         projectType,
         validDefaultLoggers,
         identifierHasChanges,
+        initialOwner,
+        initialRepo,
         projectType === ProjectType.AttachedProject ? repoData : null
       ),
     [
       identifierHasChanges,
+      initialOwner,
+      initialRepo,
       projectId,
       projectType,
       repoData,
