@@ -1,17 +1,13 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import Icon from "@leafygreen-ui/icon";
 import { useLocation } from "react-router-dom";
 import { Analytics } from "analytics/addPageAction";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
-import {
-  PageWrapper,
-  FiltersWrapper,
-  PageTitle,
-  StyledInput,
-} from "components/styles";
+import { PageWrapper, FiltersWrapper, PageTitle } from "components/styles";
+import TextInputWithGlyph from "components/TextInputWithGlyph";
+import { size } from "constants/tokens";
 import { PatchesPagePatchesFragment, PatchesInput } from "gql/generated/types";
 import {
   useFilterInputChangeHandler,
@@ -76,27 +72,29 @@ export const PatchesPage: React.VFC<Props> = ({
     <PageWrapper>
       <PageTitle data-cy="patches-page-title">{pageTitle}</PageTitle>
       <FiltersWrapperSpaceBetween>
-        <FlexRow>
-          <StyledInput
-            placeholder="Search Patch Descriptions"
-            onChange={(e) => setAndSubmitInputValue(e.target.value)}
-            suffix={<Icon glyph="MagnifyingGlass" />}
-            value={inputValue}
-            data-cy="patch-description-input"
-            width="25%"
-          />
-          <StatusSelector />
-        </FlexRow>
-        <Checkbox
-          data-cy="commit-queue-checkbox"
-          onChange={onCheckboxChange}
-          label={
-            pageType === "project"
-              ? "Only Show Commit Queue Patches"
-              : "Include Commit Queue"
-          }
-          checked={isCommitQueueCheckboxChecked}
+        <TextInputWithGlyph
+          glyph="MagnifyingGlass"
+          label=""
+          description=""
+          type="search"
+          placeholder="Patch description regex"
+          onChange={(e) => setAndSubmitInputValue(e.target.value)}
+          value={inputValue}
+          data-cy="patch-description-input"
         />
+        <StatusSelector />
+        <CheckboxContainer>
+          <Checkbox
+            data-cy="commit-queue-checkbox"
+            onChange={onCheckboxChange}
+            label={
+              pageType === "project"
+                ? "Only Show Commit Queue Patches"
+                : "Include Commit Queue"
+            }
+            checked={isCommitQueueCheckboxChecked}
+          />
+        </CheckboxContainer>
       </FiltersWrapperSpaceBetween>
       <PaginationRow>
         <Pagination
@@ -139,10 +137,6 @@ export const getPatchesInputFromURLSearch = (search: string): PatchesInput => {
   };
 };
 
-const FlexRow = styled.div`
-  display: flex;
-  flex-grow: 2;
-`;
 const PaginationRow = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -150,5 +144,13 @@ const PaginationRow = styled.div`
 `;
 
 const FiltersWrapperSpaceBetween = styled(FiltersWrapper)`
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr) 2fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: ${size.s};
+  grid-row-gap: 0px;
+`;
+
+const CheckboxContainer = styled.div`
+  display: flex;
 `;
