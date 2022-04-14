@@ -14,6 +14,7 @@ import {
   TestSortCategory,
 } from "gql/generated/types";
 import { GET_TASK } from "gql/queries";
+import { CommitType } from "pages/task/actionButtons/previousCommits/types";
 import { RequiredQueryParams, LogTypes } from "types/task";
 import { queryString } from "utils";
 
@@ -62,7 +63,8 @@ type Action =
   | { name: "Click Execution Task Link" }
   | { name: "Click Display Task Link" }
   | { name: "Click Project Link" }
-  | { name: "Click See History Button" };
+  | { name: "Click See History Button" }
+  | { name: "Submit Previous Commit Selector"; type: CommitType };
 
 interface P extends Properties {
   taskId: string;

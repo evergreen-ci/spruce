@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Cookies from "js-cookie";
 import { useParams, useLocation, useHistory } from "react-router-dom";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { FilterBadges } from "components/FilterBadges";
 import { ProjectSelect } from "components/projectSelect";
 import { PageWrapper } from "components/styles";
@@ -39,6 +40,7 @@ export const Commits = () => {
   const dispatchToast = useToastContext();
   const { replace } = useHistory();
   const { search } = useLocation();
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const parsed = parseQueryString(search);
 
   // get query params from url
@@ -111,12 +113,26 @@ export const Commits = () => {
     ProjectFilterOptions.Task,
   ]);
 
+  const onSubmitTupleSelect = ({ category }: { category: string }) => {
+    switch (category) {
+      case ProjectFilterOptions.BuildVariant:
+        sendEvent({ name: "Filter by build variant" });
+        break;
+      case ProjectFilterOptions.Task:
+        sendEvent({ name: "Filter by task" });
+        break;
+      default:
+    }
+  };
   return (
     <PageWrapper>
       <PageContainer>
         <HeaderWrapper>
           <ElementWrapper width="35">
-            <TupleSelect options={tupleSelectOptions} />
+            <TupleSelect
+              options={tupleSelectOptions}
+              onSubmit={onSubmitTupleSelect}
+            />
           </ElementWrapper>
           <ElementWrapper width="20">
             <StatusSelect />
@@ -128,11 +144,24 @@ export const Commits = () => {
             <ProjectSelect
               selectedProjectIdentifier={projectId}
               getRoute={getCommitsRoute}
+              onSubmit={() => {
+                sendEvent({
+                  name: "Select project",
+                });
+              }}
             />
           </ElementWrapper>
         </HeaderWrapper>
         <BadgeWrapper>
-          <FilterBadges queryParamsToDisplay={queryParamsToDisplay} />
+          <FilterBadges
+            onRemove={() => {
+              sendEvent({ name: "Remove badge" });
+            }}
+            onClearAll={() => {
+              sendEvent({ name: "Clear all badges" });
+            }}
+            queryParamsToDisplay={queryParamsToDisplay}
+          />
         </BadgeWrapper>
         <PaginationWrapper>
           <PaginationButtons

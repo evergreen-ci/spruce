@@ -427,6 +427,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             <a
               className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
               href="https://undefined/browse/EVG-14901"
+              onClick={[Function]}
             >
               EVG-14901
             </a>
@@ -544,6 +545,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
             <a
               className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
               href="https://undefined/browse/EVG-14799"
+              onClick={[Function]}
             >
               EVG-14799
             </a>

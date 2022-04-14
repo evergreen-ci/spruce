@@ -26,6 +26,9 @@ interface Props {
   author: string;
   message: string;
   versionId: string;
+  onClickGithash?: () => void;
+  onClickJiraTicket?: () => void;
+  onClickUpstreamProject?: () => void;
   upstreamProject?: UpstreamProjectFragment["upstreamProject"];
 }
 
@@ -35,6 +38,9 @@ const CommitChartLabel: React.VFC<Props> = ({
   author,
   message,
   versionId,
+  onClickGithash = () => {},
+  onClickJiraTicket = () => {},
+  onClickUpstreamProject = () => {},
   upstreamProject,
 }) => {
   const createDate = new Date(createTime);
@@ -54,7 +60,10 @@ const CommitChartLabel: React.VFC<Props> = ({
   return (
     <LabelContainer data-cy="commit-label">
       <LabelText>
-        <StyledRouterLink to={getVersionRoute(versionId)}>
+        <StyledRouterLink
+          onClick={onClickGithash}
+          to={getVersionRoute(versionId)}
+        >
           {shortenGithash(githash)}
         </StyledRouterLink>{" "}
         <b>{shortDate(createDate)}</b>
@@ -63,6 +72,7 @@ const CommitChartLabel: React.VFC<Props> = ({
         <LabelText>
           Triggered from:{" "}
           <StyledRouterLink
+            onClick={onClickUpstreamProject}
             to={
               triggerType === ProjectTriggerLevel.TASK
                 ? getTaskRoute(upstreamTask.id)
@@ -75,7 +85,11 @@ const CommitChartLabel: React.VFC<Props> = ({
       )}
       <LabelText>{author} -</LabelText>
       <LabelText>
-        {jiraLinkify(shortenMessage ? shortenedMessage : message, jiraHost)}
+        {jiraLinkify(
+          shortenMessage ? shortenedMessage : message,
+          jiraHost,
+          onClickJiraTicket
+        )}
       </LabelText>
       {shortenMessage && (
         <ExpandedText

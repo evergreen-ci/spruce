@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useLocation } from "react-router";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import SearchableDropdown from "components/SearchableDropdown";
 import {
   GetTaskNamesForBuildVariantQuery,
@@ -23,6 +24,7 @@ const TaskSelector: React.VFC<TaskSelectorProps> = ({
   projectId,
   buildVariant,
 }) => {
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Variant history" });
   const updateQueryParams = useUpdateURLQueryParams();
   const { search } = useLocation();
   const queryParams = parseQueryString(search);
@@ -43,6 +45,9 @@ const TaskSelector: React.VFC<TaskSelectorProps> = ({
   });
 
   const onChange = (selectedTasks: string[]) => {
+    sendEvent({
+      name: "Filter by task",
+    });
     updateQueryParams({
       [HistoryQueryParams.VisibleColumns]: selectedTasks,
     });

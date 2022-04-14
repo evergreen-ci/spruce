@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import styled from "@emotion/styled";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import CommitChartLabel from "components/CommitChartLabel";
 import { ChartTypes, CommitVersion, BuildVariantDict } from "types/commits";
 import { array, string } from "utils";
@@ -35,16 +36,42 @@ interface ActiveCommitLabelProps {
 }
 export const ActiveCommitLabel: React.VFC<ActiveCommitLabelProps> = ({
   version,
-}) => (
-  <CommitChartLabel
-    versionId={version.id}
-    githash={shortenGithash(version.revision)}
-    createTime={version.createTime}
-    author={version.author}
-    message={version.message}
-    upstreamProject={version.upstreamProject}
-  />
-);
+}) => {
+  const { sendEvent } = useProjectHealthAnalytics({
+    page: "Commit chart",
+  });
+  return (
+    <CommitChartLabel
+      versionId={version.id}
+      githash={shortenGithash(version.revision)}
+      createTime={version.createTime}
+      author={version.author}
+      message={version.message}
+      onClickGithash={() => {
+        sendEvent({
+          name: "Click commit label",
+          commitType: "active",
+          link: "githash",
+        });
+      }}
+      onClickJiraTicket={() => {
+        sendEvent({
+          name: "Click commit label",
+          commitType: "active",
+          link: "jira",
+        });
+      }}
+      onClickUpstreamProject={() => {
+        sendEvent({
+          name: "Click commit label",
+          commitType: "active",
+          link: "upstream project",
+        });
+      }}
+      upstreamProject={version.upstreamProject}
+    />
+  );
+};
 
 interface BuildVariantContainerProps {
   version: CommitVersion;
