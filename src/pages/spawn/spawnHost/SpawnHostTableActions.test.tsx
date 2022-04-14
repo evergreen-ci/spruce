@@ -61,13 +61,34 @@ describe("copySSHCommandButton", () => {
     ).toBeInTheDocument();
   });
 
-  it("should disable the Copy SSH Button if host is not running", () => {
+  it("should disable the Copy SSH Button if there is no hostURL", () => {
+    const { queryByDataCy, queryByText } = render(
+      <MockedProvider mocks={[getUserMock]}>
+        <CopySSHCommandButton
+          user={user}
+          hostUrl={undefined}
+          hostStatus={HostStatus.Starting}
+        />
+      </MockedProvider>
+    );
+    const copySshButton = queryByDataCy("copy-ssh-button");
+    expect(copySshButton).toBeInTheDocument();
+    expect(copySshButton).toBeDisabled();
+
+    fireEvent.mouseEnter(copySshButton);
+    expect(queryByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
+    expect(
+      queryByText("Host must be running in order to SSH")
+    ).toBeInTheDocument();
+  });
+
+  it("should disable the Copy SSH Button if host is terminated", () => {
     const { queryByDataCy, queryByText } = render(
       <MockedProvider mocks={[getUserMock]}>
         <CopySSHCommandButton
           user={user}
           hostUrl={hostUrl}
-          hostStatus={HostStatus.Starting}
+          hostStatus={HostStatus.Terminated}
         />
       </MockedProvider>
     );
