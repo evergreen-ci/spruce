@@ -16,6 +16,8 @@ interface RowProps extends ListChildComponentProps {
   onClickJiraTicket: () => void;
   onClickFoldedGithash: () => void;
   onClickFoldedJiraTicket: () => void;
+  onClickFoldedUpstreamProject: () => void;
+  onClickUpstreamProject: () => void;
   onToggleFoldedCommit: (s: { isVisible: boolean }) => void;
 }
 const Row: React.VFC<RowProps> = ({
@@ -27,8 +29,10 @@ const Row: React.VFC<RowProps> = ({
   data,
   onClickGithash,
   onClickJiraTicket,
+  onClickUpstreamProject,
   onClickFoldedGithash,
   onClickFoldedJiraTicket,
+  onClickFoldedUpstreamProject,
   onToggleFoldedCommit,
 }) => {
   const { isItemLoaded, getItem, columnLimit } = useHistoryTable();
@@ -65,6 +69,7 @@ const Row: React.VFC<RowProps> = ({
             onClickGithash={onClickGithash}
             onClickJiraTicket={onClickJiraTicket}
             upstreamProject={upstreamProject}
+            onClickUpstreamProject={onClickUpstreamProject}
           />
         </LabelCellContainer>
         {columns}
@@ -83,6 +88,7 @@ const Row: React.VFC<RowProps> = ({
         onClickGithash={onClickFoldedGithash}
         onClickJiraTicket={onClickFoldedJiraTicket}
         onToggleFoldedCommit={onToggleFoldedCommit}
+        onClickUpstreamProject={onClickFoldedUpstreamProject}
       />
     );
   }

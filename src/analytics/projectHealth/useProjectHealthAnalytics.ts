@@ -18,7 +18,7 @@ type Action =
   | { name: "Click task status icon"; status: string }
   | {
       name: "Click commit label";
-      link: "jira" | "githash";
+      link: "jira" | "githash" | "upstream project";
       commitType: "active" | "inactive";
     }
   | { name: "Click variant label" }

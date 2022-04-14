@@ -28,6 +28,7 @@ interface Props {
   versionId: string;
   onClickGithash?: () => void;
   onClickJiraTicket?: () => void;
+  onClickUpstreamProject?: () => void;
   upstreamProject?: UpstreamProjectFragment["upstreamProject"];
 }
 
@@ -39,6 +40,7 @@ const CommitChartLabel: React.VFC<Props> = ({
   versionId,
   onClickGithash = () => {},
   onClickJiraTicket = () => {},
+  onClickUpstreamProject = () => {},
   upstreamProject,
 }) => {
   const createDate = new Date(createTime);
@@ -70,6 +72,7 @@ const CommitChartLabel: React.VFC<Props> = ({
         <LabelText>
           Triggered from:{" "}
           <StyledRouterLink
+            onClick={onClickUpstreamProject}
             to={
               triggerType === ProjectTriggerLevel.TASK
                 ? getTaskRoute(upstreamTask.id)

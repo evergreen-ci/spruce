@@ -69,6 +69,20 @@ const VariantHistoryRow = memo((props: ListChildComponentProps) => {
           commitType: "inactive",
         })
       }
+      onClickUpstreamProject={() => {
+        sendEvent({
+          name: "Click commit label",
+          link: "upstream project",
+          commitType: "active",
+        });
+      }}
+      onClickFoldedUpstreamProject={() => {
+        sendEvent({
+          name: "Click commit label",
+          link: "upstream project",
+          commitType: "inactive",
+        });
+      }}
       onClickJiraTicket={() => {
         sendEvent({
           name: "Click commit label",

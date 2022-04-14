@@ -61,6 +61,13 @@ export const ActiveCommitLabel: React.VFC<ActiveCommitLabelProps> = ({
           link: "jira",
         });
       }}
+      onClickUpstreamProject={() => {
+        sendEvent({
+          name: "Click commit label",
+          commitType: "active",
+          link: "upstream project",
+        });
+      }}
       upstreamProject={version.upstreamProject}
     />
   );

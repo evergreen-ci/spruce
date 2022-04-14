@@ -28,6 +28,7 @@ interface FoldedCommitProps {
   onToggleFoldedCommit?: (s: { isVisible: boolean }) => void;
   onClickJiraTicket?: () => void;
   onClickGithash?: () => void;
+  onClickUpstreamProject?: () => void;
 }
 export const FoldedCommit = memo<FoldedCommitProps>(
   ({
@@ -40,6 +41,7 @@ export const FoldedCommit = memo<FoldedCommitProps>(
     onToggleFoldedCommit = () => {},
     onClickGithash,
     onClickJiraTicket,
+    onClickUpstreamProject,
   }: FoldedCommitProps) => {
     const { height } = style;
 
@@ -67,6 +69,7 @@ export const FoldedCommit = memo<FoldedCommitProps>(
             onClickGithash={onClickGithash}
             onClickJiraTicket={onClickJiraTicket}
             upstreamProject={commit.upstreamProject}
+            onClickUpstreamProject={onClickUpstreamProject}
           />
         </LabelCellContainer>
         {columns}

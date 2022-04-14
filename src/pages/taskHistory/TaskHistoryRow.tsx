@@ -67,6 +67,13 @@ const TaskHistoryRow = memo((props: ListChildComponentProps) => {
           commitType: "active",
         });
       }}
+      onClickUpstreamProject={() => {
+        sendEvent({
+          name: "Click commit label",
+          link: "upstream project",
+          commitType: "active",
+        });
+      }}
       onClickFoldedGithash={() => {
         sendEvent({
           name: "Click commit label",
@@ -85,6 +92,13 @@ const TaskHistoryRow = memo((props: ListChildComponentProps) => {
         sendEvent({
           name: "Click commit label",
           link: "jira",
+          commitType: "inactive",
+        });
+      }}
+      onClickFoldedUpstreamProject={() => {
+        sendEvent({
+          name: "Click commit label",
+          link: "upstream project",
           commitType: "inactive",
         });
       }}
