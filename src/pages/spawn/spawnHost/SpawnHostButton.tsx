@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
@@ -15,6 +15,7 @@ import {
 } from "gql/generated/types";
 import { GET_MY_HOSTS, GET_SPRUCE_CONFIG } from "gql/queries";
 import { SpawnHostModal } from "pages/spawn/spawnHost/index";
+import { HostStatus } from "types/host";
 import { queryString } from "utils";
 
 const { parseQueryString } = queryString;
@@ -34,7 +35,11 @@ export const SpawnHostButton = () => {
 
   const maxHosts =
     spruceConfigData?.spruceConfig.spawnHost.spawnHostsPerUser || 0;
-  const currentHostCount = myHostsData?.myHosts.length || 0;
+
+  const nonTerminatedHosts = myHostsData?.myHosts.filter(
+    (host) => host.status !== HostStatus.Terminated
+  );
+  const currentHostCount = nonTerminatedHosts?.length || 0;
   const reachedMaxNumHosts = currentHostCount >= maxHosts;
 
   return (
