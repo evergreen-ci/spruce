@@ -1,3 +1,5 @@
+#import "../fragments/upstreamProject.graphql"
+
 query MainlineCommitsForHistory(
   $mainlineCommitsOptions: MainlineCommitsOptions!
   $buildVariantOptions: BuildVariantOptions!
@@ -14,6 +16,7 @@ query MainlineCommitsForHistory(
         message
         revision
         order
+        ...upstreamProject
         buildVariants(options: $buildVariantOptions) {
           displayName
           variant
@@ -32,6 +35,7 @@ query MainlineCommitsForHistory(
         order
         message
         revision
+        ...upstreamProject
       }
     }
     nextPageOrderNumber

@@ -66,6 +66,7 @@ export const FoldedCommit = memo<FoldedCommitProps>(
             message={commit.message}
             onClickGithash={onClickGithash}
             onClickJiraTicket={onClickJiraTicket}
+            upstreamProject={commit.upstreamProject}
           />
         </LabelCellContainer>
         {columns}

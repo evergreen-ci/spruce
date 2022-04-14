@@ -7,7 +7,7 @@ import { Disclaimer } from "@leafygreen-ui/typography";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { DisplayModal } from "components/DisplayModal";
 import { StyledRouterLink } from "components/styles";
-import { getVersionRoute } from "constants/routes";
+import { getVersionRoute, getTaskRoute } from "constants/routes";
 import { size, zIndex, fontSize } from "constants/tokens";
 import {
   GetSpruceConfigQuery,
@@ -15,6 +15,8 @@ import {
 } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
 import { CommitRolledUpVersions } from "types/commits";
+import { ProjectTriggerLevel } from "types/triggers";
+import { Unpacked } from "types/utils";
 import { string } from "utils";
 import { jiraLinkify } from "utils/string/jiraLinkify";
 import { commitChartHeight } from "../constants";
@@ -129,7 +131,7 @@ const CommitCopy = ({
   v,
   isTooltip,
 }: {
-  v: CommitRolledUpVersions[0];
+  v: Unpacked<CommitRolledUpVersions>;
   isTooltip: boolean;
 }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
@@ -158,6 +160,20 @@ const CommitCopy = ({
         </StyledRouterLink>{" "}
         {getDateCopy(v.createTime)}
       </CommitTitleText>
+      {v.upstreamProject && (
+        <>
+          Triggered from:{" "}
+          <StyledRouterLink
+            to={
+              v.upstreamProject.triggerType === ProjectTriggerLevel.TASK
+                ? getTaskRoute(v.upstreamProject.task.id)
+                : getVersionRoute(v.upstreamProject.version.id)
+            }
+          >
+            {v.upstreamProject.project}
+          </StyledRouterLink>
+        </>
+      )}
       <CommitBodyText>
         {v.author} -{" "}
         {jiraLinkify(message, jiraHost, () => {

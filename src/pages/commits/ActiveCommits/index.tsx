@@ -61,6 +61,7 @@ export const ActiveCommitLabel: React.VFC<ActiveCommitLabelProps> = ({
           link: "jira",
         });
       }}
+      upstreamProject={version.upstreamProject}
     />
   );
 };

@@ -50,6 +50,7 @@ const Row: React.VFC<RowProps> = ({
       author,
       message,
       id: versionId,
+      upstreamProject,
     } = commit.commit;
 
     return (
@@ -63,6 +64,7 @@ const Row: React.VFC<RowProps> = ({
             message={message}
             onClickGithash={onClickGithash}
             onClickJiraTicket={onClickJiraTicket}
+            upstreamProject={upstreamProject}
           />
         </LabelCellContainer>
         {columns}
