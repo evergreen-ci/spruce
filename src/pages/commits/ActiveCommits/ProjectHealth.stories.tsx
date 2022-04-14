@@ -27,6 +27,8 @@ export const ActualWaterfallPage = () => {
   );
   return (
     <CommitsWrapper
+      isOpenChartToggle
+      setIsOpenChartToggle={() => {}}
       versions={updatedVersions}
       isLoading={boolean("isLoading", false)}
       error={null}

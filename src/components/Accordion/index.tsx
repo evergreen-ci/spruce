@@ -11,9 +11,10 @@ interface AccordionProps {
   allowToggleFromTitle?: boolean;
   defaultOpen?: boolean;
   titleTag?: React.VFC;
-  onToggle?: () => void;
+  onToggle?: (nextState: boolean) => void;
   useIndent?: boolean;
   children: React.ReactNode;
+  isOpen?: boolean;
 }
 export const Accordion: React.VFC<AccordionProps> = ({
   title,
@@ -26,14 +27,19 @@ export const Accordion: React.VFC<AccordionProps> = ({
   titleTag,
   onToggle = () => {},
   useIndent = true,
+  isOpen,
 }) => {
   const [isAccordionDisplayed, setIsAccordionDisplayed] = useState(defaultOpen);
   const toggleAccordionHandler = (): void => {
-    setIsAccordionDisplayed(!isAccordionDisplayed);
-    onToggle();
+    if (isOpen === undefined) {
+      setIsAccordionDisplayed(!isAccordionDisplayed);
+      onToggle(!isAccordionDisplayed);
+    } else {
+      onToggle(!isOpen);
+    }
   };
-
-  const showToggledTitle = isAccordionDisplayed ? toggledTitle : title;
+  const state = isOpen ?? isAccordionDisplayed;
+  const showToggledTitle = state ? toggledTitle : title;
   const TitleTag = titleTag ?? "span";
   const titleComp = (
     <TitleTag>{toggledTitle ? showToggledTitle : title}</TitleTag>
@@ -41,24 +47,20 @@ export const Accordion: React.VFC<AccordionProps> = ({
   return (
     <>
       {toggleFromBottom && (
-        <AnimatedAccordion hide={!isAccordionDisplayed}>
-          {children}
-        </AnimatedAccordion>
+        <AnimatedAccordion hide={!state}>{children}</AnimatedAccordion>
       )}
       <Row>
         <AccordionToggle
           data-cy="accordion-toggle"
           onClick={toggleAccordionHandler}
         >
-          {showCaret && (
-            <Icon glyph={isAccordionDisplayed ? "CaretDown" : "CaretRight"} />
-          )}
+          {showCaret && <Icon glyph={state ? "CaretDown" : "CaretRight"} />}
           {allowToggleFromTitle && titleComp}
         </AccordionToggle>
         {!allowToggleFromTitle && titleComp}
       </Row>
       {!toggleFromBottom && (
-        <AnimatedAccordion hide={!isAccordionDisplayed}>
+        <AnimatedAccordion hide={!state}>
           <ContentsContainer indent={showCaret && useIndent}>
             {children}
           </ContentsContainer>

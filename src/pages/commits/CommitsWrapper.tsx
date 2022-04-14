@@ -23,6 +23,8 @@ interface Props {
   isLoading: boolean;
   hasTaskFilter: boolean;
   hasFilters: boolean;
+  isOpenChartToggle: boolean;
+  setIsOpenChartToggle: (nextState: boolean) => void;
 }
 
 export const CommitsWrapper: React.VFC<Props> = ({
@@ -31,6 +33,8 @@ export const CommitsWrapper: React.VFC<Props> = ({
   error,
   hasTaskFilter,
   hasFilters,
+  isOpenChartToggle,
+  setIsOpenChartToggle,
 }) => {
   useEffect(() => {
     if (!isLoading) {
@@ -39,7 +43,13 @@ export const CommitsWrapper: React.VFC<Props> = ({
   }, [isLoading, versions]);
 
   if (error) {
-    return <CommitsChart hasError />;
+    return (
+      <CommitsChart
+        isOpenChartToggle={isOpenChartToggle}
+        setIsOpenChartToggle={setIsOpenChartToggle}
+        hasError
+      />
+    );
   }
   if (isLoading) {
     return <StyledSkeleton active title={false} paragraph={{ rows: 6 }} />;
@@ -47,7 +57,12 @@ export const CommitsWrapper: React.VFC<Props> = ({
   if (versions) {
     return (
       <ChartContainer>
-        <CommitsChart versions={versions} hasTaskFilter={hasTaskFilter} />
+        <CommitsChart
+          isOpenChartToggle={isOpenChartToggle}
+          setIsOpenChartToggle={setIsOpenChartToggle}
+          versions={versions}
+          hasTaskFilter={hasTaskFilter}
+        />
         <StickyContainer>
           <FlexRowContainer>
             {versions.map((commit) => (

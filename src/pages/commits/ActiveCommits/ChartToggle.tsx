@@ -9,16 +9,22 @@ import { ChartTypes } from "types/commits";
 const { gray } = uiColors;
 
 export const ChartToggle: React.VFC<{
+  onToggleAccordion: (nextState: boolean) => void;
+  isOpen: boolean;
   currentChartType: ChartTypes;
   onChangeChartType: (chartType: ChartTypes) => void;
-}> = ({ currentChartType, onChangeChartType }) => {
+}> = ({ currentChartType, onChangeChartType, isOpen, onToggleAccordion }) => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const chartType = e.target.value as ChartTypes;
     onChangeChartType(chartType);
   };
   return (
     <AccordionContainer>
-      <Accordion title="View options">
+      <Accordion
+        title="View options"
+        isOpen={isOpen}
+        onToggle={onToggleAccordion}
+      >
         <ClassNames>
           {({ css }) => (
             <ToggleWrapper>

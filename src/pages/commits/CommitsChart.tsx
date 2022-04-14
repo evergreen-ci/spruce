@@ -29,12 +29,16 @@ interface Props {
   versions?: Commits;
   hasTaskFilter?: boolean;
   hasError?: boolean;
+  isOpenChartToggle: boolean;
+  setIsOpenChartToggle: (isOpen: boolean) => void;
 }
 
 export const CommitsChart: React.VFC<Props> = ({
   versions,
   hasTaskFilter,
   hasError = false,
+  isOpenChartToggle,
+  setIsOpenChartToggle,
 }) => {
   const { search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
@@ -109,6 +113,8 @@ export const CommitsChart: React.VFC<Props> = ({
             <ChartToggle
               currentChartType={chartType}
               onChangeChartType={onChangeChartType}
+              isOpen={isOpenChartToggle}
+              onToggleAccordion={setIsOpenChartToggle}
             />
           </AbsoluteContainer>
         </ChartWrapper>
