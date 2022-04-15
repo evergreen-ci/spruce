@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { context, Cell, hooks } from "components/HistoryTable";
 import { taskHistoryMaxLength as maxLength } from "constants/history";
 import { getVariantHistoryRoute } from "constants/routes";
@@ -27,6 +28,7 @@ const ColumnHeaders: React.VFC<ColumnHeadersProps> = ({
   projectId,
   taskName,
 }) => {
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Task history" });
   const dispatchToast = useToastContext();
 
   // Fetch the column headers from the same query used on the dropdown.
@@ -72,6 +74,11 @@ const ColumnHeaders: React.VFC<ColumnHeadersProps> = ({
               cell.displayName,
               maxLength
             )}
+            onClick={() => {
+              sendEvent({
+                name: "Click column header",
+              });
+            }}
             fullDisplayName={cell.displayName}
           />
         );

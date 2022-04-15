@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { FilterBadges } from "components/FilterBadges";
 import HistoryTable, {
   context,
@@ -35,6 +36,7 @@ const VariantHistoryContents: React.VFC = () => {
     projectId: string;
     variantName: string;
   }>();
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Variant history" });
   usePageTitle(`Variant History | ${projectId} | ${variantName}`);
   const [nextPageOrderNumber, setNextPageOrderNumber] = useState(null);
   useJumpToCommit();
@@ -65,7 +67,13 @@ const VariantHistoryContents: React.VFC = () => {
         <PageHeader>
           <H2>Build Variant: {variantName}</H2>
           <PageHeaderContent>
-            <HistoryTableTestSearch />
+            <HistoryTableTestSearch
+              onSubmit={() => {
+                sendEvent({
+                  name: "Submit failed test filter",
+                });
+              }}
+            />
             <TaskSelector projectId={projectId} buildVariant={variantName} />
           </PageHeaderContent>
         </PageHeader>
@@ -73,9 +81,22 @@ const VariantHistoryContents: React.VFC = () => {
           <BadgeWrapper>
             <FilterBadges
               queryParamsToDisplay={constants.queryParamsToDisplay}
+              onRemove={() => {
+                sendEvent({ name: "Remove badge" });
+              }}
+              onClearAll={() => {
+                sendEvent({ name: "Clear all badges" });
+              }}
             />
           </BadgeWrapper>
-          <ColumnPaginationButtons />
+          <ColumnPaginationButtons
+            onClickNext={() =>
+              sendEvent({ name: "Paginate", direction: "next" })
+            }
+            onClickPrev={() =>
+              sendEvent({ name: "Paginate", direction: "previous" })
+            }
+          />
         </PaginationFilterWrapper>
         <div>
           <ColumnHeaders projectId={projectId} variantName={variantName} />

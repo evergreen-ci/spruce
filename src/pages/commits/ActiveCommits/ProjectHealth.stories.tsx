@@ -18,7 +18,7 @@ export default {
 };
 
 export const ActualWaterfallPage = () => {
-  const buildVariantCount = number("buildVariantCount", 2, {
+  const buildVariantCount = number("buildVariantCount", 3, {
     min: 1,
   });
   const taskCount = number("taskCount", 1);
@@ -137,7 +137,20 @@ const versions = [
             },
           ],
         },
+        {
+          displayName: "03b. JavaScript Tests [js]",
+          variant: "js",
+          tasks: [
+            {
+              status: TaskStatus.WillRun,
+              id: "js",
+              execution: 0,
+              displayName: "JavaScript Test",
+            },
+          ],
+        },
       ],
+      buildVariantStats: [],
     },
     rolledUpVersions: null,
   },
@@ -182,7 +195,20 @@ const versions = [
             },
           ],
         },
+        {
+          displayName: "03a. Unit Tests Java [unit_java]",
+          variant: "unit_java",
+          tasks: [
+            {
+              status: TaskStatus.Failed,
+              id: "unit_java",
+              execution: 0,
+              displayName: "Unit Tests",
+            },
+          ],
+        },
       ],
+      buildVariantStats: [],
     },
     rolledUpVersions: null,
   },
@@ -242,6 +268,7 @@ const versions = [
           ],
         },
       ],
+      buildVariantStats: [],
     },
     rolledUpVersions: null,
   },
@@ -286,6 +313,7 @@ const versions = [
           ],
         },
       ],
+      buildVariantStats: [],
     },
     rolledUpVersions: null,
   },
@@ -330,7 +358,20 @@ const versions = [
             },
           ],
         },
+        {
+          displayName: "03a. Unit Tests Java [unit_java]",
+          variant: "unit_java",
+          tasks: [
+            {
+              status: TaskStatus.Failed,
+              id: "unit_java",
+              execution: 0,
+              displayName: "Unit Tests",
+            },
+          ],
+        },
       ],
+      buildVariantStats: [],
     },
     rolledUpVersions: null,
   },

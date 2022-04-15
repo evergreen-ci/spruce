@@ -16,19 +16,25 @@ type option = {
   displayName: string;
   placeHolderText: string;
 };
+
 interface TupleSelectProps {
   options: option[];
+  onSubmit?: ({ category, value }: { category: string; value: string }) => void;
 }
-export const TupleSelect: React.VFC<TupleSelectProps> = ({ options }) => {
+export const TupleSelect: React.VFC<TupleSelectProps> = ({
+  options,
+  onSubmit = () => {},
+}) => {
   const [input, setInput] = useState("");
   const [selected, setSelected] = useState(options[0].value);
   const updateQueryParams = useUpdateURLQueryParams();
   const { search } = useLocation();
   const queryParams = parseQueryString(search);
 
-  const onClick = () => {
+  const handleOnSubmit = () => {
     const selectedParams = queryParams[selected] as string[];
     const updatedParams = upsertQueryParam(selectedParams, input);
+    onSubmit({ category: selected, value: input });
     updateQueryParams({ [selected]: updatedParams });
     setInput("");
   };
@@ -67,12 +73,12 @@ export const TupleSelect: React.VFC<TupleSelectProps> = ({ options }) => {
           suffix={
             <Icon
               glyph="Plus"
-              onClick={onClick}
+              onClick={handleOnSubmit}
               aria-label="Select plus button"
               data-cy="tuple-select-button"
             />
           }
-          onPressEnter={onClick}
+          onPressEnter={handleOnSubmit}
         />
       </Input.Group>
     </Container>

@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Label } from "@leafygreen-ui/typography";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import Dropdown from "components/Dropdown";
 import { TreeSelect } from "components/TreeSelect";
 import { noFilterMessage } from "constants/strings";
@@ -8,8 +9,15 @@ import { useStatusesFilter } from "hooks";
 import { PatchTasksQueryParams } from "types/task";
 
 export const StatusSelect = () => {
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const { inputValue, setAndSubmitInputValue } = useStatusesFilter({
     urlParam: PatchTasksQueryParams.Statuses,
+    sendAnalyticsEvent: (_, filterValue: string[]) => {
+      sendEvent({
+        name: "Filter by task status",
+        statuses: filterValue,
+      });
+    },
   });
   return (
     <Container>

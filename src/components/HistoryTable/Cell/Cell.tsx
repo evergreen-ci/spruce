@@ -23,6 +23,7 @@ interface TaskCellProps {
   failingTests?: string[];
   label?: string;
   loading?: boolean;
+  onClick?: ({ taskStatus }: { taskStatus: string }) => void;
 }
 const TaskCell: React.VFC<TaskCellProps> = ({
   task,
@@ -30,9 +31,15 @@ const TaskCell: React.VFC<TaskCellProps> = ({
   failingTests,
   label,
   loading = false,
+  onClick = () => {},
 }) => (
   <Cell inactive={inactive} aria-disabled={inactive} data-cy="task-cell">
-    <Link to={getTaskRoute(task.id)}>
+    <Link
+      onClick={() => {
+        onClick({ taskStatus: task.status });
+      }}
+      to={getTaskRoute(task.id)}
+    >
       <HistoryTableIcon
         inactive={inactive}
         status={task.status as TaskStatus}
@@ -71,11 +78,13 @@ interface ColumnHeaderCellProps {
   link: string;
   trimmedDisplayName: string;
   fullDisplayName: string;
+  onClick?: () => void;
 }
 const ColumnHeaderCell: React.VFC<ColumnHeaderCellProps> = ({
   link,
   trimmedDisplayName,
   fullDisplayName,
+  onClick,
 }) => (
   <HeaderCell data-cy="header-cell">
     <ConditionalWrapper
@@ -91,7 +100,9 @@ const ColumnHeaderCell: React.VFC<ColumnHeaderCellProps> = ({
         </Tooltip>
       )}
     >
-      <StyledRouterLink to={link}>{trimmedDisplayName}</StyledRouterLink>
+      <StyledRouterLink onClick={onClick} to={link}>
+        {trimmedDisplayName}
+      </StyledRouterLink>
     </ConditionalWrapper>
   </HeaderCell>
 );

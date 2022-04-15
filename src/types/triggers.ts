@@ -4,6 +4,11 @@ export enum ResourceType {
   BUILD = "BUILD",
 }
 
+export enum ProjectTriggerLevel {
+  TASK = "task",
+  BUILD = "build",
+}
+
 export enum TriggerType {
   OUTCOME = "outcome",
   FAILURE = "failure",

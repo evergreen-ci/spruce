@@ -11,9 +11,13 @@ const { parseQueryString } = queryString;
 
 interface FilterBadgesProps {
   queryParamsToDisplay: Set<string>;
+  onRemove?: () => void;
+  onClearAll?: () => void;
 }
 export const FilterBadges: React.VFC<FilterBadgesProps> = ({
   queryParamsToDisplay,
+  onRemove = () => {},
+  onClearAll = () => {},
 }) => {
   const updateQueryParams = useUpdateURLQueryParams();
   const location = useLocation();
@@ -23,17 +27,19 @@ export const FilterBadges: React.VFC<FilterBadgesProps> = ({
     queryParamsToDisplay.has(key as any)
   );
 
-  const onRemove = (key: string, value: string) => {
+  const handleOnRemove = (key: string, value: string) => {
     const updatedParam = popQueryParams(queryParams[key], value);
+    onRemove();
     updateQueryParams({ [key]: updatedParam });
   };
 
-  const onClearAll = () => {
+  const handleClearAll = () => {
     // Need to manually set keys to undefined inorder to overwrite and clear queryParams
     const params = { ...queryParams };
     Object.keys(params).forEach((v) => {
       params[v] = undefined;
     });
+    onClearAll();
     updateQueryParams(params);
   };
   const visibileQueryParams = queryParamsList.slice(0, 8);
@@ -45,22 +51,24 @@ export const FilterBadges: React.VFC<FilterBadgesProps> = ({
         <FilterBadge
           key={`filter_badge_${p.key}_${p.value}`}
           badge={p}
-          onClose={() => onRemove(p.key, p.value)}
+          onClose={() => {
+            handleOnRemove(p.key, p.value);
+          }}
         />
       ))}
       {queryParamsList.length > 8 && (
         <SeeMoreModal
           badges={queryParamsList}
           notVisibleCount={notVisibleCount}
-          onRemoveBadge={onRemove}
-          onClearAll={onClearAll}
+          onRemoveBadge={handleOnRemove}
+          onClearAll={handleClearAll}
         />
       )}
       {queryParamsList.length > 0 && (
         <Button
           variant={Variant.Default}
           size={Size.XSmall}
-          onClick={onClearAll}
+          onClick={handleClearAll}
           data-cy="clear-all-filters"
         >
           CLEAR ALL FILTERS

@@ -1,9 +1,11 @@
 import styled from "@emotion/styled";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { StyledRouterLink } from "components/styles";
 import { VariantGroupedTaskStatusBadges } from "components/VariantGroupedTaskStatusBadges";
 import { getVariantHistoryRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { StatusCount } from "gql/generated/types";
+import { TASK_ICON_PADDING } from "../constants";
 import { WaterfallTaskStatusIcon } from "./buildVariantCard/WaterfallTaskStatusIcon";
 
 type taskList = {
@@ -14,6 +16,7 @@ type taskList = {
 }[];
 interface Props {
   variant: string;
+  height: number;
   buildVariantDisplayName: string;
   tasks?: taskList;
   versionId: string;
@@ -25,6 +28,7 @@ interface Props {
 }
 export const BuildVariantCard: React.VFC<Props> = ({
   buildVariantDisplayName,
+  height,
   variant,
   tasks,
   versionId,
@@ -32,6 +36,7 @@ export const BuildVariantCard: React.VFC<Props> = ({
   groupedVariantStats,
   order,
 }) => {
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   let render = null;
   render = (
     <>
@@ -40,6 +45,12 @@ export const BuildVariantCard: React.VFC<Props> = ({
           statusCounts={groupedVariantStats.statusCounts}
           versionId={versionId}
           variant={variant}
+          onClick={(statuses) => () => {
+            sendEvent({
+              name: "Click grouped task status badge",
+              statuses,
+            });
+          }}
         />
       )}
       {tasks && <RenderTaskIcons tasks={tasks} variant={variant} />}
@@ -52,10 +63,15 @@ export const BuildVariantCard: React.VFC<Props> = ({
         to={getVariantHistoryRoute(projectIdentifier, variant, {
           selectedCommit: order,
         })}
+        onClick={() => {
+          sendEvent({
+            name: "Click variant label",
+          });
+        }}
       >
         {buildVariantDisplayName}
       </Label>
-      {render}
+      <Content height={`${height}px`}>{render}</Content>
     </Container>
   );
 };
@@ -87,13 +103,15 @@ const Label = styled(StyledRouterLink)`
 
 const IconContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  margin-bottom: ${size.xs};
-  margin-top: ${size.xs};
+  padding: ${TASK_ICON_PADDING}px 0;
   flex-wrap: wrap;
 `;
 
 const Container = styled.div`
   width: 160px;
   margin-bottom: ${size.s};
+`;
+
+const Content = styled.div<{ height: string }>`
+  height: ${({ height }) => height};
 `;

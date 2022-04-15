@@ -8,8 +8,13 @@ import { queryString, url } from "utils";
 
 const { upsertQueryParam } = url;
 const { parseQueryString } = queryString;
+interface HistoryTableTestSearchProps {
+  onSubmit?: (failedTests: string[]) => void;
+}
 
-export const HistoryTableTestSearch = () => {
+export const HistoryTableTestSearch: React.VFC<HistoryTableTestSearchProps> = ({
+  onSubmit = () => {},
+}) => {
   const [input, setInput] = useState("");
 
   const updateQueryParams = useUpdateURLQueryParams();
@@ -20,6 +25,7 @@ export const HistoryTableTestSearch = () => {
   const onClick = () => {
     const selectedParams = queryParams.failed as string[];
     const updatedParams = upsertQueryParam(selectedParams, input);
+    onSubmit(updatedParams);
     updateQueryParams({ failed: updatedParams });
     setInput("");
   };
