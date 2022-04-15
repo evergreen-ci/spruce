@@ -4,6 +4,7 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import Icon from "@leafygreen-ui/icon";
 import { useLocation } from "react-router-dom";
 import { Analytics } from "analytics/addPageAction";
+import { GithubUsernameBanner } from "components/Banners";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import {
@@ -73,53 +74,56 @@ export const PatchesPage: React.VFC<Props> = ({
   };
 
   return (
-    <PageWrapper>
-      <PageTitle data-cy="patches-page-title">{pageTitle}</PageTitle>
-      <FiltersWrapperSpaceBetween>
-        <FlexRow>
-          <StyledInput
-            placeholder="Search Patch Descriptions"
-            onChange={(e) => setAndSubmitInputValue(e.target.value)}
-            suffix={<Icon glyph="MagnifyingGlass" />}
-            value={inputValue}
-            data-cy="patch-description-input"
-            width="25%"
+    <ContentWrapper>
+      <GithubUsernameBanner />
+      <PageWrapper>
+        <PageTitle data-cy="patches-page-title">{pageTitle}</PageTitle>
+        <FiltersWrapperSpaceBetween>
+          <FlexRow>
+            <StyledInput
+              placeholder="Search Patch Descriptions"
+              onChange={(e) => setAndSubmitInputValue(e.target.value)}
+              suffix={<Icon glyph="MagnifyingGlass" />}
+              value={inputValue}
+              data-cy="patch-description-input"
+              width="25%"
+            />
+            <StatusSelector />
+          </FlexRow>
+          <Checkbox
+            data-cy="commit-queue-checkbox"
+            onChange={onCheckboxChange}
+            label={
+              pageType === "project"
+                ? "Only Show Commit Queue Patches"
+                : "Include Commit Queue"
+            }
+            checked={isCommitQueueCheckboxChecked}
           />
-          <StatusSelector />
-        </FlexRow>
-        <Checkbox
-          data-cy="commit-queue-checkbox"
-          onChange={onCheckboxChange}
-          label={
-            pageType === "project"
-              ? "Only Show Commit Queue Patches"
-              : "Include Commit Queue"
-          }
-          checked={isCommitQueueCheckboxChecked}
+        </FiltersWrapperSpaceBetween>
+        <PaginationRow>
+          <Pagination
+            pageSize={limit}
+            value={page}
+            totalResults={patches?.filteredPatchCount ?? 0}
+            data-cy="my-patches-pagination"
+          />
+          <PageSizeSelector
+            data-cy="my-patches-page-size-selector"
+            value={limit}
+            sendAnalyticsEvent={() =>
+              analyticsObject.sendEvent({ name: "Change Page Size" })
+            }
+          />
+        </PaginationRow>
+        <ListArea
+          patches={patches}
+          loading={loading}
+          pageType={pageType}
+          analyticsObject={analyticsObject}
         />
-      </FiltersWrapperSpaceBetween>
-      <PaginationRow>
-        <Pagination
-          pageSize={limit}
-          value={page}
-          totalResults={patches?.filteredPatchCount ?? 0}
-          data-cy="my-patches-pagination"
-        />
-        <PageSizeSelector
-          data-cy="my-patches-page-size-selector"
-          value={limit}
-          sendAnalyticsEvent={() =>
-            analyticsObject.sendEvent({ name: "Change Page Size" })
-          }
-        />
-      </PaginationRow>
-      <ListArea
-        patches={patches}
-        loading={loading}
-        pageType={pageType}
-        analyticsObject={analyticsObject}
-      />
-    </PageWrapper>
+      </PageWrapper>
+    </ContentWrapper>
   );
 };
 
@@ -139,6 +143,10 @@ export const getPatchesInputFromURLSearch = (search: string): PatchesInput => {
   };
 };
 
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const FlexRow = styled.div`
   display: flex;
   flex-grow: 2;
@@ -148,7 +156,6 @@ const PaginationRow = styled.div`
   justify-content: flex-end;
   align-items: center;
 `;
-
 const FiltersWrapperSpaceBetween = styled(FiltersWrapper)`
   justify-content: space-between;
 `;
