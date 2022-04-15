@@ -74,7 +74,7 @@ export const WaterfallTaskStatusIcon: React.VFC<WaterfallTaskStatusIconProps> = 
           onMouseEnter={onHover}
           onMouseLeave={onMouseLeave}
           key={`task_${taskId}`}
-          aria-label={`${displayName} : ${status} icon link`}
+          aria-label={`${status} icon`}
           to={getTaskRoute(taskId)}
           onClick={() => {
             sendEvent({ name: "Click task status icon", status });
