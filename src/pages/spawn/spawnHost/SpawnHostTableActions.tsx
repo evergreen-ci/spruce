@@ -36,7 +36,7 @@ export const CopySSHCommandButton: React.VFC<{
   const sshCommand = `ssh ${user}@${hostUrl}`;
   const spawnAnalytics = useSpawnAnalytics();
 
-  const canSSH = hostStatus !== HostStatus.Terminated && hostUrl;
+  const canSSH = hostStatus !== HostStatus.Terminated && !!hostUrl;
   const [hasCopied, setHasCopied] = useState(false);
   const [openTooltip, setOpenTooltip] = useState(false);
   useEffect(() => {
