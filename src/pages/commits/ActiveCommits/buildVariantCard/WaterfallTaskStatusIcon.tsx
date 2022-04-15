@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
@@ -33,6 +34,7 @@ export const WaterfallTaskStatusIcon: React.VFC<WaterfallTaskStatusIconProps> = 
   identifier,
 }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
+  const [enabled, setEnabled] = useState(false);
   const [loadData, { data, loading }] = useLazyQuery<
     GetFailedTaskStatusIconTooltipQuery,
     GetFailedTaskStatusIconTooltipQueryVariables
@@ -40,24 +42,39 @@ export const WaterfallTaskStatusIcon: React.VFC<WaterfallTaskStatusIconProps> = 
   const { testResults, filteredTestCount } = data?.taskTests ?? {};
   const failedTestDifference = filteredTestCount - testResults?.length;
 
+  let timeout;
   const onHover = () => {
-    // Only query failing test names if the task has failed.
-    if (isFailedTaskStatus(status)) {
-      loadData();
+    timeout = setTimeout(() => {
+      setEnabled(true);
+      // Only query failing test names if the task has failed.
+      if (isFailedTaskStatus(status)) {
+        loadData();
+      }
+    }, 500);
+  };
+  const onMouseLeave = () => {
+    setEnabled(false);
+    if (timeout) {
+      clearTimeout(timeout);
     }
   };
-
+  useEffect(() => () => {
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+  });
   return (
     <Tooltip
-      usePortal={false}
       align="top"
       justify="middle"
       popoverZIndex={zIndex.tooltip}
+      enabled={enabled}
       trigger={
         <IconWrapper
           onMouseEnter={onHover}
+          onMouseLeave={onMouseLeave}
           key={`task_${taskId}`}
-          aria-label={`${status} icon`}
+          aria-label={`${displayName} : ${status} icon link`}
           to={getTaskRoute(taskId)}
           onClick={() => {
             sendEvent({ name: "Click task status icon", status });
