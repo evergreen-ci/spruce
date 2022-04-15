@@ -74,9 +74,8 @@ export const PatchesPage: React.VFC<Props> = ({
       <FiltersWrapperSpaceBetween>
         <TextInputWithGlyph
           glyph="MagnifyingGlass"
-          label=""
-          description=""
           type="search"
+          aria-label=""
           placeholder="Patch description regex"
           onChange={(e) => setAndSubmitInputValue(e.target.value)}
           value={inputValue}
@@ -152,4 +151,5 @@ const FiltersWrapperSpaceBetween = styled(FiltersWrapper)`
 
 const CheckboxContainer = styled.div`
   display: flex;
+  justify-content: end;
 `;
