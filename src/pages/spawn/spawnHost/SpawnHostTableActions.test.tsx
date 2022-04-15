@@ -61,7 +61,7 @@ describe("copySSHCommandButton", () => {
     ).toBeInTheDocument();
   });
 
-  it("should disable the Copy SSH Button if there is no hostURL", () => {
+  it("should disable the Copy SSH Button if there is no host URL", () => {
     const { queryByDataCy, queryByText } = render(
       <MockedProvider mocks={[getUserMock]}>
         <CopySSHCommandButton
