@@ -40,7 +40,7 @@ export const useStatusesFilter = ({
   const setAndSubmitInputValue = (newValue: string[]): void => {
     setInputValue(newValue);
     updateUrl(newValue);
-    sendAnalyticsEvent(urlParam);
+    sendAnalyticsEvent(urlParam, newValue);
   };
 
   const submitInputValue = () => updateUrl(inputValue);
@@ -77,10 +77,10 @@ export interface FilterHookResult<T> {
  * @typedef {Object} FilterHookParams
  * @property {string} urlParam Represents URL query param name
  * @property {boolean} [resetPage] When true, page URL query paramter is set to 0 upon value submission
- * @property {(filterBy: string) => void} [sendAnalyticsEvent] A side effect executed upon value submission
+ * @property {(filterBy: string, filterValue?: string[]) => void} [sendAnalyticsEvent] A side effect executed upon value submission
  */
 export interface FilterHookParams {
   urlParam: string;
   resetPage?: boolean;
-  sendAnalyticsEvent?: (filterBy: string) => void;
+  sendAnalyticsEvent?: (filterBy: string, filterValue?: string[]) => void;
 }

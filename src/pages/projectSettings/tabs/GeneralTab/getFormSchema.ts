@@ -14,6 +14,8 @@ export const getFormSchema = (
   projectType: ProjectType,
   validDefaultLoggers: Project["validDefaultLoggers"],
   identifierHasChanges: boolean,
+  initialOwner: string,
+  initialRepo: string,
   repoData?: FormState
 ): {
   fields: Record<string, Field>;
@@ -254,6 +256,8 @@ export const getFormSchema = (
         "ui:field": "repoConfigField",
         "ui:disabled": projectType !== ProjectType.Project,
         options: {
+          initialOwner,
+          initialRepo,
           projectId,
           projectType,
           repoName: repoData?.generalConfiguration?.repositoryInfo?.repo,

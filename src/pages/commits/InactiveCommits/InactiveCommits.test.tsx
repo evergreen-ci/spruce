@@ -1,3 +1,4 @@
+import { MockedProvider } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
 import { renderWithRouterMatch as render, waitFor } from "test_utils";
 import { CommitRolledUpVersions } from "types/commits";
@@ -7,7 +8,9 @@ const RenderInactiveCommitButton = (
   versions: CommitRolledUpVersions,
   hasFilters: boolean = false
 ) => (
-  <InactiveCommitButton hasFilters={hasFilters} rolledUpVersions={versions} />
+  <MockedProvider>
+    <InactiveCommitButton hasFilters={hasFilters} rolledUpVersions={versions} />
+  </MockedProvider>
 );
 
 describe("inactiveCommitButton", () => {

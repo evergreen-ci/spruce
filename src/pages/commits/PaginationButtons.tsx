@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
@@ -13,14 +14,20 @@ export const PaginationButtons: React.VFC<PaginationButtonsProps> = ({
   prevPageOrderNumber,
   nextPageOrderNumber,
 }) => {
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const updateQueryParams = useUpdateURLQueryParams();
 
   const onNextClick = () => {
+    sendEvent({ name: "Paginate", direction: "next" });
     updateQueryParams({
       [MainlineCommitQueryParams.SkipOrderNumber]: nextPageOrderNumber.toString(),
     });
   };
   const onPrevClick = () => {
+    sendEvent({
+      name: "Paginate",
+      direction: "previous",
+    });
     // 0 is the first page so we can just omit the query param
     updateQueryParams({
       [MainlineCommitQueryParams.SkipOrderNumber]:

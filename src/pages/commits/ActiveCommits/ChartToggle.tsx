@@ -2,6 +2,7 @@ import { ClassNames } from "@emotion/react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { Accordion } from "components/Accordion";
 import { size } from "constants/tokens";
 import { ChartTypes } from "types/commits";
@@ -9,14 +10,19 @@ import { ChartTypes } from "types/commits";
 const { gray } = uiColors;
 
 export const ChartToggle: React.VFC<{
-  onToggleAccordion: (nextState: boolean) => void;
+  onToggleAccordion: (nextState: { isVisible: boolean }) => void;
   isOpen: boolean;
   currentChartType: ChartTypes;
   onChangeChartType: (chartType: ChartTypes) => void;
 }> = ({ currentChartType, onChangeChartType, isOpen, onToggleAccordion }) => {
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const chartType = e.target.value as ChartTypes;
     onChangeChartType(chartType);
+    sendEvent({
+      name: "Select chart view option",
+      viewOption: chartType,
+    });
   };
   return (
     <AccordionContainer>

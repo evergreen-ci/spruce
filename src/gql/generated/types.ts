@@ -534,6 +534,7 @@ export type Version = {
   taskStatuses: Array<Scalars["String"]>;
   baseTaskStatuses: Array<Scalars["String"]>;
   manifest?: Maybe<Manifest>;
+  upstreamProject?: Maybe<UpstreamProject>;
 };
 
 export type VersionTaskStatusCountsArgs = {
@@ -546,6 +547,18 @@ export type VersionBuildVariantsArgs = {
 
 export type VersionBuildVariantStatsArgs = {
   options?: Maybe<BuildVariantOptions>;
+};
+
+export type UpstreamProject = {
+  owner: Scalars["String"];
+  repo: Scalars["String"];
+  revision: Scalars["String"];
+  project: Scalars["String"];
+  triggerID: Scalars["String"];
+  resourceID: Scalars["String"];
+  task?: Maybe<Task>;
+  version?: Maybe<Version>;
+  triggerType: Scalars["String"];
 };
 
 export type Manifest = {
@@ -2557,6 +2570,17 @@ export type RepoVirtualWorkstationSettingsFragment = {
   };
 };
 
+export type UpstreamProjectFragment = {
+  upstreamProject?: Maybe<{
+    triggerID: string;
+    triggerType: string;
+    repo: string;
+    project: string;
+    task?: Maybe<{ id: string; execution: number }>;
+    version?: Maybe<{ id: string }>;
+  }>;
+};
+
 export type AbortTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
@@ -3441,41 +3465,45 @@ export type MainlineCommitsForHistoryQuery = {
     nextPageOrderNumber?: Maybe<number>;
     prevPageOrderNumber?: Maybe<number>;
     versions: Array<{
-      version?: Maybe<{
-        id: string;
-        author: string;
-        createTime: Date;
-        message: string;
-        revision: string;
-        order: number;
-        buildVariants?: Maybe<
-          Array<
-            Maybe<{
-              displayName: string;
-              variant: string;
-              tasks?: Maybe<
-                Array<
-                  Maybe<{
-                    id: string;
-                    execution: number;
-                    status: string;
-                    displayName: string;
-                  }>
-                >
-              >;
-            }>
-          >
-        >;
-      }>;
-      rolledUpVersions?: Maybe<
-        Array<{
+      version?: Maybe<
+        {
           id: string;
-          createTime: Date;
           author: string;
-          order: number;
+          createTime: Date;
           message: string;
           revision: string;
-        }>
+          order: number;
+          buildVariants?: Maybe<
+            Array<
+              Maybe<{
+                displayName: string;
+                variant: string;
+                tasks?: Maybe<
+                  Array<
+                    Maybe<{
+                      id: string;
+                      execution: number;
+                      status: string;
+                      displayName: string;
+                    }>
+                  >
+                >;
+              }>
+            >
+          >;
+        } & UpstreamProjectFragment
+      >;
+      rolledUpVersions?: Maybe<
+        Array<
+          {
+            id: string;
+            createTime: Date;
+            author: string;
+            order: number;
+            message: string;
+            revision: string;
+          } & UpstreamProjectFragment
+        >
       >;
     }>;
   }>;
@@ -3494,51 +3522,55 @@ export type MainlineCommitsQuery = {
     nextPageOrderNumber?: Maybe<number>;
     prevPageOrderNumber?: Maybe<number>;
     versions: Array<{
-      version?: Maybe<{
-        projectIdentifier: string;
-        id: string;
-        author: string;
-        createTime: Date;
-        message: string;
-        revision: string;
-        order: number;
-        taskStatusCounts?: Maybe<Array<{ status: string; count: number }>>;
-        buildVariantStats?: Maybe<
-          Array<{
-            displayName: string;
-            variant: string;
-            statusCounts: Array<{ count: number; status: string }>;
-          }>
-        >;
-        buildVariants?: Maybe<
-          Array<
-            Maybe<{
-              displayName: string;
-              variant: string;
-              tasks?: Maybe<
-                Array<
-                  Maybe<{
-                    id: string;
-                    execution: number;
-                    status: string;
-                    displayName: string;
-                    timeTaken?: Maybe<number>;
-                  }>
-                >
-              >;
-            }>
-          >
-        >;
-      }>;
-      rolledUpVersions?: Maybe<
-        Array<{
+      version?: Maybe<
+        {
+          projectIdentifier: string;
           id: string;
-          createTime: Date;
           author: string;
-          order: number;
+          createTime: Date;
           message: string;
           revision: string;
-        }>
+          order: number;
+          taskStatusCounts?: Maybe<Array<{ status: string; count: number }>>;
+          buildVariantStats?: Maybe<
+            Array<{
+              displayName: string;
+              variant: string;
+              statusCounts: Array<{ count: number; status: string }>;
+            }>
+          >;
+          buildVariants?: Maybe<
+            Array<
+              Maybe<{
+                displayName: string;
+                variant: string;
+                tasks?: Maybe<
+                  Array<
+                    Maybe<{
+                      id: string;
+                      execution: number;
+                      status: string;
+                      displayName: string;
+                      timeTaken?: Maybe<number>;
+                    }>
+                  >
+                >;
+              }>
+            >
+          >;
+        } & UpstreamProjectFragment
+      >;
+      rolledUpVersions?: Maybe<
+        Array<
+          {
+            id: string;
+            createTime: Date;
+            author: string;
+            order: number;
+            message: string;
+            revision: string;
+          } & UpstreamProjectFragment
+        >
       >;
     }>;
   }>;
@@ -4189,7 +4221,7 @@ export type VersionQuery = {
         }>
       >;
     }>;
-  };
+  } & UpstreamProjectFragment;
 };
 
 export type GetViewableProjectRefsQueryVariables = Exact<{

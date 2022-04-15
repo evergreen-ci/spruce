@@ -1,5 +1,6 @@
 import { memo } from "react";
 import { ListChildComponentProps, areEqual } from "react-window";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { context, Cell, Row, types, hooks } from "components/HistoryTable";
 import { array } from "utils";
 
@@ -11,6 +12,7 @@ const { rowType } = types;
 
 const VariantHistoryRow = memo((props: ListChildComponentProps) => {
   const { index } = props;
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Variant history" });
   let orderedColumns = [];
   const { visibleColumns, getItem } = useHistoryTable();
 
@@ -28,6 +30,12 @@ const VariantHistoryRow = memo((props: ListChildComponentProps) => {
           const { inactive, failingTests, label } = getTaskMetadata(t.id);
           return (
             <TaskCell
+              onClick={({ taskStatus }) => {
+                sendEvent({
+                  name: "Click task cell",
+                  taskStatus,
+                });
+              }}
               inactive={inactive}
               key={c}
               task={t}
@@ -47,6 +55,54 @@ const VariantHistoryRow = memo((props: ListChildComponentProps) => {
       columns={orderedColumns}
       numVisibleCols={visibleColumns.length}
       selected={commit?.selected}
+      onClickGithash={() =>
+        sendEvent({
+          name: "Click commit label",
+          link: "githash",
+          commitType: "active",
+        })
+      }
+      onClickFoldedGithash={() =>
+        sendEvent({
+          name: "Click commit label",
+          link: "githash",
+          commitType: "inactive",
+        })
+      }
+      onClickUpstreamProject={() => {
+        sendEvent({
+          name: "Click commit label",
+          link: "upstream project",
+          commitType: "active",
+        });
+      }}
+      onClickFoldedUpstreamProject={() => {
+        sendEvent({
+          name: "Click commit label",
+          link: "upstream project",
+          commitType: "inactive",
+        });
+      }}
+      onClickJiraTicket={() => {
+        sendEvent({
+          name: "Click commit label",
+          link: "jira",
+          commitType: "active",
+        });
+      }}
+      onClickFoldedJiraTicket={() => {
+        sendEvent({
+          name: "Click commit label",
+          link: "jira",
+          commitType: "inactive",
+        });
+      }}
+      onToggleFoldedCommit={({ isVisible }) => {
+        sendEvent({
+          name: "Toggle folded commit",
+          toggle: isVisible ? "open" : "close",
+        });
+      }}
     />
   );
 }, areEqual);

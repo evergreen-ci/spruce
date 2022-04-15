@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
+import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { StyledRouterLink } from "components/styles";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { getTaskRoute } from "constants/routes";
@@ -14,6 +15,7 @@ import {
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
 import { isFailedTaskStatus } from "utils/statuses";
 import { msToDuration } from "utils/string";
+import { TASK_ICON_HEIGHT } from "../../constants";
 
 interface WaterfallTaskStatusIconProps {
   taskId: string;
@@ -30,6 +32,7 @@ export const WaterfallTaskStatusIcon: React.VFC<WaterfallTaskStatusIconProps> = 
   timeTaken,
   identifier,
 }) => {
+  const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const [loadData, { data, loading }] = useLazyQuery<
     GetFailedTaskStatusIconTooltipQuery,
     GetFailedTaskStatusIconTooltipQueryVariables
@@ -56,6 +59,9 @@ export const WaterfallTaskStatusIcon: React.VFC<WaterfallTaskStatusIconProps> = 
           key={`task_${taskId}`}
           aria-label={`${status} icon`}
           to={getTaskRoute(taskId)}
+          onClick={() => {
+            sendEvent({ name: "Click task status icon", status });
+          }}
           data-cy="waterfall-task-status-icon"
         >
           <TaskStatusWrapper data-task-icon={identifier}>
@@ -98,7 +104,7 @@ const IconWrapper = styled(StyledRouterLink)`
   cursor: pointer;
 `;
 const TaskStatusWrapper = styled.div`
-  height: ${size.m};
+  height: ${TASK_ICON_HEIGHT}px;
   width: ${size.m};
   padding: ${size.xxs};
 `;

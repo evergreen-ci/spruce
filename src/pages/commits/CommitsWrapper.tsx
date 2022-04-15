@@ -1,11 +1,14 @@
-import { useEffect } from "react";
+import { useMemo, useEffect } from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
 import { size } from "constants/tokens";
 import { Commits } from "types/commits";
-import { hoverTaskIcons } from "./ActiveCommits/utils";
+import {
+  hoverTaskIcons,
+  constructBuildVariantDict,
+} from "./ActiveCommits/utils";
 import { CommitsChart } from "./CommitsChart";
 import {
   getCommitKey,
@@ -24,7 +27,9 @@ interface Props {
   hasTaskFilter: boolean;
   hasFilters: boolean;
   isOpenChartToggle: boolean;
-  setIsOpenChartToggle: (nextState: boolean) => void;
+  onToggleChartViewOptionsAccordion: (nextState: {
+    isVisible: boolean;
+  }) => void;
 }
 
 export const CommitsWrapper: React.VFC<Props> = ({
@@ -34,7 +39,7 @@ export const CommitsWrapper: React.VFC<Props> = ({
   hasTaskFilter,
   hasFilters,
   isOpenChartToggle,
-  setIsOpenChartToggle,
+  onToggleChartViewOptionsAccordion,
 }) => {
   useEffect(() => {
     if (!isLoading) {
@@ -42,11 +47,17 @@ export const CommitsWrapper: React.VFC<Props> = ({
     }
   }, [isLoading, versions]);
 
+  const buildVariantDict = useMemo(() => {
+    if (versions) {
+      return constructBuildVariantDict(versions);
+    }
+  }, [versions]);
+
   if (error) {
     return (
       <CommitsChart
         isOpenChartToggle={isOpenChartToggle}
-        setIsOpenChartToggle={setIsOpenChartToggle}
+        onToggleChartViewOptionsAccordion={onToggleChartViewOptionsAccordion}
         hasError
       />
     );
@@ -59,7 +70,7 @@ export const CommitsWrapper: React.VFC<Props> = ({
       <ChartContainer>
         <CommitsChart
           isOpenChartToggle={isOpenChartToggle}
-          setIsOpenChartToggle={setIsOpenChartToggle}
+          onToggleChartViewOptionsAccordion={onToggleChartViewOptionsAccordion}
           versions={versions}
           hasTaskFilter={hasTaskFilter}
         />
@@ -81,7 +92,10 @@ export const CommitsWrapper: React.VFC<Props> = ({
               key={getCommitKey(commit)}
               width={getCommitWidth(commit)}
             >
-              <RenderCommitsBuildVariants commit={commit} />
+              <RenderCommitsBuildVariants
+                commit={commit}
+                buildVariantDict={buildVariantDict}
+              />
             </CommitWrapper>
           ))}
         </FlexRowContainer>
