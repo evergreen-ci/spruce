@@ -32,6 +32,7 @@ export const LeafyGreenTextInput: React.VFC<
   options,
   rawErrors,
   readonly,
+  schema,
 }) => {
   const {
     ariaLabelledBy,
@@ -43,10 +44,13 @@ export const LeafyGreenTextInput: React.VFC<
     warnings,
   } = options;
   const hasError = !!rawErrors?.length;
-  const errorProps = {
+  const inputProps = {
+    ...(typeof schema.maximum !== "undefined" && { max: schema.maximum }),
+    ...(typeof schema.minimum !== "undefined" && { min: schema.minimum }),
     errorMessage: hasError ? rawErrors.join(", ") : null,
     state: hasError ? TextInputState.Error : TextInputState.None,
   };
+
   return (
     <ElementWrapper marginBottom={marginBottom}>
       <MaxWidthContainer>
@@ -67,7 +71,7 @@ export const LeafyGreenTextInput: React.VFC<
             )
           }
           aria-label={label}
-          {...errorProps}
+          {...inputProps}
         />
         {!!warnings?.length && (
           <WarningText data-cy="input-warning">

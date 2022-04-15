@@ -867,16 +867,13 @@ export type RepoRefInput = {
 };
 
 export type TriggerAliasInput = {
-  project?: Maybe<Scalars["String"]>;
+  project: Scalars["String"];
   level: Scalars["String"];
-  definitionID: Scalars["String"];
   buildVariantRegex: Scalars["String"];
   taskRegex: Scalars["String"];
   status: Scalars["String"];
   dateCutoff: Scalars["Int"];
   configFile: Scalars["String"];
-  generateFile: Scalars["String"];
-  command: Scalars["String"];
   alias: Scalars["String"];
 };
 
@@ -1677,16 +1674,13 @@ export type RepoRef = {
 };
 
 export type TriggerAlias = {
-  project?: Maybe<Scalars["String"]>;
+  project: Scalars["String"];
   level: Scalars["String"];
-  definitionID: Scalars["String"];
   buildVariantRegex: Scalars["String"];
   taskRegex: Scalars["String"];
   status: Scalars["String"];
   dateCutoff: Scalars["Int"];
   configFile: Scalars["String"];
-  generateFile: Scalars["String"];
-  command: Scalars["String"];
   alias: Scalars["String"];
 };
 
@@ -2335,6 +2329,7 @@ export type ProjectSettingsFragment = {
       ProjectNotificationSettingsFragment &
       ProjectPatchAliasSettingsFragment &
       ProjectVirtualWorkstationSettingsFragment &
+      ProjectTriggersSettingsFragment &
       ProjectPeriodicBuildsSettingsFragment
   >;
   subscriptions?: Maybe<Array<SubscriptionsFragment>>;
@@ -2350,6 +2345,7 @@ export type RepoSettingsFragment = {
       RepoNotificationSettingsFragment &
       RepoPatchAliasSettingsFragment &
       RepoVirtualWorkstationSettingsFragment &
+      RepoTriggersSettingsFragment &
       RepoPeriodicBuildsSettingsFragment
   >;
   vars?: Maybe<VariablesFragment>;
@@ -2489,27 +2485,13 @@ export type ProjectEventSettingsFragment = {
       versionControlEnabled?: Maybe<boolean>;
       tracksPushEvents?: Maybe<boolean>;
       hidden?: Maybe<boolean>;
-      triggers?: Maybe<
-        Array<{
-          project?: Maybe<string>;
-          level: string;
-          definitionID: string;
-          buildVariantRegex: string;
-          taskRegex: string;
-          status: string;
-          dateCutoff: number;
-          configFile: string;
-          generateFile: string;
-          command: string;
-          alias: string;
-        }>
-      >;
     } & ProjectGeneralSettingsFragment &
       ProjectAccessSettingsFragment &
       ProjectPluginsSettingsFragment &
       ProjectNotificationSettingsFragment &
       ProjectPatchAliasSettingsFragment &
       ProjectVirtualWorkstationSettingsFragment &
+      ProjectTriggersSettingsFragment &
       ProjectPeriodicBuildsSettingsFragment
   >;
   subscriptions?: Maybe<Array<SubscriptionsFragment>>;
@@ -2524,31 +2506,47 @@ export type RepoEventSettingsFragment = {
       displayName: string;
       versionControlEnabled: boolean;
       tracksPushEvents: boolean;
-      triggers: Array<{
-        project?: Maybe<string>;
-        level: string;
-        definitionID: string;
-        buildVariantRegex: string;
-        taskRegex: string;
-        status: string;
-        dateCutoff: number;
-        configFile: string;
-        generateFile: string;
-        command: string;
-        alias: string;
-      }>;
     } & RepoGeneralSettingsFragment &
       RepoAccessSettingsFragment &
       RepoPluginsSettingsFragment &
       RepoNotificationSettingsFragment &
       RepoPatchAliasSettingsFragment &
       RepoVirtualWorkstationSettingsFragment &
+      RepoTriggersSettingsFragment &
       RepoPeriodicBuildsSettingsFragment
   >;
   vars?: Maybe<VariablesFragment>;
   subscriptions?: Maybe<Array<SubscriptionsFragment>>;
   aliases?: Maybe<Array<AliasFragment>>;
 } & RepoEventGithubCommitQueueFragment;
+
+export type ProjectTriggersSettingsFragment = {
+  triggers?: Maybe<
+    Array<{
+      project: string;
+      level: string;
+      buildVariantRegex: string;
+      taskRegex: string;
+      status: string;
+      dateCutoff: number;
+      configFile: string;
+      alias: string;
+    }>
+  >;
+};
+
+export type RepoTriggersSettingsFragment = {
+  triggers: Array<{
+    project: string;
+    level: string;
+    buildVariantRegex: string;
+    taskRegex: string;
+    status: string;
+    dateCutoff: number;
+    configFile: string;
+    alias: string;
+  }>;
+};
 
 export type VariablesFragment = {
   vars?: Maybe<{ [key: string]: any }>;

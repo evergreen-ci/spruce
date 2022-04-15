@@ -8,7 +8,7 @@ import {
 import { ProjectType } from "./utils";
 
 export type TabDataProps = Record<
-  CompletedRoutes,
+  WritableTabRoutes,
   {
     projectData: FormDataProps;
     repoData: FormDataProps;
@@ -29,12 +29,6 @@ export type FormToGqlFunction = (
 
 export const readOnlyTabs = [ProjectSettingsTabRoutes.EventLog] as const;
 
-type UnfinishedPages =
-  | ProjectSettingsTabRoutes.ProjectTriggers
-  | ProjectSettingsTabRoutes.EventLog;
-
 type ReadOnlyTabs = typeof readOnlyTabs[number];
 
 export type WritableTabRoutes = Exclude<ProjectSettingsTabRoutes, ReadOnlyTabs>;
-
-export type CompletedRoutes = Exclude<WritableTabRoutes, UnfinishedPages>;
