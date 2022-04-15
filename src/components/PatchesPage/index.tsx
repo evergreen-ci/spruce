@@ -143,6 +143,10 @@ export const getPatchesInputFromURLSearch = (search: string): PatchesInput => {
   };
 };
 
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const FlexRow = styled.div`
   display: flex;
   flex-grow: 2;
@@ -151,10 +155,6 @@ const PaginationRow = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-`;
-const ContentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
 `;
 const FiltersWrapperSpaceBetween = styled(FiltersWrapper)`
   justify-content: space-between;
