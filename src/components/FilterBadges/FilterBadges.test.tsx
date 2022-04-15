@@ -113,6 +113,22 @@ describe("filterBadges", () => {
     expect(location.search).toBe(``);
   });
 
+  it("should only remove query params for displayable badges when clear all is pressed", () => {
+    const { queryAllByDataCy, queryByDataCy, history } = render(Content, {
+      route: `/commits/evergreen?buildVariants=variant1,variant2&tests=test1,test2&notRelated=notRelated`,
+      path: "/commits/:projectId",
+    });
+
+    let badges = queryAllByDataCy("filter-badge");
+    expect(badges).toHaveLength(4);
+
+    fireEvent.click(queryByDataCy("clear-all-filters"));
+    badges = queryAllByDataCy("filter-badge");
+    expect(badges).toHaveLength(0);
+    const { location } = history;
+
+    expect(location.search).toBe(`?notRelated=notRelated`);
+  });
   it("should show a max of 8 badges and a link to show more if there are more", () => {
     const { queryAllByDataCy, queryByText } = render(Content, {
       route: `/commits/evergreen?buildVariants=variant1,variant2,variant3,variant4&tests=test1,test2,test3,test4&taskNames=task1`,
