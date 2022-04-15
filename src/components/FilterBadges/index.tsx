@@ -36,9 +36,11 @@ export const FilterBadges: React.VFC<FilterBadgesProps> = ({
   const handleClearAll = () => {
     // Need to manually set keys to undefined inorder to overwrite and clear queryParams
     const params = { ...queryParams };
-    Object.keys(params).forEach((v) => {
-      params[v] = undefined;
-    });
+    Object.keys(params)
+      .filter((badge) => queryParamsToDisplay.has(badge))
+      .forEach((v) => {
+        params[v] = undefined;
+      });
     onClearAll();
     updateQueryParams(params);
   };
