@@ -18,8 +18,11 @@ export const Banner = styled.div`
         : bannerTypeToColor.announcement
     }`};
   display: flex;
-  justify-content: space-between;
   padding: ${size.xxs} ${size.s};
+`;
+
+export const DismissibleBanner = styled(Banner)`
+  justify-content: space-between;
 `;
 
 export const bannerTypeToColor = {

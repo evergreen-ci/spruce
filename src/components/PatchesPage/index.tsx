@@ -142,7 +142,6 @@ const PaginationRow = styled.div`
   justify-content: flex-end;
   align-items: center;
 `;
-
 const FiltersWrapperSpaceBetween = styled(FiltersWrapper)`
   display: grid;
   grid-template-columns: repeat(2, 1fr) 2fr;
