@@ -36,7 +36,7 @@ export const CopySSHCommandButton: React.VFC<{
   const sshCommand = `ssh ${user}@${hostUrl}`;
   const spawnAnalytics = useSpawnAnalytics();
 
-  const canSsh = hostStatus !== HostStatus.Terminated && hostUrl;
+  const canSSH = hostStatus !== HostStatus.Terminated && hostUrl;
   const [hasCopied, setHasCopied] = useState(false);
   const [openTooltip, setOpenTooltip] = useState(false);
   useEffect(() => {
@@ -70,7 +70,7 @@ export const CopySSHCommandButton: React.VFC<{
             size={Size.XSmall}
             data-cy="copy-ssh-button"
             leftGlyph={<Icon glyph="Copy" />}
-            disabled={!canSsh}
+            disabled={!canSSH}
           >
             <Label>SSH Command</Label>
           </PaddedButton>
@@ -80,7 +80,7 @@ export const CopySSHCommandButton: React.VFC<{
           <Center>Copied!</Center>
         ) : (
           <Center>
-            {canSsh
+            {canSSH
               ? `Must be on VPN to connect to host`
               : `Host must be running in order to SSH`}
           </Center>

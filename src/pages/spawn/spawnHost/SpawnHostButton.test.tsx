@@ -3,6 +3,7 @@ import { RenderFakeToastContext } from "context/__mocks__/toast";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { GET_MY_HOSTS } from "gql/queries";
 import { renderWithRouterMatch as render, act } from "test_utils";
+import { HostStatus } from "types/host";
 import { SpawnHostButton } from "./SpawnHostButton";
 
 describe("spawnHostButton", () => {
@@ -87,43 +88,43 @@ const baseSpawnHost = {
 const spawnHost1 = {
   ...baseSpawnHost,
   id: "i-00b212e96b3f91079",
-  status: "running",
+  status: HostStatus.Running,
 };
 
 const spawnHost2 = {
   ...baseSpawnHost,
   id: "i-00b212e96b3f91080",
-  status: "running",
+  status: HostStatus.Running,
 };
 
 const spawnHost3 = {
   ...baseSpawnHost,
   id: "i-00b212e96b3f91081",
-  status: "stopped",
+  status: HostStatus.Stopped,
 };
 
 const spawnHost4 = {
   ...baseSpawnHost,
   id: "i-00b212e96b3f91082",
-  status: "starting",
+  status: HostStatus.Starting,
 };
 
 const spawnHost5 = {
   ...baseSpawnHost,
   id: "i-00b212e96b3f91083",
-  status: "provisioning",
+  status: HostStatus.Provisioning,
 };
 
 const spawnHost6 = {
   ...baseSpawnHost,
   id: "i-00b212e96b3f91084",
-  status: "running",
+  status: HostStatus.Running,
 };
 
 const terminatedHost = {
   ...baseSpawnHost,
   id: "i-00b212e96b3f91085",
-  status: "terminated",
+  status: HostStatus.Terminated,
 };
 
 const sixHostsMock = {
