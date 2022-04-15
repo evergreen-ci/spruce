@@ -1,14 +1,11 @@
-import { useMemo, useEffect } from "react";
+import { useEffect } from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
 import { size } from "constants/tokens";
 import { Commits } from "types/commits";
-import {
-  hoverTaskIcons,
-  constructBuildVariantDict,
-} from "./ActiveCommits/utils";
+import { hoverTaskIcons } from "./ActiveCommits/utils";
 import { CommitsChart } from "./CommitsChart";
 import {
   getCommitKey,
@@ -41,12 +38,6 @@ export const CommitsWrapper: React.VFC<Props> = ({
     }
   }, [isLoading, versions]);
 
-  const buildVariantDict = useMemo(() => {
-    if (versions) {
-      return constructBuildVariantDict(versions);
-    }
-  }, [versions]);
-
   if (error) {
     return <CommitsChart hasError />;
   }
@@ -75,10 +66,7 @@ export const CommitsWrapper: React.VFC<Props> = ({
               key={getCommitKey(commit)}
               width={getCommitWidth(commit)}
             >
-              <RenderCommitsBuildVariants
-                commit={commit}
-                buildVariantDict={buildVariantDict}
-              />
+              <RenderCommitsBuildVariants commit={commit} />
             </CommitWrapper>
           ))}
         </FlexRowContainer>

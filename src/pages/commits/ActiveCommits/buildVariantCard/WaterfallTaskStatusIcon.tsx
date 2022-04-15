@@ -15,7 +15,6 @@ import {
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
 import { isFailedTaskStatus } from "utils/statuses";
 import { msToDuration } from "utils/string";
-import { TASK_ICON_HEIGHT } from "../../constants";
 
 interface WaterfallTaskStatusIconProps {
   taskId: string;
@@ -104,7 +103,7 @@ const IconWrapper = styled(StyledRouterLink)`
   cursor: pointer;
 `;
 const TaskStatusWrapper = styled.div`
-  height: ${TASK_ICON_HEIGHT}px;
+  height: ${size.m};
   width: ${size.m};
   padding: ${size.xxs};
 `;

@@ -5,7 +5,6 @@ import { VariantGroupedTaskStatusBadges } from "components/VariantGroupedTaskSta
 import { getVariantHistoryRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { StatusCount } from "gql/generated/types";
-import { TASK_ICON_PADDING } from "../constants";
 import { WaterfallTaskStatusIcon } from "./buildVariantCard/WaterfallTaskStatusIcon";
 
 type taskList = {
@@ -16,7 +15,6 @@ type taskList = {
 }[];
 interface Props {
   variant: string;
-  height: number;
   buildVariantDisplayName: string;
   tasks?: taskList;
   versionId: string;
@@ -28,7 +26,6 @@ interface Props {
 }
 export const BuildVariantCard: React.VFC<Props> = ({
   buildVariantDisplayName,
-  height,
   variant,
   tasks,
   versionId,
@@ -71,7 +68,7 @@ export const BuildVariantCard: React.VFC<Props> = ({
       >
         {buildVariantDisplayName}
       </Label>
-      <Content height={`${height}px`}>{render}</Content>
+      {render}
     </Container>
   );
 };
@@ -103,15 +100,13 @@ const Label = styled(StyledRouterLink)`
 
 const IconContainer = styled.div`
   display: flex;
-  padding: ${TASK_ICON_PADDING}px 0;
+  flex-direction: row;
+  margin-bottom: ${size.xs};
+  margin-top: ${size.xs};
   flex-wrap: wrap;
 `;
 
 const Container = styled.div`
   width: 160px;
   margin-bottom: ${size.s};
-`;
-
-const Content = styled.div<{ height: string }>`
-  height: ${({ height }) => height};
 `;

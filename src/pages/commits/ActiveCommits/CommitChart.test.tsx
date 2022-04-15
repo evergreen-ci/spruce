@@ -71,10 +71,8 @@ const versions = [
   {
     version: {
       id: "123",
-      projectIdentifier: "mongodb-mongo-master",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
-      order: 123,
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       author: "Mohamed Khelif",
       taskStatusCounts: [
