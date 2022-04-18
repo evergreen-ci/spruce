@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Cookies from "js-cookie";
@@ -9,10 +9,7 @@ import { ProjectSelect } from "components/projectSelect";
 import { PageWrapper } from "components/styles";
 import { ALL_VALUE } from "components/TreeSelect";
 import { TupleSelect } from "components/TupleSelect";
-import {
-  CURRENT_PROJECT,
-  HAS_SEEN_COMMIT_CHART_TOGGLE,
-} from "constants/cookies";
+import { CURRENT_PROJECT } from "constants/cookies";
 import { pollInterval } from "constants/index";
 import { getCommitsRoute } from "constants/routes";
 import { size } from "constants/tokens";
@@ -43,15 +40,6 @@ export const Commits = () => {
   const dispatchToast = useToastContext();
   const { replace } = useHistory();
   const { search } = useLocation();
-  const hasSeenChartToggle = Boolean(Cookies.get(HAS_SEEN_COMMIT_CHART_TOGGLE));
-  const [isOpenChartToggle, setIsOpenChartToggle] = useState(
-    !hasSeenChartToggle
-  );
-  useEffect(() => {
-    if (!hasSeenChartToggle && !isOpenChartToggle) {
-      Cookies.set(HAS_SEEN_COMMIT_CHART_TOGGLE, "true");
-    }
-  }, [hasSeenChartToggle, isOpenChartToggle]);
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const parsed = parseQueryString(search);
 
@@ -182,10 +170,6 @@ export const Commits = () => {
           />
         </PaginationWrapper>
         <CommitsWrapper
-          isOpenChartToggle={isOpenChartToggle}
-          onToggleChartViewOptionsAccordion={({ isVisible }) =>
-            setIsOpenChartToggle(isVisible)
-          }
           versions={versions}
           error={error}
           isLoading={loading || !projectId}

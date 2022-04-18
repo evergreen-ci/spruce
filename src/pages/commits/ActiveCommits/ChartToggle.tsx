@@ -11,10 +11,15 @@ const { gray } = uiColors;
 
 export const ChartToggle: React.VFC<{
   onToggleAccordion: (nextState: { isVisible: boolean }) => void;
-  isOpen: boolean;
+  defaultOpenAccordion: boolean;
   currentChartType: ChartTypes;
   onChangeChartType: (chartType: ChartTypes) => void;
-}> = ({ currentChartType, onChangeChartType, isOpen, onToggleAccordion }) => {
+}> = ({
+  currentChartType,
+  onChangeChartType,
+  defaultOpenAccordion,
+  onToggleAccordion,
+}) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const chartType = e.target.value as ChartTypes;
@@ -28,7 +33,7 @@ export const ChartToggle: React.VFC<{
     <AccordionContainer>
       <Accordion
         title="View options"
-        isOpen={isOpen}
+        defaultOpen={defaultOpenAccordion}
         onToggle={onToggleAccordion}
       >
         <ClassNames>

@@ -14,7 +14,6 @@ interface AccordionProps {
   onToggle?: (s: { isVisible: boolean }) => void;
   useIndent?: boolean;
   children: React.ReactNode;
-  isOpen?: boolean;
 }
 export const Accordion: React.VFC<AccordionProps> = ({
   title,
@@ -27,19 +26,13 @@ export const Accordion: React.VFC<AccordionProps> = ({
   titleTag,
   onToggle = () => {},
   useIndent = true,
-  isOpen,
 }) => {
   const [isAccordionDisplayed, setIsAccordionDisplayed] = useState(defaultOpen);
   const toggleAccordionHandler = (): void => {
-    if (isOpen === undefined) {
-      setIsAccordionDisplayed(!isAccordionDisplayed);
-      onToggle({ isVisible: !isAccordionDisplayed });
-    } else {
-      onToggle({ isVisible: !isOpen });
-    }
+    setIsAccordionDisplayed(!isAccordionDisplayed);
+    onToggle({ isVisible: !isAccordionDisplayed });
   };
-  const state = isOpen ?? isAccordionDisplayed;
-  const showToggledTitle = state ? toggledTitle : title;
+  const showToggledTitle = isAccordionDisplayed ? toggledTitle : title;
   const TitleTag = titleTag ?? "span";
   const titleComp = (
     <TitleTag>{toggledTitle ? showToggledTitle : title}</TitleTag>
@@ -47,20 +40,24 @@ export const Accordion: React.VFC<AccordionProps> = ({
   return (
     <>
       {toggleFromBottom && (
-        <AnimatedAccordion hide={!state}>{children}</AnimatedAccordion>
+        <AnimatedAccordion hide={!isAccordionDisplayed}>
+          {children}
+        </AnimatedAccordion>
       )}
       <Row>
         <AccordionToggle
           data-cy="accordion-toggle"
           onClick={toggleAccordionHandler}
         >
-          {showCaret && <Icon glyph={state ? "CaretDown" : "CaretRight"} />}
+          {showCaret && (
+            <Icon glyph={isAccordionDisplayed ? "CaretDown" : "CaretRight"} />
+          )}
           {allowToggleFromTitle && titleComp}
         </AccordionToggle>
         {!allowToggleFromTitle && titleComp}
       </Row>
       {!toggleFromBottom && (
-        <AnimatedAccordion hide={!state}>
+        <AnimatedAccordion hide={!isAccordionDisplayed}>
           <ContentsContainer indent={showCaret && useIndent}>
             {children}
           </ContentsContainer>

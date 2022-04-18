@@ -27,8 +27,6 @@ export const ActualWaterfallPage = () => {
   );
   return (
     <CommitsWrapper
-      isOpenChartToggle
-      onToggleChartViewOptionsAccordion={() => {}}
       versions={updatedVersions}
       isLoading={boolean("isLoading", false)}
       error={null}

@@ -5,4 +5,5 @@ export const getNotificationTriggerCookie = (type: string) =>
   `${type}-notification-trigger`;
 export const SLACK_NOTIFICATION_BANNER = "has-closed-slack-banner";
 export const CURRENT_PROJECT = "mci-project-cookie";
-export const HAS_SEEN_COMMIT_CHART_TOGGLE = "has-seen-commit-chart-toggle";
+export const COMMIT_CHART_TYPE_VIEW_OPTIONS_ACCORDION =
+  "commit-chart-view-options-accordion";

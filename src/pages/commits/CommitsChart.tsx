@@ -1,7 +1,9 @@
 import { useMemo } from "react";
 import styled from "@emotion/styled";
+import Cookies from "js-cookie";
 import { useLocation } from "react-router-dom";
 import { Accordion } from "components/Accordion";
+import { COMMIT_CHART_TYPE_VIEW_OPTIONS_ACCORDION } from "constants/cookies";
 import { size } from "constants/tokens";
 import { useUpdateURLQueryParams } from "hooks";
 import { ChartTypes, Commits, ChartToggleQueryParams } from "types/commits";
@@ -29,20 +31,12 @@ interface Props {
   versions?: Commits;
   hasTaskFilter?: boolean;
   hasError?: boolean;
-  isOpenChartToggle: boolean;
-  onToggleChartViewOptionsAccordion: ({
-    isVisible,
-  }: {
-    isVisible: boolean;
-  }) => void;
 }
 
 export const CommitsChart: React.VFC<Props> = ({
   versions,
   hasTaskFilter,
   hasError = false,
-  isOpenChartToggle,
-  onToggleChartViewOptionsAccordion,
 }) => {
   const { search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
@@ -80,7 +74,13 @@ export const CommitsChart: React.VFC<Props> = ({
     }
   }, [versionToGroupedTaskStatsMap]);
 
+  console.log(Cookies.get(COMMIT_CHART_TYPE_VIEW_OPTIONS_ACCORDION));
   const { max } = maxGroupedTaskStats || {};
+  const defaultOpenAccordion =
+    Cookies.get(COMMIT_CHART_TYPE_VIEW_OPTIONS_ACCORDION) === "true" ||
+    Cookies.get(COMMIT_CHART_TYPE_VIEW_OPTIONS_ACCORDION) === undefined;
+  const onToggleAccordion = ({ isVisible }) =>
+    Cookies.set(COMMIT_CHART_TYPE_VIEW_OPTIONS_ACCORDION, isVisible.toString());
 
   return hasError ? (
     <ChartWrapper>
@@ -117,8 +117,8 @@ export const CommitsChart: React.VFC<Props> = ({
             <ChartToggle
               currentChartType={chartType}
               onChangeChartType={onChangeChartType}
-              isOpen={isOpenChartToggle}
-              onToggleAccordion={onToggleChartViewOptionsAccordion}
+              defaultOpenAccordion={defaultOpenAccordion}
+              onToggleAccordion={onToggleAccordion}
             />
           </AbsoluteContainer>
         </ChartWrapper>
