@@ -39,3 +39,8 @@ export type InvertedObject<T extends Record<PropertyKey, PropertyKey>> = {
 export type OneOf<T1, T2> =
   | (T1 & Partial<Record<Exclude<keyof T2, keyof T1>, never>>)
   | (T2 & Partial<Record<Exclude<keyof T1, keyof T2>, never>>);
+
+/** Helper to require only a partial set of fields on a nested object */
+export type Subset<K> = {
+  [S in keyof K]?: K[S] extends object ? Subset<K[S]> : K[S];
+};
