@@ -74,7 +74,6 @@ export const CommitsChart: React.VFC<Props> = ({
     }
   }, [versionToGroupedTaskStatsMap]);
 
-  console.log(Cookies.get(COMMIT_CHART_TYPE_VIEW_OPTIONS_ACCORDION));
   const { max } = maxGroupedTaskStats || {};
   const defaultOpenAccordion =
     Cookies.get(COMMIT_CHART_TYPE_VIEW_OPTIONS_ACCORDION) === "true" ||
