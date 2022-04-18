@@ -239,8 +239,6 @@ export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
 }) => {
   const id = idSchema.$id;
   const description = uiSchema["ui:description"] || schema.description;
-  const addButtonSize = uiSchema["ui:addButtonSize"] || "small";
-  const addButtonText = uiSchema["ui:addButtonText"] || "Add";
   const border = uiSchema["ui:border"] ?? false;
   const descriptionNode = uiSchema["ui:descriptionNode"];
   const fullWidth = !!uiSchema["ui:fullWidth"];
@@ -249,6 +247,28 @@ export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
   const topAlignDelete = uiSchema["ui:topAlignDelete"] ?? false;
   const useExpandableCard = uiSchema["ui:useExpandableCard"] ?? false;
   const isDisabled = disabled || readonly;
+
+  const addButtonSize = uiSchema["ui:addButtonSize"] || "small";
+  const addButtonText = uiSchema["ui:addButtonText"] || "Add";
+  // Override RJSF's default array behavior; add new elements to beginning of array unless otherwise specified.
+  const addToEnd = uiSchema["ui:addToEnd"] ?? false;
+  const handleAddClick =
+    items.length && !addToEnd ? items[0].onAddIndexClick(0) : onAddClick;
+
+  const addButton = (
+    <ElementWrapper>
+      <Button
+        data-cy="add-button"
+        disabled={isDisabled}
+        leftGlyph={<Icon glyph="Plus" />}
+        onClick={handleAddClick}
+        size={addButtonSize}
+      >
+        {addButtonText}
+      </Button>
+    </ElementWrapper>
+  );
+
   return (
     <>
       {showLabel && (
@@ -257,19 +277,7 @@ export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
       {descriptionNode || (
         <DescriptionField id={`${id}__description`} description={description} />
       )}
-      {!readonly && canAdd && (
-        <ElementWrapper>
-          <Button
-            data-cy="add-button"
-            disabled={isDisabled}
-            leftGlyph={<Icon glyph="Plus" />}
-            onClick={onAddClick}
-            size={addButtonSize}
-          >
-            {addButtonText}
-          </Button>
-        </ElementWrapper>
-      )}
+      {!readonly && canAdd && !addToEnd && addButton}
       <ArrayContainer
         fullWidth={fullWidth || useExpandableCard}
         hasChildren={!!items?.length}
@@ -291,10 +299,17 @@ export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
             />
           ))
         )}
+        {!readonly && canAdd && addToEnd && (
+          <AddButtonContainer>{addButton}</AddButtonContainer>
+        )}
       </ArrayContainer>
     </>
   );
 };
+
+const AddButtonContainer = styled.div`
+  margin-top: ${size.s};
+`;
 
 type ArrayContainerProps = {
   hasChildren: boolean;
