@@ -35,6 +35,7 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
         batchTime: projectRef.batchTime || null,
         remotePath: projectRef.remotePath,
         spawnHostScriptPath: projectRef.spawnHostScriptPath,
+        versionControlEnabled: projectRef.versionControlEnabled,
       },
     },
     projectFlags: {
@@ -97,6 +98,7 @@ export const formToGql: FormToGqlFunction = (
     batchTime: generalConfiguration.other.batchTime ?? 0,
     remotePath: generalConfiguration.other.remotePath,
     spawnHostScriptPath: generalConfiguration.other.spawnHostScriptPath,
+    versionControlEnabled: generalConfiguration.other.versionControlEnabled,
     dispatchingDisabled: projectFlags.dispatchingDisabled,
     deactivatePrevious: projectFlags.scheduling.deactivatePrevious,
     repotrackerDisabled: projectFlags.repotracker.repotrackerDisabled,

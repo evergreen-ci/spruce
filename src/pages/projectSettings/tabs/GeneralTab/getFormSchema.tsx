@@ -1,3 +1,4 @@
+import { Link } from "@leafygreen-ui/typography";
 import { Field } from "@rjsf/core";
 import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
@@ -85,6 +86,14 @@ export const getFormSchema = (
               spawnHostScriptPath: {
                 type: ["string", "null"],
                 title: "Spawn Host Script Path",
+              },
+              versionControlEnabled: {
+                type: ["boolean", "null"],
+                title: "Version Control",
+                oneOf: radioBoxOptions(
+                  ["Enabled", "Disabled"],
+                  repoData?.generalConfiguration?.other?.versionControlEnabled
+                ),
               },
             },
           },
@@ -306,6 +315,11 @@ export const getFormSchema = (
             repoData?.generalConfiguration?.other?.spawnHostScriptPath
           ),
         },
+        versionControlEnabled: {
+          "ui:widget": widgets.RadioBoxWidget,
+          "ui:data-cy": "enabled-radio-box",
+          "ui:description": VersionControlEnabledDescription,
+        },
       },
     },
     projectFlags: {
@@ -392,3 +406,16 @@ export const getFormSchema = (
     },
   },
 });
+
+const VersionControlEnabledDescription = (
+  <>
+    Enabling Version Control allows{" "}
+    <Link
+      hideExternalIcon
+      href="https://github.com/evergreen-ci/evergreen/wiki/Project-and-Distro-Settings#version-control"
+    >
+      select properties
+    </Link>{" "}
+    to be defined in this project&rsquo;s config YAML in addition to the UI.
+  </>
+);
