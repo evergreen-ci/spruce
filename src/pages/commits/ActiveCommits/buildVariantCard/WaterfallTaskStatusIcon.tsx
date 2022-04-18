@@ -43,7 +43,7 @@ export const WaterfallTaskStatusIcon: React.VFC<WaterfallTaskStatusIconProps> = 
   const failedTestDifference = filteredTestCount - testResults?.length;
 
   let timeout;
-  const onHover = () => {
+  const onMouseEnter = () => {
     timeout = setTimeout(() => {
       setEnabled(true);
       // Only query failing test names if the task has failed.
@@ -58,11 +58,15 @@ export const WaterfallTaskStatusIcon: React.VFC<WaterfallTaskStatusIconProps> = 
       clearTimeout(timeout);
     }
   };
-  useEffect(() => () => {
-    if (timeout) {
-      clearTimeout(timeout);
-    }
-  });
+  useEffect(
+    () => () => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
   return (
     <Tooltip
       align="top"
@@ -71,7 +75,7 @@ export const WaterfallTaskStatusIcon: React.VFC<WaterfallTaskStatusIconProps> = 
       enabled={enabled}
       trigger={
         <IconWrapper
-          onMouseEnter={onHover}
+          onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
           key={`task_${taskId}`}
           aria-label={`${status} icon`}
