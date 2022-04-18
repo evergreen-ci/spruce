@@ -319,14 +319,14 @@ describe("Project Settings when not defaulting to repo", () => {
 
     it("Should error when a duplicate variable name is entered and disable saving", () => {
       cy.dataCy("add-button").click();
-      cy.dataCy("var-name-input").eq(1).type("sample_name");
-      cy.dataCy("var-value-input").eq(1).type("sample_value_2");
+      cy.dataCy("var-name-input").first().type("sample_name");
+      cy.dataCy("var-value-input").first().type("sample_value_2");
       cy.contains("Value already appears in project variables.");
       cy.dataCy("save-settings-button").should("be.disabled");
     });
 
     it("Should remove the error and enable save when the value changes", () => {
-      cy.dataCy("var-name-input").eq(1).type("_2");
+      cy.dataCy("var-name-input").first().type("_2");
       cy.dataCy("save-settings-button").should("not.be.disabled");
       cy.contains("Value already appears in project variables.").should(
         "not.exist"
@@ -335,9 +335,9 @@ describe("Project Settings when not defaulting to repo", () => {
 
     it("Should correctly save an admin only variable", () => {
       cy.dataCy("add-button").click();
-      cy.dataCy("var-name-input").last().type("admin_var");
-      cy.dataCy("var-value-input").last().type("admin_value");
-      cy.dataCy("var-admin-input").last().check({ force: true });
+      cy.dataCy("var-name-input").first().type("admin_var");
+      cy.dataCy("var-value-input").first().type("admin_value");
+      cy.dataCy("var-admin-input").first().check({ force: true });
       cy.dataCy("save-settings-button").click();
     });
 
@@ -630,7 +630,7 @@ describe("Project Settings when defaulting to repo", () => {
 
       cy.dataCy("task-tags-input").first().type("alias task tag 2");
       cy.dataCy("add-button").contains("Add Task Tag").parent().click();
-      cy.dataCy("task-tags-input").eq(1).type("alias task tag 3");
+      cy.dataCy("task-tags-input").first().type("alias task tag 3");
 
       cy.dataCy("save-settings-button").click();
       cy.validateToast("success", "Successfully updated project");
