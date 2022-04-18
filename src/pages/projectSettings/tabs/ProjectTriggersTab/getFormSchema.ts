@@ -1,6 +1,7 @@
 import { Field } from "@rjsf/core";
 import { SpruceFormProps } from "components/SpruceForm";
 import widgets from "components/SpruceForm/Widgets";
+import { TaskStatus } from "types/task";
 import { ProjectTriggerLevel } from "types/triggers";
 import { form, ProjectType } from "../utils";
 
@@ -58,22 +59,22 @@ export const getFormSchema = (
             status: {
               type: "string" as "string",
               title: "Status",
-              default: "all",
+              default: "",
               oneOf: [
                 {
                   type: "string" as "string",
                   title: "All",
-                  enum: ["all"],
+                  enum: [""],
                 },
                 {
                   type: "string" as "string",
                   title: "Success",
-                  enum: ["success"],
+                  enum: [TaskStatus.Succeeded],
                 },
                 {
                   type: "string" as "string",
                   title: "Failure",
-                  enum: ["failed"],
+                  enum: [TaskStatus.Failed],
                 },
               ],
             },
