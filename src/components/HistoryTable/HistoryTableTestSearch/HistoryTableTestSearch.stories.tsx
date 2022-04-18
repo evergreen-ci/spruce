@@ -1,24 +1,29 @@
-import StoryRouter from "storybook-react-router";
-import { FilterBadges } from "components/FilterBadges";
+import FilterBadges from "components/FilterBadges";
 import { size } from "constants/tokens";
+import { useFilterBadgeQueryParams } from "hooks";
 import { TestStatus } from "types/history";
 import { HistoryTableTestSearch } from "./HistoryTableTestSearch";
 
 export default {
-  component: HistoryTableTestSearch,
   title: "HistoryTableTestSearch",
-  decorators: [StoryRouter()],
+  component: HistoryTableTestSearch,
 };
 
-export const TestSearch = () => (
-  <div style={{ display: "flex", flexDirection: "column" }}>
-    <HistoryTableTestSearch />
-    <div style={{ paddingTop: size.s }}>
-      <FilterBadges
-        queryParamsToDisplay={
-          new Set([TestStatus.Failed, TestStatus.Passed, TestStatus.All])
-        }
-      />
+export const TestSearch = () => {
+  const { badges, handleClearAll, handleOnRemove } = useFilterBadgeQueryParams(
+    new Set([TestStatus.Failed, TestStatus.Passed, TestStatus.All])
+  );
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <HistoryTableTestSearch />
+      <div style={{ paddingTop: size.s }}>
+        <FilterBadges
+          badges={badges}
+          onRemove={handleOnRemove}
+          onClearAll={handleClearAll}
+        />
+      </div>
     </div>
-  </div>
-);
+  );
+};
