@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import Button, { Variant, Size } from "@leafygreen-ui/button";
 import FilterBadge, { FilterBadgeType } from "./FilterBadge";
 import { SeeMoreModal } from "./SeeMoreModal";
+import useFilterBadgeQueryParams from "./useFilterBadgeQueryParams";
 
 interface FilterBadgesProps {
   badges: FilterBadgeType[];
@@ -61,3 +62,4 @@ const Container = styled.div`
 `;
 
 export default FilterBadges;
+export { useFilterBadgeQueryParams };

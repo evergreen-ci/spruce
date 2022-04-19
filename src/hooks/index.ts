@@ -1,5 +1,3 @@
-import useFilterBadgeQueryParams from "./useFilterBadgeQueryParams";
-
 export { useDefaultPath } from "hooks/useDefaultPath";
 export { useFilterInputChangeHandler } from "hooks/useFilterInputChangeHandler";
 export { useGetUserPatchesPageTitleAndLink } from "hooks/useGetUserPatchesPageTitleAndLink";
@@ -21,4 +19,3 @@ export { usePrevious } from "./usePrevious";
 export { useDisableSpawnExpirationCheckbox } from "./useDisableSpawnExpirationCheckbox";
 export { useUpdateURLQueryParams } from "./useUpdateURLQueryParams";
 export { useTaskStatuses } from "./useTaskStatuses";
-export { useFilterBadgeQueryParams };

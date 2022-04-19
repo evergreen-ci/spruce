@@ -1,7 +1,7 @@
 import { useLocation } from "react-router";
-import { FilterBadgeType } from "components/FilterBadges/FilterBadge";
+import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { queryString, array } from "utils";
-import { useUpdateURLQueryParams } from "./useUpdateURLQueryParams";
+import { FilterBadgeType } from "./FilterBadge";
 
 const { convertObjectToArray } = array;
 const { parseQueryString } = queryString;

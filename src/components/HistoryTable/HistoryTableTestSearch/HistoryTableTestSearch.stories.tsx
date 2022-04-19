@@ -1,6 +1,7 @@
-import FilterBadges from "components/FilterBadges";
+import FilterBadges, {
+  useFilterBadgeQueryParams,
+} from "components/FilterBadges";
 import { size } from "constants/tokens";
-import { useFilterBadgeQueryParams } from "hooks";
 import { TestStatus } from "types/history";
 import { HistoryTableTestSearch } from "./HistoryTableTestSearch";
 
