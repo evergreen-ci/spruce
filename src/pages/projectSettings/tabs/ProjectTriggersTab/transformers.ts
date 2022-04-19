@@ -24,7 +24,7 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
     | ProjectSettingsQuery["projectSettings"]
     | RepoSettingsQuery["repoSettings"],
   { projectType }: { projectType: ProjectType }
-): ReturnType<GqlToFormFunction> => {
+): ReturnType<GqlToFormFunction<FormState>> => {
   if (!data) return null;
 
   const {
@@ -44,10 +44,10 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
   };
 };
 
-export const formToGql: FormToGqlFunction = (
-  { triggersOverride, triggers }: FormState,
+export const formToGql: FormToGqlFunction<FormState> = (
+  { triggersOverride, triggers },
   projectId
-) => ({
+): ReturnType<FormToGqlFunction<FormState>> => ({
   projectRef: {
     id: projectId,
     triggers: triggersOverride

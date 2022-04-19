@@ -622,6 +622,7 @@ export enum TaskSortCategory {
   Status = "STATUS",
   BaseStatus = "BASE_STATUS",
   Variant = "VARIANT",
+  Duration = "DURATION",
 }
 
 export enum TestSortCategory {

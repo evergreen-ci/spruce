@@ -21,6 +21,8 @@ import { EnumSpruceWidgetProps, SpruceWidgetProps } from "./types";
 
 const { yellow } = uiColors;
 
+const isNullish = (val: any) => val === null || val === undefined;
+
 export const LeafyGreenTextInput: React.VFC<
   { options: { optional?: boolean } } & SpruceWidgetProps
 > = ({
@@ -45,8 +47,8 @@ export const LeafyGreenTextInput: React.VFC<
   } = options;
   const hasError = !!rawErrors?.length;
   const inputProps = {
-    ...(typeof schema.maximum !== "undefined" && { max: schema.maximum }),
-    ...(typeof schema.minimum !== "undefined" && { min: schema.minimum }),
+    ...(!isNullish(schema.maximum) && { max: schema.maximum }),
+    ...(!isNullish(schema.minimum) && { min: schema.minimum }),
     errorMessage: hasError ? rawErrors.join(", ") : null,
     state: hasError ? TextInputState.Error : TextInputState.None,
   };

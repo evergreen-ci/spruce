@@ -22,8 +22,8 @@ export type GqlToFormFunction<T = FormDataProps> = (
   options?: { projectType?: ProjectType }
 ) => T;
 
-export type FormToGqlFunction = (
-  form: FormDataProps,
+export type FormToGqlFunction<T = FormDataProps> = (
+  form: T,
   id?: string
 ) => ProjectSettingsInput;
 
