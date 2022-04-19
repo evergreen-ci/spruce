@@ -30,6 +30,7 @@ export const SeeMoreModal: React.VFC<SeeMoreModalProps> = ({
         setOpen={setOpen}
         size="large"
         title="Applied Filters"
+        data-cy="see-more-modal"
       >
         <BadgeContainer>
           {badges.map((b) => (
