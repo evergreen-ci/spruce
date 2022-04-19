@@ -18,7 +18,6 @@ const useFilterBadgeQueryParams = (validQueryParams: Set<string>) => {
     validQueryParams.has(key as string)
   );
 
-  console.log(validQueryParams, queryParamsList);
   const handleClearAll = () => {
     const params = { ...queryParams };
     Object.keys(params)
