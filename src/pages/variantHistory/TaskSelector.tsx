@@ -58,7 +58,7 @@ const TaskSelector: React.VFC<TaskSelectorProps> = ({
     <Container>
       <SearchableDropdown
         label="Tasks"
-        valuePlaceholder="Select Tasks to View"
+        valuePlaceholder="Select tasks to view"
         value={value}
         onChange={onChange}
         options={taskNamesForBuildVariant}
