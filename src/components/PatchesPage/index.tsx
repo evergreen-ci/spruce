@@ -75,7 +75,7 @@ export const PatchesPage: React.VFC<Props> = ({
         <TextInputWithGlyph
           glyph="MagnifyingGlass"
           type="search"
-          aria-label=""
+          aria-label="patch-description-input"
           placeholder="Patch description regex"
           onChange={(e) => setAndSubmitInputValue(e.target.value)}
           value={inputValue}
@@ -144,9 +144,7 @@ const PaginationRow = styled.div`
 const FiltersWrapperSpaceBetween = styled(FiltersWrapper)`
   display: grid;
   grid-template-columns: repeat(2, 1fr) 2fr;
-  grid-template-rows: 1fr;
   grid-column-gap: ${size.s};
-  grid-row-gap: 0px;
 `;
 
 const CheckboxContainer = styled.div`
