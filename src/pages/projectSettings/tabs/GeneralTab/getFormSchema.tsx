@@ -317,7 +317,6 @@ export const getFormSchema = (
         },
         versionControlEnabled: {
           "ui:widget": widgets.RadioBoxWidget,
-          "ui:data-cy": "enabled-radio-box",
           "ui:description": VersionControlEnabledDescription,
         },
       },
