@@ -331,6 +331,11 @@ exports[`spruceForm should render as expected 1`] = `
   letter-spacing: 0px;
 }
 
+.emotion-41 {
+  margin-bottom: 20px;
+  margin-top: 16px;
+}
+
 .emotion-43 {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -787,7 +792,7 @@ exports[`spruceForm should render as expected 1`] = `
               Users
             </h6>
             <div
-              class="emotion-10 emotion-11"
+              class="emotion-41 emotion-42"
             >
               <button
                 aria-disabled="false"

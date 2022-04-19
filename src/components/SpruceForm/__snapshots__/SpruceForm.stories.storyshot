@@ -105,7 +105,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
               Expansions
             </h6>
             <div
-              className="css-bm42zs-ElementWrapper ee4bs9n0"
+              className="css-hlvzuf-ElementWrapper-AddButtonContainer e7smmlm3"
             >
               <button
                 aria-disabled={false}
