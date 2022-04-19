@@ -256,7 +256,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
             <Input
               value={distroId}
               style={{ width: 200 }}
-              placeholder="Search for Distro"
+              placeholder="Search for distro"
               suffix={<Icon glyph="MagnifyingGlass" />}
               data-cy="distro-input"
               onChange={(e) => setDistroInput(e.target.value)}

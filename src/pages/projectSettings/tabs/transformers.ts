@@ -6,12 +6,16 @@ import * as notifications from "./NotificationsTab/transformers";
 import * as patchAliases from "./PatchAliasesTab/transformers";
 import * as periodicBuilds from "./PeriodicBuildsTab/transformers";
 import * as plugins from "./PluginsTab/transformers";
-import { CompletedRoutes, FormToGqlFunction, GqlToFormFunction } from "./types";
+import * as projectTriggers from "./ProjectTriggersTab/transformers";
+import {
+  FormToGqlFunction,
+  GqlToFormFunction,
+  WritableTabRoutes,
+} from "./types";
 import * as variables from "./VariablesTab/transformers";
 import * as virtualWorkstation from "./VirtualWorkstationTab/transformers";
 
-// TODO: Convert CompletedRoutes to WritableRoutes once all tabs have been implemented.
-export const gqlToFormMap: Record<CompletedRoutes, GqlToFormFunction> = {
+export const gqlToFormMap: Record<WritableTabRoutes, GqlToFormFunction> = {
   [ProjectSettingsTabRoutes.General]: general.gqlToForm,
   [ProjectSettingsTabRoutes.Access]: access.gqlToForm,
   [ProjectSettingsTabRoutes.Plugins]: plugins.gqlToForm,
@@ -20,11 +24,11 @@ export const gqlToFormMap: Record<CompletedRoutes, GqlToFormFunction> = {
   [ProjectSettingsTabRoutes.Notifications]: notifications.gqlToForm,
   [ProjectSettingsTabRoutes.PatchAliases]: patchAliases.gqlToForm,
   [ProjectSettingsTabRoutes.VirtualWorkstation]: virtualWorkstation.gqlToForm,
+  [ProjectSettingsTabRoutes.ProjectTriggers]: projectTriggers.gqlToForm,
   [ProjectSettingsTabRoutes.PeriodicBuilds]: periodicBuilds.gqlToForm,
 };
 
-// TODO: Convert CompletedRoutes to WritableRoutes once all tabs have been implemented.
-export const formToGqlMap: Record<CompletedRoutes, FormToGqlFunction> = {
+export const formToGqlMap: Record<WritableTabRoutes, FormToGqlFunction> = {
   [ProjectSettingsTabRoutes.General]: general.formToGql,
   [ProjectSettingsTabRoutes.Access]: access.formToGql,
   [ProjectSettingsTabRoutes.Plugins]: plugins.formToGql,
@@ -33,5 +37,6 @@ export const formToGqlMap: Record<CompletedRoutes, FormToGqlFunction> = {
   [ProjectSettingsTabRoutes.Notifications]: notifications.formToGql,
   [ProjectSettingsTabRoutes.PatchAliases]: patchAliases.formToGql,
   [ProjectSettingsTabRoutes.VirtualWorkstation]: virtualWorkstation.formToGql,
+  [ProjectSettingsTabRoutes.ProjectTriggers]: projectTriggers.formToGql,
   [ProjectSettingsTabRoutes.PeriodicBuilds]: periodicBuilds.formToGql,
 };
