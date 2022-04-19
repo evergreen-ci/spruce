@@ -1,49 +1,76 @@
-import { withKnobs, text, button } from "@storybook/addon-knobs";
-import { withQuery } from "@storybook/addon-queryparams";
-import { useLocation, BrowserRouter } from "react-router-dom";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { ProjectFilterOptions } from "types/commits";
-import { queryString, url } from "utils";
-import { FilterBadges } from ".";
-
-const { upsertQueryParam } = url;
-const { parseQueryString } = queryString;
+import { useState } from "react";
+import Button from "@leafygreen-ui/button";
+import TextInput from "@leafygreen-ui/text-input";
+import FilterBadges from ".";
+import { FilterBadgeType } from "./FilterBadge";
 
 export default {
   title: "FilterBadges",
-  decorators: [
-    (Story) => (
-      <BrowserRouter>
-        <Story />
-      </BrowserRouter>
-    ),
-    withKnobs,
-    withQuery,
-  ],
   component: FilterBadges,
 };
-export const Default = () => {
-  const updateQueryParams = useUpdateURLQueryParams();
-  const { search } = useLocation();
-  const queryParams = parseQueryString(search);
 
-  const badgeKey = text("Badge Key", "");
-  const badgeValue = text("Badge Value", "");
-  const addBadge = () => {
-    const params = upsertQueryParam(queryParams[badgeKey], badgeValue);
-    updateQueryParams({ [badgeKey]: params });
+export const Default = () => {
+  const [badges, setBadges] = useState<FilterBadgeType[]>([
+    { key: "test", value: "test" },
+  ]);
+
+  const addBadge = (key: string, value: string) => {
+    setBadges([...badges, { key, value }]);
   };
-  button("Add Badge", addBadge);
+  const removeBadge = (badge: FilterBadgeType) => {
+    setBadges(
+      badges.filter(
+        (b) => (b.key !== badge.key && b.value !== badge.value) || false
+      )
+    );
+  };
+  const onClearAll = () => {
+    setBadges([]);
+  };
+
   return (
-    <FilterBadges
-      queryParamsToDisplay={new Set([ProjectFilterOptions.BuildVariant])}
-    />
+    <div>
+      <FilterBadges
+        badges={badges}
+        onRemove={removeBadge}
+        onClearAll={onClearAll}
+      />
+      <BadgeInput onAdd={addBadge} />
+    </div>
   );
 };
 
-Default.parameters = {
-  query: {
-    buildVariants:
-      "! Enterprise Clang Tidy,! Enterprise Windows,Enterprise RHEL 8.0 (Lock Free Reads disabled)",
-  },
+// Must use a seperate input component to dynamically add badges
+// Since leafygreen knobs rerender the component on every change
+const BadgeInput = ({
+  onAdd,
+}: {
+  onAdd: (key: string, value: string) => void;
+}) => {
+  const [badgeKey, setBadgeKey] = useState("");
+  const [badgeValue, setBadgeValue] = useState("");
+
+  const handleAdd = () => {
+    onAdd(badgeKey, badgeValue);
+    setBadgeKey("");
+    setBadgeValue("");
+  };
+  return (
+    <div>
+      <TextInput
+        placeholder="key"
+        label="key"
+        value={badgeKey}
+        onChange={(e) => setBadgeKey(e.target.value)}
+      />
+      <TextInput
+        placeholder="value"
+        label="value"
+        value={badgeValue}
+        onChange={(e) => setBadgeValue(e.target.value)}
+        onSubmit={handleAdd}
+      />
+      <Button onClick={() => onAdd(badgeKey, badgeValue)}>Add</Button>
+    </div>
+  );
 };

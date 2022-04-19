@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
-import { FilterBadges } from "components/FilterBadges";
+import FilterBadges from "components/FilterBadges";
 import HistoryTable, {
   context,
   ColumnPaginationButtons,
@@ -19,7 +19,7 @@ import {
   MainlineCommitsForHistoryQueryVariables,
 } from "gql/generated/types";
 import { GET_MAINLINE_COMMITS_FOR_HISTORY } from "gql/queries";
-import { usePageTitle } from "hooks";
+import { useFilterBadgeQueryParams, usePageTitle } from "hooks";
 import { string } from "utils";
 import {
   BuildVariantSelector,
@@ -42,6 +42,9 @@ const TaskHistoryContents: React.VFC = () => {
   useTestFilters();
   useJumpToCommit();
 
+  const { badges, handleOnRemove, handleClearAll } = useFilterBadgeQueryParams(
+    constants.queryParamsToDisplay
+  );
   const { data } = useQuery<
     MainlineCommitsForHistoryQuery,
     MainlineCommitsForHistoryQueryVariables
@@ -80,12 +83,14 @@ const TaskHistoryContents: React.VFC = () => {
         <PaginationFilterWrapper>
           <BadgeWrapper>
             <FilterBadges
-              queryParamsToDisplay={constants.queryParamsToDisplay}
-              onRemove={() => {
+              badges={badges}
+              onRemove={(b) => {
                 sendEvent({ name: "Remove badge" });
+                handleOnRemove(b);
               }}
               onClearAll={() => {
                 sendEvent({ name: "Clear all badges" });
+                handleClearAll();
               }}
             />
           </BadgeWrapper>

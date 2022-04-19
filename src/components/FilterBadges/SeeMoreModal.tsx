@@ -4,15 +4,12 @@ import Button, { Variant, Size } from "@leafygreen-ui/button";
 import { Link } from "@leafygreen-ui/typography";
 import { DisplayModal } from "components/DisplayModal";
 import { size } from "constants/tokens";
-import { FilterBadge } from "./FilterBadge";
+import FilterBadge, { FilterBadgeType } from "./FilterBadge";
 
 interface SeeMoreModalProps {
-  badges: {
-    key: string;
-    value: string;
-  }[];
+  badges: FilterBadgeType[];
   notVisibleCount: number;
-  onRemoveBadge: (key: string, value: string) => void;
+  onRemoveBadge: (badge: FilterBadgeType) => void;
   onClearAll: () => void;
 }
 export const SeeMoreModal: React.VFC<SeeMoreModalProps> = ({
@@ -39,7 +36,7 @@ export const SeeMoreModal: React.VFC<SeeMoreModalProps> = ({
             <FilterBadge
               key={`filter_badge_${b.key}_${b.value}`}
               badge={b}
-              onClose={() => onRemoveBadge(b.key, b.value)}
+              onClose={() => onRemoveBadge(b)}
             />
           ))}
         </BadgeContainer>

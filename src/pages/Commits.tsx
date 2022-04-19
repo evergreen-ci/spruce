@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import Cookies from "js-cookie";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
-import { FilterBadges } from "components/FilterBadges";
+import FilterBadges from "components/FilterBadges";
 import { ProjectSelect } from "components/projectSelect";
 import { PageWrapper } from "components/styles";
 import { ALL_VALUE } from "components/TreeSelect";
@@ -21,7 +21,7 @@ import {
   MainlineCommitsQueryVariables,
 } from "gql/generated/types";
 import { GET_MAINLINE_COMMITS, GET_SPRUCE_CONFIG } from "gql/queries";
-import { usePageTitle, usePolling } from "hooks";
+import { usePageTitle, usePolling, useFilterBadgeQueryParams } from "hooks";
 import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
 import { array, queryString } from "utils";
 import { CommitsWrapper } from "./commits/CommitsWrapper";
@@ -113,6 +113,9 @@ export const Commits = () => {
     ProjectFilterOptions.Task,
   ]);
 
+  const { badges, handleOnRemove, handleClearAll } = useFilterBadgeQueryParams(
+    queryParamsToDisplay
+  );
   const onSubmitTupleSelect = ({ category }: { category: string }) => {
     switch (category) {
       case ProjectFilterOptions.BuildVariant:
@@ -154,13 +157,15 @@ export const Commits = () => {
         </HeaderWrapper>
         <BadgeWrapper>
           <FilterBadges
-            onRemove={() => {
+            onRemove={(b) => {
               sendEvent({ name: "Remove badge" });
+              handleOnRemove(b);
             }}
             onClearAll={() => {
               sendEvent({ name: "Clear all badges" });
+              handleClearAll();
             }}
-            queryParamsToDisplay={queryParamsToDisplay}
+            badges={badges}
           />
         </BadgeWrapper>
         <PaginationWrapper>
