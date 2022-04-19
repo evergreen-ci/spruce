@@ -8,7 +8,9 @@ describe("historyTableTestSearch", () => {
       route: `/variant-history/evergreen/lint`,
       path: "/variant-history/:projectId/:variantName",
     });
-    const input = getByPlaceholderText("Search Test Name") as HTMLInputElement;
+    const input = getByPlaceholderText(
+      "Search test name regex"
+    ) as HTMLInputElement;
     expect(input).toBeInTheDocument();
     expect(input).toHaveValue("");
   });
@@ -18,7 +20,9 @@ describe("historyTableTestSearch", () => {
       route: `/variant-history/evergreen/lint`,
       path: "/variant-history/:projectId/:variantName",
     });
-    const input = getByPlaceholderText("Search Test Name") as HTMLInputElement;
+    const input = getByPlaceholderText(
+      "Search test name regex"
+    ) as HTMLInputElement;
 
     expect(input).toHaveValue("");
     fireEvent.change(input, {
@@ -38,7 +42,9 @@ describe("historyTableTestSearch", () => {
       route: `/variant-history/evergreen/lint`,
       path: "/variant-history/:projectId/:variantName",
     });
-    const input = getByPlaceholderText("Search Test Name") as HTMLInputElement;
+    const input = getByPlaceholderText(
+      "Search test name regex"
+    ) as HTMLInputElement;
 
     // FAILED TEST
     expect(input).toHaveValue("");
@@ -60,7 +66,9 @@ describe("historyTableTestSearch", () => {
       route: `/variant-history/evergreen/lint`,
       path: "/variant-history/:projectId/:variantName",
     });
-    const input = getByPlaceholderText("Search Test Name") as HTMLInputElement;
+    const input = getByPlaceholderText(
+      "Search test name regex"
+    ) as HTMLInputElement;
     expect(input).toHaveValue("");
     fireEvent.change(input, {
       target: { value: "some-test-name" },
@@ -87,7 +95,9 @@ describe("historyTableTestSearch", () => {
       route: `/variant-history/evergreen/lint`,
       path: "/variant-history/:projectId/:variantName",
     });
-    const input = getByPlaceholderText("Search Test Name") as HTMLInputElement;
+    const input = getByPlaceholderText(
+      "Search test name regex"
+    ) as HTMLInputElement;
     expect(input).toHaveValue("");
     fireEvent.change(input, {
       target: { value: "some-test-name" },

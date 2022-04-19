@@ -21,6 +21,8 @@ import { EnumSpruceWidgetProps, SpruceWidgetProps } from "./types";
 
 const { yellow } = uiColors;
 
+const isNullish = (val: any) => val === null || val === undefined;
+
 export const LeafyGreenTextInput: React.VFC<
   { options: { optional?: boolean } } & SpruceWidgetProps
 > = ({
@@ -32,6 +34,7 @@ export const LeafyGreenTextInput: React.VFC<
   options,
   rawErrors,
   readonly,
+  schema,
 }) => {
   const {
     ariaLabelledBy,
@@ -43,10 +46,13 @@ export const LeafyGreenTextInput: React.VFC<
     warnings,
   } = options;
   const hasError = !!rawErrors?.length;
-  const errorProps = {
+  const inputProps = {
+    ...(!isNullish(schema.maximum) && { max: schema.maximum }),
+    ...(!isNullish(schema.minimum) && { min: schema.minimum }),
     errorMessage: hasError ? rawErrors.join(", ") : null,
     state: hasError ? TextInputState.Error : TextInputState.None,
   };
+
   return (
     <ElementWrapper marginBottom={marginBottom}>
       <MaxWidthContainer>
@@ -67,7 +73,7 @@ export const LeafyGreenTextInput: React.VFC<
             )
           }
           aria-label={label}
-          {...errorProps}
+          {...inputProps}
         />
         {!!warnings?.length && (
           <WarningText data-cy="input-warning">
