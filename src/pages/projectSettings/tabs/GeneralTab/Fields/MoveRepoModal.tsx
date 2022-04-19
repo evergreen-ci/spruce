@@ -10,6 +10,7 @@ import {
 import { ATTACH_PROJECT_TO_NEW_REPO } from "gql/mutations";
 
 type ModalProps = {
+  githubOrgs: string[];
   handleClose: () => void;
   open: boolean;
   projectId: string;
@@ -18,6 +19,7 @@ type ModalProps = {
 };
 
 export const MoveRepoModal: React.VFC<ModalProps> = ({
+  githubOrgs,
   handleClose,
   open,
   projectId,
@@ -71,6 +73,11 @@ export const MoveRepoModal: React.VFC<ModalProps> = ({
         Currently this project is using default settings for the repo{" "}
         {repoOwner}/{repoName}. Attach to an existing repo or create a new one
         to which unconfigured settings in this project will default.
+      </p>
+      <p>
+        {/* TODO: Replace with LeafyGreen Select when z-index modal bug has been fixed (PD-1677) */}
+        GitHub Organizations available for use as project owners are:{" "}
+        {githubOrgs.join(", ")}
       </p>
       <SpruceForm
         formData={formState}
