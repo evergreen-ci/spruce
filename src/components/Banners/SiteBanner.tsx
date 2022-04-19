@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 import { GetSpruceConfigQuery } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
 import { jiraLinkify } from "utils/string/jiraLinkify";
-import { Banner } from "./styles";
+import { DismissibleBanner } from "./styles";
 
 export const SiteBanner = () => {
   const { data, loading } = useQuery<GetSpruceConfigQuery>(GET_SPRUCE_CONFIG);
@@ -31,7 +31,7 @@ export const SiteBanner = () => {
 
   return (
     showBanner && (
-      <Banner bannerTheme={theme} data-cy="sitewide-banner">
+      <DismissibleBanner bannerTheme={theme} data-cy="sitewide-banner">
         <span>{jiraLinkify(text, jiraHost)}</span>
         <IconButton
           aria-label="Close Site Banner"
@@ -40,7 +40,7 @@ export const SiteBanner = () => {
         >
           <Icon glyph="X" />{" "}
         </IconButton>
-      </Banner>
+      </DismissibleBanner>
     )
   );
 };

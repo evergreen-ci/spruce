@@ -148,7 +148,6 @@ const PaginationRow = styled.div`
   justify-content: flex-end;
   align-items: center;
 `;
-
 const FiltersWrapperSpaceBetween = styled(FiltersWrapper)`
   justify-content: space-between;
 `;
