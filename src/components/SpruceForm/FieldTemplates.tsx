@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import Button from "@leafygreen-ui/button";
@@ -255,19 +256,26 @@ export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
   const handleAddClick =
     items.length && !addToEnd ? items[0].onAddIndexClick(0) : onAddClick;
 
-  const addButton = (
-    <ElementWrapper>
-      <Button
-        data-cy="add-button"
-        disabled={isDisabled}
-        leftGlyph={<Icon glyph="Plus" />}
-        onClick={handleAddClick}
-        size={addButtonSize}
-      >
-        {addButtonText}
-      </Button>
-    </ElementWrapper>
+  const addButton = useMemo(
+    () => (
+      <AddButtonContainer>
+        <Button
+          data-cy="add-button"
+          disabled={isDisabled}
+          leftGlyph={<Icon glyph="Plus" />}
+          onClick={handleAddClick}
+          size={addButtonSize}
+        >
+          {addButtonText}
+        </Button>
+      </AddButtonContainer>
+    ),
+    [addButtonSize, addButtonText, handleAddClick, isDisabled]
   );
+
+  const hasAddButton = !readonly && canAdd;
+  const buttonAtBeginning = !addToEnd && hasAddButton;
+  const buttonAtEnd = addToEnd && hasAddButton;
 
   return (
     <>
@@ -277,7 +285,7 @@ export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
       {descriptionNode || (
         <DescriptionField id={`${id}__description`} description={description} />
       )}
-      {!readonly && canAdd && !addToEnd && addButton}
+      {buttonAtBeginning && addButton}
       <ArrayContainer
         fullWidth={fullWidth || useExpandableCard}
         hasChildren={!!items?.length}
@@ -299,15 +307,13 @@ export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
             />
           ))
         )}
-        {!readonly && canAdd && addToEnd && (
-          <AddButtonContainer>{addButton}</AddButtonContainer>
-        )}
+        {buttonAtEnd && addButton}
       </ArrayContainer>
     </>
   );
 };
 
-const AddButtonContainer = styled.div`
+const AddButtonContainer = styled(ElementWrapper)`
   margin-top: ${size.s};
 `;
 
