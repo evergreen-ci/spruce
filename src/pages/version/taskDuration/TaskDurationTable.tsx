@@ -129,14 +129,14 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
             <Cell>
               <DurationWrapper>
                 <Bar
-                  width={calculateBarWidth(datum?.taskDuration, max)}
+                  width={calculateBarWidth(datum.timeTaken, max)}
                   color={
                     mapTaskToBarchartColor[
-                      mapTaskStatusToUmbrellaStatus[datum?.status]
+                      mapTaskStatusToUmbrellaStatus[datum.status]
                     ]
                   }
                 />
-                <TimeLabel>{msToDuration(datum?.taskDuration)}</TimeLabel>
+                <TimeLabel>{msToDuration(datum.timeTaken)}</TimeLabel>
               </DurationWrapper>
             </Cell>
 
@@ -153,14 +153,14 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
                   <Cell>
                     <DurationWrapper>
                       <Bar
-                        width={calculateBarWidth(task.taskDuration, max)}
+                        width={calculateBarWidth(task.timeTaken, max)}
                         color={
                           mapTaskToBarchartColor[
-                            mapTaskStatusToUmbrellaStatus[datum?.status]
+                            mapTaskStatusToUmbrellaStatus[datum.status]
                           ]
                         }
                       />
-                      <TimeLabel>{msToDuration(task.taskDuration)}</TimeLabel>
+                      <TimeLabel>{msToDuration(task.timeTaken)}</TimeLabel>
                     </DurationWrapper>
                   </Cell>
                 </Row>
@@ -176,7 +176,7 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
 export const findMax = (
   tasks: PatchTaskDurationsQuery["patchTasks"]["tasks"]
 ) => {
-  const durations = tasks.map((t) => t.taskDuration);
+  const durations = tasks.map((t) => t.timeTaken);
   return Math.max(...durations);
 };
 

@@ -1422,7 +1422,6 @@ export type Task = {
   taskGroup?: Maybe<Scalars["String"]>;
   taskGroupMaxHosts?: Maybe<Scalars["Int"]>;
   timeTaken?: Maybe<Scalars["Duration"]>;
-  taskDuration?: Maybe<Scalars["Duration"]>;
   totalTestCount: Scalars["Int"];
   versionMetadata: Version;
   order: Scalars["Int"];
@@ -3660,7 +3659,7 @@ export type PatchTaskDurationsQuery = {
       status: string;
       displayName: string;
       buildVariantDisplayName?: Maybe<string>;
-      taskDuration?: Maybe<number>;
+      timeTaken?: Maybe<number>;
       executionTasksFull?: Maybe<
         Array<{
           id: string;
@@ -3668,7 +3667,7 @@ export type PatchTaskDurationsQuery = {
           displayName: string;
           status: string;
           buildVariantDisplayName?: Maybe<string>;
-          taskDuration?: Maybe<number>;
+          timeTaken?: Maybe<number>;
         }>
       >;
     }>;

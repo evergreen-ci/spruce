@@ -21,14 +21,14 @@ query PatchTaskDurations(
       status
       displayName
       buildVariantDisplayName
-      taskDuration
+      timeTaken
       executionTasksFull {
         id
         execution
         displayName
         status
         buildVariantDisplayName
-        taskDuration
+        timeTaken
       }
     }
   }
