@@ -152,7 +152,7 @@ export const HostsTable: React.VFC<Props> = ({
       width: "15%",
       className: "cy-task-table-col-DISTRO",
       ...getColumnSearchFilterProps({
-        placeholder: "Search Distro",
+        placeholder: "Search distro regex",
         value: distroIdValue,
         onChange: onChangeDistroId,
         "data-cy": "distro-id-filter",
