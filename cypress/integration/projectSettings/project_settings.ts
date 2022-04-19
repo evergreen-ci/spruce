@@ -405,6 +405,18 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.validateToast("success", "Successfully updated project");
     });
   });
+
+  describe("Project Triggers page", () => {
+    before(() => {
+      cy.dataCy("navitem-project-triggers").click({ force: true });
+    });
+
+    it("Saves a project trigger", () => {
+      cy.dataCy("add-button").click();
+      cy.dataCy("project-input").type("spruce");
+      cy.dataCy("config-file-input").type(".evergreen.yml");
+    });
+  });
 });
 
 describe("Project Settings when defaulting to repo", () => {

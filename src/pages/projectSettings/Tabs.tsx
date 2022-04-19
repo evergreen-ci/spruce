@@ -181,10 +181,20 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
           />
         )}
       />
-      <TabRoute
-        Component={ProjectTriggersTab}
+      <Route
         path={routes.projectSettingsProjectTriggers}
-        tab={ProjectSettingsTabRoutes.ProjectTriggers}
+        render={(props) => (
+          <ProjectTriggersTab
+            {...props}
+            projectData={
+              tabData[ProjectSettingsTabRoutes.ProjectTriggers].projectData
+            }
+            projectType={projectType}
+            repoData={
+              tabData[ProjectSettingsTabRoutes.ProjectTriggers].repoData
+            }
+          />
+        )}
       />
       <Route
         path={routes.projectSettingsPeriodicBuilds}
