@@ -65,7 +65,7 @@ export const PatchTasksTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
   };
 
   const variantInputProps: InputFilterProps = {
-    placeholder: "Variant name",
+    placeholder: "Variant name regex",
     value: variantFilterInputChangeHandler.inputValue,
     onChange: ({ target }) =>
       variantFilterInputChangeHandler.setInputValue(target.value),
@@ -73,7 +73,7 @@ export const PatchTasksTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
   };
 
   const taskNameInputProps: InputFilterProps = {
-    placeholder: "Task name",
+    placeholder: "Task name regex",
     value: taskNameFilterInputChangeHandler.inputValue,
     onChange: ({ target }) =>
       taskNameFilterInputChangeHandler.setInputValue(target.value),

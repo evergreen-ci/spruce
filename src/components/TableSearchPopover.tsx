@@ -12,10 +12,12 @@ const { gray, white, focus } = uiColors;
 
 interface TableSearchPopoverProps {
   onConfirm: (search: string) => void;
+  placeholder?: string;
 }
 
 export const TableSearchPopover: React.VFC<TableSearchPopoverProps> = ({
   onConfirm,
+  placeholder,
 }) => {
   const [active, setActive] = useState(false);
   const [search, setSearch] = useState("");
@@ -46,6 +48,7 @@ export const TableSearchPopover: React.VFC<TableSearchPopoverProps> = ({
         <PopoverContainer ref={popoverRef}>
           <TextInput
             description="Press enter to filter."
+            placeholder={placeholder}
             type="search"
             aria-label="input-filter"
             data-cy="input-filter"
