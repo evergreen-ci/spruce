@@ -68,6 +68,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
       ],
       gitClone: null,
     },
+    triggers: [],
     periodicBuilds: [],
   },
   vars: {
@@ -193,6 +194,18 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
       setupCommands: [],
       gitClone: true,
     },
+    triggers: [
+      {
+        project: "spruce",
+        dateCutoff: 1,
+        level: "task",
+        status: "succeeded",
+        buildVariantRegex: ".*",
+        taskRegex: ".*",
+        configFile: ".evergreen.yml",
+        alias: "my-alias",
+      },
+    ],
     periodicBuilds: [
       {
         alias: "",

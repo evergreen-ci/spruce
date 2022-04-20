@@ -79,6 +79,7 @@ export const JobLogsTable: React.VFC<JobLogsTableProps> = ({
                 <LabelWrapper>
                   Test Name
                   <TableSearchPopover
+                    placeholder="Test name regex"
                     onConfirm={(testName: string) =>
                       updateQueryParams({
                         test: testName || undefined,

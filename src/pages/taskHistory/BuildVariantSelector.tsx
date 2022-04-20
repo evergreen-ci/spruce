@@ -69,7 +69,7 @@ const BuildVariantSelector: React.VFC<BuildVariantSelectorProps> = ({
       <SearchableDropdown
         data-cy="build-variant-selector"
         label="Build Variant"
-        valuePlaceholder="Select Build Variant to View"
+        valuePlaceholder="Select build variant to view"
         value={value}
         onChange={onChange}
         options={buildVariantsForTaskName}
