@@ -235,6 +235,7 @@ export const getFormSchema = (
                   type: "string" as "string",
                   title: "File Pattern",
                   default: "",
+                  minLength: 1,
                 },
               }
             ),
@@ -373,7 +374,10 @@ export const getFormSchema = (
       },
       files: {
         filesIgnoredFromCacheOverride: {
-          "ui:widget": widgets.RadioBoxWidget,
+          "ui:widget":
+            projectType === ProjectType.AttachedProject
+              ? widgets.RadioBoxWidget
+              : "hidden",
           "ui:showLabel": false,
         },
         filesIgnoredFromCache: {
