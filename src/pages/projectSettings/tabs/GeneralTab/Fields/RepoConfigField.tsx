@@ -107,7 +107,7 @@ export const RepoConfigField: Field = ({
 };
 
 const ButtonRow = styled.div`
-  display: inline;
+  display: flex;
 
   > :not(:last-child) {
     margin-right: ${size.xs};
