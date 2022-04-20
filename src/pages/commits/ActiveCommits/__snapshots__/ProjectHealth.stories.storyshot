@@ -347,6 +347,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
                 >
                   <input
                     aria-disabled={false}
+                    checked={false}
                     className="leafygreen-ui-x2r5fc"
                     data-cy="cy-chart-percent-radio"
                     data-leafygreen-ui="input-element"

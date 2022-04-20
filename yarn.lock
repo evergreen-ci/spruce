@@ -2817,11 +2817,12 @@
     "@leafygreen-ui/lib" "^9.0.0"
     "@leafygreen-ui/palette" "^3.2.2"
 
-"@leafygreen-ui/radio-group@7.0.5":
-  version "7.0.5"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/radio-group/-/radio-group-7.0.5.tgz#ee112b9ca1bc9b1833ff31ab8b3e02f00388fadd"
-  integrity sha512-BHlN9i1ycUEntGGvzgp3eoipdgFN+rCDXuYXrWxEnMzmW4+V4ijQiKrlel6n0q4YopY0fAXwsEyfjUoGw65GXg==
+"@leafygreen-ui/radio-group@7.0.6":
+  version "7.0.6"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/radio-group/-/radio-group-7.0.6.tgz#2e36c975eb25f9c9f93694a1d0a4b65bde5ceb8c"
+  integrity sha512-LsokgU+fX2b9teMeiE0VPNH6K9RsGOwesmiZr40q3Df+LWVTMqsjWqIMhXWe1gAwgqqHewdkaXb4eLCLG3rs2w==
   dependencies:
+    "@leafygreen-ui/hooks" "^7.0.0"
     "@leafygreen-ui/interaction-ring" "^1.1.0"
     "@leafygreen-ui/lib" "^9.0.0"
     "@leafygreen-ui/palette" "^3.2.2"
