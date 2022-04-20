@@ -14,7 +14,8 @@ import {
   getStatusesWithZeroCount,
   constructBuildVariantDict,
   roundMax,
-  hoverTaskIcons,
+  removeGlobalStyle,
+  injectGlobalStyle,
 } from "./utils";
 
 const { red, green, yellow, gray } = uiColors;
@@ -510,39 +511,39 @@ describe("roundMax", () => {
   });
 });
 
-describe("hoverTaskIcons", () => {
+describe("inject and remove globalStyles", () => {
   const constructTaskIcon = (dataTaskIconName: string) => {
     const element = document.createElement("div");
     element.setAttribute("data-task-icon", dataTaskIconName);
     element.setAttribute("style", "opacity: 1;");
+    element.onmouseenter = () => injectGlobalStyle(dataTaskIconName);
+    element.onmouseleave = () => removeGlobalStyle();
     document.body.appendChild(element);
     return element;
   };
 
   it("should deemphasize task icons that don't match with current hovered icon", () => {
-    const testUtilIcon1 = constructTaskIcon("ubuntu1604-test_util");
-    const testUtilIcon2 = constructTaskIcon("ubuntu1604-test_util");
+    const taskIconStyle = "task-icon-style";
+    const testUtilIcon = constructTaskIcon("ubuntu1604-test_util");
     const testCodegenIcon = constructTaskIcon("ubuntu1604-test_codegen");
 
-    // Call function to set the mouseover behavior
-    hoverTaskIcons();
+    // Since the style is being added to the head, it's not possible to check that the opacity
+    // of the element changes (because the style on the element won't change). But we can check
+    // that the style has been added to the head.
+    expect(document.getElementById(taskIconStyle)).not.toBeInTheDocument();
 
-    // Check default opacity
-    expect(testUtilIcon1.style.opacity).toBe("1");
-    expect(testUtilIcon2.style.opacity).toBe("1");
-    expect(testCodegenIcon.style.opacity).toBe("1");
+    fireEvent.mouseEnter(testUtilIcon);
+    expect(document.getElementById(taskIconStyle)).toBeInTheDocument();
+    expect(document.getElementById(taskIconStyle).innerHTML).toContain(
+      "ubuntu1604-test_util"
+    );
+    fireEvent.mouseLeave(testUtilIcon);
+    expect(document.getElementById(taskIconStyle)).not.toBeInTheDocument();
 
-    // Styles should change on hover
-    fireEvent.mouseOver(testUtilIcon1);
-    expect(testUtilIcon1.style.opacity).toBe("1");
-    expect(testUtilIcon2.style.opacity).toBe("1");
-    expect(testCodegenIcon.style.opacity).toBe("0.25");
-    fireEvent.mouseOut(testUtilIcon1);
-
-    // Styles should change on hover
-    fireEvent.mouseOver(testCodegenIcon);
-    expect(testUtilIcon1.style.opacity).toBe("0.25");
-    expect(testUtilIcon2.style.opacity).toBe("0.25");
-    expect(testCodegenIcon.style.opacity).toBe("1");
+    fireEvent.mouseEnter(testCodegenIcon);
+    expect(document.getElementById(taskIconStyle)).toBeInTheDocument();
+    expect(document.getElementById(taskIconStyle).innerHTML).toContain(
+      "ubuntu1604-test_codegen"
+    );
   });
 });
