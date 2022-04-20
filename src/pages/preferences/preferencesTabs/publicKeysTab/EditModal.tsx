@@ -100,12 +100,7 @@ export const EditModal: React.VFC<EditModalProps> = ({
     ) {
       inputErrors.push(DUPLICATE_KEY_NAME);
     }
-    const hasRSA = keyValue?.substring(0, SSH_RSA.length) === SSH_RSA;
-    const hasDSS = keyValue?.substring(0, SSH_DSS.length) === SSH_DSS;
-    const hasED25519 =
-      keyValue?.substring(0, SSH_ED25519.length) === SSH_ED25519;
-    const hasECDSA = keyValue?.substring(0, SSH_ECDSA.length) === SSH_ECDSA;
-    if (!hasRSA && !hasDSS && !hasED25519 && !hasECDSA) {
+    if (!VALID_SSH_KEY.test(keyValue)) {
       inputErrors.push(INVALID_SSH_KEY);
     }
     setErrors(inputErrors);
@@ -203,7 +198,4 @@ const DUPLICATE_KEY_NAME = "The key name already exists.";
 const INVALID_SSH_KEY =
   "The SSH key must begin with 'ssh-rsa' or 'ssh-dss' or 'ssh-ed25519' or 'ecdsa-sha2-nistp256'.";
 const EMPTY_KEY_NAME = "The key name cannot be empty.";
-const SSH_RSA = "ssh-rsa";
-const SSH_DSS = "ssh-dss";
-const SSH_ED25519 = "ssh-ed25519";
-const SSH_ECDSA = "ecdsa-sha2-nistp256";
+const VALID_SSH_KEY = /^(ssh-rsa|ssh-dss|ssh-ed25519|ecdsa-sha2-nistp256) /g;
