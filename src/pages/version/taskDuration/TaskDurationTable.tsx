@@ -35,7 +35,21 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
     ? sorts.find((s) => s.Key === "DURATION").Direction
     : undefined;
 
-  const handleSort = () => {
+  const handleTaskFilter = (task: string) => {
+    updateQueryParams({
+      taskName: task || undefined,
+      page: "0",
+    });
+  };
+
+  const handleBuildVariantFilter = (buildVariant: string) => {
+    updateQueryParams({
+      variant: buildVariant || undefined,
+      page: "0",
+    });
+  };
+
+  const handleDurationSort = () => {
     const newSortDirection =
       sortDirection === SortDirection.Asc
         ? SortDirection.Desc
@@ -60,41 +74,31 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
         data={tasks}
         columns={[
           <StyledTableHeader
-            key="task-name-duration"
+            key="duration-table-task-name"
             label={
               <LabelWrapper>
                 Task Name
                 <TableSearchPopover
-                  onConfirm={(task: string) =>
-                    updateQueryParams({
-                      taskName: task || undefined,
-                      page: "0",
-                    })
-                  }
+                  onConfirm={handleTaskFilter}
                   data-cy="task-name-filter-popover"
                 />
               </LabelWrapper>
             }
           />,
           <StyledTableHeader
-            key="build-variant-duration"
+            key="duration-table-build-variant"
             label={
               <LabelWrapper>
                 Build Variant
                 <TableSearchPopover
-                  onConfirm={(buildVariant: string) =>
-                    updateQueryParams({
-                      variant: buildVariant || undefined,
-                      page: "0",
-                    })
-                  }
+                  onConfirm={handleBuildVariantFilter}
                   data-cy="build-variant-filter-popover"
                 />
               </LabelWrapper>
             }
           />,
           <TableHeader
-            key="task-duration"
+            key="duration-table-task-duration"
             label={
               <LabelWrapper>
                 Task Duration
@@ -105,8 +109,8 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
                       : "SortDescending"
                   }
                   fill={focus}
-                  onClick={handleSort}
-                  data-cy="sort-icon"
+                  onClick={handleDurationSort}
+                  data-cy="duration-sort-icon"
                 />
               </LabelWrapper>
             }
@@ -114,58 +118,42 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
         ]}
       >
         {({ datum }) => (
-          <Row
-            key={datum.id}
+          <DisplayTaskRow
+            task={datum}
+            max={max}
             data-cy="task-duration-table-row"
-            expanded={false}
           >
-            <Cell>
-              <TaskNameWrapper>
-                {datum.displayName}
-                <TaskStatusIcon status={datum.status} />
-              </TaskNameWrapper>
-            </Cell>
-            <Cell>{datum.buildVariantDisplayName}</Cell>
-            <Cell>
-              <DurationWrapper>
-                <Bar
-                  width={calculateBarWidth(datum.timeTaken, max)}
-                  color={
-                    mapTaskToBarchartColor[
-                      mapTaskStatusToUmbrellaStatus[datum.status]
-                    ]
-                  }
-                />
-                <TimeLabel>{msToDuration(datum.timeTaken)}</TimeLabel>
-              </DurationWrapper>
-            </Cell>
-
             {datum?.executionTasksFull &&
-              datum?.executionTasksFull.map((task) => (
-                <Row key={task.id}>
-                  <Cell>
-                    <TaskNameWrapper>
-                      {task.displayName}
-                      <TaskStatusIcon status={task.status} />
-                    </TaskNameWrapper>
-                  </Cell>
-                  <Cell>{task.buildVariantDisplayName}</Cell>
-                  <Cell>
-                    <DurationWrapper>
-                      <Bar
-                        width={calculateBarWidth(task.timeTaken, max)}
-                        color={
-                          mapTaskToBarchartColor[
-                            mapTaskStatusToUmbrellaStatus[datum.status]
-                          ]
-                        }
-                      />
-                      <TimeLabel>{msToDuration(task.timeTaken)}</TimeLabel>
-                    </DurationWrapper>
-                  </Cell>
-                </Row>
-              ))}
-          </Row>
+              datum?.executionTasksFull.map((task) => {
+                const {
+                  id,
+                  displayName,
+                  status,
+                  buildVariantDisplayName,
+                  timeTaken,
+                } = task;
+                const barWidth = calculateBarWidth(timeTaken, max);
+                const barColor =
+                  mapTaskToBarchartColor[mapTaskStatusToUmbrellaStatus[status]];
+                return (
+                  <Row key={id}>
+                    <Cell>
+                      <TaskNameWrapper>
+                        {displayName}
+                        <TaskStatusIcon status={status} />
+                      </TaskNameWrapper>
+                    </Cell>
+                    <Cell>{buildVariantDisplayName}</Cell>
+                    <Cell>
+                      <DurationWrapper>
+                        <Bar width={barWidth} color={barColor} />
+                        <TimeLabel>{msToDuration(timeTaken)}</TimeLabel>
+                      </DurationWrapper>
+                    </Cell>
+                  </Row>
+                );
+              })}
+          </DisplayTaskRow>
         )}
       </Table>
       {tasks.length === 0 && <NoTableResults message="No tasks found." />}
@@ -173,20 +161,53 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
   );
 };
 
-export const findMax = (
-  tasks: PatchTaskDurationsQuery["patchTasks"]["tasks"]
-) => {
+interface RowProps {
+  task: PatchTaskDurationsQuery["patchTasks"]["tasks"][0];
+  max: number;
+  "data-cy"?: string;
+  children?: React.ReactNode;
+}
+
+const DisplayTaskRow: React.VFC<RowProps> = ({
+  task,
+  max,
+  children,
+  "data-cy": dataCy,
+}) => {
+  const { id, displayName, status, buildVariantDisplayName, timeTaken } = task;
+  const barWidth = calculateBarWidth(timeTaken, max);
+  const barColor =
+    mapTaskToBarchartColor[mapTaskStatusToUmbrellaStatus[status]];
+  return (
+    <Row key={id} data-cy={dataCy}>
+      <Cell>
+        <TaskNameWrapper>
+          {displayName}
+          <TaskStatusIcon status={status} />
+        </TaskNameWrapper>
+      </Cell>
+      <Cell>{buildVariantDisplayName}</Cell>
+      <Cell>
+        <DurationWrapper>
+          <Bar width={barWidth} color={barColor} />
+          <TimeLabel>{msToDuration(timeTaken)}</TimeLabel>
+        </DurationWrapper>
+      </Cell>
+      {children}
+    </Row>
+  );
+};
+
+const findMax = (tasks: PatchTaskDurationsQuery["patchTasks"]["tasks"]) => {
   const durations = tasks.map((t) => t.timeTaken);
   return Math.max(...durations);
 };
 
-export function calculateBarWidth(value: number, max: number) {
-  return `${(value / max) * 100}%`;
-}
+const calculateBarWidth = (value: number, max: number) =>
+  max ? `${(value / max) * 100}%` : "0%";
 
 const TableWrapper = styled.div`
   border-top: 3px solid ${gray.light2};
-
   // Styling the Cell directly doesn't work, so styling is done through the table.
   td {
     word-break: break-all;

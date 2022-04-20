@@ -41,10 +41,10 @@ export const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
   const noQueryVariables = !search.length;
 
   const { limit, page } = queryVariables;
-  const defaultSortMethod = "STATUS:ASC;BASE_STATUS:DESC;DURATION:DESC";
 
-  const { sorts: allSorts } = parseQueryString(search);
-  const sortOrders = parseSortString(allSorts);
+  const { sorts } = parseQueryString(search);
+  const allSorts = parseSortString(sorts);
+  const defaultSortMethod = "STATUS:ASC;BASE_STATUS:DESC;DURATION:DESC";
 
   useEffect(() => {
     if (noQueryVariables) {
@@ -111,7 +111,7 @@ export const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
           />
         </TableControlInnerRow>
       </TableControlOuterRow>
-      <TaskDurationTable patchTasks={patchTasks} sorts={sortOrders} />
+      <TaskDurationTable patchTasks={patchTasks} sorts={allSorts} />
     </>
   );
 };
