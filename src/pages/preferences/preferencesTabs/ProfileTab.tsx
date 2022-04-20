@@ -122,7 +122,7 @@ export const ProfileTab: React.VFC = () => {
           </StyledSelect>
           <StyledSelect
             label="AWS Region"
-            placeholder="Select AWS Region"
+            placeholder="Select AWS region"
             defaultValue={regionField}
             onChange={handleFieldUpdate(setRegionField)}
           >

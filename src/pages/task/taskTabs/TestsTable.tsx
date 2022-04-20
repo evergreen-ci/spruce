@@ -98,7 +98,7 @@ export const TestsTable: React.VFC = () => {
 
   const testNameInputProps = {
     "data-cy": "testname-input",
-    placeholder: "Test name",
+    placeholder: "Test name regex",
     value: testNameFilterInputChangeHandler.inputValue,
     onChange: ({ target }) =>
       testNameFilterInputChangeHandler.setInputValue(target.value),
