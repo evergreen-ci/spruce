@@ -53,6 +53,18 @@ describe("waterfallTaskStatusIcon", () => {
       );
     });
   });
+
+  it("should insert a global style on hover", async () => {
+    const { queryByDataCy } = render(Content("failed"), {
+      route: "/commits/evergreen",
+    });
+    userEvent.hover(queryByDataCy("waterfall-task-status-icon"));
+    await waitFor(() => {
+      expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
+        props.identifier
+      );
+    });
+  });
 });
 
 const getTooltipQueryMock = {
