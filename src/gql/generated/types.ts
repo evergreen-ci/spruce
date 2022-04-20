@@ -591,7 +591,7 @@ export type BuildVariantOptions = {
   variants?: Maybe<Array<Scalars["String"]>>;
   tasks?: Maybe<Array<Scalars["String"]>>;
   statuses?: Maybe<Array<Scalars["String"]>>;
-  excludeBaseTasks?: Maybe<Scalars["Boolean"]>;
+  includeBaseTasks?: Maybe<Scalars["Boolean"]>;
 };
 
 export type MainlineCommitsOptions = {

@@ -55,7 +55,7 @@ const VariantHistoryContents: React.VFC = () => {
       },
       buildVariantOptions: {
         variants: [applyStrictRegex(variantName)],
-        excludeBaseTasks: true,
+        includeBaseTasks: false,
       },
     },
   });

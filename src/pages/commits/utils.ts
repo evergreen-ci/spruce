@@ -62,7 +62,7 @@ const generateBuildVariantOptionsFromState = (
     tasks,
     variants,
     statuses,
-    excludeBaseTasks: true,
+    includeBaseTasks: false,
   };
 
   return buildVariantOptions;
@@ -94,7 +94,7 @@ const generateBuildVariantOptionsForTaskIconsFromState = (
     tasks: shouldShowTaskIcons ? filterState.tasks : [impossibleMatch],
     variants: filterState.variants,
     statuses: statusesToShow,
-    excludeBaseTasks: true,
+    includeBaseTasks: false,
   };
   return buildVariantOptions;
 };

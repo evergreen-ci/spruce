@@ -186,7 +186,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         tasks: [],
         variants: [],
         statuses: [],
-        excludeBaseTasks: true,
+        includeBaseTasks: false,
       });
       expect(
         getMainlineCommitsQueryVariables({
@@ -206,7 +206,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         tasks: [],
         variants: [],
         statuses: [TaskStatus.Failed],
-        excludeBaseTasks: true,
+        includeBaseTasks: false,
       });
       expect(
         getMainlineCommitsQueryVariables({
@@ -226,7 +226,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         tasks: ["task1"],
         variants: [],
         statuses: [],
-        excludeBaseTasks: true,
+        includeBaseTasks: false,
       });
     });
   });
@@ -332,7 +332,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         tasks: [],
         variants: [],
         statuses: FAILED_STATUSES,
-        excludeBaseTasks: true,
+        includeBaseTasks: false,
       });
     });
     it("should not return any task icons when a non failing status filter is applied", () => {
@@ -354,7 +354,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         tasks: [impossibleMatch],
         variants: [],
         statuses: [],
-        excludeBaseTasks: true,
+        includeBaseTasks: false,
       });
     });
     it("should only show failing task icons when there are multiple statuses with mixed failing and non failing statuses", () => {
@@ -376,7 +376,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         tasks: [],
         variants: [],
         statuses: [TaskStatus.Failed],
-        excludeBaseTasks: true,
+        includeBaseTasks: false,
       });
     });
     it("should return all matching tasks when a task filter is applied regardless of status", () => {
@@ -398,7 +398,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         tasks: ["task1"],
         variants: [],
         statuses: [],
-        excludeBaseTasks: true,
+        includeBaseTasks: false,
       });
       expect(
         getMainlineCommitsQueryVariables({
@@ -418,7 +418,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         tasks: ["task1"],
         variants: [],
         statuses: [TaskStatus.Succeeded],
-        excludeBaseTasks: true,
+        includeBaseTasks: false,
       });
     });
     it("should only return failing tasks when a variant filter is applied with no other filters", () => {
@@ -440,7 +440,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         tasks: [],
         variants: ["variant1"],
         statuses: FAILED_STATUSES,
-        excludeBaseTasks: true,
+        includeBaseTasks: false,
       });
     });
   });

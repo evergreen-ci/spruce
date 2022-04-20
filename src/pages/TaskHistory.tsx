@@ -55,7 +55,7 @@ const TaskHistoryContents: React.VFC = () => {
       },
       buildVariantOptions: {
         tasks: [applyStrictRegex(taskName)],
-        excludeBaseTasks: true,
+        includeBaseTasks: false,
       },
     },
   });
