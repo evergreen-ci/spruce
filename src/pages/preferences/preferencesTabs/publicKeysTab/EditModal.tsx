@@ -198,4 +198,6 @@ const DUPLICATE_KEY_NAME = "The key name already exists.";
 const INVALID_SSH_KEY =
   "The SSH key must begin with 'ssh-rsa' or 'ssh-dss' or 'ssh-ed25519' or 'ecdsa-sha2-nistp256'.";
 const EMPTY_KEY_NAME = "The key name cannot be empty.";
-const VALID_SSH_KEY = /^(ssh-rsa|ssh-dss|ssh-ed25519|ecdsa-sha2-nistp256) /g;
+const VALID_SSH_KEY = new RegExp(
+  /^(ssh-rsa|ssh-dss|ssh-ed25519|ecdsa-sha2-nistp256) /
+);

@@ -47,7 +47,7 @@ describe("Public Key Management Page", () => {
 
     it("Error messages go away after typing valid input", () => {
       cy.dataCy("key-name-input").type(keyName3);
-      cy.dataCy("key-value-input").paste("ssh-dss");
+      cy.dataCy("key-value-input").paste("ssh-dss someHash");
       cy.dataCy("error-message").should("have.length", 0);
     });
 
@@ -115,7 +115,7 @@ describe("Public Key Management Page", () => {
       cy.visit(route);
       cy.dataCy("add-key-button").click();
       cy.dataCy("key-name-input").type("rsioeantarsn");
-      cy.dataCy("key-value-input").paste("ssh-rsa");
+      cy.dataCy("key-value-input").paste("ssh-rsa ");
       cy.dataCy("save-key-button").click();
       cy.validateToast("error");
     });
