@@ -40,7 +40,7 @@ export const Default = () => {
   );
 };
 
-// Must use a seperate input component to dynamically add badges
+// Must use a separate input component to dynamically add badges
 // Since leafygreen knobs rerender the component on every change
 const BadgeInput = ({
   onAdd,
@@ -68,9 +68,8 @@ const BadgeInput = ({
         label="value"
         value={badgeValue}
         onChange={(e) => setBadgeValue(e.target.value)}
-        onSubmit={handleAdd}
       />
-      <Button onClick={() => onAdd(badgeKey, badgeValue)}>Add</Button>
+      <Button onClick={handleAdd}>Add</Button>
     </div>
   );
 };

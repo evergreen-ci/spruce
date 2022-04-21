@@ -22,7 +22,7 @@ const Content = () => {
 describe("filterBadges - queryParams", () => {
   it("should not render any badges if there are no query params", () => {
     const { queryByDataCy } = render(Content, {
-      route: `/commits/evergreen`,
+      route: "/commits/evergreen",
       path: "/commits/:projectId",
     });
     expect(queryByDataCy("filter-badge")).not.toBeInTheDocument();
@@ -30,7 +30,7 @@ describe("filterBadges - queryParams", () => {
 
   it("should render a singular filter badge if there is only one query param", () => {
     const { queryAllByDataCy } = render(Content, {
-      route: `/commits/evergreen?buildVariants=variant1`,
+      route: "/commits/evergreen?buildVariants=variant1",
       path: "/commits/:projectId",
     });
     expect(queryAllByDataCy("filter-badge")).toHaveLength(1);
@@ -38,7 +38,7 @@ describe("filterBadges - queryParams", () => {
 
   it("should render multiple filter badges with the same key but different values", () => {
     const { queryAllByDataCy } = render(Content, {
-      route: `/commits/evergreen?buildVariants=variant1,variant2`,
+      route: "/commits/evergreen?buildVariants=variant1,variant2",
       path: "/commits/:projectId",
     });
     const badges = queryAllByDataCy("filter-badge");
@@ -50,7 +50,7 @@ describe("filterBadges - queryParams", () => {
 
   it("should render multiple filter badges with the different keys and different values", () => {
     const { queryAllByDataCy } = render(Content, {
-      route: `/commits/evergreen?buildVariants=variant1&tests=test1`,
+      route: "/commits/evergreen?buildVariants=variant1&tests=test1",
       path: "/commits/:projectId",
     });
     const badges = queryAllByDataCy("filter-badge");
@@ -61,7 +61,7 @@ describe("filterBadges - queryParams", () => {
 
   it("closing out a badge should remove it from the url", () => {
     const { queryByDataCy, history } = render(Content, {
-      route: `/commits/evergreen?buildVariants=variant1`,
+      route: "/commits/evergreen?buildVariants=variant1",
       path: "/commits/:projectId",
     });
 
@@ -73,12 +73,12 @@ describe("filterBadges - queryParams", () => {
     const { location } = history;
 
     expect(queryByDataCy("filter-badge")).toBeNull();
-    expect(location.search).toBe(``);
+    expect(location.search).toBe("");
   });
 
   it("should only remove one badge from the url if it is closed and more remain", () => {
     const { queryAllByDataCy, queryByText, history } = render(Content, {
-      route: `/commits/evergreen?buildVariants=variant1,variant2`,
+      route: "/commits/evergreen?buildVariants=variant1,variant2",
       path: "/commits/:projectId",
     });
 
@@ -94,12 +94,13 @@ describe("filterBadges - queryParams", () => {
     const { location } = history;
 
     expect(queryAllByDataCy("filter-badge")).toHaveLength(1);
-    expect(location.search).toBe(`?buildVariants=variant2`);
+    expect(location.search).toBe("?buildVariants=variant2");
   });
 
   it("should remove all badges when clicking on clear all button", () => {
     const { queryAllByDataCy, queryByDataCy, history } = render(Content, {
-      route: `/commits/evergreen?buildVariants=variant1,variant2&tests=test1,test2`,
+      route:
+        "/commits/evergreen?buildVariants=variant1,variant2&tests=test1,test2",
       path: "/commits/:projectId",
     });
 
@@ -111,12 +112,13 @@ describe("filterBadges - queryParams", () => {
     expect(badges).toHaveLength(0);
     const { location } = history;
 
-    expect(location.search).toBe(``);
+    expect(location.search).toBe("");
   });
 
   it("should only remove query params for displayable badges when clear all is pressed", () => {
     const { queryAllByDataCy, queryByDataCy, history } = render(Content, {
-      route: `/commits/evergreen?buildVariants=variant1,variant2&tests=test1,test2&notRelated=notRelated`,
+      route:
+        "/commits/evergreen?buildVariants=variant1,variant2&tests=test1,test2&notRelated=notRelated",
       path: "/commits/:projectId",
     });
 
@@ -128,6 +130,6 @@ describe("filterBadges - queryParams", () => {
     expect(badges).toHaveLength(0);
     const { location } = history;
 
-    expect(location.search).toBe(`?notRelated=notRelated`);
+    expect(location.search).toBe("?notRelated=notRelated");
   });
 });
