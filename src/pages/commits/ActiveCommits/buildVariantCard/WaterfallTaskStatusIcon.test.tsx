@@ -64,6 +64,12 @@ describe("waterfallTaskStatusIcon", () => {
         props.identifier
       );
     });
+    userEvent.unhover(queryByDataCy("waterfall-task-status-icon"));
+    await waitFor(() => {
+      expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
+        props.identifier
+      );
+    });
   });
 });
 
