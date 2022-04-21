@@ -14,17 +14,15 @@ const { gray } = uiColors;
 const tooltipInModalZIndex = zIndex.tooltip; // necessary due to SeeMoreModal, which has zIndex 40
 const maxBadgeLength = 25;
 
+interface FilterBadgeType {
+  key: string;
+  value: string;
+}
 interface FilterBadgeProps {
-  badge: {
-    key: string;
-    value: string;
-  };
+  badge: FilterBadgeType;
   onClose: () => void;
 }
-export const FilterBadge: React.VFC<FilterBadgeProps> = ({
-  badge,
-  onClose,
-}) => {
+const FilterBadge: React.VFC<FilterBadgeProps> = ({ badge, onClose }) => {
   // the trimmed name needs to account for the label
   const trimmedBadgeName = trimStringFromMiddle(
     badge.value,
@@ -93,3 +91,6 @@ const BadgeContent = styled.div`
 const StyledTooltip = styled(Tooltip)`
   padding: ${size.xxs} ${size.xs};
 `;
+
+export default FilterBadge;
+export type { FilterBadgeType };

@@ -1,4 +1,3 @@
-import StoryRouter from "storybook-react-router";
 import { getCommitsRoute } from "constants/routes";
 import { ADD_FAVORITE_PROJECT, REMOVE_FAVORITE_PROJECT } from "gql/mutations";
 import { GET_PROJECTS, GET_VIEWABLE_PROJECTS } from "gql/queries";
@@ -8,7 +7,7 @@ import { ProjectSelect } from ".";
 export default {
   title: "ProjectSelect",
   component: ProjectSelect,
-  decorators: [StoryRouter(), (story) => WithToastContext(story)],
+  decorators: [(story) => WithToastContext(story)],
 };
 
 export const WithClickableHeader = () => (
