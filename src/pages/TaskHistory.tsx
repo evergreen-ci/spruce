@@ -4,7 +4,9 @@ import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
-import { FilterBadges } from "components/FilterBadges";
+import FilterBadges, {
+  useFilterBadgeQueryParams,
+} from "components/FilterBadges";
 import HistoryTable, {
   context,
   ColumnPaginationButtons,
@@ -42,6 +44,9 @@ const TaskHistoryContents: React.VFC = () => {
   useTestFilters();
   useJumpToCommit();
 
+  const { badges, handleOnRemove, handleClearAll } = useFilterBadgeQueryParams(
+    constants.queryParamsToDisplay
+  );
   const { data } = useQuery<
     MainlineCommitsForHistoryQuery,
     MainlineCommitsForHistoryQueryVariables
@@ -81,12 +86,14 @@ const TaskHistoryContents: React.VFC = () => {
         <PaginationFilterWrapper>
           <BadgeWrapper>
             <FilterBadges
-              queryParamsToDisplay={constants.queryParamsToDisplay}
-              onRemove={() => {
+              badges={badges}
+              onRemove={(b) => {
                 sendEvent({ name: "Remove badge" });
+                handleOnRemove(b);
               }}
               onClearAll={() => {
                 sendEvent({ name: "Clear all badges" });
+                handleClearAll();
               }}
             />
           </BadgeWrapper>

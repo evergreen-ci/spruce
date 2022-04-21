@@ -1,4 +1,3 @@
-import StoryRouter from "storybook-react-router";
 import { GET_UNSCHEDULED_TASKS } from "gql/queries";
 import WithToastContext from "test_utils/toast-decorator";
 import { ScheduleTasks } from ".";
@@ -6,7 +5,7 @@ import { ScheduleTasks } from ".";
 export default {
   title: "Schedule Tasks",
   component: ScheduleTasks,
-  decorators: [StoryRouter(), (story) => WithToastContext(story)],
+  decorators: [(story) => WithToastContext(story)],
 };
 
 export const ScheduleTasksPopulated = () => (
