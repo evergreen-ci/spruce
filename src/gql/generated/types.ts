@@ -521,6 +521,7 @@ export type Version = {
   requester: Scalars["String"];
   activated?: Maybe<Scalars["Boolean"]>;
   taskStatusCounts?: Maybe<Array<StatusCount>>;
+  taskStatusStats?: Maybe<TaskStats>;
   buildVariants?: Maybe<Array<Maybe<GroupedBuildVariant>>>;
   buildVariantStats?: Maybe<Array<GroupedTaskStatusCount>>;
   isPatch: Scalars["Boolean"];
@@ -538,6 +539,10 @@ export type Version = {
 };
 
 export type VersionTaskStatusCountsArgs = {
+  options?: Maybe<BuildVariantOptions>;
+};
+
+export type VersionTaskStatusStatsArgs = {
   options?: Maybe<BuildVariantOptions>;
 };
 
@@ -574,6 +579,11 @@ export type Manifest = {
 export type VersionTiming = {
   makespan?: Maybe<Scalars["Duration"]>;
   timeTaken?: Maybe<Scalars["Duration"]>;
+};
+
+export type TaskStats = {
+  counts?: Maybe<Array<StatusCount>>;
+  eta?: Maybe<Scalars["Time"]>;
 };
 
 export type StatusCount = {
@@ -2190,7 +2200,9 @@ export type PatchesPagePatchesFragment = {
     >;
     versionFull?: Maybe<{
       id: string;
-      taskStatusCounts?: Maybe<Array<{ status: string; count: number }>>;
+      taskStatusStats?: Maybe<{
+        counts?: Maybe<Array<{ status: string; count: number }>>;
+      }>;
     }>;
   }>;
 };
@@ -3531,7 +3543,10 @@ export type MainlineCommitsQuery = {
           message: string;
           revision: string;
           order: number;
-          taskStatusCounts?: Maybe<Array<{ status: string; count: number }>>;
+          taskStatusStats?: Maybe<{
+            eta?: Maybe<Date>;
+            counts?: Maybe<Array<{ status: string; count: number }>>;
+          }>;
           buildVariantStats?: Maybe<
             Array<{
               displayName: string;
