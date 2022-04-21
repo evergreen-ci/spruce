@@ -313,4 +313,8 @@ describe("joinWithConjunction", () => {
   it("handles a list with one element", () => {
     expect(joinWithConjunction(["one"], "and")).toBe("one");
   });
+
+  it("returns an empty string with 0 elements", () => {
+    expect(joinWithConjunction([], "or")).toBe("");
+  });
 });

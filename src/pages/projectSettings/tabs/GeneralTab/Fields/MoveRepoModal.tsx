@@ -8,6 +8,9 @@ import {
   AttachProjectToNewRepoMutationVariables,
 } from "gql/generated/types";
 import { ATTACH_PROJECT_TO_NEW_REPO } from "gql/mutations";
+import { string } from "utils";
+
+const { joinWithConjunction } = string;
 
 type ModalProps = {
   githubOrgs: string[];
@@ -77,7 +80,7 @@ export const MoveRepoModal: React.VFC<ModalProps> = ({
       <p>
         {/* TODO: Replace with LeafyGreen Select when z-index modal bug has been fixed (PD-1677) */}
         GitHub Organizations available for use as project owners are:{" "}
-        {githubOrgs.join(", ")}
+        {joinWithConjunction(githubOrgs, "and")}
       </p>
       <SpruceForm
         formData={formState}

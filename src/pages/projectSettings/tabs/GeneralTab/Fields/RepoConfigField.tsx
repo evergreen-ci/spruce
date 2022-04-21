@@ -38,7 +38,7 @@ export const RepoConfigField: Field = ({
     formData.owner !== initialOwner || formData.repo !== initialRepo;
 
   const { data } = useQuery<GetGithubOrgsQuery>(GET_GITHUB_ORGS);
-  const githubOrgs = data?.spruceConfig?.githubOrgs ?? [];
+  const { spruceConfig: { githubOrgs = [] } = {} } = data ?? {};
 
   return (
     <Container hasButtons={!isRepo}>

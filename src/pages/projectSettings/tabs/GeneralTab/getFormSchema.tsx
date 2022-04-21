@@ -1,8 +1,9 @@
-import { Link } from "@leafygreen-ui/typography";
 import { Field } from "@rjsf/core";
 import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
+import { StyledLink } from "components/styles";
+import { versionControlDocumentationUrl } from "constants/externalResources";
 import { Project } from "gql/generated/types";
 import { form, ProjectType } from "../utils";
 import { RepoConfigField, RepotrackerField } from "./Fields";
@@ -409,12 +410,9 @@ export const getFormSchema = (
 const VersionControlEnabledDescription = (
   <>
     Enabling Version Control allows{" "}
-    <Link
-      hideExternalIcon
-      href="https://github.com/evergreen-ci/evergreen/wiki/Project-and-Distro-Settings#version-control"
-    >
+    <StyledLink href={versionControlDocumentationUrl}>
       select properties
-    </Link>{" "}
+    </StyledLink>{" "}
     to be defined in this project&rsquo;s config YAML in addition to the UI.
   </>
 );
