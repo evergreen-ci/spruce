@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { withKnobs, boolean, select } from "@storybook/addon-knobs";
-import StoryRouter from "storybook-react-router";
 import { MetStatus, RequiredStatus } from "gql/generated/types";
 import { Metadata } from "./index";
 import { taskQuery } from "./taskData";
@@ -89,7 +88,7 @@ export const WithAbortMessage = () => {
 
 export default {
   title: "Metadata",
-  decorators: [StoryRouter(), withKnobs],
+  decorators: [withKnobs],
   component: Base,
 };
 

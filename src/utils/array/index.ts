@@ -1,3 +1,5 @@
+import { Unpacked } from "types/utils";
+
 /**
  * This takes in an array of values regardless of type and a new value and safely inserts the value if it doesn't exist in the array.
  * It removes the value from the array if it already exists
@@ -64,14 +66,22 @@ export const convertArrayToObject = <T = { [key: string]: any }>(
  * @param object The object to convert to an array
  * @returns The array created from the object
  */
-export const convertObjectToArray = <T>(object: { [key: string]: T[] | T }) => {
+export const convertObjectToArray = <T extends object>(
+  obj: T
+): KeyValue<T>[] => {
   const result = [];
-  if (object === undefined) return result;
-  const objectEntries = Object.entries(object);
+  if (obj === undefined) return result;
+  const objectEntries = Object.entries(obj);
   return objectEntries.flatMap(([key, value]) => {
     const entries = toArray(value);
-    return entries.map((v) => ({ key, value: v }));
+
+    return entries.map((v) => ({ key, value: v } as KeyValue<T>));
   });
+};
+
+type KeyValue<T> = {
+  key: string;
+  value: Unpacked<T[keyof T]>;
 };
 
 /**
