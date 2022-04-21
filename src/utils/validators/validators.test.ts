@@ -1,4 +1,4 @@
-import { validateObjectId } from ".";
+import { validateObjectId, validateRegexp } from ".";
 
 describe("validateObjectId", () => {
   it("validates object ids", () => {
@@ -12,5 +12,18 @@ describe("validateObjectId", () => {
         "mongodb_mongo_master_16085c4b28bd438e1c7608d0aa645de1c1811e7f"
       )
     ).toBeFalsy();
+  });
+});
+
+describe("validateRegexp", () => {
+  it("returns true for valid regular expressions", () => {
+    expect(validateRegexp("^[0-9]+$")).toBeTruthy();
+    expect(validateRegexp(".")).toBeTruthy();
+    expect(validateRegexp("^[0-9]+([,.][0-9]+)?$")).toBeTruthy();
+  });
+  it("returns false for invalid regular expressions", () => {
+    expect(validateRegexp("variant[")).toBeFalsy();
+    expect(validateRegexp("[")).toBeFalsy();
+    expect(validateRegexp("test(")).toBeFalsy();
   });
 });
