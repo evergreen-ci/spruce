@@ -201,15 +201,13 @@ const HeaderWrapper = styled.div`
     margin-right: ${size.s};
   }
 `;
-
 const BadgeWrapper = styled.div`
   margin: ${size.s} 0;
 `;
-
 const PaginationWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
-  padding: ${size.s} 0;
+  padding-bottom: ${size.xs};
 `;
 
 const tupleSelectOptions = [
