@@ -5,7 +5,6 @@ import { Label } from "@leafygreen-ui/typography";
 import { Input, Select } from "antd";
 import Icon from "components/Icon";
 import { IconTooltip } from "components/IconTooltip";
-import useTupleSelectQueryParams from "./useTupleSelectQueryParams";
 
 const { yellow } = uiColors;
 const { Option } = Select;
@@ -105,4 +104,3 @@ const Container = styled.div`
 `;
 
 export default TupleSelect;
-export { useTupleSelectQueryParams };

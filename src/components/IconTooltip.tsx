@@ -10,6 +10,7 @@ interface IconTooltipProps extends React.ComponentProps<typeof Icon> {
 
 export const IconTooltip: React.VFC<IconTooltipProps> = ({
   tooltipText,
+  className,
   "data-cy": dataCy,
   ...rest
 }) => (
@@ -18,7 +19,7 @@ export const IconTooltip: React.VFC<IconTooltipProps> = ({
     justify="middle"
     triggerEvent="hover"
     trigger={
-      <IconWrapper data-cy={dataCy}>
+      <IconWrapper data-cy={dataCy} className={className}>
         <StyledIcon {...rest} />
       </IconWrapper>
     }
@@ -33,10 +34,11 @@ const StyledTooltip = styled(Tooltip)`
 `;
 
 const IconWrapper = styled.div`
-  height: ${size.s};
   margin-left: ${size.xxs};
+  display: flex;
+  align-items: center;
 `;
 
 const StyledIcon = styled(Icon)`
-  display: block;
+  /* display: block; */
 `;
