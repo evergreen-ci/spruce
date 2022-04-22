@@ -35,6 +35,10 @@ const validateObjectId = (id: string): boolean => {
   return mgobsonRegex.test(id);
 };
 
+/**
+ * validateRegexp tests if a provided string is a valid regular expression
+ * @param regexp - the regexp to test
+ */
 const validateRegexp = (regexp: string): boolean => {
   try {
     // eslint-disable-next-line no-new
