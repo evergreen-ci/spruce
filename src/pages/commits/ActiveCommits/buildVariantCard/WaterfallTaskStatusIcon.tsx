@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useLazyQuery } from "@apollo/client";
-import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
@@ -18,6 +17,7 @@ import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
 import { isFailedTaskStatus } from "utils/statuses";
 import { msToDuration } from "utils/string";
 import { TASK_ICON_HEIGHT } from "../../constants";
+import { injectGlobalStyle, removeGlobalStyle } from "../utils";
 
 interface WaterfallTaskStatusIconProps {
   taskId: string;
@@ -45,15 +45,17 @@ export const WaterfallTaskStatusIcon: React.VFC<WaterfallTaskStatusIconProps> = 
 
   let timeout;
   const onMouseEnter = () => {
+    injectGlobalStyle(identifier);
     timeout = setTimeout(() => {
       setEnabled(true);
       // Only query failing test names if the task has failed.
       if (isFailedTaskStatus(status)) {
         loadData();
       }
-    }, 300);
+    }, 500);
   };
   const onMouseLeave = () => {
+    removeGlobalStyle();
     setEnabled(false);
     if (timeout) {
       clearTimeout(timeout);
@@ -68,62 +70,51 @@ export const WaterfallTaskStatusIcon: React.VFC<WaterfallTaskStatusIconProps> = 
     [] // eslint-disable-line react-hooks/exhaustive-deps
   );
   return (
-    <>
-      {enabled && (
-        <Global
-          styles={css`
-            div[data-task-icon]:not([data-task-icon="${identifier}"]) {
-              opacity: 0.25;
-            }
-          `}
-        />
-      )}
-      <Tooltip
-        align="top"
-        justify="middle"
-        popoverZIndex={zIndex.tooltip}
-        enabled={enabled}
-        trigger={
-          <IconWrapper
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-            key={`task_${taskId}`}
-            aria-label={`${status} icon`}
-            to={getTaskRoute(taskId)}
-            onClick={() => {
-              sendEvent({ name: "Click task status icon", status });
-            }}
-            data-cy="waterfall-task-status-icon"
-          >
-            <TaskStatusWrapper data-task-icon={identifier}>
-              <TaskStatusIcon status={status} size={16} />
-            </TaskStatusWrapper>
-          </IconWrapper>
-        }
-        triggerEvent="hover"
-      >
-        <div data-cy="waterfall-task-status-icon-tooltip">
-          <TooltipTitle
-            data-cy="waterfall-task-status-icon-tooltip-title"
-            weight="medium"
-          >
-            {displayName} {timeTaken && `- ${msToDuration(timeTaken)}`}
-          </TooltipTitle>
-          {loading ? (
-            <Skeleton />
-          ) : (
-            <>
-              {testResults?.map(({ id, testFile }) => (
-                <TestName key={id}>{testFile}</TestName>
-              ))}
-              {failedTestDifference > 0 && (
-                <div>and {failedTestDifference} more</div>
-              )}
-            </>
-          )}
-        </div>
-      </Tooltip>
-    </>
+    <Tooltip
+      align="top"
+      justify="middle"
+      popoverZIndex={zIndex.tooltip}
+      enabled={enabled}
+      trigger={
+        <IconWrapper
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+          key={`task_${taskId}`}
+          aria-label={`${status} icon`}
+          to={getTaskRoute(taskId)}
+          onClick={() => {
+            sendEvent({ name: "Click task status icon", status });
+          }}
+          data-cy="waterfall-task-status-icon"
+        >
+          <TaskStatusWrapper data-task-icon={identifier}>
+            <TaskStatusIcon status={status} size={16} />
+          </TaskStatusWrapper>
+        </IconWrapper>
+      }
+      triggerEvent="hover"
+    >
+      <div data-cy="waterfall-task-status-icon-tooltip">
+        <TooltipTitle
+          data-cy="waterfall-task-status-icon-tooltip-title"
+          weight="medium"
+        >
+          {displayName} {timeTaken && `- ${msToDuration(timeTaken)}`}
+        </TooltipTitle>
+        {loading ? (
+          <Skeleton />
+        ) : (
+          <>
+            {testResults?.map(({ id, testFile }) => (
+              <TestName key={id}>{testFile}</TestName>
+            ))}
+            {failedTestDifference > 0 && (
+              <div>and {failedTestDifference} more</div>
+            )}
+          </>
+        )}
+      </div>
+    </Tooltip>
   );
 };
 const TestName = styled.div`

@@ -153,3 +153,23 @@ export const getStatusesWithZeroCount = (colors: ColorCount[]) => {
     new Set(allStatuses.filter((status) => !availableStatuses.includes(status)))
   );
 };
+
+// Functions for injecting and removing style for hovering on task icons
+const taskIconStyle = "task-icon-style";
+
+export const removeGlobalStyle = () => {
+  document.getElementById(taskIconStyle)?.remove();
+};
+
+export const injectGlobalStyle = (taskIdentifier: string) => {
+  removeGlobalStyle();
+
+  const hoverStyle = document.createElement("style");
+  hoverStyle.id = taskIconStyle;
+  hoverStyle.innerHTML = `
+    div[data-task-icon]:not([data-task-icon="${taskIdentifier}"]) {
+        opacity: 0.25;
+    }
+  `;
+  document.getElementsByTagName("head")[0].appendChild(hoverStyle);
+};
