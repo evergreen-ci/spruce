@@ -23,6 +23,7 @@ fragment PatchesPagePatches on Patches {
         status
         count
       }
+      status
     }
     canEnqueueToCommitQueue
   }

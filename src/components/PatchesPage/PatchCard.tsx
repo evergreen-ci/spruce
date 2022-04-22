@@ -95,7 +95,7 @@ export const PatchCard: React.VFC<Props> = ({
       </Left>
       <Center>
         <PatchBadgeContainer>
-          <PatchStatusBadge status={status} />
+          <PatchStatusBadge status={versionFull.status ?? status} />
         </PatchBadgeContainer>
         <TaskBadgeContainer>{badges}</TaskBadgeContainer>
       </Center>
