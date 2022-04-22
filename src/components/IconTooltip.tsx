@@ -1,29 +1,25 @@
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
-import Icon, { glyphs } from "components/Icon";
+import Icon from "components/Icon";
 import { size } from "constants/tokens";
 
-const { black } = uiColors;
-
-interface IconTooltipProps {
+interface IconTooltipProps extends React.ComponentProps<typeof Icon> {
   tooltipText: string;
-  glyph: keyof typeof glyphs;
-  color?: string;
+  ["data-cy"]?: string;
 }
 
 export const IconTooltip: React.VFC<IconTooltipProps> = ({
   tooltipText,
-  glyph,
-  color = black,
+  "data-cy": dataCy,
+  ...rest
 }) => (
   <StyledTooltip
     align="top"
     justify="middle"
     triggerEvent="hover"
     trigger={
-      <IconWrapper>
-        <StyledIcon glyph={glyph} fill={color} />
+      <IconWrapper data-cy={dataCy}>
+        <StyledIcon {...rest} />
       </IconWrapper>
     }
   >
