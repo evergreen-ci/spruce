@@ -1,141 +1,172 @@
-import {
-  renderWithRouterMatch as render,
-  fireEvent,
-  waitFor,
-} from "test_utils";
-import { ProjectFilterOptions } from "types/commits";
-import { FilterBadges } from ".";
-
-const Content = () => (
-  <FilterBadges
-    queryParamsToDisplay={
-      new Set([
-        ProjectFilterOptions.BuildVariant,
-        ProjectFilterOptions.Task,
-        ProjectFilterOptions.Test,
-      ])
-    }
-  />
-);
+import { render, fireEvent, within, waitFor } from "test_utils";
+import FilterBadges from ".";
 
 describe("filterBadges", () => {
-  it("should not render any badges if there are no query params", () => {
-    const { queryByDataCy } = render(Content, {
-      route: `/commits/evergreen`,
-      path: "/commits/:projectId",
-    });
-    expect(queryByDataCy("filter-badge")).not.toBeInTheDocument();
+  it("should not render any badges if there are none passed in", () => {
+    const onRemove = jest.fn();
+    const onClearAll = jest.fn();
+    const { queryAllByDataCy } = render(
+      <FilterBadges badges={[]} onRemove={onRemove} onClearAll={onClearAll} />
+    );
+    expect(queryAllByDataCy("filter-badge")).toHaveLength(0);
   });
-
-  it("should render a singular filter badge if there is only one query param", () => {
-    const { queryAllByDataCy } = render(Content, {
-      route: `/commits/evergreen?buildVariants=variant1`,
-      path: "/commits/:projectId",
-    });
+  it("should render badges if there are some passed in", () => {
+    const onRemove = jest.fn();
+    const onClearAll = jest.fn();
+    const { queryAllByDataCy, queryByText } = render(
+      <FilterBadges
+        badges={[{ key: "test", value: "value" }]}
+        onRemove={onRemove}
+        onClearAll={onClearAll}
+      />
+    );
     expect(queryAllByDataCy("filter-badge")).toHaveLength(1);
+    expect(queryByText("test : value")).toBeInTheDocument();
   });
-
-  it("should render multiple filter badges with the same key but different values", () => {
-    const { queryAllByDataCy } = render(Content, {
-      route: `/commits/evergreen?buildVariants=variant1,variant2`,
-      path: "/commits/:projectId",
-    });
-    const badges = queryAllByDataCy("filter-badge");
-    expect(badges).toHaveLength(2);
-
-    expect(badges[0]).toHaveTextContent("buildVariants : variant1");
-    expect(badges[1]).toHaveTextContent("buildVariants : variant2");
+  it("should render a badge for each key/value pair passed in", () => {
+    const onRemove = jest.fn();
+    const onClearAll = jest.fn();
+    const { queryAllByDataCy, queryByText } = render(
+      <FilterBadges
+        badges={[
+          { key: "test", value: "value" },
+          { key: "test2", value: "value2" },
+        ]}
+        onRemove={onRemove}
+        onClearAll={onClearAll}
+      />
+    );
+    expect(queryAllByDataCy("filter-badge")).toHaveLength(2);
+    expect(queryByText("test : value")).toBeInTheDocument();
+    expect(queryByText("test2 : value2")).toBeInTheDocument();
   });
-
-  it("should render multiple filter badges with the different keys and different values", () => {
-    const { queryAllByDataCy } = render(Content, {
-      route: `/commits/evergreen?buildVariants=variant1&tests=test1`,
-      path: "/commits/:projectId",
-    });
-    const badges = queryAllByDataCy("filter-badge");
-    expect(badges).toHaveLength(2);
-    expect(badges[0]).toHaveTextContent("buildVariants : variant1");
-    expect(badges[1]).toHaveTextContent("tests : test1");
+  it("only renders badges up to the limit", () => {
+    const onRemove = jest.fn();
+    const onClearAll = jest.fn();
+    const { queryAllByDataCy, queryByText } = render(
+      <FilterBadges
+        badges={[
+          { key: "test", value: "value" },
+          { key: "test2", value: "value2" },
+          { key: "test3", value: "value3" },
+          { key: "test4", value: "value4" },
+          { key: "test5", value: "value5" },
+          { key: "test6", value: "value6" },
+          { key: "test7", value: "value7" },
+          { key: "test8", value: "value8" },
+          { key: "test9", value: "value9" },
+          { key: "test10", value: "value10" },
+        ]}
+        onRemove={onRemove}
+        onClearAll={onClearAll}
+      />
+    );
+    expect(queryAllByDataCy("filter-badge")).toHaveLength(8);
+    expect(queryByText("test : value")).toBeInTheDocument();
+    expect(queryByText("test8 : value8")).toBeInTheDocument();
+    expect(queryByText("see 2 more")).toBeInTheDocument();
   });
-
-  it("closing out a badge should remove it from the url", () => {
-    const { queryByDataCy, history } = render(Content, {
-      route: `/commits/evergreen?buildVariants=variant1`,
-      path: "/commits/:projectId",
-    });
-
-    const badge = queryByDataCy("filter-badge");
-    expect(badge).toHaveTextContent("buildVariants : variant1");
-    const closeBadge = queryByDataCy("close-badge");
+  it("clicking see more should display a modal with all of the badges", () => {
+    const onRemove = jest.fn();
+    const onClearAll = jest.fn();
+    const { queryByDataCy, queryByText } = render(
+      <FilterBadges
+        badges={[
+          { key: "test1", value: "value1" },
+          { key: "test2", value: "value2" },
+          { key: "test3", value: "value3" },
+          { key: "test4", value: "value4" },
+          { key: "test5", value: "value5" },
+          { key: "test6", value: "value6" },
+          { key: "test7", value: "value7" },
+          { key: "test8", value: "value8" },
+          { key: "test9", value: "value9" },
+          { key: "test10", value: "value10" },
+        ]}
+        onRemove={onRemove}
+        onClearAll={onClearAll}
+      />
+    );
+    fireEvent.click(queryByText("see 2 more"));
+    expect(queryByDataCy("see-more-modal")).toBeInTheDocument();
+    expect(
+      within(queryByDataCy("see-more-modal")).queryAllByDataCy("filter-badge")
+    ).toHaveLength(10);
+    for (let i = 0; i < 10; i++) {
+      expect(
+        within(queryByDataCy("see-more-modal")).queryByText(
+          `test${i + 1} : value${i + 1}`
+        )
+      ).toBeInTheDocument();
+    }
+  });
+  it("clicking clear all should call the clear all callback", () => {
+    const onRemove = jest.fn();
+    const onClearAll = jest.fn();
+    const { queryByText } = render(
+      <FilterBadges
+        badges={[
+          { key: "test1", value: "value1" },
+          { key: "test2", value: "value2" },
+          { key: "test3", value: "value3" },
+          { key: "test4", value: "value4" },
+          { key: "test5", value: "value5" },
+          { key: "test6", value: "value6" },
+          { key: "test7", value: "value7" },
+          { key: "test8", value: "value8" },
+          { key: "test9", value: "value9" },
+          { key: "test10", value: "value10" },
+        ]}
+        onRemove={onRemove}
+        onClearAll={onClearAll}
+      />
+    );
+    fireEvent.click(queryByText("CLEAR ALL FILTERS"));
+    expect(onClearAll).toHaveBeenCalledTimes(1);
+  });
+  it("clicking a badge should call the remove callback", () => {
+    const onRemove = jest.fn();
+    const onClearAll = jest.fn();
+    const { queryAllByDataCy } = render(
+      <FilterBadges
+        badges={[
+          { key: "test1", value: "value1" },
+          { key: "test2", value: "value2" },
+          { key: "test3", value: "value3" },
+          { key: "test4", value: "value4" },
+          { key: "test5", value: "value5" },
+          { key: "test6", value: "value6" },
+          { key: "test7", value: "value7" },
+          { key: "test8", value: "value8" },
+          { key: "test9", value: "value9" },
+          { key: "test10", value: "value10" },
+        ]}
+        onRemove={onRemove}
+        onClearAll={onClearAll}
+      />
+    );
+    const closeBadge = queryAllByDataCy("close-badge")[0];
     expect(closeBadge).toBeInTheDocument();
     fireEvent.click(closeBadge);
-    const { location } = history;
-
-    expect(queryByDataCy("filter-badge")).toBeNull();
-    expect(location.search).toBe(``);
+    expect(onRemove).toHaveBeenCalledWith({ key: "test1", value: "value1" });
   });
-
-  it("should only remove one badge from the url if it is closed and more remain", () => {
-    const { queryAllByDataCy, queryByText, history } = render(Content, {
-      route: `/commits/evergreen?buildVariants=variant1,variant2`,
-      path: "/commits/:projectId",
-    });
-
-    let badges = queryAllByDataCy("filter-badge");
-    expect(badges).toHaveLength(2);
-    expect(queryByText("buildVariants : variant1")).toBeInTheDocument();
-    const closeBadge = queryAllByDataCy("close-badge");
-    fireEvent.click(closeBadge[0]);
-    badges = queryAllByDataCy("filter-badge");
-    expect(badges).toHaveLength(1);
-    expect(queryByText("buildVariants : variant1")).toBeNull();
-
-    const { location } = history;
-
-    expect(queryAllByDataCy("filter-badge")).toHaveLength(1);
-    expect(location.search).toBe(`?buildVariants=variant2`);
-  });
-
-  it("should remove all badges when clicking on clear all button", () => {
-    const { queryAllByDataCy, queryByDataCy, history } = render(Content, {
-      route: `/commits/evergreen?buildVariants=variant1,variant2&tests=test1,test2`,
-      path: "/commits/:projectId",
-    });
-
-    let badges = queryAllByDataCy("filter-badge");
-    expect(badges).toHaveLength(4);
-
-    fireEvent.click(queryByDataCy("clear-all-filters"));
-    badges = queryAllByDataCy("filter-badge");
-    expect(badges).toHaveLength(0);
-    const { location } = history;
-
-    expect(location.search).toBe(``);
-  });
-
-  it("should show a max of 8 badges and a link to show more if there are more", () => {
-    const { queryAllByDataCy, queryByText } = render(Content, {
-      route: `/commits/evergreen?buildVariants=variant1,variant2,variant3,variant4&tests=test1,test2,test3,test4&taskNames=task1`,
-      path: "/commits/:projectId",
-    });
-
-    const badges = queryAllByDataCy("filter-badge");
-    expect(badges).toHaveLength(8);
-
-    expect(queryByText("see 1 more")).toBeInTheDocument();
-  });
-
-  it("should truncate a badge name if it's too long, with hover showing full name", async () => {
-    const longVariantName = "long_long_long_long_long_long_build_variant_name";
-    const { queryByDataCy, queryByText } = render(Content, {
-      route: `/commits/evergreen?buildVariants=${longVariantName}`,
-      path: "/commits/:projectId",
-    });
-
-    expect(queryByText(longVariantName)).not.toBeInTheDocument();
+  it("should truncate a badge value if it is too long", async () => {
+    const onRemove = jest.fn();
+    const onClearAll = jest.fn();
+    const longName = "this is a really long name that should be truncated";
+    const { queryByDataCy, queryByText } = render(
+      <FilterBadges
+        badges={[{ key: "some", value: longName }]}
+        onRemove={onRemove}
+        onClearAll={onClearAll}
+      />
+    );
+    const truncatedBadge = queryByDataCy("filter-badge");
+    expect(truncatedBadge).toBeInTheDocument();
+    expect(truncatedBadge).not.toHaveTextContent(longName);
     fireEvent.mouseEnter(queryByDataCy("filter-badge"));
     await waitFor(() => {
-      expect(queryByText(longVariantName)).toBeVisible();
+      expect(queryByText(longName)).toBeVisible();
     });
   });
 });

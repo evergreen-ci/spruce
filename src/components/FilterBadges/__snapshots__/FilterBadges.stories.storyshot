@@ -1,130 +1,154 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`storybook Storyshots FilterBadges Default 1`] = `
-<div
-  className="css-19f1xe2-Container e3qndfh0"
->
+<div>
   <div
-    className="css-1cf5xhz-PaddedBadge e1vs77ku2 leafygreen-ui-187420t"
-    data-cy="filter-badge"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
+    className="css-19f1xe2-Container e3qndfh0"
   >
     <div
-      className="css-1i7u60d-BadgeContent e1vs77ku1"
+      className="css-1cf5xhz-PaddedBadge e1vs77ku2 leafygreen-ui-13xc3rv"
+      data-cy="filter-badge"
     >
-      buildVariants
-       : 
-      ! Ente…g Tidy
+      <div
+        className="css-1i7u60d-BadgeContent e1vs77ku1"
+      >
+        test
+         : 
+        test
+      </div>
+      <svg
+        aria-label="X Icon"
+        className="css-4ijbt0-ClickableIcon e1vs77ku3"
+        data-cy="close-badge"
+        fill="none"
+        height={16}
+        onClick={[Function]}
+        role="img"
+        viewBox="0 0 16 16"
+        width={16}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clipRule="evenodd"
+          d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
+          fill="currentColor"
+          fillRule="evenodd"
+        />
+      </svg>
     </div>
-    <svg
-      aria-label="X Icon"
-      className="css-4ijbt0-ClickableIcon e1vs77ku3"
-      data-cy="close-badge"
-      fill="none"
-      height={16}
+    <button
+      aria-disabled={false}
+      className="leafygreen-ui-126lu42"
+      data-cy="clear-all-filters"
+      disabled={false}
       onClick={[Function]}
-      role="img"
-      viewBox="0 0 16 16"
-      width={16}
-      xmlns="http://www.w3.org/2000/svg"
+      type="button"
     >
-      <path
-        clipRule="evenodd"
-        d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
-        fill="currentColor"
-        fillRule="evenodd"
+      <div
+        className="leafygreen-ui-1ktj4tm"
       />
-    </svg>
+      <div
+        className="leafygreen-ui-jfktkt"
+      >
+        CLEAR ALL FILTERS
+      </div>
+    </button>
   </div>
-  <div
-    className="css-1cf5xhz-PaddedBadge e1vs77ku2 leafygreen-ui-187420t"
-    data-cy="filter-badge"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
-  >
+  <div>
     <div
-      className="css-1i7u60d-BadgeContent e1vs77ku1"
+      className="leafygreen-ui-1iyoj2o"
     >
-      buildVariants
-       : 
-      ! Ente…indows
+      <label
+        className="leafygreen-ui-ly82bp"
+        htmlFor="textinput-1"
+      >
+        key
+      </label>
+      <div
+        className="leafygreen-ui-lzja97"
+      >
+        <div
+          className="leafygreen-ui-1i2djk5"
+        >
+          <input
+            autoComplete="on"
+            className="leafygreen-ui-1il5lef"
+            disabled={false}
+            id="textinput-1"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="key"
+            required={true}
+            type="text"
+            value=""
+          />
+          <div
+            className="leafygreen-ui-3x1o6h"
+            data-leafygreen-ui="interaction-ring"
+          />
+        </div>
+        <div
+          className="leafygreen-ui-m329s1"
+          data-leafygreen-ui="icon-selector"
+        />
+      </div>
     </div>
-    <svg
-      aria-label="X Icon"
-      className="css-4ijbt0-ClickableIcon e1vs77ku3"
-      data-cy="close-badge"
-      fill="none"
-      height={16}
+    <div
+      className="leafygreen-ui-1iyoj2o"
+    >
+      <label
+        className="leafygreen-ui-ly82bp"
+        htmlFor="textinput-2"
+      >
+        value
+      </label>
+      <div
+        className="leafygreen-ui-lzja97"
+      >
+        <div
+          className="leafygreen-ui-1i2djk5"
+        >
+          <input
+            autoComplete="on"
+            className="leafygreen-ui-1il5lef"
+            disabled={false}
+            id="textinput-2"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="value"
+            required={true}
+            type="text"
+            value=""
+          />
+          <div
+            className="leafygreen-ui-3x1o6h"
+            data-leafygreen-ui="interaction-ring"
+          />
+        </div>
+        <div
+          className="leafygreen-ui-m329s1"
+          data-leafygreen-ui="icon-selector"
+        />
+      </div>
+    </div>
+    <button
+      aria-disabled={false}
+      className="leafygreen-ui-26sqyb"
+      disabled={false}
       onClick={[Function]}
-      role="img"
-      viewBox="0 0 16 16"
-      width={16}
-      xmlns="http://www.w3.org/2000/svg"
+      type="button"
     >
-      <path
-        clipRule="evenodd"
-        d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
-        fill="currentColor"
-        fillRule="evenodd"
+      <div
+        className="leafygreen-ui-1ktj4tm"
       />
-    </svg>
+      <div
+        className="leafygreen-ui-ie0uqp"
+      >
+        Add
+      </div>
+    </button>
   </div>
-  <div
-    className="css-1cf5xhz-PaddedBadge e1vs77ku2 leafygreen-ui-187420t"
-    data-cy="filter-badge"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
-  >
-    <div
-      className="css-1i7u60d-BadgeContent e1vs77ku1"
-    >
-      buildVariants
-       : 
-      Enterp…abled)
-    </div>
-    <svg
-      aria-label="X Icon"
-      className="css-4ijbt0-ClickableIcon e1vs77ku3"
-      data-cy="close-badge"
-      fill="none"
-      height={16}
-      onClick={[Function]}
-      role="img"
-      viewBox="0 0 16 16"
-      width={16}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        clipRule="evenodd"
-        d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
-        fill="currentColor"
-        fillRule="evenodd"
-      />
-    </svg>
-  </div>
-  <button
-    aria-disabled={false}
-    className="leafygreen-ui-126lu42"
-    data-cy="clear-all-filters"
-    disabled={false}
-    onClick={[Function]}
-    type="button"
-  >
-    <div
-      className="leafygreen-ui-1ktj4tm"
-    />
-    <div
-      className="leafygreen-ui-jfktkt"
-    >
-      CLEAR ALL FILTERS
-    </div>
-  </button>
 </div>
 `;

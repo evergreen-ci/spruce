@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Field } from "@rjsf/core";
@@ -6,6 +7,8 @@ import { Button } from "components/Button";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { SpruceForm } from "components/SpruceForm";
 import { size, zIndex } from "constants/tokens";
+import { GetGithubOrgsQuery } from "gql/generated/types";
+import { GET_GITHUB_ORGS } from "gql/queries";
 import { ProjectType } from "../../utils";
 import { AttachDetachModal } from "./AttachDetachModal";
 import { MoveRepoModal } from "./MoveRepoModal";
@@ -34,6 +37,9 @@ export const RepoConfigField: Field = ({
   const ownerOrRepoHasChanges =
     formData.owner !== initialOwner || formData.repo !== initialRepo;
 
+  const { data } = useQuery<GetGithubOrgsQuery>(GET_GITHUB_ORGS);
+  const { spruceConfig: { githubOrgs = [] } = {} } = data ?? {};
+
   return (
     <Container hasButtons={!isRepo}>
       <SpruceForm
@@ -46,7 +52,7 @@ export const RepoConfigField: Field = ({
       {!isRepo && (
         <>
           <ButtonRow>
-            {isAttachedProject && (
+            {isAttachedProject && !!githubOrgs.length && (
               <Button
                 onClick={() => setMoveModalOpen(true)}
                 size="small"
@@ -85,6 +91,14 @@ export const RepoConfigField: Field = ({
               </ButtonWrapper>
             </ConditionalWrapper>
           </ButtonRow>
+          <MoveRepoModal
+            githubOrgs={githubOrgs}
+            handleClose={() => setMoveModalOpen(false)}
+            open={moveModalOpen}
+            projectId={projectId}
+            repoName={repoName}
+            repoOwner={repoOwner}
+          />
           <AttachDetachModal
             handleClose={() => setAttachModalOpen(false)}
             open={attachModalOpen}
@@ -93,13 +107,6 @@ export const RepoConfigField: Field = ({
             repoOwner={repoOwner || formData.owner}
             shouldAttach={!isAttachedProject}
           />
-          <MoveRepoModal
-            handleClose={() => setMoveModalOpen(false)}
-            open={moveModalOpen}
-            projectId={projectId}
-            repoName={repoName}
-            repoOwner={repoOwner}
-          />
         </>
       )}
     </Container>
@@ -107,7 +114,7 @@ export const RepoConfigField: Field = ({
 };
 
 const ButtonRow = styled.div`
-  display: inline;
+  display: flex;
 
   > :not(:last-child) {
     margin-right: ${size.xs};
@@ -118,7 +125,6 @@ const ButtonWrapper = styled.div`
   width: fit-content;
 `;
 
-const Container = styled.div`
-  ${(props: { hasButtons: boolean }): string =>
-    props.hasButtons && `margin-bottom: ${size.m};`}
+const Container = styled.div<{ hasButtons: boolean }>`
+  ${({ hasButtons }): string => hasButtons && `margin-bottom: ${size.m};`}
 `;
