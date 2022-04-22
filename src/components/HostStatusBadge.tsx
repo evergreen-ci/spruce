@@ -20,7 +20,7 @@ export const HostStatusBadge: React.VFC<Props> = ({ status }) => (
       <IconTooltip
         color={red.base}
         tooltipText="Terminated hosts will disappear in 5 minutes. See Event Log for more details."
-        iconType="InfoWithCircle"
+        glyph="InfoWithCircle"
       />
     )}
   </HostStatusWrapper>

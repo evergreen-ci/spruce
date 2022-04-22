@@ -8,13 +8,13 @@ const { black } = uiColors;
 
 interface IconTooltipProps {
   tooltipText: string;
-  iconType: keyof typeof glyphs;
+  glyph: keyof typeof glyphs;
   color?: string;
 }
 
 export const IconTooltip: React.VFC<IconTooltipProps> = ({
   tooltipText,
-  iconType,
+  glyph,
   color = black,
 }) => (
   <StyledTooltip
@@ -23,7 +23,7 @@ export const IconTooltip: React.VFC<IconTooltipProps> = ({
     triggerEvent="hover"
     trigger={
       <IconWrapper>
-        <StyledIcon glyph={iconType} fill={color} />
+        <StyledIcon glyph={glyph} fill={color} />
       </IconWrapper>
     }
   >
@@ -33,7 +33,7 @@ export const IconTooltip: React.VFC<IconTooltipProps> = ({
 
 // @ts-expect-error
 const StyledTooltip = styled(Tooltip)`
-  width: 300px;
+  max-width: 300px;
 `;
 
 const IconWrapper = styled.div`
