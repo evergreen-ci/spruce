@@ -1,4 +1,4 @@
-import { validateObjectId } from ".";
+import { validateObjectId, validateSSHPublicKey } from ".";
 
 describe("validateObjectId", () => {
   it("validates object ids", () => {
@@ -12,5 +12,16 @@ describe("validateObjectId", () => {
         "mongodb_mongo_master_16085c4b28bd438e1c7608d0aa645de1c1811e7f"
       )
     ).toBeFalsy();
+  });
+});
+
+describe("validateSSHPublicKey", () => {
+  it("validates ssh public keys", () => {
+    expect(validateSSHPublicKey("ssh-rsa someHash")).toBeTruthy();
+    expect(validateSSHPublicKey("ssh-dss someHash")).toBeTruthy();
+    expect(validateSSHPublicKey("ssh-ed25519 someHash")).toBeTruthy();
+    expect(validateSSHPublicKey("ecdsa-sha2-nistp256 someHash")).toBeTruthy();
+    expect(validateSSHPublicKey("ssh-dssNoSpace")).toBeFalsy();
+    expect(validateSSHPublicKey("ssh-badStart someHash")).toBeFalsy();
   });
 });

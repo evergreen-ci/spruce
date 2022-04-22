@@ -29,11 +29,9 @@ export const Accordion: React.VFC<AccordionProps> = ({
 }) => {
   const [isAccordionDisplayed, setIsAccordionDisplayed] = useState(defaultOpen);
   const toggleAccordionHandler = (): void => {
-    const nextState = !isAccordionDisplayed;
-    setIsAccordionDisplayed(nextState);
-    onToggle({ isVisible: nextState });
+    setIsAccordionDisplayed(!isAccordionDisplayed);
+    onToggle({ isVisible: !isAccordionDisplayed });
   };
-
   const showToggledTitle = isAccordionDisplayed ? toggledTitle : title;
   const TitleTag = titleTag ?? "span";
   const titleComp = (

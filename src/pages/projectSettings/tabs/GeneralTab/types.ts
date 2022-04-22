@@ -14,6 +14,7 @@ export interface FormState {
       batchTime: number;
       remotePath: string;
       spawnHostScriptPath: string;
+      versionControlEnabled: boolean | null;
     };
   };
   projectFlags: {

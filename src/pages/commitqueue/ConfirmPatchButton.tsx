@@ -30,6 +30,7 @@ export const ConfirmPatchButton: React.VFC<ConfirmPatchButtonProps> = ({
           onConfirm();
           setOpen(false);
         }}
+        onCancel={() => setOpen(false)}
         title="Are you sure you want to remove this patch from the commit queue?"
         buttonText="Remove"
         variant={Variant.Danger}

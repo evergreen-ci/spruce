@@ -16,14 +16,14 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
       onSubmit={[Function]}
     >
       <div
-        className="form-group field field-object css-ejwhfc-DefaultFieldContainer e7smmlm7"
+        className="form-group field field-object css-ejwhfc-DefaultFieldContainer e7smmlm8"
         id=" root"
       >
         <fieldset
           id="root"
         >
           <div
-            className="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm7"
+            className="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm8"
             id=" root_cloneMethod"
           >
             <div
@@ -95,7 +95,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
             </div>
           </div>
           <div
-            className="form-group field field-array css-ejwhfc-DefaultFieldContainer e7smmlm7"
+            className="form-group field field-array css-ejwhfc-DefaultFieldContainer e7smmlm8"
             id=" root_expansions"
           >
             <h6
@@ -105,7 +105,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
               Expansions
             </h6>
             <div
-              className="css-bm42zs-ElementWrapper ee4bs9n0"
+              className="css-hlvzuf-ElementWrapper-AddButtonContainer e7smmlm3"
             >
               <button
                 aria-disabled={false}
@@ -147,17 +147,17 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
               className="css-fwqti9-ArrayContainer e7smmlm2"
             >
               <div
-                className="css-nbhfvd-ArrayItemRow e7smmlm3"
+                className="css-nbhfvd-ArrayItemRow e7smmlm4"
               >
                 <div
-                  className="form-group field field-object css-ejwhfc-DefaultFieldContainer e7smmlm7"
+                  className="form-group field field-object css-ejwhfc-DefaultFieldContainer e7smmlm8"
                   id=" root_expansions_0"
                 >
                   <fieldset
                     id="root_expansions_0"
                   >
                     <div
-                      className="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm7"
+                      className="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm8"
                       id=" root_expansions_0_key"
                     >
                       <div
@@ -171,7 +171,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                           >
                             <label
                               className="leafygreen-ui-ly82bp"
-                              htmlFor="textinput-3"
+                              htmlFor="textinput-5"
                             >
                               key
                             </label>
@@ -186,7 +186,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                                   autoComplete="on"
                                   className="leafygreen-ui-1il5lef"
                                   disabled={false}
-                                  id="textinput-3"
+                                  id="textinput-5"
                                   onBlur={[Function]}
                                   onChange={[Function]}
                                   onFocus={[Function]}
@@ -209,7 +209,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                       </div>
                     </div>
                     <div
-                      className="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm7"
+                      className="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm8"
                       id=" root_expansions_0_value"
                     >
                       <div
@@ -223,7 +223,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                           >
                             <label
                               className="leafygreen-ui-ly82bp"
-                              htmlFor="textinput-4"
+                              htmlFor="textinput-6"
                             >
                               value
                             </label>
@@ -238,7 +238,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                                   autoComplete="on"
                                   className="leafygreen-ui-1il5lef"
                                   disabled={false}
-                                  id="textinput-4"
+                                  id="textinput-6"
                                   onBlur={[Function]}
                                   onChange={[Function]}
                                   onFocus={[Function]}
@@ -303,7 +303,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
             </div>
           </div>
           <div
-            className="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm7"
+            className="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm8"
             id=" root_validProjects"
           >
             <div
@@ -362,14 +362,14 @@ exports[`storybook Storyshots Spruce Form Example 2 1`] = `
       onSubmit={[Function]}
     >
       <div
-        className="form-group field field-object css-ejwhfc-DefaultFieldContainer e7smmlm7"
+        className="form-group field field-object css-ejwhfc-DefaultFieldContainer e7smmlm8"
         id=" root"
       >
         <fieldset
           id="root"
         >
           <div
-            className="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm7"
+            className="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm8"
             id=" root_distroIsCluster"
           >
             <div
@@ -410,7 +410,7 @@ exports[`storybook Storyshots Spruce Form Example 2 1`] = `
             </div>
           </div>
           <div
-            className="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm7"
+            className="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm8"
             id=" root_disableShallowClone"
           >
             <div
@@ -451,7 +451,7 @@ exports[`storybook Storyshots Spruce Form Example 2 1`] = `
             </div>
           </div>
           <div
-            className="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm7"
+            className="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm8"
             id=" root_disableQueue"
           >
             <div
@@ -492,7 +492,7 @@ exports[`storybook Storyshots Spruce Form Example 2 1`] = `
             </div>
           </div>
           <div
-            className="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm7"
+            className="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm8"
             id=" root_decommissionHosts"
           >
             <div
@@ -533,7 +533,7 @@ exports[`storybook Storyshots Spruce Form Example 2 1`] = `
             </div>
           </div>
           <div
-            className="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm7"
+            className="form-group field field-string css-ejwhfc-DefaultFieldContainer e7smmlm8"
             id=" root_reprovisionMethod"
           >
             <div
@@ -654,14 +654,14 @@ exports[`storybook Storyshots Spruce Form Example 3 1`] = `
       onSubmit={[Function]}
     >
       <div
-        className="form-group field field-object css-ejwhfc-DefaultFieldContainer e7smmlm7"
+        className="form-group field field-object css-ejwhfc-DefaultFieldContainer e7smmlm8"
         id=" root"
       >
         <fieldset
           id="root"
         >
           <div
-            className="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm7"
+            className="form-group field field-boolean css-ejwhfc-DefaultFieldContainer e7smmlm8"
             id=" root_visible"
           >
             <div

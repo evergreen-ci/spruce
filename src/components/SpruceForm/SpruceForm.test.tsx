@@ -52,7 +52,7 @@ describe("spruceForm", () => {
     await waitFor(() =>
       expect(queryAllByDataCy("new-user-input")).toHaveLength(2)
     );
-    fireEvent.change(queryAllByDataCy("new-user-input")[1], {
+    fireEvent.change(queryAllByDataCy("new-user-input")[0], {
       target: { value: "new-user" },
     });
     // eslint-disable-next-line jest/prefer-called-with
@@ -62,7 +62,7 @@ describe("spruceForm", () => {
       ...basicForm.formData,
       access: null,
       validProjects: "new value",
-      users: ["initial-user", "new-user"],
+      users: ["new-user", "initial-user"],
     });
   });
 });

@@ -4,6 +4,7 @@ import {
   queries,
   RenderResult,
   RenderOptions,
+  within,
 } from "@testing-library/react";
 import { createMemoryHistory } from "history";
 import { Router, Route } from "react-router-dom";
@@ -25,6 +26,9 @@ const customRender = (
     queries: { ...queries, ...customQueries },
     ...options,
   }) as RenderResult<CustomRenderType>;
+
+const customWithin = (ui: HTMLElement) =>
+  within(ui, { ...queries, ...customQueries });
 
 interface renderWithRouterMatchOptions extends customRenderOptions {
   route?: string;
@@ -77,4 +81,8 @@ export const mockUUID = () => {
 export * from "@testing-library/react";
 
 // override render method
-export { customRender as render, renderWithRouterMatch };
+export {
+  customRender as render,
+  renderWithRouterMatch,
+  customWithin as within,
+};

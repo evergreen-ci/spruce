@@ -2,7 +2,7 @@
 
 exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
 <div
-  className="css-5uyor4-ChartContainer ech0nhv3"
+  className="css-1htrvjs-ChartContainer ech0nhv3"
 >
   <div
     className="css-1r6zuyg-Row ev0bopr3"
@@ -282,103 +282,137 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
           className="css-7yxj8m-AbsoluteContainer e3d007b2"
         >
           <div
-            className="css-r7f5o5-ToggleWrapper e1d5uzqe0"
+            className="css-nbsfda-AccordionContainer e1d5uzqe0"
           >
-            <label
-              className="leafygreen-ui-ly82bp"
-              htmlFor="chart-toggle"
-            >
-              View Options
-            </label>
             <div
-              aria-label="chart-select"
-              className="leafygreen-ui-sgfp3 css-7kc8m7-StyledRadioGroup e1d5uzqe1"
-              role="group"
+              className="css-1r6zuyg-Row ev0bopr3"
+            >
+              <span
+                className="css-58nl5l-AccordionToggle ev0bopr2"
+                data-cy="accordion-toggle"
+                onClick={[Function]}
+              >
+                <svg
+                  aria-label="Caret Down Icon"
+                  className=""
+                  fill="none"
+                  height={16}
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width={16}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.679 10.796a.554.554 0 01-.858 0L4.64 6.976C4.32 6.594 4.582 6 5.069 6h6.362c.487 0 .748.594.43.976l-3.182 3.82z"
+                    fill="currentColor"
+                  />
+                </svg>
+                <span>
+                  View options
+                </span>
+              </span>
+            </div>
+            <div
+              className="css-1ofqqce-AnimatedAccordion ev0bopr1"
             >
               <div
-                className="leafygreen-ui-1s4vgyd"
+                className="css-1nylm8s-ContentsContainer ev0bopr0"
               >
-                <label
-                  className="leafygreen-ui-17avto4"
-                  htmlFor="chart-radio-absolute"
+                <div
+                  className="css-r7f5o5-ToggleWrapper e1d5uzqe1"
                 >
-                  <input
-                    aria-checked={true}
-                    aria-disabled={false}
-                    checked={true}
-                    className="leafygreen-ui-x2r5fc"
-                    data-cy="cy-chart-absolute-radio"
-                    data-leafygreen-ui="input-element"
-                    disabled={false}
-                    id="chart-radio-absolute"
-                    name="chart-select"
-                    onChange={[Function]}
-                    type="radio"
-                    value="absolute"
-                  />
                   <div
-                    className="leafygreen-ui-5a1vdt"
-                    data-leafygreen-ui="radio-input-display-wrapper"
+                    aria-label="chart-select"
+                    className="leafygreen-ui-sgfp3 css-9dmnhj-StyledRadioGroup e1d5uzqe2"
+                    role="group"
                   >
                     <div
-                      className="leafygreen-ui-1y6j5s3"
-                      data-leafygreen-ui="radio-input-display"
-                      onBlur={[Function]}
-                      onFocus={[Function]}
-                    />
+                      className="leafygreen-ui-1s4vgyd"
+                    >
+                      <label
+                        className="leafygreen-ui-17avto4"
+                        htmlFor="chart-radio-absolute"
+                      >
+                        <input
+                          aria-checked={true}
+                          aria-disabled={false}
+                          checked={true}
+                          className="leafygreen-ui-x2r5fc"
+                          data-cy="cy-chart-absolute-radio"
+                          data-leafygreen-ui="input-element"
+                          disabled={false}
+                          id="chart-radio-absolute"
+                          name="chart-select"
+                          onChange={[Function]}
+                          type="radio"
+                          value="absolute"
+                        />
+                        <div
+                          className="leafygreen-ui-5a1vdt"
+                          data-leafygreen-ui="radio-input-display-wrapper"
+                        >
+                          <div
+                            className="leafygreen-ui-1y6j5s3"
+                            data-leafygreen-ui="radio-input-display"
+                            onBlur={[Function]}
+                            onFocus={[Function]}
+                          />
+                          <div
+                            className="leafygreen-ui-1cqcpzq"
+                            data-leafygreen-ui="interaction-ring"
+                          />
+                        </div>
+                        <div
+                          className="leafygreen-ui-3sm8z"
+                        >
+                          Absolute Number
+                        </div>
+                      </label>
+                    </div>
                     <div
-                      className="leafygreen-ui-1cqcpzq"
-                      data-leafygreen-ui="interaction-ring"
-                    />
+                      className="leafygreen-ui-1s4vgyd"
+                    >
+                      <label
+                        className="css-p102ix leafygreen-ui-17avto4"
+                        htmlFor="chart-radio-percent"
+                      >
+                        <input
+                          aria-disabled={false}
+                          checked={false}
+                          className="leafygreen-ui-x2r5fc"
+                          data-cy="cy-chart-percent-radio"
+                          data-leafygreen-ui="input-element"
+                          disabled={false}
+                          id="chart-radio-percent"
+                          name="chart-select"
+                          onChange={[Function]}
+                          type="radio"
+                          value="percentage"
+                        />
+                        <div
+                          className="leafygreen-ui-5a1vdt"
+                          data-leafygreen-ui="radio-input-display-wrapper"
+                        >
+                          <div
+                            className="leafygreen-ui-1y6j5s3"
+                            data-leafygreen-ui="radio-input-display"
+                            onBlur={[Function]}
+                            onFocus={[Function]}
+                          />
+                          <div
+                            className="leafygreen-ui-1cqcpzq"
+                            data-leafygreen-ui="interaction-ring"
+                          />
+                        </div>
+                        <div
+                          className="leafygreen-ui-3sm8z"
+                        >
+                          Percentage
+                        </div>
+                      </label>
+                    </div>
                   </div>
-                  <div
-                    className="leafygreen-ui-3sm8z"
-                  >
-                    Absolute Number
-                  </div>
-                </label>
-              </div>
-              <div
-                className="leafygreen-ui-1s4vgyd"
-              >
-                <label
-                  className="css-r3dzpj leafygreen-ui-17avto4"
-                  htmlFor="chart-radio-percent"
-                >
-                  <input
-                    aria-disabled={false}
-                    checked={false}
-                    className="leafygreen-ui-x2r5fc"
-                    data-cy="cy-chart-percent-radio"
-                    data-leafygreen-ui="input-element"
-                    disabled={false}
-                    id="chart-radio-percent"
-                    name="chart-select"
-                    onChange={[Function]}
-                    type="radio"
-                    value="percentage"
-                  />
-                  <div
-                    className="leafygreen-ui-5a1vdt"
-                    data-leafygreen-ui="radio-input-display-wrapper"
-                  >
-                    <div
-                      className="leafygreen-ui-1y6j5s3"
-                      data-leafygreen-ui="radio-input-display"
-                      onBlur={[Function]}
-                      onFocus={[Function]}
-                    />
-                    <div
-                      className="leafygreen-ui-1cqcpzq"
-                      data-leafygreen-ui="interaction-ring"
-                    />
-                  </div>
-                  <div
-                    className="leafygreen-ui-3sm8z"
-                  >
-                    Percentage
-                  </div>
-                </label>
+                </div>
               </div>
             </div>
           </div>
