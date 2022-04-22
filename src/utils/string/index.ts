@@ -210,6 +210,9 @@ export const trimStringFromMiddle = (str: string, maxLength: number) => {
  * @return {string} List items joined by a comma with the coordinating conjunction
  */
 export const joinWithConjunction = (array: string[], conjunction: string) => {
+  if (array.length === 0) {
+    return "";
+  }
   if (array.length === 1) {
     return array[0];
   }
