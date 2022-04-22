@@ -143,7 +143,7 @@ export const Commits = () => {
               options={tupleSelectOptions}
               onSubmit={onSubmitTupleSelect}
               validator={validateRegexp}
-              validatorErrorMessage="Invalid Regular expression"
+              validatorErrorMessage="Invalid Regular Expression"
             />
           </ElementWrapper>
           <ElementWrapper width="20">
