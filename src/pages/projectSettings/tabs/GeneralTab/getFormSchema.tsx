@@ -2,6 +2,8 @@ import { Field } from "@rjsf/core";
 import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
+import { StyledLink } from "components/styles";
+import { versionControlDocumentationUrl } from "constants/externalResources";
 import { Project } from "gql/generated/types";
 import { form, ProjectType } from "../utils";
 import { RepoConfigField, RepotrackerField } from "./Fields";
@@ -85,6 +87,14 @@ export const getFormSchema = (
               spawnHostScriptPath: {
                 type: ["string", "null"],
                 title: "Spawn Host Script Path",
+              },
+              versionControlEnabled: {
+                type: ["boolean", "null"],
+                title: "Version Control",
+                oneOf: radioBoxOptions(
+                  ["Enabled", "Disabled"],
+                  repoData?.generalConfiguration?.other?.versionControlEnabled
+                ),
               },
             },
           },
@@ -235,6 +245,7 @@ export const getFormSchema = (
                   type: "string" as "string",
                   title: "File Pattern",
                   default: "",
+                  minLength: 1,
                 },
               }
             ),
@@ -306,6 +317,10 @@ export const getFormSchema = (
             repoData?.generalConfiguration?.other?.spawnHostScriptPath
           ),
         },
+        versionControlEnabled: {
+          "ui:widget": widgets.RadioBoxWidget,
+          "ui:description": VersionControlEnabledDescription,
+        },
       },
     },
     projectFlags: {
@@ -373,7 +388,10 @@ export const getFormSchema = (
       },
       files: {
         filesIgnoredFromCacheOverride: {
-          "ui:widget": widgets.RadioBoxWidget,
+          "ui:widget":
+            projectType === ProjectType.AttachedProject
+              ? widgets.RadioBoxWidget
+              : "hidden",
           "ui:showLabel": false,
         },
         filesIgnoredFromCache: {
@@ -392,3 +410,13 @@ export const getFormSchema = (
     },
   },
 });
+
+const VersionControlEnabledDescription = (
+  <>
+    Enabling Version Control allows{" "}
+    <StyledLink href={versionControlDocumentationUrl}>
+      select properties
+    </StyledLink>{" "}
+    to be defined in this project&rsquo;s config YAML in addition to the UI.
+  </>
+);
