@@ -1,6 +1,6 @@
-import { renderWithRouterMatch as render, fireEvent, act } from "test_utils";
+import { render, fireEvent, waitFor } from "test_utils";
 import { ProjectFilterOptions } from "types/commits";
-import { TupleSelect } from ".";
+import TupleSelect from ".";
 
 const options = [
   {
@@ -14,13 +14,21 @@ const options = [
     placeHolderText: "Search Task names",
   },
 ];
-const Content = () => <TupleSelect options={options} />;
+
 describe("tupleSelect", () => {
-  it("renders normally and doesn't affect the url", () => {
-    const { queryByDataCy } = render(Content, {
-      route: `/commits/evergreen`,
-      path: "/commits/:projectId",
-    });
+  it("renders normally", () => {
+    const onSubmit = jest.fn();
+    const validator = jest.fn((v) => v !== "bad");
+    const validatorErrorMessage = "Invalid Input";
+    const { queryByDataCy } = render(
+      <TupleSelect
+        options={options}
+        onSubmit={onSubmit}
+        validator={validator}
+        validatorErrorMessage={validatorErrorMessage}
+      />
+    );
+
     const input = queryByDataCy("tuple-select-input");
     const dropdown = queryByDataCy("tuple-select-dropdown");
     expect(dropdown).toBeInTheDocument();
@@ -30,10 +38,17 @@ describe("tupleSelect", () => {
   });
 
   it("should clear input when a value is submitted", () => {
-    const { queryByDataCy } = render(Content, {
-      route: `/commits/evergreen`,
-      path: "/commits/:projectId",
-    });
+    const onSubmit = jest.fn();
+    const validator = jest.fn((v) => v !== "bad");
+    const validatorErrorMessage = "Invalid Input";
+    const { queryByDataCy } = render(
+      <TupleSelect
+        options={options}
+        onSubmit={onSubmit}
+        validator={validator}
+        validatorErrorMessage={validatorErrorMessage}
+      />
+    );
     const input = queryByDataCy("tuple-select-input");
 
     expect(input).toHaveValue("");
@@ -48,119 +63,37 @@ describe("tupleSelect", () => {
     });
     expect(input).toHaveValue("");
   });
-
-  it("should add input query params to the url", () => {
-    const { queryByDataCy, history } = render(Content, {
-      route: `/commits/evergreen`,
-      path: "/commits/:projectId",
-    });
+  it("should validate the input and prevent submission if it fails validation", async () => {
+    const onSubmit = jest.fn();
+    const validator = jest.fn((v) => v !== "bad");
+    const validatorErrorMessage = "Invalid Input";
+    const { queryByDataCy, queryByText } = render(
+      <TupleSelect
+        options={options}
+        onSubmit={onSubmit}
+        validator={validator}
+        validatorErrorMessage={validatorErrorMessage}
+      />
+    );
     const input = queryByDataCy("tuple-select-input");
 
     expect(input).toHaveValue("");
     fireEvent.change(input, {
-      target: { value: "some-filter" },
+      target: { value: "bad" },
     });
-    expect(input).toHaveValue("some-filter");
+    expect(input).toHaveValue("bad");
     fireEvent.focus(input);
     fireEvent.keyDown(input, {
       key: "Enter",
       keyCode: 13,
     });
-    const { location } = history;
-
-    expect(location.search).toBe(
-      `?${ProjectFilterOptions.BuildVariant}=some-filter`
+    expect(input).toHaveValue("bad");
+    expect(onSubmit).not.toHaveBeenCalled();
+    expect(validator).toHaveBeenLastCalledWith("bad");
+    expect(queryByDataCy("tuple-select-warning")).toBeInTheDocument();
+    fireEvent.mouseEnter(queryByDataCy("tuple-select-warning"));
+    await waitFor(() =>
+      expect(queryByText(validatorErrorMessage)).toBeInTheDocument()
     );
-  });
-
-  it("should add multiple input filters to the same key as query params", () => {
-    const { queryByDataCy, history } = render(Content, {
-      route: `/commits/evergreen`,
-      path: "/commits/:projectId",
-    });
-    const input = queryByDataCy("tuple-select-input");
-    expect(input).toHaveValue("");
-    fireEvent.change(input, {
-      target: { value: "some-filter" },
-    });
-    expect(input).toHaveValue("some-filter");
-    fireEvent.keyDown(input, {
-      key: "Enter",
-      keyCode: 13,
-    });
-    fireEvent.change(input, {
-      target: { value: "some-other-filter" },
-    });
-    expect(input).toHaveValue("some-other-filter");
-    fireEvent.keyDown(input, {
-      key: "Enter",
-      keyCode: 13,
-    });
-    const { location } = history;
-    expect(location.search).toBe(
-      `?${ProjectFilterOptions.BuildVariant}=some-filter,some-other-filter`
-    );
-  });
-
-  it("should not allow duplicate input filters for the same key as query params", () => {
-    const { queryByDataCy, history } = render(Content, {
-      route: `/commits/evergreen`,
-      path: "/commits/:projectId",
-    });
-    const input = queryByDataCy("tuple-select-input");
-    expect(input).toHaveValue("");
-    fireEvent.change(input, {
-      target: { value: "some-filter" },
-    });
-    expect(input).toHaveValue("some-filter");
-    fireEvent.keyDown(input, {
-      key: "Enter",
-      keyCode: 13,
-    });
-    fireEvent.change(input, {
-      target: { value: "some-filter" },
-    });
-    expect(input).toHaveValue("some-filter");
-    fireEvent.keyDown(input, {
-      key: "Enter",
-      keyCode: 13,
-    });
-    const { location } = history;
-    expect(location.search).toBe(
-      `?${ProjectFilterOptions.BuildVariant}=some-filter`
-    );
-  });
-
-  it("should allow multiple input filters for different keys as query params", async () => {
-    const { queryByDataCy } = render(Content, {
-      route: `/commits/evergreen`,
-      path: "/commits/:projectId",
-    });
-    const input = queryByDataCy("tuple-select-input");
-    const dropdown = queryByDataCy("tuple-select-dropdown");
-
-    expect(input).toHaveValue("");
-    fireEvent.change(input, {
-      target: { value: "some-filter" },
-    });
-    expect(input).toHaveValue("some-filter");
-    fireEvent.keyDown(input, {
-      key: "Enter",
-      keyCode: 13,
-    });
-
-    // Because of some changes in antd v4 we cannot directly click on the antd select component
-    // So we need to add some special handling to click the dropdown and select entries
-    // https://github.com/ant-design/ant-design/issues/22074
-    fireEvent.mouseDown(dropdown.firstChild);
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    fireEvent.change(input, {
-      target: { value: "some-other-filter" },
-    });
-    expect(input).toHaveValue("some-other-filter");
-    fireEvent.keyDown(input, {
-      key: "Enter",
-      keyCode: 13,
-    });
   });
 });

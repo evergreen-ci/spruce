@@ -87,8 +87,8 @@ const TupleSelect: React.VFC<TupleSelectProps> = ({
               <IconTooltip
                 glyph="Warning"
                 tooltipText={validatorErrorMessage}
-                data-cy="tuple-select-button"
-                color={yellow.base}
+                data-cy="tuple-select-warning"
+                fill={yellow.base}
               />
             )
           }
