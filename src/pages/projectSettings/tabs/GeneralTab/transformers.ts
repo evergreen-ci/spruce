@@ -32,7 +32,7 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
         ...("identifier" in projectRef && {
           identifier: projectRef?.identifier,
         }),
-        batchTime: projectRef.batchTime || null,
+        batchTime: projectRef.batchTime,
         remotePath: projectRef.remotePath,
         spawnHostScriptPath: projectRef.spawnHostScriptPath,
         versionControlEnabled: projectRef.versionControlEnabled,
@@ -47,8 +47,7 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
         repotrackerDisabled: projectRef.repotrackerDisabled,
       },
       logger: {
-        defaultLogger:
-          projectRef.defaultLogger === "" ? null : projectRef.defaultLogger,
+        defaultLogger: projectRef.defaultLogger,
       },
       testResults: {
         cedarTestResultsEnabled: projectRef.cedarTestResultsEnabled,

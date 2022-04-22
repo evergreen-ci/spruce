@@ -6,9 +6,7 @@ export interface FormState {
     restricted: boolean | null;
   };
   admin: {
-    admins: Array<{
-      username: string;
-    }> | null;
+    admins: Array<{ username: string }>;
   };
 }
 

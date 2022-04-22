@@ -30,6 +30,7 @@ export const getFormSchema = (
             intervalHours: {
               type: "number" as "number",
               title: "Interval",
+              minimum: 1,
             },
             configFile: {
               type: "string" as "string",

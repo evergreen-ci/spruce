@@ -135,7 +135,7 @@ export const getFormSchema = (
                 "gitTagAuthorizedUsers",
                 ["Override Repo Users", "Default to Repo Users"],
                 {
-                  type: ["array", "null"],
+                  type: "array" as "array",
                   items: {
                     type: "string" as "string",
                     title: "Username",
@@ -152,7 +152,7 @@ export const getFormSchema = (
                 "gitTagAuthorizedTeams",
                 ["Override Repo Teams", "Default to Repo Teams"],
                 {
-                  type: ["array", "null"],
+                  type: "array" as "array",
                   items: {
                     type: "string" as "string",
                     title: "Team",
@@ -195,7 +195,7 @@ export const getFormSchema = (
               title: "Commit Queue Message",
             },
             mergeMethod: {
-              type: ["string"],
+              type: "string" as "string",
               title: "Merge Method",
               oneOf: [
                 {

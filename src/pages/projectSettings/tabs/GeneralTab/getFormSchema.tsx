@@ -47,17 +47,17 @@ export const getFormSchema = (
             title: "Repository Info",
             properties: {
               owner: {
-                type: ["string", "null"],
+                type: "string" as "string",
                 title: "Owner",
               },
               repo: {
-                type: ["string", "null"],
+                type: "string" as "string",
                 title: "Repository",
               },
             },
           },
           branch: {
-            type: ["string", "null"],
+            type: "string" as "string",
             title: "Branch Name",
           },
           other: {
@@ -65,7 +65,7 @@ export const getFormSchema = (
             title: "Other",
             properties: {
               displayName: {
-                type: ["string", "null"],
+                type: "string" as "string",
                 title: "Display Name",
               },
               ...(projectType !== ProjectType.Repo && {
@@ -77,15 +77,16 @@ export const getFormSchema = (
                 },
               }),
               batchTime: {
-                type: ["number", "null"],
+                type: "number" as "number",
                 title: "Batch Time",
+                minimum: 0,
               },
               remotePath: {
-                type: ["string", "null"],
+                type: "string" as "string",
                 title: "Config File",
               },
               spawnHostScriptPath: {
-                type: ["string", "null"],
+                type: "string" as "string",
                 title: "Spawn Host Script Path",
               },
               versionControlEnabled: {
@@ -147,20 +148,18 @@ export const getFormSchema = (
             title: "Default Logger",
             properties: {
               defaultLogger: {
-                default: null,
-                type: [
-                  "string",
-                  ...insertIf(
-                    projectType === ProjectType.AttachedProject,
-                    "null"
-                  ),
-                ],
-                enum: [
-                  ...validDefaultLoggers,
-                  ...insertIf(
-                    projectType === ProjectType.AttachedProject,
-                    null
-                  ),
+                type: "string" as "string",
+                oneOf: [
+                  ...insertIf(projectType === ProjectType.AttachedProject, {
+                    type: "string" as "string",
+                    title: `Default to Repo (${repoData?.projectFlags?.logger?.defaultLogger})`,
+                    enum: [""],
+                  }),
+                  ...validDefaultLoggers.map((logger) => ({
+                    type: "string" as "string",
+                    title: logger,
+                    enum: [logger],
+                  })),
                 ],
               },
             },
@@ -240,7 +239,7 @@ export const getFormSchema = (
               "filesIgnoredFromCache",
               ["Override Repo File Pattern", "Default to Repo File Pattern"],
               {
-                type: ["array", "null"],
+                type: "array" as "array",
                 items: {
                   type: "string" as "string",
                   title: "File Pattern",
@@ -347,12 +346,7 @@ export const getFormSchema = (
       },
       logger: {
         defaultLogger: {
-          "ui:placeholder": repoData
-            ? `Default to Repo (${repoData?.projectFlags?.logger?.defaultLogger})`
-            : "Select Default Logger",
-          ...(projectType !== ProjectType.AttachedProject && {
-            "ui:allowDeselect": false,
-          }),
+          "ui:allowDeselect": false,
           "ui:ariaLabelledBy": "projectFlags_logger__title",
           "ui:data-cy": "default-logger-select",
         },

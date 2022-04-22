@@ -44,7 +44,7 @@ export const getFormSchema = (
         title: "Admin",
         properties: {
           admins: {
-            type: ["array", "null"],
+            type: "array" as "array",
             items: {
               type: "object" as "object",
               properties: {
