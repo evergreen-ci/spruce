@@ -1,11 +1,11 @@
 import { useLocation } from "react-router";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { queryString, url } from "utils";
+import { useUpdateURLQueryParams } from "./useUpdateURLQueryParams";
 
 const { upsertQueryParam } = url;
 const { parseQueryString } = queryString;
 
-const useTupleSelectQueryParams = () => {
+const useUpsertQueryParams = () => {
   const updateQueryParams = useUpdateURLQueryParams();
   const { search } = useLocation();
   const queryParams = parseQueryString(search);
@@ -25,4 +25,4 @@ const useTupleSelectQueryParams = () => {
   return onSubmit;
 };
 
-export default useTupleSelectQueryParams;
+export { useUpsertQueryParams };
