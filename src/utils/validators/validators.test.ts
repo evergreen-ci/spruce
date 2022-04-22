@@ -1,4 +1,4 @@
-import { validateObjectId, validateRegexp } from ".";
+import { validateRegexp, validateObjectId, validateSSHPublicKey } from ".";
 
 describe("validateObjectId", () => {
   it("validates object ids", () => {
@@ -25,5 +25,15 @@ describe("validateRegexp", () => {
     expect(validateRegexp("variant[")).toBeFalsy();
     expect(validateRegexp("[")).toBeFalsy();
     expect(validateRegexp("test(")).toBeFalsy();
+  });
+});
+describe("validateSSHPublicKey", () => {
+  it("validates ssh public keys", () => {
+    expect(validateSSHPublicKey("ssh-rsa someHash")).toBeTruthy();
+    expect(validateSSHPublicKey("ssh-dss someHash")).toBeTruthy();
+    expect(validateSSHPublicKey("ssh-ed25519 someHash")).toBeTruthy();
+    expect(validateSSHPublicKey("ecdsa-sha2-nistp256 someHash")).toBeTruthy();
+    expect(validateSSHPublicKey("ssh-dssNoSpace")).toBeFalsy();
+    expect(validateSSHPublicKey("ssh-badStart someHash")).toBeFalsy();
   });
 });

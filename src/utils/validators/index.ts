@@ -12,6 +12,13 @@ const validateEmail = (v: string): boolean => /\S+@\S+\.\S+/.test(v);
 
 const validateJira = (v: string) => v.match(".+-[0-9]+") !== null;
 
+const validateSSHPublicKey = (v: string): boolean => {
+  const validSSHKey = new RegExp(
+    /^(ssh-rsa|ssh-dss|ssh-ed25519|ecdsa-sha2-nistp256) /
+  );
+  return validSSHKey.test(v);
+};
+
 const validatePercentage = (percent: any) => {
   const posNumRegex = /^[0-9]+([,.][0-9]+)?$/g;
   if (!posNumRegex.test(percent)) {
@@ -53,8 +60,9 @@ export {
   validateDuration,
   validateEmail,
   validateJira,
-  validatePercentage,
-  validateSlack,
   validateObjectId,
+  validatePercentage,
   validateRegexp,
+  validateSSHPublicKey,
+  validateSlack,
 };
