@@ -161,5 +161,10 @@ exports[`storybook Storyshots TupleSelect Default 1`] = `
       </span>
     </span>
   </div>
+  <small
+    className="leafygreen-ui-13bqno6"
+  >
+    The word \`bad\` will fail validation
+  </small>
 </div>
 `;

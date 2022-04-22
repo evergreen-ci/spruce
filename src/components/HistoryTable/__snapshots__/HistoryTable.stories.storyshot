@@ -796,8 +796,9 @@ exports[`storybook Storyshots History Table Test Search 1`] = `
         </div>
       </div>
       <svg
-        aria-label="Plus Icon"
-        className="css-1341dg6-StyledIcon e8i7li40"
+        aria-label="Select plus button"
+        className="css-y37f0t-StyledIcon-iconPositionStyles e8i7li40"
+        data-cy="tuple-select-button"
         fill="none"
         height={16}
         onClick={[Function]}
