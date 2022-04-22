@@ -1,15 +1,7 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
 import { useParams, useLocation } from "react-router-dom";
-import { useVersionAnalytics } from "analytics";
-import { PageSizeSelector } from "components/PageSizeSelector";
-import { Pagination } from "components/Pagination";
-import { ResultCountLabel } from "components/ResultCountLabel";
-import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
 import { pollInterval } from "constants/index";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   PatchTaskDurationsQuery,
@@ -20,6 +12,7 @@ import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
 import { queryString, url } from "utils";
+import { TabTableControl } from "./TabTableControl";
 import { TaskDurationTable } from "./taskDuration/TaskDurationTable";
 
 const { parseQueryString, parseSortString, getString } = queryString;
@@ -33,7 +26,6 @@ export const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
   const { id: versionId } = useParams<{ id: string }>();
 
   const { search } = useLocation();
-  const { sendEvent } = useVersionAnalytics(versionId);
   const dispatchToast = useToastContext();
 
   const updateQueryParams = useUpdateURLQueryParams();
@@ -69,48 +61,15 @@ export const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
   usePolling(startPolling, stopPolling);
   const { patchTasks } = data || {};
 
-  const onClearAll = () => {
-    sendEvent({ name: "Clear all filter" });
-    updateQueryParams({
-      taskName: undefined,
-      variant: undefined,
-      page: undefined,
-      sorts: defaultSortMethod,
-    });
-  };
-
   return (
     <>
-      <TableControlOuterRow>
-        <FlexContainer>
-          <ResultCountLabel
-            dataCyNumerator="current-task-count"
-            dataCyDenominator="total-task-count"
-            label="tasks"
-            numerator={patchTasks?.count}
-            denominator={taskCount}
-          />
-          <PaddedButton // @ts-expect-error
-            onClick={onClearAll}
-            data-cy="clear-all-filters"
-          >
-            Clear All Filters
-          </PaddedButton>
-        </FlexContainer>
-        <TableControlInnerRow>
-          <Pagination
-            data-cy="tasks-table-pagination"
-            pageSize={limit}
-            value={page}
-            totalResults={patchTasks?.count}
-          />
-          <PageSizeSelector
-            data-cy="tasks-table-page-size-selector"
-            value={limit}
-            sendAnalyticsEvent={() => sendEvent({ name: "Change Page Size" })}
-          />
-        </TableControlInnerRow>
-      </TableControlOuterRow>
+      <TabTableControl
+        filteredCount={patchTasks?.count}
+        taskCount={taskCount}
+        limit={limit}
+        page={page}
+        defaultSortMethod={defaultSortMethod}
+      />
       <TaskDurationTable patchTasks={patchTasks} sorts={allSorts} />
     </>
   );
@@ -140,13 +99,3 @@ const getQueryVariables = (
     limit: getLimitFromSearch(search),
   };
 };
-
-const FlexContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-// @ts-expect-error
-const PaddedButton = styled(Button)`
-  margin-left: ${size.m};
-`;

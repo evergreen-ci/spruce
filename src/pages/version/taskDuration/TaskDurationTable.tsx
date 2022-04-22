@@ -137,19 +137,19 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
                   mapTaskToBarchartColor[mapTaskStatusToUmbrellaStatus[status]];
                 return (
                   <Row key={id}>
-                    <Cell>
+                    <StandardCell>
                       <TaskNameWrapper>
                         {displayName}
                         <TaskStatusIcon status={status} />
                       </TaskNameWrapper>
-                    </Cell>
-                    <Cell>{buildVariantDisplayName}</Cell>
-                    <Cell>
+                    </StandardCell>
+                    <StandardCell>{buildVariantDisplayName}</StandardCell>
+                    <FullWidthCell>
                       <DurationWrapper>
                         <Bar width={barWidth} color={barColor} />
                         <TimeLabel>{msToDuration(timeTaken)}</TimeLabel>
                       </DurationWrapper>
-                    </Cell>
+                    </FullWidthCell>
                   </Row>
                 );
               })}
@@ -180,19 +180,19 @@ const DisplayTaskRow: React.VFC<RowProps> = ({
     mapTaskToBarchartColor[mapTaskStatusToUmbrellaStatus[status]];
   return (
     <Row key={id} data-cy={dataCy}>
-      <Cell>
+      <StandardCell>
         <TaskNameWrapper>
           {displayName}
           <TaskStatusIcon status={status} />
         </TaskNameWrapper>
-      </Cell>
-      <Cell>{buildVariantDisplayName}</Cell>
-      <Cell>
+      </StandardCell>
+      <StandardCell>{buildVariantDisplayName}</StandardCell>
+      <FullWidthCell>
         <DurationWrapper>
           <Bar width={barWidth} color={barColor} />
           <TimeLabel>{msToDuration(timeTaken)}</TimeLabel>
         </DurationWrapper>
-      </Cell>
+      </FullWidthCell>
       {children}
     </Row>
   );
@@ -208,16 +208,20 @@ const calculateBarWidth = (value: number, max: number) =>
 
 const TableWrapper = styled.div`
   border-top: 3px solid ${gray.light2};
-  // Styling the Cell directly doesn't work, so styling is done through the table.
-  td {
-    word-break: break-all;
-    padding-right: ${size.m};
-    :nth-of-type(3) {
-      span {
-        width: 100%;
-    }
+`;
+
+const StandardCell = styled(Cell)`
+  word-break: break-all;
+  padding-right: ${size.m};
+`;
+StandardCell.displayName = "Cell";
+
+const FullWidthCell = styled(Cell)`
+  span {
+    width: 100%;
   }
 `;
+FullWidthCell.displayName = "Cell";
 
 const StyledTableHeader = styled(TableHeader)`
   width: 20%;
