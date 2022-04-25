@@ -162,6 +162,7 @@ export const removeGlobalStyle = () => {
 };
 
 export const injectGlobalStyle = (taskIdentifier: string) => {
+  // Remove style here again because hovering over LG tooltips triggers two consecutive mouseenter events.
   removeGlobalStyle();
 
   const hoverStyle = document.createElement("style");

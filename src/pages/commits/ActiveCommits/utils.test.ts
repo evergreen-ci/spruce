@@ -1,7 +1,6 @@
 import { uiColors } from "@leafygreen-ui/palette";
 import { purple } from "constants/colors";
 import { taskStatusToCopy } from "constants/task";
-import { fireEvent } from "test_utils";
 import { TaskStatus } from "types/task";
 import {
   TASK_ICON_HEIGHT,
@@ -511,39 +510,46 @@ describe("roundMax", () => {
   });
 });
 
-describe("inject and remove globalStyles", () => {
-  const constructTaskIcon = (dataTaskIconName: string) => {
-    const element = document.createElement("div");
-    element.setAttribute("data-task-icon", dataTaskIconName);
-    element.setAttribute("style", "opacity: 1;");
-    element.onmouseenter = () => injectGlobalStyle(dataTaskIconName);
-    element.onmouseleave = () => removeGlobalStyle();
-    document.body.appendChild(element);
-    return element;
-  };
-
-  it("should deemphasize task icons that don't match with current hovered icon", () => {
+describe("injectGlobalStyle", () => {
+  it("should properly inject global style using the task identifier", () => {
     const taskIconStyle = "task-icon-style";
-    const testUtilIcon = constructTaskIcon("ubuntu1604-test_util");
-    const testCodegenIcon = constructTaskIcon("ubuntu1604-test_codegen");
-
-    // Since the style is being added to the head, it's not possible to check that the opacity
-    // of the element changes (because the style on the element won't change). But we can check
-    // that the style has been added to the head.
-    expect(document.getElementById(taskIconStyle)).not.toBeInTheDocument();
-
-    fireEvent.mouseEnter(testUtilIcon);
-    expect(document.getElementById(taskIconStyle)).toBeInTheDocument();
-    expect(document.getElementById(taskIconStyle).innerHTML).toContain(
-      "ubuntu1604-test_util"
+    const taskIdentifier = "ubuntu1604-test_util";
+    expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
+      taskIconStyle
     );
-    fireEvent.mouseLeave(testUtilIcon);
-    expect(document.getElementById(taskIconStyle)).not.toBeInTheDocument();
+    expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
+      taskIdentifier
+    );
 
-    fireEvent.mouseEnter(testCodegenIcon);
-    expect(document.getElementById(taskIconStyle)).toBeInTheDocument();
-    expect(document.getElementById(taskIconStyle).innerHTML).toContain(
-      "ubuntu1604-test_codegen"
+    injectGlobalStyle("ubuntu1604-test_util");
+    expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
+      taskIconStyle
+    );
+    expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
+      taskIdentifier
+    );
+  });
+});
+
+describe("removeGlobalStyle", () => {
+  it("should properly remove global style", () => {
+    const taskIconStyle = "task-icon-style";
+    const taskIdentifier = "ubuntu1604-test_util";
+
+    // Styles should persist from previous test.
+    expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
+      taskIconStyle
+    );
+    expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
+      taskIdentifier
+    );
+
+    removeGlobalStyle();
+    expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
+      taskIconStyle
+    );
+    expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
+      taskIdentifier
     );
   });
 });
