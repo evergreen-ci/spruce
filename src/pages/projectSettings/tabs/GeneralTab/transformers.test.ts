@@ -40,7 +40,7 @@ const repoForm: FormState = {
     branch: "main",
     other: {
       displayName: "",
-      batchTime: null,
+      batchTime: 0,
       remotePath: "evergreen.yml",
       spawnHostScriptPath: "/test/path",
       versionControlEnabled: false,
@@ -115,7 +115,7 @@ const projectForm: FormState = {
     other: {
       displayName: null,
       identifier: "project",
-      batchTime: null,
+      batchTime: 0,
       remotePath: null,
       spawnHostScriptPath: null,
       versionControlEnabled: true,

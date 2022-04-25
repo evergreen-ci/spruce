@@ -135,11 +135,13 @@ export const getFormSchema = (
                 "gitTagAuthorizedUsers",
                 ["Override Repo Users", "Default to Repo Users"],
                 {
-                  type: "array" as "array",
+                  type: ["array", "null"],
+                  default: [],
                   items: {
                     type: "string" as "string",
                     title: "Username",
                     default: "",
+                    minLength: 1,
                   },
                 }
               ),
@@ -152,11 +154,13 @@ export const getFormSchema = (
                 "gitTagAuthorizedTeams",
                 ["Override Repo Teams", "Default to Repo Teams"],
                 {
-                  type: "array" as "array",
+                  type: ["array", "null"],
+                  default: [],
                   items: {
                     type: "string" as "string",
                     title: "Team",
                     default: "",
+                    minLength: 1,
                   },
                 }
               ),
