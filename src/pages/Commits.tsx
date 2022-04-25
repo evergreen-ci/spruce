@@ -4,7 +4,9 @@ import styled from "@emotion/styled";
 import Cookies from "js-cookie";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
-import { FilterBadges } from "components/FilterBadges";
+import FilterBadges, {
+  useFilterBadgeQueryParams,
+} from "components/FilterBadges";
 import { ProjectSelect } from "components/projectSelect";
 import { PageWrapper } from "components/styles";
 import { ALL_VALUE } from "components/TreeSelect";
@@ -113,6 +115,9 @@ export const Commits = () => {
     ProjectFilterOptions.Task,
   ]);
 
+  const { badges, handleOnRemove, handleClearAll } = useFilterBadgeQueryParams(
+    queryParamsToDisplay
+  );
   const onSubmitTupleSelect = ({ category }: { category: string }) => {
     switch (category) {
       case ProjectFilterOptions.BuildVariant:
@@ -154,13 +159,15 @@ export const Commits = () => {
         </HeaderWrapper>
         <BadgeWrapper>
           <FilterBadges
-            onRemove={() => {
+            onRemove={(b) => {
               sendEvent({ name: "Remove badge" });
+              handleOnRemove(b);
             }}
             onClearAll={() => {
               sendEvent({ name: "Clear all badges" });
+              handleClearAll();
             }}
-            queryParamsToDisplay={queryParamsToDisplay}
+            badges={badges}
           />
         </BadgeWrapper>
         <PaginationWrapper>
@@ -194,15 +201,13 @@ const HeaderWrapper = styled.div`
     margin-right: ${size.s};
   }
 `;
-
 const BadgeWrapper = styled.div`
   margin: ${size.s} 0;
 `;
-
 const PaginationWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
-  padding: ${size.s} 0;
+  padding-bottom: ${size.xs};
 `;
 
 const tupleSelectOptions = [

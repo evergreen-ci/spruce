@@ -15,6 +15,7 @@ import GET_COMMIT_QUEUE from "./get-commit-queue.graphql";
 import GET_CREATED_TICKETS from "./get-created-tickets.graphql";
 import GET_DISPLAY_TASK from "./get-display-task.graphql";
 import GET_DISTROS from "./get-distros.graphql";
+import GET_GITHUB_ORGS from "./get-github-orgs.graphql";
 import GET_GITHUB_PROJECT_CONFLICTS from "./get-github-project-conflicts.graphql";
 import GET_HAS_VERSION from "./get-has-version.graphql";
 import GET_HOST_EVENTS from "./get-host-events.graphql";
@@ -82,6 +83,7 @@ export {
   GET_DISPLAY_TASK,
   GET_MY_HOSTS,
   GET_BUILD_VARIANTS_STATS,
+  GET_GITHUB_ORGS,
   GET_GITHUB_PROJECT_CONFLICTS,
   GET_HAS_VERSION,
   GET_IS_PATCH_CONFIGURED,
