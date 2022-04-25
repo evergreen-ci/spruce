@@ -80,7 +80,7 @@ export const CommitsWrapper: React.VFC<Props> = ({
 };
 
 const ChartContainer = styled.div`
-  padding: 0 ${size.m};
+  padding-left: ${size.m};
 `;
 
 const StickyContainer = styled.div`
