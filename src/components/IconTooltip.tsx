@@ -20,7 +20,7 @@ export const IconTooltip: React.VFC<IconTooltipProps> = ({
     triggerEvent="hover"
     trigger={
       <IconWrapper data-cy={dataCy} className={className}>
-        <StyledIcon {...rest} />
+        <Icon {...rest} />
       </IconWrapper>
     }
   >
@@ -37,8 +37,4 @@ const IconWrapper = styled.div`
   margin-left: ${size.xxs};
   display: flex;
   align-items: center;
-`;
-
-const StyledIcon = styled(Icon)`
-  /* display: block; */
 `;
