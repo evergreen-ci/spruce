@@ -35,7 +35,6 @@ interface Props extends PatchProps {
 
 export const PatchCard: React.VFC<Props> = ({
   id,
-  childPatches,
   description,
   createTime,
   author,
@@ -102,7 +101,6 @@ export const PatchCard: React.VFC<Props> = ({
       <Right>
         <DropdownMenu
           patchId={id}
-          childPatches={childPatches}
           canEnqueueToCommitQueue={canEnqueueToCommitQueue}
           isPatchOnCommitQueue={isPatchOnCommitQueue}
           patchDescription={description}
