@@ -4226,7 +4226,7 @@ export type VersionQuery = {
           projectIdentifier: string;
           taskCount?: Maybe<number>;
           status: string;
-          versionFull?: Maybe<{ status: string }>;
+          versionFull?: Maybe<{ id: string; status: string }>;
         }>
       >;
     }>;
