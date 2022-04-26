@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -7,7 +7,6 @@ import { Label } from "@leafygreen-ui/typography";
 import Icon from "components/Icon";
 import IconTooltip from "components/IconTooltip";
 import TextInput from "components/TextInputWithGlyph";
-import { size } from "constants/tokens";
 
 const { yellow } = uiColors;
 type option = {
@@ -47,9 +46,9 @@ const TupleSelect: React.VFC<TupleSelectProps> = ({
 
   return (
     <Container>
-      <StyledLabel htmlFor="filter-input">
+      <Label htmlFor="filter-input">
         Add New {selectedOption.displayName} Filter
-      </StyledLabel>
+      </Label>
       <InputGroup>
         <GroupedSelect
           value={selected}
@@ -141,10 +140,6 @@ const GroupedTextInput = styled(TextInput)`
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
   }
-`;
-
-const StyledLabel = styled(Label)`
-  margin-bottom: ${size.xxs};
 `;
 
 export default TupleSelect;
