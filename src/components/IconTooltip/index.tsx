@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { SerializedStyles } from "@emotion/utils";
 import Tooltip from "@leafygreen-ui/tooltip";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
@@ -6,11 +7,15 @@ import { size } from "constants/tokens";
 interface IconTooltipProps extends React.ComponentProps<typeof Icon> {
   tooltipText: string;
   ["data-cy"]?: string;
+  iconCss?: SerializedStyles;
+  wrapperCss?: SerializedStyles;
 }
 
-export const IconTooltip: React.VFC<IconTooltipProps> = ({
+const IconTooltip: React.VFC<IconTooltipProps> = ({
   tooltipText,
   className,
+  iconCss,
+  wrapperCss,
   "data-cy": dataCy,
   ...rest
 }) => (
@@ -19,8 +24,8 @@ export const IconTooltip: React.VFC<IconTooltipProps> = ({
     justify="middle"
     triggerEvent="hover"
     trigger={
-      <IconWrapper data-cy={dataCy} className={className}>
-        <Icon {...rest} />
+      <IconWrapper data-cy={dataCy} css={wrapperCss}>
+        <Icon css={iconCss} {...rest} />
       </IconWrapper>
     }
   >
@@ -38,3 +43,5 @@ const IconWrapper = styled.div`
   display: flex;
   align-items: center;
 `;
+
+export default IconTooltip;

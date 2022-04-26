@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { uiColors } from "@leafygreen-ui/palette";
-import { IconTooltip } from "components/IconTooltip";
+import IconTooltip from "components/IconTooltip";
 import { size } from "constants/tokens";
 import { HostStatus } from "types/host";
 
