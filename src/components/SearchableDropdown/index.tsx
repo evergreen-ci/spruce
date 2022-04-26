@@ -128,8 +128,6 @@ const SearchableDropdown = <T extends {}>({
       buttonText = value;
     } else if (Array.isArray(value) && value.length !== 0) {
       buttonText = value.join(", ");
-    } else {
-      buttonText = value.toString();
     }
   }
 
