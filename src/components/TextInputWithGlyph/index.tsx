@@ -6,16 +6,12 @@ type TextInputWithGlyphProps = {
 } & React.ComponentProps<typeof TextInput>;
 
 const TextInputWithGlyph: React.VFC<TextInputWithGlyphProps> = (props) => {
-  const { icon, label, ...rest } = props;
-  const hasLabel = !!label;
+  const { icon, ...rest } = props;
 
   return (
     <TextInputWrapper>
-      <TextInput label={label} {...rest} />
-      <IconWrapper>
-        {hasLabel && <LabelPlaceholder />}
-        <CenterIcon>{icon}</CenterIcon>
-      </IconWrapper>
+      <TextInput {...rest} />
+      <IconWrapper>{icon}</IconWrapper>
     </TextInputWrapper>
   );
 };
@@ -24,23 +20,11 @@ const TextInputWrapper = styled.div`
   width: 100%;
 `;
 
-const LabelPlaceholder = styled.div`
-  /* Height of the LG TextInput Label and Padding */
-  height: 20px;
-`;
-const CenterIcon = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 36px; /* Height of the LG TextInput */
-`;
 const IconWrapper = styled.div`
   align-items: center;
   display: flex;
-  flex-direction: column;
-  top: 0;
-  height: 100%;
-  margin-top: 0;
+  bottom: 0;
+  height: 36px; /* height of LG text-input */
   position: absolute;
   right: 10px;
 `;
