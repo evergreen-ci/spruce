@@ -151,7 +151,7 @@ const SearchableDropdown = <T extends {}>({
             placeholder={searchPlaceholder}
             value={search}
             onChange={handleSearch}
-            glyph="MagnifyingGlass"
+            icon={<Icon glyph="MagnifyingGlass" />}
             aria-label="Search"
             type="search"
           />

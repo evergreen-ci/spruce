@@ -2,9 +2,9 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { uiColors } from "@leafygreen-ui/palette";
-import TextInput from "@leafygreen-ui/text-input";
 import Icon from "components/Icon";
 import IconTooltip from "components/IconTooltip";
+import TextInput from "components/TextInputWithGlyph";
 import { useUpsertQueryParams } from "hooks";
 import { TestStatus } from "types/history";
 import { validators } from "utils";
@@ -47,24 +47,27 @@ export const HistoryTableTestSearch: React.VFC<HistoryTableTestSearchProps> = ({
         onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) =>
           e.key === "Enter" && handleOnSubmit()
         }
-      />
-      <IconWrapper>
-        {isValid ? (
-          <IconButton onClick={handleOnSubmit} aria-label="Select plus button">
-            <Icon glyph="Plus" data-cy="tuple-select-button" />
-          </IconButton>
-        ) : (
-          <InactiveIconWrapper>
-            <IconTooltip
-              glyph="Warning"
-              data-cy="tuple-select-warning"
-              fill={yellow.base}
+        icon={
+          isValid ? (
+            <IconButton
+              onClick={handleOnSubmit}
+              aria-label="Select plus button"
             >
-              Invalid Regular Expression
-            </IconTooltip>
-          </InactiveIconWrapper>
-        )}
-      </IconWrapper>
+              <Icon glyph="Plus" data-cy="tuple-select-button" />
+            </IconButton>
+          ) : (
+            <InactiveIconWrapper>
+              <IconTooltip
+                glyph="Warning"
+                data-cy="tuple-select-warning"
+                fill={yellow.base}
+              >
+                Invalid Regular Expression
+              </IconTooltip>
+            </InactiveIconWrapper>
+          )
+        }
+      />
     </ContentWrapper>
   );
 };
@@ -74,17 +77,6 @@ const ContentWrapper = styled.div`
   min-width: 200px; //temporary
   margin-right: 30px;
   position: relative;
-`;
-
-const IconWrapper = styled.div`
-  align-items: center;
-  display: flex;
-  height: 100%;
-  margin-right: 10px;
-  margin-top: 10px;
-  position: absolute;
-  right: 0;
-  top: 0;
 `;
 
 const InactiveIconWrapper = styled.div`

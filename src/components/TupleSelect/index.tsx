@@ -3,10 +3,11 @@ import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Select, Option } from "@leafygreen-ui/select";
-import TextInput from "@leafygreen-ui/text-input";
 import { Label } from "@leafygreen-ui/typography";
 import Icon from "components/Icon";
 import IconTooltip from "components/IconTooltip";
+import TextInput from "components/TextInputWithGlyph";
+import { size } from "constants/tokens";
 
 const { yellow } = uiColors;
 type option = {
@@ -46,9 +47,9 @@ const TupleSelect: React.VFC<TupleSelectProps> = ({
 
   return (
     <Container>
-      <Label htmlFor="filter-input">
+      <StyledLabel htmlFor="filter-input">
         Add New {selectedOption.displayName} Filter
-      </Label>
+      </StyledLabel>
       <InputGroup>
         <GroupedSelect
           value={selected}
@@ -77,27 +78,29 @@ const TupleSelect: React.VFC<TupleSelectProps> = ({
           onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) =>
             e.key === "Enter" && handleOnSubmit()
           }
+          icon={
+            <div>
+              {isValid ? (
+                <IconButton
+                  onClick={handleOnSubmit}
+                  aria-label="Select plus button"
+                >
+                  <Icon glyph="Plus" data-cy="tuple-select-button" />
+                </IconButton>
+              ) : (
+                <InactiveIconWrapper>
+                  <IconTooltip
+                    glyph="Warning"
+                    data-cy="tuple-select-warning"
+                    fill={yellow.base}
+                  >
+                    {validatorErrorMessage}
+                  </IconTooltip>
+                </InactiveIconWrapper>
+              )}
+            </div>
+          }
         />
-        <IconWrapper>
-          {isValid ? (
-            <IconButton
-              onClick={handleOnSubmit}
-              aria-label="Select plus button"
-            >
-              <Icon glyph="Plus" data-cy="tuple-select-button" />
-            </IconButton>
-          ) : (
-            <InactiveIconWrapper>
-              <IconTooltip
-                glyph="Warning"
-                data-cy="tuple-select-warning"
-                fill={yellow.base}
-              >
-                {validatorErrorMessage}
-              </IconTooltip>
-            </InactiveIconWrapper>
-          )}
-        </IconWrapper>
       </InputGroup>
     </Container>
   );
@@ -113,17 +116,6 @@ const InputGroup = styled.div`
   align-items: center;
   display: flex;
   flex-direction: row;
-`;
-
-const IconWrapper = styled.div`
-  align-items: center;
-  display: flex;
-  height: 100%;
-  margin-right: 10px;
-  margin-top: 10px;
-  position: absolute;
-  right: 0;
-  top: 0;
 `;
 
 const InactiveIconWrapper = styled.div`
@@ -142,7 +134,6 @@ const GroupedSelect = styled(Select)`
 `;
 
 const GroupedTextInput = styled(TextInput)`
-  width: 70%;
   /* LG box-shadow property */
   box-shadow: 0px 1px 2px rgba(6, 22, 33, 0.3);
   /* overwrite lg borders https://jira.mongodb.org/browse/PD-1995 */
@@ -150,6 +141,10 @@ const GroupedTextInput = styled(TextInput)`
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
   }
+`;
+
+const StyledLabel = styled(Label)`
+  margin-bottom: ${size.xxs};
 `;
 
 export default TupleSelect;
