@@ -9,10 +9,10 @@ exports[`storybook Storyshots TupleSelect Default 1`] = `
   }
 >
   <div
-    className="css-12yj1ew-Container e5gn9hl5"
+    className="css-12yj1ew-Container e5gn9hl4"
   >
     <label
-      className="css-1q0akmp-StyledLabel e5gn9hl0 leafygreen-ui-ly82bp"
+      className="leafygreen-ui-ly82bp"
       htmlFor="filter-input"
     >
       Add New 
@@ -20,10 +20,10 @@ exports[`storybook Storyshots TupleSelect Default 1`] = `
        Filter
     </label>
     <div
-      className="css-19ahzkx-InputGroup e5gn9hl4"
+      className="css-19ahzkx-InputGroup e5gn9hl3"
     >
       <div
-        className="css-17m5hmx-GroupedSelect e5gn9hl2"
+        className="css-17m5hmx-GroupedSelect e5gn9hl1"
       >
         <button
           aria-controls="select-3-menu"
@@ -79,7 +79,7 @@ exports[`storybook Storyshots TupleSelect Default 1`] = `
         className="css-mk4qpy-TextInputWrapper e13gwrw81"
       >
         <div
-          className="leafygreen-ui-1iyoj2o css-1lrwj5g-GroupedTextInput e5gn9hl1"
+          className="leafygreen-ui-1iyoj2o css-1lrwj5g-GroupedTextInput e5gn9hl0"
         >
           <div
             className="leafygreen-ui-lzja97"
@@ -115,7 +115,7 @@ exports[`storybook Storyshots TupleSelect Default 1`] = `
           </div>
         </div>
         <div
-          className="css-y3wps0-IconWrapper e13gwrw80"
+          className="css-1p13thw-IconWrapper e13gwrw80"
         >
           <div>
             <button

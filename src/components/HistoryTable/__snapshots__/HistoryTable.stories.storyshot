@@ -796,7 +796,7 @@ exports[`storybook Storyshots History Table Test Search 1`] = `
         </div>
       </div>
       <div
-        className="css-1h32jjt-IconWrapper e13gwrw80"
+        className="css-1p13thw-IconWrapper e13gwrw80"
       >
         <button
           aria-disabled={false}
