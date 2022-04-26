@@ -41,7 +41,7 @@ exports[`storybook Storyshots Searchable Dropdown Custom Option 1`] = `
                 className="css-197mxpc-OverflowBody e1yw4j300 leafygreen-ui-1mngpnd"
                 data-cy="dropdown-value"
               >
-                
+                Select an element
               </div>
             </div>
           </div>
@@ -115,7 +115,7 @@ exports[`storybook Storyshots Searchable Dropdown Multiselect 1`] = `
                 className="css-197mxpc-OverflowBody e1yw4j300 leafygreen-ui-1mngpnd"
                 data-cy="dropdown-value"
               >
-                
+                Select an element
               </div>
             </div>
           </div>
