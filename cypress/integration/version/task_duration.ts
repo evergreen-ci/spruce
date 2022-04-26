@@ -21,7 +21,7 @@ describe.skip("Task Duration Tab", () => {
       cy.dataCy("task-duration-table-row").should("have.length", 2);
       cy.location("search").should(
         "include",
-        `page=0&sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BDURATION%3ADESC&taskName=${filterText}`
+        `page=0&sorts=DURATION%3ADESC&taskName=${filterText}`
       );
       // Clear text filter.
       cy.dataCy("task-name-filter-popover").click();
@@ -38,7 +38,7 @@ describe.skip("Task Duration Tab", () => {
       cy.dataCy("task-duration-table-row").should("have.length", 2);
       cy.location("search").should(
         "include",
-        `page=0&sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BDURATION%3ADESC&variant=${filterText}`
+        `page=0&sorts=DURATION%3ADESC&variant=${filterText}`
       );
       // Clear text filter.
       cy.dataCy("build-variant-filter-popover").click();
@@ -49,10 +49,7 @@ describe.skip("Task Duration Tab", () => {
     it("updates URL appropriately when sort is changing", () => {
       cy.visit(TASK_DURATION_ROUTE);
       // The default sort (DURATION DESC) should be applied
-      cy.location("search").should(
-        "include",
-        `sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BDURATION%3ADESC`
-      );
+      cy.location("search").should("include", `sorts=DURATION%3ADESC`);
       const longestTask = "test-thirdparty";
       cy.contains(longestTask).should("be.visible");
       cy.dataCy("task-duration-table-row")
@@ -60,11 +57,8 @@ describe.skip("Task Duration Tab", () => {
         .should("contain", longestTask);
 
       // Apply new sort (DURATION ASC)
-      cy.dataCy("sort-icon").click();
-      cy.location("search").should(
-        "include",
-        `page=0&sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BDURATION%3AASC`
-      );
+      cy.dataCy("duration-sort-icon").click();
+      cy.location("search").should("include", `page=0&sorts=DURATION%3AASC`);
       const shortestTask = "test-auth";
       cy.contains(shortestTask).should("be.visible");
       cy.dataCy("task-duration-table-row")
@@ -73,15 +67,9 @@ describe.skip("Task Duration Tab", () => {
     });
 
     it("clearing all filters resets to the default sort", () => {
-      cy.location("search").should(
-        "include",
-        `page=0&sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BDURATION%3AASC`
-      );
+      cy.location("search").should("include", `page=0&sorts=DURATION%3AASC`);
       cy.contains("Clear All Filters").click();
-      cy.location("search").should(
-        "include",
-        `sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BDURATION%3ADESC`
-      );
+      cy.location("search").should("include", `sorts=DURATION%3ADESC`);
     });
 
     it("shows message when no test results are found", () => {
@@ -91,7 +79,7 @@ describe.skip("Task Duration Tab", () => {
       cy.dataCy("task-name-filter-popover").click();
       cy.dataCy("input-filter").type(`${filterText}`).type("{enter}");
       cy.dataCy("task-duration-table-row").should("have.length", 0);
-      cy.contains("No test results found.").should("exist");
+      cy.contains("No tasks found.").should("exist");
     });
   });
 });
