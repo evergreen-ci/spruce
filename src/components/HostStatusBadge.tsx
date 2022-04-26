@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -17,7 +18,7 @@ export const HostStatusBadge: React.VFC<Props> = ({ status }) => (
       {hostStatusToCopy[status]}
     </StyledBadge>
     {status === HostStatus.Terminated && (
-      <IconTooltip fill={red.base} glyph="InfoWithCircle">
+      <IconTooltip fill={red.base} glyph="InfoWithCircle" css={iconMargin}>
         Terminated hosts will disappear in 5 minutes. See Event Log for more
         details.
       </IconTooltip>
@@ -68,4 +69,8 @@ const StyledBadge = styled(Badge)`
   display: flex;
   justify-content: center;
   width: ${size.xxl};
+`;
+
+const iconMargin = css`
+  margin-left: ${size.xxs};
 `;

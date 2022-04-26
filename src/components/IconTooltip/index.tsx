@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import Icon from "components/Icon";
-import { size } from "constants/tokens";
 
 interface IconTooltipProps extends React.ComponentProps<typeof Icon> {
   ["data-cy"]?: string;
@@ -32,7 +31,6 @@ const StyledTooltip = styled(Tooltip)`
 `;
 
 const IconWrapper = styled.div`
-  margin-left: ${size.xxs};
   display: flex;
   align-items: center;
 `;
