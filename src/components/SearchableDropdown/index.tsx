@@ -1,9 +1,9 @@
 import { useState, PropsWithChildren, useRef, useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
+import { Label } from "@leafygreen-ui/typography";
 import Dropdown from "components/Dropdown";
 import Icon from "components/Icon";
-import { InputLabel } from "components/styles";
 import TextInput from "components/TextInputWithGlyph";
 import { size } from "constants/tokens";
 import { toggleArray } from "utils/array";
@@ -133,7 +133,7 @@ const SearchableDropdown = <T extends {}>({
 
   return (
     <Container>
-      <InputLabel htmlFor={`searchable-dropdown-${label}`}>{label}</InputLabel>
+      <Label htmlFor={`searchable-dropdown-${label}`}>{label}</Label>
       <Wrapper>
         <Dropdown
           id={`searchable-dropdown-${label}`}
