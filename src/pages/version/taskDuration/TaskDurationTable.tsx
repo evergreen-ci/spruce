@@ -83,31 +83,31 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
           <StyledTableHeader
             key="duration-table-task-name"
             label={
-              <LabelWrapper>
+              <TableHeaderLabel>
                 Task Name
                 <TableSearchPopover
                   onConfirm={handleTaskFilter}
                   data-cy="task-name-filter-popover"
                 />
-              </LabelWrapper>
+              </TableHeaderLabel>
             }
           />,
           <StyledTableHeader
             key="duration-table-build-variant"
             label={
-              <LabelWrapper>
+              <TableHeaderLabel>
                 Build Variant
                 <TableSearchPopover
                   onConfirm={handleBuildVariantFilter}
                   data-cy="build-variant-filter-popover"
                 />
-              </LabelWrapper>
+              </TableHeaderLabel>
             }
           />,
           <TableHeader
             key="duration-table-task-duration"
             label={
-              <LabelWrapper>
+              <TableHeaderLabel>
                 Task Duration
                 <DurationSortIcon
                   glyph={
@@ -115,11 +115,11 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
                       ? "SortAscending"
                       : "SortDescending"
                   }
-                  fill={sortDirection ? focus : gray.light1}
+                  fill={focus}
                   onClick={handleDurationSort}
                   data-cy="duration-sort-icon"
                 />
-              </LabelWrapper>
+              </TableHeaderLabel>
             }
           />,
         ]}
@@ -132,31 +132,26 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
           >
             {datum?.executionTasksFull &&
               datum?.executionTasksFull.map((task) => {
-                const {
-                  id,
-                  displayName,
-                  status,
-                  buildVariantDisplayName,
-                  timeTaken,
-                } = task;
-                const barWidth = calculateBarWidth(timeTaken, max);
+                const barWidth = calculateBarWidth(task.timeTaken, max);
                 const barColor =
-                  mapTaskToBarchartColor[mapTaskStatusToUmbrellaStatus[status]];
+                  mapTaskToBarchartColor[
+                    mapTaskStatusToUmbrellaStatus[task.status]
+                  ];
                 return (
-                  <Row key={id}>
-                    <StandardCell>
-                      <TaskNameWrapper>
-                        <TaskLink taskId={id} taskName={displayName} />
-                        <TaskStatusIcon status={status} />
-                      </TaskNameWrapper>
-                    </StandardCell>
-                    <StandardCell>{buildVariantDisplayName}</StandardCell>
-                    <FullWidthCell>
-                      <DurationWrapper>
-                        <Bar width={barWidth} color={barColor} />
-                        <TimeLabel>{msToDuration(timeTaken)}</TimeLabel>
-                      </DurationWrapper>
-                    </FullWidthCell>
+                  <Row key={task.id}>
+                    <TaskNameCell>
+                      <TaskLink taskId={task.id} taskName={task.displayName} />
+                      <TaskStatusIcon status={task.status} />
+                    </TaskNameCell>
+                    <BuildVariantCell>
+                      {task.buildVariantDisplayName}
+                    </BuildVariantCell>
+                    <DurationCell>
+                      <DurationBar width={barWidth} color={barColor} />
+                      <DurationLabel>
+                        {msToDuration(task.timeTaken)}
+                      </DurationLabel>
+                    </DurationCell>
                   </Row>
                 );
               })}
@@ -189,34 +184,33 @@ const DisplayTaskRow: React.VFC<RowProps> = ({
     timeTaken,
     startTime,
   } = task;
-  const startedWithZeroTime =
-    startTime === null && status === TaskStatus.Started;
+
   const barWidth = calculateBarWidth(timeTaken, max);
   const barColor =
     mapTaskToBarchartColor[mapTaskStatusToUmbrellaStatus[status]];
+
+  const startedWithZeroTime =
+    startTime === null && status === TaskStatus.Started;
+
   return (
     <Row key={id} data-cy={dataCy}>
-      <StandardCell>
-        <TaskNameWrapper>
-          <TaskLink taskId={id} taskName={displayName} />
-          <TaskStatusIcon status={status} />
-        </TaskNameWrapper>
-      </StandardCell>
-      <StandardCell>{buildVariantDisplayName}</StandardCell>
-      <FullWidthCell>
+      <TaskNameCell>
+        <TaskLink taskId={id} taskName={displayName} />
+        <TaskStatusIcon status={status} />
+      </TaskNameCell>
+      <BuildVariantCell>{buildVariantDisplayName}</BuildVariantCell>
+      <DurationCell>
         {startedWithZeroTime ? (
-          <DurationWrapper>
-            <TimeLabel>
-              There is no task duration information for this task at this time.
-            </TimeLabel>
-          </DurationWrapper>
+          <DurationLabel>
+            There is no task duration information for this task at this time.
+          </DurationLabel>
         ) : (
-          <DurationWrapper>
-            <Bar width={barWidth} color={barColor} />
-            <TimeLabel>{msToDuration(timeTaken)}</TimeLabel>
-          </DurationWrapper>
+          <>
+            <DurationBar width={barWidth} color={barColor} />
+            <DurationLabel>{msToDuration(timeTaken)}</DurationLabel>
+          </>
         )}
-      </FullWidthCell>
+      </DurationCell>
       {children}
     </Row>
   );
@@ -234,54 +228,52 @@ const TableWrapper = styled.div`
   border-top: 3px solid ${gray.light2};
 `;
 
-const StandardCell = styled(Cell)`
-  word-break: break-all;
-  padding-right: ${size.m};
-`;
-StandardCell.displayName = "Cell";
-
-const FullWidthCell = styled(Cell)`
-  span {
-    width: 100%;
-  }
-`;
-FullWidthCell.displayName = "Cell";
-
 const StyledTableHeader = styled(TableHeader)`
   width: 20%;
 `;
 
-const LabelWrapper = styled.div`
+const TableHeaderLabel = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const DurationSortIcon = styled(Icon)`
-  cursor: pointer;
-  margin-left: ${size.xs};
-`;
-
-const TaskNameWrapper = styled.span`
+const TaskNameCell = styled(Cell)`
+  word-break: break-all;
+  padding-right: ${size.m};
   svg {
     margin-left: ${size.xxs};
     vertical-align: text-bottom;
   }
 `;
+TaskNameCell.displayName = "Cell";
 
-const DurationWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+const BuildVariantCell = styled(Cell)`
+  word-break: break-all;
+  padding-right: ${size.m};
 `;
+BuildVariantCell.displayName = "Cell";
 
-const Bar = styled.div<{ width: string; color: string }>`
+const DurationCell = styled(Cell)`
+  span {
+    width: 100%;
+  }
+`;
+DurationCell.displayName = "Cell";
+
+const DurationBar = styled.div<{ width: string; color: string }>`
   width: ${({ width }) => width};
   background-color: ${({ color }) => color};
   border-radius: ${size.m};
   height: 12px;
 `;
 
-const TimeLabel = styled(Description)`
+const DurationLabel = styled(Description)`
   font-size: 12px;
   padding-top: ${size.xxs};
   flex-shrink: 0;
+`;
+
+const DurationSortIcon = styled(Icon)`
+  cursor: pointer;
+  margin-left: ${size.xs};
 `;
