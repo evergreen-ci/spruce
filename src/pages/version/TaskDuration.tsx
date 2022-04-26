@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { useParams, useLocation } from "react-router-dom";
 import { pollInterval } from "constants/index";
+import { durationQueryParams } from "constants/patch";
 import { useToastContext } from "context/toast";
 import {
   PatchTaskDurationsQuery,
@@ -10,14 +11,10 @@ import {
 import { GET_PATCH_TASK_DURATIONS } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { PatchTasksQueryParams } from "types/task";
-import { queryString, url } from "utils";
-import { TabTableControl } from "./TabTableControl";
+import { TableControl } from "./TableControl";
 import { TaskDurationTable } from "./taskDuration/TaskDurationTable";
+import { useQueryVariables } from "./useQueryVariables";
 
-const { parseQueryString, parseSortString, getString } = queryString;
-
-const { getPageFromSearch, getLimitFromSearch } = url;
 interface Props {
   taskCount: number;
 }
@@ -29,22 +26,20 @@ export const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
   const dispatchToast = useToastContext();
 
   const updateQueryParams = useUpdateURLQueryParams();
-  const queryVariables = getQueryVariables(search, versionId);
   const noQueryVariables = !search.length;
-
-  const { limit, page } = queryVariables;
-
-  const { sorts } = parseQueryString(search);
-  const allSorts = parseSortString(sorts);
-  const defaultSortMethod = "STATUS:ASC;BASE_STATUS:DESC;DURATION:DESC";
+  const queryVariables = useQueryVariables(
+    search,
+    versionId,
+    durationQueryParams
+  );
+  const { sorts, limit, page } = queryVariables;
+  const defaultSortMethod = "DURATION:DESC";
 
   useEffect(() => {
-    if (noQueryVariables) {
-      updateQueryParams({
-        sorts: defaultSortMethod,
-      });
-    }
-  }, [search]); // eslint-disable-line react-hooks/exhaustive-deps
+    updateQueryParams({
+      sorts: defaultSortMethod,
+    });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { data, startPolling, stopPolling } = useQuery<
     PatchTaskDurationsQuery,
@@ -63,39 +58,14 @@ export const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
 
   return (
     <>
-      <TabTableControl
+      <TableControl
         filteredCount={patchTasks?.count}
         taskCount={taskCount}
         limit={limit}
         page={page}
         defaultSortMethod={defaultSortMethod}
       />
-      <TaskDurationTable patchTasks={patchTasks} sorts={allSorts} />
+      <TaskDurationTable patchTasks={patchTasks} sorts={sorts} />
     </>
   );
-};
-
-const getQueryVariables = (
-  search: string,
-  versionId: string
-): PatchTaskDurationsQueryVariables => {
-  const {
-    [PatchTasksQueryParams.Variant]: variant,
-    [PatchTasksQueryParams.TaskName]: taskName,
-    [PatchTasksQueryParams.Sorts]: sorts,
-  } = parseQueryString(search);
-
-  // Only include duration when sorting on TaskDuration table.
-  const filteredSorts = parseSortString(sorts).filter(
-    (sort) => sort.Key === "DURATION"
-  );
-
-  return {
-    patchId: versionId,
-    sorts: filteredSorts,
-    variant: getString(variant),
-    taskName: getString(taskName),
-    page: getPageFromSearch(search),
-    limit: getLimitFromSearch(search),
-  };
 };

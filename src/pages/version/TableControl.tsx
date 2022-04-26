@@ -17,7 +17,7 @@ interface Props {
   defaultSortMethod: string;
 }
 
-export const TabTableControl: React.VFC<Props> = ({
+export const TableControl: React.VFC<Props> = ({
   filteredCount,
   taskCount,
   limit,
@@ -34,6 +34,8 @@ export const TabTableControl: React.VFC<Props> = ({
     updateQueryParams({
       taskName: undefined,
       variant: undefined,
+      statuses: undefined,
+      baseStatuses: undefined,
       page: undefined,
       sorts: defaultSortMethod,
     });

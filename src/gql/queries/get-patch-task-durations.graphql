@@ -22,6 +22,7 @@ query PatchTaskDurations(
       displayName
       buildVariantDisplayName
       timeTaken
+      startTime
       executionTasksFull {
         id
         execution

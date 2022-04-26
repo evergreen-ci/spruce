@@ -3,20 +3,16 @@ import { useQuery } from "@apollo/client";
 import { Skeleton } from "antd";
 import { useParams, useLocation } from "react-router-dom";
 import { pollInterval } from "constants/index";
+import { patchTasksQueryParams } from "constants/patch";
 import { useToastContext } from "context/toast";
 import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { PatchTasksQueryParams } from "types/task";
-import { queryString, url, array } from "utils";
-import { TabTableControl } from "./TabTableControl";
+import { TableControl } from "./TableControl";
 import { PatchTasksTable } from "./tasks/PatchTasksTable";
+import { useQueryVariables } from "./useQueryVariables";
 
-const { toArray } = array;
-const { parseQueryString, parseSortString, getString } = queryString;
-
-const { getPageFromSearch, getLimitFromSearch } = url;
 interface Props {
   taskCount: number;
 }
@@ -28,19 +24,20 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
   const dispatchToast = useToastContext();
 
   const updateQueryParams = useUpdateURLQueryParams();
-  const queryVariables = getQueryVariables(search, versionId);
   const noQueryVariables = !search.length;
-
+  const queryVariables = useQueryVariables(
+    search,
+    versionId,
+    patchTasksQueryParams
+  );
   const { sorts, limit, page } = queryVariables;
-  const defaultSortMethod = "STATUS:ASC;BASE_STATUS:DESC;DURATION:DESC";
+  const defaultSortMethod = "STATUS:ASC;BASE_STATUS:DESC";
 
   useEffect(() => {
-    if (noQueryVariables) {
-      updateQueryParams({
-        sorts: defaultSortMethod,
-      });
-    }
-  }, [search]); // eslint-disable-line react-hooks/exhaustive-deps
+    updateQueryParams({
+      sorts: defaultSortMethod,
+    });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { data, startPolling, stopPolling } = useQuery<
     PatchTasksQuery,
@@ -60,7 +57,7 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
 
   return (
     <>
-      <TabTableControl
+      <TableControl
         filteredCount={patchTasks?.count}
         taskCount={taskCount}
         limit={limit}
@@ -74,33 +71,4 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
       )}
     </>
   );
-};
-
-const getQueryVariables = (
-  search: string,
-  versionId: string
-): PatchTasksQueryVariables => {
-  const {
-    [PatchTasksQueryParams.Variant]: variant,
-    [PatchTasksQueryParams.TaskName]: taskName,
-    [PatchTasksQueryParams.Statuses]: statuses,
-    [PatchTasksQueryParams.BaseStatuses]: baseStatuses,
-    [PatchTasksQueryParams.Sorts]: sorts,
-  } = parseQueryString(search);
-
-  // Don't include duration when sorting on PatchTasks table.
-  const filteredSorts = parseSortString(sorts).filter(
-    (sort) => sort.Key !== "DURATION"
-  );
-
-  return {
-    patchId: versionId,
-    sorts: filteredSorts,
-    variant: getString(variant),
-    taskName: getString(taskName),
-    statuses: toArray(statuses),
-    baseStatuses: toArray(baseStatuses),
-    page: getPageFromSearch(search),
-    limit: getLimitFromSearch(search),
-  };
 };

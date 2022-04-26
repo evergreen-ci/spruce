@@ -5,6 +5,7 @@ import { Description } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import Icon from "components/Icon";
 import { NoTableResults } from "components/Table/NoTableResults";
+import { TaskLink } from "components/Table/TaskLink";
 import { TableSearchPopover } from "components/TableSearchPopover";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import {
@@ -16,8 +17,10 @@ import {
   PatchTaskDurationsQuery,
   SortOrder,
   SortDirection,
+  TaskSortCategory,
 } from "gql/generated/types";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { TaskStatus } from "types/task";
 import { string, queryString } from "utils";
 
 const { msToDuration } = string;
@@ -31,8 +34,9 @@ interface Props {
 
 export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
   const updateQueryParams = useUpdateURLQueryParams();
+  const durationKey = TaskSortCategory.Duration;
   const sortDirection = sorts.length
-    ? sorts.find((s) => s.Key === "DURATION").Direction
+    ? sorts.find((s) => s.Key === durationKey)?.Direction
     : undefined;
 
   const handleTaskFilter = (task: string) => {
@@ -54,11 +58,14 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
       sortDirection === SortDirection.Asc
         ? SortDirection.Desc
         : SortDirection.Asc;
-    const newSorts = [...sorts];
-    newSorts.find((s) => s.Key === "DURATION").Direction = newSortDirection;
-
+    const newSort = [
+      {
+        Key: durationKey,
+        Direction: newSortDirection,
+      },
+    ];
     updateQueryParams({
-      sorts: updateSortString(newSorts),
+      sorts: updateSortString(newSort),
       page: "0",
     });
   };
@@ -108,7 +115,7 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
                       ? "SortAscending"
                       : "SortDescending"
                   }
-                  fill={focus}
+                  fill={sortDirection ? focus : gray.light1}
                   onClick={handleDurationSort}
                   data-cy="duration-sort-icon"
                 />
@@ -139,7 +146,7 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks, sorts }) => {
                   <Row key={id}>
                     <StandardCell>
                       <TaskNameWrapper>
-                        {displayName}
+                        <TaskLink taskId={id} taskName={displayName} />
                         <TaskStatusIcon status={status} />
                       </TaskNameWrapper>
                     </StandardCell>
@@ -174,7 +181,16 @@ const DisplayTaskRow: React.VFC<RowProps> = ({
   children,
   "data-cy": dataCy,
 }) => {
-  const { id, displayName, status, buildVariantDisplayName, timeTaken } = task;
+  const {
+    id,
+    displayName,
+    status,
+    buildVariantDisplayName,
+    timeTaken,
+    startTime,
+  } = task;
+  const startedWithZeroTime =
+    startTime === null && status === TaskStatus.Started;
   const barWidth = calculateBarWidth(timeTaken, max);
   const barColor =
     mapTaskToBarchartColor[mapTaskStatusToUmbrellaStatus[status]];
@@ -182,16 +198,24 @@ const DisplayTaskRow: React.VFC<RowProps> = ({
     <Row key={id} data-cy={dataCy}>
       <StandardCell>
         <TaskNameWrapper>
-          {displayName}
+          <TaskLink taskId={id} taskName={displayName} />
           <TaskStatusIcon status={status} />
         </TaskNameWrapper>
       </StandardCell>
       <StandardCell>{buildVariantDisplayName}</StandardCell>
       <FullWidthCell>
-        <DurationWrapper>
-          <Bar width={barWidth} color={barColor} />
-          <TimeLabel>{msToDuration(timeTaken)}</TimeLabel>
-        </DurationWrapper>
+        {startedWithZeroTime ? (
+          <DurationWrapper>
+            <TimeLabel>
+              There is no task duration information for this task at this time.
+            </TimeLabel>
+          </DurationWrapper>
+        ) : (
+          <DurationWrapper>
+            <Bar width={barWidth} color={barColor} />
+            <TimeLabel>{msToDuration(timeTaken)}</TimeLabel>
+          </DurationWrapper>
+        )}
       </FullWidthCell>
       {children}
     </Row>
@@ -199,7 +223,7 @@ const DisplayTaskRow: React.VFC<RowProps> = ({
 };
 
 const findMax = (tasks: PatchTaskDurationsQuery["patchTasks"]["tasks"]) => {
-  const durations = tasks.map((t) => t.timeTaken);
+  const durations = tasks.map((t) => (t.startTime !== null ? t.timeTaken : 0));
   return Math.max(...durations);
 };
 

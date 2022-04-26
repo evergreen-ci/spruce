@@ -1,6 +1,6 @@
 import queryString from "query-string";
 
-interface ParseQueryString {
+export interface ParseQueryString {
   [key: string]: string | string[];
 }
 export const parseQueryString = (search: string): ParseQueryString =>
