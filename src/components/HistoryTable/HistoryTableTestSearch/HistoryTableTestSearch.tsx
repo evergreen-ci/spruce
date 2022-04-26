@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import IconButton from "@leafygreen-ui/icon-button";
 import { uiColors } from "@leafygreen-ui/palette";
 import TextInput from "@leafygreen-ui/text-input";
 import Icon from "components/Icon";
-import { IconTooltip } from "components/IconTooltip";
+import IconTooltip from "components/IconTooltip";
 import { useUpsertQueryParams } from "hooks";
 import { TestStatus } from "types/history";
 import { validators } from "utils";
@@ -28,71 +28,65 @@ export const HistoryTableTestSearch: React.VFC<HistoryTableTestSearchProps> = ({
     setIsValid(validateRegexp(value));
   };
   const handleOnSubmit = () => {
-    onSubmit();
-    handleSubmit({ category: TestStatus.Failed, value: input });
-    setInput("");
+    if (isValid) {
+      onSubmit();
+      handleSubmit({ category: TestStatus.Failed, value: input });
+      setInput("");
+    }
   };
 
   return (
     <ContentWrapper>
-      <TextInputWrapper>
-        <TextInput
-          type="search"
-          label="Filter by Failed Tests"
-          aria-label="history-table-test-search-input"
-          value={input}
-          placeholder="Search test name regex"
-          onChange={(e) => handleOnChange(e.target.value)}
-          onKeyPress={(e) => e.key === "Enter" && handleOnSubmit()}
-        />
+      <TextInput
+        type="search"
+        label="Filter by Failed Tests"
+        aria-label="history-table-test-search-input"
+        value={input}
+        placeholder="Search test name regex"
+        onChange={(e) => handleOnChange(e.target.value)}
+        onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) =>
+          e.key === "Enter" && handleOnSubmit()
+        }
+      />
+      <IconWrapper>
         {isValid ? (
-          <StyledIcon
-            glyph="Plus"
-            onClick={handleOnSubmit}
-            aria-label="Select plus button"
-            data-cy="tuple-select-button"
-          />
+          <IconButton onClick={handleOnSubmit} aria-label="Select plus button">
+            <Icon glyph="Plus" data-cy="tuple-select-button" />
+          </IconButton>
         ) : (
-          <IconTooltip
-            css={iconPositionStyles}
-            glyph="Warning"
-            tooltipText="Invalid Regular Expression"
-            data-cy="tuple-select-warning"
-            fill={yellow.base}
-          />
+          <InactiveIconWrapper>
+            <IconTooltip
+              glyph="Warning"
+              data-cy="tuple-select-warning"
+              fill={yellow.base}
+            >
+              Invalid Regular Expression
+            </IconTooltip>
+          </InactiveIconWrapper>
         )}
-      </TextInputWrapper>
+      </IconWrapper>
     </ContentWrapper>
   );
 };
 
 const ContentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
   width: 40%;
   min-width: 200px; //temporary
-  padding-right: 30px;
-`;
-
-const TextInputWrapper = styled.div`
+  margin-right: 30px;
   position: relative;
+`;
+
+const IconWrapper = styled.div`
+  align-items: center;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-const iconPositionStyles = css`
-  position: absolute;
   height: 100%;
-  top: 10px; //temporary
-  align-self: flex-end;
   margin-right: 10px;
-  justify-content: center;
+  margin-top: 10px;
+  position: absolute;
+  right: 0;
+  top: 0;
 `;
 
-const StyledIcon = styled(Icon)`
-  ${iconPositionStyles}
-  &:hover {
-    cursor: pointer;
-  }
+const InactiveIconWrapper = styled.div`
+  margin: 6px;
 `;

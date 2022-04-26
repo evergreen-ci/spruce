@@ -1,4 +1,5 @@
-import { render, fireEvent, waitFor } from "test_utils";
+import userEvent from "@testing-library/user-event";
+import { render, waitFor } from "test_utils";
 import { ProjectFilterOptions } from "types/commits";
 import TupleSelect from ".";
 
@@ -20,7 +21,7 @@ describe("tupleSelect", () => {
     const onSubmit = jest.fn();
     const validator = jest.fn((v) => v !== "bad");
     const validatorErrorMessage = "Invalid Input";
-    const { queryByDataCy } = render(
+    const { queryByDataCy, queryByText } = render(
       <TupleSelect
         options={options}
         onSubmit={onSubmit}
@@ -28,9 +29,8 @@ describe("tupleSelect", () => {
         validatorErrorMessage={validatorErrorMessage}
       />
     );
-
     const input = queryByDataCy("tuple-select-input");
-    const dropdown = queryByDataCy("tuple-select-dropdown");
+    const dropdown = queryByText("Build Variant");
     expect(dropdown).toBeInTheDocument();
     expect(input).toBeInTheDocument();
     expect(dropdown).toHaveTextContent("Build Variant");
@@ -52,15 +52,8 @@ describe("tupleSelect", () => {
     const input = queryByDataCy("tuple-select-input");
 
     expect(input).toHaveValue("");
-    fireEvent.change(input, {
-      target: { value: "some-filter" },
-    });
-    expect(input).toHaveValue("some-filter");
-    fireEvent.focus(input);
-    fireEvent.keyDown(input, {
-      key: "Enter",
-      keyCode: 13,
-    });
+    userEvent.type(input, "some-filter");
+    userEvent.type(input, "{enter}");
     expect(input).toHaveValue("");
   });
   it("should validate the input and prevent submission if it fails validation", async () => {
@@ -78,20 +71,14 @@ describe("tupleSelect", () => {
     const input = queryByDataCy("tuple-select-input");
 
     expect(input).toHaveValue("");
-    fireEvent.change(input, {
-      target: { value: "bad" },
-    });
+    userEvent.type(input, "bad");
     expect(input).toHaveValue("bad");
-    fireEvent.focus(input);
-    fireEvent.keyDown(input, {
-      key: "Enter",
-      keyCode: 13,
-    });
+    userEvent.type(input, "{enter}");
     expect(input).toHaveValue("bad");
     expect(onSubmit).not.toHaveBeenCalled();
     expect(validator).toHaveBeenLastCalledWith("bad");
     expect(queryByDataCy("tuple-select-warning")).toBeInTheDocument();
-    fireEvent.mouseEnter(queryByDataCy("tuple-select-warning"));
+    userEvent.hover(queryByDataCy("tuple-select-warning"));
     await waitFor(() =>
       expect(queryByText(validatorErrorMessage)).toBeInTheDocument()
     );
