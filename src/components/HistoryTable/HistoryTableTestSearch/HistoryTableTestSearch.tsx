@@ -20,12 +20,11 @@ export const HistoryTableTestSearch: React.VFC<HistoryTableTestSearchProps> = ({
   onSubmit = () => {},
 }) => {
   const [input, setInput] = useState("");
-  const [isValid, setIsValid] = useState(validateRegexp(input));
+  const isValid = validateRegexp(input);
   const handleSubmit = useUpsertQueryParams();
 
   const handleOnChange = (value: string) => {
     setInput(value);
-    setIsValid(validateRegexp(value));
   };
   const handleOnSubmit = () => {
     if (isValid) {

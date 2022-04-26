@@ -29,7 +29,7 @@ const TupleSelect: React.VFC<TupleSelectProps> = ({
 }) => {
   const [input, setInput] = useState("");
   const [selected, setSelected] = useState(options[0].value);
-  const [isValid, setIsValid] = useState(validator(input));
+  const isValid = validator(input);
 
   const handleOnSubmit = () => {
     if (isValid) {
@@ -40,7 +40,6 @@ const TupleSelect: React.VFC<TupleSelectProps> = ({
 
   const handleOnChange = (value: string) => {
     setInput(value);
-    setIsValid(validator(value));
   };
   const selectedOption = options.find((o) => o.value === selected);
 
