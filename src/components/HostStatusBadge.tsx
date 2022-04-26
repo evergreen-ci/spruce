@@ -17,11 +17,10 @@ export const HostStatusBadge: React.VFC<Props> = ({ status }) => (
       {hostStatusToCopy[status]}
     </StyledBadge>
     {status === HostStatus.Terminated && (
-      <IconTooltip
-        fill={red.base}
-        tooltipText="Terminated hosts will disappear in 5 minutes. See Event Log for more details."
-        glyph="InfoWithCircle"
-      />
+      <IconTooltip fill={red.base} glyph="InfoWithCircle">
+        Terminated hosts will disappear in 5 minutes. See Event Log for more
+        details.
+      </IconTooltip>
     )}
   </HostStatusWrapper>
 );

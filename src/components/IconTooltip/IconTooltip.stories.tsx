@@ -15,11 +15,12 @@ export const Icons = () => (
     {Object.keys(glyphs).map((name) => (
       <IconContainer key={name}>
         <IconTooltip
-          tooltipText={text("Tooltip Text", "Tooltip Text")}
           glyph={name}
           size={select("Size", Sizes, Sizes[Size.Default])}
           fill={color("Color", "black")}
-        />
+        >
+          {text("Tooltip Text", "Tooltip Text")}
+        </IconTooltip>
         <span>{name}</span>
       </IconContainer>
     ))}
