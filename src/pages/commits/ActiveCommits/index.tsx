@@ -15,6 +15,7 @@ interface ActiveCommitChartProps {
   max: number;
   total: number;
   chartType: ChartTypes;
+  eta?: Date;
 }
 
 export const ActiveCommitChart: React.VFC<ActiveCommitChartProps> = ({
@@ -22,12 +23,14 @@ export const ActiveCommitChart: React.VFC<ActiveCommitChartProps> = ({
   max,
   total,
   chartType,
+  eta,
 }) => (
   <CommitChart
     groupedTaskStats={groupedTaskStats}
     total={total}
     max={max}
     chartType={chartType}
+    eta={eta}
   />
 );
 

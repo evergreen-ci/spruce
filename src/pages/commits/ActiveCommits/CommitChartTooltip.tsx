@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -10,18 +10,34 @@ import { size, zIndex } from "constants/tokens";
 
 import { TaskStatus } from "types/task";
 
+import { msToDuration } from "utils/string";
 import { ColorCount, getStatusesWithZeroCount } from "./utils";
 
 const { gray } = uiColors;
 interface Props {
   groupedTaskStats: ColorCount[];
   trigger: React.ReactElement;
+  eta?: Date;
 }
 
 export const CommitChartTooltip: React.VFC<Props> = ({
   groupedTaskStats,
   trigger,
+  eta,
 }) => {
+  const [countDown, setCountDown] = useState(
+    new Date(eta).valueOf() - Date.now()
+  );
+  useEffect(() => {
+    if (eta) {
+      const id = setInterval(() => {
+        const nextValue = countDown - 1000;
+        setCountDown(nextValue > 0 ? nextValue : 0);
+      }, 1000);
+      return () => clearInterval(id);
+    }
+  });
+  const etaString = msToDuration(countDown);
   const zeroCountStatus = getStatusesWithZeroCount(groupedTaskStats);
   return (
     <Tooltip
@@ -37,6 +53,11 @@ export const CommitChartTooltip: React.VFC<Props> = ({
           <FlexColumnContainer key={color} data-cy="current-status-count">
             <TotalCount
               status={umbrellaStatus}
+              eta={
+                umbrellaStatus === TaskStatus.RunningUmbrella && eta
+                  ? etaString
+                  : ""
+              }
               color={color}
               count={count}
               active
@@ -66,19 +87,22 @@ interface TotalCountProps {
   color: string;
   count: number;
   status: string;
+  eta?: string;
   active?: boolean;
 }
 export const TotalCount: React.VFC<TotalCountProps> = ({
   color,
   count,
   status,
+  eta,
   active = true,
 }) => (
   <TotalCountContainer active={active}>
     <Circle color={color} />
-    <StatusText
-      css={sharedCss}
-    >{`Total ${taskStatusToCopy[status]}`}</StatusText>
+    <StatusText css={sharedCss}>
+      <div>{`Total ${taskStatusToCopy[status]}`}</div>
+      {eta && `(${eta} remaining)`}
+    </StatusText>
     <NumberText css={sharedCss}>{count}</NumberText>
   </TotalCountContainer>
 );
