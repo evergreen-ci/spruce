@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { useParams, useLocation } from "react-router-dom";
 import { pollInterval } from "constants/index";
-import { durationQueryParams } from "constants/patch";
 import { useToastContext } from "context/toast";
 import {
   PatchTaskDurationsQuery,
@@ -27,11 +26,7 @@ export const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
 
   const updateQueryParams = useUpdateURLQueryParams();
   const noQueryVariables = !search.length;
-  const queryVariables = useQueryVariables(
-    search,
-    versionId,
-    durationQueryParams
-  );
+  const queryVariables = useQueryVariables(search, versionId);
   const { sorts, limit, page } = queryVariables;
   const defaultSortMethod = "DURATION:DESC";
 

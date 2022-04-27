@@ -3,7 +3,6 @@ import { useQuery } from "@apollo/client";
 import { Skeleton } from "antd";
 import { useParams, useLocation } from "react-router-dom";
 import { pollInterval } from "constants/index";
-import { patchTasksQueryParams } from "constants/patch";
 import { useToastContext } from "context/toast";
 import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
@@ -25,11 +24,7 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
 
   const updateQueryParams = useUpdateURLQueryParams();
   const noQueryVariables = !search.length;
-  const queryVariables = useQueryVariables(
-    search,
-    versionId,
-    patchTasksQueryParams
-  );
+  const queryVariables = useQueryVariables(search, versionId);
   const { sorts, limit, page } = queryVariables;
   const defaultSortMethod = "STATUS:ASC;BASE_STATUS:DESC";
 
