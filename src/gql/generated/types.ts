@@ -520,7 +520,9 @@ export type Version = {
   branch: Scalars["String"];
   requester: Scalars["String"];
   activated?: Maybe<Scalars["Boolean"]>;
+  /** @deprecated Use taskStatusStats instead */
   taskStatusCounts?: Maybe<Array<StatusCount>>;
+  taskStatusStats?: Maybe<TaskStats>;
   buildVariants?: Maybe<Array<Maybe<GroupedBuildVariant>>>;
   buildVariantStats?: Maybe<Array<GroupedTaskStatusCount>>;
   isPatch: Scalars["Boolean"];
@@ -538,6 +540,10 @@ export type Version = {
 };
 
 export type VersionTaskStatusCountsArgs = {
+  options?: Maybe<BuildVariantOptions>;
+};
+
+export type VersionTaskStatusStatsArgs = {
   options?: Maybe<BuildVariantOptions>;
 };
 
@@ -574,6 +580,11 @@ export type Manifest = {
 export type VersionTiming = {
   makespan?: Maybe<Scalars["Duration"]>;
   timeTaken?: Maybe<Scalars["Duration"]>;
+};
+
+export type TaskStats = {
+  counts?: Maybe<Array<StatusCount>>;
+  eta?: Maybe<Scalars["Time"]>;
 };
 
 export type StatusCount = {

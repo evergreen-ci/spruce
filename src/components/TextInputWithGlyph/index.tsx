@@ -1,33 +1,35 @@
 import styled from "@emotion/styled";
 import TextInput from "@leafygreen-ui/text-input";
-import Icon from "components/Icon";
+import { size } from "constants/tokens";
 
 type TextInputWithGlyphProps = {
-  glyph: string;
+  icon: React.ReactElement;
 } & React.ComponentProps<typeof TextInput>;
+
 const TextInputWithGlyph: React.VFC<TextInputWithGlyphProps> = (props) => {
-  const { glyph, ...rest } = props;
+  const { icon, ...rest } = props;
+
   return (
     <TextInputWrapper>
       <TextInput {...rest} />
-      <StyledIcon glyph={glyph} />
+      <IconWrapper>{icon}</IconWrapper>
     </TextInputWrapper>
   );
 };
 const TextInputWrapper = styled.div`
   position: relative;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
 `;
 
-const StyledIcon = styled(Icon)`
+const IconWrapper = styled.div`
+  align-items: center;
+  display: flex;
+  bottom: 0;
+  height: 36px; /* height of LG text-input */
   position: absolute;
-  align-self: flex-end;
-  margin-right: 10px;
-  bottom: 10px;
-  &:hover {
-    cursor: pointer;
-  }
+  right: ${size.xxs};
+  width: ${size.l};
+  justify-content: center;
 `;
 
 export default TextInputWithGlyph;
