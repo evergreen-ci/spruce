@@ -77,7 +77,7 @@ export const getFormSchema = (
                 },
               }),
               batchTime: {
-                type: "number" as "number",
+                type: ["number", "null"],
                 title: "Batch Time",
                 minimum: 1,
               },

@@ -32,7 +32,7 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
         ...("identifier" in projectRef && {
           identifier: projectRef?.identifier,
         }),
-        batchTime: projectRef.batchTime,
+        batchTime: projectRef.batchTime || null,
         remotePath: projectRef.remotePath,
         spawnHostScriptPath: projectRef.spawnHostScriptPath,
         versionControlEnabled: projectRef.versionControlEnabled,
