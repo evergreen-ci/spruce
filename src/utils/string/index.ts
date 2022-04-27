@@ -221,3 +221,10 @@ export const joinWithConjunction = (array: string[], conjunction: string) => {
   }
   return `${array.slice(0, -1).join(", ")}, ${conjunction} ${array.slice(-1)}`;
 };
+
+/**
+ * Given a string, strips new line characters.
+ * @param {string} str - Text to process
+ * @return {string} string with new lines removed
+ */
+export const stripNewLines = (str: string) => str.replace(/\n/g, "");
