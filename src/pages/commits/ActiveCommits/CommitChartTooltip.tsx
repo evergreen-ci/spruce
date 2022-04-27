@@ -101,7 +101,7 @@ export const TotalCount: React.VFC<TotalCountProps> = ({
     <Circle color={color} />
     <StatusText css={sharedCss}>
       <div>{`Total ${taskStatusToCopy[status]}`}</div>
-      {eta && `${eta} remaining`}
+      {eta && `(${eta} remaining)`}
     </StatusText>
     <NumberText css={sharedCss}>{count}</NumberText>
   </TotalCountContainer>
