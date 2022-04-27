@@ -9,7 +9,7 @@ exports[`storybook Storyshots TupleSelect Default 1`] = `
   }
 >
   <div
-    className="css-12yj1ew-Container e5gn9hl4"
+    className="css-1ry038z-Container e5gn9hl3"
   >
     <label
       className="leafygreen-ui-ly82bp"
@@ -20,7 +20,7 @@ exports[`storybook Storyshots TupleSelect Default 1`] = `
        Filter
     </label>
     <div
-      className="css-19ahzkx-InputGroup e5gn9hl3"
+      className="css-19ahzkx-InputGroup e5gn9hl2"
     >
       <div
         className="css-17m5hmx-GroupedSelect e5gn9hl1"
@@ -31,7 +31,7 @@ exports[`storybook Storyshots TupleSelect Default 1`] = `
           aria-disabled={false}
           aria-expanded={false}
           aria-invalid={false}
-          aria-labelledby="filter-input"
+          aria-labelledby="select-3-label"
           className="leafygreen-ui-p6v5m8"
           data-testid="leafygreen-ui-select-menubutton"
           disabled={false}
@@ -88,7 +88,7 @@ exports[`storybook Storyshots TupleSelect Default 1`] = `
               className="leafygreen-ui-1i2djk5"
             >
               <input
-                aria-labelledby="filter-input"
+                aria-label="filter-input"
                 autoComplete="on"
                 className="leafygreen-ui-1il5lef"
                 data-cy="tuple-select-input"
@@ -100,7 +100,7 @@ exports[`storybook Storyshots TupleSelect Default 1`] = `
                 onKeyPress={[Function]}
                 placeholder="Search Build Variant names"
                 required={true}
-                type="text"
+                type="search"
                 value=""
               />
               <div
@@ -115,40 +115,38 @@ exports[`storybook Storyshots TupleSelect Default 1`] = `
           </div>
         </div>
         <div
-          className="css-1p13thw-IconWrapper e13gwrw80"
+          className="css-1mmlitq-IconWrapper e13gwrw80"
         >
-          <div>
-            <button
-              aria-disabled={false}
-              aria-label="Select plus button"
-              className="leafygreen-ui-wn45f0"
-              onClick={[Function]}
-              tabIndex={0}
+          <button
+            aria-disabled={false}
+            aria-label="Select plus button"
+            className="leafygreen-ui-wn45f0"
+            onClick={[Function]}
+            tabIndex={0}
+          >
+            <div
+              className="leafygreen-ui-xhlipt"
             >
-              <div
-                className="leafygreen-ui-xhlipt"
+              <svg
+                aria-label="Plus Icon"
+                className=""
+                data-cy="tuple-select-button"
+                fill="none"
+                height={16}
+                role="img"
+                viewBox="0 0 16 16"
+                width={16}
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  aria-label="Plus Icon"
-                  className=""
-                  data-cy="tuple-select-button"
-                  fill="none"
-                  height={16}
-                  role="img"
-                  viewBox="0 0 16 16"
-                  width={16}
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clipRule="evenodd"
-                    d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
-                    fill="currentColor"
-                    fillRule="evenodd"
-                  />
-                </svg>
-              </div>
-            </button>
-          </div>
+                <path
+                  clipRule="evenodd"
+                  d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
+                  fill="currentColor"
+                  fillRule="evenodd"
+                />
+              </svg>
+            </div>
+          </button>
         </div>
       </div>
     </div>

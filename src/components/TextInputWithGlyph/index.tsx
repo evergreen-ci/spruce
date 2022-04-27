@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import TextInput from "@leafygreen-ui/text-input";
+import { size } from "constants/tokens";
 
 type TextInputWithGlyphProps = {
   icon: React.ReactElement;
@@ -26,7 +27,9 @@ const IconWrapper = styled.div`
   bottom: 0;
   height: 36px; /* height of LG text-input */
   position: absolute;
-  right: 10px;
+  right: ${size.xs};
+  width: ${size.m};
+  justify-content: center;
 `;
 
 export default TextInputWithGlyph;

@@ -52,9 +52,9 @@ const TupleSelect: React.VFC<TupleSelectProps> = ({
         <GroupedSelect
           value={selected}
           onChange={(v) => setSelected(v)}
-          aria-label="Select Drop Down"
           data-cy="tuple-select-dropdown"
-          aria-labelledby="filter-input"
+          aria-label="filter-input-dropdown"
+          allowDeselect={false}
         >
           {options.map((o) => (
             <Option
@@ -67,36 +67,33 @@ const TupleSelect: React.VFC<TupleSelectProps> = ({
           ))}
         </GroupedSelect>
         <GroupedTextInput
-          aria-labelledby="filter-input"
           id="filter-input"
+          aria-label="filter-input"
           data-cy="tuple-select-input"
           value={input}
+          type="search"
           onChange={(e) => handleOnChange(e.target.value)}
           placeholder={selectedOption.placeHolderText}
           onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) =>
             e.key === "Enter" && handleOnSubmit()
           }
           icon={
-            <div>
-              {isValid ? (
-                <IconButton
-                  onClick={handleOnSubmit}
-                  aria-label="Select plus button"
-                >
-                  <Icon glyph="Plus" data-cy="tuple-select-button" />
-                </IconButton>
-              ) : (
-                <InactiveIconWrapper>
-                  <IconTooltip
-                    glyph="Warning"
-                    data-cy="tuple-select-warning"
-                    fill={yellow.base}
-                  >
-                    {validatorErrorMessage}
-                  </IconTooltip>
-                </InactiveIconWrapper>
-              )}
-            </div>
+            isValid ? (
+              <IconButton
+                onClick={handleOnSubmit}
+                aria-label="Select plus button"
+              >
+                <Icon glyph="Plus" data-cy="tuple-select-button" />
+              </IconButton>
+            ) : (
+              <IconTooltip
+                glyph="Warning"
+                data-cy="tuple-select-warning"
+                fill={yellow.base}
+              >
+                {validatorErrorMessage}
+              </IconTooltip>
+            )
           }
         />
       </InputGroup>
@@ -107,17 +104,12 @@ const TupleSelect: React.VFC<TupleSelectProps> = ({
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  position: relative;
 `;
 
 const InputGroup = styled.div`
   align-items: center;
   display: flex;
   flex-direction: row;
-`;
-
-const InactiveIconWrapper = styled.div`
-  margin: 6px;
 `;
 
 // @ts-expect-error

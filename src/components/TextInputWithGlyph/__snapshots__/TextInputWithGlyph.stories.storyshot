@@ -51,7 +51,7 @@ exports[`storybook Storyshots TextInputWithGlyph Default 1`] = `
       </div>
     </div>
     <div
-      className="css-1p13thw-IconWrapper e13gwrw80"
+      className="css-1mmlitq-IconWrapper e13gwrw80"
     >
       <svg
         aria-label="Magnifying Glass Icon"
