@@ -2191,6 +2191,7 @@ export type PatchesPagePatchesFragment = {
     >;
     versionFull?: Maybe<{
       id: string;
+      status: string;
       taskStatusCounts?: Maybe<Array<{ status: string; count: number }>>;
     }>;
   }>;
@@ -4225,6 +4226,7 @@ export type VersionQuery = {
           projectIdentifier: string;
           taskCount?: Maybe<number>;
           status: string;
+          versionFull?: Maybe<{ id: string; status: string }>;
         }>
       >;
     }>;
