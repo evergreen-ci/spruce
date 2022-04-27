@@ -520,6 +520,7 @@ export type Version = {
   branch: Scalars["String"];
   requester: Scalars["String"];
   activated?: Maybe<Scalars["Boolean"]>;
+  /** @deprecated Use taskStatusStats instead */
   taskStatusCounts?: Maybe<Array<StatusCount>>;
   taskStatusStats?: Maybe<TaskStats>;
   buildVariants?: Maybe<Array<Maybe<GroupedBuildVariant>>>;
