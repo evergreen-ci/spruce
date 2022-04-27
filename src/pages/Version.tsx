@@ -186,7 +186,6 @@ export const VersionPage: React.VFC = () => {
             canReconfigure={!isPatchOnCommitQueue && isPatch}
             patchDescription={message}
             versionId={id}
-            childPatches={childPatches}
             isPatch={isPatch}
             activated={activated}
           />

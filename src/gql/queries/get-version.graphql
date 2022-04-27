@@ -54,6 +54,10 @@ query Version($id: String!) {
         id
         projectIdentifier
         taskCount
+        versionFull {
+          id
+          status
+        }
         status
       }
     }

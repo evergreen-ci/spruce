@@ -2202,7 +2202,10 @@ export type PatchesPagePatchesFragment = {
     >;
     versionFull?: Maybe<{
       id: string;
-      taskStatusCounts?: Maybe<Array<{ status: string; count: number }>>;
+      status: string;
+      taskStatusStats?: Maybe<{
+        counts?: Maybe<Array<{ status: string; count: number }>>;
+      }>;
     }>;
   }>;
 };
@@ -3549,7 +3552,10 @@ export type MainlineCommitsQuery = {
           message: string;
           revision: string;
           order: number;
-          taskStatusCounts?: Maybe<Array<{ status: string; count: number }>>;
+          taskStatusStats?: Maybe<{
+            eta?: Maybe<Date>;
+            counts?: Maybe<Array<{ status: string; count: number }>>;
+          }>;
           buildVariantStats?: Maybe<
             Array<{
               displayName: string;
@@ -4236,6 +4242,7 @@ export type VersionQuery = {
           projectIdentifier: string;
           taskCount?: Maybe<number>;
           status: string;
+          versionFull?: Maybe<{ id: string; status: string }>;
         }>
       >;
     }>;
