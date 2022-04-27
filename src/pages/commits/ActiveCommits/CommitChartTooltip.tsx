@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -25,19 +25,7 @@ export const CommitChartTooltip: React.VFC<Props> = ({
   trigger,
   eta,
 }) => {
-  const [countDown, setCountDown] = useState(
-    new Date(eta).valueOf() - Date.now()
-  );
-  useEffect(() => {
-    if (eta) {
-      const id = setInterval(() => {
-        const nextValue = countDown - 1000;
-        setCountDown(nextValue > 0 ? nextValue : 0);
-      }, 1000);
-      return () => clearInterval(id);
-    }
-  });
-  const etaString = msToDuration(countDown);
+  const etaString = msToDuration(new Date(eta).valueOf() - Date.now());
   const zeroCountStatus = getStatusesWithZeroCount(groupedTaskStats);
   return (
     <Tooltip
