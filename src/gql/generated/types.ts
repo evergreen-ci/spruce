@@ -1034,6 +1034,7 @@ export type UpdateVolumeInput = {
 export type IssueLinkInput = {
   url: Scalars["String"];
   issueKey: Scalars["String"];
+  confidenceScore?: Maybe<Scalars["Float"]>;
 };
 
 export type SortOrder = {
@@ -2046,6 +2047,7 @@ export type IssueLink = {
   url?: Maybe<Scalars["String"]>;
   source?: Maybe<Source>;
   jiraTicket?: Maybe<JiraTicket>;
+  confidenceScore?: Maybe<Scalars["Float"]>;
 };
 
 export type Source = {
@@ -2090,6 +2092,27 @@ export type AnnotationFragment = {
       }>
     >
   >;
+};
+
+export type IssueLinkFragment = {
+  issueKey?: Maybe<string>;
+  url?: Maybe<string>;
+  confidenceScore?: Maybe<number>;
+  source?: Maybe<{ author: string; time: Date; requester: string }>;
+  jiraTicket?: Maybe<JiraTicketFragment>;
+};
+
+export type JiraTicketFragment = {
+  key: string;
+  fields: {
+    summary: string;
+    assigneeDisplayName?: Maybe<string>;
+    resolutionName?: Maybe<string>;
+    created: string;
+    updated: string;
+    assignedTeam?: Maybe<string>;
+    status: { id: string; name: string };
+  };
 };
 
 export type BaseHostFragment = {
@@ -2149,19 +2172,6 @@ export type FileDiffsFragment = {
   deletions: number;
   diffLink: string;
   description: string;
-};
-
-export type JiraTicketFragment = {
-  key: string;
-  fields: {
-    summary: string;
-    assigneeDisplayName?: Maybe<string>;
-    resolutionName?: Maybe<string>;
-    created: string;
-    updated: string;
-    assignedTeam?: Maybe<string>;
-    status: { id: string; name: string };
-  };
 };
 
 export type LogMessageFragment = {
@@ -3389,16 +3399,7 @@ export type GetCustomCreatedIssuesQuery = {
     id: string;
     execution: number;
     annotation?: Maybe<{
-      createdIssues?: Maybe<
-        Array<
-          Maybe<{
-            issueKey?: Maybe<string>;
-            url?: Maybe<string>;
-            source?: Maybe<{ author: string; time: Date; requester: string }>;
-            jiraTicket?: Maybe<JiraTicketFragment>;
-          }>
-        >
-      >;
+      createdIssues?: Maybe<Array<Maybe<IssueLinkFragment>>>;
     }>;
   }>;
 };
@@ -3412,18 +3413,7 @@ export type GetIssuesQuery = {
   task?: Maybe<{
     id: string;
     execution: number;
-    annotation?: Maybe<{
-      issues?: Maybe<
-        Array<
-          Maybe<{
-            issueKey?: Maybe<string>;
-            url?: Maybe<string>;
-            source?: Maybe<{ author: string; time: Date; requester: string }>;
-            jiraTicket?: Maybe<JiraTicketFragment>;
-          }>
-        >
-      >;
-    }>;
+    annotation?: Maybe<{ issues?: Maybe<Array<Maybe<IssueLinkFragment>>> }>;
   }>;
 };
 

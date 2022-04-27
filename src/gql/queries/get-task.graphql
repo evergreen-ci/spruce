@@ -1,6 +1,5 @@
 #import "../fragments/baseTask.graphql"
 #import "../fragments/annotation.graphql"
-#import "../fragments/jiraTicket.graphql"
 
 query GetTask($taskId: String!, $execution: Int) {
   taskFiles(taskId: $taskId, execution: $execution) {
