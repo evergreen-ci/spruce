@@ -1,8 +1,8 @@
-import { Patch } from "gql/generated/types";
+import { VersionQuery } from "gql/generated/types";
 import { DownstreamProjectAccordion } from "./downstreamTasks/DownstreamProjectAccordion";
 
 interface DownstreamTasksProps {
-  childPatches: Partial<Patch>[];
+  childPatches: VersionQuery["version"]["patch"]["childPatches"];
 }
 
 export const DownstreamTasks: React.VFC<DownstreamTasksProps> = ({
@@ -17,11 +17,12 @@ export const DownstreamTasks: React.VFC<DownstreamTasksProps> = ({
         projectIdentifier,
         status,
         taskCount,
+        versionFull,
       }) => (
         <DownstreamProjectAccordion
           key={`downstream_project_${id}`}
           projectName={projectIdentifier}
-          status={status}
+          status={versionFull?.status ?? status}
           childPatchId={id}
           taskCount={taskCount}
           githash={githash}

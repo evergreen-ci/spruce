@@ -7,19 +7,16 @@ import {
   EnqueuePatch,
   ScheduleTasks,
 } from "components/PatchActionButtons";
-import { Patch } from "gql/generated/types";
 
 interface Props {
   patchId: string;
   canEnqueueToCommitQueue: boolean;
   isPatchOnCommitQueue: boolean;
   patchDescription: string;
-  childPatches: Partial<Patch>[];
   hasVersion: boolean;
 }
 export const DropdownMenu: React.VFC<Props> = ({
   patchId,
-  childPatches,
   canEnqueueToCommitQueue,
   isPatchOnCommitQueue,
   patchDescription,
@@ -45,7 +42,6 @@ export const DropdownMenu: React.VFC<Props> = ({
       visibilityControl={restartModalVisibilityControl}
       key="restart"
       patchId={patchId}
-      childPatches={childPatches}
       refetchQueries={refetchQueries}
       disabled={!hasVersion}
     />,

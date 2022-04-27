@@ -1,75 +1,77 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import Icon from "@leafygreen-ui/icon";
-import TextInput from "@leafygreen-ui/text-input";
-import { useLocation } from "react-router-dom";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { queryString, url } from "utils";
+import IconButton from "@leafygreen-ui/icon-button";
+import { uiColors } from "@leafygreen-ui/palette";
+import Icon from "components/Icon";
+import IconTooltip from "components/IconTooltip";
+import TextInput from "components/TextInputWithGlyph";
+import { useUpsertQueryParams } from "hooks";
+import { TestStatus } from "types/history";
+import { validators } from "utils";
 
-const { upsertQueryParam } = url;
-const { parseQueryString } = queryString;
+const { validateRegexp } = validators;
+const { yellow } = uiColors;
+
 interface HistoryTableTestSearchProps {
-  onSubmit?: (failedTests: string[]) => void;
+  onSubmit?: () => void;
 }
 
 export const HistoryTableTestSearch: React.VFC<HistoryTableTestSearchProps> = ({
   onSubmit = () => {},
 }) => {
   const [input, setInput] = useState("");
+  const isValid = validateRegexp(input);
+  const handleSubmit = useUpsertQueryParams();
 
-  const updateQueryParams = useUpdateURLQueryParams();
-  const { search } = useLocation();
-  const queryParams = parseQueryString(search);
-
-  // Currently, users are only able to filter by failed tests
-  const onClick = () => {
-    const selectedParams = queryParams.failed as string[];
-    const updatedParams = upsertQueryParam(selectedParams, input);
-    onSubmit(updatedParams);
-    updateQueryParams({ failed: updatedParams });
-    setInput("");
+  const handleOnChange = (value: string) => {
+    setInput(value);
+  };
+  const handleOnSubmit = () => {
+    if (isValid) {
+      onSubmit();
+      handleSubmit({ category: TestStatus.Failed, value: input });
+      setInput("");
+    }
   };
 
   return (
     <ContentWrapper>
-      <TextInputWrapper>
-        <TextInput
-          type="search"
-          label="Filter by Failed Tests"
-          aria-label="history-table-test-search-input"
-          value={input}
-          placeholder="Search test name regex"
-          onChange={(e) => setInput(e.target.value)}
-          onKeyPress={(e) => e.key === "Enter" && onClick()}
-        />
-        <StyledIcon glyph="Plus" onClick={() => onClick()} />
-      </TextInputWrapper>
+      <TextInput
+        type="search"
+        label="Filter by Failed Tests"
+        aria-label="history-table-test-search-input"
+        value={input}
+        placeholder="Search test name regex"
+        onChange={(e) => handleOnChange(e.target.value)}
+        onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) =>
+          e.key === "Enter" && handleOnSubmit()
+        }
+        icon={
+          isValid ? (
+            <IconButton
+              onClick={handleOnSubmit}
+              aria-label="Select plus button"
+            >
+              <Icon glyph="Plus" data-cy="tuple-select-button" />
+            </IconButton>
+          ) : (
+            <IconTooltip
+              glyph="Warning"
+              data-cy="tuple-select-warning"
+              fill={yellow.base}
+            >
+              Invalid Regular Expression
+            </IconTooltip>
+          )
+        }
+      />
     </ContentWrapper>
   );
 };
 
 const ContentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
   width: 40%;
   min-width: 200px; //temporary
-  padding-right: 30px;
-`;
-
-const TextInputWrapper = styled.div`
+  margin-right: 30px;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-const StyledIcon = styled(Icon)`
-  position: absolute;
-  height: 100%;
-  top: 10px; //temporary
-  align-self: flex-end;
-  margin-right: 10px;
-  &:hover {
-    cursor: pointer;
-  }
 `;

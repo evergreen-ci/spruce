@@ -12,7 +12,6 @@ import {
 } from "components/PatchActionButtons";
 
 import { PageButtonRow } from "components/styles";
-import { Patch } from "gql/generated/types";
 import { ScheduleUndispatchedBaseTasks } from "./ScheduleUndispatchedBaseTasks";
 
 interface ActionButtonProps {
@@ -21,7 +20,6 @@ interface ActionButtonProps {
   canReconfigure: boolean;
   patchDescription: string;
   versionId: string;
-  childPatches: Partial<Patch>[];
   isPatch: boolean;
   activated: boolean;
 }
@@ -32,7 +30,6 @@ export const ActionButtons: React.VFC<ActionButtonProps> = ({
   canReconfigure,
   patchDescription,
   versionId,
-  childPatches,
   isPatch,
   activated,
 }) => {
@@ -81,7 +78,6 @@ export const ActionButtons: React.VFC<ActionButtonProps> = ({
         />
         <RestartPatch
           patchId={versionId}
-          childPatches={childPatches}
           isButton
           disabled={isPatchOnCommitQueue}
           refetchQueries={["Patch"]}
