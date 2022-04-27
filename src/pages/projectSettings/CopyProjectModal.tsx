@@ -6,41 +6,39 @@ import { SpruceForm } from "components/SpruceForm";
 import { getProjectSettingsRoute } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
-  CreateProjectMutation,
-  CreateProjectMutationVariables,
+  CopyProjectMutation,
+  CopyProjectMutationVariables,
 } from "gql/generated/types";
-import { CREATE_PROJECT } from "gql/mutations";
+import { COPY_PROJECT } from "gql/mutations";
 import { projectId, projectName } from "./sharedFormSchema";
 
 interface Props {
   handleClose: () => void;
+  id: string;
+  label: string;
   open: boolean;
-  owner: string;
-  repo: string;
 }
 
-export const CreateProjectModal: React.VFC<Props> = ({
+export const CopyProjectModal: React.VFC<Props> = ({
   handleClose,
+  id,
+  label,
   open,
-  owner,
-  repo,
 }) => {
   const dispatchToast = useToastContext();
   const { replace } = useHistory();
 
   const [formState, setFormState] = useState({
-    owner,
-    repo,
     projectId: "",
     projectName: "",
   });
   const [hasError, setHasError] = useState(true);
 
-  const [createProject] = useMutation<
-    CreateProjectMutation,
-    CreateProjectMutationVariables
-  >(CREATE_PROJECT, {
-    onCompleted({ createProject: { identifier } }) {
+  const [copyProject] = useMutation<
+    CopyProjectMutation,
+    CopyProjectMutationVariables
+  >(COPY_PROJECT, {
+    onCompleted({ copyProject: { identifier } }) {
       dispatchToast.success(`Successfully created the project: ${identifier}`);
       replace(getProjectSettingsRoute(identifier));
     },
@@ -53,13 +51,12 @@ export const CreateProjectModal: React.VFC<Props> = ({
   });
 
   const onConfirm = () => {
-    createProject({
+    copyProject({
       variables: {
         project: {
-          identifier: formState.projectName,
-          owner: formState.owner,
-          repo: formState.repo,
-          ...(formState?.projectId && { id: formState.projectId }),
+          newProjectId: formState.projectId,
+          newProjectIdentifier: formState.projectName,
+          projectIdToCopy: id,
         },
       },
     });
@@ -68,13 +65,13 @@ export const CreateProjectModal: React.VFC<Props> = ({
 
   return (
     <ConfirmationModal
-      buttonText="Create Project"
-      data-cy="create-project-modal"
+      buttonText="Duplicate"
+      data-cy="copy-project-modal"
       onCancel={handleClose}
       onConfirm={onConfirm}
       open={open}
       submitDisabled={hasError}
-      title="Create New Project"
+      title={`Duplicate “${label}”`}
     >
       <SpruceForm
         formData={formState}
@@ -95,26 +92,10 @@ const modalFormDefinition = {
     properties: {
       projectName: projectName.schema,
       projectId: projectId.schema,
-      owner: {
-        type: "string" as "string",
-        title: "Owner",
-        minLength: 1,
-      },
-      repo: {
-        type: "string" as "string",
-        title: "Repo",
-        minLength: 1,
-      },
     },
   },
   uiSchema: {
     projectName: projectName.uiSchema,
     projectId: projectId.uiSchema,
-    owner: {
-      "ui:data-cy": "owner-input",
-    },
-    repo: {
-      "ui:data-cy": "repo-input",
-    },
   },
 };
