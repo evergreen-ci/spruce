@@ -1,4 +1,3 @@
-import React from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
@@ -20,7 +19,7 @@ import { getDateCopy } from "utils/string";
 import { validateObjectId } from "utils/validators";
 import { EventDiffLine, getEventDiffLines } from "./EventLogDiffs";
 
-export const EventLogTab: React.FC = () => {
+export const EventLogTab: React.VFC = () => {
   const { identifier } = useParams<{ identifier: string }>();
   const isRepo = validateObjectId(identifier);
 
@@ -60,45 +59,49 @@ export const EventLogTab: React.FC = () => {
     : projectEventData?.projectEvents?.eventLogEntries;
 
   return (
-    <div>
-      <div data-cy="event-log">
-        {((eventData as logEntry[]) || []).map(
-          ({ user, timestamp, before, after }) => (
-            /* @ts-expect-error */
-            <EventLogCard key={`event_log_${timestamp}`}>
-              <EventLogHeader user={user} timestamp={timestamp} />
-              <Table
-                data={getEventDiffLines(before, after)}
-                columns={[
-                  <TableHeader
-                    key="key"
-                    label={<span data-cy="key">Property</span>}
-                    sortBy={(datum: EventDiffLine) => datum?.key}
-                  />,
-                  <TableHeader
-                    key="before"
-                    label={<span data-cy="before">Before</span>}
-                    sortBy={(datum: EventDiffLine) => datum?.before}
-                  />,
-                  <TableHeader
-                    key="after"
-                    label={<span data-cy="after">After</span>}
-                    sortBy={(datum: EventDiffLine) => datum?.after}
-                  />,
-                ]}
-              >
-                {({ datum }) => (
-                  <StyledRow key={datum?.key} data-cy="event-log-table-row">
-                    <Cell>{datum?.key ? datum?.key : ""}</Cell>
-                    <Cell>{getEventValue(datum?.before)}</Cell>
-                    <Cell>{getEventValue(datum?.after)}</Cell>
-                  </StyledRow>
-                )}
-              </Table>
-            </EventLogCard>
-          )
-        )}
-      </div>
+    <div data-cy="event-log">
+      {((eventData as logEntry[]) || []).map(
+        ({ user, timestamp, before, after }) => (
+          /* @ts-expect-error */
+          <EventLogCard key={`event_log_${timestamp}`}>
+            <EventLogHeader user={user} timestamp={timestamp} />
+            <Table
+              data={getEventDiffLines(before, after)}
+              columns={[
+                <TableHeader
+                  key="key"
+                  label={<span data-cy="key">Property</span>}
+                  sortBy={(datum: EventDiffLine) => datum.key}
+                />,
+                <TableHeader
+                  key="before"
+                  label={<span data-cy="before">Before</span>}
+                  sortBy={(datum: EventDiffLine) => datum.before}
+                />,
+                <TableHeader
+                  key="after"
+                  label={<span data-cy="after">After</span>}
+                  sortBy={(datum: EventDiffLine) => datum.after}
+                />,
+              ]}
+            >
+              {({ datum }) => (
+                <Row key={datum.key} data-cy="event-log-table-row">
+                  <Cell>
+                    <StyledCell>{datum.key ?? ""}</StyledCell>
+                  </Cell>
+                  <Cell>
+                    <StyledCell>{getEventValue(datum.before)}</StyledCell>
+                  </Cell>
+                  <Cell>
+                    <StyledCell>{getEventValue(datum.after)}</StyledCell>
+                  </Cell>
+                </Row>
+              )}
+            </Table>
+          </EventLogCard>
+        )
+      )}
     </div>
   );
 };
@@ -108,11 +111,10 @@ interface Props {
   user: string;
 }
 
-export const EventLogHeader: React.VFC<Props> = ({ user, timestamp }) => (
+const EventLogHeader: React.VFC<Props> = ({ user, timestamp }) => (
   <StyledHeader>
-    <div>
-      <H3>{getDateCopy(timestamp)}</H3>
-    </div>
+    <H3>{getDateCopy(timestamp)}</H3>
+
     <div> {user} </div>
   </StyledHeader>
 );
@@ -121,14 +123,13 @@ export const EventLogHeader: React.VFC<Props> = ({ user, timestamp }) => (
 const EventLogCard = styled(Card)`
   margin-bottom: 48px;
   padding: ${size.m};
-  width: 120%;
+  width: 150%;
 `;
 
-const StyledRow = styled(Row)`
-  td:first-of-type {
-    width: 80%;
-    word-break: break-all;
-  }
+const StyledCell = styled("div")`
+  word-break: break-all;
+  font-size: 12px;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 `;
 
 const StyledHeader = styled("div")`
@@ -151,5 +152,16 @@ const getEventValue = (value: any) => {
     return '""';
   }
 
-  return JSON.stringify(value).split(",").join("\n");
+  const splitArray = JSON.stringify(value).split(",");
+
+  return (
+    <div>
+      {splitArray.map((item, index) => (
+        <div key={item}>
+          {item}
+          {index !== splitArray.length - 1 && ","}
+        </div>
+      ))}
+    </div>
+  );
 };
