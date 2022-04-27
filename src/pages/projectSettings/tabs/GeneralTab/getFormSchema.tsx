@@ -79,7 +79,7 @@ export const getFormSchema = (
               batchTime: {
                 type: "number" as "number",
                 title: "Batch Time",
-                minimum: 0,
+                minimum: 1,
               },
               remotePath: {
                 type: "string" as "string",
