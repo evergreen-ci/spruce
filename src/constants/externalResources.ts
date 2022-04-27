@@ -5,6 +5,8 @@ const { getLobsterURL, getUiUrl } = environmentalVariables;
 
 export const wikiUrl = "https://github.com/evergreen-ci/evergreen/wiki";
 
+export const versionControlDocumentationUrl = `${wikiUrl}/Project-and-Distro-Settings#version-control`;
+
 export const cliDocumentationUrl =
   "https://github.com/evergreen-ci/evergreen/wiki/Using-the-Command-Line-Tool";
 

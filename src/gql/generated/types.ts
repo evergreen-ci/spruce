@@ -1919,6 +1919,7 @@ export type SpruceConfig = {
   jira?: Maybe<JiraConfig>;
   banner?: Maybe<Scalars["String"]>;
   bannerTheme?: Maybe<Scalars["String"]>;
+  githubOrgs: Array<Scalars["String"]>;
   providers?: Maybe<CloudProviderConfig>;
   spawnHost: SpawnHostConfig;
 };
@@ -3266,6 +3267,12 @@ export type DistrosQuery = {
   distros: Array<
     Maybe<{ name?: Maybe<string>; isVirtualWorkStation: boolean }>
   >;
+};
+
+export type GetGithubOrgsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetGithubOrgsQuery = {
+  spruceConfig?: Maybe<{ githubOrgs: Array<string> }>;
 };
 
 export type GithubProjectConflictsQueryVariables = Exact<{
