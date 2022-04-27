@@ -25,6 +25,7 @@ fragment PatchesPagePatches on Patches {
           count
         }
       }
+      status
     }
     canEnqueueToCommitQueue
   }

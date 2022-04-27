@@ -1,9 +1,9 @@
 import { useState, PropsWithChildren, useRef, useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
+import { Label } from "@leafygreen-ui/typography";
 import Dropdown from "components/Dropdown";
 import Icon from "components/Icon";
-import { InputLabel } from "components/styles";
 import TextInput from "components/TextInputWithGlyph";
 import { size } from "constants/tokens";
 import { toggleArray } from "utils/array";
@@ -128,14 +128,12 @@ const SearchableDropdown = <T extends {}>({
       buttonText = value;
     } else if (Array.isArray(value) && value.length !== 0) {
       buttonText = value.join(", ");
-    } else {
-      buttonText = value.toString();
     }
   }
 
   return (
     <Container>
-      <InputLabel htmlFor={`searchable-dropdown-${label}`}>{label}</InputLabel>
+      <Label htmlFor={`searchable-dropdown-${label}`}>{label}</Label>
       <Wrapper>
         <Dropdown
           id={`searchable-dropdown-${label}`}
@@ -153,7 +151,7 @@ const SearchableDropdown = <T extends {}>({
             placeholder={searchPlaceholder}
             value={search}
             onChange={handleSearch}
-            glyph="MagnifyingGlass"
+            icon={<Icon glyph="MagnifyingGlass" />}
             aria-label="Search"
             type="search"
           />
