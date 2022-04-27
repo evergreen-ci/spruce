@@ -32,6 +32,7 @@ const RenderCommitsChart: React.VFC<RenderCommitsChartProps> = ({
         chartType={chartType}
         total={groupedResult[version.id].total}
         groupedTaskStats={groupedResult[version.id].stats}
+        eta={version.taskStatusStats?.eta}
         max={max}
       />
     );

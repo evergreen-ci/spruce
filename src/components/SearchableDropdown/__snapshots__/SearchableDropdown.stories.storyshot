@@ -5,7 +5,7 @@ exports[`storybook Storyshots Searchable Dropdown Custom Option 1`] = `
   className="css-1ry038z-Container e17dnzmx0"
 >
   <label
-    className="css-c0hrp-InputLabel e1xf068s2"
+    className="leafygreen-ui-ly82bp"
     htmlFor="searchable-dropdown-Custom option select"
   >
     Custom option select
@@ -41,7 +41,7 @@ exports[`storybook Storyshots Searchable Dropdown Custom Option 1`] = `
                 className="css-197mxpc-OverflowBody e1yw4j300 leafygreen-ui-1mngpnd"
                 data-cy="dropdown-value"
               >
-                
+                Select an element
               </div>
             </div>
           </div>
@@ -79,7 +79,7 @@ exports[`storybook Storyshots Searchable Dropdown Multiselect 1`] = `
   className="css-1ry038z-Container e17dnzmx0"
 >
   <label
-    className="css-c0hrp-InputLabel e1xf068s2"
+    className="leafygreen-ui-ly82bp"
     htmlFor="searchable-dropdown-multi select"
   >
     multi select
@@ -115,7 +115,7 @@ exports[`storybook Storyshots Searchable Dropdown Multiselect 1`] = `
                 className="css-197mxpc-OverflowBody e1yw4j300 leafygreen-ui-1mngpnd"
                 data-cy="dropdown-value"
               >
-                
+                Select an element
               </div>
             </div>
           </div>
@@ -153,7 +153,7 @@ exports[`storybook Storyshots Searchable Dropdown Story 1`] = `
   className="css-1ry038z-Container e17dnzmx0"
 >
   <label
-    className="css-c0hrp-InputLabel e1xf068s2"
+    className="leafygreen-ui-ly82bp"
     htmlFor="searchable-dropdown-standard select"
   >
     standard select

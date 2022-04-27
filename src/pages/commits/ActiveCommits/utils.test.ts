@@ -20,7 +20,7 @@ import {
 const { red, green, yellow, gray } = uiColors;
 
 describe("getAllTaskStatsGroupedByColor", () => {
-  it("grab the taskStatusCounts field from all versions, returns mapping between version id to its {grouped task stats, max, total}", () => {
+  it("grab the taskStatusStats.statusCounts field from all versions, returns mapping between version id to its {grouped task stats, max, total}", () => {
     expect(getAllTaskStatsGroupedByColor(versions)).toStrictEqual({
       "12": {
         stats: [
@@ -329,15 +329,18 @@ const versions = [
       order: 39369,
       author: "Mohamed Khelif",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      taskStatusCounts: [
-        { status: TaskStatus.TaskTimedOut, count: 6 },
-        { status: TaskStatus.Succeeded, count: 4 },
-        { status: TaskStatus.Started, count: 3 },
-        { status: TaskStatus.SystemFailed, count: 5 },
-        { status: TaskStatus.Unscheduled, count: 2 },
-        { status: TaskStatus.SetupFailed, count: 3 },
-        { status: TaskStatus.SystemUnresponsive, count: 2 },
-      ],
+      taskStatusStats: {
+        eta: null,
+        counts: [
+          { status: TaskStatus.TaskTimedOut, count: 6 },
+          { status: TaskStatus.Succeeded, count: 4 },
+          { status: TaskStatus.Started, count: 3 },
+          { status: TaskStatus.SystemFailed, count: 5 },
+          { status: TaskStatus.Unscheduled, count: 2 },
+          { status: TaskStatus.SetupFailed, count: 3 },
+          { status: TaskStatus.SystemUnresponsive, count: 2 },
+        ],
+      },
       buildVariants: [buildVariant1],
       buildVariantStats: [buildVariantStat],
     },
@@ -352,14 +355,17 @@ const versions = [
       order: 39368,
       author: "Arjun Patel",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      taskStatusCounts: [
-        { status: TaskStatus.TestTimedOut, count: 6 },
-        { status: TaskStatus.Failed, count: 2 },
-        { status: TaskStatus.Dispatched, count: 4 },
-        { status: TaskStatus.WillRun, count: 2 },
-        { status: TaskStatus.SystemTimedOut, count: 5 },
-        { status: TaskStatus.SystemUnresponsive, count: 2 },
-      ],
+      taskStatusStats: {
+        eta: null,
+        counts: [
+          { status: TaskStatus.TestTimedOut, count: 6 },
+          { status: TaskStatus.Failed, count: 2 },
+          { status: TaskStatus.Dispatched, count: 4 },
+          { status: TaskStatus.WillRun, count: 2 },
+          { status: TaskStatus.SystemTimedOut, count: 5 },
+          { status: TaskStatus.SystemUnresponsive, count: 2 },
+        ],
+      },
       buildVariants: [buildVariant1, buildVariant2],
       buildVariantStats: [],
     },
@@ -374,12 +380,15 @@ const versions = [
       order: 39367,
       author: "Mohamed Khelif",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      taskStatusCounts: [
-        { status: TaskStatus.Succeeded, count: 6 },
-        { status: TaskStatus.Failed, count: 2 },
-        { status: TaskStatus.Dispatched, count: 4 },
-        { status: TaskStatus.Started, count: 5 },
-      ],
+      taskStatusStats: {
+        eta: null,
+        counts: [
+          { status: TaskStatus.Succeeded, count: 6 },
+          { status: TaskStatus.Failed, count: 2 },
+          { status: TaskStatus.Dispatched, count: 4 },
+          { status: TaskStatus.Started, count: 5 },
+        ],
+      },
       buildVariants: [buildVariant1, buildVariant2, buildVariant3],
       buildVariantStats: [],
     },
@@ -394,15 +403,18 @@ const versions = [
       order: 39366,
       author: "Arjun Patel",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      taskStatusCounts: [
-        { status: TaskStatus.TaskTimedOut, count: 6 },
-        { status: TaskStatus.Succeeded, count: 4 },
-        { status: TaskStatus.Started, count: 3 },
-        { status: TaskStatus.SystemFailed, count: 5 },
-        { status: TaskStatus.Unscheduled, count: 2 },
-        { status: TaskStatus.SetupFailed, count: 3 },
-        { status: TaskStatus.SystemUnresponsive, count: 2 },
-      ],
+      taskStatusStats: {
+        eta: null,
+        counts: [
+          { status: TaskStatus.TaskTimedOut, count: 6 },
+          { status: TaskStatus.Succeeded, count: 4 },
+          { status: TaskStatus.Started, count: 3 },
+          { status: TaskStatus.SystemFailed, count: 5 },
+          { status: TaskStatus.Unscheduled, count: 2 },
+          { status: TaskStatus.SetupFailed, count: 3 },
+          { status: TaskStatus.SystemUnresponsive, count: 2 },
+        ],
+      },
       buildVariants: [buildVariant1],
       buildVariantStats: [],
     },

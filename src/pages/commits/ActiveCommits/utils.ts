@@ -39,7 +39,7 @@ export const getAllTaskStatsGroupedByColor = (versions: Commits) => {
   versions.forEach(({ version }) => {
     if (version != null) {
       idToGroupedTaskStats[version.id] = groupStatusesByUmbrellaStatus(
-        version.taskStatusCounts
+        version.taskStatusStats?.counts
       );
     }
   });
