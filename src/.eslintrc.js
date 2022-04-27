@@ -1,12 +1,3 @@
-const fs = require("fs");
-
-let schema;
-try {
-  schema = fs.readFileSync("./sdlschema.graphql", "utf8");
-} catch (e) {
-  schema = "";
-}
-
 const ERROR = "error";
 const WARN = "warn";
 const OFF = "off";
@@ -20,26 +11,13 @@ module.exports = {
     "prettier/react",
     "prettier/@typescript-eslint",
   ],
-  plugins: [
-    "react",
-    "graphql",
-    "react-hooks",
-    "@emotion",
-    "testing-library",
-    "jest",
-  ],
+  plugins: ["react", "react-hooks", "@emotion", "testing-library", "jest"],
   rules: {
     // Help us with emotion
     "@emotion/import-from-emotion": ERROR,
     "@emotion/no-vanilla": errorIfStrict,
     "@emotion/pkg-renaming": ERROR,
     "@emotion/syntax-preference": [errorIfStrict, "string"],
-    "graphql/template-strings": [
-      ERROR,
-      {
-        schemaString: schema,
-      },
-    ],
     // These rules help ensure we are following proper accessability standards
     "jsx-a11y/aria-role": [errorIfStrict, { ignoreNonDom: false }],
     "jsx-a11y/aria-props": errorIfStrict,

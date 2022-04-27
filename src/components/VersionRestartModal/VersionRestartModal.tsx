@@ -15,7 +15,6 @@ import { useToastContext } from "context/toast";
 import {
   BuildVariantsWithChildrenQuery,
   BuildVariantsWithChildrenQueryVariables,
-  Patch,
   RestartVersionsMutation,
   RestartVersionsMutationVariables,
 } from "gql/generated/types";
@@ -36,7 +35,6 @@ interface Props {
   onCancel: () => void;
   versionId?: string;
   refetchQueries: string[];
-  childPatches: Partial<Patch>[];
 }
 const VersionRestartModal: React.VFC<Props> = ({
   visible,

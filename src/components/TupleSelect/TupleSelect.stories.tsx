@@ -1,18 +1,10 @@
-import { withQuery } from "@storybook/addon-queryparams";
-import { MemoryRouter } from "react-router-dom";
+import { Disclaimer } from "@leafygreen-ui/typography";
+import { action } from "@storybook/addon-actions";
 import { ProjectFilterOptions } from "types/commits";
-import { TupleSelect } from ".";
+import TupleSelect from ".";
 
 export default {
   title: "TupleSelect",
-  decorators: [
-    (Story) => (
-      <MemoryRouter>
-        <Story />
-      </MemoryRouter>
-    ),
-    withQuery,
-  ],
   component: TupleSelect,
 };
 
@@ -31,6 +23,12 @@ const options = [
 
 export const Default = () => (
   <div style={{ width: "40%" }}>
-    <TupleSelect options={options} />
+    <TupleSelect
+      options={options}
+      onSubmit={action("submit")}
+      validator={(v) => v !== "bad"}
+      validatorErrorMessage="Invalid Input"
+    />
+    <Disclaimer>The word `bad` will fail validation</Disclaimer>
   </div>
 );
