@@ -19,10 +19,13 @@ fragment PatchesPagePatches on Patches {
     }
     versionFull {
       id
-      taskStatusCounts(options: {}) {
-        status
-        count
+      taskStatusStats(options: {}) {
+        counts {
+          status
+          count
+        }
       }
+      status
     }
     canEnqueueToCommitQueue
   }

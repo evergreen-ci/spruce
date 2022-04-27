@@ -95,17 +95,17 @@ exports[`storybook Storyshots Public Key Form Public Key Form View 1`] = `
   >
     <label
       className="leafygreen-ui-1v870ns"
-      id="select-3-label"
+      id="select-5-label"
     >
       Existing Key
     </label>
     <button
-      aria-controls="select-3-menu"
-      aria-describedby="select-3-description"
+      aria-controls="select-5-menu"
+      aria-describedby="select-5-description"
       aria-disabled={false}
       aria-expanded={false}
       aria-invalid={false}
-      aria-labelledby="select-3-label"
+      aria-labelledby="select-5-label"
       className="leafygreen-ui-p6v5m8"
       data-testid="leafygreen-ui-select-menubutton"
       disabled={false}

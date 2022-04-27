@@ -20,6 +20,7 @@ export const AbsoluteChart = () => (
         total={groupedTaskData[item.version.id].total}
         max={max}
         chartType={ChartTypes.Absolute}
+        eta={item.version?.taskStatusStats?.eta}
       />
     ))}
   </FlexRowContainer>
@@ -34,6 +35,7 @@ export const PercentChart = () => (
         total={groupedTaskData[item.version.id].total}
         max={max}
         chartType={ChartTypes.Percentage}
+        eta={item.version?.taskStatusStats?.eta}
       />
     ))}
   </FlexRowContainer>
@@ -55,13 +57,16 @@ const versions: Commits = [
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       author: "Mohamed Khelif",
       order: 25,
-      taskStatusCounts: [
-        { status: "success", count: 6 },
-        { status: "failed", count: 2 },
-        { status: "dispatched", count: 4 },
-        { status: "started", count: 5 },
-        { status: "will-run", count: 2 },
-      ],
+      taskStatusStats: {
+        eta: new Date(Date.now() + 9999999),
+        counts: [
+          { status: "success", count: 6 },
+          { status: "failed", count: 2 },
+          { status: "dispatched", count: 4 },
+          { status: "started", count: 5 },
+          { status: "will-run", count: 2 },
+        ],
+      },
     },
     rolledUpVersions: null,
   },
@@ -74,12 +79,15 @@ const versions: Commits = [
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       author: "Arjun Patel",
       order: 24,
-      taskStatusCounts: [
-        { status: "blocked", count: 4 },
-        { status: "aborted", count: 3 },
-        { status: "undispatched", count: 5 },
-        { status: "test-timed-out", count: 2 },
-      ],
+      taskStatusStats: {
+        eta: null,
+        counts: [
+          { status: "blocked", count: 4 },
+          { status: "aborted", count: 3 },
+          { status: "undispatched", count: 5 },
+          { status: "test-timed-out", count: 2 },
+        ],
+      },
     },
     rolledUpVersions: null,
   },
@@ -92,12 +100,15 @@ const versions: Commits = [
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       author: "Mohamed Khelif",
       order: 23,
-      taskStatusCounts: [
-        { status: "success", count: 4 },
-        { status: "inactive", count: 3 },
-        { status: "pending", count: 5 },
-        { status: "aborted", count: 2 },
-      ],
+      taskStatusStats: {
+        eta: null,
+        counts: [
+          { status: "success", count: 4 },
+          { status: "inactive", count: 3 },
+          { status: "pending", count: 5 },
+          { status: "aborted", count: 2 },
+        ],
+      },
     },
     rolledUpVersions: null,
   },
@@ -110,12 +121,15 @@ const versions: Commits = [
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       author: "Arjun Patel",
       order: 22,
-      taskStatusCounts: [
-        { status: "blocked", count: 4 },
-        { status: "aborted", count: 3 },
-        { status: "undispatched", count: 5 },
-        { status: "test-timed-out", count: 2 },
-      ],
+      taskStatusStats: {
+        eta: null,
+        counts: [
+          { status: "blocked", count: 4 },
+          { status: "aborted", count: 3 },
+          { status: "undispatched", count: 5 },
+          { status: "test-timed-out", count: 2 },
+        ],
+      },
     },
     rolledUpVersions: null,
   },
@@ -128,12 +142,15 @@ const versions: Commits = [
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       author: "Elena Chen",
       order: 21,
-      taskStatusCounts: [
-        { status: "setup-failed", count: 4 },
-        { status: "inactive", count: 3 },
-        { status: "pending", count: 5 },
-        { status: "unstarted", count: 2 },
-      ],
+      taskStatusStats: {
+        eta: null,
+        counts: [
+          { status: "setup-failed", count: 4 },
+          { status: "inactive", count: 3 },
+          { status: "pending", count: 5 },
+          { status: "unstarted", count: 2 },
+        ],
+      },
     },
     rolledUpVersions: null,
   },
@@ -146,13 +163,16 @@ const versions: Commits = [
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       author: "Sophie Stadler",
       order: 20,
-      taskStatusCounts: [
-        { status: "system-failed", count: 6 },
-        { status: "pending", count: 2 },
-        { status: "known-issue", count: 4 },
-        { status: "unscheduled", count: 12 },
-        { status: "task-timed-out", count: 2 },
-      ],
+      taskStatusStats: {
+        eta: null,
+        counts: [
+          { status: "system-failed", count: 6 },
+          { status: "pending", count: 2 },
+          { status: "known-issue", count: 4 },
+          { status: "unscheduled", count: 12 },
+          { status: "task-timed-out", count: 2 },
+        ],
+      },
     },
     rolledUpVersions: null,
   },
@@ -165,12 +185,15 @@ const versions: Commits = [
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       author: "Sophie Stadler",
       order: 19,
-      taskStatusCounts: [
-        { status: "system-timed-out", count: 4 },
-        { status: "system-unresponsive", count: 3 },
-        { status: "setup-failed", count: 5 },
-        { status: "unscheduled", count: 2 },
-      ],
+      taskStatusStats: {
+        eta: null,
+        counts: [
+          { status: "system-timed-out", count: 4 },
+          { status: "system-unresponsive", count: 3 },
+          { status: "setup-failed", count: 5 },
+          { status: "unscheduled", count: 2 },
+        ],
+      },
     },
     rolledUpVersions: null,
   },

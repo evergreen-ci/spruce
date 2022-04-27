@@ -106,12 +106,15 @@ const versions = [
       revision: "987bf57eb679c6361322c3961b30a10724a9b001",
       order: 929,
       projectIdentifier: "spruce",
-      taskStatusCounts: [
-        { status: "system-timed-out", count: 4 },
-        { status: "system-unresponsive", count: 3 },
-        { status: "setup-failed", count: 5 },
-        { status: "unscheduled", count: 2 },
-      ],
+      taskStatusStats: {
+        eta: null,
+        counts: [
+          { status: "system-timed-out", count: 4 },
+          { status: "system-unresponsive", count: 3 },
+          { status: "setup-failed", count: 5 },
+          { status: "unscheduled", count: 2 },
+        ],
+      },
       buildVariants: [
         {
           displayName: "01. Code Health [code_health]",
@@ -163,13 +166,16 @@ const versions = [
       revision: "a77bd39ccf515b63327dc2355a8444955043c66a",
       order: 928,
       projectIdentifier: "spruce",
-      taskStatusCounts: [
-        { status: "system-failed", count: 6 },
-        { status: "pending", count: 2 },
-        { status: "known-issue", count: 4 },
-        { status: "unscheduled", count: 12 },
-        { status: "task-timed-out", count: 2 },
-      ],
+      taskStatusStats: {
+        eta: null,
+        counts: [
+          { status: "system-failed", count: 6 },
+          { status: "pending", count: 2 },
+          { status: "known-issue", count: 4 },
+          { status: "unscheduled", count: 12 },
+          { status: "task-timed-out", count: 2 },
+        ],
+      },
       buildVariants: [
         {
           displayName: "01. Code Health [code_health]",
@@ -236,12 +242,15 @@ const versions = [
       revision: "9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad",
       order: 926,
       projectIdentifier: "spruce",
-      taskStatusCounts: [
-        { status: "setup-failed", count: 4 },
-        { status: "inactive", count: 3 },
-        { status: "pending", count: 5 },
-        { status: "unstarted", count: 2 },
-      ],
+      taskStatusStats: {
+        eta: null,
+        counts: [
+          { status: "setup-failed", count: 4 },
+          { status: "inactive", count: 3 },
+          { status: "pending", count: 5 },
+          { status: "unstarted", count: 2 },
+        ],
+      },
       buildVariants: [
         {
           displayName: "01. Code Health [code_health]",
@@ -281,12 +290,15 @@ const versions = [
       revision: "f7f7f1a3abdb9897dfc02b7a1de9821651b0916e",
       projectIdentifier: "spruce",
       order: 925,
-      taskStatusCounts: [
-        { status: "blocked", count: 4 },
-        { status: "aborted", count: 3 },
-        { status: "undispatched", count: 5 },
-        { status: "test-timed-out", count: 2 },
-      ],
+      taskStatusStats: {
+        eta: null,
+        counts: [
+          { status: "blocked", count: 4 },
+          { status: "aborted", count: 3 },
+          { status: "undispatched", count: 5 },
+          { status: "test-timed-out", count: 2 },
+        ],
+      },
       buildVariants: [
         {
           displayName: "01. Code Health [code_health]",
@@ -326,13 +338,16 @@ const versions = [
       revision: "211b3a06e2948a5afa5dbd61c2322037c300629b",
       projectIdentifier: "spruce",
       order: 924,
-      taskStatusCounts: [
-        { status: "success", count: 6 },
-        { status: "failed", count: 2 },
-        { status: "dispatched", count: 4 },
-        { status: "started", count: 5 },
-        { status: "will-run", count: 2 },
-      ],
+      taskStatusStats: {
+        eta: null,
+        counts: [
+          { status: "success", count: 6 },
+          { status: "failed", count: 2 },
+          { status: "dispatched", count: 4 },
+          { status: "started", count: 5 },
+          { status: "will-run", count: 2 },
+        ],
+      },
       buildVariants: [
         {
           displayName: "01. Code Health [code_health]",

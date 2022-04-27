@@ -1,4 +1,4 @@
-import { validateObjectId, validateSSHPublicKey } from ".";
+import { validateRegexp, validateObjectId, validateSSHPublicKey } from ".";
 
 describe("validateObjectId", () => {
   it("validates object ids", () => {
@@ -15,6 +15,18 @@ describe("validateObjectId", () => {
   });
 });
 
+describe("validateRegexp", () => {
+  it("returns true for valid regular expressions", () => {
+    expect(validateRegexp("^[0-9]+$")).toBeTruthy();
+    expect(validateRegexp(".")).toBeTruthy();
+    expect(validateRegexp("^[0-9]+([,.][0-9]+)?$")).toBeTruthy();
+  });
+  it("returns false for invalid regular expressions", () => {
+    expect(validateRegexp("variant[")).toBeFalsy();
+    expect(validateRegexp("[")).toBeFalsy();
+    expect(validateRegexp("test(")).toBeFalsy();
+  });
+});
 describe("validateSSHPublicKey", () => {
   it("validates ssh public keys", () => {
     expect(validateSSHPublicKey("ssh-rsa someHash")).toBeTruthy();

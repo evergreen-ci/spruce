@@ -9,6 +9,7 @@ interface Props {
   max: number;
   total: number;
   chartType: ChartTypes;
+  eta?: Date;
 }
 
 export const CommitChart: React.VFC<Props> = ({
@@ -16,9 +17,11 @@ export const CommitChart: React.VFC<Props> = ({
   chartType,
   groupedTaskStats,
   total,
+  eta,
 }) => (
   <CommitChartTooltip
     groupedTaskStats={groupedTaskStats}
+    eta={eta}
     trigger={
       <ChartContainer data-cy="commit-chart-container" data-type={chartType}>
         {groupedTaskStats.map(({ color, count }) => (

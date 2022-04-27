@@ -749,10 +749,10 @@ exports[`storybook Storyshots History Table Test Search 1`] = `
   }
 >
   <div
-    className="css-1o3pjf3-ContentWrapper e8i7li42"
+    className="css-1o8n2af-ContentWrapper e8i7li40"
   >
     <div
-      className="css-s19ndp-TextInputWrapper e8i7li41"
+      className="css-mk4qpy-TextInputWrapper e13gwrw81"
     >
       <div
         className="leafygreen-ui-1iyoj2o"
@@ -795,24 +795,40 @@ exports[`storybook Storyshots History Table Test Search 1`] = `
           />
         </div>
       </div>
-      <svg
-        aria-label="Plus Icon"
-        className="css-1341dg6-StyledIcon e8i7li40"
-        fill="none"
-        height={16}
-        onClick={[Function]}
-        role="img"
-        viewBox="0 0 16 16"
-        width={16}
-        xmlns="http://www.w3.org/2000/svg"
+      <div
+        className="css-4bamt4-IconWrapper e13gwrw80"
       >
-        <path
-          clipRule="evenodd"
-          d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
-          fill="currentColor"
-          fillRule="evenodd"
-        />
-      </svg>
+        <button
+          aria-disabled={false}
+          aria-label="Select plus button"
+          className="leafygreen-ui-wn45f0"
+          onClick={[Function]}
+          tabIndex={0}
+        >
+          <div
+            className="leafygreen-ui-xhlipt"
+          >
+            <svg
+              aria-label="Plus Icon"
+              className=""
+              data-cy="tuple-select-button"
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clipRule="evenodd"
+                d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
+                fill="currentColor"
+                fillRule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
+      </div>
     </div>
   </div>
   <div
