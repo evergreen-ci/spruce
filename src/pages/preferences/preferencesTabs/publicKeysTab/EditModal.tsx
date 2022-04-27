@@ -18,6 +18,7 @@ import {
 } from "gql/generated/types";
 import { CREATE_PUBLIC_KEY, UPDATE_PUBLIC_KEY } from "gql/mutations";
 import { GET_MY_PUBLIC_KEYS } from "gql/queries";
+import { validateSSHPublicKey } from "utils/validators";
 
 const { TextArea } = Input;
 
@@ -100,9 +101,7 @@ export const EditModal: React.VFC<EditModalProps> = ({
     ) {
       inputErrors.push(DUPLICATE_KEY_NAME);
     }
-    const hasRSA = keyValue?.substring(0, SSH_RSA.length) === SSH_RSA;
-    const hasDSS = keyValue?.substring(0, SSH_DSS.length) === SSH_DSS;
-    if (!hasRSA && !hasDSS) {
+    if (!validateSSHPublicKey(keyValue)) {
       inputErrors.push(INVALID_SSH_KEY);
     }
     setErrors(inputErrors);
@@ -197,7 +196,6 @@ const ErrorContainer = styled.div`
 const KEY_NAME_ID = "key-name-input";
 const KEY_VALUE_ID = "key-value-input";
 const DUPLICATE_KEY_NAME = "The key name already exists.";
-const INVALID_SSH_KEY = "The SSH key must begin with 'ssh-rsa' or 'ssh-dss'.";
+const INVALID_SSH_KEY =
+  "The SSH key must begin with 'ssh-rsa' or 'ssh-dss' or 'ssh-ed25519' or 'ecdsa-sha2-nistp256'.";
 const EMPTY_KEY_NAME = "The key name cannot be empty.";
-const SSH_RSA = "ssh-rsa";
-const SSH_DSS = "ssh-dss";

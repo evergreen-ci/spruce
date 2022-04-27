@@ -7,6 +7,7 @@ import {
   ATTACH_PROJECT_TO_NEW_REPO,
   DETACH_PROJECT_FROM_REPO,
 } from "gql/mutations";
+import { GET_GITHUB_ORGS } from "gql/queries";
 import { render, fireEvent, waitFor } from "test_utils";
 import { ProjectType } from "../../utils";
 import { AttachDetachModal } from "./AttachDetachModal";
@@ -31,7 +32,7 @@ const Field = ({
   projectType?: ProjectType;
   formData?: { owner: string; repo: string };
 }) => (
-  <MockedProvider mocks={[attachProjectToRepoMock, detachProjectFromRepoMock]}>
+  <MockedProvider mocks={[getGithubOrgsMock]}>
     <RepoConfigField
       {...fieldProps}
       formData={formData}
@@ -69,6 +70,7 @@ const AttachmentModal = ({
 const MoveModal = ({ open = true }: { open?: boolean }) => (
   <MockedProvider mocks={[attachProjectToNewRepoMock]}>
     <MoveRepoModal
+      githubOrgs={["evergreen-ci"]}
       handleClose={() => {}}
       open={open}
       projectId="evergreen"
@@ -126,10 +128,12 @@ describe("repoConfigField", () => {
     });
   });
 
-  it("shows both buttons for an attached project", () => {
+  it("shows both buttons for an attached project", async () => {
     const { Component } = RenderFakeToastContext(<Field />);
     const { queryByDataCy } = render(<Component />);
-    expect(queryByDataCy("move-repo-button")).toBeInTheDocument();
+    await waitFor(() =>
+      expect(queryByDataCy("move-repo-button")).toBeInTheDocument()
+    );
     expect(queryByDataCy("attach-repo-button")).toBeInTheDocument();
   });
 
@@ -147,8 +151,10 @@ describe("repoConfigField", () => {
     const { queryByDataCy } = render(<Component />);
     expect(queryByDataCy("move-repo-modal")).not.toBeInTheDocument();
 
-    const moveRepoButton = queryByDataCy("move-repo-button");
-    await fireEvent.click(moveRepoButton);
+    await waitFor(() =>
+      expect(queryByDataCy("move-repo-button")).toBeInTheDocument()
+    );
+    await fireEvent.click(queryByDataCy("move-repo-button"));
     await waitFor(() => expect(queryByDataCy("move-repo-modal")).toBeVisible());
   });
 
@@ -313,6 +319,19 @@ const detachProjectFromRepoMock = {
   result: {
     data: {
       id: "evergreen",
+    },
+  },
+};
+
+const getGithubOrgsMock = {
+  request: {
+    query: GET_GITHUB_ORGS,
+  },
+  result: {
+    data: {
+      spruceConfig: {
+        githubOrgs: ["evergreen-ci"],
+      },
     },
   },
 };

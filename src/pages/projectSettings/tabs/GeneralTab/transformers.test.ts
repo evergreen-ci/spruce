@@ -43,6 +43,7 @@ const repoForm: FormState = {
       batchTime: null,
       remotePath: "evergreen.yml",
       spawnHostScriptPath: "/test/path",
+      versionControlEnabled: false,
     },
   },
   projectFlags: {
@@ -87,6 +88,7 @@ const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
     batchTime: 0,
     remotePath: "evergreen.yml",
     spawnHostScriptPath: "/test/path",
+    versionControlEnabled: false,
     dispatchingDisabled: true,
     deactivatePrevious: true,
     repotrackerDisabled: false,
@@ -116,6 +118,7 @@ const projectForm: FormState = {
       batchTime: null,
       remotePath: null,
       spawnHostScriptPath: null,
+      versionControlEnabled: true,
     },
   },
   projectFlags: {
@@ -162,6 +165,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
     batchTime: 0,
     remotePath: null,
     spawnHostScriptPath: null,
+    versionControlEnabled: true,
     dispatchingDisabled: null,
     deactivatePrevious: null,
     repotrackerDisabled: null,

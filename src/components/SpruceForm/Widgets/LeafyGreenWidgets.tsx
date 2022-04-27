@@ -231,15 +231,9 @@ export const LeafyGreenRadio: React.VFC<EnumSpruceWidgetProps> = ({
   );
 };
 
-export const LeafyGreenRadioBox: React.VFC<EnumSpruceWidgetProps> = ({
-  id,
-  label,
-  options,
-  value,
-  onChange,
-  disabled,
-  uiSchema,
-}) => {
+export const LeafyGreenRadioBox: React.VFC<
+  { options: { description: string | JSX.Element } } & EnumSpruceWidgetProps
+> = ({ id, label, options, value, onChange, disabled, uiSchema }) => {
   const {
     description,
     "data-cy": dataCy,
