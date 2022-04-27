@@ -27,8 +27,8 @@ const IconWrapper = styled.div`
   bottom: 0;
   height: 36px; /* height of LG text-input */
   position: absolute;
-  right: ${size.xs};
-  width: ${size.m};
+  right: ${size.xxs};
+  width: ${size.l};
   justify-content: center;
 `;
 

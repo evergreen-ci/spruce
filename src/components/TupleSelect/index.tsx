@@ -53,7 +53,7 @@ const TupleSelect: React.VFC<TupleSelectProps> = ({
           value={selected}
           onChange={(v) => setSelected(v)}
           data-cy="tuple-select-dropdown"
-          aria-label="filter-input-dropdown"
+          aria-labelledby="filter-input"
           allowDeselect={false}
         >
           {options.map((o) => (

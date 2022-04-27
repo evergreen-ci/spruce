@@ -55,15 +55,13 @@ export const HistoryTableTestSearch: React.VFC<HistoryTableTestSearchProps> = ({
               <Icon glyph="Plus" data-cy="tuple-select-button" />
             </IconButton>
           ) : (
-            <InactiveIconWrapper>
-              <IconTooltip
-                glyph="Warning"
-                data-cy="tuple-select-warning"
-                fill={yellow.base}
-              >
-                Invalid Regular Expression
-              </IconTooltip>
-            </InactiveIconWrapper>
+            <IconTooltip
+              glyph="Warning"
+              data-cy="tuple-select-warning"
+              fill={yellow.base}
+            >
+              Invalid Regular Expression
+            </IconTooltip>
           )
         }
       />
@@ -76,8 +74,4 @@ const ContentWrapper = styled.div`
   min-width: 200px; //temporary
   margin-right: 30px;
   position: relative;
-`;
-
-const InactiveIconWrapper = styled.div`
-  margin: 6px;
 `;

@@ -10,7 +10,7 @@ exports[`storybook Storyshots HistoryTableTestSearch Test Search 1`] = `
   }
 >
   <div
-    className="css-1o8n2af-ContentWrapper e8i7li41"
+    className="css-1o8n2af-ContentWrapper e8i7li40"
   >
     <div
       className="css-mk4qpy-TextInputWrapper e13gwrw81"
@@ -57,7 +57,7 @@ exports[`storybook Storyshots HistoryTableTestSearch Test Search 1`] = `
         </div>
       </div>
       <div
-        className="css-1mmlitq-IconWrapper e13gwrw80"
+        className="css-4bamt4-IconWrapper e13gwrw80"
       >
         <button
           aria-disabled={false}
