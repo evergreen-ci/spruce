@@ -16,7 +16,7 @@ import {
 } from "gql/generated/types";
 import { GET_PROJECT_EVENT_LOGS, GET_REPO_EVENT_LOGS } from "gql/queries";
 import { getDateCopy } from "utils/string";
-import { validateObjectId } from "utils/validators";
+import { ProjectType } from "../utils";
 import { EventDiffLine, getEventDiffLines } from "./EventLogDiffs";
 
 type LogEntry = {
@@ -26,12 +26,13 @@ type LogEntry = {
   after?: RepoEventSettingsFragment | ProjectEventSettingsFragment;
 };
 
-export const EventLogTab: React.VFC = () => {
+export const EventLogTab: React.VFC<{
+  projectType: ProjectType;
+}> = ({ projectType }) => {
   const { identifier } = useParams<{ identifier: string }>();
-  const isRepo = validateObjectId(identifier);
+  const isRepo = projectType === ProjectType.Repo;
 
   const dispatchToast = useToastContext();
-
   const { data: projectEventData } = useQuery<
     ProjectEventLogsQuery,
     ProjectEventLogsQueryVariables
