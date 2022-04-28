@@ -143,7 +143,7 @@ const getEventValue = (value: any) => {
   }
 
   if (typeof value === "string") {
-    return <> &quot;{value}&quot;</>;
+    return <>&quot;{value}&quot;</>;
   }
 
   const splitArray = JSON.stringify(value).split(",");
