@@ -1,5 +1,3 @@
-import React from "react";
-import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { Disclaimer, Subtitle } from "@leafygreen-ui/typography";
@@ -8,13 +6,8 @@ import { useAnnotationAnalytics } from "analytics";
 import { StyledLink } from "components/styles";
 import { getJiraTicketUrl } from "constants/externalResources";
 import { size } from "constants/tokens";
-import {
-  GetSpruceConfigQuery,
-  JiraTicket,
-  Source,
-  TicketFields,
-} from "gql/generated/types";
-import { GET_SPRUCE_CONFIG } from "gql/queries";
+import { JiraTicket, Source, TicketFields } from "gql/generated/types";
+import { useSpruceConfig } from "hooks";
 import { string } from "utils";
 
 const { getDateCopy } = string;
@@ -32,8 +25,7 @@ export const JiraTicketRow: React.VFC<JiraTicketRowProps> = ({
 }) => {
   const annotationAnalytics = useAnnotationAnalytics();
 
-  const { data } = useQuery<GetSpruceConfigQuery>(GET_SPRUCE_CONFIG);
-  const spruceConfig = data?.spruceConfig;
+  const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
   const url = getJiraTicketUrl(jiraHost, jiraKey);
   const { created, assigneeDisplayName, updated, status, summary } =

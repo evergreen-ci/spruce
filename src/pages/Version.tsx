@@ -20,17 +20,15 @@ import {
   VersionQueryVariables,
   IsPatchConfiguredQuery,
   IsPatchConfiguredQueryVariables,
-  GetSpruceConfigQuery,
   GetHasVersionQuery,
   GetHasVersionQueryVariables,
 } from "gql/generated/types";
 import {
   GET_VERSION,
   GET_IS_PATCH_CONFIGURED,
-  GET_SPRUCE_CONFIG,
   GET_HAS_VERSION,
 } from "gql/queries";
-import { usePageTitle, usePolling } from "hooks";
+import { usePageTitle, usePolling, useSpruceConfig } from "hooks";
 import { PageDoesNotExist } from "pages/404";
 import { shortenGithash, githubPRLinkify } from "utils/string";
 
@@ -41,9 +39,7 @@ import { Metadata } from "./version/Metadata";
 import { Tabs } from "./version/Tabs";
 
 export const VersionPage: React.VFC = () => {
-  const { data: spruceConfigData } = useQuery<GetSpruceConfigQuery>(
-    GET_SPRUCE_CONFIG
-  );
+  const spruceConfig = useSpruceConfig();
   const { id } = useParams<{ id: string }>();
 
   const dispatchToast = useToastContext();
@@ -169,7 +165,7 @@ export const VersionPage: React.VFC = () => {
 
   const linkifiedMessage = jiraLinkify(
     githubPRLinkify(message),
-    spruceConfigData?.spruceConfig?.jira?.host
+    spruceConfig?.jira?.host
   );
   return (
     <PageWrapper data-cy="version-page">

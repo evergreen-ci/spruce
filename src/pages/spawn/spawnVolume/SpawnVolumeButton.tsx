@@ -1,20 +1,18 @@
 import React, { useState } from "react";
-import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
 import { PlusButton } from "components/Spawn";
 import { size } from "constants/tokens";
-import { GetSpruceConfigQuery } from "gql/generated/types";
-import { GET_SPRUCE_CONFIG } from "gql/queries";
+import { useSpruceConfig } from "hooks";
 import { SpawnVolumeModal } from "./spawnVolumeButton/SpawnVolumeModal";
 
 export const SpawnVolumeButton: React.VFC = () => {
   const [openModal, setOpenModal] = useState(false);
   const spawnAnalytics = useSpawnAnalytics();
-  const { data } = useQuery<GetSpruceConfigQuery>(GET_SPRUCE_CONFIG);
-  const volumeLimit = data?.spruceConfig?.providers?.aws?.maxVolumeSizePerUser;
+  const spruceConfig = useSpruceConfig();
+  const volumeLimit = spruceConfig?.providers?.aws?.maxVolumeSizePerUser;
   return (
     <PaddedContainer>
       <PlusButton

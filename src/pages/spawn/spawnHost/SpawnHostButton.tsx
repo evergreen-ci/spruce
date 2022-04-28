@@ -7,13 +7,9 @@ import { useSpawnAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { PlusButton } from "components/Spawn";
 import { size } from "constants/tokens";
-import {
-  MyHostsQuery,
-  MyHostsQueryVariables,
-  GetSpruceConfigQuery,
-  GetSpruceConfigQueryVariables,
-} from "gql/generated/types";
-import { GET_MY_HOSTS, GET_SPRUCE_CONFIG } from "gql/queries";
+import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
+import { GET_MY_HOSTS } from "gql/queries";
+import { useSpruceConfig } from "hooks";
 import { SpawnHostModal } from "pages/spawn/spawnHost/index";
 import { HostStatus } from "types/host";
 import { queryString } from "utils";
@@ -23,18 +19,15 @@ export const SpawnHostButton = () => {
   const { data: myHostsData } = useQuery<MyHostsQuery, MyHostsQueryVariables>(
     GET_MY_HOSTS
   );
-  const { data: spruceConfigData } = useQuery<
-    GetSpruceConfigQuery,
-    GetSpruceConfigQueryVariables
-  >(GET_SPRUCE_CONFIG);
+
+  const spruceConfig = useSpruceConfig();
   const { search } = useLocation<{ search: string }>();
   const queryParams = parseQueryString(search);
   const shouldSpawnHost = queryParams.spawnHost === "True";
   const [openModal, setOpenModal] = useState(shouldSpawnHost);
   const spawnAnalytics = useSpawnAnalytics();
 
-  const maxHosts =
-    spruceConfigData?.spruceConfig.spawnHost.spawnHostsPerUser || 0;
+  const maxHosts = spruceConfig.spawnHost.spawnHostsPerUser || 0;
 
   const nonTerminatedHosts = myHostsData?.myHosts.filter(
     (host) => host.status !== HostStatus.Terminated

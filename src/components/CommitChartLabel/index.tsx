@@ -1,4 +1,3 @@
-import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
@@ -6,12 +5,8 @@ import ExpandedText from "components/ExpandedText";
 import { StyledRouterLink } from "components/styles";
 import { getVersionRoute, getTaskRoute } from "constants/routes";
 import { size, zIndex } from "constants/tokens";
-import {
-  GetSpruceConfigQuery,
-  GetSpruceConfigQueryVariables,
-  UpstreamProjectFragment,
-} from "gql/generated/types";
-import { GET_SPRUCE_CONFIG } from "gql/queries";
+import { UpstreamProjectFragment } from "gql/generated/types";
+import { useSpruceConfig } from "hooks";
 import { ProjectTriggerLevel } from "types/triggers";
 import { string } from "utils";
 import { shortenGithash } from "utils/string";
@@ -46,11 +41,8 @@ const CommitChartLabel: React.VFC<Props> = ({
   const createDate = new Date(createTime);
   const shortenMessage = message.length > MAX_CHAR;
   const shortenedMessage = message.substring(0, MAX_CHAR - 3).concat("...");
-  const { data: configData } = useQuery<
-    GetSpruceConfigQuery,
-    GetSpruceConfigQueryVariables
-  >(GET_SPRUCE_CONFIG);
-  const jiraHost = configData?.spruceConfig?.jira?.host;
+  const spruceConfig = useSpruceConfig();
+  const jiraHost = spruceConfig?.jira?.host;
   const {
     triggerType,
     project: upstreamProjectIdentifier,
