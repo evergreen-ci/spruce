@@ -139,7 +139,7 @@ const getEventValue = (value: any) => {
     return <></>;
   }
   if (typeof value === "boolean") {
-    return value ? <> true</> : <> false</>;
+    return value ? <>true</> : <>false</>;
   }
 
   if (typeof value === "string") {
