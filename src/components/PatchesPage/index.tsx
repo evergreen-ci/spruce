@@ -1,8 +1,8 @@
-import React from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { useLocation } from "react-router-dom";
 import { Analytics } from "analytics/addPageAction";
+import Icon from "components/Icon";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { PageWrapper, FiltersWrapper, PageTitle } from "components/styles";
@@ -73,7 +73,7 @@ export const PatchesPage: React.VFC<Props> = ({
       <PageTitle data-cy="patches-page-title">{pageTitle}</PageTitle>
       <FiltersWrapperSpaceBetween>
         <TextInputWithGlyph
-          glyph="MagnifyingGlass"
+          icon={<Icon glyph="MagnifyingGlass" />}
           type="search"
           aria-label="patch-description-input"
           placeholder="Patch description regex"
