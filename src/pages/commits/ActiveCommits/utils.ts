@@ -154,26 +154,23 @@ export const getStatusesWithZeroCount = (colors: ColorCount[]) => {
   );
 };
 
-export const hoverTaskIcons = () => {
-  const property = "data-task-icon";
+// Functions for injecting and removing style for hovering on task icons
+const taskIconStyle = "task-icon-style";
 
-  // find all icons on page
-  const icons = document.querySelectorAll<HTMLElement>(`div[${property}]`);
-  // define mouseover and mouseout behavior for all icons
-  for (let i = 0; i < icons.length; i++) {
-    icons[i].onmouseover = () => {
-      for (let j = 0; j < icons.length; j++) {
-        if (
-          icons[j].getAttribute(property) !== icons[i].getAttribute(property)
-        ) {
-          icons[j].style.opacity = "0.25";
-        }
-      }
-    };
-    icons[i].onmouseout = () => {
-      for (let k = 0; k < icons.length; k++) {
-        icons[k].style.opacity = "1";
-      }
-    };
-  }
+export const removeGlobalStyle = () => {
+  document.getElementById(taskIconStyle)?.remove();
+};
+
+export const injectGlobalStyle = (taskIdentifier: string) => {
+  // Remove style here again because hovering over LG tooltips triggers two consecutive mouseenter events.
+  removeGlobalStyle();
+
+  const hoverStyle = document.createElement("style");
+  hoverStyle.id = taskIconStyle;
+  hoverStyle.innerHTML = `
+    div[data-task-icon]:not([data-task-icon="${taskIdentifier}"]) {
+        opacity: 0.25;
+    }
+  `;
+  document.getElementsByTagName("head")[0].appendChild(hoverStyle);
 };
