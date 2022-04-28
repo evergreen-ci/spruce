@@ -2,6 +2,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
 import { renderWithRouterMatch as render, waitFor } from "test_utils";
+import { injectGlobalStyle, removeGlobalStyle } from "../utils";
 import { WaterfallTaskStatusIcon } from "./WaterfallTaskStatusIcon";
 
 const props = {
@@ -10,6 +11,8 @@ const props = {
   taskId: "task",
   identifier: "ubuntu1604-multiversion",
 };
+
+jest.mock("../utils");
 
 const Content = (status: string) => () => (
   <MockedProvider mocks={[getTooltipQueryMock]} addTypename={false}>
@@ -51,6 +54,29 @@ describe("waterfallTaskStatusIcon", () => {
         "href",
         "/task/task"
       );
+    });
+  });
+
+  it("should call the appropriate functions on hover and unhover", async () => {
+    (injectGlobalStyle as jest.Mock).mockImplementationOnce(
+      (taskIdentifier: string) => {
+        Promise.resolve(taskIdentifier);
+      }
+    );
+    (removeGlobalStyle as jest.Mock).mockImplementationOnce(() => {});
+
+    const { queryByDataCy } = render(Content("failed"), {
+      route: "/commits/evergreen",
+    });
+    userEvent.hover(queryByDataCy("waterfall-task-status-icon"));
+    await waitFor(() => {
+      expect(injectGlobalStyle).toHaveBeenCalledTimes(1);
+      expect(injectGlobalStyle).toHaveBeenCalledWith(props.identifier);
+    });
+
+    userEvent.unhover(queryByDataCy("waterfall-task-status-icon"));
+    await waitFor(() => {
+      expect(removeGlobalStyle).toHaveBeenCalledTimes(1);
     });
   });
 });
