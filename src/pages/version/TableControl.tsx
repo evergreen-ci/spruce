@@ -7,14 +7,13 @@ import { Pagination } from "components/Pagination";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
 import { size } from "constants/tokens";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 
 interface Props {
   filteredCount: number;
   taskCount: number;
   limit: number;
   page: number;
-  defaultSortMethod: string;
+  clearQueryParams: () => void;
 }
 
 export const TableControl: React.VFC<Props> = ({
@@ -22,23 +21,14 @@ export const TableControl: React.VFC<Props> = ({
   taskCount,
   limit,
   page,
-  defaultSortMethod,
+  clearQueryParams,
 }) => {
   const { id: versionId } = useParams<{ id: string }>();
   const { sendEvent } = useVersionAnalytics(versionId);
 
-  const updateQueryParams = useUpdateURLQueryParams();
-
   const onClearAll = () => {
     sendEvent({ name: "Clear all filter" });
-    updateQueryParams({
-      taskName: undefined,
-      variant: undefined,
-      statuses: undefined,
-      baseStatuses: undefined,
-      page: undefined,
-      sorts: defaultSortMethod,
-    });
+    clearQueryParams();
   };
 
   return (

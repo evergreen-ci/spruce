@@ -3,6 +3,7 @@ query PatchTaskDurations(
   $sorts: [SortOrder!]
   $page: Int
   $variant: String
+  $statuses: [String!]
   $taskName: String
   $limit: Int
 ) {
@@ -10,6 +11,7 @@ query PatchTaskDurations(
     patchId: $patchId
     limit: $limit
     page: $page
+    statuses: $statuses
     sorts: $sorts
     variant: $variant
     taskName: $taskName

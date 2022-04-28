@@ -36,23 +36,6 @@ export const toSortString = (
     : undefined;
 };
 
-// takes an array of sort orders and translates it into the sorts query param
-// the function above is similar, but it's tied to the antd table
-export const updateSortString = (sorts: SortOrder[]) => {
-  let sortStrings: string[] = [];
-
-  sorts.forEach((sort) => {
-    if (sort.Direction !== undefined) {
-      const singleSortString = `${sort.Key}:${sort.Direction}`;
-      sortStrings = sortStrings.concat(singleSortString);
-    }
-  });
-
-  return sortStrings.some((s) => s)
-    ? sortStrings.filter(Boolean).join(";")
-    : undefined;
-};
-
 // takes a sort query string and parses it into valid GQL params
 export const parseSortString = (sortQuery: string | string[]): SortOrder[] => {
   let sorts: SortOrder[] = [];

@@ -13,6 +13,7 @@ import { PatchTab } from "types/patch";
 import { queryString } from "utils";
 import { isBeta } from "utils/environmentalVariables";
 import { TaskDuration } from "./TaskDuration";
+import { useQueryVariables } from "./useQueryVariables";
 
 const { parseQueryString } = queryString;
 
@@ -22,10 +23,10 @@ interface Props {
   childPatches: Partial<Patch>[];
 }
 
-const tabMap = ({ taskCount, childPatches }) => ({
+const tabMap = ({ taskCount, childPatches, queryVariables }) => ({
   [PatchTab.Tasks]: (
     <Tab name="Tasks" id="task-tab" data-cy="task-tab" key="tasks-tab">
-      <Tasks taskCount={taskCount} />
+      <Tasks taskCount={taskCount} queryVariables={queryVariables} />
     </Tab>
   ),
   [PatchTab.TaskDuration]: (
@@ -35,7 +36,7 @@ const tabMap = ({ taskCount, childPatches }) => ({
       data-cy="duration-tab"
       key="duration-tab"
     >
-      <TaskDuration taskCount={taskCount} />
+      <TaskDuration taskCount={taskCount} queryVariables={queryVariables} />
     </Tab>
   ),
   [PatchTab.Changes]: (
@@ -67,7 +68,8 @@ export const Tabs: React.VFC<Props> = ({
   const { id, tab } = useParams<{ id: string; tab: PatchTab }>();
   const { sendEvent } = useVersionAnalytics(id);
   const history = useHistory();
-  const location = useLocation();
+  const { search } = useLocation();
+  const queryVariables = useQueryVariables(search, id);
 
   const tabIsActive = useMemo(
     () => ({
@@ -79,10 +81,10 @@ export const Tabs: React.VFC<Props> = ({
     [isPatch, childPatches]
   );
 
-  const allTabs = useMemo(() => tabMap({ taskCount, childPatches }), [
-    taskCount,
-    childPatches,
-  ]);
+  const allTabs = useMemo(
+    () => tabMap({ taskCount, childPatches, queryVariables }),
+    [taskCount, childPatches, queryVariables]
+  );
   const activeTabs = useMemo(
     () => Object.keys(allTabs).filter((t) => tabIsActive[t] as PatchTab[]),
     [allTabs, tabIsActive]
@@ -106,7 +108,7 @@ export const Tabs: React.VFC<Props> = ({
 
   // Update the URL and selectedTab state based on new tab selected.
   const selectNewTab = (newTabIndex: number) => {
-    const queryParams = parseQueryString(location.search);
+    const queryParams = parseQueryString(search);
     const newTab = activeTabs[newTabIndex];
     const newRoute = getVersionRoute(id, {
       tab: newTab as PatchTab,
