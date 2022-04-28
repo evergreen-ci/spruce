@@ -115,20 +115,25 @@ const Circle = styled.div`
   margin: 0 auto;
 `;
 
-const Cell = styled.div<{ inactive?: boolean }>`
+const BaseCell = styled.div`
   display: flex;
   height: 100%;
   width: ${COLUMN_LABEL_WIDTH}px;
-  margin: 0 ${size.xxs};
+  margin: 0 ${size.xs};
   justify-content: center;
+`;
+
+const Cell = styled(BaseCell)<{ inactive?: boolean }>`
   align-items: center;
   ${({ inactive }) => inactive && inactiveElementStyle}
 `;
 
-const HeaderCell = styled(Cell)`
+const HeaderCell = styled(BaseCell)`
   word-break: break-all; // Safari
   word-wrap: anywhere;
   text-align: center;
+  height: ${size.xxl};
+  padding: ${size.xs} 0;
 `;
 
 // LabelCellContainer is used to provide padding for the first column in the table since we do not have a header for it
