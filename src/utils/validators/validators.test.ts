@@ -1,4 +1,9 @@
-import { validateRegexp, validateObjectId, validateSSHPublicKey } from ".";
+import {
+  validateRegexp,
+  validateObjectId,
+  validateSSHPublicKey,
+  validateJiraURL,
+} from ".";
 
 describe("validateObjectId", () => {
   it("validates object ids", () => {
@@ -35,5 +40,50 @@ describe("validateSSHPublicKey", () => {
     expect(validateSSHPublicKey("ecdsa-sha2-nistp256 someHash")).toBeTruthy();
     expect(validateSSHPublicKey("ssh-dssNoSpace")).toBeFalsy();
     expect(validateSSHPublicKey("ssh-badStart someHash")).toBeFalsy();
+  });
+});
+
+describe("validateJiraURL", () => {
+  it("validates jira urls", () => {
+    expect(
+      validateJiraURL(
+        "https://jira.example.com",
+        "https://jira.example.com/browse/TEST-1"
+      )
+    ).toBeTruthy();
+    expect(
+      validateJiraURL(
+        "https://jira.example.com",
+        "https://jira.example.com/browse/EVG-1"
+      )
+    ).toBeTruthy();
+    expect(
+      validateJiraURL(
+        "https://jira.example.com",
+        "https://jira.example.com/browse/PD-1234"
+      )
+    ).toBeTruthy();
+    expect(
+      validateJiraURL(
+        "https://jira.example.com",
+        "https://jira.example.com/browse/PD-1234"
+      )
+    ).toBeTruthy();
+    expect(validateJiraURL("https://jira.example.com", "")).toBeFalsy();
+    expect(
+      validateJiraURL("https://jira.example.com", "https://jira.example.com")
+    ).toBeFalsy();
+    expect(
+      validateJiraURL(
+        "https://jira.example.com",
+        "https://jira.example.com/browse/"
+      )
+    ).toBeFalsy();
+    expect(
+      validateJiraURL(
+        "https://jira.example.com",
+        "https://jira.example.com/browse/EVG-1/"
+      )
+    ).toBeFalsy();
   });
 });

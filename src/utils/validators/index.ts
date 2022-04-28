@@ -10,7 +10,13 @@ const validateDuration = (duration: any) => {
 
 const validateEmail = (v: string): boolean => /\S+@\S+\.\S+/.test(v);
 
-const validateJira = (v: string) => v.match(".+-[0-9]+") !== null;
+const jiraTicketNumberRegex = "[A-z]+-[0-9]+";
+
+const validateJira = (v: string) =>
+  new RegExp(`/^${jiraTicketNumberRegex}/`).test(v);
+
+const validateJiraURL = (jiraURL: string, url: string): boolean =>
+  new RegExp(`^${jiraURL}/browse/${jiraTicketNumberRegex}$`).test(url);
 
 const validateSSHPublicKey = (v: string): boolean => {
   const validSSHKey = new RegExp(
@@ -60,6 +66,7 @@ export {
   validateDuration,
   validateEmail,
   validateJira,
+  validateJiraURL,
   validateObjectId,
   validatePercentage,
   validateRegexp,
