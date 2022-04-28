@@ -64,8 +64,10 @@ export const CreateDuplicateProjectButton: React.VFC<Props> = ({
           setOpen={setMenuOpen}
           popoverZIndex={zIndex.popover}
           trigger={NewProjectButton}
+          data-cy="new-project-menu"
         >
           <MenuItem
+            data-cy="create-project-button"
             onClick={() => {
               setMenuOpen(false);
               setCreateModalOpen(true);
@@ -74,6 +76,7 @@ export const CreateDuplicateProjectButton: React.VFC<Props> = ({
             Create New Project
           </MenuItem>
           <MenuItem
+            data-cy="copy-project-button"
             onClick={() => {
               setMenuOpen(false);
               setCopyModalOpen(true);

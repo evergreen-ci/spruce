@@ -29,10 +29,10 @@ export const CreateProjectModal: React.VFC<Props> = ({
   const { replace } = useHistory();
 
   const [formState, setFormState] = useState({
-    owner,
-    repo,
-    projectId: "",
+    owner: owner ?? "",
+    repo: repo ?? "",
     projectName: "",
+    projectId: "",
   });
   const [hasError, setHasError] = useState(true);
 

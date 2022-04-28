@@ -54,7 +54,9 @@ export const CopyProjectModal: React.VFC<Props> = ({
     copyProject({
       variables: {
         project: {
-          newProjectId: formState.projectId,
+          ...(formState?.projectId && {
+            newProjectId: formState.projectId,
+          }),
           newProjectIdentifier: formState.projectName,
           projectIdToCopy: id,
         },
