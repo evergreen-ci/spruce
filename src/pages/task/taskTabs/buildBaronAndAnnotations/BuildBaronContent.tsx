@@ -5,7 +5,6 @@ import { StyledLink } from "components/styles";
 import { getJiraSearchUrl } from "constants/externalResources";
 import { useToastContext } from "context/toast";
 import {
-  GetSpruceConfigQuery,
   BuildBaron,
   Annotation,
   GetCustomCreatedIssuesQuery,
@@ -16,8 +15,8 @@ import {
 import {
   GET_CREATED_TICKETS,
   GET_JIRA_CUSTOM_CREATED_ISSUES,
-  GET_SPRUCE_CONFIG,
 } from "gql/queries";
+import { useSpruceConfig } from "hooks";
 import { AnnotationNote } from "./AnnotationNote";
 import { Issues, SuspectedIssues } from "./AnnotationTickets";
 import { CustomCreatedTicketsTable } from "./AnnotationTicketsTable";
@@ -44,8 +43,7 @@ export const BuildBaronContent: React.VFC<BuildBaronCoreProps> = ({
 }) => {
   const [selectedRowKey, setSelectedRowKey] = useState("");
 
-  const { data } = useQuery<GetSpruceConfigQuery>(GET_SPRUCE_CONFIG);
-  const spruceConfig = data?.spruceConfig;
+  const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
 
   const jiraSearchString = bbData?.searchReturnInfo?.search;

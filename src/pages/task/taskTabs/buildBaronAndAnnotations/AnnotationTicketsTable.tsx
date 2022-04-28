@@ -27,7 +27,7 @@ interface AnnotationTicketsProps {
   isIssue: boolean;
   userCanModify: boolean;
   selectedRowKey: string;
-  setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedRowKey: (key: string) => void;
   loading: boolean;
 }
 
