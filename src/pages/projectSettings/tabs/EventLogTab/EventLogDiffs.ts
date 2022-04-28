@@ -41,8 +41,8 @@ export const getEventDiffLines = (
   before: Subset<ProjectEventSettings> | Subset<RepoEventSettings>,
   after: Subset<ProjectEventSettings> | Subset<RepoEventSettings>
 ): EventDiffLine[] => {
-  const eventDiff = omitTypename(diff(before, after));
-  const pathKeys = getDiffProperties(eventDiff);
+  const eventDiff: EventDiffLine[] = omitTypename(diff(before, after));
+  const pathKeys: string[] = getDiffProperties(eventDiff);
 
   const eventDiffLines = pathKeys.map((key) => {
     const pathsArray = key.split(".");

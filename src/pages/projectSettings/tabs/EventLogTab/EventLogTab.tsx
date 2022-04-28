@@ -113,7 +113,7 @@ interface Props {
 const EventLogHeader: React.VFC<Props> = ({ user, timestamp }) => (
   <StyledHeader>
     <H3>{getDateCopy(timestamp)}</H3>
-    <div> {user} </div>
+    <div>{user}</div>
   </StyledHeader>
 );
 
@@ -124,31 +124,26 @@ const EventLogCard = styled(Card)`
   width: 150%;
 `;
 
-const StyledCell = styled("pre")`
+const StyledCell = styled.pre`
   word-break: break-all;
   font-size: 12px;
-  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 `;
 
-const StyledHeader = styled("div")`
+const StyledHeader = styled.div`
   padding-bottom: ${size.l};
   padding-left: ${size.xxs};
 `;
 
 const getEventValue = (value: any) => {
   if (value === null || value === undefined) {
-    return "";
+    return <></>;
   }
   if (typeof value === "boolean") {
-    return value ? "true" : "false";
-  }
-
-  if (value === "") {
-    return '""';
+    return value ? <> true</> : <> false</>;
   }
 
   if (typeof value === "string") {
-    return `"${value}"`;
+    return <> &quot;{value}&quot;</>;
   }
 
   const splitArray = JSON.stringify(value).split(",");
