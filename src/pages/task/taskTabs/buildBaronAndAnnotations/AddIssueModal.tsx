@@ -10,6 +10,7 @@ import { useToastContext } from "context/toast";
 import {
   AddAnnotationIssueMutation,
   AddAnnotationIssueMutationVariables,
+  IssueLinkInput,
 } from "gql/generated/types";
 import { ADD_ANNOTATION } from "gql/mutations";
 import { useSpruceConfig } from "hooks";
@@ -21,14 +22,14 @@ interface addIssueState {
   canSubmit: boolean;
   isURLValid: boolean;
   isKeyValid: boolean;
-  confidenceLevel: number | null;
+  confidenceScore: string | null;
 }
 
 type Action =
   | { type: "reset" }
   | { type: "setUrl"; url: string; jiraURL: string }
   | { type: "setKey"; issueKey: string }
-  | { type: "setConfidenceLevel"; confidenceLevel: number | null };
+  | { type: "setConfidenceScore"; confidenceScore: string | null };
 
 const init = () => ({
   url: "",
@@ -36,7 +37,7 @@ const init = () => ({
   canSubmit: false,
   isURLValid: false,
   isKeyValid: false,
-  confidenceLevel: null,
+  confidenceScore: null,
 });
 
 const reducer = (state: addIssueState, action: Action) => {
@@ -61,11 +62,20 @@ const reducer = (state: addIssueState, action: Action) => {
         canSubmit: isKeyValid && state.isURLValid,
       };
     }
-    case "setConfidenceLevel": {
-      return {
-        ...state,
-        confidenceLevel: action.confidenceLevel,
-      };
+    case "setConfidenceScore": {
+      const isNumber = !Number.isNaN(action.confidenceScore);
+      if (isNumber) {
+        if (
+          toDecimal(action.confidenceScore) <= 1 &&
+          toDecimal(action.confidenceScore) >= 0
+        ) {
+          return {
+            ...state,
+            confidenceScore: action.confidenceScore,
+          };
+        }
+      }
+      return state;
     }
     default:
       throw new Error("Unrecognized action type");
@@ -125,9 +135,10 @@ export const AddIssueModal: React.VFC<Props> = ({
   });
 
   const handleSubmit = () => {
-    const apiIssue = {
+    const apiIssue: IssueLinkInput = {
       url: addIssueModalState.url,
       issueKey: addIssueModalState.issueKey,
+      confidenceScore: toDecimal(addIssueModalState.confidenceScore),
     };
     addAnnotation({ variables: { taskId, execution, apiIssue, isIssue } });
   };
@@ -198,19 +209,28 @@ export const AddIssueModal: React.VFC<Props> = ({
         <TextInput
           data-cy="confidence-level"
           label="Confidence Level"
-          value={addIssueModalState.confidenceLevel}
+          description="The confidence level of the issue. This is a number between 0 and 100 representing a percentage."
+          value={addIssueModalState.confidenceScore}
           optional
-          type="number"
-          min={0}
-          max={1}
           onChange={(e) =>
             dispatch({
-              type: "setConfidenceLevel",
-              confidenceLevel: parseFloat(e.target.value),
+              type: "setConfidenceScore",
+              confidenceScore: e.target.value,
             })
           }
         />
       </Accordion>
     </Modal>
   );
+};
+
+const toDecimal = (value: string | null) => {
+  if (value === null) {
+    return null;
+  }
+  const number = parseFloat(value);
+  if (Number.isNaN(number)) {
+    return null;
+  }
+  return number / 100;
 };
