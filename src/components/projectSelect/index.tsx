@@ -58,10 +58,7 @@ export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
   );
 
   const allProjects = [
-    !!favoriteProjects.length && {
-      name: "Favorites",
-      projects: favoriteProjects,
-    },
+    { name: "Favorites", projects: favoriteProjects },
     ...projects,
   ];
 

@@ -1,8 +1,8 @@
-import { MockedProvider } from "@apollo/client/testing";
+import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
 import { GET_USER_PERMISSIONS } from "gql/queries";
-import { renderWithRouterMatch as render, waitFor } from "test_utils";
+import { act, renderWithRouterMatch as render, waitFor } from "test_utils";
 import { CreateDuplicateProjectButton } from "./CreateDuplicateProjectButton";
 import { ProjectType } from "./tabs/utils";
 
@@ -10,11 +10,13 @@ const owner = "existing_owner";
 const repo = "existing_repo";
 
 const Button = ({
+  mock = userPermissionsMock,
   projectType = ProjectType.AttachedProject,
 }: {
+  mock?: MockedResponse;
   projectType?: ProjectType;
 }) => (
-  <MockedProvider mocks={[userPermissionsMock]}>
+  <MockedProvider mocks={[mock]}>
     <CreateDuplicateProjectButton
       id="my_id"
       label={`${owner}/${repo}`}
@@ -26,6 +28,32 @@ const Button = ({
 );
 
 describe("createProjectField", () => {
+  it("does not show button when user lacks permissions", async () => {
+    const lacksPersmissionsMock = {
+      request: {
+        query: GET_USER_PERMISSIONS,
+        variables: {},
+      },
+      result: {
+        data: {
+          user: {
+            userId: "string",
+            permissions: {
+              canCreateProject: false,
+            },
+          },
+        },
+      },
+    };
+    const { Component } = RenderFakeToastContext(
+      <Button mock={lacksPersmissionsMock} />
+    );
+    const { queryByDataCy } = render(() => <Component />);
+
+    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+    expect(queryByDataCy("new-project-button")).not.toBeInTheDocument();
+  });
+
   describe("when looking at a repo", () => {
     it("clicking the button opens the new project modal", async () => {
       const { Component } = RenderFakeToastContext(
