@@ -1,7 +1,6 @@
 import { uiColors } from "@leafygreen-ui/palette";
 import { purple } from "constants/colors";
 import { taskStatusToCopy } from "constants/task";
-import { fireEvent } from "test_utils";
 import { TaskStatus } from "types/task";
 import {
   TASK_ICON_HEIGHT,
@@ -14,7 +13,8 @@ import {
   getStatusesWithZeroCount,
   constructBuildVariantDict,
   roundMax,
-  hoverTaskIcons,
+  removeGlobalStyle,
+  injectGlobalStyle,
 } from "./utils";
 
 const { red, green, yellow, gray } = uiColors;
@@ -522,39 +522,46 @@ describe("roundMax", () => {
   });
 });
 
-describe("hoverTaskIcons", () => {
-  const constructTaskIcon = (dataTaskIconName: string) => {
-    const element = document.createElement("div");
-    element.setAttribute("data-task-icon", dataTaskIconName);
-    element.setAttribute("style", "opacity: 1;");
-    document.body.appendChild(element);
-    return element;
-  };
+describe("injectGlobalStyle", () => {
+  it("should properly inject global style using the task identifier", () => {
+    const taskIconStyle = "task-icon-style";
+    const taskIdentifier = "ubuntu1604-test_util";
+    expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
+      taskIconStyle
+    );
+    expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
+      taskIdentifier
+    );
 
-  it("should deemphasize task icons that don't match with current hovered icon", () => {
-    const testUtilIcon1 = constructTaskIcon("ubuntu1604-test_util");
-    const testUtilIcon2 = constructTaskIcon("ubuntu1604-test_util");
-    const testCodegenIcon = constructTaskIcon("ubuntu1604-test_codegen");
+    injectGlobalStyle("ubuntu1604-test_util");
+    expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
+      taskIconStyle
+    );
+    expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
+      taskIdentifier
+    );
+  });
+});
 
-    // Call function to set the mouseover behavior
-    hoverTaskIcons();
+describe("removeGlobalStyle", () => {
+  it("should properly remove global style", () => {
+    const taskIconStyle = "task-icon-style";
+    const taskIdentifier = "ubuntu1604-test_util";
 
-    // Check default opacity
-    expect(testUtilIcon1.style.opacity).toBe("1");
-    expect(testUtilIcon2.style.opacity).toBe("1");
-    expect(testCodegenIcon.style.opacity).toBe("1");
+    // Styles should persist from previous test.
+    expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
+      taskIconStyle
+    );
+    expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
+      taskIdentifier
+    );
 
-    // Styles should change on hover
-    fireEvent.mouseOver(testUtilIcon1);
-    expect(testUtilIcon1.style.opacity).toBe("1");
-    expect(testUtilIcon2.style.opacity).toBe("1");
-    expect(testCodegenIcon.style.opacity).toBe("0.25");
-    fireEvent.mouseOut(testUtilIcon1);
-
-    // Styles should change on hover
-    fireEvent.mouseOver(testCodegenIcon);
-    expect(testUtilIcon1.style.opacity).toBe("0.25");
-    expect(testUtilIcon2.style.opacity).toBe("0.25");
-    expect(testCodegenIcon.style.opacity).toBe("1");
+    removeGlobalStyle();
+    expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
+      taskIconStyle
+    );
+    expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
+      taskIdentifier
+    );
   });
 });
