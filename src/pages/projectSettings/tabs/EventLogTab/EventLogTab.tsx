@@ -26,9 +26,11 @@ type LogEntry = {
   after?: RepoEventSettingsFragment | ProjectEventSettingsFragment;
 };
 
-export const EventLogTab: React.VFC<{
+type TabProps = {
   projectType: ProjectType;
-}> = ({ projectType }) => {
+};
+
+export const EventLogTab: React.VFC<TabProps> = ({ projectType }) => {
   const { identifier } = useParams<{ identifier: string }>();
   const isRepo = projectType === ProjectType.Repo;
 
@@ -76,19 +78,19 @@ export const EventLogTab: React.VFC<{
               <TableHeader
                 key="before"
                 label="Before"
-                sortBy={(datum: EventDiffLine) => datum.before}
+                sortBy={(datum: EventDiffLine) => JSON.stringify(datum.before)}
               />,
               <TableHeader
                 key="after"
                 label="After"
-                sortBy={(datum: EventDiffLine) => datum.after}
+                sortBy={(datum: EventDiffLine) => JSON.stringify(datum.after)}
               />,
             ]}
           >
             {({ datum }) => (
               <Row key={datum.key} data-cy="event-log-table-row">
                 <Cell>
-                  <StyledCell>{datum.key ?? ""}</StyledCell>
+                  <StyledCell>{datum.key}</StyledCell>
                 </Cell>
                 <Cell>
                   <StyledCell>{getEventValue(datum.before)}</StyledCell>
@@ -134,28 +136,19 @@ const StyledHeader = styled.div`
   padding-left: ${size.xxs};
 `;
 
-const getEventValue = (value: any) => {
+const getEventValue = (value: boolean | string | Array<any>) => {
   if (value === null || value === undefined) {
-    return <></>;
+    return "";
   }
   if (typeof value === "boolean") {
-    return value ? <>true</> : <>false</>;
+    return String(value);
   }
 
   if (typeof value === "string") {
-    return <>&quot;{value}&quot;</>;
+    return `"${value}"`;
   }
 
-  const splitArray = JSON.stringify(value).split(",");
-
-  return (
-    <div>
-      {splitArray.map((item, index) => (
-        <div key={item}>
-          {item}
-          {index !== splitArray.length - 1 && ","}
-        </div>
-      ))}
-    </div>
-  );
+  if (Array.isArray(value)) {
+    return JSON.stringify(value).replaceAll(",", ",\n");
+  }
 };

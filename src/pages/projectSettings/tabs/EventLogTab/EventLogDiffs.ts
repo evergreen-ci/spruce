@@ -33,8 +33,8 @@ const getNestedObject = (nestedObj: object, pathArr: string[]) =>
 
 export type EventDiffLine = {
   key: string;
-  before: string;
-  after: string;
+  before: boolean | string | Array<any>;
+  after: boolean | string | Array<any>;
 };
 
 export const getEventDiffLines = (
