@@ -47,7 +47,11 @@ export const CopyProjectModal: React.VFC<Props> = ({
         `There was an error creating the project: ${err.message}`
       );
     },
-    refetchQueries: ["ProjectSettings", "RepoSettings"],
+    refetchQueries: [
+      "GetViewableProjectRefs",
+      "ProjectSettings",
+      "RepoSettings",
+    ],
   });
 
   const onConfirm = () => {
