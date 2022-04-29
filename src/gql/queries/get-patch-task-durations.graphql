@@ -32,6 +32,7 @@ query PatchTaskDurations(
         status
         buildVariantDisplayName
         timeTaken
+        startTime
       }
     }
   }

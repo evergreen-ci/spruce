@@ -21,11 +21,12 @@ interface RowProps {
   children?: React.ReactNode;
 }
 
-export const DisplayTaskRow: React.VFC<RowProps> = ({
+export const TaskDurationRow: React.VFC<RowProps> = ({
   task,
   maxTimeTaken,
   children,
   "data-cy": dataCy,
+  ...rest
 }) => {
   const {
     id,
@@ -43,7 +44,7 @@ export const DisplayTaskRow: React.VFC<RowProps> = ({
     startTime === null && status === TaskStatus.Started;
 
   return (
-    <Row key={id} data-cy={dataCy}>
+    <Row key={id} data-cy={dataCy} {...rest}>
       <TaskNameCell>
         <TaskLink taskId={id} taskName={displayName} />
       </TaskNameCell>
@@ -67,35 +68,7 @@ export const DisplayTaskRow: React.VFC<RowProps> = ({
     </Row>
   );
 };
-
-export const ExecutionTaskRow: React.VFC<RowProps> = ({
-  task,
-  maxTimeTaken,
-  ...rest
-}) => {
-  const { id, displayName, status, buildVariantDisplayName, timeTaken } = task;
-
-  const barWidth = calculateBarWidth(timeTaken, maxTimeTaken);
-  const barColor =
-    mapTaskToBarchartColor[mapTaskStatusToUmbrellaStatus[status]];
-
-  return (
-    <Row key={id} {...rest}>
-      <TaskNameCell>
-        <TaskLink taskId={id} taskName={displayName} />
-      </TaskNameCell>
-      <StatusCell>
-        <TaskStatusBadge status={status} />
-      </StatusCell>
-      <BuildVariantCell>{buildVariantDisplayName}</BuildVariantCell>
-      <DurationCell>
-        <DurationBar width={barWidth} color={barColor} />
-        <DurationLabel>{msToDuration(timeTaken)}</DurationLabel>
-      </DurationCell>
-    </Row>
-  );
-};
-ExecutionTaskRow.displayName = "Row";
+TaskDurationRow.displayName = "Row";
 
 const calculateBarWidth = (value: number, max: number) =>
   max ? `${(value / max) * 100}%` : "0%";

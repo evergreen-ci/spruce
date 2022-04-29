@@ -3687,6 +3687,7 @@ export type PatchTaskDurationsQuery = {
           status: string;
           buildVariantDisplayName?: Maybe<string>;
           timeTaken?: Maybe<number>;
+          startTime?: Maybe<Date>;
         }>
       >;
     }>;

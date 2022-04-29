@@ -17,7 +17,7 @@ import {
 } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
-import { DisplayTaskRow, ExecutionTaskRow } from "./Row";
+import { TaskDurationRow } from "./Row";
 
 const { gray } = uiColors;
 
@@ -120,20 +120,20 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks }) => {
         ]}
       >
         {({ datum }) => (
-          <DisplayTaskRow
+          <TaskDurationRow
+            data-cy="task-duration-table-row"
             task={datum}
             maxTimeTaken={maxTimeTaken}
-            data-cy="task-duration-table-row"
           >
             {datum?.executionTasksFull &&
               datum?.executionTasksFull.map((task) => (
-                <ExecutionTaskRow
-                  key={task.id}
+                <TaskDurationRow
+                  key={`execution_task_${task.id}`}
                   task={task}
                   maxTimeTaken={maxTimeTaken}
                 />
               ))}
-          </DisplayTaskRow>
+          </TaskDurationRow>
         )}
       </Table>
       {tasks.length === 0 && <NoTableResults message="No tasks found." />}
