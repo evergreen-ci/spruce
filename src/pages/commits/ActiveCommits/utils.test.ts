@@ -1,7 +1,6 @@
 import { uiColors } from "@leafygreen-ui/palette";
 import { purple } from "constants/colors";
 import { taskStatusToCopy } from "constants/task";
-import { fireEvent } from "test_utils";
 import { TaskStatus } from "types/task";
 import {
   TASK_ICON_HEIGHT,
@@ -14,13 +13,14 @@ import {
   getStatusesWithZeroCount,
   constructBuildVariantDict,
   roundMax,
-  hoverTaskIcons,
+  removeGlobalStyle,
+  injectGlobalStyle,
 } from "./utils";
 
 const { red, green, yellow, gray } = uiColors;
 
 describe("getAllTaskStatsGroupedByColor", () => {
-  it("grab the taskStatusCounts field from all versions, returns mapping between version id to its {grouped task stats, max, total}", () => {
+  it("grab the taskStatusStats.statusCounts field from all versions, returns mapping between version id to its {grouped task stats, max, total}", () => {
     expect(getAllTaskStatsGroupedByColor(versions)).toStrictEqual({
       "12": {
         stats: [
@@ -329,15 +329,18 @@ const versions = [
       order: 39369,
       author: "Mohamed Khelif",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      taskStatusCounts: [
-        { status: TaskStatus.TaskTimedOut, count: 6 },
-        { status: TaskStatus.Succeeded, count: 4 },
-        { status: TaskStatus.Started, count: 3 },
-        { status: TaskStatus.SystemFailed, count: 5 },
-        { status: TaskStatus.Unscheduled, count: 2 },
-        { status: TaskStatus.SetupFailed, count: 3 },
-        { status: TaskStatus.SystemUnresponsive, count: 2 },
-      ],
+      taskStatusStats: {
+        eta: null,
+        counts: [
+          { status: TaskStatus.TaskTimedOut, count: 6 },
+          { status: TaskStatus.Succeeded, count: 4 },
+          { status: TaskStatus.Started, count: 3 },
+          { status: TaskStatus.SystemFailed, count: 5 },
+          { status: TaskStatus.Unscheduled, count: 2 },
+          { status: TaskStatus.SetupFailed, count: 3 },
+          { status: TaskStatus.SystemUnresponsive, count: 2 },
+        ],
+      },
       buildVariants: [buildVariant1],
       buildVariantStats: [buildVariantStat],
     },
@@ -352,14 +355,17 @@ const versions = [
       order: 39368,
       author: "Arjun Patel",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      taskStatusCounts: [
-        { status: TaskStatus.TestTimedOut, count: 6 },
-        { status: TaskStatus.Failed, count: 2 },
-        { status: TaskStatus.Dispatched, count: 4 },
-        { status: TaskStatus.WillRun, count: 2 },
-        { status: TaskStatus.SystemTimedOut, count: 5 },
-        { status: TaskStatus.SystemUnresponsive, count: 2 },
-      ],
+      taskStatusStats: {
+        eta: null,
+        counts: [
+          { status: TaskStatus.TestTimedOut, count: 6 },
+          { status: TaskStatus.Failed, count: 2 },
+          { status: TaskStatus.Dispatched, count: 4 },
+          { status: TaskStatus.WillRun, count: 2 },
+          { status: TaskStatus.SystemTimedOut, count: 5 },
+          { status: TaskStatus.SystemUnresponsive, count: 2 },
+        ],
+      },
       buildVariants: [buildVariant1, buildVariant2],
       buildVariantStats: [],
     },
@@ -374,12 +380,15 @@ const versions = [
       order: 39367,
       author: "Mohamed Khelif",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      taskStatusCounts: [
-        { status: TaskStatus.Succeeded, count: 6 },
-        { status: TaskStatus.Failed, count: 2 },
-        { status: TaskStatus.Dispatched, count: 4 },
-        { status: TaskStatus.Started, count: 5 },
-      ],
+      taskStatusStats: {
+        eta: null,
+        counts: [
+          { status: TaskStatus.Succeeded, count: 6 },
+          { status: TaskStatus.Failed, count: 2 },
+          { status: TaskStatus.Dispatched, count: 4 },
+          { status: TaskStatus.Started, count: 5 },
+        ],
+      },
       buildVariants: [buildVariant1, buildVariant2, buildVariant3],
       buildVariantStats: [],
     },
@@ -394,15 +403,18 @@ const versions = [
       order: 39366,
       author: "Arjun Patel",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      taskStatusCounts: [
-        { status: TaskStatus.TaskTimedOut, count: 6 },
-        { status: TaskStatus.Succeeded, count: 4 },
-        { status: TaskStatus.Started, count: 3 },
-        { status: TaskStatus.SystemFailed, count: 5 },
-        { status: TaskStatus.Unscheduled, count: 2 },
-        { status: TaskStatus.SetupFailed, count: 3 },
-        { status: TaskStatus.SystemUnresponsive, count: 2 },
-      ],
+      taskStatusStats: {
+        eta: null,
+        counts: [
+          { status: TaskStatus.TaskTimedOut, count: 6 },
+          { status: TaskStatus.Succeeded, count: 4 },
+          { status: TaskStatus.Started, count: 3 },
+          { status: TaskStatus.SystemFailed, count: 5 },
+          { status: TaskStatus.Unscheduled, count: 2 },
+          { status: TaskStatus.SetupFailed, count: 3 },
+          { status: TaskStatus.SystemUnresponsive, count: 2 },
+        ],
+      },
       buildVariants: [buildVariant1],
       buildVariantStats: [],
     },
@@ -510,39 +522,46 @@ describe("roundMax", () => {
   });
 });
 
-describe("hoverTaskIcons", () => {
-  const constructTaskIcon = (dataTaskIconName: string) => {
-    const element = document.createElement("div");
-    element.setAttribute("data-task-icon", dataTaskIconName);
-    element.setAttribute("style", "opacity: 1;");
-    document.body.appendChild(element);
-    return element;
-  };
+describe("injectGlobalStyle", () => {
+  it("should properly inject global style using the task identifier", () => {
+    const taskIconStyle = "task-icon-style";
+    const taskIdentifier = "ubuntu1604-test_util";
+    expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
+      taskIconStyle
+    );
+    expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
+      taskIdentifier
+    );
 
-  it("should deemphasize task icons that don't match with current hovered icon", () => {
-    const testUtilIcon1 = constructTaskIcon("ubuntu1604-test_util");
-    const testUtilIcon2 = constructTaskIcon("ubuntu1604-test_util");
-    const testCodegenIcon = constructTaskIcon("ubuntu1604-test_codegen");
+    injectGlobalStyle("ubuntu1604-test_util");
+    expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
+      taskIconStyle
+    );
+    expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
+      taskIdentifier
+    );
+  });
+});
 
-    // Call function to set the mouseover behavior
-    hoverTaskIcons();
+describe("removeGlobalStyle", () => {
+  it("should properly remove global style", () => {
+    const taskIconStyle = "task-icon-style";
+    const taskIdentifier = "ubuntu1604-test_util";
 
-    // Check default opacity
-    expect(testUtilIcon1.style.opacity).toBe("1");
-    expect(testUtilIcon2.style.opacity).toBe("1");
-    expect(testCodegenIcon.style.opacity).toBe("1");
+    // Styles should persist from previous test.
+    expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
+      taskIconStyle
+    );
+    expect(document.getElementsByTagName("head")[0].innerHTML).toContain(
+      taskIdentifier
+    );
 
-    // Styles should change on hover
-    fireEvent.mouseOver(testUtilIcon1);
-    expect(testUtilIcon1.style.opacity).toBe("1");
-    expect(testUtilIcon2.style.opacity).toBe("1");
-    expect(testCodegenIcon.style.opacity).toBe("0.25");
-    fireEvent.mouseOut(testUtilIcon1);
-
-    // Styles should change on hover
-    fireEvent.mouseOver(testCodegenIcon);
-    expect(testUtilIcon1.style.opacity).toBe("0.25");
-    expect(testUtilIcon2.style.opacity).toBe("0.25");
-    expect(testCodegenIcon.style.opacity).toBe("1");
+    removeGlobalStyle();
+    expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
+      taskIconStyle
+    );
+    expect(document.getElementsByTagName("head")[0].innerHTML).not.toContain(
+      taskIdentifier
+    );
   });
 });

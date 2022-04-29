@@ -1,4 +1,3 @@
-import React from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -10,17 +9,20 @@ import { size, zIndex } from "constants/tokens";
 
 import { TaskStatus } from "types/task";
 
+import { msToDuration } from "utils/string";
 import { ColorCount, getStatusesWithZeroCount } from "./utils";
 
 const { gray } = uiColors;
 interface Props {
   groupedTaskStats: ColorCount[];
   trigger: React.ReactElement;
+  eta?: Date;
 }
 
 export const CommitChartTooltip: React.VFC<Props> = ({
   groupedTaskStats,
   trigger,
+  eta,
 }) => {
   const zeroCountStatus = getStatusesWithZeroCount(groupedTaskStats);
   return (
@@ -37,6 +39,11 @@ export const CommitChartTooltip: React.VFC<Props> = ({
           <FlexColumnContainer key={color} data-cy="current-status-count">
             <TotalCount
               status={umbrellaStatus}
+              eta={
+                umbrellaStatus === TaskStatus.RunningUmbrella && eta
+                  ? eta
+                  : null
+              }
               color={color}
               count={count}
               active
@@ -66,19 +73,23 @@ interface TotalCountProps {
   color: string;
   count: number;
   status: string;
+  eta?: Date;
   active?: boolean;
 }
 export const TotalCount: React.VFC<TotalCountProps> = ({
   color,
   count,
   status,
+  eta,
   active = true,
 }) => (
   <TotalCountContainer active={active}>
     <Circle color={color} />
-    <StatusText
-      css={sharedCss}
-    >{`Total ${taskStatusToCopy[status]}`}</StatusText>
+    <StatusText css={sharedCss}>
+      <div>{`Total ${taskStatusToCopy[status]}`}</div>
+      {eta &&
+        `(${msToDuration(new Date(eta).valueOf() - Date.now())} remaining)`}
+    </StatusText>
     <NumberText css={sharedCss}>{count}</NumberText>
   </TotalCountContainer>
 );

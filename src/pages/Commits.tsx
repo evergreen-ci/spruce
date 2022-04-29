@@ -10,7 +10,7 @@ import FilterBadges, {
 import { ProjectSelect } from "components/projectSelect";
 import { PageWrapper } from "components/styles";
 import { ALL_VALUE } from "components/TreeSelect";
-import { TupleSelect } from "components/TupleSelect";
+import TupleSelect from "components/TupleSelect";
 import { CURRENT_PROJECT } from "constants/cookies";
 import { pollInterval } from "constants/index";
 import { getCommitsRoute } from "constants/routes";
@@ -23,9 +23,9 @@ import {
   MainlineCommitsQueryVariables,
 } from "gql/generated/types";
 import { GET_MAINLINE_COMMITS, GET_SPRUCE_CONFIG } from "gql/queries";
-import { usePageTitle, usePolling } from "hooks";
+import { usePageTitle, usePolling, useUpsertQueryParams } from "hooks";
 import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
-import { array, queryString } from "utils";
+import { array, queryString, validators } from "utils";
 import { CommitsWrapper } from "./commits/CommitsWrapper";
 import CommitTypeSelect from "./commits/commitTypeSelect";
 import { PaginationButtons } from "./commits/PaginationButtons";
@@ -37,6 +37,7 @@ import {
 
 const { toArray } = array;
 const { parseQueryString, getString } = queryString;
+const { validateRegexp } = validators;
 
 export const Commits = () => {
   const dispatchToast = useToastContext();
@@ -118,7 +119,10 @@ export const Commits = () => {
   const { badges, handleOnRemove, handleClearAll } = useFilterBadgeQueryParams(
     queryParamsToDisplay
   );
-  const onSubmitTupleSelect = ({ category }: { category: string }) => {
+  const onSubmit = useUpsertQueryParams();
+
+  const onSubmitTupleSelect = ({ category, value }) => {
+    onSubmit({ category, value });
     switch (category) {
       case ProjectFilterOptions.BuildVariant:
         sendEvent({ name: "Filter by build variant" });
@@ -129,6 +133,7 @@ export const Commits = () => {
       default:
     }
   };
+
   return (
     <PageWrapper>
       <PageContainer>
@@ -137,6 +142,8 @@ export const Commits = () => {
             <TupleSelect
               options={tupleSelectOptions}
               onSubmit={onSubmitTupleSelect}
+              validator={validateRegexp}
+              validatorErrorMessage="Invalid Regular Expression"
             />
           </ElementWrapper>
           <ElementWrapper width="20">

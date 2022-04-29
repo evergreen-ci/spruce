@@ -17,6 +17,7 @@ import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
 import { isFailedTaskStatus } from "utils/statuses";
 import { msToDuration } from "utils/string";
 import { TASK_ICON_HEIGHT } from "../../constants";
+import { injectGlobalStyle, removeGlobalStyle } from "../utils";
 
 interface WaterfallTaskStatusIconProps {
   taskId: string;
@@ -44,6 +45,7 @@ export const WaterfallTaskStatusIcon: React.VFC<WaterfallTaskStatusIconProps> = 
 
   let timeout;
   const onMouseEnter = () => {
+    injectGlobalStyle(identifier);
     timeout = setTimeout(() => {
       setEnabled(true);
       // Only query failing test names if the task has failed.
@@ -53,6 +55,7 @@ export const WaterfallTaskStatusIcon: React.VFC<WaterfallTaskStatusIconProps> = 
     }, 500);
   };
   const onMouseLeave = () => {
+    removeGlobalStyle();
     setEnabled(false);
     if (timeout) {
       clearTimeout(timeout);
@@ -64,8 +67,7 @@ export const WaterfallTaskStatusIcon: React.VFC<WaterfallTaskStatusIconProps> = 
         clearTimeout(timeout);
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [] // eslint-disable-line react-hooks/exhaustive-deps
   );
   return (
     <Tooltip

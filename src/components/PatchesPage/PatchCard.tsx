@@ -35,7 +35,6 @@ interface Props extends PatchProps {
 
 export const PatchCard: React.VFC<Props> = ({
   id,
-  childPatches,
   description,
   createTime,
   author,
@@ -50,8 +49,10 @@ export const PatchCard: React.VFC<Props> = ({
   versionFull,
 }) => {
   const createDate = new Date(createTime);
-  const { taskStatusCounts, id: versionId } = versionFull || {};
-  const { stats } = groupStatusesByUmbrellaStatus(taskStatusCounts ?? []);
+  const { taskStatusStats, id: versionId } = versionFull || {};
+  const { stats } = groupStatusesByUmbrellaStatus(
+    taskStatusStats?.counts ?? []
+  );
   const badges = stats?.map(({ count, umbrellaStatus, statusCounts }) => (
     <GroupedTaskStatusBadge
       status={umbrellaStatus}
@@ -95,14 +96,13 @@ export const PatchCard: React.VFC<Props> = ({
       </Left>
       <Center>
         <PatchBadgeContainer>
-          <PatchStatusBadge status={status} />
+          <PatchStatusBadge status={versionFull?.status ?? status} />
         </PatchBadgeContainer>
         <TaskBadgeContainer>{badges}</TaskBadgeContainer>
       </Center>
       <Right>
         <DropdownMenu
           patchId={id}
-          childPatches={childPatches}
           canEnqueueToCommitQueue={canEnqueueToCommitQueue}
           isPatchOnCommitQueue={isPatchOnCommitQueue}
           patchDescription={description}

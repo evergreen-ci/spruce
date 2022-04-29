@@ -143,10 +143,10 @@ describe("commits page", () => {
       );
     });
     it("applying a task filter should show all task icons instead of groupings", () => {
-      cy.dataCy("tuple-select-dropdown").should("exist");
-      cy.dataCy("tuple-select-dropdown").click();
-      cy.dataCy("tuple-select-option-taskNames").should("be.visible");
-      cy.dataCy("tuple-select-option-taskNames").click();
+      cy.get("button").contains("Build Variant").should("exist");
+      cy.get("button").contains("Build Variant").click({ force: true });
+      cy.get("li").contains("Task").should("be.visible");
+      cy.get("li").contains("Task").click();
       cy.getInputByLabel("Add New Task Filter").type(".").type("{enter}");
       cy.dataCy("grouped-task-status-badge").should("not.exist");
       cy.dataCy("waterfall-task-status-icon").should("have.length", 26);

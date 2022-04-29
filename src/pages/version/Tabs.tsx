@@ -5,7 +5,7 @@ import { useVersionAnalytics } from "analytics";
 import { CodeChanges } from "components/CodeChanges/CodeChanges";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { getVersionRoute, DEFAULT_PATCH_TAB } from "constants/routes";
-import { Patch } from "gql/generated/types";
+import { VersionQuery } from "gql/generated/types";
 import { usePrevious } from "hooks";
 import { DownstreamTasks } from "pages/version/DownstreamTasks";
 import { Tasks } from "pages/version/Tasks";
@@ -20,7 +20,7 @@ const { parseQueryString } = queryString;
 interface Props {
   taskCount: number;
   isPatch: boolean;
-  childPatches: Partial<Patch>[];
+  childPatches: VersionQuery["version"]["patch"]["childPatches"];
 }
 
 const tabMap = ({ taskCount, childPatches, queryVariables }) => ({
