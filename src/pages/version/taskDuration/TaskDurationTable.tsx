@@ -5,10 +5,16 @@ import { Skeleton } from "antd";
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { NoTableResults } from "components/Table/NoTableResults";
-import { TableFilterPopover } from "components/TableFilterPopover";
-import { TableSearchPopover } from "components/TableSearchPopover";
+import {
+  TableFilterPopover,
+  TableSearchPopover,
+} from "components/TablePopover";
 import { PatchTaskDurationsQuery } from "gql/generated/types";
-import { useTaskStatuses, useStatusesFilter } from "hooks";
+import {
+  useTaskStatuses,
+  useStatusesFilter,
+  useFilterInputChangeHandler,
+} from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
 import { DisplayTaskRow, ExecutionTaskRow } from "./Row";
@@ -37,19 +43,15 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks }) => {
     ...filterProps,
   });
 
-  const handleTaskFilter = (task: string) => {
-    updateQueryParams({
-      taskName: task || undefined,
-      page: "0",
-    });
-  };
+  const taskFilter = useFilterInputChangeHandler({
+    urlParam: PatchTasksQueryParams.TaskName,
+    ...filterProps,
+  });
 
-  const handleBuildVariantFilter = (buildVariant: string) => {
-    updateQueryParams({
-      variant: buildVariant || undefined,
-      page: "0",
-    });
-  };
+  const variantFilter = useFilterInputChangeHandler({
+    urlParam: PatchTasksQueryParams.Variant,
+    ...filterProps,
+  });
 
   const handleDurationSort = (direction: string) => {
     updateQueryParams({
@@ -74,7 +76,9 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks }) => {
               <TableHeaderLabel>
                 Task Name
                 <TableSearchPopover
-                  onConfirm={handleTaskFilter}
+                  value={taskFilter.inputValue}
+                  onChange={taskFilter.setInputValue}
+                  onConfirm={taskFilter.submitInputValue}
                   data-cy="task-name-filter-popover"
                 />
               </TableHeaderLabel>
@@ -100,7 +104,9 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks }) => {
               <TableHeaderLabel>
                 Build Variant
                 <TableSearchPopover
-                  onConfirm={handleBuildVariantFilter}
+                  value={variantFilter.inputValue}
+                  onChange={variantFilter.setInputValue}
+                  onConfirm={variantFilter.submitInputValue}
                   data-cy="build-variant-filter-popover"
                 />
               </TableHeaderLabel>

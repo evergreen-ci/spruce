@@ -8,7 +8,7 @@ import { Button } from "components/Button";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { NoTableResults } from "components/Table/NoTableResults";
-import { TableSearchPopover } from "components/TableSearchPopover";
+import { TableSearchPopover } from "components/TablePopover";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -17,7 +17,7 @@ import {
   GetTestsQueryVariables,
 } from "gql/generated/types";
 import { GET_TESTS } from "gql/queries";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { useFilterInputChangeHandler } from "hooks";
 import { queryString, url } from "utils";
 
 const { parseQueryString, getString } = queryString;
@@ -43,11 +43,17 @@ export const JobLogsTable: React.VFC<JobLogsTableProps> = ({
 }) => {
   const dispatchToast = useToastContext();
   const { sendEvent } = useJobLogsAnalytics();
-
   const { search } = useLocation();
-  const updateQueryParams = useUpdateURLQueryParams();
+
   const queryVariables = getQueryVariables(search, task, groupId);
   const { limitNum, pageNum } = queryVariables;
+
+  const testNameFilter = useFilterInputChangeHandler({
+    urlParam: "test",
+    resetPage: true,
+    sendAnalyticsEvent: (filterBy: string) =>
+      sendEvent({ name: "Filter Job Logs", filterBy }),
+  });
 
   const { data: testData, loading: isLoadingTests } = useQuery<
     GetTestsQuery,
@@ -80,12 +86,9 @@ export const JobLogsTable: React.VFC<JobLogsTableProps> = ({
                   Test Name
                   <TableSearchPopover
                     placeholder="Test name regex"
-                    onConfirm={(testName: string) =>
-                      updateQueryParams({
-                        test: testName || undefined,
-                        page: `${0}`,
-                      })
-                    }
+                    value={testNameFilter.inputValue}
+                    onChange={testNameFilter.setInputValue}
+                    onConfirm={testNameFilter.submitInputValue}
                     data-cy="test-filter-popover"
                   />
                 </LabelWrapper>
