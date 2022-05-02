@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
+import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { StyledLink } from "components/styles";
 import { getJiraSearchUrl } from "constants/externalResources";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   BuildBaron,
@@ -17,7 +19,7 @@ import {
   GET_JIRA_CUSTOM_CREATED_ISSUES,
 } from "gql/queries";
 import { useSpruceConfig } from "hooks";
-import { AnnotationNote } from "./AnnotationNote";
+import AnnotationNote from "./AnnotationNote";
 import { Issues, SuspectedIssues } from "./AnnotationTickets";
 import { CustomCreatedTicketsTable } from "./AnnotationTicketsTable";
 import { TicketsTitle, TitleAndButtons } from "./BBComponents";
@@ -80,7 +82,7 @@ export const BuildBaronContent: React.VFC<BuildBaronCoreProps> = ({
   const bbTickets = bbCreatedTickets?.bbGetCreatedTickets;
 
   return (
-    <div data-cy="bb-content">
+    <Wrapper data-cy="bb-content">
       {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
       {bbData?.bbTicketCreationDefined ? (
         <CustomCreatedTickets
@@ -138,6 +140,11 @@ export const BuildBaronContent: React.VFC<BuildBaronCoreProps> = ({
           <BuildBaronTable jiraIssues={bbData?.searchReturnInfo?.issues} />
         </>
       )}
-    </div>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  width: 80%;
+  margin-left: ${size.xs};
+`;

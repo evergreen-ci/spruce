@@ -1,4 +1,3 @@
-import React from "react";
 import { ApolloError } from "@apollo/client";
 import { Skeleton } from "antd";
 import { Annotation, BuildBaronQuery } from "gql/generated/types";
