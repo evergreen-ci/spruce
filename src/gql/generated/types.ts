@@ -3088,6 +3088,15 @@ export type GetBaseVersionAndTaskQuery = {
   }>;
 };
 
+export type GetBuildBaronConfiguredQueryVariables = Exact<{
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
+}>;
+
+export type GetBuildBaronConfiguredQuery = {
+  buildBaron: { buildBaronConfigured: boolean };
+};
+
 export type BuildBaronQueryVariables = Exact<{
   taskId: Scalars["String"];
   execution: Scalars["Int"];
@@ -3427,16 +3436,7 @@ export type GetSuspectedIssuesQuery = {
     id: string;
     execution: number;
     annotation?: Maybe<{
-      suspectedIssues?: Maybe<
-        Array<
-          Maybe<{
-            issueKey?: Maybe<string>;
-            url?: Maybe<string>;
-            source?: Maybe<{ author: string; time: Date; requester: string }>;
-            jiraTicket?: Maybe<JiraTicketFragment>;
-          }>
-        >
-      >;
+      suspectedIssues?: Maybe<Array<Maybe<IssueLinkFragment>>>;
     }>;
   }>;
 };

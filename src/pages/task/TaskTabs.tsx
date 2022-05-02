@@ -8,17 +8,16 @@ import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { getTaskRoute } from "constants/routes";
 import { GetTaskQuery } from "gql/generated/types";
 import { usePrevious } from "hooks";
-import { useBuildBaronVariables } from "hooks/useBuildBaronVariables";
 import { TaskTab } from "types/task";
-import { statuses, queryString } from "utils";
+import { queryString } from "utils";
 import { BuildBaron } from "./taskTabs/BuildBaron";
+import { useBuildBaronVariables } from "./taskTabs/buildBaronAndAnnotations";
 import { ExecutionTasksTable } from "./taskTabs/ExecutionTasksTable";
 import { FilesTables } from "./taskTabs/FilesTables";
 import { Logs } from "./taskTabs/Logs";
 import { TestsTable } from "./taskTabs/TestsTable";
 
 const { parseQueryString } = queryString;
-const { isFailedTaskStatus } = statuses;
 interface TaskTabProps {
   task: GetTaskQuery["task"];
   taskFiles: GetTaskQuery["taskFiles"];
@@ -44,22 +43,11 @@ export const TaskTabs: React.VFC<TaskTabProps> = ({ task, taskFiles }) => {
   const { fileCount } = taskFiles ?? {};
 
   const isDisplayTask = executionTasksFull != null;
-  const {
-    showBuildBaron,
-    buildBaronData,
-    buildBaronError,
-    buildBaronLoading,
-  } = useBuildBaronVariables({
-    taskId: id,
-    execution,
-    taskStatus: status,
+  const { showBuildBaron } = useBuildBaronVariables({
+    hasAnnotation: !!annotation,
+    canModifyAnnotation,
+    task: { id, execution, status },
   });
-
-  const failedTask = isFailedTaskStatus(status);
-
-  const showAnnotationsTab =
-    failedTask &&
-    (showBuildBaron || annotation !== undefined || canModifyAnnotation);
 
   const tabMap = {
     [TaskTab.Logs]: (
@@ -131,11 +119,8 @@ export const TaskTabs: React.VFC<TaskTabProps> = ({ task, taskFiles }) => {
       >
         <BuildBaron
           annotation={annotation}
-          bbData={buildBaronData}
-          error={buildBaronError}
           taskId={id}
           execution={execution}
-          loading={buildBaronLoading}
           userCanModify={canModifyAnnotation}
         />
       </Tab>
@@ -156,7 +141,7 @@ export const TaskTabs: React.VFC<TaskTabProps> = ({ task, taskFiles }) => {
     [TaskTab.ExecutionTasks]: isDisplayTask,
     [TaskTab.Tests]: true,
     [TaskTab.Files]: true,
-    [TaskTab.Annotations]: showAnnotationsTab,
+    [TaskTab.Annotations]: showBuildBaron,
     [TaskTab.TrendCharts]: isPerfPluginEnabled,
   };
 

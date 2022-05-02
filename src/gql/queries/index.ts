@@ -5,6 +5,7 @@ import GET_AGENT_LOGS from "./get-agent-logs.graphql";
 import GET_ALL_LOGS from "./get-all-logs.graphql";
 import GET_ANNOTATION_EVENT_DATA from "./get-annotation-event-data.graphql";
 import GET_BASE_VERSION_AND_TASK from "./get-base-version-and-task.graphql";
+import GET_BUILD_BARON_CONFIGURED from "./get-build-baron-configured.graphql";
 import GET_BUILD_BARON from "./get-build-baron.graphql";
 import GET_BUILD_VARIANTS_STATS from "./get-build-variant-stats.graphql";
 import GET_BUILD_VARIANTS_FOR_TASK_NAME from "./get-build-variants-for-task-name.graphql";
@@ -76,6 +77,7 @@ export {
   GET_ANNOTATION_EVENT_DATA,
   GET_BASE_VERSION_AND_TASK,
   GET_BUILD_BARON,
+  GET_BUILD_BARON_CONFIGURED,
   GET_TASK_NAMES_FOR_BUILD_VARIANT,
   GET_CLIENT_CONFIG,
   GET_COMMIT_QUEUE,
