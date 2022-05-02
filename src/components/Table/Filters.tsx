@@ -13,7 +13,8 @@ import {
 } from "components/TreeSelect";
 import { fontSize } from "constants/tokens";
 
-const { focus } = uiColors;
+const { focus, gray } = uiColors;
+const defaultColor = gray.base;
 
 export interface InputFilterProps {
   "data-cy"?: string;
@@ -85,7 +86,7 @@ export const getColumnSearchFilterProps = ({
     <StyledFilterWrapper>
       <Icon
         glyph="MagnifyingGlass"
-        fill={value.length > 0 && focus}
+        fill={value.length > 0 ? focus : defaultColor}
         data-cy={dataCy}
       />
     </StyledFilterWrapper>
@@ -108,7 +109,11 @@ export const getColumnTreeSelectFilterProps = ({
   ),
   filterIcon: () => (
     <StyledFilterWrapper>
-      <Icon glyph="Filter" fill={state.length > 0 && focus} data-cy={dataCy} />
+      <Icon
+        glyph="Filter"
+        fill={state.length > 0 ? focus : defaultColor}
+        data-cy={dataCy}
+      />
     </StyledFilterWrapper>
   ),
 });
@@ -147,7 +152,11 @@ export const getColumnCheckboxFilterProps = ({
   ),
   filterIcon: () => (
     <StyledFilterWrapper>
-      <Icon glyph="Filter" fill={value.length > 0 && focus} data-cy={dataCy} />
+      <Icon
+        glyph="Filter"
+        fill={value.length > 0 ? focus : defaultColor}
+        data-cy={dataCy}
+      />
     </StyledFilterWrapper>
   ),
 });
