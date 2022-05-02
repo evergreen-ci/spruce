@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -25,19 +24,6 @@ export const CommitChartTooltip: React.VFC<Props> = ({
   trigger,
   eta,
 }) => {
-  const [countDown, setCountDown] = useState(
-    new Date(eta).valueOf() - Date.now()
-  );
-  useEffect(() => {
-    if (eta) {
-      const id = setInterval(() => {
-        const nextValue = countDown - 1000;
-        setCountDown(nextValue > 0 ? nextValue : 0);
-      }, 1000);
-      return () => clearInterval(id);
-    }
-  });
-  const etaString = msToDuration(countDown);
   const zeroCountStatus = getStatusesWithZeroCount(groupedTaskStats);
   return (
     <Tooltip
@@ -55,8 +41,8 @@ export const CommitChartTooltip: React.VFC<Props> = ({
               status={umbrellaStatus}
               eta={
                 umbrellaStatus === TaskStatus.RunningUmbrella && eta
-                  ? etaString
-                  : ""
+                  ? eta
+                  : null
               }
               color={color}
               count={count}
@@ -87,7 +73,7 @@ interface TotalCountProps {
   color: string;
   count: number;
   status: string;
-  eta?: string;
+  eta?: Date;
   active?: boolean;
 }
 export const TotalCount: React.VFC<TotalCountProps> = ({
@@ -101,7 +87,8 @@ export const TotalCount: React.VFC<TotalCountProps> = ({
     <Circle color={color} />
     <StatusText css={sharedCss}>
       <div>{`Total ${taskStatusToCopy[status]}`}</div>
-      {eta && `(${eta} remaining)`}
+      {eta &&
+        `(${msToDuration(new Date(eta).valueOf() - Date.now())} remaining)`}
     </StatusText>
     <NumberText css={sharedCss}>{count}</NumberText>
   </TotalCountContainer>
