@@ -31,7 +31,7 @@ interface AnnotationTicketsProps {
   loading: boolean;
 }
 
-export const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
+const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
   jiraIssues,
   taskId,
   execution,
@@ -259,3 +259,5 @@ export const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
     />
   );
 };
+
+export default AnnotationTicketsTable;
