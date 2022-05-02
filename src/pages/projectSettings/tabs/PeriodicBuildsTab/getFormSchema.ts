@@ -31,6 +31,7 @@ export const getFormSchema = (
               type: "number" as "number",
               title: "Interval",
               minimum: 1,
+              default: 24,
             },
             configFile: {
               type: "string" as "string",
@@ -71,6 +72,7 @@ export const getFormSchema = (
               default: new Date().toString(),
             },
           },
+          required: ["intervalHours"],
         },
       }
     ),
