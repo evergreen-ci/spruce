@@ -69,9 +69,18 @@ export const getFormSchema = (
             },
             prTestingEnabled: {
               type: ["boolean", "null"],
+              title: "Automated Testing",
               oneOf: radioBoxOptions(
                 ["Enabled", "Disabled"],
                 repoData?.github?.prTestingEnabled
+              ),
+            },
+            manualPrTestingEnabled: {
+              type: ["boolean", "null"],
+              title: "Manual Testing",
+              oneOf: radioBoxOptions(
+                ["Enabled", "Disabled"],
+                repoData?.github?.manualPrTestingEnabled
               ),
             },
             prTesting: {
@@ -246,8 +255,20 @@ export const getFormSchema = (
         },
         prTestingEnabled: {
           "ui:data-cy": "pr-testing-enabled-radio-box",
-          "ui:showLabel": false,
           "ui:widget": widgets.RadioBoxWidget,
+          ...(!!githubProjectConflicts?.prTestingIdentifiers?.length && {
+            "ui:disabled": true,
+            "ui:errors": [
+              `Enabling PR testing would introduce conflicts with the following project(s): ${githubProjectConflicts.prTestingIdentifiers.join(
+                ", "
+              )}. To enable PR testing for this project please disable it elsewhere.`,
+            ],
+          }),
+        },
+        manualPrTestingEnabled: {
+          "ui:widget": widgets.RadioBoxWidget,
+          "ui:description":
+            "Patches can be run manually by commenting ‘evergreen patch’ on the PR even if automated testing isn't enabled.",
           ...(!!githubProjectConflicts?.prTestingIdentifiers?.length && {
             "ui:disabled": true,
             "ui:errors": [
@@ -260,10 +281,14 @@ export const getFormSchema = (
         prTesting: {
           ...hideIf(
             !!githubProjectConflicts?.prTestingIdentifiers?.length ||
-              fieldDisabled(
+              (fieldDisabled(
                 formData?.github?.prTestingEnabled,
                 repoData?.github?.prTestingEnabled
-              )
+              ) &&
+                fieldDisabled(
+                  formData?.github?.manualPrTestingEnabled,
+                  repoData?.github?.manualPrTestingEnabled
+                ))
           ),
           ...errorStyling(
             formData?.github?.prTesting?.githubPrAliasesOverride,
@@ -482,8 +507,8 @@ export const getFormSchema = (
 const fieldDisabled = (field: boolean | null, repoField: boolean | null) =>
   field === false || (field === null && repoField === false);
 
-const hideIf = (shouldDisable: boolean) =>
-  shouldDisable && {
+const hideIf = (shouldHide: boolean) =>
+  shouldHide && {
     "ui:widget": "hidden",
   };
 

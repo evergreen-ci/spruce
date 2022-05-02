@@ -1,5 +1,6 @@
 fragment projectGithubSettings on Project {
   prTestingEnabled
+  manualPrTestingEnabled
   githubChecksEnabled
   githubTriggerAliases
   gitTagVersionsEnabled
@@ -15,6 +16,7 @@ fragment projectGithubSettings on Project {
 
 fragment repoGithubSettings on RepoRef {
   prTestingEnabled
+  manualPrTestingEnabled
   githubChecksEnabled
   githubTriggerAliases
   gitTagVersionsEnabled
