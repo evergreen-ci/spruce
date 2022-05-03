@@ -61,7 +61,6 @@ export const Metadata: React.VFC<Props> = ({
     generatedBy,
     generatedByName,
     minQueuePosition: taskQueuePosition,
-    projectId,
     abortInfo,
     displayTask,
     project,
@@ -99,7 +98,7 @@ export const Metadata: React.VFC<Props> = ({
           Project:{" "}
           <StyledRouterLink
             data-cy="project-link"
-            to={getProjectPatchesRoute(projectId)}
+            to={getProjectPatchesRoute(projectIdentifier)}
             onClick={() =>
               taskAnalytics.sendEvent({ name: "Click Project Link" })
             }

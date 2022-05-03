@@ -2183,7 +2183,6 @@ export type PatchesPagePatchesFragment = {
     id: string;
     author: string;
     authorDisplayName: string;
-    projectID: string;
     projectIdentifier: string;
     description: string;
     status: string;
@@ -4023,7 +4022,6 @@ export type GetTaskQuery = {
       finishTime?: Maybe<Date>;
       hostId?: Maybe<string>;
       requester: string;
-      projectId: string;
       patchNumber?: Maybe<number>;
       canOverrideDependencies: boolean;
       startTime?: Maybe<Date>;

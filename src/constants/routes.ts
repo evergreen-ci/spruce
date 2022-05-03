@@ -216,8 +216,8 @@ export const getSpawnVolumeRoute = (volume: string) => {
   return `${routes.spawnVolume}?${queryParams}`;
 };
 
-export const getProjectPatchesRoute = (projectId: string) =>
-  `${paths.project}/${projectId}/${PageNames.Patches}`;
+export const getProjectPatchesRoute = (projectIdentifier: string) =>
+  `${paths.project}/${projectIdentifier}/${PageNames.Patches}`;
 
 export const getProjectSettingsRoute = (
   projectId: string,
