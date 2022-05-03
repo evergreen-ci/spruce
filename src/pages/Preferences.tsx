@@ -1,5 +1,4 @@
 import React from "react";
-import { useParams, Link, Redirect } from "react-router-dom";
 import { usePreferencesAnalytics } from "analytics";
 import {
   SideNav,
@@ -10,6 +9,7 @@ import {
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import { usePageTitle } from "hooks";
 import { PreferencesTabs } from "pages/preferences/PreferencesTabs";
+import { useParams, Link, Redirect } from "react-router-dom";
 
 export const Preferences: React.VFC = () => {
   usePageTitle("Preferences");

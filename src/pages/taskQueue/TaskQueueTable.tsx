@@ -2,10 +2,9 @@ import { useEffect, useRef } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
+import { useTaskQueueAnalytics } from "analytics";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
-import { useParams, useLocation } from "react-router-dom";
-import { useTaskQueueAnalytics } from "analytics";
 import Badge from "components/Badge";
 import { StyledRouterLink } from "components/styles";
 import { getVersionRoute, getTaskRoute } from "constants/routes";
@@ -17,6 +16,7 @@ import {
 } from "gql/generated/types";
 import { DISTRO_TASK_QUEUE } from "gql/queries";
 import { usePrevious } from "hooks";
+import { useParams, useLocation } from "react-router-dom";
 import { string } from "utils";
 
 const { msToDuration } = string;

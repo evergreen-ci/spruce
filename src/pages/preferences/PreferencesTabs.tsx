@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
-import { Route, useParams } from "react-router-dom";
 import { routes, PreferencesTabRoutes } from "constants/routes";
 import { size } from "constants/tokens";
+import { Route, useParams } from "react-router-dom";
 import { CliTab } from "./preferencesTabs/CliTab";
 import { NewUITab } from "./preferencesTabs/NewUITab";
 import { NotificationsTab } from "./preferencesTabs/NotificationsTab";

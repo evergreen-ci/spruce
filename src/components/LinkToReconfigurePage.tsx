@@ -1,8 +1,8 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import { useVersionAnalytics, usePatchAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
 import { getPatchRoute } from "constants/routes";
+import { useHistory } from "react-router-dom";
 
 export const LinkToReconfigurePage: React.VFC<{
   patchId: string;

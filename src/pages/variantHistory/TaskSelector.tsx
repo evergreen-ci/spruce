@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { useLocation } from "react-router";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import SearchableDropdown from "components/SearchableDropdown";
 import {
@@ -10,6 +9,7 @@ import {
 } from "gql/generated/types";
 import { GET_TASK_NAMES_FOR_BUILD_VARIANT } from "gql/queries";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { useLocation } from "react-router";
 import { HistoryQueryParams } from "types/history";
 import { queryString, array } from "utils";
 

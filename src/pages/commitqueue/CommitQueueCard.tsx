@@ -4,13 +4,13 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
-import { format } from "date-fns";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { StyledLink, StyledRouterLink } from "components/styles";
 import { getGithubPullRequestUrl } from "constants/externalResources";
 import { getVersionRoute } from "constants/routes";
 import { size, fontSize } from "constants/tokens";
 import { useToastContext } from "context/toast";
+import { format } from "date-fns";
 import {
   ModuleCodeChangeFragment,
   RemoveItemFromCommitQueueMutation,

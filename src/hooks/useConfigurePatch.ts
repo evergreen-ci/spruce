@@ -1,11 +1,11 @@
 import { useEffect, useReducer } from "react";
-import { useHistory, useLocation, useParams } from "react-router-dom";
 import { getPatchRoute } from "constants/routes";
 import {
   ConfigurePatchQuery,
   ParameterInput,
   VariantTask,
 } from "gql/generated/types";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 import { PatchTab } from "types/patch";
 import { Unpacked } from "types/utils";
 import { array, queryString, string } from "utils";

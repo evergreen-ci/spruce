@@ -5,9 +5,6 @@ import Icon from "@leafygreen-ui/icon";
 import { Body } from "@leafygreen-ui/typography";
 import { Table, Skeleton, Input } from "antd";
 import { SortOrder } from "antd/es/table/interface";
-import debounce from "lodash.debounce";
-import get from "lodash/get";
-import { useParams, useLocation } from "react-router-dom";
 import { H3, WordBreak } from "components/Typography";
 import { size } from "constants/tokens";
 import {
@@ -17,6 +14,9 @@ import {
   GroupedFiles,
 } from "gql/generated/types";
 import { GET_TASK_FILES } from "gql/queries";
+import debounce from "lodash.debounce";
+import get from "lodash/get";
+import { useParams, useLocation } from "react-router-dom";
 import { RequiredQueryParams } from "types/task";
 import { queryString } from "utils";
 

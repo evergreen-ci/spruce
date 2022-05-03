@@ -1,6 +1,5 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { useParams, Redirect } from "react-router-dom";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import { PageWrapper } from "components/styles";
 import { commitQueueAlias } from "constants/patch";
@@ -14,6 +13,7 @@ import { GET_PATCH_CONFIGURE } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { PageDoesNotExist } from "pages/404";
 import { ConfigurePatchCore } from "pages/configurePatch/ConfigurePatchCore";
+import { useParams, Redirect } from "react-router-dom";
 import { validateObjectId } from "utils/validators";
 
 export const ConfigurePatch: React.VFC = () => {

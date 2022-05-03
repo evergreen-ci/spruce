@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { useLocation } from "react-router-dom";
 import { Analytics } from "analytics/addPageAction";
 import Icon from "components/Icon";
 import { PageSizeSelector } from "components/PageSizeSelector";
@@ -14,6 +13,7 @@ import {
   usePageTitle,
   useUpdateURLQueryParams,
 } from "hooks";
+import { useLocation } from "react-router-dom";
 import { PatchPageQueryParams, ALL_PATCH_STATUS } from "types/patch";
 import { queryString, url } from "utils";
 import { ListArea } from "./ListArea";

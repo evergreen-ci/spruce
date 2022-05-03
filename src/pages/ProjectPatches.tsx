@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import { useLocation, useParams } from "react-router-dom";
 import { useProjectPatchesAnalytics } from "analytics/patches/useProjectPatchesAnalytics";
 import {
   PatchesPage,
@@ -14,6 +13,7 @@ import {
 } from "gql/generated/types";
 import { GET_PROJECT_PATCHES } from "gql/queries";
 import { usePolling, useUpdateURLQueryParams } from "hooks";
+import { useLocation, useParams } from "react-router-dom";
 import { PatchPageQueryParams } from "types/patch";
 import { queryString } from "utils";
 

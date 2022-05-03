@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { MemoryRouter } from "react-router-dom";
 import TaskHistoryRow from "pages/taskHistory/TaskHistoryRow";
 import VariantHistoryRow from "pages/variantHistory/VariantHistoryRow";
+import { MemoryRouter } from "react-router-dom";
 import HistoryTable, { context } from ".";
 import { mainlineCommitData } from "./testData";
 

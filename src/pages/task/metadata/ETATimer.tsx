@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { addMilliseconds, differenceInMilliseconds } from "date-fns";
 import { P2 } from "components/Typography";
+import { addMilliseconds, differenceInMilliseconds } from "date-fns";
 import { string } from "utils";
 
 const { msToDuration } = string;

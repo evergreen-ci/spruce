@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
-import { useLocation } from "react-router-dom";
 import { useHostsTableAnalytics } from "analytics";
 import Badge, { Variant } from "components/Badge";
 import { Button } from "components/Button";
@@ -27,6 +26,7 @@ import {
 } from "gql/generated/types";
 import { HOSTS } from "gql/queries";
 import { HostsTable } from "pages/hosts/HostsTable";
+import { useLocation } from "react-router-dom";
 import { array, queryString, url } from "utils";
 
 const { toArray } = array;

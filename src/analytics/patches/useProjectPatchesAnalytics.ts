@@ -1,10 +1,10 @@
-import { useParams } from "react-router-dom";
 import {
   addPageAction,
   Properties,
   Analytics as A,
 } from "analytics/addPageAction";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
+import { useParams } from "react-router-dom";
 
 type Action =
   | { name: "Filter Patches"; filterBy: string }

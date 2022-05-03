@@ -1,5 +1,4 @@
 import { MockedProvider } from "@apollo/client/testing";
-import MatchMediaMock from "jest-matchmedia-mock";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
 import {
   FILE_JIRA_TICKET,
@@ -12,6 +11,7 @@ import {
   GET_USER,
   GET_CREATED_TICKETS,
 } from "gql/queries";
+import MatchMediaMock from "jest-matchmedia-mock";
 import {
   renderWithRouterMatch as render,
   fireEvent,

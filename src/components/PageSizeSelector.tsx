@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { Select, Option } from "@leafygreen-ui/select";
 import { Select as AntdSelect } from "antd";
-import { useHistory, useLocation } from "react-router-dom";
 import { PAGE_SIZES, RECENT_PAGE_SIZE_KEY } from "constants/index";
+import { useHistory, useLocation } from "react-router-dom";
 import { queryString } from "utils";
 
 const { stringifyQuery, parseQueryString } = queryString;

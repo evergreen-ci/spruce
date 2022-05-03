@@ -4,10 +4,10 @@ import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { Select, Input } from "antd";
-import { v4 as uuid } from "uuid";
 import { InputLabel } from "components/styles";
 import { size } from "constants/tokens";
 import { RegexSelector } from "types/triggers";
+import { v4 as uuid } from "uuid";
 
 const { Option } = Select;
 

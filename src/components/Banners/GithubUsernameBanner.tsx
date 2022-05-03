@@ -2,12 +2,12 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { Body } from "@leafygreen-ui/typography";
-import { matchPath, useLocation } from "react-router-dom";
 import { StyledRouterLink } from "components/styles";
 import { getPreferencesRoute, PreferencesTabRoutes } from "constants/routes";
 import { size } from "constants/tokens";
 import { GetUserSettingsQuery } from "gql/generated/types";
 import { GET_USER_SETTINGS } from "gql/queries";
+import { matchPath, useLocation } from "react-router-dom";
 import { Banner } from "./styles";
 
 export const GithubUsernameBanner = () => {

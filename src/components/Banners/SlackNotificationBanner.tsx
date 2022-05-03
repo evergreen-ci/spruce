@@ -5,7 +5,6 @@ import Banner from "@leafygreen-ui/banner";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { Popconfirm, Input } from "antd";
-import Cookies from "js-cookie";
 import { PageWrapper } from "components/styles";
 import { SLACK_NOTIFICATION_BANNER } from "constants/cookies";
 import { fontSize } from "constants/tokens";
@@ -17,6 +16,7 @@ import {
 } from "gql/generated/types";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { GET_USER_SETTINGS } from "gql/queries";
+import Cookies from "js-cookie";
 
 const { blue } = uiColors;
 

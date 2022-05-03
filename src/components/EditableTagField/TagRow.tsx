@@ -2,12 +2,12 @@ import { useReducer, useMemo } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { Input } from "antd";
-import { v4 as uuid } from "uuid";
 import Icon from "components/Icon";
 import { PlusButton } from "components/Spawn";
 import { InputLabel } from "components/styles";
 import { size } from "constants/tokens";
 import { ParameterInput, InstanceTag } from "gql/generated/types";
+import { v4 as uuid } from "uuid";
 import { reducer, getInitialState } from "./tagRowReducer";
 
 type Tag = InstanceTag | ParameterInput;

@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client";
-import { Skeleton } from "antd";
-import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
+import { Skeleton } from "antd";
 import { StyledRouterLink, SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
 import { H3, wordBreakCss } from "components/Typography";
@@ -15,6 +14,7 @@ import {
 } from "gql/generated/types";
 import { GET_BUILD_VARIANTS_STATS } from "gql/queries";
 import { usePolling } from "hooks";
+import { useParams } from "react-router-dom";
 import { applyStrictRegex } from "utils/string";
 
 export const BuildVariants: React.VFC = () => {

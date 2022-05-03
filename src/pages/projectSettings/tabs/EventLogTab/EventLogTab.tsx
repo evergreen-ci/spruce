@@ -1,5 +1,4 @@
 import { useQuery } from "@apollo/client";
-import { useParams } from "react-router-dom";
 import { useToastContext } from "context/toast";
 import {
   ProjectEventLogsQuery,
@@ -8,6 +7,7 @@ import {
   RepoEventLogsQueryVariables,
 } from "gql/generated/types";
 import { GET_PROJECT_EVENT_LOGS, GET_REPO_EVENT_LOGS } from "gql/queries";
+import { useParams } from "react-router-dom";
 import { validateObjectId } from "utils/validators";
 
 export const EventLogTab: React.FC = () => {

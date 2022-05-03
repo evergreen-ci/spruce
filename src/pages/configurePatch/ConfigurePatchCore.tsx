@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 import { Tab } from "@leafygreen-ui/tabs";
 import { Body } from "@leafygreen-ui/typography";
 import { Input } from "antd";
-import { useHistory } from "react-router-dom";
 import { CodeChanges } from "components/CodeChanges/CodeChanges";
 import { MetadataCard } from "components/MetadataCard";
 import { PageContent, PageLayout, PageSider } from "components/styles";
@@ -32,6 +31,7 @@ import {
   useConfigurePatch,
 } from "hooks/useConfigurePatch";
 import { ParametersContent } from "pages/configurePatch/ParametersContent";
+import { useHistory } from "react-router-dom";
 import { ConfigureBuildVariants } from "./configurePatchCore/ConfigureBuildVariants";
 import { ConfigureTasks } from "./configurePatchCore/ConfigureTasks";
 

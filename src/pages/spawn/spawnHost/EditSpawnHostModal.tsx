@@ -3,10 +3,8 @@ import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Variant } from "@leafygreen-ui/button";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Input, Select } from "antd";
-import { diff } from "deep-object-diff";
-import isEqual from "lodash.isequal";
 import { useSpawnAnalytics } from "analytics";
+import { Input, Select } from "antd";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import Icon from "components/Icon";
 import { Modal } from "components/Modal";
@@ -22,6 +20,7 @@ import { InputLabel, StyledLink } from "components/styles";
 import { windowsPasswordRulesURL } from "constants/externalResources";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
+import { diff } from "deep-object-diff";
 import {
   InstanceTypesQuery,
   InstanceTypesQueryVariables,
@@ -38,6 +37,7 @@ import {
   GET_MY_PUBLIC_KEYS,
   GET_MY_VOLUMES,
 } from "gql/queries";
+import isEqual from "lodash.isequal";
 import {
   VolumesField,
   UserTagsField,

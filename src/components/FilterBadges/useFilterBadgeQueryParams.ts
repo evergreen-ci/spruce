@@ -1,5 +1,5 @@
-import { useLocation } from "react-router";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { useLocation } from "react-router";
 import { queryString, array } from "utils";
 import { FilterBadgeType } from "./FilterBadge";
 

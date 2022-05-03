@@ -1,5 +1,5 @@
-import { useHistory, useLocation } from "react-router-dom";
 import { SortDirection } from "gql/generated/types";
+import { useHistory, useLocation } from "react-router-dom";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { queryString } from "utils";
 

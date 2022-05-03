@@ -1,5 +1,4 @@
 import { useQuery } from "@apollo/client";
-import { useParams, useLocation } from "react-router-dom";
 import {
   addPageAction,
   Properties,
@@ -15,6 +14,7 @@ import {
 } from "gql/generated/types";
 import { GET_TASK } from "gql/queries";
 import { CommitType } from "pages/task/actionButtons/previousCommits/types";
+import { useParams, useLocation } from "react-router-dom";
 import { RequiredQueryParams, LogTypes } from "types/task";
 import { queryString } from "utils";
 

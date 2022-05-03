@@ -1,7 +1,7 @@
 import React from "react";
+import { initializeBugsnag } from "components/ErrorBoundary";
 import ReactDOM from "react-dom";
 import App from "App";
-import { initializeBugsnag } from "components/ErrorBoundary";
 import * as serviceWorker from "./serviceWorker";
 
 initializeBugsnag();

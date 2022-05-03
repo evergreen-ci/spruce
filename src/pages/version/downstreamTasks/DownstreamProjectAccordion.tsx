@@ -3,10 +3,9 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { InlineCode } from "@leafygreen-ui/typography";
+import { useVersionAnalytics } from "analytics";
 import { Skeleton } from "antd";
 import { TableProps } from "antd/es/table";
-import { useParams } from "react-router-dom";
-import { useVersionAnalytics } from "analytics";
 import { Accordion, AccordionWrapper } from "components/Accordion";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
@@ -26,6 +25,7 @@ import {
 } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
 import { usePolling, useTaskStatuses } from "hooks";
+import { useParams } from "react-router-dom";
 import { environmentalVariables, queryString } from "utils";
 import { reducer } from "./reducer";
 

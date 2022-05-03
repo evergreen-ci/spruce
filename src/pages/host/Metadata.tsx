@@ -1,10 +1,10 @@
 import React from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
-import { formatDistanceToNow } from "date-fns";
 import { StyledLink } from "components/styles";
 import { P2 } from "components/Typography";
 import { getTaskRoute } from "constants/routes";
+import { formatDistanceToNow } from "date-fns";
 import { HostQuery } from "gql/generated/types";
 import { HostCard } from "pages/host/HostCard";
 import { environmentalVariables } from "utils";

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Tooltip } from "antd";
 import { useAnnotationAnalytics } from "analytics";
+import { Tooltip } from "antd";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { PlusButton } from "components/Spawn";
 import { size } from "constants/tokens";

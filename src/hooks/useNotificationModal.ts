@@ -1,8 +1,5 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import Cookies from "js-cookie";
-import get from "lodash/get";
-import { v4 as uuid } from "uuid";
 import { RegexSelectorProps } from "components/NotificationModal/RegexSelectorInput";
 import {
   getNotificationTriggerCookie,
@@ -11,8 +8,11 @@ import {
 import { clearExtraFieldsInputCb } from "constants/triggers";
 import { GetUserSettingsQuery, GetUserQuery } from "gql/generated/types";
 import { GET_USER_SETTINGS, GET_USER } from "gql/queries";
+import Cookies from "js-cookie";
+import get from "lodash/get";
 import { SUBSCRIPTION_SLACK, SUBSCRIPTION_EMAIL } from "types/subscription";
 import { Trigger } from "types/triggers";
+import { v4 as uuid } from "uuid";
 
 export interface UseNotificationModalProps {
   subscriptionMethodControls: SubscriptionMethods;

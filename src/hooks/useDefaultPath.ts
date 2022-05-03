@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
 import { TabToIndexMap } from "hooks/types";
+import { useParams, useHistory } from "react-router-dom";
 
 /**
  * This hook is used to automatically put the default selected tab at the end of the url path

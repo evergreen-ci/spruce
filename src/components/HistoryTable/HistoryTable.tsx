@@ -1,4 +1,5 @@
 import { useEffect, useRef, ComponentType, useMemo } from "react";
+import { MainlineCommitsForHistoryQuery } from "gql/generated/types";
 import throttle from "lodash.throttle";
 import AutoSizer from "react-virtualized-auto-sizer";
 import {
@@ -6,7 +7,6 @@ import {
   ListChildComponentProps,
 } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
-import { MainlineCommitsForHistoryQuery } from "gql/generated/types";
 import { useHistoryTable } from "./HistoryTableContext";
 
 interface HistoryTableProps {

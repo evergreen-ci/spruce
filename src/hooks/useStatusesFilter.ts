@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
-import { useLocation } from "react-router-dom";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { useLocation } from "react-router-dom";
 import { queryString } from "utils";
 
 const { parseQueryString } = queryString;

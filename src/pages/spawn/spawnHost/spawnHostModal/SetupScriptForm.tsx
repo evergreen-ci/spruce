@@ -3,13 +3,13 @@ import { useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Input } from "antd";
-import { useLocation } from "react-router";
 import { size } from "constants/tokens";
 import {
   GetSpawnTaskQuery,
   GetSpawnTaskQueryVariables,
 } from "gql/generated/types";
 import { GET_SPAWN_TASK } from "gql/queries";
+import { useLocation } from "react-router";
 import { queryString } from "utils";
 import { shortenGithash } from "utils/string";
 import { Action as SpawnHostModalAction } from "./useSpawnHostModalState";

@@ -4,9 +4,8 @@ import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import Code from "@leafygreen-ui/code";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { Skeleton } from "antd";
-import get from "lodash/get";
 import { usePreferencesAnalytics } from "analytics";
+import { Skeleton } from "antd";
 import { SiderCard } from "components/styles";
 import { size } from "constants/tokens";
 import {
@@ -14,6 +13,7 @@ import {
   GetUserConfigQueryVariables,
 } from "gql/generated/types";
 import { GET_USER_CONFIG } from "gql/queries";
+import get from "lodash/get";
 import { environmentalVariables, request } from "utils";
 
 const { post } = request;

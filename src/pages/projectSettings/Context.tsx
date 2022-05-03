@@ -6,10 +6,10 @@ import {
   useMemo,
   useReducer,
 } from "react";
-import debounce from "lodash.debounce";
-import isEqual from "lodash.isequal";
 import { FormDataProps, SpruceFormProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
+import debounce from "lodash.debounce";
+import isEqual from "lodash.isequal";
 import { formToGqlMap } from "pages/projectSettings/tabs/transformers";
 import {
   FormToGqlFunction,

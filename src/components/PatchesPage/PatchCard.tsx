@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
-import { format } from "date-fns";
 import { Analytics } from "analytics/addPageAction";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
@@ -12,6 +11,7 @@ import {
   getUserPatchesRoute,
 } from "constants/routes";
 import { fontSize, size } from "constants/tokens";
+import { format } from "date-fns";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { Unpacked } from "types/utils";
 import { groupStatusesByUmbrellaStatus } from "utils/statuses";

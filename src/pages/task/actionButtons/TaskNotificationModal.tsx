@@ -1,8 +1,8 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { NotificationModal } from "components/NotificationModal";
 import { SubscriptionMethods } from "hooks/useNotificationModal";
+import { useParams } from "react-router-dom";
 import {
   SUBSCRIPTION_JIRA_COMMENT,
   SUBSCRIPTION_SLACK,

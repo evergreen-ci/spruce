@@ -1,7 +1,7 @@
 import React from "react";
-import { useLocation } from "react-router";
 import { CheckboxFilter, InputFilter } from "components/Table/Filters";
 import { useTableInputFilter, useTableCheckboxFilter } from "hooks";
+import { useLocation } from "react-router";
 import { renderWithRouterMatch as render, fireEvent } from "test_utils";
 import { queryString } from "utils";
 

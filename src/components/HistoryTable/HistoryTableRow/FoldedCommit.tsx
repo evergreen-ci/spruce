@@ -1,10 +1,10 @@
 import { CSSProperties, memo } from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
-import { areEqual } from "react-window";
 import { Accordion } from "components/Accordion";
 import CommitChartLabel from "components/CommitChartLabel";
 import { MainlineCommitsForHistoryQuery } from "gql/generated/types";
+import { areEqual } from "react-window";
 import { Unpacked } from "types/utils";
 import { EmptyCell, LabelCellContainer } from "../Cell/Cell";
 import {

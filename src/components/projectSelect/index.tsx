@@ -1,7 +1,5 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
-import Cookies from "js-cookie";
-import { useHistory } from "react-router-dom";
 import SearchableDropdown from "components/SearchableDropdown";
 import { CURRENT_PROJECT } from "constants/cookies";
 import {
@@ -11,6 +9,8 @@ import {
   GetViewableProjectRefsQueryVariables,
 } from "gql/generated/types";
 import { GET_PROJECTS, GET_VIEWABLE_PROJECTS } from "gql/queries";
+import Cookies from "js-cookie";
+import { useHistory } from "react-router-dom";
 import { errorReporting } from "utils";
 import { ProjectOptionGroup } from "./ProjectOptionGroup";
 
