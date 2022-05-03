@@ -9,7 +9,6 @@ import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { Popconfirm } from "components/Popconfirm";
 import { useToastContext } from "context/toast";
 import {
-  GetIssuesQuery,
   MoveAnnotationIssueMutation,
   MoveAnnotationIssueMutationVariables,
   RemoveAnnotationIssueMutation,
@@ -17,9 +16,8 @@ import {
 } from "gql/generated/types";
 import { MOVE_ANNOTATION, REMOVE_ANNOTATION } from "gql/mutations";
 import { AnnotationTicketRow } from "./AnnotationTicketsRow";
+import { AnnotationTickets, AnnotationTicket } from "./types";
 
-type AnnotationTickets = GetIssuesQuery["task"]["annotation"]["issues"];
-type AnnotationTicket = AnnotationTickets[0];
 interface AnnotationTicketsProps {
   jiraIssues: AnnotationTickets;
   taskId: string;
@@ -45,25 +43,6 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
   const dispatchToast = useToastContext();
   const issueString = isIssue ? "issue" : "suspected issue";
 
-  // While fetching for JIRA tickets, display the information we already have (the issueKey and the url).
-  const loadingColumns = [
-    {
-      title: "Ticket",
-      render: ({
-        issueKey,
-        url,
-        confidenceScore,
-      }: AnnotationTicket): JSX.Element => (
-        <AnnotationTicketRow
-          issueKey={issueKey}
-          url={url}
-          confidenceScore={confidenceScore}
-          loading
-        />
-      ),
-    },
-  ];
-
   // Once JIRA tickets have been fetched, display the complete information.
   const columns = [
     {
@@ -74,17 +53,24 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
         url,
         source,
         jiraTicket,
+        confidenceScore,
       }: AnnotationTicket): JSX.Element => (
         <AnnotationTicketRow
           issueKey={issueKey}
           url={url}
           source={source}
           jiraTicket={jiraTicket}
+          confidenceScore={confidenceScore}
+          loading={loading}
         />
       ),
     },
     {
-      render: ({ issueKey, url }: AnnotationTicket): JSX.Element => (
+      render: ({
+        issueKey,
+        url,
+        confidenceScore,
+      }: AnnotationTicket): JSX.Element => (
         <>
           {ConditionalWrapper({
             condition: userCanModify,
@@ -96,7 +82,7 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
                   isIssue ? "suspected issues" : "issues"
                 }?`}
                 onConfirm={() => {
-                  handleMove(url, issueKey);
+                  handleMove({ url, issueKey, confidenceScore });
                 }}
                 okText="Yes"
                 cancelText="Cancel"
@@ -203,16 +189,16 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
     });
   };
 
-  const handleMove = (url: string, issueKey: string): void => {
-    const apiIssue = {
-      url,
-      issueKey,
-    };
+  const handleMove = (apiIssue: {
+    url: string;
+    issueKey: string;
+    confidenceScore: number;
+  }): void => {
     moveAnnotation({ variables: { taskId, execution, apiIssue, isIssue } });
     const analyticsType = isIssue
       ? "Move Annotation Issue"
       : "Move Annotation Suspected Issue";
-    setSelectedRowKey(issueKey);
+    setSelectedRowKey(apiIssue.issueKey);
     annotationAnalytics.sendEvent({
       name: analyticsType,
     });
@@ -227,21 +213,12 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
     if (selectedRowKey && rowRef.current) {
       rowRef.current.scrollIntoView({
         behavior: "smooth",
-        block: "start",
+        block: "center",
       });
     }
   });
 
-  return loading ? (
-    <Table
-      tableLayout="fixed"
-      dataSource={jiraIssues}
-      rowKey={({ issueKey }) => issueKey}
-      columns={loadingColumns}
-      pagination={false}
-      showHeader={false}
-    />
-  ) : (
+  return (
     <Table
       tableLayout="fixed"
       data-test-id={isIssue ? "issues-table" : "suspected-issues-table"}

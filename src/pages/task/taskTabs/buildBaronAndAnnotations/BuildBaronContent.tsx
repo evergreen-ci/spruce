@@ -20,11 +20,11 @@ import {
 } from "gql/queries";
 import { useSpruceConfig } from "hooks";
 import AnnotationNote from "./AnnotationNote";
-import { Issues, SuspectedIssues } from "./AnnotationTickets";
 import { CustomCreatedTicketsTable } from "./AnnotationTicketsTable";
 import { TicketsTitle, TitleAndButtons } from "./BBComponents";
 import { CreatedTickets, CustomCreatedTickets } from "./BBCreatedTickets";
 import { BuildBaronTable } from "./BuildBaronTable";
+import { Issues, SuspectedIssues } from "./Issues";
 
 interface BuildBaronCoreProps {
   bbData: BuildBaron;

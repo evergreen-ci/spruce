@@ -36,6 +36,7 @@ const AnnotationNote: React.VFC<Props> = ({
   useEffect(() => {
     setMessage(originalMessage);
   }, [originalMessage]);
+
   const [updateAnnotationNote] = useMutation<
     EditAnnotationNoteMutation,
     EditAnnotationNoteMutationVariables
@@ -73,10 +74,9 @@ const AnnotationNote: React.VFC<Props> = ({
         label="Note"
         description={
           note &&
-          `
-                          Updated: ${getDateCopy(note.source.time, {
-                            dateOnly: true,
-                          })}
+          `Updated: ${getDateCopy(note.source.time, {
+            dateOnly: true,
+          })}
           Last Edited By: ${note.source.author}
           `
         }

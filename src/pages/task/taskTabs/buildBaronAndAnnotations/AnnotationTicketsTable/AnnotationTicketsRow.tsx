@@ -26,7 +26,7 @@ export const AnnotationTicketRow: React.VFC<AnnotationTicketRowProps> = ({
   confidenceScore,
   loading = false,
 }) => {
-  console.log(confidenceScore);
+  console.log({ confidenceScore });
   const annotationAnalytics = useAnnotationAnalytics();
   const fields = jiraTicket?.fields;
   const {
