@@ -12,7 +12,7 @@ import {
 } from "gql/generated/types";
 import { EDIT_ANNOTATION_NOTE } from "gql/mutations";
 import { string } from "utils";
-import { ButtonWrapper } from "./BBComponents";
+import { ButtonWrapper, NonTableWrapper } from "./BBComponents";
 
 const { getDateCopy } = string;
 
@@ -64,7 +64,7 @@ const AnnotationNote: React.VFC<Props> = ({
   };
 
   return (
-    <>
+    <NonTableWrapper>
       <TextArea
         id="noteInput"
         rows={2}
@@ -99,7 +99,7 @@ const AnnotationNote: React.VFC<Props> = ({
       >
         You are not authorized to edit failure details
       </Tooltip>
-    </>
+    </NonTableWrapper>
   );
 };
 

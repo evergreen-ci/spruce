@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useMutation } from "@apollo/client";
+import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Icon, { Size } from "@leafygreen-ui/icon";
 import Tooltip from "@leafygreen-ui/tooltip";
@@ -47,7 +48,7 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
   const columns = [
     {
       title: "Ticket",
-      width: "60%",
+      width: "65%",
       render: ({
         issueKey,
         url,
@@ -71,7 +72,7 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
         url,
         confidenceScore,
       }: AnnotationTicket): JSX.Element => (
-        <>
+        <ButtonContainer>
           {ConditionalWrapper({
             condition: userCanModify,
             wrapper: (children: JSX.Element) => (
@@ -136,7 +137,7 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
               />
             ),
           })}
-        </>
+        </ButtonContainer>
       ),
     },
   ];
@@ -236,5 +237,10 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
     />
   );
 };
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
 export default AnnotationTicketsTable;

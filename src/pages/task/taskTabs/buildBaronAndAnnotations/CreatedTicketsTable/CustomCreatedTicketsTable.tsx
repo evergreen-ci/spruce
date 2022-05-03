@@ -1,14 +1,17 @@
 import { Table } from "antd";
-import { AnnotationTicketRow } from "./AnnotationTicketRow";
-import { AnnotationTickets, AnnotationTicket } from "./types";
+import { AnnotationTicketRow } from "../AnnotationTicketsTable/AnnotationTicketRow";
+import {
+  AnnotationTickets,
+  AnnotationTicket,
+} from "../AnnotationTicketsTable/types";
 
 // CREATED TICKETS
 interface CreatedTicketsProps {
-  createdIssues: AnnotationTickets;
+  tickets: AnnotationTickets;
 }
 
 const CustomCreatedTicketsTable: React.VFC<CreatedTicketsProps> = ({
-  createdIssues,
+  tickets,
 }) => {
   const columns = [
     {
@@ -35,7 +38,7 @@ const CustomCreatedTicketsTable: React.VFC<CreatedTicketsProps> = ({
     <Table
       tableLayout="fixed"
       data-test-id="created-issues-table"
-      dataSource={createdIssues}
+      dataSource={tickets}
       rowKey={({ issueKey }) => issueKey}
       columns={columns}
       pagination={false}

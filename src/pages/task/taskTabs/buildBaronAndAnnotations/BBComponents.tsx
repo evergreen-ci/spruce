@@ -100,7 +100,7 @@ export const TopMetaDataWrapper = styled.div`
   width: 80%;
 `;
 
-export const TitleAndButtons = styled.div`
+export const NonTableWrapper = styled.div`
   margin-left: ${size.s};
 `;
 

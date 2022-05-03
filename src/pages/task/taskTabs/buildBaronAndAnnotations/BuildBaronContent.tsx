@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { StyledLink } from "components/styles";
 import { getJiraSearchUrl } from "constants/externalResources";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   BuildBaron,
@@ -20,10 +19,13 @@ import {
 } from "gql/queries";
 import { useSpruceConfig } from "hooks";
 import AnnotationNote from "./AnnotationNote";
-import { CustomCreatedTicketsTable } from "./AnnotationTicketsTable";
-import { TicketsTitle, TitleAndButtons } from "./BBComponents";
-import { CreatedTickets, CustomCreatedTickets } from "./BBCreatedTickets";
-import { BuildBaronTable } from "./BuildBaronTable";
+import { TicketsTitle, NonTableWrapper } from "./BBComponents";
+import {
+  BBCreatedTickets,
+  BuildBaronTable,
+  CustomCreatedTickets,
+} from "./CreatedTicketsTable";
+
 import { Issues, SuspectedIssues } from "./Issues";
 
 interface BuildBaronCoreProps {
@@ -80,29 +82,26 @@ const BuildBaronContent: React.VFC<BuildBaronCoreProps> = ({
 
   const customTickets = customCreatedTickets?.task?.annotation?.createdIssues;
   const bbTickets = bbCreatedTickets?.bbGetCreatedTickets;
+  const canCreateTickets = bbData?.bbTicketCreationDefined;
 
   return (
     <Wrapper data-cy="bb-content">
       {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
-      {bbData?.bbTicketCreationDefined ? (
+      {canCreateTickets ? (
         <CustomCreatedTickets
           taskId={taskId}
           execution={execution}
           tickets={customTickets}
         />
       ) : (
-        <CreatedTickets
+        <BBCreatedTickets
           taskId={taskId}
           execution={execution}
           buildBaronConfigured={bbData?.buildBaronConfigured}
           tickets={bbTickets}
         />
       )}
-      {bbTickets?.length > 0 && <BuildBaronTable jiraIssues={bbTickets} />}
 
-      {customTickets?.length > 0 && (
-        <CustomCreatedTicketsTable createdIssues={customTickets} />
-      )}
       <AnnotationNote
         note={annotation?.note}
         taskId={taskId}
@@ -127,7 +126,7 @@ const BuildBaronContent: React.VFC<BuildBaronCoreProps> = ({
       />
       {bbData?.searchReturnInfo?.issues.length > 0 && (
         <>
-          <TitleAndButtons>
+          <NonTableWrapper>
             {/* @ts-expect-error */}
             <TicketsTitle>
               Related tickets from Jira
@@ -135,7 +134,7 @@ const BuildBaronContent: React.VFC<BuildBaronCoreProps> = ({
                 {"  "}(Jira Search)
               </StyledLink>
             </TicketsTitle>
-          </TitleAndButtons>
+          </NonTableWrapper>
           {/* build baron related jira tickets */}
           <BuildBaronTable jiraIssues={bbData?.searchReturnInfo?.issues} />
         </>
@@ -146,7 +145,6 @@ const BuildBaronContent: React.VFC<BuildBaronCoreProps> = ({
 
 const Wrapper = styled.div`
   width: 80%;
-  margin-left: ${size.xs};
 `;
 
 export default BuildBaronContent;

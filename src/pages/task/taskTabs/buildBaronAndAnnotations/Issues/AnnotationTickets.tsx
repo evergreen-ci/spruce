@@ -7,7 +7,7 @@ import { size } from "constants/tokens";
 import { IssueLink } from "gql/generated/types";
 import { AddIssueModal } from "../AddIssueModal";
 import { AnnotationTicketsTable } from "../AnnotationTicketsTable";
-import { TicketsTitle, TitleAndButtons } from "../BBComponents";
+import { TicketsTitle, NonTableWrapper } from "../BBComponents";
 
 interface AnnotationTicketsProps {
   tickets: IssueLink[];
@@ -38,7 +38,7 @@ const AnnotationTickets: React.VFC<AnnotationTicketsProps> = ({
     setIsAddAnnotationModalVisible,
   ] = useState<boolean>(false);
 
-  const onClickAdd = () => {
+  const handleAdd = () => {
     setIsAddAnnotationModalVisible(true);
     const analyticsType = isIssue
       ? "Click Add Annotation Issue Button"
@@ -47,14 +47,14 @@ const AnnotationTickets: React.VFC<AnnotationTicketsProps> = ({
   };
   return (
     <>
-      <TitleAndButtons>
+      <NonTableWrapper>
         {/* @ts-expect-error */}
-        <TicketsTitle>{title} </TicketsTitle>
+        <TicketsTitle>{title}</TicketsTitle>
 
         <Tooltip
           trigger={
             <StyledButton // @ts-expect-error
-              onClick={onClickAdd}
+              onClick={handleAdd}
               data-cy={
                 isIssue ? "add-issue-button" : "add-suspected-issue-button"
               }
@@ -67,7 +67,7 @@ const AnnotationTickets: React.VFC<AnnotationTicketsProps> = ({
         >
           You are not authorized to edit failure details
         </Tooltip>
-      </TitleAndButtons>
+      </NonTableWrapper>
       {tickets.length > 0 && (
         <AnnotationTicketsTable
           jiraIssues={tickets}
