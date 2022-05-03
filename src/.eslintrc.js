@@ -63,7 +63,7 @@ module.exports = {
           },
           {
             pattern:
-              "{App,analytics,components,constants,context,gql,hoc,hooks,pages,test_utils,types,utils}{,/**}",
+              "{analytics,components,constants,context,gql,hoc,hooks,pages,test_utils,types,utils}{,/**}",
             group: "internal",
             position: "before",
           },
