@@ -2661,6 +2661,12 @@ export type ClearMySubscriptionsMutationVariables = Exact<{
 
 export type ClearMySubscriptionsMutation = { clearMySubscriptions: number };
 
+export type CopyProjectMutationVariables = Exact<{
+  project: CopyProjectInput;
+}>;
+
+export type CopyProjectMutation = { copyProject: { identifier: string } };
+
 export type CreateProjectMutationVariables = Exact<{
   project: CreateProjectInput;
 }>;

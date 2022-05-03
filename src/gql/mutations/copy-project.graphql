@@ -1,0 +1,5 @@
+mutation CopyProject($project: CopyProjectInput!) {
+  copyProject(project: $project) {
+    identifier
+  }
+}
