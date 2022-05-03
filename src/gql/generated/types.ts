@@ -2289,6 +2289,7 @@ export type RepoGeneralSettingsFragment = {
 
 export type ProjectGithubSettingsFragment = {
   prTestingEnabled?: Maybe<boolean>;
+  manualPrTestingEnabled?: Maybe<boolean>;
   githubChecksEnabled?: Maybe<boolean>;
   githubTriggerAliases?: Maybe<Array<string>>;
   gitTagVersionsEnabled?: Maybe<boolean>;
@@ -2304,6 +2305,7 @@ export type ProjectGithubSettingsFragment = {
 
 export type RepoGithubSettingsFragment = {
   prTestingEnabled: boolean;
+  manualPrTestingEnabled: boolean;
   githubChecksEnabled: boolean;
   githubTriggerAliases?: Maybe<Array<string>>;
   gitTagVersionsEnabled: boolean;
