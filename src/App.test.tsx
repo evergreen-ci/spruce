@@ -1,6 +1,6 @@
 import React from "react";
-import { render, act } from "test_utils";
 import App from "App";
+import { render, act } from "test_utils";
 
 describe("app", () => {
   it("renders without crashing", async () => {
