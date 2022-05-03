@@ -14,7 +14,7 @@ import {
 import { fontSize } from "constants/tokens";
 
 const { focus, gray } = uiColors;
-const defaultColor = gray.base;
+const defaultColor = gray.light1;
 
 export interface InputFilterProps {
   "data-cy"?: string;
