@@ -1,11 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import MatchMediaMock from "jest-matchmedia-mock";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
-import {
-  FILE_JIRA_TICKET,
-  MOVE_ANNOTATION,
-  REMOVE_ANNOTATION,
-} from "gql/mutations";
+import { FILE_JIRA_TICKET } from "gql/mutations";
 import {
   GET_BUILD_BARON,
   GET_SPRUCE_CONFIG,
@@ -17,15 +13,14 @@ import {
   fireEvent,
   waitFor,
 } from "test_utils";
-import { AnnotationTicketsTable } from "./AnnotationTicketsTable";
-import BuildBaron from "./BuildBaron";
+import BuildBaronContent from "./BuildBaronContent";
 
 const taskId =
   "spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41";
 const execution = 1;
 
 let matchMedia;
-describe("buildBaron", () => {
+describe("buildBaronContent", () => {
   beforeAll(() => {
     matchMedia = new MatchMediaMock();
   });
@@ -38,14 +33,13 @@ describe("buildBaron", () => {
   it("the BuildBaron component renders without crashing.", () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={buildBaronMocks} addTypename={false}>
-        <BuildBaron
+        <BuildBaronContent
           annotation={null}
-          bbData={buildBaronQuery}
-          error={null}
           taskId={taskId}
           execution={execution}
-          loading={false}
           userCanModify
+          bbData={buildBaronQuery.buildBaron}
+          loading={false}
         />
       </MockedProvider>
     );
@@ -54,7 +48,6 @@ describe("buildBaron", () => {
       route: `/task/${taskId}`,
       path: "/task/:id",
     });
-
     expect(queryByDataCy("bb-content")).toBeInTheDocument();
     expect(queryByDataCy("bb-error")).toBeNull();
   });
@@ -62,14 +55,13 @@ describe("buildBaron", () => {
   it("clicking on file a new ticket dispatches a banner.", async () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={buildBaronMocks} addTypename={false}>
-        <BuildBaron
+        <BuildBaronContent
           annotation={null}
-          bbData={buildBaronQuery}
-          error={null}
           taskId={taskId}
           execution={execution}
-          loading={false}
           userCanModify
+          loading={false}
+          bbData={buildBaronQuery.buildBaron}
         />
       </MockedProvider>
     );
@@ -78,8 +70,8 @@ describe("buildBaron", () => {
       path: "/task/:id",
     });
     fireEvent.click(queryByDataCy("file-ticket-button"));
-    await expect(getByText("File Ticket")).toBeInTheDocument();
-    await fireEvent.click(getByText("File Ticket"));
+    expect(getByText("File Ticket")).toBeInTheDocument();
+    fireEvent.click(getByText("File Ticket"));
 
     waitFor(() =>
       expect(
@@ -91,14 +83,13 @@ describe("buildBaron", () => {
   it("the correct JiraTicket rows are rendered in the component", () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={buildBaronMocks} addTypename={false}>
-        <BuildBaron
+        <BuildBaronContent
           annotation={null}
-          bbData={buildBaronQuery}
-          error={null}
           taskId={taskId}
           execution={execution}
-          loading={false}
           userCanModify
+          bbData={buildBaronQuery.buildBaron}
+          loading={false}
         />
       </MockedProvider>
     );
@@ -127,39 +118,6 @@ describe("buildBaron", () => {
     expect(queryByDataCy("EVG-12347-metadata")).toHaveTextContent(
       "Created: Sep 18, 2020 Updated: Sep 18, 2020 Assignee: Backlog - Evergreen Team"
     );
-  });
-});
-
-describe("annotationTicketsTable", () => {
-  it("should display the link and jiraIssue key while waiting for data to fetch.", async () => {
-    const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={ticketsTableMocks} addTypename={false}>
-        <AnnotationTicketsTable
-          jiraIssues={[
-            {
-              issueKey: "EVG-1234567",
-              url: "https://fake-url/EVG-1234567",
-            },
-          ]}
-          isIssue
-          taskId={taskId}
-          execution={execution}
-          userCanModify={false}
-          selectedRowKey=""
-          setSelectedRowKey={() => {}}
-          loading
-        />
-      </MockedProvider>
-    );
-    const { getByText, queryByDataCy } = render(() => <Component />, {
-      route: `/task/${taskId}`,
-      path: "/task/:id",
-    });
-
-    waitFor(() =>
-      expect(queryByDataCy("loading-annotation-ticket")).toBeInTheDocument()
-    );
-    expect(getByText("EVG-1234567")).toBeInTheDocument();
   });
 });
 
@@ -288,39 +246,6 @@ const buildBaronMocks = [
       data: {
         userId: "mohamed.khelif",
         displayName: "Mohamed Khelif",
-      },
-    },
-  },
-];
-
-const apiIssue = {
-  url: "https://fake-url/EVG-1234567",
-  issueKey: "EVG-1234567",
-};
-
-const ticketsTableMocks = [
-  {
-    request: {
-      query: MOVE_ANNOTATION,
-      variables: { taskId, execution, apiIssue, isIssue: true },
-    },
-    result: { data: { moveAnnotationIssue: true } },
-  },
-  {
-    request: {
-      query: REMOVE_ANNOTATION,
-      variables: { taskId, execution, apiIssue, isIssue: true },
-    },
-    result: { data: { removeAnnotationIssue: true } },
-  },
-  {
-    request: {
-      query: GET_USER,
-    },
-    result: {
-      data: {
-        userId: "minna.kt",
-        displayName: "Minna K-T",
       },
     },
   },

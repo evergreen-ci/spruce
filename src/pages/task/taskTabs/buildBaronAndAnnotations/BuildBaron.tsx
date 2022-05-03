@@ -6,7 +6,7 @@ import {
   BuildBaronQueryVariables,
 } from "gql/generated/types";
 import { GET_BUILD_BARON } from "gql/queries";
-import { BuildBaronContent } from "./BuildBaronContent";
+import BuildBaronContent from "./BuildBaronContent";
 
 interface Props {
   taskId: string;

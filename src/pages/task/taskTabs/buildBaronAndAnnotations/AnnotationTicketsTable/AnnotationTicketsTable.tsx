@@ -15,7 +15,7 @@ import {
   RemoveAnnotationIssueMutationVariables,
 } from "gql/generated/types";
 import { MOVE_ANNOTATION, REMOVE_ANNOTATION } from "gql/mutations";
-import { AnnotationTicketRow } from "./AnnotationTicketsRow";
+import { AnnotationTicketRow } from "./AnnotationTicketRow";
 import { AnnotationTickets, AnnotationTicket } from "./types";
 
 interface AnnotationTicketsProps {

@@ -35,7 +35,7 @@ interface BuildBaronCoreProps {
   userCanModify: boolean;
 }
 
-export const BuildBaronContent: React.VFC<BuildBaronCoreProps> = ({
+const BuildBaronContent: React.VFC<BuildBaronCoreProps> = ({
   bbData,
   taskId,
   execution,
@@ -148,3 +148,5 @@ const Wrapper = styled.div`
   width: 80%;
   margin-left: ${size.xs};
 `;
+
+export default BuildBaronContent;

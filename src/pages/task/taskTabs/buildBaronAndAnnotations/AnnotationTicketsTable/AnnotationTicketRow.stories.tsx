@@ -1,5 +1,5 @@
 import { withKnobs, boolean, number } from "@storybook/addon-knobs";
-import { AnnotationTicketRow } from "./AnnotationTicketsRow";
+import { AnnotationTicketRow } from "./AnnotationTicketRow";
 
 export default {
   title: "BuildBaron/AnnotationTicketRow",

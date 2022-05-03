@@ -1,5 +1,5 @@
 import { Table } from "antd";
-import { AnnotationTicketRow } from "./AnnotationTicketsRow";
+import { AnnotationTicketRow } from "./AnnotationTicketRow";
 import { AnnotationTickets, AnnotationTicket } from "./types";
 
 // CREATED TICKETS
