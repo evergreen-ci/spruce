@@ -7449,6 +7449,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"analytics@link:./src/analytics::locator=spruce%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "analytics@link:./src/analytics::locator=spruce%40workspace%3A."
+  languageName: node
+  linkType: soft
+
 "ansi-align@npm:^3.0.0":
   version: 3.0.0
   resolution: "ansi-align@npm:3.0.0"
@@ -10096,6 +10102,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"components@link:./src/components::locator=spruce%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "components@link:./src/components::locator=spruce%40workspace%3A."
+  languageName: node
+  linkType: soft
+
 "compose-function@npm:3.0.3":
   version: 3.0.3
   resolution: "compose-function@npm:3.0.3"
@@ -10263,6 +10275,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"constants@link:./src/constants::locator=spruce%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "constants@link:./src/constants::locator=spruce%40workspace%3A."
+  languageName: node
+  linkType: soft
+
 "contains-path@npm:^0.1.0":
   version: 0.1.0
   resolution: "contains-path@npm:0.1.0"
@@ -10285,6 +10303,12 @@ __metadata:
   checksum: 3d93585fda985d1554eca5ebd251994327608d2e200978fdbfba21c0c679914d5faf266d17027de44b34a72c7b0745b18584ecccaa7e1fdfb6a68ac7114f12e0
   languageName: node
   linkType: hard
+
+"context@link:./src/context::locator=spruce%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "context@link:./src/context::locator=spruce%40workspace%3A."
+  languageName: node
+  linkType: soft
 
 "convert-source-map@npm:1.7.0, convert-source-map@npm:^1.4.0, convert-source-map@npm:^1.6.0, convert-source-map@npm:^1.7.0":
   version: 1.7.0
@@ -14011,6 +14035,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"gql@link:./src/gql::locator=spruce%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "gql@link:./src/gql::locator=spruce%40workspace%3A."
+  languageName: node
+  linkType: soft
+
 "graceful-fs@npm:^4.1.11, graceful-fs@npm:^4.1.15, graceful-fs@npm:^4.1.2, graceful-fs@npm:^4.1.6, graceful-fs@npm:^4.1.9, graceful-fs@npm:^4.2.0, graceful-fs@npm:^4.2.4":
   version: 4.2.4
   resolution: "graceful-fs@npm:4.2.4"
@@ -14435,6 +14465,12 @@ __metadata:
   checksum: b1538270429b13901ee586aa44f4cc3ecd8831c061d06cb8322e50ea17b3f5ce4d0e2e66394761e6c8e152cd8c34fb3b4b690116c6ce2bd45b18c746516cb9e8
   languageName: node
   linkType: hard
+
+"hooks@link:./src/hooks::locator=spruce%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "hooks@link:./src/hooks::locator=spruce%40workspace%3A."
+  languageName: node
+  linkType: soft
 
 "hoopy@npm:^0.1.4":
   version: 0.1.4
@@ -19250,6 +19286,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"pages@link:./src/pages::locator=spruce%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "pages@link:./src/pages::locator=spruce%40workspace%3A."
+  languageName: node
+  linkType: soft
+
 "pako@npm:~1.0.5":
   version: 1.0.11
   resolution: "pako@npm:1.0.11"
@@ -23297,6 +23339,7 @@ __metadata:
     "@types/react-window-infinite-loader": ^1.0.5
     "@typescript-eslint/eslint-plugin": 4.9.0
     "@typescript-eslint/parser": 4.9.0
+    analytics: "link:./src/analytics"
     ansi_up: 5.0.0
     antd: 4.12.1
     axios: 0.21.2
@@ -23312,6 +23355,9 @@ __metadata:
     camelcase: ^6.1.0
     case-sensitive-paths-webpack-plugin: 2.3.0
     colors: 1.4.0
+    components: "link:./src/components"
+    constants: "link:./src/constants"
+    context: "link:./src/context"
     css-loader: 4.3.0
     cypress: 5.2.0
     date-fns: 2.16.1
@@ -23337,8 +23383,10 @@ __metadata:
     file-loader: 6.2.0
     fs-extra: ^9.0.1
     glob: 7.1.6
+    gql: "link:./src/gql"
     graphql: 15.5.0
     graphql-tag: ^2.11.0
+    hooks: "link:./src/hooks"
     html-react-parser: 1.2.4
     html-webpack-plugin: 4.5.0
     husky: 4.3.0
@@ -23360,6 +23408,7 @@ __metadata:
     lodash.throttle: 4.1.1
     mini-css-extract-plugin: 0.11.3
     mutation-observer: 1.0.3
+    pages: "link:./src/pages"
     path: 0.12.7
     pnp-webpack-plugin: 1.6.4
     prettier: 2.2.1
@@ -23389,6 +23438,7 @@ __metadata:
     storybook-react-router: ^1.0.8
     style-loader: 1.3.0
     terser-webpack-plugin: 4.2.3
+    test_utils: "link:./src/test_utils"
     timezone-mock: ^1.1.3
     ts-loader: 8.0.11
     ts-pnp: 1.2.0
@@ -23396,10 +23446,12 @@ __metadata:
     tslint-config-prettier: 1.18.0
     tslint-plugin-graphql: 0.0.6
     tslint-react: 5.0.0
+    types: "link:./src/types"
     typescript: 4.1.2
     typescript-styled-plugin: 0.16.0
     unfetch: 4.2.0
     url-loader: 4.1.1
+    utils: "link:./src/utils"
     uuid: 8.3.2
     wait-on: 6.0.0
     webpack: 4.44.2
@@ -24334,6 +24386,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"test_utils@link:./src/test_utils::locator=spruce%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "test_utils@link:./src/test_utils::locator=spruce%40workspace%3A."
+  languageName: node
+  linkType: soft
+
 "text-table@npm:0.2.0, text-table@npm:^0.2.0":
   version: 0.2.0
   resolution: "text-table@npm:0.2.0"
@@ -24925,6 +24983,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"types@link:./src/types::locator=spruce%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "types@link:./src/types::locator=spruce%40workspace%3A."
+  languageName: node
+  linkType: soft
+
 "typescript-styled-plugin@npm:0.16.0":
   version: 0.16.0
   resolution: "typescript-styled-plugin@npm:0.16.0"
@@ -25361,6 +25425,12 @@ __metadata:
   checksum: c81095493225ecfc28add49c106ca4f09cdf56bc66731aa8dabc2edbbccb1e1bfe2de6a115e5c6a380d3ea166d1636410b62ef216bb07b3feb1cfde1d95d5080
   languageName: node
   linkType: hard
+
+"utils@link:./src/utils::locator=spruce%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "utils@link:./src/utils::locator=spruce%40workspace%3A."
+  languageName: node
+  linkType: soft
 
 "uuid@npm:8.3.2, uuid@npm:^8.0.0, uuid@npm:^8.3.0":
   version: 8.3.2
