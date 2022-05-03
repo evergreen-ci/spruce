@@ -68,6 +68,9 @@ export const taskQuery = {
     buildVariant: "ubuntu1604",
     minQueuePosition: 0,
     projectId: "spruce",
+    project: {
+      identifier: "spruce",
+    },
     expectedDuration: 123,
   },
 };

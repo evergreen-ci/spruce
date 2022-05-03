@@ -142,7 +142,7 @@ const VersionBreadcrumb: React.VFC<VersionBreadcrumbProps> = ({
   analytics,
   isTask,
 }) => {
-  const { project, projectIdentifier, revision, id } = versionMetadata;
+  const { projectIdentifier, revision, id } = versionMetadata;
   // We need to case on revision since periodic builds do not have a revision
   const breadcrumbText = shortenGithash(revision.length ? revision : id);
   return (
@@ -165,7 +165,7 @@ const VersionBreadcrumb: React.VFC<VersionBreadcrumbProps> = ({
           ) : (
             <StyledBreadcrumbLink
               data-cy="bc-my-patches"
-              to={getProjectPatchesRoute(project)}
+              to={getProjectPatchesRoute(projectIdentifier)}
               onClick={() =>
                 analytics.sendEvent({
                   name: "Click Link",

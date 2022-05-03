@@ -20,6 +20,12 @@ export const transformErrors = (errors: AjvError[]) =>
             message: "",
           };
         case "format":
+          if (error.params.format === "noSpaces") {
+            return {
+              ...error,
+              message: "Value should not contain a space.",
+            };
+          }
           return {
             ...error,
             message: "",

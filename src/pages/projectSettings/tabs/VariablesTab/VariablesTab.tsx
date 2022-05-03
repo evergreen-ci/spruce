@@ -52,7 +52,6 @@ export const VariablesTab: React.VFC<TabProps> = ({
       schema={schema}
       uiSchema={uiSchema}
       validate={validate}
-      customFormats={{ "not-empty-string": /([^\s])/ }}
     />
   );
 };
