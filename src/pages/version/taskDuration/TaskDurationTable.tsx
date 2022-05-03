@@ -17,7 +17,7 @@ import {
 } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
-import { TaskDurationRow } from "./Row";
+import { TaskDurationRow } from "./TaskDurationRow";
 
 const { gray } = uiColors;
 

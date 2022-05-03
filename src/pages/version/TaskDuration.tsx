@@ -1,31 +1,34 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
+import { useParams, useLocation } from "react-router-dom";
 import { pollInterval } from "constants/index";
 import { useToastContext } from "context/toast";
 import {
   PatchTaskDurationsQuery,
   PatchTaskDurationsQueryVariables,
-  PatchTasksQueryVariables,
 } from "gql/generated/types";
 import { GET_PATCH_TASK_DURATIONS } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { queryString } from "utils";
 import { TableControl } from "./TableControl";
 import { TaskDurationTable } from "./taskDuration/TaskDurationTable";
+import { useQueryVariables } from "./useQueryVariables";
+
+const { parseQueryString } = queryString;
 
 interface Props {
   taskCount: number;
-  queryVariables: PatchTasksQueryVariables;
 }
 
-export const TaskDuration: React.VFC<Props> = ({
-  taskCount,
-  queryVariables,
-}) => {
+export const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
   const dispatchToast = useToastContext();
+  const { id } = useParams<{ id: string }>();
+  const { search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
 
-  const noQueryVariables = !Object.keys(queryVariables).length;
+  const queryVariables = useQueryVariables(search, id);
+  const noQueryVariables = !Object.keys(parseQueryString(search)).length;
   const { limit, page } = queryVariables;
 
   useEffect(() => {

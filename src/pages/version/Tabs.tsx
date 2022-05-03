@@ -13,7 +13,6 @@ import { PatchTab } from "types/patch";
 import { queryString } from "utils";
 import { isBeta } from "utils/environmentalVariables";
 import { TaskDuration } from "./TaskDuration";
-import { useQueryVariables } from "./useQueryVariables";
 
 const { parseQueryString } = queryString;
 
@@ -23,10 +22,10 @@ interface Props {
   childPatches: VersionQuery["version"]["patch"]["childPatches"];
 }
 
-const tabMap = ({ taskCount, childPatches, queryVariables }) => ({
+const tabMap = ({ taskCount, childPatches }) => ({
   [PatchTab.Tasks]: (
     <Tab name="Tasks" id="task-tab" data-cy="task-tab" key="tasks-tab">
-      <Tasks taskCount={taskCount} queryVariables={queryVariables} />
+      <Tasks taskCount={taskCount} />
     </Tab>
   ),
   [PatchTab.TaskDuration]: (
@@ -36,7 +35,7 @@ const tabMap = ({ taskCount, childPatches, queryVariables }) => ({
       data-cy="duration-tab"
       key="duration-tab"
     >
-      <TaskDuration taskCount={taskCount} queryVariables={queryVariables} />
+      <TaskDuration taskCount={taskCount} />
     </Tab>
   ),
   [PatchTab.Changes]: (
@@ -66,10 +65,9 @@ export const Tabs: React.VFC<Props> = ({
   isPatch,
 }) => {
   const { id, tab } = useParams<{ id: string; tab: PatchTab }>();
+  const { search } = useLocation();
   const { sendEvent } = useVersionAnalytics(id);
   const history = useHistory();
-  const { search } = useLocation();
-  const queryVariables = useQueryVariables(search, id);
 
   const tabIsActive = useMemo(
     () => ({
@@ -81,10 +79,10 @@ export const Tabs: React.VFC<Props> = ({
     [isPatch, childPatches]
   );
 
-  const allTabs = useMemo(
-    () => tabMap({ taskCount, childPatches, queryVariables }),
-    [taskCount, childPatches, queryVariables]
-  );
+  const allTabs = useMemo(() => tabMap({ taskCount, childPatches }), [
+    taskCount,
+    childPatches,
+  ]);
   const activeTabs = useMemo(
     () => Object.keys(allTabs).filter((t) => tabIsActive[t] as PatchTab[]),
     [allTabs, tabIsActive]

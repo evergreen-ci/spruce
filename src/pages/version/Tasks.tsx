@@ -1,25 +1,32 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { Skeleton } from "antd";
+import { useParams, useLocation } from "react-router-dom";
 import { pollInterval } from "constants/index";
 import { useToastContext } from "context/toast";
 import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { queryString } from "utils";
 import { TableControl } from "./TableControl";
 import { PatchTasksTable } from "./tasks/PatchTasksTable";
+import { useQueryVariables } from "./useQueryVariables";
+
+const { parseQueryString } = queryString;
 
 interface Props {
   taskCount: number;
-  queryVariables: PatchTasksQueryVariables;
 }
 
-export const Tasks: React.VFC<Props> = ({ taskCount, queryVariables }) => {
+export const Tasks: React.VFC<Props> = ({ taskCount }) => {
   const dispatchToast = useToastContext();
+  const { id } = useParams<{ id: string }>();
+  const { search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
 
-  const noQueryVariables = !Object.keys(queryVariables).length;
+  const queryVariables = useQueryVariables(search, id);
+  const noQueryVariables = !Object.keys(parseQueryString(search)).length;
   const { sorts, limit, page } = queryVariables;
   const defaultSortMethod = "STATUS:ASC;BASE_STATUS:DESC";
 
