@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import Button, { Variant, Size } from "@leafygreen-ui/button";
-import { useAnnotationAnalytics } from "analytics";
 import { Popconfirm } from "antd";
+import { useAnnotationAnalytics } from "analytics";
 import { useToastContext } from "context/toast";
 import {
   GetCreatedTicketsQuery,

@@ -6,6 +6,8 @@ import Icon from "@leafygreen-ui/icon";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { Select, Input } from "antd";
+import get from "lodash/get";
+import set from "lodash/set";
 import { Modal } from "components/Modal";
 import { RegexSelectorInput } from "components/NotificationModal/RegexSelectorInput";
 import { ErrorMessage } from "components/styles";
@@ -20,8 +22,6 @@ import {
   useNotificationModal,
   UseNotificationModalProps,
 } from "hooks/useNotificationModal";
-import get from "lodash/get";
-import set from "lodash/set";
 import { SubscriptionMethodDropdownOption } from "types/subscription";
 
 const { Option } = Select;

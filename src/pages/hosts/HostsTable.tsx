@@ -1,8 +1,9 @@
 import React from "react";
-import { useHostsTableAnalytics } from "analytics";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { TableRowSelection } from "antd/es/table/interface";
+import { formatDistanceToNow } from "date-fns";
+import { useHostsTableAnalytics } from "analytics";
 import { StyledRouterLink } from "components/styles";
 import {
   getColumnSearchFilterProps,
@@ -10,7 +11,6 @@ import {
 } from "components/Table/Filters";
 import { hostStatuses } from "constants/hosts";
 import { getHostRoute, getTaskRoute } from "constants/routes";
-import { formatDistanceToNow } from "date-fns";
 import {
   HostsQueryVariables,
   SortDirection,

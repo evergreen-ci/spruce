@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
+import { useParams } from "react-router-dom";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import FilterBadges, {
   useFilterBadgeQueryParams,
@@ -21,7 +22,6 @@ import {
 } from "gql/generated/types";
 import { GET_MAINLINE_COMMITS_FOR_HISTORY } from "gql/queries";
 import { usePageTitle } from "hooks";
-import { useParams } from "react-router-dom";
 import { string } from "utils";
 import {
   ColumnHeaders,

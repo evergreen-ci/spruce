@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
+import { useParams, useHistory, useLocation } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { CodeChanges } from "components/CodeChanges/CodeChanges";
 import { StyledTabs } from "components/styles/StyledTabs";
@@ -8,7 +9,6 @@ import { VersionQuery } from "gql/generated/types";
 import { usePrevious } from "hooks";
 import { DownstreamTasks } from "pages/version/DownstreamTasks";
 import { Tasks } from "pages/version/Tasks";
-import { useParams, useHistory, useLocation } from "react-router-dom";
 import { PatchTab } from "types/patch";
 import { queryString } from "utils";
 

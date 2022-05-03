@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { format } from "date-fns";
 import { StyledLink, StyledRouterLink } from "components/styles";
 import { getHostRoute } from "constants/routes";
 import { size } from "constants/tokens";
-import { format } from "date-fns";
 import { TaskEventLogEntry } from "gql/generated/types";
 
 const FORMAT_STR = "MMM d, yyyy, h:mm:ss aaaa";

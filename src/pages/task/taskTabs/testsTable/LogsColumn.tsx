@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
+import { Link } from "react-router-dom";
 import { Analytics } from "analytics/addPageAction";
 import { getTaskHistoryRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { TestResult, GetTaskForTestsTableQuery } from "gql/generated/types";
-import { Link } from "react-router-dom";
 import { TestStatus } from "types/test";
 import { string } from "utils";
 import { isBeta } from "utils/environmentalVariables";

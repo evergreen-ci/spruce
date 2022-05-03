@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import { Label } from "@leafygreen-ui/typography";
+import { useLocation } from "react-router-dom";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import Dropdown from "components/Dropdown";
 import { ALL_VALUE, TreeSelect } from "components/TreeSelect";
 import { noFilterMessage } from "constants/strings";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { useLocation } from "react-router-dom";
 import { CommitRequesterTypes, MainlineCommitQueryParams } from "types/commits";
 import { queryString, array } from "utils";
 

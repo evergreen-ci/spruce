@@ -1,8 +1,8 @@
 import { useEffect, useMemo, ComponentType } from "react";
 import styled from "@emotion/styled";
+import { Route, useParams } from "react-router-dom";
 import { routes, ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
-import { Route, useParams } from "react-router-dom";
 import { useProjectSettingsContext } from "./Context";
 import { Header } from "./Header";
 import { NavigationModal } from "./NavigationModal";

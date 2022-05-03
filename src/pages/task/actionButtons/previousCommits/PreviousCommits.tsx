@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Option, Select } from "@leafygreen-ui/select";
 import Tooltip from "@leafygreen-ui/tooltip";
+import { Link } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { finishedTaskStatuses } from "constants/task";
@@ -18,7 +19,6 @@ import {
   GET_BASE_VERSION_AND_TASK,
   GET_LAST_MAINLINE_COMMIT,
 } from "gql/queries";
-import { Link } from "react-router-dom";
 import { TaskStatus } from "types/task";
 import { errorReporting, string } from "utils";
 import { initialState, reducer } from "./reducer";

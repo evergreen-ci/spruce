@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
+import { Link } from "react-router-dom";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { getVersionRoute } from "constants/routes";
 import {
@@ -8,7 +9,6 @@ import {
   mapUmbrellaStatusToQueryParam,
 } from "constants/task";
 import { fontSize, size, zIndex } from "constants/tokens";
-import { Link } from "react-router-dom";
 import { TaskStatus } from "types/task";
 import { applyStrictRegex } from "utils/string";
 

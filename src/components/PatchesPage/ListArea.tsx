@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Analytics } from "analytics/addPageAction";
 import { Skeleton } from "antd";
+import { Analytics } from "analytics/addPageAction";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { PatchCard } from "./PatchCard";
 

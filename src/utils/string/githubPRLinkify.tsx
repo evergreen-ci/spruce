@@ -1,5 +1,5 @@
-import { StyledLink } from "components/styles";
 import reactStringReplace from "react-string-replace";
+import { StyledLink } from "components/styles";
 
 export const githubPRLinkify = (unlinkified: string | React.ReactNodeArray) =>
   reactStringReplace(

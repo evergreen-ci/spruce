@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Table, TableHeader, Row, Cell } from "@leafygreen-ui/table";
+import { useLocation } from "react-router-dom";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { Button } from "components/Button";
 import { PageSizeSelector } from "components/PageSizeSelector";
@@ -17,7 +18,6 @@ import {
 } from "gql/generated/types";
 import { GET_TESTS } from "gql/queries";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { useLocation } from "react-router-dom";
 import { queryString, url } from "utils";
 
 const { parseQueryString, getString } = queryString;

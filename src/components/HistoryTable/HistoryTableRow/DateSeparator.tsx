@@ -2,8 +2,8 @@ import { CSSProperties } from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
-import { size } from "constants/tokens";
 import { format, utcToZonedTime } from "date-fns-tz";
+import { size } from "constants/tokens";
 import { useUserTimeZone } from "hooks/useUserTimeZone";
 
 const { gray } = uiColors;

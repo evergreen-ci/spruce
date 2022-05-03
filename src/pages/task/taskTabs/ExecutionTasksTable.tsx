@@ -1,9 +1,9 @@
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { TasksTable } from "components/Table/TasksTable";
 import { GetTaskQuery, Task } from "gql/generated/types";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { useLocation } from "react-router-dom";
 import { RequiredQueryParams, TableOnChange } from "types/task";
 import { queryString } from "utils";
 

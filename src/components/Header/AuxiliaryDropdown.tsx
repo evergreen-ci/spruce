@@ -1,11 +1,11 @@
 import { useQuery } from "@apollo/client";
+import Cookies from "js-cookie";
 import { useNavbarAnalytics } from "analytics";
 import { CURRENT_PROJECT } from "constants/cookies";
 import { legacyRoutes } from "constants/externalResources";
 import { routes, getProjectPatchesRoute } from "constants/routes";
 import { GetSpruceConfigQuery } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
-import Cookies from "js-cookie";
 import { environmentalVariables } from "utils";
 import { isBeta } from "utils/environmentalVariables";
 import { Dropdown } from "./NavDropdown";

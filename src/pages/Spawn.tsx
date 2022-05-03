@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Route, useParams, Redirect, Link } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
 import {
   PageWrapper,
@@ -9,7 +10,6 @@ import {
 import { routes, SpawnTab } from "constants/routes";
 import { SpawnHost } from "pages/spawn/SpawnHost";
 import { SpawnVolume } from "pages/spawn/SpawnVolume";
-import { Route, useParams, Redirect, Link } from "react-router-dom";
 
 export const Spawn: React.VFC = () => {
   const { tab } = useParams<{ tab: string }>();

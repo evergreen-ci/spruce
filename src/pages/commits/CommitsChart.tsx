@@ -1,11 +1,11 @@
 import { useMemo } from "react";
 import styled from "@emotion/styled";
+import Cookies from "js-cookie";
+import { useLocation } from "react-router-dom";
 import { Accordion } from "components/Accordion";
 import { COMMIT_CHART_TYPE_VIEW_OPTIONS_ACCORDION } from "constants/cookies";
 import { size } from "constants/tokens";
 import { useUpdateURLQueryParams } from "hooks";
-import Cookies from "js-cookie";
-import { useLocation } from "react-router-dom";
 import { ChartTypes, Commits, ChartToggleQueryParams } from "types/commits";
 import { queryString } from "utils";
 import { ChartToggle } from "./ActiveCommits/ChartToggle";

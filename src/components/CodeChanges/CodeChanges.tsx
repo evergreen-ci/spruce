@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Description } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
+import { useParams } from "react-router-dom";
 import { CodeChangesBadge } from "components/CodeChangesBadge";
 import { CodeChangesTable } from "components/CodeChangesTable";
 import { H2, H3 } from "components/Typography";
@@ -14,7 +15,6 @@ import {
   FileDiffsFragment,
 } from "gql/generated/types";
 import { GET_CODE_CHANGES } from "gql/queries";
-import { useParams } from "react-router-dom";
 import { commits } from "utils";
 
 const { bucketByCommit } = commits;

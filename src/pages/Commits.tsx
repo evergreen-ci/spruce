@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import Cookies from "js-cookie";
+import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import FilterBadges, {
   useFilterBadgeQueryParams,
@@ -22,8 +24,6 @@ import {
 } from "gql/generated/types";
 import { GET_MAINLINE_COMMITS, GET_SPRUCE_CONFIG } from "gql/queries";
 import { usePageTitle, usePolling, useUpsertQueryParams } from "hooks";
-import Cookies from "js-cookie";
-import { useParams, useLocation, useHistory } from "react-router-dom";
 import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
 import { array, queryString, validators } from "utils";
 import { CommitsWrapper } from "./commits/CommitsWrapper";

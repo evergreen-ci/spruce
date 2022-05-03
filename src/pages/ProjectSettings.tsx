@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
+import { useParams, Link, Redirect } from "react-router-dom";
 import { ProjectSelect } from "components/projectSelect";
 import {
   SideNav,
@@ -22,7 +23,6 @@ import {
 } from "gql/generated/types";
 import { GET_PROJECT_SETTINGS, GET_REPO_SETTINGS } from "gql/queries";
 import { usePageTitle } from "hooks";
-import { useParams, Link, Redirect } from "react-router-dom";
 import { environmentalVariables, validators } from "utils";
 import { ProjectSettingsProvider } from "./projectSettings/Context";
 import { CreateProjectModal } from "./projectSettings/CreateProjectModal";

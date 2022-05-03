@@ -6,6 +6,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { Modal, Carousel } from "antd";
 import { CarouselRef } from "antd/es/carousel";
+import get from "lodash/get";
 import { size } from "constants/tokens";
 import {
   GetUserSettingsQuery,
@@ -14,7 +15,6 @@ import {
 } from "gql/generated/types";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { GET_USER_SETTINGS } from "gql/queries";
-import get from "lodash/get";
 import { errorReporting } from "utils";
 
 const { reportError } = errorReporting;

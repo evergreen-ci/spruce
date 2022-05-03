@@ -1,6 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
 import { MemoryRouter } from "react-router-dom";
+import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
 import { WaterfallTaskStatusIcon } from "./WaterfallTaskStatusIcon";
 
 export default {

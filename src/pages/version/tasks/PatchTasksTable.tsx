@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { InputFilterProps } from "components/Table/Filters";
 import { TasksTable } from "components/Table/TasksTable";
@@ -9,7 +10,6 @@ import {
   useStatusesFilter,
   useFilterInputChangeHandler,
 } from "hooks";
-import { useParams } from "react-router-dom";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { queryString } from "utils";
 

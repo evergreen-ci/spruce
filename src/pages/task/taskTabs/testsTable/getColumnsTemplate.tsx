@@ -1,5 +1,5 @@
-import { Analytics } from "analytics/addPageAction";
 import { ColumnProps } from "antd/es/table";
+import { Analytics } from "analytics/addPageAction";
 import {
   InputFilterProps,
   getColumnSearchFilterProps,

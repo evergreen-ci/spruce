@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
-import { useTaskAnalytics } from "analytics";
 import { InputNumber, Popconfirm } from "antd";
+import { Link, useParams } from "react-router-dom";
+import { useTaskAnalytics } from "analytics";
 import { Button } from "components/Button";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
@@ -36,7 +37,6 @@ import {
   UNSCHEDULE_TASK,
 } from "gql/mutations";
 import { useUpdateURLQueryParams } from "hooks";
-import { Link, useParams } from "react-router-dom";
 import { isBeta } from "utils/environmentalVariables";
 import { PreviousCommits } from "./actionButtons/previousCommits/PreviousCommits";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";

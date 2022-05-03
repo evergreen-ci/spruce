@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { Description, Label } from "@leafygreen-ui/typography";
+import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
 import DatePicker from "components/DatePicker";
 import TimePicker from "components/TimePicker";
 import { size } from "constants/tokens";
-import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
 import { SpruceWidgetProps } from "./types";
 
 export const DateTimePicker: React.VFC<

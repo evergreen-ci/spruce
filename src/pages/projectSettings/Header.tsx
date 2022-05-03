@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
+import { useHistory, useParams } from "react-router-dom";
 import { Button } from "components/Button";
 import {
   getProjectSettingsRoute,
@@ -20,7 +21,6 @@ import {
   SAVE_PROJECT_SETTINGS_FOR_SECTION,
   SAVE_REPO_SETTINGS_FOR_SECTION,
 } from "gql/mutations";
-import { useHistory, useParams } from "react-router-dom";
 import { useProjectSettingsContext } from "./Context";
 import { DefaultSectionToRepoModal } from "./DefaultSectionToRepoModal";
 import { getTabTitle } from "./getTabTitle";

@@ -3,8 +3,9 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { H2, H3 } from "@leafygreen-ui/typography";
-import { useTaskQueueAnalytics } from "analytics";
 import { Skeleton } from "antd";
+import { useParams, useHistory } from "react-router-dom";
+import { useTaskQueueAnalytics } from "analytics";
 import SearchableDropdown from "components/SearchableDropdown";
 import {
   TableContainer,
@@ -22,7 +23,6 @@ import {
 import { TASK_QUEUE_DISTROS } from "gql/queries";
 import { DistroOption } from "pages/taskQueue/DistroOption";
 import { TaskQueueTable } from "pages/taskQueue/TaskQueueTable";
-import { useParams, useHistory } from "react-router-dom";
 
 export const TaskQueue = () => {
   const taskQueueAnalytics = useTaskQueueAnalytics();

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
+import { useParams, useHistory, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { TrendChartsPlugin } from "components/PerfPlugin";
 import { StyledTabs } from "components/styles/StyledTabs";
@@ -8,7 +9,6 @@ import { getTaskRoute } from "constants/routes";
 import { GetTaskQuery } from "gql/generated/types";
 import { usePrevious } from "hooks";
 import { useBuildBaronVariables } from "hooks/useBuildBaronVariables";
-import { useParams, useHistory, useLocation } from "react-router-dom";
 import { TaskTab } from "types/task";
 import { statuses, queryString } from "utils";
 import { BuildBaron } from "./taskTabs/BuildBaron";

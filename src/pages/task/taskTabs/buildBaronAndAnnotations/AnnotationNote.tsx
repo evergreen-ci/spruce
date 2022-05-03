@@ -3,8 +3,8 @@ import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant, Size } from "@leafygreen-ui/button";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import { useAnnotationAnalytics } from "analytics";
 import { Input, Tooltip } from "antd";
+import { useAnnotationAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { useToastContext } from "context/toast";
 import {

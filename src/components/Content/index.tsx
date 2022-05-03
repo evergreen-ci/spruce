@@ -1,5 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import get from "lodash/get";
+import { Route, Switch } from "react-router-dom";
 import { useAnalyticsAttributes } from "analytics";
 import { Feedback } from "components/Feedback";
 import { Header } from "components/Header";
@@ -15,7 +17,6 @@ import { useAuthStateContext } from "context/auth";
 import { GetUserQuery, GetUserSettingsQuery } from "gql/generated/types";
 import { GET_USER, GET_USER_SETTINGS } from "gql/queries";
 import { useAnnouncementToast } from "hooks/useAnnouncementToast";
-import get from "lodash/get";
 import { PageDoesNotExist } from "pages/404";
 import { CommitQueue } from "pages/CommitQueue";
 import { Commits } from "pages/Commits";
@@ -34,7 +35,6 @@ import { TaskQueue } from "pages/TaskQueue";
 import { UserPatches } from "pages/UserPatches";
 import { VariantHistory } from "pages/VariantHistory";
 import { VersionPage } from "pages/Version";
-import { Route, Switch } from "react-router-dom";
 
 export const Content: React.VFC = () => {
   const { isAuthenticated } = useAuthStateContext();

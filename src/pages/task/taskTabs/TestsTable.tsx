@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
 import { useQuery } from "@apollo/client";
-import { useTaskAnalytics } from "analytics";
 import { Table } from "antd";
 import { SortOrder } from "antd/es/table/interface";
+import { useParams, useLocation } from "react-router-dom";
+import { useTaskAnalytics } from "analytics";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { ResultCountLabel } from "components/ResultCountLabel";
@@ -30,7 +31,6 @@ import {
   useStatusesFilter,
   useFilterInputChangeHandler,
 } from "hooks";
-import { useParams, useLocation } from "react-router-dom";
 import { RequiredQueryParams, TableOnChange } from "types/task";
 import { TestStatus } from "types/test";
 import { queryString, url } from "utils";

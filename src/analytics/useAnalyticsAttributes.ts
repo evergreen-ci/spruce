@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { useGetUserQuery } from "analytics/useGetUserQuery";
 import NewRelicAPI from "new-relic-browser";
+import { useGetUserQuery } from "analytics/useGetUserQuery";
 
 declare global {
   interface Window {

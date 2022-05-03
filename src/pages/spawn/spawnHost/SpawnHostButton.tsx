@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
+import { useLocation } from "react-router";
 import { useSpawnAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { PlusButton } from "components/Spawn";
@@ -14,7 +15,6 @@ import {
 } from "gql/generated/types";
 import { GET_MY_HOSTS, GET_SPRUCE_CONFIG } from "gql/queries";
 import { SpawnHostModal } from "pages/spawn/spawnHost/index";
-import { useLocation } from "react-router";
 import { HostStatus } from "types/host";
 import { queryString } from "utils";
 

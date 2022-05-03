@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import { Redirect } from "react-router-dom";
 import {
   getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
@@ -8,7 +9,6 @@ import {
   GetViewableProjectRefsQueryVariables,
 } from "gql/generated/types";
 import { GET_VIEWABLE_PROJECTS } from "gql/queries";
-import { Redirect } from "react-router-dom";
 
 export const ProjectSettingsRedirect: React.VFC = () => {
   const { data } = useQuery<

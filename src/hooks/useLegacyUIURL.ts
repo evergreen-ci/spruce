@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { routes } from "constants/routes";
 import get from "lodash/get";
 import { matchPath, useLocation } from "react-router-dom";
+import { routes } from "constants/routes";
 import { environmentalVariables } from "utils";
 
 const { getUiUrl } = environmentalVariables;

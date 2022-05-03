@@ -1,8 +1,8 @@
 import React, { useEffect, useReducer } from "react";
 import { useMutation } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/button";
-import { useSpawnAnalytics } from "analytics";
 import { Input } from "antd";
+import { useSpawnAnalytics } from "analytics";
 import { Modal } from "components/Modal";
 import {
   ExpirationField,

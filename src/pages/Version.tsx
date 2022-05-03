@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLazyQuery, useQuery } from "@apollo/client";
+import { useParams, Redirect } from "react-router-dom";
 import { BreadCrumb } from "components/Breadcrumb";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import { PageTitle } from "components/PageTitle";
@@ -31,7 +32,6 @@ import {
 } from "gql/queries";
 import { usePageTitle, usePolling } from "hooks";
 import { PageDoesNotExist } from "pages/404";
-import { useParams, Redirect } from "react-router-dom";
 import { shortenGithash, githubPRLinkify } from "utils/string";
 
 import { jiraLinkify } from "utils/string/jiraLinkify";

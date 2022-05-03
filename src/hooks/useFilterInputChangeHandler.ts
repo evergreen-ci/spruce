@@ -1,8 +1,8 @@
 import { useState, useMemo, useEffect } from "react";
-import { FilterHookParams, FilterHookResult } from "hooks/useStatusesFilter";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import debounce from "lodash.debounce";
 import { useLocation } from "react-router-dom";
+import { FilterHookParams, FilterHookResult } from "hooks/useStatusesFilter";
+import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { queryString } from "utils";
 
 const { parseQueryString } = queryString;

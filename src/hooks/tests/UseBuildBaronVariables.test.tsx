@@ -1,7 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { renderHook } from "@testing-library/react-hooks";
-import { GET_BUILD_BARON } from "gql/queries";
 import MatchMediaMock from "jest-matchmedia-mock";
+import { GET_BUILD_BARON } from "gql/queries";
 import { useBuildBaronVariables } from "../useBuildBaronVariables";
 
 const Provider = ({ children }) => (

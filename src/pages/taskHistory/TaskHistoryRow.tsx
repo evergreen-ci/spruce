@@ -1,7 +1,7 @@
 import { memo } from "react";
+import { ListChildComponentProps, areEqual } from "react-window";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { context, Cell, Row, types, hooks } from "components/HistoryTable";
-import { ListChildComponentProps, areEqual } from "react-window";
 import { array } from "utils";
 
 const { convertArrayToObject } = array;

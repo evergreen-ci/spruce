@@ -1,8 +1,9 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2, Subtitle } from "@leafygreen-ui/typography";
-import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { Skeleton } from "antd";
+import { useParams } from "react-router-dom";
+import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { Button } from "components/Button";
 import { StyledRouterLink, PageWrapper } from "components/styles";
 import { getLobsterTestLogCompleteUrl } from "constants/externalResources";
@@ -17,7 +18,6 @@ import { GET_DISPLAY_TASK } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { PageDoesNotExist } from "pages/404";
 import { JobLogsTable } from "pages/jobLogs/JobLogsTable";
-import { useParams } from "react-router-dom";
 
 export const JobLogs = () => {
   const dispatchToast = useToastContext();

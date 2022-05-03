@@ -3,11 +3,11 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Tooltip } from "antd";
+import { set } from "date-fns";
 import DatePicker from "components/DatePicker";
 import { InputLabel } from "components/styles";
 import TimePicker from "components/TimePicker";
 import { size } from "constants/tokens";
-import { set } from "date-fns";
 import {
   GetSpruceConfigQuery,
   GetSpruceConfigQueryVariables,

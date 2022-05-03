@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Code from "@leafygreen-ui/code";
+import { useParams, useLocation } from "react-router-dom";
 import { Button } from "components/Button";
 import { UpdateStatusModal } from "components/Hosts";
 import { Reprovision } from "components/Hosts/Reprovision";
@@ -27,7 +28,6 @@ import { usePageTitle } from "hooks/usePageTitle";
 import { useUserTimeZone } from "hooks/useUserTimeZone";
 import { HostTable } from "pages/host/HostTable";
 import { Metadata } from "pages/host/Metadata";
-import { useParams, useLocation } from "react-router-dom";
 import { HostStatus } from "types/host";
 import { url } from "utils";
 

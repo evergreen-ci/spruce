@@ -1,8 +1,8 @@
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
-import { useUpdateUrlSortParamOnTableChange } from "hooks";
 import MatchMediaMock from "jest-matchmedia-mock";
 import { useLocation } from "react-router";
+import { useUpdateUrlSortParamOnTableChange } from "hooks";
 import { renderWithRouterMatch as render, fireEvent } from "test_utils";
 import { queryString } from "utils";
 

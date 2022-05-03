@@ -1,6 +1,6 @@
+import reactStringReplace from "react-string-replace";
 import { StyledLink } from "components/styles";
 import { getJiraTicketUrl } from "constants/externalResources";
-import reactStringReplace from "react-string-replace";
 
 export const jiraLinkify = (
   unlinkified: string | React.ReactNodeArray,

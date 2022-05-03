@@ -1,5 +1,5 @@
-import CommitChartLabel from "components/CommitChartLabel";
 import { ListChildComponentProps } from "react-window";
+import CommitChartLabel from "components/CommitChartLabel";
 import { LabelCellContainer } from "../Cell/Cell";
 import { useHistoryTable } from "../HistoryTableContext";
 import { rowType } from "../types";
