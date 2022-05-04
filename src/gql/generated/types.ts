@@ -748,6 +748,7 @@ export type SubscriberInput = {
 
 export type UseSpruceOptionsInput = {
   hasUsedSpruceBefore?: Maybe<Scalars["Boolean"]>;
+  hasUsedMainlineCommitsBefore?: Maybe<Scalars["Boolean"]>;
   spruceV1?: Maybe<Scalars["Boolean"]>;
 };
 
@@ -804,6 +805,7 @@ export type ProjectInput = {
   dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]>;
   prTestingEnabled?: Maybe<Scalars["Boolean"]>;
+  manualPrTestingEnabled?: Maybe<Scalars["Boolean"]>;
   githubChecksEnabled?: Maybe<Scalars["Boolean"]>;
   batchTime?: Maybe<Scalars["Int"]>;
   deactivatePrevious?: Maybe<Scalars["Boolean"]>;
@@ -853,6 +855,7 @@ export type RepoRefInput = {
   dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]>;
   prTestingEnabled?: Maybe<Scalars["Boolean"]>;
+  manualPrTestingEnabled?: Maybe<Scalars["Boolean"]>;
   githubChecksEnabled?: Maybe<Scalars["Boolean"]>;
   batchTime?: Maybe<Scalars["Int"]>;
   deactivatePrevious?: Maybe<Scalars["Boolean"]>;
@@ -1609,6 +1612,7 @@ export type Project = {
   dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]>;
   prTestingEnabled?: Maybe<Scalars["Boolean"]>;
+  manualPrTestingEnabled?: Maybe<Scalars["Boolean"]>;
   githubChecksEnabled?: Maybe<Scalars["Boolean"]>;
   batchTime: Scalars["Int"];
   deactivatePrevious?: Maybe<Scalars["Boolean"]>;
@@ -1659,6 +1663,7 @@ export type RepoRef = {
   dispatchingDisabled: Scalars["Boolean"];
   versionControlEnabled: Scalars["Boolean"];
   prTestingEnabled: Scalars["Boolean"];
+  manualPrTestingEnabled: Scalars["Boolean"];
   githubChecksEnabled: Scalars["Boolean"];
   batchTime: Scalars["Int"];
   deactivatePrevious: Scalars["Boolean"];
@@ -1866,6 +1871,7 @@ export type UserSettings = {
 
 export type UseSpruceOptions = {
   hasUsedSpruceBefore?: Maybe<Scalars["Boolean"]>;
+  hasUsedMainlineCommitsBefore?: Maybe<Scalars["Boolean"]>;
   spruceV1?: Maybe<Scalars["Boolean"]>;
 };
 
@@ -4181,6 +4187,7 @@ export type GetUserSettingsQuery = {
     useSpruceOptions?: Maybe<{
       hasUsedSpruceBefore?: Maybe<boolean>;
       spruceV1?: Maybe<boolean>;
+      hasUsedMainlineCommitsBefore?: Maybe<boolean>;
     }>;
   }>;
 };
