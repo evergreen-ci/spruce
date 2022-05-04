@@ -42,7 +42,9 @@ exports[`storybook Storyshots Metadata Base 1`] = `
         data-cy="project-link"
         href="/project/spruce/patches"
         onClick={[Function]}
-      />
+      >
+        spruce
+      </a>
     </p>
     <p
       className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
@@ -168,7 +170,9 @@ exports[`storybook Storyshots Metadata With Abort Message 1`] = `
         data-cy="project-link"
         href="/project/spruce/patches"
         onClick={[Function]}
-      />
+      >
+        spruce
+      </a>
     </p>
     <p
       className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
@@ -294,7 +298,9 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
         data-cy="project-link"
         href="/project/spruce/patches"
         onClick={[Function]}
-      />
+      >
+        spruce
+      </a>
     </p>
     <p
       className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
