@@ -12,7 +12,6 @@
 
 fragment projectEventSettings on ProjectEventSettings {
   projectRef {
-    id
     identifier
     repoRefId
     ...projectGeneralSettings
@@ -42,7 +41,6 @@ fragment projectEventSettings on ProjectEventSettings {
 
 fragment repoEventSettings on RepoEventSettings {
   projectRef {
-    id
     displayName
     ...repoGeneralSettings
     ...repoAccessSettings

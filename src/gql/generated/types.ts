@@ -1036,6 +1036,7 @@ export type UpdateVolumeInput = {
 export type IssueLinkInput = {
   url: Scalars["String"];
   issueKey: Scalars["String"];
+  confidenceScore?: Maybe<Scalars["Float"]>;
 };
 
 export type SortOrder = {
@@ -2050,6 +2051,7 @@ export type IssueLink = {
   url?: Maybe<Scalars["String"]>;
   source?: Maybe<Source>;
   jiraTicket?: Maybe<JiraTicket>;
+  confidenceScore?: Maybe<Scalars["Float"]>;
 };
 
 export type Source = {
@@ -2501,7 +2503,6 @@ export type RepoPluginsSettingsFragment = {
 export type ProjectEventSettingsFragment = {
   projectRef?: Maybe<
     {
-      id: string;
       identifier: string;
       repoRefId: string;
       versionControlEnabled?: Maybe<boolean>;
@@ -2524,7 +2525,6 @@ export type ProjectEventSettingsFragment = {
 export type RepoEventSettingsFragment = {
   projectRef?: Maybe<
     {
-      id: string;
       displayName: string;
       versionControlEnabled: boolean;
       tracksPushEvents: boolean;
