@@ -46,7 +46,6 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
 }) => {
   const [visible, setVisible] = useState(true);
   const [activeSlide, setActiveSlide] = useState(0);
-  console.log({ activeSlide });
 
   const slider = useRef<CarouselRef>(null);
   const [updateUserSettings] = useMutation<

@@ -9,6 +9,11 @@ import WelcomeModal from "./WelcomeModal";
 export default {
   title: "Welcome Modal",
   component: WelcomeModal,
+  parameters: {
+    storyshots: {
+      disable: true,
+    },
+  },
 };
 
 export const NewSpruceUser = () => (
