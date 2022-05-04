@@ -1036,6 +1036,7 @@ export type UpdateVolumeInput = {
 export type IssueLinkInput = {
   url: Scalars["String"];
   issueKey: Scalars["String"];
+  confidenceScore?: Maybe<Scalars["Float"]>;
 };
 
 export type SortOrder = {
@@ -2050,6 +2051,7 @@ export type IssueLink = {
   url?: Maybe<Scalars["String"]>;
   source?: Maybe<Source>;
   jiraTicket?: Maybe<JiraTicket>;
+  confidenceScore?: Maybe<Scalars["Float"]>;
 };
 
 export type Source = {
