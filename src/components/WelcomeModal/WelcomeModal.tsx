@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { useMutation } from "@apollo/client";
+import { ClassNames } from "@emotion/react";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import Modal from "@leafygreen-ui/modal";
@@ -45,6 +46,7 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
 }) => {
   const [visible, setVisible] = useState(true);
   const [activeSlide, setActiveSlide] = useState(0);
+  console.log({ activeSlide });
 
   const slider = useRef<CarouselRef>(null);
   const [updateUserSettings] = useMutation<
@@ -74,43 +76,61 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
     } catch (e) {}
   };
   return (
-    <Modal setOpen={handleClosed} open={visible} data-cy="welcome-modal">
-      {/* @ts-expect-error */}
-      {title && <CardTitle>{title}</CardTitle>}
-      <Carousel
-        afterChange={(number) => setActiveSlide(number)}
-        autoplay
-        autoplaySpeed={10000}
-        dots={false}
-        slickGoTo={activeSlide}
-        ref={slider}
-      >
-        {carouselCards.map((card) => (
-          <CarouselCard key={`card_${card.subtitle}`} {...card} />
-        ))}
-      </Carousel>
-      <Footer>
-        <CarouselDots
-          activeSlide={activeSlide}
-          total={carouselCards.length}
-          slider={slider}
-        />
-        <div>
-          {carouselCards[activeSlide].href && (
-            <StyledLink href={carouselCards[activeSlide].href} target="__blank">
-              Learn more
-            </StyledLink>
-          )}
-          <Button
-            variant={Variant.Primary}
-            onClick={handleClosed}
-            data-cy="close-welcome-modal"
+    <ClassNames>
+      {({ css }) => (
+        <Modal
+          setOpen={handleClosed}
+          open={visible}
+          data-cy="welcome-modal"
+          className={css`
+            z-index: 1000;
+          `}
+        >
+          {/* @ts-expect-error */}
+          {title && <CardTitle>{title}</CardTitle>}
+          <Carousel
+            afterChange={(number) => setActiveSlide(number)}
+            autoplay
+            autoplaySpeed={10000}
+            dots={false}
+            slickGoTo={activeSlide}
+            ref={slider}
           >
-            Done
-          </Button>
-        </div>
-      </Footer>
-    </Modal>
+            {carouselCards.map((card, index) => (
+              <CarouselCard
+                key={`card_${card.subtitle}`}
+                {...card}
+                visible={activeSlide === index}
+              />
+            ))}
+          </Carousel>
+          <Footer>
+            <CarouselDots
+              activeSlide={activeSlide}
+              total={carouselCards.length}
+              slider={slider}
+            />
+            <div>
+              {carouselCards[activeSlide].href && (
+                <StyledLink
+                  href={carouselCards[activeSlide].href}
+                  target="__blank"
+                >
+                  Learn more
+                </StyledLink>
+              )}
+              <Button
+                variant={Variant.Primary}
+                onClick={handleClosed}
+                data-cy="close-welcome-modal"
+              >
+                Done
+              </Button>
+            </div>
+          </Footer>
+        </Modal>
+      )}
+    </ClassNames>
   );
 };
 

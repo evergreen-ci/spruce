@@ -99,6 +99,7 @@ export const MovieCard = () => (
       movie="mainline_commits/carousel_2_05_4.webm"
       subtitle="A Subtitle"
       description="A description"
+      visible
     />
   </MockedProvider>
 );
@@ -109,6 +110,7 @@ export const ImageCard = () => (
       img="welcome_modal/mypatch_gif_06_10.gif"
       subtitle="A Subtitle"
       description="A description"
+      visible
     />
   </MockedProvider>
 );

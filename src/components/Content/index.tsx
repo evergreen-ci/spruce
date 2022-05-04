@@ -10,7 +10,7 @@ import { ProjectSettingsRedirect } from "components/ProjectSettingsRedirect";
 import { PageGrid } from "components/styles/Layout";
 import { TaskStatusIconLegend } from "components/TaskStatusIconLegend";
 import { UserPatchesRedirect } from "components/UserPatchesRedirect";
-import { WelcomeModal } from "components/WelcomeModal";
+import WelcomeModal from "components/WelcomeModal";
 import { routes } from "constants/routes";
 import { zIndex, size } from "constants/tokens";
 import { useAuthStateContext } from "context/auth";

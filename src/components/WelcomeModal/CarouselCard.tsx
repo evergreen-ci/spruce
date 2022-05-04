@@ -1,3 +1,4 @@
+import { useRef, useEffect } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
@@ -8,6 +9,7 @@ type CarouselCardProps = {
   movie?: string;
   subtitle: string;
   description: string;
+  visible: boolean;
 };
 
 const CarouselCard: React.VFC<CarouselCardProps> = ({
@@ -15,14 +17,31 @@ const CarouselCard: React.VFC<CarouselCardProps> = ({
   movie,
   subtitle,
   description,
-}) => (
-  <CardContainer>
-    <Body weight="medium">{subtitle}</Body>
-    <Body>{description}</Body>
-    {img && <ImgContainer src={`/static/img/${img}`} />}
-    {movie && <MovieContainer autoPlay loop src={`/static/img/${movie}`} />}
-  </CardContainer>
-);
+  visible,
+}) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    if (visible && videoRef.current) {
+      console.log({ img, movie, subtitle, description, visible });
+      videoRef.current.play();
+    }
+  }, [visible]);
+  return (
+    <CardContainer>
+      <Body weight="medium">{subtitle}</Body>
+      <Body>{description}</Body>
+      {img && <ImgContainer src={`/static/img/${img}`} />}
+      {movie && (
+        <MovieContainer
+          loop
+          controls
+          src={`/static/img/${movie}`}
+          ref={videoRef}
+        />
+      )}
+    </CardContainer>
+  );
+};
 
 const containerStyles = css`
   height: 250px;
