@@ -17,8 +17,7 @@ import { useUserSettings } from "hooks";
 export const NewUITab: React.VFC = () => {
   const { sendEvent } = usePreferencesAnalytics();
   const { userSettings, loading } = useUserSettings();
-  const { spruceV1, hasUsedSpruceBefore } =
-    userSettings?.useSpruceOptions ?? {};
+  const { spruceV1 } = userSettings?.useSpruceOptions ?? {};
   const dispatchToast = useToastContext();
   const [updateUserSettings, { loading: updateLoading }] = useMutation<
     UpdateUserSettingsMutation,
@@ -45,7 +44,6 @@ export const NewUITab: React.VFC = () => {
         userSettings: {
           useSpruceOptions: {
             spruceV1: c,
-            hasUsedSpruceBefore,
           },
         },
       },
