@@ -22,7 +22,6 @@ const CarouselCard: React.VFC<CarouselCardProps> = ({
   const videoRef = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     if (visible && videoRef.current) {
-      console.log({ img, movie, subtitle, description, visible });
       videoRef.current.play();
     }
   }, [visible]);

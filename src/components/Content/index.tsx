@@ -13,6 +13,7 @@ import { UserPatchesRedirect } from "components/UserPatchesRedirect";
 import WelcomeModal from "components/WelcomeModal";
 import { routes } from "constants/routes";
 import { zIndex, size } from "constants/tokens";
+import { newSpruceUser } from "constants/welcomeModalProps";
 import { useAuthStateContext } from "context/auth";
 import { GetUserQuery, GetUserSettingsQuery } from "gql/generated/types";
 import { GET_USER, GET_USER_SETTINGS } from "gql/queries";
@@ -98,27 +99,7 @@ export const Content: React.VFC = () => {
         <WelcomeModal
           title="Welcome to the New Evergreen UI!"
           param="hasUsedSpruceBefore"
-          carouselCards={[
-            {
-              img: "mypatch_gif_06_10.gif",
-              subtitle: "Discover your new and improved patches workflow!",
-              description:
-                "We&apos;ve made your patches workflow better by adding more filtering options, reducing load times, and improving the design.",
-            },
-            {
-              img: "patch_gif_06_10.gif",
-              subtitle: "We&apos;ve also updated the patch page!",
-              description:
-                "We&apos;ve made it easier to navigate through your tasks and find the information you&apos;re looking for.",
-            },
-            {
-              img: "newui_gif_06_10.gif",
-              subtitle:
-                "We really hope you enjoy the new UI, but just in case you miss the old Evergreen…",
-              description:
-                "We&apos;re still working every day to make this better, adding new features and new pages all the time. In case you want to opt out of the new UI and miss all the updates... navigate to your preferences to do so.",
-            },
-          ]}
+          carouselCards={newSpruceUser}
         />
       )}
       <FloatingContent>
