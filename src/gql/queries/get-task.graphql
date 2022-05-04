@@ -50,7 +50,6 @@ query GetTask($taskId: String!, $execution: Int) {
       order
     }
     requester
-    projectId
     project {
       identifier
     }

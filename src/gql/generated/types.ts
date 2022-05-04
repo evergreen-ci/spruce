@@ -804,6 +804,7 @@ export type ProjectInput = {
   dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]>;
   prTestingEnabled?: Maybe<Scalars["Boolean"]>;
+  manualPrTestingEnabled?: Maybe<Scalars["Boolean"]>;
   githubChecksEnabled?: Maybe<Scalars["Boolean"]>;
   batchTime?: Maybe<Scalars["Int"]>;
   deactivatePrevious?: Maybe<Scalars["Boolean"]>;
@@ -853,6 +854,7 @@ export type RepoRefInput = {
   dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]>;
   prTestingEnabled?: Maybe<Scalars["Boolean"]>;
+  manualPrTestingEnabled?: Maybe<Scalars["Boolean"]>;
   githubChecksEnabled?: Maybe<Scalars["Boolean"]>;
   batchTime?: Maybe<Scalars["Int"]>;
   deactivatePrevious?: Maybe<Scalars["Boolean"]>;
@@ -1610,6 +1612,7 @@ export type Project = {
   dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]>;
   prTestingEnabled?: Maybe<Scalars["Boolean"]>;
+  manualPrTestingEnabled?: Maybe<Scalars["Boolean"]>;
   githubChecksEnabled?: Maybe<Scalars["Boolean"]>;
   batchTime: Scalars["Int"];
   deactivatePrevious?: Maybe<Scalars["Boolean"]>;
@@ -1660,6 +1663,7 @@ export type RepoRef = {
   dispatchingDisabled: Scalars["Boolean"];
   versionControlEnabled: Scalars["Boolean"];
   prTestingEnabled: Scalars["Boolean"];
+  manualPrTestingEnabled: Scalars["Boolean"];
   githubChecksEnabled: Scalars["Boolean"];
   batchTime: Scalars["Int"];
   deactivatePrevious: Scalars["Boolean"];
@@ -2193,7 +2197,6 @@ export type PatchesPagePatchesFragment = {
     id: string;
     author: string;
     authorDisplayName: string;
-    projectID: string;
     projectIdentifier: string;
     description: string;
     status: string;
@@ -2296,6 +2299,7 @@ export type RepoGeneralSettingsFragment = {
 
 export type ProjectGithubSettingsFragment = {
   prTestingEnabled?: Maybe<boolean>;
+  manualPrTestingEnabled?: Maybe<boolean>;
   githubChecksEnabled?: Maybe<boolean>;
   githubTriggerAliases?: Maybe<Array<string>>;
   gitTagVersionsEnabled?: Maybe<boolean>;
@@ -2311,6 +2315,7 @@ export type ProjectGithubSettingsFragment = {
 
 export type RepoGithubSettingsFragment = {
   prTestingEnabled: boolean;
+  manualPrTestingEnabled: boolean;
   githubChecksEnabled: boolean;
   githubTriggerAliases?: Maybe<Array<string>>;
   gitTagVersionsEnabled: boolean;
@@ -2665,6 +2670,12 @@ export type ClearMySubscriptionsMutationVariables = Exact<{
 }>;
 
 export type ClearMySubscriptionsMutation = { clearMySubscriptions: number };
+
+export type CopyProjectMutationVariables = Exact<{
+  project: CopyProjectInput;
+}>;
+
+export type CopyProjectMutation = { copyProject: { identifier: string } };
 
 export type CreateProjectMutationVariables = Exact<{
   project: CreateProjectInput;
@@ -4007,7 +4018,6 @@ export type GetTaskQuery = {
       finishTime?: Maybe<Date>;
       hostId?: Maybe<string>;
       requester: string;
-      projectId: string;
       patchNumber?: Maybe<number>;
       canOverrideDependencies: boolean;
       startTime?: Maybe<Date>;
