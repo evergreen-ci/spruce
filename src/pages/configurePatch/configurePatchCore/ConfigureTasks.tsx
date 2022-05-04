@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import every from "lodash.every";
 import { Button } from "components/Button";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
@@ -14,6 +13,7 @@ import {
   PatchTriggerAlias,
   VariantTasksState,
 } from "hooks/useConfigurePatch";
+import every from "lodash.every";
 
 enum CheckboxState {
   CHECKED = "CHECKED",
@@ -68,11 +68,10 @@ export const ConfigureTasks: React.VFC<Props> = ({
     return deduplicateTasks(tasks);
   }, [selectedBuildVariantTasks, selectedBuildVariants]);
 
-  const sortedCurrentTasks = useMemo(() => {
-    const tasks = Object.entries(currentTasks);
-    tasks.sort((a, b) => a[0].localeCompare(b[0]));
-    return tasks;
-  }, [currentTasks]);
+  const sortedCurrentTasks = useMemo(
+    () => Object.entries(currentTasks).sort((a, b) => a[0].localeCompare(b[0])),
+    [currentTasks]
+  );
 
   const currentAliases = getVisibleAliases(
     selectedAliases,
