@@ -146,15 +146,15 @@
     "@graphql-codegen/typescript-operations": "1.17.12",
     "@graphql-eslint/eslint-plugin": "^3.10.2",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.2",
-    "@storybook/addon-a11y": "^6.1.18",
-    "@storybook/addon-actions": "^6.1.18",
+    "@storybook/addon-a11y": "~6.3.0",
+    "@storybook/addon-actions": "~6.3.0",
     "@storybook/addon-knobs": "^6.1.18",
-    "@storybook/addon-links": "6.1.18",
-    "@storybook/addon-queryparams": "^6.1.18",
-    "@storybook/addon-storyshots": "^6.1.18",
-    "@storybook/addons": "6.1.18",
+    "@storybook/addon-links": "~6.3.0",
+    "@storybook/addon-queryparams": "^6.2.0",
+    "@storybook/addon-storyshots": "~6.3.0",
+    "@storybook/addons": "~6.3.0",
     "@storybook/preset-ant-design": "^0.0.2",
-    "@storybook/preset-create-react-app": "3.1.6",
+    "@storybook/preset-create-react-app": "^3.2.0",
     "@storybook/react": "6.1.18",
     "@svgr/webpack": "5.4.0",
     "@testing-library/jest-dom": "5.11.6",
@@ -260,6 +260,10 @@
     "webpack-merge": "^5.7.3",
     "workbox-webpack-plugin": "5.1.4",
     "worker-loader": "^3.0.7"
+  },
+  "resolutions": {
+    "storybook-addon-apollo-client/@storybook/addons": "~6.3.0",
+    "storybook-addon-apollo-client/@storybook/api": "~6.3.0"
   },
   "engines": {
     "node": ">=12.22.0"
