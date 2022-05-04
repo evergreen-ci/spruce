@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js' --html | sed 1d > build/source_map.html",
-    "build": "REACT_APP_GIT_SHA='git rev-parse HEAD' && rm -rf ./node_modules/.cache/babel-loader && node scripts/build.js build",
+    "build": "REACT_APP_GIT_SHA=`git rev-parse HEAD` && rm -rf ./node_modules/.cache/babel-loader && node scripts/build.js build",
     "build-storybook": "build-storybook -s public",
     "build:prod": "env-cmd -e prod -r env/.cmdrc.json yarn build",
     "build:staging": "env-cmd -e staging -r env/.cmdrc.json yarn build",
@@ -95,14 +95,20 @@
     "@leafygreen-ui/tooltip": "6.3.1",
     "@leafygreen-ui/typography": "8.1.0",
     "@rjsf/core": "4.1.0",
+    "analytics": "link:./src/analytics",
     "ansi_up": "5.0.0",
     "antd": "4.12.1",
     "axios": "0.21.2",
+    "components": "link:./src/components",
+    "constants": "link:./src/constants",
+    "context": "link:./src/context",
     "date-fns": "2.16.1",
     "date-fns-tz": "^1.1.2",
     "deep-object-diff": "1.1.0",
     "env-cmd": "10.1.0",
+    "gql": "link:./src/gql",
     "graphql": "15.5.0",
+    "hooks": "link:./src/hooks",
     "html-react-parser": "1.2.4",
     "js-cookie": "2.2.1",
     "linkifyjs": "2.1.9",
@@ -112,6 +118,7 @@
     "lodash.isequal": "4.5.0",
     "lodash.set": "4.3.2",
     "lodash.throttle": "4.1.1",
+    "pages": "link:./src/pages",
     "query-string": "6.13.8",
     "react": "17.0.1",
     "react-dom": "17.0.1",
@@ -120,7 +127,10 @@
     "react-string-replace": "0.4.4",
     "react-virtualized-auto-sizer": "^1.0.6",
     "react-window": "1.8.6",
-    "react-window-infinite-loader": "^1.0.7"
+    "react-window-infinite-loader": "^1.0.7",
+    "test_utils": "link:./src/test_utils",
+    "types": "link:./src/types",
+    "utils": "link:./src/utils"
   },
   "devDependencies": {
     "@apollo/react-testing": "4.0.0",
@@ -254,5 +264,6 @@
   "engines": {
     "node": ">=12.22.0"
   },
-  "proxy": "http://localhost:9090"
+  "proxy": "http://localhost:9090",
+  "packageManager": "yarn@3.2.0"
 }
