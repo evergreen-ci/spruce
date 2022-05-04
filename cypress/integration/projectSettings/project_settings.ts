@@ -794,3 +794,33 @@ describe("Renaming the identifier", () => {
     cy.url().should("include", "new-identifier");
   });
 });
+
+describe("Duplicating a project witth errors", () => {
+  const destination = getGeneralRoute(project);
+
+  before(() => {
+    cy.login();
+    cy.visit(destination);
+  });
+
+  beforeEach(() => {
+    cy.preserveCookies();
+  });
+
+  it("Shows the copy modal when the button and dropdown menu are clicked", () => {
+    cy.dataCy("new-project-button").click();
+    cy.dataCy("new-project-menu").should("be.visible");
+    cy.dataCy("copy-project-button").click();
+    cy.dataCy("copy-project-modal").should("be.visible");
+  });
+
+  it("Successfully copies the project and shows a warning toast", () => {
+    cy.dataCy("project-name-input").type("copied-project");
+    cy.get("button").contains("Duplicate").parent().click();
+    cy.validateToast("warning");
+  });
+
+  it("Redirects to a new URL", () => {
+    cy.url().should("include", "copied-project");
+  });
+});
