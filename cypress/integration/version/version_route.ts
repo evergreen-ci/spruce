@@ -98,8 +98,19 @@ describe("Version route", () => {
         .and("equal", "true");
       cy.location("search").should(
         "include",
-        "statuses=undispatched-umbrella,unscheduled,aborted,blocked"
+        "statuses=undispatched-umbrella,unscheduled,aborted,blocked&variant=%5Eubuntu1604%24"
       );
+
+      // Check that filter values have updated.
+      cy.toggleTableFilter(2);
+      cy.getInputByLabel("Unscheduled")
+        .should("have.attr", "aria-checked")
+        .and("equal", "true");
+
+      cy.toggleTableFilter(4);
+      cy.dataCy("variant-input-wrapper")
+        .find("input")
+        .should("have.value", "^ubuntu1604$");
     });
   });
 

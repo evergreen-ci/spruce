@@ -39,7 +39,6 @@ export const PatchCard: React.VFC<Props> = ({
   createTime,
   author,
   authorDisplayName,
-  projectID,
   projectIdentifier,
   status,
   pageType,
@@ -86,7 +85,7 @@ export const PatchCard: React.VFC<Props> = ({
             </StyledRouterLink>
           ) : (
             <StyledRouterLink
-              to={getProjectPatchesRoute(projectID)}
+              to={getProjectPatchesRoute(projectIdentifier)}
               data-cy="project-patches-link"
             >
               <b>{projectIdentifier}</b>

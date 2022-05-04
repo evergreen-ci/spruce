@@ -3,7 +3,6 @@ fragment PatchesPagePatches on Patches {
     id
     author
     authorDisplayName
-    projectID
     projectIdentifier
     description
     status

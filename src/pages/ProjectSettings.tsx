@@ -25,7 +25,7 @@ import { GET_PROJECT_SETTINGS, GET_REPO_SETTINGS } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { environmentalVariables, validators } from "utils";
 import { ProjectSettingsProvider } from "./projectSettings/Context";
-import { CreateProjectModal } from "./projectSettings/CreateProjectModal";
+import { CreateDuplicateProjectButton } from "./projectSettings/CreateDuplicateProjectButton";
 import { getTabTitle } from "./projectSettings/getTabTitle";
 import { ProjectSettingsTabs } from "./projectSettings/Tabs";
 import { ProjectType } from "./projectSettings/tabs/utils";
@@ -110,32 +110,32 @@ export const ProjectSettings: React.VFC = () => {
   };
 
   const project =
-    projectData !== null
-      ? projectData?.projectSettings
-      : repoData?.repoSettings;
+    projectType === ProjectType.Repo
+      ? repoData?.repoSettings
+      : projectData?.projectSettings;
 
-  const hasData = projectData
-    ? projectType === ProjectType.Project || repoData
-    : repoData;
+  const owner = project?.projectRef?.owner;
+  const repo = project?.projectRef?.repo;
 
-  const { repoSettings } = repoData || {};
-  const { projectRef } = repoSettings || {};
-  const { owner, repo } = projectRef || {};
-
-  const repoDisplay = isRepo && owner && repo ? `${owner}/${repo}` : identifier;
+  // If current project is a repo, use "owner/repo" since repos lack identifiers
+  const projectLabel =
+    projectType === ProjectType.Repo ? `${owner}/${repo}` : identifier;
 
   return (
     <ProjectSettingsProvider>
       <SideNav aria-label="Project Settings">
         <ButtonsContainer>
           <ProjectSelect
-            selectedProjectIdentifier={repoDisplay}
+            selectedProjectIdentifier={projectLabel}
             getRoute={getProjectSettingsRoute}
             isProjectSettingsPage
           />
-          <CreateProjectModal
-            owner={project?.projectRef?.owner}
-            repo={project?.projectRef?.repo}
+          <CreateDuplicateProjectButton
+            id={project?.projectRef?.id}
+            label={projectLabel}
+            owner={owner}
+            projectType={projectType}
+            repo={repo}
           />
         </ButtonsContainer>
 
@@ -187,7 +187,7 @@ export const ProjectSettings: React.VFC = () => {
         </SideNavGroup>
       </SideNav>
       <PageWrapper>
-        {hasData ? (
+        {project ? (
           <ProjectSettingsTabs
             projectData={projectData?.projectSettings}
             projectType={projectType}
@@ -224,5 +224,9 @@ const PageContainer = styled.div`
 `;
 
 const ButtonsContainer = styled.div`
-  padding: ${size.xs};
+  padding: 0 ${size.xs};
+
+  > :not(:last-child) {
+    margin-bottom: ${size.xs};
+  }
 `;
