@@ -1,6 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useQuery } from "@apollo/client";
 import { DropdownItem } from "components/ButtonDropdown";
+import {
+  CodeChangesQuery,
+  CodeChangesQueryVariables,
+} from "gql/generated/types";
+import { GET_CODE_CHANGES } from "gql/queries";
 import { EnqueuePatchModal } from "pages/version/index";
+import { commits } from "utils";
+
+const { shouldPreserveCommits } = commits;
 
 interface EnqueuePatchProps {
   patchId: string;
@@ -23,6 +32,19 @@ export const EnqueuePatch: React.VFC<EnqueuePatchProps> = ({
       ? visibilityControl
       : fallbackVisibilityControl;
 
+  const { data, previousData } = useQuery<
+    CodeChangesQuery,
+    CodeChangesQueryVariables
+  >(GET_CODE_CHANGES, {
+    variables: { id: patchId },
+    skip: !isVisible,
+  });
+  const { patch } = data ?? previousData ?? {};
+  const { moduleCodeChanges } = patch ?? {};
+  const preserveCommits = moduleCodeChanges?.length
+    ? shouldPreserveCommits(moduleCodeChanges[0].fileDiffs)
+    : false;
+
   return (
     <>
       <DropdownItem
@@ -38,6 +60,7 @@ export const EnqueuePatch: React.VFC<EnqueuePatchProps> = ({
         visible={isVisible}
         onFinished={() => setIsVisible(false)}
         refetchQueries={refetchQueries}
+        preserveCommits={preserveCommits}
       />
     </>
   );
