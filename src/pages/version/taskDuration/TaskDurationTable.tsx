@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Table, TableHeader } from "@leafygreen-ui/table";
-import { Skeleton } from "antd";
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
@@ -63,9 +62,7 @@ export const TaskDurationTable: React.VFC<Props> = ({ tasks, loading }) => {
 
   const maxTimeTaken = findMaxTimeTaken(tasks);
 
-  return !tasks ? (
-    <Skeleton active title={false} paragraph={{ rows: 8 }} />
-  ) : (
+  return (
     <TableWrapper>
       <Table
         data={tasks}
