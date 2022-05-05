@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
+import IconButton from "@leafygreen-ui/icon-button";
 import { uiColors } from "@leafygreen-ui/palette";
 import Popover from "@leafygreen-ui/popover";
 import TextInput from "@leafygreen-ui/text-input";
@@ -8,7 +9,7 @@ import { PopoverContainer } from "components/styles/Popover";
 import { size } from "constants/tokens";
 import { useOnClickOutside } from "hooks";
 
-const { gray, white, focus } = uiColors;
+const { gray, focus } = uiColors;
 
 interface TableSearchPopoverProps {
   value: string;
@@ -40,15 +41,16 @@ export const TableSearchPopover: React.VFC<TableSearchPopoverProps> = ({
   };
 
   return (
-    <div>
-      <IconWrapper
-        active={active}
+    <Wrapper>
+      <IconButton
         onClick={() => setActive(!active)}
+        active={active}
         data-cy={dataCy}
+        aria-label="Table Search Popover Icon"
         ref={buttonRef}
       >
         <Icon glyph="MagnifyingGlass" small="xsmall" color={iconColor} />
-      </IconWrapper>
+      </IconButton>
       <Popover align="bottom" justify="middle" active={active}>
         <PopoverContainer ref={popoverRef}>
           <TextInput
@@ -64,17 +66,10 @@ export const TableSearchPopover: React.VFC<TableSearchPopoverProps> = ({
           />
         </PopoverContainer>
       </Popover>
-    </div>
+    </Wrapper>
   );
 };
 
-const IconWrapper = styled.div<{ active: boolean }>`
-  width: ${size.m};
-  height: ${size.m};
-  margin-left: ${size.xs};
-  padding: ${size.xxs};
-  border-radius: 50%;
-  background-color: ${({ active }) => (active ? gray.light2 : white)};
-  transition: background-color 0.3s ease-in-out;
-  cursor: pointer;
+const Wrapper = styled.div`
+  margin-left: ${size.xxs};
 `;

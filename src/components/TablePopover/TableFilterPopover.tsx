@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
+import IconButton from "@leafygreen-ui/icon-button";
 import { uiColors } from "@leafygreen-ui/palette";
 import Popover from "@leafygreen-ui/popover";
 import { PopoverContainer } from "components/styles/Popover";
@@ -8,7 +9,7 @@ import { size } from "constants/tokens";
 import { useOnClickOutside } from "hooks";
 import { TreeDataEntry, TreeSelect } from "../TreeSelect";
 
-const { gray, white, focus } = uiColors;
+const { gray, focus } = uiColors;
 
 interface TableFilterPopoverProps {
   value: string[];
@@ -37,15 +38,16 @@ export const TableFilterPopover: React.VFC<TableFilterPopoverProps> = ({
   };
 
   return (
-    <div>
-      <IconWrapper
-        active={active}
+    <Wrapper>
+      <IconButton
         onClick={() => setActive(!active)}
+        active={active}
         data-cy={dataCy}
+        aria-label="Table Filter Popover Icon"
         ref={buttonRef}
       >
         <Icon glyph="Filter" small="xsmall" color={iconColor} />
-      </IconWrapper>
+      </IconButton>
       <Popover align="bottom" justify="middle" active={active}>
         <PopoverContainer ref={popoverRef}>
           <TreeSelect
@@ -56,17 +58,10 @@ export const TableFilterPopover: React.VFC<TableFilterPopoverProps> = ({
           />
         </PopoverContainer>
       </Popover>
-    </div>
+    </Wrapper>
   );
 };
 
-const IconWrapper = styled.div<{ active: boolean }>`
-  width: ${size.m};
-  height: ${size.m};
-  margin-left: ${size.xs};
-  padding: ${size.xxs};
-  border-radius: 50%;
-  background-color: ${({ active }) => (active ? gray.light2 : white)};
-  transition: background-color 0.3s ease-in-out;
-  cursor: pointer;
+const Wrapper = styled.div`
+  margin-left: ${size.xxs};
 `;

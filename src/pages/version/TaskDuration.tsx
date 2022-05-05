@@ -10,6 +10,7 @@ import {
 import { GET_PATCH_TASK_DURATIONS } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { PatchTasksQueryParams } from "types/task";
 import { queryString } from "utils";
 import { TableControl } from "./TableControl";
 import { TaskDurationTable } from "./taskDuration/TaskDurationTable";
@@ -21,7 +22,7 @@ interface Props {
   taskCount: number;
 }
 
-export const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
+const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
   const dispatchToast = useToastContext();
   const { id } = useParams<{ id: string }>();
   const { search } = useLocation();
@@ -33,20 +34,20 @@ export const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
 
   useEffect(() => {
     updateQueryParams({
-      duration: "DESC",
-      sorts: undefined,
+      [PatchTasksQueryParams.Duration]: "DESC",
+      [PatchTasksQueryParams.Sorts]: undefined,
     });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const clearQueryParams = () => {
     updateQueryParams({
-      taskName: undefined,
-      variant: undefined,
-      statuses: undefined,
-      baseStatuses: undefined,
-      page: undefined,
-      sorts: undefined,
-      duration: "DESC",
+      [PatchTasksQueryParams.TaskName]: undefined,
+      [PatchTasksQueryParams.Variant]: undefined,
+      [PatchTasksQueryParams.Statuses]: undefined,
+      [PatchTasksQueryParams.BaseStatuses]: undefined,
+      [PatchTasksQueryParams.Page]: undefined,
+      [PatchTasksQueryParams.Duration]: "DESC",
+      [PatchTasksQueryParams.Sorts]: undefined,
     });
   };
 
@@ -78,3 +79,5 @@ export const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
     </>
   );
 };
+
+export default TaskDuration;

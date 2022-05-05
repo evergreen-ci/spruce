@@ -12,7 +12,7 @@ import { Tasks } from "pages/version/Tasks";
 import { PatchTab } from "types/patch";
 import { queryString } from "utils";
 import { isBeta } from "utils/environmentalVariables";
-import { TaskDuration } from "./TaskDuration";
+import TaskDuration from "./TaskDuration";
 
 const { parseQueryString } = queryString;
 

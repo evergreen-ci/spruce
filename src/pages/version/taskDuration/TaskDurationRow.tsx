@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import styled from "@emotion/styled";
 import { Row, Cell } from "@leafygreen-ui/table";
 import { Description } from "@leafygreen-ui/typography";
@@ -21,53 +22,49 @@ interface RowProps {
   children?: React.ReactNode;
 }
 
-export const TaskDurationRow: React.VFC<RowProps> = ({
-  task,
-  maxTimeTaken,
-  children,
-  "data-cy": dataCy,
-  ...rest
-}) => {
-  const {
-    id,
-    displayName,
-    status,
-    buildVariantDisplayName,
-    timeTaken,
-    startTime,
-  } = task;
+export const TaskDurationRow: React.VFC<RowProps> = forwardRef(
+  ({ task, maxTimeTaken, children, "data-cy": dataCy, ...rest }, ref) => {
+    const {
+      id,
+      displayName,
+      status,
+      buildVariantDisplayName,
+      timeTaken,
+      startTime,
+    } = task;
 
-  const barWidth = calculateBarWidth(timeTaken, maxTimeTaken);
-  const barColor =
-    mapTaskToBarchartColor[mapTaskStatusToUmbrellaStatus[status]];
-  const startedWithZeroTime =
-    startTime === null && status === TaskStatus.Started;
+    const barWidth = calculateBarWidth(timeTaken, maxTimeTaken);
+    const barColor =
+      mapTaskToBarchartColor[mapTaskStatusToUmbrellaStatus[status]];
+    const startedWithZeroTime =
+      startTime === null && status === TaskStatus.Started;
 
-  return (
-    <Row key={id} data-cy={dataCy} {...rest}>
-      <TaskNameCell>
-        <TaskLink taskId={id} taskName={displayName} />
-      </TaskNameCell>
-      <StatusCell>
-        <TaskStatusBadge status={status} />
-      </StatusCell>
-      <BuildVariantCell>{buildVariantDisplayName}</BuildVariantCell>
-      <DurationCell>
-        {startedWithZeroTime ? (
-          <DurationLabel>
-            There is no task duration information for this task at this time.
-          </DurationLabel>
-        ) : (
-          <>
-            <DurationBar width={barWidth} color={barColor} />
-            <DurationLabel>{msToDuration(timeTaken)}</DurationLabel>
-          </>
-        )}
-      </DurationCell>
-      {children}
-    </Row>
-  );
-};
+    return (
+      <Row ref={ref} key={id} data-cy={dataCy} {...rest}>
+        <TaskNameCell>
+          <TaskLink taskId={id} taskName={displayName} />
+        </TaskNameCell>
+        <StatusCell>
+          <TaskStatusBadge status={status} />
+        </StatusCell>
+        <BuildVariantCell>{buildVariantDisplayName}</BuildVariantCell>
+        <DurationCell>
+          {startedWithZeroTime ? (
+            <DurationLabel>
+              There is no task duration information for this task at this time.
+            </DurationLabel>
+          ) : (
+            <>
+              <DurationBar width={barWidth} color={barColor} />
+              <DurationLabel>{msToDuration(timeTaken)}</DurationLabel>
+            </>
+          )}
+        </DurationCell>
+        {children}
+      </Row>
+    );
+  }
+);
 TaskDurationRow.displayName = "Row";
 
 const calculateBarWidth = (value: number, max: number) =>

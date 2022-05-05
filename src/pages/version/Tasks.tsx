@@ -8,12 +8,14 @@ import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { PatchTasksQueryParams } from "types/task";
 import { queryString } from "utils";
 import { TableControl } from "./TableControl";
 import { PatchTasksTable } from "./tasks/PatchTasksTable";
 import { useQueryVariables } from "./useQueryVariables";
 
 const { parseQueryString } = queryString;
+const defaultSortMethod = "STATUS:ASC;BASE_STATUS:DESC";
 
 interface Props {
   taskCount: number;
@@ -28,24 +30,23 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
   const queryVariables = useQueryVariables(search, id);
   const noQueryVariables = !Object.keys(parseQueryString(search)).length;
   const { sorts, limit, page } = queryVariables;
-  const defaultSortMethod = "STATUS:ASC;BASE_STATUS:DESC";
 
   useEffect(() => {
     updateQueryParams({
-      duration: undefined,
-      sorts: defaultSortMethod,
+      [PatchTasksQueryParams.Duration]: undefined,
+      [PatchTasksQueryParams.Sorts]: defaultSortMethod,
     });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const clearQueryParams = () => {
     updateQueryParams({
-      taskName: undefined,
-      variant: undefined,
-      statuses: undefined,
-      baseStatuses: undefined,
-      page: undefined,
-      sorts: defaultSortMethod,
-      duration: undefined,
+      [PatchTasksQueryParams.TaskName]: undefined,
+      [PatchTasksQueryParams.Variant]: undefined,
+      [PatchTasksQueryParams.Statuses]: undefined,
+      [PatchTasksQueryParams.BaseStatuses]: undefined,
+      [PatchTasksQueryParams.Page]: undefined,
+      [PatchTasksQueryParams.Duration]: undefined,
+      [PatchTasksQueryParams.Sorts]: defaultSortMethod,
     });
   };
 

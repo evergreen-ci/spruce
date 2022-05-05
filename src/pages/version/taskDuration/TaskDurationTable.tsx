@@ -55,8 +55,8 @@ export const TaskDurationTable: React.VFC<Props> = ({ tasks, loading }) => {
 
   const handleDurationSort = (direction: string) => {
     updateQueryParams({
-      duration: direction.toUpperCase(),
-      page: "0",
+      [PatchTasksQueryParams.Duration]: direction.toUpperCase(),
+      [PatchTasksQueryParams.Page]: "0",
     });
   };
 

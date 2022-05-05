@@ -1,4 +1,9 @@
-import { PatchTasksQueryVariables, SortOrder } from "gql/generated/types";
+import {
+  PatchTasksQueryVariables,
+  SortOrder,
+  TaskSortCategory,
+} from "gql/generated/types";
+import { PatchTasksQueryParams } from "types/task";
 import { queryString, url, array } from "utils";
 
 const { parseQueryString, parseSortString, getString } = queryString;
@@ -11,12 +16,12 @@ export const useQueryVariables = (
 ): PatchTasksQueryVariables => {
   const queryParams = parseQueryString(search);
   const {
-    sorts,
-    duration,
-    variant,
-    taskName,
-    statuses,
-    baseStatuses,
+    [PatchTasksQueryParams.Duration]: duration,
+    [PatchTasksQueryParams.Sorts]: sorts,
+    [PatchTasksQueryParams.Variant]: variant,
+    [PatchTasksQueryParams.TaskName]: taskName,
+    [PatchTasksQueryParams.Statuses]: statuses,
+    [PatchTasksQueryParams.BaseStatuses]: baseStatuses,
   } = queryParams;
 
   // This should be reworked once the antd tables are removed.
@@ -26,7 +31,7 @@ export const useQueryVariables = (
     sortsToApply = parseSortString(sorts);
   }
   if (duration) {
-    sortsToApply = parseSortString(`DURATION:${duration}`);
+    sortsToApply = parseSortString(`${TaskSortCategory.Duration}:${duration}`);
   }
 
   return {
