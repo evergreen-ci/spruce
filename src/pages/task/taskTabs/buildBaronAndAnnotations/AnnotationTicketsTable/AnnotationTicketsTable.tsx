@@ -214,7 +214,7 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
         block: "center",
       });
     }
-  });
+  }, []);
 
   return (
     <Table

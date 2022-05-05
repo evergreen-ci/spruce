@@ -1,5 +1,4 @@
 import { useQuery } from "@apollo/client";
-
 import { useToastContext } from "context/toast";
 import {
   GetIssuesQuery,

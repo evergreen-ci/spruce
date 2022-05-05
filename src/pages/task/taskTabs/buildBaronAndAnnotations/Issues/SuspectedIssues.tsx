@@ -1,5 +1,4 @@
 import { useQuery } from "@apollo/client";
-
 import { useToastContext } from "context/toast";
 import {
   GetSuspectedIssuesQuery,
@@ -7,7 +6,6 @@ import {
   Annotation,
 } from "gql/generated/types";
 import { GET_JIRA_SUSPECTED_ISSUES } from "gql/queries";
-
 import AnnotationTickets from "./AnnotationTickets";
 
 interface SuspectedIssuesProps {
