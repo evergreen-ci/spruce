@@ -12,23 +12,20 @@ interface UseBuildBaronVariablesType {
     id: string;
     execution: number;
     status: string;
+    hasAnnotation: boolean;
+    canModifyAnnotation: boolean;
   };
-  hasAnnotation: boolean;
-  canModifyAnnotation: boolean;
 }
-const useBuildBaronVariables = ({
-  task,
-  hasAnnotation,
-  canModifyAnnotation,
-}: UseBuildBaronVariablesType) => {
-  const isFailedTask = isFailedTaskStatus(task.status);
+const useBuildBaronVariables = ({ task }: UseBuildBaronVariablesType) => {
+  const { id, execution, status, hasAnnotation, canModifyAnnotation } = task;
+  const isFailedTask = isFailedTaskStatus(status);
   const { data: buildBaronData } = useQuery<
     GetBuildBaronConfiguredQuery,
     GetBuildBaronConfiguredQueryVariables
   >(GET_BUILD_BARON_CONFIGURED, {
     variables: {
-      taskId: task.id,
-      execution: task.execution,
+      taskId: id,
+      execution,
     },
     skip: !isFailedTask && (!hasAnnotation || !canModifyAnnotation),
   });

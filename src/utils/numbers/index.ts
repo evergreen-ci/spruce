@@ -3,10 +3,10 @@
  * @param value - A string or number that represents a percentage value.
  * @return {number} A float representing the percentage value.
  * @example
- * toFloat("50") // => 0.5
- * toFloat("100") // => 1.0
+ * toDecimal("50") // => 0.5
+ * toDecimal("100") // => 1.0
  */
-const toDecimal = (value: string | null) => {
+const toDecimal = (value: string | null): number => {
   const number = parseFloat(value);
   if (Number.isNaN(number)) {
     return null;

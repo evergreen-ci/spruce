@@ -44,9 +44,13 @@ export const TaskTabs: React.VFC<TaskTabProps> = ({ task, taskFiles }) => {
 
   const isDisplayTask = executionTasksFull != null;
   const { showBuildBaron } = useBuildBaronVariables({
-    hasAnnotation: !!annotation,
-    canModifyAnnotation,
-    task: { id, execution, status },
+    task: {
+      id,
+      execution,
+      status,
+      canModifyAnnotation,
+      hasAnnotation: !!annotation,
+    },
   });
 
   const tabMap = {

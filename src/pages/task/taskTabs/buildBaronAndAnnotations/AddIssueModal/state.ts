@@ -5,22 +5,22 @@ import { validateJiraURL } from "utils/validators";
 
 const { toDecimal } = numbers;
 
-interface addIssueState {
+interface AddIssueState {
   url: string;
   issueKey: string;
   canSubmit: boolean;
   isURLValid: boolean;
   isKeyValid: boolean;
-  confidenceScore: string | null;
+  confidenceScore: string;
 }
 
 type Action =
   | { type: "reset" }
   | { type: "setUrl"; url: string; jiraURL: string }
   | { type: "setKey"; issueKey: string }
-  | { type: "setConfidenceScore"; confidenceScore: string | null };
+  | { type: "setConfidenceScore"; confidenceScore: string };
 
-const init = () => ({
+const init = (): AddIssueState => ({
   url: "",
   issueKey: "",
   canSubmit: false,
@@ -29,7 +29,7 @@ const init = () => ({
   confidenceScore: null,
 });
 
-const reducer = (state: addIssueState, action: Action) => {
+const reducer = (state: AddIssueState, action: Action) => {
   switch (action.type) {
     case "reset":
       return init();
@@ -52,11 +52,11 @@ const reducer = (state: addIssueState, action: Action) => {
       };
     }
     case "setConfidenceScore": {
-      const isNumber = !Number.isNaN(action.confidenceScore);
       const isValid =
+        !Number.isNaN(action.confidenceScore) &&
         toDecimal(action.confidenceScore) <= 1 &&
         toDecimal(action.confidenceScore) >= 0;
-      if (isNumber && isValid) {
+      if (isValid) {
         return {
           ...state,
           confidenceScore: action.confidenceScore,
@@ -71,7 +71,7 @@ const reducer = (state: addIssueState, action: Action) => {
 
 export const useAddIssueModal = () => {
   const spruceConfig = useSpruceConfig();
-  const [state, dispatch] = useReducer(reducer, init());
+  const [state, dispatch] = useReducer(reducer, null, init);
 
   const setUrl = (url: string) => {
     dispatch({ type: "setUrl", url, jiraURL: spruceConfig.jira.host });
@@ -85,6 +85,11 @@ export const useAddIssueModal = () => {
   const reset = () => {
     dispatch({ type: "reset" });
   };
-
-  return [state, { setUrl, setKey, setConfidenceScore, reset }] as const;
+  const setters = {
+    setUrl,
+    setKey,
+    setConfidenceScore,
+    reset,
+  };
+  return [state, setters] as const;
 };
