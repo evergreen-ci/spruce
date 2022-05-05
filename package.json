@@ -63,7 +63,7 @@
     "@bugsnag/js": "7.16.0",
     "@bugsnag/plugin-react": "7.16.0",
     "@emotion/eslint-plugin": "11.0.0",
-    "@emotion/react": "11.1.4",
+    "@emotion/react": "11.9.0",
     "@emotion/styled": "11.0.0",
     "@leafygreen-ui/badge": "4.0.5",
     "@leafygreen-ui/banner": "3.0.9",
