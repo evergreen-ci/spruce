@@ -18,7 +18,10 @@ import {
 } from "gql/generated/types";
 import { CREATE_PUBLIC_KEY, UPDATE_PUBLIC_KEY } from "gql/mutations";
 import { GET_MY_PUBLIC_KEYS } from "gql/queries";
-import { validateSSHPublicKey } from "utils/validators";
+import { validators, string } from "utils";
+
+const { validateSSHPublicKey } = validators;
+const { stripNewLines } = string;
 
 const { TextArea } = Input;
 
@@ -114,7 +117,7 @@ export const EditModal: React.VFC<EditModalProps> = ({
   };
 
   const onClickSave = () => {
-    const nextKeyInfo = { name: keyName, key: keyValue };
+    const nextKeyInfo = { name: keyName, key: stripNewLines(keyValue) };
     if (replaceKeyName) {
       sendEvent({ name: "Update public key" });
       updatePublicKey({
