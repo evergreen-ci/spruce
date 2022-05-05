@@ -1,16 +1,17 @@
 /**
- * toFloat takes a string or number that represents a percentage value and returns a float
+ * toDecimal takes a string or number that represents a percentage value and returns a float
  * @param value - A string or number that represents a percentage value.
  * @return {number} A float representing the percentage value.
  * @example
  * toFloat("50") // => 0.5
  * toFloat("100") // => 1.0
  */
-const toFloat = (value: string | number): number => {
-  if (typeof value === "number") {
-    return value;
+const toDecimal = (value: string | null) => {
+  const number = parseFloat(value);
+  if (Number.isNaN(number)) {
+    return null;
   }
-  return parseFloat(value);
+  return number / 100;
 };
 
 /**
@@ -28,4 +29,4 @@ const toPercent = (value: string | number): number => {
   return parseFloat(value) * 100;
 };
 
-export { toFloat, toPercent };
+export { toDecimal, toPercent };

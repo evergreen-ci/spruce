@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
+import styled from "@emotion/styled";
 import Button, { Variant, Size } from "@leafygreen-ui/button";
 import { Popconfirm } from "antd";
 import { useAnnotationAnalytics } from "analytics";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   BbCreateTicketMutation,
   BbCreateTicketMutationVariables,
 } from "gql/generated/types";
-
 import { FILE_JIRA_TICKET } from "gql/mutations";
-
 import { ButtonWrapper } from "./BBComponents";
 
 interface FileTicketProps {
@@ -47,26 +47,32 @@ const FileTicketButton: React.VFC<FileTicketProps> = ({
   };
 
   return (
-    <Popconfirm
-      title="Do you want to create a failure ticket for this task?"
-      onConfirm={onClickFile}
-      icon={null}
-      placement="right"
-      okText="File Ticket"
-      okButtonProps={{ loading: loadingFileJiraTicket }}
-      cancelButtonProps={{ disabled: loadingFileJiraTicket }}
-    >
-      <ButtonWrapper>
-        <Button
-          data-cy="file-ticket-button"
-          variant={Variant.Primary}
-          size={Size.XSmall}
-        >
-          {buttonText}
-        </Button>
-      </ButtonWrapper>
-    </Popconfirm>
+    <Container>
+      <Popconfirm
+        title="Do you want to create a failure ticket for this task?"
+        onConfirm={onClickFile}
+        icon={null}
+        placement="right"
+        okText="File Ticket"
+        okButtonProps={{ loading: loadingFileJiraTicket }}
+        cancelButtonProps={{ disabled: loadingFileJiraTicket }}
+      >
+        <ButtonWrapper>
+          <Button
+            data-cy="file-ticket-button"
+            variant={Variant.Primary}
+            size={Size.XSmall}
+          >
+            {buttonText}
+          </Button>
+        </ButtonWrapper>
+      </Popconfirm>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  margin-bottom: ${size.m};
+`;
 
 export default FileTicketButton;

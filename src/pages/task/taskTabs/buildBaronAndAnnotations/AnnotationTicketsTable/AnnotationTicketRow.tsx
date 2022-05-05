@@ -5,15 +5,15 @@ import { Skeleton } from "antd";
 import { useAnnotationAnalytics } from "analytics";
 import { StyledLink } from "components/styles";
 import { size } from "constants/tokens";
-import { JiraTicket, Source } from "gql/generated/types";
+import { JiraTicket } from "gql/generated/types";
 import { string, numbers } from "utils";
 
 const { toPercent } = numbers;
 const { getDateCopy } = string;
+
 interface AnnotationTicketRowProps {
   issueKey: string;
   url: string;
-  source?: Source;
   jiraTicket?: JiraTicket;
   loading?: boolean;
   confidenceScore?: number;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Disclaimer } from "@leafygreen-ui/typography";

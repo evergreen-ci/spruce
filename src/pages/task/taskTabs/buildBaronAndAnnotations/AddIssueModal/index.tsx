@@ -1,10 +1,8 @@
 import { useMutation } from "@apollo/client";
-import Button from "@leafygreen-ui/button";
 import TextInput from "@leafygreen-ui/text-input";
-import Tooltip from "@leafygreen-ui/tooltip";
 import { useAnnotationAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
-import { Modal } from "components/Modal";
+import { ConfirmationModal } from "components/ConfirmationModal";
 import { useToastContext } from "context/toast";
 import {
   AddAnnotationIssueMutation,
@@ -12,9 +10,10 @@ import {
   IssueLinkInput,
 } from "gql/generated/types";
 import { ADD_ANNOTATION } from "gql/mutations";
+import { numbers } from "utils";
 import { useAddIssueModal } from "./state";
-import { toDecimal } from "./utils";
 
+const { toDecimal } = numbers;
 interface Props {
   visible: boolean;
   dataCy: string;
@@ -78,36 +77,14 @@ export const AddIssueModal: React.VFC<Props> = ({
   };
 
   return (
-    <Modal
+    <ConfirmationModal
       data-cy={dataCy}
-      visible={visible}
+      open={visible}
       onCancel={handleCancel}
       title={title}
-      footer={
-        <>
-          <Button data-cy="modal-cancel-button" onClick={handleCancel}>
-            Cancel
-          </Button>
-          <Tooltip
-            usePortal={false}
-            trigger={
-              <span>
-                <Button
-                  data-cy="add-issue-save-button"
-                  variant="primary"
-                  disabled={!state.canSubmit}
-                  onClick={handleSubmit}
-                >
-                  Save
-                </Button>
-              </span>
-            }
-            enabled={!state.canSubmit}
-          >
-            You must complete the form before you can save.
-          </Tooltip>
-        </>
-      }
+      onConfirm={handleSubmit}
+      submitDisabled={!state.canSubmit}
+      buttonText={`Add ${issueString}`}
     >
       <TextInput
         data-cy="url-text-area"
@@ -131,6 +108,6 @@ export const AddIssueModal: React.VFC<Props> = ({
           onChange={(e) => dispatch.setConfidenceScore(e.target.value)}
         />
       </Accordion>
-    </Modal>
+    </ConfirmationModal>
   );
 };

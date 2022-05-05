@@ -44,7 +44,6 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
   const dispatchToast = useToastContext();
   const issueString = isIssue ? "issue" : "suspected issue";
 
-  // Once JIRA tickets have been fetched, display the complete information.
   const columns = [
     {
       title: "Ticket",
@@ -52,14 +51,12 @@ const AnnotationTicketsTable: React.VFC<AnnotationTicketsProps> = ({
       render: ({
         issueKey,
         url,
-        source,
         jiraTicket,
         confidenceScore,
       }: AnnotationTicket): JSX.Element => (
         <AnnotationTicketRow
           issueKey={issueKey}
           url={url}
-          source={source}
           jiraTicket={jiraTicket}
           confidenceScore={confidenceScore}
           loading={loading}

@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
-import { StyledLink } from "components/styles";
-import { getJiraSearchUrl } from "constants/externalResources";
 import { useToastContext } from "context/toast";
 import {
   BuildBaron,
@@ -17,16 +15,10 @@ import {
   GET_CREATED_TICKETS,
   GET_JIRA_CUSTOM_CREATED_ISSUES,
 } from "gql/queries";
-import { useSpruceConfig } from "hooks";
 import AnnotationNote from "./AnnotationNote";
-import { TicketsTitle, NonTableWrapper } from "./BBComponents";
-import {
-  BBCreatedTickets,
-  BuildBaronTable,
-  CustomCreatedTickets,
-} from "./CreatedTicketsTable";
-
+import { BBCreatedTickets, CustomCreatedTickets } from "./CreatedTicketsTable";
 import { Issues, SuspectedIssues } from "./Issues";
+import JiraIssueTable from "./JiraIssueTable";
 
 interface BuildBaronCoreProps {
   bbData: BuildBaron;
@@ -46,14 +38,6 @@ const BuildBaronContent: React.VFC<BuildBaronCoreProps> = ({
   userCanModify,
 }) => {
   const [selectedRowKey, setSelectedRowKey] = useState("");
-
-  const spruceConfig = useSpruceConfig();
-  const jiraHost = spruceConfig?.jira?.host;
-
-  const jiraSearchString = bbData?.searchReturnInfo?.search;
-  const jqlEscaped = encodeURIComponent(jiraSearchString);
-  const jiraSearchLink = getJiraSearchUrl(jiraHost, jqlEscaped);
-
   const dispatchToast = useToastContext();
 
   const { data: customCreatedTickets } = useQuery<
@@ -125,19 +109,7 @@ const BuildBaronContent: React.VFC<BuildBaronCoreProps> = ({
         annotation={annotation}
       />
       {bbData?.searchReturnInfo?.issues.length > 0 && (
-        <>
-          <NonTableWrapper>
-            {/* @ts-expect-error */}
-            <TicketsTitle>
-              Related tickets from Jira
-              <StyledLink data-cy="jira-search-link" href={jiraSearchLink}>
-                {"  "}(Jira Search)
-              </StyledLink>
-            </TicketsTitle>
-          </NonTableWrapper>
-          {/* build baron related jira tickets */}
-          <BuildBaronTable jiraIssues={bbData?.searchReturnInfo?.issues} />
-        </>
+        <JiraIssueTable bbData={bbData} />
       )}
     </Wrapper>
   );

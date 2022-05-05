@@ -1,7 +1,9 @@
 import { useReducer } from "react";
 import { useSpruceConfig } from "hooks";
+import { numbers } from "utils";
 import { validateJiraURL } from "utils/validators";
-import { toDecimal } from "./utils";
+
+const { toDecimal } = numbers;
 
 interface addIssueState {
   url: string;
@@ -51,16 +53,14 @@ const reducer = (state: addIssueState, action: Action) => {
     }
     case "setConfidenceScore": {
       const isNumber = !Number.isNaN(action.confidenceScore);
-      if (isNumber) {
-        if (
-          toDecimal(action.confidenceScore) <= 1 &&
-          toDecimal(action.confidenceScore) >= 0
-        ) {
-          return {
-            ...state,
-            confidenceScore: action.confidenceScore,
-          };
-        }
+      const isValid =
+        toDecimal(action.confidenceScore) <= 1 &&
+        toDecimal(action.confidenceScore) >= 0;
+      if (isNumber && isValid) {
+        return {
+          ...state,
+          confidenceScore: action.confidenceScore,
+        };
       }
       return state;
     }

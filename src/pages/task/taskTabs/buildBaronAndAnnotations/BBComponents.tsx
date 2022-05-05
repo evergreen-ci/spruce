@@ -107,4 +107,5 @@ export const NonTableWrapper = styled.div`
 export const ButtonWrapper = styled.div`
   margin-right: ${size.xs};
   padding-top: ${size.s};
+  width: fit-content;
 `;

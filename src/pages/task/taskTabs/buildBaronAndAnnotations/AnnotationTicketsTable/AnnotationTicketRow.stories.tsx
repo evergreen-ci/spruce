@@ -11,11 +11,6 @@ export const Default = () => (
   <AnnotationTicketRow
     issueKey="EVG-123"
     url="https://www.google.com"
-    source={{
-      author: "author",
-      time: new Date("2020-01-01"),
-      requester: "requester",
-    }}
     jiraTicket={{
       key: "key",
       fields: {

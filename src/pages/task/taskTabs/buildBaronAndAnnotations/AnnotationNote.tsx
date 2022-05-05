@@ -67,7 +67,6 @@ const AnnotationNote: React.VFC<Props> = ({
     <NonTableWrapper>
       <TextArea
         id="noteInput"
-        rows={2}
         value={newMessage}
         onChange={(e) => setMessage(e.target.value)}
         disabled={!userCanModify}
