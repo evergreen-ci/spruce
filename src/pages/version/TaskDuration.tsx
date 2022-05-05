@@ -50,21 +50,20 @@ export const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
     });
   };
 
-  const { data, startPolling, stopPolling } = useQuery<
+  const { data, loading, startPolling, stopPolling } = useQuery<
     PatchTaskDurationsQuery,
     PatchTaskDurationsQueryVariables
   >(GET_PATCH_TASK_DURATIONS, {
     variables: queryVariables,
     skip: noQueryVariables,
     pollInterval,
-    fetchPolicy: "network-only",
-    nextFetchPolicy: "cache-and-network",
     onError: (err) => {
       dispatchToast.error(`Error fetching patch tasks ${err}`);
     },
   });
   usePolling(startPolling, stopPolling);
   const { patchTasks } = data || {};
+  const { tasks = [] } = patchTasks || {};
 
   return (
     <>
@@ -75,7 +74,7 @@ export const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
         page={page}
         clearQueryParams={clearQueryParams}
       />
-      <TaskDurationTable patchTasks={patchTasks} />
+      <TaskDurationTable tasks={tasks} loading={loading} />
     </>
   );
 };

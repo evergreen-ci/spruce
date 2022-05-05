@@ -4,7 +4,7 @@ import { Table, TableHeader } from "@leafygreen-ui/table";
 import { Skeleton } from "antd";
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
-import { NoTableResults } from "components/Table/NoTableResults";
+import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import {
   TableFilterPopover,
   TableSearchPopover,
@@ -22,10 +22,11 @@ import { TaskDurationRow } from "./TaskDurationRow";
 const { gray } = uiColors;
 
 interface Props {
-  patchTasks: PatchTaskDurationsQuery["patchTasks"];
+  tasks: PatchTaskDurationsQuery["patchTasks"]["tasks"];
+  loading: boolean;
 }
 
-export const TaskDurationTable: React.VFC<Props> = ({ patchTasks }) => {
+export const TaskDurationTable: React.VFC<Props> = ({ tasks, loading }) => {
   const { id: versionId } = useParams<{ id: string }>();
   const { sendEvent } = useVersionAnalytics(versionId);
   const updateQueryParams = useUpdateURLQueryParams();
@@ -60,7 +61,6 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks }) => {
     });
   };
 
-  const { tasks } = patchTasks ?? {};
   const maxTimeTaken = findMaxTimeTaken(tasks);
 
   return !tasks ? (
@@ -136,7 +136,12 @@ export const TaskDurationTable: React.VFC<Props> = ({ patchTasks }) => {
           </TaskDurationRow>
         )}
       </Table>
-      {tasks.length === 0 && <NoTableResults message="No tasks found." />}
+      {loading && (
+        <TablePlaceholder glyph="Refresh" message="Loading..." spin />
+      )}
+      {!loading && tasks.length === 0 && (
+        <TablePlaceholder message="No tasks found." />
+      )}
     </TableWrapper>
   );
 };

@@ -7,7 +7,7 @@ import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { Button } from "components/Button";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
-import { NoTableResults } from "components/Table/NoTableResults";
+import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import { TableSearchPopover } from "components/TablePopover";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -137,7 +137,7 @@ export const JobLogsTable: React.VFC<JobLogsTableProps> = ({
         </Table>
       </TableWrapper>
       {!isLoadingTests && testResults.length === 0 && (
-        <NoTableResults message="No test results found." />
+        <TablePlaceholder message="No test results found." />
       )}
     </Container>
   );
