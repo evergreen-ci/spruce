@@ -1,4 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
+import isEqual from "lodash.isequal";
 import { useLocation } from "react-router-dom";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { queryString } from "utils";
@@ -28,6 +29,8 @@ export const useStatusesFilter = ({
   useEffect(() => {
     if (!urlValue.length && inputValue.length) {
       setInputValue([]);
+    } else if (!isEqual(urlValue, inputValue)) {
+      setInputValue(urlValue);
     }
   }, [urlValue]); // eslint-disable-line react-hooks/exhaustive-deps
 

@@ -42,7 +42,7 @@ import {
   useSpawnHostModalState,
 } from "./spawnHostModal/index";
 
-const { omitTypename } = string;
+const { omitTypename, stripNewLines } = string;
 interface SpawnHostModalProps {
   visible: boolean;
   onCancel: () => void;
@@ -203,12 +203,23 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
 
   const spawnHost = (e) => {
     e.preventDefault();
+
+    // Remove new lines from public key on submit
+    const { publicKey: keyToSubmit } = spawnHostModalState;
+    const varsToSubmit = omitTypename({
+      ...spawnHostModalState,
+      publicKey: {
+        name: keyToSubmit.name,
+        key: stripNewLines(keyToSubmit.key),
+      },
+    });
+
     spawnAnalytics.sendEvent({
       name: "Spawned a host",
-      params: omitTypename({ ...spawnHostModalState }),
+      params: varsToSubmit,
     });
     spawnHostMutation({
-      variables: { SpawnHostInput: omitTypename({ ...spawnHostModalState }) },
+      variables: { SpawnHostInput: varsToSubmit },
     });
   };
 

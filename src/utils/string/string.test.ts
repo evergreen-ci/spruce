@@ -8,6 +8,7 @@ import {
   shortenGithash,
   joinWithConjunction,
   trimStringFromMiddle,
+  stripNewLines,
 } from ".";
 
 describe("msToDuration", () => {
@@ -316,5 +317,14 @@ describe("joinWithConjunction", () => {
 
   it("returns an empty string with 0 elements", () => {
     expect(joinWithConjunction([], "or")).toBe("");
+  });
+});
+
+describe("stripNewLines", () => {
+  it("strips new line from string", () => {
+    expect(stripNewLines("my\nstring\n")).toBe("mystring");
+  });
+  it("doesn't strip white space", () => {
+    expect(stripNewLines("my \nstring\n")).toBe("my string");
   });
 });

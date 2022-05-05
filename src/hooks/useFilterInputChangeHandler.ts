@@ -33,6 +33,8 @@ export const useFilterInputChangeHandler = ({
   useEffect(() => {
     if (!urlValue && inputValue) {
       setInputValue("");
+    } else if (inputValue !== urlValue) {
+      setInputValue(urlValue);
     }
   }, [urlValue]); // eslint-disable-line react-hooks/exhaustive-deps
 

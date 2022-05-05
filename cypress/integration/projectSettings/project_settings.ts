@@ -366,6 +366,13 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("navitem-github-commitqueue").click();
     });
 
+    it("Allows enabling manual PR testing", () => {
+      cy.dataCy("manual-pr-testing-enabled-radio-box")
+        .children()
+        .first()
+        .click();
+    });
+
     it("Allows adding a git tag alias", () => {
       cy.dataCy("git-tag-enabled-radio-box").children().first().click();
       cy.dataCy("add-button").contains("Add Git Tag").parent().click();
