@@ -36,9 +36,12 @@ export const NewMainlineCommitsUser = () => (
 export const MovieCard = () => (
   <MockedProvider>
     <CarouselCard
-      movie="mainline_commits/carousel_2_05_4.webm"
-      subtitle="A Subtitle"
-      description="A description"
+      card={{
+        title: "A Title",
+        subtitle: "A Subtitle",
+        description: "A Description",
+        video: "mainline_commits/carousel_2_05_4.webm",
+      }}
       visible
     />
   </MockedProvider>
@@ -47,9 +50,12 @@ export const MovieCard = () => (
 export const ImageCard = () => (
   <MockedProvider>
     <CarouselCard
-      img="welcome_modal/mypatch_gif_06_10.gif"
-      subtitle="A Subtitle"
-      description="A description"
+      card={{
+        title: "A Title",
+        subtitle: "A Subtitle",
+        description: "A Description",
+        img: "welcome_modal/mypatch_gif_06_10.gif",
+      }}
       visible
     />
   </MockedProvider>

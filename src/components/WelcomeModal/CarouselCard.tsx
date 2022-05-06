@@ -1,24 +1,19 @@
 import { useRef, useEffect } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Body } from "@leafygreen-ui/typography";
+import { Body, Subtitle } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
+import { OneOf } from "types/utils";
+import { ImageCardType, VideoCardType } from "./types";
 
-type CarouselCardProps = {
-  img?: string;
-  movie?: string;
-  subtitle: string;
-  description: string;
+interface CarouselCardProps {
+  card: OneOf<ImageCardType, VideoCardType>;
   visible: boolean;
-};
+}
 
-const CarouselCard: React.VFC<CarouselCardProps> = ({
-  img,
-  movie,
-  subtitle,
-  description,
-  visible,
-}) => {
+const CarouselCard: React.VFC<CarouselCardProps> = ({ card, visible }) => {
+  const { img, video, subtitle, title, description } = card;
+
   const videoRef = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     if (visible && videoRef.current) {
@@ -27,14 +22,15 @@ const CarouselCard: React.VFC<CarouselCardProps> = ({
   }, [visible]);
   return (
     <CardContainer>
-      <Body weight="medium">{subtitle}</Body>
+      {title && <Subtitle>{title}</Subtitle>}
+      {subtitle && <Body weight="medium">{subtitle}</Body>}
       <Body>{description}</Body>
       {img && <ImgContainer src={`/static/img/${img}`} />}
-      {movie && (
-        <MovieContainer
+      {video && (
+        <VideoContainer
           loop
           controls
-          src={`/static/img/${movie}`}
+          src={`/static/img/${video}`}
           ref={videoRef}
         />
       )}
@@ -43,8 +39,7 @@ const CarouselCard: React.VFC<CarouselCardProps> = ({
 };
 
 const containerStyles = css`
-  height: 250px;
-  width: 100%;
+  width: 80%;
   margin: ${size.m} 0;
 `;
 
@@ -52,7 +47,7 @@ const ImgContainer = styled.img`
   ${containerStyles}
 `;
 
-const MovieContainer = styled.video`
+const VideoContainer = styled.video`
   ${containerStyles}
 `;
 
@@ -61,8 +56,8 @@ const CardContainer = styled.div`
   align-items: flex-start;
   flex-direction: column;
   padding-bottom: ${size.s};
-  width: 500px;
   text-align: left;
+  width: 800px;
 `;
 
 export default CarouselCard;

@@ -8,34 +8,23 @@ import { Subtitle } from "@leafygreen-ui/typography";
 import { Carousel } from "antd";
 import { CarouselRef } from "antd/es/carousel";
 import { StyledLink as Link } from "components/styles";
-import { size } from "constants/tokens";
+import { size, zIndex } from "constants/tokens";
 import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
+  UseSpruceOptionsInput,
 } from "gql/generated/types";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { errorReporting } from "utils";
 import CarouselCard from "./CarouselCard";
 import CarouselDots from "./CarouselDots";
+import { ImageCardType, VideoCardType } from "./types";
 
 const { reportError } = errorReporting;
 
-type CardTypes =
-  | {
-      img: string;
-      subtitle: string;
-      description: string;
-      href?: string;
-    }
-  | {
-      movie: string;
-      subtitle: string;
-      description: string;
-      href?: string;
-    };
-
+type CardTypes = ImageCardType | VideoCardType;
 interface WelcomeModalProps {
-  param: "hasUsedSpruceBefore" | "hasUsedMainlineCommitsBefore";
+  param: keyof UseSpruceOptionsInput;
   title?: string;
   carouselCards: CardTypes[];
 }
@@ -82,8 +71,9 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
           open={visible}
           data-cy="welcome-modal"
           className={css`
-            z-index: 1000;
+            z-index: ${zIndex.modal};
           `}
+          size="large"
         >
           {/* @ts-expect-error */}
           {title && <CardTitle>{title}</CardTitle>}
@@ -94,11 +84,13 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
             dots={false}
             slickGoTo={activeSlide}
             ref={slider}
+            lazyLoad="ondemand"
+            draggable
           >
             {carouselCards.map((card, index) => (
               <CarouselCard
                 key={`card_${card.subtitle}`}
-                {...card}
+                card={{ ...card }}
                 visible={activeSlide === index}
               />
             ))}
