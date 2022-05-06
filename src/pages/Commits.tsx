@@ -63,22 +63,22 @@ export const Commits = () => {
   const recentlySelectedProject = Cookies.get(CURRENT_PROJECT);
   // Push default project to URL if there isn't a project in
   // the URL already and an mci-project-cookie does not exist.
-  useQuery<GetSpruceConfigQuery, GetSpruceConfigQueryVariables>(
-    GET_SPRUCE_CONFIG,
-    {
-      skip: !!projectId || !!recentlySelectedProject,
-      onCompleted({ spruceConfig }) {
-        replace(getCommitsRoute(spruceConfig?.ui.defaultProject));
-      },
-    }
-  );
-
+  const { data: spruceData } = useQuery<
+    GetSpruceConfigQuery,
+    GetSpruceConfigQueryVariables
+  >(GET_SPRUCE_CONFIG, {
+    skip: !!projectId || !!recentlySelectedProject,
+  });
   useEffect(() => {
-    if (!projectId && recentlySelectedProject) {
-      replace(getCommitsRoute(recentlySelectedProject));
+    if (!projectId) {
+      if (recentlySelectedProject) {
+        replace(getCommitsRoute(recentlySelectedProject));
+      } else if (spruceData) {
+        replace(getCommitsRoute(spruceData?.spruceConfig.ui.defaultProject));
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [projectId]);
+  }, [projectId, spruceData]);
 
   const statusFilters = toArray(parsed[ProjectFilterOptions.Status]);
   const variantFilters = toArray(parsed[ProjectFilterOptions.BuildVariant]);
