@@ -71,7 +71,7 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
           open={visible}
           data-cy="welcome-modal"
           className={css`
-            z-index: ${zIndex.modal};
+            z-index: ${zIndex.max_dont_use};
           `}
           size="large"
         >
@@ -113,7 +113,7 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
               <Button
                 variant={Variant.Primary}
                 onClick={handleClosed}
-                data-cy="close-welcome-modal"
+                data-cy="welcome-modal-close"
               >
                 Done
               </Button>
