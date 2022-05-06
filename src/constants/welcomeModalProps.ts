@@ -1,6 +1,6 @@
 const newMainlineCommitsUser = [
   {
-    img: "mainline_commits/carousel_1_05_4.png",
+    img: "mainline_commits/carousel_1_05_06.png",
     title: "Welcome to the new mainline commits experience!",
     description:
       "We designed this UI to make navigation faster and more intuitive. By default it displays failed tasks, but you can customize this view with filters.",
@@ -8,14 +8,14 @@ const newMainlineCommitsUser = [
       "https://app.tango.us/app/workflow/Evergreen--Onboarding-guide-for-the-new-project-health-page--7b74b28c80f448869a01730a450bc246",
   },
   {
-    video: "mainline_commits/carousel_2_05_4.webm",
+    video: "mainline_commits/carousel_2_05_06.webm",
     title: "Get a quick overview of your project's health",
     description:
       "A graph at the top of the page gives you an overview of the project&apos;s health. You can toggle the graph between an absolute number  and percentage.",
     href: "https://evergreen.mongodb.com/patch/",
   },
   {
-    video: "mainline_commits/carousel_3_05_4.webm",
+    video: "mainline_commits/carousel_3_05_06.webm",
     title: "Newly designed icons",
     description:
       "New status icons make it easier to differentiate between task statuses. You can find an expandable legend explaining what each icon represents.",
@@ -23,7 +23,7 @@ const newMainlineCommitsUser = [
       "https://app.tango.us/app/workflow/Status-icon-behavior--1db9909b454f4800b05774fa408f2924",
   },
   {
-    video: "mainline_commits/carousel_4_05_4.webm",
+    video: "mainline_commits/carousel_4_05_06.webm",
     title: "New way to recognize patterns",
     description:
       "Identifying the same task across multiple build variants is an important part of the workflow. When you hover over a task, we will display the name of the task and highlight that task across other commits.",
@@ -31,7 +31,7 @@ const newMainlineCommitsUser = [
       "https://app.tango.us/app/workflow/Status-icon-behavior--1db9909b454f4800b05774fa408f2924",
   },
   {
-    video: "mainline_commits/carousel_5_05_4.webm",
+    video: "mainline_commits/carousel_5_05_06.webm",
     title: "Improved task history experience",
     description:
       "You can get to the task history from the task details page by clicking on the see history button at the top of the page. You can also filter for specific test results by clicking see history on a test result. ",
@@ -39,7 +39,7 @@ const newMainlineCommitsUser = [
       "https://app.tango.us/app/workflow/Task-History--23e6b3f043234a19988d6ab0a0729598",
   },
   {
-    img: "mainline_commits/carousel_6_05_4.png",
+    img: "mainline_commits/carousel_6_05_06.png",
     title: "New Build Variant History page",
     description:
       "Selecting a Build Variant will direct you to the Build Variant History page, which shows tasks across a build variant over time.",
