@@ -1,8 +1,7 @@
 const patch = "5e4ff3abe3c3317e352062e4";
 const TASK_DURATION_ROUTE = `/version/${patch}/task-duration`;
 
-// Can't test due to isBeta() flag.
-describe.skip("Task Duration Tab", () => {
+describe("Task Duration Tab", () => {
   before(() => {
     cy.login();
   });
