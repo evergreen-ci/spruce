@@ -54,6 +54,7 @@ export const SpawnHostButton = () => {
             Spawn a host
           </PlusButton>
         }
+        enabled={reachedMaxNumHosts}
       >
         {`You have reached the maximum number of hosts (${maxHosts}). Delete some hosts to spawn more.`}
       </Tooltip>
