@@ -56,7 +56,7 @@ export const Commits = () => {
     GetSpruceConfigQuery,
     GetSpruceConfigQueryVariables
   >(GET_SPRUCE_CONFIG, {
-    skip: projectId !== undefined || recentlySelectedProject !== undefined,
+    skip: !projectId || !recentlySelectedProject,
   });
   useEffect(() => {
     if (!projectId) {
