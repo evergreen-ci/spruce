@@ -1,8 +1,6 @@
 // / <reference types="Cypress" />
 
-// TODO: Reenable this test after PM-1976 is resolved
-// This fails because the links are not active
-describe.skip("task history", () => {
+describe("task history", () => {
   before(() => {
     cy.login();
   });
