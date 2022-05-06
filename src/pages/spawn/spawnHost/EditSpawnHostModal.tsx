@@ -54,7 +54,7 @@ import {
 } from "./spawnHostModal/PublicKeyForm";
 
 const { Option } = Select;
-const { omitTypename } = string;
+const { omitTypename, stripNewLines } = string;
 
 interface EditSpawnHostModalProps {
   visible?: boolean;
@@ -328,9 +328,13 @@ const computeDiff = (defaultEditSpawnHostState, editSpawnHostState) => {
   ) as EditSpawnHostMutationVariables;
 
   if (mutationParams.publicKey) {
-    mutationParams.publicKey = omitTypename(mutationParams.publicKey);
+    const keyToSubmit = mutationParams.publicKey;
+    mutationParams.publicKey = omitTypename({
+      name: keyToSubmit?.name || "",
+      key: stripNewLines(keyToSubmit.key),
+    });
   }
-  // diff returns na object to compare the differences in positions of an array. So we take this object
+  // diff returns an object to compare the differences in positions of an array. So we take this object
   // and convert it into an array for these fields
   if (mutationParams.addedInstanceTags) {
     mutationParams.addedInstanceTags = omitTypename(

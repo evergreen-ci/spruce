@@ -57,7 +57,7 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
     >
       <P2>
         Project:{" "}
-        <StyledRouterLink to={getProjectPatchesRoute(project)}>
+        <StyledRouterLink to={getProjectPatchesRoute(projectIdentifier)}>
           {projectIdentifier}
         </StyledRouterLink>
       </P2>
