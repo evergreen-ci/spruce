@@ -1,4 +1,4 @@
-import { useEffect, useMemo, ComponentType } from "react";
+import { useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
 import { Route, useParams } from "react-router-dom";
 import { routes, ProjectSettingsTabRoutes } from "constants/routes";
@@ -209,24 +209,14 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
           />
         )}
       />
-      <TabRoute
-        Component={EventLogTab}
+
+      <Route
         path={routes.projectSettingsEventLog}
-        tab={ProjectSettingsTabRoutes.EventLog}
+        render={(props) => <EventLogTab {...props} projectType={projectType} />}
       />
     </Container>
   );
 };
-
-interface TabRouteProps {
-  Component: ComponentType<any>;
-  path: string;
-  tab: ProjectSettingsTabRoutes;
-}
-
-const TabRoute: React.VFC<TabRouteProps> = ({ Component, path, tab }) => (
-  <Route path={path} render={(props) => <Component {...props} tab={tab} />} />
-);
 
 /* Map data from query to the tab to which it will be passed */
 const getTabData = (

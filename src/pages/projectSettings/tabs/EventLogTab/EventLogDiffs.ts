@@ -1,5 +1,5 @@
 import { diff } from "deep-object-diff";
-import { ProjectEventSettings } from "gql/generated/types";
+import { ProjectEventSettings, RepoEventSettings } from "gql/generated/types";
 import { Subset } from "types/utils";
 import { string } from "utils";
 
@@ -31,18 +31,18 @@ const getNestedObject = (nestedObj: object, pathArr: string[]) =>
     nestedObj
   );
 
-type EventDiffLine = {
+export type EventDiffLine = {
   key: string;
-  before: string;
-  after: string;
+  before: boolean | string | Array<any>;
+  after: boolean | string | Array<any>;
 };
 
 export const getEventDiffLines = (
-  before: Subset<ProjectEventSettings>,
-  after: Subset<ProjectEventSettings>
+  before: Subset<ProjectEventSettings> | Subset<RepoEventSettings>,
+  after: Subset<ProjectEventSettings> | Subset<RepoEventSettings>
 ): EventDiffLine[] => {
-  const eventDiff = omitTypename(diff(before, after));
-  const pathKeys = getDiffProperties(eventDiff);
+  const eventDiff: EventDiffLine[] = omitTypename(diff(before, after));
+  const pathKeys: string[] = getDiffProperties(eventDiff);
 
   const eventDiffLines = pathKeys.map((key) => {
     const pathsArray = key.split(".");

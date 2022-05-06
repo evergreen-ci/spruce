@@ -2511,7 +2511,6 @@ export type RepoPluginsSettingsFragment = {
 export type ProjectEventSettingsFragment = {
   projectRef?: Maybe<
     {
-      id: string;
       identifier: string;
       repoRefId: string;
       versionControlEnabled?: Maybe<boolean>;
@@ -2534,7 +2533,6 @@ export type ProjectEventSettingsFragment = {
 export type RepoEventSettingsFragment = {
   projectRef?: Maybe<
     {
-      id: string;
       displayName: string;
       versionControlEnabled: boolean;
       tracksPushEvents: boolean;
