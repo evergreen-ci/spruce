@@ -57,7 +57,7 @@ export const ExpirationField: React.VFC<ExpirationFieldProps> = ({
 
   const disabledDate = (current) => current < Date.now();
   const { unexpirableHostsPerUser, unexpirableVolumesPerUser } =
-    spruceConfig.spawnHost ?? {};
+    spruceConfig?.spawnHost ?? {};
   return (
     <SectionContainer>
       <SectionLabel weight="medium">Expiration</SectionLabel>

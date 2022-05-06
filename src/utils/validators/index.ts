@@ -16,7 +16,7 @@ const validateJira = (v: string) =>
   new RegExp(`/^${jiraTicketNumberRegex}/`).test(v);
 
 const validateJiraURL = (jiraURL: string, url: string): boolean =>
-  new RegExp(`^https://${jiraURL}/browse/${jiraTicketNumberRegex}`).test(url);
+  new RegExp(`^https://${jiraURL}/browse/${jiraTicketNumberRegex}$`).test(url);
 
 const validateSSHPublicKey = (v: string): boolean => {
   const validSSHKey = new RegExp(

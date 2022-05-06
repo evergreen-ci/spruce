@@ -47,42 +47,37 @@ describe("validateJiraURL", () => {
   it("validates jira urls", () => {
     expect(
       validateJiraURL(
-        "https://jira.example.com",
+        "jira.example.com",
         "https://jira.example.com/browse/TEST-1"
       )
     ).toBeTruthy();
     expect(
       validateJiraURL(
-        "https://jira.example.com",
+        "jira.example.com",
         "https://jira.example.com/browse/EVG-1"
       )
     ).toBeTruthy();
     expect(
       validateJiraURL(
-        "https://jira.example.com",
+        "jira.example.com",
         "https://jira.example.com/browse/PD-1234"
       )
     ).toBeTruthy();
     expect(
       validateJiraURL(
-        "https://jira.example.com",
+        "jira.example.com",
         "https://jira.example.com/browse/PD-1234"
       )
     ).toBeTruthy();
-    expect(validateJiraURL("https://jira.example.com", "")).toBeFalsy();
+    expect(validateJiraURL("jira.example.com", "")).toBeFalsy();
+    expect(validateJiraURL("jira.example.com", "jira.example.com")).toBeFalsy();
     expect(
-      validateJiraURL("https://jira.example.com", "https://jira.example.com")
+      validateJiraURL("jira.example.com", "https://jira.example.com/browse/")
     ).toBeFalsy();
     expect(
       validateJiraURL(
-        "https://jira.example.com",
-        "https://jira.example.com/browse/"
-      )
-    ).toBeFalsy();
-    expect(
-      validateJiraURL(
-        "https://jira.example.com",
-        "https://jira.example.com/browse/EVG-1/"
+        "jira.example.com",
+        "https://jira.example.com/browse/EVG-1/some/path"
       )
     ).toBeFalsy();
   });

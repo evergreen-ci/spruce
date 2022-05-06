@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { useLocation } from "react-router";
 import { useSpawnAnalytics } from "analytics";
-import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { PlusButton } from "components/Spawn";
 import { size } from "constants/tokens";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
@@ -27,7 +26,7 @@ export const SpawnHostButton = () => {
   const [openModal, setOpenModal] = useState(shouldSpawnHost);
   const spawnAnalytics = useSpawnAnalytics();
 
-  const maxHosts = spruceConfig.spawnHost.spawnHostsPerUser || 0;
+  const maxHosts = spruceConfig?.spawnHost?.spawnHostsPerUser || 0;
 
   const nonTerminatedHosts = myHostsData?.myHosts.filter(
     (host) => host.status !== HostStatus.Terminated
@@ -37,20 +36,11 @@ export const SpawnHostButton = () => {
 
   return (
     <PaddedContainer>
-      <ConditionalWrapper
-        condition={reachedMaxNumHosts}
-        wrapper={(children) => (
-          <Tooltip
-            align="top"
-            justify="middle"
-            triggerEvent="hover"
-            trigger={children}
-          >
-            {`You have reached the maximum number of hosts (${maxHosts}). Delete some hosts to spawn more.`}
-          </Tooltip>
-        )}
-      >
-        <span>
+      <Tooltip
+        align="top"
+        justify="middle"
+        triggerEvent="hover"
+        trigger={
           <PlusButton
             disabled={reachedMaxNumHosts}
             onClick={() => {
@@ -63,8 +53,10 @@ export const SpawnHostButton = () => {
           >
             Spawn a host
           </PlusButton>
-        </span>
-      </ConditionalWrapper>
+        }
+      >
+        {`You have reached the maximum number of hosts (${maxHosts}). Delete some hosts to spawn more.`}
+      </Tooltip>
       <SpawnHostModal
         visible={openModal}
         onCancel={() => setOpenModal(false)}
