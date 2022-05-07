@@ -373,7 +373,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
                       className="leafygreen-ui-1s4vgyd"
                     >
                       <label
-                        className="css-p102ix leafygreen-ui-17avto4"
+                        className="leafygreen-ui-17avto4"
                         htmlFor="chart-radio-percent"
                       >
                         <input

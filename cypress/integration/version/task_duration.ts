@@ -1,7 +1,8 @@
 const patch = "5e4ff3abe3c3317e352062e4";
 const TASK_DURATION_ROUTE = `/version/${patch}/task-duration`;
 
-describe("Task Duration Tab", () => {
+// Skip these tests because they use an MDB operator that only exists on mongo 4.2
+describe.skip("Task Duration Tab", () => {
   before(() => {
     cy.login();
   });
