@@ -748,6 +748,7 @@ export type SubscriberInput = {
 
 export type UseSpruceOptionsInput = {
   hasUsedSpruceBefore?: Maybe<Scalars["Boolean"]>;
+  hasUsedMainlineCommitsBefore?: Maybe<Scalars["Boolean"]>;
   spruceV1?: Maybe<Scalars["Boolean"]>;
 };
 
@@ -1871,6 +1872,7 @@ export type UserSettings = {
 
 export type UseSpruceOptions = {
   hasUsedSpruceBefore?: Maybe<Scalars["Boolean"]>;
+  hasUsedMainlineCommitsBefore?: Maybe<Scalars["Boolean"]>;
   spruceV1?: Maybe<Scalars["Boolean"]>;
 };
 
