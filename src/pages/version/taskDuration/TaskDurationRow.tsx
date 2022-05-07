@@ -18,8 +18,8 @@ const { msToDuration } = string;
 interface RowProps {
   task: PatchTaskDurationsQuery["patchTasks"]["tasks"][0];
   maxTimeTaken: number;
-  "data-cy"?: string;
   children?: React.ReactNode;
+  "data-cy"?: string;
 }
 
 export const TaskDurationRow: React.VFC<RowProps> = forwardRef(
@@ -95,15 +95,17 @@ const DurationCell = styled(Cell)`
 `;
 DurationCell.displayName = "Cell";
 
+const barHeight = "12px";
+
 const DurationBar = styled.div<{ width: string; color: string }>`
   width: ${({ width }) => width};
   background-color: ${({ color }) => color};
   border-radius: ${size.m};
-  height: 12px;
+  height: ${barHeight};
 `;
 
 const DurationLabel = styled(Description)`
-  font-size: 12px;
-  padding-top: ${size.xxs};
   flex-shrink: 0;
+  padding-top: ${size.xxs};
+  font-size: ${barHeight};
 `;

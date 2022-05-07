@@ -65,6 +65,7 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
   });
   usePolling(startPolling, stopPolling);
   const { patchTasks } = data || {};
+  const { tasks } = patchTasks || {};
 
   return (
     <>
@@ -78,7 +79,7 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
       {!data ? (
         <Skeleton active title={false} paragraph={{ rows: 8 }} />
       ) : (
-        <PatchTasksTable sorts={sorts} patchTasks={patchTasks} />
+        <PatchTasksTable sorts={sorts} tasks={tasks} />
       )}
     </>
   );

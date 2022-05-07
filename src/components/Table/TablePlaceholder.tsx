@@ -18,7 +18,7 @@ export const TablePlaceholder: React.VFC<Props> = ({
   spin = false,
 }) => (
   <PlaceholderWrapper>
-    <SpinningIcon glyph={glyph} size="large" spin={spin} />
+    <SpinningIcon glyph={glyph} size="large" spin={spin ? "spin" : "no-spin"} />
     <Message> {message} </Message>
   </PlaceholderWrapper>
 );
@@ -32,7 +32,7 @@ const PlaceholderWrapper = styled.div`
   opacity: 50%;
 `;
 
-const SpinningIcon = styled(Icon)<{ spin: boolean }>`
+const SpinningIcon = styled(Icon)<{ spin: string }>`
   @keyframes spin {
     from {
       transform: rotate(0deg);
@@ -41,7 +41,7 @@ const SpinningIcon = styled(Icon)<{ spin: boolean }>`
       transform: rotate(360deg);
     }
   }
-  ${({ spin }) => spin && `animation: spin 1s linear infinite`};
+  ${({ spin }) => spin === "spin" && `animation: spin 1s linear infinite`};
 `;
 
 const Message = styled.div`
