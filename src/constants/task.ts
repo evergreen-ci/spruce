@@ -238,7 +238,6 @@ export const mapTaskToBarchartColor = {
   [TaskStatus.UndispatchedUmbrella]: gray.dark1,
   [TaskStatus.RunningUmbrella]: yellow.base,
   [TaskStatus.SystemFailureUmbrella]: purple.base,
-  [TaskStatus.UndispatchedUmbrella]: gray.dark1,
   [TaskStatus.ScheduledUmbrella]: gray.base,
   [TaskStatus.FailedUmbrella]: red.base,
   [TaskStatus.Succeeded]: green.base,
