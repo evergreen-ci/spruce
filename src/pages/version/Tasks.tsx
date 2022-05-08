@@ -74,7 +74,7 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
         taskCount={taskCount}
         limit={limit}
         page={page}
-        clearQueryParams={clearQueryParams}
+        onClear={clearQueryParams}
       />
       {!data ? (
         <Skeleton active title={false} paragraph={{ rows: 8 }} />

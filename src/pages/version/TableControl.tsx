@@ -13,7 +13,7 @@ interface Props {
   taskCount: number;
   limit: number;
   page: number;
-  clearQueryParams: () => void;
+  onClear: () => void;
 }
 
 export const TableControl: React.VFC<Props> = ({
@@ -21,14 +21,14 @@ export const TableControl: React.VFC<Props> = ({
   taskCount,
   limit,
   page,
-  clearQueryParams,
+  onClear,
 }) => {
   const { id: versionId } = useParams<{ id: string }>();
   const { sendEvent } = useVersionAnalytics(versionId);
 
   const onClearAll = () => {
     sendEvent({ name: "Clear all filter" });
-    clearQueryParams();
+    onClear();
   };
 
   return (

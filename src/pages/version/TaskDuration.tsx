@@ -73,7 +73,7 @@ const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
         taskCount={taskCount}
         limit={limit}
         page={page}
-        clearQueryParams={clearQueryParams}
+        onClear={clearQueryParams}
       />
       <TaskDurationTable tasks={tasks} loading={loading} />
     </>
