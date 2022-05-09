@@ -122,7 +122,11 @@ describe("Version route", () => {
     it("Should include a link to Jira", () => {
       cy.dataCy("page-title")
         .contains("a", "EVG-7425")
-        .should("have.attr", "href", "https:///browse/EVG-7425");
+        .should(
+          "have.attr",
+          "href",
+          "https://jira.example.com/browse/EVG-7425"
+        );
     });
 
     it("Should include a link to GitHub", () => {

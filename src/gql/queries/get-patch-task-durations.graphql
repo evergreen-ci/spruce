@@ -1,0 +1,39 @@
+query PatchTaskDurations(
+  $patchId: String!
+  $sorts: [SortOrder!]
+  $page: Int
+  $variant: String
+  $statuses: [String!]
+  $taskName: String
+  $limit: Int
+) {
+  patchTasks(
+    patchId: $patchId
+    limit: $limit
+    page: $page
+    statuses: $statuses
+    sorts: $sorts
+    variant: $variant
+    taskName: $taskName
+  ) {
+    count
+    tasks {
+      id
+      execution
+      status
+      displayName
+      buildVariantDisplayName
+      timeTaken
+      startTime
+      executionTasksFull {
+        id
+        execution
+        displayName
+        status
+        buildVariantDisplayName
+        timeTaken
+        startTime
+      }
+    }
+  }
+}
