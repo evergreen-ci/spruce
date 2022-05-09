@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
 import Toggle from "@leafygreen-ui/toggle";
 import { Body } from "@leafygreen-ui/typography";
+import Cookies from "js-cookie";
 import { usePreferencesAnalytics } from "analytics";
+import { DISABLE_QUERY_POLLING } from "constants/cookies";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -14,6 +17,9 @@ import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { useUserSettingsQuery } from "hooks/useUserSettingsQuery";
 
 export const NewUITab: React.VFC = () => {
+  const [disablePolling, setDisablePolling] = useState(
+    Cookies.get(DISABLE_QUERY_POLLING) === "true"
+  );
   const { sendEvent } = usePreferencesAnalytics();
   const { data, loadingComp } = useUserSettingsQuery();
   const { spruceV1, hasUsedSpruceBefore } =
@@ -35,7 +41,7 @@ export const NewUITab: React.VFC = () => {
     return loadingComp;
   }
 
-  const handleToggle = async (c: boolean) => {
+  const handleOnChangeNewUI = (c: boolean) => {
     sendEvent({
       name: c ? "Opt into Spruce" : "Opt out of Spruce",
     });
@@ -51,18 +57,41 @@ export const NewUITab: React.VFC = () => {
       refetchQueries: ["GetUserSettings"],
     });
   };
+
+  const handleOnChangePolling = () => {
+    const nextState = !disablePolling;
+    sendEvent({
+      name: "Toggle polling",
+      value: nextState ? "Enabled" : "Disabled",
+    });
+    setDisablePolling(nextState);
+    Cookies.set(DISABLE_QUERY_POLLING, nextState.toString());
+  };
+
   return (
     <>
       {/* @ts-expect-error */}
       <PreferencesCard>
         <PaddedBody>
           Direct all inbound links to the new Evergreen UI, whenever possible
-          (e.g. from the CLI, GitHub, etc.)
+          (e.g. from the CLI, GitHub, etc.).
         </PaddedBody>
         <Toggle
           checked={spruceV1}
           disabled={updateLoading}
-          onChange={handleToggle}
+          onChange={handleOnChangeNewUI}
+          aria-label="Toggle new evergreen ui"
+        />
+      </PreferencesCard>
+      {/* @ts-expect-error */}
+      <PreferencesCard>
+        <PaddedBody>
+          Allow background polling for the current browser.
+        </PaddedBody>
+        <Toggle
+          checked={!disablePolling}
+          disabled={updateLoading}
+          onChange={handleOnChangePolling}
           aria-label="Toggle new evergreen ui"
         />
       </PreferencesCard>
@@ -75,6 +104,7 @@ const PreferencesCard = styled(Card)`
   display: flex;
   flex-direction: column;
   padding: ${size.m};
+  margin-bottom: ${size.m};
   width: 100%;
 `;
 

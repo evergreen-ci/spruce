@@ -1,5 +1,7 @@
 import { useState } from "react";
+import Cookies from "js-cookie";
 import { usePollingAnalytics } from "analytics";
+import { DISABLE_QUERY_POLLING } from "constants/cookies";
 import { pollInterval } from "constants/index";
 import { useNetworkStatus } from "./useNetworkStatus";
 import { usePageVisibility } from "./usePageVisibility";
@@ -17,7 +19,7 @@ type usePollingType = {
  * Depending on these values, it calls start and stop polling functions supplied from an
  * Apollo useQuery hook.
  * @param startPolling - Function from useQuery that is called when online & visible
- * @param stopPolling - Function from useQuery that is called when offline or not visible
+ * @param stopPolling - Function from useQuery that is called when offline, not visible or polling is disabled
  * @returns boolean - true if polling, false if not polling
  */
 export const usePolling: usePollingType = (
@@ -31,13 +33,16 @@ export const usePolling: usePollingType = (
   const isOnline = useNetworkStatus();
   const isVisible = usePageVisibility();
 
-  // If offline and polling, stop polling.
+  if (Cookies.get(DISABLE_QUERY_POLLING) === "true") {
+    stopPolling();
+  }
+
   if (!isOnline && isPolling && stopPolling) {
+    // If offline and polling, stop polling.
     sendEvent({ name: "Tab Not Active", status: "offline" });
     setIsPolling(false);
     stopPolling();
   }
-
   // If not visible and polling, stop polling.
   if (!isVisible && isPolling && stopPolling) {
     sendEvent({ name: "Tab Not Active", status: "hidden" });
