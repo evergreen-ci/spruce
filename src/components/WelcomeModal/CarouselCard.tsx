@@ -70,7 +70,6 @@ const CardContainer = styled.div`
   flex-direction: column;
   padding-bottom: ${size.s};
   text-align: left;
-  width: 800px;
 `;
 
 export default CarouselCard;
