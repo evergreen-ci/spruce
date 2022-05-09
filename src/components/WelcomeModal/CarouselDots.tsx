@@ -1,28 +1,29 @@
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
-import { CarouselRef } from "antd/es/carousel";
 import { size } from "constants/tokens";
+import { CardType } from "./types";
 
 const { gray, green } = uiColors;
 
 interface CarouselDotProps {
+  cards: CardType[];
   activeSlide: number;
-  total: number;
-  slider: React.MutableRefObject<CarouselRef>;
+  onClick: (slide: number) => void;
 }
 
 const CarouselDots: React.VFC<CarouselDotProps> = ({
   activeSlide,
-  total,
-  slider,
+  cards,
+  onClick,
 }) => (
   <DotContainer>
-    {Array.from({ length: total }).map((val, index) => (
+    {cards.map((card, index) => (
       <Dot
-        // eslint-disable-next-line react/no-array-index-key
-        key={`dot_${index}`}
+        key={`dot_${card.description}`}
+        data-cy={`carousel-dot-${index}`}
         active={activeSlide === index}
-        onClick={() => slider.current.goTo(index)}
+        onClick={() => onClick(index)}
+        role="button"
       />
     ))}
   </DotContainer>

@@ -1,16 +1,11 @@
-interface BaseCardType {
+interface CardType {
   title?: string;
   subtitle?: string;
   description: string;
   href?: string;
-}
-
-interface ImageCardType extends BaseCardType {
   img?: string;
-}
-
-interface VideoCardType extends BaseCardType {
+  alt?: string;
   video?: string;
 }
 
-export type { ImageCardType, VideoCardType };
+export type { CardType };

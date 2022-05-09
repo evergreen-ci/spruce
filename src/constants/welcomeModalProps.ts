@@ -1,6 +1,7 @@
 const newMainlineCommitsUser = [
   {
     img: "mainline_commits/carousel_1_05_06.png",
+    alt: "New UI preview image",
     title: "Welcome to the new mainline commits experience!",
     description:
       "We designed this UI to make navigation faster and more intuitive. By default it displays failed tasks, but you can customize this view with filters.",
@@ -11,7 +12,7 @@ const newMainlineCommitsUser = [
     video: "mainline_commits/carousel_2_05_06.webm",
     title: "Get a quick overview of your project's health",
     description:
-      "A graph at the top of the page gives you an overview of the project&apos;s health. You can toggle the graph between an absolute number  and percentage.",
+      "A graph at the top of the page gives you an overview of the project's health. You can toggle the graph between an absolute number  and percentage.",
     href: "https://evergreen.mongodb.com/patch/",
   },
   {
@@ -40,6 +41,7 @@ const newMainlineCommitsUser = [
   },
   {
     img: "mainline_commits/carousel_6_05_06.png",
+    alt: "Build Variant History Page picture",
     title: "New Build Variant History page",
     description:
       "Selecting a Build Variant will direct you to the Build Variant History page, which shows tasks across a build variant over time.",
@@ -51,22 +53,25 @@ const newMainlineCommitsUser = [
 const newSpruceUser = [
   {
     img: "welcome_modal/mypatch_gif_06_10.gif",
+    alt: "my patches page",
     subtitle: "Discover your new and improved patches workflow!",
     description:
-      "We&apos;ve made your patches workflow better by adding more filtering options, reducing load times, and improving the design.",
+      "We've made your patches workflow better by adding more filtering options, reducing load times, and improving the design.",
   },
   {
     img: "welcome_modal/patch_gif_06_10.gif",
-    subtitle: "We&apos;ve also updated the patch page!",
+    alt: "Patch Page preview",
+    subtitle: "We've also updated the patch page!",
     description:
-      "We&apos;ve made it easier to navigate through your tasks and find the information you&apos;re looking for.",
+      "We've made it easier to navigate through your tasks and find the information you're looking for.",
   },
   {
     img: "welcome_modal/newui_gif_06_10.gif",
+    alt: "Switch back to old UI toggle",
     subtitle:
       "We really hope you enjoy the new UI, but just in case you miss the old Evergreen…",
     description:
-      "We&apos;re still working every day to make this better, adding new features and new pages all the time. In case you want to opt out of the new UI and miss all the updates... navigate to your preferences to do so.",
+      "We're still working every day to make this better, adding new features and new pages all the time. In case you want to opt out of the new UI and miss all the updates... navigate to your preferences to do so.",
   },
 ];
 

@@ -3,21 +3,27 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Body, Subtitle } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
-import { OneOf } from "types/utils";
-import { ImageCardType, VideoCardType } from "./types";
+import { CardType } from "./types";
 
 interface CarouselCardProps {
-  card: OneOf<ImageCardType, VideoCardType>;
+  card: CardType;
   visible: boolean;
 }
 
 const CarouselCard: React.VFC<CarouselCardProps> = ({ card, visible }) => {
-  const { img, video, subtitle, title, description } = card;
-
+  const { img, video, subtitle, title, description, alt } = card;
   const videoRef = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     if (visible && videoRef.current) {
-      videoRef.current.play();
+      const playPromise = videoRef.current.play();
+      // https://developer.chrome.com/blog/play-request-was-interrupted/
+      if (playPromise !== undefined) {
+        playPromise.catch((err) => {
+          if (err.name === "NotAllowedError") {
+            // User blocked autoplay.
+          }
+        });
+      }
     }
   }, [visible]);
   return (
@@ -25,7 +31,7 @@ const CarouselCard: React.VFC<CarouselCardProps> = ({ card, visible }) => {
       {title && <Subtitle>{title}</Subtitle>}
       {subtitle && <Body weight="medium">{subtitle}</Body>}
       <Body>{description}</Body>
-      {img && <ImgContainer src={`/static/img/${img}`} />}
+      {img && <ImgContainer src={`/static/img/${img}`} alt={alt} />}
       {video && (
         <VideoContainer
           loop

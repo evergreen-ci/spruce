@@ -18,16 +18,16 @@ import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { errorReporting } from "utils";
 import CarouselCard from "./CarouselCard";
 import CarouselDots from "./CarouselDots";
-import { ImageCardType, VideoCardType } from "./types";
+import { CardType } from "./types";
 
 const { reportError } = errorReporting;
 
-type CardTypes = ImageCardType | VideoCardType;
 interface WelcomeModalProps {
   param: keyof UseSpruceOptionsInput;
   title?: string;
-  carouselCards: CardTypes[];
+  carouselCards: CardType[];
 }
+
 const WelcomeModal: React.VFC<WelcomeModalProps> = ({
   carouselCards,
   param,
@@ -63,6 +63,11 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
       });
     } catch (e) {}
   };
+
+  const handleCarouselChange = (index: number) => {
+    setActiveSlide(index);
+    slider.current?.goTo(index);
+  };
   return (
     <ClassNames>
       {({ css }) => (
@@ -78,14 +83,12 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
           {/* @ts-expect-error */}
           {title && <CardTitle>{title}</CardTitle>}
           <Carousel
-            afterChange={(number) => setActiveSlide(number)}
-            autoplay
-            autoplaySpeed={10000}
             dots={false}
-            slickGoTo={activeSlide}
             ref={slider}
             lazyLoad="ondemand"
             draggable
+            infinite={false}
+            afterChange={(index) => setActiveSlide(index)}
           >
             {carouselCards.map((card, index) => (
               <CarouselCard
@@ -98,8 +101,8 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
           <Footer>
             <CarouselDots
               activeSlide={activeSlide}
-              total={carouselCards.length}
-              slider={slider}
+              cards={carouselCards}
+              onClick={handleCarouselChange}
             />
             <div>
               {carouselCards[activeSlide].href && (

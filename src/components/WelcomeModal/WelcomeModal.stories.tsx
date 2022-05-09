@@ -55,6 +55,7 @@ export const ImageCard = () => (
         subtitle: "A Subtitle",
         description: "A Description",
         img: "welcome_modal/mypatch_gif_06_10.gif",
+        alt: "First slide gif",
       }}
       visible
     />
