@@ -97,7 +97,7 @@ export const Content: React.VFC = () => {
 
         <Route component={PageDoesNotExist} />
       </Switch>
-      {hasUsedSpruceBefore && (
+      {!hasUsedSpruceBefore && (
         <WelcomeModal
           title="Welcome to the New Evergreen UI!"
           param="hasUsedSpruceBefore"
