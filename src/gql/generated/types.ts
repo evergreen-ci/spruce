@@ -748,6 +748,7 @@ export type SubscriberInput = {
 
 export type UseSpruceOptionsInput = {
   hasUsedSpruceBefore?: Maybe<Scalars["Boolean"]>;
+  hasUsedMainlineCommitsBefore?: Maybe<Scalars["Boolean"]>;
   spruceV1?: Maybe<Scalars["Boolean"]>;
 };
 
@@ -1036,6 +1037,7 @@ export type UpdateVolumeInput = {
 export type IssueLinkInput = {
   url: Scalars["String"];
   issueKey: Scalars["String"];
+  confidenceScore?: Maybe<Scalars["Float"]>;
 };
 
 export type SortOrder = {
@@ -1870,6 +1872,7 @@ export type UserSettings = {
 
 export type UseSpruceOptions = {
   hasUsedSpruceBefore?: Maybe<Scalars["Boolean"]>;
+  hasUsedMainlineCommitsBefore?: Maybe<Scalars["Boolean"]>;
   spruceV1?: Maybe<Scalars["Boolean"]>;
 };
 
@@ -2050,6 +2053,7 @@ export type IssueLink = {
   url?: Maybe<Scalars["String"]>;
   source?: Maybe<Source>;
   jiraTicket?: Maybe<JiraTicket>;
+  confidenceScore?: Maybe<Scalars["Float"]>;
 };
 
 export type Source = {
@@ -2501,7 +2505,6 @@ export type RepoPluginsSettingsFragment = {
 export type ProjectEventSettingsFragment = {
   projectRef?: Maybe<
     {
-      id: string;
       identifier: string;
       repoRefId: string;
       versionControlEnabled?: Maybe<boolean>;
@@ -2524,7 +2527,6 @@ export type ProjectEventSettingsFragment = {
 export type RepoEventSettingsFragment = {
   projectRef?: Maybe<
     {
-      id: string;
       displayName: string;
       versionControlEnabled: boolean;
       tracksPushEvents: boolean;
@@ -3673,6 +3675,42 @@ export type ConfigurePatchQuery = {
     }>;
     childPatchAliases?: Maybe<Array<{ alias: string; patchId: string }>>;
   } & BasePatchFragment;
+};
+
+export type PatchTaskDurationsQueryVariables = Exact<{
+  patchId: Scalars["String"];
+  sorts?: Maybe<Array<SortOrder>>;
+  page?: Maybe<Scalars["Int"]>;
+  variant?: Maybe<Scalars["String"]>;
+  statuses?: Maybe<Array<Scalars["String"]>>;
+  taskName?: Maybe<Scalars["String"]>;
+  limit?: Maybe<Scalars["Int"]>;
+}>;
+
+export type PatchTaskDurationsQuery = {
+  patchTasks: {
+    count: number;
+    tasks: Array<{
+      id: string;
+      execution: number;
+      status: string;
+      displayName: string;
+      buildVariantDisplayName?: Maybe<string>;
+      timeTaken?: Maybe<number>;
+      startTime?: Maybe<Date>;
+      executionTasksFull?: Maybe<
+        Array<{
+          id: string;
+          execution: number;
+          displayName: string;
+          status: string;
+          buildVariantDisplayName?: Maybe<string>;
+          timeTaken?: Maybe<number>;
+          startTime?: Maybe<Date>;
+        }>
+      >;
+    }>;
+  };
 };
 
 export type GetPatchTaskStatusesQueryVariables = Exact<{

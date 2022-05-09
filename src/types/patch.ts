@@ -19,6 +19,7 @@ export enum PatchTab {
   Changes = "changes",
   Parameters = "parameters",
   DownstreamTasks = "downstream-tasks",
+  TaskDuration = "task-duration",
   Configure = "configure",
 }
 
