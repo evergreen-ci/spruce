@@ -1,8 +1,7 @@
 const patch = "5e4ff3abe3c3317e352062e4";
 const TASK_DURATION_ROUTE = `/version/${patch}/task-duration`;
 
-// Skip these tests because they use an MDB operator that only exists on mongo 4.2
-describe.skip("Task Duration Tab", () => {
+describe("Task Duration Tab", () => {
   before(() => {
     cy.login();
   });
@@ -37,10 +36,10 @@ describe.skip("Task Duration Tab", () => {
       cy.dataCy("tree-select-options").within(() =>
         cy.contains("Running").click({ force: true })
       );
-      cy.dataCy("task-duration-table-row").should("have.length", 5);
+      cy.dataCy("task-duration-table-row").should("have.length", 4);
       cy.location("search").should(
         "include",
-        `duration=DESC&page=0&statuses=running-umbrella,started,dispatched`
+        `duration=DESC&page=0&statuses=started`
       );
       // Clear status filter.
       cy.dataCy("status-filter-popover").click();
@@ -82,7 +81,7 @@ describe.skip("Task Duration Tab", () => {
       cy.get(`[aria-label="sort"]`).click();
       cy.get(`[aria-label="sort"]`).click();
       cy.location("search").should("include", `duration=ASC&page=0`);
-      const shortestTask = "test-auth";
+      const shortestTask = "generate-lint";
       cy.contains(shortestTask).should("be.visible");
       cy.dataCy("task-duration-table-row")
         .first()
