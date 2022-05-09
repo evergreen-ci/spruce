@@ -21,7 +21,8 @@ export const isDevelopment: () => boolean = () =>
 export const isProduction = (): boolean =>
   process.env.NODE_ENV === "production";
 
-export const isBeta = (): boolean => process.env.REACT_APP_BETA === "true";
+export const isBeta = (): boolean =>
+  process.env.REACT_APP_BETA === "true" || isDevelopment();
 
 export const isTest: () => boolean = () => process.env.NODE_ENV === "test";
 

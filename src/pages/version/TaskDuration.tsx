@@ -1,27 +1,28 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import { Skeleton } from "antd";
 import { useParams, useLocation } from "react-router-dom";
 import { pollInterval } from "constants/index";
 import { useToastContext } from "context/toast";
-import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
-import { GET_PATCH_TASKS } from "gql/queries";
+import {
+  PatchTaskDurationsQuery,
+  PatchTaskDurationsQueryVariables,
+} from "gql/generated/types";
+import { GET_PATCH_TASK_DURATIONS } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
 import { queryString } from "utils";
 import { TableControl } from "./TableControl";
-import { PatchTasksTable } from "./tasks/PatchTasksTable";
+import { TaskDurationTable } from "./taskDuration/TaskDurationTable";
 import { useQueryVariables } from "./useQueryVariables";
 
 const { parseQueryString } = queryString;
-const defaultSortMethod = "STATUS:ASC;BASE_STATUS:DESC";
 
 interface Props {
   taskCount: number;
 }
 
-export const Tasks: React.VFC<Props> = ({ taskCount }) => {
+const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
   const dispatchToast = useToastContext();
   const { id } = useParams<{ id: string }>();
   const { search } = useLocation();
@@ -29,12 +30,12 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
 
   const queryVariables = useQueryVariables(search, id);
   const noQueryVariables = !Object.keys(parseQueryString(search)).length;
-  const { sorts, limit, page } = queryVariables;
+  const { limit, page } = queryVariables;
 
   useEffect(() => {
     updateQueryParams({
-      [PatchTasksQueryParams.Duration]: undefined,
-      [PatchTasksQueryParams.Sorts]: defaultSortMethod,
+      [PatchTasksQueryParams.Duration]: "DESC",
+      [PatchTasksQueryParams.Sorts]: undefined,
     });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -45,27 +46,25 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
       [PatchTasksQueryParams.Statuses]: undefined,
       [PatchTasksQueryParams.BaseStatuses]: undefined,
       [PatchTasksQueryParams.Page]: undefined,
-      [PatchTasksQueryParams.Duration]: undefined,
-      [PatchTasksQueryParams.Sorts]: defaultSortMethod,
+      [PatchTasksQueryParams.Duration]: "DESC",
+      [PatchTasksQueryParams.Sorts]: undefined,
     });
   };
 
-  const { data, startPolling, stopPolling } = useQuery<
-    PatchTasksQuery,
-    PatchTasksQueryVariables
-  >(GET_PATCH_TASKS, {
+  const { data, loading, startPolling, stopPolling } = useQuery<
+    PatchTaskDurationsQuery,
+    PatchTaskDurationsQueryVariables
+  >(GET_PATCH_TASK_DURATIONS, {
     variables: queryVariables,
     skip: noQueryVariables,
     pollInterval,
-    fetchPolicy: "network-only",
-    nextFetchPolicy: "cache-and-network",
     onError: (err) => {
       dispatchToast.error(`Error fetching patch tasks ${err}`);
     },
   });
   usePolling(startPolling, stopPolling);
   const { patchTasks } = data || {};
-  const { tasks } = patchTasks || {};
+  const { tasks = [] } = patchTasks || {};
 
   return (
     <>
@@ -76,11 +75,9 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
         page={page}
         onClear={clearQueryParams}
       />
-      {!data ? (
-        <Skeleton active title={false} paragraph={{ rows: 8 }} />
-      ) : (
-        <PatchTasksTable sorts={sorts} tasks={tasks} />
-      )}
+      <TaskDurationTable tasks={tasks} loading={loading} />
     </>
   );
 };
+
+export default TaskDuration;
