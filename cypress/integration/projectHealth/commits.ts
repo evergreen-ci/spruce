@@ -10,7 +10,7 @@ describe("commits page", () => {
   });
   it("visiting the commits page for the first time should show a welcome modal", () => {
     cy.dataCy("welcome-modal").should("be.visible");
-    cy.dataCy("welcome-modal-close").click();
+    cy.dataCy("close-welcome-modal").click();
     cy.reload();
     cy.dataCy("welcome-modal").should("not.exist");
   });

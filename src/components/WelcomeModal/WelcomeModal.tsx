@@ -116,7 +116,7 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
               <Button
                 variant={Variant.Primary}
                 onClick={handleClosed}
-                data-cy="welcome-modal-close"
+                data-cy="close-welcome-modal"
               >
                 Done
               </Button>
