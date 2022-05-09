@@ -15,8 +15,9 @@ import { routes } from "constants/routes";
 import { zIndex, size } from "constants/tokens";
 import { newSpruceUser } from "constants/welcomeModalProps";
 import { useAuthStateContext } from "context/auth";
-import { GetUserQuery, GetUserSettingsQuery } from "gql/generated/types";
-import { GET_USER, GET_USER_SETTINGS } from "gql/queries";
+import { GetUserQuery } from "gql/generated/types";
+import { GET_USER } from "gql/queries";
+import { useUserSettings } from "hooks";
 import { useAnnouncementToast } from "hooks/useAnnouncementToast";
 import { PageDoesNotExist } from "pages/404";
 import { CommitQueue } from "pages/CommitQueue";
@@ -44,12 +45,13 @@ export const Content: React.VFC = () => {
   // afterware is used at apollo link level to authenticate or deauthenticate user based on response to query
   // therefore this could be any query as long as it is top-level
   const { data } = useQuery<GetUserQuery>(GET_USER);
-  const { data: userSettingsData } = useQuery<GetUserSettingsQuery>(
-    GET_USER_SETTINGS
-  );
-  const hasUsedSpruceBefore =
-    userSettingsData?.userSettings?.useSpruceOptions?.hasUsedSpruceBefore ===
-    false;
+  const { userSettings } = useUserSettings();
+
+  const { useSpruceOptions } = userSettings ?? {};
+  const { hasUsedSpruceBefore } = useSpruceOptions ?? {
+    hasUsedSpruceBefore: true,
+  };
+
   localStorage.setItem("userId", get(data, "user.userId", ""));
 
   useAnalyticsAttributes();
