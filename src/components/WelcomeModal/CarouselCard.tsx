@@ -31,13 +31,20 @@ const CarouselCard: React.VFC<CarouselCardProps> = ({ card, visible }) => {
       {title && <Subtitle>{title}</Subtitle>}
       {subtitle && <Body weight="medium">{subtitle}</Body>}
       <Body>{description}</Body>
-      {img && <ImgContainer src={`/static/img/${img}`} alt={alt} />}
+      {img && (
+        <ImgContainer
+          src={`/static/img/${img}`}
+          alt={alt}
+          data-cy="carousel-image"
+        />
+      )}
       {video && (
         <VideoContainer
           loop
           controls
           src={`/static/img/${video}`}
           ref={videoRef}
+          data-cy="carousel-video"
         />
       )}
     </CardContainer>
