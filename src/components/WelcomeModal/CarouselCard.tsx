@@ -28,8 +28,9 @@ const CarouselCard: React.VFC<CarouselCardProps> = ({ card, visible }) => {
   }, [visible]);
   return (
     <CardContainer>
-      {title && <Subtitle>{title}</Subtitle>}
-      {subtitle && <Body weight="medium">{subtitle}</Body>}
+      {/* @ts-expect-error */}
+      {title && <StyledTitle>{title}</StyledTitle>}
+      {subtitle && <StyledBody weight="medium">{subtitle}</StyledBody>}
       <Body>{description}</Body>
       {img && (
         <ImgContainer
@@ -70,6 +71,16 @@ const CardContainer = styled.div`
   flex-direction: column;
   padding-bottom: ${size.s};
   text-align: left;
+  user-select: none;
+  cursor: default;
 `;
 
+const StyledBody = styled(Body)`
+  margin-bottom: ${size.s};
+`;
+
+// @ts-expect-error
+const StyledTitle = styled(Subtitle)`
+  margin-bottom: ${size.s};
+`;
 export default CarouselCard;

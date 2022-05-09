@@ -76,7 +76,7 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
           open={visible}
           data-cy="welcome-modal"
           className={css`
-            z-index: ${zIndex.max_dont_use};
+            z-index: ${zIndex.max_do_not_use};
           `}
           size="large"
         >
