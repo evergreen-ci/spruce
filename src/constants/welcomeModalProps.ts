@@ -13,7 +13,6 @@ const newMainlineCommitsUser = [
     title: "Get a quick overview of your project's health",
     description:
       "A graph at the top of the page gives you an overview of the project's health. You can toggle the graph between an absolute number  and percentage.",
-    href: "https://evergreen.mongodb.com/patch/",
   },
   {
     video: "mainline_commits/carousel_3_05_06.webm",
