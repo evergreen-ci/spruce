@@ -92,7 +92,7 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
           >
             {carouselCards.map((card, index) => (
               <CarouselCard
-                key={`card_${card.subtitle}`}
+                key={`card_${card.subtitle ?? card.title}`}
                 card={{ ...card }}
                 visible={activeSlide === index}
               />
@@ -136,6 +136,7 @@ const StyledLink = styled(Link)`
 const CardTitle = styled(Subtitle)`
   display: flex;
   justify-content: center;
+  margin-bottom: ${size.s};
 `;
 
 const Footer = styled.div`
