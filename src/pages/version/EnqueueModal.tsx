@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import TextArea from "@leafygreen-ui/text-area";
 import { Description, InlineCode } from "@leafygreen-ui/typography";
@@ -10,8 +10,14 @@ import { useToastContext } from "context/toast";
 import {
   EnqueuePatchMutation,
   EnqueuePatchMutationVariables,
+  CodeChangesQuery,
+  CodeChangesQueryVariables,
 } from "gql/generated/types";
 import { ENQUEUE_PATCH } from "gql/mutations";
+import { GET_CODE_CHANGES } from "gql/queries";
+import { commits } from "utils";
+
+const { shouldPreserveCommits } = commits;
 
 interface EnqueueProps {
   patchId: string;
@@ -19,7 +25,6 @@ interface EnqueueProps {
   visible: boolean;
   onFinished: () => void;
   refetchQueries: string[];
-  preserveCommits: boolean;
 }
 export const EnqueuePatchModal: React.VFC<EnqueueProps> = ({
   patchId,
@@ -27,13 +32,25 @@ export const EnqueuePatchModal: React.VFC<EnqueueProps> = ({
   visible,
   onFinished,
   refetchQueries,
-  preserveCommits,
 }) => {
   const dispatchToast = useToastContext();
   const { sendEvent } = useVersionAnalytics(patchId);
   const [commitMessageValue, setCommitMessageValue] = useState<string>(
     commitMessage || ""
   );
+
+  const { data, previousData } = useQuery<
+    CodeChangesQuery,
+    CodeChangesQueryVariables
+  >(GET_CODE_CHANGES, {
+    variables: { id: patchId },
+    skip: !visible,
+  });
+  const { patch } = data ?? previousData ?? {};
+  const { moduleCodeChanges = [] } = patch ?? {};
+  const preserveCommits = moduleCodeChanges.length
+    ? shouldPreserveCommits(moduleCodeChanges[0].fileDiffs)
+    : false;
 
   const [enqueuePatch, { loading: loadingEnqueuePatch }] = useMutation<
     EnqueuePatchMutation,
