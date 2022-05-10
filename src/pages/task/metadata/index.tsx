@@ -173,7 +173,9 @@ export const Metadata: React.VFC<Props> = ({
           </P2>
         )}
         {details?.status === TaskStatus.Failed && (
-          <P2>Failing command: {details?.description}</P2>
+          <P2>
+            Failing command: {processFailingCommand(details?.description)}
+          </P2>
         )}
         {details?.timeoutType && details?.timeoutType !== "" && (
           <P2>Timeout type: {details?.timeoutType}</P2>
@@ -281,6 +283,13 @@ export const Metadata: React.VFC<Props> = ({
       </MetadataCard>
     </>
   );
+};
+
+const processFailingCommand = (description: string): string => {
+  if (description === "stranded") {
+    return "Task failed because spot host was unexpectedly terminated by AWS.";
+  }
+  return description;
 };
 
 const OOMTrackerMessage = styled(P2)`

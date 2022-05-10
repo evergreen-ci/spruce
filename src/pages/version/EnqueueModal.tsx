@@ -1,17 +1,23 @@
-import React, { useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useState } from "react";
+import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
 import TextArea from "@leafygreen-ui/text-area";
+import { Description, InlineCode } from "@leafygreen-ui/typography";
 import { useVersionAnalytics } from "analytics";
-import { Modal } from "components/Modal";
+import { ConfirmationModal } from "components/ConfirmationModal";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   EnqueuePatchMutation,
   EnqueuePatchMutationVariables,
+  CodeChangesQuery,
+  CodeChangesQueryVariables,
 } from "gql/generated/types";
 import { ENQUEUE_PATCH } from "gql/mutations";
+import { GET_CODE_CHANGES } from "gql/queries";
+import { commits } from "utils";
+
+const { shouldPreserveCommits } = commits;
 
 interface EnqueueProps {
   patchId: string;
@@ -28,6 +34,24 @@ export const EnqueuePatchModal: React.VFC<EnqueueProps> = ({
   refetchQueries,
 }) => {
   const dispatchToast = useToastContext();
+  const { sendEvent } = useVersionAnalytics(patchId);
+  const [commitMessageValue, setCommitMessageValue] = useState<string>(
+    commitMessage || ""
+  );
+
+  const { data, previousData } = useQuery<
+    CodeChangesQuery,
+    CodeChangesQueryVariables
+  >(GET_CODE_CHANGES, {
+    variables: { id: patchId },
+    skip: !visible,
+  });
+  const { patch } = data ?? previousData ?? {};
+  const { moduleCodeChanges = [] } = patch ?? {};
+  const preserveCommits = moduleCodeChanges.length
+    ? shouldPreserveCommits(moduleCodeChanges[0].fileDiffs)
+    : false;
+
   const [enqueuePatch, { loading: loadingEnqueuePatch }] = useMutation<
     EnqueuePatchMutation,
     EnqueuePatchMutationVariables
@@ -41,47 +65,40 @@ export const EnqueuePatchModal: React.VFC<EnqueueProps> = ({
     refetchQueries,
   });
 
-  const { sendEvent } = useVersionAnalytics(patchId);
-  const [commitMessageValue, setCommitMessageValue] = useState<string>(
-    commitMessage || ""
-  );
+  const onConfirm = () => {
+    enqueuePatch({
+      variables: { patchId, commitMessage: commitMessageValue },
+    });
+    sendEvent({ name: "Enqueue" });
+    onFinished();
+  };
 
   return (
-    <Modal
+    <ConfirmationModal
       title="Enqueue Patch"
-      visible={visible}
-      onOk={onFinished}
+      open={visible}
+      onConfirm={onConfirm}
       onCancel={onFinished}
-      footer={[
-        <Button key="cancel" onClick={onFinished}>
-          Cancel
-        </Button>,
-        <Button
-          key="enqueue"
-          data-cy="enqueue-patch-button"
-          disabled={commitMessageValue.length === 0 || loadingEnqueuePatch}
-          onClick={() => {
-            onFinished();
-            enqueuePatch({
-              variables: { patchId, commitMessage: commitMessageValue },
-            });
-            sendEvent({ name: "Enqueue" });
-          }}
-          variant="primary"
-        >
-          Enqueue
-        </Button>,
-      ]}
+      buttonText="Enqueue"
+      submitDisabled={commitMessageValue.length === 0 || loadingEnqueuePatch}
       data-cy="enqueue-modal"
     >
-      <StyledTextArea
-        id={COMMIT_MESSAGE_ID}
-        label="Commit Message"
-        description="Warning: submitting a patch to the commit queue will squash the commits."
-        value={commitMessageValue}
-        onChange={(e) => setCommitMessageValue(e.target.value)}
-      />
-    </Modal>
+      {preserveCommits ? (
+        <Description>
+          This patch was created with the{" "}
+          <InlineCode>--preserve-commits</InlineCode> option. All commits will
+          be preserved when merging.
+        </Description>
+      ) : (
+        <StyledTextArea
+          id={COMMIT_MESSAGE_ID}
+          label="Commit Message"
+          description="Warning: submitting a patch to the commit queue will squash the commits."
+          value={commitMessageValue}
+          onChange={(e) => setCommitMessageValue(e.target.value)}
+        />
+      )}
+    </ConfirmationModal>
   );
 };
 
