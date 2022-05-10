@@ -4,7 +4,7 @@ const newMainlineCommitsUser = [
     alt: "New UI preview image",
     title: "Welcome to the new mainline commits experience!",
     description:
-      "We designed this UI to make navigation faster and more intuitive. By default it displays failed tasks, but you can customize this view with filters.",
+      "We designed this UI to make navigation faster and more intuitive. By default it highlights failed tasks, but you can customize this view with filters.",
     href:
       "https://app.tango.us/app/workflow/Evergreen--Onboarding-guide-for-the-new-project-health-page--7b74b28c80f448869a01730a450bc246",
   },
