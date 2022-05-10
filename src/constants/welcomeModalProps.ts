@@ -35,7 +35,7 @@ const newMainlineCommitsUser = [
     video: "mainline_commits/carousel_5_05_06.webm",
     title: "Improved task history experience",
     description:
-      "You can get to the task history from the task details page by clicking on the see history button at the top of the page. You can also filter for specific test results by clicking see history on a test result. ",
+      "Access task history from the task details page by clicking on the ‘See History’ button at the top of the page. You can also filter for specific test results by clicking see history on a test result. ",
     href:
       "https://app.tango.us/app/workflow/Task-History--23e6b3f043234a19988d6ab0a0729598",
   },
