@@ -93,7 +93,7 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
             {carouselCards.map((card, index) => (
               <CarouselCard
                 key={`card_${card.subtitle ?? card.title}`}
-                card={{ ...card }}
+                card={card}
                 visible={activeSlide === index}
               />
             ))}
