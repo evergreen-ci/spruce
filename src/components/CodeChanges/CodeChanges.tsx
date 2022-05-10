@@ -17,7 +17,7 @@ import {
 import { GET_CODE_CHANGES } from "gql/queries";
 import { commits } from "utils";
 
-const { bucketByCommit } = commits;
+const { bucketByCommit, shouldPreserveCommits } = commits;
 
 export const CodeChanges: React.VFC = () => {
   const { id } = useParams<{ id: string }>();
@@ -101,15 +101,6 @@ export const CodeChanges: React.VFC = () => {
       })}
     </div>
   );
-};
-
-// We can tell that the user opted to preserve commits if the description of a fileDiff is non-empty,
-// as it will contain the associated commit message.
-const shouldPreserveCommits = (fileDiffs: FileDiffsFragment[]): boolean => {
-  if (fileDiffs.length && fileDiffs[0].description !== "") {
-    return true;
-  }
-  return false;
 };
 
 const sortFileDiffs = (fileDiffs: FileDiffsFragment[]): FileDiffsFragment[] =>

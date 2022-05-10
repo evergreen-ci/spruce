@@ -59,9 +59,6 @@ export const ChartToggle: React.VFC<{
                   data-cy="cy-chart-percent-radio"
                   id="chart-radio-percent"
                   value={ChartTypes.Percentage}
-                  className={css`
-                    font-weight: bold;
-                  `}
                 >
                   Percentage
                 </Radio>

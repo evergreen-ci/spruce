@@ -53,7 +53,7 @@ export const PatchesPage: React.VFC<Props> = ({
   const { limit, page } = getPatchesInputFromURLSearch(search);
   const { inputValue, setAndSubmitInputValue } = useFilterInputChangeHandler({
     urlParam: PatchPageQueryParams.PatchName,
-    resetPage: false,
+    resetPage: true,
     sendAnalyticsEvent: (filterBy: string) =>
       analyticsObject.sendEvent({ name: "Filter Patches", filterBy }),
   });
