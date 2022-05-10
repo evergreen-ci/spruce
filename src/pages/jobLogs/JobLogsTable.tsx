@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import Icon from "@leafygreen-ui/icon";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Table, TableHeader, Row, Cell } from "@leafygreen-ui/table";
 import { useLocation } from "react-router-dom";
@@ -8,7 +7,8 @@ import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { Button } from "components/Button";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
-import { TableSearchPopover } from "components/TableSearchPopover";
+import { TablePlaceholder } from "components/Table/TablePlaceholder";
+import { TableSearchPopover } from "components/TablePopover";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -17,7 +17,7 @@ import {
   GetTestsQueryVariables,
 } from "gql/generated/types";
 import { GET_TESTS } from "gql/queries";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { useFilterInputChangeHandler } from "hooks";
 import { queryString, url } from "utils";
 
 const { parseQueryString, getString } = queryString;
@@ -43,11 +43,17 @@ export const JobLogsTable: React.VFC<JobLogsTableProps> = ({
 }) => {
   const dispatchToast = useToastContext();
   const { sendEvent } = useJobLogsAnalytics();
-
   const { search } = useLocation();
-  const updateQueryParams = useUpdateURLQueryParams();
+
   const queryVariables = getQueryVariables(search, task, groupId);
   const { limitNum, pageNum } = queryVariables;
+
+  const testNameFilter = useFilterInputChangeHandler({
+    urlParam: "test",
+    resetPage: true,
+    sendAnalyticsEvent: (filterBy: string) =>
+      sendEvent({ name: "Filter Job Logs", filterBy }),
+  });
 
   const { data: testData, loading: isLoadingTests } = useQuery<
     GetTestsQuery,
@@ -80,12 +86,10 @@ export const JobLogsTable: React.VFC<JobLogsTableProps> = ({
                   Test Name
                   <TableSearchPopover
                     placeholder="Test name regex"
-                    onConfirm={(testName: string) =>
-                      updateQueryParams({
-                        test: testName || undefined,
-                        page: `${0}`,
-                      })
-                    }
+                    value={testNameFilter.inputValue}
+                    onChange={testNameFilter.setInputValue}
+                    onConfirm={testNameFilter.submitInputValue}
+                    data-cy="test-filter-popover"
                   />
                 </LabelWrapper>
               }
@@ -133,10 +137,7 @@ export const JobLogsTable: React.VFC<JobLogsTableProps> = ({
         </Table>
       </TableWrapper>
       {!isLoadingTests && testResults.length === 0 && (
-        <NoTestResults>
-          <Icon glyph="CurlyBraces" size="large" />
-          <Message> No test results found.</Message>
-        </NoTestResults>
+        <TablePlaceholder message="No test results found." />
       )}
     </Container>
   );
@@ -194,15 +195,4 @@ const ButtonWrapper = styled.div`
   > :first-of-type {
     margin-right: ${size.s};
   }
-`;
-const NoTestResults = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: ${size.l} 0;
-  background-color: ${gray.light2};
-  opacity: 50%;
-`;
-const Message = styled.div`
-  margin-top: ${size.xs};
 `;

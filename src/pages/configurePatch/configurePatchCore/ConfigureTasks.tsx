@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
@@ -61,12 +61,18 @@ export const ConfigureTasks: React.VFC<Props> = ({
     (count, taskObj) => count + Object.values(taskObj).filter((v) => v).length,
     0
   );
+  const currentTasks = useMemo(() => {
+    const tasks = selectedBuildVariants.map(
+      (bv) => selectedBuildVariantTasks[bv] || {}
+    );
+    return deduplicateTasks(tasks);
+  }, [selectedBuildVariantTasks, selectedBuildVariants]);
 
-  const tasks = selectedBuildVariants.map(
-    (bv) => selectedBuildVariantTasks[bv] || {}
+  const sortedCurrentTasks = useMemo(
+    () => Object.entries(currentTasks).sort((a, b) => a[0].localeCompare(b[0])),
+    [currentTasks]
   );
 
-  const currentTasks = deduplicateTasks(tasks);
   const currentAliases = getVisibleAliases(
     selectedAliases,
     selectedBuildVariants
@@ -128,7 +134,7 @@ export const ConfigureTasks: React.VFC<Props> = ({
     enumerateChildPatchTasks
   );
   const selectAllCheckboxCopy =
-    Object.entries(currentTasks).length === 0
+    sortedCurrentTasks.length === 0
       ? `Add alias${selectedBuildVariants.length > 1 ? "es" : ""} to patch`
       : `Select all tasks in ${
           selectedBuildVariants.length > 1 ? "these variants" : "this variant"
@@ -186,7 +192,7 @@ export const ConfigureTasks: React.VFC<Props> = ({
         {selectedTaskDisclaimerCopy}
       </StyledDisclaimer>
       <Tasks data-cy="configurePatch-tasks">
-        {Object.entries(currentTasks).map(([name, status]) => (
+        {sortedCurrentTasks.map(([name, status]) => (
           <Checkbox
             data-cy="task-checkbox"
             key={name}
@@ -347,12 +353,15 @@ const getVisibleChildPatches = (
   );
 };
 
+interface DeduplicateTasksResult {
+  [task: string]: CheckboxState;
+}
 const deduplicateTasks = (
   currentTasks: {
     [task: string]: boolean;
   }[]
-) => {
-  const visibleTasks = {};
+): DeduplicateTasksResult => {
+  const visibleTasks: DeduplicateTasksResult = {};
   currentTasks.forEach((bv) => {
     Object.entries(bv).forEach(([taskName, value]) => {
       switch (visibleTasks[taskName]) {
