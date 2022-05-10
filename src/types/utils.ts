@@ -44,3 +44,6 @@ export type OneOf<T1, T2> =
 export type Subset<K> = {
   [S in keyof K]?: K[S] extends object ? Subset<K[S]> : K[S];
 };
+
+/** Helper function that takes in a complex typescript type and evaluates it for easy debugging */
+export type Evaluated<T> = {} & { [P in keyof T]: T[P] };
