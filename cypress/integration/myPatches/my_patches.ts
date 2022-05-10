@@ -46,6 +46,11 @@ describe("My Patches Page", () => {
       paramName: "patchName",
       search: inputVal,
     });
+    urlSearchParamsAreUpdated({
+      pathname: MY_PATCHES_ROUTE,
+      paramName: "page",
+      search: 0,
+    });
     cy.dataCy("patch-description-input").clear();
   });
 
