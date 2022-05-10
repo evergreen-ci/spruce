@@ -99,7 +99,7 @@ describe("inactiveCommitButton", () => {
 const time = new Date("2021-06-16T23:38:13Z");
 const versions = [
   {
-    id: "123",
+    id: "1",
     createTime: time,
     message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
     order: 39365,
@@ -107,7 +107,7 @@ const versions = [
     revision: "4137c33fa4a0d5c747a1115f0853b5f70e46f112",
   },
   {
-    id: "123",
+    id: "2",
     createTime: time,
     message: "SERVER-57333 Some complicated server commit",
     order: 39366,
@@ -115,7 +115,7 @@ const versions = [
     revision: "4237c33fa4a0d5c747a1115f0853b5f70e46f113",
   },
   {
-    id: "123",
+    id: "3",
     createTime: time,
     message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
     order: 39365,
@@ -123,7 +123,7 @@ const versions = [
     revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f114",
   },
   {
-    id: "123",
+    id: "4",
     createTime: time,
     message: "SERVER-57333 Some complicated server commit",
     order: 39366,
@@ -131,7 +131,7 @@ const versions = [
     revision: "4437c33fa4a0d5c747a1115f0853b5f70e46f115",
   },
   {
-    id: "123",
+    id: "5",
     createTime: time,
     message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
     order: 39365,
@@ -139,7 +139,7 @@ const versions = [
     revision: "4537c33fa4a0d5c747a1115f0853b5f70e46f116",
   },
   {
-    id: "123",
+    id: "6",
     createTime: time,
     message: "SERVER-57333 Some complicated server commit",
     order: 39366,
