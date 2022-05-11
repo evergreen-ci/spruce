@@ -9,10 +9,11 @@ import {
   SUBSCRIPTION_METHOD,
 } from "constants/cookies";
 import { clearExtraFieldsInputCb } from "constants/triggers";
-import { GetUserSettingsQuery, GetUserQuery } from "gql/generated/types";
-import { GET_USER_SETTINGS, GET_USER } from "gql/queries";
+import { GetUserQuery } from "gql/generated/types";
+import { GET_USER } from "gql/queries";
 import { SUBSCRIPTION_SLACK, SUBSCRIPTION_EMAIL } from "types/subscription";
 import { Trigger } from "types/triggers";
+import { useUserSettings } from "./useUserSettings";
 
 export interface UseNotificationModalProps {
   subscriptionMethodControls: SubscriptionMethods;
@@ -30,15 +31,13 @@ export const useNotificationModal = ({
   resourceId,
   type,
 }: UseNotificationModalProps) => {
-  // USER SETTINGS QUERY
-  const { data: userSettingsData } = useQuery<GetUserSettingsQuery>(
-    GET_USER_SETTINGS
-  );
-
+  const { userSettings } = useUserSettings();
   // USER QUERY
   const { data: userData } = useQuery<GetUserQuery>(GET_USER);
-  const slackUsername = userSettingsData?.userSettings?.slackUsername;
-  const emailAddress = userData?.user?.emailAddress;
+
+  const { slackUsername } = userSettings || {};
+  const { user } = userData || {};
+  const { emailAddress } = user || {};
 
   const [
     selectedSubscriptionMethod,

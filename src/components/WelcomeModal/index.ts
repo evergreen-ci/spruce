@@ -1,3 +1,5 @@
 import { loadable } from "components/SpruceLoader";
 
-export const WelcomeModal = loadable(() => import("./WelcomeModal"));
+const WelcomeModal = loadable(() => import("./WelcomeModal"));
+
+export default WelcomeModal;

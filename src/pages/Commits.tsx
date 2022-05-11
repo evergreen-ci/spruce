@@ -11,10 +11,12 @@ import { ProjectSelect } from "components/projectSelect";
 import { PageWrapper } from "components/styles";
 import { ALL_VALUE } from "components/TreeSelect";
 import TupleSelect from "components/TupleSelect";
+import WelcomeModal from "components/WelcomeModal";
 import { CURRENT_PROJECT } from "constants/cookies";
 import { pollInterval } from "constants/index";
 import { getCommitsRoute } from "constants/routes";
 import { size } from "constants/tokens";
+import { newMainlineCommitsUser } from "constants/welcomeModalProps";
 import { useToastContext } from "context/toast";
 import {
   GetSpruceConfigQuery,
@@ -23,7 +25,12 @@ import {
   MainlineCommitsQueryVariables,
 } from "gql/generated/types";
 import { GET_MAINLINE_COMMITS, GET_SPRUCE_CONFIG } from "gql/queries";
-import { usePageTitle, usePolling, useUpsertQueryParams } from "hooks";
+import {
+  usePageTitle,
+  usePolling,
+  useUpsertQueryParams,
+  useUserSettings,
+} from "hooks";
 import { ProjectFilterOptions, MainlineCommitQueryParams } from "types/commits";
 import { array, queryString, validators } from "utils";
 import { CommitsWrapper } from "./commits/CommitsWrapper";
@@ -44,6 +51,12 @@ export const Commits = () => {
   const { replace } = useHistory();
   const { search } = useLocation();
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
+  const { userSettings } = useUserSettings();
+  const { useSpruceOptions } = userSettings ?? {};
+  const { hasUsedMainlineCommitsBefore } = useSpruceOptions ?? {
+    hasUsedMainlineCommitsBefore: true,
+  };
+
   const parsed = parseQueryString(search);
 
   // get query params from url
@@ -192,6 +205,12 @@ export const Commits = () => {
           hasFilters={hasFilters}
         />
       </PageContainer>
+      {!hasUsedMainlineCommitsBefore && (
+        <WelcomeModal
+          param="hasUsedMainlineCommitsBefore"
+          carouselCards={newMainlineCommitsUser}
+        />
+      )}
     </PageWrapper>
   );
 };
