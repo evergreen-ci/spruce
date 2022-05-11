@@ -431,7 +431,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
         width={200}
       >
         <div
-          className="css-1yvn8p6-LabelContainer e1cz15301"
+          className="css-3j3zz7-LabelContainer e1cz15301"
           data-cy="commit-label"
         >
           <div
@@ -484,7 +484,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
         width={200}
       >
         <div
-          className="css-1yvn8p6-LabelContainer e1cz15301"
+          className="css-3j3zz7-LabelContainer e1cz15301"
           data-cy="commit-label"
         >
           <div
@@ -549,7 +549,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
         width={200}
       >
         <div
-          className="css-1yvn8p6-LabelContainer e1cz15301"
+          className="css-3j3zz7-LabelContainer e1cz15301"
           data-cy="commit-label"
         >
           <div
@@ -602,7 +602,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
         width={200}
       >
         <div
-          className="css-1yvn8p6-LabelContainer e1cz15301"
+          className="css-3j3zz7-LabelContainer e1cz15301"
           data-cy="commit-label"
         >
           <div
@@ -647,7 +647,7 @@ exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
         width={200}
       >
         <div
-          className="css-1yvn8p6-LabelContainer e1cz15301"
+          className="css-3j3zz7-LabelContainer e1cz15301"
           data-cy="commit-label"
         >
           <div
