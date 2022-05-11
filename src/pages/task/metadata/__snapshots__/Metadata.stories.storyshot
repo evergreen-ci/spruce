@@ -74,7 +74,7 @@ exports[`storybook Storyshots Metadata Base 1`] = `
         href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
         onClick={[Function]}
       >
-        e0ece5ad52
+        e0ece5a
       </a>
     </p>
     <p
@@ -202,7 +202,7 @@ exports[`storybook Storyshots Metadata With Abort Message 1`] = `
         href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
         onClick={[Function]}
       >
-        e0ece5ad52
+        e0ece5a
       </a>
     </p>
     <p
@@ -330,7 +330,7 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
         href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
         onClick={[Function]}
       >
-        e0ece5ad52
+        e0ece5a
       </a>
     </p>
     <p

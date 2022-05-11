@@ -15,7 +15,7 @@ import { string } from "utils";
 import ManifestBlob from "./ManifestBlob";
 import { ParametersModal } from "./ParametersModal";
 
-const { msToDuration, getDateCopy } = string;
+const { msToDuration, getDateCopy, shortenGithash } = string;
 
 interface Props {
   loading: boolean;
@@ -79,7 +79,7 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
             to={getVersionRoute(baseVersion?.id)}
             onClick={() => sendEvent({ name: "Click Base Commit Link" })}
           >
-            {revision.slice(0, 10)}
+            {shortenGithash(revision)}
           </StyledRouterLink>
         </P2>
       ) : (
@@ -90,7 +90,7 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
             to={getVersionRoute(previousVersion?.id)}
             onClick={() => sendEvent({ name: "Click Previous Version Link" })}
           >
-            {previousVersion?.revision.slice(0, 10)}
+            {shortenGithash(previousVersion?.revision)}
           </StyledRouterLink>
         </P2>
       )}
@@ -102,7 +102,7 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
             href={getGithubCommitUrl(owner, repo, revision)}
             onClick={() => sendEvent({ name: "Click Github Commit Link" })}
           >
-            {revision.slice(0, 10)}
+            {shortenGithash(revision)}
           </StyledLink>
         </P2>
       )}
