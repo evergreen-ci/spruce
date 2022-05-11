@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { getVersionRoute } from "constants/routes";
 import {
@@ -10,7 +10,10 @@ import {
 } from "constants/task";
 import { fontSize, size, zIndex } from "constants/tokens";
 import { TaskStatus } from "types/task";
-import { applyStrictRegex } from "utils/string";
+import { queryString, string } from "utils";
+
+const { applyStrictRegex } = string;
+const { parseQueryString } = queryString;
 
 interface Props {
   status: TaskStatus;
@@ -19,6 +22,7 @@ interface Props {
   statusCounts?: { [key: string]: number };
   versionId: string;
   variant?: string;
+  preserveSorts?: boolean;
 }
 
 export const GroupedTaskStatusBadge: React.VFC<Props> = ({
@@ -28,12 +32,19 @@ export const GroupedTaskStatusBadge: React.VFC<Props> = ({
   statusCounts,
   versionId,
   variant,
+  preserveSorts = false,
 }) => {
+  const { search } = useLocation();
+  const { sorts } = parseQueryString(search);
+
   const href = getVersionRoute(versionId, {
-    statuses: mapUmbrellaStatusToQueryParam[status],
+    ...(preserveSorts && { sorts }),
     ...(variant && { variant: applyStrictRegex(variant) }),
+    statuses: mapUmbrellaStatusToQueryParam[status],
   });
+
   const { fill, border, text } = mapUmbrellaStatusColors[status];
+
   return (
     <Tooltip
       enabled={!!statusCounts}
