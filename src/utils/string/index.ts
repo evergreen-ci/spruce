@@ -227,4 +227,4 @@ export const joinWithConjunction = (array: string[], conjunction: string) => {
  * @param {string} str - string to remove new lines from
  * @return {string} string with new lines removed
  */
-export const stripNewLines = (str: string) => str?.replace(/\n/g, "");
+export const stripNewLines = (str: string) => str.replace(/\n/g, "");
