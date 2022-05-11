@@ -1,7 +1,8 @@
 import { useVersionAnalytics } from "analytics";
 import { MetadataCard } from "components/MetadataCard";
-import { StyledRouterLink } from "components/styles";
+import { StyledLink, StyledRouterLink } from "components/styles";
 import { P2 } from "components/Typography";
+import { getGithubCommitUrl } from "constants/externalResources";
 import {
   getCommitQueueRoute,
   getProjectPatchesRoute,
@@ -39,6 +40,7 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
     id,
     previousVersion,
     upstreamProject,
+    projectMetadata,
   } = version || {};
   const { sendEvent } = useVersionAnalytics(id);
   const { commitQueuePosition } = patch || {};
@@ -49,6 +51,8 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
     task: upstreamTask,
     version: upstreamVersion,
   } = upstreamProject || {};
+
+  const { repo, owner } = projectMetadata || {};
   return (
     <MetadataCard
       loading={loading}
@@ -88,6 +92,18 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
           >
             {previousVersion?.revision.slice(0, 10)}
           </StyledRouterLink>
+        </P2>
+      )}
+      {!isPatch && (
+        <P2>
+          Github Commit:
+          <StyledLink
+            data-cy="version-github-commit"
+            href={getGithubCommitUrl(owner, repo, revision)}
+            onClick={() => sendEvent({ name: "Click Github Commit Link" })}
+          >
+            {revision.slice(0, 10)}
+          </StyledLink>
         </P2>
       )}
       {isPatch && commitQueuePosition !== null && (
