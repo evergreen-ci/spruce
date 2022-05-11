@@ -55,7 +55,7 @@ export const NewUITab: React.VFC = () => {
   };
 
   const handleOnChangePolling = () => {
-    const nextState = Cookies.get(DISABLE_QUERY_POLLING) === "false";
+    const nextState = Cookies.get(DISABLE_QUERY_POLLING) !== "true";
     sendEvent({
       name: "Toggle polling",
       value: nextState ? "Enabled" : "Disabled",
@@ -85,7 +85,7 @@ export const NewUITab: React.VFC = () => {
           Allow background polling for the current browser.
         </PaddedBody>
         <Toggle
-          checked={Cookies.get(DISABLE_QUERY_POLLING) === "false"}
+          checked={Cookies.get(DISABLE_QUERY_POLLING) !== "true"}
           onChange={handleOnChangePolling}
           aria-label="Toggle new evergreen ui"
         />
