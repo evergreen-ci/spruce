@@ -1,6 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { fireEvent } from "@testing-library/react";
 import { renderHook, act } from "@testing-library/react-hooks";
+import { DISABLE_QUERY_POLLING } from "constants/cookies";
 import { GET_USER } from "gql/queries";
 import { usePolling } from "hooks";
 
@@ -13,6 +14,10 @@ describe("usePolling", () => {
     Object.defineProperty(document, "visibilityState", {
       value: "visible",
       configurable: true,
+    });
+    Object.defineProperty(document, "cookie", {
+      value: `${DISABLE_QUERY_POLLING}=false`,
+      writable: true,
     });
   });
 
@@ -29,6 +34,64 @@ describe("usePolling", () => {
     expect(startPolling).toHaveBeenCalledTimes(0);
     expect(stopPolling).toHaveBeenCalledTimes(0);
     expect(result.current).toBe(true);
+  });
+
+  it("usePolling evaluates to false when polling is disabled", async () => {
+    Object.defineProperty(window.document, "cookie", {
+      writable: true,
+      value: `${DISABLE_QUERY_POLLING}=true`,
+    });
+    const { result, waitForNextUpdate } = renderHook(
+      () => usePolling(undefined, undefined, false),
+      { wrapper: Provider }
+    );
+    await waitForNextUpdate();
+    expect(result.current).toBe(false);
+    const pollingInitialized = renderHook(
+      () => usePolling(undefined, undefined, true),
+      {
+        wrapper: Provider,
+      }
+    );
+    await pollingInitialized.waitForNextUpdate();
+    expect(pollingInitialized.result.current).toBe(false);
+  });
+  it("usePolling should not call the functions when polling is disabled.", async () => {
+    const startPolling = jest.fn();
+    const stopPolling = jest.fn();
+    Object.defineProperty(window.document, "cookie", {
+      writable: true,
+      value: `${DISABLE_QUERY_POLLING}=true`,
+    });
+    const { waitForNextUpdate } = renderHook(
+      () => usePolling(startPolling, stopPolling),
+      { wrapper: Provider }
+    );
+    await waitForNextUpdate();
+    // go offline
+    act(() => {
+      fireEvent(window, new Event("offline"));
+    });
+    // go online
+    act(() => {
+      fireEvent(window, new Event("online"));
+    });
+    // document hidden
+    act(() => {
+      Object.defineProperty(document, "visibilityState", {
+        value: "hidden",
+      });
+      fireEvent(document, new Event("visibilitychange"));
+    });
+    // document visible
+    act(() => {
+      Object.defineProperty(document, "visibilityState", {
+        value: "visible",
+      });
+      fireEvent(document, new Event("visibilitychange"));
+    });
+    expect(startPolling).toHaveBeenCalledTimes(0);
+    expect(stopPolling).toHaveBeenCalledTimes(0);
   });
 
   it("usePolling should be able to be initialized with an initialPollingState", async () => {
