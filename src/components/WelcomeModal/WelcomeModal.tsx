@@ -120,7 +120,7 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
                 onClick={handleClosed}
                 data-cy="close-welcome-modal"
               >
-                Done
+                Close
               </Button>
             </div>
           </Footer>
