@@ -1,5 +1,7 @@
 import { useState } from "react";
+import Cookies from "js-cookie";
 import { usePollingAnalytics } from "analytics";
+import { DISABLE_QUERY_POLLING } from "constants/cookies";
 import { pollInterval } from "constants/index";
 import { useNetworkStatus } from "./useNetworkStatus";
 import { usePageVisibility } from "./usePageVisibility";
@@ -30,6 +32,10 @@ export const usePolling: usePollingType = (
   const [isPolling, setIsPolling] = useState(initialPollingState);
   const isOnline = useNetworkStatus();
   const isVisible = usePageVisibility();
+
+  if (Cookies.get(DISABLE_QUERY_POLLING) === "true") {
+    return false;
+  }
 
   if (!isOnline && isPolling && stopPolling) {
     // If offline and polling, stop polling.
