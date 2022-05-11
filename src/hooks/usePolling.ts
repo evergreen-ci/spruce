@@ -19,7 +19,7 @@ type usePollingType = {
  * Depending on these values, it calls start and stop polling functions supplied from an
  * Apollo useQuery hook.
  * @param startPolling - Function from useQuery that is called when online & visible
- * @param stopPolling - Function from useQuery that is called when offline, not visible or polling is disabled
+ * @param stopPolling - Function from useQuery that is called when offline or not visible
  * @returns boolean - true if polling, false if not polling
  */
 export const usePolling: usePollingType = (
