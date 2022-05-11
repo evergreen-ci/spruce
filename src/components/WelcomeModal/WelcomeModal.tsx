@@ -79,6 +79,7 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
             z-index: ${zIndex.max_do_not_use};
           `}
           size="large"
+          initialFocus=".slick-active"
         >
           {/* @ts-expect-error */}
           {title && <CardTitle>{title}</CardTitle>}
