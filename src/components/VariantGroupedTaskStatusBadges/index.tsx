@@ -13,12 +13,14 @@ interface Props {
   statusCounts: StatusCount[];
   versionId: string;
   onClick?: (statuses: string[]) => () => void;
+  preserveSorts?: boolean;
 }
 const VariantGroupedTaskStatusBadges: React.VFC<Props> = ({
   variant,
   statusCounts,
   versionId,
   onClick = () => () => {},
+  preserveSorts = false,
 }) => {
   const { stats } = groupStatusesByUmbrellaStatus(statusCounts ?? []);
 
@@ -27,13 +29,14 @@ const VariantGroupedTaskStatusBadges: React.VFC<Props> = ({
       {stats.map(
         ({ umbrellaStatus, count, statusCounts: groupedStatusCounts }) => (
           <GroupedTaskStatusBadge
+            key={`${versionId}_${variant}_${umbrellaStatus}`}
             variant={variant}
             versionId={versionId}
             status={umbrellaStatus}
             count={count}
             onClick={onClick(Object.keys(groupedStatusCounts))}
             statusCounts={groupedStatusCounts}
-            key={`${versionId}_${variant}_${umbrellaStatus}`}
+            preserveSorts={preserveSorts}
           />
         )
       )}

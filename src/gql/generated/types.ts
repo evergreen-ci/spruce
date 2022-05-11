@@ -4229,6 +4229,7 @@ export type GetUserSettingsQuery = {
     useSpruceOptions?: Maybe<{
       hasUsedSpruceBefore?: Maybe<boolean>;
       spruceV1?: Maybe<boolean>;
+      hasUsedMainlineCommitsBefore?: Maybe<boolean>;
     }>;
   }>;
 };
