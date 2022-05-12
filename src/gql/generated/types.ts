@@ -517,6 +517,7 @@ export type Version = {
   repo: Scalars["String"];
   project: Scalars["String"];
   projectIdentifier: Scalars["String"];
+  projectMetadata?: Maybe<Project>;
   branch: Scalars["String"];
   requester: Scalars["String"];
   activated?: Maybe<Scalars["Boolean"]>;
