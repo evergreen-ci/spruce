@@ -119,6 +119,7 @@ interface GetVersionRouteOptions {
   variant?: string;
   page?: number;
   statuses?: string[];
+  sorts?: string | string[];
 }
 export const getVersionRoute = (
   versionId: string,
