@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, useParams, Redirect, Link } from "react-router-dom";
+import { Route, useParams, Navigate, Link } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
 import {
   PageWrapper,
@@ -16,7 +16,7 @@ export const Spawn: React.VFC = () => {
   const spawnAnalytics = useSpawnAnalytics();
   useEffect(() => {}, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
   if (!tabRouteValues.includes(tab as SpawnTab)) {
-    return <Redirect to={routes.spawnHost} />;
+    return <Navigate to={routes.spawnHost} />;
   }
 
   return (

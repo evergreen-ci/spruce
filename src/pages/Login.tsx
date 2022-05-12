@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { Location } from "history";
-import { Redirect, RouteComponentProps } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useAuthDispatchContext, useAuthStateContext } from "context/auth";
 
-const getReferrer = (location: Location<{ referrer?: string }>): string => {
-  if (location && location.state && "referrer" in location.state) {
-    return location.state.referrer;
-  }
-  return "/";
-};
+const getReferrer = (location: Location): string =>
+  // ts-ignore next-line
+  location.state?.referrer ?? "/";
 
-export const Login: React.VFC<RouteComponentProps> = ({ location }) => {
+export const Login: React.VFC = () => {
+  const location = useLocation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -29,7 +27,7 @@ export const Login: React.VFC<RouteComponentProps> = ({ location }) => {
   };
 
   if (isAuthenticated) {
-    return <Redirect to={getReferrer(location)} />;
+    return <Navigate to={getReferrer(location)} />;
   }
   return (
     <Wrapper>
