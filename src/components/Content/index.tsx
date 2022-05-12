@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import get from "lodash/get";
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { useAnalyticsAttributes } from "analytics";
 import { Feedback } from "components/Feedback";
 import { Header } from "components/Header";
@@ -65,38 +65,37 @@ export const Content: React.VFC = () => {
   return (
     <PageGrid>
       <Header />
-      <Switch>
-        <Route path={routes.task} component={Task} />
-        <Route path={routes.configurePatch} component={ConfigurePatch} />
-        <Route exact path={routes.patch} component={VersionPage} />
-        <Route path={routes.version} component={VersionPage} />
-        <Route path={routes.jobLogs} component={JobLogs} />
-        <Route path={routes.hosts} component={Hosts} />
-        <Route path={routes.host} component={Host} />
-        <Route path={routes.myPatches} component={MyPatches} />
+      <Routes>
+        <Route path={routes.task} element={<Task />} />
+        <Route path={routes.configurePatch} element={<ConfigurePatch />} />
+        <Route exact path={routes.patch} element={<VersionPage />} />
+        <Route path={routes.version} element={<VersionPage />} />
+        <Route path={routes.jobLogs} element={<JobLogs />} />
+        <Route path={routes.hosts} element={<Hosts />} />
+        <Route path={routes.host} element={<Host />} />
+        <Route path={routes.myPatches} element={<MyPatches />} />
         <Route
-          exact
           path={routes.userPatchesRedirect}
-          component={UserPatchesRedirect}
+          element={<UserPatchesRedirect />}
         />
         <Route
           path={routes.projectSettingsRedirect}
-          component={ProjectSettingsRedirect}
+          element={<ProjectSettingsRedirect />}
         />
-        <Route path={routes.userPatches} component={UserPatches} />
-        <Route path={routes.taskQueue} component={TaskQueue} />
-        <Route path={routes.projectPatches} component={ProjectPatches} />
-        <Route path={routes.projectSettings} component={ProjectSettings} />
-        <Route path={routes.spawn} component={Spawn} />
-        <Route path={routes.commitQueue} component={CommitQueue} />
-        <Route path={routes.preferences} component={Preferences} />
-        <Route path={routes.commits} component={Commits} />
-        <Route path={routes.taskHistory} component={TaskHistory} />
-        <Route path={routes.variantHistory} component={VariantHistory} />
-        <Route exact path="/" component={MyPatches} />
+        <Route path={routes.userPatches} element={<UserPatches />} />
+        <Route path={routes.taskQueue} element={<TaskQueue />} />
+        <Route path={routes.projectPatches} element={<ProjectPatches />} />
+        <Route path={routes.projectSettings} element={<ProjectSettings />} />
+        <Route path={routes.spawn} element={<Spawn />} />
+        <Route path={routes.commitQueue} element={<CommitQueue />} />
+        <Route path={routes.preferences} element={<Preferences />} />
+        <Route path={routes.commits} element={<Commits />} />
+        <Route path={routes.taskHistory} element={<TaskHistory />} />
+        <Route path={routes.variantHistory} element={<VariantHistory />} />
+        <Route exact path="/" element={<MyPatches />} />
 
-        <Route component={PageDoesNotExist} />
-      </Switch>
+        <Route element={<PageDoesNotExist />} />
+      </Routes>
       {!hasUsedSpruceBefore && (
         <WelcomeModal
           title="Welcome to the New Evergreen UI!"
