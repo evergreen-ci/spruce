@@ -241,6 +241,7 @@ export const LeafyGreenRadioBox: React.VFC<
     errors,
     marginBottom,
     showLabel,
+    warnings,
   } = options;
 
   // Workaround because {ui:widget: hidden} does not play nicely with this widget
@@ -263,7 +264,14 @@ export const LeafyGreenRadioBox: React.VFC<
         </RadioBoxLabelContainer>
       )}
       {!!errors?.length && (
-        <StyledBanner variant="danger">{errors?.join(", ")}</StyledBanner>
+        <StyledBanner variant="danger" data-cy="error-banner">
+          {errors.join(", ")}
+        </StyledBanner>
+      )}
+      {!!warnings?.length && (
+        <StyledBanner variant="warning" data-cy="warning-banner">
+          {warnings.join(", ")}
+        </StyledBanner>
       )}
       <RadioBoxGroup
         id={id}

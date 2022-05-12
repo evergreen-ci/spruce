@@ -3,10 +3,10 @@ import { AliasFormType, ProjectType } from "../utils";
 
 const { joinWithConjunction } = string;
 
-enum ErrorType {
-  Error,
-  Warning,
+export enum ErrorType {
   None,
+  Warning,
+  Error,
 }
 
 const getErrorStyle = (
@@ -44,6 +44,37 @@ const getErrorStyle = (
   return {};
 };
 
+export const getVersionControlError = (
+  versionControlEnabled: boolean,
+  projectType: ProjectType
+) => (
+  override: boolean,
+  aliases: Array<AliasFormType>,
+  repoAliases: Array<AliasFormType>
+) => {
+  switch (projectType) {
+    case ProjectType.AttachedProject:
+      if (override && !aliases?.length) {
+        if (versionControlEnabled) {
+          return ErrorType.Warning;
+        }
+        return ErrorType.Error;
+      }
+      if (!override && !repoAliases?.length) {
+        return ErrorType.Warning;
+      }
+      return ErrorType.None;
+    default:
+      if (!aliases?.length) {
+        if (versionControlEnabled) {
+          return ErrorType.Warning;
+        }
+        return ErrorType.Error;
+      }
+      return ErrorType.None;
+  }
+};
+
 export const sectionHasError = (
   versionControlEnabled: boolean,
   projectType: ProjectType
@@ -53,32 +84,38 @@ export const sectionHasError = (
   repoAliases: Array<AliasFormType>,
   fieldName: string
 ): ReturnType<typeof getErrorStyle> => {
-  let errorType = ErrorType.None;
-  switch (projectType) {
-    case ProjectType.AttachedProject:
-      if (override && !aliases?.length) {
-        if (versionControlEnabled) {
-          errorType = ErrorType.Warning;
-        } else {
-          errorType = ErrorType.Error;
-        }
-      } else if (!override && !repoAliases?.length) {
-        errorType = ErrorType.Warning;
-      }
-      break;
-    default:
-      if (!aliases?.length) {
-        if (versionControlEnabled) {
-          errorType = ErrorType.Warning;
-        } else {
-          errorType = ErrorType.Error;
-        }
-      }
-  }
+  const errorType = getVersionControlError(versionControlEnabled, projectType)(
+    override,
+    aliases,
+    repoAliases
+  );
   return getErrorStyle(
     errorType,
     versionControlEnabled,
     projectType,
     fieldName
   );
+};
+
+export const githubConflictErrorStyling = (
+  conflictProjects: string[] | null,
+  fieldEnabled: boolean,
+  repoFieldEnabled: boolean,
+  fieldName: string
+) => {
+  if (!conflictProjects?.length) {
+    return {};
+  }
+
+  const bannerKey =
+    fieldEnabled || (fieldEnabled === null && repoFieldEnabled)
+      ? "ui:errors"
+      : "ui:warnings";
+  return {
+    [bannerKey]: [
+      `Enabling ${fieldName} would introduce conflicts with the following project(s): ${conflictProjects.join(
+        ", "
+      )}. To enable ${fieldName} for this project please disable it elsewhere.`,
+    ],
+  };
 };
