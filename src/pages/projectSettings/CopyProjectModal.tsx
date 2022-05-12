@@ -67,7 +67,7 @@ export const CopyProjectModal: React.VFC<Props> = ({
         );
       }
       replace(getProjectSettingsRoute(identifier));
-    } else {
+    } else if (error) {
       dispatchToast.error(
         `There was an error creating the project: ${error?.message}`
       );

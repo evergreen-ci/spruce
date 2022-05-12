@@ -802,7 +802,7 @@ describe("Renaming the identifier", () => {
   });
 });
 
-describe("Duplicating a project witth errors", () => {
+describe("Duplicating a project with errors", () => {
   const destination = getGeneralRoute(project);
 
   before(() => {
