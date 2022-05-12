@@ -223,6 +223,7 @@ describe("useNotificationModal", () => {
               useSpruceOptions: {
                 hasUsedSpruceBefore: true,
                 spruceV1: true,
+                hasUsedMainlineCommitsBefore: true,
                 __typename: "UseSpruceOptions",
               },
               __typename: "UserSettings",

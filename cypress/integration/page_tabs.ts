@@ -20,6 +20,15 @@ describe("Tabs", () => {
       );
     });
 
+    it("Applies default sorts on task duration tab", () => {
+      cy.visit(`${patchRoute}/task-duration`);
+      cy.get(`button[data-cy='${patches.duration.btn}']`)
+        .should("have.attr", "aria-selected")
+        .and("eq", "true");
+      locationPathEquals(patches.duration.route);
+      cy.location("search").should("contain", "duration=DESC");
+    });
+
     it("Applies default sorts on task tab when switching from another tab without any filters", () => {
       cy.visit(`${patchRoute}/changes`);
       cy.get(`button[data-cy='${patches.changes.btn}']`)
@@ -122,6 +131,7 @@ describe("Tabs", () => {
   const patches = {
     changes: { route: `${patchRoute}/changes`, btn: "changes-tab" },
     tasks: { route: `${patchRoute}/tasks`, btn: "task-tab" },
+    duration: { route: `${patchRoute}/task-duration`, btn: "duration-tab" },
   };
 
   const tasks = {

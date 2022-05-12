@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import Card from "@leafygreen-ui/card";
 import TextInput from "@leafygreen-ui/text-input";
+import { Skeleton } from "antd";
 import { usePreferencesAnalytics } from "analytics";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -12,7 +13,7 @@ import {
   UpdateUserSettingsMutationVariables,
 } from "gql/generated/types";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
-import { useUserSettingsQuery } from "hooks/useUserSettingsQuery";
+import { useUserSettings } from "hooks";
 import { string } from "utils";
 import { ClearSubscriptionsCard } from "./notificationTab/ClearSubscriptionsCard";
 import { NotificationField } from "./notificationTab/NotificationField";
@@ -21,8 +22,8 @@ const { omitTypename } = string;
 
 export const NotificationsTab: React.VFC = () => {
   const dispatchToast = useToastContext();
-  const { data, loadingComp } = useUserSettingsQuery();
-  const { slackUsername, notifications } = data?.userSettings ?? {};
+  const { userSettings, loading } = useUserSettings();
+  const { slackUsername, notifications } = userSettings ?? {};
   const [slackUsernameField, setSlackUsernameField] = useState(slackUsername);
   const [notificationStatus, setNotificationStatus] = useState(notifications);
   const { sendEvent } = usePreferencesAnalytics();
@@ -44,8 +45,8 @@ export const NotificationsTab: React.VFC = () => {
     },
   });
 
-  if (loadingComp) {
-    return loadingComp;
+  if (loading) {
+    return <Skeleton active />;
   }
 
   if (!notificationStatus) {

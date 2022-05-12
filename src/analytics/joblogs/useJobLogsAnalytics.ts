@@ -6,6 +6,7 @@ import {
 import { useGetUserQuery } from "analytics/useGetUserQuery";
 
 type Action =
+  | { name: "Filter Job Logs"; filterBy: string }
   | { name: "Clicked lobster testlog url"; testId: string }
   | { name: "Clicked HTML testlog url"; testId: string }
   | { name: "Clicked complete logs link"; taskId: string };

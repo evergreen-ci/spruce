@@ -5,6 +5,7 @@ import Button, { Variant } from "@leafygreen-ui/button";
 import Card from "@leafygreen-ui/card";
 import { Option, Select } from "@leafygreen-ui/select";
 import TextInput from "@leafygreen-ui/text-input";
+import { Skeleton } from "antd";
 import { usePreferencesAnalytics } from "analytics";
 import { timeZones } from "constants/fieldMaps";
 import { size } from "constants/tokens";
@@ -16,7 +17,7 @@ import {
 } from "gql/generated/types";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { GET_AWS_REGIONS } from "gql/queries";
-import { useUserSettingsQuery } from "hooks/useUserSettingsQuery";
+import { useUserSettings } from "hooks";
 import { string } from "utils";
 
 const { omitTypename } = string;
@@ -25,8 +26,8 @@ export const ProfileTab: React.VFC = () => {
   const { sendEvent } = usePreferencesAnalytics();
   const dispatchToast = useToastContext();
 
-  const { data, loadingComp } = useUserSettingsQuery();
-  const { githubUser, timezone, region } = data?.userSettings ?? {};
+  const { userSettings, loading } = useUserSettings();
+  const { githubUser, timezone, region } = userSettings ?? {};
   const lastKnownAs = githubUser?.lastKnownAs || "";
 
   const [timezoneField, setTimezoneField] = useState<string>(timezone);
@@ -89,8 +90,8 @@ export const ProfileTab: React.VFC = () => {
     timezone !== timezoneField ||
     region !== regionField;
 
-  if (loadingComp || awsRegionLoading) {
-    return loadingComp;
+  if (loading || awsRegionLoading) {
+    return <Skeleton active />;
   }
 
   return (
