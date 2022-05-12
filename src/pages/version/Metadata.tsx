@@ -1,3 +1,4 @@
+import { InlineCode } from "@leafygreen-ui/typography";
 import { useVersionAnalytics } from "analytics";
 import { MetadataCard } from "components/MetadataCard";
 import { StyledLink, StyledRouterLink } from "components/styles";
@@ -74,36 +75,42 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
       {isPatch ? (
         <P2>
           Base commit:{" "}
-          <StyledRouterLink
-            data-cy="patch-base-commit"
-            to={getVersionRoute(baseVersion?.id)}
-            onClick={() => sendEvent({ name: "Click Base Commit Link" })}
-          >
-            {shortenGithash(revision)}
-          </StyledRouterLink>
+          <InlineCode>
+            <StyledRouterLink
+              data-cy="patch-base-commit"
+              to={getVersionRoute(baseVersion?.id)}
+              onClick={() => sendEvent({ name: "Click Base Commit Link" })}
+            >
+              {shortenGithash(revision)}
+            </StyledRouterLink>
+          </InlineCode>
         </P2>
       ) : (
         <P2>
           Previous commit:{" "}
-          <StyledRouterLink
-            data-cy="version-previous-commit"
-            to={getVersionRoute(previousVersion?.id)}
-            onClick={() => sendEvent({ name: "Click Previous Version Link" })}
-          >
-            {shortenGithash(previousVersion?.revision)}
-          </StyledRouterLink>
+          <InlineCode>
+            <StyledRouterLink
+              data-cy="version-previous-commit"
+              to={getVersionRoute(previousVersion?.id)}
+              onClick={() => sendEvent({ name: "Click Previous Version Link" })}
+            >
+              {shortenGithash(previousVersion?.revision)}
+            </StyledRouterLink>
+          </InlineCode>
         </P2>
       )}
       {!isPatch && (
         <P2>
           Github Commit:{" "}
-          <StyledLink
-            data-cy="version-github-commit"
-            href={getGithubCommitUrl(owner, repo, revision)}
-            onClick={() => sendEvent({ name: "Click Github Commit Link" })}
-          >
-            {shortenGithash(revision)}
-          </StyledLink>
+          <InlineCode>
+            <StyledLink
+              data-cy="version-github-commit"
+              href={getGithubCommitUrl(owner, repo, revision)}
+              onClick={() => sendEvent({ name: "Click Github Commit Link" })}
+            >
+              {shortenGithash(revision)}
+            </StyledLink>
+          </InlineCode>
         </P2>
       )}
       {isPatch && commitQueuePosition !== null && (
