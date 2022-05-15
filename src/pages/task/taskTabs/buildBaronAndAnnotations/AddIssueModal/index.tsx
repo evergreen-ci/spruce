@@ -1,8 +1,11 @@
 import { useMutation } from "@apollo/client";
+import styled from "@emotion/styled";
 import TextInput from "@leafygreen-ui/text-input";
 import { useAnnotationAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
 import { ConfirmationModal } from "components/ConfirmationModal";
+import { HR } from "components/styles/Layout";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   AddAnnotationIssueMutation,
@@ -86,18 +89,26 @@ export const AddIssueModal: React.VFC<Props> = ({
       submitDisabled={!state.canSubmit}
       buttonText={`Add ${issueString}`}
     >
-      <TextInput
+      <StyledTextInput
         data-cy="url-text-area"
         label="URL"
         value={state.url}
         onChange={(e) => dispatch.setUrl(e.target.value)}
+        placeholder="https://example.com"
+        required
+        state={state.isURLValid ? "none" : "error"}
+        errorMessage="Please enter a valid URL"
       />
-      <TextInput
+      <StyledTextInput
         data-cy="issue-key-text-area"
         label="Display Text"
         value={state.issueKey}
         onChange={(e) => dispatch.setKey(e.target.value)}
+        required
+        state={state.isKeyValid ? "none" : "error"}
+        errorMessage="Display Text must contain at least one character"
       />
+      <HR />
       <Accordion title="Advanced Options">
         <TextInput
           data-cy="confidence-level"
@@ -111,3 +122,7 @@ export const AddIssueModal: React.VFC<Props> = ({
     </ConfirmationModal>
   );
 };
+
+const StyledTextInput = styled(TextInput)`
+  margin-bottom: ${size.s};
+`;
