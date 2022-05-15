@@ -1,22 +1,18 @@
 import { useReducer } from "react";
-import { useSpruceConfig } from "hooks";
-import { numbers } from "utils";
-import { validateJiraURL } from "utils/validators";
-
-const { toDecimal } = numbers;
 
 interface AddIssueState {
   url: string;
   issueKey: string;
   canSubmit: boolean;
-  isURLValid: boolean;
+  isURLValid: boolean; // Will be used in https://jira.mongodb.org/browse/EVG-16842
   isKeyValid: boolean;
+  isConfidenceScoreValid: boolean;
   confidenceScore: string;
 }
 
 type Action =
   | { type: "reset" }
-  | { type: "setUrl"; url: string; jiraURL: string }
+  | { type: "setUrl"; url: string }
   | { type: "setKey"; issueKey: string }
   | { type: "setConfidenceScore"; confidenceScore: string };
 
@@ -26,6 +22,7 @@ const init = (): AddIssueState => ({
   canSubmit: false,
   isURLValid: false,
   isKeyValid: false,
+  isConfidenceScoreValid: true,
   confidenceScore: null,
 });
 
@@ -34,11 +31,12 @@ const reducer = (state: AddIssueState, action: Action) => {
     case "reset":
       return init();
     case "setUrl": {
-      const isURLValid = validateJiraURL(action.jiraURL, action.url);
+      const isURLValid = action.url !== null && action.url.length > 0;
       return {
         ...state,
         url: action.url,
-        canSubmit: isURLValid && state.isKeyValid,
+        canSubmit:
+          isURLValid && state.isKeyValid && state.isConfidenceScoreValid,
         isURLValid,
       };
     }
@@ -48,18 +46,28 @@ const reducer = (state: AddIssueState, action: Action) => {
         ...state,
         issueKey: action.issueKey,
         isKeyValid,
-        canSubmit: isKeyValid && state.isURLValid,
+        canSubmit:
+          isKeyValid && state.isURLValid && state.isConfidenceScoreValid,
       };
     }
     case "setConfidenceScore": {
+      const isNumber = !Number.isNaN(parseInt(action.confidenceScore, 10));
+      if (!isNumber) {
+        return {
+          ...state,
+          confidenceScore: null,
+          isConfidenceScoreValid: true,
+        };
+      }
       const isValid =
-        !Number.isNaN(action.confidenceScore) &&
-        toDecimal(action.confidenceScore) <= 1 &&
-        toDecimal(action.confidenceScore) >= 0;
+        isNumber &&
+        parseInt(action.confidenceScore, 10) <= 100 &&
+        parseInt(action.confidenceScore, 10) >= 0;
       if (isValid) {
         return {
           ...state,
           confidenceScore: action.confidenceScore,
+          isConfidenceScoreValid: isValid,
         };
       }
       return state;
@@ -70,11 +78,10 @@ const reducer = (state: AddIssueState, action: Action) => {
 };
 
 export const useAddIssueModal = () => {
-  const spruceConfig = useSpruceConfig();
   const [state, dispatch] = useReducer(reducer, null, init);
 
   const setUrl = (url: string) => {
-    dispatch({ type: "setUrl", url, jiraURL: spruceConfig.jira.host });
+    dispatch({ type: "setUrl", url });
   };
   const setKey = (issueKey: string) => {
     dispatch({ type: "setKey", issueKey });
