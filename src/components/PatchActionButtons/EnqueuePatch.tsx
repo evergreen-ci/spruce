@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { DropdownItem } from "components/ButtonDropdown";
 import { EnqueuePatchModal } from "pages/version/index";
 

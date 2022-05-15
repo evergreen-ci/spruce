@@ -154,7 +154,7 @@ describe("repoConfigField", () => {
     await waitFor(() =>
       expect(queryByDataCy("move-repo-button")).toBeInTheDocument()
     );
-    await fireEvent.click(queryByDataCy("move-repo-button"));
+    fireEvent.click(queryByDataCy("move-repo-button"));
     await waitFor(() => expect(queryByDataCy("move-repo-modal")).toBeVisible());
   });
 

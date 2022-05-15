@@ -52,8 +52,8 @@ describe("buildBaronContent", () => {
     expect(queryByDataCy("bb-error")).toBeNull();
   });
 
-  it("clicking on file a new ticket dispatches a banner.", async () => {
-    const { Component } = RenderFakeToastContext(
+  it("clicking on file a new ticket dispatches a toast", async () => {
+    const { Component, dispatchToast } = RenderFakeToastContext(
       <MockedProvider mocks={buildBaronMocks} addTypename={false}>
         <BuildBaronContent
           annotation={null}
@@ -73,11 +73,11 @@ describe("buildBaronContent", () => {
     expect(getByText("File Ticket")).toBeInTheDocument();
     fireEvent.click(getByText("File Ticket"));
 
-    waitFor(() =>
-      expect(
-        getByText("Ticket successfully created for this task")
-      ).toBeInTheDocument()
-    );
+    await waitFor(() => {
+      expect(dispatchToast.success).toHaveBeenCalledWith(
+        "Ticket successfully created for this task."
+      );
+    });
   });
 
   it("the correct JiraTicket rows are rendered in the component", () => {

@@ -8,7 +8,12 @@ describe("commits page", () => {
   beforeEach(() => {
     cy.preserveCookies();
   });
-
+  it("visiting the commits page for the first time should show a welcome modal", () => {
+    cy.dataCy("welcome-modal").should("be.visible");
+    cy.dataCy("close-welcome-modal").click();
+    cy.reload();
+    cy.dataCy("welcome-modal").should("not.exist");
+  });
   it("should present a default view with only failing task icons visible", () => {
     cy.dataCy("waterfall-task-status-icon").should("exist");
     cy.dataCy("waterfall-task-status-icon").scrollIntoView();

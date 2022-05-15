@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
 import Toggle from "@leafygreen-ui/toggle";
 import { Body } from "@leafygreen-ui/typography";
+import { Skeleton } from "antd";
 import { usePreferencesAnalytics } from "analytics";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -11,13 +12,12 @@ import {
   UpdateUserSettingsMutationVariables,
 } from "gql/generated/types";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
-import { useUserSettingsQuery } from "hooks/useUserSettingsQuery";
+import { useUserSettings } from "hooks";
 
 export const NewUITab: React.VFC = () => {
   const { sendEvent } = usePreferencesAnalytics();
-  const { data, loadingComp } = useUserSettingsQuery();
-  const { spruceV1, hasUsedSpruceBefore } =
-    data?.userSettings?.useSpruceOptions ?? {};
+  const { userSettings, loading } = useUserSettings();
+  const { spruceV1 } = userSettings?.useSpruceOptions ?? {};
   const dispatchToast = useToastContext();
   const [updateUserSettings, { loading: updateLoading }] = useMutation<
     UpdateUserSettingsMutation,
@@ -31,8 +31,8 @@ export const NewUITab: React.VFC = () => {
     },
   });
 
-  if (loadingComp) {
-    return loadingComp;
+  if (loading) {
+    return <Skeleton active />;
   }
 
   const handleToggle = async (c: boolean) => {
@@ -44,7 +44,6 @@ export const NewUITab: React.VFC = () => {
         userSettings: {
           useSpruceOptions: {
             spruceV1: c,
-            hasUsedSpruceBefore,
           },
         },
       },
