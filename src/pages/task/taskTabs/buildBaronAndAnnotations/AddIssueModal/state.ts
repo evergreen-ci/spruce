@@ -20,8 +20,8 @@ const init = (): AddIssueState => ({
   url: "",
   issueKey: "",
   canSubmit: false,
-  isURLValid: false,
-  isKeyValid: false,
+  isURLValid: true,
+  isKeyValid: true,
   isConfidenceScoreValid: true,
   confidenceScore: null,
 });
@@ -51,26 +51,29 @@ const reducer = (state: AddIssueState, action: Action) => {
       };
     }
     case "setConfidenceScore": {
-      const isNumber = !Number.isNaN(parseInt(action.confidenceScore, 10));
-      if (!isNumber) {
+      if (action.confidenceScore.length === 0) {
         return {
           ...state,
           confidenceScore: null,
           isConfidenceScoreValid: true,
         };
       }
-      const isValid =
-        isNumber &&
-        parseInt(action.confidenceScore, 10) <= 100 &&
-        parseInt(action.confidenceScore, 10) >= 0;
-      if (isValid) {
+      const isNumber = !Number.isNaN(parseInt(action.confidenceScore, 10));
+      if (!isNumber) {
         return {
           ...state,
           confidenceScore: action.confidenceScore,
-          isConfidenceScoreValid: isValid,
+          isConfidenceScoreValid: false,
         };
       }
-      return state;
+      const isValid =
+        parseInt(action.confidenceScore, 10) <= 100 &&
+        parseInt(action.confidenceScore, 10) >= 0;
+      return {
+        ...state,
+        confidenceScore: action.confidenceScore,
+        isConfidenceScoreValid: isValid,
+      };
     }
     default:
       throw new Error("Unrecognized action type");

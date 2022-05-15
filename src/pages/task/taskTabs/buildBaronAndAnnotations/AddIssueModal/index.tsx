@@ -117,6 +117,8 @@ export const AddIssueModal: React.VFC<Props> = ({
           value={state.confidenceScore}
           optional
           onChange={(e) => dispatch.setConfidenceScore(e.target.value)}
+          state={state.isConfidenceScoreValid ? "none" : "error"}
+          errorMessage="Please enter a number between 0 and 100"
         />
       </Accordion>
     </ConfirmationModal>
