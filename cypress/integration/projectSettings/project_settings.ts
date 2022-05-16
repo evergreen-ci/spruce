@@ -778,6 +778,13 @@ describe("Attaching Spruce to a repo", () => {
     it("Shows a warning about enabling commit queue", () => {
       cy.dataCy("cq-card").dataCy("warning-banner").should("exist");
     });
+
+    it("Shows an error banner about enabling commit queue if the feature is enabled", () => {
+      cy.dataCy("cq-enabled-radio-box").within(($el) => {
+        cy.wrap($el).getInputByLabel("Enabled").parent().click();
+      });
+      cy.dataCy("cq-card").dataCy("error-banner").should("exist");
+    });
   });
 });
 
