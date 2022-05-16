@@ -11,7 +11,6 @@ import { DownstreamTasks } from "pages/version/DownstreamTasks";
 import { Tasks } from "pages/version/Tasks";
 import { PatchTab } from "types/patch";
 import { queryString } from "utils";
-import { isBeta } from "utils/environmentalVariables";
 import TaskDuration from "./TaskDuration";
 
 const { parseQueryString } = queryString;
@@ -72,7 +71,7 @@ export const Tabs: React.VFC<Props> = ({
   const tabIsActive = useMemo(
     () => ({
       [PatchTab.Tasks]: true,
-      [PatchTab.TaskDuration]: isBeta(),
+      [PatchTab.TaskDuration]: true,
       [PatchTab.Changes]: isPatch,
       [PatchTab.DownstreamTasks]: childPatches,
     }),
