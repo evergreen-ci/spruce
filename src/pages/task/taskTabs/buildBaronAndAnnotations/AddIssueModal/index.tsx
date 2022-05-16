@@ -19,7 +19,7 @@ import { useAddIssueModal } from "./state";
 const { toDecimal } = numbers;
 interface Props {
   visible: boolean;
-  dataCy: string;
+  dataCy?: string;
   closeModal: () => void;
   setSelectedRowKey: (key: string) => void;
   taskId: string;

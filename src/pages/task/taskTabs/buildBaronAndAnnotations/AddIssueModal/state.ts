@@ -51,6 +51,7 @@ const reducer = (state: AddIssueState, action: Action) => {
       };
     }
     case "setConfidenceScore": {
+      // Confidence score is optional so if the user clears it, we should allow submission
       if (action.confidenceScore.length === 0) {
         return {
           ...state,
@@ -64,6 +65,7 @@ const reducer = (state: AddIssueState, action: Action) => {
           ...state,
           confidenceScore: action.confidenceScore,
           isConfidenceScoreValid: false,
+          canSubmit: false,
         };
       }
       const isValid =
@@ -73,6 +75,7 @@ const reducer = (state: AddIssueState, action: Action) => {
         ...state,
         confidenceScore: action.confidenceScore,
         isConfidenceScoreValid: isValid,
+        canSubmit: isValid && state.isURLValid && state.isKeyValid,
       };
     }
     default:
