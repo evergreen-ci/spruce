@@ -27,7 +27,7 @@ export const SpawnHostButton = () => {
     GetSpruceConfigQuery,
     GetSpruceConfigQueryVariables
   >(GET_SPRUCE_CONFIG);
-  const { search } = useLocation<{ search: string }>();
+  const { search } = useLocation();
   const queryParams = parseQueryString(search);
   const shouldSpawnHost = queryParams.spawnHost === "True";
   const [openModal, setOpenModal] = useState(shouldSpawnHost);
