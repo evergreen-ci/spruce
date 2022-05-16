@@ -11,9 +11,7 @@ export const NavigationModal: React.VFC = () => {
   const shouldConfirmNavigation = (currentLocation, nextLocation): boolean => {
     const isProjectSettingsRoute =
       nextLocation &&
-      matchPath(nextLocation.pathname, {
-        path: routes.projectSettings,
-      });
+      matchPath(nextLocation.pathname, `${routes.projectSettings}*`);
     return !isProjectSettingsRoute && hasUnsaved;
   };
 
