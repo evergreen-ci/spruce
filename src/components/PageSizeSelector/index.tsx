@@ -6,9 +6,7 @@ import usePageSizeSelector from "./usePageSizeSelector";
 interface Props {
   value: number;
   "data-cy"?: string;
-  onClick?: (i: number) => void;
   onChange?: (i: number) => void;
-  sendAnalyticsEvent?: () => void;
 }
 
 const PageSizeSelector: React.VFC<Props> = ({
