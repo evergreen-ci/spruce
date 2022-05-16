@@ -251,6 +251,9 @@
     "workbox-webpack-plugin": "5.1.4",
     "worker-loader": "^3.0.7"
   },
+  "resolutions": {
+    "react-router-navigation-prompt/react-router-dom": "5.2.0"
+  },
   "engines": {
     "node": ">=12.22.0"
   },
