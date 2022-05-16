@@ -51,14 +51,14 @@ const renderWithRouterMatch = (
   } = options;
   const { rerender, ...renderRest } = customRender(
     <Router history={history}>
-      <Route path={path} component={ui} />
+      <Route path={path} element={ui()} />
     </Router>,
     rest
   );
   const customRerender = (element: () => React.ReactElement) => {
     rerender(
       <Router history={history}>
-        <Route path={path} component={element} />
+        <Route path={path} element={element()} />
       </Router>
     );
   };

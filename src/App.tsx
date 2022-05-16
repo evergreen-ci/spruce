@@ -22,7 +22,7 @@ const App: React.VFC = () => (
   <ErrorBoundary>
     <ContextProviders>
       <Router>
-        <Route path={routes.login} component={Login} />
+        <Route path={routes.login} element={<Login />} />
         <GQLWrapper>
           <Global styles={globalStyles} />
           <Content />

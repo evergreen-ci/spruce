@@ -21,14 +21,14 @@ export const PreferencesTabs: React.VFC = () => {
         {subtitle && <Subtitle>{subtitle}</Subtitle>}
       </TitleContainer>
 
-      <Route path={routes.profilePreferences} component={ProfileTab} />
+      <Route path={routes.profilePreferences} element={<ProfileTab />} />
       <Route
         path={routes.notificationsPreferences}
-        component={NotificationsTab}
+        element={<NotificationsTab />}
       />
-      <Route path={routes.cliPreferences} component={CliTab} />
-      <Route path={routes.newUIPreferences} component={NewUITab} />
-      <Route path={routes.publicKeysPreferences} component={PublicKeysTab} />
+      <Route path={routes.cliPreferences} element={<CliTab />} />
+      <Route path={routes.newUIPreferences} element={<NewUITab />} />
+      <Route path={routes.publicKeysPreferences} element={<PublicKeysTab />} />
     </Container>
   );
 };

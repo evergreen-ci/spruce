@@ -54,8 +54,8 @@ export const Spawn: React.VFC = () => {
         </SideNavGroup>
       </SideNav>
       <PageWrapper>
-        <Route path={routes.spawnHost} component={SpawnHost} />
-        <Route path={routes.spawnVolume} component={SpawnVolume} />
+        <Route path={routes.spawnHost} element={<SpawnHost />} />
+        <Route path={routes.spawnVolume} element={<SpawnVolume />} />
       </PageWrapper>
     </>
   );
