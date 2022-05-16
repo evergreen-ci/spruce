@@ -30,7 +30,7 @@ describe("popconfirmWithCheckbox", () => {
       </PopconfirmWithCheckbox>
     );
     fireEvent.click(queryByText("btn"));
-    waitFor(() => expect(queryByText(checkboxLabel)).not.toBeVisible());
+    expect(queryByText(checkboxLabel)).not.toBeInTheDocument();
     expect(queryByDataCy("popconfirm-checkbox")).not.toBeInTheDocument();
   });
 
@@ -41,7 +41,7 @@ describe("popconfirmWithCheckbox", () => {
       </PopconfirmWithCheckbox>
     );
     fireEvent.click(queryByText("btn"));
-    waitFor(() => expect(queryByText(checkboxLabel)).not.toBeVisible());
+    expect(queryByText(checkboxLabel)).not.toBeInTheDocument();
     expect(queryByDataCy("popconfirm-checkbox")).not.toBeInTheDocument();
   });
 

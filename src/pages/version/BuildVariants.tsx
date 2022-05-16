@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { Skeleton } from "antd";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { StyledRouterLink, SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
@@ -15,10 +15,15 @@ import {
 } from "gql/generated/types";
 import { GET_BUILD_VARIANTS_STATS } from "gql/queries";
 import { usePolling } from "hooks";
-import { applyStrictRegex } from "utils/string";
+import { queryString, string } from "utils";
+
+const { parseQueryString } = queryString;
+const { applyStrictRegex } = string;
 
 export const BuildVariants: React.VFC = () => {
   const { id } = useParams<{ id: string }>();
+  const { search } = useLocation();
+  const { sorts } = parseQueryString(search);
   const { sendEvent } = useVersionAnalytics(id);
 
   const { data, loading, error, startPolling, stopPolling } = useQuery<
@@ -47,15 +52,17 @@ export const BuildVariants: React.VFC = () => {
             >
               <StyledRouterLink
                 css={wordBreakCss}
-                to={`${getVersionRoute(id, {
+                to={getVersionRoute(id, {
+                  sorts,
                   page: 0,
                   variant: applyStrictRegex(variant),
-                })}`}
+                })}
                 onClick={() =>
                   sendEvent({
                     name: "Click Build Variant Grid Link",
                   })
                 }
+                data-cy="build-variant-display-name"
               >
                 {displayName}
               </StyledRouterLink>
@@ -96,6 +103,7 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
       statusCounts={statusCounts}
       versionId={versionId}
       onClick={callBack}
+      preserveSorts
     />
   );
 };
