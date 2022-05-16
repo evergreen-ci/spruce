@@ -2,8 +2,7 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
-import {
-  PageSizeSelector,
+import PageSizeSelector, {
   usePageSizeSelector,
 } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";

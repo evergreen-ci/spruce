@@ -3,8 +3,7 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import { useLocation } from "react-router-dom";
 import { Analytics } from "analytics/addPageAction";
 import Icon from "components/Icon";
-import {
-  PageSizeSelector,
+import PageSizeSelector, {
   usePageSizeSelector,
 } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";

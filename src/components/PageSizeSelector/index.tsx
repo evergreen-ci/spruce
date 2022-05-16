@@ -11,7 +11,7 @@ interface Props {
   sendAnalyticsEvent?: () => void;
 }
 
-export const PageSizeSelector: React.VFC<Props> = ({
+const PageSizeSelector: React.VFC<Props> = ({
   value,
   "data-cy": dataCy,
   onChange,
@@ -36,3 +36,4 @@ const StyledSelect = styled(Select)`
 `;
 
 export { usePageSizeSelector };
+export default PageSizeSelector;

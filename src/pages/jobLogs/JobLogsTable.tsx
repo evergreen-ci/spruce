@@ -5,8 +5,7 @@ import { Table, TableHeader, Row, Cell } from "@leafygreen-ui/table";
 import { useLocation } from "react-router-dom";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { Button } from "components/Button";
-import {
-  PageSizeSelector,
+import PageSizeSelector, {
   usePageSizeSelector,
 } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";

@@ -4,8 +4,7 @@ import { Table } from "antd";
 import { SortOrder } from "antd/es/table/interface";
 import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
-import {
-  PageSizeSelector,
+import PageSizeSelector, {
   usePageSizeSelector,
 } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";

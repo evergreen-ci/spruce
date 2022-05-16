@@ -5,8 +5,7 @@ import { Subtitle } from "@leafygreen-ui/typography";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { useHostsTableAnalytics } from "analytics";
-import {
-  PageSizeSelector,
+import PageSizeSelector, {
   usePageSizeSelector,
 } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
