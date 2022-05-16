@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
-import { useNavgiate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "components/Button";
 import {
   getProjectSettingsRoute,
@@ -65,7 +65,9 @@ export const Header: React.VFC<Props> = ({
       dispatchToast.success("Successfully updated project");
 
       if (identifier !== newIdentifier) {
-        replace(getProjectSettingsRoute(newIdentifier, tab));
+        navigate(getProjectSettingsRoute(newIdentifier, tab), {
+          replace: true,
+        });
       }
     },
     onError(err) {
