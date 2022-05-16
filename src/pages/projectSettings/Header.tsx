@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
-import { useHistory, useParams } from "react-router-dom";
+import { useNavgiate, useParams } from "react-router-dom";
 import { Button } from "components/Button";
 import {
   getProjectSettingsRoute,
@@ -47,7 +47,7 @@ export const Header: React.VFC<Props> = ({
   const { title, subtitle } = getTabTitle(tab);
   const { getTab, saveTab } = useProjectSettingsContext();
   const { formData, hasChanges, hasError } = getTab(tab);
-  const { replace } = useHistory();
+  const navigate = useNavigate();
   const { identifier } = useParams<{ identifier: string }>();
 
   const [defaultModalOpen, setDefaultModalOpen] = useState(false);

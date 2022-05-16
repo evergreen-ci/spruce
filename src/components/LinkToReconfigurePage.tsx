@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useVersionAnalytics, usePatchAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
 import { getPatchRoute } from "constants/routes";
@@ -13,7 +13,7 @@ export const LinkToReconfigurePage: React.VFC<{
     patchId
   );
 
-  const router = useHistory();
+  const navigate = useNavigate();
 
   return (
     <DropdownItem
@@ -22,7 +22,7 @@ export const LinkToReconfigurePage: React.VFC<{
       onClick={() => {
         if (!disabled) {
           sendEvent({ name: "Click Reconfigure Link" });
-          router.push(getPatchRoute(patchId, { configure: true }));
+          navigate(getPatchRoute(patchId, { configure: true }));
         }
       }}
     >

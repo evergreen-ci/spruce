@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { SpruceForm } from "components/SpruceForm";
 import { getProjectSettingsRoute } from "constants/routes";
@@ -26,7 +26,7 @@ export const CreateProjectModal: React.VFC<Props> = ({
   repo,
 }) => {
   const dispatchToast = useToastContext();
-  const { replace } = useHistory();
+  const navigate = useNavigate();
 
   const [formState, setFormState] = useState({
     owner: owner ?? "",
@@ -42,7 +42,7 @@ export const CreateProjectModal: React.VFC<Props> = ({
   >(CREATE_PROJECT, {
     onCompleted({ createProject: { identifier } }) {
       dispatchToast.success(`Successfully created the project: ${identifier}`);
-      replace(getProjectSettingsRoute(identifier));
+      navigate(getProjectSettingsRoute(identifier), { replace: true });
     },
     onError(err) {
       dispatchToast.error(

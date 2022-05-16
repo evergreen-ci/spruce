@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Cookies from "js-cookie";
-import { useParams, useLocation, useHistory } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import FilterBadges, {
   useFilterBadgeQueryParams,
@@ -48,14 +48,12 @@ const { validateRegexp } = validators;
 
 export const Commits = () => {
   const dispatchToast = useToastContext();
-  const { replace } = useHistory();
+  const navigate = useNavigate();
   const { search } = useLocation();
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const { userSettings } = useUserSettings();
   const { useSpruceOptions } = userSettings ?? {};
-  const { hasUsedMainlineCommitsBefore } = useSpruceOptions ?? {
-    hasUsedMainlineCommitsBefore: true,
-  };
+  const { hasUsedMainlineCommitsBefore = true } = useSpruceOptions;
 
   const parsed = parseQueryString(search);
 
@@ -74,9 +72,11 @@ export const Commits = () => {
   useEffect(() => {
     if (!projectId) {
       if (recentlySelectedProject) {
-        replace(getCommitsRoute(recentlySelectedProject));
+        navigate(getCommitsRoute(recentlySelectedProject), { replace: true });
       } else if (spruceData) {
-        replace(getCommitsRoute(spruceData?.spruceConfig.ui.defaultProject));
+        navigate(getCommitsRoute(spruceData?.spruceConfig.ui.defaultProject), {
+          replace: true,
+        });
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

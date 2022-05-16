@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { SpruceForm } from "components/SpruceForm";
 import { getProjectSettingsRoute } from "constants/routes";
@@ -26,7 +26,7 @@ export const CopyProjectModal: React.VFC<Props> = ({
   open,
 }) => {
   const dispatchToast = useToastContext();
-  const { replace } = useHistory();
+  const navigate = useNavigate();
 
   const [formState, setFormState] = useState({
     projectId: "",
@@ -40,7 +40,7 @@ export const CopyProjectModal: React.VFC<Props> = ({
   >(COPY_PROJECT, {
     onCompleted({ copyProject: { identifier } }) {
       dispatchToast.success(`Successfully created the project: ${identifier}`);
-      replace(getProjectSettingsRoute(identifier));
+      navigate(getProjectSettingsRoute(identifier), { replace: true });
     },
     onError(err) {
       dispatchToast.error(

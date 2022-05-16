@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { Tab } from "@leafygreen-ui/tabs";
 import { Body } from "@leafygreen-ui/typography";
 import { Input } from "antd";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CodeChanges } from "components/CodeChanges/CodeChanges";
 import { MetadataCard } from "components/MetadataCard";
 import { PageContent, PageLayout, PageSider } from "components/styles";
@@ -39,7 +39,7 @@ interface Props {
   patch: ConfigurePatchQuery["patch"];
 }
 export const ConfigurePatchCore: React.VFC<Props> = ({ patch }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatchToast = useToastContext();
 
   const {
@@ -94,7 +94,7 @@ export const ConfigurePatchCore: React.VFC<Props> = ({ patch }) => {
     onCompleted(data) {
       const { schedulePatch: scheduledPatch } = data;
       dispatchToast.success("Successfully scheduled the patch");
-      history.push(getVersionRoute(scheduledPatch.versionFull.id));
+      navigate(getVersionRoute(scheduledPatch.versionFull.id));
     },
     onError(err) {
       dispatchToast.error(

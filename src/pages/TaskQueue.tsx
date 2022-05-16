@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { H2, H3 } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useTaskQueueAnalytics } from "analytics";
 import SearchableDropdown from "components/SearchableDropdown";
 import {
@@ -28,7 +28,7 @@ export const TaskQueue = () => {
   const taskQueueAnalytics = useTaskQueueAnalytics();
 
   const { distro, taskId } = useParams<{ distro: string; taskId?: string }>();
-  const { replace } = useHistory();
+  const navigate = useNavigate();
 
   const [selectedDistro, setSelectedDistro] = useState(null);
 
@@ -47,13 +47,13 @@ export const TaskQueue = () => {
     if (distros.length) {
       const defaultDistro = distro ?? firstDistroInList;
       setSelectedDistro(distros.find((d) => d.id === defaultDistro));
-      replace(getTaskQueueRoute(defaultDistro, taskId));
+      navigate(getTaskQueueRoute(defaultDistro, taskId), { replace: true });
     }
-  }, [firstDistroInList, distro, replace, taskId, distros]);
+  }, [firstDistroInList, distro, navigate, taskId, distros]);
 
   const onChangeDistroSelection = (val: { id: string }) => {
     taskQueueAnalytics.sendEvent({ name: "Select Distro", distro: val.id });
-    replace(getTaskQueueRoute(val.id));
+    navigate(getTaskQueueRoute(val.id), { replace: true });
   };
 
   const handleSearch = (options: { id: string }[], match: string) =>

@@ -1,10 +1,11 @@
+import { NavigateFunction } from "react-router";
 import { parseQueryString, stringifyQuery } from "utils/queryString";
 
 export const updateUrlQueryParam = (
   urlSearchParam: string,
   inputValue: string | string[] | null,
   search: string,
-  replace: (path: string) => void,
+  navigate: NavigateFunction,
   pathname: string,
   resetPage?: boolean
 ) => {
@@ -21,5 +22,5 @@ export const updateUrlQueryParam = (
     ...(resetPage && { page: 0 }),
   });
 
-  replace(`${pathname}?${nextQueryParams}`);
+  navigate(`${pathname}?${nextQueryParams}`, { replace: true });
 };

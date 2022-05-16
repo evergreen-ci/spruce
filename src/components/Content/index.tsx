@@ -48,9 +48,7 @@ export const Content: React.VFC = () => {
   const { userSettings } = useUserSettings();
 
   const { useSpruceOptions } = userSettings ?? {};
-  const { hasUsedSpruceBefore } = useSpruceOptions ?? {
-    hasUsedSpruceBefore: true,
-  };
+  const { hasUsedSpruceBefore = true } = useSpruceOptions;
 
   localStorage.setItem("userId", get(data, "user.userId", ""));
 

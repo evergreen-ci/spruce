@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Select, Option } from "@leafygreen-ui/select";
 import { Select as AntdSelect } from "antd";
-import { useHistory, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { PAGE_SIZES, RECENT_PAGE_SIZE_KEY } from "constants/index";
 import { queryString } from "utils";
 
@@ -24,19 +24,20 @@ export const PageSizeSelector: React.VFC<Props> = ({
   sendAnalyticsEvent = () => undefined,
   useLeafygreen = false,
 }) => {
-  const { replace } = useHistory();
+  const navigate = useNavigate();
   const { search, pathname } = useLocation();
 
   const handleChange =
     onClick ||
     ((pageSize: number) => {
       localStorage.setItem(RECENT_PAGE_SIZE_KEY, `${pageSize}`);
-      replace(
+      navigate(
         `${pathname}?${stringifyQuery({
           ...parseQueryString(search),
           limit: pageSize,
           page: 0,
-        })}`
+        })}`,
+        { replace: true }
       );
       sendAnalyticsEvent();
     });

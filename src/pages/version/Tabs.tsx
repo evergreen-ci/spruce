@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
-import { useParams, useHistory, useLocation } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { CodeChanges } from "components/CodeChanges/CodeChanges";
 import { StyledTabs } from "components/styles/StyledTabs";
@@ -67,7 +67,7 @@ export const Tabs: React.VFC<Props> = ({
   const { id, tab } = useParams<{ id: string; tab: PatchTab }>();
   const { search } = useLocation();
   const { sendEvent } = useVersionAnalytics(id);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const tabIsActive = useMemo(
     () => ({
@@ -96,7 +96,7 @@ export const Tabs: React.VFC<Props> = ({
   useEffect(() => {
     // If tab is not valid, set to task tab.
     if (!isValidTab) {
-      history.replace(getVersionRoute(id));
+      navigate(getVersionRoute(id), { replace: true });
     }
     // If tab updates in URL without having clicked a tab (e.g. clicked build variant), update state here.
     else if (selectedTab !== activeTabs.indexOf(tab)) {
@@ -112,7 +112,7 @@ export const Tabs: React.VFC<Props> = ({
       tab: newTab as PatchTab,
       ...queryParams,
     });
-    history.replace(newRoute);
+    navigate(newRoute, { replace: true });
 
     if (previousTab !== undefined && previousTab !== newTabIndex) {
       sendEvent({

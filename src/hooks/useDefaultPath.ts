@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { TabToIndexMap } from "hooks/types";
 
 /**
@@ -16,11 +16,11 @@ export const useDefaultPath = ({
   tabToIndexMap: TabToIndexMap;
   defaultPath: string;
 }): void => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { tab, id } = useParams<{ tab?: string; id: string }>();
   useEffect(() => {
     if (!tab || !(tab in tabToIndexMap)) {
-      history.replace(defaultPath);
+      navigate(defaultPath, { replace: true });
     }
-  }, [tab, history, tabToIndexMap, id, defaultPath]);
+  }, [tab, navigate, tabToIndexMap, id, defaultPath]);
 };

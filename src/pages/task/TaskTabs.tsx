@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
-import { useParams, useHistory, useLocation } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { TrendChartsPlugin } from "components/PerfPlugin";
 import { StyledTabs } from "components/styles/StyledTabs";
@@ -26,7 +26,7 @@ interface TaskTabProps {
 export const TaskTabs: React.VFC<TaskTabProps> = ({ task, taskFiles }) => {
   const { tab: urlTab } = useParams<{ id: string; tab: TaskTab | null }>();
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
   const taskAnalytics = useTaskAnalytics();
   const {
@@ -182,7 +182,7 @@ export const TaskTabs: React.VFC<TaskTabProps> = ({ task, taskFiles }) => {
       tab: activeTabs[selectedTab],
       ...query,
     });
-    history.replace(newRoute);
+    navigate(newRoute, { replace: true });
     if (previousTab !== undefined && previousTab !== selectedTab) {
       taskAnalytics.sendEvent({
         name: "Change Tab",

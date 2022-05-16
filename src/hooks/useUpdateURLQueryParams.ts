@@ -1,11 +1,11 @@
 import { useCallback } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { queryString } from "utils";
 
 const { stringifyQuery, parseQueryString } = queryString;
 
 export const useUpdateURLQueryParams = () => {
-  const { replace } = useHistory();
+  const navigate = useNavigate();
   const { search, pathname } = useLocation();
   const updateQueryParams = useCallback(
     (nextQueryParams: StringMap) => {
@@ -14,9 +14,11 @@ export const useUpdateURLQueryParams = () => {
         ...nextQueryParams,
       };
 
-      replace(`${pathname}?${stringifyQuery(joinedParams)}`);
+      navigate(`${pathname}?${stringifyQuery(joinedParams)}`, {
+        replace: true,
+      });
     },
-    [replace, search, pathname]
+    [navigate, search, pathname]
   );
 
   return updateQueryParams;
