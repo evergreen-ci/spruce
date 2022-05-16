@@ -11,7 +11,7 @@ import { PageGrid } from "components/styles/Layout";
 import { TaskStatusIconLegend } from "components/TaskStatusIconLegend";
 import { UserPatchesRedirect } from "components/UserPatchesRedirect";
 import WelcomeModal from "components/WelcomeModal";
-import { routes } from "constants/routes";
+import { baseRoute, routes } from "constants/routes";
 import { zIndex, size } from "constants/tokens";
 import { newSpruceUser } from "constants/welcomeModalProps";
 import { useAuthStateContext } from "context/auth";
@@ -48,7 +48,7 @@ export const Content: React.VFC = () => {
   const { userSettings } = useUserSettings();
 
   const { useSpruceOptions } = userSettings ?? {};
-  const { hasUsedSpruceBefore = true } = useSpruceOptions;
+  const { hasUsedSpruceBefore = true } = useSpruceOptions ?? {};
 
   localStorage.setItem("userId", get(data, "user.userId", ""));
 
@@ -64,8 +64,11 @@ export const Content: React.VFC = () => {
     <PageGrid>
       <Header />
       <Routes>
-        <Route path={routes.task} element={<Task />} />
-        <Route path={routes.configurePatch} element={<ConfigurePatch />} />
+        <Route path={baseRoute.task}>
+          <Route path={tab} element={<Task />} />
+          <Route path="" element={<Task />} />
+        </Route>
+        <Route path={baseRoute.configurePatch} element={<ConfigurePatch />} />
         <Route path={routes.patch} element={<VersionPage />} />
         <Route path={routes.version} element={<VersionPage />} />
         <Route path={routes.jobLogs} element={<JobLogs />} />
@@ -109,6 +112,7 @@ export const Content: React.VFC = () => {
   );
 };
 
+const tab = ":tab";
 const FloatingContent = styled.div`
   position: fixed;
   z-index: ${zIndex.tooltip};

@@ -75,10 +75,14 @@ const projectSettingsRoutes = {
   projectSettingsVirtualWorkstation: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.VirtualWorkstation}`,
 };
 
+export const baseRoute = {
+  task: `${paths.task}/:id`,
+  configurePatch: `${paths.patch}/:id/configure`,
+};
 export const routes = {
   cliPreferences: `${paths.preferences}/${PreferencesTabRoutes.CLI}`,
   commitQueue: `${paths.commitQueue}/:id`,
-  configurePatch: `${paths.patch}/:id/configure/:tab?`,
+  configurePatch: `${paths.patch}/:id/configure/*`,
   host: `${paths.host}/:id`,
   hosts: paths.hosts,
   login: paths.login,
@@ -93,7 +97,7 @@ export const routes = {
   spawn: `${paths.spawn}/:tab?`,
   spawnHost: `${paths.spawn}/${SpawnTab.Host}`,
   spawnVolume: `${paths.spawn}/${SpawnTab.Volume}`,
-  task: `${paths.task}/:id/:tab?`,
+  task: `${baseRoute.task}/*`,
   taskQueue: `${paths.taskQueue}/:distro?/:taskId?`,
   userPatchesRedirect: `${paths.user}/:id`,
   projectSettingsRedirect: paths.projects,
