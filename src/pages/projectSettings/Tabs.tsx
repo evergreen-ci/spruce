@@ -66,9 +66,8 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
       />
       <Route
         path={routes.projectSettingsGeneral}
-        render={(props) => (
+        element={
           <GeneralTab
-            {...props}
             projectId={projectId}
             projectData={tabData[ProjectSettingsTabRoutes.General].projectData}
             projectType={projectType}
@@ -78,37 +77,34 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
               repoData?.projectRef?.validDefaultLoggers
             }
           />
-        )}
+        }
       />
       <Route
         path={routes.projectSettingsAccess}
-        render={(props) => (
+        element={
           <AccessTab
-            {...props}
             projectData={tabData[ProjectSettingsTabRoutes.Access].projectData}
             projectType={projectType}
             repoData={tabData[ProjectSettingsTabRoutes.Access].repoData}
           />
-        )}
+        }
       />
       <Route
         path={routes.projectSettingsVariables}
-        render={(props) => (
+        element={
           <VariablesTab
-            {...props}
             projectData={
               tabData[ProjectSettingsTabRoutes.Variables].projectData
             }
             projectType={projectType}
             repoData={tabData[ProjectSettingsTabRoutes.Variables].repoData}
           />
-        )}
+        }
       />
       <Route
         path={routes.projectSettingsGithubCommitQueue}
-        render={(props) => (
+        element={
           <GithubCommitQueueTab
-            {...props}
             githubWebhooksEnabled={
               projectData?.githubWebhooksEnabled ||
               repoData?.githubWebhooksEnabled
@@ -125,24 +121,22 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
               repoData?.projectRef?.versionControlEnabled
             }
           />
-        )}
+        }
       />
       <Route
         path={routes.projectSettingsPlugins}
-        render={(props) => (
+        element={
           <PluginsTab
-            {...props}
             projectData={tabData[ProjectSettingsTabRoutes.Plugins].projectData}
             projectType={projectType}
             repoData={tabData[ProjectSettingsTabRoutes.Plugins].repoData}
           />
-        )}
+        }
       />
       <Route
         path={routes.projectSettingsNotifications}
-        render={(props) => (
+        element={
           <NotificationsTab
-            {...props}
             id={projectId || repoData?.projectRef?.id}
             projectData={
               tabData[ProjectSettingsTabRoutes.Notifications].projectData
@@ -150,26 +144,24 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
             projectType={projectType}
             repoData={tabData[ProjectSettingsTabRoutes.Notifications].repoData}
           />
-        )}
+        }
       />
       <Route
         path={routes.projectSettingsPatchAliases}
-        render={(props) => (
+        element={
           <PatchAliasesTab
-            {...props}
             projectData={
               tabData[ProjectSettingsTabRoutes.PatchAliases].projectData
             }
             projectType={projectType}
             repoData={tabData[ProjectSettingsTabRoutes.PatchAliases].repoData}
           />
-        )}
+        }
       />
       <Route
         path={routes.projectSettingsVirtualWorkstation}
-        render={(props) => (
+        element={
           <VirtualWorkstationTab
-            {...props}
             identifier={identifier || repoBranch}
             projectData={
               tabData[ProjectSettingsTabRoutes.VirtualWorkstation].projectData
@@ -179,13 +171,12 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
               tabData[ProjectSettingsTabRoutes.VirtualWorkstation].repoData
             }
           />
-        )}
+        }
       />
       <Route
         path={routes.projectSettingsProjectTriggers}
-        render={(props) => (
+        element={
           <ProjectTriggersTab
-            {...props}
             projectData={
               tabData[ProjectSettingsTabRoutes.ProjectTriggers].projectData
             }
@@ -194,25 +185,24 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
               tabData[ProjectSettingsTabRoutes.ProjectTriggers].repoData
             }
           />
-        )}
+        }
       />
       <Route
         path={routes.projectSettingsPeriodicBuilds}
-        render={(props) => (
+        element={
           <PeriodicBuildsTab
-            {...props}
             projectData={
               tabData[ProjectSettingsTabRoutes.PeriodicBuilds].projectData
             }
             projectType={projectType}
             repoData={tabData[ProjectSettingsTabRoutes.PeriodicBuilds].repoData}
           />
-        )}
+        }
       />
 
       <Route
         path={routes.projectSettingsEventLog}
-        render={(props) => <EventLogTab {...props} projectType={projectType} />}
+        element={<EventLogTab projectType={projectType} />}
       />
     </Container>
   );
