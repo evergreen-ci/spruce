@@ -10,7 +10,10 @@ import { ErrorBoundary } from "components/ErrorBoundary";
 import { UpdateStatusModal } from "components/Hosts";
 import { Reprovision } from "components/Hosts/Reprovision";
 import { RestartJasper } from "components/Hosts/RestartJasper";
-import { PageSizeSelector } from "components/PageSizeSelector";
+import {
+  PageSizeSelector,
+  usePageSizeSelector,
+} from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import {
   TableContainer,
@@ -37,7 +40,7 @@ export const Hosts: React.VFC = () => {
   const hostsTableAnalytics = useHostsTableAnalytics();
 
   const { search } = useLocation();
-
+  const setPageSize = usePageSizeSelector();
   const queryVariables = getQueryVariables(search);
   const {
     limit,
@@ -61,6 +64,11 @@ export const Hosts: React.VFC = () => {
   const [restartJasperError, setRestartJasperError] = useState<string>("");
   const [canReprovision, setCanReprovision] = useState<boolean>(true);
   const [reprovisionError, setReprovisionError] = useState<string>("");
+
+  const handlePageSizeChange = (pageSize: number): void => {
+    setPageSize(pageSize);
+    hostsTableAnalytics.sendEvent({ name: "Change Page Size" });
+  };
 
   // UPDATE STATUS MODAL VISIBILITY STATE
   const [
@@ -131,9 +139,7 @@ export const Hosts: React.VFC = () => {
             <PageSizeSelector
               data-cy="hosts-table-page-size-selector"
               value={limit}
-              sendAnalyticsEvent={() =>
-                hostsTableAnalytics.sendEvent({ name: "Change Page Size" })
-              }
+              onChange={handlePageSizeChange}
             />
           </TableControlInnerRow>
         </TableControlOuterRow>

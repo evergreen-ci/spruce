@@ -198,7 +198,9 @@ export const DownstreamProjectAccordion: React.VFC<DownstreamProjectAccordionPro
                 <PageSizeSelector
                   data-cy="tasks-table-page-size-selector"
                   value={variables.limit}
-                  onClick={(l) => dispatch({ type: "onChangeLimit", limit: l })}
+                  onChange={(l) =>
+                    dispatch({ type: "onChangeLimit", limit: l })
+                  }
                 />
               </TableControlInnerRow>
             </TableControlOuterRow>

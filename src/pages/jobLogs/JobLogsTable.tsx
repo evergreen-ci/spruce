@@ -5,7 +5,10 @@ import { Table, TableHeader, Row, Cell } from "@leafygreen-ui/table";
 import { useLocation } from "react-router-dom";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { Button } from "components/Button";
-import { PageSizeSelector } from "components/PageSizeSelector";
+import {
+  PageSizeSelector,
+  usePageSizeSelector,
+} from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { TablePlaceholder } from "components/Table/TablePlaceholder";
 import { TableSearchPopover } from "components/TablePopover";
@@ -47,7 +50,7 @@ export const JobLogsTable: React.VFC<JobLogsTableProps> = ({
 
   const queryVariables = getQueryVariables(search, task, groupId);
   const { limitNum, pageNum } = queryVariables;
-
+  const setPageSize = usePageSizeSelector();
   const testNameFilter = useFilterInputChangeHandler({
     urlParam: "test",
     resetPage: true,
@@ -72,7 +75,7 @@ export const JobLogsTable: React.VFC<JobLogsTableProps> = ({
   return (
     <Container>
       <PaginationWrapper>
-        <PageSizeSelector value={limitNum} />
+        <PageSizeSelector value={limitNum} onChange={setPageSize} />
         <Pagination value={pageNum} numPages={numPages} useLeafygreen />
       </PaginationWrapper>
       <TableWrapper>
