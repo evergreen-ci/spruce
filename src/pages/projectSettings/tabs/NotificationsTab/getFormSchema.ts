@@ -24,7 +24,7 @@ export const getFormSchema = (
         properties: {
           notifyOnBuildFailure: {
             type: ["boolean", "null"],
-            title: "Build-break Notifications",
+            title: "Build Break Notifications",
             oneOf: radioBoxOptions(
               ["Enabled", "Disabled"],
               repoData?.buildBreakSettings?.notifyOnBuildFailure
@@ -58,6 +58,8 @@ export const getFormSchema = (
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       notifyOnBuildFailure: {
         "ui:widget": widgets.RadioBoxWidget,
+        "ui:description":
+          "Send notification of build breaks to admins of a project if the commit author won’t receive the notification.",
       },
     },
     defaultSubscriptions: {

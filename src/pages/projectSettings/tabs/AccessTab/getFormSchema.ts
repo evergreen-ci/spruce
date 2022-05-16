@@ -24,6 +24,7 @@ export const getFormSchema = (
         properties: {
           private: {
             type: ["boolean", "null"],
+            title: "General Access",
             oneOf: radioBoxOptions(
               ["Private", "Public"],
               repoData?.accessSettings?.private
@@ -31,7 +32,7 @@ export const getFormSchema = (
           },
           restricted: {
             type: ["boolean", "null"],
-            title: "Project Access",
+            title: "Internal Access",
             oneOf: radioBoxOptions(
               ["Restricted", "Unrestricted"],
               repoData?.accessSettings?.restricted
@@ -64,8 +65,9 @@ export const getFormSchema = (
       "ui:rootFieldId": "access",
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       private: {
+        "ui:description":
+          "Private projects can only be accessed by logged-in users.",
         "ui:widget": widgets.RadioBoxWidget,
-        "ui:showLabel": false,
       },
       restricted: {
         "ui:description":

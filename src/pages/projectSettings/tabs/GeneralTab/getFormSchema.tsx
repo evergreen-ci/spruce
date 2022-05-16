@@ -145,6 +145,8 @@ export const getFormSchema = (
           logger: {
             type: "object" as "object",
             title: "Default Logger",
+            description:
+              "Used by Evergreen Engineers to configure where this branch should be logging test results.",
             properties: {
               defaultLogger: {
                 default: null,
@@ -168,6 +170,8 @@ export const getFormSchema = (
           testResults: {
             type: "object" as "object",
             title: "Test Results",
+            description:
+              "Used by Evergreen Engineers to configure whether this branch should be logging to Cedar.",
             properties: {
               cedarTestResultsEnabled: {
                 type: ["boolean", "null"],
@@ -182,6 +186,8 @@ export const getFormSchema = (
           patch: {
             type: "object" as "object",
             title: "Patch Settings",
+            description:
+              "Sets if users are allowed to create patches for this branch.",
             properties: {
               patchingDisabled: {
                 type: ["boolean", "null"],
@@ -307,6 +313,8 @@ export const getFormSchema = (
           ...placeholderIf(repoData?.generalConfiguration?.other?.batchTime),
         },
         remotePath: {
+          "ui:description":
+            "Path to yaml where project tasks, variants, and other settings are defined.",
           ...placeholderIf(repoData?.generalConfiguration?.other?.remotePath),
         },
         spawnHostScriptPath: {
@@ -328,6 +336,7 @@ export const getFormSchema = (
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       dispatchingDisabled: {
         "ui:widget": widgets.RadioBoxWidget,
+        "ui:description": "Sets if any tasks can be dispatched.",
       },
       scheduling: {
         deactivatePrevious: {
@@ -342,7 +351,8 @@ export const getFormSchema = (
         repotrackerDisabled: {
           "ui:widget": widgets.RadioBoxWidget,
           "ui:description":
-            "Repotracker will be triggered from GitHub push events sent via webhook.",
+            "Repotracker will be triggered from GitHub push events sent via webhook. " +
+            "The repotracker create mainline builds for merged commits.",
         },
       },
       logger: {

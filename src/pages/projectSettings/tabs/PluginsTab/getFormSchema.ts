@@ -118,6 +118,8 @@ export const getFormSchema = (
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       perfEnabled: {
         "ui:widget": widgets.RadioBoxWidget,
+        "ui:description":
+          "Enable the performance plugin (this requires the project to have matching ID and identifier).",
       },
     },
     buildBaronSettings: {
