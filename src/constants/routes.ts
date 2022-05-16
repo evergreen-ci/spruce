@@ -87,7 +87,7 @@ export const routes = {
   notificationsPreferences: `${paths.preferences}/${PreferencesTabRoutes.Notifications}`,
   patch: `${paths.patch}/:id/:tab?`,
   preferences: `${paths.preferences}/:tab?`,
-  profilePreferences: [`${paths.preferences}/${PreferencesTabRoutes.Profile}`],
+  profilePreferences: `${paths.preferences}/${PreferencesTabRoutes.Profile}`,
   projectPatches: `${paths.project}/:id/${PageNames.Patches}`,
   publicKeysPreferences: `${paths.preferences}/${PreferencesTabRoutes.PublicKeys}`,
   spawn: `${paths.spawn}/:tab?`,

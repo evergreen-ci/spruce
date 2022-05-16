@@ -66,7 +66,7 @@ export const Content: React.VFC = () => {
       <Routes>
         <Route path={routes.task} element={<Task />} />
         <Route path={routes.configurePatch} element={<ConfigurePatch />} />
-        <Route exact path={routes.patch} element={<VersionPage />} />
+        <Route path={routes.patch} element={<VersionPage />} />
         <Route path={routes.version} element={<VersionPage />} />
         <Route path={routes.jobLogs} element={<JobLogs />} />
         <Route path={routes.hosts} element={<Hosts />} />
@@ -90,7 +90,7 @@ export const Content: React.VFC = () => {
         <Route path={routes.commits} element={<Commits />} />
         <Route path={routes.taskHistory} element={<TaskHistory />} />
         <Route path={routes.variantHistory} element={<VariantHistory />} />
-        <Route exact path="/" element={<MyPatches />} />
+        <Route path="/" element={<MyPatches />} />
 
         <Route element={<PageDoesNotExist />} />
       </Routes>
