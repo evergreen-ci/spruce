@@ -4,9 +4,10 @@ import { Location } from "history";
 import { Navigate, useLocation } from "react-router-dom";
 import { useAuthDispatchContext, useAuthStateContext } from "context/auth";
 
-const getReferrer = (location: Location): string =>
-  // ts-ignore next-line
-  location.state?.referrer ?? "/";
+const getReferrer = (location: Location): string => {
+  const state = location.state as { referrer?: string };
+  return state?.referrer ?? "/";
+};
 
 export const Login: React.VFC = () => {
   const location = useLocation();
