@@ -4,11 +4,13 @@ import { sectionHasError } from "./getErrors";
 const callSectionHasError = ({
   versionControlEnabled,
   projectType,
+  enabled,
   override,
   aliases,
   repoAliases,
 }) =>
   sectionHasError(versionControlEnabled, projectType)(
+    enabled,
     override,
     aliases,
     repoAliases,
@@ -19,6 +21,7 @@ describe("an attached project", () => {
   const baseArgs = {
     versionControlEnabled: true,
     projectType: ProjectType.AttachedProject,
+    enabled: true,
     override: true,
     aliases: [],
     repoAliases: [],
@@ -86,12 +89,22 @@ describe("an attached project", () => {
       });
     });
   });
+
+  it("returns no error when the project is disabled", () => {
+    expect(
+      callSectionHasError({
+        ...baseArgs,
+        enabled: false,
+      })
+    ).toStrictEqual({});
+  });
 });
 
 describe("a repo", () => {
   const baseArgs = {
     versionControlEnabled: true,
     projectType: ProjectType.Repo,
+    enabled: true,
     override: true,
     aliases: [],
     repoAliases: [],

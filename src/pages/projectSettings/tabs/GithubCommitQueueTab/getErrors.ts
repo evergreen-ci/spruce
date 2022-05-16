@@ -48,10 +48,15 @@ export const getVersionControlError = (
   versionControlEnabled: boolean,
   projectType: ProjectType
 ) => (
+  enabled: boolean,
   override: boolean,
   aliases: Array<AliasFormType>,
   repoAliases: Array<AliasFormType>
 ) => {
+  if (enabled === false) {
+    return ErrorType.None;
+  }
+
   switch (projectType) {
     case ProjectType.AttachedProject:
       if (override && !aliases?.length) {
@@ -79,12 +84,14 @@ export const sectionHasError = (
   versionControlEnabled: boolean,
   projectType: ProjectType
 ) => (
+  enabled: boolean,
   override: boolean,
   aliases: Array<AliasFormType>,
   repoAliases: Array<AliasFormType>,
   fieldName: string
 ): ReturnType<typeof getErrorStyle> => {
   const errorType = getVersionControlError(versionControlEnabled, projectType)(
+    enabled,
     override,
     aliases,
     repoAliases

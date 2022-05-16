@@ -118,14 +118,22 @@ const validate = (projectType, repoData, versionControlEnabled) => (
   errors
 ) => {
   const {
-    github: { prTesting, githubChecks, gitTags },
-    commitQueue: { patchDefinitions },
+    github: {
+      prTestingEnabled,
+      prTesting,
+      githubChecksEnabled,
+      githubChecks,
+      gitTagVersionsEnabled,
+      gitTags,
+    },
+    commitQueue: { enabled, patchDefinitions },
   } = formData;
 
   const getError = getVersionControlError(versionControlEnabled, projectType);
 
   if (
     getError(
+      prTestingEnabled,
       prTesting?.githubPrAliasesOverride,
       prTesting?.githubPrAliases,
       repoData?.github?.prTesting?.githubPrAliases
@@ -136,6 +144,7 @@ const validate = (projectType, repoData, versionControlEnabled) => (
 
   if (
     getError(
+      githubChecksEnabled,
       githubChecks?.githubCheckAliasesOverride,
       githubChecks?.githubCheckAliases,
       repoData?.github?.githubChecks?.githubCheckAliases
@@ -146,6 +155,7 @@ const validate = (projectType, repoData, versionControlEnabled) => (
 
   if (
     getError(
+      gitTagVersionsEnabled,
       gitTags?.gitTagAliasesOverride,
       gitTags?.gitTagAliases,
       repoData?.github?.gitTags?.gitTagAliases
@@ -156,6 +166,7 @@ const validate = (projectType, repoData, versionControlEnabled) => (
 
   if (
     getError(
+      enabled,
       patchDefinitions?.commitQueueAliasesOverride,
       patchDefinitions?.commitQueueAliases,
       repoData?.commitQueue?.patchDefinitions?.commitQueueAliases

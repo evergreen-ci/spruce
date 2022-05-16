@@ -288,6 +288,7 @@ export const getFormSchema = (
               )
           ),
           ...errorStyling(
+            formData?.github?.prTestingEnabled,
             formData?.github?.prTesting?.githubPrAliasesOverride,
             formData?.github?.prTesting?.githubPrAliases,
             repoData?.github?.prTesting?.githubPrAliases,
@@ -348,6 +349,7 @@ export const getFormSchema = (
             )
           ),
           ...errorStyling(
+            formData?.github?.githubChecksEnabled,
             formData?.github?.githubChecks?.githubCheckAliasesOverride,
             formData?.github?.githubChecks?.githubCheckAliases,
             repoData?.github?.githubChecks?.githubCheckAliases,
@@ -395,6 +397,7 @@ export const getFormSchema = (
             )
           ),
           ...errorStyling(
+            formData?.github?.gitTagVersionsEnabled,
             formData?.github?.gitTags?.gitTagAliasesOverride,
             formData?.github?.gitTags?.gitTagAliases,
             repoData?.github?.gitTags?.gitTagAliases,
@@ -465,6 +468,7 @@ export const getFormSchema = (
             )
           ),
           ...errorStyling(
+            formData?.commitQueue?.enabled,
             formData?.commitQueue?.patchDefinitions?.commitQueueAliasesOverride,
             formData?.commitQueue?.patchDefinitions?.commitQueueAliases,
             repoData?.commitQueue?.patchDefinitions?.commitQueueAliases,
@@ -476,7 +480,7 @@ export const getFormSchema = (
           },
           commitQueueAliases: {
             ...aliasRowUiSchema({
-              addButtonText: "Add Patch Definition",
+              addButtonText: "Add Commit Queue Patch Definition",
               numberedTitle: "Patch Definition",
             }),
           },
