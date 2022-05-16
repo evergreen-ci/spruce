@@ -4,6 +4,7 @@ import { AliasFormType, ProjectType } from "../utils";
 export interface FormState {
   github: {
     prTestingEnabled: boolean | null;
+    manualPrTestingEnabled: boolean | null;
     prTesting: {
       githubPrAliasesOverride: boolean;
       githubPrAliases: Array<AliasFormType>;

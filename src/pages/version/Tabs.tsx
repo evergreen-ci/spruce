@@ -11,6 +11,7 @@ import { DownstreamTasks } from "pages/version/DownstreamTasks";
 import { Tasks } from "pages/version/Tasks";
 import { PatchTab } from "types/patch";
 import { queryString } from "utils";
+import TaskDuration from "./TaskDuration";
 
 const { parseQueryString } = queryString;
 
@@ -24,6 +25,16 @@ const tabMap = ({ taskCount, childPatches }) => ({
   [PatchTab.Tasks]: (
     <Tab name="Tasks" id="task-tab" data-cy="task-tab" key="tasks-tab">
       <Tasks taskCount={taskCount} />
+    </Tab>
+  ),
+  [PatchTab.TaskDuration]: (
+    <Tab
+      name="Task Duration"
+      id="duration-tab"
+      data-cy="duration-tab"
+      key="duration-tab"
+    >
+      <TaskDuration taskCount={taskCount} />
     </Tab>
   ),
   [PatchTab.Changes]: (
@@ -53,13 +64,14 @@ export const Tabs: React.VFC<Props> = ({
   isPatch,
 }) => {
   const { id, tab } = useParams<{ id: string; tab: PatchTab }>();
+  const { search } = useLocation();
   const { sendEvent } = useVersionAnalytics(id);
   const history = useHistory();
-  const location = useLocation();
 
   const tabIsActive = useMemo(
     () => ({
       [PatchTab.Tasks]: true,
+      [PatchTab.TaskDuration]: true,
       [PatchTab.Changes]: isPatch,
       [PatchTab.DownstreamTasks]: childPatches,
     }),
@@ -93,8 +105,8 @@ export const Tabs: React.VFC<Props> = ({
 
   // Update the URL and selectedTab state based on new tab selected.
   const selectNewTab = (newTabIndex: number) => {
-    const queryParams = parseQueryString(location.search);
-    const newTab = Object.keys(allTabs)[newTabIndex];
+    const queryParams = parseQueryString(search);
+    const newTab = activeTabs[newTabIndex];
     const newRoute = getVersionRoute(id, {
       tab: newTab as PatchTab,
       ...queryParams,

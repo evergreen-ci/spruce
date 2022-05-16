@@ -20,6 +20,7 @@ export enum PatchTasksQueryParams {
   BaseStatuses = "baseStatuses",
   Variant = "variant",
   TaskName = "taskName",
+  Duration = "duration",
 }
 
 export type TableOnChange<D> = TableProps<D>["onChange"];

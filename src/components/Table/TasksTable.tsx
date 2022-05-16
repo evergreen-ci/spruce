@@ -9,8 +9,7 @@ import {
 } from "components/Table/Filters";
 import TaskStatusBadge from "components/TaskStatusBadge";
 import { TreeSelectProps } from "components/TreeSelect";
-import { WordBreak } from "components/Typography";
-import { getTaskRoute, getVariantHistoryRoute } from "constants/routes";
+import { getVariantHistoryRoute } from "constants/routes";
 import {
   Task,
   SortDirection,
@@ -18,8 +17,8 @@ import {
   TaskSortCategory,
 } from "gql/generated/types";
 import { TableOnChange } from "types/task";
-import { isBeta } from "utils/environmentalVariables";
 import { sortTasks } from "utils/statuses";
+import { TaskLink } from "./TaskLink";
 
 // Type needed to render the task table
 type TaskTableInfo = {
@@ -199,16 +198,13 @@ const getColumnDefs = ({
         ...variantInputProps,
         "data-cy": "variant-input",
       })),
-    render: (displayName, { projectIdentifier, buildVariant }) =>
-      projectIdentifier && isBeta() ? (
-        <StyledRouterLink
-          to={getVariantHistoryRoute(projectIdentifier, buildVariant)}
-        >
-          {displayName}
-        </StyledRouterLink>
-      ) : (
-        <>{displayName}</>
-      ),
+    render: (displayName, { projectIdentifier, buildVariant }) => (
+      <StyledRouterLink
+        to={getVariantHistoryRoute(projectIdentifier, buildVariant)}
+      >
+        {displayName}
+      </StyledRouterLink>
+    ),
   },
 ];
 
@@ -263,16 +259,5 @@ const getColumnDefsWithSort = ({
     ...sortProps[columnDef.key],
   }));
 };
-
-interface TaskLinkProps {
-  taskId: string;
-  taskName: string;
-  onClick: (taskId: string) => void;
-}
-const TaskLink: React.VFC<TaskLinkProps> = ({ taskId, taskName, onClick }) => (
-  <StyledRouterLink onClick={() => onClick(taskId)} to={getTaskRoute(taskId)}>
-    <WordBreak>{taskName}</WordBreak>
-  </StyledRouterLink>
-);
 
 const rowKey = ({ id }: { id: string }): string => id;

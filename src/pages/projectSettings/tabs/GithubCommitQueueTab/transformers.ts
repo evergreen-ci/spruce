@@ -41,6 +41,7 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
 
   const {
     prTestingEnabled,
+    manualPrTestingEnabled,
     githubChecksEnabled,
     gitTagVersionsEnabled,
     gitTagAuthorizedUsers,
@@ -68,6 +69,7 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
   return {
     github: {
       prTestingEnabled,
+      manualPrTestingEnabled,
       prTesting: {
         githubPrAliasesOverride: override(githubPrAliases),
         githubPrAliases,
@@ -113,6 +115,7 @@ export const formToGql: FormToGqlFunction = (
   {
     github: {
       prTestingEnabled,
+      manualPrTestingEnabled,
       prTesting,
       githubChecksEnabled,
       githubChecks,
@@ -134,6 +137,7 @@ export const formToGql: FormToGqlFunction = (
   const projectRef: ProjectInput = {
     id,
     prTestingEnabled,
+    manualPrTestingEnabled,
     githubChecksEnabled,
     gitTagVersionsEnabled,
     gitTagAuthorizedUsers: gitTagAuthorizedUsersOverride

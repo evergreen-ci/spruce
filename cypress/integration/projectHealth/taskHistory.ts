@@ -1,33 +1,37 @@
 // / <reference types="Cypress" />
 
-// TODO: Reenable this test after PM-1976 is resolved
-// This fails because the links are not active
-describe.skip("task history", () => {
+describe("task history", () => {
   before(() => {
     cy.login();
+    cy.setCookie("has-closed-slack-banner", "true");
   });
   beforeEach(() => {
     cy.preserveCookies();
   });
 
-  it("should be linked to from the task page", () => {
+  it("link from task page should link to the commit and scroll to it", () => {
     cy.visit(`/task/${taskId}`);
     cy.contains("See history").should("exist");
     cy.contains("See history").click();
     cy.location("pathname").should("eq", "/task-history/spruce/check_codegen");
+    cy.location("search").should("contain", `selectedCommit=1236`);
+    cy.dataCy("commit-label")
+      .contains("Mohamed Khelif -v2.28.5")
+      .should("be.visible");
   });
   it("should be able expand and collapse inactive commits", () => {
+    cy.visit(`/task-history/spruce/check_codegen`);
     // Expand
-    cy.contains("EVG-16356").should("not.be.visible");
-    cy.contains("Expand 1 inactive").should("exist");
+    cy.contains("2ab1c56").should("not.be.visible");
+    cy.contains("Expand 1 inactive").should("be.visible");
     cy.contains("Expand 1 inactive").click();
-    cy.contains("EVG-16356").should("be.visible");
+    cy.contains("2ab1c56").should("be.visible");
 
     // Collapse
     cy.contains("Expand 1 inactive").should("not.exist");
-    cy.contains("Collapse 1 inactive").should("exist");
+    cy.contains("Collapse 1 inactive").should("be.visible");
     cy.contains("Collapse 1 inactive").click();
-    cy.contains("EVG-16356").should("not.be.visible");
+    cy.contains("2ab1c56").should("not.be.visible");
   });
   it("clicking on a failing test history button should show the task history view with the failing test filter applied", () => {
     cy.visit(`/task/${taskId}`);

@@ -8,7 +8,12 @@ describe("commits page", () => {
   beforeEach(() => {
     cy.preserveCookies();
   });
-
+  it("visiting the commits page for the first time should show a welcome modal", () => {
+    cy.dataCy("welcome-modal").should("be.visible");
+    cy.dataCy("close-welcome-modal").click();
+    cy.reload();
+    cy.dataCy("welcome-modal").should("not.exist");
+  });
   it("should present a default view with only failing task icons visible", () => {
     cy.dataCy("waterfall-task-status-icon").should("exist");
     cy.dataCy("waterfall-task-status-icon").scrollIntoView();
@@ -22,19 +27,21 @@ describe("commits page", () => {
     cy.dataCy("grouped-task-status-badge").should("not.exist");
   });
   it("should be able to collapse/expand commit graph which retains state when paginating", () => {
+    cy.dataCy("commit-chart-container").should("exist");
     cy.dataCy("commit-chart-container").should("be.visible");
+    cy.dataCy("accordion-toggle").contains("Project Health").click();
 
-    cy.contains("Project Health").click();
     cy.dataCy("commit-chart-container").should("not.be.visible");
+
     cy.dataCy("next-page-button").click();
     cy.dataCy("commit-chart-container").should("not.be.visible");
-    cy.location("search").should("contain", "?chartOpen=false");
+    cy.location("search").should("contain", "chartOpen=false");
 
-    cy.contains("Project Health").click();
+    cy.dataCy("accordion-toggle").contains("Project Health").click();
     cy.dataCy("commit-chart-container").should("be.visible");
     cy.dataCy("prev-page-button").click();
     cy.dataCy("commit-chart-container").should("be.visible");
-    cy.location("search").should("contain", "?chartOpen=true");
+    cy.location("search").should("contain", "chartOpen=true");
   });
   it("toggling chart types should change the charts in view", () => {
     cy.getInputByLabel("Absolute Number").should("be.checked");

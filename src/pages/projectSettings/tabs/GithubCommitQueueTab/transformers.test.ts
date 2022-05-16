@@ -38,6 +38,7 @@ describe("project data", () => {
 const projectForm: FormState = {
   github: {
     prTestingEnabled: null,
+    manualPrTestingEnabled: null,
     prTesting: {
       githubPrAliasesOverride: true,
       githubPrAliases: [
@@ -130,6 +131,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
   projectRef: {
     id: "project",
     prTestingEnabled: null,
+    manualPrTestingEnabled: null,
     githubChecksEnabled: null,
     gitTagVersionsEnabled: null,
     gitTagAuthorizedUsers: ["privileged"],
@@ -178,6 +180,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
 const repoForm: FormState = {
   github: {
     prTestingEnabled: true,
+    manualPrTestingEnabled: false,
     prTesting: {
       githubPrAliasesOverride: true,
       githubPrAliases: [],
@@ -254,6 +257,7 @@ const repoResult: Pick<RepoSettingsInput, "projectRef" | "aliases"> = {
   projectRef: {
     id: "repo",
     prTestingEnabled: true,
+    manualPrTestingEnabled: false,
     githubChecksEnabled: true,
     gitTagVersionsEnabled: true,
     gitTagAuthorizedUsers: ["admin"],
@@ -282,6 +286,7 @@ const repoResult: Pick<RepoSettingsInput, "projectRef" | "aliases"> = {
 const mergedForm: FormState = {
   github: {
     prTestingEnabled: null,
+    manualPrTestingEnabled: null,
     prTesting: {
       githubPrAliasesOverride: true,
       githubPrAliases: [

@@ -517,6 +517,7 @@ export type Version = {
   repo: Scalars["String"];
   project: Scalars["String"];
   projectIdentifier: Scalars["String"];
+  projectMetadata?: Maybe<Project>;
   branch: Scalars["String"];
   requester: Scalars["String"];
   activated?: Maybe<Scalars["Boolean"]>;
@@ -748,6 +749,7 @@ export type SubscriberInput = {
 
 export type UseSpruceOptionsInput = {
   hasUsedSpruceBefore?: Maybe<Scalars["Boolean"]>;
+  hasUsedMainlineCommitsBefore?: Maybe<Scalars["Boolean"]>;
   spruceV1?: Maybe<Scalars["Boolean"]>;
 };
 
@@ -804,6 +806,7 @@ export type ProjectInput = {
   dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]>;
   prTestingEnabled?: Maybe<Scalars["Boolean"]>;
+  manualPrTestingEnabled?: Maybe<Scalars["Boolean"]>;
   githubChecksEnabled?: Maybe<Scalars["Boolean"]>;
   batchTime?: Maybe<Scalars["Int"]>;
   deactivatePrevious?: Maybe<Scalars["Boolean"]>;
@@ -853,6 +856,7 @@ export type RepoRefInput = {
   dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]>;
   prTestingEnabled?: Maybe<Scalars["Boolean"]>;
+  manualPrTestingEnabled?: Maybe<Scalars["Boolean"]>;
   githubChecksEnabled?: Maybe<Scalars["Boolean"]>;
   batchTime?: Maybe<Scalars["Int"]>;
   deactivatePrevious?: Maybe<Scalars["Boolean"]>;
@@ -1034,6 +1038,7 @@ export type UpdateVolumeInput = {
 export type IssueLinkInput = {
   url: Scalars["String"];
   issueKey: Scalars["String"];
+  confidenceScore?: Maybe<Scalars["Float"]>;
 };
 
 export type SortOrder = {
@@ -1609,6 +1614,7 @@ export type Project = {
   dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]>;
   prTestingEnabled?: Maybe<Scalars["Boolean"]>;
+  manualPrTestingEnabled?: Maybe<Scalars["Boolean"]>;
   githubChecksEnabled?: Maybe<Scalars["Boolean"]>;
   batchTime: Scalars["Int"];
   deactivatePrevious?: Maybe<Scalars["Boolean"]>;
@@ -1659,6 +1665,7 @@ export type RepoRef = {
   dispatchingDisabled: Scalars["Boolean"];
   versionControlEnabled: Scalars["Boolean"];
   prTestingEnabled: Scalars["Boolean"];
+  manualPrTestingEnabled: Scalars["Boolean"];
   githubChecksEnabled: Scalars["Boolean"];
   batchTime: Scalars["Int"];
   deactivatePrevious: Scalars["Boolean"];
@@ -1866,6 +1873,7 @@ export type UserSettings = {
 
 export type UseSpruceOptions = {
   hasUsedSpruceBefore?: Maybe<Scalars["Boolean"]>;
+  hasUsedMainlineCommitsBefore?: Maybe<Scalars["Boolean"]>;
   spruceV1?: Maybe<Scalars["Boolean"]>;
 };
 
@@ -2046,6 +2054,7 @@ export type IssueLink = {
   url?: Maybe<Scalars["String"]>;
   source?: Maybe<Source>;
   jiraTicket?: Maybe<JiraTicket>;
+  confidenceScore?: Maybe<Scalars["Float"]>;
 };
 
 export type Source = {
@@ -2285,6 +2294,7 @@ export type RepoGeneralSettingsFragment = {
 
 export type ProjectGithubSettingsFragment = {
   prTestingEnabled?: Maybe<boolean>;
+  manualPrTestingEnabled?: Maybe<boolean>;
   githubChecksEnabled?: Maybe<boolean>;
   githubTriggerAliases?: Maybe<Array<string>>;
   gitTagVersionsEnabled?: Maybe<boolean>;
@@ -2300,6 +2310,7 @@ export type ProjectGithubSettingsFragment = {
 
 export type RepoGithubSettingsFragment = {
   prTestingEnabled: boolean;
+  manualPrTestingEnabled: boolean;
   githubChecksEnabled: boolean;
   githubTriggerAliases?: Maybe<Array<string>>;
   gitTagVersionsEnabled: boolean;
@@ -2495,7 +2506,6 @@ export type RepoPluginsSettingsFragment = {
 export type ProjectEventSettingsFragment = {
   projectRef?: Maybe<
     {
-      id: string;
       identifier: string;
       repoRefId: string;
       versionControlEnabled?: Maybe<boolean>;
@@ -2518,7 +2528,6 @@ export type ProjectEventSettingsFragment = {
 export type RepoEventSettingsFragment = {
   projectRef?: Maybe<
     {
-      id: string;
       displayName: string;
       versionControlEnabled: boolean;
       tracksPushEvents: boolean;
@@ -2654,6 +2663,12 @@ export type ClearMySubscriptionsMutationVariables = Exact<{
 }>;
 
 export type ClearMySubscriptionsMutation = { clearMySubscriptions: number };
+
+export type CopyProjectMutationVariables = Exact<{
+  project: CopyProjectInput;
+}>;
+
+export type CopyProjectMutation = { copyProject: { identifier: string } };
 
 export type CreateProjectMutationVariables = Exact<{
   project: CreateProjectInput;
@@ -3663,6 +3678,42 @@ export type ConfigurePatchQuery = {
   } & BasePatchFragment;
 };
 
+export type PatchTaskDurationsQueryVariables = Exact<{
+  patchId: Scalars["String"];
+  sorts?: Maybe<Array<SortOrder>>;
+  page?: Maybe<Scalars["Int"]>;
+  variant?: Maybe<Scalars["String"]>;
+  statuses?: Maybe<Array<Scalars["String"]>>;
+  taskName?: Maybe<Scalars["String"]>;
+  limit?: Maybe<Scalars["Int"]>;
+}>;
+
+export type PatchTaskDurationsQuery = {
+  patchTasks: {
+    count: number;
+    tasks: Array<{
+      id: string;
+      execution: number;
+      status: string;
+      displayName: string;
+      buildVariantDisplayName?: Maybe<string>;
+      timeTaken?: Maybe<number>;
+      startTime?: Maybe<Date>;
+      executionTasksFull?: Maybe<
+        Array<{
+          id: string;
+          execution: number;
+          displayName: string;
+          status: string;
+          buildVariantDisplayName?: Maybe<string>;
+          timeTaken?: Maybe<number>;
+          startTime?: Maybe<Date>;
+        }>
+      >;
+    }>;
+  };
+};
+
 export type GetPatchTaskStatusesQueryVariables = Exact<{
   id: Scalars["String"];
 }>;
@@ -4179,6 +4230,7 @@ export type GetUserSettingsQuery = {
     useSpruceOptions?: Maybe<{
       hasUsedSpruceBefore?: Maybe<boolean>;
       spruceV1?: Maybe<boolean>;
+      hasUsedMainlineCommitsBefore?: Maybe<boolean>;
     }>;
   }>;
 };

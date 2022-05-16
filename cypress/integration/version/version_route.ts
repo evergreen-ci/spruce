@@ -75,31 +75,113 @@ describe("Version route", () => {
       );
     });
 
-    it("Shows tooltip with task's name on hover", () => {
-      cy.dataCy("grouped-task-status-badge")
-        .first()
-        .trigger("mouseover")
-        .within(($el) => {
-          expect($el.text()).to.contain("1Undispatched");
-        });
+    describe("Grouped Task Status Badge", () => {
+      it("Shows tooltip with task's name on hover", () => {
+        cy.dataCy("grouped-task-status-badge")
+          .first()
+          .trigger("mouseover")
+          .within(($el) => {
+            expect($el.text()).to.contain("1Undispatched");
+          });
+      });
+
+      it("Navigates to task tab and applies filters when clicking on grouped task status badge", () => {
+        // click on a different tab first, so that we aren't on the task tab initially
+        cy.dataCy("changes-tab").first().click();
+        cy.dataCy("task-tab")
+          .should("have.attr", "aria-selected")
+          .and("equal", "false");
+
+        // clicking on task status badge should move to the task tab
+        cy.dataCy("grouped-task-status-badge").first().click();
+        cy.dataCy("task-tab")
+          .should("have.attr", "aria-selected")
+          .and("equal", "true");
+        cy.location("search").should(
+          "include",
+          "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=undispatched-umbrella,unscheduled,aborted,blocked&variant=%5Eubuntu1604%24"
+        );
+
+        // Check that filter values have updated.
+        cy.toggleTableFilter(2);
+        cy.getInputByLabel("Unscheduled")
+          .should("have.attr", "aria-checked")
+          .and("equal", "true");
+
+        cy.toggleTableFilter(4);
+        cy.dataCy("variant-input-wrapper")
+          .find("input")
+          .should("have.value", "^ubuntu1604$");
+      });
+
+      it("Keeps sorts but not other filters when clicking on grouped task status badge", () => {
+        // Clear filters persisting from last test
+        cy.dataCy("clear-all-filters").click();
+
+        // Apply name filter
+        cy.toggleTableFilter(1);
+        cy.dataCy("taskname-input-wrapper")
+          .find("input")
+          .focus()
+          .type("a-task-name")
+          .type("{enter}");
+
+        // name filter shouldn't be applied after clicking task status badge
+        cy.dataCy("grouped-task-status-badge").first().click();
+        cy.location("search").should(
+          "include",
+          "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=undispatched-umbrella,unscheduled,aborted,blocked&variant=%5Eubuntu1604%24"
+        );
+      });
     });
 
-    it("Navigates to task tab and applies filters when clicking on grouped task status badge", () => {
-      // click on a different tab first, so that we aren't on the task tab initially
-      cy.dataCy("changes-tab").first().click();
-      cy.dataCy("task-tab")
-        .should("have.attr", "aria-selected")
-        .and("equal", "false");
+    describe("Build Variant Name", () => {
+      it("Navigates to task tab and applies filters when clicking on build variant name", () => {
+        // Clear filters persisting from last test
+        cy.dataCy("clear-all-filters").click();
 
-      // clicking on task status badge should move to the task tab
-      cy.dataCy("grouped-task-status-badge").first().click();
-      cy.dataCy("task-tab")
-        .should("have.attr", "aria-selected")
-        .and("equal", "true");
-      cy.location("search").should(
-        "include",
-        "statuses=undispatched-umbrella,unscheduled,aborted,blocked"
-      );
+        // click on a different tab first, so that we aren't on the task tab initially
+        cy.dataCy("changes-tab").first().click();
+        cy.dataCy("task-tab")
+          .should("have.attr", "aria-selected")
+          .and("equal", "false");
+
+        // clicking on build variant name should move to the task tab
+        cy.dataCy("build-variant-display-name").first().click();
+        cy.dataCy("task-tab")
+          .should("have.attr", "aria-selected")
+          .and("equal", "true");
+        cy.location("search").should(
+          "include",
+          "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&variant=%5Eubuntu1604%24"
+        );
+
+        // Check that filter values have updated.
+        cy.toggleTableFilter(4);
+        cy.dataCy("variant-input-wrapper")
+          .find("input")
+          .should("have.value", "^ubuntu1604$");
+      });
+
+      it("Keeps sorts but not other filters when clicking on build variant name", () => {
+        // Clear filters persisting from last test
+        cy.dataCy("clear-all-filters").click();
+
+        // Apply name filter
+        cy.toggleTableFilter(1);
+        cy.dataCy("taskname-input-wrapper")
+          .find("input")
+          .focus()
+          .type("a-task-name")
+          .type("{enter}");
+
+        // name filter shouldn't be applied after clicking build variant name
+        cy.dataCy("build-variant-display-name").first().click();
+        cy.location("search").should(
+          "include",
+          "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&variant=%5Eubuntu1604%24"
+        );
+      });
     });
   });
 
@@ -111,7 +193,11 @@ describe("Version route", () => {
     it("Should include a link to Jira", () => {
       cy.dataCy("page-title")
         .contains("a", "EVG-7425")
-        .should("have.attr", "href", "https:///browse/EVG-7425");
+        .should(
+          "have.attr",
+          "href",
+          "https://jira.example.com/browse/EVG-7425"
+        );
     });
 
     it("Should include a link to GitHub", () => {

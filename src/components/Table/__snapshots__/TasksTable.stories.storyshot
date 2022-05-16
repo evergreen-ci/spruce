@@ -365,7 +365,13 @@ exports[`storybook Storyshots Tasks Table Base Task Table 1`] = `
                     rowSpan={null}
                     style={Object {}}
                   >
-                    Ubuntu 16.04
+                    <a
+                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      href="/variant-history/undefined/ubuntu1604"
+                      onClick={[Function]}
+                    >
+                      Ubuntu 16.04
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -417,7 +423,13 @@ exports[`storybook Storyshots Tasks Table Base Task Table 1`] = `
                     rowSpan={null}
                     style={Object {}}
                   >
-                    Ubuntu 16.04
+                    <a
+                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      href="/variant-history/undefined/ubuntu1604"
+                      onClick={[Function]}
+                    >
+                      Ubuntu 16.04
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -469,7 +481,13 @@ exports[`storybook Storyshots Tasks Table Base Task Table 1`] = `
                     rowSpan={null}
                     style={Object {}}
                   >
-                    Windows 97
+                    <a
+                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      href="/variant-history/undefined/Windows"
+                      onClick={[Function]}
+                    >
+                      Windows 97
+                    </a>
                   </td>
                 </tr>
               </tbody>
@@ -861,7 +879,13 @@ exports[`storybook Storyshots Tasks Table Execution Tasks Table 1`] = `
                     rowSpan={null}
                     style={Object {}}
                   >
-                    Ubuntu 16.04
+                    <a
+                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      href="/variant-history/undefined/ubuntu1604"
+                      onClick={[Function]}
+                    >
+                      Ubuntu 16.04
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -927,7 +951,13 @@ exports[`storybook Storyshots Tasks Table Execution Tasks Table 1`] = `
                     rowSpan={null}
                     style={Object {}}
                   >
-                    Ubuntu 16.04
+                    <a
+                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      href="/variant-history/undefined/ubuntu1604"
+                      onClick={[Function]}
+                    >
+                      Ubuntu 16.04
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -993,7 +1023,13 @@ exports[`storybook Storyshots Tasks Table Execution Tasks Table 1`] = `
                     rowSpan={null}
                     style={Object {}}
                   >
-                    Windows 97
+                    <a
+                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      href="/variant-history/undefined/Windows"
+                      onClick={[Function]}
+                    >
+                      Windows 97
+                    </a>
                   </td>
                 </tr>
                 <tr
@@ -1059,7 +1095,13 @@ exports[`storybook Storyshots Tasks Table Execution Tasks Table 1`] = `
                     rowSpan={null}
                     style={Object {}}
                   >
-                    Windows 97
+                    <a
+                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      href="/variant-history/undefined/Windows"
+                      onClick={[Function]}
+                    >
+                      Windows 97
+                    </a>
                   </td>
                 </tr>
               </tbody>

@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
+import IconButton from "@leafygreen-ui/icon-button";
 import { uiColors } from "@leafygreen-ui/palette";
 import Popover from "@leafygreen-ui/popover";
 import TextInput from "@leafygreen-ui/text-input";
@@ -8,20 +9,25 @@ import { PopoverContainer } from "components/styles/Popover";
 import { size } from "constants/tokens";
 import { useOnClickOutside } from "hooks";
 
-const { gray, white, focus } = uiColors;
+const { gray, focus } = uiColors;
 
 interface TableSearchPopoverProps {
-  onConfirm: (search: string) => void;
+  value: string;
+  onChange: (search: string) => void;
+  onConfirm: () => void;
+  "data-cy"?: string;
   placeholder?: string;
 }
 
 export const TableSearchPopover: React.VFC<TableSearchPopoverProps> = ({
+  value,
+  onChange,
   onConfirm,
+  "data-cy": dataCy,
   placeholder,
 }) => {
   const [active, setActive] = useState(false);
-  const [search, setSearch] = useState("");
-  const iconColor = search === "" ? gray.dark2 : focus;
+  const iconColor = value === "" ? gray.dark2 : focus;
 
   const buttonRef = useRef(null);
   const popoverRef = useRef(null);
@@ -30,20 +36,21 @@ export const TableSearchPopover: React.VFC<TableSearchPopoverProps> = ({
   useOnClickOutside([buttonRef, popoverRef], () => setActive(false));
 
   const closePopup = () => {
-    onConfirm(search);
+    onConfirm();
     setActive(false);
   };
 
   return (
-    <div>
-      <IconWrapper
-        active={active}
+    <Wrapper>
+      <IconButton
         onClick={() => setActive(!active)}
-        data-cy="test-filter-popover"
+        active={active}
+        data-cy={dataCy}
+        aria-label="Table Search Popover Icon"
         ref={buttonRef}
       >
         <Icon glyph="MagnifyingGlass" small="xsmall" color={iconColor} />
-      </IconWrapper>
+      </IconButton>
       <Popover align="bottom" justify="middle" active={active}>
         <PopoverContainer ref={popoverRef}>
           <TextInput
@@ -52,24 +59,17 @@ export const TableSearchPopover: React.VFC<TableSearchPopoverProps> = ({
             type="search"
             aria-label="input-filter"
             data-cy="input-filter"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
             onKeyPress={(e) => e.key === "Enter" && closePopup()}
             autoFocus
           />
         </PopoverContainer>
       </Popover>
-    </div>
+    </Wrapper>
   );
 };
 
-const IconWrapper = styled.div<{ active: boolean }>`
-  width: ${size.m};
-  height: ${size.m};
-  margin-left: ${size.xs};
-  padding: ${size.xxs};
-  border-radius: 50%;
-  background-color: ${({ active }) => (active ? gray.light2 : white)};
-  transition: background-color 0.3s ease-in-out;
-  cursor: pointer;
+const Wrapper = styled.div`
+  margin-left: ${size.xxs};
 `;
