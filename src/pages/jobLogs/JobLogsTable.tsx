@@ -72,7 +72,7 @@ export const JobLogsTable: React.VFC<JobLogsTableProps> = ({
   return (
     <Container>
       <PaginationWrapper>
-        <PageSizeSelector value={limitNum} useLeafygreen />
+        <PageSizeSelector value={limitNum} />
         <Pagination value={pageNum} numPages={numPages} useLeafygreen />
       </PaginationWrapper>
       <TableWrapper>
