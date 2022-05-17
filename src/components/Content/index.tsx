@@ -118,8 +118,7 @@ export const Content: React.VFC = () => {
         <Route path={routes.taskHistory} element={<TaskHistory />} />
         <Route path={routes.variantHistory} element={<VariantHistory />} />
         <Route path="/" element={<MyPatches />} />
-
-        <Route element={<PageDoesNotExist />} />
+        <Route path="*" element={<PageDoesNotExist />} />
       </Routes>
       {!hasUsedSpruceBefore && (
         <WelcomeModal
