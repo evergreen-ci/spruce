@@ -17,7 +17,6 @@ import {
   TaskSortCategory,
 } from "gql/generated/types";
 import { TableOnChange } from "types/task";
-import { isBeta } from "utils/environmentalVariables";
 import { sortTasks } from "utils/statuses";
 import { TaskLink } from "./TaskLink";
 
@@ -199,16 +198,13 @@ const getColumnDefs = ({
         ...variantInputProps,
         "data-cy": "variant-input",
       })),
-    render: (displayName, { projectIdentifier, buildVariant }) =>
-      projectIdentifier && isBeta() ? (
-        <StyledRouterLink
-          to={getVariantHistoryRoute(projectIdentifier, buildVariant)}
-        >
-          {displayName}
-        </StyledRouterLink>
-      ) : (
-        <>{displayName}</>
-      ),
+    render: (displayName, { projectIdentifier, buildVariant }) => (
+      <StyledRouterLink
+        to={getVariantHistoryRoute(projectIdentifier, buildVariant)}
+      >
+        {displayName}
+      </StyledRouterLink>
+    ),
   },
 ];
 

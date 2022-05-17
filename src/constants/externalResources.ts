@@ -33,6 +33,12 @@ export const getGithubPullRequestUrl = (
   issue: number | string
 ) => `https://github.com/${owner}/${repo}/pull/${issue}`;
 
+export const getGithubCommitUrl = (
+  owner: string,
+  repo: string,
+  githash: string
+) => `https://github.com/${owner}/${repo}/commit/${githash}`;
+
 export const getLobsterTaskLink = (
   logType: LogTypes,
   taskId: string,
