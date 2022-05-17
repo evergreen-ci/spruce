@@ -114,7 +114,7 @@ export const sectionHasError = (
 
 export const githubConflictErrorStyling = (
   conflictProjects: string[] | null,
-  fieldEnabled: boolean,
+  fieldEnabled: boolean | null,
   repoFieldEnabled: boolean,
   fieldName: string
 ) => {

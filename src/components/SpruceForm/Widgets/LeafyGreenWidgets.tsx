@@ -263,12 +263,12 @@ export const LeafyGreenRadioBox: React.VFC<
           {description && <Description>{description}</Description>}
         </RadioBoxLabelContainer>
       )}
-      {!!errors?.length && (
+      {!!errors && (
         <StyledBanner variant="danger" data-cy="error-banner">
           {errors.join(", ")}
         </StyledBanner>
       )}
-      {!!warnings?.length && (
+      {!!warnings && (
         <StyledBanner variant="warning" data-cy="warning-banner">
           {warnings.join(", ")}
         </StyledBanner>

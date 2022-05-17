@@ -129,10 +129,14 @@ const validate = (projectType, repoData, versionControlEnabled) => (
     commitQueue: { enabled, patchDefinitions },
   } = formData;
 
-  const getError = getVersionControlError(versionControlEnabled, projectType);
+  // getVersionControlError is a curried function, so save its partial application here to avoid repetition
+  const getAliasError = getVersionControlError(
+    versionControlEnabled,
+    projectType
+  );
 
   if (
-    getError(
+    getAliasError(
       prTestingEnabled,
       prTesting?.githubPrAliasesOverride,
       prTesting?.githubPrAliases,
@@ -143,7 +147,7 @@ const validate = (projectType, repoData, versionControlEnabled) => (
   }
 
   if (
-    getError(
+    getAliasError(
       githubChecksEnabled,
       githubChecks?.githubCheckAliasesOverride,
       githubChecks?.githubCheckAliases,
@@ -154,7 +158,7 @@ const validate = (projectType, repoData, versionControlEnabled) => (
   }
 
   if (
-    getError(
+    getAliasError(
       gitTagVersionsEnabled,
       gitTags?.gitTagAliasesOverride,
       gitTags?.gitTagAliases,
@@ -165,7 +169,7 @@ const validate = (projectType, repoData, versionControlEnabled) => (
   }
 
   if (
-    getError(
+    getAliasError(
       enabled,
       patchDefinitions?.commitQueueAliasesOverride,
       patchDefinitions?.commitQueueAliases,
