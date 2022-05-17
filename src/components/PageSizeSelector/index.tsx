@@ -9,6 +9,9 @@ interface Props {
   onChange?: (i: number) => void;
 }
 
+/**
+ * `data-cy` prop is not currently supported by @leafygreen-ui/select
+ */
 const PageSizeSelector: React.VFC<Props> = ({
   value,
   "data-cy": dataCy,
