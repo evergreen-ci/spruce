@@ -59,7 +59,7 @@ export type Query = {
   projectSettings: ProjectSettings;
   repoSettings: RepoSettings;
   projectEvents: ProjectEvents;
-  repoEvents: ProjectEvents;
+  repoEvents: RepoEvents;
   hasVersion: Scalars["Boolean"];
 };
 
@@ -1481,6 +1481,14 @@ export type ProjectEventSettings = {
   subscriptions?: Maybe<Array<ProjectSubscription>>;
 };
 
+export type RepoEventSettings = {
+  githubWebhooksEnabled: Scalars["Boolean"];
+  projectRef?: Maybe<RepoRef>;
+  vars?: Maybe<ProjectVars>;
+  aliases?: Maybe<Array<ProjectAlias>>;
+  subscriptions?: Maybe<Array<ProjectSubscription>>;
+};
+
 export type RepoSettings = {
   githubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<RepoRef>;
@@ -1499,6 +1507,18 @@ export type ProjectEventLogEntry = {
   user: Scalars["String"];
   before?: Maybe<ProjectEventSettings>;
   after?: Maybe<ProjectEventSettings>;
+};
+
+export type RepoEvents = {
+  eventLogEntries: Array<RepoEventLogEntry>;
+  count: Scalars["Int"];
+};
+
+export type RepoEventLogEntry = {
+  timestamp: Scalars["Time"];
+  user: Scalars["String"];
+  before?: Maybe<RepoEventSettings>;
+  after?: Maybe<RepoEventSettings>;
 };
 
 export type ProjectVars = {
