@@ -145,8 +145,8 @@ export const HostsTable: React.VFC<Props> = ({
     },
     {
       title: "Distro",
-      defaultSortOrder: getDefaultSortOrder(HostSortBy.Distro),
       dataIndex: "distroId",
+      defaultSortOrder: getDefaultSortOrder(HostSortBy.Distro),
       key: HostSortBy.Distro,
       sorter: true,
       width: "15%",
@@ -203,8 +203,8 @@ export const HostsTable: React.VFC<Props> = ({
     },
     {
       title: "Elapsed",
-      defaultSortOrder: getDefaultSortOrder(HostSortBy.Elapsed),
       dataIndex: "elapsed",
+      defaultSortOrder: getDefaultSortOrder(HostSortBy.Elapsed),
       key: HostSortBy.Elapsed,
       sorter: true,
       className: "cy-task-table-col-ELAPSED",
@@ -225,19 +225,21 @@ export const HostsTable: React.VFC<Props> = ({
     },
     {
       title: "Idle Time",
-      defaultSortOrder: getDefaultSortOrder(HostSortBy.IdleTime),
       dataIndex: "totalIdleTime",
+      defaultSortOrder: getDefaultSortOrder(HostSortBy.IdleTime),
       key: HostSortBy.IdleTime,
       sorter: true,
       width: "10%",
       className: "cy-task-table-col-IDLE-TIME",
       render: (_, { totalIdleTime }) =>
-        totalIdleTime ? formatDistanceToNow(new Date(totalIdleTime)) : "N/A",
+        totalIdleTime
+          ? formatDistanceToNow(new Date(Date.now() - totalIdleTime))
+          : "N/A",
     },
     {
       title: "Owner",
-      defaultSortOrder: getDefaultSortOrder(HostSortBy.Owner),
       dataIndex: "startedBy",
+      defaultSortOrder: getDefaultSortOrder(HostSortBy.Owner),
       key: HostSortBy.Owner,
       sorter: true,
       width: "10%",
