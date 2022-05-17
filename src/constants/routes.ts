@@ -80,22 +80,25 @@ const projectSettingsRoutes = {
   projectSettingsVirtualWorkstation: `${baseRoute.projectSettings}/${ProjectSettingsTabRoutes.VirtualWorkstation}`,
 };
 
-export const routes = {
+const preferencesRoutes = {
   cliPreferences: `${paths.preferences}/${PreferencesTabRoutes.CLI}`,
+  newUIPreferences: `${paths.preferences}/${PreferencesTabRoutes.NewUI}`,
+  notificationsPreferences: `${paths.preferences}/${PreferencesTabRoutes.Notifications}`,
+  preferences: `${paths.preferences}`,
+  profilePreferences: `${paths.preferences}/${PreferencesTabRoutes.Profile}`,
+  publicKeysPreferences: `${paths.preferences}/${PreferencesTabRoutes.PublicKeys}`,
+};
+
+export const routes = {
   commitQueue: `${paths.commitQueue}/:id`,
   configurePatch: `${paths.patch}/:id/configure/*`,
   host: `${paths.host}/:id`,
   hosts: paths.hosts,
   login: paths.login,
   myPatches: `${paths.user}/${PageNames.Patches}`,
-  newUIPreferences: `${paths.preferences}/${PreferencesTabRoutes.NewUI}`,
-  notificationsPreferences: `${paths.preferences}/${PreferencesTabRoutes.Notifications}`,
   patch: `${paths.patch}/:id`,
-  preferences: `${paths.preferences}`,
-  profilePreferences: `${paths.preferences}/${PreferencesTabRoutes.Profile}`,
   projectPatches: `${paths.project}/:id/${PageNames.Patches}`,
-  publicKeysPreferences: `${paths.preferences}/${PreferencesTabRoutes.PublicKeys}`,
-  spawn: `${paths.spawn}/:tab?`,
+  spawn: paths.spawn,
   spawnHost: `${paths.spawn}/${SpawnTab.Host}`,
   spawnVolume: `${paths.spawn}/${SpawnTab.Volume}`,
   task: `${baseRoute.task}/*`,
@@ -109,6 +112,7 @@ export const routes = {
   taskHistory: `${paths.taskHistory}/:projectId/:taskName`,
   jobLogs: `${paths.jobLogs}/:taskId/:execution`,
   ...projectSettingsRoutes,
+  ...preferencesRoutes,
 };
 
 export const DEFAULT_PATCH_TAB = PatchTab.Tasks;

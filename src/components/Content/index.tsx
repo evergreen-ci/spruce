@@ -105,7 +105,10 @@ export const Content: React.VFC = () => {
           <Route path={tab} element={<ProjectSettings />} />
           <Route path="" element={<ProjectSettings />} />
         </Route>
-        <Route path={routes.spawn} element={<Spawn />} />
+        <Route path={routes.spawn}>
+          <Route path={tab} element={<Spawn />} />
+          <Route path="" element={<Spawn />} />
+        </Route>
         <Route path={routes.commitQueue} element={<CommitQueue />} />
         <Route path={routes.preferences}>
           <Route path={tab} element={<Preferences />} />
