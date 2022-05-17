@@ -25,10 +25,7 @@ const formatArrayElements = (eventKey: string): string =>
   eventKey.replace(/.[0-9]./g, (x) => `[${x[1]}].`);
 
 const getNestedObject = (nestedObj: object, pathArr: string[]): EventValue =>
-  pathArr.reduce(
-    (obj, key) => (obj && obj[key] !== "undefined" ? obj[key] : undefined),
-    nestedObj
-  );
+  pathArr.reduce((obj, key) => (obj ? obj[key] : undefined), nestedObj);
 
 export type EventValue = boolean | string | Array<any>;
 export type EventDiffLine = {
