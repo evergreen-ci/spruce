@@ -1,13 +1,23 @@
-import { string } from "utils";
 import { AliasFormType, ProjectType } from "../utils";
-
-const { joinWithConjunction } = string;
 
 export enum ErrorType {
   None,
   Warning,
   Error,
 }
+
+const getDefinitionLocation = (projectType: ProjectType) => {
+  switch (projectType) {
+    case ProjectType.AttachedProject:
+      return "project or repo";
+    case ProjectType.Repo:
+      return "repo";
+    case ProjectType.Project:
+      return "project";
+    default:
+      return "project";
+  }
+};
 
 const getErrorStyle = (
   errorType: ErrorType,
@@ -16,21 +26,19 @@ const getErrorStyle = (
   fieldName: string
 ): { "ui:warnings": string[] } | { "ui:errors": string[] } | {} => {
   if (errorType === ErrorType.Warning) {
-    const definitionLocations =
-      projectType === ProjectType.Repo ? ["repo"] : ["project"];
-    if (projectType === ProjectType.AttachedProject) {
-      definitionLocations.push("repo");
-    }
+    const definitionLocation = getDefinitionLocation(projectType);
+
     if (versionControlEnabled) {
-      definitionLocations.push("Evergreen configuration file");
+      return {
+        "ui:warnings": [
+          `YAML aliases will be used for this feature unless a ${fieldName} is added to the ${definitionLocation}.`,
+        ],
+      };
     }
 
     return {
       "ui:warnings": [
-        `This feature will only run if a ${fieldName} is defined in the ${joinWithConjunction(
-          definitionLocations,
-          "or"
-        )}.`,
+        `This feature will only run if a ${fieldName} is defined in the ${definitionLocation}.`,
       ],
     };
   }

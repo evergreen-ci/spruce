@@ -31,7 +31,7 @@ describe("an attached project", () => {
     it("returns a warning when version config is enabled", () => {
       expect(callSectionHasError(baseArgs)).toStrictEqual({
         "ui:warnings": [
-          "This feature will only run if a myFieldName is defined in the project, repo, or Evergreen configuration file.",
+          "YAML aliases will be used for this feature unless a myFieldName is added to the project or repo.",
         ],
       });
     });
@@ -70,7 +70,7 @@ describe("an attached project", () => {
         })
       ).toStrictEqual({
         "ui:warnings": [
-          "This feature will only run if a myFieldName is defined in the project, repo, or Evergreen configuration file.",
+          "YAML aliases will be used for this feature unless a myFieldName is added to the project or repo.",
         ],
       });
     });
@@ -123,7 +123,7 @@ describe("a repo", () => {
     it("returns a warning when version control is enabled", () => {
       expect(callSectionHasError(baseArgs)).toStrictEqual({
         "ui:warnings": [
-          "This feature will only run if a myFieldName is defined in the repo or Evergreen configuration file.",
+          "YAML aliases will be used for this feature unless a myFieldName is added to the repo.",
         ],
       });
     });
