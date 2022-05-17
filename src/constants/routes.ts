@@ -58,27 +58,28 @@ const paths = {
   jobLogs: "/job-logs",
 };
 
-const projectSettingsSlug = `${paths.project}/:identifier/${PageNames.Settings}`;
-
-const projectSettingsRoutes = {
-  projectSettings: `${projectSettingsSlug}/:tab?`,
-  projectSettingsAccess: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.Access}`,
-  projectSettingsGeneral: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.General}`,
-  projectSettingsGithubCommitQueue: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.GithubCommitQueue}`,
-  projectSettingsEventLog: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.EventLog}`,
-  projectSettingsPlugins: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.Plugins}`,
-  projectSettingsNotifications: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.Notifications}`,
-  projectSettingsPatchAliases: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.PatchAliases}`,
-  projectSettingsPeriodicBuilds: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.PeriodicBuilds}`,
-  projectSettingsProjectTriggers: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.ProjectTriggers}`,
-  projectSettingsVariables: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.Variables}`,
-  projectSettingsVirtualWorkstation: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.VirtualWorkstation}`,
-};
-
 export const baseRoute = {
   task: `${paths.task}/:id`,
   configurePatch: `${paths.patch}/:id/configure`,
+  version: `${paths.version}/:id`,
+  commits: paths.commits,
+  projectSettings: `${paths.project}/:identifier/${PageNames.Settings}`,
 };
+const projectSettingsRoutes = {
+  projectSettings: `${baseRoute.projectSettings}/*`,
+  projectSettingsAccess: `${baseRoute.projectSettings}/${ProjectSettingsTabRoutes.Access}`,
+  projectSettingsGeneral: `${baseRoute.projectSettings}/${ProjectSettingsTabRoutes.General}`,
+  projectSettingsGithubCommitQueue: `${baseRoute.projectSettings}/${ProjectSettingsTabRoutes.GithubCommitQueue}`,
+  projectSettingsEventLog: `${baseRoute.projectSettings}/${ProjectSettingsTabRoutes.EventLog}`,
+  projectSettingsPlugins: `${baseRoute.projectSettings}/${ProjectSettingsTabRoutes.Plugins}`,
+  projectSettingsNotifications: `${baseRoute.projectSettings}/${ProjectSettingsTabRoutes.Notifications}`,
+  projectSettingsPatchAliases: `${baseRoute.projectSettings}/${ProjectSettingsTabRoutes.PatchAliases}`,
+  projectSettingsPeriodicBuilds: `${baseRoute.projectSettings}/${ProjectSettingsTabRoutes.PeriodicBuilds}`,
+  projectSettingsProjectTriggers: `${baseRoute.projectSettings}/${ProjectSettingsTabRoutes.ProjectTriggers}`,
+  projectSettingsVariables: `${baseRoute.projectSettings}/${ProjectSettingsTabRoutes.Variables}`,
+  projectSettingsVirtualWorkstation: `${baseRoute.projectSettings}/${ProjectSettingsTabRoutes.VirtualWorkstation}`,
+};
+
 export const routes = {
   cliPreferences: `${paths.preferences}/${PreferencesTabRoutes.CLI}`,
   commitQueue: `${paths.commitQueue}/:id`,
@@ -89,8 +90,8 @@ export const routes = {
   myPatches: `${paths.user}/${PageNames.Patches}`,
   newUIPreferences: `${paths.preferences}/${PreferencesTabRoutes.NewUI}`,
   notificationsPreferences: `${paths.preferences}/${PreferencesTabRoutes.Notifications}`,
-  patch: `${paths.patch}/:id/:tab?`,
-  preferences: `${paths.preferences}/:tab?`,
+  patch: `${paths.patch}/:id`,
+  preferences: `${paths.preferences}`,
   profilePreferences: `${paths.preferences}/${PreferencesTabRoutes.Profile}`,
   projectPatches: `${paths.project}/:id/${PageNames.Patches}`,
   publicKeysPreferences: `${paths.preferences}/${PreferencesTabRoutes.PublicKeys}`,
@@ -98,15 +99,15 @@ export const routes = {
   spawnHost: `${paths.spawn}/${SpawnTab.Host}`,
   spawnVolume: `${paths.spawn}/${SpawnTab.Volume}`,
   task: `${baseRoute.task}/*`,
-  taskQueue: `${paths.taskQueue}/:distro?/:taskId?`,
+  taskQueue: paths.taskQueue,
   userPatchesRedirect: `${paths.user}/:id`,
   projectSettingsRedirect: paths.projects,
   userPatches: `${paths.user}/:id/${PageNames.Patches}`,
-  version: `${paths.version}/:id/:tab?`,
-  commits: `${paths.commits}/:id?`,
+  version: `${baseRoute.version}/*`,
+  commits: `${baseRoute.commits}/*`,
   variantHistory: `${paths.variantHistory}/:projectId/:variantName`,
   taskHistory: `${paths.taskHistory}/:projectId/:taskName`,
-  jobLogs: `${paths.jobLogs}/:taskId/:execution/:groupId?`,
+  jobLogs: `${paths.jobLogs}/:taskId/:execution`,
   ...projectSettingsRoutes,
 };
 

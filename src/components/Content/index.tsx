@@ -68,10 +68,22 @@ export const Content: React.VFC = () => {
           <Route path={tab} element={<Task />} />
           <Route path="" element={<Task />} />
         </Route>
-        <Route path={baseRoute.configurePatch} element={<ConfigurePatch />} />
-        <Route path={routes.patch} element={<VersionPage />} />
-        <Route path={routes.version} element={<VersionPage />} />
-        <Route path={routes.jobLogs} element={<JobLogs />} />
+        <Route path={baseRoute.configurePatch} element={<ConfigurePatch />}>
+          <Route path={tab} element={<ConfigurePatch />} />
+          <Route path="" element={<ConfigurePatch />} />
+        </Route>
+        <Route path={routes.patch}>
+          <Route path={tab} element={<VersionPage />} />
+          <Route path="" element={<VersionPage />} />
+        </Route>
+        <Route path={baseRoute.version}>
+          <Route path={tab} element={<VersionPage />} />
+          <Route path="" element={<VersionPage />} />
+        </Route>
+        <Route path={routes.jobLogs}>
+          <Route path=":groupId" element={<JobLogs />} />
+          <Route path="" element={<JobLogs />} />
+        </Route>
         <Route path={routes.hosts} element={<Hosts />} />
         <Route path={routes.host} element={<Host />} />
         <Route path={routes.myPatches} element={<MyPatches />} />
@@ -84,13 +96,25 @@ export const Content: React.VFC = () => {
           element={<ProjectSettingsRedirect />}
         />
         <Route path={routes.userPatches} element={<UserPatches />} />
-        <Route path={routes.taskQueue} element={<TaskQueue />} />
+        <Route path={routes.taskQueue}>
+          <Route path=":distro" element={<TaskQueue />} />
+          <Route path=":distro/:taskId" element={<TaskQueue />} />
+        </Route>
         <Route path={routes.projectPatches} element={<ProjectPatches />} />
-        <Route path={routes.projectSettings} element={<ProjectSettings />} />
+        <Route path={baseRoute.projectSettings}>
+          <Route path={tab} element={<ProjectSettings />} />
+          <Route path="" element={<ProjectSettings />} />
+        </Route>
         <Route path={routes.spawn} element={<Spawn />} />
         <Route path={routes.commitQueue} element={<CommitQueue />} />
-        <Route path={routes.preferences} element={<Preferences />} />
-        <Route path={routes.commits} element={<Commits />} />
+        <Route path={routes.preferences}>
+          <Route path={tab} element={<Preferences />} />
+          <Route path="" element={<Preferences />} />
+        </Route>
+        <Route path={baseRoute.commits}>
+          <Route path=":id" element={<Commits />} />
+          <Route path="" element={<Commits />} />
+        </Route>
         <Route path={routes.taskHistory} element={<TaskHistory />} />
         <Route path={routes.variantHistory} element={<VariantHistory />} />
         <Route path="/" element={<MyPatches />} />
