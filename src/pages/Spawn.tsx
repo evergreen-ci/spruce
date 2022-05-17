@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Route, useParams, Navigate, Link } from "react-router-dom";
+import React from "react";
+import { useParams, Link, Outlet } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
 import {
   PageWrapper,
@@ -8,16 +8,10 @@ import {
   SideNavItem,
 } from "components/styles";
 import { routes, SpawnTab } from "constants/routes";
-import { SpawnHost } from "pages/spawn/SpawnHost";
-import { SpawnVolume } from "pages/spawn/SpawnVolume";
 
 export const Spawn: React.VFC = () => {
   const { tab } = useParams<{ tab: string }>();
   const spawnAnalytics = useSpawnAnalytics();
-  useEffect(() => {}, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
-  if (!tabRouteValues.includes(tab as SpawnTab)) {
-    return <Navigate to={routes.spawnHost} />;
-  }
 
   return (
     <>
@@ -54,11 +48,8 @@ export const Spawn: React.VFC = () => {
         </SideNavGroup>
       </SideNav>
       <PageWrapper>
-        <Route path={routes.spawnHost} element={<SpawnHost />} />
-        <Route path={routes.spawnVolume} element={<SpawnVolume />} />
+        <Outlet />
       </PageWrapper>
     </>
   );
 };
-
-const tabRouteValues = Object.values(SpawnTab);

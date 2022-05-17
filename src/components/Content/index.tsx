@@ -11,7 +11,7 @@ import { PageGrid } from "components/styles/Layout";
 import { TaskStatusIconLegend } from "components/TaskStatusIconLegend";
 import { UserPatchesRedirect } from "components/UserPatchesRedirect";
 import WelcomeModal from "components/WelcomeModal";
-import { baseRoute, routes } from "constants/routes";
+import { baseRoute, routes, SpawnTab } from "constants/routes";
 import { zIndex, size } from "constants/tokens";
 import { newSpruceUser } from "constants/welcomeModalProps";
 import { useAuthStateContext } from "context/auth";
@@ -31,6 +31,8 @@ import { Preferences } from "pages/Preferences";
 import { ProjectPatches } from "pages/ProjectPatches";
 import { ProjectSettings } from "pages/ProjectSettings";
 import { Spawn } from "pages/Spawn";
+import { SpawnHost } from "pages/spawn/SpawnHost";
+import { SpawnVolume } from "pages/spawn/SpawnVolume";
 import { Task } from "pages/Task";
 import { TaskHistory } from "pages/TaskHistory";
 import { TaskQueue } from "pages/TaskQueue";
@@ -105,9 +107,10 @@ export const Content: React.VFC = () => {
           <Route path={tab} element={<ProjectSettings />} />
           <Route path="" element={<ProjectSettings />} />
         </Route>
-        <Route path={routes.spawn}>
-          <Route path={tab} element={<Spawn />} />
-          <Route path="" element={<Spawn />} />
+        <Route path={routes.spawn} element={<Spawn />}>
+          <Route path={SpawnTab.Host} element={<SpawnHost />} />
+          <Route path={SpawnTab.Volume} element={<SpawnVolume />} />
+          <Route path="*" element={<SpawnHost />} />
         </Route>
         <Route path={routes.commitQueue} element={<CommitQueue />} />
         <Route path={routes.preferences}>
