@@ -59,8 +59,8 @@ describe("buildBaron", () => {
     expect(queryByDataCy("bb-error")).toBeNull();
   });
 
-  it("clicking on file a new ticket dispatches a banner.", async () => {
-    const { Component } = RenderFakeToastContext(
+  it("clicking on file a new ticket dispatches a toast", async () => {
+    const { Component, dispatchToast } = RenderFakeToastContext(
       <MockedProvider mocks={buildBaronMocks} addTypename={false}>
         <BuildBaron
           annotation={null}
@@ -78,14 +78,14 @@ describe("buildBaron", () => {
       path: "/task/:id",
     });
     fireEvent.click(queryByDataCy("file-ticket-button"));
-    await expect(getByText("File Ticket")).toBeInTheDocument();
-    await fireEvent.click(getByText("File Ticket"));
+    expect(getByText("File Ticket")).toBeInTheDocument();
+    fireEvent.click(getByText("File Ticket"));
 
-    waitFor(() =>
-      expect(
-        getByText("Ticket successfully created for this task")
-      ).toBeInTheDocument()
-    );
+    await waitFor(() => {
+      expect(dispatchToast.success).toHaveBeenCalledWith(
+        "Ticket successfully created for this task."
+      );
+    });
   });
 
   it("the correct JiraTicket rows are rendered in the component", () => {
@@ -131,7 +131,7 @@ describe("buildBaron", () => {
 });
 
 describe("annotationTicketsTable", () => {
-  it("should display the link and jiraIssue key while waiting for data to fetch.", async () => {
+  it("should still display the JIRA issue link and key while waiting for data to load", () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={ticketsTableMocks} addTypename={false}>
         <AnnotationTicketsTable
@@ -151,15 +151,15 @@ describe("annotationTicketsTable", () => {
         />
       </MockedProvider>
     );
-    const { getByText, queryByDataCy } = render(() => <Component />, {
+    const { getByText } = render(() => <Component />, {
       route: `/task/${taskId}`,
       path: "/task/:id",
     });
-
-    waitFor(() =>
-      expect(queryByDataCy("loading-annotation-ticket")).toBeInTheDocument()
-    );
     expect(getByText("EVG-1234567")).toBeInTheDocument();
+    expect(getByText("EVG-1234567")).toHaveAttribute(
+      "href",
+      "https://fake-url/EVG-1234567"
+    );
   });
 });
 

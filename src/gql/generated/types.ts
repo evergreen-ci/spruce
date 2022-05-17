@@ -517,6 +517,7 @@ export type Version = {
   repo: Scalars["String"];
   project: Scalars["String"];
   projectIdentifier: Scalars["String"];
+  projectMetadata?: Maybe<Project>;
   branch: Scalars["String"];
   requester: Scalars["String"];
   activated?: Maybe<Scalars["Boolean"]>;
@@ -4229,6 +4230,7 @@ export type GetUserSettingsQuery = {
     useSpruceOptions?: Maybe<{
       hasUsedSpruceBefore?: Maybe<boolean>;
       spruceV1?: Maybe<boolean>;
+      hasUsedMainlineCommitsBefore?: Maybe<boolean>;
     }>;
   }>;
 };
@@ -4276,6 +4278,7 @@ export type VersionQuery = {
       modules?: Maybe<any>;
     }>;
     previousVersion?: Maybe<{ id: string; revision: string }>;
+    projectMetadata?: Maybe<{ repo: string; owner: string }>;
     patch?: Maybe<{
       id: string;
       patchNumber: number;

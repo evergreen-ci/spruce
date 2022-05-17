@@ -1,7 +1,9 @@
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
+import { GraphQLError } from "graphql";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
 import { COPY_PROJECT } from "gql/mutations";
+import { GET_PROJECT_SETTINGS, GET_REPO_SETTINGS } from "gql/queries";
 import { renderWithRouterMatch as render, waitFor } from "test_utils";
 import { CopyProjectModal } from "./CopyProjectModal";
 
@@ -15,7 +17,10 @@ const Modal = ({
   mock?: MockedResponse;
   open?: boolean;
 }) => (
-  <MockedProvider mocks={[mock]}>
+  <MockedProvider
+    mocks={[mock, projectSettingsMock, repoSettingsMock]}
+    addTypename={false}
+  >
     <CopyProjectModal
       handleClose={() => {}}
       id={projectIdToCopy}
@@ -64,6 +69,7 @@ describe("createProjectField", () => {
 
     userEvent.click(queryByText("Duplicate"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
   });
 
@@ -105,7 +111,85 @@ describe("createProjectField", () => {
 
     userEvent.click(queryByText("Duplicate"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
+  });
+
+  it("shows a warning toast when an error and data are returned", async () => {
+    const mockWithError = {
+      request: {
+        query: COPY_PROJECT,
+        variables: {
+          project: {
+            newProjectIdentifier,
+            projectIdToCopy,
+          },
+        },
+      },
+      result: {
+        data: {
+          copyProject: {
+            identifier: newProjectIdentifier,
+          },
+        },
+        errors: [new GraphQLError("There was an error copying the project")],
+      },
+    };
+    const { Component, dispatchToast } = RenderFakeToastContext(
+      <Modal mock={mockWithError} />
+    );
+    const { queryByDataCy, queryByText } = render(() => <Component />);
+
+    await waitFor(() =>
+      expect(queryByDataCy("copy-project-modal")).toBeInTheDocument()
+    );
+    userEvent.type(queryByDataCy("project-name-input"), newProjectIdentifier);
+
+    await waitFor(() => {
+      const confirmButton = queryByText("Duplicate").closest("button");
+      expect(confirmButton).toBeEnabled();
+    });
+
+    userEvent.click(queryByText("Duplicate"));
+    await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(0));
+    await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
+  });
+
+  it("shows a warning toast when no data is returned", async () => {
+    const mockWithError = {
+      request: {
+        query: COPY_PROJECT,
+        variables: {
+          project: {
+            newProjectIdentifier,
+            projectIdToCopy,
+          },
+        },
+      },
+      result: {
+        errors: [new GraphQLError("There was an error copying the project")],
+      },
+    };
+    const { Component, dispatchToast } = RenderFakeToastContext(
+      <Modal mock={mockWithError} />
+    );
+    const { queryByDataCy, queryByText } = render(() => <Component />);
+
+    await waitFor(() =>
+      expect(queryByDataCy("copy-project-modal")).toBeInTheDocument()
+    );
+    userEvent.type(queryByDataCy("project-name-input"), newProjectIdentifier);
+
+    await waitFor(() => {
+      const confirmButton = queryByText("Duplicate").closest("button");
+      expect(confirmButton).toBeEnabled();
+    });
+
+    userEvent.click(queryByText("Duplicate"));
+    await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(0));
+    await waitFor(() => expect(dispatchToast.warning).toHaveBeenCalledTimes(0));
+    await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(1));
   });
 });
 
@@ -124,6 +208,34 @@ const copyProjectMock = {
       copyProject: {
         identifier: newProjectIdentifier,
       },
+    },
+  },
+};
+
+const projectSettingsMock = {
+  request: {
+    query: GET_PROJECT_SETTINGS,
+    variables: {
+      identifier: newProjectIdentifier,
+    },
+  },
+  result: {
+    data: {
+      projectSettings: {},
+    },
+  },
+};
+
+const repoSettingsMock = {
+  request: {
+    query: GET_REPO_SETTINGS,
+    variables: {
+      id: newProjectIdentifier,
+    },
+  },
+  result: {
+    data: {
+      repoSettings: {},
     },
   },
 };

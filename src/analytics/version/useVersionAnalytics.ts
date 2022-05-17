@@ -47,6 +47,7 @@ type Action =
   | { name: "Toggle Display Task Dropdown"; expanded: boolean }
   | { name: "Click Base Commit Link" }
   | { name: "Click Previous Version Link" }
+  | { name: "Click Github Commit Link" }
   | { name: "Open Schedule Tasks Modal" };
 
 interface V extends Properties {
