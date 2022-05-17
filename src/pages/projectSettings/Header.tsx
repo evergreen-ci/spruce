@@ -133,22 +133,23 @@ export const Header: React.VFC<Props> = ({
             Save Changes on Page
           </Button>
         )}
-        {projectType === ProjectType.AttachedProject && (
-          <>
-            <Button
-              onClick={() => setDefaultModalOpen(true)}
-              data-cy="default-to-repo-button"
-            >
-              Default to Repo on Page
-            </Button>
-            <DefaultSectionToRepoModal
-              handleClose={() => setDefaultModalOpen(false)}
-              open={defaultModalOpen}
-              projectId={id}
-              section={mapRouteToSection[tab]}
-            />
-          </>
-        )}
+        {projectType === ProjectType.AttachedProject &&
+          tab !== ProjectSettingsTabRoutes.EventLog && (
+            <>
+              <Button
+                onClick={() => setDefaultModalOpen(true)}
+                data-cy="default-to-repo-button"
+              >
+                Default to Repo on Page
+              </Button>
+              <DefaultSectionToRepoModal
+                handleClose={() => setDefaultModalOpen(false)}
+                open={defaultModalOpen}
+                projectId={id}
+                section={mapRouteToSection[tab]}
+              />
+            </>
+          )}
       </ButtonRow>
     </Container>
   );
