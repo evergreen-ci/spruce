@@ -1,6 +1,5 @@
 import { renderHook, act } from "@testing-library/react-hooks";
 import { useVersionTaskStatusSelect } from "hooks";
-import { waitFor } from "test_utils";
 
 const allFalse = {
   evergreen_lint_generate_lint: false,
@@ -82,12 +81,10 @@ describe("useVersionStatusSelect", () => {
         mainVersion: ["success"],
       });
     });
-    waitFor(() =>
-      expect(result.current.selectedTasks).toStrictEqual({
-        ...allFalse,
-        evergreen_ubuntu1604_test_service: true,
-      })
-    );
+    expect(result.current.selectedTasks[versionId]).toStrictEqual({
+      ...allFalse,
+      evergreen_ubuntu1604_test_service: true,
+    });
   });
 
   it("tasks with undefined base statuses do not match with any base status filter state.", () => {
@@ -104,11 +101,9 @@ describe("useVersionStatusSelect", () => {
         mainVersion: ["success", "fakeStatus", "random"],
       });
     });
-    waitFor(() =>
-      expect(result.current.selectedTasks).toStrictEqual({
-        ...allFalse,
-      })
-    );
+    expect(result.current.selectedTasks[versionId]).toStrictEqual({
+      ...allFalse,
+    });
   });
 
   it("should deselect all tasks with statuses that do not match any patch status filter terms.", () => {
@@ -188,66 +183,72 @@ describe("useVersionStatusSelect", () => {
     });
   });
 
-  it("batch toggling tasks will set them all to checked when they are orignially unchecked", () => {
+  it("batch toggling tasks will set them all to checked when they are originally unchecked", () => {
     const { result } = renderHook(() =>
       useVersionTaskStatusSelect(groupedBuildVariants, versionId, childVersion)
     );
-    waitFor(() =>
-      expect(result.current.selectedTasks).toStrictEqual({ ...allFalse })
-    );
+    expect(result.current.selectedTasks[versionId]).toStrictEqual({
+      ...allFalse,
+    });
     act(() =>
       result.current.toggleSelectedTask({
         mainVersion: Object.keys(allFalse),
       })
     );
-    waitFor(() =>
-      expect(result.current.selectedTasks).toStrictEqual({ ...allTrue })
-    );
+    expect(result.current.selectedTasks[versionId]).toStrictEqual({
+      ...allTrue,
+    });
   });
 
   it("batch toggling tasks will set them all to checked when some and not all are originally checked.", () => {
     const { result } = renderHook(() =>
       useVersionTaskStatusSelect(groupedBuildVariants, versionId, childVersion)
     );
-    waitFor(() =>
-      expect(result.current.selectedTasks).toStrictEqual({ ...allFalse })
-    );
+    expect(result.current.selectedTasks[versionId]).toStrictEqual({
+      ...allFalse,
+    });
     act(() =>
       result.current.toggleSelectedTask({
         mainVersion: "evergreen_lint_generate_lint",
       })
     );
-    waitFor(() =>
-      expect(result.current.selectedTasks).toStrictEqual({
-        ...allFalse,
-        evergreen_lint_generate_lint: true,
-      })
-    );
+    expect(result.current.selectedTasks[versionId]).toStrictEqual({
+      ...allFalse,
+      evergreen_lint_generate_lint: true,
+    });
     act(() =>
       result.current.toggleSelectedTask({
         mainVersion: Object.keys(allFalse),
       })
     );
-    waitFor(() =>
-      expect(result.current.selectedTasks).toStrictEqual({ ...allTrue })
-    );
+    expect(result.current.selectedTasks[versionId]).toStrictEqual({
+      ...allTrue,
+    });
   });
 
   it("batch toggling tasks will set them all to unchecked when they are all originally checked.", () => {
     const { result } = renderHook(() =>
       useVersionTaskStatusSelect(groupedBuildVariants, versionId, childVersion)
     );
-    waitFor(() =>
-      expect(result.current.selectedTasks).toStrictEqual({ ...allTrue })
-    );
+    expect(result.current.selectedTasks[versionId]).toStrictEqual({
+      ...allFalse,
+    });
     act(() =>
       result.current.toggleSelectedTask({
-        mainVersion: Object.keys(allTrue),
+        mainVersion: Object.keys(allFalse),
       })
     );
-    waitFor(() =>
-      expect(result.current.selectedTasks).toStrictEqual({ ...allFalse })
+    expect(result.current.selectedTasks[versionId]).toStrictEqual({
+      ...allTrue,
+    });
+    act(() =>
+      result.current.toggleSelectedTask({
+        mainVersion: Object.keys(allFalse),
+      })
     );
+    expect(result.current.selectedTasks[versionId]).toStrictEqual({
+      ...allFalse,
+    });
   });
 });
 
@@ -328,9 +329,10 @@ const groupedBuildVariants = [
 ];
 
 const versionId = "mainVersion";
+const childVersionId = "childVersionId";
 const childVersion = [
   {
-    id: "childVersionId",
+    id: childVersionId,
     projectIdentifier: "childProjectIdentifier",
     buildVariants: groupedBuildVariants,
   },

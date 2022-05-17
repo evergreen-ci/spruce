@@ -78,7 +78,9 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
           className={css`
             z-index: ${zIndex.max_do_not_use};
           `}
+          closeOnBackdropClick={false}
           size="large"
+          initialFocus=".slick-active"
         >
           {/* @ts-expect-error */}
           {title && <CardTitle>{title}</CardTitle>}
@@ -118,7 +120,7 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
                 onClick={handleClosed}
                 data-cy="close-welcome-modal"
               >
-                Done
+                Close
               </Button>
             </div>
           </Footer>
