@@ -303,6 +303,7 @@ export const getFormSchema = (
         batchTime: {
           "ui:description":
             "The interval of time (in minutes) that Evergreen should wait in between activating the latest version.",
+          "ui:data-cy": "batch-time-input",
           ...placeholderIf(repoData?.generalConfiguration?.other?.batchTime),
         },
         remotePath: {

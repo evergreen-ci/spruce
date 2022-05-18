@@ -405,9 +405,13 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.contains("Value should be a number.");
     });
 
+    it("Does not allow saving when interval is below minimum", () => {
+      cy.dataCy("interval-input").clear().type("0");
+      cy.dataCy("save-settings-button").should("be.disabled");
+    });
+
     it("Saves when a number is entered", () => {
-      // Use extra clear to handle RJSF bug (EVG-16641)
-      cy.dataCy("interval-input").clear().clear().type("12");
+      cy.dataCy("interval-input").clear().type("12");
       cy.dataCy("save-settings-button").click();
       cy.validateToast("success", "Successfully updated project");
     });
@@ -438,45 +442,57 @@ describe("Project Settings when defaulting to repo", () => {
     cy.preserveCookies();
   });
 
-  it("Should not have the save button enabled on load", () => {
-    cy.dataCy("save-settings-button").should("be.disabled");
-  });
+  describe("General Settings page", () => {
+    it("Should not have the save button enabled on load", () => {
+      cy.dataCy("save-settings-button").should("be.disabled");
+    });
 
-  it("Preserves edits to the form when navigating between settings tabs and does not show a warning modal", () => {
-    cy.dataCy("spawn-host-input").should("have.value", "/path");
-    cy.dataCy("spawn-host-input").type("/test");
-    cy.dataCy("save-settings-button").should("not.be.disabled");
-    cy.dataCy("navitem-access").click();
-    cy.dataCy("navigation-warning-modal").should("not.be.visible");
-    cy.dataCy("navitem-general").click();
-    cy.dataCy("spawn-host-input").should("have.value", "/path/test");
-  });
+    it("Preserves edits to the form when navigating between settings tabs and does not show a warning modal", () => {
+      cy.dataCy("spawn-host-input").should("have.value", "/path");
+      cy.dataCy("spawn-host-input").type("/test");
+      cy.dataCy("save-settings-button").should("not.be.disabled");
+      cy.dataCy("navitem-access").click();
+      cy.dataCy("navigation-warning-modal").should("not.be.visible");
+      cy.dataCy("navitem-general").click();
+      cy.dataCy("spawn-host-input").should("have.value", "/path/test");
+    });
 
-  it("Enables the save button", () => {
-    cy.dataCy("save-settings-button").should("not.be.disabled");
-  });
+    it("Enables the save button", () => {
+      cy.dataCy("save-settings-button").should("not.be.disabled");
+    });
 
-  it("Shows a 'Default to Repo' button on page", () => {
-    cy.dataCy("default-to-repo-button").should("exist");
-  });
+    it("Shows a 'Default to Repo' button on page", () => {
+      cy.dataCy("default-to-repo-button").should("exist");
+    });
 
-  it("Shows a third radio box when rendering a project that inherits from repo", () => {
-    cy.dataCy("enabled-radio-box").children().should("have.length", 3);
-  });
+    it("Shows a third radio box when rendering a project that inherits from repo", () => {
+      cy.dataCy("enabled-radio-box").children().should("have.length", 3);
+    });
 
-  it("Does not default to repo value for display name", () => {
-    cy.dataCy("display-name-input").should("not.have.attr", "placeholder");
-  });
+    it("Does not default to repo value for display name", () => {
+      cy.dataCy("display-name-input").should("not.have.attr", "placeholder");
+    });
 
-  it("Shows a navigation warning modal when clicking on a header link", () => {
-    cy.get("a[href='/user/patches']").click();
-    cy.dataCy("navigation-warning-modal").should("be.visible");
-    cy.get("body").type("{esc}");
-  });
+    it("Shows a navigation warning modal when clicking on a header link", () => {
+      cy.get("a[href='/user/patches']").click();
+      cy.dataCy("navigation-warning-modal").should("be.visible");
+      cy.get("body").type("{esc}");
+    });
 
-  it("Clicking on save button should show a success toast", () => {
-    cy.dataCy("save-settings-button").click();
-    cy.validateToast("success", "Successfully updated project");
+    it("Shows the repo value for Batch Time", () => {
+      cy.dataCy("batch-time-input").should("have.attr", "placeholder");
+    });
+
+    it("Clicking on save button should show a success toast", () => {
+      cy.dataCy("save-settings-button").click();
+      cy.validateToast("success", "Successfully updated project");
+    });
+
+    it("Saves when batch time is updated", () => {
+      cy.dataCy("batch-time-input").type("12");
+      cy.dataCy("save-settings-button").click();
+      cy.validateToast("success", "Successfully updated project");
+    });
   });
 
   describe("GitHub/Commit Queue page", () => {

@@ -13,7 +13,6 @@ import TextArea from "@leafygreen-ui/text-area";
 import TextInput, { State as TextInputState } from "@leafygreen-ui/text-input";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Description, Label } from "@leafygreen-ui/typography";
-import { utils } from "@rjsf/core";
 import Icon from "components/Icon";
 import { size, zIndex } from "constants/tokens";
 import { OneOf } from "types/utils";
@@ -21,12 +20,8 @@ import ElementWrapper from "../ElementWrapper";
 import { EnumSpruceWidgetProps, SpruceWidgetProps } from "./types";
 
 const { yellow } = uiColors;
-const { asNumber } = utils;
 
 const isNullish = (val: any) => val === null || val === undefined;
-
-const schemaIncludesNumber = (schemaType: string | string[]) =>
-  schemaType === "number" || schemaType?.includes("number");
 
 export const LeafyGreenTextInput: React.VFC<
   { options: { optional?: boolean } } & SpruceWidgetProps
@@ -46,19 +41,16 @@ export const LeafyGreenTextInput: React.VFC<
     description,
     "data-cy": dataCy,
     emptyValue,
-    inputType,
     marginBottom,
     optional,
     warnings,
   } = options;
   const hasError = !!rawErrors?.length;
-  const isNumberField = schemaIncludesNumber(schema.type);
   const inputProps = {
     ...(!isNullish(schema.maximum) && { max: schema.maximum }),
     ...(!isNullish(schema.minimum) && { min: schema.minimum }),
     errorMessage: hasError ? rawErrors.join(", ") : null,
     state: hasError ? TextInputState.Error : TextInputState.None,
-    type: inputType ?? (isNumberField ? "number" : "text"),
   };
 
   return (
@@ -66,23 +58,16 @@ export const LeafyGreenTextInput: React.VFC<
       <MaxWidthContainer>
         <StyledTextInput
           data-cy={dataCy}
-          value={isNumberField ? `${value}` : value ?? ""}
+          value={value === null || value === undefined ? "" : `${value}`}
           aria-labelledby={ariaLabelledBy}
           label={ariaLabelledBy ? undefined : label}
           placeholder={placeholder || undefined}
           description={description}
           optional={optional}
           disabled={disabled || readonly}
-          onChange={({ target }) => {
-            if (target.value === "") {
-              onChange(emptyValue);
-            } else if (isNumberField) {
-              // Workaround because LeafyGreen only supports string values
-              onChange(asNumber(target.value));
-            } else {
-              onChange(target.value);
-            }
-          }}
+          onChange={({ target }) =>
+            target.value === "" ? onChange(emptyValue) : onChange(target.value)
+          }
           aria-label={label}
           {...inputProps}
         />

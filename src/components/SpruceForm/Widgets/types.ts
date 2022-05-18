@@ -1,4 +1,3 @@
-import { TextInputType } from "@leafygreen-ui/text-input";
 import { WidgetProps } from "@rjsf/core";
 
 export interface SpruceWidgetProps extends WidgetProps {
@@ -9,7 +8,6 @@ export interface SpruceWidgetProps extends WidgetProps {
     description: string;
     emptyValue: string | null;
     errors: string[];
-    inputType: TextInputType;
     marginBottom: number;
     showLabel: boolean;
     tooltipDescription: string;
