@@ -66,6 +66,7 @@ const getMainlineCommitOrPatchBreadcrumb = (
         link: "version",
       });
     },
+    "data-cy": "bc-patch",
   };
 
   const commitBreadcrumb = {
@@ -77,6 +78,7 @@ const getMainlineCommitOrPatchBreadcrumb = (
         link: "version",
       });
     },
+    "data-cy": "bc-version",
   };
 
   return isPatch ? patchBreadcrumb : commitBreadcrumb;
@@ -115,6 +117,7 @@ const useBreadcrumbRoot = ({
             link: "waterfall",
           });
         },
+        "data-cy": "bc-waterfall",
       };
 };
 

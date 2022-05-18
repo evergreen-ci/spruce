@@ -29,16 +29,19 @@ interface FragmentProps {
   breadCrumb: Breadcrumb;
   active: boolean;
 }
-const Fragment: React.VFC<FragmentProps> = ({ breadCrumb, active }) =>
-  active || !breadCrumb.to ? (
-    <H3>{breadCrumb.text}</H3>
+const Fragment: React.VFC<FragmentProps> = ({ breadCrumb, active }) => {
+  const { text, to, onClick, ...rest } = breadCrumb;
+
+  return active || !to ? (
+    <H3 {...rest}>{breadCrumb.text}</H3>
   ) : (
-    <StyledP1>
-      <StyledRouterLink to={breadCrumb.to} onClick={breadCrumb.onClick}>
-        {breadCrumb.text}
+    <StyledP1 {...rest}>
+      <StyledRouterLink to={to} onClick={onClick}>
+        {text}
       </StyledRouterLink>{" "}
     </StyledP1>
   );
+};
 
 const StyledP1 = styled(P1)`
   display: inline-block;
