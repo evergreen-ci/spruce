@@ -85,13 +85,13 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
         gitTagAuthorizedUsersOverride:
           projectType !== ProjectType.AttachedProject ||
           !!gitTagAuthorizedUsers,
-        gitTagAuthorizedUsers,
+        gitTagAuthorizedUsers: gitTagAuthorizedUsers ?? [],
       },
       teams: {
         gitTagAuthorizedTeamsOverride:
           projectType !== ProjectType.AttachedProject ||
           !!gitTagAuthorizedTeams,
-        gitTagAuthorizedTeams,
+        gitTagAuthorizedTeams: gitTagAuthorizedTeams ?? [],
       },
       gitTags: {
         gitTagAliasesOverride: override(gitTagAliases),
