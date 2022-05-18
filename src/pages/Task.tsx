@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
-import BreadCrumb from "components/Breadcrumb/VersionBreadcrumb";
+import PageBreadcrumbs from "components/Breadcrumbs/PageBreadcrumbs";
 import { PageTitle } from "components/PageTitle";
 import {
   PageWrapper,
@@ -82,7 +82,7 @@ export const Task = () => {
   return (
     <PageWrapper>
       {task && (
-        <BreadCrumb
+        <PageBreadcrumbs
           taskName={displayName}
           patchNumber={patchNumber}
           versionMetadata={versionMetadata}

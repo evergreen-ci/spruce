@@ -1,8 +1,10 @@
+import styled from "@emotion/styled";
 import { useBreadcrumbAnalytics, BreadcrumbAnalytics } from "analytics";
 import { getVersionRoute, getCommitsRoute } from "constants/routes";
+import { size } from "constants/tokens";
 import { useGetUserPatchesPageTitleAndLink } from "hooks";
 import { shortenGithash } from "utils/string";
-import BreadCrumbs, { BreadCrumb } from "./BreadCrumb";
+import BreadCrumbs, { Breadcrumb } from ".";
 
 interface Props {
   taskName?: string;
@@ -17,14 +19,14 @@ interface Props {
   };
 }
 
-const VersionBreadcrumb: React.VFC<Props> = ({
+const PageBreadcrumbs: React.VFC<Props> = ({
   versionMetadata,
   patchNumber,
   taskName,
 }) => {
   const breadcrumbAnalytics = useBreadcrumbAnalytics();
   const breadcrumbRoot = useBreadcrumbRoot(versionMetadata);
-  const breadcrumbs: BreadCrumb[] = [
+  const breadcrumbs: Breadcrumb[] = [
     breadcrumbRoot,
     getMainlineCommitOrPatchBreadcrumb(
       versionMetadata,
@@ -37,17 +39,18 @@ const VersionBreadcrumb: React.VFC<Props> = ({
       text: taskName,
     });
   }
-  return <BreadCrumbs breadcrumbs={breadcrumbs} />;
+  return (
+    <Container>
+      <BreadCrumbs breadcrumbs={breadcrumbs} />
+    </Container>
+  );
 };
 
 const getMainlineCommitOrPatchBreadcrumb = (
   versionMetadata: {
     id: string;
     revision: string;
-    project: string;
     isPatch: boolean;
-    author: string;
-    projectIdentifier: string;
   },
   patchNumber: number,
   breadcrumbAnalytics: BreadcrumbAnalytics
@@ -115,4 +118,7 @@ const useBreadcrumbRoot = ({
       };
 };
 
-export default VersionBreadcrumb;
+const Container = styled.div`
+  margin-bottom: ${size.s};
+`;
+export default PageBreadcrumbs;
