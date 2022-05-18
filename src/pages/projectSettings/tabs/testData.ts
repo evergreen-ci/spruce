@@ -121,7 +121,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     repo: "spruce",
     branch: "main",
     displayName: "",
-    batchTime: 0,
+    batchTime: 12,
     remotePath: "evergreen.yml",
     spawnHostScriptPath: "/test/path",
     dispatchingDisabled: true,
