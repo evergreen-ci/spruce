@@ -1,3 +1,4 @@
+import { actions } from "@storybook/addon-actions";
 import Breadcrumbs from ".";
 
 export default {
@@ -6,5 +7,14 @@ export default {
 };
 
 export const Default = () => (
-  <Breadcrumbs breadcrumbs={[{ text: "spruce" }, { text: "511232" }]} />
+  <Breadcrumbs
+    breadcrumbs={[
+      {
+        text: "spruce",
+        to: "/commits/spruce",
+        onClick: () => actions("Clicked first link"),
+      },
+      { text: "511232" },
+    ]}
+  />
 );
