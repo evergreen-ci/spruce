@@ -46,13 +46,10 @@ export const getFormSchema = (
           admins: {
             type: "array" as "array",
             items: {
-              type: "object" as "object",
-              properties: {
-                username: {
-                  type: "string" as "string",
-                  title: "Username",
-                },
-              },
+              type: "string" as "string",
+              title: "Username",
+              default: "",
+              minLength: 1,
             },
           },
         },
