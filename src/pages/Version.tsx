@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { useParams, Redirect } from "react-router-dom";
-import { BreadCrumb } from "components/Breadcrumb";
+import Breadcrumb from "components/Breadcrumb/VersionBreadcrumb";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import { PageTitle } from "components/PageTitle";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
@@ -173,7 +173,7 @@ export const VersionPage: React.VFC = () => {
   );
   return (
     <PageWrapper data-cy="version-page">
-      <BreadCrumb versionMetadata={version} patchNumber={patchNumber} />
+      <Breadcrumb versionMetadata={version} patchNumber={patchNumber} />
       <PageTitle
         loading={false}
         hasData
