@@ -1,3 +1,5 @@
+import { clickOnPageSizeBtnAndAssertURLandTableSize } from "../../utils";
+
 const pathWithEvents = `/host/i-0f81a2d39744003dd`;
 
 describe("Host events", () => {
@@ -11,11 +13,10 @@ describe("Host events", () => {
 
   it("host events display the correct text", () => {
     cy.visit(pathWithEvents);
-    cy.dataCy("host-event-table-page-size-selector").click();
-    cy.dataCy("host-event-table-page-size-selector-100").click();
-
-    const dataCyTableRows = "[data-cy=host-events-table] tr td:first-child";
-    cy.get(dataCyTableRows).should("have.length.of.at.most", 32);
+    clickOnPageSizeBtnAndAssertURLandTableSize(
+      100,
+      "[data-cy=host-events-table] tr td:first-child"
+    );
 
     const hostTypes = [
       {
@@ -160,8 +161,11 @@ describe("Host events", () => {
       },
     ];
     cy.visit(pathWithEvents);
-    cy.dataCy("host-event-table-page-size-selector").click();
-    cy.dataCy("host-event-table-page-size-selector-100").click();
+    clickOnPageSizeBtnAndAssertURLandTableSize(
+      100,
+      "[data-cy=host-events-table] tr td:first-child"
+    );
+
     hostTypes.forEach(({ hostType, text, logsTitle }) => {
       cy.dataCy(hostType)
         .contains(text)
@@ -176,8 +180,6 @@ describe("Host events", () => {
   });
 
   it("host events logs do not display when not available", () => {
-    cy.dataCy("host-event-table-page-size-selector").click();
-    cy.dataCy("host-event-table-page-size-selector-100").click();
     cy.dataCy("host-status-changed")
       .contains("Status changed from running to stopping")
       .within(() => {
