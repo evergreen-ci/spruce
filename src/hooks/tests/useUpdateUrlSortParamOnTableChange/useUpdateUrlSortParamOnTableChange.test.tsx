@@ -16,7 +16,7 @@ describe("useUpdateUrlSortParamOnTableChange", () => {
     matchMedia.clear();
   });
   it("toggles table headers when clicked", () => {
-    const { getByText } = render(() => <TestComponent />, {
+    const { getByText } = render(<TestComponent />, {
       route: "/hosts",
       path: "/hosts",
     });

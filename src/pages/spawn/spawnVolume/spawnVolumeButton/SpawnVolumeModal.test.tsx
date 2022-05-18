@@ -22,11 +22,11 @@ describe("spawnVolumeModal", () => {
     const { Component } = RenderFakeToastContext(
       <SpawnVolumeModal visible onCancel={() => {}} />
     );
-    const { queryByDataCy } = render(() => (
+    const { queryByDataCy } = render(
       <MockedProvider mocks={baseMocks}>
         <Component />
       </MockedProvider>
-    ));
+    );
     expect(queryByDataCy("modal-title")).toBeVisible();
   });
 
@@ -34,7 +34,7 @@ describe("spawnVolumeModal", () => {
     const { Component } = RenderFakeToastContext(
       <SpawnVolumeModal visible={false} onCancel={() => {}} />
     );
-    const { queryByDataCy } = render(() => (
+    const { queryByDataCy } = render( (
       <MockedProvider mocks={baseMocks}>
         <Component />
       </MockedProvider>
@@ -46,7 +46,7 @@ describe("spawnVolumeModal", () => {
     const { Component } = RenderFakeToastContext(
       <SpawnVolumeModal visible onCancel={() => {}} />
     );
-    const { queryByDataCy } = render(() => (
+    const { queryByDataCy } = render( (
       <MockedProvider mocks={baseMocks}>
         <Component />
       </MockedProvider>
@@ -79,7 +79,7 @@ describe("spawnVolumeModal", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <SpawnVolumeModal visible onCancel={() => {}} />
     );
-    const { queryByText } = render(() => (
+    const { queryByText } = render( (
       <MockedProvider mocks={[...baseMocks, spawnVolumeMutation]}>
         <Component />
       </MockedProvider>
@@ -112,7 +112,7 @@ describe("spawnVolumeModal", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <SpawnVolumeModal visible onCancel={() => {}} />
     );
-    const { queryByText, queryByDataCy } = render(() => (
+    const { queryByText, queryByDataCy } = render( (
       <MockedProvider
         addTypename={false}
         mocks={[...baseMocks, spawnVolumeMutation]}

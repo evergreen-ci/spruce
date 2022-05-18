@@ -13,11 +13,11 @@ describe("previous commits", () => {
   // mainline commits needs to run another query GET_LAST_MAINLINE_COMMIT to get parent task.
   describe("patch specific", () => {
     it("the GO button is disabled when there is no base task", async () => {
-      const { getByText } = renderWithRouterMatch(() => (
+      const { getByText } = renderWithRouterMatch(
         <MockedProvider mocks={[getPatchTaskWithNoBaseTask]}>
           <PreviousCommits taskId="t1" />
         </MockedProvider>
-      ));
+      );
       await waitFor(() => {
         expect(getByText("Go").closest("a")).toHaveAttribute(
           "aria-disabled",
@@ -35,13 +35,13 @@ describe("previous commits", () => {
 
   describe("mainline commits specific", () => {
     it("the GO button is disabled when getParentTask returns null", async () => {
-      const { getByText } = renderWithRouterMatch(() => (
+      const { getByText } = renderWithRouterMatch(
         <MockedProvider
           mocks={[getMainlineTaskWithBaseVersion, getNullParentTask]}
         >
           <PreviousCommits taskId="t4" />
         </MockedProvider>
-      ));
+      );
       await waitFor(() => {
         expect(getByText("Go").closest("a")).toHaveAttribute(
           "aria-disabled",
@@ -57,13 +57,13 @@ describe("previous commits", () => {
     });
 
     it("the GO button is disabled when getParentTask returns an error", async () => {
-      const { getByText } = renderWithRouterMatch(() => (
+      const { getByText } = renderWithRouterMatch(
         <MockedProvider
           mocks={[getMainlineTaskWithBaseVersion, getParentTaskWithError]}
         >
           <PreviousCommits taskId="t4" />
         </MockedProvider>
-      ));
+      );
       await waitFor(() => {
         expect(getByText("Go").closest("a")).toHaveAttribute(
           "aria-disabled",
@@ -80,11 +80,11 @@ describe("previous commits", () => {
   });
 
   it("the select & GO button are disabled when no base version exists", async () => {
-    const { getByText } = renderWithRouterMatch(() => (
+    const { getByText } = renderWithRouterMatch(
       <MockedProvider mocks={[getPatchTaskWithNoBaseVersion]}>
         <PreviousCommits taskId="t3" />
       </MockedProvider>
-    ));
+    );
     await waitFor(() => {
       expect(getByText("Go").closest("a")).toHaveAttribute(
         "aria-disabled",
@@ -100,11 +100,11 @@ describe("previous commits", () => {
   });
 
   it("when base task is passing, all dropdown items generate the same link.", async () => {
-    const { getAllByText, getByText } = renderWithRouterMatch(() => (
+    const { getAllByText, getByText } = renderWithRouterMatch(
       <MockedProvider mocks={[getPatchTaskWithSuccessfulBaseTask]}>
         <PreviousCommits taskId="t1" />
       </MockedProvider>
-    ));
+    );
 
     await waitFor(() => {
       expect(getByText("Go").closest("a")).toHaveAttribute(
@@ -131,13 +131,13 @@ describe("previous commits", () => {
   });
 
   it("when base task is failing, 'Go to base commit' and 'Go to last executed' dropdown items generate the same link and 'Go to last passing version' will be different.", async () => {
-    const { getAllByText, getByText } = renderWithRouterMatch(() => (
+    const { getAllByText, getByText } = renderWithRouterMatch(
       <MockedProvider
         mocks={[getPatchTaskWithFailingBaseTask, getLastPassingVersion]}
       >
         <PreviousCommits taskId="t1" />
       </MockedProvider>
-    ));
+    );
 
     await waitFor(() => {
       expect(getByText("Go")).toBeInTheDocument();
@@ -165,7 +165,7 @@ describe("previous commits", () => {
   });
 
   it("when base task is not in a finished state, the last executed & passing task is not the same as the base commit", async () => {
-    const { getAllByText, getByText } = renderWithRouterMatch(() => (
+    const { getAllByText, getByText } = renderWithRouterMatch(
       <MockedProvider
         mocks={[
           getPatchTaskWithRunningBaseTask,
@@ -175,7 +175,7 @@ describe("previous commits", () => {
       >
         <PreviousCommits taskId="t3" />
       </MockedProvider>
-    ));
+    );
 
     await waitFor(() => {
       expect(getByText("Go").closest("a")).toHaveAttribute(

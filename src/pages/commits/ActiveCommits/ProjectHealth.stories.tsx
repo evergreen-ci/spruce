@@ -6,14 +6,7 @@ import { CommitsWrapper } from "../CommitsWrapper";
 
 export default {
   title: "Project Health Page",
-  decorators: [
-    (Story) => (
-      <MemoryRouter>
-        <Story />
-      </MemoryRouter>
-    ),
-    withKnobs,
-  ],
+  decorators: [withKnobs],
   component: CommitsWrapper,
 };
 

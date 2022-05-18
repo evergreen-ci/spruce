@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
-import { Route, useParams } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 import { routes, PreferencesTabRoutes } from "constants/routes";
 import { size } from "constants/tokens";
 import { CliTab } from "./preferencesTabs/CliTab";
@@ -20,15 +20,19 @@ export const PreferencesTabs: React.VFC = () => {
         <H2 data-cy="preferences-tab-title">{title}</H2>
         {subtitle && <Subtitle>{subtitle}</Subtitle>}
       </TitleContainer>
-
-      <Route path={routes.profilePreferences} element={<ProfileTab />} />
-      <Route
-        path={routes.notificationsPreferences}
-        element={<NotificationsTab />}
-      />
-      <Route path={routes.cliPreferences} element={<CliTab />} />
-      <Route path={routes.newUIPreferences} element={<NewUITab />} />
-      <Route path={routes.publicKeysPreferences} element={<PublicKeysTab />} />
+      <Routes>
+        <Route path={routes.profilePreferences} element={<ProfileTab />} />
+        <Route
+          path={routes.notificationsPreferences}
+          element={<NotificationsTab />}
+        />
+        <Route path={routes.cliPreferences} element={<CliTab />} />
+        <Route path={routes.newUIPreferences} element={<NewUITab />} />
+        <Route
+          path={routes.publicKeysPreferences}
+          element={<PublicKeysTab />}
+        />
+      </Routes>
     </Container>
   );
 };

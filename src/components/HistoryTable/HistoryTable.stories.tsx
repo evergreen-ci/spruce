@@ -12,13 +12,6 @@ export * from "./HistoryTableTestSearch/HistoryTableTestSearch.stories";
 
 export default {
   title: "History Table",
-  decorators: [
-    (Story) => (
-      <MemoryRouter>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
   component: HistoryTable,
 };
 

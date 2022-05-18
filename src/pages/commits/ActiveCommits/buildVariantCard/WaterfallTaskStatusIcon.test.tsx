@@ -14,16 +14,17 @@ const props = {
 
 jest.mock("../utils");
 
-const Content = (status: string) => () => (
+const Content = ({ status }: { status: string }) => (
   <MockedProvider mocks={[getTooltipQueryMock]} addTypename={false}>
     <WaterfallTaskStatusIcon {...props} status={status} />
   </MockedProvider>
 );
 describe("waterfallTaskStatusIcon", () => {
   it("tooltip should contain task name, duration, list of failing test names and additonal test count", async () => {
-    const { queryByDataCy, queryByText } = render(Content("failed"), {
-      route: "/commits/evergreen",
-    });
+    const { queryByDataCy, queryByText } = render(
+      <Content status="failed" />,
+      {}
+    );
     userEvent.hover(queryByDataCy("waterfall-task-status-icon"));
     await waitFor(() => {
       expect(queryByDataCy("waterfall-task-status-icon-tooltip")).toBeVisible();
@@ -43,9 +44,7 @@ describe("waterfallTaskStatusIcon", () => {
   });
 
   it("icon should link to task page", async () => {
-    const { queryByDataCy } = render(Content("failed"), {
-      route: "/commits/evergreen",
-    });
+    const { queryByDataCy } = render(Content("failed"), {});
     await waitFor(() => {
       expect(queryByDataCy("waterfall-task-status-icon")).toBeInTheDocument();
     });
@@ -65,9 +64,7 @@ describe("waterfallTaskStatusIcon", () => {
     );
     (removeGlobalStyle as jest.Mock).mockImplementationOnce(() => {});
 
-    const { queryByDataCy } = render(Content("failed"), {
-      route: "/commits/evergreen",
-    });
+    const { queryByDataCy } = render(Content("failed"), {});
     userEvent.hover(queryByDataCy("waterfall-task-status-icon"));
     await waitFor(() => {
       expect(injectGlobalStyle).toHaveBeenCalledTimes(1);

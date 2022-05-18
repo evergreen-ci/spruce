@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { InstanceTag } from "gql/generated/types";
 import { UserTagsField, UserTagsData } from "./UserTagsField";
 

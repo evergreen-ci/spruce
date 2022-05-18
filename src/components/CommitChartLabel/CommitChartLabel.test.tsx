@@ -5,7 +5,7 @@ import { renderWithRouterMatch, waitFor } from "test_utils";
 import { shortenGithash } from "utils/string";
 import CommitChartLabel from ".";
 
-const RenderCommitChartLabel = (version) => () => (
+const RenderCommitChartLabel = ({ version }) => (
   <MockedProvider mocks={[getSpruceConfigMock]}>
     <CommitChartLabel
       versionId={version.id}
@@ -20,7 +20,7 @@ const RenderCommitChartLabel = (version) => () => (
 describe("commitChartLabel", () => {
   it("displays author, githash and createTime", () => {
     const { queryByDataCy } = renderWithRouterMatch(
-      RenderCommitChartLabel(versionShort)
+      <RenderCommitChartLabel version={versionShort} />
     );
     expect(queryByDataCy("commit-label")).toHaveTextContent(
       "4137c33 6/16/21 11:38 PMMohamed Khelif"
@@ -29,7 +29,7 @@ describe("commitChartLabel", () => {
 
   it("githash links to version page", () => {
     const { queryByText } = renderWithRouterMatch(
-      RenderCommitChartLabel(versionShort)
+      <RenderCommitChartLabel version={versionShort} />
     );
     expect(queryByText("4137c33").closest("a")).toHaveAttribute(
       "href",
@@ -39,7 +39,7 @@ describe("commitChartLabel", () => {
 
   it("jira ticket links to Jira website", async () => {
     const { queryByText } = renderWithRouterMatch(
-      RenderCommitChartLabel(versionShort)
+      <RenderCommitChartLabel version={versionShort} />
     );
     await waitFor(() => {
       expect(queryByText("SERVER-57332").closest("a")).toHaveAttribute(
@@ -51,7 +51,7 @@ describe("commitChartLabel", () => {
 
   it("displays shortened commit message and the 'more' button if necessary", () => {
     const { queryByDataCy, queryByText } = renderWithRouterMatch(
-      RenderCommitChartLabel(versionLong)
+      <RenderCommitChartLabel version={versionLong} />
     );
     expect(queryByText("more")).toBeInTheDocument();
     expect(queryByDataCy("commit-label")).toHaveTextContent(
@@ -61,7 +61,7 @@ describe("commitChartLabel", () => {
 
   it("displays entire commit message if it does not break length limit", () => {
     const { queryByDataCy } = renderWithRouterMatch(
-      RenderCommitChartLabel(versionShort)
+      <RenderCommitChartLabel version={versionShort} />
     );
     expect(queryByDataCy("commit-label")).toHaveTextContent(
       "SERVER-57332 Create skeleton Internal"
@@ -70,7 +70,7 @@ describe("commitChartLabel", () => {
 
   it("clicking on the 'more' button should open a tooltip containing commit message", async () => {
     const { queryByDataCy, queryByText } = renderWithRouterMatch(
-      RenderCommitChartLabel(versionLong)
+      <RenderCommitChartLabel version={versionLong} />
     );
 
     expect(queryByDataCy("long-commit-message-tooltip")).toBeNull();

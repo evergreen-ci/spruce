@@ -1,18 +1,10 @@
 import styled from "@emotion/styled";
 import { action } from "@storybook/addon-actions";
-import { MemoryRouter } from "react-router-dom";
 import { TaskStatus } from "types/task";
 import { GroupedTaskStatusBadge } from ".";
 
 export default {
   title: "Grouped Task Status Badge",
-  decorators: [
-    (Story) => (
-      <MemoryRouter>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
   component: GroupedTaskStatusBadge,
 };
 
