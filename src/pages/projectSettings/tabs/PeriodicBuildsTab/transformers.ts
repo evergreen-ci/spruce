@@ -57,7 +57,7 @@ export const formToGql: FormToGqlFunction = (
           alias: build.alias,
           configFile: build.configFile,
           id: build.id || "",
-          intervalHours: build.intervalHours ?? 0,
+          intervalHours: build.intervalHours,
           message: build.message,
           nextRunTime: new Date(build.nextRunTime),
         }))
