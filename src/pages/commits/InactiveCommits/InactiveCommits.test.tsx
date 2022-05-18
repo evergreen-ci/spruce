@@ -24,9 +24,7 @@ describe("inactiveCommitButton", () => {
     expect(queryByDataCy("inactive-commits-button")).toHaveTextContent(
       "6Inactive"
     );
-    rerender(() => (
-      <RenderInactiveCommitButton versions={versions.slice(0, 1)} />
-    ));
+    rerender(<RenderInactiveCommitButton versions={versions.slice(0, 1)} />);
     expect(queryByDataCy("inactive-commits-button")).toHaveTextContent(
       "1Inactive"
     );
