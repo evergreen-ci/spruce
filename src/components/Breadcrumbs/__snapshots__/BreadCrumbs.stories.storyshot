@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`storybook Storyshots Breadcrumbs Default 1`] = `
+<div
+  className="css-11feriq-Container eaak0tv0"
+>
+  <h3
+    className="css-1dp2png-H3 eplk6ht2"
+  >
+    spruce
+  </h3>
+  <h3
+    className="css-1dp2png-H3 eplk6ht2"
+  >
+    511232
+  </h3>
+</div>
+`;

@@ -30,7 +30,7 @@ interface FragmentProps {
   active: boolean;
 }
 const Fragment: React.VFC<FragmentProps> = ({ breadCrumb, active }) =>
-  active ? (
+  active || !breadCrumb.to ? (
     <H3>{breadCrumb.text}</H3>
   ) : (
     <StyledP1>
