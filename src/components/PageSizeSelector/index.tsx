@@ -9,7 +9,8 @@ interface Props {
 }
 
 /**
- * `data-cy` prop is not currently supported by @leafygreen-ui/select
+ * `data-*` props are not currently supported by @leafygreen-ui/select
+ *  https://jira.mongodb.org/browse/EVG-16932
  */
 const PageSizeSelector: React.VFC<Props> = ({ value, onChange, ...rest }) => (
   <StyledSelect

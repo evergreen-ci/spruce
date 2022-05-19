@@ -8,11 +8,5 @@ export default {
 
 export const Default = () => {
   const [pageSize, setPageSize] = useState(10);
-  return (
-    <PageSizeSelector
-      data-cy="my-patches-page-size-selector"
-      value={pageSize}
-      onChange={setPageSize}
-    />
-  );
+  return <PageSizeSelector value={pageSize} onChange={setPageSize} />;
 };
