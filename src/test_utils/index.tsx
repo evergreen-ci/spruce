@@ -7,7 +7,11 @@ import {
   within,
 } from "@testing-library/react";
 import { createMemoryHistory } from "history";
-import { Router, Route, Routes } from "react-router-dom";
+import {
+  Route,
+  Routes,
+  unstable_HistoryRouter as HistoryRouter,
+} from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import * as customQueries from "./custom-queries";
 
@@ -22,7 +26,7 @@ const customRender = (ui: React.ReactElement, options?: customRenderOptions) =>
   render(ui, {
     queries: { ...queries, ...customQueries },
     ...options,
-  });
+  }) as RenderResult<CustomRenderType>;
 
 const customWithin = (ui: HTMLElement) =>
   within(ui, { ...queries, ...customQueries });
@@ -47,20 +51,20 @@ const renderWithRouterMatch = (
     ...rest
   } = options;
   const { rerender, ...renderRest } = customRender(
-    <Router location={history.location} navigator={history}>
+    <HistoryRouter history={history}>
       <Routes>
         <Route path={path} element={ui} />
       </Routes>
-    </Router>,
+    </HistoryRouter>,
     rest
   );
   const customRerender = (element: React.ReactElement) => {
     rerender(
-      <Router location={history.location} navigator={history}>
+      <HistoryRouter history={history}>
         <Routes>
           <Route path={path} element={element} />
         </Routes>
-      </Router>
+      </HistoryRouter>
     );
   };
   return {

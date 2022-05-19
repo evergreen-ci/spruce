@@ -44,7 +44,7 @@ describe("waterfallTaskStatusIcon", () => {
   });
 
   it("icon should link to task page", async () => {
-    const { queryByDataCy } = render(Content("failed"), {});
+    const { queryByDataCy } = render(<Content status="failed" />);
     await waitFor(() => {
       expect(queryByDataCy("waterfall-task-status-icon")).toBeInTheDocument();
     });
@@ -64,7 +64,7 @@ describe("waterfallTaskStatusIcon", () => {
     );
     (removeGlobalStyle as jest.Mock).mockImplementationOnce(() => {});
 
-    const { queryByDataCy } = render(Content("failed"), {});
+    const { queryByDataCy } = render(<Content status="failed" />);
     userEvent.hover(queryByDataCy("waterfall-task-status-icon"));
     await waitFor(() => {
       expect(injectGlobalStyle).toHaveBeenCalledTimes(1);

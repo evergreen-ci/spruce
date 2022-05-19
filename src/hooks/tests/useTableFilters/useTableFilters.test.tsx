@@ -1,12 +1,7 @@
-import React from "react";
 import { useLocation } from "react-router";
 import { CheckboxFilter, InputFilter } from "components/Table/Filters";
 import { useTableInputFilter, useTableCheckboxFilter } from "hooks";
-import {
-  renderWithRouterMatch as render,
-  fireEvent,
-  waitFor,
-} from "test_utils";
+import { renderWithRouterMatch as render, fireEvent } from "test_utils";
 import { queryString } from "utils";
 
 describe("useTableInputFilter", () => {
@@ -37,7 +32,7 @@ describe("useTableInputFilter", () => {
     expect(input.value).toBe("abc");
 
     // updates url query params when update fn is called
-    expect(findByText("host id from url: abc")).toBeInTheDocument();
+    findByText("host id from url: abc");
 
     fireEvent.change(input, { target: { value: "" } });
     expect(input).toHaveValue("");
@@ -52,7 +47,7 @@ describe("useTableInputFilter", () => {
     getByText("host id from url: N/A");
   });
 
-  it.skip("useTableInputFilter - trims whitespace from input value", async () => {
+  it("useTableInputFilter - trims whitespace from input value", () => {
     const { getByText, getByPlaceholderText } = render(
       <InputFilterTestComponent />,
       {
@@ -74,7 +69,7 @@ describe("useTableInputFilter", () => {
 });
 
 describe("useTableCheckboxFilter", () => {
-  it.skip("useTableCheckboxFilter", async () => {
+  it("useTableCheckboxFilter", async () => {
     const { getByText, getByLabelText } = render(
       <CheckboxFilterTestComponent />,
       {
@@ -120,7 +115,6 @@ const InputFilterTestComponent = () => {
 
   const { search } = useLocation();
   const queryParams = parseQueryString(search);
-  console.log(queryParams, value);
   return (
     <>
       <div>host id from url: {queryParams[hostIdUrlParam] ?? "N/A"}</div>
