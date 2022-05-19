@@ -30,10 +30,10 @@ import { getTabTitle } from "./projectSettings/getTabTitle";
 import { ProjectSettingsTabs } from "./projectSettings/Tabs";
 import { ProjectType } from "./projectSettings/tabs/utils";
 
-const { isProduction } = environmentalVariables;
+const { isDevelopment } = environmentalVariables;
 const { validateObjectId } = validators;
 
-const disablePage = isProduction();
+const disablePage = !isDevelopment;
 
 export const ProjectSettings: React.VFC = () => {
   usePageTitle(`Project Settings`);
