@@ -6,7 +6,7 @@ import { queryString } from "utils";
 
 describe("useTableInputFilter", () => {
   it("accepts an input value", async () => {
-    const { getByText, getByPlaceholderText, findByText } = render(
+    const { getByText, getByPlaceholderText } = render(
       <InputFilterTestComponent />,
       {
         route: "/hosts?hostId=123",
@@ -32,7 +32,7 @@ describe("useTableInputFilter", () => {
     expect(input.value).toBe("abc");
 
     // updates url query params when update fn is called
-    findByText("host id from url: abc");
+    getByText("host id from url: abc");
 
     fireEvent.change(input, { target: { value: "" } });
     expect(input).toHaveValue("");
