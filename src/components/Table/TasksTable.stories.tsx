@@ -1,5 +1,4 @@
 import { withQuery } from "@storybook/addon-queryparams";
-import { MemoryRouter } from "react-router-dom";
 import { TasksTable } from "./TasksTable";
 
 const tasks = [

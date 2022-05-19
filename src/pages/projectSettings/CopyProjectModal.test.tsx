@@ -33,14 +33,14 @@ const Modal = ({
 describe("createProjectField", () => {
   it("does not render the modal when open prop is false", async () => {
     const { Component } = RenderFakeToastContext(<Modal open={false} />);
-    const { queryByDataCy } = render( <Component />);
+    const { queryByDataCy } = render(<Component />);
 
     expect(queryByDataCy("copy-project-modal")).not.toBeInTheDocument();
   });
 
   it("disables the confirm button on initial render and uses the provided label", async () => {
     const { Component } = RenderFakeToastContext(<Modal />);
-    const { queryByDataCy, queryByText } = render( <Component />);
+    const { queryByDataCy, queryByText } = render(<Component />);
 
     await waitFor(() =>
       expect(queryByText("Duplicate “evergreen”")).toBeVisible()
@@ -55,7 +55,7 @@ describe("createProjectField", () => {
 
   it("submits the modal when a project name is provided", async () => {
     const { Component, dispatchToast } = RenderFakeToastContext(<Modal />);
-    const { queryByDataCy, queryByText } = render( <Component />);
+    const { queryByDataCy, queryByText } = render(<Component />);
 
     await waitFor(() =>
       expect(queryByDataCy("copy-project-modal")).toBeInTheDocument()
@@ -96,7 +96,7 @@ describe("createProjectField", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <Modal mock={mockWithId} />
     );
-    const { queryByDataCy, queryByText } = render( <Component />);
+    const { queryByDataCy, queryByText } = render(<Component />);
 
     await waitFor(() =>
       expect(queryByDataCy("copy-project-modal")).toBeInTheDocument()
@@ -138,7 +138,7 @@ describe("createProjectField", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <Modal mock={mockWithError} />
     );
-    const { queryByDataCy, queryByText } = render( <Component />);
+    const { queryByDataCy, queryByText } = render(<Component />);
 
     await waitFor(() =>
       expect(queryByDataCy("copy-project-modal")).toBeInTheDocument()
@@ -174,7 +174,7 @@ describe("createProjectField", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <Modal mock={mockWithError} />
     );
-    const { queryByDataCy, queryByText } = render( <Component />);
+    const { queryByDataCy, queryByText } = render(<Component />);
 
     await waitFor(() =>
       expect(queryByDataCy("copy-project-modal")).toBeInTheDocument()

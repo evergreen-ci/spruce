@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { MemoryRouter } from "react-router-dom";
 import TaskHistoryRow from "pages/taskHistory/TaskHistoryRow";
 import VariantHistoryRow from "pages/variantHistory/VariantHistoryRow";
 import HistoryTable, { context } from ".";
