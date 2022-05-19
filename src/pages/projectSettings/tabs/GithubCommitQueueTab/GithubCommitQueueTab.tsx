@@ -15,6 +15,7 @@ import {
 } from "pages/projectSettings/Context";
 import { environmentalVariables } from "utils";
 import { ProjectType } from "../utils";
+import { ErrorType, getVersionControlError } from "./getErrors";
 import { getFormSchema } from "./getFormSchema";
 import { mergeProjectRepo } from "./transformers";
 import { FormState, TabProps } from "./types";
@@ -73,7 +74,7 @@ export const GithubCommitQueueTab: React.VFC<TabProps> = ({
         projectType === ProjectType.AttachedProject ? repoData : null
       ),
     [
-      data,
+      data?.githubProjectConflicts,
       formData,
       githubWebhooksEnabled,
       identifier,
@@ -84,6 +85,12 @@ export const GithubCommitQueueTab: React.VFC<TabProps> = ({
   );
 
   if (!formData) return null;
+
+  const validateConflicts = validate(
+    projectType,
+    repoData,
+    versionControlEnabled
+  );
 
   return (
     <>
@@ -100,7 +107,77 @@ export const GithubCommitQueueTab: React.VFC<TabProps> = ({
         schema={schema}
         uiSchema={uiSchema}
         disabled={isProduction() && !githubWebhooksEnabled} // TODO: Remove once EVG-16608 is fixed
+        validate={validateConflicts}
       />
     </>
   );
+};
+
+const validate = (projectType, repoData, versionControlEnabled) => (
+  formData,
+  errors
+) => {
+  const {
+    github: {
+      prTestingEnabled,
+      prTesting,
+      githubChecksEnabled,
+      githubChecks,
+      gitTagVersionsEnabled,
+      gitTags,
+    },
+    commitQueue: { enabled, patchDefinitions },
+  } = formData;
+
+  // getVersionControlError is a curried function, so save its partial application here to avoid repetition
+  const getAliasError = getVersionControlError(
+    versionControlEnabled,
+    projectType
+  );
+
+  if (
+    getAliasError(
+      prTestingEnabled,
+      prTesting?.githubPrAliasesOverride,
+      prTesting?.githubPrAliases,
+      repoData?.github?.prTesting?.githubPrAliases
+    ) === ErrorType.Error
+  ) {
+    errors.github.prTesting.addError("Missing Patch Definition");
+  }
+
+  if (
+    getAliasError(
+      githubChecksEnabled,
+      githubChecks?.githubCheckAliasesOverride,
+      githubChecks?.githubCheckAliases,
+      repoData?.github?.githubChecks?.githubCheckAliases
+    ) === ErrorType.Error
+  ) {
+    errors.github.prTesting.addError("Missing Commit Check Definition");
+  }
+
+  if (
+    getAliasError(
+      gitTagVersionsEnabled,
+      gitTags?.gitTagAliasesOverride,
+      gitTags?.gitTagAliases,
+      repoData?.github?.gitTags?.gitTagAliases
+    ) === ErrorType.Error
+  ) {
+    errors.github.prTesting.addError("Missing Git Tag Definition");
+  }
+
+  if (
+    getAliasError(
+      enabled,
+      patchDefinitions?.commitQueueAliasesOverride,
+      patchDefinitions?.commitQueueAliases,
+      repoData?.commitQueue?.patchDefinitions?.commitQueueAliases
+    ) === ErrorType.Error
+  ) {
+    errors.github.prTesting.addError("Missing Commit Queue Patch Definition");
+  }
+
+  return errors;
 };
