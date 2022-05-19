@@ -142,11 +142,11 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     private: false,
     restricted: true,
     admins: ["admin"],
-    prTestingEnabled: true,
+    prTestingEnabled: false,
     manualPrTestingEnabled: false,
     githubChecksEnabled: true,
     githubTriggerAliases: ["alias1"],
-    gitTagVersionsEnabled: true,
+    gitTagVersionsEnabled: false,
     gitTagAuthorizedUsers: ["admin"],
     gitTagAuthorizedTeams: [],
     commitQueue: {

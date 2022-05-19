@@ -61,7 +61,10 @@ describe("Repo Settings", () => {
         .should("exist");
     });
 
-    it("Shows an error banner when a commit check definition does not exist", () => {
+    it("Shows an error banner when Commit Checks are enabled", () => {
+      cy.dataCy("github-checks-enabled-radio-box").within(($el) => {
+        cy.wrap($el).getInputByLabel("Enabled").parent().click();
+      });
       cy.dataCy("error-banner")
         .contains(
           "A Commit Check Definition must be specified for this feature to run."
@@ -69,12 +72,22 @@ describe("Repo Settings", () => {
         .should("exist");
     });
 
-    it("Shows an error banner when a commit queue definition does not exist", () => {
+    it("Hides error banner when Commit Checks are disabled", () => {
+      cy.dataCy("github-checks-enabled-radio-box").within(($el) => {
+        cy.wrap($el).getInputByLabel("Disabled").parent().click();
+      });
       cy.dataCy("error-banner")
         .contains(
-          "A Commit Queue Patch Definition must be specified for this feature to run."
+          "A Commit Check Definition must be specified for this feature to run."
         )
-        .should("exist");
+        .should("not.exist");
+    });
+
+    it("Allows enabling manual PR testing", () => {
+      cy.dataCy("manual-pr-testing-enabled-radio-box")
+        .children()
+        .first()
+        .click();
     });
 
     it("Updates a patch definition", () => {
@@ -91,17 +104,21 @@ describe("Repo Settings", () => {
       ).should("not.exist");
     });
 
-    it("Toggling disable commit queue hides inputs", () => {
+    it("Enabling commit queue shows hidden inputs and error banner", () => {
       const countCQFields = (count: number) => {
         cy.dataCy("cq-card").children().should("have.length", count);
       };
 
-      countCQFields(5);
-      cy.dataCy("cq-enabled-radio-box").children().eq(1).click();
       countCQFields(2);
       cy.dataCy("cq-card").children().eq(1).should("be.empty");
       cy.dataCy("cq-enabled-radio-box").children().first().click();
       countCQFields(5);
+
+      cy.dataCy("error-banner")
+        .contains(
+          "A Commit Check Definition must be specified for this feature to run."
+        )
+        .should("not.exist");
     });
 
     it("Presents three options for merge method", () => {
@@ -117,6 +134,19 @@ describe("Repo Settings", () => {
 
     it("Updates the commit queue message", () => {
       cy.dataCy("cq-message-input").type("Repo message");
+    });
+
+    it("Disables save button because Commit Queue definition is missing", () => {
+      cy.dataCy("save-settings-button").should("be.disabled");
+    });
+
+    it("Adds a commit queue definition", () => {
+      cy.dataCy("add-button")
+        .contains("Add Commit Queue Patch Definition")
+        .parent()
+        .click();
+      cy.dataCy("variant-tags-input").last().type("cqvtag");
+      cy.dataCy("task-tags-input").last().type("cqttag");
     });
 
     it("Successfully saves the page", () => {
@@ -366,22 +396,11 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("navitem-github-commitqueue").click();
     });
 
-    it("Allows enabling manual PR testing", () => {
-      cy.dataCy("manual-pr-testing-enabled-radio-box")
-        .children()
-        .first()
-        .click();
-    });
-
     it("Allows adding a git tag alias", () => {
       cy.dataCy("git-tag-enabled-radio-box").children().first().click();
       cy.dataCy("add-button").contains("Add Git Tag").parent().click();
       cy.dataCy("git-tag-input").type("myGitTag");
       cy.dataCy("remote-path-input").type("./evergreen.yml");
-    });
-
-    it("Updates the Require Signed field and saves", () => {
-      cy.dataCy("require-signed-radio-box").children().first().click();
 
       cy.dataCy("save-settings-button").click();
       cy.validateToast("success", "Successfully updated project");
@@ -554,6 +573,10 @@ describe("Project Settings when defaulting to repo", () => {
     });
 
     it("Shows a warning banner when a commit check definition does not exist", () => {
+      cy.dataCy("github-checks-enabled-radio-box").within(($el) => {
+        cy.wrap($el).getInputByLabel("Enabled").parent().click();
+      });
+
       cy.dataCy("warning-banner")
         .contains(
           "This feature will only run if a Commit Check Definition is defined in the project or repo."
@@ -753,36 +776,30 @@ describe("Attaching Spruce to a repo", () => {
       cy.dataCy("navitem-github-commitqueue").click();
     });
 
-    it("Disables PR testing buttons and shows a warning", () => {
+    it("Shows warnings about enabling PR Testing", () => {
       cy.dataCy("pr-testing-enabled-radio-box")
-        .find("input")
-        .should("have.length", 3);
-      cy.dataCy("pr-testing-enabled-radio-box")
-        .find("input")
-        .should("be.disabled");
-      cy.contains(
-        "Enabling PR testing would introduce conflicts with the following project(s): evergreen."
-      );
+        .prev()
+        .dataCy("warning-banner")
+        .should("exist");
+      cy.dataCy("manual-pr-testing-enabled-radio-box")
+        .prev()
+        .dataCy("warning-banner")
+        .should("exist");
     });
 
-    it("Disables commit check buttons and shows a warning", () => {
-      cy.dataCy("github-checks-enabled-radio-box")
-        .find("input")
-        .should("have.length", 3);
-      cy.dataCy("github-checks-enabled-radio-box")
-        .find("input")
-        .should("be.disabled");
-      cy.contains(
-        "Enabling commit checks would introduce conflicts with the following project(s): evergreen."
-      );
+    it("Doesn't show a warning about enabling commit checks because the feature is disabled", () => {
+      cy.dataCy("github-checks-enabled-radio-box").prev().should("not.exist");
     });
 
-    it("Disables commit queue buttons and shows a warning", () => {
-      cy.dataCy("cq-enabled-radio-box").find("input").should("have.length", 3);
-      cy.dataCy("cq-enabled-radio-box").find("input").should("be.disabled");
-      cy.dataCy("cq-card").contains(
-        "Enabling the Commit Queue would introduce conflicts with the following project(s): evergreen."
-      );
+    it("Shows a warning about enabling commit queue", () => {
+      cy.dataCy("cq-card").dataCy("warning-banner").should("exist");
+    });
+
+    it("Shows an error banner about enabling commit queue if the feature is enabled", () => {
+      cy.dataCy("cq-enabled-radio-box").within(($el) => {
+        cy.wrap($el).getInputByLabel("Enabled").parent().click();
+      });
+      cy.dataCy("cq-card").dataCy("error-banner").should("exist");
     });
   });
 });
