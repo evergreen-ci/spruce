@@ -17,7 +17,7 @@ import {
 import { GET_PROJECT_EVENT_LOGS, GET_REPO_EVENT_LOGS } from "gql/queries";
 import { getDateCopy } from "utils/string";
 import { ProjectType } from "../utils";
-import { EventDiffLine, getEventDiffLines } from "./EventLogDiffs";
+import { EventDiffLine, EventValue, getEventDiffLines } from "./EventLogDiffs";
 
 type LogEntry = {
   timestamp: Date;
@@ -136,7 +136,7 @@ const StyledHeader = styled.div`
   padding-left: ${size.xxs};
 `;
 
-const getEventValue = (value: boolean | string | Array<any>) => {
+const getEventValue = (value: EventValue): string => {
   if (value === null || value === undefined) {
     return "";
   }
