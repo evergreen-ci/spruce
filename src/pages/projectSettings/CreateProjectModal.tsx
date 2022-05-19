@@ -49,11 +49,6 @@ export const CreateProjectModal: React.VFC<Props> = ({
         `There was an error creating the project: ${err.message}`
       );
     },
-    refetchQueries: [
-      "GetViewableProjectRefs",
-      "ProjectSettings",
-      "RepoSettings",
-    ],
   });
 
   const onConfirm = () => {

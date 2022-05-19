@@ -37,14 +37,7 @@ export const CopyProjectModal: React.VFC<Props> = ({
   const [copyProject, { called, data, error, loading }] = useMutation<
     CopyProjectMutation,
     CopyProjectMutationVariables
-  >(COPY_PROJECT, {
-    errorPolicy: "all",
-    refetchQueries: [
-      "GetViewableProjectRefs",
-      "ProjectSettings",
-      "RepoSettings",
-    ],
-  });
+  >(COPY_PROJECT, { errorPolicy: "all" });
 
   useEffect(() => {
     // onCompleted and onError don't provide sufficient information when used with errorPolicy: 'all', so use hook to manage behavior after confirming modal.
