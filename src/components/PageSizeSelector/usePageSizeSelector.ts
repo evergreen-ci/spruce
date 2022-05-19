@@ -5,8 +5,9 @@ import { useUpdateURLQueryParams } from "hooks";
 const usePageSizeSelector = () => {
   const updateURLQueryParams = useUpdateURLQueryParams();
   const setPageSize = (pageSize: number) => {
-    localStorage.setItem(RECENT_PAGE_SIZE_KEY, `${pageSize}`);
-    updateURLQueryParams({ limit: pageSize.toString(), page: "0" });
+    const newPageSize = pageSize.toString();
+    localStorage.setItem(RECENT_PAGE_SIZE_KEY, newPageSize);
+    updateURLQueryParams({ limit: newPageSize, page: "0" });
   };
   return setPageSize;
 };

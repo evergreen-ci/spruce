@@ -5,25 +5,20 @@ import usePageSizeSelector from "./usePageSizeSelector";
 
 interface Props {
   value: number;
-  "data-cy"?: string;
   onChange?: (i: number) => void;
 }
 
 /**
  * `data-cy` prop is not currently supported by @leafygreen-ui/select
  */
-const PageSizeSelector: React.VFC<Props> = ({
-  value,
-  "data-cy": dataCy,
-  onChange,
-}) => (
+const PageSizeSelector: React.VFC<Props> = ({ value, onChange, ...rest }) => (
   <StyledSelect
     aria-labelledby="page-size-select"
     size="small"
     value={value.toString()}
     onChange={(pageSize: string) => onChange(parseInt(pageSize, 10))}
     allowDeselect={false}
-    data-cy={dataCy}
+    {...rest}
   >
     {PAGE_SIZES.map((limit) => (
       <Option key={limit} value={limit.toString()}>{`${limit} / page`}</Option>
