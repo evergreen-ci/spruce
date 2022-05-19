@@ -68,14 +68,18 @@ exports[`storybook Storyshots Metadata Base 1`] = `
     >
       Base commit:
        
-      <a
-        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
-        data-cy="base-task-link"
-        href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
-        onClick={[Function]}
+      <code
+        className="leafygreen-ui-1tty64i"
       >
-        e0ece5ad52
-      </a>
+        <a
+          className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+          data-cy="base-task-link"
+          href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
+          onClick={[Function]}
+        >
+          e0ece5a
+        </a>
+      </code>
     </p>
     <p
       className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
@@ -196,14 +200,18 @@ exports[`storybook Storyshots Metadata With Abort Message 1`] = `
     >
       Base commit:
        
-      <a
-        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
-        data-cy="base-task-link"
-        href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
-        onClick={[Function]}
+      <code
+        className="leafygreen-ui-1tty64i"
       >
-        e0ece5ad52
-      </a>
+        <a
+          className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+          data-cy="base-task-link"
+          href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
+          onClick={[Function]}
+        >
+          e0ece5a
+        </a>
+      </code>
     </p>
     <p
       className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
@@ -324,14 +332,18 @@ exports[`storybook Storyshots Metadata With Dependencies 1`] = `
     >
       Base commit:
        
-      <a
-        className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
-        data-cy="base-task-link"
-        href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
-        onClick={[Function]}
+      <code
+        className="leafygreen-ui-1tty64i"
       >
-        e0ece5ad52
-      </a>
+        <a
+          className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+          data-cy="base-task-link"
+          href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
+          onClick={[Function]}
+        >
+          e0ece5a
+        </a>
+      </code>
     </p>
     <p
       className="css-1ui13f0-P2-wordBreakCss eplk6ht0"

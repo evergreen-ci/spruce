@@ -107,6 +107,7 @@ const ToastProvider: React.VFC<{ children: React.ReactNode }> = ({
         variant: mapToastToLeafyGreenVariant.success,
         message,
         closable,
+        ...defaultOptions,
         ...options,
       }),
     warning: (message = "", closable = true, options = defaultOptions) =>
@@ -114,6 +115,7 @@ const ToastProvider: React.VFC<{ children: React.ReactNode }> = ({
         variant: mapToastToLeafyGreenVariant.warning,
         message,
         closable,
+        ...defaultOptions,
         ...options,
       }),
     error: (message = "", closable = true, options = defaultOptions) =>
@@ -121,6 +123,7 @@ const ToastProvider: React.VFC<{ children: React.ReactNode }> = ({
         variant: mapToastToLeafyGreenVariant.error,
         message,
         closable,
+        ...defaultOptions,
         ...options,
       }),
     info: (message = "", closable = true, options = defaultOptions) =>
@@ -128,6 +131,7 @@ const ToastProvider: React.VFC<{ children: React.ReactNode }> = ({
         variant: mapToastToLeafyGreenVariant.info,
         message,
         closable,
+        ...defaultOptions,
         ...options,
       }),
     hide: hideToast,
