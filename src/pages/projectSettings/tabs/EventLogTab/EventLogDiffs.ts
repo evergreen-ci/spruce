@@ -1,5 +1,5 @@
 import { diff } from "deep-object-diff";
-import { ProjectEventSettings, RepoEventSettings } from "gql/generated/types";
+import { ProjectEventSettings } from "gql/generated/types";
 import { Subset } from "types/utils";
 import { string } from "utils";
 
@@ -35,8 +35,8 @@ export type EventDiffLine = {
 };
 
 export const getEventDiffLines = (
-  before: Subset<ProjectEventSettings> | Subset<RepoEventSettings>,
-  after: Subset<ProjectEventSettings> | Subset<RepoEventSettings>
+  before: Subset<ProjectEventSettings>,
+  after: Subset<ProjectEventSettings>
 ): EventDiffLine[] => {
   const eventDiff: EventDiffLine[] = omitTypename(diff(before, after));
   const pathKeys: string[] = getDiffProperties(eventDiff);
