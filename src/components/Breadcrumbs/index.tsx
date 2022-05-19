@@ -15,10 +15,10 @@ interface BreadcrumbsProps {
 }
 const Breadcrumbs: React.VFC<BreadcrumbsProps> = ({ breadcrumbs }) => (
   <Container>
-    {breadcrumbs.map((breadCrumb, index) => (
+    {breadcrumbs.map((bc, index) => (
       <Fragment
-        breadCrumb={breadCrumb}
-        key={`breadCrumb-${breadCrumb.text}`}
+        breadcrumb={bc}
+        key={`breadCrumb-${bc.text}`}
         active={breadcrumbs.length - 1 === index}
       />
     ))}
@@ -26,19 +26,19 @@ const Breadcrumbs: React.VFC<BreadcrumbsProps> = ({ breadcrumbs }) => (
 );
 
 interface FragmentProps {
-  breadCrumb: Breadcrumb;
+  breadcrumb: Breadcrumb;
   active: boolean;
 }
-const Fragment: React.VFC<FragmentProps> = ({ breadCrumb, active }) => {
-  const { text, to, onClick, ...rest } = breadCrumb;
+const Fragment: React.VFC<FragmentProps> = ({ breadcrumb, active }) => {
+  const { text, to, onClick, ...rest } = breadcrumb;
 
   return active || !to ? (
-    <H3 {...rest}>{breadCrumb.text}</H3>
+    <H3 {...rest}>{text}</H3>
   ) : (
     <StyledP1 {...rest}>
       <StyledRouterLink to={to} onClick={onClick}>
         {text}
-      </StyledRouterLink>{" "}
+      </StyledRouterLink>
     </StyledP1>
   );
 };
@@ -51,7 +51,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   > * {
-    margin-bottom:0;
+    margin-bottom: 0;
   }
   *:not(:last-child) {
     ::after {
@@ -60,6 +60,7 @@ const Container = styled.div`
       color: ${gray.base};
       opacity: 0.4;
     }
+  }
 `;
 
 export default Breadcrumbs;

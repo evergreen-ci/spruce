@@ -38,7 +38,7 @@ describe("pageBreadcrumbs", () => {
       );
     });
   });
-  it("should generate an other user patches link if the user does not own the patch", async () => {
+  it("should generate another user's patches link if the user does not own the patch", async () => {
     const { getByText } = render(() => (
       <MockedProvider mocks={[otherUserMock]} addTypename={false}>
         <PageBreadcrumbs
@@ -86,7 +86,7 @@ describe("pageBreadcrumbs", () => {
       getCommitsRoute("spruce")
     );
   });
-  it("should not have link to version page if a user is not on a task page", () => {
+  it("should not have link to the version page if a user is on a version page", () => {
     const { getByText } = render(() => (
       <MockedProvider mocks={[sameUserMock]} addTypename={false}>
         <PageBreadcrumbs
@@ -105,7 +105,7 @@ describe("pageBreadcrumbs", () => {
     expect(getByText("abc1234")).toBeInTheDocument();
     expect(getByText("abc1234")).not.toHaveAttribute("href");
   });
-  it("should have link to version page if a user is on a task page", () => {
+  it("should have a link to the version page if a user is on a task page", () => {
     const { getByText } = render(() => (
       <MockedProvider mocks={[sameUserMock]} addTypename={false}>
         <PageBreadcrumbs

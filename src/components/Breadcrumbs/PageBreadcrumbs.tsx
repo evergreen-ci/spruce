@@ -4,7 +4,7 @@ import { getVersionRoute, getCommitsRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { useGetUserPatchesPageTitleAndLink } from "hooks";
 import { shortenGithash } from "utils/string";
-import BreadCrumbs, { Breadcrumb } from ".";
+import Breadcrumbs, { Breadcrumb } from ".";
 
 interface Props {
   taskName?: string;
@@ -41,7 +41,7 @@ const PageBreadcrumbs: React.VFC<Props> = ({
   }
   return (
     <Container>
-      <BreadCrumbs breadcrumbs={breadcrumbs} />
+      <Breadcrumbs breadcrumbs={breadcrumbs} />
     </Container>
   );
 };
