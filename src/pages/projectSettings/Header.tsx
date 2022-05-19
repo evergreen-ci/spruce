@@ -133,7 +133,7 @@ export const Header: React.VFC<Props> = ({
             Save Changes on Page
           </Button>
         )}
-        {projectType === ProjectType.AttachedProject && saveable && (
+        {projectType === ProjectType.AttachedProject && (
           <>
             <Button
               onClick={() => setDefaultModalOpen(true)}
