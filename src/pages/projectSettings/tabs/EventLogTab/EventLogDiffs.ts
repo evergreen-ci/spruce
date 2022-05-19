@@ -27,7 +27,7 @@ const formatArrayElements = (eventKey: string): string =>
 const getNestedObject = (nestedObj: object, pathArr: string[]): EventValue =>
   pathArr.reduce((obj, key) => (obj ? obj[key] : undefined), nestedObj);
 
-export type EventValue = boolean | string | Array<any>;
+export type EventValue = boolean | string | Array<string | boolean | object>;
 export type EventDiffLine = {
   key: string;
   before: EventValue;
