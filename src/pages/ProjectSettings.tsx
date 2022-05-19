@@ -33,7 +33,7 @@ import { ProjectType } from "./projectSettings/tabs/utils";
 const { isDevelopment } = environmentalVariables;
 const { validateObjectId } = validators;
 
-const disablePage = !isDevelopment;
+const disablePage = !isDevelopment();
 
 export const ProjectSettings: React.VFC = () => {
   usePageTitle(`Project Settings`);
