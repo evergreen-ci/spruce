@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { useParams, Redirect } from "react-router-dom";
-import { BreadCrumb } from "components/Breadcrumb";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import { PageTitle } from "components/PageTitle";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
@@ -11,6 +10,7 @@ import {
   PageLayout,
   PageSider,
 } from "components/styles";
+import VersionTaskPageBreadcrumbs from "components/VersionTaskPageBreadcrumbs";
 import { pollInterval } from "constants/index";
 import { commitQueueAlias } from "constants/patch";
 import { getCommitQueueRoute, getPatchRoute } from "constants/routes";
@@ -31,7 +31,6 @@ import {
 import { usePageTitle, usePolling, useSpruceConfig } from "hooks";
 import { PageDoesNotExist } from "pages/404";
 import { shortenGithash, githubPRLinkify } from "utils/string";
-
 import { jiraLinkify } from "utils/string/jiraLinkify";
 import { BuildVariants } from "./version/BuildVariants";
 import { ActionButtons } from "./version/index";
@@ -169,7 +168,10 @@ export const VersionPage: React.VFC = () => {
   );
   return (
     <PageWrapper data-cy="version-page">
-      <BreadCrumb versionMetadata={version} patchNumber={patchNumber} />
+      <VersionTaskPageBreadcrumbs
+        versionMetadata={version}
+        patchNumber={patchNumber}
+      />
       <PageTitle
         loading={false}
         hasData

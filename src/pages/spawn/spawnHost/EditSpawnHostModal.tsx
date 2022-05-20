@@ -331,7 +331,7 @@ const computeDiff = (defaultEditSpawnHostState, editSpawnHostState) => {
     const keyToSubmit = mutationParams.publicKey;
     mutationParams.publicKey = omitTypename({
       name: keyToSubmit?.name || "",
-      key: stripNewLines(keyToSubmit.key),
+      key: stripNewLines(keyToSubmit?.key || ""),
     });
   }
   // diff returns an object to compare the differences in positions of an array. So we take this object

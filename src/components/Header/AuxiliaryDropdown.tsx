@@ -7,7 +7,6 @@ import { routes, getProjectPatchesRoute } from "constants/routes";
 import { GetSpruceConfigQuery } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
 import { environmentalVariables } from "utils";
-import { isBeta } from "utils/environmentalVariables";
 import { Dropdown } from "./NavDropdown";
 
 const { getUiUrl } = environmentalVariables;
@@ -22,14 +21,6 @@ export const AuxiliaryDropdown = () => {
   });
   const mostRecentProject =
     projectCookie || data?.spruceConfig?.ui?.defaultProject;
-
-  // At the moment, this link is only included in Spruce beta.
-  const projectPatchesLink = {
-    "data-cy": "auxiliary-dropdown-project-patches",
-    to: getProjectPatchesRoute(mostRecentProject),
-    text: "Project Patches",
-    onClick: () => sendEvent({ name: "Click Project Patches Link" }),
-  };
 
   const menuItems = [
     {
@@ -49,7 +40,12 @@ export const AuxiliaryDropdown = () => {
       text: "Projects",
       onClick: () => sendEvent({ name: "Click Projects Link" }),
     },
-    ...(isBeta() ? [projectPatchesLink] : []),
+    {
+      "data-cy": "auxiliary-dropdown-project-patches",
+      to: getProjectPatchesRoute(mostRecentProject),
+      text: "Project Patches",
+      onClick: () => sendEvent({ name: "Click Project Patches Link" }),
+    },
   ];
 
   return (

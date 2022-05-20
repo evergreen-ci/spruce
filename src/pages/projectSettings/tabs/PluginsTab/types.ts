@@ -9,19 +9,17 @@ export interface FormState {
       jiraCustomFields: Array<{
         field: string;
         displayText: string;
-      }> | null;
+      }>;
     };
     useBuildBaron: boolean | null;
-    ticketSearchProjects: Array<{
-      searchProject: string;
-    }> | null;
+    ticketSearchProjects: Array<{ searchProject: string }>;
     ticketCreateProject: {
-      createProject: string | null;
+      createProject: string;
     };
     fileTicketWebhook: {
-      endpoint: string | null;
-      secret: string | null;
-    } | null;
+      endpoint: string;
+      secret: string;
+    };
   };
 }
 

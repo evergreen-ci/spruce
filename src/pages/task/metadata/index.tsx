@@ -1,7 +1,7 @@
-import React from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
+import { InlineCode } from "@leafygreen-ui/typography";
 import { useTaskAnalytics } from "analytics";
 import { MetadataCard } from "components/MetadataCard";
 import { StyledLink, Divider, StyledRouterLink } from "components/styles";
@@ -22,7 +22,7 @@ import { AbortMessage } from "./AbortMessage";
 import { DependsOn } from "./DependsOn";
 import { ETATimer } from "./ETATimer";
 
-const { msToDuration, getDateCopy } = string;
+const { msToDuration, getDateCopy, shortenGithash } = string;
 const { getUiUrl } = environmentalVariables;
 const { red } = uiColors;
 
@@ -68,7 +68,7 @@ export const Metadata: React.VFC<Props> = ({
     baseTask,
   } = task || {};
 
-  const baseCommit = revision?.slice(0, 10);
+  const baseCommit = shortenGithash(revision);
   const { id: baseTaskId, timeTaken: baseTaskDuration } = baseTask ?? {};
   const projectIdentifier = project?.identifier;
   const { author, id: versionID } = versionMetadata ?? {};
@@ -161,15 +161,17 @@ export const Metadata: React.VFC<Props> = ({
         {baseTaskId && (
           <P2>
             Base commit:{" "}
-            <StyledRouterLink
-              data-cy="base-task-link"
-              to={getTaskRoute(baseTaskId)}
-              onClick={() =>
-                taskAnalytics.sendEvent({ name: "Click Base Commit" })
-              }
-            >
-              {baseCommit}
-            </StyledRouterLink>
+            <InlineCode>
+              <StyledRouterLink
+                data-cy="base-task-link"
+                to={getTaskRoute(baseTaskId)}
+                onClick={() =>
+                  taskAnalytics.sendEvent({ name: "Click Base Commit" })
+                }
+              >
+                {baseCommit}
+              </StyledRouterLink>
+            </InlineCode>
           </P2>
         )}
         {details?.status === TaskStatus.Failed && (

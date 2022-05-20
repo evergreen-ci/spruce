@@ -38,30 +38,3 @@ fragment projectEventSettings on ProjectEventSettings {
     ...alias
   }
 }
-
-fragment repoEventSettings on RepoEventSettings {
-  projectRef {
-    displayName
-    ...repoGeneralSettings
-    ...repoAccessSettings
-    ...repoPluginsSettings
-    ...repoNotificationSettings
-    ...repoPatchAliasSettings
-    ...repoVirtualWorkstationSettings
-    ...repoTriggersSettings
-    ...repoPeriodicBuildsSettings
-
-    versionControlEnabled
-    tracksPushEvents
-  }
-  vars {
-    ...variables
-  }
-  subscriptions {
-    ...subscriptions
-  }
-  ...repoEventGithubCommitQueue
-  aliases {
-    ...alias
-  }
-}

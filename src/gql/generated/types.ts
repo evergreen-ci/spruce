@@ -517,6 +517,7 @@ export type Version = {
   repo: Scalars["String"];
   project: Scalars["String"];
   projectIdentifier: Scalars["String"];
+  projectMetadata?: Maybe<Project>;
   branch: Scalars["String"];
   requester: Scalars["String"];
   activated?: Maybe<Scalars["Boolean"]>;
@@ -2346,11 +2347,6 @@ export type ProjectEventGithubCommitQueueFragment = {
   projectRef?: Maybe<ProjectGithubSettingsFragment>;
 };
 
-export type RepoEventGithubCommitQueueFragment = {
-  githubWebhooksEnabled: boolean;
-  projectRef?: Maybe<RepoGithubSettingsFragment>;
-};
-
 export type ProjectSettingsFragment = {
   projectRef?: Maybe<
     {
@@ -2531,26 +2527,6 @@ export type ProjectEventSettingsFragment = {
   vars?: Maybe<VariablesFragment>;
   aliases?: Maybe<Array<AliasFragment>>;
 } & ProjectEventGithubCommitQueueFragment;
-
-export type RepoEventSettingsFragment = {
-  projectRef?: Maybe<
-    {
-      displayName: string;
-      versionControlEnabled: boolean;
-      tracksPushEvents: boolean;
-    } & RepoGeneralSettingsFragment &
-      RepoAccessSettingsFragment &
-      RepoPluginsSettingsFragment &
-      RepoNotificationSettingsFragment &
-      RepoPatchAliasSettingsFragment &
-      RepoVirtualWorkstationSettingsFragment &
-      RepoTriggersSettingsFragment &
-      RepoPeriodicBuildsSettingsFragment
-  >;
-  vars?: Maybe<VariablesFragment>;
-  subscriptions?: Maybe<Array<SubscriptionsFragment>>;
-  aliases?: Maybe<Array<AliasFragment>>;
-} & RepoEventGithubCommitQueueFragment;
 
 export type ProjectTriggersSettingsFragment = {
   triggers?: Maybe<
@@ -3834,22 +3810,6 @@ export type GetMyPublicKeysQuery = {
   myPublicKeys: Array<{ name: string; key: string }>;
 };
 
-export type RepoEventLogsQueryVariables = Exact<{
-  identifier: Scalars["String"];
-}>;
-
-export type RepoEventLogsQuery = {
-  repoEvents: {
-    count: number;
-    eventLogEntries: Array<{
-      timestamp: Date;
-      user: string;
-      before?: Maybe<RepoEventSettingsFragment>;
-      after?: Maybe<RepoEventSettingsFragment>;
-    }>;
-  };
-};
-
 export type RepoSettingsQueryVariables = Exact<{
   repoId: Scalars["String"];
 }>;
@@ -4265,6 +4225,7 @@ export type VersionQuery = {
       modules?: Maybe<any>;
     }>;
     previousVersion?: Maybe<{ id: string; revision: string }>;
+    projectMetadata?: Maybe<{ repo: string; owner: string }>;
     patch?: Maybe<{
       id: string;
       patchNumber: number;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import { ConfirmationModal } from "components/ConfirmationModal";
@@ -34,25 +34,45 @@ export const CopyProjectModal: React.VFC<Props> = ({
   });
   const [hasError, setHasError] = useState(true);
 
-  const [copyProject] = useMutation<
+  const [copyProject, { called, data, error, loading }] = useMutation<
     CopyProjectMutation,
     CopyProjectMutationVariables
-  >(COPY_PROJECT, {
-    onCompleted({ copyProject: { identifier } }) {
-      dispatchToast.success(`Successfully created the project: ${identifier}`);
+  >(COPY_PROJECT, { errorPolicy: "all" });
+
+  useEffect(() => {
+    // onCompleted and onError don't provide sufficient information when used with errorPolicy: 'all', so use hook to manage behavior after confirming modal.
+    // https://github.com/apollographql/apollo-client/issues/6966
+    if (!called || loading) {
+      return;
+    }
+
+    const identifier = data?.copyProject?.identifier;
+    if (identifier) {
+      if (error) {
+        dispatchToast.warning(
+          `The project was successfully duplicated with the following errors: ${error.message}.`,
+          true,
+          { shouldTimeout: false }
+        );
+      } else {
+        dispatchToast.success(
+          `Successfully created the project: ${identifier}`
+        );
+      }
       replace(getProjectSettingsRoute(identifier));
-    },
-    onError(err) {
+    } else if (error) {
       dispatchToast.error(
-        `There was an error creating the project: ${err.message}`
+        `There was an error creating the project: ${error?.message}`
       );
-    },
-    refetchQueries: [
-      "GetViewableProjectRefs",
-      "ProjectSettings",
-      "RepoSettings",
-    ],
-  });
+    }
+  }, [
+    called,
+    data?.copyProject?.identifier,
+    dispatchToast,
+    error,
+    loading,
+    replace,
+  ]);
 
   const onConfirm = () => {
     copyProject({

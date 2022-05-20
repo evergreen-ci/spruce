@@ -4,11 +4,13 @@ import { sectionHasError } from "./getErrors";
 const callSectionHasError = ({
   versionControlEnabled,
   projectType,
+  enabled,
   override,
   aliases,
   repoAliases,
 }) =>
   sectionHasError(versionControlEnabled, projectType)(
+    enabled,
     override,
     aliases,
     repoAliases,
@@ -19,6 +21,7 @@ describe("an attached project", () => {
   const baseArgs = {
     versionControlEnabled: true,
     projectType: ProjectType.AttachedProject,
+    enabled: true,
     override: true,
     aliases: [],
     repoAliases: [],
@@ -28,7 +31,7 @@ describe("an attached project", () => {
     it("returns a warning when version config is enabled", () => {
       expect(callSectionHasError(baseArgs)).toStrictEqual({
         "ui:warnings": [
-          "This feature will only run if a myFieldName is defined in the project, repo, or Evergreen configuration file.",
+          "YAML aliases will be used for this feature unless a myFieldName is added to the project or repo.",
         ],
       });
     });
@@ -67,7 +70,7 @@ describe("an attached project", () => {
         })
       ).toStrictEqual({
         "ui:warnings": [
-          "This feature will only run if a myFieldName is defined in the project, repo, or Evergreen configuration file.",
+          "YAML aliases will be used for this feature unless a myFieldName is added to the project or repo.",
         ],
       });
     });
@@ -86,12 +89,22 @@ describe("an attached project", () => {
       });
     });
   });
+
+  it("returns no error when the project is disabled", () => {
+    expect(
+      callSectionHasError({
+        ...baseArgs,
+        enabled: false,
+      })
+    ).toStrictEqual({});
+  });
 });
 
 describe("a repo", () => {
   const baseArgs = {
     versionControlEnabled: true,
     projectType: ProjectType.Repo,
+    enabled: true,
     override: true,
     aliases: [],
     repoAliases: [],
@@ -110,7 +123,7 @@ describe("a repo", () => {
     it("returns a warning when version control is enabled", () => {
       expect(callSectionHasError(baseArgs)).toStrictEqual({
         "ui:warnings": [
-          "This feature will only run if a myFieldName is defined in the repo or Evergreen configuration file.",
+          "YAML aliases will be used for this feature unless a myFieldName is added to the repo.",
         ],
       });
     });

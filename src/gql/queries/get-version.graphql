@@ -42,6 +42,10 @@ query Version($id: String!) {
       id
       revision
     }
+    projectMetadata {
+      repo
+      owner
+    }
     patch {
       id
       patchNumber
