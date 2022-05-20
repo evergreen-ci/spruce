@@ -59,7 +59,7 @@ export const getFormSchema = (
       notifyOnBuildFailure: {
         "ui:widget": widgets.RadioBoxWidget,
         "ui:description":
-          "Send notification of build breaks to admins of a project if the commit author won’t receive the notification.",
+          "Send notification of build breaks to admins of a project if the commit author is not signed up to receive notifications.",
       },
     },
     defaultSubscriptions: {

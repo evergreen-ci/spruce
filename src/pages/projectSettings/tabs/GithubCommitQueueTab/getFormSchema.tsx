@@ -174,9 +174,8 @@ export const getFormSchema = (
             },
             gitTags: {
               title: "Git Tag Version Definitions",
-              description:
-                "Either the version will be fully populated from a new file, OR variants and tasks can be defined for the default config file using variant and task regexes/tags. " +
-                "If multiple regexes match and a config file has been defined for one or more of them, the version is ambiguous and no version will be created.",
+              description: `Either the version will be fully populated from a new file, OR variants and tasks can be defined for the default config file using variant and task regexes/tags. 
+                If multiple regexes match and a config file has been defined for one or more of them, the version is ambiguous and no version will be created.`,
               ...overrideRadioBox(
                 "gitTagAliases",
                 ["Override Repo Git Tags", "Default to Repo Git Tags"],
