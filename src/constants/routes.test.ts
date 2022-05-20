@@ -30,11 +30,11 @@ describe("getTaskRoute", () => {
 
 describe("getVersionRoute", () => {
   it("generates a version route with  the default tab when provided an id", () => {
-    expect(getVersionRoute("SomeId")).toBe("/version/SomeId/tasks?");
+    expect(getVersionRoute("SomeId")).toBe("/version/SomeId/tasks");
   });
   it("generates a version route with only an id and a tab", () => {
     expect(getVersionRoute("SomeId", { tab: "tasks" as PatchTab })).toBe(
-      "/version/SomeId/tasks?"
+      "/version/SomeId/tasks"
     );
   });
   it("generates a version route with only an id and some params", () => {
@@ -67,26 +67,26 @@ describe("getSpawnHostRoute", () => {
 describe("getPatchRoute", () => {
   it("generates a link to the version page if it is not provided with a configurable option", () => {
     expect(getPatchRoute("somePatchId", { configure: false })).toBe(
-      "/version/somePatchId/tasks?"
+      "/version/somePatchId/tasks"
     );
   });
-  it("generates a link to the patch configure page if it is  provided with a configurable option", () => {
+  it("generates a link to the patch configure page if it is provided with a configurable option", () => {
     expect(getPatchRoute("somePatchId", { configure: true })).toBe(
-      "/patch/somePatchId/configure/tasks?"
+      "/patch/somePatchId/configure/tasks"
     );
   });
   it("generates a link with a default tab when none is provided", () => {
     expect(getPatchRoute("somePatchId", { configure: true })).toBe(
-      "/patch/somePatchId/configure/tasks?"
+      "/patch/somePatchId/configure/tasks"
     );
   });
   it("generates a link with a provided tab", () => {
     expect(
       getPatchRoute("somePatchId", { configure: true, tab: "parameters" })
-    ).toBe("/patch/somePatchId/configure/parameters?");
+    ).toBe("/patch/somePatchId/configure/parameters");
     expect(
       getPatchRoute("somePatchId", { configure: true, tab: "someTab" })
-    ).toBe("/patch/somePatchId/configure/someTab?");
+    ).toBe("/patch/somePatchId/configure/someTab");
   });
 });
 
