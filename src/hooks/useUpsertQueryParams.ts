@@ -1,4 +1,4 @@
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 import { queryString, url } from "utils";
 import { useUpdateURLQueryParams } from "./useUpdateURLQueryParams";
 

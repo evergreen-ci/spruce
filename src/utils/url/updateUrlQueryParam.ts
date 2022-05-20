@@ -1,4 +1,4 @@
-import { NavigateFunction } from "react-router";
+import { NavigateFunction } from "react-router-dom";
 import { parseQueryString, stringifyQuery } from "utils/queryString";
 
 export const updateUrlQueryParam = (

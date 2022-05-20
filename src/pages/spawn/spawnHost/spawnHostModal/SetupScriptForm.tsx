@@ -3,7 +3,7 @@ import { useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Input } from "antd";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 import { size } from "constants/tokens";
 import {
   GetSpawnTaskQuery,

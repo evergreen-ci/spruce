@@ -103,7 +103,6 @@
     "deep-object-diff": "1.1.0",
     "env-cmd": "10.1.0",
     "graphql": "15.5.0",
-    "history": "^5.3.0",
     "html-react-parser": "1.2.4",
     "js-cookie": "2.2.1",
     "linkifyjs": "2.1.9",
@@ -252,9 +251,7 @@
     "workbox-webpack-plugin": "5.1.4",
     "worker-loader": "^3.0.7"
   },
-  "resolutions": {
-    "react-router-navigation-prompt/react-router-dom": "5.2.0"
-  },
+  
   "engines": {
     "node": ">=12.22.0"
   },
