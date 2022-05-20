@@ -492,8 +492,8 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("display-name-input").should("not.have.attr", "placeholder");
     });
 
-    it("Shows a navigation warning modal when clicking on a header link", () => {
-      cy.get("a[href='/user/patches']").click();
+    it("Shows a navigation warning modal when navigating away from project settings", () => {
+      cy.contains("My Patches").click();
       cy.dataCy("navigation-warning-modal").should("be.visible");
       cy.get("body").type("{esc}");
     });
