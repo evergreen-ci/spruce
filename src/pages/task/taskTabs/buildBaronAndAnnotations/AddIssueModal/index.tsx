@@ -1,11 +1,9 @@
+import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import styled from "@emotion/styled";
-import TextInput from "@leafygreen-ui/text-input";
 import { useAnnotationAnalytics } from "analytics";
-import { Accordion } from "components/Accordion";
 import { ConfirmationModal } from "components/ConfirmationModal";
-import { HR } from "components/styles/Layout";
-import { size } from "constants/tokens";
+import { SpruceForm, SpruceFormProps } from "components/SpruceForm";
+import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import { useToastContext } from "context/toast";
 import {
   AddAnnotationIssueMutation,
@@ -13,10 +11,10 @@ import {
   IssueLinkInput,
 } from "gql/generated/types";
 import { ADD_ANNOTATION } from "gql/mutations";
-import { numbers } from "utils";
-import { useAddIssueModal } from "./state";
+import { numbers, validators } from "utils";
 
 const { toDecimal } = numbers;
+const { validateURL } = validators;
 interface Props {
   visible: boolean;
   dataCy?: string;
@@ -44,7 +42,14 @@ export const AddIssueModal: React.VFC<Props> = ({
     ? "Add Task Annotation Issue"
     : "Add Task Annotation Suspected Issue";
 
-  const [state, dispatch] = useAddIssueModal();
+  const [formState, setFormState] = useState({
+    url: "",
+    issueKey: "",
+    advancedOptions: {
+      confidenceScore: null,
+    },
+  });
+  const [canSubmit, setCanSubmit] = useState(false);
 
   const [addAnnotation] = useMutation<
     AddAnnotationIssueMutation,
@@ -52,12 +57,12 @@ export const AddIssueModal: React.VFC<Props> = ({
   >(ADD_ANNOTATION, {
     onCompleted: () => {
       dispatchToast.success(`Successfully added ${issueString}`);
-      dispatch.reset();
-      setSelectedRowKey(state.issueKey);
+      setSelectedRowKey(formState.issueKey);
       closeModal();
       annotationAnalytics.sendEvent({ name: analyticsType });
     },
     onError(error) {
+      closeModal();
       dispatchToast.error(
         `There was an error adding the issue: ${error.message}`
       );
@@ -67,16 +72,25 @@ export const AddIssueModal: React.VFC<Props> = ({
 
   const handleSubmit = () => {
     const apiIssue: IssueLinkInput = {
-      url: state.url,
-      issueKey: state.issueKey,
-      confidenceScore: toDecimal(state.confidenceScore),
+      url: formState.url,
+      issueKey: formState.issueKey,
+      confidenceScore: toDecimal(formState.advancedOptions.confidenceScore),
     };
     addAnnotation({ variables: { taskId, execution, apiIssue, isIssue } });
   };
 
   const handleCancel = () => {
-    dispatch.reset();
     closeModal();
+  };
+
+  const handleURLValidation = (formData, errors) => {
+    if (!validateURL(formData.url)) {
+      errors.url.addError("Please enter a valid URL");
+    }
+    if (formData.issueKey.length === 0) {
+      errors.issueKey.addError("Please enter an issue key");
+    }
+    return errors;
   };
 
   return (
@@ -86,45 +100,65 @@ export const AddIssueModal: React.VFC<Props> = ({
       onCancel={handleCancel}
       title={title}
       onConfirm={handleSubmit}
-      submitDisabled={!state.canSubmit}
       buttonText={`Add ${issueString}`}
+      submitDisabled={!canSubmit}
     >
-      <StyledTextInput
-        data-cy="url-text-area"
-        label="URL"
-        value={state.url}
-        onChange={(e) => dispatch.setUrl(e.target.value)}
-        placeholder="https://example.com"
-        required
-        state={state.isURLValid ? "none" : "error"}
-        errorMessage="Please enter a valid URL"
+      <SpruceForm
+        onSubmit={handleSubmit}
+        schema={addIssueModalSchema.schema}
+        uiSchema={addIssueModalSchema.uiSchema}
+        formData={formState}
+        onChange={({ formData, errors }) => {
+          setFormState(formData);
+          setCanSubmit(!errors.length);
+        }}
+        validate={handleURLValidation}
       />
-      <StyledTextInput
-        data-cy="issue-key-text-area"
-        label="Display Text"
-        value={state.issueKey}
-        onChange={(e) => dispatch.setKey(e.target.value)}
-        required
-        state={state.isKeyValid ? "none" : "error"}
-        errorMessage="Display Text must contain at least one character"
-      />
-      <HR />
-      <Accordion title="Advanced Options">
-        <TextInput
-          data-cy="confidence-level"
-          label="Confidence Level"
-          description="The confidence level of the issue. This is a number between 0 and 100 representing a percentage."
-          value={state.confidenceScore}
-          optional
-          onChange={(e) => dispatch.setConfidenceScore(e.target.value)}
-          state={state.isConfidenceScoreValid ? "none" : "error"}
-          errorMessage="Please enter a number between 0 and 100"
-        />
-      </Accordion>
     </ConfirmationModal>
   );
 };
 
-const StyledTextInput = styled(TextInput)`
-  margin-bottom: ${size.s};
-`;
+const addIssueModalSchema: SpruceFormProps = {
+  schema: {
+    type: "object" as "object",
+    properties: {
+      url: {
+        type: "string" as "string",
+        title: "URL",
+      },
+      issueKey: {
+        type: "string" as "string",
+        title: "Display Text",
+      },
+      advancedOptions: {
+        type: "object" as "object",
+        properties: {
+          confidenceScore: {
+            type: ["number", "null"],
+            title: "Confidence Score",
+            minimum: 0,
+            maximum: 100,
+          },
+        },
+      },
+    },
+    required: ["url", "issueKey"],
+  },
+  uiSchema: {
+    url: {
+      "ui:data-cy": "url-text-area",
+    },
+    issueKey: {
+      "ui:data-cy": "issue-key-text-area",
+    },
+    advancedOptions: {
+      "ui:ObjectFieldTemplate": AccordionFieldTemplate,
+      "ui:displayTitle": "Advanced Options",
+      confidenceScore: {
+        "ui:data-cy": "confidence-level",
+        "ui:description":
+          "The confidence score of the issue. This is a number between 0 and 100 representing a percentage.",
+      },
+    },
+  },
+};

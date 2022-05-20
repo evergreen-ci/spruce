@@ -18,6 +18,15 @@ const validateJira = (v: string) =>
 const validateJiraURL = (jiraURL: string, url: string): boolean =>
   new RegExp(`^https://${jiraURL}/browse/${jiraTicketNumberRegex}$`).test(url);
 
+const validateURL = (url: string): boolean => {
+  if (!url) {
+    return false;
+  }
+  return new RegExp(
+    "^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?"
+  ).test(url);
+};
+
 const validateSSHPublicKey = (v: string): boolean => {
   const validSSHKey = new RegExp(
     /^(ssh-rsa|ssh-dss|ssh-ed25519|ecdsa-sha2-nistp256) /
@@ -72,4 +81,5 @@ export {
   validateRegexp,
   validateSSHPublicKey,
   validateSlack,
+  validateURL,
 };
