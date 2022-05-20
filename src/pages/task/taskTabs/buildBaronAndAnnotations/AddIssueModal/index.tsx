@@ -17,7 +17,6 @@ const { toDecimal } = numbers;
 const { validateURL } = validators;
 interface Props {
   visible: boolean;
-  dataCy?: string;
   closeModal: () => void;
   setSelectedRowKey: (key: string) => void;
   taskId: string;
@@ -27,12 +26,12 @@ interface Props {
 
 export const AddIssueModal: React.VFC<Props> = ({
   visible,
-  dataCy,
   closeModal,
   setSelectedRowKey,
   taskId,
   execution,
   isIssue,
+  ...rest
 }) => {
   const annotationAnalytics = useAnnotationAnalytics();
   const dispatchToast = useToastContext();
@@ -95,7 +94,7 @@ export const AddIssueModal: React.VFC<Props> = ({
 
   return (
     <ConfirmationModal
-      data-cy={dataCy}
+      {...rest}
       open={visible}
       onCancel={handleCancel}
       title={title}
@@ -146,10 +145,10 @@ const addIssueModalSchema: SpruceFormProps = {
   },
   uiSchema: {
     url: {
-      "ui:data-cy": "url-text-area",
+      "ui:data-cy": "issue-url",
     },
     issueKey: {
-      "ui:data-cy": "issue-key-text-area",
+      "ui:data-cy": "issue-key",
     },
     advancedOptions: {
       "ui:ObjectFieldTemplate": AccordionFieldTemplate,

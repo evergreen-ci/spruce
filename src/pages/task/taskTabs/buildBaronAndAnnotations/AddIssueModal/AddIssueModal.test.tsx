@@ -14,7 +14,7 @@ const AddIssueModal = (
       taskId="1"
       execution={0}
       visible
-      dataCy="issue-modal"
+      data-cy="add-issue-modal"
       {...props}
     />
   </MockedProvider>
@@ -32,8 +32,8 @@ describe("addIssueModal", () => {
       />
     );
     const { queryByText, queryByDataCy } = render(Component);
-    expect(queryByDataCy("url-text-area")).toHaveValue("");
-    expect(queryByDataCy("issue-key-text-area")).toHaveValue("");
+    expect(queryByDataCy("issue-url")).toHaveValue("");
+    expect(queryByDataCy("issue-key")).toHaveValue("");
     expect(queryByText("Add issue").closest("button")).toBeDisabled();
   });
   it("entering values should enable the submit button", () => {
@@ -48,12 +48,12 @@ describe("addIssueModal", () => {
       />
     );
     const { queryByText, queryByDataCy } = render(Component);
-    expect(queryByDataCy("url-text-area")).toHaveValue("");
-    fireEvent.change(queryByDataCy("url-text-area"), {
+    expect(queryByDataCy("issue-url")).toHaveValue("");
+    fireEvent.change(queryByDataCy("issue-url"), {
       target: { value: "https://mongodb.com" },
     });
-    expect(queryByDataCy("issue-key-text-area")).toHaveValue("");
-    fireEvent.change(queryByDataCy("issue-key-text-area"), {
+    expect(queryByDataCy("issue-key")).toHaveValue("");
+    fireEvent.change(queryByDataCy("issue-key"), {
       target: { value: "MONGODB-123" },
     });
 
@@ -71,12 +71,12 @@ describe("addIssueModal", () => {
       />
     );
     const { queryByText, queryByDataCy } = render(Component);
-    expect(queryByDataCy("url-text-area")).toHaveValue("");
-    fireEvent.change(queryByDataCy("url-text-area"), {
+    expect(queryByDataCy("issue-url")).toHaveValue("");
+    fireEvent.change(queryByDataCy("issue-url"), {
       target: { value: "https://mongodb.com" },
     });
-    expect(queryByDataCy("issue-key-text-area")).toHaveValue("");
-    fireEvent.change(queryByDataCy("issue-key-text-area"), {
+    expect(queryByDataCy("issue-key")).toHaveValue("");
+    fireEvent.change(queryByDataCy("issue-key"), {
       target: { value: "MONGODB-123" },
     });
     fireEvent.click(queryByText("Advanced Options"));

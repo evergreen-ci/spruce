@@ -41,8 +41,8 @@ describe("Task Annotation Tab", () => {
 
     // add a ticket
     cy.dataCy("add-suspected-issue-button").click();
-    cy.dataCy("url-text-area").type("https://example.com/");
-    cy.dataCy("issue-key-text-area").type("A-New-Ticket");
+    cy.dataCy("issue-url").type("https://example.com/");
+    cy.dataCy("issue-key").type("A-New-Ticket");
     cy.dataCy("add-issue-save-button").click();
     cy.get(issuesTable).should("have.length", 1);
     cy.get(suspectedIssuesTable).should("have.length", 4);

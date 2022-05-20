@@ -81,7 +81,7 @@ const AnnotationTickets: React.VFC<AnnotationTicketsProps> = ({
         />
       )}
       <AddIssueModal
-        dataCy="addIssueModal"
+        data-cy="addIssueModal"
         visible={isAddAnnotationModalVisible}
         closeModal={() => setIsAddAnnotationModalVisible(false)}
         setSelectedRowKey={setSelectedRowKey}
