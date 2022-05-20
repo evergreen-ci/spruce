@@ -20,24 +20,8 @@ describe("project data", () => {
     expect(gqlToForm(projectBase)).toStrictEqual(projectForm);
   });
 
-  it("correctly converts from a form to GQL and omits empty strings", () => {
-    expect(
-      formToGql(
-        {
-          ...projectForm,
-          ...{
-            admin: {
-              admins: [
-                {
-                  username: "",
-                },
-              ],
-            },
-          },
-        },
-        "project"
-      )
-    ).toStrictEqual(projectResult);
+  it("correctly converts from a form to GQL", () => {
+    expect(formToGql(projectForm, "project")).toStrictEqual(projectResult);
   });
 });
 
@@ -66,11 +50,7 @@ const repoForm: FormState = {
     restricted: true,
   },
   admin: {
-    admins: [
-      {
-        username: "admin",
-      },
-    ],
+    admins: ["admin"],
   },
 };
 
