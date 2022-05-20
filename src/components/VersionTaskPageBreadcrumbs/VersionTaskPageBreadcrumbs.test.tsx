@@ -6,9 +6,9 @@ import {
 } from "constants/routes";
 import { GET_OTHER_USER } from "gql/queries";
 import { renderWithRouterMatch as render, waitFor } from "test_utils";
-import PageBreadcrumbs from "./PageBreadcrumbs";
+import PageBreadcrumbs from ".";
 
-describe("pageBreadcrumbs", () => {
+describe("versionTaskPageBreadcrumbs", () => {
   it("should generate a my patches link if the current user owns the patch", async () => {
     const { getByText } = render(
       () => (

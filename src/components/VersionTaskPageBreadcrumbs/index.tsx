@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import { useBreadcrumbAnalytics, BreadcrumbAnalytics } from "analytics";
+import Breadcrumbs, { Breadcrumb } from "components/Breadcrumbs";
 import { getVersionRoute, getCommitsRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { useGetUserPatchesPageTitleAndLink } from "hooks";
 import { shortenGithash } from "utils/string";
-import Breadcrumbs, { Breadcrumb } from ".";
 
 interface Props {
   taskName?: string;
@@ -19,7 +19,7 @@ interface Props {
   };
 }
 
-const PageBreadcrumbs: React.VFC<Props> = ({
+const VersionTaskPageBreadcrumbs: React.VFC<Props> = ({
   versionMetadata,
   patchNumber,
   taskName,
@@ -124,4 +124,4 @@ const useBreadcrumbRoot = ({
 const Container = styled.div`
   margin-bottom: ${size.s};
 `;
-export default PageBreadcrumbs;
+export default VersionTaskPageBreadcrumbs;

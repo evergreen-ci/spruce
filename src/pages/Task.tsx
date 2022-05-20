@@ -2,7 +2,6 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
-import PageBreadcrumbs from "components/Breadcrumbs/PageBreadcrumbs";
 import { PageTitle } from "components/PageTitle";
 import {
   PageWrapper,
@@ -11,6 +10,7 @@ import {
   PageSider,
 } from "components/styles";
 import TaskStatusBadge from "components/TaskStatusBadge";
+import VersionTaskPageBreadcrumbs from "components/VersionTaskPageBreadcrumbs";
 import { pollInterval } from "constants/index";
 import { useToastContext } from "context/toast";
 import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
@@ -82,7 +82,7 @@ export const Task = () => {
   return (
     <PageWrapper>
       {task && (
-        <PageBreadcrumbs
+        <VersionTaskPageBreadcrumbs
           taskName={displayName}
           patchNumber={patchNumber}
           versionMetadata={versionMetadata}
