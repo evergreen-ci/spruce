@@ -6,19 +6,23 @@ import {
 } from "gql/generated/types";
 import { GET_OTHER_USER } from "gql/queries";
 
-export const useGetUserPatchesPageTitleAndLink = (userId: string) => {
-  const { data, loading, error } = useQuery<
-    GetOtherUserQuery,
-    GetOtherUserQueryVariables
-  >(GET_OTHER_USER, { variables: { userId } });
+export const useGetUserPatchesPageTitleAndLink = (
+  userId: string,
+  skip: boolean = false
+) => {
+  const { data } = useQuery<GetOtherUserQuery, GetOtherUserQueryVariables>(
+    GET_OTHER_USER,
+    { variables: { userId }, skip }
+  );
   const link = getUserPatchesRoute(userId);
 
-  if (loading || error) {
-    return { error, link, loading, title: "Patches" };
+  if (!data) {
+    return null;
   }
 
-  if (userId === data?.currentUser.userId) {
-    return { error, link, loading, title: "My Patches" };
+  const { currentUser } = data || {};
+  if (userId === currentUser.userId) {
+    return { link, title: "My Patches" };
   }
 
   const otherUserDisplayName = data?.otherUser.displayName ?? "";
@@ -26,9 +30,7 @@ export const useGetUserPatchesPageTitleAndLink = (userId: string) => {
     otherUserDisplayName.slice(-1) === "s" ? "'" : "'s";
 
   return {
-    error,
     link,
-    loading,
     title: `${otherUserDisplayName}${possessiveModifier} Patches`,
   };
 };
