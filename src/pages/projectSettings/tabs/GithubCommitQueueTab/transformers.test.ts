@@ -72,7 +72,7 @@ const projectForm: FormState = {
       gitTagAuthorizedUsers: ["privileged"],
     },
     teams: {
-      gitTagAuthorizedTeamsOverride: false,
+      gitTagAuthorizedTeamsOverride: true,
       gitTagAuthorizedTeams: [],
     },
     gitTags: {
@@ -179,7 +179,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef" | "aliases"> = {
 
 const repoForm: FormState = {
   github: {
-    prTestingEnabled: true,
+    prTestingEnabled: false,
     manualPrTestingEnabled: false,
     prTesting: {
       githubPrAliasesOverride: true,
@@ -227,7 +227,7 @@ const repoForm: FormState = {
         },
       ],
     },
-    gitTagVersionsEnabled: true,
+    gitTagVersionsEnabled: false,
     users: {
       gitTagAuthorizedUsersOverride: true,
       gitTagAuthorizedUsers: ["admin"],
@@ -256,10 +256,10 @@ const repoForm: FormState = {
 const repoResult: Pick<RepoSettingsInput, "projectRef" | "aliases"> = {
   projectRef: {
     id: "repo",
-    prTestingEnabled: true,
+    prTestingEnabled: false,
     manualPrTestingEnabled: false,
     githubChecksEnabled: true,
-    gitTagVersionsEnabled: true,
+    gitTagVersionsEnabled: false,
     gitTagAuthorizedUsers: ["admin"],
     gitTagAuthorizedTeams: [],
     commitQueue: {
@@ -349,7 +349,7 @@ const mergedForm: FormState = {
       },
     },
     teams: {
-      gitTagAuthorizedTeamsOverride: false,
+      gitTagAuthorizedTeamsOverride: true,
       gitTagAuthorizedTeams: [],
       repoData: {
         gitTagAuthorizedTeamsOverride: true,

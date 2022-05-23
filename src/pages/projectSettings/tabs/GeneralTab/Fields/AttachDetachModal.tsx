@@ -48,6 +48,7 @@ export const AttachDetachModal: React.VFC<ModalProps> = ({
       "ProjectSettings",
       "RepoSettings",
       "GetViewableProjectRefs",
+      "GithubProjectConflicts",
     ],
   });
 

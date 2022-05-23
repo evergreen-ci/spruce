@@ -12,9 +12,7 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
       restricted: projectRef.restricted,
     },
     admin: {
-      admins: projectRef.admins
-        ? projectRef.admins.map((username) => ({ username }))
-        : [],
+      admins: projectRef.admins ?? [],
     },
   };
 };
@@ -27,7 +25,7 @@ export const formToGql: FormToGqlFunction = (
     id,
     private: accessSettings.private,
     restricted: accessSettings.restricted,
-    admins: admin.admins.map(({ username }) => username).filter((str) => !!str),
+    admins: admin.admins,
   };
 
   return { projectRef };
