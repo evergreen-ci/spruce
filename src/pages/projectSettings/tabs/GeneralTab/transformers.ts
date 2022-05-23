@@ -47,8 +47,7 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
         repotrackerDisabled: projectRef.repotrackerDisabled,
       },
       logger: {
-        defaultLogger:
-          projectRef.defaultLogger === "" ? null : projectRef.defaultLogger,
+        defaultLogger: projectRef.defaultLogger,
       },
       testResults: {
         cedarTestResultsEnabled: projectRef.cedarTestResultsEnabled,

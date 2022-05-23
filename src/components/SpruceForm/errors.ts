@@ -14,6 +14,12 @@ export const transformErrors = (errors: AjvError[]) =>
             ...error,
             message: `Value should be a ${error.params.type}.`,
           };
+        case "minimum":
+        case "maximum":
+          return {
+            ...error,
+            message: `Value should be ${error.params.comparison} ${error.params.limit}.`,
+          };
         case "minLength":
           return {
             ...error,

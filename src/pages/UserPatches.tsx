@@ -61,7 +61,7 @@ export const UserPatches = () => {
     },
   });
   usePolling(startPolling, stopPolling);
-  const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId);
+  const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId) || {};
   return (
     <PatchesPage
       analyticsObject={analyticsObject}

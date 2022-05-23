@@ -240,6 +240,7 @@ export const baseProps = {
       "ui:addButtonSize": "xsmall",
       "ui:addButtonText": "Add Task Tag",
       "ui:fullWidth": true,
+      "ui:orderable": false,
       "ui:sectionId": "task-tags-field",
       "ui:showLabel": false,
       "ui:topAlignDelete": true,
@@ -279,6 +280,7 @@ export const baseProps = {
       "ui:addButtonSize": "xsmall",
       "ui:addButtonText": "Add Variant Tag",
       "ui:fullWidth": true,
+      "ui:orderable": false,
       "ui:sectionId": "variant-tags-field",
       "ui:showLabel": false,
       "ui:topAlignDelete": true,
@@ -467,6 +469,7 @@ export const gitTagArray = {
   },
   uiSchema: {
     "ui:addButtonText": "Add Git Tag",
+    "ui:orderable": false,
     "ui:showLabel": false,
     "ui:topAlignDelete": true,
     items: {
@@ -495,7 +498,9 @@ export const aliasArray = {
       },
     },
   },
-  uiSchema: {},
+  uiSchema: {
+    "ui:orderable": false,
+  },
 };
 
 type AliasRowUIParams = {
@@ -518,6 +523,7 @@ export const aliasRowUiSchema = ({
   "ui:showLabel": false,
   "ui:topAlignDelete": true,
   "ui:useExpandableCard": useExpandableCard,
+  "ui:orderable": false,
   ...(addButtonText && { "ui:addButtonText": addButtonText }),
   ...(isRepo && { "ui:readonly": true }),
   items: {
