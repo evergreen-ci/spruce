@@ -40,6 +40,16 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
   const { projectType } = options;
 
   const {
+    prTestingEnabled,
+    manualPrTestingEnabled,
+    githubChecksEnabled,
+    gitTagVersionsEnabled,
+    gitTagAuthorizedUsers,
+    gitTagAuthorizedTeams,
+    commitQueue,
+  } = projectRef;
+
+  const {
     commitQueueAliases,
     githubPrAliases,
     githubCheckAliases,
@@ -58,30 +68,30 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
 
   return {
     github: {
-      prTestingEnabled: projectRef.prTestingEnabled,
-      manualPrTestingEnabled: projectRef.manualPrTestingEnabled,
+      prTestingEnabled,
+      manualPrTestingEnabled,
       prTesting: {
         githubPrAliasesOverride: override(githubPrAliases),
         githubPrAliases,
       },
       githubTriggerAliases,
-      githubChecksEnabled: projectRef.githubChecksEnabled,
+      githubChecksEnabled,
       githubChecks: {
         githubCheckAliasesOverride: override(githubCheckAliases),
         githubCheckAliases,
       },
-      gitTagVersionsEnabled: projectRef.gitTagVersionsEnabled,
+      gitTagVersionsEnabled,
       users: {
-        gitTagAuthorizedUsersOverride: override(
-          projectRef.gitTagAuthorizedUsers
-        ),
-        gitTagAuthorizedUsers: projectRef.gitTagAuthorizedUsers,
+        gitTagAuthorizedUsersOverride:
+          projectType !== ProjectType.AttachedProject ||
+          !!gitTagAuthorizedUsers,
+        gitTagAuthorizedUsers: gitTagAuthorizedUsers ?? [],
       },
       teams: {
-        gitTagAuthorizedTeamsOverride: override(
-          projectRef.gitTagAuthorizedTeams
-        ),
-        gitTagAuthorizedTeams: projectRef.gitTagAuthorizedTeams,
+        gitTagAuthorizedTeamsOverride:
+          projectType !== ProjectType.AttachedProject ||
+          !!gitTagAuthorizedTeams,
+        gitTagAuthorizedTeams: gitTagAuthorizedTeams ?? [],
       },
       gitTags: {
         gitTagAliasesOverride: override(gitTagAliases),
@@ -89,10 +99,10 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
       },
     },
     commitQueue: {
-      enabled: projectRef.commitQueue.enabled,
-      requireSigned: projectRef.commitQueue.requireSigned,
-      message: projectRef.commitQueue.message,
-      mergeMethod: projectRef.commitQueue.mergeMethod,
+      enabled: commitQueue.enabled,
+      requireSigned: commitQueue.requireSigned,
+      message: commitQueue.message,
+      mergeMethod: commitQueue.mergeMethod,
       patchDefinitions: {
         commitQueueAliasesOverride: override(commitQueueAliases),
         commitQueueAliases,
@@ -130,14 +140,12 @@ export const formToGql: FormToGqlFunction = (
     manualPrTestingEnabled,
     githubChecksEnabled,
     gitTagVersionsEnabled,
-    gitTagAuthorizedUsers:
-      (gitTagAuthorizedUsersOverride &&
-        gitTagAuthorizedUsers?.filter((user) => user)) ||
-      [],
-    gitTagAuthorizedTeams:
-      (gitTagAuthorizedTeamsOverride &&
-        gitTagAuthorizedTeams?.filter((team) => team)) ||
-      [],
+    gitTagAuthorizedUsers: gitTagAuthorizedUsersOverride
+      ? gitTagAuthorizedUsers
+      : null,
+    gitTagAuthorizedTeams: gitTagAuthorizedTeamsOverride
+      ? gitTagAuthorizedTeams
+      : null,
     commitQueue: {
       enabled,
       requireSigned,

@@ -58,7 +58,7 @@ export const LeafyGreenTextInput: React.VFC<
       <MaxWidthContainer>
         <StyledTextInput
           data-cy={dataCy}
-          value={value === null || value === undefined ? null : `${value}`}
+          value={value === null || value === undefined ? "" : `${value}`}
           aria-labelledby={ariaLabelledBy}
           label={ariaLabelledBy ? undefined : label}
           placeholder={placeholder || undefined}
@@ -66,11 +66,7 @@ export const LeafyGreenTextInput: React.VFC<
           optional={optional}
           disabled={disabled || readonly}
           onChange={({ target }) =>
-            onChange(
-              target.value === "" && emptyValue !== undefined
-                ? emptyValue
-                : target.value
-            )
+            target.value === "" ? onChange(emptyValue) : onChange(target.value)
           }
           aria-label={label}
           {...inputProps}

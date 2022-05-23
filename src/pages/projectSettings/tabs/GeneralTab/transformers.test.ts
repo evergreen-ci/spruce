@@ -40,7 +40,7 @@ const repoForm: FormState = {
     branch: "main",
     other: {
       displayName: "",
-      batchTime: null,
+      batchTime: 12,
       remotePath: "evergreen.yml",
       spawnHostScriptPath: "/test/path",
       versionControlEnabled: false,
@@ -85,7 +85,7 @@ const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
     repo: "spruce",
     branch: "main",
     displayName: "",
-    batchTime: 0,
+    batchTime: 12,
     remotePath: "evergreen.yml",
     spawnHostScriptPath: "/test/path",
     versionControlEnabled: false,

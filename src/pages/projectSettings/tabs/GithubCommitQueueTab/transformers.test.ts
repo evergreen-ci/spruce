@@ -72,7 +72,7 @@ const projectForm: FormState = {
       gitTagAuthorizedUsers: ["privileged"],
     },
     teams: {
-      gitTagAuthorizedTeamsOverride: false,
+      gitTagAuthorizedTeamsOverride: true,
       gitTagAuthorizedTeams: [],
     },
     gitTags: {
@@ -349,7 +349,7 @@ const mergedForm: FormState = {
       },
     },
     teams: {
-      gitTagAuthorizedTeamsOverride: false,
+      gitTagAuthorizedTeamsOverride: true,
       gitTagAuthorizedTeams: [],
       repoData: {
         gitTagAuthorizedTeamsOverride: true,
