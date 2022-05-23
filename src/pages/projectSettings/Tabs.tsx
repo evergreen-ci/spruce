@@ -5,7 +5,6 @@ import { routes, ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 import { useProjectSettingsContext } from "./Context";
 import { Header } from "./Header";
-import { NavigationModal } from "./NavigationModal";
 import {
   AccessTab,
   EventLogTab,
@@ -56,7 +55,6 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
 
   return (
     <Container>
-      <NavigationModal />
       <Header
         id={projectId || repoId}
         isRepo={!projectData}

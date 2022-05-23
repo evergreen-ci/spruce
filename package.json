@@ -116,7 +116,6 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-router-dom": "6.3.0",
-    "react-router-navigation-prompt": "1.9.6",
     "react-string-replace": "0.4.4",
     "react-virtualized-auto-sizer": "^1.0.6",
     "react-window": "1.8.6",
@@ -251,7 +250,6 @@
     "workbox-webpack-plugin": "5.1.4",
     "worker-loader": "^3.0.7"
   },
-  
   "engines": {
     "node": ">=12.22.0"
   },

@@ -15613,11 +15613,6 @@ react-router-dom@6.3.0:
     history "^5.2.0"
     react-router "6.3.0"
 
-react-router-navigation-prompt@1.9.6:
-  version "1.9.6"
-  resolved "https://registry.yarnpkg.com/react-router-navigation-prompt/-/react-router-navigation-prompt-1.9.6.tgz#a949252dfbae8c40508671beb6d5995f0b089ac4"
-  integrity sha512-l0sAtbroHK8i1/Eyy29XcrMpBEt0R08BaScgMUt8r5vWWbLz7G0ChOikayTCQm7QgDFsHw8gVnxDJb7TBZCAKg==
-
 react-router@6.3.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.3.0.tgz#3970cc64b4cb4eae0c1ea5203a80334fdd175557"
