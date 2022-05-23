@@ -619,7 +619,16 @@ describe("Project Settings when defaulting to repo", () => {
         .should("have.value", "^smoke-test-endpoints$");
     });
 
-    it("Clicking on save button should show a success toast", () => {
+    it("Returns an error on save because no commit check definitions are defined", () => {
+      cy.dataCy("save-settings-button").click();
+      cy.validateToast("error");
+    });
+
+    it("Disabling commit checks saves successfully", () => {
+      cy.dataCy("github-checks-enabled-radio-box").within(($el) => {
+        cy.wrap($el).getInputByLabel("Disabled").parent().click();
+      });
+
       cy.dataCy("save-settings-button").click();
       cy.validateToast("success", "Successfully updated project");
     });
