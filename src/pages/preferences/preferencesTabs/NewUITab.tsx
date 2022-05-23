@@ -81,7 +81,7 @@ export const NewUITab: React.VFC = () => {
       {/* @ts-expect-error */}
       <PreferencesCard>
         <PaddedBody>
-          Allow background polling for the current browser.
+          Allow background polling for active tabs in the current browser.
         </PaddedBody>
         <Toggle
           checked={Cookies.get(DISABLE_QUERY_POLLING) !== "true"}
