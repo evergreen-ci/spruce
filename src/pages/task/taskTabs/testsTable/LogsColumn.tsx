@@ -7,7 +7,6 @@ import { size } from "constants/tokens";
 import { TestResult, GetTaskForTestsTableQuery } from "gql/generated/types";
 import { TestStatus } from "types/test";
 import { string } from "utils";
-import { isBeta } from "utils/environmentalVariables";
 
 const { escapeRegex } = string;
 interface Props {
@@ -86,7 +85,7 @@ export const LogsColumn: React.VFC<Props> = ({
           Raw
         </Button>
       )}
-      {isBeta() && filters && !isExecutionTask && (
+      {filters && !isExecutionTask && (
         <Button
           size="xsmall"
           as={Link}

@@ -37,7 +37,6 @@ import {
   UNSCHEDULE_TASK,
 } from "gql/mutations";
 import { useUpdateURLQueryParams } from "hooks";
-import { isBeta } from "utils/environmentalVariables";
 import { PreviousCommits } from "./actionButtons/previousCommits/PreviousCommits";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
@@ -264,7 +263,7 @@ export const ActionButtons: React.VFC<Props> = ({
   return (
     <>
       <PageButtonRow>
-        {isBeta() && !isExecutionTask && (
+        {!isExecutionTask && (
           <>
             <PreviousCommits taskId={taskId} />
             <Button

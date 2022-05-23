@@ -37,7 +37,7 @@ export const getFormSchema = (
         title: "Subscriptions",
         properties: {
           defaultToRepo: {
-            type: ["array", "null"],
+            type: "array" as "array",
             items: {
               type: "object" as "object",
               properties: {

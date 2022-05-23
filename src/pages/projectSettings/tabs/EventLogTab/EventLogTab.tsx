@@ -9,21 +9,18 @@ import { useToastContext } from "context/toast";
 import {
   ProjectEventLogsQuery,
   ProjectEventLogsQueryVariables,
-  RepoEventLogsQuery,
-  RepoEventLogsQueryVariables,
-  RepoEventSettingsFragment,
   ProjectEventSettingsFragment,
 } from "gql/generated/types";
-import { GET_PROJECT_EVENT_LOGS, GET_REPO_EVENT_LOGS } from "gql/queries";
+import { GET_PROJECT_EVENT_LOGS } from "gql/queries";
 import { getDateCopy } from "utils/string";
 import { ProjectType } from "../utils";
-import { EventDiffLine, getEventDiffLines } from "./EventLogDiffs";
+import { EventDiffLine, EventValue, getEventDiffLines } from "./EventLogDiffs";
 
 type LogEntry = {
   timestamp: Date;
   user: string;
-  before?: RepoEventSettingsFragment | ProjectEventSettingsFragment;
-  after?: RepoEventSettingsFragment | ProjectEventSettingsFragment;
+  before?: ProjectEventSettingsFragment;
+  after?: ProjectEventSettingsFragment;
 };
 
 type TabProps = {
@@ -46,20 +43,8 @@ export const EventLogTab: React.VFC<TabProps> = ({ projectType }) => {
     },
   });
 
-  const { data: repoEventData } = useQuery<
-    RepoEventLogsQuery,
-    RepoEventLogsQueryVariables
-  >(GET_REPO_EVENT_LOGS, {
-    variables: { identifier },
-    skip: !isRepo,
-    onError: (e) => {
-      dispatchToast.error(`Unable to fetch events for ${identifier}: ${e}`);
-    },
-  });
-
-  const eventData: LogEntry[] = isRepo
-    ? repoEventData?.repoEvents?.eventLogEntries
-    : projectEventData?.projectEvents?.eventLogEntries || [];
+  const eventData: LogEntry[] =
+    projectEventData?.projectEvents?.eventLogEntries || [];
 
   return (
     <div data-cy="event-log">
@@ -136,7 +121,7 @@ const StyledHeader = styled.div`
   padding-left: ${size.xxs};
 `;
 
-const getEventValue = (value: boolean | string | Array<any>) => {
+const getEventValue = (value: EventValue): string => {
   if (value === null || value === undefined) {
     return "";
   }

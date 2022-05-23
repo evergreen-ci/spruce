@@ -58,7 +58,7 @@ export const LeafyGreenTextInput: React.VFC<
       <MaxWidthContainer>
         <StyledTextInput
           data-cy={dataCy}
-          value={value === null || value === undefined ? null : `${value}`}
+          value={value === null || value === undefined ? "" : `${value}`}
           aria-labelledby={ariaLabelledBy}
           label={ariaLabelledBy ? undefined : label}
           placeholder={placeholder || undefined}
@@ -66,11 +66,7 @@ export const LeafyGreenTextInput: React.VFC<
           optional={optional}
           disabled={disabled || readonly}
           onChange={({ target }) =>
-            onChange(
-              target.value === "" && emptyValue !== undefined
-                ? emptyValue
-                : target.value
-            )
+            target.value === "" ? onChange(emptyValue) : onChange(target.value)
           }
           aria-label={label}
           {...inputProps}
@@ -241,6 +237,7 @@ export const LeafyGreenRadioBox: React.VFC<
     errors,
     marginBottom,
     showLabel,
+    warnings,
   } = options;
 
   // Workaround because {ui:widget: hidden} does not play nicely with this widget
@@ -262,8 +259,15 @@ export const LeafyGreenRadioBox: React.VFC<
           {description && <Description>{description}</Description>}
         </RadioBoxLabelContainer>
       )}
-      {!!errors?.length && (
-        <StyledBanner variant="danger">{errors?.join(", ")}</StyledBanner>
+      {!!errors && (
+        <StyledBanner variant="danger" data-cy="error-banner">
+          {errors.join(", ")}
+        </StyledBanner>
+      )}
+      {!!warnings && (
+        <StyledBanner variant="warning" data-cy="warning-banner">
+          {warnings.join(", ")}
+        </StyledBanner>
       )}
       <RadioBoxGroup
         id={id}

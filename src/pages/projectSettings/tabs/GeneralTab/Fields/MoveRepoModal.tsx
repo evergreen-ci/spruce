@@ -47,7 +47,12 @@ export const MoveRepoModal: React.VFC<ModalProps> = ({
         `There was an error attaching the project: ${err.message}`
       );
     },
-    refetchQueries: ["ProjectSettings", "RepoSettings"],
+    refetchQueries: [
+      "ProjectSettings",
+      "RepoSettings",
+      "GetViewableProjectRefs",
+      "GithubProjectConflicts",
+    ],
   });
 
   return (

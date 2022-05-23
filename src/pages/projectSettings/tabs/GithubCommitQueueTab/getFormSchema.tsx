@@ -11,7 +11,7 @@ import {
 import { GithubProjectConflicts } from "gql/generated/types";
 import { getTabTitle } from "pages/projectSettings/getTabTitle";
 import { alias, form, ProjectType } from "../utils";
-import { sectionHasError } from "./getErrors";
+import { githubConflictErrorStyling, sectionHasError } from "./getErrors";
 import { GithubTriggerAliasField } from "./GithubTriggerAliasField";
 import { FormState } from "./types";
 
@@ -146,11 +146,12 @@ export const getFormSchema = (
                 "gitTagAuthorizedUsers",
                 ["Override Repo Users", "Default to Repo Users"],
                 {
-                  type: ["array", "null"],
+                  type: "array" as "array",
                   items: {
                     type: "string" as "string",
                     title: "Username",
                     default: "",
+                    minLength: 1,
                   },
                 }
               ),
@@ -163,11 +164,12 @@ export const getFormSchema = (
                 "gitTagAuthorizedTeams",
                 ["Override Repo Teams", "Default to Repo Teams"],
                 {
-                  type: ["array", "null"],
+                  type: "array" as "array",
                   items: {
                     type: "string" as "string",
                     title: "Team",
                     default: "",
+                    minLength: 1,
                   },
                 }
               ),
@@ -208,7 +210,7 @@ export const getFormSchema = (
               title: "Commit Queue Message",
             },
             mergeMethod: {
-              type: ["string"],
+              type: "string" as "string",
               title: "Merge Method",
               oneOf: [
                 {
@@ -260,42 +262,39 @@ export const getFormSchema = (
         prTestingEnabled: {
           "ui:data-cy": "pr-testing-enabled-radio-box",
           "ui:widget": widgets.RadioBoxWidget,
-          ...(!!githubProjectConflicts?.prTestingIdentifiers?.length && {
-            "ui:disabled": true,
-            "ui:errors": [
-              `Enabling PR testing would introduce conflicts with the following project(s): ${githubProjectConflicts.prTestingIdentifiers.join(
-                ", "
-              )}. To enable PR testing for this project please disable it elsewhere.`,
-            ],
-          }),
+
+          ...githubConflictErrorStyling(
+            githubProjectConflicts?.prTestingIdentifiers,
+            formData?.github?.prTestingEnabled,
+            repoData?.github?.prTestingEnabled,
+            "PR Testing"
+          ),
         },
         manualPrTestingEnabled: {
           "ui:data-cy": "manual-pr-testing-enabled-radio-box",
           "ui:widget": widgets.RadioBoxWidget,
           "ui:description":
             "Patches can be run manually by commenting ‘evergreen patch’ on the PR even if automated testing isn't enabled.",
-          ...(!!githubProjectConflicts?.prTestingIdentifiers?.length && {
-            "ui:disabled": true,
-            "ui:errors": [
-              `Enabling PR testing would introduce conflicts with the following project(s): ${githubProjectConflicts.prTestingIdentifiers.join(
-                ", "
-              )}. To enable PR testing for this project please disable it elsewhere.`,
-            ],
-          }),
+          ...githubConflictErrorStyling(
+            githubProjectConflicts?.prTestingIdentifiers,
+            formData?.github?.manualPrTestingEnabled,
+            repoData?.github?.manualPrTestingEnabled,
+            "PR Testing"
+          ),
         },
         prTesting: {
           ...hideIf(
-            !!githubProjectConflicts?.prTestingIdentifiers?.length ||
-              (fieldDisabled(
-                formData?.github?.prTestingEnabled,
-                repoData?.github?.prTestingEnabled
-              ) &&
-                fieldDisabled(
-                  formData?.github?.manualPrTestingEnabled,
-                  repoData?.github?.manualPrTestingEnabled
-                ))
+            fieldDisabled(
+              formData?.github?.prTestingEnabled,
+              repoData?.github?.prTestingEnabled
+            ) &&
+              fieldDisabled(
+                formData?.github?.manualPrTestingEnabled,
+                repoData?.github?.manualPrTestingEnabled
+              )
           ),
           ...errorStyling(
+            formData?.github?.prTestingEnabled,
             formData?.github?.prTesting?.githubPrAliasesOverride,
             formData?.github?.prTesting?.githubPrAliases,
             repoData?.github?.prTesting?.githubPrAliases,
@@ -340,24 +339,23 @@ export const getFormSchema = (
           "ui:data-cy": "github-checks-enabled-radio-box",
           "ui:showLabel": false,
           "ui:widget": widgets.RadioBoxWidget,
-          ...(!!githubProjectConflicts?.commitCheckIdentifiers?.length && {
-            "ui:disabled": true,
-            "ui:errors": [
-              `Enabling commit checks would introduce conflicts with the following project(s): ${githubProjectConflicts.commitCheckIdentifiers.join(
-                ", "
-              )}. To enable commit checks for this project please disable it elsewhere.`,
-            ],
-          }),
+
+          ...githubConflictErrorStyling(
+            githubProjectConflicts?.commitCheckIdentifiers,
+            formData?.github?.githubChecksEnabled,
+            repoData?.github?.githubChecksEnabled,
+            "Commit Checks"
+          ),
         },
         githubChecks: {
           ...hideIf(
-            !!githubProjectConflicts?.commitCheckIdentifiers?.length ||
-              fieldDisabled(
-                formData?.github?.githubChecksEnabled,
-                repoData?.github?.githubChecksEnabled
-              )
+            fieldDisabled(
+              formData?.github?.githubChecksEnabled,
+              repoData?.github?.githubChecksEnabled
+            )
           ),
           ...errorStyling(
+            formData?.github?.githubChecksEnabled,
             formData?.github?.githubChecks?.githubCheckAliasesOverride,
             formData?.github?.githubChecks?.githubCheckAliases,
             repoData?.github?.githubChecks?.githubCheckAliases,
@@ -405,6 +403,7 @@ export const getFormSchema = (
             )
           ),
           ...errorStyling(
+            formData?.github?.gitTagVersionsEnabled,
             formData?.github?.gitTags?.gitTagAliasesOverride,
             formData?.github?.gitTags?.gitTagAliases,
             repoData?.github?.gitTags?.gitTagAliases,
@@ -431,14 +430,12 @@ export const getFormSchema = (
           "ui:showLabel": false,
           "ui:widget": widgets.RadioBoxWidget,
           "ui:data-cy": "cq-enabled-radio-box",
-          ...(!!githubProjectConflicts?.commitQueueIdentifiers?.length && {
-            "ui:disabled": true,
-            "ui:errors": [
-              `Enabling the Commit Queue would introduce conflicts with the following project(s): ${githubProjectConflicts.commitQueueIdentifiers.join(
-                ", "
-              )}. To enable the Commit Queue for this project please disable it elsewhere.`,
-            ],
-          }),
+          ...githubConflictErrorStyling(
+            githubProjectConflicts?.commitQueueIdentifiers,
+            formData?.commitQueue?.enabled,
+            repoData?.commitQueue?.enabled,
+            "the Commit Queue"
+          ),
         },
         requireSigned: {
           "ui:data-cy": "require-signed-radio-box",
@@ -453,33 +450,31 @@ export const getFormSchema = (
           "ui:data-cy": "cq-message-input",
           ...placeholderIf(repoData?.commitQueue?.message),
           ...hideIf(
-            !!githubProjectConflicts?.commitQueueIdentifiers?.length ||
-              fieldDisabled(
-                formData?.commitQueue?.enabled,
-                repoData?.commitQueue?.enabled
-              )
+            fieldDisabled(
+              formData?.commitQueue?.enabled,
+              repoData?.commitQueue?.enabled
+            )
           ),
         },
         mergeMethod: {
           "ui:allowDeselect": false,
           "ui:data-cy": "merge-method-select",
           ...hideIf(
-            !!githubProjectConflicts?.commitQueueIdentifiers?.length ||
-              fieldDisabled(
-                formData?.commitQueue?.enabled,
-                repoData?.commitQueue?.enabled
-              )
+            fieldDisabled(
+              formData?.commitQueue?.enabled,
+              repoData?.commitQueue?.enabled
+            )
           ),
         },
         patchDefinitions: {
           ...hideIf(
-            !!githubProjectConflicts?.commitQueueIdentifiers?.length ||
-              fieldDisabled(
-                formData?.commitQueue?.enabled,
-                repoData?.commitQueue?.enabled
-              )
+            fieldDisabled(
+              formData?.commitQueue?.enabled,
+              repoData?.commitQueue?.enabled
+            )
           ),
           ...errorStyling(
+            formData?.commitQueue?.enabled,
             formData?.commitQueue?.patchDefinitions?.commitQueueAliasesOverride,
             formData?.commitQueue?.patchDefinitions?.commitQueueAliases,
             repoData?.commitQueue?.patchDefinitions?.commitQueueAliases,
@@ -491,7 +486,7 @@ export const getFormSchema = (
           },
           commitQueueAliases: {
             ...aliasRowUiSchema({
-              addButtonText: "Add Patch Definition",
+              addButtonText: "Add Commit Queue Patch Definition",
               numberedTitle: "Patch Definition",
             }),
           },

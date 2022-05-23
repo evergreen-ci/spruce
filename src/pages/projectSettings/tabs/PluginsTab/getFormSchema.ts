@@ -99,11 +99,11 @@ export const getFormSchema = (
             title: "Custom Ticket Creation",
             properties: {
               endpoint: {
-                type: ["string", "null"],
+                type: "string" as "string",
                 title: "Webhook Endpoint",
               },
               secret: {
-                type: ["string", "null"],
+                type: "string" as "string",
                 title: "Webhook Secret",
               },
             },
