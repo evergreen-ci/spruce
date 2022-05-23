@@ -138,9 +138,9 @@ export const getVersionRoute = (
   const queryParams = stringifyQuery({
     ...rest,
   });
-  return `${paths.version}/${versionId}/${
-    tab ?? DEFAULT_PATCH_TAB
-  }?${queryParams}`;
+  return `${paths.version}/${versionId}/${tab ?? DEFAULT_PATCH_TAB}${
+    queryParams && `?${queryParams}`
+  }`;
 };
 
 interface GetPatchRouteOptions {
@@ -159,7 +159,7 @@ export const getPatchRoute = (
   if (!configure) return getVersionRoute(patchId);
   return `${paths.patch}/${patchId}/${PatchTab.Configure}/${
     tab ?? DEFAULT_PATCH_TAB
-  }?${queryParams}`;
+  }${queryParams && `?${queryParams}`}`;
 };
 
 export const getHostRoute = (hostId: string) => `${paths.host}/${hostId}`;
