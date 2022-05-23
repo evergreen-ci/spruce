@@ -1,9 +1,14 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { fireEvent } from "@testing-library/react";
 import { renderHook, act } from "@testing-library/react-hooks";
-import { DISABLE_QUERY_POLLING } from "constants/cookies";
+import Cookie from "js-cookie";
 import { GET_USER } from "gql/queries";
 import { usePolling } from "hooks";
+
+jest.mock("js-cookie");
+
+const { get } = Cookie;
+const mockedGet = (get as unknown) as jest.Mock<string>;
 
 const Provider = ({ children }) => (
   <MockedProvider mocks={[getUserMock]}>{children}</MockedProvider>
@@ -15,10 +20,7 @@ describe("usePolling", () => {
       value: "visible",
       configurable: true,
     });
-    Object.defineProperty(document, "cookie", {
-      value: `${DISABLE_QUERY_POLLING}=false`,
-      writable: true,
-    });
+    mockedGet.mockImplementation(() => "false");
   });
 
   it("usePolling should not call the functions when initialized", async () => {
@@ -37,10 +39,8 @@ describe("usePolling", () => {
   });
 
   it("usePolling evaluates to false when polling is disabled", async () => {
-    Object.defineProperty(window.document, "cookie", {
-      writable: true,
-      value: `${DISABLE_QUERY_POLLING}=true`,
-    });
+    mockedGet.mockImplementation(() => "true");
+
     const { result, waitForNextUpdate } = renderHook(
       () => usePolling(undefined, undefined, false),
       { wrapper: Provider }
@@ -59,10 +59,8 @@ describe("usePolling", () => {
   it("usePolling should not call the functions when polling is disabled.", async () => {
     const startPolling = jest.fn();
     const stopPolling = jest.fn();
-    Object.defineProperty(window.document, "cookie", {
-      writable: true,
-      value: `${DISABLE_QUERY_POLLING}=true`,
-    });
+    mockedGet.mockImplementation(() => "true");
+
     const { waitForNextUpdate } = renderHook(
       () => usePolling(startPolling, stopPolling),
       { wrapper: Provider }
