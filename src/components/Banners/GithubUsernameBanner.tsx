@@ -12,7 +12,7 @@ import { Banner } from "./styles";
 
 export const GithubUsernameBanner = () => {
   const { pathname } = useLocation();
-  const matchedPath = matchPath(pathname, "/user/*");
+  const matchedPath = matchPath("/user/*", pathname);
   const isPatchesPage = !!matchedPath;
 
   // USER SETTINGS QUERY

@@ -24,7 +24,7 @@ export const useLegacyUIURL = (): string | null => {
     };
     const legacyUIKeys = Object.keys(legacyUIMap);
     for (let i = 0; i < legacyUIKeys.length; i++) {
-      const matchedPath = matchPath(pathname, legacyUIKeys[i]);
+      const matchedPath = matchPath(legacyUIKeys[i], pathname);
       if (matchedPath !== null) {
         setId(get(matchedPath, "params.id", ""));
         setLegacyUIUrl(legacyUIMap[legacyUIKeys[i]]);
