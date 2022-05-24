@@ -59,7 +59,7 @@ export type Query = {
   projectSettings: ProjectSettings;
   repoSettings: RepoSettings;
   projectEvents: ProjectEvents;
-  repoEvents: RepoEvents;
+  repoEvents: ProjectEvents;
   hasVersion: Scalars["Boolean"];
 };
 
@@ -1481,14 +1481,6 @@ export type ProjectEventSettings = {
   subscriptions?: Maybe<Array<ProjectSubscription>>;
 };
 
-export type RepoEventSettings = {
-  githubWebhooksEnabled: Scalars["Boolean"];
-  projectRef?: Maybe<RepoRef>;
-  vars?: Maybe<ProjectVars>;
-  aliases?: Maybe<Array<ProjectAlias>>;
-  subscriptions?: Maybe<Array<ProjectSubscription>>;
-};
-
 export type RepoSettings = {
   githubWebhooksEnabled: Scalars["Boolean"];
   projectRef?: Maybe<RepoRef>;
@@ -1507,18 +1499,6 @@ export type ProjectEventLogEntry = {
   user: Scalars["String"];
   before?: Maybe<ProjectEventSettings>;
   after?: Maybe<ProjectEventSettings>;
-};
-
-export type RepoEvents = {
-  eventLogEntries: Array<RepoEventLogEntry>;
-  count: Scalars["Int"];
-};
-
-export type RepoEventLogEntry = {
-  timestamp: Scalars["Time"];
-  user: Scalars["String"];
-  before?: Maybe<RepoEventSettings>;
-  after?: Maybe<RepoEventSettings>;
 };
 
 export type ProjectVars = {
@@ -3820,6 +3800,22 @@ export type GetMyPublicKeysQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetMyPublicKeysQuery = {
   myPublicKeys: Array<{ name: string; key: string }>;
+};
+
+export type RepoEventLogsQueryVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type RepoEventLogsQuery = {
+  repoEvents: {
+    count: number;
+    eventLogEntries: Array<{
+      timestamp: Date;
+      user: string;
+      before?: Maybe<ProjectEventSettingsFragment>;
+      after?: Maybe<ProjectEventSettingsFragment>;
+    }>;
+  };
 };
 
 export type RepoSettingsQueryVariables = Exact<{
