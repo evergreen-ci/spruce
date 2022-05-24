@@ -78,7 +78,7 @@ const mocks = [
       data: {
         projects: [
           {
-            name: "evergreen-ci/evergreen",
+            groupDisplayName: "evergreen-ci/evergreen",
             projects: [
               {
                 id: "evergreen",
@@ -91,7 +91,7 @@ const mocks = [
             ],
           },
           {
-            name: "logkeeper/logkeeper",
+            groupDisplayName: "logkeeper/logkeeper",
             projects: [
               {
                 id: "logkeeper",
@@ -104,7 +104,7 @@ const mocks = [
             ],
           },
           {
-            name: "mongodb/mongo",
+            groupDisplayName: "mongodb/mongo",
             projects: [
               {
                 id: "sys-perf",
@@ -125,7 +125,7 @@ const mocks = [
             ],
           },
           {
-            name: "mongodb/mongodb",
+            groupDisplayName: "mongodb/mongodb",
             projects: [
               {
                 id: "mongodb-mongo-master",
@@ -138,7 +138,7 @@ const mocks = [
             ],
           },
           {
-            name: "mongodb/mongodb-test",
+            groupDisplayName: "mongodb/mongodb-test",
             projects: [
               {
                 id: "mongodb-mongo-test",
