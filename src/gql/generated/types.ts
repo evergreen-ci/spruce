@@ -3783,7 +3783,7 @@ export type GetProjectsQueryVariables = Exact<{ [key: string]: never }>;
 export type GetProjectsQuery = {
   projects: Array<
     Maybe<{
-      name: string;
+      groupDisplayName: string;
       projects: Array<{
         id: string;
         identifier: string;
@@ -3791,6 +3791,7 @@ export type GetProjectsQuery = {
         owner: string;
         displayName: string;
         isFavorite: boolean;
+        enabled?: Maybe<boolean>;
       }>;
     }>
   >;
@@ -4262,7 +4263,8 @@ export type GetViewableProjectRefsQueryVariables = Exact<{
 export type GetViewableProjectRefsQuery = {
   viewableProjectRefs: Array<
     Maybe<{
-      name: string;
+      groupDisplayName: string;
+      repo?: Maybe<{ id: string }>;
       projects: Array<{
         id: string;
         identifier: string;
@@ -4271,6 +4273,7 @@ export type GetViewableProjectRefsQuery = {
         owner: string;
         displayName: string;
         isFavorite: boolean;
+        enabled?: Maybe<boolean>;
       }>;
     }>
   >;

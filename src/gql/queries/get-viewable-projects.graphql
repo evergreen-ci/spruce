@@ -1,6 +1,9 @@
 query GetViewableProjectRefs {
   viewableProjectRefs {
-    name
+    groupDisplayName
+    repo {
+      id
+    }
     projects {
       id
       identifier
@@ -9,6 +12,7 @@ query GetViewableProjectRefs {
       owner
       displayName
       isFavorite
+      enabled
     }
   }
 }

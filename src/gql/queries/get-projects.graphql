@@ -1,14 +1,14 @@
 query GetProjects {
   projects {
-      name
-      projects {
-        id
-        identifier
-        repo
-        owner
-        displayName
-        isFavorite
-      }
+    groupDisplayName
+    projects {
+      id
+      identifier
+      repo
+      owner
+      displayName
+      isFavorite
+      enabled
+    }
   }
 }
-
