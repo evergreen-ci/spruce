@@ -18,7 +18,8 @@ type Action =
   | { name: "Update public key" }
   | { name: "Delete public key" }
   | { name: "Opt into Spruce" }
-  | { name: "Opt out of Spruce" };
+  | { name: "Opt out of Spruce" }
+  | { name: "Toggle polling"; value: "Enabled" | "Disabled" };
 
 interface P extends Properties {}
 interface Analytics extends A<Action> {}

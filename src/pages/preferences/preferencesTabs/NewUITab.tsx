@@ -4,7 +4,9 @@ import Card from "@leafygreen-ui/card";
 import Toggle from "@leafygreen-ui/toggle";
 import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
+import Cookies from "js-cookie";
 import { usePreferencesAnalytics } from "analytics";
+import { DISABLE_QUERY_POLLING } from "constants/cookies";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -35,7 +37,7 @@ export const NewUITab: React.VFC = () => {
     return <Skeleton active />;
   }
 
-  const handleToggle = async (c: boolean) => {
+  const handleOnChangeNewUI = (c: boolean) => {
     sendEvent({
       name: c ? "Opt into Spruce" : "Opt out of Spruce",
     });
@@ -50,18 +52,40 @@ export const NewUITab: React.VFC = () => {
       refetchQueries: ["GetUserSettings"],
     });
   };
+
+  const handleOnChangePolling = () => {
+    const nextState = Cookies.get(DISABLE_QUERY_POLLING) !== "true";
+    sendEvent({
+      name: "Toggle polling",
+      value: nextState ? "Enabled" : "Disabled",
+    });
+    Cookies.set(DISABLE_QUERY_POLLING, nextState.toString());
+    window.location.reload();
+  };
+
   return (
     <>
       {/* @ts-expect-error */}
       <PreferencesCard>
         <PaddedBody>
           Direct all inbound links to the new Evergreen UI, whenever possible
-          (e.g. from the CLI, GitHub, etc.)
+          (e.g. from the CLI, GitHub, etc.).
         </PaddedBody>
         <Toggle
           checked={spruceV1}
           disabled={updateLoading}
-          onChange={handleToggle}
+          onChange={handleOnChangeNewUI}
+          aria-label="Toggle new evergreen ui"
+        />
+      </PreferencesCard>
+      {/* @ts-expect-error */}
+      <PreferencesCard>
+        <PaddedBody>
+          Allow background polling for active tabs in the current browser.
+        </PaddedBody>
+        <Toggle
+          checked={Cookies.get(DISABLE_QUERY_POLLING) !== "true"}
+          onChange={handleOnChangePolling}
           aria-label="Toggle new evergreen ui"
         />
       </PreferencesCard>
@@ -74,6 +98,7 @@ const PreferencesCard = styled(Card)`
   display: flex;
   flex-direction: column;
   padding: ${size.m};
+  margin-bottom: ${size.m};
   width: 100%;
 `;
 
