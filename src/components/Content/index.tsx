@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import get from "lodash/get";
 import { Route, Routes } from "react-router-dom";
 import { useAnalyticsAttributes } from "analytics";
 import { Feedback } from "components/Feedback";
@@ -47,12 +46,11 @@ export const Content: React.VFC = () => {
   // afterware is used at apollo link level to authenticate or deauthenticate user based on response to query
   // therefore this could be any query as long as it is top-level
   const { data } = useQuery<GetUserQuery, GetUserQueryVariables>(GET_USER);
+  localStorage.setItem("userId", data?.user?.userId ?? "");
   const { userSettings } = useUserSettings();
 
   const { useSpruceOptions } = userSettings ?? {};
   const { hasUsedSpruceBefore = true } = useSpruceOptions ?? {};
-
-  localStorage.setItem("userId", get(data, "user.userId", ""));
 
   useAnalyticsAttributes();
 
