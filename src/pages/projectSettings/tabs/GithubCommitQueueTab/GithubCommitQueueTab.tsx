@@ -13,14 +13,11 @@ import {
   usePopulateForm,
   useProjectSettingsContext,
 } from "pages/projectSettings/Context";
-import { environmentalVariables } from "utils";
 import { ProjectType } from "../utils";
 import { ErrorType, getVersionControlError } from "./getErrors";
 import { getFormSchema } from "./getFormSchema";
 import { mergeProjectRepo } from "./transformers";
 import { FormState, TabProps } from "./types";
-
-const { isProduction } = environmentalVariables;
 
 const tab = ProjectSettingsTabRoutes.GithubCommitQueue;
 
@@ -106,7 +103,7 @@ export const GithubCommitQueueTab: React.VFC<TabProps> = ({
         onChange={onChange}
         schema={schema}
         uiSchema={uiSchema}
-        disabled={isProduction() && !githubWebhooksEnabled} // TODO: Remove once EVG-16608 is fixed
+        disabled={!githubWebhooksEnabled}
         validate={validateConflicts}
       />
     </>
