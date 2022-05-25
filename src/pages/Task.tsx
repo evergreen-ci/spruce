@@ -78,7 +78,6 @@ export const Task = () => {
   if (error) {
     return <PageDoesNotExist />;
   }
-  console.log(displayName, status);
   return (
     <PageWrapper>
       {task && (
