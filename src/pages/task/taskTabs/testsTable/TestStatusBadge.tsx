@@ -8,7 +8,10 @@ interface TestStatusBadgeProps {
 export const TestStatusBadge: React.VFC<TestStatusBadgeProps> = ({
   status,
 }) => (
-  <Badge variant={statusToBadgeColor[status] || Variant.LightGray} key={status}>
-    {statusCopy[status] || status}
+  <Badge
+    variant={statusToBadgeColor[status.toLowerCase()] || Variant.LightGray}
+    key={status}
+  >
+    {statusCopy[status.toLowerCase()] || status}
   </Badge>
 );
