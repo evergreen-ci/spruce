@@ -70,7 +70,7 @@ export const Metadata: React.VFC<Props> = ({
   } = task || {};
 
   const baseCommit = shortenGithash(revision);
-  const submittedTime = activatedTime || ingestTime;
+  const submittedTime = activatedTime ?? ingestTime;
   const { id: baseTaskId, timeTaken: baseTaskDuration } = baseTask ?? {};
   const projectIdentifier = project?.identifier;
   const { author, id: versionID } = versionMetadata ?? {};
