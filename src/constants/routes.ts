@@ -80,15 +80,6 @@ const projectSettingsRoutes = {
   projectSettingsVirtualWorkstation: `${baseRoute.projectSettings}/${ProjectSettingsTabRoutes.VirtualWorkstation}`,
 };
 
-const preferencesRoutes = {
-  cliPreferences: `${paths.preferences}/${PreferencesTabRoutes.CLI}`,
-  newUIPreferences: `${paths.preferences}/${PreferencesTabRoutes.NewUI}`,
-  notificationsPreferences: `${paths.preferences}/${PreferencesTabRoutes.Notifications}`,
-  preferences: `${paths.preferences}`,
-  profilePreferences: `${paths.preferences}/${PreferencesTabRoutes.Profile}`,
-  publicKeysPreferences: `${paths.preferences}/${PreferencesTabRoutes.PublicKeys}`,
-};
-
 export const routes = {
   commitQueue: `${paths.commitQueue}/:id`,
   configurePatch: `${paths.patch}/:id/configure/*`,
@@ -111,8 +102,8 @@ export const routes = {
   variantHistory: `${paths.variantHistory}/:projectId/:variantName`,
   taskHistory: `${paths.taskHistory}/:projectId/:taskName`,
   jobLogs: `${paths.jobLogs}/:taskId/:execution`,
+  preferences: paths.preferences,
   ...projectSettingsRoutes,
-  ...preferencesRoutes,
 };
 
 export const DEFAULT_PATCH_TAB = PatchTab.Tasks;

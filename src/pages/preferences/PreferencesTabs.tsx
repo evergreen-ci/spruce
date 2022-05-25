@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
-import { Route, Routes, useParams } from "react-router-dom";
-import { routes, PreferencesTabRoutes } from "constants/routes";
+import { useParams } from "react-router-dom";
+import { PreferencesTabRoutes } from "constants/routes";
 import { size } from "constants/tokens";
 import { CliTab } from "./preferencesTabs/CliTab";
 import { NewUITab } from "./preferencesTabs/NewUITab";
@@ -12,7 +12,9 @@ import { PublicKeysTab } from "./preferencesTabs/PublicKeysTab";
 export const PreferencesTabs: React.VFC = () => {
   const { tab } = useParams<{ tab: string }>();
 
-  const { title, subtitle } = getTitle(tab as PreferencesTabRoutes);
+  const { title, subtitle, content } = getTitleAndContent(
+    tab as PreferencesTabRoutes
+  );
 
   return (
     <Container>
@@ -20,46 +22,39 @@ export const PreferencesTabs: React.VFC = () => {
         <H2 data-cy="preferences-tab-title">{title}</H2>
         {subtitle && <Subtitle>{subtitle}</Subtitle>}
       </TitleContainer>
-      <Routes>
-        <Route path={routes.profilePreferences} element={<ProfileTab />} />
-        <Route
-          path={routes.notificationsPreferences}
-          element={<NotificationsTab />}
-        />
-        <Route path={routes.cliPreferences} element={<CliTab />} />
-        <Route path={routes.newUIPreferences} element={<NewUITab />} />
-        <Route
-          path={routes.publicKeysPreferences}
-          element={<PublicKeysTab />}
-        />
-      </Routes>
+      {content}
     </Container>
   );
 };
 
-const getTitle = (
+const getTitleAndContent = (
   tab: PreferencesTabRoutes = PreferencesTabRoutes.Profile
-): { title: string; subtitle?: string } => {
-  const defaultTitle = {
+): { title: string; subtitle?: string; content: JSX.Element } => {
+  const defaultTitleAndContent = {
     title: "Profile",
+    content: <ProfileTab />,
   };
   return (
     {
-      [PreferencesTabRoutes.Profile]: defaultTitle,
+      [PreferencesTabRoutes.Profile]: defaultTitleAndContent,
       [PreferencesTabRoutes.Notifications]: {
         title: "Notifications",
+        content: <NotificationsTab />,
       },
       [PreferencesTabRoutes.CLI]: {
         title: "CLI & API",
+        content: <CliTab />,
       },
       [PreferencesTabRoutes.NewUI]: {
         title: "New UI Settings",
+        content: <NewUITab />,
       },
       [PreferencesTabRoutes.PublicKeys]: {
         title: "Manage Public Keys",
         subtitle: "These keys will be used to SSH into spawned hosts",
+        content: <PublicKeysTab />,
       },
-    }[tab] ?? defaultTitle
+    }[tab] ?? defaultTitleAndContent
   );
 };
 
