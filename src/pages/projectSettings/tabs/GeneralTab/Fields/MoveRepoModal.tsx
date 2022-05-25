@@ -83,6 +83,10 @@ export const MoveRepoModal: React.VFC<ModalProps> = ({
         to which unconfigured settings in this project will default.
       </p>
       <p>
+        Any GitHub features that can only be enabled on one branch will be
+        disabled on this branch if there is a conflict with existing branches.
+      </p>
+      <p>
         {/* TODO: Replace with LeafyGreen Select when z-index modal bug has been fixed (PD-1677) */}
         GitHub Organizations available for use as project owners are:{" "}
         {joinWithConjunction(githubOrgs, "and")}
