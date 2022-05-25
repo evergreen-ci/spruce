@@ -2,6 +2,8 @@ const getSettingsRoute = (identifier: string) =>
   `project/${identifier}/settings`;
 const getGeneralRoute = (identifier: string) =>
   `${getSettingsRoute(identifier)}/general`;
+const getGithubCommitQueueRoute = (identifier: string) =>
+  `${getSettingsRoute(identifier)}/github-commitqueue`;
 
 const project = "spruce";
 const projectUseRepoEnabled = "evergreen";
@@ -871,5 +873,23 @@ describe("Duplicating a project with errors", () => {
 
   it("Redirects to a new URL", () => {
     cy.url().should("include", "copied-project");
+  });
+});
+
+describe("A project that has GitHub webhooks disabled", () => {
+  const destination = getGithubCommitQueueRoute("logkeeper");
+
+  before(() => {
+    cy.login();
+    cy.visit(destination);
+  });
+
+  beforeEach(() => {
+    cy.preserveCookies();
+  });
+
+  it("Disables all interactive elements on the page", () => {
+    cy.get("button").should("be.disabled");
+    cy.get("input").should("be.disabled");
   });
 });
