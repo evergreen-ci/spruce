@@ -53,7 +53,7 @@ export const Commits = () => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const { userSettings } = useUserSettings();
   const { useSpruceOptions } = userSettings ?? {};
-  const { hasUsedMainlineCommitsBefore = true } = useSpruceOptions;
+  const { hasUsedMainlineCommitsBefore = true } = useSpruceOptions ?? {};
 
   const parsed = parseQueryString(search);
 
