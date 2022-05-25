@@ -146,6 +146,8 @@ export const getFormSchema = (
           logger: {
             type: "object" as "object",
             title: "Default Logger",
+            description:
+              "Used by Evergreen internally to configure where this branch should be logging test results.",
             properties: {
               defaultLogger: {
                 type: "string" as "string",
@@ -166,11 +168,12 @@ export const getFormSchema = (
           },
           testResults: {
             type: "object" as "object",
-            title: "Test Results",
+            title: "Cedar Test Results",
+            description:
+              "Used by Evergreen internally to configure whether this branch should be logging to Cedar.",
             properties: {
               cedarTestResultsEnabled: {
                 type: ["boolean", "null"],
-                title: "Cedar Test Results",
                 oneOf: radioBoxOptions(
                   ["Enabled", "Disabled"],
                   repoData?.projectFlags?.testResults?.cedarTestResultsEnabled
@@ -181,6 +184,8 @@ export const getFormSchema = (
           patch: {
             type: "object" as "object",
             title: "Patch Settings",
+            description:
+              "Sets if users are allowed to create patches for this branch.",
             properties: {
               patchingDisabled: {
                 type: ["boolean", "null"],
@@ -307,6 +312,8 @@ export const getFormSchema = (
           ...placeholderIf(repoData?.generalConfiguration?.other?.batchTime),
         },
         remotePath: {
+          "ui:description":
+            "Path to yaml file where project tasks, variants, and other settings are defined.",
           ...placeholderIf(repoData?.generalConfiguration?.other?.remotePath),
         },
         spawnHostScriptPath: {
@@ -328,6 +335,7 @@ export const getFormSchema = (
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       dispatchingDisabled: {
         "ui:widget": widgets.RadioBoxWidget,
+        "ui:description": "Sets if any tasks can be dispatched.",
       },
       scheduling: {
         deactivatePrevious: {
@@ -341,8 +349,8 @@ export const getFormSchema = (
         options: { projectId },
         repotrackerDisabled: {
           "ui:widget": widgets.RadioBoxWidget,
-          "ui:description":
-            "Repotracker will be triggered from GitHub push events sent via webhook.",
+          "ui:description": `The repotracker will be triggered from GitHub push events sent via webhook. 
+            This creates mainline builds for merged commits.`,
         },
       },
       logger: {
@@ -355,11 +363,13 @@ export const getFormSchema = (
       testResults: {
         cedarTestResultsEnabled: {
           "ui:widget": widgets.RadioBoxWidget,
+          "ui:showLabel": false,
         },
       },
       patch: {
         patchingDisabled: {
           "ui:widget": widgets.RadioBoxWidget,
+          "ui:showLabel": false,
         },
       },
       taskSync: {
