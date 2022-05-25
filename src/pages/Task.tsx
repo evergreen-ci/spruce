@@ -56,14 +56,13 @@ export const Task = () => {
     displayName,
     patchNumber,
     priority,
-    status,
     annotation,
     latestExecution,
     versionMetadata,
     displayTask,
   } = task ?? {};
   const attributed = annotation?.issues?.length > 0;
-
+  const status = null;
   if (
     id === task?.id &&
     Number.isNaN(selectedExecution) &&
@@ -79,6 +78,7 @@ export const Task = () => {
   if (error) {
     return <PageDoesNotExist />;
   }
+  console.log(displayName, status);
   return (
     <PageWrapper>
       {task && (
@@ -90,7 +90,6 @@ export const Task = () => {
       )}
       <PageTitle
         loading={loading}
-        hasData={!!(displayName && status)}
         title={displayName}
         badge={
           <StyledBadgeWrapper>

@@ -7,7 +7,6 @@ type Size = "large" | "medium";
 
 interface Props {
   loading: boolean;
-  hasData: boolean;
   title: string | JSX.Element | React.ReactNodeArray;
   badge: JSX.Element;
   buttons?: JSX.Element;
@@ -33,19 +32,18 @@ const TitleTypography: React.VFC<TitleTypographyProps> = ({
 
 export const PageTitle: React.VFC<Props> = ({
   loading,
-  hasData,
   title,
   badge,
   buttons,
   size = "medium",
 }) => (
   <>
-    {!hasData && loading && (
+    {loading && (
       <PageHeader size={size}>
         <Skeleton active paragraph={{ rows: 0 }} />
       </PageHeader>
     )}
-    {hasData && !loading && (
+    {!loading && (
       <PageHeader size={size}>
         <TitleWrapper size={size}>
           <TitleTypography size={size}>
