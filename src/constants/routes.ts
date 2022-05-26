@@ -65,20 +65,6 @@ export const baseRoute = {
   commits: paths.commits,
   projectSettings: `${paths.project}/:identifier/${PageNames.Settings}`,
 };
-const projectSettingsRoutes = {
-  projectSettings: `${baseRoute.projectSettings}/*`,
-  projectSettingsAccess: `${baseRoute.projectSettings}/${ProjectSettingsTabRoutes.Access}`,
-  projectSettingsGeneral: `${baseRoute.projectSettings}/${ProjectSettingsTabRoutes.General}`,
-  projectSettingsGithubCommitQueue: `${baseRoute.projectSettings}/${ProjectSettingsTabRoutes.GithubCommitQueue}`,
-  projectSettingsEventLog: `${baseRoute.projectSettings}/${ProjectSettingsTabRoutes.EventLog}`,
-  projectSettingsPlugins: `${baseRoute.projectSettings}/${ProjectSettingsTabRoutes.Plugins}`,
-  projectSettingsNotifications: `${baseRoute.projectSettings}/${ProjectSettingsTabRoutes.Notifications}`,
-  projectSettingsPatchAliases: `${baseRoute.projectSettings}/${ProjectSettingsTabRoutes.PatchAliases}`,
-  projectSettingsPeriodicBuilds: `${baseRoute.projectSettings}/${ProjectSettingsTabRoutes.PeriodicBuilds}`,
-  projectSettingsProjectTriggers: `${baseRoute.projectSettings}/${ProjectSettingsTabRoutes.ProjectTriggers}`,
-  projectSettingsVariables: `${baseRoute.projectSettings}/${ProjectSettingsTabRoutes.Variables}`,
-  projectSettingsVirtualWorkstation: `${baseRoute.projectSettings}/${ProjectSettingsTabRoutes.VirtualWorkstation}`,
-};
 
 export const routes = {
   commitQueue: `${paths.commitQueue}/:id`,
@@ -103,7 +89,6 @@ export const routes = {
   taskHistory: `${paths.taskHistory}/:projectId/:taskName`,
   jobLogs: `${paths.jobLogs}/:taskId/:execution`,
   preferences: paths.preferences,
-  ...projectSettingsRoutes,
 };
 
 export const DEFAULT_PATCH_TAB = PatchTab.Tasks;
