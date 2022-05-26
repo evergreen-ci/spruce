@@ -9,9 +9,9 @@ export const TestStatusBadge: React.VFC<TestStatusBadgeProps> = ({
   status,
 }) => (
   <Badge
-    variant={statusToBadgeColor[status.toLowerCase()] || Variant.LightGray}
+    variant={statusToBadgeColor[status?.toLowerCase()] || Variant.LightGray}
     key={status}
   >
-    {statusCopy[status.toLowerCase()] || status}
+    {statusCopy[status?.toLowerCase()] || status}
   </Badge>
 );
