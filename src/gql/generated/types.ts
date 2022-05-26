@@ -3802,6 +3802,22 @@ export type GetMyPublicKeysQuery = {
   myPublicKeys: Array<{ name: string; key: string }>;
 };
 
+export type RepoEventLogsQueryVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type RepoEventLogsQuery = {
+  repoEvents: {
+    count: number;
+    eventLogEntries: Array<{
+      timestamp: Date;
+      user: string;
+      before?: Maybe<ProjectEventSettingsFragment>;
+      after?: Maybe<ProjectEventSettingsFragment>;
+    }>;
+  };
+};
+
 export type RepoSettingsQueryVariables = Exact<{
   repoId: Scalars["String"];
 }>;
@@ -4002,6 +4018,7 @@ export type GetTaskQuery = {
       aborted: boolean;
       activatedBy?: Maybe<string>;
       ingestTime?: Maybe<Date>;
+      activatedTime?: Maybe<Date>;
       estimatedStart?: Maybe<number>;
       finishTime?: Maybe<Date>;
       hostId?: Maybe<string>;

@@ -45,6 +45,7 @@ export const Metadata: React.VFC<Props> = ({
     status,
     spawnHostLink,
     ingestTime,
+    activatedTime,
     finishTime,
     hostId,
     startTime,
@@ -69,6 +70,7 @@ export const Metadata: React.VFC<Props> = ({
   } = task || {};
 
   const baseCommit = shortenGithash(revision);
+  const submittedTime = activatedTime ?? ingestTime;
   const { id: baseTaskId, timeTaken: baseTaskDuration } = baseTask ?? {};
   const projectIdentifier = project?.identifier;
   const { author, id: versionID } = versionMetadata ?? {};
@@ -108,9 +110,9 @@ export const Metadata: React.VFC<Props> = ({
         </P2>
         <P2>Submitted by: {author}</P2>
 
-        {ingestTime && (
+        {submittedTime && (
           <P2 data-cy="task-metadata-submitted-at">
-            Submitted at: {getDateCopy(ingestTime, { tz })}
+            Submitted at: {getDateCopy(submittedTime, { tz })}
           </P2>
         )}
         {generatedBy && (
