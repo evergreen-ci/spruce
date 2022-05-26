@@ -53,16 +53,17 @@ export const Task = () => {
 
   const { task, taskFiles } = data ?? {};
   const {
+    annotation,
     displayName,
+    displayTask,
+    latestExecution,
     patchNumber,
     priority,
-    annotation,
-    latestExecution,
+    status,
     versionMetadata,
-    displayTask,
   } = task ?? {};
   const attributed = annotation?.issues?.length > 0;
-  const status = null;
+
   if (
     id === task?.id &&
     Number.isNaN(selectedExecution) &&
