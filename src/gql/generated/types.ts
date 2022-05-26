@@ -4018,6 +4018,7 @@ export type GetTaskQuery = {
       aborted: boolean;
       activatedBy?: Maybe<string>;
       ingestTime?: Maybe<Date>;
+      activatedTime?: Maybe<Date>;
       estimatedStart?: Maybe<number>;
       finishTime?: Maybe<Date>;
       hostId?: Maybe<string>;
