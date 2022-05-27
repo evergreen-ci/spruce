@@ -90,7 +90,6 @@ export const Host: React.VFC = () => {
             title={`Host: ${hostId}`}
             badge={<HostStatusBadge status={status} />}
             loading={hostMetaDataLoading}
-            hasData
             size="large"
             buttons={
               <div>

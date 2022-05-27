@@ -53,14 +53,14 @@ export const Task = () => {
 
   const { task, taskFiles } = data ?? {};
   const {
+    annotation,
     displayName,
+    displayTask,
+    latestExecution,
     patchNumber,
     priority,
     status,
-    annotation,
-    latestExecution,
     versionMetadata,
-    displayTask,
   } = task ?? {};
   const attributed = annotation?.issues?.length > 0;
 
@@ -90,7 +90,6 @@ export const Task = () => {
       )}
       <PageTitle
         loading={loading}
-        hasData={!!(displayName && status)}
         title={displayName}
         badge={
           <StyledBadgeWrapper>
