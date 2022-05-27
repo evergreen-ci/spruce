@@ -48,7 +48,6 @@ export const CommitQueue: React.VFC = () => {
           </Badge>
         }
         loading={loading}
-        hasData
       />
       {commitQueue?.message && (
         <P1 data-cy="commit-queue-message">{commitQueue.message}</P1>
