@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant, Size } from "@leafygreen-ui/button";
+import TextArea from "@leafygreen-ui/text-area";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import { Input, Tooltip } from "antd";
+import { Tooltip } from "antd";
 import { useAnnotationAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { useToastContext } from "context/toast";
@@ -22,7 +23,6 @@ import {
 } from "./BBComponents";
 
 const { getDateCopy } = string;
-const { TextArea } = Input;
 
 interface Props {
   note: Note;
@@ -83,8 +83,9 @@ export const AnnotationNote: React.VFC<Props> = ({
         </TopMetaDataWrapper>
       )}
       <StyledTextArea
+        aria-labelledby="annotation-note-input"
         id="noteInput"
-        rows={2}
+        rows={4}
         value={newMessage}
         onChange={(e) => setMessage(e.target.value)}
         disabled={!userCanModify}

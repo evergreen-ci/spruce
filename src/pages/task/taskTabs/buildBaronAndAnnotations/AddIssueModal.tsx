@@ -1,8 +1,8 @@
-import React, { useReducer } from "react";
+import { useReducer } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Body } from "@leafygreen-ui/typography";
-import { Input, Tooltip } from "antd";
+import TextArea from "@leafygreen-ui/text-area";
+import { Tooltip } from "antd";
 import { useAnnotationAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { Modal } from "components/Modal";
@@ -15,7 +15,6 @@ import {
 } from "gql/generated/types";
 import { ADD_ANNOTATION } from "gql/mutations";
 
-const { TextArea } = Input;
 interface Props {
   visible: boolean;
   dataCy: string;
@@ -152,10 +151,9 @@ export const AddIssueModal: React.VFC<Props> = ({
         </>
       }
     >
-      <Body weight="medium">URL</Body>
       <StyledTextArea
+        label="URL"
         data-cy="url-text-area"
-        autoSize={{ minRows: 1, maxRows: 2 }}
         value={addIssueModalState.url}
         onChange={(e) =>
           dispatch({
@@ -164,10 +162,9 @@ export const AddIssueModal: React.VFC<Props> = ({
           })
         }
       />
-      <Body weight="medium">Display Text</Body>
       <StyledTextArea
+        label="Display Text"
         data-cy="issue-key-text-area"
-        autoSize={{ minRows: 1, maxRows: 2 }}
         value={addIssueModalState.issueKey}
         onChange={(e) =>
           dispatch({

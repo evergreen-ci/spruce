@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import styled from "@emotion/styled";
-import { Body } from "@leafygreen-ui/typography";
-import { InputNumber, Popconfirm } from "antd";
+import TextInput from "@leafygreen-ui/text-input";
+import { Popconfirm } from "antd";
 import { Link, useParams } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { Button } from "components/Button";
@@ -11,7 +10,6 @@ import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { PageButtonRow } from "components/styles";
 import { commitQueueRequester } from "constants/patch";
 import { getTaskHistoryRoute } from "constants/routes";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   SetTaskPriorityMutation,
@@ -215,17 +213,17 @@ export const ActionButtons: React.VFC<Props> = ({
           icon={null}
           placement="left"
           title={
-            <>
-              <StyledBody>Set new priority:</StyledBody>
-              <InputNumber
-                size="small"
-                min={0}
-                type="number"
-                max={Number.MAX_SAFE_INTEGER}
-                value={priority}
-                onChange={(val) => setPriority(val as number)}
-              />
-            </>
+            <TextInput
+              label="Set new priority:"
+              size={1}
+              min={0}
+              max={Number.MAX_SAFE_INTEGER}
+              type="number"
+              value={priority.toString()}
+              onChange={(e) => setPriority(parseInt(e.target.value, 10))}
+              data-cy="priority-input"
+              autoFocus
+            />
           }
           onConfirm={() => {
             setTaskPriority({
@@ -335,7 +333,3 @@ export const ActionButtons: React.VFC<Props> = ({
     </>
   );
 };
-
-const StyledBody = styled(Body)`
-  padding-right: ${size.xs};
-`;

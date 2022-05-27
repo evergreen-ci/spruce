@@ -1,11 +1,11 @@
-import React from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import Icon from "@leafygreen-ui/icon";
 import { uiColors } from "@leafygreen-ui/palette";
+import TextInput from "@leafygreen-ui/text-input";
 import { Body } from "@leafygreen-ui/typography";
-import { Select, Input } from "antd";
+import { Select } from "antd";
 import get from "lodash/get";
 import set from "lodash/set";
 import { Modal } from "components/Modal";
@@ -152,10 +152,8 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
         {extraFields &&
           extraFields.map(({ text, key, dataCy: inputDataCy }) => (
             <ExtraFieldContainer key={key}>
-              <SectionLabelContainer>
-                <InputLabel htmlFor={`${key}-input`}>{text}</InputLabel>
-              </SectionLabelContainer>
-              <StyledInput
+              <TextInput
+                label={text}
                 data-cy={inputDataCy}
                 id={`${key}-input`}
                 onChange={(event) => {
@@ -216,22 +214,18 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
       </div>
       <div>
         {currentMethodControl && (
-          <>
-            <SectionLabelContainer>
-              <InputLabel htmlFor="target">{label}</InputLabel>
-            </SectionLabelContainer>
-            <StyledInput
-              id="target"
-              placeholder={placeholder}
-              data-cy={`${targetPath}-input`}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                const targetCopy = { ...target };
-                set(targetCopy, targetPath, event.target.value);
-                setTarget(targetCopy);
-              }}
-              value={get(target, targetPath, "")}
-            />
-          </>
+          <StyledInput
+            label={label}
+            id="target"
+            placeholder={placeholder}
+            data-cy={`${targetPath}-input`}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              const targetCopy = { ...target };
+              set(targetCopy, targetPath, event.target.value);
+              setTarget(targetCopy);
+            }}
+            value={get(target, targetPath, "")}
+          />
         )}
       </div>
       <div>
@@ -261,7 +255,7 @@ const StyledSelect = styled(Select)`
   margin-bottom: ${size.xs};
 `;
 
-const StyledInput = styled(Input)`
+const StyledInput = styled(TextInput)`
   ${inputWidth}
 `;
 
