@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import { useAnalyticsAttributes } from "analytics";
 import { Feedback } from "components/Feedback";
 import { Header } from "components/Header";
@@ -97,6 +97,7 @@ export const Content: React.VFC = () => {
         />
         <Route path={routes.userPatches} element={<UserPatches />} />
         <Route path={routes.taskQueue}>
+          <Route path="" element={<TaskQueue />} />
           <Route path=":distro" element={<TaskQueue />} />
           <Route path=":distro/:taskId" element={<TaskQueue />} />
         </Route>
@@ -108,7 +109,7 @@ export const Content: React.VFC = () => {
         <Route path={routes.spawn} element={<Spawn />}>
           <Route path={SpawnTab.Host} element={<SpawnHost />} />
           <Route path={SpawnTab.Volume} element={<SpawnVolume />} />
-          <Route path="*" element={<SpawnHost />} />
+          <Route path="" element={<Navigate to={SpawnTab.Host} replace />} />
         </Route>
         <Route path={routes.commitQueue} element={<CommitQueue />} />
         <Route path={routes.preferences}>
