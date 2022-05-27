@@ -178,7 +178,6 @@ export const VersionPage: React.VFC = () => {
       />
       <PageTitle
         loading={false}
-        hasData
         title={linkifiedMessage || `Version ${order}`}
         badge={<PatchStatusBadge status={status} />}
         buttons={
