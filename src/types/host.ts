@@ -31,6 +31,7 @@ export enum UpdateHostStatus {
   Quarantined = "quarantined",
   Decommissioned = "decommissioned",
   Terminated = "terminated",
+  Stopped = "stopped",
 }
 
 export enum HostEvent {
