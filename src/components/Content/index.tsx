@@ -109,6 +109,7 @@ export const Content: React.VFC = () => {
         <Route path={routes.spawn} element={<Spawn />}>
           <Route path={SpawnTab.Host} element={<SpawnHost />} />
           <Route path={SpawnTab.Volume} element={<SpawnVolume />} />
+          <Route path="*" element={<Navigate to={SpawnTab.Host} replace />} />
           <Route path="" element={<Navigate to={SpawnTab.Host} replace />} />
         </Route>
         <Route path={routes.commitQueue} element={<CommitQueue />} />
