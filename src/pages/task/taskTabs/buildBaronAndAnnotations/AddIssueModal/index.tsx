@@ -157,6 +157,7 @@ const addIssueModalSchema: SpruceFormProps = {
         "ui:data-cy": "confidence-level",
         "ui:description":
           "The confidence score of the issue. This is a number between 0 and 100 representing a percentage.",
+        "ui:optional": true,
       },
     },
   },
