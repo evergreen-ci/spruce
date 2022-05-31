@@ -6,7 +6,7 @@ import TextArea from "@leafygreen-ui/text-area";
 import TextInput from "@leafygreen-ui/text-input";
 import { usePreferencesAnalytics } from "analytics";
 import { Modal } from "components/Modal";
-import { InputLabel, ErrorMessage } from "components/styles";
+import { ErrorMessage } from "components/styles";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -156,24 +156,25 @@ export const EditModal: React.VFC<EditModalProps> = ({
       }
       title={replaceKeyName ? "Update Public Key" : "Add Public Key"}
     >
-      <InputLabel htmlFor={KEY_NAME_ID}>Key Name</InputLabel>
       <StyledInput
-        aria-labelledby="public-key-name-input"
+        label="Key Name"
         id={KEY_NAME_ID}
         data-cy={KEY_NAME_ID}
         value={keyName}
         onChange={(e) => {
           setKeyName(e.target.value);
         }}
+        spellCheck={false}
       />
-      <InputLabel htmlFor={KEY_VALUE_ID}>Public Key</InputLabel>
       <TextArea
+        label="Public Key"
         aria-labelledby="public-key-value-input"
         id={KEY_VALUE_ID}
         data-cy={KEY_VALUE_ID}
         value={keyValue}
         onChange={(e) => setKeyValue(e.target.value)}
-        rows={6}
+        rows={8}
+        spellCheck={false}
       />
       <ErrorContainer>
         {visible &&

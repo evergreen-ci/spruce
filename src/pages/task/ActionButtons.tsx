@@ -214,7 +214,7 @@ export const ActionButtons: React.VFC<Props> = ({
           placement="left"
           title={
             <TextInput
-              label="Set new priority:"
+              label="Set new priority"
               size={1}
               min={0}
               max={Number.MAX_SAFE_INTEGER}

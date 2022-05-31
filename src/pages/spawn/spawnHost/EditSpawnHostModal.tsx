@@ -175,9 +175,8 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
         <SectionContainer>
           <SectionLabel weight="medium">Host Name</SectionLabel>
           <ModalContent>
-            <InputLabel htmlFor="hostNameInput">Host Name</InputLabel>
             <TextInput
-              aria-labelledby="host-name-input"
+              label="Host Name"
               id="hostNameInput"
               value={editSpawnHostState.displayName}
               onChange={(e) =>
@@ -255,14 +254,10 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
         {canEditRDPPassword && (
           <SectionContainer>
             <SectionLabel weight="medium">Set RDP Password</SectionLabel>
-
             <ModalContent>
-              <InputLabel htmlFor="rdpPasswordInput">
-                Set New RDP Password
-              </InputLabel>
               <FlexContainer>
                 <TextInput
-                  aria-labelledby="edit-service-password-input"
+                  label="Set New RDP Password"
                   value={editSpawnHostState.servicePassword}
                   onChange={(e) =>
                     dispatch({
