@@ -30,8 +30,12 @@ then
 fi
 
 # Fetch previous release tag and get the commits since that tag
-PREVIOUS_VERSION=$(git describe --tags  --abbrev=0  `git rev-list --tags --max-count=1 --skip=1`)
-git log --no-merges $PREVIOUS_VERSION..HEAD --pretty="format:%s (%h)" > body.txt
+CURRENT_COMMIT_HASH=$(git rev-parse HEAD)
+PREVIOUS_TAG=$(git describe --abbrev=0 $CURRENT_COMMIT_HASH\^)
+# get all commits since the previous tag
+COMMITS_SINCE_TAG=$(git log --no-merges $PREVIOUS_TAG..$CURRENT_COMMIT_HASH --pretty="format:%s (%h)")
+echo $COMMITS_SINCE_TAG
+echo $COMMITS_SINCE_TAG > body.txt
 
 # Determine which verson of evergreen is available and use that
 if ! [ -x "$(command -v evergreen)" ]
