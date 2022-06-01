@@ -22,12 +22,19 @@ then
     exit 1
 fi
 
+# Detect which version of sed we have available to format the email
+case "$OSTYPE" in
+  darwin*)
+    echo "OSX detected using gsed"
+    gsed -i ':a;N;$!ba;s/\n/<br \/>/g' body.txt
 
-# Fetch previous release tag and get the commits since that tag
-CURRENT_COMMIT_HASH=$(git rev-parse --short HEAD)
-PREVIOUS_TAG=$(git describe --abbrev=0 $CURRENT_COMMIT_HASH\^)
-# get all commits since the previous tag
-git log --no-merges $PREVIOUS_TAG..$CURRENT_COMMIT_HASH --pretty="%h %s" >> body.txt
+  ;;
+  linux*)
+    echo "LINUX detected using sed"
+    sed -i ':a;N;$!ba;s/\n/<br \/>/g' body.txt
+  ;;
+  *)        echo "unknown: $OSTYPE";;
+esac
 
 # Determine which verson of evergreen is available and use that
 if ! [ -x "$(command -v evergreen)" ]
@@ -48,19 +55,11 @@ else
   EVERGREEN=evergreen
 fi
 
-# Detect which version of sed we have available to format the email
-case "$OSTYPE" in
-  darwin*)
-    echo "OSX detected using gsed"
-    gsed -i ':a;N;$!ba;s/\n/<br \/>/g' body.txt
-
-  ;;
-  linux*)
-    echo "LINUX detected using sed"
-    sed -i ':a;N;$!ba;s/\n/<br \/>/g' body.txt
-  ;;
-  *)        echo "unknown: $OSTYPE";;
-esac
+# Fetch previous release tag and get the commits since that tag
+CURRENT_COMMIT_HASH=$(git rev-parse --short HEAD)
+PREVIOUS_TAG=$(git describe --abbrev=0 $CURRENT_COMMIT_HASH\^)
+# get all commits since the previous tag
+git log --no-merges $PREVIOUS_TAG..$CURRENT_COMMIT_HASH --pretty="%h %s" >> body.txt
 
 echo "Commits Deployed:"
 cat body.txt
@@ -78,5 +77,6 @@ COMMAND+=" -b"
 COMMAND+=" '"
 COMMAND+="$BODY_HTML"
 COMMAND+="'"
+
 echo $COMMAND
 eval $COMMAND
