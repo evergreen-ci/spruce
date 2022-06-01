@@ -31,6 +31,10 @@ interface TaskStatusBadgeProps {
   status: string;
 }
 const TaskStatusBadge: React.VFC<TaskStatusBadgeProps> = ({ status }) => {
+  if (!status) {
+    return <></>;
+  }
+
   let displayStatus = getStatusBadgeCopy(status);
 
   if (taskStatusToCopy[status] === undefined) {

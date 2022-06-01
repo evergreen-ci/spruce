@@ -24,6 +24,9 @@ export const isProduction = (): boolean =>
 export const isBeta = (): boolean =>
   process.env.REACT_APP_BETA === "true" || isDevelopment();
 
+export const isStaging = (): boolean =>
+  process.env.REACT_APP_RELEASE_STAGE === "staging";
+
 export const isTest: () => boolean = () => process.env.NODE_ENV === "test";
 
 export const getGQLUrl: () => string = () =>

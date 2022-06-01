@@ -168,4 +168,9 @@ const hostStatuses: Status[] = [
     value: UpdateHostStatus.Terminated,
     key: UpdateHostStatus.Terminated,
   },
+  {
+    title: "Stopped",
+    value: UpdateHostStatus.Stopped,
+    key: UpdateHostStatus.Stopped,
+  },
 ];

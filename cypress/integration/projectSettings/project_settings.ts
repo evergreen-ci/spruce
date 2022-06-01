@@ -2,6 +2,8 @@ const getSettingsRoute = (identifier: string) =>
   `project/${identifier}/settings`;
 const getGeneralRoute = (identifier: string) =>
   `${getSettingsRoute(identifier)}/general`;
+const getGithubCommitQueueRoute = (identifier: string) =>
+  `${getSettingsRoute(identifier)}/github-commitqueue`;
 
 const project = "spruce";
 const projectUseRepoEnabled = "evergreen";
@@ -619,7 +621,16 @@ describe("Project Settings when defaulting to repo", () => {
         .should("have.value", "^smoke-test-endpoints$");
     });
 
-    it("Clicking on save button should show a success toast", () => {
+    it("Returns an error on save because no commit check definitions are defined", () => {
+      cy.dataCy("save-settings-button").click();
+      cy.validateToast("error");
+    });
+
+    it("Disabling commit checks saves successfully", () => {
+      cy.dataCy("github-checks-enabled-radio-box").within(($el) => {
+        cy.wrap($el).getInputByLabel("Disabled").parent().click();
+      });
+
       cy.dataCy("save-settings-button").click();
       cy.validateToast("success", "Successfully updated project");
     });
@@ -862,5 +873,23 @@ describe("Duplicating a project with errors", () => {
 
   it("Redirects to a new URL", () => {
     cy.url().should("include", "copied-project");
+  });
+});
+
+describe("A project that has GitHub webhooks disabled", () => {
+  const destination = getGithubCommitQueueRoute("logkeeper");
+
+  before(() => {
+    cy.login();
+    cy.visit(destination);
+  });
+
+  beforeEach(() => {
+    cy.preserveCookies();
+  });
+
+  it("Disables all interactive elements on the page", () => {
+    cy.get("button").should("be.disabled");
+    cy.get("input").should("be.disabled");
   });
 });
