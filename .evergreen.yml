@@ -298,7 +298,6 @@ functions:
       script: |
         export AUTHOR_EMAIL=${author_email}
         export REACT_APP_DEPLOYS_EMAIL=${REACT_APP_DEPLOYS_EMAIL}
-        export TASK_NAME=${task_name}
         bash email.sh
 
 

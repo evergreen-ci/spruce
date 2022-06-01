@@ -1,13 +1,12 @@
 #!/bin/bash
 
 # If running locally (i.e. not on CI), fetch the email from the users git config
-if [ $CI != 'true' ]
+if [ "$CI" != 'true' ]
 then
     echo "CI deploy not detected. Using local variables instead"
     # Fetch the variables from the git config.
     AUTHOR_EMAIL=$(git config user.email)
     REACT_APP_DEPLOYS_EMAIL=$REACT_APP_DEPLOYS_EMAIL
-    TASK_NAME=$(git rev-parse HEAD)
 fi
 
 # Validate necessary variables are set
@@ -23,19 +22,12 @@ then
     exit 1
 fi
 
-if [ '$TASK_NAME' == '' ]
-then
-    echo "Was unable to fetch the task_name or git commit associated with this build"
-    exit 1
-fi
 
 # Fetch previous release tag and get the commits since that tag
-CURRENT_COMMIT_HASH=$(git rev-parse HEAD)
+CURRENT_COMMIT_HASH=$(git rev-parse --short HEAD)
 PREVIOUS_TAG=$(git describe --abbrev=0 $CURRENT_COMMIT_HASH\^)
 # get all commits since the previous tag
-COMMITS_SINCE_TAG=$(git log --no-merges $PREVIOUS_TAG..$CURRENT_COMMIT_HASH --pretty="format:%s (%h)")
-echo $COMMITS_SINCE_TAG
-echo $COMMITS_SINCE_TAG > body.txt
+git log --no-merges $PREVIOUS_TAG..$CURRENT_COMMIT_HASH --pretty="%h %s" >> body.txt
 
 # Determine which verson of evergreen is available and use that
 if ! [ -x "$(command -v evergreen)" ]
@@ -70,13 +62,17 @@ case "$OSTYPE" in
   *)        echo "unknown: $OSTYPE";;
 esac
 
+echo "Commits Deployed:"
+cat body.txt
 
+TITLE="Spruce Deploy to $CURRENT_COMMIT_HASH"
 BODY_HTML=$(cat body.txt)
-DATE=$(date +'%m/%d/%Y')
+DATE=$(date +'%Y-%m-%d')
+
 COMMAND="$EVERGREEN $CREDENTIALS notify email -f $AUTHOR_EMAIL -r $REACT_APP_DEPLOYS_EMAIL -s "
 COMMAND+="'"
 COMMAND+="$DATE"
-COMMAND+=" Spruce Deploy $TASK_NAME"
+COMMAND+=" $TITLE"
 COMMAND+="'"
 COMMAND+=" -b"
 COMMAND+=" '"
