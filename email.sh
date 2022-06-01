@@ -22,19 +22,7 @@ then
     exit 1
 fi
 
-# Detect which version of sed we have available to format the email
-case "$OSTYPE" in
-  darwin*)
-    echo "OSX detected using gsed"
-    gsed -i ':a;N;$!ba;s/\n/<br \/>/g' body.txt
 
-  ;;
-  linux*)
-    echo "LINUX detected using sed"
-    sed -i ':a;N;$!ba;s/\n/<br \/>/g' body.txt
-  ;;
-  *)        echo "unknown: $OSTYPE";;
-esac
 
 # Determine which verson of evergreen is available and use that
 if ! [ -x "$(command -v evergreen)" ]
@@ -61,11 +49,26 @@ PREVIOUS_TAG=$(git describe --abbrev=0 $CURRENT_COMMIT_HASH\^)
 # get all commits since the previous tag
 git log --no-merges $PREVIOUS_TAG..$CURRENT_COMMIT_HASH --pretty="%h %s" >> body.txt
 
+
+# Detect which version of sed we have available to format the email
+case "$OSTYPE" in
+  darwin*)
+    echo "OSX detected using gsed"
+    gsed -i ':a;N;$!ba;s/\n/<br \/>/g' body.txt
+
+  ;;
+  linux*)
+    echo "LINUX detected using sed"
+    sed -i ':a;N;$!ba;s/\n/<br \/>/g' body.txt
+  ;;
+  *)        echo "unknown: $OSTYPE";;
+esac
+
 echo "Commits Deployed:"
 cat body.txt
 
 TITLE="Spruce Deploy to $CURRENT_COMMIT_HASH"
-BODY_HTML=$(cat body.txt)
+BODY_HTML=$(cat body.txt)$(echo "<br /> <br /><b> To revert to previous version rerun task from previous release tag ($PREVIOUS_TAG)</b>")
 DATE=$(date +'%Y-%m-%d')
 
 COMMAND="$EVERGREEN $CREDENTIALS notify email -f $AUTHOR_EMAIL -r $REACT_APP_DEPLOYS_EMAIL -s "
