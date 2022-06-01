@@ -12,8 +12,13 @@ import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { ResultCountLabel } from "components/ResultCountLabel";
-import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
+import {
+  TableControlOuterRow,
+  TableControlInnerRow,
+  StyledRouterLink,
+} from "components/styles";
 import { TasksTable } from "components/Table/TasksTable";
+import { getVersionRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -26,10 +31,9 @@ import {
 } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
 import { usePolling, useTaskStatuses } from "hooks";
-import { environmentalVariables, queryString, string } from "utils";
+import { queryString, string } from "utils";
 import { reducer } from "./reducer";
 
-const { getUiUrl } = environmentalVariables;
 const { parseSortString, toSortString } = queryString;
 const { shortenGithash } = string;
 
@@ -163,8 +167,13 @@ export const DownstreamProjectAccordion: React.VFC<DownstreamProjectAccordionPro
         <AccordionContents>
           <p>
             Base commit:{" "}
-            <InlineCode href={`${getUiUrl()}/version/${baseVersionID}`}>
-              {shortenGithash(githash)}
+            <InlineCode>
+              <StyledRouterLink
+                data-cy="downstream-task-base-commit"
+                to={getVersionRoute(baseVersionID)}
+              >
+                {shortenGithash(githash)}
+              </StyledRouterLink>
             </InlineCode>
           </p>
           <TableWrapper>
