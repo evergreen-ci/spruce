@@ -98,7 +98,7 @@ export const AddIssueModal: React.VFC<Props> = ({
         formData={formState}
         onChange={({ formData, errors }) => {
           setFormState(formData);
-          setCanSubmit(!errors.length);
+          setCanSubmit(errors.length === 0);
         }}
       />
     </ConfirmationModal>
@@ -113,7 +113,7 @@ const addIssueModalSchema: SpruceFormProps = {
         type: "string" as "string",
         title: "URL",
         minLength: 1,
-        format: "url",
+        format: "validURL",
       },
       issueKey: {
         type: "string" as "string",

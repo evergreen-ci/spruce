@@ -26,16 +26,20 @@ export const transformErrors = (errors: AjvError[]) =>
             message: "",
           };
         case "format":
-          if (error.params.format === "noSpaces") {
-            return {
-              ...error,
-              message: "Value should not contain a space.",
-            };
+          switch (error.params.format) {
+            case "noSpaces":
+              return {
+                ...error,
+                message: "Value should not contain spaces.",
+              };
+            case "validURL":
+              return {
+                ...error,
+                message: "Value should be a valid URL.",
+              };
+            default:
+              return { ...error, message: "" };
           }
-          return {
-            ...error,
-            message: "",
-          };
         default:
           return error;
       }

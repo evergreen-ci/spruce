@@ -84,7 +84,6 @@ describe("addIssueModal", () => {
     fireEvent.change(queryByDataCy("confidence-level"), {
       target: { value: "not a number" },
     });
-    // debug();
     expect(queryByText("Add issue").closest("button")).toBeDisabled();
     fireEvent.change(queryByDataCy("confidence-level"), {
       target: { value: "110" },
