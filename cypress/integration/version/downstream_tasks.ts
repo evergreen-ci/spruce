@@ -20,6 +20,16 @@ describe("Downstream Tasks Tab", () => {
     cy.dataCy("project-title").should("be.visible");
   });
 
+  it("Links to base commit", () => {
+    cy.dataCy("downstream-task-base-commit").should("contain.text", "1483700");
+    cy.dataCy("downstream-task-base-commit")
+      .should("have.attr", "href")
+      .and(
+        "includes",
+        "/version/logkeeper_3c5a8112efdb98f3710b89d553af602e355aa5c9"
+      );
+  });
+
   it("Filters by test name", () => {
     cy.get("tbody").first().children().should("have.length", 1);
     cy.toggleTableFilter(1);
