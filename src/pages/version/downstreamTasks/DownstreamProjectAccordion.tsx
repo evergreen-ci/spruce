@@ -26,11 +26,12 @@ import {
 } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
 import { usePolling, useTaskStatuses } from "hooks";
-import { environmentalVariables, queryString } from "utils";
+import { environmentalVariables, queryString, string } from "utils";
 import { reducer } from "./reducer";
 
 const { getUiUrl } = environmentalVariables;
 const { parseSortString, toSortString } = queryString;
+const { shortenGithash } = string;
 
 interface DownstreamProjectAccordionProps {
   baseVersionID: string;
@@ -163,7 +164,7 @@ export const DownstreamProjectAccordion: React.VFC<DownstreamProjectAccordionPro
           <p>
             Base commit:{" "}
             <InlineCode href={`${getUiUrl()}/version/${baseVersionID}`}>
-              {githash.slice(0, 10)}
+              {shortenGithash(githash)}
             </InlineCode>
           </p>
           <TableWrapper>
