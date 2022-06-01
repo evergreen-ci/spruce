@@ -37,6 +37,7 @@ query GetTask($taskId: String!, $execution: Int) {
       displayName
     }
     ingestTime
+    activatedTime
     estimatedStart
     finishTime
     hostId

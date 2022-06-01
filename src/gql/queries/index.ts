@@ -41,6 +41,7 @@ import GET_PROJECT_EVENT_LOGS from "./get-project-event-logs.graphql";
 import GET_PROJECT_SETTINGS from "./get-project-settings.graphql";
 import GET_PROJECTS from "./get-projects.graphql";
 import GET_MY_PUBLIC_KEYS from "./get-public-keys.graphql";
+import GET_REPO_EVENT_LOGS from "./get-repo-event-logs.graphql";
 import GET_REPO_SETTINGS from "./get-repo-settings.graphql";
 import GET_SPRUCE_CONFIG from "./get-spruce-config.graphql";
 import GET_SYSTEM_LOGS from "./get-system-logs.graphql";
@@ -92,6 +93,7 @@ export {
   GET_PROJECT_SETTINGS,
   GET_PROJECT_EVENT_LOGS,
   GET_PROJECTS,
+  GET_REPO_EVENT_LOGS,
   GET_REPO_SETTINGS,
   GET_TASK_FILES,
   GET_TASK_TESTS,

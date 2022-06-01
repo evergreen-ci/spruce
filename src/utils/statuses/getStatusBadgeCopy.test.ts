@@ -10,4 +10,10 @@ describe("getStatusBadgeCopy", () => {
     expect(getStatusBadgeCopy("setup-failed")).toBe("Setup-Failed");
     expect(getStatusBadgeCopy("test-timed-out")).toBe("Test-Timed-Out");
   });
+
+  it("returns an empty string when passed a falsy value", () => {
+    expect(getStatusBadgeCopy("")).toBe("");
+    expect(getStatusBadgeCopy(undefined)).toBe("");
+    expect(getStatusBadgeCopy(null)).toBe("");
+  });
 });
