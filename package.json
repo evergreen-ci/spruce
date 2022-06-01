@@ -90,7 +90,7 @@
     "@leafygreen-ui/tabs": "5.1.4",
     "@leafygreen-ui/text-area": "4.0.3",
     "@leafygreen-ui/text-input": "6.0.5",
-    "@leafygreen-ui/toast": "0.4.10",
+    "@leafygreen-ui/toast": "1.0.1",
     "@leafygreen-ui/toggle": "7.0.4",
     "@leafygreen-ui/tooltip": "6.3.1",
     "@leafygreen-ui/typography": "8.1.0",
