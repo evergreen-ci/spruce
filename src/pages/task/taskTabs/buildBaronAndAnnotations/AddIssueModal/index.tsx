@@ -11,10 +11,9 @@ import {
   IssueLinkInput,
 } from "gql/generated/types";
 import { ADD_ANNOTATION } from "gql/mutations";
-import { numbers, validators } from "utils";
+import { numbers } from "utils";
 
 const { toDecimal } = numbers;
-const { validateURL } = validators;
 interface Props {
   visible: boolean;
   closeModal: () => void;
@@ -82,16 +81,6 @@ export const AddIssueModal: React.VFC<Props> = ({
     closeModal();
   };
 
-  const handleURLValidation = (formData, errors) => {
-    if (!validateURL(formData.url)) {
-      errors.url.addError("Please enter a valid URL");
-    }
-    if (formData.issueKey.length === 0) {
-      errors.issueKey.addError("Please enter an issue key");
-    }
-    return errors;
-  };
-
   return (
     <ConfirmationModal
       {...rest}
@@ -111,7 +100,6 @@ export const AddIssueModal: React.VFC<Props> = ({
           setFormState(formData);
           setCanSubmit(!errors.length);
         }}
-        validate={handleURLValidation}
       />
     </ConfirmationModal>
   );
@@ -124,10 +112,13 @@ const addIssueModalSchema: SpruceFormProps = {
       url: {
         type: "string" as "string",
         title: "URL",
+        minLength: 1,
+        format: "url",
       },
       issueKey: {
         type: "string" as "string",
         title: "Display Text",
+        minLength: 1,
       },
       advancedOptions: {
         type: "object" as "object",
