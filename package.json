@@ -141,7 +141,7 @@
     "@storybook/addon-knobs": "^6.1.18",
     "@storybook/addon-links": "6.1.18",
     "@storybook/addon-queryparams": "^6.1.18",
-    "@storybook/addon-storyshots": "^6.1.18",
+    "@storybook/addon-storyshots": "^6.5.6",
     "@storybook/addons": "6.1.18",
     "@storybook/preset-ant-design": "^0.0.2",
     "@storybook/preset-create-react-app": "3.1.6",
