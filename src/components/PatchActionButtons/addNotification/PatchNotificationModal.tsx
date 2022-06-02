@@ -1,13 +1,11 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
-import { NotificationModal } from "components/NotificationModal";
-import { SubscriptionMethods } from "hooks/useNotificationModal";
+import { NotificationModal } from "components/Notifications/NotificationModal";
 import {
-  SUBSCRIPTION_JIRA_COMMENT,
-  SUBSCRIPTION_SLACK,
-  SUBSCRIPTION_EMAIL,
-} from "types/subscription";
+  subscriptionMethodControls,
+  subscriptionMethodDropdownOptions,
+} from "constants/triggers";
 import {
   ExtraFieldKey,
   RegexSelector,
@@ -17,13 +15,7 @@ import {
 } from "types/triggers";
 import { validators } from "utils";
 
-const {
-  validateDuration,
-  validatePercentage,
-  validateEmail,
-  validateJira,
-  validateSlack,
-} = validators;
+const { validateDuration, validatePercentage } = validators;
 
 interface ModalProps {
   visible: boolean;
@@ -53,33 +45,6 @@ export const PatchNotificationModal: React.VFC<ModalProps> = ({
     />
   );
 };
-
-export const subscriptionMethodControls: SubscriptionMethods = {
-  "jira-comment": {
-    label: "JIRA Issue",
-    placeholder: "ABC-123",
-    targetPath: "jira-comment",
-    validator: validateJira,
-  },
-  email: {
-    label: "Email Address",
-    placeholder: "someone@example.com",
-    targetPath: "email",
-    validator: validateEmail,
-  },
-  slack: {
-    label: "Slack Username or Channel",
-    placeholder: "@user",
-    targetPath: "slack",
-    validator: validateSlack,
-  },
-};
-
-const subscriptionMethodDropdownOptions = [
-  SUBSCRIPTION_JIRA_COMMENT,
-  SUBSCRIPTION_SLACK,
-  SUBSCRIPTION_EMAIL,
-];
 
 const buildRegexSelectors: RegexSelector[] = [
   {
