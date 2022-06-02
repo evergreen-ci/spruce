@@ -5,7 +5,7 @@ import usePageSizeSelector from "./usePageSizeSelector";
 
 interface Props {
   value: number;
-  onChange?: (i: number) => void;
+  onChange: (i: number) => void;
 }
 
 /**

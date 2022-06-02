@@ -1,3 +1,5 @@
+import { clickOnPageSizeBtnAndAssertURLandTableSize } from "../utils";
+
 describe("Job Logs", () => {
   before(() => {
     cy.login();
@@ -67,8 +69,10 @@ describe("Job Logs", () => {
 
     it("updates URL appropriately when page size is changed", () => {
       cy.visit(`job-logs/${taskId}/${execution}/${groupId}`);
-      cy.contains("10 / page").click();
-      cy.contains("20 / page").click();
+      clickOnPageSizeBtnAndAssertURLandTableSize(
+        20,
+        "[data-cy='job-logs-table-row']"
+      );
       cy.location("search").should("include", `limit=20&page=0`);
     });
 

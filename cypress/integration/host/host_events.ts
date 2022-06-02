@@ -13,10 +13,7 @@ describe("Host events", () => {
 
   it("host events display the correct text", () => {
     cy.visit(pathWithEvents);
-    clickOnPageSizeBtnAndAssertURLandTableSize(
-      100,
-      "[data-cy=host-events-table] tr td:first-child"
-    );
+    clickOnPageSizeBtnAndAssertURLandTableSize(100, dataCy);
 
     const hostTypes = [
       {
@@ -161,10 +158,7 @@ describe("Host events", () => {
       },
     ];
     cy.visit(pathWithEvents);
-    clickOnPageSizeBtnAndAssertURLandTableSize(
-      100,
-      "[data-cy=host-events-table] tr td:first-child"
-    );
+    clickOnPageSizeBtnAndAssertURLandTableSize(100, dataCy);
 
     hostTypes.forEach(({ hostType, text, logsTitle }) => {
       cy.dataCy(hostType)
@@ -217,3 +211,5 @@ describe("Host events", () => {
     );
   });
 });
+
+const dataCy = "[data-cy=host-events-table] tr td:first-child";
