@@ -11,6 +11,7 @@ import {
   GetViewableProjectRefsQueryVariables,
 } from "gql/generated/types";
 import { GET_PROJECTS, GET_VIEWABLE_PROJECTS } from "gql/queries";
+import { Unpacked } from "types/utils";
 import { ProjectOptionGroup } from "./ProjectOptionGroup";
 
 interface ProjectSelectProps {
@@ -21,7 +22,11 @@ interface ProjectSelectProps {
 }
 
 // Split a list of projects into two arrays, one of enabled projects and one of disabled projects
-const filterDisabledProjects = (projects: Array<{ enabled?: boolean }>) =>
+const filterDisabledProjects = (
+  projects: Unpacked<
+    GetViewableProjectRefsQuery["viewableProjectRefs"]
+  >["projects"]
+) =>
   projects.reduce(
     ([enabled, disabled], project) =>
       project.enabled === false
@@ -36,6 +41,8 @@ export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
   getRoute,
   onSubmit = () => {},
 }) => {
+  const history = useHistory();
+
   const { data: projectsData, loading: projectsLoading } = useQuery<
     GetProjectsQuery,
     GetProjectsQueryVariables
@@ -53,47 +60,23 @@ export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
     skip: !isProjectSettingsPage,
   });
 
-  const projectGroups = useMemo(
-    () =>
-      (isProjectSettingsPage
-        ? viewableProjectsData?.viewableProjectRefs
-        : projectsData?.projects) || [],
-    [isProjectSettingsPage, viewableProjectsData, projectsData]
-  );
-
-  const disabledProjects = [];
-  const enabledProjectGroups = projectGroups.map((projectGroup) => {
-    const [enabled, disabled] = filterDisabledProjects(projectGroup.projects);
-    disabledProjects.push(...disabled);
-    return {
-      ...projectGroup,
-      projects: enabled,
-    };
-  });
-
   const loading = isProjectSettingsPage
     ? viewableProjectsLoading
     : projectsLoading;
 
-  const history = useHistory();
-
-  const favoriteProjects = projectGroups?.flatMap((g) =>
-    g.projects.filter((p) => p.isFavorite)
+  const allProjects = getProjects(
+    projectsData,
+    viewableProjectsData,
+    isProjectSettingsPage
   );
-
-  const allProjects = [
-    { groupDisplayName: "Favorites", projects: favoriteProjects },
-    ...enabledProjectGroups,
-    { groupDisplayName: "Disabled Projects", projects: disabledProjects },
-  ];
 
   // Find the project with the selectedProjectIdentifier and set it as the selected project
   const selectedProject = useMemo(
     () =>
-      projectGroups
+      allProjects
         .flatMap((g) => g.projects)
         .find((p) => p.identifier === selectedProjectIdentifier),
-    [projectGroups, selectedProjectIdentifier]
+    [allProjects, selectedProjectIdentifier]
   );
 
   const handleSearch = (options: typeof allProjects, value: string) => {
@@ -147,4 +130,47 @@ export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
       data-cy="project-select"
     />
   );
+};
+
+const getFavoriteProjects = (projectGroups) =>
+  projectGroups?.flatMap((g) => g.projects.filter((p) => p.isFavorite));
+
+const getProjects = (
+  projectsData: GetProjectsQuery,
+  viewableProjectsData: GetViewableProjectRefsQuery,
+  isProjectSettingsPage: boolean
+) => {
+  if (!isProjectSettingsPage) {
+    const projectGroups = projectsData?.projects ?? [];
+    return [
+      {
+        groupDisplayName: "Favorites",
+        projects: getFavoriteProjects(projectGroups),
+      },
+      ...projectGroups,
+    ];
+  }
+
+  // For Project Settings pages, move disabled projects to the bottom of the dropdown
+  const projectGroups = viewableProjectsData?.viewableProjectRefs ?? [];
+
+  const disabledProjects = [];
+  const enabledProjectGroups = projectGroups.map((projectGroup) => {
+    const [enabled, disabled] = filterDisabledProjects(projectGroup.projects);
+    disabledProjects.push(...disabled);
+    return {
+      groupDisplayName: projectGroup.groupDisplayName,
+      projects: enabled,
+    };
+  });
+
+  const favoriteProjects = projectGroups?.flatMap((g) =>
+    g.projects.filter((p) => p.isFavorite)
+  );
+
+  return [
+    { groupDisplayName: "Favorites", projects: favoriteProjects },
+    ...enabledProjectGroups,
+    { groupDisplayName: "Disabled Projects", projects: disabledProjects },
+  ];
 };

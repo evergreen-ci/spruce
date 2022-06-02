@@ -8,7 +8,6 @@ query GetProjects {
       owner
       displayName
       isFavorite
-      enabled
     }
   }
 }

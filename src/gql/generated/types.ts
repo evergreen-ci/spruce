@@ -3791,7 +3791,6 @@ export type GetProjectsQuery = {
         owner: string;
         displayName: string;
         isFavorite: boolean;
-        enabled?: Maybe<boolean>;
       }>;
     }>
   >;
