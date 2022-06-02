@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getLoginDomain } from "./environmentalVariables";
-import { reportError } from "./errorReporting";
+import { reportError, leaveBreadcrumb } from "./errorReporting";
 
 type optionsType = {
   onFailure?: (e) => void;
@@ -11,6 +11,7 @@ export const post = async (
   options: optionsType = {}
 ) => {
   try {
+    leaveBreadcrumb(`POST ${url}`, { body }, "request");
     const response = await axios.post(getLoginDomain() + url, {
       body,
     });
