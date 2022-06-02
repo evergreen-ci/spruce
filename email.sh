@@ -22,6 +22,12 @@ then
     exit 1
 fi
 
+IS_REVERT=false
+# If execution exists and is not 0 (i.e. not a revert), then set the revert flag
+if [ "$EXECUTION" != '' ] && [ "$EXECUTION" != '0' ]
+then
+    IS_REVERT=true
+fi
 
 
 # Determine which verson of evergreen is available and use that
@@ -46,8 +52,15 @@ fi
 # Fetch previous release tag and get the commits since that tag
 CURRENT_COMMIT_HASH=$(git rev-parse --short HEAD)
 PREVIOUS_TAG=$(git describe --abbrev=0 $CURRENT_COMMIT_HASH\^)
+
+# If this is a revert, then only include the currently deployed commit
+if [ "$IS_REVERT" == 'true' ]
+then
+  echo "spruce-$(git rev-parse HEAD)" > body.txt
+else
 # get all commits since the previous tag
-git log --no-merges $PREVIOUS_TAG..$CURRENT_COMMIT_HASH --pretty="%h %s" >> body.txt
+  git log --no-merges $PREVIOUS_TAG..$CURRENT_COMMIT_HASH --pretty="%h %s" > body.txt
+fi
 
 
 # Detect which version of sed we have available to format the email
