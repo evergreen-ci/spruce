@@ -18,7 +18,10 @@ const testSharedSubscriptionModalFunctionality = (
     });
     it("Displays success toast after submitting a valid form and request succeeds", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
-      cy.dataCy("when-select").click();
+      cy.dataCy(dataCyModal).should("be.visible");
+      cy.dataCy(dataCyModal).within(() => {
+        cy.getInputByLabel("Event").click({ force: true });
+      });
       cy.contains("finishes").click();
       cy.dataCy("notify-by-select").click();
       cy.dataCy("jira-comment-option").click();
@@ -30,9 +33,12 @@ const testSharedSubscriptionModalFunctionality = (
     describe("Disables save button and displays an error message when populating form with invalid values", () => {
       before(() => {
         openSubscriptionModal(route, dataCyToggleModalButton);
+        cy.dataCy(dataCyModal).should("be.visible");
       });
       beforeEach(() => {
-        cy.dataCy("when-select").click();
+        cy.dataCy(dataCyModal).within(() => {
+          cy.getInputByLabel("Event").click({ force: true });
+        });
       });
 
       it("has an invalid percentage", () => {
@@ -98,7 +104,10 @@ const testSharedSubscriptionModalFunctionality = (
     });
     it("Displays error toast when save subscription request fails", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
-      cy.dataCy("when-select").click();
+      cy.dataCy(dataCyModal).should("be.visible");
+      cy.dataCy(dataCyModal).within(() => {
+        cy.getInputByLabel("Event").click({ force: true });
+      });
       cy.contains("finishes").click();
       cy.dataCy("notify-by-select").click();
       cy.dataCy("jira-comment-option").click();
@@ -114,6 +123,7 @@ const testSharedSubscriptionModalFunctionality = (
     it("Hides the modal after clicking the cancel button", () => {
       cy.visit(route);
       cy.dataCy(dataCyToggleModalButton).click();
+      cy.dataCy(dataCyModal).should("be.visible");
       cy.dataCy("cancel-subscription-button").click();
       cy.dataCy(dataCyModal).should("not.be.visible");
     });
