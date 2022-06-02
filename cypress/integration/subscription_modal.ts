@@ -16,8 +16,9 @@ const testSharedSubscriptionModalFunctionality = (
     beforeEach(() => {
       cy.preserveCookies();
     });
-    it("Display success toast after submitting a valid form and request succeeds", () => {
+    it("Displays success toast after submitting a valid form and request succeeds", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
+      cy.dataCy("when-select").click();
       cy.contains("finishes").click();
       cy.dataCy("notify-by-select").click();
       cy.dataCy("jira-comment-option").click();
@@ -26,47 +27,78 @@ const testSharedSubscriptionModalFunctionality = (
       cy.dataCy(bannerDataCy).contains(successText);
     });
 
-    it("Disable save button and display error message when populating form with negative percent value", () => {
-      openSubscriptionModal(route, dataCyToggleModalButton);
-      cy.contains("changes by some percentage").click();
-      cy.dataCy("percent-change-input").clear().type("-100");
-      cy.dataCy("notify-by-select").click();
-      cy.dataCy("jira-comment-option").click();
-      cy.dataCy("jira-comment-input").type("EVG-2000");
-      cy.dataCy("error-message").contains(errorTextNegativePercent);
-      cy.dataCy("save-subscription-button").should("be.disabled");
-      cy.dataCy("percent-change-input").clear().type("100");
-      cy.dataCy("save-subscription-button").should("not.be.disabled");
-    });
+    describe("Disables save button and displays an error message when populating form with invalid values", () => {
+      before(() => {
+        openSubscriptionModal(route, dataCyToggleModalButton);
+      });
+      beforeEach(() => {
+        cy.dataCy("when-select").click();
+      });
 
-    it("Disable save button and display error message in modal when populating form with negative duration value", () => {
-      openSubscriptionModal(route, dataCyToggleModalButton);
-      cy.contains("exceeds some duration").click();
-      cy.dataCy("duration-secs-input").clear().type("-100");
-      cy.dataCy("notify-by-select").click();
-      cy.dataCy("jira-comment-option").click();
-      cy.dataCy("jira-comment-input").type("EVG-2000");
-      cy.dataCy("error-message").contains(errorTextNegativeDuration);
-      cy.dataCy("save-subscription-button").should("be.disabled");
-      cy.dataCy("duration-secs-input").clear().type("100");
-      cy.dataCy("save-subscription-button").should("not.be.disabled");
+      it("has an invalid percentage", () => {
+        cy.contains("changes by some percentage").click();
+        cy.dataCy("percent-change-input").clear().type("-100");
+        cy.dataCy("notify-by-select").click();
+        cy.dataCy("jira-comment-option").click();
+        cy.dataCy("jira-comment-input").type("EVG-2000");
+        cy.dataCy("error-message").contains(errorTextNegativePercent);
+        cy.dataCy("save-subscription-button").should("be.disabled");
+        cy.dataCy("percent-change-input").clear().type("100");
+        cy.dataCy("save-subscription-button").should("not.be.disabled");
+        cy.dataCy("jira-comment-input").clear();
+      });
+      it("has an invalid duration value", () => {
+        cy.contains("exceeds some duration").click();
+        cy.dataCy("duration-secs-input").clear().type("-100");
+        cy.dataCy("notify-by-select").click();
+        cy.dataCy("jira-comment-option").click();
+        cy.dataCy("jira-comment-input").type("EVG-2000");
+        cy.dataCy("error-message").contains(errorTextNegativeDuration);
+        cy.dataCy("save-subscription-button").should("be.disabled");
+        cy.dataCy("duration-secs-input").clear().type("100");
+        cy.dataCy("save-subscription-button").should("not.be.disabled");
+        cy.dataCy("duration-secs-input").clear().type(".33");
+        cy.dataCy("error-message").contains(errorTextDecimalDuration);
+        cy.dataCy("save-subscription-button").should("be.disabled");
+        cy.dataCy("duration-secs-input").clear().type("33");
+        cy.dataCy("save-subscription-button").should("not.be.disabled");
+        cy.dataCy("jira-comment-input").clear();
+      });
+      it("has an invalid jira ticket", () => {
+        cy.dataCy("trigger_0-option").click();
+        cy.dataCy("notify-by-select").click();
+        cy.dataCy("jira-comment-option").click();
+        cy.dataCy("jira-comment-input").type("E");
+        cy.dataCy("save-subscription-button").should("be.disabled");
+        cy.dataCy("jira-comment-input").type("EVG-100");
+        cy.dataCy("save-subscription-button").should("not.be.disabled");
+        cy.dataCy("jira-comment-input").clear();
+      });
+      it("has an invalid email", () => {
+        cy.dataCy("trigger_0-option").click();
+        cy.dataCy("notify-by-select").click();
+        cy.dataCy("email-option").click();
+        cy.dataCy("email-input").clear();
+        cy.dataCy("email-input").type("arst");
+        cy.dataCy("save-subscription-button").should("be.disabled");
+        cy.dataCy("email-input").type("rat@rast.com");
+        cy.dataCy("save-subscription-button").should("not.be.disabled");
+      });
+      it("has an invalid slack username", () => {
+        cy.dataCy("trigger_0-option").click();
+        cy.dataCy("notify-by-select").click();
+        cy.dataCy("slack-option").click();
+        cy.dataCy("slack-input").clear();
+        cy.dataCy("slack-input").type("sart");
+        cy.dataCy("save-subscription-button").should("be.disabled");
+        cy.dataCy("slack-input").clear();
+        cy.dataCy("slack-input").type("@sart");
+        cy.dataCy("save-subscription-button").should("not.be.disabled");
+      });
     });
-
-    it("Disable save button and display error message in modal when populating form with decimal duration value", () => {
+    it("Displays error toast when save subscription request fails", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
-      cy.contains("exceeds some duration").click();
-      cy.dataCy("duration-secs-input").clear().type(".33");
-      cy.dataCy("notify-by-select").click();
-      cy.dataCy("jira-comment-option").click();
-      cy.dataCy("jira-comment-input").type("EVG-2000");
-      cy.dataCy("error-message").contains(errorTextDecimalDuration);
-      cy.dataCy("save-subscription-button").should("be.disabled");
-      cy.dataCy("duration-secs-input").clear().type("33");
-      cy.dataCy("save-subscription-button").should("not.be.disabled");
-    });
-
-    it("Display error toast when save subscription request fails", () => {
-      openSubscriptionModal(route, dataCyToggleModalButton);
+      cy.dataCy("when-select").click();
       cy.contains("finishes").click();
       cy.dataCy("notify-by-select").click();
       cy.dataCy("jira-comment-option").click();
@@ -79,46 +111,11 @@ const testSharedSubscriptionModalFunctionality = (
       cy.dataCy(bannerDataCy).contains("error");
     });
 
-    it("Hide the modal after clicking the cancel button", () => {
+    it("Hides the modal after clicking the cancel button", () => {
       cy.visit(route);
       cy.dataCy(dataCyToggleModalButton).click();
       cy.dataCy("cancel-subscription-button").click();
-      cy.dataCy(dataCyModal).should("have.css", "display", "none");
-    });
-
-    it("Disable save button when jira ticket is not formatted properly", () => {
-      openSubscriptionModal(route, dataCyToggleModalButton);
-      cy.dataCy("trigger_0-option").click();
-      cy.dataCy("notify-by-select").click();
-      cy.dataCy("jira-comment-option").click();
-      cy.dataCy("jira-comment-input").type("E");
-      cy.dataCy("save-subscription-button").should("be.disabled");
-      cy.dataCy("jira-comment-input").type("EVG-100");
-      cy.dataCy("save-subscription-button").should("not.be.disabled");
-    });
-
-    it("Disable save button when email is not formatted properly", () => {
-      openSubscriptionModal(route, dataCyToggleModalButton);
-      cy.dataCy("trigger_0-option").click();
-      cy.dataCy("notify-by-select").click();
-      cy.dataCy("email-option").click();
-      cy.dataCy("email-input").clear();
-      cy.dataCy("email-input").type("arst");
-      cy.dataCy("save-subscription-button").should("be.disabled");
-      cy.dataCy("email-input").type("rat@rast.com");
-      cy.dataCy("save-subscription-button").should("not.be.disabled");
-    });
-
-    it("Disable save button when slack username or channel is not formatted properly", () => {
-      openSubscriptionModal(route, dataCyToggleModalButton);
-      cy.dataCy("trigger_0-option").click();
-      cy.dataCy("notify-by-select").click();
-      cy.dataCy("slack-option").click();
-      cy.dataCy("slack-input").clear();
-      cy.dataCy("slack-input").type("sart");
-      cy.dataCy("save-subscription-button").should("be.disabled");
-      cy.dataCy("slack-input").type("@sart");
-      cy.dataCy("save-subscription-button").should("not.be.disabled");
+      cy.dataCy(dataCyModal).should("not.be.visible");
     });
 
     const bannerDataCy = "toast";
