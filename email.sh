@@ -1,13 +1,12 @@
 #!/bin/bash
 
 # If running locally (i.e. not on CI), fetch the email from the users git config
-if [ $CI != 'true' ]
+if [ "$CI" != 'true' ]
 then
     echo "CI deploy not detected. Using local variables instead"
     # Fetch the variables from the git config.
     AUTHOR_EMAIL=$(git config user.email)
     REACT_APP_DEPLOYS_EMAIL=$REACT_APP_DEPLOYS_EMAIL
-    TASK_NAME=$(git rev-parse HEAD)
 fi
 
 # Validate necessary variables are set
@@ -23,15 +22,13 @@ then
     exit 1
 fi
 
-if [ '$TASK_NAME' == '' ]
+IS_REVERT=false
+# If execution exists and is not 0 (i.e. not a revert), then set the revert flag
+if [ "$EXECUTION" != '' ] && [ "$EXECUTION" != '0' ]
 then
-    echo "Was unable to fetch the task_name or git commit associated with this build"
-    exit 1
+    IS_REVERT=true
 fi
 
-# Fetch previous release tag and get the commits since that tag
-PREVIOUS_VERSION=$(git describe --tags  --abbrev=0  `git rev-list --tags --max-count=1 --skip=1`)
-git log --no-merges $PREVIOUS_VERSION..HEAD --pretty="format:%s (%h)" > body.txt
 
 # Determine which verson of evergreen is available and use that
 if ! [ -x "$(command -v evergreen)" ]
@@ -52,6 +49,20 @@ else
   EVERGREEN=evergreen
 fi
 
+# Fetch previous release tag and get the commits since that tag
+CURRENT_COMMIT_HASH=$(git rev-parse --short HEAD)
+PREVIOUS_TAG=$(git describe --abbrev=0 $CURRENT_COMMIT_HASH\^)
+
+# If this is a revert, then only include the currently deployed commit
+if [ "$IS_REVERT" == 'true' ]
+then
+  echo "spruce-$(git rev-parse HEAD)" > body.txt
+else
+# get all commits since the previous tag
+  git log --no-merges $PREVIOUS_TAG..$CURRENT_COMMIT_HASH --pretty="%h %s" > body.txt
+fi
+
+
 # Detect which version of sed we have available to format the email
 case "$OSTYPE" in
   darwin*)
@@ -66,17 +77,22 @@ case "$OSTYPE" in
   *)        echo "unknown: $OSTYPE";;
 esac
 
+echo "Commits Deployed:"
+cat body.txt
 
-BODY_HTML=$(cat body.txt)
-DATE=$(date +'%m/%d/%Y')
+TITLE="Spruce Deploy to $CURRENT_COMMIT_HASH"
+BODY_HTML=$(cat body.txt)$(echo "<br /> <br /><b> To revert to previous version rerun task from previous release tag ($PREVIOUS_TAG)</b>")
+DATE=$(date +'%Y-%m-%d')
+
 COMMAND="$EVERGREEN $CREDENTIALS notify email -f $AUTHOR_EMAIL -r $REACT_APP_DEPLOYS_EMAIL -s "
 COMMAND+="'"
 COMMAND+="$DATE"
-COMMAND+=" Spruce Deploy $TASK_NAME"
+COMMAND+=" $TITLE"
 COMMAND+="'"
 COMMAND+=" -b"
 COMMAND+=" '"
 COMMAND+="$BODY_HTML"
 COMMAND+="'"
+
 echo $COMMAND
 eval $COMMAND
