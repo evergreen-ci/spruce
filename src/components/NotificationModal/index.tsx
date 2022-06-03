@@ -130,7 +130,7 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
       <Section>
         <Body weight="medium">Choose an event</Body>
         <SectionLabelContainer>
-          <InputLabel>Event</InputLabel>
+          <InputLabel htmlFor="event-select">Event</InputLabel>
         </SectionLabelContainer>
         <StyledSelect
           value={selectedTriggerIndex}
@@ -138,6 +138,7 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
             setSelectedTriggerIndex(v);
           }}
           data-cy="when-select"
+          id="event-select"
         >
           {triggers.map((t, i) => (
             <Option

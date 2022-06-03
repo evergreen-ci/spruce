@@ -39,16 +39,13 @@ export const RegexSelectorInput: React.VFC<RegexSelectorProps> = ({
   const dropdownId = useMemo(() => uuid(), []);
   const inputId = useMemo(() => uuid(), []);
   return (
-    <Container
-      canDelete={canDelete}
-      data-cy={`${dataCyPrefix}-regex-selector-container`}
-    >
+    <Container canDelete={canDelete} data-cy="regex-selector-container">
       <FlexRow>
         <div>
           <InputLabel htmlFor={dropdownId}>Field name</InputLabel>
           <StyledSelect
             id={dropdownId}
-            data-cy={`${dataCyPrefix}-regex-selector-dropdown`}
+            data-cy="regex-selector-dropdown"
             value={selectedOption}
             onChange={onChangeSelectedOption}
           >
@@ -70,18 +67,16 @@ export const RegexSelectorInput: React.VFC<RegexSelectorProps> = ({
         <FlexRowAlign>
           <StyledInput
             label="Regex"
-            data-cy={`${dataCyPrefix}-regex-selector-input`}
+            data-cy="regex-selector-input"
             id={inputId}
             onChange={onChangeRegexValue}
             value={regexInputValue}
             disabled={!selectedOption}
           />
           {canDelete && (
-            <TrashContainer
-              data-cy={`${dataCyPrefix}-regex-selector-trash-container`}
-            >
+            <TrashContainer data-cy="regex-selector-trash-container">
               <IconButton
-                data-cy={`${dataCyPrefix}-regex-selector-trash`}
+                data-cy="regex-selector-trash"
                 onClick={onDelete}
                 aria-label="Remove regex selector row"
               >
