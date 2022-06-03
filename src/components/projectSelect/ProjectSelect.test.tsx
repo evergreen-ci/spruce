@@ -1,10 +1,9 @@
 import { MockedProvider } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
-import { MemoryRouter } from "react-router-dom";
 import { getCommitsRoute } from "constants/routes";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
 import { GET_PROJECTS } from "gql/queries";
-import { render, act, waitFor } from "test_utils";
+import { renderWithRouterMatch, act, waitFor } from "test_utils";
 import { ProjectSelect } from ".";
 
 describe("projectSelect", () => {
@@ -15,16 +14,14 @@ describe("projectSelect", () => {
   it("sets the currently selected project to what ever is passed in's display name", async () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <MemoryRouter>
-          <ProjectSelect
-            selectedProjectIdentifier="evergreen"
-            getRoute={getCommitsRoute}
-          />
-        </MemoryRouter>
+        <ProjectSelect
+          selectedProjectIdentifier="evergreen"
+          getRoute={getCommitsRoute}
+        />
       </MockedProvider>
     );
 
-    const { baseElement } = render(<Component />);
+    const { baseElement } = renderWithRouterMatch(<Component />);
     await waitFor(() => {
       expect(baseElement).toHaveTextContent("evergreen smoke test");
     });
@@ -33,15 +30,13 @@ describe("projectSelect", () => {
   it("should toggle dropdown when clicking on it", async () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <MemoryRouter>
-          <ProjectSelect
-            selectedProjectIdentifier="evergreen"
-            getRoute={getCommitsRoute}
-          />
-        </MemoryRouter>
+        <ProjectSelect
+          selectedProjectIdentifier="evergreen"
+          getRoute={getCommitsRoute}
+        />
       </MockedProvider>
     );
-    const { queryByDataCy } = render(<Component />);
+    const { queryByDataCy } = renderWithRouterMatch(<Component />);
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
     expect(queryByDataCy("project-select-options")).not.toBeInTheDocument();
@@ -54,15 +49,15 @@ describe("projectSelect", () => {
   it("should narrow down search results when filtering on projects", async () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <MemoryRouter>
-          <ProjectSelect
-            selectedProjectIdentifier="evergreen"
-            getRoute={getCommitsRoute}
-          />
-        </MemoryRouter>
+        <ProjectSelect
+          selectedProjectIdentifier="evergreen"
+          getRoute={getCommitsRoute}
+        />
       </MockedProvider>
     );
-    const { queryByDataCy, findAllByDataCy } = render(<Component />);
+    const { queryByDataCy, findAllByDataCy } = renderWithRouterMatch(
+      <Component />
+    );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
     expect(queryByDataCy("project-select-options")).not.toBeInTheDocument();

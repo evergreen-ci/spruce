@@ -1,10 +1,6 @@
 import { useState } from "react";
 import { useUpsertQueryParams } from "hooks";
-import {
-  renderWithRouterMatch as render,
-  fireEvent,
-  renderWithRouterMatch,
-} from "test_utils";
+import { fireEvent, renderWithRouterMatch } from "test_utils";
 
 const Content = () => {
   const onSubmit = useUpsertQueryParams();
@@ -36,7 +32,7 @@ const Content = () => {
 };
 describe("useUpsertQueryParams", () => {
   it("renders normally and doesn't affect the url", () => {
-    const { history } = render(<Content />, {
+    const { history } = renderWithRouterMatch(<Content />, {
       route: "/",
       path: "/",
     });
@@ -45,7 +41,7 @@ describe("useUpsertQueryParams", () => {
   });
 
   it("should add input query params to the url if none exist", () => {
-    const { queryByDataCy, history } = render(<Content />, {
+    const { queryByDataCy, history } = renderWithRouterMatch(<Content />, {
       route: "/",
       path: "/",
     });
@@ -88,7 +84,7 @@ describe("useUpsertQueryParams", () => {
   });
 
   it("should not allow duplicate input filters for the same key as query params", () => {
-    const { queryByDataCy, history } = render(<Content />, {
+    const { queryByDataCy, history } = renderWithRouterMatch(<Content />, {
       route: "/",
       path: "/",
     });
@@ -113,7 +109,7 @@ describe("useUpsertQueryParams", () => {
   });
 
   it("should allow multiple input filters for different keys as query params", async () => {
-    const { queryByDataCy, history } = render(<Content />, {
+    const { queryByDataCy, history } = renderWithRouterMatch(<Content />, {
       route: "/",
       path: "/",
     });
