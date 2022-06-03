@@ -142,8 +142,6 @@ describe("Task table", () => {
       it(`Updates URL and displays up to ${pageSize} results at once when the page size is changed to ${pageSize}`, () => {
         clickOnPageSizeBtnAndAssertURLandTableSize(
           pageSize,
-          "tasks-table-page-size-selector",
-          `tasks-table-page-size-selector-${pageSize}`,
           dataCyTableDataRows
         );
       });
