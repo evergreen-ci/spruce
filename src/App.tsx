@@ -19,26 +19,21 @@ const globalStyles = css`
 `;
 
 const App: React.VFC = () => (
-  <ErrorBoundary>
-    <ContextProviders>
-      <Router>
-        <GQLWrapper>
-          <Routes>
-            <Route path={routes.login} element={<Login />} />
-            <Route
-              path="/*"
-              element={
-                <>
-                  <Global styles={globalStyles} />
-                  <Content />
-                </>
-              }
-            />
-          </Routes>
-        </GQLWrapper>
-      </Router>
-    </ContextProviders>
-  </ErrorBoundary>
+  <>
+    <Global styles={globalStyles} />
+    <ErrorBoundary>
+      <ContextProviders>
+        <Router>
+          <GQLWrapper>
+            <Routes>
+              <Route path={routes.login} element={<Login />} />
+              <Route path="/*" element={<Content />} />
+            </Routes>
+          </GQLWrapper>
+        </Router>
+      </ContextProviders>
+    </ErrorBoundary>
+  </>
 );
 
 export default App;
