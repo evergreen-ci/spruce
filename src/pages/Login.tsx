@@ -23,8 +23,7 @@ export const Login: React.VFC = () => {
   // this top-level query is required for authentication to work
   // afterware is used at apollo link level to authenticate or deauthenticate user based on response to query
   // therefore this could be any query as long as it is top-level
-  const { data } = useQuery<GetUserQuery, GetUserQueryVariables>(GET_USER);
-  localStorage.setItem("userId", data?.user?.userId ?? "");
+  useQuery<GetUserQuery, GetUserQueryVariables>(GET_USER);
 
   const loginHandler = (): void => {
     login({ username, password });
