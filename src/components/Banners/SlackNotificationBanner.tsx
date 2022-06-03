@@ -104,6 +104,7 @@ export const SlackNotificationBanner = () => {
                 onKeyPress={(e) =>
                   e.key === "Enter" && saveNotificationSettings()
                 }
+                autoFocus
               />
             }
             onConfirm={() => saveNotificationSettings()}

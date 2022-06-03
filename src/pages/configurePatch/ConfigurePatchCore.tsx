@@ -133,6 +133,7 @@ export const ConfigurePatchCore: React.VFC<Props> = ({ patch }) => {
         label="Patch Name"
         data-cy="patch-name-input"
         value={description}
+        style={{ fontWeight: "bold", fontSize: "16px" }}
         onChange={(e) => setDescription(e.target.value)}
       />
       <PageLayout>
@@ -267,8 +268,4 @@ const filterAliases = (
 
 const StyledInput = styled(TextInput)`
   margin-bottom: ${size.s};
-  input {
-    font-weight: 600;
-    font-size: 16px; // Remove when TextInput is updated, since there is a new props baseFontSize.
-  }
 `;

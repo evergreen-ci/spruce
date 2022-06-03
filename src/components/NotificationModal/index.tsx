@@ -225,7 +225,7 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
               set(targetCopy, targetPath, event.target.value);
               setTarget(targetCopy);
             }}
-            value={get(target, targetPath, "")}
+            value={target[targetPath] ?? ""}
           />
         )}
       </div>

@@ -50,7 +50,6 @@ export const SetPatchPriority: React.VFC<SetPriorityProps> = ({
           value={priority.toString()}
           onChange={(e) => setPriority(parseInt(e.target.value, 10))}
           min={0}
-          max={Number.MAX_SAFE_INTEGER}
           size={1}
           autoFocus
           type="number"

@@ -217,7 +217,6 @@ export const ActionButtons: React.VFC<Props> = ({
               label="Set new priority"
               size={1}
               min={0}
-              max={Number.MAX_SAFE_INTEGER}
               type="number"
               value={priority.toString()}
               onChange={(e) => setPriority(parseInt(e.target.value, 10))}
