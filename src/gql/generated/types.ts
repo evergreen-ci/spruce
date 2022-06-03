@@ -2178,16 +2178,6 @@ export type PatchesPagePatchesFragment = {
     createTime?: Maybe<Date>;
     commitQueuePosition?: Maybe<number>;
     canEnqueueToCommitQueue: boolean;
-    childPatches?: Maybe<
-      Array<{
-        baseVersionID?: Maybe<string>;
-        githash: string;
-        id: string;
-        projectID: string;
-        taskCount?: Maybe<number>;
-        status: string;
-      }>
-    >;
     versionFull?: Maybe<{
       id: string;
       status: string;
@@ -3733,26 +3723,7 @@ export type PatchQuery = {
     projectIdentifier: string;
     githash: string;
     patchNumber: number;
-    taskCount?: Maybe<number>;
-    baseVersionID?: Maybe<string>;
-    canEnqueueToCommitQueue: boolean;
-    childPatches?: Maybe<
-      Array<{
-        baseVersionID?: Maybe<string>;
-        githash: string;
-        id: string;
-        projectID: string;
-        taskCount?: Maybe<number>;
-        status: string;
-      }>
-    >;
     versionFull?: Maybe<{ id: string }>;
-    duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
-    time?: Maybe<{
-      started?: Maybe<string>;
-      submittedAt: string;
-      finished?: Maybe<string>;
-    }>;
   } & BasePatchFragment;
 };
 
@@ -4243,13 +4214,16 @@ export type VersionQuery = {
       canEnqueueToCommitQueue: boolean;
       childPatches?: Maybe<
         Array<{
-          baseVersionID?: Maybe<string>;
-          githash: string;
           id: string;
+          githash: string;
           projectIdentifier: string;
           taskCount?: Maybe<number>;
           status: string;
-          versionFull?: Maybe<{ id: string; status: string }>;
+          versionFull?: Maybe<{
+            id: string;
+            status: string;
+            baseVersion?: Maybe<{ id: string }>;
+          }>;
         }>
       >;
     }>;

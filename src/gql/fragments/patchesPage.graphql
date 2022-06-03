@@ -8,14 +8,6 @@ fragment PatchesPagePatches on Patches {
     status
     createTime
     commitQueuePosition
-    childPatches {
-      baseVersionID
-      githash
-      id
-      projectID
-      taskCount
-      status
-    }
     versionFull {
       id
       taskStatusStats(options: {}) {
