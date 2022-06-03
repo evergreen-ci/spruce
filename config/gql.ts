@@ -29,6 +29,11 @@ function transform(src: string, id: string) {
   }
 }
 
+
+/**
+ * SpruceVitePluginGQL is a vite plugin that transforms graphql files and also handles processing fragments
+ * @returns Plugin
+ */
 export default function SpruceVitePluginGQL() {
   return {
     name: 'spruce-plugin-gql',

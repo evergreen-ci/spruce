@@ -47,12 +47,12 @@ export default defineConfig({
         NodeModulesPolyfillPlugin(),
         esbuildCommonjs(["antd"]),
       ],
+      external: ["highlight.js/lib/languages/c-like"],
     },
   },
   build: {
     rollupOptions: {
       plugins: [rollupNodePolyFill()],
-      external: "highlight.js/lib/languages/c-like",
     },
     outDir: "build",
   },
