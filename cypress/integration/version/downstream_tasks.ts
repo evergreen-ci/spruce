@@ -21,7 +21,6 @@ describe("Downstream Tasks Tab", () => {
   });
 
   it("Links to base commit", () => {
-    cy.dataCy("downstream-task-base-commit").should("contain.text", "1483700");
     cy.dataCy("downstream-task-base-commit")
       .should("have.attr", "href")
       .and(
