@@ -1,9 +1,11 @@
-export const customFormats = {
+import { validators } from "utils";
+
+const { validateURL, validateJiraURL } = validators;
+
+export const customFormats = (jiraHost: string) => ({
   // Permit empty string but disallow whitespace
   noSpaces: /^$|^\S+$/,
   // Permit url
-  validURL: (value) =>
-    /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/gi.test(
-      value
-    ),
-};
+  validURL: validateURL,
+  validJiraTicket: (url: string) => validateJiraURL(jiraHost, url),
+});

@@ -11,6 +11,7 @@ import {
   IssueLinkInput,
 } from "gql/generated/types";
 import { ADD_ANNOTATION } from "gql/mutations";
+import { useSpruceConfig } from "hooks";
 import { numbers } from "utils";
 
 const { toDecimal } = numbers;
@@ -68,6 +69,9 @@ export const AddIssueModal: React.VFC<Props> = ({
     refetchQueries: ["GetAnnotationEventData"],
   });
 
+  const spruceConfig = useSpruceConfig();
+  const jiraHost = spruceConfig?.jira?.host;
+
   const handleSubmit = () => {
     const apiIssue: IssueLinkInput = {
       url: formState.url,
@@ -91,16 +95,21 @@ export const AddIssueModal: React.VFC<Props> = ({
       buttonText={`Add ${issueString}`}
       submitDisabled={!canSubmit}
     >
-      <SpruceForm
-        onSubmit={handleSubmit}
-        schema={addIssueModalSchema.schema}
-        uiSchema={addIssueModalSchema.uiSchema}
-        formData={formState}
-        onChange={({ formData, errors }) => {
-          setFormState(formData);
-          setCanSubmit(errors.length === 0);
-        }}
-      />
+      {jiraHost && (
+        <SpruceForm
+          onSubmit={handleSubmit}
+          schema={addIssueModalSchema.schema}
+          uiSchema={addIssueModalSchema.uiSchema}
+          formData={formState}
+          onChange={({ formData, errors }) => {
+            setFormState(formData);
+            setCanSubmit(errors.length === 0);
+          }}
+          customFormatFields={{
+            jiraHost,
+          }}
+        />
+      )}
     </ConfirmationModal>
   );
 };
@@ -111,9 +120,9 @@ const addIssueModalSchema: SpruceFormProps = {
     properties: {
       url: {
         type: "string" as "string",
-        title: "URL",
+        title: "Ticket URL",
         minLength: 1,
-        format: "validURL",
+        format: "validJiraTicket",
       },
       issueKey: {
         type: "string" as "string",

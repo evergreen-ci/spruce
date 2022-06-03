@@ -37,6 +37,11 @@ export const transformErrors = (errors: AjvError[]) =>
                 ...error,
                 message: "Value should be a valid URL.",
               };
+            case "validJiraTicket":
+              return {
+                ...error,
+                message: "Value should be a valid Jira ticket URL.",
+              };
             default:
               return { ...error, message: "" };
           }
