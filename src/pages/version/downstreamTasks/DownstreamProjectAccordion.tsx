@@ -8,7 +8,7 @@ import { TableProps } from "antd/es/table";
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { Accordion, AccordionWrapper } from "components/Accordion";
-import { PageSizeSelector } from "components/PageSizeSelector";
+import PageSizeSelector from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { ResultCountLabel } from "components/ResultCountLabel";
@@ -208,7 +208,9 @@ export const DownstreamProjectAccordion: React.VFC<DownstreamProjectAccordionPro
                 <PageSizeSelector
                   data-cy="tasks-table-page-size-selector"
                   value={variables.limit}
-                  onClick={(l) => dispatch({ type: "onChangeLimit", limit: l })}
+                  onChange={(l) =>
+                    dispatch({ type: "onChangeLimit", limit: l })
+                  }
                 />
               </TableControlInnerRow>
             </TableControlOuterRow>

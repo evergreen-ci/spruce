@@ -4,7 +4,9 @@ import { Table } from "antd";
 import { SortOrder } from "antd/es/table/interface";
 import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
-import { PageSizeSelector } from "components/PageSizeSelector";
+import PageSizeSelector, {
+  usePageSizeSelector,
+} from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import {
@@ -62,7 +64,7 @@ export const TestsTable: React.VFC = () => {
   const { task } = taskData || {};
   const queryVariables = getQueryVariables(search, taskId);
   const { cat, dir, pageNum, limitNum } = queryVariables;
-
+  const setPageSize = usePageSizeSelector();
   const appliedDefaultSort = useRef(null);
   useEffect(() => {
     if (
@@ -148,6 +150,10 @@ export const TestsTable: React.VFC = () => {
     }
     updateQueryParams(queryParams);
   };
+  const handlePageSizeChange = (pageSize: number) => {
+    setPageSize(pageSize);
+    taskAnalytics.sendEvent({ name: "Change Page Size" });
+  };
 
   const { taskTests } = data ?? {};
   const { filteredTestCount, totalTestCount, testResults } = taskTests ?? {};
@@ -172,9 +178,7 @@ export const TestsTable: React.VFC = () => {
           <PageSizeSelector
             data-cy="tests-table-page-size-selector"
             value={limitNum}
-            sendAnalyticsEvent={() =>
-              taskAnalytics.sendEvent({ name: "Change Page Size" })
-            }
+            onChange={handlePageSizeChange}
           />
         </TableControlInnerRow>
       </TableControlOuterRow>
