@@ -8,6 +8,7 @@ import { NodeModulesPolyfillPlugin } from "@esbuild-plugins/node-modules-polyfil
 import vitePluginImp from "vite-plugin-imp";
 import { viteCommonjs, esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
 import envCompatible from "vite-plugin-env-compatible";
+import checker from "vite-plugin-checker";
 import gql from "./config/gql";
 
 const absolutePaths = readdirSync(path.resolve(__dirname, "./src")).filter(
@@ -64,9 +65,11 @@ export default defineConfig({
 
   plugins: [
     viteCommonjs(),
+    // Inject env variables
     envCompatible({
       prefix: "REACT_APP_",
     }),
+    // Use emotion jsx tag instead of React.JSX
     react({
       jsxImportSource: "@emotion/react",
       babel: {
@@ -75,6 +78,7 @@ export default defineConfig({
       // exclude storybook stories
       exclude: [/\.stories\.tsx?$/],
     }),
+    // Dynamic imports of antd styles
     vitePluginImp({
       optimize: true,
       style: "less",
@@ -86,7 +90,10 @@ export default defineConfig({
         },
       ],
     }),
+    // Support imports of graphql files
     gql(),
+    // Typescript checking
+    checker({ typescript: true }),
   ],
   css: {
     preprocessorOptions: {
