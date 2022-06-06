@@ -48,7 +48,6 @@ export default defineConfig({
         NodeModulesPolyfillPlugin(),
         esbuildCommonjs(["antd"]),
       ],
-      external: ["highlight.js/lib/languages/c-like"],
     },
   },
   build: {
