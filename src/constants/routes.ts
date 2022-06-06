@@ -84,7 +84,7 @@ export const routes = {
   projectSettingsRedirect: paths.projects,
   userPatches: `${paths.user}/:id/${PageNames.Patches}`,
   version: `${baseRoute.version}/*`,
-  commits: `${baseRoute.commits}/*`,
+  commits: `${baseRoute.commits}/:id`,
   variantHistory: `${paths.variantHistory}/:projectId/:variantName`,
   taskHistory: `${paths.taskHistory}/:projectId/:taskName`,
   jobLogs: `${paths.jobLogs}/:taskId/:execution`,

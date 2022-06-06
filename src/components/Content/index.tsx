@@ -62,25 +62,20 @@ export const Content: React.VFC = () => {
     <PageGrid>
       <Header />
       <Routes>
-        <Route path={baseRoute.task}>
-          <Route path={tab} element={<Task />} />
-          <Route path="" element={<Task />} />
+        <Route path={baseRoute.task} element={<Task />}>
+          <Route path={tab} />
         </Route>
         <Route path={baseRoute.configurePatch} element={<ConfigurePatch />}>
-          <Route path={tab} element={<ConfigurePatch />} />
-          <Route path="" element={<ConfigurePatch />} />
+          <Route path={tab} />
         </Route>
-        <Route path={routes.patch}>
-          <Route path={tab} element={<VersionPage />} />
-          <Route path="" element={<VersionPage />} />
+        <Route path={routes.patch} element={<VersionPage />}>
+          <Route path={tab} />
         </Route>
-        <Route path={baseRoute.version}>
-          <Route path={tab} element={<VersionPage />} />
-          <Route path="" element={<VersionPage />} />
+        <Route path={baseRoute.version} element={<VersionPage />}>
+          <Route path={tab} />
         </Route>
-        <Route path={routes.jobLogs}>
-          <Route path=":groupId" element={<JobLogs />} />
-          <Route path="" element={<JobLogs />} />
+        <Route path={routes.jobLogs} element={<JobLogs />}>
+          <Route path=":groupId" />
         </Route>
         <Route path={routes.hosts} element={<Hosts />} />
         <Route path={routes.host} element={<Host />} />
@@ -94,27 +89,23 @@ export const Content: React.VFC = () => {
           element={<ProjectSettingsRedirect />}
         />
         <Route path={routes.userPatches} element={<UserPatches />} />
-        <Route path={routes.taskQueue}>
-          <Route path="" element={<TaskQueue />} />
-          <Route path=":distro" element={<TaskQueue />} />
-          <Route path=":distro/:taskId" element={<TaskQueue />} />
+        <Route path={routes.taskQueue} element={<TaskQueue />}>
+          <Route path=":distro" />
+          <Route path=":distro/:taskId" />
         </Route>
         <Route path={routes.projectPatches} element={<ProjectPatches />} />
-        <Route path={baseRoute.projectSettings}>
-          <Route path={tab} element={<ProjectSettings />} />
-          <Route path="" element={<ProjectSettings />} />
+        <Route path={baseRoute.projectSettings} element={<ProjectSettings />}>
+          <Route path={tab} />
         </Route>
         <Route path={routes.spawn} element={<Spawn />}>
           <Route path={tab} />
         </Route>
         <Route path={routes.commitQueue} element={<CommitQueue />} />
-        <Route path={routes.preferences}>
-          <Route path={tab} element={<Preferences />} />
-          <Route path="" element={<Preferences />} />
+        <Route path={routes.preferences} element={<Preferences />}>
+          <Route path={tab} />
         </Route>
-        <Route path={baseRoute.commits}>
-          <Route path=":id" element={<Commits />} />
-          <Route path="" element={<Commits />} />
+        <Route path={baseRoute.commits} element={<Commits />}>
+          <Route path=":id" />
         </Route>
         <Route path={routes.taskHistory} element={<TaskHistory />} />
         <Route path={routes.variantHistory} element={<VariantHistory />} />
