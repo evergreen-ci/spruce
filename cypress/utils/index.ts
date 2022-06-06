@@ -54,18 +54,14 @@ export const clickOnPageBtnAndAssertURLandTableResults = (
 /**
  * Assert limit query param and table length after clicking on a page size button
  * @param pageSize new page size
- * @param dataCyPageSizeSelectorToggle data-cy for page size dropdown toggle
- * @param dataCyPageSizeBtn data-cy for page size button to select page size
  * @param dataCyTableRows dat-cy for table rows
  */
 export const clickOnPageSizeBtnAndAssertURLandTableSize = (
   pageSize: number,
-  dataCyPageSizeSelectorToggle: string,
-  dataCyPageSizeBtn: string,
   dataCyTableRows: string
 ) => {
-  cy.dataCy(dataCyPageSizeSelectorToggle).click();
-  cy.dataCy(dataCyPageSizeBtn).click();
+  cy.get("button[aria-labelledby='page-size-select']").click();
+  cy.contains(`${pageSize} / page`).click();
   cy.get(dataCyTableRows).should("have.length.of.at.most", pageSize);
   cy.location("search").should("include", `limit=${pageSize}`);
 };
