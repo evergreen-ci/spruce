@@ -11,17 +11,7 @@ function getCode(schema: string) {
 function transform(src: string, id: string) {
   if (id.endsWith('.graphql') || id.endsWith('.gql')) {
 
-    // find import statements and replace them with the code
-    const found = src.match(/#import ".+"/gm);
-    if (found) {
-        found.forEach(importStatement => {
-            const importPath = importStatement.replace(/#import "(.+)"/, '$1');
-            // get absolute path
-            const absolutePath = path.resolve(path.dirname(id), importPath);
-            const importCode = fs.readFileSync(absolutePath).toString();
-            src = src.replace(importStatement, importCode);
-        })
-    }
+    src = findAndReplaceFragments(src, id);
     return {
       code: getCode(JSON.stringify(src)),
       map: null
@@ -29,6 +19,21 @@ function transform(src: string, id: string) {
   }
 }
 
+const findAndReplaceFragments = (fragment:string, relativePath:string) => {
+    const matches = fragment.match(/#import ".+"/gm);
+    if(matches) {
+        matches.forEach(match => {
+            const importPath = match.replace(/#import "(.+)"/, '$1');
+            // get absolute path
+            const absolutePath = path.resolve(path.dirname(relativePath), importPath);
+            // read file
+            const importCode = fs.readFileSync(absolutePath).toString();
+            // recursively navigate through fragments and replace them
+            fragment = fragment.replace(match, findAndReplaceFragments(importCode, absolutePath));
+        })
+    }
+    return fragment;
+}
 
 /**
  * SpruceVitePluginGQL is a vite plugin that transforms graphql files and also handles processing fragments
