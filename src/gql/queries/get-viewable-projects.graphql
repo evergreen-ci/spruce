@@ -8,7 +8,6 @@ query GetViewableProjectRefs {
       id
       identifier
       repo
-      repoRefId
       owner
       displayName
       isFavorite
