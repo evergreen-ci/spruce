@@ -26,7 +26,7 @@ describe("versionTaskPageBreadcrumbs", () => {
       </MockedProvider>,
       {
         route: "/version/123",
-        path: "/version/123",
+        path: "/version/*",
       }
     );
     await waitFor(() => {
