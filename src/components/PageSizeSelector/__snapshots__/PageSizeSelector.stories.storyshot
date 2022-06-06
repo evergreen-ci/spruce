@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`storybook Storyshots PageSizeSelector Default 1`] = `
+<div
+  className="css-5krlfz-StyledSelect ekttol50"
+>
+  <button
+    aria-controls="select-1-menu"
+    aria-describedby="select-1-description"
+    aria-disabled={false}
+    aria-expanded={false}
+    aria-invalid={false}
+    aria-labelledby="page-size-select"
+    className="leafygreen-ui-1u999q6"
+    data-testid="leafygreen-ui-select-menubutton"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+    value="10"
+  >
+    <div
+      className="leafygreen-ui-1ktj4tm"
+    />
+    <div
+      className="leafygreen-ui-sl5lf4"
+    >
+      <div
+        className="leafygreen-ui-e32n5q"
+      >
+        <div
+          className="leafygreen-ui-17aj16e"
+        >
+          10 / page
+        </div>
+      </div>
+      <span
+        className="leafygreen-ui-18n6mp2"
+      >
+        <svg
+          alt=""
+          aria-hidden={true}
+          className="leafygreen-ui-195unnb"
+          height={16}
+          role="presentation"
+          viewBox="0 0 16 16"
+          width={16}
+        >
+          <path
+            d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
+            fill="currentColor"
+          />
+        </svg>
+      </span>
+    </div>
+  </button>
+</div>
+`;
