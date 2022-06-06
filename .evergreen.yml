@@ -49,16 +49,6 @@ functions:
         working_dir: spruce/evergreen
         command: make configure-mongod
 
-  run-make:
-    command: subprocess.exec
-    params:
-      working_dir: spruce/evergreen
-      binary: make
-      args: ["${make_args|}", "${target}"]
-      background: false
-      env:
-        GOROOT: /opt/golang/go1.16
-
   run-make-background:
     command: subprocess.exec
     params:
@@ -168,7 +158,6 @@ functions:
       working_dir: spruce
       script: |
         export PATH=/opt/nodejs/node-v16.13.0-linux-x64/bin:$PATH
-        ./node_modules/.bin/wait-on http://localhost:3000
         ./node_modules/.bin/cypress run --record --key ${cypress_record_key} --reporter junit
 
   copy-cmdrc:
