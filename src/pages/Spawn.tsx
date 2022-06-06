@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, Link, Outlet } from "react-router-dom";
+import { useParams, Link, Route, Routes, Navigate } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
 import {
   PageWrapper,
@@ -8,6 +8,8 @@ import {
   SideNavItem,
 } from "components/styles";
 import { routes, SpawnTab } from "constants/routes";
+import { SpawnHost } from "./spawn/SpawnHost";
+import { SpawnVolume } from "./spawn/SpawnVolume";
 
 export const Spawn: React.VFC = () => {
   const { tab } = useParams<{ tab: string }>();
@@ -48,7 +50,11 @@ export const Spawn: React.VFC = () => {
         </SideNavGroup>
       </SideNav>
       <PageWrapper>
-        <Outlet />
+        <Routes>
+          <Route path={SpawnTab.Host} element={<SpawnHost />} />
+          <Route path={SpawnTab.Volume} element={<SpawnVolume />} />
+          <Route path="*" element={<Navigate to={SpawnTab.Host} replace />} />
+        </Routes>
       </PageWrapper>
     </>
   );

@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { useAnalyticsAttributes } from "analytics";
 import { Feedback } from "components/Feedback";
 import { Header } from "components/Header";
@@ -10,7 +10,7 @@ import { PageGrid } from "components/styles/Layout";
 import { TaskStatusIconLegend } from "components/TaskStatusIconLegend";
 import { UserPatchesRedirect } from "components/UserPatchesRedirect";
 import WelcomeModal from "components/WelcomeModal";
-import { baseRoute, routes, SpawnTab } from "constants/routes";
+import { baseRoute, routes } from "constants/routes";
 import { zIndex, size } from "constants/tokens";
 import { newSpruceUser } from "constants/welcomeModalProps";
 import { useAuthStateContext } from "context/auth";
@@ -30,8 +30,6 @@ import { Preferences } from "pages/Preferences";
 import { ProjectPatches } from "pages/ProjectPatches";
 import { ProjectSettings } from "pages/ProjectSettings";
 import { Spawn } from "pages/Spawn";
-import { SpawnHost } from "pages/spawn/SpawnHost";
-import { SpawnVolume } from "pages/spawn/SpawnVolume";
 import { Task } from "pages/Task";
 import { TaskHistory } from "pages/TaskHistory";
 import { TaskQueue } from "pages/TaskQueue";
@@ -107,10 +105,7 @@ export const Content: React.VFC = () => {
           <Route path="" element={<ProjectSettings />} />
         </Route>
         <Route path={routes.spawn} element={<Spawn />}>
-          <Route path={SpawnTab.Host} element={<SpawnHost />} />
-          <Route path={SpawnTab.Volume} element={<SpawnVolume />} />
-          <Route path="*" element={<Navigate to={SpawnTab.Host} replace />} />
-          <Route path="" element={<Navigate to={SpawnTab.Host} replace />} />
+          <Route path={tab} />
         </Route>
         <Route path={routes.commitQueue} element={<CommitQueue />} />
         <Route path={routes.preferences}>
