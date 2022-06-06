@@ -21,10 +21,7 @@ const Content = ({ status }: { status: string }) => (
 );
 describe("waterfallTaskStatusIcon", () => {
   it("tooltip should contain task name, duration, list of failing test names and additonal test count", async () => {
-    const { queryByDataCy, queryByText } = render(
-      <Content status="failed" />,
-      {}
-    );
+    const { queryByDataCy, queryByText } = render(<Content status="failed" />);
     userEvent.hover(queryByDataCy("waterfall-task-status-icon"));
     await waitFor(() => {
       expect(queryByDataCy("waterfall-task-status-icon-tooltip")).toBeVisible();
