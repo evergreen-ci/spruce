@@ -40,7 +40,7 @@ const findAndReplaceFragments = (fragment: string, relativePath: string) => {
 
 /**
  * SpruceVitePluginGQL is a vite plugin that transforms graphql files and also handles processing fragments
- * @returns Plugin
+ * @returns VitePlugin
  */
 export default function SpruceVitePluginGQL() {
   return {
