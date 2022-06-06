@@ -10,7 +10,7 @@ import { PageGrid } from "components/styles/Layout";
 import { TaskStatusIconLegend } from "components/TaskStatusIconLegend";
 import { UserPatchesRedirect } from "components/UserPatchesRedirect";
 import WelcomeModal from "components/WelcomeModal";
-import { baseRoute, routes } from "constants/routes";
+import { routes } from "constants/routes";
 import { zIndex, size } from "constants/tokens";
 import { newSpruceUser } from "constants/welcomeModalProps";
 import { useAuthStateContext } from "context/auth";
@@ -62,16 +62,16 @@ export const Content: React.VFC = () => {
     <PageGrid>
       <Header />
       <Routes>
-        <Route path={baseRoute.task} element={<Task />}>
+        <Route path={routes.task} element={<Task />}>
           <Route path={tab} />
         </Route>
-        <Route path={baseRoute.configurePatch} element={<ConfigurePatch />}>
+        <Route path={routes.configurePatch} element={<ConfigurePatch />}>
           <Route path={tab} />
         </Route>
         <Route path={routes.patch} element={<VersionPage />}>
           <Route path={tab} />
         </Route>
-        <Route path={baseRoute.version} element={<VersionPage />}>
+        <Route path={routes.version} element={<VersionPage />}>
           <Route path={tab} />
         </Route>
         <Route path={routes.jobLogs} element={<JobLogs />}>
@@ -94,7 +94,7 @@ export const Content: React.VFC = () => {
           <Route path=":distro/:taskId" />
         </Route>
         <Route path={routes.projectPatches} element={<ProjectPatches />} />
-        <Route path={baseRoute.projectSettings} element={<ProjectSettings />}>
+        <Route path={routes.projectSettings} element={<ProjectSettings />}>
           <Route path={tab} />
         </Route>
         <Route path={routes.spawn} element={<Spawn />}>
@@ -104,7 +104,7 @@ export const Content: React.VFC = () => {
         <Route path={routes.preferences} element={<Preferences />}>
           <Route path={tab} />
         </Route>
-        <Route path={baseRoute.commits} element={<Commits />}>
+        <Route path={routes.commits} element={<Commits />}>
           <Route path=":id" />
         </Route>
         <Route path={routes.taskHistory} element={<TaskHistory />} />

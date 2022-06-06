@@ -58,37 +58,30 @@ const paths = {
   jobLogs: "/job-logs",
 };
 
-export const baseRoute = {
-  task: `${paths.task}/:id`,
-  configurePatch: `${paths.patch}/:id/configure`,
-  version: `${paths.version}/:id`,
-  commits: paths.commits,
-  projectSettings: `${paths.project}/:identifier/${PageNames.Settings}`,
-};
-
 export const routes = {
   commitQueue: `${paths.commitQueue}/:id`,
-  configurePatch: `${paths.patch}/:id/configure/*`,
+  commits: paths.commits,
+  configurePatch: `${paths.patch}/:id/configure`,
   host: `${paths.host}/:id`,
   hosts: paths.hosts,
+  jobLogs: `${paths.jobLogs}/:taskId/:execution`,
   login: paths.login,
   myPatches: `${paths.user}/${PageNames.Patches}`,
   patch: `${paths.patch}/:id`,
+  preferences: paths.preferences,
   projectPatches: `${paths.project}/:id/${PageNames.Patches}`,
+  projectSettings: `${paths.project}/:identifier/${PageNames.Settings}`,
+  projectSettingsRedirect: paths.projects,
   spawn: paths.spawn,
   spawnHost: `${paths.spawn}/${SpawnTab.Host}`,
   spawnVolume: `${paths.spawn}/${SpawnTab.Volume}`,
-  task: `${baseRoute.task}/*`,
-  taskQueue: paths.taskQueue,
-  userPatchesRedirect: `${paths.user}/:id`,
-  projectSettingsRedirect: paths.projects,
-  userPatches: `${paths.user}/:id/${PageNames.Patches}`,
-  version: `${baseRoute.version}/*`,
-  commits: `${baseRoute.commits}/:id`,
-  variantHistory: `${paths.variantHistory}/:projectId/:variantName`,
+  task: `${paths.task}/:id`,
   taskHistory: `${paths.taskHistory}/:projectId/:taskName`,
-  jobLogs: `${paths.jobLogs}/:taskId/:execution`,
-  preferences: paths.preferences,
+  taskQueue: paths.taskQueue,
+  userPatches: `${paths.user}/:id/${PageNames.Patches}`,
+  userPatchesRedirect: `${paths.user}/:id`,
+  variantHistory: `${paths.variantHistory}/:projectId/:variantName`,
+  version: `${paths.version}/:id`,
 };
 
 export const DEFAULT_PATCH_TAB = PatchTab.Tasks;
