@@ -3162,10 +3162,10 @@
     "@leafygreen-ui/hooks" "^7.0.0"
     "@leafygreen-ui/lib" "^9.0.0"
 
-"@leafygreen-ui/code@9.0.0":
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/code/-/code-9.0.0.tgz#fa67cfb0989204586a36ef4398cff3ec2c762987"
-  integrity sha512-TOTL1v3WGmQU75FM7FJLCL1BcHpPzkeme1/xCwAglU0tn4BFJl18L9ytmrLN9Ufn2RsJZvsHHAd0UPXMms/gcA==
+"@leafygreen-ui/code@9.1.0":
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/code/-/code-9.1.0.tgz#dd08ceb263df7b45634264beb89a863a753034e7"
+  integrity sha512-1Thrx571UIk0aavE32jztxefspN4Ny70Ix73VleT3Mrjz7G6tvwQVQlQkAuHV5znLS89DcpUO1TaWo6otKSAhg==
   dependencies:
     "@leafygreen-ui/a11y" "^1.2.2"
     "@leafygreen-ui/hooks" "^7.0.0"
