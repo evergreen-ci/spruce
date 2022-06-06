@@ -3,6 +3,7 @@ import {
   validateObjectId,
   validateSSHPublicKey,
   validateJiraURL,
+  validateJira,
 } from ".";
 
 describe("validateObjectId", () => {
@@ -80,5 +81,14 @@ describe("validateJiraURL", () => {
         "https://jira.example.com/browse/EVG-1/some/path"
       )
     ).toBeFalsy();
+  });
+});
+
+describe("validateJira", () => {
+  it("validates jira tickets", () => {
+    expect(validateJira("TEST-1")).toBeTruthy();
+    expect(validateJira("EVG-1")).toBeTruthy();
+    expect(validateJira("PD-1234")).toBeTruthy();
+    expect(validateJira("PD-")).toBeFalsy();
   });
 });

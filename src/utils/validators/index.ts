@@ -10,10 +10,9 @@ const validateDuration = (duration: any) => {
 
 const validateEmail = (v: string): boolean => /\S+@\S+\.\S+/.test(v);
 
-const jiraTicketNumberRegex = "[A-z]+-[0-9]+";
+const jiraTicketNumberRegex = ".+-[0-9]+";
 
-const validateJira = (v: string) =>
-  new RegExp(`/^${jiraTicketNumberRegex}/`).test(v);
+const validateJira = (v: string) => new RegExp(jiraTicketNumberRegex).test(v);
 
 const validateJiraURL = (jiraURL: string, url: string): boolean =>
   new RegExp(`^https://${jiraURL}/browse/${jiraTicketNumberRegex}$`).test(url);
