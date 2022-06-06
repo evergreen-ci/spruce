@@ -53,16 +53,18 @@ query Version($id: String!) {
       commitQueuePosition
       canEnqueueToCommitQueue
       childPatches {
-        baseVersionID
-        githash
         id
+        githash
         projectIdentifier
         taskCount
+        status
         versionFull {
           id
+          baseVersion {
+            id
+          }
           status
         }
-        status
       }
     }
     ...upstreamProject

@@ -113,12 +113,7 @@ describe("My Patches Page", () => {
 
     it("Changing page size updates URL and renders less than or equal to that many rows ", () => {
       [20, 10, 50, 100].forEach((pageSize) => {
-        clickOnPageSizeBtnAndAssertURLandTableSize(
-          pageSize,
-          "my-patches-page-size-selector",
-          `my-patches-page-size-selector-${pageSize}`,
-          dataCyTableRows
-        );
+        clickOnPageSizeBtnAndAssertURLandTableSize(pageSize, dataCyTableRows);
       });
     });
   });

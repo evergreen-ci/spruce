@@ -2,7 +2,9 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
-import { PageSizeSelector } from "components/PageSizeSelector";
+import PageSizeSelector, {
+  usePageSizeSelector,
+} from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
@@ -24,10 +26,17 @@ export const TableControl: React.VFC<Props> = ({
   onClear,
 }) => {
   const { id: versionId } = useParams<{ id: string }>();
-  const { sendEvent } = useVersionAnalytics(versionId);
+  const versionAnalytics = useVersionAnalytics(versionId);
+  const setPageSize = usePageSizeSelector();
 
+  const handlePageSizeChange = (pageSize: number) => {
+    setPageSize(pageSize);
+    versionAnalytics.sendEvent({
+      name: "Change Page Size",
+    });
+  };
   const onClearAll = () => {
-    sendEvent({ name: "Clear all filter" });
+    versionAnalytics.sendEvent({ name: "Clear all filter" });
     onClear();
   };
 
@@ -58,7 +67,7 @@ export const TableControl: React.VFC<Props> = ({
         <PageSizeSelector
           data-cy="tasks-table-page-size-selector"
           value={limit}
-          sendAnalyticsEvent={() => sendEvent({ name: "Change Page Size" })}
+          onChange={handlePageSizeChange}
         />
       </TableControlInnerRow>
     </TableControlOuterRow>

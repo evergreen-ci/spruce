@@ -5,7 +5,9 @@ import { Subtitle } from "@leafygreen-ui/typography";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { useHostsTableAnalytics } from "analytics";
-import { PageSizeSelector } from "components/PageSizeSelector";
+import PageSizeSelector, {
+  usePageSizeSelector,
+} from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { size } from "constants/tokens";
 import { HostEventsQuery, HostEventLogEntry } from "gql/generated/types";
@@ -26,6 +28,8 @@ export const HostTable: React.VFC<{
 }> = ({ loading, eventData, error, timeZone, page, limit, eventsCount }) => {
   const isHostPage = true;
   const hostsTableAnalytics = useHostsTableAnalytics(isHostPage);
+  const setPageSize = usePageSizeSelector();
+
   const hostEvents = eventData?.hostEvents;
   const logEntries = hostEvents?.eventLogEntries;
   const columnsTemplate: Array<ColumnProps<HostEventLogEntry>> = [
@@ -49,6 +53,11 @@ export const HostTable: React.VFC<{
     },
   ];
 
+  const handlePageSizeChange = (pageSize: number): void => {
+    setPageSize(pageSize);
+    hostsTableAnalytics.sendEvent({ name: "Change Page Size" });
+  };
+
   return (
     <HostCard error={error} loading={loading} metaData={false}>
       <TableTitle>
@@ -64,11 +73,7 @@ export const HostTable: React.VFC<{
           <PageSizeSelector
             data-cy="host-event-table-page-size-selector"
             value={limit}
-            sendAnalyticsEvent={() =>
-              hostsTableAnalytics.sendEvent({
-                name: "Change Page Size",
-              })
-            }
+            onChange={handlePageSizeChange}
           />
         </PaginationWrapper>
       </TableTitle>

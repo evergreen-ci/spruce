@@ -37,17 +37,17 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                 >
                   <label
                     className="leafygreen-ui-1v870ns"
-                    id="select-1-label"
+                    id="select-3-label"
                   >
                     Project Cloning Method
                   </label>
                   <button
-                    aria-controls="select-1-menu"
-                    aria-describedby="select-1-description"
+                    aria-controls="select-3-menu"
+                    aria-describedby="select-3-description"
                     aria-disabled={false}
                     aria-expanded={false}
                     aria-invalid={false}
-                    aria-labelledby="select-1-label"
+                    aria-labelledby="select-3-label"
                     className="leafygreen-ui-p6v5m8"
                     data-testid="leafygreen-ui-select-menubutton"
                     disabled={false}
