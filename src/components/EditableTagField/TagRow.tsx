@@ -1,11 +1,10 @@
 import { useReducer, useMemo } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
-import { Input } from "antd";
+import TextInput from "@leafygreen-ui/text-input";
 import { v4 as uuid } from "uuid";
 import Icon from "components/Icon";
 import { PlusButton } from "components/Spawn";
-import { InputLabel } from "components/styles";
 import { size } from "constants/tokens";
 import { ParameterInput, InstanceTag } from "gql/generated/types";
 import { reducer, getInitialState } from "./tagRowReducer";
@@ -41,8 +40,8 @@ export const TagRow: React.VFC<TagRowProps> = ({
         <FlexContainer>
           <FlexColumnContainer>
             <Section>
-              <InputLabel htmlFor={`tag_key_${tagId}`}>Key</InputLabel>
-              <Input
+              <TextInput
+                label="Key"
                 id={`tag_key_${tagId}`}
                 value={key}
                 onChange={(e) =>
@@ -54,8 +53,8 @@ export const TagRow: React.VFC<TagRowProps> = ({
           </FlexColumnContainer>
           <FlexColumnContainer>
             <Section>
-              <InputLabel htmlFor={`tag_value_${tagId}`}>Value</InputLabel>
-              <Input
+              <TextInput
+                label="Value"
                 id={`tag_value_${tagId}`}
                 value={value}
                 onChange={(e) =>
@@ -124,6 +123,7 @@ const ButtonContainer = styled.div`
 const FlexContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
 `;
 const FlexColumnContainer = styled.div`
   display: flex;
@@ -136,5 +136,5 @@ const Section = styled(FlexColumnContainer)`
 `;
 
 const IconButtonContainer = styled.div`
-  margin-top: ${size.l};
+  margin-bottom: ${size.xxs};
 `;

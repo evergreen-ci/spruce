@@ -1,13 +1,14 @@
-import React, { Fragment, useState, useEffect } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { Body } from "@leafygreen-ui/typography";
-import { Table, Skeleton, Input } from "antd";
+import { Table, Skeleton } from "antd";
 import { SortOrder } from "antd/es/table/interface";
 import debounce from "lodash.debounce";
 import get from "lodash/get";
 import { useParams, useLocation } from "react-router-dom";
+import TextInputWithGlyph from "components/TextInputWithGlyph";
 import { H3, WordBreak } from "components/Typography";
 import { size } from "constants/tokens";
 import {
@@ -114,26 +115,31 @@ export const FilesTables: React.VFC = () => {
   };
 
   return (
-    <>
-      <div>
-        <StyledInput
+    <ContentWrapper>
+      <TextInputWrapper>
+        <TextInputWithGlyph
+          aria-labelledby="search-file-names-input"
           placeholder="Search file names"
           onChange={onSearch}
-          suffix={<Icon glyph="MagnifyingGlass" />}
+          icon={<Icon glyph="MagnifyingGlass" />}
           data-cy="file-input"
         />
-      </div>
+      </TextInputWrapper>
       {renderTable()}
-    </>
+    </ContentWrapper>
   );
 };
+
+const ContentWrapper = styled.div`
+  padding: 0 ${size.xxs};
+`;
+
+const TextInputWrapper = styled.div`
+  margin-bottom: ${size.s};
+  width: 50%;
+`;
 
 const StyledTable = styled(Table)`
   padding-top: ${size.s};
   padding-bottom: ${size.s};
-`;
-
-const StyledInput = styled(Input)`
-  margin-bottom: ${size.s};
-  max-width: 500px;
 `;

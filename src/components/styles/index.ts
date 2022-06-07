@@ -1,5 +1,5 @@
 import { Divider } from "./Divider";
-import { FiltersWrapper, StyledInput } from "./filters";
+import { FiltersWrapper } from "./filters";
 import { inactiveElementStyle } from "./Inactive";
 import {
   ErrorMessage,
@@ -37,7 +37,6 @@ export {
   SideNavGroup,
   SideNavItem,
   SiderCard,
-  StyledInput,
   StyledLink,
   StyledRouterLink,
   TableContainer,

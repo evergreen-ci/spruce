@@ -2,8 +2,9 @@ import { useMemo } from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
+import TextInput from "@leafygreen-ui/text-input";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import { Select, Input } from "antd";
+import { Select } from "antd";
 import { v4 as uuid } from "uuid";
 import { InputLabel } from "components/styles";
 import { size } from "constants/tokens";
@@ -63,9 +64,9 @@ export const RegexSelectorInput: React.VFC<RegexSelectorProps> = ({
         <MatchesRegexLabel>matches regex</MatchesRegexLabel>
       </FlexRow>
       <RegexContainer>
-        <InputLabel htmlFor={inputId}>Regex</InputLabel>
-        <FlexRow>
+        <FlexRowAlign>
           <StyledInput
+            label="Regex"
             data-cy="regex-selector-input"
             id={inputId}
             onChange={onChangeRegexValue}
@@ -83,7 +84,7 @@ export const RegexSelectorInput: React.VFC<RegexSelectorProps> = ({
               </IconButton>
             </TrashContainer>
           )}
-        </FlexRow>
+        </FlexRowAlign>
       </RegexContainer>
     </Container>
   );
@@ -105,9 +106,12 @@ const StyledSelect = styled(Select)`
 const FlexRow = styled.div`
   display: flex;
 `;
+const FlexRowAlign = styled(FlexRow)`
+  align-items: flex-end;
+`;
 const TrashContainer = styled.div`
   padding-left: ${size.m};
-  margin-top: 2px;
+  padding-bottom: ${size.xxs};
 `;
 const RegexContainer = styled.div`
   width: 100%;
@@ -119,6 +123,6 @@ const MatchesRegexLabel = styled(Disclaimer)`
   padding-right: ${size.xs};
   white-space: nowrap;
 `;
-const StyledInput = styled(Input)`
+const StyledInput = styled(TextInput)`
   width: 100%;
 `;

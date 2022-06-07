@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from "react";
 import { useMutation } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/button";
-import { Input } from "antd";
+import TextInput from "@leafygreen-ui/text-input";
 import { useSpawnAnalytics } from "analytics";
 import { Modal } from "components/Modal";
 import {
@@ -11,7 +11,6 @@ import {
   SectionLabel,
   WideButton,
 } from "components/Spawn";
-import { InputLabel } from "components/styles";
 import { useToastContext } from "context/toast";
 import {
   UpdateVolumeMutation,
@@ -111,8 +110,8 @@ export const EditVolumeModal: React.VFC<Props> = ({
       <SectionContainer>
         <SectionLabel weight="medium">Volume name</SectionLabel>
         <ModalContent>
-          <InputLabel htmlFor="hostNameInput">Volume Name</InputLabel>
-          <Input
+          <TextInput
+            label="Volume Name"
             data-cy="volume-name-input"
             id="volumeNameInput"
             value={state.name}

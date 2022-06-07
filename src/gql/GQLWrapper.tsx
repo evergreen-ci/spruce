@@ -1,4 +1,3 @@
-import React from "react";
 import {
   ApolloClient,
   ApolloProvider,
@@ -78,6 +77,7 @@ const authLink = (logout: () => void): ApolloLink =>
       networkError.statusCode === 401 &&
       window.location.pathname !== routes.login
     ) {
+      leaveBreadcrumb("Not Authenticated", { statusCode: 401 }, "user");
       logout();
     }
   });
@@ -96,7 +96,9 @@ const logErrorsLink = onError(({ graphQLErrors }) => {
   // very common when a user is not authenticated
 });
 
-const authenticateIfSuccessfulLink = (dispatchAuthenticated): ApolloLink =>
+const authenticateIfSuccessfulLink = (
+  dispatchAuthenticated: () => void
+): ApolloLink =>
   new ApolloLink((operation, forward) =>
     forward(operation).map((response) => {
       if (response && response.data) {
@@ -108,7 +110,7 @@ const authenticateIfSuccessfulLink = (dispatchAuthenticated): ApolloLink =>
         {
           operationName: operation.operationName,
           variables: operation.variables,
-          status: response.data ? "OK" : "ERROR",
+          status: !response.errors ? "OK" : "ERROR",
           errors: response.errors,
         },
         "request"
