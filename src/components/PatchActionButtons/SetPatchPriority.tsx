@@ -42,8 +42,8 @@ export const SetPatchPriority: React.VFC<SetPriorityProps> = ({
   return (
     <Popconfirm
       key="priority"
-      placement="left"
       icon={null}
+      placement="left"
       title={
         <TextInput
           label="Set new priority"

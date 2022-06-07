@@ -19,6 +19,7 @@ export const SizeSelector: React.VFC<Props> = ({ value, onChange, limit }) => (
           id="volumeSize"
           min={0}
           max={limit}
+          style={{ width: "100px" }}
           value={value.toString()}
           onChange={(e) => onChange(parseInt(e.target.value, 10))}
           type="number"

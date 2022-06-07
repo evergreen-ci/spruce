@@ -59,14 +59,14 @@ export const VolumesField: React.VFC<VolumesFieldProps> = ({
           <TextInput
             label="Volume Size (GB)"
             id="volumeSizePicker"
-            type="number"
-            value={homeVolumeSize?.toString() || "500"}
             min={0}
+            value={homeVolumeSize?.toString() || "500"}
             onChange={(e) =>
               onChange({
                 homeVolumeSize: parseInt(e.target.value, 10),
               })
             }
+            type="number"
           />
         </>
       )}
