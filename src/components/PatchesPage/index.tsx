@@ -3,7 +3,9 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import { useLocation } from "react-router-dom";
 import { Analytics } from "analytics/addPageAction";
 import Icon from "components/Icon";
-import { PageSizeSelector } from "components/PageSizeSelector";
+import PageSizeSelector, {
+  usePageSizeSelector,
+} from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { PageWrapper, FiltersWrapper, PageTitle } from "components/styles";
 import TextInputWithGlyph from "components/TextInputWithGlyph";
@@ -47,6 +49,7 @@ export const PatchesPage: React.VFC<Props> = ({
   pageType,
 }) => {
   const { search } = useLocation();
+  const setPageSize = usePageSizeSelector();
   const parsed = parseQueryString(search);
   const isCommitQueueCheckboxChecked =
     parsed[PatchPageQueryParams.CommitQueue] === "true";
@@ -66,6 +69,11 @@ export const PatchesPage: React.VFC<Props> = ({
     });
     // eslint-disable-next-line no-unused-expressions
     analyticsObject.sendEvent({ name: "Filter Commit Queue" });
+  };
+
+  const handlePageSizeChange = (pageSize: number): void => {
+    setPageSize(pageSize);
+    analyticsObject.sendEvent({ name: "Change Page Size" });
   };
 
   return (
@@ -105,9 +113,7 @@ export const PatchesPage: React.VFC<Props> = ({
         <PageSizeSelector
           data-cy="my-patches-page-size-selector"
           value={limit}
-          sendAnalyticsEvent={() =>
-            analyticsObject.sendEvent({ name: "Change Page Size" })
-          }
+          onChange={handlePageSizeChange}
         />
       </PaginationRow>
       <ListArea

@@ -1,4 +1,3 @@
-import React from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
@@ -14,10 +13,9 @@ import {
   GetUserConfigQueryVariables,
 } from "gql/generated/types";
 import { GET_USER_CONFIG } from "gql/queries";
-import { environmentalVariables, request } from "utils";
+import { request } from "utils";
 
 const { post } = request;
-const { getUiUrl } = environmentalVariables;
 
 export const AuthenticationCard = () => {
   const { data, loading, refetch } = useQuery<
@@ -37,7 +35,7 @@ ui_server_host: "${config.ui_server_host}"
   const resetKey = async (e) => {
     e.preventDefault();
     sendEvent({ name: "Reset Key" });
-    await post(`${getUiUrl()}/settings/newkey`, {});
+    await post(`/settings/newkey`, {});
     refetch();
   };
   const downloadFile = (e) => {
