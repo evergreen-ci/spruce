@@ -1,6 +1,7 @@
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { SortOrder as antSortOrder } from "antd/lib/table/interface";
+import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { StyledRouterLink } from "components/styles";
 import {
   InputFilterProps,
@@ -9,6 +10,7 @@ import {
 } from "components/Table/Filters";
 import TaskStatusBadge from "components/TaskStatusBadge";
 import { TreeSelectProps } from "components/TreeSelect";
+import { mergeTaskVariant } from "constants/patch";
 import { getVariantHistoryRoute } from "constants/routes";
 import {
   Task,
@@ -199,11 +201,18 @@ const getColumnDefs = ({
         "data-cy": "variant-input",
       })),
     render: (displayName, { projectIdentifier, buildVariant }) => (
-      <StyledRouterLink
-        to={getVariantHistoryRoute(projectIdentifier, buildVariant)}
+      <ConditionalWrapper
+        condition={buildVariant !== mergeTaskVariant}
+        wrapper={(children) => (
+          <StyledRouterLink
+            to={getVariantHistoryRoute(projectIdentifier, buildVariant)}
+          >
+            {children}
+          </StyledRouterLink>
+        )}
       >
         {displayName}
-      </StyledRouterLink>
+      </ConditionalWrapper>
     ),
   },
 ];

@@ -8,7 +8,7 @@ import { Button } from "components/Button";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { PageButtonRow } from "components/styles";
-import { commitQueueRequester } from "constants/patch";
+import { commitQueueRequester, mergeTaskName } from "constants/patch";
 import { getTaskHistoryRoute } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
@@ -274,6 +274,7 @@ export const ActionButtons: React.VFC<Props> = ({
               to={getTaskHistoryRoute(project.identifier, displayName, {
                 selectedCommit: !isPatch && order,
               })}
+              disabled={displayName === mergeTaskName}
             >
               See history
             </Button>
