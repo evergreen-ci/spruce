@@ -1,5 +1,3 @@
-import React from "react";
-import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Tooltip } from "antd";
@@ -8,12 +6,7 @@ import DatePicker from "components/DatePicker";
 import { InputLabel } from "components/styles";
 import TimePicker from "components/TimePicker";
 import { size } from "constants/tokens";
-import {
-  GetSpruceConfigQuery,
-  GetSpruceConfigQueryVariables,
-} from "gql/generated/types";
-import { GET_SPRUCE_CONFIG } from "gql/queries";
-import { useDisableSpawnExpirationCheckbox } from "hooks";
+import { useDisableSpawnExpirationCheckbox, useSpruceConfig } from "hooks";
 import { MyHost, MyVolume } from "types/spawn";
 import { SectionContainer, SectionLabel } from "./Layout";
 
@@ -35,11 +28,7 @@ export const ExpirationField: React.VFC<ExpirationFieldProps> = ({
   isVolume,
   targetItem,
 }) => {
-  const { data: spruceConfigData } = useQuery<
-    GetSpruceConfigQuery,
-    GetSpruceConfigQueryVariables
-  >(GET_SPRUCE_CONFIG);
-
+  const spruceConfig = useSpruceConfig();
   const disableExpirationCheckbox = useDisableSpawnExpirationCheckbox(
     isVolume,
     targetItem
@@ -68,7 +57,7 @@ export const ExpirationField: React.VFC<ExpirationFieldProps> = ({
 
   const disabledDate = (current) => current < Date.now();
   const { unexpirableHostsPerUser, unexpirableVolumesPerUser } =
-    spruceConfigData?.spruceConfig.spawnHost ?? {};
+    spruceConfig?.spawnHost ?? {};
   return (
     <SectionContainer>
       <SectionLabel weight="medium">Expiration</SectionLabel>

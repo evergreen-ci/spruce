@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
-import styled from "@emotion/styled";
 import Button, { Variant, Size } from "@leafygreen-ui/button";
-import { Disclaimer } from "@leafygreen-ui/typography";
-import { Input, Tooltip } from "antd";
+import TextArea from "@leafygreen-ui/text-area";
+import Tooltip from "@leafygreen-ui/tooltip";
 import { useAnnotationAnalytics } from "analytics";
-import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { useToastContext } from "context/toast";
 import {
   EditAnnotationNoteMutation,
@@ -14,15 +12,9 @@ import {
 } from "gql/generated/types";
 import { EDIT_ANNOTATION_NOTE } from "gql/mutations";
 import { string } from "utils";
-import {
-  TicketsTitle,
-  TitleAndButtons,
-  TopMetaDataWrapper,
-  ButtonWrapper,
-} from "./BBComponents";
+import { ButtonWrapper, NonTableWrapper } from "./BBComponents";
 
 const { getDateCopy } = string;
-const { TextArea } = Input;
 
 interface Props {
   note: Note;
@@ -31,7 +23,7 @@ interface Props {
   userCanModify: boolean;
 }
 
-export const AnnotationNote: React.VFC<Props> = ({
+const AnnotationNote: React.VFC<Props> = ({
   note,
   taskId,
   execution,
@@ -44,6 +36,7 @@ export const AnnotationNote: React.VFC<Props> = ({
   useEffect(() => {
     setMessage(originalMessage);
   }, [originalMessage]);
+
   const [updateAnnotationNote] = useMutation<
     EditAnnotationNoteMutation,
     EditAnnotationNoteMutationVariables
@@ -71,48 +64,42 @@ export const AnnotationNote: React.VFC<Props> = ({
   };
 
   return (
-    <TitleAndButtons>
-      {/* @ts-expect-error */}
-      <TicketsTitle>Note</TicketsTitle>
-      {note && (
-        <TopMetaDataWrapper data-cy={`${originalMessage}-metadata`}>
-          <Disclaimer>
-            Updated: {getDateCopy(note.source.time, { dateOnly: true })}{" "}
-          </Disclaimer>
-          <Disclaimer>Last Edited By: {note.source.author}</Disclaimer>
-        </TopMetaDataWrapper>
-      )}
-      <StyledTextArea
+    <NonTableWrapper>
+      <TextArea
         id="noteInput"
-        rows={2}
         value={newMessage}
         onChange={(e) => setMessage(e.target.value)}
         disabled={!userCanModify}
+        label="Note"
+        description={
+          note &&
+          `Updated: ${getDateCopy(note.source.time, {
+            dateOnly: true,
+          })}
+          Last Edited By: ${note.source.author}
+          `
+        }
       />
-      <ConditionalWrapper
-        condition={!userCanModify}
-        wrapper={(children) => (
-          <Tooltip title="You are not authorized to edit failure details">
-            <span>{children}</span>
-          </Tooltip>
-        )}
+      <Tooltip
+        trigger={
+          <ButtonWrapper>
+            <Button
+              data-cy="edit-annotation-button"
+              variant={Variant.Primary}
+              size={Size.XSmall}
+              onClick={saveAnnotationNote}
+              disabled={originalMessage === newMessage || !userCanModify}
+            >
+              Save Note
+            </Button>
+          </ButtonWrapper>
+        }
+        enabled={!userCanModify}
       >
-        <ButtonWrapper>
-          <Button
-            data-cy="edit-annotation-button"
-            variant={Variant.Primary}
-            size={Size.XSmall}
-            onClick={saveAnnotationNote}
-            disabled={originalMessage === newMessage || !userCanModify}
-          >
-            Save Note
-          </Button>
-        </ButtonWrapper>
-      </ConditionalWrapper>
-    </TitleAndButtons>
+        You are not authorized to edit failure details
+      </Tooltip>
+    </NonTableWrapper>
   );
 };
 
-const StyledTextArea = styled(TextArea)`
-  width: 50%;
-`;
+export default AnnotationNote;

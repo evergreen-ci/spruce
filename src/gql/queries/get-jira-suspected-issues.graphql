@@ -1,4 +1,4 @@
-#import "../fragments/jiraTicket.graphql"
+#import "../fragments/annotations/issueLink.graphql"
 
 query GetSuspectedIssues($taskId: String!, $execution: Int) {
   task(taskId: $taskId, execution: $execution) {
@@ -6,16 +6,7 @@ query GetSuspectedIssues($taskId: String!, $execution: Int) {
     execution
     annotation {
       suspectedIssues {
-        issueKey
-        url
-        source {
-        author
-        time
-        requester
-        }
-        jiraTicket {
-          ...jiraTicket
-        }
+        ...issueLink
       }
     }
   }
