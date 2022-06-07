@@ -1,16 +1,13 @@
 import { useState, useEffect } from "react";
-import { useQuery } from "@apollo/client";
 import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
 import Cookies from "js-cookie";
-import { GetSpruceConfigQuery } from "gql/generated/types";
-import { GET_SPRUCE_CONFIG } from "gql/queries";
+import { useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string/jiraLinkify";
 import { DismissibleBanner } from "./styles";
 
 export const SiteBanner = () => {
-  const { data, loading } = useQuery<GetSpruceConfigQuery>(GET_SPRUCE_CONFIG);
-  const spruceConfig = data?.spruceConfig;
+  const spruceConfig = useSpruceConfig();
   const text = spruceConfig?.banner ?? "";
   const theme = spruceConfig?.bannerTheme ?? "";
   const jiraHost = spruceConfig?.jira?.host;
@@ -20,7 +17,6 @@ export const SiteBanner = () => {
       setShowBanner(true);
     }
   }, [text]);
-  if (loading) return null;
 
   const hideBanner = () => {
     // If a user sees a banner and closes it lets set a cookie with the banners text as the key.
