@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useState } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -8,15 +7,14 @@ import Icon from "components/Icon";
 import { StyledLink as Link } from "components/styles";
 import { HIDE_FEEDBACK } from "constants/cookies";
 import { size } from "constants/tokens";
-import { GetSpruceConfigQuery } from "gql/generated/types";
-import { GET_SPRUCE_CONFIG } from "gql/queries";
+import { useSpruceConfig } from "hooks";
 
 const { green } = uiColors;
 
 export const Feedback: React.VFC = () => {
-  const { data } = useQuery<GetSpruceConfigQuery>(GET_SPRUCE_CONFIG);
+  const spruceConfig = useSpruceConfig();
 
-  const userVoiceUrl = data?.spruceConfig?.ui?.userVoice;
+  const userVoiceUrl = spruceConfig?.ui?.userVoice;
 
   const hideFeeback =
     Cookies.get(HIDE_FEEDBACK) !== undefined

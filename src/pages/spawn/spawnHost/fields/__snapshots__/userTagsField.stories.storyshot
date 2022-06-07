@@ -9,7 +9,7 @@ exports[`storybook Storyshots User Tags Field User Tags Field View 1`] = `
     data-cy="user-tag-row"
   >
     <div
-      className="css-3oy7y7-FlexContainer e161fbrp3"
+      className="css-w1f0xx-FlexContainer e161fbrp3"
     >
       <div
         className="css-1lpxfqd-FlexColumnContainer e161fbrp2"
@@ -17,23 +17,45 @@ exports[`storybook Storyshots User Tags Field User Tags Field View 1`] = `
         <div
           className="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
         >
-          <label
-            className="css-c0hrp-InputLabel e1xf068s2"
-            htmlFor="tag_key_undefined"
+          <div
+            className="leafygreen-ui-1iyoj2o"
           >
-            Key
-          </label>
-          <input
-            className="ant-input"
-            data-cy="user-tag-key-field"
-            id="tag_key_undefined"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            type="text"
-            value="keyA"
-          />
+            <label
+              className="leafygreen-ui-ly82bp"
+              htmlFor="tag_key_undefined"
+            >
+              Key
+            </label>
+            <div
+              className="leafygreen-ui-lzja97"
+            >
+              <div
+                className="leafygreen-ui-1i2djk5"
+              >
+                <input
+                  autoComplete="on"
+                  className="leafygreen-ui-1il5lef"
+                  data-cy="user-tag-key-field"
+                  disabled={false}
+                  id="tag_key_undefined"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={true}
+                  type="text"
+                  value="keyA"
+                />
+                <div
+                  className="leafygreen-ui-3x1o6h"
+                  data-leafygreen-ui="interaction-ring"
+                />
+              </div>
+              <div
+                className="leafygreen-ui-m329s1"
+                data-leafygreen-ui="icon-selector"
+              />
+            </div>
+          </div>
         </div>
       </div>
       <div
@@ -42,27 +64,49 @@ exports[`storybook Storyshots User Tags Field User Tags Field View 1`] = `
         <div
           className="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
         >
-          <label
-            className="css-c0hrp-InputLabel e1xf068s2"
-            htmlFor="tag_value_undefined"
+          <div
+            className="leafygreen-ui-1iyoj2o"
           >
-            Value
-          </label>
-          <input
-            className="ant-input"
-            data-cy="user-tag-value-field"
-            id="tag_value_undefined"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            type="text"
-            value="valueA"
-          />
+            <label
+              className="leafygreen-ui-ly82bp"
+              htmlFor="tag_value_undefined"
+            >
+              Value
+            </label>
+            <div
+              className="leafygreen-ui-lzja97"
+            >
+              <div
+                className="leafygreen-ui-1i2djk5"
+              >
+                <input
+                  autoComplete="on"
+                  className="leafygreen-ui-1il5lef"
+                  data-cy="user-tag-value-field"
+                  disabled={false}
+                  id="tag_value_undefined"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={true}
+                  type="text"
+                  value="valueA"
+                />
+                <div
+                  className="leafygreen-ui-3x1o6h"
+                  data-leafygreen-ui="interaction-ring"
+                />
+              </div>
+              <div
+                className="leafygreen-ui-m329s1"
+                data-leafygreen-ui="icon-selector"
+              />
+            </div>
+          </div>
         </div>
       </div>
       <div
-        className="css-1ehyxtd-IconButtonContainer e161fbrp0"
+        className="css-17vcddu-IconButtonContainer e161fbrp0"
       >
         <button
           aria-disabled={false}
@@ -102,7 +146,7 @@ exports[`storybook Storyshots User Tags Field User Tags Field View 1`] = `
     data-cy="user-tag-row"
   >
     <div
-      className="css-3oy7y7-FlexContainer e161fbrp3"
+      className="css-w1f0xx-FlexContainer e161fbrp3"
     >
       <div
         className="css-1lpxfqd-FlexColumnContainer e161fbrp2"
@@ -110,23 +154,45 @@ exports[`storybook Storyshots User Tags Field User Tags Field View 1`] = `
         <div
           className="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
         >
-          <label
-            className="css-c0hrp-InputLabel e1xf068s2"
-            htmlFor="tag_key_undefined"
+          <div
+            className="leafygreen-ui-1iyoj2o"
           >
-            Key
-          </label>
-          <input
-            className="ant-input"
-            data-cy="user-tag-key-field"
-            id="tag_key_undefined"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            type="text"
-            value="keyB"
-          />
+            <label
+              className="leafygreen-ui-ly82bp"
+              htmlFor="tag_key_undefined"
+            >
+              Key
+            </label>
+            <div
+              className="leafygreen-ui-lzja97"
+            >
+              <div
+                className="leafygreen-ui-1i2djk5"
+              >
+                <input
+                  autoComplete="on"
+                  className="leafygreen-ui-1il5lef"
+                  data-cy="user-tag-key-field"
+                  disabled={false}
+                  id="tag_key_undefined"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={true}
+                  type="text"
+                  value="keyB"
+                />
+                <div
+                  className="leafygreen-ui-3x1o6h"
+                  data-leafygreen-ui="interaction-ring"
+                />
+              </div>
+              <div
+                className="leafygreen-ui-m329s1"
+                data-leafygreen-ui="icon-selector"
+              />
+            </div>
+          </div>
         </div>
       </div>
       <div
@@ -135,27 +201,49 @@ exports[`storybook Storyshots User Tags Field User Tags Field View 1`] = `
         <div
           className="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
         >
-          <label
-            className="css-c0hrp-InputLabel e1xf068s2"
-            htmlFor="tag_value_undefined"
+          <div
+            className="leafygreen-ui-1iyoj2o"
           >
-            Value
-          </label>
-          <input
-            className="ant-input"
-            data-cy="user-tag-value-field"
-            id="tag_value_undefined"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            type="text"
-            value="valueB"
-          />
+            <label
+              className="leafygreen-ui-ly82bp"
+              htmlFor="tag_value_undefined"
+            >
+              Value
+            </label>
+            <div
+              className="leafygreen-ui-lzja97"
+            >
+              <div
+                className="leafygreen-ui-1i2djk5"
+              >
+                <input
+                  autoComplete="on"
+                  className="leafygreen-ui-1il5lef"
+                  data-cy="user-tag-value-field"
+                  disabled={false}
+                  id="tag_value_undefined"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={true}
+                  type="text"
+                  value="valueB"
+                />
+                <div
+                  className="leafygreen-ui-3x1o6h"
+                  data-leafygreen-ui="interaction-ring"
+                />
+              </div>
+              <div
+                className="leafygreen-ui-m329s1"
+                data-leafygreen-ui="icon-selector"
+              />
+            </div>
+          </div>
         </div>
       </div>
       <div
-        className="css-1ehyxtd-IconButtonContainer e161fbrp0"
+        className="css-17vcddu-IconButtonContainer e161fbrp0"
       >
         <button
           aria-disabled={false}
@@ -195,7 +283,7 @@ exports[`storybook Storyshots User Tags Field User Tags Field View 1`] = `
     data-cy="user-tag-row"
   >
     <div
-      className="css-3oy7y7-FlexContainer e161fbrp3"
+      className="css-w1f0xx-FlexContainer e161fbrp3"
     >
       <div
         className="css-1lpxfqd-FlexColumnContainer e161fbrp2"
@@ -203,23 +291,45 @@ exports[`storybook Storyshots User Tags Field User Tags Field View 1`] = `
         <div
           className="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
         >
-          <label
-            className="css-c0hrp-InputLabel e1xf068s2"
-            htmlFor="tag_key_undefined"
+          <div
+            className="leafygreen-ui-1iyoj2o"
           >
-            Key
-          </label>
-          <input
-            className="ant-input"
-            data-cy="user-tag-key-field"
-            id="tag_key_undefined"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            type="text"
-            value="keyC"
-          />
+            <label
+              className="leafygreen-ui-ly82bp"
+              htmlFor="tag_key_undefined"
+            >
+              Key
+            </label>
+            <div
+              className="leafygreen-ui-lzja97"
+            >
+              <div
+                className="leafygreen-ui-1i2djk5"
+              >
+                <input
+                  autoComplete="on"
+                  className="leafygreen-ui-1il5lef"
+                  data-cy="user-tag-key-field"
+                  disabled={false}
+                  id="tag_key_undefined"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={true}
+                  type="text"
+                  value="keyC"
+                />
+                <div
+                  className="leafygreen-ui-3x1o6h"
+                  data-leafygreen-ui="interaction-ring"
+                />
+              </div>
+              <div
+                className="leafygreen-ui-m329s1"
+                data-leafygreen-ui="icon-selector"
+              />
+            </div>
+          </div>
         </div>
       </div>
       <div
@@ -228,27 +338,49 @@ exports[`storybook Storyshots User Tags Field User Tags Field View 1`] = `
         <div
           className="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
         >
-          <label
-            className="css-c0hrp-InputLabel e1xf068s2"
-            htmlFor="tag_value_undefined"
+          <div
+            className="leafygreen-ui-1iyoj2o"
           >
-            Value
-          </label>
-          <input
-            className="ant-input"
-            data-cy="user-tag-value-field"
-            id="tag_value_undefined"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            type="text"
-            value="valueC"
-          />
+            <label
+              className="leafygreen-ui-ly82bp"
+              htmlFor="tag_value_undefined"
+            >
+              Value
+            </label>
+            <div
+              className="leafygreen-ui-lzja97"
+            >
+              <div
+                className="leafygreen-ui-1i2djk5"
+              >
+                <input
+                  autoComplete="on"
+                  className="leafygreen-ui-1il5lef"
+                  data-cy="user-tag-value-field"
+                  disabled={false}
+                  id="tag_value_undefined"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={true}
+                  type="text"
+                  value="valueC"
+                />
+                <div
+                  className="leafygreen-ui-3x1o6h"
+                  data-leafygreen-ui="interaction-ring"
+                />
+              </div>
+              <div
+                className="leafygreen-ui-m329s1"
+                data-leafygreen-ui="icon-selector"
+              />
+            </div>
+          </div>
         </div>
       </div>
       <div
-        className="css-1ehyxtd-IconButtonContainer e161fbrp0"
+        className="css-17vcddu-IconButtonContainer e161fbrp0"
       >
         <button
           aria-disabled={false}

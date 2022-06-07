@@ -1,6 +1,6 @@
-import React from "react";
 import styled from "@emotion/styled";
-import { Select, Input } from "antd";
+import TextInput from "@leafygreen-ui/text-input";
+import { Select } from "antd";
 import { InputLabel } from "components/styles";
 import { size } from "constants/tokens";
 import { MyVolume } from "types/spawn";
@@ -56,21 +56,18 @@ export const VolumesField: React.VFC<VolumesFieldProps> = ({
       {allowHomeVolume && (
         <>
           <PaddedBody> or </PaddedBody>
-          <FlexColumnContainer>
-            <InputLabel htmlFor="volumeSizePicker">Volume Size</InputLabel>
-            <Input
-              id="volumeSizePicker"
-              type="number"
-              suffix="GB"
-              value={homeVolumeSize}
-              defaultValue={500}
-              onChange={(e) =>
-                onChange({
-                  homeVolumeSize: parseInt(e.target.value, 10),
-                })
-              }
-            />
-          </FlexColumnContainer>
+          <TextInput
+            label="Volume Size (GB)"
+            id="volumeSizePicker"
+            min={0}
+            value={homeVolumeSize?.toString() || "500"}
+            onChange={(e) =>
+              onChange({
+                homeVolumeSize: parseInt(e.target.value, 10),
+              })
+            }
+            type="number"
+          />
         </>
       )}
     </>

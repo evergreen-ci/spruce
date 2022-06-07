@@ -1,0 +1,15 @@
+fragment jiraTicket on JiraTicket {
+  key
+  fields {
+    summary
+    assigneeDisplayName
+    resolutionName
+    created
+    updated
+    status {
+      id
+      name
+    }
+    assignedTeam
+  }
+}

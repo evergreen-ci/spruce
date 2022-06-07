@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import styled from "@emotion/styled";
-import { Body } from "@leafygreen-ui/typography";
-import { InputNumber, Popconfirm } from "antd";
+import TextInput from "@leafygreen-ui/text-input";
+import { Popconfirm } from "antd";
 import { useVersionAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   SetPatchPriorityMutation,
@@ -47,18 +45,16 @@ export const SetPatchPriority: React.VFC<SetPriorityProps> = ({
       icon={null}
       placement="left"
       title={
-        <>
-          <StyledBody>Set new priority:</StyledBody>
-          <InputNumber
-            size="small"
-            min={0}
-            type="number"
-            max={Number.MAX_SAFE_INTEGER}
-            value={priority}
-            onChange={(value) => setPriority(value as number)}
-            data-cy="priority-input"
-          />
-        </>
+        <TextInput
+          label="Set new priority"
+          value={priority.toString()}
+          onChange={(e) => setPriority(parseInt(e.target.value, 10))}
+          min={0}
+          size={1}
+          autoFocus
+          type="number"
+          data-cy="patch-priority-input"
+        />
       }
       onConfirm={() => {
         setPatchPriority({ variables: { patchId, priority } });
@@ -76,8 +72,3 @@ export const SetPatchPriority: React.VFC<SetPriorityProps> = ({
     </Popconfirm>
   );
 };
-
-const StyledBody = styled(Body)`
-  padding-bottom: ${size.xs};
-  padding-right: ${size.xs};
-`;

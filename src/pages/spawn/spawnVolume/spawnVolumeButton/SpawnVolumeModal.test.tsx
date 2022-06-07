@@ -42,7 +42,7 @@ describe("spawnVolumeModal", () => {
     expect(queryByDataCy("modal-title")).not.toBeInTheDocument();
   });
 
-  it("form contains default volumes on initial render.", async () => {
+  it("form contains default volumes on initial render", async () => {
     const { Component } = RenderFakeToastContext(
       <SpawnVolumeModal visible onCancel={() => {}} />
     );
@@ -52,7 +52,7 @@ describe("spawnVolumeModal", () => {
       </MockedProvider>
     ));
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    await waitFor(() => expect(queryByDataCy("volumeSize")).toHaveValue("500"));
+    await waitFor(() => expect(queryByDataCy("volumeSize")).toHaveValue(500));
 
     expect(queryByDataCy("regionSelector")).toHaveTextContent("us-east-1a");
     expect(queryByDataCy("typeSelector")).toHaveTextContent("gp2");

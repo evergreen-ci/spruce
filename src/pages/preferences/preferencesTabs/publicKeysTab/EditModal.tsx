@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
-import { Input } from "antd";
+import TextArea from "@leafygreen-ui/text-area";
+import TextInput from "@leafygreen-ui/text-input";
 import { usePreferencesAnalytics } from "analytics";
 import { Modal } from "components/Modal";
-import { InputLabel, ErrorMessage } from "components/styles";
+import { ErrorMessage } from "components/styles";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -22,8 +23,6 @@ import { validators, string } from "utils";
 
 const { validateSSHPublicKey } = validators;
 const { stripNewLines } = string;
-
-const { TextArea } = Input;
 
 export interface EditModalPropsState {
   initialPublicKey?: { name: string; key: string }; // initialPublicKey is the key that will be updated in the db when provided
@@ -157,22 +156,24 @@ export const EditModal: React.VFC<EditModalProps> = ({
       }
       title={replaceKeyName ? "Update Public Key" : "Add Public Key"}
     >
-      <InputLabel htmlFor={KEY_NAME_ID}>Key Name</InputLabel>
       <StyledInput
+        label="Key Name"
+        id={KEY_NAME_ID}
+        data-cy={KEY_NAME_ID}
         value={keyName}
         onChange={(e) => {
           setKeyName(e.target.value);
         }}
-        id={KEY_NAME_ID}
-        data-cy={KEY_NAME_ID}
+        spellCheck={false}
       />
-      <InputLabel htmlFor={KEY_VALUE_ID}>Public Key</InputLabel>
       <TextArea
+        label="Public Key"
         id={KEY_VALUE_ID}
         data-cy={KEY_VALUE_ID}
         value={keyValue}
-        autoSize={{ minRows: 4, maxRows: 6 }}
         onChange={(e) => setKeyValue(e.target.value)}
+        rows={8}
+        spellCheck={false}
       />
       <ErrorContainer>
         {visible &&
@@ -190,7 +191,7 @@ export const EditModal: React.VFC<EditModalProps> = ({
 const LeftButton = styled(Button)`
   margin-right: ${size.s};
 `;
-const StyledInput = styled(Input)`
+const StyledInput = styled(TextInput)`
   margin-bottom: ${size.m};
 `;
 const ErrorContainer = styled.div`
