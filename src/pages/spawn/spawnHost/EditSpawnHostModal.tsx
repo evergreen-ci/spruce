@@ -350,6 +350,7 @@ const computeDiff = (defaultEditSpawnHostState, editSpawnHostState) => {
 
 const PaddedIcon = styled(Icon)`
   margin-left: ${size.s};
+  margin-top: ${size.m};
 `;
 const FlexContainer = styled.div`
   display: flex;

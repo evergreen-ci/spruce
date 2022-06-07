@@ -153,7 +153,7 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
         {extraFields &&
           extraFields.map(({ text, key, dataCy: inputDataCy }) => (
             <ExtraFieldContainer key={key}>
-              <TextInput
+              <StyledInput
                 label={text}
                 data-cy={inputDataCy}
                 id={`${key}-input`}

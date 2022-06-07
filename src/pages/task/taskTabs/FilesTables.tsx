@@ -135,8 +135,8 @@ const ContentWrapper = styled.div`
 `;
 
 const TextInputWrapper = styled.div`
-  width: 50%;
   margin-bottom: ${size.s};
+  width: 50%;
 `;
 
 const StyledTable = styled(Table)`

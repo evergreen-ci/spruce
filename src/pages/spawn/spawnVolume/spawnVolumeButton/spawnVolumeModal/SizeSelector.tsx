@@ -20,8 +20,8 @@ export const SizeSelector: React.VFC<Props> = ({ value, onChange, limit }) => (
           min={0}
           max={limit}
           value={value.toString()}
-          type="number"
           onChange={(e) => onChange(parseInt(e.target.value, 10))}
+          type="number"
         />
       </Tooltip>
     </ModalContent>

@@ -53,7 +53,7 @@ export const SetPatchPriority: React.VFC<SetPriorityProps> = ({
           size={1}
           autoFocus
           type="number"
-          data-cy="priority-input"
+          data-cy="patch-priority-input"
         />
       }
       onConfirm={() => {

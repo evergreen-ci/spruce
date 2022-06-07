@@ -168,7 +168,6 @@ export const EditModal: React.VFC<EditModalProps> = ({
       />
       <TextArea
         label="Public Key"
-        aria-labelledby="public-key-value-input"
         id={KEY_VALUE_ID}
         data-cy={KEY_VALUE_ID}
         value={keyValue}

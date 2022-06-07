@@ -40,7 +40,7 @@ describe("Task Action Buttons", () => {
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("prioritize-task").click();
-      cy.dataCy("priority-input").clear().type("99");
+      cy.dataCy("task-priority-input").clear().type("99");
       cy.get(popconfirmYesClassName).contains("Set").click({ force: true });
 
       cy.validateToast("success", prioritySuccessBannerText);

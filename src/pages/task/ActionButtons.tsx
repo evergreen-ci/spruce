@@ -220,7 +220,7 @@ export const ActionButtons: React.VFC<Props> = ({
               type="number"
               value={priority.toString()}
               onChange={(e) => setPriority(parseInt(e.target.value, 10))}
-              data-cy="priority-input"
+              data-cy="task-priority-input"
               autoFocus
             />
           }
