@@ -2081,6 +2081,27 @@ export type AnnotationFragment = {
   >;
 };
 
+export type IssueLinkFragment = {
+  issueKey?: Maybe<string>;
+  url?: Maybe<string>;
+  confidenceScore?: Maybe<number>;
+  source?: Maybe<{ author: string; time: Date; requester: string }>;
+  jiraTicket?: Maybe<JiraTicketFragment>;
+};
+
+export type JiraTicketFragment = {
+  key: string;
+  fields: {
+    summary: string;
+    assigneeDisplayName?: Maybe<string>;
+    resolutionName?: Maybe<string>;
+    created: string;
+    updated: string;
+    assignedTeam?: Maybe<string>;
+    status: { id: string; name: string };
+  };
+};
+
 export type BaseHostFragment = {
   id: string;
   hostUrl: string;
@@ -2138,19 +2159,6 @@ export type FileDiffsFragment = {
   deletions: number;
   diffLink: string;
   description: string;
-};
-
-export type JiraTicketFragment = {
-  key: string;
-  fields: {
-    summary: string;
-    assigneeDisplayName?: Maybe<string>;
-    resolutionName?: Maybe<string>;
-    created: string;
-    updated: string;
-    assignedTeam?: Maybe<string>;
-    status: { id: string; name: string };
-  };
 };
 
 export type LogMessageFragment = {
@@ -3037,6 +3045,15 @@ export type GetBaseVersionAndTaskQuery = {
   }>;
 };
 
+export type GetBuildBaronConfiguredQueryVariables = Exact<{
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
+}>;
+
+export type GetBuildBaronConfiguredQuery = {
+  buildBaron: { buildBaronConfigured: boolean };
+};
+
 export type BuildBaronQueryVariables = Exact<{
   taskId: Scalars["String"];
   execution: Scalars["Int"];
@@ -3348,16 +3365,7 @@ export type GetCustomCreatedIssuesQuery = {
     id: string;
     execution: number;
     annotation?: Maybe<{
-      createdIssues?: Maybe<
-        Array<
-          Maybe<{
-            issueKey?: Maybe<string>;
-            url?: Maybe<string>;
-            source?: Maybe<{ author: string; time: Date; requester: string }>;
-            jiraTicket?: Maybe<JiraTicketFragment>;
-          }>
-        >
-      >;
+      createdIssues?: Maybe<Array<Maybe<IssueLinkFragment>>>;
     }>;
   }>;
 };
@@ -3371,18 +3379,7 @@ export type GetIssuesQuery = {
   task?: Maybe<{
     id: string;
     execution: number;
-    annotation?: Maybe<{
-      issues?: Maybe<
-        Array<
-          Maybe<{
-            issueKey?: Maybe<string>;
-            url?: Maybe<string>;
-            source?: Maybe<{ author: string; time: Date; requester: string }>;
-            jiraTicket?: Maybe<JiraTicketFragment>;
-          }>
-        >
-      >;
-    }>;
+    annotation?: Maybe<{ issues?: Maybe<Array<Maybe<IssueLinkFragment>>> }>;
   }>;
 };
 
@@ -3396,16 +3393,7 @@ export type GetSuspectedIssuesQuery = {
     id: string;
     execution: number;
     annotation?: Maybe<{
-      suspectedIssues?: Maybe<
-        Array<
-          Maybe<{
-            issueKey?: Maybe<string>;
-            url?: Maybe<string>;
-            source?: Maybe<{ author: string; time: Date; requester: string }>;
-            jiraTicket?: Maybe<JiraTicketFragment>;
-          }>
-        >
-      >;
+      suspectedIssues?: Maybe<Array<Maybe<IssueLinkFragment>>>;
     }>;
   }>;
 };

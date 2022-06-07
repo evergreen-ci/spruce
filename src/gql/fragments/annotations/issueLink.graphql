@@ -1,0 +1,15 @@
+#import "./jiraTicket.graphql"
+
+fragment issueLink on IssueLink {
+  issueKey
+  url
+  confidenceScore
+  source {
+    author
+    time
+    requester
+  }
+  jiraTicket {
+    ...jiraTicket
+  }
+}

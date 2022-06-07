@@ -3,8 +3,8 @@ import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import { uiColors } from "@leafygreen-ui/palette";
-import { Body } from "@leafygreen-ui/typography";
-import { Popconfirm, Input } from "antd";
+import TextInput from "@leafygreen-ui/text-input";
+import { Popconfirm } from "antd";
 import Cookies from "js-cookie";
 import { PageWrapper } from "components/styles";
 import { SLACK_NOTIFICATION_BANNER } from "constants/cookies";
@@ -96,15 +96,16 @@ export const SlackNotificationBanner = () => {
           You can receive a Slack notification when your patch is ready.
           <Popconfirm
             title={
-              <>
-                <SlackUsername weight="medium">Slack Username</SlackUsername>
-                <Input
-                  data-cy="slack-username-input"
-                  value={slackUsername}
-                  onChange={(e) => setSlackUsername(e.target.value)}
-                  onPressEnter={() => saveNotificationSettings()}
-                />
-              </>
+              <TextInput
+                label="Slack Username"
+                data-cy="slack-username-input"
+                value={slackUsername}
+                onChange={(e) => setSlackUsername(e.target.value)}
+                onKeyPress={(e) =>
+                  e.key === "Enter" && saveNotificationSettings()
+                }
+                autoFocus
+              />
             }
             onConfirm={() => saveNotificationSettings()}
             okText="Save"
@@ -138,9 +139,5 @@ const SubscribeButton = styled.span`
   text-decoration-color: ${blue.dark2};
   cursor: pointer;
   color: ${blue.dark2};
-  font-size: ${fontSize.m};
-`;
-
-const SlackUsername = styled(Body)`
   font-size: ${fontSize.m};
 `;
