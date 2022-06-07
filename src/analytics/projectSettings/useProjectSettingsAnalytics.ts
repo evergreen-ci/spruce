@@ -4,7 +4,6 @@ import {
   Properties,
   Analytics as A,
 } from "analytics/addPageAction";
-import { useGetUserQuery } from "analytics/useGetUserQuery";
 
 type Action =
   | { name: "Save project"; section: string }
@@ -23,13 +22,11 @@ interface P extends Properties {
 export interface Analytics extends A<Action> {}
 
 export const useProjectSettingsAnalytics = (): Analytics => {
-  const userId = useGetUserQuery();
   const { identifier } = useParams<{ identifier: string }>();
 
   const sendEvent: Analytics["sendEvent"] = (action) => {
     addPageAction<Action, P>(action, {
       object: "ProjectSettings",
-      userId,
       identifier,
     });
   };
