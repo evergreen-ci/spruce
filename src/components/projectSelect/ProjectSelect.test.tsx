@@ -80,9 +80,12 @@ describe("projectSelect for project settings", () => {
         />
       </MockedProvider>
     );
-    const { findAllByDataCy, getAllByText, queryByDataCy } = render(
-      <Component />
-    );
+    const {
+      findAllByDataCy,
+      getAllByText,
+      queryByDataCy,
+      queryByText,
+    } = render(<Component />);
 
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
@@ -94,9 +97,34 @@ describe("projectSelect for project settings", () => {
 
     // Disabled project appears last
     expect(options[3]).toHaveTextContent("evergreen smoke test");
+    expect(queryByText("Disabled Projects")).toBeInTheDocument();
 
     // Favorited projects should appear twice
     expect(getAllByText("logkeeper")).toHaveLength(2);
+  });
+
+  it("does not show a heading for disabled projects when all projects are enabled", async () => {
+    const { Component } = RenderFakeToastContext(
+      <MockedProvider mocks={[mocks[2]]} addTypename={false}>
+        <ProjectSelect
+          selectedProjectIdentifier="spruce"
+          getRoute={getProjectSettingsRoute}
+          isProjectSettingsPage
+        />
+      </MockedProvider>
+    );
+    const { findAllByDataCy, queryByDataCy, queryByText } = render(
+      <Component />
+    );
+
+    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+
+    expect(queryByDataCy("project-select-options")).not.toBeInTheDocument();
+    userEvent.click(queryByDataCy("project-select"));
+    expect(queryByDataCy("project-select-options")).toBeInTheDocument();
+    const options = await findAllByDataCy("project-display-name");
+    expect(options).toHaveLength(1);
+    expect(queryByText("Disabled Projects")).not.toBeInTheDocument();
   });
 });
 
@@ -229,6 +257,32 @@ const mocks = [
                 owner: "logkeeper",
                 displayName: "logkeeper",
                 isFavorite: true,
+                enabled: true,
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+  {
+    request: {
+      query: GET_VIEWABLE_PROJECTS,
+    },
+    result: {
+      data: {
+        viewableProjectRefs: [
+          {
+            groupDisplayName: "evergreen-ci/evergreen",
+            repo: null,
+            projects: [
+              {
+                id: "spruce",
+                identifier: "spruce",
+                repo: "spruce",
+                owner: "evergreen-ci",
+                displayName: "spruce",
+                isFavorite: false,
                 enabled: true,
               },
             ],

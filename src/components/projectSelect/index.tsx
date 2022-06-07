@@ -171,6 +171,8 @@ const getProjects = (
   return [
     { groupDisplayName: "Favorites", projects: favoriteProjects },
     ...enabledProjectGroups,
-    { groupDisplayName: "Disabled Projects", projects: disabledProjects },
+    ...(disabledProjects.length
+      ? [{ groupDisplayName: "Disabled Projects", projects: disabledProjects }]
+      : []),
   ];
 };
