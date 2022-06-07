@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
+import { useProjectSettingsAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { SpruceForm } from "components/SpruceForm";
 import { getProjectSettingsRoute } from "constants/routes";
@@ -26,6 +27,7 @@ export const CopyProjectModal: React.VFC<Props> = ({
   open,
 }) => {
   const dispatchToast = useToastContext();
+  const { sendEvent } = useProjectSettingsAnalytics();
   const { replace } = useHistory();
 
   const [formState, setFormState] = useState({
@@ -86,6 +88,7 @@ export const CopyProjectModal: React.VFC<Props> = ({
         },
       },
     });
+    sendEvent({ name: "Duplicate project", projectIdToCopy: id });
     handleClose();
   };
 
