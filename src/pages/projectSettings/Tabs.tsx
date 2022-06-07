@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
-import { useParams } from "react-router-dom";
+import { Navigate, Route, Routes, useParams } from "react-router-dom";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 import { useProjectSettingsContext } from "./Context";
@@ -53,129 +53,6 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
     setInitialData(tabData);
   }, [setInitialData, tabData]);
 
-  const getContent = (t: string): JSX.Element => {
-    switch (t) {
-      case ProjectSettingsTabRoutes.General:
-        return (
-          <GeneralTab
-            projectId={projectId}
-            projectData={tabData[ProjectSettingsTabRoutes.General].projectData}
-            projectType={projectType}
-            repoData={tabData[ProjectSettingsTabRoutes.General].repoData}
-            validDefaultLoggers={
-              projectData?.projectRef?.validDefaultLoggers ||
-              repoData?.projectRef?.validDefaultLoggers
-            }
-          />
-        );
-      case ProjectSettingsTabRoutes.Access:
-        return (
-          <AccessTab
-            projectData={tabData[ProjectSettingsTabRoutes.Access].projectData}
-            projectType={projectType}
-            repoData={tabData[ProjectSettingsTabRoutes.Access].repoData}
-          />
-        );
-      case ProjectSettingsTabRoutes.Variables:
-        return (
-          <VariablesTab
-            projectData={
-              tabData[ProjectSettingsTabRoutes.Variables].projectData
-            }
-            projectType={projectType}
-            repoData={tabData[ProjectSettingsTabRoutes.Variables].repoData}
-          />
-        );
-      case ProjectSettingsTabRoutes.GithubCommitQueue:
-        return (
-          <GithubCommitQueueTab
-            githubWebhooksEnabled={
-              projectData?.githubWebhooksEnabled ||
-              repoData?.githubWebhooksEnabled
-            }
-            projectData={
-              tabData[ProjectSettingsTabRoutes.GithubCommitQueue].projectData
-            }
-            projectType={projectType}
-            repoData={
-              tabData[ProjectSettingsTabRoutes.GithubCommitQueue].repoData
-            }
-            versionControlEnabled={
-              projectData?.projectRef?.versionControlEnabled ??
-              repoData?.projectRef?.versionControlEnabled
-            }
-          />
-        );
-      case ProjectSettingsTabRoutes.Plugins:
-        return (
-          <PluginsTab
-            projectData={tabData[ProjectSettingsTabRoutes.Plugins].projectData}
-            projectType={projectType}
-            repoData={tabData[ProjectSettingsTabRoutes.Plugins].repoData}
-          />
-        );
-      case ProjectSettingsTabRoutes.Notifications:
-        return (
-          <NotificationsTab
-            id={projectId || repoData?.projectRef?.id}
-            projectData={
-              tabData[ProjectSettingsTabRoutes.Notifications].projectData
-            }
-            projectType={projectType}
-            repoData={tabData[ProjectSettingsTabRoutes.Notifications].repoData}
-          />
-        );
-      case ProjectSettingsTabRoutes.PatchAliases:
-        return (
-          <PatchAliasesTab
-            projectData={
-              tabData[ProjectSettingsTabRoutes.PatchAliases].projectData
-            }
-            projectType={projectType}
-            repoData={tabData[ProjectSettingsTabRoutes.PatchAliases].repoData}
-          />
-        );
-      case ProjectSettingsTabRoutes.VirtualWorkstation:
-        return (
-          <VirtualWorkstationTab
-            identifier={identifier || repoBranch}
-            projectData={
-              tabData[ProjectSettingsTabRoutes.VirtualWorkstation].projectData
-            }
-            projectType={projectType}
-            repoData={
-              tabData[ProjectSettingsTabRoutes.VirtualWorkstation].repoData
-            }
-          />
-        );
-      case ProjectSettingsTabRoutes.ProjectTriggers:
-        return (
-          <ProjectTriggersTab
-            projectData={
-              tabData[ProjectSettingsTabRoutes.ProjectTriggers].projectData
-            }
-            projectType={projectType}
-            repoData={
-              tabData[ProjectSettingsTabRoutes.ProjectTriggers].repoData
-            }
-          />
-        );
-      case ProjectSettingsTabRoutes.PeriodicBuilds:
-        return (
-          <PeriodicBuildsTab
-            projectData={
-              tabData[ProjectSettingsTabRoutes.PeriodicBuilds].projectData
-            }
-            projectType={projectType}
-            repoData={tabData[ProjectSettingsTabRoutes.PeriodicBuilds].repoData}
-          />
-        );
-      case ProjectSettingsTabRoutes.EventLog:
-        return <EventLogTab projectType={projectType} />;
-      default:
-        <></>;
-    }
-  };
   return (
     <Container>
       <Header
@@ -185,7 +62,159 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
         saveable={!(readOnlyTabs as ReadonlyArray<string>).includes(tab)}
         tab={tab}
       />
-      {getContent(tab)}
+      <Routes>
+        <Route
+          path={ProjectSettingsTabRoutes.General}
+          element={
+            <GeneralTab
+              projectId={projectId}
+              projectData={
+                tabData[ProjectSettingsTabRoutes.General].projectData
+              }
+              projectType={projectType}
+              repoData={tabData[ProjectSettingsTabRoutes.General].repoData}
+              validDefaultLoggers={
+                projectData?.projectRef?.validDefaultLoggers ||
+                repoData?.projectRef?.validDefaultLoggers
+              }
+            />
+          }
+        />
+        <Route
+          path={ProjectSettingsTabRoutes.Access}
+          element={
+            <AccessTab
+              projectData={tabData[ProjectSettingsTabRoutes.Access].projectData}
+              projectType={projectType}
+              repoData={tabData[ProjectSettingsTabRoutes.Access].repoData}
+            />
+          }
+        />
+        <Route
+          path={ProjectSettingsTabRoutes.Variables}
+          element={
+            <VariablesTab
+              projectData={
+                tabData[ProjectSettingsTabRoutes.Variables].projectData
+              }
+              projectType={projectType}
+              repoData={tabData[ProjectSettingsTabRoutes.Variables].repoData}
+            />
+          }
+        />
+        <Route
+          path={ProjectSettingsTabRoutes.GithubCommitQueue}
+          element={
+            <GithubCommitQueueTab
+              githubWebhooksEnabled={
+                projectData?.githubWebhooksEnabled ||
+                repoData?.githubWebhooksEnabled
+              }
+              projectData={
+                tabData[ProjectSettingsTabRoutes.GithubCommitQueue].projectData
+              }
+              projectType={projectType}
+              repoData={
+                tabData[ProjectSettingsTabRoutes.GithubCommitQueue].repoData
+              }
+              versionControlEnabled={
+                projectData?.projectRef?.versionControlEnabled ??
+                repoData?.projectRef?.versionControlEnabled
+              }
+            />
+          }
+        />
+        <Route
+          path={ProjectSettingsTabRoutes.Plugins}
+          element={
+            <PluginsTab
+              projectData={
+                tabData[ProjectSettingsTabRoutes.Plugins].projectData
+              }
+              projectType={projectType}
+              repoData={tabData[ProjectSettingsTabRoutes.Plugins].repoData}
+            />
+          }
+        />
+        <Route
+          path={ProjectSettingsTabRoutes.Notifications}
+          element={
+            <NotificationsTab
+              id={projectId || repoData?.projectRef?.id}
+              projectData={
+                tabData[ProjectSettingsTabRoutes.Notifications].projectData
+              }
+              projectType={projectType}
+              repoData={
+                tabData[ProjectSettingsTabRoutes.Notifications].repoData
+              }
+            />
+          }
+        />
+        <Route
+          path={ProjectSettingsTabRoutes.PatchAliases}
+          element={
+            <PatchAliasesTab
+              projectData={
+                tabData[ProjectSettingsTabRoutes.PatchAliases].projectData
+              }
+              projectType={projectType}
+              repoData={tabData[ProjectSettingsTabRoutes.PatchAliases].repoData}
+            />
+          }
+        />
+        <Route
+          path={ProjectSettingsTabRoutes.VirtualWorkstation}
+          element={
+            <VirtualWorkstationTab
+              identifier={identifier || repoBranch}
+              projectData={
+                tabData[ProjectSettingsTabRoutes.VirtualWorkstation].projectData
+              }
+              projectType={projectType}
+              repoData={
+                tabData[ProjectSettingsTabRoutes.VirtualWorkstation].repoData
+              }
+            />
+          }
+        />
+        <Route
+          path={ProjectSettingsTabRoutes.ProjectTriggers}
+          element={
+            <ProjectTriggersTab
+              projectData={
+                tabData[ProjectSettingsTabRoutes.ProjectTriggers].projectData
+              }
+              projectType={projectType}
+              repoData={
+                tabData[ProjectSettingsTabRoutes.ProjectTriggers].repoData
+              }
+            />
+          }
+        />
+        <Route
+          path={ProjectSettingsTabRoutes.PeriodicBuilds}
+          element={
+            <PeriodicBuildsTab
+              projectData={
+                tabData[ProjectSettingsTabRoutes.PeriodicBuilds].projectData
+              }
+              projectType={projectType}
+              repoData={
+                tabData[ProjectSettingsTabRoutes.PeriodicBuilds].repoData
+              }
+            />
+          }
+        />
+        <Route
+          path={ProjectSettingsTabRoutes.EventLog}
+          element={<EventLogTab projectType={projectType} />}
+        />
+        <Route
+          path="*"
+          element={<Navigate to={ProjectSettingsTabRoutes.General} replace />}
+        />
+      </Routes>
     </Container>
   );
 };
