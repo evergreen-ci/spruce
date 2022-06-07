@@ -66,6 +66,8 @@ const AnnotationNote: React.VFC<Props> = ({
   return (
     <NonTableWrapper>
       <TextArea
+        aria-labelledby="annotation-note-input"
+        rows={4}
         id="noteInput"
         value={newMessage}
         onChange={(e) => setMessage(e.target.value)}

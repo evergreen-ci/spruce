@@ -113,7 +113,11 @@ export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
         </WideButton>,
         <WideButton
           data-cy="spawn-volume-button"
-          disabled={loadingSpawnVolume || state.size === 0}
+          disabled={
+            loadingSpawnVolume ||
+            state.size === 0 ||
+            state.size > maxSpawnableLimit
+          }
           key="spawn-volume-button" // @ts-expect-error
           onClick={spawnVolume}
           variant={Variant.Primary}

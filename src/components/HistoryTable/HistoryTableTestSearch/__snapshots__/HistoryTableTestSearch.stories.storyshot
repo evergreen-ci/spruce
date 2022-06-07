@@ -20,7 +20,7 @@ exports[`storybook Storyshots HistoryTableTestSearch Test Search 1`] = `
       >
         <label
           className="leafygreen-ui-ly82bp"
-          htmlFor="textinput-4"
+          htmlFor="textinput-16"
         >
           Filter by Failed Tests
         </label>
@@ -35,7 +35,7 @@ exports[`storybook Storyshots HistoryTableTestSearch Test Search 1`] = `
               autoComplete="on"
               className="leafygreen-ui-1il5lef"
               disabled={false}
-              id="textinput-4"
+              id="textinput-16"
               onBlur={[Function]}
               onChange={[Function]}
               onFocus={[Function]}

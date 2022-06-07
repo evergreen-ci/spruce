@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Variant } from "@leafygreen-ui/button";
+import TextInput from "@leafygreen-ui/text-input";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Input, Select } from "antd";
+import { Select } from "antd";
 import { diff } from "deep-object-diff";
 import isEqual from "lodash.isequal";
 import { useSpawnAnalytics } from "analytics";
@@ -174,8 +175,8 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
         <SectionContainer>
           <SectionLabel weight="medium">Host Name</SectionLabel>
           <ModalContent>
-            <InputLabel htmlFor="hostNameInput">Host Name</InputLabel>
-            <Input
+            <TextInput
+              label="Host Name"
               id="hostNameInput"
               value={editSpawnHostState.displayName}
               onChange={(e) =>
@@ -253,13 +254,10 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
         {canEditRDPPassword && (
           <SectionContainer>
             <SectionLabel weight="medium">Set RDP Password</SectionLabel>
-
             <ModalContent>
-              <InputLabel htmlFor="rdpPasswordInput">
-                Set New RDP Password
-              </InputLabel>
               <FlexContainer>
-                <Input
+                <TextInput
+                  label="Set New RDP Password"
                   value={editSpawnHostState.servicePassword}
                   onChange={(e) =>
                     dispatch({
@@ -352,6 +350,7 @@ const computeDiff = (defaultEditSpawnHostState, editSpawnHostState) => {
 
 const PaddedIcon = styled(Icon)`
   margin-left: ${size.s};
+  margin-top: ${size.m};
 `;
 const FlexContainer = styled.div`
   display: flex;
