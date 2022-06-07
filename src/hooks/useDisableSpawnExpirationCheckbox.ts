@@ -1,14 +1,13 @@
 import { useQuery } from "@apollo/client";
 import {
-  GetSpruceConfigQuery,
   MyHostsQuery,
   MyHostsQueryVariables,
   MyVolumesQuery,
   MyVolumesQueryVariables,
-  GetSpruceConfigQueryVariables,
 } from "gql/generated/types";
-import { GET_MY_HOSTS, GET_MY_VOLUMES, GET_SPRUCE_CONFIG } from "gql/queries";
+import { GET_MY_HOSTS, GET_MY_VOLUMES } from "gql/queries";
 import { MyHost, MyVolume } from "types/spawn";
+import { useSpruceConfig } from "./useSpruceConfig";
 
 type ListItem =
   | MyHostsQuery["myHosts"][0]
@@ -29,18 +28,15 @@ export const useDisableSpawnExpirationCheckbox = (
     MyVolumesQuery,
     MyVolumesQueryVariables
   >(GET_MY_VOLUMES);
-  const { data: spruceConfigData } = useQuery<
-    GetSpruceConfigQuery,
-    GetSpruceConfigQueryVariables
-  >(GET_SPRUCE_CONFIG);
 
+  const spruceConfig = useSpruceConfig();
   const currentUnexpirableCount = (
     (isVolume ? MyVolumesData?.myVolumes : MyHostsData?.myHosts) ??
     ([] as ListItem[])
   ).reduce(countNoExpirationCB, 0);
 
   const { unexpirableHostsPerUser, unexpirableVolumesPerUser } =
-    spruceConfigData?.spruceConfig?.spawnHost ?? {};
+    spruceConfig?.spawnHost ?? {};
 
   const maxUnexpirable =
     (isVolume ? unexpirableVolumesPerUser : unexpirableHostsPerUser) ?? 0;

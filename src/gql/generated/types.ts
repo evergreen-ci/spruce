@@ -2081,6 +2081,27 @@ export type AnnotationFragment = {
   >;
 };
 
+export type IssueLinkFragment = {
+  issueKey?: Maybe<string>;
+  url?: Maybe<string>;
+  confidenceScore?: Maybe<number>;
+  source?: Maybe<{ author: string; time: Date; requester: string }>;
+  jiraTicket?: Maybe<JiraTicketFragment>;
+};
+
+export type JiraTicketFragment = {
+  key: string;
+  fields: {
+    summary: string;
+    assigneeDisplayName?: Maybe<string>;
+    resolutionName?: Maybe<string>;
+    created: string;
+    updated: string;
+    assignedTeam?: Maybe<string>;
+    status: { id: string; name: string };
+  };
+};
+
 export type BaseHostFragment = {
   id: string;
   hostUrl: string;
@@ -2140,19 +2161,6 @@ export type FileDiffsFragment = {
   description: string;
 };
 
-export type JiraTicketFragment = {
-  key: string;
-  fields: {
-    summary: string;
-    assigneeDisplayName?: Maybe<string>;
-    resolutionName?: Maybe<string>;
-    created: string;
-    updated: string;
-    assignedTeam?: Maybe<string>;
-    status: { id: string; name: string };
-  };
-};
-
 export type LogMessageFragment = {
   severity?: Maybe<string>;
   message?: Maybe<string>;
@@ -2178,16 +2186,6 @@ export type PatchesPagePatchesFragment = {
     createTime?: Maybe<Date>;
     commitQueuePosition?: Maybe<number>;
     canEnqueueToCommitQueue: boolean;
-    childPatches?: Maybe<
-      Array<{
-        baseVersionID?: Maybe<string>;
-        githash: string;
-        id: string;
-        projectID: string;
-        taskCount?: Maybe<number>;
-        status: string;
-      }>
-    >;
     versionFull?: Maybe<{
       id: string;
       status: string;
@@ -3047,6 +3045,15 @@ export type GetBaseVersionAndTaskQuery = {
   }>;
 };
 
+export type GetBuildBaronConfiguredQueryVariables = Exact<{
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
+}>;
+
+export type GetBuildBaronConfiguredQuery = {
+  buildBaron: { buildBaronConfigured: boolean };
+};
+
 export type BuildBaronQueryVariables = Exact<{
   taskId: Scalars["String"];
   execution: Scalars["Int"];
@@ -3358,16 +3365,7 @@ export type GetCustomCreatedIssuesQuery = {
     id: string;
     execution: number;
     annotation?: Maybe<{
-      createdIssues?: Maybe<
-        Array<
-          Maybe<{
-            issueKey?: Maybe<string>;
-            url?: Maybe<string>;
-            source?: Maybe<{ author: string; time: Date; requester: string }>;
-            jiraTicket?: Maybe<JiraTicketFragment>;
-          }>
-        >
-      >;
+      createdIssues?: Maybe<Array<Maybe<IssueLinkFragment>>>;
     }>;
   }>;
 };
@@ -3381,18 +3379,7 @@ export type GetIssuesQuery = {
   task?: Maybe<{
     id: string;
     execution: number;
-    annotation?: Maybe<{
-      issues?: Maybe<
-        Array<
-          Maybe<{
-            issueKey?: Maybe<string>;
-            url?: Maybe<string>;
-            source?: Maybe<{ author: string; time: Date; requester: string }>;
-            jiraTicket?: Maybe<JiraTicketFragment>;
-          }>
-        >
-      >;
-    }>;
+    annotation?: Maybe<{ issues?: Maybe<Array<Maybe<IssueLinkFragment>>> }>;
   }>;
 };
 
@@ -3406,16 +3393,7 @@ export type GetSuspectedIssuesQuery = {
     id: string;
     execution: number;
     annotation?: Maybe<{
-      suspectedIssues?: Maybe<
-        Array<
-          Maybe<{
-            issueKey?: Maybe<string>;
-            url?: Maybe<string>;
-            source?: Maybe<{ author: string; time: Date; requester: string }>;
-            jiraTicket?: Maybe<JiraTicketFragment>;
-          }>
-        >
-      >;
+      suspectedIssues?: Maybe<Array<Maybe<IssueLinkFragment>>>;
     }>;
   }>;
 };
@@ -3733,26 +3711,7 @@ export type PatchQuery = {
     projectIdentifier: string;
     githash: string;
     patchNumber: number;
-    taskCount?: Maybe<number>;
-    baseVersionID?: Maybe<string>;
-    canEnqueueToCommitQueue: boolean;
-    childPatches?: Maybe<
-      Array<{
-        baseVersionID?: Maybe<string>;
-        githash: string;
-        id: string;
-        projectID: string;
-        taskCount?: Maybe<number>;
-        status: string;
-      }>
-    >;
     versionFull?: Maybe<{ id: string }>;
-    duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
-    time?: Maybe<{
-      started?: Maybe<string>;
-      submittedAt: string;
-      finished?: Maybe<string>;
-    }>;
   } & BasePatchFragment;
 };
 
@@ -4243,13 +4202,16 @@ export type VersionQuery = {
       canEnqueueToCommitQueue: boolean;
       childPatches?: Maybe<
         Array<{
-          baseVersionID?: Maybe<string>;
-          githash: string;
           id: string;
+          githash: string;
           projectIdentifier: string;
           taskCount?: Maybe<number>;
           status: string;
-          versionFull?: Maybe<{ id: string; status: string }>;
+          versionFull?: Maybe<{
+            id: string;
+            status: string;
+            baseVersion?: Maybe<{ id: string }>;
+          }>;
         }>
       >;
     }>;

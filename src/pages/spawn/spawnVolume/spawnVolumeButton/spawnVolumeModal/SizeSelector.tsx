@@ -1,7 +1,6 @@
-import React from "react";
-import { InputNumber, Tooltip } from "antd";
+import TextInput from "@leafygreen-ui/text-input";
+import { Tooltip } from "antd";
 import { ModalContent, SectionContainer, SectionLabel } from "components/Spawn";
-import { InputLabel } from "components/styles";
 
 interface Props {
   value: number;
@@ -13,15 +12,17 @@ export const SizeSelector: React.VFC<Props> = ({ value, onChange, limit }) => (
   <SectionContainer>
     <SectionLabel weight="medium">Volume Size</SectionLabel>
     <ModalContent>
-      <InputLabel htmlFor="volumeSize">Size</InputLabel>
       <Tooltip title={`Max Spawnable Volume Size is ${limit} GiB`}>
-        <InputNumber
+        <TextInput
+          label="Size (GB)"
           data-cy="volumeSize"
           id="volumeSize"
           min={0}
           max={limit}
-          value={value}
-          onChange={onChange}
+          style={{ width: "100px" }}
+          value={value.toString()}
+          onChange={(e) => onChange(parseInt(e.target.value, 10))}
+          type="number"
         />
       </Tooltip>
     </ModalContent>

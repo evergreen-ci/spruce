@@ -8,12 +8,17 @@ import { TableProps } from "antd/es/table";
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { Accordion, AccordionWrapper } from "components/Accordion";
-import { PageSizeSelector } from "components/PageSizeSelector";
+import PageSizeSelector from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { ResultCountLabel } from "components/ResultCountLabel";
-import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
+import {
+  TableControlOuterRow,
+  TableControlInnerRow,
+  StyledRouterLink,
+} from "components/styles";
 import { TasksTable } from "components/Table/TasksTable";
+import { getVersionRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -26,11 +31,11 @@ import {
 } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
 import { usePolling, useTaskStatuses } from "hooks";
-import { environmentalVariables, queryString } from "utils";
+import { queryString, string } from "utils";
 import { reducer } from "./reducer";
 
-const { getUiUrl } = environmentalVariables;
 const { parseSortString, toSortString } = queryString;
+const { shortenGithash } = string;
 
 interface DownstreamProjectAccordionProps {
   baseVersionID: string;
@@ -162,8 +167,13 @@ export const DownstreamProjectAccordion: React.VFC<DownstreamProjectAccordionPro
         <AccordionContents>
           <p>
             Base commit:{" "}
-            <InlineCode href={`${getUiUrl()}/version/${baseVersionID}`}>
-              {githash.slice(0, 10)}
+            <InlineCode>
+              <StyledRouterLink
+                data-cy="downstream-task-base-commit"
+                to={getVersionRoute(baseVersionID)}
+              >
+                {shortenGithash(githash)}
+              </StyledRouterLink>
             </InlineCode>
           </p>
           <TableWrapper>
@@ -198,7 +208,9 @@ export const DownstreamProjectAccordion: React.VFC<DownstreamProjectAccordionPro
                 <PageSizeSelector
                   data-cy="tasks-table-page-size-selector"
                   value={variables.limit}
-                  onClick={(l) => dispatch({ type: "onChangeLimit", limit: l })}
+                  onChange={(l) =>
+                    dispatch({ type: "onChangeLimit", limit: l })
+                  }
                 />
               </TableControlInnerRow>
             </TableControlOuterRow>

@@ -1,20 +1,12 @@
-import React from "react";
-import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { Disclaimer, Subtitle } from "@leafygreen-ui/typography";
-import { Skeleton } from "antd";
 import { useAnnotationAnalytics } from "analytics";
 import { StyledLink } from "components/styles";
 import { getJiraTicketUrl } from "constants/externalResources";
 import { size } from "constants/tokens";
-import {
-  GetSpruceConfigQuery,
-  JiraTicket,
-  Source,
-  TicketFields,
-} from "gql/generated/types";
-import { GET_SPRUCE_CONFIG } from "gql/queries";
+import { TicketFields } from "gql/generated/types";
+import { useSpruceConfig } from "hooks";
 import { string } from "utils";
 
 const { getDateCopy } = string;
@@ -32,8 +24,7 @@ export const JiraTicketRow: React.VFC<JiraTicketRowProps> = ({
 }) => {
   const annotationAnalytics = useAnnotationAnalytics();
 
-  const { data } = useQuery<GetSpruceConfigQuery>(GET_SPRUCE_CONFIG);
-  const spruceConfig = data?.spruceConfig;
+  const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
   const url = getJiraTicketUrl(jiraHost, jiraKey);
   const { created, assigneeDisplayName, updated, status, summary } =
@@ -70,83 +61,6 @@ export const JiraTicketRow: React.VFC<JiraTicketRowProps> = ({
     </div>
   );
 };
-interface AnnotationTicketRowProps {
-  issueKey: string;
-  url: string;
-  source?: Source;
-  jiraTicket?: JiraTicket;
-  loading?: boolean;
-}
-
-export const AnnotationTicketRow: React.VFC<AnnotationTicketRowProps> = ({
-  issueKey,
-  url,
-  jiraTicket,
-  loading = false,
-}) => {
-  const annotationAnalytics = useAnnotationAnalytics();
-  const fields = jiraTicket?.fields;
-  const {
-    created,
-    assigneeDisplayName,
-    assignedTeam,
-    updated,
-    summary,
-    status,
-  } = fields ?? {};
-
-  return (
-    <div data-cy="annotation-ticket-row">
-      <JiraSummaryLink
-        href={url}
-        target="_blank"
-        data-cy={issueKey}
-        onClick={() =>
-          annotationAnalytics.sendEvent({
-            name: "Click Annotation Ticket Link",
-          })
-        }
-      >
-        {issueKey}
-        {summary && `: ${summary}`}
-      </JiraSummaryLink>
-      {loading ? (
-        <LoadingWrapper>
-          <Skeleton active title={false} />
-        </LoadingWrapper>
-      ) : (
-        <>
-          {jiraTicket && (
-            <StyledBadge data-cy={`${issueKey}-badge`} variant="lightgray">
-              {status.name}
-            </StyledBadge>
-          )}
-          <BottomMetaDataWrapper data-cy={`${issueKey}-metadata`}>
-            {created && (
-              <Disclaimer>
-                Created: {getDateCopy(created, { dateOnly: true })}
-              </Disclaimer>
-            )}
-            {updated && (
-              <Disclaimer>
-                Updated: {getDateCopy(updated, { dateOnly: true })}
-              </Disclaimer>
-            )}
-            {fields && !assigneeDisplayName && (
-              <Disclaimer>Unassigned</Disclaimer>
-            )}
-            {assigneeDisplayName && (
-              <Disclaimer>Assignee: {assigneeDisplayName}</Disclaimer>
-            )}
-            {assignedTeam && (
-              <Disclaimer>Assigned Team: {assignedTeam}</Disclaimer>
-            )}
-          </BottomMetaDataWrapper>
-        </>
-      )}
-    </div>
-  );
-};
 
 // @ts-expect-error
 export const TicketsTitle = styled(Subtitle)<TitleProps>`
@@ -154,10 +68,6 @@ export const TicketsTitle = styled(Subtitle)<TitleProps>`
   margin-top: ${(props) => (props.margin ? size.m : size.l)};
   line-height: ${size.m};
   font-weight: bold;
-`;
-
-const LoadingWrapper = styled.div`
-  margin-top: ${size.xs};
 `;
 
 const JiraSummaryLink = styled(StyledLink)`
@@ -190,11 +100,12 @@ export const TopMetaDataWrapper = styled.div`
   width: 80%;
 `;
 
-export const TitleAndButtons = styled.div`
+export const NonTableWrapper = styled.div`
   margin-left: ${size.s};
 `;
 
 export const ButtonWrapper = styled.div`
   margin-right: ${size.xs};
   padding-top: ${size.s};
+  width: fit-content;
 `;

@@ -178,12 +178,7 @@ describe("Tests Table", () => {
   describe("Changing page size updates URL and renders less than or equal to that many rows ", () => {
     [20, 10, 50, 100].forEach((pageSize) => {
       it(`Updates URL and displays up to ${pageSize} results at once when the page size is changed to ${pageSize}`, () => {
-        clickOnPageSizeBtnAndAssertURLandTableSize(
-          pageSize,
-          "tests-table-page-size-selector",
-          `tests-table-page-size-selector-${pageSize}`,
-          dataCyTableRows
-        );
+        clickOnPageSizeBtnAndAssertURLandTableSize(pageSize, dataCyTableRows);
       });
     });
   });

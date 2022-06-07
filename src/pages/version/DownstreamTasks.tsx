@@ -10,15 +10,7 @@ export const DownstreamTasks: React.VFC<DownstreamTasksProps> = ({
 }) => (
   <>
     {childPatches.map(
-      ({
-        baseVersionID,
-        githash,
-        id,
-        projectIdentifier,
-        status,
-        taskCount,
-        versionFull,
-      }) => (
+      ({ id, githash, projectIdentifier, status, taskCount, versionFull }) => (
         <DownstreamProjectAccordion
           key={`downstream_project_${id}`}
           projectName={projectIdentifier}
@@ -26,7 +18,7 @@ export const DownstreamTasks: React.VFC<DownstreamTasksProps> = ({
           childPatchId={id}
           taskCount={taskCount}
           githash={githash}
-          baseVersionID={baseVersionID}
+          baseVersionID={versionFull?.baseVersion?.id}
         />
       )
     )}
