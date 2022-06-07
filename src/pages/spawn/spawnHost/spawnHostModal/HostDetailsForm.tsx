@@ -1,8 +1,8 @@
-import React, { useReducer } from "react";
+import { useReducer } from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
+import TextArea from "@leafygreen-ui/text-area";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
-import { Input } from "antd";
 import {
   ExpirationField,
   ModalContent,
@@ -14,8 +14,6 @@ import { VolumesField, VolumesData } from "pages/spawn/spawnHost/fields";
 import { MyVolume } from "types/spawn";
 import { SetupScriptForm } from "./SetupScriptForm";
 import { Action as SpawnHostModalAction } from "./useSpawnHostModalState";
-
-const { TextArea } = Input;
 
 export type hostDetailsStateType = {
   userDataScript?: string;
@@ -68,17 +66,19 @@ export const HostDetailsForm: React.VFC<HostDetailsFormProps> = ({
         onChange={onToggleUserData}
       />
       <StyledTextArea
+        aria-labelledby="user-data-script-input"
         data-cy="userDataScript-input"
         disabled={!hasUserDataScript}
         value={userDataScript}
         placeholder="Userdata script"
-        autoSize={{ minRows: 4, maxRows: 6 }}
+        rows={6}
         onChange={(e) =>
           onChange({
             type: "editUserDataScript",
             userDataScript: e.target.value,
           })
         }
+        spellCheck={false}
       />
       <SetupScriptForm data={data} onChange={onChange} />
 

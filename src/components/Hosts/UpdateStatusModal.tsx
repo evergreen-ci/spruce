@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
+import TextArea from "@leafygreen-ui/text-area";
 import { Body } from "@leafygreen-ui/typography";
-import { Select, Input } from "antd";
+import { Select } from "antd";
 import { useHostsTableAnalytics } from "analytics";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
@@ -16,7 +17,6 @@ import { UPDATE_HOST_STATUS } from "gql/mutations";
 import { UpdateHostStatus } from "types/host";
 
 const { Option } = Select;
-const { TextArea } = Input;
 
 interface Props {
   visible: boolean;
@@ -120,11 +120,11 @@ export const UpdateStatusModal: React.VFC<Props> = ({
           </Option>
         ))}
       </StyledSelect>
-      <Body weight="medium">Add Notes</Body>
       <StyledTextArea
+        label="Add Notes"
         data-cy="host-status-notes"
         value={notes}
-        autoSize={{ minRows: 4, maxRows: 6 }}
+        rows={6}
         onChange={(e) => setNotesValue(e.target.value)}
       />
     </Modal>

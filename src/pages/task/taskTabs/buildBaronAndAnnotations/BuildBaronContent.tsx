@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
+import styled from "@emotion/styled";
 import { Skeleton } from "antd";
-import { StyledLink } from "components/styles";
-import { getJiraSearchUrl } from "constants/externalResources";
 import { useToastContext } from "context/toast";
 import {
-  GetSpruceConfigQuery,
   BuildBaron,
   Annotation,
   GetCustomCreatedIssuesQuery,
@@ -16,14 +14,11 @@ import {
 import {
   GET_CREATED_TICKETS,
   GET_JIRA_CUSTOM_CREATED_ISSUES,
-  GET_SPRUCE_CONFIG,
 } from "gql/queries";
-import { AnnotationNote } from "./AnnotationNote";
-import { Issues, SuspectedIssues } from "./AnnotationTickets";
-import { CustomCreatedTicketsTable } from "./AnnotationTicketsTable";
-import { TicketsTitle, TitleAndButtons } from "./BBComponents";
-import { CreatedTickets, CustomCreatedTickets } from "./BBCreatedTickets";
-import { BuildBaronTable } from "./BuildBaronTable";
+import AnnotationNote from "./AnnotationNote";
+import { BBCreatedTickets, CustomCreatedTickets } from "./CreatedTicketsTable";
+import { Issues, SuspectedIssues } from "./Issues";
+import JiraIssueTable from "./JiraIssueTable";
 
 interface BuildBaronCoreProps {
   bbData: BuildBaron;
@@ -34,7 +29,7 @@ interface BuildBaronCoreProps {
   userCanModify: boolean;
 }
 
-export const BuildBaronContent: React.VFC<BuildBaronCoreProps> = ({
+const BuildBaronContent: React.VFC<BuildBaronCoreProps> = ({
   bbData,
   taskId,
   execution,
@@ -43,15 +38,6 @@ export const BuildBaronContent: React.VFC<BuildBaronCoreProps> = ({
   userCanModify,
 }) => {
   const [selectedRowKey, setSelectedRowKey] = useState("");
-
-  const { data } = useQuery<GetSpruceConfigQuery>(GET_SPRUCE_CONFIG);
-  const spruceConfig = data?.spruceConfig;
-  const jiraHost = spruceConfig?.jira?.host;
-
-  const jiraSearchString = bbData?.searchReturnInfo?.search;
-  const jqlEscaped = encodeURIComponent(jiraSearchString);
-  const jiraSearchLink = getJiraSearchUrl(jiraHost, jqlEscaped);
-
   const dispatchToast = useToastContext();
 
   const { data: customCreatedTickets } = useQuery<
@@ -80,29 +66,26 @@ export const BuildBaronContent: React.VFC<BuildBaronCoreProps> = ({
 
   const customTickets = customCreatedTickets?.task?.annotation?.createdIssues;
   const bbTickets = bbCreatedTickets?.bbGetCreatedTickets;
+  const canCreateTickets = bbData?.bbTicketCreationDefined;
 
   return (
-    <div data-cy="bb-content">
+    <Wrapper data-cy="bb-content">
       {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
-      {bbData?.bbTicketCreationDefined ? (
+      {canCreateTickets ? (
         <CustomCreatedTickets
           taskId={taskId}
           execution={execution}
           tickets={customTickets}
         />
       ) : (
-        <CreatedTickets
+        <BBCreatedTickets
           taskId={taskId}
           execution={execution}
           buildBaronConfigured={bbData?.buildBaronConfigured}
           tickets={bbTickets}
         />
       )}
-      {bbTickets?.length > 0 && <BuildBaronTable jiraIssues={bbTickets} />}
 
-      {customTickets?.length > 0 && (
-        <CustomCreatedTicketsTable createdIssues={customTickets} />
-      )}
       <AnnotationNote
         note={annotation?.note}
         taskId={taskId}
@@ -126,20 +109,14 @@ export const BuildBaronContent: React.VFC<BuildBaronCoreProps> = ({
         annotation={annotation}
       />
       {bbData?.searchReturnInfo?.issues.length > 0 && (
-        <>
-          <TitleAndButtons>
-            {/* @ts-expect-error */}
-            <TicketsTitle>
-              Related tickets from Jira
-              <StyledLink data-cy="jira-search-link" href={jiraSearchLink}>
-                {"  "}(Jira Search)
-              </StyledLink>
-            </TicketsTitle>
-          </TitleAndButtons>
-          {/* build baron related jira tickets */}
-          <BuildBaronTable jiraIssues={bbData?.searchReturnInfo?.issues} />
-        </>
+        <JiraIssueTable bbData={bbData} />
       )}
-    </div>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  width: 80%;
+`;
+
+export default BuildBaronContent;

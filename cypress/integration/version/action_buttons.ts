@@ -59,14 +59,14 @@ describe("Action Buttons", () => {
       it("Clicking 'Set Priority' button shows popconfirm with input and toast on success", () => {
         const priority = "99";
         cy.dataCy("prioritize-patch").click();
-        cy.dataCy("priority-input").clear().type(priority);
+        cy.dataCy("patch-priority-input").clear().type(priority);
         cy.get(popconfirmYesClassName).contains("Set").click({ force: true });
         cy.validateToast("success", priority);
       });
 
       it("Error setting priority shows error toast", () => {
         cy.dataCy("prioritize-patch").click();
-        cy.dataCy("priority-input").clear().type("88");
+        cy.dataCy("patch-priority-input").clear().type("88");
         mockErrorResponse({
           errorMessage: "There was an error setting priority",
         });

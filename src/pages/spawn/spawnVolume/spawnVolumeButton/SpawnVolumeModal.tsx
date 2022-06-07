@@ -16,12 +16,12 @@ import { useToastContext } from "context/toast";
 import {
   SpawnVolumeMutation,
   SpawnVolumeMutationVariables,
-  GetSpruceConfigQuery,
   MyVolumesQuery,
   MyVolumesQueryVariables,
 } from "gql/generated/types";
 import { SPAWN_VOLUME } from "gql/mutations";
-import { GET_SPRUCE_CONFIG, GET_MY_VOLUMES } from "gql/queries";
+import { GET_MY_VOLUMES } from "gql/queries";
+import { useSpruceConfig } from "hooks";
 import { AvailabilityZoneSelector } from "./spawnVolumeModal/AvailabilityZoneSelector";
 import { reducer, initialState } from "./spawnVolumeModal/reducer";
 import { SizeSelector } from "./spawnVolumeModal/SizeSelector";
@@ -39,9 +39,7 @@ export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
   const [state, dispatch] = useReducer(reducer, initialState);
   const spawnAnalytics = useSpawnAnalytics();
   const dispatchToast = useToastContext();
-  const { data: spruceConfig } = useQuery<GetSpruceConfigQuery>(
-    GET_SPRUCE_CONFIG
-  );
+  const spruceConfig = useSpruceConfig();
   const { data: volumesData } = useQuery<
     MyVolumesQuery,
     MyVolumesQueryVariables
@@ -83,8 +81,7 @@ export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
     spawnAnalytics.sendEvent({ name: "Spawned a volume", params: variables });
     spawnVolumeMutation({ variables });
   };
-  const volumeLimit =
-    spruceConfig?.spruceConfig?.providers?.aws?.maxVolumeSizePerUser;
+  const volumeLimit = spruceConfig?.providers?.aws?.maxVolumeSizePerUser;
   const totalVolumeSize = volumesData?.myVolumes?.reduce(
     (cnt, v) => cnt + v.size,
     0
@@ -116,7 +113,11 @@ export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
         </WideButton>,
         <WideButton
           data-cy="spawn-volume-button"
-          disabled={loadingSpawnVolume || state.size === 0}
+          disabled={
+            loadingSpawnVolume ||
+            state.size === 0 ||
+            state.size > maxSpawnableLimit
+          }
           key="spawn-volume-button" // @ts-expect-error
           onClick={spawnVolume}
           variant={Variant.Primary}
