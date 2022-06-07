@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { Input } from "antd";
+import TextArea from "@leafygreen-ui/text-area";
 import { useLocation } from "react-router-dom";
 import { size } from "constants/tokens";
 import {
@@ -15,7 +15,6 @@ import { shortenGithash } from "utils/string";
 import { Action as SpawnHostModalAction } from "./useSpawnHostModalState";
 
 const { getString, parseQueryString } = queryString;
-const { TextArea } = Input;
 
 export type setupScriptType = {
   setUpScript?: string;
@@ -79,17 +78,19 @@ export const SetupScriptForm: React.VFC<SetupScriptFormProps> = ({
       />
       {hasSetupScript && (
         <StyledTextArea
+          aria-labelledby="setup-script-input"
           data-cy="userDataScript-input"
           disabled={!hasSetupScript}
           value={setUpScript}
           placeholder="Setup script"
-          autoSize={{ minRows: 4, maxRows: 6 }}
+          rows={6}
           onChange={(e) =>
             onChange({
               type: "editSetupScript",
               setUpScript: e.target.value,
             })
           }
+          spellCheck={false}
         />
       )}
       {hasTask && (

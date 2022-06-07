@@ -16,7 +16,11 @@ export type SpruceFormProps = Pick<
   FormProps<any>,
   "schema" | "onChange" | "formData"
 > &
-  Partial<FormProps<any>>;
+  Partial<FormProps<any>> & { customFormatFields?: CustomFormatFields };
+
+type CustomFormatFields = {
+  jiraHost?: string;
+};
 
 export const SpruceForm: React.VFC<SpruceFormProps> = ({
   schema,
@@ -27,6 +31,7 @@ export const SpruceForm: React.VFC<SpruceFormProps> = ({
   tagName,
   validate,
   disabled,
+  customFormatFields,
 }) => (
   <Form
     fields={{ ...baseFields, ...fields }}
@@ -43,7 +48,7 @@ export const SpruceForm: React.VFC<SpruceFormProps> = ({
     showErrorList={false}
     validate={validate}
     disabled={disabled}
-    customFormats={customFormats}
+    customFormats={customFormats(customFormatFields?.jiraHost)}
     liveValidate
     noHtml5Validate
   >
