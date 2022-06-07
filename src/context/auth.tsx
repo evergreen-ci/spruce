@@ -1,6 +1,7 @@
 import React, { useContext, useReducer } from "react";
 import axios from "axios";
 import { environmentalVariables } from "utils";
+import { leaveBreadcrumb } from "utils/errorReporting";
 
 const { getLoginDomain } = environmentalVariables;
 interface AuthState {
@@ -20,9 +21,9 @@ const reducer = (state: AuthState, action: Action): AuthState => {
   // check to see if the authenticate state has changed otherwise dont update the reducer
   switch (action.type) {
     case "authenticated":
-      return state.isAuthenticated ? state : { isAuthenticated: true };
+      return { ...state, isAuthenticated: true };
     case "deauthenticated":
-      return !state.isAuthenticated ? state : { isAuthenticated: false };
+      return { ...state, isAuthenticated: false };
     default:
       return state;
   }
@@ -52,7 +53,10 @@ const AuthProvider: React.VFC<{ children: React.ReactNode }> = ({
       window.location.href = `${getLoginDomain()}/login`;
     },
     dispatchAuthenticated: () => {
-      dispatch({ type: "authenticated" });
+      if (!state.isAuthenticated) {
+        dispatch({ type: "authenticated" });
+        leaveBreadcrumb("Authenticated", {}, "user");
+      }
     },
   };
 
