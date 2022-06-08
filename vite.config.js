@@ -3,9 +3,10 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import { readdirSync } from "fs";
 import vitePluginImp from "vite-plugin-imp";
-import { viteCommonjs } from "@originjs/vite-plugin-commonjs";
+import { viteCommonjs, esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
 import envCompatible from "vite-plugin-env-compatible";
 import checker from "vite-plugin-checker";
+import { visualizer } from "rollup-plugin-visualizer";
 import gql from "./config/gql";
 
 // Allow imports from absolute paths
@@ -33,17 +34,33 @@ export default defineConfig({
       },
     },
   },
+
   optimizeDeps: {
     esbuildOptions: {
       // Node.js global to browser globalThis
       define: {
         global: "globalThis",
       },
+      // Enable esbuild polyfill plugins
+      plugins: [esbuildCommonjs(["antd"])],
     },
   },
   build: {
     sourcemap: true,
     outDir: "build",
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: [
+            "node_modules/react/index.js",
+            "node_modules/react-dom/index.js",
+          ],
+          lodash: ["node_modules/lodash/index.js"],
+          antd: ["node_modules/antd/es/index.js"],
+          datefns: ["node_modules/date-fns/index.js"],
+        },
+      },
+    },
   },
   resolve: {
     alias: {
@@ -57,7 +74,7 @@ export default defineConfig({
   },
 
   plugins: [
-    viteCommonjs({ include: ["antd"] }),
+    viteCommonjs(),
     // Inject env variables
     envCompatible({
       prefix: "REACT_APP_",
@@ -87,6 +104,11 @@ export default defineConfig({
     gql(),
     // Typescript checking
     checker({ typescript: true }),
+    // Bundle analyzer
+    visualizer({
+      filename: "build/source_map.html",
+      template: "sunburst",
+    }),
   ],
   css: {
     preprocessorOptions: {
