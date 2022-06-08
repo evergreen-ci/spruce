@@ -22,7 +22,7 @@ describe("task history", () => {
   it("should be able expand and collapse inactive commits", () => {
     cy.visit(`/task-history/spruce/check_codegen`);
     // Expand
-    cy.contains("2ab1c56").should("not.be.visible");
+    cy.contains("2ab1c56").should("not.exist");
     cy.contains("Expand 1 inactive").should("be.visible");
     cy.contains("Expand 1 inactive").click();
     cy.contains("2ab1c56").should("be.visible");
@@ -31,7 +31,7 @@ describe("task history", () => {
     cy.contains("Expand 1 inactive").should("not.exist");
     cy.contains("Collapse 1 inactive").should("be.visible");
     cy.contains("Collapse 1 inactive").click();
-    cy.contains("2ab1c56").should("not.be.visible");
+    cy.contains("2ab1c56").should("not.exist");
   });
   it("clicking on a failing test history button should show the task history view with the failing test filter applied", () => {
     cy.visit(`/task/${taskId}`);

@@ -22,16 +22,16 @@ describe("Action Buttons", () => {
       cy.dataCy("schedule-patch").click();
       cy.dataCy("schedule-tasks-modal").should("be.visible");
       cy.contains("Cancel").click();
-      cy.dataCy("schedule-tasks-modal").should("not.be.visible");
+      cy.dataCy("schedule-tasks-modal").should("not.exist");
     });
 
     it("Clicking ellipses dropdown shows ellipses options", () => {
-      cy.dataCy("ellipses-btn").should("not.be.visible");
+      cy.dataCy("ellipses-btn").should("not.exist");
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
 
       cy.dataCy("ellipsis-btn").click();
-      cy.dataCy("card-dropdown").should("not.be.visible");
+      cy.dataCy("card-dropdown").should("not.exist");
     });
     describe("Version dropdown options", () => {
       before(() => {

@@ -41,7 +41,7 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.dataCy("schedule-patch").click();
     cy.dataCy("schedule-tasks-modal").should("be.visible");
     cy.contains("Cancel").click();
-    cy.dataCy("schedule-tasks-modal").should("not.be.visible");
+    cy.dataCy("schedule-tasks-modal").should("not.exist");
   });
 
   it("'Schedule' link is disabled for unfinalized patch", () => {
@@ -60,7 +60,7 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.dataCy("unschedule-patch").click({ force: true });
     cy.get(popconfirmYesClassName).contains("Yes").should("be.visible");
     cy.contains("Cancel").click();
-    cy.get(popconfirmYesClassName).should("not.be.visible");
+    cy.get(popconfirmYesClassName).should("not.exist");
   });
 
   it("'Unschedule' link is disabled for unfinalized patch", () => {

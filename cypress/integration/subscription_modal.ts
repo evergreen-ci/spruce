@@ -125,7 +125,7 @@ const testSharedSubscriptionModalFunctionality = (
       cy.dataCy(dataCyToggleModalButton).click();
       cy.dataCy(dataCyModal).should("be.visible");
       cy.dataCy("cancel-subscription-button").click();
-      cy.dataCy(dataCyModal).should("not.be.visible");
+      cy.dataCy(dataCyModal).should("not.exist");
     });
 
     const toastDataCy = "toast";

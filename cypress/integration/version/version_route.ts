@@ -58,8 +58,8 @@ describe("Version route", () => {
     });
     it("Doesn't show patch parameters if they don't exist", () => {
       cy.visit(versionRoute(versions[2]));
-      cy.dataCy("parameters-link").should("not.be.visible");
-      cy.dataCy("parameters-modal").should("not.be.visible");
+      cy.dataCy("parameters-link").should("not.exist");
+      cy.dataCy("parameters-modal").should("not.exist");
     });
   });
 

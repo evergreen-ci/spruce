@@ -27,7 +27,7 @@ describe("Restarting a patch", () => {
 
   it("Clicking on the Restart button opens a patch restart modal", () => {
     cy.visit(path);
-    cy.dataCy("version-restart-modal").should("not.be.visible");
+    cy.dataCy("version-restart-modal").should("not.exist");
     cy.dataCy("restart-patch").click();
     cy.dataCy("version-restart-modal").should("be.be.visible");
   });

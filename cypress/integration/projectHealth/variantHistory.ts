@@ -31,7 +31,7 @@ describe("variant history", () => {
   it("should be able expand and collapse inactive commits", () => {
     cy.visit("/variant-history/spruce/ubuntu1604");
     // Expand
-    cy.contains("EVG-16356").should("not.be.visible");
+    cy.contains("EVG-16356").should("not.exist");
     cy.contains("Expand 1 inactive").should("exist");
     cy.contains("Expand 1 inactive").click();
     cy.contains("EVG-16356").should("be.visible");
@@ -40,7 +40,7 @@ describe("variant history", () => {
     cy.contains("Expand 1 inactive").should("not.exist");
     cy.contains("Collapse 1 inactive").should("exist");
     cy.contains("Collapse 1 inactive").click();
-    cy.contains("EVG-16356").should("not.be.visible");
+    cy.contains("EVG-16356").should("not.exist");
   });
   it("should be able to filter column headers", () => {
     cy.dataCy("header-cell").should("have.length", 4);

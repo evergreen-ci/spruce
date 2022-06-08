@@ -473,7 +473,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("spawn-host-input").type("/test");
       cy.dataCy("save-settings-button").should("not.be.disabled");
       cy.dataCy("navitem-access").click();
-      cy.dataCy("navigation-warning-modal").should("not.be.visible");
+      cy.dataCy("navigation-warning-modal").should("not.exist");
       cy.dataCy("navitem-general").click();
       cy.dataCy("spawn-host-input").should("have.value", "/path/test");
     });

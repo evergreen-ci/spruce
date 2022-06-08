@@ -30,7 +30,7 @@ describe("commit queue page", () => {
     });
 
     it("Clicking on Total Code changes should toggle a drop down table", () => {
-      cy.dataCy("code-changes-table").should("not.be.visible");
+      cy.dataCy("code-changes-table").should("not.exist");
       cy.dataCy("accordion-toggle").click();
       cy.dataCy("code-changes-table").should("be.visible");
     });
@@ -43,7 +43,7 @@ describe("commit queue page", () => {
       cy.dataCy("commit-queue-confirmation-modal").within(() => {
         cy.contains("Remove").click();
       });
-      cy.dataCy("commit-queue-confirmation-modal").should("not.be.visible");
+      cy.dataCy("commit-queue-confirmation-modal").should("not.exist");
       cy.dataCy("commit-queue-card").should("not.exist");
     });
   });
@@ -119,7 +119,7 @@ describe("commit queue page", () => {
       cy.dataCy("commit-queue-confirmation-modal").within(() => {
         cy.contains("Remove").click();
       });
-      cy.dataCy("commit-queue-confirmation-modal").should("not.be.visible");
+      cy.dataCy("commit-queue-confirmation-modal").should("not.exist");
       cy.dataCy("commit-queue-card").should("not.exist");
     });
   });

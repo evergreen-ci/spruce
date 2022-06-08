@@ -41,7 +41,7 @@ describe("Navigating to Spawn Host page", () => {
     cy.get(hostTableRow).should("have.length", 2);
   });
   it("Visiting the spawn host page should not have any cards expanded by default", () => {
-    cy.dataCy("spawn-host-card").should("not.be.visible");
+    cy.dataCy("spawn-host-card").should("not.exist");
   });
   it("Clicking on a spawn host row should expand it and show more info about the host in a card", () => {
     cy.get('[data-row-key="i-092593689871a50dc"] > :nth-child(1)').click();
@@ -49,7 +49,7 @@ describe("Navigating to Spawn Host page", () => {
   });
   it("Clicking on a spawn host row should toggle the card closed", () => {
     cy.get('[data-row-key="i-092593689871a50dc"] > :nth-child(1)').click();
-    cy.dataCy("spawn-host-card").should("not.be.visible");
+    cy.dataCy("spawn-host-card").should("not.exist");
   });
   it("Visiting the spawn host page with an id in the url should open the page with the row expanded", () => {
     cy.visit("/spawn/host?host=i-092593689871a50dc");
@@ -130,7 +130,7 @@ describe("Navigating to Spawn Host page", () => {
 
       it("Clicking on the spawn host button should open a spawn host modal.", () => {
         cy.visit("/spawn/host");
-        cy.dataCy("spawn-host-modal").should("not.be.visible");
+        cy.dataCy("spawn-host-modal").should("not.exist");
         cy.dataCy("spawn-host-button").click();
         cy.dataCy("spawn-host-modal").should("be.visible");
       });
