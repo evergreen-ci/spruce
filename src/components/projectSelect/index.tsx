@@ -21,20 +21,6 @@ interface ProjectSelectProps {
   onSubmit?: (projectIdentifier: string) => void;
 }
 
-// Split a list of projects into two arrays, one of enabled projects and one of disabled projects
-const filterDisabledProjects = (
-  projects: Unpacked<
-    GetViewableProjectRefsQuery["viewableProjectRefs"]
-  >["projects"]
-) =>
-  projects.reduce(
-    ([enabled, disabled], project) =>
-      project.enabled === false
-        ? [enabled, [...disabled, project]]
-        : [[...enabled, project], disabled],
-    [[], []]
-  );
-
 export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
   selectedProjectIdentifier,
   isProjectSettingsPage = false,
@@ -132,8 +118,25 @@ export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
   );
 };
 
-const getFavoriteProjects = (projectGroups) =>
-  projectGroups?.flatMap((g) => g.projects.filter((p) => p.isFavorite));
+const getFavoriteProjects = (
+  projectGroups: Array<{
+    projects: Array<{ isFavorite: boolean }>;
+  }>
+) => projectGroups?.flatMap((g) => g.projects.filter((p) => p.isFavorite));
+
+// Split a list of projects into two arrays, one of enabled projects and one of disabled projects
+const filterDisabledProjects = (
+  projects: Unpacked<
+    GetViewableProjectRefsQuery["viewableProjectRefs"]
+  >["projects"]
+) =>
+  projects.reduce(
+    ([enabled, disabled], project) =>
+      project.enabled === false
+        ? [enabled, [...disabled, project]]
+        : [[...enabled, project], disabled],
+    [[], []]
+  );
 
 const getProjects = (
   projectsData: GetProjectsQuery,
@@ -164,12 +167,11 @@ const getProjects = (
     };
   });
 
-  const favoriteProjects = projectGroups?.flatMap((g) =>
-    g.projects.filter((p) => p.isFavorite)
-  );
-
   return [
-    { groupDisplayName: "Favorites", projects: favoriteProjects },
+    {
+      groupDisplayName: "Favorites",
+      projects: getFavoriteProjects(projectGroups),
+    },
     ...enabledProjectGroups,
     ...(disabledProjects.length
       ? [{ groupDisplayName: "Disabled Projects", projects: disabledProjects }]
