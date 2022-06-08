@@ -30,7 +30,7 @@ describe("commit queue page", () => {
     });
 
     it("Clicking on Total Code changes should toggle a drop down table", () => {
-      cy.dataCy("code-changes-table").should("not.exist");
+      cy.dataCy("code-changes-table").should("not.be.visible");
       cy.dataCy("accordion-toggle").click();
       cy.dataCy("code-changes-table").should("be.visible");
     });
