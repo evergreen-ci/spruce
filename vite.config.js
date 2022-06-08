@@ -8,10 +8,10 @@ import envCompatible from "vite-plugin-env-compatible";
 import checker from "vite-plugin-checker";
 import gql from "./config/gql";
 
+// Allow imports from absolute paths
 const absolutePaths = readdirSync(path.resolve(__dirname, "./src")).filter(
   (file) => !file.startsWith(".")
 );
-
 const absolutePathsWithExtensionsTrimmed = absolutePaths.map((file) =>
   file.replace(".tsx", "").replace(".ts", "").replace(".js", "")
 );
