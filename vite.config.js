@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import { readdirSync } from "fs";
 import vitePluginImp from "vite-plugin-imp";
-import { viteCommonjs, esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
+import { viteCommonjs } from "@originjs/vite-plugin-commonjs";
 import envCompatible from "vite-plugin-env-compatible";
 import checker from "vite-plugin-checker";
 import gql from "./config/gql";
@@ -39,8 +39,6 @@ export default defineConfig({
       define: {
         global: "globalThis",
       },
-      // Enable esbuild polyfill plugins
-      plugins: [esbuildCommonjs(["antd"])],
     },
   },
   build: {
@@ -59,7 +57,7 @@ export default defineConfig({
   },
 
   plugins: [
-    viteCommonjs(),
+    viteCommonjs({ include: ["antd"] }),
     // Inject env variables
     envCompatible({
       prefix: "REACT_APP_",
