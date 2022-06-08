@@ -2,9 +2,6 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import { readdirSync } from "fs";
-import rollupNodePolyFill from "rollup-plugin-node-polyfills";
-import { NodeGlobalsPolyfillPlugin } from "@esbuild-plugins/node-globals-polyfill";
-import { NodeModulesPolyfillPlugin } from "@esbuild-plugins/node-modules-polyfill";
 import vitePluginImp from "vite-plugin-imp";
 import { viteCommonjs, esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
 import envCompatible from "vite-plugin-env-compatible";
@@ -18,10 +15,13 @@ const absolutePaths = readdirSync(path.resolve(__dirname, "./src")).filter(
 const absolutePathsWithExtensionsTrimmed = absolutePaths.map((file) =>
   file.replace(".tsx", "").replace(".ts", "").replace(".js", "")
 );
-const aliasMap = absolutePathsWithExtensionsTrimmed.reduce((acc, cur) => {
-  acc[cur] = path.resolve(__dirname, `./src/${cur}`);
-  return acc;
-}, {});
+const absolutePathAliasMap = absolutePathsWithExtensionsTrimmed.reduce(
+  (acc, cur) => {
+    acc[cur] = path.resolve(__dirname, `./src/${cur}`);
+    return acc;
+  },
+  {}
+);
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -40,25 +40,21 @@ export default defineConfig({
         global: "globalThis",
       },
       // Enable esbuild polyfill plugins
-      plugins: [
-        NodeGlobalsPolyfillPlugin({
-          process: true,
-          buffer: true,
-        }),
-        NodeModulesPolyfillPlugin(),
-        esbuildCommonjs(["antd"]),
-      ],
+      plugins: [esbuildCommonjs(["antd"])],
     },
   },
   build: {
     sourcemap: true,
-    rollupOptions: {
-      plugins: [rollupNodePolyFill()],
-    },
     outDir: "build",
   },
   resolve: {
-    alias: aliasMap,
+    alias: {
+      "@leafygreen-ui/emotion": path.resolve(
+        __dirname,
+        "./config/leafygreen-ui/emotion"
+      ),
+      ...absolutePathAliasMap,
+    },
     extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
   },
 
