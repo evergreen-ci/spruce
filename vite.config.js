@@ -107,7 +107,7 @@ export default defineConfig({
     // Bundle analyzer
     visualizer({
       filename: "build/source_map.html",
-      template: "sunburst",
+      template: "treemap",
     }),
   ],
   css: {
