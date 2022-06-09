@@ -15,7 +15,7 @@ const Button: ExtendableBox<
     <LeafyGreenButton
       ref={forwardRef}
       {...rest}
-      leftGlyph={loading ? <Icon glyph="loading" /> : leftGlyph}
+      leftGlyph={loading ? <Icon glyph="Loading" /> : leftGlyph}
     />
   )
 );
