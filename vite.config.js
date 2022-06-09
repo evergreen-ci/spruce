@@ -57,7 +57,7 @@ export default defineConfig({
           ],
           lodash: ["node_modules/lodash/index.js"],
           antd: ["node_modules/antd/es/index.js"],
-          datefns: ["node_modules/date-fns/index.js"],
+          "date-fns": ["node_modules/date-fns/esm/index.js"],
         },
       },
     },
@@ -91,12 +91,24 @@ export default defineConfig({
     // Dynamic imports of antd styles
     vitePluginImp({
       optimize: true,
-      style: "less",
+      style: "css",
       libList: [
         {
           libName: "antd",
-          libDirectory: "lib",
-          style: (name) => `antd/lib/${name}/style`,
+          libDirectory: "es",
+          style: (name) => `antd/es/${name}/style/index.js`,
+        },
+        {
+          libName: "lodash",
+          libDirectory: "",
+          camel2DashComponentName: false,
+          style: (name) => `lodash/${name}`,
+        },
+        {
+          libName: "date-fns",
+          libDirectory: "",
+          style: (name) => `date-fns/esm/${name}`,
+          camel2DashComponentName: false,
         },
       ],
     }),
