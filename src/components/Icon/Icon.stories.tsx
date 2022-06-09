@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
 import { withKnobs, select, color } from "@storybook/addon-knobs";
-import { Size } from "components/Icon";
 import { size } from "constants/tokens";
-import Icon, { glyphs } from "./index";
+import Icon, { glyphs, Size } from "./index";
 
 export default {
   title: "Spruce Icons",
