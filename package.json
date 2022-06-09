@@ -5,7 +5,7 @@
   "scripts": {
     "build-storybook": "build-storybook -s public",
     "build:beta": "env-cmd -e beta -r env/.cmdrc.json yarn build",
-    "build:dev": "env-cmd -e devServer -r env/.cmdrc.json yarn build",
+    "build:dev": "REACT_APP_IS_DEV=true env-cmd -e devServer -r env/.cmdrc.json  yarn build",
     "build:prod": "env-cmd -e prod -r env/.cmdrc.json yarn build",
     "build:staging": "env-cmd -e staging -r env/.cmdrc.json yarn build",
     "build": "REACT_APP_GIT_SHA=`git rev-parse HEAD` vite build",
@@ -29,6 +29,7 @@
     "notify-email": "env-cmd -e prod -r env/.cmdrc.json bash email.sh",
     "prettier": "prettier --write",
     "prod": "env-cmd -e devProd -r env/.cmdrc.json yarn start",
+    "serve": "serve -s ./build",
     "snapshot": "node scripts/test.js storybook.test.ts --watchAll=false",
     "staging": "env-cmd -e devStaging -r env/.cmdrc.json yarn start",
     "start": "vite",
@@ -239,6 +240,5 @@
   },
   "engines": {
     "node": ">=12.22.0"
-  },
-  "proxy": "http://localhost:9090"
+  }
 }

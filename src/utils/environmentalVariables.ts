@@ -27,13 +27,13 @@ export const isBeta = (): boolean =>
 export const isStaging = (): boolean =>
   process.env.REACT_APP_RELEASE_STAGE === "staging";
 
-export const isTest: () => boolean = () => process.env.NODE_ENV === "test";
+export const isTest = () => process.env.NODE_ENV === "test";
+
+export const isDevProductionBuild = () =>
+  process.env.REACT_APP_IS_DEV === "true";
 
 export const getGQLUrl: () => string = () =>
   process.env.REACT_APP_GQL_URL || "";
-
-export const getWebWorkerURL = (webWorkerFilename: string): string =>
-  `${process.env.PUBLIC_URL}/web_worker/${webWorkerFilename}`;
 
 export const getLobsterURL = (): string =>
   process.env.REACT_APP_LOBSTER_URL || "";
@@ -41,10 +41,11 @@ export const getLobsterURL = (): string =>
 export const getAppVersion = () => process.env.REACT_APP_VERSION || "";
 
 export const getReleaseStage = () => process.env.REACT_APP_RELEASE_STAGE || "";
+
 // in development, the dev server on port 3000 proxies the local evergreen server on port 9090
 // therefore in dev we want the login domain to be localhost:3000
 // however in prod and staging and we want the login domain to be evergreen.com
 export const getLoginDomain: () => string = () =>
-  isDevelopment() || isTest()
+  isDevelopment() || isTest() || isDevProductionBuild()
     ? process.env.REACT_APP_SPRUCE_URL
     : process.env.REACT_APP_UI_URL;
