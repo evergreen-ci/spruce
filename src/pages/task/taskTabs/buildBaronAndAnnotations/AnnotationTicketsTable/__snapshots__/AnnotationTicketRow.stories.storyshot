@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`storybook Storyshots BuildBaron/AnnotationTicketRow Default 1`] = `
+<div
+  data-cy="annotation-ticket-row"
+>
+  <a
+    className="css-20iwkw-StyledLink-linkStyles-JiraSummaryLink ekm0eth2"
+    data-cy="EVG-123"
+    href="https://www.google.com"
+    onClick={[Function]}
+    target="_blank"
+  >
+    EVG-123
+    : summary
+  </a>
+  <div
+    className="css-39fn8m-StyledBadge ekm0eth1 leafygreen-ui-13xc3rv"
+    data-cy="EVG-123-badge"
+  >
+    status
+  </div>
+  <div
+    className="css-39fn8m-StyledBadge ekm0eth1 leafygreen-ui-r4llcb"
+    data-cy="EVG-123-confidence-badge"
+  >
+    50
+    % Confident in suggestion
+  </div>
+  <div
+    className="css-vrtzhq-BottomMetaDataWrapper ekm0eth0"
+    data-cy="EVG-123-metadata"
+  >
+    <small
+      className="leafygreen-ui-13bqno6"
+    >
+      Created: 
+      Jan 2, 2020
+    </small>
+    <small
+      className="leafygreen-ui-13bqno6"
+    >
+      Updated: 
+      Jan 2, 2020
+    </small>
+    <small
+      className="leafygreen-ui-13bqno6"
+    >
+      Assignee: mohamed.khelif
+    </small>
+    <small
+      className="leafygreen-ui-13bqno6"
+    >
+      Assigned Team: 
+      evg-ui
+    </small>
+  </div>
+</div>
+`;

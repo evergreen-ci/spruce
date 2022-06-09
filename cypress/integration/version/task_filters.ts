@@ -188,31 +188,31 @@ describe("Tasks filters", () => {
     });
 
     it("Clicking on a base status filter filters the tasks to only those base statuses", () => {
+      // All tasks have a base status of succeeded for this version.
       cy.dataCy("current-task-count")
         .invoke("text")
         .then((preFilterCount) => {
-          cy.getInputByLabel("Running").check({ force: true });
+          cy.getInputByLabel("Succeeded").check({ force: true });
           urlSearchParamsAreUpdated({
             pathname: pathTasks,
             paramName: urlParam,
-            search: "started",
+            search: "success",
           });
           cy.dataCy("current-task-count")
             .invoke("text")
             .then((postFilterCount) => {
               cy.dataCy("current-task-count").should(
-                "not.have.text",
+                "have.text",
                 preFilterCount
               );
-              cy.getInputByLabel("Succeeded").check({ force: true });
+              cy.getInputByLabel("Succeeded").uncheck({ force: true });
               urlSearchParamsAreUpdated({
                 pathname: pathTasks,
                 paramName: urlParam,
-                search: "started,success",
+                search: "",
               });
-
               cy.dataCy("current-task-count").should(
-                "not.have.text",
+                "have.text",
                 postFilterCount
               );
             });
@@ -221,17 +221,7 @@ describe("Tasks filters", () => {
 
     it("Clicking on 'All' checkbox adds all the base statuses and clicking again removes them", () => {
       cy.toggleTableFilter(3);
-      const taskStatuses = [
-        "All",
-        "Failed",
-        "Known Issue",
-        "Succeeded",
-        "Running",
-        "Will Run",
-        "Undispatched",
-        "Aborted",
-        "Blocked",
-      ];
+      const taskStatuses = ["All", "Succeeded"];
       cy.getInputByLabel("All").check({ force: true });
       taskStatuses.forEach((status) => {
         cy.getInputByLabel(status).should("be.checked");
@@ -241,8 +231,7 @@ describe("Tasks filters", () => {
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
-        search:
-          "all,failed-umbrella,failed,known-issue,success,started,will-run,undispatched-umbrella,aborted,blocked",
+        search: "all,success",
       });
 
       cy.getInputByLabel("All").uncheck({ force: true });

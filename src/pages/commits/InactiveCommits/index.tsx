@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
@@ -9,11 +8,7 @@ import { DisplayModal } from "components/DisplayModal";
 import { StyledRouterLink } from "components/styles";
 import { getVersionRoute, getTaskRoute } from "constants/routes";
 import { size, zIndex, fontSize } from "constants/tokens";
-import {
-  GetSpruceConfigQuery,
-  GetSpruceConfigQueryVariables,
-} from "gql/generated/types";
-import { GET_SPRUCE_CONFIG } from "gql/queries";
+import { useSpruceConfig } from "hooks";
 import { CommitRolledUpVersions } from "types/commits";
 import { ProjectTriggerLevel } from "types/triggers";
 import { Unpacked } from "types/utils";
@@ -135,11 +130,9 @@ const CommitCopy = ({
   isTooltip: boolean;
 }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
-  const { data: configData } = useQuery<
-    GetSpruceConfigQuery,
-    GetSpruceConfigQueryVariables
-  >(GET_SPRUCE_CONFIG, { fetchPolicy: "cache-only" });
-  const jiraHost = configData?.spruceConfig?.jira?.host;
+
+  const spruceConfig = useSpruceConfig();
+  const jiraHost = spruceConfig?.jira?.host;
   const message = isTooltip
     ? trimStringFromMiddle(v.message, maxCommitMessageLength)
     : v.message;

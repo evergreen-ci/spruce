@@ -1,7 +1,7 @@
 import React from "react";
 import { Table } from "antd";
 import { GetCreatedTicketsQuery } from "gql/generated/types";
-import { JiraTicketRow } from "./BBComponents";
+import { JiraTicketRow } from "../BBComponents";
 
 type CreatedTickets = GetCreatedTicketsQuery["bbGetCreatedTickets"];
 
@@ -15,7 +15,7 @@ const columns = [
   },
 ];
 
-export const BuildBaronTable: React.VFC<{
+const BuildBaronTable: React.VFC<{
   jiraIssues: CreatedTickets;
 }> = ({ jiraIssues }) => (
   <Table
@@ -27,3 +27,5 @@ export const BuildBaronTable: React.VFC<{
     showHeader={false}
   />
 );
+
+export default BuildBaronTable;

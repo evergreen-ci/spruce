@@ -2,8 +2,7 @@ import { useMemo } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Tab } from "@leafygreen-ui/tabs";
-import { Body } from "@leafygreen-ui/typography";
-import { Input } from "antd";
+import TextInput from "@leafygreen-ui/text-input";
 import { useHistory } from "react-router-dom";
 import { CodeChanges } from "components/CodeChanges/CodeChanges";
 import { MetadataCard } from "components/MetadataCard";
@@ -130,11 +129,11 @@ export const ConfigurePatchCore: React.VFC<Props> = ({ patch }) => {
 
   return (
     <>
-      <StyledBody weight="medium">Patch Name</StyledBody>
       <StyledInput
+        label="Patch Name"
         data-cy="patch-name-input"
         value={description}
-        size="large"
+        style={{ fontWeight: "bold", fontSize: "16px" }}
         onChange={(e) => setDescription(e.target.value)}
       />
       <PageLayout>
@@ -267,10 +266,6 @@ const filterAliases = (
   return patchTriggerAliases.filter(({ alias }) => !invokedAliases.has(alias));
 };
 
-const StyledInput = styled(Input)`
+const StyledInput = styled(TextInput)`
   margin-bottom: ${size.s};
-  font-weight: 600;
-`;
-const StyledBody = styled(Body)`
-  margin-bottom: ${size.xxs};
 `;
