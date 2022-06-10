@@ -1,4 +1,5 @@
 import { useMutation } from "@apollo/client";
+import { useProjectSettingsAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { useToastContext } from "context/toast";
 import {
@@ -30,6 +31,7 @@ export const AttachDetachModal: React.VFC<ModalProps> = ({
   shouldAttach,
 }) => {
   const dispatchToast = useToastContext();
+  const { sendEvent } = useProjectSettingsAnalytics();
 
   const [attachProjectToRepo] = useMutation<
     AttachProjectToRepoMutation,
@@ -80,8 +82,10 @@ export const AttachDetachModal: React.VFC<ModalProps> = ({
       onConfirm={() => {
         if (shouldAttach) {
           attachProjectToRepo();
+          sendEvent({ name: "Attach project to repo", repoOwner, repoName });
         } else {
           detachProjectFromRepo();
+          sendEvent({ name: "Detach project from repo", repoOwner, repoName });
         }
         handleClose();
       }}

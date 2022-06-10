@@ -31,7 +31,8 @@ type AnalyticsObject =
   | "ProjectPatches"
   | "JobLogs"
   | "Polling"
-  | "ProjectHealthPages";
+  | "ProjectHealthPages"
+  | "ProjectSettings";
 
 interface RequiredProperties {
   object: AnalyticsObject;
