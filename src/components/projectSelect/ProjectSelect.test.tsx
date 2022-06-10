@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { getCommitsRoute, getProjectSettingsRoute } from "constants/routes";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
 import { GET_PROJECTS, GET_VIEWABLE_PROJECTS } from "gql/queries";
-import { renderWithRouterMatch, render, act, waitFor } from "test_utils";
+import { renderWithRouterMatch, act, waitFor } from "test_utils";
 
 import { ProjectSelect } from ".";
 
@@ -88,7 +88,7 @@ describe("projectSelect for project settings", () => {
       getAllByText,
       queryByDataCy,
       queryByText,
-    } = render(<Component />);
+    } = renderWithRouterMatch(<Component />);
 
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
@@ -116,9 +116,11 @@ describe("projectSelect for project settings", () => {
         />
       </MockedProvider>
     );
-    const { findAllByDataCy, queryByDataCy, queryByText } = render(
-      <Component />
-    );
+    const {
+      findAllByDataCy,
+      queryByDataCy,
+      queryByText,
+    } = renderWithRouterMatch(<Component />);
 
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
