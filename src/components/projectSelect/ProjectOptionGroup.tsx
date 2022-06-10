@@ -54,7 +54,7 @@ export const ProjectOptionGroup: React.VFC<OptionGroupProps> = ({
         {name}
       </Overline>
     ) : (
-      <Overline>{name} </Overline>
+      <Overline>{name}</Overline>
     )}
 
     <ListContainer>
