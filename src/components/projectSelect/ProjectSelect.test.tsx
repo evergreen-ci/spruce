@@ -1,9 +1,10 @@
 import { MockedProvider } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
-import { getCommitsRoute } from "constants/routes";
+import { getCommitsRoute, getProjectSettingsRoute } from "constants/routes";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
-import { GET_PROJECTS } from "gql/queries";
-import { renderWithRouterMatch, act, waitFor } from "test_utils";
+import { GET_PROJECTS, GET_VIEWABLE_PROJECTS } from "gql/queries";
+import { renderWithRouterMatch, render, act, waitFor } from "test_utils";
+
 import { ProjectSelect } from ".";
 
 describe("projectSelect", () => {
@@ -71,6 +72,65 @@ describe("projectSelect", () => {
   });
 });
 
+describe("projectSelect for project settings", () => {
+  it("shows disabled projects at the bottom of the list", async () => {
+    const { Component } = RenderFakeToastContext(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <ProjectSelect
+          selectedProjectIdentifier="evergreen"
+          getRoute={getProjectSettingsRoute}
+          isProjectSettingsPage
+        />
+      </MockedProvider>
+    );
+    const {
+      findAllByDataCy,
+      getAllByText,
+      queryByDataCy,
+      queryByText,
+    } = render(<Component />);
+
+    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+
+    expect(queryByDataCy("project-select-options")).not.toBeInTheDocument();
+    userEvent.click(queryByDataCy("project-select"));
+    expect(queryByDataCy("project-select-options")).toBeInTheDocument();
+    const options = await findAllByDataCy("project-display-name");
+    expect(options).toHaveLength(4);
+
+    // Disabled project appears last
+    expect(options[3]).toHaveTextContent("evergreen smoke test");
+    expect(queryByText("Disabled Projects")).toBeInTheDocument();
+
+    // Favorited projects should appear twice
+    expect(getAllByText("logkeeper")).toHaveLength(2);
+  });
+
+  it("does not show a heading for disabled projects when all projects are enabled", async () => {
+    const { Component } = RenderFakeToastContext(
+      <MockedProvider mocks={[mocks[2]]} addTypename={false}>
+        <ProjectSelect
+          selectedProjectIdentifier="spruce"
+          getRoute={getProjectSettingsRoute}
+          isProjectSettingsPage
+        />
+      </MockedProvider>
+    );
+    const { findAllByDataCy, queryByDataCy, queryByText } = render(
+      <Component />
+    );
+
+    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+
+    expect(queryByDataCy("project-select-options")).not.toBeInTheDocument();
+    userEvent.click(queryByDataCy("project-select"));
+    expect(queryByDataCy("project-select-options")).toBeInTheDocument();
+    const options = await findAllByDataCy("project-display-name");
+    expect(options).toHaveLength(1);
+    expect(queryByText("Disabled Projects")).not.toBeInTheDocument();
+  });
+});
+
 const mocks = [
   {
     request: {
@@ -80,7 +140,7 @@ const mocks = [
       data: {
         projects: [
           {
-            name: "evergreen-ci/evergreen",
+            groupDisplayName: "evergreen-ci/evergreen",
             projects: [
               {
                 id: "evergreen",
@@ -93,7 +153,7 @@ const mocks = [
             ],
           },
           {
-            name: "logkeeper/logkeeper",
+            groupDisplayName: "logkeeper/logkeeper",
             projects: [
               {
                 id: "logkeeper",
@@ -106,7 +166,7 @@ const mocks = [
             ],
           },
           {
-            name: "mongodb/mongo",
+            groupDisplayName: "mongodb/mongo",
             projects: [
               {
                 id: "sys-perf",
@@ -127,7 +187,7 @@ const mocks = [
             ],
           },
           {
-            name: "mongodb/mongodb",
+            groupDisplayName: "mongodb/mongodb",
             projects: [
               {
                 id: "mongodb-mongo-master",
@@ -140,7 +200,7 @@ const mocks = [
             ],
           },
           {
-            name: "mongodb/mongodb-test",
+            groupDisplayName: "mongodb/mongodb-test",
             projects: [
               {
                 id: "mongodb-mongo-test",
@@ -149,6 +209,84 @@ const mocks = [
                 owner: "mongodb",
                 displayName: "mongo-test",
                 isFavorite: false,
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+  {
+    request: {
+      query: GET_VIEWABLE_PROJECTS,
+    },
+    result: {
+      data: {
+        viewableProjectRefs: [
+          {
+            groupDisplayName: "evergreen-ci/evergreen",
+            repo: {
+              id: "12345",
+            },
+            projects: [
+              {
+                id: "evergreen",
+                identifier: "evergreen",
+                repo: "evergreen",
+                owner: "evergreen-ci",
+                displayName: "evergreen smoke test",
+                isFavorite: false,
+                enabled: false,
+              },
+              {
+                id: "spruce",
+                identifier: "spruce",
+                repo: "spruce",
+                owner: "evergreen-ci",
+                displayName: "spruce",
+                isFavorite: false,
+                enabled: true,
+              },
+            ],
+          },
+          {
+            groupDisplayName: "logkeeper/logkeeper",
+            repo: null,
+            projects: [
+              {
+                id: "logkeeper",
+                identifier: "logkeeper",
+                repo: "logkeeper",
+                owner: "logkeeper",
+                displayName: "logkeeper",
+                isFavorite: true,
+                enabled: true,
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+  {
+    request: {
+      query: GET_VIEWABLE_PROJECTS,
+    },
+    result: {
+      data: {
+        viewableProjectRefs: [
+          {
+            groupDisplayName: "evergreen-ci/evergreen",
+            repo: null,
+            projects: [
+              {
+                id: "spruce",
+                identifier: "spruce",
+                repo: "spruce",
+                owner: "evergreen-ci",
+                displayName: "spruce",
+                isFavorite: false,
+                enabled: true,
               },
             ],
           },
