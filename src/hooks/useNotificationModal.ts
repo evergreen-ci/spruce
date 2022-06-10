@@ -234,37 +234,6 @@ export const useNotificationModal = ({
   }, [extraFieldInputVals, extraFields, setExtraFieldErrorMessages]);
 
   useEffect(() => {
-    const targetEntries = Object.entries(target);
-    // check that required fields exist and there are no extra field errors
-    if (
-      !targetEntries.length ||
-      selectedTriggerIndex === undefined ||
-      !selectedSubscriptionMethod ||
-      extraFieldErrorMessages.length
-    ) {
-      setIsFormValid(false);
-      return;
-    }
-    // check that subscription methods input has the correct value
-    // targetEntries should only ever be length 1
-    const isTargetValid = targetEntries.reduce(
-      (accum, [tName, tVal]) =>
-        accum && subscriptionMethodControls[tName].validator(tVal),
-      true
-    );
-    setIsFormValid(isTargetValid);
-  }, [
-    subscriptionMethodControls,
-    target,
-    extraFieldInputVals,
-    selectedTriggerIndex,
-    selectedSubscriptionMethod,
-    extraFieldErrorMessages,
-    regexSelectorInputs,
-    regexSelectors,
-  ]);
-
-  useEffect(() => {
     switch (selectedSubscriptionMethod) {
       case SUBSCRIPTION_SLACK.value:
         if (slackUsername && slackUsername !== "") {
@@ -314,6 +283,37 @@ export const useNotificationModal = ({
     setSelectedTriggerIndex(v);
     Cookies.set(`${type}-notification-trigger`, `${v}`, { expires: 365 });
   };
+
+  useEffect(() => {
+    const targetEntries = Object.entries(target);
+    // check that required fields exist and there are no extra field errors
+    if (
+      !targetEntries.length ||
+      selectedTriggerIndex === undefined ||
+      !selectedSubscriptionMethod ||
+      extraFieldErrorMessages.length
+    ) {
+      setIsFormValid(false);
+      return;
+    }
+    // check that subscription methods input has the correct value
+    // targetEntries should only ever be length 1
+    const isTargetValid = targetEntries.reduce(
+      (accum, [tName, tVal]) =>
+        accum && subscriptionMethodControls[tName].validator(tVal),
+      true
+    );
+    setIsFormValid(isTargetValid);
+  }, [
+    subscriptionMethodControls,
+    target,
+    extraFieldInputVals,
+    selectedTriggerIndex,
+    selectedSubscriptionMethod,
+    extraFieldErrorMessages,
+    regexSelectorInputs,
+    regexSelectors,
+  ]);
 
   return {
     disableAddCriteria,

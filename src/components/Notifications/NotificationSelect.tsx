@@ -19,8 +19,6 @@ import { ErrorMessage } from "components/styles";
 import {
   SubscriptionMethodControl,
   SubscriptionMethods,
-  useNotificationModal,
-  UseNotificationModalProps,
 } from "hooks/useNotificationModal";
 import { SubscriptionMethodDropdownOption } from "types/subscription";
 import { StringMap, Trigger } from "types/triggers";
@@ -28,50 +26,54 @@ import { toSentenceCase } from "utils/string";
 
 const { Option } = Select;
 
-interface NotificationSelectProps extends UseNotificationModalProps {
+interface NotificationSelectProps {
   triggers: Trigger[];
   subscriptionMethodControls: SubscriptionMethods;
   subscriptionMethodDropdownOptions: SubscriptionMethodDropdownOption[];
-  type: "task" | "version";
   selectedBuildInitiator?: string;
   onChangeSelectedBuildInitiator?: (optionValue: string) => void;
   trigger?: Trigger;
   selectedExtraFieldInputVals?: StringMap;
+  disableAddCriteria;
+  extraFieldErrorMessages;
+  extraFieldInputVals;
+  extraFields;
+  onClickAddRegexSelector;
+  regexSelectorProps;
+  selectedSubscriptionMethod;
+  selectedTriggerIndex;
+  setExtraFieldInputVals;
+  setSelectedSubscriptionMethod;
+  setSelectedTriggerIndex;
+  setTarget;
+  showAddCriteria;
+  target;
 }
 
+// update parent state with no
 export const NotificationSelect: React.VFC<NotificationSelectProps> = ({
   subscriptionMethodDropdownOptions,
   subscriptionMethodControls,
   triggers,
-  resourceId,
   selectedBuildInitiator,
-  type,
   onChangeSelectedBuildInitiator,
   trigger,
   selectedExtraFieldInputVals,
+  disableAddCriteria,
+  extraFieldErrorMessages,
+  extraFieldInputVals,
+  extraFields,
+  onClickAddRegexSelector,
+  regexSelectorProps,
+  selectedSubscriptionMethod,
+  selectedTriggerIndex,
+  setExtraFieldInputVals,
+  setSelectedSubscriptionMethod,
+  setSelectedTriggerIndex,
+  setTarget,
+  showAddCriteria,
+  target,
 }) => {
-  const {
-    disableAddCriteria,
-    extraFieldErrorMessages,
-    extraFieldInputVals,
-    extraFields,
-    onClickAddRegexSelector,
-    regexSelectorProps,
-    selectedSubscriptionMethod,
-    selectedTriggerIndex,
-    setExtraFieldInputVals,
-    setSelectedSubscriptionMethod,
-    setSelectedTriggerIndex,
-    setTarget,
-    showAddCriteria,
-    target,
-  } = useNotificationModal({
-    subscriptionMethodControls,
-    triggers,
-    resourceId,
-    type,
-  });
-
   const currentMethodControl = subscriptionMethodControls[
     selectedSubscriptionMethod
   ] as SubscriptionMethodControl;

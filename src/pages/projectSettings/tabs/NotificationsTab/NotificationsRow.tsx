@@ -61,9 +61,22 @@ export const SubscriptionSelect: React.VFC<SubscriptionSelectProps> = ({
       : triggers.findIndex((v) => v === trigger);
 
   const {
-    extraFieldInputVals,
     buildInitiatorSelected,
     setBuildInitiatorSelected,
+    disableAddCriteria,
+    extraFieldErrorMessages,
+    extraFields,
+    onClickAddRegexSelector,
+    regexSelectorProps,
+    selectedSubscriptionMethod,
+    selectedTriggerIndex,
+    setExtraFieldInputVals,
+    setSelectedSubscriptionMethod,
+    setSelectedTriggerIndex,
+    setTarget,
+    showAddCriteria,
+    extraFieldInputVals,
+    target,
   } = useNotificationModal({
     subscriptionMethodControls,
     triggers,
@@ -83,12 +96,24 @@ export const SubscriptionSelect: React.VFC<SubscriptionSelectProps> = ({
         triggers={triggers}
         subscriptionMethodControls={subscriptionMethodControls}
         subscriptionMethodDropdownOptions={subscriptionMethodDropdownOptions}
-        type={type}
         selectedBuildInitiator={currentBuildInitiator}
         trigger={trigger}
         onChangeSelectedBuildInitiator={setBuildInitiatorSelected}
         selectedExtraFieldInputVals={currentExtraFieldInputVals}
-        resourceId={resourceId}
+        disableAddCriteria={disableAddCriteria}
+        extraFieldErrorMessages={extraFieldErrorMessages}
+        extraFieldInputVals={extraFieldInputVals}
+        extraFields={extraFields}
+        onClickAddRegexSelector={onClickAddRegexSelector}
+        regexSelectorProps={regexSelectorProps}
+        selectedSubscriptionMethod={selectedSubscriptionMethod}
+        selectedTriggerIndex={selectedTriggerIndex}
+        setExtraFieldInputVals={setExtraFieldInputVals}
+        setSelectedSubscriptionMethod={setSelectedSubscriptionMethod}
+        setSelectedTriggerIndex={setSelectedTriggerIndex}
+        setTarget={setTarget}
+        showAddCriteria={showAddCriteria}
+        target={target}
       />
     </RowContainer>
   );

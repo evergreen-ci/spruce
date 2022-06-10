@@ -54,7 +54,24 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
     },
   });
 
-  const { isFormValid, getRequestPayload } = useNotificationModal({
+  const {
+    disableAddCriteria,
+    extraFieldErrorMessages,
+    extraFieldInputVals,
+    extraFields,
+    onClickAddRegexSelector,
+    regexSelectorProps,
+    selectedSubscriptionMethod,
+    selectedTriggerIndex,
+    setExtraFieldInputVals,
+    setSelectedSubscriptionMethod,
+    setSelectedTriggerIndex,
+    setTarget,
+    showAddCriteria,
+    target,
+    isFormValid,
+    getRequestPayload,
+  } = useNotificationModal({
     subscriptionMethodControls,
     triggers,
     resourceId,
@@ -102,10 +119,22 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
         triggers={triggers}
         subscriptionMethodDropdownOptions={subscriptionMethodDropdownOptions}
         subscriptionMethodControls={subscriptionMethodControls}
-        resourceId={resourceId}
-        type={type}
         selectedBuildInitiator={selectedBuildInitiator}
         onChangeSelectedBuildInitiator={onChangeSelectedBuildInitiator}
+        disableAddCriteria={disableAddCriteria}
+        extraFieldErrorMessages={extraFieldErrorMessages}
+        extraFieldInputVals={extraFieldInputVals}
+        extraFields={extraFields}
+        onClickAddRegexSelector={onClickAddRegexSelector}
+        regexSelectorProps={regexSelectorProps}
+        selectedSubscriptionMethod={selectedSubscriptionMethod}
+        selectedTriggerIndex={selectedTriggerIndex}
+        setExtraFieldInputVals={setExtraFieldInputVals}
+        setSelectedSubscriptionMethod={setSelectedSubscriptionMethod}
+        setSelectedTriggerIndex={setSelectedTriggerIndex}
+        setTarget={setTarget}
+        showAddCriteria={showAddCriteria}
+        target={target}
       />
     </Modal>
   );
