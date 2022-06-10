@@ -22,15 +22,12 @@ export const isProduction = (): boolean =>
   process.env.NODE_ENV === "production";
 
 export const isBeta = (): boolean =>
-  process.env.REACT_APP_BETA === "true" || isDevelopment();
+  process.env.REACT_APP_RELEASE_STAGE === "beta";
 
 export const isStaging = (): boolean =>
   process.env.REACT_APP_RELEASE_STAGE === "staging";
 
 export const isTest = () => process.env.NODE_ENV === "test";
-
-export const isDevProductionBuild = () =>
-  process.env.REACT_APP_IS_DEV === "true";
 
 export const getGQLUrl: () => string = () =>
   process.env.REACT_APP_GQL_URL || "";
@@ -46,6 +43,6 @@ export const getReleaseStage = () => process.env.REACT_APP_RELEASE_STAGE || "";
 // therefore in dev we want the login domain to be localhost:3000
 // however in prod and staging and we want the login domain to be evergreen.com
 export const getLoginDomain: () => string = () =>
-  isDevelopment() || isTest() || isDevProductionBuild()
+  isDevelopment() || getReleaseStage() === "local"
     ? process.env.REACT_APP_SPRUCE_URL
     : process.env.REACT_APP_UI_URL;

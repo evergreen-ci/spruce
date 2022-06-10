@@ -5,7 +5,7 @@
   "scripts": {
     "build-storybook": "build-storybook -s public",
     "build:beta": "env-cmd -e beta -r env/.cmdrc.json yarn build",
-    "build:dev": "REACT_APP_IS_DEV=true env-cmd -e devServer -r env/.cmdrc.json  yarn build",
+    "build:local": "env-cmd -e local -r env/.cmdrc.json  yarn build",
     "build:prod": "env-cmd -e prod -r env/.cmdrc.json yarn build",
     "build:staging": "env-cmd -e staging -r env/.cmdrc.json yarn build",
     "build": "REACT_APP_GIT_SHA=`git rev-parse HEAD` vite build",
