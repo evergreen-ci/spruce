@@ -43,12 +43,12 @@ export const PreferencesTabs: React.VFC = () => {
 const getTitle = (
   tab: PreferencesTabRoutes = PreferencesTabRoutes.Profile
 ): { title: string; subtitle?: string } => {
-  const defaultTitleAndContent = {
+  const defaultTitle = {
     title: "Profile",
   };
   return (
     {
-      [PreferencesTabRoutes.Profile]: defaultTitleAndContent,
+      [PreferencesTabRoutes.Profile]: defaultTitle,
       [PreferencesTabRoutes.Notifications]: {
         title: "Notifications",
       },
@@ -62,7 +62,7 @@ const getTitle = (
         title: "Manage Public Keys",
         subtitle: "These keys will be used to SSH into spawned hosts",
       },
-    }[tab] ?? defaultTitleAndContent
+    }[tab] ?? defaultTitle
   );
 };
 
