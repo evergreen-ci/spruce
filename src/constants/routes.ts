@@ -82,6 +82,7 @@ export const routes = {
   userPatchesRedirect: `${paths.user}/:id`,
   variantHistory: `${paths.variantHistory}/:projectId/:variantName`,
   version: `${paths.version}/:id`,
+  user: `${paths.user}/*`,
 };
 
 export const DEFAULT_PATCH_TAB = PatchTab.Tasks;

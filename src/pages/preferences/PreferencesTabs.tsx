@@ -13,7 +13,6 @@ export const PreferencesTabs: React.VFC = () => {
   const { tab } = useParams<{ tab: string }>();
 
   const { title, subtitle } = getTitle(tab as PreferencesTabRoutes);
-  console.log(tab);
   return (
     <Container>
       <TitleContainer>

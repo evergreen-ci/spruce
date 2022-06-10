@@ -10,7 +10,7 @@ import { createMemoryHistory } from "history";
 import {
   Route,
   Routes,
-  unstable_HistoryRouter as HistoryRouter,
+  unstable_HistoryRouter as HistoryRouter, // This is okay as long as there is only one version of history
 } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import * as customQueries from "./custom-queries";

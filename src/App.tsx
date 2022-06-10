@@ -20,8 +20,8 @@ const globalStyles = css`
 
 const App: React.VFC = () => (
   <>
-    <Global styles={globalStyles} />
     <ErrorBoundary>
+      <Global styles={globalStyles} />
       <ContextProviders>
         <Router>
           <GQLWrapper>
