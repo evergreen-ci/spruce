@@ -227,7 +227,7 @@ export const useNotificationModal = ({
           () => ""
         );
         // validator returns an error message or an empty string
-        return validator(fieldVal);
+        return validator && validator(fieldVal);
       })
       .filter((v) => v); // filter out empty strings
     setExtraFieldErrorMessages(nextErrorMessages);

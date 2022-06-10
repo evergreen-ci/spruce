@@ -1,4 +1,3 @@
-import React from "react";
 import { useMutation } from "@apollo/client";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { Modal } from "components/Modal";
