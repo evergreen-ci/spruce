@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "2.35.1",
+  "version": "2.36.0",
   "private": true,
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js' --html | sed 1d > build/source_map.html",
@@ -58,7 +58,6 @@
     "extends": "react-app"
   },
   "dependencies": {
-    "@ant-design/icons": "4.4.0",
     "@apollo/client": "3.3.7",
     "@bugsnag/js": "7.16.0",
     "@bugsnag/plugin-react": "7.16.0",
