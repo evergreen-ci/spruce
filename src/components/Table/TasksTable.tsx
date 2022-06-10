@@ -10,8 +10,8 @@ import {
 } from "components/Table/Filters";
 import TaskStatusBadge from "components/TaskStatusBadge";
 import { TreeSelectProps } from "components/TreeSelect";
-import { mergeTaskVariant } from "constants/patch";
 import { getVariantHistoryRoute } from "constants/routes";
+import { mergeTaskVariant } from "constants/task";
 import {
   Task,
   SortDirection,

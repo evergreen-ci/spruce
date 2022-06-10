@@ -270,3 +270,7 @@ export const finishedTaskStatuses = [
   ...failedTaskStatuses,
   TaskStatus.Succeeded,
 ];
+
+// Task name and build variant for Commit Queue
+export const mergeTaskName = "merge-patch";
+export const mergeTaskVariant = "commit-queue-merge";

@@ -8,8 +8,9 @@ import { Button } from "components/Button";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { PageButtonRow } from "components/styles";
-import { commitQueueRequester, mergeTaskName } from "constants/patch";
+import { commitQueueRequester } from "constants/patch";
 import { getTaskHistoryRoute } from "constants/routes";
+import { mergeTaskName } from "constants/task";
 import { useToastContext } from "context/toast";
 import {
   SetTaskPriorityMutation,
