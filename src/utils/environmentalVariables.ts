@@ -29,6 +29,9 @@ export const isStaging = (): boolean =>
 
 export const isTest: () => boolean = () => process.env.NODE_ENV === "test";
 
+// Returns true for every environment except when deployed to prod. Useful for enabling features locally, on staging, on beta, etc.
+export const isNotProduction = isDevelopment() || isBeta() || isStaging();
+
 export const getGQLUrl: () => string = () =>
   process.env.REACT_APP_GQL_URL || "";
 
