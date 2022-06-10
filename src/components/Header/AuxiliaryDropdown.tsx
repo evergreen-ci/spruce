@@ -13,12 +13,7 @@ import { GET_SPRUCE_CONFIG } from "gql/queries";
 import { environmentalVariables } from "utils";
 import { Dropdown } from "./NavDropdown";
 
-const { getUiUrl, isBeta, isDevelopment, isStaging } = environmentalVariables;
-
-// TODO: Remove in EVG-17059
-// Project Settings should only be disabled when deployed to spruce.mongodb.com
-// Enable when running local dev server, or when deployed to beta or staging
-const showProjectSettings = isDevelopment() || isBeta() || isStaging();
+const { getUiUrl, isNotProduction } = environmentalVariables;
 
 export const AuxiliaryDropdown = () => {
   const uiURL = getUiUrl();
@@ -49,7 +44,8 @@ export const AuxiliaryDropdown = () => {
       text: "Projects",
       onClick: () => sendEvent({ name: "Click Projects Link" }),
     },
-    ...(showProjectSettings
+    // TODO: Remove in EVG-17059
+    ...(isNotProduction
       ? [
           {
             text: "Project Settings",
