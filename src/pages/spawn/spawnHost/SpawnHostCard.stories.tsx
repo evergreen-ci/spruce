@@ -3,7 +3,7 @@ import { MemoryRouter as Router } from "react-router-dom";
 import { SpawnHostCard } from "pages/spawn/spawnHost/SpawnHostCard";
 
 const host = {
-  expiration: "2020-08-21T18:00:07Z",
+  expiration: new Date("2020-08-21T18:00:07Z"),
   distro: {
     isVirtualWorkStation: true,
     id: "ubuntu1804-workstation",
@@ -48,7 +48,7 @@ const host = {
   startedBy: "mohamed.khelif",
   tag: "evg-ubuntu1804-workstation-20200615111044-7227428564029203",
   user: "ubuntu",
-  uptime: "2020-06-15T11:10:44Z",
+  uptime: new Date("2020-06-15T11:10:44Z"),
 };
 
 export const SpawnHostCardStory = () => (
