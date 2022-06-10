@@ -19,7 +19,7 @@
     "deploy:prod": "node cli-scripts/deploy-prod.js",
     "deploy:staging": ". ./appVersion.sh && yarn build:staging && BUCKET=evergreen-staging.spruce yarn deploy",
     "deploy": "aws s3 sync build/ s3://${BUCKET}/ --acl public-read --follow-symlinks --delete --exclude env/.cmdrc.json",
-    "dev": "env-cmd -e devServer -r env/.cmdrc.json yarn start",
+    "dev": "env-cmd -e devLocal -r env/.cmdrc.json yarn start",
     "eslint-fix": "STRICT=1 eslint -c src/.eslintrc.js --fix 'src/**/*.ts?(x)' && eslint -c cypress/.eslintrc.js 'cypress/**/*.ts'",
     "eslint-staged:cypress": "STRICT=1 eslint -c cypress/.eslintrc.js",
     "eslint-staged:src": "STRICT=1 eslint -c src/.eslintrc.js",
