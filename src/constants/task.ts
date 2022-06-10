@@ -271,6 +271,6 @@ export const finishedTaskStatuses = [
   TaskStatus.Succeeded,
 ];
 
-// Task name and build variant for Commit Queue
+// Task name and build variant for the commit queue. Both are owned by Evergreen.
 export const mergeTaskName = "merge-patch";
 export const mergeTaskVariant = "commit-queue-merge";
