@@ -6,7 +6,6 @@ const httpProxy = require("http-proxy");
 const proxy = httpProxy.createProxyServer({});
 
 const server = http.createServer((request, response) => {
-  console.log({ url: request.url, method: request.method });
   if (request.method === "POST") {
     console.log(`Proxying POST request... ${request.url}`);
     return proxy.web(request, response, { target: "http://localhost:9090" });
