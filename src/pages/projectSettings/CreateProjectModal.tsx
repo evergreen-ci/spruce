@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
+import { useProjectSettingsAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { SpruceForm } from "components/SpruceForm";
 import { getProjectSettingsRoute } from "constants/routes";
@@ -26,6 +27,7 @@ export const CreateProjectModal: React.VFC<Props> = ({
   repo,
 }) => {
   const dispatchToast = useToastContext();
+  const { sendEvent } = useProjectSettingsAnalytics();
   const { replace } = useHistory();
 
   const [formState, setFormState] = useState({
@@ -62,6 +64,7 @@ export const CreateProjectModal: React.VFC<Props> = ({
         },
       },
     });
+    sendEvent({ name: "Create new project" });
     handleClose();
   };
 
