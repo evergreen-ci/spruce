@@ -131,7 +131,7 @@ export const NotificationSelect: React.VFC<NotificationSelectProps> = ({
           onClick={onClickAddRegexSelector}
         >
           <Icon glyph="Plus" />
-          Add additional criteria
+          Add Additional Criteria
         </Button>
       </>
     )}
