@@ -8,7 +8,11 @@ import {
   DETACH_PROJECT_FROM_REPO,
 } from "gql/mutations";
 import { GET_GITHUB_ORGS } from "gql/queries";
-import { render, fireEvent, waitFor } from "test_utils";
+import {
+  renderWithRouterMatch as render,
+  fireEvent,
+  waitFor,
+} from "test_utils";
 import { ProjectType } from "../../utils";
 import { AttachDetachModal } from "./AttachDetachModal";
 import { MoveRepoModal } from "./MoveRepoModal";

@@ -3,6 +3,7 @@ import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
 import { useNavigate, useParams } from "react-router-dom";
+import { useProjectSettingsAnalytics } from "analytics";
 import { Button } from "components/Button";
 import {
   getProjectSettingsRoute,
@@ -43,7 +44,9 @@ export const Header: React.VFC<Props> = ({
   saveable,
   tab,
 }) => {
+  const { sendEvent } = useProjectSettingsAnalytics();
   const dispatchToast = useToastContext();
+
   const { title, subtitle } = getTabTitle(tab);
   const { getTab, saveTab } = useProjectSettingsContext();
   const { formData, hasChanges, hasError } = getTab(tab);
@@ -115,7 +118,9 @@ export const Header: React.VFC<Props> = ({
             },
           });
 
-    save(newData, mapRouteToSection[tab]);
+    const section = mapRouteToSection[tab];
+    save(newData, section);
+    sendEvent({ section, name: isRepo ? "Save repo" : "Save project" });
   };
 
   return (
