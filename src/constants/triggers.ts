@@ -85,19 +85,19 @@ export const failureTypeSubscriberConfig = {
   options: failureTypeSubscriberOptions,
 };
 
-const requesterSubscriberOptions: string[] = [
-  "Commit", // default
-  "Patch",
-  "Pull Request",
-  "Commit Queue",
-  "Periodic Build",
-];
+export const requesterSubscriberOptions = {
+  gitter_request: "Commit",
+  patch_request: "Patch",
+  github_pull_request: "Pull Request",
+  merge_test: "Commit Queue",
+  ad_hoc: "Periodic Build",
+};
 
 export const requesterSubscriberConfig = {
   text: "Build Initiator",
   key: "requester",
   type: "select",
-  options: requesterSubscriberOptions,
+  options: Object.values(requesterSubscriberOptions),
 };
 
 export const clearExtraFieldsInputCb = (accum: StringMap, eF: ExtraField) => ({

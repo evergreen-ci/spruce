@@ -4,7 +4,7 @@ import { Body } from "@leafygreen-ui/typography";
 
 import { Field } from "@rjsf/core";
 import { size } from "constants/tokens";
-import { triggers } from "constants/triggers";
+import { requesterSubscriberOptions, triggers } from "constants/triggers";
 import { Subscriber, SubscriptionsFragment } from "gql/generated/types";
 import { ResourceType, StringMap, Trigger } from "types/triggers";
 import { toSentenceCase } from "utils/string";
@@ -51,28 +51,7 @@ export const getBuildInitiator = (
     }
   });
 
-  let initiator = "";
-  switch (b) {
-    case "gitter_request":
-      initiator = "Commit";
-      break;
-    case "patch_request":
-      initiator = "Patch";
-      break;
-    case "github_pull_request":
-      initiator = "Pull Request";
-      break;
-    case "merge_test":
-      initiator = "Commit Queue";
-      break;
-    case "ad_hoc":
-      initiator = "Periodic Build";
-      break;
-    default:
-      initiator = "";
-  }
-
-  return initiator;
+  return requesterSubscriberOptions[b];
 };
 
 export const SubscriptionField: Field = ({ formData }) => {
