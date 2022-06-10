@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { v4 as uuid } from "uuid";
-import { NotificationMethod } from "components/Notifications/NotificationMethod";
 import { NotificationSelect } from "components/Notifications/NotificationSelect";
 import {
   triggers,
@@ -62,15 +61,7 @@ export const SubscriptionSelect: React.VFC<SubscriptionSelectProps> = ({
       : triggers.findIndex((v) => v === trigger);
 
   const {
-    disableAddCriteria,
     extraFieldInputVals,
-    extraFields,
-    onClickAddRegexSelector,
-    regexSelectorProps,
-    setExtraFieldInputVals,
-    setSelectedTriggerIndex,
-    selectedTriggerIndex,
-    showAddCriteria,
     buildInitiatorSelected,
     setBuildInitiatorSelected,
   } = useNotificationModal({
@@ -90,48 +81,14 @@ export const SubscriptionSelect: React.VFC<SubscriptionSelectProps> = ({
     <RowContainer>
       <NotificationSelect
         triggers={triggers}
-        extraFields={trigger?.extraFields || extraFields}
-        selectedTriggerIndex={currentIndex || selectedTriggerIndex}
-        showAddCriteria={showAddCriteria}
-        setSelectedTriggerIndex={setSelectedTriggerIndex}
-        extraFieldInputVals={currentExtraFieldInputVals}
-        setExtraFieldInputVals={setExtraFieldInputVals}
-        regexSelectorProps={regexSelectorProps}
-        disableAddCriteria={disableAddCriteria}
-        onClickAddRegexSelector={onClickAddRegexSelector}
-        onChangeSelectedBuildInitiator={setBuildInitiatorSelected}
-        selectedBuildInitiator={currentBuildInitiator}
-      />
-    </RowContainer>
-  );
-};
-
-export const SubscriptionMethod = () => {
-  const type = "version";
-  const resourceId = "project-id";
-  const {
-    extraFieldErrorMessages,
-    selectedSubscriptionMethod,
-    setSelectedSubscriptionMethod,
-    setTarget,
-    target,
-  } = useNotificationModal({
-    subscriptionMethodControls,
-    triggers,
-    resourceId,
-    type,
-  });
-
-  return (
-    <RowContainer>
-      <NotificationMethod
-        selectedSubscriptionMethod={selectedSubscriptionMethod}
-        setSelectedSubscriptionMethod={setSelectedSubscriptionMethod}
-        subscriptionMethodDropdownOptions={subscriptionMethodDropdownOptions}
         subscriptionMethodControls={subscriptionMethodControls}
-        target={target}
-        setTarget={setTarget}
-        extraFieldErrorMessages={extraFieldErrorMessages}
+        subscriptionMethodDropdownOptions={subscriptionMethodDropdownOptions}
+        type={type}
+        selectedBuildInitiator={currentBuildInitiator}
+        trigger={trigger}
+        onChangeSelectedBuildInitiator={setBuildInitiatorSelected}
+        selectedExtraFieldInputVals={currentExtraFieldInputVals}
+        resourceId={resourceId}
       />
     </RowContainer>
   );

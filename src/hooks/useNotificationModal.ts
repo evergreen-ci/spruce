@@ -20,7 +20,7 @@ export interface UseNotificationModalProps {
   subscriptionMethodControls: SubscriptionMethods;
   triggers: Trigger[];
   resourceId: string;
-  type: string;
+  type: "task" | "version";
   currentRegexSelectors?: RegexItem[];
   currentTriggerIndex?: number;
 }
@@ -218,9 +218,6 @@ export const useNotificationModal = ({
       return;
     }
     const extraFieldInputValEntries = Object.entries(extraFieldInputVals);
-    if (extraFieldInputValEntries) {
-      return;
-    }
     const nextErrorMessages = extraFieldInputValEntries
       .map(([fieldName, fieldVal]) => {
         // get the validator for the extra field

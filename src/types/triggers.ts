@@ -49,7 +49,7 @@ export interface Trigger {
 export interface ExtraField {
   text: string;
   key: string;
-  type?: string;
+  fieldType?: string;
   options?: string[];
   default?: string;
   validator?: (v: any) => string;

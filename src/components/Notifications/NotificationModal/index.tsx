@@ -1,3 +1,4 @@
+import React from "react";
 import { useMutation } from "@apollo/client";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { Modal } from "components/Modal";
@@ -12,7 +13,6 @@ import {
   UseNotificationModalProps,
 } from "hooks/useNotificationModal";
 import { SubscriptionMethodDropdownOption } from "types/subscription";
-import { NotificationMethod } from "../NotificationMethod";
 import { NotificationSelect } from "../NotificationSelect";
 import { LeftButton } from "../styles";
 
@@ -25,6 +25,8 @@ interface NotificationModalProps extends UseNotificationModalProps {
   onCancel: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   "data-cy": string;
   type: "task" | "version";
+  selectedBuildInitiator?: string;
+  onChangeSelectedBuildInitiator?: (optionValue: string) => void;
 }
 
 export const NotificationModal: React.VFC<NotificationModalProps> = ({
@@ -37,6 +39,8 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
   sendAnalyticsEvent,
   "data-cy": dataCy,
   type,
+  selectedBuildInitiator,
+  onChangeSelectedBuildInitiator,
 }) => {
   const dispatchToast = useToastContext();
   const [saveSubscription] = useMutation<
@@ -51,29 +55,13 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
     },
   });
 
-  const {
-    disableAddCriteria,
-    extraFieldErrorMessages,
-    extraFieldInputVals,
-    extraFields,
-    getRequestPayload,
-    isFormValid,
-    onClickAddRegexSelector,
-    regexSelectorProps,
-    selectedSubscriptionMethod,
-    selectedTriggerIndex,
-    setExtraFieldInputVals,
-    setSelectedSubscriptionMethod,
-    setSelectedTriggerIndex,
-    setTarget,
-    showAddCriteria,
-    target,
-  } = useNotificationModal({
+  const { isFormValid, getRequestPayload } = useNotificationModal({
     subscriptionMethodControls,
     triggers,
     resourceId,
     type,
   });
+
   const onClickSave = () => {
     const subscription = getRequestPayload();
     saveSubscription({
@@ -113,24 +101,12 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
     >
       <NotificationSelect
         triggers={triggers}
-        extraFields={extraFields}
-        selectedTriggerIndex={selectedTriggerIndex}
-        showAddCriteria={showAddCriteria}
-        setSelectedTriggerIndex={setSelectedTriggerIndex}
-        extraFieldInputVals={extraFieldInputVals}
-        setExtraFieldInputVals={setExtraFieldInputVals}
-        regexSelectorProps={regexSelectorProps}
-        disableAddCriteria={disableAddCriteria}
-        onClickAddRegexSelector={onClickAddRegexSelector}
-      />
-      <NotificationMethod
-        selectedSubscriptionMethod={selectedSubscriptionMethod}
-        setSelectedSubscriptionMethod={setSelectedSubscriptionMethod}
         subscriptionMethodDropdownOptions={subscriptionMethodDropdownOptions}
         subscriptionMethodControls={subscriptionMethodControls}
-        target={target}
-        setTarget={setTarget}
-        extraFieldErrorMessages={extraFieldErrorMessages}
+        resourceId={resourceId}
+        type={type}
+        selectedBuildInitiator={selectedBuildInitiator}
+        onChangeSelectedBuildInitiator={onChangeSelectedBuildInitiator}
       />
     </Modal>
   );
