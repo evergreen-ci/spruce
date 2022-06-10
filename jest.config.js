@@ -21,6 +21,8 @@ module.exports = {
   moduleNameMapper: {
     "^react-native$": "react-native-web",
     "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
+    "^uuid$": "<rootDir>/node_modules/uuid/dist/index.js",
+    "^nanoid$": "<rootDir>/node_modules/nanoid/index.js",
   },
   modulePaths: ["<rootDir>/src"],
   resetMocks: true,
@@ -29,7 +31,6 @@ module.exports = {
   setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"],
   snapshotSerializers: ["@emotion/jest/serializer"],
   testEnvironment: "jsdom",
-  resolver: "<rootDir>/src/jestResolver.js",
   testMatch: [
     "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
     "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}",
