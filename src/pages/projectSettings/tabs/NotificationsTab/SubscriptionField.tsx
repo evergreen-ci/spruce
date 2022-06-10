@@ -51,7 +51,7 @@ export const getBuildInitiator = (
     }
   });
 
-  return requesterSubscriberOptions[b];
+  return requesterSubscriberOptions[b] ?? "";
 };
 
 export const SubscriptionField: Field = ({ formData }) => {
