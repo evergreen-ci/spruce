@@ -1,4 +1,5 @@
 import { useMutation } from "@apollo/client";
+import { useProjectSettingsAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { useToastContext } from "context/toast";
 import {
@@ -22,6 +23,7 @@ export const DefaultSectionToRepoModal = ({
   section,
 }: Props) => {
   const dispatchToast = useToastContext();
+  const { sendEvent } = useProjectSettingsAnalytics();
 
   const [defaultSectionToRepo] = useMutation<
     DefaultSectionToRepoMutation,
@@ -46,6 +48,10 @@ export const DefaultSectionToRepoModal = ({
       onCancel={handleClose}
       onConfirm={() => {
         defaultSectionToRepo();
+        sendEvent({
+          name: "Default section to repo",
+          section,
+        });
         handleClose();
       }}
       open={open}
