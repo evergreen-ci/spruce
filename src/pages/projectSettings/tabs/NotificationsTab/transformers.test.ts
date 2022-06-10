@@ -25,11 +25,68 @@ describe("project data", () => {
     expect(formToGql(projectForm, "project")).toStrictEqual(projectResult);
   });
 });
+// todo: use in testing in future work
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const sub = [
+  {
+    id: "subscription-1",
+    resourceType: "repo",
+    trigger: "build-failure",
+    ownerType: "repo",
+    triggerData: {
+      repo: "repo",
+      branch: "main",
+    },
+    selectors: [
+      {
+        type: "regex",
+        data: "^[a-z]+$",
+      },
+    ],
+    regexSelectors: [
+      {
+        type: "regex",
+        data: "^[a-z]+$",
+      },
+    ],
+    subscriber: {
+      githubPRSubscriber: {
+        repo: "repo",
+        owner: "owner",
+        prNumber: 1,
+        ref: "ref",
+      },
+      githubCheckSubscriber: {
+        repo: "repo",
+        owner: "owner",
+        ref: "ref",
+      },
+      webhookSubscriber: {
+        url: "https://example.com",
+        secret: "secret",
+        headers: [
+          {
+            key: "key",
+            value: "value",
+          },
+        ],
+      },
+      jiraIssueSubscriber: {
+        project: "project",
+        issueType: "issueType",
+      },
+      jiraCommentSubscriber: "jira-comment-subscriber-1",
+      emailSubscriber: "email-subscriber-1",
+      slackSubscriber: "slack-subscriber-1",
+    },
+  },
+];
 
 const projectForm: FormState = {
   buildBreakSettings: {
     notifyOnBuildFailure: null,
   },
+  subscriptions: [],
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
@@ -43,6 +100,7 @@ const repoForm: FormState = {
   buildBreakSettings: {
     notifyOnBuildFailure: false,
   },
+  subscriptions: [],
 };
 
 const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
