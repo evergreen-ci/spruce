@@ -91,7 +91,7 @@ export default defineConfig({
     // Dynamic imports of antd styles
     vitePluginImp({
       optimize: true,
-      style: "css",
+      style: "less",
       libList: [
         {
           libName: "antd",
