@@ -3,13 +3,22 @@ import Cookies from "js-cookie";
 import { useNavbarAnalytics } from "analytics";
 import { CURRENT_PROJECT } from "constants/cookies";
 import { legacyRoutes } from "constants/externalResources";
-import { routes, getProjectPatchesRoute } from "constants/routes";
+import {
+  routes,
+  getProjectPatchesRoute,
+  getProjectSettingsRoute,
+} from "constants/routes";
 import { GetSpruceConfigQuery } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
 import { environmentalVariables } from "utils";
 import { Dropdown } from "./NavDropdown";
 
-const { getUiUrl } = environmentalVariables;
+const { getUiUrl, isBeta, isDevelopment, isStaging } = environmentalVariables;
+
+// TODO: Remove in EVG-17059
+// Project Settings should only be disabled when deployed to spruce.mongodb.com
+// Enable when running local dev server, or when deployed to beta or staging
+const showProjectSettings = isDevelopment() || isBeta() || isStaging();
 
 export const AuxiliaryDropdown = () => {
   const uiURL = getUiUrl();
@@ -40,6 +49,15 @@ export const AuxiliaryDropdown = () => {
       text: "Projects",
       onClick: () => sendEvent({ name: "Click Projects Link" }),
     },
+    ...(showProjectSettings
+      ? [
+          {
+            text: "Project Settings",
+            to: getProjectSettingsRoute(mostRecentProject),
+            onClick: () => sendEvent({ name: "Click Projects Link" }),
+          },
+        ]
+      : []),
     {
       "data-cy": "auxiliary-dropdown-project-patches",
       to: getProjectPatchesRoute(mostRecentProject),
