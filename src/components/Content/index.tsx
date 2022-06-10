@@ -62,55 +62,54 @@ export const Content: React.VFC = () => {
     <PageGrid>
       <Header />
       <Routes>
-        <Route path={routes.task} element={<Task />}>
-          <Route path={tab} />
+        <Route path="*" element={<PageDoesNotExist />} />
+        <Route path="/" element={<MyPatches />} />
+        <Route path={routes.commitQueue} element={<CommitQueue />} />
+        <Route path={routes.commits} element={<Commits />}>
+          <Route path=":id" />
         </Route>
-        <Route path={routes.configurePatch} element={<ConfigurePatch />}>
-          <Route path={tab} />
-        </Route>
-        <Route path={routes.patch} element={<VersionPage />}>
-          <Route path={tab} />
-        </Route>
-        <Route path={routes.version} element={<VersionPage />}>
-          <Route path={tab} />
-        </Route>
+        <Route path={routes.configurePatch} element={<ConfigurePatch />} />
+        <Route path={routes.host} element={<Host />} />
+        <Route path={routes.hosts} element={<Hosts />} />
         <Route path={routes.jobLogs} element={<JobLogs />}>
           <Route path=":groupId" />
         </Route>
-        <Route path={routes.hosts} element={<Hosts />} />
-        <Route path={routes.host} element={<Host />} />
         <Route path={routes.myPatches} element={<MyPatches />} />
-        <Route
-          path={routes.userPatchesRedirect}
-          element={<UserPatchesRedirect />}
-        />
-        <Route
-          path={routes.projectSettingsRedirect}
-          element={<ProjectSettingsRedirect />}
-        />
-        <Route path={routes.userPatches} element={<UserPatches />} />
-        <Route path={routes.taskQueue} element={<TaskQueue />}>
-          <Route path=":distro" />
-          <Route path=":distro/:taskId" />
+        <Route path={routes.patch} element={<VersionPage />}>
+          <Route path={tab} />
+        </Route>
+        <Route path={routes.preferences} element={<Preferences />}>
+          <Route path={tab} />
         </Route>
         <Route path={routes.projectPatches} element={<ProjectPatches />} />
         <Route path={routes.projectSettings} element={<ProjectSettings />}>
           <Route path={tab} />
         </Route>
+        <Route
+          path={routes.projectSettingsRedirect}
+          element={<ProjectSettingsRedirect />}
+        />
         <Route path={routes.spawn} element={<Spawn />}>
           <Route path={tab} />
         </Route>
-        <Route path={routes.commitQueue} element={<CommitQueue />} />
-        <Route path={routes.preferences} element={<Preferences />}>
+        <Route path={routes.task} element={<Task />}>
           <Route path={tab} />
         </Route>
-        <Route path={routes.commits} element={<Commits />}>
-          <Route path=":id" />
-        </Route>
         <Route path={routes.taskHistory} element={<TaskHistory />} />
+        <Route path={routes.taskQueue} element={<TaskQueue />}>
+          {" "}
+          <Route path=":distro" />
+          <Route path=":distro/:taskId" />
+        </Route>
+        <Route path={routes.userPatches} element={<UserPatches />} />
+        <Route
+          path={routes.userPatchesRedirect}
+          element={<UserPatchesRedirect />}
+        />
         <Route path={routes.variantHistory} element={<VariantHistory />} />
-        <Route path="/" element={<MyPatches />} />
-        <Route path="*" element={<PageDoesNotExist />} />
+        <Route path={routes.version} element={<VersionPage />}>
+          <Route path={tab} />
+        </Route>
       </Routes>
       {!hasUsedSpruceBefore && (
         <WelcomeModal
