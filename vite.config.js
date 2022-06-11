@@ -7,7 +7,6 @@ import { viteCommonjs, esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
 import envCompatible from "vite-plugin-env-compatible";
 import checker from "vite-plugin-checker";
 import { visualizer } from "rollup-plugin-visualizer";
-import gql from "./config/gql";
 
 // Allow imports from absolute paths
 const absolutePaths = readdirSync(path.resolve(__dirname, "./src")).filter(
@@ -83,7 +82,7 @@ export default defineConfig({
     react({
       jsxImportSource: "@emotion/react",
       babel: {
-        plugins: ["@emotion/babel-plugin"],
+        plugins: ["@emotion/babel-plugin", "import-graphql"],
       },
       // exclude storybook stories
       exclude: [/\.stories\.tsx?$/],
@@ -112,8 +111,6 @@ export default defineConfig({
         },
       ],
     }),
-    // Support imports of graphql files
-    gql(),
     // Typescript checking
     checker({ typescript: true }),
     // Bundle analyzer
