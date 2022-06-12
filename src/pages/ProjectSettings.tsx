@@ -30,12 +30,12 @@ import { getTabTitle } from "./projectSettings/getTabTitle";
 import { ProjectSettingsTabs } from "./projectSettings/Tabs";
 import { ProjectType } from "./projectSettings/tabs/utils";
 
-const { isBeta, isDevelopment, isStaging } = environmentalVariables;
+const { isProductionBuild } = environmentalVariables;
 const { validateObjectId } = validators;
 
 // Project Settings should only be disabled when deployed to spruce.mongodb.com
 // Enable when running local dev server, or when deployed to beta or staging
-const disablePage = !(isDevelopment() || isBeta() || isStaging());
+const disablePage = !isProductionBuild();
 
 export const ProjectSettings: React.VFC = () => {
   usePageTitle(`Project Settings`);
