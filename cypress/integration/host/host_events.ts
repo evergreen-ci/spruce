@@ -87,10 +87,6 @@ describe("Host events", () => {
         text: "Marked as provisioned",
       },
       {
-        hostType: "host-task-pid-set",
-        text: "PID of running task set to 123",
-      },
-      {
         hostType: "host-monitor-flag",
         text: "Flagged for termination because: unreachable",
       },
