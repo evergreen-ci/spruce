@@ -20,6 +20,7 @@ export enum TriggerType {
   REGRESSION = "regression",
   TEST_REGRESSION = "regression-by-test",
   FIRST_FAILURE_BUILD = "first-failure-in-build",
+  FIRST_FAILURE_VERSION = "first-failure-in-version",
   FIRST_FAILURE_VERSION_NAME = "first-failure-in-version-with-name",
 }
 
@@ -48,8 +49,8 @@ export interface Trigger {
 export interface ExtraField {
   text: string;
   key: string;
-  type?: string;
-  options?: StringMap;
+  fieldType?: string;
+  options?: string[];
   default?: string;
   validator?: (v: any) => string;
   dataCy?: string;

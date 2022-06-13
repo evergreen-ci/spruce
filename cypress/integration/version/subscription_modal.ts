@@ -15,12 +15,12 @@ describe("Version Subscription Modal", () => {
   });
 
   describe("Regex selector inputs", () => {
-    it("Clicking on 'Add additional criteria' adds a regex selector row", () => {
+    it("Clicking on 'Add Additional Criteria' adds a regex selector row", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
       cy.getInputByLabel("Event").click({ force: true });
       cy.contains("A build-variant in this version finishes").click();
       cy.dataCy("regex-selector-input").should("have.length", 1);
-      cy.contains("Add additional criteria").click();
+      cy.contains("Add Additional Criteria").click();
       cy.dataCy("regex-selector-input").should("have.length", 2);
     });
 
@@ -39,7 +39,7 @@ describe("Version Subscription Modal", () => {
     });
 
     it("Selecting a regex selector type will disable that option in other regex selector type dropdowns", () => {
-      cy.contains("Add additional criteria").click();
+      cy.contains("Add Additional Criteria").click();
       cy.dataCy("regex-selector-dropdown").last().click();
       cy.contains("Build Variant Name").should("be.visible");
       cy.contains("Build Variant Name").should(
@@ -107,9 +107,9 @@ describe("Version Subscription Modal", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
       cy.getInputByLabel("Event").click({ force: true });
       cy.contains("A build-variant in this version finishes").click();
-      cy.contains("Add additional criteria").should("not.be.disabled");
-      cy.contains("Add additional criteria").click();
-      cy.contains("Add additional criteria").should("be.disabled");
+      cy.contains("Add Additional Criteria").should("not.be.disabled");
+      cy.contains("Add Additional Criteria").click();
+      cy.contains("Add Additional Criteria").should("be.disabled");
     });
   });
 });
