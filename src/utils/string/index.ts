@@ -228,3 +228,10 @@ export const joinWithConjunction = (array: string[], conjunction: string) => {
  * @return {string} string with new lines removed
  */
 export const stripNewLines = (str: string) => str.replace(/\n/g, "");
+
+export const toSentenceCase = (string: string) => {
+  if (string === undefined || string.length === 0) {
+    return "";
+  }
+  return string[0].toUpperCase() + string.substring(1).toLowerCase();
+};

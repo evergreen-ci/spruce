@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "2.36.0",
+  "version": "2.36.1",
   "private": true,
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js' --html | sed 1d > build/source_map.html",
@@ -250,7 +250,7 @@
     "worker-loader": "^3.0.7"
   },
   "engines": {
-    "node": ">=12.22.0"
+    "node": ">=16.13.0"
   },
   "proxy": "http://localhost:9090"
 }
