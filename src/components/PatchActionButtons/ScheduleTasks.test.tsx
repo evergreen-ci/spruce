@@ -31,7 +31,7 @@ describe("scheduleTasks", () => {
   });
   it("clicking the button opens the modal", async () => {
     const { Component } = RenderFakeToastContext(<ScheduleButton />);
-    const { queryByDataCy } = renderWithRouterMatch(Component);
+    const { queryByDataCy } = renderWithRouterMatch(<Component />);
     expect(queryByDataCy("schedule-tasks-modal")).not.toBeInTheDocument();
     fireEvent.click(queryByDataCy("schedule-patch"));
     await waitFor(() =>

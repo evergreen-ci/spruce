@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from "react";
-import { useHistory, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { getPatchRoute } from "constants/routes";
 import {
   ConfigurePatchQuery,
@@ -148,7 +148,7 @@ export const useConfigurePatch = (
   patch: ConfigurePatchQuery["patch"],
   variants: ConfigurePatchQuery["patch"]["project"]["variants"]
 ): HookResult => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
   const { tab } = useParams<{ tab: PatchTab | null }>();
 
@@ -165,12 +165,13 @@ export const useConfigurePatch = (
 
   useEffect(() => {
     const query = parseQueryString(location.search);
-    history.replace(
+    navigate(
       getPatchRoute(id, {
         configure: true,
         tab: indexToTabMap[selectedTab],
         ...query,
-      })
+      }),
+      { replace: true }
     );
   }, [selectedTab]); // eslint-disable-line react-hooks/exhaustive-deps
 

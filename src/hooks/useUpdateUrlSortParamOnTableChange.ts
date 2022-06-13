@@ -1,4 +1,4 @@
-import { useHistory, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { SortDirection } from "gql/generated/types";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { queryString } from "utils";
@@ -11,7 +11,7 @@ interface Params {
 export const useUpdateUrlSortParamOnTableChange = <T extends unknown>({
   sendAnalyticsEvents = () => undefined,
 }: Params = {}) => {
-  const { replace } = useHistory();
+  const navigate = useNavigate();
   const { search, pathname } = useLocation();
 
   const tableChangeHandler: TableOnChange<T> = (...[, , sorter]) => {
@@ -22,7 +22,7 @@ export const useUpdateUrlSortParamOnTableChange = <T extends unknown>({
     // order is undefined when the column sorter is unselected (which occurs after being clicked three times)
     // when order is undefined, sort should be reset; therefore removed from the url
     if (!order) {
-      replace(pathname);
+      navigate(pathname, { replace: true });
       return;
     }
 
@@ -39,7 +39,7 @@ export const useUpdateUrlSortParamOnTableChange = <T extends unknown>({
     const nextSearch = stringifyQuery(nextQueryParams);
 
     if (nextSearch !== search.split("?")[1]) {
-      replace(`${pathname}?${nextSearch}`);
+      navigate(`${pathname}?${nextSearch}`, { replace: true });
     }
   };
 

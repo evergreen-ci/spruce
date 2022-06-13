@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
-import { useParams, Link, Redirect } from "react-router-dom";
+import { useParams, Link, Navigate } from "react-router-dom";
 import { ProjectSelect } from "components/projectSelect";
 import {
   SideNav,
@@ -85,6 +85,7 @@ export const ProjectSettings: React.VFC = () => {
     },
   });
 
+  // TODO: Remove in EVG-17059
   if (disablePage) {
     return (
       <PageWrapper>
@@ -97,7 +98,7 @@ export const ProjectSettings: React.VFC = () => {
 
   if (!tabRouteValues.includes(tab)) {
     return (
-      <Redirect
+      <Navigate
         to={getProjectSettingsRoute(
           identifier,
           ProjectSettingsTabRoutes.General

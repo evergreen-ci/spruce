@@ -1,4 +1,3 @@
-export { useDefaultPath } from "hooks/useDefaultPath";
 export { useFilterInputChangeHandler } from "hooks/useFilterInputChangeHandler";
 export { useGetUserPatchesPageTitleAndLink } from "hooks/useGetUserPatchesPageTitleAndLink";
 export { useNotificationModal } from "hooks/useNotificationModal";

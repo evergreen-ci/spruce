@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
+import { useProjectSettingsAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { SpruceForm } from "components/SpruceForm";
 import { useToastContext } from "context/toast";
@@ -30,6 +31,7 @@ export const MoveRepoModal: React.VFC<ModalProps> = ({
   repoOwner,
 }) => {
   const dispatchToast = useToastContext();
+  const { sendEvent } = useProjectSettingsAnalytics();
 
   const [formState, setFormState] = useState(moveRepoForm.defaultFormData);
   const [hasError, setHasError] = useState(true);
@@ -61,14 +63,21 @@ export const MoveRepoModal: React.VFC<ModalProps> = ({
       data-cy="move-repo-modal"
       onCancel={handleClose}
       onConfirm={() => {
+        const newOwner = formState.owner;
+        const newRepo = formState.repo;
         attachProjectToNewRepo({
           variables: {
             project: {
               projectId,
-              newOwner: formState.owner,
-              newRepo: formState.repo,
+              newOwner,
+              newRepo,
             },
           },
+        });
+        sendEvent({
+          name: "Move project to new repo",
+          repoOwner: newOwner,
+          repoName: newRepo,
         });
         handleClose();
       }}

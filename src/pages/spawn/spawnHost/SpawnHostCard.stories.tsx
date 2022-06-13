@@ -1,5 +1,3 @@
-import React from "react";
-import { MemoryRouter as Router } from "react-router-dom";
 import { SpawnHostCard } from "pages/spawn/spawnHost/SpawnHostCard";
 
 const host = {
@@ -51,11 +49,7 @@ const host = {
   uptime: new Date("2020-06-15T11:10:44Z"),
 };
 
-export const SpawnHostCardStory = () => (
-  <Router>
-    <SpawnHostCard host={host} />
-  </Router>
-);
+export const SpawnHostCardStory = () => <SpawnHostCard host={host} />;
 
 export default {
   title: "Spawn Host Card",

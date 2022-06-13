@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { useParams, Redirect } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import { PageWrapper } from "components/styles";
 import { commitQueueAlias } from "constants/patch";
@@ -34,7 +34,7 @@ export const ConfigurePatch: React.VFC = () => {
 
   // Can't configure a mainline version so should redirect to the version page
   if (!validateObjectId(id)) {
-    return <Redirect to={getVersionRoute(id)} />;
+    return <Navigate to={getVersionRoute(id)} />;
   }
 
   if (loading) {
@@ -45,7 +45,7 @@ export const ConfigurePatch: React.VFC = () => {
   }
 
   if (patch.alias === commitQueueAlias) {
-    return <Redirect to={getVersionRoute(id)} />;
+    return <Navigate to={getVersionRoute(id)} />;
   }
 
   return (

@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import {
   getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
@@ -23,7 +23,7 @@ export const ProjectSettingsRedirect: React.VFC = () => {
       viewableProjectRefs[0]?.projects.length !== 0
     ) {
       return (
-        <Redirect
+        <Navigate
           to={getProjectSettingsRoute(
             viewableProjectRefs[0].projects[0].identifier,
             ProjectSettingsTabRoutes.General

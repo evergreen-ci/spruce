@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "2.36.0",
+  "version": "2.36.1",
   "private": true,
   "scripts": {
     "build-storybook": "build-storybook -s public",
@@ -117,8 +117,7 @@
     "query-string": "6.13.8",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "react-router-dom": "5.2.0",
-    "react-router-navigation-prompt": "1.9.1",
+    "react-router-dom": "6.3.0",
     "react-string-replace": "0.4.4",
     "react-virtualized-auto-sizer": "^1.0.6",
     "react-window": "1.8.6",
@@ -242,6 +241,6 @@
     "webpack-merge": "^5.7.3"
   },
   "engines": {
-    "node": ">=12.22.0"
+    "node": ">=16.13.0"
   }
 }

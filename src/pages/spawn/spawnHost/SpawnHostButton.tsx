@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
 import { PlusButton } from "components/Spawn";
 import { size } from "constants/tokens";
@@ -20,7 +20,7 @@ export const SpawnHostButton = () => {
   );
 
   const spruceConfig = useSpruceConfig();
-  const { search } = useLocation<{ search: string }>();
+  const { search } = useLocation();
   const queryParams = parseQueryString(search);
   const shouldSpawnHost = queryParams.spawnHost === "True";
   const [openModal, setOpenModal] = useState(shouldSpawnHost);

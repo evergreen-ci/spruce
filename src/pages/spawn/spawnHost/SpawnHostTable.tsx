@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { formatDistanceToNow } from "date-fns";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
 import { HostStatusBadge } from "components/HostStatusBadge";
 import { DoesNotExpire, SpawnTable } from "components/Spawn";

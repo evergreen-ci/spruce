@@ -1,5 +1,4 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { MemoryRouter } from "react-router-dom";
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
 import { WaterfallTaskStatusIcon } from "./WaterfallTaskStatusIcon";
 
@@ -7,11 +6,9 @@ export default {
   title: "WaterfallTaskStatusIcon",
   decorators: [
     (Story) => (
-      <MemoryRouter>
-        <MockedProvider mocks={[getTooltipQueryMock]} addTypename={false}>
-          <Story />
-        </MockedProvider>
-      </MemoryRouter>
+      <MockedProvider mocks={[getTooltipQueryMock]} addTypename={false}>
+        <Story />
+      </MockedProvider>
     ),
   ],
   component: WaterfallTaskStatusIcon,

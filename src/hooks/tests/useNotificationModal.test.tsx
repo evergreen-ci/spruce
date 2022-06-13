@@ -1,16 +1,10 @@
-import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import { renderHook, act } from "@testing-library/react-hooks";
-import {
-  triggers as patchTriggers,
-  subscriptionMethodControls as patchSubscriptionMethodControls,
-} from "components/PatchActionButtons/addNotification/PatchNotificationModal";
+import { triggers as patchTriggers } from "components/PatchActionButtons/addNotification/PatchNotificationModal";
+import { subscriptionMethodControls } from "constants/triggers";
 import { GET_USER_SETTINGS, GET_USER } from "gql/queries";
 import { useNotificationModal } from "hooks";
-import {
-  triggers as taskTriggers,
-  subscriptionMethodControls as taskSubscriptionMethodControls,
-} from "pages/task/actionButtons/TaskNotificationModal";
+import { triggers as taskTriggers } from "pages/task/actionButtons/TaskNotificationModal";
 import { mockUUID } from "test_utils";
 
 // Must mock uuid for this test since getRandomValues() is not supported in CI
@@ -47,7 +41,7 @@ describe("useNotificationModal", () => {
       () =>
         useNotificationModal({
           triggers: taskTriggers,
-          subscriptionMethodControls: taskSubscriptionMethodControls,
+          subscriptionMethodControls,
           resourceId: "a task id",
           type: "task",
         }),
@@ -122,7 +116,7 @@ describe("useNotificationModal", () => {
       () =>
         useNotificationModal({
           triggers: patchTriggers,
-          subscriptionMethodControls: patchSubscriptionMethodControls,
+          subscriptionMethodControls,
           resourceId: "a patch id",
           type: "version",
         }),
@@ -269,7 +263,7 @@ describe("useNotificationModal", () => {
       () =>
         useNotificationModal({
           triggers: patchTriggers,
-          subscriptionMethodControls: patchSubscriptionMethodControls,
+          subscriptionMethodControls,
           resourceId: "a patch id",
           type: "version",
         }),

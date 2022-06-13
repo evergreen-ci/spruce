@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { MemoryRouter } from "react-router-dom";
 import TaskHistoryRow from "pages/taskHistory/TaskHistoryRow";
 import VariantHistoryRow from "pages/variantHistory/VariantHistoryRow";
 import HistoryTable, { context } from ".";
@@ -12,13 +11,6 @@ export * from "./HistoryTableTestSearch/HistoryTableTestSearch.stories";
 
 export default {
   title: "History Table",
-  decorators: [
-    (Story) => (
-      <MemoryRouter>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
   component: HistoryTable,
 };
 

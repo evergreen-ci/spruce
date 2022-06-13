@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
-import { Route, useParams } from "react-router-dom";
-import { routes, PreferencesTabRoutes } from "constants/routes";
+import { Route, Routes, useParams, Navigate } from "react-router-dom";
+import { PreferencesTabRoutes } from "constants/routes";
 import { size } from "constants/tokens";
 import { CliTab } from "./preferencesTabs/CliTab";
 import { NewUITab } from "./preferencesTabs/NewUITab";
@@ -13,22 +13,29 @@ export const PreferencesTabs: React.VFC = () => {
   const { tab } = useParams<{ tab: string }>();
 
   const { title, subtitle } = getTitle(tab as PreferencesTabRoutes);
-
   return (
     <Container>
       <TitleContainer>
         <H2 data-cy="preferences-tab-title">{title}</H2>
         {subtitle && <Subtitle>{subtitle}</Subtitle>}
       </TitleContainer>
-
-      <Route path={routes.profilePreferences} component={ProfileTab} />
-      <Route
-        path={routes.notificationsPreferences}
-        component={NotificationsTab}
-      />
-      <Route path={routes.cliPreferences} component={CliTab} />
-      <Route path={routes.newUIPreferences} component={NewUITab} />
-      <Route path={routes.publicKeysPreferences} component={PublicKeysTab} />
+      <Routes>
+        <Route path={PreferencesTabRoutes.Profile} element={<ProfileTab />} />
+        <Route
+          path={PreferencesTabRoutes.Notifications}
+          element={<NotificationsTab />}
+        />
+        <Route path={PreferencesTabRoutes.CLI} element={<CliTab />} />
+        <Route path={PreferencesTabRoutes.NewUI} element={<NewUITab />} />
+        <Route
+          path={PreferencesTabRoutes.PublicKeys}
+          element={<PublicKeysTab />}
+        />
+        <Route
+          path="*"
+          element={<Navigate to={PreferencesTabRoutes.Profile} replace />}
+        />
+      </Routes>
     </Container>
   );
 };

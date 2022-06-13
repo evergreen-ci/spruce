@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Global, css } from "@emotion/react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Content } from "components/Content";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { akzidenzFont } from "components/styles/Fonts";
@@ -20,12 +20,14 @@ const globalStyles = css`
 
 const App: React.VFC = () => (
   <ErrorBoundary>
+    <Global styles={globalStyles} />
     <ContextProviders>
       <Router>
-        <Route path={routes.login} component={Login} />
         <GQLWrapper>
-          <Global styles={globalStyles} />
-          <Content />
+          <Routes>
+            <Route path={routes.login} element={<Login />} />
+            <Route path="/*" element={<Content />} />
+          </Routes>
         </GQLWrapper>
       </Router>
     </ContextProviders>

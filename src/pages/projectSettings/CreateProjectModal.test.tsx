@@ -34,14 +34,14 @@ describe("createProjectField", () => {
     const { Component } = RenderFakeToastContext(
       <NewProjectModal open={false} />
     );
-    const { queryByDataCy } = render(() => <Component />);
+    const { queryByDataCy } = render(<Component />);
 
     expect(queryByDataCy("create-project-modal")).not.toBeInTheDocument();
   });
 
   it("disables the confirm button on initial render", async () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
-    const { queryByText } = render(() => <Component />);
+    const { queryByText } = render(<Component />);
 
     await waitFor(() => expect(queryByText("Project Name")).toBeVisible());
 
@@ -53,7 +53,7 @@ describe("createProjectField", () => {
 
   it("disables the confirm button when project name field is missing", async () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
-    const { queryByDataCy, queryByText } = render(() => <Component />);
+    const { queryByDataCy, queryByText } = render(<Component />);
 
     await waitFor(() => expect(queryByText("Project Name")).toBeVisible());
     userEvent.type(queryByDataCy("repo-input"), "new-repo-name");
@@ -66,7 +66,7 @@ describe("createProjectField", () => {
 
   it("disables the confirm button when repo field is missing", async () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
-    const { queryByDataCy, queryByText } = render(() => <Component />);
+    const { queryByDataCy, queryByText } = render(<Component />);
 
     await waitFor(() => expect(queryByText("Project Name")).toBeVisible());
     userEvent.type(
@@ -83,7 +83,7 @@ describe("createProjectField", () => {
 
   it("disables the confirm button when owner field is missing", async () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
-    const { queryByDataCy, queryByText } = render(() => <Component />);
+    const { queryByDataCy, queryByText } = render(<Component />);
 
     await waitFor(() => expect(queryByText("Project Name")).toBeVisible());
     userEvent.type(
@@ -99,7 +99,7 @@ describe("createProjectField", () => {
 
   it("disables the confirm button when project name contains a space", async () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
-    const { queryByDataCy, queryByText } = render(() => <Component />);
+    const { queryByDataCy, queryByText } = render(<Component />);
 
     await waitFor(() => expect(queryByText("Project Name")).toBeVisible());
     userEvent.type(queryByDataCy("project-name-input"), "my test");
@@ -115,7 +115,7 @@ describe("createProjectField", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <NewProjectModal />
     );
-    const { queryByDataCy, queryByText } = render(() => <Component />);
+    const { queryByDataCy, queryByText } = render(<Component />);
 
     await waitFor(() => expect(queryByText("Project Name")).toBeVisible());
     userEvent.type(
@@ -158,7 +158,7 @@ describe("createProjectField", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <NewProjectModal mock={mockWithId} />
     );
-    const { queryByDataCy, queryByText } = render(() => <Component />);
+    const { queryByDataCy, queryByText } = render(<Component />);
 
     await waitFor(() => expect(queryByText("Project Name")).toBeVisible());
     userEvent.type(
@@ -183,7 +183,7 @@ describe("createProjectField", () => {
     const { Component } = RenderFakeToastContext(
       <NewProjectModal owner={defaultOwner} repo={defaultRepo} />
     );
-    const { queryByDataCy, queryByText } = render(() => <Component />);
+    const { queryByDataCy, queryByText } = render(<Component />);
 
     await waitFor(() => expect(queryByText("Project Name")).toBeVisible());
     expect(queryByDataCy("owner-input")).toHaveValue(defaultOwner);

@@ -9,6 +9,7 @@ import {
   joinWithConjunction,
   trimStringFromMiddle,
   stripNewLines,
+  toSentenceCase,
 } from ".";
 
 describe("msToDuration", () => {
@@ -326,5 +327,11 @@ describe("stripNewLines", () => {
   });
   it("doesn't strip white space", () => {
     expect(stripNewLines("my \nstring\n")).toBe("my string");
+  });
+});
+
+describe("toSentenceCase", () => {
+  it("capitalizes the first letter in a word", () => {
+    expect(toSentenceCase("mystring")).toBe("Mystring");
   });
 });
