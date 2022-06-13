@@ -23,7 +23,7 @@ describe("commitChartLabel", () => {
       <RenderCommitChartLabel version={versionShort} />
     );
     expect(queryByDataCy("commit-label")).toHaveTextContent(
-      "4137c33 6/16/21 11:38 PMMohamed Khelif"
+      "4137c33 Jun 16, 2021, 11:38:13 PMMohamed Khelif"
     );
   });
 
@@ -55,7 +55,7 @@ describe("commitChartLabel", () => {
     );
     expect(queryByText("more")).toBeInTheDocument();
     expect(queryByDataCy("commit-label")).toHaveTextContent(
-      "4137c33 6/16/21 11:38 PMMohamed Khelif -SERVER-57332 Create skeleton Internal...more"
+      "4137c33 Jun 16, 2021, 11:38:13 PMMohamed Khelif -SERVER-57332 Create skeleton Internal...more"
     );
   });
 
