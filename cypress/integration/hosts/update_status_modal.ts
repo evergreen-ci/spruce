@@ -11,7 +11,7 @@ describe("Update Status Modal", () => {
   });
 
   it("Update status for selected hosts", () => {
-    cy.get(".ant-checkbox-input").first().should("be.visible");
+    cy.get(".ant-checkbox-input").first().should("exist");
     cy.get(".ant-checkbox-input").first().should("not.be.disabled");
     cy.get(".ant-checkbox-input").first().check({ force: true });
 
