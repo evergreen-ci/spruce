@@ -1,7 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { WithApolloClient } from "storybook-addon-apollo-client/dist/decorators";
 import { addDecorator, addParameters } from "@storybook/react";
-import StoryRouter from 'storybook-react-router';
+import { MemoryRouter} from 'react-router-dom'
 
 
 addDecorator(WithApolloClient)
@@ -12,4 +12,9 @@ addParameters({
     // any props you want to pass to MockedProvider on every story
   }
 })
-addDecorator(StoryRouter())
+addDecorator((Story) => (
+    <MemoryRouter>
+      <Story />
+    </MemoryRouter>
+  ))
+

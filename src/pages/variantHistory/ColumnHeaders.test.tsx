@@ -20,7 +20,7 @@ describe("columnHeaders (Variant History)", () => {
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders projectId="evergreen" variantName="some_variant" />
     );
-    const { queryAllByDataCy } = render(() => <Component />, {
+    const { queryAllByDataCy } = render(<Component />, {
       wrapper: ProviderWrapper,
     });
     expect(queryAllByDataCy("loading-header-cell")).toHaveLength(7);
@@ -30,7 +30,7 @@ describe("columnHeaders (Variant History)", () => {
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders projectId="evergreen" variantName="some_variant" />
     );
-    const { queryAllByDataCy } = render(() => <Component />, {
+    const { queryAllByDataCy } = render(<Component />, {
       wrapper: ({ children }) =>
         ProviderWrapper({
           children,
@@ -51,7 +51,7 @@ describe("columnHeaders (Variant History)", () => {
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders projectId="evergreen" variantName="some_variant" />
     );
-    const { queryByRole, queryAllByDataCy } = render(() => <Component />, {
+    const { queryByRole, queryAllByDataCy } = render(<Component />, {
       wrapper: ({ children }) =>
         ProviderWrapper({
           children,
@@ -74,7 +74,7 @@ describe("columnHeaders (Variant History)", () => {
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders projectId="evergreen" variantName="some_variant" />
     );
-    const { queryAllByDataCy } = render(() => <Component />, {
+    const { queryAllByDataCy } = render(<Component />, {
       wrapper: ({ children }) =>
         ProviderWrapper({
           children,
@@ -94,7 +94,7 @@ describe("columnHeaders (Variant History)", () => {
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders projectId="evergreen" variantName="some_variant" />
     );
-    const { queryByText, queryAllByDataCy } = render(() => <Component />, {
+    const { queryByText, queryAllByDataCy } = render(<Component />, {
       wrapper: ({ children }) =>
         ProviderWrapper({
           children,
@@ -115,7 +115,7 @@ describe("columnHeaders (Variant History)", () => {
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders projectId="evergreen" variantName="some_variant" />
     );
-    const { queryByText, queryAllByDataCy } = render(() => <Component />, {
+    const { queryByText, queryAllByDataCy } = render(<Component />, {
       wrapper: ({ children }) =>
         ProviderWrapper({
           children,

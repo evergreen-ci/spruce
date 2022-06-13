@@ -33,13 +33,13 @@ const Content = () => {
 
 describe("foldedCommit", () => {
   it("displays the number of inactive commits but not the individual commits on render", () => {
-    const { queryByText } = render(Content);
+    const { queryByText } = render(<Content />);
     expect(queryByText("Expand 5 inactive")).toBeInTheDocument();
     expect(queryByText("Collapse 5 inactive")).toBeNull();
   });
 
   it("can be expanded to show all of the commits", () => {
-    const { queryByText } = render(Content);
+    const { queryByText } = render(<Content />);
     queryByText("Expand 5 inactive").click();
     expect(queryByText("Expand 5 inactive")).toBeNull();
     expect(queryByText("Collapse 5 inactive")).toBeInTheDocument();

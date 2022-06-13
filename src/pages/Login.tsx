@@ -1,22 +1,29 @@
 import React, { useState } from "react";
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Location } from "history";
-import { Redirect, RouteComponentProps } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useAuthDispatchContext, useAuthStateContext } from "context/auth";
+import { GetUserQuery, GetUserQueryVariables } from "gql/generated/types";
+import { GET_USER } from "gql/queries";
 
-const getReferrer = (location: Location<{ referrer?: string }>): string => {
-  if (location && location.state && "referrer" in location.state) {
-    return location.state.referrer;
-  }
-  return "/";
+const getReferrer = (location: Location): string => {
+  const state = location.state as { referrer?: string };
+  return state?.referrer ?? "/";
 };
 
-export const Login: React.VFC<RouteComponentProps> = ({ location }) => {
+export const Login: React.VFC = () => {
+  const location = useLocation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const { login } = useAuthDispatchContext();
   const { isAuthenticated } = useAuthStateContext();
+
+  // this top-level query is required for authentication to work
+  // afterware is used at apollo link level to authenticate or deauthenticate user based on response to query
+  // therefore this could be any query as long as it is top-level
+  useQuery<GetUserQuery, GetUserQueryVariables>(GET_USER);
 
   const loginHandler = (): void => {
     login({ username, password });
@@ -29,7 +36,7 @@ export const Login: React.VFC<RouteComponentProps> = ({ location }) => {
   };
 
   if (isAuthenticated) {
-    return <Redirect to={getReferrer(location)} />;
+    return <Navigate to={getReferrer(location)} />;
   }
   return (
     <Wrapper>

@@ -49,7 +49,7 @@ const wrapper: React.VFC<wrapperProps> = ({ children, mocks = [], state }) => (
 describe("variantHistoryRow", () => {
   it("renders an initial loading row with 7 cells when there is no data", () => {
     const { queryAllByDataCy } = render(
-      () => <VariantHistoryRow index={0} style={{}} data={undefined} />,
+      <VariantHistoryRow index={0} style={{}} data={undefined} />,
       {
         wrapper,
       }
@@ -58,7 +58,7 @@ describe("variantHistoryRow", () => {
   });
   it("renders a row when there is data", async () => {
     const { queryAllByDataCy } = render(
-      () => <VariantHistoryRow index={0} style={{}} data={undefined} />,
+      <VariantHistoryRow index={0} style={{}} data={undefined} />,
       {
         route: "/variant-history/mci/ubuntu1604",
         path: "/variant-history/:projectId/:variantName",
@@ -87,7 +87,7 @@ describe("variantHistoryRow", () => {
   });
   it("amount of cells rendered corresponds to the amount of visibleColumns", async () => {
     const { queryAllByDataCy } = render(
-      () => <VariantHistoryRow index={0} style={{}} data={undefined} />,
+      <VariantHistoryRow index={0} style={{}} data={undefined} />,
       {
         route: "/variant-history/mci/ubuntu1604",
         path: "/variant-history/:projectId/:variantName",
@@ -111,7 +111,7 @@ describe("variantHistoryRow", () => {
   });
   it("renders a blank cell when there isn't a matching variant for that row", () => {
     const { queryAllByDataCy } = render(
-      () => <VariantHistoryRow index={0} style={{}} data={undefined} />,
+      <VariantHistoryRow index={0} style={{}} data={undefined} />,
       {
         route: "/variant-history/mci/ubuntu1604",
         path: "/variant-history/:projectId/:variantName",
@@ -132,7 +132,7 @@ describe("variantHistoryRow", () => {
   });
   it("should show failing tests when you hover over a failing task cell and there are no filters applied", async () => {
     const { queryAllByDataCy, queryByDataCy, queryByText } = render(
-      () => <VariantHistoryRow index={0} style={{}} data={undefined} />,
+      <VariantHistoryRow index={0} style={{}} data={undefined} />,
       {
         route: "/variant-history/mci/ubuntu1604",
         path: "/variant-history/:projectId/:variantName",
@@ -160,7 +160,7 @@ describe("variantHistoryRow", () => {
   });
   it("should show a matching test label when looking at a task cell with filters applied", async () => {
     const { queryAllByDataCy, queryByDataCy, queryByText } = render(
-      () => <VariantHistoryRow index={0} style={{}} data={undefined} />,
+      <VariantHistoryRow index={0} style={{}} data={undefined} />,
       {
         route: "/variant-history/mci/ubuntu1604",
         path: "/variant-history/:projectId/:variantName",
@@ -195,7 +195,7 @@ describe("variantHistoryRow", () => {
   });
   it("should disable a task cell when there are test filters applied and it does not match the task filters", async () => {
     const { queryAllByDataCy, queryByDataCy } = render(
-      () => <VariantHistoryRow index={0} style={{}} data={undefined} />,
+      <VariantHistoryRow index={0} style={{}} data={undefined} />,
       {
         route: "/variant-history/mci/ubuntu1604",
         path: "/variant-history/:projectId/:variantName",

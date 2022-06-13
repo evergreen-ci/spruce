@@ -1,4 +1,4 @@
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 import { queryString, url } from "utils";
 import { useUpdateURLQueryParams } from "./useUpdateURLQueryParams";
 
@@ -9,7 +9,6 @@ const useUpsertQueryParams = () => {
   const updateQueryParams = useUpdateURLQueryParams();
   const { search } = useLocation();
   const queryParams = parseQueryString(search);
-
   const onSubmit = ({
     category,
     value,
@@ -24,5 +23,4 @@ const useUpsertQueryParams = () => {
 
   return onSubmit;
 };
-
 export { useUpsertQueryParams };

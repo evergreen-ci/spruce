@@ -41,7 +41,7 @@ describe("annotationTicketsTable", () => {
         />
       </MockedProvider>
     );
-    const { getByText, queryByDataCy } = render(() => <Component />, {
+    const { getByText, queryByDataCy } = render(<Component />, {
       route: `/task/${taskId}`,
       path: "/task/:id",
     });

@@ -7,7 +7,13 @@ import {
   within,
 } from "@testing-library/react";
 import { createMemoryHistory } from "history";
-import { Router, Route } from "react-router-dom";
+import {
+  Route,
+  Routes,
+  // This is okay as long as there is only one version of history
+  // https://reactrouter.com/docs/en/v6/routers/history-router
+  unstable_HistoryRouter as HistoryRouter,
+} from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import * as customQueries from "./custom-queries";
 
@@ -18,10 +24,7 @@ type CustomRenderType = CustomQueriesType & QueriesType;
 type customRenderOptions = RenderOptions<CustomRenderType>;
 /** `customRender` or `render` takes an instance of react-testing-library's render method
  *  and adds additional selectors for querying your components in tests  */
-const customRender = (
-  ui: React.ReactElement,
-  options?: customRenderOptions
-): RenderResult<CustomRenderType> =>
+const customRender = (ui: React.ReactElement, options?: customRenderOptions) =>
   render(ui, {
     queries: { ...queries, ...customQueries },
     ...options,
@@ -40,7 +43,7 @@ interface renderWithRouterMatchOptions extends customRenderOptions {
  *  with an instance of `react-router`'s `<Router />` component.
  */
 const renderWithRouterMatch = (
-  ui: () => React.ReactElement,
+  ui: React.ReactElement,
   options: renderWithRouterMatchOptions = {}
 ) => {
   const {
@@ -50,16 +53,20 @@ const renderWithRouterMatch = (
     ...rest
   } = options;
   const { rerender, ...renderRest } = customRender(
-    <Router history={history}>
-      <Route path={path} component={ui} />
-    </Router>,
+    <HistoryRouter history={history}>
+      <Routes>
+        <Route path={path} element={ui} />
+      </Routes>
+    </HistoryRouter>,
     rest
   );
-  const customRerender = (element: () => React.ReactElement) => {
+  const customRerender = (element: React.ReactElement) => {
     rerender(
-      <Router history={history}>
-        <Route path={path} component={element} />
-      </Router>
+      <HistoryRouter history={history}>
+        <Routes>
+          <Route path={path} element={element} />
+        </Routes>
+      </HistoryRouter>
     );
   };
   return {

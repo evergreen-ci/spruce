@@ -51,11 +51,7 @@ const host = {
   uptime: "2020-06-15T11:10:44Z",
 };
 
-export const SpawnHostCardStory = () => (
-  <Router>
-    <SpawnHostCard host={host} />
-  </Router>
-);
+export const SpawnHostCardStory = () => <SpawnHostCard host={host} />;
 
 export default {
   title: "Spawn Host Card",

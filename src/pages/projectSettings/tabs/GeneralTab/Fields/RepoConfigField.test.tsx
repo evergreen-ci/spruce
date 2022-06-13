@@ -89,7 +89,7 @@ describe("repoConfigField", () => {
     const { Component } = RenderFakeToastContext(
       <Field projectType={ProjectType.Project} />
     );
-    const { queryByDataCy } = render(() => <Component />);
+    const { queryByDataCy } = render(<Component />);
     expect(queryByDataCy("move-repo-button")).not.toBeInTheDocument();
     expect(queryByDataCy("attach-repo-button")).toBeInTheDocument();
   });
@@ -101,7 +101,7 @@ describe("repoConfigField", () => {
         formData={{ owner: "newOwner", repo: defaultFormData.repo }}
       />
     );
-    const { queryByDataCy } = render(() => <Component />);
+    const { queryByDataCy } = render(<Component />);
     expect(queryByDataCy("attach-repo-button")).toHaveAttribute("disabled");
 
     expect(
@@ -120,7 +120,7 @@ describe("repoConfigField", () => {
         formData={{ owner: defaultFormData.owner, repo: "newRepo" }}
       />
     );
-    const { queryByDataCy } = render(() => <Component />);
+    const { queryByDataCy } = render(<Component />);
     expect(queryByDataCy("attach-repo-button")).toHaveAttribute("disabled");
 
     expect(
@@ -134,7 +134,7 @@ describe("repoConfigField", () => {
 
   it("shows both buttons for an attached project", async () => {
     const { Component } = RenderFakeToastContext(<Field />);
-    const { queryByDataCy } = render(() => <Component />);
+    const { queryByDataCy } = render(<Component />);
     await waitFor(() =>
       expect(queryByDataCy("move-repo-button")).toBeInTheDocument()
     );
@@ -145,14 +145,14 @@ describe("repoConfigField", () => {
     const { Component } = RenderFakeToastContext(
       <Field projectType={ProjectType.Repo} />
     );
-    const { queryByDataCy } = render(() => <Component />);
+    const { queryByDataCy } = render(<Component />);
     expect(queryByDataCy("move-repo-button")).not.toBeInTheDocument();
     expect(queryByDataCy("attach-repo-button")).not.toBeInTheDocument();
   });
 
   it("clicking the button opens the modal", async () => {
     const { Component } = RenderFakeToastContext(<Field />);
-    const { queryByDataCy } = render(() => <Component />);
+    const { queryByDataCy } = render(<Component />);
     expect(queryByDataCy("move-repo-modal")).not.toBeInTheDocument();
 
     await waitFor(() =>
@@ -165,19 +165,19 @@ describe("repoConfigField", () => {
   describe("moveRepoModal", () => {
     it("renders the Move Repo Modal when the open prop is true", () => {
       const { Component } = RenderFakeToastContext(<MoveModal />);
-      const { queryByDataCy } = render(() => <Component />);
+      const { queryByDataCy } = render(<Component />);
       expect(queryByDataCy("move-repo-modal")).toBeVisible();
     });
 
     it("does not render the Move Repo Modal when the open prop is false", () => {
       const { Component } = RenderFakeToastContext(<MoveModal open={false} />);
-      const { queryByDataCy } = render(() => <Component />);
+      const { queryByDataCy } = render(<Component />);
       expect(queryByDataCy("move-repo-modal")).not.toBeInTheDocument();
     });
 
     it("disables the confirm button on initial render", () => {
       const { Component } = RenderFakeToastContext(<MoveModal />);
-      const { getByRole } = render(() => <Component />);
+      const { getByRole } = render(<Component />);
 
       const moveRepoButton = getByRole("button", { name: "Move Project" });
       expect(moveRepoButton).toHaveAttribute("disabled");
@@ -185,7 +185,7 @@ describe("repoConfigField", () => {
 
     it("disables the confirm button when only owner field is updated", () => {
       const { Component } = RenderFakeToastContext(<MoveModal />);
-      const { getByRole, queryByDataCy } = render(() => <Component />);
+      const { getByRole, queryByDataCy } = render(<Component />);
       userEvent.type(queryByDataCy("new-owner-input"), "new-owner-name");
 
       const moveRepoButton = getByRole("button", { name: "Move Project" });
@@ -194,7 +194,7 @@ describe("repoConfigField", () => {
 
     it("disables the confirm button when only repo field is updated", () => {
       const { Component } = RenderFakeToastContext(<MoveModal />);
-      const { getByRole, queryByDataCy } = render(() => <Component />);
+      const { getByRole, queryByDataCy } = render(<Component />);
       userEvent.type(queryByDataCy("new-repo-input"), "new-repo-name");
 
       const moveRepoButton = getByRole("button", { name: "Move Project" });
@@ -203,7 +203,7 @@ describe("repoConfigField", () => {
 
     it("enables the confirm button when both fields are updated", () => {
       const { Component } = RenderFakeToastContext(<MoveModal />);
-      const { getByRole, queryByDataCy } = render(() => <Component />);
+      const { getByRole, queryByDataCy } = render(<Component />);
       userEvent.type(queryByDataCy("new-owner-input"), "new-owner-name");
       userEvent.type(queryByDataCy("new-repo-input"), "new-repo-name");
 
@@ -219,7 +219,7 @@ describe("repoConfigField", () => {
 
     it("clicking the button opens the modal", async () => {
       const { Component } = RenderFakeToastContext(<Field />);
-      const { queryByDataCy } = render(() => <Component />);
+      const { queryByDataCy } = render(<Component />);
       expect(queryByDataCy("attach-repo-modal")).not.toBeInTheDocument();
 
       const attachRepoButton = queryByDataCy("attach-repo-button");
@@ -231,13 +231,13 @@ describe("repoConfigField", () => {
 
     it("renders the modal when the open prop is true", () => {
       const { Component } = RenderFakeToastContext(<AttachmentModal />);
-      const { queryByDataCy } = render(() => <Component />);
+      const { queryByDataCy } = render(<Component />);
       expect(queryByDataCy("attach-repo-modal")).toBeVisible();
     });
 
     it("shows the correct modal text when attaching", () => {
       const { Component } = RenderFakeToastContext(<AttachmentModal />);
-      const { queryByText } = render(() => <Component />);
+      const { queryByText } = render(<Component />);
       expect(
         queryByText(
           "Are you sure you want to attach to evergreen-ci/logkeeper?"
@@ -249,7 +249,7 @@ describe("repoConfigField", () => {
       const { Component, dispatchToast } = RenderFakeToastContext(
         <AttachmentModal />
       );
-      const { queryByText } = render(() => <Component />);
+      const { queryByText } = render(<Component />);
       fireEvent.click(queryByText("Attach"));
       await waitFor(() => expect(dispatchToast.error).not.toHaveBeenCalled());
       await waitFor(() => {
@@ -263,7 +263,7 @@ describe("repoConfigField", () => {
       const { Component } = RenderFakeToastContext(
         <AttachmentModal shouldAttach={false} />
       );
-      const { queryByText } = render(() => <Component />);
+      const { queryByText } = render(<Component />);
       expect(
         queryByText(
           "Are you sure you want to detach from evergreen-ci/logkeeper?"
@@ -275,7 +275,7 @@ describe("repoConfigField", () => {
       const { Component, dispatchToast } = RenderFakeToastContext(
         <AttachmentModal shouldAttach={false} />
       );
-      const { queryByText } = render(() => <Component />);
+      const { queryByText } = render(<Component />);
       fireEvent.click(queryByText("Detach"));
       await waitFor(() => expect(dispatchToast.error).not.toHaveBeenCalled());
       await waitFor(() => {

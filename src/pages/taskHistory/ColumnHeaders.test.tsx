@@ -21,7 +21,7 @@ describe("columnHeaders (Task History)", () => {
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders projectId="evergreen" taskName="some_task" />
     );
-    const { queryAllByDataCy } = render(() => <Component />, {
+    const { queryAllByDataCy } = render(<Component />, {
       route: "/task-history/evergreen/some_task",
       path: "/task-history/:projectId/:taskName",
       wrapper: ProviderWrapper,
@@ -34,7 +34,7 @@ describe("columnHeaders (Task History)", () => {
       <ColumnHeaders projectId="evergreen" taskName="some_task" />
     );
 
-    const { queryAllByDataCy } = render(() => <Component />, {
+    const { queryAllByDataCy } = render(<Component />, {
       route: "/task-history/evergreen/some_task",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -62,7 +62,7 @@ describe("columnHeaders (Task History)", () => {
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders projectId="evergreen" taskName="some_task" />
     );
-    const { queryAllByDataCy } = render(() => <Component />, {
+    const { queryAllByDataCy } = render(<Component />, {
       route: "/task-history/evergreen/some_task",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -92,7 +92,7 @@ describe("columnHeaders (Task History)", () => {
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders projectId="evergreen" taskName="some_task" />
     );
-    const { queryByRole } = render(() => <Component />, {
+    const { queryByRole } = render(<Component />, {
       route: "/task-history/evergreen/some_task",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -123,7 +123,7 @@ describe("columnHeaders (Task History)", () => {
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders projectId="evergreen" taskName="some_task" />
     );
-    const { queryByText } = render(() => <Component />, {
+    const { queryByText } = render(<Component />, {
       route: "/task-history/evergreen/some_task",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -156,7 +156,7 @@ describe("columnHeaders (Task History)", () => {
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders projectId="evergreen" taskName="some_task" />
     );
-    const { queryByText } = render(() => <Component />, {
+    const { queryByText } = render(<Component />, {
       route: "/task-history/evergreen/some_task",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>

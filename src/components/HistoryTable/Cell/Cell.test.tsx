@@ -8,7 +8,7 @@ import { TaskCell } from "./Cell";
 
 describe("taskCell", () => {
   it("should render a task cell corresponding to a passed in status", () => {
-    const { queryByDataCy, rerender, queryByLabelText } = render(() => (
+    const { queryByDataCy, rerender, queryByLabelText } = render(
       <TaskCell
         task={{
           id: "some-task-id",
@@ -16,12 +16,12 @@ describe("taskCell", () => {
         }}
         loading={false}
       />
-    ));
+    );
 
     expect(queryByLabelText("Checkmark Icon")).toBeInTheDocument();
     expect(queryByDataCy("task-cell")).toBeInTheDocument();
 
-    rerender(() => (
+    rerender(
       <TaskCell
         task={{
           id: "some-task-id",
@@ -29,12 +29,12 @@ describe("taskCell", () => {
         }}
         loading={false}
       />
-    ));
+    );
     expect(queryByLabelText("Failure Icon")).toBeInTheDocument();
     expect(queryByDataCy("task-cell")).toBeInTheDocument();
   });
   it("should link to the task page", () => {
-    const { queryByRole } = render(() => (
+    const { queryByRole } = render(
       <TaskCell
         task={{
           id: "some-task-id",
@@ -42,11 +42,11 @@ describe("taskCell", () => {
         }}
         loading={false}
       />
-    ));
+    );
     expect(queryByRole("link")).toHaveAttribute("href", "/task/some-task-id");
   });
   it("should be transparent when it is inactive", () => {
-    const { queryByDataCy } = render(() => (
+    const { queryByDataCy } = render(
       <TaskCell
         task={{
           id: "some-task-id",
@@ -55,11 +55,11 @@ describe("taskCell", () => {
         inactive
         loading={false}
       />
-    ));
+    );
     expect(queryByDataCy("task-cell")).toHaveStyle("opacity: 0.4");
   });
   it("should render a label when one is passed in", () => {
-    const { queryByText } = render(() => (
+    const { queryByText } = render(
       <TaskCell
         task={{
           id: "some-task-id",
@@ -67,11 +67,11 @@ describe("taskCell", () => {
         }}
         label="some-label"
       />
-    ));
+    );
     expect(queryByText("some-label")).toBeInTheDocument();
   });
   it("should have a popup on hover with failing tests when they are supplied", async () => {
-    const { queryByText, queryByDataCy } = render(() => (
+    const { queryByText, queryByDataCy } = render(
       <TaskCell
         task={{
           id: "some-task-id",
@@ -80,7 +80,7 @@ describe("taskCell", () => {
         failingTests={["some-test"]}
         loading={false}
       />
-    ));
+    );
     fireEvent.mouseOver(queryByDataCy("history-table-icon"));
     await waitFor(() => expect(queryByText("some-test")).toBeInTheDocument());
   });
