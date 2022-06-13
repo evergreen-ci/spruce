@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import Cookies from "js-cookie";
 import get from "lodash/get";
 import { v4 as uuid } from "uuid";
-import { RegexSelectorProps } from "components/NotificationModal/RegexSelectorInput";
+import { RegexSelectorProps } from "components/Notifications/NotificationModal/RegexSelectorInput";
 import {
   getNotificationTriggerCookie,
   SUBSCRIPTION_METHOD,
@@ -11,6 +11,7 @@ import {
 import { clearExtraFieldsInputCb } from "constants/triggers";
 import { GetUserQuery } from "gql/generated/types";
 import { GET_USER } from "gql/queries";
+import { RegexItem } from "pages/projectSettings/tabs/NotificationsTab/NotificationsRow";
 import { SUBSCRIPTION_SLACK, SUBSCRIPTION_EMAIL } from "types/subscription";
 import { Trigger } from "types/triggers";
 import { useUserSettings } from "./useUserSettings";
@@ -19,7 +20,9 @@ export interface UseNotificationModalProps {
   subscriptionMethodControls: SubscriptionMethods;
   triggers: Trigger[];
   resourceId: string;
-  type: string;
+  type: "task" | "version";
+  currentRegexSelectors?: RegexItem[];
+  currentTriggerIndex?: number;
 }
 interface RegexSelectorPropsTemplate {
   key: string;
@@ -30,6 +33,8 @@ export const useNotificationModal = ({
   subscriptionMethodControls,
   resourceId,
   type,
+  currentRegexSelectors,
+  currentTriggerIndex,
 }: UseNotificationModalProps) => {
   const { userSettings } = useUserSettings();
   // USER QUERY
@@ -50,17 +55,24 @@ export const useNotificationModal = ({
     string[]
   >([]);
 
-  const [selectedTriggerIndex, setSelectedTriggerIndex] = useState<number>(() =>
-    parseInt(Cookies.get(getNotificationTriggerCookie(type)) || "0", 10)
+  const [selectedTriggerIndex, setSelectedTriggerIndex] = useState<number>(
+    () =>
+      currentTriggerIndex ||
+      parseInt(Cookies.get(getNotificationTriggerCookie(type)) || "0", 10)
   );
+
   const [extraFieldInputVals, setExtraFieldInputVals] = useState<StringMap>({});
   const [regexSelectorInputs, setRegexSelectorInputs] = useState<StringMap>({});
+
   const [regexSelectorPropsTemplate, setRegexSelectorPropsTemplate] = useState<
     RegexSelectorPropsTemplate[]
   >([{ regexType: "", key: uuid() }]);
   const [regexSelectorProps, setRegexSelectorProps] = useState<
     RegexSelectorProps[]
   >([]);
+  const [buildInitiatorSelected, setBuildInitiatorSelected] = useState<string>(
+    "Commit"
+  );
 
   const onClickAddRegexSelector = () => {
     setRegexSelectorPropsTemplate([
@@ -129,7 +141,61 @@ export const useNotificationModal = ({
         regexInputValue: regexSelectorInputs[regexType] ?? "",
       }))
     );
-  }, [regexSelectorPropsTemplate, regexSelectorInputs, regexSelectors]);
+    if (currentRegexSelectors?.length > 0) {
+      setRegexSelectorProps(
+        currentRegexSelectors.map(({ regexType, regexValue, key }, i) => ({
+          key,
+          dropdownOptions: regexSelectors,
+          disabledDropdownOptions,
+          selectedOption: regexType,
+          onChangeSelectedOption: (optionValue: string) => {
+            // reset "previous" option
+            if (regexType) {
+              setRegexSelectorInputs({
+                ...regexSelectorInputs,
+                [regexType]: "",
+              });
+            }
+            const regexSelectorPropsTemplateClone = [
+              ...regexSelectorPropsTemplate,
+            ];
+            regexSelectorPropsTemplateClone[i].regexType = optionValue;
+            setRegexSelectorPropsTemplate(regexSelectorPropsTemplateClone);
+          },
+          onChangeRegexValue: (event) => {
+            setRegexSelectorInputs({
+              ...regexSelectorInputs,
+              [regexType]: event.target.value,
+            });
+          },
+          onDelete: () => {
+            if (regexType) {
+              setRegexSelectorInputs({
+                ...regexSelectorInputs,
+                [regexType]: "",
+              });
+            }
+            setRegexSelectorPropsTemplate(
+              regexSelectorPropsTemplate
+                .slice(0, i)
+                .concat(
+                  regexSelectorPropsTemplate.slice(
+                    i + 1,
+                    regexSelectorPropsTemplate.length
+                  )
+                )
+            );
+          },
+          regexInputValue: regexValue,
+        }))
+      );
+    }
+  }, [
+    regexSelectorPropsTemplate,
+    regexSelectorInputs,
+    regexSelectors,
+    currentRegexSelectors,
+  ]);
 
   // clear the input vals for the extraFields and regex selectors when the selected trigger changes
   useEffect(() => {
@@ -161,42 +227,11 @@ export const useNotificationModal = ({
           () => ""
         );
         // validator returns an error message or an empty string
-        return validator(fieldVal);
+        return validator && validator(fieldVal);
       })
       .filter((v) => v); // filter out empty strings
     setExtraFieldErrorMessages(nextErrorMessages);
   }, [extraFieldInputVals, extraFields, setExtraFieldErrorMessages]);
-
-  useEffect(() => {
-    const targetEntries = Object.entries(target);
-    // check that required fields exist and there are no extra field errors
-    if (
-      !targetEntries.length ||
-      selectedTriggerIndex === undefined ||
-      !selectedSubscriptionMethod ||
-      extraFieldErrorMessages.length
-    ) {
-      setIsFormValid(false);
-      return;
-    }
-    // check that subscription methods input has the correct value
-    // targetEntries should only ever be length 1
-    const isTargetValid = targetEntries.reduce(
-      (accum, [tName, tVal]) =>
-        accum && subscriptionMethodControls[tName].validator(tVal),
-      true
-    );
-    setIsFormValid(isTargetValid);
-  }, [
-    subscriptionMethodControls,
-    target,
-    extraFieldInputVals,
-    selectedTriggerIndex,
-    selectedSubscriptionMethod,
-    extraFieldErrorMessages,
-    regexSelectorInputs,
-    regexSelectors,
-  ]);
 
   useEffect(() => {
     switch (selectedSubscriptionMethod) {
@@ -248,6 +283,38 @@ export const useNotificationModal = ({
     setSelectedTriggerIndex(v);
     Cookies.set(`${type}-notification-trigger`, `${v}`, { expires: 365 });
   };
+
+  useEffect(() => {
+    const targetEntries = Object.entries(target);
+    // check that required fields exist and there are no extra field errors
+    if (
+      !targetEntries.length ||
+      selectedTriggerIndex === undefined ||
+      !selectedSubscriptionMethod ||
+      extraFieldErrorMessages.length
+    ) {
+      setIsFormValid(false);
+      return;
+    }
+    // check that subscription methods input has the correct value
+    // targetEntries should only ever be length 1
+    const isTargetValid = targetEntries.reduce(
+      (accum, [tName, tVal]) =>
+        accum && subscriptionMethodControls[tName].validator(tVal),
+      true
+    );
+    setIsFormValid(isTargetValid);
+  }, [
+    subscriptionMethodControls,
+    target,
+    extraFieldInputVals,
+    selectedTriggerIndex,
+    selectedSubscriptionMethod,
+    extraFieldErrorMessages,
+    regexSelectorInputs,
+    regexSelectors,
+  ]);
+
   return {
     disableAddCriteria,
     extraFieldErrorMessages,
@@ -257,6 +324,8 @@ export const useNotificationModal = ({
     isFormValid,
     onClickAddRegexSelector,
     regexSelectorProps,
+    buildInitiatorSelected,
+    setBuildInitiatorSelected,
     selectedSubscriptionMethod,
     selectedTriggerIndex,
     setExtraFieldInputVals,
@@ -268,7 +337,7 @@ export const useNotificationModal = ({
   };
 };
 
-interface Target {
+export interface Target {
   "jira-comment"?: string;
   email?: string;
   slack?: string;

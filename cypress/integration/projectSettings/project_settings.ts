@@ -211,25 +211,6 @@ describe("Repo Settings", () => {
     });
   });
 
-  describe("GitHub/Commit Queue page after adding patch trigger alias", () => {
-    before(() => {
-      cy.dataCy("navitem-github-commitqueue").click();
-    });
-
-    it("Shows the patch trigger alias", () => {
-      cy.dataCy("pta-item").should("have.length", 1);
-    });
-
-    it("Hovering over the alias name shows its details", () => {
-      cy.dataCy("pta-item").scrollIntoView();
-      cy.dataCy("pta-item").trigger("mouseover");
-      cy.dataCy("pta-tooltip").should("be.visible");
-      cy.dataCy("pta-tooltip").contains("spruce");
-      cy.dataCy("pta-tooltip").contains("module_name");
-      cy.dataCy("pta-tooltip").contains("Variant/Task Regex Pairs");
-    });
-  });
-
   describe("Virtual Workstation page", () => {
     before(() => {
       cy.dataCy("navitem-virtual-workstation").click();
@@ -257,6 +238,25 @@ describe("Repo Settings", () => {
 
       cy.dataCy("command-input").first().should("have.value", "command 2");
       cy.dataCy("command-input").eq(1).should("have.value", "command 1");
+    });
+  });
+
+  describe("GitHub/Commit Queue page after adding patch trigger alias", () => {
+    before(() => {
+      cy.dataCy("navitem-github-commitqueue").click();
+    });
+
+    it("Shows the patch trigger alias", () => {
+      cy.dataCy("pta-item").should("have.length", 1);
+    });
+
+    it("Hovering over the alias name shows its details", () => {
+      cy.dataCy("pta-item").scrollIntoView();
+      cy.dataCy("pta-item").trigger("mouseover");
+      cy.dataCy("pta-tooltip").should("be.visible");
+      cy.dataCy("pta-tooltip").contains("spruce");
+      cy.dataCy("pta-tooltip").contains("module_name");
+      cy.dataCy("pta-tooltip").contains("Variant/Task Regex Pairs");
     });
   });
 });
@@ -494,7 +494,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("display-name-input").should("not.have.attr", "placeholder");
     });
 
-    it("Shows a navigation warning modal when navigating away from project settings", () => {
+    it.skip("Shows a navigation warning modal when navigating away from project settings", () => {
       cy.contains("My Patches").click();
       cy.dataCy("navigation-warning-modal").should("be.visible");
       cy.get("body").type("{esc}");

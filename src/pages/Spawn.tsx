@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Route, useParams, Redirect, Link } from "react-router-dom";
+import React from "react";
+import { useParams, Link, Route, Routes, Navigate } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
 import {
   PageWrapper,
@@ -8,16 +8,12 @@ import {
   SideNavItem,
 } from "components/styles";
 import { routes, SpawnTab } from "constants/routes";
-import { SpawnHost } from "pages/spawn/SpawnHost";
-import { SpawnVolume } from "pages/spawn/SpawnVolume";
+import { SpawnHost } from "./spawn/SpawnHost";
+import { SpawnVolume } from "./spawn/SpawnVolume";
 
 export const Spawn: React.VFC = () => {
   const { tab } = useParams<{ tab: string }>();
   const spawnAnalytics = useSpawnAnalytics();
-  useEffect(() => {}, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
-  if (!tabRouteValues.includes(tab as SpawnTab)) {
-    return <Redirect to={routes.spawnHost} />;
-  }
 
   return (
     <>
@@ -54,11 +50,12 @@ export const Spawn: React.VFC = () => {
         </SideNavGroup>
       </SideNav>
       <PageWrapper>
-        <Route path={routes.spawnHost} component={SpawnHost} />
-        <Route path={routes.spawnVolume} component={SpawnVolume} />
+        <Routes>
+          <Route path={SpawnTab.Host} element={<SpawnHost />} />
+          <Route path={SpawnTab.Volume} element={<SpawnVolume />} />
+          <Route path="*" element={<Navigate to={SpawnTab.Host} replace />} />
+        </Routes>
       </PageWrapper>
     </>
   );
 };
-
-const tabRouteValues = Object.values(SpawnTab);

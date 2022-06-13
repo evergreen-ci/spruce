@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, Link, Redirect } from "react-router-dom";
+import { useParams, Link, Navigate } from "react-router-dom";
 import { usePreferencesAnalytics } from "analytics";
 import {
   SideNav,
@@ -16,7 +16,7 @@ export const Preferences: React.VFC = () => {
   const { tab } = useParams<{ tab: string }>();
   const { sendEvent } = usePreferencesAnalytics();
   if (!tabRouteValues.includes(tab as PreferencesTabRoutes)) {
-    return <Redirect to={getPreferencesRoute(PreferencesTabRoutes.Profile)} />;
+    return <Navigate to={getPreferencesRoute(PreferencesTabRoutes.Profile)} />;
   }
   return (
     <>

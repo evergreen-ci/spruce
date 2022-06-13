@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { queryString, url } from "utils";
 
 const { updateUrlQueryParam } = url;
@@ -24,7 +24,7 @@ export const useTableInputFilter = <SearchParam extends string>({
   sendAnalyticsEvent = () => undefined,
 }: Params<SearchParam>): UseInputFilterReturn => {
   const { pathname, search } = useLocation();
-  const { replace } = useHistory();
+  const navigate = useNavigate();
 
   const urlParams = parseQueryString(search);
 
@@ -41,7 +41,7 @@ export const useTableInputFilter = <SearchParam extends string>({
       urlSearchParam,
       value.trim(),
       search,
-      replace,
+      navigate,
       pathname,
       true
     );
@@ -62,7 +62,7 @@ export const useTableCheckboxFilter = <SearchParam extends string>({
   sendAnalyticsEvent = () => undefined,
 }: Params<SearchParam>): UseCheckboxFilterReturn => {
   const { pathname, search } = useLocation();
-  const { replace } = useHistory();
+  const navigate = useNavigate();
 
   const { [urlSearchParam]: rawStatuses } = parseQueryString(search);
 
@@ -87,7 +87,7 @@ export const useTableCheckboxFilter = <SearchParam extends string>({
       urlSearchParam,
       newValues,
       search,
-      replace,
+      navigate,
       pathname,
       true
     );

@@ -1,18 +1,10 @@
 import { boolean, withKnobs } from "@storybook/addon-knobs";
-import { MemoryRouter } from "react-router-dom";
 import { InactiveCommitButton as InactiveCommits } from ".";
 
 export default {
   title: "Inactive Commits",
   component: InactiveCommits,
-  decorators: [
-    (Story) => (
-      <MemoryRouter>
-        <Story />
-      </MemoryRouter>
-    ),
-    withKnobs,
-  ],
+  decorators: [withKnobs],
 };
 
 export const Story = () => (

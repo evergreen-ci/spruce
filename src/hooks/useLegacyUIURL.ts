@@ -14,20 +14,17 @@ export const useLegacyUIURL = (): string | null => {
 
   useEffect(() => {
     const legacyUIMap = {
-      [routes.version]: `${uiURL}/version/${id}`,
-      [routes.configurePatch]: `${uiURL}/patch/${id}`,
+      [`${routes.version}/*`]: `${uiURL}/version/${id}`,
+      [`${routes.configurePatch}/*`]: `${uiURL}/patch/${id}`,
       [routes.userPatches]: `${uiURL}/patches/user/${id}`,
-      [routes.task]: `${uiURL}/task/${id}`,
+      [`${routes.task}/*`]: `${uiURL}/task/${id}`,
       [routes.spawnHost]: `${uiURL}/spawn#?resourcetype=hosts`,
       [routes.spawnVolume]: `${uiURL}/spawn#?resourcetype=volumes`,
-      [routes.commits]: `${uiURL}/waterfall/${id}`,
+      [`${routes.commits}/:id`]: `${uiURL}/waterfall/${id}`,
     };
     const legacyUIKeys = Object.keys(legacyUIMap);
     for (let i = 0; i < legacyUIKeys.length; i++) {
-      const matchedPath = matchPath(pathname, {
-        path: legacyUIKeys[i],
-        exact: true,
-      });
+      const matchedPath = matchPath(legacyUIKeys[i], pathname);
       if (matchedPath !== null) {
         setId(get(matchedPath, "params.id", ""));
         setLegacyUIUrl(legacyUIMap[legacyUIKeys[i]]);

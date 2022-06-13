@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
-import { useParams, Link, Redirect } from "react-router-dom";
+import { useParams, Link, Navigate } from "react-router-dom";
 import { ProjectSelect } from "components/projectSelect";
 import {
   SideNav,
@@ -30,12 +30,8 @@ import { getTabTitle } from "./projectSettings/getTabTitle";
 import { ProjectSettingsTabs } from "./projectSettings/Tabs";
 import { ProjectType } from "./projectSettings/tabs/utils";
 
-const { isBeta, isDevelopment, isStaging } = environmentalVariables;
+const { isNotProduction } = environmentalVariables;
 const { validateObjectId } = validators;
-
-// Project Settings should only be disabled when deployed to spruce.mongodb.com
-// Enable when running local dev server, or when deployed to beta or staging
-const disablePage = !(isDevelopment() || isBeta() || isStaging());
 
 export const ProjectSettings: React.VFC = () => {
   usePageTitle(`Project Settings`);
@@ -85,7 +81,8 @@ export const ProjectSettings: React.VFC = () => {
     },
   });
 
-  if (disablePage) {
+  // TODO: Remove in EVG-17059
+  if (!isNotProduction) {
     return (
       <PageWrapper>
         <PageContainer>
@@ -97,7 +94,7 @@ export const ProjectSettings: React.VFC = () => {
 
   if (!tabRouteValues.includes(tab)) {
     return (
-      <Redirect
+      <Navigate
         to={getProjectSettingsRoute(
           identifier,
           ProjectSettingsTabRoutes.General

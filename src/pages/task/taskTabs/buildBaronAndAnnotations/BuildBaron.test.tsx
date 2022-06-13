@@ -44,7 +44,7 @@ describe("buildBaronContent", () => {
       </MockedProvider>
     );
 
-    const { queryByDataCy } = render(() => <Component />, {
+    const { queryByDataCy } = render(<Component />, {
       route: `/task/${taskId}`,
       path: "/task/:id",
     });
@@ -65,7 +65,7 @@ describe("buildBaronContent", () => {
         />
       </MockedProvider>
     );
-    const { queryByDataCy, getByText } = render(() => <Component />, {
+    const { queryByDataCy, getByText } = render(<Component />, {
       route: `/task/${taskId}`,
       path: "/task/:id",
     });
@@ -93,7 +93,7 @@ describe("buildBaronContent", () => {
         />
       </MockedProvider>
     );
-    const { queryAllByDataCy, queryByDataCy } = render(() => <Component />, {
+    const { queryAllByDataCy, queryByDataCy } = render(<Component />, {
       route: `/task/${taskId}`,
       path: "/task/:id",
     });

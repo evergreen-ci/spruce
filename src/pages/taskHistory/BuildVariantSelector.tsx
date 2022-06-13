@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import SearchableDropdown, {
   SearchableDropdownOption,

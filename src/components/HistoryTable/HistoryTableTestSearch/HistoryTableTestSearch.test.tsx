@@ -4,7 +4,7 @@ import { HistoryTableTestSearch } from "./HistoryTableTestSearch";
 const Content = () => <HistoryTableTestSearch />;
 describe("historyTableTestSearch", () => {
   it("renders normally and doesn't affect the url", () => {
-    const { getByPlaceholderText } = render(Content, {
+    const { getByPlaceholderText } = render(<Content />, {
       route: `/variant-history/evergreen/lint`,
       path: "/variant-history/:projectId/:variantName",
     });
@@ -16,7 +16,7 @@ describe("historyTableTestSearch", () => {
   });
 
   it("should clear input when a value is submitted", () => {
-    const { getByPlaceholderText } = render(Content, {
+    const { getByPlaceholderText } = render(<Content />, {
       route: `/variant-history/evergreen/lint`,
       path: "/variant-history/:projectId/:variantName",
     });
@@ -38,7 +38,7 @@ describe("historyTableTestSearch", () => {
   });
 
   it("should add input query params to the url", () => {
-    const { getByPlaceholderText, history } = render(Content, {
+    const { getByPlaceholderText, history } = render(<Content />, {
       route: `/variant-history/evergreen/lint`,
       path: "/variant-history/:projectId/:variantName",
     });
@@ -62,7 +62,7 @@ describe("historyTableTestSearch", () => {
   });
 
   it("should add multiple input filters to the same key as query params", () => {
-    const { getByPlaceholderText, history } = render(Content, {
+    const { getByPlaceholderText, history } = render(<Content />, {
       route: `/variant-history/evergreen/lint`,
       path: "/variant-history/:projectId/:variantName",
     });
@@ -91,7 +91,7 @@ describe("historyTableTestSearch", () => {
   });
 
   it("should not allow duplicate input filters for the same key as query params", () => {
-    const { getByPlaceholderText, history } = render(Content, {
+    const { getByPlaceholderText, history } = render(<Content />, {
       route: `/variant-history/evergreen/lint`,
       path: "/variant-history/:projectId/:variantName",
     });

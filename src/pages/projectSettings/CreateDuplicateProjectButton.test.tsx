@@ -48,7 +48,7 @@ describe("createProjectField", () => {
     const { Component } = RenderFakeToastContext(
       <Button mock={lacksPersmissionsMock} />
     );
-    const { queryByDataCy } = render(() => <Component />);
+    const { queryByDataCy } = render(<Component />);
 
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
     expect(queryByDataCy("new-project-button")).not.toBeInTheDocument();
@@ -59,7 +59,7 @@ describe("createProjectField", () => {
       const { Component } = RenderFakeToastContext(
         <Button projectType={ProjectType.Repo} />
       );
-      const { queryByDataCy, queryByText } = render(() => <Component />);
+      const { queryByDataCy, queryByText } = render(<Component />);
 
       await waitFor(() =>
         expect(queryByText("New Project")).toBeInTheDocument()
@@ -75,7 +75,7 @@ describe("createProjectField", () => {
   describe("when looking at a project", () => {
     it("clicking the button opens the menu", async () => {
       const { Component } = RenderFakeToastContext(<Button />);
-      const { queryByDataCy, queryByText } = render(() => <Component />);
+      const { queryByDataCy, queryByText } = render(<Component />);
 
       await waitFor(() =>
         expect(queryByText("New Project")).toBeInTheDocument()
@@ -88,7 +88,7 @@ describe("createProjectField", () => {
 
     it("clicking the 'Create New Project' button opens the create project modal and closes the menu", async () => {
       const { Component } = RenderFakeToastContext(<Button />);
-      const { queryByDataCy, queryByText } = render(() => <Component />);
+      const { queryByDataCy, queryByText } = render(<Component />);
 
       await waitFor(() =>
         expect(queryByText("New Project")).toBeInTheDocument()
@@ -106,7 +106,7 @@ describe("createProjectField", () => {
 
     it("clicking the 'Duplicate Project' button opens the create project modal and closes the menu", async () => {
       const { Component } = RenderFakeToastContext(<Button />);
-      const { queryByDataCy, queryByText } = render(() => <Component />);
+      const { queryByDataCy, queryByText } = render(<Component />);
 
       await waitFor(() =>
         expect(queryByText("New Project")).toBeInTheDocument()

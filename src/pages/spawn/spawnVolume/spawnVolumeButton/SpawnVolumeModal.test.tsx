@@ -22,11 +22,11 @@ describe("spawnVolumeModal", () => {
     const { Component } = RenderFakeToastContext(
       <SpawnVolumeModal visible onCancel={() => {}} />
     );
-    const { queryByDataCy } = render(() => (
+    const { queryByDataCy } = render(
       <MockedProvider mocks={baseMocks}>
         <Component />
       </MockedProvider>
-    ));
+    );
     expect(queryByDataCy("modal-title")).toBeVisible();
   });
 
@@ -34,11 +34,11 @@ describe("spawnVolumeModal", () => {
     const { Component } = RenderFakeToastContext(
       <SpawnVolumeModal visible={false} onCancel={() => {}} />
     );
-    const { queryByDataCy } = render(() => (
+    const { queryByDataCy } = render(
       <MockedProvider mocks={baseMocks}>
         <Component />
       </MockedProvider>
-    ));
+    );
     expect(queryByDataCy("modal-title")).not.toBeInTheDocument();
   });
 
@@ -46,11 +46,11 @@ describe("spawnVolumeModal", () => {
     const { Component } = RenderFakeToastContext(
       <SpawnVolumeModal visible onCancel={() => {}} />
     );
-    const { queryByDataCy } = render(() => (
+    const { queryByDataCy } = render(
       <MockedProvider mocks={baseMocks}>
         <Component />
       </MockedProvider>
-    ));
+    );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
     await waitFor(() => expect(queryByDataCy("volumeSize")).toHaveValue(500));
 
@@ -79,11 +79,11 @@ describe("spawnVolumeModal", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <SpawnVolumeModal visible onCancel={() => {}} />
     );
-    const { queryByText } = render(() => (
+    const { queryByText } = render(
       <MockedProvider mocks={[...baseMocks, spawnVolumeMutation]}>
         <Component />
       </MockedProvider>
-    ));
+    );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
     await act(async () => {
       fireEvent.click(queryByText("Spawn"));
@@ -112,14 +112,14 @@ describe("spawnVolumeModal", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <SpawnVolumeModal visible onCancel={() => {}} />
     );
-    const { queryByText, queryByDataCy } = render(() => (
+    const { queryByText, queryByDataCy } = render(
       <MockedProvider
         addTypename={false}
         mocks={[...baseMocks, spawnVolumeMutation]}
       >
         <Component />
       </MockedProvider>
-    ));
+    );
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
     fireEvent.change(queryByDataCy("volumeSize"), { target: { value: "24" } });
     fireEvent.mouseDown(queryByDataCy("regionSelector").firstElementChild);

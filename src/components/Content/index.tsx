@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import get from "lodash/get";
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { useAnalyticsAttributes } from "analytics";
 import { Feedback } from "components/Feedback";
 import { Header } from "components/Header";
@@ -45,14 +44,11 @@ export const Content: React.VFC = () => {
   // afterware is used at apollo link level to authenticate or deauthenticate user based on response to query
   // therefore this could be any query as long as it is top-level
   const { data } = useQuery<GetUserQuery, GetUserQueryVariables>(GET_USER);
+  localStorage.setItem("userId", data?.user?.userId ?? "");
   const { userSettings } = useUserSettings();
 
   const { useSpruceOptions } = userSettings ?? {};
-  const { hasUsedSpruceBefore } = useSpruceOptions ?? {
-    hasUsedSpruceBefore: true,
-  };
-
-  localStorage.setItem("userId", get(data, "user.userId", ""));
+  const { hasUsedSpruceBefore = true } = useSpruceOptions ?? {};
 
   useAnalyticsAttributes();
 
@@ -65,38 +61,56 @@ export const Content: React.VFC = () => {
   return (
     <PageGrid>
       <Header />
-      <Switch>
-        <Route path={routes.task} component={Task} />
-        <Route path={routes.configurePatch} component={ConfigurePatch} />
-        <Route exact path={routes.patch} component={VersionPage} />
-        <Route path={routes.version} component={VersionPage} />
-        <Route path={routes.jobLogs} component={JobLogs} />
-        <Route path={routes.hosts} component={Hosts} />
-        <Route path={routes.host} component={Host} />
-        <Route path={routes.myPatches} component={MyPatches} />
-        <Route
-          exact
-          path={routes.userPatchesRedirect}
-          component={UserPatchesRedirect}
-        />
+      <Routes>
+        <Route path="*" element={<PageDoesNotExist />} />
+        <Route path="/" element={<MyPatches />} />
+        <Route path={routes.commits} element={<Commits />}>
+          <Route path=":id" />
+        </Route>
+        <Route path={routes.configurePatch} element={<ConfigurePatch />}>
+          <Route path={tab} />
+        </Route>
+        <Route path={routes.host} element={<Host />} />
+        <Route path={routes.hosts} element={<Hosts />} />
+        <Route path={routes.jobLogs} element={<JobLogs />}>
+          <Route path=":groupId" />
+        </Route>
+        <Route path={routes.myPatches} element={<MyPatches />} />
+        <Route path={routes.patch} element={<VersionPage />}>
+          <Route path={tab} />
+        </Route>
+        <Route path={routes.preferences} element={<Preferences />}>
+          <Route path={tab} />
+        </Route>
+        <Route path={routes.projectPatches} element={<ProjectPatches />} />
+        <Route path={routes.projectSettings} element={<ProjectSettings />}>
+          <Route path={tab} />
+        </Route>
         <Route
           path={routes.projectSettingsRedirect}
-          component={ProjectSettingsRedirect}
+          element={<ProjectSettingsRedirect />}
         />
-        <Route path={routes.userPatches} component={UserPatches} />
-        <Route path={routes.taskQueue} component={TaskQueue} />
-        <Route path={routes.projectPatches} component={ProjectPatches} />
-        <Route path={routes.projectSettings} component={ProjectSettings} />
-        <Route path={routes.spawn} component={Spawn} />
-        <Route path={routes.commitQueue} component={CommitQueue} />
-        <Route path={routes.preferences} component={Preferences} />
-        <Route path={routes.commits} component={Commits} />
-        <Route path={routes.taskHistory} component={TaskHistory} />
-        <Route path={routes.variantHistory} component={VariantHistory} />
-        <Route exact path="/" component={MyPatches} />
-
-        <Route component={PageDoesNotExist} />
-      </Switch>
+        <Route path={routes.spawn} element={<Spawn />}>
+          <Route path={tab} />
+        </Route>
+        <Route path={routes.commitQueue} element={<CommitQueue />} />
+        <Route path={routes.task} element={<Task />}>
+          <Route path={tab} />
+        </Route>
+        <Route path={routes.taskHistory} element={<TaskHistory />} />
+        <Route path={routes.taskQueue} element={<TaskQueue />}>
+          <Route path=":distro" /> <Route path=":distro/:taskId" />
+        </Route>
+        <Route path={routes.userPatches} element={<UserPatches />} />
+        <Route
+          path={routes.userPatchesRedirect}
+          element={<UserPatchesRedirect />}
+        />
+        <Route path={routes.variantHistory} element={<VariantHistory />} />
+        <Route path={routes.version} element={<VersionPage />}>
+          <Route path={tab} />
+        </Route>
+      </Routes>
       {!hasUsedSpruceBefore && (
         <WelcomeModal
           title="Welcome to the New Evergreen UI!"
@@ -112,6 +126,7 @@ export const Content: React.VFC = () => {
   );
 };
 
+const tab = ":tab";
 const FloatingContent = styled.div`
   position: fixed;
   z-index: ${zIndex.tooltip};

@@ -11,23 +11,22 @@ import PageBreadcrumbs from ".";
 describe("versionTaskPageBreadcrumbs", () => {
   it("should generate a my patches link if the current user owns the patch", async () => {
     const { getByText } = render(
-      () => (
-        <MockedProvider mocks={[sameUserMock]} addTypename={false}>
-          <PageBreadcrumbs
-            patchNumber={1}
-            versionMetadata={{
-              id: "123",
-              revision: "abc123456",
-              isPatch: true,
-              author: "mohamed.khelif",
-              projectIdentifier: "spruce",
-              project: "spruce",
-            }}
-          />
-        </MockedProvider>
-      ),
+      <MockedProvider mocks={[sameUserMock]} addTypename={false}>
+        <PageBreadcrumbs
+          patchNumber={1}
+          versionMetadata={{
+            id: "123",
+            revision: "abc123456",
+            isPatch: true,
+            author: "mohamed.khelif",
+            projectIdentifier: "spruce",
+            project: "spruce",
+          }}
+        />
+      </MockedProvider>,
       {
         route: "/version/123",
+        path: "/version/*",
       }
     );
     await waitFor(() => {
@@ -39,7 +38,7 @@ describe("versionTaskPageBreadcrumbs", () => {
     });
   });
   it("should generate another user's patches link if the user does not own the patch", async () => {
-    const { getByText } = render(() => (
+    const { getByText } = render(
       <MockedProvider mocks={[otherUserMock]} addTypename={false}>
         <PageBreadcrumbs
           patchNumber={1}
@@ -53,7 +52,7 @@ describe("versionTaskPageBreadcrumbs", () => {
           }}
         />
       </MockedProvider>
-    ));
+    );
     await waitFor(() => {
       expect(getByText("John Doe's Patches")).toBeInTheDocument();
       expect(getByText("John Doe's Patches")).toHaveAttribute(
@@ -64,7 +63,7 @@ describe("versionTaskPageBreadcrumbs", () => {
   });
 
   it("mainline commits should link to the project health view", () => {
-    const { getByText } = render(() => (
+    const { getByText } = render(
       <MockedProvider mocks={[sameUserMock]} addTypename={false}>
         <PageBreadcrumbs
           patchNumber={1}
@@ -78,7 +77,7 @@ describe("versionTaskPageBreadcrumbs", () => {
           }}
         />
       </MockedProvider>
-    ));
+    );
 
     expect(getByText("spruce")).toBeInTheDocument();
     expect(getByText("spruce")).toHaveAttribute(
@@ -87,7 +86,7 @@ describe("versionTaskPageBreadcrumbs", () => {
     );
   });
   it("should not have link to the version page if a user is on a version page", () => {
-    const { getByText } = render(() => (
+    const { getByText } = render(
       <MockedProvider mocks={[sameUserMock]} addTypename={false}>
         <PageBreadcrumbs
           patchNumber={1}
@@ -101,12 +100,12 @@ describe("versionTaskPageBreadcrumbs", () => {
           }}
         />
       </MockedProvider>
-    ));
+    );
     expect(getByText("abc1234")).toBeInTheDocument();
     expect(getByText("abc1234")).not.toHaveAttribute("href");
   });
   it("should have a link to the version page if a user is on a task page", () => {
-    const { getByText } = render(() => (
+    const { getByText } = render(
       <MockedProvider mocks={[sameUserMock]} addTypename={false}>
         <PageBreadcrumbs
           patchNumber={1}
@@ -121,7 +120,7 @@ describe("versionTaskPageBreadcrumbs", () => {
           taskName="task-1"
         />
       </MockedProvider>
-    ));
+    );
     expect(getByText("abc1234")).toBeInTheDocument();
     expect(getByText("abc1234")).toHaveAttribute(
       "href",

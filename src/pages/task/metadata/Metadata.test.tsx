@@ -13,14 +13,12 @@ const wrapper = ({ children }) => (
 describe("metadata", () => {
   it("renders the metadata card with a pending status", () => {
     const { queryByDataCy } = render(
-      () => (
-        <Metadata
-          taskId={taskId}
-          loading={false}
-          task={taskAboutToStart.task}
-          error={undefined}
-        />
-      ),
+      <Metadata
+        taskId={taskId}
+        loading={false}
+        task={taskAboutToStart.task}
+        error={undefined}
+      />,
       {
         route: `/task/${taskId}`,
         path: "/task/:id",
@@ -36,14 +34,12 @@ describe("metadata", () => {
   });
   it("renders the metadata card with a started status", () => {
     const { queryByDataCy } = render(
-      () => (
-        <Metadata
-          taskId={taskId}
-          loading={false}
-          task={taskStarted.task}
-          error={undefined}
-        />
-      ),
+      <Metadata
+        taskId={taskId}
+        loading={false}
+        task={taskStarted.task}
+        error={undefined}
+      />,
       {
         route: `/task/${taskId}`,
         path: "/task/:id",
@@ -58,14 +54,12 @@ describe("metadata", () => {
 
   it("renders the metadata card with a succeeded status", () => {
     const { queryByDataCy } = render(
-      () => (
-        <Metadata
-          taskId={taskId}
-          loading={false}
-          task={taskSucceeded.task}
-          error={undefined}
-        />
-      ),
+      <Metadata
+        taskId={taskId}
+        loading={false}
+        task={taskSucceeded.task}
+        error={undefined}
+      />,
       {
         route: `/task/${taskId}`,
         path: "/task/:id",

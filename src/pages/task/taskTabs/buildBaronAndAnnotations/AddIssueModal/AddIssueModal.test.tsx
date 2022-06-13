@@ -33,7 +33,7 @@ describe("addIssueModal", () => {
         isIssue
       />
     );
-    const { queryByText, queryByDataCy } = render(Component);
+    const { queryByText, queryByDataCy } = render(<Component />);
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
     expect(queryByDataCy("issue-url")).toHaveValue("");
@@ -51,7 +51,7 @@ describe("addIssueModal", () => {
         isIssue
       />
     );
-    const { queryByText, queryByDataCy } = render(Component);
+    const { queryByText, queryByDataCy } = render(<Component />);
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
     expect(queryByDataCy("issue-url")).toHaveValue("");
@@ -76,7 +76,7 @@ describe("addIssueModal", () => {
         isIssue
       />
     );
-    const { queryByText, queryByDataCy } = render(Component);
+    const { queryByText, queryByDataCy } = render(<Component />);
     await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
     expect(queryByDataCy("issue-url")).toHaveValue("");

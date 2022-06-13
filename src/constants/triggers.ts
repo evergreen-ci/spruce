@@ -1,3 +1,9 @@
+import { SubscriptionMethods } from "hooks/useNotificationModal";
+import {
+  SUBSCRIPTION_EMAIL,
+  SUBSCRIPTION_JIRA_COMMENT,
+  SUBSCRIPTION_SLACK,
+} from "types/subscription";
 import {
   ExtraField,
   ExtraFieldKey,
@@ -8,7 +14,40 @@ import {
   Trigger,
   TriggerType,
 } from "types/triggers";
-import { validateDuration, validatePercentage } from "utils/validators";
+import {
+  validateDuration,
+  validatePercentage,
+  validateJira,
+  validateEmail,
+  validateSlack,
+} from "utils/validators";
+
+export const subscriptionMethodControls: SubscriptionMethods = {
+  "jira-comment": {
+    label: "JIRA Issue",
+    placeholder: "ABC-123",
+    targetPath: "jira-comment",
+    validator: validateJira,
+  },
+  email: {
+    label: "Email Address",
+    placeholder: "someone@example.com",
+    targetPath: "email",
+    validator: validateEmail,
+  },
+  slack: {
+    label: "Slack Username or Channel",
+    placeholder: "@user",
+    targetPath: "slack",
+    validator: validateSlack,
+  },
+};
+
+export const subscriptionMethodDropdownOptions = [
+  SUBSCRIPTION_JIRA_COMMENT,
+  SUBSCRIPTION_SLACK,
+  SUBSCRIPTION_EMAIL,
+];
 
 export const buildRegexSelectors: RegexSelector[] = [
   {
@@ -32,31 +71,33 @@ export const taskRegexSelectors: RegexSelector[] = [
   },
 ];
 
+const failureTypeSubscriberOptions: string[] = [
+  "Any", // default
+  "Test",
+  "System",
+  "Setup",
+];
+
 export const failureTypeSubscriberConfig = {
   text: "Failure Type",
   key: "failure-type",
   type: "select",
-  options: {
-    any: "Any",
-    test: "Test",
-    system: "System",
-    setup: "Setup",
-  },
-  default: "any",
+  options: failureTypeSubscriberOptions,
+};
+
+export const requesterSubscriberOptions = {
+  gitter_request: "Commit",
+  patch_request: "Patch",
+  github_pull_request: "Pull Request",
+  merge_test: "Commit Queue",
+  ad_hoc: "Periodic Build",
 };
 
 export const requesterSubscriberConfig = {
   text: "Build Initiator",
   key: "requester",
   type: "select",
-  options: {
-    gitter_request: "Commit",
-    patch_request: "Patch",
-    github_pull_request: "Pull Request",
-    merge_test: "Commit Queue",
-    ad_hoc: "Periodic Build",
-  },
-  default: "gitter_request",
+  options: Object.values(requesterSubscriberOptions),
 };
 
 export const clearExtraFieldsInputCb = (accum: StringMap, eF: ExtraField) => ({
@@ -64,7 +105,7 @@ export const clearExtraFieldsInputCb = (accum: StringMap, eF: ExtraField) => ({
   [eF.key]: "10",
 });
 
-export const projectTriggers: Trigger[] = [
+export const triggers: Trigger[] = [
   {
     trigger: TriggerType.OUTCOME,
     resourceType: ResourceType.VERSION,
@@ -106,7 +147,7 @@ export const projectTriggers: Trigger[] = [
     extraFields: [failureTypeSubscriberConfig, requesterSubscriberConfig],
   },
   {
-    trigger: TriggerType.FIRST_FAILURE_BUILD,
+    trigger: TriggerType.FIRST_FAILURE_VERSION,
     resourceType: ResourceType.TASK,
     label: "The First Failure In a Version Occurs",
     regexSelectors: taskRegexSelectors,

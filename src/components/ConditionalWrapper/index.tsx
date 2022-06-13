@@ -1,5 +1,3 @@
-import React from "react";
-
 interface ConditionalWrapperProps {
   condition: boolean;
   wrapper: (children: any) => JSX.Element;

@@ -69,7 +69,7 @@ const getProjectsMock = {
     data: {
       projects: [
         {
-          name: "evergreen-ci/evergreen",
+          groupDisplayName: "evergreen-ci/evergreen",
           projects: [
             {
               id: "evergreen",
@@ -82,7 +82,7 @@ const getProjectsMock = {
           ],
         },
         {
-          name: "logkeeper/logkeeper",
+          groupDisplayName: "logkeeper/logkeeper",
           projects: [
             {
               id: "logkeeper",
@@ -95,7 +95,7 @@ const getProjectsMock = {
           ],
         },
         {
-          name: "mongodb/mongo",
+          groupDisplayName: "mongodb/mongo",
           projects: [
             {
               id: "sys-perf",
@@ -116,7 +116,7 @@ const getProjectsMock = {
           ],
         },
         {
-          name: "mongodb/mongodb",
+          groupDisplayName: "mongodb/mongodb",
           projects: [
             {
               id: "mongodb-mongo-master",
@@ -129,7 +129,7 @@ const getProjectsMock = {
           ],
         },
         {
-          name: "mongodb/mongodb-test",
+          groupDisplayName: "mongodb/mongodb-test",
           projects: [
             {
               id: "mongodb-mongo-test",
@@ -154,7 +154,7 @@ const viewableProjectsMock = {
     data: {
       viewableProjectRefs: [
         {
-          name: "evergreen-ci/evergreen",
+          groupDisplayName: "evergreen-ci/evergreen",
           projects: [
             {
               id: "evergreen",
@@ -168,7 +168,7 @@ const viewableProjectsMock = {
           ],
         },
         {
-          name: "mongodb/mongodb-test",
+          groupDisplayName: "mongodb/mongodb-test",
           projects: [
             {
               id: "mongodb-mongo-test",
