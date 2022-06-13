@@ -119,10 +119,6 @@ export const getDateCopy = (
   return format(new Date(time), dateFormat);
 };
 
-const SHORT_DATE_FORMAT = "M/d/yy h:mm aa";
-export const shortDate = (d: Date): string =>
-  d ? format(new Date(d), SHORT_DATE_FORMAT) : "";
-
 export const copyToClipboard = (str: string) => {
   const el = document.createElement("textarea");
   el.value = str;

@@ -8,12 +8,10 @@ import { size, zIndex } from "constants/tokens";
 import { UpstreamProjectFragment } from "gql/generated/types";
 import { useSpruceConfig } from "hooks";
 import { ProjectTriggerLevel } from "types/triggers";
-import { string } from "utils";
-import { shortenGithash } from "utils/string";
+import { getDateCopy, shortenGithash } from "utils/string";
 import { jiraLinkify } from "utils/string/jiraLinkify";
 
 const { gray } = uiColors;
-const { shortDate } = string;
 const MAX_CHAR = 40;
 interface Props {
   githash: string;
@@ -58,7 +56,7 @@ const CommitChartLabel: React.VFC<Props> = ({
         >
           {shortenGithash(githash)}
         </StyledRouterLink>{" "}
-        <b>{shortDate(createDate)}</b>
+        <b>{getDateCopy(createDate)}</b>
       </LabelText>
       {upstreamProject && (
         <LabelText>

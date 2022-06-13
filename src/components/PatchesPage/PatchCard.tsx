@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
-import { format } from "date-fns";
 import { Analytics } from "analytics/addPageAction";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
@@ -15,6 +14,7 @@ import { fontSize, size } from "constants/tokens";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { Unpacked } from "types/utils";
 import { groupStatusesByUmbrellaStatus } from "utils/statuses";
+import { getDateCopy } from "utils/string";
 import { DropdownMenu } from "./patchCard/DropdownMenu";
 
 type P = Unpacked<PatchesPagePatchesFragment["patches"]>;
@@ -74,8 +74,7 @@ export const PatchCard: React.VFC<Props> = ({
           {description || "no description"}
         </DescriptionLink>
         <TimeAndProject>
-          {format(createDate, "M/d/yy")} at {format(createDate, "h:mm:ss aaaa")}{" "}
-          {pageType === "project" ? "by" : "on"}{" "}
+          {getDateCopy(createDate)} {pageType === "project" ? "by" : "on"}{" "}
           {pageType === "project" ? (
             <StyledRouterLink
               to={getUserPatchesRoute(author)}

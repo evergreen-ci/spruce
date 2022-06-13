@@ -4,7 +4,6 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
-import { format } from "date-fns";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { StyledLink, StyledRouterLink } from "components/styles";
 import { getGithubPullRequestUrl } from "constants/externalResources";
@@ -17,10 +16,9 @@ import {
   RemoveItemFromCommitQueueMutationVariables,
 } from "gql/generated/types";
 import { REMOVE_ITEM_FROM_COMMIT_QUEUE } from "gql/mutations";
+import { getDateCopy } from "utils/string";
 import { CodeChangeModule } from "./codeChangesModule/CodeChangesModule";
 import { ConfirmPatchButton } from "./ConfirmPatchButton";
-
-const FORMAT_STR = "MM/dd/yy' at 'hh:mm:ss' 'aa";
 
 interface Props {
   issue: string;
@@ -107,7 +105,7 @@ export const CommitQueueCard: React.VFC<Props> = ({
               <>{title}</>
             </ConditionalWrapper>
             <CardMetaData>
-              By <b>{author}</b> on {format(new Date(commitTime), FORMAT_STR)}
+              By <b>{author}</b> on {getDateCopy(commitTime)}
             </CardMetaData>
             <Container>
               {moduleCodeChanges?.map((moduleCodeChange) => (

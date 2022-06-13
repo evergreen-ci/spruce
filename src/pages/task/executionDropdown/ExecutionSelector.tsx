@@ -11,9 +11,8 @@ import {
 } from "gql/generated/types";
 import { GET_TASK_ALL_EXECUTIONS } from "gql/queries";
 import { executionAsDisplay } from "pages/task/util/execution";
-import { string } from "utils";
+import { getDateCopy } from "utils/string";
 
-const { shortDate } = string;
 interface ExecutionSelectProps {
   id: string;
   currentExecution: number;
@@ -60,7 +59,7 @@ export const ExecutionSelect: React.VFC<ExecutionSelectProps> = ({
             <StyledTaskStatusIcon status={singleExecution.status} />
             <StyledP1>
               Execution {executionAsDisplay(singleExecution.execution)} -{" "}
-              {shortDate(
+              {getDateCopy(
                 singleExecution.activatedTime ?? singleExecution.ingestTime
               )}
             </StyledP1>
