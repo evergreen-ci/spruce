@@ -190,10 +190,7 @@ describe("Host events", () => {
 
   it("host event pagination last page displays the right items", () => {
     cy.visit("host/i-0f81a2d39744003dd?limit=10&page=3");
-    const hostTypes = ["host-running-task-set-link", "host-provisioned"];
-    hostTypes.forEach((hostType) => {
-      cy.dataCy(hostType).should("exist");
-    });
+    cy.dataCy("host-provisioned").should("exist");
   });
 
   it("host events are displayed in the right timezone", () => {
