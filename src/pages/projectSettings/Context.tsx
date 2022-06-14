@@ -174,37 +174,17 @@ const usePopulateForm = (
   formData: FormDataProps,
   tab: ProjectSettingsTabRoutes
 ): void => {
-  const { saveTab, updateForm } = useProjectSettingsContext();
-  const isSaved = useIsTabSaved(tab);
+  const { getTab, saveTab, updateForm } = useProjectSettingsContext();
+  const { hasChanges } = getTab(tab);
 
   useEffect(() => {
     // Ensure form does not have unsaved changes before writing.
     // This preserves the unsaved form state when switching between project settings tabs.
-    if (isSaved) {
+    if (!hasChanges) {
       updateForm(tab)({ formData });
       saveTab(tab);
     }
   }, [formData]); // eslint-disable-line react-hooks/exhaustive-deps
-};
-
-const useIsTabSaved = (tab: ProjectSettingsTabRoutes): boolean => {
-  const { tabs } = useProjectSettingsContext();
-  return !tabs[tab].hasChanges;
-};
-
-const useIsAnyTabUnsaved = (): {
-  hasUnsaved: boolean;
-  unsavedTabs: ProjectSettingsTabRoutes[];
-} => {
-  const { tabs } = useProjectSettingsContext();
-  const unsavedTabs = Object.entries(tabs)
-    .filter(([, tabData]) => tabData.hasChanges)
-    .map(([tab]) => tab as ProjectSettingsTabRoutes);
-
-  return {
-    unsavedTabs,
-    hasUnsaved: !!unsavedTabs.length,
-  };
 };
 
 const getDefaultRouteObject = <T extends unknown>(
@@ -217,10 +197,4 @@ const getDefaultRouteObject = <T extends unknown>(
     }))
   );
 
-export {
-  ProjectSettingsProvider,
-  useIsAnyTabUnsaved,
-  useIsTabSaved,
-  usePopulateForm,
-  useProjectSettingsContext,
-};
+export { ProjectSettingsProvider, usePopulateForm, useProjectSettingsContext };
