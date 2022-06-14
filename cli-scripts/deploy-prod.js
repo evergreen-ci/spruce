@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
 const colors = require("colors/safe");
 const prompt = require("prompt");
-const promptRun = require("prompt-run");
 const simpleGit = require("simple-git");
 const path = require("path");
+const { execSync } = require("child_process");
+const { exit } = require("process");
 const { getLatestCommitsSinceLastRelease } = require("./deploy-utils");
 
 const git = simpleGit(path.resolve(__dirname, ".."));
@@ -24,18 +25,15 @@ const checkIfOnMain = async () => {
 // Runs the script to build and deploy to production
 const deployProcess = () => {
   console.log("Pushing deploy tags");
-  promptRun({
-    command: "git push upstream && git push upstream --tags",
-    options: {},
-    questions: {
-      env: [],
-      args: [],
-    },
-  }).then((childProcess) => {
-    childProcess.on("close", () => {
-      console.log("Successfully Scheduled Deploy! 🎉");
-    });
-  });
+  // run command to push deploy tags
+  execSync(
+    "git push upstream && git push upstream --tags && git push origin && git push origin --tags",
+    { stdio: "inherit" }
+  );
+  console.log("Successfully Scheduled Deploy! 🎉");
+  console.log(
+    "You can track the deploy at https://spruce.mongodb.com/commits/spruce?requester=git_tag_request&taskNames=deploy_to_prod"
+  );
 };
 
 const deployProd = async () => {
@@ -59,47 +57,20 @@ const deployProd = async () => {
           },
         },
       },
-      (confirmDeployerr, { confirmDeploy }) => {
+      (_, { confirmDeploy }) => {
         const confirmDeployLowerCased = confirmDeploy.toLowerCase();
         const isConfirmed =
           confirmDeployLowerCased === "yes" || confirmDeployLowerCased === "y";
         if (isConfirmed) {
-          // Version our releases using npm version which creates a git tag
-          // So we can keep track of changes between each release
-          prompt.get(
-            {
-              properties: {
-                version: {
-                  description: colors.magenta(
-                    "How would you like to version this release? major | minor | patch"
-                  ),
-                },
-              },
-            },
-            (versionerr, { version }) => {
-              const versionChoices = ["major", "minor", "patch"];
-              const choice = version.toLowerCase();
-              if (versionChoices.includes(choice)) {
-                promptRun({
-                  command: `yarn version --new-version ${choice}`,
-                  options: {},
-                  questions: {
-                    env: [],
-                    args: [],
-                  },
-                }).then((childProcess) => {
-                  childProcess.on("close", () => {
-                    deployProcess();
-                  });
-                });
-              } else {
-                console.log(colors.cyan("Okay, no deploy"));
-                prompt.stop();
-              }
-            }
-          );
+          try {
+            execSync("yarn version --new-version patch", { stdio: "inherit" });
+            deployProcess();
+          } catch (err) {
+            console.log(colors.red(err));
+            exit(1);
+          }
         } else {
-          console.log("ending");
+          console.log("Received No Confirmation, Exiting");
         }
       }
     );
@@ -115,23 +86,20 @@ const deployProd = async () => {
           },
         },
       },
-      (err, { confirmDeploy }) => {
+      (_, { confirmDeploy }) => {
         const confirmDeployLowerCased = confirmDeploy.toLowerCase();
         const isConfirmed =
           confirmDeployLowerCased === "yes" || confirmDeployLowerCased === "y";
         if (isConfirmed) {
-          promptRun({
-            command: "yarn deploy-prod:do-not-use-directly",
-            options: {},
-            questions: {
-              env: [],
-              args: [],
-            },
-          }).then((childProcess) => {
-            childProcess.on("close", () => {
-              console.log("Successfully Deployed! 🎉");
+          try {
+            execSync("yarn deploy-prod:do-not-use-directly", {
+              stdio: "inherit",
             });
-          });
+            console.log("Successfully Deployed! 🎉");
+          } catch (err) {
+            console.log(colors.red(err));
+            exit(1);
+          }
         } else {
           console.log(colors.cyan("Okay, no deploy"));
           prompt.stop();
