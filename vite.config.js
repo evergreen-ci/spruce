@@ -7,6 +7,7 @@ import { viteCommonjs, esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
 import envCompatible from "vite-plugin-env-compatible";
 import checker from "vite-plugin-checker";
 import { visualizer } from "rollup-plugin-visualizer";
+import injectVariablesInHTML from "./config/injectVariablesInHTML";
 
 // Allow imports from absolute paths
 const absolutePaths = readdirSync(path.resolve(__dirname, "./src")).filter(
@@ -49,6 +50,13 @@ export default defineConfig({
     outDir: "build",
     rollupOptions: {
       output: {
+        plugins: [
+          injectVariablesInHTML({
+            files: "build/index.html",
+            from: ["%GIT_SHA%", "%RELEASE_STAGE%"],
+            to: [process.env.GIT_SHA, process.env.REACT_APP_RELEASE_STAGE],
+          }),
+        ],
         manualChunks: {
           vendor: [
             "node_modules/react/index.js",
