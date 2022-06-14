@@ -141,22 +141,6 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     });
   }, [visible]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => {
-    if (awsRegions && awsRegions.length) {
-      dispatch({
-        type: "editAWSRegion",
-        region: userAwsRegion || awsRegions[0],
-      });
-    }
-    if (publicKeys && publicKeys.length) {
-      dispatch({
-        type: "editPublicKey",
-        publicKey: publicKeys[0],
-        savePublicKey: false,
-      });
-    }
-  }, [awsRegions, userAwsRegion, publicKeys, dispatch]);
-
   const unexpirableCountReached = useDisableSpawnExpirationCheckbox(false);
 
   // recalculate isVirtualWorkstation whenever distro changes
