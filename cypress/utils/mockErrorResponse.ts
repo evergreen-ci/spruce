@@ -16,7 +16,7 @@ export const mockErrorResponse = ({
   errorCode = "INTERNAL_SERVER_ERROR",
   path = "i am a path", // the name of the query
 }: Args) => {
-  cy.route2("/graphql/query", (req) => {
+  cy.intercept("/graphql/query", (req) => {
     req.reply((res) => {
       res.body = {
         errors: [
