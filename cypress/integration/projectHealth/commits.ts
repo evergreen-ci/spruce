@@ -31,10 +31,10 @@ describe("commits page", () => {
     cy.dataCy("commit-chart-container").should("be.visible");
     cy.dataCy("accordion-toggle").contains("Project Health").click();
 
-    cy.dataCy("commit-chart-container").should("not.exist");
+    cy.dataCy("commit-chart-container").should("not.be.visible");
 
     cy.dataCy("next-page-button").click();
-    cy.dataCy("commit-chart-container").should("not.exist");
+    cy.dataCy("commit-chart-container").should("not.be.visible");
     cy.location("search").should("contain", "chartOpen=false");
 
     cy.dataCy("accordion-toggle").contains("Project Health").click();
@@ -253,9 +253,7 @@ describe("commits page", () => {
           cy.getInputByLabel("All").check({ force: true });
         });
         cy.dataCy("project-task-status-select").click();
-        cy.dataCy("project-task-status-select-options").should(
-          "not.be.visible"
-        );
+        cy.dataCy("project-task-status-select-options").should("not.exist");
       });
       it("hovering over a badge should show metadata about the task statuses", () => {
         cy.dataCy("grouped-task-status-badge").should("exist");
