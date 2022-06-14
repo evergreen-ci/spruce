@@ -138,7 +138,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
       expiration: futureDate,
       noExpiration: false,
     });
-  }, [visible, awsRegions]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [visible, awsRegions, publicKeys]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const unexpirableCountReached = useDisableSpawnExpirationCheckbox(false);
 
