@@ -45,6 +45,7 @@ export type Mutation = {
   removeFavoriteProject: Project;
   saveProjectSettingsForSection: ProjectSettings;
   saveRepoSettingsForSection: RepoSettings;
+  deactivateStepbackTasks: Scalars["Boolean"];
   attachVolumeToHost: Scalars["Boolean"];
   detachVolumeFromHost: Scalars["Boolean"];
   editSpawnHost: Host;
@@ -189,6 +190,10 @@ export type MutationSaveProjectSettingsForSectionArgs = {
 export type MutationSaveRepoSettingsForSectionArgs = {
   repoSettings?: Maybe<RepoSettingsInput>;
   section: ProjectSettingsSection;
+};
+
+export type MutationDeactivateStepbackTasksArgs = {
+  projectId: Scalars["String"];
 };
 
 export type MutationAttachVolumeToHostArgs = {
