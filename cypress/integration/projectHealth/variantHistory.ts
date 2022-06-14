@@ -40,7 +40,7 @@ describe("variant history", () => {
     cy.contains("Expand 1 inactive").should("not.exist");
     cy.contains("Collapse 1 inactive").should("exist");
     cy.contains("Collapse 1 inactive").click();
-    cy.contains("EVG-16356").should("not.exist");
+    cy.contains("EVG-16356").should("not.be.visible");
   });
   it("should be able to filter column headers", () => {
     cy.dataCy("header-cell").should("have.length", 4);

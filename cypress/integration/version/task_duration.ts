@@ -42,7 +42,7 @@ describe("Task Duration Tab", () => {
         `duration=DESC&page=0&statuses=started`
       );
       // Clear status filter.
-      cy.dataCy("status-filter-popover").click();
+      cy.dataCy("status-filter-popover").click({ force: true });
       cy.dataCy("tree-select-options").within(() =>
         cy.contains("Running").click({ force: true })
       );

@@ -49,7 +49,7 @@ describe("Navigating to Spawn Host page", () => {
   });
   it("Clicking on a spawn host row should toggle the card closed", () => {
     cy.get('[data-row-key="i-092593689871a50dc"] > :nth-child(1)').click();
-    cy.dataCy("spawn-host-card").should("not.exist");
+    cy.dataCy("spawn-host-card").should("not.be.visible");
   });
   it("Visiting the spawn host page with an id in the url should open the page with the row expanded", () => {
     cy.visit("/spawn/host?host=i-092593689871a50dc");
