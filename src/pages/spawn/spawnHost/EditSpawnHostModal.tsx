@@ -121,7 +121,7 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
   const volumes = volumesData?.myVolumes?.filter(
     (v) => v.availabilityZone === host.availabilityZone
   );
-  const publicKeys = publicKeysData?.myPublicKeys;
+  const publicKeys = publicKeysData?.myPublicKeys ?? [];
 
   const [hasChanges, mutationParams] = computeDiff(
     defaultEditSpawnHostState,

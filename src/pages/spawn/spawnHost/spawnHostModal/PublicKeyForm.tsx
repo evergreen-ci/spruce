@@ -50,11 +50,7 @@ export const PublicKeyForm: React.VFC<PublicKeyFormProps> = ({
   // Update public key data when user toggles between options. This is to prevent old public key data from
   // persisting, so that the Spawn button is properly disabled.
   useEffect(() => {
-    if (
-      selectState === PublicKeyFormType.Existing &&
-      publicKeys &&
-      publicKeys.length
-    ) {
+    if (selectState === PublicKeyFormType.Existing && publicKeys.length) {
       updatePublicKeyState(publicKeys[0]);
     } else {
       updatePublicKeyState({ key: "", name: "" });

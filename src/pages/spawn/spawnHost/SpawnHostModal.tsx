@@ -112,7 +112,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
 
   const { distroId, region, publicKey } = spawnHostModalState;
 
-  const publicKeys = publicKeysData?.myPublicKeys;
+  const publicKeys = publicKeysData?.myPublicKeys ?? [];
   const awsRegions = awsData?.awsRegions;
   const volumes = volumesData?.myVolumes ?? [];
 
