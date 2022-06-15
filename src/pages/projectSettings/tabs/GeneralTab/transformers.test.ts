@@ -50,9 +50,11 @@ const repoForm: FormState = {
     dispatchingDisabled: true,
     scheduling: {
       deactivatePrevious: true,
+      deactivateStepback: null,
     },
     repotracker: {
       repotrackerDisabled: false,
+      forceRun: null,
     },
     logger: {
       defaultLogger: "buildlogger",
@@ -125,9 +127,11 @@ const projectForm: FormState = {
     dispatchingDisabled: null,
     scheduling: {
       deactivatePrevious: null,
+      deactivateStepback: null,
     },
     repotracker: {
       repotrackerDisabled: null,
+      forceRun: null,
     },
     logger: {
       defaultLogger: null,

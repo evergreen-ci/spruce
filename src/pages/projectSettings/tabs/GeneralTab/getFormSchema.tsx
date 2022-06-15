@@ -6,7 +6,11 @@ import { StyledLink } from "components/styles";
 import { versionControlDocumentationUrl } from "constants/externalResources";
 import { Project } from "gql/generated/types";
 import { form, ProjectType } from "../utils";
-import { RepoConfigField, RepotrackerField } from "./Fields";
+import {
+  DeactivateStepbackTasksField,
+  RepoConfigField,
+  RepotrackerField,
+} from "./Fields";
 import { FormState } from "./types";
 
 const { insertIf, overrideRadioBox, placeholderIf, radioBoxOptions } = form;
@@ -25,6 +29,7 @@ export const getFormSchema = (
   uiSchema: SpruceFormProps["uiSchema"];
 } => ({
   fields: {
+    deactivateStepbackTasks: DeactivateStepbackTasksField,
     repoConfigField: RepoConfigField,
     repotrackerField: RepotrackerField,
   },
@@ -126,6 +131,9 @@ export const getFormSchema = (
                   repoData?.projectFlags?.scheduling?.deactivatePrevious
                 ),
               },
+              deactivateStepback: {
+                type: "null" as "null",
+              },
             },
           },
           repotracker: {
@@ -140,6 +148,9 @@ export const getFormSchema = (
                   repoData?.projectFlags?.repotracker?.repotrackerDisabled,
                   true
                 ),
+              },
+              forceRun: {
+                type: "null" as "null",
               },
             },
           },
@@ -343,14 +354,22 @@ export const getFormSchema = (
           "ui:description":
             "When unscheduled, tasks from previous revisions will be unscheduled when the equivalent task in a newer commit finishes successfully.",
         },
+        deactivateStepback: {
+          "ui:field": "deactivateStepbackTasks",
+          "ui:showLabel": false,
+          options: { projectId },
+        },
       },
       repotracker: {
-        "ui:field": "repotrackerField",
-        options: { projectId },
         repotrackerDisabled: {
           "ui:widget": widgets.RadioBoxWidget,
           "ui:description": `The repotracker will be triggered from GitHub push events sent via webhook. 
             This creates mainline builds for merged commits.`,
+        },
+        forceRun: {
+          "ui:field": "repotrackerField",
+          "ui:showLabel": false,
+          options: { projectId },
         },
       },
       logger: {
