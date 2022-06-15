@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "2.36.1",
+  "version": "2.36.2",
   "private": true,
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js' --html | sed 1d > build/source_map.html",
@@ -213,7 +213,6 @@
     "pnp-webpack-plugin": "1.6.4",
     "prettier": "2.2.1",
     "prompt": "^1.0.0",
-    "prompt-run": "^1.4.5",
     "prompts": "2.4.0",
     "react-app-polyfill": "^2.0.0",
     "react-dev-utils": "^11.0.1",
