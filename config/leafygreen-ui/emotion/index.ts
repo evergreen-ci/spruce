@@ -1,9 +1,10 @@
 // Shim to prevent LG's emotion package https://github.com/mongodb/leafygreen-ui/tree/main/packages/emotion from pulling in SSR dependencies.
-import createEmotion from '@emotion/css/create-instance';
+// https://jira.mongodb.org/browse/EVG-17077
+import createEmotion from "@emotion/css/create-instance";
 
 function createEmotionInstance() {
   const config = {
-    key: 'leafygreen-ui',
+    key: "leafygreen-ui",
     prepend: true,
   };
 

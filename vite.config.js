@@ -51,6 +51,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         plugins: [
+          // Replace the variables in our HTML files.
           injectVariablesInHTML({
             files: "build/index.html",
             from: ["%GIT_SHA%", "%RELEASE_STAGE%"],
@@ -79,7 +80,6 @@ export default defineConfig({
     },
     extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
   },
-
   plugins: [
     viteCommonjs(),
     // Inject env variables

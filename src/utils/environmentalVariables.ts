@@ -40,10 +40,10 @@ export const getSpruceURL: () => string = () =>
   process.env.REACT_APP_SPRUCE_URL;
 
 /**
- * `isDevelopment()` indicates if the current environment is a local development environment.
+ * `isDevelopmentBuild()` indicates if the current environment is a local development environment.
  * @returns {boolean} `true` if the current environment is a local development environment.
  */
-export const isDevelopment: () => boolean = () =>
+export const isDevelopmentBuild: () => boolean = () =>
   process.env.NODE_ENV === "development";
 
 /**
@@ -111,6 +111,6 @@ export const getReleaseStage = () => process.env.REACT_APP_RELEASE_STAGE || "";
  * however in prod and staging and we want the login domain to be evergreen.com
  */
 export const getLoginDomain = (): string =>
-  isDevelopment() || getReleaseStage() === "local"
+  isDevelopmentBuild() || getReleaseStage() === "local"
     ? process.env.REACT_APP_SPRUCE_URL
     : process.env.REACT_APP_UI_URL;
