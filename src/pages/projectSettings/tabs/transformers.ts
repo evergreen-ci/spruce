@@ -15,7 +15,9 @@ import {
 import * as variables from "./VariablesTab/transformers";
 import * as virtualWorkstation from "./VirtualWorkstationTab/transformers";
 
-export const gqlToFormMap: Record<WritableTabRoutes, GqlToFormFunction> = {
+export const gqlToFormMap: {
+  [T in WritableTabRoutes]: GqlToFormFunction<T>;
+} = {
   [ProjectSettingsTabRoutes.General]: general.gqlToForm,
   [ProjectSettingsTabRoutes.Access]: access.gqlToForm,
   [ProjectSettingsTabRoutes.Plugins]: plugins.gqlToForm,
@@ -28,7 +30,9 @@ export const gqlToFormMap: Record<WritableTabRoutes, GqlToFormFunction> = {
   [ProjectSettingsTabRoutes.PeriodicBuilds]: periodicBuilds.gqlToForm,
 };
 
-export const formToGqlMap: Record<WritableTabRoutes, FormToGqlFunction> = {
+export const formToGqlMap: {
+  [T in WritableTabRoutes]: FormToGqlFunction<T>;
+} = {
   [ProjectSettingsTabRoutes.General]: general.formToGql,
   [ProjectSettingsTabRoutes.Access]: access.formToGql,
   [ProjectSettingsTabRoutes.Plugins]: plugins.formToGql,

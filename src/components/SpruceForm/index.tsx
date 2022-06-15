@@ -10,19 +10,19 @@ import {
 } from "./FieldTemplates";
 import widgets from "./Widgets";
 
-export type FormDataProps = FormProps<any>["formData"];
-
-export type SpruceFormProps = Pick<
-  FormProps<any>,
+export type SpruceFormProps<A> = Pick<
+  FormProps<A>,
   "schema" | "onChange" | "formData"
 > &
-  Partial<FormProps<any>> & { customFormatFields?: CustomFormatFields };
+  Partial<FormProps<A>> & { customFormatFields?: CustomFormatFields };
 
 type CustomFormatFields = {
   jiraHost?: string;
 };
 
-export const SpruceForm: React.VFC<SpruceFormProps> = ({
+export type SpruceFormType<T = any> = React.VFC<SpruceFormProps<T>>;
+
+export const SpruceForm: SpruceFormType = ({
   schema,
   onChange,
   uiSchema,

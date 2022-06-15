@@ -1,7 +1,6 @@
-import { FormDataProps } from "components/SpruceForm";
 import { ProjectType } from "../utils/types";
 
-export interface FormState extends FormDataProps {
+export interface FormState {
   buildBreakSettings: {
     notifyOnBuildFailure: boolean | null;
   };

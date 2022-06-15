@@ -8,43 +8,52 @@ import {
 } from "react";
 import debounce from "lodash.debounce";
 import isEqual from "lodash.isequal";
-import { FormDataProps, SpruceFormProps } from "components/SpruceForm";
+import { SpruceFormProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-import { formToGqlMap } from "pages/projectSettings/tabs/transformers";
+import { formToGqlMap } from "./tabs/transformers";
 import {
+  FormStateMap,
   FormToGqlFunction,
   TabDataProps,
-} from "pages/projectSettings/tabs/types";
+  WritableTabRoutes,
+} from "./tabs/types";
 
-type TabState = Record<
-  ProjectSettingsTabRoutes,
-  {
-    hasChanges: boolean;
-    hasError: boolean;
-    initialData: ReturnType<FormToGqlFunction>;
-    formData: FormDataProps;
-  }
+type OnChangeParams<T extends WritableTabRoutes> = Pick<
+  Parameters<SpruceFormProps<FormStateMap[T]>["onChange"]>[0],
+  "formData" | "errors"
 >;
 
-type Action =
+type TabState = {
+  [T in WritableTabRoutes]: {
+    hasChanges: boolean;
+    hasError: boolean;
+    initialData: ReturnType<FormToGqlFunction<T>>;
+    formData: FormStateMap[T];
+  };
+};
+
+type Action<T extends WritableTabRoutes> =
   | {
       type: "updateForm";
-      tab: ProjectSettingsTabRoutes;
-      formData: FormDataProps;
-      errors: Parameters<SpruceFormProps["onChange"]>[0]["errors"];
+      tab: WritableTabRoutes;
+      formData: FormStateMap[T];
+      errors: OnChangeParams<T>["errors"];
     }
-  | { type: "saveTab"; tab: ProjectSettingsTabRoutes }
+  | { type: "saveTab"; tab: T }
   | {
       type: "setHasChanges";
-      tab: ProjectSettingsTabRoutes;
-      formData: FormDataProps;
+      tab: T;
+      formData: FormStateMap[T];
     }
   | {
       type: "setInitialData";
       tabData: TabDataProps;
     };
 
-const reducer = (state: TabState, action: Action): TabState => {
+const reducer = <T extends WritableTabRoutes>(
+  state: TabState,
+  action: Action<T>
+): TabState => {
   switch (action.type) {
     case "saveTab":
       return state[action.tab].hasChanges
@@ -95,12 +104,11 @@ const reducer = (state: TabState, action: Action): TabState => {
 
 interface ProjectSettingsState {
   tabs: TabState;
-  saveTab: (tab: ProjectSettingsTabRoutes) => void;
-  getTab: (tab: ProjectSettingsTabRoutes) => FormDataProps;
-  updateForm: (
-    tab: ProjectSettingsTabRoutes,
-    save?: boolean
-  ) => (formData: FormDataProps) => void;
+  saveTab: <T extends WritableTabRoutes>(tab: T) => void;
+  getTab: <T extends WritableTabRoutes>(tab: T) => TabState[T];
+  updateForm: <T extends WritableTabRoutes>(
+    tab: T
+  ) => (formData: OnChangeParams<T>) => void;
   setInitialData: (tabData: TabDataProps) => void;
 }
 
@@ -111,7 +119,7 @@ const ProjectSettingsProvider: React.VFC<{ children: React.ReactNode }> = ({
 }) => {
   const [state, dispatch] = useReducer(
     reducer,
-    getDefaultRouteObject({
+    getDefaultTabState({
       hasChanges: false,
       hasError: false,
       initialData: null,
@@ -127,19 +135,19 @@ const ProjectSettingsProvider: React.VFC<{ children: React.ReactNode }> = ({
     []
   );
 
-  const updateForm = (tab: ProjectSettingsTabRoutes) => ({
+  const updateForm: ProjectSettingsState["updateForm"] = (tab) => ({
     formData,
     errors = [],
-  }: Parameters<SpruceFormProps["onChange"]>[0]): void => {
+  }): void => {
     setHasChanges(tab, formData);
     dispatch({ type: "updateForm", tab, formData, errors });
   };
 
-  const saveTab = (tab: ProjectSettingsTabRoutes): void => {
+  const saveTab: ProjectSettingsState["saveTab"] = (tab): void => {
     dispatch({ type: "saveTab", tab });
   };
 
-  const getTab = (tab: ProjectSettingsTabRoutes) => state[tab];
+  const getTab: ProjectSettingsState["getTab"] = (tab) => state[tab];
 
   const setInitialData = useCallback((tabData: TabDataProps) => {
     dispatch({ type: "setInitialData", tabData });
@@ -170,9 +178,9 @@ const useProjectSettingsContext = (): ProjectSettingsState => {
   return context;
 };
 
-const usePopulateForm = (
-  formData: FormDataProps,
-  tab: ProjectSettingsTabRoutes
+const usePopulateForm = <T extends WritableTabRoutes>(
+  formData: FormStateMap[T],
+  tab: T
 ): void => {
   const { getTab, saveTab, updateForm } = useProjectSettingsContext();
   const { hasChanges } = getTab(tab);
@@ -181,15 +189,15 @@ const usePopulateForm = (
     // Ensure form does not have unsaved changes before writing.
     // This preserves the unsaved form state when switching between project settings tabs.
     if (!hasChanges) {
-      updateForm(tab)({ formData });
+      updateForm(tab)({ formData, errors: [] });
       saveTab(tab);
     }
   }, [formData]); // eslint-disable-line react-hooks/exhaustive-deps
 };
 
-const getDefaultRouteObject = <T extends unknown>(
+const getDefaultTabState = <T extends unknown>(
   defaultValue: T
-): Record<ProjectSettingsTabRoutes, T> =>
+): Record<WritableTabRoutes, T> =>
   Object.assign(
     {},
     ...Object.values(ProjectSettingsTabRoutes).map((route) => ({

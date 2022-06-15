@@ -1,3 +1,4 @@
+import { AjvError } from "@rjsf/core";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { TabDataProps } from "pages/projectSettings/tabs/types";
@@ -38,8 +39,9 @@ describe("projectSettingsContext", () => {
             {
               varName: "test_name",
               varValue: "test_value",
-              isPrivate: "false",
-              isDisabled: "false",
+              isPrivate: false,
+              isDisabled: false,
+              isAdminOnly: false,
             },
           ],
         },
@@ -70,8 +72,9 @@ describe("projectSettingsContext", () => {
               {
                 varName: "test_name",
                 varValue: "test_value",
-                isPrivate: "false",
-                isDisabled: "false",
+                isPrivate: false,
+                isDisabled: false,
+                isAdminOnly: false,
               },
             ],
           },
@@ -86,8 +89,9 @@ describe("projectSettingsContext", () => {
             {
               varName: "test_name",
               varValue: "test_value",
-              isPrivate: "false",
-              isDisabled: "false",
+              isPrivate: false,
+              isDisabled: false,
+              isAdminOnly: false,
             },
           ],
         },
@@ -123,7 +127,7 @@ describe("projectSettingsContext", () => {
         formData: {
           vars: [],
         },
-        errors: ["err"],
+        errors: [{ name: "err" } as AjvError],
       });
     });
 

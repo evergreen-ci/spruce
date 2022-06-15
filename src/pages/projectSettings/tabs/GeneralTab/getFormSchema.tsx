@@ -1,17 +1,17 @@
-import { Field } from "@rjsf/core";
-import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { StyledLink } from "components/styles";
 import { versionControlDocumentationUrl } from "constants/externalResources";
+import { ProjectSettingsTabRoutes } from "constants/routes";
 import { Project } from "gql/generated/types";
+import { GetFormSchema } from "../types";
 import { form, ProjectType } from "../utils";
 import { RepoConfigField, RepotrackerField } from "./Fields";
 import { FormState } from "./types";
 
 const { insertIf, overrideRadioBox, placeholderIf, radioBoxOptions } = form;
 
-export const getFormSchema = (
+export const getFormSchema: GetFormSchema<ProjectSettingsTabRoutes.General> = (
   projectId: string,
   projectType: ProjectType,
   validDefaultLoggers: Project["validDefaultLoggers"],
@@ -19,11 +19,7 @@ export const getFormSchema = (
   initialOwner: string,
   initialRepo: string,
   repoData?: FormState
-): {
-  fields: Record<string, Field>;
-  schema: SpruceFormProps["schema"];
-  uiSchema: SpruceFormProps["uiSchema"];
-} => ({
+) => ({
   fields: {
     repoConfigField: RepoConfigField,
     repotrackerField: RepotrackerField,

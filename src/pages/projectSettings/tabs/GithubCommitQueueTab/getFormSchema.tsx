@@ -1,6 +1,4 @@
 import { Description } from "@leafygreen-ui/typography";
-import { Field } from "@rjsf/core";
-import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { StyledRouterLink } from "components/styles";
@@ -10,6 +8,7 @@ import {
 } from "constants/routes";
 import { GithubProjectConflicts } from "gql/generated/types";
 import { getTabTitle } from "pages/projectSettings/getTabTitle";
+import { GetFormSchema } from "../types";
 import { alias, form, ProjectType } from "../utils";
 import { githubConflictErrorStyling, sectionHasError } from "./getErrors";
 import { GithubTriggerAliasField } from "./GithubTriggerAliasField";
@@ -18,7 +17,7 @@ import { FormState } from "./types";
 const { aliasArray, aliasRowUiSchema, gitTagArray } = alias;
 const { insertIf, overrideRadioBox, placeholderIf, radioBoxOptions } = form;
 
-export const getFormSchema = (
+export const getFormSchema: GetFormSchema<ProjectSettingsTabRoutes.GithubCommitQueue> = (
   identifier: string,
   projectType: ProjectType,
   githubWebhooksEnabled: boolean,
@@ -26,11 +25,7 @@ export const getFormSchema = (
   githubProjectConflicts: GithubProjectConflicts,
   versionControlEnabled: boolean,
   repoData?: FormState
-): {
-  fields: Record<string, Field>;
-  schema: SpruceFormProps["schema"];
-  uiSchema: SpruceFormProps["uiSchema"];
-} => {
+) => {
   const overrideStyling = {
     "ui:widget":
       projectType === ProjectType.AttachedProject

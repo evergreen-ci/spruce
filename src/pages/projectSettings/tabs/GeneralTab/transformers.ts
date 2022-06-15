@@ -1,19 +1,20 @@
+import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
   ProjectInput,
-  ProjectSettingsInput,
   ProjectSettingsQuery,
   RepoSettingsQuery,
 } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { ProjectType } from "../utils";
-import { FormState } from "./types";
 
-export const gqlToForm: GqlToFormFunction<FormState> = (
+type Tab = ProjectSettingsTabRoutes.General;
+
+export const gqlToForm: GqlToFormFunction<Tab> = (
   data:
     | ProjectSettingsQuery["projectSettings"]
     | RepoSettingsQuery["repoSettings"],
   options: { projectType: ProjectType }
-): ReturnType<GqlToFormFunction> => {
+) => {
   if (!data) return null;
 
   const { projectRef } = data;
@@ -72,7 +73,7 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
   };
 };
 
-export const formToGql: FormToGqlFunction = (
+export const formToGql: FormToGqlFunction<Tab> = (
   {
     generalConfiguration,
     projectFlags,
@@ -80,9 +81,9 @@ export const formToGql: FormToGqlFunction = (
       disabledStatsCache,
       files: { filesIgnoredFromCache, filesIgnoredFromCacheOverride },
     },
-  }: FormState,
+  },
   id: string
-): Pick<ProjectSettingsInput, "projectRef"> => {
+) => {
   const projectRef: ProjectInput = {
     id,
     enabled: generalConfiguration.enabled,

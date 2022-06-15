@@ -1,19 +1,15 @@
-import { Field } from "@rjsf/core";
-import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
+import { ProjectSettingsTabRoutes } from "constants/routes";
+import { GetFormSchema } from "../types";
 import { form, ProjectType } from "../utils";
 
 const { radioBoxOptions } = form;
 
-export const getFormSchema = (
+export const getFormSchema: GetFormSchema<ProjectSettingsTabRoutes.Access> = (
   projectType: ProjectType,
   repoData?: any
-): {
-  fields: Record<string, Field>;
-  schema: SpruceFormProps["schema"];
-  uiSchema: SpruceFormProps["uiSchema"];
-} => ({
+) => ({
   fields: {},
   schema: {
     type: "object" as "object",

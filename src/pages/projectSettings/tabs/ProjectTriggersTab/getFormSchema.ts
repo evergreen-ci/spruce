@@ -1,19 +1,15 @@
-import { Field } from "@rjsf/core";
-import { SpruceFormProps } from "components/SpruceForm";
 import widgets from "components/SpruceForm/Widgets";
+import { ProjectSettingsTabRoutes } from "constants/routes";
 import { TaskStatus } from "types/task";
 import { ProjectTriggerLevel } from "types/triggers";
+import { GetFormSchema } from "../types";
 import { form, ProjectType } from "../utils";
 
 const { overrideRadioBox } = form;
 
-export const getFormSchema = (
+export const getFormSchema: GetFormSchema<ProjectSettingsTabRoutes.ProjectTriggers> = (
   projectType: ProjectType
-): {
-  fields: Record<string, Field>;
-  schema: SpruceFormProps["schema"];
-  uiSchema: SpruceFormProps["uiSchema"];
-} => ({
+) => ({
   fields: {},
   schema: {
     type: "object" as "object",
