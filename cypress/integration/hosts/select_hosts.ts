@@ -7,12 +7,12 @@ describe("Select hosts in hosts page table", () => {
 
   beforeEach(() => {
     cy.preserveCookies();
+    cy.visit(`${hostsRoute}?distroId=ubuntu1604-large&page=0&statuses=running`);
+    cy.dataCy("hosts-table").should("exist");
+    cy.dataCy("hosts-table").should("not.have.attr", "data-loading", "true");
   });
 
   it("Selecting hosts shows hosts selection data", () => {
-    cy.visit(`${hostsRoute}?distroId=ubuntu1604-large&page=0&statuses=running`);
-    cy.dataCy("hosts-table").should("exist");
-
     cy.dataCy("restart-jasper-button").should("be.disabled");
     cy.dataCy("update-status-button").should("be.disabled");
 
@@ -26,9 +26,6 @@ describe("Select hosts in hosts page table", () => {
   });
 
   it("Can restart jasper for selected hosts", () => {
-    cy.visit(`${hostsRoute}?distroId=ubuntu1604-large&page=0&statuses=running`);
-    cy.dataCy("hosts-table").should("exist");
-
     cy.get(".ant-table-selection-column").within(() => {
       cy.get(".ant-checkbox-input").should("not.be.disabled");
 
@@ -41,9 +38,6 @@ describe("Select hosts in hosts page table", () => {
   });
 
   it("Can reprovision for selected hosts", () => {
-    cy.visit(`${hostsRoute}?distroId=ubuntu1604-large&page=0&statuses=running`);
-    cy.dataCy("hosts-table").should("exist");
-
     cy.get(".ant-table-selection-column").within(() => {
       cy.get(".ant-checkbox-input").should("not.be.disabled");
 
