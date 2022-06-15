@@ -6,7 +6,7 @@ import ErrorFallback from "./ErrorFallback";
 
 const {
   getBugsnagApiKey,
-  isProduction,
+  isProductionBuild,
   getAppVersion,
   getReleaseStage,
 } = environmentalVariables;
@@ -48,7 +48,7 @@ const getBoundary = () => {
 
 const initializeBugsnag = () => {
   // Only need to Bugsnag.start once, will throw console warnings otherwise
-  if (bugsnagStarted || !isProduction()) {
+  if (bugsnagStarted || !isProductionBuild()) {
     console.log("Bugsnag started");
     console.log(getAppVersion());
     return;

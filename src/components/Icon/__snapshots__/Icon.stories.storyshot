@@ -1976,6 +1976,25 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
+      aria-label="Failure Icon"
+      fill="currentColor"
+      height={16}
+      viewBox="0 0 21 21"
+      width={16}
+    >
+      <path
+        d="M17.7783.807588c-.7811-.7810482-2.0474-.7810486-2.8285 0L10.0001 5.75734 5.05035.807588c-.78105-.7810484-2.04738-.7810482-2.82843 0L.80771 2.2218c-.7810481.78105-.7810485 2.04738 0 2.82843l4.94975 4.94975L.80771 14.9497c-.7810474.7811-.7810481 2.0474 0 2.8285l1.41421 1.4142c.78105.781 2.04738.781 2.82843 0l4.94975-4.9498 4.9497 4.9498c.7811.781 2.0474.781 2.8285 0l1.4142-1.4142c.781-.7811.781-2.0474 0-2.8285l-4.9498-4.94972 4.9498-4.94975c.781-.78105.781-2.04738 0-2.82843L17.7783.807588Z"
+        fill="black"
+      />
+    </svg>
+    <span>
+      FailureIcon
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
       aria-label="Known failure Icon"
       fill="none"
       height={16}
@@ -1996,19 +2015,77 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
-      aria-label="Failure Icon"
-      fill="currentColor"
       height={16}
-      viewBox="0 0 21 21"
+      viewBox="0 0 38 38"
       width={16}
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <path
-        d="M17.7783.807588c-.7811-.7810482-2.0474-.7810486-2.8285 0L10.0001 5.75734 5.05035.807588c-.78105-.7810484-2.04738-.7810482-2.82843 0L.80771 2.2218c-.7810481.78105-.7810485 2.04738 0 2.82843l4.94975 4.94975L.80771 14.9497c-.7810474.7811-.7810481 2.0474 0 2.8285l1.41421 1.4142c.78105.781 2.04738.781 2.82843 0l4.94975-4.9498 4.9497 4.9498c.7811.781 2.0474.781 2.8285 0l1.4142-1.4142c.781-.7811.781-2.0474 0-2.8285l-4.9498-4.94972 4.9498-4.94975c.781-.78105.781-2.04738 0-2.82843L17.7783.807588Z"
-        fill="black"
-      />
+      <defs>
+        <linearGradient
+          id="a"
+          x1="8.042%"
+          x2="65.682%"
+          y1="0%"
+          y2="23.865%"
+        >
+          <stop
+            offset="0%"
+            stopColor="black"
+            stopOpacity="0"
+          />
+          <stop
+            offset="63.146%"
+            stopColor="black"
+            stopOpacity=".631"
+          />
+          <stop
+            offset="100%"
+            stopColor="black"
+          />
+        </linearGradient>
+      </defs>
+      <g
+        fill="none"
+        fillRule="evenodd"
+      >
+        <g
+          transform="translate(1 1)"
+        >
+          <path
+            d="M36 18c0-9.94-8.06-18-18-18"
+            id="Oval-2"
+            stroke="url(#a)"
+            strokeWidth="2"
+          >
+            <animateTransform
+              attributeName="transform"
+              dur="0.9s"
+              from="0 18 18"
+              repeatCount="indefinite"
+              to="360 18 18"
+              type="rotate"
+            />
+          </path>
+          <circle
+            cx="36"
+            cy="18"
+            fill="black"
+            r="1"
+          >
+            <animateTransform
+              attributeName="transform"
+              dur="0.9s"
+              from="0 18 18"
+              repeatCount="indefinite"
+              to="360 18 18"
+              type="rotate"
+            />
+          </circle>
+        </g>
+      </g>
     </svg>
     <span>
-      FailureIcon
+      Loading
     </span>
   </div>
   <div
@@ -2118,83 +2195,6 @@ exports[`storybook Storyshots Spruce Icons Icons 1`] = `
     </svg>
     <span>
       WillNotRun
-    </span>
-  </div>
-  <div
-    className="css-1eu126b-IconContainer e7xdko0"
-  >
-    <svg
-      height={16}
-      viewBox="0 0 38 38"
-      width={16}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <defs>
-        <linearGradient
-          id="a"
-          x1="8.042%"
-          x2="65.682%"
-          y1="0%"
-          y2="23.865%"
-        >
-          <stop
-            offset="0%"
-            stopColor="black"
-            stopOpacity="0"
-          />
-          <stop
-            offset="63.146%"
-            stopColor="black"
-            stopOpacity=".631"
-          />
-          <stop
-            offset="100%"
-            stopColor="black"
-          />
-        </linearGradient>
-      </defs>
-      <g
-        fill="none"
-        fillRule="evenodd"
-      >
-        <g
-          transform="translate(1 1)"
-        >
-          <path
-            d="M36 18c0-9.94-8.06-18-18-18"
-            id="Oval-2"
-            stroke="url(#a)"
-            strokeWidth="2"
-          >
-            <animateTransform
-              attributeName="transform"
-              dur="0.9s"
-              from="0 18 18"
-              repeatCount="indefinite"
-              to="360 18 18"
-              type="rotate"
-            />
-          </path>
-          <circle
-            cx="36"
-            cy="18"
-            fill="black"
-            r="1"
-          >
-            <animateTransform
-              attributeName="transform"
-              dur="0.9s"
-              from="0 18 18"
-              repeatCount="indefinite"
-              to="360 18 18"
-              type="rotate"
-            />
-          </circle>
-        </g>
-      </g>
-    </svg>
-    <span>
-      Loading
     </span>
   </div>
 </div>
