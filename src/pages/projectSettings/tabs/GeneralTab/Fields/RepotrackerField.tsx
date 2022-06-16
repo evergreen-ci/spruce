@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import styled from "@emotion/styled";
 import { Field } from "@rjsf/core";
 import { Button } from "components/Button";
 import { ConfirmationModal } from "components/ConfirmationModal";
+import ElementWrapper from "components/SpruceForm/ElementWrapper";
 import { useToastContext } from "context/toast";
 import {
   ForceRepotrackerRunMutation,
@@ -17,11 +17,7 @@ interface ModalProps {
   projectId: string;
 }
 
-export const Modal: React.VFC<ModalProps> = ({
-  closeModal,
-  open,
-  projectId,
-}) => {
+const Modal: React.VFC<ModalProps> = ({ closeModal, open, projectId }) => {
   const dispatchToast = useToastContext();
 
   const [forceRepotrackerRun, { loading }] = useMutation<
@@ -81,7 +77,7 @@ export const RepotrackerField: Field = ({ uiSchema }) => {
           projectId={projectId}
         />
       )}
-      <Container>
+      <ElementWrapper>
         <Button
           onClick={() => setOpen(true)}
           size="small"
@@ -89,11 +85,7 @@ export const RepotrackerField: Field = ({ uiSchema }) => {
         >
           Force Repotracker Run
         </Button>
-      </Container>
+      </ElementWrapper>
     </>
   );
 };
-
-const Container = styled.div`
-  margin-bottom: 20px;
-`;

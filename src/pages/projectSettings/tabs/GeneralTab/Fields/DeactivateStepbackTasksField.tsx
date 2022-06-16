@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import styled from "@emotion/styled";
 import { Description, Label } from "@leafygreen-ui/typography";
 import { Field } from "@rjsf/core";
 import { Button } from "components/Button";
 import { ConfirmationModal } from "components/ConfirmationModal";
+import ElementWrapper from "components/SpruceForm/ElementWrapper";
 import { useToastContext } from "context/toast";
 import {
   DeactivateStepbackTasksMutation,
@@ -18,11 +18,7 @@ interface ModalProps {
   projectId: string;
 }
 
-export const Modal: React.VFC<ModalProps> = ({
-  closeModal,
-  open,
-  projectId,
-}) => {
+const Modal: React.VFC<ModalProps> = ({ closeModal, open, projectId }) => {
   const dispatchToast = useToastContext();
 
   const [deactivateStepbackTasks, { loading }] = useMutation<
@@ -80,7 +76,7 @@ export const DeactivateStepbackTasksField: Field = ({ uiSchema }) => {
           projectId={projectId}
         />
       )}
-      <Container>
+      <ElementWrapper>
         <Label htmlFor={id}>
           Deactivate Currently Scheduled Stepback Tasks
         </Label>
@@ -97,11 +93,7 @@ export const DeactivateStepbackTasksField: Field = ({ uiSchema }) => {
             Deactivate
           </Button>
         </div>
-      </Container>
+      </ElementWrapper>
     </>
   );
 };
-
-const Container = styled.div`
-  margin-bottom: 20px;
-`;
