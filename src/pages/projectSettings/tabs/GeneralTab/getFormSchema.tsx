@@ -119,23 +119,6 @@ export const getFormSchema = (
               true
             ),
           },
-          scheduling: {
-            type: "object" as "object",
-            title: "Scheduling Settings",
-            properties: {
-              deactivatePrevious: {
-                type: ["boolean", "null"],
-                title: "Old Task on Success",
-                oneOf: radioBoxOptions(
-                  ["Unschedule", "Don't Unschedule"],
-                  repoData?.projectFlags?.scheduling?.deactivatePrevious
-                ),
-              },
-              deactivateStepback: {
-                type: "null" as "null",
-              },
-            },
-          },
           repotracker: {
             type: "object" as "object",
             title: "Repotracker Settings",
@@ -150,6 +133,23 @@ export const getFormSchema = (
                 ),
               },
               forceRun: {
+                type: "null" as "null",
+              },
+            },
+          },
+          scheduling: {
+            type: "object" as "object",
+            title: "Scheduling Settings",
+            properties: {
+              deactivatePrevious: {
+                type: ["boolean", "null"],
+                title: "Old Task on Success",
+                oneOf: radioBoxOptions(
+                  ["Unschedule", "Don't Unschedule"],
+                  repoData?.projectFlags?.scheduling?.deactivatePrevious
+                ),
+              },
+              deactivateStepback: {
                 type: "null" as "null",
               },
             },
@@ -348,18 +348,6 @@ export const getFormSchema = (
         "ui:widget": widgets.RadioBoxWidget,
         "ui:description": "Sets if any tasks can be dispatched.",
       },
-      scheduling: {
-        deactivatePrevious: {
-          "ui:widget": widgets.RadioBoxWidget,
-          "ui:description":
-            "When unscheduled, tasks from previous revisions will be unscheduled when the equivalent task in a newer commit finishes successfully.",
-        },
-        deactivateStepback: {
-          "ui:field": "deactivateStepbackTasks",
-          "ui:showLabel": false,
-          options: { projectId },
-        },
-      },
       repotracker: {
         repotrackerDisabled: {
           "ui:widget": widgets.RadioBoxWidget,
@@ -368,6 +356,18 @@ export const getFormSchema = (
         },
         forceRun: {
           "ui:field": "repotrackerField",
+          "ui:showLabel": false,
+          options: { projectId },
+        },
+      },
+      scheduling: {
+        deactivatePrevious: {
+          "ui:widget": widgets.RadioBoxWidget,
+          "ui:description":
+            "When unscheduled, tasks from previous revisions will be unscheduled when the equivalent task in a newer commit finishes successfully.",
+        },
+        deactivateStepback: {
+          "ui:field": "deactivateStepbackTasks",
           "ui:showLabel": false,
           options: { projectId },
         },
