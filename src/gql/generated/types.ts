@@ -226,6 +226,7 @@ export type Mutation = {
   attachProjectToRepo: Project;
   detachProjectFromRepo: Project;
   forceRepotrackerRun: Scalars["Boolean"];
+  deactivateStepbackTasks: Scalars["Boolean"];
   schedulePatch: Patch;
   schedulePatchTasks?: Maybe<Scalars["String"]>;
   unschedulePatchTasks?: Maybe<Scalars["String"]>;
@@ -308,6 +309,10 @@ export type MutationDetachProjectFromRepoArgs = {
 };
 
 export type MutationForceRepotrackerRunArgs = {
+  projectId: Scalars["String"];
+};
+
+export type MutationDeactivateStepbackTasksArgs = {
   projectId: Scalars["String"];
 };
 
@@ -2635,6 +2640,14 @@ export type CreatePublicKeyMutationVariables = Exact<{
 
 export type CreatePublicKeyMutation = {
   createPublicKey: Array<{ key: string; name: string }>;
+};
+
+export type DeactivateStepbackTasksMutationVariables = Exact<{
+  projectId: Scalars["String"];
+}>;
+
+export type DeactivateStepbackTasksMutation = {
+  deactivateStepbackTasks: boolean;
 };
 
 export type DefaultSectionToRepoMutationVariables = Exact<{

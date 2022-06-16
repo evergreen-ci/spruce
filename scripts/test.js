@@ -10,9 +10,6 @@ process.on("unhandledRejection", (err) => {
   throw err;
 });
 
-// Ensure environment variables are read.
-require("../config/env");
-
 const jest = require("jest");
 const { execSync } = require("child_process");
 const path = require("path");
@@ -28,15 +25,6 @@ function isInGitRepository() {
   }
 }
 
-function isInMercurialRepository() {
-  try {
-    execSync("hg --cwd . root", { stdio: "ignore" });
-    return true;
-  } catch (e) {
-    return false;
-  }
-}
-
 // Watch unless on CI or explicitly running all tests
 if (
   !process.env.CI &&
@@ -44,7 +32,7 @@ if (
   argv.indexOf("--watchAll=false") === -1
 ) {
   // https://github.com/facebook/create-react-app/issues/5210
-  const hasSourceControl = isInGitRepository() || isInMercurialRepository();
+  const hasSourceControl = isInGitRepository();
   argv.push(hasSourceControl ? "--watch" : "--watchAll");
 }
 

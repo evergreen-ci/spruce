@@ -89,10 +89,11 @@ export const DefaultFieldTemplate: React.VFC<FieldTemplateProps> = ({
   const isNullType = schema.type === "null";
   const sectionId = uiSchema["ui:sectionId"] ?? "";
   const border = uiSchema["ui:border"];
+  const showLabel = uiSchema["ui:showLabel"] ?? true;
   return (
     !hidden && (
       <>
-        {isNullType && (
+        {isNullType && showLabel && (
           <CustomTitleField id={id} title={label} uiSchema={uiSchema} />
         )}
         {isNullType && <>{description}</>}

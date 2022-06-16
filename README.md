@@ -48,7 +48,7 @@ Follow these directions to enable query linting during local development so your
 
 ```js
 {
-  "devServer": {
+  "devLocal": {
     "REACT_APP_SIGNAL_PROCESSING_URL": "https://performance-monitoring-and-analysis.server-tig.staging.corp.mongodb.com",
     "REACT_APP_GQL_URL": "http://localhost:9090/graphql/query",
     "REACT_APP_API_URL": "http://localhost:3000/api",

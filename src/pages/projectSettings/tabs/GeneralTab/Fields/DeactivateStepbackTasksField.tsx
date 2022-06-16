@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
+import { Description, Label } from "@leafygreen-ui/typography";
 import { Field } from "@rjsf/core";
 import { Button } from "components/Button";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import ElementWrapper from "components/SpruceForm/ElementWrapper";
 import { useToastContext } from "context/toast";
 import {
-  ForceRepotrackerRunMutation,
-  ForceRepotrackerRunMutationVariables,
+  DeactivateStepbackTasksMutation,
+  DeactivateStepbackTasksMutationVariables,
 } from "gql/generated/types";
-import { FORCE_REPOTRACKER_RUN } from "gql/mutations";
+import { DEACTIVATE_STEPBACK_TASKS } from "gql/mutations";
 
 interface ModalProps {
   closeModal: () => void;
@@ -20,30 +21,26 @@ interface ModalProps {
 const Modal: React.VFC<ModalProps> = ({ closeModal, open, projectId }) => {
   const dispatchToast = useToastContext();
 
-  const [forceRepotrackerRun, { loading }] = useMutation<
-    ForceRepotrackerRunMutation,
-    ForceRepotrackerRunMutationVariables
-  >(FORCE_REPOTRACKER_RUN, {
+  const [deactivateStepbackTasks, { loading }] = useMutation<
+    DeactivateStepbackTasksMutation,
+    DeactivateStepbackTasksMutationVariables
+  >(DEACTIVATE_STEPBACK_TASKS, {
     onCompleted() {
-      dispatchToast.success("Created repotracker job.");
+      dispatchToast.success("Stepback tasks deactivated.");
     },
     onError(err) {
       dispatchToast.error(
-        `There was an error creating the repotracker job: ${err.message}`
+        `There was an error deactivating stepback tasks: ${err.message}`
       );
     },
   });
 
-  const runRepotracker = () => {
-    forceRepotrackerRun({
+  const onConfirm = () => {
+    deactivateStepbackTasks({
       variables: {
         projectId,
       },
     });
-  };
-
-  const onConfirm = () => {
-    runRepotracker();
     closeModal();
   };
 
@@ -54,19 +51,21 @@ const Modal: React.VFC<ModalProps> = ({ closeModal, open, projectId }) => {
       onConfirm={onConfirm}
       open={open}
       submitDisabled={loading}
-      title="Force Repotracker Run"
+      title="Deactivate Scheduled Stepback Tasks"
     >
-      Are you sure you would like to force a Repotracker run?
+      Are you sure you would like to deactivate currently scheduled stepback
+      tasks?
     </ConfirmationModal>
   );
 };
 
-export const RepotrackerField: Field = ({ uiSchema }) => {
+export const DeactivateStepbackTasksField: Field = ({ uiSchema }) => {
   const {
     options: { projectId },
   } = uiSchema;
 
   const [open, setOpen] = useState(false);
+  const id = "deactivate-stepback-tasks-button";
 
   return (
     <>
@@ -78,13 +77,22 @@ export const RepotrackerField: Field = ({ uiSchema }) => {
         />
       )}
       <ElementWrapper>
-        <Button
-          onClick={() => setOpen(true)}
-          size="small"
-          data-cy="force-repotracker-run-button"
-        >
-          Force Repotracker Run
-        </Button>
+        <Label htmlFor={id}>
+          Deactivate Currently Scheduled Stepback Tasks
+        </Label>
+        <Description>
+          This will not turn off future stepbacks for the project.
+        </Description>
+        <div>
+          <Button
+            id={id}
+            onClick={() => setOpen(true)}
+            size="small"
+            data-cy={id}
+          >
+            Deactivate
+          </Button>
+        </div>
       </ElementWrapper>
     </>
   );
