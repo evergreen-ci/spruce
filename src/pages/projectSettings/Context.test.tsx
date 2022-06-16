@@ -1,3 +1,4 @@
+import { AjvError } from "@rjsf/core";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { TabDataProps } from "pages/projectSettings/tabs/types";
@@ -123,7 +124,7 @@ describe("projectSettingsContext", () => {
         formData: {
           vars: [],
         },
-        errors: ["err"],
+        errors: [{ name: "err" } as AjvError],
       });
     });
 
