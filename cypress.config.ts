@@ -13,5 +13,6 @@ export default defineConfig({
       openMode: 0,
     },
     supportFile: "cypress/support/e2e.ts",
+    specPattern: "cypress/integration/**/*.ts",
   },
 });
