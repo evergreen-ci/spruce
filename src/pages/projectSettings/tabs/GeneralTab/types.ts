@@ -21,9 +21,11 @@ export interface FormState {
     dispatchingDisabled: boolean | null;
     scheduling: {
       deactivatePrevious: boolean | null;
+      deactivateStepback: null;
     };
     repotracker: {
       repotrackerDisabled: boolean | null;
+      forceRun: null;
     };
     logger: {
       defaultLogger: string;

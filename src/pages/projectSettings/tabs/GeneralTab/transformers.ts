@@ -42,9 +42,11 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
       dispatchingDisabled: projectRef.dispatchingDisabled,
       scheduling: {
         deactivatePrevious: projectRef.deactivatePrevious,
+        deactivateStepback: null,
       },
       repotracker: {
         repotrackerDisabled: projectRef.repotrackerDisabled,
+        forceRun: null,
       },
       logger: {
         defaultLogger: projectRef.defaultLogger,
