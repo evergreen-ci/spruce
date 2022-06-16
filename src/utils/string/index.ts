@@ -103,6 +103,7 @@ export const omitTypename = (object) =>
 type DateCopyOptions = {
   tz?: string;
   dateOnly?: boolean;
+  omitSeconds?: boolean;
 };
 
 // Will return a time in the users local timezone when one is not provided
@@ -110,8 +111,10 @@ export const getDateCopy = (
   time: string | number | Date,
   options?: DateCopyOptions
 ) => {
-  const { tz, dateOnly } = options || {};
-  const dateFormat = dateOnly ? "MMM d, yyyy" : "MMM d, yyyy, h:mm:ss aa";
+  const { tz, dateOnly, omitSeconds } = options || {};
+  const dateFormat = dateOnly
+    ? "MMM d, yyyy"
+    : `MMM d, yyyy, h:mm${omitSeconds ? "" : ":ss"} aa`;
   if (tz) {
     return format(utcToZonedTime(time, tz), dateFormat);
   }
