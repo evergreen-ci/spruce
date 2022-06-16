@@ -16,10 +16,7 @@ describe("Job Logs", () => {
     cy.dataCy("groupId").contains(groupId);
     cy.dataCy("complete-test-logs-link")
       .should("have.attr", "href")
-      .and(
-        "equal",
-        `https://evergreen.mongodb.com/lobster/evergreen/complete-test/${taskId}/0/llama`
-      );
+      .and("contains", `/lobster/evergreen/complete-test/${taskId}/0/llama`);
 
     // This test should not be part of the 'Llama' group.
     cy.contains(testNotInLlama).should("not.exist");
@@ -39,10 +36,7 @@ describe("Job Logs", () => {
     cy.contains("Job Number").should("not.exist"); // don't show a groupId
     cy.dataCy("complete-test-logs-link")
       .should("have.attr", "href")
-      .and(
-        "equal",
-        `https://evergreen.mongodb.com/lobster/evergreen/complete-test/${taskId}/0`
-      );
+      .and("contains", `/lobster/evergreen/complete-test/${taskId}/0`);
 
     // This test should now be visible, as we are looking at all tests.
     cy.contains(testNotInLlama).should("exist");

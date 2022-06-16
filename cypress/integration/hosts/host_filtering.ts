@@ -163,12 +163,12 @@ describe("Hosts page filtering from table filters", () => {
 
   beforeEach(() => {
     cy.preserveCookies();
-    cy.visit(hostsRoute);
+    cy.visit(`${hostsRoute}?limit=100&page=0`);
+    cy.dataCy("hosts-table").should("be.visible");
+    cy.dataCy("hosts-table").should("not.have.attr", "data-loading", "true");
   });
 
   it("Filters hosts with input value when Enter key is pressed", () => {
-    cy.visit(`${hostsRoute}?limit=100&page=0`);
-
     cy.dataCy(distroFilterIconDataCy).click();
 
     cy.dataCy(`${distroFilterIconDataCy}-wrapper`).within(() => {
@@ -198,8 +198,6 @@ describe("Hosts page filtering from table filters", () => {
   });
 
   it("Trims the whitespace from filter input values", () => {
-    cy.visit(`${hostsRoute}?limit=100&page=0`);
-
     cy.dataCy(distroFilterIconDataCy).click();
 
     cy.dataCy(`${distroFilterIconDataCy}-wrapper`).within(() => {
@@ -231,14 +229,10 @@ describe("Hosts page filtering from table filters", () => {
   filterTests.forEach(({ param, filterIconDataCy, filterValue }) => {
     it(`Filters hosts using table filter dropdowns for ${param}`, () => {
       cy.dataCy(filterIconDataCy).click();
-
+      cy.dataCy(`${filterIconDataCy}-wrapper`).should("be.visible");
       cy.dataCy(`${filterIconDataCy}-wrapper`).within(() => {
         if (param === statusesParam) {
-          cy.get(".cy-checkbox").contains("Running").click({ force: true });
-
-          cy.get(".cy-checkbox")
-            .contains("Provisioning")
-            .click({ force: true });
+          cy.getInputByLabel("Running").click({ force: true });
         } else if (param === currentTaskIdParam) {
           // do this for really long text because otherwise cypress times out while typing and fails
           const subString = filterValue.substr(0, filterValue.length - 1);
