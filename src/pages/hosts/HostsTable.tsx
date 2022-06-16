@@ -307,6 +307,7 @@ export const HostsTable: React.VFC<Props> = ({
       getPopupContainer={(trigger: HTMLElement) => trigger}
       onChange={tableChangeHandler}
       loading={loading}
+      data-loading={loading}
     />
   );
 };
