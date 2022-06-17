@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import Button from "@leafygreen-ui/button";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Field } from "@rjsf/core";
-import { Button } from "components/Button";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { SpruceForm } from "components/SpruceForm";
 import { size, zIndex } from "constants/tokens";

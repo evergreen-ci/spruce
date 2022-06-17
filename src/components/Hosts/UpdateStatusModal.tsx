@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
+import Button from "@leafygreen-ui/button";
 import TextArea from "@leafygreen-ui/text-area";
 import { Body } from "@leafygreen-ui/typography";
 import { Select } from "antd";
 import { useHostsTableAnalytics } from "analytics";
-import { Button } from "components/Button";
+import { LoadingButton } from "components/Buttons";
 import { Modal } from "components/Modal";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -96,7 +97,7 @@ export const UpdateStatusModal: React.VFC<Props> = ({
         >
           Cancel
         </Button>,
-        <Button
+        <LoadingButton
           key="modal-update-button"
           data-cy="modal-update-button"
           variant="primary"
@@ -105,7 +106,7 @@ export const UpdateStatusModal: React.VFC<Props> = ({
           onClick={onClickUpdate}
         >
           Update
-        </Button>,
+        </LoadingButton>,
       ]}
     >
       <Body weight="medium">Host Status</Body>

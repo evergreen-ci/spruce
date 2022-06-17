@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Button } from "components/Button";
+import { useState } from "react";
 import { DropdownItem } from "components/ButtonDropdown";
+import { LoadingButton } from "components/Buttons";
 import { VersionRestartModal } from "components/VersionRestartModal";
 
 interface RestartPatchProps {
@@ -28,7 +28,7 @@ export const RestartPatch: React.VFC<RestartPatchProps> = ({
   return (
     <>
       {isButton ? (
-        <Button
+        <LoadingButton
           size="small"
           data-cy="restart-patch"
           disabled={disabled}
@@ -36,7 +36,7 @@ export const RestartPatch: React.VFC<RestartPatchProps> = ({
           onClick={onClick}
         >
           Restart
-        </Button>
+        </LoadingButton>
       ) : (
         <DropdownItem
           disabled={disabled}

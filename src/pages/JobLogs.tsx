@@ -1,10 +1,10 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import Button from "@leafygreen-ui/button";
 import { H2, Subtitle } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { useParams } from "react-router-dom";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
-import { Button } from "components/Button";
 import { StyledRouterLink, PageWrapper } from "components/styles";
 import { getLobsterTestLogCompleteUrl } from "constants/externalResources";
 import { getTaskRoute } from "constants/routes";

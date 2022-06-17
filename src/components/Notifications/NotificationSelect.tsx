@@ -1,4 +1,3 @@
-import React from "react";
 import Button from "@leafygreen-ui/button";
 import Icon from "@leafygreen-ui/icon";
 import { Body } from "@leafygreen-ui/typography";
@@ -146,6 +145,7 @@ export const NotificationSelect: React.VFC<NotificationSelectProps> = ({
               ) : (
                 <StyledInput
                   data-cy={inputDataCy}
+                  aria-labelledby="$extra-field-{key}-input"
                   id={`${key}-input`}
                   onChange={(event) => {
                     setExtraFieldInputVals({
@@ -216,6 +216,7 @@ export const NotificationSelect: React.VFC<NotificationSelectProps> = ({
                 <InputLabel htmlFor="target">{label}</InputLabel>
               </SectionLabelContainer>
               <StyledInput
+                aria-labelledby={`${targetPath}-input`}
                 id="target"
                 placeholder={placeholder}
                 data-cy={`${targetPath}-input`}

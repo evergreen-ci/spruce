@@ -1,12 +1,12 @@
 import { useQuery, ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
+import Button from "@leafygreen-ui/button";
 import { uiColors } from "@leafygreen-ui/palette";
 import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
 import { Skeleton } from "antd";
 import get from "lodash/get";
 import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
-import { Button } from "components/Button";
 import { pollInterval } from "constants/index";
 import { size, fontSize } from "constants/tokens";
 
