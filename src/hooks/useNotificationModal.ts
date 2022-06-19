@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import Cookies from "js-cookie";
 import get from "lodash/get";
 import { v4 as uuid } from "uuid";
-import { RegexSelectorProps } from "components/Notifications/NotificationModal/RegexSelectorInput";
+import { RegexSelectorProps } from "components/Notifications/RegexSelectorInput";
 import {
   getNotificationTriggerCookie,
   SUBSCRIPTION_METHOD,
@@ -11,14 +11,25 @@ import {
 import { clearExtraFieldsInputCb } from "constants/triggers";
 import { GetUserQuery } from "gql/generated/types";
 import { GET_USER } from "gql/queries";
-import { RegexItem } from "pages/projectSettings/tabs/NotificationsTab/NotificationsRow";
+// import { RegexItem } from "pages/projectSettings/tabs/NotificationsTab/NotificationsRow";
 import { SUBSCRIPTION_SLACK, SUBSCRIPTION_EMAIL } from "types/subscription";
-import { Trigger } from "types/triggers";
+import {
+  Trigger,
+  SubscriptionMethods,
+  Target,
+  StringMap,
+} from "types/triggers";
 import { useUserSettings } from "./useUserSettings";
+
+type RegexItem = {
+  regexType: string;
+  key: uuid;
+  regexValue: string;
+};
 
 export interface UseNotificationModalProps {
   subscriptionMethodControls: SubscriptionMethods;
-  triggers: Trigger[];
+  triggers: Trigger;
   resourceId: string;
   type: "task" | "version";
   currentRegexSelectors?: RegexItem[];
@@ -37,13 +48,12 @@ export const useNotificationModal = ({
   currentTriggerIndex,
 }: UseNotificationModalProps) => {
   const { userSettings } = useUserSettings();
-  // USER QUERY
-  const { data: userData } = useQuery<GetUserQuery>(GET_USER);
 
+  // USER QUERY -- need
+  const { data: userData } = useQuery<GetUserQuery>(GET_USER);
   const { slackUsername } = userSettings || {};
   const { user } = userData || {};
   const { emailAddress } = user || {};
-
   const [
     selectedSubscriptionMethod,
     setSelectedSubscriptionMethod,
@@ -54,16 +64,13 @@ export const useNotificationModal = ({
   const [extraFieldErrorMessages, setExtraFieldErrorMessages] = useState<
     string[]
   >([]);
-
   const [selectedTriggerIndex, setSelectedTriggerIndex] = useState<number>(
     () =>
       currentTriggerIndex ||
       parseInt(Cookies.get(getNotificationTriggerCookie(type)) || "0", 10)
   );
-
   const [extraFieldInputVals, setExtraFieldInputVals] = useState<StringMap>({});
   const [regexSelectorInputs, setRegexSelectorInputs] = useState<StringMap>({});
-
   const [regexSelectorPropsTemplate, setRegexSelectorPropsTemplate] = useState<
     RegexSelectorPropsTemplate[]
   >([{ regexType: "", key: uuid() }]);
@@ -73,14 +80,6 @@ export const useNotificationModal = ({
   const [buildInitiatorSelected, setBuildInitiatorSelected] = useState<string>(
     "Commit"
   );
-
-  const onClickAddRegexSelector = () => {
-    setRegexSelectorPropsTemplate([
-      ...regexSelectorPropsTemplate,
-      { regexType: "", key: uuid() },
-    ]);
-  };
-
   // extraFields represents schema additional inputs required for the selected trigger
   const {
     extraFields,
@@ -90,10 +89,43 @@ export const useNotificationModal = ({
     trigger,
   } = triggers[selectedTriggerIndex] || {};
 
+  // should be handled by form
+  useEffect(() => {
+    const targetEntries = Object.entries(target);
+    // check that required fields exist and there are no extra field errors
+    if (
+      !targetEntries.length ||
+      selectedTriggerIndex === undefined ||
+      !selectedSubscriptionMethod ||
+      extraFieldErrorMessages.length
+    ) {
+      setIsFormValid(false);
+      return;
+    }
+    // check that subscription methods input has the correct value
+    // targetEntries should only ever be length 1
+    const isTargetValid = targetEntries.reduce(
+      (accum, [tName, tVal]) =>
+        accum && subscriptionMethodControls[tName].validator(tVal),
+      true
+    );
+    setIsFormValid(isTargetValid);
+  }, [
+    subscriptionMethodControls,
+    target,
+    extraFieldInputVals,
+    selectedTriggerIndex,
+    selectedSubscriptionMethod,
+    extraFieldErrorMessages,
+    regexSelectorInputs,
+    regexSelectors,
+  ]);
+
   useEffect(() => {
     const disabledDropdownOptions = regexSelectorPropsTemplate
       .map(({ regexType }) => regexType)
       .filter((v) => v);
+
     setRegexSelectorProps(
       regexSelectorPropsTemplate.map(({ regexType, key }, i) => ({
         key,
@@ -197,21 +229,7 @@ export const useNotificationModal = ({
     currentRegexSelectors,
   ]);
 
-  // clear the input vals for the extraFields and regex selectors when the selected trigger changes
-  useEffect(() => {
-    setExtraFieldInputVals(
-      (extraFields ?? []).reduce(clearExtraFieldsInputCb, {})
-    );
-    setRegexSelectorPropsTemplate([{ regexType: "", key: uuid() }]);
-    setRegexSelectorInputs({});
-  }, [selectedTriggerIndex, extraFields]);
-
-  // reset Targets when subscription method changes
-  useEffect(() => {
-    setTarget({});
-  }, [selectedSubscriptionMethod]);
-
-  // handles populating an error messages error array for the extra fields
+  // Should be handled by form
   useEffect(() => {
     if (!extraFields) {
       setExtraFieldErrorMessages([]);
@@ -233,6 +251,7 @@ export const useNotificationModal = ({
     setExtraFieldErrorMessages(nextErrorMessages);
   }, [extraFieldInputVals, extraFields, setExtraFieldErrorMessages]);
 
+  // -- need (fill state)
   useEffect(() => {
     switch (selectedSubscriptionMethod) {
       case SUBSCRIPTION_SLACK.value:
@@ -250,6 +269,22 @@ export const useNotificationModal = ({
     }
   }, [selectedSubscriptionMethod, slackUsername, emailAddress]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Need -- resetting, though maybe it could be handled by form
+  // clear the input vals for the extraFields and regex selectors when the selected trigger changes
+  useEffect(() => {
+    setExtraFieldInputVals(
+      (extraFields ?? []).reduce(clearExtraFieldsInputCb, {})
+    );
+    setRegexSelectorPropsTemplate([{ regexType: "", key: uuid() }]);
+    setRegexSelectorInputs({});
+  }, [selectedTriggerIndex, extraFields]);
+
+  // Need -- also resetting
+  useEffect(() => {
+    setTarget({});
+  }, [selectedSubscriptionMethod]);
+
+  // Need
   const getRequestPayload = () => {
     const targetEntry = Object.entries(target)[0];
     return {
@@ -271,49 +306,26 @@ export const useNotificationModal = ({
     };
   };
 
+  // handled by form
+  const onClickAddRegexSelector = () => {
+    setRegexSelectorPropsTemplate([
+      ...regexSelectorPropsTemplate,
+      { regexType: "", key: uuid() },
+    ]);
+  };
+  // done
   const disableAddCriteria =
     regexSelectorPropsTemplate.length >= (regexSelectors?.length ?? 0);
-
+  // done
   const onChangeSubscriptionMethod = (v: string) => {
     setSelectedSubscriptionMethod(v);
     Cookies.set(SUBSCRIPTION_METHOD, v, { expires: 365 });
   };
-
+  // done
   const onChangeTrigger = (v: number) => {
     setSelectedTriggerIndex(v);
     Cookies.set(`${type}-notification-trigger`, `${v}`, { expires: 365 });
   };
-
-  useEffect(() => {
-    const targetEntries = Object.entries(target);
-    // check that required fields exist and there are no extra field errors
-    if (
-      !targetEntries.length ||
-      selectedTriggerIndex === undefined ||
-      !selectedSubscriptionMethod ||
-      extraFieldErrorMessages.length
-    ) {
-      setIsFormValid(false);
-      return;
-    }
-    // check that subscription methods input has the correct value
-    // targetEntries should only ever be length 1
-    const isTargetValid = targetEntries.reduce(
-      (accum, [tName, tVal]) =>
-        accum && subscriptionMethodControls[tName].validator(tVal),
-      true
-    );
-    setIsFormValid(isTargetValid);
-  }, [
-    subscriptionMethodControls,
-    target,
-    extraFieldInputVals,
-    selectedTriggerIndex,
-    selectedSubscriptionMethod,
-    extraFieldErrorMessages,
-    regexSelectorInputs,
-    regexSelectors,
-  ]);
 
   return {
     disableAddCriteria,
@@ -336,26 +348,3 @@ export const useNotificationModal = ({
     target,
   };
 };
-
-export interface Target {
-  "jira-comment"?: string;
-  email?: string;
-  slack?: string;
-}
-
-interface StringMap {
-  [index: string]: string;
-}
-
-export interface SubscriptionMethodControl {
-  label: string;
-  placeholder: string;
-  targetPath: string;
-  validator: (v: string) => boolean;
-}
-
-export interface SubscriptionMethods {
-  "jira-comment": SubscriptionMethodControl;
-  email: SubscriptionMethodControl;
-  slack: SubscriptionMethodControl;
-}

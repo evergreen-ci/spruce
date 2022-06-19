@@ -32,16 +32,47 @@ export const transformErrors = (errors: AjvError[]) =>
                 ...error,
                 message: "Value should not contain spaces.",
               };
+            case "validDuration":
+              return {
+                ...error,
+                message: "Duration must be  positive integer.",
+              };
+            case "validEmail":
+              return {
+                ...error,
+                message: "Value should be a valid email.",
+              };
+            case "validJiraTicket":
+              return {
+                ...error,
+                message: "Value should be a valid Jira ticket.",
+              };
+            case "validJiraURL":
+              return {
+                ...error,
+                message: "Value should be a valid Jira ticket URL.",
+              };
+            case "validPercentage":
+              return {
+                ...error,
+                message: "Percentage must be positive.",
+              };
+            case "validRegex":
+              return {
+                ...error,
+                message: "Value should be a valid regex expression.",
+              };
+            case "validSlack":
+              return {
+                ...error,
+                message: "Value should be a valid Slack username or channel.",
+              };
             case "validURL":
               return {
                 ...error,
                 message: "Value should be a valid URL.",
               };
-            case "validJiraTicket":
-              return {
-                ...error,
-                message: "Value should be a valid Jira ticket URL.",
-              };
+
             default:
               return { ...error, message: "" };
           }

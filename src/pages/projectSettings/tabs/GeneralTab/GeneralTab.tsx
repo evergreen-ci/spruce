@@ -22,6 +22,7 @@ export const GeneralTab: React.VFC<TabProps> = ({
   const { formData, initialData } = getTab(tab);
 
   const initialFormState = projectData || repoData;
+  console.log("initialFormState: ", initialFormState);
   usePopulateForm(initialFormState, tab);
 
   const onChange = updateForm(tab);
@@ -60,6 +61,7 @@ export const GeneralTab: React.VFC<TabProps> = ({
       validDefaultLoggers,
     ]
   );
+  console.log("fields: ", fields);
 
   if (!formData) return null;
 

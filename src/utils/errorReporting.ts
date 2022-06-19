@@ -55,7 +55,7 @@ const leaveBreadcrumb = (
   type: BreadcrumbType
 ) => {
   if (!isProductionBuild()) {
-    console.debug({ message, metadata, type });
+    // console.debug({ message, metadata, type });
   } else {
     Bugsnag.leaveBreadcrumb(message, metadata, type);
   }

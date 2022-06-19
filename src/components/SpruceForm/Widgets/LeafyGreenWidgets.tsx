@@ -139,7 +139,13 @@ const IconContainer = styled.span`
 `;
 
 export const LeafyGreenSelect: React.VFC<
-  { options: { allowDeselect?: boolean } } & EnumSpruceWidgetProps
+  {
+    options: {
+      allowDeselect?: boolean;
+      usePortal?: boolean;
+      disabledEnums?: string[];
+    };
+  } & EnumSpruceWidgetProps
 > = ({
   disabled,
   label,
@@ -152,6 +158,8 @@ export const LeafyGreenSelect: React.VFC<
 }) => {
   const {
     allowDeselect,
+    usePortal,
+    disabledEnums,
     ariaLabelledBy,
     description,
     enumOptions,
@@ -161,6 +169,7 @@ export const LeafyGreenSelect: React.VFC<
 
   const hasError = !!rawErrors?.length && !disabled;
   const isDisabled = disabled || readonly;
+  const disabledOptions = disabledEnums ?? [];
   const labelProps: OneOf<
     { label: string },
     { "aria-labelledby": string }
@@ -169,8 +178,9 @@ export const LeafyGreenSelect: React.VFC<
   return (
     <ElementWrapper marginBottom={marginBottom}>
       <MaxWidthContainer>
-        <Select
+        <StyledSelect
           allowDeselect={allowDeselect !== false}
+          usePortal={usePortal !== false}
           description={description}
           disabled={isDisabled}
           value={value}
@@ -182,7 +192,6 @@ export const LeafyGreenSelect: React.VFC<
           data-cy={dataCy}
           state={hasError ? "error" : "none"}
           errorMessage="Selection is required."
-          popoverZIndex={zIndex.dropdown}
         >
           {enumOptions.map((o) => {
             // Handle deselect value without errors
@@ -190,16 +199,31 @@ export const LeafyGreenSelect: React.VFC<
               return;
             }
             return (
-              <Option key={o.value} value={o.value}>
+              <Option
+                key={o.value}
+                value={o.value}
+                disabled={
+                  value !== o.value && disabledOptions.includes(o.value)
+                }
+              >
                 {o.label}
               </Option>
             );
           })}
-        </Select>
+        </StyledSelect>
       </MaxWidthContainer>
     </ElementWrapper>
   );
 };
+
+// @ts-expect-error
+// These styles are needed to use Select in a modal.
+// It should be fixed by LG upgrades but right now we don't have the proper version that would take care of this
+// for us.
+const StyledSelect = styled(Select)`
+  z-index: ${zIndex.dropdown};
+  position: relative;
+`;
 
 export const LeafyGreenRadio: React.VFC<EnumSpruceWidgetProps> = ({
   label,

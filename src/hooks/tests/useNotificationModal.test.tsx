@@ -1,10 +1,13 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { renderHook, act } from "@testing-library/react-hooks";
-import { triggers as patchTriggers } from "components/PatchActionButtons/addNotification/PatchNotificationModal";
-import { subscriptionMethodControls } from "constants/triggers";
+import {
+  patchTriggers,
+  taskTriggers,
+  subscriptionMethodControls,
+} from "constants/triggers";
+
 import { GET_USER_SETTINGS, GET_USER } from "gql/queries";
 import { useNotificationModal } from "hooks";
-import { triggers as taskTriggers } from "pages/task/actionButtons/TaskNotificationModal";
 import { mockUUID } from "test_utils";
 
 // Must mock uuid for this test since getRandomValues() is not supported in CI

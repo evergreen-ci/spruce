@@ -38,12 +38,14 @@ export const RenotifyDefaultTime = "48";
 type PayloadResourceIdKey = "in-version" | "in-build" | "id";
 
 export interface Trigger {
-  trigger: string;
-  label: string;
-  extraFields?: ExtraField[];
-  resourceType: ResourceType;
-  payloadResourceIdKey?: PayloadResourceIdKey;
-  regexSelectors?: RegexSelector[];
+  [triggerField: string]: {
+    trigger: string;
+    label: string;
+    extraFields?: ExtraField[];
+    resourceType: ResourceType;
+    payloadResourceIdKey?: PayloadResourceIdKey;
+    regexSelectors?: RegexSelector[];
+  };
 }
 
 export interface ExtraField {
@@ -52,7 +54,7 @@ export interface ExtraField {
   fieldType?: string;
   options?: string[];
   default?: string;
-  validator?: (v: any) => string;
+  format?: string;
   dataCy?: string;
 }
 
@@ -65,4 +67,24 @@ export interface RegexSelector {
 
 export interface StringMap {
   [index: string]: string;
+}
+
+export interface Target {
+  "jira-comment"?: string;
+  email?: string;
+  slack?: string;
+}
+
+export interface SubscriptionMethodControl {
+  dropdown: string;
+  label: string;
+  placeholder: string;
+  targetPath: string;
+  format: string;
+}
+
+export interface SubscriptionMethods {
+  "jira-comment": SubscriptionMethodControl;
+  email: SubscriptionMethodControl;
+  slack: SubscriptionMethodControl;
 }
