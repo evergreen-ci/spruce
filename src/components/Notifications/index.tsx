@@ -8,6 +8,7 @@ import {
   getNotificationTriggerCookie,
   SUBSCRIPTION_METHOD,
 } from "constants/cookies";
+import { projectTriggers } from "constants/triggers";
 import { useToastContext } from "context/toast";
 import {
   SaveSubscriptionMutation,
@@ -71,9 +72,9 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
     const method = formState.notification.notificationSelect;
     const target = formState.notification.notificationInput;
 
-    // extraFieldInputVals is a string map so it looks like { something: {}, other: {}}
+    // extraFieldInputVals is a string map{ "task1-field": "10", "task2-field": "10" }
     // regex_selectors needs to look like { type: something, data: something }
-    const regexSelectors = formState.event.regexSelector;
+    // const regexSelectors = formState.event.regexSelector;
     return {
       trigger,
       resource_type: resourceType,
@@ -85,12 +86,14 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
         type: method,
         target,
       },
-      trigger_data: {},
+      trigger_data: {}, // ex; { "task-duration-secs" : "10"}
       owner_type: "person",
-      regex_selectors: regexSelectors.map(([regexSelect, regexInput]) => ({
-        type: regexSelect,
-        data: regexInput,
-      })),
+      regex_selectors: [{ type: "ooh", data: "ahh" }],
+
+      // regexSelectors.map(([regexSelect, regexInput]) => ({
+      //   type: regexSelect,
+      //   data: regexInput,
+      // })),
     };
   };
 
@@ -113,7 +116,6 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
       eventSelect:
         Cookies.get(getNotificationTriggerCookie(type)) ||
         Object.keys(triggers)[0],
-      regexSelector: [],
     },
     notification: {
       notificationSelect: Cookies.get(SUBSCRIPTION_METHOD) ?? "jira-comment",
@@ -122,9 +124,10 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
   });
   const [canSubmit, setCanSubmit] = useState(false);
 
+  // turn this back later
   const { schema, uiSchema } = getFormSchema(
     formState,
-    triggers,
+    projectTriggers,
     subscriptionMethodControls
   );
 

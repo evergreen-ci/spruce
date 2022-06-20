@@ -67,7 +67,7 @@ export const taskRegexSelectors: RegexSelector[] = [
   },
 ];
 
-const failureTypeSubscriberOptions: string[] = [
+export const failureTypeSubscriberOptions: string[] = [
   "Any", // default
   "Test",
   "System",
@@ -147,7 +147,7 @@ export const taskTriggers: Trigger = {
       },
     ],
   },
-  "task-runtime-changes": {
+  "task-runtime-change": {
     trigger: TriggerType.RUNTIME_CHANGE,
     label: "This task succeeds and its runtime changes by some percentage",
     resourceType: ResourceType.TASK,
@@ -378,7 +378,7 @@ export const projectTriggers: Trigger = {
       },
     ],
   },
-  "runtime-version-changes": {
+  "runtime-version-change": {
     trigger: TriggerType.RUNTIME_CHANGE,
     label: "The Runtime For This Version Changes By Some Percentage",
     resourceType: ResourceType.VERSION,
