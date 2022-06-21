@@ -1,33 +1,30 @@
+import { AjvError } from "@rjsf/core";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { TabDataProps } from "pages/projectSettings/tabs/types";
-import {
-  ProjectSettingsProvider,
-  useIsAnyTabUnsaved,
-  useProjectSettingsContext,
-} from "./Context";
+import { ProjectSettingsProvider, useProjectSettingsContext } from "./Context";
 
 describe("projectSettingsContext", () => {
-  it("ensure that tabs are initially saved", async () => {
-    const { result } = renderHook(() => useIsAnyTabUnsaved(), {
+  it("ensure that tab are initially saved", async () => {
+    const { result } = renderHook(() => useProjectSettingsContext(), {
       wrapper: ProjectSettingsProvider,
     });
-    expect(result.current.hasUnsaved).toBe(false);
+
+    expect(
+      result.current.getTab(ProjectSettingsTabRoutes.General).hasChanges
+    ).toBe(false);
   });
 
   it("updating the form state unsaves the tab", async () => {
     const { result, waitForNextUpdate } = renderHook(
-      () => ({
-        projectSettings: useProjectSettingsContext(),
-        tabUnsaved: useIsAnyTabUnsaved(),
-      }),
+      () => useProjectSettingsContext(),
       {
         wrapper: ProjectSettingsProvider,
       }
     );
 
     act(() => {
-      result.current.projectSettings.setInitialData({
+      result.current.setInitialData({
         [ProjectSettingsTabRoutes.Variables]: {
           projectData: { vars: [] },
           repoData: null,
@@ -36,9 +33,7 @@ describe("projectSettingsContext", () => {
     });
 
     act(() => {
-      result.current.projectSettings.updateForm(
-        ProjectSettingsTabRoutes.Variables
-      )({
+      result.current.updateForm(ProjectSettingsTabRoutes.Variables)({
         formData: {
           vars: [
             {
@@ -54,23 +49,21 @@ describe("projectSettingsContext", () => {
     });
 
     await waitForNextUpdate();
-    expect(result.current.tabUnsaved.hasUnsaved).toBe(true);
-    expect(result.current.tabUnsaved.unsavedTabs).toStrictEqual(["variables"]);
+    expect(
+      result.current.getTab(ProjectSettingsTabRoutes.Variables).hasChanges
+    ).toBe(true);
   });
 
   it("updating the form state with identical data does not unsave the tab", async () => {
     const { result, waitForNextUpdate } = renderHook(
-      () => ({
-        projectSettings: useProjectSettingsContext(),
-        tabUnsaved: useIsAnyTabUnsaved(),
-      }),
+      () => useProjectSettingsContext(),
       {
         wrapper: ProjectSettingsProvider,
       }
     );
 
     act(() => {
-      result.current.projectSettings.setInitialData({
+      result.current.setInitialData({
         [ProjectSettingsTabRoutes.Variables]: {
           projectData: null,
           repoData: {
@@ -88,9 +81,7 @@ describe("projectSettingsContext", () => {
     });
 
     act(() => {
-      result.current.projectSettings.updateForm(
-        ProjectSettingsTabRoutes.Variables
-      )({
+      result.current.updateForm(ProjectSettingsTabRoutes.Variables)({
         formData: {
           vars: [
             {
@@ -106,23 +97,21 @@ describe("projectSettingsContext", () => {
     });
 
     await waitForNextUpdate();
-    expect(result.current.tabUnsaved.hasUnsaved).toBe(false);
-    expect(result.current.tabUnsaved.unsavedTabs).toStrictEqual([]);
+    expect(
+      result.current.getTab(ProjectSettingsTabRoutes.Variables).hasChanges
+    ).toBe(false);
   });
 
   it("updating push an error updates the tab's hasError state", async () => {
     const { result, waitForNextUpdate } = renderHook(
-      () => ({
-        projectSettings: useProjectSettingsContext(),
-        tabUnsaved: useIsAnyTabUnsaved(),
-      }),
+      () => useProjectSettingsContext(),
       {
         wrapper: ProjectSettingsProvider,
       }
     );
 
     act(() => {
-      result.current.projectSettings.setInitialData({
+      result.current.setInitialData({
         [ProjectSettingsTabRoutes.Variables]: {
           projectData: { vars: [] },
           repoData: null,
@@ -131,20 +120,17 @@ describe("projectSettingsContext", () => {
     });
 
     act(() => {
-      result.current.projectSettings.updateForm(
-        ProjectSettingsTabRoutes.Variables
-      )({
+      result.current.updateForm(ProjectSettingsTabRoutes.Variables)({
         formData: {
           vars: [],
         },
-        errors: ["err"],
+        errors: [{ name: "err" } as AjvError],
       });
     });
 
     await waitForNextUpdate();
     expect(
-      result.current.projectSettings.getTab(ProjectSettingsTabRoutes.Variables)
-        .hasError
+      result.current.getTab(ProjectSettingsTabRoutes.Variables).hasError
     ).toBe(true);
   });
 });

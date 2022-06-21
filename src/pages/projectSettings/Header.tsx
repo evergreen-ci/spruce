@@ -84,7 +84,10 @@ export const Header: React.VFC<Props> = ({
           projectRef: { identifier: newIdentifier },
         },
       },
-    }) => (identifier === newIdentifier ? ["ProjectSettings"] : []),
+    }) =>
+      identifier === newIdentifier
+        ? ["ProjectSettings", "GetViewableProjectRefs"]
+        : [],
   });
 
   const [saveRepoSection] = useMutation<
@@ -98,7 +101,7 @@ export const Header: React.VFC<Props> = ({
     onError(err) {
       dispatchToast.error(`There was an error saving the repo: ${err.message}`);
     },
-    refetchQueries: ["RepoSettings"],
+    refetchQueries: ["RepoSettings", "GetViewableProjectRefs"],
   });
 
   const onClick = () => {

@@ -15,7 +15,9 @@ describe("initializeBugsnag", () => {
   it("should not initialize bugsnag if on development environment", () => {
     const mockBugsnag = jest.fn();
     jest.spyOn(Bugsnag, "start").mockImplementation(mockBugsnag);
-    jest.spyOn(environmentalVariables, "isDevelopment").mockReturnValue(true);
+    jest
+      .spyOn(environmentalVariables, "isDevelopmentBuild")
+      .mockReturnValue(true);
     mockEnv("REACT_APP_VERSION", "1.0.0");
     initializeBugsnag();
     expect(Bugsnag.start).not.toHaveBeenCalled();
