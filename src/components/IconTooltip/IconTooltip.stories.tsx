@@ -11,7 +11,7 @@ const Sizes = {
 };
 
 export default {
-  title: "Icon Tooltip",
+  title: "Components/Icons/Tooltip",
   component: IconTooltip,
   args: {
     color: "#000000",

@@ -1,7 +1,7 @@
 import { InactiveCommitButton as InactiveCommits } from ".";
 
 export default {
-  title: "Inactive Commits",
+  title: "Pages/Commits/Inactive Commits",
   component: InactiveCommits,
 };
 

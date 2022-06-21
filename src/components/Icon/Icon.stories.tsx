@@ -10,7 +10,7 @@ const Sizes = {
 };
 
 export default {
-  title: "Spruce Icons",
+  title: "Components/Icons",
   component: Icon,
   args: {
     color: "#000000",

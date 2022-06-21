@@ -4,8 +4,8 @@ import { TaskStatus } from "types/task";
 import { HistoryTableIcon } from "./index";
 
 export default {
+  title: "Components/History Table/Icons",
   component: HistoryTableIcon,
-  title: "HistoryTableIcon",
 };
 
 const failingTests = [

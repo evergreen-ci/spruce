@@ -22,6 +22,6 @@ export const EditableTagFieldView = () => (
 );
 
 export default {
-  title: "Editable Tags Field",
+  title: "Components/Editable Tags Field",
   component: EditableTagField,
 };

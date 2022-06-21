@@ -1,7 +1,7 @@
 import Dropdown from ".";
 
 export default {
-  title: "Dropdown",
+  title: "Components/Dropdown",
   component: Dropdown,
   args: {
     disabled: false,

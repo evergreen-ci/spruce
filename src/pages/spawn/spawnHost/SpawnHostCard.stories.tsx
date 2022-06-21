@@ -52,6 +52,6 @@ const host = {
 export const SpawnHostCardStory = () => <SpawnHostCard host={host} />;
 
 export default {
-  title: "Spawn Host Card",
+  title: "Pages/Spawn/Spawn Host Card",
   component: SpawnHostCardStory,
 };

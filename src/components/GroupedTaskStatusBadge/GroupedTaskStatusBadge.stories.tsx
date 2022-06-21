@@ -4,7 +4,7 @@ import { TaskStatus } from "types/task";
 import { GroupedTaskStatusBadge } from ".";
 
 export default {
-  title: "Grouped Task Status Badge",
+  title: "Components/Grouped Task Status Badge",
   component: GroupedTaskStatusBadge,
 };
 

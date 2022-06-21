@@ -29,6 +29,6 @@ export const UserTagsFieldView = () => {
 };
 
 export default {
-  title: "User Tags Field",
+  title: "Pages/Spawn/User Tags Field",
   component: UserTagsField,
 };
