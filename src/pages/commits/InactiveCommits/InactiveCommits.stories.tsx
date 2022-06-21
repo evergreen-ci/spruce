@@ -1,17 +1,12 @@
-import { boolean, withKnobs } from "@storybook/addon-knobs";
 import { InactiveCommitButton as InactiveCommits } from ".";
 
 export default {
   title: "Inactive Commits",
   component: InactiveCommits,
-  decorators: [withKnobs],
 };
 
-export const Story = () => (
-  <InactiveCommits
-    rolledUpVersions={versions}
-    hasFilters={boolean("hasFilters", false)}
-  />
+export const Story = (args) => (
+  <InactiveCommits rolledUpVersions={versions} {...args} />
 );
 
 const versions = [

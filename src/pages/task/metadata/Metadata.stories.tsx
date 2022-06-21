@@ -1,13 +1,12 @@
 import styled from "@emotion/styled";
-import { withKnobs, boolean, select } from "@storybook/addon-knobs";
 import { MetStatus, RequiredStatus } from "gql/generated/types";
 import { Metadata } from "./index";
 import { taskQuery } from "./taskData";
 
-export const Base = () => (
+export const Base = (args) => (
   <Container>
     <Metadata
-      loading={boolean("Loading", false)}
+      {...args}
       task={taskQuery.task}
       taskId={taskQuery.task.id}
       error={null}
@@ -15,10 +14,10 @@ export const Base = () => (
   </Container>
 );
 
-export const WithDependencies = () => (
+export const WithDependencies = (args) => (
   <Container>
     <Metadata
-      loading={boolean("Loading", false)}
+      {...args}
       task={{
         ...taskQuery.task,
         dependsOn: [
@@ -58,22 +57,12 @@ export const WithDependencies = () => (
   </Container>
 );
 
-export const WithAbortMessage = () => {
-  const abortInfoSelection = select(
-    "Abort Info",
-    [
-      "NoUser",
-      "AbortedBecauseOfFailingTask",
-      "AbortedBecauseOfNewVersion",
-      "AbortedBecausePRClosed",
-    ],
-    "NoUser"
-  );
-  const abortInfo = abortInfoMap[abortInfoSelection];
+export const WithAbortMessage = (args) => {
+  const abortInfo = abortInfoMap[args.abortInfoSelection];
   return (
     <Container>
       <Metadata
-        loading={boolean("Loading", false)}
+        {...args}
         task={{
           ...taskQuery.task,
           aborted: true,
@@ -86,10 +75,23 @@ export const WithAbortMessage = () => {
   );
 };
 
+WithAbortMessage.args = {
+  abortInfoSelection: "NoUser",
+};
+WithAbortMessage.argTypes = {
+  abortInfoSelection: {
+    control: "select",
+    options: [
+      "NoUser",
+      "AbortedBecauseOfFailingTask",
+      "AbortedBecauseOfNewVersion",
+      "AbortedBecausePRClosed",
+    ],
+  },
+};
 export default {
-  title: "Metadata",
-  decorators: [withKnobs],
-  component: Base,
+  title: "Task Metadata",
+  component: Metadata,
 };
 
 const Container = styled.div`

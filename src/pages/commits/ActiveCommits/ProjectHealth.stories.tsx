@@ -1,29 +1,36 @@
-import { withKnobs, boolean, number } from "@storybook/addon-knobs";
 import { CommitVersion, Commit } from "types/commits";
 import { TaskStatus } from "types/task";
 import { CommitsWrapper } from "../CommitsWrapper";
 
 export default {
   title: "Project Health Page",
-  decorators: [withKnobs],
   component: CommitsWrapper,
+  args: {
+    buildVariantCount: 3,
+    taskCount: 1,
+    isLoading: false,
+    hasTaskFilter: false,
+    hasFilters: false,
+  },
 };
 
-export const ActualWaterfallPage = () => {
-  const buildVariantCount = number("buildVariantCount", 3, {
-    min: 1,
-  });
-  const taskCount = number("taskCount", 1);
+export const ActualWaterfallPage = ({
+  buildVariantCount,
+  taskCount,
+  isLoading,
+  hasTaskFilter,
+  hasFilters,
+}) => {
   const updatedVersions = versions.map((version) =>
     formatVersion(version, buildVariantCount, taskCount)
   );
   return (
     <CommitsWrapper
       versions={updatedVersions}
-      isLoading={boolean("isLoading", false)}
       error={null}
-      hasTaskFilter={boolean("hasTaskFilter", false)}
-      hasFilters={boolean("hasFilters", false)}
+      isLoading={isLoading}
+      hasTaskFilter={hasTaskFilter}
+      hasFilters={hasFilters}
     />
   );
 };

@@ -1,23 +1,25 @@
-import { withKnobs, boolean } from "@storybook/addon-knobs";
 import Dropdown from ".";
 
 export default {
   title: "Dropdown",
-  decorators: [withKnobs],
   component: Dropdown,
+  args: {
+    disabled: false,
+  },
 };
 
-export const Story = () => (
-  <Dropdown disabled={boolean("disabled", false)} buttonText="Test">
+export const Story = (args) => <Dropdown {...args}>Some Children</Dropdown>;
+Story.args = {
+  disabled: false,
+  text: "Test",
+};
+
+export const CustomButtonRender = (args) => (
+  <Dropdown {...args} buttonRenderer={() => <b>Some Magic Button</b>}>
     Some Children
   </Dropdown>
 );
 
-export const CustomButtonRender = () => (
-  <Dropdown
-    disabled={boolean("disabled", false)}
-    buttonRenderer={() => <b>Some Magic Button</b>}
-  >
-    Some Children
-  </Dropdown>
-);
+CustomButtonRender.args = {
+  disabled: false,
+};

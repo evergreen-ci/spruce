@@ -1,17 +1,31 @@
 import styled from "@emotion/styled";
-import { withKnobs, select } from "@storybook/addon-knobs";
 import { Size } from "components/Icon";
 import { size } from "constants/tokens";
 import { TaskStatus } from "types/task";
 import { TaskStatusIcon } from ".";
 
-export default {
-  title: "Task Status Icons",
-  decorators: [withKnobs],
-  component: TaskStatusIcon,
+const Sizes = {
+  [Size.Small]: 14,
+  [Size.Default]: 16,
+  [Size.Large]: 20,
+  [Size.XLarge]: 24,
 };
 
-export const AllStatuses = () => {
+export default {
+  title: "Task Status Icons",
+  component: TaskStatusIcon,
+  args: {
+    color: "#000000",
+    size: Sizes[Size.Default],
+  },
+  argTypes: {
+    size: {
+      control: { type: "select", options: Sizes },
+    },
+  },
+};
+
+export const AllStatuses = ({ size: s }) => {
   // filter out umbrella statuses
   const taskStatuses = Object.keys(TaskStatus).filter(
     (taskName) => !taskName.includes("Umbrella")
@@ -20,22 +34,12 @@ export const AllStatuses = () => {
     <Container>
       {taskStatuses.map((status) => (
         <IconContainer key={status}>
-          <TaskStatusIcon
-            status={TaskStatus[status]}
-            size={select("Size", Sizes, Sizes[Size.Default])}
-          />
+          <TaskStatusIcon status={TaskStatus[status]} size={s} />
           <span>{status}</span>
         </IconContainer>
       ))}
     </Container>
   );
-};
-
-const Sizes = {
-  [Size.Small]: 14,
-  [Size.Default]: 16,
-  [Size.Large]: 20,
-  [Size.XLarge]: 24,
 };
 
 const Container = styled.div`
