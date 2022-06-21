@@ -43,9 +43,11 @@ export const gqlToForm: GqlToFormFunction<Tab> = (
       dispatchingDisabled: projectRef.dispatchingDisabled,
       scheduling: {
         deactivatePrevious: projectRef.deactivatePrevious,
+        deactivateStepback: null,
       },
       repotracker: {
         repotrackerDisabled: projectRef.repotrackerDisabled,
+        forceRun: null,
       },
       logger: {
         defaultLogger: projectRef.defaultLogger,

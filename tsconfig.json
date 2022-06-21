@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
     "lib": [
       "dom",
       "dom.iterable",
@@ -24,15 +24,27 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "types": [
+      "@emotion/core", 
+      "node",
+      "jest",
+      "@testing-library/jest-dom"
+    ],
     "baseUrl": "src",
     "noFallthroughCasesInSwitch": true,
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "vite.config.ts"
   ],
   "include": [
     "src",
     "test_utils/index.tsx",
     "test_utils/custom-queries.ts"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
   ]
 }

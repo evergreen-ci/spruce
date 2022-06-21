@@ -13,7 +13,7 @@ import { GET_SPRUCE_CONFIG } from "gql/queries";
 import { environmentalVariables } from "utils";
 import { Dropdown } from "./NavDropdown";
 
-const { getUiUrl, isNotProduction } = environmentalVariables;
+const { getUiUrl, isProduction } = environmentalVariables;
 
 export const AuxiliaryDropdown = () => {
   const uiURL = getUiUrl();
@@ -45,7 +45,7 @@ export const AuxiliaryDropdown = () => {
       onClick: () => sendEvent({ name: "Click Projects Link" }),
     },
     // TODO: Remove in EVG-17059
-    ...(isNotProduction
+    ...(!isProduction()
       ? [
           {
             text: "Project Settings",

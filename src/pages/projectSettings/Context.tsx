@@ -35,8 +35,8 @@ type TabState = {
 type Action<T extends WritableTabRoutes> =
   | {
       type: "updateForm";
-      tab: WritableTabRoutes;
-      formData: FormStateMap[T];
+      tab: T;
+      formData: OnChangeParams<T>["formData"];
       errors: OnChangeParams<T>["errors"];
     }
   | { type: "saveTab"; tab: T }
@@ -108,7 +108,7 @@ interface ProjectSettingsState {
   getTab: <T extends WritableTabRoutes>(tab: T) => TabState[T];
   updateForm: <T extends WritableTabRoutes>(
     tab: T
-  ) => (formData: OnChangeParams<T>) => void;
+  ) => (e: OnChangeParams<T>) => void;
   setInitialData: (tabData: TabDataProps) => void;
 }
 
@@ -135,23 +135,27 @@ const ProjectSettingsProvider: React.VFC<{ children: React.ReactNode }> = ({
     []
   );
 
-  const updateForm: ProjectSettingsState["updateForm"] = (tab) => ({
-    formData,
-    errors = [],
-  }): void => {
+  const updateForm: ProjectSettingsState["updateForm"] = (
+    tab: WritableTabRoutes
+  ) => ({ formData, errors = [] }: OnChangeParams<WritableTabRoutes>) => {
     setHasChanges(tab, formData);
     dispatch({ type: "updateForm", tab, formData, errors });
   };
 
-  const saveTab: ProjectSettingsState["saveTab"] = (tab): void => {
+  const saveTab: ProjectSettingsState["saveTab"] = (tab: WritableTabRoutes) => {
     dispatch({ type: "saveTab", tab });
   };
 
-  const getTab: ProjectSettingsState["getTab"] = (tab) => state[tab];
+  const getTab: ProjectSettingsState["getTab"] = (
+    tab: ProjectSettingsTabRoutes
+  ) => state[tab];
 
-  const setInitialData = useCallback((tabData: TabDataProps) => {
-    dispatch({ type: "setInitialData", tabData });
-  }, []);
+  const setInitialData: ProjectSettingsState["setInitialData"] = useCallback(
+    (tabData: TabDataProps) => {
+      dispatch({ type: "setInitialData", tabData });
+    },
+    []
+  );
 
   return (
     <ProjectSettingsContext.Provider
