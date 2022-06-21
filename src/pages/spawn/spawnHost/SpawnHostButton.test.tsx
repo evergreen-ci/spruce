@@ -2,7 +2,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { GET_MY_HOSTS } from "gql/queries";
-import { renderWithRouterMatch as render, act } from "test_utils";
+import { renderWithRouterMatch as render, waitFor } from "test_utils";
 import { HostStatus } from "types/host";
 import { SpawnHostButton } from "./SpawnHostButton";
 
@@ -17,9 +17,10 @@ describe("spawnHostButton", () => {
         <Component />
       </MockedProvider>
     );
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    const spawnButton = getByText("Spawn a host").closest("button");
-    expect(spawnButton).toHaveAttribute("aria-disabled", "true");
+    await waitFor(() => {
+      const spawnButton = getByText("Spawn a host").closest("button");
+      expect(spawnButton).toHaveAttribute("aria-disabled", "true");
+    });
   });
 
   it("enables the spawn host button when the number of hosts that currently exist is less than the max number of spawn hosts per user", async () => {
@@ -29,9 +30,10 @@ describe("spawnHostButton", () => {
         <Component />
       </MockedProvider>
     );
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    const spawnButton = getByText("Spawn a host").closest("button");
-    expect(spawnButton).toHaveAttribute("aria-disabled", "false");
+    await waitFor(() => {
+      const spawnButton = getByText("Spawn a host").closest("button");
+      expect(spawnButton).toHaveAttribute("aria-disabled", "false");
+    });
   });
 
   it("does not count terminated hosts against the total host count", async () => {
@@ -43,9 +45,10 @@ describe("spawnHostButton", () => {
         <Component />
       </MockedProvider>
     );
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    const spawnButton = getByText("Spawn a host").closest("button");
-    expect(spawnButton).toHaveAttribute("aria-disabled", "false");
+    await waitFor(() => {
+      const spawnButton = getByText("Spawn a host").closest("button");
+      expect(spawnButton).toHaveAttribute("aria-disabled", "false");
+    });
   });
 });
 

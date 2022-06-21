@@ -1,0 +1,3 @@
+mutation DeactivateStepbackTasks($projectId: String!) {
+  deactivateStepbackTasks(projectId: $projectId)
+}
