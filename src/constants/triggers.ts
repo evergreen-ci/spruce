@@ -67,17 +67,18 @@ export const taskRegexSelectors: RegexSelector[] = [
   },
 ];
 
-export const failureTypeSubscriberOptions: string[] = [
-  "Any", // default
-  "Test",
-  "System",
-  "Setup",
-];
+export const failureTypeSubscriberOptions = {
+  any: "Any", // default
+  test: "Test",
+  system: "System",
+  setup: "Setup",
+};
 
 export const failureTypeSubscriberConfig = {
   text: "Failure Type",
   key: "failure-type",
-  type: "select",
+  fieldType: "select",
+  default: "any",
   options: failureTypeSubscriberOptions,
 };
 
@@ -92,8 +93,9 @@ export const requesterSubscriberOptions = {
 export const requesterSubscriberConfig = {
   text: "Build Initiator",
   key: "requester",
-  type: "select",
-  options: Object.values(requesterSubscriberOptions),
+  fieldType: "select",
+  default: "gitter_request",
+  options: requesterSubscriberOptions,
 };
 
 export const clearExtraFieldsInputCb = (accum: StringMap, eF: ExtraField) => ({
@@ -140,6 +142,7 @@ export const taskTriggers: Trigger = {
     extraFields: [
       {
         text: "Task duration (seconds)",
+        fieldType: "input",
         key: ExtraFieldKey.TASK_DURATION_SECS,
         dataCy: "duration-secs-input",
         format: "validDuration",
@@ -155,6 +158,7 @@ export const taskTriggers: Trigger = {
     extraFields: [
       {
         text: "Percent change",
+        fieldType: "input",
         key: ExtraFieldKey.TASK_PERCENT_CHANGE,
         dataCy: "percent-change-input",
         format: "validPercentage",
@@ -192,6 +196,7 @@ export const patchTriggers: Trigger = {
     extraFields: [
       {
         text: "Version duration (seconds)",
+        fieldType: "input",
         key: ExtraFieldKey.VERSION_DURATION_SECS,
         dataCy: "duration-secs-input",
         format: "validDuration",
@@ -207,6 +212,7 @@ export const patchTriggers: Trigger = {
     extraFields: [
       {
         text: "Percent change",
+        fieldType: "input",
         key: ExtraFieldKey.VERSION_PERCENT_CHANGE,
         dataCy: "percent-change-input",
         format: "validPercentage",
@@ -307,6 +313,7 @@ export const projectTriggers: Trigger = {
     extraFields: [
       {
         text: "Re-Notify After How Many Hours",
+        fieldType: "input",
         key: ExtraFieldKey.RENOTIFY_INTERVAL,
         format: "validDuration",
         default: RenotifyDefaultTime,
@@ -322,12 +329,14 @@ export const projectTriggers: Trigger = {
     extraFields: [
       {
         text: "Test Names Matching Regex",
+        fieldType: "input",
         key: ExtraFieldKey.TEST_REGEX,
         format: "validRegex",
         default: "",
       },
       {
         text: "Re-Notify After How Many Hours",
+        fieldType: "input",
         key: ExtraFieldKey.RENOTIFY_INTERVAL,
         format: "validDuration",
         default: RenotifyDefaultTime,
@@ -343,6 +352,7 @@ export const projectTriggers: Trigger = {
     extraFields: [
       {
         text: "Task Duration (Seconds)",
+        fieldType: "input",
         key: ExtraFieldKey.TASK_DURATION_SECS,
         format: "validDuration",
         default: "10",
@@ -357,6 +367,7 @@ export const projectTriggers: Trigger = {
     extraFields: [
       {
         text: "Percent Change",
+        fieldType: "input",
         key: ExtraFieldKey.TASK_PERCENT_CHANGE,
         format: "validPercentage",
         default: "10",
@@ -371,6 +382,7 @@ export const projectTriggers: Trigger = {
     extraFields: [
       {
         text: "Version duration (seconds)",
+        fieldType: "input",
         key: ExtraFieldKey.VERSION_DURATION_SECS,
         dataCy: "duration-secs-input",
         format: "validDuration",
@@ -386,6 +398,7 @@ export const projectTriggers: Trigger = {
     extraFields: [
       {
         text: "Percent Change",
+        fieldType: "input",
         key: ExtraFieldKey.VERSION_PERCENT_CHANGE,
         dataCy: "percent-change-input",
         format: "validPercentage",

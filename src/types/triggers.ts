@@ -52,7 +52,7 @@ export interface ExtraField {
   text: string;
   key: string;
   fieldType?: string;
-  options?: string[];
+  options?: StringMap;
   default?: string;
   format?: string;
   dataCy?: string;

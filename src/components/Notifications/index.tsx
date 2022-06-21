@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import Button, { Variant } from "@leafygreen-ui/button";
 import Cookies from "js-cookie";
 import { Modal } from "components/Modal";
@@ -13,9 +13,12 @@ import { useToastContext } from "context/toast";
 import {
   SaveSubscriptionMutation,
   SaveSubscriptionMutationVariables,
+  GetUserQuery,
 } from "gql/generated/types";
 import { SAVE_SUBSCRIPTION } from "gql/mutations";
+import { GET_USER } from "gql/queries";
 import { UseNotificationModalProps } from "hooks/useNotificationModal";
+import { useUserSettings } from "hooks/useUserSettings";
 import { getFormSchema } from "./getFormSchema";
 
 interface NotificationModalProps extends UseNotificationModalProps {
@@ -51,6 +54,13 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
     },
   });
 
+  const { userSettings } = useUserSettings();
+  const { slackUsername } = userSettings || {};
+
+  const { data: userData } = useQuery<GetUserQuery>(GET_USER);
+  const { user } = userData || {};
+  const { emailAddress } = user || {};
+
   // Subscription input looks like
   // {
   //   id?: Maybe<Scalars["String"]>;
@@ -63,14 +73,14 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
   //   owner?: Maybe<Scalars["String"]>;
   //   trigger_data: Scalars["StringMap"];
   // }
-
   // This is the payload sent when processing notifications.
   const getRequestPayload = () => {
     const selectedEvent = triggers[formState.event.eventSelect];
     const { payloadResourceIdKey, resourceType, trigger } = selectedEvent;
 
     const method = formState.notification.notificationSelect;
-    const target = formState.notification.notificationInput;
+    // this should be done better
+    const target = formState.notification.jiraInput;
 
     // extraFieldInputVals is a string map{ "task1-field": "10", "task2-field": "10" }
     // regex_selectors needs to look like { type: something, data: something }
@@ -89,7 +99,6 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
       trigger_data: {}, // ex; { "task-duration-secs" : "10"}
       owner_type: "person",
       regex_selectors: [{ type: "ooh", data: "ahh" }],
-
       // regexSelectors.map(([regexSelect, regexInput]) => ({
       //   type: regexSelect,
       //   data: regexInput,
@@ -106,11 +115,6 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
     onCancel();
   };
 
-  const handleSubmit = () => {
-    console.log("submitted form");
-  };
-
-  // formState
   const [formState, setFormState] = useState({
     event: {
       eventSelect:
@@ -119,7 +123,9 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
     },
     notification: {
       notificationSelect: Cookies.get(SUBSCRIPTION_METHOD) ?? "jira-comment",
-      notificationInput: "",
+      jiraInput: "",
+      slackInput: slackUsername ? `@${slackUsername}` : "",
+      emailInput: emailAddress ?? "",
     },
   });
   const [canSubmit, setCanSubmit] = useState(false);
@@ -148,7 +154,6 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
   };
 
   // Need to clear the input vals for the extraFields and regex selectors when the selected trigger changes
-
   console.log(formState);
 
   return (
@@ -179,7 +184,6 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
       }
     >
       <SpruceForm
-        onSubmit={handleSubmit}
         schema={schema}
         uiSchema={uiSchema}
         formData={formState}
