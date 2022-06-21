@@ -214,7 +214,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   };
 
   const onClose = () => {
-    dispatch({ type: "reset" }); // reset modal contents
+    dispatch({ type: "reset" }); // reset modal content
     onCancel();
   };
 
