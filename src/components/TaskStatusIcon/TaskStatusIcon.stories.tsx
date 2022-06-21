@@ -12,7 +12,7 @@ const Sizes = {
 };
 
 export default {
-  title: "Task Status Icons",
+  title: "Components/Icons/Task Status",
   component: TaskStatusIcon,
   args: {
     color: "#000000",

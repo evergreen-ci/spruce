@@ -5,7 +5,7 @@ import FilterBadges from ".";
 import { FilterBadgeType } from "./FilterBadge";
 
 export default {
-  title: "FilterBadges",
+  title: "Components/FilterBadges",
   component: FilterBadges,
 };
 

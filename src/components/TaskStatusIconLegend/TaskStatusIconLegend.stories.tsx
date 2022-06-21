@@ -1,7 +1,7 @@
 import { TaskStatusIconLegend, LegendContent } from ".";
 
 export default {
-  title: "Task Status Icon Legend",
+  title: "Components/Task Status Icon Legend",
   component: TaskStatusIconLegend,
 };
 

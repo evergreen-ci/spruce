@@ -1,7 +1,7 @@
 import NotFound from "./NotFound";
 
 export default {
-  title: "Not Found",
+  title: "Pages/404/Not Found",
   component: NotFound,
 };
 

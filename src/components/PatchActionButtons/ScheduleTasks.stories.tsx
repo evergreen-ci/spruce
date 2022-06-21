@@ -3,7 +3,7 @@ import WithToastContext from "test_utils/toast-decorator";
 import { ScheduleTasks } from ".";
 
 export default {
-  title: "Schedule Tasks",
+  title: "Components/Schedule Tasks",
   component: ScheduleTasks,
   decorators: [(story) => WithToastContext(story)],
 };

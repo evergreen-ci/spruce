@@ -90,7 +90,7 @@ WithAbortMessage.argTypes = {
   },
 };
 export default {
-  title: "Task Metadata",
+  title: "Pages/Task/Metadata",
   component: Metadata,
 };
 

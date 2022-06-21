@@ -6,7 +6,7 @@ import { TestStatus } from "types/history";
 import { HistoryTableTestSearch } from "./HistoryTableTestSearch";
 
 export default {
-  title: "HistoryTableTestSearch",
+  title: "Components/History Table/HistoryTableTestSearch",
   component: HistoryTableTestSearch,
 };
 

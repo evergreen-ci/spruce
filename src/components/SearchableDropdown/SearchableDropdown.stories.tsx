@@ -2,7 +2,7 @@ import { useState } from "react";
 import SearchableDropdown from ".";
 
 export default {
-  title: "Searchable Dropdown",
+  title: "Components/Searchable Dropdown",
   component: SearchableDropdown,
 };
 

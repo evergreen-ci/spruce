@@ -2,7 +2,7 @@ import { actions } from "@storybook/addon-actions";
 import Breadcrumbs from ".";
 
 export default {
-  title: "Breadcrumbs",
+  title: "Components/Breadcrumbs",
   component: Breadcrumbs,
 };
 

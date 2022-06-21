@@ -3,7 +3,7 @@ import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
 import { WaterfallTaskStatusIcon } from "./WaterfallTaskStatusIcon";
 
 export default {
-  title: "WaterfallTaskStatusIcon",
+  title: "Pages/Commits/WaterfallIcon",
   decorators: [
     (Story) => (
       <MockedProvider mocks={[getTooltipQueryMock]} addTypename={false}>

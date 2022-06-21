@@ -4,7 +4,7 @@ import { ProjectFilterOptions } from "types/commits";
 import TupleSelect from ".";
 
 export default {
-  title: "TupleSelect",
+  title: "Components/TupleSelect",
   component: TupleSelect,
 };
 

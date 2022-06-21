@@ -3,7 +3,7 @@ import { TaskStatus } from "types/task";
 import { CommitsWrapper } from "../CommitsWrapper";
 
 export default {
-  title: "Project Health Page",
+  title: "Pages/Commits/Project Health Page",
   component: CommitsWrapper,
   args: {
     buildVariantCount: 3,

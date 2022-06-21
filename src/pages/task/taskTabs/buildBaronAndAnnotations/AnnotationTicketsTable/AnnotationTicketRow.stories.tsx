@@ -1,7 +1,7 @@
 import { AnnotationTicketRow } from "./AnnotationTicketRow";
 
 export default {
-  title: "BuildBaron/AnnotationTicketRow",
+  title: "Pages/BuildBaron/AnnotationTicketRow",
   component: AnnotationTicketRow,
   args: {
     confidenceScore: 0.5,
