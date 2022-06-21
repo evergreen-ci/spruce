@@ -6,6 +6,7 @@ import { StyledLink, StyledRouterLink } from "components/styles";
 import { getIdeUrl } from "constants/externalResources";
 import { getSpawnVolumeRoute } from "constants/routes";
 import { size } from "constants/tokens";
+import { useUserTimeZone } from "hooks/useUserTimeZone";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 import { string } from "utils";
@@ -24,15 +25,24 @@ export const SpawnHostCard: React.VFC<SpawnHostCardProps> = ({ host }) => (
   />
 );
 
+const HostUptime: React.VFC<MyHost> = ({ uptime }) => {
+  const tz = useUserTimeZone();
+  return <span>{getDateCopy(uptime, { tz })}</span>;
+};
+
+const HostExpiration: React.VFC<MyHost> = ({ noExpiration, expiration }) => {
+  const tz = useUserTimeZone();
+  return (
+    <span>
+      {noExpiration ? DoesNotExpire : getDateCopy(expiration, { tz })}
+    </span>
+  );
+};
 const spawnHostCardFieldMaps = {
   ID: (host: MyHost) => <span>{host?.id}</span>,
-  "Created at": (host: MyHost) => <span>{getDateCopy(host?.uptime)}</span>,
-  "Started at": (host: MyHost) => <span>{getDateCopy(host?.uptime)}</span>,
-  "Expires at": (host: MyHost) => (
-    <span>
-      {host?.noExpiration ? DoesNotExpire : getDateCopy(host?.expiration)}
-    </span>
-  ),
+  "Created at": HostUptime,
+  "Started at": HostUptime,
+  "Expires at": HostExpiration,
   "SSH User": (host: MyHost) => <span>{host?.distro?.user}</span>,
   "DNS Name": (host: MyHost) => <span>{host?.hostUrl}</span>,
   "Working Directory": (host: MyHost) => <span>{host?.distro?.workDir}</span>,
