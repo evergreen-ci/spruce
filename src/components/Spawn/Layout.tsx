@@ -1,4 +1,4 @@
-import React from "react";
+import { forwardRef } from "react";
 import styled from "@emotion/styled";
 import { ExtendableBox } from "@leafygreen-ui/box";
 import Button, { ButtonProps } from "@leafygreen-ui/button";
@@ -26,9 +26,9 @@ export const StyledBadge = styled(Badge)`
 export const PlusButton: ExtendableBox<
   ButtonProps & { ref?: React.Ref<any> },
   "button"
-> = React.forwardRef(({ leftGlyph, ...rest }: ButtonProps, forwardRef) => (
+> = forwardRef(({ leftGlyph, ...rest }: ButtonProps, ref) => (
   <Button
-    ref={forwardRef}
+    ref={ref}
     {...{ ...rest, leftGlyph: <Icon glyph="Plus" /> }}
     as="button"
   />

@@ -1,4 +1,3 @@
-import React from "react";
 import { render, fireEvent, mockUUID } from "test_utils";
 import { EditableTagField } from ".";
 

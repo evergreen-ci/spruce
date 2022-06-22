@@ -1,4 +1,3 @@
-import React from "react";
 import { DoesNotExpire, DetailsCard } from "components/Spawn";
 import { MyVolume } from "types/spawn";
 import { string } from "utils";

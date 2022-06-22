@@ -1,4 +1,3 @@
-import React from "react";
 import { StyledRouterLink } from "components/styles";
 import { P2 } from "components/Typography";
 import { getTaskRoute, getVersionRoute } from "constants/routes";

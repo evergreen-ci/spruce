@@ -1,4 +1,3 @@
-import React from "react";
 import { render } from "test_utils";
 import { ConditionalWrapper } from "./index";
 

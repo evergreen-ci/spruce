@@ -1,4 +1,4 @@
-import React from "react";
+import { forwardRef } from "react";
 import { ExtendableBox } from "@leafygreen-ui/box";
 import LeafyGreenButton, { ButtonProps } from "@leafygreen-ui/button";
 import Icon from "components/Icon";
@@ -10,14 +10,12 @@ type Props = ButtonProps & {
 const Button: ExtendableBox<
   Props & { ref?: React.Ref<any> },
   "button"
-> = React.forwardRef(
-  ({ loading = false, leftGlyph, ...rest }: Props, forwardRef) => (
-    <LeafyGreenButton
-      ref={forwardRef}
-      {...rest}
-      leftGlyph={loading ? <Icon glyph="Loading" /> : leftGlyph}
-    />
-  )
-);
+> = forwardRef(({ loading = false, leftGlyph, ...rest }: Props, r) => (
+  <LeafyGreenButton
+    ref={r}
+    {...rest}
+    leftGlyph={loading ? <Icon glyph="Loading" /> : leftGlyph}
+  />
+));
 
 export { Button };

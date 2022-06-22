@@ -1,4 +1,3 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { NotificationModal } from "components/Notifications/NotificationModal";

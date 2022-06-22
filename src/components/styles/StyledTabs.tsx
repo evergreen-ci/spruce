@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { Tabs, Tab } from "@leafygreen-ui/tabs";
 

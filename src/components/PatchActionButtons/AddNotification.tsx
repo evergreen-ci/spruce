@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useVersionAnalytics } from "analytics";
 import { Button } from "components/Button";
 import { PatchNotificationModal } from "./addNotification/PatchNotificationModal";
