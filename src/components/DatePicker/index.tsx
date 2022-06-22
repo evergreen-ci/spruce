@@ -1,3 +1,4 @@
+import React from "react";
 import InteractionRing from "@leafygreen-ui/interaction-ring";
 import { uiColors } from "@leafygreen-ui/palette";
 import generatePicker from "antd/lib/date-picker/generatePicker";
@@ -16,14 +17,15 @@ type GeneratedDatePickerProps = React.ComponentPropsWithRef<
 type DatePickerProps = GeneratedDatePickerProps & {
   disabled?: boolean;
 };
-const DatePicker: React.VFC<DatePickerProps> = (props) => {
+
+const DatePicker = React.forwardRef<any, DatePickerProps>((props, ref) => {
   const { disabled = false } = props;
   return (
     <InteractionRing disabled={disabled}>
-      <GeneratedDatePicker {...props} style={leafygreenInputStyle} />
+      <GeneratedDatePicker {...props} style={leafygreenInputStyle} ref={ref} />
     </InteractionRing>
   );
-};
+});
 
 const leafygreenInputStyle = {
   border: `1px solid ${gray.base}`,

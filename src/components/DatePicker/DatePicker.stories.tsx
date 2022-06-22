@@ -1,3 +1,4 @@
+import { action } from "@storybook/addon-actions";
 import DatePicker from ".";
 
 export default {
@@ -8,4 +9,6 @@ export default {
   },
 };
 
-export const Default = (args) => <DatePicker {...args} onChange={() => {}} />;
+export const Default = (args) => {
+  <DatePicker {...args} onChange={(d) => action("Date changed")(d)} />;
+};
