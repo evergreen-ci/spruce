@@ -1,7 +1,7 @@
 const { readdirSync } = require('fs');
 const path = require('path');
-const react = require("@vitejs/plugin-react");
 const gql = require("./graphql.js")
+const vitePluginImp = require("vite-plugin-imp")
 // Allow imports from absolute paths
 const absolutePaths = readdirSync(path.resolve(__dirname, "../src")).filter(
   (file) => !file.startsWith(".")
@@ -49,12 +49,40 @@ module.exports = {
       'emotion-theming': path.resolve(path.join(__dirname, '../node_modules/@emotion/react')),
       ...absolutePathAliasMap
     }
-    console.log(
-      config.optimizeDeps
-    )
     config.optimizeDeps.include.push("graphql-tag")
+
      // Support imports of graphql files
     config.plugins.push(gql())
+    config.plugins.push( // Dynamic imports of antd styles
+    vitePluginImp.default({
+      optimize: true,
+      libList: [
+        {
+          libName: "antd",
+          libDirectory: "es",
+          style: (name) => `antd/es/${name}/style/index.js`,
+        },
+        {
+          libName: "lodash",
+          libDirectory: "",
+          camel2DashComponentName: false,
+          style: (name) => `lodash/${name}`,
+        },
+        {
+          libName: "date-fns",
+          libDirectory: "",
+          style: (name) => `date-fns/esm/${name}`,
+          camel2DashComponentName: false,
+        },
+      ],
+    }))
+    config.css = {
+    preprocessorOptions: {
+      less: {
+        javascriptEnabled: true, // enable LESS {@import ...}
+      },
+    },
+  }
     return config;
   },
 }

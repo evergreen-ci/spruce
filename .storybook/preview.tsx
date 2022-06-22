@@ -2,7 +2,6 @@ import { MemoryRouter } from "react-router-dom"
 import { WithApolloClient } from "storybook-addon-apollo-client/dist/decorators";
 import { MockedProvider } from "@apollo/client/testing";
 
-
 const WithReactRouter = (Story) => (
   <MemoryRouter>
     <Story />
@@ -21,4 +20,4 @@ export const parameters = {
     MockedProvider
   },
 }
-export const decorators = [WithReactRouter, WithApolloClient]
+export const decorators = [WithApolloClient, WithReactRouter]
