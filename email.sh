@@ -82,8 +82,6 @@ case "$OSTYPE" in
   *)        echo "unknown: $OSTYPE";;
 esac
 
-# sed remove single quote and replace with &lsquo;
-sed -e 's|["'\'']|\&lsquo;|g' body.txt
 echo "Commits Deployed:"
 cat body.txt
 
