@@ -40,7 +40,7 @@ describe("Task Annotation Tab", () => {
     cy.get(suspectedIssuesTable).should("have.length", 3);
 
     // add a ticket
-    cy.dataCy("add-suspected-issue-button").click();
+    cy.dataCy("add-suspected-issue-button").click({ force: true });
     cy.dataCy("issue-url").type("https://jira.example.com/browse/SERVER-1234");
     cy.dataCy("issue-key").type("A-New-Ticket");
     cy.contains("Add suspected issue").click();
