@@ -9,7 +9,7 @@ export default defineConfig({
     },
     defaultCommandTimeout: 15000,
     retries: {
-      runMode: 4,
+      runMode: 0,
       openMode: 0,
     },
     supportFile: "cypress/support/e2e.ts",
