@@ -92,17 +92,52 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
   //   trigger_data: Scalars["StringMap"];
   // }
   // This is the payload sent when processing notifications.
+  const getTargetForMethod = (method: string) => {
+    if (method === "jira-comment") {
+      return formState.notification.jiraInput;
+    }
+    if (method === "slack") {
+      return formState.notification.slackInput;
+    }
+    return formState.notification.emailInput;
+  };
+
+  // needs a type = maybe triggermap and trigger
+  const getExtraFields = (event) => {
+    if (!event.extraFields) {
+      return {};
+    }
+
+    const toReturn = {};
+    const { extraFields } = formState.event;
+
+    event.extraFields.forEach((e) => {
+      toReturn[e.key] = extraFields[e.key];
+    });
+    return toReturn;
+  };
+
   const getRequestPayload = () => {
-    const selectedEvent = triggers[formState.event.eventSelect];
-    const { payloadResourceIdKey, resourceType, trigger } = selectedEvent;
+    const event = triggers[formState.event.eventSelect];
+    const { payloadResourceIdKey, resourceType, trigger } = event;
 
     const method = formState.notification.notificationSelect;
-    // this should be done better
-    const target = formState.notification.jiraInput;
+    const target = getTargetForMethod(method);
 
-    // extraFieldInputVals is a string map{ "task1-field": "10", "task2-field": "10" }
-    // regex_selectors needs to look like { type: something, data: something }
-    // const regexSelectors = formState.event.regexSelector;
+    // Only include extraFields if they are part of the trigger
+    const extraFields = getExtraFields(event);
+
+    // Only include regex selectors if the trigger specifies it
+    const regexSelectors = event.regexSelectors
+      ? formState.event.regexSelector.map((r) => ({
+          type: r.regexSelect,
+          data: r.regexInput,
+        }))
+      : [];
+
+    console.log("extraFields: ", extraFields);
+    console.log("regexSelectors: ", regexSelectors);
+
     return {
       trigger,
       resource_type: resourceType,
@@ -114,13 +149,9 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
         type: method,
         target,
       },
-      trigger_data: {}, // ex; { "task-duration-secs" : "10"}
+      trigger_data: extraFields, // ex; { "task-duration-secs" : "10"}
       owner_type: "person",
-      regex_selectors: [{ type: "ooh", data: "ahh" }],
-      // regexSelectors.map(([regexSelect, regexInput]) => ({
-      //   type: regexSelect,
-      //   data: regexInput,
-      // })),
+      regex_selectors: regexSelectors,
     };
   };
 
@@ -167,7 +198,7 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
   );
 
   // Need to clear the input vals for the extraFields and regex selectors when the selected trigger changes
-  console.log("leformState: ", formState);
+  // console.log("leformState: ", formState);
 
   return (
     <Modal

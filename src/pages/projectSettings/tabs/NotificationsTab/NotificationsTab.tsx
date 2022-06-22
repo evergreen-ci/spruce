@@ -1,12 +1,12 @@
-// import { useMemo } from "react";
-// import { SpruceForm } from "components/SpruceForm";
+import { useMemo } from "react";
+import { SpruceForm } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
   usePopulateForm,
   useProjectSettingsContext,
 } from "pages/projectSettings/Context";
-// import { ProjectType } from "../utils";
-// import { getFormSchema } from "./getFormSchema";
+import { ProjectType } from "../utils";
+import { getFormSchema } from "./getFormSchema";
 import { TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.Notifications;
@@ -25,25 +25,24 @@ export const NotificationsTab: React.VFC<TabProps> = ({
   const onChange = updateForm(tab);
 
   // get past linter
-  console.log(projectType, onChange);
+  // console.log(projectType, onChange);
 
-  // const { fields, schema, uiSchema } = useMemo(
-  //   () =>
-  //     getFormSchema(
-  //       projectType === ProjectType.AttachedProject ? repoData : null
-  //     ),
-  //   [projectType, repoData]
-  // );
+  const { fields, schema, uiSchema } = useMemo(
+    () =>
+      getFormSchema(
+        projectType === ProjectType.AttachedProject ? repoData : null
+      ),
+    [projectType, repoData]
+  );
   if (!formData) return null;
 
   return (
-    <div> hello</div>
-    // <SpruceForm
-    //   fields={fields}
-    //   formData={formData}
-    //   onChange={onChange}
-    //   schema={schema}
-    //   uiSchema={uiSchema}
-    // />
+    <SpruceForm
+      fields={fields}
+      formData={formData}
+      onChange={onChange}
+      schema={schema}
+      uiSchema={uiSchema}
+    />
   );
 };

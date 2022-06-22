@@ -1,115 +1,32 @@
-// import styled from "@emotion/styled";
-// import ExpandableCard from "@leafygreen-ui/expandable-card";
-// import { Body } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
+import { Field } from "@rjsf/core";
+import { Subscriber } from "gql/generated/types";
 
-// import { Field } from "@rjsf/core";
-// import { size } from "constants/tokens";
-// import {
-//   requesterSubscriberOptions,
-//   projectTriggers,
-// } from "constants/triggers";
-// import { Subscriber, SubscriptionsFragment } from "gql/generated/types";
-// import { ResourceType, StringMap, Trigger } from "types/triggers";
-// import { toSentenceCase } from "utils/string";
-// import { SubscriptionSelect } from "./NotificationsRow";
+const getSubscriberType = (subscriber: Subscriber) => {
+  if (subscriber === undefined) {
+    return "";
+  }
+  let key: string = "";
+  Object.keys(subscriber).forEach((k) => {
+    if (subscriber[k] !== null) {
+      key = k;
+    }
+  });
+  return key;
+};
 
-// const getSubscriberType = (subscriber: Subscriber) => {
-//   if (subscriber === undefined) {
-//     return "";
-//   }
-//   let key: string = "";
-//   Object.keys(subscriber).forEach((k) => {
-//     if (subscriber[k] !== null) {
-//       key = k;
-//     }
-//   });
-//   return key;
-// };
+export const SubscriptionField: Field = ({ formData }) => {
+  const { subscriber } = formData;
+  const subscriberType = getSubscriberType(subscriber);
+  const subscriberName = subscriber
+    ? subscriber[subscriberType]
+    : "just-a-fake-name";
 
-// const getTrigger = (trigger: string, resourceType: string): Trigger => {
-//   const foundTrigger = triggers.find(
-//     (t) => t.trigger === trigger && t.resourceType === resourceType
-//   );
-
-//   return (
-//     foundTrigger ?? {
-//       trigger: "",
-//       resourceType: ResourceType.VERSION,
-//       regexSelectors: [],
-//       label: "",
-//     }
-//   );
-// };
-
-// export const getBuildInitiator = (
-//   selectors: SubscriptionsFragment["selectors"]
-// ) => {
-//   if (selectors === undefined) {
-//     return "";
-//   }
-//   let b = "";
-//   selectors.forEach((key) => {
-//     if (key.type === "requester") {
-//       b = key.data;
-//     }
-//   });
-
-//   return requesterSubscriberOptions[b] ?? "";
-// };
-
-// export const SubscriptionField: Field = ({ formData }) => {
-//   const {
-//     resourceType,
-//     trigger,
-//     triggerData,
-//     selectors,
-//     regexSelectors,
-//     subscriber,
-//   } = formData;
-
-//   const subscriberType = getSubscriberType(subscriber);
-//   const subscriberName = subscriber ? subscriber[subscriberType] : "";
-//   const triggerDefaults = getTrigger(trigger, resourceType);
-
-//   const title =
-//     resourceType && trigger && subscriberName
-//       ? `${toSentenceCase(resourceType)} ${trigger} ${subscriberName}`
-//       : "New Subscription";
-
-//   return (
-//     <StyledExpandableCard
-//       defaultOpen
-//       contentClassName="subscription-card-content"
-//       title={
-//         <>
-//           <TitleWrapper data-cy="expandable-card-title">{title}</TitleWrapper>
-//         </>
-//       }
-//     >
-//       <Body>
-//         <SubscriptionSelect
-//           resourceType={resourceType}
-//           trigger={triggerDefaults}
-//           selectors={selectors}
-//           regexSelectors={regexSelectors}
-//           buildInitiator={getBuildInitiator(selectors)}
-//           selectedExtraFieldInputVals={triggerData as StringMap}
-//         />
-//         <br />
-//         {/* todo: display properly */}
-//         <strong>subscriberType: </strong> {subscriberType} <br />
-//         <strong>subscriber: </strong> {subscriberName} <br />
-//       </Body>
-//     </StyledExpandableCard>
-//   );
-// };
-
-// const TitleWrapper = styled.span`
-//   margin-right: ${size.s};
-// `;
-
-// const StyledExpandableCard = styled(ExpandableCard)`
-//   margin-bottom: ${size.l};
-//   width: 150%;
-// `;
-export {};
+  return (
+    <Body>
+      {/* todo: display properly */}
+      <strong>subscriberType: </strong> {subscriberType} <br />
+      <strong>subscriber: </strong> {subscriberName} <br />
+    </Body>
+  );
+};

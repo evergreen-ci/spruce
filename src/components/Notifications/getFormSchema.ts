@@ -15,6 +15,7 @@ import {
   ProjectTriggers,
   ExtraFieldKey,
 } from "types/triggers";
+import { HTTPHeaderRow } from "./HTTPHeaderRow";
 import { RegexSelectorRow } from "./RegexSelectorRow";
 
 // Percent change input
@@ -500,6 +501,70 @@ export const getFormSchema = (
                   },
                 },
               },
+              {
+                properties: {
+                  notificationSelect: {
+                    enum: ["evergreen-webhook"],
+                  },
+                  webhookInput: {
+                    type: "object" as "object",
+                    title: "",
+                    required: ["urlInput"],
+                    properties: {
+                      urlInput: {
+                        type: "string" as "string",
+                        title: "Webhook URL",
+                        minLength: 1,
+                      },
+                      secretInput: {
+                        type: "string" as "string",
+                        title: "Webhook Secret",
+                      },
+                      httpHeaders: {
+                        type: "array" as "array",
+                        title: "HTTP Headers",
+                        items: {
+                          type: "object" as "object",
+                          properties: {
+                            keyInput: {
+                              type: "string" as "string",
+                              title: "Key",
+                            },
+                            valueInput: {
+                              type: "string" as "string",
+                              title: "Value",
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+              {
+                properties: {
+                  notificationSelect: {
+                    enum: ["jira-issue"],
+                  },
+                  jiraIssueInput: {
+                    type: "object" as "object",
+                    title: "",
+                    required: ["projectInput", "issueInput"],
+                    properties: {
+                      projectInput: {
+                        type: "string" as "string",
+                        title: "JIRA Project",
+                        minLength: 1,
+                      },
+                      issueInput: {
+                        type: "string" as "string",
+                        title: "Issue Type",
+                        minLength: 1,
+                      },
+                    },
+                  },
+                },
+              },
             ],
           },
         },
@@ -561,6 +626,30 @@ export const getFormSchema = (
       emailInput: {
         "ui:placeholder": "someone@example.com",
         "ui:data-cy": "email-input",
+      },
+      jiraIssueInput: {
+        projectInput: {
+          "ui:placeholder": "ABC",
+        },
+        issueInput: {
+          "ui:placeholder": "Build Failure",
+        },
+      },
+      webhookInput: {
+        urlInput: {
+          "ui:placeholder": "https://example.com",
+        },
+        secretInput: {
+          "ui:readonly": true,
+        },
+        httpHeaders: {
+          "ui:addToEnd": true,
+          "ui:orderable": false,
+          "ui:addButtonText": "Add HTTP Header",
+          items: {
+            "ui:ObjectFieldTemplate": HTTPHeaderRow,
+          },
+        },
       },
     },
   },

@@ -128,4 +128,8 @@ export interface SubscriptionMethods {
   "jira-comment": SubscriptionMethodControl;
   email: SubscriptionMethodControl;
   slack: SubscriptionMethodControl;
+
+  // Below is for project basis ONLY
+  "jira-issue"?: SubscriptionMethodControl;
+  "evergreen-webhook"?: SubscriptionMethodControl;
 }
