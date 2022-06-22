@@ -2,6 +2,8 @@ const { readdirSync } = require('fs');
 const path = require('path');
 const gql = require("./graphql.js")
 const vitePluginImp = require("vite-plugin-imp")
+const { mergeConfig } = require("vite")
+
 // Allow imports from absolute paths
 const absolutePaths = readdirSync(path.resolve(__dirname, "../src")).filter(
   (file) => !file.startsWith(".")
@@ -18,74 +20,89 @@ const absolutePathAliasMap = absolutePathsWithExtensionsTrimmed.reduce(
 );
 
 module.exports = {
-  "stories": [
+  stories: [
     "../src/**/*.stories.mdx",
     "../src/**/*.stories.@(js|jsx|ts|tsx)"
   ],
-  "addons": [
+  addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions"
   ],
-  "framework": "@storybook/react",
-  "core": {
-    "builder": "@storybook/builder-vite"
+  framework: "@storybook/react",
+  core: {
+    builder: "@storybook/builder-vite"
   },
-  "features": {
-    "storyStoreV7": true,
-    "babelModeV7": true,
+  features: {
+    storyStoreV7: true,
+    babelModeV7: true,
+    emotionAlias: false
   },
   typescript: {
     reactDocgen: 'react-docgen-typescript',
   },
-  async viteFinal(config, {}) {
+  async viteFinal(config, options) {
     console.log(config)
-    config.resolve.alias = {
-        ...config.resolve.alias,
-        "@leafygreen-ui/emotion": path.resolve(
-          __dirname,
-          "../config/leafygreen-ui/emotion"
-        ),
-      '@emotion/react': path.resolve(path.join(__dirname, '../node_modules/@emotion/react')),
-      '@emotion/styled': path.resolve(path.join(__dirname,'../node_modules/@emotion/styled')),
-      '@emotion/core':path.resolve(path.join(__dirname, '../node_modules/@emotion/react')),
-      'emotion-theming': path.resolve(path.join(__dirname, '../node_modules/@emotion/react')),
-      ...absolutePathAliasMap
-    }
-    config.optimizeDeps.include.push("graphql-tag")
-
-     // Support imports of graphql files
-    config.plugins.push(gql())
-    config.plugins.push( // Dynamic imports of antd styles
-    vitePluginImp.default({
-      optimize: true,
-      libList: [
-        {
-          libName: "antd",
-          libDirectory: "es",
-          style: (name) => `antd/es/${name}/style/index.js`,
+    console.log({options})
+     return mergeConfig(config, {
+      resolve: {
+        alias: {
+          "@leafygreen-ui/emotion": path.resolve(
+            __dirname,
+            "../config/leafygreen-ui/emotion"
+          ),
+          // resolve emotion 10 imports to emotion 11
+          "@emotion/react": path.resolve(
+            path.join(__dirname, "../node_modules/@emotion/react")
+          ),
+          "@emotion/styled": path.resolve(
+            path.join(__dirname, "../node_modules/@emotion/styled")
+          ),
+          "@emotion/core": path.resolve(
+            path.join(__dirname, "../node_modules/@emotion/react")
+          ),
+          "emotion-theming": path.resolve(
+            path.join(__dirname, "../node_modules/@emotion/react")
+          ),
+          ...absolutePathAliasMap,
         },
-        {
-          libName: "lodash",
-          libDirectory: "",
-          camel2DashComponentName: false,
-          style: (name) => `lodash/${name}`,
-        },
-        {
-          libName: "date-fns",
-          libDirectory: "",
-          style: (name) => `date-fns/esm/${name}`,
-          camel2DashComponentName: false,
-        },
-      ],
-    }))
-    config.css = {
-    preprocessorOptions: {
-      less: {
-        javascriptEnabled: true, // enable LESS {@import ...}
+        extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
       },
-    },
-  }
-    return config;
+      optimizeDeps: {
+        include: ["graphql-tag"],
+      },
+      plugins: [
+        gql(),
+        vitePluginImp.default({
+          optimize: true,
+          libList: [
+            {
+              libName: "antd",
+              libDirectory: "es",
+              style: (name) => `antd/es/${name}/style/index.js`,
+            },
+            {
+              libName: "lodash",
+              libDirectory: "",
+              camel2DashComponentName: false,
+              style: (name) => `lodash/${name}`,
+            },
+            {
+              libName: "date-fns",
+              libDirectory: "",
+              style: (name) => `date-fns/esm/${name}`,
+              camel2DashComponentName: false,
+            },
+          ],
+        }),
+      ],
+      css: {
+        preprocessorOptions: {
+          less: {
+            javascriptEnabled: true, // enable LESS {@import ...}
+          },
+        },
+      },
+    });
   },
 }
