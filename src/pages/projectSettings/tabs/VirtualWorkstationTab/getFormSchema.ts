@@ -59,7 +59,7 @@ export const getFormSchema = (
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     gitClone: {
       "ui:widget": widgets.RadioBoxWidget,
-      "ui:description": `If git clone is checked, "git clone -b <branch_name> git@github.com:<owner><repo>.git" will be run as defined in this project.
+      "ui:description": `If git clone is enabled, "git clone -b <branch_name> git@github.com:<owner>/<repo>.git" will be run as defined in this project.
         Users must have SSH keys configured in github before running this command.`,
     },
     commands: {
