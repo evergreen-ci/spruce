@@ -3,18 +3,24 @@ import { uiColors } from "@leafygreen-ui/palette";
 import generatePicker from "antd/lib/date-picker/generatePicker";
 import dateFnsGenerateConfig from "rc-picker/lib/generate/dateFns";
 import { size } from "constants/tokens";
-
-import "antd/lib/date-picker/style/css";
+import "antd/es/date-picker/style/index";
 
 const { gray } = uiColors;
 
-const DatePicker = generatePicker<Date>(dateFnsGenerateConfig);
+const GeneratedDatePicker = generatePicker<Date>(dateFnsGenerateConfig);
 
-export default (props) => {
-  const { disabled } = props;
+type GeneratedDatePickerProps = React.ComponentPropsWithRef<
+  typeof GeneratedDatePicker
+>;
+
+type DatePickerProps = GeneratedDatePickerProps & {
+  disabled?: boolean;
+};
+const DatePicker: React.VFC<DatePickerProps> = (props) => {
+  const { disabled = false } = props;
   return (
     <InteractionRing disabled={disabled}>
-      <DatePicker {...props} style={leafygreenInputStyle} />
+      <GeneratedDatePicker {...props} style={leafygreenInputStyle} />
     </InteractionRing>
   );
 };
@@ -24,3 +30,5 @@ const leafygreenInputStyle = {
   borderRadius: size.xxs,
   transition: "border-color 150ms ease-in-out",
 };
+
+export default DatePicker;
