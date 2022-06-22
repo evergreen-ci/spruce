@@ -8,7 +8,6 @@ import {
   getNotificationTriggerCookie,
   SUBSCRIPTION_METHOD,
 } from "constants/cookies";
-import { projectTriggers } from "constants/triggers";
 import { useToastContext } from "context/toast";
 import {
   SaveSubscriptionMutation,
@@ -20,6 +19,7 @@ import { GET_USER } from "gql/queries";
 import { UseNotificationModalProps } from "hooks/useNotificationModal";
 import { useUserSettings } from "hooks/useUserSettings";
 import { getFormSchema } from "./getFormSchema";
+import { LeftButton } from "./styles";
 
 interface NotificationModalProps extends UseNotificationModalProps {
   sendAnalyticsEvent: (
@@ -60,6 +60,24 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
   const { data: userData } = useQuery<GetUserQuery>(GET_USER);
   const { user } = userData || {};
   const { emailAddress } = user || {};
+
+  // oops because I did omit it, it goes away.
+  const [formState, setFormState] = useState({
+    event: {
+      eventSelect:
+        Cookies.get(getNotificationTriggerCookie(type)) ||
+        Object.keys(triggers)[0],
+      extraFields: {},
+      regexSelector: [],
+    },
+    notification: {
+      notificationSelect: Cookies.get(SUBSCRIPTION_METHOD) ?? "jira-comment",
+      jiraInput: "",
+      slackInput: slackUsername ? `@${slackUsername}` : "",
+      emailInput: emailAddress ?? "",
+    },
+  });
+  const [canSubmit, setCanSubmit] = useState(false);
 
   // Subscription input looks like
   // {
@@ -115,28 +133,6 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
     onCancel();
   };
 
-  const [formState, setFormState] = useState({
-    event: {
-      eventSelect:
-        Cookies.get(getNotificationTriggerCookie(type)) ||
-        Object.keys(triggers)[0],
-    },
-    notification: {
-      notificationSelect: Cookies.get(SUBSCRIPTION_METHOD) ?? "jira-comment",
-      jiraInput: "",
-      slackInput: slackUsername ? `@${slackUsername}` : "",
-      emailInput: emailAddress ?? "",
-    },
-  });
-  const [canSubmit, setCanSubmit] = useState(false);
-
-  // turn this back later
-  const { schema, uiSchema } = getFormSchema(
-    formState,
-    projectTriggers,
-    subscriptionMethodControls
-  );
-
   const updateEventCookie = (newEvent: string) => {
     // If user selected a new event, update cookie
     if (formState.event.eventSelect !== newEvent) {
@@ -153,8 +149,25 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
     }
   };
 
+  const usingID = !!formState.event.regexSelector.find(
+    (r) => r.regexSelect === "build-variant"
+  );
+  const usingName = !!formState.event.regexSelector.find(
+    (r) => r.regexSelect === "display-name"
+  );
+  const regexEnumsToDisable = [
+    ...(usingID ? ["build-variant"] : []),
+    ...(usingName ? ["display-name"] : []),
+  ];
+
+  const { schema, uiSchema } = getFormSchema(
+    regexEnumsToDisable,
+    triggers,
+    subscriptionMethodControls
+  );
+
   // Need to clear the input vals for the extraFields and regex selectors when the selected trigger changes
-  console.log(formState);
+  console.log("leformState: ", formState);
 
   return (
     <Modal
@@ -164,13 +177,13 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
       title="Add Subscription"
       footer={
         <>
-          <Button
-            key="cancel"
+          <LeftButton
+            key="cancel" // @ts-expect-error
             onClick={onCancel}
             data-cy="cancel-subscription-button"
           >
             Cancel
-          </Button>
+          </LeftButton>
           <Button
             key="save"
             data-cy="save-subscription-button"
@@ -192,7 +205,6 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
           updateEventCookie(formData.event.eventSelect);
           // Update notification cookie when it changes.
           updateNotificationCookie(formData.notification.notificationSelect);
-
           setFormState(formData);
           setCanSubmit(errors.length === 0);
         }}

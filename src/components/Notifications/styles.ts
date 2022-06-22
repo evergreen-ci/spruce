@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
+import Button from "@leafygreen-ui/button";
 import { uiColors } from "@leafygreen-ui/palette";
-import { Select, Input, Button } from "antd";
+import { Select, Input } from "antd";
 import { fontSize, size } from "constants/tokens";
 
 const { gray } = uiColors;
@@ -36,7 +37,7 @@ export const SectionLabelContainer = styled.div`
 /* @ts-expect-error */
 export const LeftButton = styled(Button)`
   margin-right: ${size.s};
-` as typeof Button;
+`;
 
 export const InputLabel = styled.label`
   font-size: ${fontSize.m};

@@ -1,10 +1,10 @@
 import InteractionRing from "@leafygreen-ui/interaction-ring";
 import { uiColors } from "@leafygreen-ui/palette";
-import generatePicker from "antd/lib/date-picker/generatePicker";
+import generatePicker from "antd/es/date-picker/generatePicker";
 import dateFnsGenerateConfig from "rc-picker/lib/generate/dateFns";
 import { size } from "constants/tokens";
 
-import "antd/lib/date-picker/style/css";
+import "antd/es/date-picker/style/index";
 
 const { gray } = uiColors;
 
