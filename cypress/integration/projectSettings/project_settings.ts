@@ -831,7 +831,7 @@ describe("Renaming the identifier", () => {
     const warningText =
       "Updates made to the project identifier will change the identifier used for the CLI, inter-project dependencies, etc. Project users should be made aware of this change, as the old identifier will no longer work.";
 
-    cy.dataCy("input-warning").should("not.contain", warningText);
+    cy.dataCy("input-warning").should("not.exist");
     cy.dataCy("identifier-input").clear().type("new-identifier");
     cy.dataCy("input-warning").should("contain", warningText);
   });
