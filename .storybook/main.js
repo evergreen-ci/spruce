@@ -35,6 +35,9 @@ module.exports = {
     "storyStoreV7": true,
     "babelModeV7": true,
   },
+  typescript: {
+    reactDocgen: 'react-docgen-typescript',
+  },
   async viteFinal(config, {}) {
     console.log(config)
     config.resolve.alias = {

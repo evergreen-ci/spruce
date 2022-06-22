@@ -21,13 +21,13 @@ const options = [
   },
 ];
 
-export const Default = () => (
+export const Default = (args) => (
   <div style={{ width: "40%" }}>
     <TupleSelect
       options={options}
       onSubmit={action("submit")}
       validator={(v) => v !== "bad"}
-      validatorErrorMessage="Invalid Input"
+      {...args}
     />
     <Disclaimer>The word `bad` will fail validation</Disclaimer>
   </div>

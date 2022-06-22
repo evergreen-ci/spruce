@@ -20,4 +20,4 @@ export const parameters = {
     MockedProvider
   },
 }
-export const decorators = [WithApolloClient, WithReactRouter]
+export const decorators = [WithReactRouter, WithApolloClient]
