@@ -7,11 +7,6 @@ export default defineConfig({
     reporterOptions: {
       mochaFile: "bin/cypress/junit-[hash].xml",
     },
-    defaultCommandTimeout: 15000,
-    retries: {
-      runMode: 0,
-      openMode: 0,
-    },
     supportFile: "cypress/support/e2e.ts",
     specPattern: "cypress/integration/**/*.ts",
   },
