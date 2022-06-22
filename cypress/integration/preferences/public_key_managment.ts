@@ -24,6 +24,7 @@ describe("Public Key Management Page", () => {
     it("Removes a public key from the table after deletion", () => {
       cy.dataCy("delete-btn").first().click();
       cy.get(popconfirmYesClassName).click();
+      cy.dataCy("table-key-name").should("have.length", 1);
       cy.dataCy("table-key-name").first().should("not.contain", keyName1);
       cy.dataCy("table-key-name").first().contains(keyName2);
     });
