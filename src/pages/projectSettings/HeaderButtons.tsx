@@ -23,7 +23,7 @@ import {
 import { useProjectSettingsContext } from "./Context";
 import { DefaultSectionToRepoModal } from "./DefaultSectionToRepoModal";
 import { formToGqlMap } from "./tabs/transformers";
-import { WritableTabRoutes } from "./tabs/types";
+import { FormToGqlFunction, WritableTabRoutes } from "./tabs/types";
 import { ProjectType } from "./tabs/utils";
 
 interface Props {
@@ -94,7 +94,8 @@ export const HeaderButtons: React.VFC<Props> = ({ id, projectType, tab }) => {
   });
 
   const onClick = () => {
-    const newData = formToGqlMap[tab](formData, id);
+    const fn: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
+    const newData = fn(formData, id);
     const save = (update, section) =>
       isRepo
         ? saveRepoSection({

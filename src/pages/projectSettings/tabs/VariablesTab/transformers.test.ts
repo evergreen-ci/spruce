@@ -1,4 +1,5 @@
 import { ProjectSettingsInput } from "gql/generated/types";
+import { Unpacked } from "types/utils"
 import { data } from "../testData";
 import { formToGql, gqlToForm } from "./transformers";
 import { FormState } from "./types";
@@ -14,7 +15,7 @@ describe("project data", () => {
     expect(
       formToGql(
         {
-          vars: [...form.vars, {}],
+          vars: [...form.vars, {} as Unpacked<FormState["vars"]>],
         },
         "project"
       )

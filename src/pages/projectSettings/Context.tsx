@@ -75,17 +75,19 @@ const reducer = <T extends WritableTabRoutes>(
           hasError: !!action.errors.length,
         },
       };
-    case "setHasChanges":
+    case "setHasChanges": {
+      const fn: FormToGqlFunction<typeof action.tab> = formToGqlMap[action.tab];
       return {
         ...state,
         [action.tab]: {
           ...state[action.tab],
           hasChanges: !isEqual(
             state[action.tab].initialData,
-            formToGqlMap[action.tab](action.formData)
+            fn(action.formData)
           ),
         },
       };
+    }
     case "setInitialData":
       return Object.entries(action.tabData).reduce(
         (s, [tab, data]) => ({
