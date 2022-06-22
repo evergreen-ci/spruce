@@ -70,18 +70,20 @@ case "$OSTYPE" in
     # Format the email and inject the <br /> tag for line breaks
     gsed -i ':a;N;$!ba;s/\n/<br \/>/g' body.txt
     # Remove single quotes from the email body
-    gsed -i 's|["'\'']||g' body.txt
+    gsed -i 's|["'\'']|\&lsquo;|g' body.txt
   ;;
   linux*)
     echo "LINUX detected using sed"
     # Format the email and inject the <br /> tag for line breaks
     sed -i ':a;N;$!ba;s/\n/<br \/>/g' body.txt
     # Remove single quotes from the email body
-    sed -i 's|["'\'']||g' body.txt
+    sed -i 's|["'\'']|\&lsquo;|g' body.txt
   ;;
   *)        echo "unknown: $OSTYPE";;
 esac
 
+# sed remove single quote and replace with &lsquo;
+sed -e 's|["'\'']|\&lsquo;|g' body.txt
 echo "Commits Deployed:"
 cat body.txt
 
