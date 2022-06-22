@@ -110,7 +110,10 @@ describe("Navigating to Spawn Host page", () => {
       it("Should disable 'Never expire' checkbox when max number of unexpirable hosts is met (2)", () => {
         cy.visit("/spawn/host");
         cy.contains("Spawn a host").click();
-        cy.dataCy("distro-input").click().type("{downarrow}").type("{enter}");
+        cy.dataCy("distro-input")
+          .click()
+          .type("{downarrow}", { force: true })
+          .type("{enter}", { force: true });
         cy.dataCy("distro-input").should(
           "have.attr",
           "value",
