@@ -114,7 +114,7 @@ export const AddIssueModal: React.VFC<Props> = ({
   );
 };
 
-const addIssueModalSchema: SpruceFormProps<any> = {
+const addIssueModalSchema: SpruceFormProps = {
   schema: {
     type: "object" as "object",
     properties: {

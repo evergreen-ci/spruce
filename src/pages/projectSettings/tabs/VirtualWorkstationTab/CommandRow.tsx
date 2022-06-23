@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { SpruceFormProps } from "components/SpruceForm";
 import { size } from "constants/tokens";
 
-export const CommandRow: SpruceFormProps<any>["ObjectFieldTemplate"] = ({
+export const CommandRow: SpruceFormProps["ObjectFieldTemplate"] = ({
   properties,
 }) => {
   const [command, directory] = properties;

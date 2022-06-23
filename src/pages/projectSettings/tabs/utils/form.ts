@@ -21,7 +21,7 @@ export const radioBoxOptions = (
   options: [string, string],
   field: boolean,
   invert: boolean = false
-): Array<SpruceFormProps<any>["schema"]> => [
+): Array<SpruceFormProps["schema"]> => [
   radioBoxOption(options[0], !invert),
   radioBoxOption(options[1], invert),
   ...insertIf(
@@ -39,8 +39,8 @@ export const radioBoxOptions = (
 export const overrideRadioBox = (
   propertyName: string,
   buttonText: [string, string],
-  overrideSchema: SpruceFormProps<any>["schema"]
-): SpruceFormProps<any>["schema"] => {
+  overrideSchema: SpruceFormProps["schema"]
+): SpruceFormProps["schema"] => {
   const propertyNameOverride = `${propertyName}Override`;
   return {
     properties: {
