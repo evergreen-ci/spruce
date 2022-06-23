@@ -53,14 +53,8 @@ export type GqlToFormFunction<T extends WritableTabRoutes> = (
   options?: { projectType?: ProjectType }
 ) => FormStateMap[T];
 
-/* export type FormToGqlFunction<T extends WritableTabRoutes> = (
-  form: FormStateMap[T],
-  id?: string
-) => ProjectSettingsInput; */
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export type FormToGqlFunction<T extends WritableTabRoutes> = (
-  form: any,
+  form: FormStateMap[T],
   id?: string
 ) => ProjectSettingsInput;
 

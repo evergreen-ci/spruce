@@ -94,8 +94,8 @@ export const HeaderButtons: React.VFC<Props> = ({ id, projectType, tab }) => {
   });
 
   const onClick = () => {
-    const fn: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
-    const newData = fn(formData, id);
+    const formToGql: FormToGqlFunction<typeof tab> = formToGqlMap[tab];
+    const newData = formToGql(formData, id);
     const save = (update, section) =>
       isRepo
         ? saveRepoSection({
