@@ -516,13 +516,18 @@ describe("Configure Patch Page", () => {
       cy.server();
       cy.visit(`/patch/${unactivatedPatchId}`);
     });
-    it("Clicking `Schedule` button schedules patch and redirects to patch page", () => {
+    it("Clicking 'Schedule' button schedules patch and redirects to patch page", () => {
       const val = "hello world";
       cy.dataCy(`patch-name-input`).as("patchNameInput").clear().type(val);
       cy.dataCy("task-checkbox").first().check({ force: true });
       cy.intercept("/graphql/query", (req) => {
         req.reply((res) => {
-          res.body = mockedSuccessfulConfigureResponse;
+          res.body = {
+            data: {
+              schedulePatch: { versionFull: { id: unactivatedPatchId } },
+            },
+            errors: null,
+          };
         });
       });
       cy.dataCy("schedule-patch").click();
@@ -562,9 +567,4 @@ const mockedErrorConfigureResponse = {
     },
   ],
   data: null,
-};
-
-const mockedSuccessfulConfigureResponse = {
-  data: {},
-  errors: null,
 };
