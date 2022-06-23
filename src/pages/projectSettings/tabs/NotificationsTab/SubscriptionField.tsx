@@ -24,7 +24,7 @@ export const SubscriptionField: Field = ({ formData }) => {
 
   return (
     <Body>
-      {/* todo: display properly */}
+      {/* TODO in EVG-16971: display properly */}
       <strong>subscriberType: </strong> {subscriberType} <br />
       <strong>subscriber: </strong> {subscriberName} <br />
     </Body>

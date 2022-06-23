@@ -139,11 +139,7 @@ const IconContainer = styled.span`
 `;
 
 export const LeafyGreenSelect: React.VFC<
-  {
-    options: {
-      allowDeselect?: boolean;
-    };
-  } & EnumSpruceWidgetProps
+  { options: { allowDeselect?: boolean } } & EnumSpruceWidgetProps
 > = ({
   disabled,
   label,
@@ -156,7 +152,6 @@ export const LeafyGreenSelect: React.VFC<
 }) => {
   const {
     allowDeselect,
-
     ariaLabelledBy,
     description,
     enumOptions,
@@ -166,7 +161,6 @@ export const LeafyGreenSelect: React.VFC<
 
   const hasError = !!rawErrors?.length && !disabled;
   const isDisabled = disabled || readonly;
-
   const labelProps: OneOf<
     { label: string },
     { "aria-labelledby": string }
