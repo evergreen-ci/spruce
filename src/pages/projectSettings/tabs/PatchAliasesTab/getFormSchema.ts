@@ -1,6 +1,5 @@
 import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { ProjectSettingsTabRoutes } from "constants/routes";
 import { GetFormSchema } from "../types";
 import { alias, form, PatchTriggerAliasStatus, ProjectType } from "../utils";
 import { TaskSpecifier } from "./types";
@@ -11,9 +10,9 @@ const {
 } = alias;
 const { overrideRadioBox } = form;
 
-export const getFormSchema: GetFormSchema<ProjectSettingsTabRoutes.PatchAliases> = (
+export const getFormSchema = (
   projectType: ProjectType
-) => ({
+): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
     type: "object" as "object",

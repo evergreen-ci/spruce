@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { SpruceForm, SpruceFormType } from "components/SpruceForm";
+import { SpruceForm } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
   usePopulateForm,
@@ -7,11 +7,9 @@ import {
 } from "pages/projectSettings/Context";
 import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
-import { FormState, TabProps } from "./types";
+import { TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.General;
-
-const TypedSpruceForm = SpruceForm as SpruceFormType<FormState>;
 
 export const GeneralTab: React.VFC<TabProps> = ({
   projectData,
@@ -66,7 +64,7 @@ export const GeneralTab: React.VFC<TabProps> = ({
   if (!formData) return null;
 
   return (
-    <TypedSpruceForm
+    <SpruceForm
       fields={fields}
       formData={formData}
       onChange={onChange}

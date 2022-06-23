@@ -2,7 +2,6 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { StyledLink } from "components/styles";
 import { versionControlDocumentationUrl } from "constants/externalResources";
-import { ProjectSettingsTabRoutes } from "constants/routes";
 import { Project } from "gql/generated/types";
 import { GetFormSchema } from "../types";
 import { form, ProjectType } from "../utils";
@@ -15,7 +14,7 @@ import { FormState } from "./types";
 
 const { insertIf, overrideRadioBox, placeholderIf, radioBoxOptions } = form;
 
-export const getFormSchema: GetFormSchema<ProjectSettingsTabRoutes.General> = (
+export const getFormSchema = (
   projectId: string,
   projectType: ProjectType,
   validDefaultLoggers: Project["validDefaultLoggers"],
@@ -23,7 +22,7 @@ export const getFormSchema: GetFormSchema<ProjectSettingsTabRoutes.General> = (
   initialOwner: string,
   initialRepo: string,
   repoData?: FormState
-) => ({
+): ReturnType<GetFormSchema> => ({
   fields: {
     deactivateStepbackTasks: DeactivateStepbackTasksField,
     repoConfigField: RepoConfigField,

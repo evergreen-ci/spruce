@@ -17,7 +17,7 @@ import { FormState } from "./types";
 const { aliasArray, aliasRowUiSchema, gitTagArray } = alias;
 const { insertIf, overrideRadioBox, placeholderIf, radioBoxOptions } = form;
 
-export const getFormSchema: GetFormSchema<ProjectSettingsTabRoutes.GithubCommitQueue> = (
+export const getFormSchema = (
   identifier: string,
   projectType: ProjectType,
   githubWebhooksEnabled: boolean,
@@ -25,7 +25,7 @@ export const getFormSchema: GetFormSchema<ProjectSettingsTabRoutes.GithubCommitQ
   githubProjectConflicts: GithubProjectConflicts,
   versionControlEnabled: boolean,
   repoData?: FormState
-) => {
+): ReturnType<GetFormSchema> => {
   const overrideStyling = {
     "ui:widget":
       projectType === ProjectType.AttachedProject

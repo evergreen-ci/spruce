@@ -1,5 +1,4 @@
 import widgets from "components/SpruceForm/Widgets";
-import { ProjectSettingsTabRoutes } from "constants/routes";
 import { TaskStatus } from "types/task";
 import { ProjectTriggerLevel } from "types/triggers";
 import { GetFormSchema } from "../types";
@@ -7,9 +6,9 @@ import { form, ProjectType } from "../utils";
 
 const { overrideRadioBox } = form;
 
-export const getFormSchema: GetFormSchema<ProjectSettingsTabRoutes.ProjectTriggers> = (
+export const getFormSchema = (
   projectType: ProjectType
-) => ({
+): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
     type: "object" as "object",

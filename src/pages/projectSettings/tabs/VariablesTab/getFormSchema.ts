@@ -1,15 +1,14 @@
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { ProjectSettingsTabRoutes } from "constants/routes";
 import { GetFormSchema } from "../types";
 import { ProjectType } from "../utils";
 import { FormState } from "./types";
 import { VariableRow } from "./VariableRow";
 
-export const getFormSchema: GetFormSchema<ProjectSettingsTabRoutes.Variables> = (
+export const getFormSchema = (
   projectType: ProjectType,
   repoData?: FormState
-) => ({
+): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
     definitions: {

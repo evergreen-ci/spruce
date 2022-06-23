@@ -1,14 +1,13 @@
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { ProjectSettingsTabRoutes } from "constants/routes";
 import { GetFormSchema } from "../types";
 import { radioBoxOptions } from "../utils/form";
 import { SubscriptionField } from "./SubscriptionField";
 import { FormState } from "./types";
 
-export const getFormSchema: GetFormSchema<ProjectSettingsTabRoutes.Notifications> = (
+export const getFormSchema = (
   repoData?: FormState
-) => ({
+): ReturnType<GetFormSchema> => ({
   fields: {
     subscriptionField: SubscriptionField,
   },

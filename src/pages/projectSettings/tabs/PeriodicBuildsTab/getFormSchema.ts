@@ -1,15 +1,14 @@
 import widgets from "components/SpruceForm/Widgets";
 import { timeZones } from "constants/fieldMaps";
-import { ProjectSettingsTabRoutes } from "constants/routes";
 import { GetFormSchema } from "../types";
 import { form, ProjectType } from "../utils";
 
 const { overrideRadioBox } = form;
 
-export const getFormSchema: GetFormSchema<ProjectSettingsTabRoutes.PeriodicBuilds> = (
+export const getFormSchema = (
   projectType: ProjectType,
   timezone: string
-) => ({
+): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
     type: "object" as "object",

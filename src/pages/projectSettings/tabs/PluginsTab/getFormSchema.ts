@@ -1,16 +1,15 @@
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { ProjectSettingsTabRoutes } from "constants/routes";
 import { GetFormSchema } from "../types";
 import { form } from "../utils";
 import { FormState } from "./types";
 
 const { hiddenIf, placeholderIf, radioBoxOptions } = form;
 
-export const getFormSchema: GetFormSchema<ProjectSettingsTabRoutes.Plugins> = (
+export const getFormSchema = (
   repoData?: FormState,
   formData?: FormState
-) => ({
+): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
     type: "object" as "object",

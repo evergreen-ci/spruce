@@ -31,12 +31,12 @@ export type FormStateMap = {
   [ProjectSettingsTabRoutes.PeriodicBuilds]: periodicBuilds.FormState;
 };
 
-export type GetFormSchema<T extends WritableTabRoutes> = (
+export type GetFormSchema = (
   ...any
 ) => {
   fields: Record<string, Field>;
-  schema: SpruceFormProps<FormStateMap[T]>["schema"];
-  uiSchema: SpruceFormProps<FormStateMap[T]>["uiSchema"];
+  schema: SpruceFormProps["schema"];
+  uiSchema: SpruceFormProps["uiSchema"];
 };
 
 export type TabDataProps = {
