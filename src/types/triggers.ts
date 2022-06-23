@@ -115,21 +115,3 @@ export interface Target {
   email?: string;
   slack?: string;
 }
-
-export interface SubscriptionMethodControl {
-  dropdown: string;
-  label: string;
-  placeholder: string;
-  targetPath: string;
-  format: string;
-}
-
-export interface SubscriptionMethods {
-  "jira-comment": SubscriptionMethodControl;
-  email: SubscriptionMethodControl;
-  slack: SubscriptionMethodControl;
-
-  // Below is for project basis ONLY
-  "jira-issue"?: SubscriptionMethodControl;
-  "evergreen-webhook"?: SubscriptionMethodControl;
-}

@@ -19,9 +19,11 @@ export const RegexSelectorRow: React.VFC<
   );
 };
 
+const columnSize = "200px";
+
 const LeftColumn = styled.div`
+  min-width: ${columnSize};
   padding-right: ${size.s};
-  min-width: 200px;
 `;
 
 const MiddleText = styled.div`
@@ -31,7 +33,7 @@ const MiddleText = styled.div`
 `;
 
 const RightColumn = styled.div`
-  min-width: 200px;
+  min-width: ${columnSize};
 `;
 
 const RowContainer = styled.div`

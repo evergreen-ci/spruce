@@ -1,13 +1,10 @@
 import { projectTriggers } from "constants/triggers";
-import { ProjectInput, Subscriber } from "gql/generated/types";
+import { ProjectInput } from "gql/generated/types";
 import { string } from "utils";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { FormState } from "./types";
 
 const { toSentenceCase } = string;
-
-export const getSubscriberTitle = (subscriber: Subscriber) =>
-  Object.values(subscriber);
 
 const getDisplayTitle = (resourceType: string, trigger: string) => {
   const title =
@@ -26,33 +23,30 @@ const getTriggerEnum = (trigger: string, resourceType: string) => {
   return triggerEnum;
 };
 
-// You might want to use trigger data rather than selectors here.
 const getExtraFields = (
   triggerEnum: string,
   triggerData: { [key: string]: string }
 ) => {
   if (!triggerData) return {};
 
-  const toReturn = {};
+  const extraFields = {};
   projectTriggers[triggerEnum].extraFields.forEach((e) => {
-    toReturn[e.key] = triggerData[e.key];
+    extraFields[e.key] = triggerData[e.key];
   });
-  return toReturn;
+  return extraFields;
 };
 
-const getHttpHeaders = (headers: { key: string; value: string }[]) => {
-  const httpHeaders = headers.map((h) => ({
-    keyinput: h.key,
-    valueInput: h.value,
-  }));
-  return httpHeaders;
-};
+const getHttpHeaders = (headers: { key: string; value: string }[]) =>
+  headers
+    ? headers.map((h) => ({
+        keyinput: h.key,
+        valueInput: h.value,
+      }))
+    : [];
 
 export const gqlToForm: GqlToFormFunction = (data): FormState => {
   if (!data) return null;
   const { projectRef, subscriptions } = data;
-
-  console.log("Subscriptions: ", subscriptions);
 
   return {
     buildBreakSettings: {
@@ -70,16 +64,25 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
             subscriber,
           }) => {
             const triggerEnum = getTriggerEnum(trigger, resourceType);
+            const {
+              subscriber: subscriberList,
+              type: subscriberType,
+            } = subscriber;
+            const {
+              jiraCommentSubscriber,
+              slackSubscriber,
+              emailSubscriber,
+              jiraIssueSubscriber,
+              webhookSubscriber,
+            } = subscriberList;
 
             return {
               id,
               resourceType,
               trigger,
               ownerType,
-              // EVENT FIELD
-              // based on this stuff I want to restructure the data
               displayTitle: getDisplayTitle(resourceType, trigger),
-              subscription: {
+              subscriptionData: {
                 event: {
                   eventSelect: triggerEnum,
                   extraFields: getExtraFields(triggerEnum, triggerData),
@@ -88,27 +91,19 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
                     regexInput: r.data,
                   })),
                 },
-                // NOTIFICATION FIELD
                 notification: {
-                  notificationSelect: subscriber.type,
-                  jiraInput: subscriber.subscriber.jiraCommentSubscriber ?? "",
-                  slackInput: subscriber.subscriber.slackSubscriber ?? "",
-                  emailInput: subscriber.subscriber.emailSubscriber ?? "",
+                  notificationSelect: subscriberType,
+                  jiraCommentInput: jiraCommentSubscriber ?? "",
+                  slackInput: slackSubscriber ?? "",
+                  emailInput: emailSubscriber ?? "",
                   jiraIssueInput: {
-                    projectInput:
-                      subscriber.subscriber.jiraIssueSubscriber?.project ?? "",
-                    issueInput:
-                      subscriber.subscriber.jiraIssueSubscriber?.issueType ??
-                      "",
+                    projectInput: jiraIssueSubscriber?.project ?? "",
+                    issueInput: jiraIssueSubscriber?.issueType ?? "",
                   },
                   webhookInput: {
-                    urlInput:
-                      subscriber.subscriber.webhookSubscriber?.url ?? "",
-                    secretInput:
-                      subscriber.subscriber.webhookSubscriber?.secret ?? "",
-                    httpHeaders: getHttpHeaders(
-                      subscriber.subscriber.webhookSubscriber?.headers ?? []
-                    ),
+                    urlInput: webhookSubscriber?.url ?? "",
+                    secretInput: webhookSubscriber?.secret ?? "",
+                    httpHeaders: getHttpHeaders(webhookSubscriber?.headers),
                   },
                 },
               },

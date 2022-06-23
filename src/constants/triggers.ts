@@ -1,9 +1,4 @@
 import {
-  SUBSCRIPTION_EMAIL,
-  SUBSCRIPTION_JIRA_COMMENT,
-  SUBSCRIPTION_SLACK,
-} from "types/subscription";
-import {
   ExtraField,
   ExtraFieldKey,
   RegexSelector,
@@ -12,59 +7,10 @@ import {
   StringMap,
   Trigger,
   TriggerType,
-  SubscriptionMethods,
   TaskTriggers,
   VersionTriggers,
   ProjectTriggers,
 } from "types/triggers";
-
-export const subscriptionMethodControls: SubscriptionMethods = {
-  "jira-comment": {
-    dropdown: "Comment on a JIRA issue",
-    label: "JIRA Issue",
-    placeholder: "ABC-123",
-    targetPath: "jira-comment",
-    format: "validJiraTicket",
-  },
-  slack: {
-    dropdown: "Slack message",
-    label: "Slack Username or Channel",
-    placeholder: "@user or #channel",
-    targetPath: "slack",
-    format: "validSlack",
-  },
-  email: {
-    dropdown: "Email",
-    label: "Email Address",
-    placeholder: "someone@example.com",
-    targetPath: "email",
-    format: "validEmail",
-  },
-};
-
-export const projectSubscriptionMethods: SubscriptionMethods = {
-  ...subscriptionMethodControls,
-  "jira-issue": {
-    dropdown: "Create a JIRA Issue",
-    label: "JIRA Issue",
-    placeholder: "#2333",
-    targetPath: "github-pr",
-    format: "validJiraTicket",
-  },
-  "evergreen-webhook": {
-    dropdown: "Evergreen Webhook",
-    label: "Evergreen Webhook",
-    placeholder: "#2333",
-    targetPath: "github-pr",
-    format: "validEmail",
-  },
-};
-
-export const subscriptionMethodDropdownOptions = [
-  SUBSCRIPTION_JIRA_COMMENT,
-  SUBSCRIPTION_SLACK,
-  SUBSCRIPTION_EMAIL,
-];
 
 export const buildRegexSelectors: RegexSelector[] = [
   {

@@ -24,9 +24,6 @@ export const NotificationsTab: React.VFC<TabProps> = ({
 
   const onChange = updateForm(tab);
 
-  // get past linter
-  // console.log(projectType, onChange);
-
   const { fields, schema, uiSchema } = useMemo(
     () =>
       getFormSchema(

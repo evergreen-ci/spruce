@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { NotificationModal } from "components/Notifications";
-import { subscriptionMethodControls, patchTriggers } from "constants/triggers";
+import { patchTriggers } from "constants/triggers";
+import { subscriptionMethods } from "types/subscription";
 
 interface ModalProps {
   visible: boolean;
@@ -21,7 +22,7 @@ export const PatchNotificationModal: React.VFC<ModalProps> = ({
       visible={visible}
       onCancel={onCancel}
       triggers={patchTriggers}
-      subscriptionMethodControls={subscriptionMethodControls}
+      subscriptionMethods={subscriptionMethods}
       resourceId={patchId}
       sendAnalyticsEvent={(subscription) =>
         sendEvent({ name: "Add Notification", subscription })

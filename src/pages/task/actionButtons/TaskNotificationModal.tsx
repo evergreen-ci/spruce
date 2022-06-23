@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { NotificationModal } from "components/Notifications";
-import { subscriptionMethodControls, taskTriggers } from "constants/triggers";
+import { taskTriggers } from "constants/triggers";
+import { subscriptionMethods } from "types/subscription";
 
 interface ModalProps {
   visible: boolean;
@@ -21,7 +22,7 @@ export const TaskNotificationModal: React.VFC<ModalProps> = ({
       visible={visible}
       onCancel={onCancel}
       triggers={taskTriggers}
-      subscriptionMethodControls={subscriptionMethodControls}
+      subscriptionMethods={subscriptionMethods}
       resourceId={taskId}
       sendAnalyticsEvent={(subscription) =>
         taskAnalytics.sendEvent({ name: "Add Notification", subscription })

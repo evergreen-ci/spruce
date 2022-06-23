@@ -18,13 +18,15 @@ export const HTTPHeaderRow: React.VFC<
   );
 };
 
+const columnSize = "200px";
+
 const LeftColumn = styled.div`
+  min-width: ${columnSize};
   padding-right: ${size.s};
-  min-width: 200px;
 `;
 
 const RightColumn = styled.div`
-  min-width: 200px;
+  min-width: ${columnSize};
 `;
 
 const RowContainer = styled.div`

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
+import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import Cookies from "js-cookie";
 import { Modal } from "components/Modal";
@@ -8,6 +9,7 @@ import {
   getNotificationTriggerCookie,
   SUBSCRIPTION_METHOD,
 } from "constants/cookies";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   SaveSubscriptionMutation,
@@ -16,30 +18,35 @@ import {
 } from "gql/generated/types";
 import { SAVE_SUBSCRIPTION } from "gql/mutations";
 import { GET_USER } from "gql/queries";
-import { UseNotificationModalProps } from "hooks/useNotificationModal";
 import { useUserSettings } from "hooks/useUserSettings";
+import { SubscriptionMethodOption } from "types/subscription";
+import { Trigger } from "types/triggers";
 import { getFormSchema } from "./getFormSchema";
-import { LeftButton } from "./styles";
+import { FormState } from "./types";
+import { getRegexEnumsToDisable, getGqlPayload } from "./utils";
 
-interface NotificationModalProps extends UseNotificationModalProps {
+interface NotificationModalProps {
+  "data-cy": string;
+  onCancel: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  resourceId: string;
   sendAnalyticsEvent: (
     subscription: SaveSubscriptionMutationVariables["subscription"]
   ) => void;
-  visible: boolean;
-  onCancel: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
-  "data-cy": string;
+  subscriptionMethods: SubscriptionMethodOption[];
+  triggers: Trigger;
   type: "task" | "version";
+  visible: boolean;
 }
 
 export const NotificationModal: React.VFC<NotificationModalProps> = ({
-  visible,
+  "data-cy": dataCy,
   onCancel,
-  subscriptionMethodControls,
-  triggers,
   resourceId,
   sendAnalyticsEvent,
-  "data-cy": dataCy,
+  subscriptionMethods,
+  triggers,
   type,
+  visible,
 }) => {
   const dispatchToast = useToastContext();
   const [saveSubscription] = useMutation<
@@ -54,15 +61,15 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
     },
   });
 
+  // Fetch user Slack and email information.
   const { userSettings } = useUserSettings();
   const { slackUsername } = userSettings || {};
-
   const { data: userData } = useQuery<GetUserQuery>(GET_USER);
   const { user } = userData || {};
   const { emailAddress } = user || {};
 
-  // oops because I did omit it, it goes away.
-  const [formState, setFormState] = useState({
+  // Define initial form state.
+  const [formState, setFormState] = useState<FormState>({
     event: {
       eventSelect:
         Cookies.get(getNotificationTriggerCookie(type)) ||
@@ -72,91 +79,15 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
     },
     notification: {
       notificationSelect: Cookies.get(SUBSCRIPTION_METHOD) ?? "jira-comment",
-      jiraInput: "",
+      jiraCommentInput: "",
       slackInput: slackUsername ? `@${slackUsername}` : "",
       emailInput: emailAddress ?? "",
     },
   });
   const [canSubmit, setCanSubmit] = useState(false);
 
-  // Subscription input looks like
-  // {
-  //   id?: Maybe<Scalars["String"]>;
-  //   resource_type?: Maybe<Scalars["String"]>;
-  //   trigger?: Maybe<Scalars["String"]>;
-  //   selectors: Array<SelectorInput>;
-  //   regex_selectors: Array<SelectorInput>;
-  //   subscriber: SubscriberInput;
-  //   owner_type?: Maybe<Scalars["String"]>;
-  //   owner?: Maybe<Scalars["String"]>;
-  //   trigger_data: Scalars["StringMap"];
-  // }
-  // This is the payload sent when processing notifications.
-  const getTargetForMethod = (method: string) => {
-    if (method === "jira-comment") {
-      return formState.notification.jiraInput;
-    }
-    if (method === "slack") {
-      return formState.notification.slackInput;
-    }
-    return formState.notification.emailInput;
-  };
-
-  // needs a type = maybe triggermap and trigger
-  const getExtraFields = (event) => {
-    if (!event.extraFields) {
-      return {};
-    }
-
-    const toReturn = {};
-    const { extraFields } = formState.event;
-
-    event.extraFields.forEach((e) => {
-      toReturn[e.key] = extraFields[e.key];
-    });
-    return toReturn;
-  };
-
-  const getRequestPayload = () => {
-    const event = triggers[formState.event.eventSelect];
-    const { payloadResourceIdKey, resourceType, trigger } = event;
-
-    const method = formState.notification.notificationSelect;
-    const target = getTargetForMethod(method);
-
-    // Only include extraFields if they are part of the trigger
-    const extraFields = getExtraFields(event);
-
-    // Only include regex selectors if the trigger specifies it
-    const regexSelectors = event.regexSelectors
-      ? formState.event.regexSelector.map((r) => ({
-          type: r.regexSelect,
-          data: r.regexInput,
-        }))
-      : [];
-
-    console.log("extraFields: ", extraFields);
-    console.log("regexSelectors: ", regexSelectors);
-
-    return {
-      trigger,
-      resource_type: resourceType,
-      selectors: [
-        { type: "object", data: resourceType.toLowerCase() },
-        { type: payloadResourceIdKey, data: resourceId },
-      ],
-      subscriber: {
-        type: method,
-        target,
-      },
-      trigger_data: extraFields, // ex; { "task-duration-secs" : "10"}
-      owner_type: "person",
-      regex_selectors: regexSelectors,
-    };
-  };
-
   const onClickSave = () => {
-    const subscription = getRequestPayload();
+    const subscription = getGqlPayload(triggers, resourceId, formState);
     saveSubscription({
       variables: { subscription },
     });
@@ -180,25 +111,11 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
     }
   };
 
-  const usingID = !!formState.event.regexSelector.find(
-    (r) => r.regexSelect === "build-variant"
-  );
-  const usingName = !!formState.event.regexSelector.find(
-    (r) => r.regexSelect === "display-name"
-  );
-  const regexEnumsToDisable = [
-    ...(usingID ? ["build-variant"] : []),
-    ...(usingName ? ["display-name"] : []),
-  ];
-
   const { schema, uiSchema } = getFormSchema(
-    regexEnumsToDisable,
+    getRegexEnumsToDisable(formState.event.regexSelector),
     triggers,
-    subscriptionMethodControls
+    subscriptionMethods
   );
-
-  // Need to clear the input vals for the extraFields and regex selectors when the selected trigger changes
-  // console.log("leformState: ", formState);
 
   return (
     <Modal
@@ -243,3 +160,8 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
     </Modal>
   );
 };
+
+/* @ts-expect-error */
+export const LeftButton = styled(Button)`
+  margin-right: ${size.s};
+`;
