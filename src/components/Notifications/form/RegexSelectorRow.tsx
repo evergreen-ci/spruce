@@ -11,7 +11,7 @@ export const RegexSelectorRow: React.VFC<
   const [regexSelect, regexInput] = getFields(properties, formData.isDisabled);
 
   return (
-    <RowContainer>
+    <RowContainer data-cy="regex-selector-row">
       <LeftColumn>{regexSelect}</LeftColumn>
       <MiddleText> matches regex </MiddleText>
       <RightColumn>{regexInput}</RightColumn>

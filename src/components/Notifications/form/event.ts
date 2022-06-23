@@ -82,7 +82,7 @@ const regexSelector = (
   regexSelectors: RegexSelector[]
 ) => ({
   type: "array" as "array",
-  minItems: 1,
+  minItems: 0,
   maxItems: 2,
   required: ["regexSelect", "regexInput"],
   items: {
@@ -403,16 +403,16 @@ export const getEventSchema = (
     extraFields: {
       "ui:showLabel": false,
       [ExtraFieldKey.TASK_PERCENT_CHANGE]: {
-        "ui:data-cy": "task-percent-change-input",
+        "ui:data-cy": "percent-change-input",
       },
       [ExtraFieldKey.VERSION_PERCENT_CHANGE]: {
-        "ui:data-cy": "version-percent-change-input",
+        "ui:data-cy": "percent-change-input",
       },
       [ExtraFieldKey.TASK_DURATION_SECS]: {
-        "ui:data-cy": "task-duration-change-input",
+        "ui:data-cy": "duration-secs-input",
       },
       [ExtraFieldKey.VERSION_DURATION_SECS]: {
-        "ui:data-cy": "version-duration-change-input",
+        "ui:data-cy": "duration-secs-input",
       },
       [ExtraFieldKey.RENOTIFY_INTERVAL]: {
         "ui:data-cy": "renotify-interval-input",
@@ -431,6 +431,8 @@ export const getEventSchema = (
     },
     regexSelector: {
       "ui:showLabel": false,
+      "ui:description":
+        "Regex can be specified for at most one name and one ID.",
       "ui:orderable": false,
       "ui:addToEnd": true,
       "ui:addButtonText": "Add Additional Criteria",
