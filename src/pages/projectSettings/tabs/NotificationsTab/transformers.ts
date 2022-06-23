@@ -39,7 +39,7 @@ const getExtraFields = (
 const getHttpHeaders = (headers: { key: string; value: string }[]) =>
   headers
     ? headers.map((h) => ({
-        keyinput: h.key,
+        keyInput: h.key,
         valueInput: h.value,
       }))
     : [];
