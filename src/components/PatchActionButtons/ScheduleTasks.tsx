@@ -1,6 +1,6 @@
 import { useState } from "react";
+import Button from "@leafygreen-ui/button";
 import { useVersionAnalytics } from "analytics";
-import { Button } from "components/Button";
 import { DropdownItem } from "components/ButtonDropdown";
 import { ScheduleTasksModal } from "components/ScheduleTasksModal";
 

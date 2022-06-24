@@ -304,5 +304,6 @@ const Section = styled(ModalContent)`
 // @ts-expect-error
 const WideButton = styled(Button)`
   justify-content: center;
+  margin-left: ${size.s};
   width: 140px;
 `;

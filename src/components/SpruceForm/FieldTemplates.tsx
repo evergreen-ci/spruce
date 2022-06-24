@@ -11,6 +11,7 @@ import {
   ObjectFieldTemplateProps,
 } from "@rjsf/core";
 import { Accordion } from "components/Accordion";
+import { PlusButton } from "components/Buttons";
 import Icon from "components/Icon";
 import { fontSize, size } from "constants/tokens";
 import { Unpacked } from "types/utils";
@@ -260,15 +261,14 @@ export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
   const addButton = useMemo(
     () => (
       <AddButtonContainer>
-        <Button
+        <PlusButton
           data-cy="add-button"
           disabled={isDisabled}
-          leftGlyph={<Icon glyph="Plus" />}
           onClick={handleAddClick}
           size={addButtonSize}
         >
           {addButtonText}
-        </Button>
+        </PlusButton>
       </AddButtonContainer>
     ),
     [addButtonSize, addButtonText, handleAddClick, isDisabled]
