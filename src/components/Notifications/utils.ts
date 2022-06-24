@@ -1,8 +1,4 @@
-import {
-  SUBSCRIPTION_JIRA_COMMENT,
-  SUBSCRIPTION_SLACK,
-  SUBSCRIPTION_EMAIL,
-} from "types/subscription";
+import { NotificationMethods } from "types/subscription";
 import { Trigger, ExtraField } from "types/triggers";
 import { FormState, FormExtraFields, FormRegexSelector } from "./types";
 
@@ -18,14 +14,14 @@ export const getRegexEnumsToDisable = (regexForm: FormRegexSelector[]) => {
 
 const getTargetForMethod = (method: string) => {
   switch (method) {
-    case SUBSCRIPTION_JIRA_COMMENT.value:
+    case NotificationMethods.JIRA_COMMENT:
       return "jiraCommentInput";
-    case SUBSCRIPTION_SLACK.value:
+    case NotificationMethods.SLACK:
       return "slackInput";
-    case SUBSCRIPTION_EMAIL.value:
+    case NotificationMethods.EMAIL:
       return "emailInput";
     default:
-      return "jiraCommentInput";
+      return "";
   }
 };
 
@@ -58,6 +54,7 @@ const extraFieldsFormToGql = (
   extraFieldsToInclude.forEach((e) => {
     extraFields[e.key] = extraFieldsForm[e.key];
   });
+  console.log(extraFields);
   return extraFields;
 };
 

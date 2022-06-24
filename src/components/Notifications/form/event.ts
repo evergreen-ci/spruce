@@ -84,9 +84,9 @@ const regexSelector = (
   type: "array" as "array",
   minItems: 0,
   maxItems: 2,
-  required: ["regexSelect", "regexInput"],
   items: {
     type: "object" as "object",
+    required: ["regexSelect", "regexInput"],
     properties: {
       regexSelect: {
         type: "string" as "string",
@@ -106,7 +106,6 @@ const regexSelector = (
         type: "string" as "string",
         title: "Regex",
         format: "validRegex",
-        default: "",
         minLength: 1,
       },
     },
@@ -131,6 +130,7 @@ export const getEventSchema = (
   schema: {
     type: "object" as "object",
     title: "Choose an Event",
+    required: ["eventSelect"],
     properties: {
       eventSelect: {
         type: "string" as "string",

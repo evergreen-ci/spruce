@@ -45,11 +45,14 @@ export const LeafyGreenTextInput: React.VFC<
     optional,
     warnings,
   } = options;
+
   const hasError = !!rawErrors?.length;
+  const deduplicatedErrors = Array.from(new Set(rawErrors));
+
   const inputProps = {
     ...(!isNullish(schema.maximum) && { max: schema.maximum }),
     ...(!isNullish(schema.minimum) && { min: schema.minimum }),
-    errorMessage: hasError ? rawErrors.join(", ") : null,
+    errorMessage: hasError ? deduplicatedErrors.join(", ") : null,
     state: hasError ? TextInputState.Error : TextInputState.None,
   };
 

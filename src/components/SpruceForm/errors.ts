@@ -4,6 +4,11 @@ export const transformErrors = (errors: AjvError[]) =>
   errors
     .map((error) => {
       switch (error.name) {
+        case "enum":
+          return {
+            ...error,
+            message: "",
+          };
         case "required":
           return {
             ...error,

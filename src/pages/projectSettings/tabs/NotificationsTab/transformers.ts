@@ -121,16 +121,18 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
                 },
                 notification: {
                   notificationSelect: subscriberType,
-                  jiraCommentInput: jiraCommentSubscriber ?? "",
-                  slackInput: slackSubscriber ?? "",
-                  emailInput: emailSubscriber ?? "",
+                  jiraCommentInput: jiraCommentSubscriber ?? undefined,
+                  slackInput: slackSubscriber ?? undefined,
+                  emailInput: emailSubscriber ?? undefined,
                   jiraIssueInput: {
-                    projectInput: jiraIssueSubscriber?.project ?? "",
-                    issueInput: jiraIssueSubscriber?.issueType ?? "",
+                    projectInput: jiraIssueSubscriber?.project ?? undefined,
+                    issueInput: jiraIssueSubscriber?.issueType ?? undefined,
                   },
                   webhookInput: {
-                    urlInput: webhookSubscriber?.url ?? "",
-                    secretInput: webhookSubscriber?.secret ?? "",
+                    urlInput: webhookSubscriber?.url ?? undefined,
+                    secretInput:
+                      webhookSubscriber?.secret ??
+                      "I-should-be-generated (EVG-17181)",
                     httpHeaders: getHttpHeaders(webhookSubscriber?.headers),
                   },
                 },

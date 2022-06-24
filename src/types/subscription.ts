@@ -3,39 +3,37 @@ export interface SubscriptionMethodOption {
   value: string;
 }
 
-export const SUBSCRIPTION_JIRA_COMMENT: SubscriptionMethodOption = {
-  value: "jira-comment",
-  label: "Comment on a JIRA issue",
-};
+export enum NotificationMethods {
+  JIRA_COMMENT = "jira-comment",
+  JIRA_ISSUE = "jira-issue",
+  WEBHOOK = "evergreen-webhook",
+  SLACK = "slack",
+  EMAIL = "email",
+}
 
-export const SUBSCRIPTION_JIRA_ISSUE: SubscriptionMethodOption = {
-  value: "jira-issue",
-  label: "Create a JIRA Issue",
-};
-
-export const SUBSCRIPTION_WEBHOOK: SubscriptionMethodOption = {
-  value: "evergreen-webhook",
-  label: "Evergreen Webhook",
-};
-
-export const SUBSCRIPTION_SLACK: SubscriptionMethodOption = {
-  value: "slack",
-  label: "Slack message",
-};
-
-export const SUBSCRIPTION_EMAIL: SubscriptionMethodOption = {
-  value: "email",
-  label: "Email",
-};
-
-export const subscriptionMethods = [
-  SUBSCRIPTION_JIRA_COMMENT,
-  SUBSCRIPTION_SLACK,
-  SUBSCRIPTION_EMAIL,
+export const subscriptionMethods: SubscriptionMethodOption[] = [
+  {
+    value: NotificationMethods.JIRA_COMMENT,
+    label: "Comment on a JIRA issue",
+  },
+  {
+    value: NotificationMethods.SLACK,
+    label: "Slack message",
+  },
+  {
+    value: NotificationMethods.EMAIL,
+    label: "Email",
+  },
 ];
 
 export const projectSubscriptionMethods = [
   ...subscriptionMethods,
-  SUBSCRIPTION_WEBHOOK,
-  SUBSCRIPTION_JIRA_ISSUE,
+  {
+    value: NotificationMethods.WEBHOOK,
+    label: "Evergreen Webhook",
+  },
+  {
+    value: NotificationMethods.JIRA_ISSUE,
+    label: "Create a JIRA Issue",
+  },
 ];

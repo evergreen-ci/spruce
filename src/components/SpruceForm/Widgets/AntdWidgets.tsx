@@ -13,6 +13,7 @@ export const AntdSelect: React.VFC<
   {
     options: {
       disabledEnums?: string[];
+      hideError?: boolean;
     };
   } & EnumSpruceWidgetProps
 > = ({
@@ -27,13 +28,14 @@ export const AntdSelect: React.VFC<
 }) => {
   const {
     disabledEnums,
+    hideError,
     ariaLabelledBy,
     enumOptions,
     "data-cy": dataCy,
     marginBottom,
   } = options;
 
-  const hasError = !!rawErrors?.length && !disabled;
+  const hasError = !hideError && !!rawErrors?.length && !disabled;
   const isDisabled = disabled || readonly;
   const disabledOptions = disabledEnums ?? [];
 

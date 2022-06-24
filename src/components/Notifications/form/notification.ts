@@ -1,6 +1,9 @@
 import { SpruceFormProps } from "components/SpruceForm";
 import { AntdSelect } from "components/SpruceForm/Widgets/AntdWidgets";
-import { SubscriptionMethodOption } from "types/subscription";
+import {
+  SubscriptionMethodOption,
+  NotificationMethods,
+} from "types/subscription";
 import { HTTPHeaderRow } from "./HTTPHeaderRow";
 
 /**
@@ -39,7 +42,7 @@ export const getNotificationSchema = (
             required: ["jiraCommentInput"],
             properties: {
               notificationSelect: {
-                enum: ["jira-comment"],
+                enum: [NotificationMethods.JIRA_COMMENT],
               },
               jiraCommentInput: {
                 type: "string" as "string",
@@ -53,7 +56,7 @@ export const getNotificationSchema = (
             required: ["slackInput"],
             properties: {
               notificationSelect: {
-                enum: ["slack"],
+                enum: [NotificationMethods.SLACK],
               },
               slackInput: {
                 type: "string" as "string",
@@ -67,7 +70,7 @@ export const getNotificationSchema = (
             required: ["emailInput"],
             properties: {
               notificationSelect: {
-                enum: ["email"],
+                enum: [NotificationMethods.EMAIL],
               },
               emailInput: {
                 type: "string" as "string",
@@ -80,7 +83,7 @@ export const getNotificationSchema = (
           {
             properties: {
               notificationSelect: {
-                enum: ["evergreen-webhook"],
+                enum: [NotificationMethods.WEBHOOK],
               },
               webhookInput: {
                 type: "object" as "object",
@@ -90,11 +93,13 @@ export const getNotificationSchema = (
                   urlInput: {
                     type: "string" as "string",
                     title: "Webhook URL",
+                    format: "validURL",
                     minLength: 1,
                   },
                   secretInput: {
                     type: "string" as "string",
                     title: "Webhook Secret",
+                    default: "I-should-be-generated (EVG-17181)",
                   },
                   httpHeaders: {
                     type: "array" as "array",
@@ -120,7 +125,7 @@ export const getNotificationSchema = (
           {
             properties: {
               notificationSelect: {
-                enum: ["jira-issue"],
+                enum: [NotificationMethods.JIRA_ISSUE],
               },
               jiraIssueInput: {
                 type: "object" as "object",
