@@ -35,7 +35,7 @@ const TreeData = [
   },
   {
     value: CommitRequesterTypes.AdHocRequester,
-    title: "Periodic Build",
+    title: "Periodic Builds",
     key: CommitRequesterTypes.AdHocRequester,
   },
 ];
