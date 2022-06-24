@@ -1,8 +1,7 @@
 import { cloneElement, useState } from "react";
 import { useQuery } from "@apollo/client";
-import { Size, Variant } from "@leafygreen-ui/button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
-import { PlusButton } from "components/Buttons";
+import { PlusButton, Size, Variant } from "components/Buttons";
 import { zIndex } from "constants/tokens";
 import { GetUserPermissionsQuery } from "gql/generated/types";
 import { GET_USER_PERMISSIONS } from "gql/queries";
