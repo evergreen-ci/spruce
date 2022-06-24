@@ -1,10 +1,10 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import Button from "@leafygreen-ui/button";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Table, TableHeader, Row, Cell } from "@leafygreen-ui/table";
 import { useLocation } from "react-router-dom";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
-import { Button } from "components/Button";
 import PageSizeSelector, {
   usePageSizeSelector,
 } from "components/PageSizeSelector";
@@ -195,6 +195,6 @@ const LabelWrapper = styled.div`
 const ButtonWrapper = styled.div`
   display: flex;
   > :first-of-type {
-    margin-right: ${size.s};
+    margin-right: ${size.xs};
   }
 `;

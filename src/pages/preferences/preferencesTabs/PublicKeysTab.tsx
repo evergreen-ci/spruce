@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Icon from "@leafygreen-ui/icon";
 import { Table, Skeleton, Popconfirm } from "antd";
 import { usePreferencesAnalytics } from "analytics";
+import { PlusButton } from "components/Buttons";
 import { WordBreak } from "components/Typography";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -120,10 +121,9 @@ export const PublicKeysTab: React.VFC = () => {
 
   return (
     <div>
-      <Button
+      <PlusButton
         size="small"
         data-cy="add-key-button"
-        leftGlyph={<Icon glyph="Plus" />}
         onClick={() => {
           setEditModalProps({
             visible: true,
@@ -132,7 +132,7 @@ export const PublicKeysTab: React.VFC = () => {
         }}
       >
         Add New Key
-      </Button>
+      </PlusButton>
       <TableContainer>
         {loadingMyPublicKeys ? (
           <Skeleton active title={false} paragraph={{ rows: 4 }} />
