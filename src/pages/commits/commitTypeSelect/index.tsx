@@ -33,6 +33,11 @@ const TreeData = [
     title: "Triggers",
     key: CommitRequesterTypes.TriggerRequester,
   },
+  {
+    value: CommitRequesterTypes.AdHocRequester,
+    title: "Periodic Build",
+    key: CommitRequesterTypes.AdHocRequester,
+  },
 ];
 
 const CommitTypeSelector = () => {
