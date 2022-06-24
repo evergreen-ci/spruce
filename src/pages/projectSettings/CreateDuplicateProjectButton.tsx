@@ -1,8 +1,7 @@
 import { cloneElement, useState } from "react";
 import { useQuery } from "@apollo/client";
-import Button, { Size, Variant } from "@leafygreen-ui/button";
-import Icon from "@leafygreen-ui/icon";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
+import { PlusButton, Size, Variant } from "components/Buttons";
 import { zIndex } from "constants/tokens";
 import { GetUserPermissionsQuery } from "gql/generated/types";
 import { GET_USER_PERMISSIONS } from "gql/queries";
@@ -11,14 +10,13 @@ import { CreateProjectModal } from "./CreateProjectModal";
 import { ProjectType } from "./tabs/utils";
 
 const NewProjectButton = (
-  <Button
+  <PlusButton
     size={Size.Small}
     data-cy="new-project-button"
-    leftGlyph={<Icon glyph="Plus" />}
     variant={Variant.Primary}
   >
     New Project
-  </Button>
+  </PlusButton>
 );
 
 interface Props {
