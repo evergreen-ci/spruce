@@ -1,8 +1,8 @@
 import { SpruceFormProps } from "components/SpruceForm";
 import { SubscriptionMethodOption } from "types/subscription";
 import { Trigger } from "types/triggers";
-import { getEventSchema } from "./form/event";
-import { getNotificationSchema } from "./form/notification";
+import { getEventSchema } from "./event";
+import { getNotificationSchema } from "./notification";
 
 export const getFormSchema = (
   regexEnumsToDisable: string[],

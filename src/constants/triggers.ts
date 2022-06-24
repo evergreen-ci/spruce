@@ -341,36 +341,4 @@ export const projectTriggers: Trigger = {
       },
     ],
   },
-  [ProjectTriggers.VERSION_EXCEEDS_DURATION]: {
-    trigger: TriggerType.EXCEEDS_DURATION,
-    label: "The Runtime For This Version Exceeds Some Duration",
-    resourceType: ResourceType.VERSION,
-    payloadResourceIdKey: "id",
-    extraFields: [
-      {
-        text: "Version duration (seconds)",
-        fieldType: "input",
-        key: ExtraFieldKey.VERSION_DURATION_SECS,
-        dataCy: "duration-secs-input",
-        format: "validDuration",
-        default: "10",
-      },
-    ],
-  },
-  [ProjectTriggers.VERSION_RUNTIME_CHANGE]: {
-    trigger: TriggerType.RUNTIME_CHANGE,
-    label: "The Runtime For This Version Changes By Some Percentage",
-    resourceType: ResourceType.VERSION,
-    payloadResourceIdKey: "id",
-    extraFields: [
-      {
-        text: "Percent Change",
-        fieldType: "input",
-        key: ExtraFieldKey.VERSION_PERCENT_CHANGE,
-        dataCy: "percent-change-input",
-        format: "validPercentage",
-        default: "10",
-      },
-    ],
-  },
 };

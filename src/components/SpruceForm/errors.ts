@@ -45,12 +45,12 @@ export const transformErrors = (errors: AjvError[]) =>
             case "validJiraTicket":
               return {
                 ...error,
-                message: "Value should be a valid Jira ticket.",
+                message: "Value should be a valid JIRA ticket.",
               };
             case "validJiraURL":
               return {
                 ...error,
-                message: "Value should be a valid Jira ticket URL.",
+                message: "Value should be a valid JIRA URL.",
               };
             case "validPercentage":
               return {
@@ -72,7 +72,6 @@ export const transformErrors = (errors: AjvError[]) =>
                 ...error,
                 message: "Value should be a valid URL.",
               };
-
             default:
               return { ...error, message: "" };
           }

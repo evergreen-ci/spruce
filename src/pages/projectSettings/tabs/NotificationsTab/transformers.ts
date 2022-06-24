@@ -6,12 +6,35 @@ import { FormState } from "./types";
 
 const { toSentenceCase } = string;
 
-const getDisplayTitle = (resourceType: string, trigger: string) => {
-  const title =
+const getSubscriber = (subscriberType: string, subscriber) => {
+  switch (subscriberType) {
+    case "jira-comment":
+      return subscriber.jiraCommentSubscriber;
+    case "slack":
+      return subscriber.slackSubscriber;
+    case "email":
+      return subscriber.emailSubscriber;
+    case "evergreen-webhook":
+      return subscriber.webhookSubscriber.url;
+    case "jira-issue":
+      return subscriber.jiraIssueSubscriber.projectInput;
+    default:
+      return "";
+  }
+};
+
+const getDisplayTitle = (
+  resourceType: string,
+  trigger: string,
+  subscriberType: string,
+  subscriber
+) => {
+  const triggerText =
     resourceType && trigger
       ? `${toSentenceCase(resourceType)} ${trigger} `
       : "New Subscription";
-  return title;
+  const subscriberText = getSubscriber(subscriberType, subscriber);
+  return `${triggerText} - ${subscriberText}`;
 };
 
 const getTriggerEnum = (trigger: string, resourceType: string) => {
@@ -81,7 +104,12 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
               resourceType,
               trigger,
               ownerType,
-              displayTitle: getDisplayTitle(resourceType, trigger),
+              displayTitle: getDisplayTitle(
+                resourceType,
+                trigger,
+                subscriberType,
+                subscriberList
+              ),
               subscriptionData: {
                 event: {
                   eventSelect: triggerEnum,

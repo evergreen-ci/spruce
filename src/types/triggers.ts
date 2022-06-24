@@ -59,8 +59,6 @@ export enum ProjectTriggers {
   PREVIOUS_PASSING_TEST_FAILS = "previous-passing-test-fails",
   TASK_EXCEEDS_DURATION = "project-task-exceeds-duration",
   SUCCESSFUL_TASK_RUNTIME_CHANGES = "successful-task-runtime-change",
-  VERSION_EXCEEDS_DURATION = "project-version-exceeds-duration",
-  VERSION_RUNTIME_CHANGE = "project-version-runtime-change",
 }
 
 export enum ExtraFieldKey {

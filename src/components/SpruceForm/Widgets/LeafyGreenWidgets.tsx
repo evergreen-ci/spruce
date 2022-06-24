@@ -14,7 +14,7 @@ import TextInput, { State as TextInputState } from "@leafygreen-ui/text-input";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Description, Label } from "@leafygreen-ui/typography";
 import Icon from "components/Icon";
-import { size } from "constants/tokens";
+import { size, zIndex } from "constants/tokens";
 import { OneOf } from "types/utils";
 import ElementWrapper from "../ElementWrapper";
 import { EnumSpruceWidgetProps, SpruceWidgetProps } from "./types";
@@ -182,6 +182,7 @@ export const LeafyGreenSelect: React.VFC<
           data-cy={dataCy}
           state={hasError ? "error" : "none"}
           errorMessage="Selection is required."
+          popoverZIndex={zIndex.dropdown}
         >
           {enumOptions.map((o) => {
             // Handle deselect value without errors

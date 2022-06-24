@@ -21,7 +21,7 @@ import { GET_USER } from "gql/queries";
 import { useUserSettings } from "hooks/useUserSettings";
 import { SubscriptionMethodOption } from "types/subscription";
 import { Trigger } from "types/triggers";
-import { getFormSchema } from "./getFormSchema";
+import { getFormSchema } from "./form/getFormSchema";
 import { FormState } from "./types";
 import { getRegexEnumsToDisable, getGqlPayload } from "./utils";
 
