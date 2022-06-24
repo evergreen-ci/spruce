@@ -216,6 +216,7 @@
     "serve-handler": "^6.1.3",
     "simple-git": "^2.24.0",
     "storybook-addon-apollo-client": "^4.0.6",
+    "storybook-addon-react-router-v6": "^0.1.10",
     "style-loader": "1.3.0",
     "ts-loader": "8.0.11",
     "tslint": "6.1.3",

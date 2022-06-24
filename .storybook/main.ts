@@ -26,6 +26,8 @@ const storybookConfig: StorybookViteConfig = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
+    "storybook-addon-react-router-v6",
+    "storybook-addon-apollo-client",
   ],
   framework: "@storybook/react",
   core: {

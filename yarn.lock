@@ -17638,7 +17638,7 @@ react-fast-compare@^3.0.1:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.2.0.tgz#641a9da81b6a6320f270e89724fb45a0b39e43bb"
   integrity sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==
 
-react-inspector@^5.1.0:
+react-inspector@^5.1.0, react-inspector@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/react-inspector/-/react-inspector-5.1.1.tgz#58476c78fde05d5055646ed8ec02030af42953c8"
   integrity sha512-GURDaYzoLbW8pMGXwYPDBIv6nqei4kK7LPRZ9q9HCZF54wqXz/dnylBp/kfE9XmekBhHvLDdcYeyIwSrvtOiWg==
@@ -19285,6 +19285,13 @@ storybook-addon-apollo-client@^4.0.6:
   optionalDependencies:
     "@apollo/client" "3.3.5"
     "@apollo/react-testing" "4.0.0"
+
+storybook-addon-react-router-v6@^0.1.10:
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/storybook-addon-react-router-v6/-/storybook-addon-react-router-v6-0.1.10.tgz#16b66f4482317b14173bcf974049d3e867cfca88"
+  integrity sha512-eeJUdtELmck3VlUISCgX/3oEwY+/7wzqa4+5BOiYbkp4BKZIEwaQbiSdsmmXzWQLG5zRRNEbgk6dA3tZwV060w==
+  dependencies:
+    react-inspector "^5.1.1"
 
 stream-browserify@^2.0.1:
   version "2.0.2"
