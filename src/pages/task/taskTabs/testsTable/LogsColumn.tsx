@@ -44,7 +44,6 @@ export const LogsColumn: React.VFC<Props> = ({
           data-cy="test-table-lobster-btn"
           size="xsmall"
           target="_blank"
-          variant="default"
           href={urlLobster}
           onClick={() =>
             taskAnalytics.sendEvent({
@@ -60,7 +59,6 @@ export const LogsColumn: React.VFC<Props> = ({
           data-cy="test-table-html-btn"
           size="xsmall"
           target="_blank"
-          variant="default"
           href={urlHTML}
           onClick={() =>
             taskAnalytics.sendEvent({
@@ -76,7 +74,6 @@ export const LogsColumn: React.VFC<Props> = ({
           data-cy="test-table-raw-btn"
           size="xsmall"
           target="_blank"
-          variant="default"
           href={urlRaw}
           onClick={() =>
             taskAnalytics.sendEvent({ name: "Click Logs Raw Button" })

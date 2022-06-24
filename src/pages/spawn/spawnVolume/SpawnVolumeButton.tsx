@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
-import { PlusButton } from "components/Spawn";
+import { PlusButton } from "components/Buttons";
 import { size } from "constants/tokens";
 import { useSpruceConfig } from "hooks";
 import { SpawnVolumeModal } from "./spawnVolumeButton/SpawnVolumeModal";
