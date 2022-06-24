@@ -195,6 +195,6 @@ const LabelWrapper = styled.div`
 const ButtonWrapper = styled.div`
   display: flex;
   > :first-of-type {
-    margin-right: ${size.s};
+    margin-right: ${size.xs};
   }
 `;

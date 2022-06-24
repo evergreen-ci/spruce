@@ -1,6 +1,6 @@
 import { useState } from "react";
+import Button from "@leafygreen-ui/button";
 import { DropdownItem } from "components/ButtonDropdown";
-import { LoadingButton } from "components/Buttons";
 import { VersionRestartModal } from "components/VersionRestartModal";
 
 interface RestartPatchProps {
@@ -28,15 +28,14 @@ export const RestartPatch: React.VFC<RestartPatchProps> = ({
   return (
     <>
       {isButton ? (
-        <LoadingButton
+        <Button
           size="small"
           data-cy="restart-patch"
           disabled={disabled}
-          loading={false}
           onClick={onClick}
         >
           Restart
-        </LoadingButton>
+        </Button>
       ) : (
         <DropdownItem
           disabled={disabled}

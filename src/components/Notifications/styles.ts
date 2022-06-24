@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { uiColors } from "@leafygreen-ui/palette";
-import Textinput from "@leafygreen-ui/text-input";
+import TextInput from "@leafygreen-ui/text-input";
 import { Select } from "antd";
 import { fontSize, size } from "constants/tokens";
 
@@ -14,7 +14,7 @@ export const StyledSelect = styled(Select)`
   margin-bottom: ${size.xs};
 `;
 
-export const StyledInput = styled(Textinput)`
+export const StyledInput = styled(TextInput)`
   ${inputWidth}
 `;
 
