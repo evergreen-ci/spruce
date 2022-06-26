@@ -1,6 +1,5 @@
 import type { StorybookViteConfig, ViteFinal } from "@storybook/builder-vite";
 import { mergeConfig } from "vite";
-import path from "path";
 // @ts-ignore
 import viteConfig from "../vite.config";
 
@@ -13,12 +12,11 @@ const storybookConfig: StorybookViteConfig = {
     "storybook-addon-react-router-v6",
     "storybook-addon-apollo-client",
   ],
-  // framework: "@storybook/react",
+  framework: "@storybook/react",
   core: {
     builder: "@storybook/builder-vite",
   },
   features: {
-    storyStoreV7: true,
     babelModeV7: true,
     emotionAlias: false,
   },
@@ -31,30 +29,8 @@ const storybookConfig: StorybookViteConfig = {
       },
     },
   },
-  async viteFinal(config, options) {
+  async viteFinal(config) {
     let mergedConfig = mergeConfig(viteConfig, config);
-    const emotionAliasConfig: Partial<ViteFinal> = {
-      optimizeDeps: {
-        include: ["node_modules"],
-      },
-      resolve: {
-        alias: {
-          // resolve emotion 10 imports to emotion 11
-          "@emotion/react": path.resolve(
-            path.join(__dirname, "../node_modules/@emotion/react")
-          ),
-          "@emotion/styled": path.resolve(
-            path.join(__dirname, "../node_modules/@emotion/styled")
-          ),
-          "@emotion/core": path.resolve(
-            path.join(__dirname, "../node_modules/@emotion/react")
-          ),
-          "emotion-theming": path.resolve(
-            path.join(__dirname, "../node_modules/@emotion/react")
-          ),
-        },
-      },
-    };
     return mergedConfig;
   },
 };
