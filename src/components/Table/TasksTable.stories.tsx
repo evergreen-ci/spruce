@@ -1,4 +1,3 @@
-import { withQuery } from "@storybook/addon-queryparams";
 import { TasksTable } from "./TasksTable";
 
 const tasks = [
@@ -80,5 +79,4 @@ export const ExecutionTasksTable = () => <TasksTable tasks={nestedTasks} />;
 export default {
   title: "Tasks Table",
   component: TasksTable,
-  decorators: [withQuery],
 };

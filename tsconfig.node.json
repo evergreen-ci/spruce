@@ -1,10 +1,11 @@
 {
     "compilerOptions": {
         "composite": true,
-        "module": "esnext",
+        "module": "CommonJS",
         "moduleResolution": "node"
     },
     "include": [
+        ".storybook/main.ts",
         "vite.config.ts"
     ]
 }
