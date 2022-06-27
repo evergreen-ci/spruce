@@ -6,7 +6,6 @@ module.exports = {
       "node_modules/**/*.ts",
       "coverage/lcov-report/*.js",
       "scripts/*",
-      "src/serviceWorker.ts",
       "src/gql/generated/types.ts",
     ],
   },
