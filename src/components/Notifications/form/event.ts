@@ -17,31 +17,31 @@ import {
 import { RegexSelectorRow } from "./RegexSelectorRow";
 
 const percentChangeInput = {
-  type: "string" as "string",
+  type: "number" as "number",
   title: "Percent Change",
-  format: "validPercentage",
-  default: "10",
+  minimum: 0,
+  default: 10,
 };
 
 const taskDurationInput = {
-  type: "string" as "string",
+  type: "number" as "number",
   title: "Task Duration (seconds)",
-  format: "validDuration",
-  default: "10",
+  minimum: 0,
+  default: 10,
 };
 
 const versionDurationInput = {
-  type: "string" as "string",
+  type: "number" as "number",
   title: "Version Duration (seconds)",
-  format: "validDuration",
-  default: "10",
+  minimum: 0,
+  default: 10,
 };
 
 const renotifyInput = {
-  type: "string" as "string",
+  type: "number" as "number",
   title: "Re-Notify After How Many Hours",
-  format: "validDuration",
-  default: "48",
+  minimum: 0,
+  default: 48,
 };
 
 const testNameRegexInput = {

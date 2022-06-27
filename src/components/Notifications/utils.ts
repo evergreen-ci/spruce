@@ -52,9 +52,8 @@ const extraFieldsFormToGql = (
   }
   const extraFields = {};
   extraFieldsToInclude.forEach((e) => {
-    extraFields[e.key] = extraFieldsForm[e.key];
+    extraFields[e.key] = extraFieldsForm[e.key].toString();
   });
-  console.log(extraFields);
   return extraFields;
 };
 

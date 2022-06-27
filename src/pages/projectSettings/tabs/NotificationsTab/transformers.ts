@@ -1,23 +1,24 @@
 import { projectTriggers } from "constants/triggers";
-import { ProjectInput } from "gql/generated/types";
+import { Subscriber, ProjectInput } from "gql/generated/types";
+import { NotificationMethods } from "types/subscription";
 import { string } from "utils";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { FormState } from "./types";
 
 const { toSentenceCase } = string;
 
-const getSubscriber = (subscriberType: string, subscriber) => {
+const getSubscriberText = (subscriberType: string, subscriber: Subscriber) => {
   switch (subscriberType) {
-    case "jira-comment":
+    case NotificationMethods.JIRA_COMMENT:
       return subscriber.jiraCommentSubscriber;
-    case "slack":
+    case NotificationMethods.SLACK:
       return subscriber.slackSubscriber;
-    case "email":
+    case NotificationMethods.EMAIL:
       return subscriber.emailSubscriber;
-    case "evergreen-webhook":
+    case NotificationMethods.WEBHOOK:
       return subscriber.webhookSubscriber.url;
-    case "jira-issue":
-      return subscriber.jiraIssueSubscriber.projectInput;
+    case NotificationMethods.JIRA_ISSUE:
+      return subscriber.jiraIssueSubscriber.project;
     default:
       return "";
   }
@@ -27,13 +28,14 @@ const getDisplayTitle = (
   resourceType: string,
   trigger: string,
   subscriberType: string,
-  subscriber
+  subscriber: Subscriber
 ) => {
   const triggerText =
     resourceType && trigger
       ? `${toSentenceCase(resourceType)} ${trigger} `
       : "New Subscription";
-  const subscriberText = getSubscriber(subscriberType, subscriber);
+  const subscriberText = getSubscriberText(subscriberType, subscriber);
+
   return `${triggerText} - ${subscriberText}`;
 };
 
@@ -54,7 +56,10 @@ const getExtraFields = (
 
   const extraFields = {};
   projectTriggers[triggerEnum].extraFields.forEach((e) => {
-    extraFields[e.key] = triggerData[e.key];
+    const isNumber = e.format === "number";
+    extraFields[e.key] = isNumber
+      ? parseInt(triggerData[e.key], 10)
+      : triggerData[e.key];
   });
   return extraFields;
 };
