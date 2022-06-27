@@ -522,12 +522,7 @@ describe("Configure Patch Page", () => {
       cy.dataCy("task-checkbox").first().check({ force: true });
       cy.intercept("/graphql/query", (req) => {
         req.reply((res) => {
-          res.body = {
-            data: {
-              schedulePatch: { versionFull: { id: unactivatedPatchId } },
-            },
-            errors: null,
-          };
+          res.body = mockedSuccessConfigureResponse;
         });
       });
       cy.dataCy("schedule-patch").click();
@@ -567,4 +562,10 @@ const mockedErrorConfigureResponse = {
     },
   ],
   data: null,
+};
+const mockedSuccessConfigureResponse = {
+  data: {
+    schedulePatch: { versionFull: { id: unactivatedPatchId } },
+  },
+  errors: null,
 };
