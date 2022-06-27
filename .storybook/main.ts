@@ -2,6 +2,7 @@ import type { StorybookViteConfig } from "@storybook/builder-vite";
 import { mergeConfig } from "vite";
 // @ts-ignore
 import viteConfig from "../vite.config";
+import react from "@vitejs/plugin-react";
 
 const storybookConfig: StorybookViteConfig = {
   stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
@@ -26,14 +27,34 @@ const storybookConfig: StorybookViteConfig = {
     reactDocgenTypescriptOptions: {
       compilerOptions: {
         allowSyntheticDefaultImports: false,
-        esModuleInterop: false,
+        esModuleInterop: true,
       },
     },
   },
   async viteFinal(config) {
     let mergedConfig = mergeConfig(viteConfig, config);
+    mergedConfig.plugins = mergedConfig.plugins.filter((plugin) => {
+      if (Array.isArray(plugin)) {
+        if (plugin.find((p) => p.name === "vite:react-babel")) {
+          return false;
+        }
+      }
+      return true;
+    });
+    mergedConfig.plugins.push(
+      // Use emotion jsx tag instead of React.JSX
+      react({
+        jsxImportSource: "@emotion/react",
+        babel: {
+          plugins: ["@emotion/babel-plugin", "import-graphql"],
+        },
+        fastRefresh: false,
+      })
+    );
     return mergedConfig;
   },
 };
 
 export default storybookConfig;
+
+module.exports = storybookConfig;

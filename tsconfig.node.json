@@ -2,10 +2,12 @@
     "compilerOptions": {
         "composite": true,
         "module": "CommonJS",
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "esModuleInterop": true
     },
     "include": [
         ".storybook/main.ts",
-        "vite.config.ts"
+        "vite.config.ts",
+        "config/injectVariablesInHTML"
     ]
 }
