@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { useAnnotationAnalytics } from "analytics";
-import { PlusButton } from "components/Spawn";
+import { PlusButton } from "components/Buttons";
 import { size } from "constants/tokens";
 import { IssueLink } from "gql/generated/types";
 import { AddIssueModal } from "../AddIssueModal";

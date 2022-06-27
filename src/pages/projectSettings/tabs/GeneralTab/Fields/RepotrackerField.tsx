@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
+import Button from "@leafygreen-ui/button";
 import { Field } from "@rjsf/core";
-import { Button } from "components/Button";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import ElementWrapper from "components/SpruceForm/ElementWrapper";
 import { useToastContext } from "context/toast";
