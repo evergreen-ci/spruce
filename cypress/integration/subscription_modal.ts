@@ -6,7 +6,8 @@ const testSharedSubscriptionModalFunctionality = (
   route: string,
   dataCyModal: string,
   dataCyToggleModalButton: string,
-  description: string
+  description: string,
+  type: string
 ) => {
   describe(description, () => {
     before(() => {
@@ -18,17 +19,13 @@ const testSharedSubscriptionModalFunctionality = (
     });
     it("Displays success toast after submitting a valid form and request succeeds", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
-      cy.dataCy(dataCyModal).should("be.visible");
-      cy.dataCy(dataCyModal).within(() => {
-        cy.getInputByLabel("Event").click({ force: true });
-      });
-      cy.contains("succeeds").should("be.visible");
-      cy.contains("succeeds").click();
-      cy.dataCy(dataCyModal).within(() => {
-        cy.getInputByLabel("Notification Method").click({ force: true });
-      });
-      cy.contains("Comment on a JIRA Issue").click();
+      cy.dataCy(dataCyModal).should("exist");
+
+      selectOption("event-trigger-select", `This ${type} finishes`);
+      selectOption("notification-method-select", "JIRA issue");
+
       cy.dataCy("jira-comment-input").type("EVG-2000");
+      cy.dataCy("save-subscription-button").should("not.be.disabled");
       cy.dataCy("save-subscription-button").click();
       cy.dataCy(toastDataCy).contains(successText);
     });
@@ -38,14 +35,9 @@ const testSharedSubscriptionModalFunctionality = (
         openSubscriptionModal(route, dataCyToggleModalButton);
         cy.dataCy(dataCyModal).should("be.visible");
       });
-      beforeEach(() => {
-        cy.dataCy(dataCyModal).within(() => {
-          cy.getInputByLabel("Event").click({ force: true });
-        });
-      });
 
       it("has an invalid percentage", () => {
-        cy.contains("changes by some percentage").click();
+        selectOption("event-trigger-select", "changes by some percentage");
         cy.dataCy("percent-change-input").clear().type("-100");
         cy.dataCy("jira-comment-input").type("EVG-2000");
         cy.contains(errorTextNegativePercent).should("exist");
@@ -55,17 +47,12 @@ const testSharedSubscriptionModalFunctionality = (
         cy.dataCy("jira-comment-input").clear();
       });
       it("has an invalid duration value", () => {
-        cy.contains("exceeds some duration").click();
+        selectOption("event-trigger-select", "exceeds some duration");
         cy.dataCy("duration-secs-input").clear().type("-100");
         cy.dataCy("jira-comment-input").type("EVG-2000");
         cy.contains(errorTextDuration).should("exist");
         cy.dataCy("save-subscription-button").should("be.disabled");
         cy.dataCy("duration-secs-input").clear().type("100");
-        cy.dataCy("save-subscription-button").should("not.be.disabled");
-        cy.dataCy("duration-secs-input").clear().type(".33");
-        cy.contains(errorTextDuration).should("exist");
-        cy.dataCy("save-subscription-button").should("be.disabled");
-        cy.dataCy("duration-secs-input").clear().type("33");
         cy.dataCy("save-subscription-button").should("not.be.disabled");
         cy.dataCy("jira-comment-input").clear();
       });
@@ -77,10 +64,7 @@ const testSharedSubscriptionModalFunctionality = (
         cy.dataCy("jira-comment-input").clear();
       });
       it("has an invalid email", () => {
-        cy.dataCy(dataCyModal).within(() => {
-          cy.getInputByLabel("Notification Method").click({ force: true });
-        });
-        cy.contains("Email").click();
+        selectOption("notification-method-select", "Email");
         cy.dataCy("email-input").clear();
         cy.dataCy("email-input").type("arst");
         cy.dataCy("save-subscription-button").should("be.disabled");
@@ -88,10 +72,7 @@ const testSharedSubscriptionModalFunctionality = (
         cy.dataCy("save-subscription-button").should("not.be.disabled");
       });
       it("has an invalid slack username", () => {
-        cy.dataCy(dataCyModal).within(() => {
-          cy.getInputByLabel("Notification Method").click({ force: true });
-        });
-        cy.contains("Slack").click();
+        selectOption("notification-method-select", "Slack");
         cy.dataCy("slack-input").clear();
         cy.dataCy("slack-input").type("sart");
         cy.dataCy("save-subscription-button").should("be.disabled");
@@ -104,11 +85,8 @@ const testSharedSubscriptionModalFunctionality = (
     it("Displays error toast when save subscription request fails", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
       cy.dataCy(dataCyModal).should("be.visible");
-      cy.dataCy(dataCyModal).within(() => {
-        cy.getInputByLabel("Event").click({ force: true });
-      });
-      cy.contains("succeeds").should("be.visible");
-      cy.contains("succeeds").click();
+
+      selectOption("event-trigger-select", `This ${type} finishes`);
       cy.dataCy("jira-comment-input").type("EVG-2000");
       mockErrorResponse({
         path: "SaveSubscription",
@@ -128,8 +106,8 @@ const testSharedSubscriptionModalFunctionality = (
 
     const toastDataCy = "toast";
     const successText = "Your subscription has been added";
-    const errorTextDuration = "Duration must be positive integer";
-    const errorTextNegativePercent = "Percentage must be positive";
+    const errorTextDuration = "Value should be >= 0";
+    const errorTextNegativePercent = "Value should be >= 0";
   });
 };
 
@@ -137,12 +115,31 @@ testSharedSubscriptionModalFunctionality(
   "/task/clone_evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/logs",
   "task-notification-modal",
   "notify-task",
-  "Task Subscription Modal"
+  "Task Subscription Modal",
+  "task"
 );
 
 testSharedSubscriptionModalFunctionality(
   "/version/5e4ff3abe3c3317e352062e4/tasks",
   "patch-notification-modal",
   "notify-patch",
-  "Version Subscription Modal"
+  "Version Subscription Modal",
+  "version"
 );
+
+function selectOption(dataCy: string, option: string) {
+  // open select
+  cy.dataCy(dataCy).click();
+  // click on option
+  cy.get(".ant-select-dropdown :not(.ant-select-dropdown-hidden)")
+    .find(".ant-select-item-option")
+    .each((el) => {
+      if (el.text().includes(option)) {
+        cy.wrap(el).click();
+      }
+    });
+  // make sure select is closed
+  cy.get(".ant-select-dropdown :not(.ant-select-dropdown-hidden)").should(
+    "not.be.visible"
+  );
+}
