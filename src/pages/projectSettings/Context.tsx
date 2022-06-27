@@ -107,7 +107,7 @@ const reducer = <T extends WritableTabRoutes>(
 
 interface ProjectSettingsState {
   tabs: TabState;
-  saveTab: <T extends WritableTabRoutes>(tab: T) => void;
+  saveTab: (tab: WritableTabRoutes) => void;
   getTab: <T extends WritableTabRoutes>(tab: T) => TabState[T];
   updateForm: <T extends WritableTabRoutes>(
     tab: T
