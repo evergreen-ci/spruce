@@ -77,9 +77,9 @@ export default defineConfig({
       babel: {
         plugins: ["@emotion/babel-plugin", "import-graphql"],
       },
-      fastRefresh: false,
+      fastRefresh: true,
       // exclude storybook stories
-      // exclude: [/\.stories\.tsx?$/],
+      exclude: [/\.stories\.tsx?$/],
     }),
     // Dynamic imports of antd styles
     vitePluginImp({

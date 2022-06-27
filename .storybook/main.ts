@@ -31,11 +31,16 @@ const storybookConfig: StorybookViteConfig = {
       },
     },
   },
-  async viteFinal(config) {
+  async viteFinal(config, { configType }) {
     let mergedConfig = mergeConfig(viteConfig, config);
     mergedConfig.plugins = mergedConfig.plugins.filter((plugin) => {
       if (Array.isArray(plugin)) {
         if (plugin.find((p) => p.name === "vite:react-babel")) {
+          return false;
+        }
+      }
+      if (configType === "PRODUCTION") {
+        if (plugin.name === "mock-core-js") {
           return false;
         }
       }
@@ -57,4 +62,6 @@ const storybookConfig: StorybookViteConfig = {
 
 export default storybookConfig;
 
+// hack to make @storybook/addon-storyshots work with vite.
+// storybook/addon-storyshots is not properly reading the default export
 module.exports = storybookConfig;
