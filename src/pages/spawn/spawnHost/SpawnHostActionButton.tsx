@@ -118,6 +118,7 @@ export const SpawnHostActionButton: React.VFC<{ host: MyHost }> = ({
 };
 const mapStatusToAction = {
   [HostStatus.Running]: SpawnHostStatusActions.Stop,
+  [HostStatus.Stopping]: SpawnHostStatusActions.Stop,
   [HostStatus.Stopped]: SpawnHostStatusActions.Start,
 };
 
