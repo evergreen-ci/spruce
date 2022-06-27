@@ -98,7 +98,7 @@
     "@leafygreen-ui/typography": "8.1.0",
     "@rjsf/core": "4.2.0",
     "ansi_up": "5.0.0",
-    "antd": "4.21.3",
+    "antd": "4.20.0",
     "axios": "0.21.2",
     "date-fns": "2.16.1",
     "date-fns-tz": "^1.1.2",

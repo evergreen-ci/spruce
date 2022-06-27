@@ -2,15 +2,7 @@ import { NotificationMethods } from "types/subscription";
 import { Trigger, ExtraField } from "types/triggers";
 import { FormState, FormExtraFields, FormRegexSelector } from "./types";
 
-export const getRegexEnumsToDisable = (regexForm: FormRegexSelector[]) => {
-  const usingID = !!regexForm.find((r) => r.regexSelect === "build-variant");
-  const usingName = !!regexForm.find((r) => r.regexSelect === "display-name");
-  const regexEnumsToDisable = [
-    ...(usingID ? ["build-variant"] : []),
-    ...(usingName ? ["display-name"] : []),
-  ];
-  return regexEnumsToDisable;
-};
+// This utils file contains functions used to convert the form state to GQL payload.
 
 const getTargetForMethod = (method: string) => {
   switch (method) {

@@ -22,8 +22,8 @@ import { useUserSettings } from "hooks/useUserSettings";
 import { SubscriptionMethodOption } from "types/subscription";
 import { Trigger } from "types/triggers";
 import { getFormSchema } from "./form/getFormSchema";
-import { FormState } from "./types";
-import { getRegexEnumsToDisable, getGqlPayload } from "./utils";
+import { FormState, FormRegexSelector } from "./types";
+import { getGqlPayload } from "./utils";
 
 interface NotificationModalProps {
   "data-cy": string;
@@ -159,6 +159,16 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
       />
     </Modal>
   );
+};
+
+const getRegexEnumsToDisable = (regexForm: FormRegexSelector[]) => {
+  const usingID = !!regexForm.find((r) => r.regexSelect === "build-variant");
+  const usingName = !!regexForm.find((r) => r.regexSelect === "display-name");
+  const regexEnumsToDisable = [
+    ...(usingID ? ["build-variant"] : []),
+    ...(usingName ? ["display-name"] : []),
+  ];
+  return regexEnumsToDisable;
 };
 
 /* @ts-expect-error */
