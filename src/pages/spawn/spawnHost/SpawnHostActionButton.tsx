@@ -124,6 +124,7 @@ const mapStatusToAction = {
 
 const mapStatusToGlyph = {
   [HostStatus.Running]: "Pause",
+  [HostStatus.Stopping]: "Pause",
   [HostStatus.Stopped]: "Play",
 };
 
