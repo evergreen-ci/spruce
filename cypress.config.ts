@@ -11,4 +11,5 @@ export default defineConfig({
     supportFile: "cypress/support/e2e.ts",
     specPattern: "cypress/integration/**/*.ts",
   },
+  videoCompression: false,
 });
