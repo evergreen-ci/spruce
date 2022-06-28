@@ -90,3 +90,13 @@ export const getGqlPayload = (
     owner_type: "person",
   };
 };
+
+export const hasInitialError = (formState: FormState) => {
+  const trigger = formState.event.eventSelect;
+  const method = formState.notification.notificationSelect;
+  const target = formState.notification[getTargetForMethod(method)];
+  if (!trigger || !method || !target) {
+    return true;
+  }
+  return false;
+};

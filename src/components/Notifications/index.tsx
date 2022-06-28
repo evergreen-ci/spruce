@@ -23,7 +23,7 @@ import { SubscriptionMethodOption } from "types/subscription";
 import { Trigger } from "types/triggers";
 import { getFormSchema } from "./form/getFormSchema";
 import { FormState, FormRegexSelector } from "./types";
-import { getGqlPayload } from "./utils";
+import { hasInitialError, getGqlPayload } from "./utils";
 
 interface NotificationModalProps {
   "data-cy": string;
@@ -72,7 +72,7 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
   const [formState, setFormState] = useState<FormState>({
     event: {
       eventSelect:
-        Cookies.get(getNotificationTriggerCookie(type)) ||
+        Cookies.get(getNotificationTriggerCookie(type)) ??
         Object.keys(triggers)[0],
       extraFields: {},
       regexSelector: [],
@@ -84,7 +84,7 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
       emailInput: emailAddress ?? "",
     },
   });
-  const [canSubmit, setCanSubmit] = useState(false);
+  const [hasError, setHasError] = useState(hasInitialError(formState));
 
   const onClickSave = () => {
     const subscription = getGqlPayload(triggers, resourceId, formState);
@@ -135,7 +135,7 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
           <Button
             key="save"
             data-cy="save-subscription-button"
-            disabled={!canSubmit}
+            disabled={hasError}
             onClick={onClickSave}
             variant={Variant.Primary}
           >
@@ -154,7 +154,7 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
           // Update notification cookie when it changes.
           updateNotificationCookie(formData.notification.notificationSelect);
           setFormState(formData);
-          setCanSubmit(errors.length === 0);
+          setHasError(errors.length !== 0);
         }}
       />
     </Modal>

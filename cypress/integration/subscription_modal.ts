@@ -86,7 +86,6 @@ const testSharedSubscriptionModalFunctionality = (
     it("Displays error toast when save subscription request fails", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
       cy.dataCy(dataCyModal).should("be.visible");
-
       selectAntdOption("event-trigger-select", `This ${type} finishes`);
       cy.dataCy("jira-comment-input").type("EVG-2000");
       mockErrorResponse({
@@ -103,6 +102,21 @@ const testSharedSubscriptionModalFunctionality = (
       cy.dataCy(dataCyModal).should("be.visible");
       cy.dataCy("cancel-subscription-button").click();
       cy.dataCy(dataCyModal).should("not.be.visible");
+    });
+
+    it("Pulls initial values from cookies", () => {
+      const triggerCookie = `${type}-notification-trigger`;
+      cy.setCookie(triggerCookie, `${type}-succeeds`);
+      const subscriptionCookie = "subscription-method";
+      cy.setCookie(subscriptionCookie, "slack");
+
+      openSubscriptionModal(route, dataCyToggleModalButton);
+      cy.dataCy(dataCyModal).should("be.visible");
+      cy.contains(`This ${type} succeeds`).should("be.visible");
+      cy.contains("Slack").should("be.visible");
+
+      cy.clearCookie(subscriptionCookie);
+      cy.clearCookie(triggerCookie);
     });
 
     const toastDataCy = "toast";
