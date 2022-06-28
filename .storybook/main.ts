@@ -32,14 +32,19 @@ const storybookConfig: StorybookViteConfig = {
     },
   },
   async viteFinal(config, { configType }) {
+    const isProductionBuild = configType === "PRODUCTION";
     let mergedConfig = mergeConfig(viteConfig, config);
+
+    // Storybook injects its own react plugin, so we need to remove it
+    // and replace it with our own version that supports emotion and our babel config.
     mergedConfig.plugins = mergedConfig.plugins.filter((plugin) => {
       if (Array.isArray(plugin)) {
         if (plugin.find((p) => p.name === "vite:react-babel")) {
           return false;
         }
       }
-      if (configType === "PRODUCTION") {
+      // Storybook mocks out the core-js package which breaks on production builds https://github.com/storybookjs/builder-vite/issues/412
+      if (isProductionBuild) {
         if (plugin.name === "mock-core-js") {
           return false;
         }
@@ -53,7 +58,9 @@ const storybookConfig: StorybookViteConfig = {
         babel: {
           plugins: ["@emotion/babel-plugin", "import-graphql"],
         },
-        fastRefresh: false,
+        fastRefresh: true,
+        // exclude story book stories from fast refresh (storybook should handle this itself)
+        exclude: [/\.stories\.([tj])sx?$/, /node_modules/],
       })
     );
     return mergedConfig;
