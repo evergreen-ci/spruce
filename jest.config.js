@@ -3,7 +3,7 @@ module.exports = {
   collectCoverageFrom: [
     "src/**/*.{js,jsx,ts,tsx}",
     "!<rootDir>/node_modules/",
-    "!<rootDir>/src/{serviceWorker.ts,index.tsx,react-app-env.d.ts}",
+    "!<rootDir>/src/{index.tsx,react-app-env.d.ts}",
   ],
   coverageReporters: ["text"],
   moduleFileExtensions: [
