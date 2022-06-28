@@ -21,7 +21,7 @@ const Child = () => (
 
 const list = [
   {
-    title: "Pages/Download the Command-Line Client.",
+    title: "Download the Command-Line Client.",
     child: <Child />,
   },
   {
