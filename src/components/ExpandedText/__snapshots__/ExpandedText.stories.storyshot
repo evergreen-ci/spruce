@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots ExpandedText Sample 1`] = `
+exports[`storybook Storyshots Components/ExpandedText Sample 1`] = `
 <small
   className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
   onBlur={[Function]}

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Editable Tags Field Editable Tag Field View 1`] = `
+exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field View 1`] = `
 <div
   className="css-1l8756f-FlexColumnContainer e1zn6k0"
 >

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Spruce Form Example 1 1`] = `
+exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
 <div>
   <h3
     className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"
@@ -39,7 +39,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                     className="leafygreen-ui-1v870ns"
                     id="select-3-label"
                   >
-                    Project Cloning Method
+                    Components/Project Cloning Method
                   </label>
                   <button
                     aria-controls="select-3-menu"
@@ -102,7 +102,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
               className="css-ho1tq1-StyledSubtitle e63qz861 leafygreen-ui-11wdjex"
               id="root_expansions__title"
             >
-              Expansions
+              Components/Expansions
             </h6>
             <div
               className="css-hlvzuf-ElementWrapper-AddButtonContainer e7smmlm3"
@@ -171,7 +171,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                           >
                             <label
                               className="leafygreen-ui-ly82bp"
-                              htmlFor="textinput-17"
+                              htmlFor="textinput-15"
                             >
                               key
                             </label>
@@ -186,7 +186,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                                   autoComplete="on"
                                   className="leafygreen-ui-1il5lef"
                                   disabled={false}
-                                  id="textinput-17"
+                                  id="textinput-15"
                                   onBlur={[Function]}
                                   onChange={[Function]}
                                   onFocus={[Function]}
@@ -223,7 +223,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                           >
                             <label
                               className="leafygreen-ui-ly82bp"
-                              htmlFor="textinput-18"
+                              htmlFor="textinput-16"
                             >
                               value
                             </label>
@@ -238,7 +238,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                                   autoComplete="on"
                                   className="leafygreen-ui-1il5lef"
                                   disabled={false}
-                                  id="textinput-18"
+                                  id="textinput-16"
                                   onBlur={[Function]}
                                   onChange={[Function]}
                                   onFocus={[Function]}
@@ -316,7 +316,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                   className="leafygreen-ui-ly82bp"
                   htmlFor="textarea-1"
                 >
-                  Valid Projects
+                  Components/Valid Projects
                 </label>
                 <div
                   className="leafygreen-ui-1cen7zh"
@@ -328,7 +328,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
                     onBlur={[Function]}
                     onChange={[Function]}
                     onFocus={[Function]}
-                    title="Valid Projects"
+                    title="Components/Valid Projects"
                     value=""
                   />
                   <div
@@ -346,7 +346,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots Spruce Form Example 2 1`] = `
+exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
 <div>
   <h3
     className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"
@@ -445,7 +445,7 @@ exports[`storybook Storyshots Spruce Form Example 2 1`] = `
                 <span
                   className="leafygreen-ui-1qufm80"
                 >
-                  Disable shallow clone for this distro.
+                  Components/Disable shallow clone for this distro.
                 </span>
               </label>
             </div>
@@ -527,7 +527,7 @@ exports[`storybook Storyshots Spruce Form Example 2 1`] = `
                 <span
                   className="leafygreen-ui-1qufm80"
                 >
-                  Decommission hosts of this distro for this update
+                  Components/Decommission hosts of this distro for this update
                 </span>
               </label>
             </div>
@@ -540,93 +540,66 @@ exports[`storybook Storyshots Spruce Form Example 2 1`] = `
               className="css-bm42zs-ElementWrapper ee4bs9n0"
             >
               <div
-                aria-label="radio-group-1"
-                className="leafygreen-ui-sgfp3"
-                role="group"
+                className="css-12pm1mq-MaxWidthContainer eevpusu0"
               >
                 <div
-                  className="leafygreen-ui-1s4vgyd"
+                  className=""
                 >
                   <label
-                    className="leafygreen-ui-17avto4"
-                    htmlFor="radio-group-1-0"
+                    className="leafygreen-ui-1v870ns"
+                    id="select-5-label"
                   >
-                    <input
-                      aria-checked={false}
-                      aria-disabled={false}
-                      checked={false}
-                      className="leafygreen-ui-x2r5fc"
-                      data-leafygreen-ui="input-element"
-                      disabled={false}
-                      id="radio-group-1-0"
-                      name="radio-group-1"
-                      onChange={[Function]}
-                      type="radio"
-                      value="restartJasper"
+                    Components/
+                  </label>
+                  <button
+                    aria-controls="select-5-menu"
+                    aria-describedby="select-5-description"
+                    aria-disabled={false}
+                    aria-expanded={false}
+                    aria-invalid={false}
+                    aria-labelledby="select-5-label"
+                    className="leafygreen-ui-ua6xkt"
+                    data-testid="leafygreen-ui-select-menubutton"
+                    disabled={false}
+                    onClick={[Function]}
+                    type="button"
+                    value=""
+                  >
+                    <div
+                      className="leafygreen-ui-1ktj4tm"
                     />
                     <div
-                      className="leafygreen-ui-5a1vdt"
-                      data-leafygreen-ui="radio-input-display-wrapper"
+                      className="leafygreen-ui-sl5lf4"
                     >
                       <div
-                        className="leafygreen-ui-1y6j5s3"
-                        data-leafygreen-ui="radio-input-display"
-                        onBlur={[Function]}
-                        onFocus={[Function]}
-                      />
-                      <div
-                        className="leafygreen-ui-1cqcpzq"
-                        data-leafygreen-ui="interaction-ring"
-                      />
+                        className="leafygreen-ui-e32n5q"
+                      >
+                        <div
+                          className="leafygreen-ui-17aj16e"
+                        >
+                          
+                        </div>
+                      </div>
+                      <span
+                        className="leafygreen-ui-18n6mp2"
+                      >
+                        <svg
+                          alt=""
+                          aria-hidden={true}
+                          className="leafygreen-ui-195unnb"
+                          height={16}
+                          role="presentation"
+                          viewBox="0 0 16 16"
+                          width={16}
+                        >
+                          <path
+                            d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      </span>
                     </div>
-                    <div
-                      className="leafygreen-ui-3sm8z"
-                    >
-                      Restart Jasper service on running hosts of this distro for this update
-                    </div>
-                  </label>
-                </div>
-                <div
-                  className="leafygreen-ui-1s4vgyd"
-                >
-                  <label
-                    className="leafygreen-ui-17avto4"
-                    htmlFor="radio-group-1-1"
-                  >
-                    <input
-                      aria-checked={false}
-                      aria-disabled={false}
-                      checked={false}
-                      className="leafygreen-ui-x2r5fc"
-                      data-leafygreen-ui="input-element"
-                      disabled={false}
-                      id="radio-group-1-1"
-                      name="radio-group-1"
-                      onChange={[Function]}
-                      type="radio"
-                      value="reprovisionHosts"
-                    />
-                    <div
-                      className="leafygreen-ui-5a1vdt"
-                      data-leafygreen-ui="radio-input-display-wrapper"
-                    >
-                      <div
-                        className="leafygreen-ui-1y6j5s3"
-                        data-leafygreen-ui="radio-input-display"
-                        onBlur={[Function]}
-                        onFocus={[Function]}
-                      />
-                      <div
-                        className="leafygreen-ui-1cqcpzq"
-                        data-leafygreen-ui="interaction-ring"
-                      />
-                    </div>
-                    <div
-                      className="leafygreen-ui-3sm8z"
-                    >
-                      Reprovision running hosts of this distro for this update
-                    </div>
-                  </label>
+                  </button>
                 </div>
               </div>
             </div>
@@ -638,7 +611,7 @@ exports[`storybook Storyshots Spruce Form Example 2 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots Spruce Form Example 3 1`] = `
+exports[`storybook Storyshots Components/Spruce Form Example 3 1`] = `
 <div>
   <h3
     className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"
@@ -696,7 +669,7 @@ exports[`storybook Storyshots Spruce Form Example 3 1`] = `
                 <span
                   className="leafygreen-ui-1qufm80"
                 >
-                  This is the only visible page element
+                  Components/This is the only visible page element
                 </span>
               </label>
             </div>

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots WaterfallTaskStatusIcon Failed Icon 1`] = `
+exports[`storybook Storyshots Pages/Commits/WaterfallIcon Failed Icon 1`] = `
 <a
   aria-label="failed icon"
   className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
@@ -32,7 +32,7 @@ exports[`storybook Storyshots WaterfallTaskStatusIcon Failed Icon 1`] = `
 </a>
 `;
 
-exports[`storybook Storyshots WaterfallTaskStatusIcon Success Icon 1`] = `
+exports[`storybook Storyshots Pages/Commits/WaterfallIcon Success Icon 1`] = `
 <a
   aria-label="success icon"
   className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"

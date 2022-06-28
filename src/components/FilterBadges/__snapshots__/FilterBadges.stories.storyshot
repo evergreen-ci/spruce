@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots FilterBadges Default 1`] = `
+exports[`storybook Storyshots Components/FilterBadges Default 1`] = `
 <div>
   <div
     className="css-19f1xe2-Container e3qndfh0"

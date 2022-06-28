@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Searchable Dropdown Custom Option 1`] = `
+exports[`storybook Storyshots Components/Searchable Dropdown Custom Option 1`] = `
 <div
   className="css-1ry038z-Container e17dnzmx0"
 >
@@ -74,7 +74,7 @@ exports[`storybook Storyshots Searchable Dropdown Custom Option 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots Searchable Dropdown Multiselect 1`] = `
+exports[`storybook Storyshots Components/Searchable Dropdown Multiselect 1`] = `
 <div
   className="css-1ry038z-Container e17dnzmx0"
 >
@@ -148,7 +148,7 @@ exports[`storybook Storyshots Searchable Dropdown Multiselect 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots Searchable Dropdown Story 1`] = `
+exports[`storybook Storyshots Components/Searchable Dropdown Story 1`] = `
 <div
   className="css-1ry038z-Container e17dnzmx0"
 >

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots TextInputWithGlyph Default 1`] = `
+exports[`storybook Storyshots Components/TextInputWithGlyph Default 1`] = `
 <div
   style={
     Object {
@@ -16,7 +16,7 @@ exports[`storybook Storyshots TextInputWithGlyph Default 1`] = `
     >
       <label
         className="leafygreen-ui-ly82bp"
-        htmlFor="textinput-19"
+        htmlFor="textinput-17"
       >
         Some search field
       </label>
@@ -30,7 +30,7 @@ exports[`storybook Storyshots TextInputWithGlyph Default 1`] = `
             autoComplete="on"
             className="leafygreen-ui-1il5lef"
             disabled={false}
-            id="textinput-19"
+            id="textinput-17"
             onBlur={[Function]}
             onChange={[Function]}
             onFocus={[Function]}
