@@ -66,13 +66,18 @@ fi
 # Detect which version of sed we have available to format the email
 case "$OSTYPE" in
   darwin*)
-    echo "OSX detected using gsed"
-    gsed -i ':a;N;$!ba;s/\n/<br \/>/g' body.txt
-
+    echo "OSX detected"
+    # Format the email and inject the <br /> tag for line breaks
+    sed -i'' -e "s/$/\<br\/>/" body.txt
+    # # Remove single quotes from the email body.txt
+    sed -i'' -e "s/'/\&lsquo;/g" body.txt
   ;;
   linux*)
-    echo "LINUX detected using sed"
+    echo "LINUX detected"
+    # Format the email and inject the <br /> tag for line breaks
     sed -i ':a;N;$!ba;s/\n/<br \/>/g' body.txt
+    # Remove single quotes from the email body.txt
+    sed -i 's|["'\'']|\&lsquo;|g' body.txt
   ;;
   *)        echo "unknown: $OSTYPE";;
 esac

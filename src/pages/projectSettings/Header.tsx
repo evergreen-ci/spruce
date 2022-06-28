@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
+import Button from "@leafygreen-ui/button";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
 import { useNavigate, useParams } from "react-router-dom";
 import { useProjectSettingsAnalytics } from "analytics";
-import { Button } from "components/Button";
 import {
   getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
