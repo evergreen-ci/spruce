@@ -24,19 +24,12 @@ const getSubscriberText = (subscriberType: string, subscriber: Subscriber) => {
   }
 };
 
-const getDisplayTitle = (
-  resourceType: string,
-  trigger: string,
-  subscriberType: string,
-  subscriber: Subscriber
-) => {
+const getTriggerText = (resourceType: string, trigger: string) => {
   const triggerText =
     resourceType && trigger
       ? `${toSentenceCase(resourceType)} ${trigger} `
-      : "New Subscription";
-  const subscriberText = getSubscriberText(subscriberType, subscriber);
-
-  return `${triggerText} - ${subscriberText}`;
+      : "";
+  return triggerText;
 };
 
 const getTriggerEnum = (trigger: string, resourceType: string) => {
@@ -91,9 +84,8 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
             regexSelectors,
             subscriber,
           }) => {
-            const triggerEnum = getTriggerEnum(trigger, resourceType);
             const {
-              subscriber: subscriberList,
+              subscriber: subscribers,
               type: subscriberType,
             } = subscriber;
             const {
@@ -102,19 +94,21 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
               emailSubscriber,
               jiraIssueSubscriber,
               webhookSubscriber,
-            } = subscriberList;
+            } = subscribers;
+
+            const triggerEnum = getTriggerEnum(trigger, resourceType);
+            const triggerText = getTriggerText(resourceType, trigger);
+            const subscriberText = getSubscriberText(
+              subscriberType,
+              subscribers
+            );
 
             return {
               id,
               resourceType,
               trigger,
               ownerType,
-              displayTitle: getDisplayTitle(
-                resourceType,
-                trigger,
-                subscriberType,
-                subscriberList
-              ),
+              displayTitle: `${triggerText} - ${subscriberText}`,
               subscriptionData: {
                 event: {
                   eventSelect: triggerEnum,
@@ -141,6 +135,10 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
                     httpHeaders: getHttpHeaders(webhookSubscriber?.headers),
                   },
                 },
+              },
+              subscriberData: {
+                subscriberType,
+                subscriberName: subscriberText,
               },
             };
           }

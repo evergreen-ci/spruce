@@ -63,7 +63,6 @@ export const getFormSchema = (
               },
               subscriberData: {
                 type: "object" as "object",
-                properties: {},
               },
             },
           },

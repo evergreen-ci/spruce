@@ -1,6 +1,7 @@
 // / <reference types="Cypress" />
 import { mockErrorResponse } from "../utils/mockErrorResponse";
 import { openSubscriptionModal } from "../utils/subscriptionModal";
+import { selectAntdOption } from "../utils";
 
 const testSharedSubscriptionModalFunctionality = (
   route: string,
@@ -21,8 +22,8 @@ const testSharedSubscriptionModalFunctionality = (
       openSubscriptionModal(route, dataCyToggleModalButton);
       cy.dataCy(dataCyModal).should("exist");
 
-      selectOption("event-trigger-select", `This ${type} finishes`);
-      selectOption("notification-method-select", "JIRA issue");
+      selectAntdOption("event-trigger-select", `This ${type} finishes`);
+      selectAntdOption("notification-method-select", "JIRA issue");
 
       cy.dataCy("jira-comment-input").type("EVG-2000");
       cy.dataCy("save-subscription-button").should("not.be.disabled");
@@ -37,7 +38,7 @@ const testSharedSubscriptionModalFunctionality = (
       });
 
       it("has an invalid percentage", () => {
-        selectOption("event-trigger-select", "changes by some percentage");
+        selectAntdOption("event-trigger-select", "changes by some percentage");
         cy.dataCy("percent-change-input").clear().type("-100");
         cy.dataCy("jira-comment-input").type("EVG-2000");
         cy.contains(errorTextNegativePercent).should("exist");
@@ -47,7 +48,7 @@ const testSharedSubscriptionModalFunctionality = (
         cy.dataCy("jira-comment-input").clear();
       });
       it("has an invalid duration value", () => {
-        selectOption("event-trigger-select", "exceeds some duration");
+        selectAntdOption("event-trigger-select", "exceeds some duration");
         cy.dataCy("duration-secs-input").clear().type("-100");
         cy.dataCy("jira-comment-input").type("EVG-2000");
         cy.contains(errorTextDuration).should("exist");
@@ -64,7 +65,7 @@ const testSharedSubscriptionModalFunctionality = (
         cy.dataCy("jira-comment-input").clear();
       });
       it("has an invalid email", () => {
-        selectOption("notification-method-select", "Email");
+        selectAntdOption("notification-method-select", "Email");
         cy.dataCy("email-input").clear();
         cy.dataCy("email-input").type("arst");
         cy.dataCy("save-subscription-button").should("be.disabled");
@@ -72,7 +73,7 @@ const testSharedSubscriptionModalFunctionality = (
         cy.dataCy("save-subscription-button").should("not.be.disabled");
       });
       it("has an invalid slack username", () => {
-        selectOption("notification-method-select", "Slack");
+        selectAntdOption("notification-method-select", "Slack");
         cy.dataCy("slack-input").clear();
         cy.dataCy("slack-input").type("sart");
         cy.dataCy("save-subscription-button").should("be.disabled");
@@ -86,7 +87,7 @@ const testSharedSubscriptionModalFunctionality = (
       openSubscriptionModal(route, dataCyToggleModalButton);
       cy.dataCy(dataCyModal).should("be.visible");
 
-      selectOption("event-trigger-select", `This ${type} finishes`);
+      selectAntdOption("event-trigger-select", `This ${type} finishes`);
       cy.dataCy("jira-comment-input").type("EVG-2000");
       mockErrorResponse({
         path: "SaveSubscription",
@@ -126,20 +127,3 @@ testSharedSubscriptionModalFunctionality(
   "Version Subscription Modal",
   "version"
 );
-
-function selectOption(dataCy: string, option: string) {
-  // open select
-  cy.dataCy(dataCy).click();
-  // click on option
-  cy.get(".ant-select-dropdown :not(.ant-select-dropdown-hidden)")
-    .find(".ant-select-item-option")
-    .each((el) => {
-      if (el.text().includes(option)) {
-        cy.wrap(el).click();
-      }
-    });
-  // make sure select is closed
-  cy.get(".ant-select-dropdown :not(.ant-select-dropdown-hidden)").should(
-    "not.be.visible"
-  );
-}

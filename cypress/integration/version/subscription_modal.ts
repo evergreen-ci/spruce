@@ -1,6 +1,7 @@
 // / <reference types="Cypress" />
 
 import { openSubscriptionModal } from "../../utils/subscriptionModal";
+import { selectAntdOption } from "../../utils";
 
 const regexSelectorRow = "regex-selector-row";
 
@@ -19,8 +20,10 @@ describe("Version Subscription Modal", () => {
   describe("Regex selector inputs", () => {
     it("Clicking on 'Add Additional Criteria' adds a regex selector row", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
-      cy.getInputByLabel("Event").click({ force: true });
-      cy.contains("A build-variant in this version finishes").click();
+      selectAntdOption(
+        "event-trigger-select",
+        "A build-variant in this version finishes"
+      );
       cy.dataCy(regexSelectorRow).should("have.length", 0);
       cy.contains("Add Additional Criteria").click();
       cy.dataCy(regexSelectorRow).should("have.length", 1);
@@ -35,8 +38,7 @@ describe("Version Subscription Modal", () => {
     it.skip("'Regex' input should be disabled when the 'Field name' is empty and enabled otherwise", () => {
       cy.contains("Add Additional Criteria").click();
       cy.dataCy(regexSelectorRow).should("be.disabled");
-      cy.dataCy("regex-selector-dropdown").click();
-      cy.contains("Build Variant Name").click();
+      selectAntdOption("regex-select", "Build Variant Name");
       cy.dataCy(regexSelectorRow).should("not.be.disabled");
     });
 
@@ -50,8 +52,10 @@ describe("Version Subscription Modal", () => {
 
     it("Regex selectors are optional for triggers that offer them", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
-      cy.getInputByLabel("Event").click({ force: true });
-      cy.contains("A build-variant in this version finishes").click();
+      selectAntdOption(
+        "event-trigger-select",
+        "A build-variant in this version finishes"
+      );
       cy.dataCy("jira-comment-input").type("EVG-2000");
       cy.dataCy("save-subscription-button").should("not.be.disabled");
       cy.dataCy("save-subscription-button").click();
@@ -60,21 +64,27 @@ describe("Version Subscription Modal", () => {
 
     it.skip("Switching between Event types should either hide or reset regex selector inputs", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
-      cy.getInputByLabel("Event").click({ force: true });
-      cy.contains("A build-variant in this version finishes").click();
+      selectAntdOption(
+        "event-trigger-select",
+        "A build-variant in this version finishes"
+      );
       cy.contains("Add Additional Criteria").click();
       cy.dataCy("regex-select").click();
       cy.contains("Build Variant Name").click();
       cy.dataCy("regex-input").type("stuff").should("have.value", "stuff");
-      cy.getInputByLabel("Event").click({ force: true });
-      cy.contains("A build-variant in this version fails").click();
+      selectAntdOption(
+        "event-trigger-select",
+        "A build-variant in this version fails"
+      );
       cy.dataCy("regex-input").should("have.value", "");
     });
 
     it.skip("Changing the regex selector dropdown should reset the regex selector input", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
-      cy.getInputByLabel("Event").click({ force: true });
-      cy.contains("A build-variant in this version finishes").click();
+      selectAntdOption(
+        "event-trigger-select",
+        "A build-variant in this version finishes"
+      );
       cy.contains("Add Additional Criteria").click();
       cy.dataCy("regex-select").click();
       cy.contains("Build Variant Name").click();
@@ -86,8 +96,10 @@ describe("Version Subscription Modal", () => {
 
     it("Display success toast after submitting a valid form with regex selectors inputs and request succeeds", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
-      cy.getInputByLabel("Event").click({ force: true });
-      cy.contains("A build-variant in this version finishes").click();
+      selectAntdOption(
+        "event-trigger-select",
+        "A build-variant in this version finishes"
+      );
       cy.contains("Add Additional Criteria").click();
       cy.dataCy("regex-select").click();
       cy.contains("Build Variant Name").click();
@@ -99,13 +111,14 @@ describe("Version Subscription Modal", () => {
 
     it("'Add Additional Criteria' button should not appear when there are enough 'Field name' dropdowns to represent all possible regex selector types for a trigger", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
-      cy.getInputByLabel("Event").click({ force: true });
-      cy.contains("A build-variant in this version finishes").click();
+      selectAntdOption(
+        "event-trigger-select",
+        "A build-variant in this version finishes"
+      );
       cy.contains("Add Additional Criteria").should("not.be.disabled");
       cy.contains("Add Additional Criteria").click();
       cy.contains("Add Additional Criteria").should("not.be.disabled");
       cy.contains("Add Additional Criteria").click();
-
       cy.contains("Add Additional Criteria").should("not.exist");
     });
   });
