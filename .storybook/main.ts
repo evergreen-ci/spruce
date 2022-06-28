@@ -10,9 +10,9 @@ const storybookConfig: StorybookViteConfig = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
-    "@storybook/addon-storyshots",
     "storybook-addon-react-router-v6",
     "storybook-addon-apollo-client",
+    "@storybook/addon-storyshots",
   ],
   framework: "@storybook/react",
   core: {
@@ -60,8 +60,4 @@ const storybookConfig: StorybookViteConfig = {
   },
 };
 
-export default storybookConfig;
-
-// hack to make @storybook/addon-storyshots work with vite.
-// storybook/addon-storyshots is not properly reading the default export
 module.exports = storybookConfig;
