@@ -1,5 +1,5 @@
 import { ProjectSettingsInput } from "gql/generated/types";
-import { Unpacked } from "types/utils"
+import { Unpacked } from "types/utils";
 import { data } from "../testData";
 import { formToGql, gqlToForm } from "./transformers";
 import { FormState } from "./types";
