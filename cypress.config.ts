@@ -13,6 +13,7 @@ export default defineConfig({
     retries: {
       runMode: 4,
     },
+    scrollBehavior: "bottom",
   },
   videoCompression: false,
 });
