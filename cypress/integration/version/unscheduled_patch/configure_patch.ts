@@ -1,4 +1,10 @@
 // / <reference types="Cypress" />
+
+import {
+  aliasQuery,
+  hasOperationName,
+} from "../../../utils/graphql-test-utils";
+
 // / <reference path="../../support/index.d.ts" />
 const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
 const patchWithDisplayTasks = "5e6bb9e23066155a993e0f1b";
@@ -9,6 +15,9 @@ describe("Configure Patch Page", () => {
   });
   beforeEach(() => {
     cy.preserveCookies();
+    cy.intercept("POST", "http://localhost:9090/graphql", (req) => {
+      aliasQuery(req, "SchedulePatch");
+    });
   });
 
   describe("Initial state reflects patch data", () => {
@@ -520,15 +529,19 @@ describe("Configure Patch Page", () => {
       const val = "hello world";
       cy.dataCy(`patch-name-input`).as("patchNameInput").clear().type(val);
       cy.dataCy("task-checkbox").first().check({ force: true });
-      cy.intercept("/graphql/query", (req) => {
-        req.reply((res) => {
-          res.body = mockedSuccessConfigureResponse;
-        });
+      cy.intercept("POST", "http://localhost:3000/graphql/query", (req) => {
+        if (hasOperationName(req, "SchedulePatch")) {
+          // Declare the alias from the initial intercept in the beforeEach
+          req.alias = "gqlSchedulePatchQuery";
+          req.reply((res) => {
+            res.body = mockedSuccessConfigureResponse;
+          });
+        }
       });
       cy.dataCy("schedule-patch").click();
       cy.location("pathname").should(
         "eq",
-        `/version/${unactivatedPatchId}/tasks`
+        `/version/${activatedPatchId}/tasks`
       );
     });
 
@@ -536,10 +549,14 @@ describe("Configure Patch Page", () => {
       const val = "hello world";
       cy.dataCy(`patch-name-input`).clear().type(val);
       cy.dataCy("task-checkbox").first().check({ force: true });
-      cy.intercept("/graphql/query", (req) => {
-        req.reply((res) => {
-          res.body = mockedErrorConfigureResponse;
-        });
+      cy.intercept("POST", "http://localhost:3000/graphql/query", (req) => {
+        if (hasOperationName(req, "SchedulePatch")) {
+          // Declare the alias from the initial intercept in the beforeEach
+          req.alias = "gqlSchedulePatchQuery";
+          req.reply((res) => {
+            res.body = mockedErrorConfigureResponse;
+          });
+        }
       });
       cy.dataCy("schedule-patch").click();
       cy.location("pathname").should(
@@ -563,9 +580,35 @@ const mockedErrorConfigureResponse = {
   ],
   data: null,
 };
+const activatedPatchId = "5e4ff3abe3c3317e352062e4";
 const mockedSuccessConfigureResponse = {
   data: {
-    schedulePatch: { versionFull: { id: unactivatedPatchId } },
+    schedulePatch: {
+      id: activatedPatchId,
+      description: "cypress_v10: turn on retries",
+      author: "person",
+      status: "created",
+      activated: true,
+      alias: "",
+      commitQueuePosition: null,
+      variantsTasks: [
+        {
+          name: "ubuntu1604",
+          tasks: ["test"],
+        },
+      ],
+      parameters: [
+        {
+          key: "a",
+          value: "b",
+        },
+      ],
+      versionFull: {
+        id: activatedPatchId,
+      },
+      tasks: ["test"],
+      variants: ["ubuntu1604"],
+    },
   },
   errors: null,
 };
