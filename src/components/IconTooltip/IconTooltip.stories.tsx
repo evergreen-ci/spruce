@@ -25,21 +25,18 @@ export default {
   },
 };
 
-export const Icons = ({ text, size: s, ...rest }) => {
-  console.log(s);
-  return (
-    <Container>
-      {Object.keys(glyphs).map((name) => (
-        <IconContainer key={name}>
-          <IconTooltip glyph={name} size={s} {...rest}>
-            {text}
-          </IconTooltip>
-          <span>{name}</span>
-        </IconContainer>
-      ))}
-    </Container>
-  );
-};
+export const Icons = ({ text, size: s, ...rest }) => (
+  <Container>
+    {Object.keys(glyphs).map((name) => (
+      <IconContainer key={name}>
+        <IconTooltip glyph={name} size={s} {...rest}>
+          {text}
+        </IconTooltip>
+        <span>{name}</span>
+      </IconContainer>
+    ))}
+  </Container>
+);
 
 const Container = styled.div`
   display: flex;
