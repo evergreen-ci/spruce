@@ -30,7 +30,7 @@ export const RestartPatch: React.VFC<RestartPatchProps> = ({
       {isButton ? (
         <Button
           size="small"
-          data-cy="restart-patch"
+          data-cy="restart-version"
           disabled={disabled}
           onClick={onClick}
         >
@@ -39,7 +39,7 @@ export const RestartPatch: React.VFC<RestartPatchProps> = ({
       ) : (
         <DropdownItem
           disabled={disabled}
-          data-cy="restart-patch"
+          data-cy="restart-version"
           onClick={onClick}
         >
           Restart
