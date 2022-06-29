@@ -1,18 +1,13 @@
-import { Field } from "@rjsf/core";
-import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
+import { GetFormSchema } from "../types";
 import { radioBoxOptions } from "../utils/form";
 import { SubscriptionField } from "./SubscriptionField";
 import { FormState } from "./types";
 
 export const getFormSchema = (
   repoData?: FormState
-): {
-  fields: Record<string, Field>;
-  schema: SpruceFormProps["schema"];
-  uiSchema: SpruceFormProps["uiSchema"];
-} => ({
+): ReturnType<GetFormSchema> => ({
   fields: {
     subscriptionField: SubscriptionField,
   },

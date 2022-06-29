@@ -1,3 +1,4 @@
+import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
   PeriodicBuild,
   ProjectSettingsQuery,
@@ -10,6 +11,8 @@ import { FormState } from "./types";
 
 const { omitTypename } = string;
 
+type Tab = ProjectSettingsTabRoutes.PeriodicBuilds;
+
 const getTitle = (definition: PeriodicBuild) => {
   if (!definition) {
     return "";
@@ -20,12 +23,12 @@ const getTitle = (definition: PeriodicBuild) => {
   return `Every ${definition.intervalHours} hours`;
 };
 
-export const gqlToForm: GqlToFormFunction<FormState> = (
+export const gqlToForm: GqlToFormFunction<Tab> = (
   data:
     | ProjectSettingsQuery["projectSettings"]
     | RepoSettingsQuery["repoSettings"],
   { projectType }: { projectType: ProjectType }
-): ReturnType<GqlToFormFunction> => {
+) => {
   if (!data) return null;
 
   const {
@@ -46,7 +49,7 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
   };
 };
 
-export const formToGql: FormToGqlFunction = (
+export const formToGql: FormToGqlFunction<Tab> = (
   { periodicBuildsOverride, periodicBuilds }: FormState,
   projectId
 ) => ({
