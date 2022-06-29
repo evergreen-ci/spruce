@@ -16,7 +16,7 @@ exports[`storybook Storyshots Components/TextInputWithGlyph Default 1`] = `
     >
       <label
         className="leafygreen-ui-ly82bp"
-        htmlFor="textinput-17"
+        htmlFor="textinput-18"
       >
         Some search field
       </label>
@@ -30,7 +30,7 @@ exports[`storybook Storyshots Components/TextInputWithGlyph Default 1`] = `
             autoComplete="on"
             className="leafygreen-ui-1il5lef"
             disabled={false}
-            id="textinput-17"
+            id="textinput-18"
             onBlur={[Function]}
             onChange={[Function]}
             onFocus={[Function]}
