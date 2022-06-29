@@ -2,9 +2,7 @@ import {
   ExtraField,
   ExtraFieldKey,
   RegexSelector,
-  RenotifyDefaultTime,
   ResourceType,
-  StringMap,
   Trigger,
   TriggerType,
   TaskTriggers,
@@ -12,24 +10,28 @@ import {
   ProjectTriggers,
 } from "types/triggers";
 
+export const RenotifyDefaultTime = "48";
+export const regexDisplayName = "display-name";
+export const regexBuildVariant = "build-variant";
+
 export const buildRegexSelectors: RegexSelector[] = [
   {
-    type: "display-name",
+    type: regexDisplayName,
     typeLabel: "Build Variant Name",
   },
   {
-    type: "build-variant",
+    type: regexBuildVariant,
     typeLabel: "Build Variant ID",
   },
 ];
 
 export const taskRegexSelectors: RegexSelector[] = [
   {
-    type: "display-name",
+    type: regexDisplayName,
     typeLabel: "Task Name",
   },
   {
-    type: "build-variant",
+    type: regexBuildVariant,
     typeLabel: "Build Variant Name",
   },
 ];
@@ -41,7 +43,7 @@ export const failureTypeSubscriberOptions = {
   setup: "Setup",
 };
 
-export const failureTypeSubscriberConfig = {
+export const failureTypeSubscriberConfig: ExtraField = {
   text: "Failure Type",
   key: ExtraFieldKey.FAILURE_TYPE,
   fieldType: "select",
@@ -57,18 +59,13 @@ export const requesterSubscriberOptions = {
   ad_hoc: "Periodic Build",
 };
 
-export const requesterSubscriberConfig = {
+export const requesterSubscriberConfig: ExtraField = {
   text: "Build Initiator",
   key: ExtraFieldKey.BUILD_INITIATOR,
   fieldType: "select",
   default: "gitter_request",
   options: requesterSubscriberOptions,
 };
-
-export const clearExtraFieldsInputCb = (accum: StringMap, eF: ExtraField) => ({
-  ...accum,
-  [eF.key]: "10",
-});
 
 export const taskTriggers: Trigger = {
   [TaskTriggers.TASK_STARTS]: {
@@ -111,7 +108,6 @@ export const taskTriggers: Trigger = {
         text: "Task duration (seconds)",
         fieldType: "input",
         key: ExtraFieldKey.TASK_DURATION_SECS,
-        dataCy: "duration-secs-input",
         format: "number",
         default: "10",
       },
@@ -127,7 +123,6 @@ export const taskTriggers: Trigger = {
         text: "Percent change",
         fieldType: "input",
         key: ExtraFieldKey.TASK_PERCENT_CHANGE,
-        dataCy: "percent-change-input",
         format: "number",
         default: "10",
       },
@@ -135,8 +130,8 @@ export const taskTriggers: Trigger = {
   },
 };
 
-// PATCH TRIGGERS
-export const patchTriggers: Trigger = {
+// VERSION TRIGGERS
+export const versionTriggers: Trigger = {
   [VersionTriggers.VERSION_FINISHES]: {
     trigger: TriggerType.OUTCOME,
     label: "This version finishes",
@@ -165,7 +160,6 @@ export const patchTriggers: Trigger = {
         text: "Version duration (seconds)",
         fieldType: "input",
         key: ExtraFieldKey.VERSION_DURATION_SECS,
-        dataCy: "duration-secs-input",
         format: "number",
         default: "10",
       },
@@ -181,7 +175,6 @@ export const patchTriggers: Trigger = {
         text: "Percent change",
         fieldType: "input",
         key: ExtraFieldKey.VERSION_PERCENT_CHANGE,
-        dataCy: "percent-change-input",
         format: "number",
         default: "10",
       },

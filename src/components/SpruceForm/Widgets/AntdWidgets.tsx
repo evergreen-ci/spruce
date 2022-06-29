@@ -20,18 +20,18 @@ export const AntdSelect: React.VFC<
   disabled,
   label,
   options,
+  onChange,
   placeholder,
+  rawErrors,
   readonly,
   value,
-  onChange,
-  rawErrors,
 }) => {
   const {
+    ariaLabelledBy,
+    "data-cy": dataCy,
     disabledEnums,
     hideError,
-    ariaLabelledBy,
     enumOptions,
-    "data-cy": dataCy,
     marginBottom,
   } = options;
 
@@ -49,13 +49,13 @@ export const AntdSelect: React.VFC<
       <MaxWidthContainer>
         <InputLabel htmlFor={dataCy}>{label}</InputLabel>
         <Select
+          data-cy={dataCy}
           disabled={isDisabled}
-          value={value}
+          id={dataCy}
           onChange={(v) => onChange(v === "" ? null : v)}
           placeholder={placeholder}
-          id={dataCy}
-          data-cy={dataCy}
           status={hasError ? "error" : ""}
+          value={value}
           {...labelProps}
         >
           {enumOptions.map((o) => {
@@ -65,11 +65,11 @@ export const AntdSelect: React.VFC<
             }
             return (
               <Option
-                key={o.value}
-                value={o.value}
                 disabled={
                   o.value !== value && disabledOptions.includes(o.value)
                 }
+                key={o.value}
+                value={o.value}
               >
                 {o.label}
               </Option>

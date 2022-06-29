@@ -1,5 +1,7 @@
-import { getEventSchema } from "components/Notifications/form/event";
-import { getNotificationSchema } from "components/Notifications/form/notification";
+import {
+  getEventSchema,
+  getNotificationSchema,
+} from "components/Notifications/form";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { projectTriggers } from "constants/triggers";

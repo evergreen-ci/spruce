@@ -35,6 +35,7 @@ describe("Version Subscription Modal", () => {
       cy.dataCy(regexSelectorRow).should("have.length", 0);
     });
 
+    // Skip because of complications with SpruceForm
     it.skip("'Regex' input should be disabled when the 'Field name' is empty and enabled otherwise", () => {
       cy.contains("Add Additional Criteria").click();
       cy.dataCy(regexSelectorRow).should("be.disabled");
@@ -44,9 +45,10 @@ describe("Version Subscription Modal", () => {
 
     it("Selecting a regex selector type will disable that option in other regex selector type dropdowns", () => {
       cy.contains("Add Additional Criteria").click();
+      cy.contains("Build Variant ID").should("be.visible");
       cy.contains("Add Additional Criteria").click();
-      cy.dataCy("regex-select").last().click();
       cy.contains("Build Variant Name").should("be.visible");
+      cy.dataCy("regex-select").last().click();
       cy.contains("Build Variant ID").should("have.css", "user-select", "none");
     });
 
@@ -62,6 +64,7 @@ describe("Version Subscription Modal", () => {
       cy.validateToast("success", "Your subscription has been added");
     });
 
+    // Skip because of complications with SpruceForm
     it.skip("Switching between Event types should either hide or reset regex selector inputs", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
       selectAntdOption(
@@ -79,6 +82,7 @@ describe("Version Subscription Modal", () => {
       cy.dataCy("regex-input").should("have.value", "");
     });
 
+    // Skip because of complications with SpruceForm
     it.skip("Changing the regex selector dropdown should reset the regex selector input", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
       selectAntdOption(
@@ -101,8 +105,7 @@ describe("Version Subscription Modal", () => {
         "A build-variant in this version finishes"
       );
       cy.contains("Add Additional Criteria").click();
-      cy.dataCy("regex-select").click();
-      cy.contains("Build Variant Name").click();
+      selectAntdOption("regex-select", "Build Variant Name");
       cy.dataCy("regex-input").type("stuff");
       cy.dataCy("jira-comment-input").type("EVG-2000");
       cy.dataCy("save-subscription-button").click();

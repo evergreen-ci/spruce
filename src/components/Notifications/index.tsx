@@ -10,6 +10,7 @@ import {
   SUBSCRIPTION_METHOD,
 } from "constants/cookies";
 import { size } from "constants/tokens";
+import { regexDisplayName, regexBuildVariant } from "constants/triggers";
 import { useToastContext } from "context/toast";
 import {
   SaveSubscriptionMutation,
@@ -111,8 +112,12 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
     }
   };
 
+  const regexEnumsToDisable = getRegexEnumsToDisable(
+    formState.event.regexSelector
+  );
+
   const { schema, uiSchema } = getFormSchema(
-    getRegexEnumsToDisable(formState.event.regexSelector),
+    regexEnumsToDisable,
     triggers,
     subscriptionMethods
   );
@@ -126,16 +131,16 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
       footer={
         <>
           <LeftButton
+            data-cy="cancel-subscription-button"
             key="cancel" // @ts-expect-error
             onClick={onCancel}
-            data-cy="cancel-subscription-button"
           >
             Cancel
           </LeftButton>
           <Button
-            key="save"
             data-cy="save-subscription-button"
             disabled={hasError}
+            key="save"
             onClick={onClickSave}
             variant={Variant.Primary}
           >
@@ -162,11 +167,11 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
 };
 
 const getRegexEnumsToDisable = (regexForm: FormRegexSelector[]) => {
-  const usingID = !!regexForm.find((r) => r.regexSelect === "build-variant");
-  const usingName = !!regexForm.find((r) => r.regexSelect === "display-name");
+  const usingID = !!regexForm.find((r) => r.regexSelect === regexBuildVariant);
+  const usingName = !!regexForm.find((r) => r.regexSelect === regexDisplayName);
   const regexEnumsToDisable = [
-    ...(usingID ? ["build-variant"] : []),
-    ...(usingName ? ["display-name"] : []),
+    ...(usingID ? [regexBuildVariant] : []),
+    ...(usingName ? [regexDisplayName] : []),
   ];
   return regexEnumsToDisable;
 };

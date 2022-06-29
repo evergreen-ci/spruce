@@ -5,6 +5,8 @@ import {
   failureTypeSubscriberOptions,
   requesterSubscriberOptions,
   taskRegexSelectors,
+  regexBuildVariant,
+  regexDisplayName,
 } from "constants/triggers";
 import {
   ExtraFieldKey,
@@ -91,9 +93,9 @@ const regexSelector = (
       regexSelect: {
         type: "string" as "string",
         title: "Field name",
-        default: regexEnumsToDisable.includes("build-variant")
-          ? "display-name"
-          : "build-variant",
+        default: regexEnumsToDisable.includes(regexBuildVariant)
+          ? regexDisplayName
+          : regexBuildVariant,
         oneOf: [
           ...regexSelectors.map((r) => ({
             type: "string" as "string",

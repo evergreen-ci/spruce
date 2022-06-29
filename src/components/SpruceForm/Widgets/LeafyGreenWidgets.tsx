@@ -47,6 +47,9 @@ export const LeafyGreenTextInput: React.VFC<
   } = options;
 
   const hasError = !!rawErrors?.length;
+
+  // Deduplicate errors due to a bug when using oneOf dependencies.
+  // https://github.com/rjsf-team/react-jsonschema-form/issues/1590
   const deduplicatedErrors = Array.from(new Set(rawErrors));
 
   const inputProps = {

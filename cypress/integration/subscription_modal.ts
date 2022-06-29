@@ -41,7 +41,7 @@ const testSharedSubscriptionModalFunctionality = (
         selectAntdOption("event-trigger-select", "changes by some percentage");
         cy.dataCy("percent-change-input").clear().type("-100");
         cy.dataCy("jira-comment-input").type("EVG-2000");
-        cy.contains(errorTextNegativePercent).should("exist");
+        cy.contains(errorTextPercent).should("exist");
         cy.dataCy("save-subscription-button").should("be.disabled");
         cy.dataCy("percent-change-input").clear().type("100");
         cy.dataCy("save-subscription-button").should("not.be.disabled");
@@ -121,8 +121,8 @@ const testSharedSubscriptionModalFunctionality = (
 
     const toastDataCy = "toast";
     const successText = "Your subscription has been added";
+    const errorTextPercent = "Value should be >= 0";
     const errorTextDuration = "Value should be >= 0";
-    const errorTextNegativePercent = "Value should be >= 0";
   });
 };
 

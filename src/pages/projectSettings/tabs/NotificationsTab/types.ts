@@ -31,6 +31,10 @@ export interface FormState {
         };
       };
     };
+    subscriberData: {
+      subscriberType: string;
+      subscriberName: string;
+    };
   }> | null;
 }
 

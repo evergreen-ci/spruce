@@ -16,8 +16,8 @@ export const customFormats = (jiraHost: string) => ({
   noSpaces: /^$|^\S+$/,
   // Permit url
   validURL: validateURL,
-  validDuration: (duration: string) => validateDuration(duration),
-  validPercentage: (percentage: string) => validatePercentage(percentage),
+  validDuration: validateDuration,
+  validPercentage: validatePercentage,
   validJiraTicket: validateJira,
   validJiraURL: (url: string) => validateJiraURL(jiraHost, url),
   validRegex: validateRegexp,

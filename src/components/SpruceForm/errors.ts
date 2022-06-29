@@ -40,7 +40,7 @@ export const transformErrors = (errors: AjvError[]) =>
             case "validDuration":
               return {
                 ...error,
-                message: "Duration must be  positive integer.",
+                message: "Duration should be a positive integer.",
               };
             case "validEmail":
               return {
@@ -60,7 +60,7 @@ export const transformErrors = (errors: AjvError[]) =>
             case "validPercentage":
               return {
                 ...error,
-                message: "Percentage must be positive.",
+                message: "Percentage should be a positive integer.",
               };
             case "validRegex":
               return {

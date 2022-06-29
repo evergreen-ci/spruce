@@ -72,8 +72,6 @@ export enum ExtraFieldKey {
   FAILURE_TYPE = "failure-type",
 }
 
-export const RenotifyDefaultTime = "48";
-
 type PayloadResourceIdKey = "in-version" | "in-build" | "id";
 
 export interface Trigger {
@@ -87,14 +85,16 @@ export interface Trigger {
   };
 }
 
+interface StringMap {
+  [index: string]: string;
+}
 export interface ExtraField {
   text: string;
   key: string;
-  fieldType?: string;
+  fieldType: "input" | "select";
   options?: StringMap;
   default?: string;
   format?: string;
-  dataCy?: string;
 }
 
 export type RegexSelectorType = "display-name" | "build-variant";
@@ -102,14 +102,4 @@ export type RegexSelectorType = "display-name" | "build-variant";
 export interface RegexSelector {
   type: RegexSelectorType;
   typeLabel: string;
-}
-
-export interface StringMap {
-  [index: string]: string;
-}
-
-export interface Target {
-  "jira-comment"?: string;
-  email?: string;
-  slack?: string;
 }
