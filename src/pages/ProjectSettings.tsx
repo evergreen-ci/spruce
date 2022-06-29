@@ -30,7 +30,7 @@ import { getTabTitle } from "./projectSettings/getTabTitle";
 import { ProjectSettingsTabs } from "./projectSettings/Tabs";
 import { ProjectType } from "./projectSettings/tabs/utils";
 
-const { isNotProduction } = environmentalVariables;
+const { isProduction } = environmentalVariables;
 const { validateObjectId } = validators;
 
 export const ProjectSettings: React.VFC = () => {
@@ -82,7 +82,9 @@ export const ProjectSettings: React.VFC = () => {
   });
 
   // TODO: Remove in EVG-17059
-  if (!isNotProduction) {
+  // Project Settings should only be disabled when deployed to spruce.mongodb.com
+  // Enable when running local dev server, or when deployed to beta or staging
+  if (isProduction()) {
     return (
       <PageWrapper>
         <PageContainer>

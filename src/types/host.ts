@@ -58,7 +58,6 @@ export enum HostEvent {
   HostProvisioned = "HOST_PROVISIONED",
   HostRunningTaskSet = "HOST_RUNNING_TASK_SET",
   HostRunningTaskCleared = "HOST_RUNNING_TASK_CLEARED",
-  HostTaskPIDSet = "HOST_TASK_PID_SET",
   HostMonitorFlag = "HOST_MONITOR_FLAG",
   HostProvisionFailed = "HOST_PROVISION_FAILED",
   HostTeardown = "HOST_TEARDOWN",

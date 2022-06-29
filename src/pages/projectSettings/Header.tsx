@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
+import Button from "@leafygreen-ui/button";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
 import { useNavigate, useParams } from "react-router-dom";
 import { useProjectSettingsAnalytics } from "analytics";
-import { Button } from "components/Button";
 import {
   getProjectSettingsRoute,
   ProjectSettingsTabRoutes,
@@ -84,7 +84,10 @@ export const Header: React.VFC<Props> = ({
           projectRef: { identifier: newIdentifier },
         },
       },
-    }) => (identifier === newIdentifier ? ["ProjectSettings"] : []),
+    }) =>
+      identifier === newIdentifier
+        ? ["ProjectSettings", "GetViewableProjectRefs"]
+        : [],
   });
 
   const [saveRepoSection] = useMutation<
@@ -98,7 +101,7 @@ export const Header: React.VFC<Props> = ({
     onError(err) {
       dispatchToast.error(`There was an error saving the repo: ${err.message}`);
     },
-    refetchQueries: ["RepoSettings"],
+    refetchQueries: ["RepoSettings", "GetViewableProjectRefs"],
   });
 
   const onClick = () => {

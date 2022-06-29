@@ -20,18 +20,23 @@ const TreeData = [
   },
   {
     value: CommitRequesterTypes.RepotrackerVersionRequester,
-    title: "RepoTracker",
+    title: "Commits",
     key: CommitRequesterTypes.RepotrackerVersionRequester,
   },
   {
     value: CommitRequesterTypes.GitTagRequester,
-    title: "Git Tag",
+    title: "Git Tags",
     key: CommitRequesterTypes.GitTagRequester,
   },
   {
     value: CommitRequesterTypes.TriggerRequester,
-    title: "Trigger",
+    title: "Triggers",
     key: CommitRequesterTypes.TriggerRequester,
+  },
+  {
+    value: CommitRequesterTypes.AdHocRequester,
+    title: "Periodic Builds",
+    key: CommitRequesterTypes.AdHocRequester,
   },
 ];
 

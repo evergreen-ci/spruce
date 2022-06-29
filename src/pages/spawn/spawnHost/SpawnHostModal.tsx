@@ -116,9 +116,8 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   const awsRegions = awsData?.awsRegions;
   const volumes = volumesData?.myVolumes ?? [];
 
-  // When the modal is opened, reset to the "default" state of the Modal contents.
+  // When the modal is opened, pre-fill parts of the form (AWS region, public key, and expiration).
   useEffect(() => {
-    dispatch({ type: "reset" });
     if (awsRegions && awsRegions.length) {
       dispatch({
         type: "editAWSRegion",
@@ -139,23 +138,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
       expiration: futureDate,
       noExpiration: false,
     });
-  }, [visible]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    if (awsRegions && awsRegions.length) {
-      dispatch({
-        type: "editAWSRegion",
-        region: userAwsRegion || awsRegions[0],
-      });
-    }
-    if (publicKeys && publicKeys.length) {
-      dispatch({
-        type: "editPublicKey",
-        publicKey: publicKeys[0],
-        savePublicKey: false,
-      });
-    }
-  }, [awsRegions, userAwsRegion, publicKeys, dispatch]);
+  }, [visible, userAwsRegion, awsRegions, publicKeys]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const unexpirableCountReached = useDisableSpawnExpirationCheckbox(false);
 
@@ -230,14 +213,19 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     });
   };
 
+  const onClose = () => {
+    dispatch({ type: "reset" }); // reset modal content
+    onCancel();
+  };
+
   return (
     <Modal
       title="Spawn New Host"
       visible={visible}
-      onCancel={onCancel}
+      onCancel={onClose}
       footer={[
         // @ts-expect-error
-        <WideButton onClick={onCancel} key="cancel_button">
+        <WideButton onClick={onClose} key="cancel_button">
           Cancel
         </WideButton>,
         <WideButton
@@ -316,5 +304,6 @@ const Section = styled(ModalContent)`
 // @ts-expect-error
 const WideButton = styled(Button)`
   justify-content: center;
+  margin-left: ${size.s};
   width: 140px;
 `;

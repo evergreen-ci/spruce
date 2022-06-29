@@ -233,13 +233,6 @@ export const getHostEventString = (
           )
         </div>
       );
-    case HostEvent.HostTaskPIDSet:
-      return (
-        <div data-cy="host-task-pid-set">
-          {" "}
-          PID of running task set to <b>{data.taskPid}</b>{" "}
-        </div>
-      );
     case HostEvent.HostMonitorFlag:
       return (
         <div data-cy="host-monitor-flag">
