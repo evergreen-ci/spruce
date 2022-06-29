@@ -109,7 +109,7 @@ export const Commits = () => {
 
   const { hasTasks, hasFilters } = getFilterStatus(filterState);
 
-  const { data, loading, error, startPolling, stopPolling } = useQuery<
+  const { data, loading, error, refetch, startPolling, stopPolling } = useQuery<
     MainlineCommitsQuery,
     MainlineCommitsQueryVariables
   >(GET_MAINLINE_COMMITS, {
@@ -119,7 +119,7 @@ export const Commits = () => {
     onError: (e) =>
       dispatchToast.error(`There was an error loading the page: ${e.message}`),
   });
-  usePolling(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling, refetch);
 
   const { mainlineCommits } = data || {};
   const { versions, nextPageOrderNumber, prevPageOrderNumber } =

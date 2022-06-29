@@ -42,13 +42,13 @@ describe("usePolling", () => {
     mockedGet.mockImplementation(() => "true");
 
     const { result, waitForNextUpdate } = renderHook(
-      () => usePolling(undefined, undefined, false),
+      () => usePolling(undefined, undefined, undefined, false),
       { wrapper: Provider }
     );
     await waitForNextUpdate();
     expect(result.current).toBe(false);
     const pollingInitialized = renderHook(
-      () => usePolling(undefined, undefined, true),
+      () => usePolling(undefined, undefined, undefined, true),
       {
         wrapper: Provider,
       }
@@ -56,7 +56,8 @@ describe("usePolling", () => {
     await pollingInitialized.waitForNextUpdate();
     expect(pollingInitialized.result.current).toBe(false);
   });
-  it("usePolling should not call the functions when polling is disabled.", async () => {
+
+  it("usePolling should not call the functions when polling is disabled", async () => {
     const startPolling = jest.fn();
     const stopPolling = jest.fn();
     mockedGet.mockImplementation(() => "true");
@@ -90,19 +91,6 @@ describe("usePolling", () => {
     });
     expect(startPolling).toHaveBeenCalledTimes(0);
     expect(stopPolling).toHaveBeenCalledTimes(0);
-  });
-
-  it("usePolling should be able to be initialized with an initialPollingState", async () => {
-    const startPolling = undefined;
-    const stopPolling = undefined;
-    const { result, waitForNextUpdate } = renderHook(
-      () => usePolling(startPolling, stopPolling, false),
-      {
-        wrapper: Provider,
-      }
-    );
-    await waitForNextUpdate();
-    expect(result.current).toBe(false);
   });
 
   describe("stopPolling", () => {
@@ -259,6 +247,58 @@ describe("usePolling", () => {
       expect(startPolling).toHaveBeenCalledTimes(1);
       expect(stopPolling).toHaveBeenCalledTimes(1);
       expect(result.current).toBe(true);
+    });
+  });
+
+  describe("refetch", () => {
+    it("usePolling calls refetch function when starting to poll again if it exists", async () => {
+      const startPolling = jest.fn();
+      const stopPolling = jest.fn();
+      const refetch = jest.fn();
+
+      const { waitForNextUpdate } = renderHook(
+        () => usePolling(startPolling, stopPolling, refetch),
+        { wrapper: Provider }
+      );
+      await waitForNextUpdate();
+
+      // go offline
+      act(() => {
+        fireEvent(window, new Event("offline"));
+      });
+      expect(refetch).toHaveBeenCalledTimes(0);
+      expect(startPolling).toHaveBeenCalledTimes(0);
+      expect(stopPolling).toHaveBeenCalledTimes(1);
+
+      // go online
+      act(() => {
+        fireEvent(window, new Event("online"));
+      });
+      expect(refetch).toHaveBeenCalledTimes(1);
+      expect(startPolling).toHaveBeenCalledTimes(1);
+      expect(stopPolling).toHaveBeenCalledTimes(1);
+
+      // document hidden
+      act(() => {
+        Object.defineProperty(document, "visibilityState", {
+          value: "hidden",
+        });
+        fireEvent(document, new Event("visibilitychange"));
+      });
+      expect(refetch).toHaveBeenCalledTimes(1);
+      expect(startPolling).toHaveBeenCalledTimes(1);
+      expect(stopPolling).toHaveBeenCalledTimes(2);
+
+      // document visible
+      act(() => {
+        Object.defineProperty(document, "visibilityState", {
+          value: "visible",
+        });
+        fireEvent(document, new Event("visibilitychange"));
+      });
+      expect(refetch).toHaveBeenCalledTimes(2);
+      expect(startPolling).toHaveBeenCalledTimes(2);
+      expect(stopPolling).toHaveBeenCalledTimes(2);
     });
   });
 });

@@ -37,7 +37,7 @@ export const Task = () => {
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
 
   // Query task data
-  const { data, loading, error, startPolling, stopPolling } = useQuery<
+  const { data, loading, error, refetch, startPolling, stopPolling } = useQuery<
     GetTaskQuery,
     GetTaskQueryVariables
   >(GET_TASK, {
@@ -49,7 +49,7 @@ export const Task = () => {
         `There was an error loading the task: ${err.message}`
       ),
   });
-  usePolling(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling, refetch);
 
   const { task, taskFiles } = data ?? {};
   const {

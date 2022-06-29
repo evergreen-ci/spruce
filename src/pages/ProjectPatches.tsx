@@ -39,7 +39,7 @@ export const ProjectPatches = () => {
   }, [parsed, updateQueryParams]);
   const analyticsObject = useProjectPatchesAnalytics();
 
-  const { data, startPolling, stopPolling, loading } = useQuery<
+  const { data, refetch, startPolling, stopPolling, loading } = useQuery<
     ProjectPatchesQuery,
     ProjectPatchesQueryVariables
   >(GET_PROJECT_PATCHES, {
@@ -57,7 +57,7 @@ export const ProjectPatches = () => {
       );
     },
   });
-  usePolling(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling, refetch);
   const { displayName, patches } = data?.project ?? {};
   return (
     <PatchesPage

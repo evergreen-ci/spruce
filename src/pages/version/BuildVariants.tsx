@@ -26,14 +26,14 @@ export const BuildVariants: React.VFC = () => {
   const { sorts } = parseQueryString(search);
   const { sendEvent } = useVersionAnalytics(id);
 
-  const { data, loading, error, startPolling, stopPolling } = useQuery<
+  const { data, loading, error, refetch, startPolling, stopPolling } = useQuery<
     GetBuildVariantStatsQuery,
     GetBuildVariantStatsQueryVariables
   >(GET_BUILD_VARIANTS_STATS, {
     variables: { id },
     pollInterval,
   });
-  usePolling(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling, refetch);
   const { version } = data || {};
 
   return (

@@ -18,10 +18,13 @@ import { SpawnVolumeButton } from "./spawnVolume/SpawnVolumeButton";
 
 export const SpawnVolume = () => {
   const dispatchToast = useToastContext();
-  const { data: volumesData, loading, startPolling, stopPolling } = useQuery<
-    MyVolumesQuery,
-    MyVolumesQueryVariables
-  >(GET_MY_VOLUMES, {
+  const {
+    data: volumesData,
+    loading,
+    refetch,
+    startPolling,
+    stopPolling,
+  } = useQuery<MyVolumesQuery, MyVolumesQueryVariables>(GET_MY_VOLUMES, {
     pollInterval,
     onError: (e) => {
       dispatchToast.error(
@@ -29,7 +32,7 @@ export const SpawnVolume = () => {
       );
     },
   });
-  usePolling(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling, refetch);
   usePageTitle("My Volumes");
 
   if (loading) {

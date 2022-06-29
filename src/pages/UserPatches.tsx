@@ -44,7 +44,7 @@ export const UserPatches = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [parsed]);
 
-  const { data, startPolling, stopPolling, loading } = useQuery<
+  const { data, refetch, startPolling, stopPolling, loading } = useQuery<
     UserPatchesQuery,
     UserPatchesQueryVariables
   >(GET_USER_PATCHES, {
@@ -60,8 +60,9 @@ export const UserPatches = () => {
       dispatchToast.error(`Error while fetching user patches: ${err.message}`);
     },
   });
-  usePolling(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling, refetch);
   const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId) || {};
+
   return (
     <PatchesPage
       analyticsObject={analyticsObject}

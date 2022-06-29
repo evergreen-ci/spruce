@@ -2,7 +2,7 @@ import { addPageAction, Properties, Analytics } from "analytics/addPageAction";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
 
 type Action =
-  | { name: "Tab Active" }
+  | { name: "Tab Active"; status: string }
   | { name: "Tab Not Active"; status: string };
 
 interface P extends Properties {}

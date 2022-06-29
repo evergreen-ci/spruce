@@ -89,7 +89,7 @@ export const VersionPage: React.VFC = () => {
 
   const [
     getVersion,
-    { data, error: versionError, startPolling, stopPolling },
+    { data, error: versionError, refetch, startPolling, stopPolling },
   ] = useLazyQuery<VersionQuery, VersionQueryVariables>(GET_VERSION, {
     variables: { id },
     pollInterval,
@@ -102,7 +102,7 @@ export const VersionPage: React.VFC = () => {
       setIsLoadingData(false);
     },
   });
-  usePolling(startPolling, stopPolling, false);
+  usePolling(startPolling, stopPolling, refetch, false);
 
   // Decide where to redirect the user based off of whether or not the patch has been activated
   // If this patch is activated and not on the commit queue we can safely fetch the associated version
