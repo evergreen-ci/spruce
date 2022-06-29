@@ -23,7 +23,7 @@ Cypress.Commands.add("login", () => {
     {
       validate() {
         cy.visit("/commits/spruce", { failOnStatusCode: false });
-        cy.url().should("match", "/commits/spruce/");
+        cy.url().should("match", new RegExp("/commits/spruce"));
       },
     }
   );
