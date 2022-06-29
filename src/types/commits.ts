@@ -27,6 +27,7 @@ export enum CommitRequesterTypes {
   RepotrackerVersionRequester = "gitter_request",
   TriggerRequester = "trigger_request",
   GitTagRequester = "git_tag_request",
+  AdHocRequester = "ad_hoc",
 }
 
 export type Commits = MainlineCommitsQuery["mainlineCommits"]["versions"];

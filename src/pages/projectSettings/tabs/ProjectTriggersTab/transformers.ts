@@ -1,3 +1,4 @@
+import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
   ProjectSettingsQuery,
   ProjectTriggersSettingsFragment,
@@ -8,9 +9,10 @@ import { Unpacked } from "types/utils";
 import { string } from "utils";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { ProjectType } from "../utils";
-import { FormState } from "./types";
 
 const { omitTypename } = string;
+
+type Tab = ProjectSettingsTabRoutes.ProjectTriggers;
 
 const getTitle = ({
   level,
@@ -19,12 +21,12 @@ const getTitle = ({
 }: Unpacked<ProjectTriggersSettingsFragment["triggers"]>) =>
   `${project}: On ${level}${status === "all" ? "" : ` ${status}`}`;
 
-export const gqlToForm: GqlToFormFunction<FormState> = (
+export const gqlToForm: GqlToFormFunction<Tab> = (
   data:
     | ProjectSettingsQuery["projectSettings"]
     | RepoSettingsQuery["repoSettings"],
   { projectType }: { projectType: ProjectType }
-): ReturnType<GqlToFormFunction<FormState>> => {
+) => {
   if (!data) return null;
 
   const {
@@ -44,10 +46,10 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
   };
 };
 
-export const formToGql: FormToGqlFunction<FormState> = (
+export const formToGql: FormToGqlFunction<Tab> = (
   { triggersOverride, triggers },
   projectId
-): ReturnType<FormToGqlFunction<FormState>> => ({
+) => ({
   projectRef: {
     id: projectId,
     triggers: triggersOverride

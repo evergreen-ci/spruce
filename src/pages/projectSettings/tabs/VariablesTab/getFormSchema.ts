@@ -1,7 +1,6 @@
-import { Field } from "@rjsf/core";
-import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
+import { GetFormSchema } from "../types";
 import { ProjectType } from "../utils";
 import { FormState } from "./types";
 import { VariableRow } from "./VariableRow";
@@ -9,11 +8,7 @@ import { VariableRow } from "./VariableRow";
 export const getFormSchema = (
   projectType: ProjectType,
   repoData?: FormState
-): {
-  fields: Record<string, Field>;
-  schema: SpruceFormProps["schema"];
-  uiSchema: SpruceFormProps["uiSchema"];
-} => ({
+): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
     definitions: {

@@ -1,22 +1,17 @@
-import { Field } from "@rjsf/core";
 import { getEventSchema } from "components/Notifications/form/event";
 import { getNotificationSchema } from "components/Notifications/form/notification";
-import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { projectTriggers } from "constants/triggers";
 import { projectSubscriptionMethods as subscriptionMethods } from "types/subscription";
+import { GetFormSchema } from "../types";
 import { radioBoxOptions } from "../utils/form";
 import { SubscriptionField } from "./SubscriptionField";
 import { FormState } from "./types";
 
 export const getFormSchema = (
   repoData?: FormState
-): {
-  fields: Record<string, Field>;
-  schema: SpruceFormProps["schema"];
-  uiSchema: SpruceFormProps["uiSchema"];
-} => {
+): ReturnType<GetFormSchema> => {
   const { schema: eventSchema, uiSchema: eventUiSchema } = getEventSchema(
     [],
     projectTriggers
