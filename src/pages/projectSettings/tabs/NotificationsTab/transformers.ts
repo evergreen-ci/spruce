@@ -1,11 +1,14 @@
+import { ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectInput, Subscriber } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { FormState } from "./types";
 
+type Tab = ProjectSettingsTabRoutes.Notifications;
+
 export const getSubscriberTitle = (subscriber: Subscriber) =>
   Object.values(subscriber);
 
-export const gqlToForm: GqlToFormFunction = (data): FormState => {
+export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
   if (!data) return null;
   const { projectRef, subscriptions } = data;
   return {
@@ -49,7 +52,7 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
   };
 };
 
-export const formToGql: FormToGqlFunction = (
+export const formToGql: FormToGqlFunction<Tab> = (
   { buildBreakSettings }: FormState,
   id
 ) => {

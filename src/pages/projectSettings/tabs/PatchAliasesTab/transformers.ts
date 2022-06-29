@@ -1,3 +1,4 @@
+import { ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { alias as aliasUtils, ProjectType } from "../utils";
@@ -5,12 +6,14 @@ import { FormState, TaskSpecifier } from "./types";
 
 const { sortAliases, transformAliases } = aliasUtils;
 
-export const gqlToForm: GqlToFormFunction<FormState> = (
+type Tab = ProjectSettingsTabRoutes.PatchAliases;
+
+export const gqlToForm: GqlToFormFunction<Tab> = (
   data:
     | ProjectSettingsQuery["projectSettings"]
     | RepoSettingsQuery["repoSettings"],
   options: { projectType: ProjectType }
-): ReturnType<GqlToFormFunction> => {
+) => {
   if (!data) return null;
 
   const {
@@ -42,6 +45,8 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
                 ? TaskSpecifier.PatchAlias
                 : TaskSpecifier.VariantTask,
             })) ?? [],
+          status: p.status ?? "",
+          parentAsModule: p.parentAsModule ?? "",
           isGithubTriggerAlias: githubTriggerAliases?.includes(p.alias),
           displayTitle: p.alias,
         })) ?? [],
@@ -49,7 +54,7 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
   };
 };
 
-export const formToGql: FormToGqlFunction = (
+export const formToGql: FormToGqlFunction<Tab> = (
   { patchAliases, patchTriggerAliases: ptaData }: FormState,
   id
 ) => {
@@ -82,8 +87,8 @@ export const formToGql: FormToGqlFunction = (
                       variantRegex,
                     }
             ) ?? [],
-          status: a.status ?? "",
-          parentAsModule: a.parentAsModule ?? "",
+          status: a.status,
+          parentAsModule: a.parentAsModule,
         };
       })
     : null;

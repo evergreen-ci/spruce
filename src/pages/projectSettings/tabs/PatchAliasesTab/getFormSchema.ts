@@ -1,7 +1,6 @@
-import { Field } from "@rjsf/core";
-import { SpruceFormProps } from "components/SpruceForm";
 import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
+import { GetFormSchema } from "../types";
 import { alias, form, PatchTriggerAliasStatus, ProjectType } from "../utils";
 import { TaskSpecifier } from "./types";
 
@@ -13,11 +12,7 @@ const { overrideRadioBox } = form;
 
 export const getFormSchema = (
   projectType: ProjectType
-): {
-  fields: Record<string, Field>;
-  schema: SpruceFormProps["schema"];
-  uiSchema: SpruceFormProps["uiSchema"];
-} => ({
+): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
     type: "object" as "object",
