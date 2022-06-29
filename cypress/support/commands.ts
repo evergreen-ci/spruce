@@ -1,4 +1,3 @@
-const LOGIN_COOKIE = "mci-token";
 const TOAST_COOKIE = "announcement-toast";
 const loginURL = "http://localhost:9090/login";
 const user = {
@@ -16,11 +15,18 @@ function enterLoginCredentials() {
 }
 
 Cypress.Commands.add("login", () => {
-  cy.getCookie(LOGIN_COOKIE).then((c) => {
-    if (!c) {
+  cy.session(
+    "authSession",
+    () => {
       cy.request("POST", loginURL, { ...user });
+    },
+    {
+      validate() {
+        cy.visit("/commits/spruce", { failOnStatusCode: false });
+        cy.url().should("match", "/commits/spruce/");
+      },
     }
-  });
+  );
 });
 
 Cypress.Commands.add("enterLoginCredentials", () => {
@@ -28,11 +34,7 @@ Cypress.Commands.add("enterLoginCredentials", () => {
 });
 
 Cypress.Commands.add("preserveCookies", () => {
-  Cypress.Cookies.preserveOnce(
-    LOGIN_COOKIE,
-    "mci-session",
-    "mci-project-cookie"
-  );
+  cy.login();
 });
 
 type cyGetOptions = Parameters<typeof cy.get>[1];
