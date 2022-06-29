@@ -12,7 +12,7 @@ type usePollingType = {
     stopPolling: () => void,
     refetch?: (
       variables?: Partial<OperationVariables>
-    ) => Promise<ApolloQueryResult<any>>,
+    ) => Promise<ApolloQueryResult<any>> | void,
     initialPollingState?: boolean
   ): boolean;
 };
@@ -30,7 +30,7 @@ type usePollingType = {
 export const usePolling: usePollingType = (
   startPolling,
   stopPolling,
-  refetch,
+  refetch = () => {},
   initialPollingState = true
 ) => {
   const [isPolling, setIsPolling] = useState(initialPollingState);
@@ -54,8 +54,8 @@ export const usePolling: usePollingType = (
   // If online and visible and not polling, start polling.
   if (isOnline && isVisible && !isPolling && startPolling) {
     setIsPolling(true);
-    refetch?.(); // refresh data when visiting tab again
     startPolling(pollInterval);
+    refetch(); // refresh data when returning to tab
   }
 
   return isPolling;
