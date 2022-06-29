@@ -481,13 +481,6 @@ export type QueryVersionArgs = {
   id: Scalars["String"];
 };
 
-/** IssueLinkInput is an input parameter to the annotation mutations. */
-export type IssueLinkInput = {
-  confidenceScore?: Maybe<Scalars["Float"]>;
-  issueKey: Scalars["String"];
-  url: Scalars["String"];
-};
-
 /**
  * Annotation models the metadata that a user can add to a task.
  * It is used as a field within the Task type.
@@ -501,14 +494,6 @@ export type Annotation = {
   taskId: Scalars["String"];
   taskExecution: Scalars["Int"];
   webhookConfigured: Scalars["Boolean"];
-};
-
-export type IssueLink = {
-  confidenceScore?: Maybe<Scalars["Float"]>;
-  issueKey?: Maybe<Scalars["String"]>;
-  jiraTicket?: Maybe<JiraTicket>;
-  source?: Maybe<Source>;
-  url?: Maybe<Scalars["String"]>;
 };
 
 export type Note = {
@@ -545,19 +530,30 @@ export type JiraTicket = {
   key: Scalars["String"];
 };
 
-export type TicketFields = {
-  assignedTeam?: Maybe<Scalars["String"]>;
-  assigneeDisplayName?: Maybe<Scalars["String"]>;
-  created: Scalars["String"];
-  resolutionName?: Maybe<Scalars["String"]>;
-  status: JiraStatus;
-  summary: Scalars["String"];
-  updated: Scalars["String"];
+/**
+ * CommitQueue is returned by the commitQueue query.
+ * It contains information about the patches on the commit queue (e.g. author, code changes) for a given project.
+ */
+export type CommitQueue = {
+  message?: Maybe<Scalars["String"]>;
+  owner?: Maybe<Scalars["String"]>;
+  projectId?: Maybe<Scalars["String"]>;
+  queue?: Maybe<Array<CommitQueueItem>>;
+  repo?: Maybe<Scalars["String"]>;
 };
 
-export type JiraStatus = {
-  id: Scalars["String"];
-  name: Scalars["String"];
+export type CommitQueueItem = {
+  enqueueTime?: Maybe<Scalars["Time"]>;
+  issue?: Maybe<Scalars["String"]>;
+  modules?: Maybe<Array<Module>>;
+  patch?: Maybe<Patch>;
+  source?: Maybe<Scalars["String"]>;
+  version?: Maybe<Scalars["String"]>;
+};
+
+export type Module = {
+  issue?: Maybe<Scalars["String"]>;
+  module?: Maybe<Scalars["String"]>;
 };
 
 /**
@@ -661,22 +657,6 @@ export type Host = {
   volumes: Array<Volume>;
 };
 
-export type Volume = {
-  id: Scalars["String"];
-  availabilityZone: Scalars["String"];
-  createdBy: Scalars["String"];
-  creationTime?: Maybe<Scalars["Time"]>;
-  deviceName?: Maybe<Scalars["String"]>;
-  displayName: Scalars["String"];
-  expiration?: Maybe<Scalars["Time"]>;
-  homeVolume: Scalars["Boolean"];
-  host?: Maybe<Host>;
-  hostID: Scalars["String"];
-  noExpiration: Scalars["Boolean"];
-  size: Scalars["Int"];
-  type: Scalars["String"];
-};
-
 export type TaskInfo = {
   id?: Maybe<Scalars["ID"]>;
   name?: Maybe<Scalars["String"]>;
@@ -745,43 +725,62 @@ export type HostEventLogData = {
   user: Scalars["String"];
 };
 
-/**
- * Distro[] is the return value for the distros query.
- * It models an environment configuration for a host.
- */
-export type Distro = {
-  isVirtualWorkStation: Scalars["Boolean"];
-  name?: Maybe<Scalars["String"]>;
-  user?: Maybe<Scalars["String"]>;
-  userSpawnAllowed?: Maybe<Scalars["Boolean"]>;
-  workDir?: Maybe<Scalars["String"]>;
+/** IssueLinkInput is an input parameter to the annotation mutations. */
+export type IssueLinkInput = {
+  confidenceScore?: Maybe<Scalars["Float"]>;
+  issueKey: Scalars["String"];
+  url: Scalars["String"];
+};
+
+export type IssueLink = {
+  confidenceScore?: Maybe<Scalars["Float"]>;
+  issueKey?: Maybe<Scalars["String"]>;
+  jiraTicket?: Maybe<JiraTicket>;
+  source?: Maybe<Source>;
+  url?: Maybe<Scalars["String"]>;
 };
 
 /**
- * TaskQueueItem[] is the return value for the distroTaskQueue query.
- * It contains information about any particular item on the task queue, such as the name of the task, the build variant of the task,
- * and how long it's expected to take to finish running.
+ * BuildVariantOptions is an input to the mainlineCommits query.
+ * It stores values for statuses, tasks, and variants which are used to filter for matching versions.
  */
-export type TaskQueueItem = {
-  id: Scalars["ID"];
+export type BuildVariantOptions = {
+  includeBaseTasks?: Maybe<Scalars["Boolean"]>;
+  statuses?: Maybe<Array<Scalars["String"]>>;
+  tasks?: Maybe<Array<Scalars["String"]>>;
+  variants?: Maybe<Array<Scalars["String"]>>;
+};
+
+/**
+ * MainlineCommitsOptions is an input to the mainlineCommits query.
+ * Its fields determine what mainline commits we fetch for a given projectID.
+ */
+export type MainlineCommitsOptions = {
+  limit?: Maybe<Scalars["Int"]>;
+  projectID: Scalars["String"];
+  requesters?: Maybe<Array<Scalars["String"]>>;
+  shouldCollapse?: Maybe<Scalars["Boolean"]>;
+  skipOrderNumber?: Maybe<Scalars["Int"]>;
+};
+
+/**
+ * MainlineCommits is returned by the mainline commits query.
+ * It contains information about versions (both unactivated and activated) which is surfaced on the Project Health page.
+ */
+export type MainlineCommits = {
+  nextPageOrderNumber?: Maybe<Scalars["Int"]>;
+  prevPageOrderNumber?: Maybe<Scalars["Int"]>;
+  versions: Array<MainlineCommitVersion>;
+};
+
+export type MainlineCommitVersion = {
+  rolledUpVersions?: Maybe<Array<Version>>;
+  version?: Maybe<Version>;
+};
+
+export type BuildVariantTuple = {
   buildVariant: Scalars["String"];
   displayName: Scalars["String"];
-  expectedDuration: Scalars["Duration"];
-  priority: Scalars["Int"];
-  project: Scalars["String"];
-  requester: TaskQueueItemType;
-  revision: Scalars["String"];
-  version: Scalars["String"];
-};
-
-/**
- * TaskQueueDistro[] is the return value for the taskQueueDistros query.
- * It contains information about how many tasks and hosts are running on on a particular distro.
- */
-export type TaskQueueDistro = {
-  id: Scalars["ID"];
-  hostCount: Scalars["Int"];
-  taskCount: Scalars["Int"];
 };
 
 export enum TaskSortCategory {
@@ -1042,23 +1041,10 @@ export type PatchTasks = {
   tasks: Array<Task>;
 };
 
-export enum ProjectSettingsAccess {
-  Edit = "EDIT",
-  View = "VIEW",
-}
-
-export enum ProjectSettingsSection {
-  General = "GENERAL",
-  Access = "ACCESS",
-  Variables = "VARIABLES",
-  GithubAndCommitQueue = "GITHUB_AND_COMMIT_QUEUE",
-  Notifications = "NOTIFICATIONS",
-  PatchAliases = "PATCH_ALIASES",
-  Workstation = "WORKSTATION",
-  Triggers = "TRIGGERS",
-  PeriodicBuilds = "PERIODIC_BUILDS",
-  Plugins = "PLUGINS",
-}
+export type Permissions = {
+  canCreateProject: Scalars["Boolean"];
+  userId: Scalars["String"];
+};
 
 /**
  * CreateProjectInput is the input to the createProject mutation.
@@ -1090,123 +1076,6 @@ export type MoveProjectInput = {
   newOwner: Scalars["String"];
   newRepo: Scalars["String"];
   projectId: Scalars["String"];
-};
-
-/**
- * ProjectSettingsInput is the input to the saveProjectSettingsForSection mutation.
- * It contains information about project settings (e.g. Build Baron configurations, subscriptions, etc) and is used to
- * update the settings for a given project.
- */
-export type ProjectSettingsInput = {
-  aliases?: Maybe<Array<ProjectAliasInput>>;
-  githubWebhooksEnabled?: Maybe<Scalars["Boolean"]>;
-  projectRef?: Maybe<ProjectInput>;
-  subscriptions?: Maybe<Array<SubscriptionInput>>;
-  vars?: Maybe<ProjectVarsInput>;
-};
-
-export type ProjectInput = {
-  id: Scalars["String"];
-  admins?: Maybe<Array<Scalars["String"]>>;
-  batchTime?: Maybe<Scalars["Int"]>;
-  branch?: Maybe<Scalars["String"]>;
-  buildBaronSettings?: Maybe<BuildBaronSettingsInput>;
-  cedarTestResultsEnabled?: Maybe<Scalars["Boolean"]>;
-  commitQueue?: Maybe<CommitQueueParamsInput>;
-  deactivatePrevious?: Maybe<Scalars["Boolean"]>;
-  defaultLogger?: Maybe<Scalars["String"]>;
-  disabledStatsCache?: Maybe<Scalars["Boolean"]>;
-  dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
-  displayName?: Maybe<Scalars["String"]>;
-  enabled?: Maybe<Scalars["Boolean"]>;
-  filesIgnoredFromCache?: Maybe<Array<Scalars["String"]>>;
-  githubChecksEnabled?: Maybe<Scalars["Boolean"]>;
-  githubTriggerAliases?: Maybe<Array<Maybe<Scalars["String"]>>>;
-  gitTagAuthorizedTeams?: Maybe<Array<Scalars["String"]>>;
-  gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]>>;
-  gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]>;
-  identifier?: Maybe<Scalars["String"]>;
-  manualPrTestingEnabled?: Maybe<Scalars["Boolean"]>;
-  notifyOnBuildFailure?: Maybe<Scalars["Boolean"]>;
-  owner?: Maybe<Scalars["String"]>;
-  patchingDisabled?: Maybe<Scalars["Boolean"]>;
-  patchTriggerAliases?: Maybe<Array<PatchTriggerAliasInput>>;
-  perfEnabled?: Maybe<Scalars["Boolean"]>;
-  periodicBuilds?: Maybe<Array<PeriodicBuildInput>>;
-  private?: Maybe<Scalars["Boolean"]>;
-  prTestingEnabled?: Maybe<Scalars["Boolean"]>;
-  remotePath?: Maybe<Scalars["String"]>;
-  repo?: Maybe<Scalars["String"]>;
-  repotrackerDisabled?: Maybe<Scalars["Boolean"]>;
-  restricted?: Maybe<Scalars["Boolean"]>;
-  spawnHostScriptPath?: Maybe<Scalars["String"]>;
-  taskAnnotationSettings?: Maybe<TaskAnnotationSettingsInput>;
-  taskSync?: Maybe<TaskSyncOptionsInput>;
-  tracksPushEvents?: Maybe<Scalars["Boolean"]>;
-  triggers?: Maybe<Array<TriggerAliasInput>>;
-  versionControlEnabled?: Maybe<Scalars["Boolean"]>;
-  workstationConfig?: Maybe<WorkstationConfigInput>;
-};
-
-/**
- * RepoSettingsInput is the input to the saveRepoSettingsForSection mutation.
- * It contains information about repo settings (e.g. Build Baron configurations, subscriptions, etc) and is used to
- * update the settings for a given project.
- */
-export type RepoSettingsInput = {
-  aliases?: Maybe<Array<ProjectAliasInput>>;
-  githubWebhooksEnabled?: Maybe<Scalars["Boolean"]>;
-  projectRef?: Maybe<RepoRefInput>;
-  subscriptions?: Maybe<Array<SubscriptionInput>>;
-  vars?: Maybe<ProjectVarsInput>;
-};
-
-export type RepoRefInput = {
-  id: Scalars["String"];
-  admins?: Maybe<Array<Scalars["String"]>>;
-  batchTime?: Maybe<Scalars["Int"]>;
-  branch?: Maybe<Scalars["String"]>;
-  buildBaronSettings?: Maybe<BuildBaronSettingsInput>;
-  cedarTestResultsEnabled?: Maybe<Scalars["Boolean"]>;
-  commitQueue?: Maybe<CommitQueueParamsInput>;
-  deactivatePrevious?: Maybe<Scalars["Boolean"]>;
-  defaultLogger?: Maybe<Scalars["String"]>;
-  disabledStatsCache?: Maybe<Scalars["Boolean"]>;
-  dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
-  displayName?: Maybe<Scalars["String"]>;
-  enabled?: Maybe<Scalars["Boolean"]>;
-  filesIgnoredFromCache?: Maybe<Array<Scalars["String"]>>;
-  githubChecksEnabled?: Maybe<Scalars["Boolean"]>;
-  githubTriggerAliases?: Maybe<Array<Scalars["String"]>>;
-  gitTagAuthorizedTeams?: Maybe<Array<Scalars["String"]>>;
-  gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]>>;
-  gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]>;
-  manualPrTestingEnabled?: Maybe<Scalars["Boolean"]>;
-  notifyOnBuildFailure?: Maybe<Scalars["Boolean"]>;
-  owner?: Maybe<Scalars["String"]>;
-  patchingDisabled?: Maybe<Scalars["Boolean"]>;
-  patchTriggerAliases?: Maybe<Array<PatchTriggerAliasInput>>;
-  perfEnabled?: Maybe<Scalars["Boolean"]>;
-  periodicBuilds?: Maybe<Array<PeriodicBuildInput>>;
-  private?: Maybe<Scalars["Boolean"]>;
-  prTestingEnabled?: Maybe<Scalars["Boolean"]>;
-  remotePath?: Maybe<Scalars["String"]>;
-  repo?: Maybe<Scalars["String"]>;
-  repotrackerDisabled?: Maybe<Scalars["Boolean"]>;
-  restricted?: Maybe<Scalars["Boolean"]>;
-  spawnHostScriptPath?: Maybe<Scalars["String"]>;
-  taskAnnotationSettings?: Maybe<TaskAnnotationSettingsInput>;
-  taskSync?: Maybe<TaskSyncOptionsInput>;
-  tracksPushEvents?: Maybe<Scalars["Boolean"]>;
-  triggers?: Maybe<Array<TriggerAliasInput>>;
-  versionControlEnabled?: Maybe<Scalars["Boolean"]>;
-  workstationConfig?: Maybe<WorkstationConfigInput>;
-};
-
-export type ProjectVarsInput = {
-  adminOnlyVarsList?: Maybe<Array<Maybe<Scalars["String"]>>>;
-  privateVarsList?: Maybe<Array<Maybe<Scalars["String"]>>>;
-  vars?: Maybe<Scalars["StringMap"]>;
 };
 
 export type ProjectAliasInput = {
@@ -1340,6 +1209,80 @@ export type WorkstationConfig = {
   setupCommands?: Maybe<Array<WorkstationSetupCommand>>;
 };
 
+export enum ProjectSettingsAccess {
+  Edit = "EDIT",
+  View = "VIEW",
+}
+
+export enum ProjectSettingsSection {
+  General = "GENERAL",
+  Access = "ACCESS",
+  Variables = "VARIABLES",
+  GithubAndCommitQueue = "GITHUB_AND_COMMIT_QUEUE",
+  Notifications = "NOTIFICATIONS",
+  PatchAliases = "PATCH_ALIASES",
+  Workstation = "WORKSTATION",
+  Triggers = "TRIGGERS",
+  PeriodicBuilds = "PERIODIC_BUILDS",
+  Plugins = "PLUGINS",
+}
+
+/**
+ * ProjectSettingsInput is the input to the saveProjectSettingsForSection mutation.
+ * It contains information about project settings (e.g. Build Baron configurations, subscriptions, etc) and is used to
+ * update the settings for a given project.
+ */
+export type ProjectSettingsInput = {
+  aliases?: Maybe<Array<ProjectAliasInput>>;
+  githubWebhooksEnabled?: Maybe<Scalars["Boolean"]>;
+  projectRef?: Maybe<ProjectInput>;
+  subscriptions?: Maybe<Array<SubscriptionInput>>;
+  vars?: Maybe<ProjectVarsInput>;
+};
+
+export type ProjectInput = {
+  id: Scalars["String"];
+  admins?: Maybe<Array<Scalars["String"]>>;
+  batchTime?: Maybe<Scalars["Int"]>;
+  branch?: Maybe<Scalars["String"]>;
+  buildBaronSettings?: Maybe<BuildBaronSettingsInput>;
+  cedarTestResultsEnabled?: Maybe<Scalars["Boolean"]>;
+  commitQueue?: Maybe<CommitQueueParamsInput>;
+  deactivatePrevious?: Maybe<Scalars["Boolean"]>;
+  defaultLogger?: Maybe<Scalars["String"]>;
+  disabledStatsCache?: Maybe<Scalars["Boolean"]>;
+  dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
+  displayName?: Maybe<Scalars["String"]>;
+  enabled?: Maybe<Scalars["Boolean"]>;
+  filesIgnoredFromCache?: Maybe<Array<Scalars["String"]>>;
+  githubChecksEnabled?: Maybe<Scalars["Boolean"]>;
+  githubTriggerAliases?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  gitTagAuthorizedTeams?: Maybe<Array<Scalars["String"]>>;
+  gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]>>;
+  gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]>;
+  identifier?: Maybe<Scalars["String"]>;
+  manualPrTestingEnabled?: Maybe<Scalars["Boolean"]>;
+  notifyOnBuildFailure?: Maybe<Scalars["Boolean"]>;
+  owner?: Maybe<Scalars["String"]>;
+  patchingDisabled?: Maybe<Scalars["Boolean"]>;
+  patchTriggerAliases?: Maybe<Array<PatchTriggerAliasInput>>;
+  perfEnabled?: Maybe<Scalars["Boolean"]>;
+  periodicBuilds?: Maybe<Array<PeriodicBuildInput>>;
+  private?: Maybe<Scalars["Boolean"]>;
+  prTestingEnabled?: Maybe<Scalars["Boolean"]>;
+  remotePath?: Maybe<Scalars["String"]>;
+  repo?: Maybe<Scalars["String"]>;
+  repotrackerDisabled?: Maybe<Scalars["Boolean"]>;
+  restricted?: Maybe<Scalars["Boolean"]>;
+  spawnHostScriptPath?: Maybe<Scalars["String"]>;
+  taskAnnotationSettings?: Maybe<TaskAnnotationSettingsInput>;
+  taskSync?: Maybe<TaskSyncOptionsInput>;
+  tracksPushEvents?: Maybe<Scalars["Boolean"]>;
+  triggers?: Maybe<Array<TriggerAliasInput>>;
+  versionControlEnabled?: Maybe<Scalars["Boolean"]>;
+  workstationConfig?: Maybe<WorkstationConfigInput>;
+};
+
 /** ProjectSettings models the settings for a given Project. */
 export type ProjectSettings = {
   aliases?: Maybe<Array<ProjectAlias>>;
@@ -1363,6 +1306,190 @@ export type ProjectSubscription = {
 export type Selector = {
   data: Scalars["String"];
   type: Scalars["String"];
+};
+
+export type TriggerAlias = {
+  alias: Scalars["String"];
+  buildVariantRegex: Scalars["String"];
+  configFile: Scalars["String"];
+  dateCutoff: Scalars["Int"];
+  level: Scalars["String"];
+  project: Scalars["String"];
+  status: Scalars["String"];
+  taskRegex: Scalars["String"];
+};
+
+export type PeriodicBuild = {
+  id: Scalars["String"];
+  alias: Scalars["String"];
+  configFile: Scalars["String"];
+  intervalHours: Scalars["Int"];
+  message: Scalars["String"];
+  nextRunTime: Scalars["Time"];
+};
+
+export type BuildBaronSettings = {
+  bfSuggestionFeaturesURL?: Maybe<Scalars["String"]>;
+  bfSuggestionPassword?: Maybe<Scalars["String"]>;
+  bfSuggestionServer?: Maybe<Scalars["String"]>;
+  bfSuggestionTimeoutSecs?: Maybe<Scalars["Int"]>;
+  bfSuggestionUsername?: Maybe<Scalars["String"]>;
+  ticketCreateProject: Scalars["String"];
+  ticketSearchProjects?: Maybe<Array<Scalars["String"]>>;
+};
+
+export type TaskAnnotationSettings = {
+  fileTicketWebhook: Webhook;
+  jiraCustomFields?: Maybe<Array<JiraField>>;
+};
+
+export type JiraField = {
+  displayText: Scalars["String"];
+  field: Scalars["String"];
+};
+
+export type Webhook = {
+  endpoint: Scalars["String"];
+  secret: Scalars["String"];
+};
+
+/**
+ * ProjectEvents contains project event log entries that concern the history of changes related to project
+ * settings.
+ * Although RepoSettings uses RepoRef in practice to have stronger types, this can't be enforced
+ * or event logs because new fields could always be introduced that don't exist in the old event logs.
+ */
+export type ProjectEvents = {
+  count: Scalars["Int"];
+  eventLogEntries: Array<ProjectEventLogEntry>;
+};
+
+export type ProjectEventLogEntry = {
+  after?: Maybe<ProjectEventSettings>;
+  before?: Maybe<ProjectEventSettings>;
+  timestamp: Scalars["Time"];
+  user: Scalars["String"];
+};
+
+export type ProjectEventSettings = {
+  aliases?: Maybe<Array<ProjectAlias>>;
+  githubWebhooksEnabled: Scalars["Boolean"];
+  projectRef?: Maybe<Project>;
+  subscriptions?: Maybe<Array<ProjectSubscription>>;
+  vars?: Maybe<ProjectVars>;
+};
+
+export type ProjectAlias = {
+  id: Scalars["String"];
+  alias: Scalars["String"];
+  gitTag: Scalars["String"];
+  remotePath: Scalars["String"];
+  task: Scalars["String"];
+  taskTags: Array<Scalars["String"]>;
+  variant: Scalars["String"];
+  variantTags: Array<Scalars["String"]>;
+};
+
+/**
+ * ProjectSubscriber defines the subscriptions for a given Project. For example, a project could have Slack notifications
+ * enabled that trigger whenever any version finishes.
+ */
+export type ProjectSubscriber = {
+  subscriber: Subscriber;
+  type: Scalars["String"];
+};
+
+export type Subscriber = {
+  emailSubscriber?: Maybe<Scalars["String"]>;
+  githubCheckSubscriber?: Maybe<GithubCheckSubscriber>;
+  githubPRSubscriber?: Maybe<GithubPrSubscriber>;
+  jiraCommentSubscriber?: Maybe<Scalars["String"]>;
+  jiraIssueSubscriber?: Maybe<JiraIssueSubscriber>;
+  slackSubscriber?: Maybe<Scalars["String"]>;
+  webhookSubscriber?: Maybe<WebhookSubscriber>;
+};
+
+export type GithubPrSubscriber = {
+  owner: Scalars["String"];
+  prNumber?: Maybe<Scalars["Int"]>;
+  ref: Scalars["String"];
+  repo: Scalars["String"];
+};
+
+export type GithubCheckSubscriber = {
+  owner: Scalars["String"];
+  ref: Scalars["String"];
+  repo: Scalars["String"];
+};
+
+export type WebhookSubscriber = {
+  headers: Array<Maybe<WebhookHeader>>;
+  secret: Scalars["String"];
+  url: Scalars["String"];
+};
+
+export type WebhookHeader = {
+  key: Scalars["String"];
+  value: Scalars["String"];
+};
+
+export type JiraIssueSubscriber = {
+  issueType: Scalars["String"];
+  project: Scalars["String"];
+};
+
+export type ProjectVarsInput = {
+  adminOnlyVarsList?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  privateVarsList?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  vars?: Maybe<Scalars["StringMap"]>;
+};
+
+export type ProjectVars = {
+  adminOnlyVars?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  privateVars?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  vars?: Maybe<Scalars["StringMap"]>;
+};
+
+export type RepoRefInput = {
+  id: Scalars["String"];
+  admins?: Maybe<Array<Scalars["String"]>>;
+  batchTime?: Maybe<Scalars["Int"]>;
+  branch?: Maybe<Scalars["String"]>;
+  buildBaronSettings?: Maybe<BuildBaronSettingsInput>;
+  cedarTestResultsEnabled?: Maybe<Scalars["Boolean"]>;
+  commitQueue?: Maybe<CommitQueueParamsInput>;
+  deactivatePrevious?: Maybe<Scalars["Boolean"]>;
+  defaultLogger?: Maybe<Scalars["String"]>;
+  disabledStatsCache?: Maybe<Scalars["Boolean"]>;
+  dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
+  displayName?: Maybe<Scalars["String"]>;
+  enabled?: Maybe<Scalars["Boolean"]>;
+  filesIgnoredFromCache?: Maybe<Array<Scalars["String"]>>;
+  githubChecksEnabled?: Maybe<Scalars["Boolean"]>;
+  githubTriggerAliases?: Maybe<Array<Scalars["String"]>>;
+  gitTagAuthorizedTeams?: Maybe<Array<Scalars["String"]>>;
+  gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]>>;
+  gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]>;
+  manualPrTestingEnabled?: Maybe<Scalars["Boolean"]>;
+  notifyOnBuildFailure?: Maybe<Scalars["Boolean"]>;
+  owner?: Maybe<Scalars["String"]>;
+  patchingDisabled?: Maybe<Scalars["Boolean"]>;
+  patchTriggerAliases?: Maybe<Array<PatchTriggerAliasInput>>;
+  perfEnabled?: Maybe<Scalars["Boolean"]>;
+  periodicBuilds?: Maybe<Array<PeriodicBuildInput>>;
+  private?: Maybe<Scalars["Boolean"]>;
+  prTestingEnabled?: Maybe<Scalars["Boolean"]>;
+  remotePath?: Maybe<Scalars["String"]>;
+  repo?: Maybe<Scalars["String"]>;
+  repotrackerDisabled?: Maybe<Scalars["Boolean"]>;
+  restricted?: Maybe<Scalars["Boolean"]>;
+  spawnHostScriptPath?: Maybe<Scalars["String"]>;
+  taskAnnotationSettings?: Maybe<TaskAnnotationSettingsInput>;
+  taskSync?: Maybe<TaskSyncOptionsInput>;
+  tracksPushEvents?: Maybe<Scalars["Boolean"]>;
+  triggers?: Maybe<Array<TriggerAliasInput>>;
+  versionControlEnabled?: Maybe<Scalars["Boolean"]>;
+  workstationConfig?: Maybe<WorkstationConfigInput>;
 };
 
 /**
@@ -1435,49 +1562,17 @@ export type WorkstationSetupCommand = {
   directory: Scalars["String"];
 };
 
-export type TriggerAlias = {
-  alias: Scalars["String"];
-  buildVariantRegex: Scalars["String"];
-  configFile: Scalars["String"];
-  dateCutoff: Scalars["Int"];
-  level: Scalars["String"];
-  project: Scalars["String"];
-  status: Scalars["String"];
-  taskRegex: Scalars["String"];
-};
-
-export type PeriodicBuild = {
-  id: Scalars["String"];
-  alias: Scalars["String"];
-  configFile: Scalars["String"];
-  intervalHours: Scalars["Int"];
-  message: Scalars["String"];
-  nextRunTime: Scalars["Time"];
-};
-
-export type BuildBaronSettings = {
-  bfSuggestionFeaturesURL?: Maybe<Scalars["String"]>;
-  bfSuggestionPassword?: Maybe<Scalars["String"]>;
-  bfSuggestionServer?: Maybe<Scalars["String"]>;
-  bfSuggestionTimeoutSecs?: Maybe<Scalars["Int"]>;
-  bfSuggestionUsername?: Maybe<Scalars["String"]>;
-  ticketCreateProject: Scalars["String"];
-  ticketSearchProjects?: Maybe<Array<Scalars["String"]>>;
-};
-
-export type TaskAnnotationSettings = {
-  fileTicketWebhook: Webhook;
-  jiraCustomFields?: Maybe<Array<JiraField>>;
-};
-
-export type JiraField = {
-  displayText: Scalars["String"];
-  field: Scalars["String"];
-};
-
-export type Webhook = {
-  endpoint: Scalars["String"];
-  secret: Scalars["String"];
+/**
+ * RepoSettingsInput is the input to the saveRepoSettingsForSection mutation.
+ * It contains information about repo settings (e.g. Build Baron configurations, subscriptions, etc) and is used to
+ * update the settings for a given project.
+ */
+export type RepoSettingsInput = {
+  aliases?: Maybe<Array<ProjectAliasInput>>;
+  githubWebhooksEnabled?: Maybe<Scalars["Boolean"]>;
+  projectRef?: Maybe<RepoRefInput>;
+  subscriptions?: Maybe<Array<SubscriptionInput>>;
+  vars?: Maybe<ProjectVarsInput>;
 };
 
 /** RepoSettings models the settings for a given RepoRef. */
@@ -1487,97 +1582,6 @@ export type RepoSettings = {
   projectRef?: Maybe<RepoRef>;
   subscriptions?: Maybe<Array<ProjectSubscription>>;
   vars?: Maybe<ProjectVars>;
-};
-
-/**
- * ProjectSubscriber defines the subscriptions for a given Project. For example, a project could have Slack notifications
- * enabled that trigger whenever any version finishes.
- */
-export type ProjectSubscriber = {
-  subscriber: Subscriber;
-  type: Scalars["String"];
-};
-
-export type Subscriber = {
-  emailSubscriber?: Maybe<Scalars["String"]>;
-  githubCheckSubscriber?: Maybe<GithubCheckSubscriber>;
-  githubPRSubscriber?: Maybe<GithubPrSubscriber>;
-  jiraCommentSubscriber?: Maybe<Scalars["String"]>;
-  jiraIssueSubscriber?: Maybe<JiraIssueSubscriber>;
-  slackSubscriber?: Maybe<Scalars["String"]>;
-  webhookSubscriber?: Maybe<WebhookSubscriber>;
-};
-
-export type GithubPrSubscriber = {
-  owner: Scalars["String"];
-  prNumber?: Maybe<Scalars["Int"]>;
-  ref: Scalars["String"];
-  repo: Scalars["String"];
-};
-
-export type GithubCheckSubscriber = {
-  owner: Scalars["String"];
-  ref: Scalars["String"];
-  repo: Scalars["String"];
-};
-
-export type WebhookSubscriber = {
-  headers: Array<Maybe<WebhookHeader>>;
-  secret: Scalars["String"];
-  url: Scalars["String"];
-};
-
-export type WebhookHeader = {
-  key: Scalars["String"];
-  value: Scalars["String"];
-};
-
-export type JiraIssueSubscriber = {
-  issueType: Scalars["String"];
-  project: Scalars["String"];
-};
-
-/**
- * ProjectEvents contains project event log entries that concern the history of changes related to project
- * settings.
- * Although RepoSettings uses RepoRef in practice to have stronger types, this can't be enforced
- * or event logs because new fields could always be introduced that don't exist in the old event logs.
- */
-export type ProjectEvents = {
-  count: Scalars["Int"];
-  eventLogEntries: Array<ProjectEventLogEntry>;
-};
-
-export type ProjectEventLogEntry = {
-  after?: Maybe<ProjectEventSettings>;
-  before?: Maybe<ProjectEventSettings>;
-  timestamp: Scalars["Time"];
-  user: Scalars["String"];
-};
-
-export type ProjectEventSettings = {
-  aliases?: Maybe<Array<ProjectAlias>>;
-  githubWebhooksEnabled: Scalars["Boolean"];
-  projectRef?: Maybe<Project>;
-  subscriptions?: Maybe<Array<ProjectSubscription>>;
-  vars?: Maybe<ProjectVars>;
-};
-
-export type ProjectVars = {
-  adminOnlyVars?: Maybe<Array<Maybe<Scalars["String"]>>>;
-  privateVars?: Maybe<Array<Maybe<Scalars["String"]>>>;
-  vars?: Maybe<Scalars["StringMap"]>;
-};
-
-export type ProjectAlias = {
-  id: Scalars["String"];
-  alias: Scalars["String"];
-  gitTag: Scalars["String"];
-  remotePath: Scalars["String"];
-  task: Scalars["String"];
-  taskTags: Array<Scalars["String"]>;
-  variant: Scalars["String"];
-  variantTags: Array<Scalars["String"]>;
 };
 
 export enum SpawnHostStatusActions {
@@ -1824,6 +1828,50 @@ export type File = {
 };
 
 /**
+ * TaskTestResult is the return value for the taskTests query.
+ * It contains the test results for a task. For example, if there is a task to run all unit tests, then the test results
+ * could be the result of each individual unit test.
+ */
+export type TaskTestResult = {
+  filteredTestCount: Scalars["Int"];
+  testResults: Array<TestResult>;
+  totalTestCount: Scalars["Int"];
+};
+
+export type TestResult = {
+  id: Scalars["String"];
+  baseStatus?: Maybe<Scalars["String"]>;
+  duration?: Maybe<Scalars["Float"]>;
+  endTime?: Maybe<Scalars["Time"]>;
+  execution?: Maybe<Scalars["Int"]>;
+  exitCode?: Maybe<Scalars["Int"]>;
+  groupID?: Maybe<Scalars["String"]>;
+  logs: TestLog;
+  startTime?: Maybe<Scalars["Time"]>;
+  status: Scalars["String"];
+  taskId?: Maybe<Scalars["String"]>;
+  testFile: Scalars["String"];
+};
+
+export type TestLog = {
+  lineNum?: Maybe<Scalars["Int"]>;
+  url?: Maybe<Scalars["String"]>;
+  urlLobster?: Maybe<Scalars["String"]>;
+  urlRaw?: Maybe<Scalars["String"]>;
+};
+
+/**
+ * TaskTestResultSample is the return value for the taskTestSample query.
+ * It is used to represent failing test results on the task history pages.
+ */
+export type TaskTestResultSample = {
+  execution: Scalars["Int"];
+  matchingFailedTestNames: Array<Scalars["String"]>;
+  taskId: Scalars["String"];
+  totalTestCount: Scalars["Int"];
+};
+
+/**
  * TaskLogs is the return value for the taskLogs query.
  * It contains the logs for a given task on a given execution.
  */
@@ -1867,47 +1915,57 @@ export type LogMessage = {
 };
 
 /**
- * TaskTestResult is the return value for the taskTests query.
- * It contains the test results for a task. For example, if there is a task to run all unit tests, then the test results
- * could be the result of each individual unit test.
+ * Distro[] is the return value for the distros query.
+ * It models an environment configuration for a host.
  */
-export type TaskTestResult = {
-  filteredTestCount: Scalars["Int"];
-  testResults: Array<TestResult>;
-  totalTestCount: Scalars["Int"];
-};
-
-export type TestResult = {
-  id: Scalars["String"];
-  baseStatus?: Maybe<Scalars["String"]>;
-  duration?: Maybe<Scalars["Float"]>;
-  endTime?: Maybe<Scalars["Time"]>;
-  execution?: Maybe<Scalars["Int"]>;
-  exitCode?: Maybe<Scalars["Int"]>;
-  groupID?: Maybe<Scalars["String"]>;
-  logs: TestLog;
-  startTime?: Maybe<Scalars["Time"]>;
-  status: Scalars["String"];
-  taskId?: Maybe<Scalars["String"]>;
-  testFile: Scalars["String"];
-};
-
-export type TestLog = {
-  lineNum?: Maybe<Scalars["Int"]>;
-  url?: Maybe<Scalars["String"]>;
-  urlLobster?: Maybe<Scalars["String"]>;
-  urlRaw?: Maybe<Scalars["String"]>;
+export type Distro = {
+  isVirtualWorkStation: Scalars["Boolean"];
+  name?: Maybe<Scalars["String"]>;
+  user?: Maybe<Scalars["String"]>;
+  userSpawnAllowed?: Maybe<Scalars["Boolean"]>;
+  workDir?: Maybe<Scalars["String"]>;
 };
 
 /**
- * TaskTestResultSample is the return value for the taskTestSample query.
- * It is used to represent failing test results on the task history pages.
+ * TaskQueueItem[] is the return value for the distroTaskQueue query.
+ * It contains information about any particular item on the task queue, such as the name of the task, the build variant of the task,
+ * and how long it's expected to take to finish running.
  */
-export type TaskTestResultSample = {
-  execution: Scalars["Int"];
-  matchingFailedTestNames: Array<Scalars["String"]>;
-  taskId: Scalars["String"];
-  totalTestCount: Scalars["Int"];
+export type TaskQueueItem = {
+  id: Scalars["ID"];
+  buildVariant: Scalars["String"];
+  displayName: Scalars["String"];
+  expectedDuration: Scalars["Duration"];
+  priority: Scalars["Int"];
+  project: Scalars["String"];
+  requester: TaskQueueItemType;
+  revision: Scalars["String"];
+  version: Scalars["String"];
+};
+
+/**
+ * TaskQueueDistro[] is the return value for the taskQueueDistros query.
+ * It contains information about how many tasks and hosts are running on on a particular distro.
+ */
+export type TaskQueueDistro = {
+  id: Scalars["ID"];
+  hostCount: Scalars["Int"];
+  taskCount: Scalars["Int"];
+};
+
+export type TicketFields = {
+  assignedTeam?: Maybe<Scalars["String"]>;
+  assigneeDisplayName?: Maybe<Scalars["String"]>;
+  created: Scalars["String"];
+  resolutionName?: Maybe<Scalars["String"]>;
+  status: JiraStatus;
+  summary: Scalars["String"];
+  updated: Scalars["String"];
+};
+
+export type JiraStatus = {
+  id: Scalars["String"];
+  name: Scalars["String"];
 };
 
 /** PublicKeyInput is an input to the createPublicKey and updatePublicKey mutations. */
@@ -1975,12 +2033,7 @@ export type SubscriberInput = {
   type: Scalars["String"];
 };
 
-export type Permissions = {
-  canCreateProject: Scalars["Boolean"];
-  userId: Scalars["String"];
-};
-
-/** PublicKey models a public key. User's can save/modify/delete their public keys. */
+/** PublicKey models a public key. Users can save/modify/delete their public keys. */
 export type PublicKey = {
   key: Scalars["String"];
   name: Scalars["String"];
@@ -2038,29 +2091,6 @@ export type UseSpruceOptions = {
 export type VersionToRestart = {
   versionId: Scalars["String"];
   taskIds: Array<Scalars["String"]>;
-};
-
-/**
- * BuildVariantOptions is an input to the mainlineCommits query.
- * It stores values for statuses, tasks, and variants which are used to filter for matching versions.
- */
-export type BuildVariantOptions = {
-  includeBaseTasks?: Maybe<Scalars["Boolean"]>;
-  statuses?: Maybe<Array<Scalars["String"]>>;
-  tasks?: Maybe<Array<Scalars["String"]>>;
-  variants?: Maybe<Array<Scalars["String"]>>;
-};
-
-/**
- * MainlineCommitsOptions is an input to the mainlineCommits query.
- * Its fields determine what mainline commits we fetch for a given projectID.
- */
-export type MainlineCommitsOptions = {
-  limit?: Maybe<Scalars["Int"]>;
-  projectID: Scalars["String"];
-  requesters?: Maybe<Array<Scalars["String"]>>;
-  shouldCollapse?: Maybe<Scalars["Boolean"]>;
-  skipOrderNumber?: Maybe<Scalars["Int"]>;
 };
 
 /** Version models a commit within a project. */
@@ -2169,50 +2199,20 @@ export type UpstreamProject = {
   version?: Maybe<Version>;
 };
 
-/**
- * MainlineCommits is returned by the mainline commits query.
- * It contains information about versions (both unactivated and activated) which is surfaced on the Project Health page.
- */
-export type MainlineCommits = {
-  nextPageOrderNumber?: Maybe<Scalars["Int"]>;
-  prevPageOrderNumber?: Maybe<Scalars["Int"]>;
-  versions: Array<MainlineCommitVersion>;
-};
-
-export type MainlineCommitVersion = {
-  rolledUpVersions?: Maybe<Array<Version>>;
-  version?: Maybe<Version>;
-};
-
-export type BuildVariantTuple = {
-  buildVariant: Scalars["String"];
+export type Volume = {
+  id: Scalars["String"];
+  availabilityZone: Scalars["String"];
+  createdBy: Scalars["String"];
+  creationTime?: Maybe<Scalars["Time"]>;
+  deviceName?: Maybe<Scalars["String"]>;
   displayName: Scalars["String"];
-};
-
-/**
- * CommitQueue is returned by the commitQueue query.
- * It contains information about the patches on the commit queue (e.g. author, code changes) for a given project.
- */
-export type CommitQueue = {
-  message?: Maybe<Scalars["String"]>;
-  owner?: Maybe<Scalars["String"]>;
-  projectId?: Maybe<Scalars["String"]>;
-  queue?: Maybe<Array<CommitQueueItem>>;
-  repo?: Maybe<Scalars["String"]>;
-};
-
-export type CommitQueueItem = {
-  enqueueTime?: Maybe<Scalars["Time"]>;
-  issue?: Maybe<Scalars["String"]>;
-  modules?: Maybe<Array<Module>>;
-  patch?: Maybe<Patch>;
-  source?: Maybe<Scalars["String"]>;
-  version?: Maybe<Scalars["String"]>;
-};
-
-export type Module = {
-  issue?: Maybe<Scalars["String"]>;
-  module?: Maybe<Scalars["String"]>;
+  expiration?: Maybe<Scalars["Time"]>;
+  homeVolume: Scalars["Boolean"];
+  host?: Maybe<Host>;
+  hostID: Scalars["String"];
+  noExpiration: Scalars["Boolean"];
+  size: Scalars["Int"];
+  type: Scalars["String"];
 };
 
 export type AnnotationFragment = {
