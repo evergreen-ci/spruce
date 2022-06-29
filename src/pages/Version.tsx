@@ -130,8 +130,7 @@ export const VersionPage: React.VFC = () => {
   }, [data]);
 
   const { version } = data || {};
-  const { status, patch, isPatch, revision, message, order, activated } =
-    version || {};
+  const { status, patch, isPatch, revision, message, order } = version || {};
 
   const {
     commitQueuePosition,
@@ -139,7 +138,7 @@ export const VersionPage: React.VFC = () => {
     canEnqueueToCommitQueue,
     childPatches,
   } = patch || {};
-  const isPatchOnCommitQueue = commitQueuePosition !== null;
+  const isPatchOnCommitQueue = commitQueuePosition !== undefined;
 
   // If a revision exists
   const versionText = shortenGithash(revision?.length ? revision : id);
@@ -166,6 +165,7 @@ export const VersionPage: React.VFC = () => {
     githubPRLinkify(message),
     spruceConfig?.jira?.host
   );
+
   return (
     <PageWrapper data-cy="version-page">
       <VersionTaskPageBreadcrumbs
@@ -184,7 +184,6 @@ export const VersionPage: React.VFC = () => {
             patchDescription={message}
             versionId={id}
             isPatch={isPatch}
-            activated={activated}
           />
         }
       />

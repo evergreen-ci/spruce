@@ -29,7 +29,7 @@ describe("Restarting a patch", () => {
     cy.visit(path);
     cy.dataCy("version-restart-modal").should("not.be.visible");
     cy.dataCy("restart-patch").click();
-    cy.dataCy("version-restart-modal").should("be.be.visible");
+    cy.dataCy("version-restart-modal").should("be.visible");
   });
 
   it("Clicking on a variant should toggle an accordion drop down of tasks", () => {
@@ -91,8 +91,46 @@ describe("Restarting a patch", () => {
       cy.dataCy("task-status-filter").click();
       cy.dataCy("restart-patch-button").click();
     });
-    cy.dataCy("version-restart-modal").should("not.be.be.visible");
+    cy.dataCy("version-restart-modal").should("not.be.visible");
     cy.validateToast("success", "Successfully restarted tasks!");
+  });
+});
+
+describe.only("Restarting and scheduling mainline commits", () => {
+  before(() => {
+    cy.login();
+  });
+  beforeEach(() => {
+    cy.preserveCookies();
+  });
+  it("should be able to restart scheduled mainline commit tasks", () => {
+    cy.visit("/version/spruce_ab494436448fbb1d244833046ea6f6af1544e86d");
+    cy.dataCy("restart-patch").should("not.be.disabled");
+    cy.dataCy("restart-patch").click();
+    cy.dataCy("version-restart-modal").should("be.visible");
+    cy.dataCy("version-restart-modal").within(() => {
+      cy.dataCy("accordion-toggle").click();
+      cy.getInputByLabel("check_codegen").should("exist");
+      cy.getInputByLabel("check_codegen").click({ force: true });
+      cy.get("button").contains("Restart").should("not.be.disabled");
+      cy.get("button").contains("Restart").click({ force: true });
+    });
+    cy.validateToast("success", "Successfully restarted tasks!");
+  });
+  it("should be able to schedule inactive mainline commit tasks", () => {
+    cy.visit("/version/spruce_e695f654c8b4b959d3e12e71696c3e318bcd4c33");
+    cy.dataCy("schedule-patch").should("exist");
+    cy.dataCy("schedule-patch").should("not.be.disabled");
+    cy.dataCy("schedule-patch").click();
+    cy.dataCy("schedule-tasks-modal").should("be.visible");
+    cy.dataCy("schedule-tasks-modal").within(() => {
+      cy.dataCy("accordion-toggle").click();
+      cy.getInputByLabel("check_codegen").should("exist");
+      cy.getInputByLabel("check_codegen").click({ force: true });
+      cy.get("button").contains("Schedule").should("not.be.disabled");
+      cy.get("button").contains("Schedule").click({ force: true });
+    });
+    cy.validateToast("success", "Successfully scheduled tasks!");
   });
 });
 const path = `/version/5ecedafb562343215a7ff297`;

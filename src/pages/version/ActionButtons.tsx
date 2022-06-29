@@ -21,7 +21,6 @@ interface ActionButtonProps {
   patchDescription: string;
   versionId: string;
   isPatch: boolean;
-  activated: boolean;
 }
 
 export const ActionButtons: React.VFC<ActionButtonProps> = ({
@@ -31,7 +30,6 @@ export const ActionButtons: React.VFC<ActionButtonProps> = ({
   patchDescription,
   versionId,
   isPatch,
-  activated,
 }) => {
   const dropdownItems = [
     <LinkToReconfigurePage
@@ -68,13 +66,14 @@ export const ActionButtons: React.VFC<ActionButtonProps> = ({
     />,
   ];
 
+  // Should be able to schedule tasks for any version, that is not on the commit queue
   return (
     <>
       <PageButtonRow>
         <ScheduleTasks
           versionId={versionId}
           isButton
-          disabled={isPatchOnCommitQueue && activated}
+          disabled={isPatchOnCommitQueue}
         />
         <RestartPatch
           patchId={versionId}
