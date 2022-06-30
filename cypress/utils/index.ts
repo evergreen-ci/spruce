@@ -65,3 +65,26 @@ export const clickOnPageSizeBtnAndAssertURLandTableSize = (
   cy.get(dataCyTableRows).should("have.length.of.at.most", pageSize);
   cy.location("search").should("include", `limit=${pageSize}`);
 };
+
+/**
+ * Given the data-cy of an antd select and the text of option, this function will open the select and click on
+ * that option.
+ * @param dataCy dataCy of the select to be open
+ * @param option text of the desired option
+ */
+export const selectAntdOption = (dataCy: string, option: string) => {
+  // open select
+  cy.dataCy(dataCy).click();
+  // click on option
+  cy.get(".ant-select-dropdown :not(.ant-select-dropdown-hidden)")
+    .find(".ant-select-item-option")
+    .each((el) => {
+      if (el.text().includes(option)) {
+        cy.wrap(el).click();
+      }
+    });
+  // make sure select is closed
+  cy.get(".ant-select-dropdown :not(.ant-select-dropdown-hidden)").should(
+    "not.be.visible"
+  );
+};

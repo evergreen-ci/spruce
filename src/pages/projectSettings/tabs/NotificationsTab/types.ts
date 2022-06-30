@@ -5,46 +5,31 @@ export interface FormState {
     notifyOnBuildFailure: boolean | null;
   };
   subscriptions: Array<{
-    id: string;
-    resourceType: string;
-    trigger: string;
-    ownerType: string;
-    triggerData: { [key: string]: any };
-    selectors: Array<{
-      type: string;
-      data: string;
-    }>;
-    regexSelectors: Array<{
-      type: string;
-      data: string;
-    }>;
-    subscriber: {
-      githubPRSubscriber?: {
-        owner: string;
-        repo: string;
-        ref: string;
-        prNumber?: number;
+    subscriptionData: {
+      event: {
+        eventSelect: string;
+        extraFields: { [key: string]: string };
+        regexSelector: { [key: string]: string }[];
       };
-      githubCheckSubscriber: {
-        owner: string;
-        repo: string;
-        ref: string;
+      notification: {
+        notificationSelect: string;
+        jiraCommentInput: string;
+        slackInput: string;
+        emailInput: string;
+        jiraIssueInput: {
+          projectInput: string;
+          issueInput: string;
+        };
+        webhookInput: {
+          urlInput: string;
+          secretInput: string;
+          httpHeaders: { [key: string]: string }[];
+        };
       };
-      webhookSubscriber: {
-        url: string;
-        secret: string;
-        headers: Array<{
-          key: string;
-          value: string;
-        }>;
-      };
-      jiraIssueSubscriber: {
-        project: string;
-        issueType: string;
-      };
-      jiraCommentSubscriber: string;
-      emailSubscriber: string;
-      slackSubscriber: string;
+    };
+    subscriberData: {
+      subscriberType: string;
+      subscriberName: string;
     };
   }> | null;
 }
