@@ -96,7 +96,7 @@ describe("Restarting a patch", () => {
   });
 });
 
-describe.only("Restarting and scheduling mainline commits", () => {
+describe("Restarting and scheduling mainline commits", () => {
   before(() => {
     cy.login();
   });
@@ -117,8 +117,11 @@ describe.only("Restarting and scheduling mainline commits", () => {
     });
     cy.validateToast("success", "Successfully restarted tasks!");
   });
+  it("should not be able to restart tasks on an inactive mainline commit", () => {
+    cy.visit("/version/spruce_ab494436448fbb1d244833046ea6f6af1544e86d");
+    cy.dataCy("restart-version").should("be.disabled");
+  });
   it("should be able to schedule inactive mainline commit tasks", () => {
-    cy.visit("/version/spruce_e695f654c8b4b959d3e12e71696c3e318bcd4c33");
     cy.dataCy("schedule-patch").should("exist");
     cy.dataCy("schedule-patch").should("not.be.disabled");
     cy.dataCy("schedule-patch").click();

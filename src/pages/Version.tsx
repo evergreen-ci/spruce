@@ -130,7 +130,8 @@ export const VersionPage: React.VFC = () => {
   }, [data]);
 
   const { version } = data || {};
-  const { status, patch, isPatch, revision, message, order } = version || {};
+  const { status, patch, isPatch, revision, message, order, activated } =
+    version || {};
 
   const {
     commitQueuePosition,
@@ -179,11 +180,12 @@ export const VersionPage: React.VFC = () => {
         buttons={
           <ActionButtons
             canEnqueueToCommitQueue={canEnqueueToCommitQueue}
-            isPatchOnCommitQueue={isPatchOnCommitQueue}
             canReconfigure={!isPatchOnCommitQueue && isPatch}
+            isPatchOnCommitQueue={isPatchOnCommitQueue}
+            isPatch={isPatch}
+            isVersionActivated={activated}
             patchDescription={message}
             versionId={id}
-            isPatch={isPatch}
           />
         }
       />

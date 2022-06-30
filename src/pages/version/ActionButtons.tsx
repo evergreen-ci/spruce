@@ -1,4 +1,3 @@
-import React from "react";
 import { ButtonDropdown } from "components/ButtonDropdown";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
@@ -16,20 +15,22 @@ import { ScheduleUndispatchedBaseTasks } from "./ScheduleUndispatchedBaseTasks";
 
 interface ActionButtonProps {
   canEnqueueToCommitQueue: boolean;
-  isPatchOnCommitQueue: boolean;
   canReconfigure: boolean;
+  isPatch: boolean;
+  isPatchOnCommitQueue: boolean;
+  isVersionActivated: boolean;
   patchDescription: string;
   versionId: string;
-  isPatch: boolean;
 }
 
 export const ActionButtons: React.VFC<ActionButtonProps> = ({
   canEnqueueToCommitQueue,
-  isPatchOnCommitQueue,
   canReconfigure,
+  isPatch,
+  isPatchOnCommitQueue,
+  isVersionActivated,
   patchDescription,
   versionId,
-  isPatch,
 }) => {
   const dropdownItems = [
     <LinkToReconfigurePage
@@ -66,7 +67,7 @@ export const ActionButtons: React.VFC<ActionButtonProps> = ({
     />,
   ];
 
-  // Should be able to schedule tasks for any version, that is not on the commit queue
+  // Should be able to modify tasks for any version, that is not on the commit queue
   return (
     <>
       <PageButtonRow>
@@ -78,7 +79,7 @@ export const ActionButtons: React.VFC<ActionButtonProps> = ({
         <RestartPatch
           patchId={versionId}
           isButton
-          disabled={isPatchOnCommitQueue}
+          disabled={isPatchOnCommitQueue || !isVersionActivated}
           refetchQueries={["Patch"]}
         />
         <AddNotification patchId={versionId} refetchQueries={["Patch"]} />
