@@ -76,7 +76,7 @@ export const AntdSelect: React.VFC<
             );
           })}
         </Select>
-        {hasError && <ErrorMessage>Selection is required.</ErrorMessage>}
+        {hasError && <ErrorMessage> Selection is required. </ErrorMessage>}
       </MaxWidthContainer>
     </ElementWrapper>
   );

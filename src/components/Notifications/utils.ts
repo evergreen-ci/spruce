@@ -2,7 +2,7 @@ import { NotificationMethods } from "types/subscription";
 import { Trigger, ExtraField } from "types/triggers";
 import { FormState, FormExtraFields, FormRegexSelector } from "./types";
 
-// This utils file contains functions used to convert the form state to GQL payload.
+// This utils file contains functions used to process the form state.
 
 const getTargetForMethod = (method: string) => {
   switch (method) {

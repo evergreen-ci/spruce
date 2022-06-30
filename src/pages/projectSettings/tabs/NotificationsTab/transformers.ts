@@ -27,7 +27,7 @@ const getSubscriberText = (subscriberType: string, subscriber: Subscriber) => {
   }
 };
 
-const getTriggerText = (resourceType: string, trigger: string) => {
+const getTriggerText = (trigger: string, resourceType: string) => {
   const triggerText =
     resourceType && trigger
       ? `${toSentenceCase(resourceType)} ${trigger} `
@@ -48,10 +48,12 @@ const getExtraFields = (
   triggerEnum: string,
   triggerData: { [key: string]: string }
 ) => {
+  // If there are no extra fields, just return.
   if (!triggerData) return {};
 
   const extraFields = {};
   projectTriggers[triggerEnum].extraFields.forEach((e) => {
+    // Extra fields that are numbers must be converted in order to fulfill the form schema.
     const isNumber = e.format === "number";
     extraFields[e.key] = isNumber
       ? parseInt(triggerData[e.key], 10)
@@ -79,17 +81,20 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
     subscriptions: subscriptions
       ? subscriptions?.map(
           ({
-            id,
             resourceType,
             trigger,
-            ownerType,
             triggerData,
             regexSelectors,
             subscriber,
           }) => {
+            // Find and process information about trigger.
+            const triggerEnum = getTriggerEnum(trigger, resourceType);
+            const triggerText = getTriggerText(trigger, resourceType);
+
+            // Find and process information about subscriber.
             const {
-              subscriber: subscribers,
               type: subscriberType,
+              subscriber: subscribers,
             } = subscriber;
             const {
               jiraCommentSubscriber,
@@ -98,19 +103,12 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
               jiraIssueSubscriber,
               webhookSubscriber,
             } = subscribers;
-
-            const triggerEnum = getTriggerEnum(trigger, resourceType);
-            const triggerText = getTriggerText(resourceType, trigger);
             const subscriberText = getSubscriberText(
               subscriberType,
               subscribers
             );
 
             return {
-              id,
-              resourceType,
-              trigger,
-              ownerType,
               displayTitle: `${triggerText} - ${subscriberText}`,
               subscriptionData: {
                 event: {

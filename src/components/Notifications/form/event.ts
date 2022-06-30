@@ -173,6 +173,7 @@ export const getEventSchema = (
               extraFields: {
                 type: "object" as "object",
                 title: "",
+                required: [ExtraFieldKey.TASK_PERCENT_CHANGE],
                 properties: {
                   [ExtraFieldKey.TASK_PERCENT_CHANGE]: percentChangeInput,
                 },
@@ -187,6 +188,7 @@ export const getEventSchema = (
               extraFields: {
                 type: "object" as "object",
                 title: "",
+                required: [ExtraFieldKey.VERSION_PERCENT_CHANGE],
                 properties: {
                   [ExtraFieldKey.VERSION_PERCENT_CHANGE]: percentChangeInput,
                 },
@@ -201,6 +203,7 @@ export const getEventSchema = (
               extraFields: {
                 type: "object" as "object",
                 title: "",
+                required: [ExtraFieldKey.TASK_DURATION_SECS],
                 properties: {
                   [ExtraFieldKey.TASK_DURATION_SECS]: taskDurationInput,
                 },
@@ -215,6 +218,7 @@ export const getEventSchema = (
               extraFields: {
                 type: "object" as "object",
                 title: "",
+                required: [ExtraFieldKey.VERSION_DURATION_SECS],
                 properties: {
                   [ExtraFieldKey.VERSION_DURATION_SECS]: versionDurationInput,
                 },
@@ -247,6 +251,7 @@ export const getEventSchema = (
               extraFields: {
                 type: "object" as "object",
                 title: "",
+                required: [ExtraFieldKey.BUILD_INITIATOR],
                 properties: {
                   [ExtraFieldKey.BUILD_INITIATOR]: buildSelect,
                 },
@@ -264,6 +269,7 @@ export const getEventSchema = (
               extraFields: {
                 type: "object" as "object",
                 title: "",
+                required: [ExtraFieldKey.BUILD_INITIATOR],
                 properties: {
                   [ExtraFieldKey.BUILD_INITIATOR]: buildSelect,
                 },
@@ -287,6 +293,7 @@ export const getEventSchema = (
               extraFields: {
                 type: "object" as "object",
                 title: "",
+                required: [ExtraFieldKey.BUILD_INITIATOR],
                 properties: {
                   [ExtraFieldKey.BUILD_INITIATOR]: buildSelect,
                 },
@@ -305,6 +312,10 @@ export const getEventSchema = (
               extraFields: {
                 type: "object" as "object",
                 title: "",
+                required: [
+                  ExtraFieldKey.FAILURE_TYPE,
+                  ExtraFieldKey.BUILD_INITIATOR,
+                ],
                 properties: {
                   [ExtraFieldKey.FAILURE_TYPE]: failureSelect,
                   [ExtraFieldKey.BUILD_INITIATOR]: buildSelect,
@@ -320,6 +331,10 @@ export const getEventSchema = (
               extraFields: {
                 type: "object" as "object",
                 title: "",
+                required: [
+                  ExtraFieldKey.RENOTIFY_INTERVAL,
+                  ExtraFieldKey.FAILURE_TYPE,
+                ],
                 properties: {
                   [ExtraFieldKey.RENOTIFY_INTERVAL]: renotifyInput,
                   [ExtraFieldKey.FAILURE_TYPE]: failureSelect,
@@ -339,6 +354,11 @@ export const getEventSchema = (
               extraFields: {
                 type: "object" as "object",
                 title: "",
+                required: [
+                  ExtraFieldKey.TEST_REGEX,
+                  ExtraFieldKey.RENOTIFY_INTERVAL,
+                  ExtraFieldKey.FAILURE_TYPE,
+                ],
                 properties: {
                   [ExtraFieldKey.TEST_REGEX]: testNameRegexInput,
                   [ExtraFieldKey.RENOTIFY_INTERVAL]: renotifyInput,
@@ -359,6 +379,7 @@ export const getEventSchema = (
               extraFields: {
                 type: "object" as "object",
                 title: "",
+                required: [ExtraFieldKey.TASK_DURATION_SECS],
                 properties: {
                   [ExtraFieldKey.TASK_DURATION_SECS]: taskDurationInput,
                 },
@@ -377,6 +398,7 @@ export const getEventSchema = (
               extraFields: {
                 type: "object" as "object",
                 title: "",
+                required: [ExtraFieldKey.TASK_PERCENT_CHANGE],
                 properties: {
                   [ExtraFieldKey.TASK_PERCENT_CHANGE]: percentChangeInput,
                 },

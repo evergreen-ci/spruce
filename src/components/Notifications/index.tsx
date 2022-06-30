@@ -112,12 +112,8 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
     }
   };
 
-  const regexEnumsToDisable = getRegexEnumsToDisable(
-    formState.event.regexSelector
-  );
-
   const { schema, uiSchema } = getFormSchema(
-    regexEnumsToDisable,
+    getRegexEnumsToDisable(formState.event.regexSelector),
     triggers,
     subscriptionMethods
   );

@@ -5,10 +5,6 @@ export interface FormState {
     notifyOnBuildFailure: boolean | null;
   };
   subscriptions: Array<{
-    id: string;
-    resourceType: string;
-    trigger: string;
-    ownerType: string;
     subscriptionData: {
       event: {
         eventSelect: string;

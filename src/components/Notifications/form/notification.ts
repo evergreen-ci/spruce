@@ -27,10 +27,10 @@ export const getNotificationSchema = (
         type: "string" as "string",
         title: "Notification Method",
         oneOf: [
-          ...subscriptionMethods.map((method) => ({
+          ...subscriptionMethods.map(({ label, value }) => ({
             type: "string" as "string",
-            title: method.label,
-            enum: [method.value],
+            title: label,
+            enum: [value],
           })),
         ],
       },
@@ -152,10 +152,8 @@ export const getNotificationSchema = (
   },
   uiSchema: {
     notificationSelect: {
-      "ui:allowDeselect": false,
-      "ui:usePortal": false,
-      "ui:data-cy": "notification-method-select",
       "ui:widget": AntdSelect,
+      "ui:data-cy": "notification-method-select",
     },
     jiraCommentInput: {
       "ui:placeholder": "ABC-123",
