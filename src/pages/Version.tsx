@@ -181,8 +181,8 @@ export const VersionPage: React.VFC = () => {
           <ActionButtons
             canEnqueueToCommitQueue={canEnqueueToCommitQueue}
             canReconfigure={!isPatchOnCommitQueue && isPatch}
-            isPatchOnCommitQueue={isPatchOnCommitQueue}
             isPatch={isPatch}
+            isPatchOnCommitQueue={isPatchOnCommitQueue}
             isVersionActivated={activated}
             patchDescription={message}
             versionId={id}
