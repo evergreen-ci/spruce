@@ -14,8 +14,6 @@ export default defineConfig({
       runMode: 4,
     },
     scrollBehavior: "bottom",
-    viewportHeight: 800,
-    viewportWidth: 1280,
   },
   videoCompression: false,
 });
