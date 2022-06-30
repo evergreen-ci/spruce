@@ -1,6 +1,5 @@
 import type { StorybookViteConfig } from "@storybook/builder-vite";
 import { mergeConfig } from "vite";
-// @ts-ignore
 import viteConfig from "../vite.config";
 import react from "@vitejs/plugin-react";
 

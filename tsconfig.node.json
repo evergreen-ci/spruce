@@ -8,6 +8,6 @@
     "include": [
         ".storybook/main.ts",
         "vite.config.ts",
-        "config/injectVariablesInHTML"
+        "config/injectVariablesInHTML.ts"
     ]
 }

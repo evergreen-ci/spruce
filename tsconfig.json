@@ -41,8 +41,6 @@
     "src",
     "test_utils/index.tsx",
     "test_utils/custom-queries.ts",
-    ".storybook/main.ts",
-    ".storybook/preview.jsx",
   ],
   "references": [
     {
