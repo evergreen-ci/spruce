@@ -19,7 +19,7 @@ import {
   VirtualWorkstationTab,
 } from "./tabs/index";
 import { gqlToFormMap } from "./tabs/transformers";
-import { readOnlyTabs, TabDataProps } from "./tabs/types";
+import { TabDataProps } from "./tabs/types";
 import { ProjectType } from "./tabs/utils";
 
 type ProjectSettings = ProjectSettingsQuery["projectSettings"];
@@ -55,13 +55,7 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
 
   return (
     <Container>
-      <Header
-        id={projectId || repoId}
-        isRepo={!projectData}
-        projectType={projectType}
-        saveable={!(readOnlyTabs as ReadonlyArray<string>).includes(tab)}
-        tab={tab}
-      />
+      <Header id={projectId || repoId} projectType={projectType} tab={tab} />
       <Routes>
         <Route
           path={ProjectSettingsTabRoutes.General}

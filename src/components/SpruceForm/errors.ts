@@ -4,6 +4,11 @@ export const transformErrors = (errors: AjvError[]) =>
   errors
     .map((error) => {
       switch (error.name) {
+        case "enum":
+          return {
+            ...error,
+            message: "",
+          };
         case "required":
           return {
             ...error,
@@ -32,15 +37,45 @@ export const transformErrors = (errors: AjvError[]) =>
                 ...error,
                 message: "Value should not contain spaces.",
               };
-            case "validURL":
+            case "validDuration":
               return {
                 ...error,
-                message: "Value should be a valid URL.",
+                message: "Duration should be a positive integer.",
+              };
+            case "validEmail":
+              return {
+                ...error,
+                message: "Value should be a valid email.",
               };
             case "validJiraTicket":
               return {
                 ...error,
-                message: "Value should be a valid Jira ticket URL.",
+                message: "Value should be a valid JIRA ticket.",
+              };
+            case "validJiraURL":
+              return {
+                ...error,
+                message: "Value should be a valid JIRA URL.",
+              };
+            case "validPercentage":
+              return {
+                ...error,
+                message: "Percentage should be a positive integer.",
+              };
+            case "validRegex":
+              return {
+                ...error,
+                message: "Value should be a valid regex expression.",
+              };
+            case "validSlack":
+              return {
+                ...error,
+                message: "Value should be a valid Slack username or channel.",
+              };
+            case "validURL":
+              return {
+                ...error,
+                message: "Value should be a valid URL.",
               };
             default:
               return { ...error, message: "" };

@@ -23,7 +23,7 @@ module.exports = {
     "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
     "^uuid$": "<rootDir>/node_modules/uuid/dist/index.js",
     "^nanoid$": "<rootDir>/node_modules/nanoid/index.cjs",
-    "^antd/es(.*)$": "antd/lib/$1",
+    "^antd/es/(.*)$": "antd/lib/$1",
   },
   modulePaths: ["<rootDir>/src"],
   resetMocks: true,

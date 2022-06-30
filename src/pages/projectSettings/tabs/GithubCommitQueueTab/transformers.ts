@@ -1,3 +1,4 @@
+import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
   ProjectInput,
   ProjectSettingsQuery,
@@ -8,6 +9,8 @@ import { alias as aliasUtils, ProjectType } from "../utils";
 import { FormState } from "./types";
 
 const { AliasNames, sortAliases, transformAliases } = aliasUtils;
+
+type Tab = ProjectSettingsTabRoutes.GithubCommitQueue;
 
 export const mergeProjectRepo = (
   projectData: FormState,
@@ -28,12 +31,12 @@ export const mergeProjectRepo = (
   return mergedObject;
 };
 
-export const gqlToForm: GqlToFormFunction<FormState> = (
+export const gqlToForm: GqlToFormFunction<Tab> = (
   data:
     | ProjectSettingsQuery["projectSettings"]
     | RepoSettingsQuery["repoSettings"],
   options: { projectType: ProjectType }
-): ReturnType<GqlToFormFunction> => {
+) => {
   if (!data) return null;
 
   const { projectRef, aliases } = data;
@@ -111,7 +114,7 @@ export const gqlToForm: GqlToFormFunction<FormState> = (
   };
 };
 
-export const formToGql: FormToGqlFunction = (
+export const formToGql: FormToGqlFunction<Tab> = (
   {
     github: {
       prTestingEnabled,
