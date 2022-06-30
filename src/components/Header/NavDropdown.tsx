@@ -4,6 +4,7 @@ import Icon from "@leafygreen-ui/icon";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Link } from "react-router-dom";
+import { zIndex } from "constants/tokens";
 
 const { white } = uiColors;
 
@@ -58,6 +59,7 @@ export const Dropdown: React.VFC<DropdownProps> = ({
     <Menu
       open={openMenu}
       setOpen={setOpenMenu}
+      popoverZIndex={zIndex.popover}
       justify="start"
       trigger={
         <NavDropdownTitle data-cy={dataCy}>

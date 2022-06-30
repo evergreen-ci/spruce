@@ -3,7 +3,7 @@ module.exports = {
   collectCoverageFrom: [
     "src/**/*.{js,jsx,ts,tsx}",
     "!<rootDir>/node_modules/",
-    "!<rootDir>/src/{serviceWorker.ts,index.tsx,react-app-env.d.ts}",
+    "!<rootDir>/src/{index.tsx,react-app-env.d.ts}",
   ],
   coverageReporters: ["text"],
   moduleFileExtensions: [
@@ -23,6 +23,7 @@ module.exports = {
     "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
     "^uuid$": "<rootDir>/node_modules/uuid/dist/index.js",
     "^nanoid$": "<rootDir>/node_modules/nanoid/index.cjs",
+    "^antd/es/(.*)$": "antd/lib/$1",
   },
   modulePaths: ["<rootDir>/src"],
   resetMocks: true,
@@ -45,7 +46,6 @@ module.exports = {
   transformIgnorePatterns: [
     "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|cjs|ts|tsx)$",
     "^.+\\.module\\.(css|sass|scss)$",
-    "node_modules/(?!(antd)/)",
   ],
   watchPlugins: [
     "jest-watch-typeahead/filename",

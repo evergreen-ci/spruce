@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import Button from "@leafygreen-ui/button";
 import Code from "@leafygreen-ui/code";
 import { useParams, useLocation } from "react-router-dom";
-import { Button } from "components/Button";
 import { UpdateStatusModal } from "components/Hosts";
 import { Reprovision } from "components/Hosts/Reprovision";
 import { RestartJasper } from "components/Hosts/RestartJasper";

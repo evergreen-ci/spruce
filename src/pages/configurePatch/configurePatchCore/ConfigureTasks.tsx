@@ -5,7 +5,7 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import every from "lodash.every";
-import { Button } from "components/Button";
+import { LoadingButton } from "components/Buttons";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
 import {
@@ -150,7 +150,7 @@ export const ConfigureTasks: React.VFC<Props> = ({
   return (
     <TabContentWrapper>
       <Actions>
-        <Button
+        <LoadingButton
           data-cy="schedule-patch"
           variant="primary"
           onClick={onClickSchedule}
@@ -158,7 +158,7 @@ export const ConfigureTasks: React.VFC<Props> = ({
           loading={loading}
         >
           Schedule
-        </Button>
+        </LoadingButton>
         <div>
           <InlineCheckbox
             data-cy="select-all-checkbox"

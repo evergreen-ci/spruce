@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
+import Button from "@leafygreen-ui/button";
 import TextInput from "@leafygreen-ui/text-input";
 import { Popconfirm } from "antd";
 import { Link, useParams } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
-import { Button } from "components/Button";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
+import { LoadingButton } from "components/Buttons";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { PageButtonRow } from "components/styles";
 import { commitQueueRequester } from "constants/patch";
@@ -281,7 +282,7 @@ export const ActionButtons: React.VFC<Props> = ({
             </Button>
           </>
         )}
-        <Button
+        <LoadingButton
           size="small"
           data-cy="schedule-task"
           key="schedule"
@@ -293,8 +294,8 @@ export const ActionButtons: React.VFC<Props> = ({
           }}
         >
           Schedule
-        </Button>
-        <Button
+        </LoadingButton>
+        <LoadingButton
           size="small"
           data-cy="restart-task"
           key="restart"
@@ -306,7 +307,7 @@ export const ActionButtons: React.VFC<Props> = ({
           }}
         >
           Restart
-        </Button>
+        </LoadingButton>
         <Button
           size="small"
           data-cy="notify-task"

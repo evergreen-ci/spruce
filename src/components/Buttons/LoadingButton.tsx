@@ -7,15 +7,13 @@ type Props = ButtonProps & {
   loading?: boolean;
 };
 
-const Button: ExtendableBox<
+export const LoadingButton: ExtendableBox<
   Props & { ref?: React.Ref<any> },
   "button"
-> = forwardRef(({ loading = false, leftGlyph, ...rest }: Props, r) => (
+> = forwardRef(({ loading = false, leftGlyph, ...rest }: Props, ref) => (
   <LeafyGreenButton
-    ref={r}
-    {...rest}
+    ref={ref}
     leftGlyph={loading ? <Icon glyph="Loading" /> : leftGlyph}
+    {...rest}
   />
 ));
-
-export { Button };

@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "2.36.5",
+  "version": "2.36.9",
   "private": true,
   "scripts": {
     "build-storybook": "build-storybook -s public",
@@ -98,7 +98,7 @@
     "@leafygreen-ui/typography": "8.1.0",
     "@rjsf/core": "4.2.0",
     "ansi_up": "5.0.0",
-    "antd": "4.12.1",
+    "antd": "4.20.0",
     "axios": "0.21.2",
     "date-fns": "2.16.1",
     "date-fns-tz": "^1.1.2",
@@ -160,7 +160,6 @@
     "@types/node": "14.14.10",
     "@types/react": "17.0.0",
     "@types/react-dom": "17.0.0",
-    "@types/react-router-dom": "5.1.6",
     "@types/react-virtualized-auto-sizer": "^1.0.1",
     "@types/react-window": "^1.8.5",
     "@types/react-window-infinite-loader": "^1.0.5",

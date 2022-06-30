@@ -1,6 +1,6 @@
 import { useState } from "react";
+import Button from "@leafygreen-ui/button";
 import { useVersionAnalytics } from "analytics";
-import { Button } from "components/Button";
 import { PatchNotificationModal } from "./addNotification/PatchNotificationModal";
 
 interface Props {

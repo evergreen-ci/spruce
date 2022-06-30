@@ -1,11 +1,15 @@
-const validateDuration = (duration: any) => {
-  if ((!duration && duration !== 0) || !Number.isInteger(+duration)) {
-    return "Duration must be an integer";
+const validateDuration = (duration: string) => {
+  const durationAsInt = parseInt(duration, 10);
+  if (
+    (!durationAsInt && durationAsInt !== 0) ||
+    !Number.isInteger(+durationAsInt)
+  ) {
+    return false;
   }
-  if (+duration < 0) {
-    return "Duration cannot be negative";
+  if (+durationAsInt < 0) {
+    return false;
   }
-  return "";
+  return true;
 };
 
 const validateEmail = (v: string): boolean => /\S+@\S+\.\S+/.test(v);
@@ -33,13 +37,12 @@ const validateSSHPublicKey = (v: string): boolean => {
   return validSSHKey.test(v);
 };
 
-const validatePercentage = (percent: any) => {
+const validatePercentage = (percent: string) => {
   const posNumRegex = /^[0-9]+([,.][0-9]+)?$/g;
   if (!posNumRegex.test(percent)) {
-    return "Percent must be a positive number";
+    return false;
   }
-
-  return "";
+  return true;
 };
 
 const validateSlack = (v: string): boolean => v.match("(#|@).+") !== null;

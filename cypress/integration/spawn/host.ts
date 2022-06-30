@@ -1,8 +1,7 @@
 // / <reference types="Cypress" />
 
 const hostTableRow = ".ant-table-row";
-const hostColumnHeader =
-  ":nth-child(2) > .ant-table-column-sorters-with-tooltip";
+const hostColumnHeader = ".ant-table-thead > tr > :nth-child(2)";
 
 const unsortedSpawnHostOrder = ["i-092593689871a50dc", "i-04ade558e1e26b0ad"];
 const ascendingSortSpawnHostOrderByHostId = [
@@ -23,7 +22,7 @@ const ascendingSortSpawnHostOrderByExpiration = [
   "i-04ade558e1e26b0ad",
 ];
 
-const taskId =
+const hostTaskId =
   "evergreen_ubuntu1604_dist_patch_33016573166a36bd5f46b4111151899d5c4e95b1_5ecedafb562343215a7ff297_20_05_27_21_39_46";
 const distroId = "ubuntu1604-small";
 
@@ -81,7 +80,7 @@ describe("Navigating to Spawn Host page", () => {
         cy.wrap($el).contains(descendingSortSpawnHostOrderByHostId[index])
       );
     });
-    it("Clicking on the host column header a third  time should return the spawn host table to its original state", () => {
+    it("Clicking on the host column header a third time should return the spawn host table to its original state", () => {
       cy.get(hostColumnHeader).click();
       cy.get(hostTableRow).each(($el, index) =>
         cy.wrap($el).contains(unsortedSpawnHostOrder[index])
@@ -140,7 +139,7 @@ describe("Navigating to Spawn Host page", () => {
       });
       it("Visiting the spawn host page with a taskId url param should render additional options at the bottom of the modal.", () => {
         cy.visit(
-          `spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${taskId}`
+          `spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${hostTaskId}`
         );
         cy.dataCy("spawn-host-modal").should(
           "contain.text",
@@ -162,7 +161,7 @@ describe("Navigating to Spawn Host page", () => {
 
       it("If 'Load data for dist' is unchecked, selecting one of it's children will check it.'", () => {
         cy.visit(
-          `spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${taskId}`
+          `spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${hostTaskId}`
         );
         cy.dataCy("spawn-host-modal").should("be.visible");
         cy.dataCy("parent-checkbox").click({ force: true });
@@ -173,7 +172,7 @@ describe("Navigating to Spawn Host page", () => {
 
       it("If 'Load data for dist' is checked, deselecting all of it's checked children will uncheck it.'", () => {
         cy.visit(
-          `spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${taskId}`
+          `spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${hostTaskId}`
         );
         cy.dataCy("spawn-host-modal").should("be.visible");
         cy.dataCy("parent-checkbox").should("be.checked");
@@ -202,7 +201,7 @@ describe("Navigating to Spawn Host page", () => {
 
       it("Visiting the spawn host page with a task and distro supplied in the url should populate the distro input", () => {
         cy.visit(
-          `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${taskId}`
+          `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`
         );
         cy.dataCy("spawn-host-modal").should("be.visible");
         cy.dataCy("distro-input").should("have.value", "ubuntu1604-small");

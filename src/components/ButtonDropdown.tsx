@@ -1,6 +1,7 @@
 import Icon from "@leafygreen-ui/icon";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
-import { Button } from "components/Button";
+import { LoadingButton } from "components/Buttons";
+import { zIndex } from "constants/tokens";
 
 interface Props {
   disabled?: boolean;
@@ -17,16 +18,17 @@ export const ButtonDropdown: React.VFC<Props> = ({
 }) => (
   <Menu
     trigger={
-      <Button
+      <LoadingButton
         size="small"
         data-cy={dataCy}
         disabled={disabled}
         loading={loading}
       >
         <Icon glyph="Ellipsis" />
-      </Button>
+      </LoadingButton>
     }
     data-cy="card-dropdown"
+    popoverZIndex={zIndex.popover}
     adjustOnMutation
   >
     {dropdownItems}

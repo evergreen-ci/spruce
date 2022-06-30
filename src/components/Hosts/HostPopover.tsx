@@ -1,9 +1,9 @@
 import { useState, useRef } from "react";
 import styled from "@emotion/styled";
+import Button from "@leafygreen-ui/button";
 import Popover from "@leafygreen-ui/popover";
-import { Button } from "components/Button";
 import { PopoverContainer } from "components/styles/Popover";
-import { size } from "constants/tokens";
+import { size, zIndex } from "constants/tokens";
 import { useOnClickOutside } from "hooks";
 
 interface Props {
@@ -46,6 +46,7 @@ export const HostPopover: React.VFC<Props> = ({
         justify="middle"
         active={active}
         data-cy={`${dataCy}-popover`}
+        popoverZIndex={zIndex.popover}
       >
         <PopoverContainer ref={popoverRef}>
           {titleText}

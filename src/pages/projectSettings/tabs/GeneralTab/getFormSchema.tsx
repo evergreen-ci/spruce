@@ -1,10 +1,9 @@
-import { Field } from "@rjsf/core";
-import { SpruceFormProps } from "components/SpruceForm";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { StyledLink } from "components/styles";
 import { versionControlDocumentationUrl } from "constants/externalResources";
 import { Project } from "gql/generated/types";
+import { GetFormSchema } from "../types";
 import { form, ProjectType } from "../utils";
 import {
   DeactivateStepbackTasksField,
@@ -23,11 +22,7 @@ export const getFormSchema = (
   initialOwner: string,
   initialRepo: string,
   repoData?: FormState
-): {
-  fields: Record<string, Field>;
-  schema: SpruceFormProps["schema"];
-  uiSchema: SpruceFormProps["uiSchema"];
-} => ({
+): ReturnType<GetFormSchema> => ({
   fields: {
     deactivateStepbackTasks: DeactivateStepbackTasksField,
     repoConfigField: RepoConfigField,
