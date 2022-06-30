@@ -1,6 +1,7 @@
 import Icon from "@leafygreen-ui/icon";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { LoadingButton } from "components/Buttons";
+import { zIndex } from "constants/tokens";
 
 interface Props {
   disabled?: boolean;
@@ -27,6 +28,7 @@ export const ButtonDropdown: React.VFC<Props> = ({
       </LoadingButton>
     }
     data-cy="card-dropdown"
+    popoverZIndex={zIndex.popover}
     adjustOnMutation
   >
     {dropdownItems}

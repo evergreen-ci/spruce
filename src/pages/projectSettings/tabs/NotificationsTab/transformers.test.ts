@@ -25,7 +25,7 @@ describe("project data", () => {
     expect(formToGql(projectForm, "project")).toStrictEqual(projectResult);
   });
 });
-// todo: use in testing in future work
+// todo: use in testing in future work EVG-16971
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const sub = [
   {

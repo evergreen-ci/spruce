@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Select, Option } from "@leafygreen-ui/select";
 import { PAGE_SIZES } from "constants/index";
+import { zIndex } from "constants/tokens";
 import usePageSizeSelector from "./usePageSizeSelector";
 
 interface Props {
@@ -19,6 +20,7 @@ const PageSizeSelector: React.VFC<Props> = ({ value, onChange, ...rest }) => (
     value={value.toString()}
     onChange={(pageSize: string) => onChange(parseInt(pageSize, 10))}
     allowDeselect={false}
+    popoverZIndex={zIndex.popover}
     {...rest}
   >
     {PAGE_SIZES.map((limit) => (

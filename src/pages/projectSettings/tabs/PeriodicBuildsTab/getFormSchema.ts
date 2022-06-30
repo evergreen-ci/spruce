@@ -1,7 +1,6 @@
-import { Field } from "@rjsf/core";
-import { SpruceFormProps } from "components/SpruceForm";
 import widgets from "components/SpruceForm/Widgets";
 import { timeZones } from "constants/fieldMaps";
+import { GetFormSchema } from "../types";
 import { form, ProjectType } from "../utils";
 
 const { overrideRadioBox } = form;
@@ -9,11 +8,7 @@ const { overrideRadioBox } = form;
 export const getFormSchema = (
   projectType: ProjectType,
   timezone: string
-): {
-  fields: Record<string, Field>;
-  schema: SpruceFormProps["schema"];
-  uiSchema: SpruceFormProps["uiSchema"];
-} => ({
+): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
     type: "object" as "object",
