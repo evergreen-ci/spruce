@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
+exports[`storybook Storyshots Spruce Form Example 1 1`] = `
 <div>
   <h3
     className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"
@@ -39,7 +39,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                     className="leafygreen-ui-1v870ns"
                     id="select-3-label"
                   >
-                    Components/Project Cloning Method
+                    Project Cloning Method
                   </label>
                   <button
                     aria-controls="select-3-menu"
@@ -102,7 +102,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
               className="css-ho1tq1-StyledSubtitle e63qz861 leafygreen-ui-11wdjex"
               id="root_expansions__title"
             >
-              Components/Expansions
+              Expansions
             </h6>
             <div
               className="css-hlvzuf-ElementWrapper-AddButtonContainer e7smmlm3"
@@ -316,7 +316,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                   className="leafygreen-ui-ly82bp"
                   htmlFor="textarea-1"
                 >
-                  Components/Valid Projects
+                  Valid Projects
                 </label>
                 <div
                   className="leafygreen-ui-1cen7zh"
@@ -328,7 +328,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                     onBlur={[Function]}
                     onChange={[Function]}
                     onFocus={[Function]}
-                    title="Components/Valid Projects"
+                    title="Valid Projects"
                     value=""
                   />
                   <div
@@ -346,7 +346,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
+exports[`storybook Storyshots Spruce Form Example 2 1`] = `
 <div>
   <h3
     className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"
@@ -445,7 +445,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                 <span
                   className="leafygreen-ui-1qufm80"
                 >
-                  Components/Disable shallow clone for this distro.
+                  Disable shallow clone for this distro.
                 </span>
               </label>
             </div>
@@ -527,7 +527,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                 <span
                   className="leafygreen-ui-1qufm80"
                 >
-                  Components/Decommission hosts of this distro for this update
+                  Decommission hosts of this distro for this update
                 </span>
               </label>
             </div>
@@ -545,12 +545,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                 <div
                   className=""
                 >
-                  <label
-                    className="leafygreen-ui-1v870ns"
-                    id="select-5-label"
-                  >
-                    Components/
-                  </label>
+                  
                   <button
                     aria-controls="select-5-menu"
                     aria-describedby="select-5-description"
@@ -611,7 +606,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots Components/Spruce Form Example 3 1`] = `
+exports[`storybook Storyshots Spruce Form Example 3 1`] = `
 <div>
   <h3
     className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"
@@ -669,7 +664,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 3 1`] = `
                 <span
                   className="leafygreen-ui-1qufm80"
                 >
-                  Components/This is the only visible page element
+                  This is the only visible page element
                 </span>
               </label>
             </div>

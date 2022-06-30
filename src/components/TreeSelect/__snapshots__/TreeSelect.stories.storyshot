@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
+exports[`storybook Storyshots TreeSelect Ellipsis 1`] = `
 <div
   className="css-c33m4c-CheckboxContainer-tableInputContainerCSS e1mpj03z1"
   data-cy="tree-select-options"
@@ -38,7 +38,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/All
+        All
       </span>
     </label>
   </div>
@@ -75,7 +75,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/Shapes
+        Shapes
       </span>
     </label>
   </div>
@@ -112,7 +112,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/rectangle
+        rectangle
       </span>
     </label>
   </div>
@@ -149,7 +149,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/circle
+        circle
       </span>
     </label>
   </div>
@@ -186,7 +186,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/rhombus
+        rhombus
       </span>
     </label>
   </div>
@@ -223,7 +223,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/Pass
+        Pass
       </span>
     </label>
   </div>
@@ -297,7 +297,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/Skip
+        Skip
       </span>
     </label>
   </div>
@@ -334,14 +334,14 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/Silent Fail
+        Silent Fail
       </span>
     </label>
   </div>
 </div>
 `;
 
-exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
+exports[`storybook Storyshots TreeSelect No All Button 1`] = `
 <div
   className="css-c33m4c-CheckboxContainer-tableInputContainerCSS e1mpj03z1"
   data-cy="tree-select-options"
@@ -379,7 +379,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/Shapes
+        Shapes
       </span>
     </label>
   </div>
@@ -416,7 +416,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/rectangle
+        rectangle
       </span>
     </label>
   </div>
@@ -453,7 +453,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/circle
+        circle
       </span>
     </label>
   </div>
@@ -490,7 +490,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/rhombus
+        rhombus
       </span>
     </label>
   </div>
@@ -527,7 +527,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/Pass
+        Pass
       </span>
     </label>
   </div>
@@ -564,7 +564,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/Failed
+        Failed
       </span>
     </label>
   </div>
@@ -601,7 +601,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/Skip
+        Skip
       </span>
     </label>
   </div>
@@ -638,14 +638,14 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/Silent Fail
+        Silent Fail
       </span>
     </label>
   </div>
 </div>
 `;
 
-exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
+exports[`storybook Storyshots TreeSelect No Dropdown 1`] = `
 <div
   className="css-c33m4c-CheckboxContainer-tableInputContainerCSS e1mpj03z1"
   data-cy="tree-select-options"
@@ -683,7 +683,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/Shapes
+        Shapes
       </span>
     </label>
   </div>
@@ -720,7 +720,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/rectangle
+        rectangle
       </span>
     </label>
   </div>
@@ -757,7 +757,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/circle
+        circle
       </span>
     </label>
   </div>
@@ -794,7 +794,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/rhombus
+        rhombus
       </span>
     </label>
   </div>
@@ -831,7 +831,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/Pass
+        Pass
       </span>
     </label>
   </div>
@@ -868,7 +868,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/Failed
+        Failed
       </span>
     </label>
   </div>
@@ -905,7 +905,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/Skip
+        Skip
       </span>
     </label>
   </div>
@@ -942,14 +942,14 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/Silent Fail
+        Silent Fail
       </span>
     </label>
   </div>
 </div>
 `;
 
-exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
+exports[`storybook Storyshots TreeSelect No Initial Values 1`] = `
 <div
   className="css-c33m4c-CheckboxContainer-tableInputContainerCSS e1mpj03z1"
   data-cy="tree-select-options"
@@ -987,7 +987,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/All
+        All
       </span>
     </label>
   </div>
@@ -1024,7 +1024,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/Shapes
+        Shapes
       </span>
     </label>
   </div>
@@ -1061,7 +1061,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/rectangle
+        rectangle
       </span>
     </label>
   </div>
@@ -1098,7 +1098,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/circle
+        circle
       </span>
     </label>
   </div>
@@ -1135,7 +1135,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/rhombus
+        rhombus
       </span>
     </label>
   </div>
@@ -1172,7 +1172,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/Pass
+        Pass
       </span>
     </label>
   </div>
@@ -1246,7 +1246,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/Skip
+        Skip
       </span>
     </label>
   </div>
@@ -1283,7 +1283,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
       <span
         className="leafygreen-ui-1qufm80"
       >
-        Components/Silent Fail
+        Silent Fail
       </span>
     </label>
   </div>
