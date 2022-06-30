@@ -193,7 +193,7 @@ const aliasesUiSchema = {
       "ui:optional": true,
       "ui:data-cy": "module-input",
       "ui:description":
-        "If you want tests to include the parent project’s changes, add the parent project as a module.",
+        "If you want tests to include the parent project's changes, add the parent project as a module.",
     },
     status: {
       "ui:allowDeselect": false,

@@ -88,7 +88,6 @@ export const getFormSchema = (
               },
             },
           },
-
           fileTicketWebhook: {
             type: "object" as "object",
             title: "Custom Ticket Creation",

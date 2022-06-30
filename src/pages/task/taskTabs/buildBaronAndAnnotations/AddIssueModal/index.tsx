@@ -122,7 +122,7 @@ const addIssueModalSchema: SpruceFormProps = {
         type: "string" as "string",
         title: "Ticket URL",
         minLength: 1,
-        format: "validJiraTicket",
+        format: "validJiraURL",
       },
       issueKey: {
         type: "string" as "string",
