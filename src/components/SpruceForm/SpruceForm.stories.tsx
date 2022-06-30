@@ -58,7 +58,7 @@ export const Example3 = () => {
   );
 };
 export default {
-  title: "Components/Spruce Form",
+  title: "Spruce Form",
   component: SpruceForm,
 };
 
@@ -68,13 +68,13 @@ const example1Def = {
     properties: {
       cloneMethod: {
         type: "string" as "string",
-        title: "Components/Project Cloning Method",
+        title: "Project Cloning Method",
         enum: ["legacy-ssh", "oath-token"],
         enumNames: ["Legacy SSH", "Oath Token"],
       },
       expansions: {
         type: "array" as "array",
-        title: "Components/Expansions",
+        title: "Expansions",
         items: {
           type: "object" as "object",
           properties: {
@@ -89,7 +89,7 @@ const example1Def = {
       },
       validProjects: {
         type: "string" as "string",
-        title: "Components/Valid Projects",
+        title: "Valid Projects",
         placeholder: "Sample input",
       },
     },
@@ -125,7 +125,7 @@ const example2Def = {
       },
       disableShallowClone: {
         type: "boolean" as "boolean",
-        title: "Components/Disable shallow clone for this distro.",
+        title: "Disable shallow clone for this distro.",
       },
       disableQueue: {
         type: "boolean" as "boolean",
@@ -134,10 +134,10 @@ const example2Def = {
       },
       decommissionHosts: {
         type: "boolean" as "boolean",
-        title: "Components/Decommission hosts of this distro for this update",
+        title: "Decommission hosts of this distro for this update",
       },
       reprovisionMethod: {
-        title: "Components/",
+        title: "",
         type: "string" as "string",
         enum: ["restartJasper", "reprovisionHosts"],
         enumNames: [
@@ -172,17 +172,17 @@ const example3Def = {
     properties: {
       invisible: {
         type: "object" as "object",
-        title: "Components/Invisible",
+        title: "Invisible",
         description: "This field should be invisible",
         properties: {
           child: {
             type: "string" as "string",
-            title: "Components/And so should its children",
+            title: "And so should its children",
           },
         },
       },
       visible: {
-        title: "Components/This is the only visible page element",
+        title: "This is the only visible page element",
         type: "boolean" as "boolean",
       },
     },

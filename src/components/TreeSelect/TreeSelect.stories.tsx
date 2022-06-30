@@ -3,34 +3,34 @@ import { TreeSelect } from "components/TreeSelect";
 
 const treeData = [
   {
-    title: "Components/All",
+    title: "All",
     value: "all",
     key: "all",
   },
   {
-    title: "Components/Shapes",
+    title: "Shapes",
     value: "shapes",
     key: "shapes",
     children: [
       {
-        title: "Components/rectangle",
+        title: "rectangle",
         value: "rectangle",
         key: "rectangle",
       },
       {
-        title: "Components/circle",
+        title: "circle",
         value: "circle",
         key: "circle",
       },
       {
-        title: "Components/rhombus",
+        title: "rhombus",
         value: "rhombus",
         key: "rhombus",
       },
     ],
   },
   {
-    title: "Components/Pass",
+    title: "Pass",
     value: "pass",
     key: "pass",
   },
@@ -41,19 +41,19 @@ const treeData = [
     key: "failed",
   },
   {
-    title: "Components/Skip",
+    title: "Skip",
     value: "skip",
     key: "skip",
   },
   {
-    title: "Components/Silent Fail",
+    title: "Silent Fail",
     value: "silentfail",
     key: "silentfail",
   },
 ];
 
 export default {
-  title: "Components/TreeSelect",
+  title: "TreeSelect",
   component: TreeSelect,
 };
 
@@ -75,44 +75,44 @@ export const Ellipsis = () => {
 
 const noAllTreeData = [
   {
-    title: "Components/Shapes",
+    title: "Shapes",
     value: "shapes",
     key: "shapes",
     children: [
       {
-        title: "Components/rectangle",
+        title: "rectangle",
         value: "rectangle",
         key: "rectangle",
       },
       {
-        title: "Components/circle",
+        title: "circle",
         value: "circle",
         key: "circle",
       },
       {
-        title: "Components/rhombus",
+        title: "rhombus",
         value: "rhombus",
         key: "rhombus",
       },
     ],
   },
   {
-    title: "Components/Pass",
+    title: "Pass",
     value: "pass",
     key: "pass",
   },
   {
-    title: "Components/Failed",
+    title: "Failed",
     value: "failed",
     key: "failed",
   },
   {
-    title: "Components/Skip",
+    title: "Skip",
     value: "skip",
     key: "skip",
   },
   {
-    title: "Components/Silent Fail",
+    title: "Silent Fail",
     value: "silentfail",
     key: "silentfail",
   },

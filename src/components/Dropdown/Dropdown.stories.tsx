@@ -9,17 +9,9 @@ export default {
 };
 
 export const Story = (args) => <Dropdown {...args}>Some Children</Dropdown>;
-Story.args = {
-  disabled: false,
-  text: "Test",
-};
 
 export const CustomButtonRender = (args) => (
   <Dropdown {...args} buttonRenderer={() => <b>Some Magic Button</b>}>
     Some Children
   </Dropdown>
 );
-
-CustomButtonRender.args = {
-  disabled: false,
-};

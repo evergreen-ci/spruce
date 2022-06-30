@@ -15,7 +15,6 @@ export default {
   args: {
     color: "#000000",
     size: Sizes[Size.Default],
-    text: "Tooltip Text",
   },
   argTypes: {
     size: {
