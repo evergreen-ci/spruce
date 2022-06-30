@@ -18,7 +18,6 @@ interface ActionButtonProps {
   canReconfigure: boolean;
   isPatch: boolean;
   isPatchOnCommitQueue: boolean;
-  isVersionActivated: boolean;
   patchDescription: string;
   versionId: string;
 }
@@ -28,7 +27,6 @@ export const ActionButtons: React.VFC<ActionButtonProps> = ({
   canReconfigure,
   isPatch,
   isPatchOnCommitQueue,
-  isVersionActivated,
   patchDescription,
   versionId,
 }) => {
@@ -38,36 +36,22 @@ export const ActionButtons: React.VFC<ActionButtonProps> = ({
       patchId={versionId}
       disabled={!canReconfigure}
     />,
-    <UnscheduleTasks
-      patchId={versionId}
-      refetchQueries={["Patch"]}
-      key="unschedule-tasks"
-    />,
-    <DisableTasks
-      key="disable-tasks"
-      patchId={versionId}
-      refetchQueries={["Patch"]}
-    />,
+    <UnscheduleTasks patchId={versionId} key="unschedule-tasks" />,
+    <DisableTasks key="disable-tasks" patchId={versionId} />,
     <ScheduleUndispatchedBaseTasks
       key="schedule-undispatched-base-tasks"
       patchId={versionId}
       disabled={!isPatch}
     />,
-    <SetPatchPriority
-      patchId={versionId}
-      key="priority"
-      refetchQueries={["Patch"]}
-    />,
+    <SetPatchPriority patchId={versionId} key="priority" />,
     <EnqueuePatch
       patchId={versionId}
       commitMessage={patchDescription}
       key="enqueue"
       disabled={!canEnqueueToCommitQueue}
-      refetchQueries={["Patch"]}
     />,
   ];
 
-  // Should be able to modify tasks for any version, that is not on the commit queue
   return (
     <>
       <PageButtonRow>
@@ -79,10 +63,10 @@ export const ActionButtons: React.VFC<ActionButtonProps> = ({
         <RestartPatch
           patchId={versionId}
           isButton
-          disabled={isPatchOnCommitQueue || !isVersionActivated}
-          refetchQueries={["Patch"]}
+          disabled={isPatchOnCommitQueue}
+          refetchQueries={["PatchTasks"]}
         />
-        <AddNotification patchId={versionId} refetchQueries={["Patch"]} />
+        <AddNotification patchId={versionId} />
         <ButtonDropdown dropdownItems={dropdownItems} loading={false} />
       </PageButtonRow>
     </>

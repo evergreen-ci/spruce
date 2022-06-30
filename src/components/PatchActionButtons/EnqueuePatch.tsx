@@ -6,7 +6,7 @@ interface EnqueuePatchProps {
   patchId: string;
   commitMessage: string;
   disabled: boolean;
-  refetchQueries: string[];
+  refetchQueries?: string[];
   visibilityControl?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
 
@@ -14,7 +14,7 @@ export const EnqueuePatch: React.VFC<EnqueuePatchProps> = ({
   patchId,
   commitMessage,
   disabled,
-  refetchQueries,
+  refetchQueries = [],
   visibilityControl,
 }) => {
   const fallbackVisibilityControl = useState(false);

@@ -9,9 +9,12 @@ import { SET_PATCH_PRIORITY } from "gql/mutations";
 
 interface Props {
   patchId: string;
-  refetchQueries: string[];
+  refetchQueries?: string[];
 }
-export const DisableTasks: React.VFC<Props> = ({ patchId, refetchQueries }) => {
+export const DisableTasks: React.VFC<Props> = ({
+  patchId,
+  refetchQueries = [],
+}) => {
   const dispatchToast = useToastContext();
   const [disablePatch] = useMutation<
     SetPatchPriorityMutation,

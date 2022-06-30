@@ -130,16 +130,15 @@ export const VersionPage: React.VFC = () => {
   }, [data]);
 
   const { version } = data || {};
-  const { status, patch, isPatch, revision, message, order, activated } =
-    version || {};
+  const { status, patch, isPatch, revision, message, order } = version || {};
 
   const {
-    commitQueuePosition,
+    commitQueuePosition = null,
     patchNumber,
     canEnqueueToCommitQueue,
     childPatches,
   } = patch || {};
-  const isPatchOnCommitQueue = commitQueuePosition !== undefined;
+  const isPatchOnCommitQueue = commitQueuePosition !== null;
 
   // If a revision exists
   const versionText = shortenGithash(revision?.length ? revision : id);
@@ -183,7 +182,6 @@ export const VersionPage: React.VFC = () => {
             canReconfigure={!isPatchOnCommitQueue && isPatch}
             isPatch={isPatch}
             isPatchOnCommitQueue={isPatchOnCommitQueue}
-            isVersionActivated={activated}
             patchDescription={message}
             versionId={id}
           />
