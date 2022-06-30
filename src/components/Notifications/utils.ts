@@ -54,25 +54,27 @@ export const getGqlPayload = (
   resourceId: string,
   formState: FormState
 ) => {
-  const triggerEvent = triggers[formState.event.eventSelect];
+  const event = triggers[formState.event.eventSelect];
   const {
     payloadResourceIdKey,
     resourceType,
     trigger,
     extraFields,
     regexSelectors,
-  } = triggerEvent;
+  } = event;
 
-  const method = formState.notification.notificationSelect;
-  const subscriber = formState.notification[getTargetForMethod(method)];
   const triggerData = extraFieldsFormToGql(
     extraFields,
     formState.event.extraFields
   );
+
   const regexData = regexFormToGql(
     !!regexSelectors,
     formState.event.regexSelector
   );
+
+  const method = formState.notification.notificationSelect;
+  const subscriber = formState.notification[getTargetForMethod(method)];
 
   return {
     trigger,
@@ -81,12 +83,12 @@ export const getGqlPayload = (
       { type: "object", data: resourceType.toLowerCase() },
       { type: payloadResourceIdKey, data: resourceId },
     ],
+    trigger_data: triggerData,
+    regex_selectors: regexData,
     subscriber: {
       type: method,
       target: subscriber,
     },
-    trigger_data: triggerData,
-    regex_selectors: regexData,
     owner_type: "person",
   };
 };
