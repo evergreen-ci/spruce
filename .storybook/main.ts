@@ -1,17 +1,17 @@
 import type { StorybookViteConfig } from "@storybook/builder-vite";
+import react from "@vitejs/plugin-react";
 import { mergeConfig } from "vite";
 import viteConfig from "../vite.config";
-import react from "@vitejs/plugin-react";
 
 const storybookConfig: StorybookViteConfig = {
   stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: [
-    "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
-    "storybook-addon-react-router-v6",
-    "storybook-addon-apollo-client",
+    "@storybook/addon-links",
     "@storybook/addon-storyshots",
+    "storybook-addon-apollo-client",
+    "storybook-addon-react-router-v6",
   ],
   framework: "@storybook/react",
   core: {

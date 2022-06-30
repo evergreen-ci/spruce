@@ -18,4 +18,4 @@ export const parameters = {
 };
 
 // @storybook/addon-storyshots isn't successfully injecting the decorators from storybook-addon-react-router-v6 and storybook-addon-apollo-client so we need to manually wrap the stories.
-export const decorators = !isTest ?  [withRouter] : [(Story) => <MemoryRouter>{<Story />}</MemoryRouter>, (Story) => <MockedProvider>{<Story />}</MockedProvider>];
+export const decorators = !isTest ?  [withRouter] : [(Story) => <MockedProvider><MemoryRouter>{<Story />}</MemoryRouter></MockedProvider>];

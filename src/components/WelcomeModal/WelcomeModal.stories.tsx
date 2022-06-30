@@ -7,7 +7,7 @@ import CarouselCard from "./CarouselCard";
 import WelcomeModal from "./WelcomeModal";
 
 export default {
-  title: "Welcome Modal",
+  title: "Components/Welcome Modal",
   component: WelcomeModal,
   parameters: {
     storyshots: {

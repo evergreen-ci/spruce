@@ -8,7 +8,7 @@ export default {
   },
 };
 
-export const Story = (args) => <Dropdown {...args}>Some Children</Dropdown>;
+export const Default = (args) => <Dropdown {...args}>Some Children</Dropdown>;
 
 export const CustomButtonRender = (args) => (
   <Dropdown {...args} buttonRenderer={() => <b>Some Magic Button</b>}>

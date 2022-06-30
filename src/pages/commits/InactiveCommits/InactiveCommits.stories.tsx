@@ -5,7 +5,7 @@ export default {
   component: InactiveCommits,
 };
 
-export const Story = (args) => (
+export const Default = (args) => (
   <InactiveCommits rolledUpVersions={versions} {...args} />
 );
 
