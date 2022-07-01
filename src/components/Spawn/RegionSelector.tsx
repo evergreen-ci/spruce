@@ -1,4 +1,3 @@
-import React from "react";
 import { Select } from "antd";
 import { InputLabel } from "components/styles";
 import { ModalContent } from "./Layout";

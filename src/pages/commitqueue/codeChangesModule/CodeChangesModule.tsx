@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
 import { Accordion } from "components/Accordion";

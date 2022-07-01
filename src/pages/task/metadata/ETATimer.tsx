@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { addMilliseconds, differenceInMilliseconds } from "date-fns";
 import { P2 } from "components/Typography";
 import { string } from "utils";

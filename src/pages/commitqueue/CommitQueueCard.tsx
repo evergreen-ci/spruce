@@ -1,4 +1,3 @@
-import React from "react";
 import { useMutation } from "@apollo/client";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";

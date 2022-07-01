@@ -1,4 +1,3 @@
-import React from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import Button, { Size } from "@leafygreen-ui/button";
 import { Tooltip } from "antd";

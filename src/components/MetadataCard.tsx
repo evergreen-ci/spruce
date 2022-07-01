@@ -1,4 +1,3 @@
-import React from "react";
 import { ApolloError } from "@apollo/client";
 import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
