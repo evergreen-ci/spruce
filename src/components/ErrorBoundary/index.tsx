@@ -26,6 +26,7 @@ class DefaultErrorBoundary extends Component<{}, { hasError: boolean }> {
   }
 
   componentDidCatch(error, errorInfo) {
+    alert(JSON.stringify({ error, errorInfo }));
     console.error({ error, errorInfo });
   }
 
