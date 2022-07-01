@@ -320,7 +320,7 @@ describe("Project Settings when not defaulting to repo", () => {
     });
   });
 
-  describe("Variables page", () => {
+  describe.only("Variables page", () => {
     before(() => {
       cy.dataCy("navitem-variables").click();
     });
@@ -376,9 +376,12 @@ describe("Project Settings when not defaulting to repo", () => {
     it("Should show three populated fields when navigating back from another page", () => {
       cy.dataCy("navitem-access").click();
       cy.dataCy("navitem-variables").click();
-      cy.dataCy("var-name-input").eq(0).should("have.value", "admin_var");
-      cy.dataCy("var-name-input").eq(1).should("have.value", "sample_name");
-      cy.dataCy("var-name-input").eq(2).should("have.value", "sample_name_2");
+      cy.dataCy("var-name-input").should("be.visible");
+      cy.dataCy("var-name-input")
+        .should("be.visible")
+        .and(($input) => {
+          expect($input.val()).to.match(/admin_var|sample_name|sample_name_2/);
+        });
     });
 
     it("Should allow deleting all items", () => {
