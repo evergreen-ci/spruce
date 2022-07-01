@@ -74,11 +74,7 @@ const ErrorBoundary: React.VFC<{ children: React.ReactNode }> = ({
   // In some cases we do not want to enable bugsnag (ex: testing environments).
   // In these cases we will return a fallback element
   const ErrorBoundaryComp = getBoundary();
-  return (
-    <ErrorBoundaryComp FallbackComponent={() => <ErrorFallback />}>
-      {children}
-    </ErrorBoundaryComp>
-  );
+  return <>{children}</>;
 };
 
 const resetBugsnag = () => {
