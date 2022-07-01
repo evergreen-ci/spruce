@@ -74,22 +74,22 @@ exports[`storybook Storyshots Components/Searchable Dropdown Custom Option 1`] =
 </div>
 `;
 
-exports[`storybook Storyshots Components/Searchable Dropdown Multiselect 1`] = `
+exports[`storybook Storyshots Components/Searchable Dropdown Default 1`] = `
 <div
   className="css-1ry038z-Container e17dnzmx0"
 >
   <label
     className="leafygreen-ui-ly82bp"
-    htmlFor="searchable-dropdown-multi select"
+    htmlFor="searchable-dropdown-standard select"
   >
-    multi select
+    standard select
   </label>
   <div
     className="css-gte0m8-Wrapper e17dnzmx4"
   >
     <div
       className="css-1ry038z-Container e1yw4j304"
-      id="searchable-dropdown-multi select"
+      id="searchable-dropdown-standard select"
     >
       <button
         aria-disabled={false}
@@ -148,22 +148,22 @@ exports[`storybook Storyshots Components/Searchable Dropdown Multiselect 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots Components/Searchable Dropdown Story 1`] = `
+exports[`storybook Storyshots Components/Searchable Dropdown Multiselect 1`] = `
 <div
   className="css-1ry038z-Container e17dnzmx0"
 >
   <label
     className="leafygreen-ui-ly82bp"
-    htmlFor="searchable-dropdown-standard select"
+    htmlFor="searchable-dropdown-multi select"
   >
-    standard select
+    multi select
   </label>
   <div
     className="css-gte0m8-Wrapper e17dnzmx4"
   >
     <div
       className="css-1ry038z-Container e1yw4j304"
-      id="searchable-dropdown-standard select"
+      id="searchable-dropdown-multi select"
     >
       <button
         aria-disabled={false}

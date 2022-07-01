@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
 import { WaterfallTaskStatusIcon } from "./WaterfallTaskStatusIcon";
 
@@ -41,6 +42,13 @@ export default {
       mocks: [getTooltipQueryMock],
     },
   },
+  decorators: [
+    (Story) => (
+      <Container>
+        <Story />
+      </Container>
+    ),
+  ],
 };
 
 export const FailedIcon = (args) => (
@@ -50,3 +58,11 @@ export const FailedIcon = (args) => (
 export const SuccessIcon = (args) => (
   <WaterfallTaskStatusIcon {...args} status="success" />
 );
+
+const Container = styled.div`
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  margin-right: auto;
+  margin-left: auto;
+`;

@@ -9,11 +9,11 @@ export default {
 };
 
 export const ScheduleTasksPopulated = () => (
-  <ScheduleTasks versionId="version" />
+  <ScheduleTasks isButton versionId="version" />
 );
 
 export const ScheduleTasksEmpty = () => (
-  <ScheduleTasks versionId="emptyVersion" />
+  <ScheduleTasks isButton versionId="emptyVersion" />
 );
 
 ScheduleTasksPopulated.parameters = {

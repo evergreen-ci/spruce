@@ -6,7 +6,7 @@ export default {
   component: SearchableDropdown,
 };
 
-export const Story = () => {
+export const Default = () => {
   const [value, setValue] = useState("");
 
   return (
