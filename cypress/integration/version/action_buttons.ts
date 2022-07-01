@@ -14,7 +14,7 @@ describe("Action Buttons", () => {
   beforeEach(() => {
     cy.preserveCookies();
   });
-  describe("When Viewing a patch build", () => {
+  describe("When viewing a patch build", () => {
     before(() => {
       cy.visit(versionPath(patch));
     });
@@ -82,11 +82,11 @@ describe("Action Buttons", () => {
     });
   });
 
-  describe("When Viewing a mainline commit", () => {
-    before(() => {
-      cy.visit(versionPath(mainlineCommit));
-    });
+  describe("When viewing a mainline commit", () => {
     describe("Version dropdown options", () => {
+      before(() => {
+        cy.visit(versionPath(mainlineCommit));
+      });
       beforeEach(() => {
         cy.dataCy("ellipsis-btn").click();
         cy.dataCy("card-dropdown").should("be.visible");
@@ -101,6 +101,10 @@ describe("Action Buttons", () => {
       it("Should not be able to enqueue the version", () => {
         cy.dataCy("enqueue-patch").should("be.disabled");
       });
+    });
+    it("should not be able to restart tasks on an inactive mainline commit", () => {
+      cy.visit("/version/spruce_e695f654c8b4b959d3e12e71696c3e318bcd4c33");
+      cy.dataCy("restart-version").should("be.disabled");
     });
   });
 });
