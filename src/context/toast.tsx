@@ -1,4 +1,10 @@
-import React, { useState, useCallback, useEffect } from "react";
+import {
+  useState,
+  useCallback,
+  useEffect,
+  createContext,
+  useContext,
+} from "react";
 import styled from "@emotion/styled";
 import Toast, { Variant } from "@leafygreen-ui/toast";
 import { WordBreak } from "components/Typography";
@@ -66,9 +72,7 @@ const variantToTitleMap = {
   [Variant.Note]: "Something Happened!",
 };
 
-export const ToastDispatchContext = React.createContext<DispatchToast | null>(
-  null
-);
+export const ToastDispatchContext = createContext<DispatchToast | null>(null);
 
 const ToastProvider: React.VFC<{ children: React.ReactNode }> = ({
   children,
@@ -172,7 +176,7 @@ const ToastProvider: React.VFC<{ children: React.ReactNode }> = ({
 };
 
 const useToastContext = (): DispatchToast => {
-  const context = React.useContext(ToastDispatchContext);
+  const context = useContext(ToastDispatchContext);
   if (context === null || context === undefined) {
     throw new Error("useToastContext must be used within a ToastProvider");
   }

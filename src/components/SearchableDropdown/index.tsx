@@ -1,4 +1,12 @@
-import { useState, PropsWithChildren, useRef, useEffect, useMemo } from "react";
+import {
+  ChangeEvent,
+  ReactNode,
+  useState,
+  PropsWithChildren,
+  useRef,
+  useEffect,
+  useMemo,
+} from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Label } from "@leafygreen-ui/typography";
@@ -11,7 +19,7 @@ import { toggleArray } from "utils/array";
 const { gray, blue } = uiColors;
 
 interface SearchableDropdownProps<T> {
-  label: string | React.ReactNode;
+  label: string | ReactNode;
   value: T | T[];
   onChange: (value: T | T[]) => void;
   searchFunc?: (options: T[], match: string) => T[];
@@ -22,11 +30,11 @@ interface SearchableDropdownProps<T> {
     option: T,
     onClick: (selectedV) => void,
     isChecked: (selectedV) => boolean
-  ) => React.ReactNode;
+  ) => ReactNode;
   allowMultiSelect?: boolean;
   disabled?: boolean;
   ["data-cy"]?: string;
-  buttonRenderer?: (option: T | T[]) => React.ReactNode;
+  buttonRenderer?: (option: T | T[]) => ReactNode;
 }
 const SearchableDropdown = <T extends {}>({
   label,
@@ -100,7 +108,7 @@ const SearchableDropdown = <T extends {}>({
   };
 
   const handleSearch = useMemo(
-    () => (e: React.ChangeEvent<HTMLInputElement>) => {
+    () => (e: ChangeEvent<HTMLInputElement>) => {
       const { value: searchTerm } = e.target;
       setSearch(searchTerm);
       let filteredOptions = [];

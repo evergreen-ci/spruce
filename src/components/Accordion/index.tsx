@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { size } from "constants/tokens";

@@ -65,7 +65,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        ln -s evergreen/graphql/schema.graphql sdlschema.graphql
+        ln -s evergreen/graphql/schema sdlschema
 
   yarn-serve:
     command: shell.exec

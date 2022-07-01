@@ -1,4 +1,3 @@
-import React from "react";
 import { ColumnProps } from "antd/es/table";
 import { formatDistanceToNow } from "date-fns";
 import { useLocation, Link } from "react-router-dom";

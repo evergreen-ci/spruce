@@ -1,4 +1,3 @@
-import React from "react";
 import { NodeList } from "pages/preferences/preferencesTabs/cliTab/NodeList";
 import { Node } from "pages/preferences/preferencesTabs/cliTab/nodeList/Node";
 

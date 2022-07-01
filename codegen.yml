@@ -1,4 +1,4 @@
-  schema: sdlschema.graphql
+  schema: sdlschema/**/*.graphql
   documents: 
     - ./src/**/*.ts
     - ./src/**/*.graphql

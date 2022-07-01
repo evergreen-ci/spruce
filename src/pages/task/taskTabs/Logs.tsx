@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import queryString from "query-string";
 import { useLocation } from "react-router-dom";
 import { getLobsterTaskLink } from "constants/externalResources";

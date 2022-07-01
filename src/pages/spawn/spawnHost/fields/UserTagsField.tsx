@@ -1,4 +1,3 @@
-import React from "react";
 import { EditableTagField } from "components/EditableTagField";
 import { InstanceTag, InstanceTagInput } from "gql/generated/types";
 import { array } from "utils";

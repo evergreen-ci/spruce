@@ -1,4 +1,3 @@
-import React from "react";
 import { Table } from "antd";
 import { GetCreatedTicketsQuery } from "gql/generated/types";
 import { JiraTicketRow } from "../BBComponents";
