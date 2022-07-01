@@ -1,42 +1,15 @@
-import { MockedProvider } from "@apollo/client/testing";
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
 import { WaterfallTaskStatusIcon } from "./WaterfallTaskStatusIcon";
-
-export default {
-  title: "Pages/Commits/WaterfallIcon",
-  decorators: [
-    (Story) => (
-      <MockedProvider mocks={[getTooltipQueryMock]} addTypename={false}>
-        <Story />
-      </MockedProvider>
-    ),
-  ],
-  component: WaterfallTaskStatusIcon,
-};
-
-const props = {
-  displayName: "multiversion",
-  timeTaken: 2754729,
-  taskId: "task",
-  identifier: "ubuntu1604-multiversion",
-};
-
-export const FailedIcon = () => (
-  <WaterfallTaskStatusIcon {...props} status="failed" />
-);
-
-export const SuccessIcon = () => (
-  <WaterfallTaskStatusIcon {...props} status="success" />
-);
 
 const getTooltipQueryMock = {
   request: {
     query: GET_FAILED_TASK_STATUS_ICON_TOOLTIP,
-    variables: { taskId: "task" },
+    variables: { taskId: "task-id" },
   },
   result: {
     data: {
       taskTests: {
+        filteredTestCount: 2,
         testResults: [
           {
             id: "83ca0a6b4c73f32e53f3dcbbe727842c",
@@ -53,3 +26,27 @@ const getTooltipQueryMock = {
     },
   },
 };
+
+export default {
+  title: "Pages/Commits/WaterfallIcon",
+  component: WaterfallTaskStatusIcon,
+  args: {
+    displayName: "multiversion",
+    timeTaken: 2754729,
+    taskId: "task-id",
+    identifier: "ubuntu1604",
+  },
+  parameters: {
+    apolloClient: {
+      mocks: [getTooltipQueryMock],
+    },
+  },
+};
+
+export const FailedIcon = (args) => (
+  <WaterfallTaskStatusIcon {...args} status="failed" />
+);
+
+export const SuccessIcon = (args) => (
+  <WaterfallTaskStatusIcon {...args} status="success" />
+);
