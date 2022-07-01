@@ -111,6 +111,9 @@ export const getDateCopy = (
   time: string | number | Date,
   options?: DateCopyOptions
 ) => {
+  if (!time) {
+    return "";
+  }
   const { tz, dateOnly, omitSeconds } = options || {};
   const dateFormat = dateOnly
     ? "MMM d, yyyy"
