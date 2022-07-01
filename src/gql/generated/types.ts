@@ -322,11 +322,11 @@ export type Query = {
   user: User;
   userConfig?: Maybe<UserConfig>;
   userSettings?: Maybe<UserSettings>;
-  buildVariantsForTaskName?: Maybe<Array<Maybe<BuildVariantTuple>>>;
   commitQueue: CommitQueue;
-  hasVersion: Scalars["Boolean"];
+  buildVariantsForTaskName?: Maybe<Array<Maybe<BuildVariantTuple>>>;
   mainlineCommits?: Maybe<MainlineCommits>;
   taskNamesForBuildVariant?: Maybe<Array<Scalars["String"]>>;
+  hasVersion: Scalars["Boolean"];
   version: Version;
 };
 
@@ -454,17 +454,13 @@ export type QueryUserArgs = {
   userId?: Maybe<Scalars["String"]>;
 };
 
-export type QueryBuildVariantsForTaskNameArgs = {
-  projectId: Scalars["String"];
-  taskName: Scalars["String"];
-};
-
 export type QueryCommitQueueArgs = {
   id: Scalars["String"];
 };
 
-export type QueryHasVersionArgs = {
-  id: Scalars["String"];
+export type QueryBuildVariantsForTaskNameArgs = {
+  projectId: Scalars["String"];
+  taskName: Scalars["String"];
 };
 
 export type QueryMainlineCommitsArgs = {
@@ -475,6 +471,10 @@ export type QueryMainlineCommitsArgs = {
 export type QueryTaskNamesForBuildVariantArgs = {
   projectId: Scalars["String"];
   buildVariant: Scalars["String"];
+};
+
+export type QueryHasVersionArgs = {
+  id: Scalars["String"];
 };
 
 export type QueryVersionArgs = {
@@ -959,80 +959,6 @@ export type Patches = {
 };
 
 /**
- * User is returned by the user query.
- * It contains information about a user's id, name, email, and permissions.
- */
-export type User = {
-  displayName: Scalars["String"];
-  emailAddress: Scalars["String"];
-  patches: Patches;
-  permissions: Permissions;
-  userId: Scalars["String"];
-};
-
-/**
- * User is returned by the user query.
- * It contains information about a user's id, name, email, and permissions.
- */
-export type UserPatchesArgs = {
-  patchesInput: PatchesInput;
-};
-
-/** Project models single repository on GitHub. */
-export type Project = {
-  admins?: Maybe<Array<Maybe<Scalars["String"]>>>;
-  batchTime: Scalars["Int"];
-  branch: Scalars["String"];
-  buildBaronSettings: BuildBaronSettings;
-  cedarTestResultsEnabled?: Maybe<Scalars["Boolean"]>;
-  commitQueue: CommitQueueParams;
-  deactivatePrevious?: Maybe<Scalars["Boolean"]>;
-  defaultLogger: Scalars["String"];
-  disabledStatsCache?: Maybe<Scalars["Boolean"]>;
-  dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
-  displayName: Scalars["String"];
-  enabled?: Maybe<Scalars["Boolean"]>;
-  filesIgnoredFromCache?: Maybe<Array<Scalars["String"]>>;
-  gitTagAuthorizedTeams?: Maybe<Array<Scalars["String"]>>;
-  gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]>>;
-  gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]>;
-  githubChecksEnabled?: Maybe<Scalars["Boolean"]>;
-  githubTriggerAliases?: Maybe<Array<Scalars["String"]>>;
-  hidden?: Maybe<Scalars["Boolean"]>;
-  id: Scalars["String"];
-  identifier: Scalars["String"];
-  isFavorite: Scalars["Boolean"];
-  manualPrTestingEnabled?: Maybe<Scalars["Boolean"]>;
-  notifyOnBuildFailure?: Maybe<Scalars["Boolean"]>;
-  owner: Scalars["String"];
-  patchTriggerAliases?: Maybe<Array<PatchTriggerAlias>>;
-  patches: Patches;
-  patchingDisabled?: Maybe<Scalars["Boolean"]>;
-  perfEnabled?: Maybe<Scalars["Boolean"]>;
-  periodicBuilds?: Maybe<Array<PeriodicBuild>>;
-  prTestingEnabled?: Maybe<Scalars["Boolean"]>;
-  private?: Maybe<Scalars["Boolean"]>;
-  remotePath: Scalars["String"];
-  repo: Scalars["String"];
-  repoRefId: Scalars["String"];
-  repotrackerDisabled?: Maybe<Scalars["Boolean"]>;
-  restricted?: Maybe<Scalars["Boolean"]>;
-  spawnHostScriptPath: Scalars["String"];
-  taskAnnotationSettings: TaskAnnotationSettings;
-  taskSync: TaskSyncOptions;
-  tracksPushEvents?: Maybe<Scalars["Boolean"]>;
-  triggers?: Maybe<Array<TriggerAlias>>;
-  validDefaultLoggers: Array<Scalars["String"]>;
-  versionControlEnabled?: Maybe<Scalars["Boolean"]>;
-  workstationConfig: WorkstationConfig;
-};
-
-/** Project models single repository on GitHub. */
-export type ProjectPatchesArgs = {
-  patchesInput: PatchesInput;
-};
-
-/**
  * PatchTasks is the return value of the PatchTasks query.
  * It contains an array of Tasks based on filter criteria, as well as a count for the number of Tasks in that array.
  */
@@ -1190,6 +1116,60 @@ export type GithubProjectConflicts = {
   commitCheckIdentifiers?: Maybe<Array<Scalars["String"]>>;
   commitQueueIdentifiers?: Maybe<Array<Scalars["String"]>>;
   prTestingIdentifiers?: Maybe<Array<Scalars["String"]>>;
+};
+
+/** Project models single repository on GitHub. */
+export type Project = {
+  id: Scalars["String"];
+  admins?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  batchTime: Scalars["Int"];
+  branch: Scalars["String"];
+  buildBaronSettings: BuildBaronSettings;
+  cedarTestResultsEnabled?: Maybe<Scalars["Boolean"]>;
+  commitQueue: CommitQueueParams;
+  deactivatePrevious?: Maybe<Scalars["Boolean"]>;
+  defaultLogger: Scalars["String"];
+  disabledStatsCache?: Maybe<Scalars["Boolean"]>;
+  dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
+  displayName: Scalars["String"];
+  enabled?: Maybe<Scalars["Boolean"]>;
+  filesIgnoredFromCache?: Maybe<Array<Scalars["String"]>>;
+  githubChecksEnabled?: Maybe<Scalars["Boolean"]>;
+  githubTriggerAliases?: Maybe<Array<Scalars["String"]>>;
+  gitTagAuthorizedTeams?: Maybe<Array<Scalars["String"]>>;
+  gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]>>;
+  gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]>;
+  hidden?: Maybe<Scalars["Boolean"]>;
+  identifier: Scalars["String"];
+  isFavorite: Scalars["Boolean"];
+  manualPrTestingEnabled?: Maybe<Scalars["Boolean"]>;
+  notifyOnBuildFailure?: Maybe<Scalars["Boolean"]>;
+  owner: Scalars["String"];
+  patches: Patches;
+  patchingDisabled?: Maybe<Scalars["Boolean"]>;
+  patchTriggerAliases?: Maybe<Array<PatchTriggerAlias>>;
+  perfEnabled?: Maybe<Scalars["Boolean"]>;
+  periodicBuilds?: Maybe<Array<PeriodicBuild>>;
+  private?: Maybe<Scalars["Boolean"]>;
+  prTestingEnabled?: Maybe<Scalars["Boolean"]>;
+  remotePath: Scalars["String"];
+  repo: Scalars["String"];
+  repoRefId: Scalars["String"];
+  repotrackerDisabled?: Maybe<Scalars["Boolean"]>;
+  restricted?: Maybe<Scalars["Boolean"]>;
+  spawnHostScriptPath: Scalars["String"];
+  taskAnnotationSettings: TaskAnnotationSettings;
+  taskSync: TaskSyncOptions;
+  tracksPushEvents?: Maybe<Scalars["Boolean"]>;
+  triggers?: Maybe<Array<TriggerAlias>>;
+  validDefaultLoggers: Array<Scalars["String"]>;
+  versionControlEnabled?: Maybe<Scalars["Boolean"]>;
+  workstationConfig: WorkstationConfig;
+};
+
+/** Project models single repository on GitHub. */
+export type ProjectPatchesArgs = {
+  patchesInput: PatchesInput;
 };
 
 export type CommitQueueParams = {
@@ -2031,6 +2011,26 @@ export type SelectorInput = {
 export type SubscriberInput = {
   target: Scalars["String"];
   type: Scalars["String"];
+};
+
+/**
+ * User is returned by the user query.
+ * It contains information about a user's id, name, email, and permissions.
+ */
+export type User = {
+  displayName: Scalars["String"];
+  emailAddress: Scalars["String"];
+  patches: Patches;
+  permissions: Permissions;
+  userId: Scalars["String"];
+};
+
+/**
+ * User is returned by the user query.
+ * It contains information about a user's id, name, email, and permissions.
+ */
+export type UserPatchesArgs = {
+  patchesInput: PatchesInput;
 };
 
 /** PublicKey models a public key. Users can save/modify/delete their public keys. */
