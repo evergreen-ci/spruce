@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { size } from "constants/tokens";
 import { InstanceTag, ParameterInput } from "gql/generated/types";

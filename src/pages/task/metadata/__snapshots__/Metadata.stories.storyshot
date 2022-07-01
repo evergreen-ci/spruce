@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Metadata Base 1`] = `
+exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
 <div
   className="css-1ej7kz3-Container egzqr3n0"
 >
@@ -132,7 +132,7 @@ exports[`storybook Storyshots Metadata Base 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots Metadata With Abort Message 1`] = `
+exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
 <div
   className="css-1ej7kz3-Container egzqr3n0"
 >
@@ -264,7 +264,7 @@ exports[`storybook Storyshots Metadata With Abort Message 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots Metadata With Dependencies 1`] = `
+exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
 <div
   className="css-1ej7kz3-Container egzqr3n0"
 >

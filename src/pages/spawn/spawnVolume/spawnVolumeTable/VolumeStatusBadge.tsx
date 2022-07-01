@@ -1,4 +1,3 @@
-import React from "react";
 import Badge, { Variant } from "components/Badge";
 import { MyVolume } from "types/spawn";
 

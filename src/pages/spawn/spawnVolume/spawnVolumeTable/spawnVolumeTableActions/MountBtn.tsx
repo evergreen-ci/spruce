@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Button, { Size } from "@leafygreen-ui/button";
 import { MyVolume } from "types/spawn";
 import { MountVolumeModal } from "./mountButton/MountVolumeModal";

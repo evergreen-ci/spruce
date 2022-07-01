@@ -14,7 +14,7 @@ describe("Action Buttons", () => {
   beforeEach(() => {
     cy.preserveCookies();
   });
-  describe("When Viewing a patch build", () => {
+  describe("When viewing a patch build", () => {
     before(() => {
       cy.visit(versionPath(patch));
     });
@@ -82,11 +82,11 @@ describe("Action Buttons", () => {
     });
   });
 
-  describe("When Viewing a mainline commit", () => {
-    before(() => {
-      cy.visit(versionPath(mainlineCommit));
-    });
+  describe("When viewing a mainline commit", () => {
     describe("Version dropdown options", () => {
+      before(() => {
+        cy.visit(versionPath(mainlineCommit));
+      });
       beforeEach(() => {
         cy.dataCy("ellipsis-btn").click();
         cy.dataCy("card-dropdown").should("be.visible");

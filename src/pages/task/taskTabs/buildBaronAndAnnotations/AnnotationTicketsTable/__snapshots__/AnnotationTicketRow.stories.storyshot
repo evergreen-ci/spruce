@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots BuildBaron/AnnotationTicketRow Default 1`] = `
+exports[`storybook Storyshots Pages/Task/BuildBaron/AnnotationTicketRow Default 1`] = `
 <div
   data-cy="annotation-ticket-row"
 >

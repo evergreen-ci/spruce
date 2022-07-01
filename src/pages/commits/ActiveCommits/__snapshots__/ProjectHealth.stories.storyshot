@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Project Health Page Actual Waterfall Page 1`] = `
+exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall Page 1`] = `
 <div
   className="css-1htrvjs-ChartContainer ech0nhv3"
 >

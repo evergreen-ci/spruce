@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import Badge, { Variant } from "components/Badge";

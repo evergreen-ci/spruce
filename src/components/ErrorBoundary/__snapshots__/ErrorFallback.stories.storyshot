@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Error Fallback Default Error 1`] = `
+exports[`storybook Storyshots Components/Error Fallback Default Error 1`] = `
 <div
   style={
     Object {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
@@ -129,7 +129,7 @@ const VersionRestartModal: React.VFC<Props> = ({
         </Button>,
         <Button
           key="restart"
-          data-cy="restart-patch-button"
+          data-cy="restart-version-button"
           disabled={selectedTotal === 0 || mutationLoading}
           onClick={handlePatchRestart}
           variant="danger"

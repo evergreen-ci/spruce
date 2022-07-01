@@ -1,4 +1,4 @@
-import React from "react";
+import { createRef } from "react";
 import { renderHook } from "@testing-library/react-hooks";
 import userEvent from "@testing-library/user-event";
 import { useOnClickOutside } from "hooks";
@@ -9,7 +9,7 @@ describe("useOnClickOutside", () => {
     it("executes callback when clicking outside element", () => {
       const body = document.body as HTMLElement;
       const callback = jest.fn();
-      const ref = React.createRef<HTMLDivElement>();
+      const ref = createRef<HTMLDivElement>();
       render(<div ref={ref}> Test ref </div>);
 
       renderHook(() => useOnClickOutside([ref], callback));
@@ -18,7 +18,7 @@ describe("useOnClickOutside", () => {
     });
     it("does not execute callback when clicking inside element", () => {
       const callback = jest.fn();
-      const ref = React.createRef<HTMLDivElement>();
+      const ref = createRef<HTMLDivElement>();
       const { getByText } = render(<div ref={ref}> Test ref </div>);
 
       renderHook(() => useOnClickOutside([ref], callback));
@@ -30,8 +30,8 @@ describe("useOnClickOutside", () => {
     it("executes callback when clicking outside elements", () => {
       const body = document.body as HTMLElement;
       const callback = jest.fn();
-      const ref1 = React.createRef<HTMLDivElement>();
-      const ref2 = React.createRef<HTMLDivElement>();
+      const ref1 = createRef<HTMLDivElement>();
+      const ref2 = createRef<HTMLDivElement>();
       render(
         <>
           <div ref={ref1}> Test ref 1 </div> <div ref={ref2}> Test ref 2 </div>
@@ -44,8 +44,8 @@ describe("useOnClickOutside", () => {
     });
     it("does not execute callback when clicking inside elements", () => {
       const callback = jest.fn();
-      const ref1 = React.createRef<HTMLDivElement>();
-      const ref2 = React.createRef<HTMLDivElement>();
+      const ref1 = createRef<HTMLDivElement>();
+      const ref2 = createRef<HTMLDivElement>();
       const { getByText } = render(
         <>
           <div ref={ref1}> Test ref 1 </div> <div ref={ref2}> Test ref 2 </div>

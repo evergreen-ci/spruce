@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { PublicKeyForm, publicKeyStateType } from "./PublicKeyForm";
 
 const publicKeys = [
@@ -30,6 +30,6 @@ export const PublicKeyFormView = () => {
 };
 
 export default {
-  title: "Public Key Form",
+  title: "Pages/Spawn/Public Key Form",
   component: PublicKeyForm,
 };

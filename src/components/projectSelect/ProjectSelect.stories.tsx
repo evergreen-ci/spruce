@@ -5,7 +5,7 @@ import WithToastContext from "test_utils/toast-decorator";
 import { ProjectSelect } from ".";
 
 export default {
-  title: "ProjectSelect",
+  title: "Components/ProjectSelect",
   component: ProjectSelect,
   decorators: [(story) => WithToastContext(story)],
 };

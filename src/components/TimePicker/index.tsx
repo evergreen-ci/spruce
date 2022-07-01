@@ -1,13 +1,11 @@
-import React from "react";
+import { forwardRef } from "react";
 import { PickerTimeProps } from "antd/es/date-picker/generatePicker";
-import DatePicker from "./DatePicker";
-
-import "antd/es/time-picker/style/css";
+import DatePicker from "components/DatePicker";
 
 export interface TimePickerProps
   extends Omit<PickerTimeProps<Date>, "picker"> {}
 
-const TimePicker = React.forwardRef<any, TimePickerProps>((props, ref) => (
+const TimePicker = forwardRef<any, TimePickerProps>((props, ref) => (
   <DatePicker {...props} picker="time" mode={undefined} ref={ref} />
 ));
 

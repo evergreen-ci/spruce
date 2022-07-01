@@ -130,11 +130,10 @@ export const VersionPage: React.VFC = () => {
   }, [data]);
 
   const { version } = data || {};
-  const { status, patch, isPatch, revision, message, order, activated } =
-    version || {};
+  const { status, patch, isPatch, revision, message, order } = version || {};
 
   const {
-    commitQueuePosition,
+    commitQueuePosition = null,
     patchNumber,
     canEnqueueToCommitQueue,
     childPatches,
@@ -166,6 +165,7 @@ export const VersionPage: React.VFC = () => {
     githubPRLinkify(message),
     spruceConfig?.jira?.host
   );
+
   return (
     <PageWrapper data-cy="version-page">
       <VersionTaskPageBreadcrumbs
@@ -179,12 +179,11 @@ export const VersionPage: React.VFC = () => {
         buttons={
           <ActionButtons
             canEnqueueToCommitQueue={canEnqueueToCommitQueue}
-            isPatchOnCommitQueue={isPatchOnCommitQueue}
             canReconfigure={!isPatchOnCommitQueue && isPatch}
+            isPatch={isPatch}
+            isPatchOnCommitQueue={isPatchOnCommitQueue}
             patchDescription={message}
             versionId={id}
-            isPatch={isPatch}
-            activated={activated}
           />
         }
       />

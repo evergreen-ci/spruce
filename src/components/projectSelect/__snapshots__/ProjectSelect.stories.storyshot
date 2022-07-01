@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots ProjectSelect Default 1`] = `null`;
+exports[`storybook Storyshots Components/ProjectSelect Default 1`] = `null`;
 
-exports[`storybook Storyshots ProjectSelect With Clickable Header 1`] = `null`;
+exports[`storybook Storyshots Components/ProjectSelect With Clickable Header 1`] = `null`;

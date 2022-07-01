@@ -39,7 +39,7 @@ Install the Prettier code formatting plugin in your code editor if you don't hav
 
 Follow these directions to enable query linting during local development so your Evergreen GraphQL schema changes are reflected in your Spruce query linting results.
 
-1. Symlink the standard definition language GraphQL schema used in your backend to a file named sdlschema in the root of the Spruce directory to enable query linting with ESlint like so `ln -s /path/to/schema sdlschema.graphql`
+1. Symlink the standard definition language GraphQL schema used in your backend to a file named sdlschema in the root of the Spruce directory to enable query linting with ESlint like so `ln -s /path/to/evergreen/schema sdlschema`
 2. Run `yarn run eslint` to see the results of query linting in your terminal or install a plugin to integrate ESlint into your editor. If you are using VSCode, we recommend ESLint by Dirk Baeumer.
 
 ### Environment Variables
@@ -83,7 +83,7 @@ We use Code generation to generate our types for our GraphQL queries and mutatio
 
 ### Setting up code generation
 
-- create a symlink from the `schema.graphql` file from evergreen with the spruce folder using `ln -s path-to-evergreen-schema.graphql sdlschema.graphql`
+- create a symlink from the `schema` folder from evergreen with the spruce folder using `ln -s path-to-evergreen-schema sdlschema`
 
 ### Using code generation
 

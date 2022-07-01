@@ -1,4 +1,3 @@
-import React from "react";
 import { ButtonDropdown } from "components/ButtonDropdown";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
@@ -16,22 +15,20 @@ import { ScheduleUndispatchedBaseTasks } from "./ScheduleUndispatchedBaseTasks";
 
 interface ActionButtonProps {
   canEnqueueToCommitQueue: boolean;
-  isPatchOnCommitQueue: boolean;
   canReconfigure: boolean;
+  isPatch: boolean;
+  isPatchOnCommitQueue: boolean;
   patchDescription: string;
   versionId: string;
-  isPatch: boolean;
-  activated: boolean;
 }
 
 export const ActionButtons: React.VFC<ActionButtonProps> = ({
   canEnqueueToCommitQueue,
-  isPatchOnCommitQueue,
   canReconfigure,
+  isPatch,
+  isPatchOnCommitQueue,
   patchDescription,
   versionId,
-  isPatch,
-  activated,
 }) => {
   const dropdownItems = [
     <LinkToReconfigurePage
@@ -39,32 +36,19 @@ export const ActionButtons: React.VFC<ActionButtonProps> = ({
       patchId={versionId}
       disabled={!canReconfigure}
     />,
-    <UnscheduleTasks
-      patchId={versionId}
-      refetchQueries={["Patch"]}
-      key="unschedule-tasks"
-    />,
-    <DisableTasks
-      key="disable-tasks"
-      patchId={versionId}
-      refetchQueries={["Patch"]}
-    />,
+    <UnscheduleTasks patchId={versionId} key="unschedule-tasks" />,
+    <DisableTasks key="disable-tasks" patchId={versionId} />,
     <ScheduleUndispatchedBaseTasks
       key="schedule-undispatched-base-tasks"
       patchId={versionId}
       disabled={!isPatch}
     />,
-    <SetPatchPriority
-      patchId={versionId}
-      key="priority"
-      refetchQueries={["Patch"]}
-    />,
+    <SetPatchPriority patchId={versionId} key="priority" />,
     <EnqueuePatch
       patchId={versionId}
       commitMessage={patchDescription}
       key="enqueue"
       disabled={!canEnqueueToCommitQueue}
-      refetchQueries={["Patch"]}
     />,
   ];
 
@@ -74,15 +58,15 @@ export const ActionButtons: React.VFC<ActionButtonProps> = ({
         <ScheduleTasks
           versionId={versionId}
           isButton
-          disabled={isPatchOnCommitQueue && activated}
+          disabled={isPatchOnCommitQueue}
         />
         <RestartPatch
           patchId={versionId}
           isButton
           disabled={isPatchOnCommitQueue}
-          refetchQueries={["Patch"]}
+          refetchQueries={["PatchTasks"]}
         />
-        <AddNotification patchId={versionId} refetchQueries={["Patch"]} />
+        <AddNotification patchId={versionId} />
         <ButtonDropdown dropdownItems={dropdownItems} loading={false} />
       </PageButtonRow>
     </>

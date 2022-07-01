@@ -1,4 +1,3 @@
-import React from "react";
 import { action } from "@storybook/addon-actions";
 import { EditableTagField } from "./index";
 
@@ -22,6 +21,6 @@ export const EditableTagFieldView = () => (
 );
 
 export default {
-  title: "Editable Tags Field",
+  title: "Components/Editable Tags Field",
   component: EditableTagField,
 };

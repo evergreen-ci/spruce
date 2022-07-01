@@ -7,7 +7,7 @@ import {
 } from "./utils";
 
 export default {
-  title: "Commit Charts",
+  title: "Pages/Commits/Charts",
   component: CommitChart,
 };
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { useMutation } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/button";
 import TextInput from "@leafygreen-ui/text-input";

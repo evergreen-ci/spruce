@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Task Status Icon Legend Legend Only 1`] = `
+exports[`storybook Storyshots Components/Task Status Icon Legend Legend Only 1`] = `
 <div
   className="css-1omgk10-Container e1yp16pl3"
 >
@@ -329,7 +329,7 @@ exports[`storybook Storyshots Task Status Icon Legend Legend Only 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots Task Status Icon Legend Legend With Button 1`] = `
+exports[`storybook Storyshots Components/Task Status Icon Legend Legend With Button 1`] = `
 <div>
   <button
     aria-disabled={false}

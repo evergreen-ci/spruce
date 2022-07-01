@@ -75,7 +75,7 @@ describe("Dropdown Menu of Patch Actions", () => {
     getPatchCardByDescription(patchWithVersionOnCommitQueue).within(() => {
       cy.dataCy("patch-card-dropdown").click();
     });
-    cy.dataCy("restart-patch").click({ force: true });
+    cy.dataCy("restart-version").click({ force: true });
 
     cy.dataCy("accordion-toggle").first().click();
     cy.dataCy("patch-status-selector-container")
@@ -83,7 +83,7 @@ describe("Dropdown Menu of Patch Actions", () => {
       .first()
       .click({ force: true });
     cy.contains("generate-lint").click();
-    cy.dataCy("restart-patch-button").click();
+    cy.dataCy("restart-version-button").click();
     cy.validateToast("success");
   });
 
@@ -91,7 +91,7 @@ describe("Dropdown Menu of Patch Actions", () => {
     getPatchCardByDescription(patchWithoutVersion).within(() => {
       cy.dataCy("patch-card-dropdown").click();
     });
-    cy.dataCy("restart-patch").should("be.disabled");
+    cy.dataCy("restart-version").should("be.disabled");
   });
 
   it("'Add to commit queue' shows enqueue modal", () => {

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef, Component } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -82,7 +82,7 @@ interface DropdownWithRefState {
 }
 /** DropdownWithRef is a class component that allows the implementer
  *  to control its internal state methods with a ref in order to trigger state updates */
-class DropdownWithRef extends React.Component<
+class DropdownWithRef extends Component<
   DropdownWithRefProps,
   DropdownWithRefState
 > {

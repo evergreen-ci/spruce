@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots User Tags Field User Tags Field View 1`] = `
+exports[`storybook Storyshots Pages/Spawn/User Tags Field User Tags Field View 1`] = `
 <div
   className="css-1l8756f-FlexColumnContainer e1zn6k0"
 >

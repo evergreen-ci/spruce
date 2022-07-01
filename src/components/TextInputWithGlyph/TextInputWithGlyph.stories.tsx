@@ -3,7 +3,7 @@ import Icon from "components/Icon";
 import TextInputWithGlyph from ".";
 
 export default {
-  title: "TextInputWithGlyph",
+  title: "Components/TextInputWithGlyph",
   component: TextInputWithGlyph,
 };
 

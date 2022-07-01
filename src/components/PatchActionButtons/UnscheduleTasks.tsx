@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
@@ -16,12 +16,12 @@ import { UNSCHEDULE_PATCH_TASKS } from "gql/mutations";
 
 interface props {
   patchId: string;
-  refetchQueries: string[];
+  refetchQueries?: string[];
   disabled?: boolean;
 }
 export const UnscheduleTasks: React.VFC<props> = ({
   patchId,
-  refetchQueries,
+  refetchQueries = [],
   disabled,
 }) => {
   const dispatchToast = useToastContext();
