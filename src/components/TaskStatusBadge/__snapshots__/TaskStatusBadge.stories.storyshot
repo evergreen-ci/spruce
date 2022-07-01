@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Task Status Badges Default 1`] = `
+exports[`storybook Storyshots Components/Task Status Badges Default 1`] = `
 <div
   className="css-o6c4dw-Container e11i4bjx1"
 >

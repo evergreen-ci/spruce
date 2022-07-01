@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots FilterBadges Default 1`] = `
+exports[`storybook Storyshots Components/FilterBadges Default 1`] = `
 <div>
   <div
     className="css-19f1xe2-Container e3qndfh0"
@@ -135,7 +135,7 @@ exports[`storybook Storyshots FilterBadges Default 1`] = `
     </div>
     <button
       aria-disabled={false}
-      className="leafygreen-ui-26sqyb"
+      className="leafygreen-ui-26sqyb css-1ck35jk-StyledButton eqgjs5q0"
       disabled={false}
       onClick={[Function]}
       type="button"

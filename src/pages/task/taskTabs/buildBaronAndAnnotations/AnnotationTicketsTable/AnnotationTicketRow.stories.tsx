@@ -1,13 +1,24 @@
-import { withKnobs, boolean, number } from "@storybook/addon-knobs";
 import { AnnotationTicketRow } from "./AnnotationTicketRow";
 
 export default {
-  title: "BuildBaron/AnnotationTicketRow",
+  title: "Pages/Task/BuildBaron/AnnotationTicketRow",
   component: AnnotationTicketRow,
-  decorators: [withKnobs],
+  args: {
+    confidenceScore: 0.5,
+  },
+  argTypes: {
+    confidenceScore: {
+      control: {
+        type: "range",
+        min: 0,
+        max: 1,
+        step: 0.01,
+      },
+    },
+  },
 };
 
-export const Default = () => (
+export const Default = (args) => (
   <AnnotationTicketRow
     issueKey="EVG-123"
     url="https://www.google.com"
@@ -25,12 +36,6 @@ export const Default = () => (
         assignedTeam: "evg-ui",
       },
     }}
-    confidenceScore={number("confidenceScore", 0.5, {
-      range: true,
-      min: 0,
-      max: 1,
-      step: 0.01,
-    })}
-    loading={boolean("loading", false)}
+    {...args}
   />
 );

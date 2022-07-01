@@ -1,7 +1,7 @@
 import ExpandedText from ".";
 
 export default {
-  title: "ExpandedText",
+  title: "Components/ExpandedText",
   component: ExpandedText,
 };
 

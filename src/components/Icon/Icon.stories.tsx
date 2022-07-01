@@ -1,28 +1,6 @@
 import styled from "@emotion/styled";
-import { withKnobs, select, color } from "@storybook/addon-knobs";
 import { size } from "constants/tokens";
 import Icon, { glyphs, Size } from "./index";
-
-export default {
-  title: "Spruce Icons",
-  decorators: [withKnobs],
-  component: Icon,
-};
-
-export const Icons = () => (
-  <Container>
-    {Object.keys(glyphs).map((name) => (
-      <IconContainer key={name}>
-        <Icon
-          glyph={name}
-          size={select("Size", Sizes, Sizes[Size.Default])}
-          fill={color("Color", "black")}
-        />
-        <span>{name}</span>
-      </IconContainer>
-    ))}
-  </Container>
-);
 
 const Sizes = {
   [Size.Small]: 14,
@@ -30,6 +8,31 @@ const Sizes = {
   [Size.Large]: 20,
   [Size.XLarge]: 24,
 };
+
+export default {
+  title: "Components/Icons",
+  component: Icon,
+  args: {
+    color: "#000000",
+    size: Sizes[Size.Default],
+  },
+  argTypes: {
+    size: {
+      control: { type: "select", options: Sizes },
+    },
+  },
+};
+
+export const Icons = ({ size: s, ...rest }) => (
+  <Container>
+    {Object.keys(glyphs).map((name) => (
+      <IconContainer key={name}>
+        <Icon glyph={name} size={s} {...rest} />
+        <span>{name}</span>
+      </IconContainer>
+    ))}
+  </Container>
+);
 
 const Container = styled.div`
   display: flex;

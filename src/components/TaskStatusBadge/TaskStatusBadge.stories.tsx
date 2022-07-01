@@ -4,7 +4,7 @@ import { TaskStatus } from "types/task";
 import TaskStatusBadge from "./index";
 
 export default {
-  title: "Task Status Badges",
+  title: "Components/Task Status Badges",
   component: TaskStatusBadge,
 };
 

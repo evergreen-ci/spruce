@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Public Key Form Public Key Form View 1`] = `
+exports[`storybook Storyshots Pages/Spawn/Public Key Form Public Key Form View 1`] = `
 <div
   className="css-exgxg0-Container edx7lnf5"
 >
@@ -95,17 +95,17 @@ exports[`storybook Storyshots Public Key Form Public Key Form View 1`] = `
   >
     <label
       className="leafygreen-ui-1v870ns"
-      id="select-7-label"
+      id="select-9-label"
     >
       Existing Key
     </label>
     <button
-      aria-controls="select-7-menu"
-      aria-describedby="select-7-description"
+      aria-controls="select-9-menu"
+      aria-describedby="select-9-description"
       aria-disabled={false}
       aria-expanded={false}
       aria-invalid={false}
-      aria-labelledby="select-7-label"
+      aria-labelledby="select-9-label"
       className="leafygreen-ui-p6v5m8"
       data-testid="leafygreen-ui-select-menubutton"
       disabled={false}
