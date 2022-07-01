@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Spruce Form Example 1 1`] = `
+exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
 <div>
   <h3
     className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"
@@ -346,7 +346,7 @@ exports[`storybook Storyshots Spruce Form Example 1 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots Spruce Form Example 2 1`] = `
+exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
 <div>
   <h3
     className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"
@@ -606,7 +606,7 @@ exports[`storybook Storyshots Spruce Form Example 2 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots Spruce Form Example 3 1`] = `
+exports[`storybook Storyshots Components/Spruce Form Example 3 1`] = `
 <div>
   <h3
     className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"

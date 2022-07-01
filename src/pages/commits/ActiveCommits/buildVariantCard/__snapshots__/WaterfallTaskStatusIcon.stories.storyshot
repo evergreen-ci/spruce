@@ -5,7 +5,7 @@ exports[`storybook Storyshots Pages/Commits/WaterfallIcon Failed Icon 1`] = `
   aria-label="failed icon"
   className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
   data-cy="waterfall-task-status-icon"
-  href="/task/task"
+  href="/task/task-id"
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
@@ -14,7 +14,7 @@ exports[`storybook Storyshots Pages/Commits/WaterfallIcon Failed Icon 1`] = `
 >
   <div
     className="css-h1k2k-TaskStatusWrapper enafhlo0"
-    data-task-icon="ubuntu1604-multiversion"
+    data-task-icon="ubuntu1604"
   >
     <svg
       aria-label="Failure Icon"
@@ -37,7 +37,7 @@ exports[`storybook Storyshots Pages/Commits/WaterfallIcon Success Icon 1`] = `
   aria-label="success icon"
   className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
   data-cy="waterfall-task-status-icon"
-  href="/task/task"
+  href="/task/task-id"
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
@@ -46,7 +46,7 @@ exports[`storybook Storyshots Pages/Commits/WaterfallIcon Success Icon 1`] = `
 >
   <div
     className="css-h1k2k-TaskStatusWrapper enafhlo0"
-    data-task-icon="ubuntu1604-multiversion"
+    data-task-icon="ubuntu1604"
   >
     <svg
       aria-label="Checkmark Icon"

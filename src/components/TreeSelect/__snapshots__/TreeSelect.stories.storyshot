@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots TreeSelect Ellipsis 1`] = `
+exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
 <div
   className="css-c33m4c-CheckboxContainer-tableInputContainerCSS e1mpj03z1"
   data-cy="tree-select-options"
@@ -341,7 +341,7 @@ exports[`storybook Storyshots TreeSelect Ellipsis 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots TreeSelect No All Button 1`] = `
+exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
 <div
   className="css-c33m4c-CheckboxContainer-tableInputContainerCSS e1mpj03z1"
   data-cy="tree-select-options"
@@ -645,7 +645,7 @@ exports[`storybook Storyshots TreeSelect No All Button 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots TreeSelect No Dropdown 1`] = `
+exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
 <div
   className="css-c33m4c-CheckboxContainer-tableInputContainerCSS e1mpj03z1"
   data-cy="tree-select-options"
@@ -949,7 +949,7 @@ exports[`storybook Storyshots TreeSelect No Dropdown 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots TreeSelect No Initial Values 1`] = `
+exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
 <div
   className="css-c33m4c-CheckboxContainer-tableInputContainerCSS e1mpj03z1"
   data-cy="tree-select-options"

@@ -56,7 +56,7 @@ exports[`storybook Storyshots Components/Dropdown Custom Button Render 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots Components/Dropdown Story 1`] = `
+exports[`storybook Storyshots Components/Dropdown Default 1`] = `
 <div
   className="css-1ry038z-Container e1yw4j304"
 >
