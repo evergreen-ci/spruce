@@ -8,7 +8,7 @@ describe("Restarting a patch with Downstream Tasks", () => {
 
   it("Clicking on the Select Downstream Tasks should show the downstream projects", () => {
     cy.visit(pathWithDownstreamTasks);
-    cy.dataCy("restart-patch").click();
+    cy.dataCy("restart-version").click();
     cy.dataCy("select-downstream").first().click();
     cy.dataCy("select-downstream").first().contains("evergreen").click();
   });
@@ -28,8 +28,8 @@ describe("Restarting a patch", () => {
   it("Clicking on the Restart button opens a patch restart modal", () => {
     cy.visit(path);
     cy.dataCy("version-restart-modal").should("not.be.visible");
-    cy.dataCy("restart-patch").click();
-    cy.dataCy("version-restart-modal").should("be.be.visible");
+    cy.dataCy("restart-version").click();
+    cy.dataCy("version-restart-modal").should("be.visible");
   });
 
   it("Clicking on a variant should toggle an accordion drop down of tasks", () => {
@@ -89,9 +89,32 @@ describe("Restarting a patch", () => {
       cy.dataCy("task-status-filter").click();
       cy.getInputByLabel("Unscheduled").check({ force: true });
       cy.dataCy("task-status-filter").click();
-      cy.dataCy("restart-patch-button").click();
+      cy.dataCy("restart-version-button").click();
     });
-    cy.dataCy("version-restart-modal").should("not.be.be.visible");
+    cy.dataCy("version-restart-modal").should("not.be.visible");
+    cy.validateToast("success", "Successfully restarted tasks!");
+  });
+});
+
+describe("Restarting mainline commits", () => {
+  before(() => {
+    cy.login();
+  });
+  beforeEach(() => {
+    cy.preserveCookies();
+  });
+  it("should be able to restart scheduled mainline commit tasks", () => {
+    cy.visit("/version/spruce_ab494436448fbb1d244833046ea6f6af1544e86d");
+    cy.dataCy("restart-version").should("not.be.disabled");
+    cy.dataCy("restart-version").click();
+    cy.dataCy("version-restart-modal").should("be.visible");
+    cy.dataCy("version-restart-modal").within(() => {
+      cy.dataCy("accordion-toggle").click();
+      cy.getInputByLabel("check_codegen").should("exist");
+      cy.getInputByLabel("check_codegen").click({ force: true });
+      cy.get("button").contains("Restart").should("not.be.disabled");
+      cy.get("button").contains("Restart").click({ force: true });
+    });
     cy.validateToast("success", "Successfully restarted tasks!");
   });
 });
