@@ -102,9 +102,5 @@ describe("Action Buttons", () => {
         cy.dataCy("enqueue-patch").should("be.disabled");
       });
     });
-    it("should not be able to restart tasks on an inactive mainline commit", () => {
-      cy.visit("/version/spruce_e695f654c8b4b959d3e12e71696c3e318bcd4c33");
-      cy.dataCy("restart-version").should("be.disabled");
-    });
   });
 });
