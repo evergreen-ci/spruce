@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Spawn Host Card Spawn Host Card Story 1`] = `
+exports[`storybook Storyshots Pages/Spawn/Spawn Host Card Spawn Host Card Story 1`] = `
 <div
   className="css-vvf03h-SiderCard-CardContainer e9wutqn0 leafygreen-ui-fe135o"
   data-cy="spawn-host-card"

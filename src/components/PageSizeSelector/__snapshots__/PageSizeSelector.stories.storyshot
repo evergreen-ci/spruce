@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots PageSizeSelector Default 1`] = `
+exports[`storybook Storyshots Components/PageSizeSelector Default 1`] = `
 <div
   className="css-5krlfz-StyledSelect ekttol50"
 >

@@ -30,6 +30,6 @@ export const PublicKeyFormView = () => {
 };
 
 export default {
-  title: "Public Key Form",
+  title: "Pages/Spawn/Public Key Form",
   component: PublicKeyForm,
 };

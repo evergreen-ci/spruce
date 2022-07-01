@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Commit Charts Absolute Chart 1`] = `
+exports[`storybook Storyshots Pages/Commits/Charts Absolute Chart 1`] = `
 <div
   className="css-1e93osx-FlexRowContainer edfkf300"
 >
@@ -197,7 +197,7 @@ exports[`storybook Storyshots Commit Charts Absolute Chart 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots Commit Charts Percent Chart 1`] = `
+exports[`storybook Storyshots Pages/Commits/Charts Percent Chart 1`] = `
 <div
   className="css-1e93osx-FlexRowContainer edfkf300"
 >

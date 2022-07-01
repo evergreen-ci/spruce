@@ -1,28 +1,13 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
-import { readdirSync } from "fs";
 import vitePluginImp from "vite-plugin-imp";
 import { viteCommonjs, esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
 import envCompatible from "vite-plugin-env-compatible";
 import checker from "vite-plugin-checker";
 import { visualizer } from "rollup-plugin-visualizer";
+import tsconfigPaths from "vite-tsconfig-paths";
 import injectVariablesInHTML from "./config/injectVariablesInHTML";
-
-// Allow imports from absolute paths
-const absolutePaths = readdirSync(path.resolve(__dirname, "./src")).filter(
-  (file) => !file.startsWith(".")
-);
-const absolutePathsWithExtensionsTrimmed = absolutePaths.map((file) =>
-  file.replace(".tsx", "").replace(".ts", "").replace(".js", "")
-);
-const absolutePathAliasMap = absolutePathsWithExtensionsTrimmed.reduce(
-  (acc, cur) => {
-    acc[cur] = path.resolve(__dirname, `./src/${cur}`);
-    return acc;
-  },
-  {}
-);
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -76,11 +61,11 @@ export default defineConfig({
         __dirname,
         "./config/leafygreen-ui/emotion"
       ),
-      ...absolutePathAliasMap,
     },
     extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
   },
   plugins: [
+    tsconfigPaths(),
     viteCommonjs(),
     // Inject env variables
     envCompatible({
@@ -92,6 +77,7 @@ export default defineConfig({
       babel: {
         plugins: ["@emotion/babel-plugin", "import-graphql"],
       },
+      fastRefresh: true,
       // exclude storybook stories
       exclude: [/\.stories\.tsx?$/],
     }),

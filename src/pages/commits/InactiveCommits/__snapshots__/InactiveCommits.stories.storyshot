@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Inactive Commits Story 1`] = `
+exports[`storybook Storyshots Pages/Commits/Inactive Commits Default 1`] = `
 <div
   className="leafygreen-ui-cssveg css-1ctfjby-ButtonContainer ezzuvrx7"
   onClick={[Function]}
