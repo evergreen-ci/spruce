@@ -1,4 +1,3 @@
-import React from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";

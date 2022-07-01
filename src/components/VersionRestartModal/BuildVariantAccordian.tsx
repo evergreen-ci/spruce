@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Accordion, AccordionWrapper } from "components/Accordion";

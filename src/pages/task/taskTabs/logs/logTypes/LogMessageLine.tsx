@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import AnsiUp from "ansi_up";
 import { format } from "date-fns";
 import parse from "html-react-parser";

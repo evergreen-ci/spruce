@@ -1,4 +1,3 @@
-import React from "react";
 import { Select } from "antd";
 import { ModalContent, SectionContainer, SectionLabel } from "components/Spawn";
 import { InputLabel } from "components/styles";

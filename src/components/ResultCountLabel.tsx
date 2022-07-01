@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { size } from "constants/tokens";
 import { P2 } from "./Typography";

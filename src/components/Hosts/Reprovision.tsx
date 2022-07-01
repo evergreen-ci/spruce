@@ -1,4 +1,3 @@
-import React from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";

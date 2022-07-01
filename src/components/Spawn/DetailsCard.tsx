@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { SiderCard } from "components/styles";
 import { size } from "constants/tokens";

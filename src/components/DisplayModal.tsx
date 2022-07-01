@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 import Modal, { ModalSize } from "@leafygreen-ui/modal";
 import { H3 } from "@leafygreen-ui/typography";
