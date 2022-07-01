@@ -14,13 +14,13 @@ import { SET_PATCH_PRIORITY } from "gql/mutations";
 interface SetPriorityProps {
   patchId: string;
   disabled?: boolean;
-  refetchQueries: string[];
+  refetchQueries?: string[];
 }
 
 export const SetPatchPriority: React.VFC<SetPriorityProps> = ({
   patchId,
   disabled,
-  refetchQueries,
+  refetchQueries = [],
 }) => {
   const [priority, setPriority] = useState<number>(0);
   const dispatchToast = useToastContext();
