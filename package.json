@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "2.36.9",
+  "version": "2.36.10",
   "private": true,
   "scripts": {
     "build-storybook": "build-storybook -s public",
