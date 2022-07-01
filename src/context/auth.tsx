@@ -1,4 +1,4 @@
-import React, { useContext, useReducer } from "react";
+import { useContext, useReducer, createContext } from "react";
 import axios from "axios";
 import { environmentalVariables } from "utils";
 import { leaveBreadcrumb } from "utils/errorReporting";
@@ -29,8 +29,8 @@ const reducer = (state: AuthState, action: Action): AuthState => {
   }
 };
 
-const AuthDispatchContext = React.createContext<DispatchContext | null>(null);
-const AuthStateContext = React.createContext<AuthState | null>(null);
+const AuthDispatchContext = createContext<DispatchContext | null>(null);
+const AuthStateContext = createContext<AuthState | null>(null);
 
 const AuthProvider: React.VFC<{ children: React.ReactNode }> = ({
   children,

@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { TreeDataEntry } from "components/TreeSelect";

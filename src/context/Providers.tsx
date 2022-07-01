@@ -1,4 +1,3 @@
-import React from "react";
 import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
 import { AuthProvider } from "context/auth";
 import { ToastProvider } from "context/toast";

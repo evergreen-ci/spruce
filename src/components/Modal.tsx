@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { H2 } from "@leafygreen-ui/typography";

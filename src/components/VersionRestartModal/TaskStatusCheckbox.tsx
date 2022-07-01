@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
@@ -42,7 +42,7 @@ const CheckboxComponent: React.VFC<TaskStatusCheckboxProps> = ({
   />
 );
 
-export const TaskStatusCheckbox = React.memo(CheckboxComponent);
+export const TaskStatusCheckbox = memo(CheckboxComponent);
 
 const StateItemWrapper = styled("div")`
   display: flex;
