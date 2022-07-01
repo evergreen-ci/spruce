@@ -1,12 +1,14 @@
 // / <reference types="Cypress" />
 import { mockErrorResponse } from "../utils/mockErrorResponse";
 import { openSubscriptionModal } from "../utils/subscriptionModal";
+import { selectAntdOption } from "../utils";
 
 const testSharedSubscriptionModalFunctionality = (
   route: string,
   dataCyModal: string,
   dataCyToggleModalButton: string,
-  description: string
+  description: string,
+  type: string
 ) => {
   describe(description, () => {
     before(() => {
@@ -18,14 +20,13 @@ const testSharedSubscriptionModalFunctionality = (
     });
     it("Displays success toast after submitting a valid form and request succeeds", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
-      cy.dataCy(dataCyModal).should("be.visible");
-      cy.dataCy(dataCyModal).within(() => {
-        cy.getInputByLabel("Event").click({ force: true });
-      });
-      cy.contains("finishes").click();
-      cy.dataCy("notify-by-select").click();
-      cy.dataCy("jira-comment-option").click();
+      cy.dataCy(dataCyModal).should("exist");
+
+      selectAntdOption("event-trigger-select", `This ${type} finishes`);
+      selectAntdOption("notification-method-select", "JIRA issue");
+
       cy.dataCy("jira-comment-input").type("EVG-2000");
+      cy.dataCy("save-subscription-button").should("not.be.disabled");
       cy.dataCy("save-subscription-button").click();
       cy.dataCy(toastDataCy).contains(successText);
     });
@@ -35,45 +36,28 @@ const testSharedSubscriptionModalFunctionality = (
         openSubscriptionModal(route, dataCyToggleModalButton);
         cy.dataCy(dataCyModal).should("be.visible");
       });
-      beforeEach(() => {
-        cy.dataCy(dataCyModal).within(() => {
-          cy.getInputByLabel("Event").click({ force: true });
-        });
-      });
 
       it("has an invalid percentage", () => {
-        cy.contains("changes by some percentage").click();
+        selectAntdOption("event-trigger-select", "changes by some percentage");
         cy.dataCy("percent-change-input").clear().type("-100");
-        cy.dataCy("notify-by-select").click();
-        cy.dataCy("jira-comment-option").click();
         cy.dataCy("jira-comment-input").type("EVG-2000");
-        cy.dataCy("error-message").contains(errorTextNegativePercent);
+        cy.contains(errorTextPercent).should("exist");
         cy.dataCy("save-subscription-button").should("be.disabled");
         cy.dataCy("percent-change-input").clear().type("100");
         cy.dataCy("save-subscription-button").should("not.be.disabled");
         cy.dataCy("jira-comment-input").clear();
       });
       it("has an invalid duration value", () => {
-        cy.contains("exceeds some duration").click();
+        selectAntdOption("event-trigger-select", "exceeds some duration");
         cy.dataCy("duration-secs-input").clear().type("-100");
-        cy.dataCy("notify-by-select").click();
-        cy.dataCy("jira-comment-option").click();
         cy.dataCy("jira-comment-input").type("EVG-2000");
-        cy.dataCy("error-message").contains(errorTextNegativeDuration);
+        cy.contains(errorTextDuration).should("exist");
         cy.dataCy("save-subscription-button").should("be.disabled");
         cy.dataCy("duration-secs-input").clear().type("100");
-        cy.dataCy("save-subscription-button").should("not.be.disabled");
-        cy.dataCy("duration-secs-input").clear().type(".33");
-        cy.dataCy("error-message").contains(errorTextDecimalDuration);
-        cy.dataCy("save-subscription-button").should("be.disabled");
-        cy.dataCy("duration-secs-input").clear().type("33");
         cy.dataCy("save-subscription-button").should("not.be.disabled");
         cy.dataCy("jira-comment-input").clear();
       });
       it("has an invalid jira ticket", () => {
-        cy.dataCy("trigger_0-option").click();
-        cy.dataCy("notify-by-select").click();
-        cy.dataCy("jira-comment-option").click();
         cy.dataCy("jira-comment-input").type("E");
         cy.dataCy("save-subscription-button").should("be.disabled");
         cy.dataCy("jira-comment-input").type("EVG-100");
@@ -81,9 +65,7 @@ const testSharedSubscriptionModalFunctionality = (
         cy.dataCy("jira-comment-input").clear();
       });
       it("has an invalid email", () => {
-        cy.dataCy("trigger_0-option").click();
-        cy.dataCy("notify-by-select").click();
-        cy.dataCy("email-option").click();
+        selectAntdOption("notification-method-select", "Email");
         cy.dataCy("email-input").clear();
         cy.dataCy("email-input").type("arst");
         cy.dataCy("save-subscription-button").should("be.disabled");
@@ -91,9 +73,7 @@ const testSharedSubscriptionModalFunctionality = (
         cy.dataCy("save-subscription-button").should("not.be.disabled");
       });
       it("has an invalid slack username", () => {
-        cy.dataCy("trigger_0-option").click();
-        cy.dataCy("notify-by-select").click();
-        cy.dataCy("slack-option").click();
+        selectAntdOption("notification-method-select", "Slack");
         cy.dataCy("slack-input").clear();
         cy.dataCy("slack-input").type("sart");
         cy.dataCy("save-subscription-button").should("be.disabled");
@@ -102,15 +82,11 @@ const testSharedSubscriptionModalFunctionality = (
         cy.dataCy("save-subscription-button").should("not.be.disabled");
       });
     });
+
     it("Displays error toast when save subscription request fails", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
       cy.dataCy(dataCyModal).should("be.visible");
-      cy.dataCy(dataCyModal).within(() => {
-        cy.getInputByLabel("Event").click({ force: true });
-      });
-      cy.contains("finishes").click();
-      cy.dataCy("notify-by-select").click();
-      cy.dataCy("jira-comment-option").click();
+      selectAntdOption("event-trigger-select", `This ${type} finishes`);
       cy.dataCy("jira-comment-input").type("EVG-2000");
       mockErrorResponse({
         path: "SaveSubscription",
@@ -128,11 +104,25 @@ const testSharedSubscriptionModalFunctionality = (
       cy.dataCy(dataCyModal).should("not.be.visible");
     });
 
+    it("Pulls initial values from cookies", () => {
+      const triggerCookie = `${type}-notification-trigger`;
+      cy.setCookie(triggerCookie, `${type}-succeeds`);
+      const subscriptionCookie = "subscription-method";
+      cy.setCookie(subscriptionCookie, "slack");
+
+      openSubscriptionModal(route, dataCyToggleModalButton);
+      cy.dataCy(dataCyModal).should("be.visible");
+      cy.contains(`This ${type} succeeds`).should("be.visible");
+      cy.contains("Slack").should("be.visible");
+
+      cy.clearCookie(subscriptionCookie);
+      cy.clearCookie(triggerCookie);
+    });
+
     const toastDataCy = "toast";
     const successText = "Your subscription has been added";
-    const errorTextNegativeDuration = "Duration cannot be negative";
-    const errorTextNegativePercent = "Percent must be a positive number";
-    const errorTextDecimalDuration = "Duration must be an integer";
+    const errorTextPercent = "Value should be >= 0";
+    const errorTextDuration = "Value should be >= 0";
   });
 };
 
@@ -140,12 +130,14 @@ testSharedSubscriptionModalFunctionality(
   "/task/clone_evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/logs",
   "task-notification-modal",
   "notify-task",
-  "Task Subscription Modal"
+  "Task Subscription Modal",
+  "task"
 );
 
 testSharedSubscriptionModalFunctionality(
   "/version/5e4ff3abe3c3317e352062e4/tasks",
   "patch-notification-modal",
   "notify-patch",
-  "Version Subscription Modal"
+  "Version Subscription Modal",
+  "version"
 );

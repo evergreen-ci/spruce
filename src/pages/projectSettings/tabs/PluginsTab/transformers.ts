@@ -1,8 +1,11 @@
+import { ProjectSettingsTabRoutes } from "constants/routes";
 import { ProjectInput } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { FormState } from "./types";
 
-export const gqlToForm: GqlToFormFunction = (data): FormState => {
+type Tab = ProjectSettingsTabRoutes.Plugins;
+
+export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
   if (!data) return null;
 
   const { projectRef } = data;
@@ -39,7 +42,7 @@ export const gqlToForm: GqlToFormFunction = (data): FormState => {
   };
 };
 
-export const formToGql: FormToGqlFunction = (
+export const formToGql: FormToGqlFunction<Tab> = (
   { performanceSettings, buildBaronSettings }: FormState,
   id: string
 ) => {
