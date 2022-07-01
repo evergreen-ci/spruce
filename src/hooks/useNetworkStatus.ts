@@ -15,12 +15,6 @@ export const useNetworkStatus: useNetworkStatusType = (
   const [isOnline, setIsOnline] = useState(true);
   const { sendEvent } = usePollingAnalytics();
 
-  const sendOfflineEvent = () => {
-    if (sendAnalytics) {
-      sendEvent({ name: "Tab Not Active", status: "offline" });
-    }
-  };
-
   const sendOnlineEvent = () => {
     if (sendAnalytics) {
       sendEvent({ name: "Tab Active", status: "online" });
@@ -29,7 +23,7 @@ export const useNetworkStatus: useNetworkStatusType = (
 
   useEffect(() => {
     const handleOffline = () => {
-      sendOfflineEvent();
+      // Don't send event because we can't send events if the browser is offline.
       setIsOnline(false);
     };
     const handleOnline = () => {

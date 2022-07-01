@@ -15,15 +15,15 @@ export const usePageVisibility: usePageVisibilityType = (
   const [isVisible, setIsVisible] = useState(true);
   const { sendEvent } = usePollingAnalytics();
 
-  const sendHiddenEvent = () => {
-    if (sendAnalytics) {
-      sendEvent({ name: "Tab Not Active", status: "hidden" });
-    }
-  };
-
   const sendVisibleEvent = () => {
     if (sendAnalytics) {
       sendEvent({ name: "Tab Active", status: "visible" });
+    }
+  };
+
+  const sendHiddenEvent = () => {
+    if (sendAnalytics) {
+      sendEvent({ name: "Tab Not Active" });
     }
   };
 
