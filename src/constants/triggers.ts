@@ -209,12 +209,14 @@ export const projectTriggers: Trigger = {
     resourceType: ResourceType.VERSION,
     label: "Any Version Finishes",
     extraFields: [requesterSubscriberConfig],
+    payloadResourceIdKey: "id",
   },
   [ProjectTriggers.ANY_VERSION_FAILS]: {
     trigger: TriggerType.FAILURE,
     resourceType: ResourceType.VERSION,
     label: "Any Version Fails",
     extraFields: [requesterSubscriberConfig],
+    payloadResourceIdKey: "id",
   },
   [ProjectTriggers.ANY_BUILD_FINISHES]: {
     trigger: TriggerType.OUTCOME,
@@ -222,6 +224,7 @@ export const projectTriggers: Trigger = {
     label: "Any Build Finishes",
     regexSelectors: buildRegexSelectors,
     extraFields: [requesterSubscriberConfig],
+    payloadResourceIdKey: "id",
   },
   [ProjectTriggers.ANY_BUILD_FAILS]: {
     trigger: TriggerType.FAILURE,
@@ -229,6 +232,7 @@ export const projectTriggers: Trigger = {
     label: "Any Build Fails",
     regexSelectors: buildRegexSelectors,
     extraFields: [requesterSubscriberConfig],
+    payloadResourceIdKey: "id",
   },
   [ProjectTriggers.ANY_TASK_FINISHES]: {
     trigger: TriggerType.OUTCOME,
@@ -236,6 +240,7 @@ export const projectTriggers: Trigger = {
     label: "Any Task Finishes",
     regexSelectors: taskRegexSelectors,
     extraFields: [requesterSubscriberConfig],
+    payloadResourceIdKey: "id",
   },
   [ProjectTriggers.ANY_TASK_FAILS]: {
     trigger: TriggerType.FAILURE,
@@ -243,6 +248,7 @@ export const projectTriggers: Trigger = {
     label: "Any Task Fails",
     regexSelectors: taskRegexSelectors,
     extraFields: [failureTypeSubscriberConfig, requesterSubscriberConfig],
+    payloadResourceIdKey: "id",
   },
   [ProjectTriggers.FIRST_FAILURE_VERSION]: {
     trigger: TriggerType.FIRST_FAILURE_VERSION,
@@ -250,6 +256,7 @@ export const projectTriggers: Trigger = {
     label: "The First Failure In a Version Occurs",
     regexSelectors: taskRegexSelectors,
     extraFields: [requesterSubscriberConfig],
+    payloadResourceIdKey: "id",
   },
   [ProjectTriggers.FIRST_FAILURE_BUILD]: {
     trigger: TriggerType.FIRST_FAILURE_BUILD,
@@ -257,6 +264,7 @@ export const projectTriggers: Trigger = {
     label: "The First Failure In Each Build Occurs",
     regexSelectors: taskRegexSelectors,
     extraFields: [requesterSubscriberConfig],
+    payloadResourceIdKey: "id",
   },
   [ProjectTriggers.FIRST_FAILURE_TASK]: {
     trigger: TriggerType.FIRST_FAILURE_VERSION_NAME,
@@ -264,6 +272,7 @@ export const projectTriggers: Trigger = {
     label: "The First Failure In Each Version For Each Task Name Occurs",
     regexSelectors: taskRegexSelectors,
     extraFields: [requesterSubscriberConfig],
+    payloadResourceIdKey: "id",
   },
   [ProjectTriggers.PREVIOUS_PASSING_TASK_FAILS]: {
     trigger: TriggerType.REGRESSION,
@@ -280,6 +289,7 @@ export const projectTriggers: Trigger = {
       },
       failureTypeSubscriberConfig,
     ],
+    payloadResourceIdKey: "id",
   },
   [ProjectTriggers.PREVIOUS_PASSING_TEST_FAILS]: {
     trigger: TriggerType.TEST_REGRESSION,
@@ -303,6 +313,7 @@ export const projectTriggers: Trigger = {
       },
       failureTypeSubscriberConfig,
     ],
+    payloadResourceIdKey: "id",
   },
   [ProjectTriggers.TASK_EXCEEDS_DURATION]: {
     trigger: TriggerType.EXCEEDS_DURATION,
@@ -318,6 +329,7 @@ export const projectTriggers: Trigger = {
         default: "10",
       },
     ],
+    payloadResourceIdKey: "id",
   },
   [ProjectTriggers.SUCCESSFUL_TASK_RUNTIME_CHANGES]: {
     trigger: TriggerType.RUNTIME_CHANGE,
@@ -333,5 +345,6 @@ export const projectTriggers: Trigger = {
         default: "10",
       },
     ],
+    payloadResourceIdKey: "id",
   },
 };
