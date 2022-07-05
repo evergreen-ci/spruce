@@ -43,7 +43,7 @@ export const ScheduleTasksModal: React.VFC<ScheduleTasksModalProps> = ({
     SCHEDULE_TASKS,
     {
       onCompleted() {
-        dispatchToast.success("Tasks scheduled successfully");
+        dispatchToast.success("Successfully scheduled tasks!");
         closeModal();
       },
       onError({ message }) {

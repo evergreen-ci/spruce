@@ -53,7 +53,7 @@ const treeData = [
 ];
 
 export default {
-  title: "TreeSelect",
+  title: "Components/TreeSelect",
   component: TreeSelect,
 };
 

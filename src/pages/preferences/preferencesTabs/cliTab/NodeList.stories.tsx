@@ -2,7 +2,7 @@ import { NodeList } from "pages/preferences/preferencesTabs/cliTab/NodeList";
 import { Node } from "pages/preferences/preferencesTabs/cliTab/nodeList/Node";
 
 export default {
-  title: "Node List",
+  title: "Pages/Preferences/Node List",
   component: NodeList,
 };
 

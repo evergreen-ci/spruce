@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots HistoryTableTestSearch Test Search 1`] = `
+exports[`storybook Storyshots Components/History Table/HistoryTableTestSearch Test Search 1`] = `
 <div
   style={
     Object {
@@ -20,7 +20,7 @@ exports[`storybook Storyshots HistoryTableTestSearch Test Search 1`] = `
       >
         <label
           className="leafygreen-ui-ly82bp"
-          htmlFor="textinput-16"
+          htmlFor="textinput-15"
         >
           Filter by Failed Tests
         </label>
@@ -35,7 +35,7 @@ exports[`storybook Storyshots HistoryTableTestSearch Test Search 1`] = `
               autoComplete="on"
               className="leafygreen-ui-1il5lef"
               disabled={false}
-              id="textinput-16"
+              id="textinput-15"
               onBlur={[Function]}
               onChange={[Function]}
               onFocus={[Function]}

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Breadcrumbs Default 1`] = `
+exports[`storybook Storyshots Components/Breadcrumbs Default 1`] = `
 <div
   className="css-11feriq-Container eaak0tv0"
 >

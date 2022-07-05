@@ -1,11 +1,13 @@
 import { useState } from "react";
+import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import TextInput from "@leafygreen-ui/text-input";
+import { size } from "constants/tokens";
 import FilterBadges from ".";
 import { FilterBadgeType } from "./FilterBadge";
 
 export default {
-  title: "FilterBadges",
+  title: "Components/FilterBadges",
   component: FilterBadges,
 };
 
@@ -69,7 +71,13 @@ const BadgeInput = ({
         value={badgeValue}
         onChange={(e) => setBadgeValue(e.target.value)}
       />
-      <Button onClick={handleAdd}>Add</Button>
+      {/* @ts-expect-error */}
+      <StyledButton onClick={handleAdd}>Add</StyledButton>
     </div>
   );
 };
+
+/* @ts-expect-error */
+const StyledButton = styled(Button)`
+  margin-top: ${size.s};
+`;

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots HistoryTableIcon Active Icons 1`] = `
+exports[`storybook Storyshots Components/History Table/Icons Active Icons 1`] = `
 <div
   className="css-1tw1ctr-Container eb1823k0"
 >
@@ -372,7 +372,7 @@ exports[`storybook Storyshots HistoryTableIcon Active Icons 1`] = `
 </div>
 `;
 
-exports[`storybook Storyshots HistoryTableIcon Inactive Icons 1`] = `
+exports[`storybook Storyshots Components/History Table/Icons Inactive Icons 1`] = `
 <div
   className="css-1tw1ctr-Container eb1823k0"
 >

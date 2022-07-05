@@ -5,7 +5,6 @@ import { PatchNotificationModal } from "./addNotification/PatchNotificationModal
 
 interface Props {
   patchId: string;
-  refetchQueries: string[];
   setParentLoading?: (loading: boolean) => void; // used to toggle loading state of parent
 }
 

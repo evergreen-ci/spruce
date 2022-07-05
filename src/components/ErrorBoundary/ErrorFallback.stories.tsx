@@ -1,7 +1,7 @@
 import ErrorFallback from "./ErrorFallback";
 
 export default {
-  title: "Error Fallback",
+  title: "Components/Error Fallback",
   component: ErrorFallback,
 };
 

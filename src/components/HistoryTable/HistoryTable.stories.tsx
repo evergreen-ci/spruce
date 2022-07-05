@@ -6,11 +6,8 @@ import { mainlineCommitData } from "./testData";
 
 const { HistoryTableProvider, useHistoryTable } = context;
 
-export * from "./HistoryTableIcon/HistoryTableIcon.stories";
-export * from "./HistoryTableTestSearch/HistoryTableTestSearch.stories";
-
 export default {
-  title: "History Table",
+  title: "Components/History Table",
   component: HistoryTable,
 };
 

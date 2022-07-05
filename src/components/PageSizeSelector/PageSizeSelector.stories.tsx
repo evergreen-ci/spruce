@@ -2,7 +2,7 @@ import { useState } from "react";
 import PageSizeSelector from ".";
 
 export default {
-  title: "PageSizeSelector",
+  title: "Components/PageSizeSelector",
   component: PageSizeSelector,
 };
 

@@ -1,5 +1,5 @@
 import initStoryshots, {
-  multiSnapshotWithOptions,
+  snapshotWithOptions,
 } from "@storybook/addon-storyshots";
 import MatchMediaMock from "jest-matchmedia-mock";
 import { mockUUID } from "test_utils";
@@ -19,5 +19,17 @@ describe("storybook", () => {
     jest.restoreAllMocks();
   });
   // eslint-disable-next-line jest/require-hook
-  initStoryshots({ test: multiSnapshotWithOptions() });
+  initStoryshots({
+    test: ({ story, context, renderTree, stories2snapsConverter }) => {
+      const snapshotFileName = stories2snapsConverter.getSnapshotFileName(
+        context
+      );
+      return snapshotWithOptions({})({
+        story,
+        context,
+        renderTree,
+        snapshotFileName: snapshotFileName.replace("src", "."),
+      });
+    },
+  });
 });

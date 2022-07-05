@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots TupleSelect Default 1`] = `
+exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
 <div
   style={
     Object {
@@ -26,8 +26,8 @@ exports[`storybook Storyshots TupleSelect Default 1`] = `
         className="css-17m5hmx-GroupedSelect e5gn9hl1"
       >
         <button
-          aria-controls="select-5-menu"
-          aria-describedby="select-5-description"
+          aria-controls="select-7-menu"
+          aria-describedby="select-7-description"
           aria-disabled={false}
           aria-expanded={false}
           aria-invalid={false}
