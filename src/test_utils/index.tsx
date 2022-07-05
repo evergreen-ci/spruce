@@ -1,9 +1,8 @@
-import {
-  render,
-  queries,
+import { render, queries, within, screen } from "@testing-library/react";
+import type {
   RenderResult,
   RenderOptions,
-  within,
+  Screen,
 } from "@testing-library/react";
 import { createMemoryHistory } from "history";
 import {
@@ -75,6 +74,18 @@ const renderWithRouterMatch = (
   };
 };
 
+// Bind custom query methods to screen
+// https://github.com/testing-library/dom-testing-library/issues/516
+const boundQueries = Object.entries(customQueries).reduce(
+  (q, [queryName, queryFn]) => {
+    // eslint-disable-next-line no-param-reassign
+    q[queryName] = queryFn.bind(null, document.body);
+    return q;
+  },
+  {}
+) as Screen<CustomQueriesType>;
+const customScreen = { ...screen, ...boundQueries };
+
 /** mockUUID mocks the implementation of the uuid library and provides an implementation that can be used in tests */
 export const mockUUID = () => {
   const MAX_INT = Number.MAX_SAFE_INTEGER;
@@ -88,6 +99,7 @@ export * from "@testing-library/react";
 
 // override render method
 export {
+  customScreen as screen,
   customRender as render,
   renderWithRouterMatch,
   customWithin as within,
