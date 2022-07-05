@@ -27,13 +27,12 @@ class DefaultErrorBoundary extends Component<{}, { hasError: boolean }> {
 
   componentDidCatch(error, errorInfo) {
     console.error({ error, errorInfo });
-    this.setState((prevState) => ({ ...prevState, error, errorInfo }));
   }
 
   render() {
     const { hasError } = this.state;
     if (hasError) {
-      return <div>{JSON.stringify(this.state)}</div>;
+      return <ErrorFallback />;
     }
     const { children } = this.props;
     return children;
@@ -41,10 +40,10 @@ class DefaultErrorBoundary extends Component<{}, { hasError: boolean }> {
 }
 
 const getBoundary = () =>
-  // if (bugsnagStarted && Bugsnag.getPlugin("react")) {
-  //   return Bugsnag.getPlugin("react").createErrorBoundary(React);
-  // }
-  DefaultErrorBoundary;
+  bugsnagStarted && Bugsnag.getPlugin("react")
+    ? Bugsnag.getPlugin("react").createErrorBoundary(React)
+    : DefaultErrorBoundary;
+
 const initializeBugsnag = () => {
   // Only need to Bugsnag.start once, will throw console warnings otherwise
   if (bugsnagStarted || !isProductionBuild()) {
@@ -73,7 +72,11 @@ const ErrorBoundary: React.VFC<{ children: React.ReactNode }> = ({
   // In some cases we do not want to enable bugsnag (ex: testing environments).
   // In these cases we will return a fallback element
   const ErrorBoundaryComp = getBoundary();
-  return <ErrorBoundaryComp>{children}</ErrorBoundaryComp>;
+  return (
+    <ErrorBoundaryComp FallbackComponent={() => <ErrorFallback />}>
+      {children}
+    </ErrorBoundaryComp>
+  );
 };
 
 const resetBugsnag = () => {
