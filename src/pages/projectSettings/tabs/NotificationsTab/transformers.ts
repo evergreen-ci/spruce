@@ -1,6 +1,11 @@
+import { getGqlPayload } from "components/Notifications/utils";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { projectTriggers } from "constants/triggers";
-import { Subscriber, ProjectInput } from "gql/generated/types";
+import {
+  Subscriber,
+  ProjectInput,
+  SubscriptionInput,
+} from "gql/generated/types";
 import { NotificationMethods } from "types/subscription";
 import { string } from "utils";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
@@ -149,15 +154,20 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
 };
 
 export const formToGql: FormToGqlFunction<Tab> = (
-  { buildBreakSettings }: FormState,
+  { buildBreakSettings, subscriptions }: FormState,
   id
 ) => {
   const projectRef: ProjectInput = {
     id,
     notifyOnBuildFailure: buildBreakSettings.notifyOnBuildFailure,
   };
-  // TODO in EVG-16971
+
+  const transformedSubscriptions: SubscriptionInput[] = subscriptions.map(
+    ({ subscriptionData }) =>
+      getGqlPayload(projectTriggers, "project", subscriptionData)
+  );
   return {
     projectRef,
+    subscriptions: transformedSubscriptions,
   };
 };

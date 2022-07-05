@@ -25,7 +25,7 @@ const regexFormToGql = (
   regexForm: FormRegexSelector[]
 ) =>
   hasRegexSelectors
-    ? regexForm.map((r) => ({
+    ? regexForm?.map((r) => ({
         type: r.regexSelect,
         data: r.regexInput,
       }))
@@ -61,7 +61,7 @@ export const getGqlPayload = (
     trigger,
     extraFields,
     regexSelectors,
-  } = event;
+  } = event || {};
 
   const triggerData = extraFieldsFormToGql(
     extraFields,
@@ -80,7 +80,7 @@ export const getGqlPayload = (
     trigger,
     resource_type: resourceType,
     selectors: [
-      { type: "object", data: resourceType.toLowerCase() },
+      { type: "object", data: resourceType?.toLowerCase() },
       { type: payloadResourceIdKey, data: resourceId },
     ],
     trigger_data: triggerData,
