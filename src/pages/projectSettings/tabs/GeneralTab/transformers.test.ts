@@ -59,9 +59,6 @@ const repoForm: FormState = {
     logger: {
       defaultLogger: "buildlogger",
     },
-    testResults: {
-      cedarTestResultsEnabled: false,
-    },
     patch: {
       patchingDisabled: false,
     },
@@ -95,7 +92,6 @@ const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
     deactivatePrevious: true,
     repotrackerDisabled: false,
     defaultLogger: "buildlogger",
-    cedarTestResultsEnabled: false,
     patchingDisabled: false,
     taskSync: {
       configEnabled: true,
@@ -136,9 +132,6 @@ const projectForm: FormState = {
     logger: {
       defaultLogger: null,
     },
-    testResults: {
-      cedarTestResultsEnabled: null,
-    },
     patch: {
       patchingDisabled: null,
     },
@@ -174,7 +167,6 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
     deactivatePrevious: null,
     repotrackerDisabled: null,
     defaultLogger: null,
-    cedarTestResultsEnabled: null,
     patchingDisabled: null,
     taskSync: {
       configEnabled: null,

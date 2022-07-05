@@ -30,9 +30,6 @@ export interface FormState {
     logger: {
       defaultLogger: string;
     };
-    testResults: {
-      cedarTestResultsEnabled: boolean | null;
-    };
     patch: {
       patchingDisabled: boolean | null;
     };

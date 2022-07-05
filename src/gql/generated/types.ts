@@ -2413,7 +2413,6 @@ export type ProjectGeneralSettingsFragment = {
   repotrackerDisabled?: Maybe<boolean>;
   defaultLogger: string;
   validDefaultLoggers: Array<string>;
-  cedarTestResultsEnabled?: Maybe<boolean>;
   patchingDisabled?: Maybe<boolean>;
   disabledStatsCache?: Maybe<boolean>;
   filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -2435,7 +2434,6 @@ export type RepoGeneralSettingsFragment = {
   repotrackerDisabled: boolean;
   defaultLogger: string;
   validDefaultLoggers: Array<string>;
-  cedarTestResultsEnabled: boolean;
   patchingDisabled: boolean;
   disabledStatsCache: boolean;
   filesIgnoredFromCache?: Maybe<Array<string>>;
