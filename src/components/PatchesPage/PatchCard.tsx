@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
-import { format } from "date-fns";
 import { Analytics } from "analytics/addPageAction";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
@@ -12,8 +11,10 @@ import {
 } from "constants/routes";
 import { fontSize, size } from "constants/tokens";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
+import { useUserTimeZone } from "hooks/useUserTimeZone";
 import { Unpacked } from "types/utils";
 import { groupStatusesByUmbrellaStatus } from "utils/statuses";
+import { getDateCopy } from "utils/string";
 import { DropdownMenu } from "./patchCard/DropdownMenu";
 
 type P = Unpacked<PatchesPagePatchesFragment["patches"]>;
@@ -47,6 +48,7 @@ export const PatchCard: React.VFC<Props> = ({
   versionFull,
 }) => {
   const createDate = new Date(createTime);
+  const tz = useUserTimeZone();
   const { taskStatusStats, id: versionId } = versionFull || {};
   const { stats } = groupStatusesByUmbrellaStatus(
     taskStatusStats?.counts ?? []
@@ -73,7 +75,7 @@ export const PatchCard: React.VFC<Props> = ({
           {description || "no description"}
         </DescriptionLink>
         <TimeAndProject>
-          {format(createDate, "M/d/yy")} at {format(createDate, "h:mm:ss aaaa")}{" "}
+          {getDateCopy(createDate, { tz })}{" "}
           {pageType === "project" ? "by" : "on"}{" "}
           {pageType === "project" ? (
             <StyledRouterLink

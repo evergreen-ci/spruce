@@ -103,6 +103,7 @@ export const omitTypename = (object) =>
 type DateCopyOptions = {
   tz?: string;
   dateOnly?: boolean;
+  omitSeconds?: boolean;
 };
 
 // Will return a time in the users local timezone when one is not provided
@@ -110,18 +111,19 @@ export const getDateCopy = (
   time: string | number | Date,
   options?: DateCopyOptions
 ) => {
-  const { tz, dateOnly } = options || {};
-  const dateFormat = dateOnly ? "MMM d, yyyy" : "MMM d, yyyy, h:mm:ss aa";
+  if (!time) {
+    return "";
+  }
+  const { tz, dateOnly, omitSeconds } = options || {};
+  const dateFormat = dateOnly
+    ? "MMM d, yyyy"
+    : `MMM d, yyyy, h:mm${omitSeconds ? "" : ":ss"} aa`;
   if (tz) {
     return format(utcToZonedTime(time, tz), dateFormat);
   }
 
   return format(new Date(time), dateFormat);
 };
-
-const SHORT_DATE_FORMAT = "M/d/yy h:mm aa";
-export const shortDate = (d: Date): string =>
-  d ? format(new Date(d), SHORT_DATE_FORMAT) : "";
 
 export const copyToClipboard = (str: string) => {
   const el = document.createElement("textarea");
