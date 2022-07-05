@@ -2,9 +2,9 @@ import { CSSProperties } from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
-import { format, utcToZonedTime } from "date-fns-tz";
 import { size } from "constants/tokens";
 import { useUserTimeZone } from "hooks/useUserTimeZone";
+import { getDateCopy } from "utils/string";
 
 const { gray } = uiColors;
 interface DateSeparatorProps {
@@ -19,9 +19,7 @@ export const DateSeparator: React.VFC<DateSeparatorProps> = ({
   const tz = useUserTimeZone();
   return (
     <Container style={style}>
-      <DateWrapper>
-        {format(utcToZonedTime(new Date(date), tz), "MMM d")}
-      </DateWrapper>
+      <DateWrapper>{getDateCopy(date, { tz, dateOnly: true })}</DateWrapper>
       <Line />
     </Container>
   );
