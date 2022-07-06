@@ -20,3 +20,5 @@ export const aliasMutation = (req, operationName) => {
     req.alias = `gql${operationName}Mutation`;
   }
 };
+
+export const GQL_URL = "http://localhost:9090/graphql/query";

@@ -3,19 +3,19 @@
 import {
   aliasQuery,
   hasOperationName,
+  GQL_URL,
 } from "../../../utils/graphql-test-utils";
 
 // / <reference path="../../support/index.d.ts" />
 const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
 const patchWithDisplayTasks = "5e6bb9e23066155a993e0f1b";
-
 describe("Configure Patch Page", () => {
   before(() => {
     cy.login();
   });
   beforeEach(() => {
     cy.preserveCookies();
-    cy.intercept("POST", "http://localhost:9090/graphql", (req) => {
+    cy.intercept("POST", GQL_URL, (req) => {
       aliasQuery(req, "SchedulePatch");
     });
   });
@@ -520,7 +520,7 @@ describe("Configure Patch Page", () => {
   });
 
   //   Using mocked responses because we are unable to schedule a patch because of a missing github token
-  describe("Scheduling a patch", () => {
+  describe.only("Scheduling a patch", () => {
     beforeEach(() => {
       cy.server();
       cy.visit(`/patch/${unactivatedPatchId}`);
@@ -529,7 +529,7 @@ describe("Configure Patch Page", () => {
       const val = "hello world";
       cy.dataCy(`patch-name-input`).as("patchNameInput").clear().type(val);
       cy.dataCy("task-checkbox").first().check({ force: true });
-      cy.intercept("POST", "http://localhost:3000/graphql/query", (req) => {
+      cy.intercept("POST", GQL_URL, (req) => {
         if (hasOperationName(req, "SchedulePatch")) {
           // Declare the alias from the initial intercept in the beforeEach
           req.alias = "gqlSchedulePatchQuery";
@@ -549,7 +549,7 @@ describe("Configure Patch Page", () => {
       const val = "hello world";
       cy.dataCy(`patch-name-input`).clear().type(val);
       cy.dataCy("task-checkbox").first().check({ force: true });
-      cy.intercept("POST", "http://localhost:3000/graphql/query", (req) => {
+      cy.intercept("POST", GQL_URL, (req) => {
         if (hasOperationName(req, "SchedulePatch")) {
           // Declare the alias from the initial intercept in the beforeEach
           req.alias = "gqlSchedulePatchQuery";
