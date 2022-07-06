@@ -172,21 +172,6 @@ export const getFormSchema = (
               },
             },
           },
-          testResults: {
-            type: "object" as "object",
-            title: "Cedar Test Results",
-            description:
-              "Used by Evergreen internally to configure whether this branch should be logging to Cedar.",
-            properties: {
-              cedarTestResultsEnabled: {
-                type: ["boolean", "null"],
-                oneOf: radioBoxOptions(
-                  ["Enabled", "Disabled"],
-                  repoData?.projectFlags?.testResults?.cedarTestResultsEnabled
-                ),
-              },
-            },
-          },
           patch: {
             type: "object" as "object",
             title: "Patch Settings",
@@ -372,12 +357,6 @@ export const getFormSchema = (
           "ui:allowDeselect": false,
           "ui:ariaLabelledBy": "projectFlags_logger__title",
           "ui:data-cy": "default-logger-select",
-        },
-      },
-      testResults: {
-        cedarTestResultsEnabled: {
-          "ui:widget": widgets.RadioBoxWidget,
-          "ui:showLabel": false,
         },
       },
       patch: {
