@@ -32,7 +32,7 @@ export const SpawnHostActionButton: React.VFC<{ host: MyHost }> = ({
   // Since the GET_MY_HOSTS query on this components parent polls at a slower rate, this component triggers a poll at a faster interval for that
   // query when it returns an updated host status the polling is halted. This allows the query to poll slowly and not utilize unnecessary bandwith
   // except when an action is performed and we need to fetch updated data.
-  const [getMyHosts, { startPolling, stopPolling }] = useLazyQuery<
+  const [getMyHosts, { refetch, startPolling, stopPolling }] = useLazyQuery<
     MyHostsQuery,
     MyHostsQueryVariables
   >(GET_MY_HOSTS, {
@@ -43,7 +43,7 @@ export const SpawnHostActionButton: React.VFC<{ host: MyHost }> = ({
       );
     },
   });
-  usePolling(startPolling, stopPolling, false);
+  usePolling(startPolling, stopPolling, refetch, false);
   // Stop polling when we get updated host data
   useEffect(() => {
     if (stopPolling) {
