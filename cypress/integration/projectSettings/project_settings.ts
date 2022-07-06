@@ -896,7 +896,7 @@ describe("A project that has GitHub webhooks disabled", () => {
   });
 });
 
-describe.only("Notifications", () => {
+describe("Notifications", () => {
   const destination = getNotificationsRoute("evergreen");
   before(() => {
     cy.login();
