@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { usePollingAnalytics } from "analytics";
+import { useActivityAnalytics } from "analytics";
 
 type usePageVisibilityType = {
   (sendAnalytics?: boolean): boolean;
@@ -13,7 +13,7 @@ export const usePageVisibility: usePageVisibilityType = (
   sendAnalytics = false
 ) => {
   const [isVisible, setIsVisible] = useState(true);
-  const { sendEvent } = usePollingAnalytics();
+  const { sendEvent } = useActivityAnalytics();
 
   const sendVisibleEvent = () => {
     if (sendAnalytics) {

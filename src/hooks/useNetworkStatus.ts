@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { usePollingAnalytics } from "analytics";
+import { useActivityAnalytics } from "analytics";
 
 type useNetworkStatusType = {
   (sendAnalytics?: boolean): boolean;
@@ -13,7 +13,7 @@ export const useNetworkStatus: useNetworkStatusType = (
   sendAnalytics = false
 ) => {
   const [isOnline, setIsOnline] = useState(true);
-  const { sendEvent } = usePollingAnalytics();
+  const { sendEvent } = useActivityAnalytics();
 
   const sendOnlineEvent = () => {
     if (sendAnalytics) {

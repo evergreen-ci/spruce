@@ -6,12 +6,12 @@ type Action =
   | { name: "Tab Not Active" };
 
 interface P extends Properties {}
-interface PollingAnalytics extends Analytics<Action> {}
+interface ActivityAnalytics extends Analytics<Action> {}
 
-export const usePollingAnalytics = (): PollingAnalytics => {
+export const useActivityAnalytics = (): ActivityAnalytics => {
   const userId = useGetUserQuery();
 
-  const sendEvent: PollingAnalytics["sendEvent"] = (action) => {
+  const sendEvent: ActivityAnalytics["sendEvent"] = (action) => {
     addPageAction<Action, P>(action, {
       object: "Polling",
       userId,

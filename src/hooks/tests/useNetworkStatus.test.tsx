@@ -9,14 +9,14 @@ const Provider = ({ children }) => (
 );
 
 describe("useNetworkStatus", () => {
-  it("useNetworkStatus should return true when the user's browser is online", async () => {
+  it("useNetworkStatus should return true when the user's browser is online", () => {
     const { result } = renderHook(() => useNetworkStatus(), {
       wrapper: Provider,
     });
     expect(result.current).toBe(true);
   });
 
-  it("useNetworkStatus should return false when the user's browser is offline", async () => {
+  it("useNetworkStatus should return false when the user's browser is offline", () => {
     const { result } = renderHook(() => useNetworkStatus(), {
       wrapper: Provider,
     });

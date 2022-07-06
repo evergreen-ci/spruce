@@ -9,14 +9,14 @@ const Provider = ({ children }) => (
 );
 
 describe("usePageVisibility", () => {
-  it("usePageVisibility should return true when user is viewing document", async () => {
+  it("usePageVisibility should return true when user is viewing document", () => {
     const { result } = renderHook(() => usePageVisibility(), {
       wrapper: Provider,
     });
     expect(result.current).toBe(true);
   });
 
-  it("usePageVisibility should return false when user is not viewing document", async () => {
+  it("usePageVisibility should return false when user is not viewing document", () => {
     const { result } = renderHook(() => usePageVisibility(), {
       wrapper: Provider,
     });
