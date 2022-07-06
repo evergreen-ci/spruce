@@ -50,7 +50,7 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
     });
   };
 
-  const { data, startPolling, stopPolling } = useQuery<
+  const { data, refetch, startPolling, stopPolling } = useQuery<
     PatchTasksQuery,
     PatchTasksQueryVariables
   >(GET_PATCH_TASKS, {
@@ -63,7 +63,7 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
       dispatchToast.error(`Error fetching patch tasks ${err}`);
     },
   });
-  usePolling(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling, refetch);
   const { patchTasks } = data || {};
   const { tasks } = patchTasks || {};
 

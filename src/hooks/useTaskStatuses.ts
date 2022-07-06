@@ -23,12 +23,12 @@ interface UseTaskStatusesResult {
 export const useTaskStatuses = ({
   versionId,
 }: UseTaskStatusesProps): UseTaskStatusesResult => {
-  const { data, startPolling, stopPolling } = useQuery<
+  const { data, refetch, startPolling, stopPolling } = useQuery<
     GetTaskStatusesQuery,
     GetTaskStatusesQueryVariables
   >(GET_TASK_STATUSES, { variables: { id: versionId }, pollInterval });
 
-  usePolling(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling, refetch);
 
   const { version } = data || {};
   const { taskStatuses, baseTaskStatuses } = version || {};

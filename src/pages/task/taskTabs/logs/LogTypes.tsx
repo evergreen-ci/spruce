@@ -60,14 +60,14 @@ export const AllLog: React.VFC<Props> = (props) => {
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
 
-  const { data, loading, error, startPolling, stopPolling } = useQuery<
+  const { data, loading, error, refetch, startPolling, stopPolling } = useQuery<
     AllLogsQuery,
     AllLogsQueryVariables
   >(GET_ALL_LOGS, {
     variables: { id, execution: selectedExecution },
     pollInterval,
   });
-  usePolling(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling, refetch);
 
   // All logs includes task, system, and agent logs. Event logs are not included.
   return useRenderBody({
@@ -83,14 +83,14 @@ export const EventLog: React.VFC<Props> = (props) => {
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
-  const { data, loading, error, startPolling, stopPolling } = useQuery<
+  const { data, loading, error, refetch, startPolling, stopPolling } = useQuery<
     TaskEventLogsQuery,
     TaskEventLogsQueryVariables
   >(GET_TASK_EVENT_LOGS, {
     variables: { id, execution: selectedExecution },
     pollInterval,
   });
-  usePolling(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling, refetch);
 
   return useRenderBody({
     data: get(data, "taskLogs.eventLogs", []).map((v: TaskEventLogEntry) => ({
@@ -109,14 +109,14 @@ export const SystemLog: React.VFC<Props> = (props) => {
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
-  const { data, loading, error, startPolling, stopPolling } = useQuery<
+  const { data, loading, error, refetch, startPolling, stopPolling } = useQuery<
     SystemLogsQuery,
     SystemLogsQueryVariables
   >(GET_SYSTEM_LOGS, {
     variables: { id, execution: selectedExecution },
     pollInterval,
   });
-  usePolling(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling, refetch);
 
   return useRenderBody({
     data: get(data, "taskLogs.systemLogs", []),
@@ -131,14 +131,14 @@ export const AgentLog: React.VFC<Props> = (props) => {
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
-  const { data, loading, error, startPolling, stopPolling } = useQuery<
+  const { data, loading, error, refetch, startPolling, stopPolling } = useQuery<
     AgentLogsQuery,
     AgentLogsQueryVariables
   >(GET_AGENT_LOGS, {
     variables: { id, execution: selectedExecution },
     pollInterval,
   });
-  usePolling(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling, refetch);
 
   return useRenderBody({
     data: get(data, "taskLogs.agentLogs", []),
@@ -153,14 +153,14 @@ export const TaskLog: React.VFC<Props> = (props) => {
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
-  const { data, loading, error, startPolling, stopPolling } = useQuery<
+  const { data, loading, error, refetch, startPolling, stopPolling } = useQuery<
     TaskLogsQuery,
     TaskLogsQueryVariables
   >(GET_TASK_LOGS, {
     variables: { id, execution: selectedExecution },
     pollInterval,
   });
-  usePolling(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling, refetch);
 
   return useRenderBody({
     data: get(data, "taskLogs.taskLogs", []),
