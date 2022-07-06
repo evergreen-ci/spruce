@@ -4,6 +4,8 @@ const getGeneralRoute = (identifier: string) =>
   `${getSettingsRoute(identifier)}/general`;
 const getGithubCommitQueueRoute = (identifier: string) =>
   `${getSettingsRoute(identifier)}/github-commitqueue`;
+const getNotificationsRoute = (identifier: string) =>
+  `${getSettingsRoute(identifier)}/notifications`;
 
 const project = "spruce";
 const projectUseRepoEnabled = "evergreen";
@@ -677,8 +679,8 @@ describe("Project Settings when defaulting to repo", () => {
         .parentsUntil("div")
         .first()
         .click({ force: true });
-      cy.get(".patch-alias-card-content").find("input").should("be.disabled");
-      cy.get(".patch-alias-card-content").find("button").should("be.disabled");
+      cy.dataCy("expandable-card").find("input").should("be.disabled");
+      cy.dataCy("expandable-card").find("button").should("be.disabled");
     });
 
     it("Allows adding a patch alias", () => {
@@ -891,5 +893,65 @@ describe("A project that has GitHub webhooks disabled", () => {
   it("Disables all interactive elements on the page", () => {
     cy.get("button").should("be.disabled");
     cy.get("input").should("be.disabled");
+  });
+});
+
+describe.only("Notifications", () => {
+  const destination = getNotificationsRoute("evergreen");
+  before(() => {
+    cy.login();
+    cy.visit(destination);
+  });
+  beforeEach(() => {
+    cy.preserveCookies();
+  });
+  it("shouldn't have any subscriptions defined", () => {
+    cy.contains("No subscriptions are defined.").should("exist");
+  });
+  it("shouldn't be able to save anything if no changes were made", () => {
+    cy.dataCy("save-settings-button").should("be.disabled");
+  });
+  it("should be able to add a subscription and save it", () => {
+    cy.dataCy("expandable-card").should("not.exist");
+    cy.dataCy("add-button").contains("Add Subscription").should("exist");
+    cy.dataCy("add-button").click();
+    cy.dataCy("expandable-card").should("contain.text", "New Subscription");
+    cy.getInputByLabel("Event").click();
+    cy.contains("Any Version Finishes").click();
+    cy.getInputByLabel("Notification Method").click();
+    cy.contains("Email").click();
+    cy.getInputByLabel("Email").type("mohamed.khelif@mongodb.com");
+    cy.dataCy("save-settings-button").scrollIntoView();
+    cy.dataCy("save-settings-button").should("not.be.disabled");
+    cy.dataCy("save-settings-button").click();
+    cy.dataCy("expandable-card").should(
+      "contain.text",
+      "Version outcome  - mohamed.khelif@mongodb.com"
+    );
+    cy.validateToast("success");
+  });
+  it("should be able to delete a subscription", () => {
+    cy.dataCy("expandable-card").should("exist");
+    cy.dataCy("expandable-card").scrollIntoView();
+    cy.dataCy("delete-item-button").click({ force: true });
+    cy.dataCy("expandable-card").should("not.exist");
+    cy.dataCy("save-settings-button").scrollIntoView();
+    cy.dataCy("save-settings-button").should("not.be.disabled");
+    cy.dataCy("save-settings-button").click();
+  });
+  it.only("shouldn't be able to save a subscription if an input is invalid", () => {
+    cy.dataCy("expandable-card").should("not.exist");
+    cy.dataCy("add-button").contains("Add Subscription").scrollIntoView();
+    cy.dataCy("add-button").contains("Add Subscription").should("exist");
+    cy.dataCy("add-button").click({ force: true });
+    cy.dataCy("expandable-card").should("contain.text", "New Subscription");
+    cy.getInputByLabel("Event").click();
+    cy.contains("Any Version Finishes").click();
+    cy.getInputByLabel("Notification Method").click();
+    cy.contains("Email").click();
+    cy.getInputByLabel("Email").type("Not a real email");
+    cy.contains("Value should be a valid email.").should("exist");
+    cy.dataCy("save-settings-button").scrollIntoView();
+    cy.dataCy("save-settings-button").should("be.disabled");
   });
 });
