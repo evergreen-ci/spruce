@@ -136,7 +136,7 @@
     "@graphql-codegen/cli": "1.19.4",
     "@graphql-codegen/typescript": "1.19.0",
     "@graphql-codegen/typescript-operations": "1.17.12",
-    "@graphql-eslint/eslint-plugin": "^3.10.2",
+    "@graphql-eslint/eslint-plugin": "^3.10.4",
     "@originjs/vite-plugin-commonjs": "^1.0.3",
     "@storybook/addon-actions": "^6.5.9",
     "@storybook/addon-essentials": "^6.5.9",
