@@ -16,7 +16,7 @@ describe("Task Action Buttons", () => {
       cy.dataCy("schedule-task").should("be.disabled");
     });
 
-    xit("Clicking Restart button should restart a task and display a success toast", () => {
+    it("Clicking Restart button should restart a task and display a success toast", () => {
       cy.visit(tasks[3]);
       cy.dataCy("restart-task").click();
       cy.validateToast("success", restartSuccessBannerText);
