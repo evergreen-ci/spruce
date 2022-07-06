@@ -19,7 +19,7 @@ import { HostStatus } from "types/host";
 export const SpawnHost = () => {
   const dispatchToast = useToastContext();
 
-  const { data, loading, startPolling, stopPolling } = useQuery<
+  const { data, loading, refetch, startPolling, stopPolling } = useQuery<
     MyHostsQuery,
     MyHostsQueryVariables
   >(GET_MY_HOSTS, {
@@ -30,7 +30,7 @@ export const SpawnHost = () => {
       );
     },
   });
-  usePolling(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling, refetch);
 
   usePageTitle("My Hosts");
 

@@ -7,13 +7,12 @@ import { getVersionRoute, getTaskRoute } from "constants/routes";
 import { size, zIndex } from "constants/tokens";
 import { UpstreamProjectFragment } from "gql/generated/types";
 import { useSpruceConfig } from "hooks";
+import { useUserTimeZone } from "hooks/useUserTimeZone";
 import { ProjectTriggerLevel } from "types/triggers";
-import { string } from "utils";
-import { shortenGithash } from "utils/string";
+import { getDateCopy, shortenGithash } from "utils/string";
 import { jiraLinkify } from "utils/string/jiraLinkify";
 
 const { gray } = uiColors;
-const { shortDate } = string;
 const MAX_CHAR = 40;
 interface Props {
   githash: string;
@@ -38,6 +37,7 @@ const CommitChartLabel: React.VFC<Props> = ({
   onClickUpstreamProject = () => {},
   upstreamProject,
 }) => {
+  const tz = useUserTimeZone();
   const createDate = new Date(createTime);
   const shortenMessage = message.length > MAX_CHAR;
   const shortenedMessage = message.substring(0, MAX_CHAR - 3).concat("...");
@@ -58,7 +58,7 @@ const CommitChartLabel: React.VFC<Props> = ({
         >
           {shortenGithash(githash)}
         </StyledRouterLink>{" "}
-        <b>{shortDate(createDate)}</b>
+        <b>{getDateCopy(createDate, { omitSeconds: true, tz })}</b>
       </LabelText>
       {upstreamProject && (
         <LabelText>

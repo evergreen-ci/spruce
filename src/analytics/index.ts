@@ -13,5 +13,5 @@ export { useAnalyticsAttributes } from "./useAnalyticsAttributes";
 export { useSpawnAnalytics } from "./spawn/useSpawnAnalytics";
 export { usePreferencesAnalytics } from "./preferences/usePreferencesAnalytics";
 export { useJobLogsAnalytics } from "./joblogs/useJobLogsAnalytics";
-export { usePollingAnalytics } from "./polling/usePollingAnalytics";
+export { useActivityAnalytics } from "./activity/useActivityAnalytics";
 export { useProjectSettingsAnalytics } from "./projectSettings/useProjectSettingsAnalytics";

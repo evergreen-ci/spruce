@@ -22,7 +22,6 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     deactivatePrevious: null,
     repotrackerDisabled: null,
     defaultLogger: null,
-    cedarTestResultsEnabled: null,
     patchingDisabled: null,
     taskSync: {
       configEnabled: null,
@@ -130,7 +129,6 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     repotrackerDisabled: false,
     notifyOnBuildFailure: false,
     defaultLogger: "buildlogger",
-    cedarTestResultsEnabled: false,
     patchingDisabled: false,
     taskSync: {
       configEnabled: true,

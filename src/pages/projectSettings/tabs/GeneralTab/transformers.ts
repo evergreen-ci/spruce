@@ -52,9 +52,6 @@ export const gqlToForm: GqlToFormFunction<Tab> = (
       logger: {
         defaultLogger: projectRef.defaultLogger,
       },
-      testResults: {
-        cedarTestResultsEnabled: projectRef.cedarTestResultsEnabled,
-      },
       patch: {
         patchingDisabled: projectRef.patchingDisabled,
       },
@@ -104,7 +101,6 @@ export const formToGql: FormToGqlFunction<Tab> = (
     deactivatePrevious: projectFlags.scheduling.deactivatePrevious,
     repotrackerDisabled: projectFlags.repotracker.repotrackerDisabled,
     defaultLogger: projectFlags.logger.defaultLogger,
-    cedarTestResultsEnabled: projectFlags.testResults.cedarTestResultsEnabled,
     patchingDisabled: projectFlags.patch.patchingDisabled,
     taskSync: {
       configEnabled: projectFlags.taskSync.configEnabled,

@@ -9,10 +9,10 @@ import {
   GetTaskAllExecutionsQueryVariables,
 } from "gql/generated/types";
 import { GET_TASK_ALL_EXECUTIONS } from "gql/queries";
+import { useUserTimeZone } from "hooks/useUserTimeZone";
 import { executionAsDisplay } from "pages/task/util/execution";
-import { string } from "utils";
+import { getDateCopy } from "utils/string";
 
-const { shortDate } = string;
 interface ExecutionSelectProps {
   id: string;
   currentExecution: number;
@@ -35,6 +35,7 @@ export const ExecutionSelect: React.VFC<ExecutionSelectProps> = ({
   const allExecutions = allExecutionsResult?.data?.taskAllExecutions;
   const executionsLoading = allExecutionsResult?.loading;
   const { Option } = Select;
+  const tz = useUserTimeZone();
 
   return (
     <StyledSelect
@@ -59,8 +60,9 @@ export const ExecutionSelect: React.VFC<ExecutionSelectProps> = ({
             <StyledTaskStatusIcon status={singleExecution.status} />
             <StyledP1>
               Execution {executionAsDisplay(singleExecution.execution)} -{" "}
-              {shortDate(
-                singleExecution.activatedTime ?? singleExecution.ingestTime
+              {getDateCopy(
+                singleExecution.activatedTime ?? singleExecution.ingestTime,
+                { tz }
               )}
             </StyledP1>
           </Row>
