@@ -1,25 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`storybook Storyshots Components/Schedule Tasks Schedule Tasks Empty 1`] = `
-<button
-  aria-disabled={false}
-  className="leafygreen-ui-1jc9h6q"
-  data-cy="schedule-patch"
-  disabled={false}
-  onClick={[Function]}
-  type="button"
->
-  <div
-    className="leafygreen-ui-1ktj4tm"
-  />
-  <div
-    className="leafygreen-ui-ie0uqp"
-  >
-    Schedule
-  </div>
-</button>
-`;
-
 exports[`storybook Storyshots Components/Schedule Tasks Schedule Tasks Populated 1`] = `
 <button
   aria-disabled={false}
