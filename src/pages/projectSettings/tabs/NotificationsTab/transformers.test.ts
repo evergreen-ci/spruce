@@ -1,20 +1,10 @@
-import { ProjectSettingsInput, RepoSettingsInput } from "gql/generated/types";
+import { ProjectSettingsInput } from "gql/generated/types";
 import { data } from "../testData";
 import { formToGql, gqlToForm } from "./transformers";
 
 import { FormState } from "./types";
 
-const { projectBase, repoBase } = data;
-
-describe("repo data", () => {
-  it("correctly converts from GQL to a form", () => {
-    expect(gqlToForm(repoBase)).toStrictEqual(repoForm);
-  });
-
-  it("correctly converts from a form to GQL", () => {
-    expect(formToGql(repoForm, "repo")).toStrictEqual(repoResult);
-  });
-});
+const { projectBase } = data;
 
 describe("project data", () => {
   it("correctly converts from GQL to a form", () => {
@@ -22,6 +12,49 @@ describe("project data", () => {
   });
 
   it("correctly converts from a form to GQL", () => {
+    expect(formToGql(projectForm, "project")).toStrictEqual(projectResult);
+    projectForm.subscriptions = [
+      {
+        subscriptionData: {
+          event: {
+            extraFields: {
+              requester: "gitter_request",
+            },
+            eventSelect: "any-version-finishes",
+          },
+          notification: {
+            notificationSelect: "jira-comment",
+            jiraCommentInput: "evg-123",
+          },
+        },
+        subscriberData: {},
+      },
+    ];
+    projectResult.subscriptions = [
+      {
+        owner_type: "person",
+        regex_selectors: [],
+        resource_type: "VERSION",
+        selectors: [
+          {
+            type: "object",
+            data: "version",
+          },
+          {
+            type: "id",
+            data: "project",
+          },
+        ],
+        subscriber: {
+          type: "jira-comment",
+          target: "evg-123",
+        },
+        trigger: "outcome",
+        trigger_data: {
+          requester: "gitter_request",
+        },
+      },
+    ];
     expect(formToGql(projectForm, "project")).toStrictEqual(projectResult);
   });
 });
@@ -89,23 +122,10 @@ const projectForm: FormState = {
   subscriptions: [],
 };
 
-const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
+const projectResult: ProjectSettingsInput = {
   projectRef: {
     id: "project",
     notifyOnBuildFailure: null,
   },
-};
-
-const repoForm: FormState = {
-  buildBreakSettings: {
-    notifyOnBuildFailure: false,
-  },
   subscriptions: [],
-};
-
-const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
-  projectRef: {
-    id: "repo",
-    notifyOnBuildFailure: false,
-  },
 };

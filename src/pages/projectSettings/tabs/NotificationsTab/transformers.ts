@@ -161,7 +161,6 @@ export const formToGql: FormToGqlFunction<Tab> = (
     id,
     notifyOnBuildFailure: buildBreakSettings.notifyOnBuildFailure,
   };
-
   const transformedSubscriptions: SubscriptionInput[] = subscriptions.map(
     ({ subscriptionData }) =>
       getGqlPayload(projectTriggers, "project", subscriptionData)

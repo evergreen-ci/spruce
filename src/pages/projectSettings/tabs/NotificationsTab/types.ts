@@ -7,30 +7,30 @@ export interface FormState {
   };
   subscriptions: Array<{
     subscriptionData: {
-      event: {
-        eventSelect: string;
-        extraFields: { [key: string]: string };
-        regexSelector: FormRegexSelector[];
+      event?: {
+        eventSelect?: string;
+        extraFields?: { [key: string]: string };
+        regexSelector?: FormRegexSelector[];
       };
-      notification: {
-        notificationSelect: string;
-        jiraCommentInput: string;
-        slackInput: string;
-        emailInput: string;
-        jiraIssueInput: {
-          projectInput: string;
-          issueInput: string;
+      notification?: {
+        notificationSelect?: string;
+        jiraCommentInput?: string;
+        slackInput?: string;
+        emailInput?: string;
+        jiraIssueInput?: {
+          projectInput?: string;
+          issueInput?: string;
         };
-        webhookInput: {
-          urlInput: string;
-          secretInput: string;
-          httpHeaders: { [key: string]: string }[];
+        webhookInput?: {
+          urlInput?: string;
+          secretInput?: string;
+          httpHeaders?: { [key: string]: string }[];
         };
       };
     };
     subscriberData: {
-      subscriberType: string;
-      subscriberName: string;
+      subscriberType?: string;
+      subscriberName?: string;
     };
   }> | null;
 }
