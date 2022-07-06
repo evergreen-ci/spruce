@@ -320,7 +320,7 @@ describe("Project Settings when not defaulting to repo", () => {
     });
   });
 
-  describe.only("Variables page", () => {
+  describe("Variables page", () => {
     before(() => {
       cy.dataCy("navitem-variables").click();
     });
