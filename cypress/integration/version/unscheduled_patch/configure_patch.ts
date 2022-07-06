@@ -520,7 +520,7 @@ describe("Configure Patch Page", () => {
   });
 
   //   Using mocked responses because we are unable to schedule a patch because of a missing github token
-  describe.only("Scheduling a patch", () => {
+  describe("Scheduling a patch", () => {
     beforeEach(() => {
       cy.server();
       cy.visit(`/patch/${unactivatedPatchId}`);
