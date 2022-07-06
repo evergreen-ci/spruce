@@ -9,6 +9,7 @@ import { StyledRouterLink } from "components/styles";
 import { getVersionRoute, getTaskRoute } from "constants/routes";
 import { size, zIndex, fontSize } from "constants/tokens";
 import { useSpruceConfig } from "hooks";
+import { useUserTimeZone } from "hooks/useUserTimeZone";
 import { CommitRolledUpVersions } from "types/commits";
 import { ProjectTriggerLevel } from "types/triggers";
 import { Unpacked } from "types/utils";
@@ -130,7 +131,7 @@ const CommitCopy = ({
   isTooltip: boolean;
 }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
-
+  const tz = useUserTimeZone();
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
   const message = isTooltip
@@ -151,7 +152,7 @@ const CommitCopy = ({
         >
           {shortenGithash(v.revision)}
         </StyledRouterLink>{" "}
-        {getDateCopy(v.createTime)}
+        {getDateCopy(v.createTime, { tz })}
       </CommitTitleText>
       {v.upstreamProject && (
         <>
