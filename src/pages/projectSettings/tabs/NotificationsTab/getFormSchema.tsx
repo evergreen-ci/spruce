@@ -77,7 +77,7 @@ export const getFormSchema = (
         },
       },
       subscriptions: {
-        "ui:placeholder": "No subscription are defined.",
+        "ui:placeholder": "No subscriptions are defined.",
         "ui:addButtonText": "Add Subscription",
         "ui:orderable": false,
         "ui:useExpandableCard": true,
