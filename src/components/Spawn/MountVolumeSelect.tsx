@@ -33,7 +33,7 @@ export const MountVolumeSelect = ({
 }: Props) => {
   const dispatchToast = useToastContext();
   const [hostOptions, setHostOptions] = useState<HostOption[]>([]); // dropdown option
-  const { data, startPolling, stopPolling } = useQuery<
+  const { data, refetch, startPolling, stopPolling } = useQuery<
     MyHostsQuery,
     MyHostsQueryVariables
   >(GET_MY_HOSTS, {
@@ -42,7 +42,7 @@ export const MountVolumeSelect = ({
       dispatchToast.error(`There was an error loading hosts: ${e.message}`);
     },
   });
-  usePolling(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling, refetch);
 
   // set host dropdown options
   useEffect(() => {

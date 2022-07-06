@@ -39,12 +39,10 @@ class DefaultErrorBoundary extends Component<{}, { hasError: boolean }> {
   }
 }
 
-const getBoundary = () => {
-  if (bugsnagStarted && Bugsnag.getPlugin("react")) {
-    return Bugsnag.getPlugin("react").createErrorBoundary(React);
-  }
-  return DefaultErrorBoundary;
-};
+const getBoundary = () =>
+  bugsnagStarted && Bugsnag.getPlugin("react")
+    ? Bugsnag.getPlugin("react").createErrorBoundary(React)
+    : DefaultErrorBoundary;
 
 const initializeBugsnag = () => {
   // Only need to Bugsnag.start once, will throw console warnings otherwise

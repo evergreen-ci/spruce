@@ -251,6 +251,11 @@ describe("getDateCopy", () => {
       "Nov 16, 2020, 5:17:29 PM"
     );
   });
+  it("doesn't return seconds when omitSeconds option is true", () => {
+    expect(getDateCopy("2020-11-16T22:17:29", { omitSeconds: true })).toBe(
+      "Nov 16, 2020, 10:17 PM"
+    );
+  });
   it("returns date only when supplied with the option", () => {
     expect(
       getDateCopy(new Date("2020-11-16T22:17:29z"), { dateOnly: true })

@@ -123,14 +123,14 @@ export const TestsTable: React.VFC = () => {
     }),
   }));
 
-  const { data, loading, startPolling, stopPolling } = useQuery<
+  const { data, loading, refetch, startPolling, stopPolling } = useQuery<
     TaskTestsQuery,
     TaskTestsQueryVariables
   >(GET_TASK_TESTS, {
     variables: queryVariables,
     pollInterval,
   });
-  usePolling(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling, refetch);
 
   // update url query params when user event triggers change
   const tableChangeHandler: TableOnChange<TestResult> = (...[, , sorter]) => {
