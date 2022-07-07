@@ -30,37 +30,37 @@ describe("Task table", () => {
       "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
     );
 
-    cy.get("th.cy-task-table-col-NAME").click();
+    cy.get("th.cy-task-table-col-NAME").click({ force: true });
     cy.location("search").should(
       "contain",
       "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BNAME%3AASC"
     );
 
-    cy.get("th.cy-task-table-col-NAME").click();
+    cy.get("th.cy-task-table-col-NAME").click({ force: true });
     cy.location("search").should(
       "contain",
       "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BNAME%3ADESC"
     );
 
-    cy.get("th.cy-task-table-col-NAME").click();
+    cy.get("th.cy-task-table-col-NAME").click({ force: true });
     cy.location("search").should(
       "contain",
       "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
     );
 
-    cy.get("th.cy-task-table-col-VARIANT").click();
+    cy.get("th.cy-task-table-col-VARIANT").click({ force: true });
     cy.location("search").should(
       "contain",
       "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BVARIANT%3AASC"
     );
 
-    cy.get("th.cy-task-table-col-VARIANT").click();
+    cy.get("th.cy-task-table-col-VARIANT").click({ force: true });
     cy.location("search").should(
       "contain",
       "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BVARIANT%3ADESC"
     );
 
-    cy.get("th.cy-task-table-col-VARIANT").click();
+    cy.get("th.cy-task-table-col-VARIANT").click({ force: true });
     cy.location("search").should(
       "contain",
       "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
