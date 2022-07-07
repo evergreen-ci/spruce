@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import { Skeleton } from "antd";
 import { useParams, useLocation } from "react-router-dom";
 import { pollInterval } from "constants/index";
 import { useToastContext } from "context/toast";
@@ -28,7 +27,7 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
   const updateQueryParams = useUpdateURLQueryParams();
 
   const queryVariables = useQueryVariables(search, id);
-  const noQueryVariables = !Object.keys(parseQueryString(search)).length;
+  const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
   const { sorts, limit, page } = queryVariables;
 
   useEffect(() => {
@@ -50,15 +49,14 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
     });
   };
 
-  const { data, refetch, startPolling, stopPolling } = useQuery<
+  const { data, loading, refetch, startPolling, stopPolling } = useQuery<
     PatchTasksQuery,
     PatchTasksQueryVariables
   >(GET_PATCH_TASKS, {
     variables: queryVariables,
-    skip: noQueryVariables,
     pollInterval,
-    fetchPolicy: "network-only",
-    nextFetchPolicy: "cache-and-network",
+    skip: !hasQueryVariables,
+    fetchPolicy: "cache-and-network",
     onError: (err) => {
       dispatchToast.error(`Error fetching patch tasks ${err}`);
     },
@@ -66,7 +64,6 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
   usePolling(startPolling, stopPolling, refetch);
   const { patchTasks } = data || {};
   const { tasks } = patchTasks || {};
-
   return (
     <>
       <TableControl
@@ -76,11 +73,7 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
         page={page}
         onClear={clearQueryParams}
       />
-      {!data ? (
-        <Skeleton active title={false} paragraph={{ rows: 8 }} />
-      ) : (
-        <PatchTasksTable sorts={sorts} tasks={tasks} />
-      )}
+      <PatchTasksTable sorts={sorts} tasks={tasks} loading={loading} />
     </>
   );
 };

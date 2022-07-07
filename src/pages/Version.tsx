@@ -46,6 +46,21 @@ export const VersionPage: React.VFC = () => {
   const [redirectURL, setRedirectURL] = useState(undefined);
   const [isLoadingData, setIsLoadingData] = useState(true);
 
+  const [
+    getVersion,
+    { data, error: versionError, refetch, startPolling, stopPolling },
+  ] = useLazyQuery<VersionQuery, VersionQueryVariables>(GET_VERSION, {
+    variables: { id },
+    pollInterval,
+    fetchPolicy: "cache-and-network",
+    onError: (e) => {
+      dispatchToast.error(
+        `There was an error loading the version: ${e.message}`
+      );
+      setIsLoadingData(false);
+    },
+  });
+
   const { error: hasVersionError } = useQuery<
     GetHasVersionQuery,
     GetHasVersionQueryVariables
@@ -87,21 +102,6 @@ export const VersionPage: React.VFC = () => {
     },
   });
 
-  const [
-    getVersion,
-    { data, error: versionError, refetch, startPolling, stopPolling },
-  ] = useLazyQuery<VersionQuery, VersionQueryVariables>(GET_VERSION, {
-    variables: { id },
-    pollInterval,
-    fetchPolicy: "network-only",
-    nextFetchPolicy: "cache-and-network",
-    onError: (e) => {
-      dispatchToast.error(
-        `There was an error loading the version: ${e.message}`
-      );
-      setIsLoadingData(false);
-    },
-  });
   usePolling(startPolling, stopPolling, refetch, false);
 
   // Decide where to redirect the user based off of whether or not the patch has been activated
@@ -117,6 +117,8 @@ export const VersionPage: React.VFC = () => {
         setRedirectURL(getCommitQueueRoute(projectID));
         setIsLoadingData(false);
       } else {
+        console.log("Calling getVersion");
+        console.log({ getVersion });
         getVersion({ variables: { id } });
       }
     }
