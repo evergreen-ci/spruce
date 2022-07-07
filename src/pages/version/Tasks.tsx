@@ -63,7 +63,7 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
   });
   usePolling(startPolling, stopPolling, refetch);
   const { patchTasks } = data || {};
-  const { tasks } = patchTasks || { tasks: [] };
+  const { tasks = [] } = patchTasks || {};
   return (
     <>
       <TableControl

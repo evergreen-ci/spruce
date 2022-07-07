@@ -60,6 +60,7 @@ export const VersionPage: React.VFC = () => {
       setIsLoadingData(false);
     },
   });
+  usePolling(startPolling, stopPolling, refetch, false);
 
   const { error: hasVersionError } = useQuery<
     GetHasVersionQuery,
@@ -102,8 +103,6 @@ export const VersionPage: React.VFC = () => {
     },
   });
 
-  usePolling(startPolling, stopPolling, refetch, false);
-
   // Decide where to redirect the user based off of whether or not the patch has been activated
   // If this patch is activated and not on the commit queue we can safely fetch the associated version
   useEffect(() => {
@@ -117,8 +116,6 @@ export const VersionPage: React.VFC = () => {
         setRedirectURL(getCommitQueueRoute(projectID));
         setIsLoadingData(false);
       } else {
-        console.log("Calling getVersion");
-        console.log({ getVersion });
         getVersion({ variables: { id } });
       }
     }

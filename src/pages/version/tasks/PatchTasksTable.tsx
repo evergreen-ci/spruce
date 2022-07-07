@@ -21,7 +21,7 @@ interface Props {
 }
 
 export const PatchTasksTable: React.VFC<Props> = ({
-  tasks = [],
+  tasks,
   sorts,
   loading,
 }) => {

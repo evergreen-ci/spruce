@@ -29,7 +29,7 @@ const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
   const updateQueryParams = useUpdateURLQueryParams();
 
   const queryVariables = useQueryVariables(search, id);
-  const noQueryVariables = !Object.keys(parseQueryString(search)).length;
+  const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
   const { limit, page } = queryVariables;
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
     PatchTaskDurationsQueryVariables
   >(GET_PATCH_TASK_DURATIONS, {
     variables: queryVariables,
-    skip: noQueryVariables,
+    skip: !hasQueryVariables,
     pollInterval,
     onError: (err) => {
       dispatchToast.error(`Error fetching patch tasks ${err}`);
