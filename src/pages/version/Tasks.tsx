@@ -49,7 +49,7 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
     });
   };
 
-  const { data, refetch, startPolling, stopPolling } = useQuery<
+  const { data, loading, refetch, startPolling, stopPolling } = useQuery<
     PatchTasksQuery,
     PatchTasksQueryVariables
   >(GET_PATCH_TASKS, {
@@ -76,7 +76,7 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
       <PatchTasksTable
         sorts={sorts}
         tasks={tasks}
-        loading={tasks.length === 0}
+        loading={tasks.length === 0 && loading}
       />
     </>
   );
