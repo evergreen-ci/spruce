@@ -2,7 +2,7 @@ import { render, queries, within, screen } from "@testing-library/react";
 import type {
   RenderResult,
   RenderOptions,
-  Screen,
+  BoundFunctions,
 } from "@testing-library/react";
 import { createMemoryHistory } from "history";
 import {
@@ -83,7 +83,7 @@ const boundQueries = Object.entries(customQueries).reduce(
     return q;
   },
   {}
-) as Screen<CustomQueriesType>;
+) as BoundFunctions<CustomQueriesType>;
 const customScreen = { ...screen, ...boundQueries };
 
 /** mockUUID mocks the implementation of the uuid library and provides an implementation that can be used in tests */
