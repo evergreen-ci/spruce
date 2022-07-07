@@ -17,9 +17,14 @@ const { toSortString } = queryString;
 interface Props {
   tasks: PatchTasksQuery["patchTasks"]["tasks"];
   sorts: SortOrder[];
+  loading: boolean;
 }
 
-export const PatchTasksTable: React.VFC<Props> = ({ tasks, sorts }) => {
+export const PatchTasksTable: React.VFC<Props> = ({
+  tasks,
+  sorts,
+  loading,
+}) => {
   const { id: versionId } = useParams<{ id: string }>();
   const updateQueryParams = useUpdateURLQueryParams();
   const { sendEvent } = useVersionAnalytics(versionId);
@@ -84,6 +89,7 @@ export const PatchTasksTable: React.VFC<Props> = ({ tasks, sorts }) => {
       sorts={sorts}
       tableChangeHandler={tableChangeHandler}
       tasks={tasks}
+      loading={loading}
       onExpand={(expanded) => {
         sendEvent({
           name: "Toggle Display Task Dropdown",

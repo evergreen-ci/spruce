@@ -113,10 +113,7 @@ describe("spawnVolumeModal", () => {
       <SpawnVolumeModal visible onCancel={() => {}} />
     );
     const { queryByText, queryByDataCy } = render(
-      <MockedProvider
-        addTypename={false}
-        mocks={[...baseMocks, spawnVolumeMutation]}
-      >
+      <MockedProvider mocks={[...baseMocks, spawnVolumeMutation]}>
         <Component />
       </MockedProvider>
     );
@@ -130,7 +127,6 @@ describe("spawnVolumeModal", () => {
     fireEvent.click(queryByDataCy("i-00b212e96b3f91079-option"));
     fireEvent.click(queryByText("Spawn"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
-    await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
   });
 });
 
@@ -292,6 +288,7 @@ const userMock = {
       user: {
         userId: "a",
         displayName: "A",
+        emailAddress: "a@mongodb.com",
       },
     },
   },
