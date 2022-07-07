@@ -166,8 +166,9 @@ describe("Hosts page filtering from table filters", () => {
     cy.visit(`${hostsRoute}?limit=100&page=0`);
     cy.dataCy("hosts-table").should("be.visible");
     cy.dataCy("hosts-table").should("not.have.attr", "data-loading", "true");
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(500);
+    cy.dataCy(distroFilterIconDataCy)
+      .should("be.visible")
+      .should("not.be.disabled");
   });
 
   it("Filters hosts with input value when Enter key is pressed", () => {
