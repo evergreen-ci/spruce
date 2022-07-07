@@ -88,7 +88,7 @@ describe("Action Buttons", () => {
         cy.visit(versionPath(mainlineCommit));
       });
       beforeEach(() => {
-        cy.dataCy("ellipsis-btn").click();
+        cy.dataCy("ellipsis-btn").click({ force: true });
         cy.dataCy("card-dropdown").should("be.visible");
       });
       afterEach(() => {
