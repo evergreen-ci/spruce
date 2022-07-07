@@ -49,7 +49,7 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
     });
   };
 
-  const { data, loading, refetch, startPolling, stopPolling } = useQuery<
+  const { data, refetch, startPolling, stopPolling } = useQuery<
     PatchTasksQuery,
     PatchTasksQueryVariables
   >(GET_PATCH_TASKS, {
@@ -63,7 +63,7 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
   });
   usePolling(startPolling, stopPolling, refetch);
   const { patchTasks } = data || {};
-  const { tasks } = patchTasks || {};
+  const { tasks } = patchTasks || { tasks: [] };
   return (
     <>
       <TableControl
@@ -73,7 +73,11 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
         page={page}
         onClear={clearQueryParams}
       />
-      <PatchTasksTable sorts={sorts} tasks={tasks} loading={loading} />
+      <PatchTasksTable
+        sorts={sorts}
+        tasks={tasks}
+        loading={tasks.length === 0}
+      />
     </>
   );
 };
