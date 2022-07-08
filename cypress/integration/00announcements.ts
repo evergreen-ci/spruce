@@ -1,5 +1,3 @@
-// / <reference types="Cypress" />
-
 describe("Announcement overlays", () => {
   before(() => {
     cy.login();

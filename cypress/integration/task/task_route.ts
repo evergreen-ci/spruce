@@ -1,5 +1,3 @@
-// / <reference types="Cypress" />
-
 describe("Task Page Route", () => {
   before(() => {
     cy.login();

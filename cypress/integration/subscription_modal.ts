@@ -1,4 +1,3 @@
-// / <reference types="Cypress" />
 import { mockErrorResponse } from "../utils/mockErrorResponse";
 import { openSubscriptionModal } from "../utils/subscriptionModal";
 import { selectAntdOption } from "../utils";

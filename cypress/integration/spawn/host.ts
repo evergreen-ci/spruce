@@ -1,5 +1,3 @@
-// / <reference types="Cypress" />
-
 const hostTableRow = ".ant-table-row";
 const hostColumnHeader = ".ant-table-thead > tr > :nth-child(2)";
 

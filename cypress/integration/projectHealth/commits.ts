@@ -1,5 +1,3 @@
-// / <reference types="Cypress" />
-
 describe("commits page", () => {
   before(() => {
     cy.login();

@@ -1,5 +1,3 @@
-// / <reference types="Cypress" />
-// / <reference path="../../support/index.d.ts" />
 import { mockErrorResponse } from "../../utils/mockErrorResponse";
 import { popconfirmYesClassName } from "../../utils/popconfirm";
 

@@ -1,5 +1,3 @@
-// / <reference types="Cypress" />
-
 describe("task history", () => {
   before(() => {
     cy.login();

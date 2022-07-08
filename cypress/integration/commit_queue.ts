@@ -1,5 +1,3 @@
-// / <reference types="Cypress" />
-
 const commitQueue = {
   id1: "mongodb-mongo-master",
   id2: "mongodb-mongo-test",

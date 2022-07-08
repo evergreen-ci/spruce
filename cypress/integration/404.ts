@@ -1,5 +1,3 @@
-// / <reference types="Cypress" />
-
 describe("404 Page", () => {
   it("Displays 404 page for routes that do not exist when user is logged in.", () => {
     cy.login();

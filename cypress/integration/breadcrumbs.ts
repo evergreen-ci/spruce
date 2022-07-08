@@ -1,5 +1,3 @@
-// / <reference types="Cypress" />
-
 describe("Viewing a patch", () => {
   before(() => {
     cy.login();

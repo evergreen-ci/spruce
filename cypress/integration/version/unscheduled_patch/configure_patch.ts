@@ -1,8 +1,5 @@
-// / <reference types="Cypress" />
-
 import { hasOperationName, GQL_URL } from "../../../utils/graphql-test-utils";
 
-// / <reference path="../../support/index.d.ts" />
 const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
 const patchWithDisplayTasks = "5e6bb9e23066155a993e0f1b";
 describe("Configure Patch Page", () => {

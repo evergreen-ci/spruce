@@ -1,5 +1,3 @@
-// / <reference types="Cypress" />
-
 describe("Navigating to Spawn Host and Spawn Volume pages", () => {
   before(() => {
     cy.login();

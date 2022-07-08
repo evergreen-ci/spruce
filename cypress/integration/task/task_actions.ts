@@ -1,4 +1,3 @@
-// / <reference types="Cypress" />
 import { popconfirmYesClassName } from "../../utils/popconfirm";
 
 describe("Task Action Buttons", () => {

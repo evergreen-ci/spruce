@@ -1,5 +1,3 @@
-// / <reference types="Cypress" />
-
 describe("variant history", () => {
   before(() => {
     cy.login();

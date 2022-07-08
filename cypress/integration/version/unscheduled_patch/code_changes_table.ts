@@ -1,6 +1,3 @@
-// / <reference types="Cypress" />
-// / <reference path="../support/index.d.ts" />
-
 const patchId = "5ecedafb562343215a7ff297";
 
 describe("Code Changes Table", () => {

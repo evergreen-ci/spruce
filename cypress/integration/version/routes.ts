@@ -1,6 +1,3 @@
-// / <reference types="Cypress" />
-// / <reference path="../support/index.d.ts" />
-
 const versions = {
   0: "5ecedafb562343215a7ff297", // normal patch
   1: "i-dont-exist", // non existent patch

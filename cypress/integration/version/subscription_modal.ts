@@ -1,5 +1,3 @@
-// / <reference types="Cypress" />
-
 import { openSubscriptionModal } from "../../utils/subscriptionModal";
 import { selectAntdOption } from "../../utils";
 

@@ -1,6 +1,3 @@
-// /<reference types="Cypress" />
-// /<reference path="../support/index.d.ts" />
-
 import { clickOnPageSizeBtnAndAssertURLandTableSize } from "../../utils";
 
 const pathTasks = `/version/5e4ff3abe3c3317e352062e4/tasks`;

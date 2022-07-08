@@ -1,5 +1,3 @@
-// / <reference types="Cypress" />
-
 describe("Navigating to Spawn Volume page", () => {
   before(() => {
     cy.login();

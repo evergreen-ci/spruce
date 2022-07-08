@@ -1,5 +1,3 @@
-// / <reference types="Cypress" />
-
 describe("Restarting a patch with Downstream Tasks", () => {
   before(() => {
     cy.login();
