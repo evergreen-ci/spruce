@@ -376,7 +376,6 @@ describe("Project Settings when not defaulting to repo", () => {
     it("Should show three populated fields when navigating back from another page", () => {
       cy.dataCy("navitem-access").click();
       cy.dataCy("navitem-variables").click();
-      cy.dataCy("var-name-input").should("be.visible");
       cy.dataCy("var-name-input")
         .should("be.visible")
         .and(($input) => {
