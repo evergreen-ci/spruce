@@ -1,5 +1,22 @@
-import { Subset } from "types/utils";
+import { Subset, Unpacked } from "types/utils";
 import { ProjectType } from "../utils/types";
+
+export type Notification = {
+  notificationSelect: string;
+  jiraCommentInput: string;
+  slackInput: string;
+  emailInput: string;
+  jiraIssueInput: {
+    projectInput: string;
+    issueInput: string;
+  };
+  webhookInput: {
+    urlInput: string;
+    secretInput: string;
+    httpHeaders: { [key: string]: string }[];
+  };
+};
+
 export interface FormState {
   buildBreakSettings: {
     notifyOnBuildFailure: boolean | null;
@@ -12,29 +29,20 @@ export interface FormState {
           extraFields: { [key: string]: string };
           regexSelector: FormRegexSelector[];
         };
-        notification?: {
-          notificationSelect?: string;
-          jiraCommentInput?: string;
-          slackInput?: string;
-          emailInput?: string;
-          jiraIssueInput?: {
-            projectInput?: string;
-            issueInput?: string;
-          };
-          webhookInput?: {
-            urlInput?: string;
-            secretInput?: string;
-            httpHeaders?: { [key: string]: string }[];
-          };
-        };
+        notification: Notification;
       };
       subscriberData: {
-        subscriberType?: string;
-        subscriberName?: string;
+        subscriberType: string;
+        subscriberName: string;
       };
     }>
   > | null;
 }
+
+// This utils file contains functions used to process the form state.
+export type SubscriptionData = Unpacked<
+  FormState["subscriptions"]
+>["subscriptionData"];
 
 export type TabProps = {
   projectData?: FormState;

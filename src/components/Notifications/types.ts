@@ -8,15 +8,15 @@ export interface FormRegexSelector {
 }
 
 export interface FormState {
-  event?: {
-    eventSelect?: string;
-    extraFields?: FormExtraFields;
-    regexSelector?: FormRegexSelector[];
+  event: {
+    eventSelect: string;
+    extraFields: FormExtraFields;
+    regexSelector: FormRegexSelector[];
   };
-  notification?: {
-    notificationSelect?: string;
-    jiraCommentInput?: string;
-    slackInput?: string;
-    emailInput?: string;
+  notification: {
+    notificationSelect: string;
+    jiraCommentInput: string;
+    slackInput: string;
+    emailInput: string;
   };
 }
