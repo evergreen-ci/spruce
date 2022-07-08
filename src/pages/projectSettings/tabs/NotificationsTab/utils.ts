@@ -3,13 +3,12 @@ import { SubscriptionInput } from "gql/generated/types";
 import { NotificationMethods } from "types/subscription";
 import { ExtraField } from "types/triggers";
 import { Unpacked } from "types/utils";
-import { FormState, FormExtraFields, FormRegexSelector } from "./types";
-// This utils file contains functions used to process the form state.
-type SubscriptionData = Unpacked<
-  FormState["subscriptions"]
->["subscriptionData"];
-
-type Notification = SubscriptionData["notification"];
+import {
+  FormState,
+  FormExtraFields,
+  FormRegexSelector,
+  Notification,
+} from "./types";
 
 const getTargetForMethod = (method: string, notification: Notification) => {
   switch (method) {
@@ -106,7 +105,7 @@ export const getGqlPayload = (
   );
 
   const method = subscriptionData.notification.notificationSelect;
-  const subscriber = getTargetForMethod(method, subscriptionData.notification);
+  const subscriber = getTargetForMethod(method, subscriptionData?.notification);
   return {
     trigger,
     resource_type: resourceType,

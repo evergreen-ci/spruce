@@ -1,7 +1,7 @@
 import { Subset, Unpacked } from "types/utils";
 import { ProjectType } from "../utils/types";
 
-export type Notification = {
+export type Notification = Subset<{
   notificationSelect: string;
   jiraCommentInput: string;
   slackInput: string;
@@ -15,7 +15,7 @@ export type Notification = {
     secretInput: string;
     httpHeaders: { [key: string]: string }[];
   };
-};
+}>;
 
 export interface FormState {
   buildBreakSettings: {
