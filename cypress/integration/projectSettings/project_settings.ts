@@ -939,7 +939,7 @@ describe("Notifications", () => {
     cy.dataCy("save-settings-button").should("not.be.disabled");
     cy.dataCy("save-settings-button").click();
   });
-  it.only("shouldn't be able to save a subscription if an input is invalid", () => {
+  it("shouldn't be able to save a subscription if an input is invalid", () => {
     cy.dataCy("expandable-card").should("not.exist");
     cy.dataCy("add-button").contains("Add Subscription").scrollIntoView();
     cy.dataCy("add-button").contains("Add Subscription").should("exist");
