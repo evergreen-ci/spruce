@@ -1418,6 +1418,17 @@ export type JiraIssueSubscriber = {
   project: Scalars["String"];
 };
 
+export type WebhookSubscriberInput = {
+  headers: Array<Maybe<WebhookHeaderInput>>;
+  secret: Scalars["String"];
+  url: Scalars["String"];
+};
+
+export type WebhookHeaderInput = {
+  key: Scalars["String"];
+  value: Scalars["String"];
+};
+
 export type ProjectVarsInput = {
   adminOnlyVarsList?: Maybe<Array<Maybe<Scalars["String"]>>>;
   privateVarsList?: Maybe<Array<Maybe<Scalars["String"]>>>;
@@ -2011,6 +2022,7 @@ export type SelectorInput = {
 export type SubscriberInput = {
   target: Scalars["String"];
   type: Scalars["String"];
+  webhookSubscriber?: Maybe<WebhookSubscriberInput>;
 };
 
 /**
