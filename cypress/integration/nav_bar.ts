@@ -15,7 +15,6 @@ describe("Nav Bar", () => {
     cy.login();
   });
   beforeEach(() => {
-    cy.server();
     cy.preserveCookies();
   });
 

@@ -1,10 +1,6 @@
 // / <reference types="Cypress" />
 
-import {
-  aliasQuery,
-  hasOperationName,
-  GQL_URL,
-} from "../../../utils/graphql-test-utils";
+import { hasOperationName, GQL_URL } from "../../../utils/graphql-test-utils";
 
 // / <reference path="../../support/index.d.ts" />
 const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
@@ -15,9 +11,6 @@ describe("Configure Patch Page", () => {
   });
   beforeEach(() => {
     cy.preserveCookies();
-    cy.intercept("POST", GQL_URL, (req) => {
-      aliasQuery(req, "SchedulePatch");
-    });
   });
 
   describe("Initial state reflects patch data", () => {
@@ -522,7 +515,6 @@ describe("Configure Patch Page", () => {
   //   Using mocked responses because we are unable to schedule a patch because of a missing github token
   describe("Scheduling a patch", () => {
     beforeEach(() => {
-      cy.server();
       cy.visit(`/patch/${unactivatedPatchId}`);
     });
     it("Clicking 'Schedule' button schedules patch and redirects to patch page", () => {
