@@ -1429,6 +1429,11 @@ export type WebhookHeaderInput = {
   value: Scalars["String"];
 };
 
+export type JiraIssueSubscriberInput = {
+  issueType: Scalars["String"];
+  project: Scalars["String"];
+};
+
 export type ProjectVarsInput = {
   adminOnlyVarsList?: Maybe<Array<Maybe<Scalars["String"]>>>;
   privateVarsList?: Maybe<Array<Maybe<Scalars["String"]>>>;
@@ -2023,6 +2028,7 @@ export type SubscriberInput = {
   target: Scalars["String"];
   type: Scalars["String"];
   webhookSubscriber?: Maybe<WebhookSubscriberInput>;
+  jiraIssueSubscriber?: Maybe<JiraIssueSubscriberInput>;
 };
 
 /**

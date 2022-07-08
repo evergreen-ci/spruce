@@ -22,7 +22,7 @@ const getTargetForMethod = (method: string, notification: Notification) => {
     case NotificationMethods.WEBHOOK:
       return notification.webhookInput.urlInput;
     case NotificationMethods.JIRA_ISSUE:
-      return notification.jiraIssueInput.issueInput;
+      return notification.jiraIssueInput.projectInput;
     default:
       return "";
   }
@@ -46,7 +46,6 @@ const webhookFormToGql = (webhookInput: Notification["webhookInput"]) => {
   if (!webhookInput) {
     return null;
   }
-  console.log(webhookInput.httpHeaders);
   return {
     url: webhookInput.urlInput,
     secret: webhookInput.secretInput,
@@ -54,6 +53,15 @@ const webhookFormToGql = (webhookInput: Notification["webhookInput"]) => {
       key: keyInput,
       value: valueInput,
     })),
+  };
+};
+const jiraFormToGql = (jiraInput: Notification["jiraIssueInput"]) => {
+  if (!jiraInput) {
+    return null;
+  }
+  return {
+    project: jiraInput.projectInput,
+    issueType: jiraInput.issueInput,
   };
 };
 
@@ -114,6 +122,10 @@ export const getGqlPayload = (
       webhookSubscriber:
         method === NotificationMethods.WEBHOOK
           ? webhookFormToGql(subscriptionData.notification?.webhookInput)
+          : undefined,
+      jiraIssueSubscriber:
+        method === NotificationMethods.JIRA_ISSUE
+          ? jiraFormToGql(subscriptionData.notification?.jiraIssueInput)
           : undefined,
     },
     owner_type: "project",
