@@ -376,11 +376,22 @@ describe("Project Settings when not defaulting to repo", () => {
     it("Should show three populated fields when navigating back from another page", () => {
       cy.dataCy("navitem-access").click();
       cy.dataCy("navitem-variables").click();
-      cy.dataCy("var-name-input")
-        .should("be.visible")
-        .and(($input) => {
-          expect($input.val()).to.match(/admin_var|sample_name|sample_name_2/);
-        });
+      cy.dataCy("var-name-input").should("be.visible");
+      cy.dataCy("var-name-input").should(($inputs) => {
+        expect($inputs).to.have.length(3);
+        // Asserts input copy without asserting copy order
+        // to avoid test flake if the input order rearranges.
+        const inputVals = new Set([
+          $inputs.eq(0).val(),
+          $inputs.eq(1).val(),
+          $inputs.eq(2).val(),
+        ]);
+        const copy = new Set(["admin_var", "sample_name", "sample_name_2"]);
+        expect(inputVals.size).to.equal(copy.size);
+        expect(
+          Array.from(inputVals).every((value) => copy.has(value))
+        ).to.equal(true);
+      });
     });
 
     it("Should allow deleting all items", () => {
