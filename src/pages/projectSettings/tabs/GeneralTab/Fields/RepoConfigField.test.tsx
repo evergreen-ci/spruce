@@ -310,7 +310,9 @@ const attachProjectToRepoMock = {
   },
   result: {
     data: {
-      id: "evergreen",
+      attachProjectToRepo: {
+        id: "evergreen",
+      },
     },
   },
 };
@@ -322,7 +324,9 @@ const detachProjectFromRepoMock = {
   },
   result: {
     data: {
-      id: "evergreen",
+      detachProjectFromRepo: {
+        id: "evergreen",
+      },
     },
   },
 };

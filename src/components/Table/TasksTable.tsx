@@ -46,6 +46,7 @@ interface TasksTableProps {
   tasks: TaskTableInfo[];
   taskNameInputProps?: InputFilterProps;
   variantInputProps?: InputFilterProps;
+  loading?: boolean;
 }
 
 export const TasksTable: React.VFC<TasksTableProps> = ({
@@ -59,11 +60,13 @@ export const TasksTable: React.VFC<TasksTableProps> = ({
   tableChangeHandler,
   tasks,
   variantInputProps,
+  loading = false,
 }) => (
   <Table
     data-cy="tasks-table"
     rowKey={rowKey}
     pagination={false}
+    loading={loading}
     columns={
       sorts
         ? getColumnDefsWithSort({
