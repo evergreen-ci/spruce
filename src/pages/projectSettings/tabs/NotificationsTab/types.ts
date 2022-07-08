@@ -1,4 +1,3 @@
-import { FormRegexSelector } from "components/Notifications/types";
 import { ProjectType } from "../utils/types";
 
 export interface FormState {
@@ -7,10 +6,10 @@ export interface FormState {
   };
   subscriptions: Array<{
     subscriptionData: {
-      event?: {
-        eventSelect?: string;
-        extraFields?: { [key: string]: string };
-        regexSelector?: FormRegexSelector[];
+      event: {
+        eventSelect: string;
+        extraFields: { [key: string]: string };
+        regexSelector: { [key: string]: string }[];
       };
       notification?: {
         notificationSelect?: string;
