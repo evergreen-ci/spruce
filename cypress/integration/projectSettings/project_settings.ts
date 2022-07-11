@@ -913,7 +913,7 @@ describe("Notifications", () => {
   });
   it("should be able to add a subscription and save it", () => {
     cy.dataCy("expandable-card").should("not.exist");
-    cy.dataCy("add-button").contains("Add Subscription").should("exist");
+    cy.dataCy("add-button").contains("Add Subscription").should("be.visible");
     cy.dataCy("add-button").click();
     cy.dataCy("expandable-card").should("contain.text", "New Subscription");
     cy.getInputByLabel("Event").click();
