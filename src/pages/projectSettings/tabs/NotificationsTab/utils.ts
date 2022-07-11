@@ -87,9 +87,8 @@ export const getGqlPayload = (
 ): SubscriptionInput => {
   const { subscriptionData } = subscription;
   const event = projectTriggers[subscriptionData.event.eventSelect];
-  const { resourceType, trigger, extraFields, regexSelectors } = event || {
-    resourceType: "",
-  };
+  const { resourceType = "", trigger, extraFields, regexSelectors } =
+    event || {};
 
   const triggerData = extraFieldsFormToGql(
     extraFields,
@@ -138,10 +137,7 @@ export const hasInitialError = (
   const trigger = subscriptionData.event.eventSelect;
   const method = subscriptionData.notification.notificationSelect;
   const target = getTargetForMethod(method, subscriptionData.notification);
-  if (!trigger || !method || !target) {
-    return true;
-  }
-  return false;
+  return !trigger || !method || !target;
 };
 
 export const generateWebhookSecret = () => {

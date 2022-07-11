@@ -26,7 +26,7 @@ export interface FormState {
       subscriptionData: {
         event: {
           eventSelect: string;
-          extraFields: { [key: string]: string };
+          extraFields: FormExtraFields;
           regexSelector?: FormRegexSelector[];
         };
         notification: Notification;
