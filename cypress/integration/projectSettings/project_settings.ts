@@ -379,7 +379,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("var-name-input").should("be.visible");
       cy.dataCy("var-name-input").should(($inputs) => {
         expect($inputs).to.have.length(3);
-        // Asserts input copy without asserting input order
+        // Asserts input copy exists without asserting input order
         // to avoid test flake if the input order rearranges.
         const inputVals = new Set([
           $inputs.eq(0).val(),
