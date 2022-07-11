@@ -234,7 +234,7 @@ describe("commits page", () => {
         );
       });
       it("clicking on a task icon should direct you to the task page", () => {
-        cy.dataCy("waterfall-task-status-icon").first().click();
+        cy.dataCy("waterfall-task-status-icon").first().click({ force: true });
         cy.location("pathname").should("contain", "/task/");
       });
     });
