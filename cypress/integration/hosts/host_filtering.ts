@@ -248,6 +248,9 @@ describe("Hosts page filtering from table filters", () => {
 
           cy.get("@currentTask").type(lastChar).type(`{enter}`);
         } else {
+          cy.dataCy("input-filter")
+            .should("be.visible")
+            .should("not.be.disabled");
           cy.dataCy("input-filter").type(filterValue).type(`{enter}`);
         }
       });
