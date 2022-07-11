@@ -1,4 +1,5 @@
 import { hasOperationName, GQL_URL } from "../../../utils/graphql-test-utils";
+import { mockErrorResponse } from "../../../utils/mockErrorResponse";
 
 const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
 const patchWithDisplayTasks = "5e6bb9e23066155a993e0f1b";
@@ -520,8 +521,6 @@ describe("Configure Patch Page", () => {
       cy.dataCy("task-checkbox").first().check({ force: true });
       cy.intercept("POST", GQL_URL, (req) => {
         if (hasOperationName(req, "SchedulePatch")) {
-          // Declare the alias from the initial intercept in the beforeEach
-          req.alias = "gqlSchedulePatchQuery";
           req.reply((res) => {
             res.body = mockedSuccessConfigureResponse;
           });
@@ -538,14 +537,10 @@ describe("Configure Patch Page", () => {
       const val = "hello world";
       cy.dataCy(`patch-name-input`).clear().type(val);
       cy.dataCy("task-checkbox").first().check({ force: true });
-      cy.intercept("POST", GQL_URL, (req) => {
-        if (hasOperationName(req, "SchedulePatch")) {
-          // Declare the alias from the initial intercept in the beforeEach
-          req.alias = "gqlSchedulePatchQuery";
-          req.reply((res) => {
-            res.body = mockedErrorConfigureResponse;
-          });
-        }
+      mockErrorResponse({
+        errorMessage: "An error occured",
+        operationName: "SchedulePatch",
+        path: "schedulePatch",
       });
       cy.dataCy("schedule-patch").click();
       cy.location("pathname").should(
@@ -557,18 +552,6 @@ describe("Configure Patch Page", () => {
   });
 });
 
-const mockedErrorConfigureResponse = {
-  errors: [
-    {
-      message: "An error occurred",
-      path: ["schedulePatch"],
-      extensions: {
-        code: "INTERNAL_SERVER_ERROR",
-      },
-    },
-  ],
-  data: null,
-};
 const activatedPatchId = "5e4ff3abe3c3317e352062e4";
 const mockedSuccessConfigureResponse = {
   data: {
