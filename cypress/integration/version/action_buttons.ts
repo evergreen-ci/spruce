@@ -84,13 +84,10 @@ describe("Action Buttons", () => {
     describe("Version dropdown options", () => {
       before(() => {
         cy.visit(versionPath(mainlineCommit));
+        cy.dataCy("ellipsis-btn").click({ force: true });
       });
       beforeEach(() => {
-        cy.dataCy("ellipsis-btn").click({ force: true });
         cy.dataCy("card-dropdown").should("be.visible");
-      });
-      afterEach(() => {
-        cy.dataCy("ellipsis-btn").click();
       });
 
       it("Reconfigure link is disabled for mainline commits", () => {
