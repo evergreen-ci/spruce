@@ -1,4 +1,5 @@
 import { urlSearchParamsAreUpdated } from "../../utils";
+import { aliasQuery, GQL_URL } from "../../utils/graphql-test-utils";
 
 const patch = {
   id: "5e4ff3abe3c3317e352062e4",
@@ -182,7 +183,11 @@ describe("Tasks filters", () => {
   describe("Task Base Statuses select", () => {
     const urlParam = "baseStatuses";
     before(() => {
+      cy.intercept("POST", GQL_URL, (req) => {
+        aliasQuery(req, "PatchTasks");
+      });
       cy.visit(pathTasks);
+      cy.wait("@gqlPatchTasksQuery");
       cy.toggleTableFilter(3);
     });
 
@@ -192,6 +197,7 @@ describe("Tasks filters", () => {
         .invoke("text")
         .then((preFilterCount) => {
           cy.getInputByLabel("Succeeded").check({ force: true });
+          cy.wait("@gqlPatchTasksQuery");
           urlSearchParamsAreUpdated({
             pathname: pathTasks,
             paramName: urlParam,
