@@ -233,7 +233,7 @@ describe("Repo Settings", () => {
     it("Reorders the commands", () => {
       cy.dataCy("array-down-button").click();
 
-      cy.dataCy("save-settings-button").click();
+      cy.dataCy("save-settings-button").click({ force: true });
       cy.validateToast("success", "Successfully updated repo");
 
       cy.dataCy("command-input").first().should("have.value", "command 2");
@@ -458,6 +458,7 @@ describe("Project Settings when not defaulting to repo", () => {
 
     it("Saves a project trigger", () => {
       cy.dataCy("add-button").click();
+      cy.dataCy("project-input").should("be.visible").should("not.be.disabled");
       cy.dataCy("project-input").type("spruce");
       cy.dataCy("config-file-input").type(".evergreen.yml");
     });
