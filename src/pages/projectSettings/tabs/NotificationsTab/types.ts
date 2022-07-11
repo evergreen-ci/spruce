@@ -1,7 +1,7 @@
-import { Subset, Unpacked } from "types/utils";
+import { Unpacked } from "types/utils";
 import { ProjectType } from "../utils/types";
 
-export type Notification = Subset<{
+export type Notification = Partial<{
   notificationSelect: string;
   jiraCommentInput: string;
   slackInput: string;
@@ -22,18 +22,18 @@ export interface FormState {
     notifyOnBuildFailure: boolean | null;
   };
   subscriptions: Array<
-    Subset<{
+    Partial<{
       subscriptionData: {
         event: {
           eventSelect: string;
           extraFields: { [key: string]: string };
-          regexSelector: FormRegexSelector[];
+          regexSelector?: FormRegexSelector[];
         };
         notification: Notification;
       };
-      subscriberData: {
-        subscriberType: string;
-        subscriberName: string;
+      subscriberData?: {
+        subscriberType?: string;
+        subscriberName?: string;
       };
     }>
   > | null;
