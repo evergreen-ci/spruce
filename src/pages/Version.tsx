@@ -62,6 +62,21 @@ export const VersionPage: React.VFC = () => {
   });
   usePolling(startPolling, stopPolling, refetch, false);
 
+  const [getPatch, { data: patchData, error: patchError }] = useLazyQuery<
+    IsPatchConfiguredQuery,
+    IsPatchConfiguredQueryVariables
+  >(GET_IS_PATCH_CONFIGURED, {
+    variables: {
+      id,
+    },
+    onError: (error) => {
+      dispatchToast.error(
+        `There was an error loading this patch: ${error.message}`
+      );
+      setIsLoadingData(false);
+    },
+  });
+
   const { error: hasVersionError } = useQuery<
     GetHasVersionQuery,
     GetHasVersionQueryVariables
@@ -87,21 +102,6 @@ export const VersionPage: React.VFC = () => {
     setIsLoadingData(true);
     setRedirectURL(undefined);
   }, [id]);
-
-  const [getPatch, { data: patchData, error: patchError }] = useLazyQuery<
-    IsPatchConfiguredQuery,
-    IsPatchConfiguredQueryVariables
-  >(GET_IS_PATCH_CONFIGURED, {
-    variables: {
-      id,
-    },
-    onError: (error) => {
-      dispatchToast.error(
-        `There was an error loading this patch: ${error.message}`
-      );
-      setIsLoadingData(false);
-    },
-  });
 
   // Decide where to redirect the user based off of whether or not the patch has been activated
   // If this patch is activated and not on the commit queue we can safely fetch the associated version
