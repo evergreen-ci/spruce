@@ -141,10 +141,6 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
                   },
                 },
               },
-              subscriberData: {
-                subscriberType,
-                subscriberName: subscriberText,
-              },
             };
           }
         )

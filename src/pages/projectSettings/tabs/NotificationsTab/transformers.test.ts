@@ -27,7 +27,6 @@ describe("project data", () => {
             jiraCommentInput: "evg-123",
           },
         },
-        subscriberData: {},
       },
     ];
     projectResult.subscriptions = [
@@ -77,7 +76,6 @@ describe("project data", () => {
             },
           },
         },
-        subscriberData: {},
       },
     ];
     projectResult.subscriptions = [
@@ -136,7 +134,6 @@ describe("project data", () => {
             },
           },
         },
-        subscriberData: {},
       },
     ];
     projectResult.subscriptions = [
