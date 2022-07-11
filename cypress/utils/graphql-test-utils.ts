@@ -12,4 +12,13 @@ export const hasOperationName = (
   );
 };
 
+// Alias query if operationName matches
+export const aliasQuery = (
+  req: CyHttpMessages.IncomingHttpRequest,
+  operationName: string
+): void => {
+  if (hasOperationName(req, operationName)) {
+    req.alias = `gql${operationName}Query`;
+  }
+};
 export const GQL_URL = "http://localhost:9090/graphql/query";
