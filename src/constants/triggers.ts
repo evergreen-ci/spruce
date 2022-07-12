@@ -303,6 +303,7 @@ export const projectTriggers: Trigger = {
       },
       failureTypeSubscriberConfig,
     ],
+    allowedSelectors: [],
   },
   [ProjectTriggers.TASK_EXCEEDS_DURATION]: {
     trigger: TriggerType.EXCEEDS_DURATION,

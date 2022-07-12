@@ -87,17 +87,26 @@ export const getGqlPayload = (
 ): SubscriptionInput => {
   const { subscriptionData } = subscription;
   const event = projectTriggers[subscriptionData.event.eventSelect];
-  const { resourceType = "", trigger, extraFields, regexSelectors } =
-    event || {};
+  const {
+    resourceType = "",
+    trigger,
+    extraFields,
+    regexSelectors,
+    allowedSelectors,
+  } = event || {};
 
   const triggerData = extraFieldsFormToGql(
     extraFields,
     subscriptionData.event.extraFields
   );
-  const selectors = Object.entries(triggerData).map(([key, value]) => ({
+
+  let selectors = Object.entries(triggerData).map(([key, value]) => ({
     type: key,
     data: value.toString(),
   }));
+  if (allowedSelectors) {
+    selectors = selectors.filter(({ type }) => allowedSelectors.includes(type));
+  }
   const regexData = regexFormToGql(
     !!regexSelectors,
     subscriptionData.event.regexSelector
@@ -113,7 +122,7 @@ export const getGqlPayload = (
       ...selectors,
     ],
     trigger_data: triggerData,
-    regex_selectors: regexData,
+    regex_selectors: regexData || [],
     subscriber: {
       type: method,
       target: subscriber,

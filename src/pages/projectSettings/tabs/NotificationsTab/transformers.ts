@@ -10,6 +10,7 @@ import { string } from "utils";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { FormState } from "./types";
 import { getGqlPayload } from "./utils";
+
 type Tab = ProjectSettingsTabRoutes.Notifications;
 
 const { toSentenceCase } = string;

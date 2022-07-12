@@ -82,6 +82,8 @@ export interface Trigger {
     resourceType: ResourceType;
     payloadResourceIdKey?: PayloadResourceIdKey;
     regexSelectors?: RegexSelector[];
+    /** allowedSelectors is an optional allow list for selectors if it is not provided all extraFields will be used as selectors */
+    allowedSelectors?: string[];
   };
 }
 
