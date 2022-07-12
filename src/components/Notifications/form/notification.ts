@@ -1,5 +1,6 @@
 import { SpruceFormProps } from "components/SpruceForm";
 import { AntdSelect } from "components/SpruceForm/Widgets/AntdWidgets";
+import { generateWebhookSecret } from "pages/projectSettings/tabs/NotificationsTab/utils";
 import {
   SubscriptionMethodOption,
   NotificationMethods,
@@ -99,7 +100,7 @@ export const getNotificationSchema = (
                   secretInput: {
                     type: "string" as "string",
                     title: "Webhook Secret",
-                    default: "I-should-be-generated (EVG-17181)",
+                    default: generateWebhookSecret(),
                   },
                   httpHeaders: {
                     type: "array" as "array",
