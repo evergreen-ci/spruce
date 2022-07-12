@@ -103,7 +103,7 @@ module.exports = {
     // This rule doesn't allow us to have arrow function named components (which we use in the entire
     // codebase), so we override it here.
     "react/function-component-definition": [
-      2,
+      errorIfStrict,
       {
         namedComponents: "arrow-function",
         unnamedComponents: "arrow-function",
