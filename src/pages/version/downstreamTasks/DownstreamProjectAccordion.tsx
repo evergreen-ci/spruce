@@ -132,7 +132,7 @@ export const DownstreamProjectAccordion: React.VFC<DownstreamProjectAccordionPro
       }),
   };
 
-  const { data, startPolling, stopPolling } = useQuery<
+  const { data, refetch, startPolling, stopPolling } = useQuery<
     PatchTasksQuery,
     PatchTasksQueryVariables
   >(GET_PATCH_TASKS, {
@@ -143,7 +143,7 @@ export const DownstreamProjectAccordion: React.VFC<DownstreamProjectAccordionPro
     },
   });
   const showSkeleton = !data;
-  usePolling(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling, refetch);
   const { patchTasks } = data || {};
 
   const variantTitle = (

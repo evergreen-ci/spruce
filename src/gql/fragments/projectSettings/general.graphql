@@ -13,7 +13,6 @@ fragment projectGeneralSettings on Project {
   repotrackerDisabled
   defaultLogger
   validDefaultLoggers
-  cedarTestResultsEnabled
   patchingDisabled
   taskSync {
     configEnabled
@@ -38,7 +37,6 @@ fragment repoGeneralSettings on RepoRef {
   repotrackerDisabled
   defaultLogger
   validDefaultLoggers
-  cedarTestResultsEnabled
   patchingDisabled
   taskSync {
     configEnabled

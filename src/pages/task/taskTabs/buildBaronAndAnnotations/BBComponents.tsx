@@ -7,6 +7,7 @@ import { getJiraTicketUrl } from "constants/externalResources";
 import { size } from "constants/tokens";
 import { TicketFields } from "gql/generated/types";
 import { useSpruceConfig } from "hooks";
+import { useUserTimeZone } from "hooks/useUserTimeZone";
 import { string } from "utils";
 
 const { getDateCopy } = string;
@@ -23,7 +24,7 @@ export const JiraTicketRow: React.VFC<JiraTicketRowProps> = ({
   fields,
 }) => {
   const annotationAnalytics = useAnnotationAnalytics();
-
+  const tz = useUserTimeZone();
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
   const url = getJiraTicketUrl(jiraHost, jiraKey);
@@ -47,10 +48,10 @@ export const JiraTicketRow: React.VFC<JiraTicketRowProps> = ({
 
       <BottomMetaDataWrapper data-cy={`${jiraKey}-metadata`}>
         <Disclaimer>
-          Created: {getDateCopy(created, { dateOnly: true })}{" "}
+          Created: {getDateCopy(created, { dateOnly: true, tz })}{" "}
         </Disclaimer>
         <Disclaimer>
-          Updated: {getDateCopy(updated, { dateOnly: true })}{" "}
+          Updated: {getDateCopy(updated, { dateOnly: true, tz })}{" "}
         </Disclaimer>
         <Disclaimer>
           {assigneeDisplayName

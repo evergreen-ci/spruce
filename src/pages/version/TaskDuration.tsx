@@ -29,7 +29,7 @@ const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
   const updateQueryParams = useUpdateURLQueryParams();
 
   const queryVariables = useQueryVariables(search, id);
-  const noQueryVariables = !Object.keys(parseQueryString(search)).length;
+  const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
   const { limit, page } = queryVariables;
 
   useEffect(() => {
@@ -51,18 +51,18 @@ const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
     });
   };
 
-  const { data, loading, startPolling, stopPolling } = useQuery<
+  const { data, loading, refetch, startPolling, stopPolling } = useQuery<
     PatchTaskDurationsQuery,
     PatchTaskDurationsQueryVariables
   >(GET_PATCH_TASK_DURATIONS, {
     variables: queryVariables,
-    skip: noQueryVariables,
+    skip: !hasQueryVariables,
     pollInterval,
     onError: (err) => {
       dispatchToast.error(`Error fetching patch tasks ${err}`);
     },
   });
-  usePolling(startPolling, stopPolling);
+  usePolling(startPolling, stopPolling, refetch);
   const { patchTasks } = data || {};
   const { tasks = [] } = patchTasks || {};
 

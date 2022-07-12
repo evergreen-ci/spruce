@@ -2,16 +2,16 @@ import { addPageAction, Properties, Analytics } from "analytics/addPageAction";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
 
 type Action =
-  | { name: "Tab Active" }
-  | { name: "Tab Not Active"; status: string };
+  | { name: "Tab Active"; status: "online" | "visible" }
+  | { name: "Tab Not Active" };
 
 interface P extends Properties {}
-interface PollingAnalytics extends Analytics<Action> {}
+interface ActivityAnalytics extends Analytics<Action> {}
 
-export const usePollingAnalytics = (): PollingAnalytics => {
+export const useActivityAnalytics = (): ActivityAnalytics => {
   const userId = useGetUserQuery();
 
-  const sendEvent: PollingAnalytics["sendEvent"] = (action) => {
+  const sendEvent: ActivityAnalytics["sendEvent"] = (action) => {
     addPageAction<Action, P>(action, {
       object: "Polling",
       userId,
