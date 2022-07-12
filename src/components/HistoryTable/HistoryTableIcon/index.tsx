@@ -40,7 +40,9 @@ export const HistoryTableIcon: React.VFC<HistoryTableIconProps> = ({
           {failingTests.map((testName) => (
             <TestName key={testName}>{testName}</TestName>
           ))}
-          {loadingTestResults && <Skeleton active data-cy="skeleton" />}
+          {loadingTestResults && (
+            <Skeleton active data-cy="history-tooltip-skeleton" />
+          )}
         </TestNameContainer>
       </Tooltip>
     )}

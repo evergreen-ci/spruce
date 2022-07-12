@@ -83,6 +83,7 @@ export const MountVolumeSelect = ({
         style={{ width: 200 }}
         onChange={onChange}
         data-cy="host-select"
+        aria-labelledby="host-select"
       >
         {!autofill && (
           <Option value="" key="clear" data-cy="clear-option">

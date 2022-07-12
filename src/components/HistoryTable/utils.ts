@@ -35,75 +35,73 @@ export const processCommits = ({
         : null;
 
     switch (commitType) {
-      case rowType.COMMIT:
-        {
-          const { version } = commit;
-          const selected = version.order === selectedCommitOrder;
-          if (priorCommit && isSameDay(version.createTime, priorCommit.date)) {
-            processedCommits.push({
-              type: rowType.COMMIT,
-              commit: version,
-              date: version.createTime,
-              selected,
-              rowHeight: COMMIT_HEIGHT,
-            });
-          } else {
-            processedCommits.push({
-              type: rowType.DATE_SEPARATOR,
-              date: version.createTime,
-              rowHeight: DATE_SEPARATOR_HEIGHT,
-            });
-            processedCommits.push({
-              type: rowType.COMMIT,
-              commit: version,
-              date: version.createTime,
-              selected,
-              rowHeight: COMMIT_HEIGHT,
-            });
-          }
-          if (selected) {
-            selectedCommitRowIndex = processedCommits.length - 1;
-          }
+      case rowType.COMMIT: {
+        const { version } = commit;
+        const selected = version.order === selectedCommitOrder;
+        if (priorCommit && isSameDay(version.createTime, priorCommit.date)) {
+          processedCommits.push({
+            type: rowType.COMMIT,
+            commit: version,
+            date: version.createTime,
+            selected,
+            rowHeight: COMMIT_HEIGHT,
+          });
+        } else {
+          processedCommits.push({
+            type: rowType.DATE_SEPARATOR,
+            date: version.createTime,
+            rowHeight: DATE_SEPARATOR_HEIGHT,
+          });
+          processedCommits.push({
+            type: rowType.COMMIT,
+            commit: version,
+            date: version.createTime,
+            selected,
+            rowHeight: COMMIT_HEIGHT,
+          });
+        }
+        if (selected) {
+          selectedCommitRowIndex = processedCommits.length - 1;
         }
         break;
-      case rowType.FOLDED_COMMITS:
-        {
-          const { rolledUpVersions } = commit;
-          const firstRolledUpVersion = rolledUpVersions[0];
-          const selected = hasSelectedCommit(
-            rolledUpVersions,
-            selectedCommitOrder
-          );
-          if (
-            priorCommit &&
-            isSameDay(firstRolledUpVersion.createTime, priorCommit.date)
-          ) {
-            processedCommits.push({
-              type: rowType.FOLDED_COMMITS,
-              rolledUpCommits: rolledUpVersions,
-              date: firstRolledUpVersion.createTime,
-              rowHeight: FOLDED_COMMITS_HEIGHT,
-              selected,
-            });
-          } else {
-            processedCommits.push({
-              type: rowType.DATE_SEPARATOR,
-              date: firstRolledUpVersion.createTime,
-              rowHeight: DATE_SEPARATOR_HEIGHT,
-            });
-            processedCommits.push({
-              type: rowType.FOLDED_COMMITS,
-              rolledUpCommits: rolledUpVersions,
-              date: firstRolledUpVersion.createTime,
-              rowHeight: FOLDED_COMMITS_HEIGHT,
-              selected,
-            });
-          }
-          if (selected) {
-            selectedCommitRowIndex = processedCommits.length - 1;
-          }
+      }
+      case rowType.FOLDED_COMMITS: {
+        const { rolledUpVersions } = commit;
+        const firstRolledUpVersion = rolledUpVersions[0];
+        const selected = hasSelectedCommit(
+          rolledUpVersions,
+          selectedCommitOrder
+        );
+        if (
+          priorCommit &&
+          isSameDay(firstRolledUpVersion.createTime, priorCommit.date)
+        ) {
+          processedCommits.push({
+            type: rowType.FOLDED_COMMITS,
+            rolledUpCommits: rolledUpVersions,
+            date: firstRolledUpVersion.createTime,
+            rowHeight: FOLDED_COMMITS_HEIGHT,
+            selected,
+          });
+        } else {
+          processedCommits.push({
+            type: rowType.DATE_SEPARATOR,
+            date: firstRolledUpVersion.createTime,
+            rowHeight: DATE_SEPARATOR_HEIGHT,
+          });
+          processedCommits.push({
+            type: rowType.FOLDED_COMMITS,
+            rolledUpCommits: rolledUpVersions,
+            date: firstRolledUpVersion.createTime,
+            rowHeight: FOLDED_COMMITS_HEIGHT,
+            selected,
+          });
+        }
+        if (selected) {
+          selectedCommitRowIndex = processedCommits.length - 1;
         }
         break;
+      }
       default: {
         throw new Error(`Unknown commit type: ${commitType}`);
       }

@@ -130,9 +130,8 @@ export const Commits = () => {
     ProjectFilterOptions.Task,
   ]);
 
-  const { badges, handleOnRemove, handleClearAll } = useFilterBadgeQueryParams(
-    queryParamsToDisplay
-  );
+  const { badges, handleOnRemove, handleClearAll } =
+    useFilterBadgeQueryParams(queryParamsToDisplay);
   const onSubmit = useUpsertQueryParams();
 
   const onSubmitTupleSelect = ({ category, value }) => {

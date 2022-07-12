@@ -2,7 +2,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { GET_MY_HOSTS } from "gql/queries";
-import { renderWithRouterMatch as render, waitFor } from "test_utils";
+import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
 import { HostStatus } from "types/host";
 import { SpawnHostButton } from "./SpawnHostButton";
 
@@ -12,33 +12,33 @@ describe("spawnHostButton", () => {
   });
   it("disables the spawn host button when the number of hosts that currently exist are greater than or equal to the max number of spawn hosts per user", async () => {
     const { Component } = RenderFakeToastContext(<SpawnHostButton />);
-    const { getByText } = render(
+    render(
       <MockedProvider mocks={[sixHostsMock, getSpruceConfigMock]}>
         <Component />
       </MockedProvider>
     );
     await waitFor(() => {
-      const spawnButton = getByText("Spawn a host").closest("button");
+      const spawnButton = screen.getByText("Spawn a host").closest("button");
       expect(spawnButton).toHaveAttribute("aria-disabled", "true");
     });
   });
 
   it("enables the spawn host button when the number of hosts that currently exist is less than the max number of spawn hosts per user", async () => {
     const { Component } = RenderFakeToastContext(<SpawnHostButton />);
-    const { getByText } = render(
+    render(
       <MockedProvider mocks={[twoHostsMock, getSpruceConfigMock]}>
         <Component />
       </MockedProvider>
     );
     await waitFor(() => {
-      const spawnButton = getByText("Spawn a host").closest("button");
+      const spawnButton = screen.getByText("Spawn a host").closest("button");
       expect(spawnButton).toHaveAttribute("aria-disabled", "false");
     });
   });
 
   it("does not count terminated hosts against the total host count", async () => {
     const { Component } = RenderFakeToastContext(<SpawnHostButton />);
-    const { getByText } = render(
+    render(
       <MockedProvider
         mocks={[fiveHostsWithTerminatedMock, getSpruceConfigMock]}
       >
@@ -46,7 +46,7 @@ describe("spawnHostButton", () => {
       </MockedProvider>
     );
     await waitFor(() => {
-      const spawnButton = getByText("Spawn a host").closest("button");
+      const spawnButton = screen.getByText("Spawn a host").closest("button");
       expect(spawnButton).toHaveAttribute("aria-disabled", "false");
     });
   });

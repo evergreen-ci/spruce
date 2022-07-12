@@ -70,10 +70,8 @@ export const Hosts: React.VFC = () => {
   };
 
   // UPDATE STATUS MODAL VISIBILITY STATE
-  const [
-    isUpdateStatusModalVisible,
-    setIsUpdateStatusModalVisible,
-  ] = useState<boolean>(false);
+  const [isUpdateStatusModalVisible, setIsUpdateStatusModalVisible] =
+    useState<boolean>(false);
 
   // HOSTS QUERY
   const { data: hostsData, loading } = useQuery<

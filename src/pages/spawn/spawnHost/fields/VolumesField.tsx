@@ -41,6 +41,7 @@ export const VolumesField: React.VFC<VolumesFieldProps> = ({
           placeholder="Select volume"
           onChange={(v) => onChange({ volumeId: v })}
           value={volumeId}
+          aria-labelledby="volume-select"
         >
           {availableVolumes?.map((v) => (
             <Option

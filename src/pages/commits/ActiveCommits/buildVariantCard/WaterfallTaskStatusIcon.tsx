@@ -27,13 +27,9 @@ interface WaterfallTaskStatusIconProps {
   identifier: string;
 }
 
-export const WaterfallTaskStatusIcon: React.VFC<WaterfallTaskStatusIconProps> = ({
-  taskId,
-  status,
-  displayName,
-  timeTaken,
-  identifier,
-}) => {
+export const WaterfallTaskStatusIcon: React.VFC<
+  WaterfallTaskStatusIconProps
+> = ({ taskId, status, displayName, timeTaken, identifier }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const [enabled, setEnabled] = useState(false);
   const [loadData, { data, loading }] = useLazyQuery<
@@ -41,7 +37,7 @@ export const WaterfallTaskStatusIcon: React.VFC<WaterfallTaskStatusIconProps> = 
     GetFailedTaskStatusIconTooltipQueryVariables
   >(GET_FAILED_TASK_STATUS_ICON_TOOLTIP, { variables: { taskId } });
   const { testResults, filteredTestCount } = data?.taskTests ?? {};
-  const failedTestDifference = filteredTestCount - testResults?.length;
+  const failedTestDifference = filteredTestCount - (testResults ?? []).length;
 
   let timeout;
   const onMouseEnter = () => {

@@ -176,7 +176,7 @@ export const mapUmbrellaStatusToQueryParam: {
   if (children) {
     return {
       ...accum,
-      [value]: [value, ...children?.map((child) => child.value)],
+      [value]: [value, ...children.map((child) => child.value)],
     };
   }
   return { ...accum, [value]: [value] };

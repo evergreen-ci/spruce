@@ -55,8 +55,8 @@ export const AnnotationTicketRow: React.VFC<AnnotationTicketRowProps> = ({
         {summary && `: ${summary}`}
       </JiraSummaryLink>
       {loading ? (
-        <LoadingWrapper>
-          <Skeleton active title={false} data-cy="loading-annotation-ticket" />
+        <LoadingWrapper data-cy="loading-annotation-ticket">
+          <Skeleton active title={false} />
         </LoadingWrapper>
       ) : (
         <>

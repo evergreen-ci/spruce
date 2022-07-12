@@ -2,7 +2,7 @@ import { createRef } from "react";
 import { renderHook } from "@testing-library/react-hooks";
 import userEvent from "@testing-library/user-event";
 import { useOnClickOutside } from "hooks";
-import { render } from "test_utils";
+import { render, screen } from "test_utils";
 
 describe("useOnClickOutside", () => {
   describe("useOnClickOutside with 1 ref", () => {
@@ -19,10 +19,10 @@ describe("useOnClickOutside", () => {
     it("does not execute callback when clicking inside element", () => {
       const callback = jest.fn();
       const ref = createRef<HTMLDivElement>();
-      const { getByText } = render(<div ref={ref}> Test ref </div>);
+      render(<div ref={ref}> Test ref </div>);
 
       renderHook(() => useOnClickOutside([ref], callback));
-      userEvent.click(getByText("Test ref"));
+      userEvent.click(screen.getByText("Test ref"));
       expect(callback).not.toHaveBeenCalled();
     });
   });
@@ -34,7 +34,8 @@ describe("useOnClickOutside", () => {
       const ref2 = createRef<HTMLDivElement>();
       render(
         <>
-          <div ref={ref1}> Test ref 1 </div> <div ref={ref2}> Test ref 2 </div>
+          <div ref={ref1}> Test ref 1 </div>
+          <div ref={ref2}> Test ref 2 </div>
         </>
       );
 
@@ -46,16 +47,17 @@ describe("useOnClickOutside", () => {
       const callback = jest.fn();
       const ref1 = createRef<HTMLDivElement>();
       const ref2 = createRef<HTMLDivElement>();
-      const { getByText } = render(
+      render(
         <>
-          <div ref={ref1}> Test ref 1 </div> <div ref={ref2}> Test ref 2 </div>
+          <div ref={ref1}> Test ref 1 </div>
+          <div ref={ref2}> Test ref 2 </div>
         </>
       );
 
       renderHook(() => useOnClickOutside([ref1, ref2], callback));
-      userEvent.click(getByText("Test ref 1"));
+      userEvent.click(screen.getByText("Test ref 1"));
       expect(callback).not.toHaveBeenCalled();
-      userEvent.click(getByText("Test ref 2"));
+      userEvent.click(screen.getByText("Test ref 2"));
       expect(callback).not.toHaveBeenCalled();
     });
   });

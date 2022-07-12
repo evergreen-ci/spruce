@@ -51,7 +51,6 @@ export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
   >(SPAWN_VOLUME, {
     onCompleted() {
       onCancel();
-
       dispatchToast.success("Successfully spawned volume");
     },
     onError(err) {

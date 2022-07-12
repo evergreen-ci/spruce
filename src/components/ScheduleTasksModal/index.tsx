@@ -27,31 +27,30 @@ export const ScheduleTasksModal: React.VFC<ScheduleTasksModalProps> = ({
   setOpen,
   versionId,
 }) => {
-  const [
-    { sortedBuildVariantGroups, selectedTasks, allTasks },
-    dispatch,
-  ] = useReducer(reducer, initialState);
+  const [{ sortedBuildVariantGroups, selectedTasks, allTasks }, dispatch] =
+    useReducer(reducer, initialState);
   const closeModal = () => {
     dispatch({ type: "reset" });
     setOpen(false);
   };
   const dispatchToast = useToastContext();
-  const [
-    scheduleTasks,
-    { loading: loadingScheduleTasksMutation },
-  ] = useMutation<ScheduleTasksMutation, ScheduleTasksMutationVariables>(
-    SCHEDULE_TASKS,
-    {
-      onCompleted() {
-        dispatchToast.success("Successfully scheduled tasks!");
-        closeModal();
-      },
-      onError({ message }) {
-        dispatchToast.error(`There was an error scheduling tasks: ${message}`);
-        closeModal();
-      },
-    }
-  );
+  const [scheduleTasks, { loading: loadingScheduleTasksMutation }] =
+    useMutation<ScheduleTasksMutation, ScheduleTasksMutationVariables>(
+      SCHEDULE_TASKS,
+      {
+        onCompleted() {
+          dispatchToast.success("Successfully scheduled tasks!");
+          closeModal();
+        },
+        onError({ message }) {
+          dispatchToast.error(
+            `There was an error scheduling tasks: ${message}`
+          );
+          closeModal();
+        },
+      }
+    );
+
   const [
     loadTaskData,
     { data: taskData, loading: loadingTaskData, called: calledTaskData },

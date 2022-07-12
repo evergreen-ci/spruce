@@ -31,9 +31,7 @@ export type FormStateMap = {
   [ProjectSettingsTabRoutes.PeriodicBuilds]: periodicBuilds.FormState;
 };
 
-export type GetFormSchema = (
-  ...any
-) => {
+export type GetFormSchema = (...any) => {
   fields: Record<string, Field>;
   schema: SpruceFormProps["schema"];
   uiSchema: SpruceFormProps["uiSchema"];

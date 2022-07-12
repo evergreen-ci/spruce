@@ -1,6 +1,7 @@
 import {
   useState,
   useCallback,
+  useMemo,
   useEffect,
   createContext,
   useContext,
@@ -99,47 +100,49 @@ const ToastProvider: React.VFC<{ children: React.ReactNode }> = ({
     setToastOpen(false);
   }, [setToastOpen]);
 
-  const defaultOptions = {
-    onClose: () => {},
-    shouldTimeout: true,
-    title: null,
-  };
+  const toastContext = useMemo(() => {
+    const defaultOptions = {
+      onClose: () => {},
+      shouldTimeout: true,
+      title: null,
+    };
 
-  const toastContext = {
-    success: (message = "", closable = true, options = defaultOptions) =>
-      addToast({
-        variant: mapToastToLeafyGreenVariant.success,
-        message,
-        closable,
-        ...defaultOptions,
-        ...options,
-      }),
-    warning: (message = "", closable = true, options = defaultOptions) =>
-      addToast({
-        variant: mapToastToLeafyGreenVariant.warning,
-        message,
-        closable,
-        ...defaultOptions,
-        ...options,
-      }),
-    error: (message = "", closable = true, options = defaultOptions) =>
-      addToast({
-        variant: mapToastToLeafyGreenVariant.error,
-        message,
-        closable,
-        ...defaultOptions,
-        ...options,
-      }),
-    info: (message = "", closable = true, options = defaultOptions) =>
-      addToast({
-        variant: mapToastToLeafyGreenVariant.info,
-        message,
-        closable,
-        ...defaultOptions,
-        ...options,
-      }),
-    hide: hideToast,
-  };
+    return {
+      success: (message = "", closable = true, options = defaultOptions) =>
+        addToast({
+          variant: mapToastToLeafyGreenVariant.success,
+          message,
+          closable,
+          ...defaultOptions,
+          ...options,
+        }),
+      warning: (message = "", closable = true, options = defaultOptions) =>
+        addToast({
+          variant: mapToastToLeafyGreenVariant.warning,
+          message,
+          closable,
+          ...defaultOptions,
+          ...options,
+        }),
+      error: (message = "", closable = true, options = defaultOptions) =>
+        addToast({
+          variant: mapToastToLeafyGreenVariant.error,
+          message,
+          closable,
+          ...defaultOptions,
+          ...options,
+        }),
+      info: (message = "", closable = true, options = defaultOptions) =>
+        addToast({
+          variant: mapToastToLeafyGreenVariant.info,
+          message,
+          closable,
+          ...defaultOptions,
+          ...options,
+        }),
+      hide: hideToast,
+    };
+  }, [addToast, hideToast]);
 
   useEffect(() => {
     if (!visibleToast.shouldTimeout) {

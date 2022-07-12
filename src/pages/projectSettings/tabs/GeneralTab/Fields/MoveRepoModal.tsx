@@ -41,7 +41,7 @@ export const MoveRepoModal: React.VFC<ModalProps> = ({
     AttachProjectToNewRepoMutationVariables
   >(ATTACH_PROJECT_TO_NEW_REPO, {
     onCompleted(attachProjectMutation) {
-      const { repoRefId } = attachProjectMutation?.attachProjectToNewRepo;
+      const { repoRefId } = attachProjectMutation?.attachProjectToNewRepo ?? {};
       dispatchToast.success(`Successfully attached to repo ${repoRefId}`);
     },
     onError(err) {

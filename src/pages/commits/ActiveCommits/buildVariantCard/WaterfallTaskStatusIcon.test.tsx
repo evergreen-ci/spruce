@@ -1,7 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
 import { GET_FAILED_TASK_STATUS_ICON_TOOLTIP } from "gql/queries";
-import { renderWithRouterMatch as render, waitFor } from "test_utils";
+import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
 import { injectGlobalStyle, removeGlobalStyle } from "../utils";
 import { WaterfallTaskStatusIcon } from "./WaterfallTaskStatusIcon";
 
@@ -21,35 +21,39 @@ const Content = ({ status }: { status: string }) => (
 );
 describe("waterfallTaskStatusIcon", () => {
   it("tooltip should contain task name, duration, list of failing test names and additonal test count", async () => {
-    const { queryByDataCy, queryByText } = render(<Content status="failed" />);
-    userEvent.hover(queryByDataCy("waterfall-task-status-icon"));
-    await waitFor(() => {
-      expect(queryByDataCy("waterfall-task-status-icon-tooltip")).toBeVisible();
-    });
-    await waitFor(() => {
-      expect(queryByText("multiversion - 45m 54s")).toBeVisible();
-    });
-
+    render(<Content status="failed" />);
+    userEvent.hover(screen.queryByDataCy("waterfall-task-status-icon"));
     await waitFor(() => {
       expect(
-        queryByText("jstests/multiVersion/remove_invalid_index_options.js")
+        screen.queryByDataCy("waterfall-task-status-icon-tooltip")
       ).toBeVisible();
     });
     await waitFor(() => {
-      expect(queryByText("and 2 more")).toBeVisible();
+      expect(screen.queryByText("multiversion - 45m 54s")).toBeVisible();
+    });
+    await waitFor(() => {
+      expect(
+        screen.queryByText(
+          "jstests/multiVersion/remove_invalid_index_options.js"
+        )
+      ).toBeVisible();
+    });
+    await waitFor(() => {
+      expect(screen.queryByText("and 2 more")).toBeVisible();
     });
   });
 
   it("icon should link to task page", async () => {
-    const { queryByDataCy } = render(<Content status="failed" />);
+    render(<Content status="failed" />);
     await waitFor(() => {
-      expect(queryByDataCy("waterfall-task-status-icon")).toBeInTheDocument();
+      expect(
+        screen.getByDataCy("waterfall-task-status-icon")
+      ).toBeInTheDocument();
     });
     await waitFor(() => {
-      expect(queryByDataCy("waterfall-task-status-icon")).toHaveAttribute(
-        "href",
-        "/task/task"
-      );
+      expect(
+        screen.queryByDataCy("waterfall-task-status-icon")
+      ).toHaveAttribute("href", "/task/task");
     });
   });
 
@@ -65,8 +69,8 @@ describe("waterfallTaskStatusIcon", () => {
     userEvent.hover(queryByDataCy("waterfall-task-status-icon"));
     await waitFor(() => {
       expect(injectGlobalStyle).toHaveBeenCalledTimes(1);
-      expect(injectGlobalStyle).toHaveBeenCalledWith(props.identifier);
     });
+    expect(injectGlobalStyle).toHaveBeenCalledWith(props.identifier);
 
     userEvent.unhover(queryByDataCy("waterfall-task-status-icon"));
     await waitFor(() => {

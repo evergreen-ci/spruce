@@ -78,10 +78,10 @@ export const Tabs: React.VFC<Props> = ({
     [isPatch, childPatches]
   );
 
-  const allTabs = useMemo(() => tabMap({ taskCount, childPatches }), [
-    taskCount,
-    childPatches,
-  ]);
+  const allTabs = useMemo(
+    () => tabMap({ taskCount, childPatches }),
+    [taskCount, childPatches]
+  );
   const activeTabs = useMemo(
     () => Object.keys(allTabs).filter((t) => tabIsActive[t] as PatchTab[]),
     [allTabs, tabIsActive]

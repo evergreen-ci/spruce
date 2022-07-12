@@ -2,7 +2,7 @@ import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
 import { CREATE_PROJECT } from "gql/mutations";
-import { renderWithRouterMatch as render, waitFor } from "test_utils";
+import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
 import { CreateProjectModal } from "./CreateProjectModal";
 
 const defaultOwner = "existing_owner";
@@ -34,79 +34,101 @@ describe("createProjectField", () => {
     const { Component } = RenderFakeToastContext(
       <NewProjectModal open={false} />
     );
-    const { queryByDataCy } = render(<Component />);
+    render(<Component />);
 
-    expect(queryByDataCy("create-project-modal")).not.toBeInTheDocument();
+    expect(
+      screen.queryByDataCy("create-project-modal")
+    ).not.toBeInTheDocument();
   });
 
   it("disables the confirm button on initial render", async () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
-    const { queryByText } = render(<Component />);
+    render(<Component />);
 
-    await waitFor(() => expect(queryByText("Project Name")).toBeVisible());
+    await waitFor(() =>
+      expect(screen.queryByText("Project Name")).toBeVisible()
+    );
 
     await waitFor(() => {
-      const confirmButton = queryByText("Create Project").closest("button");
+      const confirmButton = screen.getByRole("button", {
+        name: "Create Project",
+      });
       expect(confirmButton).toBeDisabled();
     });
   });
 
   it("disables the confirm button when project name field is missing", async () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
-    const { queryByDataCy, queryByText } = render(<Component />);
+    render(<Component />);
 
-    await waitFor(() => expect(queryByText("Project Name")).toBeVisible());
-    userEvent.type(queryByDataCy("repo-input"), "new-repo-name");
-    userEvent.type(queryByDataCy("owner-input"), "new-owner-name");
+    await waitFor(() =>
+      expect(screen.queryByText("Project Name")).toBeVisible()
+    );
+    userEvent.type(screen.queryByDataCy("repo-input"), "new-repo-name");
+    userEvent.type(screen.queryByDataCy("owner-input"), "new-owner-name");
     await waitFor(() => {
-      const confirmButton = queryByText("Create Project").closest("button");
+      const confirmButton = screen.getByRole("button", {
+        name: "Create Project",
+      });
       expect(confirmButton).toBeDisabled();
     });
   });
 
   it("disables the confirm button when repo field is missing", async () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
-    const { queryByDataCy, queryByText } = render(<Component />);
+    render(<Component />);
 
-    await waitFor(() => expect(queryByText("Project Name")).toBeVisible());
+    await waitFor(() =>
+      expect(screen.queryByText("Project Name")).toBeVisible()
+    );
     userEvent.type(
-      queryByDataCy("project-name-input"),
+      screen.queryByDataCy("project-name-input"),
       "new-project-name-input"
     );
-    userEvent.type(queryByDataCy("owner-input"), "new-owner-name");
-    expect(queryByDataCy("repo-input")).toHaveValue("");
+    userEvent.type(screen.queryByDataCy("owner-input"), "new-owner-name");
+    expect(screen.queryByDataCy("repo-input")).toHaveValue("");
     await waitFor(() => {
-      const confirmButton = queryByText("Create Project").closest("button");
+      const confirmButton = screen.getByRole("button", {
+        name: "Create Project",
+      });
       expect(confirmButton).toBeDisabled();
     });
   });
 
   it("disables the confirm button when owner field is missing", async () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
-    const { queryByDataCy, queryByText } = render(<Component />);
+    render(<Component />);
 
-    await waitFor(() => expect(queryByText("Project Name")).toBeVisible());
+    await waitFor(() =>
+      expect(screen.queryByText("Project Name")).toBeVisible()
+    );
     userEvent.type(
-      queryByDataCy("project-name-input"),
+      screen.queryByDataCy("project-name-input"),
       "new-project-name-input"
     );
-    userEvent.type(queryByDataCy("repo-input"), "new-repo-name");
+    userEvent.type(screen.queryByDataCy("repo-input"), "new-repo-name");
     await waitFor(() => {
-      const confirmButton = queryByText("Create Project").closest("button");
+      const confirmButton = screen.getByRole("button", {
+        name: "Create Project",
+      });
       expect(confirmButton).toBeDisabled();
     });
   });
 
   it("disables the confirm button when project name contains a space", async () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
-    const { queryByDataCy, queryByText } = render(<Component />);
+    render(<Component />);
 
-    await waitFor(() => expect(queryByText("Project Name")).toBeVisible());
-    userEvent.type(queryByDataCy("project-name-input"), "my test");
-    userEvent.type(queryByDataCy("repo-input"), "new-repo-name");
-    userEvent.type(queryByDataCy("owner-input"), "new-owner-name");
+    await waitFor(() =>
+      expect(screen.queryByText("Project Name")).toBeVisible()
+    );
+    userEvent.type(screen.queryByDataCy("project-name-input"), "my test");
+    userEvent.type(screen.queryByDataCy("repo-input"), "new-repo-name");
+    userEvent.type(screen.queryByDataCy("owner-input"), "new-owner-name");
     await waitFor(() => {
-      const confirmButton = queryByText("Create Project").closest("button");
+      const confirmButton = screen.getByRole("button", {
+        name: "Create Project",
+      });
       expect(confirmButton).toBeDisabled();
     });
   });
@@ -115,21 +137,25 @@ describe("createProjectField", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <NewProjectModal />
     );
-    const { queryByDataCy, queryByText } = render(<Component />);
+    render(<Component />);
 
-    await waitFor(() => expect(queryByText("Project Name")).toBeVisible());
+    await waitFor(() =>
+      expect(screen.queryByText("Project Name")).toBeVisible()
+    );
     userEvent.type(
-      queryByDataCy("project-name-input"),
+      screen.queryByDataCy("project-name-input"),
       "new-project-name-input"
     );
-    userEvent.type(queryByDataCy("repo-input"), "new-repo-name");
-    userEvent.type(queryByDataCy("owner-input"), "new-owner-name");
+    userEvent.type(screen.queryByDataCy("repo-input"), "new-repo-name");
+    userEvent.type(screen.queryByDataCy("owner-input"), "new-owner-name");
     await waitFor(() => {
-      const confirmButton = queryByText("Create Project").closest("button");
+      const confirmButton = screen.getByRole("button", {
+        name: "Create Project",
+      });
       expect(confirmButton).toBeEnabled();
     });
 
-    userEvent.click(queryByText("Create Project"));
+    userEvent.click(screen.queryByText("Create Project"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
   });
@@ -158,23 +184,30 @@ describe("createProjectField", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <NewProjectModal mock={mockWithId} />
     );
-    const { queryByDataCy, queryByText } = render(<Component />);
+    render(<Component />);
 
-    await waitFor(() => expect(queryByText("Project Name")).toBeVisible());
+    await waitFor(() =>
+      expect(screen.queryByText("Project Name")).toBeVisible()
+    );
     userEvent.type(
-      queryByDataCy("project-name-input"),
+      screen.queryByDataCy("project-name-input"),
       "new-project-name-input"
     );
-    userEvent.type(queryByDataCy("project-id-input"), "new-project-id-input");
-    userEvent.type(queryByDataCy("repo-input"), "new-repo-name");
-    userEvent.type(queryByDataCy("owner-input"), "new-owner-name");
+    userEvent.type(
+      screen.queryByDataCy("project-id-input"),
+      "new-project-id-input"
+    );
+    userEvent.type(screen.queryByDataCy("repo-input"), "new-repo-name");
+    userEvent.type(screen.queryByDataCy("owner-input"), "new-owner-name");
 
     await waitFor(() => {
-      const confirmButton = queryByText("Create Project").closest("button");
+      const confirmButton = screen.getByRole("button", {
+        name: "Create Project",
+      });
       expect(confirmButton).toBeEnabled();
     });
 
-    userEvent.click(queryByText("Create Project"));
+    userEvent.click(screen.queryByText("Create Project"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
   });
@@ -183,11 +216,13 @@ describe("createProjectField", () => {
     const { Component } = RenderFakeToastContext(
       <NewProjectModal owner={defaultOwner} repo={defaultRepo} />
     );
-    const { queryByDataCy, queryByText } = render(<Component />);
+    render(<Component />);
 
-    await waitFor(() => expect(queryByText("Project Name")).toBeVisible());
-    expect(queryByDataCy("owner-input")).toHaveValue(defaultOwner);
-    expect(queryByDataCy("repo-input")).toHaveValue(defaultRepo);
+    await waitFor(() =>
+      expect(screen.queryByText("Project Name")).toBeVisible()
+    );
+    expect(screen.queryByDataCy("owner-input")).toHaveValue(defaultOwner);
+    expect(screen.queryByDataCy("repo-input")).toHaveValue(defaultRepo);
   });
 });
 

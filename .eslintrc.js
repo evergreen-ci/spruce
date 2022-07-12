@@ -24,7 +24,6 @@ module.exports = {
     "plugin:import/errors",
     "plugin:import/warnings",
     "prettier",
-    "prettier/@typescript-eslint",
   ],
   globals: {
     Atomics: "readonly",
@@ -37,7 +36,7 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 2018,
+    ecmaVersion: "latest",
     sourceType: "module",
   },
   plugins: ["@typescript-eslint", "prettier"],
@@ -99,6 +98,17 @@ module.exports = {
     "no-empty": [ERROR, { allowEmptyCatch: true }],
     "no-plusplus": [ERROR, { allowForLoopAfterthoughts: true }],
     "prettier/prettier": [errorIfStrict, prettierConfig],
+    // allows use of dot notation, for example user.id
+    "react/destructuring-assignment": OFF,
+    // This rule doesn't allow us to have arrow function named components (which we use in the entire
+    // codebase), so we override it here.
+    "react/function-component-definition": [
+      2,
+      {
+        namedComponents: "arrow-function",
+        unnamedComponents: "arrow-function",
+      },
+    ],
   },
   overrides: [
     // Lint graphql files
@@ -108,15 +118,6 @@ module.exports = {
       plugins: ["@graphql-eslint"],
       rules: {
         "prettier/prettier": "error",
-      },
-    },
-    // the following is required for `eslint-plugin-prettier@<=3.4.0` temporarily
-    // after https://github.com/prettier/eslint-plugin-prettier/pull/415
-    // been merged and released, it can be deleted safely
-    {
-      files: ["*.graphql"],
-      rules: {
-        "prettier/prettier": "off",
       },
     },
   ],

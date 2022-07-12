@@ -1,4 +1,4 @@
-import { render } from "test_utils";
+import { render, screen } from "test_utils";
 import { VariableRow } from "./VariableRow";
 
 const mockProperty = {
@@ -25,25 +25,25 @@ const mockUiSchema = {
 };
 
 describe("variable row field template", () => {
-  it("shows a warning when a duplicate variable appears in repo and project", async () => {
-    const { queryByDataCy } = render(
+  it("shows a warning when a duplicate variable appears in repo and project", () => {
+    render(
       <VariableRow
         formData={{ varName: "test" }}
         properties={mockProperties}
         uiSchema={mockUiSchema}
       />
     );
-    expect(queryByDataCy("override-warning")).toBeInTheDocument();
+    expect(screen.getByDataCy("override-warning")).toBeInTheDocument();
   });
 
-  it("does not show a warning when a duplicate variable does not appear in repo and project", async () => {
-    const { queryByDataCy } = render(
+  it("does not show a warning when a duplicate variable does not appear in repo and project", () => {
+    render(
       <VariableRow
         formData={{ varName: "" }}
         properties={mockProperties}
         uiSchema={mockUiSchema}
       />
     );
-    expect(queryByDataCy("override-warning")).not.toBeInTheDocument();
+    expect(screen.queryByDataCy("override-warning")).not.toBeInTheDocument();
   });
 });

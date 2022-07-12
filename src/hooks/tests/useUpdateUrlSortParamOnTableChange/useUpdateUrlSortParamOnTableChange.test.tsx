@@ -3,7 +3,7 @@ import { ColumnProps } from "antd/es/table";
 import MatchMediaMock from "jest-matchmedia-mock";
 import { useLocation } from "react-router-dom";
 import { useUpdateUrlSortParamOnTableChange } from "hooks";
-import { renderWithRouterMatch as render, fireEvent } from "test_utils";
+import { fireEvent, renderWithRouterMatch as render, screen } from "test_utils";
 import { queryString } from "utils";
 
 describe("useUpdateUrlSortParamOnTableChange", () => {
@@ -15,34 +15,35 @@ describe("useUpdateUrlSortParamOnTableChange", () => {
   afterEach(() => {
     matchMedia.clear();
   });
+
   it("toggles table headers when clicked", () => {
-    const { getByText } = render(<TestComponent />, {
+    render(<TestComponent />, {
       route: "/hosts",
       path: "/hosts",
     });
 
-    const idHeader = getByText("ID");
-    const statusHeader = getByText("Status");
+    const idHeader = screen.getByText("ID");
+    const statusHeader = screen.getByText("Status");
 
     fireEvent.click(idHeader);
 
-    expect(getByText("sortBy: ID")).toBeInTheDocument();
-    expect(getByText("sortDir: ASC")).toBeInTheDocument();
+    expect(screen.getByText("sortBy: ID")).toBeInTheDocument();
+    expect(screen.getByText("sortDir: ASC")).toBeInTheDocument();
 
     fireEvent.click(statusHeader);
 
-    expect(getByText("sortBy: STATUS")).toBeInTheDocument();
-    expect(getByText("sortDir: ASC")).toBeInTheDocument();
+    expect(screen.getByText("sortBy: STATUS")).toBeInTheDocument();
+    expect(screen.getByText("sortDir: ASC")).toBeInTheDocument();
 
     fireEvent.click(statusHeader);
 
-    expect(getByText("sortBy: STATUS")).toBeInTheDocument();
-    expect(getByText("sortDir: DESC")).toBeInTheDocument();
+    expect(screen.getByText("sortBy: STATUS")).toBeInTheDocument();
+    expect(screen.getByText("sortDir: DESC")).toBeInTheDocument();
 
     fireEvent.click(statusHeader);
 
-    expect(getByText("sortBy: none")).toBeInTheDocument();
-    expect(getByText("sortDir: none")).toBeInTheDocument();
+    expect(screen.getByText("sortBy: none")).toBeInTheDocument();
+    expect(screen.getByText("sortDir: none")).toBeInTheDocument();
   });
 });
 

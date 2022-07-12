@@ -97,6 +97,7 @@ export const DefaultFieldTemplate: React.VFC<FieldTemplateProps> = ({
         {isNullType && showLabel && (
           <CustomTitleField id={id} title={label} uiSchema={uiSchema} />
         )}
+        {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
         {isNullType && <>{description}</>}
         <DefaultFieldContainer
           id={`${sectionId} ${id}`}

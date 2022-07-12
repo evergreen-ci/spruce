@@ -84,13 +84,8 @@ export const BuildVariantContainer: React.VFC<BuildVariantContainerProps> = ({
   version,
   buildVariantDict,
 }) => {
-  const {
-    buildVariants,
-    buildVariantStats,
-    projectIdentifier,
-    id,
-    order,
-  } = version;
+  const { buildVariants, buildVariantStats, projectIdentifier, id, order } =
+    version;
 
   const memoizedBuildVariantCards = useMemo(() => {
     const groupedBuildVariants = convertArrayToObject(buildVariants, "variant");

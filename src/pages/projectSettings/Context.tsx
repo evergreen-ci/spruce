@@ -138,12 +138,12 @@ const ProjectSettingsProvider: React.VFC<{ children: React.ReactNode }> = ({
     []
   );
 
-  const updateForm: ProjectSettingsState["updateForm"] = (
-    tab: WritableTabRoutes
-  ) => ({ formData, errors = [] }: OnChangeParams<WritableTabRoutes>) => {
-    setHasChanges(tab, formData);
-    dispatch({ type: "updateForm", tab, formData, errors });
-  };
+  const updateForm: ProjectSettingsState["updateForm"] =
+    (tab: WritableTabRoutes) =>
+    ({ formData, errors = [] }: OnChangeParams<WritableTabRoutes>) => {
+      setHasChanges(tab, formData);
+      dispatch({ type: "updateForm", tab, formData, errors });
+    };
 
   const saveTab: ProjectSettingsState["saveTab"] = (tab: WritableTabRoutes) => {
     dispatch({ type: "saveTab", tab });
@@ -162,6 +162,7 @@ const ProjectSettingsProvider: React.VFC<{ children: React.ReactNode }> = ({
 
   return (
     <ProjectSettingsContext.Provider
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         updateForm,
         saveTab,

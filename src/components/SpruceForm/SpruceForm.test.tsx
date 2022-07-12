@@ -1,16 +1,10 @@
-import { render, fireEvent, waitFor } from "test_utils";
+import { fireEvent, render, screen, waitFor } from "test_utils";
 import { SpruceForm, SpruceFormContainer } from ".";
 
 describe("spruceForm", () => {
   it("should render as expected", () => {
     const onChange = jest.fn();
-    const {
-      container,
-      getAllByRole,
-      getByLabelText,
-      queryByDataCy,
-      queryByText,
-    } = render(
+    const { container } = render(
       <SpruceFormContainer title="Just a test">
         <SpruceForm
           schema={basicForm.schema}
@@ -20,12 +14,12 @@ describe("spruceForm", () => {
         />
       </SpruceFormContainer>
     );
-    expect(getByLabelText("Project Cloning Method")).toBeInTheDocument();
+    expect(screen.getByLabelText("Project Cloning Method")).toBeInTheDocument();
     expect(container.firstChild).toMatchSnapshot();
 
-    expect(queryByText("Username Label")).not.toBeInTheDocument();
-    expect(queryByDataCy("add-button")).toHaveTextContent("New User");
-    expect(getAllByRole("heading", { level: 3 })[1]).toHaveTextContent(
+    expect(screen.queryByText("Username Label")).not.toBeInTheDocument();
+    expect(screen.queryByDataCy("add-button")).toHaveTextContent("New User");
+    expect(screen.getAllByRole("heading", { level: 3 })[1]).toHaveTextContent(
       "Manage Access"
     );
   });
@@ -35,7 +29,7 @@ describe("spruceForm", () => {
       const { formData } = x;
       data = formData;
     });
-    const { queryAllByDataCy, queryByDataCy } = render(
+    render(
       <SpruceFormContainer title="Just a test">
         <SpruceForm
           schema={basicForm.schema}
@@ -45,19 +39,21 @@ describe("spruceForm", () => {
         />
       </SpruceFormContainer>
     );
-    fireEvent.change(queryByDataCy("valid-projects-input"), {
+    fireEvent.change(screen.queryByDataCy("valid-projects-input"), {
       target: { value: "new value" },
     });
-    fireEvent.click(queryByDataCy("add-button"));
+    fireEvent.click(screen.queryByDataCy("add-button"));
     await waitFor(() =>
-      expect(queryAllByDataCy("new-user-input")).toHaveLength(2)
+      expect(screen.queryAllByDataCy("new-user-input")).toHaveLength(2)
     );
-    fireEvent.change(queryAllByDataCy("new-user-input")[0], {
+    fireEvent.change(screen.queryAllByDataCy("new-user-input")[0], {
       target: { value: "new-user" },
     });
     // eslint-disable-next-line jest/prefer-called-with
     expect(onChange).toHaveBeenCalled();
-    expect(queryByDataCy("valid-projects-input")).toHaveValue("new value");
+    expect(screen.queryByDataCy("valid-projects-input")).toHaveValue(
+      "new value"
+    );
     expect(data).toStrictEqual({
       ...basicForm.formData,
       access: null,

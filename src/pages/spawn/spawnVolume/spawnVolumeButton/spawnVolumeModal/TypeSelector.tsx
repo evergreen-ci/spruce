@@ -22,6 +22,7 @@ export const TypeSelector: React.VFC<Props> = ({ value, onChange }) => (
         onChange={onChange}
         value={value}
         data-cy="typeSelector"
+        aria-labelledby="type-select"
       >
         {volumeTypes.map((t) => (
           <Option value={t} key={`type_option_${t}`}>

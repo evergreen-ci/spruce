@@ -33,10 +33,8 @@ const AnnotationTickets: React.VFC<AnnotationTicketsProps> = ({
   const annotationAnalytics = useAnnotationAnalytics();
   const title = isIssue ? "Issues" : "Suspected Issues";
   const buttonText = isIssue ? "Add Issue" : "Add Suspected Issue";
-  const [
-    isAddAnnotationModalVisible,
-    setIsAddAnnotationModalVisible,
-  ] = useState<boolean>(false);
+  const [isAddAnnotationModalVisible, setIsAddAnnotationModalVisible] =
+    useState<boolean>(false);
 
   const handleAdd = () => {
     setIsAddAnnotationModalVisible(true);

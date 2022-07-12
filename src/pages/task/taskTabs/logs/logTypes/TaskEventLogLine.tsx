@@ -91,7 +91,7 @@ export const TaskEventLogLine: React.VFC<TaskEventLogEntry> = ({
       message = <>Dependencies overridden by user {userId}.</>;
       break;
     default:
-      message = <></>;
+      message = null;
   }
 
   return (

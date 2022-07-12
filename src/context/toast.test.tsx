@@ -1,5 +1,5 @@
 import { renderHook } from "@testing-library/react-hooks";
-import { render, fireEvent, waitFor, act } from "test_utils";
+import { act, fireEvent, render, screen, waitFor } from "test_utils";
 import { RequireAtMostOne } from "types/utils";
 import { RenderFakeToastContext } from "./__mocks__/toast";
 import { useToastContext, ToastProvider } from "./toast";
@@ -7,11 +7,9 @@ import { useToastContext, ToastProvider } from "./toast";
 type useToastContextProps = ReturnType<typeof useToastContext>;
 
 // This type requires that the component only accepts one of the props
-type UseToastComponentProps = RequireAtMostOne<
-  {
-    [K in keyof useToastContextProps]: Parameters<useToastContextProps[K]>;
-  }
->;
+type UseToastComponentProps = RequireAtMostOne<{
+  [K in keyof useToastContextProps]: Parameters<useToastContextProps[K]>;
+}>;
 
 describe("real Toast", () => {
   // Since useToastContext relies on the toastProvider which in turn relies on the react.createPortal api we cannot test it directly
@@ -52,108 +50,98 @@ describe("real Toast", () => {
 
   describe("displays a toast which corresponds to the variant dispatched", () => {
     it("success", async () => {
-      const { queryByText, queryByDataCy } = render(
-        renderContainer(<UseToastComponent success={["test string"]} />)
-      );
-      fireEvent.click(queryByText("Click Me"));
+      render(renderContainer(<UseToastComponent success={["test string"]} />));
+      fireEvent.click(screen.queryByText("Click Me"));
       await waitFor(() => {
-        expect(queryByDataCy("toast")).toBeInTheDocument();
-        expect(queryByText("Success!")).toBeInTheDocument();
-        expect(queryByText("test string")).toBeInTheDocument();
+        expect(screen.getByDataCy("toast")).toBeInTheDocument();
       });
+      expect(screen.getByText("Success!")).toBeInTheDocument();
+      expect(screen.getByText("test string")).toBeInTheDocument();
     });
     it("error", async () => {
-      const { queryByText, queryByDataCy } = render(
-        renderContainer(<UseToastComponent error={["test string"]} />)
-      );
-      fireEvent.click(queryByText("Click Me"));
+      render(renderContainer(<UseToastComponent error={["test string"]} />));
+      fireEvent.click(screen.queryByText("Click Me"));
       await waitFor(() => {
-        expect(queryByDataCy("toast")).toBeInTheDocument();
-        expect(queryByText("Error!")).toBeInTheDocument();
-        expect(queryByText("test string")).toBeInTheDocument();
+        expect(screen.getByDataCy("toast")).toBeInTheDocument();
       });
+      expect(screen.getByText("Error!")).toBeInTheDocument();
+      expect(screen.getByText("test string")).toBeInTheDocument();
     });
     it("warning", async () => {
-      const { queryByText, queryByDataCy } = render(
-        renderContainer(<UseToastComponent warning={["test string"]} />)
-      );
-      fireEvent.click(queryByText("Click Me"));
+      render(renderContainer(<UseToastComponent warning={["test string"]} />));
+      fireEvent.click(screen.queryByText("Click Me"));
       await waitFor(() => {
-        expect(queryByDataCy("toast")).toBeInTheDocument();
-        expect(queryByText("Warning!")).toBeInTheDocument();
-        expect(queryByText("test string")).toBeInTheDocument();
+        expect(screen.getByDataCy("toast")).toBeInTheDocument();
       });
+      expect(screen.getByText("Warning!")).toBeInTheDocument();
+      expect(screen.getByText("test string")).toBeInTheDocument();
     });
     it("info", async () => {
-      const { queryByText, queryByDataCy } = render(
-        renderContainer(<UseToastComponent info={["test string"]} />)
-      );
-      fireEvent.click(queryByText("Click Me"));
+      render(renderContainer(<UseToastComponent info={["test string"]} />));
+      fireEvent.click(screen.queryByText("Click Me"));
       await waitFor(() => {
-        expect(queryByDataCy("toast")).toBeInTheDocument();
-        expect(queryByText("Something Happened!")).toBeInTheDocument();
-        expect(queryByText("test string")).toBeInTheDocument();
+        expect(screen.getByDataCy("toast")).toBeInTheDocument();
       });
+      expect(screen.getByText("Something Happened!")).toBeInTheDocument();
+      expect(screen.getByText("test string")).toBeInTheDocument();
     });
   });
   it("should be able to set a custom title for a toast", async () => {
-    const { queryByText } = render(
+    render(
       renderContainer(
         <UseToastComponent
           info={["test string", true, { title: "Some Title" }]}
         />
       )
     );
-    fireEvent.click(queryByText("Click Me"));
+    fireEvent.click(screen.queryByText("Click Me"));
     await waitFor(() => {
-      expect(queryByText("Something Happened!")).not.toBeInTheDocument();
-      expect(queryByText("Some Title")).toBeInTheDocument();
-      expect(queryByText("test string")).toBeInTheDocument();
+      expect(screen.queryByText("Something Happened!")).not.toBeInTheDocument();
     });
+    expect(screen.getByText("Some Title")).toBeInTheDocument();
+    expect(screen.getByText("test string")).toBeInTheDocument();
   });
   describe("closing the toast", () => {
     it("should be able to close a toast by clicking the x by default", async () => {
-      const { queryByLabelText, queryByText, queryByDataCy } = render(
-        renderContainer(<UseToastComponent info={["test string"]} />)
-      );
-      fireEvent.click(queryByText("Click Me"));
+      render(renderContainer(<UseToastComponent info={["test string"]} />));
+      fireEvent.click(screen.queryByText("Click Me"));
       await waitFor(() => {
-        expect(queryByDataCy("toast")).toBeInTheDocument();
+        expect(screen.getByDataCy("toast")).toBeInTheDocument();
       });
-      expect(queryByLabelText("Close Message")).toBeInTheDocument();
+      expect(screen.getByLabelText("Close Message")).toBeInTheDocument();
 
-      fireEvent.click(queryByLabelText("Close Message"));
+      fireEvent.click(screen.queryByLabelText("Close Message"));
       await waitFor(() => {
-        expect(queryByDataCy("toast")).not.toBeInTheDocument();
+        expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
       });
     });
 
     it("should not be able to close the toast when closable is false", async () => {
-      const { queryByLabelText, queryByText, queryByDataCy } = render(
+      render(
         renderContainer(<UseToastComponent info={["test string", false]} />)
       );
-      fireEvent.click(queryByText("Click Me"));
+      fireEvent.click(screen.queryByText("Click Me"));
       await waitFor(() => {
-        expect(queryByDataCy("toast")).toBeInTheDocument();
+        expect(screen.getByDataCy("toast")).toBeInTheDocument();
       });
-      expect(queryByLabelText("Close Message")).toBeNull();
+      expect(screen.queryByLabelText("Close Message")).toBeNull();
     });
     it("should trigger a callback function onClose", async () => {
       const onClose = jest.fn();
-      const { queryByLabelText, queryByText, queryByDataCy } = render(
+      render(
         renderContainer(
           <UseToastComponent info={["test string", true, { onClose }]} />
         )
       );
-      fireEvent.click(queryByText("Click Me"));
+      fireEvent.click(screen.queryByText("Click Me"));
       await waitFor(() => {
-        expect(queryByDataCy("toast")).toBeInTheDocument();
+        expect(screen.getByDataCy("toast")).toBeInTheDocument();
       });
-      expect(queryByLabelText("Close Message")).toBeInTheDocument();
+      expect(screen.getByLabelText("Close Message")).toBeInTheDocument();
 
-      fireEvent.click(queryByLabelText("Close Message"));
+      fireEvent.click(screen.queryByLabelText("Close Message"));
       await waitFor(() => {
-        expect(queryByDataCy("toast")).not.toBeInTheDocument();
+        expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
       });
       expect(onClose).toHaveBeenCalledWith();
     });
@@ -161,31 +149,29 @@ describe("real Toast", () => {
 
   it("should close on its own after a timeout has completed", async () => {
     jest.useFakeTimers();
-    const { queryByText, queryByDataCy } = render(
-      renderContainer(<UseToastComponent info={["test string", true]} />)
-    );
-    fireEvent.click(queryByText("Click Me"));
+    render(renderContainer(<UseToastComponent info={["test string", true]} />));
+    fireEvent.click(screen.queryByText("Click Me"));
     await waitFor(() => {
-      expect(queryByDataCy("toast")).toBeInTheDocument();
+      expect(screen.getByDataCy("toast")).toBeInTheDocument();
     });
     act(() => {
       jest.runAllTimers();
     });
-    expect(queryByDataCy("toast")).not.toBeInTheDocument();
+    expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
   });
 
   it("should hide the toast when hide() is called", async () => {
-    const { queryByText, queryByDataCy, rerender } = render(
+    const { rerender } = render(
       renderContainer(<UseToastComponent info={["test string", true]} />)
     );
-    fireEvent.click(queryByText("Click Me"));
+    fireEvent.click(screen.queryByText("Click Me"));
     await waitFor(() => {
-      expect(queryByDataCy("toast")).toBeInTheDocument();
+      expect(screen.getByDataCy("toast")).toBeInTheDocument();
     });
     rerender(renderContainer(<UseToastComponent hide={[]} />));
-    fireEvent.click(queryByText("Click Me"));
+    fireEvent.click(screen.queryByText("Click Me"));
     await waitFor(() => {
-      expect(queryByDataCy("toast")).not.toBeInTheDocument();
+      expect(screen.queryByDataCy("toast")).not.toBeInTheDocument();
     });
   });
 });
@@ -209,8 +195,8 @@ describe("mocked Fake Toast", () => {
       useToastContext: useToastContextSpied,
       dispatchToast,
     } = RenderFakeToastContext(<UseToastComponent />);
-    const { queryByText } = render(<Component />);
-    fireEvent.click(queryByText("Click Me"));
+    render(<Component />);
+    fireEvent.click(screen.queryByText("Click Me"));
     expect(useToastContextSpied).toHaveBeenCalledTimes(1);
     expect(dispatchToast.success).toHaveBeenCalledWith("test");
   });

@@ -37,10 +37,11 @@ export const Host: React.VFC = () => {
   const dispatchToast = useToastContext();
   const { id } = useParams<{ id: string }>();
   // Query host data
-  const { data: hostData, loading: hostMetaDataLoading, error } = useQuery<
-    HostQuery,
-    HostQueryVariables
-  >(GET_HOST, {
+  const {
+    data: hostData,
+    loading: hostMetaDataLoading,
+    error,
+  } = useQuery<HostQuery, HostQueryVariables>(GET_HOST, {
     variables: { id },
     onError: (err) => {
       dispatchToast.error(
@@ -72,10 +73,8 @@ export const Host: React.VFC = () => {
   const hostEvents = hostEventData?.hostEvents;
   const eventsCount = hostEvents?.count;
   // UPDATE STATUS MODAL VISIBILITY STATE
-  const [
-    isUpdateStatusModalVisible,
-    setIsUpdateStatusModalVisible,
-  ] = useState<boolean>(false);
+  const [isUpdateStatusModalVisible, setIsUpdateStatusModalVisible] =
+    useState<boolean>(false);
 
   usePageTitle(`Host${hostId ? ` - ${hostId}` : ""}`);
 

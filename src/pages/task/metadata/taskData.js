@@ -8,8 +8,7 @@ export const taskQuery = {
     activatedBy: "",
     aborted: false,
     baseTask: {
-      id:
-        "spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41",
+      id: "spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41",
       execution: 1,
       baseTaskDuration: 1228078,
       __typename: "Task",
@@ -22,8 +21,7 @@ export const taskQuery = {
     versionMetadata: {
       __typename: "Version",
       author: "mohamed.khelif",
-      id:
-        "spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41",
+      id: "spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41",
       isPatch: false,
       revision: "123j9123u9123",
       project: "spruce",

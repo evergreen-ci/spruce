@@ -5,12 +5,7 @@ const OFF = "off";
 const errorIfStrict = process.env.STRICT ? ERROR : WARN;
 
 module.exports = {
-  extends: [
-    "../.eslintrc.js",
-    "plugin:react/recommended",
-    "prettier/react",
-    "prettier/@typescript-eslint",
-  ],
+  extends: ["../.eslintrc.js", "plugin:react/recommended", "prettier"],
   plugins: ["react", "react-hooks", "@emotion", "testing-library", "jest"],
   rules: {
     // Help us with emotion
@@ -18,7 +13,7 @@ module.exports = {
     "@emotion/no-vanilla": errorIfStrict,
     "@emotion/pkg-renaming": ERROR,
     "@emotion/syntax-preference": [errorIfStrict, "string"],
-    // These rules help ensure we are following proper accessability standards
+    // These rules help ensure we are following proper accessibility standards
     "jsx-a11y/aria-role": [errorIfStrict, { ignoreNonDom: false }],
     "jsx-a11y/aria-props": errorIfStrict,
     // renamed to anchor-is-valid
@@ -75,6 +70,8 @@ module.exports = {
         },
       },
     ],
+    // This rule should be removed as part of EVG-17265.
+    "react/no-unstable-nested-components": OFF,
   },
   overrides: [
     {
@@ -90,11 +87,7 @@ module.exports = {
     },
     {
       files: ["*.test.ts", "*.test.tsx"],
-      extends: [
-        "plugin:testing-library/recommended",
-        "plugin:testing-library/react",
-        "plugin:jest/all",
-      ],
+      extends: ["plugin:testing-library/react", "plugin:jest/all"],
       rules: {
         "jest/no-hooks": OFF,
         "jest/no-mocks-import": OFF,

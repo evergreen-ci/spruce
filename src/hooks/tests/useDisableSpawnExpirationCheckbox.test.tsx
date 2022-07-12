@@ -4,9 +4,10 @@ import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { GET_MY_VOLUMES, GET_MY_HOSTS } from "gql/queries";
 import { useDisableSpawnExpirationCheckbox } from "..";
 
-const getProvider = (mocks) => ({ children }) => (
-  <MockedProvider mocks={mocks}>{children}</MockedProvider>
-);
+const getProvider =
+  (mocks) =>
+  ({ children }) =>
+    <MockedProvider mocks={mocks}>{children}</MockedProvider>;
 
 describe("useDisableSpawnExpirationCheckbox", () => {
   it("should return true when the user already has the maximum unexpirable volumes and a target item is not supplied.", async () => {

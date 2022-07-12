@@ -25,6 +25,7 @@ export const RegionSelector: React.VFC<Props> = ({
       onChange={onChange}
       value={selectedRegion}
       data-cy="regionSelector"
+      aria-labelledby="region-select"
     >
       {awsRegions?.map((region) => (
         <Option value={region} key={`region_option_${region}`}>

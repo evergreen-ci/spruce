@@ -36,6 +36,7 @@ const RenderFakeToastContext = (Component?: React.ReactElement) => {
 
   const HookWrapper = (props: any) => {
     const { children } = props;
+    // eslint-disable-next-line react/jsx-no-useless-fragment
     return <>{children}</>;
   };
   return {

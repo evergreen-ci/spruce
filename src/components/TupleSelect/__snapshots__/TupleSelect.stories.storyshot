@@ -88,7 +88,7 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
               className="leafygreen-ui-1i2djk5"
             >
               <input
-                aria-label="filter-input"
+                aria-labelledby="filter-input"
                 autoComplete="on"
                 className="leafygreen-ui-1il5lef"
                 data-cy="tuple-select-input"

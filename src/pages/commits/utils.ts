@@ -26,15 +26,12 @@ const getMainlineCommitsQueryVariables = (
   const variables = {
     mainlineCommitsOptions: generateMainlineCommitOptionsFromState(state),
     buildVariantOptions: generateBuildVariantOptionsFromState(state),
-    buildVariantOptionsForGraph: generateBuildVariantOptionsForGraphFromState(
-      state
-    ),
-    buildVariantOptionsForGroupedTasks: generateBuildVariantOptionsForGroupedTasksFromState(
-      state
-    ),
-    buildVariantOptionsForTaskIcons: generateBuildVariantOptionsForTaskIconsFromState(
-      state
-    ),
+    buildVariantOptionsForGraph:
+      generateBuildVariantOptionsForGraphFromState(state),
+    buildVariantOptionsForGroupedTasks:
+      generateBuildVariantOptionsForGroupedTasksFromState(state),
+    buildVariantOptionsForTaskIcons:
+      generateBuildVariantOptionsForTaskIconsFromState(state),
   };
   return variables;
 };

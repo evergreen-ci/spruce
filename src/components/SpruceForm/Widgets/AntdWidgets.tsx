@@ -39,10 +39,8 @@ export const AntdSelect: React.VFC<
   const isDisabled = disabled || readonly;
   const disabledOptions = disabledEnums ?? [];
 
-  const labelProps: OneOf<
-    { label: string },
-    { "aria-labelledby": string }
-  > = ariaLabelledBy ? { "aria-labelledby": ariaLabelledBy } : { label };
+  const labelProps: OneOf<{ label: string }, { "aria-labelledby": string }> =
+    ariaLabelledBy ? { "aria-labelledby": ariaLabelledBy } : { label };
 
   return (
     <ElementWrapper marginBottom={marginBottom}>

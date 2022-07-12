@@ -130,9 +130,8 @@ export const getPatchesInputFromURLSearch = (search: string): PatchesInput => {
   const parsed = parseQueryString(search);
   const patchName = (parsed[PatchPageQueryParams.PatchName] || "").toString();
   const rawStatuses = parsed[PatchPageQueryParams.Statuses];
-  const statuses = (Array.isArray(rawStatuses)
-    ? rawStatuses
-    : [rawStatuses]
+  const statuses = (
+    Array.isArray(rawStatuses) ? rawStatuses : [rawStatuses]
   ).filter((v) => v && v !== ALL_PATCH_STATUS);
   return {
     patchName,

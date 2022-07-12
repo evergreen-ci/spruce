@@ -26,26 +26,24 @@ export const UnscheduleTasks: React.VFC<props> = ({
 }) => {
   const dispatchToast = useToastContext();
   const [abort, setAbort] = useState(true);
-  const [
-    unschedulePatchTasks,
-    { loading: loadingUnschedulePatchTasks },
-  ] = useMutation<
-    UnschedulePatchTasksMutation,
-    UnschedulePatchTasksMutationVariables
-  >(UNSCHEDULE_PATCH_TASKS, {
-    onCompleted: () => {
-      dispatchToast.success(
-        `All tasks were unscheduled ${
-          abort ? "and tasks that already started were aborted" : ""
-        }`
-      );
-      setAbort(false);
-    },
-    onError: (err) => {
-      dispatchToast.error(`Error unscheduling tasks: ${err.message}`);
-    },
-    refetchQueries,
-  });
+  const [unschedulePatchTasks, { loading: loadingUnschedulePatchTasks }] =
+    useMutation<
+      UnschedulePatchTasksMutation,
+      UnschedulePatchTasksMutationVariables
+    >(UNSCHEDULE_PATCH_TASKS, {
+      onCompleted: () => {
+        dispatchToast.success(
+          `All tasks were unscheduled ${
+            abort ? "and tasks that already started were aborted" : ""
+          }`
+        );
+        setAbort(false);
+      },
+      onError: (err) => {
+        dispatchToast.error(`Error unscheduling tasks: ${err.message}`);
+      },
+      refetchQueries,
+    });
 
   const { sendEvent } = useVersionAnalytics(patchId);
 
