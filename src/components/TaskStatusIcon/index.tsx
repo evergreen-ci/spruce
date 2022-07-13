@@ -60,7 +60,7 @@ export const TaskStatusIcon: React.VFC<TaskStatusIconProps> = ({
       reportError(
         new Error(`Status '${status}' is not a valid task status`)
       ).warning();
-      return <></>;
+      return null;
   }
 };
 

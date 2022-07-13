@@ -1,6 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { fireEvent } from "@testing-library/react";
-import { renderHook, act } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react-hooks/dom";
 import { GET_USER } from "gql/queries";
 import { useNetworkStatus } from "hooks";
 
@@ -20,9 +20,7 @@ describe("useNetworkStatus", () => {
     const { result } = renderHook(() => useNetworkStatus(), {
       wrapper: Provider,
     });
-    act(() => {
-      fireEvent(window, new Event("offline"));
-    });
+    fireEvent(window, new Event("offline"));
     expect(result.current).toBe(false);
   });
 });

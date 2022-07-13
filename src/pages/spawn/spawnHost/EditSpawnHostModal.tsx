@@ -70,9 +70,8 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
   const dispatchToast = useToastContext();
 
   const spawnAnalytics = useSpawnAnalytics();
-  const { reducer, defaultEditSpawnHostState } = useEditSpawnHostModalState(
-    host
-  );
+  const { reducer, defaultEditSpawnHostState } =
+    useEditSpawnHostModalState(host);
   const [editSpawnHostState, dispatch] = reducer;
 
   useEffect(() => {
@@ -103,7 +102,7 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
     EditSpawnHostMutationVariables
   >(EDIT_SPAWN_HOST, {
     onCompleted(mutationResult) {
-      const { id } = mutationResult?.editSpawnHost;
+      const { id } = mutationResult?.editSpawnHost ?? {};
 
       dispatchToast.success(`Successfully modified spawned host: ${id}`);
       onCancel();
@@ -216,6 +215,7 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
               <div>
                 <Select
                   id="instanceTypeDropdown"
+                  aria-labelledby="instance-type-select"
                   showSearch
                   style={{ width: 200 }}
                   placeholder="Select instance type"

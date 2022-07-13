@@ -15,6 +15,7 @@
       config:
         skipTypename: true,
         preResolveTypes: true,
+        arrayInputCoercion: false
         scalars:
           StringMap: "{ [key: string]: any }"
           Time: Date

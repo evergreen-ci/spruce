@@ -52,65 +52,61 @@ const getErrorStyle = (
   return {};
 };
 
-export const getVersionControlError = (
-  versionControlEnabled: boolean,
-  projectType: ProjectType
-) => (
-  enabled: boolean,
-  override: boolean,
-  aliases: Array<AliasFormType>,
-  repoAliases: Array<AliasFormType>
-) => {
-  if (enabled === false) {
-    return ErrorType.None;
-  }
+export const getVersionControlError =
+  (versionControlEnabled: boolean, projectType: ProjectType) =>
+  (
+    enabled: boolean,
+    override: boolean,
+    aliases: Array<AliasFormType>,
+    repoAliases: Array<AliasFormType>
+  ) => {
+    if (enabled === false) {
+      return ErrorType.None;
+    }
 
-  switch (projectType) {
-    case ProjectType.AttachedProject:
-      if (override && !aliases?.length) {
-        if (versionControlEnabled) {
+    switch (projectType) {
+      case ProjectType.AttachedProject:
+        if (override && !aliases?.length) {
+          if (versionControlEnabled) {
+            return ErrorType.Warning;
+          }
+          return ErrorType.Error;
+        }
+        if (!override && !repoAliases?.length) {
           return ErrorType.Warning;
         }
-        return ErrorType.Error;
-      }
-      if (!override && !repoAliases?.length) {
-        return ErrorType.Warning;
-      }
-      return ErrorType.None;
-    default:
-      if (!aliases?.length) {
-        if (versionControlEnabled) {
-          return ErrorType.Warning;
+        return ErrorType.None;
+      default:
+        if (!aliases?.length) {
+          if (versionControlEnabled) {
+            return ErrorType.Warning;
+          }
+          return ErrorType.Error;
         }
-        return ErrorType.Error;
-      }
-      return ErrorType.None;
-  }
-};
+        return ErrorType.None;
+    }
+  };
 
-export const sectionHasError = (
-  versionControlEnabled: boolean,
-  projectType: ProjectType
-) => (
-  enabled: boolean,
-  override: boolean,
-  aliases: Array<AliasFormType>,
-  repoAliases: Array<AliasFormType>,
-  fieldName: string
-): ReturnType<typeof getErrorStyle> => {
-  const errorType = getVersionControlError(versionControlEnabled, projectType)(
-    enabled,
-    override,
-    aliases,
-    repoAliases
-  );
-  return getErrorStyle(
-    errorType,
-    versionControlEnabled,
-    projectType,
-    fieldName
-  );
-};
+export const sectionHasError =
+  (versionControlEnabled: boolean, projectType: ProjectType) =>
+  (
+    enabled: boolean,
+    override: boolean,
+    aliases: Array<AliasFormType>,
+    repoAliases: Array<AliasFormType>,
+    fieldName: string
+  ): ReturnType<typeof getErrorStyle> => {
+    const errorType = getVersionControlError(
+      versionControlEnabled,
+      projectType
+    )(enabled, override, aliases, repoAliases);
+    return getErrorStyle(
+      errorType,
+      versionControlEnabled,
+      projectType,
+      fieldName
+    );
+  };
 
 export const githubConflictErrorStyling = (
   conflictProjects: string[] | null,

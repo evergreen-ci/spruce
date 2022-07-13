@@ -71,10 +71,9 @@ interface RenderCommitsBuildVariantProps {
   commit: Commit;
   buildVariantDict: BuildVariantDict;
 }
-export const RenderCommitsBuildVariants: React.VFC<RenderCommitsBuildVariantProps> = ({
-  commit,
-  buildVariantDict,
-}) => {
+export const RenderCommitsBuildVariants: React.VFC<
+  RenderCommitsBuildVariantProps
+> = ({ commit, buildVariantDict }) => {
   const { version } = commit;
 
   if (version) {

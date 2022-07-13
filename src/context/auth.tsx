@@ -1,4 +1,4 @@
-import { useContext, useReducer, createContext } from "react";
+import { createContext, useContext, useMemo, useReducer } from "react";
 import axios from "axios";
 import { environmentalVariables } from "utils";
 import { leaveBreadcrumb } from "utils/errorReporting";
@@ -39,26 +39,29 @@ const AuthProvider: React.VFC<{ children: React.ReactNode }> = ({
     isAuthenticated: false,
   });
 
-  const dispatchContext: DispatchContext = {
-    login: async ({ username, password }) => {
-      await axios.post(`${getLoginDomain()}/login`, { username, password });
-      dispatch({ type: "authenticated" });
-    },
-    logoutAndRedirect: async () => {
-      // attempt log out and redirect to login page
-      try {
-        await axios.get(`${getLoginDomain()}/logout`);
-      } catch {}
-      dispatch({ type: "deauthenticated" });
-      window.location.href = `${getLoginDomain()}/login`;
-    },
-    dispatchAuthenticated: () => {
-      if (!state.isAuthenticated) {
+  const dispatchContext: DispatchContext = useMemo(
+    () => ({
+      login: async ({ username, password }) => {
+        await axios.post(`${getLoginDomain()}/login`, { username, password });
         dispatch({ type: "authenticated" });
-        leaveBreadcrumb("Authenticated", {}, "user");
-      }
-    },
-  };
+      },
+      logoutAndRedirect: async () => {
+        // attempt log out and redirect to login page
+        try {
+          await axios.get(`${getLoginDomain()}/logout`);
+        } catch {}
+        dispatch({ type: "deauthenticated" });
+        window.location.href = `${getLoginDomain()}/login`;
+      },
+      dispatchAuthenticated: () => {
+        if (!state.isAuthenticated) {
+          dispatch({ type: "authenticated" });
+          leaveBreadcrumb("Authenticated", {}, "user");
+        }
+      },
+    }),
+    [state.isAuthenticated]
+  );
 
   return (
     <AuthDispatchContext.Provider value={dispatchContext}>

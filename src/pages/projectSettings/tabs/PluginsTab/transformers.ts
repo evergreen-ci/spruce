@@ -55,9 +55,10 @@ export const formToGql: FormToGqlFunction<Tab> = (
         buildBaronSettings.useBuildBaron,
         buildBaronSettings.fileTicketWebhook
       ),
-      jiraCustomFields: buildBaronSettings.taskAnnotationSettings?.jiraCustomFields
-        .map(({ field, displayText }) => ({ field, displayText }))
-        .filter((str) => !!str),
+      jiraCustomFields:
+        buildBaronSettings.taskAnnotationSettings?.jiraCustomFields
+          .map(({ field, displayText }) => ({ field, displayText }))
+          .filter((str) => !!str),
     },
   };
 

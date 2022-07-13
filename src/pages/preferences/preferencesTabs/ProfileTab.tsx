@@ -32,9 +32,8 @@ export const ProfileTab: React.VFC = () => {
 
   const [timezoneField, setTimezoneField] = useState<string>(timezone);
   const [regionField, setRegionField] = useState<string>(region);
-  const [githubUsernameField, setGithubUsernameField] = useState<string>(
-    lastKnownAs
-  );
+  const [githubUsernameField, setGithubUsernameField] =
+    useState<string>(lastKnownAs);
 
   useEffect(() => {
     setGithubUsernameField(githubUser?.lastKnownAs);
@@ -54,10 +53,8 @@ export const ProfileTab: React.VFC = () => {
     },
   });
 
-  const {
-    data: awsRegionData,
-    loading: awsRegionLoading,
-  } = useQuery<AwsRegionsQuery>(GET_AWS_REGIONS);
+  const { data: awsRegionData, loading: awsRegionLoading } =
+    useQuery<AwsRegionsQuery>(GET_AWS_REGIONS);
   const awsRegions = awsRegionData?.awsRegions || [];
 
   const handleSave = async (e): Promise<void> => {

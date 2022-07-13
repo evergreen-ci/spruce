@@ -25,6 +25,7 @@ interface TaskCellProps {
   loading?: boolean;
   onClick?: ({ taskStatus }: { taskStatus: string }) => void;
 }
+
 const TaskCell: React.VFC<TaskCellProps> = ({
   task,
   inactive,
@@ -60,19 +61,16 @@ const EmptyCell = () => (
 interface LoadingCellProps {
   isHeader?: boolean;
 }
-const LoadingCell: React.VFC<LoadingCellProps> = ({ isHeader = false }) => (
-  <>
-    {isHeader ? (
-      <HeaderCell data-cy="loading-header-cell">
-        <Skeleton active title paragraph={false} />
-      </HeaderCell>
-    ) : (
-      <Cell data-cy="loading-cell">
-        <Skeleton.Avatar active shape="circle" size={statusIconSize} />
-      </Cell>
-    )}
-  </>
-);
+const LoadingCell: React.VFC<LoadingCellProps> = ({ isHeader = false }) =>
+  isHeader ? (
+    <HeaderCell data-cy="loading-header-cell">
+      <Skeleton active title paragraph={false} />
+    </HeaderCell>
+  ) : (
+    <Cell data-cy="loading-cell">
+      <Skeleton.Avatar active shape="circle" size={statusIconSize} />
+    </Cell>
+  );
 
 interface ColumnHeaderCellProps {
   link: string;

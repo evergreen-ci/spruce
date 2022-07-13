@@ -16,6 +16,7 @@ describe("useTestResults", () => {
       getTaskMetadata: expect.any(Function),
     });
   });
+
   it("should return the default state when there is no valid data for a row", () => {
     const { result } = renderHook(() => useMergedTestHook(0), {
       wrapper: ({ children }) => ProviderWrapper({ children }),
@@ -30,6 +31,7 @@ describe("useTestResults", () => {
       failingTests: [],
     });
   });
+
   it("should not attempt to fetch data for non commit rows", () => {
     const { result } = renderHook(() => useMergedTestHook(0), {
       wrapper: ({ children }) => ProviderWrapper({ children, mocks }),
@@ -56,6 +58,7 @@ describe("useTestResults", () => {
       failingTests: [],
     });
   });
+
   it("should return all matching test results when there are no filters applied and the row is a commit", async () => {
     const { result, waitForNextUpdate } = renderHook(
       () => useMergedTestHook(1),
@@ -90,6 +93,7 @@ describe("useTestResults", () => {
       loading: false,
     });
   });
+
   it("should return all matching test results when there are matching filters applied and the row is a commit", async () => {
     const { result, waitForNextUpdate } = renderHook(
       () => useMergedTestHook(1),
@@ -131,6 +135,7 @@ describe("useTestResults", () => {
       loading: false,
     });
   });
+
   it("should not return matching test results when there are non matching filters applied and the row is a commit", async () => {
     const { result, waitForNextUpdate } = renderHook(
       () => useMergedTestHook(1),
@@ -172,9 +177,7 @@ describe("useTestResults", () => {
   });
 });
 
-type UseMergedTestHookType = (
-  args: Parameters<typeof useTestResults>[0]
-) => {
+type UseMergedTestHookType = (args: Parameters<typeof useTestResults>[0]) => {
   hookResponse: ReturnType<typeof useTestResults>;
   historyTable: ReturnType<typeof useHistoryTable>;
 };

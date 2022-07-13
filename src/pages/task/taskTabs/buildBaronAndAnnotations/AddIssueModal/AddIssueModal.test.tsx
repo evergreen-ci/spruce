@@ -2,7 +2,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
-import { renderWithRouterMatch as render, act } from "test_utils";
+import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
 import { AddIssueModal as AddIssueModalToTest } from ".";
 
 const AddIssueModal = (
@@ -33,13 +33,21 @@ describe("addIssueModal", () => {
         isIssue
       />
     );
-    const { queryByText, queryByDataCy } = render(<Component />);
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+    render(<Component />);
 
-    expect(queryByDataCy("issue-url")).toHaveValue("");
-    expect(queryByDataCy("issue-key")).toHaveValue("");
-    expect(queryByText("Add issue").closest("button")).toBeDisabled();
+    await waitFor(() => {
+      checkModalVisibility();
+    });
+
+    expect(screen.queryByDataCy("issue-url")).toHaveValue("");
+    expect(screen.queryByDataCy("issue-key")).toHaveValue("");
+    expect(
+      screen.getByRole("button", {
+        name: "Add issue",
+      })
+    ).toBeDisabled();
   });
+
   it("entering values should enable the submit button", async () => {
     const closeModal = jest.fn();
     const setSelectedRowKey = jest.fn();
@@ -51,20 +59,27 @@ describe("addIssueModal", () => {
         isIssue
       />
     );
-    const { queryByText, queryByDataCy } = render(<Component />);
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+    render(<Component />);
 
-    expect(queryByDataCy("issue-url")).toHaveValue("");
+    await waitFor(() => {
+      checkModalVisibility();
+    });
+
+    expect(screen.queryByDataCy("issue-url")).toHaveValue("");
     userEvent.type(
-      queryByDataCy("issue-url"),
+      screen.queryByDataCy("issue-url"),
       "https://jira.mongodb.org/browse/EVG-123"
     );
 
-    expect(queryByDataCy("issue-key")).toHaveValue("");
-    userEvent.type(queryByDataCy("issue-key"), "MONGODB-123");
-
-    expect(queryByText("Add issue").closest("button")).not.toBeDisabled();
+    expect(screen.queryByDataCy("issue-key")).toHaveValue("");
+    userEvent.type(screen.queryByDataCy("issue-key"), "MONGODB-123");
+    expect(
+      screen.getByRole("button", {
+        name: "Add issue",
+      })
+    ).not.toBeDisabled();
   });
+
   it("entering an invalid confidence score should disable the submit button", async () => {
     const closeModal = jest.fn();
     const setSelectedRowKey = jest.fn();
@@ -76,31 +91,53 @@ describe("addIssueModal", () => {
         isIssue
       />
     );
-    const { queryByText, queryByDataCy } = render(<Component />);
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+    render(<Component />);
 
-    expect(queryByDataCy("issue-url")).toHaveValue("");
+    await waitFor(() => {
+      checkModalVisibility();
+    });
+
+    expect(screen.queryByDataCy("issue-url")).toHaveValue("");
     userEvent.type(
-      queryByDataCy("issue-url"),
+      screen.queryByDataCy("issue-url"),
       "https://jira.mongodb.org/browse/EVG-123"
     );
 
-    expect(queryByDataCy("issue-key")).toHaveValue("");
+    expect(screen.queryByDataCy("issue-key")).toHaveValue("");
 
-    userEvent.type(queryByDataCy("issue-key"), "MONGODB-123");
-    userEvent.click(queryByText("Advanced Options"));
-    expect(queryByDataCy("confidence-level")).toBeVisible();
+    userEvent.type(screen.queryByDataCy("issue-key"), "MONGODB-123");
+    userEvent.click(screen.queryByText("Advanced Options"));
+    expect(screen.queryByDataCy("confidence-level")).toBeVisible();
 
-    userEvent.type(queryByDataCy("confidence-level"), "not a number");
-    expect(queryByText("Add issue").closest("button")).toBeDisabled();
-    userEvent.clear(queryByDataCy("confidence-level"));
+    userEvent.type(screen.queryByDataCy("confidence-level"), "not a number");
+    expect(
+      screen.getByRole("button", {
+        name: "Add issue",
+      })
+    ).toBeDisabled();
+    userEvent.clear(screen.queryByDataCy("confidence-level"));
 
-    userEvent.type(queryByDataCy("confidence-level"), "110");
+    userEvent.type(screen.queryByDataCy("confidence-level"), "110");
 
-    expect(queryByText("Add issue").closest("button")).toBeDisabled();
-    userEvent.clear(queryByDataCy("confidence-level"));
+    expect(
+      screen.getByRole("button", {
+        name: "Add issue",
+      })
+    ).toBeDisabled();
+    userEvent.clear(screen.queryByDataCy("confidence-level"));
 
-    userEvent.type(queryByDataCy("confidence-level"), "80");
-    expect(queryByText("Add issue").closest("button")).not.toBeDisabled();
+    userEvent.type(screen.queryByDataCy("confidence-level"), "80");
+    expect(
+      screen.getByRole("button", {
+        name: "Add issue",
+      })
+    ).not.toBeDisabled();
   });
 });
+
+const checkModalVisibility = () => {
+  expect(screen.getByDataCy("add-issue-modal")).toBeVisible();
+  expect(screen.getByDataCy("issue-url")).toBeVisible();
+  expect(screen.getByDataCy("issue-key")).toBeVisible();
+  expect(screen.getByDataCy("confidence-level")).toBeVisible();
+};

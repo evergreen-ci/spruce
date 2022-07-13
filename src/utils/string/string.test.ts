@@ -64,13 +64,13 @@ describe("sortFunctionDate", () => {
       { a: { b: { c: "2020-08-17T18:00:07Z" } } },
       { a: { b: { c: "2020-23-21T18:00:07Z" } } },
     ];
-    expect(
-      dates.sort((a, b) => sortFunctionDate(a, b, "a.b.c"))
-    ).toStrictEqual([
-      { a: { b: { c: "2020-08-17T18:00:07Z" } } },
-      { a: { b: { c: "2020-08-21T18:00:07Z" } } },
-      { a: { b: { c: "2020-23-21T18:00:07Z" } } },
-    ]);
+    expect(dates.sort((a, b) => sortFunctionDate(a, b, "a.b.c"))).toStrictEqual(
+      [
+        { a: { b: { c: "2020-08-17T18:00:07Z" } } },
+        { a: { b: { c: "2020-08-21T18:00:07Z" } } },
+        { a: { b: { c: "2020-23-21T18:00:07Z" } } },
+      ]
+    );
   });
 });
 

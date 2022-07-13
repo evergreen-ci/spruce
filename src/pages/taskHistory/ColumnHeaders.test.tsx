@@ -6,6 +6,7 @@ import { GET_BUILD_VARIANTS_FOR_TASK_NAME } from "gql/queries";
 import {
   fireEvent,
   renderWithRouterMatch as render,
+  screen,
   waitFor,
 } from "test_utils";
 import { string } from "utils";
@@ -21,12 +22,12 @@ describe("columnHeaders (Task History)", () => {
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders projectId="evergreen" taskName="some_task" />
     );
-    const { queryAllByDataCy } = render(<Component />, {
+    render(<Component />, {
       route: "/task-history/evergreen/some_task",
       path: "/task-history/:projectId/:taskName",
       wrapper: ProviderWrapper,
     });
-    expect(queryAllByDataCy("loading-header-cell")).toHaveLength(7);
+    expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(7);
   });
 
   it("renders the column headers properly when not loading", async () => {
@@ -34,7 +35,7 @@ describe("columnHeaders (Task History)", () => {
       <ColumnHeaders projectId="evergreen" taskName="some_task" />
     );
 
-    const { queryAllByDataCy } = render(<Component />, {
+    render(<Component />, {
       route: "/task-history/evergreen/some_task",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -53,16 +54,16 @@ describe("columnHeaders (Task History)", () => {
         }),
     });
     await waitFor(() => {
-      expect(queryAllByDataCy("loading-header-cell")).toHaveLength(0);
+      expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
     });
-    expect(queryAllByDataCy("header-cell")).toHaveLength(3);
+    expect(screen.queryAllByDataCy("header-cell")).toHaveLength(3);
   });
 
   it("should not show more columns then the columnLimit", async () => {
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders projectId="evergreen" taskName="some_task" />
     );
-    const { queryAllByDataCy } = render(<Component />, {
+    render(<Component />, {
       route: "/task-history/evergreen/some_task",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -83,16 +84,16 @@ describe("columnHeaders (Task History)", () => {
         }),
     });
     await waitFor(() => {
-      expect(queryAllByDataCy("loading-header-cell")).toHaveLength(0);
+      expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
     });
-    expect(queryAllByDataCy("header-cell")).toHaveLength(3);
+    expect(screen.queryAllByDataCy("header-cell")).toHaveLength(3);
   });
 
   it("should link to corresponding /variant-history/:projectId/:variantName page", async () => {
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders projectId="evergreen" taskName="some_task" />
     );
-    const { queryByRole } = render(<Component />, {
+    render(<Component />, {
       route: "/task-history/evergreen/some_task",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -112,7 +113,7 @@ describe("columnHeaders (Task History)", () => {
         }),
     });
     await waitFor(() => {
-      expect(queryByRole("link")).toHaveAttribute(
+      expect(screen.queryByRole("link")).toHaveAttribute(
         "href",
         "/variant-history/evergreen/real-variant-name"
       );
@@ -123,7 +124,7 @@ describe("columnHeaders (Task History)", () => {
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders projectId="evergreen" taskName="some_task" />
     );
-    const { queryByText } = render(<Component />, {
+    render(<Component />, {
       route: "/task-history/evergreen/some_task",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -145,10 +146,10 @@ describe("columnHeaders (Task History)", () => {
     });
 
     await waitFor(() => {
-      expect(queryByText(longVariantName)).toBeNull();
+      expect(screen.queryByText(longVariantName)).toBeNull();
     });
     await waitFor(() => {
-      expect(queryByText("variant2")).toBeVisible();
+      expect(screen.queryByText("variant2")).toBeVisible();
     });
   });
 
@@ -156,7 +157,7 @@ describe("columnHeaders (Task History)", () => {
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders projectId="evergreen" taskName="some_task" />
     );
-    const { queryByText } = render(<Component />, {
+    render(<Component />, {
       route: "/task-history/evergreen/some_task",
       path: "/task-history/:projectId/:taskName",
       wrapper: ({ children }) =>
@@ -176,11 +177,11 @@ describe("columnHeaders (Task History)", () => {
         }),
     });
     await waitFor(() => {
-      expect(queryByText(trimmedVariantName)).toBeVisible();
+      expect(screen.queryByText(trimmedVariantName)).toBeVisible();
     });
-    fireEvent.mouseEnter(queryByText(trimmedVariantName));
+    fireEvent.mouseEnter(screen.queryByText(trimmedVariantName));
     await waitFor(() => {
-      expect(queryByText(longVariantName)).toBeVisible();
+      expect(screen.queryByText(longVariantName)).toBeVisible();
     });
   });
 });

@@ -51,6 +51,7 @@ export const SpruceForm: React.VFC<SpruceFormProps> = ({
     noHtml5Validate
   >
     {/*  Need to pass in an empty fragment child to remove default submit button */}
+    {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
     <></>
   </Form>
 );

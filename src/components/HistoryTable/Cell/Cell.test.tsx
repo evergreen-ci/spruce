@@ -1,14 +1,10 @@
-import {
-  renderWithRouterMatch as render,
-  fireEvent,
-  waitFor,
-} from "test_utils";
+import { fireEvent, renderWithRouterMatch as render, screen } from "test_utils";
 import { TaskStatus } from "types/task";
 import { TaskCell } from "./Cell";
 
 describe("taskCell", () => {
   it("should render a task cell corresponding to a passed in status", () => {
-    const { queryByDataCy, rerender, queryByLabelText } = render(
+    const { rerender } = render(
       <TaskCell
         task={{
           id: "some-task-id",
@@ -18,8 +14,8 @@ describe("taskCell", () => {
       />
     );
 
-    expect(queryByLabelText("Checkmark Icon")).toBeInTheDocument();
-    expect(queryByDataCy("task-cell")).toBeInTheDocument();
+    expect(screen.getByLabelText("Checkmark Icon")).toBeInTheDocument();
+    expect(screen.getByDataCy("task-cell")).toBeInTheDocument();
 
     rerender(
       <TaskCell
@@ -30,11 +26,12 @@ describe("taskCell", () => {
         loading={false}
       />
     );
-    expect(queryByLabelText("Failure Icon")).toBeInTheDocument();
-    expect(queryByDataCy("task-cell")).toBeInTheDocument();
+    expect(screen.getByLabelText("Failure Icon")).toBeInTheDocument();
+    expect(screen.getByDataCy("task-cell")).toBeInTheDocument();
   });
+
   it("should link to the task page", () => {
-    const { queryByRole } = render(
+    render(
       <TaskCell
         task={{
           id: "some-task-id",
@@ -43,10 +40,14 @@ describe("taskCell", () => {
         loading={false}
       />
     );
-    expect(queryByRole("link")).toHaveAttribute("href", "/task/some-task-id");
+    expect(screen.queryByRole("link")).toHaveAttribute(
+      "href",
+      "/task/some-task-id"
+    );
   });
+
   it("should be transparent when it is inactive", () => {
-    const { queryByDataCy } = render(
+    render(
       <TaskCell
         task={{
           id: "some-task-id",
@@ -56,10 +57,11 @@ describe("taskCell", () => {
         loading={false}
       />
     );
-    expect(queryByDataCy("task-cell")).toHaveStyle("opacity: 0.4");
+    expect(screen.queryByDataCy("task-cell")).toHaveStyle("opacity: 0.4");
   });
+
   it("should render a label when one is passed in", () => {
-    const { queryByText } = render(
+    render(
       <TaskCell
         task={{
           id: "some-task-id",
@@ -68,10 +70,11 @@ describe("taskCell", () => {
         label="some-label"
       />
     );
-    expect(queryByText("some-label")).toBeInTheDocument();
+    expect(screen.getByText("some-label")).toBeInTheDocument();
   });
-  it("should have a popup on hover with failing tests when they are supplied", async () => {
-    const { queryByText, queryByDataCy } = render(
+
+  it("should have a tooltip on hover with failing tests when they are supplied", async () => {
+    render(
       <TaskCell
         task={{
           id: "some-task-id",
@@ -81,7 +84,9 @@ describe("taskCell", () => {
         loading={false}
       />
     );
-    fireEvent.mouseOver(queryByDataCy("history-table-icon"));
-    await waitFor(() => expect(queryByText("some-test")).toBeInTheDocument());
+    fireEvent.mouseOver(screen.queryByDataCy("history-table-icon"));
+    await screen.findByText("some-test");
+    expect(screen.getByDataCy("test-tooltip")).toBeInTheDocument();
+    expect(screen.getByText("some-test")).toBeInTheDocument();
   });
 });

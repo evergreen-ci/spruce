@@ -1,5 +1,5 @@
 import userEvent from "@testing-library/user-event";
-import { render, waitFor } from "test_utils";
+import { render, screen, waitFor } from "test_utils";
 import { ChartTypes } from "types/commits";
 import { CommitChart } from "./CommitChart";
 import {
@@ -12,8 +12,9 @@ describe("commitChart", () => {
     jest.clearAllTimers();
     jest.clearAllMocks();
   });
+
   it("display right amount of bars", () => {
-    const { queryAllByDataCy } = render(
+    render(
       <CommitChart
         key={versions[0].version.id}
         groupedTaskStats={groupedTaskData[versions[0].version.id].stats}
@@ -22,11 +23,11 @@ describe("commitChart", () => {
         chartType={ChartTypes.Absolute}
       />
     );
-    expect(queryAllByDataCy("commit-chart-bar")).toHaveLength(4);
+    expect(screen.queryAllByDataCy("commit-chart-bar")).toHaveLength(4);
   });
 
   it("hovering over the chart should open a tooltip", async () => {
-    const { queryByDataCy } = render(
+    render(
       <CommitChart
         key={versions[0].version.id}
         groupedTaskStats={groupedTaskData[versions[0].version.id].stats}
@@ -36,15 +37,15 @@ describe("commitChart", () => {
       />
     );
 
-    expect(queryByDataCy("commit-chart-tooltip")).toBeNull();
-    userEvent.hover(queryByDataCy("commit-chart-container"));
+    expect(screen.queryByDataCy("commit-chart-tooltip")).toBeNull();
+    userEvent.hover(screen.queryByDataCy("commit-chart-container"));
     await waitFor(() => {
-      expect(queryByDataCy("commit-chart-tooltip")).toBeInTheDocument();
+      expect(screen.getByDataCy("commit-chart-tooltip")).toBeInTheDocument();
     });
   });
 
   it("should show all umbrella statuses (normal and dimmed) and their counts", async () => {
-    const { queryByDataCy, queryAllByDataCy } = render(
+    render(
       <CommitChart
         key={versions[0].version.id}
         groupedTaskStats={groupedTaskData[versions[0].version.id].stats}
@@ -54,16 +55,16 @@ describe("commitChart", () => {
       />
     );
 
-    expect(queryByDataCy("commit-chart-tooltip")).toBeNull();
-    userEvent.hover(queryByDataCy("commit-chart-container"));
+    expect(screen.queryByDataCy("commit-chart-tooltip")).toBeNull();
+    userEvent.hover(screen.queryByDataCy("commit-chart-container"));
     await waitFor(() => {
-      expect(queryByDataCy("commit-chart-tooltip")).toBeInTheDocument();
+      expect(screen.getByDataCy("commit-chart-tooltip")).toBeInTheDocument();
     });
-    expect(queryAllByDataCy("current-status-count")).toHaveLength(4);
-    expect(queryByDataCy("commit-chart-tooltip")).toHaveTextContent("6");
-    expect(queryByDataCy("commit-chart-tooltip")).toHaveTextContent("2");
-    expect(queryByDataCy("commit-chart-tooltip")).toHaveTextContent("9");
-    expect(queryByDataCy("commit-chart-tooltip")).toHaveTextContent("0");
+    expect(screen.queryAllByDataCy("current-status-count")).toHaveLength(4);
+    expect(screen.queryByDataCy("commit-chart-tooltip")).toHaveTextContent("6");
+    expect(screen.queryByDataCy("commit-chart-tooltip")).toHaveTextContent("2");
+    expect(screen.queryByDataCy("commit-chart-tooltip")).toHaveTextContent("9");
+    expect(screen.queryByDataCy("commit-chart-tooltip")).toHaveTextContent("0");
   });
 });
 

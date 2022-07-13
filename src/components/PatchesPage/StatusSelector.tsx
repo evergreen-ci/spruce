@@ -9,10 +9,8 @@ import {
 } from "types/patch";
 
 export const StatusSelector: React.VFC = () => {
-  const {
-    inputValue: statusVal,
-    setAndSubmitInputValue: statusValOnChange,
-  } = useStatusesFilter({ urlParam: PatchPageQueryParams.Statuses });
+  const { inputValue: statusVal, setAndSubmitInputValue: statusValOnChange } =
+    useStatusesFilter({ urlParam: PatchPageQueryParams.Statuses });
 
   return (
     <Dropdown

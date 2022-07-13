@@ -36,6 +36,7 @@ export const VolumesField: React.VFC<VolumesFieldProps> = ({
         <InputLabel htmlFor="volumesSelectDropown">Volume</InputLabel>
         <Select
           id="volumesSelectDropown"
+          aria-labelledby="volume-select"
           data-cy="volume-select"
           style={{ width: 200 }}
           placeholder="Select volume"

@@ -50,13 +50,11 @@ describe("Host events", () => {
       },
       {
         hostType: "agent-monitor-deployed",
-        text:
-          "Agent monitor deployed with revision 1fa212ac4acea6ce2a0123a123456c06e8cf72ea",
+        text: "Agent monitor deployed with revision 1fa212ac4acea6ce2a0123a123456c06e8cf72ea",
       },
       {
         hostType: "agent-deployed",
-        text:
-          "Agent deployed with revision 2019-05-25 from f4c4c42abc123456d14edfe4c123bb1a1a47dd12",
+        text: "Agent deployed with revision 2019-05-25 from f4c4c42abc123456d14edfe4c123bb1a1a47dd12",
       },
       {
         hostType: "modified",
@@ -96,18 +94,15 @@ describe("Host events", () => {
       },
       {
         hostType: "host-running-task-set",
-        text:
-          "Assigned to run task evergreen_ubuntu1604_test_command_patch_5e823e1f28...",
+        text: "Assigned to run task evergreen_ubuntu1604_test_command_patch_5e823e1f28...",
       },
       {
         hostType: "host-running-task-cleared",
-        text:
-          "Current running task cleared (was:evergreen_ubuntu1604_test_command_patch_5e823e1f28...)",
+        text: "Current running task cleared (was:evergreen_ubuntu1604_test_command_patch_5e823e1f28...)",
       },
       {
         hostType: "host-task-finished",
-        text:
-          "Task evergreen_ubuntu1604_test_command_patch_5e823e1f28... completed with status: test-timed-out",
+        text: "Task evergreen_ubuntu1604_test_command_patch_5e823e1f28... completed with status: test-timed-out",
       },
     ];
     hostTypes.forEach(({ hostType, text }) => {

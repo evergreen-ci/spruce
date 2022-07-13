@@ -156,7 +156,7 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
     <PreviousCommitsWrapper>
       <StyledSelect
         size="small"
-        data-cy="previous-commits"
+        data-cy="previous-commits-select"
         label="Previous commits for this task"
         allowDeselect={false}
         onChange={(v: CommitType) =>
@@ -205,6 +205,7 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
             to={link}
             disabled={disableButton}
             size="small"
+            data-cy="previous-commits-go-button"
           >
             Go
           </Button>

@@ -1,20 +1,17 @@
 import { useLocation } from "react-router-dom";
 import { CheckboxFilter, InputFilter } from "components/Table/Filters";
 import { useTableInputFilter, useTableCheckboxFilter } from "hooks";
-import { renderWithRouterMatch as render, fireEvent } from "test_utils";
+import { fireEvent, renderWithRouterMatch as render, screen } from "test_utils";
 import { queryString } from "utils";
 
 describe("useTableInputFilter", () => {
   it("accepts an input value", async () => {
-    const { getByText, getByPlaceholderText } = render(
-      <InputFilterTestComponent />,
-      {
-        route: "/hosts?hostId=123",
-        path: "/hosts",
-      }
-    );
+    render(<InputFilterTestComponent />, {
+      route: "/hosts?hostId=123",
+      path: "/hosts",
+    });
 
-    const input = getByPlaceholderText("Search ID") as HTMLInputElement;
+    const input = screen.getByPlaceholderText("Search ID") as HTMLInputElement;
 
     // starts with initial url params as value
     expect(input.value).toBe("123");
@@ -32,7 +29,7 @@ describe("useTableInputFilter", () => {
     expect(input.value).toBe("abc");
 
     // updates url query params when update fn is called
-    getByText("host id from url: abc");
+    screen.getByText("host id from url: abc");
 
     fireEvent.change(input, { target: { value: "" } });
     expect(input).toHaveValue("");
@@ -44,19 +41,16 @@ describe("useTableInputFilter", () => {
 
     // resets url query params when reset fn is called
     expect(input.value).toBe("");
-    getByText("host id from url: N/A");
+    expect(screen.getByText("host id from url: N/A")).toBeInTheDocument();
   });
 
   it("useTableInputFilter - trims whitespace from input value", () => {
-    const { getByText, getByPlaceholderText } = render(
-      <InputFilterTestComponent />,
-      {
-        route: "/hosts?hostId=123",
-        path: "/hosts",
-      }
-    );
+    render(<InputFilterTestComponent />, {
+      route: "/hosts?hostId=123",
+      path: "/hosts",
+    });
 
-    const input = getByPlaceholderText("Search ID") as HTMLInputElement;
+    const input = screen.getByPlaceholderText("Search ID") as HTMLInputElement;
     fireEvent.change(input, { target: { value: "     abc  " } });
     fireEvent.focus(input);
     fireEvent.keyPress(input, {
@@ -64,22 +58,23 @@ describe("useTableInputFilter", () => {
       keyCode: 13,
     });
 
-    expect(getByText("host id from url: abc")).toBeInTheDocument();
+    expect(screen.getByText("host id from url: abc")).toBeInTheDocument();
   });
 });
 
 describe("useTableCheckboxFilter", () => {
   it("useTableCheckboxFilter", async () => {
-    const { getByText, getByLabelText } = render(
-      <CheckboxFilterTestComponent />,
-      {
-        route: "/hosts?statuses=running,terminated",
-        path: "/hosts",
-      }
-    );
+    render(<CheckboxFilterTestComponent />, {
+      route: "/hosts?statuses=running,terminated",
+      path: "/hosts",
+    });
 
-    const runningCheckbox = getByLabelText("Running") as HTMLInputElement;
-    const terminatedCheckbox = getByLabelText("Terminated") as HTMLInputElement;
+    const runningCheckbox = screen.getByLabelText(
+      "Running"
+    ) as HTMLInputElement;
+    const terminatedCheckbox = screen.getByLabelText(
+      "Terminated"
+    ) as HTMLInputElement;
 
     // starts with initial url params as value
     expect(runningCheckbox.checked).toBe(true);
@@ -92,7 +87,9 @@ describe("useTableCheckboxFilter", () => {
     expect(runningCheckbox.checked).toBe(false);
     expect(terminatedCheckbox.checked).toBe(true);
 
-    getByText("statuses from url: terminated");
+    expect(
+      screen.getByText("statuses from url: terminated")
+    ).toBeInTheDocument();
 
     // resets url query params when reset fn is called
     fireEvent.click(terminatedCheckbox);
@@ -100,7 +97,7 @@ describe("useTableCheckboxFilter", () => {
     expect(runningCheckbox.checked).toBe(false);
     expect(terminatedCheckbox.checked).toBe(false);
 
-    getByText("statuses from url: none");
+    expect(screen.getByText("statuses from url: none")).toBeInTheDocument();
   });
 });
 

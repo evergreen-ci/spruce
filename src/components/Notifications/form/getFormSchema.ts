@@ -16,10 +16,8 @@ export const getFormSchema = (
     regexEnumsToDisable,
     triggers
   );
-  const {
-    schema: notificationSchema,
-    uiSchema: notificationUiSchema,
-  } = getNotificationSchema(subscriptionMethods);
+  const { schema: notificationSchema, uiSchema: notificationUiSchema } =
+    getNotificationSchema(subscriptionMethods);
 
   return {
     schema: {

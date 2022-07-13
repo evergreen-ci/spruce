@@ -20,7 +20,8 @@ export const PaginationButtons: React.VFC<PaginationButtonsProps> = ({
   const onNextClick = () => {
     sendEvent({ name: "Paginate", direction: "next" });
     updateQueryParams({
-      [MainlineCommitQueryParams.SkipOrderNumber]: nextPageOrderNumber.toString(),
+      [MainlineCommitQueryParams.SkipOrderNumber]:
+        nextPageOrderNumber.toString(),
     });
   };
   const onPrevClick = () => {

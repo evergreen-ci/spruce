@@ -94,6 +94,7 @@ export const AddIssueModal: React.VFC<Props> = ({
       onConfirm={handleSubmit}
       buttonText={`Add ${issueString}`}
       submitDisabled={!canSubmit}
+      data-cy="add-issue-modal"
     >
       {jiraHost && (
         <SpruceForm

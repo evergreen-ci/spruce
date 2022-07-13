@@ -8,12 +8,11 @@ import {
   GET_USER,
   GET_MY_VOLUMES,
 } from "gql/queries";
-
 import {
-  renderWithRouterMatch as render,
   fireEvent,
+  renderWithRouterMatch as render,
+  screen,
   waitFor,
-  act,
 } from "test_utils";
 import { SpawnVolumeModal } from "./SpawnVolumeModal";
 
@@ -22,42 +21,45 @@ describe("spawnVolumeModal", () => {
     const { Component } = RenderFakeToastContext(
       <SpawnVolumeModal visible onCancel={() => {}} />
     );
-    const { queryByDataCy } = render(
+    render(
       <MockedProvider mocks={baseMocks}>
         <Component />
       </MockedProvider>
     );
-    expect(queryByDataCy("modal-title")).toBeVisible();
+    expect(screen.queryByDataCy("modal-title")).toBeVisible();
   });
 
   it("does not renders the Spawn Volume Modal when the visible prop is false", async () => {
     const { Component } = RenderFakeToastContext(
       <SpawnVolumeModal visible={false} onCancel={() => {}} />
     );
-    const { queryByDataCy } = render(
+    render(
       <MockedProvider mocks={baseMocks}>
         <Component />
       </MockedProvider>
     );
-    expect(queryByDataCy("modal-title")).not.toBeInTheDocument();
+    expect(screen.queryByDataCy("modal-title")).not.toBeInTheDocument();
   });
 
   it("form contains default volumes on initial render", async () => {
     const { Component } = RenderFakeToastContext(
       <SpawnVolumeModal visible onCancel={() => {}} />
     );
-    const { queryByDataCy } = render(
+    render(
       <MockedProvider mocks={baseMocks}>
         <Component />
       </MockedProvider>
     );
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    await waitFor(() => expect(queryByDataCy("volumeSize")).toHaveValue(500));
+    await waitFor(() =>
+      expect(screen.queryByDataCy("volumeSize")).toHaveValue(500)
+    );
 
-    expect(queryByDataCy("regionSelector")).toHaveTextContent("us-east-1a");
-    expect(queryByDataCy("typeSelector")).toHaveTextContent("gp2");
-    expect(queryByDataCy("neverExpireCheckbox")).not.toBeChecked();
-    expect(queryByDataCy("host-select")).toHaveTextContent("");
+    expect(screen.queryByDataCy("regionSelector")).toHaveTextContent(
+      "us-east-1a"
+    );
+    expect(screen.queryByDataCy("typeSelector")).toHaveTextContent("gp2");
+    expect(screen.queryByDataCy("neverExpireCheckbox")).not.toBeChecked();
+    expect(screen.queryByDataCy("host-select")).toHaveTextContent("");
   });
 
   it("form submission succeeds with default values", async () => {
@@ -79,17 +81,18 @@ describe("spawnVolumeModal", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <SpawnVolumeModal visible onCancel={() => {}} />
     );
-    const { queryByText } = render(
+    render(
       <MockedProvider mocks={[...baseMocks, spawnVolumeMutation]}>
         <Component />
       </MockedProvider>
     );
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    await act(async () => {
-      fireEvent.click(queryByText("Spawn"));
+    // Click spawn button
+    const spawnButton = screen.queryByDataCy("spawn-volume-button");
+    await waitFor(() => {
+      expect(spawnButton).toHaveAttribute("aria-disabled", "false");
     });
-    expect(dispatchToast.success).toHaveBeenCalledTimes(1);
-    expect(dispatchToast.error).not.toHaveBeenCalled();
+    fireEvent.click(spawnButton);
+    await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
   });
 
   it("form submission succeeds after adjusting inputs", async () => {
@@ -112,23 +115,38 @@ describe("spawnVolumeModal", () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <SpawnVolumeModal visible onCancel={() => {}} />
     );
-    const { queryByText, queryByDataCy } = render(
+
+    render(
       <MockedProvider mocks={[...baseMocks, spawnVolumeMutation]}>
         <Component />
       </MockedProvider>
     );
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    fireEvent.change(queryByDataCy("volumeSize"), { target: { value: "24" } });
-    fireEvent.mouseDown(queryByDataCy("regionSelector").firstElementChild);
-    fireEvent.click(queryByText("us-east-1c"));
-    fireEvent.mouseDown(queryByDataCy("typeSelector").firstElementChild);
-    fireEvent.click(queryByText("st1"));
-    fireEvent.mouseDown(queryByDataCy("host-select").firstElementChild);
-    fireEvent.click(queryByDataCy("i-00b212e96b3f91079-option"));
-    fireEvent.click(queryByText("Spawn"));
+    // select us-east-1c region
+    await selectAntdOption("regionSelector", "us-east-1c");
+    // select st1 type
+    await selectAntdOption("typeSelector", "st1");
+    // select host
+    await selectAntdOption("host-select", "i-00b212e96b3f91079");
+    // change volume size
+    fireEvent.change(screen.queryByDataCy("volumeSize"), {
+      target: { value: 24 },
+    });
+
+    // Click spawn button
+    const spawnButton = screen.queryByDataCy("spawn-volume-button");
+    await waitFor(() => {
+      expect(spawnButton).toHaveAttribute("aria-disabled", "false");
+    });
+    fireEvent.click(spawnButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
   });
 });
+
+const selectAntdOption = async (dataCy: string, option: string) => {
+  fireEvent.mouseDown(screen.queryByDataCy(dataCy).firstElementChild);
+  await screen.findByText(option);
+  fireEvent.click(screen.queryByText(option));
+};
 
 const myHostsMock = {
   request: {
@@ -138,6 +156,91 @@ const myHostsMock = {
   result: {
     data: {
       myHosts: [
+        {
+          expiration: "2021-10-28T22:37:40Z",
+          distro: {
+            isVirtualWorkStation: true,
+            id: "ubuntu1804-workstation",
+            user: "ubuntu",
+            workDir: "/home/ubuntu",
+            isWindows: false,
+            __typename: "DistroInfo",
+          },
+          hostUrl: "ec2-34-201-138-106.compute-1.amazonaws.com",
+          homeVolumeID: "vol-07fa9f6b5c2067e34",
+          homeVolume: {
+            displayName: "",
+          },
+          id: "i-00a902e96b3f91079",
+          instanceType: "m5.xlarge",
+          instanceTags: [
+            {
+              key: "name",
+              value: "i-00a902e96b3f91079",
+              canBeModified: false,
+              __typename: "InstanceTag",
+            },
+            {
+              key: "distro",
+              value: "ubuntu1804-workstation",
+              canBeModified: false,
+              __typename: "InstanceTag",
+            },
+            {
+              key: "evergreen-service",
+              value: "evergreenapp-19.build.10gen.cc",
+              canBeModified: false,
+              __typename: "InstanceTag",
+            },
+            {
+              key: "username",
+              value: "evergreen application server user",
+              canBeModified: false,
+              __typename: "InstanceTag",
+            },
+            {
+              key: "owner",
+              value: "arjun.patel",
+              canBeModified: false,
+              __typename: "InstanceTag",
+            },
+            {
+              key: "mode",
+              value: "production",
+              canBeModified: false,
+              __typename: "InstanceTag",
+            },
+            {
+              key: "start-time",
+              value: "20201014223740",
+              canBeModified: false,
+              __typename: "InstanceTag",
+            },
+            {
+              key: "expire-on",
+              value: "2020-11-13",
+              canBeModified: false,
+              __typename: "InstanceTag",
+            },
+          ],
+          volumes: [
+            {
+              displayName: "",
+              id: "vol-0cf616375140c067e",
+              __typename: "Volume",
+            },
+          ],
+          noExpiration: false,
+          provider: "ec2-ondemand",
+          status: "running",
+          startedBy: "arjun.patel",
+          tag: "evg-ubuntu1804-workstation-20201014223740-6478743249380995507",
+          user: "ubuntu",
+          uptime: "2020-10-14T22:37:40Z",
+          displayName: "",
+          availabilityZone: "us-east-1c",
+          __typename: "Host",
+        },
         {
           expiration: "2021-10-28T22:37:40Z",
           distro: {

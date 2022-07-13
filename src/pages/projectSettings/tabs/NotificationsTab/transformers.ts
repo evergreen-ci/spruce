@@ -92,10 +92,8 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
             const triggerText = getTriggerText(trigger, resourceType);
 
             // Find and process information about subscriber.
-            const {
-              type: subscriberType,
-              subscriber: subscribers,
-            } = subscriber;
+            const { type: subscriberType, subscriber: subscribers } =
+              subscriber;
             const {
               jiraCommentSubscriber,
               slackSubscriber,

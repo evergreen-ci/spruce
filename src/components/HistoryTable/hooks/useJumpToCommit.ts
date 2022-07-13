@@ -8,9 +8,10 @@ const { parseQueryString, getString } = queryString;
 
 const useJumpToCommit = () => {
   const { search } = useLocation();
-  const {
-    [HistoryQueryParams.SelectedCommit]: skipOrderNumberParam,
-  } = useMemo(() => parseQueryString(search), [search]);
+  const { [HistoryQueryParams.SelectedCommit]: skipOrderNumberParam } = useMemo(
+    () => parseQueryString(search),
+    [search]
+  );
   const skipOrderNumber =
     parseInt(getString(skipOrderNumberParam), 10) || undefined;
 
