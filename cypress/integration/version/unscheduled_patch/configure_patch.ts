@@ -547,7 +547,7 @@ describe("Configure Patch Page", () => {
         "eq",
         `/patch/${unactivatedPatchId}/configure/tasks`
       );
-      cy.validateToast("error", "An error occurred");
+      cy.validateToast("error");
     });
   });
 });
