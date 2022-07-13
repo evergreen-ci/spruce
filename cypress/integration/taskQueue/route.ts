@@ -71,7 +71,7 @@ describe("Task Queue", () => {
     );
     cy.wait("@gqlDistroTaskQueueQuery");
     // eslint-disable-next-line  cypress/no-unnecessary-waiting
-    cy.wait(2000);
+    cy.wait(5000);
     cy.get(".ant-table-row-selected").contains("13").should("be.visible");
   });
 
