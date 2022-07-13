@@ -44,9 +44,8 @@ const VersionRestartModal: React.VFC<Props> = ({
   refetchQueries,
 }) => {
   const dispatchToast = useToastContext();
-  const [shouldAbortInProgressTasks, setShouldAbortInProgressTasks] = useState(
-    false
-  );
+  const [shouldAbortInProgressTasks, setShouldAbortInProgressTasks] =
+    useState(false);
   const [restartVersions, { loading: mutationLoading }] = useMutation<
     RestartVersionsMutation,
     RestartVersionsMutationVariables
@@ -84,11 +83,10 @@ const VersionRestartModal: React.VFC<Props> = ({
   const setVersionStatus = (childVersionId) => (selectedFilters: string[]) => {
     setVersionStatusFilterTerm({ [childVersionId]: selectedFilters });
   };
-  const setVersionBaseStatus = (childVersionId) => (
-    selectedFilters: string[]
-  ) => {
-    setBaseStatusFilterTerm({ [childVersionId]: selectedFilters });
-  };
+  const setVersionBaseStatus =
+    (childVersionId) => (selectedFilters: string[]) => {
+      setBaseStatusFilterTerm({ [childVersionId]: selectedFilters });
+    };
 
   const { sendEvent } = useVersionAnalytics(versionId);
 
@@ -228,35 +226,31 @@ const VersionTasks: React.VFC<VersionTasksProps> = ({
   const { buildVariants } = version || {};
   const tasks = selectedTasks[version?.id] || {};
 
-  return (
+  return buildVariants ? (
     <>
-      {buildVariants && (
-        <>
-          <Row>
-            <TaskStatusFilters
-              onChangeBaseStatusFilter={setBaseStatusFilterTerm}
-              onChangeStatusFilter={setVersionStatusFilterTerm}
-              versionId={version?.id}
-              selectedBaseStatuses={baseStatusFilterTerm || []}
-              selectedStatuses={versionStatusFilterTerm || []}
-              filterWidth="50%"
-            />
-          </Row>
-          {buildVariants.map((patchBuildVariant) => (
-            <BuildVariantAccordian
-              versionId={version?.id}
-              key={`accoridan_${patchBuildVariant.variant}`}
-              tasks={patchBuildVariant.tasks}
-              displayName={patchBuildVariant.displayName}
-              selectedTasks={tasks}
-              toggleSelectedTask={toggleSelectedTask}
-            />
-          ))}
-          <HR />
-        </>
-      )}
+      <Row>
+        <TaskStatusFilters
+          onChangeBaseStatusFilter={setBaseStatusFilterTerm}
+          onChangeStatusFilter={setVersionStatusFilterTerm}
+          versionId={version?.id}
+          selectedBaseStatuses={baseStatusFilterTerm || []}
+          selectedStatuses={versionStatusFilterTerm || []}
+          filterWidth="50%"
+        />
+      </Row>
+      {buildVariants.map((patchBuildVariant) => (
+        <BuildVariantAccordian
+          versionId={version?.id}
+          key={`accoridan_${patchBuildVariant.variant}`}
+          tasks={patchBuildVariant.tasks}
+          displayName={patchBuildVariant.displayName}
+          selectedTasks={tasks}
+          toggleSelectedTask={toggleSelectedTask}
+        />
+      ))}
+      <HR />
     </>
-  );
+  ) : null;
 };
 
 const selectedArray = (selected: selectedStrings) => {

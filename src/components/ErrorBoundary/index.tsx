@@ -4,12 +4,8 @@ import BugsnagPluginReact from "@bugsnag/plugin-react";
 import { environmentalVariables } from "utils";
 import ErrorFallback from "./ErrorFallback";
 
-const {
-  getBugsnagApiKey,
-  isProductionBuild,
-  getAppVersion,
-  getReleaseStage,
-} = environmentalVariables;
+const { getBugsnagApiKey, isProductionBuild, getAppVersion, getReleaseStage } =
+  environmentalVariables;
 
 let bugsnagStarted = false;
 

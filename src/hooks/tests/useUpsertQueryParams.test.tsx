@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useUpsertQueryParams } from "hooks";
-import { fireEvent, renderWithRouterMatch } from "test_utils";
+import { fireEvent, renderWithRouterMatch, screen } from "test_utils";
 
 const Content = () => {
   const onSubmit = useUpsertQueryParams();
@@ -41,12 +41,12 @@ describe("useUpsertQueryParams", () => {
   });
 
   it("should add input query params to the url if none exist", () => {
-    const { queryByDataCy, history } = renderWithRouterMatch(<Content />, {
+    const { history } = renderWithRouterMatch(<Content />, {
       route: "/",
       path: "/",
     });
-    const category = queryByDataCy("category");
-    const value = queryByDataCy("value");
+    const category = screen.queryByDataCy("category");
+    const value = screen.queryByDataCy("value");
 
     fireEvent.change(category, {
       target: { value: "category" },
@@ -54,81 +54,81 @@ describe("useUpsertQueryParams", () => {
     fireEvent.change(value, {
       target: { value: "value" },
     });
-    fireEvent.click(queryByDataCy("submit"));
+    fireEvent.click(screen.queryByDataCy("submit"));
 
     expect(history.location.search).toBe(`?category=value`);
   });
 
   it("should add multiple input filters to the same key as query params", () => {
-    const { queryByDataCy, history } = renderWithRouterMatch(<Content />, {
+    const { history } = renderWithRouterMatch(<Content />, {
       route: "/",
       path: "/",
     });
 
-    const category = queryByDataCy("category");
-    const value = queryByDataCy("value");
+    const category = screen.queryByDataCy("category");
+    const value = screen.queryByDataCy("value");
     fireEvent.change(category, {
       target: { value: "category" },
     });
     fireEvent.change(value, {
       target: { value: "value1" },
     });
-    fireEvent.click(queryByDataCy("submit"));
+    fireEvent.click(screen.queryByDataCy("submit"));
     expect(history.location.search).toBe(`?category=value1`);
     fireEvent.change(value, {
       target: { value: "value2" },
     });
 
-    fireEvent.click(queryByDataCy("submit"));
+    fireEvent.click(screen.queryByDataCy("submit"));
     expect(history.location.search).toBe(`?category=value1,value2`);
   });
 
   it("should not allow duplicate input filters for the same key as query params", () => {
-    const { queryByDataCy, history } = renderWithRouterMatch(<Content />, {
+    const { history } = renderWithRouterMatch(<Content />, {
       route: "/",
       path: "/",
     });
-    const category = queryByDataCy("category");
-    const value = queryByDataCy("value");
+    const category = screen.queryByDataCy("category");
+    const value = screen.queryByDataCy("value");
     fireEvent.change(category, {
       target: { value: "category" },
     });
     fireEvent.change(value, {
       target: { value: "value1" },
     });
-    fireEvent.click(queryByDataCy("submit"));
+    fireEvent.click(screen.queryByDataCy("submit"));
 
     expect(history.location.search).toBe(`?category=value1`);
 
     fireEvent.change(value, {
       target: { value: "value1" },
     });
-    fireEvent.click(queryByDataCy("submit"));
+    fireEvent.click(screen.queryByDataCy("submit"));
 
     expect(history.location.search).toBe(`?category=value1`);
   });
 
   it("should allow multiple input filters for different keys as query params", async () => {
-    const { queryByDataCy, history } = renderWithRouterMatch(<Content />, {
+    const { history } = renderWithRouterMatch(<Content />, {
       route: "/",
       path: "/",
     });
-    const category = queryByDataCy("category");
-    const value = queryByDataCy("value");
+    const category = screen.queryByDataCy("category");
+    const value = screen.queryByDataCy("value");
     fireEvent.change(category, {
       target: { value: "category" },
     });
     fireEvent.change(value, {
       target: { value: "value1" },
     });
-    fireEvent.click(queryByDataCy("submit"));
+    fireEvent.click(screen.queryByDataCy("submit"));
 
     expect(history.location.search).toBe(`?category=value1`);
 
     fireEvent.change(category, {
       target: { value: "category2" },
     });
-    fireEvent.click(queryByDataCy("submit"));
+    fireEvent.click(screen.queryByDataCy("submit"));
     expect(history.location.search).toBe(`?category=value1&category2=value1`);
   });
 });

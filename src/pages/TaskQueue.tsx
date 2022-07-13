@@ -37,9 +37,10 @@ export const TaskQueue = () => {
     TaskQueueDistrosQueryVariables
   >(TASK_QUEUE_DISTROS);
 
-  const distros = useMemo(() => distrosData?.taskQueueDistros ?? [], [
-    distrosData,
-  ]);
+  const distros = useMemo(
+    () => distrosData?.taskQueueDistros ?? [],
+    [distrosData]
+  );
   const firstDistroInList = distros[0]?.id;
 
   // SET DEFAULT DISTRO AFTER DISTROS HAVE BEEN OBTAINED

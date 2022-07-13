@@ -18,10 +18,8 @@ export const getFormSchema = (
     [],
     projectTriggers
   );
-  const {
-    schema: notificationSchema,
-    uiSchema: notificationUiSchema,
-  } = getNotificationSchema(subscriptionMethods);
+  const { schema: notificationSchema, uiSchema: notificationUiSchema } =
+    getNotificationSchema(subscriptionMethods);
 
   return {
     fields: {

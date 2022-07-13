@@ -23,7 +23,11 @@ export const JobLogs = () => {
   const dispatchToast = useToastContext();
   const { sendEvent } = useJobLogsAnalytics();
 
-  const { taskId, execution: execStr, groupId } = useParams<{
+  const {
+    taskId,
+    execution: execStr,
+    groupId,
+  } = useParams<{
     taskId: string;
     execution: string;
     groupId: string;

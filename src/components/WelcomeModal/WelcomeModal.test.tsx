@@ -1,5 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { render, waitFor } from "test_utils";
+import { render, screen, waitFor } from "test_utils";
 import WelcomeModal from "./WelcomeModal";
 
 describe("welcomeModal", () => {
@@ -16,8 +16,9 @@ describe("welcomeModal", () => {
   afterEach(() => {
     jest.resetAllMocks();
   });
+
   it("displays an image", () => {
-    const { queryByDataCy } = render(
+    render(
       <MockedProvider>
         <WelcomeModal
           carouselCards={[
@@ -34,11 +35,12 @@ describe("welcomeModal", () => {
       </MockedProvider>
     );
 
-    expect(queryByDataCy("carousel-image")).toBeVisible();
+    expect(screen.queryByDataCy("carousel-image")).toBeVisible();
   });
+
   // mock video play function
   it("displays an video on a video slide", () => {
-    const { queryByDataCy } = render(
+    render(
       <MockedProvider>
         <WelcomeModal
           carouselCards={[
@@ -53,10 +55,11 @@ describe("welcomeModal", () => {
         />
       </MockedProvider>
     );
-    expect(queryByDataCy("carousel-video")).toBeVisible();
+    expect(screen.queryByDataCy("carousel-video")).toBeVisible();
   });
+
   it("clicking the pagination buttons change the slides", async () => {
-    const { getByText, queryByDataCy } = render(
+    render(
       <MockedProvider>
         <WelcomeModal
           carouselCards={[
@@ -76,15 +79,15 @@ describe("welcomeModal", () => {
         />
       </MockedProvider>
     );
-    expect(getByText("Slide 1")).toBeVisible();
-    expect(queryByDataCy("carousel-dot-1")).toBeVisible();
-    queryByDataCy("carousel-dot-1").click();
+    expect(screen.getByText("Slide 1")).toBeVisible();
+    expect(screen.queryByDataCy("carousel-dot-1")).toBeVisible();
+    screen.queryByDataCy("carousel-dot-1").click();
     await waitFor(() => {
-      expect(getByText("Slide 2")).toBeVisible();
+      expect(screen.getByText("Slide 2")).toBeVisible();
     });
-    queryByDataCy("carousel-dot-0").click();
+    screen.queryByDataCy("carousel-dot-0").click();
     await waitFor(() => {
-      expect(getByText("Slide 1")).toBeVisible();
+      expect(screen.getByText("Slide 1")).toBeVisible();
     });
   });
 });

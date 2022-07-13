@@ -292,15 +292,8 @@ export const baseProps = {
   },
 };
 
-const {
-  alias,
-  gitTag,
-  remotePath,
-  task,
-  taskTags,
-  variant,
-  variantTags,
-} = baseProps;
+const { alias, gitTag, remotePath, task, taskTags, variant, variantTags } =
+  baseProps;
 
 const variants = {
   schema: {

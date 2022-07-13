@@ -1,7 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { addMilliseconds } from "date-fns";
 import { GET_USER } from "gql/queries";
-import { renderWithRouterMatch as render } from "test_utils";
+import { renderWithRouterMatch as render, screen } from "test_utils";
 import { Metadata } from "./index";
 import { taskQuery } from "./taskData";
 
@@ -12,7 +12,7 @@ const wrapper = ({ children }) => (
 );
 describe("metadata", () => {
   it("renders the metadata card with a pending status", () => {
-    const { queryByDataCy } = render(
+    render(
       <Metadata
         taskId={taskId}
         loading={false}
@@ -25,15 +25,15 @@ describe("metadata", () => {
         wrapper,
       }
     );
-    expect(queryByDataCy("task-metadata-estimated_start")).toHaveTextContent(
-      "1s"
-    );
-    expect(queryByDataCy("metadata-eta-timer")).toBeNull();
-    expect(queryByDataCy("task-metadata-started")).toBeNull();
-    expect(queryByDataCy("task-metadata-finished")).toBeNull();
+    expect(
+      screen.queryByDataCy("task-metadata-estimated_start")
+    ).toHaveTextContent("1s");
+    expect(screen.queryByDataCy("metadata-eta-timer")).toBeNull();
+    expect(screen.queryByDataCy("task-metadata-started")).toBeNull();
+    expect(screen.queryByDataCy("task-metadata-finished")).toBeNull();
   });
   it("renders the metadata card with a started status", () => {
-    const { queryByDataCy } = render(
+    render(
       <Metadata
         taskId={taskId}
         loading={false}
@@ -46,14 +46,14 @@ describe("metadata", () => {
         wrapper,
       }
     );
-    expect(queryByDataCy("task-metadata-estimated_start")).toBeNull();
-    expect(queryByDataCy("metadata-eta-timer")).toBeInTheDocument();
-    expect(queryByDataCy("task-metadata-started")).toBeInTheDocument();
-    expect(queryByDataCy("task-metadata-finished")).toBeNull();
+    expect(screen.queryByDataCy("task-metadata-estimated_start")).toBeNull();
+    expect(screen.getByDataCy("metadata-eta-timer")).toBeInTheDocument();
+    expect(screen.getByDataCy("task-metadata-started")).toBeInTheDocument();
+    expect(screen.queryByDataCy("task-metadata-finished")).toBeNull();
   });
 
   it("renders the metadata card with a succeeded status", () => {
-    const { queryByDataCy } = render(
+    render(
       <Metadata
         taskId={taskId}
         loading={false}
@@ -67,10 +67,10 @@ describe("metadata", () => {
       }
     );
 
-    expect(queryByDataCy("task-metadata-estimated_start")).toBeNull();
-    expect(queryByDataCy("metadata-eta-timer")).toBeNull();
-    expect(queryByDataCy("task-metadata-started")).toBeInTheDocument();
-    expect(queryByDataCy("task-metadata-finished")).toBeInTheDocument();
+    expect(screen.queryByDataCy("task-metadata-estimated_start")).toBeNull();
+    expect(screen.queryByDataCy("metadata-eta-timer")).toBeNull();
+    expect(screen.getByDataCy("task-metadata-started")).toBeInTheDocument();
+    expect(screen.getByDataCy("task-metadata-finished")).toBeInTheDocument();
   });
 });
 
@@ -115,8 +115,11 @@ const mocks = [
     },
     result: {
       data: {
-        userId: "mohamed.khelif",
-        displayName: "Mohamed Khelif",
+        user: {
+          userId: "mohamed.khelif",
+          displayName: "Mohamed Khelif",
+          emailAddress: "a@mongodb.com",
+        },
       },
     },
   },

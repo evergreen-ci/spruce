@@ -221,9 +221,8 @@ const getQueryVariables = (
     cat &&
     (sort === SortDirection.Desc ? SortDirection.Desc : SortDirection.Asc);
   const rawStatuses = parsed[RequiredQueryParams.Statuses];
-  const statusList = (Array.isArray(rawStatuses)
-    ? rawStatuses
-    : [rawStatuses]
+  const statusList = (
+    Array.isArray(rawStatuses) ? rawStatuses : [rawStatuses]
   ).filter((v) => v && v !== TestStatus.All);
   const execution = parsed[RequiredQueryParams.Execution];
   return {

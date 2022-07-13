@@ -53,22 +53,20 @@ export const ActionButtons: React.VFC<ActionButtonProps> = ({
   ];
 
   return (
-    <>
-      <PageButtonRow>
-        <ScheduleTasks
-          versionId={versionId}
-          isButton
-          disabled={isPatchOnCommitQueue}
-        />
-        <RestartPatch
-          patchId={versionId}
-          isButton
-          disabled={isPatchOnCommitQueue}
-          refetchQueries={["PatchTasks"]}
-        />
-        <AddNotification patchId={versionId} />
-        <ButtonDropdown dropdownItems={dropdownItems} loading={false} />
-      </PageButtonRow>
-    </>
+    <PageButtonRow>
+      <ScheduleTasks
+        versionId={versionId}
+        isButton
+        disabled={isPatchOnCommitQueue}
+      />
+      <RestartPatch
+        patchId={versionId}
+        isButton
+        disabled={isPatchOnCommitQueue}
+        refetchQueries={["PatchTasks"]}
+      />
+      <AddNotification patchId={versionId} />
+      <ButtonDropdown dropdownItems={dropdownItems} loading={false} />
+    </PageButtonRow>
   );
 };

@@ -1,6 +1,6 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { fireEvent } from "@testing-library/react";
-import { renderHook, act } from "@testing-library/react-hooks";
+import { renderHook, act } from "@testing-library/react-hooks/dom";
 import { GET_USER } from "gql/queries";
 import { usePageVisibility } from "hooks";
 
@@ -24,8 +24,8 @@ describe("usePageVisibility", () => {
       Object.defineProperty(document, "visibilityState", {
         value: "hidden",
       });
-      fireEvent(document, new Event("visibilitychange"));
     });
+    fireEvent(document, new Event("visibilitychange"));
     expect(result.current).toBe(false);
   });
 });

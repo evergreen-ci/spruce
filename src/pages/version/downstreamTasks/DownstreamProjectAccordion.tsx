@@ -46,7 +46,9 @@ interface DownstreamProjectAccordionProps {
   childPatchId: string;
 }
 
-export const DownstreamProjectAccordion: React.VFC<DownstreamProjectAccordionProps> = ({
+export const DownstreamProjectAccordion: React.VFC<
+  DownstreamProjectAccordionProps
+> = ({
   baseVersionID,
   childPatchId,
   githash,

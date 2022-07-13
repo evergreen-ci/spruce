@@ -1,11 +1,13 @@
 import App from "App";
-import { render, act } from "test_utils";
+import { render, screen, waitFor } from "test_utils";
 
 describe("app", () => {
   it("renders without crashing", async () => {
     expect.hasAssertions();
-    const { getByText } = render(<App />);
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    expect(getByText("LOADING...")).toBeInTheDocument();
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getByText("LOADING...")).toBeInTheDocument();
+    });
   });
 });

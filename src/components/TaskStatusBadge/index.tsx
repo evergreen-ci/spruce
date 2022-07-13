@@ -32,7 +32,7 @@ interface TaskStatusBadgeProps {
 }
 const TaskStatusBadge: React.VFC<TaskStatusBadgeProps> = ({ status }) => {
   if (!status) {
-    return <></>;
+    return null;
   }
 
   let displayStatus = getStatusBadgeCopy(status);

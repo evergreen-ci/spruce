@@ -6,6 +6,7 @@ import { GET_TASK_NAMES_FOR_BUILD_VARIANT } from "gql/queries";
 import {
   fireEvent,
   renderWithRouterMatch as render,
+  screen,
   waitFor,
 } from "test_utils";
 import { string } from "utils";
@@ -20,17 +21,17 @@ describe("columnHeaders (Variant History)", () => {
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders projectId="evergreen" variantName="some_variant" />
     );
-    const { queryAllByDataCy } = render(<Component />, {
+    render(<Component />, {
       wrapper: ProviderWrapper,
     });
-    expect(queryAllByDataCy("loading-header-cell")).toHaveLength(7);
+    expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(7);
   });
 
   it("renders the column headers properly when not loading", async () => {
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders projectId="evergreen" variantName="some_variant" />
     );
-    const { queryAllByDataCy } = render(<Component />, {
+    render(<Component />, {
       wrapper: ({ children }) =>
         ProviderWrapper({
           children,
@@ -41,17 +42,17 @@ describe("columnHeaders (Variant History)", () => {
         }),
     });
     await waitFor(() => {
-      expect(queryAllByDataCy("loading-header-cell")).toHaveLength(0);
+      expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
     });
 
-    expect(queryAllByDataCy("header-cell")).toHaveLength(3);
+    expect(screen.queryAllByDataCy("header-cell")).toHaveLength(3);
   });
 
   it("should link to corresponding /task-history/:projectId/:taskName page", async () => {
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders projectId="evergreen" variantName="some_variant" />
     );
-    const { queryByRole, queryAllByDataCy } = render(<Component />, {
+    render(<Component />, {
       wrapper: ({ children }) =>
         ProviderWrapper({
           children,
@@ -62,9 +63,9 @@ describe("columnHeaders (Variant History)", () => {
         }),
     });
     await waitFor(() => {
-      expect(queryAllByDataCy("loading-header-cell")).toHaveLength(0);
+      expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
     });
-    expect(queryByRole("link")).toHaveAttribute(
+    expect(screen.queryByRole("link")).toHaveAttribute(
       "href",
       "/task-history/evergreen/task1"
     );
@@ -74,7 +75,7 @@ describe("columnHeaders (Variant History)", () => {
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders projectId="evergreen" variantName="some_variant" />
     );
-    const { queryAllByDataCy } = render(<Component />, {
+    render(<Component />, {
       wrapper: ({ children }) =>
         ProviderWrapper({
           children,
@@ -86,15 +87,16 @@ describe("columnHeaders (Variant History)", () => {
         }),
     });
     await waitFor(() => {
-      expect(queryAllByDataCy("loading-header-cell")).toHaveLength(0);
+      expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
     });
-    expect(queryAllByDataCy("header-cell")).toHaveLength(3);
+    expect(screen.queryAllByDataCy("header-cell")).toHaveLength(3);
   });
+
   it("should truncate the task name only if it is too long", async () => {
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders projectId="evergreen" variantName="some_variant" />
     );
-    const { queryByText, queryAllByDataCy } = render(<Component />, {
+    render(<Component />, {
       wrapper: ({ children }) =>
         ProviderWrapper({
           children,
@@ -106,16 +108,17 @@ describe("columnHeaders (Variant History)", () => {
     });
 
     await waitFor(() => {
-      expect(queryAllByDataCy("loading-header-cell")).toHaveLength(0);
+      expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
     });
-    expect(queryByText(longTaskName)).toBeNull();
-    expect(queryByText("task2")).toBeVisible();
+    expect(screen.queryByText(longTaskName)).toBeNull();
+    expect(screen.queryByText("task2")).toBeVisible();
   });
+
   it("should show a tooltip with the full name when hovering over a truncated task name", async () => {
     const { Component } = RenderFakeToastContext(
       <ColumnHeaders projectId="evergreen" variantName="some_variant" />
     );
-    const { queryByText, queryAllByDataCy } = render(<Component />, {
+    render(<Component />, {
       wrapper: ({ children }) =>
         ProviderWrapper({
           children,
@@ -126,11 +129,11 @@ describe("columnHeaders (Variant History)", () => {
         }),
     });
     await waitFor(() => {
-      expect(queryAllByDataCy("loading-header-cell")).toHaveLength(0);
+      expect(screen.queryAllByDataCy("loading-header-cell")).toHaveLength(0);
     });
-    fireEvent.mouseEnter(queryByText(trimmedTaskName));
+    fireEvent.mouseEnter(screen.queryByText(trimmedTaskName));
     await waitFor(() => {
-      expect(queryByText(longTaskName)).toBeVisible();
+      expect(screen.queryByText(longTaskName)).toBeVisible();
     });
   });
 });

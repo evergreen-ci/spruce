@@ -2,7 +2,7 @@ import { MockedProvider, MockedResponse } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
 import { GET_USER_PERMISSIONS } from "gql/queries";
-import { act, renderWithRouterMatch as render, waitFor } from "test_utils";
+import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
 import { CreateDuplicateProjectButton } from "./CreateDuplicateProjectButton";
 import { ProjectType } from "./tabs/utils";
 
@@ -48,10 +48,9 @@ describe("createProjectField", () => {
     const { Component } = RenderFakeToastContext(
       <Button mock={lacksPersmissionsMock} />
     );
-    const { queryByDataCy } = render(<Component />);
+    render(<Component />);
 
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    expect(queryByDataCy("new-project-button")).not.toBeInTheDocument();
+    expect(screen.queryByDataCy("new-project-button")).not.toBeInTheDocument();
   });
 
   describe("when looking at a repo", () => {
@@ -59,67 +58,59 @@ describe("createProjectField", () => {
       const { Component } = RenderFakeToastContext(
         <Button projectType={ProjectType.Repo} />
       );
-      const { queryByDataCy, queryByText } = render(<Component />);
+      render(<Component />);
 
+      await screen.findByText("New Project");
+      userEvent.click(screen.queryByDataCy("new-project-button"));
       await waitFor(() =>
-        expect(queryByText("New Project")).toBeInTheDocument()
+        expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
       );
-      userEvent.click(queryByDataCy("new-project-button"));
-      await waitFor(() =>
-        expect(queryByDataCy("create-project-modal")).toBeVisible()
-      );
-      expect(queryByDataCy("new-project-menu")).not.toBeInTheDocument();
+      expect(screen.queryByDataCy("new-project-menu")).not.toBeInTheDocument();
     });
   });
 
   describe("when looking at a project", () => {
     it("clicking the button opens the menu", async () => {
       const { Component } = RenderFakeToastContext(<Button />);
-      const { queryByDataCy, queryByText } = render(<Component />);
+      render(<Component />);
 
+      await screen.findByText("New Project");
+      userEvent.click(screen.queryByDataCy("new-project-button"));
       await waitFor(() =>
-        expect(queryByText("New Project")).toBeInTheDocument()
-      );
-      userEvent.click(queryByDataCy("new-project-button"));
-      await waitFor(() =>
-        expect(queryByDataCy("new-project-menu")).toBeVisible()
+        expect(screen.queryByDataCy("new-project-menu")).toBeVisible()
       );
     });
 
     it("clicking the 'Create New Project' button opens the create project modal and closes the menu", async () => {
       const { Component } = RenderFakeToastContext(<Button />);
-      const { queryByDataCy, queryByText } = render(<Component />);
+      render(<Component />);
 
+      await screen.findByText("New Project");
+      userEvent.click(screen.queryByDataCy("new-project-button"));
       await waitFor(() =>
-        expect(queryByText("New Project")).toBeInTheDocument()
+        expect(screen.queryByDataCy("new-project-menu")).toBeVisible()
       );
-      userEvent.click(queryByDataCy("new-project-button"));
+      userEvent.click(screen.queryByDataCy("create-project-button"));
       await waitFor(() =>
-        expect(queryByDataCy("new-project-menu")).toBeVisible()
+        expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
       );
-      userEvent.click(queryByDataCy("create-project-button"));
-      await waitFor(() =>
-        expect(queryByDataCy("create-project-modal")).toBeVisible()
-      );
-      expect(queryByDataCy("new-project-menu")).not.toBeInTheDocument();
+      expect(screen.queryByDataCy("new-project-menu")).not.toBeInTheDocument();
     });
 
     it("clicking the 'Duplicate Project' button opens the create project modal and closes the menu", async () => {
       const { Component } = RenderFakeToastContext(<Button />);
-      const { queryByDataCy, queryByText } = render(<Component />);
+      render(<Component />);
 
+      await screen.findByText("New Project");
+      userEvent.click(screen.queryByDataCy("new-project-button"));
       await waitFor(() =>
-        expect(queryByText("New Project")).toBeInTheDocument()
+        expect(screen.queryByDataCy("new-project-menu")).toBeVisible()
       );
-      userEvent.click(queryByDataCy("new-project-button"));
+      userEvent.click(screen.queryByDataCy("copy-project-button"));
       await waitFor(() =>
-        expect(queryByDataCy("new-project-menu")).toBeVisible()
+        expect(screen.queryByDataCy("copy-project-modal")).toBeVisible()
       );
-      userEvent.click(queryByDataCy("copy-project-button"));
-      await waitFor(() =>
-        expect(queryByDataCy("copy-project-modal")).toBeVisible()
-      );
-      expect(queryByDataCy("new-project-menu")).not.toBeInTheDocument();
+      expect(screen.queryByDataCy("new-project-menu")).not.toBeInTheDocument();
     });
   });
 });

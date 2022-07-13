@@ -24,29 +24,26 @@ export const SlackNotificationBanner = () => {
   const dispatchToast = useToastContext();
 
   // UPDATE USER SETTINGS MUTATION
-  const [
-    updateUserSettings,
-    { loading: loadingUpdateUserSettings },
-  ] = useMutation<
-    UpdateUserSettingsMutation,
-    UpdateUserSettingsMutationVariables
-  >(UPDATE_USER_SETTINGS, {
-    onCompleted: () => {
-      hideBanner();
-      dispatchToast.success(
-        "You will now receive Slack notifications when your patches fail or succeed"
-      );
-    },
-    onError: (err) => {
-      dispatchToast.error(`Error while saving settings: '${err.message}'`);
-    },
-    refetchQueries: ["GetUserSettings"],
-  });
+  const [updateUserSettings, { loading: loadingUpdateUserSettings }] =
+    useMutation<
+      UpdateUserSettingsMutation,
+      UpdateUserSettingsMutationVariables
+    >(UPDATE_USER_SETTINGS, {
+      onCompleted: () => {
+        hideBanner();
+        dispatchToast.success(
+          "You will now receive Slack notifications when your patches fail or succeed"
+        );
+      },
+      onError: (err) => {
+        dispatchToast.error(`Error while saving settings: '${err.message}'`);
+      },
+      refetchQueries: ["GetUserSettings"],
+    });
 
   // USER SETTINGS QUERY
-  const { data: userSettingsData } = useQuery<GetUserSettingsQuery>(
-    GET_USER_SETTINGS
-  );
+  const { data: userSettingsData } =
+    useQuery<GetUserSettingsQuery>(GET_USER_SETTINGS);
   const { userSettings } = userSettingsData || {};
   const { slackUsername: defaultSlackUsername, notifications } =
     userSettings || {};

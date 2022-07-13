@@ -1,10 +1,15 @@
 import { MockedProvider } from "@apollo/client/testing";
-import { screen } from "@testing-library/react";
 import { ScheduleTasksModal } from "components/ScheduleTasksModal";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
 import { SCHEDULE_TASKS } from "gql/mutations";
 import { GET_UNSCHEDULED_TASKS } from "gql/queries";
-import { render, fireEvent, waitFor, renderWithRouterMatch } from "test_utils";
+import {
+  fireEvent,
+  render,
+  renderWithRouterMatch,
+  screen,
+  waitFor,
+} from "test_utils";
 import { ScheduleTasks } from "./ScheduleTasks";
 
 const ScheduleButton = () => (
@@ -31,31 +36,35 @@ describe("scheduleTasks", () => {
   });
   it("clicking the button opens the modal", async () => {
     const { Component } = RenderFakeToastContext(<ScheduleButton />);
-    const { queryByDataCy } = renderWithRouterMatch(<Component />);
-    expect(queryByDataCy("schedule-tasks-modal")).not.toBeInTheDocument();
-    fireEvent.click(queryByDataCy("schedule-patch"));
+    renderWithRouterMatch(<Component />);
+    expect(
+      screen.queryByDataCy("schedule-tasks-modal")
+    ).not.toBeInTheDocument();
+    fireEvent.click(screen.queryByDataCy("schedule-patch"));
     await waitFor(() =>
-      expect(queryByDataCy("schedule-tasks-modal")).toBeVisible()
+      expect(screen.queryByDataCy("schedule-tasks-modal")).toBeVisible()
     );
   });
 
   it("the modal is populated with build variant names and checkboxes", async () => {
     const { Component } = RenderFakeToastContext(<ScheduleModal />);
 
-    const { queryByText, queryAllByDataCy } = render(<Component />);
+    render(<Component />);
 
     // assert build variant checkbox labels are visible
-    await waitFor(() => expect(queryByText("Windows")).toBeVisible());
-    await waitFor(() => expect(queryByText("Ubuntu 16.04")).toBeVisible());
+    await waitFor(() => expect(screen.queryByText("Windows")).toBeVisible());
+    await waitFor(() =>
+      expect(screen.queryByText("Ubuntu 16.04")).toBeVisible()
+    );
 
     // open the accordions
-    const toggles = queryAllByDataCy("accordion-toggle");
+    const toggles = screen.queryAllByDataCy("accordion-toggle");
     fireEvent.click(toggles[0]);
     fireEvent.click(toggles[1]);
 
     // assert task checkbox labels are visible
     await waitFor(() => {
-      queryAllByDataCy("task-checkbox-label").forEach((label) => {
+      screen.queryAllByDataCy("task-checkbox-label").forEach((label) => {
         expect(label).toBeVisible();
       });
     });
@@ -64,57 +73,57 @@ describe("scheduleTasks", () => {
   it("selecting some and not all task checkboxes puts the build variant checkbox in an indeterminate state.", async () => {
     const { Component } = RenderFakeToastContext(<ScheduleModal />);
 
-    const { queryByText, queryAllByDataCy, queryByDataCy } = render(
-      <Component />
-    );
-    await waitFor(() => expect(queryByText("Windows")).toBeVisible());
-    const toggles = queryAllByDataCy("accordion-toggle");
+    render(<Component />);
+    await waitFor(() => expect(screen.queryByText("Windows")).toBeVisible());
+    const toggles = screen.queryAllByDataCy("accordion-toggle");
     fireEvent.click(toggles[1]);
     await waitFor(() => {
       expect(
-        queryByDataCy("windows-variant-checkbox").getAttribute("aria-checked")
+        screen
+          .queryByDataCy("windows-variant-checkbox")
+          .getAttribute("aria-checked")
       ).toBe("false");
     });
-    fireEvent.click(queryByDataCy("windows-compile-task-checkbox"));
+    fireEvent.click(screen.queryByDataCy("windows-compile-task-checkbox"));
     await waitFor(() => {
       expect(
-        queryByDataCy("windows-variant-checkbox").getAttribute("aria-checked")
+        screen
+          .queryByDataCy("windows-variant-checkbox")
+          .getAttribute("aria-checked")
       ).toBe("mixed");
     });
   });
+
   it("schedule button is disabled until at least one checkbox is selected", async () => {
     const { Component } = RenderFakeToastContext(<ScheduleModal />);
 
-    const { queryByText, queryAllByDataCy, queryByDataCy } = render(
-      <Component />
-    );
-    await waitFor(() => expect(queryByText("Windows")).toBeVisible());
-    const toggles = queryAllByDataCy("accordion-toggle");
+    render(<Component />);
+    await waitFor(() => expect(screen.queryByText("Windows")).toBeVisible());
+    const toggles = screen.queryAllByDataCy("accordion-toggle");
     fireEvent.click(toggles[1]);
-    fireEvent.click(queryByDataCy("windows-compile-task-checkbox")); // deselect checkbox from previous test
+    fireEvent.click(screen.queryByDataCy("windows-compile-task-checkbox")); // deselect checkbox from previous test
     await waitFor(() => {
       // Unable to pass data-cy to modal buttons so we have to use getAllByRole
       const confirmButton = screen.getAllByRole("button")[0];
       expect(confirmButton).toBeDisabled();
     });
-    fireEvent.click(queryByDataCy("windows-compile-task-checkbox"));
+    fireEvent.click(screen.queryByDataCy("windows-compile-task-checkbox"));
     await waitFor(() => {
       const confirmButton = screen.getAllByRole("button")[0];
       expect(confirmButton).not.toBeDisabled();
     });
   });
+
   it("clicking on schedule button dispatches a properly formatted request and dispatches a toast", async () => {
     const { Component, dispatchToast } = RenderFakeToastContext(
       <ScheduleModal />
     );
 
-    const { queryByText, queryAllByDataCy, queryByDataCy } = render(
-      <Component />
-    );
-    await waitFor(() => expect(queryByText("Windows")).toBeVisible());
-    const windowVariantToggle = queryAllByDataCy("accordion-toggle")[1];
+    render(<Component />);
+    await waitFor(() => expect(screen.queryByText("Windows")).toBeVisible());
+    const windowVariantToggle = screen.queryAllByDataCy("accordion-toggle")[1];
     fireEvent.click(windowVariantToggle);
-    fireEvent.click(queryByDataCy("windows-compile-task-checkbox"));
+    fireEvent.click(screen.queryByDataCy("windows-compile-task-checkbox"));
     const confirmButton = screen.getAllByRole("button")[0];
     fireEvent.click(confirmButton);
 
@@ -129,9 +138,11 @@ describe("scheduleTasks", () => {
   it("modal displays copy when there are no schedulable tasks.", async () => {
     const { Component } = RenderFakeToastContext(<ScheduleModalEmpty />);
 
-    const { queryByText } = render(<Component />);
+    render(<Component />);
     await waitFor(() =>
-      expect(queryByText("There are no schedulable tasks.")).toBeVisible()
+      expect(
+        screen.queryByText("There are no schedulable tasks.")
+      ).toBeVisible()
     );
   });
 });
@@ -147,12 +158,14 @@ const scheduleTasksMock = {
   },
   result: {
     data: {
-      id: "1",
-      execution: 3,
-      buildVariant: "windows",
-      displayName: "compile",
-      revision: "abcb",
-      status: "will-run",
+      scheduleTasks: {
+        id: "1",
+        execution: 3,
+        buildVariant: "windows",
+        displayName: "compile",
+        revision: "abcb",
+        status: "will-run",
+      },
     },
   },
 };
@@ -167,8 +180,7 @@ const getUnscheduledTasksMock = {
       patchTasks: {
         tasks: [
           {
-            id:
-              "spruce_ubuntu1604_compile_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
+            id: "spruce_ubuntu1604_compile_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
             displayName: "compile",
             buildVariant: "ubuntu1604",
             buildVariantDisplayName: "Ubuntu 16.04",
@@ -176,8 +188,7 @@ const getUnscheduledTasksMock = {
             __typename: "Task",
           },
           {
-            id:
-              "spruce_ubuntu1604_coverage_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
+            id: "spruce_ubuntu1604_coverage_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
             displayName: "coverage",
             buildVariant: "ubuntu1604",
             buildVariantDisplayName: "Ubuntu 16.04",
@@ -185,8 +196,7 @@ const getUnscheduledTasksMock = {
             __typename: "Task",
           },
           {
-            id:
-              "spruce_ubuntu1604_e2e_test_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
+            id: "spruce_ubuntu1604_e2e_test_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
             displayName: "e2e_test",
             buildVariant: "ubuntu1604",
             buildVariantDisplayName: "Ubuntu 16.04",
@@ -194,8 +204,7 @@ const getUnscheduledTasksMock = {
             __typename: "Task",
           },
           {
-            id:
-              "spruce_ubuntu1604_lint_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
+            id: "spruce_ubuntu1604_lint_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
             displayName: "lint",
             buildVariant: "ubuntu1604",
             buildVariantDisplayName: "Ubuntu 16.04",
@@ -203,8 +212,7 @@ const getUnscheduledTasksMock = {
             __typename: "Task",
           },
           {
-            id:
-              "spruce_ubuntu1604_storybook_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
+            id: "spruce_ubuntu1604_storybook_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
             displayName: "storybook",
             buildVariant: "ubuntu1604",
             buildVariantDisplayName: "Ubuntu 16.04",
@@ -212,8 +220,7 @@ const getUnscheduledTasksMock = {
             __typename: "Task",
           },
           {
-            id:
-              "spruce_ubuntu1604_test_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
+            id: "spruce_ubuntu1604_test_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
             displayName: "test",
             buildVariant: "ubuntu1604",
             buildVariantDisplayName: "Ubuntu 16.04",
@@ -221,8 +228,7 @@ const getUnscheduledTasksMock = {
             __typename: "Task",
           },
           {
-            id:
-              "spruce_ubuntu1604_type_check_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
+            id: "spruce_ubuntu1604_type_check_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
             displayName: "type_check",
             buildVariant: "ubuntu1604",
             buildVariantDisplayName: "Ubuntu 16.04",
@@ -230,8 +236,7 @@ const getUnscheduledTasksMock = {
             __typename: "Task",
           },
           {
-            id:
-              "spruce_windows_compile_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
+            id: "spruce_windows_compile_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
             displayName: "compile",
             buildVariant: "windows",
             buildVariantDisplayName: "Windows",
@@ -239,8 +244,7 @@ const getUnscheduledTasksMock = {
             __typename: "Task",
           },
           {
-            id:
-              "spruce_windows_coverage_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
+            id: "spruce_windows_coverage_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
             displayName: "coverage",
             buildVariant: "windows",
             buildVariantDisplayName: "Windows",
@@ -248,8 +252,7 @@ const getUnscheduledTasksMock = {
             __typename: "Task",
           },
           {
-            id:
-              "spruce_windows_e2e_test_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
+            id: "spruce_windows_e2e_test_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
             displayName: "e2e_test",
             buildVariant: "windows",
             buildVariantDisplayName: "Windows",
@@ -257,8 +260,7 @@ const getUnscheduledTasksMock = {
             __typename: "Task",
           },
           {
-            id:
-              "spruce_windows_lint_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
+            id: "spruce_windows_lint_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
             displayName: "lint",
             buildVariant: "windows",
             buildVariantDisplayName: "Windows",
@@ -266,8 +268,7 @@ const getUnscheduledTasksMock = {
             __typename: "Task",
           },
           {
-            id:
-              "spruce_windows_storybook_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
+            id: "spruce_windows_storybook_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
             displayName: "storybook",
             buildVariant: "windows",
             buildVariantDisplayName: "Windows",
@@ -275,8 +276,7 @@ const getUnscheduledTasksMock = {
             __typename: "Task",
           },
           {
-            id:
-              "spruce_windows_test_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
+            id: "spruce_windows_test_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
             displayName: "test",
             buildVariant: "windows",
             buildVariantDisplayName: "Windows",
@@ -284,8 +284,7 @@ const getUnscheduledTasksMock = {
             __typename: "Task",
           },
           {
-            id:
-              "spruce_windows_type_check_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
+            id: "spruce_windows_type_check_patch_32ce975c828926b398d9ba0cac1b287b2d6aaa5e_615b40869ccd4e6af36a20ad_21_10_04_17_57_32",
             displayName: "type_check",
             buildVariant: "windows",
             buildVariantDisplayName: "Windows",

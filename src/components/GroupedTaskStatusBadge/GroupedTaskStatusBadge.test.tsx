@@ -1,7 +1,8 @@
 import userEvent from "@testing-library/user-event";
 import {
-  renderWithRouterMatch as render,
   fireEvent,
+  renderWithRouterMatch as render,
+  screen,
   waitFor,
 } from "test_utils";
 import { TaskStatus } from "types/task";
@@ -10,7 +11,7 @@ import { GroupedTaskStatusBadge } from ".";
 describe("groupedTaskStatusBadgeIcon", () => {
   it("clicking on badge performs an action", () => {
     const onClick = jest.fn();
-    const { queryByDataCy } = render(
+    render(
       <GroupedTaskStatusBadge
         count={400}
         status={TaskStatus.SystemFailureUmbrella}
@@ -18,40 +19,40 @@ describe("groupedTaskStatusBadgeIcon", () => {
         versionId={versionId}
       />
     );
-    const badge = queryByDataCy("grouped-task-status-badge");
+    const badge = screen.queryByDataCy("grouped-task-status-badge");
     expect(badge).toBeInTheDocument();
     fireEvent.click(badge);
     expect(onClick).toHaveBeenCalledWith();
   });
 
   it("badge should have correct copy", () => {
-    const { queryByText } = render(
+    render(
       <GroupedTaskStatusBadge
         count={400}
         status={TaskStatus.SystemFailureUmbrella}
         versionId={versionId}
       />
     );
-    expect(queryByText("System Failed")).toBeInTheDocument();
-    expect(queryByText("400")).toBeInTheDocument();
+    expect(screen.getByText("System Failed")).toBeInTheDocument();
+    expect(screen.getByText("400")).toBeInTheDocument();
   });
 
   it("should link to version page with correct status filters when variant prop is not supplied", () => {
-    const { queryByDataCy } = render(
+    render(
       <GroupedTaskStatusBadge
         count={400}
         status={TaskStatus.SystemFailureUmbrella}
         versionId={versionId}
       />
     );
-    expect(queryByDataCy("grouped-task-status-badge")).toHaveAttribute(
+    expect(screen.queryByDataCy("grouped-task-status-badge")).toHaveAttribute(
       "href",
       `/version/${versionId}/tasks?statuses=system-failure-umbrella,system-failed,system-timed-out,system-unresponsive`
     );
   });
 
   it("should link to version page with correct status and variant filters when variant prop is supplied", () => {
-    const { queryByDataCy } = render(
+    render(
       <GroupedTaskStatusBadge
         count={400}
         status={TaskStatus.SystemFailureUmbrella}
@@ -59,7 +60,7 @@ describe("groupedTaskStatusBadgeIcon", () => {
         variant="some_variant"
       />
     );
-    expect(queryByDataCy("grouped-task-status-badge")).toHaveAttribute(
+    expect(screen.queryByDataCy("grouped-task-status-badge")).toHaveAttribute(
       "href",
       `/version/${versionId}/tasks?statuses=system-failure-umbrella,system-failed,system-timed-out,system-unresponsive&variant=%5Esome_variant%24`
     );
@@ -71,7 +72,7 @@ describe("groupedTaskStatusBadgeIcon", () => {
       failed: 15,
       unstarted: 5,
     };
-    const { queryByDataCy, queryByText } = render(
+    render(
       <GroupedTaskStatusBadge
         count={400}
         status={TaskStatus.SystemFailureUmbrella}
@@ -80,26 +81,28 @@ describe("groupedTaskStatusBadgeIcon", () => {
       />
     );
     await waitFor(() => {
-      expect(queryByDataCy("grouped-task-status-badge-tooltip")).toBeNull();
+      expect(
+        screen.queryByDataCy("grouped-task-status-badge-tooltip")
+      ).toBeNull();
     });
-    userEvent.hover(queryByDataCy("grouped-task-status-badge"));
+    userEvent.hover(screen.queryByDataCy("grouped-task-status-badge"));
 
     await waitFor(() => {
       expect(
-        queryByDataCy("grouped-task-status-badge-tooltip")
+        screen.getByDataCy("grouped-task-status-badge-tooltip")
       ).toBeInTheDocument();
     });
     await waitFor(() => {
-      expect(queryByDataCy("grouped-task-status-badge-tooltip")).toBeVisible();
+      expect(
+        screen.queryByDataCy("grouped-task-status-badge-tooltip")
+      ).toBeVisible();
     });
-    await waitFor(() => {
-      expect(queryByText("30")).toBeVisible();
-      expect(queryByText("Running")).toBeVisible();
-      expect(queryByText("5")).toBeVisible();
-      expect(queryByText("Unstarted")).toBeVisible();
-      expect(queryByText("15")).toBeVisible();
-      expect(queryByText("Failed")).toBeVisible();
-    });
+    expect(screen.queryByText("30")).toBeVisible();
+    expect(screen.queryByText("Running")).toBeVisible();
+    expect(screen.queryByText("5")).toBeVisible();
+    expect(screen.queryByText("Unstarted")).toBeVisible();
+    expect(screen.queryByText("15")).toBeVisible();
+    expect(screen.queryByText("Failed")).toBeVisible();
   });
   const versionId = "version1";
 });

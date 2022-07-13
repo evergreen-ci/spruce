@@ -70,9 +70,8 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   >(GET_AWS_REGIONS);
 
   // QUERY user settings to get user's preferred aws region
-  const { data: userSettingsData } = useQuery<GetUserSettingsQuery>(
-    GET_USER_SETTINGS
-  );
+  const { data: userSettingsData } =
+    useQuery<GetUserSettingsQuery>(GET_USER_SETTINGS);
   const { region: userAwsRegion } = userSettingsData?.userSettings ?? {};
 
   // QUERY public keys
@@ -93,7 +92,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     SpawnHostMutationVariables
   >(SPAWN_HOST, {
     onCompleted(hostMutation) {
-      const { id } = hostMutation?.spawnHost;
+      const { id } = hostMutation?.spawnHost ?? {};
       onCancel();
       dispatchToast.success(`Successfully spawned host: ${id}`);
     },

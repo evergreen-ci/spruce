@@ -301,11 +301,7 @@ describe("arrayUnion", () => {
       arrayUnion(["1"], ["3", "2", "5", "4"], (a, b) => a.localeCompare(b))
     ).toStrictEqual(["1", "2", "3", "4", "5"]);
     expect(arrayUnion([1], [3, 2, 5, 4], (a, b) => a - b)).toStrictEqual([
-      1,
-      2,
-      3,
-      4,
-      5,
+      1, 2, 3, 4, 5,
     ]);
   });
 });

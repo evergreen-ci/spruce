@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { getCommitsRoute, getProjectSettingsRoute } from "constants/routes";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
 import { GET_PROJECTS, GET_VIEWABLE_PROJECTS } from "gql/queries";
-import { renderWithRouterMatch, act, waitFor } from "test_utils";
+import { renderWithRouterMatch, screen, waitFor } from "test_utils";
 
 import { ProjectSelect } from ".";
 
@@ -37,14 +37,21 @@ describe("projectSelect", () => {
         />
       </MockedProvider>
     );
-    const { queryByDataCy } = renderWithRouterMatch(<Component />);
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+    renderWithRouterMatch(<Component />);
 
-    expect(queryByDataCy("project-select-options")).not.toBeInTheDocument();
-    userEvent.click(queryByDataCy("project-select"));
-    expect(queryByDataCy("project-select-options")).toBeInTheDocument();
-    userEvent.click(queryByDataCy("project-select"));
-    expect(queryByDataCy("project-select-options")).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByDataCy("project-select")).toBeInTheDocument();
+    });
+
+    expect(
+      screen.queryByDataCy("project-select-options")
+    ).not.toBeInTheDocument();
+    userEvent.click(screen.queryByDataCy("project-select"));
+    expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
+    userEvent.click(screen.queryByDataCy("project-select"));
+    expect(
+      screen.queryByDataCy("project-select-options")
+    ).not.toBeInTheDocument();
   });
 
   it("should narrow down search results when filtering on projects", async () => {
@@ -56,18 +63,24 @@ describe("projectSelect", () => {
         />
       </MockedProvider>
     );
-    const { queryByDataCy, findAllByDataCy } = renderWithRouterMatch(
-      <Component />
-    );
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+    renderWithRouterMatch(<Component />);
 
-    expect(queryByDataCy("project-select-options")).not.toBeInTheDocument();
-    userEvent.click(queryByDataCy("project-select"));
-    expect(queryByDataCy("project-select-options")).toBeInTheDocument();
-    let options = await findAllByDataCy("project-display-name");
+    await waitFor(() => {
+      expect(screen.getByDataCy("project-select")).toBeInTheDocument();
+    });
+
+    expect(
+      screen.queryByDataCy("project-select-options")
+    ).not.toBeInTheDocument();
+    userEvent.click(screen.queryByDataCy("project-select"));
+    expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
+    let options = await screen.findAllByDataCy("project-display-name");
     expect(options).toHaveLength(6);
-    userEvent.type(queryByDataCy("project-select-search-input"), "logkeeper");
-    options = await findAllByDataCy("project-display-name");
+    userEvent.type(
+      screen.queryByDataCy("project-select-search-input"),
+      "logkeeper"
+    );
+    options = await screen.findAllByDataCy("project-display-name");
     expect(options).toHaveLength(1);
   });
 });
@@ -83,27 +96,26 @@ describe("projectSelect for project settings", () => {
         />
       </MockedProvider>
     );
-    const {
-      findAllByDataCy,
-      getAllByText,
-      queryByDataCy,
-      queryByText,
-    } = renderWithRouterMatch(<Component />);
+    renderWithRouterMatch(<Component />);
 
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+    await waitFor(() => {
+      expect(screen.getByDataCy("project-select")).toBeInTheDocument();
+    });
 
-    expect(queryByDataCy("project-select-options")).not.toBeInTheDocument();
-    userEvent.click(queryByDataCy("project-select"));
-    expect(queryByDataCy("project-select-options")).toBeInTheDocument();
-    const options = await findAllByDataCy("project-display-name");
+    expect(
+      screen.queryByDataCy("project-select-options")
+    ).not.toBeInTheDocument();
+    userEvent.click(screen.queryByDataCy("project-select"));
+    expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
+    const options = await screen.findAllByDataCy("project-display-name");
     expect(options).toHaveLength(4);
 
     // Disabled project appears last
     expect(options[3]).toHaveTextContent("evergreen smoke test");
-    expect(queryByText("Disabled Projects")).toBeInTheDocument();
+    expect(screen.getByText("Disabled Projects")).toBeInTheDocument();
 
     // Favorited projects should appear twice
-    expect(getAllByText("logkeeper")).toHaveLength(2);
+    expect(screen.getAllByText("logkeeper")).toHaveLength(2);
   });
 
   it("does not show a heading for disabled projects when all projects are enabled", async () => {
@@ -116,20 +128,20 @@ describe("projectSelect for project settings", () => {
         />
       </MockedProvider>
     );
-    const {
-      findAllByDataCy,
-      queryByDataCy,
-      queryByText,
-    } = renderWithRouterMatch(<Component />);
+    renderWithRouterMatch(<Component />);
 
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
+    await waitFor(() => {
+      expect(screen.getByDataCy("project-select")).toBeInTheDocument();
+    });
 
-    expect(queryByDataCy("project-select-options")).not.toBeInTheDocument();
-    userEvent.click(queryByDataCy("project-select"));
-    expect(queryByDataCy("project-select-options")).toBeInTheDocument();
-    const options = await findAllByDataCy("project-display-name");
+    expect(
+      screen.queryByDataCy("project-select-options")
+    ).not.toBeInTheDocument();
+    userEvent.click(screen.queryByDataCy("project-select"));
+    expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
+    const options = await screen.findAllByDataCy("project-display-name");
     expect(options).toHaveLength(1);
-    expect(queryByText("Disabled Projects")).not.toBeInTheDocument();
+    expect(screen.queryByText("Disabled Projects")).not.toBeInTheDocument();
   });
 });
 

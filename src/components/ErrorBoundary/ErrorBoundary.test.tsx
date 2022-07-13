@@ -1,6 +1,6 @@
 import Bugsnag from "@bugsnag/js";
 import BugsnagPluginReact from "@bugsnag/plugin-react";
-import { render } from "test_utils";
+import { render, screen } from "test_utils";
 import { mockEnvironmentalVariables } from "test_utils/utils";
 import * as environmentalVariables from "utils/environmentalVariables";
 import { resetBugsnag, initializeBugsnag, ErrorBoundary } from ".";
@@ -39,6 +39,7 @@ describe("initializeBugsnag", () => {
       plugins: [new BugsnagPluginReact()],
     });
   });
+
   describe("should initialize bugsnag with appropriate release stage", () => {
     afterEach(() => {
       jest.restoreAllMocks();
@@ -93,8 +94,8 @@ describe("error boundary", () => {
         <TestComponent />
       </ErrorBoundary>
     );
-    const { getByText } = render(<TestErrorBoundary />);
-    expect(getByText("Hello")).toBeInTheDocument();
+    render(<TestErrorBoundary />);
+    expect(screen.getByText("Hello")).toBeInTheDocument();
   });
   it("should display the fallback when an error occurs", () => {
     const err = new Error("Test error");
@@ -107,8 +108,8 @@ describe("error boundary", () => {
         <TestComponent />
       </ErrorBoundary>
     );
-    const { getByText } = render(<TestErrorBoundary />);
-    expect(getByText("Error")).toBeInTheDocument();
+    render(<TestErrorBoundary />);
+    expect(screen.getByText("Error")).toBeInTheDocument();
     expect(console.error).toHaveBeenCalledWith({
       error: err,
       errorInfo: expect.objectContaining({

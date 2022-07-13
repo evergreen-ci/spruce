@@ -16,6 +16,7 @@ describe("historyTable utils", () => {
       expect(calcColumnLimitFromWidth(4000)).toBe(25);
     });
   });
+
   describe("processCommits", () => {
     it("should return empty array if no commits", () => {
       const { processedCommits } = processCommits({
@@ -48,6 +49,7 @@ describe("historyTable utils", () => {
         },
       ]);
     });
+
     describe("should support adding new commits when they already exist", () => {
       const firstCommit = mainlineCommitData.versions[0];
       const secondCommit = mainlineCommitData.versions[1];
@@ -114,6 +116,7 @@ describe("historyTable utils", () => {
         ]);
       });
     });
+
     describe("should support adding folded up commits", () => {
       const firstCommit = mainlineCommitData.versions[0];
       const foldedUpCommits = mainlineCommitData.versions[5];
