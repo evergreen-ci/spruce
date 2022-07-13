@@ -226,33 +226,31 @@ const VersionTasks: React.VFC<VersionTasksProps> = ({
   const { buildVariants } = version || {};
   const tasks = selectedTasks[version?.id] || {};
 
-  return (
-    buildVariants && (
-      <>
-        <Row>
-          <TaskStatusFilters
-            onChangeBaseStatusFilter={setBaseStatusFilterTerm}
-            onChangeStatusFilter={setVersionStatusFilterTerm}
-            versionId={version?.id}
-            selectedBaseStatuses={baseStatusFilterTerm || []}
-            selectedStatuses={versionStatusFilterTerm || []}
-            filterWidth="50%"
-          />
-        </Row>
-        {buildVariants.map((patchBuildVariant) => (
-          <BuildVariantAccordian
-            versionId={version?.id}
-            key={`accoridan_${patchBuildVariant.variant}`}
-            tasks={patchBuildVariant.tasks}
-            displayName={patchBuildVariant.displayName}
-            selectedTasks={tasks}
-            toggleSelectedTask={toggleSelectedTask}
-          />
-        ))}
-        <HR />
-      </>
-    )
-  );
+  return buildVariants ? (
+    <>
+      <Row>
+        <TaskStatusFilters
+          onChangeBaseStatusFilter={setBaseStatusFilterTerm}
+          onChangeStatusFilter={setVersionStatusFilterTerm}
+          versionId={version?.id}
+          selectedBaseStatuses={baseStatusFilterTerm || []}
+          selectedStatuses={versionStatusFilterTerm || []}
+          filterWidth="50%"
+        />
+      </Row>
+      {buildVariants.map((patchBuildVariant) => (
+        <BuildVariantAccordian
+          versionId={version?.id}
+          key={`accoridan_${patchBuildVariant.variant}`}
+          tasks={patchBuildVariant.tasks}
+          displayName={patchBuildVariant.displayName}
+          selectedTasks={tasks}
+          toggleSelectedTask={toggleSelectedTask}
+        />
+      ))}
+      <HR />
+    </>
+  ) : null;
 };
 
 const selectedArray = (selected: selectedStrings) => {

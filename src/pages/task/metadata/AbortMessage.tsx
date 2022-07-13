@@ -11,7 +11,7 @@ export const AbortMessage: React.VFC<AbortInfo> = ({
   taskID,
   user,
 }) =>
-  user && (
+  user ? (
     <P2>
       {`Aborted by: ${user} `}
       {taskID && buildVariantDisplayName && taskDisplayName && (
@@ -38,4 +38,4 @@ export const AbortMessage: React.VFC<AbortInfo> = ({
       )}
       {prClosed && <span>because the GitHub PR was closed</span>}
     </P2>
-  );
+  ) : null;

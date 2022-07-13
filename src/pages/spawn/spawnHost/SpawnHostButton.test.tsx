@@ -18,7 +18,9 @@ describe("spawnHostButton", () => {
       </MockedProvider>
     );
     await waitFor(() => {
-      const spawnButton = screen.getByText("Spawn a host").closest("button");
+      const spawnButton = screen.getByRole("button", {
+        name: "Spawn a host",
+      });
       expect(spawnButton).toHaveAttribute("aria-disabled", "true");
     });
   });
@@ -31,7 +33,9 @@ describe("spawnHostButton", () => {
       </MockedProvider>
     );
     await waitFor(() => {
-      const spawnButton = screen.getByText("Spawn a host").closest("button");
+      const spawnButton = screen.getByRole("button", {
+        name: "Spawn a host",
+      });
       expect(spawnButton).toHaveAttribute("aria-disabled", "false");
     });
   });
@@ -46,7 +50,9 @@ describe("spawnHostButton", () => {
       </MockedProvider>
     );
     await waitFor(() => {
-      const spawnButton = screen.getByText("Spawn a host").closest("button");
+      const spawnButton = screen.getByRole("button", {
+        name: "Spawn a host",
+      });
       expect(spawnButton).toHaveAttribute("aria-disabled", "false");
     });
   });

@@ -31,7 +31,7 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
           aria-disabled={false}
           aria-expanded={false}
           aria-invalid={false}
-          aria-labelledby="filter-input"
+          aria-labelledby="tuple-select-dropdown"
           className="leafygreen-ui-p6v5m8"
           data-testid="leafygreen-ui-select-menubutton"
           disabled={false}
@@ -88,7 +88,7 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
               className="leafygreen-ui-1i2djk5"
             >
               <input
-                aria-labelledby="filter-input"
+                aria-labelledby="tuple-select-input"
                 autoComplete="on"
                 className="leafygreen-ui-1il5lef"
                 data-cy="tuple-select-input"

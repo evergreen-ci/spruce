@@ -26,7 +26,7 @@ const validateURL = (url: string): boolean => {
     return false;
   }
   const validateUrl =
-    /^((http|https|ftp):\/\/)?www\.{1}([0-9A-Za-z-.@:%_+~#=]+)+((\.[a-zA-Z]{2,3})+)(\/(.)*)?(\?(.)*)?/;
+    /^(https?:\/\/(www\.)?|ftp:\/\/(www\.)?|www\.){1}([0-9A-Za-z-.@:%_+~#=]+)+((\.[a-zA-Z]{2,3})+)(\/(.)*)?(\?(.)*)?/;
   return validateUrl.test(url);
 };
 

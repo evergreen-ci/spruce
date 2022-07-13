@@ -99,8 +99,11 @@ describe("validateURL", () => {
     expect(validateURL("www.mongodb.com")).toBeTruthy();
     expect(validateURL("https://www.mongodb.net")).toBeTruthy();
     expect(validateURL("http://www.mongodb.org")).toBeTruthy();
-    expect(validateURL("ftp://www.mongodb.com")).toBeTruthy();
-    expect(validateURL("ftp://www.mongodb.com/moreUrlParams")).toBeTruthy();
+    expect(validateURL("ftp://mongodb.com")).toBeTruthy();
+    expect(
+      validateURL("ftp://www.mongodb.com/moreUrlParams?hi=bye")
+    ).toBeTruthy();
+    expect(validateURL("https://jira.org/browse/ABC-1234")).toBeTruthy();
     expect(validateURL("ww.fake.org")).toBeFalsy();
   });
 });
