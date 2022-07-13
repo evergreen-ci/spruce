@@ -21,9 +21,8 @@ describe("storybook", () => {
   // eslint-disable-next-line jest/require-hook
   initStoryshots({
     test: ({ story, context, renderTree, stories2snapsConverter }) => {
-      const snapshotFileName = stories2snapsConverter.getSnapshotFileName(
-        context
-      );
+      const snapshotFileName =
+        stories2snapsConverter.getSnapshotFileName(context);
       return snapshotWithOptions({})({
         story,
         context,

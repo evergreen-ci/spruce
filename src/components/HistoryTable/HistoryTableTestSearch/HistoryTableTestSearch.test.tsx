@@ -1,14 +1,14 @@
-import { renderWithRouterMatch as render, fireEvent } from "test_utils";
+import { fireEvent, renderWithRouterMatch as render, screen } from "test_utils";
 import { HistoryTableTestSearch } from "./HistoryTableTestSearch";
 
 const Content = () => <HistoryTableTestSearch />;
 describe("historyTableTestSearch", () => {
   it("renders normally and doesn't affect the url", () => {
-    const { getByPlaceholderText } = render(<Content />, {
+    render(<Content />, {
       route: `/variant-history/evergreen/lint`,
       path: "/variant-history/:projectId/:variantName",
     });
-    const input = getByPlaceholderText(
+    const input = screen.getByPlaceholderText(
       "Search test name regex"
     ) as HTMLInputElement;
     expect(input).toBeInTheDocument();
@@ -16,11 +16,11 @@ describe("historyTableTestSearch", () => {
   });
 
   it("should clear input when a value is submitted", () => {
-    const { getByPlaceholderText } = render(<Content />, {
+    render(<Content />, {
       route: `/variant-history/evergreen/lint`,
       path: "/variant-history/:projectId/:variantName",
     });
-    const input = getByPlaceholderText(
+    const input = screen.getByPlaceholderText(
       "Search test name regex"
     ) as HTMLInputElement;
 
@@ -38,11 +38,11 @@ describe("historyTableTestSearch", () => {
   });
 
   it("should add input query params to the url", () => {
-    const { getByPlaceholderText, history } = render(<Content />, {
+    const { history } = render(<Content />, {
       route: `/variant-history/evergreen/lint`,
       path: "/variant-history/:projectId/:variantName",
     });
-    const input = getByPlaceholderText(
+    const input = screen.getByPlaceholderText(
       "Search test name regex"
     ) as HTMLInputElement;
 
@@ -62,11 +62,11 @@ describe("historyTableTestSearch", () => {
   });
 
   it("should add multiple input filters to the same key as query params", () => {
-    const { getByPlaceholderText, history } = render(<Content />, {
+    const { history } = render(<Content />, {
       route: `/variant-history/evergreen/lint`,
       path: "/variant-history/:projectId/:variantName",
     });
-    const input = getByPlaceholderText(
+    const input = screen.getByPlaceholderText(
       "Search test name regex"
     ) as HTMLInputElement;
     expect(input).toHaveValue("");
@@ -91,11 +91,11 @@ describe("historyTableTestSearch", () => {
   });
 
   it("should not allow duplicate input filters for the same key as query params", () => {
-    const { getByPlaceholderText, history } = render(<Content />, {
+    const { history } = render(<Content />, {
       route: `/variant-history/evergreen/lint`,
       path: "/variant-history/:projectId/:variantName",
     });
-    const input = getByPlaceholderText(
+    const input = screen.getByPlaceholderText(
       "Search test name regex"
     ) as HTMLInputElement;
     expect(input).toHaveValue("");

@@ -52,7 +52,7 @@ export const CodeChangeModule: React.VFC<{
     );
   });
 
-  return <>{modules}</>;
+  return <>{modules}</>; // eslint-disable-line react/jsx-no-useless-fragment
 };
 
 const CodeChangeModuleContainer = styled.div`

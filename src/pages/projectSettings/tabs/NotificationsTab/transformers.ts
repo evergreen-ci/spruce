@@ -97,10 +97,8 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
             const triggerText = getTriggerText(trigger, resourceType);
 
             // Find and process information about subscriber.
-            const {
-              type: subscriberType,
-              subscriber: subscribers,
-            } = subscriber;
+            const { type: subscriberType, subscriber: subscribers } =
+              subscriber;
             const {
               jiraCommentSubscriber,
               slackSubscriber,
@@ -157,9 +155,8 @@ export const formToGql: FormToGqlFunction<Tab> = (
     id,
     notifyOnBuildFailure: buildBreakSettings.notifyOnBuildFailure,
   };
-  const transformedSubscriptions: SubscriptionInput[] = subscriptions.map(
-    getGqlPayload
-  );
+  const transformedSubscriptions: SubscriptionInput[] =
+    subscriptions.map(getGqlPayload);
   return {
     projectRef,
     subscriptions: transformedSubscriptions,

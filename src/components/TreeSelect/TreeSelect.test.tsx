@@ -1,40 +1,37 @@
-import { fireEvent, render } from "test_utils";
+import { fireEvent, render, screen } from "test_utils";
 import { TreeSelect } from ".";
 
 describe("treeSelect", () => {
   it("renders each value in the tree", () => {
-    const { queryByText, queryByDataCy } = render(
-      <TreeSelect onChange={() => {}} state={[]} tData={treeData} />
-    );
-    expect(queryByDataCy("tree-select-options")).toBeInTheDocument();
+    render(<TreeSelect onChange={() => {}} state={[]} tData={treeData} />);
+    expect(screen.getByDataCy("tree-select-options")).toBeInTheDocument();
     for (let i = 0; i < treeData.length; i++) {
-      expect(queryByText(treeData[i].title)).toBeInTheDocument();
+      expect(screen.getByText(treeData[i].title)).toBeInTheDocument();
     }
   });
+
   it("selected elements should be checked", () => {
-    const { queryByDataCy, queryByLabelText } = render(
+    render(
       <TreeSelect onChange={() => {}} state={["pass"]} tData={treeData} />
     );
-    expect(queryByDataCy("tree-select-options")).toBeInTheDocument();
-    const checkbox = queryByLabelText("Pass");
+    expect(screen.getByDataCy("tree-select-options")).toBeInTheDocument();
+    const checkbox = screen.queryByLabelText("Pass");
     expect(checkbox).toBeChecked();
   });
+
   it("clicking a value selects its option in the tree select", () => {
     const onChange = jest.fn();
-    const { queryByText } = render(
-      <TreeSelect onChange={onChange} state={[]} tData={treeData} />
-    );
-    expect(queryByText("Pass")).toBeInTheDocument();
-    fireEvent.click(queryByText("Pass"));
+    render(<TreeSelect onChange={onChange} state={[]} tData={treeData} />);
+    expect(screen.getByText("Pass")).toBeInTheDocument();
+    fireEvent.click(screen.queryByText("Pass"));
     expect(onChange).toHaveBeenCalledWith(["pass"]);
   });
+
   it("clicking all selects all of the options in the tree select", () => {
     const onChange = jest.fn();
-    const { queryByText } = render(
-      <TreeSelect onChange={onChange} state={[]} tData={treeData} />
-    );
-    expect(queryByText("All")).toBeInTheDocument();
-    fireEvent.click(queryByText("All"));
+    render(<TreeSelect onChange={onChange} state={[]} tData={treeData} />);
+    expect(screen.getByText("All")).toBeInTheDocument();
+    fireEvent.click(screen.queryByText("All"));
     expect(onChange).toHaveBeenCalledWith([
       "all",
       "pass",
@@ -45,35 +42,37 @@ describe("treeSelect", () => {
   });
 
   it("should render nested children", () => {
-    const { queryByText } = render(
+    render(
       <TreeSelect onChange={() => {}} state={[]} tData={nestedTreeData} />
     );
-    expect(queryByText("All")).toBeInTheDocument();
-    expect(queryByText("Failing Umbrella")).toBeInTheDocument();
-    expect(queryByText("System Failure")).toBeInTheDocument();
-    expect(queryByText("Fail")).toBeInTheDocument();
+    expect(screen.getByText("All")).toBeInTheDocument();
+    expect(screen.getByText("Failing Umbrella")).toBeInTheDocument();
+    expect(screen.getByText("System Failure")).toBeInTheDocument();
+    expect(screen.getByText("Fail")).toBeInTheDocument();
   });
+
   it("unchecking a child element should uncheck its parent", () => {
     let state = ["failing-umbrella", "system-failure", "fail"];
     const onChange = jest.fn((update) => {
       state = update;
     });
-    const { queryByText, queryByLabelText } = render(
+    render(
       <TreeSelect onChange={onChange} state={state} tData={nestedTreeData} />
     );
-    expect(queryByLabelText("Failing Umbrella")).toBeChecked();
-    expect(queryByLabelText("System Failure")).toBeChecked();
-    expect(queryByLabelText("Fail")).toBeChecked();
-    fireEvent.click(queryByText("Fail"));
+    expect(screen.queryByLabelText("Failing Umbrella")).toBeChecked();
+    expect(screen.queryByLabelText("System Failure")).toBeChecked();
+    expect(screen.queryByLabelText("Fail")).toBeChecked();
+    fireEvent.click(screen.queryByText("Fail"));
     expect(onChange).toHaveBeenCalledWith(["system-failure"]);
   });
+
   it("checking a parent element should toggle its children", () => {
     const onChange = jest.fn();
-    const { queryByText } = render(
+    render(
       <TreeSelect onChange={onChange} state={[]} tData={nestedTreeData} />
     );
-    expect(queryByText("Failing Umbrella")).toBeInTheDocument();
-    fireEvent.click(queryByText("Failing Umbrella"));
+    expect(screen.getByText("Failing Umbrella")).toBeInTheDocument();
+    fireEvent.click(screen.queryByText("Failing Umbrella"));
     expect(onChange).toHaveBeenCalledWith([
       "failing-umbrella",
       "system-failure",

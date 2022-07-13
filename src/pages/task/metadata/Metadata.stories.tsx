@@ -58,7 +58,8 @@ export const WithDependencies = (args) => (
 );
 
 export const WithAbortMessage = (args) => {
-  const abortInfo = abortInfoMap[args.abortInfoSelection];
+  const { abortInfoSelection } = args;
+  const abortInfo = abortInfoMap[abortInfoSelection];
   return (
     <Container>
       <Metadata

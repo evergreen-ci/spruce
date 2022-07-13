@@ -167,10 +167,8 @@ export const LeafyGreenSelect: React.VFC<
 
   const hasError = !!rawErrors?.length && !disabled;
   const isDisabled = disabled || readonly;
-  const labelProps: OneOf<
-    { label: string },
-    { "aria-labelledby": string }
-  > = ariaLabelledBy ? { "aria-labelledby": ariaLabelledBy } : { label };
+  const labelProps: OneOf<{ label: string }, { "aria-labelledby": string }> =
+    ariaLabelledBy ? { "aria-labelledby": ariaLabelledBy } : { label };
 
   return (
     <ElementWrapper marginBottom={marginBottom}>

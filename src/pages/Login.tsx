@@ -29,11 +29,11 @@ export const Login: React.VFC = () => {
     login({ username, password });
   };
 
-  const inputChangeHandler = (cb: (value: string) => void) => (
-    e: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    cb(e.target.value);
-  };
+  const inputChangeHandler =
+    (cb: (value: string) => void) =>
+    (e: React.ChangeEvent<HTMLInputElement>): void => {
+      cb(e.target.value);
+    };
 
   if (isAuthenticated) {
     return <Navigate to={getReferrer(location)} />;

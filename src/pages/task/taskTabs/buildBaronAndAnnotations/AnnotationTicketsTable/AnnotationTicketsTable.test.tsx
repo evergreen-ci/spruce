@@ -3,7 +3,7 @@ import MatchMediaMock from "jest-matchmedia-mock";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
 import { MOVE_ANNOTATION, REMOVE_ANNOTATION } from "gql/mutations";
 import { GET_USER } from "gql/queries";
-import { renderWithRouterMatch as render, waitFor } from "test_utils";
+import { renderWithRouterMatch as render, screen } from "test_utils";
 import AnnotationTicketsTable from "./AnnotationTicketsTable";
 
 const taskId =
@@ -21,7 +21,7 @@ describe("annotationTicketsTable", () => {
     jest.restoreAllMocks();
   });
 
-  it("should display the link and jiraIssue key while waiting for data to fetch.", async () => {
+  it("should display the link and jiraIssue key while waiting for data to fetch", async () => {
     const { Component } = RenderFakeToastContext(
       <MockedProvider mocks={ticketsTableMocks} addTypename={false}>
         <AnnotationTicketsTable
@@ -41,15 +41,13 @@ describe("annotationTicketsTable", () => {
         />
       </MockedProvider>
     );
-    const { getByText, queryByDataCy } = render(<Component />, {
+    render(<Component />, {
       route: `/task/${taskId}`,
       path: "/task/:id",
     });
 
-    waitFor(() =>
-      expect(queryByDataCy("loading-annotation-ticket")).toBeInTheDocument()
-    );
-    expect(getByText("EVG-1234567")).toBeInTheDocument();
+    await screen.findByDataCy("loading-annotation-ticket");
+    expect(screen.getByText("EVG-1234567")).toBeInTheDocument();
   });
 });
 
@@ -79,8 +77,11 @@ const ticketsTableMocks = [
     },
     result: {
       data: {
-        userId: "minna.kt",
-        displayName: "Minna K-T",
+        user: {
+          userId: "minna.kt",
+          displayName: "Minna K-T",
+          emailAddress: "a@mongodb.com",
+        },
       },
     },
   },

@@ -10,35 +10,32 @@ export const AbortMessage: React.VFC<AbortInfo> = ({
   taskDisplayName,
   taskID,
   user,
-}) => (
-  <>
-    {user && (
-      <P2>
-        {`Aborted by: ${user} `}
-        {taskID && buildVariantDisplayName && taskDisplayName && (
-          <span>
-            because of failing task:{" "}
-            <StyledRouterLink
-              data-cy="abort-message-failing-task"
-              to={getTaskRoute(taskID)}
-            >
-              {`${buildVariantDisplayName}: ${taskDisplayName}`}
-            </StyledRouterLink>
-          </span>
-        )}
-        {newVersion && (
-          <span>
-            because of a new version:{" "}
-            <StyledRouterLink
-              data-cy="abort-message-new-version"
-              to={getVersionRoute(newVersion)}
-            >
-              {newVersion}
-            </StyledRouterLink>
-          </span>
-        )}
-        {prClosed && <span>because the GitHub PR was closed</span>}
-      </P2>
-    )}
-  </>
-);
+}) =>
+  user ? (
+    <P2>
+      {`Aborted by: ${user} `}
+      {taskID && buildVariantDisplayName && taskDisplayName && (
+        <span>
+          because of failing task:{" "}
+          <StyledRouterLink
+            data-cy="abort-message-failing-task"
+            to={getTaskRoute(taskID)}
+          >
+            {`${buildVariantDisplayName}: ${taskDisplayName}`}
+          </StyledRouterLink>
+        </span>
+      )}
+      {newVersion && (
+        <span>
+          because of a new version:{" "}
+          <StyledRouterLink
+            data-cy="abort-message-new-version"
+            to={getVersionRoute(newVersion)}
+          >
+            {newVersion}
+          </StyledRouterLink>
+        </span>
+      )}
+      {prClosed && <span>because the GitHub PR was closed</span>}
+    </P2>
+  ) : null;

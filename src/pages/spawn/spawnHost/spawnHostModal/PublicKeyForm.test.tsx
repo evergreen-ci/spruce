@@ -1,4 +1,4 @@
-import { render, fireEvent, act } from "test_utils";
+import { act, fireEvent, render, screen } from "test_utils";
 import { PublicKeyForm } from "./PublicKeyForm";
 
 const publicKeys = [
@@ -49,23 +49,23 @@ describe("publicKeyForm", () => {
       data = x;
     });
 
-    const { getByText, getByLabelText } = render(
+    render(
       <PublicKeyForm
         publicKeys={publicKeys}
         data={data}
         onChange={updateData}
       />
     );
-    fireEvent.click(getByLabelText("Existing Key"));
+    fireEvent.click(screen.getByLabelText("Existing Key"));
 
-    const myKey = getByText("MySecondKey.pub");
+    const myKey = screen.getByText("MySecondKey.pub");
     expect(myKey).toBeInTheDocument();
+    fireEvent.click(myKey);
     await act(async () => {
-      fireEvent.click(myKey);
-    });
-    expect(data).toStrictEqual({
-      publicKey: { ...publicKeys[1] },
-      savePublicKey: false,
+      expect(data).toStrictEqual({
+        publicKey: { ...publicKeys[1] },
+        savePublicKey: false,
+      });
     });
   });
 
@@ -80,22 +80,22 @@ describe("publicKeyForm", () => {
       data = x;
     });
 
-    const { getByText, queryByLabelText } = render(
+    render(
       <PublicKeyForm
         publicKeys={publicKeys}
         data={data}
         onChange={updateData}
       />
     );
-    expect(queryByLabelText("Public Key")).toBeNull();
+    expect(screen.queryByLabelText("Public Key")).toBeNull();
     expect(data).toStrictEqual(defaultState);
 
-    fireEvent.click(getByText("Add new key"));
-    expect(queryByLabelText("Public Key")).toBeInTheDocument();
+    fireEvent.click(screen.getByText("Add new key"));
+    expect(screen.getByLabelText("Public Key")).toBeInTheDocument();
     expect(data).toStrictEqual(emptyState);
   });
 
-  it("textarea should not be visible when using existing key, select input should not be visible when adding new key", () => {
+  it("text area should not be visible when using existing key, select input should not be visible when adding new key", () => {
     const defaultState = {
       publicKey: { ...publicKeys[0] },
       savePublicKey: false,
@@ -106,7 +106,7 @@ describe("publicKeyForm", () => {
       data = x;
     });
 
-    const { getByText, queryByLabelText } = render(
+    render(
       <PublicKeyForm
         publicKeys={publicKeys}
         data={data}
@@ -115,25 +115,25 @@ describe("publicKeyForm", () => {
     );
     // Since 'Use Existing Key' is selected by default, the existing key select input should be visible.
     // The textarea should not be visible.
-    expect(queryByLabelText("Public Key")).toBeNull();
-    expect(queryByLabelText("Existing Key")).toBeInTheDocument();
+    expect(screen.queryByLabelText("Public Key")).toBeNull();
+    expect(screen.getByLabelText("Existing Key")).toBeInTheDocument();
     expect(data).toStrictEqual(defaultState);
 
     // If 'Add New Key' option is selected, the textarea should be visible, and the select input should
     // not be visible.
-    fireEvent.click(getByText("Add new key"));
-    expect(queryByLabelText("Public Key")).toBeInTheDocument();
-    expect(queryByLabelText("Existing Key")).toBeNull();
+    fireEvent.click(screen.getByText("Add new key"));
+    expect(screen.getByLabelText("Public Key")).toBeInTheDocument();
+    expect(screen.queryByLabelText("Existing Key")).toBeNull();
     expect(data).toStrictEqual(emptyState);
   });
 
-  it("textinput to specify new key name should be disabled until checkbox is checked", () => {
+  it("text input to specify new key name should be disabled until checkbox is checked", () => {
     let data = { ...emptyState };
     const updateData = jest.fn((x) => {
       data = x;
     });
 
-    const { getByText, getByPlaceholderText } = render(
+    render(
       <PublicKeyForm
         publicKeys={publicKeys}
         data={data}
@@ -141,9 +141,12 @@ describe("publicKeyForm", () => {
       />
     );
 
-    fireEvent.click(getByText("Add new key"));
-    expect(getByPlaceholderText("Key name")).toHaveAttribute("disabled");
-    fireEvent.click(getByText("Save public key"));
-    expect(getByPlaceholderText("Key name")).toHaveAttribute("disabled", "");
+    fireEvent.click(screen.getByText("Add new key"));
+    expect(screen.getByPlaceholderText("Key name")).toHaveAttribute("disabled");
+    fireEvent.click(screen.getByText("Save public key"));
+    expect(screen.getByPlaceholderText("Key name")).toHaveAttribute(
+      "disabled",
+      ""
+    );
   });
 });

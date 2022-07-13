@@ -8,7 +8,7 @@ import { GET_TASK_TEST_SAMPLE } from "gql/queries";
 import {
   fireEvent,
   renderWithRouterMatch as render,
-  act,
+  screen,
   waitFor,
 } from "test_utils";
 import { TestStatus } from "types/history";
@@ -48,177 +48,189 @@ const wrapper: React.VFC<wrapperProps> = ({ children, mocks = [], state }) => (
 
 describe("variantHistoryRow", () => {
   it("renders an initial loading row with 7 cells when there is no data", () => {
-    const { queryAllByDataCy } = render(
-      <VariantHistoryRow index={0} style={{}} data={undefined} />,
-      {
-        wrapper,
-      }
-    );
-    expect(queryAllByDataCy("loading-cell")).toHaveLength(7);
+    render(<VariantHistoryRow index={0} style={{}} data={undefined} />, {
+      wrapper,
+    });
+    expect(screen.queryAllByDataCy("loading-cell")).toHaveLength(7);
   });
-  it("renders a row when there is data", async () => {
-    const { queryAllByDataCy } = render(
-      <VariantHistoryRow index={0} style={{}} data={undefined} />,
-      {
-        route: "/variant-history/mci/ubuntu1604",
-        path: "/variant-history/:projectId/:variantName",
-        wrapper: ({ children }) =>
-          wrapper({
-            children,
-            state: {
-              processedCommitCount: 1,
-              processedCommits: [taskRow],
-              loadedCommits: [mainlineCommitData.versions[0].version],
-              visibleColumns: [
-                "test-cmd-codegen-core",
-                "test-thirdparty",
-                "test-db-auth",
-                "test-evergreen",
-                "test-graphql",
-                "test-jira-integration",
-                "test-mci",
-              ],
-            },
-          }),
-      }
-    );
-    expect(queryAllByDataCy("loading-cell")).toHaveLength(0);
-    expect(queryAllByDataCy("task-cell")).toHaveLength(7);
+
+  it("renders a row when there is data", () => {
+    render(<VariantHistoryRow index={0} style={{}} data={undefined} />, {
+      route: "/variant-history/mci/ubuntu1604",
+      path: "/variant-history/:projectId/:variantName",
+      wrapper: ({ children }) =>
+        wrapper({
+          children,
+          state: {
+            processedCommitCount: 1,
+            processedCommits: [taskRow],
+            loadedCommits: [mainlineCommitData.versions[0].version],
+            visibleColumns: [
+              "test-cmd-codegen-core",
+              "test-thirdparty",
+              "test-db-auth",
+              "test-evergreen",
+              "test-graphql",
+              "test-jira-integration",
+              "test-mci",
+            ],
+          },
+        }),
+    });
+    expect(screen.queryAllByDataCy("loading-cell")).toHaveLength(0);
+    expect(screen.queryAllByDataCy("task-cell")).toHaveLength(7);
   });
-  it("amount of cells rendered corresponds to the amount of visibleColumns", async () => {
-    const { queryAllByDataCy } = render(
-      <VariantHistoryRow index={0} style={{}} data={undefined} />,
-      {
-        route: "/variant-history/mci/ubuntu1604",
-        path: "/variant-history/:projectId/:variantName",
-        wrapper: ({ children }) =>
-          wrapper({
-            children,
-            state: {
-              processedCommitCount: 1,
-              processedCommits: [taskRow],
-              loadedCommits: [mainlineCommitData.versions[0].version],
-              visibleColumns: [
-                "test-cmd-codegen-core",
-                "test-thirdparty",
-                "test-db-auth",
-              ],
-            },
-          }),
-      }
-    );
-    expect(queryAllByDataCy("task-cell")).toHaveLength(3);
+
+  it("amount of cells rendered corresponds to the amount of visibleColumns", () => {
+    render(<VariantHistoryRow index={0} style={{}} data={undefined} />, {
+      route: "/variant-history/mci/ubuntu1604",
+      path: "/variant-history/:projectId/:variantName",
+      wrapper: ({ children }) =>
+        wrapper({
+          children,
+          state: {
+            processedCommitCount: 1,
+            processedCommits: [taskRow],
+            loadedCommits: [mainlineCommitData.versions[0].version],
+            visibleColumns: [
+              "test-cmd-codegen-core",
+              "test-thirdparty",
+              "test-db-auth",
+            ],
+          },
+        }),
+    });
+    expect(screen.queryAllByDataCy("task-cell")).toHaveLength(3);
   });
+
   it("renders a blank cell when there isn't a matching variant for that row", () => {
-    const { queryAllByDataCy } = render(
-      <VariantHistoryRow index={0} style={{}} data={undefined} />,
-      {
-        route: "/variant-history/mci/ubuntu1604",
-        path: "/variant-history/:projectId/:variantName",
-        wrapper: ({ children }) =>
-          wrapper({
-            children,
-            state: {
-              processedCommitCount: 1,
-              processedCommits: [taskRow],
-              loadedCommits: [mainlineCommitData.versions[0].version],
-              visibleColumns: ["test-cmd-codegen-core", "DNE"],
-            },
-          }),
-      }
-    );
-    expect(queryAllByDataCy("task-cell")).toHaveLength(1);
-    expect(queryAllByDataCy("empty-cell")).toHaveLength(1);
+    render(<VariantHistoryRow index={0} style={{}} data={undefined} />, {
+      route: "/variant-history/mci/ubuntu1604",
+      path: "/variant-history/:projectId/:variantName",
+      wrapper: ({ children }) =>
+        wrapper({
+          children,
+          state: {
+            processedCommitCount: 1,
+            processedCommits: [taskRow],
+            loadedCommits: [mainlineCommitData.versions[0].version],
+            visibleColumns: ["test-cmd-codegen-core", "DNE"],
+          },
+        }),
+    });
+    expect(screen.queryAllByDataCy("task-cell")).toHaveLength(1);
+    expect(screen.queryAllByDataCy("empty-cell")).toHaveLength(1);
   });
+
   it("should show failing tests when you hover over a failing task cell and there are no filters applied", async () => {
-    const { queryAllByDataCy, queryByDataCy, queryByText } = render(
-      <VariantHistoryRow index={0} style={{}} data={undefined} />,
-      {
-        route: "/variant-history/mci/ubuntu1604",
-        path: "/variant-history/:projectId/:variantName",
-        wrapper: ({ children }) =>
-          wrapper({
-            children,
-            state: {
-              processedCommitCount: 1,
-              processedCommits: [taskRow],
-              loadedCommits: [mainlineCommitData.versions[0].version],
-              visibleColumns: ["test-cmd-codegen-core"],
-            },
-            mocks,
-          }),
-      }
-    );
-    expect(queryAllByDataCy("task-cell")).toHaveLength(1);
-    expect(queryAllByDataCy("empty-cell")).toHaveLength(0);
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    fireEvent.mouseEnter(queryByDataCy("history-table-icon"));
+    render(<VariantHistoryRow index={0} style={{}} data={undefined} />, {
+      route: "/variant-history/mci/ubuntu1604",
+      path: "/variant-history/:projectId/:variantName",
+      wrapper: ({ children }) =>
+        wrapper({
+          children,
+          state: {
+            processedCommitCount: 1,
+            processedCommits: [taskRow],
+            loadedCommits: [mainlineCommitData.versions[0].version],
+            visibleColumns: ["test-cmd-codegen-core"],
+          },
+          mocks,
+        }),
+    });
+    expect(screen.queryAllByDataCy("task-cell")).toHaveLength(1);
+    expect(screen.queryAllByDataCy("empty-cell")).toHaveLength(0);
 
     await waitFor(() => {
-      expect(queryByText("TestJiraIntegration")).toBeVisible();
+      expect(screen.queryByDataCy("task-cell")).toHaveAttribute(
+        "aria-disabled",
+        "false"
+      );
+    });
+    await waitFor(() => {
+      expect(screen.queryByDataCy("history-table-icon")).toHaveAttribute(
+        "aria-disabled",
+        "false"
+      );
+    });
+
+    fireEvent.mouseEnter(screen.queryByDataCy("history-table-icon"));
+
+    await waitFor(() => {
+      expect(screen.queryByText("TestJiraIntegration")).toBeVisible();
     });
   });
+
   it("should show a matching test label when looking at a task cell with filters applied", async () => {
-    const { queryAllByDataCy, queryByDataCy, queryByText } = render(
-      <VariantHistoryRow index={0} style={{}} data={undefined} />,
-      {
-        route: "/variant-history/mci/ubuntu1604",
-        path: "/variant-history/:projectId/:variantName",
-        wrapper: ({ children }) =>
-          wrapper({
-            children,
-            state: {
-              processedCommitCount: 1,
-              processedCommits: [taskRow],
-              loadedCommits: [mainlineCommitData.versions[0].version],
-              visibleColumns: ["test-cmd-codegen-core"],
-              historyTableFilters: [
-                {
-                  testName: "TestJiraIntegration",
-                  testStatus: TestStatus.Failed,
-                },
-              ],
-            },
-            mocks,
-          }),
-      }
-    );
-    expect(queryAllByDataCy("task-cell")).toHaveLength(1);
-    expect(queryAllByDataCy("empty-cell")).toHaveLength(0);
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    expect(queryByText("1 / 1 Failing Tests")).toBeVisible();
-    fireEvent.mouseEnter(queryByDataCy("history-table-icon"));
+    render(<VariantHistoryRow index={0} style={{}} data={undefined} />, {
+      route: "/variant-history/mci/ubuntu1604",
+      path: "/variant-history/:projectId/:variantName",
+      wrapper: ({ children }) =>
+        wrapper({
+          children,
+          state: {
+            processedCommitCount: 1,
+            processedCommits: [taskRow],
+            loadedCommits: [mainlineCommitData.versions[0].version],
+            visibleColumns: ["test-cmd-codegen-core"],
+            historyTableFilters: [
+              {
+                testName: "TestJiraIntegration",
+                testStatus: TestStatus.Failed,
+              },
+            ],
+          },
+          mocks,
+        }),
+    });
+    expect(screen.queryAllByDataCy("task-cell")).toHaveLength(1);
+    expect(screen.queryAllByDataCy("empty-cell")).toHaveLength(0);
 
     await waitFor(() => {
-      expect(queryByText("TestJiraIntegration")).toBeVisible();
+      expect(screen.queryByDataCy("task-cell")).toHaveAttribute(
+        "aria-disabled",
+        "false"
+      );
+    });
+    await waitFor(() => {
+      expect(screen.queryByDataCy("history-table-icon")).toHaveAttribute(
+        "aria-disabled",
+        "false"
+      );
+    });
+
+    expect(screen.queryByText("1 / 1 Failing Tests")).toBeVisible();
+    fireEvent.mouseEnter(screen.queryByDataCy("history-table-icon"));
+    await waitFor(() => {
+      expect(screen.queryByText("TestJiraIntegration")).toBeVisible();
     });
   });
-  it("should disable a task cell when there are test filters applied and it does not match the task filters", async () => {
-    const { queryAllByDataCy, queryByDataCy } = render(
-      <VariantHistoryRow index={0} style={{}} data={undefined} />,
-      {
-        route: "/variant-history/mci/ubuntu1604",
-        path: "/variant-history/:projectId/:variantName",
-        wrapper: ({ children }) =>
-          wrapper({
-            children,
-            state: {
-              processedCommitCount: 1,
-              processedCommits: [taskRow],
-              loadedCommits: [mainlineCommitData.versions[0].version],
-              visibleColumns: ["test-cmd-codegen-core"],
-              historyTableFilters: [
-                { testName: "NotARealTest", testStatus: TestStatus.Failed },
-              ],
-            },
-            mocks,
-          }),
-      }
+
+  it("should disable a task cell when there are test filters applied and it does not match the task filters", () => {
+    render(<VariantHistoryRow index={0} style={{}} data={undefined} />, {
+      route: "/variant-history/mci/ubuntu1604",
+      path: "/variant-history/:projectId/:variantName",
+      wrapper: ({ children }) =>
+        wrapper({
+          children,
+          state: {
+            processedCommitCount: 1,
+            processedCommits: [taskRow],
+            loadedCommits: [mainlineCommitData.versions[0].version],
+            visibleColumns: ["test-cmd-codegen-core"],
+            historyTableFilters: [
+              { testName: "NotARealTest", testStatus: TestStatus.Failed },
+            ],
+          },
+          mocks,
+        }),
+    });
+    expect(screen.queryAllByDataCy("task-cell")).toHaveLength(1);
+    expect(screen.queryAllByDataCy("empty-cell")).toHaveLength(0);
+    expect(screen.queryByDataCy("task-cell")).toHaveAttribute(
+      "aria-disabled",
+      "true"
     );
-    expect(queryAllByDataCy("task-cell")).toHaveLength(1);
-    expect(queryAllByDataCy("empty-cell")).toHaveLength(0);
-    await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-    expect(queryByDataCy("task-cell")).toHaveAttribute("aria-disabled", "true");
   });
 });
 

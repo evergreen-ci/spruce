@@ -17,11 +17,12 @@ export const TypeSelector: React.VFC<Props> = ({ value, onChange }) => (
       <InputLabel htmlFor="typeDropdown">Type</InputLabel>
       <Select
         id="typeDropdown"
+        aria-labelledby="type-select"
+        data-cy="typeSelector"
         style={{ width: 200 }}
         placeholder="Select a type"
         onChange={onChange}
         value={value}
-        data-cy="typeSelector"
       >
         {volumeTypes.map((t) => (
           <Option value={t} key={`type_option_${t}`}>

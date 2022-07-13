@@ -1,7 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
 import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
-import { renderWithRouterMatch, waitFor } from "test_utils";
+import { renderWithRouterMatch, screen, waitFor } from "test_utils";
 import { shortenGithash } from "utils/string";
 import CommitChartLabel from ".";
 
@@ -19,67 +19,58 @@ const RenderCommitChartLabel = ({ version }) => (
 
 describe("commitChartLabel", () => {
   it("displays author, githash and createTime", () => {
-    const { queryByDataCy } = renderWithRouterMatch(
-      <RenderCommitChartLabel version={versionShort} />
-    );
-    expect(queryByDataCy("commit-label")).toHaveTextContent(
+    renderWithRouterMatch(<RenderCommitChartLabel version={versionShort} />);
+    expect(screen.queryByDataCy("commit-label")).toHaveTextContent(
       "4137c33 Jun 16, 2021, 11:38 PMMohamed Khelif"
     );
   });
 
   it("githash links to version page", () => {
-    const { queryByText } = renderWithRouterMatch(
-      <RenderCommitChartLabel version={versionShort} />
-    );
-    expect(queryByText("4137c33").closest("a")).toHaveAttribute(
+    renderWithRouterMatch(<RenderCommitChartLabel version={versionShort} />);
+    expect(screen.getByText("4137c33", { selector: "a" })).toHaveAttribute(
       "href",
       "/version/123/tasks"
     );
   });
 
   it("jira ticket links to Jira website", async () => {
-    const { queryByText } = renderWithRouterMatch(
-      <RenderCommitChartLabel version={versionShort} />
-    );
+    renderWithRouterMatch(<RenderCommitChartLabel version={versionShort} />);
     await waitFor(() => {
-      expect(queryByText("SERVER-57332").closest("a")).toHaveAttribute(
-        "href",
-        "https://jira.mongodb.org/browse/SERVER-57332"
-      );
+      expect(
+        screen.getByText("SERVER-57332", { selector: "a" })
+      ).toHaveAttribute("href", "https://jira.mongodb.org/browse/SERVER-57332");
     });
   });
 
   it("displays shortened commit message and the 'more' button if necessary", () => {
-    const { queryByDataCy, queryByText } = renderWithRouterMatch(
-      <RenderCommitChartLabel version={versionLong} />
-    );
-    expect(queryByText("more")).toBeInTheDocument();
-    expect(queryByDataCy("commit-label")).toHaveTextContent(
+    renderWithRouterMatch(<RenderCommitChartLabel version={versionLong} />);
+    expect(screen.getByText("more")).toBeInTheDocument();
+    expect(screen.queryByDataCy("commit-label")).toHaveTextContent(
       "4137c33 Jun 16, 2021, 11:38 PMMohamed Khelif -SERVER-57332 Create skeleton Internal...more"
     );
   });
 
   it("displays entire commit message if it does not break length limit", () => {
-    const { queryByDataCy } = renderWithRouterMatch(
-      <RenderCommitChartLabel version={versionShort} />
-    );
-    expect(queryByDataCy("commit-label")).toHaveTextContent(
+    renderWithRouterMatch(<RenderCommitChartLabel version={versionShort} />);
+    expect(screen.queryByDataCy("commit-label")).toHaveTextContent(
       "SERVER-57332 Create skeleton Internal"
     );
   });
 
   it("clicking on the 'more' button should open a tooltip containing commit message", async () => {
-    const { queryByDataCy, queryByText } = renderWithRouterMatch(
-      <RenderCommitChartLabel version={versionLong} />
-    );
+    renderWithRouterMatch(<RenderCommitChartLabel version={versionLong} />);
 
-    expect(queryByDataCy("long-commit-message-tooltip")).toBeNull();
-    userEvent.click(queryByText("more"));
+    expect(screen.queryByDataCy("long-commit-message-tooltip")).toBeNull();
+    userEvent.click(screen.queryByText("more"));
 
     await waitFor(() => {
-      expect(queryByDataCy("long-commit-message-tooltip")).toBeInTheDocument();
+      expect(
+        screen.getByDataCy("long-commit-message-tooltip")
+      ).toBeInTheDocument();
     });
-    expect(queryByDataCy("long-commit-message-tooltip")).toHaveTextContent(
+    expect(
+      screen.queryByDataCy("long-commit-message-tooltip")
+    ).toHaveTextContent(
       "SERVER-57332 Create skeleton InternalDocumentSourceDensify"
     );
   });

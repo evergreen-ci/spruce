@@ -15,9 +15,10 @@ const useColumns = <T>(allColumns: T[], accessFunc: (column: T) => string) => {
   );
   const { addColumns } = useHistoryTable();
 
-  const selectedColumnsInQuery = useMemo(() => toArray(queryParams), [
-    queryParams,
-  ]);
+  const selectedColumnsInQuery = useMemo(
+    () => toArray(queryParams),
+    [queryParams]
+  );
 
   const activeColumns = useMemo(
     () =>

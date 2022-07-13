@@ -36,15 +36,13 @@ export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
     skip: isProjectSettingsPage,
   });
 
-  const {
-    data: viewableProjectsData,
-    loading: viewableProjectsLoading,
-  } = useQuery<
-    GetViewableProjectRefsQuery,
-    GetViewableProjectRefsQueryVariables
-  >(GET_VIEWABLE_PROJECTS, {
-    skip: !isProjectSettingsPage,
-  });
+  const { data: viewableProjectsData, loading: viewableProjectsLoading } =
+    useQuery<GetViewableProjectRefsQuery, GetViewableProjectRefsQueryVariables>(
+      GET_VIEWABLE_PROJECTS,
+      {
+        skip: !isProjectSettingsPage,
+      }
+    );
 
   const loading = isProjectSettingsPage
     ? viewableProjectsLoading

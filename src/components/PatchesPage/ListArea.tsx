@@ -21,6 +21,7 @@ export const ListArea: React.VFC<{
   }
   if (patches?.patches.length !== 0) {
     return (
+      // eslint-disable-next-line react/jsx-no-useless-fragment
       <>
         {patches?.patches.map(({ commitQueuePosition, ...p }) => (
           <PatchCard

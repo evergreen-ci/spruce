@@ -25,7 +25,6 @@ export const ParametersModal: React.VFC<ParametersProps> = ({ parameters }) => {
           </StyledLink>
         </P2>
       )}
-
       <DisplayModal
         open={showModal}
         setOpen={setShowModal}

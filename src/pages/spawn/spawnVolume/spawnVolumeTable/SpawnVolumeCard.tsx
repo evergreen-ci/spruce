@@ -28,20 +28,23 @@ const VolumeExpiration: React.VFC<MyVolume> = ({
 }) => {
   const tz = useUserTimeZone();
   return (
-    <>
+    <span>
       {noExpiration || !expiration || host
         ? DoesNotExpire
         : getDateCopy(expiration, { tz })}
-    </>
+    </span>
   );
 };
+
 const spawnVolumeCardFields = {
   "Created at": VolumeCreationTime,
   "Expires at": VolumeExpiration,
-  Type: (volume: MyVolume) => <>{volume.type}</>,
-  Size: (volume: MyVolume) => <>{volume.size} GB</>,
-  "Availability Zone": (volume: MyVolume) => <>{volume.availabilityZone}</>,
+  Type: (volume: MyVolume) => <span>{volume.type}</span>,
+  Size: (volume: MyVolume) => <span>{volume.size} GB</span>,
+  "Availability Zone": (volume: MyVolume) => (
+    <span>{volume.availabilityZone}</span>
+  ),
   "Is Home Volume": (volume: MyVolume) => (
-    <>{volume.homeVolume ? "True" : "False"}</>
+    <span>{volume.homeVolume ? "True" : "False"}</span>
   ),
 };

@@ -71,33 +71,25 @@ export const HostsTable: React.VFC<Props> = ({
     hostsTableAnalytics.sendEvent({ name: "Filter Hosts", filterBy });
 
   // HOST ID URL PARAM
-  const [
-    hostIdValue,
-    onChangeHostId,
-    updateHostIdUrlParam,
-  ] = useTableInputFilter<HostsUrlParam>({
-    urlSearchParam: "hostId",
-    sendAnalyticsEvent: sendHostsTableFilterEvent,
-  });
+  const [hostIdValue, onChangeHostId, updateHostIdUrlParam] =
+    useTableInputFilter<HostsUrlParam>({
+      urlSearchParam: "hostId",
+      sendAnalyticsEvent: sendHostsTableFilterEvent,
+    });
 
   // STATUSES URL PARAM
-  const [
-    statusesValue,
-    onChangeStatuses,
-  ] = useTableCheckboxFilter<HostsUrlParam>({
-    urlSearchParam: "statuses",
-    sendAnalyticsEvent: sendHostsTableFilterEvent,
-  });
+  const [statusesValue, onChangeStatuses] =
+    useTableCheckboxFilter<HostsUrlParam>({
+      urlSearchParam: "statuses",
+      sendAnalyticsEvent: sendHostsTableFilterEvent,
+    });
 
   // DISTRO URL PARAM
-  const [
-    distroIdValue,
-    onChangeDistroId,
-    updateDistroIdUrlParam,
-  ] = useTableInputFilter<HostsUrlParam>({
-    urlSearchParam: "distroId",
-    sendAnalyticsEvent: sendHostsTableFilterEvent,
-  });
+  const [distroIdValue, onChangeDistroId, updateDistroIdUrlParam] =
+    useTableInputFilter<HostsUrlParam>({
+      urlSearchParam: "distroId",
+      sendAnalyticsEvent: sendHostsTableFilterEvent,
+    });
 
   // CURRENT TASK ID URL PARAM
   const [
@@ -110,14 +102,11 @@ export const HostsTable: React.VFC<Props> = ({
   });
 
   // OWNER URL PARAM
-  const [
-    ownerValue,
-    onChangeOwner,
-    updateOwnerUrlParam,
-  ] = useTableInputFilter<HostsUrlParam>({
-    urlSearchParam: "startedBy",
-    sendAnalyticsEvent: sendHostsTableFilterEvent,
-  });
+  const [ownerValue, onChangeOwner, updateOwnerUrlParam] =
+    useTableInputFilter<HostsUrlParam>({
+      urlSearchParam: "startedBy",
+      sendAnalyticsEvent: sendHostsTableFilterEvent,
+    });
 
   // TABLE COLUMNS
   const columnsTemplate: Array<ColumnProps<Host>> = [

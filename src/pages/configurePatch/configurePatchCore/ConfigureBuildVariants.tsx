@@ -59,38 +59,40 @@ export const ConfigureBuildVariants: React.VFC<Props> = ({
       window.removeEventListener("keyup", keyUpCb);
     };
   }, [keyUpCb, keyDownCb]);
-  const getClickVariantHandler = (variantName: string) => (e): void => {
-    if (e.ctrlKey || e.metaKey) {
-      const updatedBuildVariants = toggleArray(variantName, [
-        ...selectedBuildVariants,
-      ]);
-      setSelectedBuildVariants(
-        updatedBuildVariants.length > 0 ? updatedBuildVariants : [variantName]
-      );
-    } else if (e.shiftKey) {
-      const variantNames = variants.map(({ name }) => name);
-      const clickIndex = variantNames.indexOf(variantName);
-      const anchorIndex = variants.reduce(
-        (accum, { name }, index) =>
-          accum > -1 || !selectedBuildVariants.includes(name) ? accum : index,
-        -1
-      );
-      if (clickIndex === anchorIndex) {
-        return;
-      }
-      const startIndex = anchorIndex < clickIndex ? anchorIndex : clickIndex;
-      const endIndex = anchorIndex < clickIndex ? clickIndex : anchorIndex;
-      const nextSelectedBuildVariants = Array.from(
-        new Set([
-          ...variantNames.slice(startIndex, endIndex + 1),
+  const getClickVariantHandler =
+    (variantName: string) =>
+    (e): void => {
+      if (e.ctrlKey || e.metaKey) {
+        const updatedBuildVariants = toggleArray(variantName, [
           ...selectedBuildVariants,
-        ])
-      );
-      setSelectedBuildVariants(nextSelectedBuildVariants);
-    } else {
-      setSelectedBuildVariants([variantName]);
-    }
-  };
+        ]);
+        setSelectedBuildVariants(
+          updatedBuildVariants.length > 0 ? updatedBuildVariants : [variantName]
+        );
+      } else if (e.shiftKey) {
+        const variantNames = variants.map(({ name }) => name);
+        const clickIndex = variantNames.indexOf(variantName);
+        const anchorIndex = variants.reduce(
+          (accum, { name }, index) =>
+            accum > -1 || !selectedBuildVariants.includes(name) ? accum : index,
+          -1
+        );
+        if (clickIndex === anchorIndex) {
+          return;
+        }
+        const startIndex = anchorIndex < clickIndex ? anchorIndex : clickIndex;
+        const endIndex = anchorIndex < clickIndex ? clickIndex : anchorIndex;
+        const nextSelectedBuildVariants = Array.from(
+          new Set([
+            ...variantNames.slice(startIndex, endIndex + 1),
+            ...selectedBuildVariants,
+          ])
+        );
+        setSelectedBuildVariants(nextSelectedBuildVariants);
+      } else {
+        setSelectedBuildVariants([variantName]);
+      }
+    };
   return (
     <DisableWrapper data-cy="build-variant-select-wrapper" disabled={disabled}>
       <UserSelectWrapper isHotKeyPressed={state.numButtonsPressed !== 0}>

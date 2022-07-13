@@ -5,8 +5,7 @@ const newMainlineCommitsUser = [
     title: "Welcome to the new mainline commits experience!",
     description:
       "We designed this UI to make navigation faster and more intuitive. By default it highlights failed tasks, but you can customize this view with filters.",
-    href:
-      "https://app.tango.us/app/workflow/Evergreen--Onboarding-guide-for-the-new-project-health-page--7b74b28c80f448869a01730a450bc246",
+    href: "https://app.tango.us/app/workflow/Evergreen--Onboarding-guide-for-the-new-project-health-page--7b74b28c80f448869a01730a450bc246",
   },
   {
     video: "mainline_commits/carousel_2_05_06.webm",
@@ -19,24 +18,21 @@ const newMainlineCommitsUser = [
     title: "Newly designed icons",
     description:
       "New status icons make it easier to differentiate between task statuses. You can find an expandable legend explaining what each icon represents.",
-    href:
-      "https://app.tango.us/app/workflow/Status-icon-behavior--1db9909b454f4800b05774fa408f2924",
+    href: "https://app.tango.us/app/workflow/Status-icon-behavior--1db9909b454f4800b05774fa408f2924",
   },
   {
     video: "mainline_commits/carousel_4_05_06.webm",
     title: "New way to recognize patterns",
     description:
       "Identifying the same task across multiple build variants is an important part of the workflow. When you hover over a task, we will display the name of the task and highlight that task across other commits.",
-    href:
-      "https://app.tango.us/app/workflow/Status-icon-behavior--1db9909b454f4800b05774fa408f2924",
+    href: "https://app.tango.us/app/workflow/Status-icon-behavior--1db9909b454f4800b05774fa408f2924",
   },
   {
     video: "mainline_commits/carousel_5_05_06.webm",
     title: "Improved task history experience",
     description:
       "Access task history from the task details page by clicking on the ‘See History’ button at the top of the page. You can also filter for specific test results by clicking see history on a test result. ",
-    href:
-      "https://app.tango.us/app/workflow/Task-History--23e6b3f043234a19988d6ab0a0729598",
+    href: "https://app.tango.us/app/workflow/Task-History--23e6b3f043234a19988d6ab0a0729598",
   },
   {
     img: "mainline_commits/carousel_6_05_06.png",
@@ -44,8 +40,7 @@ const newMainlineCommitsUser = [
     title: "New Build Variant History page",
     description:
       "Selecting a Build Variant will direct you to the Build Variant History page, which shows tasks across a build variant over time.",
-    href:
-      "https://app.tango.us/app/workflow/Variant-History-fa73d48662f24e48842fc315130c483f",
+    href: "https://app.tango.us/app/workflow/Variant-History-fa73d48662f24e48842fc315130c483f",
   },
 ];
 

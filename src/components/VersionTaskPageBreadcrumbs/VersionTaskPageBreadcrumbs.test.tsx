@@ -5,12 +5,12 @@ import {
   getUserPatchesRoute,
 } from "constants/routes";
 import { GET_OTHER_USER } from "gql/queries";
-import { renderWithRouterMatch as render, waitFor } from "test_utils";
+import { renderWithRouterMatch as render, screen, waitFor } from "test_utils";
 import PageBreadcrumbs from ".";
 
 describe("versionTaskPageBreadcrumbs", () => {
   it("should generate a my patches link if the current user owns the patch", async () => {
-    const { getByText } = render(
+    render(
       <MockedProvider mocks={[sameUserMock]} addTypename={false}>
         <PageBreadcrumbs
           patchNumber={1}
@@ -30,15 +30,16 @@ describe("versionTaskPageBreadcrumbs", () => {
       }
     );
     await waitFor(() => {
-      expect(getByText("My Patches")).toBeInTheDocument();
-      expect(getByText("My Patches")).toHaveAttribute(
-        "href",
-        getUserPatchesRoute("mohamed.khelif")
-      );
+      expect(screen.getByText("My Patches")).toBeInTheDocument();
     });
+    expect(screen.getByText("My Patches")).toHaveAttribute(
+      "href",
+      getUserPatchesRoute("mohamed.khelif")
+    );
   });
+
   it("should generate another user's patches link if the user does not own the patch", async () => {
-    const { getByText } = render(
+    render(
       <MockedProvider mocks={[otherUserMock]} addTypename={false}>
         <PageBreadcrumbs
           patchNumber={1}
@@ -54,16 +55,16 @@ describe("versionTaskPageBreadcrumbs", () => {
       </MockedProvider>
     );
     await waitFor(() => {
-      expect(getByText("John Doe's Patches")).toBeInTheDocument();
-      expect(getByText("John Doe's Patches")).toHaveAttribute(
-        "href",
-        getUserPatchesRoute("john.doe")
-      );
+      expect(screen.getByText("John Doe's Patches")).toBeInTheDocument();
     });
+    expect(screen.getByText("John Doe's Patches")).toHaveAttribute(
+      "href",
+      getUserPatchesRoute("john.doe")
+    );
   });
 
   it("mainline commits should link to the project health view", () => {
-    const { getByText } = render(
+    render(
       <MockedProvider mocks={[sameUserMock]} addTypename={false}>
         <PageBreadcrumbs
           patchNumber={1}
@@ -78,15 +79,15 @@ describe("versionTaskPageBreadcrumbs", () => {
         />
       </MockedProvider>
     );
-
-    expect(getByText("spruce")).toBeInTheDocument();
-    expect(getByText("spruce")).toHaveAttribute(
+    expect(screen.getByText("spruce")).toBeInTheDocument();
+    expect(screen.getByText("spruce")).toHaveAttribute(
       "href",
       getCommitsRoute("spruce")
     );
   });
+
   it("should not have link to the version page if a user is on a version page", () => {
-    const { getByText } = render(
+    render(
       <MockedProvider mocks={[sameUserMock]} addTypename={false}>
         <PageBreadcrumbs
           patchNumber={1}
@@ -101,11 +102,12 @@ describe("versionTaskPageBreadcrumbs", () => {
         />
       </MockedProvider>
     );
-    expect(getByText("abc1234")).toBeInTheDocument();
-    expect(getByText("abc1234")).not.toHaveAttribute("href");
+    expect(screen.getByText("abc1234")).toBeInTheDocument();
+    expect(screen.getByText("abc1234")).not.toHaveAttribute("href");
   });
+
   it("should have a link to the version page if a user is on a task page", () => {
-    const { getByText } = render(
+    render(
       <MockedProvider mocks={[sameUserMock]} addTypename={false}>
         <PageBreadcrumbs
           patchNumber={1}
@@ -121,8 +123,8 @@ describe("versionTaskPageBreadcrumbs", () => {
         />
       </MockedProvider>
     );
-    expect(getByText("abc1234")).toBeInTheDocument();
-    expect(getByText("abc1234")).toHaveAttribute(
+    expect(screen.getByText("abc1234")).toBeInTheDocument();
+    expect(screen.getByText("abc1234")).toHaveAttribute(
       "href",
       getVersionRoute("123")
     );

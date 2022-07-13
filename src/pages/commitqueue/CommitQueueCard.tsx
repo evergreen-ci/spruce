@@ -79,20 +79,18 @@ export const CommitQueueCard: React.VFC<Props> = ({
               condition={
                 !!versionId || issue === "" || Number.isNaN(Number(issue))
               }
-              wrapper={(c) => (
-                <>
-                  {activated ? (
-                    <CardTitleLink
-                      data-cy="commit-queue-card-title"
-                      to={getVersionRoute(patchId)}
-                    >
-                      {c}
-                    </CardTitleLink>
-                  ) : (
-                    <CardTitle data-cy="commit-queue-card-title">{c}</CardTitle>
-                  )}
-                </>
-              )}
+              wrapper={(c) =>
+                activated ? (
+                  <CardTitleLink
+                    data-cy="commit-queue-card-title"
+                    to={getVersionRoute(patchId)}
+                  >
+                    {c}
+                  </CardTitleLink>
+                ) : (
+                  <CardTitle data-cy="commit-queue-card-title">{c}</CardTitle>
+                )
+              }
               altWrapper={(c) => (
                 <PRCardTitle
                   data-cy="commit-queue-card-title"
@@ -102,6 +100,7 @@ export const CommitQueueCard: React.VFC<Props> = ({
                 </PRCardTitle>
               )}
             >
+              {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
               <>{title}</>
             </ConditionalWrapper>
             <CardMetaData>

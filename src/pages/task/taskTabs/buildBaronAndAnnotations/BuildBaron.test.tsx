@@ -1,16 +1,13 @@
 import { MockedProvider } from "@apollo/client/testing";
 import MatchMediaMock from "jest-matchmedia-mock";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
+import { getSpruceConfigMock } from "gql/mocks/getSpruceConfig";
 import { FILE_JIRA_TICKET } from "gql/mutations";
+import { GET_BUILD_BARON, GET_USER, GET_CREATED_TICKETS } from "gql/queries";
 import {
-  GET_BUILD_BARON,
-  GET_SPRUCE_CONFIG,
-  GET_USER,
-  GET_CREATED_TICKETS,
-} from "gql/queries";
-import {
-  renderWithRouterMatch as render,
   fireEvent,
+  renderWithRouterMatch as render,
+  screen,
   waitFor,
 } from "test_utils";
 import BuildBaronContent from "./BuildBaronContent";
@@ -44,12 +41,12 @@ describe("buildBaronContent", () => {
       </MockedProvider>
     );
 
-    const { queryByDataCy } = render(<Component />, {
+    render(<Component />, {
       route: `/task/${taskId}`,
       path: "/task/:id",
     });
-    expect(queryByDataCy("bb-content")).toBeInTheDocument();
-    expect(queryByDataCy("bb-error")).toBeNull();
+    expect(screen.getByDataCy("bb-content")).toBeInTheDocument();
+    expect(screen.queryByDataCy("bb-error")).toBeNull();
   });
 
   it("clicking on file a new ticket dispatches a toast", async () => {
@@ -65,13 +62,13 @@ describe("buildBaronContent", () => {
         />
       </MockedProvider>
     );
-    const { queryByDataCy, getByText } = render(<Component />, {
+    render(<Component />, {
       route: `/task/${taskId}`,
       path: "/task/:id",
     });
-    fireEvent.click(queryByDataCy("file-ticket-button"));
-    expect(getByText("File Ticket")).toBeInTheDocument();
-    fireEvent.click(getByText("File Ticket"));
+    fireEvent.click(screen.queryByDataCy("file-ticket-button"));
+    expect(screen.getByText("File Ticket")).toBeInTheDocument();
+    fireEvent.click(screen.getByText("File Ticket"));
 
     await waitFor(() => {
       expect(dispatchToast.success).toHaveBeenCalledWith(
@@ -93,29 +90,31 @@ describe("buildBaronContent", () => {
         />
       </MockedProvider>
     );
-    const { queryAllByDataCy, queryByDataCy } = render(<Component />, {
+    render(<Component />, {
       route: `/task/${taskId}`,
       path: "/task/:id",
     });
 
-    expect(queryAllByDataCy("jira-ticket-row")).toHaveLength(3);
+    expect(screen.queryAllByDataCy("jira-ticket-row")).toHaveLength(3);
 
-    expect(queryByDataCy("EVG-12345")).toBeInTheDocument();
-    expect(queryByDataCy("EVG-12346")).toBeInTheDocument();
-    expect(queryByDataCy("EVG-12347")).toBeInTheDocument();
+    expect(screen.getByDataCy("EVG-12345")).toBeInTheDocument();
+    expect(screen.getByDataCy("EVG-12346")).toBeInTheDocument();
+    expect(screen.getByDataCy("EVG-12347")).toBeInTheDocument();
 
-    expect(queryByDataCy("EVG-12345-badge")).toHaveTextContent("Resolved");
-    expect(queryByDataCy("EVG-12345-metadata")).toHaveTextContent(
+    expect(screen.queryByDataCy("EVG-12345-badge")).toHaveTextContent(
+      "Resolved"
+    );
+    expect(screen.queryByDataCy("EVG-12345-metadata")).toHaveTextContent(
       "Created: Sep 23, 2020 Updated: Sep 23, 2020 Unassigned"
     );
 
-    expect(queryByDataCy("EVG-12346-badge")).toHaveTextContent("Closed");
-    expect(queryByDataCy("EVG-12346-metadata")).toHaveTextContent(
+    expect(screen.queryByDataCy("EVG-12346-badge")).toHaveTextContent("Closed");
+    expect(screen.queryByDataCy("EVG-12346-metadata")).toHaveTextContent(
       "Created: Sep 18, 2020 Updated: Sep 18, 2020 Assignee: Some Name"
     );
 
-    expect(queryByDataCy("EVG-12347-badge")).toHaveTextContent("Open");
-    expect(queryByDataCy("EVG-12347-metadata")).toHaveTextContent(
+    expect(screen.queryByDataCy("EVG-12347-badge")).toHaveTextContent("Open");
+    expect(screen.queryByDataCy("EVG-12347-metadata")).toHaveTextContent(
       "Created: Sep 18, 2020 Updated: Sep 18, 2020 Assignee: Backlog - Evergreen Team"
     );
   });
@@ -220,33 +219,17 @@ const buildBaronMocks = [
   },
   {
     request: {
-      query: GET_SPRUCE_CONFIG,
-    },
-    result: {
-      data: {
-        spruceConfig: {
-          bannerTheme: "information",
-          banner: "",
-          ui: {
-            userVoice: "",
-            defaultProject: "evergreen",
-          },
-          jira: {
-            host: "jira.mongodb.org",
-          },
-        },
-      },
-    },
-  },
-  {
-    request: {
       query: GET_USER,
     },
     result: {
       data: {
-        userId: "mohamed.khelif",
-        displayName: "Mohamed Khelif",
+        user: {
+          userId: "mohamed.khelif",
+          displayName: "Mohamed Khelif",
+          emailAddress: "a@mongodb.com",
+        },
       },
     },
   },
+  getSpruceConfigMock,
 ];
