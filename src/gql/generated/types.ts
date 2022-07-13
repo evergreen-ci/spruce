@@ -302,8 +302,6 @@ export type GroupedFiles = {
  */
 export type GroupedProjects = {
   groupDisplayName: Scalars["String"];
-  /** @deprecated name is deprecated. Use groupDisplayName instead. */
-  name: Scalars["String"];
   projects: Array<Project>;
   repo?: Maybe<RepoRef>;
 };
@@ -846,8 +844,6 @@ export type Patch = {
   author: Scalars["String"];
   authorDisplayName: Scalars["String"];
   baseTaskStatuses: Array<Scalars["String"]>;
-  /** @deprecated Use versionFull.baseVersion.id instead */
-  baseVersionID?: Maybe<Scalars["String"]>;
   builds: Array<Build>;
   canEnqueueToCommitQueue: Scalars["Boolean"];
   childPatchAliases?: Maybe<Array<ChildPatchAlias>>;
@@ -2117,8 +2113,6 @@ export type Version = {
   startTime?: Maybe<Scalars["Time"]>;
   status: Scalars["String"];
   taskCount?: Maybe<Scalars["Int"]>;
-  /** @deprecated Use taskStatusStats instead */
-  taskStatusCounts?: Maybe<Array<StatusCount>>;
   taskStatusStats?: Maybe<TaskStats>;
   taskStatuses: Array<Scalars["String"]>;
   upstreamProject?: Maybe<UpstreamProject>;
@@ -2132,11 +2126,6 @@ export type VersionBuildVariantStatsArgs = {
 
 /** Version models a commit within a project. */
 export type VersionBuildVariantsArgs = {
-  options?: InputMaybe<BuildVariantOptions>;
-};
-
-/** Version models a commit within a project. */
-export type VersionTaskStatusCountsArgs = {
   options?: InputMaybe<BuildVariantOptions>;
 };
 
