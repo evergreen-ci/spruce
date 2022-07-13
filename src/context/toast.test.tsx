@@ -44,8 +44,8 @@ describe("real Toast", () => {
   });
 
   it("should not display a toast by default", () => {
-    const { queryByDataCy } = render(renderContainer(<div />));
-    expect(queryByDataCy("toast")).toBeNull();
+    render(renderContainer(<div />));
+    expect(screen.queryByDataCy("toast")).toBeNull();
   });
 
   describe("displays a toast which corresponds to the variant dispatched", () => {

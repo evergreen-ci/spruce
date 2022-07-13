@@ -173,7 +173,7 @@ describe("filterBadges", () => {
     const truncatedBadge = screen.queryByDataCy("filter-badge");
     expect(truncatedBadge).toBeInTheDocument();
     expect(truncatedBadge).not.toHaveTextContent(longName);
-    fireEvent.mouseEnter(screen.queryByDataCy("filter-badge"));
+    fireEvent.mouseEnter(truncatedBadge);
     await waitFor(() => {
       expect(screen.queryByText(longName)).toBeVisible();
     });

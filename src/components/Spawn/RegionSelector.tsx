@@ -19,13 +19,13 @@ export const RegionSelector: React.VFC<Props> = ({
     <InputLabel htmlFor="awsSelectDropown">Region</InputLabel>
     <Select
       id="awsSelectDropown"
+      aria-labelledby="region-select"
+      data-cy="regionSelector"
       showSearch
       style={{ width: 200 }}
       placeholder="Select a region"
       onChange={onChange}
       value={selectedRegion}
-      data-cy="regionSelector"
-      aria-labelledby="region-select"
     >
       {awsRegions?.map((region) => (
         <Option value={region} key={`region_option_${region}`}>

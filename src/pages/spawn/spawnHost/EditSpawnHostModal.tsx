@@ -215,6 +215,7 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
               <div>
                 <Select
                   id="instanceTypeDropdown"
+                  aria-labelledby="instance-type-select"
                   showSearch
                   style={{ width: 200 }}
                   placeholder="Select instance type"
@@ -226,7 +227,6 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
                   }
                   value={editSpawnHostState.instanceType}
                   disabled={!canEditInstanceType}
-                  aria-labelledby="instance-type-select"
                 >
                   {instanceTypes?.map((instance) => (
                     <Option

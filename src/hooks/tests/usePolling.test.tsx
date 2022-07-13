@@ -130,8 +130,10 @@ describe("usePolling", () => {
       await waitForNextUpdate();
       expect(result.current).toBe(true);
 
-      Object.defineProperty(document, "visibilityState", {
-        value: "hidden",
+      act(() => {
+        Object.defineProperty(document, "visibilityState", {
+          value: "hidden",
+        });
       });
       fireEvent(document, new Event("visibilitychange"));
 

@@ -72,7 +72,7 @@ describe("searchableDropdown", () => {
     );
   });
 
-  it("should reset the search input and options after SearchableDropdown closes", async () => {
+  it("should reset the search input and options after SearchableDropdown closes", () => {
     const onChange = jest.fn();
     render(
       RenderSearchableDropdown({

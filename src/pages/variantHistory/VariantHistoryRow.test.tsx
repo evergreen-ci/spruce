@@ -54,7 +54,7 @@ describe("variantHistoryRow", () => {
     expect(screen.queryAllByDataCy("loading-cell")).toHaveLength(7);
   });
 
-  it("renders a row when there is data", async () => {
+  it("renders a row when there is data", () => {
     render(<VariantHistoryRow index={0} style={{}} data={undefined} />, {
       route: "/variant-history/mci/ubuntu1604",
       path: "/variant-history/:projectId/:variantName",
@@ -206,7 +206,7 @@ describe("variantHistoryRow", () => {
     });
   });
 
-  it("should disable a task cell when there are test filters applied and it does not match the task filters", async () => {
+  it("should disable a task cell when there are test filters applied and it does not match the task filters", () => {
     render(<VariantHistoryRow index={0} style={{}} data={undefined} />, {
       route: "/variant-history/mci/ubuntu1604",
       path: "/variant-history/:projectId/:variantName",

@@ -111,10 +111,10 @@ export const UpdateStatusModal: React.VFC<Props> = ({
     >
       <Body weight="medium">Host Status</Body>
       <StyledSelect
+        aria-labelledby="host-status-select"
         data-cy="host-status-select"
         value={status}
         onChange={(s) => setHostStatus(s as UpdateHostStatus)}
-        aria-labelledby="host-status-select"
       >
         {hostStatuses.map(({ title, value, key }) => (
           <Option key={key} value={value} data-cy={`${value}-option`}>

@@ -65,14 +65,14 @@ describe("waterfallTaskStatusIcon", () => {
     );
     (removeGlobalStyle as jest.Mock).mockImplementationOnce(() => {});
 
-    const { queryByDataCy } = render(<Content status="failed" />);
-    userEvent.hover(queryByDataCy("waterfall-task-status-icon"));
+    render(<Content status="failed" />);
+    userEvent.hover(screen.queryByDataCy("waterfall-task-status-icon"));
     await waitFor(() => {
       expect(injectGlobalStyle).toHaveBeenCalledTimes(1);
     });
     expect(injectGlobalStyle).toHaveBeenCalledWith(props.identifier);
 
-    userEvent.unhover(queryByDataCy("waterfall-task-status-icon"));
+    userEvent.unhover(screen.queryByDataCy("waterfall-task-status-icon"));
     await waitFor(() => {
       expect(removeGlobalStyle).toHaveBeenCalledTimes(1);
     });
