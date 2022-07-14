@@ -107,6 +107,7 @@ export const getNotificationSchema = (
                     title: "HTTP Headers",
                     items: {
                       type: "object" as "object",
+                      required: ["keyInput", "valueInput"],
                       properties: {
                         keyInput: {
                           type: "string" as "string",
