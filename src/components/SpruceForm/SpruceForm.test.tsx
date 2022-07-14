@@ -61,9 +61,75 @@ describe("spruceForm", () => {
       users: ["new-user", "initial-user"],
     });
   });
+
+  describe("text input", () => {
+    describe("emptyValue", () => {
+      it("defaults to '' when not specified", () => {
+        let data = {};
+        const onChange = jest.fn((x) => {
+          const { formData } = x;
+          data = formData;
+        });
+        const { formData, schema, uiSchema } = textInput();
+        render(
+          <SpruceFormContainer title="Test for ">
+            <SpruceForm
+              schema={schema}
+              formData={formData}
+              onChange={onChange}
+              uiSchema={uiSchema}
+            />
+          </SpruceFormContainer>
+        );
+        fireEvent.change(screen.queryByDataCy("text-input"), {
+          target: { value: "new value" },
+        });
+        fireEvent.change(screen.queryByDataCy("text-input"), {
+          target: { value: "" },
+        });
+        expect(screen.queryByDataCy("text-input")).toHaveValue("");
+        expect(data).toStrictEqual({
+          textInput: "",
+        });
+      });
+      it("uses provided value if specified", () => {
+        let data = {};
+        const onChange = jest.fn((x) => {
+          const { formData } = x;
+          data = formData;
+        });
+        const { formData, schema, uiSchema } = textInput("myEmptyValue");
+        render(
+          <SpruceFormContainer title="Test for ">
+            <SpruceForm
+              schema={schema}
+              formData={formData}
+              onChange={onChange}
+              uiSchema={uiSchema}
+            />
+          </SpruceFormContainer>
+        );
+        fireEvent.change(screen.queryByDataCy("text-input"), {
+          target: { value: "new value" },
+        });
+        fireEvent.change(screen.queryByDataCy("text-input"), {
+          target: { value: "" },
+        });
+        expect(screen.queryByDataCy("text-input")).toHaveValue("myEmptyValue");
+        expect(data).toStrictEqual({
+          textInput: "myEmptyValue",
+        });
+      });
+    });
+  });
 });
 
 const basicForm = {
+  formData: {
+    cloneMethod: "legacy-ssh",
+    validProjects: "spruce",
+    users: ["initial-user"],
+  },
   schema: {
     type: "object" as "object",
     properties: {
@@ -92,11 +158,6 @@ const basicForm = {
       },
     },
   },
-  formData: {
-    cloneMethod: "legacy-ssh",
-    validProjects: "spruce",
-    users: ["initial-user"],
-  },
   uiSchema: {
     cloneMethod: {
       "ui:options": {
@@ -124,3 +185,23 @@ const basicForm = {
     },
   },
 };
+
+const textInput = (emptyValue?: string) => ({
+  formData: {},
+  schema: {
+    type: "object" as "object",
+    properties: {
+      textInput: {
+        type: "string" as "string",
+        title: "Text Input",
+        default: "",
+      },
+    },
+  },
+  uiSchema: {
+    textInput: {
+      "ui:data-cy": "text-input",
+      ...(emptyValue && { "ui:emptyValue": emptyValue }),
+    },
+  },
+});

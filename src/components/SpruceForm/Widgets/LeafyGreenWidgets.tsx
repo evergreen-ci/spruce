@@ -38,9 +38,9 @@ export const LeafyGreenTextInput: React.VFC<
 }) => {
   const {
     ariaLabelledBy,
-    description,
     "data-cy": dataCy,
-    emptyValue,
+    description,
+    emptyValue = "",
     marginBottom,
     optional,
     warnings,
