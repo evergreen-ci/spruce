@@ -163,6 +163,7 @@ describe("Hosts page filtering from table filters", () => {
 
   beforeEach(() => {
     cy.preserveCookies();
+    cy.setCookie("This is an important notification", "true");
     cy.visit(`${hostsRoute}?limit=100&page=0`);
     cy.dataCy("hosts-table").should("be.visible");
     cy.dataCy("hosts-table").should("not.have.attr", "data-loading", "true");
