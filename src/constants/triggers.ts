@@ -340,3 +340,14 @@ export const projectTriggers: Trigger = {
     allowedSelectors: [],
   },
 };
+
+export const invalidProjectTriggerSubscriptionCombinations = {
+  "jira-comment": [
+    ProjectTriggers.FIRST_FAILURE_TASK,
+    ProjectTriggers.ANY_TASK_FAILS,
+    ProjectTriggers.ANY_TASK_FINISHES,
+    ProjectTriggers.PREVIOUS_PASSING_TASK_FAILS,
+    ProjectTriggers.PREVIOUS_PASSING_TEST_FAILS,
+    ProjectTriggers.SUCCESSFUL_TASK_RUNTIME_CHANGES,
+  ],
+};
