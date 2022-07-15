@@ -62,18 +62,22 @@ describe("Task Queue", () => {
     cy.get(".ant-table-row").should("have.length", 0);
   });
 
-  it("Scrolls to current task if taskId param in url", () => {
-    cy.intercept("POST", GQL_URL, (req) => {
-      aliasQuery(req, "DistroTaskQueue");
-    });
-    cy.visit(
-      "/task-queue/osx-108/evergreen_lint_lint_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48"
-    );
-    cy.wait("@gqlDistroTaskQueueQuery");
-    // eslint-disable-next-line  cypress/no-unnecessary-waiting
-    cy.wait(5000);
-    cy.get(".ant-table-row-selected").contains("13").should("be.visible");
-  });
+  it(
+    "Scrolls to current task if taskId param in url",
+    { scrollBehavior: false },
+    () => {
+      cy.intercept("POST", GQL_URL, (req) => {
+        aliasQuery(req, "DistroTaskQueue");
+      });
+      cy.visit(
+        "/task-queue/osx-108/evergreen_lint_lint_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48"
+      );
+      cy.wait("@gqlDistroTaskQueueQuery");
+      // eslint-disable-next-line  cypress/no-unnecessary-waiting
+      cy.wait(5000);
+      cy.get(".ant-table-row-selected").contains("12").should("be.visible");
+    }
+  );
 
   it("Task links goes to Spruce for both patches and mainline commits", () => {
     cy.visit(
