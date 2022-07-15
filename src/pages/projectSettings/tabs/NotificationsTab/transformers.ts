@@ -133,9 +133,7 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
                   },
                   webhookInput: {
                     urlInput: webhookSubscriber?.url ?? undefined,
-                    secretInput:
-                      webhookSubscriber?.secret ??
-                      "I-should-be-generated (EVG-17181)",
+                    secretInput: webhookSubscriber?.secret,
                     httpHeaders: getHttpHeaders(webhookSubscriber?.headers),
                   },
                 },
