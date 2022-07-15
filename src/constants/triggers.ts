@@ -243,6 +243,7 @@ export const projectTriggers: Trigger = {
     label: "Any Task Fails",
     regexSelectors: taskRegexSelectors,
     extraFields: [failureTypeSubscriberConfig, requesterSubscriberConfig],
+    allowedSelectors: [ExtraFieldKey.BUILD_INITIATOR],
   },
   [ProjectTriggers.FIRST_FAILURE_VERSION]: {
     trigger: TriggerType.FIRST_FAILURE_VERSION,
@@ -280,6 +281,7 @@ export const projectTriggers: Trigger = {
       },
       failureTypeSubscriberConfig,
     ],
+    allowedSelectors: [],
   },
   [ProjectTriggers.PREVIOUS_PASSING_TEST_FAILS]: {
     trigger: TriggerType.TEST_REGRESSION,
@@ -303,6 +305,7 @@ export const projectTriggers: Trigger = {
       },
       failureTypeSubscriberConfig,
     ],
+    allowedSelectors: [],
   },
   [ProjectTriggers.TASK_EXCEEDS_DURATION]: {
     trigger: TriggerType.EXCEEDS_DURATION,
@@ -318,6 +321,7 @@ export const projectTriggers: Trigger = {
         default: "10",
       },
     ],
+    allowedSelectors: [],
   },
   [ProjectTriggers.SUCCESSFUL_TASK_RUNTIME_CHANGES]: {
     trigger: TriggerType.RUNTIME_CHANGE,
@@ -333,5 +337,17 @@ export const projectTriggers: Trigger = {
         default: "10",
       },
     ],
+    allowedSelectors: [],
   },
+};
+
+export const invalidProjectTriggerSubscriptionCombinations = {
+  "jira-comment": [
+    ProjectTriggers.FIRST_FAILURE_TASK,
+    ProjectTriggers.ANY_TASK_FAILS,
+    ProjectTriggers.ANY_TASK_FINISHES,
+    ProjectTriggers.PREVIOUS_PASSING_TASK_FAILS,
+    ProjectTriggers.PREVIOUS_PASSING_TEST_FAILS,
+    ProjectTriggers.SUCCESSFUL_TASK_RUNTIME_CHANGES,
+  ],
 };

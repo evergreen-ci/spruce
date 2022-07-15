@@ -1,5 +1,6 @@
 import { SpruceFormProps } from "components/SpruceForm";
 import { AntdSelect } from "components/SpruceForm/Widgets/AntdWidgets";
+import { generateWebhookSecret } from "pages/projectSettings/tabs/NotificationsTab/utils";
 import {
   SubscriptionMethodOption,
   NotificationMethods,
@@ -46,7 +47,7 @@ export const getNotificationSchema = (
               },
               jiraCommentInput: {
                 type: "string" as "string",
-                title: "Comment on a JIRA Issue",
+                title: "JIRA Issue",
                 format: "validJiraTicket",
                 minLength: 1,
               },
@@ -99,13 +100,14 @@ export const getNotificationSchema = (
                   secretInput: {
                     type: "string" as "string",
                     title: "Webhook Secret",
-                    default: "I-should-be-generated (EVG-17181)",
+                    default: generateWebhookSecret(),
                   },
                   httpHeaders: {
                     type: "array" as "array",
                     title: "HTTP Headers",
                     items: {
                       type: "object" as "object",
+                      required: ["keyInput", "valueInput"],
                       properties: {
                         keyInput: {
                           type: "string" as "string",

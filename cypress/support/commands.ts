@@ -77,10 +77,18 @@ Cypress.Commands.add(
   }
 );
 
-Cypress.Commands.add("validateToast", (status: string, message?: string) => {
-  cy.dataCy(`toast`).should("be.visible");
-  cy.dataCy("toast").should("have.attr", "data-variant", status);
-  if (message) {
-    cy.dataCy(`toast`).contains(message);
+Cypress.Commands.add(
+  "validateToast",
+  (status: string, message?: string, shouldClose?: boolean) => {
+    cy.dataCy(`toast`).should("be.visible");
+    cy.dataCy("toast").should("have.attr", "data-variant", status);
+    if (message) {
+      cy.dataCy(`toast`).contains(message);
+    }
+    if (shouldClose) {
+      cy.dataCy("toast").within(() => {
+        cy.get("button[aria-label='Close Message']").click();
+      });
+    }
   }
-});
+);
