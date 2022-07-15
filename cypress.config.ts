@@ -10,8 +10,5 @@ export default defineConfig({
     defaultCommandTimeout: 8000,
     supportFile: "cypress/support/e2e.ts",
     specPattern: "cypress/integration/**/*.ts",
-    retries: {
-      runMode: 4,
-    },
   },
 });
