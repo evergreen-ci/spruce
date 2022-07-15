@@ -36,6 +36,7 @@ describe("Task Action Buttons", () => {
     });
 
     it("Clicking on set priority, entering a priority value and submitting should result in a success toast.", () => {
+      cy.visit(tasks[3]);
       cy.dataCy("ellipsis-btn").should("be.visible").should("not.be.disabled");
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
