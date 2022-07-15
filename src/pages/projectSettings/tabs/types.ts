@@ -1,4 +1,4 @@
-import { Field, FieldValidation } from "@rjsf/core";
+import { Field } from "@rjsf/core";
 import { SpruceFormProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
@@ -61,16 +61,3 @@ export const readOnlyTabs = [ProjectSettingsTabRoutes.EventLog] as const;
 type ReadOnlyTabs = typeof readOnlyTabs[number];
 
 export type WritableTabRoutes = Exclude<ProjectSettingsTabRoutes, ReadOnlyTabs>;
-
-// typescript utility to recursively iterate through an object and add a method called addError to each property
-type RecursivelyAddError<T> = T extends object
-  ? {
-      [K in keyof T]: RecursivelyAddError<T[K]>;
-    }
-  : FieldValidation;
-
-/** typescript utility to coerce @rjsf/core validate prop signature to more accurately represent the shape of the actual validate function signature  */
-export type ValidateProps<T> = (
-  FormState: T,
-  errors: RecursivelyAddError<T>
-) => RecursivelyAddError<T>;

@@ -1,12 +1,12 @@
 import { useMemo } from "react";
 import { SpruceForm } from "components/SpruceForm";
+import { ValidateProps } from "components/SpruceForm/types";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { invalidProjectTriggerSubscriptionCombinations } from "constants/triggers";
 import {
   usePopulateForm,
   useProjectSettingsContext,
 } from "pages/projectSettings/Context";
-import { ValidateProps } from "../types";
 import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
 import { FormState, TabProps } from "./types";
@@ -64,7 +64,7 @@ const validator: ValidateProps<FormState> = (formData, errors) => {
           if (hasMatchingEvent) {
             errors.subscriptions[
               i
-            ].subscriptionData.notification.notificationSelect.addError(
+            ].subscriptionData?.notification?.notificationSelect?.addError(
               "JIRA comment subscription not allowed for tasks in a project"
             );
           }
