@@ -47,7 +47,7 @@ export const getNotificationSchema = (
               },
               jiraCommentInput: {
                 type: "string" as "string",
-                title: "Comment on a JIRA Issue",
+                title: "JIRA Issue",
                 format: "validJiraTicket",
                 minLength: 1,
               },
