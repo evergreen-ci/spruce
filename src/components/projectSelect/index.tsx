@@ -104,8 +104,10 @@ export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
           projects={projectGroup.projects}
           name={projectGroup.groupDisplayName}
           onClick={onClick}
-          repoIdentifier={projectGroup?.repo?.id}
-          canClickOnRepoGroup={isProjectSettingsPage && projectGroup?.repo?.id}
+          repoIdentifier={projectGroup?.projects?.[0]?.repoRefId}
+          canClickOnRepoGroup={
+            isProjectSettingsPage && projectGroup?.projects?.[0]?.repoRefId
+          }
         />
       )}
       searchFunc={handleSearch}

@@ -12,6 +12,7 @@ query GetViewableProjectRefs {
       displayName
       isFavorite
       enabled
+      repoRefId
     }
   }
 }
