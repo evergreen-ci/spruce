@@ -156,112 +156,121 @@ describe("Hosts page filtering from URL", () => {
   });
 });
 
-describe("Hosts page filtering from table filters", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-    cy.setCookie("This is an important notification", "true");
-    cy.visit(`${hostsRoute}?limit=100&page=0`);
-    cy.dataCy("hosts-table").should("be.visible");
-    cy.dataCy("hosts-table").should("not.have.attr", "data-loading", "true");
-    cy.dataCy(distroFilterIconDataCy)
-      .should("be.visible")
-      .should("not.be.disabled");
-  });
-
-  it("Filters hosts with input value when Enter key is pressed", () => {
-    cy.dataCy(distroFilterIconDataCy)
-      .should("be.visible")
-      .should("not.be.disabled");
-    cy.dataCy(distroFilterIconDataCy).scrollIntoView();
-    cy.dataCy(distroFilterIconDataCy)
-      .should("be.visible")
-      .should("not.be.disabled");
-    cy.dataCy(distroFilterIconDataCy).click();
-
-    cy.dataCy(`${distroFilterIconDataCy}-wrapper`).within(() => {
-      cy.dataCy("input-filter").type("centos6-perf").type("{enter}");
+describe(
+  "Hosts page filtering from table filters",
+  { scrollBehavior: false },
+  () => {
+    before(() => {
+      cy.login();
     });
 
-    cy.get(tableRow).each(($el, index) =>
-      cy
-        .wrap($el)
-        .contains(
-          [
-            "16326bd716fd4ad5845710c479c79e86c66b61bcef8ebbe7fc38dfc36fab512e",
-            "1694cfe1eac28b3316339f6276021afcb2a07bcd21a266405835fd039557ea2d",
-            "4b332e12790a585a0c7cbaf1650674f408117cf6134679c9e5f2e96cadd07923",
-            "6e331e02aaaebba422d1f1d2dbd3e64f01776b84c68c672ea680e4b81b0719bb",
-            "7f909d47566126bd39a05c1a5bd5d111c2e68de3830a8be414c18c231a47f4fc",
-            "a99b50cd37b012c53db7207e4ba8b52989aefab551176c07962cea979abcc479",
-            "b700d10f21a5386c827251a029dd931b5ea910377e0bb93f3393b17fb9bdbd08",
-            "build10.ny.cbi.10gen",
-            "build10.ny.cbi.10gen.c",
-            "build10.ny.cbi.10gen.cc",
-            "c04d193c4de174376167746bc268426a4085bffb364c4740e0564ca3eeee6875",
-            "i-0a5b8aa85c469e35d",
-          ][index]
-        )
-    );
-  });
-
-  it("Trims the whitespace from filter input values", () => {
-    cy.dataCy(distroFilterIconDataCy).scrollIntoView().click();
-
-    cy.dataCy(`${distroFilterIconDataCy}-wrapper`).within(() => {
-      cy.dataCy("input-filter").type("      centos6-perf     ").type("{enter}");
+    beforeEach(() => {
+      cy.viewport(1920, 1080);
+      cy.preserveCookies();
+      cy.setCookie("This is an important notification", "true");
+      cy.visit(`${hostsRoute}?limit=100&page=0`);
+      cy.dataCy("hosts-table").should("be.visible");
+      cy.dataCy("hosts-table").should("not.have.attr", "data-loading", "true");
+      cy.dataCy(distroFilterIconDataCy)
+        .should("be.visible")
+        .should("not.be.disabled");
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(1000);
     });
 
-    cy.get(tableRow).each(($el, index) =>
-      cy
-        .wrap($el)
-        .contains(
-          [
-            "16326bd716fd4ad5845710c479c79e86c66b61bcef8ebbe7fc38dfc36fab512e",
-            "1694cfe1eac28b3316339f6276021afcb2a07bcd21a266405835fd039557ea2d",
-            "4b332e12790a585a0c7cbaf1650674f408117cf6134679c9e5f2e96cadd07923",
-            "6e331e02aaaebba422d1f1d2dbd3e64f01776b84c68c672ea680e4b81b0719bb",
-            "7f909d47566126bd39a05c1a5bd5d111c2e68de3830a8be414c18c231a47f4fc",
-            "a99b50cd37b012c53db7207e4ba8b52989aefab551176c07962cea979abcc479",
-            "b700d10f21a5386c827251a029dd931b5ea910377e0bb93f3393b17fb9bdbd08",
-            "build10.ny.cbi.10gen",
-            "build10.ny.cbi.10gen.c",
-            "build10.ny.cbi.10gen.cc",
-            "c04d193c4de174376167746bc268426a4085bffb364c4740e0564ca3eeee6875",
-            "i-0a5b8aa85c469e35d",
-          ][index]
-        )
-    );
-  });
+    it("Filters hosts with input value when Enter key is pressed", () => {
+      cy.dataCy(distroFilterIconDataCy)
+        .should("be.visible")
+        .should("not.be.disabled");
+      cy.dataCy(distroFilterIconDataCy).scrollIntoView();
+      cy.dataCy(distroFilterIconDataCy)
+        .should("be.visible")
+        .should("not.be.disabled");
+      cy.dataCy(distroFilterIconDataCy).click();
 
-  filterTests.forEach(({ param, filterIconDataCy, filterValue }) => {
-    it(`Filters hosts using table filter dropdowns for ${param}`, () => {
-      cy.dataCy(filterIconDataCy).click();
-      cy.dataCy(`${filterIconDataCy}-wrapper`).should("be.visible");
-      cy.dataCy(`${filterIconDataCy}-wrapper`).within(() => {
-        if (param === statusesParam) {
-          cy.getInputByLabel("Running").click({ force: true });
-        } else if (param === currentTaskIdParam) {
-          // do this for really long text because otherwise cypress times out while typing and fails
-          const subString = filterValue.substr(0, filterValue.length - 1);
-          const lastChar = filterValue.slice(-1);
+      cy.dataCy(`${distroFilterIconDataCy}-wrapper`).within(() => {
+        cy.dataCy("input-filter").type("centos6-perf").type("{enter}");
+      });
 
-          cy.dataCy("input-filter")
-            .as("currentTask")
-            .invoke("val", subString)
-            .trigger("input");
+      cy.get(tableRow).each(($el, index) =>
+        cy
+          .wrap($el)
+          .contains(
+            [
+              "16326bd716fd4ad5845710c479c79e86c66b61bcef8ebbe7fc38dfc36fab512e",
+              "1694cfe1eac28b3316339f6276021afcb2a07bcd21a266405835fd039557ea2d",
+              "4b332e12790a585a0c7cbaf1650674f408117cf6134679c9e5f2e96cadd07923",
+              "6e331e02aaaebba422d1f1d2dbd3e64f01776b84c68c672ea680e4b81b0719bb",
+              "7f909d47566126bd39a05c1a5bd5d111c2e68de3830a8be414c18c231a47f4fc",
+              "a99b50cd37b012c53db7207e4ba8b52989aefab551176c07962cea979abcc479",
+              "b700d10f21a5386c827251a029dd931b5ea910377e0bb93f3393b17fb9bdbd08",
+              "build10.ny.cbi.10gen",
+              "build10.ny.cbi.10gen.c",
+              "build10.ny.cbi.10gen.cc",
+              "c04d193c4de174376167746bc268426a4085bffb364c4740e0564ca3eeee6875",
+              "i-0a5b8aa85c469e35d",
+            ][index]
+          )
+      );
+    });
 
-          cy.get("@currentTask").type(lastChar).type(`{enter}`);
-        } else {
-          cy.dataCy("input-filter")
-            .should("be.visible")
-            .should("not.be.disabled");
-          cy.dataCy("input-filter").type(filterValue).type(`{enter}`);
-        }
+    it("Trims the whitespace from filter input values", () => {
+      cy.dataCy(distroFilterIconDataCy).scrollIntoView().click();
+
+      cy.dataCy(`${distroFilterIconDataCy}-wrapper`).within(() => {
+        cy.dataCy("input-filter")
+          .type("      centos6-perf     ")
+          .type("{enter}");
+      });
+
+      cy.get(tableRow).each(($el, index) =>
+        cy
+          .wrap($el)
+          .contains(
+            [
+              "16326bd716fd4ad5845710c479c79e86c66b61bcef8ebbe7fc38dfc36fab512e",
+              "1694cfe1eac28b3316339f6276021afcb2a07bcd21a266405835fd039557ea2d",
+              "4b332e12790a585a0c7cbaf1650674f408117cf6134679c9e5f2e96cadd07923",
+              "6e331e02aaaebba422d1f1d2dbd3e64f01776b84c68c672ea680e4b81b0719bb",
+              "7f909d47566126bd39a05c1a5bd5d111c2e68de3830a8be414c18c231a47f4fc",
+              "a99b50cd37b012c53db7207e4ba8b52989aefab551176c07962cea979abcc479",
+              "b700d10f21a5386c827251a029dd931b5ea910377e0bb93f3393b17fb9bdbd08",
+              "build10.ny.cbi.10gen",
+              "build10.ny.cbi.10gen.c",
+              "build10.ny.cbi.10gen.cc",
+              "c04d193c4de174376167746bc268426a4085bffb364c4740e0564ca3eeee6875",
+              "i-0a5b8aa85c469e35d",
+            ][index]
+          )
+      );
+    });
+
+    filterTests.forEach(({ param, filterIconDataCy, filterValue }) => {
+      it(`Filters hosts using table filter dropdowns for ${param}`, () => {
+        cy.dataCy(filterIconDataCy).click();
+        cy.dataCy(`${filterIconDataCy}-wrapper`).should("be.visible");
+        cy.dataCy(`${filterIconDataCy}-wrapper`).within(() => {
+          if (param === statusesParam) {
+            cy.getInputByLabel("Running").click({ force: true });
+          } else if (param === currentTaskIdParam) {
+            // do this for really long text because otherwise cypress times out while typing and fails
+            const subString = filterValue.substr(0, filterValue.length - 1);
+            const lastChar = filterValue.slice(-1);
+
+            cy.dataCy("input-filter")
+              .as("currentTask")
+              .invoke("val", subString)
+              .trigger("input");
+
+            cy.get("@currentTask").type(lastChar).type(`{enter}`);
+          } else {
+            cy.dataCy("input-filter")
+              .should("be.visible")
+              .should("not.be.disabled");
+            cy.dataCy("input-filter").type(filterValue).type(`{enter}`);
+          }
+        });
       });
     });
-  });
-});
+  }
+);
