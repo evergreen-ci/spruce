@@ -99,7 +99,8 @@ declare global {
        */
       validateToast(
         type: "success" | "warning" | "error" | "info",
-        message?: string
+        message?: string,
+        shouldClose?: boolean
       ): void;
     }
   }
