@@ -6095,6 +6095,7 @@ export type GetViewableProjectRefsQuery = {
         displayName: string;
         isFavorite: boolean;
         enabled?: Maybe<boolean>;
+        repoRefId: string;
       }>;
     }>
   >;
