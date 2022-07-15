@@ -28,7 +28,7 @@ export const transformErrors = (errors: AjvError[]) =>
         case "minLength":
           return {
             ...error,
-            message: "",
+            message: "invisible",
           };
         case "format":
           switch (error.params.format) {

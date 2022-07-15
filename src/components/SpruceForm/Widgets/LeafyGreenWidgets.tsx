@@ -23,6 +23,16 @@ const { yellow } = uiColors;
 
 const isNullish = (val: any) => val === null || val === undefined;
 
+/**
+ * "Invisible" errors are errors that we want to affect formState (e.g. preventing submission) but
+ * not show visibly on the UI. This function filters out invisible errors so that they do not affect
+ * the visual appearance of the form elements.
+ * @param errors - array of error messages
+ * @returns error messages array with "invisible" errors removed
+ */
+const filterInvisibleErrors = (errors: string[]) =>
+  errors ? errors.filter((e) => e !== "invisible") : [];
+
 export const LeafyGreenTextInput: React.VFC<
   { options: { optional?: boolean } } & SpruceWidgetProps
 > = ({
@@ -46,11 +56,12 @@ export const LeafyGreenTextInput: React.VFC<
     warnings,
   } = options;
 
-  const hasError = !!rawErrors?.length;
+  const errors = filterInvisibleErrors(rawErrors);
+  const hasError = !!errors?.length;
 
   // Deduplicate errors due to a bug when using oneOf dependencies.
   // https://github.com/rjsf-team/react-jsonschema-form/issues/1590
-  const deduplicatedErrors = Array.from(new Set(rawErrors));
+  const deduplicatedErrors = Array.from(new Set(errors));
 
   const inputProps = {
     ...(!isNullish(schema.maximum) && { max: schema.maximum }),
@@ -315,8 +326,10 @@ export const LeafyGreenTextArea: React.VFC<SpruceWidgetProps> = ({
   rawErrors,
   readonly,
 }) => {
-  const { "data-cy": dataCy, marginBottom } = options;
-  const hasError = !!rawErrors?.length;
+  const { "data-cy": dataCy, emptyValue = "", marginBottom } = options;
+
+  const errors = filterInvisibleErrors(rawErrors);
+  const hasError = !!errors?.length;
   return (
     <ElementWrapper marginBottom={marginBottom}>
       <TextArea
@@ -324,8 +337,10 @@ export const LeafyGreenTextArea: React.VFC<SpruceWidgetProps> = ({
         label={label}
         disabled={disabled || readonly}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
-        errorMessage={hasError ? rawErrors.join(", ") : null}
+        onChange={({ target }) =>
+          target.value === "" ? onChange(emptyValue) : onChange(target.value)
+        }
+        errorMessage={hasError ? errors.join(", ") : null}
         state={hasError ? "error" : "none"}
       />
     </ElementWrapper>
