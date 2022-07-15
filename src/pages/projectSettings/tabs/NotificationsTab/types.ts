@@ -21,18 +21,16 @@ export interface FormState {
   buildBreakSettings: {
     notifyOnBuildFailure: boolean | null;
   };
-  subscriptions: Array<
-    Partial<{
-      subscriptionData: {
-        event: {
-          eventSelect: string;
-          extraFields: FormExtraFields;
-          regexSelector?: FormRegexSelector[];
-        };
-        notification: Notification;
+  subscriptions: Array<{
+    subscriptionData: {
+      event: {
+        eventSelect: string;
+        extraFields: FormExtraFields;
+        regexSelector?: FormRegexSelector[];
       };
-    }>
-  > | null;
+      notification: Notification;
+    };
+  }> | null;
 }
 
 // This utils file contains functions used to process the form state.
