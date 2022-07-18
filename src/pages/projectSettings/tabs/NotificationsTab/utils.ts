@@ -70,17 +70,13 @@ const jiraFormToGql = (jiraInput: Notification["jiraIssueInput"]) => {
 const extraFieldsFormToGql = (
   extraFieldsToInclude: ExtraField[],
   extraFieldsForm: FormExtraFields
-) => {
-  // If there are no extra fields for this trigger, just return.
-  if (!extraFieldsToInclude) {
-    return {};
-  }
-  const extraFields = {};
-  extraFieldsToInclude.forEach((e) => {
-    extraFields[e.key] = extraFieldsForm[e.key].toString();
-  });
-  return extraFields;
-};
+) =>
+  extraFieldsToInclude.reduce((acc, e) => {
+    if (extraFieldsForm[e.key]) {
+      acc[e.key] = extraFieldsForm[e.key].toString();
+    }
+    return acc;
+  }, {} as { [key: string]: string });
 
 export const getGqlPayload = (
   subscription: Unpacked<FormState["subscriptions"]>
