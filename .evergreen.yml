@@ -242,7 +242,7 @@ functions:
       aws_key: ${aws_key}
       aws_secret: ${aws_secret}
       local_files_include_filter:
-        - "spruce/tmp/codegen.diff"
+        - "spruce/bin/codegen.diff"
       remote_file: spruce/${task_id}/codegen/
       bucket: mciuploads
       content_type: text/plain

@@ -5,8 +5,8 @@ AFTER=$(git status --porcelain | grep src/gql/generated/types.ts)
 if [ "$BEFORE" != "$AFTER" ]; then
   echo "src/gql/generated/types.ts is not up to date"
   echo "did you forget to run 'yarn codegen'?"
-  mkdir tmp
-  git diff >> tmp/codegen.diff
+  mkdir bin
+  git diff >> bin/codegen.diff
   exit 1
 else
   echo "src/gql/generated/types.ts is up to date"
