@@ -228,6 +228,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
   vars: {
     vars: { repo_name: "repo_value" },
     privateVars: [],
+    adminOnlyVars: [],
   },
   aliases: [
     {
