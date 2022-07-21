@@ -2,14 +2,12 @@
 
 # path to generated types
 types_file="src/gql/generated/types.ts"
-{
-  BEFORE=$(git status --porcelain | grep "$types_file")
-  yarn codegen
-  AFTER=$(git status --porcelain | grep "$types_file")
-} || {
+BEFORE=$(git status --porcelain | grep "$types_file")
+yarn codegen || {
   echo "script failed"
   exit 1
 }
+AFTER=$(git status --porcelain | grep "$types_file")
 
 if [ "$BEFORE" != "$AFTER" ]; then
   echo "$types_file is not up to date"
