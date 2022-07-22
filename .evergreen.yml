@@ -247,7 +247,6 @@ functions:
       bucket: mciuploads
       content_type: text/plain
       permissions: public-read
-      display_name: "codegen diff"
     
   setup-credentials:
     command: shell.exec
