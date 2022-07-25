@@ -4,6 +4,8 @@ const getGeneralRoute = (identifier: string) =>
   `${getSettingsRoute(identifier)}/general`;
 const getGithubCommitQueueRoute = (identifier: string) =>
   `${getSettingsRoute(identifier)}/github-commitqueue`;
+const getNotificationsRoute = (identifier: string) =>
+  `${getSettingsRoute(identifier)}/notifications`;
 
 const project = "spruce";
 const projectUseRepoEnabled = "evergreen";
@@ -691,8 +693,8 @@ describe("Project Settings when defaulting to repo", () => {
         .parentsUntil("div")
         .first()
         .click({ force: true });
-      cy.get(".patch-alias-card-content").find("input").should("be.disabled");
-      cy.get(".patch-alias-card-content").find("button").should("be.disabled");
+      cy.dataCy("expandable-card").find("input").should("be.disabled");
+      cy.dataCy("expandable-card").find("button").should("be.disabled");
     });
 
     it("Allows adding a patch alias", () => {
@@ -907,3 +909,87 @@ describe("A project that has GitHub webhooks disabled", () => {
     cy.get("input").should("be.disabled");
   });
 });
+
+describe("Notifications", () => {
+  const destination = getNotificationsRoute("evergreen");
+  before(() => {
+    cy.login();
+    cy.visit(destination);
+  });
+  beforeEach(() => {
+    cy.preserveCookies();
+  });
+  it("shouldn't have any subscriptions defined", () => {
+    cy.contains("No subscriptions are defined.").should("exist");
+  });
+  it("shouldn't be able to save anything if no changes were made", () => {
+    cy.dataCy("save-settings-button").should("be.disabled");
+  });
+  it("should be able to add a subscription and save it", () => {
+    cy.dataCy("expandable-card").should("not.exist");
+    cy.dataCy("add-button").contains("Add Subscription").should("be.visible");
+    cy.dataCy("add-button").contains("Add Subscription").click({ force: true });
+    cy.dataCy("expandable-card").should("contain.text", "New Subscription");
+    selectAntdDropdown("Event", "Any Version Finishes");
+    selectAntdDropdown("Notification Method", "Email");
+    cy.getInputByLabel("Email").type("mohamed.khelif@mongodb.com");
+    cy.dataCy("save-settings-button").scrollIntoView();
+    cy.dataCy("save-settings-button").should("not.be.disabled");
+    cy.dataCy("save-settings-button").click();
+    cy.dataCy("save-settings-button").should("be.disabled");
+    cy.dataCy("expandable-card").should("exist");
+    cy.dataCy("expandable-card").scrollIntoView();
+    cy.dataCy("expandable-card").should(
+      "contain.text",
+      "Version outcome  - mohamed.khelif@mongodb.com"
+    );
+    cy.validateToast("success", undefined, true);
+  });
+  it("should be able to delete a subscription", () => {
+    cy.dataCy("expandable-card").should("exist");
+    cy.dataCy("expandable-card").scrollIntoView();
+    cy.dataCy("delete-item-button").click({ force: true });
+    cy.dataCy("expandable-card").should("not.exist");
+    cy.dataCy("save-settings-button").scrollIntoView();
+    cy.dataCy("save-settings-button").should("not.be.disabled");
+    cy.dataCy("save-settings-button").click();
+    cy.validateToast("success", undefined, true);
+  });
+  it("should not be able to combine a jira comment subscription with a task event", () => {
+    cy.dataCy("expandable-card").should("not.exist");
+    cy.dataCy("add-button").contains("Add Subscription").should("be.visible");
+    cy.dataCy("add-button").contains("Add Subscription").click({ force: true });
+    cy.dataCy("expandable-card").should("exist").scrollIntoView();
+    cy.dataCy("expandable-card").should("contain.text", "New Subscription");
+    selectAntdDropdown("Event", "Any Task Finishes");
+    selectAntdDropdown("Notification Method", "Comment on a JIRA issue");
+    cy.getInputByLabel("JIRA Issue").type("JIRA-123");
+    cy.contains(
+      "JIRA comment subscription not allowed for tasks in a project"
+    ).should("exist");
+    cy.dataCy("save-settings-button").scrollIntoView();
+    cy.dataCy("save-settings-button").should("be.disabled");
+  });
+  it("should not be able to save a subscription if an input is invalid", () => {
+    selectAntdDropdown("Event", "Any Version Finishes");
+    selectAntdDropdown("Notification Method", "Email");
+    cy.getInputByLabel("Email").type("Not a real email");
+    cy.contains("Value should be a valid email.").should("exist");
+    cy.dataCy("save-settings-button").scrollIntoView();
+    cy.dataCy("save-settings-button").should("be.disabled");
+  });
+});
+
+function selectAntdDropdown(label: string, optionText: string) {
+  // open select
+  cy.getInputByLabel(label).click({ force: true });
+
+  return cy
+    .get(".ant-select-dropdown :not(.ant-select-dropdown-hidden)")
+    .find(".ant-select-item-option")
+    .each((el) => {
+      if (el.text() === optionText) {
+        cy.wrap(el).click({ force: true });
+      }
+    });
+}

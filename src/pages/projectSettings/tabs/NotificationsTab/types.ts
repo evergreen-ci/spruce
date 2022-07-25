@@ -1,4 +1,21 @@
+import { Unpacked } from "types/utils";
 import { ProjectType } from "../utils/types";
+
+export type Notification = Partial<{
+  notificationSelect: string;
+  jiraCommentInput: string;
+  slackInput: string;
+  emailInput: string;
+  jiraIssueInput: {
+    projectInput: string;
+    issueInput: string;
+  };
+  webhookInput: {
+    urlInput: string;
+    secretInput: string;
+    httpHeaders: { [key: string]: string }[];
+  };
+}>;
 
 export interface FormState {
   buildBreakSettings: {
@@ -8,31 +25,18 @@ export interface FormState {
     subscriptionData: {
       event: {
         eventSelect: string;
-        extraFields: { [key: string]: string };
-        regexSelector: { [key: string]: string }[];
+        extraFields: FormExtraFields;
+        regexSelector?: FormRegexSelector[];
       };
-      notification: {
-        notificationSelect: string;
-        jiraCommentInput: string;
-        slackInput: string;
-        emailInput: string;
-        jiraIssueInput: {
-          projectInput: string;
-          issueInput: string;
-        };
-        webhookInput: {
-          urlInput: string;
-          secretInput: string;
-          httpHeaders: { [key: string]: string }[];
-        };
-      };
-    };
-    subscriberData: {
-      subscriberType: string;
-      subscriberName: string;
+      notification: Notification;
     };
   }> | null;
 }
+
+// This utils file contains functions used to process the form state.
+export type SubscriptionData = Unpacked<
+  FormState["subscriptions"]
+>["subscriptionData"];
 
 export type TabProps = {
   projectData?: FormState;
@@ -40,3 +44,12 @@ export type TabProps = {
   repoData?: FormState;
   id?: string;
 };
+
+export interface FormRegexSelector {
+  regexSelect?: string;
+  regexInput?: string;
+}
+
+export interface FormExtraFields {
+  [key: string]: string;
+}
