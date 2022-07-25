@@ -184,15 +184,7 @@ describe(
     });
 
     it("Filters hosts with input value when Enter key is pressed", () => {
-      cy.dataCy(distroFilterIconDataCy)
-        .should("be.visible")
-        .should("not.be.disabled");
-      cy.dataCy(distroFilterIconDataCy).scrollIntoView();
-      cy.dataCy(distroFilterIconDataCy)
-        .should("be.visible")
-        .should("not.be.disabled");
-      cy.dataCy(distroFilterIconDataCy).click();
-
+      cy.dataCy(distroFilterIconDataCy).scrollIntoView().click();
       cy.dataCy(`${distroFilterIconDataCy}-wrapper`).within(() => {
         cy.dataCy("input-filter").type("centos6-perf").type("{enter}");
       });
