@@ -151,7 +151,7 @@ const ArrayItem: React.VFC<
   return useExpandableCard ? (
     <StyledExpandableCard
       defaultOpen={!isDisabled}
-      contentClassName="patch-alias-card-content"
+      data-cy="expandable-card"
       title={
         <>
           <TitleWrapper data-cy="expandable-card-title">{title}</TitleWrapper>

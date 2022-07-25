@@ -1,10 +1,15 @@
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { projectTriggers } from "constants/triggers";
-import { Subscriber, ProjectInput } from "gql/generated/types";
+import {
+  Subscriber,
+  ProjectInput,
+  SubscriptionInput,
+} from "gql/generated/types";
 import { NotificationMethods } from "types/subscription";
 import { string } from "utils";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { FormState } from "./types";
+import { getGqlPayload } from "./utils";
 
 type Tab = ProjectSettingsTabRoutes.Notifications;
 
@@ -128,16 +133,10 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
                   },
                   webhookInput: {
                     urlInput: webhookSubscriber?.url ?? undefined,
-                    secretInput:
-                      webhookSubscriber?.secret ??
-                      "I-should-be-generated (EVG-17181)",
+                    secretInput: webhookSubscriber?.secret,
                     httpHeaders: getHttpHeaders(webhookSubscriber?.headers),
                   },
                 },
-              },
-              subscriberData: {
-                subscriberType,
-                subscriberName: subscriberText,
               },
             };
           }
@@ -147,15 +146,17 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
 };
 
 export const formToGql: FormToGqlFunction<Tab> = (
-  { buildBreakSettings }: FormState,
+  { buildBreakSettings, subscriptions }: FormState,
   id
 ) => {
   const projectRef: ProjectInput = {
     id,
     notifyOnBuildFailure: buildBreakSettings.notifyOnBuildFailure,
   };
-  // TODO in EVG-16971
+  const transformedSubscriptions: SubscriptionInput[] =
+    subscriptions.map(getGqlPayload);
   return {
     projectRef,
+    subscriptions: transformedSubscriptions,
   };
 };

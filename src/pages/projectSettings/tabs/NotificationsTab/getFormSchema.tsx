@@ -8,7 +8,6 @@ import { projectTriggers } from "constants/triggers";
 import { projectSubscriptionMethods as subscriptionMethods } from "types/subscription";
 import { GetFormSchema } from "../types";
 import { radioBoxOptions } from "../utils/form";
-import { SubscriptionField } from "./SubscriptionField";
 import { FormState } from "./types";
 
 export const getFormSchema = (
@@ -22,9 +21,7 @@ export const getFormSchema = (
     getNotificationSchema(subscriptionMethods);
 
   return {
-    fields: {
-      subscriptionField: SubscriptionField,
-    },
+    fields: {},
     schema: {
       type: "object" as "object",
       properties: {
@@ -56,9 +53,6 @@ export const getFormSchema = (
                   notification: notificationSchema,
                 },
               },
-              subscriberData: {
-                type: "object" as "object",
-              },
             },
           },
         },
@@ -75,7 +69,7 @@ export const getFormSchema = (
         },
       },
       subscriptions: {
-        "ui:placeholder": "No subscription are defined.",
+        "ui:placeholder": "No subscriptions are defined.",
         "ui:addButtonText": "Add Subscription",
         "ui:orderable": false,
         "ui:useExpandableCard": true,
@@ -84,10 +78,6 @@ export const getFormSchema = (
           subscriptionData: {
             event: eventUiSchema,
             notification: notificationUiSchema,
-          },
-          subscriberData: {
-            "ui:field": "subscriptionField",
-            "ui:border": "top",
           },
         },
       },

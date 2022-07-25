@@ -1182,8 +1182,8 @@ export type ProjectSubscription = {
 };
 
 export type ProjectVars = {
-  adminOnlyVars?: Maybe<Array<Maybe<Scalars["String"]>>>;
-  privateVars?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  adminOnlyVars: Array<Scalars["String"]>;
+  privateVars: Array<Scalars["String"]>;
   vars?: Maybe<Scalars["StringMap"]>;
 };
 
@@ -2689,8 +2689,8 @@ export type ProjectSettingsFragment = {
   >;
   vars?: Maybe<{
     vars?: Maybe<{ [key: string]: any }>;
-    privateVars?: Maybe<Array<Maybe<string>>>;
-    adminOnlyVars?: Maybe<Array<Maybe<string>>>;
+    privateVars: Array<string>;
+    adminOnlyVars: Array<string>;
   }>;
   aliases?: Maybe<
     Array<{
@@ -2792,8 +2792,8 @@ export type RepoSettingsFragment = {
   }>;
   vars?: Maybe<{
     vars?: Maybe<{ [key: string]: any }>;
-    privateVars?: Maybe<Array<Maybe<string>>>;
-    adminOnlyVars?: Maybe<Array<Maybe<string>>>;
+    privateVars: Array<string>;
+    adminOnlyVars: Array<string>;
   }>;
   subscriptions?: Maybe<
     Array<{
@@ -3095,8 +3095,8 @@ export type ProjectEventSettingsFragment = {
   >;
   vars?: Maybe<{
     vars?: Maybe<{ [key: string]: any }>;
-    privateVars?: Maybe<Array<Maybe<string>>>;
-    adminOnlyVars?: Maybe<Array<Maybe<string>>>;
+    privateVars: Array<string>;
+    adminOnlyVars: Array<string>;
   }>;
   aliases?: Maybe<
     Array<{
@@ -3142,8 +3142,8 @@ export type RepoTriggersSettingsFragment = {
 
 export type VariablesFragment = {
   vars?: Maybe<{ [key: string]: any }>;
-  privateVars?: Maybe<Array<Maybe<string>>>;
-  adminOnlyVars?: Maybe<Array<Maybe<string>>>;
+  privateVars: Array<string>;
+  adminOnlyVars: Array<string>;
 };
 
 export type ProjectVirtualWorkstationSettingsFragment = {
@@ -4754,8 +4754,8 @@ export type ProjectEventLogsQuery = {
         >;
         vars?: Maybe<{
           vars?: Maybe<{ [key: string]: any }>;
-          privateVars?: Maybe<Array<Maybe<string>>>;
-          adminOnlyVars?: Maybe<Array<Maybe<string>>>;
+          privateVars: Array<string>;
+          adminOnlyVars: Array<string>;
         }>;
         aliases?: Maybe<
           Array<{
@@ -4911,8 +4911,8 @@ export type ProjectEventLogsQuery = {
         >;
         vars?: Maybe<{
           vars?: Maybe<{ [key: string]: any }>;
-          privateVars?: Maybe<Array<Maybe<string>>>;
-          adminOnlyVars?: Maybe<Array<Maybe<string>>>;
+          privateVars: Array<string>;
+          adminOnlyVars: Array<string>;
         }>;
         aliases?: Maybe<
           Array<{
@@ -5069,8 +5069,8 @@ export type ProjectSettingsQuery = {
     >;
     vars?: Maybe<{
       vars?: Maybe<{ [key: string]: any }>;
-      privateVars?: Maybe<Array<Maybe<string>>>;
-      adminOnlyVars?: Maybe<Array<Maybe<string>>>;
+      privateVars: Array<string>;
+      adminOnlyVars: Array<string>;
     }>;
     aliases?: Maybe<
       Array<{
@@ -5262,8 +5262,8 @@ export type RepoEventLogsQuery = {
         >;
         vars?: Maybe<{
           vars?: Maybe<{ [key: string]: any }>;
-          privateVars?: Maybe<Array<Maybe<string>>>;
-          adminOnlyVars?: Maybe<Array<Maybe<string>>>;
+          privateVars: Array<string>;
+          adminOnlyVars: Array<string>;
         }>;
         aliases?: Maybe<
           Array<{
@@ -5419,8 +5419,8 @@ export type RepoEventLogsQuery = {
         >;
         vars?: Maybe<{
           vars?: Maybe<{ [key: string]: any }>;
-          privateVars?: Maybe<Array<Maybe<string>>>;
-          adminOnlyVars?: Maybe<Array<Maybe<string>>>;
+          privateVars: Array<string>;
+          adminOnlyVars: Array<string>;
         }>;
         aliases?: Maybe<
           Array<{
@@ -5534,8 +5534,8 @@ export type RepoSettingsQuery = {
     }>;
     vars?: Maybe<{
       vars?: Maybe<{ [key: string]: any }>;
-      privateVars?: Maybe<Array<Maybe<string>>>;
-      adminOnlyVars?: Maybe<Array<Maybe<string>>>;
+      privateVars: Array<string>;
+      adminOnlyVars: Array<string>;
     }>;
     subscriptions?: Maybe<
       Array<{
