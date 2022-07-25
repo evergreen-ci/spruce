@@ -179,6 +179,8 @@ describe(
       cy.dataCy(distroFilterIconDataCy)
         .should("be.visible")
         .should("not.be.disabled");
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(1000);
     });
 
     it("Filters hosts with input value when Enter key is pressed", () => {
