@@ -233,7 +233,7 @@ describe("Repo Settings", () => {
     it("Reorders the commands", () => {
       cy.dataCy("array-down-button").click();
 
-      cy.dataCy("save-settings-button").click({ force: true });
+      cy.dataCy("save-settings-button").scrollIntoView().click();
       cy.validateToast("success", "Successfully updated repo");
 
       cy.dataCy("command-input").first().should("have.value", "command 2");
