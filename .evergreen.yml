@@ -154,7 +154,7 @@ functions:
           curl -L -o 'my_file.zip' 'https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F1002917%2Fchrome-linux.zip?generation=1652398617890755&alt=media'
           unzip my_file.zip
           cd -
-        ./node_modules/.bin/cypress run --browser /tmp/chrome-linux/chrome --record --key ${cypress_record_key} --reporter junit
+        yarn cy:run --browser /tmp/chrome-linux/chrome --record --key ${cypress_record_key} --reporter junit
 
   copy-cmdrc:
     command: shell.exec
