@@ -257,7 +257,7 @@ describe(
             cy.getInputByLabel("Running").click({ force: true });
           } else if (param === currentTaskIdParam) {
             // do this for really long text because otherwise cypress times out while typing and fails
-            const subString = filterValue.substr(0, filterValue.length - 1);
+            const subString = filterValue.substring(0, filterValue.length - 1);
             const lastChar = filterValue.slice(-1);
 
             cy.dataCy("input-filter")
