@@ -4,7 +4,7 @@
 types_file="src/gql/generated/types.ts"
 BEFORE=$(git status --porcelain | grep "$types_file")
 yarn codegen || {
-  echo "script failed"
+  echo "yarn codegen failed to run"
   exit 1
 }
 AFTER=$(git status --porcelain | grep "$types_file")
