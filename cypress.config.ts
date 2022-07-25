@@ -10,5 +10,7 @@ export default defineConfig({
     defaultCommandTimeout: 8000,
     supportFile: "cypress/support/e2e.ts",
     specPattern: "cypress/integration/**/*.ts",
+    viewportWidth: 1920,
+    viewportHeight: 1080,
   },
 });

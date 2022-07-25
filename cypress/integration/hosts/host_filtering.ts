@@ -165,7 +165,6 @@ describe(
     });
 
     beforeEach(() => {
-      cy.viewport(1920, 1080);
       cy.preserveCookies();
       cy.setCookie("This is an important notification", "true");
       cy.visit(`${hostsRoute}?limit=100&page=0`);
