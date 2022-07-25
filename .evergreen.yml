@@ -234,6 +234,19 @@ functions:
       content_type: text/html
       permissions: public-read
       display_name: storybook-
+  
+  attach-codegen-diff:
+    command: s3.put
+    type: system
+    params:
+      aws_key: ${aws_key}
+      aws_secret: ${aws_secret}
+      local_files_include_filter:
+        - "spruce/bin/codegen.diff"
+      remote_file: spruce/${task_id}/codegen/
+      bucket: mciuploads
+      content_type: text/plain
+      permissions: public-read
     
   setup-credentials:
     command: shell.exec
@@ -394,3 +407,4 @@ post:
   - func: attach-cypress-videos
   - func: attach-server-logs
   - func: attach-source-map
+  - func: attach-codegen-diff
