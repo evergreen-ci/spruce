@@ -1,3 +1,5 @@
+import { aliasQuery, GQL_URL } from "../../utils/graphql-test-utils";
+
 const hostsRoute = "/hosts";
 
 const tableRow = "tr.ant-table-row";
@@ -166,15 +168,17 @@ describe(
 
     beforeEach(() => {
       cy.preserveCookies();
+      cy.intercept("POST", GQL_URL, (req) => {
+        aliasQuery(req, "Hosts");
+      });
       cy.setCookie("This is an important notification", "true");
       cy.visit(`${hostsRoute}?limit=100&page=0`);
+      cy.wait("@gqlHostsQuery");
       cy.dataCy("hosts-table").should("be.visible");
       cy.dataCy("hosts-table").should("not.have.attr", "data-loading", "true");
       cy.dataCy(distroFilterIconDataCy)
         .should("be.visible")
         .should("not.be.disabled");
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(1000);
     });
 
     it("Filters hosts with input value when Enter key is pressed", () => {
