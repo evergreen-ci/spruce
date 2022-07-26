@@ -120,6 +120,7 @@ export const TestsTable: React.VFC<TestsTableProps> = ({ task }) => {
     TaskTestsQueryVariables
   >(GET_TASK_TESTS, {
     variables: queryVariables,
+    skip: queryVariables.execution === null,
     pollInterval,
   });
   usePolling(startPolling, stopPolling, refetch);
