@@ -49,6 +49,7 @@ describe("task history", () => {
       .should("have.length", 2);
     cy.dataCy("history-table-icon")
       .get("[data-status=failed]")
+      .first()
       .scrollIntoView();
     cy.dataCy("history-table-icon")
       .get("[data-status=failed]")
