@@ -26,11 +26,12 @@ describe("task history", () => {
     cy.contains("2ab1c56").should("be.visible");
 
     // Collapse
-    cy.contains("Expand 1 inactive").should("not.exist");
+    cy.contains("Expand 1 inactive").should("have.length", 1);
     cy.contains("Collapse 1 inactive").should("be.visible");
     cy.contains("Collapse 1 inactive").click();
     cy.contains("2ab1c56").should("not.be.visible");
   });
+
   it("clicking on a failing test history button should show the task history view with the failing test filter applied", () => {
     cy.visit(`/task/${taskId}`);
 
@@ -45,7 +46,7 @@ describe("task history", () => {
   it("hovering over a failing task should show test results", () => {
     cy.dataCy("history-table-icon")
       .get("[data-status=failed]")
-      .should("have.length", 1);
+      .should("have.length", 2);
     cy.dataCy("history-table-icon")
       .get("[data-status=failed]")
       .scrollIntoView();
