@@ -1,6 +1,5 @@
 import { fireEvent, render, screen, waitFor } from "test_utils";
 import { SpruceForm, SpruceFormContainer } from ".";
-import widgets from "./Widgets";
 
 describe("spruce form", () => {
   it("should render as expected", () => {
@@ -361,7 +360,7 @@ const textArea = (emptyValue?: string) => ({
   },
   uiSchema: {
     textArea: {
-      "ui:widget": widgets.TextareaWidget,
+      "ui:widget": "textarea",
       "ui:data-cy": "text-area",
       ...(emptyValue && { "ui:emptyValue": emptyValue }),
     },

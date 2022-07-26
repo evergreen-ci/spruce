@@ -1,5 +1,9 @@
 import { AjvError } from "@rjsf/core";
 
+export enum Errors {
+  Invisible = "invisible",
+}
+
 export const transformErrors = (errors: AjvError[]) =>
   errors
     .map((error) => {
@@ -28,7 +32,7 @@ export const transformErrors = (errors: AjvError[]) =>
         case "minLength":
           return {
             ...error,
-            message: "invisible",
+            message: Errors.Invisible,
           };
         case "format":
           switch (error.params.format) {
