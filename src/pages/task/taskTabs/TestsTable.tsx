@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useQuery } from "@apollo/client";
 import { Table } from "antd";
 import { SortOrder } from "antd/es/table/interface";
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import PageSizeSelector, {
   usePageSizeSelector,
@@ -23,10 +23,9 @@ import {
   TestSortCategory,
   TestResult,
   TaskTestResult,
-  GetTaskForTestsTableQuery,
-  GetTaskForTestsTableQueryVariables,
+  GetTaskQuery,
 } from "gql/generated/types";
-import { GET_TASK_TESTS, GET_TASKS_FOR_TESTS_TABLE } from "gql/queries";
+import { GET_TASK_TESTS } from "gql/queries";
 import {
   useUpdateURLQueryParams,
   usePolling,
@@ -44,25 +43,18 @@ const { parseQueryString, queryParamAsNumber } = queryString;
 export interface UpdateQueryArg {
   taskTests: TaskTestResult;
 }
-export const TestsTable: React.VFC = () => {
-  const { id: taskId } = useParams<{ id: string }>();
+
+interface TestsTableProps {
+  task: GetTaskQuery["task"];
+}
+export const TestsTable: React.VFC<TestsTableProps> = ({ task }) => {
   const { pathname, search } = useLocation();
-  const parsed = parseQueryString(search);
   const updateQueryParams = useUpdateURLQueryParams();
   const taskAnalytics = useTaskAnalytics();
   const sendFilterTestsEvent = (filterBy: string) =>
     taskAnalytics.sendEvent({ name: "Filter Tests", filterBy });
-  const execution = Number(parsed[RequiredQueryParams.Execution]);
 
-  const { data: taskData } = useQuery<
-    GetTaskForTestsTableQuery,
-    GetTaskForTestsTableQueryVariables
-  >(GET_TASKS_FOR_TESTS_TABLE, {
-    variables: { taskId, execution },
-  });
-
-  const { task } = taskData || {};
-  const queryVariables = getQueryVariables(search, taskId);
+  const queryVariables = getQueryVariables(search, task.id);
   const { cat, dir, pageNum, limitNum } = queryVariables;
   const setPageSize = usePageSizeSelector();
   const appliedDefaultSort = useRef(null);
