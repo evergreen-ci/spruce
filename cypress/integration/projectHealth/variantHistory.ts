@@ -3,6 +3,7 @@ describe("variant history", () => {
     cy.login();
   });
   beforeEach(() => {
+    cy.viewport(1000, 600);
     cy.preserveCookies();
   });
 
