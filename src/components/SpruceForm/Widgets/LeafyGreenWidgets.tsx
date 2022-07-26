@@ -122,6 +122,7 @@ const StyledTextInput = styled(TextInput)`
 const WarningText = styled.p`
   color: ${yellow.dark2};
   line-height: 1.2;
+  margin-top: ${size.xs};
 `;
 
 export const LeafyGreenCheckBox: React.VFC<SpruceWidgetProps> = ({
