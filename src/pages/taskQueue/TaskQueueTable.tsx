@@ -138,6 +138,7 @@ export const TaskQueueTable = () => {
 
   return (
     <Table
+      data-cy="task-queue-table"
       columns={columns}
       tableLayout="fixed"
       rowKey={({ id }: { id: string }): string => id}

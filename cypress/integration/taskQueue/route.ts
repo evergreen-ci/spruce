@@ -73,8 +73,9 @@ describe("Task Queue", () => {
         "/task-queue/osx-108/evergreen_lint_lint_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48"
       );
       cy.wait("@gqlDistroTaskQueueQuery");
-      // eslint-disable-next-line  cypress/no-unnecessary-waiting
-      cy.wait(5000);
+      cy.dataCy("task-queue-table").should("exist");
+      cy.dataCy("task-queue-table").should("not.have.attr", "data-loading", "true");
+      cy.get(".ant-table-row-selected").should("exist");
       cy.get(".ant-table-row-selected").contains("13").should("be.visible");
     }
   );
