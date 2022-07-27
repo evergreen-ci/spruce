@@ -7,9 +7,19 @@ export const isNullish = (val: any) => val === null || val === undefined;
 
 /**
  * Processes errors by removing "invisible" and duplicate errors.
+ *
+ * @param rawErrors - array of error messages
+ * @returns an object containing:
+ * - processed error messages array
+ * - boolean indicating if the processed error messages array is non-empty
  */
-export const processErrors = (errors: string[]) =>
-  deduplicateErrors(filterInvisibleErrors(errors));
+export const processErrors = (
+  rawErrors: string[]
+): { errors: string[]; hasError: boolean } => {
+  const errors = deduplicateErrors(filterInvisibleErrors(rawErrors));
+  const hasError = !!errors.length;
+  return { errors, hasError };
+};
 
 /**
  * "Invisible" errors are errors that we want to affect formState (e.g. preventing submission) but

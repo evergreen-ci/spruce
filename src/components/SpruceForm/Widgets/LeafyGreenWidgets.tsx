@@ -45,8 +45,7 @@ export const LeafyGreenTextInput: React.VFC<
     warnings,
   } = options;
 
-  const errors = processErrors(rawErrors);
-  const hasError = !!errors?.length;
+  const { errors, hasError } = processErrors(rawErrors);
 
   const inputProps = {
     ...(!isNullish(schema.maximum) && { max: schema.maximum }),
@@ -162,8 +161,7 @@ export const LeafyGreenSelect: React.VFC<
     marginBottom,
   } = options;
 
-  const errors = processErrors(rawErrors);
-  const hasError = !!errors?.length && !disabled;
+  const { hasError } = processErrors(rawErrors);
 
   const isDisabled = disabled || readonly;
   const labelProps: OneOf<{ label: string }, { "aria-labelledby": string }> =
@@ -183,7 +181,7 @@ export const LeafyGreenSelect: React.VFC<
           id={dataCy}
           name={dataCy}
           data-cy={dataCy}
-          state={hasError ? "error" : "none"}
+          state={hasError && !disabled ? "error" : "none"}
           errorMessage="Selection is required."
           popoverZIndex={zIndex.dropdown}
         >
@@ -316,8 +314,7 @@ export const LeafyGreenTextArea: React.VFC<SpruceWidgetProps> = ({
 }) => {
   const { "data-cy": dataCy, emptyValue = "", marginBottom } = options;
 
-  const errors = processErrors(rawErrors);
-  const hasError = !!errors?.length;
+  const { errors, hasError } = processErrors(rawErrors);
 
   return (
     <ElementWrapper marginBottom={marginBottom}>
