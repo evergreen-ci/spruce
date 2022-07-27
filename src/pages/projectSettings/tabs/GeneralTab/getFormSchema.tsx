@@ -34,6 +34,7 @@ export const getFormSchema = (
       generalConfiguration: {
         type: "object" as "object",
         title: "General Configuration",
+        required: ["branch"],
         properties: {
           enabled: {
             type: ["boolean", "null"],
