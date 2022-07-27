@@ -11,6 +11,34 @@ const project = "spruce";
 const projectUseRepoEnabled = "evergreen";
 const repo = "602d70a2b2373672ee493184";
 
+describe("Clicking on The Project Select Dropdown ", () => {
+  const destination = getGeneralRoute(project);
+
+  before(() => {
+    cy.login();
+    cy.visit(destination);
+  });
+
+  beforeEach(() => {
+    cy.preserveCookies();
+  });
+
+  it("Headers are clickable", () => {
+    cy.dataCy("project-select").should("be.visible");
+    cy.dataCy("project-select").click();
+    cy.dataCy("project-select-options").should("be.visible");
+    cy.dataCy("project-select-options")
+      .find("div")
+      .contains("evgevgevgevgevgevgevgevgevgevgevgevgevgevgevgevgevgevg")
+      .click();
+    cy.location().should((loc) =>
+      expect(loc.pathname).to.eq(
+        `/${getGeneralRoute("602d70a2b2373672ee493184")}`
+      )
+    );
+  });
+});
+
 describe("Repo Settings", () => {
   const destination = getGeneralRoute(repo);
 
