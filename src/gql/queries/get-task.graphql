@@ -41,6 +41,7 @@ query GetTask($taskId: String!, $execution: Int) {
     estimatedStart
     finishTime
     hostId
+    order
     versionMetadata {
       id
       author
