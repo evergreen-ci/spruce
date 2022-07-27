@@ -45,6 +45,7 @@ export const getFormSchema = (
           repositoryInfo: {
             type: "object" as "object",
             title: "Repository Info",
+            required: ["owner", "repo"],
             properties: {
               owner: {
                 type: "string" as "string",
