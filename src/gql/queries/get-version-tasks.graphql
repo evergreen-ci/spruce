@@ -1,0 +1,55 @@
+query VersionTasks(
+  $versionId: String!
+  $sorts: [SortOrder!]
+  $page: Int
+  $statuses: [String!]
+  $baseStatuses: [String!]
+  $variant: String
+  $taskName: String
+  $limit: Int
+) {
+  version(id: $versionId) {
+    versionTasks(
+      limit: $limit
+      page: $page
+      statuses: $statuses
+      baseStatuses: $baseStatuses
+      sorts: $sorts
+      taskName: $taskName
+      variant: $variant
+    ) {
+      count
+      tasks {
+        id
+        aborted
+        baseTask {
+          id
+          execution
+          status
+        }
+        buildVariant
+        buildVariantDisplayName
+        blocked
+        displayName
+        execution
+        executionTasksFull {
+          id
+          baseStatus
+          baseTask {
+            id
+            execution
+            status
+          }
+          buildVariant
+          buildVariantDisplayName
+          displayName
+          execution
+          projectIdentifier
+          status
+        }
+        projectIdentifier
+        status
+      }
+    }
+  }
+}

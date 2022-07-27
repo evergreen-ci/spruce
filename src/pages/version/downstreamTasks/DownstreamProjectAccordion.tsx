@@ -22,14 +22,14 @@ import { getVersionRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
-  Task,
-  SortOrder,
-  TaskSortCategory,
   SortDirection,
-  PatchTasksQuery,
-  PatchTasksQueryVariables,
+  SortOrder,
+  Task,
+  TaskSortCategory,
+  VersionTasksQuery,
+  VersionTasksQueryVariables,
 } from "gql/generated/types";
-import { GET_PATCH_TASKS } from "gql/queries";
+import { GET_VERSION_TASKS } from "gql/queries";
 import { usePolling, useTaskStatuses } from "hooks";
 import { queryString, string } from "utils";
 import { reducer } from "./reducer";
@@ -90,7 +90,7 @@ export const DownstreamProjectAccordion: React.VFC<
     variant,
     sorts,
     baseStatuses: state.baseStatuses,
-    patchId: childPatchId,
+    versionId: childPatchId,
   };
 
   const { baseStatusesInputVal, currentStatusesInputVal } = state;
@@ -135,9 +135,9 @@ export const DownstreamProjectAccordion: React.VFC<
   };
 
   const { data, refetch, startPolling, stopPolling } = useQuery<
-    PatchTasksQuery,
-    PatchTasksQueryVariables
-  >(GET_PATCH_TASKS, {
+    VersionTasksQuery,
+    VersionTasksQueryVariables
+  >(GET_VERSION_TASKS, {
     variables,
     fetchPolicy: "cache-and-network",
     onError: (err) => {
@@ -146,7 +146,9 @@ export const DownstreamProjectAccordion: React.VFC<
   });
   const showSkeleton = !data;
   usePolling(startPolling, stopPolling, refetch);
-  const { patchTasks } = data || {};
+  const { version } = data || {};
+  const { versionTasks } = version || {};
+  const { tasks = [], count = 0 } = versionTasks || {};
 
   const variantTitle = (
     <>
@@ -185,7 +187,7 @@ export const DownstreamProjectAccordion: React.VFC<
                   dataCyNumerator="current-task-count"
                   dataCyDenominator="total-task-count"
                   label="tasks"
-                  numerator={patchTasks?.count}
+                  numerator={count}
                   denominator={taskCount}
                 />
                 <PaddedButton // @ts-expect-error
@@ -204,7 +206,7 @@ export const DownstreamProjectAccordion: React.VFC<
                     dispatch({ type: "onChangePagination", page: p - 1 })
                   }
                   pageSize={state.limit}
-                  totalResults={patchTasks?.count}
+                  totalResults={count}
                   value={variables.page}
                 />
                 <PageSizeSelector
@@ -222,7 +224,7 @@ export const DownstreamProjectAccordion: React.VFC<
               <TasksTable
                 sorts={variables.sorts}
                 tableChangeHandler={tableChangeHandler}
-                tasks={patchTasks?.tasks}
+                tasks={tasks}
                 statusSelectorProps={statusSelectorProps}
                 baseStatusSelectorProps={baseStatusSelectorProps}
                 taskNameInputProps={taskNameInputProps}

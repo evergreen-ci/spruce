@@ -8,7 +8,7 @@ import {
   TableFilterPopover,
   TableSearchPopover,
 } from "components/TablePopover";
-import { PatchTaskDurationsQuery } from "gql/generated/types";
+import { VersionTaskDurationsQuery } from "gql/generated/types";
 import {
   useTaskStatuses,
   useStatusesFilter,
@@ -21,7 +21,7 @@ import { TaskDurationRow } from "./TaskDurationRow";
 const { gray } = uiColors;
 
 interface Props {
-  tasks: PatchTaskDurationsQuery["patchTasks"]["tasks"];
+  tasks: VersionTaskDurationsQuery["version"]["versionTasks"]["tasks"];
   loading: boolean;
 }
 
@@ -144,7 +144,7 @@ export const TaskDurationTable: React.VFC<Props> = ({ tasks, loading }) => {
 };
 
 const findMaxTimeTaken = (
-  tasks: PatchTaskDurationsQuery["patchTasks"]["tasks"]
+  tasks: VersionTaskDurationsQuery["version"]["versionTasks"]["tasks"]
 ) => {
   if (tasks && tasks.length) {
     const durations = tasks.map((t) =>

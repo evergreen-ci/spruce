@@ -1225,6 +1225,7 @@ export type Query = {
   myPublicKeys: Array<PublicKey>;
   myVolumes: Array<Volume>;
   patch: Patch;
+  /** @deprecated patchTasks is deprecated, use version.versionTasks instead. */
   patchTasks: PatchTasks;
   project: Project;
   projectEvents: ProjectEvents;
@@ -2116,6 +2117,7 @@ export type Version = {
   taskStatusStats?: Maybe<TaskStats>;
   taskStatuses: Array<Scalars["String"]>;
   upstreamProject?: Maybe<UpstreamProject>;
+  versionTasks: VersionTasks;
   versionTiming?: Maybe<VersionTiming>;
 };
 
@@ -2132,6 +2134,23 @@ export type VersionBuildVariantsArgs = {
 /** Version models a commit within a project. */
 export type VersionTaskStatusStatsArgs = {
   options?: InputMaybe<BuildVariantOptions>;
+};
+
+/** Version models a commit within a project. */
+export type VersionVersionTasksArgs = {
+  baseStatuses?: InputMaybe<Array<Scalars["String"]>>;
+  includeEmptyActivation?: InputMaybe<Scalars["Boolean"]>;
+  limit?: InputMaybe<Scalars["Int"]>;
+  page?: InputMaybe<Scalars["Int"]>;
+  sorts?: InputMaybe<Array<SortOrder>>;
+  statuses?: InputMaybe<Array<Scalars["String"]>>;
+  taskName?: InputMaybe<Scalars["String"]>;
+  variant?: InputMaybe<Scalars["String"]>;
+};
+
+export type VersionTasks = {
+  count: Scalars["Int"];
+  tasks: Array<Task>;
 };
 
 export type VersionTiming = {
@@ -4490,42 +4509,6 @@ export type ConfigurePatchQuery = {
   };
 };
 
-export type PatchTaskDurationsQueryVariables = Exact<{
-  patchId: Scalars["String"];
-  sorts?: InputMaybe<Array<SortOrder>>;
-  page?: InputMaybe<Scalars["Int"]>;
-  variant?: InputMaybe<Scalars["String"]>;
-  statuses?: InputMaybe<Array<Scalars["String"]>>;
-  taskName?: InputMaybe<Scalars["String"]>;
-  limit?: InputMaybe<Scalars["Int"]>;
-}>;
-
-export type PatchTaskDurationsQuery = {
-  patchTasks: {
-    count: number;
-    tasks: Array<{
-      id: string;
-      execution: number;
-      status: string;
-      displayName: string;
-      buildVariantDisplayName?: Maybe<string>;
-      timeTaken?: Maybe<number>;
-      startTime?: Maybe<Date>;
-      executionTasksFull?: Maybe<
-        Array<{
-          id: string;
-          execution: number;
-          displayName: string;
-          status: string;
-          buildVariantDisplayName?: Maybe<string>;
-          timeTaken?: Maybe<number>;
-          startTime?: Maybe<Date>;
-        }>
-      >;
-    }>;
-  };
-};
-
 export type GetPatchTaskStatusesQueryVariables = Exact<{
   id: Scalars["String"];
 }>;
@@ -4535,48 +4518,6 @@ export type GetPatchTaskStatusesQuery = {
     id: string;
     taskStatuses: Array<string>;
     baseTaskStatuses: Array<string>;
-  };
-};
-
-export type PatchTasksQueryVariables = Exact<{
-  patchId: Scalars["String"];
-  sorts?: InputMaybe<Array<SortOrder>>;
-  page?: InputMaybe<Scalars["Int"]>;
-  statuses?: InputMaybe<Array<Scalars["String"]>>;
-  baseStatuses?: InputMaybe<Array<Scalars["String"]>>;
-  variant?: InputMaybe<Scalars["String"]>;
-  taskName?: InputMaybe<Scalars["String"]>;
-  limit?: InputMaybe<Scalars["Int"]>;
-}>;
-
-export type PatchTasksQuery = {
-  patchTasks: {
-    count: number;
-    tasks: Array<{
-      id: string;
-      execution: number;
-      aborted: boolean;
-      status: string;
-      displayName: string;
-      buildVariant: string;
-      buildVariantDisplayName?: Maybe<string>;
-      blocked: boolean;
-      projectIdentifier?: Maybe<string>;
-      executionTasksFull?: Maybe<
-        Array<{
-          id: string;
-          execution: number;
-          displayName: string;
-          status: string;
-          buildVariant: string;
-          baseStatus?: Maybe<string>;
-          buildVariantDisplayName?: Maybe<string>;
-          projectIdentifier?: Maybe<string>;
-          baseTask?: Maybe<{ id: string; execution: number; status: string }>;
-        }>
-      >;
-      baseTask?: Maybe<{ id: string; execution: number; status: string }>;
-    }>;
   };
 };
 
@@ -5988,6 +5929,88 @@ export type GetUserQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetUserQuery = {
   user: { userId: string; displayName: string; emailAddress: string };
+};
+
+export type VersionTaskDurationsQueryVariables = Exact<{
+  versionId: Scalars["String"];
+  sorts?: InputMaybe<Array<SortOrder>>;
+  page?: InputMaybe<Scalars["Int"]>;
+  variant?: InputMaybe<Scalars["String"]>;
+  statuses?: InputMaybe<Array<Scalars["String"]>>;
+  taskName?: InputMaybe<Scalars["String"]>;
+  limit?: InputMaybe<Scalars["Int"]>;
+}>;
+
+export type VersionTaskDurationsQuery = {
+  version: {
+    versionTasks: {
+      count: number;
+      tasks: Array<{
+        id: string;
+        buildVariantDisplayName?: Maybe<string>;
+        displayName: string;
+        execution: number;
+        startTime?: Maybe<Date>;
+        status: string;
+        timeTaken?: Maybe<number>;
+        executionTasksFull?: Maybe<
+          Array<{
+            id: string;
+            execution: number;
+            displayName: string;
+            status: string;
+            buildVariantDisplayName?: Maybe<string>;
+            timeTaken?: Maybe<number>;
+            startTime?: Maybe<Date>;
+          }>
+        >;
+      }>;
+    };
+  };
+};
+
+export type VersionTasksQueryVariables = Exact<{
+  versionId: Scalars["String"];
+  sorts?: InputMaybe<Array<SortOrder>>;
+  page?: InputMaybe<Scalars["Int"]>;
+  statuses?: InputMaybe<Array<Scalars["String"]>>;
+  baseStatuses?: InputMaybe<Array<Scalars["String"]>>;
+  variant?: InputMaybe<Scalars["String"]>;
+  taskName?: InputMaybe<Scalars["String"]>;
+  limit?: InputMaybe<Scalars["Int"]>;
+}>;
+
+export type VersionTasksQuery = {
+  version: {
+    versionTasks: {
+      count: number;
+      tasks: Array<{
+        id: string;
+        aborted: boolean;
+        buildVariant: string;
+        buildVariantDisplayName?: Maybe<string>;
+        blocked: boolean;
+        displayName: string;
+        execution: number;
+        projectIdentifier?: Maybe<string>;
+        status: string;
+        baseTask?: Maybe<{ id: string; execution: number; status: string }>;
+        executionTasksFull?: Maybe<
+          Array<{
+            id: string;
+            baseStatus?: Maybe<string>;
+            buildVariant: string;
+            buildVariantDisplayName?: Maybe<string>;
+            displayName: string;
+            execution: number;
+            projectIdentifier?: Maybe<string>;
+            status: string;
+            baseTask?: Maybe<{ id: string; execution: number; status: string }>;
+          }>
+        >;
+      }>;
+    };
+  };
 };
 
 export type VersionQueryVariables = Exact<{

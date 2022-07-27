@@ -4,10 +4,10 @@ import { useParams, useLocation } from "react-router-dom";
 import { pollInterval } from "constants/index";
 import { useToastContext } from "context/toast";
 import {
-  PatchTaskDurationsQuery,
-  PatchTaskDurationsQueryVariables,
+  VersionTaskDurationsQuery,
+  VersionTaskDurationsQueryVariables,
 } from "gql/generated/types";
-import { GET_PATCH_TASK_DURATIONS } from "gql/queries";
+import { GET_VERSION_TASK_DURATIONS } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
@@ -52,9 +52,9 @@ const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
   };
 
   const { data, loading, refetch, startPolling, stopPolling } = useQuery<
-    PatchTaskDurationsQuery,
-    PatchTaskDurationsQueryVariables
-  >(GET_PATCH_TASK_DURATIONS, {
+    VersionTaskDurationsQuery,
+    VersionTaskDurationsQueryVariables
+  >(GET_VERSION_TASK_DURATIONS, {
     variables: queryVariables,
     skip: !hasQueryVariables,
     pollInterval,
@@ -63,13 +63,14 @@ const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
     },
   });
   usePolling(startPolling, stopPolling, refetch);
-  const { patchTasks } = data || {};
-  const { tasks = [] } = patchTasks || {};
+  const { version } = data || {};
+  const { versionTasks } = version || {};
+  const { tasks = [], count = 0 } = versionTasks || {};
 
   return (
     <>
       <TableControl
-        filteredCount={patchTasks?.count}
+        filteredCount={count}
         taskCount={taskCount}
         limit={limit}
         page={page}

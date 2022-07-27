@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { InputFilterProps } from "components/Table/Filters";
 import { TasksTable } from "components/Table/TasksTable";
-import { Task, PatchTasksQuery, SortOrder } from "gql/generated/types";
+import { Task, VersionTasksQuery, SortOrder } from "gql/generated/types";
 import {
   useTaskStatuses,
   useUpdateURLQueryParams,
@@ -15,7 +15,7 @@ import { queryString } from "utils";
 const { toSortString } = queryString;
 
 interface Props {
-  tasks: PatchTasksQuery["patchTasks"]["tasks"];
+  tasks: VersionTasksQuery["version"]["versionTasks"]["tasks"];
   sorts: SortOrder[];
   loading: boolean;
 }

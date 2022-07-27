@@ -1,0 +1,40 @@
+query VersionTaskDurations(
+  $versionId: String!
+  $sorts: [SortOrder!]
+  $page: Int
+  $variant: String
+  $statuses: [String!]
+  $taskName: String
+  $limit: Int
+) {
+  version(id: $versionId) {
+    versionTasks(
+      limit: $limit
+      page: $page
+      statuses: $statuses
+      sorts: $sorts
+      taskName: $taskName
+      variant: $variant
+    ) {
+      count
+      tasks {
+        id
+        buildVariantDisplayName
+        displayName
+        execution
+        executionTasksFull {
+          id
+          execution
+          displayName
+          status
+          buildVariantDisplayName
+          timeTaken
+          startTime
+        }
+        startTime
+        status
+        timeTaken
+      }
+    }
+  }
+}

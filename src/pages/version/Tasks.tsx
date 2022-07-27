@@ -3,8 +3,11 @@ import { useQuery } from "@apollo/client";
 import { useParams, useLocation } from "react-router-dom";
 import { pollInterval } from "constants/index";
 import { useToastContext } from "context/toast";
-import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
-import { GET_PATCH_TASKS } from "gql/queries";
+import {
+  VersionTasksQuery,
+  VersionTasksQueryVariables,
+} from "gql/generated/types";
+import { GET_VERSION_TASKS } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
@@ -50,9 +53,9 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
   };
 
   const { data, loading, refetch, startPolling, stopPolling } = useQuery<
-    PatchTasksQuery,
-    PatchTasksQueryVariables
-  >(GET_PATCH_TASKS, {
+    VersionTasksQuery,
+    VersionTasksQueryVariables
+  >(GET_VERSION_TASKS, {
     variables: queryVariables,
     pollInterval,
     skip: !hasQueryVariables,
@@ -62,12 +65,14 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
     },
   });
   usePolling(startPolling, stopPolling, refetch);
-  const { patchTasks } = data || {};
-  const { tasks = [] } = patchTasks || {};
+  const { version } = data || {};
+  const { versionTasks } = version || {};
+  const { tasks = [], count = 0 } = versionTasks || {};
+
   return (
     <>
       <TableControl
-        filteredCount={patchTasks?.count}
+        filteredCount={count}
         taskCount={taskCount}
         limit={limit}
         page={page}

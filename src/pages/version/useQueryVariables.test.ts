@@ -10,7 +10,7 @@ describe("useQueryVariables", () => {
 
     const { result } = renderHook(() => useQueryVariables(search, versionId));
     expect(result.current).toStrictEqual({
-      patchId: versionId,
+      versionId,
       taskName: "generate",
       variant: "",
       statuses: ["success"],
