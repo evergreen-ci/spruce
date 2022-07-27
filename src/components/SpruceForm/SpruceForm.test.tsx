@@ -130,7 +130,7 @@ describe("spruce form", () => {
           });
         });
 
-        it("uses provided value if specified", () => {
+        it("uses provided value when specified", () => {
           let data = {};
           const onChange = jest.fn((x) => {
             const { formData } = x;
@@ -229,7 +229,7 @@ describe("spruce form", () => {
           });
         });
 
-        it("uses provided value if specified", () => {
+        it("uses provided value when specified", () => {
           let data = {};
           const onChange = jest.fn((x) => {
             const { formData } = x;

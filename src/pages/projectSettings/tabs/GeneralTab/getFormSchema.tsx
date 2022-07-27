@@ -59,8 +59,6 @@ export const getFormSchema = (
           branch: {
             type: "string" as "string",
             title: "Branch Name",
-            default: "",
-            minLength: 1,
           },
           other: {
             type: "object" as "object",
