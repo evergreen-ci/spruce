@@ -71,7 +71,7 @@ const extraFieldsFormToGql = (
   extraFieldsToInclude: ExtraField[],
   extraFieldsForm: FormExtraFields
 ) =>
-  extraFieldsToInclude.reduce((acc, e) => {
+  (extraFieldsToInclude || []).reduce((acc, e) => {
     if (extraFieldsForm[e.key]) {
       acc[e.key] = extraFieldsForm[e.key].toString();
     }

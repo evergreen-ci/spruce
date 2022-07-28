@@ -10,7 +10,7 @@ import { WordBreak } from "components/Typography";
 import {
   TestSortCategory,
   TestResult,
-  GetTaskForTestsTableQuery,
+  GetTaskQuery,
 } from "gql/generated/types";
 import { string } from "utils";
 import { LogsColumn } from "./LogsColumn";
@@ -27,7 +27,7 @@ interface GetColumnsTemplateParams {
   onColumnHeaderClick?: (sortField) => void;
   statusSelectorProps: TreeSelectProps;
   testNameInputProps: InputFilterProps;
-  task: GetTaskForTestsTableQuery["task"];
+  task: GetTaskQuery["task"];
 }
 
 export const getColumnsTemplate = ({

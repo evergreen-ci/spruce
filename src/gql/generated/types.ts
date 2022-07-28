@@ -5678,25 +5678,6 @@ export type TaskFilesQuery = {
   };
 };
 
-export type GetTaskForTestsTableQueryVariables = Exact<{
-  taskId: Scalars["String"];
-  execution?: InputMaybe<Scalars["Int"]>;
-}>;
-
-export type GetTaskForTestsTableQuery = {
-  task?: Maybe<{
-    order: number;
-    displayName: string;
-    projectIdentifier?: Maybe<string>;
-    id: string;
-    execution: number;
-    buildVariant: string;
-    revision?: Maybe<string>;
-    status: string;
-    displayTask?: Maybe<{ id: string; execution: number }>;
-  }>;
-};
-
 export type TaskLogsQueryVariables = Exact<{
   id: Scalars["String"];
   execution?: InputMaybe<Scalars["Int"]>;
@@ -5796,6 +5777,7 @@ export type GetTaskQuery = {
     estimatedStart?: Maybe<number>;
     finishTime?: Maybe<Date>;
     hostId?: Maybe<string>;
+    order: number;
     requester: string;
     patchNumber?: Maybe<number>;
     canOverrideDependencies: boolean;
