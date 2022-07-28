@@ -4,11 +4,10 @@ import { GetFormSchema } from "../types";
 import { form } from "../utils";
 import { FormState } from "./types";
 
-const { hiddenIf, placeholderIf, radioBoxOptions } = form;
+const { placeholderIf, radioBoxOptions } = form;
 
 export const getFormSchema = (
-  repoData?: FormState,
-  formData?: FormState
+  repoData?: FormState
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -45,10 +44,14 @@ export const getFormSchema = (
                     field: {
                       type: "string" as "string",
                       title: "Field",
+                      minLength: 1,
+                      default: "",
                     },
                     displayText: {
                       type: "string" as "string",
                       title: "Display Text",
+                      minLength: 1,
+                      default: "",
                     },
                   },
                 },
@@ -57,50 +60,77 @@ export const getFormSchema = (
           },
           useBuildBaron: {
             type: "boolean" as "boolean",
-            oneOf: radioBoxOptions(
-              [
-                "Build Baron Ticket Search and Create",
-                "Custom Ticket Creation",
-              ],
-              undefined
-            ),
+            oneOf: radioBoxOptions([
+              "Build Baron Ticket Search and Create",
+              "Custom Ticket Creation",
+            ]),
           },
-          ticketSearchProjects: {
-            type: "array" as "array",
-            title: "Ticket Search Projects",
-            items: {
-              type: "object" as "object",
-              properties: {
-                searchProject: {
-                  type: "string" as "string",
-                  title: "Search Project",
+        },
+        dependencies: {
+          useBuildBaron: {
+            oneOf: [
+              {
+                dependencies: {
+                  ticketSearchProjects: ["ticketCreateProject"],
+                  ticketCreateProject: ["ticketSearchProjects"],
+                },
+                properties: {
+                  useBuildBaron: {
+                    enum: [true],
+                  },
+                  ticketSearchProjects: {
+                    type: "array" as "array",
+                    title: "Ticket Search Projects",
+                    items: {
+                      type: "object" as "object",
+                      properties: {
+                        searchProject: {
+                          type: "string" as "string",
+                          title: "Search Project",
+                          minLength: 1,
+                          default: "",
+                        },
+                      },
+                    },
+                  },
+                  ticketCreateProject: {
+                    type: "object" as "object",
+                    title: "Ticket Create Project",
+                    properties: {
+                      createProject: {
+                        type: "string" as "string",
+                        title: "",
+                      },
+                    },
+                  },
                 },
               },
-            },
-          },
-          ticketCreateProject: {
-            type: "object" as "object",
-            title: "Ticket Create Project",
-            properties: {
-              createProject: {
-                type: "string" as "string",
-                title: "",
+              {
+                properties: {
+                  useBuildBaron: {
+                    enum: [false],
+                  },
+                  fileTicketWebhook: {
+                    type: "object" as "object",
+                    title: "Custom Ticket Creation",
+                    properties: {
+                      endpoint: {
+                        type: "string" as "string",
+                        title: "Webhook Endpoint",
+                        minLength: 1,
+                        default: "",
+                      },
+                      secret: {
+                        type: "string" as "string",
+                        title: "Webhook Secret",
+                        minLength: 1,
+                        default: "",
+                      },
+                    },
+                  },
+                },
               },
-            },
-          },
-          fileTicketWebhook: {
-            type: "object" as "object",
-            title: "Custom Ticket Creation",
-            properties: {
-              endpoint: {
-                type: "string" as "string",
-                title: "Webhook Endpoint",
-              },
-              secret: {
-                type: "string" as "string",
-                title: "Webhook Secret",
-              },
-            },
+            ],
           },
         },
       },
@@ -124,7 +154,7 @@ export const getFormSchema = (
         jiraCustomFields: {
           "ui:description":
             "Add any custom JIRA fields that you want displayed on any listed JIRA tickets, for example: assigned teams.",
-          "ui:addButtonText": "Add custom JIRA field",
+          "ui:addButtonText": "Add Custom JIRA Field",
           "ui:orderable": false,
         },
       },
@@ -136,17 +166,14 @@ export const getFormSchema = (
       ticketSearchProjects: {
         "ui:description":
           "Specify an existing JIRA project to search for tickets related to a failing task",
-        ...hiddenIf(formData?.buildBaronSettings.useBuildBaron !== true),
         "ui:addButtonText": "Add Search Project",
         "ui:orderable": false,
       },
       ticketCreateProject: {
         "ui:description":
           "Specify an existing JIRA project to create tickets in when the File Ticket button is clicked on a failing task.",
-        ...hiddenIf(formData?.buildBaronSettings.useBuildBaron !== true),
       },
       fileTicketWebhook: {
-        ...hiddenIf(formData?.buildBaronSettings.useBuildBaron === true),
         "ui:description":
           "Specify the endpoint and secret for a custom webhook to be called when the File Ticket button is clicked on a failing task.",
         endpoint: placeholderIf(

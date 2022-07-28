@@ -19,7 +19,7 @@ const radioBoxOption = (title: string, value: boolean) => ({
  */
 export const radioBoxOptions = (
   options: [string, string],
-  field: boolean,
+  field: boolean = undefined,
   invert: boolean = false
 ): Array<SpruceFormProps["schema"]> => [
   radioBoxOption(options[0], !invert),
@@ -94,11 +94,6 @@ export const overrideRadioBox = (
 export const placeholderIf = (element: string | number) =>
   element && {
     "ui:placeholder": `${element} (Default from repo)`,
-  };
-
-export const hiddenIf = (element: boolean) =>
-  element === true && {
-    "ui:widget": "hidden",
   };
 
 // Modify a field such that its internal disabled prop is true.
