@@ -162,6 +162,7 @@ const getProjects = (
     return {
       groupDisplayName: projectGroup.groupDisplayName,
       projects: enabled,
+      repo: projectGroup.repo,
     };
   });
 
