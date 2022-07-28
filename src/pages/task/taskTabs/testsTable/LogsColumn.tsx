@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Analytics } from "analytics/addPageAction";
 import { getTaskHistoryRoute } from "constants/routes";
 import { size } from "constants/tokens";
-import { TestResult, GetTaskForTestsTableQuery } from "gql/generated/types";
+import { TestResult, GetTaskQuery } from "gql/generated/types";
 import { TestStatus } from "types/test";
 import { string } from "utils";
 
@@ -17,7 +17,7 @@ interface Props {
     | { name: "Click See History Button" }
   >;
   testResult: TestResult;
-  task: GetTaskForTestsTableQuery["task"];
+  task: GetTaskQuery["task"];
 }
 
 export const LogsColumn: React.VFC<Props> = ({
@@ -27,8 +27,7 @@ export const LogsColumn: React.VFC<Props> = ({
 }) => {
   const { status, testFile } = testResult;
   const { url: urlHTML, urlRaw, urlLobster } = testResult.logs ?? {};
-  const { projectIdentifier, displayName, displayTask, order } = task ?? {};
-
+  const { project, displayName, displayTask, order } = task ?? {};
   const filters =
     status === TestStatus.Fail
       ? {
@@ -91,7 +90,7 @@ export const LogsColumn: React.VFC<Props> = ({
           onClick={() => {
             taskAnalytics.sendEvent({ name: "Click See History Button" });
           }}
-          to={getTaskHistoryRoute(projectIdentifier, displayName, {
+          to={getTaskHistoryRoute(project?.identifier, displayName, {
             filters,
             selectedCommit: order,
           })}

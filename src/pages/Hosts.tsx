@@ -28,6 +28,7 @@ import {
   SortDirection,
 } from "gql/generated/types";
 import { HOSTS } from "gql/queries";
+import { usePageTitle } from "hooks";
 import { HostsTable } from "pages/hosts/HostsTable";
 import { array, queryString, url } from "utils";
 
@@ -37,7 +38,7 @@ const { getString, parseQueryString } = queryString;
 
 export const Hosts: React.VFC = () => {
   const hostsTableAnalytics = useHostsTableAnalytics();
-
+  usePageTitle("Hosts");
   const { search } = useLocation();
   const setPageSize = usePageSizeSelector();
   const queryVariables = getQueryVariables(search);
