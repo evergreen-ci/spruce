@@ -163,15 +163,16 @@ describe(
   { scrollBehavior: false },
   () => {
     before(() => {
+      cy.setCookie(bannerCookie, "true");
       cy.login();
     });
 
     beforeEach(() => {
       cy.preserveCookies();
+      Cypress.Cookies.preserveOnce(bannerCookie);
       cy.intercept("POST", GQL_URL, (req) => {
         aliasQuery(req, "Hosts");
       });
-      cy.setCookie("This is an important notification", "true");
       cy.visit(`${hostsRoute}?limit=100&page=0`);
       cy.wait("@gqlHostsQuery");
       cy.dataCy("hosts-table").should("be.visible");
@@ -179,6 +180,8 @@ describe(
       cy.dataCy(distroFilterIconDataCy)
         .should("be.visible")
         .should("not.be.disabled");
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(1000);
     });
 
     it("Filters hosts with input value when Enter key is pressed", () => {
@@ -267,5 +270,6 @@ describe(
         });
       });
     });
+    const bannerCookie = "This is an important notification";
   }
 );
