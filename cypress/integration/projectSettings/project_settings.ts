@@ -29,13 +29,9 @@ describe("Clicking on The Project Select Dropdown ", () => {
     cy.dataCy("project-select-options").should("be.visible");
     cy.dataCy("project-select-options")
       .find("div")
-      .contains("evgevgevgevgevgevgevgevgevgevgevgevgevgevgevgevgevgevg")
+      .contains("evergreen-ci/evergreen")
       .click();
-    cy.location().should((loc) =>
-      expect(loc.pathname).to.eq(
-        `/${getGeneralRoute("602d70a2b2373672ee493184")}`
-      )
-    );
+    cy.location().should((loc) => expect(loc.pathname).to.not.eq(destination));
   });
 });
 
