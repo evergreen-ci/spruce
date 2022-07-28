@@ -74,7 +74,6 @@ describe("Task Queue", () => {
       );
       cy.wait("@gqlDistroTaskQueueQuery");
       cy.dataCy("task-queue-table").should("exist");
-      cy.dataCy("task-queue-table").should("not.have.attr", "data-loading", "true");
       cy.get(".ant-table-row-selected").should("exist");
       cy.get(".ant-table-row-selected").contains("13").should("be.visible");
     }
