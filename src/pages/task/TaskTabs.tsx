@@ -78,7 +78,7 @@ export const TaskTabs: React.VFC<TaskTabProps> = ({ task, taskFiles }) => {
         data-cy="task-tests-tab"
         key="task-tests-tab"
       >
-        <TestsTable />
+        <TestsTable task={task} />
       </Tab>
     ),
     [TaskTab.ExecutionTasks]: (

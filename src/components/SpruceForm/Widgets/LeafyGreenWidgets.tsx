@@ -18,10 +18,9 @@ import { size, zIndex } from "constants/tokens";
 import { OneOf } from "types/utils";
 import ElementWrapper from "../ElementWrapper";
 import { EnumSpruceWidgetProps, SpruceWidgetProps } from "./types";
+import { isNullish, processErrors } from "./utils";
 
 const { yellow } = uiColors;
-
-const isNullish = (val: any) => val === null || val === undefined;
 
 export const LeafyGreenTextInput: React.VFC<
   { options: { optional?: boolean } } & SpruceWidgetProps
@@ -38,24 +37,20 @@ export const LeafyGreenTextInput: React.VFC<
 }) => {
   const {
     ariaLabelledBy,
-    description,
     "data-cy": dataCy,
-    emptyValue,
+    description,
+    emptyValue = "",
     marginBottom,
     optional,
     warnings,
   } = options;
 
-  const hasError = !!rawErrors?.length;
-
-  // Deduplicate errors due to a bug when using oneOf dependencies.
-  // https://github.com/rjsf-team/react-jsonschema-form/issues/1590
-  const deduplicatedErrors = Array.from(new Set(rawErrors));
+  const { errors, hasError } = processErrors(rawErrors);
 
   const inputProps = {
     ...(!isNullish(schema.maximum) && { max: schema.maximum }),
     ...(!isNullish(schema.minimum) && { min: schema.minimum }),
-    errorMessage: hasError ? deduplicatedErrors.join(", ") : null,
+    errorMessage: hasError ? errors.join(", ") : null,
     state: hasError ? TextInputState.Error : TextInputState.None,
   };
 
@@ -166,7 +161,8 @@ export const LeafyGreenSelect: React.VFC<
     marginBottom,
   } = options;
 
-  const hasError = !!rawErrors?.length && !disabled;
+  const { hasError } = processErrors(rawErrors);
+
   const isDisabled = disabled || readonly;
   const labelProps: OneOf<{ label: string }, { "aria-labelledby": string }> =
     ariaLabelledBy ? { "aria-labelledby": ariaLabelledBy } : { label };
@@ -185,7 +181,7 @@ export const LeafyGreenSelect: React.VFC<
           id={dataCy}
           name={dataCy}
           data-cy={dataCy}
-          state={hasError ? "error" : "none"}
+          state={hasError && !disabled ? "error" : "none"}
           errorMessage="Selection is required."
           popoverZIndex={zIndex.dropdown}
         >
@@ -316,8 +312,10 @@ export const LeafyGreenTextArea: React.VFC<SpruceWidgetProps> = ({
   rawErrors,
   readonly,
 }) => {
-  const { "data-cy": dataCy, marginBottom } = options;
-  const hasError = !!rawErrors?.length;
+  const { "data-cy": dataCy, emptyValue = "", marginBottom } = options;
+
+  const { errors, hasError } = processErrors(rawErrors);
+
   return (
     <ElementWrapper marginBottom={marginBottom}>
       <TextArea
@@ -325,8 +323,10 @@ export const LeafyGreenTextArea: React.VFC<SpruceWidgetProps> = ({
         label={label}
         disabled={disabled || readonly}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
-        errorMessage={hasError ? rawErrors.join(", ") : null}
+        onChange={({ target }) =>
+          target.value === "" ? onChange(emptyValue) : onChange(target.value)
+        }
+        errorMessage={hasError ? errors.join(", ") : null}
         state={hasError ? "error" : "none"}
       />
     </ElementWrapper>

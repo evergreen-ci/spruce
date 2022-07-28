@@ -48,7 +48,6 @@ import GET_SYSTEM_LOGS from "./get-system-logs.graphql";
 import GET_TASK_ALL_EXECUTIONS from "./get-task-all-executions.graphql";
 import GET_TASK_EVENT_LOGS from "./get-task-event-logs.graphql";
 import GET_TASK_FILES from "./get-task-files.graphql";
-import GET_TASKS_FOR_TESTS_TABLE from "./get-task-for-tests-table.graphql";
 import GET_TASK_LOGS from "./get-task-logs.graphql";
 import GET_TASK_NAMES_FOR_BUILD_VARIANT from "./get-task-names-for-build-variant.graphql";
 import GET_TASK_STATUSES from "./get-task-statuses.graphql";
@@ -99,7 +98,6 @@ export {
   GET_TASK_TESTS,
   GET_TASK_TEST_SAMPLE,
   GET_TASK,
-  GET_TASKS_FOR_TESTS_TABLE,
   GET_TASK_ALL_EXECUTIONS,
   GET_TASK_STATUSES,
   GET_TESTS,

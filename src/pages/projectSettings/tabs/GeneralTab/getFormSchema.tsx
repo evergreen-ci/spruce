@@ -67,6 +67,8 @@ export const getFormSchema = (
               displayName: {
                 type: "string" as "string",
                 title: "Display Name",
+                default: "",
+                minLength: 1,
               },
               ...(projectType !== ProjectType.Repo && {
                 identifier: {
@@ -84,6 +86,8 @@ export const getFormSchema = (
               remotePath: {
                 type: "string" as "string",
                 title: "Config File",
+                default: "",
+                minLength: 1,
               },
               spawnHostScriptPath: {
                 type: "string" as "string",
@@ -311,6 +315,7 @@ export const getFormSchema = (
           "ui:description":
             "This is the bash setup script to optionally run on spawn hosts created from tasks.",
           "ui:data-cy": "spawn-host-input",
+          "ui:optional": true,
           ...placeholderIf(
             repoData?.generalConfiguration?.other?.spawnHostScriptPath
           ),
