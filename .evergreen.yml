@@ -150,12 +150,12 @@ functions:
       working_dir: spruce
       script: |
         export PATH=/opt/nodejs/node-v16.13.0-linux-x64/bin:$PATH
-          cd /tmp
-          curl -L -o 'my_file.zip' ${chrome_download_url}
-          unzip my_file.zip
-          cd -
+        cd /tmp
+        curl -L -o "my_file.zip" "${chrome_download_url}"
+        unzip my_file.zip
+        cd -
         yarn cy:run --browser /tmp/chrome-linux/chrome --record --key ${cypress_record_key} --reporter junit
-
+        
   copy-cmdrc:
     command: shell.exec
     params:
