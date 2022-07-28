@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from "test_utils";
 import { SpruceForm, SpruceFormContainer } from ".";
 
-describe("spruceForm", () => {
+describe("spruce form", () => {
   it("should render as expected", () => {
     const onChange = jest.fn();
     const { container } = render(
@@ -23,6 +23,7 @@ describe("spruceForm", () => {
       "Manage Access"
     );
   });
+
   it("updating the form should trigger a callback and update the form state", async () => {
     let data = {};
     const onChange = jest.fn((x) => {
@@ -61,9 +62,212 @@ describe("spruceForm", () => {
       users: ["new-user", "initial-user"],
     });
   });
+
+  describe("form elements", () => {
+    describe("text input", () => {
+      describe("invisible errors", () => {
+        it("should work with validate function", () => {
+          let formErrors = {};
+          const onChange = jest.fn((x) => {
+            const { errors } = x;
+            formErrors = errors;
+          });
+          const validate = jest.fn((_formData, err) => err);
+
+          const { formData, schema, uiSchema } = textInput();
+          render(
+            <SpruceFormContainer title="Test for Text Input">
+              <SpruceForm
+                schema={schema}
+                formData={formData}
+                onChange={onChange}
+                uiSchema={uiSchema}
+                validate={validate}
+              />
+            </SpruceFormContainer>
+          );
+          fireEvent.change(screen.queryByDataCy("text-input"), {
+            target: { value: "new value" },
+          });
+          fireEvent.change(screen.queryByDataCy("text-input"), {
+            target: { value: "" },
+          });
+          expect(screen.queryByDataCy("text-input")).toHaveValue("");
+
+          // Invisible errors should be in the form error state but not visible on the page.
+          expect(formErrors).toStrictEqual([{ stack: "textInput: invisible" }]);
+          expect(screen.queryByText("invisible")).toBeNull();
+        });
+      });
+
+      describe("emptyValue", () => {
+        it("defaults to '' when not specified", () => {
+          let data = {};
+          const onChange = jest.fn((x) => {
+            const { formData } = x;
+            data = formData;
+          });
+          const { formData, schema, uiSchema } = textInput();
+          render(
+            <SpruceFormContainer title="Test for Text Input">
+              <SpruceForm
+                schema={schema}
+                formData={formData}
+                onChange={onChange}
+                uiSchema={uiSchema}
+              />
+            </SpruceFormContainer>
+          );
+          fireEvent.change(screen.queryByDataCy("text-input"), {
+            target: { value: "new value" },
+          });
+          fireEvent.change(screen.queryByDataCy("text-input"), {
+            target: { value: "" },
+          });
+          expect(screen.queryByDataCy("text-input")).toHaveValue("");
+          expect(data).toStrictEqual({
+            textInput: "",
+          });
+        });
+
+        it("uses provided value when specified", () => {
+          let data = {};
+          const onChange = jest.fn((x) => {
+            const { formData } = x;
+            data = formData;
+          });
+          const { formData, schema, uiSchema } = textInput("myEmptyValue");
+          render(
+            <SpruceFormContainer title="Test for Text Input">
+              <SpruceForm
+                schema={schema}
+                formData={formData}
+                onChange={onChange}
+                uiSchema={uiSchema}
+              />
+            </SpruceFormContainer>
+          );
+          fireEvent.change(screen.queryByDataCy("text-input"), {
+            target: { value: "new value" },
+          });
+          fireEvent.change(screen.queryByDataCy("text-input"), {
+            target: { value: "" },
+          });
+          expect(screen.queryByDataCy("text-input")).toHaveValue(
+            "myEmptyValue"
+          );
+          expect(data).toStrictEqual({
+            textInput: "myEmptyValue",
+          });
+        });
+      });
+    });
+
+    describe("text area", () => {
+      describe("invisible errors", () => {
+        it("should work with validate function", () => {
+          let formErrors = {};
+          const onChange = jest.fn((x) => {
+            const { errors } = x;
+            formErrors = errors;
+          });
+          const validate = jest.fn((_formData, err) => err);
+
+          const { formData, schema, uiSchema } = textArea();
+          render(
+            <SpruceFormContainer title="Test for Text Area">
+              <SpruceForm
+                schema={schema}
+                formData={formData}
+                onChange={onChange}
+                uiSchema={uiSchema}
+                validate={validate}
+              />
+            </SpruceFormContainer>
+          );
+          fireEvent.change(screen.queryByDataCy("text-area"), {
+            target: { value: "new value" },
+          });
+          fireEvent.change(screen.queryByDataCy("text-area"), {
+            target: { value: "" },
+          });
+          expect(screen.queryByDataCy("text-area")).toHaveValue("");
+
+          // Invisible errors should be in the form error state but not visible on the page.
+          expect(formErrors).toStrictEqual([{ stack: "textArea: invisible" }]);
+          expect(screen.queryByText("invisible")).toBeNull();
+        });
+      });
+
+      describe("emptyValue", () => {
+        it("defaults to '' when not specified", () => {
+          let data = {};
+          const onChange = jest.fn((x) => {
+            const { formData } = x;
+            data = formData;
+          });
+          const { formData, schema, uiSchema } = textArea();
+          render(
+            <SpruceFormContainer title="Test for Text Area">
+              <SpruceForm
+                schema={schema}
+                formData={formData}
+                onChange={onChange}
+                uiSchema={uiSchema}
+              />
+            </SpruceFormContainer>
+          );
+          fireEvent.change(screen.queryByDataCy("text-area"), {
+            target: { value: "new value" },
+          });
+          fireEvent.change(screen.queryByDataCy("text-area"), {
+            target: { value: "" },
+          });
+          expect(screen.queryByDataCy("text-area")).toHaveValue("");
+          expect(data).toStrictEqual({
+            textArea: "",
+          });
+        });
+
+        it("uses provided value when specified", () => {
+          let data = {};
+          const onChange = jest.fn((x) => {
+            const { formData } = x;
+            data = formData;
+          });
+          const { formData, schema, uiSchema } = textArea("myEmptyValue");
+          render(
+            <SpruceFormContainer title="Test for Text Area">
+              <SpruceForm
+                schema={schema}
+                formData={formData}
+                onChange={onChange}
+                uiSchema={uiSchema}
+              />
+            </SpruceFormContainer>
+          );
+          fireEvent.change(screen.queryByDataCy("text-area"), {
+            target: { value: "new value" },
+          });
+          fireEvent.change(screen.queryByDataCy("text-area"), {
+            target: { value: "" },
+          });
+          expect(screen.queryByDataCy("text-area")).toHaveValue("myEmptyValue");
+          expect(data).toStrictEqual({
+            textArea: "myEmptyValue",
+          });
+        });
+      });
+    });
+  });
 });
 
 const basicForm = {
+  formData: {
+    cloneMethod: "legacy-ssh",
+    validProjects: "spruce",
+    users: ["initial-user"],
+  },
   schema: {
     type: "object" as "object",
     properties: {
@@ -92,11 +296,6 @@ const basicForm = {
       },
     },
   },
-  formData: {
-    cloneMethod: "legacy-ssh",
-    validProjects: "spruce",
-    users: ["initial-user"],
-  },
   uiSchema: {
     cloneMethod: {
       "ui:options": {
@@ -124,3 +323,46 @@ const basicForm = {
     },
   },
 };
+
+const textInput = (emptyValue?: string) => ({
+  formData: {},
+  schema: {
+    type: "object" as "object",
+    properties: {
+      textInput: {
+        type: "string" as "string",
+        title: "Text Input",
+        default: "",
+        minLength: 1,
+      },
+    },
+  },
+  uiSchema: {
+    textInput: {
+      "ui:data-cy": "text-input",
+      ...(emptyValue && { "ui:emptyValue": emptyValue }),
+    },
+  },
+});
+
+const textArea = (emptyValue?: string) => ({
+  formData: {},
+  schema: {
+    type: "object" as "object",
+    properties: {
+      textArea: {
+        type: "string" as "string",
+        title: "Text Area",
+        default: "",
+        minLength: 1,
+      },
+    },
+  },
+  uiSchema: {
+    textArea: {
+      "ui:widget": "textarea",
+      "ui:data-cy": "text-area",
+      ...(emptyValue && { "ui:emptyValue": emptyValue }),
+    },
+  },
+});

@@ -39,8 +39,15 @@ export default defineConfig({
           // Replace the variables in our HTML files.
           injectVariablesInHTML({
             files: "build/index.html",
-            from: ["%GIT_SHA%", "%RELEASE_STAGE%"],
-            to: [process.env.GIT_SHA, process.env.REACT_APP_RELEASE_STAGE],
+            variables: [
+              "%GIT_SHA%",
+              "%RELEASE_STAGE%",
+              "%REACT_APP_NEW_RELIC_ACCOUNT_ID%",
+              "%REACT_APP_NEW_RELIC_TRUST_KEY%",
+              "%REACT_APP_NEW_RELIC_AGENT_ID%",
+              "%REACT_APP_NEW_RELIC_LICENSE_KEY%",
+              "%REACT_APP_NEW_RELIC_APPLICATION_ID%",
+            ],
           }),
         ],
         manualChunks: {

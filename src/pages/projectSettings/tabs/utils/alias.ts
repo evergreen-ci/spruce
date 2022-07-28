@@ -183,6 +183,8 @@ export const baseProps = {
     schema: {
       type: "string" as "string",
       title: "Alias Name",
+      default: "",
+      minLength: 1,
     },
     uiSchema: {
       "ui:data-cy": "alias-input",
