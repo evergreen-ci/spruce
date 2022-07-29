@@ -1,5 +1,3 @@
-import { aliasQuery, GQL_URL } from "../utils/graphql-test-utils";
-
 const PATCH_ID = "5e4ff3abe3c3317e352062e4";
 const USER_ID = "admin";
 const SPRUCE_URLS = {
@@ -54,11 +52,7 @@ describe("Nav Bar", () => {
   it("Nav Dropdown should link to patches page of default project in SpruceConfig if cookie does not exist", () => {
     cy.clearCookie("mci-project-cookie");
 
-    cy.intercept("POST", GQL_URL, (req) => {
-      aliasQuery(req, "GetSpruceConfig");
-    });
     cy.visit(SPRUCE_URLS.userPatches);
-    cy.wait("@gqlGetSpruceConfigQuery");
     cy.dataCy("auxiliary-dropdown-link").click();
     cy.dataCy("auxiliary-dropdown-project-patches").click();
     cy.location("pathname").should("eq", "/project/evergreen/patches");
