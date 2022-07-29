@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { SpruceForm } from "components/SpruceForm";
+import { ValidateProps } from "components/SpruceForm/types";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
   usePopulateForm,
@@ -7,7 +8,7 @@ import {
 } from "pages/projectSettings/Context";
 import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
-import { TabProps } from "./types";
+import { FormState, TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.Plugins;
 
@@ -40,18 +41,20 @@ export const PluginsTab: React.VFC<TabProps> = ({
       formData={formData}
       onChange={onChange}
       schema={schema}
-      validate={validate}
+      validate={validate as any}
       uiSchema={uiSchema}
     />
   );
 };
 
 /* Display an error and prevent saving if a user enters something invalid. */
-const validate = (formData, errors) => {
-  const searchProject = formData?.buildBaronSettings?.ticketSearchProjects;
+const validate: ValidateProps<FormState> = (formData, errors) => {
+  const {
+    buildBaronSettings: { ticketSearchProjects },
+  } = formData;
 
   // if a search project is defined, a create project must be defined, and vice versa
-  const searchProjectDefined = searchProject?.length !== 0;
+  const searchProjectDefined = !!ticketSearchProjects.length;
 
   const createProjectDefined =
     formData?.buildBaronSettings?.ticketCreateProject?.createProject.trim() !==
