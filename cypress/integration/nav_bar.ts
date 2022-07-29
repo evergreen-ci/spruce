@@ -51,9 +51,13 @@ describe("Nav Bar", () => {
   });
   it("Nav Dropdown should link to patches page of default project in SpruceConfig if cookie does not exist", () => {
     cy.clearCookie("mci-project-cookie");
-
     cy.visit(SPRUCE_URLS.userPatches);
     cy.dataCy("auxiliary-dropdown-link").click();
+    cy.dataCy("auxiliary-dropdown-project-patches").should(
+      "have.attr",
+      "href",
+      "/project/evergreen/patches"
+    );
     cy.dataCy("auxiliary-dropdown-project-patches").click();
     cy.location("pathname").should("eq", "/project/evergreen/patches");
   });
