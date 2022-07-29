@@ -1,12 +1,7 @@
 const hostsRoute = "/hosts";
 
 describe("Select hosts in hosts page table", () => {
-  before(() => {
-    cy.login();
-  });
-
   beforeEach(() => {
-    cy.preserveCookies();
     cy.visit(`${hostsRoute}?distroId=ubuntu1604-large&page=0&statuses=running`);
     cy.dataCy("hosts-table").should("exist");
     cy.dataCy("hosts-table").should("not.have.attr", "data-loading", "true");

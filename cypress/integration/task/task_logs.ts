@@ -6,10 +6,6 @@ describe("task logs", () => {
     cy.visit(LOGS_ROUTE);
   });
 
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("Should default to the  task logs page when logtype is not indicated in URL query param", () => {
     cy.dataCy("task-radio").should("be.checked");
   });

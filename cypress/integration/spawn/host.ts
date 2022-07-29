@@ -25,14 +25,6 @@ const hostTaskId =
 const distroId = "ubuntu1604-small";
 
 describe("Navigating to Spawn Host page", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("Visiting the spawn host page should display all of your spawned hosts", () => {
     cy.visit("/spawn/host");
     cy.get(hostTableRow).should("have.length", 2);

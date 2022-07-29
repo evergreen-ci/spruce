@@ -1,12 +1,4 @@
 describe("Navigating to Spawn Volume page", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   describe("Edit volume modal", () => {
     it("Clicking on 'Edit' should open the Edit Volume Modal", () => {
       cy.visit("/spawn/volume");

@@ -9,12 +9,6 @@ const pathURLWithFilters = `${pathTasks}?page=0&sorts=STATUS%3AASC%3BBASE_STATUS
 const defaultPath = `${pathTasks}?sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC`;
 
 describe("Tasks filters", () => {
-  before(() => {
-    cy.login();
-  });
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
   afterEach(() => {
     cy.dataCy("tasks-table").should("exist");
   });

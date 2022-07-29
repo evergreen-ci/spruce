@@ -1,14 +1,6 @@
 import { aliasQuery, GQL_URL } from "../../utils/graphql-test-utils";
 
 describe("Task Queue", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("Sets first distro in list as default if no distro in url", () => {
     cy.visit("/task-queue");
 

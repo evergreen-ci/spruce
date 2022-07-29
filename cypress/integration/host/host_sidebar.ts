@@ -2,14 +2,6 @@ const pathWithTask = `/host/i-0fb9fe0592ea3815`;
 const pathNoTask = `/host/macos-1014-68.macstadium.build.10gen`;
 
 describe("Host page title and sidebar ", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("title shows the host name", () => {
     cy.visit(pathNoTask);
     cy.dataCy("page-title").should(

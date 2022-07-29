@@ -6,9 +6,6 @@ describe("Code Changes Table", () => {
     cy.visit(`/version/${patchId}/changes`);
   });
 
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
   it("Should display at least one table when there are code changes", () => {
     cy.dataCy("code-changes-table").should("exist");
   });

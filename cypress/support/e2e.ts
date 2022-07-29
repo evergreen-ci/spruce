@@ -105,3 +105,17 @@ declare global {
     }
   }
 }
+
+// Login before each test and remove banner cookies
+// We can disable the necessary cookies for tests that need the banners
+before(() => {
+  cy.login();
+});
+beforeEach(() => {
+  cy.setCookie(bannerCookie, "true");
+  cy.setCookie(slackBannerCookie, "true");
+  cy.preserveCookies();
+});
+
+const bannerCookie = "This is an important notification";
+const slackBannerCookie = "has-closed-slack-banner";

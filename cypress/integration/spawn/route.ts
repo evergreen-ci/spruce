@@ -1,12 +1,4 @@
 describe("Navigating to Spawn Host and Spawn Volume pages", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("Navigating to /spawn will redirect to /spawn/host", () => {
     cy.visit("/spawn");
     cy.location("pathname").should("eq", "/spawn/host");

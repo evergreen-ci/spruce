@@ -3,14 +3,6 @@ import { popconfirmYesClassName } from "../../utils/popconfirm";
 const route = "/preferences/publickeys";
 
 describe("Public Key Management Page", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   describe("Public keys list", () => {
     before(() => {
       cy.visit(route);

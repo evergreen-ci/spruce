@@ -1,8 +1,4 @@
 describe("Patch with aborted task", () => {
-  before(() => {
-    cy.login();
-  });
-
   it("Shows status `aborted` in task table for tasks that were aborted", () => {
     cy.visit("/version/5ee1efb3d1fe073e194e8b5c");
     cy.get(

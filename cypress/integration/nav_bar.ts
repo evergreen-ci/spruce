@@ -13,13 +13,6 @@ const LEGACY_URLS = {
   distros: `/distros`,
 };
 describe("Nav Bar", () => {
-  before(() => {
-    cy.login();
-  });
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("Should have a nav bar linking to the proper page on the legacy UI", () => {
     cy.visit(SPRUCE_URLS.version);
     cy.dataCy("legacy-ui-link").should("exist");

@@ -1,7 +1,4 @@
 describe("variant history", () => {
-  before(() => {
-    cy.login();
-  });
   beforeEach(() => {
     cy.viewport(1000, 600);
     cy.preserveCookies();

@@ -4,13 +4,6 @@ import { mockErrorResponse } from "../../../utils/mockErrorResponse";
 const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
 const patchWithDisplayTasks = "5e6bb9e23066155a993e0f1b";
 describe("Configure Patch Page", () => {
-  before(() => {
-    cy.login();
-  });
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   describe("Initial state reflects patch data", () => {
     before(() => {
       cy.visit(`/version/${unactivatedPatchId}`);
