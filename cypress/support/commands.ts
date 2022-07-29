@@ -65,19 +65,6 @@ Cypress.Commands.add("toggleTableFilter", (colNum: number) => {
 });
 
 Cypress.Commands.add(
-  "paste",
-  { prevSubject: true },
-  (selector: Element, pastePayload: string) => {
-    // We can paste directly into a textarea but the onchange event is not fired because cypress directly manipulates the dom elements value.
-    // So we need to manually type in the last character of the paste payload to trigger an onchange event.
-    const subString = pastePayload.substr(0, pastePayload.length - 1);
-    const lastChar = pastePayload.slice(-1);
-    cy.wrap(selector).invoke("val", subString);
-    cy.wrap(selector).type(lastChar);
-  }
-);
-
-Cypress.Commands.add(
   "validateToast",
   (status: string, message?: string, shouldClose?: boolean) => {
     cy.dataCy(`toast`).should("be.visible");
