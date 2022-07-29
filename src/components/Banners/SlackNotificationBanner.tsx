@@ -78,7 +78,7 @@ export const SlackNotificationBanner = () => {
     hideBanner();
   };
 
-  // lets only show the banner if we have data for the user settings and the user has not closed the banner
+  // let's only show the banner if we have data for the user settings and the user has not closed the banner
   // this prevents a flicker of the banner on initial load
   const hasSetNotifications =
     !notifications &&
