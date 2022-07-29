@@ -16,7 +16,7 @@ import { string } from "utils";
 const { msToDuration } = string;
 
 interface RowProps {
-  task: VersionTaskDurationsQuery["version"]["versionTasks"]["tasks"][0];
+  task: VersionTaskDurationsQuery["version"]["tasks"]["data"][0];
   maxTimeTaken: number;
   children?: React.ReactNode;
   "data-cy"?: string;

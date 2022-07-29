@@ -1788,6 +1788,17 @@ export type TaskFiles = {
   groupedFiles: Array<GroupedFiles>;
 };
 
+export type TaskFilterOptions = {
+  baseStatuses?: InputMaybe<Array<Scalars["String"]>>;
+  includeEmptyActivation?: InputMaybe<Scalars["Boolean"]>;
+  limit?: InputMaybe<Scalars["Int"]>;
+  page?: InputMaybe<Scalars["Int"]>;
+  sorts?: InputMaybe<Array<SortOrder>>;
+  statuses?: InputMaybe<Array<Scalars["String"]>>;
+  taskName?: InputMaybe<Scalars["String"]>;
+  variant?: InputMaybe<Scalars["String"]>;
+};
+
 export type TaskInfo = {
   id?: Maybe<Scalars["ID"]>;
   name?: Maybe<Scalars["String"]>;
@@ -2116,8 +2127,8 @@ export type Version = {
   taskCount?: Maybe<Scalars["Int"]>;
   taskStatusStats?: Maybe<TaskStats>;
   taskStatuses: Array<Scalars["String"]>;
+  tasks: VersionTasks;
   upstreamProject?: Maybe<UpstreamProject>;
-  versionTasks: VersionTasks;
   versionTiming?: Maybe<VersionTiming>;
 };
 
@@ -2137,20 +2148,13 @@ export type VersionTaskStatusStatsArgs = {
 };
 
 /** Version models a commit within a project. */
-export type VersionVersionTasksArgs = {
-  baseStatuses?: InputMaybe<Array<Scalars["String"]>>;
-  includeEmptyActivation?: InputMaybe<Scalars["Boolean"]>;
-  limit?: InputMaybe<Scalars["Int"]>;
-  page?: InputMaybe<Scalars["Int"]>;
-  sorts?: InputMaybe<Array<SortOrder>>;
-  statuses?: InputMaybe<Array<Scalars["String"]>>;
-  taskName?: InputMaybe<Scalars["String"]>;
-  variant?: InputMaybe<Scalars["String"]>;
+export type VersionTasksArgs = {
+  options?: InputMaybe<TaskFilterOptions>;
 };
 
 export type VersionTasks = {
   count: Scalars["Int"];
-  tasks: Array<Task>;
+  data: Array<Task>;
 };
 
 export type VersionTiming = {
@@ -5933,19 +5937,14 @@ export type GetUserQuery = {
 
 export type VersionTaskDurationsQueryVariables = Exact<{
   versionId: Scalars["String"];
-  sorts?: InputMaybe<Array<SortOrder>>;
-  page?: InputMaybe<Scalars["Int"]>;
-  variant?: InputMaybe<Scalars["String"]>;
-  statuses?: InputMaybe<Array<Scalars["String"]>>;
-  taskName?: InputMaybe<Scalars["String"]>;
-  limit?: InputMaybe<Scalars["Int"]>;
+  taskFilterOptions: TaskFilterOptions;
 }>;
 
 export type VersionTaskDurationsQuery = {
   version: {
-    versionTasks: {
+    tasks: {
       count: number;
-      tasks: Array<{
+      data: Array<{
         id: string;
         buildVariantDisplayName?: Maybe<string>;
         displayName: string;
@@ -5971,20 +5970,14 @@ export type VersionTaskDurationsQuery = {
 
 export type VersionTasksQueryVariables = Exact<{
   versionId: Scalars["String"];
-  sorts?: InputMaybe<Array<SortOrder>>;
-  page?: InputMaybe<Scalars["Int"]>;
-  statuses?: InputMaybe<Array<Scalars["String"]>>;
-  baseStatuses?: InputMaybe<Array<Scalars["String"]>>;
-  variant?: InputMaybe<Scalars["String"]>;
-  taskName?: InputMaybe<Scalars["String"]>;
-  limit?: InputMaybe<Scalars["Int"]>;
+  taskFilterOptions: TaskFilterOptions;
 }>;
 
 export type VersionTasksQuery = {
   version: {
-    versionTasks: {
+    tasks: {
       count: number;
-      tasks: Array<{
+      data: Array<{
         id: string;
         aborted: boolean;
         buildVariant: string;

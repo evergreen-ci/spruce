@@ -31,7 +31,7 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
 
   const queryVariables = useQueryVariables(search, id);
   const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
-  const { sorts, limit, page } = queryVariables;
+  const { sorts, limit, page } = queryVariables.taskFilterOptions;
 
   useEffect(() => {
     updateQueryParams({
@@ -52,22 +52,28 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
     });
   };
 
-  const { data, loading, refetch, startPolling, stopPolling } = useQuery<
-    VersionTasksQuery,
-    VersionTasksQueryVariables
-  >(GET_VERSION_TASKS, {
-    variables: queryVariables,
-    pollInterval,
-    skip: !hasQueryVariables,
-    fetchPolicy: "cache-and-network",
-    onError: (err) => {
-      dispatchToast.error(`Error fetching patch tasks ${err}`);
-    },
-  });
+  const {
+    data: versionData,
+    loading,
+    refetch,
+    startPolling,
+    stopPolling,
+  } = useQuery<VersionTasksQuery, VersionTasksQueryVariables>(
+    GET_VERSION_TASKS,
+    {
+      variables: queryVariables,
+      pollInterval,
+      skip: !hasQueryVariables,
+      fetchPolicy: "cache-and-network",
+      onError: (err) => {
+        dispatchToast.error(`Error fetching patch tasks ${err}`);
+      },
+    }
+  );
   usePolling(startPolling, stopPolling, refetch);
-  const { version } = data || {};
-  const { versionTasks } = version || {};
-  const { tasks = [], count = 0 } = versionTasks || {};
+  const { version } = versionData || {};
+  const { tasks } = version || {};
+  const { data = [], count = 0 } = tasks || {};
 
   return (
     <>
@@ -80,8 +86,8 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
       />
       <PatchTasksTable
         sorts={sorts}
-        tasks={tasks}
-        loading={tasks.length === 0 && loading}
+        tasks={data}
+        loading={data.length === 0 && loading}
       />
     </>
   );

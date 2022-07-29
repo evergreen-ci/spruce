@@ -21,7 +21,7 @@ import { TaskDurationRow } from "./TaskDurationRow";
 const { gray } = uiColors;
 
 interface Props {
-  tasks: VersionTaskDurationsQuery["version"]["versionTasks"]["tasks"];
+  tasks: VersionTaskDurationsQuery["version"]["tasks"]["data"];
   loading: boolean;
 }
 
@@ -144,7 +144,7 @@ export const TaskDurationTable: React.VFC<Props> = ({ tasks, loading }) => {
 };
 
 const findMaxTimeTaken = (
-  tasks: VersionTaskDurationsQuery["version"]["versionTasks"]["tasks"]
+  tasks: VersionTaskDurationsQuery["version"]["tasks"]["data"]
 ) => {
   if (tasks && tasks.length) {
     const durations = tasks.map((t) =>

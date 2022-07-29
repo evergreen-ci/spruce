@@ -15,7 +15,7 @@ import { queryString } from "utils";
 const { toSortString } = queryString;
 
 interface Props {
-  tasks: VersionTasksQuery["version"]["versionTasks"]["tasks"];
+  tasks: VersionTasksQuery["version"]["tasks"]["data"];
   sorts: SortOrder[];
   loading: boolean;
 }

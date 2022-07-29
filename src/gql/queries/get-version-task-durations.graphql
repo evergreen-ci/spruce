@@ -1,23 +1,11 @@
 query VersionTaskDurations(
   $versionId: String!
-  $sorts: [SortOrder!]
-  $page: Int
-  $variant: String
-  $statuses: [String!]
-  $taskName: String
-  $limit: Int
+  $taskFilterOptions: TaskFilterOptions!
 ) {
   version(id: $versionId) {
-    versionTasks(
-      limit: $limit
-      page: $page
-      statuses: $statuses
-      sorts: $sorts
-      taskName: $taskName
-      variant: $variant
-    ) {
+    tasks(options: $taskFilterOptions) {
       count
-      tasks {
+      data {
         id
         buildVariantDisplayName
         displayName

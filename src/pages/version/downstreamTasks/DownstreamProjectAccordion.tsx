@@ -80,23 +80,27 @@ export const DownstreamProjectAccordion: React.VFC<
     sorts: [defaultSort],
   });
 
-  const { limit, page, statuses, taskName, variant, sorts } = state;
+  const { baseStatuses, limit, page, sorts, statuses, taskName, variant } =
+    state;
 
   const variables = {
-    limit,
-    page,
-    statuses,
-    taskName,
-    variant,
-    sorts,
-    baseStatuses: state.baseStatuses,
     versionId: childPatchId,
+    taskFilterOptions: {
+      limit,
+      page,
+      statuses,
+      taskName,
+      variant,
+      sorts,
+      baseStatuses,
+    },
   };
 
   const { baseStatusesInputVal, currentStatusesInputVal } = state;
-  const { currentStatuses, baseStatuses } = useTaskStatuses({
-    versionId: childPatchId,
-  });
+  const { currentStatuses, baseStatuses: currentBaseStatuses } =
+    useTaskStatuses({
+      versionId: childPatchId,
+    });
 
   const taskNameInputProps = {
     placeholder: "Task name",
@@ -119,7 +123,7 @@ export const DownstreamProjectAccordion: React.VFC<
 
   const baseStatusSelectorProps = {
     state: baseStatusesInputVal,
-    tData: baseStatuses,
+    tData: currentBaseStatuses,
     onChange: (s: string[]) =>
       dispatch({ type: "setAndSubmitBaseStatusesSelector", baseStatuses: s }),
   };
@@ -134,21 +138,26 @@ export const DownstreamProjectAccordion: React.VFC<
       }),
   };
 
-  const { data, refetch, startPolling, stopPolling } = useQuery<
-    VersionTasksQuery,
-    VersionTasksQueryVariables
-  >(GET_VERSION_TASKS, {
-    variables,
-    fetchPolicy: "cache-and-network",
-    onError: (err) => {
-      dispatchToast.error(`Error fetching downstream tasks ${err}`);
-    },
-  });
-  const showSkeleton = !data;
+  const {
+    data: versionData,
+    refetch,
+    startPolling,
+    stopPolling,
+  } = useQuery<VersionTasksQuery, VersionTasksQueryVariables>(
+    GET_VERSION_TASKS,
+    {
+      variables,
+      fetchPolicy: "cache-and-network",
+      onError: (err) => {
+        dispatchToast.error(`Error fetching downstream tasks ${err}`);
+      },
+    }
+  );
   usePolling(startPolling, stopPolling, refetch);
-  const { version } = data || {};
-  const { versionTasks } = version || {};
-  const { tasks = [], count = 0 } = versionTasks || {};
+  const showSkeleton = !versionData;
+  const { version } = versionData || {};
+  const { tasks } = version || {};
+  const { data = [], count = 0 } = tasks || {};
 
   const variantTitle = (
     <>
@@ -205,13 +214,13 @@ export const DownstreamProjectAccordion: React.VFC<
                   onChange={(p) =>
                     dispatch({ type: "onChangePagination", page: p - 1 })
                   }
-                  pageSize={state.limit}
+                  pageSize={limit}
                   totalResults={count}
-                  value={variables.page}
+                  value={page}
                 />
                 <PageSizeSelector
                   data-cy="tasks-table-page-size-selector"
-                  value={variables.limit}
+                  value={limit}
                   onChange={(l) =>
                     dispatch({ type: "onChangeLimit", limit: l })
                   }
@@ -222,9 +231,9 @@ export const DownstreamProjectAccordion: React.VFC<
               <Skeleton active title={false} paragraph={{ rows: 8 }} />
             ) : (
               <TasksTable
-                sorts={variables.sorts}
+                sorts={sorts}
                 tableChangeHandler={tableChangeHandler}
-                tasks={tasks}
+                tasks={data}
                 statusSelectorProps={statusSelectorProps}
                 baseStatusSelectorProps={baseStatusSelectorProps}
                 taskNameInputProps={taskNameInputProps}
