@@ -4,14 +4,10 @@ const slackNotificationBanner = "slack-notification-banner";
 const slackUsername = "username";
 
 describe("Slack notification banner", () => {
-  beforeEach(() => {
-    cy.login();
-    cy.visit("/");
-  });
-  afterEach(() => {
-    cy.clearCookies();
-  });
   it("shows up across the app if user has not set slack notification settings", () => {
+    cy.clearCookie("has-closed-slack-banner");
+
+    cy.visit("/");
     cy.dataCy(slackNotificationBanner).should("exist");
 
     cy.visit("/version/5ecedafb562343215a7ff297/tasks");
@@ -34,6 +30,11 @@ describe("Slack notification banner", () => {
   });
 
   it("does not show up after user has entered their username and clicks 'save'", () => {
+    cy.clearCookie("has-closed-slack-banner");
+
+    cy.visit("/version/5ecedafb562343215a7ff297/tasks");
+
+    cy.dataCy(slackNotificationBanner).should("be.visible");
     cy.dataCy("subscribe-to-notifications").click();
     cy.dataCy("slack-username-input").type(slackUsername);
     cy.get(popconfirmYesClassName).click();
