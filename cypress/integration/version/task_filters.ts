@@ -1,5 +1,4 @@
 import { urlSearchParamsAreUpdated } from "../../utils";
-import { aliasQuery, GQL_URL } from "../../utils/graphql-test-utils";
 
 const patch = {
   id: "5e4ff3abe3c3317e352062e4",
@@ -56,7 +55,7 @@ describe("Tasks filters", () => {
         .find("input")
         .focus()
         .type(variantInputValue)
-        .type("{enter}");
+        .type("{enter}", { scrollBehavior: false });
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
@@ -68,7 +67,7 @@ describe("Tasks filters", () => {
         .find("input")
         .focus()
         .clear()
-        .type(`{enter}`);
+        .type(`{enter}`, { scrollBehavior: false });
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
@@ -159,7 +158,7 @@ describe("Tasks filters", () => {
         "Blocked",
       ];
       cy.toggleTableFilter(2);
-      cy.getInputByLabel("All").check({ force: true });
+      cy.getInputByLabel("All").check({ force: true, scrollBehavior: false });
       taskStatuses.forEach((status) => {
         cy.getInputByLabel(status).should("be.checked");
       });
@@ -168,7 +167,7 @@ describe("Tasks filters", () => {
         paramName: urlParam,
         search: "all",
       });
-      cy.getInputByLabel("All").uncheck({ force: true });
+      cy.getInputByLabel("All").uncheck({ force: true, scrollBehavior: false });
       taskStatuses.forEach((status) => {
         cy.getInputByLabel(status).should("not.be.checked");
       });
@@ -183,11 +182,8 @@ describe("Tasks filters", () => {
   describe("Task Base Statuses select", () => {
     const urlParam = "baseStatuses";
     before(() => {
-      cy.intercept("POST", GQL_URL, (req) => {
-        aliasQuery(req, "PatchTasks");
-      });
       cy.visit(pathTasks);
-      cy.wait("@gqlPatchTasksQuery");
+      cy.dataCy("tasks-table").should("be.visible");
       cy.toggleTableFilter(3);
     });
 
@@ -197,12 +193,15 @@ describe("Tasks filters", () => {
         .invoke("text")
         .then((preFilterCount) => {
           cy.getInputByLabel("Succeeded").check({ force: true });
-          cy.wait("@gqlPatchTasksQuery");
           urlSearchParamsAreUpdated({
             pathname: pathTasks,
             paramName: urlParam,
             search: "success",
           });
+          cy.dataCy("tasks-table").should("be.visible");
+          cy.dataCy("current-task-count")
+            .invoke("text")
+            .should("have.length.greaterThan", 0);
           cy.dataCy("current-task-count")
             .invoke("text")
             .then((postFilterCount) => {
