@@ -6,10 +6,122 @@ const getGithubCommitQueueRoute = (identifier: string) =>
   `${getSettingsRoute(identifier)}/github-commitqueue`;
 const getNotificationsRoute = (identifier: string) =>
   `${getSettingsRoute(identifier)}/notifications`;
+const getAccessRoute = (identifier: string) =>
+  `${getSettingsRoute(identifier)}/access`;
 
 const project = "spruce";
 const projectUseRepoEnabled = "evergreen";
 const repo = "602d70a2b2373672ee493184";
+
+describe("Access page", () => {
+  const destination = getAccessRoute(projectUseRepoEnabled);
+  before(() => {
+    cy.login();
+  });
+
+  beforeEach(() => {
+    cy.preserveCookies();
+    cy.visit(destination);
+  });
+
+  it("Save button should be disabled on initial load", () => {
+    cy.dataCy("save-settings-button").should("be.disabled");
+  });
+
+  it("Shows a 'Default to Repo on Page' button on page", () => {
+    cy.dataCy("default-to-repo-button").should("exist").should("be.enabled");
+  });
+
+  it("Should enable the save button when the General Access value changes", () => {
+    cy.get("label").contains("Private").click();
+    cy.dataCy("save-settings-button").should("be.enabled");
+  });
+
+  it("Should enable the save button when the General Access value changes", () => {
+    cy.get("label").contains("Private").click();
+    cy.dataCy("save-settings-button").should("be.enabled");
+  });
+
+  it("Should enable the save button when the Internal Access value changes", () => {
+    cy.get("label").contains("Unrestricted").click();
+    cy.dataCy("save-settings-button").should("be.enabled");
+  });
+
+  it("Clicking on the save button produces a success toast and changes are persisted", () => {
+    cy.get("label").contains("Private").click();
+    cy.get("label").contains("Unrestricted").click();
+    cy.dataCy("save-settings-button").should("be.enabled").click();
+    cy.visit(destination);
+    cy.get("label")
+      .contains("Private")
+      .closest("label")
+      .get("input")
+      .should("have.attr", "checked", "checked");
+    cy.get("label")
+      .contains("Unrestricted")
+      .closest("label")
+      .get("input")
+      .should("have.attr", "checked", "checked");
+  });
+
+  it("Submitting a username produces a success toast and persists the username", () => {
+    cy.get("[aria-label='Username'").should("not.exist");
+    cy.contains("Add Username").click();
+    cy.get("[aria-label='Username'")
+      .should("have.length", 1)
+      .first()
+      .type("mongodb_user");
+    cy.dataCy("save-settings-button").should("be.enabled").click();
+    cy.validateToast("success");
+    cy.visit(destination);
+    cy.get("[aria-label='Username'").contains("mongodb_user").should("exist");
+  });
+
+  it("Submitting a username produces an error toast", () => {
+    cy.visit(getAccessRoute(project));
+    cy.contains("Add Username").click();
+    cy.get("[aria-label='Username'")
+      .should("have.length", 4)
+      .first()
+      .type("mongodb_user");
+    cy.dataCy("save-settings-button").should("be.enabled").click();
+    cy.validateToast(
+      "error",
+      "There was an error saving the project: error updating project admin roles: no admin role for project 'spruce' found"
+    );
+  });
+
+  it("Clicking the add button adds an input to the Admin section and the trash icon removes it", () => {
+    cy.get("[aria-label='Username'").should("have.length", 0);
+    cy.contains("Add Username").click();
+    cy.get("[aria-label='Username'").should("have.length", 1);
+    cy.dataCy("delete-item-button").click();
+    cy.get("[aria-label='Username'").should("have.length", 0);
+  });
+});
+describe("Clicking on The Project Select Dropdown ", () => {
+  const destination = getGeneralRoute(project);
+
+  before(() => {
+    cy.login();
+    cy.visit(destination);
+  });
+
+  beforeEach(() => {
+    cy.preserveCookies();
+  });
+
+  it("Headers are clickable", () => {
+    cy.dataCy("project-select").should("be.visible");
+    cy.dataCy("project-select").click();
+    cy.dataCy("project-select-options").should("be.visible");
+    cy.dataCy("project-select-options")
+      .find("div")
+      .contains("evergreen-ci/evergreen")
+      .click();
+    cy.location().should((loc) => expect(loc.pathname).to.not.eq(destination));
+  });
+});
 
 describe("Repo Settings", () => {
   const destination = getGeneralRoute(repo);
@@ -316,7 +428,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("save-settings-button").should("be.disabled");
     });
 
-    it("Does not enable the save button when adding a new array element", () => {
+    it("Does not enable the save button on initial page load", () => {
       cy.dataCy("add-button").click();
       cy.dataCy("save-settings-button").should("be.disabled");
     });
