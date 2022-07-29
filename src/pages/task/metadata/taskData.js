@@ -18,6 +18,7 @@ export const taskQuery = {
     displayName: "e2e_test",
     hostId: "i-0e0e62799806e037d",
     hostLink: "https://evergreen.mongodb.com/host/i-0e0e62799806e037d",
+    order: 1,
     versionMetadata: {
       __typename: "Version",
       author: "mohamed.khelif",
