@@ -21,7 +21,7 @@ export const AuxiliaryDropdown = () => {
   const projectCookie = Cookies.get(CURRENT_PROJECT);
 
   const { data } = useQuery<GetSpruceConfigQuery>(GET_SPRUCE_CONFIG, {
-    skip: !!projectCookie,
+    skip: projectCookie !== undefined,
   });
   const mostRecentProject =
     projectCookie || data?.spruceConfig?.ui?.defaultProject;
