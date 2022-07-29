@@ -34,6 +34,7 @@ export const getFormSchema = (
       generalConfiguration: {
         type: "object" as "object",
         title: "General Configuration",
+        required: ["branch"],
         properties: {
           enabled: {
             type: ["boolean", "null"],
@@ -45,6 +46,7 @@ export const getFormSchema = (
           repositoryInfo: {
             type: "object" as "object",
             title: "Repository Info",
+            required: ["owner", "repo"],
             properties: {
               owner: {
                 type: "string" as "string",
