@@ -34,6 +34,7 @@ export const getFormSchema = (
       generalConfiguration: {
         type: "object" as "object",
         title: "General Configuration",
+        required: ["branch"],
         properties: {
           enabled: {
             type: ["boolean", "null"],
@@ -45,20 +46,27 @@ export const getFormSchema = (
           repositoryInfo: {
             type: "object" as "object",
             title: "Repository Info",
+            required: ["owner", "repo"],
             properties: {
               owner: {
                 type: "string" as "string",
                 title: "Owner",
+                minLength: 1,
+                default: "",
               },
               repo: {
                 type: "string" as "string",
                 title: "Repository",
+                minLength: 1,
+                default: "",
               },
             },
           },
           branch: {
             type: "string" as "string",
             title: "Branch Name",
+            minLength: 1,
+            default: "",
           },
           other: {
             type: "object" as "object",
@@ -311,6 +319,7 @@ export const getFormSchema = (
           "ui:description":
             "This is the bash setup script to optionally run on spawn hosts created from tasks.",
           "ui:data-cy": "spawn-host-input",
+          "ui:optional": true,
           ...placeholderIf(
             repoData?.generalConfiguration?.other?.spawnHostScriptPath
           ),
