@@ -78,7 +78,7 @@ describe("Action Buttons", () => {
     describe("Version dropdown options", () => {
       before(() => {
         cy.visit(versionPath(mainlineCommit));
-        cy.dataCy("ellipsis-btn").click({ force: true });
+        cy.dataCy("ellipsis-btn").click();
       });
       beforeEach(() => {
         cy.dataCy("card-dropdown").should("be.visible");
