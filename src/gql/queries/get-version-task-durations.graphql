@@ -12,12 +12,12 @@ query VersionTaskDurations(
         execution
         executionTasksFull {
           id
-          execution
-          displayName
-          status
           buildVariantDisplayName
-          timeTaken
+          displayName
+          execution
           startTime
+          status
+          timeTaken
         }
         startTime
         status

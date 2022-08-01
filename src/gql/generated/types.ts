@@ -1225,7 +1225,7 @@ export type Query = {
   myPublicKeys: Array<PublicKey>;
   myVolumes: Array<Volume>;
   patch: Patch;
-  /** @deprecated patchTasks is deprecated, use version.versionTasks instead. */
+  /** @deprecated patchTasks is deprecated, use version.tasks instead. */
   patchTasks: PatchTasks;
   project: Project;
   projectEvents: ProjectEvents;
@@ -1788,6 +1788,7 @@ export type TaskFiles = {
   groupedFiles: Array<GroupedFiles>;
 };
 
+/** TaskFilterOptions defines the parameters that are used when fetching tasks from a Version. */
 export type TaskFilterOptions = {
   baseStatuses?: InputMaybe<Array<Scalars["String"]>>;
   includeEmptyActivation?: InputMaybe<Scalars["Boolean"]>;
@@ -5955,12 +5956,12 @@ export type VersionTaskDurationsQuery = {
         executionTasksFull?: Maybe<
           Array<{
             id: string;
-            execution: number;
-            displayName: string;
-            status: string;
             buildVariantDisplayName?: Maybe<string>;
-            timeTaken?: Maybe<number>;
+            displayName: string;
+            execution: number;
             startTime?: Maybe<Date>;
+            status: string;
+            timeTaken?: Maybe<number>;
           }>
         >;
       }>;

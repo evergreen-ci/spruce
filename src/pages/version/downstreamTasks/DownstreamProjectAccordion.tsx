@@ -138,26 +138,21 @@ export const DownstreamProjectAccordion: React.VFC<
       }),
   };
 
-  const {
-    data: versionData,
-    refetch,
-    startPolling,
-    stopPolling,
-  } = useQuery<VersionTasksQuery, VersionTasksQueryVariables>(
-    GET_VERSION_TASKS,
-    {
-      variables,
-      fetchPolicy: "cache-and-network",
-      onError: (err) => {
-        dispatchToast.error(`Error fetching downstream tasks ${err}`);
-      },
-    }
-  );
+  const { data, refetch, startPolling, stopPolling } = useQuery<
+    VersionTasksQuery,
+    VersionTasksQueryVariables
+  >(GET_VERSION_TASKS, {
+    variables,
+    fetchPolicy: "cache-and-network",
+    onError: (err) => {
+      dispatchToast.error(`Error fetching downstream tasks ${err}`);
+    },
+  });
   usePolling(startPolling, stopPolling, refetch);
-  const showSkeleton = !versionData;
-  const { version } = versionData || {};
+  const showSkeleton = !data;
+  const { version } = data || {};
   const { tasks } = version || {};
-  const { data = [], count = 0 } = tasks || {};
+  const { data: tasksData = [], count = 0 } = tasks || {};
 
   const variantTitle = (
     <>
@@ -233,7 +228,7 @@ export const DownstreamProjectAccordion: React.VFC<
               <TasksTable
                 sorts={sorts}
                 tableChangeHandler={tableChangeHandler}
-                tasks={data}
+                tasks={tasksData}
                 statusSelectorProps={statusSelectorProps}
                 baseStatusSelectorProps={baseStatusSelectorProps}
                 taskNameInputProps={taskNameInputProps}
