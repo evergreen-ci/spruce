@@ -149,6 +149,7 @@ export const DownstreamProjectAccordion: React.VFC<
     },
   });
   usePolling(startPolling, stopPolling, refetch);
+
   const showSkeleton = !data;
   const { version } = data || {};
   const { tasks } = version || {};
