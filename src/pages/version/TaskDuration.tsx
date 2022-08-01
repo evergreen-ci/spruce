@@ -4,10 +4,10 @@ import { useParams, useLocation } from "react-router-dom";
 import { pollInterval } from "constants/index";
 import { useToastContext } from "context/toast";
 import {
-  PatchTaskDurationsQuery,
-  PatchTaskDurationsQueryVariables,
+  VersionTaskDurationsQuery,
+  VersionTaskDurationsQueryVariables,
 } from "gql/generated/types";
-import { GET_PATCH_TASK_DURATIONS } from "gql/queries";
+import { GET_VERSION_TASK_DURATIONS } from "gql/queries";
 import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
@@ -30,7 +30,7 @@ const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
 
   const queryVariables = useQueryVariables(search, id);
   const hasQueryVariables = Object.keys(parseQueryString(search)).length > 0;
-  const { limit, page } = queryVariables;
+  const { limit, page } = queryVariables.taskFilterOptions;
 
   useEffect(() => {
     updateQueryParams({
@@ -52,9 +52,9 @@ const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
   };
 
   const { data, loading, refetch, startPolling, stopPolling } = useQuery<
-    PatchTaskDurationsQuery,
-    PatchTaskDurationsQueryVariables
-  >(GET_PATCH_TASK_DURATIONS, {
+    VersionTaskDurationsQuery,
+    VersionTaskDurationsQueryVariables
+  >(GET_VERSION_TASK_DURATIONS, {
     variables: queryVariables,
     skip: !hasQueryVariables,
     pollInterval,
@@ -63,19 +63,20 @@ const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
     },
   });
   usePolling(startPolling, stopPolling, refetch);
-  const { patchTasks } = data || {};
-  const { tasks = [] } = patchTasks || {};
+  const { version } = data || {};
+  const { tasks } = version || {};
+  const { data: tasksData = [], count = 0 } = tasks || {};
 
   return (
     <>
       <TableControl
-        filteredCount={patchTasks?.count}
+        filteredCount={count}
         taskCount={taskCount}
         limit={limit}
         page={page}
         onClear={clearQueryParams}
       />
-      <TaskDurationTable tasks={tasks} loading={loading} />
+      <TaskDurationTable tasks={tasksData} loading={loading} />
     </>
   );
 };
