@@ -47,36 +47,36 @@ describe("Access page", () => {
     cy.dataCy("save-settings-button").should("be.enabled");
   });
 
-  it("Clicking on the save button produces a success toast and changes are persisted", () => {
+  it("Changing settings and clicking the save button produces a success toast and the changes are persisted", () => {
     cy.get("label").contains("Private").click();
     cy.get("label").contains("Unrestricted").click();
+    cy.contains("Add Username").click();
+    cy.get("[aria-label='Username'")
+      .should("have.length", 1)
+      .first()
+      .type("admin");
     cy.dataCy("save-settings-button").should("be.enabled").click();
     cy.visit(destination);
     cy.get("label")
       .contains("Private")
       .closest("label")
-      .get("input")
       .should("have.attr", "checked", "checked");
     cy.get("label")
       .contains("Unrestricted")
       .closest("label")
       .get("input")
       .should("have.attr", "checked", "checked");
+    cy.get("[aria-label='Username'").contains("admin").should("exist");
   });
 
-  it("Submitting a username produces a success toast and persists the username", () => {
-    cy.get("[aria-label='Username'").should("not.exist");
-    cy.contains("Add Username").click();
-    cy.get("[aria-label='Username'")
-      .should("have.length", 1)
-      .first()
-      .type("mongodb_user");
-    cy.dataCy("save-settings-button").should("be.enabled").click();
-    cy.validateToast("success");
-    cy.visit(destination);
-    cy.get("[aria-label='Username'").contains("mongodb_user").should("exist");
-  });
-
+  it("Deleting a username results in a success toast and the changes are persisted", () => {
+    cy.get("[aria-label='Username'").should("have.length", 1);
+    cy.dataCy("delete-item-button").click();
+    cy.get("[aria-label='Username'").should("have.length", 1).contains("admin").should("exist");;
+    cy.reload()
+    cy.get("[aria-label='Username'").should("have.length", 0);
+  })
+  
   it("Submitting a username produces an error toast", () => {
     cy.visit(getAccessRoute(project));
     cy.contains("Add Username").click();
@@ -90,15 +90,8 @@ describe("Access page", () => {
       "There was an error saving the project: error updating project admin roles: no admin role for project 'spruce' found"
     );
   });
-
-  it("Clicking the add button adds an input to the Admin section and the trash icon removes it", () => {
-    cy.get("[aria-label='Username'").should("have.length", 0);
-    cy.contains("Add Username").click();
-    cy.get("[aria-label='Username'").should("have.length", 1);
-    cy.dataCy("delete-item-button").click();
-    cy.get("[aria-label='Username'").should("have.length", 0);
-  });
 });
+
 describe("Clicking on The Project Select Dropdown ", () => {
   const destination = getGeneralRoute(project);
 
@@ -417,21 +410,6 @@ describe("Project Settings when not defaulting to repo", () => {
       .parent()
       .click();
     cy.validateToast("success", "Successfully detached from repo");
-  });
-
-  describe("Access page", () => {
-    before(() => {
-      cy.dataCy("navitem-access").click();
-    });
-
-    it("Should not have the save button enabled on load", () => {
-      cy.dataCy("save-settings-button").should("be.disabled");
-    });
-
-    it("Does not enable the save button on initial page load", () => {
-      cy.dataCy("add-button").click();
-      cy.dataCy("save-settings-button").should("be.disabled");
-    });
   });
 
   describe("Variables page", () => {
