@@ -21,7 +21,7 @@ describe("Task Annotation Tab", () => {
     // move from suspectedIssues to Issues
     cy.dataCy("move-btn-AnotherOne").click();
     cy.get(popconfirmYesClassName).should("exist").should("not.be.disabled");
-    cy.get(popconfirmYesClassName).click({ force: true });
+    cy.get(popconfirmYesClassName).click();
     cy.get(issuesTable).should("have.length", 2);
     cy.get(suspectedIssuesTable).should("have.length", 2);
 
