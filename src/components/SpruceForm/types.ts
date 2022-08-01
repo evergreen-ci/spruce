@@ -4,7 +4,7 @@ import { FieldValidation } from "@rjsf/core";
 type RecursivelyAddError<T> = T extends object
   ? {
       [K in keyof T]: RecursivelyAddError<T[K]>;
-    }
+    } & FieldValidation
   : FieldValidation;
 
 /** typescript utility to coerce @rjsf/core validate prop signature to more accurately represent the shape of the actual validate function signature  */

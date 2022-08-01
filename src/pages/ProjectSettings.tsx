@@ -23,14 +23,13 @@ import {
 } from "gql/generated/types";
 import { GET_PROJECT_SETTINGS, GET_REPO_SETTINGS } from "gql/queries";
 import { usePageTitle } from "hooks";
-import { environmentalVariables, validators } from "utils";
+import { validators } from "utils";
 import { ProjectSettingsProvider } from "./projectSettings/Context";
 import { CreateDuplicateProjectButton } from "./projectSettings/CreateDuplicateProjectButton";
 import { getTabTitle } from "./projectSettings/getTabTitle";
 import { ProjectSettingsTabs } from "./projectSettings/Tabs";
 import { ProjectType } from "./projectSettings/tabs/utils";
 
-const { isProduction } = environmentalVariables;
 const { validateObjectId } = validators;
 
 export const ProjectSettings: React.VFC = () => {
@@ -80,19 +79,6 @@ export const ProjectSettings: React.VFC = () => {
       dispatchToast.error(`There was an error loading ${repoId}: ${e.message}`);
     },
   });
-
-  // TODO: Remove in EVG-17059
-  // Project Settings should only be disabled when deployed to spruce.mongodb.com
-  // Enable when running local dev server, or when deployed to beta or staging
-  if (isProduction()) {
-    return (
-      <PageWrapper>
-        <PageContainer>
-          <h1>Coming Soon 🌱⚙️</h1>
-        </PageContainer>
-      </PageWrapper>
-    );
-  }
 
   if (!tabRouteValues.includes(tab)) {
     return (
@@ -219,10 +205,6 @@ const ProjectSettingsNavItem: React.VFC<{
 );
 
 const tabRouteValues = Object.values(ProjectSettingsTabRoutes);
-
-const PageContainer = styled.div`
-  display: flex;
-`;
 
 const ButtonsContainer = styled.div`
   padding: 0 ${size.xs};

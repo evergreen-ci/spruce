@@ -52,17 +52,23 @@ export const getFormSchema = (
                 type: "string" as "string",
                 title: "Owner",
                 format: "noSpaces",
+                minLength: 1,
+                default: "",
               },
               repo: {
                 type: "string" as "string",
                 title: "Repository",
                 format: "noSpaces",
+                minLength: 1,
+                default: "",
               },
             },
           },
           branch: {
             type: "string" as "string",
             title: "Branch Name",
+            minLength: 1,
+            default: "",
           },
           other: {
             type: "object" as "object",
@@ -71,8 +77,6 @@ export const getFormSchema = (
               displayName: {
                 type: "string" as "string",
                 title: "Display Name",
-                default: "",
-                minLength: 1,
               },
               ...(projectType !== ProjectType.Repo && {
                 identifier: {
@@ -90,8 +94,6 @@ export const getFormSchema = (
               remotePath: {
                 type: "string" as "string",
                 title: "Config File",
-                default: "",
-                minLength: 1,
               },
               spawnHostScriptPath: {
                 type: "string" as "string",
