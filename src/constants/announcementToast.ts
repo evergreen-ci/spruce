@@ -8,5 +8,5 @@ interface AnnouncementToast {
   variant: ToastTypeKeys;
 }
 
-// Hardcode the toastData value to display a sitewide announcment toast
+// Hardcode the toastData value to display a sitewide announcement toast
 export const toastData: AnnouncementToast | null = null;
