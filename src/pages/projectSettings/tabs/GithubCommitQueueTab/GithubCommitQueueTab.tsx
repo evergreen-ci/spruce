@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import Banner from "@leafygreen-ui/banner";
 import { useParams } from "react-router-dom";
 import { SpruceForm } from "components/SpruceForm";
-import { RecursivelyAddError } from "components/SpruceForm/types";
+import { ValidateProps } from "components/SpruceForm/types";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
   GithubProjectConflictsQuery,
@@ -111,9 +111,12 @@ export const GithubCommitQueueTab: React.VFC<TabProps> = ({
   );
 };
 
-const validate =
-  (projectType, repoData, versionControlEnabled) =>
-  (formData: FormState, errors: RecursivelyAddError<FormState>) => {
+const validate: (
+  projectType: ProjectType,
+  repoData: FormState,
+  versionControlEnabled: boolean
+) => ValidateProps<FormState> =
+  (projectType, repoData, versionControlEnabled) => (formData, errors) => {
     const {
       github: {
         prTestingEnabled,
