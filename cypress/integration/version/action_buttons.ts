@@ -6,12 +6,6 @@ const mainlineCommit = "5e4ff3abe3c3317e352062e4";
 const versionPath = (id) => `/version/${id}`;
 
 describe("Action Buttons", () => {
-  before(() => {
-    cy.login();
-  });
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
   describe("When viewing a patch build", () => {
     before(() => {
       cy.visit(versionPath(patch));

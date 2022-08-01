@@ -3,9 +3,6 @@ describe("task history", () => {
     cy.login();
     cy.setCookie("has-closed-slack-banner", "true");
   });
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
 
   it("link from task page should link to the commit and scroll to it", () => {
     cy.visit(`/task/${taskId}`);

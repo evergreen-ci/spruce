@@ -3,9 +3,6 @@ describe("commits page", () => {
     cy.login();
     cy.visit("/commits/spruce");
   });
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
   it("visiting the commits page for the first time should show a welcome modal", () => {
     cy.dataCy("welcome-modal").should("be.visible");
     cy.dataCy("close-welcome-modal").click();

@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "2.36.18",
+  "version": "2.36.19",
   "private": true,
   "scripts": {
     "build-storybook": "build-storybook",
@@ -125,7 +125,6 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.17.12",
     "@babel/preset-react": "^7.12.13",
     "@bugsnag/source-maps": "^2.3.0",
-    "@cypress/webpack-preprocessor": "5.4.6",
     "@emotion/babel-plugin": "^11.1.2",
     "@emotion/jest": "^11.9.1",
     "@graphql-codegen/cli": "2.7.0",
@@ -168,7 +167,7 @@
     "camelcase": "^6.1.0",
     "colors": "1.4.0",
     "css-loader": "4.3.0",
-    "cypress": "10.3.0",
+    "cypress": "10.3.1",
     "eslint": "8.19.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-prettier": "8.5.0",

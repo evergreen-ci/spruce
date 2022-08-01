@@ -1,5 +1,3 @@
-import { aliasQuery, GQL_URL } from "../utils/graphql-test-utils";
-
 const PATCH_ID = "5e4ff3abe3c3317e352062e4";
 const USER_ID = "admin";
 const SPRUCE_URLS = {
@@ -13,13 +11,6 @@ const LEGACY_URLS = {
   distros: `/distros`,
 };
 describe("Nav Bar", () => {
-  before(() => {
-    cy.login();
-  });
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("Should have a nav bar linking to the proper page on the legacy UI", () => {
     cy.visit(SPRUCE_URLS.version);
     cy.dataCy("legacy-ui-link").should("exist");
@@ -60,13 +51,13 @@ describe("Nav Bar", () => {
   });
   it("Nav Dropdown should link to patches page of default project in SpruceConfig if cookie does not exist", () => {
     cy.clearCookie("mci-project-cookie");
-
-    cy.intercept("POST", GQL_URL, (req) => {
-      aliasQuery(req, "GetSpruceConfig");
-    });
     cy.visit(SPRUCE_URLS.userPatches);
-    cy.wait("@gqlGetSpruceConfigQuery");
     cy.dataCy("auxiliary-dropdown-link").click();
+    cy.dataCy("auxiliary-dropdown-project-patches").should(
+      "have.attr",
+      "href",
+      "/project/evergreen/patches"
+    );
     cy.dataCy("auxiliary-dropdown-project-patches").click();
     cy.location("pathname").should("eq", "/project/evergreen/patches");
   });

@@ -3,14 +3,6 @@ const FILES_ROUTE_WITHOUT_FILES =
   "/task/evergreen_ubuntu1604_test_model_commitqueue_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/files ";
 
 describe("files table", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("File names under name column should link to a new tab", () => {
     cy.visit(FILES_ROUTE);
     cy.dataCy("fileLink").should("have.attr", "target", "_blank");

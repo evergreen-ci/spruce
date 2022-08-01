@@ -9,14 +9,6 @@ const BOB_HICKS_PATCHES_ROUTE = "/user/bob.hicks/patches";
 const REGULAR_USER_PATCHES_ROUTE = "/user/regular/patches";
 
 describe("My Patches Page", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("Redirects user to user patches route from `/user/:id`", () => {
     cy.visit("user/chicken");
     cy.location().should((loc) =>
@@ -119,7 +111,6 @@ describe("My Patches Page", () => {
 
   describe("Clicking on status checkbox requests and renders patches for that status", () => {
     beforeEach(() => {
-      cy.preserveCookies();
       cy.dataCy("my-patch-status-select").click();
     });
     before(() => {

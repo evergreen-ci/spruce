@@ -1,15 +1,7 @@
 import { popconfirmYesClassName } from "../../utils/popconfirm";
 
 describe("Task Action Buttons", () => {
-  before(() => {
-    cy.login();
-  });
-
   describe("Based on the state of the task, some buttons should be disabled and others should be clickable. Clicking on buttons produces banners messaging if the action succeeded or failed.", () => {
-    beforeEach(() => {
-      cy.preserveCookies();
-    });
-
     it("Schedule button should be disabled on a completed task", () => {
       cy.visit(tasks[1]);
       cy.dataCy("schedule-task").should("be.disabled");

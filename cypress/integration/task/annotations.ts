@@ -14,10 +14,6 @@ describe("Task Annotation Tab", () => {
     cy.visit(taskRoute);
   });
 
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("annotations can be moved between lists", () => {
     cy.get(issuesTable).should("have.length", 1);
     cy.get(suspectedIssuesTable).should("have.length", 3);

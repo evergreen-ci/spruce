@@ -15,14 +15,6 @@ describe("Restarting a patch with Downstream Tasks", () => {
 });
 
 describe("Restarting a patch", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("Clicking on the Restart button opens a patch restart modal", () => {
     cy.visit(path);
     cy.dataCy("version-restart-modal").should("not.exist");
@@ -95,12 +87,6 @@ describe("Restarting a patch", () => {
 });
 
 describe("Restarting mainline commits", () => {
-  before(() => {
-    cy.login();
-  });
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
   it("should be able to restart scheduled mainline commit tasks", () => {
     cy.visit("/version/spruce_ab494436448fbb1d244833046ea6f6af1544e86d");
     cy.dataCy("restart-version").should("not.be.disabled");

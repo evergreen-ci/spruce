@@ -7,10 +7,6 @@ describe("Execution task table", () => {
     cy.visit(pathExecutionTasks);
   });
 
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("Should have a default sort order applied", () => {
     cy.location("search").should("contain", "sorts=STATUS%3AASC");
   });

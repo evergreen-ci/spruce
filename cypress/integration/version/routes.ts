@@ -11,13 +11,6 @@ const versions = {
 const versionRoute = (id) => `/version/${id}`;
 
 describe("Version route", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
   describe("Redirects", () => {
     it("Redirects to configure patch page if patch is not activated", () => {
       cy.visit(versionRoute(versions[3]));
@@ -62,7 +55,6 @@ describe("Version route", () => {
 
   describe("Build Variants", () => {
     before(() => {
-      cy.preserveCookies();
       cy.visit(versionRoute(versions[0]));
     });
 
@@ -184,7 +176,6 @@ describe("Version route", () => {
 
   describe("Page title", () => {
     before(() => {
-      cy.preserveCookies();
       cy.visit(versionRoute(versions[6]));
     });
     it("Should include a link to Jira", () => {

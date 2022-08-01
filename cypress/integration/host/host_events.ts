@@ -3,14 +3,6 @@ import { clickOnPageSizeBtnAndAssertURLandTableSize } from "../../utils";
 const pathWithEvents = `/host/i-0f81a2d39744003dd`;
 
 describe("Host events", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("host events display the correct text", () => {
     cy.visit(pathWithEvents);
     clickOnPageSizeBtnAndAssertURLandTableSize(100, dataCy);

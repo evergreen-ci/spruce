@@ -9,9 +9,6 @@ const getPatchCardByDescription = (description: string) =>
   cy.dataCy("patch-card").filter(`:contains(${description})`);
 
 describe("Dropdown Menu of Patch Actions", () => {
-  before(() => {
-    cy.login();
-  });
   beforeEach(() => {
     cy.preserveCookies();
     cy.visit("/");

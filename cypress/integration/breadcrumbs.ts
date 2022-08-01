@@ -1,10 +1,4 @@
 describe("Viewing a patch", () => {
-  before(() => {
-    cy.login();
-  });
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
   describe("Viewing a users own patch", () => {
     before(() => {
       cy.visit(
@@ -48,13 +42,9 @@ describe("Viewing a patch", () => {
 
 describe("Viewing a mainline commit", () => {
   before(() => {
-    cy.login();
     cy.visit(
       "/task/evergreen_ubuntu1604_test_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48"
     );
-  });
-  beforeEach(() => {
-    cy.preserveCookies();
   });
   it("Shows the commit hash", () => {
     cy.dataCy("bc-version").should("include.text", "5e823e1");

@@ -5,14 +5,6 @@ import {
 } from "../../utils";
 
 describe("Tests Table", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("Test count should update to reflect filtered values", () => {
     cy.visit(TESTS_ROUTE);
 
