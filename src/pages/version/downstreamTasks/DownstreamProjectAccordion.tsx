@@ -22,14 +22,14 @@ import { getVersionRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
-  Task,
-  SortOrder,
-  TaskSortCategory,
   SortDirection,
-  PatchTasksQuery,
-  PatchTasksQueryVariables,
+  SortOrder,
+  Task,
+  TaskSortCategory,
+  VersionTasksQuery,
+  VersionTasksQueryVariables,
 } from "gql/generated/types";
-import { GET_PATCH_TASKS } from "gql/queries";
+import { GET_VERSION_TASKS } from "gql/queries";
 import { usePolling, useTaskStatuses } from "hooks";
 import { queryString, string } from "utils";
 import { reducer } from "./reducer";
@@ -80,23 +80,27 @@ export const DownstreamProjectAccordion: React.VFC<
     sorts: [defaultSort],
   });
 
-  const { limit, page, statuses, taskName, variant, sorts } = state;
+  const { baseStatuses, limit, page, sorts, statuses, taskName, variant } =
+    state;
 
   const variables = {
-    limit,
-    page,
-    statuses,
-    taskName,
-    variant,
-    sorts,
-    baseStatuses: state.baseStatuses,
-    patchId: childPatchId,
+    versionId: childPatchId,
+    taskFilterOptions: {
+      limit,
+      page,
+      statuses,
+      taskName,
+      variant,
+      sorts,
+      baseStatuses,
+    },
   };
 
   const { baseStatusesInputVal, currentStatusesInputVal } = state;
-  const { currentStatuses, baseStatuses } = useTaskStatuses({
-    versionId: childPatchId,
-  });
+  const { currentStatuses, baseStatuses: currentBaseStatuses } =
+    useTaskStatuses({
+      versionId: childPatchId,
+    });
 
   const taskNameInputProps = {
     placeholder: "Task name",
@@ -119,7 +123,7 @@ export const DownstreamProjectAccordion: React.VFC<
 
   const baseStatusSelectorProps = {
     state: baseStatusesInputVal,
-    tData: baseStatuses,
+    tData: currentBaseStatuses,
     onChange: (s: string[]) =>
       dispatch({ type: "setAndSubmitBaseStatusesSelector", baseStatuses: s }),
   };
@@ -135,18 +139,20 @@ export const DownstreamProjectAccordion: React.VFC<
   };
 
   const { data, refetch, startPolling, stopPolling } = useQuery<
-    PatchTasksQuery,
-    PatchTasksQueryVariables
-  >(GET_PATCH_TASKS, {
+    VersionTasksQuery,
+    VersionTasksQueryVariables
+  >(GET_VERSION_TASKS, {
     variables,
     fetchPolicy: "cache-and-network",
     onError: (err) => {
       dispatchToast.error(`Error fetching downstream tasks ${err}`);
     },
   });
-  const showSkeleton = !data;
   usePolling(startPolling, stopPolling, refetch);
-  const { patchTasks } = data || {};
+  const showSkeleton = !data;
+  const { version } = data || {};
+  const { tasks } = version || {};
+  const { data: tasksData = [], count = 0 } = tasks || {};
 
   const variantTitle = (
     <>
@@ -185,7 +191,7 @@ export const DownstreamProjectAccordion: React.VFC<
                   dataCyNumerator="current-task-count"
                   dataCyDenominator="total-task-count"
                   label="tasks"
-                  numerator={patchTasks?.count}
+                  numerator={count}
                   denominator={taskCount}
                 />
                 <PaddedButton // @ts-expect-error
@@ -203,13 +209,13 @@ export const DownstreamProjectAccordion: React.VFC<
                   onChange={(p) =>
                     dispatch({ type: "onChangePagination", page: p - 1 })
                   }
-                  pageSize={state.limit}
-                  totalResults={patchTasks?.count}
-                  value={variables.page}
+                  pageSize={limit}
+                  totalResults={count}
+                  value={page}
                 />
                 <PageSizeSelector
                   data-cy="tasks-table-page-size-selector"
-                  value={variables.limit}
+                  value={limit}
                   onChange={(l) =>
                     dispatch({ type: "onChangeLimit", limit: l })
                   }
@@ -220,9 +226,9 @@ export const DownstreamProjectAccordion: React.VFC<
               <Skeleton active title={false} paragraph={{ rows: 8 }} />
             ) : (
               <TasksTable
-                sorts={variables.sorts}
+                sorts={sorts}
                 tableChangeHandler={tableChangeHandler}
-                tasks={patchTasks?.tasks}
+                tasks={tasksData}
                 statusSelectorProps={statusSelectorProps}
                 baseStatusSelectorProps={baseStatusSelectorProps}
                 taskNameInputProps={taskNameInputProps}
