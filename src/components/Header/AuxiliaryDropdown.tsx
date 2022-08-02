@@ -13,7 +13,7 @@ import { GET_SPRUCE_CONFIG } from "gql/queries";
 import { environmentalVariables } from "utils";
 import { Dropdown } from "./NavDropdown";
 
-const { getUiUrl, isProduction } = environmentalVariables;
+const { getUiUrl } = environmentalVariables;
 
 export const AuxiliaryDropdown = () => {
   const uiURL = getUiUrl();
@@ -39,21 +39,10 @@ export const AuxiliaryDropdown = () => {
       onClick: () => sendEvent({ name: "Click Distros Link" }),
     },
     {
-      "data-cy": "legacy_route",
-      href: `${uiURL}${legacyRoutes.projects}`,
-      text: "Projects",
+      text: "Project Settings",
+      to: getProjectSettingsRoute(mostRecentProject),
       onClick: () => sendEvent({ name: "Click Projects Link" }),
     },
-    // TODO: Remove in EVG-17059
-    ...(!isProduction()
-      ? [
-          {
-            text: "Project Settings",
-            to: getProjectSettingsRoute(mostRecentProject),
-            onClick: () => sendEvent({ name: "Click Projects Link" }),
-          },
-        ]
-      : []),
     {
       "data-cy": "auxiliary-dropdown-project-patches",
       to: getProjectPatchesRoute(mostRecentProject),

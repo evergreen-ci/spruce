@@ -21,12 +21,16 @@ export const useLegacyUIURL = (): string | null => {
       [routes.spawnHost]: `${uiURL}/spawn#?resourcetype=hosts`,
       [routes.spawnVolume]: `${uiURL}/spawn#?resourcetype=volumes`,
       [`${routes.commits}/:id`]: `${uiURL}/waterfall/${id}`,
+      [`${routes.projectSettings}/*`]: `${uiURL}/projects##${id}`,
     };
     const legacyUIKeys = Object.keys(legacyUIMap);
     for (let i = 0; i < legacyUIKeys.length; i++) {
       const matchedPath = matchPath(legacyUIKeys[i], pathname);
       if (matchedPath !== null) {
-        setId(get(matchedPath, "params.id", ""));
+        setId(
+          get(matchedPath, "params.id", "") ||
+            get(matchedPath, "params.identifier", "")
+        );
         setLegacyUIUrl(legacyUIMap[legacyUIKeys[i]]);
         break;
       }

@@ -1,5 +1,5 @@
 import {
-  PatchTasksQueryVariables,
+  VersionTasksQueryVariables,
   SortOrder,
   TaskSortCategory,
 } from "gql/generated/types";
@@ -13,7 +13,7 @@ const { toArray } = array;
 export const useQueryVariables = (
   search: string,
   versionId: string
-): PatchTasksQueryVariables => {
+): VersionTasksQueryVariables => {
   const queryParams = parseQueryString(search);
   const {
     [PatchTasksQueryParams.Duration]: duration,
@@ -35,13 +35,15 @@ export const useQueryVariables = (
   }
 
   return {
-    patchId: versionId,
-    variant: getString(variant),
-    taskName: getString(taskName),
-    statuses: toArray(statuses),
-    baseStatuses: toArray(baseStatuses),
-    sorts: sortsToApply,
-    page: getPageFromSearch(search),
-    limit: getLimitFromSearch(search),
+    versionId,
+    taskFilterOptions: {
+      variant: getString(variant),
+      taskName: getString(taskName),
+      statuses: toArray(statuses),
+      baseStatuses: toArray(baseStatuses),
+      sorts: sortsToApply,
+      page: getPageFromSearch(search),
+      limit: getLimitFromSearch(search),
+    },
   };
 };
