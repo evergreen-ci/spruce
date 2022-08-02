@@ -1,16 +1,10 @@
-// / <reference types="Cypress" />
-
 describe("Announcement overlays", () => {
-  before(() => {
-    cy.login();
-  });
-
   beforeEach(() => {
-    cy.preserveCookies();
+    cy.clearCookie("This is an important notification");
+    cy.visit("/");
   });
 
   it("Displays a welcome modal only when you first visit spruce", () => {
-    cy.visit("/");
     cy.dataCy("welcome-modal").should("exist");
     cy.dataCy("close-welcome-modal").click();
     cy.visit("/");

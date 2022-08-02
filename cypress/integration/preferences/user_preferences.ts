@@ -5,13 +5,6 @@ const tabNames = {
   cli: "/cli",
 };
 describe("user preferences pages", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
   it("visiting /preferences should redirect to the profile tab", () => {
     cy.visit(baseRoute);
     cy.url().should("include", `${baseRoute}${tabNames.profile}`);

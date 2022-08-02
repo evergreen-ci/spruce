@@ -1,14 +1,6 @@
 import { clickOnPageSizeBtnAndAssertURLandTableSize } from "../utils";
 
 describe("Job Logs", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("renders page title and test log links when groupId is in URL", () => {
     cy.visit(`job-logs/${taskId}/${execution}/${groupId}`);
     cy.dataCy("task-link").contains(taskId);

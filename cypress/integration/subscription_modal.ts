@@ -1,4 +1,3 @@
-// / <reference types="Cypress" />
 import { mockErrorResponse } from "../utils/mockErrorResponse";
 import { openSubscriptionModal } from "../utils/subscriptionModal";
 import { selectAntdOption } from "../utils";
@@ -11,13 +10,6 @@ const testSharedSubscriptionModalFunctionality = (
   type: string
 ) => {
   describe(description, () => {
-    before(() => {
-      cy.login();
-      cy.preserveCookies();
-    });
-    beforeEach(() => {
-      cy.preserveCookies();
-    });
     it("Displays success toast after submitting a valid form and request succeeds", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
       cy.dataCy(dataCyModal).should("exist");

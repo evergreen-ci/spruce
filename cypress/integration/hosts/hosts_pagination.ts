@@ -3,14 +3,6 @@ import { defaultHostsFirstPage } from "./hosts_page_default";
 const tableRow = "tr.ant-table-row";
 
 describe("Hosts Page", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("URL query parameters determine pagination values", () => {
     cy.visit("/hosts?limit=10&page=1");
 

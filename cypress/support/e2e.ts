@@ -78,17 +78,6 @@ declare global {
        * @example cy.toggleTableFilter(1)
        */
       toggleTableFilter(columnNumber: number): void;
-
-      /**
-       * Custom command to paste a value into an input
-       * Since this relies on a hack to paste a value on an input, it should be use sparingly
-       * only in situations when users would normally expect to be able to paste a value into an input eg. ssh-keys
-       * @param value The value to be pasted into the input
-       * @param input The input element to be pasted into
-       * @example cy.dataCy("some-input").paste("Some Value")
-       */
-      paste(value: string): void;
-
       /**
        * Custom command to validate a toast was rendered
        * @example cy.validateToast("success", "This succeeded")
@@ -105,3 +94,17 @@ declare global {
     }
   }
 }
+
+// Login before each test and remove banner cookies
+// We can disable the necessary cookies for tests that need the banners
+before(() => {
+  cy.login();
+});
+beforeEach(() => {
+  cy.setCookie(bannerCookie, "true");
+  cy.setCookie(slackBannerCookie, "true");
+  cy.preserveCookies();
+});
+
+const bannerCookie = "This is an important notification";
+const slackBannerCookie = "has-closed-slack-banner";

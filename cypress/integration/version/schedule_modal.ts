@@ -1,10 +1,4 @@
 describe("Restarting and scheduling mainline commits", () => {
-  before(() => {
-    cy.login();
-  });
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
   it("should be able to schedule inactive mainline commit tasks", () => {
     cy.visit("/version/spruce_e695f654c8b4b959d3e12e71696c3e318bcd4c33");
     cy.dataCy("schedule-patch").should("exist");

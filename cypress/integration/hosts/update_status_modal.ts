@@ -1,11 +1,6 @@
 const hostsRoute = "/hosts";
 
 describe("Update Status Modal", () => {
-  before(() => {
-    cy.login();
-    cy.preserveCookies();
-  });
-
   beforeEach(() => {
     cy.visit(`${hostsRoute}?limit=100&page=0`);
     cy.dataCy("hosts-table").should("exist");
@@ -13,7 +8,7 @@ describe("Update Status Modal", () => {
   });
 
   it("Update status for selected hosts", () => {
-    cy.get(".ant-checkbox-input").first().should("be.visible");
+    cy.get(".ant-checkbox-input").first().should("exist");
     cy.get(".ant-checkbox-input").first().should("not.be.disabled");
     cy.get(".ant-checkbox-input").first().check({ force: true });
 

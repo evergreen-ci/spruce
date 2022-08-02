@@ -1,11 +1,6 @@
 describe("Host page restart jasper, reprovision, and update host status buttons", () => {
   before(() => {
-    cy.login();
     cy.visit("/host/i-0d0ae8b83366d22be");
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
   });
   it("Should show a toast when jasper restarted", () => {
     cy.dataCy("restart-jasper-button").click();
