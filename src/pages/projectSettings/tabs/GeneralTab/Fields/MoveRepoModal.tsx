@@ -120,16 +120,19 @@ const moveRepoForm = {
   },
   schema: {
     type: "object" as "object",
+    required: ["owner", "repo"],
     properties: {
       owner: {
         type: "string" as "string",
         title: "New Owner",
         minLength: 1,
+        format: "noSpaces",
       },
       repo: {
         type: "string" as "string",
         title: "New Repository Name",
         minLength: 1,
+        format: "noSpaces",
       },
     },
   },
