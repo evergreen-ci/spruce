@@ -1,15 +1,9 @@
-// / <reference types="Cypress" />
-
 const LOGS_ROUTE =
   "/task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/logs";
 describe("task logs", () => {
   before(() => {
     cy.login();
     cy.visit(LOGS_ROUTE);
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
   });
 
   it("Should default to the  task logs page when logtype is not indicated in URL query param", () => {

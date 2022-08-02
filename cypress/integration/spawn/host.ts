@@ -1,5 +1,3 @@
-// / <reference types="Cypress" />
-
 const hostTableRow = ".ant-table-row";
 const hostColumnHeader = ".ant-table-thead > tr > :nth-child(2)";
 
@@ -27,20 +25,12 @@ const hostTaskId =
 const distroId = "ubuntu1604-small";
 
 describe("Navigating to Spawn Host page", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("Visiting the spawn host page should display all of your spawned hosts", () => {
     cy.visit("/spawn/host");
     cy.get(hostTableRow).should("have.length", 2);
   });
   it("Visiting the spawn host page should not have any cards expanded by default", () => {
-    cy.dataCy("spawn-host-card").should("not.be.visible");
+    cy.dataCy("spawn-host-card").should("not.exist");
   });
   it("Clicking on a spawn host row should expand it and show more info about the host in a card", () => {
     cy.get('[data-row-key="i-092593689871a50dc"] > :nth-child(1)').click();
@@ -109,7 +99,10 @@ describe("Navigating to Spawn Host page", () => {
       it("Should disable 'Never expire' checkbox when max number of unexpirable hosts is met (2)", () => {
         cy.visit("/spawn/host");
         cy.contains("Spawn a host").click();
-        cy.dataCy("distro-input").click().type("{downarrow}").type("{enter}");
+        cy.dataCy("distro-input")
+          .click()
+          .type("{downarrow}")
+          .type("{enter}");
         cy.dataCy("distro-input").should(
           "have.attr",
           "value",
@@ -129,7 +122,7 @@ describe("Navigating to Spawn Host page", () => {
 
       it("Clicking on the spawn host button should open a spawn host modal.", () => {
         cy.visit("/spawn/host");
-        cy.dataCy("spawn-host-modal").should("not.be.visible");
+        cy.dataCy("spawn-host-modal").should("not.exist");
         cy.dataCy("spawn-host-button").click();
         cy.dataCy("spawn-host-modal").should("be.visible");
       });

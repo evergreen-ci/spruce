@@ -1,8 +1,6 @@
-// / <reference types="Cypress" />
-// / <reference path="../support/index.d.ts" />
-
 describe("Auth", () => {
   it("Unauthenticated user is redirected to login page after visiting a private route", () => {
+    cy.clearCookie("mci-token");
     cy.visit("/version/123123");
     cy.url().should("include", "/login");
   });

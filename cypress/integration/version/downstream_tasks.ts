@@ -2,14 +2,6 @@ const patchWithDownstreamTasks = "5f74d99ab2373627c047c5e5";
 const DOWNSTREAM_TASKS_ROUTE = `/version/${patchWithDownstreamTasks}/downstream-tasks`;
 
 describe("Downstream Tasks Tab", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("Shows the child patches", () => {
     cy.visit(DOWNSTREAM_TASKS_ROUTE);
 

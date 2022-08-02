@@ -1,6 +1,3 @@
-// / <reference types="Cypress" />
-// / <reference path="../support/index.d.ts" />
-
 const versions = {
   0: "5ecedafb562343215a7ff297", // normal patch
   1: "i-dont-exist", // non existent patch
@@ -14,13 +11,6 @@ const versions = {
 const versionRoute = (id) => `/version/${id}`;
 
 describe("Version route", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
   describe("Redirects", () => {
     it("Redirects to configure patch page if patch is not activated", () => {
       cy.visit(versionRoute(versions[3]));
@@ -58,14 +48,13 @@ describe("Version route", () => {
     });
     it("Doesn't show patch parameters if they don't exist", () => {
       cy.visit(versionRoute(versions[2]));
-      cy.dataCy("parameters-link").should("not.be.visible");
-      cy.dataCy("parameters-modal").should("not.be.visible");
+      cy.dataCy("parameters-link").should("not.exist");
+      cy.dataCy("parameters-modal").should("not.exist");
     });
   });
 
   describe("Build Variants", () => {
     before(() => {
-      cy.preserveCookies();
       cy.visit(versionRoute(versions[0]));
     });
 
@@ -187,7 +176,6 @@ describe("Version route", () => {
 
   describe("Page title", () => {
     before(() => {
-      cy.preserveCookies();
       cy.visit(versionRoute(versions[6]));
     });
     it("Should include a link to Jira", () => {

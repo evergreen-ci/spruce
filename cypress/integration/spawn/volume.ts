@@ -1,14 +1,4 @@
-// / <reference types="Cypress" />
-
 describe("Navigating to Spawn Volume page", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   describe("Edit volume modal", () => {
     it("Clicking on 'Edit' should open the Edit Volume Modal", () => {
       cy.visit("/spawn/volume");
@@ -105,7 +95,10 @@ describe("Navigating to Spawn Volume page", () => {
     cy.dataCy("trash-vol-0c66e16459646704d").click();
     cy.get(".ant-popover").should("be.visible");
     cy.get(".ant-popover").within(($el) => {
-      cy.wrap($el).contains("Yes").should("not.be.disabled");
+      cy.wrap($el)
+        .contains("Yes")
+        .should("be.visible")
+        .should("not.be.disabled");
       cy.wrap($el).contains("Yes").click();
     });
     cy.dataRowKey("vol-0c66e16459646704d").should("not.exist");

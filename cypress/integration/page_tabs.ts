@@ -1,12 +1,4 @@
 describe("Tabs", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   describe("Patches page", () => {
     it("Defaults to the task tab and applies default sorts", () => {
       cy.visit(patchRoute);

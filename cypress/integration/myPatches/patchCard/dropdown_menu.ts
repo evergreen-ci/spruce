@@ -9,9 +9,6 @@ const getPatchCardByDescription = (description: string) =>
   cy.dataCy("patch-card").filter(`:contains(${description})`);
 
 describe("Dropdown Menu of Patch Actions", () => {
-  before(() => {
-    cy.login();
-  });
   beforeEach(() => {
     cy.preserveCookies();
     cy.visit("/");
@@ -41,7 +38,7 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.dataCy("schedule-patch").click();
     cy.dataCy("schedule-tasks-modal").should("be.visible");
     cy.contains("Cancel").click();
-    cy.dataCy("schedule-tasks-modal").should("not.be.visible");
+    cy.dataCy("schedule-tasks-modal").should("not.exist");
   });
 
   it("'Schedule' link is disabled for unfinalized patch", () => {

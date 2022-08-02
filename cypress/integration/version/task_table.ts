@@ -1,20 +1,9 @@
-// /<reference types="Cypress" />
-// /<reference path="../support/index.d.ts" />
-
 import { clickOnPageSizeBtnAndAssertURLandTableSize } from "../../utils";
 
 const pathTasks = `/version/5e4ff3abe3c3317e352062e4/tasks`;
 const patchDescriptionTasksExist = "dist";
 
 describe("Task table", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("Loading skeleton does not persist when you navigate to Patch page from My Patches and adjust a filter", () => {
     cy.visit("user/patches");
     cy.dataCy("patch-card-patch-link")
@@ -100,9 +89,7 @@ describe("Task table", () => {
     before(() => {
       cy.visit(pathTasks);
     });
-    beforeEach(() => {
-      cy.preserveCookies();
-    });
+
     // Instead of checking the entire table rows lets just check if the elements on the table have changed
     it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", () => {
       cy.contains("test-cloud");

@@ -1,5 +1,3 @@
-// / <reference types="Cypress" />
-
 const route = "/project/evergreen/patches";
 
 describe("Project Patches Page", () => {

@@ -19,10 +19,6 @@ describe("Clicking on The Project Select Dropdown ", () => {
     cy.visit(destination);
   });
 
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("Headers are clickable", () => {
     cy.dataCy("project-select").should("be.visible");
     cy.dataCy("project-select").click();
@@ -41,10 +37,6 @@ describe("Repo Settings", () => {
   before(() => {
     cy.login();
     cy.visit(destination);
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
   });
 
   it("Should not have the save button enabled on load", () => {
@@ -259,7 +251,7 @@ describe("Repo Settings", () => {
     it("Reorders the commands", () => {
       cy.dataCy("array-down-button").click();
 
-      cy.dataCy("save-settings-button").click();
+      cy.dataCy("save-settings-button").scrollIntoView().click();
       cy.validateToast("success", "Successfully updated repo");
 
       cy.dataCy("command-input").first().should("have.value", "command 2");
@@ -293,10 +285,6 @@ describe("Project Settings when not defaulting to repo", () => {
   before(() => {
     cy.login();
     cy.visit(destination);
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
   });
 
   it("Should not have the save button enabled on load", () => {
@@ -471,6 +459,7 @@ describe("Project Settings when not defaulting to repo", () => {
 
     it("Saves a project trigger", () => {
       cy.dataCy("add-button").click();
+      cy.dataCy("project-input").should("be.visible").should("not.be.disabled");
       cy.dataCy("project-input").type("spruce");
       cy.dataCy("config-file-input").type(".evergreen.yml");
     });
@@ -485,10 +474,6 @@ describe("Project Settings when defaulting to repo", () => {
     cy.visit(destination);
   });
 
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   describe("General Settings page", () => {
     it("Should not have the save button enabled on load", () => {
       cy.dataCy("save-settings-button").should("be.disabled");
@@ -499,7 +484,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("spawn-host-input").type("/test");
       cy.dataCy("save-settings-button").should("not.be.disabled");
       cy.dataCy("navitem-access").click();
-      cy.dataCy("navigation-warning-modal").should("not.be.visible");
+      cy.dataCy("navigation-warning-modal").should("not.exist");
       cy.dataCy("navitem-general").click();
       cy.dataCy("spawn-host-input").should("have.value", "/path/test");
     });
@@ -784,10 +769,6 @@ describe("Attaching Spruce to a repo", () => {
     cy.visit(destination);
   });
 
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("Saves a new repo", () => {
     cy.dataCy("repo-input").clear().type("evergreen");
 
@@ -849,15 +830,11 @@ describe("Renaming the identifier", () => {
     cy.visit(destination);
   });
 
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("Shows warning text when identifier is changed", () => {
     const warningText =
       "Updates made to the project identifier will change the identifier used for the CLI, inter-project dependencies, etc. Project users should be made aware of this change, as the old identifier will no longer work.";
 
-    cy.dataCy("input-warning").should("not.contain", warningText);
+    cy.dataCy("input-warning").should("not.exist");
     cy.dataCy("identifier-input").clear().type("new-identifier");
     cy.dataCy("input-warning").should("contain", warningText);
   });
@@ -878,10 +855,6 @@ describe("Duplicating a project with errors", () => {
   before(() => {
     cy.login();
     cy.visit(destination);
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
   });
 
   it("Shows the copy modal when the button and dropdown menu are clicked", () => {
@@ -910,10 +883,6 @@ describe("A project that has GitHub webhooks disabled", () => {
     cy.visit(destination);
   });
 
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("Disables all interactive elements on the page", () => {
     cy.get("button").should("be.disabled");
     cy.get("input").should("be.disabled");
@@ -925,9 +894,6 @@ describe("Notifications", () => {
   before(() => {
     cy.login();
     cy.visit(destination);
-  });
-  beforeEach(() => {
-    cy.preserveCookies();
   });
   it("shouldn't have any subscriptions defined", () => {
     cy.contains("No subscriptions are defined.").should("exist");
