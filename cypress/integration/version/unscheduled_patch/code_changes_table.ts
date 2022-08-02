@@ -1,6 +1,3 @@
-// / <reference types="Cypress" />
-// / <reference path="../support/index.d.ts" />
-
 const patchId = "5ecedafb562343215a7ff297";
 
 describe("Code Changes Table", () => {
@@ -9,9 +6,6 @@ describe("Code Changes Table", () => {
     cy.visit(`/version/${patchId}/changes`);
   });
 
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
   it("Should display at least one table when there are code changes", () => {
     cy.dataCy("code-changes-table").should("exist");
   });

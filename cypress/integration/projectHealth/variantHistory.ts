@@ -1,10 +1,7 @@
-// / <reference types="Cypress" />
-
 describe("variant history", () => {
-  before(() => {
-    cy.login();
-  });
   beforeEach(() => {
+    // Column header length assertions depend on the set dimensions
+    cy.viewport(1000, 600);
     cy.preserveCookies();
   });
 
@@ -31,7 +28,7 @@ describe("variant history", () => {
   it("should be able expand and collapse inactive commits", () => {
     cy.visit("/variant-history/spruce/ubuntu1604");
     // Expand
-    cy.contains("EVG-16356").should("not.be.visible");
+    cy.contains("EVG-16356").should("not.exist");
     cy.contains("Expand 1 inactive").should("exist");
     cy.contains("Expand 1 inactive").click();
     cy.contains("EVG-16356").should("be.visible");

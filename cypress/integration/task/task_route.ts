@@ -1,14 +1,4 @@
-// / <reference types="Cypress" />
-
 describe("Task Page Route", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("shouldn't get stuck in a redirect loop when visiting the task page and trying to navigate to a previous page", () => {
     cy.visit("/user/admin/patches");
     cy.visit(`/task/${tasks[1]}`);

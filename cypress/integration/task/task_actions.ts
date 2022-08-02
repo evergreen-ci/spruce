@@ -1,16 +1,7 @@
-// / <reference types="Cypress" />
 import { popconfirmYesClassName } from "../../utils/popconfirm";
 
 describe("Task Action Buttons", () => {
-  before(() => {
-    cy.login();
-  });
-
   describe("Based on the state of the task, some buttons should be disabled and others should be clickable. Clicking on buttons produces banners messaging if the action succeeded or failed.", () => {
-    beforeEach(() => {
-      cy.preserveCookies();
-    });
-
     it("Schedule button should be disabled on a completed task", () => {
       cy.visit(tasks[1]);
       cy.dataCy("schedule-task").should("be.disabled");
@@ -37,6 +28,8 @@ describe("Task Action Buttons", () => {
     });
 
     it("Clicking on set priority, entering a priority value and submitting should result in a success toast.", () => {
+      cy.visit(tasks[3]);
+      cy.dataCy("ellipsis-btn").should("be.visible").should("not.be.disabled");
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("prioritize-task").click();

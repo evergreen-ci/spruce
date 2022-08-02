@@ -1,5 +1,3 @@
-// / <reference types="Cypress" />
-
 const commitQueue = {
   id1: "mongodb-mongo-master",
   id2: "mongodb-mongo-test",
@@ -14,13 +12,6 @@ const COMMIT_QUEUE_ROUTE_4 = `/commit-queue/${commitQueue.id4}`;
 const COMMIT_QUEUE_ROUTE_PR = `/commit-queue/${commitQueue.id5}`;
 
 describe("commit queue page", () => {
-  before(() => {
-    cy.login();
-  });
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   describe(COMMIT_QUEUE_ROUTE_1, () => {
     before(() => {
       cy.visit(COMMIT_QUEUE_ROUTE_1);
@@ -43,7 +34,7 @@ describe("commit queue page", () => {
       cy.dataCy("commit-queue-confirmation-modal").within(() => {
         cy.contains("Remove").click();
       });
-      cy.dataCy("commit-queue-confirmation-modal").should("not.be.visible");
+      cy.dataCy("commit-queue-confirmation-modal").should("not.exist");
       cy.dataCy("commit-queue-card").should("not.exist");
     });
   });
@@ -119,7 +110,7 @@ describe("commit queue page", () => {
       cy.dataCy("commit-queue-confirmation-modal").within(() => {
         cy.contains("Remove").click();
       });
-      cy.dataCy("commit-queue-confirmation-modal").should("not.be.visible");
+      cy.dataCy("commit-queue-confirmation-modal").should("not.exist");
       cy.dataCy("commit-queue-card").should("not.exist");
     });
   });

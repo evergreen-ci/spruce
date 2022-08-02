@@ -11,14 +11,6 @@ const LEGACY_URLS = {
   distros: `/distros`,
 };
 describe("Nav Bar", () => {
-  before(() => {
-    cy.login();
-  });
-  beforeEach(() => {
-    cy.server();
-    cy.preserveCookies();
-  });
-
   it("Should have a nav bar linking to the proper page on the legacy UI", () => {
     cy.visit(SPRUCE_URLS.version);
     cy.dataCy("legacy-ui-link").should("exist");
@@ -61,6 +53,11 @@ describe("Nav Bar", () => {
     cy.clearCookie("mci-project-cookie");
     cy.visit(SPRUCE_URLS.userPatches);
     cy.dataCy("auxiliary-dropdown-link").click();
+    cy.dataCy("auxiliary-dropdown-project-patches").should(
+      "have.attr",
+      "href",
+      "/project/evergreen/patches"
+    );
     cy.dataCy("auxiliary-dropdown-project-patches").click();
     cy.location("pathname").should("eq", "/project/evergreen/patches");
   });

@@ -1,12 +1,7 @@
-// / <reference types="Cypress" />
-
 describe("commits page", () => {
   before(() => {
     cy.login();
     cy.visit("/commits/spruce");
-  });
-  beforeEach(() => {
-    cy.preserveCookies();
   });
   it("visiting the commits page for the first time should show a welcome modal", () => {
     cy.dataCy("welcome-modal").should("be.visible");
@@ -112,7 +107,7 @@ describe("commits page", () => {
         cy.getInputByLabel("All").check({ force: true });
       });
       cy.dataCy("project-task-status-select").click();
-      cy.dataCy("project-task-status-select-options").should("not.be.visible");
+      cy.dataCy("project-task-status-select-options").should("not.exist");
       cy.dataCy("grouped-task-status-badge").should("have.length", 5);
       cy.dataCy("waterfall-task-status-icon").should("have.length", 1);
     });
@@ -126,7 +121,7 @@ describe("commits page", () => {
         cy.getInputByLabel("Succeeded").check({ force: true });
       });
       cy.dataCy("project-task-status-select").click();
-      cy.dataCy("project-task-status-select-options").should("not.be.visible");
+      cy.dataCy("project-task-status-select-options").should("not.exist");
       cy.dataCy("grouped-task-status-badge").should("have.length", 5);
       cy.dataCy("grouped-task-status-badge").should(
         "contain.text",
@@ -180,7 +175,7 @@ describe("commits page", () => {
         cy.getInputByLabel("Failed").check({ force: true });
       });
       cy.dataCy("project-task-status-select").click();
-      cy.dataCy("project-task-status-select-options").should("not.be.visible");
+      cy.dataCy("project-task-status-select-options").should("not.exist");
       cy.dataCy("grouped-task-status-badge").should("not.exist");
       cy.dataCy("inactive-commits-button").should("have.length", 4);
       cy.dataCy("inactive-commits-button").each(($el) => {
@@ -236,7 +231,7 @@ describe("commits page", () => {
         );
       });
       it("clicking on a task icon should direct you to the task page", () => {
-        cy.dataCy("waterfall-task-status-icon").first().click();
+        cy.dataCy("waterfall-task-status-icon").first().click({ force: true });
         cy.location("pathname").should("contain", "/task/");
       });
     });
@@ -253,9 +248,7 @@ describe("commits page", () => {
           cy.getInputByLabel("All").check({ force: true });
         });
         cy.dataCy("project-task-status-select").click();
-        cy.dataCy("project-task-status-select-options").should(
-          "not.be.visible"
-        );
+        cy.dataCy("project-task-status-select-options").should("not.exist");
       });
       it("hovering over a badge should show metadata about the task statuses", () => {
         cy.dataCy("grouped-task-status-badge").should("exist");
