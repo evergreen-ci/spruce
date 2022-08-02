@@ -5992,7 +5992,6 @@ export type VersionTasksQuery = {
         executionTasksFull?: Maybe<
           Array<{
             id: string;
-            baseStatus?: Maybe<string>;
             buildVariant: string;
             buildVariantDisplayName?: Maybe<string>;
             displayName: string;
