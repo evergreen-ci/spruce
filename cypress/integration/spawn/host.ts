@@ -101,8 +101,8 @@ describe("Navigating to Spawn Host page", () => {
         cy.contains("Spawn a host").click();
         cy.dataCy("distro-input")
           .click()
-          .type("{downarrow}", { force: true })
-          .type("{enter}", { force: true });
+          .type("{downarrow}")
+          .type("{enter}");
         cy.dataCy("distro-input").should(
           "have.attr",
           "value",
