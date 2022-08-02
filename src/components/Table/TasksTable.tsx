@@ -172,8 +172,7 @@ const getColumnDefs = ({
       },
     }),
     sorter: {
-      compare: (a, b) =>
-        sortTasks(a?.baseTask?.status, b?.baseTask?.baseStatus),
+      compare: (a, b) => sortTasks(a?.baseTask?.status, b?.baseTask?.status),
       multiple: 4,
     },
     className: "cy-task-table-col-BASE_STATUS",
