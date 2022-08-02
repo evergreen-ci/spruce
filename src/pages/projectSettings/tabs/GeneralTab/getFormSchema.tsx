@@ -51,12 +51,14 @@ export const getFormSchema = (
               owner: {
                 type: "string" as "string",
                 title: "Owner",
+                format: "noSpaces",
                 minLength: 1,
                 default: "",
               },
               repo: {
                 type: "string" as "string",
                 title: "Repository",
+                format: "noSpaces",
                 minLength: 1,
                 default: "",
               },
