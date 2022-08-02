@@ -1,16 +1,9 @@
-// / <reference types="Cypress" />
-// / <reference path="../../support/index.d.ts" />
+import { hasOperationName, GQL_URL } from "../../../utils/graphql-test-utils";
+import { mockErrorResponse } from "../../../utils/mockErrorResponse";
+
 const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
 const patchWithDisplayTasks = "5e6bb9e23066155a993e0f1b";
-
 describe("Configure Patch Page", () => {
-  before(() => {
-    cy.login();
-  });
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   describe("Initial state reflects patch data", () => {
     before(() => {
       cy.visit(`/version/${unactivatedPatchId}`);
@@ -513,23 +506,23 @@ describe("Configure Patch Page", () => {
   //   Using mocked responses because we are unable to schedule a patch because of a missing github token
   describe("Scheduling a patch", () => {
     beforeEach(() => {
-      cy.server();
       cy.visit(`/patch/${unactivatedPatchId}`);
     });
-    it("Clicking `Schedule` button schedules patch and redirects to patch page", () => {
+    it("Clicking 'Schedule' button schedules patch and redirects to patch page", () => {
       const val = "hello world";
       cy.dataCy(`patch-name-input`).as("patchNameInput").clear().type(val);
       cy.dataCy("task-checkbox").first().check({ force: true });
-      // TODO: Replace this with cy.intercept() once we upgrade to > Cypress 6.0.0
-      cy.route2("/graphql/query", (req) => {
-        req.reply((res) => {
-          res.body = mockedSuccessfulConfigureResponse;
-        });
+      cy.intercept("POST", GQL_URL, (req) => {
+        if (hasOperationName(req, "SchedulePatch")) {
+          req.reply((res) => {
+            res.body = mockedSuccessConfigureResponse;
+          });
+        }
       });
       cy.dataCy("schedule-patch").click();
       cy.location("pathname").should(
         "eq",
-        `/version/${unactivatedPatchId}/tasks`
+        `/version/${activatedPatchId}/tasks`
       );
     });
 
@@ -537,36 +530,50 @@ describe("Configure Patch Page", () => {
       const val = "hello world";
       cy.dataCy(`patch-name-input`).clear().type(val);
       cy.dataCy("task-checkbox").first().check({ force: true });
-      // TODO: Replace this with cy.intercept() once we upgrade to > Cypress 6.0.0
-      cy.route2("/graphql/query", (req) => {
-        req.reply((res) => {
-          res.body = mockedErrorConfigureResponse;
-        });
+      mockErrorResponse({
+        errorMessage: "An error occured",
+        operationName: "SchedulePatch",
+        path: "schedulePatch",
       });
       cy.dataCy("schedule-patch").click();
       cy.location("pathname").should(
         "eq",
         `/patch/${unactivatedPatchId}/configure/tasks`
       );
-      cy.validateToast("error", "An error occurred");
+      cy.validateToast("error");
     });
   });
 });
 
-const mockedErrorConfigureResponse = {
-  errors: [
-    {
-      message: "An error occurred",
-      path: ["schedulePatch"],
-      extensions: {
-        code: "INTERNAL_SERVER_ERROR",
+const activatedPatchId = "5e4ff3abe3c3317e352062e4";
+const mockedSuccessConfigureResponse = {
+  data: {
+    schedulePatch: {
+      id: activatedPatchId,
+      description: "cypress_v10: turn on retries",
+      author: "person",
+      status: "created",
+      activated: true,
+      alias: "",
+      commitQueuePosition: null,
+      variantsTasks: [
+        {
+          name: "ubuntu1604",
+          tasks: ["test"],
+        },
+      ],
+      parameters: [
+        {
+          key: "a",
+          value: "b",
+        },
+      ],
+      versionFull: {
+        id: activatedPatchId,
       },
+      tasks: ["test"],
+      variants: ["ubuntu1604"],
     },
-  ],
-  data: null,
-};
-
-const mockedSuccessfulConfigureResponse = {
-  data: {},
+  },
   errors: null,
 };

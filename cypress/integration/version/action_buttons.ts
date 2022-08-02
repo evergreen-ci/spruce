@@ -1,5 +1,3 @@
-// / <reference types="Cypress" />
-// / <reference path="../../support/index.d.ts" />
 import { mockErrorResponse } from "../../utils/mockErrorResponse";
 import { popconfirmYesClassName } from "../../utils/popconfirm";
 
@@ -8,12 +6,6 @@ const mainlineCommit = "5e4ff3abe3c3317e352062e4";
 const versionPath = (id) => `/version/${id}`;
 
 describe("Action Buttons", () => {
-  before(() => {
-    cy.login();
-  });
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
   describe("When viewing a patch build", () => {
     before(() => {
       cy.visit(versionPath(patch));
@@ -22,16 +14,16 @@ describe("Action Buttons", () => {
       cy.dataCy("schedule-patch").click();
       cy.dataCy("schedule-tasks-modal").should("be.visible");
       cy.contains("Cancel").click();
-      cy.dataCy("schedule-tasks-modal").should("not.be.visible");
+      cy.dataCy("schedule-tasks-modal").should("not.exist");
     });
 
     it("Clicking ellipses dropdown shows ellipses options", () => {
-      cy.dataCy("ellipses-btn").should("not.be.visible");
+      cy.dataCy("ellipses-btn").should("not.exist");
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
 
       cy.dataCy("ellipsis-btn").click();
-      cy.dataCy("card-dropdown").should("not.be.visible");
+      cy.dataCy("card-dropdown").should("not.exist");
     });
     describe("Version dropdown options", () => {
       before(() => {
@@ -86,13 +78,10 @@ describe("Action Buttons", () => {
     describe("Version dropdown options", () => {
       before(() => {
         cy.visit(versionPath(mainlineCommit));
+        cy.dataCy("ellipsis-btn").click();
       });
       beforeEach(() => {
-        cy.dataCy("ellipsis-btn").click();
         cy.dataCy("card-dropdown").should("be.visible");
-      });
-      afterEach(() => {
-        cy.dataCy("ellipsis-btn").click();
       });
 
       it("Reconfigure link is disabled for mainline commits", () => {

@@ -1,5 +1,3 @@
-// / <reference types="Cypress" />
-
 // used to test status and base status dropdown filters
 export const clickingCheckboxUpdatesUrlAndRendersFetchedResults = ({
   checkboxDisplayName,

@@ -1,17 +1,8 @@
-// / <reference types="Cypress" />
 import { popconfirmYesClassName } from "../../utils/popconfirm";
 
 const route = "/preferences/publickeys";
 
 describe("Public Key Management Page", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   describe("Public keys list", () => {
     before(() => {
       cy.visit(route);
@@ -24,6 +15,7 @@ describe("Public Key Management Page", () => {
     it("Removes a public key from the table after deletion", () => {
       cy.dataCy("delete-btn").first().click();
       cy.get(popconfirmYesClassName).click();
+      cy.dataCy("table-key-name").should("have.length", 1);
       cy.dataCy("table-key-name").first().should("not.contain", keyName1);
       cy.dataCy("table-key-name").first().contains(keyName2);
     });
@@ -47,20 +39,20 @@ describe("Public Key Management Page", () => {
 
     it("Error messages go away after typing valid input", () => {
       cy.dataCy("key-name-input").type(keyName3);
-      cy.dataCy("key-value-input").paste("ssh-dss someHash");
+      cy.dataCy("key-value-input").type("ssh-dss someHash", { delay: 0 });
       cy.dataCy("error-message").should("have.length", 0);
     });
 
     it("Should include the public in the public key list after adding", () => {
       cy.dataCy("key-value-input").clear();
-      cy.dataCy("key-value-input").paste(pubKey);
+      cy.dataCy("key-value-input").type(pubKey, { delay: 0 });
       cy.dataCy("save-key-button").click();
       cy.dataCy("table-key-name").first().contains(keyName3);
     });
 
     it("Should show an error if the key name already exists", () => {
       cy.dataCy("add-key-button").click();
-      cy.dataCy("key-name-input").type(keyName3);
+      cy.dataCy("key-name-input").type(keyName3, { delay: 0 });
       cy.dataCy("error-message").first().contains(err3);
     });
 
@@ -82,21 +74,24 @@ describe("Public Key Management Page", () => {
       cy.dataCy("key-name-input").clear();
       cy.dataCy("key-name-input").type(keyName4);
       cy.dataCy("key-value-input").clear();
-      cy.dataCy("key-value-input").paste(pubKey2);
+
+      cy.dataCy("key-value-input").type(pubKey2, { delay: 0 });
       cy.dataCy("save-key-button").click();
       cy.dataCy("key-edit-modal").should("not.be.visible");
       cy.dataCy("table-key-name").first().contains(keyName4);
       cy.dataCy("edit-btn").first().click();
       cy.dataCy("key-name-input").should("have.value", keyName4);
       cy.dataCy("key-value-input").should("have.value", pubKey2);
-      cy.dataCy("key-value-input").paste(pubKey3);
+      cy.dataCy("key-value-input").clear();
+      cy.dataCy("key-value-input").type(pubKey3, { delay: 0 });
       cy.dataCy("save-key-button").click();
       cy.dataCy("key-edit-modal").should("not.be.visible");
       cy.dataCy("table-key-name").first().contains(keyName4);
       cy.dataCy("edit-btn").first().click();
       cy.dataCy("key-name-input").should("have.value", keyName4);
       cy.dataCy("key-value-input").should("have.value", pubKey3);
-      cy.dataCy("key-value-input").paste(pubKey4);
+      cy.dataCy("key-value-input").clear();
+      cy.dataCy("key-value-input").type(pubKey4, { delay: 0 });
       cy.dataCy("save-key-button").click();
       cy.dataCy("key-edit-modal").should("not.be.visible");
       cy.dataCy("table-key-name").first().contains(keyName4);
@@ -115,7 +110,7 @@ describe("Public Key Management Page", () => {
       cy.visit(route);
       cy.dataCy("add-key-button").click();
       cy.dataCy("key-name-input").type("rsioeantarsn");
-      cy.dataCy("key-value-input").paste("ssh-rsa ");
+      cy.dataCy("key-value-input").type("ssh-rsa ", { delay: 0 });
       cy.dataCy("save-key-button").click();
       cy.validateToast("error");
     });

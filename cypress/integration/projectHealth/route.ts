@@ -1,11 +1,4 @@
-// / <reference types="Cypress" />
 describe("Mainline Commits page route", () => {
-  before(() => {
-    cy.login();
-  });
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
   it("Should default to the project saved in the mci-project-cookie when a project does not exist in the url.", () => {
     cy.setCookie("mci-project-cookie", "spruce");
     cy.visit("/commits");

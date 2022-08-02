@@ -1,12 +1,4 @@
 describe("Github username banner", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("should show the banner on the my patches page if user doesn't have a github username", () => {
     cy.visit("/");
     cy.dataCy("github-username-banner").should("exist");

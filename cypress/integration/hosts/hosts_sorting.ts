@@ -153,14 +153,6 @@ const sortDirectionTests = [
 ];
 
 describe("Hosts page sorting", () => {
-  before(() => {
-    cy.login();
-  });
-
-  beforeEach(() => {
-    cy.preserveCookies();
-  });
-
   it("Status sorter is selected by default if no sort params in url", () => {
     cy.visit(hostsRoute);
     cy.get(".cy-task-table-col-STATUS").within(() => {
