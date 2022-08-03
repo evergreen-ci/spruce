@@ -17,6 +17,7 @@ describe("Task Annotation Tab", () => {
   it("annotations can be moved between lists", () => {
     cy.get(issuesTable).should("have.length", 1);
     cy.get(suspectedIssuesTable).should("have.length", 3);
+    cy.dataCy("loading-annotation-ticket").should("have.length", 0);
 
     // move from suspectedIssues to Issues
     cy.dataCy("move-btn-AnotherOne").click();
@@ -40,6 +41,7 @@ describe("Task Annotation Tab", () => {
   it("annotations add and delete correctly", () => {
     cy.get(issuesTable).should("have.length", 1);
     cy.get(suspectedIssuesTable).should("have.length", 3);
+    cy.dataCy("loading-annotation-ticket").should("have.length", 0);
 
     // add a ticket
     cy.dataCy("add-suspected-issue-button").click();
