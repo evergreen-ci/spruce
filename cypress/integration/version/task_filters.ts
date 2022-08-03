@@ -56,8 +56,9 @@ describe("Tasks filters", () => {
         search: variantInputValue,
       });
       cy.dataCy("tasks-table").should("be.visible");
-      cy.toggleTableFilter(4);
       cy.dataCy("current-task-count").should("contain.text", 2);
+
+      cy.toggleTableFilter(4);
       cy.dataCy("variant-input-wrapper")
         .find("input")
         .focus()
@@ -88,6 +89,8 @@ describe("Tasks filters", () => {
         search: taskNameInputValue,
       });
       cy.dataCy("tasks-table").should("be.visible");
+      cy.dataCy("current-task-count").should("contain.text", 2);
+
       cy.toggleTableFilter(1);
       cy.dataCy("taskname-input-wrapper")
         .find("input")
