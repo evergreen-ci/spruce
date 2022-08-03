@@ -82,7 +82,7 @@ describe("Tasks filters", () => {
         .find("input")
         .focus()
         .type(taskNameInputValue)
-        .type("{enter}");
+        .type("{enter}", { scrollBehavior: false });
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
@@ -110,6 +110,7 @@ describe("Tasks filters", () => {
     const urlParam = "statuses";
     before(() => {
       cy.contains("Clear All Filters").click();
+      cy.dataCy("tasks-table").should("be.visible");
       cy.toggleTableFilter(2);
     });
 
@@ -140,7 +141,6 @@ describe("Tasks filters", () => {
                 paramName: urlParam,
                 search: "failed-umbrella,failed,known-issue,success",
               });
-
               cy.dataCy("current-task-count").should(
                 "not.have.text",
                 postFilterCount
@@ -177,7 +177,7 @@ describe("Tasks filters", () => {
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
-        search: "",
+        search: null,
       });
     });
   });
@@ -185,7 +185,7 @@ describe("Tasks filters", () => {
   describe("Task Base Statuses select", () => {
     const urlParam = "baseStatuses";
     before(() => {
-      cy.visit(pathTasks);
+      cy.contains("Clear All Filters").click();
       cy.dataCy("tasks-table").should("be.visible");
       cy.toggleTableFilter(3);
     });
@@ -216,7 +216,7 @@ describe("Tasks filters", () => {
               urlSearchParamsAreUpdated({
                 pathname: pathTasks,
                 paramName: urlParam,
-                search: "",
+                search: null,
               });
               cy.dataCy("current-task-count").should(
                 "have.text",
@@ -227,30 +227,25 @@ describe("Tasks filters", () => {
     });
 
     it("Clicking on 'All' checkbox adds all the base statuses and clicking again removes them", () => {
-      cy.toggleTableFilter(3);
       const taskStatuses = ["All", "Succeeded"];
-      cy.getInputByLabel("All").check({ force: true });
+      cy.toggleTableFilter(3);
+      cy.getInputByLabel("All").check({ force: true, scrollBehavior: false });
       taskStatuses.forEach((status) => {
         cy.getInputByLabel(status).should("be.checked");
       });
-
-      cy.toggleTableFilter(3);
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
-        search: "all,success",
+        search: "all",
       });
-
-      cy.getInputByLabel("All").uncheck({ force: true });
+      cy.getInputByLabel("All").uncheck({ force: true, scrollBehavior: false });
       taskStatuses.forEach((status) => {
         cy.getInputByLabel(status).should("not.be.checked");
       });
-      cy.toggleTableFilter(3);
-
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
-        search: "",
+        search: null,
       });
     });
   });
