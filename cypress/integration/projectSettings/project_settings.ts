@@ -56,27 +56,31 @@ describe("Access page", () => {
       .first()
       .type("admin");
     cy.dataCy("save-settings-button").should("be.enabled").click();
+    cy.validateToast("success");
     cy.visit(destination);
     cy.get("label")
       .contains("Private")
       .closest("label")
+      .get("input")
       .should("have.attr", "checked", "checked");
     cy.get("label")
       .contains("Unrestricted")
       .closest("label")
       .get("input")
       .should("have.attr", "checked", "checked");
-    cy.get("[aria-label='Username'").contains("admin").should("exist");
+    cy.get("[aria-label='Username']")
+      .should("have.value", "admin")
+      .should("exist");
   });
 
   it("Deleting a username results in a success toast and the changes are persisted", () => {
-    cy.get("[aria-label='Username'").should("have.length", 1);
+    cy.get("[aria-label='Username']").should("have.length", 1);
     cy.dataCy("delete-item-button").click();
-    cy.get("[aria-label='Username'").should("have.length", 1).contains("admin").should("exist");;
-    cy.reload()
-    cy.get("[aria-label='Username'").should("have.length", 0);
-  })
-  
+    cy.get("[aria-label='Username']").should("have.length", 0);
+    cy.reload();
+    cy.get("[aria-label='Username']").should("have.length", 0);
+  });
+
   it("Submitting a username produces an error toast", () => {
     cy.visit(getAccessRoute(project));
     cy.contains("Add Username").click();
