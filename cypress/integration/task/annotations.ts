@@ -20,13 +20,18 @@ describe("Task Annotation Tab", () => {
 
     // move from suspectedIssues to Issues
     cy.dataCy("move-btn-AnotherOne").click();
-    cy.get(popconfirmYesClassName).should("exist").should("not.be.disabled");
+    cy.get(popconfirmYesClassName)
+      .should("be.visible")
+      .should("not.be.disabled");
     cy.get(popconfirmYesClassName).click();
     cy.get(issuesTable).should("have.length", 2);
     cy.get(suspectedIssuesTable).should("have.length", 2);
 
     // move from Issues to suspectedIssues
     cy.dataCy("move-btn-AnotherOne").click();
+    cy.get(popconfirmYesClassName)
+      .should("be.visible")
+      .should("not.be.disabled");
     cy.get(popconfirmYesClassName).click();
     cy.get(issuesTable).should("have.length", 1);
     cy.get(suspectedIssuesTable).should("have.length", 3);
@@ -46,7 +51,9 @@ describe("Task Annotation Tab", () => {
 
     // delete the added ticket
     cy.dataCy("A-New-Ticket-delete-btn").click();
-    cy.get(popconfirmYesClassName).should("exist").should("not.be.disabled");
+    cy.get(popconfirmYesClassName)
+      .should("be.visible")
+      .should("not.be.disabled");
     cy.get(popconfirmYesClassName).click();
     cy.get(issuesTable).should("have.length", 1);
     cy.get(suspectedIssuesTable).should("have.length", 3);
