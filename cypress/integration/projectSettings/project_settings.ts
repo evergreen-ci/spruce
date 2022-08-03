@@ -15,12 +15,7 @@ const repo = "602d70a2b2373672ee493184";
 
 describe("Access page", () => {
   const destination = getAccessRoute(projectUseRepoEnabled);
-  before(() => {
-    cy.login();
-  });
-
   beforeEach(() => {
-    cy.preserveCookies();
     cy.visit(destination);
   });
 
@@ -42,11 +37,6 @@ describe("Access page", () => {
     cy.dataCy("save-settings-button").should("be.enabled");
   });
 
-  it("Should enable the save button when the Internal Access value changes", () => {
-    cy.get("label").contains("Unrestricted").click();
-    cy.dataCy("save-settings-button").should("be.enabled");
-  });
-
   it("Changing settings and clicking the save button produces a success toast and the changes are persisted", () => {
     cy.get("label").contains("Private").click();
     cy.get("label").contains("Unrestricted").click();
@@ -56,18 +46,15 @@ describe("Access page", () => {
       .first()
       .type("admin");
     cy.dataCy("save-settings-button").should("be.enabled").click();
-    cy.validateToast("success");
+    cy.validateToast("success", "Successfully updated project");
     cy.visit(destination);
     cy.get("label")
       .contains("Private")
       .closest("label")
       .get("input")
       .should("have.attr", "checked", "checked");
-    cy.get("label")
-      .contains("Unrestricted")
-      .closest("label")
-      .get("input")
-      .should("have.attr", "checked", "checked");
+    cy.get("label").contains("Unrestricted").closest("label");
+    j.should("have.attr", "checked", "checked");
     cy.get("[aria-label='Username']")
       .should("have.value", "admin")
       .should("exist");
@@ -93,6 +80,17 @@ describe("Access page", () => {
       "error",
       "There was an error saving the project: error updating project admin roles: no admin role for project 'spruce' found"
     );
+  });
+
+  it("Clicking on 'Default to Repo on Page' selects the 'Default to repo (public)' checkbox and produces a success banner", () => {
+    cy.dataCy("default-to-repo-button").click();
+    cy.dataCy("default-to-repo-modal").contains("Confirm").click();
+    cy.validateToast("success", "Successfully defaulted page to repo");
+    cy.get("label")
+      .contains("Default to repo (public)")
+      .closest("label")
+      .get("input")
+      .should("have.attr", "checked", "checked");
   });
 });
 
