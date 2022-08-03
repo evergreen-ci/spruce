@@ -12,7 +12,7 @@ const testSharedSubscriptionModalFunctionality = (
   describe(description, () => {
     it("Displays success toast after submitting a valid form and request succeeds", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
-      cy.dataCy(dataCyModal).should("exist");
+      cy.dataCy(dataCyModal).should("be.visible");
 
       selectAntdOption("event-trigger-select", `This ${type} finishes`);
       selectAntdOption("notification-method-select", "JIRA issue");
