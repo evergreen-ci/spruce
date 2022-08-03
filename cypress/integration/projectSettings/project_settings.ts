@@ -53,8 +53,11 @@ describe("Access page", () => {
       .closest("label")
       .get("input")
       .should("have.attr", "checked", "checked");
-    cy.get("label").contains("Unrestricted").closest("label");
-    j.should("have.attr", "checked", "checked");
+    cy.get("label")
+      .contains("Unrestricted")
+      .closest("label")
+      .get("input")
+      .should("have.attr", "checked", "checked");
     cy.get("[aria-label='Username']")
       .should("have.value", "admin")
       .should("exist");
