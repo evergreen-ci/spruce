@@ -67,6 +67,7 @@ export const TasksTable: React.VFC<TasksTableProps> = ({
     rowKey={rowKey}
     pagination={false}
     loading={loading}
+    data-loading={loading}
     columns={
       sorts
         ? getColumnDefsWithSort({

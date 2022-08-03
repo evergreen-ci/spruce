@@ -61,7 +61,9 @@ Cypress.Commands.add("toggleTableFilter", (colNum: number) => {
     .find("[role=button]")
     .first()
     .click();
-  cy.get(".ant-table-filter-dropdown").should("be.visible");
+  cy.get(":not(.ant-dropdown-hidden) > .ant-table-filter-dropdown").should(
+    "be.visible"
+  );
 });
 
 Cypress.Commands.add(
