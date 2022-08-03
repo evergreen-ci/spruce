@@ -13,6 +13,7 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
       <div
         className="ant-table"
         data-cy="tasks-table"
+        data-loading={false}
       >
         <div
           className="ant-table-container"
@@ -557,6 +558,7 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
       <div
         className="ant-table"
         data-cy="tasks-table"
+        data-loading={false}
       >
         <div
           className="ant-table-container"
