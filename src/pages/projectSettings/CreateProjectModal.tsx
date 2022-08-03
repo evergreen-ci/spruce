@@ -94,6 +94,7 @@ export const CreateProjectModal: React.VFC<Props> = ({
 const modalFormDefinition = {
   schema: {
     type: "object" as "object",
+    required: ["owner", "repo"],
     properties: {
       projectName: projectName.schema,
       projectId: projectId.schema,
@@ -101,11 +102,13 @@ const modalFormDefinition = {
         type: "string" as "string",
         title: "Owner",
         minLength: 1,
+        format: "noSpaces",
       },
       repo: {
         type: "string" as "string",
         title: "Repo",
         minLength: 1,
+        format: "noSpaces",
       },
     },
   },
