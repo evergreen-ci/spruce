@@ -66,6 +66,7 @@ describe("Tasks filters", () => {
         paramName: urlParam,
         search: null,
       });
+      waitForTable();
       cy.dataCy("current-task-count").should("contain.text", 50);
     });
   });
@@ -101,6 +102,7 @@ describe("Tasks filters", () => {
         paramName: urlParam,
         search: null,
       });
+      waitForTable();
       cy.dataCy("current-task-count").should("contain.text", 50);
     });
   });
@@ -127,6 +129,7 @@ describe("Tasks filters", () => {
           cy.dataCy("current-task-count")
             .invoke("text")
             .should("have.length.greaterThan", 0);
+
           cy.dataCy("current-task-count")
             .invoke("text")
             .then((postFilterCount) => {
@@ -140,6 +143,7 @@ describe("Tasks filters", () => {
                 paramName: urlParam,
                 search: "failed,success",
               });
+              waitForTable();
               cy.dataCy("current-task-count").should(
                 "not.have.text",
                 postFilterCount
@@ -203,6 +207,7 @@ describe("Tasks filters", () => {
           cy.dataCy("current-task-count")
             .invoke("text")
             .should("have.length.greaterThan", 0);
+
           cy.dataCy("current-task-count")
             .invoke("text")
             .then((postFilterCount) => {
@@ -216,6 +221,7 @@ describe("Tasks filters", () => {
                 paramName: urlParam,
                 search: null,
               });
+              waitForTable();
               cy.dataCy("current-task-count").should(
                 "have.text",
                 postFilterCount
