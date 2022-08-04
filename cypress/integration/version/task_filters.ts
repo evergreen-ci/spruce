@@ -117,7 +117,7 @@ describe("Tasks filters", () => {
       cy.dataCy("current-task-count")
         .invoke("text")
         .then((preFilterCount) => {
-          selectCheckboxOption("Failed");
+          selectCheckboxOption("Failed", true);
           urlSearchParamsAreUpdated({
             pathname: pathTasks,
             paramName: urlParam,
@@ -134,7 +134,7 @@ describe("Tasks filters", () => {
                 "not.have.text",
                 preFilterCount
               );
-              selectCheckboxOption("Succeeded");
+              selectCheckboxOption("Succeeded", true);
               urlSearchParamsAreUpdated({
                 pathname: pathTasks,
                 paramName: urlParam,
@@ -161,7 +161,7 @@ describe("Tasks filters", () => {
         "Aborted",
         "Blocked",
       ];
-      selectCheckboxOption("All");
+      selectCheckboxOption("All", true);
       assertChecked(taskStatuses, true);
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
@@ -170,7 +170,7 @@ describe("Tasks filters", () => {
       });
       waitForTable();
 
-      selectCheckboxOption("All");
+      selectCheckboxOption("All", false);
       assertChecked(taskStatuses, false);
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
@@ -193,7 +193,7 @@ describe("Tasks filters", () => {
       cy.dataCy("current-task-count")
         .invoke("text")
         .then((preFilterCount) => {
-          selectCheckboxOption("Succeeded");
+          selectCheckboxOption("Succeeded", true);
           urlSearchParamsAreUpdated({
             pathname: pathTasks,
             paramName: urlParam,
@@ -210,7 +210,7 @@ describe("Tasks filters", () => {
                 "have.text",
                 preFilterCount
               );
-              selectCheckboxOption("Succeeded");
+              selectCheckboxOption("Succeeded", false);
               urlSearchParamsAreUpdated({
                 pathname: pathTasks,
                 paramName: urlParam,
@@ -226,7 +226,7 @@ describe("Tasks filters", () => {
 
     it("Clicking on 'All' checkbox adds all the base statuses and clicking again removes them", () => {
       const taskStatuses = ["All", "Succeeded"];
-      selectCheckboxOption("All");
+      selectCheckboxOption("All", true);
       assertChecked(taskStatuses, true);
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
@@ -235,7 +235,7 @@ describe("Tasks filters", () => {
       });
       waitForTable();
 
-      selectCheckboxOption("All");
+      selectCheckboxOption("All", false);
       assertChecked(taskStatuses, false);
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
@@ -275,14 +275,23 @@ const assertChecked = (statuses: string[], checked: boolean) => {
 /**
  * Function used to select a checkbox option from the table filter dropdown.
  * @param label label of the checkbox option to click on
+ * @param checked true if should be checked, false if should be unchecked
  */
-const selectCheckboxOption = (label: string) => {
+const selectCheckboxOption = (label: string, checked: boolean) => {
   cy.get(":not(.ant-dropdown-hidden) > .ant-table-filter-dropdown")
     .find(".cy-checkbox")
     .should("not.be.disabled")
     .each((el) => {
       if (el.text() === label) {
-        cy.wrap(el).click({ scrollBehavior: false });
+        if (checked) {
+          cy.wrap(el)
+            .find('input[type="checkbox"]')
+            .check({ force: true, scrollBehavior: false });
+        } else {
+          cy.wrap(el)
+            .find('input[type="checkbox"]')
+            .uncheck({ force: true, scrollBehavior: false });
+        }
       }
     });
 };
