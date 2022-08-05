@@ -52,14 +52,18 @@ export const getFormSchema = (
                 type: "string" as "string",
                 title: "Owner",
                 format: "noSpaces",
-                minLength: 1,
+                minLength: repoData?.generalConfiguration?.repositoryInfo.owner
+                  ? 0
+                  : 1,
                 default: "",
               },
               repo: {
                 type: "string" as "string",
                 title: "Repository",
                 format: "noSpaces",
-                minLength: 1,
+                minLength: repoData?.generalConfiguration?.repositoryInfo.repo
+                  ? 0
+                  : 1,
                 default: "",
               },
             },
@@ -67,7 +71,7 @@ export const getFormSchema = (
           branch: {
             type: "string" as "string",
             title: "Branch Name",
-            minLength: 1,
+            minLength: repoData?.generalConfiguration?.branch ? 0 : 1,
             default: "",
           },
           other: {
