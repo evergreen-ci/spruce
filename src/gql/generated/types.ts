@@ -5882,10 +5882,10 @@ export type GetUndispatchedTasksQuery = {
     tasks: {
       data: Array<{
         id: string;
-        execution: number;
-        displayName: string;
         buildVariant: string;
         buildVariantDisplayName?: Maybe<string>;
+        displayName: string;
+        execution: number;
       }>;
     };
   };

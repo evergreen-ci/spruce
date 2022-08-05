@@ -5,10 +5,10 @@ query GetUndispatchedTasks($versionId: String!) {
     ) {
       data {
         id
-        execution
-        displayName
         buildVariant
         buildVariantDisplayName
+        displayName
+        execution
       }
     }
   }
