@@ -67,10 +67,6 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
               }
               projectType={projectType}
               repoData={tabData[ProjectSettingsTabRoutes.General].repoData}
-              validDefaultLoggers={
-                projectData?.projectRef?.validDefaultLoggers ||
-                repoData?.projectRef?.validDefaultLoggers
-              }
             />
           }
         />

@@ -11,8 +11,6 @@ fragment projectGeneralSettings on Project {
   versionControlEnabled
   deactivatePrevious
   repotrackerDisabled
-  defaultLogger
-  validDefaultLoggers
   patchingDisabled
   taskSync {
     configEnabled
@@ -35,8 +33,6 @@ fragment repoGeneralSettings on RepoRef {
   versionControlEnabled
   deactivatePrevious
   repotrackerDisabled
-  defaultLogger
-  validDefaultLoggers
   patchingDisabled
   taskSync {
     configEnabled

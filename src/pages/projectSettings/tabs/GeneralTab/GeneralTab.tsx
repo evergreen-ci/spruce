@@ -16,7 +16,6 @@ export const GeneralTab: React.VFC<TabProps> = ({
   projectId,
   projectType,
   repoData,
-  validDefaultLoggers,
 }) => {
   const { getTab, updateForm } = useProjectSettingsContext();
   const { formData, initialData } = getTab(tab);
@@ -44,7 +43,6 @@ export const GeneralTab: React.VFC<TabProps> = ({
       getFormSchema(
         projectId,
         projectType,
-        validDefaultLoggers,
         identifierHasChanges,
         initialOwner,
         initialRepo,
@@ -57,7 +55,6 @@ export const GeneralTab: React.VFC<TabProps> = ({
       projectId,
       projectType,
       repoData,
-      validDefaultLoggers,
     ]
   );
 
