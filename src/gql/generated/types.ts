@@ -976,7 +976,6 @@ export type Project = {
   batchTime: Scalars["Int"];
   branch: Scalars["String"];
   buildBaronSettings: BuildBaronSettings;
-  cedarTestResultsEnabled?: Maybe<Scalars["Boolean"]>;
   commitQueue: CommitQueueParams;
   deactivatePrevious?: Maybe<Scalars["Boolean"]>;
   defaultLogger: Scalars["String"];
@@ -1083,7 +1082,6 @@ export type ProjectInput = {
   batchTime?: InputMaybe<Scalars["Int"]>;
   branch?: InputMaybe<Scalars["String"]>;
   buildBaronSettings?: InputMaybe<BuildBaronSettingsInput>;
-  cedarTestResultsEnabled?: InputMaybe<Scalars["Boolean"]>;
   commitQueue?: InputMaybe<CommitQueueParamsInput>;
   deactivatePrevious?: InputMaybe<Scalars["Boolean"]>;
   defaultLogger?: InputMaybe<Scalars["String"]>;
@@ -1418,7 +1416,6 @@ export type RepoRef = {
   batchTime: Scalars["Int"];
   branch: Scalars["String"];
   buildBaronSettings: BuildBaronSettings;
-  cedarTestResultsEnabled: Scalars["Boolean"];
   commitQueue: RepoCommitQueueParams;
   deactivatePrevious: Scalars["Boolean"];
   defaultLogger: Scalars["String"];
@@ -1461,7 +1458,6 @@ export type RepoRefInput = {
   batchTime?: InputMaybe<Scalars["Int"]>;
   branch?: InputMaybe<Scalars["String"]>;
   buildBaronSettings?: InputMaybe<BuildBaronSettingsInput>;
-  cedarTestResultsEnabled?: InputMaybe<Scalars["Boolean"]>;
   commitQueue?: InputMaybe<CommitQueueParamsInput>;
   deactivatePrevious?: InputMaybe<Scalars["Boolean"]>;
   defaultLogger?: InputMaybe<Scalars["String"]>;
@@ -2469,8 +2465,6 @@ export type ProjectGeneralSettingsFragment = {
   versionControlEnabled?: Maybe<boolean>;
   deactivatePrevious?: Maybe<boolean>;
   repotrackerDisabled?: Maybe<boolean>;
-  defaultLogger: string;
-  validDefaultLoggers: Array<string>;
   patchingDisabled?: Maybe<boolean>;
   disabledStatsCache?: Maybe<boolean>;
   filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -2490,8 +2484,6 @@ export type RepoGeneralSettingsFragment = {
   versionControlEnabled: boolean;
   deactivatePrevious: boolean;
   repotrackerDisabled: boolean;
-  defaultLogger: string;
-  validDefaultLoggers: Array<string>;
   patchingDisabled: boolean;
   disabledStatsCache: boolean;
   filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -2605,8 +2597,6 @@ export type ProjectSettingsFragment = {
     versionControlEnabled?: Maybe<boolean>;
     deactivatePrevious?: Maybe<boolean>;
     repotrackerDisabled?: Maybe<boolean>;
-    defaultLogger: string;
-    validDefaultLoggers: Array<string>;
     patchingDisabled?: Maybe<boolean>;
     disabledStatsCache?: Maybe<boolean>;
     filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -2746,8 +2736,6 @@ export type RepoSettingsFragment = {
     versionControlEnabled: boolean;
     deactivatePrevious: boolean;
     repotrackerDisabled: boolean;
-    defaultLogger: string;
-    validDefaultLoggers: Array<string>;
     patchingDisabled: boolean;
     disabledStatsCache: boolean;
     filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -3011,8 +2999,6 @@ export type ProjectEventSettingsFragment = {
     dispatchingDisabled?: Maybe<boolean>;
     deactivatePrevious?: Maybe<boolean>;
     repotrackerDisabled?: Maybe<boolean>;
-    defaultLogger: string;
-    validDefaultLoggers: Array<string>;
     patchingDisabled?: Maybe<boolean>;
     disabledStatsCache?: Maybe<boolean>;
     filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -4578,8 +4564,6 @@ export type ProjectEventLogsQuery = {
           dispatchingDisabled?: Maybe<boolean>;
           deactivatePrevious?: Maybe<boolean>;
           repotrackerDisabled?: Maybe<boolean>;
-          defaultLogger: string;
-          validDefaultLoggers: Array<string>;
           patchingDisabled?: Maybe<boolean>;
           disabledStatsCache?: Maybe<boolean>;
           filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -4735,8 +4719,6 @@ export type ProjectEventLogsQuery = {
           dispatchingDisabled?: Maybe<boolean>;
           deactivatePrevious?: Maybe<boolean>;
           repotrackerDisabled?: Maybe<boolean>;
-          defaultLogger: string;
-          validDefaultLoggers: Array<string>;
           patchingDisabled?: Maybe<boolean>;
           disabledStatsCache?: Maybe<boolean>;
           filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -4900,8 +4882,6 @@ export type ProjectSettingsQuery = {
       versionControlEnabled?: Maybe<boolean>;
       deactivatePrevious?: Maybe<boolean>;
       repotrackerDisabled?: Maybe<boolean>;
-      defaultLogger: string;
-      validDefaultLoggers: Array<string>;
       patchingDisabled?: Maybe<boolean>;
       disabledStatsCache?: Maybe<boolean>;
       filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -5086,8 +5066,6 @@ export type RepoEventLogsQuery = {
           dispatchingDisabled?: Maybe<boolean>;
           deactivatePrevious?: Maybe<boolean>;
           repotrackerDisabled?: Maybe<boolean>;
-          defaultLogger: string;
-          validDefaultLoggers: Array<string>;
           patchingDisabled?: Maybe<boolean>;
           disabledStatsCache?: Maybe<boolean>;
           filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -5243,8 +5221,6 @@ export type RepoEventLogsQuery = {
           dispatchingDisabled?: Maybe<boolean>;
           deactivatePrevious?: Maybe<boolean>;
           repotrackerDisabled?: Maybe<boolean>;
-          defaultLogger: string;
-          validDefaultLoggers: Array<string>;
           patchingDisabled?: Maybe<boolean>;
           disabledStatsCache?: Maybe<boolean>;
           filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -5406,8 +5382,6 @@ export type RepoSettingsQuery = {
       versionControlEnabled: boolean;
       deactivatePrevious: boolean;
       repotrackerDisabled: boolean;
-      defaultLogger: string;
-      validDefaultLoggers: Array<string>;
       patchingDisabled: boolean;
       disabledStatsCache: boolean;
       filesIgnoredFromCache?: Maybe<Array<string>>;
