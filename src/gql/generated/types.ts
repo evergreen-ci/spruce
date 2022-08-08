@@ -5852,14 +5852,16 @@ export type GetUndispatchedTasksQueryVariables = Exact<{
 }>;
 
 export type GetUndispatchedTasksQuery = {
-  patchTasks: {
-    tasks: Array<{
-      id: string;
-      execution: number;
-      displayName: string;
-      buildVariant: string;
-      buildVariantDisplayName?: Maybe<string>;
-    }>;
+  version: {
+    tasks: {
+      data: Array<{
+        id: string;
+        buildVariant: string;
+        buildVariantDisplayName?: Maybe<string>;
+        displayName: string;
+        execution: number;
+      }>;
+    };
   };
 };
 
