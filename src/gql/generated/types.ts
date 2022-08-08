@@ -976,7 +976,6 @@ export type Project = {
   batchTime: Scalars["Int"];
   branch: Scalars["String"];
   buildBaronSettings: BuildBaronSettings;
-  cedarTestResultsEnabled?: Maybe<Scalars["Boolean"]>;
   commitQueue: CommitQueueParams;
   deactivatePrevious?: Maybe<Scalars["Boolean"]>;
   defaultLogger: Scalars["String"];
@@ -1083,7 +1082,6 @@ export type ProjectInput = {
   batchTime?: InputMaybe<Scalars["Int"]>;
   branch?: InputMaybe<Scalars["String"]>;
   buildBaronSettings?: InputMaybe<BuildBaronSettingsInput>;
-  cedarTestResultsEnabled?: InputMaybe<Scalars["Boolean"]>;
   commitQueue?: InputMaybe<CommitQueueParamsInput>;
   deactivatePrevious?: InputMaybe<Scalars["Boolean"]>;
   defaultLogger?: InputMaybe<Scalars["String"]>;
@@ -1418,7 +1416,6 @@ export type RepoRef = {
   batchTime: Scalars["Int"];
   branch: Scalars["String"];
   buildBaronSettings: BuildBaronSettings;
-  cedarTestResultsEnabled: Scalars["Boolean"];
   commitQueue: RepoCommitQueueParams;
   deactivatePrevious: Scalars["Boolean"];
   defaultLogger: Scalars["String"];
@@ -1461,7 +1458,6 @@ export type RepoRefInput = {
   batchTime?: InputMaybe<Scalars["Int"]>;
   branch?: InputMaybe<Scalars["String"]>;
   buildBaronSettings?: InputMaybe<BuildBaronSettingsInput>;
-  cedarTestResultsEnabled?: InputMaybe<Scalars["Boolean"]>;
   commitQueue?: InputMaybe<CommitQueueParamsInput>;
   deactivatePrevious?: InputMaybe<Scalars["Boolean"]>;
   defaultLogger?: InputMaybe<Scalars["String"]>;
