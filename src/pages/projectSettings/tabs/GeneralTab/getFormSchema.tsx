@@ -410,9 +410,9 @@ const getMinLength = (
     // if the project defaults to the repo, allow the value to be defined there instead
     switch (value) {
       case "owner":
-        return repository.owner ? 0 : 1;
+        return repository?.owner ? 0 : 1;
       case "repo":
-        return repository.repo ? 0 : 1;
+        return repository?.repo ? 0 : 1;
       case "branch":
         return repoGeneral?.branch ? 0 : 1;
       default:
