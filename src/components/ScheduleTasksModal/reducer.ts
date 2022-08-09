@@ -28,7 +28,7 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         sortedBuildVariantGroups: getSortedBuildVariantGroups(action.taskData),
-        allTasks: action.taskData?.patchTasks.tasks.map(({ id }) => id),
+        allTasks: action.taskData?.version?.tasks?.data.map(({ id }) => id),
       };
     case "toggleTask":
       return {
@@ -69,7 +69,7 @@ export const initialState: State = {
 const getSortedBuildVariantGroups = (
   data?: GetUndispatchedTasksQuery
 ): BVGroupEntry[] => {
-  const bvGroups: BVGroupsInterface = data?.patchTasks.tasks.reduce(
+  const bvGroups: BVGroupsInterface = data?.version?.tasks?.data.reduce(
     (acc, task) => {
       const { buildVariant, buildVariantDisplayName, displayName, id } = task;
       if (!acc[buildVariant]) {

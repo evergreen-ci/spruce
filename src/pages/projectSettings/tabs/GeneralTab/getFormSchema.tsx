@@ -2,7 +2,6 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { StyledLink } from "components/styles";
 import { versionControlDocumentationUrl } from "constants/externalResources";
-import { Project } from "gql/generated/types";
 import { GetFormSchema } from "../types";
 import { form, ProjectType } from "../utils";
 import {
@@ -12,12 +11,11 @@ import {
 } from "./Fields";
 import { FormState } from "./types";
 
-const { insertIf, overrideRadioBox, placeholderIf, radioBoxOptions } = form;
+const { overrideRadioBox, placeholderIf, radioBoxOptions } = form;
 
 export const getFormSchema = (
   projectId: string,
   projectType: ProjectType,
-  validDefaultLoggers: Project["validDefaultLoggers"],
   identifierHasChanges: boolean,
   initialOwner: string,
   initialRepo: string,
@@ -160,29 +158,6 @@ export const getFormSchema = (
               },
               deactivateStepback: {
                 type: "null" as "null",
-              },
-            },
-          },
-          logger: {
-            type: "object" as "object",
-            title: "Default Logger",
-            description:
-              "Used by Evergreen internally to configure where this branch should be logging test results.",
-            properties: {
-              defaultLogger: {
-                type: "string" as "string",
-                oneOf: [
-                  ...insertIf(projectType === ProjectType.AttachedProject, {
-                    type: "string" as "string",
-                    title: `Default to Repo (${repoData?.projectFlags?.logger?.defaultLogger})`,
-                    enum: [""],
-                  }),
-                  ...validDefaultLoggers.map((logger) => ({
-                    type: "string" as "string",
-                    title: logger,
-                    enum: [logger],
-                  })),
-                ],
               },
             },
           },
@@ -365,13 +340,6 @@ export const getFormSchema = (
           "ui:field": "deactivateStepbackTasks",
           "ui:showLabel": false,
           options: { projectId },
-        },
-      },
-      logger: {
-        defaultLogger: {
-          "ui:allowDeselect": false,
-          "ui:ariaLabelledBy": "projectFlags_logger__title",
-          "ui:data-cy": "default-logger-select",
         },
       },
       patch: {

@@ -63,7 +63,7 @@ export const ActionButtons: React.VFC<ActionButtonProps> = ({
         patchId={versionId}
         isButton
         disabled={isPatchOnCommitQueue}
-        refetchQueries={["PatchTasks"]}
+        refetchQueries={["VersionTasks"]}
       />
       <AddNotification patchId={versionId} />
       <ButtonDropdown dropdownItems={dropdownItems} loading={false} />
