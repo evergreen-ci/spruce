@@ -42,6 +42,7 @@ export const EventLogTab: React.VFC<TabProps> = ({ projectType }) => {
     variables: { identifier },
     errorPolicy: "all",
     skip: isRepo,
+    fetchPolicy: "no-cache",
     onError: (e) => {
       dispatchToast.error(`Unable to fetch events for ${identifier}: ${e}`);
     },
