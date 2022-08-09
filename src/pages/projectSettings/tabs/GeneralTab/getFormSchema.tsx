@@ -50,14 +50,14 @@ export const getFormSchema = (
                 type: "string" as "string",
                 title: "Owner",
                 format: "noSpaces",
-                minLength: 1,
+                minLength: getMinLength(projectType, repoData, "owner"),
                 default: "",
               },
               repo: {
                 type: "string" as "string",
                 title: "Repository",
                 format: "noSpaces",
-                minLength: 1,
+                minLength: getMinLength(projectType, repoData, "repo"),
                 default: "",
               },
             },
@@ -65,7 +65,7 @@ export const getFormSchema = (
           branch: {
             type: "string" as "string",
             title: "Branch Name",
-            minLength: 1,
+            minLength: getMinLength(projectType, repoData, "branch"),
             default: "",
           },
           other: {
@@ -397,3 +397,27 @@ const VersionControlEnabledDescription = (
     to be defined in this project&rsquo;s config YAML in addition to the UI.
   </>
 );
+
+const getMinLength = (
+  projectType: ProjectType,
+  repoData: FormState,
+  value: string
+): number => {
+  const repoGeneral = repoData?.generalConfiguration;
+  const repository = repoGeneral?.repositoryInfo;
+
+  if (projectType === ProjectType.AttachedProject) {
+    // if the project defaults to the repo, allow the value to be defined there instead
+    switch (value) {
+      case "owner":
+        return repository?.owner ? 0 : 1;
+      case "repo":
+        return repository?.repo ? 0 : 1;
+      case "branch":
+        return repoGeneral?.branch ? 0 : 1;
+      default:
+        return 1;
+    }
+  }
+  return 1;
+};
