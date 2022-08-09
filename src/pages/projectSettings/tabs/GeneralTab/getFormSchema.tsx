@@ -403,9 +403,6 @@ const getMinLength = (
   repoData: FormState,
   value: string
 ): number => {
-  if (projectType === ProjectType.Repo) {
-    return 1;
-  }
   const repoGeneral = repoData?.generalConfiguration;
   const repository = repoGeneral?.repositoryInfo;
 
