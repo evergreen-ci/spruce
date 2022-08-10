@@ -26,6 +26,11 @@ import { formToGqlMap } from "./tabs/transformers";
 import { FormToGqlFunction, WritableTabRoutes } from "./tabs/types";
 import { ProjectType } from "./tabs/utils";
 
+const defaultToRepoDisabled: Set<WritableTabRoutes> = new Set([
+  ProjectSettingsTabRoutes.Notifications,
+  ProjectSettingsTabRoutes.Plugins,
+]);
+
 interface Props {
   id: string;
   projectType: ProjectType;
@@ -116,6 +121,8 @@ export const HeaderButtons: React.VFC<Props> = ({ id, projectType, tab }) => {
     sendEvent({ section, name: isRepo ? "Save repo" : "Save project" });
   };
 
+  const canDefaultToRepo = !defaultToRepoDisabled.has(tab);
+
   return (
     <ButtonRow>
       <Button
@@ -126,7 +133,7 @@ export const HeaderButtons: React.VFC<Props> = ({ id, projectType, tab }) => {
       >
         Save Changes on Page
       </Button>
-      {projectType === ProjectType.AttachedProject && (
+      {projectType === ProjectType.AttachedProject && canDefaultToRepo && (
         <>
           <Button
             onClick={() => setDefaultModalOpen(true)}
