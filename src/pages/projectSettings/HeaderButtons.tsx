@@ -121,6 +121,8 @@ export const HeaderButtons: React.VFC<Props> = ({ id, projectType, tab }) => {
     sendEvent({ section, name: isRepo ? "Save repo" : "Save project" });
   };
 
+  const canDefaultToRepo = !defaultToRepoDisabled.has(tab);
+
   return (
     <ButtonRow>
       <Button
@@ -131,23 +133,22 @@ export const HeaderButtons: React.VFC<Props> = ({ id, projectType, tab }) => {
       >
         Save Changes on Page
       </Button>
-      {projectType === ProjectType.AttachedProject &&
-        !defaultToRepoDisabled.has(tab) && (
-          <>
-            <Button
-              onClick={() => setDefaultModalOpen(true)}
-              data-cy="default-to-repo-button"
-            >
-              Default to Repo on Page
-            </Button>
-            <DefaultSectionToRepoModal
-              handleClose={() => setDefaultModalOpen(false)}
-              open={defaultModalOpen}
-              projectId={id}
-              section={mapRouteToSection[tab]}
-            />
-          </>
-        )}
+      {projectType === ProjectType.AttachedProject && canDefaultToRepo && (
+        <>
+          <Button
+            onClick={() => setDefaultModalOpen(true)}
+            data-cy="default-to-repo-button"
+          >
+            Default to Repo on Page
+          </Button>
+          <DefaultSectionToRepoModal
+            handleClose={() => setDefaultModalOpen(false)}
+            open={defaultModalOpen}
+            projectId={id}
+            section={mapRouteToSection[tab]}
+          />
+        </>
+      )}
     </ButtonRow>
   );
 };
