@@ -525,11 +525,13 @@ const userTeamStyling = (
   },
   [fieldName]: {
     "ui:addButtonText": addButtonText,
+    "ui:orderable": false,
     "ui:showLabel": false,
   },
   repoData: {
     [fieldName]: {
       "ui:disabled": true,
+      "ui:orderable": false,
       "ui:readonly": true,
       "ui:showLabel": false,
     },
