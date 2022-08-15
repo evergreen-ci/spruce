@@ -892,15 +892,6 @@ export type PatchProject = {
   variants: Array<ProjectBuildVariant>;
 };
 
-/**
- * PatchTasks is the return value of the PatchTasks query.
- * It contains an array of Tasks based on filter criteria, as well as a count for the number of Tasks in that array.
- */
-export type PatchTasks = {
-  count: Scalars["Int"];
-  tasks: Array<Task>;
-};
-
 export type PatchTime = {
   finished?: Maybe<Scalars["String"]>;
   started?: Maybe<Scalars["String"]>;
@@ -1223,8 +1214,6 @@ export type Query = {
   myPublicKeys: Array<PublicKey>;
   myVolumes: Array<Volume>;
   patch: Patch;
-  /** @deprecated patchTasks is deprecated, use version.tasks instead. */
-  patchTasks: PatchTasks;
   project: Project;
   projectEvents: ProjectEvents;
   projectSettings: ProjectSettings;
@@ -1312,18 +1301,6 @@ export type QueryMainlineCommitsArgs = {
 
 export type QueryPatchArgs = {
   id: Scalars["String"];
-};
-
-export type QueryPatchTasksArgs = {
-  baseStatuses?: InputMaybe<Array<Scalars["String"]>>;
-  includeEmptyActivation?: InputMaybe<Scalars["Boolean"]>;
-  limit?: InputMaybe<Scalars["Int"]>;
-  page?: InputMaybe<Scalars["Int"]>;
-  patchId: Scalars["String"];
-  sorts?: InputMaybe<Array<SortOrder>>;
-  statuses?: InputMaybe<Array<Scalars["String"]>>;
-  taskName?: InputMaybe<Scalars["String"]>;
-  variant?: InputMaybe<Scalars["String"]>;
 };
 
 export type QueryProjectArgs = {
@@ -1554,7 +1531,7 @@ export enum SortDirection {
   Desc = "DESC",
 }
 
-/** SortOrder[] is an input value for the patchTasks query. It is used to define where to sort by ASC/DEC for a given sort key. */
+/** SortOrder[] is an input value for version.tasks. It is used to define whether to sort by ASC/DEC for a given sort key. */
 export type SortOrder = {
   Direction: SortDirection;
   Key: TaskSortCategory;
