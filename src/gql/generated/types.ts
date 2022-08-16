@@ -892,15 +892,6 @@ export type PatchProject = {
   variants: Array<ProjectBuildVariant>;
 };
 
-/**
- * PatchTasks is the return value of the PatchTasks query.
- * It contains an array of Tasks based on filter criteria, as well as a count for the number of Tasks in that array.
- */
-export type PatchTasks = {
-  count: Scalars["Int"];
-  tasks: Array<Task>;
-};
-
 export type PatchTime = {
   finished?: Maybe<Scalars["String"]>;
   started?: Maybe<Scalars["String"]>;
@@ -976,7 +967,6 @@ export type Project = {
   batchTime: Scalars["Int"];
   branch: Scalars["String"];
   buildBaronSettings: BuildBaronSettings;
-  cedarTestResultsEnabled?: Maybe<Scalars["Boolean"]>;
   commitQueue: CommitQueueParams;
   deactivatePrevious?: Maybe<Scalars["Boolean"]>;
   defaultLogger: Scalars["String"];
@@ -1083,7 +1073,6 @@ export type ProjectInput = {
   batchTime?: InputMaybe<Scalars["Int"]>;
   branch?: InputMaybe<Scalars["String"]>;
   buildBaronSettings?: InputMaybe<BuildBaronSettingsInput>;
-  cedarTestResultsEnabled?: InputMaybe<Scalars["Boolean"]>;
   commitQueue?: InputMaybe<CommitQueueParamsInput>;
   deactivatePrevious?: InputMaybe<Scalars["Boolean"]>;
   defaultLogger?: InputMaybe<Scalars["String"]>;
@@ -1225,8 +1214,6 @@ export type Query = {
   myPublicKeys: Array<PublicKey>;
   myVolumes: Array<Volume>;
   patch: Patch;
-  /** @deprecated patchTasks is deprecated, use version.tasks instead. */
-  patchTasks: PatchTasks;
   project: Project;
   projectEvents: ProjectEvents;
   projectSettings: ProjectSettings;
@@ -1314,18 +1301,6 @@ export type QueryMainlineCommitsArgs = {
 
 export type QueryPatchArgs = {
   id: Scalars["String"];
-};
-
-export type QueryPatchTasksArgs = {
-  baseStatuses?: InputMaybe<Array<Scalars["String"]>>;
-  includeEmptyActivation?: InputMaybe<Scalars["Boolean"]>;
-  limit?: InputMaybe<Scalars["Int"]>;
-  page?: InputMaybe<Scalars["Int"]>;
-  patchId: Scalars["String"];
-  sorts?: InputMaybe<Array<SortOrder>>;
-  statuses?: InputMaybe<Array<Scalars["String"]>>;
-  taskName?: InputMaybe<Scalars["String"]>;
-  variant?: InputMaybe<Scalars["String"]>;
 };
 
 export type QueryProjectArgs = {
@@ -1418,7 +1393,6 @@ export type RepoRef = {
   batchTime: Scalars["Int"];
   branch: Scalars["String"];
   buildBaronSettings: BuildBaronSettings;
-  cedarTestResultsEnabled: Scalars["Boolean"];
   commitQueue: RepoCommitQueueParams;
   deactivatePrevious: Scalars["Boolean"];
   defaultLogger: Scalars["String"];
@@ -1461,7 +1435,6 @@ export type RepoRefInput = {
   batchTime?: InputMaybe<Scalars["Int"]>;
   branch?: InputMaybe<Scalars["String"]>;
   buildBaronSettings?: InputMaybe<BuildBaronSettingsInput>;
-  cedarTestResultsEnabled?: InputMaybe<Scalars["Boolean"]>;
   commitQueue?: InputMaybe<CommitQueueParamsInput>;
   deactivatePrevious?: InputMaybe<Scalars["Boolean"]>;
   defaultLogger?: InputMaybe<Scalars["String"]>;
@@ -1558,7 +1531,7 @@ export enum SortDirection {
   Desc = "DESC",
 }
 
-/** SortOrder[] is an input value for the patchTasks query. It is used to define where to sort by ASC/DEC for a given sort key. */
+/** SortOrder[] is an input value for version.tasks. It is used to define whether to sort by ASC/DEC for a given sort key. */
 export type SortOrder = {
   Direction: SortDirection;
   Key: TaskSortCategory;
@@ -2469,8 +2442,6 @@ export type ProjectGeneralSettingsFragment = {
   versionControlEnabled?: Maybe<boolean>;
   deactivatePrevious?: Maybe<boolean>;
   repotrackerDisabled?: Maybe<boolean>;
-  defaultLogger: string;
-  validDefaultLoggers: Array<string>;
   patchingDisabled?: Maybe<boolean>;
   disabledStatsCache?: Maybe<boolean>;
   filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -2490,8 +2461,6 @@ export type RepoGeneralSettingsFragment = {
   versionControlEnabled: boolean;
   deactivatePrevious: boolean;
   repotrackerDisabled: boolean;
-  defaultLogger: string;
-  validDefaultLoggers: Array<string>;
   patchingDisabled: boolean;
   disabledStatsCache: boolean;
   filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -2605,8 +2574,6 @@ export type ProjectSettingsFragment = {
     versionControlEnabled?: Maybe<boolean>;
     deactivatePrevious?: Maybe<boolean>;
     repotrackerDisabled?: Maybe<boolean>;
-    defaultLogger: string;
-    validDefaultLoggers: Array<string>;
     patchingDisabled?: Maybe<boolean>;
     disabledStatsCache?: Maybe<boolean>;
     filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -2746,8 +2713,6 @@ export type RepoSettingsFragment = {
     versionControlEnabled: boolean;
     deactivatePrevious: boolean;
     repotrackerDisabled: boolean;
-    defaultLogger: string;
-    validDefaultLoggers: Array<string>;
     patchingDisabled: boolean;
     disabledStatsCache: boolean;
     filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -3011,8 +2976,6 @@ export type ProjectEventSettingsFragment = {
     dispatchingDisabled?: Maybe<boolean>;
     deactivatePrevious?: Maybe<boolean>;
     repotrackerDisabled?: Maybe<boolean>;
-    defaultLogger: string;
-    validDefaultLoggers: Array<string>;
     patchingDisabled?: Maybe<boolean>;
     disabledStatsCache?: Maybe<boolean>;
     filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -4578,8 +4541,6 @@ export type ProjectEventLogsQuery = {
           dispatchingDisabled?: Maybe<boolean>;
           deactivatePrevious?: Maybe<boolean>;
           repotrackerDisabled?: Maybe<boolean>;
-          defaultLogger: string;
-          validDefaultLoggers: Array<string>;
           patchingDisabled?: Maybe<boolean>;
           disabledStatsCache?: Maybe<boolean>;
           filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -4735,8 +4696,6 @@ export type ProjectEventLogsQuery = {
           dispatchingDisabled?: Maybe<boolean>;
           deactivatePrevious?: Maybe<boolean>;
           repotrackerDisabled?: Maybe<boolean>;
-          defaultLogger: string;
-          validDefaultLoggers: Array<string>;
           patchingDisabled?: Maybe<boolean>;
           disabledStatsCache?: Maybe<boolean>;
           filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -4900,8 +4859,6 @@ export type ProjectSettingsQuery = {
       versionControlEnabled?: Maybe<boolean>;
       deactivatePrevious?: Maybe<boolean>;
       repotrackerDisabled?: Maybe<boolean>;
-      defaultLogger: string;
-      validDefaultLoggers: Array<string>;
       patchingDisabled?: Maybe<boolean>;
       disabledStatsCache?: Maybe<boolean>;
       filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -5086,8 +5043,6 @@ export type RepoEventLogsQuery = {
           dispatchingDisabled?: Maybe<boolean>;
           deactivatePrevious?: Maybe<boolean>;
           repotrackerDisabled?: Maybe<boolean>;
-          defaultLogger: string;
-          validDefaultLoggers: Array<string>;
           patchingDisabled?: Maybe<boolean>;
           disabledStatsCache?: Maybe<boolean>;
           filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -5243,8 +5198,6 @@ export type RepoEventLogsQuery = {
           dispatchingDisabled?: Maybe<boolean>;
           deactivatePrevious?: Maybe<boolean>;
           repotrackerDisabled?: Maybe<boolean>;
-          defaultLogger: string;
-          validDefaultLoggers: Array<string>;
           patchingDisabled?: Maybe<boolean>;
           disabledStatsCache?: Maybe<boolean>;
           filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -5406,8 +5359,6 @@ export type RepoSettingsQuery = {
       versionControlEnabled: boolean;
       deactivatePrevious: boolean;
       repotrackerDisabled: boolean;
-      defaultLogger: string;
-      validDefaultLoggers: Array<string>;
       patchingDisabled: boolean;
       disabledStatsCache: boolean;
       filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -5878,14 +5829,16 @@ export type GetUndispatchedTasksQueryVariables = Exact<{
 }>;
 
 export type GetUndispatchedTasksQuery = {
-  patchTasks: {
-    tasks: Array<{
-      id: string;
-      execution: number;
-      displayName: string;
-      buildVariant: string;
-      buildVariantDisplayName?: Maybe<string>;
-    }>;
+  version: {
+    tasks: {
+      data: Array<{
+        id: string;
+        buildVariant: string;
+        buildVariantDisplayName?: Maybe<string>;
+        displayName: string;
+        execution: number;
+      }>;
+    };
   };
 };
 
@@ -5992,7 +5945,6 @@ export type VersionTasksQuery = {
         executionTasksFull?: Maybe<
           Array<{
             id: string;
-            baseStatus?: Maybe<string>;
             buildVariant: string;
             buildVariantDisplayName?: Maybe<string>;
             displayName: string;

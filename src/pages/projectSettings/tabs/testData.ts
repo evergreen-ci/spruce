@@ -2,12 +2,10 @@ import { ProjectSettingsQuery, RepoSettingsQuery } from "gql/generated/types";
 
 const projectBase: ProjectSettingsQuery["projectSettings"] = {
   githubWebhooksEnabled: true,
-
   projectRef: {
     id: "project",
     identifier: "project",
     repoRefId: "repo",
-
     enabled: null,
     owner: "evergreen-ci",
     repo: "evergreen",
@@ -21,7 +19,6 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     versionControlEnabled: true,
     deactivatePrevious: null,
     repotrackerDisabled: null,
-    defaultLogger: null,
     patchingDisabled: null,
     taskSync: {
       configEnabled: null,
@@ -29,7 +26,6 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     },
     disabledStatsCache: null,
     filesIgnoredFromCache: null,
-    validDefaultLoggers: ["evergreen", "buildlogger"],
     private: null,
     restricted: true,
     admins: [],
@@ -128,7 +124,6 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     deactivatePrevious: true,
     repotrackerDisabled: false,
     notifyOnBuildFailure: false,
-    defaultLogger: "buildlogger",
     patchingDisabled: false,
     taskSync: {
       configEnabled: true,
@@ -136,7 +131,6 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     },
     disabledStatsCache: false,
     filesIgnoredFromCache: ["filename"],
-    validDefaultLoggers: ["evergreen", "buildlogger"],
     private: false,
     restricted: true,
     admins: ["admin"],

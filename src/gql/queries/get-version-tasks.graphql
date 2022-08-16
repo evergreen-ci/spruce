@@ -20,7 +20,6 @@ query VersionTasks(
         execution
         executionTasksFull {
           id
-          baseStatus
           baseTask {
             id
             execution

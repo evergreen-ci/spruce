@@ -13,6 +13,7 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
       <div
         className="ant-table"
         data-cy="tasks-table"
+        data-loading={false}
       >
         <div
           className="ant-table-container"
@@ -350,10 +351,10 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-114ed4x"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1e1vnx9"
                       data-cy="task-status-badge"
                     >
-                      Succeeded
+                      Running
                     </div>
                   </td>
                   <td
@@ -363,7 +364,14 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     onMouseLeave={[Function]}
                     rowSpan={null}
                     style={Object {}}
-                  />
+                  >
+                    <div
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-13xc3rv"
+                      data-cy="task-status-badge"
+                    >
+                      Unscheduled
+                    </div>
+                  </td>
                   <td
                     className="ant-table-cell cy-task-table-col-VARIANT"
                     colSpan={null}
@@ -429,7 +437,14 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     onMouseLeave={[Function]}
                     rowSpan={null}
                     style={Object {}}
-                  />
+                  >
+                    <div
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1sq0is2"
+                      data-cy="task-status-badge"
+                    >
+                      Failed
+                    </div>
+                  </td>
                   <td
                     className="ant-table-cell cy-task-table-col-VARIANT"
                     colSpan={null}
@@ -495,7 +510,14 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     onMouseLeave={[Function]}
                     rowSpan={null}
                     style={Object {}}
-                  />
+                  >
+                    <div
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1sq0is2"
+                      data-cy="task-status-badge"
+                    >
+                      Failed
+                    </div>
+                  </td>
                   <td
                     className="ant-table-cell cy-task-table-col-VARIANT"
                     colSpan={null}
@@ -536,6 +558,7 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
       <div
         className="ant-table"
         data-cy="tasks-table"
+        data-loading={false}
       >
         <div
           className="ant-table-container"
@@ -887,10 +910,10 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     style={Object {}}
                   >
                     <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-114ed4x"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1e1vnx9"
                       data-cy="task-status-badge"
                     >
-                      Succeeded
+                      Running
                     </div>
                   </td>
                   <td
@@ -900,7 +923,14 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     onMouseLeave={[Function]}
                     rowSpan={null}
                     style={Object {}}
-                  />
+                  >
+                    <div
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-13xc3rv"
+                      data-cy="task-status-badge"
+                    >
+                      Unscheduled
+                    </div>
+                  </td>
                   <td
                     className="ant-table-cell cy-task-table-col-VARIANT"
                     colSpan={null}
@@ -980,7 +1010,14 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     onMouseLeave={[Function]}
                     rowSpan={null}
                     style={Object {}}
-                  />
+                  >
+                    <div
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1sq0is2"
+                      data-cy="task-status-badge"
+                    >
+                      Failed
+                    </div>
+                  </td>
                   <td
                     className="ant-table-cell cy-task-table-col-VARIANT"
                     colSpan={null}
@@ -1060,7 +1097,14 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     onMouseLeave={[Function]}
                     rowSpan={null}
                     style={Object {}}
-                  />
+                  >
+                    <div
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1sq0is2"
+                      data-cy="task-status-badge"
+                    >
+                      Failed
+                    </div>
+                  </td>
                   <td
                     className="ant-table-cell cy-task-table-col-VARIANT"
                     colSpan={null}
@@ -1140,7 +1184,14 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     onMouseLeave={[Function]}
                     rowSpan={null}
                     style={Object {}}
-                  />
+                  >
+                    <div
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1sq0is2"
+                      data-cy="task-status-badge"
+                    >
+                      Failed
+                    </div>
+                  </td>
                   <td
                     className="ant-table-cell cy-task-table-col-VARIANT"
                     colSpan={null}

@@ -72,6 +72,7 @@ export const clickOnPageSizeBtnAndAssertURLandTableSize = (
  */
 export const selectAntdOption = (dataCy: string, option: string) => {
   // open select
+  cy.dataCy(dataCy).should("be.visible").should("not.be.disabled");
   cy.dataCy(dataCy).click();
   // click on option
   cy.get(".ant-select-dropdown :not(.ant-select-dropdown-hidden)")

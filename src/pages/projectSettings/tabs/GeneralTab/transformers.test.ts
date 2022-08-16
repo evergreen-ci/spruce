@@ -56,9 +56,6 @@ const repoForm: FormState = {
       repotrackerDisabled: false,
       forceRun: null,
     },
-    logger: {
-      defaultLogger: "buildlogger",
-    },
     patch: {
       patchingDisabled: false,
     },
@@ -91,7 +88,6 @@ const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
     dispatchingDisabled: true,
     deactivatePrevious: true,
     repotrackerDisabled: false,
-    defaultLogger: "buildlogger",
     patchingDisabled: false,
     taskSync: {
       configEnabled: true,
@@ -129,9 +125,6 @@ const projectForm: FormState = {
       repotrackerDisabled: null,
       forceRun: null,
     },
-    logger: {
-      defaultLogger: null,
-    },
     patch: {
       patchingDisabled: null,
     },
@@ -152,7 +145,6 @@ const projectForm: FormState = {
 const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
   projectRef: {
     id: "project",
-
     enabled: null,
     owner: "evergreen-ci",
     repo: "evergreen",
@@ -166,7 +158,6 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
     dispatchingDisabled: null,
     deactivatePrevious: null,
     repotrackerDisabled: null,
-    defaultLogger: null,
     patchingDisabled: null,
     taskSync: {
       configEnabled: null,

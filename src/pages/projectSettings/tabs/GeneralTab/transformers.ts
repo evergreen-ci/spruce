@@ -49,9 +49,6 @@ export const gqlToForm: GqlToFormFunction<Tab> = (
         repotrackerDisabled: projectRef.repotrackerDisabled,
         forceRun: null,
       },
-      logger: {
-        defaultLogger: projectRef.defaultLogger,
-      },
       patch: {
         patchingDisabled: projectRef.patchingDisabled,
       },
@@ -100,7 +97,6 @@ export const formToGql: FormToGqlFunction<Tab> = (
     dispatchingDisabled: projectFlags.dispatchingDisabled,
     deactivatePrevious: projectFlags.scheduling.deactivatePrevious,
     repotrackerDisabled: projectFlags.repotracker.repotrackerDisabled,
-    defaultLogger: projectFlags.logger.defaultLogger,
     patchingDisabled: projectFlags.patch.patchingDisabled,
     taskSync: {
       configEnabled: projectFlags.taskSync.configEnabled,

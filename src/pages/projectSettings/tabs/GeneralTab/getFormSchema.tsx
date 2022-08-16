@@ -2,7 +2,6 @@ import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { StyledLink } from "components/styles";
 import { versionControlDocumentationUrl } from "constants/externalResources";
-import { Project } from "gql/generated/types";
 import { GetFormSchema } from "../types";
 import { form, ProjectType } from "../utils";
 import {
@@ -12,12 +11,11 @@ import {
 } from "./Fields";
 import { FormState } from "./types";
 
-const { insertIf, overrideRadioBox, placeholderIf, radioBoxOptions } = form;
+const { overrideRadioBox, placeholderIf, radioBoxOptions } = form;
 
 export const getFormSchema = (
   projectId: string,
   projectType: ProjectType,
-  validDefaultLoggers: Project["validDefaultLoggers"],
   identifierHasChanges: boolean,
   initialOwner: string,
   initialRepo: string,
@@ -52,14 +50,14 @@ export const getFormSchema = (
                 type: "string" as "string",
                 title: "Owner",
                 format: "noSpaces",
-                minLength: 1,
+                minLength: getMinLength(projectType, repoData, "owner"),
                 default: "",
               },
               repo: {
                 type: "string" as "string",
                 title: "Repository",
                 format: "noSpaces",
-                minLength: 1,
+                minLength: getMinLength(projectType, repoData, "repo"),
                 default: "",
               },
             },
@@ -67,7 +65,7 @@ export const getFormSchema = (
           branch: {
             type: "string" as "string",
             title: "Branch Name",
-            minLength: 1,
+            minLength: getMinLength(projectType, repoData, "branch"),
             default: "",
           },
           other: {
@@ -156,29 +154,6 @@ export const getFormSchema = (
               },
               deactivateStepback: {
                 type: "null" as "null",
-              },
-            },
-          },
-          logger: {
-            type: "object" as "object",
-            title: "Default Logger",
-            description:
-              "Used by Evergreen internally to configure where this branch should be logging test results.",
-            properties: {
-              defaultLogger: {
-                type: "string" as "string",
-                oneOf: [
-                  ...insertIf(projectType === ProjectType.AttachedProject, {
-                    type: "string" as "string",
-                    title: `Default to Repo (${repoData?.projectFlags?.logger?.defaultLogger})`,
-                    enum: [""],
-                  }),
-                  ...validDefaultLoggers.map((logger) => ({
-                    type: "string" as "string",
-                    title: logger,
-                    enum: [logger],
-                  })),
-                ],
               },
             },
           },
@@ -363,13 +338,6 @@ export const getFormSchema = (
           options: { projectId },
         },
       },
-      logger: {
-        defaultLogger: {
-          "ui:allowDeselect": false,
-          "ui:ariaLabelledBy": "projectFlags_logger__title",
-          "ui:data-cy": "default-logger-select",
-        },
-      },
       patch: {
         patchingDisabled: {
           "ui:widget": widgets.RadioBoxWidget,
@@ -429,3 +397,27 @@ const VersionControlEnabledDescription = (
     to be defined in this project&rsquo;s config YAML in addition to the UI.
   </>
 );
+
+const getMinLength = (
+  projectType: ProjectType,
+  repoData: FormState,
+  value: string
+): number => {
+  const repoGeneral = repoData?.generalConfiguration;
+  const repository = repoGeneral?.repositoryInfo;
+
+  if (projectType === ProjectType.AttachedProject) {
+    // if the project defaults to the repo, allow the value to be defined there instead
+    switch (value) {
+      case "owner":
+        return repository?.owner ? 0 : 1;
+      case "repo":
+        return repository?.repo ? 0 : 1;
+      case "branch":
+        return repoGeneral?.branch ? 0 : 1;
+      default:
+        return 1;
+    }
+  }
+  return 1;
+};

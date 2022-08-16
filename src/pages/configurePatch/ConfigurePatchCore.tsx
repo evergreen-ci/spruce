@@ -100,7 +100,7 @@ export const ConfigurePatchCore: React.VFC<Props> = ({ patch }) => {
         `There was an error scheduling this patch : ${err.message}`
       );
     },
-    refetchQueries: ["PatchTasks", "PatchTaskDurations"],
+    refetchQueries: ["VersionTasks", "VersionTaskDurations"],
   });
 
   const onClickSchedule = async (): Promise<void> => {

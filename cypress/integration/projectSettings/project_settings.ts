@@ -966,6 +966,9 @@ describe("Notifications", () => {
     cy.login();
     cy.visit(destination);
   });
+  it("Does not show a 'Default to Repo' button on page", () => {
+    cy.dataCy("default-to-repo-button").should("not.exist");
+  });
   it("shouldn't have any subscriptions defined", () => {
     cy.contains("No subscriptions are defined.").should("exist");
   });

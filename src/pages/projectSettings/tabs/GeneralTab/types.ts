@@ -27,9 +27,6 @@ export interface FormState {
       repotrackerDisabled: boolean | null;
       forceRun: null;
     };
-    logger: {
-      defaultLogger: string;
-    };
     patch: {
       patchingDisabled: boolean | null;
     };
@@ -52,5 +49,4 @@ export type TabProps = {
   projectId?: string;
   projectType: ProjectType;
   repoData?: FormState;
-  validDefaultLoggers: string[];
 };

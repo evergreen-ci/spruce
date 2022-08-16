@@ -67,6 +67,7 @@ export const TasksTable: React.VFC<TasksTableProps> = ({
     rowKey={rowKey}
     pagination={false}
     loading={loading}
+    data-loading={loading}
     columns={
       sorts
         ? getColumnDefsWithSort({
@@ -172,7 +173,7 @@ const getColumnDefs = ({
       },
     }),
     sorter: {
-      compare: (a, b) => sortTasks(a.baseStatus, b.baseStatus),
+      compare: (a, b) => sortTasks(a?.baseTask?.status, b?.baseTask?.status),
       multiple: 4,
     },
     className: "cy-task-table-col-BASE_STATUS",

@@ -6,11 +6,13 @@ const tasks = [
     aborted: false,
     displayName: "Some Fancy ID",
     version: "123",
-    status: "success",
+    status: "started",
     buildVariant: "ubuntu1604",
     buildVariantDisplayName: "Ubuntu 16.04",
     blocked: false,
-    baseStatus: "failed",
+    baseTask: {
+      status: "unscheduled",
+    },
   },
   {
     id: "some_id_2",
@@ -21,7 +23,9 @@ const tasks = [
     buildVariant: "ubuntu1604",
     buildVariantDisplayName: "Ubuntu 16.04",
     blocked: false,
-    baseStatus: "failed",
+    baseTask: {
+      status: "failed",
+    },
   },
   {
     id: "some_id_3",
@@ -32,7 +36,9 @@ const tasks = [
     buildVariant: "Windows",
     buildVariantDisplayName: "Windows 97",
     blocked: false,
-    baseStatus: "failed",
+    baseTask: {
+      status: "failed",
+    },
   },
 ];
 
@@ -47,7 +53,9 @@ const nestedTasks = [
     buildVariant: "Windows",
     buildVariantDisplayName: "Windows 97",
     blocked: false,
-    baseStatus: "failed",
+    baseTask: {
+      status: "failed",
+    },
     executionTasksFull: [
       {
         id: "some_id_5",
@@ -58,7 +66,9 @@ const nestedTasks = [
         buildVariant: "Windows",
         buildVariantDisplayName: "Windows 97",
         blocked: false,
-        baseStatus: "aborted",
+        baseTask: {
+          status: "aborted",
+        },
       },
       {
         id: "some_id_6",
@@ -69,7 +79,9 @@ const nestedTasks = [
         buildVariant: "Windows",
         buildVariantDisplayName: "Windows 97",
         blocked: false,
-        baseStatus: "failed",
+        baseTask: {
+          status: "system-failed",
+        },
       },
     ],
   },
