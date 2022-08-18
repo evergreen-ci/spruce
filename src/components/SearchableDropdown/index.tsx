@@ -162,6 +162,7 @@ const SearchableDropdown = <T extends {}>({
             icon={<Icon glyph="MagnifyingGlass" />}
             aria-label="Search"
             type="search"
+            autoFocus
           />
           <ScrollableList>
             {(visibleOptions as T[])?.map((o) => option(o))}
