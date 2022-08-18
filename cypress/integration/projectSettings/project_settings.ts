@@ -71,7 +71,7 @@ describe("Access page", () => {
     cy.get("[aria-label='Username']").should("have.length", 0);
   });
 
-  it("Submitting a username produces an error toast", () => {
+  it("Submitting an invalid admin username produces an error toast", () => {
     cy.visit(getAccessRoute(project));
     cy.contains("Add Username").click();
     cy.get("[aria-label='Username'")
