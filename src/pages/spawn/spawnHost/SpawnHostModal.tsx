@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { AutoComplete, Input } from "antd";
+import { useSearchParams } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
 import Icon from "components/Icon";
 import { Modal } from "components/Modal";
@@ -51,6 +52,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   visible,
   onCancel,
 }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const dispatchToast = useToastContext();
   const spawnAnalytics = useSpawnAnalytics();
   // QUERY distros
@@ -154,6 +156,15 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     });
   }, [distroId, dispatch, distrosData?.distros, unexpirableCountReached]);
 
+  const removeModalQueryParam = useCallback(() => {
+    setSearchParams(
+      [...searchParams.entries()].filter(([k]) => k !== "spawnHost"),
+      {
+        replace: true,
+      }
+    );
+  }, [searchParams, setSearchParams]);
+
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
     return null;
   }
@@ -203,6 +214,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     spawnHostMutation({
       variables: { SpawnHostInput: varsToSubmit },
     });
+    removeModalQueryParam();
   };
 
   const editDistro = (d: string) => {
@@ -215,6 +227,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   const onClose = () => {
     dispatch({ type: "reset" }); // reset modal content
     onCancel();
+    removeModalQueryParam();
   };
 
   return (
@@ -223,8 +236,12 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
       visible={visible}
       onCancel={onClose}
       footer={[
-        // @ts-expect-error
-        <WideButton onClick={onClose} key="cancel_button">
+        <WideButton
+          // @ts-expect-error
+          onClick={onClose}
+          data-cy="cancel-button"
+          key="cancel_button"
+        >
           Cancel
         </WideButton>,
         <WideButton
