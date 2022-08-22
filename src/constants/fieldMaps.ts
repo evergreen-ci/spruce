@@ -172,6 +172,8 @@ export const awsRegions = [
   },
 ];
 
+export const dateFormats = ["MM/DD/YYYY", "DD/MM/YYYY", "YYYY/MM/DD"];
+
 export const notificationFields = {
   patchFinish: "Patch finish",
   patchFirstFailure: "Patch first task failure",

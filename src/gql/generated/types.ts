@@ -2038,6 +2038,7 @@ export type UserConfig = {
  * It contains information about a user's settings, such as their GitHub username or timezone.
  */
 export type UserSettings = {
+  dateFormat?: Maybe<Scalars["String"]>;
   githubUser?: Maybe<GithubUser>;
   notifications?: Maybe<Notifications>;
   region?: Maybe<Scalars["String"]>;
@@ -2051,6 +2052,7 @@ export type UserSettings = {
  * It is used to update user information such as GitHub or Slack username.
  */
 export type UserSettingsInput = {
+  dateFormat?: InputMaybe<Scalars["String"]>;
   githubUser?: InputMaybe<GithubUserInput>;
   notifications?: InputMaybe<NotificationsInput>;
   region?: InputMaybe<Scalars["String"]>;
@@ -5866,6 +5868,7 @@ export type GetUserSettingsQuery = {
     timezone?: Maybe<string>;
     region?: Maybe<string>;
     slackUsername?: Maybe<string>;
+    dateFormat?: Maybe<string>;
     notifications?: Maybe<{
       buildBreak?: Maybe<string>;
       commitQueue?: Maybe<string>;

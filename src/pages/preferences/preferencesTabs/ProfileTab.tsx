@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
@@ -6,7 +6,7 @@ import Card from "@leafygreen-ui/card";
 import { Skeleton } from "antd";
 import { usePreferencesAnalytics } from "analytics";
 import { SpruceForm } from "components/SpruceForm";
-import { timeZones } from "constants/fieldMaps";
+import { timeZones, dateFormats } from "constants/fieldMaps";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -17,15 +17,16 @@ import {
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { GET_AWS_REGIONS } from "gql/queries";
 import { useUserSettings } from "hooks";
+import { omitTypename } from "utils/string";
 
 export const ProfileTab: React.VFC = () => {
   const { sendEvent } = usePreferencesAnalytics();
   const dispatchToast = useToastContext();
 
   const { userSettings, loading } = useUserSettings();
-  const { githubUser, timezone, region } = userSettings ?? {};
+  const { githubUser, timezone, region, dateFormat } = userSettings ?? {};
   const lastKnownAs = githubUser?.lastKnownAs || "";
-
+  console.log(dateFormat);
   const { data: awsRegionData, loading: awsRegionLoading } =
     useQuery<AwsRegionsQuery>(GET_AWS_REGIONS);
   const awsRegions = awsRegionData?.awsRegions || [];
@@ -43,11 +44,27 @@ export const ProfileTab: React.VFC = () => {
   });
 
   const [hasErrors, setHasErrors] = useState(false);
-  const [formState, setFormState] = useState({
+  const [formState, setFormState] = useState<{
+    timezone: string;
+    region: string;
+    githubUser: { lastKnownAs?: string };
+    dateFormat: string;
+  }>({
     timezone,
     region,
     githubUser: { lastKnownAs },
+    dateFormat,
   });
+
+  useEffect(() => {
+    setFormState({
+      githubUser: omitTypename(githubUser || {}),
+      timezone,
+      region,
+      dateFormat,
+    });
+  }, [dateFormat, githubUser, region, timezone]);
+
   const handleSubmit = () => {
     updateUserSettings({
       variables: {
@@ -62,6 +79,7 @@ export const ProfileTab: React.VFC = () => {
         userSettings: {
           timezone: formState.timezone,
           region: formState.region,
+          dateFormat: formState.dateFormat,
         },
       },
     });
@@ -82,6 +100,22 @@ export const ProfileTab: React.VFC = () => {
               setFormState(formData);
             }}
             formData={formState}
+            uiSchema={{
+              timezone: {
+                "ui:placeholder": "Select a timezone",
+              },
+              region: {
+                "ui:placeholder": "Select an AWS region",
+              },
+              githubUser: {
+                lastKnownAs: {
+                  "ui:placeholder": "Enter your GitHub username",
+                },
+              },
+              dateFormat: {
+                "ui:placeholder": "Select a date format",
+              },
+            }}
             schema={{
               properties: {
                 githubUser: {
@@ -90,14 +124,12 @@ export const ProfileTab: React.VFC = () => {
                     lastKnownAs: {
                       type: "string",
                       title: "Github Username",
-                      description: "Your Github username",
                     },
                   },
                 },
                 timezone: {
                   type: "string",
                   title: "Timezone",
-                  description: "Your timezone",
                   oneOf: [
                     ...timeZones.map(({ str, value }) => ({
                       type: "string" as "string",
@@ -109,8 +141,12 @@ export const ProfileTab: React.VFC = () => {
                 region: {
                   type: "string",
                   title: "AWS Region",
-                  description: "Your AWS region",
                   enum: awsRegions,
+                },
+                dateFormat: {
+                  type: "string",
+                  title: "Date Format",
+                  enum: dateFormats,
                 },
               },
             }}
