@@ -1,3 +1,5 @@
+import { getDateCopy } from "utils/string";
+
 export const timeZones = [
   {
     str: "Coordinated Universal Time",
@@ -172,8 +174,50 @@ export const awsRegions = [
   },
 ];
 
-export const dateFormats = ["MM/DD/YYYY", "DD/MM/YYYY", "YYYY/MM/DD"];
-
+export const dateFormats = [
+  {
+    value: "MM-dd-yyyy",
+    str: `MM-dd-yyyy - ${getDateCopy("08/31/2022", {
+      dateFormat: "MM-dd-yyyy",
+    })}`,
+  },
+  {
+    value: "dd-MM-yyyy",
+    str: `dd-MM-yyyy - ${getDateCopy("08/31/2022", {
+      dateFormat: "dd/MM/yyyy",
+    })}`,
+  },
+  {
+    value: "yyyy-MM-dd",
+    str: `yyyy-MM-dd - ${getDateCopy("08/31/2022", {
+      dateFormat: "yyyy-MM-dd",
+    })}`,
+  },
+  {
+    value: "MM/dd/yyyy",
+    str: `MM/dd/yyyy - ${getDateCopy("08/31/2022", {
+      dateFormat: "MM/dd/yyyy",
+    })}`,
+  },
+  {
+    value: "dd/MM/yyyy",
+    str: `dd/MM/yyyy - ${getDateCopy("08/31/2022", {
+      dateFormat: "dd/MM/yyyy",
+    })}`,
+  },
+  {
+    value: "yyyy/MM/dd",
+    str: `yyyy/MM/dd - ${getDateCopy("08/31/2022", {
+      dateFormat: "yyyy/MM/dd",
+    })}`,
+  },
+  {
+    value: "MMM d, yyyy",
+    str: `MMM d, yyyy - ${getDateCopy("08/31/2022", {
+      dateFormat: "MMM d, yyyy",
+    })}`,
+  },
+];
 export const notificationFields = {
   patchFinish: "Patch finish",
   patchFirstFailure: "Patch first task failure",

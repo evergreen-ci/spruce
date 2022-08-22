@@ -100,10 +100,11 @@ export const omitTypename = (object) =>
     key === "__typename" ? undefined : value
   );
 
-type DateCopyOptions = {
+export type DateCopyOptions = {
   tz?: string;
   dateOnly?: boolean;
   omitSeconds?: boolean;
+  dateFormat?: string;
 };
 
 // Will return a time in the users local timezone when one is not provided
@@ -114,15 +115,17 @@ export const getDateCopy = (
   if (!time) {
     return "";
   }
-  const { tz, dateOnly, omitSeconds } = options || {};
-  const dateFormat = dateOnly
-    ? "MMM d, yyyy"
-    : `MMM d, yyyy, h:mm${omitSeconds ? "" : ":ss"} aa`;
+  const { tz, dateOnly, omitSeconds, dateFormat } = options || {
+    dateFormat: "MMM d, yyyy",
+  };
+  const finalDateFormat = dateOnly
+    ? dateFormat
+    : `${dateFormat}, h:mm${omitSeconds ? "" : ":ss"} aa`;
   if (tz) {
-    return format(utcToZonedTime(time, tz), dateFormat);
+    return format(utcToZonedTime(time, tz), finalDateFormat);
   }
 
-  return format(new Date(time), dateFormat);
+  return format(new Date(time), finalDateFormat);
 };
 
 export const copyToClipboard = (str: string) => {
