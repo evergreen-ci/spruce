@@ -11,11 +11,8 @@ import {
   Note,
 } from "gql/generated/types";
 import { EDIT_ANNOTATION_NOTE } from "gql/mutations";
-import { useUserTimeZone } from "hooks/useUserTimeZone";
-import { string } from "utils";
+import { useDateFormat } from "hooks";
 import { ButtonWrapper, NonTableWrapper } from "./BBComponents";
-
-const { getDateCopy } = string;
 
 interface Props {
   note: Note;
@@ -30,7 +27,7 @@ const AnnotationNote: React.VFC<Props> = ({
   execution,
   userCanModify,
 }) => {
-  const tz = useUserTimeZone();
+  const getDateCopy = useDateFormat();
   const annotationAnalytics = useAnnotationAnalytics();
   const originalMessage = note?.message || "";
   const dispatchToast = useToastContext();
@@ -77,7 +74,7 @@ const AnnotationNote: React.VFC<Props> = ({
         label="Note"
         description={
           note &&
-          `Updated: ${getDateCopy(note.source.time, { tz, dateOnly: true })}
+          `Updated: ${getDateCopy(note.source.time, { dateOnly: true })}
           Last Edited By: ${note.source.author}
           `
         }

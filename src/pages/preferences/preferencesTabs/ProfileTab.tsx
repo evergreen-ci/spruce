@@ -146,7 +146,13 @@ export const ProfileTab: React.VFC = () => {
                 dateFormat: {
                   type: "string",
                   title: "Date Format",
-                  enum: dateFormats,
+                  oneOf: [
+                    ...dateFormats.map(({ str, value }) => ({
+                      type: "string" as "string",
+                      title: str,
+                      enum: [value],
+                    })),
+                  ],
                 },
               },
             }}
