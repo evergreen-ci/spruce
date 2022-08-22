@@ -24,12 +24,11 @@ const VolumeCreationTime: React.VFC<MyVolume> = ({ creationTime }) => {
 const VolumeExpiration: React.VFC<MyVolume> = ({
   noExpiration,
   expiration,
-  host,
 }) => {
   const tz = useUserTimeZone();
   return (
     <span>
-      {noExpiration || !expiration || host
+      {noExpiration || !expiration
         ? DoesNotExpire
         : getDateCopy(expiration, { tz })}
     </span>
