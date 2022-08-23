@@ -184,7 +184,7 @@ export const dateFormats = [
   {
     value: "dd-MM-yyyy",
     str: `dd-MM-yyyy - ${getDateCopy("08/31/2022", {
-      dateFormat: "dd/MM/yyyy",
+      dateFormat: "dd-MM-yyyy",
     })}`,
   },
   {
