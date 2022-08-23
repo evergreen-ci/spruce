@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import pickBy from "lodash/pickby";
+import pickBy from "lodash.pickby";
 import { useNavigate, useLocation } from "react-router-dom";
 import { queryString } from "utils";
 
