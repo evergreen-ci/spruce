@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import pickBy from "lodash/pickby";
 import { useNavigate, useLocation } from "react-router-dom";
 import { queryString } from "utils";
 
@@ -9,12 +10,15 @@ export const useUpdateURLQueryParams = () => {
   const { search, pathname } = useLocation();
   const updateQueryParams = useCallback(
     (nextQueryParams: StringMap) => {
-      const joinedParams = {
-        ...parseQueryString(search),
-        ...nextQueryParams,
-      };
+      const params = pickBy(
+        {
+          ...parseQueryString(search),
+          ...nextQueryParams,
+        },
+        (v) => v != null
+      );
 
-      navigate(`${pathname}?${stringifyQuery(joinedParams)}`, {
+      navigate(`${pathname}?${stringifyQuery(params)}`, {
         replace: true,
       });
     },
