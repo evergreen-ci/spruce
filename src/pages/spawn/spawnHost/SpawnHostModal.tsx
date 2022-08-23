@@ -1,10 +1,9 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { AutoComplete, Input } from "antd";
-import { useSearchParams } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
 import Icon from "components/Icon";
 import { Modal } from "components/Modal";
@@ -34,7 +33,10 @@ import {
   GET_MY_VOLUMES,
   GET_USER_SETTINGS,
 } from "gql/queries";
-import { useDisableSpawnExpirationCheckbox } from "hooks";
+import {
+  useDisableSpawnExpirationCheckbox,
+  useUpdateURLQueryParams,
+} from "hooks";
 import { string } from "utils";
 import {
   HostDetailsForm,
@@ -52,7 +54,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   visible,
   onCancel,
 }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const updateQueryParams = useUpdateURLQueryParams();
   const dispatchToast = useToastContext();
   const spawnAnalytics = useSpawnAnalytics();
   // QUERY distros
@@ -156,14 +158,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     });
   }, [distroId, dispatch, distrosData?.distros, unexpirableCountReached]);
 
-  const removeModalQueryParam = useCallback(() => {
-    setSearchParams(
-      [...searchParams.entries()].filter(([k]) => k !== "spawnHost"),
-      {
-        replace: true,
-      }
-    );
-  }, [searchParams, setSearchParams]);
+  const removeModalQueryParam = () => updateQueryParams({ spawnHost: null });
 
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
     return null;
