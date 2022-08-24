@@ -218,6 +218,7 @@ export const dateFormats = [
     })}`,
   },
 ];
+
 export const notificationFields = {
   patchFinish: "Patch finish",
   patchFirstFailure: "Patch first task failure",
