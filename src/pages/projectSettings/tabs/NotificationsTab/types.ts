@@ -23,6 +23,7 @@ export interface FormState {
   };
   subscriptions: Array<{
     subscriptionData: {
+      id: string;
       event: {
         eventSelect: string;
         extraFields: FormExtraFields;
