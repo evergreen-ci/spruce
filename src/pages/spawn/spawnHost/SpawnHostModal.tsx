@@ -158,7 +158,8 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     });
   }, [distroId, dispatch, distrosData?.distros, unexpirableCountReached]);
 
-  const removeModalQueryParam = () => updateQueryParams({ spawnHost: null });
+  const removeModalQueryParam = () =>
+    updateQueryParams({ spawnHost: undefined });
 
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
     return null;
