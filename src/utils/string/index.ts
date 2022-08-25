@@ -115,12 +115,11 @@ export const getDateCopy = (
   if (!time) {
     return "";
   }
-  const {
-    tz,
-    dateOnly,
-    omitSeconds,
-    dateFormat = "MMM d, yyyy",
-  } = options || {};
+  const { tz, dateOnly, omitSeconds } = options || {};
+  let { dateFormat } = options;
+  if (!dateFormat) {
+    dateFormat = "MMM d, yyyy";
+  }
   const finalDateFormat = dateOnly
     ? dateFormat
     : `${dateFormat}, h:mm${omitSeconds ? "" : ":ss"} aa`;
