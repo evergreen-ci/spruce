@@ -19,6 +19,7 @@ describe("project data", () => {
       subscriptions: [
         {
           subscriptionData: {
+            id: "xyz",
             event: {
               extraFields: {
                 requester: "gitter_request",
@@ -37,6 +38,7 @@ describe("project data", () => {
       ...projectResultBase,
       subscriptions: [
         {
+          id: "xyz",
           owner_type: "project",
           regex_selectors: [],
           resource_type: "VERSION",
@@ -72,6 +74,7 @@ describe("project data", () => {
       subscriptions: [
         {
           subscriptionData: {
+            id: "abc",
             event: {
               extraFields: {
                 requester: "gitter_request",
@@ -94,6 +97,7 @@ describe("project data", () => {
       ...projectResultBase,
       subscriptions: [
         {
+          id: "abc",
           owner_type: "project",
           regex_selectors: [],
           resource_type: "VERSION",
@@ -131,6 +135,7 @@ describe("project data", () => {
       subscriptions: [
         {
           subscriptionData: {
+            id: "def",
             event: {
               extraFields: {
                 requester: "gitter_request",
@@ -159,6 +164,7 @@ describe("project data", () => {
       ...projectResultBase,
       subscriptions: [
         {
+          id: "def",
           owner_type: "project",
           regex_selectors: [],
           resource_type: "VERSION",
