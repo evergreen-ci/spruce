@@ -111,6 +111,7 @@ export const getGqlPayload = (
   const method = subscriptionData.notification.notificationSelect;
   const subscriber = getTargetForMethod(method, subscriptionData?.notification);
   return {
+    id: subscriptionData.id,
     trigger,
     resource_type: resourceType,
     selectors: [
