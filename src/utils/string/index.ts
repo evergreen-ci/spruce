@@ -116,7 +116,7 @@ export const getDateCopy = (
     return "";
   }
   const { tz, dateOnly, omitSeconds } = options || {};
-  let { dateFormat } = options;
+  let { dateFormat } = options || {};
   if (!dateFormat) {
     dateFormat = "MMM d, yyyy";
   }
