@@ -184,7 +184,7 @@ const listOfDateFormatStrings = [
   "MMM d, yyyy",
 ];
 
-export const dateFormats = [...listOfDateFormatStrings].map((format) => ({
+export const dateFormats = listOfDateFormatStrings.map((format) => ({
   value: format,
   str: `${format} - ${getDateCopy("08/31/2022", {
     dateFormat: format,
