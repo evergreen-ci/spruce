@@ -26,7 +26,7 @@ export const ProfileTab: React.VFC = () => {
   const { userSettings, loading } = useUserSettings();
   const { githubUser, timezone, region, dateFormat } = userSettings ?? {};
   const lastKnownAs = githubUser?.lastKnownAs || "";
-  console.log(dateFormat);
+
   const { data: awsRegionData, loading: awsRegionLoading } =
     useQuery<AwsRegionsQuery>(GET_AWS_REGIONS);
   const awsRegions = awsRegionData?.awsRegions || [];
@@ -69,9 +69,7 @@ export const ProfileTab: React.VFC = () => {
   const handleSubmit = () => {
     updateUserSettings({
       variables: {
-        userSettings: {
-          ...formState,
-        },
+        userSettings: formState,
       },
     });
     sendEvent({
@@ -124,7 +122,7 @@ export const ProfileTab: React.VFC = () => {
                   properties: {
                     lastKnownAs: {
                       type: "string",
-                      title: "Github Username",
+                      title: "GitHub Username",
                     },
                   },
                 },
