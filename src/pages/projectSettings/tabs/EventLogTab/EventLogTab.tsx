@@ -14,8 +14,8 @@ import {
   RepoEventLogsQueryVariables,
 } from "gql/generated/types";
 import { GET_PROJECT_EVENT_LOGS, GET_REPO_EVENT_LOGS } from "gql/queries";
-import { useUserTimeZone } from "hooks/useUserTimeZone";
-import { getDateCopy } from "utils/string";
+import { useDateFormat } from "hooks";
+
 import { ProjectType } from "../utils";
 import { EventDiffLine, EventValue, getEventDiffLines } from "./EventLogDiffs";
 
@@ -116,10 +116,10 @@ interface Props {
 }
 
 const EventLogHeader: React.VFC<Props> = ({ user, timestamp }) => {
-  const tz = useUserTimeZone();
+  const getDateCopy = useDateFormat();
   return (
     <StyledHeader>
-      <H3>{getDateCopy(timestamp, { tz })}</H3>
+      <H3>{getDateCopy(timestamp)}</H3>
       <div>{user}</div>
     </StyledHeader>
   );

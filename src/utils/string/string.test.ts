@@ -268,8 +268,26 @@ describe("getDateCopy", () => {
     ).toBe("Nov 16, 2020");
     expect(getDateCopy("08/31/1996", { dateOnly: true })).toBe("Aug 31, 1996");
   });
-});
 
+  it("returns dates in a custom format when supplied with the option", () => {
+    expect(
+      getDateCopy(new Date("2020-11-16T22:17:29z"), {
+        dateFormat: "MM-dd-yyyy",
+        dateOnly: true,
+      })
+    ).toBe("11-16-2020");
+    expect(
+      getDateCopy("2020-11-16T22:17:29", {
+        tz: "America/New_York",
+        dateFormat: "dd-MM-yyyy",
+        dateOnly: true,
+      })
+    ).toBe("16-11-2020");
+    expect(
+      getDateCopy("08/31/1996", { dateFormat: "MM/dd/yyyy", dateOnly: true })
+    ).toBe("08/31/1996");
+  });
+});
 describe("applyStrictRegex", () => {
   it("converts string to strict regex", () => {
     expect(applyStrictRegex("dog")).toBe("^dog$");

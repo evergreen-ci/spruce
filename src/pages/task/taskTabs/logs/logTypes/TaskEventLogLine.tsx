@@ -3,15 +3,14 @@ import { StyledLink, StyledRouterLink } from "components/styles";
 import { getHostRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { TaskEventLogEntry } from "gql/generated/types";
-import { useUserTimeZone } from "hooks/useUserTimeZone";
-import { getDateCopy } from "utils/string";
+import { useDateFormat } from "hooks";
 
 export const TaskEventLogLine: React.VFC<TaskEventLogEntry> = ({
   timestamp,
   eventType,
   data,
 }) => {
-  const tz = useUserTimeZone();
+  const getDateCopy = useDateFormat();
   const { hostId, status, userId, jiraIssue, jiraLink, priority } = data;
   const hostLink = getHostRoute(hostId);
   let message: JSX.Element;
@@ -76,7 +75,7 @@ export const TaskEventLogLine: React.VFC<TaskEventLogEntry> = ({
     case "TASK_SCHEDULED":
       message = (
         <span className="cy-event-scheduled">
-          Scheduled at {getDateCopy(timestamp, { tz })}
+          Scheduled at {getDateCopy(timestamp)}
         </span>
       );
       break;
@@ -96,9 +95,7 @@ export const TaskEventLogLine: React.VFC<TaskEventLogEntry> = ({
 
   return (
     <Row>
-      <Timestamp className="cy-event-ts">
-        {getDateCopy(timestamp, { tz })}
-      </Timestamp>
+      <Timestamp className="cy-event-ts">{getDateCopy(timestamp)}</Timestamp>
       {message}
     </Row>
   );
