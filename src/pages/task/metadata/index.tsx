@@ -15,14 +15,14 @@ import {
   getProjectPatchesRoute,
 } from "constants/routes";
 import { GetTaskQuery } from "gql/generated/types";
-import { useUserTimeZone } from "hooks/useUserTimeZone";
+import { useDateFormat } from "hooks";
 import { TaskStatus } from "types/task";
 import { environmentalVariables, string } from "utils";
 import { AbortMessage } from "./AbortMessage";
 import { DependsOn } from "./DependsOn";
 import { ETATimer } from "./ETATimer";
 
-const { msToDuration, getDateCopy, shortenGithash } = string;
+const { msToDuration, shortenGithash } = string;
 const { getUiUrl } = environmentalVariables;
 const { red } = uiColors;
 
@@ -40,7 +40,7 @@ export const Metadata: React.VFC<Props> = ({
   taskId,
 }) => {
   const taskAnalytics = useTaskAnalytics();
-  const tz = useUserTimeZone();
+  const getDateCopy = useDateFormat();
   const {
     status,
     spawnHostLink,
@@ -111,7 +111,7 @@ export const Metadata: React.VFC<Props> = ({
 
       {submittedTime && (
         <P2 data-cy="task-metadata-submitted-at">
-          Submitted at: {getDateCopy(submittedTime, { tz })}
+          Submitted at: {getDateCopy(submittedTime)}
         </P2>
       )}
       {generatedBy && (
@@ -136,16 +136,14 @@ export const Metadata: React.VFC<Props> = ({
       {startTime && (
         <P2>
           Started:{" "}
-          <span data-cy="task-metadata-started">
-            {getDateCopy(startTime, { tz })}
-          </span>
+          <span data-cy="task-metadata-started">{getDateCopy(startTime)}</span>
         </P2>
       )}
       {finishTime && (
         <P2>
           Finished:{" "}
           <span data-cy="task-metadata-finished">
-            {getDateCopy(finishTime, { tz })}
+            {getDateCopy(finishTime)}
           </span>
         </P2>
       )}

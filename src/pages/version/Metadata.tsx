@@ -11,13 +11,13 @@ import {
   getVersionRoute,
 } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
-import { useUserTimeZone } from "hooks/useUserTimeZone";
+import { useDateFormat } from "hooks";
 import { ProjectTriggerLevel } from "types/triggers";
 import { string } from "utils";
 import ManifestBlob from "./ManifestBlob";
 import { ParametersModal } from "./ParametersModal";
 
-const { msToDuration, getDateCopy, shortenGithash } = string;
+const { msToDuration, shortenGithash } = string;
 
 interface Props {
   loading: boolean;
@@ -25,7 +25,7 @@ interface Props {
 }
 
 export const Metadata: React.VFC<Props> = ({ loading, version }) => {
-  const tz = useUserTimeZone();
+  const getDateCopy = useDateFormat();
   const {
     author,
     revision,
@@ -70,9 +70,9 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
       </P2>
       <P2>Makespan: {makespan && msToDuration(makespan)}</P2>
       <P2>Time taken: {timeTaken && msToDuration(timeTaken)}</P2>
-      <P2>Submitted at: {createTime && getDateCopy(createTime, { tz })}</P2>
-      <P2>Started: {startTime && getDateCopy(startTime, { tz })}</P2>
-      <P2>Finished: {finishTime && getDateCopy(finishTime, { tz })}</P2>
+      <P2>Submitted at: {createTime && getDateCopy(createTime)}</P2>
+      <P2>Started: {startTime && getDateCopy(startTime)}</P2>
+      <P2>Finished: {finishTime && getDateCopy(finishTime)}</P2>
       <P2>{`Submitted by: ${author}`}</P2>
       {isPatch ? (
         <P2>
