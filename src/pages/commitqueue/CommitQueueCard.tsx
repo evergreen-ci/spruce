@@ -15,8 +15,8 @@ import {
   RemoveItemFromCommitQueueMutationVariables,
 } from "gql/generated/types";
 import { REMOVE_ITEM_FROM_COMMIT_QUEUE } from "gql/mutations";
-import { useUserTimeZone } from "hooks/useUserTimeZone";
-import { getDateCopy } from "utils/string";
+import { useDateFormat } from "hooks";
+
 import { CodeChangeModule } from "./codeChangesModule/CodeChangesModule";
 import { ConfirmPatchButton } from "./ConfirmPatchButton";
 
@@ -51,7 +51,7 @@ export const CommitQueueCard: React.VFC<Props> = ({
   activated,
 }) => {
   const dispatchToast = useToastContext();
-  const tz = useUserTimeZone();
+  const getDateCopy = useDateFormat();
   const [removeItemFromCommitQueue, { loading }] = useMutation<
     RemoveItemFromCommitQueueMutation,
     RemoveItemFromCommitQueueMutationVariables
@@ -104,7 +104,7 @@ export const CommitQueueCard: React.VFC<Props> = ({
               <>{title}</>
             </ConditionalWrapper>
             <CardMetaData>
-              By <b>{author}</b> on {getDateCopy(commitTime, { tz })}
+              By <b>{author}</b> on {getDateCopy(commitTime)}
             </CardMetaData>
             <Container>
               {moduleCodeChanges?.map((moduleCodeChange) => (

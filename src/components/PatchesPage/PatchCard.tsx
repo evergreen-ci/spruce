@@ -11,10 +11,10 @@ import {
 } from "constants/routes";
 import { fontSize, size } from "constants/tokens";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
-import { useUserTimeZone } from "hooks/useUserTimeZone";
+import { useDateFormat } from "hooks";
 import { Unpacked } from "types/utils";
 import { groupStatusesByUmbrellaStatus } from "utils/statuses";
-import { getDateCopy } from "utils/string";
+
 import { DropdownMenu } from "./patchCard/DropdownMenu";
 
 type P = Unpacked<PatchesPagePatchesFragment["patches"]>;
@@ -48,7 +48,7 @@ export const PatchCard: React.VFC<Props> = ({
   versionFull,
 }) => {
   const createDate = new Date(createTime);
-  const tz = useUserTimeZone();
+  const getDateCopy = useDateFormat();
   const { taskStatusStats, id: versionId } = versionFull || {};
   const { stats } = groupStatusesByUmbrellaStatus(
     taskStatusStats?.counts ?? []
@@ -75,8 +75,7 @@ export const PatchCard: React.VFC<Props> = ({
           {description || "no description"}
         </DescriptionLink>
         <TimeAndProject>
-          {getDateCopy(createDate, { tz })}{" "}
-          {pageType === "project" ? "by" : "on"}{" "}
+          {getDateCopy(createDate)} {pageType === "project" ? "by" : "on"}{" "}
           {pageType === "project" ? (
             <StyledRouterLink
               to={getUserPatchesRoute(author)}

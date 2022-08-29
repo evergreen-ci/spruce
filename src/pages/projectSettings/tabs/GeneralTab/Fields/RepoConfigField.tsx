@@ -9,12 +9,9 @@ import { SpruceForm } from "components/SpruceForm";
 import { size, zIndex } from "constants/tokens";
 import { GetGithubOrgsQuery } from "gql/generated/types";
 import { GET_GITHUB_ORGS } from "gql/queries";
-import { environmentalVariables } from "utils";
 import { ProjectType } from "../../utils";
 import { AttachDetachModal } from "./AttachDetachModal";
 import { MoveRepoModal } from "./MoveRepoModal";
-
-const { isProduction } = environmentalVariables;
 
 export const RepoConfigField: Field = ({
   formData,
@@ -64,38 +61,35 @@ export const RepoConfigField: Field = ({
                 Move to New Repo
               </Button>
             )}
-            {/* TODO: Remove isProduction check as part of EVG-17091 */}
-            {!isProduction() && (
-              <ConditionalWrapper
-                condition={ownerOrRepoHasChanges}
-                wrapper={(children) => (
-                  <Tooltip
-                    align="top"
-                    data-cy="attach-repo-disabled-tooltip"
-                    justify="middle"
-                    popoverZIndex={zIndex.popover}
-                    triggerEvent="hover"
-                    trigger={children}
-                  >
-                    Project must be saved with new owner/repo before it can be
-                    attached.
-                  </Tooltip>
-                )}
-              >
-                <ButtonWrapper>
-                  <Button
-                    size="small"
-                    onClick={() => setAttachModalOpen(true)}
-                    data-cy="attach-repo-button"
-                    disabled={ownerOrRepoHasChanges}
-                  >
-                    {isAttachedProject
-                      ? "Detach from Current Repo"
-                      : "Attach to Current Repo"}
-                  </Button>
-                </ButtonWrapper>
-              </ConditionalWrapper>
-            )}
+            <ConditionalWrapper
+              condition={ownerOrRepoHasChanges}
+              wrapper={(children) => (
+                <Tooltip
+                  align="top"
+                  data-cy="attach-repo-disabled-tooltip"
+                  justify="middle"
+                  popoverZIndex={zIndex.popover}
+                  triggerEvent="hover"
+                  trigger={children}
+                >
+                  Project must be saved with new owner/repo before it can be
+                  attached.
+                </Tooltip>
+              )}
+            >
+              <ButtonWrapper>
+                <Button
+                  size="small"
+                  onClick={() => setAttachModalOpen(true)}
+                  data-cy="attach-repo-button"
+                  disabled={ownerOrRepoHasChanges}
+                >
+                  {isAttachedProject
+                    ? "Detach from Current Repo"
+                    : "Attach to Current Repo"}
+                </Button>
+              </ButtonWrapper>
+            </ConditionalWrapper>
           </ButtonRow>
           <MoveRepoModal
             githubOrgs={githubOrgs}

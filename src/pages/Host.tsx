@@ -25,7 +25,6 @@ import {
 } from "gql/generated/types";
 import { GET_HOST, GET_HOST_EVENTS } from "gql/queries/index";
 import { usePageTitle } from "hooks/usePageTitle";
-import { useUserTimeZone } from "hooks/useUserTimeZone";
 import { HostTable } from "pages/host/HostTable";
 import { Metadata } from "pages/host/Metadata";
 import { HostStatus } from "types/host";
@@ -56,7 +55,6 @@ export const Host: React.VFC = () => {
   const status = host?.status as HostStatus;
   const sshCommand = `ssh ${user}@${hostUrl}`;
   const tag = host?.tag ?? "";
-  const timeZone = useUserTimeZone();
 
   const { search } = useLocation();
 
@@ -143,7 +141,6 @@ export const Host: React.VFC = () => {
                   loading={hostEventLoading}
                   eventData={hostEventData}
                   error={error}
-                  timeZone={timeZone}
                   page={page}
                   limit={limit}
                   eventsCount={eventsCount}

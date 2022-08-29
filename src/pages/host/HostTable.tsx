@@ -10,25 +10,22 @@ import PageSizeSelector, {
 import { Pagination } from "components/Pagination";
 import { size } from "constants/tokens";
 import { HostEventsQuery, HostEventLogEntry } from "gql/generated/types";
+import { useDateFormat } from "hooks";
 import { getHostEventString } from "pages/host/getHostEventString";
 import { HostCard } from "pages/host/HostCard";
-import { string } from "utils";
-
-const { getDateCopy } = string;
 
 export const HostTable: React.VFC<{
   loading: boolean;
   eventData: HostEventsQuery;
   error: ApolloError;
-  timeZone: string;
   page: number;
   limit: number;
   eventsCount: number;
-}> = ({ loading, eventData, error, timeZone, page, limit, eventsCount }) => {
+}> = ({ loading, eventData, error, page, limit, eventsCount }) => {
   const isHostPage = true;
   const hostsTableAnalytics = useHostsTableAnalytics(isHostPage);
   const setPageSize = usePageSizeSelector();
-
+  const getDateCopy = useDateFormat();
   const hostEvents = eventData?.hostEvents;
   const logEntries = hostEvents?.eventLogEntries;
   const columnsTemplate: Array<ColumnProps<HostEventLogEntry>> = [
@@ -37,9 +34,7 @@ export const HostTable: React.VFC<{
       dataIndex: "timestamp",
       width: "25%",
       render: (_, { eventType, timestamp }: HostEventLogEntry): JSX.Element => (
-        <div data-cy={`${eventType}-time`}>
-          {getDateCopy(timestamp, { tz: timeZone })}
-        </div>
+        <div data-cy={`${eventType}-time`}>{getDateCopy(timestamp)}</div>
       ),
     },
     {

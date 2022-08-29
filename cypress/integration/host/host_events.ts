@@ -182,7 +182,7 @@ describe("Host events", () => {
 
   it("host events are displayed in the right timezone", () => {
     cy.visit("/preferences");
-    cy.contains("Select timezone").click();
+    cy.contains("Select a timezone").click();
     cy.contains("Hawaii").click();
     cy.contains("Save Changes").click();
     cy.visit(pathWithEvents);
