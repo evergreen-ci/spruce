@@ -13,7 +13,6 @@ export const useUpdateURLQueryParams = () => {
         ...parseQueryString(search),
         ...nextQueryParams,
       };
-
       navigate(`${pathname}?${stringifyQuery(joinedParams)}`, {
         replace: true,
       });
