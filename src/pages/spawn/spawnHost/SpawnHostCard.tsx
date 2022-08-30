@@ -5,12 +5,9 @@ import { StyledLink, StyledRouterLink } from "components/styles";
 import { getIdeUrl } from "constants/externalResources";
 import { getSpawnVolumeRoute } from "constants/routes";
 import { size } from "constants/tokens";
-import { useUserTimeZone } from "hooks/useUserTimeZone";
+import { useDateFormat } from "hooks";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
-import { string } from "utils";
-
-const { getDateCopy } = string;
 
 interface SpawnHostCardProps {
   host: MyHost;
@@ -25,17 +22,13 @@ export const SpawnHostCard: React.VFC<SpawnHostCardProps> = ({ host }) => (
 );
 
 const HostUptime: React.VFC<MyHost> = ({ uptime }) => {
-  const tz = useUserTimeZone();
-  return <span>{getDateCopy(uptime, { tz })}</span>;
+  const getDateCopy = useDateFormat();
+  return <span>{getDateCopy(uptime)}</span>;
 };
 
 const HostExpiration: React.VFC<MyHost> = ({ noExpiration, expiration }) => {
-  const tz = useUserTimeZone();
-  return (
-    <span>
-      {noExpiration ? DoesNotExpire : getDateCopy(expiration, { tz })}
-    </span>
-  );
+  const getDateCopy = useDateFormat();
+  return <span>{noExpiration ? DoesNotExpire : getDateCopy(expiration)}</span>;
 };
 const spawnHostCardFieldMaps = {
   ID: (host: MyHost) => <span>{host?.id}</span>,

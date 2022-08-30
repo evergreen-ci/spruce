@@ -1,3 +1,5 @@
+import { getDateCopy } from "utils/string";
+
 export const timeZones = [
   {
     str: "Coordinated Universal Time",
@@ -171,6 +173,24 @@ export const awsRegions = [
     value: "us-east-1",
   },
 ];
+
+const listOfDateFormatStrings = [
+  "MM-dd-yyyy",
+  "dd-MM-yyyy",
+  "yyyy-MM-dd",
+  "MM/dd/yyyy",
+  "dd/MM/yyyy",
+  "yyyy/MM/dd",
+  "MMM d, yyyy",
+];
+
+export const dateFormats = listOfDateFormatStrings.map((format) => ({
+  value: format,
+  str: `${format} - ${getDateCopy("08/31/2022", {
+    dateFormat: format,
+    dateOnly: true,
+  })}`,
+}));
 
 export const notificationFields = {
   patchFinish: "Patch finish",

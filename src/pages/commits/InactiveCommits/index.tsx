@@ -8,8 +8,7 @@ import { DisplayModal } from "components/DisplayModal";
 import { StyledRouterLink } from "components/styles";
 import { getVersionRoute, getTaskRoute } from "constants/routes";
 import { size, zIndex, fontSize } from "constants/tokens";
-import { useSpruceConfig } from "hooks";
-import { useUserTimeZone } from "hooks/useUserTimeZone";
+import { useSpruceConfig, useDateFormat } from "hooks";
 import { CommitRolledUpVersions } from "types/commits";
 import { ProjectTriggerLevel } from "types/triggers";
 import { Unpacked } from "types/utils";
@@ -17,7 +16,7 @@ import { string } from "utils";
 import { jiraLinkify } from "utils/string/jiraLinkify";
 import { commitChartHeight } from "../constants";
 
-const { getDateCopy, shortenGithash, trimStringFromMiddle } = string;
+const { shortenGithash, trimStringFromMiddle } = string;
 const { focus, gray } = uiColors;
 
 export const InactiveCommitsLine = () => (
@@ -131,7 +130,7 @@ const CommitCopy = ({
   isTooltip: boolean;
 }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
-  const tz = useUserTimeZone();
+  const getDateCopy = useDateFormat();
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
   const message = isTooltip
@@ -152,7 +151,7 @@ const CommitCopy = ({
         >
           {shortenGithash(v.revision)}
         </StyledRouterLink>{" "}
-        {getDateCopy(v.createTime, { tz })}
+        {getDateCopy(v.createTime)}
       </CommitTitleText>
       {v.upstreamProject && (
         <>
