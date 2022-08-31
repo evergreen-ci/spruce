@@ -154,6 +154,10 @@ const getEventValue = (value: EventValue): string => {
     return `"${value}"`;
   }
 
+  if (typeof value === "number") {
+    return value;
+  }
+
   if (Array.isArray(value)) {
     return JSON.stringify(value).replaceAll(",", ",\n");
   }
