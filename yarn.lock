@@ -2261,7 +2261,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.13.10", "@babel/runtime@^7.2.0", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.7":
+"@babel/runtime@^7.13.10", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.7":
   version "7.15.4"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.15.4.tgz#fd17d16bfdf878e6dd02d19753a39fa8a8d9c84a"
   integrity sha512-99catp6bHCaxr4sJ/DbTGgHS4+Rs2RVd2g7iOap6SLGPDknRK9ztKNsE/Fg6QhSeh1FGE5f6gHGQmvvn3I3xhw==
@@ -4010,19 +4010,12 @@
     "@leafygreen-ui/lib" "^9.0.0"
     "@leafygreen-ui/palette" "^3.2.2"
 
-"@leafygreen-ui/icon@11.4.0", "@leafygreen-ui/icon@^11.3.0", "@leafygreen-ui/icon@^11.4.0":
-  version "11.4.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-11.4.0.tgz#d555f3e31d0f71c1f5372cf2c97bc4471cc96edb"
-  integrity sha512-Ogm9LKuq2e0kfSscmXqRchA5jMoqKg3pkYfnOdE8lcC9556S9cQy2DTzEOo5SCUUdLW8mgzbTl6BHX32WCMkjA==
+"@leafygreen-ui/icon@11.10.1", "@leafygreen-ui/icon@^11.3.0", "@leafygreen-ui/icon@^11.4.0", "@leafygreen-ui/icon@^11.5.0", "@leafygreen-ui/icon@^11.6.0":
+  version "11.10.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-11.10.1.tgz#052b192ae79cc7e38b8df5e8f0654c403d0fffd2"
+  integrity sha512-hlur+NdVs/9OppAaMT1+sEngCsdm1yrB8LjfNzK+nuge3yNuEvKg4EjVYir+hAuNID5ijrOCm9OmV4l9+2FmfA==
   dependencies:
-    "@leafygreen-ui/lib" "^9.0.0"
-
-"@leafygreen-ui/icon@^11.5.0", "@leafygreen-ui/icon@^11.6.0":
-  version "11.6.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-11.6.1.tgz#34a0a0821ff84bb4bd7fa853d14b24274c291551"
-  integrity sha512-IEnZyKubtIC7V3zcXM3GQFNaBpA1mAN1FAmFl3BWGtxoQ5h1lBhffhg0VQB048CsfMBFzfdNcT+ErlzXr7hfFw==
-  dependencies:
-    "@leafygreen-ui/lib" "^9.0.1"
+    "@leafygreen-ui/lib" "^9.2.0"
 
 "@leafygreen-ui/inline-definition@2.0.6":
   version "2.0.6"
@@ -4053,23 +4046,14 @@
     "@leafygreen-ui/hooks" "^7.0.0"
     "@leafygreen-ui/lib" "^9.0.0"
 
-"@leafygreen-ui/lib@^9.0.0":
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-9.0.0.tgz#9dd517bce5d92f0dae7ca5a1ed18c90d5a4b79b4"
-  integrity sha512-Uo2tOfkhCYiSKrYCi8+CrTEcyPhf+iczNP+wPKlQjKOLa+6zJaWX/0AXLiQX1CuO0MXdYgNvsB5510q7hDiqdg==
+"@leafygreen-ui/lib@^9.0.0", "@leafygreen-ui/lib@^9.0.1", "@leafygreen-ui/lib@^9.1.0", "@leafygreen-ui/lib@^9.2.0":
+  version "9.4.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-9.4.1.tgz#cff7ba9bb5024ff8e496e62830fe86eebac708e5"
+  integrity sha512-xOdDy454hmjR5y5WKp7ySH5Vfcet/RxTJ8xBwOTVGwTLoimH+ltoXoaYWljhEHIa/auBmLfpNKfazpRzYL8P6g==
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.0"
     facepaint "^1.2.1"
-    polished "^2.3.0"
-    prop-types "^15.0.0"
-
-"@leafygreen-ui/lib@^9.0.1", "@leafygreen-ui/lib@^9.1.0":
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-9.1.0.tgz#1cc0402a97462c4685da2542c7910e30fbf59df0"
-  integrity sha512-JH3mnoCZNtUcJfXrvVG4I3PAIm1ehlR1H5WkDqkjengcf/iVMo7+AluzwfTCQb2fqQgohURs+qY4vEhJe+9+2g==
-  dependencies:
-    "@leafygreen-ui/emotion" "^4.0.0"
-    facepaint "^1.2.1"
+    lodash "^4.17.21"
     polished "^4.1.3"
     prop-types "^15.0.0"
 
@@ -16065,13 +16049,6 @@ pnp-webpack-plugin@1.6.4:
   integrity sha512-7Wjy+9E3WwLOEL30D+m8TSTF7qJJUJLONBnwQp0518siuMxUQUbgZwssaFX+QKlZkjHZcw/IpZCt/H0srrntSg==
   dependencies:
     ts-pnp "^1.1.6"
-
-polished@^2.3.0:
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/polished/-/polished-2.3.3.tgz#bdbaba962ba8271b0e11aa287f2befd4c87be99a"
-  integrity sha512-59V4fDbdxtH4I1m9TWxFsoGJbC8nnOpUYo5uFmvMfKp9Qh+6suo4VMUle1TGIIUZIGxfkW+Rs485zPk0wcwR2Q==
-  dependencies:
-    "@babel/runtime" "^7.2.0"
 
 polished@^4.1.1, polished@^4.1.3:
   version "4.1.3"
