@@ -165,6 +165,18 @@ export type CommitQueueParamsInput = {
   requireSigned?: InputMaybe<Scalars["Boolean"]>;
 };
 
+export type ContainerResources = {
+  cpu: Scalars["Int"];
+  memoryMb: Scalars["Int"];
+  name: Scalars["String"];
+};
+
+export type ContainerResourcesInput = {
+  cpu: Scalars["Int"];
+  memoryMb: Scalars["Int"];
+  name: Scalars["String"];
+};
+
 /**
  * CopyProjectInput is the input to the copyProject mutation.
  * It contains information about a project to be duplicated.
@@ -968,6 +980,7 @@ export type Project = {
   branch: Scalars["String"];
   buildBaronSettings: BuildBaronSettings;
   commitQueue: CommitQueueParams;
+  containerSizeDefinitions?: Maybe<Array<ContainerResources>>;
   deactivatePrevious?: Maybe<Scalars["Boolean"]>;
   defaultLogger: Scalars["String"];
   disabledStatsCache?: Maybe<Scalars["Boolean"]>;
@@ -1074,6 +1087,7 @@ export type ProjectInput = {
   branch?: InputMaybe<Scalars["String"]>;
   buildBaronSettings?: InputMaybe<BuildBaronSettingsInput>;
   commitQueue?: InputMaybe<CommitQueueParamsInput>;
+  containerSizeDefinitions?: InputMaybe<Array<ContainerResourcesInput>>;
   deactivatePrevious?: InputMaybe<Scalars["Boolean"]>;
   defaultLogger?: InputMaybe<Scalars["String"]>;
   disabledStatsCache?: InputMaybe<Scalars["Boolean"]>;
@@ -1139,6 +1153,7 @@ export type ProjectSettingsInput = {
 
 export enum ProjectSettingsSection {
   Access = "ACCESS",
+  Containers = "CONTAINERS",
   General = "GENERAL",
   GithubAndCommitQueue = "GITHUB_AND_COMMIT_QUEUE",
   Notifications = "NOTIFICATIONS",
@@ -1394,6 +1409,7 @@ export type RepoRef = {
   branch: Scalars["String"];
   buildBaronSettings: BuildBaronSettings;
   commitQueue: RepoCommitQueueParams;
+  containerSizeDefinitions?: Maybe<Array<ContainerResources>>;
   deactivatePrevious: Scalars["Boolean"];
   defaultLogger: Scalars["String"];
   disabledStatsCache: Scalars["Boolean"];
@@ -1436,6 +1452,7 @@ export type RepoRefInput = {
   branch?: InputMaybe<Scalars["String"]>;
   buildBaronSettings?: InputMaybe<BuildBaronSettingsInput>;
   commitQueue?: InputMaybe<CommitQueueParamsInput>;
+  containerSizeDefinitions?: InputMaybe<Array<ContainerResourcesInput>>;
   deactivatePrevious?: InputMaybe<Scalars["Boolean"]>;
   defaultLogger?: InputMaybe<Scalars["String"]>;
   disabledStatsCache?: InputMaybe<Scalars["Boolean"]>;
@@ -2158,6 +2175,7 @@ export type Volume = {
   host?: Maybe<Host>;
   hostID: Scalars["String"];
   id: Scalars["String"];
+  migrating: Scalars["Boolean"];
   noExpiration: Scalars["Boolean"];
   size: Scalars["Int"];
   type: Scalars["String"];
@@ -2431,6 +2449,18 @@ export type AliasFragment = {
   taskTags: Array<string>;
 };
 
+export type ProjectContainerSettingsFragment = {
+  containerSizeDefinitions?: Maybe<
+    Array<{ name: string; cpu: number; memoryMb: number }>
+  >;
+};
+
+export type RepoContainerSettingsFragment = {
+  containerSizeDefinitions?: Maybe<
+    Array<{ name: string; cpu: number; memoryMb: number }>
+  >;
+};
+
 export type ProjectGeneralSettingsFragment = {
   enabled?: Maybe<boolean>;
   owner: string;
@@ -2637,6 +2667,9 @@ export type ProjectSettingsFragment = {
         nextRunTime: Date;
       }>
     >;
+    containerSizeDefinitions?: Maybe<
+      Array<{ name: string; cpu: number; memoryMb: number }>
+    >;
     commitQueue: {
       enabled?: Maybe<boolean>;
       requireSigned?: Maybe<boolean>;
@@ -2773,6 +2806,9 @@ export type RepoSettingsFragment = {
         message: string;
         nextRunTime: Date;
       }>
+    >;
+    containerSizeDefinitions?: Maybe<
+      Array<{ name: string; cpu: number; memoryMb: number }>
     >;
     commitQueue: {
       enabled: boolean;
@@ -3038,6 +3074,9 @@ export type ProjectEventSettingsFragment = {
         message: string;
         nextRunTime: Date;
       }>
+    >;
+    containerSizeDefinitions?: Maybe<
+      Array<{ name: string; cpu: number; memoryMb: number }>
     >;
     commitQueue: {
       enabled?: Maybe<boolean>;
@@ -4615,6 +4654,9 @@ export type ProjectEventLogsQuery = {
               nextRunTime: Date;
             }>
           >;
+          containerSizeDefinitions?: Maybe<
+            Array<{ name: string; cpu: number; memoryMb: number }>
+          >;
           commitQueue: {
             enabled?: Maybe<boolean>;
             requireSigned?: Maybe<boolean>;
@@ -4769,6 +4811,9 @@ export type ProjectEventLogsQuery = {
               message: string;
               nextRunTime: Date;
             }>
+          >;
+          containerSizeDefinitions?: Maybe<
+            Array<{ name: string; cpu: number; memoryMb: number }>
           >;
           commitQueue: {
             enabled?: Maybe<boolean>;
@@ -4928,6 +4973,9 @@ export type ProjectSettingsQuery = {
           message: string;
           nextRunTime: Date;
         }>
+      >;
+      containerSizeDefinitions?: Maybe<
+        Array<{ name: string; cpu: number; memoryMb: number }>
       >;
       commitQueue: {
         enabled?: Maybe<boolean>;
@@ -5117,6 +5165,9 @@ export type RepoEventLogsQuery = {
               nextRunTime: Date;
             }>
           >;
+          containerSizeDefinitions?: Maybe<
+            Array<{ name: string; cpu: number; memoryMb: number }>
+          >;
           commitQueue: {
             enabled?: Maybe<boolean>;
             requireSigned?: Maybe<boolean>;
@@ -5272,6 +5323,9 @@ export type RepoEventLogsQuery = {
               nextRunTime: Date;
             }>
           >;
+          containerSizeDefinitions?: Maybe<
+            Array<{ name: string; cpu: number; memoryMb: number }>
+          >;
           commitQueue: {
             enabled?: Maybe<boolean>;
             requireSigned?: Maybe<boolean>;
@@ -5423,6 +5477,9 @@ export type RepoSettingsQuery = {
           message: string;
           nextRunTime: Date;
         }>
+      >;
+      containerSizeDefinitions?: Maybe<
+        Array<{ name: string; cpu: number; memoryMb: number }>
       >;
       commitQueue: {
         enabled: boolean;

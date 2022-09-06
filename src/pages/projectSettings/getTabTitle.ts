@@ -39,6 +39,9 @@ export const getTabTitle = (
       [ProjectSettingsTabRoutes.EventLog]: {
         title: "Event Log",
       },
+      [ProjectSettingsTabRoutes.Containers]: {
+        title: "Containers",
+      },
     }[tab] ?? defaultTitle
   );
 };

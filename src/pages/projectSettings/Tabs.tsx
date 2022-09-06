@@ -13,6 +13,7 @@ import {
   NotificationsTab,
   PatchAliasesTab,
   PeriodicBuildsTab,
+  ContainersTab,
   ProjectTriggersTab,
   VariablesTab,
   PluginsTab,
@@ -199,6 +200,18 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
         <Route
           path={ProjectSettingsTabRoutes.EventLog}
           element={<EventLogTab projectType={projectType} />}
+        />
+        <Route
+          path={ProjectSettingsTabRoutes.Containers}
+          element={
+            <ContainersTab
+              projectType={projectType}
+              projectData={
+                tabData[ProjectSettingsTabRoutes.Containers].projectData
+              }
+              repoData={tabData[ProjectSettingsTabRoutes.Containers].repoData}
+            />
+          }
         />
         <Route
           path="*"

@@ -7,6 +7,7 @@
 #import "./notifications.graphql"
 #import "./patchAliases.graphql"
 #import "./virtualWorkstation.graphql"
+#import "./containers.graphql"
 #import "./projectTriggers.graphql"
 #import "./periodicBuilds.graphql"
 
@@ -23,6 +24,7 @@ fragment projectSettings on ProjectSettings {
     ...projectVirtualWorkstationSettings
     ...projectTriggersSettings
     ...projectPeriodicBuildsSettings
+    ...projectContainerSettings
   }
   subscriptions {
     ...subscriptions
@@ -48,6 +50,7 @@ fragment repoSettings on RepoSettings {
     ...repoVirtualWorkstationSettings
     ...repoTriggersSettings
     ...repoPeriodicBuildsSettings
+    ...repoContainerSettings
   }
   vars {
     ...variables

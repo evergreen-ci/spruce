@@ -54,6 +54,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
         secret: null,
       },
     },
+    containerSizeDefinitions: [],
     patchTriggerAliases: null,
     workstationConfig: {
       setupCommands: [
@@ -216,6 +217,18 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
         intervalHours: 12,
         message: "Build Message",
         nextRunTime: new Date("2022-03-30T17:07:10.942Z"),
+      },
+    ],
+    containerSizeDefinitions: [
+      {
+        name: "size1",
+        cpu: 1,
+        memoryMb: 1024,
+      },
+      {
+        name: "size2",
+        cpu: 2,
+        memoryMb: 2048,
       },
     ],
   },

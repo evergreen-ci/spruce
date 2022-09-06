@@ -171,6 +171,10 @@ export const ProjectSettings: React.VFC = () => {
             {...sharedProps}
             tab={ProjectSettingsTabRoutes.EventLog}
           />
+          <ProjectSettingsNavItem
+            {...sharedProps}
+            tab={ProjectSettingsTabRoutes.Containers}
+          />
         </SideNavGroup>
       </SideNav>
       <PageWrapper>

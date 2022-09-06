@@ -7,6 +7,7 @@
 #import "./notifications.graphql"
 #import "./patchAliases.graphql"
 #import "./virtualWorkstation.graphql"
+#import "./containers.graphql"
 #import "./projectTriggers.graphql"
 #import "./periodicBuilds.graphql"
 
@@ -22,6 +23,7 @@ fragment projectEventSettings on ProjectEventSettings {
     ...projectVirtualWorkstationSettings
     ...projectTriggersSettings
     ...projectPeriodicBuildsSettings
+    ...projectContainerSettings
 
     versionControlEnabled
     tracksPushEvents

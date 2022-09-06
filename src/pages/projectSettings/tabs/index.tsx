@@ -9,3 +9,4 @@ export { ProjectTriggersTab } from "./ProjectTriggersTab/ProjectTriggersTab";
 export { VariablesTab } from "./VariablesTab/VariablesTab";
 export { VirtualWorkstationTab } from "./VirtualWorkstationTab/VirtualWorkstationTab";
 export { PluginsTab } from "./PluginsTab/PluginsTab";
+export { ContainersTab } from "./ContainersTab/ContainersTab";

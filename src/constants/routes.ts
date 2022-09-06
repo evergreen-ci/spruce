@@ -36,6 +36,7 @@ export enum ProjectSettingsTabRoutes {
   PeriodicBuilds = "periodic-builds",
   Plugins = "plugins",
   EventLog = "event-log",
+  Containers = "containers",
 }
 
 const paths = {

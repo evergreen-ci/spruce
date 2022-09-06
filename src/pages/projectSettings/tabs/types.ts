@@ -7,6 +7,7 @@ import {
   RepoSettingsQuery,
 } from "gql/generated/types";
 import * as access from "./AccessTab/types";
+import * as containers from "./ContainersTab/types";
 import * as general from "./GeneralTab/types";
 import * as githubCommitQueue from "./GithubCommitQueueTab/types";
 import * as notifications from "./NotificationsTab/types";
@@ -29,6 +30,7 @@ export type FormStateMap = {
   [ProjectSettingsTabRoutes.VirtualWorkstation]: virtualWorkstation.FormState;
   [ProjectSettingsTabRoutes.ProjectTriggers]: projectTriggers.FormState;
   [ProjectSettingsTabRoutes.PeriodicBuilds]: periodicBuilds.FormState;
+  [ProjectSettingsTabRoutes.Containers]: containers.FormState;
 };
 
 export type GetFormSchema = (...any) => {

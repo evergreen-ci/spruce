@@ -168,6 +168,7 @@ const mapRouteToSection: Record<WritableTabRoutes, ProjectSettingsSection> = {
   [ProjectSettingsTabRoutes.PeriodicBuilds]:
     ProjectSettingsSection.PeriodicBuilds,
   [ProjectSettingsTabRoutes.Plugins]: ProjectSettingsSection.Plugins,
+  [ProjectSettingsTabRoutes.Containers]: ProjectSettingsSection.Containers,
 };
 
 const ButtonRow = styled.div`
