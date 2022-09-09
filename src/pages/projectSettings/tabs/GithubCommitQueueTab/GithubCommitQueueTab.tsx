@@ -95,7 +95,7 @@ export const GithubCommitQueueTab: React.VFC<TabProps> = ({
       {!githubWebhooksEnabled && (
         <Banner data-cy="disabled-webhook-banner" variant="warning">
           GitHub features are disabled because webhooks are not enabled.
-          Webhooks are enabled after saving with a repository and branch.
+          Webhooks are enabled after saving with a valid owner and repository.
         </Banner>
       )}
       <SpruceForm

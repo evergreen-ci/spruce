@@ -245,6 +245,51 @@ functions:
       permissions: public-read
       display_name: storybook-
   
+  # Ideally we can get rid of this command upon the completion of EVG-17334.
+  attach-storybook-assets-css:
+    command: s3.put
+    type: system
+    params:
+      aws_key: ${aws_key}
+      aws_secret: ${aws_secret}
+      local_files_include_filter:
+        ["spruce/storybook-static/assets/*.css"]
+      remote_file: spruce/${task_id}/storybook/assets/
+      bucket: mciuploads
+      content_type: text/css
+      permissions: public-read
+      display_name: storybook_assets_css_
+
+  # Ideally we can get rid of this command upon the completion of EVG-17334.
+  attach-storybook-assets-js:
+    command: s3.put
+    type: system
+    params:
+      aws_key: ${aws_key}
+      aws_secret: ${aws_secret}
+      local_files_include_filter:
+        ["spruce/storybook-static/assets/*.js"]
+      remote_file: spruce/${task_id}/storybook/assets/
+      bucket: mciuploads
+      content_type: application/javascript
+      permissions: public-read
+      display_name: storybook_assets_js_
+
+  # Ideally we can get rid of this command upon the completion of EVG-17334.
+  attach-storybook-assets-map:
+    command: s3.put
+    type: system
+    params:
+      aws_key: ${aws_key}
+      aws_secret: ${aws_secret}
+      local_files_include_filter:
+        ["spruce/storybook-static/assets/*.js.map"]
+      remote_file: spruce/${task_id}/storybook/assets/
+      bucket: mciuploads
+      content_type: application/json
+      permissions: public-read
+      display_name: storybook_assets_map_
+  
   attach-codegen-diff:
     command: s3.put
     type: system
@@ -325,6 +370,9 @@ tasks:
     - func: yarn-install
     - func: yarn-build-storybook
     - func: attach-storybook
+    - func: attach-storybook-assets-css
+    - func: attach-storybook-assets-js
+    - func: attach-storybook-assets-map
 
   - name: test
     commands:

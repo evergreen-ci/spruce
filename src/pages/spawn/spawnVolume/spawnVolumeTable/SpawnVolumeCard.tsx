@@ -1,9 +1,7 @@
 import { DoesNotExpire, DetailsCard } from "components/Spawn";
-import { useUserTimeZone } from "hooks/useUserTimeZone";
+import { useDateFormat } from "hooks";
 import { MyVolume } from "types/spawn";
-import { string } from "utils";
 
-const { getDateCopy } = string;
 interface Props {
   volume: MyVolume;
 }
@@ -17,21 +15,18 @@ export const SpawnVolumeCard: React.VFC<Props> = ({ volume }) => (
 );
 
 const VolumeCreationTime: React.VFC<MyVolume> = ({ creationTime }) => {
-  const tz = useUserTimeZone();
-  return <>{getDateCopy(creationTime, { tz })}</>;
+  const getDateCopy = useDateFormat();
+  return <>{getDateCopy(creationTime)}</>;
 };
 
 const VolumeExpiration: React.VFC<MyVolume> = ({
   noExpiration,
   expiration,
-  host,
 }) => {
-  const tz = useUserTimeZone();
+  const getDateCopy = useDateFormat();
   return (
     <span>
-      {noExpiration || !expiration || host
-        ? DoesNotExpire
-        : getDateCopy(expiration, { tz })}
+      {noExpiration || !expiration ? DoesNotExpire : getDateCopy(expiration)}
     </span>
   );
 };

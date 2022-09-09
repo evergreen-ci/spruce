@@ -20,5 +20,6 @@ query GetUserSettings {
       spruceV1
       hasUsedMainlineCommitsBefore
     }
+    dateFormat
   }
 }

@@ -6,11 +6,10 @@ import { useAnnotationAnalytics } from "analytics";
 import { StyledLink } from "components/styles";
 import { size } from "constants/tokens";
 import { JiraTicket } from "gql/generated/types";
-import { useUserTimeZone } from "hooks/useUserTimeZone";
-import { string, numbers } from "utils";
+import { useDateFormat } from "hooks";
+import { numbers } from "utils";
 
 const { toPercent } = numbers;
-const { getDateCopy } = string;
 
 interface AnnotationTicketRowProps {
   issueKey: string;
@@ -27,7 +26,7 @@ export const AnnotationTicketRow: React.VFC<AnnotationTicketRowProps> = ({
   confidenceScore,
   loading = false,
 }) => {
-  const tz = useUserTimeZone();
+  const getDateCopy = useDateFormat();
   const annotationAnalytics = useAnnotationAnalytics();
   const fields = jiraTicket?.fields;
   const {
@@ -76,12 +75,12 @@ export const AnnotationTicketRow: React.VFC<AnnotationTicketRowProps> = ({
           <BottomMetaDataWrapper data-cy={`${issueKey}-metadata`}>
             {created && (
               <Disclaimer>
-                Created: {getDateCopy(created, { dateOnly: true, tz })}
+                Created: {getDateCopy(created, { dateOnly: true })}
               </Disclaimer>
             )}
             {updated && (
               <Disclaimer>
-                Updated: {getDateCopy(updated, { dateOnly: true, tz })}
+                Updated: {getDateCopy(updated, { dateOnly: true })}
               </Disclaimer>
             )}
             <Disclaimer>

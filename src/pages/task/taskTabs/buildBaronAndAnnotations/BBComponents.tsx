@@ -6,11 +6,8 @@ import { StyledLink } from "components/styles";
 import { getJiraTicketUrl } from "constants/externalResources";
 import { size } from "constants/tokens";
 import { TicketFields } from "gql/generated/types";
-import { useSpruceConfig } from "hooks";
-import { useUserTimeZone } from "hooks/useUserTimeZone";
-import { string } from "utils";
+import { useSpruceConfig, useDateFormat } from "hooks";
 
-const { getDateCopy } = string;
 interface TitleProps {
   margin?: boolean;
 }
@@ -24,7 +21,7 @@ export const JiraTicketRow: React.VFC<JiraTicketRowProps> = ({
   fields,
 }) => {
   const annotationAnalytics = useAnnotationAnalytics();
-  const tz = useUserTimeZone();
+  const getDateCopy = useDateFormat();
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
   const url = getJiraTicketUrl(jiraHost, jiraKey);
@@ -48,10 +45,10 @@ export const JiraTicketRow: React.VFC<JiraTicketRowProps> = ({
 
       <BottomMetaDataWrapper data-cy={`${jiraKey}-metadata`}>
         <Disclaimer>
-          Created: {getDateCopy(created, { dateOnly: true, tz })}{" "}
+          Created: {getDateCopy(created, { dateOnly: true })}{" "}
         </Disclaimer>
         <Disclaimer>
-          Updated: {getDateCopy(updated, { dateOnly: true, tz })}{" "}
+          Updated: {getDateCopy(updated, { dateOnly: true })}{" "}
         </Disclaimer>
         <Disclaimer>
           {assigneeDisplayName

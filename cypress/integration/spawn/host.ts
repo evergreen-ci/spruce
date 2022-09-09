@@ -99,10 +99,7 @@ describe("Navigating to Spawn Host page", () => {
       it("Should disable 'Never expire' checkbox when max number of unexpirable hosts is met (2)", () => {
         cy.visit("/spawn/host");
         cy.contains("Spawn a host").click();
-        cy.dataCy("distro-input")
-          .click()
-          .type("{downarrow}")
-          .type("{enter}");
+        cy.dataCy("distro-input").click().type("{downarrow}").type("{enter}");
         cy.dataCy("distro-input").should(
           "have.attr",
           "value",
@@ -129,6 +126,18 @@ describe("Navigating to Spawn Host page", () => {
       it("Visiting the spawn host page with the proper url param should open the spawn host modal by default", () => {
         cy.visit("/spawn/host?spawnHost=True ");
         cy.dataCy("spawn-host-modal").should("be.visible");
+      });
+      it("Closing the spawn host modal removes the 'spawnHost' query param from the url and hides the modal", () => {
+        cy.visit("/spawn/host?spawnHost=True ");
+        cy.dataCy("spawn-host-modal").should("be.visible");
+        cy.location().should(({ search }) => {
+          expect(search).to.include("spawnHost=True");
+        });
+        cy.dataCy("cancel-button").click();
+        cy.location().should(({ search }) => {
+          expect(search).to.not.include("spawnHost");
+        });
+        cy.dataCy("spawn-host-modal").should("not.be.visible");
       });
       it("Visiting the spawn host page with a taskId url param should render additional options at the bottom of the modal.", () => {
         cy.visit(

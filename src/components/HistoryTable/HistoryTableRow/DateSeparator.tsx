@@ -3,8 +3,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
-import { useUserTimeZone } from "hooks/useUserTimeZone";
-import { getDateCopy } from "utils/string";
+import { useDateFormat } from "hooks";
 
 const { gray } = uiColors;
 interface DateSeparatorProps {
@@ -16,10 +15,10 @@ export const DateSeparator: React.VFC<DateSeparatorProps> = ({
   style,
   date,
 }) => {
-  const tz = useUserTimeZone();
+  const getDateCopy = useDateFormat();
   return (
     <Container style={style}>
-      <DateWrapper>{getDateCopy(date, { tz, dateOnly: true })}</DateWrapper>
+      <DateWrapper>{getDateCopy(date, { dateOnly: true })}</DateWrapper>
       <Line />
     </Container>
   );

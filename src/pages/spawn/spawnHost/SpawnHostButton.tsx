@@ -12,6 +12,7 @@ import { useSpruceConfig } from "hooks";
 import { SpawnHostModal } from "pages/spawn/spawnHost/index";
 import { HostStatus } from "types/host";
 import { queryString } from "utils";
+import { QueryParams } from "../types";
 
 const { parseQueryString } = queryString;
 export const SpawnHostButton = () => {
@@ -22,7 +23,7 @@ export const SpawnHostButton = () => {
   const spruceConfig = useSpruceConfig();
   const { search } = useLocation();
   const queryParams = parseQueryString(search);
-  const shouldSpawnHost = queryParams.spawnHost === "True";
+  const shouldSpawnHost = queryParams[QueryParams.SpawnHost] === "True";
   const [openModal, setOpenModal] = useState(shouldSpawnHost);
   const spawnAnalytics = useSpawnAnalytics();
 

@@ -86,6 +86,7 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
     subscriptions: subscriptions
       ? subscriptions?.map(
           ({
+            id,
             resourceType,
             trigger,
             triggerData,
@@ -114,6 +115,7 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
             return {
               displayTitle: `${triggerText} - ${subscriberText}`,
               subscriptionData: {
+                id,
                 event: {
                   eventSelect: triggerEnum,
                   extraFields: getExtraFields(triggerEnum, triggerData),

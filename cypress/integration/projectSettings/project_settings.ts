@@ -6,10 +6,96 @@ const getGithubCommitQueueRoute = (identifier: string) =>
   `${getSettingsRoute(identifier)}/github-commitqueue`;
 const getNotificationsRoute = (identifier: string) =>
   `${getSettingsRoute(identifier)}/notifications`;
+const getAccessRoute = (identifier: string) =>
+  `${getSettingsRoute(identifier)}/access`;
 
 const project = "spruce";
 const projectUseRepoEnabled = "evergreen";
 const repo = "602d70a2b2373672ee493184";
+
+describe("Access page", () => {
+  const destination = getAccessRoute(projectUseRepoEnabled);
+  beforeEach(() => {
+    cy.visit(destination);
+  });
+
+  it("Save button should be disabled on initial load", () => {
+    cy.dataCy("save-settings-button").should("be.disabled");
+  });
+
+  it("Shows a 'Default to Repo on Page' button on page", () => {
+    cy.dataCy("default-to-repo-button").should("exist").should("be.enabled");
+  });
+
+  it("Should enable the save button when the General Access value changes", () => {
+    cy.get("label").contains("Private").click();
+    cy.dataCy("save-settings-button").should("be.enabled");
+  });
+
+  it("Should enable the save button when the General Access value changes", () => {
+    cy.get("label").contains("Private").click();
+    cy.dataCy("save-settings-button").should("be.enabled");
+  });
+
+  it("Changing settings and clicking the save button produces a success toast and the changes are persisted", () => {
+    cy.get("label").contains("Private").click();
+    cy.get("label").contains("Unrestricted").click();
+    cy.contains("Add Username").click();
+    cy.get("[aria-label='Username'")
+      .should("have.length", 1)
+      .first()
+      .type("admin");
+    cy.dataCy("save-settings-button").should("be.enabled").click();
+    cy.validateToast("success", "Successfully updated project");
+    cy.visit(destination);
+    cy.get("label")
+      .contains("Private")
+      .closest("label")
+      .get("input")
+      .should("have.attr", "checked", "checked");
+    cy.get("label")
+      .contains("Unrestricted")
+      .closest("label")
+      .get("input")
+      .should("have.attr", "checked", "checked");
+    cy.get("[aria-label='Username']")
+      .should("have.value", "admin")
+      .should("exist");
+  });
+
+  it("Deleting a username results in a success toast and the changes are persisted", () => {
+    cy.get("[aria-label='Username']").should("have.length", 1);
+    cy.dataCy("delete-item-button").click();
+    cy.get("[aria-label='Username']").should("have.length", 0);
+    cy.reload();
+    cy.get("[aria-label='Username']").should("have.length", 0);
+  });
+
+  it("Submitting an invalid admin username produces an error toast", () => {
+    cy.visit(getAccessRoute(project));
+    cy.contains("Add Username").click();
+    cy.get("[aria-label='Username'")
+      .should("have.length", 4)
+      .first()
+      .type("mongodb_user");
+    cy.dataCy("save-settings-button").should("be.enabled").click();
+    cy.validateToast(
+      "error",
+      "There was an error saving the project: error updating project admin roles: no admin role for project 'spruce' found"
+    );
+  });
+
+  it("Clicking on 'Default to Repo on Page' selects the 'Default to repo (public)' checkbox and produces a success banner", () => {
+    cy.dataCy("default-to-repo-button").click();
+    cy.dataCy("default-to-repo-modal").contains("Confirm").click();
+    cy.validateToast("success", "Successfully defaulted page to repo");
+    cy.get("label")
+      .contains("Default to repo (public)")
+      .closest("label")
+      .get("input")
+      .should("have.attr", "checked", "checked");
+  });
+});
 
 describe("Clicking on The Project Select Dropdown ", () => {
   const destination = getGeneralRoute(project);
@@ -317,21 +403,6 @@ describe("Project Settings when not defaulting to repo", () => {
       .parent()
       .click();
     cy.validateToast("success", "Successfully detached from repo");
-  });
-
-  describe("Access page", () => {
-    before(() => {
-      cy.dataCy("navitem-access").click();
-    });
-
-    it("Should not have the save button enabled on load", () => {
-      cy.dataCy("save-settings-button").should("be.disabled");
-    });
-
-    it("Does not enable the save button when adding a new array element", () => {
-      cy.dataCy("add-button").click();
-      cy.dataCy("save-settings-button").should("be.disabled");
-    });
   });
 
   describe("Variables page", () => {
