@@ -3,6 +3,7 @@ query GetUserSettings {
     timezone
     region
     slackUsername
+    slackMemberId
     notifications {
       buildBreak
       commitQueue

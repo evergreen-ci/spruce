@@ -2038,9 +2038,11 @@ export type UserConfig = {
  * It contains information about a user's settings, such as their GitHub username or timezone.
  */
 export type UserSettings = {
+  dateFormat?: Maybe<Scalars["String"]>;
   githubUser?: Maybe<GithubUser>;
   notifications?: Maybe<Notifications>;
   region?: Maybe<Scalars["String"]>;
+  slackMemberId?: Maybe<Scalars["String"]>;
   slackUsername?: Maybe<Scalars["String"]>;
   timezone?: Maybe<Scalars["String"]>;
   useSpruceOptions?: Maybe<UseSpruceOptions>;
@@ -2051,9 +2053,11 @@ export type UserSettings = {
  * It is used to update user information such as GitHub or Slack username.
  */
 export type UserSettingsInput = {
+  dateFormat?: InputMaybe<Scalars["String"]>;
   githubUser?: InputMaybe<GithubUserInput>;
   notifications?: InputMaybe<NotificationsInput>;
   region?: InputMaybe<Scalars["String"]>;
+  slackMemberId?: InputMaybe<Scalars["String"]>;
   slackUsername?: InputMaybe<Scalars["String"]>;
   timezone?: InputMaybe<Scalars["String"]>;
   useSpruceOptions?: InputMaybe<UseSpruceOptionsInput>;
@@ -2156,6 +2160,7 @@ export type Volume = {
   host?: Maybe<Host>;
   hostID: Scalars["String"];
   id: Scalars["String"];
+  migrating: Scalars["Boolean"];
   noExpiration: Scalars["Boolean"];
   size: Scalars["Int"];
   type: Scalars["String"];
@@ -5866,6 +5871,7 @@ export type GetUserSettingsQuery = {
     timezone?: Maybe<string>;
     region?: Maybe<string>;
     slackUsername?: Maybe<string>;
+    slackMemberId?: Maybe<string>;
     notifications?: Maybe<{
       buildBreak?: Maybe<string>;
       commitQueue?: Maybe<string>;
