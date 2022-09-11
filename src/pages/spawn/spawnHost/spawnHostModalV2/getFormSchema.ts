@@ -53,24 +53,57 @@ export const getFormSchema = ({
           })) || []),
         ],
       },
-      publicKeyTitle: {
-        title: "Public Key",
-        type: "null",
-      },
-      publicKey: {
-        type: "boolean" as "boolean",
-        oneOf: [
-          {
+      publicKeySection: {
+        title: "Public key",
+        type: "object",
+        properties: {
+          useExisting: {
+            default: true,
             type: "boolean" as "boolean",
-            title: "Use existing key",
-            enum: [true],
+            oneOf: [
+              {
+                type: "boolean" as "boolean",
+                title: "Use existing key",
+                enum: [true],
+              },
+              {
+                type: "boolean" as "boolean",
+                title: "Add new key",
+                enum: [false],
+              },
+            ],
           },
-          {
-            type: "boolean" as "boolean",
-            title: "Add new key",
-            enum: [false],
+        },
+        dependencies: {
+          useExisting: {
+            oneOf: [
+              {
+                properties: {
+                  useExisting: {
+                    enum: [true],
+                  },
+                  publicKeyData: {
+                    type: "object" as "object",
+                    title: "",
+                    properties: {
+                      publicKeyNameDropdown: {
+                        title: "Existing key",
+                        type: "string",
+                      },
+                    },
+                  },
+                },
+              },
+              {
+                properties: {
+                  useExisting: {
+                    enum: [false],
+                  },
+                },
+              },
+            ],
           },
-        ],
+        },
       },
     },
   },
@@ -85,9 +118,14 @@ export const getFormSchema = ({
       "ui:elementWrapperCSS": dropdownWrapperClassName,
       "ui:valuePlaceholder": "Select a region",
     },
-    publicKey: {
-      "ui:widget": widgets.RadioBoxWidget,
-      "ui:showLabel": false,
+    publicKeySection: {
+      useExisting: {
+        "ui:showLabel": false,
+        "ui:widget": widgets.RadioBoxWidget,
+        publicKeyNameDropdown: {
+          "ui:widget": SearchableDropdownWidget,
+        },
+      },
     },
   },
 });
