@@ -34,8 +34,6 @@ import { useDisableSpawnExpirationCheckbox } from "hooks";
 import { string } from "utils";
 import {
   HostDetailsForm,
-  PublicKeyForm,
-  publicKeyStateType,
   useSpawnHostModalState,
 } from "../spawnHostModal/index";
 import { getFormSchema } from "./getFormSchema";
@@ -228,15 +226,6 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
         />
       </div>
       <ModalContent>
-        <Section>
-          <PublicKeyForm
-            publicKeys={publicKeys}
-            data={spawnHostModalState}
-            onChange={(data: publicKeyStateType) =>
-              dispatch({ type: "editPublicKey", ...data })
-            }
-          />
-        </Section>
         <HR />
         <HostDetailsForm
           data={spawnHostModalState}
@@ -248,10 +237,6 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     </Modal>
   );
 };
-
-const Section = styled(ModalContent)`
-  margin-top: ${size.m};
-`;
 
 // @ts-expect-error
 const WideButton = styled(Button)`
