@@ -156,7 +156,11 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     });
   }, [distroId, dispatch, distrosData?.distros, unexpirableCountReached]);
 
-  const { fields, schema, uiSchema } = getFormSchema();
+  const { fields, schema, uiSchema } = getFormSchema({
+    distros: distrosData?.distros,
+    awsRegions,
+    userAwsRegion,
+  });
   const [formState, setFormState] = useState();
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
     return null;
@@ -243,46 +247,17 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
       ]}
       data-cy="spawn-host-modal"
     >
-      <div style={{ border: "4px solid black" }}>
+      <div>
         <SpruceForm
           schema={schema}
           uiSchema={uiSchema}
           formData={formState}
           onChange={({ formData, errors }) => {
-            console.log(formData);
             setFormState(formData);
           }}
         />
       </div>
       <ModalContent>
-        <Subtitle> Required Host Information</Subtitle>
-        <Section>
-          <InputLabel htmlFor="distroSearchBox">Distro</InputLabel>
-          <AutoComplete
-            data-cy="distroSearchBox"
-            style={{ width: 280, marginLeft: 0 }}
-            options={distroOptions}
-            id="distroSearchBox"
-            onChange={editDistro}
-            value={distroId}
-          >
-            <Input
-              value={distroId}
-              style={{ width: 200 }}
-              placeholder="Search for distro"
-              suffix={<Icon glyph="MagnifyingGlass" />}
-              data-cy="distro-input"
-              onChange={(e) => setDistroInput(e.target.value)}
-            />
-          </AutoComplete>
-        </Section>
-        <Section>
-          <RegionSelector
-            onChange={(v) => dispatch({ type: "editAWSRegion", region: v })}
-            selectedRegion={spawnHostModalState.region}
-            awsRegions={awsRegions}
-          />
-        </Section>
         <Section>
           <PublicKeyForm
             publicKeys={publicKeys}

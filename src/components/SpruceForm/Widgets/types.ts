@@ -1,3 +1,4 @@
+import { SerializedStyles } from "@emotion/react";
 import { WidgetProps } from "@rjsf/core";
 
 export interface SpruceWidgetProps extends WidgetProps {
@@ -12,6 +13,7 @@ export interface SpruceWidgetProps extends WidgetProps {
     showLabel: boolean;
     tooltipDescription: string;
     warnings: string[];
+    elementWrapperCSS: SerializedStyles;
   }>;
 }
 

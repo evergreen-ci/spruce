@@ -88,6 +88,7 @@ export const DefaultFieldTemplate: React.VFC<FieldTemplateProps> = ({
   uiSchema,
 }) => {
   const isNullType = schema.type === "null";
+  console.log({ schema, uiSchema, isNullType });
   const sectionId = uiSchema["ui:sectionId"] ?? "";
   const border = uiSchema["ui:border"];
   const showLabel = uiSchema["ui:showLabel"] ?? true;
@@ -352,7 +353,9 @@ export const CardFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
     {properties.map((prop) => prop.content)}
   </SpruceFormContainer>
 );
-
+export const ModalFieldTemplate: React.VFC<ObjectFieldTemplateProps> = () => {
+  return <div></div>;
+};
 export const AccordionFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
   disabled,
   idSchema,
