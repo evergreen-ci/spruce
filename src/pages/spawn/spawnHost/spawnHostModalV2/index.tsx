@@ -2,13 +2,10 @@ import { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
-import { Subtitle } from "@leafygreen-ui/typography";
-import { AutoComplete, Input } from "antd";
 import { useSpawnAnalytics } from "analytics";
-import Icon from "components/Icon";
 import { Modal } from "components/Modal";
-import { ModalContent, RegionSelector } from "components/Spawn";
-import { InputLabel } from "components/styles";
+import { ModalContent } from "components/Spawn";
+import { SpruceForm } from "components/SpruceForm";
 import { HR } from "components/styles/Layout";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -42,7 +39,6 @@ import {
   useSpawnHostModalState,
 } from "../spawnHostModal/index";
 import { getFormSchema } from "./getFormSchema";
-import { SpruceForm } from "components/SpruceForm";
 
 const { omitTypename, stripNewLines } = string;
 interface SpawnHostModalProps {
@@ -107,7 +103,6 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     refetchQueries: ["MyHosts", "MyVolumes", "GetMyPublicKeys"],
   });
 
-  const [distroInput, setDistroInput] = useState("");
   const { reducer } = useSpawnHostModalState();
   const [spawnHostModalState, dispatch] = reducer;
 
@@ -156,7 +151,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     });
   }, [distroId, dispatch, distrosData?.distros, unexpirableCountReached]);
 
-  const { fields, schema, uiSchema } = getFormSchema({
+  const { schema, uiSchema } = getFormSchema({
     distros: distrosData?.distros,
     awsRegions,
     userAwsRegion,
@@ -165,25 +160,6 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
     return null;
   }
-
-  const filteredDistros = (distrosData?.distros ?? [])
-    .filter((d) => d.name.includes(distroInput))
-    .sort((a, b) => a.name.localeCompare(b.name));
-
-  const distroOptions = [
-    {
-      label: renderTitle("WORKSTATION DISTROS"),
-      options: filteredDistros
-        .filter((d) => d.isVirtualWorkStation)
-        .map((d) => renderItem(d.name)),
-    },
-    {
-      label: renderTitle("OTHER DISTROS"),
-      options: filteredDistros
-        .filter((d) => !d.isVirtualWorkStation)
-        .map((d) => renderItem(d.name)),
-    },
-  ];
 
   const canSubmitSpawnHost = !(
     distroId === "" ||
@@ -210,13 +186,6 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     });
     spawnHostMutation({
       variables: { SpawnHostInput: varsToSubmit },
-    });
-  };
-
-  const editDistro = (d: string) => {
-    dispatch({
-      type: "editDistro",
-      distroId: d,
     });
   };
 
@@ -252,7 +221,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
           schema={schema}
           uiSchema={uiSchema}
           formData={formState}
-          onChange={({ formData, errors }) => {
+          onChange={({ formData }) => {
             setFormState(formData);
           }}
         />
@@ -278,13 +247,6 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     </Modal>
   );
 };
-
-const renderTitle = (title: string) => <b>{title}</b>;
-
-const renderItem = (title: string) => ({
-  value: title,
-  label: <span key={`distro_${title}`}>{title}</span>,
-});
 
 const Section = styled(ModalContent)`
   margin-top: ${size.m};

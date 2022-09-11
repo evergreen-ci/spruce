@@ -1,10 +1,7 @@
 import { css } from "@emotion/react";
-import { AccordionFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
-import { AntdSelect } from "components/SpruceForm/Widgets/AntdWidgets";
 import { SearchableDropdownWidget } from "components/SpruceForm/Widgets/SearchableDropdown";
 import { GetFormSchema } from "pages/projectSettings/tabs/types";
-import { ProjectType } from "pages/projectSettings/tabs/utils";
 
 interface Props {
   distros: {
@@ -36,13 +33,11 @@ export const getFormSchema = ({
         title: "Distro",
         default: "",
         oneOf: [
-          ...(distros?.map((d) => {
-            return {
-              type: "string" as "string",
-              title: d.name,
-              enum: [d.name],
-            };
-          }) || []),
+          ...(distros?.map((d) => ({
+            type: "string" as "string",
+            title: d.name,
+            enum: [d.name],
+          })) || []),
         ],
       },
       region: {
@@ -51,18 +46,31 @@ export const getFormSchema = ({
         description: "oh rly?",
         default: userAwsRegion ?? "",
         oneOf: [
-          ...(awsRegions?.map((r) => {
-            return {
-              type: "string" as "string",
-              title: r,
-              enum: [r],
-            };
-          }) || []),
+          ...(awsRegions?.map((r) => ({
+            type: "string" as "string",
+            title: r,
+            enum: [r],
+          })) || []),
         ],
       },
       publicKeyTitle: {
         title: "Public Key",
         type: "null",
+      },
+      publicKey: {
+        type: "boolean" as "boolean",
+        oneOf: [
+          {
+            type: "boolean" as "boolean",
+            title: "Use existing key",
+            enum: [true],
+          },
+          {
+            type: "boolean" as "boolean",
+            title: "Add new key",
+            enum: [false],
+          },
+        ],
       },
     },
   },
@@ -76,6 +84,10 @@ export const getFormSchema = ({
       "ui:widget": SearchableDropdownWidget,
       "ui:elementWrapperCSS": dropdownWrapperClassName,
       "ui:valuePlaceholder": "Select a region",
+    },
+    publicKey: {
+      "ui:widget": widgets.RadioBoxWidget,
+      "ui:showLabel": false,
     },
   },
 });

@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
-import ElementWrapper from "../ElementWrapper";
-import { EnumSpruceWidgetProps } from "./types";
 import SearchableDropdown, {
   SearchableDropdownOption,
   SearchableDropdownProps,
 } from "components/SearchableDropdown";
+import ElementWrapper from "../ElementWrapper";
+import { EnumSpruceWidgetProps } from "./types";
 
 interface FormSearchableDropdownProps {
   options: SearchableDropdownProps<string>;
@@ -31,12 +31,12 @@ export const SearchableDropdownWidget: React.VFC<
           onChange(v === "" ? null : v);
         }}
         options={enumOptions}
-        searchFunc={(options, match) =>
-          options.filter((o) =>
+        searchFunc={(items, match) =>
+          items.filter((o) =>
             o.value.toLowerCase().includes(match.toLowerCase())
           )
         }
-        optionRenderer={(option, onClick, isChecked) => (
+        optionRenderer={(option, onClick) => (
           <SearchableDropdownOption
             key={`searchable_dropdown_option_${option.value}`}
             value={option.value}

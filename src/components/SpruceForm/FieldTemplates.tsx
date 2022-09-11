@@ -353,9 +353,9 @@ export const CardFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
     {properties.map((prop) => prop.content)}
   </SpruceFormContainer>
 );
-export const ModalFieldTemplate: React.VFC<ObjectFieldTemplateProps> = () => {
-  return <div></div>;
-};
+export const ModalFieldTemplate: React.VFC<ObjectFieldTemplateProps> = () => (
+  <div />
+);
 export const AccordionFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
   disabled,
   idSchema,
