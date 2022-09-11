@@ -1,6 +1,8 @@
 import { css } from "@emotion/react";
 import widgets from "components/SpruceForm/Widgets";
+import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
 import { SearchableDropdownWidget } from "components/SpruceForm/Widgets/SearchableDropdown";
+import { GetMyPublicKeysQuery } from "gql/generated/types";
 import { GetFormSchema } from "pages/projectSettings/tabs/types";
 
 interface Props {
@@ -10,15 +12,21 @@ interface Props {
   }[];
   awsRegions: string[];
   userAwsRegion: string;
+  publicKeys: GetMyPublicKeysQuery["myPublicKeys"];
 }
 
 const dropdownWrapperClassName = css`
   max-width: 225px;
 `;
+
+const textAreaWrapperClassName = css`
+  max-width: 400px;
+`;
 export const getFormSchema = ({
   distros,
   awsRegions,
   userAwsRegion,
+  publicKeys,
 }: Props): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -43,7 +51,6 @@ export const getFormSchema = ({
       region: {
         type: "string" as "string",
         title: "Region",
-        description: "oh rly?",
         default: userAwsRegion ?? "",
         oneOf: [
           ...(awsRegions?.map((r) => ({
@@ -82,15 +89,16 @@ export const getFormSchema = ({
                   useExisting: {
                     enum: [true],
                   },
-                  publicKeyData: {
-                    type: "object" as "object",
-                    title: "",
-                    properties: {
-                      publicKeyNameDropdown: {
-                        title: "Existing key",
-                        type: "string",
-                      },
-                    },
+                  publicKeyNameDropdown: {
+                    title: "Existing key",
+                    type: "string" as "string",
+                    default: "",
+                    oneOf:
+                      publicKeys?.map((d) => ({
+                        type: "string" as "string",
+                        title: d.name,
+                        enum: [d.name],
+                      })) || [],
                   },
                 },
               },
@@ -98,6 +106,11 @@ export const getFormSchema = ({
                 properties: {
                   useExisting: {
                     enum: [false],
+                  },
+                  newPublicKey: {
+                    title: "Public key",
+                    default: "",
+                    type: "string" as "string",
                   },
                 },
               },
@@ -122,9 +135,15 @@ export const getFormSchema = ({
       useExisting: {
         "ui:showLabel": false,
         "ui:widget": widgets.RadioBoxWidget,
-        publicKeyNameDropdown: {
-          "ui:widget": SearchableDropdownWidget,
-        },
+      },
+      publicKeyNameDropdown: {
+        "ui:widget": SearchableDropdownWidget,
+        "ui:elementWrapperCSS": dropdownWrapperClassName,
+        "ui:valuePlaceholder": "Select a key",
+      },
+      newPublicKey: {
+        "ui:widget": LeafyGreenTextArea,
+        "ui:elementWrapperCSS": textAreaWrapperClassName,
       },
     },
   },

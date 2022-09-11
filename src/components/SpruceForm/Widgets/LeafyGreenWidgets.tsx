@@ -311,13 +311,14 @@ export const LeafyGreenTextArea: React.VFC<SpruceWidgetProps> = ({
   options,
   rawErrors,
   readonly,
+  elementWrapperCSS,
 }) => {
   const { "data-cy": dataCy, emptyValue = "", marginBottom } = options;
 
   const { errors, hasError } = processErrors(rawErrors);
 
   return (
-    <ElementWrapper marginBottom={marginBottom}>
+    <ElementWrapper css={elementWrapperCSS} marginBottom={marginBottom}>
       <TextArea
         data-cy={dataCy}
         label={label}

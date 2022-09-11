@@ -155,6 +155,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     distros: distrosData?.distros,
     awsRegions,
     userAwsRegion,
+    publicKeys,
   });
   const [formState, setFormState] = useState();
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
