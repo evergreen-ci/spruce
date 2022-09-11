@@ -103,7 +103,12 @@ export const LeafyGreenCheckBox: React.VFC<SpruceWidgetProps> = ({
   options,
   readonly,
 }) => {
-  const { "data-cy": dataCy, marginBottom, tooltipDescription } = options;
+  const {
+    "data-cy": dataCy,
+    marginBottom,
+    tooltipDescription,
+    labelComp,
+  } = options;
   return (
     <ElementWrapper marginBottom={marginBottom}>
       <Checkbox
@@ -111,7 +116,7 @@ export const LeafyGreenCheckBox: React.VFC<SpruceWidgetProps> = ({
         checked={value}
         label={
           <>
-            {label}
+            {labelComp || label}
             {tooltipDescription && (
               <Tooltip
                 justify="middle"

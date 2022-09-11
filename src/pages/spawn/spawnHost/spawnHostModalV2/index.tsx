@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery, useMutation, useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { useSpawnAnalytics } from "analytics";
@@ -28,7 +28,13 @@ import {
   GET_AWS_REGIONS,
   GET_MY_VOLUMES,
   GET_USER_SETTINGS,
+  GET_SPAWN_TASK,
 } from "gql/queries";
+import {
+  GetSpawnTaskQuery,
+  GetSpawnTaskQueryVariables,
+} from "gql/generated/types";
+import { queryString } from "utils";
 import { useDisableSpawnExpirationCheckbox } from "hooks";
 import { string } from "utils";
 import {
@@ -36,18 +42,37 @@ import {
   useSpawnHostModalState,
 } from "../spawnHostModal/index";
 import { getFormSchema } from "./getFormSchema";
+import { useLocation } from "react-router-dom";
+import { getString, parseQueryString } from "utils/queryString";
 
 const { omitTypename, stripNewLines } = string;
 interface SpawnHostModalProps {
   visible: boolean;
   onCancel: () => void;
 }
+
 export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   visible,
   onCancel,
 }) => {
   const dispatchToast = useToastContext();
   const spawnAnalytics = useSpawnAnalytics();
+  const { search } = useLocation();
+  const queryParams = parseQueryString(search);
+  const taskIdQueryParam = getString(queryParams.taskId);
+  const distroIdQueryParam = getString(queryParams.distroId);
+
+  const [getSpawnTask, { data: spawnTaskData }] = useLazyQuery<
+    GetSpawnTaskQuery,
+    GetSpawnTaskQueryVariables
+  >(GET_SPAWN_TASK);
+
+  useEffect(() => {
+    if (taskIdQueryParam && distroIdQueryParam) {
+      getSpawnTask({ variables: { taskId: taskIdQueryParam, execution: 0 } });
+    }
+  }, [taskIdQueryParam, distroIdQueryParam, getSpawnTask]);
+
   // QUERY distros
   const { data: distrosData, loading: distroLoading } = useQuery<
     DistrosQuery,
@@ -153,6 +178,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     awsRegions,
     userAwsRegion,
     publicKeys,
+    spawnTaskData: spawnTaskData?.task,
   });
   const [formState, setFormState] = useState();
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {

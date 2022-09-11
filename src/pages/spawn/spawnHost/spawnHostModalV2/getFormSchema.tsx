@@ -2,8 +2,10 @@ import { css } from "@emotion/react";
 import widgets from "components/SpruceForm/Widgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
 import { SearchableDropdownWidget } from "components/SpruceForm/Widgets/SearchableDropdown";
-import { GetMyPublicKeysQuery } from "gql/generated/types";
+import { GetMyPublicKeysQuery, GetSpawnTaskQuery } from "gql/generated/types";
 import { GetFormSchema } from "pages/projectSettings/tabs/types";
+import { json } from "stream/consumers";
+import { shortenGithash } from "utils/string";
 
 interface Props {
   distros: {
@@ -13,6 +15,7 @@ interface Props {
   awsRegions: string[];
   userAwsRegion: string;
   publicKeys: GetMyPublicKeysQuery["myPublicKeys"];
+  spawnTaskData: GetSpawnTaskQuery["task"];
 }
 
 const dropdownWrapperClassName = css`
@@ -27,6 +30,7 @@ export const getFormSchema = ({
   awsRegions,
   userAwsRegion,
   publicKeys,
+  spawnTaskData,
 }: Props): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -144,9 +148,74 @@ export const getFormSchema = ({
         title: "Optional Host Details",
         type: "null",
       },
-      runUserdataScript: {
-        title: "Run Userdata script on start",
-        type: "boolean",
+      userdataScriptSection: {
+        type: "object" as "object",
+        title: "",
+        properties: {
+          runUserdataScript: {
+            title: "Run Userdata script on start",
+            type: "boolean",
+          },
+        },
+        dependencies: {
+          runUserdataScript: {
+            oneOf: [
+              {
+                properties: {
+                  runUserdataScript: {
+                    enum: [true],
+                  },
+                  userdataScript: {
+                    title: "Userdata Script",
+                    type: "string" as "string",
+                  },
+                },
+              },
+              {
+                properties: {
+                  runUserdataScript: {
+                    enum: [false],
+                  },
+                },
+              },
+            ],
+          },
+        },
+      },
+      setupScriptSection: {
+        type: "object" as "object",
+        title: "",
+        properties: {
+          runSetupScript: {
+            title:
+              "Define setup script to run after host is configured (i.e. task data and artifacts are loaded)",
+            type: "boolean",
+          },
+        },
+        dependencies: {
+          runSetupScript: {
+            oneOf: [
+              {
+                properties: {
+                  runSetupScript: {
+                    enum: [true],
+                  },
+                  setupScript: {
+                    title: "Setup Script",
+                    type: "string" as "string",
+                  },
+                },
+              },
+              {
+                properties: {
+                  runUserdataScript: {
+                    enum: [false],
+                  },
+                },
+              },
+            ],
+          },
+        },
       },
     },
     dependencies: {
@@ -200,9 +269,17 @@ export const getFormSchema = ({
         "ui:elementWrapperCSS": textAreaWrapperClassName,
       },
     },
-    userdataScript: {
-      "ui:widget": LeafyGreenTextArea,
-      "ui:elementWrapperCSS": textAreaWrapperClassName,
+    userdataScriptSection: {
+      userdataScript: {
+        "ui:widget": LeafyGreenTextArea,
+        "ui:elementWrapperCSS": textAreaWrapperClassName,
+      },
+    },
+    setupScriptSection: {
+      setupScript: {
+        "ui:widget": LeafyGreenTextArea,
+        "ui:elementWrapperCSS": textAreaWrapperClassName,
+      },
     },
   },
 });
