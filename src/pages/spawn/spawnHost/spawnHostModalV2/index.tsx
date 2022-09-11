@@ -6,7 +6,6 @@ import { useSpawnAnalytics } from "analytics";
 import { Modal } from "components/Modal";
 import { ModalContent } from "components/Spawn";
 import { SpruceForm } from "components/SpruceForm";
-import { HR } from "components/styles/Layout";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -221,12 +220,12 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
           uiSchema={uiSchema}
           formData={formState}
           onChange={({ formData }) => {
+            console.log(formData);
             setFormState(formData);
           }}
         />
       </div>
       <ModalContent>
-        <HR />
         <HostDetailsForm
           data={spawnHostModalState}
           onChange={dispatch}

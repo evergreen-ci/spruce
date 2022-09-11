@@ -45,6 +45,7 @@ export const getFormSchema = ({
             type: "string" as "string",
             title: d.name,
             enum: [d.name],
+            isVirtualWorkstation: d.isVirtualWorkStation,
           })) || []),
         ],
       },
@@ -139,6 +140,38 @@ export const getFormSchema = ({
           },
         },
       },
+      optionalInformationTitle: {
+        title: "Optional Host Details",
+        type: "null",
+      },
+      runUserdataScript: {
+        title: "Run Userdata script on start",
+        type: "boolean",
+      },
+    },
+    dependencies: {
+      runUserdataScript: {
+        oneOf: [
+          {
+            properties: {
+              runUserdataScript: {
+                enum: [true],
+              },
+              userdataScript: {
+                title: "Userdata Script",
+                type: "string" as "string",
+              },
+            },
+          },
+          {
+            properties: {
+              runUserdataScript: {
+                enum: [false],
+              },
+            },
+          },
+        ],
+      },
     },
   },
   uiSchema: {
@@ -166,6 +199,10 @@ export const getFormSchema = ({
         "ui:widget": LeafyGreenTextArea,
         "ui:elementWrapperCSS": textAreaWrapperClassName,
       },
+    },
+    userdataScript: {
+      "ui:widget": LeafyGreenTextArea,
+      "ui:elementWrapperCSS": textAreaWrapperClassName,
     },
   },
 });

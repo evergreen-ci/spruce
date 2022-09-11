@@ -58,28 +58,6 @@ export const HostDetailsForm: React.VFC<HostDetailsFormProps> = ({
   };
   return (
     <Container>
-      {/* @ts-expect-error */}
-      <StyledSubtitle> Optional Host Details</StyledSubtitle>
-      <Checkbox
-        label="Run Userdata script on start"
-        checked={hasUserDataScript}
-        onChange={onToggleUserData}
-      />
-      <StyledTextArea
-        aria-labelledby="user-data-script-input"
-        data-cy="userDataScript-input"
-        disabled={!hasUserDataScript}
-        value={userDataScript}
-        placeholder="Userdata script"
-        rows={6}
-        onChange={(e) =>
-          onChange({
-            type: "editUserDataScript",
-            userDataScript: e.target.value,
-          })
-        }
-        spellCheck={false}
-      />
       <SetupScriptForm data={data} onChange={onChange} />
 
       <ExpirationField
