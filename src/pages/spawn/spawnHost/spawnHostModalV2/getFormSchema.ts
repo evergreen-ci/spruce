@@ -20,7 +20,7 @@ const dropdownWrapperClassName = css`
 `;
 
 const textAreaWrapperClassName = css`
-  max-width: 400px;
+  max-width: 675px;
 `;
 export const getFormSchema = ({
   distros,
@@ -111,6 +111,27 @@ export const getFormSchema = ({
                     title: "Public key",
                     default: "",
                     type: "string" as "string",
+                  },
+                  savePublicKey: {
+                    title: "Save Public Key",
+                    type: "boolean" as "boolean",
+                  },
+                },
+                dependencies: {
+                  savePublicKey: {
+                    oneOf: [
+                      {
+                        properties: {
+                          savePublicKey: {
+                            enum: [true],
+                          },
+                          publicKeyName: {
+                            title: "Key name",
+                            type: "string" as "string",
+                          },
+                        },
+                      },
+                    ],
                   },
                 },
               },
