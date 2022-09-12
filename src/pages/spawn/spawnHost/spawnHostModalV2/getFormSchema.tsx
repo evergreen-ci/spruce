@@ -100,10 +100,11 @@ export const getFormSchema = ({
           ],
         },
         publicKeySection: {
-          title: "Public key",
+          title: "",
           type: "object",
           properties: {
             useExisting: {
+              title: "Key selection",
               default: true,
               type: "boolean" as "boolean",
               oneOf: [
@@ -251,9 +252,14 @@ export const getFormSchema = ({
             },
           },
         },
-        loadDataOntoHostAtStartup: {
-          type: "boolean" as "boolean",
-          title: "load it up",
+        loadData: {
+          title: "",
+          type: "object" as "object",
+          properties: {
+            loadDataOntoHostAtStartup: {
+              type: "boolean" as "boolean",
+            },
+          },
         },
       },
       dependencies: {
@@ -294,7 +300,6 @@ export const getFormSchema = ({
       },
       publicKeySection: {
         useExisting: {
-          "ui:showLabel": false,
           "ui:widget": widgets.RadioBoxWidget,
         },
         publicKeyNameDropdown: {
@@ -319,11 +324,13 @@ export const getFormSchema = ({
           "ui:elementWrapperCSS": textAreaWrapperClassName,
         },
       },
-      loadDataOntoHostAtStartup: {
-        "ui:widget": LeafyGreenCheckboWithCustomLabel,
-        "ui:buildVariant": buildVariant,
-        "ui:taskDisplayName": taskDisplayName,
-        "ui:revision": revision,
+      loadData: {
+        loadDataOntoHostAtStartup: {
+          "ui:widget": LeafyGreenCheckboWithCustomLabel,
+          "ui:buildVariant": buildVariant,
+          "ui:taskDisplayName": taskDisplayName,
+          "ui:revision": revision,
+        },
       },
     },
   };
