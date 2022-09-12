@@ -98,9 +98,14 @@ const WarningText = styled.p`
 export const LeafyGreenCheckBox: React.VFC<
   SpruceWidgetProps & { customLabel?: JSX.Element }
 > = ({ value, label, onChange, disabled, options, readonly, customLabel }) => {
-  const { "data-cy": dataCy, marginBottom, tooltipDescription } = options;
+  const {
+    "data-cy": dataCy,
+    marginBottom,
+    tooltipDescription,
+    elementWrapperCSS,
+  } = options;
   return (
-    <ElementWrapper marginBottom={marginBottom}>
+    <ElementWrapper css={elementWrapperCSS} marginBottom={marginBottom}>
       <Checkbox
         data-cy={dataCy}
         checked={value}

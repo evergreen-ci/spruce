@@ -47,6 +47,11 @@ const dropdownWrapperClassName = css`
 const textAreaWrapperClassName = css`
   max-width: 675px;
 `;
+
+const indentCSS = css`
+  margin-left: 16px;
+`;
+
 export const getFormSchema = ({
   distros,
   awsRegions,
@@ -258,6 +263,24 @@ export const getFormSchema = ({
           properties: {
             loadDataOntoHostAtStartup: {
               type: "boolean" as "boolean",
+              default: true,
+            },
+          },
+          dependencies: {
+            loadDataOntoHostAtStartup: {
+              oneOf: [
+                {
+                  properties: {
+                    loadDataOntoHostAtStartup: {
+                      enum: [true],
+                    },
+                    useProjectSpecificSetupScript: {
+                      type: "boolean" as "boolean",
+                      title: `Use project-specific setup script defined at ${project?.spawnHostScriptPath}`,
+                    },
+                  },
+                },
+              ],
             },
           },
         },
@@ -330,6 +353,11 @@ export const getFormSchema = ({
           "ui:buildVariant": buildVariant,
           "ui:taskDisplayName": taskDisplayName,
           "ui:revision": revision,
+          "ui:marginBottom": 0,
+        },
+        useProjectSpecificSetupScript: {
+          "ui:elementWrapperCSS": indentCSS,
+          "ui:marginBottom": 0,
         },
       },
     },
