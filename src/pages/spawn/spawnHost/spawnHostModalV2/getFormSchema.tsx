@@ -4,7 +4,6 @@ import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidg
 import { SearchableDropdownWidget } from "components/SpruceForm/Widgets/SearchableDropdown";
 import { GetMyPublicKeysQuery, GetSpawnTaskQuery } from "gql/generated/types";
 import { GetFormSchema } from "pages/projectSettings/tabs/types";
-import { json } from "stream/consumers";
 import { shortenGithash } from "utils/string";
 import { LeafyGreenCheckBox } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
 import { SpruceWidgetProps } from "components/SpruceForm/Widgets/types";
@@ -278,6 +277,15 @@ export const getFormSchema = ({
                       type: "boolean" as "boolean",
                       title: `Use project-specific setup script defined at ${project?.spawnHostScriptPath}`,
                     },
+                    taskSync: {
+                      type: "boolean" as "boolean",
+                      title: "Load from task sync",
+                    },
+                    startHosts: {
+                      type: "boolean" as "boolean",
+                      title:
+                        "Also start any hosts this task started (if applicable)",
+                    },
                   },
                 },
               ],
@@ -356,8 +364,19 @@ export const getFormSchema = ({
           "ui:marginBottom": 0,
         },
         useProjectSpecificSetupScript: {
+          "ui:widget": project?.spawnHostScriptPath
+            ? widgets.CheckboxWidget
+            : "hidden",
           "ui:elementWrapperCSS": indentCSS,
           "ui:marginBottom": 0,
+        },
+        taskSync: {
+          "ui:widget": canSync ? widgets.CheckboxWidget : "hidden",
+          "ui:elementWrapperCSS": indentCSS,
+          "ui:marginBottom": 0,
+        },
+        startHosts: {
+          "ui:elementWrapperCSS": indentCSS,
         },
       },
     },
