@@ -8,6 +8,12 @@ import { shortenGithash } from "utils/string";
 import { LeafyGreenCheckBox } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
 import { SpruceWidgetProps } from "components/SpruceForm/Widgets/types";
 
+const getDefaultExpiration = () => {
+  const nextWeek = new Date();
+  nextWeek.setDate(nextWeek.getDate() + 7);
+  return nextWeek.toString();
+};
+
 interface LoadTaskDataOntoHostLabelProps {
   options: {
     buildVariant: string;
@@ -37,6 +43,7 @@ interface Props {
   userAwsRegion: string;
   publicKeys: GetMyPublicKeysQuery["myPublicKeys"];
   spawnTaskData: GetSpawnTaskQuery["task"];
+  timezone: string;
 }
 
 const dropdownWrapperClassName = css`
@@ -57,6 +64,7 @@ export const getFormSchema = ({
   userAwsRegion,
   publicKeys,
   spawnTaskData,
+  timezone,
 }: Props): ReturnType<GetFormSchema> => {
   const {
     displayName: taskDisplayName,
@@ -66,9 +74,6 @@ export const getFormSchema = ({
     canSync,
   } = spawnTaskData || {};
   const hasTask = taskDisplayName && buildVariant && revision;
-  const copy = `Load data for ${taskDisplayName}</b> on ${buildVariant}</b> @ ${shortenGithash(
-    revision
-  )} onto host at startup`;
   return {
     fields: {},
     schema: {
@@ -293,8 +298,9 @@ export const getFormSchema = ({
           },
         },
         expiration: {
-          type: "object" as "object",
+          type: "string" as "string",
           title: "Expiration",
+          default: getDefaultExpiration(),
         },
       },
       dependencies: {
@@ -359,27 +365,34 @@ export const getFormSchema = ({
           "ui:elementWrapperCSS": textAreaWrapperClassName,
         },
       },
+      expiration: {
+        "ui:disablePastDatetime": true,
+        "ui:timezone": timezone,
+        "ui:widget": "date-time",
+      },
       loadData: {
         loadDataOntoHostAtStartup: {
-          "ui:widget": LeafyGreenCheckboWithCustomLabel,
+          "ui:widget": hasTask ? LeafyGreenCheckboWithCustomLabel : "hidden",
           "ui:buildVariant": buildVariant,
           "ui:taskDisplayName": taskDisplayName,
           "ui:revision": revision,
           "ui:marginBottom": 0,
         },
         useProjectSpecificSetupScript: {
-          "ui:widget": project?.spawnHostScriptPath
-            ? widgets.CheckboxWidget
-            : "hidden",
+          "ui:widget":
+            hasTask && project?.spawnHostScriptPath
+              ? widgets.CheckboxWidget
+              : "hidden",
           "ui:elementWrapperCSS": indentCSS,
           "ui:marginBottom": 0,
         },
         taskSync: {
-          "ui:widget": canSync ? widgets.CheckboxWidget : "hidden",
+          "ui:widget": hasTask && canSync ? widgets.CheckboxWidget : "hidden",
           "ui:elementWrapperCSS": indentCSS,
           "ui:marginBottom": 0,
         },
         startHosts: {
+          "ui:widget": hasTask ? widgets.CheckboxWidget : "hidden",
           "ui:elementWrapperCSS": indentCSS,
         },
       },

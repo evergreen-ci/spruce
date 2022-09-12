@@ -44,6 +44,7 @@ import {
 import { getFormSchema } from "./getFormSchema";
 import { useLocation } from "react-router-dom";
 import { getString, parseQueryString } from "utils/queryString";
+import { useUserTimeZone } from "hooks/useUserTimeZone";
 
 const { omitTypename, stripNewLines } = string;
 interface SpawnHostModalProps {
@@ -172,13 +173,14 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
       noExpiration: isVirtualWorkstation && !unexpirableCountReached, // only default virtual workstations to unexpirable if possible
     });
   }, [distroId, dispatch, distrosData?.distros, unexpirableCountReached]);
-
+  const timezone = useUserTimeZone();
   const { schema, uiSchema } = getFormSchema({
     distros: distrosData?.distros,
     awsRegions,
     userAwsRegion,
     publicKeys,
     spawnTaskData: spawnTaskData?.task,
+    timezone,
   });
   const [formState, setFormState] = useState();
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
