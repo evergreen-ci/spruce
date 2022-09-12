@@ -297,10 +297,41 @@ export const getFormSchema = ({
             },
           },
         },
-        expiration: {
-          type: "string" as "string",
-          title: "Expiration",
-          default: getDefaultExpiration(),
+        expirationDetails: {
+          title: "",
+          type: "object" as "object",
+          properties: {
+            neverExpire: {
+              type: "boolean" as "boolean",
+              title: "Never expire",
+              default: false,
+            },
+          },
+          dependencies: {
+            neverExpire: {
+              oneOf: [
+                {
+                  properties: {
+                    neverExpire: {
+                      enum: [false],
+                    },
+                    expiration: {
+                      type: "string" as "string",
+                      title: "Expiration",
+                      default: getDefaultExpiration(),
+                    },
+                  },
+                },
+                {
+                  properties: {
+                    neverExpire: {
+                      enum: [true],
+                    },
+                  },
+                },
+              ],
+            },
+          },
         },
       },
       dependencies: {
@@ -365,10 +396,12 @@ export const getFormSchema = ({
           "ui:elementWrapperCSS": textAreaWrapperClassName,
         },
       },
-      expiration: {
-        "ui:disablePastDatetime": true,
-        "ui:timezone": timezone,
-        "ui:widget": "date-time",
+      expirationDetails: {
+        expiration: {
+          "ui:disablePastDatetime": true,
+          "ui:timezone": timezone,
+          "ui:widget": "date-time",
+        },
       },
       loadData: {
         loadDataOntoHostAtStartup: {
