@@ -180,9 +180,9 @@ A `.cmdrc.json` file is required to deploy because it sets the environment varia
 
 ### How to Deploy:
 
-Run the `deploy:prod` or `deploy:staging` yarn command
+Run one of the following commands to deploy to the appropriate environment
 
-1. `yarn run deploy:prod` = deploy to https://spruce.mongodb.com
-2. `yarn run deploy:staging` = deploy to https://spruce-staging.corp.mongodb.com
+1. `yarn deploy:prod` = deploy to https://spruce.mongodb.com
+2. `yarn deploy:staging` = deploy to https://spruce-staging.corp.mongodb.com
+3. `yarn deploy:beta` = deploy to https://spruce-beta.corp.mongodb.com (Beta connects to the production backend)
 
-After deploying you will be prompted to run `git push --tags` or `git push upstream --tags` depending on your setup, this is important so we can track releases. 
