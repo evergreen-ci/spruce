@@ -154,13 +154,6 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
         savePublicKey: false,
       });
     }
-    const futureDate = new Date();
-    futureDate.setDate(futureDate.getDate() + 7);
-    dispatch({
-      type: "editExpiration",
-      expiration: futureDate,
-      noExpiration: false,
-    });
   }, [visible, userAwsRegion, awsRegions, publicKeys]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const timezone = useUserTimeZone();
@@ -182,6 +175,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     noExpirationCheckboxTooltip,
     disableExpirationCheckbox,
     isVirtualWorkstation,
+    volumes: volumesData?.myVolumes ?? [],
   });
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
     return null;

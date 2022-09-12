@@ -161,7 +161,6 @@ export const LeafyGreenSelect: React.VFC<
     "data-cy": dataCy,
     marginBottom,
   } = options;
-
   const { hasError } = processErrors(rawErrors);
 
   const isDisabled = disabled || readonly;

@@ -2,11 +2,17 @@ import { css } from "@emotion/react";
 import widgets from "components/SpruceForm/Widgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
 import { SearchableDropdownWidget } from "components/SpruceForm/Widgets/SearchableDropdown";
-import { GetMyPublicKeysQuery, GetSpawnTaskQuery } from "gql/generated/types";
+import {
+  GetMyPublicKeysQuery,
+  GetSpawnTaskQuery,
+  MyVolumesQuery,
+} from "gql/generated/types";
 import { GetFormSchema } from "pages/projectSettings/tabs/types";
 import { shortenGithash } from "utils/string";
 import { LeafyGreenCheckBox } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
 import { SpruceWidgetProps } from "components/SpruceForm/Widgets/types";
+import { VolumesField } from "../fields";
+import { AntdSelect } from "components/SpruceForm/Widgets/AntdWidgets";
 
 const getDefaultExpiration = () => {
   const nextWeek = new Date();
@@ -47,6 +53,7 @@ interface Props {
   disableExpirationCheckbox: boolean;
   noExpirationCheckboxTooltip: string;
   isVirtualWorkstation: boolean;
+  volumes: MyVolumesQuery["myVolumes"];
 }
 
 const dropdownWrapperClassName = css`
@@ -71,6 +78,7 @@ export const getFormSchema = ({
   disableExpirationCheckbox,
   noExpirationCheckboxTooltip,
   isVirtualWorkstation,
+  volumes,
 }: Props): ReturnType<GetFormSchema> => {
   const {
     displayName: taskDisplayName,
@@ -361,6 +369,31 @@ export const getFormSchema = ({
               ],
             },
           },
+          dependencies: {
+            selectVolumeSource: {
+              oneOf: [
+                {
+                  properties: {
+                    selectVolumeSource: {
+                      enum: [true],
+                    },
+                    volumeSelect: {
+                      title: "Volume",
+                      type: "string" as "string",
+                      default: "",
+                      oneOf: (volumes || [])?.map((v) => {
+                        return {
+                          type: "string" as "string",
+                          title: `(${v.size}gb) ${v.displayName || v.id}`,
+                          enum: [v.id],
+                        };
+                      }),
+                    },
+                  },
+                },
+              ],
+            },
+          },
         },
       },
       dependencies: {
@@ -465,6 +498,13 @@ export const getFormSchema = ({
       homeVolumeDetails: {
         selectVolumeSource: {
           "ui:widget": isVirtualWorkstation ? widgets.RadioBoxWidget : "hidden",
+        },
+        volumeSelect: {
+          "ui:widget": isVirtualWorkstation ? AntdSelect : "hidden",
+          "ui:allowDeselect": false,
+          "ui:disabledEnums": volumes
+            .filter((v) => !!v.hostID)
+            .map((v) => v.id),
         },
       },
     },
