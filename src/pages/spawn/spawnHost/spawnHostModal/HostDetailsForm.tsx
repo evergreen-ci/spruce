@@ -58,8 +58,6 @@ export const HostDetailsForm: React.VFC<HostDetailsFormProps> = ({
   };
   return (
     <Container>
-      <SetupScriptForm data={data} onChange={onChange} />
-
       <ExpirationField
         isVolume={false}
         data={data}
