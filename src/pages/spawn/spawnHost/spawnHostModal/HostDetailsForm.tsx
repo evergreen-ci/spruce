@@ -58,14 +58,6 @@ export const HostDetailsForm: React.VFC<HostDetailsFormProps> = ({
   };
   return (
     <Container>
-      <ExpirationField
-        isVolume={false}
-        data={data}
-        onChange={(expData: ExpirationDateType) =>
-          onChange({ type: "editExpiration", ...expData })
-        }
-      />
-
       {isVirtualWorkStation && (
         <SectionContainer>
           <SectionLabel weight="medium">Virtual Workstation</SectionLabel>
