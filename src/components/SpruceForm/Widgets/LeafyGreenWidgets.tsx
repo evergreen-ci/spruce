@@ -114,6 +114,7 @@ export const LeafyGreenCheckBox: React.VFC<
             {customLabel || label}
             {tooltipDescription && (
               <Tooltip
+                popoverZIndex={zIndex.max_do_not_use_tooltip}
                 justify="middle"
                 trigger={
                   <IconContainer>

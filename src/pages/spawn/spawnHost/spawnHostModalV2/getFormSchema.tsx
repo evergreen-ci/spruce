@@ -44,6 +44,8 @@ interface Props {
   publicKeys: GetMyPublicKeysQuery["myPublicKeys"];
   spawnTaskData: GetSpawnTaskQuery["task"];
   timezone: string;
+  disableExpirationCheckbox: boolean;
+  noExpirationCheckboxTooltip: string;
 }
 
 const dropdownWrapperClassName = css`
@@ -65,6 +67,8 @@ export const getFormSchema = ({
   publicKeys,
   spawnTaskData,
   timezone,
+  disableExpirationCheckbox,
+  noExpirationCheckboxTooltip,
 }: Props): ReturnType<GetFormSchema> => {
   const {
     displayName: taskDisplayName,
@@ -397,6 +401,10 @@ export const getFormSchema = ({
         },
       },
       expirationDetails: {
+        neverExpire: {
+          "ui:disabled": disableExpirationCheckbox,
+          "ui:tooltipDescription": noExpirationCheckboxTooltip ?? "",
+        },
         expiration: {
           "ui:disablePastDatetime": true,
           "ui:timezone": timezone,

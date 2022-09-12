@@ -34,8 +34,7 @@ import {
   GetSpawnTaskQuery,
   GetSpawnTaskQueryVariables,
 } from "gql/generated/types";
-import { queryString } from "utils";
-import { useDisableSpawnExpirationCheckbox } from "hooks";
+import { useDisableSpawnExpirationCheckbox, useSpruceConfig } from "hooks";
 import { string } from "utils";
 import {
   HostDetailsForm,
@@ -45,6 +44,7 @@ import { getFormSchema } from "./getFormSchema";
 import { useLocation } from "react-router-dom";
 import { getString, parseQueryString } from "utils/queryString";
 import { useUserTimeZone } from "hooks/useUserTimeZone";
+import { getNoExpirationCheckboxTooltipCopy } from "components/Spawn/utils";
 
 const { omitTypename, stripNewLines } = string;
 interface SpawnHostModalProps {
@@ -58,10 +58,14 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
 }) => {
   const dispatchToast = useToastContext();
   const spawnAnalytics = useSpawnAnalytics();
+
   const { search } = useLocation();
   const queryParams = parseQueryString(search);
   const taskIdQueryParam = getString(queryParams.taskId);
   const distroIdQueryParam = getString(queryParams.distroId);
+
+  const spruceConfig = useSpruceConfig();
+  const disableExpirationCheckbox = useDisableSpawnExpirationCheckbox(false);
 
   const [getSpawnTask, { data: spawnTaskData }] = useLazyQuery<
     GetSpawnTaskQuery,
@@ -174,6 +178,11 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     });
   }, [distroId, dispatch, distrosData?.distros, unexpirableCountReached]);
   const timezone = useUserTimeZone();
+  const noExpirationCheckboxTooltip = getNoExpirationCheckboxTooltipCopy({
+    disableExpirationCheckbox,
+    limit: spruceConfig?.spawnHost?.unexpirableHostsPerUser,
+    isVolume: false,
+  });
   const { schema, uiSchema } = getFormSchema({
     distros: distrosData?.distros,
     awsRegions,
@@ -181,6 +190,8 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     publicKeys,
     spawnTaskData: spawnTaskData?.task,
     timezone,
+    noExpirationCheckboxTooltip,
+    disableExpirationCheckbox,
   });
   const [formState, setFormState] = useState();
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {

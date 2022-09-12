@@ -19,6 +19,7 @@ const zIndex = {
   toast: 40,
   dropdown: 50,
   max_do_not_use: 1000, // should only be used for things like the welcome modal that need to overlay EVERYTHING
+  max_do_not_use_tooltip: 1020, // should only be used for tooltips on components that need to overlay EVERYTHING
 } as const;
 
 const fontSize = {
