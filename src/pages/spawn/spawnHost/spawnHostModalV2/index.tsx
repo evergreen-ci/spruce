@@ -163,26 +163,15 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     });
   }, [visible, userAwsRegion, awsRegions, publicKeys]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const unexpirableCountReached = useDisableSpawnExpirationCheckbox(false);
-
-  // recalculate isVirtualWorkstation whenever distro changes
-  // initial distroId can be changed from URL
-  useEffect(() => {
-    const isVirtualWorkstation = !!distrosData?.distros.find(
-      (vd) => distroId === vd.name
-    )?.isVirtualWorkStation;
-    dispatch({
-      type: "editDistroEffect",
-      isVirtualWorkstation,
-      noExpiration: isVirtualWorkstation && !unexpirableCountReached, // only default virtual workstations to unexpirable if possible
-    });
-  }, [distroId, dispatch, distrosData?.distros, unexpirableCountReached]);
   const timezone = useUserTimeZone();
   const noExpirationCheckboxTooltip = getNoExpirationCheckboxTooltipCopy({
     disableExpirationCheckbox,
     limit: spruceConfig?.spawnHost?.unexpirableHostsPerUser,
     isVolume: false,
   });
+  const [formState, setFormState] = useState({} as any);
+  const isVirtualWorkstation =
+    !!formState?.distro?.schema?.isVirtualWorkstation;
   const { schema, uiSchema } = getFormSchema({
     distros: distrosData?.distros,
     awsRegions,
@@ -192,8 +181,8 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     timezone,
     noExpirationCheckboxTooltip,
     disableExpirationCheckbox,
+    isVirtualWorkstation,
   });
-  const [formState, setFormState] = useState();
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
     return null;
   }

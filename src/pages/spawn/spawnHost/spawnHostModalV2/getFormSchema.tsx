@@ -46,6 +46,7 @@ interface Props {
   timezone: string;
   disableExpirationCheckbox: boolean;
   noExpirationCheckboxTooltip: string;
+  isVirtualWorkstation: boolean;
 }
 
 const dropdownWrapperClassName = css`
@@ -69,6 +70,7 @@ export const getFormSchema = ({
   timezone,
   disableExpirationCheckbox,
   noExpirationCheckboxTooltip,
+  isVirtualWorkstation,
 }: Props): ReturnType<GetFormSchema> => {
   const {
     displayName: taskDisplayName,
@@ -308,7 +310,7 @@ export const getFormSchema = ({
             neverExpire: {
               type: "boolean" as "boolean",
               title: "Never expire",
-              default: false,
+              default: isVirtualWorkstation && !disableExpirationCheckbox, //only default virtual workstations to unexpirable if possible
             },
           },
           dependencies: {
