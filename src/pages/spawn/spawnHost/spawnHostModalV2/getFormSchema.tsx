@@ -517,6 +517,9 @@ export const getFormSchema = ({
             .filter((v) => !!v.hostID)
             .map((v) => v.id),
         },
+        volumeSize: {
+          "ui:type": "number",
+        },
       },
     },
   };

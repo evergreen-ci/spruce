@@ -43,6 +43,7 @@ export const LeafyGreenTextInput: React.VFC<
     marginBottom,
     optional,
     warnings,
+    type,
   } = options;
 
   const { errors, hasError } = processErrors(rawErrors);
@@ -58,6 +59,7 @@ export const LeafyGreenTextInput: React.VFC<
     <ElementWrapper marginBottom={marginBottom}>
       <MaxWidthContainer>
         <StyledTextInput
+          type={type}
           data-cy={dataCy}
           value={value === null || value === undefined ? "" : `${value}`}
           aria-labelledby={ariaLabelledBy}

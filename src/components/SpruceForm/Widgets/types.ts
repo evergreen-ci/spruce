@@ -1,4 +1,5 @@
 import { SerializedStyles } from "@emotion/react";
+import { TextInputType } from "@leafygreen-ui/text-input";
 import { WidgetProps } from "@rjsf/core";
 
 export interface SpruceWidgetProps extends WidgetProps {
@@ -14,6 +15,7 @@ export interface SpruceWidgetProps extends WidgetProps {
     tooltipDescription: string;
     warnings: string[];
     elementWrapperCSS: SerializedStyles;
+    type: TextInputType;
   }>;
 }
 
