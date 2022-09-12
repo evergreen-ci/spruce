@@ -292,6 +292,10 @@ export const getFormSchema = ({
             },
           },
         },
+        expiration: {
+          type: "object" as "object",
+          title: "Expiration",
+        },
       },
       dependencies: {
         runUserdataScript: {
