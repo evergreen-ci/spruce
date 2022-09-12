@@ -391,6 +391,18 @@ export const getFormSchema = ({
                     },
                   },
                 },
+                {
+                  properties: {
+                    selectVolumeSource: {
+                      enum: [false],
+                    },
+                    volumeSize: {
+                      title: "Volume size (gb)",
+                      type: "number" as "number",
+                      default: 500,
+                    },
+                  },
+                },
               ],
             },
           },
