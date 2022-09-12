@@ -11,7 +11,6 @@ import { GetFormSchema } from "pages/projectSettings/tabs/types";
 import { shortenGithash } from "utils/string";
 import { LeafyGreenCheckBox } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
 import { SpruceWidgetProps } from "components/SpruceForm/Widgets/types";
-import { VolumesField } from "../fields";
 import { AntdSelect } from "components/SpruceForm/Widgets/AntdWidgets";
 
 const getDefaultExpiration = () => {
@@ -440,7 +439,7 @@ export const getFormSchema = ({
         "ui:valuePlaceholder": "Select a distro",
       },
       region: {
-        "ui:widget": SearchableDropdownWidget,
+        "ui:widget": AntdSelect,
         "ui:elementWrapperCSS": dropdownWrapperClassName,
         "ui:valuePlaceholder": "Select a region",
       },
@@ -449,7 +448,7 @@ export const getFormSchema = ({
           "ui:widget": widgets.RadioBoxWidget,
         },
         publicKeyNameDropdown: {
-          "ui:widget": SearchableDropdownWidget,
+          "ui:widget": AntdSelect,
           "ui:elementWrapperCSS": dropdownWrapperClassName,
           "ui:valuePlaceholder": "Select a key",
         },
