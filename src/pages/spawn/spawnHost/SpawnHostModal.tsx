@@ -33,7 +33,10 @@ import {
   GET_MY_VOLUMES,
   GET_USER_SETTINGS,
 } from "gql/queries";
-import { useDisableSpawnExpirationCheckbox } from "hooks";
+import {
+  useDisableSpawnExpirationCheckbox,
+  useUpdateURLQueryParams,
+} from "hooks";
 import { string } from "utils";
 import {
   HostDetailsForm,
@@ -51,6 +54,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   visible,
   onCancel,
 }) => {
+  const updateQueryParams = useUpdateURLQueryParams();
   const dispatchToast = useToastContext();
   const spawnAnalytics = useSpawnAnalytics();
   // QUERY distros
@@ -154,6 +158,9 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     });
   }, [distroId, dispatch, distrosData?.distros, unexpirableCountReached]);
 
+  const removeModalQueryParam = () =>
+    updateQueryParams({ spawnHost: undefined });
+
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
     return null;
   }
@@ -203,6 +210,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     spawnHostMutation({
       variables: { SpawnHostInput: varsToSubmit },
     });
+    removeModalQueryParam();
   };
 
   const editDistro = (d: string) => {
@@ -215,6 +223,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   const onClose = () => {
     dispatch({ type: "reset" }); // reset modal content
     onCancel();
+    removeModalQueryParam();
   };
 
   return (
@@ -223,8 +232,12 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
       visible={visible}
       onCancel={onClose}
       footer={[
-        // @ts-expect-error
-        <WideButton onClick={onClose} key="cancel_button">
+        <WideButton
+          // @ts-expect-error
+          onClick={onClose}
+          data-cy="cancel-button"
+          key="cancel_button"
+        >
           Cancel
         </WideButton>,
         <WideButton
