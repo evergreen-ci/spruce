@@ -339,6 +339,29 @@ export const getFormSchema = ({
             },
           },
         },
+        homeVolumeDetails: {
+          type: "object" as "object",
+          title: isVirtualWorkstation && "Virtual workstation",
+          properties: {
+            selectVolumeSource: {
+              title: "Volume selection",
+              type: "boolean" as "boolean",
+              default: true,
+              oneOf: [
+                {
+                  type: "boolean" as "boolean",
+                  title: "Attach existing volume",
+                  enum: [true],
+                },
+                {
+                  type: "boolean" as "boolean",
+                  title: "Attach new volume",
+                  enum: [false],
+                },
+              ],
+            },
+          },
+        },
       },
       dependencies: {
         runUserdataScript: {
@@ -437,6 +460,11 @@ export const getFormSchema = ({
         startHosts: {
           "ui:widget": hasTask ? widgets.CheckboxWidget : "hidden",
           "ui:elementWrapperCSS": indentCSS,
+        },
+      },
+      homeVolumeDetails: {
+        selectVolumeSource: {
+          "ui:widget": isVirtualWorkstation ? widgets.RadioBoxWidget : "hidden",
         },
       },
     },
