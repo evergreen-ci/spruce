@@ -112,7 +112,7 @@ export const getFormSchema = ({
         region: {
           type: "string" as "string",
           title: "Region",
-          default: userAwsRegion ?? "",
+          default: userAwsRegion || (awsRegions?.length && awsRegions[0]),
           oneOf: [
             ...(awsRegions?.map((r) => ({
               type: "string" as "string",
@@ -154,7 +154,7 @@ export const getFormSchema = ({
                     publicKeyNameDropdown: {
                       title: "Existing key",
                       type: "string" as "string",
-                      default: "",
+                      default: publicKeys?.length ? publicKeys[0]?.name : "",
                       oneOf:
                         publicKeys?.map((d) => ({
                           type: "string" as "string",

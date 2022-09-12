@@ -42,20 +42,6 @@ export const HostDetailsForm: React.VFC<HostDetailsFormProps> = ({
 }) => {
   const { userDataScript, isVirtualWorkStation } = data;
 
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const { hasUserDataScript } = state;
-
-  const onToggleUserData = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { checked } = e.target;
-    dispatch({
-      type: "toggleUserDataScript",
-      hasUserDataScript: checked,
-    });
-    onChange({
-      type: "editUserDataScript",
-      userDataScript: checked ? userDataScript : undefined,
-    });
-  };
   return (
     <Container>
       {isVirtualWorkStation && (

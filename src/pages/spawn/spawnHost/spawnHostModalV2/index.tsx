@@ -36,10 +36,7 @@ import {
 } from "gql/generated/types";
 import { useDisableSpawnExpirationCheckbox, useSpruceConfig } from "hooks";
 import { string } from "utils";
-import {
-  HostDetailsForm,
-  useSpawnHostModalState,
-} from "../spawnHostModal/index";
+import { useSpawnHostModalState } from "../spawnHostModal/index";
 import { getFormSchema } from "./getFormSchema";
 import { useLocation } from "react-router-dom";
 import { getString, parseQueryString } from "utils/queryString";
@@ -139,23 +136,6 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   const awsRegions = awsData?.awsRegions;
   const volumes = volumesData?.myVolumes ?? [];
 
-  // When the modal is opened, pre-fill parts of the form (AWS region, public key, and expiration).
-  useEffect(() => {
-    if (awsRegions && awsRegions.length) {
-      dispatch({
-        type: "editAWSRegion",
-        region: userAwsRegion || awsRegions[0],
-      });
-    }
-    if (publicKeys && publicKeys.length) {
-      dispatch({
-        type: "editPublicKey",
-        publicKey: publicKeys[0],
-        savePublicKey: false,
-      });
-    }
-  }, [visible, userAwsRegion, awsRegions, publicKeys]); // eslint-disable-line react-hooks/exhaustive-deps
-
   const timezone = useUserTimeZone();
   const noExpirationCheckboxTooltip = getNoExpirationCheckboxTooltipCopy({
     disableExpirationCheckbox,
@@ -247,14 +227,6 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
           }}
         />
       </div>
-      <ModalContent>
-        <HostDetailsForm
-          data={spawnHostModalState}
-          onChange={dispatch}
-          volumes={volumes}
-          isSpawnHostModal
-        />
-      </ModalContent>
     </Modal>
   );
 };
