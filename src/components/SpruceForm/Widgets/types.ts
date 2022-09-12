@@ -1,6 +1,5 @@
 import { SerializedStyles } from "@emotion/react";
 import { WidgetProps } from "@rjsf/core";
-import React from "react";
 
 export interface SpruceWidgetProps extends WidgetProps {
   options: Partial<{
@@ -15,7 +14,6 @@ export interface SpruceWidgetProps extends WidgetProps {
     tooltipDescription: string;
     warnings: string[];
     elementWrapperCSS: SerializedStyles;
-    labelComp: JSX.Element;
   }>;
 }
 

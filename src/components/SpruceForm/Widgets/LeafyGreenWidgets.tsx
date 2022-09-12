@@ -95,20 +95,10 @@ const WarningText = styled.p`
   margin-top: ${size.xs};
 `;
 
-export const LeafyGreenCheckBox: React.VFC<SpruceWidgetProps> = ({
-  value,
-  label,
-  onChange,
-  disabled,
-  options,
-  readonly,
-}) => {
-  const {
-    "data-cy": dataCy,
-    marginBottom,
-    tooltipDescription,
-    labelComp,
-  } = options;
+export const LeafyGreenCheckBox: React.VFC<
+  SpruceWidgetProps & { customLabel?: JSX.Element }
+> = ({ value, label, onChange, disabled, options, readonly, customLabel }) => {
+  const { "data-cy": dataCy, marginBottom, tooltipDescription } = options;
   return (
     <ElementWrapper marginBottom={marginBottom}>
       <Checkbox
@@ -116,7 +106,7 @@ export const LeafyGreenCheckBox: React.VFC<SpruceWidgetProps> = ({
         checked={value}
         label={
           <>
-            {labelComp || label}
+            {customLabel || label}
             {tooltipDescription && (
               <Tooltip
                 justify="middle"

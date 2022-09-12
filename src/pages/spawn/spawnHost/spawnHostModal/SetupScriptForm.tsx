@@ -64,11 +64,7 @@ export const SetupScriptForm: React.VFC<SetupScriptFormProps> = ({
   const { displayName, buildVariant, revision, project, canSync } =
     taskData?.task || {};
   const hasTask = displayName && buildVariant && revision;
-  const toggleSetupScript = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { checked } = e.target;
-    setHasSetupScript(checked);
-    onChange({ type: "editSetupScript", setUpScript: checked ? "" : null });
-  };
+
   return (
     <div>
       {hasTask && (
