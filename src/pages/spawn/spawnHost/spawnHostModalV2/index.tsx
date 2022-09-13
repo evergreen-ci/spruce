@@ -75,7 +75,6 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     }
   }, [taskIdQueryParam, distroIdQueryParam, getSpawnTask]);
 
-  // QUERY distros
   const { data: distrosData, loading: distroLoading } = useQuery<
     DistrosQuery,
     DistrosQueryVariables
@@ -85,30 +84,25 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     },
   });
 
-  // QUERY aws regions
   const { data: awsData, loading: awsLoading } = useQuery<
     AwsRegionsQuery,
     AwsRegionsQueryVariables
   >(GET_AWS_REGIONS);
 
-  // QUERY user settings to get user's preferred aws region
   const { data: userSettingsData } =
     useQuery<GetUserSettingsQuery>(GET_USER_SETTINGS);
   const { region: userAwsRegion } = userSettingsData?.userSettings ?? {};
 
-  // QUERY public keys
   const { data: publicKeysData, loading: publicKeyLoading } = useQuery<
     GetMyPublicKeysQuery,
     GetMyPublicKeysQueryVariables
   >(GET_MY_PUBLIC_KEYS);
 
-  // QUERY volumes
   const { data: volumesData, loading: volumesLoading } = useQuery<
     MyVolumesQuery,
     MyHostsQueryVariables
   >(GET_MY_VOLUMES);
 
-  // UPDATE HOST STATUS MUTATION
   const [spawnHostMutation, { loading: loadingSpawnHost }] = useMutation<
     SpawnHostMutation,
     SpawnHostMutationVariables
@@ -132,10 +126,6 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
 
   const { distroId, region, publicKey } = spawnHostModalState;
 
-  const publicKeys = publicKeysData?.myPublicKeys;
-  const awsRegions = awsData?.awsRegions;
-  const volumes = volumesData?.myVolumes ?? [];
-
   const timezone = useUserTimeZone();
   const noExpirationCheckboxTooltip = getNoExpirationCheckboxTooltipCopy({
     disableExpirationCheckbox,
@@ -143,18 +133,16 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     isVolume: false,
   });
   const [formState, setFormState] = useState({} as any);
-  const isVirtualWorkstation =
-    !!formState?.distro?.schema?.isVirtualWorkstation;
   const { schema, uiSchema } = getFormSchema({
     distros: distrosData?.distros,
-    awsRegions,
+    awsRegions: awsData?.awsRegions,
     userAwsRegion,
-    publicKeys,
+    publicKeys: publicKeysData?.myPublicKeys,
     spawnTaskData: spawnTaskData?.task,
     timezone,
     noExpirationCheckboxTooltip,
     disableExpirationCheckbox,
-    isVirtualWorkstation,
+    isVirtualWorkstation: !!formState?.distro?.schema?.isVirtualWorkstation,
     volumes: volumesData?.myVolumes ?? [],
   });
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
