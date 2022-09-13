@@ -33,7 +33,7 @@ export const NotificationsTab: React.VFC = () => {
     setSlackUsernameField(slackUsername);
     setSlackMemberIdField(slackMemberId);
     setNotificationStatus(notifications);
-  }, [slackUsername, notifications]);
+  }, [slackUsername, slackMemberId, notifications]);
 
   const [updateUserSettings, { loading: updateLoading }] = useMutation<
     UpdateUserSettingsMutation,
