@@ -97,6 +97,7 @@ export const NotificationsTab: React.VFC = () => {
           label="Slack Member Id"
           onChange={handleFieldUpdate(setSlackMemberIdField)}
           value={slackMemberIdField}
+          description="Click on the three dots next to 'set a status' in your slack profile, and then 'Copy member ID'."
           data-cy="slack-member-id-field"
         />
         <GridContainer>
