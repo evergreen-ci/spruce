@@ -94,7 +94,7 @@ export const NotificationsTab: React.VFC = () => {
           data-cy="slack-username-field"
         />
         <StyledTextInput
-          label="Slack Member Id"
+          label="Slack Member ID"
           onChange={handleFieldUpdate(setSlackMemberIdField)}
           value={slackMemberIdField}
           data-cy="slack-member-id-field"
