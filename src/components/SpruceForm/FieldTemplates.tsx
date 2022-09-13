@@ -43,7 +43,7 @@ export const ObjectFieldTemplate = ({
   const errors = uiSchema["ui:errors"] ?? [];
   const warnings = uiSchema["ui:warnings"] ?? [];
   return (
-    <fieldset id={idSchema.$id}>
+    <fieldset css={uiSchema["ui:fieldSetCSS"]} id={idSchema.$id}>
       {(uiSchema["ui:title"] || title) && (
         <TitleField
           id={`${idSchema.$id}__title`}

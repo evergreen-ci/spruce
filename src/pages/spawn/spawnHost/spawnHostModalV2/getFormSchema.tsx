@@ -67,6 +67,10 @@ const indentCSS = css`
   margin-left: 16px;
 `;
 
+const loadDataFieldSetCSS = css`
+  margin-bottom: 20px;
+`;
+
 export const getFormSchema = ({
   distros,
   awsRegions,
@@ -274,42 +278,44 @@ export const getFormSchema = ({
             },
           },
         },
-        loadData: {
-          title: "",
-          type: "object" as "object",
-          properties: {
-            loadDataOntoHostAtStartup: {
-              type: "boolean" as "boolean",
-              default: true,
+        ...(hasTask && {
+          loadData: {
+            title: "",
+            type: "object" as "object",
+            properties: {
+              loadDataOntoHostAtStartup: {
+                type: "boolean" as "boolean",
+                default: true,
+              },
             },
-          },
-          dependencies: {
-            loadDataOntoHostAtStartup: {
-              oneOf: [
-                {
-                  properties: {
-                    loadDataOntoHostAtStartup: {
-                      enum: [true],
-                    },
-                    useProjectSpecificSetupScript: {
-                      type: "boolean" as "boolean",
-                      title: `Use project-specific setup script defined at ${project?.spawnHostScriptPath}`,
-                    },
-                    taskSync: {
-                      type: "boolean" as "boolean",
-                      title: "Load from task sync",
-                    },
-                    startHosts: {
-                      type: "boolean" as "boolean",
-                      title:
-                        "Also start any hosts this task started (if applicable)",
+            dependencies: {
+              loadDataOntoHostAtStartup: {
+                oneOf: [
+                  {
+                    properties: {
+                      loadDataOntoHostAtStartup: {
+                        enum: [true],
+                      },
+                      useProjectSpecificSetupScript: {
+                        type: "boolean" as "boolean",
+                        title: `Use project-specific setup script defined at ${project?.spawnHostScriptPath}`,
+                      },
+                      taskSync: {
+                        type: "boolean" as "boolean",
+                        title: "Load from task sync",
+                      },
+                      startHosts: {
+                        type: "boolean" as "boolean",
+                        title:
+                          "Also start any hosts this task started (if applicable)",
+                      },
                     },
                   },
-                },
-              ],
+                ],
+              },
             },
           },
-        },
+        }),
         expirationDetails: {
           title: "",
           type: "object" as "object",
@@ -480,32 +486,36 @@ export const getFormSchema = ({
           "ui:widget": "date-time",
         },
       },
-      loadData: {
-        loadDataOntoHostAtStartup: {
-          "ui:widget": hasTask ? LeafyGreenCheckboWithCustomLabel : "hidden",
-          "ui:buildVariant": buildVariant,
-          "ui:taskDisplayName": taskDisplayName,
-          "ui:revision": revision,
-          "ui:marginBottom": 0,
+      ...(hasTask && {
+        loadData: {
+          "ui:fieldSetCSS": loadDataFieldSetCSS,
+          loadDataOntoHostAtStartup: {
+            "ui:widget": hasTask ? LeafyGreenCheckboWithCustomLabel : "hidden",
+            "ui:buildVariant": buildVariant,
+            "ui:taskDisplayName": taskDisplayName,
+            "ui:revision": revision,
+            "ui:marginBottom": 0,
+          },
+          useProjectSpecificSetupScript: {
+            "ui:widget":
+              hasTask && project?.spawnHostScriptPath
+                ? widgets.CheckboxWidget
+                : "hidden",
+            "ui:elementWrapperCSS": indentCSS,
+            "ui:marginBottom": 0,
+          },
+          taskSync: {
+            "ui:widget": hasTask && canSync ? widgets.CheckboxWidget : "hidden",
+            "ui:elementWrapperCSS": indentCSS,
+            "ui:marginBottom": 0,
+          },
+          startHosts: {
+            "ui:widget": hasTask ? widgets.CheckboxWidget : "hidden",
+            "ui:elementWrapperCSS": indentCSS,
+            "ui:marginBottom": 0,
+          },
         },
-        useProjectSpecificSetupScript: {
-          "ui:widget":
-            hasTask && project?.spawnHostScriptPath
-              ? widgets.CheckboxWidget
-              : "hidden",
-          "ui:elementWrapperCSS": indentCSS,
-          "ui:marginBottom": 0,
-        },
-        taskSync: {
-          "ui:widget": hasTask && canSync ? widgets.CheckboxWidget : "hidden",
-          "ui:elementWrapperCSS": indentCSS,
-          "ui:marginBottom": 0,
-        },
-        startHosts: {
-          "ui:widget": hasTask ? widgets.CheckboxWidget : "hidden",
-          "ui:elementWrapperCSS": indentCSS,
-        },
-      },
+      }),
       homeVolumeDetails: {
         selectVolumeSource: {
           "ui:widget": isVirtualWorkstation ? widgets.RadioBoxWidget : "hidden",
