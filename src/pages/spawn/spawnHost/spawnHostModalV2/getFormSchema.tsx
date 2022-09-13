@@ -83,6 +83,7 @@ export const getFormSchema = ({
   isVirtualWorkstation,
   volumes,
 }: Props): ReturnType<GetFormSchema> => {
+  awsRegions = ["apples"];
   const {
     displayName: taskDisplayName,
     buildVariant,
@@ -118,7 +119,7 @@ export const getFormSchema = ({
           title: "Region",
           default: userAwsRegion || (awsRegions?.length && awsRegions[0]),
           oneOf: [
-            ...(awsRegions?.map((r) => ({
+            ...(awsRegions.map((r) => ({
               type: "string" as "string",
               title: r,
               enum: [r],
@@ -191,7 +192,7 @@ export const getFormSchema = ({
                             savePublicKey: {
                               enum: [true],
                             },
-                            publicKeyName: {
+                            newPublicKeyName: {
                               title: "Key name",
                               type: "string" as "string",
                             },

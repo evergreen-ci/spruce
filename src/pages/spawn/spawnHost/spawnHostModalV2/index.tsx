@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { useSpawnAnalytics } from "analytics";
 import { Modal } from "components/Modal";
-import { ModalContent } from "components/Spawn";
+import { formToGql } from "./transformer";
 import { SpruceForm } from "components/SpruceForm";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -149,32 +149,34 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     return null;
   }
 
-  const canSubmitSpawnHost = !(
-    distroId === "" ||
-    region === "" ||
-    publicKey?.key === ""
-  );
+  // Distro, region, and public key are spawn requirements
+  const canSubmitSpawnHost =
+    formState?.distro?.value &&
+    formState?.region &&
+    (formState?.publicKeySection?.useExisting
+      ? formState?.publicKeySection?.publicKeyNameDropdown
+      : formState?.publicKeySection?.newPublicKey);
 
   const spawnHost = (e) => {
     e.preventDefault();
 
     // Remove new lines from public key on submit
-    const { publicKey: keyToSubmit } = spawnHostModalState;
-    const varsToSubmit = omitTypename({
-      ...spawnHostModalState,
-      publicKey: {
-        name: keyToSubmit.name,
-        key: stripNewLines(keyToSubmit.key),
-      },
-    });
+    // const { publicKey: keyToSubmit } = spawnHostModalState;
+    // const varsToSubmit = omitTypename({
+    //   ...spawnHostModalState,
+    //   publicKey: {
+    //     name: keyToSubmit.name,
+    //     key: stripNewLines(keyToSubmit.key),
+    //   },
+    // });
 
-    spawnAnalytics.sendEvent({
-      name: "Spawned a host",
-      params: varsToSubmit,
-    });
-    spawnHostMutation({
-      variables: { SpawnHostInput: varsToSubmit },
-    });
+    // spawnAnalytics.sendEvent({
+    //   name: "Spawned a host",
+    //   params: varsToSubmit,
+    // });
+    // spawnHostMutation({
+    //   variables: { SpawnHostInput: varsToSubmit },
+    // });
   };
 
   const onClose = () => {
