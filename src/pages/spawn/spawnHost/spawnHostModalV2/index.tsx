@@ -35,15 +35,12 @@ import {
   GetSpawnTaskQueryVariables,
 } from "gql/generated/types";
 import { useDisableSpawnExpirationCheckbox, useSpruceConfig } from "hooks";
-import { string } from "utils";
-import { useSpawnHostModalState } from "../spawnHostModal/index";
 import { getFormSchema } from "./getFormSchema";
 import { useLocation } from "react-router-dom";
 import { getString, parseQueryString } from "utils/queryString";
 import { useUserTimeZone } from "hooks/useUserTimeZone";
 import { getNoExpirationCheckboxTooltipCopy } from "components/Spawn/utils";
 
-const { omitTypename, stripNewLines } = string;
 interface SpawnHostModalProps {
   visible: boolean;
   onCancel: () => void;
@@ -56,24 +53,22 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   const dispatchToast = useToastContext();
   const spawnAnalytics = useSpawnAnalytics();
 
+  // Handle distroId, taskId query param
   const { search } = useLocation();
   const queryParams = parseQueryString(search);
   const taskIdQueryParam = getString(queryParams.taskId);
   const distroIdQueryParam = getString(queryParams.distroId);
-
-  const spruceConfig = useSpruceConfig();
-  const disableExpirationCheckbox = useDisableSpawnExpirationCheckbox(false);
-
   const [getSpawnTask, { data: spawnTaskData }] = useLazyQuery<
     GetSpawnTaskQuery,
     GetSpawnTaskQueryVariables
   >(GET_SPAWN_TASK);
-
   useEffect(() => {
     if (taskIdQueryParam && distroIdQueryParam) {
       getSpawnTask({ variables: { taskId: taskIdQueryParam, execution: 0 } });
     }
   }, [taskIdQueryParam, distroIdQueryParam, getSpawnTask]);
+
+  const spruceConfig = useSpruceConfig();
 
   const { data: distrosData, loading: distroLoading } = useQuery<
     DistrosQuery,
@@ -121,18 +116,14 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     refetchQueries: ["MyHosts", "MyVolumes", "GetMyPublicKeys"],
   });
 
-  const { reducer } = useSpawnHostModalState();
-  const [spawnHostModalState, dispatch] = reducer;
-
-  const { distroId, region, publicKey } = spawnHostModalState;
-
-  const timezone = useUserTimeZone();
+  const disableExpirationCheckbox = useDisableSpawnExpirationCheckbox(false);
   const noExpirationCheckboxTooltip = getNoExpirationCheckboxTooltipCopy({
     disableExpirationCheckbox,
     limit: spruceConfig?.spawnHost?.unexpirableHostsPerUser,
     isVolume: false,
   });
   const [formState, setFormState] = useState({} as any);
+  const timezone = useUserTimeZone();
   const { schema, uiSchema } = getFormSchema({
     distros: distrosData?.distros,
     awsRegions: awsData?.awsRegions,
@@ -145,6 +136,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     isVirtualWorkstation: !!formState?.distro?.schema?.isVirtualWorkstation,
     volumes: volumesData?.myVolumes ?? [],
   });
+
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
     return null;
   }
@@ -159,31 +151,20 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
 
   const spawnHost = (e) => {
     e.preventDefault();
-
-    // Remove new lines from public key on submit
-    // const { publicKey: keyToSubmit } = spawnHostModalState;
-    // const varsToSubmit = omitTypename({
-    //   ...spawnHostModalState,
-    //   publicKey: {
-    //     name: keyToSubmit.name,
-    //     key: stripNewLines(keyToSubmit.key),
-    //   },
-    // });
-
+    const mutationInput = formToGql(formState, publicKeysData?.myPublicKeys);
+    console.log({ formState, mutationInput });
     // spawnAnalytics.sendEvent({
     //   name: "Spawned a host",
-    //   params: varsToSubmit,
+    //   params: mutationInput,
     // });
     // spawnHostMutation({
-    //   variables: { SpawnHostInput: varsToSubmit },
+    //   variables: { SpawnHostInput: mutationInput },
     // });
   };
-
   const onClose = () => {
-    dispatch({ type: "reset" }); // reset modal content
+    setFormState({});
     onCancel();
   };
-
   return (
     <Modal
       title="Spawn New Host"
@@ -212,7 +193,6 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
           uiSchema={uiSchema}
           formData={formState}
           onChange={({ formData }) => {
-            console.log(formData);
             setFormState(formData);
           }}
         />

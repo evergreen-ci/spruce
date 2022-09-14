@@ -157,7 +157,7 @@ export const getFormSchema = ({
                       enum: [true],
                     },
                     publicKeyNameDropdown: {
-                      title: "Existing key",
+                      title: "Choose key",
                       type: "string" as "string",
                       default: publicKeys?.length ? publicKeys[0]?.name : "",
                       oneOf:

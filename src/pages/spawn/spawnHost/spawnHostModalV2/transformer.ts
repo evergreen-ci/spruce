@@ -1,3 +1,5 @@
+import { stripNewLines } from "utils/string";
+
 export const formToGql = (formData, publicKeys) => {
   const { publicKeySection } = formData || {};
   return {
@@ -15,7 +17,7 @@ export const formToGql = (formData, publicKeys) => {
         ? publicKeys.find(
             ({ name }) => name === publicKeySection.publicKeyNameDropdown
           )?.key
-        : publicKeySection.newPublicKey,
+        : stripNewLines(publicKeySection.newPublicKey),
     },
     savePublicKey:
       !publicKeySection.useExisting && publicKeySection.savePublicKey,
