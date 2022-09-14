@@ -165,6 +165,18 @@ export type CommitQueueParamsInput = {
   requireSigned?: InputMaybe<Scalars["Boolean"]>;
 };
 
+export type ContainerResources = {
+  cpu: Scalars["Int"];
+  memoryMb: Scalars["Int"];
+  name: Scalars["String"];
+};
+
+export type ContainerResourcesInput = {
+  cpu: Scalars["Int"];
+  memoryMb: Scalars["Int"];
+  name: Scalars["String"];
+};
+
 /**
  * CopyProjectInput is the input to the copyProject mutation.
  * It contains information about a project to be duplicated.
@@ -968,8 +980,8 @@ export type Project = {
   branch: Scalars["String"];
   buildBaronSettings: BuildBaronSettings;
   commitQueue: CommitQueueParams;
+  containerSizeDefinitions?: Maybe<Array<ContainerResources>>;
   deactivatePrevious?: Maybe<Scalars["Boolean"]>;
-  defaultLogger: Scalars["String"];
   disabledStatsCache?: Maybe<Scalars["Boolean"]>;
   dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
   displayName: Scalars["String"];
@@ -1004,7 +1016,6 @@ export type Project = {
   taskSync: TaskSyncOptions;
   tracksPushEvents?: Maybe<Scalars["Boolean"]>;
   triggers?: Maybe<Array<TriggerAlias>>;
-  validDefaultLoggers: Array<Scalars["String"]>;
   versionControlEnabled?: Maybe<Scalars["Boolean"]>;
   workstationConfig: WorkstationConfig;
 };
@@ -1074,8 +1085,8 @@ export type ProjectInput = {
   branch?: InputMaybe<Scalars["String"]>;
   buildBaronSettings?: InputMaybe<BuildBaronSettingsInput>;
   commitQueue?: InputMaybe<CommitQueueParamsInput>;
+  containerSizeDefinitions?: InputMaybe<Array<ContainerResourcesInput>>;
   deactivatePrevious?: InputMaybe<Scalars["Boolean"]>;
-  defaultLogger?: InputMaybe<Scalars["String"]>;
   disabledStatsCache?: InputMaybe<Scalars["Boolean"]>;
   dispatchingDisabled?: InputMaybe<Scalars["Boolean"]>;
   displayName?: InputMaybe<Scalars["String"]>;
@@ -1139,6 +1150,7 @@ export type ProjectSettingsInput = {
 
 export enum ProjectSettingsSection {
   Access = "ACCESS",
+  Containers = "CONTAINERS",
   General = "GENERAL",
   GithubAndCommitQueue = "GITHUB_AND_COMMIT_QUEUE",
   Notifications = "NOTIFICATIONS",
@@ -1394,8 +1406,8 @@ export type RepoRef = {
   branch: Scalars["String"];
   buildBaronSettings: BuildBaronSettings;
   commitQueue: RepoCommitQueueParams;
+  containerSizeDefinitions?: Maybe<Array<ContainerResources>>;
   deactivatePrevious: Scalars["Boolean"];
-  defaultLogger: Scalars["String"];
   disabledStatsCache: Scalars["Boolean"];
   dispatchingDisabled: Scalars["Boolean"];
   displayName: Scalars["String"];
@@ -1425,7 +1437,6 @@ export type RepoRef = {
   taskSync: RepoTaskSyncOptions;
   tracksPushEvents: Scalars["Boolean"];
   triggers: Array<TriggerAlias>;
-  validDefaultLoggers: Array<Scalars["String"]>;
   versionControlEnabled: Scalars["Boolean"];
   workstationConfig: RepoWorkstationConfig;
 };
@@ -1436,8 +1447,8 @@ export type RepoRefInput = {
   branch?: InputMaybe<Scalars["String"]>;
   buildBaronSettings?: InputMaybe<BuildBaronSettingsInput>;
   commitQueue?: InputMaybe<CommitQueueParamsInput>;
+  containerSizeDefinitions?: InputMaybe<Array<ContainerResourcesInput>>;
   deactivatePrevious?: InputMaybe<Scalars["Boolean"]>;
-  defaultLogger?: InputMaybe<Scalars["String"]>;
   disabledStatsCache?: InputMaybe<Scalars["Boolean"]>;
   dispatchingDisabled?: InputMaybe<Scalars["Boolean"]>;
   displayName?: InputMaybe<Scalars["String"]>;
@@ -2042,6 +2053,7 @@ export type UserSettings = {
   githubUser?: Maybe<GithubUser>;
   notifications?: Maybe<Notifications>;
   region?: Maybe<Scalars["String"]>;
+  slackMemberId?: Maybe<Scalars["String"]>;
   slackUsername?: Maybe<Scalars["String"]>;
   timezone?: Maybe<Scalars["String"]>;
   useSpruceOptions?: Maybe<UseSpruceOptions>;
@@ -2056,6 +2068,7 @@ export type UserSettingsInput = {
   githubUser?: InputMaybe<GithubUserInput>;
   notifications?: InputMaybe<NotificationsInput>;
   region?: InputMaybe<Scalars["String"]>;
+  slackMemberId?: InputMaybe<Scalars["String"]>;
   slackUsername?: InputMaybe<Scalars["String"]>;
   timezone?: InputMaybe<Scalars["String"]>;
   useSpruceOptions?: InputMaybe<UseSpruceOptionsInput>;
@@ -2158,6 +2171,7 @@ export type Volume = {
   host?: Maybe<Host>;
   hostID: Scalars["String"];
   id: Scalars["String"];
+  migrating: Scalars["Boolean"];
   noExpiration: Scalars["Boolean"];
   size: Scalars["Int"];
   type: Scalars["String"];
