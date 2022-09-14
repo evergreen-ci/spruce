@@ -321,18 +321,18 @@ export const getFormSchema = ({
           title: "",
           type: "object" as "object",
           properties: {
-            neverExpire: {
+            noExpiration: {
               type: "boolean" as "boolean",
               title: "Never expire",
               default: isVirtualWorkstation && !disableExpirationCheckbox, //only default virtual workstations to unexpirable if possible
             },
           },
           dependencies: {
-            neverExpire: {
+            noExpiration: {
               oneOf: [
                 {
                   properties: {
-                    neverExpire: {
+                    noExpiration: {
                       enum: [false],
                     },
                     expiration: {
@@ -344,7 +344,7 @@ export const getFormSchema = ({
                 },
                 {
                   properties: {
-                    neverExpire: {
+                    noExpiration: {
                       enum: [true],
                     },
                   },
@@ -477,7 +477,7 @@ export const getFormSchema = ({
         },
       },
       expirationDetails: {
-        neverExpire: {
+        noExpiration: {
           "ui:disabled": disableExpirationCheckbox,
           "ui:tooltipDescription": noExpirationCheckboxTooltip ?? "",
         },
