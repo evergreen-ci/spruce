@@ -5882,6 +5882,7 @@ export type GetUserSettingsQuery = {
     timezone?: Maybe<string>;
     region?: Maybe<string>;
     slackUsername?: Maybe<string>;
+    slackMemberId?: Maybe<string>;
     dateFormat?: Maybe<string>;
     notifications?: Maybe<{
       buildBreak?: Maybe<string>;
