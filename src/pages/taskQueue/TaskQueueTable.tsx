@@ -100,7 +100,7 @@ export const TaskQueueTable = () => {
       dataIndex: "expectedDuration",
       key: "expectedDuration",
       className: "cy-task-queue-col-runtime",
-      width: "15%",
+      width: "10%",
       render: (runtimeMilliseconds) => msToDuration(runtimeMilliseconds),
     },
     {
@@ -121,11 +121,21 @@ export const TaskQueueTable = () => {
       ),
     },
     {
+      title: "Priority",
+      dataIndex: "priority",
+      key: "priority",
+      className: "cy-task-queue-col-priority",
+      width: "10%",
+      align: "center",
+      render: (priority) => <Badge>{priority}</Badge>,
+    },
+    {
       title: "Task Type",
       dataIndex: "requester",
       key: "requester",
       className: "cy-task-queue-col-type",
-      width: "15%",
+      width: "10%",
+      align: "center",
       render: (type) => {
         const copy = {
           [TaskQueueItemType.Commit]: "Commit",
