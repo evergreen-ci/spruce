@@ -357,7 +357,7 @@ export const getFormSchema = ({
           type: "object" as "object",
           title: isVirtualWorkstation && "Virtual workstation",
           properties: {
-            selectVolumeSource: {
+            selectExistingVolume: {
               title: "Volume selection",
               type: "boolean" as "boolean",
               default: true,
@@ -376,11 +376,11 @@ export const getFormSchema = ({
             },
           },
           dependencies: {
-            selectVolumeSource: {
+            selectExistingVolume: {
               oneOf: [
                 {
                   properties: {
-                    selectVolumeSource: {
+                    selectExistingVolume: {
                       enum: [true],
                     },
                     volumeSelect: {
@@ -399,7 +399,7 @@ export const getFormSchema = ({
                 },
                 {
                   properties: {
-                    selectVolumeSource: {
+                    selectExistingVolume: {
                       enum: [false],
                     },
                     volumeSize: {
@@ -518,7 +518,7 @@ export const getFormSchema = ({
         },
       }),
       homeVolumeDetails: {
-        selectVolumeSource: {
+        selectExistingVolume: {
           "ui:widget": isVirtualWorkstation ? widgets.RadioBoxWidget : "hidden",
         },
         volumeSelect: {
