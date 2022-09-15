@@ -61,10 +61,10 @@ export const ExecutionSelect: React.VFC<ExecutionSelectProps> = ({
             value={singleExecution.execution}
             data-cy={`execution-${singleExecution.execution}`}
           >
-            <Execution>
+            <ExecutionInfo>
               <StyledTaskStatusIcon status={singleExecution.status} />
               <StyledBody title={optionText}>{optionText}</StyledBody>
-            </Execution>
+            </ExecutionInfo>
           </Option>
         );
       })}
@@ -77,7 +77,7 @@ const StyledSelect = styled(Select)`
   width: 100%;
 `;
 
-const Execution = styled.span`
+const ExecutionInfo = styled.div`
   display: flex;
   align-items: center;
 `;
