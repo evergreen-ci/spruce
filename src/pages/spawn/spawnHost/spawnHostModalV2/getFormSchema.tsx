@@ -123,7 +123,7 @@ export const getFormSchema = ({
           title: "Region",
           default: userAwsRegion || (awsRegions?.length && awsRegions[0]),
           oneOf: [
-            ...(awsRegions.map((r) => ({
+            ...(awsRegions?.map((r) => ({
               type: "string" as "string",
               title: r,
               enum: [r],
