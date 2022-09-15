@@ -1,10 +1,15 @@
 import { stripNewLines } from "utils/string";
 
 export const formToGql = (formData, publicKeys) => {
-  const { publicKeySection, expirationDetails } = formData || {};
+  const { publicKeySection, expirationDetails, userdataScriptSection } =
+    formData || {};
   return {
-    userDataScript: null,
-    expiration: "2022-09-20T12:39:03.816Z",
+    userDataScript: userdataScriptSection.runUserdataScript
+      ? userdataScriptSection.userdataScript
+      : "",
+    expiration: expirationDetails.noExpiration
+      ? expirationDetails.expiration
+      : "",
     noExpiration: expirationDetails.noExpiration,
     volumeId: null,
     isVirtualWorkStation: false,
