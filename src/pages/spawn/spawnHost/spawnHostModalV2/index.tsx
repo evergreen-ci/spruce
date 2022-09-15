@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { useQuery, useMutation, useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
+import { useLocation } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
 import { Modal } from "components/Modal";
-import { formToGql } from "./transformer";
+import { getNoExpirationCheckboxTooltipCopy } from "components/Spawn/utils";
 import { SpruceForm } from "components/SpruceForm";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -20,6 +21,8 @@ import {
   SpawnHostMutation,
   SpawnHostMutationVariables,
   GetUserSettingsQuery,
+  GetSpawnTaskQuery,
+  GetSpawnTaskQueryVariables,
 } from "gql/generated/types";
 import { SPAWN_HOST } from "gql/mutations";
 import {
@@ -30,16 +33,11 @@ import {
   GET_USER_SETTINGS,
   GET_SPAWN_TASK,
 } from "gql/queries";
-import {
-  GetSpawnTaskQuery,
-  GetSpawnTaskQueryVariables,
-} from "gql/generated/types";
 import { useDisableSpawnExpirationCheckbox, useSpruceConfig } from "hooks";
-import { getFormSchema } from "./getFormSchema";
-import { useLocation } from "react-router-dom";
-import { getString, parseQueryString } from "utils/queryString";
 import { useUserTimeZone } from "hooks/useUserTimeZone";
-import { getNoExpirationCheckboxTooltipCopy } from "components/Spawn/utils";
+import { getString, parseQueryString } from "utils/queryString";
+import { getFormSchema } from "./getFormSchema";
+import { formToGql } from "./transformer";
 
 interface SpawnHostModalProps {
   visible: boolean;
@@ -135,6 +133,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     disableExpirationCheckbox,
     isVirtualWorkstation: !!formState?.distro?.schema?.isVirtualWorkstation,
     volumes: volumesData?.myVolumes ?? [],
+    distroId: distroIdQueryParam,
   });
 
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
@@ -159,13 +158,13 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
       distroId: distroIdQueryParam,
     });
     console.log({ formState, mutationInput });
-    // spawnAnalytics.sendEvent({
-    //   name: "Spawned a host",
-    //   params: mutationInput,
-    // });
-    // spawnHostMutation({
-    //   variables: { SpawnHostInput: mutationInput },
-    // });
+    spawnAnalytics.sendEvent({
+      name: "Spawned a host",
+      params: mutationInput,
+    });
+    spawnHostMutation({
+      variables: { SpawnHostInput: mutationInput },
+    });
   };
   const onClose = () => {
     setFormState({});

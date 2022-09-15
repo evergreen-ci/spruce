@@ -23,6 +23,7 @@ export const formToGql = ({
     publicKeySection,
     region,
     userdataScriptSection,
+    loadData,
   } = formData || {};
 
   return {
@@ -54,9 +55,15 @@ export const formToGql = ({
       !publicKeySection.useExisting && publicKeySection.savePublicKey,
     distroId,
     region,
-    taskId: validateTask(spawnTaskData) ? spawnTaskData.id : null,
-    useProjectSetupScript: false,
-    spawnHostsStartedByTask: false,
-    taskSync: false,
+    taskId:
+      loadData.loadDataOntoHostAtStartup && validateTask(spawnTaskData)
+        ? spawnTaskData.id
+        : null,
+    useProjectSetupScript:
+      loadData.loadDataOntoHostAtStartup &&
+      loadData.runProjectSpecificSetupScript,
+    spawnHostsStartedByTask:
+      loadData.loadDataOntoHostAtStartup && loadData.startHosts,
+    taskSync: loadData.loadDataOntoHostAtStartup && loadData.taskSync,
   };
 };

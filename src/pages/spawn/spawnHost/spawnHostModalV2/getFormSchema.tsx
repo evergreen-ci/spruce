@@ -1,7 +1,13 @@
 import { css } from "@emotion/react";
+import { validateTask } from "components/Spawn/utils";
 import widgets from "components/SpruceForm/Widgets";
-import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
+import { AntdSelect } from "components/SpruceForm/Widgets/AntdWidgets";
+import {
+  LeafyGreenTextArea,
+  LeafyGreenCheckBox,
+} from "components/SpruceForm/Widgets/LeafyGreenWidgets";
 import { SearchableDropdownWidget } from "components/SpruceForm/Widgets/SearchableDropdown";
+import { SpruceWidgetProps } from "components/SpruceForm/Widgets/types";
 import {
   GetMyPublicKeysQuery,
   GetSpawnTaskQuery,
@@ -9,10 +15,6 @@ import {
 } from "gql/generated/types";
 import { GetFormSchema } from "pages/projectSettings/tabs/types";
 import { shortenGithash } from "utils/string";
-import { LeafyGreenCheckBox } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
-import { SpruceWidgetProps } from "components/SpruceForm/Widgets/types";
-import { AntdSelect } from "components/SpruceForm/Widgets/AntdWidgets";
-import { validateTask } from "components/Spawn/utils";
 
 const getDefaultExpiration = () => {
   const nextWeek = new Date();
@@ -42,17 +44,18 @@ export const LeafyGreenCheckboWithCustomLabel: React.VFC<
 };
 interface Props {
   distros: {
-    name?: string;
     isVirtualWorkStation: boolean;
+    name?: string;
   }[];
   awsRegions: string[];
-  userAwsRegion: string;
-  publicKeys: GetMyPublicKeysQuery["myPublicKeys"];
-  spawnTaskData: GetSpawnTaskQuery["task"];
-  timezone: string;
   disableExpirationCheckbox: boolean;
-  noExpirationCheckboxTooltip: string;
+  distroId?: string;
   isVirtualWorkstation: boolean;
+  noExpirationCheckboxTooltip: string;
+  publicKeys: GetMyPublicKeysQuery["myPublicKeys"];
+  spawnTaskData?: GetSpawnTaskQuery["task"];
+  timezone: string;
+  userAwsRegion?: string;
   volumes: MyVolumesQuery["myVolumes"];
 }
 
@@ -73,18 +76,18 @@ const loadDataFieldSetCSS = css`
 `;
 
 export const getFormSchema = ({
-  distros,
   awsRegions,
-  userAwsRegion,
+  disableExpirationCheckbox,
+  distroId,
+  distros,
+  isVirtualWorkstation,
+  noExpirationCheckboxTooltip,
   publicKeys,
   spawnTaskData,
   timezone,
-  disableExpirationCheckbox,
-  noExpirationCheckboxTooltip,
-  isVirtualWorkstation,
+  userAwsRegion,
   volumes,
 }: Props): ReturnType<GetFormSchema> => {
-  awsRegions = ["apples"];
   const {
     displayName: taskDisplayName,
     buildVariant,
@@ -105,7 +108,7 @@ export const getFormSchema = ({
         distro: {
           type: "string" as "string",
           title: "Distro",
-          default: "",
+          default: distroId || "",
           oneOf: [
             ...(distros?.map((d) => ({
               type: "string" as "string",
@@ -298,7 +301,7 @@ export const getFormSchema = ({
                       loadDataOntoHostAtStartup: {
                         enum: [true],
                       },
-                      useProjectSpecificSetupScript: {
+                      runProjectSpecificSetupScript: {
                         type: "boolean" as "boolean",
                         title: `Use project-specific setup script defined at ${project?.spawnHostScriptPath}`,
                       },
@@ -325,7 +328,7 @@ export const getFormSchema = ({
             noExpiration: {
               type: "boolean" as "boolean",
               title: "Never expire",
-              default: isVirtualWorkstation && !disableExpirationCheckbox, //only default virtual workstations to unexpirable if possible
+              default: isVirtualWorkstation && !disableExpirationCheckbox, // only default virtual workstations to unexpirable if possible
             },
           },
           dependencies: {
@@ -388,13 +391,11 @@ export const getFormSchema = ({
                       title: "Volume",
                       type: "string" as "string",
                       default: "",
-                      oneOf: (volumes || [])?.map((v) => {
-                        return {
-                          type: "string" as "string",
-                          title: `(${v.size}gb) ${v.displayName || v.id}`,
-                          enum: [v.id],
-                        };
-                      }),
+                      oneOf: (volumes || [])?.map((v) => ({
+                        type: "string" as "string",
+                        title: `(${v.size}gb) ${v.displayName || v.id}`,
+                        enum: [v.id],
+                      })),
                     },
                   },
                 },
@@ -500,7 +501,7 @@ export const getFormSchema = ({
             "ui:revision": revision,
             "ui:marginBottom": 0,
           },
-          useProjectSpecificSetupScript: {
+          runProjectSpecificSetupScript: {
             "ui:widget":
               hasValidTask && project?.spawnHostScriptPath
                 ? widgets.CheckboxWidget
