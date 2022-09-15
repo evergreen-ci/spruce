@@ -151,7 +151,13 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
 
   const spawnHost = (e) => {
     e.preventDefault();
-    const mutationInput = formToGql(formState, publicKeysData?.myPublicKeys);
+    const mutationInput = formToGql({
+      formData: formState,
+      publicKeys: publicKeysData?.myPublicKeys,
+      isVirtualWorkStation: !!formState?.distro?.schema?.isVirtualWorkstation,
+      spawnTaskData: spawnTaskData?.task,
+      distroId: distroIdQueryParam,
+    });
     console.log({ formState, mutationInput });
     // spawnAnalytics.sendEvent({
     //   name: "Spawned a host",

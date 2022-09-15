@@ -12,6 +12,7 @@ import { shortenGithash } from "utils/string";
 import { LeafyGreenCheckBox } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
 import { SpruceWidgetProps } from "components/SpruceForm/Widgets/types";
 import { AntdSelect } from "components/SpruceForm/Widgets/AntdWidgets";
+import { validateTask } from "components/Spawn/utils";
 
 const getDefaultExpiration = () => {
   const nextWeek = new Date();
@@ -91,7 +92,7 @@ export const getFormSchema = ({
     project,
     canSync,
   } = spawnTaskData || {};
-  const hasTask = taskDisplayName && buildVariant && revision;
+  const hasValidTask = validateTask(spawnTaskData);
   return {
     fields: {},
     schema: {
@@ -248,18 +249,18 @@ export const getFormSchema = ({
           type: "object" as "object",
           title: "",
           properties: {
-            runSetupScript: {
+            defineSetupScriptCheckbox: {
               title:
                 "Define setup script to run after host is configured (i.e. task data and artifacts are loaded)",
               type: "boolean",
             },
           },
           dependencies: {
-            runSetupScript: {
+            defineSetupScriptCheckbox: {
               oneOf: [
                 {
                   properties: {
-                    runSetupScript: {
+                    defineSetupScriptCheckbox: {
                       enum: [true],
                     },
                     setupScript: {
@@ -279,7 +280,7 @@ export const getFormSchema = ({
             },
           },
         },
-        ...(hasTask && {
+        ...(hasValidTask && {
           loadData: {
             title: "",
             type: "object" as "object",
@@ -487,11 +488,13 @@ export const getFormSchema = ({
           "ui:widget": "date-time",
         },
       },
-      ...(hasTask && {
+      ...(hasValidTask && {
         loadData: {
           "ui:fieldSetCSS": loadDataFieldSetCSS,
           loadDataOntoHostAtStartup: {
-            "ui:widget": hasTask ? LeafyGreenCheckboWithCustomLabel : "hidden",
+            "ui:widget": hasValidTask
+              ? LeafyGreenCheckboWithCustomLabel
+              : "hidden",
             "ui:buildVariant": buildVariant,
             "ui:taskDisplayName": taskDisplayName,
             "ui:revision": revision,
@@ -499,19 +502,20 @@ export const getFormSchema = ({
           },
           useProjectSpecificSetupScript: {
             "ui:widget":
-              hasTask && project?.spawnHostScriptPath
+              hasValidTask && project?.spawnHostScriptPath
                 ? widgets.CheckboxWidget
                 : "hidden",
             "ui:elementWrapperCSS": indentCSS,
             "ui:marginBottom": 0,
           },
           taskSync: {
-            "ui:widget": hasTask && canSync ? widgets.CheckboxWidget : "hidden",
+            "ui:widget":
+              hasValidTask && canSync ? widgets.CheckboxWidget : "hidden",
             "ui:elementWrapperCSS": indentCSS,
             "ui:marginBottom": 0,
           },
           startHosts: {
-            "ui:widget": hasTask ? widgets.CheckboxWidget : "hidden",
+            "ui:widget": hasValidTask ? widgets.CheckboxWidget : "hidden",
             "ui:elementWrapperCSS": indentCSS,
             "ui:marginBottom": 0,
           },

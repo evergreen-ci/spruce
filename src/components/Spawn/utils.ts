@@ -1,3 +1,5 @@
+import { GetSpawnTaskQuery } from "gql/generated/types";
+
 interface GetNoExpirationCheckboxTooltipCopyProps {
   disableExpirationCheckbox: boolean;
   isVolume: boolean;
@@ -15,3 +17,12 @@ export const getNoExpirationCheckboxTooltipCopy = ({
         isVolume ? "volume" : "host"
       } to expirable to enable this checkbox.`
     : undefined;
+
+export const validateTask = (taskData: GetSpawnTaskQuery["task"]) => {
+  const {
+    displayName: taskDisplayName,
+    buildVariant,
+    revision,
+  } = taskData || {};
+  return taskDisplayName && buildVariant && revision;
+};

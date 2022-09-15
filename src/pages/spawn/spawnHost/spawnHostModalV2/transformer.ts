@@ -1,19 +1,45 @@
+import { validateTask } from "components/Spawn/utils";
+import { GetSpawnTaskQuery } from "gql/generated/types";
 import { stripNewLines } from "utils/string";
+import { DEFAULT_VOLUME_SIZE } from "./consts";
 
-export const formToGql = (formData, publicKeys) => {
-  const { publicKeySection, expirationDetails, userdataScriptSection } =
-    formData || {};
+interface Props {
+  distroId: string;
+  formData: any;
+  isVirtualWorkStation: boolean;
+  publicKeys: any;
+  spawnTaskData: GetSpawnTaskQuery["task"];
+}
+export const formToGql = ({
+  distroId,
+  formData,
+  isVirtualWorkStation,
+  publicKeys,
+  spawnTaskData,
+}: Props) => {
+  const {
+    expirationDetails,
+    homeVolumeDetails,
+    publicKeySection,
+    region,
+    userdataScriptSection,
+  } = formData || {};
+
   return {
     userDataScript: userdataScriptSection.runUserdataScript
       ? userdataScriptSection.userdataScript
-      : "",
+      : null,
     expiration: expirationDetails.noExpiration
       ? expirationDetails.expiration
       : "",
     noExpiration: expirationDetails.noExpiration,
-    volumeId: null,
-    isVirtualWorkStation: false,
-    homeVolumeSize: null,
+    ...(homeVolumeDetails.selectExistingVolume && {
+      volumeId: homeVolumeDetails.volumeSelect,
+    }),
+    ...(!homeVolumeDetails.selectExistingVolume && {
+      homeVolumeSize: DEFAULT_VOLUME_SIZE,
+    }),
+    isVirtualWorkStation,
     publicKey: {
       name: publicKeySection.useExisting
         ? publicKeySection.publicKeyNameDropdown
@@ -26,9 +52,9 @@ export const formToGql = (formData, publicKeys) => {
     },
     savePublicKey:
       !publicKeySection.useExisting && publicKeySection.savePublicKey,
-    distroId: "amazon1-2018-large",
-    region: "eu-west-1",
-    taskId: null,
+    distroId,
+    region,
+    taskId: validateTask(spawnTaskData) ? spawnTaskData.id : null,
     useProjectSetupScript: false,
     spawnHostsStartedByTask: false,
     taskSync: false,
