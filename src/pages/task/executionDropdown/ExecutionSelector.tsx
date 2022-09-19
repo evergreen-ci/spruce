@@ -1,8 +1,8 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { Body } from "@leafygreen-ui/typography";
 import { Select } from "antd";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
-import { P1 } from "components/Typography";
 import { fontSize, size } from "constants/tokens";
 import {
   GetTaskAllExecutionsQuery,
@@ -48,23 +48,26 @@ export const ExecutionSelect: React.VFC<ExecutionSelectProps> = ({
         updateExecution(selected);
       }}
     >
-      {allExecutions?.map((singleExecution) => (
-        <Option
-          key={singleExecution.execution}
-          value={singleExecution.execution}
-          data-cy={`execution-${singleExecution.execution}`}
-        >
-          <Row>
-            <StyledTaskStatusIcon status={singleExecution.status} />
-            <StyledP1>
-              Execution {executionAsDisplay(singleExecution.execution)} -{" "}
-              {getDateCopy(
-                singleExecution.activatedTime ?? singleExecution.ingestTime
-              )}
-            </StyledP1>
-          </Row>
-        </Option>
-      ))}
+      {allExecutions?.map((singleExecution) => {
+        const optionText = `Execution ${executionAsDisplay(
+          singleExecution.execution
+        )} - ${getDateCopy(
+          singleExecution.activatedTime ?? singleExecution.ingestTime
+        )}`;
+
+        return (
+          <Option
+            key={singleExecution.execution}
+            value={singleExecution.execution}
+            data-cy={`execution-${singleExecution.execution}`}
+          >
+            <ExecutionInfo>
+              <StyledTaskStatusIcon status={singleExecution.status} />
+              <StyledBody title={optionText}>{optionText}</StyledBody>
+            </ExecutionInfo>
+          </Option>
+        );
+      })}
     </StyledSelect>
   );
 };
@@ -73,14 +76,20 @@ const StyledSelect = styled(Select)`
   margin-bottom: ${size.xs};
   width: 100%;
 `;
-const StyledP1 = styled(P1)`
-  font-size: ${fontSize.m};
+
+const ExecutionInfo = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
-const Row = styled.div`
-  display: flex;
+const StyledBody = styled(Body)`
+  font-size: ${fontSize.m};
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 const StyledTaskStatusIcon = styled(TaskStatusIcon)`
   margin-right: ${size.xxs};
+  flex-shrink: 0;
 `;

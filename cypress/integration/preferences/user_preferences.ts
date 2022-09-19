@@ -17,6 +17,7 @@ describe("user preferences pages", () => {
   it("updating a field should enable the submit button", () => {
     cy.dataCy("save-profile-changes-button").should("be.disabled");
     cy.dataCy("slack-username-field").type("mohamed.khelif");
+    cy.dataCy("slack-member-id-field").type("member-id");
     cy.dataCy("save-profile-changes-button").should("not.be.disabled");
   });
   it("saving changes to a field should work", () => {

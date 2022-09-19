@@ -23,15 +23,17 @@ const { omitTypename } = string;
 export const NotificationsTab: React.VFC = () => {
   const dispatchToast = useToastContext();
   const { userSettings, loading } = useUserSettings();
-  const { slackUsername, notifications } = userSettings ?? {};
+  const { slackUsername, slackMemberId, notifications } = userSettings ?? {};
   const [slackUsernameField, setSlackUsernameField] = useState(slackUsername);
+  const [slackMemberIdField, setSlackMemberIdField] = useState(slackMemberId);
   const [notificationStatus, setNotificationStatus] = useState(notifications);
   const { sendEvent } = usePreferencesAnalytics();
   // update state from query
   useEffect(() => {
     setSlackUsernameField(slackUsername);
+    setSlackMemberIdField(slackMemberId);
     setNotificationStatus(notifications);
-  }, [slackUsername, notifications]);
+  }, [slackUsername, slackMemberId, notifications]);
 
   const [updateUserSettings, { loading: updateLoading }] = useMutation<
     UpdateUserSettingsMutation,
@@ -59,6 +61,7 @@ export const NotificationsTab: React.VFC = () => {
     const variables = {
       userSettings: {
         slackUsername: slackUsernameField,
+        slackMemberId: slackMemberIdField,
         notifications: omitTypename(notificationStatus),
       },
     };
@@ -76,6 +79,7 @@ export const NotificationsTab: React.VFC = () => {
 
   const hasFieldUpdates =
     slackUsername !== slackUsernameField ||
+    slackMemberId !== slackMemberIdField ||
     notificationStatus !== notifications;
 
   const newPayload = omitTypename(notificationStatus);
@@ -88,6 +92,13 @@ export const NotificationsTab: React.VFC = () => {
           onChange={handleFieldUpdate(setSlackUsernameField)}
           value={slackUsernameField}
           data-cy="slack-username-field"
+        />
+        <StyledTextInput
+          label="Slack Member ID"
+          onChange={handleFieldUpdate(setSlackMemberIdField)}
+          value={slackMemberIdField}
+          description="Click on the three dots next to 'set a status' in your Slack profile, and then 'Copy member ID'."
+          data-cy="slack-member-id-field"
         />
         <GridContainer>
           <GridField gridArea="1 / 3 / 2 / 4">Email</GridField>
