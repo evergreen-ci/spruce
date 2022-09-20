@@ -131,11 +131,11 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     timezone,
     noExpirationCheckboxTooltip,
     disableExpirationCheckbox,
-    isVirtualWorkstation: !!formState?.distro?.schema?.isVirtualWorkstation,
+    isVirtualWorkstation: !!formState?.distro?.isVirtualWorkstation,
     volumes: volumesData?.myVolumes ?? [],
     distroId: distroIdQueryParam,
   });
-
+  console.log({ formState });
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
     return null;
   }
@@ -157,7 +157,6 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
       spawnTaskData: spawnTaskData?.task,
       distroId: distroIdQueryParam,
     });
-    console.log({ formState, mutationInput });
     spawnAnalytics.sendEvent({
       name: "Spawned a host",
       params: mutationInput,

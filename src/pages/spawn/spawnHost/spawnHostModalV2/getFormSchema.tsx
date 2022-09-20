@@ -6,7 +6,7 @@ import {
   LeafyGreenTextArea,
   LeafyGreenCheckBox,
 } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
-import { SearchableDropdownWidget } from "components/SpruceForm/Widgets/SearchableDropdown";
+import { SearchableDistroDropdownWidget } from "components/SpruceForm/Widgets/SearchableDistroDropdown";
 import { SpruceWidgetProps } from "components/SpruceForm/Widgets/types";
 import {
   GetMyPublicKeysQuery,
@@ -108,7 +108,7 @@ export const getFormSchema = ({
         distro: {
           type: "string" as "string",
           title: "Distro",
-          default: distroId || "",
+          default: distroId || null,
           oneOf: [
             ...(distros?.map((d) => ({
               type: "string" as "string",
@@ -443,9 +443,8 @@ export const getFormSchema = ({
     },
     uiSchema: {
       distro: {
-        "ui:widget": SearchableDropdownWidget,
+        "ui:widget": SearchableDistroDropdownWidget,
         "ui:elementWrapperCSS": dropdownWrapperClassName,
-        "ui:valuePlaceholder": "Select a distro",
       },
       region: {
         "ui:widget": AntdSelect,
