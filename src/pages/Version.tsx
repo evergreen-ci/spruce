@@ -167,10 +167,12 @@ export const VersionPage: React.VFC = () => {
 
   return (
     <PageWrapper data-cy="version-page">
-      <VersionTaskPageBreadcrumbs
-        versionMetadata={version}
-        patchNumber={patchNumber}
-      />
+      {version && (
+        <VersionTaskPageBreadcrumbs
+          versionMetadata={version}
+          patchNumber={patchNumber}
+        />
+      )}
       <PageTitle
         loading={false}
         title={linkifiedMessage || `Version ${order}`}
