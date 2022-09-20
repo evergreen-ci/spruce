@@ -1,22 +1,14 @@
 import { validateTask } from "components/Spawn/utils";
-import { GetSpawnTaskQuery } from "gql/generated/types";
+import { GetMyPublicKeysQuery, GetSpawnTaskQuery } from "gql/generated/types";
 import { stripNewLines } from "utils/string";
 import { DEFAULT_VOLUME_SIZE } from "./consts";
 
 interface Props {
-  distroId: string;
   formData: any;
-  isVirtualWorkStation: boolean;
-  publicKeys: any;
+  publicKeys: GetMyPublicKeysQuery["myPublicKeys"];
   spawnTaskData: GetSpawnTaskQuery["task"];
 }
-export const formToGql = ({
-  distroId,
-  formData,
-  isVirtualWorkStation,
-  publicKeys,
-  spawnTaskData,
-}: Props) => {
+export const formToGql = ({ formData, publicKeys, spawnTaskData }: Props) => {
   const {
     expirationDetails,
     homeVolumeDetails,
@@ -24,6 +16,7 @@ export const formToGql = ({
     region,
     userdataScriptSection,
     loadData,
+    distro,
   } = formData || {};
 
   return {
@@ -40,7 +33,7 @@ export const formToGql = ({
     ...(!homeVolumeDetails.selectExistingVolume && {
       homeVolumeSize: DEFAULT_VOLUME_SIZE,
     }),
-    isVirtualWorkStation,
+    isVirtualWorkStation: distro?.schema?.isVirtualWorkstation,
     publicKey: {
       name: publicKeySection.useExisting
         ? publicKeySection.publicKeyNameDropdown
@@ -53,7 +46,7 @@ export const formToGql = ({
     },
     savePublicKey:
       !publicKeySection.useExisting && publicKeySection.savePublicKey,
-    distroId,
+    distroId: distro?.value,
     region,
     taskId:
       loadData.loadDataOntoHostAtStartup && validateTask(spawnTaskData)

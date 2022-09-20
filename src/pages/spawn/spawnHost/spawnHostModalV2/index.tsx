@@ -128,17 +128,17 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   const [formState, setFormState] = useState({} as any);
   const timezone = useUserTimeZone();
   const { schema, uiSchema } = getFormSchema({
-    distros: distrosData?.distros,
     awsRegions: awsData?.awsRegions,
-    userAwsRegion,
+    disableExpirationCheckbox,
+    distroIdQueryParam,
+    distros: distrosData?.distros,
+    isVirtualWorkstation: !!formState?.distro?.isVirtualWorkstation,
+    noExpirationCheckboxTooltip,
     publicKeys: publicKeysData?.myPublicKeys,
     spawnTaskData: spawnTaskData?.task,
     timezone,
-    noExpirationCheckboxTooltip,
-    disableExpirationCheckbox,
-    isVirtualWorkstation: !!formState?.distro?.isVirtualWorkstation,
+    userAwsRegion,
     volumes: volumesData?.myVolumes ?? [],
-    distroId: distroIdQueryParam,
   });
 
   const removeModalQueryParam = () =>
@@ -161,9 +161,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     const mutationInput = formToGql({
       formData: formState,
       publicKeys: publicKeysData?.myPublicKeys,
-      isVirtualWorkStation: !!formState?.distro?.schema?.isVirtualWorkstation,
       spawnTaskData: spawnTaskData?.task,
-      distroId: distroIdQueryParam,
     });
     spawnAnalytics.sendEvent({
       name: "Spawned a host",

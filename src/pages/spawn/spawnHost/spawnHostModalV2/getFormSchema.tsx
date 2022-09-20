@@ -49,7 +49,7 @@ interface Props {
   }[];
   awsRegions: string[];
   disableExpirationCheckbox: boolean;
-  distroId?: string;
+  distroIdQueryParam?: string;
   isVirtualWorkstation: boolean;
   noExpirationCheckboxTooltip: string;
   publicKeys: GetMyPublicKeysQuery["myPublicKeys"];
@@ -78,7 +78,7 @@ const loadDataFieldSetCSS = css`
 export const getFormSchema = ({
   awsRegions,
   disableExpirationCheckbox,
-  distroId,
+  distroIdQueryParam,
   distros,
   isVirtualWorkstation,
   noExpirationCheckboxTooltip,
@@ -108,11 +108,11 @@ export const getFormSchema = ({
         distro: {
           type: "string" as "string",
           title: "Distro",
-          default: distroId
+          default: distroIdQueryParam
             ? {
-                value: distroId,
+                value: distroIdQueryParam,
                 isVirtualWorkstation: !!distros?.find(
-                  (v) => v.name === distroId && v.isVirtualWorkStation
+                  (v) => v.name === distroIdQueryParam && v.isVirtualWorkStation
                 ),
               }
             : null,
