@@ -164,7 +164,7 @@
     "babel-plugin-import": "^1.13.5",
     "babel-plugin-import-graphql": "^2.8.1",
     "babel-preset-react-app": "^10.0.1",
-    "camelcase": "^6.1.0",
+    "camelcase": "^7.0.0",
     "colors": "1.4.0",
     "css-loader": "4.3.0",
     "cypress": "10.3.1",
