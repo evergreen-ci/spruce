@@ -1,13 +1,13 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { renderHook } from "@testing-library/react-hooks";
-import { GET_OTHER_USER } from "gql/queries";
+import { GET_USER } from "gql/queries";
 import { useBreadcrumbVersion } from "hooks";
 
 const Provider = ({ children }) => (
   <MockedProvider mocks={mocks}>{children}</MockedProvider>
 );
 
-describe("useBreadcrumbRoot", () => {
+describe("useBreadcrumbVersion", () => {
   it("returns the correct breadcrumb when the version is a patch", async () => {
     const { result, waitForNextUpdate } = renderHook(
       () =>
@@ -42,19 +42,16 @@ describe("useBreadcrumbRoot", () => {
 const mocks = [
   {
     request: {
-      query: GET_OTHER_USER,
-      variables: {
-        userId: "admin",
-      },
+      query: GET_USER,
+      variables: {},
     },
     result: {
       data: {
-        otherUser: {
+        user: {
           userId: "admin",
-          displayName: "Evergreen Admin",
-          __typename: "User",
+          displayName: "admin",
+          emailAddress: "admin@admin.com",
         },
-        currentUser: { userId: "admin", __typename: "User" },
       },
     },
   },

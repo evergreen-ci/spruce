@@ -1,17 +1,25 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { renderHook } from "@testing-library/react-hooks";
-import { GET_OTHER_USER } from "gql/queries";
+import { GET_USER, GET_OTHER_USER } from "gql/queries";
 import { useBreadcrumbRoot } from "hooks";
 
-const Provider = ({ children }) => (
-  <MockedProvider mocks={mocks}>{children}</MockedProvider>
+const SameUserProvider = ({ children }) => (
+  <MockedProvider mocks={[getUserMock, sameUserMock]}>
+    {children}
+  </MockedProvider>
+);
+
+const OtherUserProvider = ({ children }) => (
+  <MockedProvider mocks={[getUserMock, otherUserMock]}>
+    {children}
+  </MockedProvider>
 );
 
 describe("useBreadcrumbRoot", () => {
-  it("returns the correct breadcrumb root when the version is a patch", async () => {
+  it("returns the correct breadcrumb root when the version is a patch belonging to current user", async () => {
     const { result, waitForNextUpdate } = renderHook(
       () => useBreadcrumbRoot(true, "admin", "spruce"),
-      { wrapper: Provider }
+      { wrapper: SameUserProvider }
     );
     await waitForNextUpdate();
 
@@ -19,10 +27,21 @@ describe("useBreadcrumbRoot", () => {
     expect(result.current.text).toBe("My Patches");
   });
 
+  it("returns the correct breadcrumb root when the version is a patch belonging to other user", async () => {
+    const { result, waitForNextUpdate } = renderHook(
+      () => useBreadcrumbRoot(true, "john.doe", "spruce"),
+      { wrapper: OtherUserProvider }
+    );
+    await waitForNextUpdate();
+
+    expect(result.current.to).toBe("/user/john.doe/patches");
+    expect(result.current.text).toBe("John Doe's Patches");
+  });
+
   it("returns the correct breadcrumb root when the version is a commit", async () => {
     const { result, waitForNextUpdate } = renderHook(
       () => useBreadcrumbRoot(false, "admin", "spruce"),
-      { wrapper: Provider }
+      { wrapper: SameUserProvider }
     );
     await waitForNextUpdate();
 
@@ -31,23 +50,57 @@ describe("useBreadcrumbRoot", () => {
   });
 });
 
-const mocks = [
-  {
-    request: {
-      query: GET_OTHER_USER,
-      variables: {
+const getUserMock = {
+  request: {
+    query: GET_USER,
+    variables: {},
+  },
+  result: {
+    data: {
+      user: {
         userId: "admin",
-      },
-    },
-    result: {
-      data: {
-        otherUser: {
-          userId: "admin",
-          displayName: "Evergreen Admin",
-          __typename: "User",
-        },
-        currentUser: { userId: "admin", __typename: "User" },
+        displayName: "admin",
+        emailAddress: "admin@admin.com",
       },
     },
   },
-];
+};
+
+const sameUserMock = {
+  request: {
+    query: GET_OTHER_USER,
+    variables: {
+      userId: "admin",
+    },
+  },
+  result: {
+    data: {
+      otherUser: {
+        userId: "admin",
+        displayName: "Evergreen Admin",
+        __typename: "User",
+      },
+      currentUser: { userId: "admin", __typename: "User" },
+    },
+  },
+};
+
+const otherUserMock = {
+  request: {
+    query: GET_OTHER_USER,
+    variables: {
+      userId: "john.doe",
+    },
+  },
+  result: {
+    data: {
+      otherUser: {
+        userId: "john.doe",
+        displayName: "John Doe",
+      },
+      currentUser: {
+        userId: "admin",
+      },
+    },
+  },
+};
