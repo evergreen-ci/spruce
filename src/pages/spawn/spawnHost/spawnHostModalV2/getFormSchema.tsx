@@ -108,7 +108,14 @@ export const getFormSchema = ({
         distro: {
           type: "string" as "string",
           title: "Distro",
-          default: distroId || null,
+          default: distroId
+            ? {
+                value: distroId,
+                isVirtualWorkstation: !!distros?.find(
+                  (v) => v.name === distroId && v.isVirtualWorkStation
+                ),
+              }
+            : null,
           oneOf: [
             ...(distros?.map((d) => ({
               type: "string" as "string",
@@ -391,11 +398,13 @@ export const getFormSchema = ({
                       title: "Volume",
                       type: "string" as "string",
                       default: "",
-                      oneOf: (volumes || [])?.map((v) => ({
-                        type: "string" as "string",
-                        title: `(${v.size}gb) ${v.displayName || v.id}`,
-                        enum: [v.id],
-                      })),
+                      oneOf: volumes
+                        ?.filter((v) => v.homeVolume && !v.hostID)
+                        ?.map((v) => ({
+                          type: "string" as "string",
+                          title: `(${v.size}gb) ${v.displayName || v.id}`,
+                          enum: [v.id],
+                        })),
                     },
                   },
                 },
@@ -531,6 +540,7 @@ export const getFormSchema = ({
         volumeSelect: {
           "ui:widget": isVirtualWorkstation ? AntdSelect : "hidden",
           "ui:allowDeselect": false,
+          "ui:data-cy": "volume-select",
           "ui:disabledEnums": volumes
             .filter((v) => !!v.hostID)
             .map((v) => v.id),

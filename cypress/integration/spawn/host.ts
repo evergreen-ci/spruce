@@ -159,9 +159,8 @@ describe("Navigating to Spawn Host page", () => {
         );
       });
 
-      it.only("Unchecking 'Load data for dist' hides nested checkbox selections and checking shows them.", () => {
-        const label1 =
-          "Use project-specific setup script defined at /path/test";
+      it("Unchecking 'Load data for dist' hides nested checkbox selections and checking shows them.", () => {
+        const label1 = "Use project-specific setup script defined at /path";
         const label2 = "Load from task sync";
         const label3 = "Also start any hosts this task started (if applicable)";
         cy.visit(
@@ -185,13 +184,15 @@ describe("Navigating to Spawn Host page", () => {
           `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`
         );
         cy.dataCy("spawn-host-modal").should("be.visible");
-        cy.dataCy("distro-input").should("have.value", "ubuntu1604-small");
+        cy.dataCy("distro-input")
+          .dataCy("dropdown-value")
+          .contains("ubuntu1604-small");
       });
       it("The virtual workstation dropdown should filter any volumes that aren't a home volume", () => {
-        cy.dataCy("distroSearchBox")
-          .click()
-          .type("{downarrow}")
-          .type("{enter}");
+        cy.dataCy("distro-input").click();
+        cy.dataCy("distro-option-ubuntu1804-workstation")
+          .should("be.visible")
+          .click();
         cy.dataCy("volume-select").click();
         cy.contains("No Data");
       });
