@@ -141,28 +141,16 @@ describe("Navigating to Spawn Host page", () => {
         cy.visit(
           `spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${hostTaskId}`
         );
-        cy.dataCy("spawn-host-modal").should(
-          "contain.text",
-          "Use project-specific setup script defined at /path"
-        );
+        cy.dataCy("spawn-host-modal").should("contain.text", label1);
         cy.dataCy("spawn-host-modal").should(
           "contain.text",
           "Load data for dist on ubuntu1604"
         );
-        cy.dataCy("spawn-host-modal").should(
-          "contain.text",
-          "Load from task sync"
-        );
-        cy.dataCy("spawn-host-modal").should(
-          "contain.text",
-          "Also start any hosts this task started (if applicable)"
-        );
+        cy.dataCy("spawn-host-modal").should("contain.text", label2);
+        cy.dataCy("spawn-host-modal").should("contain.text", label3);
       });
 
       it("Unchecking 'Load data for dist' hides nested checkbox selections and checking shows them.", () => {
-        const label1 = "Use project-specific setup script defined at /path";
-        const label2 = "Load from task sync";
-        const label3 = "Also start any hosts this task started (if applicable)";
         cy.visit(
           `spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${hostTaskId}`
         );
@@ -196,6 +184,37 @@ describe("Navigating to Spawn Host page", () => {
         cy.dataCy("volume-select").click();
         cy.contains("No Data");
       });
+
+      it("Clicking 'Add new key' hides the key name dropdown and shows the key value text area", () => {
+        cy.visit(
+          `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`
+        );
+        cy.dataCy("key-select").should("be.visible");
+        cy.dataCy("key-value-text-area").should("not.exist");
+        cy.contains("Add new key").click();
+        cy.dataCy("key-select").should("not.exist");
+        cy.dataCy("key-value-text-area").should("be.visible");
+      });
+
+      it("Checking 'Run Userdata script on start' shows the user data script text area", () => {
+        cy.visit(
+          `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`
+        );
+        cy.dataCy("run-user-data-script-text-area").should("not.exist");
+        cy.contains("Run Userdata script on start").click();
+        cy.dataCy("user-data-script-text-area").should("be.visible");
+      });
+
+      it("Checking 'Define setup script...' shows the setup script text area", () => {
+        cy.dataCy("setup-script-text-area").should("not.exist");
+        cy.contains(
+          "Define setup script to run after host is configured (i.e. task data and artifacts are loaded"
+        ).click();
+        cy.dataCy("setup-script-text-area").should("be.visible");
+      });
+      const label1 = "Use project-specific setup script defined at /path";
+      const label2 = "Load from task sync";
+      const label3 = "Also start any hosts this task started (if applicable)";
     });
   });
 });

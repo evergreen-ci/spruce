@@ -469,22 +469,26 @@ export const getFormSchema = ({
           "ui:widget": AntdSelect,
           "ui:elementWrapperCSS": dropdownWrapperClassName,
           "ui:valuePlaceholder": "Select a key",
+          "ui:data-cy": "key-select",
         },
         newPublicKey: {
           "ui:widget": LeafyGreenTextArea,
           "ui:elementWrapperCSS": textAreaWrapperClassName,
+          "ui:data-cy": "key-value-text-area",
         },
       },
       userdataScriptSection: {
         userdataScript: {
           "ui:widget": LeafyGreenTextArea,
           "ui:elementWrapperCSS": textAreaWrapperClassName,
+          "ui:data-cy": "user-data-script-text-area",
         },
       },
       setupScriptSection: {
         setupScript: {
           "ui:widget": LeafyGreenTextArea,
           "ui:elementWrapperCSS": textAreaWrapperClassName,
+          "ui:data-cy": "setup-script-text-area",
         },
       },
       expirationDetails: {
