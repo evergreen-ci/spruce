@@ -95,7 +95,7 @@ describe("Navigating to Spawn Host page", () => {
       );
     });
 
-    describe.only("Spawn host modal", () => {
+    describe("Spawn host modal", () => {
       it("Should disable 'Never expire' checkbox when max number of unexpirable hosts is met (2)", () => {
         cy.visit("/spawn/host");
         cy.contains("Spawn a host").click();
