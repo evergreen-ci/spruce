@@ -2,11 +2,11 @@ import { css } from "@emotion/react";
 import { validateTask } from "components/Spawn/utils";
 import widgets from "components/SpruceForm/Widgets";
 import { AntdSelect } from "components/SpruceForm/Widgets/AntdWidgets";
+import { SearchableDistroDropdownWidget } from "components/SpruceForm/Widgets/DistroDropdown";
 import {
-  LeafyGreenTextArea,
   LeafyGreenCheckBox,
+  LeafyGreenTextArea,
 } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
-import { SearchableDistroDropdownWidget } from "components/SpruceForm/Widgets/SearchableDistroDropdown";
 import { SpruceWidgetProps } from "components/SpruceForm/Widgets/types";
 import {
   GetMyPublicKeysQuery,
@@ -445,6 +445,7 @@ export const getFormSchema = ({
       distro: {
         "ui:widget": SearchableDistroDropdownWidget,
         "ui:elementWrapperCSS": dropdownWrapperClassName,
+        "ui:data-cy": "distro-input",
       },
       region: {
         "ui:widget": AntdSelect,

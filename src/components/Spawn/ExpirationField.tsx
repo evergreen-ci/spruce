@@ -103,7 +103,7 @@ export const ExpirationField: React.VFC<ExpirationFieldProps> = ({
           >
             <span>
               <PaddedCheckbox
-                data-cy="neverExpireCheckbox"
+                data-cy="never-expire-checkbox"
                 disabled={disableExpirationCheckbox}
                 label="Never"
                 checked={noExpiration}

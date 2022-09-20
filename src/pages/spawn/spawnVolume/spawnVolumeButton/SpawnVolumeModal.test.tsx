@@ -58,7 +58,7 @@ describe("spawnVolumeModal", () => {
       "us-east-1a"
     );
     expect(screen.queryByDataCy("typeSelector")).toHaveTextContent("gp2");
-    expect(screen.queryByDataCy("neverExpireCheckbox")).not.toBeChecked();
+    expect(screen.queryByDataCy("never-expire-checkbox")).not.toBeChecked();
     expect(screen.queryByDataCy("host-select")).toHaveTextContent("");
   });
 

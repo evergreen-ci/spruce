@@ -34,7 +34,7 @@ export const SearchableDistroDropdownWidget: React.VFC<
     SpruceWidgetProps & {
       options: Pick<SearchableDropdownProps<string>, "data-cy">;
     }
-> = ({ options, value, label, onChange }) => {
+> = ({ options, label, onChange, ...rest }) => {
   const {
     ariaLabelledBy,
     "data-cy": dataCy,
@@ -57,7 +57,7 @@ export const SearchableDistroDropdownWidget: React.VFC<
       { title: "Other distros", distros: [] },
     ]
   );
-  const selectedDistro = value?.value;
+  const selectedDistro = rest.value?.value;
   return (
     <StyledElementWrapper css={elementWrapperCSS} marginBottom={marginBottom}>
       <Dropdown
@@ -68,19 +68,15 @@ export const SearchableDistroDropdownWidget: React.VFC<
         onChange={onChange}
         options={searchableOptions}
         searchFunc={(items, match) =>
-          items.map((e) => {
-            return {
-              ...e,
-              distros: e.distros.filter(({ value }) =>
-                value.toLowerCase().includes(match.toLowerCase())
-              ),
-            };
-          })
+          items.map((e) => ({
+            ...e,
+            distros: e.distros.filter(({ value }) =>
+              value.toLowerCase().includes(match.toLowerCase())
+            ),
+          }))
         }
         optionRenderer={({ title, distros }, onClick) => (
-          <>
-            <DropdownOption onClick={onClick} title={title} distros={distros} />
-          </>
+          <DropdownOption onClick={onClick} title={title} distros={distros} />
         )}
       />
     </StyledElementWrapper>
@@ -96,7 +92,11 @@ const DropdownOption: React.VFC<{
     <Overline>{title}</Overline>
     <ListContainer>
       {distros?.map((d) => (
-        <Option onClick={() => onClick(d)} key={d.value}>
+        <Option
+          onClick={() => onClick(d)}
+          key={d.value}
+          data-cy={`distro-option-${d.value}`}
+        >
           {d.value}
         </Option>
       ))}

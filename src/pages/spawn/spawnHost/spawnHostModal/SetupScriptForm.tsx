@@ -64,9 +64,35 @@ export const SetupScriptForm: React.VFC<SetupScriptFormProps> = ({
   const { displayName, buildVariant, revision, project, canSync } =
     taskData?.task || {};
   const hasTask = displayName && buildVariant && revision;
-
+  const toggleSetupScript = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked } = e.target;
+    setHasSetupScript(checked);
+    onChange({ type: "editSetupScript", setUpScript: checked ? "" : null });
+  };
   return (
     <div>
+      <Checkbox
+        label="Define setup script to run after host is configured (i.e. task data and artifacts are loaded)"
+        checked={hasSetupScript}
+        onChange={toggleSetupScript}
+      />
+      {hasSetupScript && (
+        <StyledTextArea
+          aria-labelledby="setup-script-input"
+          data-cy="userDataScript-input"
+          disabled={!hasSetupScript}
+          value={setUpScript}
+          placeholder="Setup script"
+          rows={6}
+          onChange={(e) =>
+            onChange({
+              type: "editSetupScript",
+              setUpScript: e.target.value,
+            })
+          }
+          spellCheck={false}
+        />
+      )}
       {hasTask && (
         <>
           <Checkbox

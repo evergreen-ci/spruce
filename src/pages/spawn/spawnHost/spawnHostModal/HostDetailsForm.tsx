@@ -42,8 +42,54 @@ export const HostDetailsForm: React.VFC<HostDetailsFormProps> = ({
 }) => {
   const { userDataScript, isVirtualWorkStation } = data;
 
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { hasUserDataScript } = state;
+
+  const onToggleUserData = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked } = e.target;
+    dispatch({
+      type: "toggleUserDataScript",
+      hasUserDataScript: checked,
+    });
+    onChange({
+      type: "editUserDataScript",
+      userDataScript: checked ? userDataScript : undefined,
+    });
+  };
   return (
     <Container>
+      {/* @ts-expect-error */}
+      <StyledSubtitle> Optional Host Details</StyledSubtitle>
+      <Checkbox
+        label="Run Userdata script on start"
+        checked={hasUserDataScript}
+        onChange={onToggleUserData}
+      />
+      <StyledTextArea
+        aria-labelledby="user-data-script-input"
+        data-cy="userDataScript-input"
+        disabled={!hasUserDataScript}
+        value={userDataScript}
+        placeholder="Userdata script"
+        rows={6}
+        onChange={(e) =>
+          onChange({
+            type: "editUserDataScript",
+            userDataScript: e.target.value,
+          })
+        }
+        spellCheck={false}
+      />
+      <SetupScriptForm data={data} onChange={onChange} />
+
+      <ExpirationField
+        isVolume={false}
+        data={data}
+        onChange={(expData: ExpirationDateType) =>
+          onChange({ type: "editExpiration", ...expData })
+        }
+      />
+
       {isVirtualWorkStation && (
         <SectionContainer>
           <SectionLabel weight="medium">Virtual Workstation</SectionLabel>
