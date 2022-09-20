@@ -33,7 +33,11 @@ import {
   GET_USER_SETTINGS,
   GET_SPAWN_TASK,
 } from "gql/queries";
-import { useDisableSpawnExpirationCheckbox, useSpruceConfig } from "hooks";
+import {
+  useDisableSpawnExpirationCheckbox,
+  useSpruceConfig,
+  useUpdateURLQueryParams,
+} from "hooks";
 import { useUserTimeZone } from "hooks/useUserTimeZone";
 import { getString, parseQueryString } from "utils/queryString";
 import { getFormSchema } from "./getFormSchema";
@@ -48,6 +52,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   visible,
   onCancel,
 }) => {
+  const updateQueryParams = useUpdateURLQueryParams();
   const dispatchToast = useToastContext();
   const spawnAnalytics = useSpawnAnalytics();
 
@@ -135,7 +140,9 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     volumes: volumesData?.myVolumes ?? [],
     distroId: distroIdQueryParam,
   });
-  console.log({ formState });
+
+  const removeModalQueryParam = () =>
+    updateQueryParams({ spawnHost: undefined });
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
     return null;
   }
@@ -150,6 +157,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
 
   const spawnHost = (e) => {
     e.preventDefault();
+    removeModalQueryParam();
     const mutationInput = formToGql({
       formData: formState,
       publicKeys: publicKeysData?.myPublicKeys,
@@ -168,6 +176,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   const onClose = () => {
     setFormState({});
     onCancel();
+    removeModalQueryParam();
   };
   return (
     <Modal
@@ -175,8 +184,12 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
       visible={visible}
       onCancel={onClose}
       footer={[
-        // @ts-expect-error
-        <WideButton onClick={onClose} key="cancel_button">
+        <WideButton
+          // @ts-expect-error
+          onClick={onClose}
+          data-cy="cancel-button"
+          key="cancel_button"
+        >
           Cancel
         </WideButton>,
         <WideButton

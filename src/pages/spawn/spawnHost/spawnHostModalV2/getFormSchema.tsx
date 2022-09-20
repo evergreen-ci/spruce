@@ -482,6 +482,7 @@ export const getFormSchema = ({
         noExpiration: {
           "ui:disabled": disableExpirationCheckbox,
           "ui:tooltipDescription": noExpirationCheckboxTooltip ?? "",
+          "ui:data-cy": "never-expire-checkbox",
         },
         expiration: {
           "ui:disablePastDatetime": true,
@@ -500,6 +501,7 @@ export const getFormSchema = ({
             "ui:taskDisplayName": taskDisplayName,
             "ui:revision": revision,
             "ui:marginBottom": 0,
+            "ui:data-cy": "load-data-checkbox",
           },
           runProjectSpecificSetupScript: {
             "ui:widget":
