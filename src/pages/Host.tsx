@@ -24,7 +24,6 @@ import {
   HostEventsQueryVariables,
 } from "gql/generated/types";
 import { GET_HOST, GET_HOST_EVENTS } from "gql/queries/index";
-import { usePageTitle } from "hooks/usePageTitle";
 import { HostTable } from "pages/host/HostTable";
 import { Metadata } from "pages/host/Metadata";
 import { HostStatus } from "types/host";
@@ -74,8 +73,6 @@ export const Host: React.VFC = () => {
   const [isUpdateStatusModalVisible, setIsUpdateStatusModalVisible] =
     useState<boolean>(false);
 
-  usePageTitle(`Host${hostId ? ` - ${hostId}` : ""}`);
-
   const canRestartJasperOrReprovision =
     host?.status === "running" &&
     (bootstrapMethod === "ssh" || bootstrapMethod === "user-data");
@@ -84,6 +81,7 @@ export const Host: React.VFC = () => {
       {host && (
         <>
           <PageTitle
+            pageTitle={`Host${hostId ? ` - ${hostId}` : ""}`}
             title={`Host: ${hostId}`}
             badge={<HostStatusBadge status={status} />}
             loading={hostMetaDataLoading}

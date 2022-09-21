@@ -15,7 +15,7 @@ import { pollInterval } from "constants/index";
 import { useToastContext } from "context/toast";
 import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
 import { GET_TASK } from "gql/queries";
-import { usePageTitle, usePolling } from "hooks";
+import { usePolling } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PageDoesNotExist } from "pages/404";
 import { RequiredQueryParams, TaskStatus } from "types/task";
@@ -74,8 +74,6 @@ export const Task = () => {
     });
   }
 
-  usePageTitle(`Task${displayName ? ` - ${displayName}` : ""}`);
-
   if (error) {
     return <PageDoesNotExist />;
   }
@@ -89,6 +87,7 @@ export const Task = () => {
         />
       )}
       <PageTitle
+        pageTitle={`Task${displayName ? ` - ${displayName}` : ""}`}
         loading={loading}
         title={displayName}
         badge={
