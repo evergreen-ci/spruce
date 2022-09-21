@@ -41,7 +41,7 @@ import {
 import { useUserTimeZone } from "hooks/useUserTimeZone";
 import { getString, parseQueryString } from "utils/queryString";
 import { getFormSchema } from "./spawnHostModal/getFormSchema";
-import { formToGql } from "./spawnHostModal/transformer";
+import { formToGql, FormState } from "./spawnHostModal/transformer";
 
 interface SpawnHostModalProps {
   visible: boolean;
@@ -220,35 +220,3 @@ const WideButton = styled(Button)`
   margin-left: ${size.s};
   width: 140px;
 `;
-
-type FormState = {
-  distro?: {
-    value: string;
-    isVirtualWorkstation: boolean;
-  };
-  region?: string;
-  publicKeySection?: {
-    useExisting: boolean;
-    newPublicKey: string;
-    publicKeyNameDropdown: string;
-    savePublicKey: boolean;
-    newPublicKeyName: string;
-  };
-  userdataScriptSection?: {
-    runUserdataScript: boolean;
-    userdataScript: string;
-  };
-  setupScriptSection?: {
-    defineSetupScriptCheckbox: boolean;
-    setupScript: "rsatrsat";
-  };
-  expirationDetails?: {
-    noExpiration: boolean;
-    expiration: string;
-  };
-  homeVolumeDetails?: {
-    selectExistingVolume: boolean;
-    volumeSize: number;
-    volumeSelect: string;
-  };
-};

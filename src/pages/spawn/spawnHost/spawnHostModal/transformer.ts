@@ -8,7 +8,7 @@ import { stripNewLines } from "utils/string";
 import { DEFAULT_VOLUME_SIZE } from "./consts";
 
 interface Props {
-  formData: any;
+  formData: FormState;
   publicKeys: GetMyPublicKeysQuery["myPublicKeys"];
   spawnTaskData: GetSpawnTaskQuery["task"];
 }
@@ -76,5 +76,43 @@ export const formToGql = ({
       loadData?.loadDataOntoHostAtStartup && loadData?.startHosts
     ),
     taskSync: !!(loadData?.loadDataOntoHostAtStartup && loadData?.taskSync),
+  };
+};
+
+export type FormState = {
+  distro?: {
+    value: string;
+    isVirtualWorkstation: boolean;
+  };
+  region?: string;
+  publicKeySection?: {
+    useExisting: boolean;
+    newPublicKey: string;
+    publicKeyNameDropdown: string;
+    savePublicKey: boolean;
+    newPublicKeyName: string;
+  };
+  userdataScriptSection?: {
+    runUserdataScript: boolean;
+    userdataScript: string;
+  };
+  setupScriptSection?: {
+    defineSetupScriptCheckbox: boolean;
+    setupScript: string;
+  };
+  expirationDetails?: {
+    noExpiration: boolean;
+    expiration: string;
+  };
+  homeVolumeDetails?: {
+    selectExistingVolume: boolean;
+    volumeSize: number;
+    volumeSelect: string;
+  };
+  loadData?: {
+    loadDataOntoHostAtStartup: boolean;
+    runProjectSpecificSetupScript: boolean;
+    taskSync: boolean;
+    startHosts: boolean;
   };
 };
