@@ -1,5 +1,9 @@
 import { validateTask } from "components/Spawn/utils";
-import { GetMyPublicKeysQuery, GetSpawnTaskQuery } from "gql/generated/types";
+import {
+  GetMyPublicKeysQuery,
+  GetSpawnTaskQuery,
+  SpawnHostMutationVariables,
+} from "gql/generated/types";
 import { stripNewLines } from "utils/string";
 import { DEFAULT_VOLUME_SIZE } from "./consts";
 
@@ -8,7 +12,11 @@ interface Props {
   publicKeys: GetMyPublicKeysQuery["myPublicKeys"];
   spawnTaskData: GetSpawnTaskQuery["task"];
 }
-export const formToGql = ({ formData, publicKeys, spawnTaskData }: Props) => {
+export const formToGql = ({
+  formData,
+  publicKeys,
+  spawnTaskData,
+}: Props): SpawnHostMutationVariables["SpawnHostInput"] => {
   const {
     expirationDetails,
     homeVolumeDetails,
@@ -17,6 +25,7 @@ export const formToGql = ({ formData, publicKeys, spawnTaskData }: Props) => {
     userdataScriptSection,
     loadData,
     distro,
+    setupScriptSection,
   } = formData || {};
   const isVirtualWorkStation = !!distro?.isVirtualWorkstation;
   return {
@@ -24,9 +33,9 @@ export const formToGql = ({ formData, publicKeys, spawnTaskData }: Props) => {
     userDataScript: userdataScriptSection.runUserdataScript
       ? userdataScriptSection.userdataScript
       : null,
-    expiration: !expirationDetails.noExpiration
-      ? expirationDetails.expiration
-      : "",
+    expiration: expirationDetails.noExpiration
+      ? null
+      : new Date(expirationDetails.expiration),
     noExpiration: expirationDetails.noExpiration,
     volumeId:
       isVirtualWorkStation && homeVolumeDetails.selectExistingVolume
@@ -60,6 +69,9 @@ export const formToGql = ({ formData, publicKeys, spawnTaskData }: Props) => {
       loadData?.loadDataOntoHostAtStartup &&
       loadData?.runProjectSpecificSetupScript
     ),
+    setUpScript: setupScriptSection.defineSetupScriptCheckbox
+      ? setupScriptSection.setupScript
+      : null,
     spawnHostsStartedByTask: !!(
       loadData?.loadDataOntoHostAtStartup && loadData?.startHosts
     ),
