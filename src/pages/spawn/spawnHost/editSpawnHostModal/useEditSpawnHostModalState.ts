@@ -3,7 +3,7 @@ import { ExpirationDateType } from "components/Spawn/ExpirationField";
 import { InstanceTagInput, PublicKeyInput } from "gql/generated/types";
 import { MyHost } from "types/spawn";
 import { UserTagsData, VolumesData } from "../fields";
-import { publicKeyStateType } from "../spawnHostModal/PublicKeyForm";
+import { publicKeyStateType } from "./PublicKeyForm";
 
 export interface editSpawnHostStateType {
   publicKey: PublicKeyInput;

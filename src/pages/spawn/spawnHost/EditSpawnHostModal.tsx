@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useQuery, useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Variant } from "@leafygreen-ui/button";
 import TextInput from "@leafygreen-ui/text-input";
@@ -12,11 +12,11 @@ import { ConditionalWrapper } from "components/ConditionalWrapper";
 import Icon from "components/Icon";
 import { Modal } from "components/Modal";
 import {
+  ExpirationField,
   ModalContent,
   SectionContainer,
   SectionLabel,
   WideButton,
-  ExpirationField,
 } from "components/Spawn";
 import { ExpirationDateType } from "components/Spawn/ExpirationField";
 import { InputLabel, StyledLink } from "components/styles";
@@ -24,14 +24,14 @@ import { windowsPasswordRulesURL } from "constants/externalResources";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
-  InstanceTypesQuery,
-  InstanceTypesQueryVariables,
-  MyVolumesQuery,
-  MyVolumesQueryVariables,
   EditSpawnHostMutation,
   EditSpawnHostMutationVariables,
   GetMyPublicKeysQuery,
   GetMyPublicKeysQueryVariables,
+  InstanceTypesQuery,
+  InstanceTypesQueryVariables,
+  MyVolumesQuery,
+  MyVolumesQueryVariables,
 } from "gql/generated/types";
 import { EDIT_SPAWN_HOST } from "gql/mutations";
 import {
@@ -40,19 +40,19 @@ import {
   GET_MY_VOLUMES,
 } from "gql/queries";
 import {
-  VolumesField,
+  UserTagsData,
   UserTagsField,
   VolumesData,
-  UserTagsData,
+  VolumesField,
 } from "pages/spawn/spawnHost/fields";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 import { string } from "utils";
-import { useEditSpawnHostModalState } from "./editSpawnHostModal/useEditSpawnHostModalState";
 import {
   PublicKeyForm,
   publicKeyStateType,
-} from "./spawnHostModal/PublicKeyForm";
+} from "./editSpawnHostModal/PublicKeyForm";
+import { useEditSpawnHostModalState } from "./editSpawnHostModal/useEditSpawnHostModalState";
 
 const { Option } = Select;
 const { omitTypename, stripNewLines } = string;

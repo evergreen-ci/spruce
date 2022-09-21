@@ -125,7 +125,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     limit: spruceConfig?.spawnHost?.unexpirableHostsPerUser,
     isVolume: false,
   });
-  const [formState, setFormState] = useState({} as any);
+  const [formState, setFormState] = useState<FormState>({});
   const timezone = useUserTimeZone();
   const { schema, uiSchema } = getFormSchema({
     awsRegions: awsData?.awsRegions,
@@ -220,3 +220,35 @@ const WideButton = styled(Button)`
   margin-left: ${size.s};
   width: 140px;
 `;
+
+type FormState = {
+  distro?: {
+    value: string;
+    isVirtualWorkstation: boolean;
+  };
+  region?: string;
+  publicKeySection?: {
+    useExisting: boolean;
+    newPublicKey: string;
+    publicKeyNameDropdown: string;
+    savePublicKey: boolean;
+    newPublicKeyName: string;
+  };
+  userdataScriptSection?: {
+    runUserdataScript: boolean;
+    userdataScript: string;
+  };
+  setupScriptSection?: {
+    defineSetupScriptCheckbox: boolean;
+    setupScript: "rsatrsat";
+  };
+  expirationDetails?: {
+    noExpiration: boolean;
+    expiration: string;
+  };
+  homeVolumeDetails?: {
+    selectExistingVolume: boolean;
+    volumeSize: number;
+    volumeSelect: string;
+  };
+};
