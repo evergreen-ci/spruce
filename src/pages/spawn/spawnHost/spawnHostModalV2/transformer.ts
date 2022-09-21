@@ -18,22 +18,26 @@ export const formToGql = ({ formData, publicKeys, spawnTaskData }: Props) => {
     loadData,
     distro,
   } = formData || {};
-
+  const isVirtualWorkStation = !!distro?.isVirtualWorkstation;
   return {
+    isVirtualWorkStation,
     userDataScript: userdataScriptSection.runUserdataScript
       ? userdataScriptSection.userdataScript
       : null,
-    expiration: expirationDetails.noExpiration
+    expiration: !expirationDetails.noExpiration
       ? expirationDetails.expiration
       : "",
     noExpiration: expirationDetails.noExpiration,
-    ...(homeVolumeDetails.selectExistingVolume && {
-      volumeId: homeVolumeDetails.volumeSelect,
-    }),
-    ...(!homeVolumeDetails.selectExistingVolume && {
-      homeVolumeSize: DEFAULT_VOLUME_SIZE,
-    }),
-    isVirtualWorkStation: distro?.schema?.isVirtualWorkstation,
+    volumeId:
+      isVirtualWorkStation && homeVolumeDetails.selectExistingVolume
+        ? homeVolumeDetails.volumeSelect
+        : null,
+    homeVolumeSize:
+      isVirtualWorkStation &&
+      (!homeVolumeDetails.selectExistingVolume ||
+        !homeVolumeDetails.volumeSelect)
+        ? homeVolumeDetails.volumeSize || DEFAULT_VOLUME_SIZE
+        : null,
     publicKey: {
       name: publicKeySection.useExisting
         ? publicKeySection.publicKeyNameDropdown
@@ -49,14 +53,16 @@ export const formToGql = ({ formData, publicKeys, spawnTaskData }: Props) => {
     distroId: distro?.value,
     region,
     taskId:
-      loadData.loadDataOntoHostAtStartup && validateTask(spawnTaskData)
+      loadData?.loadDataOntoHostAtStartup && validateTask(spawnTaskData)
         ? spawnTaskData.id
         : null,
-    useProjectSetupScript:
-      loadData.loadDataOntoHostAtStartup &&
-      loadData.runProjectSpecificSetupScript,
-    spawnHostsStartedByTask:
-      loadData.loadDataOntoHostAtStartup && loadData.startHosts,
-    taskSync: loadData.loadDataOntoHostAtStartup && loadData.taskSync,
+    useProjectSetupScript: !!(
+      loadData?.loadDataOntoHostAtStartup &&
+      loadData?.runProjectSpecificSetupScript
+    ),
+    spawnHostsStartedByTask: !!(
+      loadData?.loadDataOntoHostAtStartup && loadData?.startHosts
+    ),
+    taskSync: !!(loadData?.loadDataOntoHostAtStartup && loadData?.taskSync),
   };
 };

@@ -202,16 +202,14 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
       ]}
       data-cy="spawn-host-modal"
     >
-      <div>
-        <SpruceForm
-          schema={schema}
-          uiSchema={uiSchema}
-          formData={formState}
-          onChange={({ formData }) => {
-            setFormState(formData);
-          }}
-        />
-      </div>
+      <SpruceForm
+        schema={schema}
+        uiSchema={uiSchema}
+        formData={formState}
+        onChange={({ formData }) => {
+          setFormState(formData);
+        }}
+      />
     </Modal>
   );
 };
