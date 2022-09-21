@@ -16,7 +16,7 @@ interface OptionValue {
   title: string;
   distros: DistroValue[];
 }
-const Dropdown = SearchableDropdown<OptionValue>;
+
 interface DistroEnum {
   options: {
     enumOptions: Array<{
@@ -60,7 +60,7 @@ export const SearchableDistroDropdownWidget: React.VFC<
   const selectedDistro = rest.value?.value;
   return (
     <StyledElementWrapper css={elementWrapperCSS} marginBottom={marginBottom}>
-      <Dropdown
+      <SearchableDropdown
         valuePlaceholder={selectedDistro || "Select a distro"}
         label={ariaLabelledBy ? undefined : label}
         value={selectedDistro}
