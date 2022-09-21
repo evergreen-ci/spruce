@@ -40,8 +40,8 @@ import {
 } from "hooks";
 import { useUserTimeZone } from "hooks/useUserTimeZone";
 import { getString, parseQueryString } from "utils/queryString";
-import { getFormSchema } from "./getFormSchema";
-import { formToGql } from "./transformer";
+import { getFormSchema } from "./spawnHostModal/getFormSchema";
+import { formToGql } from "./spawnHostModal/transformer";
 
 interface SpawnHostModalProps {
   visible: boolean;

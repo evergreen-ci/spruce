@@ -1,5 +1,5 @@
 export { SpawnHostTable } from "./SpawnHostTable";
-export { SpawnHostModal } from "./spawnHostModal/index";
+export { SpawnHostModal } from "./SpawnHostModal";
 export { SpawnHostButton } from "./SpawnHostButton";
 export { SpawnHostActionButton } from "./SpawnHostActionButton";
 export { SpawnHostCard } from "./SpawnHostCard";

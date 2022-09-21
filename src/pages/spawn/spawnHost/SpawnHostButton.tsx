@@ -9,7 +9,7 @@ import { size } from "constants/tokens";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { GET_MY_HOSTS } from "gql/queries";
 import { useSpruceConfig } from "hooks";
-import { SpawnHostModal } from "pages/spawn/spawnHost/spawnHostModal/index";
+import { SpawnHostModal } from "pages/spawn/spawnHost/SpawnHostModal";
 import { HostStatus } from "types/host";
 import { queryString } from "utils";
 import { QueryParams } from "../types";
