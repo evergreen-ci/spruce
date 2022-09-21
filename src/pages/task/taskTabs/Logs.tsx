@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import queryString from "query-string";
 import { useLocation } from "react-router-dom";
-import { getLobsterTaskLink } from "constants/externalResources";
+import {
+  getLobsterTaskLink,
+  getParsleyTaskLogLink,
+} from "constants/externalResources";
 import { TaskLogLinks } from "gql/generated/types";
 import { LogTypes, QueryParams } from "types/task";
+import { isProduction } from "utils/environmentalVariables";
 import {
   EventLog,
   AgentLog,
@@ -97,7 +101,9 @@ const getLinks = (
   }`;
   return {
     htmlLink,
-    lobsterLink: getLobsterTaskLink(logType, taskId, execution),
+    lobsterLink: isProduction()
+      ? getLobsterTaskLink(logType, taskId, execution)
+      : getParsleyTaskLogLink(logType, taskId, execution),
     rawLink: `${htmlLink}&text=true`,
   };
 };

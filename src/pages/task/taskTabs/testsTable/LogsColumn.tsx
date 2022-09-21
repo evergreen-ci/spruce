@@ -7,6 +7,12 @@ import { size } from "constants/tokens";
 import { TestResult, GetTaskQuery } from "gql/generated/types";
 import { TestStatus } from "types/test";
 import { string } from "utils";
+import {
+  getLobsterURL,
+  getParsleyUrl,
+  isProduction,
+} from "utils/environmentalVariables";
+import { stringifyQuery } from "utils/queryString";
 
 const { escapeRegex } = string;
 interface Props {
@@ -20,6 +26,29 @@ interface Props {
   task: GetTaskQuery["task"];
 }
 
+// These are temporary until we update the backend to return the correct links
+const turnTestLogLinkIntoParsleyLink = (url: string) => {
+  const legacyLobsterURL = `${getLobsterURL()}/lobster/evergreen/test`;
+  const parsleyTestURL = `${getParsleyUrl()}/test`;
+  let newURL = url.replace(legacyLobsterURL, parsleyTestURL);
+  const selectedLineRegexp = /#shareLine=([0-9]+)/;
+  const selectedLine = url.match(selectedLineRegexp)?.[1];
+  newURL = newURL.replace(selectedLineRegexp, "");
+
+  return `${newURL}?${stringifyQuery({ selectedLine })}`;
+};
+
+const turnResmokeTestLogLinkIntoParsleyLink = (url: string) => {
+  const legacyResmokeLobsterURL = `${getLobsterURL()}/lobster/build`;
+  const parsleyResmokeTestURL = `${getParsleyUrl()}/resmoke`;
+  let newURL = url.replace(legacyResmokeLobsterURL, parsleyResmokeTestURL);
+  const selectedLineRegexp = /#shareLine=([0-9]+)/;
+  const selectedLine = url.match(selectedLineRegexp)?.[1];
+  newURL = newURL.replace(selectedLineRegexp, "");
+
+  return `${newURL}?${stringifyQuery({ selectedLine })}`;
+};
+
 export const LogsColumn: React.VFC<Props> = ({
   testResult,
   taskAnalytics,
@@ -28,6 +57,12 @@ export const LogsColumn: React.VFC<Props> = ({
   const { status, testFile } = testResult;
   const { url: urlHTML, urlRaw, urlLobster } = testResult.logs ?? {};
   const { project, displayName, displayTask, order } = task ?? {};
+  let parsleyLink = "";
+  if (urlLobster) {
+    parsleyLink = turnTestLogLinkIntoParsleyLink(urlLobster);
+  } else {
+    parsleyLink = turnResmokeTestLogLinkIntoParsleyLink(urlHTML);
+  }
   const filters =
     status === TestStatus.Fail
       ? {
@@ -43,7 +78,7 @@ export const LogsColumn: React.VFC<Props> = ({
           data-cy="test-table-lobster-btn"
           size="xsmall"
           target="_blank"
-          href={urlLobster}
+          href={isProduction() ? urlLobster : parsleyLink}
           onClick={() =>
             taskAnalytics.sendEvent({
               name: "Click Logs Lobster Button",
@@ -58,7 +93,7 @@ export const LogsColumn: React.VFC<Props> = ({
           data-cy="test-table-html-btn"
           size="xsmall"
           target="_blank"
-          href={urlHTML}
+          href={isProduction() ? urlHTML : parsleyLink}
           onClick={() =>
             taskAnalytics.sendEvent({
               name: "Click Logs HTML Button",
