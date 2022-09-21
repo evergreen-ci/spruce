@@ -76,7 +76,12 @@ export const SearchableDistroDropdownWidget: React.VFC<
           }))
         }
         optionRenderer={({ title, distros }, onClick) => (
-          <DropdownOption onClick={onClick} title={title} distros={distros} />
+          <DropdownOption
+            key={title}
+            onClick={onClick}
+            title={title}
+            distros={distros}
+          />
         )}
       />
     </StyledElementWrapper>
