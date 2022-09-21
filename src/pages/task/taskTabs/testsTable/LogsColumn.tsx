@@ -93,7 +93,7 @@ export const LogsColumn: React.VFC<Props> = ({
           data-cy="test-table-html-btn"
           size="xsmall"
           target="_blank"
-          href={isProduction() ? urlHTML : parsleyLink}
+          href={isProduction() || urlLobster ? urlHTML : parsleyLink}
           onClick={() =>
             taskAnalytics.sendEvent({
               name: "Click Logs HTML Button",
