@@ -128,6 +128,7 @@ describe("versionTaskPageBreadcrumbs", () => {
       "href",
       getVersionRoute("123")
     );
+    expect(screen.getByText("task-1")).toBeInTheDocument();
   });
 });
 
