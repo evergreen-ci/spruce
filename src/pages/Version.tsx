@@ -155,10 +155,12 @@ export const VersionPage: React.VFC = () => {
 
   return (
     <PageWrapper data-cy="version-page">
-      <VersionTaskPageBreadcrumbs
-        patchNumber={patchNumber}
-        versionMetadata={version}
-      />
+      {version && (
+        <VersionTaskPageBreadcrumbs
+          patchNumber={patchNumber}
+          versionMetadata={version}
+        />
+      )}
       <PageTitle
         badge={<PatchStatusBadge status={status} />}
         buttons={
