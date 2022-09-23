@@ -42,17 +42,17 @@ export const usePolling: usePollingType = (
   }
 
   // If offline and polling, stop polling.
-  if (!isOnline && isPolling && stopPolling) {
+  if (!isOnline && isPolling) {
     setIsPolling(false);
     stopPolling();
   }
   // If not visible and polling, stop polling.
-  if (!isVisible && isPolling && stopPolling) {
+  if (!isVisible && isPolling) {
     setIsPolling(false);
     stopPolling();
   }
   // If online and visible and not polling, start polling.
-  if (isOnline && isVisible && !isPolling && startPolling) {
+  if (isOnline && isVisible && !isPolling) {
     setIsPolling(true);
     startPolling(pollInterval);
     refetch(); // refresh data when returning to tab

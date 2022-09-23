@@ -11,7 +11,6 @@ import {
   PageSider,
 } from "components/styles";
 import VersionTaskPageBreadcrumbs from "components/VersionTaskPageBreadcrumbs";
-import { pollInterval } from "constants/index";
 import { commitQueueAlias } from "constants/patch";
 import { getCommitQueueRoute, getPatchRoute } from "constants/routes";
 import { useToastContext } from "context/toast";
@@ -28,7 +27,7 @@ import {
   GET_IS_PATCH_CONFIGURED,
   GET_HAS_VERSION,
 } from "gql/queries";
-import { usePageTitle, usePolling, useSpruceConfig } from "hooks";
+import { useSpruceConfig } from "hooks";
 import { PageDoesNotExist } from "pages/404";
 import { shortenGithash, githubPRLinkify } from "utils/string";
 import { jiraLinkify } from "utils/string/jiraLinkify";
@@ -40,35 +39,30 @@ import { Tabs } from "./version/Tabs";
 export const VersionPage: React.VFC = () => {
   const spruceConfig = useSpruceConfig();
   const { id } = useParams<{ id: string }>();
-
   const dispatchToast = useToastContext();
 
   const [redirectURL, setRedirectURL] = useState(undefined);
   const [isLoadingData, setIsLoadingData] = useState(true);
 
-  const [
-    getVersion,
-    { data, error: versionError, refetch, startPolling, stopPolling },
-  ] = useLazyQuery<VersionQuery, VersionQueryVariables>(GET_VERSION, {
+  const [getVersion, { data: versionData, error: versionError }] = useLazyQuery<
+    VersionQuery,
+    VersionQueryVariables
+  >(GET_VERSION, {
     variables: { id },
-    pollInterval,
     fetchPolicy: "cache-and-network",
-    onError: (e) => {
+    onError: (error) => {
       dispatchToast.error(
-        `There was an error loading the version: ${e.message}`
+        `There was an error loading the version: ${error.message}`
       );
       setIsLoadingData(false);
     },
   });
-  usePolling(startPolling, stopPolling, refetch, false);
 
   const [getPatch, { data: patchData, error: patchError }] = useLazyQuery<
     IsPatchConfiguredQuery,
     IsPatchConfiguredQueryVariables
   >(GET_IS_PATCH_CONFIGURED, {
-    variables: {
-      id,
-    },
+    variables: { id },
     onError: (error) => {
       dispatchToast.error(
         `There was an error loading this patch: ${error.message}`
@@ -81,9 +75,7 @@ export const VersionPage: React.VFC = () => {
     GetHasVersionQuery,
     GetHasVersionQueryVariables
   >(GET_HAS_VERSION, {
-    variables: {
-      id,
-    },
+    variables: { id },
     onCompleted: ({ hasVersion }) => {
       if (hasVersion) {
         getVersion({ variables: { id } });
@@ -97,14 +89,8 @@ export const VersionPage: React.VFC = () => {
     },
   });
 
-  // This resets the pages states to force showing the loading state when the page is changed on navigation
-  useEffect(() => {
-    setIsLoadingData(true);
-    setRedirectURL(undefined);
-  }, [id]);
-
-  // Decide where to redirect the user based off of whether or not the patch has been activated
-  // If this patch is activated and not on the commit queue we can safely fetch the associated version
+  // Decide where to redirect the user based off of whether or not the patch has been activated.
+  // If the patch is activated and not on the commit queue, we can safely fetch the associated version.
   useEffect(() => {
     if (patchData) {
       const { patch } = patchData;
@@ -121,35 +107,15 @@ export const VersionPage: React.VFC = () => {
     }
   }, [patchData, getVersion, id]);
 
-  // If we have successfully loaded a version we can show the page
+  // If we have successfully loaded a version, we can show the page.
   useEffect(() => {
-    if (data) {
+    if (versionData) {
       setIsLoadingData(false);
     }
-  }, [data]);
-
-  const { version } = data || {};
-  const { status, patch, isPatch, revision, message, order } = version || {};
-
-  const {
-    commitQueuePosition = null,
-    patchNumber,
-    canEnqueueToCommitQueue,
-    childPatches,
-  } = patch || {};
-  const isPatchOnCommitQueue = commitQueuePosition !== null;
-
-  // If a revision exists
-  const versionText = shortenGithash(revision?.length ? revision : id);
-  const title = isPatch ? `Patch - ${patchNumber}` : `Version - ${versionText}`;
-  usePageTitle(title);
+  }, [versionData]);
 
   if (isLoadingData) {
     return <PatchAndTaskFullPageLoad />;
-  }
-
-  if (redirectURL) {
-    return <Navigate to={redirectURL} />;
   }
 
   if (hasVersionError || patchError || versionError) {
@@ -160,6 +126,28 @@ export const VersionPage: React.VFC = () => {
     );
   }
 
+  // If it's a patch, redirect to the proper page.
+  if (redirectURL) {
+    return <Navigate to={redirectURL} />;
+  }
+
+  // If it's a version, proceed with loading the version page.
+  const { version } = versionData || {};
+  const { status, patch, isPatch, revision, message, order } = version || {};
+
+  const {
+    commitQueuePosition = null,
+    patchNumber,
+    canEnqueueToCommitQueue,
+    childPatches,
+  } = patch || {};
+  const isPatchOnCommitQueue = commitQueuePosition !== null;
+
+  const versionText = shortenGithash(revision || id);
+  const pageTitle = isPatch
+    ? `Patch - ${patchNumber}`
+    : `Version - ${versionText}`;
+
   const linkifiedMessage = jiraLinkify(
     githubPRLinkify(message),
     spruceConfig?.jira?.host
@@ -169,13 +157,11 @@ export const VersionPage: React.VFC = () => {
     <PageWrapper data-cy="version-page">
       {version && (
         <VersionTaskPageBreadcrumbs
-          versionMetadata={version}
           patchNumber={patchNumber}
+          versionMetadata={version}
         />
       )}
       <PageTitle
-        loading={false}
-        title={linkifiedMessage || `Version ${order}`}
         badge={<PatchStatusBadge status={status} />}
         buttons={
           <ActionButtons
@@ -187,6 +173,9 @@ export const VersionPage: React.VFC = () => {
             versionId={id}
           />
         }
+        loading={false}
+        pageTitle={pageTitle}
+        title={linkifiedMessage || `Version ${order}`}
       />
       <PageLayout>
         <PageSider>
@@ -196,9 +185,9 @@ export const VersionPage: React.VFC = () => {
         <PageLayout>
           <PageContent>
             <Tabs
-              taskCount={version?.taskCount}
               childPatches={childPatches}
               isPatch={version?.isPatch}
+              taskCount={version?.taskCount}
             />
           </PageContent>
         </PageLayout>
