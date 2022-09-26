@@ -30,17 +30,17 @@ interface LoadTaskDataOntoHostLabelProps {
   };
 }
 
-export const LeafyGreenCheckboWithCustomLabel: React.VFC<
+export const LoadDataCheckbox: React.VFC<
   SpruceWidgetProps & LoadTaskDataOntoHostLabelProps
 > = (props) => {
   const { taskDisplayName, buildVariant, revision } = props.options;
-  const label = (
+  const customLabel = (
     <>
       Load data for <b>{taskDisplayName}</b> on <b>{buildVariant}</b> @{" "}
       <b>{shortenGithash(revision)}</b> onto host at startup
     </>
   );
-  return <LeafyGreenCheckBox {...{ ...props, customLabel: label }} />;
+  return <LeafyGreenCheckBox {...{ ...props, customLabel }} />;
 };
 interface Props {
   distros: {
@@ -491,9 +491,7 @@ export const getFormSchema = ({
         loadData: {
           "ui:fieldSetCSS": loadDataFieldSetCSS,
           loadDataOntoHostAtStartup: {
-            "ui:widget": hasValidTask
-              ? LeafyGreenCheckboWithCustomLabel
-              : "hidden",
+            "ui:widget": hasValidTask ? LoadDataCheckbox : "hidden",
             "ui:buildVariant": buildVariant,
             "ui:taskDisplayName": taskDisplayName,
             "ui:revision": revision,
