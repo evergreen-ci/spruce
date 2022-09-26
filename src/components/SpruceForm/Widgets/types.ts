@@ -5,17 +5,16 @@ import { WidgetProps } from "@rjsf/core";
 export interface SpruceWidgetProps extends WidgetProps {
   options: Partial<{
     "aria-controls": string[];
-    ariaLabelledBy: string;
     "data-cy": string;
+    ariaLabelledBy: string;
     description: string;
+    elementWrapperCSS: SerializedStyles;
     emptyValue: string | null;
     errors: string[];
-    marginBottom: number;
     showLabel: boolean;
     tooltipDescription: string;
-    warnings: string[];
-    elementWrapperCSS: SerializedStyles;
     type: TextInputType;
+    warnings: string[];
   }>;
 }
 
