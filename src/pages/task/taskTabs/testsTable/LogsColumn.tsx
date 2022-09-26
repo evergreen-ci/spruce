@@ -57,12 +57,7 @@ export const LogsColumn: React.VFC<Props> = ({
   const { status, testFile } = testResult;
   const { url: urlHTML, urlRaw, urlLobster } = testResult.logs ?? {};
   const { project, displayName, displayTask, order } = task ?? {};
-  let parsleyLink = "";
-  if (urlLobster) {
-    parsleyLink = turnTestLogLinkIntoParsleyLink(urlLobster);
-  } else {
-    parsleyLink = turnResmokeTestLogLinkIntoParsleyLink(urlHTML);
-  }
+  const parsleyLink = urlLobster ? turnTestLogLinkIntoParsleyLink(urlLobster) : turnResmokeTestLogLinkIntoParsleyLink(urlHTML);
   const filters =
     status === TestStatus.Fail
       ? {
