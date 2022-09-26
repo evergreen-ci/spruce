@@ -27,13 +27,12 @@ export const AntdSelect: React.VFC<
   value,
 }) => {
   const {
-    ariaLabelledBy,
     "data-cy": dataCy,
+    ariaLabelledBy,
     disabledEnums,
-    hideError,
-    enumOptions,
-    marginBottom,
     elementWrapperCSS,
+    enumOptions,
+    hideError,
   } = options;
 
   const hasError = !hideError && !!rawErrors?.length && !disabled;
@@ -44,7 +43,7 @@ export const AntdSelect: React.VFC<
     ariaLabelledBy ? { "aria-labelledby": ariaLabelledBy } : { label };
 
   return (
-    <ElementWrapper css={elementWrapperCSS} marginBottom={marginBottom}>
+    <ElementWrapper css={elementWrapperCSS}>
       <MaxWidthContainer>
         <InputLabel htmlFor={dataCy}>{label}</InputLabel>
         <Select

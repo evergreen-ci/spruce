@@ -36,11 +36,10 @@ export const SearchableDistroDropdownWidget: React.VFC<
     }
 > = ({ options, label, onChange, ...rest }) => {
   const {
-    ariaLabelledBy,
     "data-cy": dataCy,
-    enumOptions,
-    marginBottom,
+    ariaLabelledBy,
     elementWrapperCSS,
+    enumOptions,
   } = options;
 
   const searchableOptions = enumOptions.reduce<Array<OptionValue>>(
@@ -59,7 +58,7 @@ export const SearchableDistroDropdownWidget: React.VFC<
   );
   const selectedDistro = rest.value?.value;
   return (
-    <StyledElementWrapper css={elementWrapperCSS} marginBottom={marginBottom}>
+    <StyledElementWrapper css={elementWrapperCSS}>
       <SearchableDropdown
         valuePlaceholder={selectedDistro || "Select a distro"}
         label={ariaLabelledBy ? undefined : label}

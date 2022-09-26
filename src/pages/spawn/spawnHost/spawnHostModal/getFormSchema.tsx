@@ -59,22 +59,6 @@ interface Props {
   volumes: MyVolumesQuery["myVolumes"];
 }
 
-const dropdownWrapperClassName = css`
-  max-width: 225px;
-`;
-
-const textAreaWrapperClassName = css`
-  max-width: 675px;
-`;
-
-const indentCSS = css`
-  margin-left: 16px;
-`;
-
-const loadDataFieldSetCSS = css`
-  margin-bottom: 20px;
-`;
-
 export const getFormSchema = ({
   awsRegions,
   disableExpirationCheckbox,
@@ -513,7 +497,7 @@ export const getFormSchema = ({
             "ui:buildVariant": buildVariant,
             "ui:taskDisplayName": taskDisplayName,
             "ui:revision": revision,
-            "ui:marginBottom": 0,
+            "ui:elementWrapperCSS": dropMarginBottomCSS,
             "ui:data-cy": "load-data-checkbox",
           },
           runProjectSpecificSetupScript: {
@@ -521,19 +505,16 @@ export const getFormSchema = ({
               hasValidTask && project?.spawnHostScriptPath
                 ? widgets.CheckboxWidget
                 : "hidden",
-            "ui:elementWrapperCSS": indentCSS,
-            "ui:marginBottom": 0,
+            "ui:elementWrapperCSS": childCheckboxCSS,
           },
           taskSync: {
             "ui:widget":
               hasValidTask && canSync ? widgets.CheckboxWidget : "hidden",
-            "ui:elementWrapperCSS": indentCSS,
-            "ui:marginBottom": 0,
+            "ui:elementWrapperCSS": childCheckboxCSS,
           },
           startHosts: {
             "ui:widget": hasValidTask ? widgets.CheckboxWidget : "hidden",
-            "ui:elementWrapperCSS": indentCSS,
-            "ui:marginBottom": 0,
+            "ui:elementWrapperCSS": childCheckboxCSS,
           },
         },
       }),
@@ -556,3 +537,23 @@ export const getFormSchema = ({
     },
   };
 };
+
+const dropdownWrapperClassName = css`
+  max-width: 225px;
+`;
+const textAreaWrapperClassName = css`
+  max-width: 675px;
+`;
+const indentCSS = css`
+  margin-left: 16px;
+`;
+const dropMarginBottomCSS = css`
+  margin-bottom: 0px;
+`;
+const childCheckboxCSS = css`
+  ${indentCSS}
+  ${dropMarginBottomCSS}
+`;
+const loadDataFieldSetCSS = css`
+  margin-bottom: 20px;
+`;
