@@ -165,7 +165,6 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     });
     spawnAnalytics.sendEvent({
       name: "Spawned a host",
-      params: mutationInput,
     });
     spawnHostMutation({
       variables: { SpawnHostInput: mutationInput },
