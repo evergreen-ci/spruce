@@ -3,11 +3,7 @@ import { validateTask } from "components/Spawn/utils";
 import widgets from "components/SpruceForm/Widgets";
 import { AntdSelect } from "components/SpruceForm/Widgets/AntdWidgets";
 import { SearchableDistroDropdownWidget } from "components/SpruceForm/Widgets/DistroDropdown";
-import {
-  LeafyGreenCheckBox,
-  LeafyGreenTextArea,
-} from "components/SpruceForm/Widgets/LeafyGreenWidgets";
-import { SpruceWidgetProps } from "components/SpruceForm/Widgets/types";
+import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
 import {
   GetMyPublicKeysQuery,
   GetSpawnTaskQuery,
@@ -22,26 +18,6 @@ const getDefaultExpiration = () => {
   return nextWeek.toString();
 };
 
-interface LoadTaskDataOntoHostLabelProps {
-  options: {
-    buildVariant: string;
-    taskDisplayName: string;
-    revision: string;
-  };
-}
-
-export const LoadDataCheckbox: React.VFC<
-  SpruceWidgetProps & LoadTaskDataOntoHostLabelProps
-> = (props) => {
-  const { taskDisplayName, buildVariant, revision } = props.options;
-  const customLabel = (
-    <>
-      Load data for <b>{taskDisplayName}</b> on <b>{buildVariant}</b> @{" "}
-      <b>{shortenGithash(revision)}</b> onto host at startup
-    </>
-  );
-  return <LeafyGreenCheckBox {...{ ...props, customLabel }} />;
-};
 interface Props {
   distros: {
     isVirtualWorkStation: boolean;
@@ -491,10 +467,13 @@ export const getFormSchema = ({
         loadData: {
           "ui:fieldSetCSS": loadDataFieldSetCSS,
           loadDataOntoHostAtStartup: {
-            "ui:widget": hasValidTask ? LoadDataCheckbox : "hidden",
-            "ui:buildVariant": buildVariant,
-            "ui:taskDisplayName": taskDisplayName,
-            "ui:revision": revision,
+            "ui:widget": hasValidTask ? widgets.CheckboxWidget : "hidden",
+            "ui:customLabel": (
+              <>
+                Load data for <b>{taskDisplayName}</b> on <b>{buildVariant}</b>{" "}
+                @ <b>{shortenGithash(revision)}</b> onto host at startup
+              </>
+            ),
             "ui:elementWrapperCSS": dropMarginBottomCSS,
             "ui:data-cy": "load-data-checkbox",
           },

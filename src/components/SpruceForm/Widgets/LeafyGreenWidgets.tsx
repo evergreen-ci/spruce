@@ -98,9 +98,14 @@ const WarningText = styled.p`
 `;
 
 export const LeafyGreenCheckBox: React.VFC<
-  SpruceWidgetProps & { customLabel?: JSX.Element }
-> = ({ value, label, onChange, disabled, options, readonly, customLabel }) => {
-  const { "data-cy": dataCy, tooltipDescription, elementWrapperCSS } = options;
+  SpruceWidgetProps & { options: { customLabel?: JSX.Element } }
+> = ({ value, label, onChange, disabled, options, readonly }) => {
+  const {
+    "data-cy": dataCy,
+    tooltipDescription,
+    elementWrapperCSS,
+    customLabel,
+  } = options;
   return (
     <ElementWrapper css={elementWrapperCSS}>
       <Checkbox
