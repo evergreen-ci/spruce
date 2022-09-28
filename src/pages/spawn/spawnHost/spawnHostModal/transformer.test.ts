@@ -16,7 +16,7 @@ describe("repo data", () => {
         value: "ubuntu1804-workstation",
         isVirtualWorkstation: true,
       },
-      region: "rofl-east",
+      region: "us-east-1a",
       publicKeySection: {
         useExisting: false,
         newPublicKey: "blah blahsart",
@@ -56,7 +56,7 @@ describe("repo data", () => {
       },
       savePublicKey: true,
       distroId: "ubuntu1804-workstation",
-      region: "rofl-east",
+      region: "us-east-1",
       taskId: null,
       useProjectSetupScript: false,
       setUpScript: "setup!!!",
