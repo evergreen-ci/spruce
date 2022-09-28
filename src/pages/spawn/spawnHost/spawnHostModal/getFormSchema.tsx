@@ -362,7 +362,7 @@ export const getFormSchema = ({
                         ?.filter((v) => v.homeVolume && !v.hostID)
                         ?.map((v) => ({
                           type: "string" as "string",
-                          title: `(${v.size}gb) ${v.displayName || v.id}`,
+                          title: `(${v.size}GB) ${v.displayName || v.id}`,
                           enum: [v.id],
                         })),
                     },
