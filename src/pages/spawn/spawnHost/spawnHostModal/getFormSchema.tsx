@@ -326,7 +326,7 @@ export const getFormSchema = ({
         },
         homeVolumeDetails: {
           type: "object" as "object",
-          title: isVirtualWorkstation && "Virtual workstation",
+          title: isVirtualWorkstation && "Virtual Workstation",
           properties: {
             selectExistingVolume: {
               title: "Volume selection",
