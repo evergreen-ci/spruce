@@ -374,7 +374,7 @@ export const getFormSchema = ({
                       enum: [false],
                     },
                     volumeSize: {
-                      title: "Volume size (gb)",
+                      title: "Volume size (GB)",
                       type: "number" as "number",
                       default: 500,
                     },
