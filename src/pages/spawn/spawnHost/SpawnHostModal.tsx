@@ -163,6 +163,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
       publicKeys: publicKeysData?.myPublicKeys,
       spawnTaskData: spawnTaskData?.task,
     });
+    console.log({ formState, mutationInput });
     spawnAnalytics.sendEvent({
       name: "Spawned a host",
     });

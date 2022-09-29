@@ -30,35 +30,35 @@ export const formToGql = ({
   const isVirtualWorkStation = !!distro?.isVirtualWorkstation;
   return {
     isVirtualWorkStation,
-    userDataScript: userdataScriptSection.runUserdataScript
+    userDataScript: userdataScriptSection?.runUserdataScript
       ? userdataScriptSection.userdataScript
       : null,
-    expiration: expirationDetails.noExpiration
+    expiration: expirationDetails?.noExpiration
       ? null
-      : new Date(expirationDetails.expiration),
-    noExpiration: expirationDetails.noExpiration,
+      : new Date(expirationDetails?.expiration),
+    noExpiration: expirationDetails?.noExpiration,
     volumeId:
-      isVirtualWorkStation && homeVolumeDetails.selectExistingVolume
+      isVirtualWorkStation && homeVolumeDetails?.selectExistingVolume
         ? homeVolumeDetails.volumeSelect
         : null,
     homeVolumeSize:
       isVirtualWorkStation &&
-      (!homeVolumeDetails.selectExistingVolume ||
-        !homeVolumeDetails.volumeSelect)
+      (!homeVolumeDetails?.selectExistingVolume ||
+        !homeVolumeDetails?.volumeSelect)
         ? homeVolumeDetails.volumeSize || DEFAULT_VOLUME_SIZE
         : null,
     publicKey: {
-      name: publicKeySection.useExisting
-        ? publicKeySection.publicKeyNameDropdown
-        : publicKeySection.newPublicKeyName,
-      key: publicKeySection.useExisting
+      name: publicKeySection?.useExisting
+        ? publicKeySection?.publicKeyNameDropdown
+        : publicKeySection?.newPublicKeyName,
+      key: publicKeySection?.useExisting
         ? publicKeys.find(
             ({ name }) => name === publicKeySection.publicKeyNameDropdown
           )?.key
         : stripNewLines(publicKeySection.newPublicKey),
     },
     savePublicKey:
-      !publicKeySection.useExisting && publicKeySection.savePublicKey,
+      !publicKeySection?.useExisting && publicKeySection?.savePublicKey,
     distroId: distro?.value,
     region,
     taskId:
@@ -69,8 +69,8 @@ export const formToGql = ({
       loadData?.loadDataOntoHostAtStartup &&
       loadData?.runProjectSpecificSetupScript
     ),
-    setUpScript: setupScriptSection.defineSetupScriptCheckbox
-      ? setupScriptSection.setupScript
+    setUpScript: setupScriptSection?.defineSetupScriptCheckbox
+      ? setupScriptSection?.setupScript
       : null,
     spawnHostsStartedByTask: !!(
       loadData?.loadDataOntoHostAtStartup && loadData?.startHosts
