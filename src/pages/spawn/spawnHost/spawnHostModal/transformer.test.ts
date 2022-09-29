@@ -69,7 +69,7 @@ describe("repo data", () => {
       },
     },
     {
-      formState: {
+      formData: {
         distro: { value: "rhel71-power8-large", isVirtualWorkstation: false },
         region: "rofl-east",
         publicKeySection: {
@@ -77,8 +77,8 @@ describe("repo data", () => {
           publicKeyNameDropdown: "a_key",
           newPublicKey: "",
         },
-        userdataScriptSection: { runUserdataScript: false, userdataScript: "" },
-        setupScriptSection: {},
+        userdataScriptSection: { runUserdataScript: false },
+        setupScriptSection: { defineSetupScriptCheckbox: false },
         expirationDetails: {
           noExpiration: true,
           expiration:
@@ -89,13 +89,13 @@ describe("repo data", () => {
       mutationInput: {
         isVirtualWorkStation: false,
         userDataScript: null,
-        expiration: "2022-10-19T12:56:42.000Z",
-        noExpiration: false,
+        expiration: null,
+        noExpiration: true,
         volumeId: null,
         homeVolumeSize: null,
         publicKey: {
-          name: "bKey",
-          key: "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAklOUpkDHrfHY17SbrmTIpNLTGK9Tjom/BWDSUGPl+nafzlHDTYW7hdI4yZ5ew18JH4JW9jbhUFrviQzM7xlELEVf4h9lFX5QVkbPppSwg0cda3Pbv7kOdJ/MTyBlWXFCR+HAo3FXRitBqxiX1nKhXpHAZsMciLq8V6RjsNAQwdsdMFvSlVK/7XAt3FaoJoAsncM1Q9x5+3V0Ww68/eIFmb1zuUFljQJKprrX88XypNDvjYNby6vw/Pb0rwert/EnmZ+AW4OZPnTPI89ZPmVMLuayrD2cE86Z/il8b+gw3r3+1nKatmIkjn2so1d01QraTlMqVSsbxNrRFi9wrf+M7Q== schacon@mylaptop.local",
+          key: "key value",
+          name: "a_key",
         },
         savePublicKey: false,
         distroId: "rhel71-power8-large",

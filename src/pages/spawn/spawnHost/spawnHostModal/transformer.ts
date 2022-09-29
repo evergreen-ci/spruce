@@ -53,7 +53,7 @@ export const formToGql = ({
         : publicKeySection?.newPublicKeyName,
       key: publicKeySection?.useExisting
         ? publicKeys.find(
-            ({ name }) => name === publicKeySection.publicKeyNameDropdown
+            ({ name }) => name === publicKeySection?.publicKeyNameDropdown
           )?.key
         : stripNewLines(publicKeySection.newPublicKey),
     },
@@ -87,32 +87,32 @@ export type FormState = {
   region?: string;
   publicKeySection?: {
     useExisting: boolean;
-    newPublicKey: string;
-    publicKeyNameDropdown: string;
-    savePublicKey: boolean;
-    newPublicKeyName: string;
+    newPublicKey?: string;
+    publicKeyNameDropdown?: string;
+    savePublicKey?: boolean;
+    newPublicKeyName?: string;
   };
   userdataScriptSection?: {
     runUserdataScript: boolean;
-    userdataScript: string;
+    userdataScript?: string;
   };
   setupScriptSection?: {
     defineSetupScriptCheckbox: boolean;
-    setupScript: string;
+    setupScript?: string;
   };
   expirationDetails?: {
     noExpiration: boolean;
-    expiration: string;
+    expiration?: string;
   };
   homeVolumeDetails?: {
     selectExistingVolume: boolean;
-    volumeSize: number;
-    volumeSelect: string;
+    volumeSize?: number;
+    volumeSelect?: string;
   };
   loadData?: {
     loadDataOntoHostAtStartup: boolean;
-    runProjectSpecificSetupScript: boolean;
-    taskSync: boolean;
-    startHosts: boolean;
+    runProjectSpecificSetupScript?: boolean;
+    taskSync?: boolean;
+    startHosts?: boolean;
   };
 };
