@@ -307,9 +307,12 @@ functions:
     command: shell.exec
     params:
       working_dir: spruce
+      env:
+        AWS_ACCESS_KEY_ID: ${aws_key}
+        AWS_SECRET_ACCESS_KEY: ${aws_secret}
       script: |
-        echo "Generating .cmdrc.json"
-        REACT_APP_BUGSNAG_API_KEY=${REACT_APP_BUGSNAG_API_KEY} REACT_APP_NEW_RELIC_ACCOUNT_ID=${REACT_APP_NEW_RELIC_ACCOUNT_ID} REACT_APP_NEW_RELIC_AGENT_ID=${REACT_APP_NEW_RELIC_AGENT_ID} REACT_APP_NEW_RELIC_APPLICATION_ID=${REACT_APP_NEW_RELIC_APPLICATION_ID} REACT_APP_NEW_RELIC_LICENSE_KEY=${REACT_APP_NEW_RELIC_LICENSE_KEY} REACT_APP_NEW_RELIC_TRUST_KEY=${REACT_APP_NEW_RELIC_TRUST_KEY} REACT_APP_DEPLOYS_EMAIL=${REACT_APP_DEPLOYS_EMAIL} node cli-scripts/setup-credentials.js
+        echo "Fetching .cmdrc.json"
+        yarn fetch-config --env
 
         echo "populating evergreen.yml"
         cat <<EOF > .evergreen.yml
