@@ -26,7 +26,7 @@
     "eslint-staged": "STRICT=1 eslint -c .eslintrc.js",
     "eslint:strict": "STRICT=1 eslint -c src/.eslintrc.js 'src/**/*.ts?(x)' && eslint -c cypress/.eslintrc.js 'cypress/**/*.ts'",
     "eslint": "eslint -c src/.eslintrc.js 'src/**/*.ts?(x)' && eslint -c cypress/.eslintrc.js 'cypress/**/*.ts'",
-    "fetch-config": "node cli-scripts/get-cmdrc.js",
+    "fetch-config": "node cli-scripts/get-credentials.js",
     "notify-email": "env-cmd -e prod -r env/.cmdrc.json bash email.sh",
     "prepare": "husky install",
     "prettier": "prettier --write",

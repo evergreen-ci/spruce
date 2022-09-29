@@ -8,7 +8,7 @@ const { SecretsManagerClient, GetSecretValueCommand } = require("@aws-sdk/client
 const { writeFile } = require("fs");
 
 program
-    .name("get-cmdrc")
+    .name("get-credentials")
     .option("-e, --env", "use credentials from the environment")
     .addOption(new Option("-l, --login-profile <name>", "AWS profile to use for logging in with SSO").conflicts("env"))
     .addOption(new Option("-p, --profile <name>", "AWS profile to use for accessing secrets manager").conflicts("env"))
