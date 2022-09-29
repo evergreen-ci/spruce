@@ -5,7 +5,7 @@ import {
   SpawnHostMutationVariables,
 } from "gql/generated/types";
 import { stripNewLines } from "utils/string";
-import { DEFAULT_VOLUME_SIZE } from "./consts";
+import { DEFAULT_VOLUME_SIZE } from "./constants";
 
 interface Props {
   formData: FormState;

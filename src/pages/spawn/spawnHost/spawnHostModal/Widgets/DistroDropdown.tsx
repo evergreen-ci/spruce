@@ -4,9 +4,9 @@ import { Overline } from "@leafygreen-ui/typography";
 import SearchableDropdown, {
   SearchableDropdownProps,
 } from "components/SearchableDropdown";
+import ElementWrapper from "components/SpruceForm/ElementWrapper";
+import { SpruceWidgetProps } from "components/SpruceForm/Widgets/types";
 import { size } from "constants/tokens";
-import ElementWrapper from "../ElementWrapper";
-import { SpruceWidgetProps } from "./types";
 
 interface DistroValue {
   value: string;
@@ -29,7 +29,7 @@ interface DistroEnum {
   };
 }
 
-export const SearchableDistroDropdownWidget: React.VFC<
+export const DistroDropdown: React.VFC<
   DistroEnum &
     SpruceWidgetProps & {
       options: Pick<SearchableDropdownProps<string>, "data-cy">;

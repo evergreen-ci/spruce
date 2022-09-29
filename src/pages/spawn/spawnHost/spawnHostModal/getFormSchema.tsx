@@ -2,7 +2,6 @@ import { css } from "@emotion/react";
 import { validateTask } from "components/Spawn/utils";
 import widgets from "components/SpruceForm/Widgets";
 import { AntdSelect } from "components/SpruceForm/Widgets/AntdWidgets";
-import { SearchableDistroDropdownWidget } from "components/SpruceForm/Widgets/DistroDropdown";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
 import {
   GetMyPublicKeysQuery,
@@ -11,6 +10,7 @@ import {
 } from "gql/generated/types";
 import { GetFormSchema } from "pages/projectSettings/tabs/types";
 import { shortenGithash } from "utils/string";
+import { DistroDropdown } from "./Widgets/DistroDropdown";
 
 const getDefaultExpiration = () => {
   const nextWeek = new Date();
@@ -412,7 +412,7 @@ export const getFormSchema = ({
     },
     uiSchema: {
       distro: {
-        "ui:widget": SearchableDistroDropdownWidget,
+        "ui:widget": DistroDropdown,
         "ui:elementWrapperCSS": dropdownWrapperClassName,
         "ui:data-cy": "distro-input",
       },
