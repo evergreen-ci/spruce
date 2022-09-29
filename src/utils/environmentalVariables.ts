@@ -92,6 +92,13 @@ export const getLobsterURL = (): string =>
   process.env.REACT_APP_LOBSTER_URL || "";
 
 /**
+ * `getParsleyUrl()` - Get the Parsley URL from the environment variables
+ * @returns {string} - Returns the Parsley URL.
+ */
+export const getParsleyUrl = (): string =>
+  process.env.REACT_APP_PARSLEY_URL || "";
+
+/**
  * `getAppVersion()` - Get the app release version from the environment variables
  * @returns {string} - Returns the lobster URL.
  */
