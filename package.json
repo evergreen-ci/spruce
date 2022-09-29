@@ -26,6 +26,7 @@
     "eslint-staged": "STRICT=1 eslint -c .eslintrc.js",
     "eslint:strict": "STRICT=1 eslint -c src/.eslintrc.js 'src/**/*.ts?(x)' && eslint -c cypress/.eslintrc.js 'cypress/**/*.ts'",
     "eslint": "eslint -c src/.eslintrc.js 'src/**/*.ts?(x)' && eslint -c cypress/.eslintrc.js 'cypress/**/*.ts'",
+    "fetch-config": "node cli-scripts/get-cmdrc.js",
     "notify-email": "env-cmd -e prod -r env/.cmdrc.json bash email.sh",
     "prepare": "husky install",
     "prettier": "prettier --write",
@@ -120,6 +121,9 @@
     "react-window-infinite-loader": "^1.0.8"
   },
   "devDependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.171.0",
+    "@aws-sdk/client-sso": "^3.171.0",
+    "@aws-sdk/credential-providers": "^3.171.0",
     "@babel/core": "7.12.3",
     "@babel/parser": "^7.12.16",
     "@babel/plugin-proposal-private-property-in-object": "^7.17.12",
@@ -166,6 +170,7 @@
     "babel-preset-react-app": "^10.0.1",
     "camelcase": "^6.1.0",
     "colors": "1.4.0",
+    "commander": "^9.4.0",
     "css-loader": "4.3.0",
     "cypress": "10.3.1",
     "eslint": "8.19.0",
