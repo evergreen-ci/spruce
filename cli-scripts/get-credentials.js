@@ -2,10 +2,9 @@ const fs = require("fs/promises");
 const path = require("path");
 const util = require("util");
 const exec = util.promisify(require("child_process").exec);
-const { program, Option } = require("commander");
+const { program } = require("commander");
 const { fromIni, fromEnv } = require("@aws-sdk/credential-providers");
 const { SecretsManagerClient, GetSecretValueCommand } = require("@aws-sdk/client-secrets-manager");
-const { writeFile } = require("fs");
 
 program
     .name("get-credentials")
@@ -26,8 +25,13 @@ const options = program.opts();
             await awsLogout();
         }
     } catch (error) {
-        console.log(error.message);
-        console.log(error.error);
+        console.log("Encountered error:")
+        if ("message" in error) {
+            console.log(error.message);
+        }
+        if ("error" in error) {
+            console.log(error.error);
+        }
     }
 })();
 
@@ -44,7 +48,7 @@ async function getCredentials(env) {
         console.log(`stdout:\n${stdout}`);
         console.log(`stderr:\n${stderr}`);
         throw {
-            message: "Error logging in with AWS SSO",
+            message: "logging in with AWS SSO",
             error: error
         }
     }
@@ -59,15 +63,14 @@ async function getSecret(credentials, region, secretId) {
         var data = await smClient.send(new GetSecretValueCommand({ SecretId: secretId }));
     } catch (error) {
         throw {
-            message: "Error fetching config file from AWS",
+            message: "fetching config file from AWS",
             error: error
         }
     }
 
     if (!("SecretString" in data)) {
         throw {
-            message: `Received unexpected response from AWS:\n${data}`,
-            error: error
+            message: `unexpected response from AWS:\n${data}`
         }
     }
 
@@ -81,7 +84,7 @@ async function writeCredentialsFile(secret) {
         console.log(`Wrote config file to ${envFile}`);
     } catch (error) {
         throw {
-            message: `Error writing config file to ${envFile}`,
+            message: `writing config file to ${envFile}`,
             error: error
         }
     }
@@ -95,7 +98,7 @@ async function awsLogout() {
         console.log(`stdout:\n${stdout}`)
         console.log(`stderr:\n${stderr}`)
         throw {
-            message: "Error logging out with AWS SSO",
+            message: "logging out from AWS SSO",
             error: error
         }
     }
