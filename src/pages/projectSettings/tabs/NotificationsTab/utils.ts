@@ -78,63 +78,65 @@ const extraFieldsFormToGql = (
     return acc;
   }, {} as { [key: string]: string });
 
-export const getGqlPayload = (
-  subscription: Unpacked<FormState["subscriptions"]>
-): SubscriptionInput => {
-  const { subscriptionData } = subscription;
-  const event = projectTriggers[subscriptionData.event.eventSelect];
-  const {
-    resourceType = "",
-    trigger,
-    extraFields,
-    regexSelectors,
-    allowedSelectors,
-  } = event || {};
+export const getGqlPayload =
+  (projectId: string) =>
+  (subscription: Unpacked<FormState["subscriptions"]>): SubscriptionInput => {
+    const { subscriptionData } = subscription;
+    const event = projectTriggers[subscriptionData.event.eventSelect];
+    const {
+      resourceType = "",
+      trigger,
+      extraFields,
+      regexSelectors,
+      allowedSelectors,
+    } = event || {};
 
-  const triggerData = extraFieldsFormToGql(
-    extraFields,
-    subscriptionData.event.extraFields
-  );
+    const triggerData = extraFieldsFormToGql(
+      extraFields,
+      subscriptionData.event.extraFields
+    );
 
-  let selectors = Object.entries(triggerData).map(([key, value]) => ({
-    type: key,
-    data: value.toString(),
-  }));
-  if (allowedSelectors) {
-    selectors = selectors.filter(({ type }) => allowedSelectors.includes(type));
-  }
-  const regexData = regexFormToGql(
-    !!regexSelectors,
-    subscriptionData.event.regexSelector
-  );
+    let selectors = Object.entries(triggerData).map(([key, value]) => ({
+      type: key,
+      data: value.toString(),
+    }));
+    if (allowedSelectors) {
+      selectors = selectors.filter(({ type }) =>
+        allowedSelectors.includes(type)
+      );
+    }
+    const regexData = regexFormToGql(
+      !!regexSelectors,
+      subscriptionData.event.regexSelector
+    );
 
-  const method = subscriptionData.notification.notificationSelect;
-  const subscriber = getTargetForMethod(method, subscriptionData?.notification);
-  return {
-    id: subscriptionData.id,
-    trigger,
-    resource_type: resourceType,
-    selectors: [
-      { type: "project", data: resourceType.toLowerCase() },
-      ...selectors,
-    ],
-    trigger_data: triggerData,
-    regex_selectors: regexData || [],
-    subscriber: {
-      type: method,
-      target: subscriber,
-      webhookSubscriber:
-        method === NotificationMethods.WEBHOOK
-          ? webhookFormToGql(subscriptionData.notification?.webhookInput)
-          : undefined,
-      jiraIssueSubscriber:
-        method === NotificationMethods.JIRA_ISSUE
-          ? jiraFormToGql(subscriptionData.notification?.jiraIssueInput)
-          : undefined,
-    },
-    owner_type: "project",
+    const method = subscriptionData.notification.notificationSelect;
+    const subscriber = getTargetForMethod(
+      method,
+      subscriptionData?.notification
+    );
+    return {
+      id: subscriptionData.id,
+      trigger,
+      resource_type: resourceType,
+      selectors: [{ type: "project", data: projectId }, ...selectors],
+      trigger_data: triggerData,
+      regex_selectors: regexData || [],
+      subscriber: {
+        type: method,
+        target: subscriber,
+        webhookSubscriber:
+          method === NotificationMethods.WEBHOOK
+            ? webhookFormToGql(subscriptionData.notification?.webhookInput)
+            : undefined,
+        jiraIssueSubscriber:
+          method === NotificationMethods.JIRA_ISSUE
+            ? jiraFormToGql(subscriptionData.notification?.jiraIssueInput)
+            : undefined,
+      },
+      owner_type: "project",
+    };
   };
-};
 
 export const hasInitialError = (
   subscription: Unpacked<FormState["subscriptions"]>
