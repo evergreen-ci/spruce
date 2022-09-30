@@ -10,8 +10,8 @@ const { writeFile } = require("fs");
 program
     .name("get-credentials")
     .option("-e, --env", "use credentials from the environment")
-    .addOption(new Option("-l, --login-profile <name>", "AWS profile to use for logging in with SSO").conflicts("env"))
-    .addOption(new Option("-p, --profile <name>", "AWS profile to use for accessing secrets manager").conflicts("env"))
+    .option("-l, --login-profile <name>", "AWS profile to use for logging in with SSO")
+    .option("-p, --profile <name>", "AWS profile to use for accessing secrets manager")
     .option("-r, --region <region>", "AWS region containing the secret", "us-east-1")
     .requiredOption("-s, --secret-id <id>", "ID of the secret within AWS Secrets Manager");
 program.parse();

@@ -311,8 +311,9 @@ functions:
         AWS_ACCESS_KEY_ID: ${aws_key}
         AWS_SECRET_ACCESS_KEY: ${aws_secret}
       script: |
+        export PATH=/opt/nodejs/node-v16.13.0-linux-x64/bin:$PATH
         echo "Fetching .cmdrc.json"
-        yarn fetch-config --env
+        yarn fetch-config --env --secret-id ${config_secret_id}
 
         echo "populating evergreen.yml"
         cat <<EOF > .evergreen.yml
