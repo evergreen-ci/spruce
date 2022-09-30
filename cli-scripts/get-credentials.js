@@ -18,7 +18,7 @@ const options = program.opts();
 
 (async () => {
     try {
-        const credentials = await getCredentials(options.env)
+        const credentials = await getCredentials(options.env, options.loginProfile, options.profile)
         const secret = await getSecret(credentials, options.region, options.secretId);
         await writeCredentialsFile(secret);
         if (options.env !== true) {
@@ -35,7 +35,7 @@ const options = program.opts();
     }
 })();
 
-async function getCredentials(env) {
+async function getCredentials(env, loginProfile, profile) {
     if (env === true) {
         return fromEnv();
     }
@@ -43,16 +43,20 @@ async function getCredentials(env) {
     console.log("Signing in with AWS SSO");
     console.log("Click the allow button in the browser window to continue");
     try {
-        var { stdout, stderr } = await exec(`aws sso login --profile ${options.loginProfile}`);
+        var { stdout, stderr } = await exec(`aws sso login --profile ${loginProfile}`);
     } catch (error) {
-        console.log(`stdout:\n${stdout}`);
-        console.log(`stderr:\n${stderr}`);
+        if (stdout !== undefined) {
+            console.log(`stdout:\n${stdout}`);
+        }
+        if (stderr !== undefined) {
+            console.log(`stderr:\n${stderr}`);
+        }
         throw {
             message: "logging in with AWS SSO",
             error: error
-        }
+        };
     }
-    return fromIni({ profile: options.profile });
+    return fromIni({ profile: profile });
 }
 
 async function getSecret(credentials, region, secretId) {
@@ -65,7 +69,7 @@ async function getSecret(credentials, region, secretId) {
         throw {
             message: "fetching config file from AWS",
             error: error
-        }
+        };
     }
 
     if (!("SecretString" in data)) {
@@ -86,7 +90,7 @@ async function writeCredentialsFile(secret) {
         throw {
             message: `writing config file to ${envFile}`,
             error: error
-        }
+        };
     }
 }
 
@@ -95,11 +99,15 @@ async function awsLogout() {
         console.log("Logging out of AWS SSO session")
         var { stdout, stderr } = await exec("aws sso logout");
     } catch (error) {
-        console.log(`stdout:\n${stdout}`)
-        console.log(`stderr:\n${stderr}`)
+        if (stdout !== undefined) {
+            console.log(`stdout:\n${stdout}`);
+        }
+        if (stderr !== undefined) {
+            console.log(`stderr:\n${stderr}`);
+        }
         throw {
             message: "logging out from AWS SSO",
             error: error
-        }
+        };
     }
 }
