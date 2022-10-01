@@ -125,7 +125,7 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.17.12",
     "@babel/preset-react": "^7.12.13",
     "@bugsnag/source-maps": "^2.3.0",
-    "@emotion/babel-plugin": "^11.1.2",
+    "@emotion/babel-plugin": "^11.10.2",
     "@emotion/jest": "^11.9.1",
     "@graphql-codegen/cli": "2.7.0",
     "@graphql-codegen/typescript": "2.6.0",
