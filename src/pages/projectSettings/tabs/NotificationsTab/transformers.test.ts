@@ -11,7 +11,7 @@ describe("project data", () => {
   });
 
   it("correctly converts from a form to GQL", () => {
-    expect(formToGql(projectFormBase, "project")).toStrictEqual(
+    expect(formToGql(projectFormBase, "spruce")).toStrictEqual(
       projectResultBase
     );
     const projectForm = {
@@ -45,7 +45,7 @@ describe("project data", () => {
           selectors: [
             {
               type: "project",
-              data: "version",
+              data: "spruce",
             },
             {
               type: "requester",
@@ -66,7 +66,7 @@ describe("project data", () => {
       ],
     };
 
-    expect(formToGql(projectForm, "project")).toStrictEqual(projectResult);
+    expect(formToGql(projectForm, "spruce")).toStrictEqual(projectResult);
   });
   it("handles jira issue subscriptions", () => {
     const projectForm = {
@@ -104,7 +104,7 @@ describe("project data", () => {
           selectors: [
             {
               type: "project",
-              data: "version",
+              data: "spruce",
             },
             {
               type: "requester",
@@ -127,7 +127,7 @@ describe("project data", () => {
         },
       ],
     };
-    expect(formToGql(projectForm, "project")).toStrictEqual(projectResult);
+    expect(formToGql(projectForm, "spruce")).toStrictEqual(projectResult);
   });
   it("handles webhook subscriptions", () => {
     const projectForm = {
@@ -171,7 +171,7 @@ describe("project data", () => {
           selectors: [
             {
               type: "project",
-              data: "version",
+              data: "spruce",
             },
             {
               type: "requester",
@@ -201,7 +201,7 @@ describe("project data", () => {
       ],
     };
 
-    expect(formToGql(projectForm, "project")).toStrictEqual(projectResult);
+    expect(formToGql(projectForm, "spruce")).toStrictEqual(projectResult);
   });
 });
 
@@ -214,7 +214,7 @@ const projectFormBase: FormState = {
 
 const projectResultBase: ProjectSettingsInput = {
   projectRef: {
-    id: "project",
+    id: "spruce",
     notifyOnBuildFailure: null,
   },
   subscriptions: [],

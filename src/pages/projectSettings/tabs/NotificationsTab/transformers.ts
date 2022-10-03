@@ -149,14 +149,15 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
 
 export const formToGql: FormToGqlFunction<Tab> = (
   { buildBreakSettings, subscriptions }: FormState,
-  id
+  projectId
 ) => {
   const projectRef: ProjectInput = {
-    id,
+    id: projectId,
     notifyOnBuildFailure: buildBreakSettings.notifyOnBuildFailure,
   };
-  const transformedSubscriptions: SubscriptionInput[] =
-    subscriptions.map(getGqlPayload);
+  const transformedSubscriptions: SubscriptionInput[] = subscriptions.map(
+    getGqlPayload(projectId)
+  );
   return {
     projectRef,
     subscriptions: transformedSubscriptions,
