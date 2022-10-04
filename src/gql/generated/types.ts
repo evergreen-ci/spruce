@@ -6145,7 +6145,6 @@ export type SpawnExpirationInfoQuery = {
 
 export type GetSpawnTaskQueryVariables = Exact<{
   taskId: Scalars["String"];
-  execution?: InputMaybe<Scalars["Int"]>;
 }>;
 
 export type GetSpawnTaskQuery = {

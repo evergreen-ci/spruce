@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useQuery, useMutation, useLazyQuery } from "@apollo/client";
+import { useState } from "react";
+import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import omit from "lodash.omit";
@@ -62,15 +62,13 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   const queryParams = parseQueryString(search);
   const taskIdQueryParam = getString(queryParams.taskId);
   const distroIdQueryParam = getString(queryParams.distroId);
-  const [getSpawnTask, { data: spawnTaskData }] = useLazyQuery<
+  const { data: spawnTaskData } = useQuery<
     GetSpawnTaskQuery,
     GetSpawnTaskQueryVariables
-  >(GET_SPAWN_TASK);
-  useEffect(() => {
-    if (taskIdQueryParam && distroIdQueryParam) {
-      getSpawnTask({ variables: { taskId: taskIdQueryParam, execution: 0 } });
-    }
-  }, [taskIdQueryParam, distroIdQueryParam, getSpawnTask]);
+  >(GET_SPAWN_TASK, {
+    skip: !(taskIdQueryParam && distroIdQueryParam),
+    variables: { taskId: taskIdQueryParam },
+  });
 
   const spruceConfig = useSpruceConfig();
 
