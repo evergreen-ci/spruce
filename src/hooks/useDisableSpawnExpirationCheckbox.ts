@@ -19,7 +19,7 @@ const countNoExpirationCB = (accum: number, currItem: ListItem) =>
 
 export const useDisableSpawnExpirationCheckbox = (
   isVolume: boolean,
-  targetItem?: MyVolume | MyHost
+  targetItem?: MyVolume | MyHost // Target item represents a host or volume being edited.
 ) => {
   const { data: MyHostsData } = useQuery<MyHostsQuery, MyHostsQueryVariables>(
     GET_MY_HOSTS
@@ -42,5 +42,11 @@ export const useDisableSpawnExpirationCheckbox = (
     (isVolume ? unexpirableVolumesPerUser : unexpirableHostsPerUser) ?? 0;
 
   const maxReached = currentUnexpirableCount >= (maxUnexpirable ?? 0);
+  console.log({
+    currentUnexpirableCount,
+    unexpirableHostsPerUser,
+    unexpirableVolumesPerUser,
+    maxReached,
+  });
   return targetItem ? maxReached && !targetItem.noExpiration : maxReached;
 };
