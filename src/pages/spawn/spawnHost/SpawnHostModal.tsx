@@ -36,13 +36,16 @@ import {
 } from "gql/queries";
 import {
   useDisableSpawnExpirationCheckbox,
+  usePrevious,
   useSpruceConfig,
   useUpdateURLQueryParams,
 } from "hooks";
 import { useUserTimeZone } from "hooks/useUserTimeZone";
 import { getString, parseQueryString } from "utils/queryString";
 import { getFormSchema } from "./spawnHostModal/getFormSchema";
-import { formToGql, FormState } from "./spawnHostModal/transformer";
+import { formToGql } from "./spawnHostModal/transformer";
+import { FormState } from "./spawnHostModal/types";
+import { validateSpawnHostForm } from "./spawnHostModal/utils";
 
 interface SpawnHostModalProps {
   visible: boolean;
@@ -141,27 +144,27 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     volumes: volumesData?.myVolumes ?? [],
   });
   // Default virtual workstations to unexpirable upon selection if possible
+  const prevIsVirtualWorkStation = usePrevious(isVirtualWorkstation);
   useEffect(() => {
-    setFormState({
-      ...formState,
-      expirationDetails: {
-        noExpiration: isVirtualWorkstation && !disableExpirationCheckbox,
-      },
-    });
-  }, [isVirtualWorkstation, disableExpirationCheckbox]);
+    if (isVirtualWorkstation && !prevIsVirtualWorkStation) {
+      setFormState({
+        ...formState,
+        expirationDetails: {
+          noExpiration: isVirtualWorkstation && !disableExpirationCheckbox,
+        },
+      });
+    }
+  }, [
+    isVirtualWorkstation,
+    disableExpirationCheckbox,
+    formState,
+    prevIsVirtualWorkStation,
+  ]);
   const removeModalQueryParam = () =>
     updateQueryParams({ spawnHost: undefined });
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
     return null;
   }
-
-  // Distro, region, and public key are spawn requirements
-  const canSubmitSpawnHost =
-    formState?.distro?.value &&
-    formState?.region &&
-    (formState?.publicKeySection?.useExisting
-      ? formState?.publicKeySection?.publicKeyNameDropdown
-      : formState?.publicKeySection?.newPublicKey);
 
   const spawnHost = (e) => {
     e.preventDefault();
@@ -204,7 +207,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
         </WideButton>,
         <WideButton
           data-cy="spawn-host-button"
-          disabled={!canSubmitSpawnHost || loadingSpawnHost} // @ts-expect-error
+          disabled={!validateSpawnHostForm(formState) || loadingSpawnHost} // @ts-expect-error
           onClick={spawnHost}
           variant={Variant.Primary}
           key="spawn_host_button"

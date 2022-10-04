@@ -1,4 +1,5 @@
 import { GetSpawnTaskQuery } from "gql/generated/types";
+import { FormState } from "./types";
 
 export const validateTask = (taskData: GetSpawnTaskQuery["task"]) => {
   const {
@@ -7,4 +8,31 @@ export const validateTask = (taskData: GetSpawnTaskQuery["task"]) => {
     revision,
   } = taskData || {};
   return taskDisplayName && buildVariant && revision;
+};
+
+export const validateSpawnHostForm = ({
+  distro,
+  region,
+  publicKeySection,
+  userdataScriptSection,
+  setupScriptSection,
+  homeVolumeDetails,
+}: FormState) => {
+  const isValidHomeVolumeDetails = homeVolumeDetails?.selectExistingVolume
+    ? !!homeVolumeDetails?.volumeSelect
+    : !!homeVolumeDetails?.volumeSize;
+  return (
+    !!distro?.value &&
+    !!region &&
+    (publicKeySection?.useExisting
+      ? !!publicKeySection?.publicKeyNameDropdown
+      : !!publicKeySection?.newPublicKey) &&
+    (userdataScriptSection?.runUserdataScript
+      ? !!userdataScriptSection?.userdataScript
+      : true) &&
+    (setupScriptSection?.defineSetupScriptCheckbox
+      ? !!setupScriptSection?.setupScript
+      : true) &&
+    (distro?.isVirtualWorkstation ? isValidHomeVolumeDetails : true)
+  );
 };
