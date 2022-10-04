@@ -1,4 +1,3 @@
-import { validateTask } from "components/Spawn/utils";
 import {
   GetMyPublicKeysQuery,
   GetSpawnTaskQuery,
@@ -6,6 +5,7 @@ import {
 } from "gql/generated/types";
 import { stripNewLines } from "utils/string";
 import { DEFAULT_VOLUME_SIZE } from "./constants";
+import { validateTask } from "./utils";
 
 interface Props {
   formData: FormState;

@@ -43,7 +43,7 @@ export const LeafyGreenTextInput: React.VFC<
     elementWrapperCSS,
     optional,
     warnings,
-    type,
+    inputType,
   } = options;
 
   const { errors, hasError } = processErrors(rawErrors);
@@ -59,7 +59,7 @@ export const LeafyGreenTextInput: React.VFC<
     <ElementWrapper css={elementWrapperCSS}>
       <MaxWidthContainer>
         <StyledTextInput
-          type={type}
+          type={inputType}
           data-cy={dataCy}
           value={value === null || value === undefined ? "" : `${value}`}
           aria-labelledby={ariaLabelledBy}
@@ -97,9 +97,14 @@ const WarningText = styled.p`
   margin-top: ${size.xs};
 `;
 
-export const LeafyGreenCheckBox: React.VFC<
-  SpruceWidgetProps & { options: { customLabel?: JSX.Element } }
-> = ({ value, label, onChange, disabled, options, readonly }) => {
+export const LeafyGreenCheckBox: React.VFC<SpruceWidgetProps> = ({
+  value,
+  label,
+  onChange,
+  disabled,
+  options,
+  readonly,
+}) => {
   const {
     "data-cy": dataCy,
     tooltipDescription,

@@ -1,5 +1,4 @@
 import { css } from "@emotion/react";
-import { validateTask } from "components/Spawn/utils";
 import widgets from "components/SpruceForm/Widgets";
 import { AntdSelect } from "components/SpruceForm/Widgets/AntdWidgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
@@ -10,6 +9,7 @@ import {
 } from "gql/generated/types";
 import { GetFormSchema } from "pages/projectSettings/tabs/types";
 import { shortenGithash } from "utils/string";
+import { validateTask } from "./utils";
 import { DistroDropdown } from "./Widgets/DistroDropdown";
 
 const getDefaultExpiration = () => {
@@ -508,7 +508,7 @@ export const getFormSchema = ({
             .map((v) => v.id),
         },
         volumeSize: {
-          "ui:type": "number",
+          "ui:inputType": "number",
         },
       },
     },
