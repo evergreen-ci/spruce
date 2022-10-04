@@ -17,6 +17,7 @@ export const validateSpawnHostForm = ({
   userdataScriptSection,
   setupScriptSection,
   homeVolumeDetails,
+  expirationDetails,
 }: FormState) => {
   const isValidHomeVolumeDetails = homeVolumeDetails?.selectExistingVolume
     ? !!homeVolumeDetails?.volumeSelect
@@ -33,6 +34,7 @@ export const validateSpawnHostForm = ({
     (setupScriptSection?.defineSetupScriptCheckbox
       ? !!setupScriptSection?.setupScript
       : true) &&
-    (distro?.isVirtualWorkstation ? isValidHomeVolumeDetails : true)
+    (distro?.isVirtualWorkstation ? isValidHomeVolumeDetails : true) &&
+    (expirationDetails?.noExpiration ? true : !!expirationDetails?.expiration)
   );
 };

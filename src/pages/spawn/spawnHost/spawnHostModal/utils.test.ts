@@ -105,6 +105,26 @@ describe("validateSpawnHostForm", () => {
       })
     ).toBe(false);
   });
+  it("an expiration is required when 'Never expire' is not selected", () => {
+    expect(
+      validateSpawnHostForm({
+        ...validForm,
+        expirationDetails: {
+          noExpiration: false,
+          expiration: "2022-10-11T22:08:02.000Z",
+        },
+      })
+    ).toBe(true);
+    expect(
+      validateSpawnHostForm({
+        ...validForm,
+        expirationDetails: {
+          noExpiration: false,
+          expiration: "",
+        },
+      })
+    ).toBe(false);
+  });
 });
 
 const validForm: FormState = {
@@ -118,6 +138,9 @@ const validForm: FormState = {
     selectExistingVolume: true,
     volumeSelect: "a volume",
   },
+  expirationDetails: {
+    noExpiration: true,
+  },
 };
 const validVirtualWorkstationForm: FormState = {
   distro: { value: "ubuntu-workstation", isVirtualWorkstation: true },
@@ -129,5 +152,8 @@ const validVirtualWorkstationForm: FormState = {
   homeVolumeDetails: {
     selectExistingVolume: true,
     volumeSelect: "a volume",
+  },
+  expirationDetails: {
+    noExpiration: true,
   },
 };
