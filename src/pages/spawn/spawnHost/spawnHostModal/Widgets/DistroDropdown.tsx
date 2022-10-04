@@ -42,7 +42,7 @@ export const DistroDropdown: React.VFC<
     enumOptions,
   } = options;
 
-  const searchableOptions = enumOptions.reduce<Array<OptionValue>>(
+  const searchableOptions = enumOptions.reduce<OptionValue[]>(
     (accum, { schema, value }) => {
       const { isVirtualWorkstation } = schema;
       accum[isVirtualWorkstation ? 0 : 1].distros.push({
