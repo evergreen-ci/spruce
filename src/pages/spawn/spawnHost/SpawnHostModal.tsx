@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useQuery, useMutation, useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
+import omit from "lodash.omit";
 import { useLocation } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
 import { Modal } from "components/Modal";
@@ -165,6 +166,11 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     });
     spawnAnalytics.sendEvent({
       name: "Spawned a host",
+      params: omit(mutationInput, [
+        "publicKey",
+        "userDataScript",
+        "setUpScript",
+      ]),
     });
     spawnHostMutation({
       variables: { SpawnHostInput: mutationInput },
