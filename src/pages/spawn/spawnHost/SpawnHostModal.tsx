@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
@@ -126,12 +126,13 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   });
   const [formState, setFormState] = useState<FormState>({});
   const timezone = useUserTimeZone();
+  const isVirtualWorkstation = !!formState?.distro?.isVirtualWorkstation;
   const { schema, uiSchema } = getFormSchema({
     awsRegions: awsData?.awsRegions,
     disableExpirationCheckbox,
     distroIdQueryParam,
     distros: distrosData?.distros,
-    isVirtualWorkstation: !!formState?.distro?.isVirtualWorkstation,
+    isVirtualWorkstation,
     noExpirationCheckboxTooltip,
     publicKeys: publicKeysData?.myPublicKeys,
     spawnTaskData: spawnTaskData?.task,
@@ -139,7 +140,15 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     userAwsRegion,
     volumes: volumesData?.myVolumes ?? [],
   });
-
+  // Default virtual workstations to unexpirable upon selection if possible
+  useEffect(() => {
+    setFormState({
+      ...formState,
+      expirationDetails: {
+        noExpiration: isVirtualWorkstation && !disableExpirationCheckbox,
+      },
+    });
+  }, [isVirtualWorkstation, disableExpirationCheckbox]);
   const removeModalQueryParam = () =>
     updateQueryParams({ spawnHost: undefined });
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {

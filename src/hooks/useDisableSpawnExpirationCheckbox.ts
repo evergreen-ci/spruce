@@ -35,18 +35,12 @@ export const useDisableSpawnExpirationCheckbox = (
     ([] as ListItem[])
   ).reduce(countNoExpirationCB, 0);
 
-  const { unexpirableHostsPerUser, unexpirableVolumesPerUser } =
+  const { unexpirableVolumesPerUser, unexpirableHostsPerUser } =
     spruceConfig?.spawnHost ?? {};
 
   const maxUnexpirable =
     (isVolume ? unexpirableVolumesPerUser : unexpirableHostsPerUser) ?? 0;
 
   const maxReached = currentUnexpirableCount >= (maxUnexpirable ?? 0);
-  console.log({
-    currentUnexpirableCount,
-    unexpirableHostsPerUser,
-    unexpirableVolumesPerUser,
-    maxReached,
-  });
   return targetItem ? maxReached && !targetItem.noExpiration : maxReached;
 };

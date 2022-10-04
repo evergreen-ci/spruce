@@ -295,7 +295,6 @@ export const getFormSchema = ({
             noExpiration: {
               type: "boolean" as "boolean",
               title: "Never expire",
-              default: isVirtualWorkstation && !disableExpirationCheckbox, // only default virtual workstations to unexpirable if possible
             },
           },
           dependencies: {
