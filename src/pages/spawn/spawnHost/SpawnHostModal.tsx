@@ -208,7 +208,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
       <Footer>
         <WideButton
           // @ts-expect-error
-          onClick={onClose}
+          onClick={() => setOpen(false)}
           data-cy="cancel-button"
           key="cancel_button"
         >
