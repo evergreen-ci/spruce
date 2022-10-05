@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
@@ -17,10 +18,12 @@ interface BreadcrumbsProps {
 const Breadcrumbs: React.VFC<BreadcrumbsProps> = ({ breadcrumbs }) => (
   <Container>
     {breadcrumbs.map((bc, index) => (
-      <>
-        <BreadcrumbFragment breadcrumb={bc} key={`breadCrumb-${bc.text}`} />
-        {breadcrumbs.length - 1 !== index && <Icon glyph="ChevronRight" />}
-      </>
+      <Fragment key={`breadCrumb-${bc.text}`}>
+        <BreadcrumbFragment breadcrumb={bc} />
+        {breadcrumbs.length - 1 !== index && (
+          <Icon data-cy="breadcrumb-chevron" glyph="ChevronRight" />
+        )}
+      </Fragment>
     ))}
   </Container>
 );
