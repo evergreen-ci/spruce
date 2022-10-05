@@ -7,7 +7,7 @@ describe("Viewing a patch", () => {
     });
     it("Shows the patches name", () => {
       cy.dataCy("bc-patch").should("include.text", "Patch 234");
-      cy.dataCy("bc-message").should("include.text", "main:EVG-78");
+      cy.dataCy("bc-message").should("include.text", "main: EVG-78...ssage");
     });
     it("Clicking on the patch message breadcrumb from a task should take you to that version", () => {
       cy.dataCy("bc-message").click();
@@ -26,7 +26,7 @@ describe("Viewing a patch", () => {
     });
     it("Shows the patches name", () => {
       cy.dataCy("bc-patch").should("include.text", "Patch 1251");
-      cy.dataCy("bc-message").should("include.text", "main:EVG-78");
+      cy.dataCy("bc-message").should("include.text", "dist");
     });
     it("Clicking on the patch name breadcrumb from a task should take you to that version", () => {
       cy.dataCy("bc-message").click();
