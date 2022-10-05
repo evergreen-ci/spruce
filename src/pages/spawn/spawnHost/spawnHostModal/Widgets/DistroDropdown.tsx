@@ -8,6 +8,8 @@ import ElementWrapper from "components/SpruceForm/ElementWrapper";
 import { SpruceWidgetProps } from "components/SpruceForm/Widgets/types";
 import { size } from "constants/tokens";
 
+const { gray } = uiColors;
+
 interface DistroValue {
   value: string;
   isVirtualWorkstation: boolean;
@@ -118,7 +120,7 @@ const Option = styled(OptionContainer)`
   word-break: break-word;
   cursor: pointer;
   :hover {
-    background-color: ${uiColors.gray.light1};
+    background-color: ${gray.light1};
   }
 `;
 const StyledElementWrapper = styled(ElementWrapper)`
