@@ -1,10 +1,11 @@
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import Tooltip from "@leafygreen-ui/tooltip";
+import { Body } from "@leafygreen-ui/typography";
+import { ConditionalWrapper } from "components/ConditionalWrapper";
+import Icon from "components/Icon";
 import { StyledRouterLink } from "components/styles";
-import { H3, P1 } from "components/Typography";
-import { size } from "constants/tokens";
+import { trimStringFromMiddle } from "utils/string";
 
-const { gray } = uiColors;
 export interface Breadcrumb {
   text: string;
   to?: string;
@@ -16,50 +17,61 @@ interface BreadcrumbsProps {
 const Breadcrumbs: React.VFC<BreadcrumbsProps> = ({ breadcrumbs }) => (
   <Container>
     {breadcrumbs.map((bc, index) => (
-      <Fragment
-        breadcrumb={bc}
-        key={`breadCrumb-${bc.text}`}
-        active={breadcrumbs.length - 1 === index}
-      />
+      <>
+        <BreadcrumbFragment
+          breadcrumb={bc}
+          key={`breadCrumb-${bc.text}`}
+          active={breadcrumbs.length - 1 === index}
+        />
+        {breadcrumbs.length - 1 !== index && <Icon glyph="ChevronRight" />}
+      </>
     ))}
   </Container>
 );
 
-interface FragmentProps {
+interface BreadcrumbFragmentProps {
   breadcrumb: Breadcrumb;
   active: boolean;
 }
-const Fragment: React.VFC<FragmentProps> = ({ breadcrumb, active }) => {
+const BreadcrumbFragment: React.VFC<BreadcrumbFragmentProps> = ({
+  breadcrumb,
+  active,
+}) => {
   const { text, to, onClick, ...rest } = breadcrumb;
-
-  return active || !to ? (
-    <H3 {...rest}>{text}</H3>
-  ) : (
-    <StyledP1 {...rest}>
-      <StyledRouterLink to={to} onClick={onClick}>
-        {text}
-      </StyledRouterLink>
-    </StyledP1>
+  const shouldTrimMessage = text?.length > 25;
+  const message = shouldTrimMessage ? trimStringFromMiddle(text, 25) : text;
+  return (
+    <ConditionalWrapper
+      condition={shouldTrimMessage}
+      wrapper={(children) => (
+        <Tooltip
+          align="top"
+          justify="middle"
+          trigger={children}
+          triggerEvent="hover"
+        >
+          {text}
+        </Tooltip>
+      )}
+    >
+      {active || !to ? (
+        <Body {...rest}>{message}</Body>
+      ) : (
+        <Body {...rest}>
+          <StyledRouterLink to={to} onClick={onClick}>
+            {message}
+          </StyledRouterLink>
+        </Body>
+      )}
+    </ConditionalWrapper>
   );
 };
-
-const StyledP1 = styled(P1)`
-  display: inline-block;
-`;
 
 const Container = styled.div`
   display: flex;
   align-items: center;
   > * {
     margin-bottom: 0;
-  }
-  *:not(:last-child) {
-    ::after {
-      margin: 0 ${size.xs};
-      content: "/";
-      color: ${gray.base};
-      opacity: 0.4;
-    }
   }
 `;
 
