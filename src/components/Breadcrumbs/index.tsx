@@ -18,11 +18,7 @@ const Breadcrumbs: React.VFC<BreadcrumbsProps> = ({ breadcrumbs }) => (
   <Container>
     {breadcrumbs.map((bc, index) => (
       <>
-        <BreadcrumbFragment
-          breadcrumb={bc}
-          key={`breadCrumb-${bc.text}`}
-          active={breadcrumbs.length - 1 === index}
-        />
+        <BreadcrumbFragment breadcrumb={bc} key={`breadCrumb-${bc.text}`} />
         {breadcrumbs.length - 1 !== index && <Icon glyph="ChevronRight" />}
       </>
     ))}
@@ -31,11 +27,9 @@ const Breadcrumbs: React.VFC<BreadcrumbsProps> = ({ breadcrumbs }) => (
 
 interface BreadcrumbFragmentProps {
   breadcrumb: Breadcrumb;
-  active: boolean;
 }
 const BreadcrumbFragment: React.VFC<BreadcrumbFragmentProps> = ({
   breadcrumb,
-  active,
 }) => {
   const { text, to, onClick, ...rest } = breadcrumb;
   const shouldTrimMessage = text?.length > 25;
@@ -54,7 +48,7 @@ const BreadcrumbFragment: React.VFC<BreadcrumbFragmentProps> = ({
         </Tooltip>
       )}
     >
-      {active || !to ? (
+      {!to ? (
         <Body {...rest}>{message}</Body>
       ) : (
         <Body {...rest}>

@@ -10,7 +10,6 @@ import {
   PageSider,
 } from "components/styles";
 import TaskStatusBadge from "components/TaskStatusBadge";
-import VersionTaskPageBreadcrumbs from "components/VersionTaskPageBreadcrumbs";
 import { pollInterval } from "constants/index";
 import { useToastContext } from "context/toast";
 import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
@@ -21,6 +20,7 @@ import { PageDoesNotExist } from "pages/404";
 import { RequiredQueryParams, TaskStatus } from "types/task";
 import { queryString } from "utils";
 import { ActionButtons } from "./task/ActionButtons";
+import TaskPageBreadcrumbs from "./task/Breadcrumbs";
 import { ExecutionSelect } from "./task/executionDropdown/ExecutionSelector";
 import { Metadata } from "./task/metadata";
 import { TaskTabs } from "./task/TaskTabs";
@@ -80,7 +80,7 @@ export const Task = () => {
   return (
     <PageWrapper>
       {task && (
-        <VersionTaskPageBreadcrumbs
+        <TaskPageBreadcrumbs
           taskName={displayName}
           patchNumber={patchNumber}
           versionMetadata={versionMetadata}
