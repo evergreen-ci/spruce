@@ -22,6 +22,8 @@ export const useLegacyUIURL = (): string | null => {
       [routes.spawnVolume]: `${uiURL}/spawn#?resourcetype=volumes`,
       [`${routes.commits}/:id`]: `${uiURL}/waterfall/${id}`,
       [`${routes.projectSettings}/*`]: `${uiURL}/projects##${id}`,
+      [routes.hosts]: `${uiURL}/hosts`,
+      [routes.host]: `${uiURL}/host/${id}`,
     };
     const legacyUIKeys = Object.keys(legacyUIMap);
     for (let i = 0; i < legacyUIKeys.length; i++) {
