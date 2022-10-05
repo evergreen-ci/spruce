@@ -42,7 +42,10 @@ import {
 } from "hooks";
 import { useUserTimeZone } from "hooks/useUserTimeZone";
 import { getString, parseQueryString } from "utils/queryString";
-import { getFormSchema } from "./spawnHostModal/getFormSchema";
+import {
+  getDefaultExpiration,
+  getFormSchema,
+} from "./spawnHostModal/getFormSchema";
 import { formToGql } from "./spawnHostModal/transformer";
 import { FormState } from "./spawnHostModal/types";
 import { validateSpawnHostForm } from "./spawnHostModal/utils";
@@ -150,6 +153,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
         ...formState,
         expirationDetails: {
           noExpiration: isVirtualWorkstation && !disableExpirationCheckbox,
+          expiration: getDefaultExpiration(),
         },
       });
     }

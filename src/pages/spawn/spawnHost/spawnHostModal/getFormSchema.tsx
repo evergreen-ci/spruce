@@ -293,6 +293,7 @@ export const getFormSchema = ({
           type: "object" as "object",
           properties: {
             noExpiration: {
+              default: false,
               type: "boolean" as "boolean",
               title: "Never expire",
             },
