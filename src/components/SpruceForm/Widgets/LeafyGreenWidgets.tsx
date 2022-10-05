@@ -121,7 +121,7 @@ export const LeafyGreenCheckBox: React.VFC<SpruceWidgetProps> = ({
             {customLabel || label}
             {tooltipDescription && (
               <Tooltip
-                popoverZIndex={zIndex.max_do_not_use_tooltip}
+                popoverZIndex={zIndex.tooltip}
                 justify="middle"
                 trigger={
                   <IconContainer>

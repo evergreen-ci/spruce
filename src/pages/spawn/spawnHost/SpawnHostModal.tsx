@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
+import { Footer } from "@leafygreen-ui/modal";
 import omit from "lodash.omit";
 import { useLocation } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
-import { Modal } from "components/Modal";
+import { DisplayModal, DisplayModalProps } from "components/DisplayModal";
 import { getNoExpirationCheckboxTooltipCopy } from "components/Spawn/utils";
 import { SpruceForm } from "components/SpruceForm";
 import { size } from "constants/tokens";
@@ -38,7 +39,6 @@ import {
   useDisableSpawnExpirationCheckbox,
   usePrevious,
   useSpruceConfig,
-  useUpdateURLQueryParams,
 } from "hooks";
 import { useUserTimeZone } from "hooks/useUserTimeZone";
 import { getString, parseQueryString } from "utils/queryString";
@@ -47,16 +47,16 @@ import { formToGql } from "./spawnHostModal/transformer";
 import { FormState } from "./spawnHostModal/types";
 import { validateSpawnHostForm } from "./spawnHostModal/utils";
 
-interface SpawnHostModalProps {
-  visible: boolean;
-  onCancel: () => void;
+interface SpawnHostModalProps
+  extends Pick<DisplayModalProps, "open" | "setOpen"> {
+  onCloseCb: () => void;
 }
 
 export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
-  visible,
-  onCancel,
+  open,
+  setOpen,
+  onCloseCb,
 }) => {
-  const updateQueryParams = useUpdateURLQueryParams();
   const dispatchToast = useToastContext();
   const spawnAnalytics = useSpawnAnalytics();
 
@@ -109,11 +109,10 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   >(SPAWN_HOST, {
     onCompleted(hostMutation) {
       const { id } = hostMutation?.spawnHost ?? {};
-      onCancel();
       dispatchToast.success(`Successfully spawned host: ${id}`);
+      setOpen(false);
     },
     onError(err) {
-      onCancel();
       dispatchToast.error(
         `There was an error while spawning your host: ${err.message}`
       );
@@ -160,15 +159,19 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     formState,
     prevIsVirtualWorkStation,
   ]);
-  const removeModalQueryParam = () =>
-    updateQueryParams({ spawnHost: undefined });
+  useEffect(() => {
+    if (!open) {
+      setFormState({});
+      onCloseCb();
+    }
+  }, [open, onCloseCb]);
+
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
     return null;
   }
 
   const spawnHost = (e) => {
     e.preventDefault();
-    removeModalQueryParam();
     const mutationInput = formToGql({
       formData: formState,
       publicKeys: publicKeysData?.myPublicKeys,
@@ -186,35 +189,12 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
       variables: { SpawnHostInput: mutationInput },
     });
   };
-  const onClose = () => {
-    setFormState({});
-    onCancel();
-    removeModalQueryParam();
-  };
+
   return (
-    <Modal
+    <DisplayModal
       title="Spawn New Host"
-      visible={visible}
-      onCancel={onClose}
-      footer={[
-        <WideButton
-          // @ts-expect-error
-          onClick={onClose}
-          data-cy="cancel-button"
-          key="cancel_button"
-        >
-          Cancel
-        </WideButton>,
-        <WideButton
-          data-cy="spawn-host-button"
-          disabled={!validateSpawnHostForm(formState) || loadingSpawnHost} // @ts-expect-error
-          onClick={spawnHost}
-          variant={Variant.Primary}
-          key="spawn_host_button"
-        >
-          {loadingSpawnHost ? "Spawning Host" : "Spawn"}
-        </WideButton>,
-      ]}
+      open={open}
+      setOpen={setOpen}
       data-cy="spawn-host-modal"
     >
       <SpruceForm
@@ -225,7 +205,27 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
           setFormState(formData);
         }}
       />
-    </Modal>
+      <Footer>
+        <WideButton
+          // @ts-expect-error
+          onClick={onClose}
+          data-cy="cancel-button"
+          key="cancel_button"
+        >
+          Cancel
+        </WideButton>
+        ,
+        <WideButton
+          data-cy="spawn-host-button"
+          disabled={!validateSpawnHostForm(formState) || loadingSpawnHost} // @ts-expect-error
+          onClick={spawnHost}
+          variant={Variant.Primary}
+          key="spawn_host_button"
+        >
+          {loadingSpawnHost ? "Spawning Host" : "Spawn"}
+        </WideButton>
+      </Footer>
+    </DisplayModal>
   );
 };
 

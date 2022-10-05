@@ -12,7 +12,7 @@ import { shortenGithash } from "utils/string";
 import { validateTask } from "./utils";
 import { DistroDropdown } from "./Widgets/DistroDropdown";
 
-const getDefaultExpiration = () => {
+export const getDefaultExpiration = () => {
   const nextWeek = new Date();
   nextWeek.setDate(nextWeek.getDate() + 7);
   return nextWeek.toString();
