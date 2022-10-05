@@ -41,23 +41,11 @@ const TaskPageBreadcrumbs: React.VFC<TaskPageBreadcrumbsProps> = ({
   };
   const patchBreadcrumb = {
     text: `Patch ${patchNumber}`,
-    onClick: () => {
-      breadcrumbAnalytics.sendEvent({
-        name: "Click Link",
-        link: "version",
-      });
-    },
     "data-cy": "bc-patch",
   };
 
   const commitBreadcrumb = {
     text: shortenGithash(revision),
-    onClick: () => {
-      breadcrumbAnalytics.sendEvent({
-        name: "Click Link",
-        link: "version",
-      });
-    },
     "data-cy": "bc-version",
   };
 
