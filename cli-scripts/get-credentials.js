@@ -25,10 +25,10 @@ const options = program.opts();
         }
     } catch (error) {
         console.log("Encountered error:")
-        if ("message" in error) {
+        if (error.message !== undefined) {
             console.log(error.message);
         }
-        if ("error" in error) {
+        if (error.error !== undefined) {
             console.log(error.error);
         }
     }
@@ -44,15 +44,9 @@ function getCredentials(env, loginProfile, profile) {
     try {
         execSync(`aws sso login --profile ${loginProfile}`);
     } catch (error) {
-        if (error.stdout !== undefined) {
-            console.log(`stdout:\n${stdout}`);
-        }
-        if (error.stderr !== undefined) {
-            console.log(`stderr:\n${stderr}`);
-        }
         throw {
             message: "logging in with AWS SSO",
-            error: error
+            error: error.error
         };
     }
     return fromIni({ profile: profile });
@@ -98,15 +92,9 @@ function awsLogout() {
         console.log("Logging out of AWS SSO session")
         execSync("aws sso logout");
     } catch (error) {
-        if (error.stdout !== undefined) {
-            console.log(`stdout:\n${stdout}`);
-        }
-        if (error.stderr !== undefined) {
-            console.log(`stderr:\n${stderr}`);
-        }
         throw {
             message: "logging out from AWS SSO",
-            error: error
+            error: error.error
         };
     }
 }
