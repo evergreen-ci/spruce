@@ -135,7 +135,7 @@ describe("Navigating to Spawn Host page", () => {
         cy.location().should(({ search }) => {
           expect(search).to.not.include("spawnHost");
         });
-        cy.dataCy("spawn-host-modal").should("not.be.visible");
+        cy.dataCy("spawn-host-modal").should("not.exist");
       });
       it("Visiting the spawn host page with a taskId url param should render additional options at the bottom of the modal.", () => {
         cy.visit(
