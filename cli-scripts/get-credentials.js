@@ -1,7 +1,6 @@
-const fs = require("fs/promises");
+const fs = require("fs");
 const path = require("path");
-const util = require("util");
-const exec = util.promisify(require("child_process").exec);
+const { execSync } = require("child_process");
 const { program } = require("commander");
 const { fromIni, fromEnv } = require("@aws-sdk/credential-providers");
 const { SecretsManagerClient, GetSecretValueCommand } = require("@aws-sdk/client-secrets-manager");
@@ -18,11 +17,11 @@ const options = program.opts();
 
 (async () => {
     try {
-        const credentials = await getCredentials(options.env, options.loginProfile, options.profile)
+        const credentials = getCredentials(options.env, options.loginProfile, options.profile)
         const secret = await getSecret(credentials, options.region, options.secretId);
-        await writeCredentialsFile(secret);
+        writeCredentialsFile(secret);
         if (options.env !== true) {
-            await awsLogout();
+            awsLogout();
         }
     } catch (error) {
         console.log("Encountered error:")
@@ -35,7 +34,7 @@ const options = program.opts();
     }
 })();
 
-async function getCredentials(env, loginProfile, profile) {
+function getCredentials(env, loginProfile, profile) {
     if (env === true) {
         return fromEnv();
     }
@@ -43,12 +42,12 @@ async function getCredentials(env, loginProfile, profile) {
     console.log("Signing in with AWS SSO");
     console.log("Click the allow button in the browser window to continue");
     try {
-        var { stdout, stderr } = await exec(`aws sso login --profile ${loginProfile}`);
+        execSync(`aws sso login --profile ${loginProfile}`);
     } catch (error) {
-        if (stdout !== undefined) {
+        if (error.stdout !== undefined) {
             console.log(`stdout:\n${stdout}`);
         }
-        if (stderr !== undefined) {
+        if (error.stderr !== undefined) {
             console.log(`stderr:\n${stderr}`);
         }
         throw {
@@ -81,10 +80,10 @@ async function getSecret(credentials, region, secretId) {
     return data.SecretString;
 }
 
-async function writeCredentialsFile(secret) {
+function writeCredentialsFile(secret) {
     try {
         var envFile = path.join(__dirname, "../env", ".cmdrc.json");
-        await fs.writeFile(envFile, secret);
+        fs.writeFileSync(envFile, secret);
         console.log(`Wrote config file to ${envFile}`);
     } catch (error) {
         throw {
@@ -94,15 +93,15 @@ async function writeCredentialsFile(secret) {
     }
 }
 
-async function awsLogout() {
+function awsLogout() {
     try {
         console.log("Logging out of AWS SSO session")
-        var { stdout, stderr } = await exec("aws sso logout");
+        execSync("aws sso logout");
     } catch (error) {
-        if (stdout !== undefined) {
+        if (error.stdout !== undefined) {
             console.log(`stdout:\n${stdout}`);
         }
-        if (stderr !== undefined) {
+        if (error.stderr !== undefined) {
             console.log(`stderr:\n${stderr}`);
         }
         throw {
