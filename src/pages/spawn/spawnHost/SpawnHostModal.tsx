@@ -3,7 +3,6 @@ import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { Footer } from "@leafygreen-ui/modal";
-import omit from "lodash.omit";
 import { useLocation } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
 import { DisplayModal, DisplayModalProps } from "components/DisplayModal";
@@ -41,6 +40,7 @@ import {
   useSpruceConfig,
 } from "hooks";
 import { useUserTimeZone } from "hooks/useUserTimeZone";
+import { omit } from "utils/object";
 import { getString, parseQueryString } from "utils/queryString";
 import {
   getDefaultExpiration,
