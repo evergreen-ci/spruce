@@ -5,6 +5,7 @@ import { Body } from "@leafygreen-ui/typography";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import Icon from "components/Icon";
 import { StyledRouterLink } from "components/styles";
+import { size } from "constants/tokens";
 import { trimStringFromMiddle } from "utils/string";
 
 export interface Breadcrumb {
@@ -21,7 +22,7 @@ const Breadcrumbs: React.VFC<BreadcrumbsProps> = ({ breadcrumbs }) => (
       <Fragment key={`breadCrumb-${bc.text}`}>
         <BreadcrumbFragment breadcrumb={bc} />
         {breadcrumbs.length - 1 !== index && (
-          <Icon data-cy="breadcrumb-chevron" glyph="ChevronRight" />
+          <PaddedIcon data-cy="breadcrumb-chevron" glyph="ChevronRight" />
         )}
       </Fragment>
     ))}
@@ -35,8 +36,8 @@ const BreadcrumbFragment: React.VFC<BreadcrumbFragmentProps> = ({
   breadcrumb,
 }) => {
   const { text, to, onClick, ...rest } = breadcrumb;
-  const shouldTrimMessage = text?.length > 25;
-  const message = shouldTrimMessage ? trimStringFromMiddle(text, 25) : text;
+  const shouldTrimMessage = text.length > 25;
+  const message = trimStringFromMiddle(text, 25);
   return (
     <ConditionalWrapper
       condition={shouldTrimMessage}
@@ -46,19 +47,20 @@ const BreadcrumbFragment: React.VFC<BreadcrumbFragmentProps> = ({
           justify="middle"
           trigger={children}
           triggerEvent="hover"
+          data-cy="breadcrumb-tooltip"
         >
           {text}
         </Tooltip>
       )}
     >
-      {!to ? (
-        <Body {...rest}>{message}</Body>
-      ) : (
+      {to ? (
         <Body {...rest}>
           <StyledRouterLink to={to} onClick={onClick}>
             {message}
           </StyledRouterLink>
         </Body>
+      ) : (
+        <Body {...rest}>{message}</Body>
       )}
     </ConditionalWrapper>
   );
@@ -67,9 +69,11 @@ const BreadcrumbFragment: React.VFC<BreadcrumbFragmentProps> = ({
 const Container = styled.div`
   display: flex;
   align-items: center;
-  > * {
-    margin-bottom: 0;
-  }
+  margin-bottom: ${size.l};
+`;
+
+const PaddedIcon = styled(Icon)`
+  margin: 0 ${size.xxs};
 `;
 
 export default Breadcrumbs;

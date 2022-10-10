@@ -1,8 +1,6 @@
-import styled from "@emotion/styled";
 import { useBreadcrumbAnalytics } from "analytics";
 import Breadcrumbs, { Breadcrumb } from "components/Breadcrumbs";
 import { getVersionRoute } from "constants/routes";
-import { size } from "constants/tokens";
 import { useBreadcrumbRoot } from "hooks";
 import { shortenGithash } from "utils/string";
 
@@ -55,15 +53,7 @@ const TaskPageBreadcrumbs: React.VFC<TaskPageBreadcrumbsProps> = ({
     isPatch ? patchBreadcrumb : commitBreadcrumb,
   ];
 
-  return (
-    <Container>
-      <Breadcrumbs breadcrumbs={breadcrumbs} />
-    </Container>
-  );
+  return <Breadcrumbs breadcrumbs={breadcrumbs} />;
 };
-
-const Container = styled.div`
-  margin-bottom: ${size.s};
-`;
 
 export default TaskPageBreadcrumbs;

@@ -27,7 +27,20 @@ describe("breadcrumbs", () => {
     ).toBeInTheDocument();
     userEvent.hover(screen.getByText(trimStringFromMiddle(longMessage, 25)));
     await waitFor(() => {
-      expect(screen.getByText(longMessage)).toBeInTheDocument();
+      expect(screen.getByDataCy("breadcrumb-tooltip")).toBeInTheDocument();
+    });
+    expect(screen.getByText(longMessage)).toBeInTheDocument();
+  });
+  it("should not display a tooltip if the text is short", async () => {
+    const shortMessage = "short";
+    const breadcrumbs = [{ text: shortMessage }];
+    render(<Breadcrumbs breadcrumbs={breadcrumbs} />);
+    expect(screen.getByText(shortMessage)).toBeInTheDocument();
+    userEvent.hover(screen.getByText(shortMessage));
+    await waitFor(() => {
+      expect(
+        screen.queryByDataCy("breadcrumb-tooltip")
+      ).not.toBeInTheDocument();
     });
   });
   it("clicking on a tooltip with a link and event handler should call the event", () => {

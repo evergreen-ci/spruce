@@ -27,7 +27,7 @@ describe("Viewing a patch", () => {
         "/task/evergreen_ubuntu1604_dist_patch_33016573166a36bd5f46b4111151899d5c4e95b1_5ecedafb562343215a7ff297_20_05_27_21_39_46"
       );
     });
-    it("Shows the patches name", () => {
+    it("Shows patch name and message", () => {
       cy.dataCy("bc-patch").should("include.text", "Patch 1251");
       cy.dataCy("bc-message").should("include.text", "dist");
     });
