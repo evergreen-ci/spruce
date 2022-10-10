@@ -11,6 +11,7 @@ const TrendChartsPlugin: React.VFC<Props> = ({ taskId }) => (
   <StyledIframe
     src={`${getSignalProcessingUrl()}/task/${taskId}/performanceData`}
     title="Task Performance Data"
+    allow="clipboard-read; clipboard-write"
   />
 );
 
