@@ -15,6 +15,7 @@ import { queryString } from "utils";
 import { QueryParams } from "../types";
 
 const { parseQueryString } = queryString;
+
 export const SpawnHostButton: React.VFC = () => {
   const updateQueryParams = useUpdateURLQueryParams();
   const { data: myHostsData } = useQuery<MyHostsQuery, MyHostsQueryVariables>(
