@@ -20,10 +20,12 @@ export const DateTimePicker: React.VFC<
     ? utcToZonedTime(new Date(value), timezone)
     : new Date(value);
   const isDisabled = disabled || readonly;
-  const handleChange = (d: Date) =>
+  const handleChange = (d: Date) => {
+    console.log("on h");
     onChange(
       timezone ? zonedTimeToUtc(d, timezone).toString() : new Date(d).toString()
     );
+  };
   const disabledDate = disablePastDatetime
     ? (current) =>
         timezone
@@ -41,6 +43,8 @@ export const DateTimePicker: React.VFC<
       {description && <Description>{description}</Description>}
       <DateTimeContainer>
         <DatePicker
+          // @ts-ignore
+          getPopupContainer={getPopupContainer}
           data-cy="date-picker"
           onChange={handleChange}
           value={currentDateTime}
@@ -49,6 +53,8 @@ export const DateTimePicker: React.VFC<
           disabledDate={disabledDate}
         />
         <TimePicker
+          // @ts-ignore
+          getPopupContainer={getPopupContainer}
           data-cy="time-picker"
           onChange={handleChange}
           value={currentDateTime}
@@ -66,3 +72,6 @@ const DateTimeContainer = styled.div`
     margin-right: ${size.xs};
   }
 `;
+
+// Fixes bug where DatePicker won't handle onClick events
+const getPopupContainer = (triggerNode: HTMLElement) => triggerNode.parentNode;
