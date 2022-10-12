@@ -53,7 +53,7 @@ export const DateTimePicker: React.VFC<
           disabledDate={disabledDate}
         />
         <TimePicker
-          // @ts-ignore
+          // @ts-expect-error
           getPopupContainer={getPopupContainer}
           data-cy="time-picker"
           onChange={handleChange}
