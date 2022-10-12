@@ -28,6 +28,7 @@ export const taskQuery = {
       project: "spruce",
       projectIdentifier: "spruce",
       order: 1,
+      message: "ubuntu_e2e_task",
     },
     requester: "github_pull_request",
     patchNumber: 417,

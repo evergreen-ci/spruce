@@ -5754,6 +5754,7 @@ export type GetTaskQuery = {
       project: string;
       projectIdentifier: string;
       order: number;
+      message: string;
     };
     project?: Maybe<{ identifier: string }>;
     dependsOn?: Maybe<
