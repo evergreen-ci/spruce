@@ -23,9 +23,9 @@ describe("breadcrumbs", () => {
     expect(screen.queryByText(longMessage)).not.toBeInTheDocument();
 
     expect(
-      screen.getByText(trimStringFromMiddle(longMessage, 25))
+      screen.getByText(trimStringFromMiddle(longMessage, 30))
     ).toBeInTheDocument();
-    userEvent.hover(screen.getByText(trimStringFromMiddle(longMessage, 25)));
+    userEvent.hover(screen.getByText(trimStringFromMiddle(longMessage, 30)));
     await waitFor(() => {
       expect(screen.getByDataCy("breadcrumb-tooltip")).toBeInTheDocument();
     });
