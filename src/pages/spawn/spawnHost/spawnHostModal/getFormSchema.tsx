@@ -324,66 +324,68 @@ export const getFormSchema = ({
             },
           },
         },
-        homeVolumeDetails: {
-          type: "object" as "object",
-          title: isVirtualWorkstation && "Virtual Workstation",
-          properties: {
-            selectExistingVolume: {
-              title: "Volume selection",
-              type: "boolean" as "boolean",
-              default: true,
-              oneOf: [
-                {
-                  type: "boolean" as "boolean",
-                  title: "Attach existing volume",
-                  enum: [true],
-                },
-                {
-                  type: "boolean" as "boolean",
-                  title: "Attach new volume",
-                  enum: [false],
-                },
-              ],
+        ...(isVirtualWorkstation && {
+          homeVolumeDetails: {
+            type: "object" as "object",
+            title: "Virtual Workstation",
+            properties: {
+              selectExistingVolume: {
+                title: "Volume selection",
+                type: "boolean" as "boolean",
+                default: true,
+                oneOf: [
+                  {
+                    type: "boolean" as "boolean",
+                    title: "Attach existing volume",
+                    enum: [true],
+                  },
+                  {
+                    type: "boolean" as "boolean",
+                    title: "Attach new volume",
+                    enum: [false],
+                  },
+                ],
+              },
             },
-          },
-          dependencies: {
-            selectExistingVolume: {
-              oneOf: [
-                {
-                  properties: {
-                    selectExistingVolume: {
-                      enum: [true],
-                    },
-                    volumeSelect: {
-                      title: "Volume",
-                      type: "string" as "string",
-                      default: "",
-                      oneOf: volumes
-                        ?.filter((v) => v.homeVolume && !v.hostID)
-                        ?.map((v) => ({
-                          type: "string" as "string",
-                          title: `(${v.size}GB) ${v.displayName || v.id}`,
-                          enum: [v.id],
-                        })),
+            dependencies: {
+              selectExistingVolume: {
+                oneOf: [
+                  {
+                    properties: {
+                      selectExistingVolume: {
+                        enum: [true],
+                      },
+                      volumeSelect: {
+                        title: "Volume",
+                        type: "string" as "string",
+                        default: "",
+                        oneOf: volumes
+                          ?.filter((v) => v.homeVolume && !v.hostID)
+                          ?.map((v) => ({
+                            type: "string" as "string",
+                            title: `(${v.size}GB) ${v.displayName || v.id}`,
+                            enum: [v.id],
+                          })),
+                      },
                     },
                   },
-                },
-                {
-                  properties: {
-                    selectExistingVolume: {
-                      enum: [false],
-                    },
-                    volumeSize: {
-                      title: "Volume size (GB)",
-                      type: "number" as "number",
-                      default: 500,
+                  {
+                    properties: {
+                      selectExistingVolume: {
+                        enum: [false],
+                      },
+                      volumeSize: {
+                        title: "Volume size (GB)",
+                        type: "number" as "number",
+                        default: 500,
+                      },
                     },
                   },
-                },
-              ],
+                ],
+              },
             },
           },
-        },
+        }),
       },
       dependencies: {
         runUserdataScript: {
@@ -495,22 +497,26 @@ export const getFormSchema = ({
           },
         },
       }),
-      homeVolumeDetails: {
-        selectExistingVolume: {
-          "ui:widget": isVirtualWorkstation ? widgets.RadioBoxWidget : "hidden",
+      ...(isVirtualWorkstation && {
+        homeVolumeDetails: {
+          selectExistingVolume: {
+            "ui:widget": isVirtualWorkstation
+              ? widgets.RadioBoxWidget
+              : "hidden",
+          },
+          volumeSelect: {
+            "ui:widget": isVirtualWorkstation ? AntdSelect : "hidden",
+            "ui:allowDeselect": false,
+            "ui:data-cy": "volume-select",
+            "ui:disabledEnums": volumes
+              .filter((v) => !!v.hostID)
+              .map((v) => v.id),
+          },
+          volumeSize: {
+            "ui:inputType": "number",
+          },
         },
-        volumeSelect: {
-          "ui:widget": isVirtualWorkstation ? AntdSelect : "hidden",
-          "ui:allowDeselect": false,
-          "ui:data-cy": "volume-select",
-          "ui:disabledEnums": volumes
-            .filter((v) => !!v.hostID)
-            .map((v) => v.id),
-        },
-        volumeSize: {
-          "ui:inputType": "number",
-        },
-      },
+      }),
     },
   };
 };
