@@ -209,7 +209,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
           setFormState(formData);
         }}
       />
-      <Footer>
+      <StyledFooter>
         <WideButton
           // @ts-expect-error
           onClick={() => setOpen(false)}
@@ -218,7 +218,6 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
         >
           Cancel
         </WideButton>
-        ,
         <WideButton
           data-cy="spawn-host-button"
           disabled={!validateSpawnHostForm(formState) || loadingSpawnHost} // @ts-expect-error
@@ -228,7 +227,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
         >
           {loadingSpawnHost ? "Spawning Host" : "Spawn"}
         </WideButton>
-      </Footer>
+      </StyledFooter>
     </DisplayModal>
   );
 };
@@ -238,4 +237,8 @@ const WideButton = styled(Button)`
   justify-content: center;
   margin-left: ${size.s};
   width: 140px;
+`;
+
+const StyledFooter = styled(Footer)`
+  margin-top: 8px;
 `;
