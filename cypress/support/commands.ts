@@ -84,7 +84,7 @@ Cypress.Commands.add("toggleTableFilter", (colNum: number) => {
 /* validateToast */
 Cypress.Commands.add(
   "validateToast",
-  (status: string, message?: string, shouldClose: boolean = true) => {
+  (status: string, message: string = "", shouldClose: boolean = true) => {
     cy.dataCy(`toast`).should("be.visible");
     cy.dataCy("toast").should("have.attr", "data-variant", status);
     if (message) {
