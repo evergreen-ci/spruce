@@ -51,14 +51,11 @@ import { FormState } from "./spawnHostModal/types";
 import { validateSpawnHostForm } from "./spawnHostModal/utils";
 
 interface SpawnHostModalProps
-  extends Pick<DisplayModalProps, "open" | "setOpen"> {
-  onCloseCb: () => void;
-}
+  extends Pick<DisplayModalProps, "open" | "setOpen"> {}
 
 export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   open,
   setOpen,
-  onCloseCb,
 }) => {
   const dispatchToast = useToastContext();
   const spawnAnalytics = useSpawnAnalytics();
@@ -163,12 +160,12 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     formState,
     prevIsVirtualWorkStation,
   ]);
+
   useEffect(() => {
     if (!open) {
       setFormState({});
-      onCloseCb();
     }
-  }, [open, onCloseCb]);
+  }, [open]);
 
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
     return null;

@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
@@ -36,10 +36,12 @@ export const SpawnHostButton: React.VFC = () => {
   );
   const currentHostCount = nonTerminatedHosts?.length || 0;
   const reachedMaxNumHosts = currentHostCount >= maxHosts;
-  const removeModalQueryParam = useCallback(
-    () => updateQueryParams({ spawnHost: undefined }),
-    [updateQueryParams]
-  );
+  useEffect(() => {
+    if (!openModal) {
+      updateQueryParams({ spawnHost: undefined });
+    }
+  }, [openModal, updateQueryParams]);
+
   return (
     <PaddedContainer>
       <Tooltip
@@ -64,11 +66,7 @@ export const SpawnHostButton: React.VFC = () => {
       >
         {`You have reached the maximum number of hosts (${maxHosts}). Delete some hosts to spawn more.`}
       </Tooltip>
-      <SpawnHostModal
-        open={openModal}
-        setOpen={setOpenModal}
-        onCloseCb={removeModalQueryParam}
-      />
+      <SpawnHostModal open={openModal} setOpen={setOpenModal} />
     </PaddedContainer>
   );
 };
