@@ -20,15 +20,20 @@ interface TaskPageBreadcrumbsProps {
 const TaskPageBreadcrumbs: React.VFC<TaskPageBreadcrumbsProps> = ({
   versionMetadata,
   patchNumber,
+  taskName,
 }) => {
   const { isPatch, author, projectIdentifier, id, message, revision } =
     versionMetadata ?? {};
   const breadcrumbRoot = useBreadcrumbRoot(isPatch, author, projectIdentifier);
   const breadcrumbAnalytics = useBreadcrumbAnalytics();
 
+  const messagePrefix = isPatch
+    ? `Patch ${patchNumber}`
+    : shortenGithash(revision);
+
   const messageBreadcrumb = {
     to: getVersionRoute(id),
-    text: message,
+    text: `${messagePrefix} - ${message}`,
     onClick: () => {
       breadcrumbAnalytics.sendEvent({
         name: "Click Link",
@@ -37,20 +42,16 @@ const TaskPageBreadcrumbs: React.VFC<TaskPageBreadcrumbsProps> = ({
     },
     "data-cy": "bc-message",
   };
-  const patchBreadcrumb = {
-    text: `Patch ${patchNumber}`,
-    "data-cy": "bc-patch",
-  };
 
-  const commitBreadcrumb = {
-    text: shortenGithash(revision),
-    "data-cy": "bc-version",
+  const taskBreadcrumb = {
+    text: taskName,
+    "data-cy": "bc-task",
   };
 
   const breadcrumbs: Breadcrumb[] = [
     breadcrumbRoot,
     messageBreadcrumb,
-    isPatch ? patchBreadcrumb : commitBreadcrumb,
+    taskBreadcrumb,
   ];
 
   return <Breadcrumbs breadcrumbs={breadcrumbs} />;

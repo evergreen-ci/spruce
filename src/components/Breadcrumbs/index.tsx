@@ -36,8 +36,8 @@ const BreadcrumbFragment: React.VFC<BreadcrumbFragmentProps> = ({
   breadcrumb,
 }) => {
   const { text = "", to, onClick, ...rest } = breadcrumb;
-  const shouldTrimMessage = text.length > 25;
-  const message = trimStringFromMiddle(text, 25);
+  const shouldTrimMessage = text.length > 30;
+  const message = trimStringFromMiddle(text, 30);
   return (
     <ConditionalWrapper
       condition={shouldTrimMessage}
