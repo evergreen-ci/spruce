@@ -20,7 +20,7 @@ const testSharedSubscriptionModalFunctionality = (
       cy.dataCy("jira-comment-input").type("EVG-2000");
       cy.dataCy("save-subscription-button").should("not.be.disabled");
       cy.dataCy("save-subscription-button").click();
-      cy.dataCy(toastDataCy).contains(successText);
+      cy.validateToast("success", successText);
     });
 
     describe("Disables save button and displays an error message when populating form with invalid values", () => {
@@ -85,7 +85,7 @@ const testSharedSubscriptionModalFunctionality = (
         errorMessage: "error",
       });
       cy.dataCy("save-subscription-button").click();
-      cy.dataCy(toastDataCy).contains("error");
+      cy.validateToast("error");
     });
 
     it("Hides the modal after clicking the cancel button", () => {
@@ -111,7 +111,6 @@ const testSharedSubscriptionModalFunctionality = (
       cy.clearCookie(triggerCookie);
     });
 
-    const toastDataCy = "toast";
     const successText = "Your subscription has been added";
     const errorTextPercent = "Value should be >= 0";
     const errorTextDuration = "Value should be >= 0";

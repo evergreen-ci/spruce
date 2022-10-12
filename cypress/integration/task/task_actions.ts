@@ -14,6 +14,7 @@ describe("Task Action Buttons", () => {
     });
 
     it("Clicking Unschedule button should unschedule a task and display a success toast", () => {
+      cy.dataCy("ellipsis-btn").should("be.visible").should("not.be.disabled");
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("unschedule-task").click();
@@ -21,6 +22,7 @@ describe("Task Action Buttons", () => {
     });
 
     it("Abort button should be disabled on completed tasks", () => {
+      cy.dataCy("ellipsis-btn").should("be.visible").should("not.be.disabled");
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("abort-task").should("have.attr", "disabled");
@@ -41,6 +43,7 @@ describe("Task Action Buttons", () => {
     it("Should be able to abort an incomplete task", () => {
       cy.visit(tasks[2]);
 
+      cy.dataCy("ellipsis-btn").should("be.visible").should("not.be.disabled");
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("abort-task").click();
@@ -50,6 +53,8 @@ describe("Task Action Buttons", () => {
 
     it("Should correctly disable/enable the task when clicked", () => {
       cy.visit(tasks[1]);
+
+      cy.dataCy("ellipsis-btn").should("be.visible").should("not.be.disabled");
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("disable-enable").click();
@@ -57,6 +62,7 @@ describe("Task Action Buttons", () => {
 
       cy.validateToast("success", "Task was successfully disabled");
 
+      cy.dataCy("ellipsis-btn").should("be.visible").should("not.be.disabled");
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("disable-enable").click();

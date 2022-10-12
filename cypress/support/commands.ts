@@ -94,6 +94,7 @@ Cypress.Commands.add(
       cy.dataCy("toast").within(() => {
         cy.get("button[aria-label='Close Message']").click();
       });
+      cy.dataCy("toast").should("not.exist");
     }
   }
 );
