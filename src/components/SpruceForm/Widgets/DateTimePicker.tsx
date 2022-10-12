@@ -4,6 +4,7 @@ import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
 import DatePicker from "components/DatePicker";
 import TimePicker from "components/TimePicker";
 import { size } from "constants/tokens";
+import ElementWrapper from "../ElementWrapper";
 import { SpruceWidgetProps } from "./types";
 
 export const DateTimePicker: React.VFC<
@@ -13,12 +14,18 @@ export const DateTimePicker: React.VFC<
       timezone?: string;
     };
   } & SpruceWidgetProps
-> = ({ disabled, id, label, onChange, options, readonly, value }) => {
-  const { description, disablePastDatetime, showLabel, timezone } = options;
+> = ({ disabled, id, label, onChange, options, readonly, value = "" }) => {
+  const {
+    description,
+    disablePastDatetime,
+    showLabel,
+    timezone,
+    elementWrapperCSS,
+  } = options;
 
   const currentDateTime = timezone
-    ? utcToZonedTime(new Date(value), timezone)
-    : new Date(value);
+    ? utcToZonedTime(new Date(value || null), timezone)
+    : new Date(value || null);
   const isDisabled = disabled || readonly;
   const handleChange = (d: Date) => {
     onChange(
@@ -33,7 +40,7 @@ export const DateTimePicker: React.VFC<
     : undefined;
 
   return (
-    <>
+    <ElementWrapper css={elementWrapperCSS}>
       {showLabel !== false && (
         <Label disabled={isDisabled} htmlFor={id}>
           {label}
@@ -62,7 +69,7 @@ export const DateTimePicker: React.VFC<
           disabledDate={disabledDate}
         />
       </DateTimeContainer>
-    </>
+    </ElementWrapper>
   );
 };
 

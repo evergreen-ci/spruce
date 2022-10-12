@@ -463,6 +463,7 @@ export const getFormSchema = ({
           "ui:disablePastDatetime": true,
           "ui:timezone": timezone,
           "ui:widget": "date-time",
+          "ui:elementWrapperCSS": datePickerCSS,
         },
       },
       ...(hasValidTask && {
@@ -539,4 +540,8 @@ const childCheckboxCSS = css`
 `;
 const loadDataFieldSetCSS = css`
   margin-bottom: 20px;
+`;
+const datePickerCSS = css`
+  position: relative;
+  z-index: 1;
 `;
