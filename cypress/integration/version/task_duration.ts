@@ -1,7 +1,7 @@
-const patch = "5e4ff3abe3c3317e352062e4";
-const TASK_DURATION_ROUTE = `/version/${patch}/task-duration`;
-
 describe("Task Duration Tab", () => {
+  const patch = "5e4ff3abe3c3317e352062e4";
+  const TASK_DURATION_ROUTE = `/version/${patch}/task-duration`;
+
   describe("when interacting with the filters on the page", () => {
     it("updates URL appropriately when task name filter is applied", () => {
       cy.visit(TASK_DURATION_ROUTE);
