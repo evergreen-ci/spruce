@@ -17,7 +17,6 @@ describe("Task Action Buttons", () => {
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("unschedule-task").click();
-
       cy.validateToast("success", unscheduleSuccessBannerText);
     });
 
