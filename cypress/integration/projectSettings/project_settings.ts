@@ -46,7 +46,7 @@ describe("Access page", () => {
       .first()
       .type("admin");
     cy.dataCy("save-settings-button").should("be.enabled").click();
-    cy.validateToast("success", "Successfully updated project", true);
+    cy.validateToast("success", "Successfully updated project");
     cy.visit(destination);
     cy.get("label")
       .contains("Private")
@@ -81,15 +81,14 @@ describe("Access page", () => {
     cy.dataCy("save-settings-button").should("be.enabled").click();
     cy.validateToast(
       "error",
-      "There was an error saving the project: error updating project admin roles: no admin role for project 'spruce' found",
-      true
+      "There was an error saving the project: error updating project admin roles: no admin role for project 'spruce' found"
     );
   });
 
   it("Clicking on 'Default to Repo on Page' selects the 'Default to repo (public)' checkbox and produces a success banner", () => {
     cy.dataCy("default-to-repo-button").click();
     cy.dataCy("default-to-repo-modal").contains("Confirm").click();
-    cy.validateToast("success", "Successfully defaulted page to repo", true);
+    cy.validateToast("success", "Successfully defaulted page to repo");
     cy.get("label")
       .contains("Default to repo (public)")
       .closest("label")
@@ -148,7 +147,7 @@ describe("Repo Settings", () => {
 
   it("Clicking on save button should show a success toast", () => {
     cy.dataCy("save-settings-button").click();
-    cy.validateToast("success", "Successfully updated repo", true);
+    cy.validateToast("success", "Successfully updated repo");
   });
 
   describe("GitHub/Commit Queue page", () => {
@@ -258,7 +257,7 @@ describe("Repo Settings", () => {
 
     it("Successfully saves the page", () => {
       cy.dataCy("save-settings-button").click();
-      cy.validateToast("success", "Successfully updated repo", true);
+      cy.validateToast("success", "Successfully updated repo");
     });
   });
 
@@ -289,7 +288,7 @@ describe("Repo Settings", () => {
       cy.dataCy("task-tags-input").first().type("alias task tag");
 
       cy.dataCy("save-settings-button").click();
-      cy.validateToast("success", "Successfully updated repo", true);
+      cy.validateToast("success", "Successfully updated repo");
     });
 
     it("Shows the alias name in the card title upon save", () => {
@@ -310,7 +309,7 @@ describe("Repo Settings", () => {
       cy.dataCy("github-trigger-alias-checkbox").check({ force: true });
 
       cy.dataCy("save-settings-button").click();
-      cy.validateToast("success", "Successfully updated repo", true);
+      cy.validateToast("success", "Successfully updated repo");
 
       cy.dataCy("save-settings-button").should("be.disabled");
     });
@@ -332,14 +331,14 @@ describe("Repo Settings", () => {
       cy.dataCy("command-input").eq(1).type("command 2");
 
       cy.dataCy("save-settings-button").click();
-      cy.validateToast("success", "Successfully updated repo", true);
+      cy.validateToast("success", "Successfully updated repo");
     });
 
     it("Reorders the commands", () => {
       cy.dataCy("array-down-button").click();
 
       cy.dataCy("save-settings-button").scrollIntoView().click();
-      cy.validateToast("success", "Successfully updated repo", true);
+      cy.validateToast("success", "Successfully updated repo");
 
       cy.dataCy("command-input").first().should("have.value", "command 2");
       cy.dataCy("command-input").eq(1).should("have.value", "command 1");
@@ -394,7 +393,7 @@ describe("Project Settings when not defaulting to repo", () => {
       .contains("Attach")
       .parent()
       .click();
-    cy.validateToast("success", "Successfully attached to repo", true);
+    cy.validateToast("success", "Successfully attached to repo");
   });
 
   it("Successfully detaches from repo", () => {
@@ -404,7 +403,7 @@ describe("Project Settings when not defaulting to repo", () => {
       .contains("Detach")
       .parent()
       .click();
-    cy.validateToast("success", "Successfully detached from repo", true);
+    cy.validateToast("success", "Successfully detached from repo");
   });
 
   describe("Variables page", () => {
@@ -492,7 +491,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("remote-path-input").type("./evergreen.yml");
 
       cy.dataCy("save-settings-button").click();
-      cy.validateToast("success", "Successfully updated project", true);
+      cy.validateToast("success", "Successfully updated project");
     });
 
     it("Shows the saved Git Tag", () => {
@@ -521,7 +520,7 @@ describe("Project Settings when not defaulting to repo", () => {
     it("Saves when a number is entered", () => {
       cy.dataCy("interval-input").clear().type("12");
       cy.dataCy("save-settings-button").click();
-      cy.validateToast("success", "Successfully updated project", true);
+      cy.validateToast("success", "Successfully updated project");
     });
   });
 
@@ -590,13 +589,13 @@ describe("Project Settings when defaulting to repo", () => {
 
     it("Clicking on save button should show a success toast", () => {
       cy.dataCy("save-settings-button").click();
-      cy.validateToast("success", "Successfully updated project", true);
+      cy.validateToast("success", "Successfully updated project");
     });
 
     it("Saves when batch time is updated", () => {
       cy.dataCy("batch-time-input").type("12");
       cy.dataCy("save-settings-button").click();
-      cy.validateToast("success", "Successfully updated project", true);
+      cy.validateToast("success", "Successfully updated project");
     });
   });
 
@@ -707,7 +706,7 @@ describe("Project Settings when defaulting to repo", () => {
 
     it("Returns an error on save because no commit check definitions are defined", () => {
       cy.dataCy("save-settings-button").click();
-      cy.validateToast("error", undefined, true);
+      cy.validateToast("error");
     });
 
     it("Disabling commit checks saves successfully", () => {
@@ -716,7 +715,7 @@ describe("Project Settings when defaulting to repo", () => {
       });
 
       cy.dataCy("save-settings-button").click();
-      cy.validateToast("success", "Successfully updated project", true);
+      cy.validateToast("success", "Successfully updated project");
     });
 
     it("Defaults to repo", () => {
@@ -727,7 +726,7 @@ describe("Project Settings when defaulting to repo", () => {
         .contains("Confirm")
         .parent()
         .click();
-      cy.validateToast("success", "Successfully defaulted page to repo", true);
+      cy.validateToast("success", "Successfully defaulted page to repo");
     });
 
     it("Again shows the repo's disabled patch definition", () => {
@@ -786,7 +785,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("task-tags-input").first().type("alias task tag 3");
 
       cy.dataCy("save-settings-button").click();
-      cy.validateToast("success", "Successfully updated project", true);
+      cy.validateToast("success", "Successfully updated project");
     });
 
     it("Allows defaulting to repo patch aliases", () => {
@@ -795,7 +794,7 @@ describe("Project Settings when defaulting to repo", () => {
       });
 
       cy.dataCy("save-settings-button").click();
-      cy.validateToast("success", "Successfully updated project", true);
+      cy.validateToast("success", "Successfully updated project");
 
       cy.dataCy("save-settings-button").should("be.disabled");
       cy.dataCy("expandable-card-title").contains("my alias name");
@@ -827,7 +826,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.getInputByLabel("Override Repo Commands").click({ force: true });
 
       cy.dataCy("save-settings-button").click();
-      cy.validateToast("success", "Successfully updated project", true);
+      cy.validateToast("success", "Successfully updated project");
 
       cy.getInputByLabel("Override Repo Commands").should("be.checked");
     });
@@ -849,7 +848,7 @@ describe("Attaching Spruce to a repo", () => {
     // cy.dataCy("attach-repo-button").should("be.disabled");
 
     cy.dataCy("save-settings-button").click();
-    cy.validateToast("success", "Successfully updated project", true);
+    cy.validateToast("success", "Successfully updated project");
   });
 
   it("Attaches to new repo", () => {
@@ -859,7 +858,7 @@ describe("Attaching Spruce to a repo", () => {
       .contains("Attach")
       .parent()
       .click();
-    cy.validateToast("success", "Successfully attached to repo", true);
+    cy.validateToast("success", "Successfully attached to repo");
   });
 
   describe("GitHub/Commit Queue page", () => {
@@ -914,7 +913,7 @@ describe("Renaming the identifier", () => {
 
   it("Successfully saves", () => {
     cy.dataCy("save-settings-button").click();
-    cy.validateToast("success", undefined, true);
+    cy.validateToast("success", "Successfully updated project");
   });
 
   it("Redirects to a new URL", () => {
@@ -940,7 +939,7 @@ describe("Duplicating a project with errors", () => {
   it("Successfully copies the project and shows a warning toast", () => {
     cy.dataCy("project-name-input").type("copied-project");
     cy.get("button").contains("Duplicate").parent().click();
-    cy.validateToast("warning", undefined, true);
+    cy.validateToast("warning");
   });
 
   it("Redirects to a new URL", () => {
@@ -995,7 +994,7 @@ describe("Notifications", () => {
       "contain.text",
       "Version outcome  - mohamed.khelif@mongodb.com"
     );
-    cy.validateToast("success", "Successfully updated project", true);
+    cy.validateToast("success", "Successfully updated project");
   });
   it("should be able to delete a subscription", () => {
     cy.dataCy("expandable-card").should("exist");
@@ -1005,7 +1004,7 @@ describe("Notifications", () => {
     cy.dataCy("save-settings-button").scrollIntoView();
     cy.dataCy("save-settings-button").should("not.be.disabled");
     cy.dataCy("save-settings-button").click();
-    cy.validateToast("success", "Successfully updated project", true);
+    cy.validateToast("success", "Successfully updated project");
   });
   it("should not be able to combine a jira comment subscription with a task event", () => {
     cy.dataCy("expandable-card").should("not.exist");
