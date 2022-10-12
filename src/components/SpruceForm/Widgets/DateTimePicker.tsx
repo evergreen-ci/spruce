@@ -21,7 +21,6 @@ export const DateTimePicker: React.VFC<
     : new Date(value);
   const isDisabled = disabled || readonly;
   const handleChange = (d: Date) => {
-    console.log("on h");
     onChange(
       timezone ? zonedTimeToUtc(d, timezone).toString() : new Date(d).toString()
     );
