@@ -566,6 +566,7 @@ export type Mutation = {
   forceRepotrackerRun: Scalars["Boolean"];
   moveAnnotationIssue: Scalars["Boolean"];
   overrideTaskDependencies: Task;
+  promoteVarsToRepo: Scalars["Boolean"];
   removeAnnotationIssue: Scalars["Boolean"];
   removeFavoriteProject: Project;
   removeItemFromCommitQueue?: Maybe<Scalars["String"]>;
@@ -685,6 +686,11 @@ export type MutationMoveAnnotationIssueArgs = {
 
 export type MutationOverrideTaskDependenciesArgs = {
   taskId: Scalars["String"];
+};
+
+export type MutationPromoteVarsToRepoArgs = {
+  projectId: Scalars["String"];
+  varNames: Array<Scalars["String"]>;
 };
 
 export type MutationRemoveAnnotationIssueArgs = {
@@ -3381,6 +3387,13 @@ export type OverrideTaskDependenciesMutationVariables = Exact<{
 export type OverrideTaskDependenciesMutation = {
   overrideTaskDependencies: { id: string; execution: number; status: string };
 };
+
+export type PromoteVarsToRepoMutationVariables = Exact<{
+  projectId: Scalars["String"];
+  varNames: Array<Scalars["String"]>;
+}>;
+
+export type PromoteVarsToRepoMutation = { promoteVarsToRepo: boolean };
 
 export type RemoveAnnotationIssueMutationVariables = Exact<{
   taskId: Scalars["String"];

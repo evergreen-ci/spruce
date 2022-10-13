@@ -7,7 +7,8 @@ import { VariableRow } from "./VariableRow";
 
 export const getFormSchema = (
   projectType: ProjectType,
-  repoData?: FormState
+  repoData?: FormState,
+  modalButton?: JSX.Element
 ): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -50,7 +51,7 @@ export const getFormSchema = (
       ...(repoData && {
         repoData: {
           type: "object" as "object",
-          title: "Repo Project Variables",
+          title: "Repo Variables",
           ...(repoData.vars.length === 0 && {
             description: "Repo has no variables defined.",
           }),
@@ -64,10 +65,11 @@ export const getFormSchema = (
   uiSchema: {
     "ui:ObjectFieldTemplate": CardFieldTemplate,
     vars: {
-      "ui:addButtonText": "Add Variables",
+      "ui:addButtonText": "Add variables",
       "ui:description": getDescription(projectType),
       "ui:fullWidth": true,
       "ui:orderable": false,
+      "ui:secondaryButton": modalButton,
       "ui:showLabel": false,
       items: {
         "ui:ObjectFieldTemplate": VariableRow,
