@@ -97,6 +97,7 @@ export const PromoteVariablesModal: React.VFC<Props> = ({
   return (
     <ConfirmationModal
       buttonText={getButtonText(selected.size)}
+      data-cy="promote-vars-modal"
       onCancel={handleClose}
       onConfirm={onConfirm}
       open={open}
@@ -114,6 +115,7 @@ export const PromoteVariablesModal: React.VFC<Props> = ({
       </SelectAllContainer>
       {variables.map(({ name, inRepo }) => (
         <Checkbox
+          data-cy="move-var-checkbox"
           key={name}
           label={
             <>
@@ -131,10 +133,11 @@ export const PromoteVariablesModal: React.VFC<Props> = ({
 
 const DuplicateVarTooltip: React.VFC = () => (
   <Tooltip
+    data-cy="duplicate-var-tooltip"
     justify="middle"
     popoverZIndex={zIndex.tooltip}
     trigger={
-      <IconContainer>
+      <IconContainer data-cy="duplicate-var-icon">
         <Icon glyph="ImportantWithCircle" size="small" />
       </IconContainer>
     }
