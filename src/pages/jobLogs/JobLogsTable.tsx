@@ -138,7 +138,7 @@ export const JobLogsTable: React.VFC<JobLogsTableProps> = ({
           )}
         </Table>
       </TableWrapper>
-      {!isLoadingTests && testResults.length === 0 && (
+      {!isLoadingTests && !testResults && (
         <TablePlaceholder message="No test results found." />
       )}
     </Container>
