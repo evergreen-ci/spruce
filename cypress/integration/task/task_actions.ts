@@ -17,7 +17,6 @@ describe("Task Action Buttons", () => {
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("unschedule-task").click();
-
       cy.validateToast("success", unscheduleSuccessBannerText);
     });
 
@@ -29,23 +28,19 @@ describe("Task Action Buttons", () => {
 
     it("Clicking on set priority, entering a priority value and submitting should result in a success toast.", () => {
       cy.visit(tasks[3]);
-      cy.dataCy("ellipsis-btn").should("be.visible").should("not.be.disabled");
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("prioritize-task").click();
       cy.dataCy("task-priority-input").clear().type("99");
       cy.get(popconfirmYesClassName).contains("Set").click({ force: true });
-
       cy.validateToast("success", prioritySuccessBannerText);
     });
 
     it("Should be able to abort an incomplete task", () => {
       cy.visit(tasks[2]);
-
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("abort-task").click();
-
       cy.validateToast("success", "Task aborted");
     });
 
@@ -54,14 +49,11 @@ describe("Task Action Buttons", () => {
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("disable-enable").click();
-      cy.dataCy("ellipsis-btn").click(); // temporary manually close menu button TODO: Remove when PD-1207 is fixed
-
       cy.validateToast("success", "Task was successfully disabled");
 
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("card-dropdown").should("be.visible");
       cy.dataCy("disable-enable").click();
-
       cy.validateToast("success", "Priority for task updated to 0");
     });
   });

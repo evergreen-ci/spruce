@@ -26,10 +26,8 @@ describe("Action Buttons", () => {
       cy.dataCy("card-dropdown").should("not.exist");
     });
     describe("Version dropdown options", () => {
-      before(() => {
-        cy.dataCy("ellipsis-btn").click();
-      });
       beforeEach(() => {
+        cy.dataCy("ellipsis-btn").click();
         cy.dataCy("card-dropdown").should("be.visible");
       });
 

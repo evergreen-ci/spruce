@@ -6,14 +6,12 @@ describe("Host page restart jasper, reprovision, and update host status buttons"
     cy.dataCy("restart-jasper-button").click();
     cy.contains("button", "Yes").click();
     cy.validateToast("success");
-    cy.get(`[aria-label="Close Message"]`).click();
   });
 
   it("Should show a toast when host is reprovisioned", () => {
     cy.dataCy("reprovision-button").click();
     cy.contains("button", "Yes").click();
     cy.validateToast("success");
-    cy.get(`[aria-label="Close Message"]`).click();
   });
 
   it("Should show and hide the modal for update status", () => {

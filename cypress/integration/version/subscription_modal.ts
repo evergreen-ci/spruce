@@ -1,11 +1,10 @@
 import { openSubscriptionModal } from "../../utils/subscriptionModal";
 import { selectAntdOption } from "../../utils";
 
-const regexSelectorRow = "regex-selector-row";
-
 describe("Version Subscription Modal", () => {
   const dataCyToggleModalButton = "notify-patch";
   const route = "/version/5e4ff3abe3c3317e352062e4/tasks";
+  const regexSelectorRow = "regex-selector-row";
 
   describe("Regex selector inputs", () => {
     it("Clicking on 'Add Additional Criteria' adds a regex selector row", () => {

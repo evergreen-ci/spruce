@@ -1,6 +1,6 @@
-const hostsRoute = "/hosts";
-
 describe("Select hosts in hosts page table", () => {
+  const hostsRoute = "/hosts";
+
   beforeEach(() => {
     cy.visit(`${hostsRoute}?distroId=ubuntu1604-large&page=0&statuses=running`);
     cy.dataCy("hosts-table").should("exist");
@@ -27,6 +27,7 @@ describe("Select hosts in hosts page table", () => {
       cy.get(".ant-checkbox-input").check({ force: true });
     });
 
+    cy.dataCy("restart-jasper-button").should("not.be.disabled");
     cy.dataCy("restart-jasper-button").click();
     cy.contains("button", "Yes").click();
     cy.validateToast("success");
@@ -39,6 +40,7 @@ describe("Select hosts in hosts page table", () => {
       cy.get(".ant-checkbox-input").check({ force: true });
     });
 
+    cy.dataCy("reprovision-button").should("not.be.disabled");
     cy.dataCy("reprovision-button").click();
     cy.contains("button", "Yes").click();
     cy.validateToast("success", "Marked hosts to reprovision for 0 hosts");

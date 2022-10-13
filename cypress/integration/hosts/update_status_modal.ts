@@ -1,6 +1,6 @@
-const hostsRoute = "/hosts";
-
 describe("Update Status Modal", () => {
+  const hostsRoute = "/hosts";
+
   beforeEach(() => {
     cy.visit(`${hostsRoute}?limit=100&page=0`);
     cy.dataCy("hosts-table").should("exist");

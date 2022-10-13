@@ -81,11 +81,7 @@ describe("commit queue page", () => {
       cy.visit(INVALID_COMMIT_QUEUE_ROUTE);
     });
     it("visiting a non existent commit queue page should display an error", () => {
-      cy.dataCy("toast").should("exist");
-      cy.dataCy("toast").should(
-        "contain.text",
-        "There was an error loading the commit queue"
-      );
+      cy.validateToast("error", "There was an error loading the commit queue");
     });
   });
 

@@ -37,27 +37,26 @@ declare global {
        * Custom command to select DOM element by data-cy attribute.
        * @example cy.dataCy('greeting')
        */
-      dataCy(value: string): Chainable<Element>;
+      dataCy(
+        value: string,
+        options?: Parameters<typeof cy.get>[1]
+      ): Chainable<Element>;
       /**
        * Custom command to select DOM element by data-row-key attribute.
        * @example cy.dataRowKey('greeting')
        */
-      dataRowKey(value: string): Chainable<Element>;
+      dataRowKey(
+        value: string,
+        options?: Parameters<typeof cy.get>[1]
+      ): Chainable<Element>;
       /**
        * Custom command to select DOM element by data-test-id attribute.
        * @example cy.dataTestId('greeting')
        */
-      dataTestId(value: string): Chainable<Element>;
-      /**
-       * Custom command to preserve cookie between tests.
-       * @example cy.preserveCookies()
-       */
-      preserveCookies(): void;
-      /**
-       * Custom command to navigate to login page and login.
-       * @example cy.login()
-       */
-      login(): void;
+      dataTestId(
+        value: string,
+        options?: Parameters<typeof cy.get>[1]
+      ): Chainable<Element>;
       /**
        * Custom command to enter credentials in username and password input
        * and then click submit
@@ -69,6 +68,16 @@ declare global {
        * @example cy.getInputBylabel("Some Label")
        */
       getInputByLabel(label: string): Chainable<Element>;
+      /**
+       * Custom command to navigate to login page and login.
+       * @example cy.login()
+       */
+      login(): void;
+      /**
+       * Custom command to preserve cookie between tests.
+       * @example cy.preserveCookies()
+       */
+      preserveCookies(): void;
       /**
        * Custom command to open an antd table filter associated with the
        * the supplied column number
