@@ -47,6 +47,7 @@ export const DistroDropdown: React.VFC<
   const searchableOptions = enumOptions.reduce<OptionValue[]>(
     (accum, { schema, value }) => {
       const { isVirtualWorkstation } = schema;
+      // Bucketize distros into Workstation and Non-Workstation buckets
       accum[isVirtualWorkstation ? 0 : 1].distros.push({
         value,
         isVirtualWorkstation,
