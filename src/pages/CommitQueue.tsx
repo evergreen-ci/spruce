@@ -14,7 +14,6 @@ import {
   CommitQueueQueryVariables,
 } from "gql/generated/types";
 import { GET_COMMIT_QUEUE } from "gql/queries";
-import { usePageTitle } from "hooks";
 import { CommitQueueCard } from "./commitqueue/CommitQueueCard";
 
 const { gray } = uiColors;
@@ -36,10 +35,11 @@ export const CommitQueue: React.VFC = () => {
 
   const commitQueue = get(data, "commitQueue");
   const queue = get(commitQueue, "queue");
-  usePageTitle(`Commit Queue - ${id}`);
+
   return (
     <PageWrapper>
       <PageTitle
+        pageTitle={`Commit Queue - ${id}`}
         title="Commit Queue"
         badge={
           <Badge variant="darkgray">

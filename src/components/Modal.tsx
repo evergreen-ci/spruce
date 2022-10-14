@@ -59,4 +59,5 @@ const StyledModal = styled(AntdModal)`
 
 const StyledHR = styled(HR)`
   margin-top: ${size.s};
+  margin-bottom: 0px;
 `;

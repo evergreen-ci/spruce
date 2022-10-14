@@ -168,7 +168,7 @@ describe("Navigating to Spawn Volume page", () => {
     cy.dataCy("cancel-button").click();
     cy.dataCy("spawn-volume-btn").click();
     cy.dataCy("typeSelector").contains("gp2");
-    cy.dataCy("neverExpireCheckbox").should(
+    cy.dataCy("never-expire-checkbox").should(
       "have.attr",
       "aria-checked",
       "false"
@@ -193,5 +193,5 @@ describe("Navigating to Spawn Volume page", () => {
   // const errorBannerCopy =
   //  "Error detaching volume: 'can't detach volume '8191ed590dc4668fcc65029eb332134be9de44e742098b6ee1a0723aec175784': unable to fetch host: b700d10f21a5386c827251a029dd931b5ea910377e0bb93f3393b17fb9bdbd08'";
   const errorBannerCopy2 =
-    "Error attaching volume: 'can't attach volume 'vol-0ea662ac92f611ed4': unable to fetch host: i-04ade558e1e26b0ad'";
+    "Error attaching volume: 'attaching volume 'vol-0ea662ac92f611ed4' to host 'i-04ade558e1e26b0ad': unable to fetch host 'i-04ade558e1e26b0ad''";
 });

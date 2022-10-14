@@ -352,10 +352,11 @@ describe("Repo Settings", () => {
 
     it("Shows the patch trigger alias", () => {
       cy.dataCy("pta-item").should("have.length", 1);
+      cy.dataCy("pta-item").scrollIntoView();
+      cy.contains("my-alias").should("be.visible");
     });
 
     it("Hovering over the alias name shows its details", () => {
-      cy.dataCy("pta-item").scrollIntoView();
       cy.dataCy("pta-item").trigger("mouseover");
       cy.dataCy("pta-tooltip").should("be.visible");
       cy.dataCy("pta-tooltip").contains("spruce");
@@ -725,7 +726,7 @@ describe("Project Settings when defaulting to repo", () => {
         .contains("Confirm")
         .parent()
         .click();
-      cy.validateToast("success");
+      cy.validateToast("success", "Successfully defaulted page to repo");
     });
 
     it("Again shows the repo's disabled patch definition", () => {
@@ -912,7 +913,7 @@ describe("Renaming the identifier", () => {
 
   it("Successfully saves", () => {
     cy.dataCy("save-settings-button").click();
-    cy.validateToast("success");
+    cy.validateToast("success", "Successfully updated project");
   });
 
   it("Redirects to a new URL", () => {
@@ -993,7 +994,7 @@ describe("Notifications", () => {
       "contain.text",
       "Version outcome  - mohamed.khelif@mongodb.com"
     );
-    cy.validateToast("success", undefined, true);
+    cy.validateToast("success", "Successfully updated project");
   });
   it("should be able to delete a subscription", () => {
     cy.dataCy("expandable-card").should("exist");
@@ -1003,7 +1004,7 @@ describe("Notifications", () => {
     cy.dataCy("save-settings-button").scrollIntoView();
     cy.dataCy("save-settings-button").should("not.be.disabled");
     cy.dataCy("save-settings-button").click();
-    cy.validateToast("success", undefined, true);
+    cy.validateToast("success", "Successfully updated project");
   });
   it("should not be able to combine a jira comment subscription with a task event", () => {
     cy.dataCy("expandable-card").should("not.exist");

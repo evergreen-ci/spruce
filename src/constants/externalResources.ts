@@ -1,5 +1,6 @@
 import { LogTypes } from "types/task";
 import { environmentalVariables } from "utils";
+import { getParsleyUrl } from "utils/environmentalVariables";
 
 const { getLobsterURL, getUiUrl } = environmentalVariables;
 
@@ -45,6 +46,12 @@ export const getLobsterTaskLink = (
   execution: number
 ) =>
   `${getLobsterURL()}/lobster/evergreen/task/${taskId}/${execution}/${logType}`;
+
+export const getParsleyTaskLogLink = (
+  logType: LogTypes,
+  taskId: string,
+  execution: number
+) => `${getParsleyUrl()}/evergreen/${taskId}/${execution}/${logType}`;
 
 interface GetLobsterTestLogCompleteUrlParams {
   taskId: string;

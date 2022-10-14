@@ -2,12 +2,14 @@ import styled from "@emotion/styled";
 import { H2, Subtitle } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { size as tokenSize } from "constants/tokens";
+import { usePageTitle } from "hooks";
 
 type Size = "large" | "medium";
 
 interface Props {
   loading: boolean;
   title: string | JSX.Element | React.ReactNodeArray;
+  pageTitle?: string;
   badge: JSX.Element;
   buttons?: JSX.Element;
   size?: Size;
@@ -36,26 +38,31 @@ export const PageTitle: React.VFC<Props> = ({
   badge,
   buttons,
   size = "medium",
-}) => (
-  <>
-    {loading && (
-      <PageHeader size={size}>
-        <Skeleton active paragraph={{ rows: 0 }} />
-      </PageHeader>
-    )}
-    {!loading && (
-      <PageHeader size={size}>
-        <TitleWrapper size={size}>
-          <TitleTypography size={size}>
-            <span data-cy="page-title">{title}</span>
-            <BadgeWrapper size={size}>{badge}</BadgeWrapper>
-          </TitleTypography>
-        </TitleWrapper>
-        {buttons ?? null}
-      </PageHeader>
-    )}
-  </>
-);
+  pageTitle = "Evergreen",
+}) => {
+  usePageTitle(pageTitle);
+
+  return (
+    <>
+      {loading && (
+        <PageHeader size={size}>
+          <Skeleton active paragraph={{ rows: 0 }} />
+        </PageHeader>
+      )}
+      {!loading && (
+        <PageHeader size={size}>
+          <TitleWrapper size={size}>
+            <TitleTypography size={size}>
+              <span data-cy="page-title">{title}</span>
+              <BadgeWrapper size={size}>{badge}</BadgeWrapper>
+            </TitleTypography>
+          </TitleWrapper>
+          {buttons ?? null}
+        </PageHeader>
+      )}
+    </>
+  );
+};
 
 const BadgeWrapper = styled.div<TitleTypographyProps>`
   display: inline-flex;

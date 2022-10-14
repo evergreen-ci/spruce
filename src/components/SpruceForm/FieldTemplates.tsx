@@ -43,7 +43,7 @@ export const ObjectFieldTemplate = ({
   const errors = uiSchema["ui:errors"] ?? [];
   const warnings = uiSchema["ui:warnings"] ?? [];
   return (
-    <fieldset id={idSchema.$id}>
+    <fieldset css={uiSchema["ui:fieldSetCSS"]} id={idSchema.$id}>
       {(uiSchema["ui:title"] || title) && (
         <TitleField
           id={`${idSchema.$id}__title`}
@@ -352,7 +352,6 @@ export const CardFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
     {properties.map((prop) => prop.content)}
   </SpruceFormContainer>
 );
-
 export const AccordionFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({
   disabled,
   idSchema,

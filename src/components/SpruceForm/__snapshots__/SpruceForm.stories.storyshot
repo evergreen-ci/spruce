@@ -20,6 +20,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
         id=" root"
       >
         <fieldset
+          className="css-enw7dc-ObjectFieldTemplate"
           id="root"
         >
           <div
@@ -27,7 +28,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
             id=" root_cloneMethod"
           >
             <div
-              className="css-bm42zs-ElementWrapper ee4bs9n0"
+              className="css-1ik0alb-ElementWrapper-LeafyGreenSelect ee4bs9n0"
             >
               <div
                 className="css-12pm1mq-MaxWidthContainer eevpusu0"
@@ -154,6 +155,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                   id=" root_expansions_0"
                 >
                   <fieldset
+                    className="css-enw7dc-ObjectFieldTemplate"
                     id="root_expansions_0"
                   >
                     <div
@@ -161,7 +163,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                       id=" root_expansions_0_key"
                     >
                       <div
-                        className="css-bm42zs-ElementWrapper ee4bs9n0"
+                        className="css-1kjj8dy-ElementWrapper-LeafyGreenTextInput ee4bs9n0"
                       >
                         <div
                           className="css-12pm1mq-MaxWidthContainer eevpusu0"
@@ -213,7 +215,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                       id=" root_expansions_0_value"
                     >
                       <div
-                        className="css-bm42zs-ElementWrapper ee4bs9n0"
+                        className="css-1kjj8dy-ElementWrapper-LeafyGreenTextInput ee4bs9n0"
                       >
                         <div
                           className="css-12pm1mq-MaxWidthContainer eevpusu0"
@@ -307,7 +309,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
             id=" root_validProjects"
           >
             <div
-              className="css-bm42zs-ElementWrapper ee4bs9n0"
+              className="css-odleto-ElementWrapper-LeafyGreenTextArea ee4bs9n0"
             >
               <div
                 className="leafygreen-ui-1iyoj2o"
@@ -366,6 +368,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
         id=" root"
       >
         <fieldset
+          className="css-enw7dc-ObjectFieldTemplate"
           id="root"
         >
           <div
@@ -373,7 +376,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
             id=" root_distroIsCluster"
           >
             <div
-              className="css-bm42zs-ElementWrapper ee4bs9n0"
+              className="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
             >
               <label
                 className="leafygreen-ui-hfnsvs"
@@ -414,7 +417,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
             id=" root_disableShallowClone"
           >
             <div
-              className="css-bm42zs-ElementWrapper ee4bs9n0"
+              className="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
             >
               <label
                 className="leafygreen-ui-hfnsvs"
@@ -455,7 +458,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
             id=" root_disableQueue"
           >
             <div
-              className="css-bm42zs-ElementWrapper ee4bs9n0"
+              className="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
             >
               <label
                 className="leafygreen-ui-hfnsvs"
@@ -496,7 +499,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
             id=" root_decommissionHosts"
           >
             <div
-              className="css-bm42zs-ElementWrapper ee4bs9n0"
+              className="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
             >
               <label
                 className="leafygreen-ui-hfnsvs"
@@ -537,7 +540,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
             id=" root_reprovisionMethod"
           >
             <div
-              className="css-bm42zs-ElementWrapper ee4bs9n0"
+              className="css-1ik0alb-ElementWrapper-LeafyGreenSelect ee4bs9n0"
             >
               <div
                 className="css-12pm1mq-MaxWidthContainer eevpusu0"
@@ -626,6 +629,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 3 1`] = `
         id=" root"
       >
         <fieldset
+          className="css-enw7dc-ObjectFieldTemplate"
           id="root"
         >
           <div
@@ -633,7 +637,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 3 1`] = `
             id=" root_visible"
           >
             <div
-              className="css-bm42zs-ElementWrapper ee4bs9n0"
+              className="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
             >
               <label
                 className="leafygreen-ui-hfnsvs"

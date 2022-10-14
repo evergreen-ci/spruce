@@ -564,6 +564,7 @@ export type Mutation = {
   editSpawnHost: Host;
   enqueuePatch: Patch;
   forceRepotrackerRun: Scalars["Boolean"];
+  migrateVolume: Scalars["Boolean"];
   moveAnnotationIssue: Scalars["Boolean"];
   overrideTaskDependencies: Task;
   removeAnnotationIssue: Scalars["Boolean"];
@@ -674,6 +675,11 @@ export type MutationEnqueuePatchArgs = {
 
 export type MutationForceRepotrackerRunArgs = {
   projectId: Scalars["String"];
+};
+
+export type MutationMigrateVolumeArgs = {
+  spawnHostInput?: InputMaybe<SpawnHostInput>;
+  volumeId: Scalars["String"];
 };
 
 export type MutationMoveAnnotationIssueArgs = {
@@ -5754,6 +5760,7 @@ export type GetTaskQuery = {
       project: string;
       projectIdentifier: string;
       order: number;
+      message: string;
     };
     project?: Maybe<{ identifier: string }>;
     dependsOn?: Maybe<
@@ -6145,7 +6152,6 @@ export type SpawnExpirationInfoQuery = {
 
 export type GetSpawnTaskQueryVariables = Exact<{
   taskId: Scalars["String"];
-  execution?: InputMaybe<Scalars["Int"]>;
 }>;
 
 export type GetSpawnTaskQuery = {
