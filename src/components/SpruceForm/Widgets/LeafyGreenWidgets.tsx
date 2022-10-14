@@ -40,9 +40,10 @@ export const LeafyGreenTextInput: React.VFC<
     "data-cy": dataCy,
     description,
     emptyValue = "",
-    marginBottom,
+    elementWrapperCSS,
     optional,
     warnings,
+    inputType,
   } = options;
 
   const { errors, hasError } = processErrors(rawErrors);
@@ -55,9 +56,10 @@ export const LeafyGreenTextInput: React.VFC<
   };
 
   return (
-    <ElementWrapper marginBottom={marginBottom}>
+    <ElementWrapper css={elementWrapperCSS}>
       <MaxWidthContainer>
         <StyledTextInput
+          type={inputType}
           data-cy={dataCy}
           value={value === null || value === undefined ? "" : `${value}`}
           aria-labelledby={ariaLabelledBy}
@@ -103,17 +105,23 @@ export const LeafyGreenCheckBox: React.VFC<SpruceWidgetProps> = ({
   options,
   readonly,
 }) => {
-  const { "data-cy": dataCy, marginBottom, tooltipDescription } = options;
+  const {
+    "data-cy": dataCy,
+    tooltipDescription,
+    elementWrapperCSS,
+    customLabel,
+  } = options;
   return (
-    <ElementWrapper marginBottom={marginBottom}>
+    <ElementWrapper css={elementWrapperCSS}>
       <Checkbox
         data-cy={dataCy}
         checked={value}
         label={
           <>
-            {label}
+            {customLabel || label}
             {tooltipDescription && (
               <Tooltip
+                popoverZIndex={zIndex.tooltip}
                 justify="middle"
                 trigger={
                   <IconContainer>
@@ -158,9 +166,8 @@ export const LeafyGreenSelect: React.VFC<
     description,
     enumOptions,
     "data-cy": dataCy,
-    marginBottom,
+    elementWrapperCSS,
   } = options;
-
   const { hasError } = processErrors(rawErrors);
 
   const isDisabled = disabled || readonly;
@@ -168,7 +175,7 @@ export const LeafyGreenSelect: React.VFC<
     ariaLabelledBy ? { "aria-labelledby": ariaLabelledBy } : { label };
 
   return (
-    <ElementWrapper marginBottom={marginBottom}>
+    <ElementWrapper css={elementWrapperCSS}>
       <MaxWidthContainer>
         <Select
           allowDeselect={allowDeselect !== false}
@@ -209,9 +216,9 @@ export const LeafyGreenRadio: React.VFC<EnumSpruceWidgetProps> = ({
   onChange,
   disabled,
 }) => {
-  const { "data-cy": dataCy, enumOptions, marginBottom } = options;
+  const { "data-cy": dataCy, enumOptions, elementWrapperCSS } = options;
   return (
-    <ElementWrapper marginBottom={marginBottom}>
+    <ElementWrapper css={elementWrapperCSS}>
       <RadioGroup
         name={label}
         value={value}
@@ -232,11 +239,11 @@ export const LeafyGreenRadioBox: React.VFC<
   { options: { description: string | JSX.Element } } & EnumSpruceWidgetProps
 > = ({ id, label, options, value, onChange, disabled, uiSchema }) => {
   const {
-    description,
     "data-cy": dataCy,
+    description,
+    elementWrapperCSS,
     enumOptions,
     errors,
-    marginBottom,
     showLabel,
     warnings,
   } = options;
@@ -251,7 +258,7 @@ export const LeafyGreenRadioBox: React.VFC<
   const valueMap = enumOptions.map(({ value: val }) => val);
 
   return (
-    <ElementWrapper marginBottom={marginBottom}>
+    <ElementWrapper css={elementWrapperCSS}>
       {showLabel !== false && (
         <RadioBoxLabelContainer>
           <Label htmlFor={id} disabled={disabled}>
@@ -312,12 +319,12 @@ export const LeafyGreenTextArea: React.VFC<SpruceWidgetProps> = ({
   rawErrors,
   readonly,
 }) => {
-  const { "data-cy": dataCy, emptyValue = "", marginBottom } = options;
+  const { "data-cy": dataCy, emptyValue = "", elementWrapperCSS } = options;
 
   const { errors, hasError } = processErrors(rawErrors);
 
   return (
-    <ElementWrapper marginBottom={marginBottom}>
+    <ElementWrapper css={elementWrapperCSS}>
       <TextArea
         data-cy={dataCy}
         label={label}
@@ -345,13 +352,13 @@ export const LeafyGreenSegmentedControl: React.VFC<EnumSpruceWidgetProps> = ({
     "aria-controls": ariaControls,
     "data-cy": dataCy,
     enumOptions,
-    marginBottom,
+    elementWrapperCSS,
   } = options;
 
   const isDisabled = disabled || readonly;
 
   return (
-    <ElementWrapper marginBottom={marginBottom}>
+    <ElementWrapper css={elementWrapperCSS}>
       <StyledSegmentedControl
         data-cy={dataCy}
         label={label}

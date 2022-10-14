@@ -30,7 +30,7 @@ export const PluginsTab: React.VFC<TabProps> = ({
       getFormSchema(
         projectType === ProjectType.AttachedProject ? repoData : null
       ),
-    [projectType, repoData, formData]
+    [projectType, repoData]
   );
 
   if (!formData) return null;
