@@ -3,6 +3,7 @@ import { size } from "constants/tokens";
 import { MyVolume } from "types/spawn";
 import { DeleteVolumeBtn } from "./spawnVolumeTableActions/DeleteVolumeBtn";
 import { EditButton } from "./spawnVolumeTableActions/EditButton";
+import { MigrateButton } from "./spawnVolumeTableActions/MigrateButton";
 import { MountBtn } from "./spawnVolumeTableActions/MountBtn";
 import { UnmountBtn } from "./spawnVolumeTableActions/UnmountBtn";
 
@@ -16,6 +17,7 @@ export const SpawnVolumeTableActions: React.VFC<Props> = ({ volume }) => (
       data-cy={`trash-${volume.displayName || volume.id}`}
       volume={volume}
     />
+    <MigrateButton volume={volume} />
     {volume.host ? (
       <UnmountBtn
         data-cy={`unmount-${volume.displayName || volume.id}`}

@@ -12,11 +12,13 @@ interface Props {
   formData: FormState;
   publicKeys: GetMyPublicKeysQuery["myPublicKeys"];
   spawnTaskData: GetSpawnTaskQuery["task"];
+  migrateVolumeId?: string;
 }
 export const formToGql = ({
   formData,
   publicKeys,
   spawnTaskData,
+  migrateVolumeId,
 }: Props): SpawnHostMutationVariables["SpawnHostInput"] => {
   const {
     expirationDetails,
@@ -39,9 +41,10 @@ export const formToGql = ({
       : new Date(expirationDetails?.expiration),
     noExpiration: expirationDetails?.noExpiration,
     volumeId:
-      isVirtualWorkStation && homeVolumeDetails?.selectExistingVolume
+      migrateVolumeId ||
+      (isVirtualWorkStation && homeVolumeDetails?.selectExistingVolume
         ? homeVolumeDetails.volumeSelect
-        : null,
+        : null),
     homeVolumeSize:
       isVirtualWorkStation &&
       (!homeVolumeDetails?.selectExistingVolume ||

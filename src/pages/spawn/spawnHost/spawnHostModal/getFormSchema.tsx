@@ -33,6 +33,7 @@ interface Props {
   timezone: string;
   userAwsRegion?: string;
   volumes: MyVolumesQuery["myVolumes"];
+  isMigration: boolean;
 }
 
 export const getFormSchema = ({
@@ -47,6 +48,7 @@ export const getFormSchema = ({
   timezone,
   userAwsRegion,
   volumes,
+  isMigration,
 }: Props): ReturnType<GetFormSchema> => {
   const {
     displayName: taskDisplayName,
@@ -56,6 +58,7 @@ export const getFormSchema = ({
     canSync,
   } = spawnTaskData || {};
   const hasValidTask = validateTask(spawnTaskData);
+  const shouldRenderVolumeSelection = !isMigration && isVirtualWorkstation;
   return {
     fields: {},
     schema: {
@@ -324,7 +327,7 @@ export const getFormSchema = ({
             },
           },
         },
-        ...(isVirtualWorkstation && {
+        ...(shouldRenderVolumeSelection && {
           homeVolumeDetails: {
             type: "object" as "object",
             title: "Virtual Workstation",
@@ -498,7 +501,7 @@ export const getFormSchema = ({
           },
         },
       }),
-      ...(isVirtualWorkstation && {
+      ...(shouldRenderVolumeSelection && {
         homeVolumeDetails: {
           selectExistingVolume: {
             "ui:widget": isVirtualWorkstation

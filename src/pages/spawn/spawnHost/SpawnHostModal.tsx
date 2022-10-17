@@ -51,11 +51,14 @@ import { FormState } from "./spawnHostModal/types";
 import { validateSpawnHostForm } from "./spawnHostModal/utils";
 
 interface SpawnHostModalProps
-  extends Pick<DisplayModalProps, "open" | "setOpen"> {}
+  extends Pick<DisplayModalProps, "open" | "setOpen"> {
+  migrateVolumeId?: string;
+}
 
 export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   open,
   setOpen,
+  migrateVolumeId,
 }) => {
   const dispatchToast = useToastContext();
   const spawnAnalytics = useSpawnAnalytics();
@@ -141,6 +144,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     timezone,
     userAwsRegion,
     volumes: volumesData?.myVolumes ?? [],
+    isMigration: !!migrateVolumeId,
   });
   // Default virtual workstations to unexpirable upon selection if possible
   const prevIsVirtualWorkStation = usePrevious(isVirtualWorkstation);
@@ -177,9 +181,11 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
       formData: formState,
       publicKeys: publicKeysData?.myPublicKeys,
       spawnTaskData: spawnTaskData?.task,
+      migrateVolumeId,
     });
     spawnAnalytics.sendEvent({
       name: "Spawned a host",
+      isMigration: !!migrateVolumeId,
       params: omit(mutationInput, [
         "publicKey",
         "userDataScript",
@@ -217,7 +223,10 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
         </WideButton>
         <WideButton
           data-cy="spawn-host-button"
-          disabled={!validateSpawnHostForm(formState) || loadingSpawnHost} // @ts-expect-error
+          disabled={
+            !validateSpawnHostForm(formState, !!migrateVolumeId) ||
+            loadingSpawnHost
+          } // @ts-expect-error
           onClick={spawnHost}
           variant={Variant.Primary}
           key="spawn_host_button"
