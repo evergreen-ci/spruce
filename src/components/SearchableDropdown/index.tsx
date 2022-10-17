@@ -18,7 +18,7 @@ import { toggleArray } from "utils/array";
 
 const { gray, blue } = uiColors;
 
-interface SearchableDropdownProps<T> {
+export interface SearchableDropdownProps<T> {
   label: string | ReactNode;
   value: T | T[];
   onChange: (value: T | T[]) => void;

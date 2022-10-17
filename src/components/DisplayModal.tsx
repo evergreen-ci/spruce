@@ -3,7 +3,7 @@ import Modal, { ModalSize } from "@leafygreen-ui/modal";
 import { H3 } from "@leafygreen-ui/typography";
 import { size as tokenSize, zIndex } from "constants/tokens";
 
-interface DisplayModalProps {
+export interface DisplayModalProps {
   "data-cy"?: string;
   open?: boolean;
   setOpen?: (
