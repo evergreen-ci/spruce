@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { GetFormSchema } from "../types";
@@ -79,7 +80,7 @@ export const getFormSchema = (
         },
         varValue: {
           "ui:data-cy": "var-value-input",
-          "ui:marginBottom": 4,
+          "ui:elementWrapperCSS": varCSS,
           "ui:widget": widgets.TextareaWidget,
         },
         isPrivate: {
@@ -118,3 +119,7 @@ const getDescription = (projectType: ProjectType): string => {
     return "Variables are sourced from both the repo-level and branch-level settings. If a variable name is defined at both the repo-level and branch-level, then the branch variable will override the repo variable.";
   }
 };
+
+const varCSS = css`
+  margin-bottom: 4px;
+`;

@@ -19,7 +19,7 @@ const countNoExpirationCB = (accum: number, currItem: ListItem) =>
 
 export const useDisableSpawnExpirationCheckbox = (
   isVolume: boolean,
-  targetItem?: MyVolume | MyHost
+  targetItem?: MyVolume | MyHost // Target item represents a host or volume being edited.
 ) => {
   const { data: MyHostsData } = useQuery<MyHostsQuery, MyHostsQueryVariables>(
     GET_MY_HOSTS
@@ -35,7 +35,7 @@ export const useDisableSpawnExpirationCheckbox = (
     ([] as ListItem[])
   ).reduce(countNoExpirationCB, 0);
 
-  const { unexpirableHostsPerUser, unexpirableVolumesPerUser } =
+  const { unexpirableVolumesPerUser, unexpirableHostsPerUser } =
     spruceConfig?.spawnHost ?? {};
 
   const maxUnexpirable =

@@ -27,12 +27,12 @@ export const AntdSelect: React.VFC<
   value,
 }) => {
   const {
-    ariaLabelledBy,
     "data-cy": dataCy,
+    ariaLabelledBy,
     disabledEnums,
-    hideError,
+    elementWrapperCSS,
     enumOptions,
-    marginBottom,
+    hideError,
   } = options;
 
   const hasError = !hideError && !!rawErrors?.length && !disabled;
@@ -43,10 +43,11 @@ export const AntdSelect: React.VFC<
     ariaLabelledBy ? { "aria-labelledby": ariaLabelledBy } : { label };
 
   return (
-    <ElementWrapper marginBottom={marginBottom}>
+    <ElementWrapper css={elementWrapperCSS}>
       <MaxWidthContainer>
         <InputLabel htmlFor={dataCy}>{label}</InputLabel>
         <Select
+          getPopupContainer={getPopupContainer}
           data-cy={dataCy}
           disabled={isDisabled}
           id={dataCy}
@@ -89,3 +90,6 @@ const MaxWidthContainer = styled.div`
   flex-direction: column;
   max-width: 400px;
 `;
+
+export const getPopupContainer = (triggerNode: HTMLElement) =>
+  triggerNode.parentNode as HTMLElement;

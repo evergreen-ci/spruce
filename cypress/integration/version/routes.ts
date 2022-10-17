@@ -8,7 +8,7 @@ const versions = {
   6: "5e4ff3abe3c3317e352062e4",
 };
 
-const versionRoute = (id) => `/version/${id}`;
+const versionRoute = (id: string) => `/version/${id}`;
 
 describe("Version route", () => {
   describe("Redirects", () => {

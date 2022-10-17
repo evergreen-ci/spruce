@@ -4,6 +4,7 @@ import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
 import DatePicker from "components/DatePicker";
 import TimePicker from "components/TimePicker";
 import { size } from "constants/tokens";
+import ElementWrapper from "../ElementWrapper";
 import { SpruceWidgetProps } from "./types";
 
 export const DateTimePicker: React.VFC<
@@ -13,17 +14,24 @@ export const DateTimePicker: React.VFC<
       timezone?: string;
     };
   } & SpruceWidgetProps
-> = ({ disabled, id, label, onChange, options, readonly, value }) => {
-  const { description, disablePastDatetime, showLabel, timezone } = options;
+> = ({ disabled, id, label, onChange, options, readonly, value = "" }) => {
+  const {
+    description,
+    disablePastDatetime,
+    showLabel,
+    timezone,
+    elementWrapperCSS,
+  } = options;
 
   const currentDateTime = timezone
-    ? utcToZonedTime(new Date(value), timezone)
-    : new Date(value);
+    ? utcToZonedTime(new Date(value || null), timezone)
+    : new Date(value || null);
   const isDisabled = disabled || readonly;
-  const handleChange = (d: Date) =>
+  const handleChange = (d: Date) => {
     onChange(
       timezone ? zonedTimeToUtc(d, timezone).toString() : new Date(d).toString()
     );
+  };
   const disabledDate = disablePastDatetime
     ? (current) =>
         timezone
@@ -32,7 +40,7 @@ export const DateTimePicker: React.VFC<
     : undefined;
 
   return (
-    <>
+    <ElementWrapper css={elementWrapperCSS}>
       {showLabel !== false && (
         <Label disabled={isDisabled} htmlFor={id}>
           {label}
@@ -41,6 +49,8 @@ export const DateTimePicker: React.VFC<
       {description && <Description>{description}</Description>}
       <DateTimeContainer>
         <DatePicker
+          // @ts-expect-error
+          getPopupContainer={getPopupContainer}
           data-cy="date-picker"
           onChange={handleChange}
           value={currentDateTime}
@@ -49,6 +59,8 @@ export const DateTimePicker: React.VFC<
           disabledDate={disabledDate}
         />
         <TimePicker
+          // @ts-expect-error
+          getPopupContainer={getPopupContainer}
           data-cy="time-picker"
           onChange={handleChange}
           value={currentDateTime}
@@ -57,7 +69,7 @@ export const DateTimePicker: React.VFC<
           disabledDate={disabledDate}
         />
       </DateTimeContainer>
-    </>
+    </ElementWrapper>
   );
 };
 
@@ -66,3 +78,6 @@ const DateTimeContainer = styled.div`
     margin-right: ${size.xs};
   }
 `;
+
+// Fixes bug where DatePicker won't handle onClick events
+const getPopupContainer = (triggerNode: HTMLElement) => triggerNode.parentNode;

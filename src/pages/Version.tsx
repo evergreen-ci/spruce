@@ -10,7 +10,6 @@ import {
   PageLayout,
   PageSider,
 } from "components/styles";
-import VersionTaskPageBreadcrumbs from "components/VersionTaskPageBreadcrumbs";
 import { commitQueueAlias } from "constants/patch";
 import { getCommitQueueRoute, getPatchRoute } from "constants/routes";
 import { useToastContext } from "context/toast";
@@ -31,6 +30,7 @@ import { useSpruceConfig } from "hooks";
 import { PageDoesNotExist } from "pages/404";
 import { shortenGithash, githubPRLinkify } from "utils/string";
 import { jiraLinkify } from "utils/string/jiraLinkify";
+import VersionPageBreadcrumbs from "./version/Breadcrumbs";
 import { BuildVariants } from "./version/BuildVariants";
 import { ActionButtons } from "./version/index";
 import { Metadata } from "./version/Metadata";
@@ -156,7 +156,7 @@ export const VersionPage: React.VFC = () => {
   return (
     <PageWrapper data-cy="version-page">
       {version && (
-        <VersionTaskPageBreadcrumbs
+        <VersionPageBreadcrumbs
           patchNumber={patchNumber}
           versionMetadata={version}
         />

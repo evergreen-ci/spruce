@@ -9,6 +9,7 @@ import { size } from "constants/tokens";
 import { useDisableSpawnExpirationCheckbox, useSpruceConfig } from "hooks";
 import { MyHost, MyVolume } from "types/spawn";
 import { SectionContainer, SectionLabel } from "./Layout";
+import { getNoExpirationCheckboxTooltipCopy } from "./utils";
 
 export interface ExpirationDateType {
   expiration?: Date;
@@ -89,21 +90,17 @@ export const ExpirationField: React.VFC<ExpirationFieldProps> = ({
         <PaddedBody> or </PaddedBody>
         <FlexColumnContainer>
           <Tooltip
-            title={
-              disableExpirationCheckbox
-                ? `You have reached the max number of unexpirable ${
-                    isVolume
-                      ? `volumes (${unexpirableVolumesPerUser})`
-                      : `hosts (${unexpirableHostsPerUser})`
-                  }. Toggle an existing ${
-                    isVolume ? "volume" : "host"
-                  } to expirable to enable this checkbox.`
-                : undefined
-            }
+            title={getNoExpirationCheckboxTooltipCopy({
+              disableExpirationCheckbox,
+              isVolume,
+              limit: isVolume
+                ? unexpirableVolumesPerUser
+                : unexpirableHostsPerUser,
+            })}
           >
             <span>
               <PaddedCheckbox
-                data-cy="neverExpireCheckbox"
+                data-cy="never-expire-checkbox"
                 disabled={disableExpirationCheckbox}
                 label="Never"
                 checked={noExpiration}

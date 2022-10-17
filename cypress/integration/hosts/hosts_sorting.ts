@@ -1,7 +1,3 @@
-const hostsRoute = "/hosts";
-
-const tableRow = "tr.ant-table-row";
-
 const sortByTests = [
   {
     sorterName: "ID",
@@ -153,6 +149,10 @@ const sortDirectionTests = [
 ];
 
 describe("Hosts page sorting", () => {
+  const hostsRoute = "/hosts";
+
+  const tableRow = "tr.ant-table-row";
+
   it("Status sorter is selected by default if no sort params in url", () => {
     cy.visit(hostsRoute);
     cy.get(".cy-task-table-col-STATUS").within(() => {

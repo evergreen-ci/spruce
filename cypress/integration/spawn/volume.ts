@@ -168,7 +168,7 @@ describe("Navigating to Spawn Volume page", () => {
     cy.dataCy("cancel-button").click();
     cy.dataCy("spawn-volume-btn").click();
     cy.dataCy("typeSelector").contains("gp2");
-    cy.dataCy("neverExpireCheckbox").should(
+    cy.dataCy("never-expire-checkbox").should(
       "have.attr",
       "aria-checked",
       "false"
