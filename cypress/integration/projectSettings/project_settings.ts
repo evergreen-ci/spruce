@@ -625,14 +625,11 @@ describe("Project Settings when defaulting to repo", () => {
       cy.validateToast("success", "Successfully updated project");
     });
 
-    it("Opens the modal", () => {
-      cy.dataCy("promote-vars-modal").should("not.be.visible");
+    it("Opens the modal and promotes variables", () => {
+      cy.dataCy("promote-vars-modal").should("not.exist");
       cy.dataCy("promote-vars-button").click();
       cy.dataCy("promote-vars-modal").should("be.visible");
-    });
-
-    it("Successfully moves vars", () => {
-      cy.dataCy("move-var-checkbox").first().check();
+      cy.dataCy("promote-var-checkbox").first().check();
       cy.get("button").contains("Move 1 variable").parent().click();
       cy.validateToast("success");
     });

@@ -115,7 +115,7 @@ export const PromoteVariablesModal: React.VFC<Props> = ({
       </SelectAllContainer>
       {variables.map(({ name, inRepo }) => (
         <Checkbox
-          data-cy="move-var-checkbox"
+          data-cy="promote-var-checkbox"
           key={name}
           label={
             <>
