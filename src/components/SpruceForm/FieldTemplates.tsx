@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import Button from "@leafygreen-ui/button";
@@ -260,18 +259,15 @@ export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
   const handleAddClick =
     items.length && !addToEnd ? items[0].onAddIndexClick(0) : onAddClick;
 
-  const addButton = useMemo(
-    () => (
-      <PlusButton
-        data-cy="add-button"
-        disabled={isDisabled}
-        onClick={handleAddClick}
-        size={addButtonSize}
-      >
-        {addButtonText}
-      </PlusButton>
-    ),
-    [addButtonSize, addButtonText, handleAddClick, isDisabled]
+  const addButton = (
+    <PlusButton
+      data-cy="add-button"
+      disabled={isDisabled}
+      onClick={handleAddClick}
+      size={addButtonSize}
+    >
+      {addButtonText}
+    </PlusButton>
   );
 
   const hasAddButton = !readonly && canAdd;

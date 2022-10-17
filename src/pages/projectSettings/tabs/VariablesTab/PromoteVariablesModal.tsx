@@ -15,16 +15,6 @@ import {
 } from "gql/generated/types";
 import { PROMOTE_VARS_TO_REPO } from "gql/mutations";
 
-interface Props {
-  handleClose: () => void;
-  open: boolean;
-  projectId: string;
-  variables: Array<{
-    name: string;
-    inRepo: boolean;
-  }>;
-}
-
 type Action =
   | { type: "checkCheckbox"; names: string[] }
   | { type: "uncheckCheckbox"; names: string[] };
@@ -41,6 +31,16 @@ const reducer = (state: Set<string>, action: Action): Set<string> => {
       throw new Error("Unknown action type");
   }
 };
+
+interface Props {
+  handleClose: () => void;
+  open: boolean;
+  projectId: string;
+  variables: Array<{
+    name: string;
+    inRepo: boolean;
+  }>;
+}
 
 export const PromoteVariablesModal: React.VFC<Props> = ({
   handleClose,
