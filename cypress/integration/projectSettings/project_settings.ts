@@ -630,7 +630,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("promote-vars-modal").should("not.exist");
       cy.dataCy("promote-vars-button").click();
       cy.dataCy("promote-vars-modal").should("be.visible");
-      cy.dataCy("promote-var-checkbox").first().check();
+      cy.dataCy("promote-var-checkbox").first().check({ force: true });
       cy.get("button").contains("Move 1 variable").parent().click();
       cy.validateToast("success");
     });
