@@ -3394,6 +3394,13 @@ export type OverrideTaskDependenciesMutation = {
   overrideTaskDependencies: { id: string; execution: number; status: string };
 };
 
+export type PromoteVarsToRepoMutationVariables = Exact<{
+  projectId: Scalars["String"];
+  varNames: Array<Scalars["String"]>;
+}>;
+
+export type PromoteVarsToRepoMutation = { promoteVarsToRepo: boolean };
+
 export type RemoveAnnotationIssueMutationVariables = Exact<{
   taskId: Scalars["String"];
   execution: Scalars["Int"];

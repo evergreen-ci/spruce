@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import Button from "@leafygreen-ui/button";
@@ -254,25 +253,21 @@ export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
 
   const addButtonSize = uiSchema["ui:addButtonSize"] || "small";
   const addButtonText = uiSchema["ui:addButtonText"] || "Add";
+  const secondaryButton = uiSchema["ui:secondaryButton"];
   // Override RJSF's default array behavior; add new elements to beginning of array unless otherwise specified.
   const addToEnd = uiSchema["ui:addToEnd"] ?? false;
   const handleAddClick =
     items.length && !addToEnd ? items[0].onAddIndexClick(0) : onAddClick;
 
-  const addButton = useMemo(
-    () => (
-      <AddButtonContainer>
-        <PlusButton
-          data-cy="add-button"
-          disabled={isDisabled}
-          onClick={handleAddClick}
-          size={addButtonSize}
-        >
-          {addButtonText}
-        </PlusButton>
-      </AddButtonContainer>
-    ),
-    [addButtonSize, addButtonText, handleAddClick, isDisabled]
+  const addButton = (
+    <PlusButton
+      data-cy="add-button"
+      disabled={isDisabled}
+      onClick={handleAddClick}
+      size={addButtonSize}
+    >
+      {addButtonText}
+    </PlusButton>
   );
 
   const hasAddButton = !readonly && canAdd;
@@ -287,7 +282,12 @@ export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
       {descriptionNode || (
         <DescriptionField id={`${id}__description`} description={description} />
       )}
-      {buttonAtBeginning && addButton}
+      {buttonAtBeginning && (
+        <AddButtonContainer>
+          {addButton}
+          {secondaryButton}
+        </AddButtonContainer>
+      )}
       <ArrayContainer
         fullWidth={fullWidth || useExpandableCard}
         hasChildren={!!items?.length}
@@ -309,7 +309,12 @@ export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
             />
           ))
         )}
-        {buttonAtEnd && addButton}
+        {buttonAtEnd && (
+          <AddButtonContainer>
+            {addButton}
+            {secondaryButton}
+          </AddButtonContainer>
+        )}
       </ArrayContainer>
     </>
   );
@@ -317,6 +322,11 @@ export const ArrayFieldTemplate: React.VFC<ArrayFieldTemplateProps> = ({
 
 const AddButtonContainer = styled(ElementWrapper)`
   margin-top: ${size.s};
+  display: flex;
+
+  > :not(:last-of-type) {
+    margin-right: ${size.xs};
+  }
 `;
 
 type ArrayContainerProps = {
