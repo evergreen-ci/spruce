@@ -1,4 +1,5 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import Button, { Size } from "@leafygreen-ui/button";
 import { SpruceForm } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
@@ -7,6 +8,7 @@ import {
 } from "pages/projectSettings/Context";
 import { ProjectType } from "../utils";
 import { getFormSchema } from "./getFormSchema";
+import { PromoteVariablesModal } from "./PromoteVariablesModal";
 import { TabProps } from "./types";
 
 const tab = ProjectSettingsTabRoutes.Variables;
@@ -18,12 +20,14 @@ const getInitialFormState = (projectData, repoData) => {
 };
 
 export const VariablesTab: React.VFC<TabProps> = ({
+  identifier,
   projectData,
   projectType,
   repoData,
 }) => {
   const { getTab, updateForm } = useProjectSettingsContext();
   const { formData } = getTab(tab);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const initialFormState = useMemo(
     () => getInitialFormState(projectData, repoData),
@@ -33,11 +37,22 @@ export const VariablesTab: React.VFC<TabProps> = ({
 
   const onChange = updateForm(tab);
 
+  const ModalButton: React.VFC = () => (
+    <Button
+      data-cy="promote-vars-button"
+      onClick={() => setModalOpen(true)}
+      size={Size.Small}
+    >
+      Move variables to repo
+    </Button>
+  );
+
   const { fields, schema, uiSchema } = useMemo(
     () =>
       getFormSchema(
         projectType,
-        projectType === ProjectType.AttachedProject ? repoData : null
+        projectType === ProjectType.AttachedProject ? repoData : null,
+        projectType === ProjectType.AttachedProject ? <ModalButton /> : null
       ),
     [projectType, repoData]
   );
@@ -45,14 +60,30 @@ export const VariablesTab: React.VFC<TabProps> = ({
   if (!formData) return null;
 
   return (
-    <SpruceForm
-      fields={fields}
-      formData={formData}
-      onChange={onChange}
-      schema={schema}
-      uiSchema={uiSchema}
-      validate={validate}
-    />
+    <>
+      {modalOpen && (
+        <PromoteVariablesModal
+          projectId={identifier}
+          open={modalOpen}
+          handleClose={() => setModalOpen(false)}
+          variables={formData.vars.map(({ varName }) => ({
+            name: varName,
+            inRepo:
+              repoData?.vars?.some(
+                ({ varName: repoVar }) => varName === repoVar
+              ) ?? false,
+          }))}
+        />
+      )}
+      <SpruceForm
+        fields={fields}
+        formData={formData}
+        onChange={onChange}
+        schema={schema}
+        uiSchema={uiSchema}
+        validate={validate}
+      />
+    </>
   );
 };
 

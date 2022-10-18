@@ -84,6 +84,7 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
           path={ProjectSettingsTabRoutes.Variables}
           element={
             <VariablesTab
+              identifier={identifier || repoBranch}
               projectData={
                 tabData[ProjectSettingsTabRoutes.Variables].projectData
               }
