@@ -351,8 +351,8 @@ describe("Repo Settings", () => {
     });
 
     it("Shows the patch trigger alias", () => {
+      cy.contains("GitHub Trigger Aliases").scrollIntoView();
       cy.dataCy("pta-item").should("have.length", 1);
-      cy.dataCy("pta-item").scrollIntoView();
       cy.contains("my-alias").should("be.visible");
     });
 
