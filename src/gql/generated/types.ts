@@ -567,6 +567,7 @@ export type Mutation = {
   migrateVolume: Scalars["Boolean"];
   moveAnnotationIssue: Scalars["Boolean"];
   overrideTaskDependencies: Task;
+  promoteVarsToRepo: Scalars["Boolean"];
   removeAnnotationIssue: Scalars["Boolean"];
   removeFavoriteProject: Project;
   removeItemFromCommitQueue?: Maybe<Scalars["String"]>;
@@ -691,6 +692,11 @@ export type MutationMoveAnnotationIssueArgs = {
 
 export type MutationOverrideTaskDependenciesArgs = {
   taskId: Scalars["String"];
+};
+
+export type MutationPromoteVarsToRepoArgs = {
+  projectId: Scalars["String"];
+  varNames: Array<Scalars["String"]>;
 };
 
 export type MutationRemoveAnnotationIssueArgs = {
@@ -4446,6 +4452,7 @@ export type MyVolumesQuery = {
     noExpiration: boolean;
     homeVolume: boolean;
     creationTime?: Maybe<Date>;
+    migrating: boolean;
     host?: Maybe<{ displayName?: Maybe<string>; id: string }>;
   }>;
 };
