@@ -415,6 +415,10 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("save-settings-button").should("be.disabled");
     });
 
+    it("Should not show the move variables button", () => {
+      cy.dataCy("promote-vars-button").should("not.exist");
+    });
+
     it("Should not enable save when the value field is empty", () => {
       cy.dataCy("add-button").click();
       cy.dataCy("var-name-input").type("sample_name");
@@ -596,6 +600,39 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("batch-time-input").type("12");
       cy.dataCy("save-settings-button").click();
       cy.validateToast("success", "Successfully updated project");
+    });
+  });
+
+  describe("Variables page", () => {
+    before(() => {
+      cy.dataCy("navitem-variables").click();
+    });
+
+    it("Successfully saves variables", () => {
+      cy.dataCy("add-button").click();
+      cy.dataCy("var-name-input").type("a");
+      cy.dataCy("var-value-input").type("1");
+      cy.dataCy("var-private-input").check({ force: true });
+
+      cy.dataCy("add-button").click();
+      cy.dataCy("var-name-input").first().type("b");
+      cy.dataCy("var-value-input").first().type("2");
+
+      cy.dataCy("add-button").click();
+      cy.dataCy("var-name-input").first().type("c");
+      cy.dataCy("var-value-input").first().type("3");
+
+      cy.dataCy("save-settings-button").click();
+      cy.validateToast("success", "Successfully updated project");
+    });
+
+    it("Opens the modal and promotes variables", () => {
+      cy.dataCy("promote-vars-modal").should("not.exist");
+      cy.dataCy("promote-vars-button").click();
+      cy.dataCy("promote-vars-modal").should("be.visible");
+      cy.dataCy("promote-var-checkbox").first().check({ force: true });
+      cy.get("button").contains("Move 1 variable").parent().click();
+      cy.validateToast("success");
     });
   });
 

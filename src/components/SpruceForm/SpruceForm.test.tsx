@@ -4,7 +4,7 @@ import { SpruceForm, SpruceFormContainer } from ".";
 describe("spruce form", () => {
   it("should render as expected", () => {
     const onChange = jest.fn();
-    const { container } = render(
+    render(
       <SpruceFormContainer title="Just a test">
         <SpruceForm
           schema={basicForm.schema}
@@ -15,7 +15,6 @@ describe("spruce form", () => {
       </SpruceFormContainer>
     );
     expect(screen.getByLabelText("Project Cloning Method")).toBeInTheDocument();
-    expect(container.firstChild).toMatchSnapshot();
 
     expect(screen.queryByText("Username Label")).not.toBeInTheDocument();
     expect(screen.queryByDataCy("add-button")).toHaveTextContent("New User");
