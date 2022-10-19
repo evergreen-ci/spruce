@@ -141,6 +141,10 @@ describe("Repo Settings", () => {
     cy.dataCy("attach-repo-button").should("not.exist");
   });
 
+  it("Does not show a 'Go to repo settings' link on page", () => {
+    cy.dataCy("attached-repo-link").should("not.exist");
+  });
+
   it("Sets a display name", () => {
     cy.dataCy("display-name-input").type("evg");
   });
@@ -553,6 +557,12 @@ describe("Project Settings when defaulting to repo", () => {
   describe("General Settings page", () => {
     it("Should not have the save button enabled on load", () => {
       cy.dataCy("save-settings-button").should("be.disabled");
+    });
+
+    it("Shows a link to the repo", () => {
+      cy.dataCy("attached-repo-link")
+        .should("have.attr", "href")
+        .and("eq", getGeneralRoute(repo));
     });
 
     it("Preserves edits to the form when navigating between settings tabs and does not show a warning modal", () => {

@@ -32,7 +32,10 @@ export const Header: React.VFC<Props> = ({
       <TitleContainer>
         <H2 data-cy="project-settings-tab-title">{title}</H2>
         {projectType === ProjectType.AttachedProject && (
-          <StyledRouterLink to={getProjectSettingsRoute(attachedRepoId, tab)}>
+          <StyledRouterLink
+            to={getProjectSettingsRoute(attachedRepoId, tab)}
+            data-cy="attached-repo-link"
+          >
             <strong>Go to repo settings</strong>
           </StyledRouterLink>
         )}
