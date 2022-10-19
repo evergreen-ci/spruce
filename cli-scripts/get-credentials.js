@@ -56,8 +56,9 @@ async function getSecret(credentials, region, secretId) {
     console.log("Retrieving secret from AWS");
 
     const smClient = new SecretsManagerClient({ credentials: credentials, region: region });
+    let data;
     try {
-        var data = await smClient.send(new GetSecretValueCommand({ SecretId: secretId }));
+        data = await smClient.send(new GetSecretValueCommand({ SecretId: secretId }));
     } catch (error) {
         throw {
             message: "fetching config file from AWS",
@@ -75,8 +76,8 @@ async function getSecret(credentials, region, secretId) {
 }
 
 function writeCredentialsFile(secret) {
+    const envFile = path.join(__dirname, "../env", ".cmdrc.json");
     try {
-        var envFile = path.join(__dirname, "../env", ".cmdrc.json");
         fs.writeFileSync(envFile, secret);
         console.log(`Wrote config file to ${envFile}`);
     } catch (error) {
