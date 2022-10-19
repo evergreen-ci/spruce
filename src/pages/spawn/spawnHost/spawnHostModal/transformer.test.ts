@@ -6,12 +6,30 @@ describe("repo data", () => {
       expect(
         formToGql({
           formData,
-          publicKeys: [{ name: "a_key", key: "key value" }],
+          publicKeys,
           spawnTaskData: null,
         })
       ).toStrictEqual(mutationInput);
     });
   });
+  it("migrate volume id should be reflected in the gql output when supplied", () => {
+    const migrateVolumeId = "some_volume";
+    data.forEach(({ formData, mutationInput }) => {
+      expect(
+        formToGql({
+          formData,
+          publicKeys,
+          spawnTaskData: null,
+          migrateVolumeId,
+        })
+      ).toStrictEqual({
+        ...mutationInput,
+        volumeId: migrateVolumeId,
+        homeVolumeSize: null,
+      });
+    });
+  });
+  const publicKeys = [{ name: "a_key", key: "key value" }];
   const data = [
     {
       formData: {

@@ -46,6 +46,7 @@ export const formToGql = ({
         ? homeVolumeDetails.volumeSelect
         : null),
     homeVolumeSize:
+      !migrateVolumeId &&
       isVirtualWorkStation &&
       (!homeVolumeDetails?.selectExistingVolume ||
         !homeVolumeDetails?.volumeSelect)
