@@ -562,7 +562,7 @@ describe("Project Settings when defaulting to repo", () => {
     it("Shows a link to the repo", () => {
       cy.dataCy("attached-repo-link")
         .should("have.attr", "href")
-        .and("eq", getGeneralRoute(repo));
+        .and("eq", `/${getGeneralRoute(repo)}`);
     });
 
     it("Preserves edits to the form when navigating between settings tabs and does not show a warning modal", () => {
