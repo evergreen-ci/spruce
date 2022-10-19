@@ -1,3 +1,4 @@
+import { InlineCode, Description } from "@leafygreen-ui/typography";
 import {
   getEventSchema,
   getNotificationSchema,
@@ -70,8 +71,13 @@ export const getFormSchema = (
       },
       subscriptions: {
         "ui:placeholder": "No subscriptions are defined.",
-        "ui:description":
-          "The Evergreen bot needs to be re-invited to private Slack channels for notifications to go through. You can do so by running 'invite @evergreen-bot' in the channel.",
+        "ui:descriptionNode": (
+          <Description>
+            The Evergreen bot needs to be re-invited to private Slack channels
+            for notifications to go through. You can do so by running{" "}
+            <InlineCode>invite @evergreen-bot</InlineCode> in the channel.
+          </Description>
+        ),
         "ui:addButtonText": "Add Subscription",
         "ui:orderable": false,
         "ui:useExpandableCard": true,
