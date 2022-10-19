@@ -175,6 +175,21 @@ describe("Navigating to Spawn Volume page", () => {
     );
   });
 
+  describe("Migrate Modal", () => {
+    it("open the Migrate modal and spawn a host", () => {
+      cy.visit("/spawn/volume");
+      cy.dataCy("migrate-btn-vol-0ea662ac92f611ed4").click();
+      cy.dataCy("distro-input").click();
+      cy.dataCy("distro-option-ubuntu1804-workstation").click();
+      cy.dataCy("spawn-host-button").click();
+      cy.validateToast(
+        "error",
+        "There was an error while spawning your host: Error spawning host: creating spawn host: volume 'vol-0ea662ac92f611ed4' is already attached to host 'i-04ade558e1e26b0ad'",
+        false
+      );
+    });
+  });
+
   const expectedVolNames = [
     "1da0e996608e6871b60a92f6564bbc9cdf66ce90be1178dfb653920542a0d0f0",
     "vol-0c66e16459646704d",
