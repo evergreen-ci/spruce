@@ -72,6 +72,7 @@ export const getFormSchema = (
       subscriptions: {
         "ui:placeholder": "No subscriptions are defined.",
         "ui:descriptionNode": (
+          // this help text will be updated in EVG-17477
           <Description>
             The Evergreen bot needs to be re-invited to private Slack channels
             for notifications to go through. You can do so by running{" "}
