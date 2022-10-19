@@ -429,6 +429,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("var-value-input").type("sample_value");
       cy.dataCy("var-private-input").check({ force: true });
       cy.dataCy("save-settings-button").click();
+      cy.validateToast("success", "Successfully updated project");
     });
 
     it("Should redact and disable private variables on save", () => {
@@ -461,6 +462,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("var-value-input").first().type("admin_value");
       cy.dataCy("var-admin-input").first().check({ force: true });
       cy.dataCy("save-settings-button").click();
+      cy.validateToast("success", "Successfully updated project");
     });
 
     it("Should show three populated fields when navigating back from another page", () => {
@@ -476,6 +478,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("delete-item-button").first().click();
       cy.dataCy("delete-item-button").first().click();
       cy.dataCy("save-settings-button").click();
+      cy.validateToast("success", "Successfully updated project");
     });
 
     it("Should show no variables after deleting", () => {
@@ -1024,6 +1027,8 @@ describe("Notifications", () => {
     cy.dataCy("save-settings-button").scrollIntoView();
     cy.dataCy("save-settings-button").should("not.be.disabled");
     cy.dataCy("save-settings-button").click();
+    cy.validateToast("success", "Successfully updated project");
+
     cy.dataCy("save-settings-button").should("be.disabled");
     cy.dataCy("expandable-card").should("exist");
     cy.dataCy("expandable-card").scrollIntoView();
@@ -1031,7 +1036,6 @@ describe("Notifications", () => {
       "contain.text",
       "Version outcome  - mohamed.khelif@mongodb.com"
     );
-    cy.validateToast("success", "Successfully updated project");
   });
   it("should be able to delete a subscription", () => {
     cy.dataCy("expandable-card").should("exist");
