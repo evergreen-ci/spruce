@@ -7,7 +7,7 @@ interface Props {
   volume: MyVolume;
 }
 
-export const MigrateButton: React.VFC<Props> = ({ volume }) => {
+export const MigrateBtn: React.VFC<Props> = ({ volume }) => {
   const [openModal, setOpenModal] = useState(false);
 
   return (
