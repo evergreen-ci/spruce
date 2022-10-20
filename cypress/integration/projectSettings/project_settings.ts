@@ -28,21 +28,22 @@ describe("Access page", () => {
   });
 
   it("Should enable the save button when the General Access value changes", () => {
-    cy.get("label").contains("Private").click();
+    cy.getInputByLabel("Private").parent().click();
     cy.getInputByLabel("Private").should("have.attr", "aria-checked", "true");
     cy.dataCy("save-settings-button").should("be.enabled");
   });
 
   it("Should enable the save button when the General Access value changes", () => {
-    cy.get("label").contains("Private").click();
+    cy.getInputByLabel("Private").parent().click();
     cy.getInputByLabel("Private").should("have.attr", "aria-checked", "true");
     cy.dataCy("save-settings-button").should("be.enabled");
   });
 
   it("Changing settings and clicking the save button produces a success toast and the changes are persisted", () => {
-    cy.get("label").contains("Private").click();
+    cy.getInputByLabel("Private").parent().click();
     cy.getInputByLabel("Private").should("have.attr", "aria-checked", "true");
-    cy.get("label").contains("Unrestricted").click();
+
+    cy.getInputByLabel("Unrestricted").parent().click();
     cy.getInputByLabel("Unrestricted").should(
       "have.attr",
       "aria-checked",
