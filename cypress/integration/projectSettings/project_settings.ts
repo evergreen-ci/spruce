@@ -29,11 +29,13 @@ describe("Access page", () => {
 
   it("Should enable the save button when the General Access value changes", () => {
     cy.get("label").contains("Private").click();
+    cy.getInputByLabel("Private").should("have.attr", "aria-checked", "true");
     cy.dataCy("save-settings-button").should("be.enabled");
   });
 
   it("Should enable the save button when the General Access value changes", () => {
     cy.get("label").contains("Private").click();
+    cy.getInputByLabel("Private").should("have.attr", "aria-checked", "true");
     cy.dataCy("save-settings-button").should("be.enabled");
   });
 
@@ -66,6 +68,9 @@ describe("Access page", () => {
     cy.get("[aria-label='Username']").should("have.length", 1);
     cy.dataCy("delete-item-button").click();
     cy.get("[aria-label='Username']").should("have.length", 0);
+    cy.dataCy("save-settings-button").should("be.enabled").click();
+    cy.validateToast("success", "Successfully updated project");
+
     cy.reload();
     cy.get("[aria-label='Username']").should("have.length", 0);
   });
