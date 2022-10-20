@@ -42,7 +42,6 @@ describe("Access page", () => {
   it("Changing settings and clicking the save button produces a success toast and the changes are persisted", () => {
     cy.get("label").contains("Private").click();
     cy.getInputByLabel("Private").should("have.attr", "aria-checked", "true");
-
     cy.get("label").contains("Unrestricted").click();
     cy.getInputByLabel("Unrestricted").should(
       "have.attr",
@@ -57,7 +56,6 @@ describe("Access page", () => {
       .type("admin");
     cy.dataCy("save-settings-button").should("be.enabled").click();
     cy.validateToast("success", "Successfully updated project");
-
     cy.visit(destination);
     cy.get("[aria-label='Username']")
       .should("have.value", "admin")
@@ -70,7 +68,6 @@ describe("Access page", () => {
     cy.get("[aria-label='Username']").should("have.length", 0);
     cy.dataCy("save-settings-button").should("be.enabled").click();
     cy.validateToast("success", "Successfully updated project");
-
     cy.reload();
     cy.get("[aria-label='Username']").should("have.length", 0);
   });
@@ -93,7 +90,6 @@ describe("Access page", () => {
     cy.dataCy("default-to-repo-button").click();
     cy.dataCy("default-to-repo-modal").contains("Confirm").click();
     cy.validateToast("success", "Successfully defaulted page to repo");
-
     cy.getInputByLabel("Default to repo (public)").should(
       "have.attr",
       "aria-checked",
