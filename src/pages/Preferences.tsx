@@ -22,7 +22,7 @@ export const Preferences: React.VFC = () => {
       <SideNav aria-label="Preferences">
         <SideNavGroup header="Preferences">
           <SideNavItem
-            active={tab === PreferencesTabRoutes.Profile} // @ts-expect-error
+            active={tab === PreferencesTabRoutes.Profile}
             to={getPreferencesRoute(PreferencesTabRoutes.Profile)}
             as={Link}
             data-cy="profile-nav-tab"
@@ -36,7 +36,7 @@ export const Preferences: React.VFC = () => {
             Profile
           </SideNavItem>
           <SideNavItem
-            active={tab === PreferencesTabRoutes.Notifications} // @ts-expect-error
+            active={tab === PreferencesTabRoutes.Notifications}
             to={getPreferencesRoute(PreferencesTabRoutes.Notifications)}
             as={Link}
             data-cy="notifications-nav-tab"
@@ -50,7 +50,7 @@ export const Preferences: React.VFC = () => {
             Notifications
           </SideNavItem>
           <SideNavItem
-            active={tab === PreferencesTabRoutes.CLI} // @ts-expect-error
+            active={tab === PreferencesTabRoutes.CLI}
             to={getPreferencesRoute(PreferencesTabRoutes.CLI)}
             as={Link}
             data-cy="cli-nav-tab"
@@ -64,7 +64,7 @@ export const Preferences: React.VFC = () => {
             CLI & API
           </SideNavItem>
           <SideNavItem
-            active={tab === PreferencesTabRoutes.PublicKeys} // @ts-expect-error
+            active={tab === PreferencesTabRoutes.PublicKeys}
             to={getPreferencesRoute(PreferencesTabRoutes.PublicKeys)}
             as={Link}
             data-cy="publickeys-nav-tab"
@@ -78,7 +78,7 @@ export const Preferences: React.VFC = () => {
             Manage Public Keys
           </SideNavItem>
           <SideNavItem
-            active={tab === PreferencesTabRoutes.NewUI} // @ts-expect-error
+            active={tab === PreferencesTabRoutes.NewUI}
             to={getPreferencesRoute(PreferencesTabRoutes.NewUI)}
             as={Link}
             data-cy="newui-nav-tab"

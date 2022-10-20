@@ -63,7 +63,7 @@ export const ExecutionSelect: React.VFC<ExecutionSelectProps> = ({
           >
             <ExecutionInfo>
               <StyledTaskStatusIcon status={singleExecution.status} />
-              <StyledBody title={optionText}>{optionText}</StyledBody>
+              <StyledBody>{optionText}</StyledBody>
             </ExecutionInfo>
           </Option>
         );

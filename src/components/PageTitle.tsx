@@ -54,8 +54,8 @@ export const PageTitle: React.VFC<Props> = ({
           <TitleWrapper size={size}>
             <TitleTypography size={size}>
               <span data-cy="page-title">{title}</span>
-              <BadgeWrapper size={size}>{badge}</BadgeWrapper>
             </TitleTypography>
+            <BadgeWrapper size={size}>{badge}</BadgeWrapper>
           </TitleWrapper>
           {buttons ?? null}
         </PageHeader>
@@ -81,5 +81,7 @@ const PageHeader = styled.div<TitleTypographyProps>`
 `;
 
 const TitleWrapper = styled.div<TitleTypographyProps>`
+  align-items: center;
+  display: flex;
   max-width: ${(props) => (props.size === "medium" ? "70%" : "100%")};
 `;

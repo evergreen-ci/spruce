@@ -17,10 +17,9 @@ import {
 } from "./Layout";
 import { SideNav, SideNavGroup, SideNavItem } from "./SideNav";
 import { SiderCard } from "./SiderCard";
-import { BoldStyledLink, StyledLink, StyledRouterLink } from "./StyledLink";
+import { StyledLink, StyledRouterLink } from "./StyledLink";
 
 export {
-  BoldStyledLink,
   Divider,
   ErrorMessage,
   FiltersWrapper,

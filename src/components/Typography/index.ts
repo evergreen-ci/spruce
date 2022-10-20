@@ -40,14 +40,6 @@ export const H3 = styled.h3`
   display: inline-flex;
 `;
 
-export const P1 = styled.p`
-  font-size: 15px;
-  line-height: ${size.s};
-  margin-bottom: 5px;
-  color: ${gray.dark3};
-  ${wordBreakCss};
-`;
-
 export const P2 = styled.p`
   font-size: 12px;
   line-height: 14px;
