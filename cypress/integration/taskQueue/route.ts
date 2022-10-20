@@ -58,7 +58,8 @@ describe("Task Queue", () => {
     );
     cy.dataCy("task-queue-table").should("exist");
     cy.get(".ant-table-row-selected").should("exist");
-    cy.get(".ant-table-row-selected").contains("13").should("be.visible");
+    cy.get(".ant-table-row-selected").should("contain.text", "13");
+    cy.get(".ant-table-row-selected").should("be.visible");
   });
 
   it("Task links goes to Spruce for both patches and mainline commits", () => {
