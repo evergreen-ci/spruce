@@ -24,8 +24,10 @@ import {
   GetUserSettingsQuery,
   GetSpawnTaskQuery,
   GetSpawnTaskQueryVariables,
+  MigrateVolumeMutation,
+  MigrateVolumeMutationVariables,
 } from "gql/generated/types";
-import { SPAWN_HOST } from "gql/mutations";
+import { MIGRATE_VOLUME, SPAWN_HOST } from "gql/mutations";
 import {
   GET_DISTROS,
   GET_MY_PUBLIC_KEYS,
@@ -122,7 +124,21 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     },
     refetchQueries: ["MyHosts", "MyVolumes", "GetMyPublicKeys"],
   });
-
+  const [migrateVolumeMutation, { loading: loadingMigration }] = useMutation<
+    MigrateVolumeMutation,
+    MigrateVolumeMutationVariables
+  >(MIGRATE_VOLUME, {
+    onCompleted() {
+      dispatchToast.success("Migrated volume onto host.");
+      setOpen(false);
+    },
+    onError(err) {
+      dispatchToast.error(
+        `There was an error during volume migration: ${err.message}`
+      );
+    },
+    refetchQueries: ["MyHosts", "MyVolumes", "GetMyPublicKeys"],
+  });
   const disableExpirationCheckbox = useDisableSpawnExpirationCheckbox(false);
   const noExpirationCheckboxTooltip = getNoExpirationCheckboxTooltipCopy({
     disableExpirationCheckbox,
@@ -192,11 +208,20 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
         "setUpScript",
       ]),
     });
-    spawnHostMutation({
-      variables: { SpawnHostInput: mutationInput },
-    });
+    if (migrateVolumeId) {
+      migrateVolumeMutation({
+        variables: {
+          spawnHostInput: mutationInput,
+          volumeId: migrateVolumeId,
+        },
+      });
+    } else {
+      spawnHostMutation({
+        variables: { SpawnHostInput: mutationInput },
+      });
+    }
   };
-
+  const loadingSubmit = loadingSpawnHost || loadingMigration;
   return (
     <DisplayModal
       title="Spawn New Host"
@@ -225,13 +250,13 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
           data-cy="spawn-host-button"
           disabled={
             !validateSpawnHostForm(formState, !!migrateVolumeId) ||
-            loadingSpawnHost
+            loadingSubmit
           } // @ts-expect-error
           onClick={spawnHost}
           variant={Variant.Primary}
           key="spawn_host_button"
         >
-          {loadingSpawnHost ? "Spawning Host" : "Spawn"}
+          {loadingSubmit ? "Spawning Host" : "Spawn"}
         </WideButton>
       </StyledFooter>
     </DisplayModal>

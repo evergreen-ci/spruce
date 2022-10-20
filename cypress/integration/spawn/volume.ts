@@ -182,11 +182,7 @@ describe("Navigating to Spawn Volume page", () => {
       cy.dataCy("distro-input").click();
       cy.dataCy("distro-option-ubuntu1804-workstation").click();
       cy.dataCy("spawn-host-button").click();
-      cy.validateToast(
-        "error",
-        "There was an error while spawning your host: Error spawning host: creating spawn host: volume 'vol-0ea662ac92f611ed4' is already attached to host 'i-04ade558e1e26b0ad'",
-        false
-      );
+      cy.validateToast("success", "Migrated volume onto host", false);
     });
   });
 

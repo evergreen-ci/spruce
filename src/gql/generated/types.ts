@@ -3377,6 +3377,13 @@ export type ForceRepotrackerRunMutationVariables = Exact<{
 
 export type ForceRepotrackerRunMutation = { forceRepotrackerRun: boolean };
 
+export type MigrateVolumeMutationVariables = Exact<{
+  volumeId: Scalars["String"];
+  spawnHostInput: SpawnHostInput;
+}>;
+
+export type MigrateVolumeMutation = { migrateVolume: boolean };
+
 export type MoveAnnotationIssueMutationVariables = Exact<{
   taskId: Scalars["String"];
   execution: Scalars["Int"];
