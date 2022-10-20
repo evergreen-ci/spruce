@@ -19,6 +19,7 @@ import FILE_JIRA_TICKET from "./file-jira-ticket.graphql";
 import FORCE_REPOTRACKER_RUN from "./force-repotracker-run.graphql";
 import MOVE_ANNOTATION from "./move-annotation.graphql";
 import OVERRIDE_TASK_DEPENDENCIES from "./override-task-dependencies.graphql";
+import PROMOTE_VARS_TO_REPO from "./promote-vars-to-repo.graphql";
 import REMOVE_ANNOTATION from "./remove-annotation.graphql";
 import REMOVE_FAVORITE_PROJECT from "./remove-favorite-project.graphql";
 import REMOVE_ITEM_FROM_COMMIT_QUEUE from "./remove-item-from-commit-queue.graphql";
@@ -68,6 +69,7 @@ export {
   FORCE_REPOTRACKER_RUN,
   MOVE_ANNOTATION,
   OVERRIDE_TASK_DEPENDENCIES,
+  PROMOTE_VARS_TO_REPO,
   REMOVE_ANNOTATION,
   REMOVE_FAVORITE_PROJECT,
   REMOVE_ITEM_FROM_COMMIT_QUEUE,

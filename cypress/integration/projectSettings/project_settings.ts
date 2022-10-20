@@ -29,17 +29,26 @@ describe("Access page", () => {
 
   it("Should enable the save button when the General Access value changes", () => {
     cy.get("label").contains("Private").click();
+    cy.getInputByLabel("Private").should("have.attr", "aria-checked", "true");
     cy.dataCy("save-settings-button").should("be.enabled");
   });
 
   it("Should enable the save button when the General Access value changes", () => {
     cy.get("label").contains("Private").click();
+    cy.getInputByLabel("Private").should("have.attr", "aria-checked", "true");
     cy.dataCy("save-settings-button").should("be.enabled");
   });
 
   it("Changing settings and clicking the save button produces a success toast and the changes are persisted", () => {
     cy.get("label").contains("Private").click();
+    cy.getInputByLabel("Private").should("have.attr", "aria-checked", "true");
     cy.get("label").contains("Unrestricted").click();
+    cy.getInputByLabel("Unrestricted").should(
+      "have.attr",
+      "aria-checked",
+      "true"
+    );
+
     cy.contains("Add Username").click();
     cy.get("[aria-label='Username'")
       .should("have.length", 1)
@@ -48,16 +57,6 @@ describe("Access page", () => {
     cy.dataCy("save-settings-button").should("be.enabled").click();
     cy.validateToast("success", "Successfully updated project");
     cy.visit(destination);
-    cy.get("label")
-      .contains("Private")
-      .closest("label")
-      .get("input")
-      .should("have.attr", "checked", "checked");
-    cy.get("label")
-      .contains("Unrestricted")
-      .closest("label")
-      .get("input")
-      .should("have.attr", "checked", "checked");
     cy.get("[aria-label='Username']")
       .should("have.value", "admin")
       .should("exist");
@@ -67,6 +66,8 @@ describe("Access page", () => {
     cy.get("[aria-label='Username']").should("have.length", 1);
     cy.dataCy("delete-item-button").click();
     cy.get("[aria-label='Username']").should("have.length", 0);
+    cy.dataCy("save-settings-button").should("be.enabled").click();
+    cy.validateToast("success", "Successfully updated project");
     cy.reload();
     cy.get("[aria-label='Username']").should("have.length", 0);
   });
@@ -89,11 +90,11 @@ describe("Access page", () => {
     cy.dataCy("default-to-repo-button").click();
     cy.dataCy("default-to-repo-modal").contains("Confirm").click();
     cy.validateToast("success", "Successfully defaulted page to repo");
-    cy.get("label")
-      .contains("Default to repo (public)")
-      .closest("label")
-      .get("input")
-      .should("have.attr", "checked", "checked");
+    cy.getInputByLabel("Default to repo (public)").should(
+      "have.attr",
+      "aria-checked",
+      "true"
+    );
   });
 });
 
@@ -351,8 +352,8 @@ describe("Repo Settings", () => {
     });
 
     it("Shows the patch trigger alias", () => {
+      cy.contains("GitHub Trigger Aliases").scrollIntoView();
       cy.dataCy("pta-item").should("have.length", 1);
-      cy.dataCy("pta-item").scrollIntoView();
       cy.contains("my-alias").should("be.visible");
     });
 
@@ -415,6 +416,10 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("save-settings-button").should("be.disabled");
     });
 
+    it("Should not show the move variables button", () => {
+      cy.dataCy("promote-vars-button").should("not.exist");
+    });
+
     it("Should not enable save when the value field is empty", () => {
       cy.dataCy("add-button").click();
       cy.dataCy("var-name-input").type("sample_name");
@@ -425,6 +430,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("var-value-input").type("sample_value");
       cy.dataCy("var-private-input").check({ force: true });
       cy.dataCy("save-settings-button").click();
+      cy.validateToast("success", "Successfully updated project");
     });
 
     it("Should redact and disable private variables on save", () => {
@@ -457,6 +463,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("var-value-input").first().type("admin_value");
       cy.dataCy("var-admin-input").first().check({ force: true });
       cy.dataCy("save-settings-button").click();
+      cy.validateToast("success", "Successfully updated project");
     });
 
     it("Should show three populated fields when navigating back from another page", () => {
@@ -472,6 +479,7 @@ describe("Project Settings when not defaulting to repo", () => {
       cy.dataCy("delete-item-button").first().click();
       cy.dataCy("delete-item-button").first().click();
       cy.dataCy("save-settings-button").click();
+      cy.validateToast("success", "Successfully updated project");
     });
 
     it("Should show no variables after deleting", () => {
@@ -596,6 +604,39 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("batch-time-input").type("12");
       cy.dataCy("save-settings-button").click();
       cy.validateToast("success", "Successfully updated project");
+    });
+  });
+
+  describe("Variables page", () => {
+    before(() => {
+      cy.dataCy("navitem-variables").click();
+    });
+
+    it("Successfully saves variables", () => {
+      cy.dataCy("add-button").click();
+      cy.dataCy("var-name-input").type("a");
+      cy.dataCy("var-value-input").type("1");
+      cy.dataCy("var-private-input").check({ force: true });
+
+      cy.dataCy("add-button").click();
+      cy.dataCy("var-name-input").first().type("b");
+      cy.dataCy("var-value-input").first().type("2");
+
+      cy.dataCy("add-button").click();
+      cy.dataCy("var-name-input").first().type("c");
+      cy.dataCy("var-value-input").first().type("3");
+
+      cy.dataCy("save-settings-button").click();
+      cy.validateToast("success", "Successfully updated project");
+    });
+
+    it("Opens the modal and promotes variables", () => {
+      cy.dataCy("promote-vars-modal").should("not.exist");
+      cy.dataCy("promote-vars-button").click();
+      cy.dataCy("promote-vars-modal").should("be.visible");
+      cy.dataCy("promote-var-checkbox").first().check({ force: true });
+      cy.get("button").contains("Move 1 variable").parent().click();
+      cy.validateToast("success");
     });
   });
 
@@ -987,6 +1028,8 @@ describe("Notifications", () => {
     cy.dataCy("save-settings-button").scrollIntoView();
     cy.dataCy("save-settings-button").should("not.be.disabled");
     cy.dataCy("save-settings-button").click();
+    cy.validateToast("success", "Successfully updated project");
+
     cy.dataCy("save-settings-button").should("be.disabled");
     cy.dataCy("expandable-card").should("exist");
     cy.dataCy("expandable-card").scrollIntoView();
@@ -994,7 +1037,6 @@ describe("Notifications", () => {
       "contain.text",
       "Version outcome  - mohamed.khelif@mongodb.com"
     );
-    cy.validateToast("success", "Successfully updated project");
   });
   it("should be able to delete a subscription", () => {
     cy.dataCy("expandable-card").should("exist");
