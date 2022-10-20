@@ -6,23 +6,26 @@ import {
   GROUPED_BADGE_PADDING,
   GROUPED_BADGE_HEIGHT,
 } from "pages/commits/constants";
-import { groupStatusesByUmbrellaStatus } from "utils/statuses";
+import { string, statuses } from "utils";
+
+const { applyStrictRegex } = string;
+const { groupStatusesByUmbrellaStatus } = statuses;
 
 interface Props {
   variant: string;
   statusCounts: StatusCount[];
   versionId: string;
   onClick?: (statuses: string[]) => () => void;
-  preserveSorts?: boolean;
 }
+
 const VariantGroupedTaskStatusBadges: React.VFC<Props> = ({
   variant,
   statusCounts,
   versionId,
   onClick = () => () => {},
-  preserveSorts = false,
 }) => {
   const { stats } = groupStatusesByUmbrellaStatus(statusCounts ?? []);
+  const queryParams = { variant: applyStrictRegex(variant) };
 
   return (
     <VariantTasks>
@@ -30,13 +33,12 @@ const VariantGroupedTaskStatusBadges: React.VFC<Props> = ({
         ({ umbrellaStatus, count, statusCounts: groupedStatusCounts }) => (
           <GroupedTaskStatusBadge
             key={`${versionId}_${variant}_${umbrellaStatus}`}
-            variant={variant}
-            versionId={versionId}
-            status={umbrellaStatus}
             count={count}
             onClick={onClick(Object.keys(groupedStatusCounts))}
+            queryParamsToPreserve={queryParams}
+            status={umbrellaStatus}
             statusCounts={groupedStatusCounts}
-            preserveSorts={preserveSorts}
+            versionId={versionId}
           />
         )
       )}

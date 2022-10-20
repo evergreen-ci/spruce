@@ -9,5 +9,17 @@ query GetBuildVariantStats($id: String!) {
         status
       }
     }
+    childVersions {
+      id
+      buildVariantStats(options: {}) {
+        variant
+        displayName
+        statusCounts {
+          count
+          status
+        }
+      }
+      projectIdentifier
+    }
   }
 }

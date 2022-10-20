@@ -1,46 +1,39 @@
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
-import { getVersionRoute } from "constants/routes";
+import { GetVersionRouteOptions, getVersionRoute } from "constants/routes";
 import {
   taskStatusToCopy,
   mapUmbrellaStatusColors,
   mapUmbrellaStatusToQueryParam,
 } from "constants/task";
 import { fontSize, size, zIndex } from "constants/tokens";
+import { PatchTab } from "types/patch";
 import { TaskStatus } from "types/task";
-import { queryString, string } from "utils";
 
-const { applyStrictRegex } = string;
-const { parseQueryString } = queryString;
-
-interface Props {
-  status: TaskStatus;
+interface GroupedTaskStatusBadgeProps {
   count: number;
   onClick?: () => void;
+  status: TaskStatus;
   statusCounts?: { [key: string]: number };
   versionId: string;
-  variant?: string;
-  preserveSorts?: boolean;
+  queryParamsToPreserve?: GetVersionRouteOptions;
 }
 
-export const GroupedTaskStatusBadge: React.VFC<Props> = ({
+export const GroupedTaskStatusBadge: React.VFC<GroupedTaskStatusBadgeProps> = ({
   count,
-  status,
   onClick = () => undefined,
+  status,
   statusCounts,
   versionId,
-  variant,
-  preserveSorts = false,
+  queryParamsToPreserve = {},
 }) => {
-  const { search } = useLocation();
-  const { sorts } = parseQueryString(search);
-
   const href = getVersionRoute(versionId, {
-    ...(preserveSorts && { sorts }),
-    ...(variant && { variant: applyStrictRegex(variant) }),
-    statuses: mapUmbrellaStatusToQueryParam[status],
+    ...queryParamsToPreserve,
+    ...(queryParamsToPreserve.tab !== PatchTab.DownstreamTasks && {
+      statuses: mapUmbrellaStatusToQueryParam[status],
+    }),
   });
 
   const { fill, border, text } = mapUmbrellaStatusColors[status];
