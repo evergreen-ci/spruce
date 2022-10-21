@@ -18,7 +18,7 @@ exports[`storybook Storyshots Components/FilterBadges Default 1`] = `
       </div>
       <svg
         aria-label="X Icon"
-        className="css-4ijbt0-ClickableIcon e1vs77ku3"
+        className="css-1e9bhvr-ClickableIcon e1vs77ku3"
         data-cy="close-badge"
         fill="none"
         height={16}

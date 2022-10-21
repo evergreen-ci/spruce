@@ -9,7 +9,7 @@ exports[`storybook Storyshots Components/TimePicker Default 1`] = `
     onMouseUp={[Function]}
     style={
       Object {
-        "border": "1px solid #89979B",
+        "border": "1px solid #889397",
         "borderRadius": "4px",
         "transition": "border-color 150ms ease-in-out",
       }

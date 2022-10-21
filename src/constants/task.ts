@@ -240,7 +240,7 @@ export const mapTaskToBarchartColor = {
   [TaskStatus.ScheduledUmbrella]: gray.base,
   [TaskStatus.FailedUmbrella]: red.base,
   [TaskStatus.Succeeded]: green.dark1,
-  [TaskStatus.SetupFailed]: purple.base,
+  [TaskStatus.SetupFailed]: purple.light2,
 };
 
 // Represents order for waterfall barchart

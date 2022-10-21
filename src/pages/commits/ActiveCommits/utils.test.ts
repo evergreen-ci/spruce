@@ -42,7 +42,7 @@ describe("getAllTaskStatsGroupedByColor", () => {
               taskStatusToCopy[TaskStatus.SystemTimedOut],
               taskStatusToCopy[TaskStatus.SystemUnresponsive],
             ],
-            color: purple.base,
+            color: purple.dark2,
             umbrellaStatus: TaskStatus.SystemFailureUmbrella,
             statusCounts: {
               [TaskStatus.SystemTimedOut]: 5,
@@ -122,7 +122,7 @@ describe("getAllTaskStatsGroupedByColor", () => {
               taskStatusToCopy[TaskStatus.SystemFailed],
               taskStatusToCopy[TaskStatus.SystemUnresponsive],
             ],
-            color: purple.base,
+            color: purple.dark2,
             umbrellaStatus: TaskStatus.SystemFailureUmbrella,
             statusCounts: {
               [TaskStatus.SystemFailed]: 5,
@@ -176,7 +176,7 @@ describe("getAllTaskStatsGroupedByColor", () => {
               taskStatusToCopy[TaskStatus.SystemFailed],
               taskStatusToCopy[TaskStatus.SystemUnresponsive],
             ],
-            color: purple.base,
+            color: purple.dark2,
             umbrellaStatus: TaskStatus.SystemFailureUmbrella,
             statusCounts: {
               [TaskStatus.SystemFailed]: 5,
@@ -438,13 +438,13 @@ const groupedTaskStatsAll = [
     umbrellaStatus: TaskStatus.SystemFailureUmbrella,
     count: 3,
     statuses: [TaskStatus.SystemFailed],
-    color: purple.base,
+    color: purple.dark2,
   },
   {
     umbrellaStatus: TaskStatus.SetupFailed,
     count: 5,
     statuses: [TaskStatus.SetupFailed],
-    color: purple.base,
+    color: purple.light2,
   },
   {
     umbrellaStatus: TaskStatus.Undispatched,

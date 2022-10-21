@@ -128,11 +128,11 @@ exports[`storybook Storyshots Components/Task Status Badges Default 1`] = `
     className="css-11yt18y-Wrapper e11i4bjx0"
   >
     <div
-      border="#d5d4f9"
-      className="css-yl49an-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-13xc3rv"
+      border="#2D0B59"
+      className="css-10apn1t-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-13xc3rv"
       data-cy="task-status-badge"
-      fill="#F1F0FC"
-      text="#4F4FBF"
+      fill="#5E0C9E"
+      text="#F9EBFF"
     >
       Setup Failed
     </div>
@@ -141,11 +141,11 @@ exports[`storybook Storyshots Components/Task Status Badges Default 1`] = `
     className="css-11yt18y-Wrapper e11i4bjx0"
   >
     <div
-      border="#36367F"
-      className="css-wpehgj-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-13xc3rv"
+      border="#2D0B59"
+      className="css-1ts7muj-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-13xc3rv"
       data-cy="task-status-badge"
-      fill="#4F4FBF"
-      text="#F1F0FC"
+      fill="#F1D4FD"
+      text="#5E0C9E"
     >
       System Failed
     </div>
@@ -154,11 +154,11 @@ exports[`storybook Storyshots Components/Task Status Badges Default 1`] = `
     className="css-11yt18y-Wrapper e11i4bjx0"
   >
     <div
-      border="#36367F"
-      className="css-wpehgj-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-13xc3rv"
+      border="#2D0B59"
+      className="css-1ts7muj-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-13xc3rv"
       data-cy="task-status-badge"
-      fill="#4F4FBF"
-      text="#F1F0FC"
+      fill="#F1D4FD"
+      text="#5E0C9E"
     >
       System Timed Out
     </div>
@@ -167,11 +167,11 @@ exports[`storybook Storyshots Components/Task Status Badges Default 1`] = `
     className="css-11yt18y-Wrapper e11i4bjx0"
   >
     <div
-      border="#36367F"
-      className="css-wpehgj-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-13xc3rv"
+      border="#2D0B59"
+      className="css-1ts7muj-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-13xc3rv"
       data-cy="task-status-badge"
-      fill="#4F4FBF"
-      text="#F1F0FC"
+      fill="#F1D4FD"
+      text="#5E0C9E"
     >
       System Unresponsive
     </div>

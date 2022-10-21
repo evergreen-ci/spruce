@@ -77,7 +77,7 @@ describe("groupStatusesByUmbrellaStatus", () => {
             taskStatusToCopy[TaskStatus.SystemTimedOut],
             taskStatusToCopy[TaskStatus.SystemUnresponsive],
           ],
-          color: purple.base,
+          color: purple.dark2,
           umbrellaStatus: TaskStatus.SystemFailureUmbrella,
           statusCounts: {
             [TaskStatus.SystemTimedOut]: 5,
@@ -136,7 +136,7 @@ describe("groupStatusesByUmbrellaStatus", () => {
             taskStatusToCopy[TaskStatus.SystemFailed],
             taskStatusToCopy[TaskStatus.SystemUnresponsive],
           ],
-          color: purple.base,
+          color: purple.dark2,
           umbrellaStatus: TaskStatus.SystemFailureUmbrella,
           statusCounts: {
             [TaskStatus.SystemFailed]: 5,
