@@ -2,7 +2,7 @@ import { palette } from "@leafygreen-ui/palette";
 import { ALL_VALUE, TreeDataEntry } from "components/TreeSelect";
 import { TaskStatus } from "types/task";
 
-const { gray, red, yellow, green, purple } = palette;
+const { gray, green, purple, red, yellow } = palette;
 
 export const taskStatusToCopy = {
   [TaskStatus.ScheduledUmbrella]: "Scheduled",
