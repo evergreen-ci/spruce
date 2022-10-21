@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import Cookies from "js-cookie";
 import Icon from "components/Icon";
 import { StyledLink as Link } from "components/styles";
@@ -9,7 +9,7 @@ import { HIDE_FEEDBACK } from "constants/cookies";
 import { size } from "constants/tokens";
 import { useSpruceConfig } from "hooks";
 
-const { green } = uiColors;
+const { green } = palette;
 
 export const Feedback: React.VFC = () => {
   const spruceConfig = useSpruceConfig();
@@ -48,7 +48,7 @@ const StyledLink = styled(Link)`
   margin-top: ${size.xxs};
   margin-right: ${size.xs};
   position: fixed;
-  background-color: ${uiColors.white};
+  background-color: ${palette.white};
   white-space: nowrap;
   right: ${size.l};
 `;

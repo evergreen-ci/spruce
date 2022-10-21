@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Select } from "antd";
 import { InputLabel } from "components/styles";
 import { OneOf } from "types/utils";
@@ -7,7 +7,7 @@ import ElementWrapper from "../ElementWrapper";
 import { EnumSpruceWidgetProps } from "./types";
 
 const { Option } = Select;
-const { red } = uiColors;
+const { red } = palette;
 
 export const AntdSelect: React.VFC<
   {

@@ -2,11 +2,11 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Link } from "react-router-dom";
 import { zIndex } from "constants/tokens";
 
-const { white } = uiColors;
+const { white } = palette;
 
 const DropdownMenuIcon: React.VFC<{ open: boolean }> = ({ open }) => (
   <Icon glyph={open ? "CaretUp" : "CaretDown"} role="presentation" />

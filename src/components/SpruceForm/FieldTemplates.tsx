@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import Button from "@leafygreen-ui/button";
 import ExpandableCard from "@leafygreen-ui/expandable-card";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Body, Subtitle } from "@leafygreen-ui/typography";
 import {
   ArrayFieldTemplateProps,
@@ -18,7 +18,7 @@ import { SpruceFormContainer } from "./Container";
 import { TitleField as CustomTitleField } from "./CustomFields";
 import ElementWrapper from "./ElementWrapper";
 
-const { gray } = uiColors;
+const { gray } = palette;
 
 // Extract index of the current field via its ID
 const getIndex = (id: string): number => {

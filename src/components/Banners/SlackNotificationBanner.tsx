@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import TextInput from "@leafygreen-ui/text-input";
 import { Popconfirm } from "antd";
 import Cookies from "js-cookie";
@@ -18,7 +18,7 @@ import {
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { GET_USER_SETTINGS } from "gql/queries";
 
-const { blue } = uiColors;
+const { blue } = palette;
 
 export const SlackNotificationBanner = () => {
   const dispatchToast = useToastContext();

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Skeleton } from "antd";
 import { Link } from "react-router-dom";
@@ -11,7 +11,7 @@ import { TaskStatus } from "types/task";
 import { COLUMN_LABEL_WIDTH, ROW_LABEL_WIDTH } from "../constants";
 import { HistoryTableIcon } from "../HistoryTableIcon";
 
-const { gray } = uiColors;
+const { gray } = palette;
 const statusIconSize = 20;
 
 interface TaskCellProps {

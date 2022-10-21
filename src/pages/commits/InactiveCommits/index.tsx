@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
@@ -17,7 +17,7 @@ import { jiraLinkify } from "utils/string/jiraLinkify";
 import { commitChartHeight } from "../constants";
 
 const { shortenGithash, trimStringFromMiddle } = string;
-const { focus, gray } = uiColors;
+const { blue, gray } = palette;
 
 export const InactiveCommitsLine = () => (
   <InactiveCommitContainer>
@@ -227,7 +227,7 @@ const TooltipTitleText = styled.div`
 const StyledDisclaimer = styled(Disclaimer)`
   cursor: pointer;
   :hover {
-    color: ${focus};
+    color: ${blue.light1};
   }
 `;
 

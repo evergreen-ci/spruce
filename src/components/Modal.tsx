@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { H2 } from "@leafygreen-ui/typography";
 import { Modal as AntdModal } from "antd";
 import { HR } from "components/styles/Layout";
@@ -46,7 +46,7 @@ export const Modal: React.VFC<ModalProps> = ({
   </StyledModal>
 );
 
-const backgroundColor = hexToRGBA(uiColors.black, 0.9);
+const backgroundColor = hexToRGBA(palette.black, 0.9);
 
 const StyledModal = styled(AntdModal)`
   .ant-modal-content {

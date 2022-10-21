@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import Icon from "components/Icon";
@@ -9,7 +9,7 @@ import { size, zIndex } from "constants/tokens";
 import { string } from "utils";
 
 const { trimStringFromMiddle } = string;
-const { gray } = uiColors;
+const { gray } = palette;
 
 const tooltipInModalZIndex = zIndex.tooltip; // necessary due to SeeMoreModal, which has zIndex 40
 const maxBadgeLength = 25;
