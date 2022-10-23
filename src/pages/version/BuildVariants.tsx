@@ -46,17 +46,20 @@ export const BuildVariants: React.VFC = () => {
         <Divider />
         {error && <div>{error.message}</div>}
         {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
-        {version?.buildVariantStats?.map(
-          ({ displayName, statusCounts, variant }) => (
-            <VariantTaskGroup
-              key={`buildVariant_${displayName}_${variant}`}
-              displayName={displayName}
-              statusCounts={statusCounts}
-              variant={variant}
-              versionId={id}
-            />
-          )
-        )}
+        <div data-cy="direct-build-variants">
+          {version?.buildVariantStats?.map(
+            ({ displayName, statusCounts, variant }) => (
+              <VariantTaskGroup
+                key={`buildVariant_${displayName}_${variant}`}
+                displayName={displayName}
+                statusCounts={statusCounts}
+                variant={variant}
+                versionId={id}
+              />
+            )
+          )}
+        </div>
+
         {childVersions && (
           <DownstreamVariantsContainer data-cy="downstream-build-variants">
             <H3>Downstream Build Variants</H3>

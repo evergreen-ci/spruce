@@ -59,6 +59,8 @@ describe("Task Queue", () => {
     cy.dataCy("task-queue-table").should("exist");
     cy.get(".ant-table-row-selected").should("exist");
     cy.get(".ant-table-row-selected").should("contain.text", "13");
+
+    cy.contains("osx-108").should("not.be.visible");
     cy.get(".ant-table-row-selected").should("be.visible");
   });
 
