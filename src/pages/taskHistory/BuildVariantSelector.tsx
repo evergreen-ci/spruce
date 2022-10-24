@@ -56,7 +56,7 @@ const BuildVariantSelector: React.VFC<BuildVariantSelectorProps> = ({
     });
   };
 
-  const { buildVariantsForTaskName } = data || {};
+  const { buildVariantsForTaskName = [] } = data || {};
 
   const handleSearch = (options: BuildVariantTuple[], match: string) =>
     options.filter(
@@ -64,6 +64,7 @@ const BuildVariantSelector: React.VFC<BuildVariantSelectorProps> = ({
         option.buildVariant.includes(match) ||
         option.displayName.includes(match)
     );
+
   return (
     <Container>
       <SearchableDropdown

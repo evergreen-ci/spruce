@@ -53,7 +53,7 @@ const TaskSelector: React.VFC<TaskSelectorProps> = ({
     });
   };
 
-  const { taskNamesForBuildVariant } = data || {};
+  const { taskNamesForBuildVariant = [] } = data || {};
   return (
     <Container>
       <SearchableDropdown
