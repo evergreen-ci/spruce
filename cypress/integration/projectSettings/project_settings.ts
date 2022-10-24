@@ -15,7 +15,7 @@ const repo = "602d70a2b2373672ee493184";
 
 describe("Access page", () => {
   const destination = getAccessRoute(projectUseRepoEnabled);
-  beforeEach(() => {
+  before(() => {
     cy.visit(destination);
   });
 
@@ -55,22 +55,33 @@ describe("Access page", () => {
       .should("have.length", 1)
       .first()
       .type("admin");
-    cy.dataCy("save-settings-button").should("be.enabled").click();
-    cy.validateToast("success", "Successfully updated project");
-    cy.visit(destination);
     cy.get("[aria-label='Username']")
       .should("have.value", "admin")
       .should("exist");
+    cy.dataCy("save-settings-button").should("be.enabled").click();
+    cy.validateToast("success", "Successfully updated project");
   });
 
   it("Deleting a username results in a success toast and the changes are persisted", () => {
     cy.get("[aria-label='Username']").should("have.length", 1);
-    cy.dataCy("delete-item-button").click();
+    cy.dataCy("delete-item-button").should("be.visible").click();
     cy.get("[aria-label='Username']").should("have.length", 0);
     cy.dataCy("save-settings-button").should("be.enabled").click();
     cy.validateToast("success", "Successfully updated project");
+
     cy.reload();
     cy.get("[aria-label='Username']").should("have.length", 0);
+  });
+
+  it("Clicking on 'Default to Repo on Page' selects the 'Default to repo (public)' checkbox and produces a success banner", () => {
+    cy.dataCy("default-to-repo-button").click();
+    cy.dataCy("default-to-repo-modal").contains("Confirm").click();
+    cy.validateToast("success", "Successfully defaulted page to repo");
+    cy.getInputByLabel("Default to repo (public)").should(
+      "have.attr",
+      "aria-checked",
+      "true"
+    );
   });
 
   it("Submitting an invalid admin username produces an error toast", () => {
@@ -84,17 +95,6 @@ describe("Access page", () => {
     cy.validateToast(
       "error",
       "There was an error saving the project: error updating project admin roles: no admin role for project 'spruce' found"
-    );
-  });
-
-  it("Clicking on 'Default to Repo on Page' selects the 'Default to repo (public)' checkbox and produces a success banner", () => {
-    cy.dataCy("default-to-repo-button").click();
-    cy.dataCy("default-to-repo-modal").contains("Confirm").click();
-    cy.validateToast("success", "Successfully defaulted page to repo");
-    cy.getInputByLabel("Default to repo (public)").should(
-      "have.attr",
-      "aria-checked",
-      "true"
     );
   });
 });
