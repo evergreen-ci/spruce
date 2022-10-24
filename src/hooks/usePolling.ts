@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ApolloQueryResult, OperationVariables } from "@apollo/client";
 import Cookies from "js-cookie";
 import { DISABLE_QUERY_POLLING } from "constants/cookies";
-import { pollInterval } from "constants/index";
+import { FASTER_POLL_INTERVAL, pollInterval } from "constants/index";
 import { useNetworkStatus } from "./useNetworkStatus";
 import { usePageVisibility } from "./usePageVisibility";
 
@@ -13,6 +13,7 @@ type usePollingType = {
     refetch?: (
       variables?: Partial<OperationVariables>
     ) => Promise<ApolloQueryResult<any>> | void,
+    shouldPollFaster?: boolean,
     initialPollingState?: boolean
   ): boolean;
 };
@@ -24,16 +25,21 @@ type usePollingType = {
  * @param startPolling - Function from useQuery that is called when online & visible
  * @param stopPolling - Function from useQuery that is called when offline or not visible
  * @param refetch - Optional function from useQuery that can be used to refetch data
+ * @param shouldPollFaster - Optional boolean to enable increased poll rat.
  * @param initialPollingState - Optional boolean to indicate the initial polling state
  * @returns boolean - true if polling, false if not polling
  */
 export const usePolling: usePollingType = (
   startPolling,
   stopPolling,
-  refetch = () => {},
+  refetch,
+  shouldPollFaster,
   initialPollingState = true
 ) => {
-  const [isPolling, setIsPolling] = useState(initialPollingState);
+  const [pollRate, setPollRate] = useState(
+    initialPollingState ? pollInterval : 0
+  );
+  const isPolling = pollRate > 0;
   const isOnline = useNetworkStatus();
   const isVisible = usePageVisibility();
 
@@ -41,21 +47,26 @@ export const usePolling: usePollingType = (
     return false;
   }
 
-  // If offline and polling, stop polling.
-  if (!isOnline && isPolling) {
-    setIsPolling(false);
-    stopPolling();
-  }
-  // If not visible and polling, stop polling.
-  if (!isVisible && isPolling) {
-    setIsPolling(false);
+  // If offline or invisible and polling, stop polling.
+  if ((!isOnline || !isVisible) && isPolling) {
+    setPollRate(0);
     stopPolling();
   }
   // If online and visible and not polling, start polling.
   if (isOnline && isVisible && !isPolling) {
-    setIsPolling(true);
+    setPollRate(pollInterval);
     startPolling(pollInterval);
-    refetch(); // refresh data when returning to tab
+    if (refetch) refetch(); // refresh data when returning to tab
+  }
+  // If polling and not polling fast enough, poll faster
+  if (isPolling && shouldPollFaster && pollRate !== FASTER_POLL_INTERVAL) {
+    setPollRate(FASTER_POLL_INTERVAL);
+    startPolling(FASTER_POLL_INTERVAL);
+  }
+  // If polling and not polling slow enough, poll slower
+  if (isPolling && !shouldPollFaster && pollRate !== pollInterval) {
+    setPollRate(pollInterval);
+    startPolling(pollInterval);
   }
 
   return isPolling;
