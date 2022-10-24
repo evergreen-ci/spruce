@@ -8,7 +8,7 @@ import {
   BadgeWrapper,
   StyledBadge,
 } from "components/Spawn";
-import { pollInterval } from "constants/index";
+import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { useToastContext } from "context/toast";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { GET_MY_HOSTS } from "gql/queries";
@@ -23,7 +23,7 @@ export const SpawnHost = () => {
     MyHostsQuery,
     MyHostsQueryVariables
   >(GET_MY_HOSTS, {
-    pollInterval,
+    pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (e) => {
       dispatchToast.error(
         `There was an error loading your spawn hosts: ${e.message}`

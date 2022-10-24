@@ -6,7 +6,7 @@ import { StyledRouterLink, SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
 import { H3, wordBreakCss } from "components/Typography";
 import { VariantGroupedTaskStatusBadges } from "components/VariantGroupedTaskStatusBadges";
-import { pollInterval } from "constants/index";
+import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { getVersionRoute } from "constants/routes";
 import {
   GetBuildVariantStatsQuery,
@@ -31,7 +31,7 @@ export const BuildVariants: React.VFC = () => {
     GetBuildVariantStatsQueryVariables
   >(GET_BUILD_VARIANTS_STATS, {
     variables: { id },
-    pollInterval,
+    pollInterval: DEFAULT_POLL_INTERVAL,
   });
   usePolling(startPolling, stopPolling, refetch);
   const { version } = data || {};

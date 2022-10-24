@@ -7,7 +7,7 @@ import { Skeleton } from "antd";
 import get from "lodash/get";
 import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
-import { pollInterval } from "constants/index";
+import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { size, fontSize } from "constants/tokens";
 
 import {
@@ -65,7 +65,7 @@ export const AllLog: React.VFC<Props> = (props) => {
     AllLogsQueryVariables
   >(GET_ALL_LOGS, {
     variables: { id, execution: selectedExecution },
-    pollInterval,
+    pollInterval: DEFAULT_POLL_INTERVAL,
   });
   usePolling(startPolling, stopPolling, refetch);
 
@@ -88,7 +88,7 @@ export const EventLog: React.VFC<Props> = (props) => {
     TaskEventLogsQueryVariables
   >(GET_TASK_EVENT_LOGS, {
     variables: { id, execution: selectedExecution },
-    pollInterval,
+    pollInterval: DEFAULT_POLL_INTERVAL,
   });
   usePolling(startPolling, stopPolling, refetch);
 
@@ -114,7 +114,7 @@ export const SystemLog: React.VFC<Props> = (props) => {
     SystemLogsQueryVariables
   >(GET_SYSTEM_LOGS, {
     variables: { id, execution: selectedExecution },
-    pollInterval,
+    pollInterval: DEFAULT_POLL_INTERVAL,
   });
   usePolling(startPolling, stopPolling, refetch);
 
@@ -136,7 +136,7 @@ export const AgentLog: React.VFC<Props> = (props) => {
     AgentLogsQueryVariables
   >(GET_AGENT_LOGS, {
     variables: { id, execution: selectedExecution },
-    pollInterval,
+    pollInterval: DEFAULT_POLL_INTERVAL,
   });
   usePolling(startPolling, stopPolling, refetch);
 
@@ -158,7 +158,7 @@ export const TaskLog: React.VFC<Props> = (props) => {
     TaskLogsQueryVariables
   >(GET_TASK_LOGS, {
     variables: { id, execution: selectedExecution },
-    pollInterval,
+    pollInterval: DEFAULT_POLL_INTERVAL,
   });
   usePolling(startPolling, stopPolling, refetch);
 

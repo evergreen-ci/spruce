@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { useParams, useLocation } from "react-router-dom";
-import { pollInterval } from "constants/index";
+import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { useToastContext } from "context/toast";
 import {
   VersionTaskDurationsQuery,
@@ -57,7 +57,7 @@ const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
   >(GET_VERSION_TASK_DURATIONS, {
     variables: queryVariables,
     skip: !hasQueryVariables,
-    pollInterval,
+    pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (err) => {
       dispatchToast.error(`Error fetching patch tasks ${err}`);
     },

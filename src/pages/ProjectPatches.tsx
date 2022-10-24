@@ -6,7 +6,7 @@ import {
   PatchesPage,
   getPatchesInputFromURLSearch,
 } from "components/PatchesPage";
-import { pollInterval } from "constants/index";
+import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { useToastContext } from "context/toast";
 import {
   ProjectPatchesQuery,
@@ -50,7 +50,7 @@ export const ProjectPatches = () => {
         onlyCommitQueue: isCommitQueueCheckboxChecked,
       },
     },
-    pollInterval,
+    pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (err) => {
       dispatchToast.error(
         `Error while fetching project patches: ${err.message}`

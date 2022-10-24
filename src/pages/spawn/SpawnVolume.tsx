@@ -8,7 +8,7 @@ import {
   TitleContainer,
   StyledBadge,
 } from "components/Spawn";
-import { pollInterval } from "constants/index";
+import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { useToastContext } from "context/toast";
 import { MyVolumesQuery, MyVolumesQueryVariables } from "gql/generated/types";
 import { GET_MY_VOLUMES } from "gql/queries";
@@ -25,7 +25,7 @@ export const SpawnVolume = () => {
     startPolling,
     stopPolling,
   } = useQuery<MyVolumesQuery, MyVolumesQueryVariables>(GET_MY_VOLUMES, {
-    pollInterval,
+    pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (e) => {
       dispatchToast.error(
         `There was an error loading your spawn volume: ${e.message}`

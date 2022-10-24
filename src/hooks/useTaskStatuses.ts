@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
 import { TreeDataEntry } from "components/TreeSelect";
-import { pollInterval } from "constants/index";
+import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { taskStatusesFilterTreeData } from "constants/task";
 import {
   GetTaskStatusesQuery,
@@ -26,7 +26,10 @@ export const useTaskStatuses = ({
   const { data, refetch, startPolling, stopPolling } = useQuery<
     GetTaskStatusesQuery,
     GetTaskStatusesQueryVariables
-  >(GET_TASK_STATUSES, { variables: { id: versionId }, pollInterval });
+  >(GET_TASK_STATUSES, {
+    variables: { id: versionId },
+    pollInterval: DEFAULT_POLL_INTERVAL,
+  });
 
   usePolling(startPolling, stopPolling, refetch);
 

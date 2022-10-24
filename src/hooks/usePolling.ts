@@ -2,13 +2,13 @@ import { useState } from "react";
 import { ApolloQueryResult, OperationVariables } from "@apollo/client";
 import Cookies from "js-cookie";
 import { DISABLE_QUERY_POLLING } from "constants/cookies";
-import { FASTER_POLL_INTERVAL, pollInterval } from "constants/index";
+import { FASTER_POLL_INTERVAL, DEFAULT_POLL_INTERVAL } from "constants/index";
 import { useNetworkStatus } from "./useNetworkStatus";
 import { usePageVisibility } from "./usePageVisibility";
 
 type usePollingType = {
   (
-    startPolling: (pollInterval?: number) => void,
+    startPolling: (DEFAULT_POLL_INTERVAL?: number) => void,
     stopPolling: () => void,
     refetch?: (
       variables?: Partial<OperationVariables>
@@ -37,7 +37,7 @@ export const usePolling: usePollingType = (
   initialPollingState = true
 ) => {
   const [pollRate, setPollRate] = useState(
-    initialPollingState ? pollInterval : 0
+    initialPollingState ? DEFAULT_POLL_INTERVAL : 0
   );
   const isPolling = pollRate > 0;
   const isOnline = useNetworkStatus();
@@ -54,8 +54,8 @@ export const usePolling: usePollingType = (
   }
   // If online and visible and not polling, start polling.
   if (isOnline && isVisible && !isPolling) {
-    setPollRate(pollInterval);
-    startPolling(pollInterval);
+    setPollRate(DEFAULT_POLL_INTERVAL);
+    startPolling(DEFAULT_POLL_INTERVAL);
     if (refetch) refetch(); // refresh data when returning to tab
   }
   // If polling and not polling fast enough, poll faster
@@ -64,9 +64,9 @@ export const usePolling: usePollingType = (
     startPolling(FASTER_POLL_INTERVAL);
   }
   // If polling and not polling slow enough, poll slower
-  if (isPolling && !shouldPollFaster && pollRate !== pollInterval) {
-    setPollRate(pollInterval);
-    startPolling(pollInterval);
+  if (isPolling && !shouldPollFaster && pollRate !== DEFAULT_POLL_INTERVAL) {
+    setPollRate(DEFAULT_POLL_INTERVAL);
+    startPolling(DEFAULT_POLL_INTERVAL);
   }
 
   return isPolling;
