@@ -331,7 +331,7 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <a
-                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
                       href="/task/some_id"
                       onClick={[Function]}
                     >
@@ -381,7 +381,7 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <a
-                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
                       href="/variant-history/undefined/ubuntu1604"
                       onClick={[Function]}
                     >
@@ -404,7 +404,7 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <a
-                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
                       href="/task/some_id_2"
                       onClick={[Function]}
                     >
@@ -454,7 +454,7 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <a
-                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
                       href="/variant-history/undefined/ubuntu1604"
                       onClick={[Function]}
                     >
@@ -477,7 +477,7 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <a
-                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
                       href="/task/some_id_3"
                       onClick={[Function]}
                     >
@@ -527,7 +527,7 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <a
-                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
                       href="/variant-history/undefined/Windows"
                       onClick={[Function]}
                     >
@@ -890,7 +890,7 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                       type="button"
                     />
                     <a
-                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
                       href="/task/some_id"
                       onClick={[Function]}
                     >
@@ -940,7 +940,7 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     style={Object {}}
                   >
                     <a
-                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
                       href="/variant-history/undefined/ubuntu1604"
                       onClick={[Function]}
                     >
@@ -977,7 +977,7 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                       type="button"
                     />
                     <a
-                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
                       href="/task/some_id_2"
                       onClick={[Function]}
                     >
@@ -1027,7 +1027,7 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     style={Object {}}
                   >
                     <a
-                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
                       href="/variant-history/undefined/ubuntu1604"
                       onClick={[Function]}
                     >
@@ -1064,7 +1064,7 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                       type="button"
                     />
                     <a
-                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
                       href="/task/some_id_3"
                       onClick={[Function]}
                     >
@@ -1114,7 +1114,7 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     style={Object {}}
                   >
                     <a
-                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
                       href="/variant-history/undefined/Windows"
                       onClick={[Function]}
                     >
@@ -1151,7 +1151,7 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                       type="button"
                     />
                     <a
-                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
                       href="/task/some_id_4"
                       onClick={[Function]}
                     >
@@ -1201,7 +1201,7 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     style={Object {}}
                   >
                     <a
-                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
                       href="/variant-history/undefined/Windows"
                       onClick={[Function]}
                     >

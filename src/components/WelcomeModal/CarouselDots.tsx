@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { size } from "constants/tokens";
 import { CardType } from "./types";
 
-const { gray, green } = uiColors;
+const { gray, green } = palette;
 
 interface CarouselDotProps {
   cards: CardType[];

@@ -2,11 +2,11 @@
 
 exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
 <div
-  className="css-c33m4c-CheckboxContainer-tableInputContainerCSS e1mpj03z1"
+  className="css-p9y3cy-CheckboxContainer-tableInputContainerCSS e1mpj03z1"
   data-cy="tree-select-options"
 >
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -43,7 +43,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
     </label>
   </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -80,7 +80,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
     </label>
   </div>
   <div
-    className="css-1vxco1u-getCheckboxWrapper e1mpj03z3"
+    className="css-1i6181l-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -117,7 +117,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
     </label>
   </div>
   <div
-    className="css-1vxco1u-getCheckboxWrapper e1mpj03z3"
+    className="css-1i6181l-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -154,7 +154,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
     </label>
   </div>
   <div
-    className="css-1vxco1u-getCheckboxWrapper e1mpj03z3"
+    className="css-1i6181l-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -191,7 +191,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
     </label>
   </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -228,7 +228,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
     </label>
   </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -265,7 +265,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
     </label>
   </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -302,7 +302,7 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
     </label>
   </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -343,11 +343,11 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
 
 exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
 <div
-  className="css-c33m4c-CheckboxContainer-tableInputContainerCSS e1mpj03z1"
+  className="css-p9y3cy-CheckboxContainer-tableInputContainerCSS e1mpj03z1"
   data-cy="tree-select-options"
 >
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -384,7 +384,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
     </label>
   </div>
   <div
-    className="css-1vxco1u-getCheckboxWrapper e1mpj03z3"
+    className="css-1i6181l-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -421,7 +421,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
     </label>
   </div>
   <div
-    className="css-1vxco1u-getCheckboxWrapper e1mpj03z3"
+    className="css-1i6181l-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -458,7 +458,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
     </label>
   </div>
   <div
-    className="css-1vxco1u-getCheckboxWrapper e1mpj03z3"
+    className="css-1i6181l-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -495,7 +495,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
     </label>
   </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -532,7 +532,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
     </label>
   </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -569,7 +569,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
     </label>
   </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -606,7 +606,7 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
     </label>
   </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -647,11 +647,11 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
 
 exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
 <div
-  className="css-c33m4c-CheckboxContainer-tableInputContainerCSS e1mpj03z1"
+  className="css-p9y3cy-CheckboxContainer-tableInputContainerCSS e1mpj03z1"
   data-cy="tree-select-options"
 >
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -688,7 +688,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
     </label>
   </div>
   <div
-    className="css-1vxco1u-getCheckboxWrapper e1mpj03z3"
+    className="css-1i6181l-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -725,7 +725,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
     </label>
   </div>
   <div
-    className="css-1vxco1u-getCheckboxWrapper e1mpj03z3"
+    className="css-1i6181l-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -762,7 +762,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
     </label>
   </div>
   <div
-    className="css-1vxco1u-getCheckboxWrapper e1mpj03z3"
+    className="css-1i6181l-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -799,7 +799,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
     </label>
   </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -836,7 +836,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
     </label>
   </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -873,7 +873,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
     </label>
   </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -910,7 +910,7 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
     </label>
   </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -951,11 +951,11 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
 
 exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
 <div
-  className="css-c33m4c-CheckboxContainer-tableInputContainerCSS e1mpj03z1"
+  className="css-p9y3cy-CheckboxContainer-tableInputContainerCSS e1mpj03z1"
   data-cy="tree-select-options"
 >
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -992,7 +992,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
     </label>
   </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -1029,7 +1029,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
     </label>
   </div>
   <div
-    className="css-1vxco1u-getCheckboxWrapper e1mpj03z3"
+    className="css-1i6181l-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -1066,7 +1066,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
     </label>
   </div>
   <div
-    className="css-1vxco1u-getCheckboxWrapper e1mpj03z3"
+    className="css-1i6181l-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -1103,7 +1103,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
     </label>
   </div>
   <div
-    className="css-1vxco1u-getCheckboxWrapper e1mpj03z3"
+    className="css-1i6181l-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -1140,7 +1140,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
     </label>
   </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -1177,7 +1177,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
     </label>
   </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -1214,7 +1214,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
     </label>
   </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -1251,7 +1251,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
     </label>
   </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"

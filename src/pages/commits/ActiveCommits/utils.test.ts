@@ -1,5 +1,4 @@
-import { uiColors } from "@leafygreen-ui/palette";
-import { purple } from "constants/colors";
+import { palette } from "@leafygreen-ui/palette";
 import { taskStatusToCopy } from "constants/task";
 import { TaskStatus } from "types/task";
 import {
@@ -17,7 +16,7 @@ import {
   injectGlobalStyle,
 } from "./utils";
 
-const { red, green, yellow, gray } = uiColors;
+const { red, green, yellow, gray, purple } = palette;
 
 describe("getAllTaskStatsGroupedByColor", () => {
   it("grab the taskStatusStats.statusCounts field from all versions, returns mapping between version id to its {grouped task stats, max, total}", () => {
@@ -43,7 +42,7 @@ describe("getAllTaskStatsGroupedByColor", () => {
               taskStatusToCopy[TaskStatus.SystemTimedOut],
               taskStatusToCopy[TaskStatus.SystemUnresponsive],
             ],
-            color: purple.base,
+            color: purple.dark2,
             umbrellaStatus: TaskStatus.SystemFailureUmbrella,
             statusCounts: {
               [TaskStatus.SystemTimedOut]: 5,
@@ -73,7 +72,7 @@ describe("getAllTaskStatsGroupedByColor", () => {
           {
             count: 6,
             statuses: [taskStatusToCopy[TaskStatus.Succeeded]],
-            color: green.base,
+            color: green.dark1,
             umbrellaStatus: TaskStatus.Succeeded,
             statusCounts: { [TaskStatus.Succeeded]: 6 },
           },
@@ -106,7 +105,7 @@ describe("getAllTaskStatsGroupedByColor", () => {
           {
             count: 4,
             statuses: [taskStatusToCopy[TaskStatus.Succeeded]],
-            color: green.base,
+            color: green.dark1,
             umbrellaStatus: TaskStatus.Succeeded,
             statusCounts: { [TaskStatus.Succeeded]: 4 },
           },
@@ -123,7 +122,7 @@ describe("getAllTaskStatsGroupedByColor", () => {
               taskStatusToCopy[TaskStatus.SystemFailed],
               taskStatusToCopy[TaskStatus.SystemUnresponsive],
             ],
-            color: purple.base,
+            color: purple.dark2,
             umbrellaStatus: TaskStatus.SystemFailureUmbrella,
             statusCounts: {
               [TaskStatus.SystemFailed]: 5,
@@ -133,7 +132,7 @@ describe("getAllTaskStatsGroupedByColor", () => {
           {
             count: 3,
             statuses: [taskStatusToCopy[TaskStatus.SetupFailed]],
-            color: purple.light1,
+            color: purple.light2,
             umbrellaStatus: TaskStatus.SetupFailed,
             statusCounts: { [TaskStatus.SetupFailed]: 3 },
           },
@@ -160,7 +159,7 @@ describe("getAllTaskStatsGroupedByColor", () => {
           {
             count: 4,
             statuses: [taskStatusToCopy[TaskStatus.Succeeded]],
-            color: green.base,
+            color: green.dark1,
             umbrellaStatus: TaskStatus.Succeeded,
             statusCounts: { [TaskStatus.Succeeded]: 4 },
           },
@@ -177,7 +176,7 @@ describe("getAllTaskStatsGroupedByColor", () => {
               taskStatusToCopy[TaskStatus.SystemFailed],
               taskStatusToCopy[TaskStatus.SystemUnresponsive],
             ],
-            color: purple.base,
+            color: purple.dark2,
             umbrellaStatus: TaskStatus.SystemFailureUmbrella,
             statusCounts: {
               [TaskStatus.SystemFailed]: 5,
@@ -187,7 +186,7 @@ describe("getAllTaskStatsGroupedByColor", () => {
           {
             count: 3,
             statuses: [taskStatusToCopy[TaskStatus.SetupFailed]],
-            color: purple.light1,
+            color: purple.light2,
             umbrellaStatus: TaskStatus.SetupFailed,
             statusCounts: { [TaskStatus.SetupFailed]: 3 },
           },
@@ -427,7 +426,7 @@ const groupedTaskStatsAll = [
     umbrellaStatus: TaskStatus.Succeeded,
     count: 2,
     statuses: [TaskStatus.Succeeded],
-    color: green.base,
+    color: green.dark1,
   },
   {
     umbrellaStatus: TaskStatus.FailedUmbrella,
@@ -439,13 +438,13 @@ const groupedTaskStatsAll = [
     umbrellaStatus: TaskStatus.SystemFailureUmbrella,
     count: 3,
     statuses: [TaskStatus.SystemFailed],
-    color: purple.base,
+    color: purple.dark2,
   },
   {
     umbrellaStatus: TaskStatus.SetupFailed,
     count: 5,
     statuses: [TaskStatus.SetupFailed],
-    color: purple.base,
+    color: purple.light2,
   },
   {
     umbrellaStatus: TaskStatus.Undispatched,
@@ -490,7 +489,7 @@ const groupedTaskStats = [
     umbrellaStatus: TaskStatus.Succeeded,
     count: 2,
     statuses: [TaskStatus.Succeeded],
-    color: green.base,
+    color: green.dark1,
   },
   {
     umbrellaStatus: TaskStatus.Failed,
@@ -508,7 +507,7 @@ const groupedTaskStats = [
     umbrellaStatus: TaskStatus.SetupFailed,
     count: 5,
     statuses: [TaskStatus.SetupFailed],
-    color: purple.light1,
+    color: purple.light2,
   },
 ];
 

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Table, TableHeader } from "@leafygreen-ui/table";
 import { useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
@@ -18,7 +18,7 @@ import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams } from "types/task";
 import { TaskDurationRow } from "./TaskDurationRow";
 
-const { gray } = uiColors;
+const { gray } = palette;
 
 interface Props {
   tasks: VersionTaskDurationsQuery["version"]["tasks"]["data"];

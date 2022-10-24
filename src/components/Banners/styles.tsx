@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { size } from "constants/tokens";
 
-const { yellow, blue, green, red } = uiColors;
+const { yellow, blue, green, red } = palette;
 
 type BannerProps = {
   bannerTheme: string;

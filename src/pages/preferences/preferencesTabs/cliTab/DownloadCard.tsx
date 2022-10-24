@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Card from "@leafygreen-ui/card";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Subtitle, Body, Disclaimer } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { usePreferencesAnalytics } from "analytics";
@@ -17,7 +17,7 @@ import {
 } from "gql/generated/types";
 import { GET_CLIENT_CONFIG } from "gql/queries";
 
-const { gray } = uiColors;
+const { gray } = palette;
 
 export const DownloadCard = () => {
   const { data, loading } = useQuery<

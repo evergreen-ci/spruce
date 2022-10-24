@@ -3,7 +3,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { useVersionAnalytics } from "analytics";
@@ -27,7 +27,7 @@ import {
 } from "hooks/useVersionTaskStatusSelect";
 import { BuildVariantAccordian } from "./BuildVariantAccordian";
 
-const { gray } = uiColors;
+const { gray } = palette;
 
 interface Props {
   visible: boolean;

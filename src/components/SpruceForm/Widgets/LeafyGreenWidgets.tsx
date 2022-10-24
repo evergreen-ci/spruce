@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { RadioBox, RadioBoxGroup } from "@leafygreen-ui/radio-box-group";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import {
@@ -20,7 +20,7 @@ import ElementWrapper from "../ElementWrapper";
 import { EnumSpruceWidgetProps, SpruceWidgetProps } from "./types";
 import { isNullish, processErrors } from "./utils";
 
-const { yellow } = uiColors;
+const { yellow } = palette;
 
 export const LeafyGreenTextInput: React.VFC<
   { options: { optional?: boolean } } & SpruceWidgetProps

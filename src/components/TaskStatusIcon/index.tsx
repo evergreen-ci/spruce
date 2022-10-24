@@ -1,11 +1,10 @@
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import Icon from "components/Icon";
-import { purple } from "constants/colors";
 import { TaskStatus } from "types/task";
 import { errorReporting } from "utils";
 
 const { reportError } = errorReporting;
-const { green, red, yellow, gray } = uiColors;
+const { green, red, yellow, gray, purple } = palette;
 
 type IconProps = React.ComponentProps<typeof Icon>;
 interface TaskStatusIconProps
@@ -21,7 +20,9 @@ export const TaskStatusIcon: React.VFC<TaskStatusIconProps> = ({
 }) => {
   switch (status) {
     case TaskStatus.Succeeded:
-      return <Icon glyph="Checkmark" fill={green.base} size={size} {...rest} />;
+      return (
+        <Icon glyph="Checkmark" fill={green.dark1} size={size} {...rest} />
+      );
     case TaskStatus.Failed:
       return <Icon glyph="FailureIcon" fill={red.base} size={size} {...rest} />;
     case TaskStatus.KnownIssue:
@@ -33,13 +34,13 @@ export const TaskStatusIcon: React.VFC<TaskStatusIconProps> = ({
       return <Icon glyph="Refresh" fill={yellow.dark2} size={size} {...rest} />;
     case TaskStatus.SetupFailed:
       return (
-        <Icon glyph="SetupFailure" fill={purple.base} size={size} {...rest} />
+        <Icon glyph="SetupFailure" fill={purple.dark2} size={size} {...rest} />
       );
     case TaskStatus.SystemUnresponsive:
     case TaskStatus.SystemTimedOut:
     case TaskStatus.SystemFailed:
       return (
-        <Icon glyph="SystemFailure" fill={purple.base} size={size} {...rest} />
+        <Icon glyph="SystemFailure" fill={purple.dark2} size={size} {...rest} />
       );
     case TaskStatus.TestTimedOut:
     case TaskStatus.TaskTimedOut:

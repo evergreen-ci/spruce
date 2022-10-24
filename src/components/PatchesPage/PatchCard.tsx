@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Analytics } from "analytics/addPageAction";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
@@ -19,7 +19,7 @@ import { DropdownMenu } from "./patchCard/DropdownMenu";
 
 type P = Unpacked<PatchesPagePatchesFragment["patches"]>;
 type PatchProps = Omit<P, "commitQueuePosition">;
-const { gray } = uiColors;
+const { gray } = palette;
 
 interface Props extends PatchProps {
   pageType: "project" | "user";

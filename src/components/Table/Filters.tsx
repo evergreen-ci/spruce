@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import TextInput from "@leafygreen-ui/text-input";
 import { FilterDropdownProps } from "antd/es/table/interface";
 import { CheckboxGroup } from "components/Checkbox";
@@ -13,7 +13,7 @@ import {
 } from "components/TreeSelect";
 import { fontSize } from "constants/tokens";
 
-const { focus, gray } = uiColors;
+const { blue, gray } = palette;
 const defaultColor = gray.light1;
 
 export interface InputFilterProps {
@@ -86,7 +86,7 @@ export const getColumnSearchFilterProps = ({
     <StyledFilterWrapper>
       <Icon
         glyph="MagnifyingGlass"
-        fill={value.length > 0 ? focus : defaultColor}
+        fill={value.length > 0 ? blue.light1 : defaultColor}
         data-cy={dataCy}
       />
     </StyledFilterWrapper>
@@ -111,7 +111,7 @@ export const getColumnTreeSelectFilterProps = ({
     <StyledFilterWrapper>
       <Icon
         glyph="Filter"
-        fill={state.length > 0 ? focus : defaultColor}
+        fill={state.length > 0 ? blue.light1 : defaultColor}
         data-cy={dataCy}
       />
     </StyledFilterWrapper>
@@ -154,7 +154,7 @@ export const getColumnCheckboxFilterProps = ({
     <StyledFilterWrapper>
       <Icon
         glyph="Filter"
-        fill={value.length > 0 ? focus : defaultColor}
+        fill={value.length > 0 ? blue.light1 : defaultColor}
         data-cy={dataCy}
       />
     </StyledFilterWrapper>

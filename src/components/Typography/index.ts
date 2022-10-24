@@ -1,9 +1,9 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { size } from "constants/tokens";
 
-const { gray } = uiColors;
+const { gray } = palette;
 
 export const wordBreakCss = css`
   overflow-wrap: break-word;

@@ -1,9 +1,8 @@
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { ALL_VALUE, TreeDataEntry } from "components/TreeSelect";
-import { purple } from "constants/colors";
 import { TaskStatus } from "types/task";
 
-const { gray, red, yellow, green } = uiColors;
+const { gray, green, purple, red, yellow } = palette;
 
 export const taskStatusToCopy = {
   [TaskStatus.ScheduledUmbrella]: "Scheduled",
@@ -203,9 +202,9 @@ export const mapUmbrellaStatusColors = {
     text: yellow.dark2,
   },
   [TaskStatus.SystemFailureUmbrella]: {
-    fill: purple.base,
-    border: purple.dark1,
-    text: purple.light1,
+    fill: purple.dark2,
+    border: purple.dark3,
+    text: purple.light3,
   },
   [TaskStatus.UndispatchedUmbrella]: {
     fill: gray.light3,
@@ -228,20 +227,20 @@ export const mapUmbrellaStatusColors = {
     text: green.dark2,
   },
   [TaskStatus.SetupFailed]: {
-    fill: purple.light1,
-    border: purple.light2,
-    text: purple.base,
+    fill: purple.light2,
+    border: purple.dark3,
+    text: purple.dark2,
   },
 };
 
 export const mapTaskToBarchartColor = {
   [TaskStatus.UndispatchedUmbrella]: gray.dark1,
   [TaskStatus.RunningUmbrella]: yellow.base,
-  [TaskStatus.SystemFailureUmbrella]: purple.base,
+  [TaskStatus.SystemFailureUmbrella]: purple.dark2,
   [TaskStatus.ScheduledUmbrella]: gray.base,
   [TaskStatus.FailedUmbrella]: red.base,
-  [TaskStatus.Succeeded]: green.base,
-  [TaskStatus.SetupFailed]: purple.light1,
+  [TaskStatus.Succeeded]: green.dark1,
+  [TaskStatus.SetupFailed]: purple.light2,
 };
 
 // Represents order for waterfall barchart

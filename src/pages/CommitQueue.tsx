@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import get from "lodash/get";
 import { useParams } from "react-router-dom";
@@ -16,7 +16,7 @@ import {
 import { GET_COMMIT_QUEUE } from "gql/queries";
 import { CommitQueueCard } from "./commitqueue/CommitQueueCard";
 
-const { gray } = uiColors;
+const { gray } = palette;
 
 export const CommitQueue: React.VFC = () => {
   const { id } = useParams<{ id: string }>();

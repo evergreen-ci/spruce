@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Link } from "react-router-dom";
 import { useNavbarAnalytics } from "analytics";
 import Icon from "components/Icon";
@@ -16,7 +16,7 @@ import { useLegacyUIURL } from "hooks";
 import { AuxiliaryDropdown } from "./AuxiliaryDropdown";
 import { UserDropdown } from "./UserDropdown";
 
-const { white, blue, gray } = uiColors;
+const { white, blue, gray } = palette;
 
 export const Navbar: React.VFC = () => {
   const { isAuthenticated } = useAuthStateContext();

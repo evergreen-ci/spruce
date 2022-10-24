@@ -1,6 +1,6 @@
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { useTaskAnalytics } from "analytics";
 import { MetadataCard } from "components/MetadataCard";
@@ -24,7 +24,7 @@ import { ETATimer } from "./ETATimer";
 
 const { msToDuration, shortenGithash } = string;
 const { getUiUrl } = environmentalVariables;
-const { red } = uiColors;
+const { red } = palette;
 
 interface Props {
   taskId: string;

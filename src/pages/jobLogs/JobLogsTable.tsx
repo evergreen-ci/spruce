@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Table, TableHeader, Row, Cell } from "@leafygreen-ui/table";
 import { useLocation } from "react-router-dom";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
@@ -24,7 +24,7 @@ import { queryString, url } from "utils";
 
 const { parseQueryString, getString } = queryString;
 const { getPageFromSearch, getLimitFromSearch } = url;
-const { gray } = uiColors;
+const { gray } = palette;
 
 enum JobLogsQueryParams {
   Category = "sortBy",

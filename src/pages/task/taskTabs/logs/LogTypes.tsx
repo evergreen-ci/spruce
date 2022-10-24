@@ -1,7 +1,7 @@
 import { useQuery, ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
 import { Skeleton } from "antd";
 import get from "lodash/get";
@@ -39,7 +39,7 @@ import { TaskEventLogLine } from "./logTypes/TaskEventLogLine";
 
 const { parseQueryString } = queryString;
 
-const { gray } = uiColors;
+const { gray } = palette;
 
 interface TaskEventLogEntryType extends TaskEventLogEntry {
   kind?: "taskEventLogEntry";
