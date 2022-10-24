@@ -22,11 +22,13 @@ export const MigrateBtn: React.VFC<Props> = ({ volume }) => {
       >
         Migrate
       </Button>
-      <SpawnHostModal
-        open={openModal}
-        setOpen={setOpenModal}
-        migrateVolumeId={volume.id}
-      />
+      {openModal && (
+        <SpawnHostModal
+          open={openModal}
+          setOpen={setOpenModal}
+          migrateVolumeId={volume.id}
+        />
+      )}
     </>
   );
 };

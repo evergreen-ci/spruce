@@ -66,7 +66,7 @@ export const SpawnHostButton: React.VFC = () => {
       >
         {`You have reached the maximum number of hosts (${maxHosts}). Delete some hosts to spawn more.`}
       </Tooltip>
-      <SpawnHostModal open={openModal} setOpen={setOpenModal} />
+      {openModal && <SpawnHostModal open={openModal} setOpen={setOpenModal} />}
     </PaddedContainer>
   );
 };
