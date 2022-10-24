@@ -2,6 +2,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import { fireEvent } from "@testing-library/react";
 import { renderHook, act } from "@testing-library/react-hooks/dom";
 import Cookie from "js-cookie";
+import { FASTER_POLL_INTERVAL, DEFAULT_POLL_INTERVAL } from "constants/";
 import { GET_USER } from "gql/queries";
 import { usePolling } from "hooks";
 
@@ -67,16 +68,18 @@ describe("usePolling", () => {
       const startPolling = jest.fn();
       const stopPolling = jest.fn();
       mockedGet.mockImplementation(() => "true");
-
-      const { waitForNextUpdate } = renderHook(
-        () => usePolling(startPolling, stopPolling, undefined),
+      let shouldPollFaster = true;
+      const { waitForNextUpdate, rerender } = renderHook(
+        () =>
+          usePolling(startPolling, stopPolling, undefined, shouldPollFaster),
         { wrapper: Provider }
       );
       await waitForNextUpdate();
 
       // go offline
       fireEvent(window, new Event("offline"));
-
+      shouldPollFaster = !shouldPollFaster;
+      rerender();
       // go online
       fireEvent(window, new Event("online"));
 
@@ -87,7 +90,8 @@ describe("usePolling", () => {
         });
       });
       fireEvent(document, new Event("visibilitychange"));
-
+      shouldPollFaster = !shouldPollFaster;
+      rerender();
       // document visible
       act(() => {
         Object.defineProperty(document, "visibilityState", {
@@ -247,6 +251,23 @@ describe("usePolling", () => {
       expect(startPolling).toHaveBeenCalledTimes(1);
       expect(stopPolling).toHaveBeenCalledTimes(1);
       expect(result.current).toBe(true);
+    });
+  });
+
+  describe("shouldPollFaster", () => {
+    it("calls startPolling with a fast poll rate and then default when shouldPollFaster initializes true and turns false", async () => {
+      const startPolling = jest.fn();
+      let shouldPollFaster = true;
+      const { rerender } = renderHook(
+        () => usePolling(startPolling, () => {}, undefined, shouldPollFaster),
+        { wrapper: Provider }
+      );
+      expect(startPolling).toHaveBeenCalledTimes(1);
+      expect(startPolling).toHaveBeenLastCalledWith(FASTER_POLL_INTERVAL);
+      shouldPollFaster = false;
+      rerender();
+      expect(startPolling).toHaveBeenCalledTimes(2);
+      expect(startPolling).toHaveBeenLastCalledWith(DEFAULT_POLL_INTERVAL);
     });
   });
 
