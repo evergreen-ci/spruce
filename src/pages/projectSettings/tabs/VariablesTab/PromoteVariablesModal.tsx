@@ -106,7 +106,8 @@ export const PromoteVariablesModal: React.VFC<Props> = ({
     >
       <Body>
         Variables will be moved to the repo to which this project is attached,
-        allowing them to be used by all attached projects.
+        allowing them to be used by all attached projects. They will be deleted
+        from this project.
       </Body>
       <SelectAllContainer>
         <Button onClick={handleSelectAll} size={Size.XSmall}>
