@@ -35,7 +35,7 @@ export const Feedback: React.VFC = () => {
         }}
         aria-label="Show Feedback form"
       >
-        <StyledIcon glyph="Megaphone" color={green.base} />
+        <StyledIcon glyph="Megaphone" color={green.dark1} />
       </IconButton>
     </div>
   );
