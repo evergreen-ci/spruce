@@ -2366,7 +2366,7 @@ export type BaseSpawnHostFragment = {
   }>;
   homeVolume?: Maybe<{ displayName: string }>;
   instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
-  volumes: Array<{ displayName: string; id: string }>;
+  volumes: Array<{ displayName: string; id: string; migrating: boolean }>;
 };
 
 export type BaseTaskFragment = {
@@ -3353,7 +3353,7 @@ export type EditSpawnHostMutation = {
     }>;
     homeVolume?: Maybe<{ displayName: string }>;
     instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
-    volumes: Array<{ displayName: string; id: string }>;
+    volumes: Array<{ displayName: string; id: string; migrating: boolean }>;
   };
 };
 
@@ -4439,7 +4439,7 @@ export type MyHostsQuery = {
     }>;
     homeVolume?: Maybe<{ displayName: string }>;
     instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
-    volumes: Array<{ displayName: string; id: string }>;
+    volumes: Array<{ displayName: string; id: string; migrating: boolean }>;
   }>;
 };
 
@@ -4459,6 +4459,7 @@ export type MyVolumesQuery = {
     noExpiration: boolean;
     homeVolume: boolean;
     creationTime?: Maybe<Date>;
+    migrating: boolean;
     host?: Maybe<{ displayName?: Maybe<string>; id: string }>;
   }>;
 };

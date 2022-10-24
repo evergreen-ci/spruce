@@ -154,8 +154,18 @@ const host = {
   instanceType: "m5.xlarge",
   instanceTags: [],
   volumes: [
-    { displayName: "", id: "vol-0583d66433a69f136", __typename: "Volume" },
-    { displayName: "", id: "vol-0ea662ac92f611ed4", __typename: "Volume" },
+    {
+      displayName: "",
+      id: "vol-0583d66433a69f136",
+      migrating: false,
+      __typename: "Volume",
+    },
+    {
+      displayName: "",
+      id: "vol-0ea662ac92f611ed4",
+      migrating: false,
+      __typename: "Volume",
+    },
   ],
   provider: "ec2-ondemand",
   status: "running",
@@ -185,6 +195,7 @@ const volume = {
   },
   homeVolume: true,
   creationTime: new Date("2020-06-05T15:44:11Z"),
+  migrating: false,
 };
 
 const myHostBase = {
