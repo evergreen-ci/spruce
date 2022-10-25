@@ -30,12 +30,13 @@ export const SpawnVolumeTableActions: React.VFC<Props> = ({ volume }) => {
         volume={volume}
       />
       {showMigrateBtn && <MigrateBtn volume={volume} />}
-      {volume.host ? (
+      {volume.host && !showMigrateBtn && (
         <UnmountBtn
           data-cy={`unmount-${volume.displayName || volume.id}`}
           volume={volume}
         />
-      ) : (
+      )}
+      {!volume.host && !showMigrateBtn && (
         <MountBtn
           data-cy={`mount-${volume.displayName || volume.id}`}
           volume={volume}
