@@ -25,7 +25,7 @@ export interface SearchableDropdownProps<T> {
   disabled?: boolean;
   label: string | ReactNode;
   onChange: (value: T | T[]) => void;
-  options: T[] | string[];
+  options?: T[] | string[];
   optionRenderer?: (
     option: T,
     onClick: (selectedV) => void,
@@ -43,7 +43,7 @@ const SearchableDropdown = <T extends {}>({
   disabled = false,
   label,
   onChange,
-  options = [],
+  options,
   optionRenderer,
   searchFunc,
   searchPlaceholder = "search...",
@@ -51,22 +51,19 @@ const SearchableDropdown = <T extends {}>({
   valuePlaceholder = "Select an element",
 }: PropsWithChildren<SearchableDropdownProps<T>>) => {
   const [search, setSearch] = useState("");
-  const [visibleOptions, setVisibleOptions] = useState(options);
+  const [visibleOptions, setVisibleOptions] = useState(options ?? []);
   const DropdownRef = useRef(null);
 
   // Sometimes options come from a query and we have to wait for the query to complete to know what to show in
   // the dropdown. This hook is used to refresh the options.
   useEffect(() => {
-    if (options) {
-      setVisibleOptions(options);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options.length]);
+    setVisibleOptions(options ?? []);
+  }, [options]);
 
   // Clear search text input and reset visible options to show every option.
   const resetSearch = () => {
     setSearch("");
-    setVisibleOptions(options);
+    setVisibleOptions(options ?? []);
   };
 
   const onClick = (v: T) => {
@@ -116,7 +113,7 @@ const SearchableDropdown = <T extends {}>({
       setSearch(searchTerm);
       let filteredOptions = [];
 
-      if (options.length) {
+      if (options) {
         if (searchFunc) {
           // Alias the array as any to avoid TS error https://github.com/microsoft/TypeScript/issues/36390
           filteredOptions = searchFunc(options as T[], searchTerm);
