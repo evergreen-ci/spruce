@@ -24,7 +24,12 @@ export const SpawnVolumeTableActions: React.VFC<Props> = ({ volume }) => {
     (h) => h.homeVolumeID === volume.id && h.distro?.isVirtualWorkStation
   );
   return (
-    <FlexRow>
+    <FlexRow
+      onClick={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
+      }}
+    >
       <DeleteVolumeBtn
         data-cy={`trash-${volume.displayName || volume.id}`}
         volume={volume}
