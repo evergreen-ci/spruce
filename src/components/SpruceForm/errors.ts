@@ -74,7 +74,8 @@ export const transformErrors = (errors: AjvError[]) =>
             case "validSlack":
               return {
                 ...error,
-                message: "Value should be a valid Slack username or channel.",
+                message:
+                  "Value should be a valid Slack memberID, Slack username or channel.",
               };
             case "validURL":
               return {

@@ -162,7 +162,7 @@ export const getNotificationSchema = (
       "ui:data-cy": "jira-comment-input",
     },
     slackInput: {
-      "ui:placeholder": "@user or #channel",
+      "ui:placeholder": "MEMBERID, @user or #channel",
       "ui:data-cy": "slack-input",
     },
     emailInput: {
