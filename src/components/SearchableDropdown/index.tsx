@@ -19,46 +19,49 @@ import { toggleArray } from "utils/array";
 const { gray, blue } = uiColors;
 
 export interface SearchableDropdownProps<T> {
+  allowMultiSelect?: boolean;
+  buttonRenderer?: (option: T | T[]) => ReactNode;
+  ["data-cy"]?: string;
+  disabled?: boolean;
   label: string | ReactNode;
-  value: T | T[];
   onChange: (value: T | T[]) => void;
-  searchFunc?: (options: T[], match: string) => T[];
-  searchPlaceholder?: string;
-  valuePlaceholder?: string;
   options: T[] | string[];
   optionRenderer?: (
     option: T,
     onClick: (selectedV) => void,
     isChecked: (selectedV) => boolean
   ) => ReactNode;
-  allowMultiSelect?: boolean;
-  disabled?: boolean;
-  ["data-cy"]?: string;
-  buttonRenderer?: (option: T | T[]) => ReactNode;
+  searchFunc?: (options: T[], match: string) => T[];
+  searchPlaceholder?: string;
+  value: T | T[];
+  valuePlaceholder?: string;
 }
 const SearchableDropdown = <T extends {}>({
+  allowMultiSelect = false,
+  buttonRenderer,
+  "data-cy": dataCy = "searchable-dropdown",
+  disabled = false,
   label,
-  value,
   onChange,
+  options = [],
+  optionRenderer,
   searchFunc,
   searchPlaceholder = "search...",
+  value,
   valuePlaceholder = "Select an element",
-  options,
-  optionRenderer,
-  allowMultiSelect = false,
-  disabled = false,
-  "data-cy": dataCy = "searchable-dropdown",
-  buttonRenderer,
 }: PropsWithChildren<SearchableDropdownProps<T>>) => {
   const [search, setSearch] = useState("");
   const [visibleOptions, setVisibleOptions] = useState(options);
   const DropdownRef = useRef(null);
-  // Update options when they change
+
+  // Sometimes options come from a query and we have to wait for the query to complete to know what to show in
+  // the dropdown. This hook is used to refresh the options.
   useEffect(() => {
     if (options) {
       setVisibleOptions(options);
     }
-  }, [options]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [options.length]);
 
   // Clear search text input and reset visible options to show every option.
   const resetSearch = () => {
@@ -113,18 +116,21 @@ const SearchableDropdown = <T extends {}>({
       setSearch(searchTerm);
       let filteredOptions = [];
 
-      if (searchFunc) {
-        // Alias the array as any to avoid TS error https://github.com/microsoft/TypeScript/issues/36390
-        filteredOptions = searchFunc(options as T[], searchTerm);
-      } else if (typeof options[0] === "string") {
-        filteredOptions = (options as string[]).filter(
-          (o) => o.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
-        );
-      } else {
-        console.error(
-          "A searchFunc must be supplied when options is not of type string[]"
-        );
+      if (options.length) {
+        if (searchFunc) {
+          // Alias the array as any to avoid TS error https://github.com/microsoft/TypeScript/issues/36390
+          filteredOptions = searchFunc(options as T[], searchTerm);
+        } else if (typeof options[0] === "string") {
+          filteredOptions = (options as string[]).filter(
+            (o) => o.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+          );
+        } else {
+          console.error(
+            "A searchFunc must be supplied when options is not of type string[]"
+          );
+        }
       }
+
       setVisibleOptions(filteredOptions);
     },
     [searchFunc, options]
@@ -160,7 +166,7 @@ const SearchableDropdown = <T extends {}>({
             value={search}
             onChange={handleSearch}
             icon={<Icon glyph="MagnifyingGlass" />}
-            aria-label="Search"
+            aria-label="Search for options"
             type="search"
             autoFocus
           />

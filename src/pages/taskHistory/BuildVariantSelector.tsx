@@ -56,7 +56,7 @@ const BuildVariantSelector: React.VFC<BuildVariantSelectorProps> = ({
     });
   };
 
-  const { buildVariantsForTaskName = [] } = data || {};
+  const { buildVariantsForTaskName } = data || {};
 
   const handleSearch = (options: BuildVariantTuple[], match: string) =>
     options.filter(
