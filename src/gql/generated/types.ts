@@ -1549,6 +1549,11 @@ export type SelectorInput = {
   type: Scalars["String"];
 };
 
+export type SlackConfig = {
+  level?: Maybe<Scalars["String"]>;
+  name?: Maybe<Scalars["String"]>;
+};
+
 export enum SortDirection {
   Asc = "ASC",
   Desc = "DESC",
@@ -1624,6 +1629,7 @@ export type SpruceConfig = {
   githubOrgs: Array<Scalars["String"]>;
   jira?: Maybe<JiraConfig>;
   providers?: Maybe<CloudProviderConfig>;
+  slack?: Maybe<SlackConfig>;
   spawnHost: SpawnHostConfig;
   ui?: Maybe<UiConfig>;
 };
@@ -5536,6 +5542,7 @@ export type GetSpruceConfigQuery = {
       unexpirableHostsPerUser: number;
       unexpirableVolumesPerUser: number;
     };
+    slack?: Maybe<{ name?: Maybe<string>; level?: Maybe<string> }>;
   }>;
 };
 
