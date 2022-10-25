@@ -129,7 +129,9 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     MigrateVolumeMutationVariables
   >(MIGRATE_VOLUME, {
     onCompleted() {
-      dispatchToast.success("Migrated volume onto host.");
+      dispatchToast.success(
+        "Volume migration has been scheduled. A new host will be spawned and accessible on your Hosts page."
+      );
       setOpen(false);
     },
     onError(err) {
@@ -224,7 +226,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   const loadingSubmit = loadingSpawnHost || loadingMigration;
   return (
     <DisplayModal
-      title="Spawn New Host"
+      title={migrateVolumeId ? "Migrate Volume" : "Spawn New Host"}
       open={open}
       setOpen={setOpen}
       data-cy="spawn-host-modal"
