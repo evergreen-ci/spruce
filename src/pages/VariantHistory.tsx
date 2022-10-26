@@ -46,7 +46,7 @@ const VariantHistoryContents: React.VFC = () => {
   const { badges, handleOnRemove, handleClearAll } = useFilterBadgeQueryParams(
     constants.queryParamsToDisplay
   );
-  const { data } = useQuery<
+  const { data, error } = useQuery<
     MainlineCommitsForHistoryQuery,
     MainlineCommitsForHistoryQueryVariables
   >(GET_MAINLINE_COMMITS_FOR_HISTORY, {
@@ -108,16 +108,19 @@ const VariantHistoryContents: React.VFC = () => {
         <div>
           <ColumnHeaders projectId={projectId} variantName={variantName} />
           <TableWrapper>
-            <HistoryTable
-              recentlyFetchedCommits={mainlineCommits}
-              loadMoreItems={() => {
-                if (mainlineCommits) {
-                  setNextPageOrderNumber(mainlineCommits.nextPageOrderNumber);
-                }
-              }}
-            >
-              {VariantHistoryRow}
-            </HistoryTable>
+            {error && <div>Failed to retrieve mainline commit history.</div>}
+            {!error && (
+              <HistoryTable
+                recentlyFetchedCommits={mainlineCommits}
+                loadMoreItems={() => {
+                  if (mainlineCommits) {
+                    setNextPageOrderNumber(mainlineCommits.nextPageOrderNumber);
+                  }
+                }}
+              >
+                {VariantHistoryRow}
+              </HistoryTable>
+            )}
           </TableWrapper>
         </div>
       </CenterPage>
