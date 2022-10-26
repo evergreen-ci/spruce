@@ -5,6 +5,14 @@ describe("variant history", () => {
     cy.preserveCookies();
   });
 
+  it("shows an error message if mainline commit history could not be retrieved", () => {
+    cy.visit("/variant-history/bogus-project/bogus-variant");
+    cy.dataCy("loading-cell").should("have.length", 0);
+    cy.contains("Failed to retrieve mainline commit history.").should(
+      "be.visible"
+    );
+  });
+
   it("should link to a specific commit from the project health page", () => {
     cy.visit("/commits/spruce");
     cy.dataCy("variant-header").should("exist");
