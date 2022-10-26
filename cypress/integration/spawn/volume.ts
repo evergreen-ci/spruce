@@ -72,6 +72,13 @@ describe("Navigating to Spawn Volume page", () => {
     });
   });
 
+  it("Should render migrating volumes with a different badge and disable action buttons", () => {
+    cy.dataRowKey("vol-0ae8720b445b771b6").within(() => {
+      cy.dataCy("volume-status-badge").contains("Migrating");
+      cy.get("button").should("be.disabled");
+    });
+  });
+
   it("Should have a volume card visible initially when the 'volume' query param is provided.", () => {
     cy.visit("/spawn/volume?volume=vol-0ea662ac92f611ed4");
     cy.dataCy("spawn-volume-card-vol-0ea662ac92f611ed4").should("exist");

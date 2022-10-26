@@ -55,7 +55,12 @@ export const ProjectSettingsTabs: React.VFC<Props> = ({
 
   return (
     <Container>
-      <Header id={projectId || repoId} projectType={projectType} tab={tab} />
+      <Header
+        attachedRepoId={projectData?.projectRef?.repoRefId}
+        id={projectId || repoId}
+        projectType={projectType}
+        tab={tab}
+      />
       <Routes>
         <Route
           path={ProjectSettingsTabRoutes.General}

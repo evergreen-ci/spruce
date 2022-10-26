@@ -47,7 +47,7 @@ const TaskHistoryContents: React.VFC = () => {
   const { badges, handleOnRemove, handleClearAll } = useFilterBadgeQueryParams(
     constants.queryParamsToDisplay
   );
-  const { data } = useQuery<
+  const { data, error } = useQuery<
     MainlineCommitsForHistoryQuery,
     MainlineCommitsForHistoryQueryVariables
   >(GET_MAINLINE_COMMITS_FOR_HISTORY, {
@@ -108,17 +108,21 @@ const TaskHistoryContents: React.VFC = () => {
         </PaginationFilterWrapper>
         <div>
           <ColumnHeaders projectId={projectId} taskName={taskName} />
+
           <TableWrapper>
-            <HistoryTable
-              recentlyFetchedCommits={mainlineCommits}
-              loadMoreItems={() => {
-                if (mainlineCommits) {
-                  setNextPageOrderNumber(mainlineCommits.nextPageOrderNumber);
-                }
-              }}
-            >
-              {TaskHistoryRow}
-            </HistoryTable>
+            {error && <div>Failed to retrieve mainline commit history.</div>}
+            {!error && (
+              <HistoryTable
+                recentlyFetchedCommits={mainlineCommits}
+                loadMoreItems={() => {
+                  if (mainlineCommits) {
+                    setNextPageOrderNumber(mainlineCommits.nextPageOrderNumber);
+                  }
+                }}
+              >
+                {TaskHistoryRow}
+              </HistoryTable>
+            )}
           </TableWrapper>
         </div>
       </CenterPage>
