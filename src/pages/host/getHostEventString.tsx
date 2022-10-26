@@ -294,14 +294,12 @@ export const getHostEventString = (
       return (
         <span data-cy="host-volume-migration-failed">
           Home volume failed to migrate to new host.
-          {data.logs ? (
+          {data.logs && (
             <HostEventLog
               title="Volume migration logs"
               logs={data.logs}
               isCode
             />
-          ) : (
-            ""
           )}
         </span>
       );
