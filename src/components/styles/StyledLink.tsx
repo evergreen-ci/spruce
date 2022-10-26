@@ -6,6 +6,7 @@ export const StyledLink = (props) => (
   <LGLink
     hideExternalIcon
     css={css`
+      // Override LG's fixed 13px line height
       line-height: inherit;
     `}
     {...props}

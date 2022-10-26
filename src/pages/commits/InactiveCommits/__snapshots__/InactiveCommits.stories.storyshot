@@ -7,7 +7,7 @@ exports[`storybook Storyshots Pages/Commits/Inactive Commits Default 1`] = `
   role="button"
 >
   <small
-    className="css-t2ltce-ButtonText ezzuvrx6 leafygreen-ui-13bqno6"
+    className="css-t2ltce-ButtonText ezzuvrx6 leafygreen-ui-ppjyot"
     data-cy="inactive-commits-button"
   >
     <div>

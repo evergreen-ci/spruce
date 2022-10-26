@@ -434,42 +434,54 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-3j3zz7-LabelContainer e1cz15301"
           data-cy="commit-label"
         >
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          <p
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             <a
-              className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
+              className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+              data-cy="githash-link"
               href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks"
               onClick={[Function]}
             >
-              987bf57
+              <span
+                className="leafygreen-ui-1ewnca3"
+              >
+                987bf57
+              </span>
             </a>
              
             <b>
               Jul 16, 2021, 3:53 PM
             </b>
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          </p>
+          <p
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             Jonathan Brill
              -
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          </p>
+          <p
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             
             <a
-              className="css-1ki0po5-StyledLink-linkStyles es7lfqt2"
+              className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+              data-cy="jira-link"
               href="https://undefined/browse/EVG-14901"
               onClick={[Function]}
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              EVG-14901
+              <span
+                className="leafygreen-ui-1ewnca3"
+              >
+                EVG-14901
+              </span>
             </a>
              add ssh key to EditSpawnHos...
-          </div>
+          </p>
           <small
-            className="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+            className="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-ppjyot"
             onBlur={[Function]}
             onFocus={[Function]}
             onMouseEnter={[Function]}
@@ -487,34 +499,39 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-3j3zz7-LabelContainer e1cz15301"
           data-cy="commit-label"
         >
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          <p
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             <a
-              className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
+              className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+              data-cy="githash-link"
               href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks"
               onClick={[Function]}
             >
-              a77bd39
+              <span
+                className="leafygreen-ui-1ewnca3"
+              >
+                a77bd39
+              </span>
             </a>
              
             <b>
               Jul 13, 2021, 2:51 PM
             </b>
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          </p>
+          <p
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             Mohamed Khelif
              -
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          </p>
+          <p
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             Triggered From Git Tag 'v2.11.1': v2....
-          </div>
+          </p>
           <small
-            className="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+            className="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-ppjyot"
             onBlur={[Function]}
             onFocus={[Function]}
             onMouseEnter={[Function]}
@@ -534,7 +551,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           role="button"
         >
           <small
-            className="css-t2ltce-ButtonText ezzuvrx6 leafygreen-ui-13bqno6"
+            className="css-t2ltce-ButtonText ezzuvrx6 leafygreen-ui-ppjyot"
             data-cy="inactive-commits-button"
           >
             <div>
@@ -552,42 +569,54 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-3j3zz7-LabelContainer e1cz15301"
           data-cy="commit-label"
         >
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          <p
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             <a
-              className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
+              className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+              data-cy="githash-link"
               href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks"
               onClick={[Function]}
             >
-              9c1d1eb
+              <span
+                className="leafygreen-ui-1ewnca3"
+              >
+                9c1d1eb
+              </span>
             </a>
              
             <b>
               Jul 13, 2021, 2:51 PM
             </b>
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          </p>
+          <p
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             Mohamed Khelif
              -
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          </p>
+          <p
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             
             <a
-              className="css-1ki0po5-StyledLink-linkStyles es7lfqt2"
+              className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+              data-cy="jira-link"
               href="https://undefined/browse/EVG-14799"
               onClick={[Function]}
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              EVG-14799
+              <span
+                className="leafygreen-ui-1ewnca3"
+              >
+                EVG-14799
+              </span>
             </a>
              Correctly visit configure p...
-          </div>
+          </p>
           <small
-            className="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+            className="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-ppjyot"
             onBlur={[Function]}
             onFocus={[Function]}
             onMouseEnter={[Function]}
@@ -605,34 +634,39 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-3j3zz7-LabelContainer e1cz15301"
           data-cy="commit-label"
         >
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          <p
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             <a
-              className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
+              className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+              data-cy="githash-link"
               href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks"
               onClick={[Function]}
             >
-              f7f7f1a
+              <span
+                className="leafygreen-ui-1ewnca3"
+              >
+                f7f7f1a
+              </span>
             </a>
              
             <b>
               Jul 13, 2021, 2:51 PM
             </b>
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          </p>
+          <p
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             Sophie Stadler
              -
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          </p>
+          <p
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             Remove navigation announcement toast ...
-          </div>
+          </p>
           <small
-            className="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+            className="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-ppjyot"
             onBlur={[Function]}
             onFocus={[Function]}
             onMouseEnter={[Function]}
@@ -650,34 +684,39 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-3j3zz7-LabelContainer e1cz15301"
           data-cy="commit-label"
         >
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          <p
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             <a
-              className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
+              className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+              data-cy="githash-link"
               href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks"
               onClick={[Function]}
             >
-              211b3a0
+              <span
+                className="leafygreen-ui-1ewnca3"
+              >
+                211b3a0
+              </span>
             </a>
              
             <b>
               Jul 13, 2021, 2:51 PM
             </b>
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          </p>
+          <p
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             Chaya Malik
              -
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+          </p>
+          <p
+            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             Triggered From Git Tag 'v2.11.0': v2....
-          </div>
+          </p>
           <small
-            className="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+            className="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-ppjyot"
             onBlur={[Function]}
             onFocus={[Function]}
             onMouseEnter={[Function]}
@@ -703,12 +742,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-aqswgr-StyledRouterLink-linkStyles-Label ek3nkvx3"
+            className="lg-ui-0001 ek3nkvx3 css-1eggsyg-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/code_health?selectedCommit=929"
             onClick={[Function]}
           >
-            01. Code Health [code_health]
+            <span
+              className="leafygreen-ui-1ewnca3"
+            >
+              01. Code Health [code_health]
+            </span>
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -719,7 +762,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="pending icon"
-                className="leafygreen-ui-cssveg css-1aplu0a-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1q6lw77-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/code_health"
                 onBlur={[Function]}
@@ -728,28 +771,32 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
               >
-                <div
-                  className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                  data-task-icon="code_health-Code Health"
+                <span
+                  className="leafygreen-ui-1ewnca3"
                 >
-                  <svg
-                    aria-label="Calendar Icon"
-                    className="leafygreen-ui-19a71cx"
-                    fill="none"
-                    height={16}
-                    role="img"
-                    viewBox="0 0 16 16"
-                    width={16}
-                    xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                    data-task-icon="code_health-Code Health"
                   >
-                    <path
-                      clipRule="evenodd"
-                      d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
-                      fill="currentColor"
-                      fillRule="evenodd"
-                    />
-                  </svg>
-                </div>
+                    <svg
+                      aria-label="Calendar Icon"
+                      className="leafygreen-ui-19a71cx"
+                      fill="none"
+                      height={16}
+                      role="img"
+                      viewBox="0 0 16 16"
+                      width={16}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clipRule="evenodd"
+                        d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
+                        fill="currentColor"
+                        fillRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </span>
               </a>
             </div>
           </div>
@@ -758,12 +805,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-aqswgr-StyledRouterLink-linkStyles-Label ek3nkvx3"
+            className="lg-ui-0001 ek3nkvx3 css-1eggsyg-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/package_rpm?selectedCommit=929"
             onClick={[Function]}
           >
-            02. Packaging (RPM - RHEL7) [package_rpm]
+            <span
+              className="leafygreen-ui-1ewnca3"
+            >
+              02. Packaging (RPM - RHEL7) [package_rpm]
+            </span>
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -774,7 +825,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="will-run icon"
-                className="leafygreen-ui-cssveg css-1aplu0a-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1q6lw77-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/code_health"
                 onBlur={[Function]}
@@ -783,28 +834,32 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
               >
-                <div
-                  className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                  data-task-icon="package_rpm-Code Health"
+                <span
+                  className="leafygreen-ui-1ewnca3"
                 >
-                  <svg
-                    aria-label="Calendar Icon"
-                    className="leafygreen-ui-19a71cx"
-                    fill="none"
-                    height={16}
-                    role="img"
-                    viewBox="0 0 16 16"
-                    width={16}
-                    xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                    data-task-icon="package_rpm-Code Health"
                   >
-                    <path
-                      clipRule="evenodd"
-                      d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
-                      fill="currentColor"
-                      fillRule="evenodd"
-                    />
-                  </svg>
-                </div>
+                    <svg
+                      aria-label="Calendar Icon"
+                      className="leafygreen-ui-19a71cx"
+                      fill="none"
+                      height={16}
+                      role="img"
+                      viewBox="0 0 16 16"
+                      width={16}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clipRule="evenodd"
+                        d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
+                        fill="currentColor"
+                        fillRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </span>
               </a>
             </div>
           </div>
@@ -813,12 +868,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-aqswgr-StyledRouterLink-linkStyles-Label ek3nkvx3"
+            className="lg-ui-0001 ek3nkvx3 css-1eggsyg-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/js?selectedCommit=929"
             onClick={[Function]}
           >
-            03b. JavaScript Tests [js]
+            <span
+              className="leafygreen-ui-1ewnca3"
+            >
+              03b. JavaScript Tests [js]
+            </span>
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -829,7 +888,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="will-run icon"
-                className="leafygreen-ui-cssveg css-1aplu0a-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1q6lw77-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/js"
                 onBlur={[Function]}
@@ -838,28 +897,32 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
               >
-                <div
-                  className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                  data-task-icon="js-JavaScript Test"
+                <span
+                  className="leafygreen-ui-1ewnca3"
                 >
-                  <svg
-                    aria-label="Calendar Icon"
-                    className="leafygreen-ui-19a71cx"
-                    fill="none"
-                    height={16}
-                    role="img"
-                    viewBox="0 0 16 16"
-                    width={16}
-                    xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                    data-task-icon="js-JavaScript Test"
                   >
-                    <path
-                      clipRule="evenodd"
-                      d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
-                      fill="currentColor"
-                      fillRule="evenodd"
-                    />
-                  </svg>
-                </div>
+                    <svg
+                      aria-label="Calendar Icon"
+                      className="leafygreen-ui-19a71cx"
+                      fill="none"
+                      height={16}
+                      role="img"
+                      viewBox="0 0 16 16"
+                      width={16}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clipRule="evenodd"
+                        d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
+                        fill="currentColor"
+                        fillRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </span>
               </a>
             </div>
           </div>
@@ -877,12 +940,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-aqswgr-StyledRouterLink-linkStyles-Label ek3nkvx3"
+            className="lg-ui-0001 ek3nkvx3 css-1eggsyg-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/code_health?selectedCommit=928"
             onClick={[Function]}
           >
-            01. Code Health [code_health]
+            <span
+              className="leafygreen-ui-1ewnca3"
+            >
+              01. Code Health [code_health]
+            </span>
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -893,7 +960,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="pending icon"
-                className="leafygreen-ui-cssveg css-1aplu0a-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1q6lw77-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/code_health"
                 onBlur={[Function]}
@@ -902,28 +969,32 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
               >
-                <div
-                  className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                  data-task-icon="code_health-Code Health"
+                <span
+                  className="leafygreen-ui-1ewnca3"
                 >
-                  <svg
-                    aria-label="Calendar Icon"
-                    className="leafygreen-ui-19a71cx"
-                    fill="none"
-                    height={16}
-                    role="img"
-                    viewBox="0 0 16 16"
-                    width={16}
-                    xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                    data-task-icon="code_health-Code Health"
                   >
-                    <path
-                      clipRule="evenodd"
-                      d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
-                      fill="currentColor"
-                      fillRule="evenodd"
-                    />
-                  </svg>
-                </div>
+                    <svg
+                      aria-label="Calendar Icon"
+                      className="leafygreen-ui-19a71cx"
+                      fill="none"
+                      height={16}
+                      role="img"
+                      viewBox="0 0 16 16"
+                      width={16}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clipRule="evenodd"
+                        d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
+                        fill="currentColor"
+                        fillRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </span>
               </a>
             </div>
           </div>
@@ -932,12 +1003,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-aqswgr-StyledRouterLink-linkStyles-Label ek3nkvx3"
+            className="lg-ui-0001 ek3nkvx3 css-1eggsyg-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/package_rpm?selectedCommit=928"
             onClick={[Function]}
           >
-            02. Packaging (RPM - RHEL7) [package_rpm]
+            <span
+              className="leafygreen-ui-1ewnca3"
+            >
+              02. Packaging (RPM - RHEL7) [package_rpm]
+            </span>
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -948,7 +1023,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="pending icon"
-                className="leafygreen-ui-cssveg css-1aplu0a-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1q6lw77-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/code_health"
                 onBlur={[Function]}
@@ -957,28 +1032,32 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
               >
-                <div
-                  className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                  data-task-icon="package_rpm-Code Health"
+                <span
+                  className="leafygreen-ui-1ewnca3"
                 >
-                  <svg
-                    aria-label="Calendar Icon"
-                    className="leafygreen-ui-19a71cx"
-                    fill="none"
-                    height={16}
-                    role="img"
-                    viewBox="0 0 16 16"
-                    width={16}
-                    xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                    data-task-icon="package_rpm-Code Health"
                   >
-                    <path
-                      clipRule="evenodd"
-                      d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
-                      fill="currentColor"
-                      fillRule="evenodd"
-                    />
-                  </svg>
-                </div>
+                    <svg
+                      aria-label="Calendar Icon"
+                      className="leafygreen-ui-19a71cx"
+                      fill="none"
+                      height={16}
+                      role="img"
+                      viewBox="0 0 16 16"
+                      width={16}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clipRule="evenodd"
+                        d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
+                        fill="currentColor"
+                        fillRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </span>
               </a>
             </div>
           </div>
@@ -987,12 +1066,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-aqswgr-StyledRouterLink-linkStyles-Label ek3nkvx3"
+            className="lg-ui-0001 ek3nkvx3 css-1eggsyg-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/unit_java?selectedCommit=928"
             onClick={[Function]}
           >
-            03a. Unit Tests Java [unit_java]
+            <span
+              className="leafygreen-ui-1ewnca3"
+            >
+              03a. Unit Tests Java [unit_java]
+            </span>
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -1003,7 +1086,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="failed icon"
-                className="leafygreen-ui-cssveg css-1aplu0a-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1q6lw77-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/unit_java"
                 onBlur={[Function]}
@@ -1012,23 +1095,27 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
               >
-                <div
-                  className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                  data-task-icon="unit_java-Unit Tests"
+                <span
+                  className="leafygreen-ui-1ewnca3"
                 >
-                  <svg
-                    aria-label="Failure Icon"
-                    fill="currentColor"
-                    height={16}
-                    viewBox="0 0 21 21"
-                    width={16}
+                  <div
+                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                    data-task-icon="unit_java-Unit Tests"
                   >
-                    <path
-                      d="M17.7783.807588c-.7811-.7810482-2.0474-.7810486-2.8285 0L10.0001 5.75734 5.05035.807588c-.78105-.7810484-2.04738-.7810482-2.82843 0L.80771 2.2218c-.7810481.78105-.7810485 2.04738 0 2.82843l4.94975 4.94975L.80771 14.9497c-.7810474.7811-.7810481 2.0474 0 2.8285l1.41421 1.4142c.78105.781 2.04738.781 2.82843 0l4.94975-4.9498 4.9497 4.9498c.7811.781 2.0474.781 2.8285 0l1.4142-1.4142c.781-.7811.781-2.0474 0-2.8285l-4.9498-4.94972 4.9498-4.94975c.781-.78105.781-2.04738 0-2.82843L17.7783.807588Z"
-                      fill="#DB3030"
-                    />
-                  </svg>
-                </div>
+                    <svg
+                      aria-label="Failure Icon"
+                      fill="currentColor"
+                      height={16}
+                      viewBox="0 0 21 21"
+                      width={16}
+                    >
+                      <path
+                        d="M17.7783.807588c-.7811-.7810482-2.0474-.7810486-2.8285 0L10.0001 5.75734 5.05035.807588c-.78105-.7810484-2.04738-.7810482-2.82843 0L.80771 2.2218c-.7810481.78105-.7810485 2.04738 0 2.82843l4.94975 4.94975L.80771 14.9497c-.7810474.7811-.7810481 2.0474 0 2.8285l1.41421 1.4142c.78105.781 2.04738.781 2.82843 0l4.94975-4.9498 4.9497 4.9498c.7811.781 2.0474.781 2.8285 0l1.4142-1.4142c.781-.7811.781-2.0474 0-2.8285l-4.9498-4.94972 4.9498-4.94975c.781-.78105.781-2.04738 0-2.82843L17.7783.807588Z"
+                        fill="#DB3030"
+                      />
+                    </svg>
+                  </div>
+                </span>
               </a>
             </div>
           </div>
@@ -1050,12 +1137,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-aqswgr-StyledRouterLink-linkStyles-Label ek3nkvx3"
+            className="lg-ui-0001 ek3nkvx3 css-1eggsyg-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/code_health?selectedCommit=926"
             onClick={[Function]}
           >
-            01. Code Health [code_health]
+            <span
+              className="leafygreen-ui-1ewnca3"
+            >
+              01. Code Health [code_health]
+            </span>
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -1066,7 +1157,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="will-run icon"
-                className="leafygreen-ui-cssveg css-1aplu0a-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1q6lw77-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/code_health"
                 onBlur={[Function]}
@@ -1075,28 +1166,32 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
               >
-                <div
-                  className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                  data-task-icon="code_health-Code Health"
+                <span
+                  className="leafygreen-ui-1ewnca3"
                 >
-                  <svg
-                    aria-label="Calendar Icon"
-                    className="leafygreen-ui-19a71cx"
-                    fill="none"
-                    height={16}
-                    role="img"
-                    viewBox="0 0 16 16"
-                    width={16}
-                    xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                    data-task-icon="code_health-Code Health"
                   >
-                    <path
-                      clipRule="evenodd"
-                      d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
-                      fill="currentColor"
-                      fillRule="evenodd"
-                    />
-                  </svg>
-                </div>
+                    <svg
+                      aria-label="Calendar Icon"
+                      className="leafygreen-ui-19a71cx"
+                      fill="none"
+                      height={16}
+                      role="img"
+                      viewBox="0 0 16 16"
+                      width={16}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clipRule="evenodd"
+                        d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
+                        fill="currentColor"
+                        fillRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </span>
               </a>
             </div>
           </div>
@@ -1105,12 +1200,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-aqswgr-StyledRouterLink-linkStyles-Label ek3nkvx3"
+            className="lg-ui-0001 ek3nkvx3 css-1eggsyg-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/package_rpm?selectedCommit=926"
             onClick={[Function]}
           >
-            02. Packaging (RPM - RHEL7) [package_rpm]
+            <span
+              className="leafygreen-ui-1ewnca3"
+            >
+              02. Packaging (RPM - RHEL7) [package_rpm]
+            </span>
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -1121,7 +1220,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="pending icon"
-                className="leafygreen-ui-cssveg css-1aplu0a-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1q6lw77-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/code_health"
                 onBlur={[Function]}
@@ -1130,28 +1229,32 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
               >
-                <div
-                  className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                  data-task-icon="package_rpm-Code Health"
+                <span
+                  className="leafygreen-ui-1ewnca3"
                 >
-                  <svg
-                    aria-label="Calendar Icon"
-                    className="leafygreen-ui-19a71cx"
-                    fill="none"
-                    height={16}
-                    role="img"
-                    viewBox="0 0 16 16"
-                    width={16}
-                    xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                    data-task-icon="package_rpm-Code Health"
                   >
-                    <path
-                      clipRule="evenodd"
-                      d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
-                      fill="currentColor"
-                      fillRule="evenodd"
-                    />
-                  </svg>
-                </div>
+                    <svg
+                      aria-label="Calendar Icon"
+                      className="leafygreen-ui-19a71cx"
+                      fill="none"
+                      height={16}
+                      role="img"
+                      viewBox="0 0 16 16"
+                      width={16}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clipRule="evenodd"
+                        d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
+                        fill="currentColor"
+                        fillRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </span>
               </a>
             </div>
           </div>
@@ -1169,12 +1272,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-aqswgr-StyledRouterLink-linkStyles-Label ek3nkvx3"
+            className="lg-ui-0001 ek3nkvx3 css-1eggsyg-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/code_health?selectedCommit=925"
             onClick={[Function]}
           >
-            01. Code Health [code_health]
+            <span
+              className="leafygreen-ui-1ewnca3"
+            >
+              01. Code Health [code_health]
+            </span>
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -1185,7 +1292,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="will-run icon"
-                className="leafygreen-ui-cssveg css-1aplu0a-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1q6lw77-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/code_health"
                 onBlur={[Function]}
@@ -1194,28 +1301,32 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
               >
-                <div
-                  className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                  data-task-icon="code_health-Code Health"
+                <span
+                  className="leafygreen-ui-1ewnca3"
                 >
-                  <svg
-                    aria-label="Calendar Icon"
-                    className="leafygreen-ui-19a71cx"
-                    fill="none"
-                    height={16}
-                    role="img"
-                    viewBox="0 0 16 16"
-                    width={16}
-                    xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                    data-task-icon="code_health-Code Health"
                   >
-                    <path
-                      clipRule="evenodd"
-                      d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
-                      fill="currentColor"
-                      fillRule="evenodd"
-                    />
-                  </svg>
-                </div>
+                    <svg
+                      aria-label="Calendar Icon"
+                      className="leafygreen-ui-19a71cx"
+                      fill="none"
+                      height={16}
+                      role="img"
+                      viewBox="0 0 16 16"
+                      width={16}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clipRule="evenodd"
+                        d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
+                        fill="currentColor"
+                        fillRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </span>
               </a>
             </div>
           </div>
@@ -1224,12 +1335,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-aqswgr-StyledRouterLink-linkStyles-Label ek3nkvx3"
+            className="lg-ui-0001 ek3nkvx3 css-1eggsyg-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/package_rpm?selectedCommit=925"
             onClick={[Function]}
           >
-            02. Packaging (RPM - RHEL7) [package_rpm]
+            <span
+              className="leafygreen-ui-1ewnca3"
+            >
+              02. Packaging (RPM - RHEL7) [package_rpm]
+            </span>
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -1240,7 +1355,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="success icon"
-                className="leafygreen-ui-cssveg css-1aplu0a-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1q6lw77-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/code_health"
                 onBlur={[Function]}
@@ -1249,28 +1364,32 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
               >
-                <div
-                  className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                  data-task-icon="package_rpm-Code Health"
+                <span
+                  className="leafygreen-ui-1ewnca3"
                 >
-                  <svg
-                    aria-label="Checkmark Icon"
-                    className="leafygreen-ui-zgssm"
-                    fill="none"
-                    height={16}
-                    role="img"
-                    viewBox="0 0 16 16"
-                    width={16}
-                    xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                    data-task-icon="package_rpm-Code Health"
                   >
-                    <path
-                      clipRule="evenodd"
-                      d="M6.306 9.05l5.455-5.455a1 1 0 011.414 0l.707.707a1 1 0 010 1.414l-7.067 7.068a1 1 0 01-1.5-.098l-3.049-3.97a1 1 0 01.184-1.402l.595-.457a1.25 1.25 0 011.753.23L6.306 9.05z"
-                      fill="currentColor"
-                      fillRule="evenodd"
-                    />
-                  </svg>
-                </div>
+                    <svg
+                      aria-label="Checkmark Icon"
+                      className="leafygreen-ui-zgssm"
+                      fill="none"
+                      height={16}
+                      role="img"
+                      viewBox="0 0 16 16"
+                      width={16}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clipRule="evenodd"
+                        d="M6.306 9.05l5.455-5.455a1 1 0 011.414 0l.707.707a1 1 0 010 1.414l-7.067 7.068a1 1 0 01-1.5-.098l-3.049-3.97a1 1 0 01.184-1.402l.595-.457a1.25 1.25 0 011.753.23L6.306 9.05z"
+                        fill="currentColor"
+                        fillRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </span>
               </a>
             </div>
           </div>
@@ -1288,12 +1407,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-aqswgr-StyledRouterLink-linkStyles-Label ek3nkvx3"
+            className="lg-ui-0001 ek3nkvx3 css-1eggsyg-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/code_health?selectedCommit=924"
             onClick={[Function]}
           >
-            01. Code Health [code_health]
+            <span
+              className="leafygreen-ui-1ewnca3"
+            >
+              01. Code Health [code_health]
+            </span>
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -1304,7 +1427,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="failed icon"
-                className="leafygreen-ui-cssveg css-1aplu0a-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1q6lw77-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/code_health"
                 onBlur={[Function]}
@@ -1313,23 +1436,27 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
               >
-                <div
-                  className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                  data-task-icon="code_health-Code Health"
+                <span
+                  className="leafygreen-ui-1ewnca3"
                 >
-                  <svg
-                    aria-label="Failure Icon"
-                    fill="currentColor"
-                    height={16}
-                    viewBox="0 0 21 21"
-                    width={16}
+                  <div
+                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                    data-task-icon="code_health-Code Health"
                   >
-                    <path
-                      d="M17.7783.807588c-.7811-.7810482-2.0474-.7810486-2.8285 0L10.0001 5.75734 5.05035.807588c-.78105-.7810484-2.04738-.7810482-2.82843 0L.80771 2.2218c-.7810481.78105-.7810485 2.04738 0 2.82843l4.94975 4.94975L.80771 14.9497c-.7810474.7811-.7810481 2.0474 0 2.8285l1.41421 1.4142c.78105.781 2.04738.781 2.82843 0l4.94975-4.9498 4.9497 4.9498c.7811.781 2.0474.781 2.8285 0l1.4142-1.4142c.781-.7811.781-2.0474 0-2.8285l-4.9498-4.94972 4.9498-4.94975c.781-.78105.781-2.04738 0-2.82843L17.7783.807588Z"
-                      fill="#DB3030"
-                    />
-                  </svg>
-                </div>
+                    <svg
+                      aria-label="Failure Icon"
+                      fill="currentColor"
+                      height={16}
+                      viewBox="0 0 21 21"
+                      width={16}
+                    >
+                      <path
+                        d="M17.7783.807588c-.7811-.7810482-2.0474-.7810486-2.8285 0L10.0001 5.75734 5.05035.807588c-.78105-.7810484-2.04738-.7810482-2.82843 0L.80771 2.2218c-.7810481.78105-.7810485 2.04738 0 2.82843l4.94975 4.94975L.80771 14.9497c-.7810474.7811-.7810481 2.0474 0 2.8285l1.41421 1.4142c.78105.781 2.04738.781 2.82843 0l4.94975-4.9498 4.9497 4.9498c.7811.781 2.0474.781 2.8285 0l1.4142-1.4142c.781-.7811.781-2.0474 0-2.8285l-4.9498-4.94972 4.9498-4.94975c.781-.78105.781-2.04738 0-2.82843L17.7783.807588Z"
+                        fill="#DB3030"
+                      />
+                    </svg>
+                  </div>
+                </span>
               </a>
             </div>
           </div>
@@ -1338,12 +1465,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-aqswgr-StyledRouterLink-linkStyles-Label ek3nkvx3"
+            className="lg-ui-0001 ek3nkvx3 css-1eggsyg-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/package_rpm?selectedCommit=924"
             onClick={[Function]}
           >
-            02. Packaging (RPM - RHEL7) [package_rpm]
+            <span
+              className="leafygreen-ui-1ewnca3"
+            >
+              02. Packaging (RPM - RHEL7) [package_rpm]
+            </span>
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -1354,7 +1485,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="failed icon"
-                className="leafygreen-ui-cssveg css-1aplu0a-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1q6lw77-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/code_health"
                 onBlur={[Function]}
@@ -1363,23 +1494,27 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
               >
-                <div
-                  className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                  data-task-icon="package_rpm-Code Health"
+                <span
+                  className="leafygreen-ui-1ewnca3"
                 >
-                  <svg
-                    aria-label="Failure Icon"
-                    fill="currentColor"
-                    height={16}
-                    viewBox="0 0 21 21"
-                    width={16}
+                  <div
+                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                    data-task-icon="package_rpm-Code Health"
                   >
-                    <path
-                      d="M17.7783.807588c-.7811-.7810482-2.0474-.7810486-2.8285 0L10.0001 5.75734 5.05035.807588c-.78105-.7810484-2.04738-.7810482-2.82843 0L.80771 2.2218c-.7810481.78105-.7810485 2.04738 0 2.82843l4.94975 4.94975L.80771 14.9497c-.7810474.7811-.7810481 2.0474 0 2.8285l1.41421 1.4142c.78105.781 2.04738.781 2.82843 0l4.94975-4.9498 4.9497 4.9498c.7811.781 2.0474.781 2.8285 0l1.4142-1.4142c.781-.7811.781-2.0474 0-2.8285l-4.9498-4.94972 4.9498-4.94975c.781-.78105.781-2.04738 0-2.82843L17.7783.807588Z"
-                      fill="#DB3030"
-                    />
-                  </svg>
-                </div>
+                    <svg
+                      aria-label="Failure Icon"
+                      fill="currentColor"
+                      height={16}
+                      viewBox="0 0 21 21"
+                      width={16}
+                    >
+                      <path
+                        d="M17.7783.807588c-.7811-.7810482-2.0474-.7810486-2.8285 0L10.0001 5.75734 5.05035.807588c-.78105-.7810484-2.04738-.7810482-2.82843 0L.80771 2.2218c-.7810481.78105-.7810485 2.04738 0 2.82843l4.94975 4.94975L.80771 14.9497c-.7810474.7811-.7810481 2.0474 0 2.8285l1.41421 1.4142c.78105.781 2.04738.781 2.82843 0l4.94975-4.9498 4.9497 4.9498c.7811.781 2.0474.781 2.8285 0l1.4142-1.4142c.781-.7811.781-2.0474 0-2.8285l-4.9498-4.94972 4.9498-4.94975c.781-.78105.781-2.04738 0-2.82843L17.7783.807588Z"
+                        fill="#DB3030"
+                      />
+                    </svg>
+                  </div>
+                </span>
               </a>
             </div>
           </div>
@@ -1388,12 +1523,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="css-aqswgr-StyledRouterLink-linkStyles-Label ek3nkvx3"
+            className="lg-ui-0001 ek3nkvx3 css-1eggsyg-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/unit_java?selectedCommit=924"
             onClick={[Function]}
           >
-            03a. Unit Tests Java [unit_java]
+            <span
+              className="leafygreen-ui-1ewnca3"
+            >
+              03a. Unit Tests Java [unit_java]
+            </span>
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -1404,7 +1543,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="failed icon"
-                className="leafygreen-ui-cssveg css-1aplu0a-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1q6lw77-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/unit_java"
                 onBlur={[Function]}
@@ -1413,23 +1552,27 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
               >
-                <div
-                  className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                  data-task-icon="unit_java-Unit Tests"
+                <span
+                  className="leafygreen-ui-1ewnca3"
                 >
-                  <svg
-                    aria-label="Failure Icon"
-                    fill="currentColor"
-                    height={16}
-                    viewBox="0 0 21 21"
-                    width={16}
+                  <div
+                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                    data-task-icon="unit_java-Unit Tests"
                   >
-                    <path
-                      d="M17.7783.807588c-.7811-.7810482-2.0474-.7810486-2.8285 0L10.0001 5.75734 5.05035.807588c-.78105-.7810484-2.04738-.7810482-2.82843 0L.80771 2.2218c-.7810481.78105-.7810485 2.04738 0 2.82843l4.94975 4.94975L.80771 14.9497c-.7810474.7811-.7810481 2.0474 0 2.8285l1.41421 1.4142c.78105.781 2.04738.781 2.82843 0l4.94975-4.9498 4.9497 4.9498c.7811.781 2.0474.781 2.8285 0l1.4142-1.4142c.781-.7811.781-2.0474 0-2.8285l-4.9498-4.94972 4.9498-4.94975c.781-.78105.781-2.04738 0-2.82843L17.7783.807588Z"
-                      fill="#DB3030"
-                    />
-                  </svg>
-                </div>
+                    <svg
+                      aria-label="Failure Icon"
+                      fill="currentColor"
+                      height={16}
+                      viewBox="0 0 21 21"
+                      width={16}
+                    >
+                      <path
+                        d="M17.7783.807588c-.7811-.7810482-2.0474-.7810486-2.8285 0L10.0001 5.75734 5.05035.807588c-.78105-.7810484-2.04738-.7810482-2.82843 0L.80771 2.2218c-.7810481.78105-.7810485 2.04738 0 2.82843l4.94975 4.94975L.80771 14.9497c-.7810474.7811-.7810481 2.0474 0 2.8285l1.41421 1.4142c.78105.781 2.04738.781 2.82843 0l4.94975-4.9498 4.9497 4.9498c.7811.781 2.0474.781 2.8285 0l1.4142-1.4142c.781-.7811.781-2.0474 0-2.8285l-4.9498-4.94972 4.9498-4.94975c.781-.78105.781-2.04738 0-2.82843L17.7783.807588Z"
+                        fill="#DB3030"
+                      />
+                    </svg>
+                  </div>
+                </span>
               </a>
             </div>
           </div>
