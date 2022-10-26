@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import { InlineCode, Description } from "@leafygreen-ui/typography";
 import {
   getEventSchema,
@@ -92,8 +91,6 @@ export const getFormSchema = (
 const HelpText: React.VFC = () => {
   const spruceConfig = useSpruceConfig();
   const slackName = spruceConfig?.slack?.name;
-  console.log(`spruceConfig: ${spruceConfig}`);
-  console.log(spruceConfig);
 
   return (
     <Description>
