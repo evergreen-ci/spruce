@@ -27,7 +27,6 @@ export const SpawnVolumeTableActions: React.VFC<Props> = ({ volume }) => {
     <FlexRow
       onClick={(e) => {
         e.stopPropagation();
-        e.preventDefault();
       }}
     >
       <DeleteVolumeBtn
