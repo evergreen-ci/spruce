@@ -63,6 +63,7 @@ export enum HostEvent {
   HostTeardown = "HOST_TEARDOWN",
   HostTaskFinished = "HOST_TASK_FINISHED",
   HostExpirationWarningSet = "HOST_EXPIRATION_WARNING_SENT",
+  VolumeMigrationFailed = "VOLUME_MIGRATION_FAILED",
 }
 
 export enum HostMonitorOp {
