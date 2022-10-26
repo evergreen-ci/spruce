@@ -290,6 +290,20 @@ export const getHostEventString = (
           Expiration warning sent
         </span>
       );
+    case HostEvent.VolumeMigrationFailed:
+      return (
+        <span data-cy="host-volume-migration-failed">
+          Home volume failed to migrate to new host.
+          {data.logs && (
+            <HostEventLog
+              title="Volume migration logs"
+              logs={data.logs}
+              isCode
+            />
+          )}
+        </span>
+      );
+
     default:
       return `${eventType}`;
   }
