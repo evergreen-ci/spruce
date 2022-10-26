@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import Button, { Variant } from "@leafygreen-ui/button";
 import { Footer } from "@leafygreen-ui/modal";
 import { useLocation } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
 import { DisplayModal, DisplayModalProps } from "components/DisplayModal";
 import { getNoExpirationCheckboxTooltipCopy } from "components/Spawn/utils";
 import { SpruceForm } from "components/SpruceForm";
-import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   DistrosQuery,
@@ -48,6 +46,7 @@ import {
   getDefaultExpiration,
   getFormSchema,
 } from "./spawnHostModal/getFormSchema";
+import { ModalButtons } from "./spawnHostModal/ModalButtons";
 import { formToGql } from "./spawnHostModal/transformer";
 import { FormState } from "./spawnHostModal/types";
 import { validateSpawnHostForm } from "./spawnHostModal/utils";
@@ -240,37 +239,19 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
         }}
       />
       <StyledFooter>
-        <WideButton
-          // @ts-expect-error
-          onClick={() => setOpen(false)}
-          data-cy="cancel-button"
-          key="cancel_button"
-        >
-          Cancel
-        </WideButton>
-        <WideButton
-          data-cy="spawn-host-button"
-          disabled={
+        <ModalButtons
+          disableSubmit={
             !validateSpawnHostForm(formState, !!migrateVolumeId) ||
             loadingSubmit
-          } // @ts-expect-error
-          onClick={spawnHost}
-          variant={Variant.Primary}
-          key="spawn_host_button"
-        >
-          {loadingSubmit ? "Spawning Host" : "Spawn"}
-        </WideButton>
+          }
+          loading={loadingSubmit}
+          onCancel={() => setOpen(false)}
+          onSubmit={spawnHost}
+        />
       </StyledFooter>
     </DisplayModal>
   );
 };
-
-// @ts-expect-error
-const WideButton = styled(Button)`
-  justify-content: center;
-  margin-left: ${size.s};
-  width: 140px;
-`;
 
 const StyledFooter = styled(Footer)`
   margin-top: 8px;
