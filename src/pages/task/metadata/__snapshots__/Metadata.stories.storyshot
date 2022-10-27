@@ -18,6 +18,7 @@ exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
     />
     <p
       className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      data-cy="task-metadata-build-variant"
     >
       Build Variant Name:
        
@@ -36,6 +37,7 @@ exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
     </p>
     <p
       className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      data-cy="task-metadata-project"
     >
       Project:
        
@@ -112,6 +114,7 @@ exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
     </p>
     <p
       className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      data-cy="task-metadata-ami"
     >
       AMI: 
       ami-0c83bb0a9f48c15bf
@@ -173,6 +176,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
     />
     <p
       className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      data-cy="task-metadata-build-variant"
     >
       Build Variant Name:
        
@@ -191,6 +195,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
     </p>
     <p
       className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      data-cy="task-metadata-project"
     >
       Project:
        
@@ -267,6 +272,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
     </p>
     <p
       className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      data-cy="task-metadata-ami"
     >
       AMI: 
       ami-0c83bb0a9f48c15bf
@@ -328,6 +334,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
     />
     <p
       className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      data-cy="task-metadata-build-variant"
     >
       Build Variant Name:
        
@@ -346,6 +353,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
     </p>
     <p
       className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      data-cy="task-metadata-project"
     >
       Project:
        
@@ -422,6 +430,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
     </p>
     <p
       className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      data-cy="task-metadata-ami"
     >
       AMI: 
       ami-0c83bb0a9f48c15bf

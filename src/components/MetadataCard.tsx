@@ -33,16 +33,24 @@ export const MetadataCard: React.VFC<Props> = ({
   </>
 );
 
-export const MetadataTitle: React.FC<{}> = ({ children }) => (
+export const MetadataTitle: React.VFC<{ children: React.ReactNode }> = ({
+  children,
+}) => (
   <>
     <Title weight="medium">{children}</Title>
     <Divider />
   </>
 );
 
-export const MetadataItem: React.FC<{}> = ({ children }) => (
-  <Item>{children}</Item>
-);
+interface ItemProps {
+  children: React.ReactNode;
+  "data-cy"?: string;
+}
+
+export const MetadataItem: React.VFC<ItemProps> = ({
+  children,
+  "data-cy": dataCy,
+}) => <Item data-cy={dataCy}>{children}</Item>;
 
 const Title = styled(Body)`
   font-size: 15px;
