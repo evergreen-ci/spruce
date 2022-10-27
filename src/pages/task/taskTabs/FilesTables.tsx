@@ -79,7 +79,6 @@ export const FilesTables: React.VFC = () => {
       }, 300)(),
     [data, filterStr]
   );
-  console.log(filteredData);
 
   if (error) {
     return <div>{error.message}</div>;

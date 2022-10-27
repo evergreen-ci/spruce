@@ -13,6 +13,7 @@ import {
   FileDiffsFragment,
 } from "gql/generated/types";
 import { GET_CODE_CHANGES } from "gql/queries";
+import { SubtitleType } from "types/leafygreen";
 import { commits } from "utils";
 
 const { bucketByCommit, shouldPreserveCommits } = commits;
@@ -34,7 +35,6 @@ export const CodeChanges: React.VFC = () => {
     return <div id="patch-error">{error.message}</div>;
   }
   if (!moduleCodeChanges.length) {
-    // @ts-expect-error
     return <Title className="cy-no-code-changes">No code changes</Title>;
   }
   return (
@@ -75,7 +75,6 @@ export const CodeChanges: React.VFC = () => {
         return (
           <Container key={branchName}>
             <TitleContainer>
-              {/* @ts-expect-error */}
               <Title>Changes on {branchName}: </Title>
               <StyledButton
                 data-cy="html-diff-btn"
@@ -114,7 +113,7 @@ const StyledButton = styled(Button)`
 `;
 
 // @ts-expect-error
-const Title = styled(Subtitle)`
+const Title: SubtitleType = styled(Subtitle)`
   font-weight: normal;
   margin-right: ${size.s};
   margin-bottom: ${size.s};

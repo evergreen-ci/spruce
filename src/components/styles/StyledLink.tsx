@@ -13,6 +13,7 @@ export const StyledLink = (props) => (
 
       // Override LeafyGreen's font-size declaration for Link
       font-size: inherit;
+      font-weight: inherit;
     `}
     {...props}
   />
