@@ -56,7 +56,7 @@ export const MigrateVolumeModal: React.VFC<SpawnHostModalProps> = ({
   const [formState, setFormState] = useState<FormState>({});
 
   const distros = useMemo(
-    () => formSchemaInput.distros.filter((d) => d.isVirtualWorkStation),
+    () => formSchemaInput.distros?.filter((d) => d.isVirtualWorkStation),
     [formSchemaInput.distros]
   );
   const { schema, uiSchema } = getFormSchema({
