@@ -4,13 +4,15 @@ import styled from "@emotion/styled";
 import { Footer } from "@leafygreen-ui/modal";
 import { useSpawnAnalytics } from "analytics";
 import { DisplayModal, DisplayModalProps } from "components/DisplayModal";
-import { getFormSchema } from "components/Spawn/spawnHostModal/getFormSchema";
-import { ModalButtons } from "components/Spawn/spawnHostModal/ModalButtons";
-import { formToGql } from "components/Spawn/spawnHostModal/transformer";
-import { FormState } from "components/Spawn/spawnHostModal/types";
-import { useLoadFormSchemaData } from "components/Spawn/spawnHostModal/useLoadFormSchemaData";
-import { useVirtualWorkstationDefaultExpiration } from "components/Spawn/spawnHostModal/useVirtualWorkstationDefaultExpiration";
-import { validateSpawnHostForm } from "components/Spawn/spawnHostModal/utils";
+import {
+  formToGql,
+  getFormSchema,
+  ModalButtons,
+  useLoadFormSchemaData,
+  useVirtualWorkstationDefaultExpiration,
+  validateSpawnHostForm,
+  FormState,
+} from "components/Spawn/spawnHostModal";
 import { SpruceForm } from "components/SpruceForm";
 import { useToastContext } from "context/toast";
 import {
