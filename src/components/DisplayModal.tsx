@@ -10,7 +10,7 @@ export interface DisplayModalProps {
     open: boolean
   ) => void | React.Dispatch<React.SetStateAction<boolean>>;
   size?: ModalSize;
-  title?: string;
+  title?: string | JSX.Element;
   children: React.ReactNode;
 }
 
@@ -24,7 +24,7 @@ export const DisplayModal: React.VFC<DisplayModalProps> = ({
 }) => (
   <StyledModal data-cy={dataCy} open={open} setOpen={setOpen} size={size}>
     {/* @ts-expect-error */}
-    {title && <StyledHeader>{title}</StyledHeader>}
+    {title && <StyledHeader data-cy="modal-title">{title}</StyledHeader>}
     {children}
   </StyledModal>
 );
