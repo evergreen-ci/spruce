@@ -21,9 +21,10 @@ export const useVirtualWorkstationDefaultExpiration = ({
       });
     }
   }, [
-    isVirtualWorkstation,
     disableExpirationCheckbox,
     formState,
+    isVirtualWorkstation,
     prevIsVirtualWorkStation,
+    setFormState,
   ]);
 };

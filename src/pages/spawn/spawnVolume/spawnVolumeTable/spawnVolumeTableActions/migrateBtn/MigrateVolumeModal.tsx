@@ -1,4 +1,4 @@
-import { SyntheticEvent, useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useMemo, useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Footer } from "@leafygreen-ui/modal";
@@ -54,8 +54,14 @@ export const MigrateVolumeModal: React.VFC<SpawnHostModalProps> = ({
     refetchQueries: ["MyHosts", "MyVolumes", "GetMyPublicKeys"],
   });
   const [formState, setFormState] = useState<FormState>({});
+
+  const distros = useMemo(
+    () => formSchemaInput.distros.filter((d) => d.isVirtualWorkStation),
+    [formSchemaInput.distros]
+  );
   const { schema, uiSchema } = getFormSchema({
     ...formSchemaInput,
+    distros,
     isMigration: true,
     isVirtualWorkstation: !!formState?.distro?.isVirtualWorkstation,
   });
