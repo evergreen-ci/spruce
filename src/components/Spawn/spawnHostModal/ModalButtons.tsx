@@ -22,14 +22,6 @@ export const ModalButtons: React.FC<Props> = ({
 }) => (
   <>
     <WideButton
-      // @ts-expect-error
-      onClick={onCancel}
-      data-cy="cancel-button"
-      key="cancel-button"
-    >
-      Cancel
-    </WideButton>
-    <WideButton
       data-cy="spawn-host-button"
       disabled={disableSubmit}
       // @ts-expect-error
@@ -37,7 +29,15 @@ export const ModalButtons: React.FC<Props> = ({
       variant={Variant.Primary}
       key="submit-button"
     >
-      {loading ? submitButtonCopy : submitButtonLoadingCopy}
+      {loading ? submitButtonLoadingCopy : submitButtonCopy}
+    </WideButton>
+    <WideButton
+      // @ts-expect-error
+      onClick={onCancel}
+      data-cy="cancel-button"
+      key="cancel-button"
+    >
+      Cancel
     </WideButton>
   </>
 );
