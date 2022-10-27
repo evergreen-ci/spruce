@@ -128,6 +128,8 @@ export const MigrateVolumeModal: React.VFC<SpawnHostModalProps> = ({
           loading={loadingMigration}
           onCancel={() => setOpen(false)}
           onSubmit={spawnHost}
+          submitButtonCopy="Spawn a host"
+          submitButtonLoadingCopy="Spawning"
         />
       </StyledFooter>
     </DisplayModal>

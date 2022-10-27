@@ -8,6 +8,8 @@ interface Props {
   loading: boolean;
   onCancel: () => void;
   onSubmit: (e: SyntheticEvent) => void;
+  submitButtonCopy: string;
+  submitButtonLoadingCopy: string;
 }
 
 export const ModalButtons: React.FC<Props> = ({
@@ -15,6 +17,8 @@ export const ModalButtons: React.FC<Props> = ({
   loading,
   onCancel,
   onSubmit,
+  submitButtonCopy,
+  submitButtonLoadingCopy,
 }) => (
   <>
     <WideButton
@@ -33,7 +37,7 @@ export const ModalButtons: React.FC<Props> = ({
       variant={Variant.Primary}
       key="submit-button"
     >
-      {loading ? "Spawning Host" : "Spawn"}
+      {loading ? submitButtonCopy : submitButtonLoadingCopy}
     </WideButton>
   </>
 );

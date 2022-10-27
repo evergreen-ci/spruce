@@ -138,6 +138,8 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
           loading={loadingSpawnHost}
           onCancel={() => setOpen(false)}
           onSubmit={spawnHost}
+          submitButtonCopy="Spawn a host"
+          submitButtonLoadingCopy="Spawning"
         />
       </StyledFooter>
     </DisplayModal>
