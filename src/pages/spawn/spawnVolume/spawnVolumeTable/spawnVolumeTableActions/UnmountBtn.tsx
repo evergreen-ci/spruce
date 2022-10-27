@@ -70,7 +70,7 @@ export const UnmountBtn: React.VFC<Props> = ({ volume }) => {
           }}
           okText="Yes"
           cancelText="Cancel"
-          disabled={isHomeVolume}
+          disabled={isHomeVolume || volume.migrating}
         >
           {children}
         </Popconfirm>
@@ -79,7 +79,7 @@ export const UnmountBtn: React.VFC<Props> = ({ volume }) => {
       <Button
         size={Size.XSmall}
         data-cy={`detach-btn-${volume.displayName || volume.id}`}
-        disabled={loadingDetachVolume || isHomeVolume}
+        disabled={loadingDetachVolume || isHomeVolume || volume.migrating}
       >
         Unmount
       </Button>
