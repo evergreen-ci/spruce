@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Footer } from "@leafygreen-ui/modal";
@@ -73,7 +73,7 @@ export const MigrateVolumeModal: React.VFC<SpawnHostModalProps> = ({
     return null;
   }
 
-  const spawnHost = (e) => {
+  const spawnHost = (e: SyntheticEvent) => {
     e.preventDefault();
     const mutationInput = formToGql({
       formData: formState,
