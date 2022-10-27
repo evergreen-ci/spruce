@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button, { Size } from "@leafygreen-ui/button";
-import { MigrateVolumeModal } from "components/Spawn/MigrateVolumeModal";
 import { MyVolume } from "types/spawn";
+import { MigrateVolumeModal } from "./migrateBtn/MigrateVolumeModal";
 
 interface Props {
   volume: MyVolume;

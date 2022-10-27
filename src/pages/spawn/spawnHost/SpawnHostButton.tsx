@@ -5,7 +5,6 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { useLocation } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
 import { PlusButton } from "components/Buttons";
-import { SpawnHostModal } from "components/Spawn/SpawnHostModal";
 import { size } from "constants/tokens";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { GET_MY_HOSTS } from "gql/queries";
@@ -13,6 +12,7 @@ import { useSpruceConfig, useUpdateURLQueryParams } from "hooks";
 import { HostStatus } from "types/host";
 import { queryString } from "utils";
 import { QueryParams } from "../types";
+import { SpawnHostModal } from "./spawnHostButton/SpawnHostModal";
 
 const { parseQueryString } = queryString;
 

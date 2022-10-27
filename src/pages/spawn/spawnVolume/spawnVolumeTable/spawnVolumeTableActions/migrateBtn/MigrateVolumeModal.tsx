@@ -4,6 +4,13 @@ import styled from "@emotion/styled";
 import { Footer } from "@leafygreen-ui/modal";
 import { useSpawnAnalytics } from "analytics";
 import { DisplayModal, DisplayModalProps } from "components/DisplayModal";
+import { getFormSchema } from "components/Spawn/spawnHostModal/getFormSchema";
+import { ModalButtons } from "components/Spawn/spawnHostModal/ModalButtons";
+import { formToGql } from "components/Spawn/spawnHostModal/transformer";
+import { FormState } from "components/Spawn/spawnHostModal/types";
+import { useLoadFormSchemaData } from "components/Spawn/spawnHostModal/useLoadFormSchemaData";
+import { useVirtualWorkstationDefaultExpiration } from "components/Spawn/spawnHostModal/useVirtualWorkstationDefaultExpiration";
+import { validateSpawnHostForm } from "components/Spawn/spawnHostModal/utils";
 import { SpruceForm } from "components/SpruceForm";
 import { useToastContext } from "context/toast";
 import {
@@ -12,13 +19,6 @@ import {
 } from "gql/generated/types";
 import { MIGRATE_VOLUME } from "gql/mutations";
 import { omit } from "utils/object";
-import { getFormSchema } from "./spawnHostModal/getFormSchema";
-import { ModalButtons } from "./spawnHostModal/ModalButtons";
-import { formToGql } from "./spawnHostModal/transformer";
-import { FormState } from "./spawnHostModal/types";
-import { useLoadFormSchemaData } from "./spawnHostModal/useLoadFormSchemaData";
-import { useVirtualWorkstationDefaultExpiration } from "./spawnHostModal/useVirtualWorkstationDefaultExpiration";
-import { validateSpawnHostForm } from "./spawnHostModal/utils";
 
 interface SpawnHostModalProps
   extends Pick<DisplayModalProps, "open" | "setOpen"> {
