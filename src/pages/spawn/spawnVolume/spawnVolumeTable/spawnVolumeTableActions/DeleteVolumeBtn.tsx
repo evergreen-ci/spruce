@@ -51,7 +51,7 @@ export const DeleteVolumeBtn: React.VFC<Props> = ({ volume }) => {
         size={Size.XSmall}
         data-cy={`trash-${volume.displayName || volume.id}`}
         leftGlyph={<Icon glyph="Trash" />}
-        disabled={loadingRemoveVolume}
+        disabled={loadingRemoveVolume || volume.migrating}
       />
     </PopconfirmWithCheckbox>
   );

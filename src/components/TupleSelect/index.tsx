@@ -53,7 +53,7 @@ const TupleSelect: React.VFC<TupleSelectProps> = ({
           value={selected}
           onChange={(v) => setSelected(v)}
           data-cy="tuple-select-dropdown"
-          aria-labelledby="tuple-select-dropdown"
+          aria-labelledby="Tuple Select"
           allowDeselect={false}
         >
           {options.map((o) => (
@@ -68,7 +68,7 @@ const TupleSelect: React.VFC<TupleSelectProps> = ({
         </GroupedSelect>
         <GroupedTextInput
           id="filter-input"
-          aria-labelledby="tuple-select-input"
+          aria-label="Tuple Search"
           data-cy="tuple-select-input"
           value={input}
           type="search"
