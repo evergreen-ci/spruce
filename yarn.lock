@@ -4072,10 +4072,10 @@
     "@leafygreen-ui/lib" "^9.0.0"
     "@leafygreen-ui/palette" "^3.2.2"
 
-"@leafygreen-ui/leafygreen-provider@2.3.5":
-  version "2.3.5"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/leafygreen-provider/-/leafygreen-provider-2.3.5.tgz#370c53f689df53ee02db7a0876c7aa2c89d3f1f5"
-  integrity sha512-Pc8Dm7QMeOEGSK+/Usb9KfjMq7Xn0Ah6gcLHXkaS1QXxCmgoSIOMErQtALhjQydekp+KvAc8z10wMwFUeHf/DQ==
+"@leafygreen-ui/leafygreen-provider@3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/leafygreen-provider/-/leafygreen-provider-3.0.0.tgz#13b92523e9e83c02689caaeddd7f9e1ae16fd577"
+  integrity sha512-wDsjlaPt0eGeTcL0ollLsvQxATYp49NfdyGa4BpD9PZwjUurFsqGPcU39zBCGBn3gpigqXcMfU7KwvHPxan33g==
   dependencies:
     "@leafygreen-ui/hooks" "^7.3.3"
     "@leafygreen-ui/lib" "^9.5.1"
@@ -4355,10 +4355,10 @@
     "@leafygreen-ui/tokens" "^0.5.3"
     lodash "^4.17.21"
 
-"@leafygreen-ui/typography@13.2.1":
-  version "13.2.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/typography/-/typography-13.2.1.tgz#e7a67f34054906ef4dee02361b75dc9cc7f1a3c0"
-  integrity sha512-5DABF0NkyH0JNZnv4YUgYxMxIojrylSwW8jg2nVMD96ZynH+vKYDUFRWef6GztqaiqSnXZjn65wQcg2v9C0nUg==
+"@leafygreen-ui/typography@14.0.0":
+  version "14.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/typography/-/typography-14.0.0.tgz#c8eb9c40578e0aeefbe86405f068adb72411457c"
+  integrity sha512-2C7+uwY/52fHYfnRkpVKV203t1qf63mzKAUmT8EupywzMH/qtyRea85CPJIF0EkFDHf2s76gYrLqkbNXshwIJw==
   dependencies:
     "@leafygreen-ui/box" "^3.1.1"
     "@leafygreen-ui/emotion" "^4.0.3"

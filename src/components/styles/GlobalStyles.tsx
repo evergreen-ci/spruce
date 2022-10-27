@@ -37,7 +37,7 @@ const globalStyles = css`
 
   body {
     font-family: "Euclid Circular A", "Helvetica Neue", sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     margin: 0;
   }
 
