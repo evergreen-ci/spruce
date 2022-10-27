@@ -81,7 +81,7 @@ const PageHeader = styled.div<TitleTypographyProps>`
 `;
 
 const TitleWrapper = styled.div<TitleTypographyProps>`
-  align-items: center;
+  align-items: start;
   display: flex;
   max-width: ${(props) => (props.size === "medium" ? "70%" : "100%")};
 `;

@@ -8,7 +8,7 @@ exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
     className="css-1sz2cbo-SiderCard e1am38ss0 leafygreen-ui-fe135o"
   >
     <p
-      className="leafygreen-ui-ki7nen"
+      className="css-1k03zl5-Title e1ul56zb1 leafygreen-ui-ki7nen"
     >
       Task Metadata
     </p>
@@ -17,13 +17,12 @@ exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
       role="separator"
     />
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
-      data-cy="task-metadata-build-variant"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Build Variant Name:
        
       <a
-        className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+        className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
         data-cy="build-variant-link"
         href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=ubuntu1604"
         onClick={[Function]}
@@ -36,13 +35,12 @@ exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
       </a>
     </p>
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
-      data-cy="task-metadata-project"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Project:
        
       <a
-        className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+        className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
         data-cy="project-link"
         href="/project/spruce/patches"
         onClick={[Function]}
@@ -55,24 +53,24 @@ exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
       </a>
     </p>
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Submitted by: 
       mohamed.khelif
     </p>
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Estimated time to start:
        
       <span
         data-cy="task-metadata-estimated_start"
       >
-        1s 0ms
+        1s
       </span>
     </p>
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Base commit:
        
@@ -80,7 +78,7 @@ exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
         className="leafygreen-ui-1xtne16"
       >
         <a
-          className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+          className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
           data-cy="base-task-link"
           href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
           onClick={[Function]}
@@ -94,12 +92,12 @@ exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
       </code>
     </p>
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Distro:
        
       <a
-        className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+        className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
         data-cy="task-distro-link"
         href="/distros##ubuntu1604-small"
         onClick={[Function]}
@@ -113,19 +111,18 @@ exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
       </a>
     </p>
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
-      data-cy="task-metadata-ami"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       AMI: 
       ami-0c83bb0a9f48c15bf
     </p>
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Host:
        
       <a
-        className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+        className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
         data-cy="task-host-link"
         href="/host/i-0e0e62799806e037d"
         onClick={[Function]}
@@ -139,10 +136,10 @@ exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
       </a>
     </p>
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       <a
-        className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+        className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
         data-cy="task-spawn-host-link"
         href="/spawn/host?distroId=ubuntu1604-small&spawnHost=True&taskId=someTaskId"
         onClick={[Function]}
@@ -166,7 +163,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
     className="css-1sz2cbo-SiderCard e1am38ss0 leafygreen-ui-fe135o"
   >
     <p
-      className="leafygreen-ui-ki7nen"
+      className="css-1k03zl5-Title e1ul56zb1 leafygreen-ui-ki7nen"
     >
       Task Metadata
     </p>
@@ -175,13 +172,12 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
       role="separator"
     />
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
-      data-cy="task-metadata-build-variant"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Build Variant Name:
        
       <a
-        className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+        className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
         data-cy="build-variant-link"
         href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=ubuntu1604"
         onClick={[Function]}
@@ -194,13 +190,12 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
       </a>
     </p>
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
-      data-cy="task-metadata-project"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Project:
        
       <a
-        className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+        className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
         data-cy="project-link"
         href="/project/spruce/patches"
         onClick={[Function]}
@@ -213,24 +208,24 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
       </a>
     </p>
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Submitted by: 
       mohamed.khelif
     </p>
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Estimated time to start:
        
       <span
         data-cy="task-metadata-estimated_start"
       >
-        1s 0ms
+        1s
       </span>
     </p>
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Base commit:
        
@@ -238,7 +233,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
         className="leafygreen-ui-1xtne16"
       >
         <a
-          className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+          className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
           data-cy="base-task-link"
           href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
           onClick={[Function]}
@@ -252,12 +247,12 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
       </code>
     </p>
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Distro:
        
       <a
-        className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+        className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
         data-cy="task-distro-link"
         href="/distros##ubuntu1604-small"
         onClick={[Function]}
@@ -271,19 +266,18 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
       </a>
     </p>
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
-      data-cy="task-metadata-ami"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       AMI: 
       ami-0c83bb0a9f48c15bf
     </p>
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Host:
        
       <a
-        className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+        className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
         data-cy="task-host-link"
         href="/host/i-0e0e62799806e037d"
         onClick={[Function]}
@@ -297,10 +291,10 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
       </a>
     </p>
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       <a
-        className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+        className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
         data-cy="task-spawn-host-link"
         href="/spawn/host?distroId=ubuntu1604-small&spawnHost=True&taskId=someTaskId"
         onClick={[Function]}
@@ -324,7 +318,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
     className="css-1sz2cbo-SiderCard e1am38ss0 leafygreen-ui-fe135o"
   >
     <p
-      className="leafygreen-ui-ki7nen"
+      className="css-1k03zl5-Title e1ul56zb1 leafygreen-ui-ki7nen"
     >
       Task Metadata
     </p>
@@ -333,13 +327,12 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
       role="separator"
     />
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
-      data-cy="task-metadata-build-variant"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Build Variant Name:
        
       <a
-        className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+        className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
         data-cy="build-variant-link"
         href="/version/spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41/tasks?page=0&variant=ubuntu1604"
         onClick={[Function]}
@@ -352,13 +345,12 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
       </a>
     </p>
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
-      data-cy="task-metadata-project"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Project:
        
       <a
-        className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+        className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
         data-cy="project-link"
         href="/project/spruce/patches"
         onClick={[Function]}
@@ -371,24 +363,24 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
       </a>
     </p>
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Submitted by: 
       mohamed.khelif
     </p>
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Estimated time to start:
        
       <span
         data-cy="task-metadata-estimated_start"
       >
-        1s 0ms
+        1s
       </span>
     </p>
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Base commit:
        
@@ -396,7 +388,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
         className="leafygreen-ui-1xtne16"
       >
         <a
-          className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+          className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
           data-cy="base-task-link"
           href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
           onClick={[Function]}
@@ -410,12 +402,12 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
       </code>
     </p>
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Distro:
        
       <a
-        className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+        className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
         data-cy="task-distro-link"
         href="/distros##ubuntu1604-small"
         onClick={[Function]}
@@ -429,19 +421,18 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
       </a>
     </p>
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
-      data-cy="task-metadata-ami"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       AMI: 
       ami-0c83bb0a9f48c15bf
     </p>
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Host:
        
       <a
-        className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+        className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
         data-cy="task-host-link"
         href="/host/i-0e0e62799806e037d"
         onClick={[Function]}
@@ -455,10 +446,10 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
       </a>
     </p>
     <p
-      className="css-1qfugvy-P2-wordBreakCss eplk6ht0"
+      className="css-qgxgm6-Item e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       <a
-        className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+        className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
         data-cy="task-spawn-host-link"
         href="/spawn/host?distroId=ubuntu1604-small&spawnHost=True&taskId=someTaskId"
         onClick={[Function]}
@@ -473,11 +464,11 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
     <span
       data-cy="depends-on-container"
     >
-      <h3
-        className="css-1jzruf3-H3 eplk6ht1"
+      <p
+        className="css-1k03zl5-Title e1ul56zb1 leafygreen-ui-ki7nen"
       >
         Depends On
-      </h3>
+      </p>
       <div
         className="ant-divider ant-divider-horizontal css-1gzlxe4-StyledDivider eyj3qof0"
         role="separator"
@@ -505,7 +496,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
           className="css-19njn6m-RightContainer e1dgw5p62"
         >
           <a
-            className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
             data-cy="depends-on-link"
             href="/task/some_task_id_1"
             onClick={[Function]}
@@ -557,7 +548,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
           className="css-19njn6m-RightContainer e1dgw5p62"
         >
           <a
-            className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
             data-cy="depends-on-link"
             href="/task/some_task_id_2"
             onClick={[Function]}
@@ -609,7 +600,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
           className="css-19njn6m-RightContainer e1dgw5p62"
         >
           <a
-            className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
             data-cy="depends-on-link"
             href="/task/some_task_id_3"
             onClick={[Function]}
@@ -659,7 +650,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
           className="css-19njn6m-RightContainer e1dgw5p62"
         >
           <a
-            className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
             data-cy="depends-on-link"
             href="/task/some_task_id_4"
             onClick={[Function]}

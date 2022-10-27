@@ -1,12 +1,11 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { Description } from "@leafygreen-ui/typography";
+import { Body, Description, Subtitle } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { useParams } from "react-router-dom";
 import { CodeChangesBadge } from "components/CodeChangesBadge";
 import { CodeChangesTable } from "components/CodeChangesTable";
-import { H2, H3 } from "components/Typography";
 import { size } from "constants/tokens";
 import {
   CodeChangesQuery,
@@ -35,6 +34,7 @@ export const CodeChanges: React.VFC = () => {
     return <div id="patch-error">{error.message}</div>;
   }
   if (!moduleCodeChanges.length) {
+    // @ts-expect-error
     return <Title className="cy-no-code-changes">No code changes</Title>;
   }
   return (
@@ -74,26 +74,29 @@ export const CodeChanges: React.VFC = () => {
 
         return (
           <Container key={branchName}>
-            <Title>Changes on {branchName}: </Title>
-            <StyledButton
-              data-cy="html-diff-btn"
-              size="small" // @ts-expect-error
-              title="Open diff as html file"
-              href={htmlLink}
-              target="_blank"
-            >
-              HTML
-            </StyledButton>
-            <StyledButton
-              data-cy="raw-diff-btn"
-              size="small" // @ts-expect-error
-              title="Open diff as raw file"
-              href={rawLink}
-              target="_blank"
-            >
-              Raw
-            </StyledButton>
-            <CodeChangesBadge additions={additions} deletions={deletions} />
+            <TitleContainer>
+              {/* @ts-expect-error */}
+              <Title>Changes on {branchName}: </Title>
+              <StyledButton
+                data-cy="html-diff-btn"
+                size="small" // @ts-expect-error
+                title="Open diff as html file"
+                href={htmlLink}
+                target="_blank"
+              >
+                HTML
+              </StyledButton>
+              <StyledButton
+                data-cy="raw-diff-btn"
+                size="small" // @ts-expect-error
+                title="Open diff as raw file"
+                href={rawLink}
+                target="_blank"
+              >
+                Raw
+              </StyledButton>
+              <CodeChangesBadge additions={additions} deletions={deletions} />
+            </TitleContainer>
             {codeChanges}
           </Container>
         );
@@ -107,17 +110,24 @@ const sortFileDiffs = (fileDiffs: FileDiffsFragment[]): FileDiffsFragment[] =>
 
 // @ts-expect-error
 const StyledButton = styled(Button)`
-  margin-right: ${size.s};
+  margin-right: ${size.xs};
 `;
 
-const Title = styled(H2)`
+// @ts-expect-error
+const Title = styled(Subtitle)`
   font-weight: normal;
   margin-right: ${size.s};
   margin-bottom: ${size.s};
 `;
 
-const CommitTitle = styled(H3)`
+const TitleContainer = styled.div`
+  display: flex;
+`;
+
+const CommitTitle = styled(Body)`
   flex-shrink: 0;
+  font-size: 15px;
+  font-weight: bold;
   margin-right: ${size.s};
 `;
 
@@ -127,11 +137,11 @@ const CodeChangeModuleContainer = styled.div`
 
 const CommitContainer = styled.div`
   display: flex;
-  align-items: flex-start;
+  align-items: baseline;
   margin-top: ${size.s};
   margin-bottom: ${size.xs};
 `;
 
 const Container = styled.div`
-  padding-bottom: ${size.l};
+  margin: ${size.l} 0;
 `;

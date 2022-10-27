@@ -18,6 +18,7 @@ import {
 import { SideNav, SideNavGroup, SideNavItem } from "./SideNav";
 import { SiderCard } from "./SiderCard";
 import { StyledLink, StyledRouterLink } from "./StyledLink";
+import { WordBreak, wordBreakCss } from "./Typography";
 
 export {
   Divider,
@@ -41,4 +42,6 @@ export {
   TableContainer,
   TableControlInnerRow,
   TableControlOuterRow,
+  WordBreak,
+  wordBreakCss,
 };

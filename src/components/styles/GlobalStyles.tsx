@@ -21,6 +21,12 @@ const resetStyles = css`
     margin: 0;
     padding: 0;
   }
+
+  pre {
+    font-family: "Source Code Pro", Menlo, monospace;
+    line-height: 1.5;
+    margin: 0;
+  }
 `;
 
 const globalStyles = css`

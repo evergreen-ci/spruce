@@ -8,7 +8,7 @@ exports[`storybook Storyshots Components/Breadcrumbs Default 1`] = `
     className="leafygreen-ui-1yli3c0"
   >
     <a
-      className="lg-ui-0001 css-1mkf4jx-StyledLink leafygreen-ui-1cn1hqb"
+      className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
       href="/commits/spruce"
       onClick={[Function]}
     >

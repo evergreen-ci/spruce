@@ -31,7 +31,7 @@ describe("msToDuration", () => {
 
   it("converts milli to 1s 20ms", () => {
     const ms = 1 * 1000 + 20;
-    expect(msToDuration(ms)).toBe("1s 20ms");
+    expect(msToDuration(ms)).toBe("1s");
   });
 
   it("converts milli to 12m 12s", () => {
@@ -41,7 +41,7 @@ describe("msToDuration", () => {
 
   it("converts milli to 25s", () => {
     const ms = 25000;
-    expect(msToDuration(ms)).toBe("25s 0ms");
+    expect(msToDuration(ms)).toBe("25s");
   });
 });
 

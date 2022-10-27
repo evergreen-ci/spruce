@@ -5,7 +5,7 @@ exports[`storybook Storyshots Pages/Task/BuildBaron/AnnotationTicketRow Default 
   data-cy="annotation-ticket-row"
 >
   <a
-    className="lg-ui-0001 ekm0eth2 css-sh0gw4-StyledLink-JiraSummaryLink leafygreen-ui-1cn1hqb"
+    className="lg-ui-0001 ekm0eth2 css-yuz8bz-StyledLink-JiraSummaryLink leafygreen-ui-1cn1hqb"
     data-cy="EVG-123"
     href="https://www.google.com"
     onClick={[Function]}

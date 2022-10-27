@@ -2,8 +2,8 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
 import { Table, TableHeader, Row, Cell } from "@leafygreen-ui/table";
+import { Subtitle } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
-import { H3 } from "components/Typography";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -119,7 +119,7 @@ const EventLogHeader: React.VFC<Props> = ({ user, timestamp }) => {
   const getDateCopy = useDateFormat();
   return (
     <StyledHeader>
-      <H3>{getDateCopy(timestamp)}</H3>
+      <Subtitle>{getDateCopy(timestamp)}</Subtitle>
       <div>{user}</div>
     </StyledHeader>
   );
