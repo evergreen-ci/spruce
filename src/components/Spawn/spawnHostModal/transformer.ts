@@ -55,7 +55,7 @@ export const formToGql = ({
     publicKey: {
       name: publicKeySection?.useExisting
         ? publicKeySection?.publicKeyNameDropdown
-        : publicKeySection?.newPublicKeyName,
+        : publicKeySection?.newPublicKeyName ?? "",
       key: publicKeySection?.useExisting
         ? myPublicKeys.find(
             ({ name }) => name === publicKeySection?.publicKeyNameDropdown
@@ -63,7 +63,7 @@ export const formToGql = ({
         : stripNewLines(publicKeySection.newPublicKey),
     },
     savePublicKey:
-      !publicKeySection?.useExisting && publicKeySection?.savePublicKey,
+      !publicKeySection?.useExisting && !!publicKeySection?.savePublicKey,
     distroId: distro?.value,
     region,
     taskId:
