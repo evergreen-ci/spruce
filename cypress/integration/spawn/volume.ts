@@ -189,7 +189,22 @@ describe("Navigating to Spawn Volume page", () => {
       cy.dataCy("distro-input").click();
       cy.dataCy("distro-option-ubuntu1804-workstation").click();
       cy.dataCy("submit-button").click();
+      cy.dataCy("submit-button").click();
       cy.validateToast("success", "Migrated volume onto host", false);
+    });
+
+    it("clicking cancel during confirmation renders the Migrate modal form", () => {
+      cy.visit("/spawn/volume");
+      cy.dataCy("migrate-btn-vol-0ea662ac92f611ed4").click();
+      cy.dataCy("modal-title").contains("Migrate Volume");
+      cy.dataCy("distro-input").click();
+      cy.dataCy("distro-option-ubuntu1804-workstation").click();
+      cy.dataCy("submit-button").click();
+      cy.dataCy("modal-title").contains(
+        "Are you sure you want to migrate this home volume?"
+      );
+      cy.dataCy("cancel-button").click();
+      cy.dataCy("modal-title").contains("Migrate Volume");
     });
   });
 
