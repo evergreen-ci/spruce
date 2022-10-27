@@ -6,7 +6,7 @@ describe("repo data", () => {
       expect(
         formToGql({
           formData,
-          publicKeys,
+          myPublicKeys,
           spawnTaskData: null,
         })
       ).toStrictEqual(mutationInput);
@@ -18,7 +18,7 @@ describe("repo data", () => {
       expect(
         formToGql({
           formData,
-          publicKeys,
+          myPublicKeys,
           spawnTaskData: null,
           migrateVolumeId,
         })
@@ -29,7 +29,7 @@ describe("repo data", () => {
       });
     });
   });
-  const publicKeys = [{ name: "a_key", key: "key value" }];
+  const myPublicKeys = [{ name: "a_key", key: "key value" }];
   const data = [
     {
       formData: {

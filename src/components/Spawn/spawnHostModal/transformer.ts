@@ -10,13 +10,13 @@ import { validateTask } from "./utils";
 
 interface Props {
   formData: FormState;
-  publicKeys: GetMyPublicKeysQuery["myPublicKeys"];
-  spawnTaskData: GetSpawnTaskQuery["task"];
+  myPublicKeys: GetMyPublicKeysQuery["myPublicKeys"];
+  spawnTaskData?: GetSpawnTaskQuery["task"];
   migrateVolumeId?: string;
 }
 export const formToGql = ({
   formData,
-  publicKeys,
+  myPublicKeys,
   spawnTaskData,
   migrateVolumeId,
 }: Props): SpawnHostMutationVariables["SpawnHostInput"] => {
@@ -57,7 +57,7 @@ export const formToGql = ({
         ? publicKeySection?.publicKeyNameDropdown
         : publicKeySection?.newPublicKeyName,
       key: publicKeySection?.useExisting
-        ? publicKeys.find(
+        ? myPublicKeys.find(
             ({ name }) => name === publicKeySection?.publicKeyNameDropdown
           )?.key
         : stripNewLines(publicKeySection.newPublicKey),

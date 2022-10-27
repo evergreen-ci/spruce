@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Button, { Size } from "@leafygreen-ui/button";
-import { SpawnHostModal } from "pages/spawn/spawnHost/SpawnHostModal";
+import { MigrateVolumeModal } from "components/Spawn/MigrateVolumeModal";
 import { MyVolume } from "types/spawn";
 
 interface Props {
@@ -23,7 +23,7 @@ export const MigrateBtn: React.VFC<Props> = ({ volume }) => {
         Migrate
       </Button>
       {openModal && (
-        <SpawnHostModal
+        <MigrateVolumeModal
           open={openModal}
           setOpen={setOpenModal}
           migrateVolumeId={volume.id}
