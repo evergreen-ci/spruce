@@ -181,7 +181,7 @@ describe("Navigating to Spawn Volume page", () => {
       cy.dataCy("migrate-btn-vol-0ea662ac92f611ed4").click();
       cy.dataCy("distro-input").click();
       cy.dataCy("distro-option-ubuntu1804-workstation").click();
-      cy.dataCy("spawn-host-button").click();
+      cy.dataCy("submit-button").click();
       cy.validateToast("success", "Migrated volume onto host", false);
     });
   });

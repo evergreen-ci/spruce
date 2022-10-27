@@ -31,7 +31,7 @@ export const ModalButtons: React.FC<Props> = ({
       // @ts-expect-error
       onClick={onSubmit}
       variant={Variant.Primary}
-      key="spawn-host-button"
+      key="submit-button"
     >
       {loading ? "Spawning Host" : "Spawn"}
     </WideButton>
