@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Modal, { ModalSize } from "@leafygreen-ui/modal";
-import { H3 } from "@leafygreen-ui/typography";
+import { Body, H3 } from "@leafygreen-ui/typography";
 import { size as tokenSize, zIndex } from "constants/tokens";
 
 export interface DisplayModalProps {
@@ -10,8 +10,9 @@ export interface DisplayModalProps {
     open: boolean
   ) => void | React.Dispatch<React.SetStateAction<boolean>>;
   size?: ModalSize;
-  title?: string | JSX.Element;
+  title?: string;
   children: React.ReactNode;
+  subtitle?: string;
 }
 
 export const DisplayModal: React.VFC<DisplayModalProps> = ({
@@ -21,10 +22,13 @@ export const DisplayModal: React.VFC<DisplayModalProps> = ({
   setOpen,
   size,
   title,
+  subtitle,
 }) => (
   <StyledModal data-cy={dataCy} open={open} setOpen={setOpen} size={size}>
-    {/* @ts-expect-error */}
-    {title && <StyledHeader data-cy="modal-title">{title}</StyledHeader>}
+    {title && <H3 data-cy="modal-title">{title}</H3>}
+    {subtitle && (
+      <StyledSubtitle data-cy="modal-subtitle">{subtitle}</StyledSubtitle>
+    )}
     {children}
   </StyledModal>
 );
@@ -35,7 +39,6 @@ const StyledModal = styled(Modal)`
   z-index: ${zIndex.modal};
 `;
 
-// @ts-expect-error
-const StyledHeader = styled(H3)`
+const StyledSubtitle = styled(Body)`
   margin-bottom: ${tokenSize.xs};
 `;
