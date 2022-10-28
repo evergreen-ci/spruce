@@ -6,7 +6,7 @@ exports[`storybook Storyshots Pages/Commits/WaterfallIcon Failed Icon 1`] = `
 >
   <a
     aria-label="failed icon"
-    className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1wf73vu-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
+    className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-p5o681-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
     data-cy="waterfall-task-status-icon"
     href="/task/task-id"
     onBlur={[Function]}
@@ -46,7 +46,7 @@ exports[`storybook Storyshots Pages/Commits/WaterfallIcon Success Icon 1`] = `
 >
   <a
     aria-label="success icon"
-    className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1wf73vu-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
+    className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-p5o681-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
     data-cy="waterfall-task-status-icon"
     href="/task/task-id"
     onBlur={[Function]}

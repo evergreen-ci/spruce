@@ -438,7 +438,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             <a
-              className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
+              className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
               data-cy="githash-link"
               href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks"
               onClick={[Function]}
@@ -465,7 +465,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           >
             
             <a
-              className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
+              className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
               data-cy="jira-link"
               href="https://undefined/browse/EVG-14901"
               onClick={[Function]}
@@ -503,7 +503,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             <a
-              className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
+              className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
               data-cy="githash-link"
               href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks"
               onClick={[Function]}
@@ -573,7 +573,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             <a
-              className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
+              className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
               data-cy="githash-link"
               href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks"
               onClick={[Function]}
@@ -600,7 +600,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           >
             
             <a
-              className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
+              className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
               data-cy="jira-link"
               href="https://undefined/browse/EVG-14799"
               onClick={[Function]}
@@ -638,7 +638,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             <a
-              className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
+              className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
               data-cy="githash-link"
               href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks"
               onClick={[Function]}
@@ -688,7 +688,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             <a
-              className="lg-ui-0001 css-1xhnsrq-StyledLink leafygreen-ui-1cn1hqb"
+              className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
               data-cy="githash-link"
               href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks"
               onClick={[Function]}
@@ -742,7 +742,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="lg-ui-0001 ek3nkvx3 css-c6y0in-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/code_health?selectedCommit=929"
             onClick={[Function]}
@@ -762,7 +762,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="pending icon"
-                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1wf73vu-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-p5o681-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/code_health"
                 onBlur={[Function]}
@@ -805,7 +805,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="lg-ui-0001 ek3nkvx3 css-c6y0in-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/package_rpm?selectedCommit=929"
             onClick={[Function]}
@@ -825,7 +825,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="will-run icon"
-                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1wf73vu-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-p5o681-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/code_health"
                 onBlur={[Function]}
@@ -868,7 +868,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="lg-ui-0001 ek3nkvx3 css-c6y0in-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/js?selectedCommit=929"
             onClick={[Function]}
@@ -888,7 +888,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="will-run icon"
-                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1wf73vu-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-p5o681-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/js"
                 onBlur={[Function]}
@@ -940,7 +940,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="lg-ui-0001 ek3nkvx3 css-c6y0in-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/code_health?selectedCommit=928"
             onClick={[Function]}
@@ -960,7 +960,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="pending icon"
-                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1wf73vu-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-p5o681-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/code_health"
                 onBlur={[Function]}
@@ -1003,7 +1003,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="lg-ui-0001 ek3nkvx3 css-c6y0in-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/package_rpm?selectedCommit=928"
             onClick={[Function]}
@@ -1023,7 +1023,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="pending icon"
-                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1wf73vu-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-p5o681-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/code_health"
                 onBlur={[Function]}
@@ -1066,7 +1066,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="lg-ui-0001 ek3nkvx3 css-c6y0in-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/unit_java?selectedCommit=928"
             onClick={[Function]}
@@ -1086,7 +1086,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="failed icon"
-                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1wf73vu-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-p5o681-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/unit_java"
                 onBlur={[Function]}
@@ -1137,7 +1137,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="lg-ui-0001 ek3nkvx3 css-c6y0in-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/code_health?selectedCommit=926"
             onClick={[Function]}
@@ -1157,7 +1157,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="will-run icon"
-                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1wf73vu-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-p5o681-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/code_health"
                 onBlur={[Function]}
@@ -1200,7 +1200,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="lg-ui-0001 ek3nkvx3 css-c6y0in-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/package_rpm?selectedCommit=926"
             onClick={[Function]}
@@ -1220,7 +1220,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="pending icon"
-                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1wf73vu-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-p5o681-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/code_health"
                 onBlur={[Function]}
@@ -1272,7 +1272,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="lg-ui-0001 ek3nkvx3 css-c6y0in-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/code_health?selectedCommit=925"
             onClick={[Function]}
@@ -1292,7 +1292,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="will-run icon"
-                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1wf73vu-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-p5o681-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/code_health"
                 onBlur={[Function]}
@@ -1335,7 +1335,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="lg-ui-0001 ek3nkvx3 css-c6y0in-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/package_rpm?selectedCommit=925"
             onClick={[Function]}
@@ -1355,7 +1355,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="success icon"
-                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1wf73vu-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-p5o681-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/code_health"
                 onBlur={[Function]}
@@ -1407,7 +1407,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="lg-ui-0001 ek3nkvx3 css-c6y0in-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/code_health?selectedCommit=924"
             onClick={[Function]}
@@ -1427,7 +1427,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="failed icon"
-                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1wf73vu-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-p5o681-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/code_health"
                 onBlur={[Function]}
@@ -1465,7 +1465,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="lg-ui-0001 ek3nkvx3 css-c6y0in-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/package_rpm?selectedCommit=924"
             onClick={[Function]}
@@ -1485,7 +1485,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="failed icon"
-                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1wf73vu-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-p5o681-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/code_health"
                 onBlur={[Function]}
@@ -1523,7 +1523,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="lg-ui-0001 ek3nkvx3 css-c6y0in-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/unit_java?selectedCommit=924"
             onClick={[Function]}
@@ -1543,7 +1543,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             >
               <a
                 aria-label="failed icon"
-                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-1wf73vu-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
+                className="lg-ui-0001 leafygreen-ui-cssveg enafhlo1 css-p5o681-StyledLink-IconWrapper leafygreen-ui-1cn1hqb"
                 data-cy="waterfall-task-status-icon"
                 href="/task/unit_java"
                 onBlur={[Function]}
