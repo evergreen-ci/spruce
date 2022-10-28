@@ -1,13 +1,8 @@
 import { useQuery } from "@apollo/client";
+import Badge, { Variant } from "@leafygreen-ui/badge";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
-import { Variant } from "components/Badge";
-import {
-  TitleContainer,
-  Title,
-  BadgeWrapper,
-  StyledBadge,
-} from "components/Spawn";
+import { TitleContainer, Title, BadgeWrapper } from "components/Spawn";
 import { pollInterval } from "constants/index";
 import { useToastContext } from "context/toast";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
@@ -51,12 +46,8 @@ export const SpawnHost = () => {
       <TitleContainer>
         <Title>Hosts</Title>
         <BadgeWrapper>
-          <StyledBadge variant={Variant.Green}>
-            {runningHosts.length} Running
-          </StyledBadge>
-          <StyledBadge variant={Variant.Yellow}>
-            {pausedHosts.length} Paused
-          </StyledBadge>
+          <Badge variant={Variant.Green}>{runningHosts.length} Running</Badge>
+          <Badge variant={Variant.Yellow}>{pausedHosts.length} Paused</Badge>
         </BadgeWrapper>
       </TitleContainer>
       <SpawnHostButton />

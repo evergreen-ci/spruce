@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Body, H2 } from "@leafygreen-ui/typography";
 import { Table } from "antd";
-import Badge from "components/Badge";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
 
@@ -15,10 +14,10 @@ export const TitleContainer = styled.div`
 
 export const BadgeWrapper = styled.div`
   display: flex;
-`;
 
-export const StyledBadge = styled(Badge)`
-  margin: 0 ${size.xs};
+  > :not(:last-of-type) {
+    margin: 0 ${size.xs};
+  }
 `;
 
 const TableContainer = styled.div`
