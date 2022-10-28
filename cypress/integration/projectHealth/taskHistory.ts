@@ -4,6 +4,14 @@ describe("task history", () => {
     cy.setCookie("has-closed-slack-banner", "true");
   });
 
+  it("shows an error message if mainline commit history could not be retrieved", () => {
+    cy.visit("/task-history/bogus-project/bogus-task");
+    cy.dataCy("loading-cell").should("have.length", 0);
+    cy.contains("Failed to retrieve mainline commit history.").should(
+      "be.visible"
+    );
+  });
+
   it("link from task page should link to the commit and scroll to it", () => {
     cy.visit(`/task/${taskId}`);
     cy.contains("See history").should("exist");

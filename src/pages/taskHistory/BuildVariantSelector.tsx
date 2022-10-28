@@ -64,6 +64,7 @@ const BuildVariantSelector: React.VFC<BuildVariantSelectorProps> = ({
         option.buildVariant.includes(match) ||
         option.displayName.includes(match)
     );
+
   return (
     <Container>
       <SearchableDropdown
