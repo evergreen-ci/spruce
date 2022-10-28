@@ -4,8 +4,8 @@ import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
+import { Link } from "react-router-dom";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
-import { StyledRouterLink } from "components/styles";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { getTaskRoute } from "constants/routes";
 import { size, zIndex } from "constants/tokens";
@@ -72,7 +72,7 @@ export const WaterfallTaskStatusIcon: React.VFC<
       popoverZIndex={zIndex.tooltip}
       enabled={enabled}
       trigger={
-        <IconWrapper
+        <Link
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
           key={`task_${taskId}`}
@@ -86,7 +86,7 @@ export const WaterfallTaskStatusIcon: React.VFC<
           <TaskStatusWrapper data-task-icon={identifier}>
             <TaskStatusIcon status={status} size={16} />
           </TaskStatusWrapper>
-        </IconWrapper>
+        </Link>
       }
       triggerEvent="hover"
     >
@@ -118,9 +118,6 @@ const TestName = styled.div`
 `;
 const TooltipTitle = styled(Body)`
   white-space: nowrap;
-`;
-const IconWrapper = styled(StyledRouterLink)`
-  cursor: pointer;
 `;
 const TaskStatusWrapper = styled.div`
   height: ${TASK_ICON_HEIGHT}px;

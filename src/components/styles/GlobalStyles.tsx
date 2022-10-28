@@ -41,7 +41,7 @@ const globalStyles = css`
     margin: 0;
   }
 
-  // TODO: Remove when fixed: https://jira.mongodb.org/browse/LG-2424
+  // TODO: Remove when fixed: https://jira.mongodb.org/browse/EVG-18184
   // Override LeafyGreen's 'display: inherit' rule.
   code {
     display: inline !important;

@@ -29,7 +29,7 @@ describe("msToDuration", () => {
     expect(msToDuration(ms)).toBe("5h 0m");
   });
 
-  it("converts milli to 1s 20ms", () => {
+  it("converts milli to 1s", () => {
     const ms = 1 * 1000 + 20;
     expect(msToDuration(ms)).toBe("1s");
   });
