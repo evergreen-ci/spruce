@@ -156,7 +156,7 @@ describe("Navigating to Spawn Volume page", () => {
   // });
 
   it("Clicking on mount, selecting a host and submitting should result in a new error toast appearing.", () => {
-    cy.dataCy("attach-btn-vol-0ea662ac92f611ed4").click();
+    cy.dataCy("attach-btn-vol-0583d66433a69f136").click();
     cy.contains(errorBannerCopy2).should("not.exist");
     cy.dataCy("mount-volume-button").click();
     cy.contains(errorBannerCopy2).should("exist");

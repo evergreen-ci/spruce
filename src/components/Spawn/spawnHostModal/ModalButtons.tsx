@@ -22,7 +22,7 @@ export const ModalButtons: React.FC<Props> = ({
 }) => (
   <>
     <WideButton
-      data-cy="spawn-host-button"
+      data-cy="submit-button"
       disabled={disableSubmit}
       // @ts-expect-error
       onClick={onSubmit}
