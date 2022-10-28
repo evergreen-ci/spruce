@@ -79,6 +79,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
 
   const { schema, uiSchema } = getFormSchema({
     ...formSchemaInput,
+    distroIdQueryParam,
     isMigration: false,
     isVirtualWorkstation: !!formState?.distro?.isVirtualWorkstation,
     spawnTaskData: spawnTaskData?.task,
