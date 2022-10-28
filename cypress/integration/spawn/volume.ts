@@ -190,7 +190,11 @@ describe("Navigating to Spawn Volume page", () => {
       cy.dataCy("distro-option-ubuntu1804-workstation").click();
       cy.dataCy("submit-button").click();
       cy.dataCy("submit-button").click();
-      cy.validateToast("success", "Migrated volume onto host", false);
+      cy.validateToast(
+        "success",
+        "Volume migration has been scheduled. A new host will be spawned and accessible on your Hosts page.",
+        false
+      );
     });
 
     it("clicking cancel during confirmation renders the Migrate modal form", () => {
