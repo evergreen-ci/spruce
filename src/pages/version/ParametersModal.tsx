@@ -2,8 +2,8 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { DisplayModal } from "components/DisplayModal";
+import { MetadataItem } from "components/MetadataCard";
 import { StyledLink } from "components/styles";
-import { P2 } from "components/Typography";
 import { size } from "constants/tokens";
 import { Parameter } from "gql/generated/types";
 
@@ -16,14 +16,14 @@ export const ParametersModal: React.VFC<ParametersProps> = ({ parameters }) => {
   return (
     <>
       {parameters !== undefined && parameters.length > 0 && (
-        <P2>
+        <MetadataItem>
           <StyledLink
             data-cy="parameters-link"
             onClick={() => setShowModal(true)}
           >
             Patch Parameters
           </StyledLink>
-        </P2>
+        </MetadataItem>
       )}
       <DisplayModal
         open={showModal}

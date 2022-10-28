@@ -52,6 +52,7 @@ const CommitChartLabel: React.VFC<Props> = ({
     <LabelContainer data-cy="commit-label">
       <LabelText>
         <StyledRouterLink
+          data-cy="githash-link"
           onClick={onClickGithash}
           to={getVersionRoute(versionId)}
         >

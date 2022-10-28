@@ -86,7 +86,7 @@ exports[`storybook Storyshots Components/Grouped Task Status Badge Grouped Task 
         <span
           className="css-oqj204-Status emc61an1"
         >
-          Failed / Timed Out
+          Failed
         </span>
       </div>
     </a>

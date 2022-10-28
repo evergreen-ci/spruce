@@ -34,7 +34,7 @@ interface Props {
   commitQueueId: string;
   activated: boolean;
 }
-const { blue, gray } = palette;
+const { gray } = palette;
 
 export const CommitQueueCard: React.VFC<Props> = ({
   issue,
@@ -152,12 +152,10 @@ const CardTitle = styled.span`
 `;
 
 const CardTitleLink = styled(StyledRouterLink)`
-  color: ${blue.base};
   ${cardTitleStyles}
 `;
 
 const PRCardTitle = styled(StyledLink)`
-  color: ${blue.base};
   ${cardTitleStyles}
 `;
 

@@ -6,7 +6,7 @@ const { gray, green, purple, red, yellow } = palette;
 
 export const taskStatusToCopy = {
   [TaskStatus.ScheduledUmbrella]: "Scheduled",
-  [TaskStatus.FailedUmbrella]: "Failed / Timed Out",
+  [TaskStatus.FailedUmbrella]: "Failed",
   [TaskStatus.RunningUmbrella]: "Running",
   [TaskStatus.SystemFailureUmbrella]: "System Failed",
   [TaskStatus.UndispatchedUmbrella]: "Undispatched",

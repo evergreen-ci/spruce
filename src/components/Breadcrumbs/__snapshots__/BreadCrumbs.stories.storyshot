@@ -4,17 +4,21 @@ exports[`storybook Storyshots Components/Breadcrumbs Default 1`] = `
 <div
   className="css-9but4y-Container eaak0tv1"
 >
-  <div
-    className="leafygreen-ui-1mngpnd"
+  <p
+    className="leafygreen-ui-1yli3c0"
   >
     <a
-      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
+      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
       href="/commits/spruce"
       onClick={[Function]}
     >
-      spruce
+      <span
+        className="leafygreen-ui-1ewnca3"
+      >
+        spruce
+      </span>
     </a>
-  </div>
+  </p>
   <svg
     aria-label="Chevron Right Icon"
     className="css-c08ex9-PaddedIcon eaak0tv0"
@@ -33,10 +37,10 @@ exports[`storybook Storyshots Components/Breadcrumbs Default 1`] = `
       fillRule="evenodd"
     />
   </svg>
-  <div
-    className="leafygreen-ui-1mngpnd"
+  <p
+    className="leafygreen-ui-1yli3c0"
   >
     511232
-  </div>
+  </p>
 </div>
 `;

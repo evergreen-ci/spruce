@@ -1,12 +1,12 @@
 import { ColumnProps } from "antd/es/table";
 import { Analytics } from "analytics/addPageAction";
+import { WordBreak } from "components/styles";
 import {
   InputFilterProps,
   getColumnSearchFilterProps,
   getColumnTreeSelectFilterProps,
 } from "components/Table/Filters";
 import { TreeSelectProps } from "components/TreeSelect";
-import { WordBreak } from "components/Typography";
 import {
   TestSortCategory,
   TestResult,

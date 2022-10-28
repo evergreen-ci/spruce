@@ -32,8 +32,8 @@ exports[`storybook Storyshots Components/History Table/Icons Active Icons 1`] = 
         />
       </svg>
     </div>
-    <div
-      className="leafygreen-ui-1mngpnd"
+    <p
+      className="leafygreen-ui-1yli3c0"
     />
   </div>
   <div
@@ -63,11 +63,11 @@ exports[`storybook Storyshots Components/History Table/Icons Active Icons 1`] = 
         />
       </svg>
     </div>
-    <div
-      className="leafygreen-ui-1mngpnd"
+    <p
+      className="leafygreen-ui-1yli3c0"
     >
       5/10 failing tests
-    </div>
+    </p>
   </div>
   <div
     aria-disabled={false}
@@ -97,11 +97,11 @@ exports[`storybook Storyshots Components/History Table/Icons Active Icons 1`] = 
         />
       </svg>
     </div>
-    <div
-      className="leafygreen-ui-1mngpnd"
+    <p
+      className="leafygreen-ui-1yli3c0"
     >
       1/2 failing tests
-    </div>
+    </p>
   </div>
   <div
     aria-disabled={false}
@@ -129,8 +129,8 @@ exports[`storybook Storyshots Components/History Table/Icons Active Icons 1`] = 
         />
       </svg>
     </div>
-    <div
-      className="leafygreen-ui-1mngpnd"
+    <p
+      className="leafygreen-ui-1yli3c0"
     />
   </div>
   <div
@@ -172,11 +172,11 @@ exports[`storybook Storyshots Components/History Table/Icons Active Icons 1`] = 
         />
       </svg>
     </div>
-    <div
-      className="leafygreen-ui-1mngpnd"
+    <p
+      className="leafygreen-ui-1yli3c0"
     >
       5/10 failing tests
-    </div>
+    </p>
   </div>
   <div
     aria-disabled={false}
@@ -210,11 +210,11 @@ exports[`storybook Storyshots Components/History Table/Icons Active Icons 1`] = 
         />
       </svg>
     </div>
-    <div
-      className="leafygreen-ui-1mngpnd"
+    <p
+      className="leafygreen-ui-1yli3c0"
     >
       5/10 failing tests
-    </div>
+    </p>
   </div>
   <div
     aria-disabled={false}
@@ -247,11 +247,11 @@ exports[`storybook Storyshots Components/History Table/Icons Active Icons 1`] = 
         />
       </svg>
     </div>
-    <div
-      className="leafygreen-ui-1mngpnd"
+    <p
+      className="leafygreen-ui-1yli3c0"
     >
       5/10 failing tests
-    </div>
+    </p>
   </div>
   <div
     aria-disabled={false}
@@ -292,11 +292,11 @@ exports[`storybook Storyshots Components/History Table/Icons Active Icons 1`] = 
         />
       </svg>
     </div>
-    <div
-      className="leafygreen-ui-1mngpnd"
+    <p
+      className="leafygreen-ui-1yli3c0"
     >
       5/10 failing tests
-    </div>
+    </p>
   </div>
   <div
     aria-disabled={false}
@@ -326,8 +326,8 @@ exports[`storybook Storyshots Components/History Table/Icons Active Icons 1`] = 
         />
       </svg>
     </div>
-    <div
-      className="leafygreen-ui-1mngpnd"
+    <p
+      className="leafygreen-ui-1yli3c0"
     />
   </div>
   <div
@@ -365,8 +365,8 @@ exports[`storybook Storyshots Components/History Table/Icons Active Icons 1`] = 
         />
       </svg>
     </div>
-    <div
-      className="leafygreen-ui-1mngpnd"
+    <p
+      className="leafygreen-ui-1yli3c0"
     />
   </div>
 </div>

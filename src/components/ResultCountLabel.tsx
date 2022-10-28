@@ -1,6 +1,4 @@
-import styled from "@emotion/styled";
-import { size } from "constants/tokens";
-import { P2 } from "./Typography";
+import { Body } from "@leafygreen-ui/typography";
 
 interface Props {
   numerator: number;
@@ -16,14 +14,9 @@ export const ResultCountLabel: React.VFC<Props> = ({
   dataCyDenominator,
   label,
 }) => (
-  <StyledP2>
+  <Body>
     <span data-cy={dataCyNumerator}>{numerator}</span>/
     <span data-cy={dataCyDenominator}>{denominator}</span>
     <span> {label}</span>
-  </StyledP2>
+  </Body>
 );
-
-const StyledP2 = styled(P2)`
-  position: relative;
-  top: ${size.xxs};
-`;

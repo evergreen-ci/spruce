@@ -196,7 +196,7 @@ const ProjectSettingsNavItem: React.VFC<{
 }> = ({ currentTab, identifier, tab, title }) => (
   <SideNavItem
     active={tab === currentTab}
-    as={Link} // @ts-expect-error
+    as={Link}
     to={getProjectSettingsRoute(identifier, tab)}
     data-cy={`navitem-${tab}`}
   >

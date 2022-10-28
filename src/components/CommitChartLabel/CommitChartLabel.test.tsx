@@ -27,7 +27,8 @@ describe("commitChartLabel", () => {
 
   it("githash links to version page", () => {
     renderWithRouterMatch(<RenderCommitChartLabel version={versionShort} />);
-    expect(screen.getByText("4137c33", { selector: "a" })).toHaveAttribute(
+
+    expect(screen.queryByDataCy("githash-link")).toHaveAttribute(
       "href",
       "/version/123/tasks"
     );
@@ -36,9 +37,10 @@ describe("commitChartLabel", () => {
   it("jira ticket links to Jira website", async () => {
     renderWithRouterMatch(<RenderCommitChartLabel version={versionShort} />);
     await waitFor(() => {
-      expect(
-        screen.getByText("SERVER-57332", { selector: "a" })
-      ).toHaveAttribute("href", "https://jira.mongodb.org/browse/SERVER-57332");
+      expect(screen.queryByDataCy("jira-link")).toHaveAttribute(
+        "href",
+        "https://jira.mongodb.org/browse/SERVER-57332"
+      );
     });
   });
 

@@ -331,14 +331,18 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <a
-                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/task/some_id"
                       onClick={[Function]}
                     >
                       <span
-                        className="css-uz9hsm-WordBreak-wordBreakCss eplk6ht5"
+                        className="leafygreen-ui-1ewnca3"
                       >
-                        Some Fancy ID
+                        <span
+                          className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                        >
+                          Some Fancy ID
+                        </span>
                       </span>
                     </a>
                   </td>
@@ -381,11 +385,15 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <a
-                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/variant-history/undefined/ubuntu1604"
                       onClick={[Function]}
                     >
-                      Ubuntu 16.04
+                      <span
+                        className="leafygreen-ui-1ewnca3"
+                      >
+                        Ubuntu 16.04
+                      </span>
                     </a>
                   </td>
                 </tr>
@@ -404,14 +412,18 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <a
-                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/task/some_id_2"
                       onClick={[Function]}
                     >
                       <span
-                        className="css-uz9hsm-WordBreak-wordBreakCss eplk6ht5"
+                        className="leafygreen-ui-1ewnca3"
                       >
-                        Some other Fancy ID
+                        <span
+                          className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                        >
+                          Some other Fancy ID
+                        </span>
                       </span>
                     </a>
                   </td>
@@ -454,11 +466,15 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <a
-                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/variant-history/undefined/ubuntu1604"
                       onClick={[Function]}
                     >
-                      Ubuntu 16.04
+                      <span
+                        className="leafygreen-ui-1ewnca3"
+                      >
+                        Ubuntu 16.04
+                      </span>
                     </a>
                   </td>
                 </tr>
@@ -477,14 +493,18 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <a
-                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/task/some_id_3"
                       onClick={[Function]}
                     >
                       <span
-                        className="css-uz9hsm-WordBreak-wordBreakCss eplk6ht5"
+                        className="leafygreen-ui-1ewnca3"
                       >
-                        Some different Fancy ID
+                        <span
+                          className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                        >
+                          Some different Fancy ID
+                        </span>
                       </span>
                     </a>
                   </td>
@@ -527,11 +547,15 @@ exports[`storybook Storyshots Components/Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <a
-                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/variant-history/undefined/Windows"
                       onClick={[Function]}
                     >
-                      Windows 97
+                      <span
+                        className="leafygreen-ui-1ewnca3"
+                      >
+                        Windows 97
+                      </span>
                     </a>
                   </td>
                 </tr>
@@ -890,14 +914,18 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                       type="button"
                     />
                     <a
-                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/task/some_id"
                       onClick={[Function]}
                     >
                       <span
-                        className="css-uz9hsm-WordBreak-wordBreakCss eplk6ht5"
+                        className="leafygreen-ui-1ewnca3"
                       >
-                        Some Fancy ID
+                        <span
+                          className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                        >
+                          Some Fancy ID
+                        </span>
                       </span>
                     </a>
                   </td>
@@ -940,11 +968,15 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     style={Object {}}
                   >
                     <a
-                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/variant-history/undefined/ubuntu1604"
                       onClick={[Function]}
                     >
-                      Ubuntu 16.04
+                      <span
+                        className="leafygreen-ui-1ewnca3"
+                      >
+                        Ubuntu 16.04
+                      </span>
                     </a>
                   </td>
                 </tr>
@@ -977,14 +1009,18 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                       type="button"
                     />
                     <a
-                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/task/some_id_2"
                       onClick={[Function]}
                     >
                       <span
-                        className="css-uz9hsm-WordBreak-wordBreakCss eplk6ht5"
+                        className="leafygreen-ui-1ewnca3"
                       >
-                        Some other Fancy ID
+                        <span
+                          className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                        >
+                          Some other Fancy ID
+                        </span>
                       </span>
                     </a>
                   </td>
@@ -1027,11 +1063,15 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     style={Object {}}
                   >
                     <a
-                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/variant-history/undefined/ubuntu1604"
                       onClick={[Function]}
                     >
-                      Ubuntu 16.04
+                      <span
+                        className="leafygreen-ui-1ewnca3"
+                      >
+                        Ubuntu 16.04
+                      </span>
                     </a>
                   </td>
                 </tr>
@@ -1064,14 +1104,18 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                       type="button"
                     />
                     <a
-                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/task/some_id_3"
                       onClick={[Function]}
                     >
                       <span
-                        className="css-uz9hsm-WordBreak-wordBreakCss eplk6ht5"
+                        className="leafygreen-ui-1ewnca3"
                       >
-                        Some different Fancy ID
+                        <span
+                          className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                        >
+                          Some different Fancy ID
+                        </span>
                       </span>
                     </a>
                   </td>
@@ -1114,11 +1158,15 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     style={Object {}}
                   >
                     <a
-                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/variant-history/undefined/Windows"
                       onClick={[Function]}
                     >
-                      Windows 97
+                      <span
+                        className="leafygreen-ui-1ewnca3"
+                      >
+                        Windows 97
+                      </span>
                     </a>
                   </td>
                 </tr>
@@ -1151,14 +1199,18 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                       type="button"
                     />
                     <a
-                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/task/some_id_4"
                       onClick={[Function]}
                     >
                       <span
-                        className="css-uz9hsm-WordBreak-wordBreakCss eplk6ht5"
+                        className="leafygreen-ui-1ewnca3"
                       >
-                        Some Fancy Display Task
+                        <span
+                          className="css-uz9hsm-WordBreak-wordBreakCss e142uq4k0"
+                        >
+                          Some Fancy Display Task
+                        </span>
                       </span>
                     </a>
                   </td>
@@ -1201,11 +1253,15 @@ exports[`storybook Storyshots Components/Tasks Table Execution Tasks Table 1`] =
                     style={Object {}}
                   >
                     <a
-                      className="css-hc97nd-StyledRouterLink-linkStyles es7lfqt0"
+                      className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
                       href="/variant-history/undefined/Windows"
                       onClick={[Function]}
                     >
-                      Windows 97
+                      <span
+                        className="leafygreen-ui-1ewnca3"
+                      >
+                        Windows 97
+                      </span>
                     </a>
                   </td>
                 </tr>

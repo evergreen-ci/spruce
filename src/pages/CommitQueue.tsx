@@ -7,7 +7,6 @@ import { useParams } from "react-router-dom";
 import Badge from "components/Badge";
 import { PageTitle } from "components/PageTitle";
 import { PageWrapper } from "components/styles";
-import { P1 } from "components/Typography";
 import { useToastContext } from "context/toast";
 import {
   CommitQueueQuery,
@@ -49,7 +48,7 @@ export const CommitQueue: React.VFC = () => {
         loading={loading}
       />
       {commitQueue?.message && (
-        <P1 data-cy="commit-queue-message">{commitQueue.message}</P1>
+        <Body data-cy="commit-queue-message">{commitQueue.message}</Body>
       )}
       <HR />
       {queue &&

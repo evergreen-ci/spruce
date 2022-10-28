@@ -19,7 +19,7 @@ export const Spawn: React.VFC = () => {
       <SideNav aria-label="Hosts & Volumes">
         <SideNavGroup header="Hosts & Volumes">
           <SideNavItem
-            active={tab === SpawnTab.Host} // @ts-expect-error
+            active={tab === SpawnTab.Host}
             to={routes.spawnHost}
             as={Link}
             data-cy="host-nav-tab"
@@ -33,7 +33,7 @@ export const Spawn: React.VFC = () => {
             Hosts
           </SideNavItem>
           <SideNavItem
-            active={tab === SpawnTab.Volume} // @ts-expect-error
+            active={tab === SpawnTab.Volume}
             to={routes.spawnVolume}
             as={Link}
             data-cy="volume-nav-tab"

@@ -1,8 +1,7 @@
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { FileDiffText } from "components/CodeChangesBadge";
-import { StyledLink } from "components/styles";
-import { WordBreak } from "components/Typography";
+import { StyledLink, WordBreak } from "components/styles";
 import { FileDiffsFragment } from "gql/generated/types";
 
 interface CodeChangesTableProps {
