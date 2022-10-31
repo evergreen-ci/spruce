@@ -104,6 +104,7 @@ const columns = [
 ];
 
 const FlexContainer = styled.div`
+  align-items: baseline;
   display: flex;
 `;
 
@@ -117,7 +118,7 @@ const linkStyle = css`
 `;
 
 const WorkstationBadge = styled(Badge)`
-  margin-left: ${size.xxs};
+  margin-left: ${size.xs};
 `;
 
 const NoWrap = styled.span`

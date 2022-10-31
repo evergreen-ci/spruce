@@ -228,7 +228,7 @@ export const mapUmbrellaStatusColors = {
   },
   [TaskStatus.SetupFailed]: {
     fill: purple.light2,
-    border: purple.dark3,
+    border: purple.base,
     text: purple.dark2,
   },
 };

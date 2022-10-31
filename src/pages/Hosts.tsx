@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import Badge, { Variant } from "@leafygreen-ui/badge";
 import Button from "@leafygreen-ui/button";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
 import { useLocation } from "react-router-dom";
 import { useHostsTableAnalytics } from "analytics";
-import Badge, { Variant } from "components/Badge";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { UpdateStatusModal } from "components/Hosts";
 import { Reprovision } from "components/Hosts/Reprovision";

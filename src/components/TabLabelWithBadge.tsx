@@ -1,4 +1,4 @@
-import Badge, { Variant } from "components/Badge";
+import Badge, { Variant } from "@leafygreen-ui/badge";
 
 interface Props {
   tabLabel: string;

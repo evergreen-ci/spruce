@@ -162,7 +162,7 @@ exports[`storybook Storyshots Components/Grouped Task Status Badge Grouped Task 
       onClick={[Function]}
     >
       <div
-        className="css-16gxw5e-BadgeContainer emc61an4"
+        className="css-1xn58-BadgeContainer emc61an4"
         fill="#F1D4FD"
       >
         <span
@@ -191,7 +191,7 @@ exports[`storybook Storyshots Components/Grouped Task Status Badge Grouped Task 
       onClick={[Function]}
     >
       <div
-        className="css-16gxw5e-BadgeContainer emc61an4"
+        className="css-1xn58-BadgeContainer emc61an4"
         fill="#F1D4FD"
       >
         <span
