@@ -6,13 +6,13 @@ import { Subtitle } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import get from "lodash/get";
 import { usePreferencesAnalytics } from "analytics";
-import { SiderCard } from "components/styles";
 import { size } from "constants/tokens";
 import {
   GetUserConfigQuery,
   GetUserConfigQueryVariables,
 } from "gql/generated/types";
 import { GET_USER_CONFIG } from "gql/queries";
+import { PreferencesCard } from "pages/preferences/Card";
 import { request } from "utils";
 
 const { post } = request;
@@ -54,35 +54,27 @@ ui_server_host: "${config.ui_server_host}"
     document.body.removeChild(element);
   };
   return (
-    <>
+    <PreferencesCard>
+      <Subtitle>Authentication</Subtitle>
+      <CodeContainer>
+        <Code language="yaml">{authCode}</Code>
+      </CodeContainer>
       {/* @ts-expect-error */}
-      <Container>
-        <Subtitle>Authentication</Subtitle>
-        <CodeContainer>
-          <Code language="yaml">{authCode}</Code>
-        </CodeContainer>{" "}
-        {/* @ts-expect-error */}
-        <StyledButton variant={Variant.Primary} onClick={downloadFile}>
-          Download File
-        </StyledButton>
-        <Button onClick={resetKey}>Reset Key</Button>
-      </Container>
-    </>
+      <StyledButton variant={Variant.Primary} onClick={downloadFile}>
+        Download File
+      </StyledButton>
+      <Button onClick={resetKey}>Reset Key</Button>
+    </PreferencesCard>
   );
 };
 
-const Container = styled(SiderCard)`
-  padding-left: 20px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-`;
-
 const CodeContainer = styled.div`
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin: ${size.m} 0;
 `;
 
 // @ts-expect-error
 const StyledButton = styled(Button)`
-  margin-right: ${size.s};
+  :not(:last-of-type) {
+    margin-right: ${size.s};
+  }
 `;

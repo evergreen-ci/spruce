@@ -1,8 +1,7 @@
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import Card from "@leafygreen-ui/card";
 import Toggle from "@leafygreen-ui/toggle";
-import { Body } from "@leafygreen-ui/typography";
+import { Label } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import Cookies from "js-cookie";
 import { usePreferencesAnalytics } from "analytics";
@@ -15,6 +14,7 @@ import {
 } from "gql/generated/types";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { useUserSettings } from "hooks";
+import { PreferencesCard } from "../Card";
 
 export const NewUITab: React.VFC = () => {
   const { sendEvent } = usePreferencesAnalytics();
@@ -64,44 +64,47 @@ export const NewUITab: React.VFC = () => {
   };
 
   return (
-    <>
-      {/* @ts-expect-error */}
-      <PreferencesCard>
-        <PaddedBody>
-          Direct all inbound links to the new Evergreen UI, whenever possible
-          (e.g. from the CLI, GitHub, etc.).
-        </PaddedBody>
-        <Toggle
+    <PreferencesCard>
+      <PreferenceItem>
+        <StyledToggle
           checked={spruceV1}
           disabled={updateLoading}
           onChange={handleOnChangeNewUI}
           aria-label="Toggle new evergreen ui"
+          id="prefer-spruce"
+          size="small"
         />
-      </PreferencesCard>
-      {/* @ts-expect-error */}
-      <PreferencesCard>
-        <PaddedBody>
-          Allow background polling for active tabs in the current browser.
-        </PaddedBody>
-        <Toggle
+        <Label htmlFor="prefer-spruce">
+          Direct all inbound links to the new Evergreen UI, whenever possible
+          (e.g. from the CLI, GitHub, etc.).
+        </Label>
+      </PreferenceItem>
+      <PreferenceItem>
+        <StyledToggle
           checked={Cookies.get(DISABLE_QUERY_POLLING) !== "true"}
           onChange={handleOnChangePolling}
-          aria-label="Toggle new evergreen ui"
+          aria-label="Toggle background polling"
+          id="polling"
+          size="small"
         />
-      </PreferencesCard>
-    </>
+        <Label htmlFor="polling">
+          Allow background polling for active tabs in the current browser.
+        </Label>
+      </PreferenceItem>
+    </PreferencesCard>
   );
 };
 
 // @ts-expect-error
-const PreferencesCard = styled(Card)`
-  display: flex;
-  flex-direction: column;
-  padding: ${size.m};
-  margin-bottom: ${size.m};
-  width: 100%;
+const StyledToggle = styled(Toggle)`
+  margin-right: ${size.xs};
 `;
 
-const PaddedBody = styled(Body)`
-  padding-bottom: ${size.l};
+const PreferenceItem = styled.div`
+  align-items: center;
+  display: flex;
+
+  :not(:last-of-type) {
+    margin-bottom: ${size.s};
+  }
 `;

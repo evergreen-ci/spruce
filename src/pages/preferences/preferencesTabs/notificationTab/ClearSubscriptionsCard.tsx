@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
-import Card from "@leafygreen-ui/card";
 import { Body } from "@leafygreen-ui/typography";
 import { usePreferencesAnalytics } from "analytics";
 import { size } from "constants/tokens";
@@ -12,6 +11,7 @@ import {
   ClearMySubscriptionsMutationVariables,
 } from "gql/generated/types";
 import { CLEAR_MY_SUBSCRIPTIONS } from "gql/mutations";
+import { PreferencesCard } from "pages/preferences/Card";
 import { PreferencesModal } from "pages/preferences/preferencesTabs/PreferencesModal";
 
 export const ClearSubscriptionsCard: React.VFC = () => {
@@ -41,21 +41,18 @@ export const ClearSubscriptionsCard: React.VFC = () => {
 
   return (
     <>
-      {/* @ts-expect-error */}
       <PreferencesCard>
-        <ContentWrapper>
-          <Body>
-            To clear all subscriptions you have made on individual Version and
-            Task pages.
-          </Body>
-          <StyledClearSubscriptionButton
-            data-cy="clear-subscriptions-button"
-            variant={Variant.Danger} // @ts-expect-error
-            onClick={() => setShowModal(true)}
-          >
-            Clear all previous subscriptions
-          </StyledClearSubscriptionButton>
-        </ContentWrapper>
+        <Body>
+          Clear all subscriptions you have made on individual Version and Task
+          pages:
+        </Body>
+        <StyledClearSubscriptionButton
+          data-cy="clear-subscriptions-button"
+          variant={Variant.Danger} // @ts-expect-error
+          onClick={() => setShowModal(true)}
+        >
+          Clear all previous subscriptions
+        </StyledClearSubscriptionButton>
       </PreferencesCard>
       <PreferencesModal
         visible={showModal}
@@ -77,15 +74,4 @@ export const ClearSubscriptionsCard: React.VFC = () => {
 // @ts-expect-error
 const StyledClearSubscriptionButton = styled(Button)`
   margin-top: ${size.m};
-`;
-
-const ContentWrapper = styled.div`
-  width: 50%;
-`;
-
-// @ts-expect-error
-const PreferencesCard = styled(Card)`
-  padding: ${size.m};
-  margin-bottom: ${size.m};
-  width: 100%;
 `;
