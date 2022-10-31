@@ -73,7 +73,7 @@
     "@leafygreen-ui/expandable-card": "0.9.1",
     "@leafygreen-ui/icon": "11.4.0",
     "@leafygreen-ui/icon-button": "9.1.7",
-    "@leafygreen-ui/inline-definition": "2.0.6",
+    "@leafygreen-ui/inline-definition": "5.0.0",
     "@leafygreen-ui/leafygreen-provider": "3.0.0",
     "@leafygreen-ui/menu": "11.0.1",
     "@leafygreen-ui/modal": "6.1.2",
