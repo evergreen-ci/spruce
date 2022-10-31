@@ -14,10 +14,8 @@ export const TitleContainer = styled.div`
 
 export const BadgeWrapper = styled.div`
   display: flex;
-
-  > :not(:last-of-type) {
-    margin: 0 ${size.xs};
-  }
+  margin-left: ${size.xs};
+  gap: ${size.xs};
 `;
 
 const TableContainer = styled.div`
