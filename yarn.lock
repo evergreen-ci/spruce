@@ -3862,13 +3862,15 @@
     "@leafygreen-ui/hooks" "^7.3.3"
     "@leafygreen-ui/lib" "^9.5.1"
 
-"@leafygreen-ui/badge@4.0.5":
-  version "4.0.5"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/badge/-/badge-4.0.5.tgz#27cc960d25aba5606d77ec8668ace273f0d988d8"
-  integrity sha512-6VqanHXMVohSAWgwbKlzWtzCvlfhP1MRXFYUtaZqCjjbcd35H8AR13cTI54SO1gvCxRjDb/Ti06JH9eJ1dopWw==
+"@leafygreen-ui/badge@7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/badge/-/badge-7.0.0.tgz#60a01b5cb8691e5dd4eff999775027024aece349"
+  integrity sha512-ZEsI93KoFV+bhGt/aq83lC8eaYvk5DRyDWIQitFZRcPivFK+6WCkX9B8M7PlYO/a2C7BI6EQ/iT6jldKmtrKpA==
   dependencies:
-    "@leafygreen-ui/lib" "^9.0.0"
-    "@leafygreen-ui/palette" "^3.2.2"
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/lib" "^9.5.1"
+    "@leafygreen-ui/palette" "^3.4.4"
+    "@leafygreen-ui/tokens" "^1.3.4"
 
 "@leafygreen-ui/banner@3.0.9":
   version "3.0.9"

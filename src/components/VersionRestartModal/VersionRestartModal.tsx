@@ -25,7 +25,7 @@ import {
   versionSelectedTasks,
   selectedStrings,
 } from "hooks/useVersionTaskStatusSelect";
-import { BuildVariantAccordian } from "./BuildVariantAccordian";
+import { BuildVariantAccordion } from "./BuildVariantAccordion";
 
 const { gray } = palette;
 
@@ -239,7 +239,7 @@ const VersionTasks: React.VFC<VersionTasksProps> = ({
         />
       </Row>
       {buildVariants.map((patchBuildVariant) => (
-        <BuildVariantAccordian
+        <BuildVariantAccordion
           versionId={version?.id}
           key={`accoridan_${patchBuildVariant.variant}`}
           tasks={patchBuildVariant.tasks}

@@ -33,7 +33,7 @@ export const ParametersModal: React.VFC<ParametersProps> = ({ parameters }) => {
       >
         {parameters?.map((param) => (
           <StyledBadge key={`param_${param.key}`}>
-            {param.key}:{param.value}
+            {param.key}: {param.value}
           </StyledBadge>
         ))}
       </DisplayModal>
