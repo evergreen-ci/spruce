@@ -26,7 +26,7 @@ export const MigrateBtn: React.VFC<Props> = ({ volume }) => {
         <MigrateVolumeModal
           open={openModal}
           setOpen={setOpenModal}
-          migrateVolumeId={volume.id}
+          volume={volume}
         />
       )}
     </>

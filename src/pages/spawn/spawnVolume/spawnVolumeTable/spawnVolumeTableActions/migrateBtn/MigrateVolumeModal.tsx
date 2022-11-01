@@ -18,10 +18,11 @@ import {
   MigrateVolumeMutationVariables,
 } from "gql/generated/types";
 import { MIGRATE_VOLUME } from "gql/mutations";
+import { MyVolume } from "types/spawn";
 import { omit } from "utils/object";
 
 interface MigrateVolumeModalProps {
-  migrateVolumeId: string;
+  volume: MyVolume;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -29,13 +30,15 @@ interface MigrateVolumeModalProps {
 export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
   open,
   setOpen,
-  migrateVolumeId,
+  volume,
 }) => {
   const [submitClickCount, setSubmitClickCount] = useState(0);
   const dispatchToast = useToastContext();
   const { sendEvent } = useSpawnAnalytics();
 
-  const { formSchemaInput, loading: loadingFormData } = useLoadFormSchemaData();
+  const { formSchemaInput, loading: loadingFormData } = useLoadFormSchemaData({
+    host: volume.host,
+  });
   const [migrateVolumeMutation, { loading: loadingMigration }] = useMutation<
     MigrateVolumeMutation,
     MigrateVolumeMutationVariables
@@ -67,7 +70,7 @@ export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
     isVirtualWorkstation: !!formState?.distro?.isVirtualWorkstation,
   });
   useVirtualWorkstationDefaultExpiration({
-    disableExpirationCheckbox: false,
+    disableExpirationCheckbox: formSchemaInput.disableExpirationCheckbox,
     formState,
     setFormState,
   });
@@ -82,7 +85,7 @@ export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
     const mutationInput = formToGql({
       formData: formState,
       myPublicKeys: formSchemaInput.myPublicKeys,
-      migrateVolumeId,
+      migrateVolumeId: volume.id,
     });
     sendEvent({
       name: "Spawned a host",
@@ -96,13 +99,13 @@ export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
     migrateVolumeMutation({
       variables: {
         spawnHostInput: mutationInput,
-        volumeId: migrateVolumeId,
+        volumeId: volume.id,
       },
     });
   }, [
     formSchemaInput.myPublicKeys,
     formState,
-    migrateVolumeId,
+    volume,
     migrateVolumeMutation,
     sendEvent,
   ]);

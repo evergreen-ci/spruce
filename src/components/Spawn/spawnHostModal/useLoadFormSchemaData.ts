@@ -21,7 +21,10 @@ import { useDisableSpawnExpirationCheckbox, useSpruceConfig } from "hooks";
 import { useUserTimeZone } from "hooks/useUserTimeZone";
 import { getNoExpirationCheckboxTooltipCopy } from "../utils";
 
-export const useLoadFormSchemaData = () => {
+interface Props {
+  host: { noExpiration: boolean };
+}
+export const useLoadFormSchemaData = (p?: Props) => {
   const { data: awsData, loading: awsLoading } = useQuery<
     AwsRegionsQuery,
     AwsRegionsQueryVariables
@@ -54,7 +57,10 @@ export const useLoadFormSchemaData = () => {
 
   const timezone = useUserTimeZone();
 
-  const disableExpirationCheckbox = useDisableSpawnExpirationCheckbox(false);
+  const disableExpirationCheckbox = useDisableSpawnExpirationCheckbox(
+    false,
+    p?.host
+  );
   const noExpirationCheckboxTooltip = getNoExpirationCheckboxTooltipCopy({
     disableExpirationCheckbox,
     limit: spruceConfig?.spawnHost?.unexpirableHostsPerUser,
