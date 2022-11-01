@@ -156,10 +156,11 @@ describe("Navigating to Spawn Volume page", () => {
   // });
 
   it("Clicking on mount, selecting a host and submitting should result in a new error toast appearing.", () => {
+    cy.visit("/spawn/volume");
     cy.dataCy("attach-btn-vol-0583d66433a69f136").click();
     cy.contains(errorBannerCopy2).should("not.exist");
     cy.dataCy("mount-volume-button").click();
-    cy.contains(errorBannerCopy2).should("exist");
+    cy.validateToast("error", errorBannerCopy2);
   });
 
   it("Clicking on 'Spawn Volume' should open the Spawn Volume Modal", () => {
@@ -232,5 +233,5 @@ describe("Navigating to Spawn Volume page", () => {
   // const errorBannerCopy =
   //  "Error detaching volume: 'can't detach volume '8191ed590dc4668fcc65029eb332134be9de44e742098b6ee1a0723aec175784': unable to fetch host: b700d10f21a5386c827251a029dd931b5ea910377e0bb93f3393b17fb9bdbd08'";
   const errorBannerCopy2 =
-    "Error attaching volume: 'attaching volume 'vol-0ea662ac92f611ed4' to host 'i-04ade558e1e26b0ad': unable to fetch host 'i-04ade558e1e26b0ad''";
+    "Error attaching volume: 'attaching volume 'vol-0583d66433a69f136' to host 'i-04ade558e1e26b0ad': unable to fetch host 'i-04ade558e1e26b0ad''";
 });
