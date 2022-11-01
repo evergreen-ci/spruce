@@ -66,7 +66,7 @@ export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
     isVirtualWorkstation: !!formState?.distro?.isVirtualWorkstation,
   });
   useVirtualWorkstationDefaultExpiration({
-    disableExpirationCheckbox: formSchemaInput.disableExpirationCheckbox,
+    disableExpirationCheckbox: false,
     formState,
     setFormState,
   });
