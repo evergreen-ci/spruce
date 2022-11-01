@@ -1,14 +1,11 @@
-import { SyntheticEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import styled from "@emotion/styled";
-import { Footer } from "@leafygreen-ui/modal";
 import { useLocation } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
-import { DisplayModal, DisplayModalProps } from "components/DisplayModal";
+import { ConfirmationModal } from "components/ConfirmationModal";
 import {
   formToGql,
   getFormSchema,
-  ModalButtons,
   useLoadFormSchemaData,
   useVirtualWorkstationDefaultExpiration,
   validateSpawnHostForm,
@@ -27,8 +24,10 @@ import { GET_SPAWN_TASK } from "gql/queries";
 import { omit } from "utils/object";
 import { getString, parseQueryString } from "utils/queryString";
 
-interface SpawnHostModalProps
-  extends Pick<DisplayModalProps, "open" | "setOpen"> {}
+interface SpawnHostModalProps {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   open,
@@ -95,8 +94,7 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     return null;
   }
 
-  const spawnHost = (e: SyntheticEvent) => {
-    e.preventDefault();
+  const spawnHost = () => {
     const mutationInput = formToGql({
       formData: formState,
       myPublicKeys: formSchemaInput.myPublicKeys,
@@ -117,11 +115,15 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
   };
 
   return (
-    <DisplayModal
+    <ConfirmationModal
       title="Spawn New Host"
       open={open}
-      setOpen={setOpen}
       data-cy="spawn-host-modal"
+      submitDisabled={
+        !validateSpawnHostForm(formState, false) || loadingSpawnHost
+      }
+      onConfirm={spawnHost}
+      buttonText={loadingSpawnHost ? "Spawning" : "Spawn a host"}
     >
       <SpruceForm
         schema={schema}
@@ -131,22 +133,6 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
           setFormState(formData);
         }}
       />
-      <StyledFooter>
-        <ModalButtons
-          disableSubmit={
-            !validateSpawnHostForm(formState, false) || loadingSpawnHost
-          }
-          loading={loadingSpawnHost}
-          onCancel={() => setOpen(false)}
-          onSubmit={spawnHost}
-          submitButtonCopy="Spawn a host"
-          submitButtonLoadingCopy="Spawning"
-        />
-      </StyledFooter>
-    </DisplayModal>
+    </ConfirmationModal>
   );
 };
-
-const StyledFooter = styled(Footer)`
-  margin-top: 8px;
-`;

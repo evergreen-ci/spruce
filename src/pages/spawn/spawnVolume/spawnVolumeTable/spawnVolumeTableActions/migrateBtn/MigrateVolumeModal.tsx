@@ -122,7 +122,7 @@ export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
 
   let buttonText = "Migrate";
   if (loadingMigration) {
-    buttonText = "Spawning";
+    buttonText = "Migrating";
   } else if (submitClickCount === 0) {
     buttonText = "Next";
   }
