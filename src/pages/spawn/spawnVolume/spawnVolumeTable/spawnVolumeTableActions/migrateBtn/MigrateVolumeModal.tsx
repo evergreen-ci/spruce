@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useMutation } from "@apollo/client";
+import { Body } from "@leafygreen-ui/typography";
 import { useSpawnAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import {
@@ -135,7 +136,7 @@ export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
         !validateSpawnHostForm(formState, true) || loadingMigration
       }
       onConfirm={() => setSubmitClickCount(submitClickCount + 1)}
-      data-cy="spawn-host-modal"
+      data-cy="migrate-modal"
       buttonText={buttonText}
       onCancel={
         submitClickCount === 0
@@ -143,6 +144,10 @@ export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
           : () => setSubmitClickCount(0)
       }
     >
+      <Body>
+        Migrate this home volume to a new host. Upon successful migration, the
+        unused host will be scheduled to expire in 24 hours.
+      </Body>
       {submitClickCount === 0 && (
         <SpruceForm
           schema={schema}
