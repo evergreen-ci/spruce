@@ -275,7 +275,7 @@ describe("usePolling", () => {
   });
 
   describe("shouldPollFaster", () => {
-    it("calls startPolling with a fast poll rate and then default when shouldPollFaster initializes true and turns false", async () => {
+    it("calls startPolling with a fast poll rate when shouldPollFaster is enabled and should use the default poll rate when it is disabled", async () => {
       const startPolling = jest.fn();
       let shouldPollFaster = true;
       const { rerender } = renderHook(
