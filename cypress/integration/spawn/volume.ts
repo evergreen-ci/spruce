@@ -189,7 +189,9 @@ describe("Navigating to Spawn Volume page", () => {
       cy.dataCy("distro-input").click();
       cy.dataCy("distro-option-ubuntu1804-workstation").click();
       cy.dataCy("migrate-modal").contains("Next").click({ force: true });
-      cy.dataCy("migrate-modal").contains("Migrate").click({ force: true });
+      cy.dataCy("migrate-modal")
+        .contains("Migrate Volume")
+        .click({ force: true });
       cy.validateToast(
         "success",
         "Volume migration has been scheduled. A new host will be spawned and accessible on your Hosts page.",
@@ -200,15 +202,15 @@ describe("Navigating to Spawn Volume page", () => {
     it("clicking cancel during confirmation renders the Migrate modal form", () => {
       cy.visit("/spawn/volume");
       cy.dataCy("migrate-btn-vol-0ea662ac92f611ed4").click();
-      cy.dataCy("migrate-modal").contains("Migrate Volume");
-      cy.dataCy("distro-input").click();
+      cy.dataCy("distro-input").should("be.visible").click();
       cy.dataCy("distro-option-ubuntu1804-workstation").click();
       cy.dataCy("migrate-modal").contains("Next").click({ force: true });
       cy.dataCy("migrate-modal").contains(
         "Are you sure you want to migrate this home volume?"
       );
+      cy.dataCy("distro-input").should("not.exist");
       cy.dataCy("migrate-modal").contains("Cancel").click({ force: true });
-      cy.dataCy("migrate-modal").contains("Migrate Volume");
+      cy.dataCy("distro-input").should("be.visible");
     });
   });
 

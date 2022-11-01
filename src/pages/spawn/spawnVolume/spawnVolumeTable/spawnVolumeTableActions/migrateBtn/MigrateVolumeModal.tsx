@@ -124,7 +124,7 @@ export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
       ? "Migrate Volume"
       : "Are you sure you want to migrate this home volume?";
 
-  let buttonText = "Migrate";
+  let buttonText = "Migrate Volume";
   if (loadingMigration) {
     buttonText = "Migrating";
   } else if (submitClickCount === 0) {
