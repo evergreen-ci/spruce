@@ -131,7 +131,7 @@ describe("Navigating to Spawn Host page", () => {
         cy.location().should(({ search }) => {
           expect(search).to.include("spawnHost=True");
         });
-        cy.dataCy("cancel-button").click();
+        cy.dataCy("spawn-host-modal").contains("Cancel").click();
         cy.location().should(({ search }) => {
           expect(search).to.not.include("spawnHost");
         });
