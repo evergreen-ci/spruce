@@ -2,7 +2,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import { fireEvent } from "@testing-library/react";
 import { renderHook, act } from "@testing-library/react-hooks/dom";
 import Cookie from "js-cookie";
-import { FASTER_POLL_INTERVAL, DEFAULT_POLL_INTERVAL } from "constants/";
+import { FASTER_POLL_INTERVAL, DEFAULT_POLL_INTERVAL } from "constants/index";
 import { GET_USER } from "gql/queries";
 import { usePolling } from "hooks";
 

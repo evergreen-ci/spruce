@@ -39,7 +39,7 @@ export const SpawnVolume = () => {
     startPolling,
     stopPolling,
     refetch,
-    shouldPollFaster: migrationInProccess,
+    shouldPollFaster: migrationInProcess,
   });
   usePageTitle("My Volumes");
 
