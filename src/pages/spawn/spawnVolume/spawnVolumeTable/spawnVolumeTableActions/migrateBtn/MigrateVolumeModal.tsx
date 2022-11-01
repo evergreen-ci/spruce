@@ -125,7 +125,7 @@ export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
           ? "Migrate Volume"
           : "Are you sure you want to migrate this home volume?"
       }
-      subtitle="Upon successful migration, the unused host will be scheduled to expire in 24 hours"
+      subtitle="Migrate this home volume to a new Virtual Workstation. Upon successful migration, the unused host will be scheduled to expire in 24 hours."
       open={open}
       setOpen={setOpen}
       data-cy="spawn-host-modal"
