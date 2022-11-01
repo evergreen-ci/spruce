@@ -5,17 +5,17 @@ import { DISABLE_QUERY_POLLING } from "constants/cookies";
 import { FASTER_POLL_INTERVAL, DEFAULT_POLL_INTERVAL } from "constants/index";
 import { useNetworkStatus } from "./useNetworkStatus";
 import { usePageVisibility } from "./usePageVisibility";
-
+interface Props {
+  startPolling: (DEFAULT_POLL_INTERVAL?: number) => void;
+  stopPolling: () => void;
+  refetch?: (
+    variables?: Partial<OperationVariables>
+  ) => Promise<ApolloQueryResult<any>> | void;
+  shouldPollFaster?: boolean;
+  initialPollingState?: boolean;
+}
 type usePollingType = {
-  (
-    startPolling: (DEFAULT_POLL_INTERVAL?: number) => void,
-    stopPolling: () => void,
-    refetch?: (
-      variables?: Partial<OperationVariables>
-    ) => Promise<ApolloQueryResult<any>> | void,
-    shouldPollFaster?: boolean,
-    initialPollingState?: boolean
-  ): boolean;
+  (p: Props): boolean;
 };
 
 /**
@@ -29,13 +29,13 @@ type usePollingType = {
  * @param initialPollingState - Optional boolean to indicate the initial polling state
  * @returns boolean - true if polling, false if not polling
  */
-export const usePolling: usePollingType = (
+export const usePolling: usePollingType = ({
   startPolling,
   stopPolling,
   refetch,
   shouldPollFaster,
-  initialPollingState = true
-) => {
+  initialPollingState = true,
+}) => {
   const [pollRate, setPollRate] = useState(
     initialPollingState ? DEFAULT_POLL_INTERVAL : 0
   );

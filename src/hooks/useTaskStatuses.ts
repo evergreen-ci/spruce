@@ -31,7 +31,7 @@ export const useTaskStatuses = ({
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
 
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
 
   const { version } = data || {};
   const { taskStatuses, baseTaskStatuses } = version || {};

@@ -60,7 +60,7 @@ export const UserPatches = () => {
       dispatchToast.error(`Error while fetching user patches: ${err.message}`);
     },
   });
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
   const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId) || {};
 
   return (

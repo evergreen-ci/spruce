@@ -43,7 +43,7 @@ export const SpawnHostActionButton: React.VFC<{ host: MyHost }> = ({
       );
     },
   });
-  usePolling(startPolling, stopPolling, refetch, false);
+  usePolling({ startPolling, stopPolling, refetch });
   // Stop polling when we get updated host data
   useEffect(() => {
     if (stopPolling) {

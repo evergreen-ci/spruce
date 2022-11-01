@@ -42,7 +42,7 @@ export const MountVolumeSelect = ({
       dispatchToast.error(`There was an error loading hosts: ${e.message}`);
     },
   });
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
 
   // set host dropdown options
   useEffect(() => {

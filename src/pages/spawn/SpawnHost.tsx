@@ -33,7 +33,12 @@ export const SpawnHost = () => {
   const migrationInProcess = !!data?.myHosts.find(
     ({ volumes }) => !!volumes.find(({ migrating }) => migrating)
   );
-  usePolling(startPolling, stopPolling, refetch, migrationInProcess);
+  usePolling({
+    startPolling,
+    stopPolling,
+    refetch,
+    shouldPollFaster: migrationInProcess,
+  });
 
   usePageTitle("My Hosts");
 

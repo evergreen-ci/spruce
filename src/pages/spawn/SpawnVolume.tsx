@@ -35,7 +35,12 @@ export const SpawnVolume = () => {
   const migrationInProccess = !!volumesData?.myVolumes.find(
     ({ migrating }) => migrating
   );
-  usePolling(startPolling, stopPolling, refetch, migrationInProccess);
+  usePolling({
+    startPolling,
+    stopPolling,
+    refetch,
+    shouldPollFaster: migrationInProccess,
+  });
   usePageTitle("My Volumes");
 
   if (loading) {

@@ -49,7 +49,7 @@ export const Task = () => {
         `There was an error loading the task: ${err.message}`
       ),
   });
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
 
   const { task, taskFiles } = data ?? {};
   const {

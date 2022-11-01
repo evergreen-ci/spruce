@@ -67,7 +67,7 @@ export const AllLog: React.VFC<Props> = (props) => {
     variables: { id, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
 
   // All logs includes task, system, and agent logs. Event logs are not included.
   return useRenderBody({
@@ -90,7 +90,7 @@ export const EventLog: React.VFC<Props> = (props) => {
     variables: { id, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
 
   return useRenderBody({
     data: get(data, "taskLogs.eventLogs", []).map((v: TaskEventLogEntry) => ({
@@ -116,7 +116,7 @@ export const SystemLog: React.VFC<Props> = (props) => {
     variables: { id, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
 
   return useRenderBody({
     data: get(data, "taskLogs.systemLogs", []),
@@ -138,7 +138,7 @@ export const AgentLog: React.VFC<Props> = (props) => {
     variables: { id, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
 
   return useRenderBody({
     data: get(data, "taskLogs.agentLogs", []),
@@ -160,7 +160,7 @@ export const TaskLog: React.VFC<Props> = (props) => {
     variables: { id, execution: selectedExecution },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
 
   return useRenderBody({
     data: get(data, "taskLogs.taskLogs", []),

@@ -29,7 +29,7 @@ describe("usePolling", () => {
     const stopPolling = jest.fn();
     const refetch = jest.fn();
     const { result, waitForNextUpdate } = renderHook(
-      () => usePolling(startPolling, stopPolling, refetch),
+      () => usePolling({ startPolling, stopPolling, refetch }),
       {
         wrapper: Provider,
       }
@@ -48,18 +48,34 @@ describe("usePolling", () => {
       const {
         result: disabledResult,
         waitForNextUpdate: disabledWaitForNextUpdate,
-      } = renderHook(() => usePolling(undefined, undefined, undefined, false), {
-        wrapper: Provider,
-      });
+      } = renderHook(
+        () =>
+          usePolling({
+            shouldPollFaster: false,
+            startPolling: undefined,
+            stopPolling: undefined,
+          }),
+        {
+          wrapper: Provider,
+        }
+      );
       await disabledWaitForNextUpdate();
       expect(disabledResult.current).toBe(false);
 
       const {
         result: enabledResult,
         waitForNextUpdate: enabledWaitForNextUpdate,
-      } = renderHook(() => usePolling(undefined, undefined, undefined, true), {
-        wrapper: Provider,
-      });
+      } = renderHook(
+        () =>
+          usePolling({
+            shouldPollFaster: true,
+            startPolling: undefined,
+            stopPolling: undefined,
+          }),
+        {
+          wrapper: Provider,
+        }
+      );
       await enabledWaitForNextUpdate();
       expect(enabledResult.current).toBe(false);
     });
@@ -71,7 +87,11 @@ describe("usePolling", () => {
       let shouldPollFaster = true;
       const { waitForNextUpdate, rerender } = renderHook(
         () =>
-          usePolling(startPolling, stopPolling, undefined, shouldPollFaster),
+          usePolling({
+            startPolling,
+            stopPolling,
+            shouldPollFaster,
+          }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();
@@ -111,7 +131,7 @@ describe("usePolling", () => {
       const stopPolling = jest.fn();
 
       const { result, waitForNextUpdate } = renderHook(
-        () => usePolling(startPolling, stopPolling),
+        () => usePolling({ startPolling, stopPolling }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();
@@ -128,7 +148,7 @@ describe("usePolling", () => {
       const stopPolling = jest.fn();
 
       const { result, waitForNextUpdate } = renderHook(
-        () => usePolling(startPolling, stopPolling),
+        () => usePolling({ startPolling, stopPolling }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();
@@ -151,7 +171,7 @@ describe("usePolling", () => {
       const stopPolling = jest.fn();
 
       const { result, waitForNextUpdate } = renderHook(
-        () => usePolling(startPolling, stopPolling),
+        () => usePolling({ startPolling, stopPolling }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();
@@ -181,7 +201,7 @@ describe("usePolling", () => {
       const stopPolling = jest.fn();
 
       const { result, waitForNextUpdate } = renderHook(
-        () => usePolling(startPolling, stopPolling),
+        () => usePolling({ startPolling, stopPolling }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();
@@ -212,7 +232,7 @@ describe("usePolling", () => {
       const stopPolling = jest.fn();
 
       const { result, waitForNextUpdate } = renderHook(
-        () => usePolling(startPolling, stopPolling),
+        () => usePolling({ startPolling, stopPolling }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();
@@ -259,7 +279,12 @@ describe("usePolling", () => {
       const startPolling = jest.fn();
       let shouldPollFaster = true;
       const { rerender } = renderHook(
-        () => usePolling(startPolling, () => {}, undefined, shouldPollFaster),
+        () =>
+          usePolling({
+            startPolling,
+            stopPolling: undefined,
+            shouldPollFaster,
+          }),
         { wrapper: Provider }
       );
       expect(startPolling).toHaveBeenCalledTimes(1);
@@ -278,7 +303,7 @@ describe("usePolling", () => {
       const refetch = jest.fn();
 
       const { waitForNextUpdate } = renderHook(
-        () => usePolling(startPolling, stopPolling, refetch),
+        () => usePolling({ startPolling, stopPolling, refetch }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();

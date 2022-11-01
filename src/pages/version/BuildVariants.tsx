@@ -33,7 +33,7 @@ export const BuildVariants: React.VFC = () => {
     variables: { id },
     pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
   const { version } = data || {};
 
   return (

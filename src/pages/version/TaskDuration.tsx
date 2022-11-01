@@ -62,7 +62,7 @@ const TaskDuration: React.VFC<Props> = ({ taskCount }) => {
       dispatchToast.error(`Error fetching patch tasks ${err}`);
     },
   });
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
   const { version } = data || {};
   const { tasks } = version || {};
   const { data: tasksData = [], count = 0 } = tasks || {};

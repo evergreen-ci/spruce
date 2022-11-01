@@ -57,7 +57,7 @@ export const ProjectPatches = () => {
       );
     },
   });
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
   const { displayName, patches } = data?.project ?? {};
   return (
     <PatchesPage
