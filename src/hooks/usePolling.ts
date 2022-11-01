@@ -56,7 +56,7 @@ export const usePolling: usePollingType = ({
   if (isOnline && isVisible && !isPolling) {
     setPollRate(DEFAULT_POLL_INTERVAL);
     startPolling(DEFAULT_POLL_INTERVAL);
-    if (refetch) refetch(); // refresh data when returning to tab
+    refetch?.(); // refresh data when returning to tab
   }
   // If polling and not polling fast enough, poll faster
   if (isPolling && shouldPollFaster && pollRate !== FASTER_POLL_INTERVAL) {
