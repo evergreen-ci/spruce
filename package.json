@@ -144,7 +144,7 @@
     "@testing-library/jest-dom": "5.16.4",
     "@testing-library/react": "12.1.5",
     "@testing-library/react-hooks": "8.0.0",
-    "@testing-library/user-event": "12.5.0",
+    "@testing-library/user-event": "14.4.3",
     "@types/jest": "^27.5.1",
     "@types/js-cookie": "^3.0.2",
     "@types/lodash.debounce": "4.0.7",
