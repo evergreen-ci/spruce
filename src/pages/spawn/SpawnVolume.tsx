@@ -32,7 +32,7 @@ export const SpawnVolume = () => {
       );
     },
   });
-  const migrationInProccess = !!volumesData?.myVolumes.find(
+  const migrationInProcess = !!volumesData?.myVolumes.find(
     ({ migrating }) => migrating
   );
   usePolling({
