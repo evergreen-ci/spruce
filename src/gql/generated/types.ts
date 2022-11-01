@@ -2423,6 +2423,7 @@ export type PatchesPagePatchesFragment = {
       taskStatusStats?: Maybe<{
         counts?: Maybe<Array<{ status: string; count: number }>>;
       }>;
+      projectMetadata?: Maybe<{ owner: string; repo: string }>;
     }>;
   }>;
 };
@@ -6162,6 +6163,7 @@ export type ProjectPatchesQuery = {
           taskStatusStats?: Maybe<{
             counts?: Maybe<Array<{ status: string; count: number }>>;
           }>;
+          projectMetadata?: Maybe<{ owner: string; repo: string }>;
         }>;
       }>;
     };
@@ -6232,6 +6234,7 @@ export type UserPatchesQuery = {
           taskStatusStats?: Maybe<{
             counts?: Maybe<Array<{ status: string; count: number }>>;
           }>;
+          projectMetadata?: Maybe<{ owner: string; repo: string }>;
         }>;
       }>;
     };

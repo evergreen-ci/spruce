@@ -49,10 +49,34 @@ export const PatchCard: React.VFC<Props> = ({
 }) => {
   const createDate = new Date(createTime);
   const getDateCopy = useDateFormat();
-  const { taskStatusStats, id: versionId } = versionFull || {};
+  const { taskStatusStats, id: versionId, projectMetadata } = versionFull || {};
   const { stats } = groupStatusesByUmbrellaStatus(
     taskStatusStats?.counts ?? []
   );
+
+  let patchProject = null;
+  if (pageType === "project") {
+    patchProject = (
+      <StyledRouterLink
+        to={getUserPatchesRoute(author)}
+        data-cy="user-patches-link"
+      >
+        <strong>{authorDisplayName}</strong>
+      </StyledRouterLink>
+    );
+  } else {
+    patchProject = projectIdentifier ? (
+      <StyledRouterLink
+        to={getProjectPatchesRoute(projectIdentifier)}
+        data-cy="project-patches-link"
+      >
+        <strong>{projectIdentifier}</strong>
+      </StyledRouterLink>
+    ) : (
+      `${projectMetadata.owner}/${projectMetadata.repo}`
+    );
+  }
+
   const badges = stats?.map(({ count, umbrellaStatus, statusCounts }) => (
     <GroupedTaskStatusBadge
       status={umbrellaStatus}
@@ -76,21 +100,7 @@ export const PatchCard: React.VFC<Props> = ({
         </DescriptionLink>
         <TimeAndProject>
           {getDateCopy(createDate)} {pageType === "project" ? "by" : "on"}{" "}
-          {pageType === "project" ? (
-            <StyledRouterLink
-              to={getUserPatchesRoute(author)}
-              data-cy="user-patches-link"
-            >
-              <b>{authorDisplayName}</b>
-            </StyledRouterLink>
-          ) : (
-            <StyledRouterLink
-              to={getProjectPatchesRoute(projectIdentifier)}
-              data-cy="project-patches-link"
-            >
-              <b>{projectIdentifier}</b>
-            </StyledRouterLink>
-          )}
+          {patchProject}
         </TimeAndProject>
       </Left>
       <Center>
