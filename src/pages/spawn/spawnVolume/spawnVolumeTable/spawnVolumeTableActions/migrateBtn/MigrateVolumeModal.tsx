@@ -140,8 +140,6 @@ export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
           }}
         />
       )}
-      {submitClickCount === 1 &&
-        "Migrating home volume would delete the existing workstation the volume is linked to."}
       <StyledFooter>
         <ModalButtons
           disableSubmit={
