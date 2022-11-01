@@ -91,7 +91,7 @@ const customBadgeColors = (status: string) => {
     case TaskStatus.SetupFailed:
       return {
         fill: purple.light2,
-        border: purple.dark3,
+        border: purple.base,
         text: purple.dark2,
       };
     case TaskStatus.SystemFailed:

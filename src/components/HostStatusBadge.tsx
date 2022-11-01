@@ -14,9 +14,9 @@ interface Props {
 
 export const HostStatusBadge: React.VFC<Props> = ({ status }) => (
   <HostStatusWrapper>
-    <StyledBadge variant={statusToBadgeVariant[status]}>
+    <Badge variant={statusToBadgeVariant[status]}>
       {hostStatusToCopy[status]}
-    </StyledBadge>
+    </Badge>
     {status === HostStatus.Terminated && (
       <IconTooltip fill={red.base} glyph="InfoWithCircle" css={iconMargin}>
         Terminated hosts will disappear in 5 minutes. See Event Log for more
@@ -63,12 +63,6 @@ const hostStatusToCopy = {
 const HostStatusWrapper = styled.div`
   display: flex;
   align-items: center;
-`;
-
-const StyledBadge = styled(Badge)`
-  display: flex;
-  justify-content: center;
-  width: ${size.xxl};
 `;
 
 const iconMargin = css`

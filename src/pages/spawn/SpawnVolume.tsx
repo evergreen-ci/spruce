@@ -1,13 +1,8 @@
 import { useQuery } from "@apollo/client";
-import { Variant } from "@leafygreen-ui/badge";
+import Badge, { Variant } from "@leafygreen-ui/badge";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
-import {
-  Title,
-  BadgeWrapper,
-  TitleContainer,
-  StyledBadge,
-} from "components/Spawn";
+import { Title, BadgeWrapper, TitleContainer } from "components/Spawn";
 import { pollInterval } from "constants/index";
 import { useToastContext } from "context/toast";
 import { MyVolumesQuery, MyVolumesQueryVariables } from "gql/generated/types";
@@ -49,14 +44,14 @@ export const SpawnVolume = () => {
       <TitleContainer>
         <Title>Volumes</Title>
         <BadgeWrapper>
-          <StyledBadge
+          <Badge
             data-cy="mounted-badge"
             variant={Variant.Green}
-          >{`${mountedCount} Mounted`}</StyledBadge>
-          <StyledBadge
+          >{`${mountedCount} Mounted`}</Badge>
+          <Badge
             data-cy="free-badge"
             variant={Variant.Blue}
-          >{`${unmountedCount} Free`}</StyledBadge>
+          >{`${unmountedCount} Free`}</Badge>
         </BadgeWrapper>
       </TitleContainer>
       <SpawnVolumeButton />
