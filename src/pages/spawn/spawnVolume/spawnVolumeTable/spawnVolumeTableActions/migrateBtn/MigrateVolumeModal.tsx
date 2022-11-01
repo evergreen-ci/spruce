@@ -1,13 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useMutation } from "@apollo/client";
-import styled from "@emotion/styled";
-import { Footer } from "@leafygreen-ui/modal";
 import { useSpawnAnalytics } from "analytics";
-import { DisplayModal, DisplayModalProps } from "components/DisplayModal";
+import { ConfirmationModal } from "components/ConfirmationModal";
 import {
   formToGql,
   getFormSchema,
-  ModalButtons,
   useLoadFormSchemaData,
   useVirtualWorkstationDefaultExpiration,
   validateSpawnHostForm,
@@ -22,9 +19,10 @@ import {
 import { MIGRATE_VOLUME } from "gql/mutations";
 import { omit } from "utils/object";
 
-interface MigrateVolumeModalProps
-  extends Pick<DisplayModalProps, "open" | "setOpen"> {
+interface MigrateVolumeModalProps {
   migrateVolumeId: string;
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
@@ -68,9 +66,9 @@ export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
     isVirtualWorkstation: !!formState?.distro?.isVirtualWorkstation,
   });
   useVirtualWorkstationDefaultExpiration({
-    setFormState,
-    formState,
     disableExpirationCheckbox: formSchemaInput.disableExpirationCheckbox,
+    formState,
+    setFormState,
   });
 
   useEffect(() => {
@@ -117,18 +115,33 @@ export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
   if (loadingFormData) {
     return null;
   }
+  const title =
+    submitClickCount === 0
+      ? "Migrate Volume"
+      : "Are you sure you want to migrate this home volume?";
+
+  let buttonText = "Migrate";
+  if (loadingMigration) {
+    buttonText = "Spawning";
+  } else if (submitClickCount === 0) {
+    buttonText = "Next";
+  }
 
   return (
-    <DisplayModal
-      title={
-        submitClickCount === 0
-          ? "Migrate Volume"
-          : "Are you sure you want to migrate this home volume?"
-      }
-      subtitle="Migrate this home volume to a new Virtual Workstation. Upon successful migration, the unused host will be scheduled to expire in 24 hours."
+    <ConfirmationModal
+      title={title}
       open={open}
-      setOpen={setOpen}
+      submitDisabled={
+        !validateSpawnHostForm(formState, true) || loadingMigration
+      }
+      onConfirm={() => setSubmitClickCount(submitClickCount + 1)}
       data-cy="spawn-host-modal"
+      buttonText={buttonText}
+      onCancel={
+        submitClickCount === 0
+          ? () => setOpen(false)
+          : () => setSubmitClickCount(0)
+      }
     >
       {submitClickCount === 0 && (
         <SpruceForm
@@ -140,29 +153,6 @@ export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
           }}
         />
       )}
-      <StyledFooter>
-        <ModalButtons
-          disableSubmit={
-            !validateSpawnHostForm(formState, true) || loadingMigration
-          }
-          loading={loadingMigration}
-          onCancel={
-            submitClickCount === 0
-              ? () => setOpen(false)
-              : () => setSubmitClickCount(0)
-          }
-          onSubmit={(e) => {
-            e.preventDefault();
-            setSubmitClickCount(submitClickCount + 1);
-          }}
-          submitButtonCopy={submitClickCount === 0 ? "Next" : "Migrate"}
-          submitButtonLoadingCopy="Spawning"
-        />
-      </StyledFooter>
-    </DisplayModal>
+    </ConfirmationModal>
   );
 };
-
-const StyledFooter = styled(Footer)`
-  margin-top: 8px;
-`;
