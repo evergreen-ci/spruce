@@ -120,6 +120,7 @@ const Title: SubtitleType = styled(Subtitle)`
 `;
 
 const TitleContainer = styled.div`
+  align-items: baseline;
   display: flex;
 `;
 
