@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { useParams, Link, Navigate } from "react-router-dom";
-import { ProjectSelect } from "components/ARandomName";
+import { ProjectSelect } from "components/ProjectSelect";
 import {
   SideNav,
   SideNavGroup,
