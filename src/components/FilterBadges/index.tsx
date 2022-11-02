@@ -49,7 +49,7 @@ const FilterBadges: React.VFC<FilterBadgesProps> = ({
           onClick={handleClearAll}
           data-cy="clear-all-filters"
         >
-          CLEAR ALL FILTERS
+          Clear all filters
         </Button>
       )}
     </Container>

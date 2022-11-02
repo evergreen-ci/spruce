@@ -49,7 +49,7 @@ const FilterBadge: React.VFC<FilterBadgeProps> = ({ badge, onClose }) => {
         data-cy="filter-badge"
       >
         <BadgeContent>
-          {badge.key} : {trimmedBadgeName}
+          {badge.key}: {trimmedBadgeName}
         </BadgeContent>
         <ClickableIcon data-cy="close-badge" glyph="X" onClick={onClose} />
       </PaddedBadge>

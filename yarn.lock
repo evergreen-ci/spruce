@@ -3853,6 +3853,15 @@
     "@leafygreen-ui/hooks" "^7.0.0"
     "@leafygreen-ui/lib" "^9.0.0"
 
+"@leafygreen-ui/a11y@^1.3.3":
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/a11y/-/a11y-1.3.3.tgz#9a9e72f08a3ea56918c0d37b68cb4bb7afca46e2"
+  integrity sha512-8aFrxq8yvyjN4qQ5ddJPrC2FxvZUwkJHXJ+ozBpDinT+9xmLLlCs4AxY2EZ1tDwt91Vb42NMwZBULVTWKnr45A==
+  dependencies:
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/hooks" "^7.3.3"
+    "@leafygreen-ui/lib" "^9.5.1"
+
 "@leafygreen-ui/badge@7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/badge/-/badge-7.0.0.tgz#60a01b5cb8691e5dd4eff999775027024aece349"
@@ -4021,6 +4030,18 @@
     "@leafygreen-ui/lib" "^9.0.1"
     "@leafygreen-ui/palette" "^3.2.2"
 
+"@leafygreen-ui/icon-button@^14.0.0":
+  version "14.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon-button/-/icon-button-14.0.0.tgz#819c942109b1b13a9a96c75d011f02eb538d2aa0"
+  integrity sha512-Rqfy3Qj3V2Rfw+w5XxzjcKtt2BEw/+P6WaNLsUcC+j7IOhH4hJxEBxtYmS2Xa53zu+DUQE+4ecG5pmrhaqKEcA==
+  dependencies:
+    "@leafygreen-ui/a11y" "^1.3.3"
+    "@leafygreen-ui/box" "^3.1.1"
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/lib" "^9.5.1"
+    "@leafygreen-ui/palette" "^3.4.4"
+    "@leafygreen-ui/tokens" "^1.3.4"
+
 "@leafygreen-ui/icon-button@^9.1.6":
   version "9.1.6"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon-button/-/icon-button-9.1.6.tgz#9a1bbf6a7ef59c858e25519ca66476fed08fba83"
@@ -4129,7 +4150,25 @@
     "@leafygreen-ui/popover" "^7.2.2"
     react-transition-group "^4.4.1"
 
-"@leafygreen-ui/modal@6.1.2", "@leafygreen-ui/modal@^6.1.2":
+"@leafygreen-ui/modal@11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/modal/-/modal-11.0.0.tgz#22b408aeb0940e627b526d80f4a3fbf0d9b6a33a"
+  integrity sha512-ICUr4sxEJ3+L7Klckb2subv9OB8N55YLWOWCmqZSEE32EyPBB2aoe8S+x1F0llcCgAWSvUK5KW4uIpS00mPVMg==
+  dependencies:
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/hooks" "^7.3.3"
+    "@leafygreen-ui/icon" "^11.11.1"
+    "@leafygreen-ui/icon-button" "^14.0.0"
+    "@leafygreen-ui/lib" "^9.5.1"
+    "@leafygreen-ui/palette" "^3.4.4"
+    "@leafygreen-ui/portal" "^4.0.6"
+    "@leafygreen-ui/tokens" "^1.3.4"
+    facepaint "^1.2.1"
+    focus-trap-react "8.10.0"
+    prop-types "^15.8.1"
+    react-transition-group "^4.4.1"
+
+"@leafygreen-ui/modal@^6.1.2":
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/modal/-/modal-6.1.2.tgz#b8cc35f1690eeff48430fbfb1936bb6f38a5fed5"
   integrity sha512-nCtdJJPAd8stADzfG6TBG/69q/IgjyySNAyUu2V2D4Re2nW2X7hfzPX87ewIyOpt6KszcPF2Q5wF6hbtPH+tjw==
@@ -11439,6 +11478,13 @@ focus-lock@^0.8.0:
   dependencies:
     tslib "^1.9.3"
 
+focus-trap-react@8.10.0:
+  version "8.10.0"
+  resolved "https://registry.yarnpkg.com/focus-trap-react/-/focus-trap-react-8.10.0.tgz#9f7fb27771d2cafa7bb4da4edea47bc6a5601a1e"
+  integrity sha512-p61DZlTK6i2pq8z6ISm7DV4G6hxALsDg6eIjfwd2VLd0zcW3ahNisU+O7eL5WEDMEOWZ2i1TEu30q8u1okIC4Q==
+  dependencies:
+    focus-trap "^6.8.1"
+
 focus-trap-react@8.4.2:
   version "8.4.2"
   resolved "https://registry.yarnpkg.com/focus-trap-react/-/focus-trap-react-8.4.2.tgz#5b313605e0789a7beee1467785e455dc63388a98"
@@ -11452,6 +11498,13 @@ focus-trap@^6.3.0:
   integrity sha512-2hWVR3XbBejn5v8wDW9DFzLWXcxMNaSJ/CtE3E+FJjjBCLwIYbZJwjUi2RDBfQPM58gHEt5hck0jrJgHR9/s+A==
   dependencies:
     tabbable "^5.2.0"
+
+focus-trap@^6.8.1:
+  version "6.9.4"
+  resolved "https://registry.yarnpkg.com/focus-trap/-/focus-trap-6.9.4.tgz#436da1a1d935c48b97da63cd8f361c6f3aa16444"
+  integrity sha512-v2NTsZe2FF59Y+sDykKY+XjqZ0cPfhq/hikWVL88BqLivnNiEffAsac6rP6H45ff9wG9LL5ToiDqrLEP9GX9mw==
+  dependencies:
+    tabbable "^5.3.3"
 
 follow-redirects@^1.0.0:
   version "1.14.7"
@@ -19181,6 +19234,11 @@ tabbable@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-5.2.0.tgz#4fba60991d8bb89d06e5d9455c92b453acf88fb2"
   integrity sha512-0uyt8wbP0P3T4rrsfYg/5Rg3cIJ8Shl1RJ54QMqYxm1TLdWqJD1u6+RQjr2Lor3wmfT7JRHkirIwy99ydBsyPg==
+
+tabbable@^5.3.3:
+  version "5.3.3"
+  resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-5.3.3.tgz#aac0ff88c73b22d6c3c5a50b1586310006b47fbf"
+  integrity sha512-QD9qKY3StfbZqWOPLp0++pOrAVb/HbUi5xCc8cUo4XjP19808oaMiDzn0leBY5mCespIBM0CIZePzZjgzR83kA==
 
 table-layout@^1.0.1:
   version "1.0.2"

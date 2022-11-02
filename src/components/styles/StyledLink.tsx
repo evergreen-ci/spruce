@@ -12,6 +12,7 @@ export const StyledLink = (props) => (
       line-height: inherit;
 
       // Override LeafyGreen's font-size declaration for Link
+      font-family: inherit;
       font-size: inherit;
       font-weight: inherit;
     `}

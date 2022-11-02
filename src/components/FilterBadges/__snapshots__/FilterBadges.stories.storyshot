@@ -13,7 +13,7 @@ exports[`storybook Storyshots Components/FilterBadges Default 1`] = `
         className="css-1i7u60d-BadgeContent e1vs77ku1"
       >
         test
-         : 
+        : 
         test
       </div>
       <svg
@@ -50,7 +50,7 @@ exports[`storybook Storyshots Components/FilterBadges Default 1`] = `
       <div
         className="leafygreen-ui-jfktkt"
       >
-        CLEAR ALL FILTERS
+        Clear all filters
       </div>
     </button>
   </div>

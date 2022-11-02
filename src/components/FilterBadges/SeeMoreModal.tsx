@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import Button, { Variant, Size } from "@leafygreen-ui/button";
-import { Link } from "@leafygreen-ui/typography";
 import { DisplayModal } from "components/DisplayModal";
+import { StyledLink } from "components/styles";
 import { size } from "constants/tokens";
 import FilterBadge, { FilterBadgeType } from "./FilterBadge";
 
@@ -21,10 +21,11 @@ export const SeeMoreModal: React.VFC<SeeMoreModalProps> = ({
   const [open, setOpen] = useState(false);
   return (
     <>
-      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-      <Link onClick={() => setOpen((curr) => !curr)}>
-        see {notVisibleCount} more
-      </Link>
+      <LinkContainer>
+        <StyledLink onClick={() => setOpen((curr) => !curr)}>
+          see {notVisibleCount} more
+        </StyledLink>
+      </LinkContainer>
       <DisplayModal
         open={open}
         setOpen={setOpen}
@@ -46,7 +47,7 @@ export const SeeMoreModal: React.VFC<SeeMoreModalProps> = ({
           size={Size.XSmall}
           onClick={onClearAll}
         >
-          CLEAR ALL FILTERS
+          Clear all filters
         </Button>
       </DisplayModal>
     </>
@@ -55,4 +56,8 @@ export const SeeMoreModal: React.VFC<SeeMoreModalProps> = ({
 
 const BadgeContainer = styled.div`
   padding-top: ${size.xs};
+`;
+
+const LinkContainer = styled.span`
+  margin-right: ${size.xs};
 `;

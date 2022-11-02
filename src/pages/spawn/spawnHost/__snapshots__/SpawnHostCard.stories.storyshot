@@ -162,7 +162,7 @@ exports[`storybook Storyshots Pages/Spawn/Spawn Host Card Spawn Host Card Story 
     <div>
       <span>
         <a
-          className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+          className="lg-ui-0001 css-124dx7l-StyledLink leafygreen-ui-1cn1hqb"
           href="/spawn/volume?volume=vol-0ea662ac92f611ed4"
           onClick={[Function]}
         >
@@ -186,7 +186,7 @@ exports[`storybook Storyshots Pages/Spawn/Spawn Host Card Spawn Host Card Story 
     <div>
       <span>
         <a
-          className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+          className="lg-ui-0001 css-124dx7l-StyledLink leafygreen-ui-1cn1hqb"
           href="/host/i-04ade558e1e26b0ad/ide"
           target="_self"
         >

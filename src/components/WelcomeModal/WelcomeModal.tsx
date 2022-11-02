@@ -78,7 +78,6 @@ const WelcomeModal: React.VFC<WelcomeModalProps> = ({
           className={css`
             z-index: ${zIndex.max_do_not_use};
           `}
-          closeOnBackdropClick={false}
           size="large"
           initialFocus=".slick-active"
         >
