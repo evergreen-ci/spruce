@@ -4062,16 +4062,15 @@
   dependencies:
     "@leafygreen-ui/lib" "^9.0.1"
 
-"@leafygreen-ui/inline-definition@2.0.6":
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/inline-definition/-/inline-definition-2.0.6.tgz#4469d05931a61f273d222f7ef4f9c10214439f8f"
-  integrity sha512-2sK4LVSmz+YGUKEAsx+tKRmX2ZIwcp4zvlroUAVlTQ/ZnTYd0ozdZtasevsPLxt0PnrKZwGmZZomr4Evou8IvA==
+"@leafygreen-ui/inline-definition@5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/inline-definition/-/inline-definition-5.0.0.tgz#076c66da6f2289c1e45735a759b4c31c6d09763a"
+  integrity sha512-az5ci0ZWqIcm2MiyxhJWmH4KcC6QLq8ay+eKVJ7ApP8GjgdbnU7Yp3x/EZoBP1JWnJZgoxEj64a4gT3YvMBACQ==
   dependencies:
-    "@leafygreen-ui/emotion" "^4.0.0"
-    "@leafygreen-ui/lib" "^9.0.0"
-    "@leafygreen-ui/palette" "^3.2.2"
-    "@leafygreen-ui/tooltip" "^6.3.1"
-    "@leafygreen-ui/typography" "^8.0.4"
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/lib" "^9.5.1"
+    "@leafygreen-ui/palette" "^3.4.4"
+    "@leafygreen-ui/tooltip" "^8.0.0"
 
 "@leafygreen-ui/interaction-ring@^1.1.0":
   version "1.1.0"
