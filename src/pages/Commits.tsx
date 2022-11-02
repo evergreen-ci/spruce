@@ -4,10 +4,10 @@ import styled from "@emotion/styled";
 import Cookies from "js-cookie";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
+import { ProjectSelect } from "components/ARandomName";
 import FilterBadges, {
   useFilterBadgeQueryParams,
 } from "components/FilterBadges";
-import { ProjectSelect } from "components/ProjectSelect";
 import { PageWrapper } from "components/styles";
 import { ALL_VALUE } from "components/TreeSelect";
 import TupleSelect from "components/TupleSelect";
