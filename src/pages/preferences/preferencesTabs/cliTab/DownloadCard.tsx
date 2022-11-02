@@ -21,6 +21,7 @@ import {
 } from "gql/generated/types";
 import { GET_CLIENT_CONFIG } from "gql/queries";
 import { PreferencesCard } from "pages/preferences/Card";
+import { CardType, SubtitleType } from "types/leafygreen";
 
 export const DownloadCard = () => {
   const { data, loading } = useQuery<
@@ -144,19 +145,17 @@ const filterBinaries = (binary: ClientBinary) =>
 
 const CardGroup = styled.div`
   display: flex;
+  gap: ${size.xs};
   margin-bottom: ${size.s};
 `;
 
 // @ts-expect-error
-const CliDownloadCard = styled(Card)`
+const CliDownloadCard: CardType = styled(Card)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: ${size.s};
-  :not(:last-of-type) {
-    margin-right: ${size.xs};
-  }
-` as typeof Card;
+`;
 
 // @ts-expect-error
 const CliDownloadButton = styled(Button)`
@@ -164,9 +163,9 @@ const CliDownloadButton = styled(Button)`
 `;
 
 // @ts-expect-error
-const CliDownloadTitle = styled(Subtitle)`
+const CliDownloadTitle: SubtitleType = styled(Subtitle)`
   font-weight: bold;
-` as typeof Subtitle;
+`;
 
 const CardDescription = styled.div`
   font-size: ${fontSize.m};
