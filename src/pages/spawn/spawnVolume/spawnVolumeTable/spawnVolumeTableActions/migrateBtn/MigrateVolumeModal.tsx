@@ -146,7 +146,11 @@ export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
     <ConfirmationModal
       title={title}
       open={open}
-      submitDisabled={!validateSpawnHostForm(form, true) || loadingMigration}
+      submitDisabled={
+        !validateSpawnHostForm(form, true) ||
+        loadingMigration ||
+        volume.migrating
+      }
       onConfirm={onConfirm}
       data-cy="migrate-modal"
       buttonText={buttonText}
