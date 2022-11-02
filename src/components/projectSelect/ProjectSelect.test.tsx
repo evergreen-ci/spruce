@@ -12,140 +12,217 @@ describe("projectSelect", () => {
     jest.restoreAllMocks();
   });
 
-  it("sets the currently selected project to what ever is passed in's display name", async () => {
-    const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <ProjectSelect
-          selectedProjectIdentifier="evergreen"
-          getRoute={getCommitsRoute}
-        />
-      </MockedProvider>
-    );
+  describe("not project settings", () => {
+    it("should show the project display name as the dropdown content", async () => {
+      const { Component } = RenderFakeToastContext(
+        <MockedProvider mocks={getProjectsMock} addTypename={false}>
+          <ProjectSelect
+            selectedProjectIdentifier="evergreen"
+            getRoute={getCommitsRoute}
+          />
+        </MockedProvider>
+      );
+      const { baseElement } = renderWithRouterMatch(<Component />);
 
-    const { baseElement } = renderWithRouterMatch(<Component />);
-    await waitFor(() => {
-      expect(baseElement).toHaveTextContent("evergreen smoke test");
+      await waitFor(() => {
+        expect(baseElement).toHaveTextContent("evergreen smoke test");
+      });
+    });
+
+    it("should narrow down search results when filtering on projects", async () => {
+      const { Component } = RenderFakeToastContext(
+        <MockedProvider mocks={getProjectsMock} addTypename={false}>
+          <ProjectSelect
+            selectedProjectIdentifier="evergreen"
+            getRoute={getCommitsRoute}
+          />
+        </MockedProvider>
+      );
+      renderWithRouterMatch(<Component />);
+
+      await waitFor(() => {
+        expect(screen.getByDataCy("project-select")).toBeInTheDocument();
+      });
+      expect(screen.queryByDataCy("project-select-options")).toBeNull();
+      userEvent.click(screen.queryByDataCy("project-select"));
+      expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
+
+      let options = await screen.findAllByDataCy("project-display-name");
+      expect(options).toHaveLength(6);
+      userEvent.type(
+        screen.queryByDataCy("project-select-search-input"),
+        "logkeeper"
+      );
+      options = await screen.findAllByDataCy("project-display-name");
+      expect(options).toHaveLength(1);
+    });
+
+    it("should be possible to search for projects by a group display name, which should NOT be clickable", async () => {
+      const { Component } = RenderFakeToastContext(
+        <MockedProvider mocks={getProjectsMock} addTypename={false}>
+          <ProjectSelect
+            selectedProjectIdentifier="evergreen"
+            getRoute={getCommitsRoute}
+          />
+        </MockedProvider>
+      );
+      renderWithRouterMatch(<Component />);
+
+      await waitFor(() => {
+        expect(screen.getByDataCy("project-select")).toBeInTheDocument();
+      });
+      expect(screen.queryByDataCy("project-select-options")).toBeNull();
+      userEvent.click(screen.queryByDataCy("project-select"));
+      expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
+
+      userEvent.type(
+        screen.queryByDataCy("project-select-search-input"),
+        "mongodb/totally-different-name"
+      );
+      const options = await screen.findAllByDataCy("project-display-name");
+      expect(options).toHaveLength(2);
+
+      expect(
+        screen.queryByRole("button", {
+          name: "totally-different-name",
+        })
+      ).toBeNull();
     });
   });
 
-  it("should toggle dropdown when clicking on it", async () => {
-    const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <ProjectSelect
-          selectedProjectIdentifier="evergreen"
-          getRoute={getCommitsRoute}
-        />
-      </MockedProvider>
-    );
-    renderWithRouterMatch(<Component />);
-
-    await waitFor(() => {
-      expect(screen.getByDataCy("project-select")).toBeInTheDocument();
+  describe("project settings", () => {
+    it("should show the project display name as the dropdown content", async () => {
+      const { Component } = RenderFakeToastContext(
+        <MockedProvider mocks={getViewableProjectsMock} addTypename={false}>
+          <ProjectSelect
+            selectedProjectIdentifier="evergreen"
+            getRoute={getProjectSettingsRoute}
+            isProjectSettingsPage
+          />
+        </MockedProvider>
+      );
+      const { baseElement } = renderWithRouterMatch(<Component />);
+      await waitFor(() => {
+        expect(baseElement).toHaveTextContent("evergreen smoke test");
+      });
     });
 
-    expect(
-      screen.queryByDataCy("project-select-options")
-    ).not.toBeInTheDocument();
-    userEvent.click(screen.queryByDataCy("project-select"));
-    expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
-    userEvent.click(screen.queryByDataCy("project-select"));
-    expect(
-      screen.queryByDataCy("project-select-options")
-    ).not.toBeInTheDocument();
-  });
+    it("should narrow down search results when filtering on projects", async () => {
+      const { Component } = RenderFakeToastContext(
+        <MockedProvider mocks={getViewableProjectsMock} addTypename={false}>
+          <ProjectSelect
+            selectedProjectIdentifier="evergreen"
+            getRoute={getProjectSettingsRoute}
+            isProjectSettingsPage
+          />
+        </MockedProvider>
+      );
+      renderWithRouterMatch(<Component />);
 
-  it("should narrow down search results when filtering on projects", async () => {
-    const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <ProjectSelect
-          selectedProjectIdentifier="evergreen"
-          getRoute={getCommitsRoute}
-        />
-      </MockedProvider>
-    );
-    renderWithRouterMatch(<Component />);
+      await waitFor(() => {
+        expect(screen.getByDataCy("project-select")).toBeInTheDocument();
+      });
+      expect(screen.queryByDataCy("project-select-options")).toBeNull();
+      userEvent.click(screen.queryByDataCy("project-select"));
+      expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
 
-    await waitFor(() => {
-      expect(screen.getByDataCy("project-select")).toBeInTheDocument();
+      let options = await screen.findAllByDataCy("project-display-name");
+      expect(options).toHaveLength(5);
+      userEvent.type(
+        screen.queryByDataCy("project-select-search-input"),
+        "evergreen"
+      );
+      options = await screen.findAllByDataCy("project-display-name");
+      expect(options).toHaveLength(2);
     });
 
-    expect(
-      screen.queryByDataCy("project-select-options")
-    ).not.toBeInTheDocument();
-    userEvent.click(screen.queryByDataCy("project-select"));
-    expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
-    let options = await screen.findAllByDataCy("project-display-name");
-    expect(options).toHaveLength(6);
-    userEvent.type(
-      screen.queryByDataCy("project-select-search-input"),
-      "logkeeper"
-    );
-    options = await screen.findAllByDataCy("project-display-name");
-    expect(options).toHaveLength(1);
+    it("should be possible to search for projects by a group display name, which should be clickable", async () => {
+      const { Component } = RenderFakeToastContext(
+        <MockedProvider mocks={getViewableProjectsMock} addTypename={false}>
+          <ProjectSelect
+            selectedProjectIdentifier="evergreen"
+            getRoute={getProjectSettingsRoute}
+            isProjectSettingsPage
+          />
+        </MockedProvider>
+      );
+      renderWithRouterMatch(<Component />);
+
+      await waitFor(() => {
+        expect(screen.getByDataCy("project-select")).toBeInTheDocument();
+      });
+      expect(screen.queryByDataCy("project-select-options")).toBeNull();
+      userEvent.click(screen.queryByDataCy("project-select"));
+      expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
+
+      userEvent.type(
+        screen.queryByDataCy("project-select-search-input"),
+        "totally-different-name"
+      );
+      const options = await screen.findAllByDataCy("project-display-name");
+      expect(options).toHaveLength(1);
+
+      expect(
+        screen.getByRole("button", {
+          name: "totally-different-name",
+        })
+      ).toBeInTheDocument();
+    });
+
+    it("shows disabled projects at the bottom of the list", async () => {
+      const { Component } = RenderFakeToastContext(
+        <MockedProvider mocks={getViewableProjectsMock} addTypename={false}>
+          <ProjectSelect
+            selectedProjectIdentifier="evergreen"
+            getRoute={getProjectSettingsRoute}
+            isProjectSettingsPage
+          />
+        </MockedProvider>
+      );
+      renderWithRouterMatch(<Component />);
+
+      await waitFor(() => {
+        expect(screen.getByDataCy("project-select")).toBeInTheDocument();
+      });
+      expect(screen.queryByDataCy("project-select-options")).toBeNull();
+      userEvent.click(screen.queryByDataCy("project-select"));
+      expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
+
+      const options = await screen.findAllByDataCy("project-display-name");
+      expect(options).toHaveLength(5);
+      // Favorited projects should appear twice
+      expect(screen.getAllByText("logkeeper")).toHaveLength(2);
+      // Disabled project appears last
+      expect(options[4]).toHaveTextContent("evergreen smoke test");
+      expect(screen.getByText("Disabled Projects")).toBeInTheDocument();
+    });
+
+    it("does not show a heading for disabled projects when all projects are enabled", async () => {
+      const { Component } = RenderFakeToastContext(
+        <MockedProvider mocks={noDisabledProjectsMock} addTypename={false}>
+          <ProjectSelect
+            selectedProjectIdentifier="spruce"
+            getRoute={getProjectSettingsRoute}
+            isProjectSettingsPage
+          />
+        </MockedProvider>
+      );
+      renderWithRouterMatch(<Component />);
+
+      await waitFor(() => {
+        expect(screen.getByDataCy("project-select")).toBeInTheDocument();
+      });
+      expect(screen.queryByDataCy("project-select-options")).toBeNull();
+      userEvent.click(screen.queryByDataCy("project-select"));
+      expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
+      const options = await screen.findAllByDataCy("project-display-name");
+      expect(options).toHaveLength(1);
+      expect(screen.queryByText("Disabled Projects")).not.toBeInTheDocument();
+    });
   });
 });
 
-describe("projectSelect for project settings", () => {
-  it("shows disabled projects at the bottom of the list", async () => {
-    const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <ProjectSelect
-          selectedProjectIdentifier="evergreen"
-          getRoute={getProjectSettingsRoute}
-          isProjectSettingsPage
-        />
-      </MockedProvider>
-    );
-    renderWithRouterMatch(<Component />);
-
-    await waitFor(() => {
-      expect(screen.getByDataCy("project-select")).toBeInTheDocument();
-    });
-
-    expect(
-      screen.queryByDataCy("project-select-options")
-    ).not.toBeInTheDocument();
-    userEvent.click(screen.queryByDataCy("project-select"));
-    expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
-    const options = await screen.findAllByDataCy("project-display-name");
-    expect(options).toHaveLength(4);
-
-    // Disabled project appears last
-    expect(options[3]).toHaveTextContent("evergreen smoke test");
-    expect(screen.getByText("Disabled Projects")).toBeInTheDocument();
-
-    // Favorited projects should appear twice
-    expect(screen.getAllByText("logkeeper")).toHaveLength(2);
-  });
-
-  it("does not show a heading for disabled projects when all projects are enabled", async () => {
-    const { Component } = RenderFakeToastContext(
-      <MockedProvider mocks={[mocks[2]]} addTypename={false}>
-        <ProjectSelect
-          selectedProjectIdentifier="spruce"
-          getRoute={getProjectSettingsRoute}
-          isProjectSettingsPage
-        />
-      </MockedProvider>
-    );
-    renderWithRouterMatch(<Component />);
-
-    await waitFor(() => {
-      expect(screen.getByDataCy("project-select")).toBeInTheDocument();
-    });
-
-    expect(
-      screen.queryByDataCy("project-select-options")
-    ).not.toBeInTheDocument();
-    userEvent.click(screen.queryByDataCy("project-select"));
-    expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
-    const options = await screen.findAllByDataCy("project-display-name");
-    expect(options).toHaveLength(1);
-    expect(screen.queryByText("Disabled Projects")).not.toBeInTheDocument();
-  });
-});
-
-const mocks = [
+const getProjectsMock = [
   {
     request: {
       query: GET_PROJECTS,
@@ -180,7 +257,7 @@ const mocks = [
             ],
           },
           {
-            groupDisplayName: "mongodb/mongo",
+            groupDisplayName: "mongodb/totally-different-name",
             projects: [
               {
                 id: "sys-perf",
@@ -230,6 +307,9 @@ const mocks = [
       },
     },
   },
+];
+
+const getViewableProjectsMock = [
   {
     request: {
       query: GET_VIEWABLE_PROJECTS,
@@ -278,10 +358,30 @@ const mocks = [
               },
             ],
           },
+          {
+            groupDisplayName: "totally-different-name",
+            repo: {
+              id: "56789",
+            },
+            projects: [
+              {
+                id: "spruce",
+                identifier: "spruce",
+                repo: "spruce",
+                owner: "spruce",
+                displayName: "spruce",
+                isFavorite: false,
+                enabled: true,
+              },
+            ],
+          },
         ],
       },
     },
   },
+];
+
+const noDisabledProjectsMock = [
   {
     request: {
       query: GET_VIEWABLE_PROJECTS,
