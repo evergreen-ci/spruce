@@ -105,6 +105,7 @@ const myVolumesBase = {
   },
   homeVolume: false,
   creationTime: "2020-11-05T18:19:39Z",
+  migrating: false,
 };
 const myVolumesQueryMock = {
   request: { query: GET_MY_VOLUMES, variables: {} },
