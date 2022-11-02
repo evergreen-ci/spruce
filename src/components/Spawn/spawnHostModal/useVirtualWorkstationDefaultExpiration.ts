@@ -4,7 +4,7 @@ import { getDefaultExpiration } from "./getFormSchema";
 import { FormState } from "./types";
 
 interface Props {
-  setFormState: React.Dispatch<React.SetStateAction<FormState>>;
+  setFormState: (formState: FormState) => void;
   formState: FormState;
   disableExpirationCheckbox: boolean;
 }

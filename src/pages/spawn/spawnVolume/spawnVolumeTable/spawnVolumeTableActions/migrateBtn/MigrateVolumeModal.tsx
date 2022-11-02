@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useReducer } from "react";
 import { useMutation } from "@apollo/client";
 import { Body } from "@leafygreen-ui/typography";
 import { useSpawnAnalytics } from "analytics";
@@ -9,7 +9,6 @@ import {
   useLoadFormSchemaData,
   useVirtualWorkstationDefaultExpiration,
   validateSpawnHostForm,
-  FormState,
 } from "components/Spawn/spawnHostModal";
 import { SpruceForm } from "components/SpruceForm";
 import { useToastContext } from "context/toast";
@@ -20,6 +19,7 @@ import {
 import { MIGRATE_VOLUME } from "gql/mutations";
 import { MyVolume } from "types/spawn";
 import { omit } from "utils/object";
+import { initialState, Page, reducer } from "./migrateVolumeModal/reducer";
 
 interface MigrateVolumeModalProps {
   volume: MyVolume;
@@ -32,7 +32,9 @@ export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
   setOpen,
   volume,
 }) => {
-  const [submitClickCount, setSubmitClickCount] = useState(0);
+  const [{ page, form }, dispatch] = useReducer(reducer, initialState);
+  const onPageOne = page === Page.First;
+
   const dispatchToast = useToastContext();
   const { sendEvent } = useSpawnAnalytics();
 
@@ -53,11 +55,10 @@ export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
       dispatchToast.error(
         `There was an error during volume migration: ${err.message}`
       );
-      setSubmitClickCount(0);
+      dispatch({ type: "resetPage" });
     },
     refetchQueries: ["MyHosts", "MyVolumes", "GetMyPublicKeys"],
   });
-  const [formState, setFormState] = useState<FormState>({});
 
   const distros = useMemo(
     () => formSchemaInput.distros?.filter((d) => d.isVirtualWorkStation),
@@ -67,23 +68,24 @@ export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
     ...formSchemaInput,
     distros,
     isMigration: true,
-    isVirtualWorkstation: !!formState?.distro?.isVirtualWorkstation,
+    isVirtualWorkstation: !!form?.distro?.isVirtualWorkstation,
   });
   useVirtualWorkstationDefaultExpiration({
     disableExpirationCheckbox: formSchemaInput.disableExpirationCheckbox,
-    formState,
-    setFormState,
+    formState: form,
+    setFormState: (formState) =>
+      dispatch({ type: "setForm", payload: formState }),
   });
 
   useEffect(() => {
     if (!open) {
-      setFormState({});
+      dispatch({ type: "resetForm" });
     }
   }, [open]);
 
   const migrateVolume = useCallback(() => {
     const mutationInput = formToGql({
-      formData: formState,
+      formData: form,
       myPublicKeys: formSchemaInput.myPublicKeys,
       migrateVolumeId: volume.id,
     });
@@ -104,60 +106,63 @@ export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
     });
   }, [
     formSchemaInput.myPublicKeys,
-    formState,
+    form,
     volume,
     migrateVolumeMutation,
     sendEvent,
   ]);
 
-  useEffect(() => {
-    if (submitClickCount === 2) {
-      migrateVolume();
-    }
-  }, [setSubmitClickCount, migrateVolume, submitClickCount]);
-
-  if (loadingFormData) {
-    return null;
-  }
-  const title =
-    submitClickCount === 0
-      ? "Migrate Volume"
-      : "Are you sure you want to migrate this home volume?";
+  const title = onPageOne
+    ? "Migrate Volume"
+    : "Are you sure you want to migrate this home volume?";
 
   let buttonText = "Migrate Volume";
   if (loadingMigration) {
     buttonText = "Migrating";
-  } else if (submitClickCount === 0) {
+  } else if (onPageOne) {
     buttonText = "Next";
+  }
+
+  const onConfirm = useCallback(() => {
+    if (onPageOne) {
+      dispatch({ type: "goToNextPage" });
+    } else {
+      migrateVolume();
+    }
+  }, [onPageOne, migrateVolume, dispatch]);
+
+  const onCancel = useCallback(() => {
+    if (onPageOne) {
+      setOpen(false);
+    }
+    dispatch({ type: "resetPage" });
+  }, [onPageOne, dispatch, setOpen]);
+
+  if (loadingFormData) {
+    return null;
   }
 
   return (
     <ConfirmationModal
       title={title}
       open={open}
-      submitDisabled={
-        !validateSpawnHostForm(formState, true) || loadingMigration
-      }
-      onConfirm={() => setSubmitClickCount(submitClickCount + 1)}
+      submitDisabled={!validateSpawnHostForm(form, true) || loadingMigration}
+      onConfirm={onConfirm}
       data-cy="migrate-modal"
       buttonText={buttonText}
-      onCancel={
-        submitClickCount === 0
-          ? () => setOpen(false)
-          : () => setSubmitClickCount(0)
-      }
+      onCancel={onCancel}
     >
       <Body>
         Migrate this home volume to a new host. Upon successful migration, the
         unused host will be scheduled to expire in 24 hours.
       </Body>
-      {submitClickCount === 0 && (
+      {onPageOne && (
         <SpruceForm
           schema={schema}
           uiSchema={uiSchema}
-          formData={formState}
+          formData={form}
           onChange={({ formData }) => {
-            setFormState(formData);
+            dispatch({ type: "setForm", payload: formData });
           }}
         />
       )}
