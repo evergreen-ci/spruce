@@ -149,8 +149,7 @@ const CardGroup = styled.div`
   margin-bottom: ${size.s};
 `;
 
-// @ts-expect-error
-const CliDownloadCard: CardType = styled(Card)`
+const CliDownloadCard = styled<CardType>(Card)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -160,10 +159,10 @@ const CliDownloadCard: CardType = styled(Card)`
 // @ts-expect-error
 const CliDownloadButton = styled(Button)`
   align-self: flex-start;
+  margin-top: ${size.xs};
 `;
 
-// @ts-expect-error
-const CliDownloadTitle: SubtitleType = styled(Subtitle)`
+const CliDownloadTitle = styled<SubtitleType>(Subtitle)`
   font-weight: bold;
 `;
 

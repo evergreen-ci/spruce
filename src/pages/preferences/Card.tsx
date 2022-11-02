@@ -3,8 +3,7 @@ import Card from "@leafygreen-ui/card";
 import { size } from "constants/tokens";
 import { CardType } from "types/leafygreen";
 
-// @ts-expect-error
-export const PreferencesCard: CardType = styled(Card)`
+export const PreferencesCard = styled<CardType>(Card)`
   padding: ${size.m};
 
   :not(:last-of-type) {

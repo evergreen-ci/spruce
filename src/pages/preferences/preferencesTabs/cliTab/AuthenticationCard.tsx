@@ -59,11 +59,12 @@ ui_server_host: "${config.ui_server_host}"
       <CodeContainer>
         <Code language="yaml">{authCode}</Code>
       </CodeContainer>
-      {/* @ts-expect-error */}
-      <StyledButton variant={Variant.Primary} onClick={downloadFile}>
-        Download File
-      </StyledButton>
-      <Button onClick={resetKey}>Reset Key</Button>
+      <ButtonGroup>
+        <Button variant={Variant.Primary} onClick={downloadFile}>
+          Download File
+        </Button>
+        <Button onClick={resetKey}>Reset Key</Button>
+      </ButtonGroup>
     </PreferencesCard>
   );
 };
@@ -72,9 +73,7 @@ const CodeContainer = styled.div`
   margin: ${size.m} 0;
 `;
 
-// @ts-expect-error
-const StyledButton = styled(Button)`
-  :not(:last-of-type) {
-    margin-right: ${size.s};
-  }
+const ButtonGroup = styled.div`
+  display: flex;
+  gap: ${size.xs};
 `;
