@@ -4373,7 +4373,7 @@
   dependencies:
     "@leafygreen-ui/palette" "^3.4.4"
 
-"@leafygreen-ui/tooltip@6.3.1", "@leafygreen-ui/tooltip@^6.3.1":
+"@leafygreen-ui/tooltip@6.3.1":
   version "6.3.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/tooltip/-/tooltip-6.3.1.tgz#e36d5f18ecaf9b5eeb719dbe09794fc8253b6662"
   integrity sha512-bwIe7nb4O1A57aP1K/XPFyRlS5egBJ5BfYZHjOD1Qu9+WKIDcC8KWsR6P3hrQOqbi3zdWUG43HDZbJvHqQi45w==
