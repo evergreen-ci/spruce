@@ -98,7 +98,7 @@ describe("usePolling", () => {
 
       // go offline
       fireEvent(window, new Event("offline"));
-      shouldPollFaster = !shouldPollFaster;
+      shouldPollFaster = false;
       rerender();
       // go online
       fireEvent(window, new Event("online"));
@@ -110,7 +110,7 @@ describe("usePolling", () => {
         });
       });
       fireEvent(document, new Event("visibilitychange"));
-      shouldPollFaster = !shouldPollFaster;
+      shouldPollFaster = true;
       rerender();
       // document visible
       act(() => {
