@@ -3,7 +3,7 @@
   "version": "2.36.48",
   "private": true,
   "scripts": {
-    "build-storybook": "build-storybook",
+    "build-storybook": "NODE_OPTIONS=--max-old-space-size=6144 build-storybook",
     "build:beta": "env-cmd -e beta -r env/.cmdrc.json yarn build",
     "build:local": "env-cmd -e local -r env/.cmdrc.json  yarn build",
     "build:prod": "env-cmd -e prod -r env/.cmdrc.json yarn build",
@@ -83,7 +83,7 @@
     "@leafygreen-ui/radio-group": "7.0.6",
     "@leafygreen-ui/segmented-control": "0.9.1",
     "@leafygreen-ui/select": "3.1.0",
-    "@leafygreen-ui/side-nav": "7.2.1",
+    "@leafygreen-ui/side-nav": "11.0.0",
     "@leafygreen-ui/table": "2.0.7",
     "@leafygreen-ui/tabs": "5.1.4",
     "@leafygreen-ui/text-area": "4.0.3",
