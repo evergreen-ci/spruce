@@ -186,7 +186,9 @@ describe("Navigating to Spawn Volume page", () => {
   describe("Migrate Modal", () => {
     it("open the Migrate modal and spawn a host", () => {
       cy.visit("/spawn/volume");
-      cy.dataCy("migrate-btn-vol-0ea662ac92f611ed4").click();
+      cy.dataCy(
+        "migrate-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
+      ).click();
       cy.dataCy("distro-input").click();
       cy.dataCy("distro-option-ubuntu1804-workstation").click();
       cy.dataCy("migrate-modal").contains("Next").click({ force: true });
@@ -202,7 +204,9 @@ describe("Navigating to Spawn Volume page", () => {
 
     it("clicking cancel during confirmation renders the Migrate modal form", () => {
       cy.visit("/spawn/volume");
-      cy.dataCy("migrate-btn-vol-0ea662ac92f611ed4").click();
+      cy.dataCy(
+        "migrate-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
+      ).click();
       cy.dataCy("distro-input").should("be.visible").click();
       cy.dataCy("distro-option-ubuntu1804-workstation").click();
       cy.dataCy("migrate-modal").contains("Next").click({ force: true });
