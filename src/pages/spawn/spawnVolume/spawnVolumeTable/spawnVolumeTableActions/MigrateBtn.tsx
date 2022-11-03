@@ -15,6 +15,7 @@ export const MigrateBtn: React.VFC<Props> = ({ volume }) => {
       <Button
         size={Size.XSmall}
         data-cy={`migrate-btn-${volume.displayName || volume.id}`}
+        disabled={volume.migrating}
         onClick={(e) => {
           e.stopPropagation();
           setOpenModal(true);
