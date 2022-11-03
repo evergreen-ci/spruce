@@ -4295,19 +4295,19 @@
     lodash "^4.17.21"
     react-transition-group "^4.4.1"
 
-"@leafygreen-ui/tabs@5.1.4":
-  version "5.1.4"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tabs/-/tabs-5.1.4.tgz#3835a4df9637558ae8ac19888ec842bf773fef2b"
-  integrity sha512-ncn+M7cMhg+PtB/iT9P+ubMPzh0DV3bykJtE62CgDz/i8lSlXKZi8um8Iezf2YfT8jZ+aquY5A8YiaIFwDG8Sg==
+"@leafygreen-ui/tabs@10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tabs/-/tabs-10.0.0.tgz#6f08ee4b81573b6ebf6d490d12cb9bbb97bc5f70"
+  integrity sha512-9kzwHVxD5xZmRnQpBSnrceb0F0bwWQJqVzdbkW2+AKrUvO8mZ7UdltknNZyO0xEj0KNBIVmhUMzFb8pwQnWguQ==
   dependencies:
-    "@leafygreen-ui/a11y" "^1.2.2"
-    "@leafygreen-ui/box" "^3.0.6"
-    "@leafygreen-ui/hooks" "^7.0.0"
-    "@leafygreen-ui/leafygreen-provider" "^2.1.3"
-    "@leafygreen-ui/lib" "^9.0.0"
-    "@leafygreen-ui/palette" "^3.2.2"
-    "@leafygreen-ui/portal" "^4.0.0"
-    "@leafygreen-ui/tokens" "^0.5.3"
+    "@leafygreen-ui/a11y" "^1.3.3"
+    "@leafygreen-ui/box" "^3.1.1"
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/hooks" "^7.3.3"
+    "@leafygreen-ui/lib" "^9.5.1"
+    "@leafygreen-ui/palette" "^3.4.4"
+    "@leafygreen-ui/portal" "^4.0.6"
+    "@leafygreen-ui/tokens" "1.3.4"
 
 "@leafygreen-ui/text-area@4.0.3":
   version "4.0.3"
@@ -4366,7 +4366,7 @@
   dependencies:
     "@leafygreen-ui/lib" "^9.0.0"
 
-"@leafygreen-ui/tokens@^1.3.4":
+"@leafygreen-ui/tokens@1.3.4", "@leafygreen-ui/tokens@^1.3.4":
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/tokens/-/tokens-1.3.4.tgz#58a8d633f6b978cd23011f3f9c9a6c637089ca6b"
   integrity sha512-CL+uVHSi79md30XFIZlTWg54wTv9gpNxdjCzysEfzlCVoTPE4xLKukmNbLmY0yv+MurII/NA5m7R9hJ/lVMgeg==
