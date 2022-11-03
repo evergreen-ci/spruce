@@ -1,3 +1,4 @@
+import Icon from "@leafygreen-ui/icon";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { usePreferencesAnalytics } from "analytics";
 import {
@@ -20,7 +21,7 @@ export const Preferences: React.VFC = () => {
   return (
     <>
       <SideNav aria-label="Preferences">
-        <SideNavGroup header="Preferences">
+        <SideNavGroup header="Preferences" glyph={<Icon glyph="Settings" />}>
           <SideNavItem
             active={tab === PreferencesTabRoutes.Profile}
             to={getPreferencesRoute(PreferencesTabRoutes.Profile)}

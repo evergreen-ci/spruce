@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
-import Card from "@leafygreen-ui/card";
 import TextInput from "@leafygreen-ui/text-input";
 import { Skeleton } from "antd";
 import { usePreferencesAnalytics } from "analytics";
@@ -14,6 +13,7 @@ import {
 } from "gql/generated/types";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { useUserSettings } from "hooks";
+import { PreferencesCard } from "pages/preferences/Card";
 import { string } from "utils";
 import { ClearSubscriptionsCard } from "./notificationTab/ClearSubscriptionsCard";
 import { NotificationField } from "./notificationTab/NotificationField";
@@ -84,8 +84,7 @@ export const NotificationsTab: React.VFC = () => {
 
   const newPayload = omitTypename(notificationStatus);
   return (
-    <div>
-      {/* @ts-expect-error */}
+    <>
       <PreferencesCard>
         <StyledTextInput
           label="Slack Username"
@@ -124,7 +123,7 @@ export const NotificationsTab: React.VFC = () => {
         </Button>
       </PreferencesCard>
       <ClearSubscriptionsCard />
-    </div>
+    </>
   );
 };
 
@@ -152,11 +151,4 @@ const GridField = styled.div`
 const StyledTextInput = styled(TextInput)`
   margin-bottom: ${size.m};
   width: 50%;
-`;
-
-// @ts-expect-error
-const PreferencesCard = styled(Card)`
-  padding: ${size.m};
-  margin-bottom: ${size.m};
-  width: 100%;
 `;
