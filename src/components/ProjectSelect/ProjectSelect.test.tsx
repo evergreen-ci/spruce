@@ -23,7 +23,6 @@ describe("projectSelect", () => {
         </MockedProvider>
       );
       const { baseElement } = renderWithRouterMatch(<Component />);
-
       await waitFor(() => {
         expect(baseElement).toHaveTextContent("evergreen smoke test");
       });
@@ -57,7 +56,7 @@ describe("projectSelect", () => {
       expect(options).toHaveLength(1);
     });
 
-    it("should be possible to search for projects by a group display name, which should NOT be clickable", async () => {
+    it("should be possible to search for projects by a repo name, which should NOT be clickable", async () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getProjectsMock} addTypename={false}>
           <ProjectSelect
@@ -77,14 +76,14 @@ describe("projectSelect", () => {
 
       userEvent.type(
         screen.queryByDataCy("project-select-search-input"),
-        "mongodb/totally-different-name"
+        "aaa/totally-different-name"
       );
       const options = await screen.findAllByDataCy("project-display-name");
       expect(options).toHaveLength(2);
-
+      // Repo name should not be a clickable button.
       expect(
         screen.queryByRole("button", {
-          name: "totally-different-name",
+          name: "aaa/totally-different-name",
         })
       ).toBeNull();
     });
@@ -136,7 +135,7 @@ describe("projectSelect", () => {
       expect(options).toHaveLength(2);
     });
 
-    it("should be possible to search for projects by a group display name, which should be clickable", async () => {
+    it("should be possible to search for projects by a repo name, which should be clickable", async () => {
       const { Component } = RenderFakeToastContext(
         <MockedProvider mocks={getViewableProjectsMock} addTypename={false}>
           <ProjectSelect
@@ -157,16 +156,38 @@ describe("projectSelect", () => {
 
       userEvent.type(
         screen.queryByDataCy("project-select-search-input"),
-        "totally-different-name"
+        "aaa/totally-different-name"
       );
       const options = await screen.findAllByDataCy("project-display-name");
       expect(options).toHaveLength(1);
-
+      // Repo name should be a clickable button.
       expect(
         screen.getByRole("button", {
-          name: "totally-different-name",
+          name: "aaa/totally-different-name",
         })
       ).toBeInTheDocument();
+    });
+
+    it("shows favorited projects twice", async () => {
+      const { Component } = RenderFakeToastContext(
+        <MockedProvider mocks={getViewableProjectsMock} addTypename={false}>
+          <ProjectSelect
+            selectedProjectIdentifier="evergreen"
+            getRoute={getProjectSettingsRoute}
+            isProjectSettingsPage
+          />
+        </MockedProvider>
+      );
+      renderWithRouterMatch(<Component />);
+
+      await waitFor(() => {
+        expect(screen.getByDataCy("project-select")).toBeInTheDocument();
+      });
+      expect(screen.queryByDataCy("project-select-options")).toBeNull();
+      userEvent.click(screen.queryByDataCy("project-select"));
+      expect(screen.getByDataCy("project-select-options")).toBeInTheDocument();
+      // Favorited projects should appear twice.
+      expect(screen.getAllByText("logkeeper")).toHaveLength(2);
     });
 
     it("shows disabled projects at the bottom of the list", async () => {
@@ -190,8 +211,6 @@ describe("projectSelect", () => {
 
       const options = await screen.findAllByDataCy("project-display-name");
       expect(options).toHaveLength(5);
-      // Favorited projects should appear twice
-      expect(screen.getAllByText("logkeeper")).toHaveLength(2);
       // Disabled project appears last
       expect(options[4]).toHaveTextContent("evergreen smoke test");
       expect(screen.getByText("Disabled Projects")).toBeInTheDocument();
@@ -257,7 +276,7 @@ const getProjectsMock = [
             ],
           },
           {
-            groupDisplayName: "mongodb/totally-different-name",
+            groupDisplayName: "aaa/totally-different-name",
             projects: [
               {
                 id: "sys-perf",
@@ -359,7 +378,7 @@ const getViewableProjectsMock = [
             ],
           },
           {
-            groupDisplayName: "totally-different-name",
+            groupDisplayName: "aaa/totally-different-name",
             repo: {
               id: "56789",
             },
