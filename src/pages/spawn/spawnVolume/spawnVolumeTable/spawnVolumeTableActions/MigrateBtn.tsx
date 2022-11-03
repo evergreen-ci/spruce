@@ -35,6 +35,7 @@ export const MigrateBtn: React.VFC<Props> = ({ volume }) => {
         ref={triggerRef}
         size={Size.XSmall}
         data-cy={`migrate-btn-${volume.displayName || volume.id}`}
+        disabled={volume.migrating}
         onClick={(e) => {
           e.stopPropagation();
           onHideCue();
