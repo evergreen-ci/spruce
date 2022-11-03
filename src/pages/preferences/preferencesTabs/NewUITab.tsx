@@ -66,7 +66,7 @@ export const NewUITab: React.VFC = () => {
   return (
     <PreferencesCard>
       <PreferenceItem>
-        <StyledToggle
+        <Toggle
           checked={spruceV1}
           disabled={updateLoading}
           onChange={handleOnChangeNewUI}
@@ -80,7 +80,7 @@ export const NewUITab: React.VFC = () => {
         </Label>
       </PreferenceItem>
       <PreferenceItem>
-        <StyledToggle
+        <Toggle
           checked={Cookies.get(DISABLE_QUERY_POLLING) !== "true"}
           onChange={handleOnChangePolling}
           aria-label="Toggle background polling"
@@ -95,14 +95,10 @@ export const NewUITab: React.VFC = () => {
   );
 };
 
-// @ts-expect-error
-const StyledToggle = styled(Toggle)`
-  margin-right: ${size.xs};
-`;
-
 const PreferenceItem = styled.div`
   align-items: center;
   display: flex;
+  gap: ${size.xs};
 
   :not(:last-of-type) {
     margin-bottom: ${size.s};
