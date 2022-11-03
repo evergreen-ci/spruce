@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { size } from "constants/tokens";
-import { MyVolume } from "types/spawn";
+import { TableVolume } from "types/spawn";
 import { DeleteVolumeBtn } from "./spawnVolumeTableActions/DeleteVolumeBtn";
 import { EditButton } from "./spawnVolumeTableActions/EditButton";
 import { MigrateBtn } from "./spawnVolumeTableActions/MigrateBtn";
@@ -8,7 +8,7 @@ import { MountBtn } from "./spawnVolumeTableActions/MountBtn";
 import { UnmountBtn } from "./spawnVolumeTableActions/UnmountBtn";
 
 interface Props {
-  volume: MyVolume;
+  volume: TableVolume;
 }
 
 export const SpawnVolumeTableActions: React.VFC<Props> = ({ volume }) => {

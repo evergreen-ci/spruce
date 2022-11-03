@@ -17,13 +17,13 @@ import {
   UpdateVolumeMutationVariables,
 } from "gql/generated/types";
 import { UPDATE_SPAWN_VOLUME } from "gql/mutations";
-import { MyVolume } from "types/spawn";
+import { TableVolume } from "types/spawn";
 import { getInitialState, reducer } from "./editVolumeModal/reducer";
 
 interface Props {
   visible: boolean;
   onCancel: () => void;
-  volume: MyVolume;
+  volume: TableVolume;
 }
 
 export const EditVolumeModal: React.VFC<Props> = ({

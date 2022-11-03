@@ -1,22 +1,43 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Button, { Size } from "@leafygreen-ui/button";
-import { MyVolume } from "types/spawn";
+import { GuideCue } from "@leafygreen-ui/guide-cue";
+import Cookies from "js-cookie";
+import { SEEN_MIGRATE_GUIDE_CUE } from "constants/cookies";
+import { TableVolume } from "types/spawn";
 import { MigrateVolumeModal } from "./migrateBtn/MigrateVolumeModal";
 
 interface Props {
-  volume: MyVolume;
+  volume: TableVolume;
 }
 
 export const MigrateBtn: React.VFC<Props> = ({ volume }) => {
   const [openModal, setOpenModal] = useState(false);
-
+  const [openGuideCue, setOpenGuideCue] = useState(volume.showMigrateBtnCue);
+  const triggerRef = useRef(null);
+  const onHideCue = () => {
+    Cookies.set(SEEN_MIGRATE_GUIDE_CUE, "true");
+    setOpenGuideCue(false);
+  };
   return (
     <>
+      <GuideCue
+        open={openGuideCue}
+        setOpen={setOpenGuideCue}
+        title="New feature!"
+        refEl={triggerRef}
+        numberOfSteps={1}
+        currentStep={1}
+        onPrimaryButtonClick={onHideCue}
+      >
+        You can now migrate your home volume to a new spawn host!
+      </GuideCue>
       <Button
+        ref={triggerRef}
         size={Size.XSmall}
         data-cy={`migrate-btn-${volume.displayName || volume.id}`}
         onClick={(e) => {
           e.stopPropagation();
+          onHideCue();
           setOpenModal(true);
         }}
       >
