@@ -1,5 +1,6 @@
 import Banner from "@leafygreen-ui/banner";
 import Card from "@leafygreen-ui/card";
+import { Tabs } from "@leafygreen-ui/tabs";
 import { H1, H2, H3, Overline, Subtitle } from "@leafygreen-ui/typography";
 
 export type BannerType = React.ComponentType<
@@ -28,4 +29,8 @@ export type H2Type = React.ComponentType<
 
 export type H3Type = React.ComponentType<
   Omit<React.ComponentProps<typeof H3>, "as">
+>;
+
+export type TabsType = React.ComponentType<
+  Omit<React.ComponentProps<typeof Tabs>, "as">
 >;
