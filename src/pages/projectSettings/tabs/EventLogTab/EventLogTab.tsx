@@ -67,7 +67,6 @@ export const EventLogTab: React.VFC<TabProps> = ({ projectType }) => {
   return (
     <div data-cy="event-log">
       {eventData.map(({ user, timestamp, before, after }) => (
-        /* @ts-expect-error */
         <EventLogCard key={`event_log_${timestamp}`}>
           <EventLogHeader user={user} timestamp={timestamp} />
           <Table
@@ -125,7 +124,6 @@ const EventLogHeader: React.VFC<Props> = ({ user, timestamp }) => {
   );
 };
 
-/* @ts-expect-error */
 const EventLogCard = styled(Card)`
   margin-bottom: ${size.l};
   padding: ${size.m};

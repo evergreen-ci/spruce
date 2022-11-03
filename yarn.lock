@@ -3907,14 +3907,16 @@
     "@leafygreen-ui/ripple" "^1.1.1"
     "@leafygreen-ui/tokens" "^0.5.3"
 
-"@leafygreen-ui/card@5.1.3":
-  version "5.1.3"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/card/-/card-5.1.3.tgz#307c6c1bb42a2f3958fca78becd2226c6735f416"
-  integrity sha512-gm8SVGrUlh96P7kuYoLb1vT4xV5lQV5mFPjIzvsPCI9Fnc+qlt1LqgMT7KVr4PL0Wvjknp93NyzsR6eYlapwlw==
+"@leafygreen-ui/card@8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/card/-/card-8.0.1.tgz#b5d41e8278fbef8dd11059a06829bfb23911fe67"
+  integrity sha512-jcCh7QzJAQ4K90O2kHb3WaP9u+ZUhwiN0Rpczzk70UNZz2jptTk88YfJ4qDk6Oa5LgejSfYe6RLHki8Vmp5CCQ==
   dependencies:
-    "@leafygreen-ui/box" "^3.0.6"
-    "@leafygreen-ui/lib" "^9.0.0"
-    "@leafygreen-ui/palette" "^3.2.2"
+    "@leafygreen-ui/box" "^3.1.1"
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/lib" "^10.0.0"
+    "@leafygreen-ui/palette" "^3.4.4"
+    "@leafygreen-ui/tokens" "^1.3.4"
 
 "@leafygreen-ui/card@^5.1.3":
   version "5.1.4"
@@ -4097,6 +4099,13 @@
   dependencies:
     "@leafygreen-ui/hooks" "^7.0.0"
     "@leafygreen-ui/lib" "^9.0.0"
+
+"@leafygreen-ui/lib@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-10.0.0.tgz#082155cbea1698ea1feb20ebbf9eec8f4b45ddc7"
+  integrity sha512-l9W05IYJ/Bmyu5TayuadlsSR1DTF3W05o8Lk6HQk1qK+1xMLMwrxysbwzI6jKb6wAALU9/1dmw9kLDKE2n+EWg==
+  dependencies:
+    lodash "^4.17.21"
 
 "@leafygreen-ui/lib@^9.0.0":
   version "9.0.0"

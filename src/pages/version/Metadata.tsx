@@ -5,7 +5,7 @@ import {
   MetadataItem,
   MetadataTitle,
 } from "components/MetadataCard";
-import { StyledLink, StyledRouterLink } from "components/styles";
+import { StyledRouterLink } from "components/styles";
 import { getGithubCommitUrl } from "constants/externalResources";
 import {
   getCommitQueueRoute,
@@ -90,41 +90,35 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
       {isPatch ? (
         <MetadataItem>
           Base commit:{" "}
-          <InlineCode>
-            <StyledRouterLink
-              data-cy="patch-base-commit"
-              to={getVersionRoute(baseVersion?.id)}
-              onClick={() => sendEvent({ name: "Click Base Commit Link" })}
-            >
-              {shortenGithash(revision)}
-            </StyledRouterLink>
+          <InlineCode
+            data-cy="patch-base-commit"
+            href={getVersionRoute(baseVersion?.id)}
+            onClick={() => sendEvent({ name: "Click Base Commit Link" })}
+          >
+            {shortenGithash(revision)}
           </InlineCode>
         </MetadataItem>
       ) : (
         <MetadataItem>
           Previous commit:{" "}
-          <InlineCode>
-            <StyledRouterLink
-              data-cy="version-previous-commit"
-              to={getVersionRoute(previousVersion?.id)}
-              onClick={() => sendEvent({ name: "Click Previous Version Link" })}
-            >
-              {shortenGithash(previousVersion?.revision)}
-            </StyledRouterLink>
+          <InlineCode
+            data-cy="version-previous-commit"
+            href={getVersionRoute(previousVersion?.id)}
+            onClick={() => sendEvent({ name: "Click Previous Version Link" })}
+          >
+            {shortenGithash(previousVersion?.revision)}
           </InlineCode>
         </MetadataItem>
       )}
       {!isPatch && (
         <MetadataItem>
           Github Commit:{" "}
-          <InlineCode>
-            <StyledLink
-              data-cy="version-github-commit"
-              href={getGithubCommitUrl(owner, repo, revision)}
-              onClick={() => sendEvent({ name: "Click Github Commit Link" })}
-            >
-              {shortenGithash(revision)}
-            </StyledLink>
+          <InlineCode
+            data-cy="version-github-commit"
+            href={getGithubCommitUrl(owner, repo, revision)}
+            onClick={() => sendEvent({ name: "Click Github Commit Link" })}
+          >
+            {shortenGithash(revision)}
           </InlineCode>
         </MetadataItem>
       )}

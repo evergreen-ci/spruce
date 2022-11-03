@@ -132,43 +132,40 @@ const Card: React.VFC<CardProps> = ({
   selectedMenuItems,
   title,
 }) => (
-  <>
-    {/* @ts-expect-error */}
-    <StyledSiderCard>
-      <Container>
-        <Body weight="medium">{title}</Body>
-        <Divider />
-      </Container>
-      <ScrollableBuildVariantContainer>
-        {menuItems.map(({ displayName, name, taskCount }) => {
-          const isSelected = selectedMenuItems.includes(name);
-          return (
-            <BuildVariant
-              data-cy={dataCy}
-              data-selected={isSelected}
-              key={name}
-              isSelected={isSelected}
-              onClick={onClick(name)}
-            >
-              <VariantName>
-                <Body weight={isSelected ? "medium" : "regular"}>
-                  {displayName}
-                </Body>
-              </VariantName>
-              {taskCount > 0 && (
-                <StyledBadge
-                  data-cy="task-count-badge"
-                  variant={isSelected ? Variant.DarkGray : Variant.LightGray}
-                >
-                  {taskCount}
-                </StyledBadge>
-              )}
-            </BuildVariant>
-          );
-        })}
-      </ScrollableBuildVariantContainer>
-    </StyledSiderCard>
-  </>
+  <StyledSiderCard>
+    <Container>
+      <Body weight="medium">{title}</Body>
+      <Divider />
+    </Container>
+    <ScrollableBuildVariantContainer>
+      {menuItems.map(({ displayName, name, taskCount }) => {
+        const isSelected = selectedMenuItems.includes(name);
+        return (
+          <BuildVariant
+            data-cy={dataCy}
+            data-selected={isSelected}
+            key={name}
+            isSelected={isSelected}
+            onClick={onClick(name)}
+          >
+            <VariantName>
+              <Body weight={isSelected ? "medium" : "regular"}>
+                {displayName}
+              </Body>
+            </VariantName>
+            {taskCount > 0 && (
+              <StyledBadge
+                data-cy="task-count-badge"
+                variant={isSelected ? Variant.DarkGray : Variant.LightGray}
+              >
+                {taskCount}
+              </StyledBadge>
+            )}
+          </BuildVariant>
+        );
+      })}
+    </ScrollableBuildVariantContainer>
+  </StyledSiderCard>
 );
 
 const hotKeys = new Set(["Meta", "Shift", "Control"]);
