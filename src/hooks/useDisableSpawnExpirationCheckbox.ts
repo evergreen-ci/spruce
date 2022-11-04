@@ -6,7 +6,6 @@ import {
   MyVolumesQueryVariables,
 } from "gql/generated/types";
 import { GET_MY_HOSTS, GET_MY_VOLUMES } from "gql/queries";
-import { MyHost, MyVolume } from "types/spawn";
 import { useSpruceConfig } from "./useSpruceConfig";
 
 type ListItem =
@@ -19,7 +18,7 @@ const countNoExpirationCB = (accum: number, currItem: ListItem) =>
 
 export const useDisableSpawnExpirationCheckbox = (
   isVolume: boolean,
-  targetItem?: MyVolume | MyHost // Target item represents a host or volume being edited.
+  targetItem?: { noExpiration?: boolean } // Target item represents a host or volume being edited.
 ) => {
   const { data: MyHostsData } = useQuery<MyHostsQuery, MyHostsQueryVariables>(
     GET_MY_HOSTS

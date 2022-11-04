@@ -7,7 +7,7 @@ import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHea
 import FilterBadges, {
   useFilterBadgeQueryParams,
 } from "components/FilterBadges";
-import { ProjectSelect } from "components/projectSelect";
+import { ProjectSelect } from "components/ProjectSelect";
 import { PageWrapper } from "components/styles";
 import { ALL_VALUE } from "components/TreeSelect";
 import TupleSelect from "components/TupleSelect";
