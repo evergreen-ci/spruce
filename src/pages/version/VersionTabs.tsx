@@ -72,7 +72,7 @@ const tabMap = ({ taskCount, childPatches, numFailedChildPatches }) => ({
     </Tab>
   ),
 });
-export const Tabs: React.VFC<Props> = ({
+export const VersionTabs: React.VFC<Props> = ({
   taskCount,
   childPatches,
   isPatch,
