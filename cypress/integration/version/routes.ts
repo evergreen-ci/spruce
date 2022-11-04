@@ -60,7 +60,7 @@ describe("Version route", () => {
     });
 
     it("Lists the patch's build variants", () => {
-      cy.dataCy("direct-build-variants").within(() => {
+      cy.dataCy("build-variants").within(() => {
         cy.dataCy("patch-build-variant").within(
           // @ts-expect-error
           ($variants) => Array.from($variants).length > 0
@@ -70,7 +70,7 @@ describe("Version route", () => {
 
     describe("Grouped Task Status Badge", () => {
       it("Shows tooltip with task's name on hover", () => {
-        cy.dataCy("direct-build-variants").within(() => {
+        cy.dataCy("build-variants").within(() => {
           cy.dataCy("grouped-task-status-badge")
             .first()
             .trigger("mouseover")
@@ -89,7 +89,7 @@ describe("Version route", () => {
           .and("equal", "false");
 
         // clicking on task status badge should move to the task tab
-        cy.dataCy("direct-build-variants").within(() => {
+        cy.dataCy("build-variants").within(() => {
           cy.dataCy("grouped-task-status-badge").first().click();
         });
         cy.dataCy("task-tab")
@@ -125,7 +125,7 @@ describe("Version route", () => {
           .type("{enter}");
 
         // name filter shouldn't be applied after clicking task status badge
-        cy.dataCy("direct-build-variants").within(() => {
+        cy.dataCy("build-variants").within(() => {
           cy.dataCy("grouped-task-status-badge").first().click();
         });
         cy.location("search").should(
@@ -180,102 +180,6 @@ describe("Version route", () => {
         cy.location("search").should(
           "include",
           "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&variant=%5Eubuntu1604%24"
-        );
-      });
-    });
-  });
-
-  describe("Downstream Build Variants", () => {
-    describe("Grouped Task Status Badge", () => {
-      before(() => {
-        cy.visit(versionRoute(versions[7]));
-      });
-
-      it("navigates to downstream tab when clicking grouped task status badge", () => {
-        cy.dataCy("downstream-build-variants").within(() => {
-          cy.dataCy("grouped-task-status-badge").first().click();
-        });
-        cy.dataCy("downstream-tasks-tab")
-          .should("have.attr", "aria-selected")
-          .and("equal", "true");
-        cy.location("pathname").should(
-          "equal",
-          "/version/5f74d99ab2373627c047c5e5/downstream-tasks"
-        );
-      });
-
-      it("preserves other query params when clicking on grouped task status badge", () => {
-        cy.dataCy("task-tab").first().click();
-        cy.dataCy("task-tab")
-          .should("have.attr", "aria-selected")
-          .and("equal", "true");
-
-        // Apply name filter
-        cy.toggleTableFilter(1);
-        cy.dataCy("taskname-input-wrapper")
-          .find("input")
-          .focus()
-          .type("a-task-name")
-          .type("{enter}");
-
-        // name filter should still be applied after clicking task status badge
-        cy.dataCy("downstream-build-variants").within(() => {
-          cy.dataCy("grouped-task-status-badge").first().click();
-        });
-        cy.location("pathname").should(
-          "equal",
-          "/version/5f74d99ab2373627c047c5e5/downstream-tasks"
-        );
-        cy.location("search").should(
-          "equal",
-          "?page=0&sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&taskName=a-task-name"
-        );
-      });
-    });
-
-    describe("Build Variant Name", () => {
-      before(() => {
-        cy.visit(versionRoute(versions[7]));
-      });
-
-      it("navigates to downstream tabs when clicking on build variant name", () => {
-        cy.dataCy("downstream-build-variants").within(() => {
-          cy.dataCy("build-variant-display-name").first().click();
-        });
-        cy.dataCy("downstream-tasks-tab")
-          .should("have.attr", "aria-selected")
-          .and("equal", "true");
-        cy.location("pathname").should(
-          "equal",
-          "/version/5f74d99ab2373627c047c5e5/downstream-tasks"
-        );
-      });
-
-      it("preserves other query params when clicking on build variant name", () => {
-        cy.dataCy("task-tab").first().click();
-        cy.dataCy("task-tab")
-          .should("have.attr", "aria-selected")
-          .and("equal", "true");
-
-        // Apply name filter
-        cy.toggleTableFilter(1);
-        cy.dataCy("taskname-input-wrapper")
-          .find("input")
-          .focus()
-          .type("a-task-name")
-          .type("{enter}");
-
-        // name filter should still be applied after clicking build variant name
-        cy.dataCy("downstream-build-variants").within(() => {
-          cy.dataCy("build-variant-display-name").first().click();
-        });
-        cy.location("pathname").should(
-          "equal",
-          "/version/5f74d99ab2373627c047c5e5/downstream-tasks"
-        );
-        cy.location("search").should(
-          "equal",
-          "?page=0&sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&taskName=a-task-name"
         );
       });
     });

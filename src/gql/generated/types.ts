@@ -3842,21 +3842,6 @@ export type GetBuildVariantStatsQuery = {
         statusCounts: Array<{ count: number; status: string }>;
       }>
     >;
-    childVersions?: Maybe<
-      Array<
-        Maybe<{
-          id: string;
-          projectIdentifier: string;
-          buildVariantStats?: Maybe<
-            Array<{
-              variant: string;
-              displayName: string;
-              statusCounts: Array<{ count: number; status: string }>;
-            }>
-          >;
-        }>
-      >
-    >;
   };
 };
 

@@ -17,7 +17,6 @@ import {
 } from "gql/generated/types";
 import { GET_BUILD_VARIANTS_STATS } from "gql/queries";
 import { usePolling } from "hooks";
-import { PatchTab } from "types/patch";
 import { queryString, string, statuses } from "utils";
 
 const { groupStatusesByUmbrellaStatus } = statuses;
@@ -36,7 +35,6 @@ export const BuildVariants: React.VFC = () => {
   });
   usePolling(startPolling, stopPolling, refetch);
   const { version } = data || {};
-  const { childVersions } = version || {};
 
   return (
     <>
@@ -46,7 +44,7 @@ export const BuildVariants: React.VFC = () => {
         <Divider />
         {error && <div>{error.message}</div>}
         {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
-        <div data-cy="direct-build-variants">
+        <div data-cy="build-variants">
           {version?.buildVariantStats?.map(
             ({ displayName, statusCounts, variant }) => (
               <VariantTaskGroup
@@ -59,35 +57,10 @@ export const BuildVariants: React.VFC = () => {
             )
           )}
         </div>
-
-        {childVersions && (
-          <DownstreamVariantsContainer data-cy="downstream-build-variants">
-            <H3>Downstream Build Variants</H3>
-            <Divider />
-            {childVersions.map((c) =>
-              c.buildVariantStats?.map(
-                ({ displayName, statusCounts, variant }) => (
-                  <VariantTaskGroup
-                    key={`downstream_buildVariant_${displayName}_${variant}`}
-                    displayName={`${displayName} (spruce)`}
-                    statusCounts={statusCounts}
-                    variant={variant}
-                    versionId={id}
-                    isDownstream
-                  />
-                )
-              )
-            )}
-          </DownstreamVariantsContainer>
-        )}
       </SiderCard>
     </>
   );
 };
-
-const DownstreamVariantsContainer = styled.div`
-  margin-top: ${size.m};
-`;
 
 interface VariantTaskGroupProps {
   displayName: string;
@@ -101,20 +74,16 @@ const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
   statusCounts,
   variant,
   versionId,
-  isDownstream = false,
 }) => {
   const { sendEvent } = useVersionAnalytics(versionId);
   const { search } = useLocation();
   const queryParams = parseQueryString(search);
 
-  const versionRouteParams = isDownstream
-    ? { tab: PatchTab.DownstreamTasks, ...queryParams }
-    : {
-        tab: PatchTab.Tasks,
-        sorts: queryParams.sorts,
-        page: 0,
-        variant: applyStrictRegex(variant),
-      };
+  const versionRouteParams = {
+    sorts: queryParams.sorts,
+    page: 0,
+    variant: applyStrictRegex(variant),
+  };
 
   const callBack = (taskSquareStatuses: string[]) => () => {
     sendEvent({

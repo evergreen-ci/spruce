@@ -9,7 +9,6 @@ import {
   mapUmbrellaStatusToQueryParam,
 } from "constants/task";
 import { fontSize, size, zIndex } from "constants/tokens";
-import { PatchTab } from "types/patch";
 import { TaskStatus } from "types/task";
 
 interface GroupedTaskStatusBadgeProps {
@@ -31,9 +30,7 @@ export const GroupedTaskStatusBadge: React.VFC<GroupedTaskStatusBadgeProps> = ({
 }) => {
   const href = getVersionRoute(versionId, {
     ...queryParamsToPreserve,
-    ...(queryParamsToPreserve.tab !== PatchTab.DownstreamTasks && {
-      statuses: mapUmbrellaStatusToQueryParam[status],
-    }),
+    statuses: mapUmbrellaStatusToQueryParam[status],
   });
 
   const { fill, border, text } = mapUmbrellaStatusColors[status];
