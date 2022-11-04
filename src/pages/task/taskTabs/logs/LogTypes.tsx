@@ -2,14 +2,16 @@ import { useQuery, ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { uiColors } from "@leafygreen-ui/palette";
-import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
+import {
+  SegmentedControl,
+  SegmentedControlOption,
+} from "@leafygreen-ui/segmented-control";
 import { Skeleton } from "antd";
 import get from "lodash/get";
 import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { size, fontSize } from "constants/tokens";
-
 import {
   TaskEventLogsQuery,
   TaskEventLogsQueryVariables,
@@ -192,8 +194,8 @@ const useRenderBody: React.VFC<{
   const taskAnalytics = useTaskAnalytics();
   const updateQueryParams = useUpdateURLQueryParams();
   const noLogs = !!((error && !data) || !data.length);
-  const onChangeLog = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const nextLogType = event.target.value as LogTypes;
+  const onChangeLog = (value: string): void => {
+    const nextLogType = value as LogTypes;
     updateQueryParams({ [QueryParams.LogType]: nextLogType });
     taskAnalytics.sendEvent({
       name: "Select Logs Type",
@@ -228,12 +230,51 @@ const useRenderBody: React.VFC<{
 
   return (
     <>
-      <StyledRadioGroup
-        size="default"
-        onChange={onChangeLog}
-        value={currentLog}
-        name="log-select"
-      >
+      <LogHeader>
+        <SegmentedControl
+          aria-controls="Select a log type"
+          name="log-select"
+          onChange={onChangeLog}
+          value={currentLog}
+          label="Log Tail"
+        >
+          <SegmentedControlOption
+            data-cy="task-option"
+            id="cy-task-option"
+            value={LogTypes.Task}
+          >
+            Task Logs
+          </SegmentedControlOption>
+          <SegmentedControlOption
+            data-cy="agent-option"
+            id="cy-agent-option"
+            value={LogTypes.Agent}
+          >
+            Agent Logs
+          </SegmentedControlOption>
+          <SegmentedControlOption
+            data-cy="system-option"
+            id="cy-system-option"
+            value={LogTypes.System}
+          >
+            System Logs
+          </SegmentedControlOption>
+          <SegmentedControlOption
+            data-cy="event-option"
+            id="cy-event-option"
+            value={LogTypes.Event}
+          >
+            Event Logs
+          </SegmentedControlOption>
+          <SegmentedControlOption
+            data-cy="all-option"
+            id="cy-all-option"
+            value={LogTypes.All}
+          >
+            All Logs
+          </SegmentedControlOption>
+        </SegmentedControl>
+
         {(htmlLink || rawLink || lobsterLink) && (
           <ButtonContainer>
             {rawLink && (
@@ -277,49 +318,23 @@ const useRenderBody: React.VFC<{
             )}
           </ButtonContainer>
         )}
-        <Radio data-cy="task-radio" id="cy-task-radio" value={LogTypes.Task}>
-          Task Logs
-        </Radio>
-        <Radio data-cy="agent-radio" id="cy-agent-radio" value={LogTypes.Agent}>
-          Agent Logs
-        </Radio>
-        <Radio
-          data-cy="system-radio"
-          id="cy-system-radio"
-          value={LogTypes.System}
-        >
-          System Logs
-        </Radio>
-        <Radio data-cy="event-radio" id="cy-event-radio" value={LogTypes.Event}>
-          Event Logs
-        </Radio>
-        <Radio data-cy="all-radio" id="cy-all-radio" value={LogTypes.All}>
-          All Logs
-        </Radio>
-      </StyledRadioGroup>
+      </LogHeader>
       {body}
     </>
   );
 };
 
-const ButtonContainer = styled.div`
-  display: flex;
-  > :not(:last-child) {
-    margin-right: ${size.xs};
-  }
-  margin-right: ${size.s};
-  padding-left: 1px;
-`;
-
-// @ts-expect-error
-const StyledRadioGroup = styled(RadioGroup)`
+const LogHeader = styled.div`
   display: flex;
   align-items: center;
-  white-space: nowrap;
-  label {
-    margin-right: ${size.s};
-  }
-  padding-bottom: ${size.xs};
+  justify-content: space-between;
+  margin-bottom: ${size.s};
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: ${size.xs};
+  margin-right: ${size.xxs};
 `;
 
 const StyledPre = styled.pre`
