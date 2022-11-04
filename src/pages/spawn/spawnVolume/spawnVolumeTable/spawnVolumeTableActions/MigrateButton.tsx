@@ -4,13 +4,13 @@ import { GuideCue } from "@leafygreen-ui/guide-cue";
 import Cookies from "js-cookie";
 import { SEEN_MIGRATE_GUIDE_CUE } from "constants/cookies";
 import { TableVolume } from "types/spawn";
-import { MigrateVolumeModal } from "./migrateBtn/MigrateVolumeModal";
+import { MigrateVolumeModal } from "./migrateButton/MigrateVolumeModal";
 
 interface Props {
   volume: TableVolume;
 }
 
-export const MigrateBtn: React.VFC<Props> = ({ volume }) => {
+export const MigrateButton: React.VFC<Props> = ({ volume }) => {
   const [openModal, setOpenModal] = useState(false);
   const [openGuideCue, setOpenGuideCue] = useState(volume.showMigrateBtnCue);
   const triggerRef = useRef(null);

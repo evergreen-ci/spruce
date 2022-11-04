@@ -7,7 +7,7 @@ interface Props {
   volume: TableVolume;
 }
 
-export const MountBtn: React.VFC<Props> = ({ volume }) => {
+export const MountButton: React.VFC<Props> = ({ volume }) => {
   const [openModal, setOpenModal] = useState(false);
 
   return (
