@@ -26,7 +26,7 @@ export function reducer(state: State, action: Action): State {
     case "resetForm":
       return { ...state, form: {} };
     default:
-      throw new Error();
+      throw new Error(`Unknown reducer action ${action}`);
   }
 }
 
