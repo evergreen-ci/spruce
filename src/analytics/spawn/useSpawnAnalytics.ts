@@ -21,6 +21,7 @@ type Action =
   | { name: "Edited a Spawn Host"; params: EditSpawnHostMutationVariables }
   | {
       name: "Spawned a host";
+      isMigration: boolean;
       params: Omit<
         SpawnHostMutationVariables["SpawnHostInput"],
         "publicKey" | "userDataScript" | "setUpScript"
