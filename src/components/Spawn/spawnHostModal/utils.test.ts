@@ -8,7 +8,7 @@ describe("validateSpawnHostForm", () => {
   it("an empty form will return false", () => {
     expect(validateSpawnHostForm({})).toBe(false);
   });
-  it("a home volume name or size must be provided after selecting a virtual workstation distro", () => {
+  it("a home volume name or size must be provided after selecting a virtual workstation distro when not migrating a volume", () => {
     expect(validateSpawnHostForm(validVirtualWorkstationForm)).toBe(true);
     expect(
       validateSpawnHostForm({
@@ -27,6 +27,35 @@ describe("validateSpawnHostForm", () => {
         ...validVirtualWorkstationForm,
         homeVolumeDetails: { selectExistingVolume: false, volumeSize: 1 },
       })
+    ).toBe(true);
+  });
+  it("home volume inputs are not required when migrating a volume", () => {
+    expect(
+      validateSpawnHostForm(
+        {
+          ...validVirtualWorkstationForm,
+          homeVolumeDetails: { selectExistingVolume: true, volumeSelect: "" },
+        },
+        true
+      )
+    ).toBe(true);
+    expect(
+      validateSpawnHostForm(
+        {
+          ...validVirtualWorkstationForm,
+          homeVolumeDetails: { selectExistingVolume: false, volumeSize: 0 },
+        },
+        true
+      )
+    ).toBe(true);
+    expect(
+      validateSpawnHostForm(
+        {
+          ...validVirtualWorkstationForm,
+          homeVolumeDetails: { selectExistingVolume: false, volumeSize: 1 },
+        },
+        true
+      )
     ).toBe(true);
   });
   it("an empty distro will not pass validation", () => {

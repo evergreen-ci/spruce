@@ -22,7 +22,7 @@ const ascendingSortSpawnHostOrderByExpiration = [
 
 const hostTaskId =
   "evergreen_ubuntu1604_dist_patch_33016573166a36bd5f46b4111151899d5c4e95b1_5ecedafb562343215a7ff297_20_05_27_21_39_46";
-const distroId = "ubuntu1604-small";
+const distroId = "windows-64-vs2015-small";
 
 describe("Navigating to Spawn Host page", () => {
   it("Visiting the spawn host page should display all of your spawned hosts", () => {
@@ -131,7 +131,7 @@ describe("Navigating to Spawn Host page", () => {
         cy.location().should(({ search }) => {
           expect(search).to.include("spawnHost=True");
         });
-        cy.dataCy("cancel-button").click();
+        cy.dataCy("spawn-host-modal").contains("Cancel").click();
         cy.location().should(({ search }) => {
           expect(search).to.not.include("spawnHost");
         });
@@ -172,9 +172,7 @@ describe("Navigating to Spawn Host page", () => {
           `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`
         );
         cy.dataCy("spawn-host-modal").should("be.visible");
-        cy.dataCy("distro-input")
-          .dataCy("dropdown-value")
-          .contains("ubuntu1604-small");
+        cy.dataCy("distro-input").dataCy("dropdown-value").contains(distroId);
       });
       it("The virtual workstation dropdown should filter any volumes that aren't a home volume", () => {
         cy.dataCy("distro-input").click();

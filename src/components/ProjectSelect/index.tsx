@@ -65,18 +65,25 @@ export const ProjectSelect: React.VFC<ProjectSelectProps> = ({
 
   const handleSearch = (options: typeof allProjects, value: string) => {
     // iterate through options and remove any groups that have no matching projects
-    const filteredProjects = options.reduce((fp, g) => {
-      const { groupDisplayName, projects: pg } = g;
+    const filteredProjects = options.reduce((acc, g) => {
+      // @ts-expect-error
+      const { groupDisplayName, projects: pg, repo } = g;
+
       const newProjects = pg.filter(
         (p) =>
+          groupDisplayName.toLowerCase().includes(value.toLowerCase()) ||
           p.displayName.toLowerCase().includes(value.toLowerCase()) ||
           p.identifier.toLowerCase().includes(value.toLowerCase())
       );
       if (newProjects.length > 0) {
-        fp.push({ groupDisplayName, projects: newProjects });
+        acc.push({
+          groupDisplayName,
+          projects: newProjects,
+          ...(repo && { repo }),
+        });
       }
-      return fp;
-    }, [] as GetProjectsQuery["projects"]);
+      return acc;
+    }, [] as typeof allProjects);
     return filteredProjects;
   };
 
