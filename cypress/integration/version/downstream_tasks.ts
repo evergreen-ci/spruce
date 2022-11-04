@@ -15,7 +15,7 @@ describe("Downstream Tasks Tab", () => {
     cy.dataCy("project-accordion").should("have.length", 3);
     cy.dataCy("project-title").should("have.length", 3);
     // No patches failed, so no tables should be showing.
-    cy.dataCy("tasks-table").should("not.exist");
+    cy.dataCy("tasks-table").should("not.be.visible");
   });
 
   it("links to base commit", () => {
