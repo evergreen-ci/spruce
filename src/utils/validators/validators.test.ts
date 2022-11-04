@@ -5,6 +5,7 @@ import {
   validateJiraURL,
   validateJira,
   validateURL,
+  validateSlack,
 } from ".";
 
 describe("validateObjectId", () => {
@@ -108,5 +109,14 @@ describe("validateURL", () => {
 
     expect(validateURL("ww.fake.org")).toBeFalsy();
     expect(validateURL("bad.org")).toBeFalsy();
+  });
+});
+
+describe("validateSlack", () => {
+  it("validates slack targets", () => {
+    expect(validateSlack("@user")).toBeTruthy();
+    expect(validateSlack("#channel")).toBeTruthy();
+    expect(validateSlack("BWQLY36TP")).toBeTruthy();
+    expect(validateSlack("hello there")).toBeFalsy();
   });
 });
