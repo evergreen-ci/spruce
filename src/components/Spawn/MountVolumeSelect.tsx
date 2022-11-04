@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import { Select } from "antd";
 import { ModalContent } from "components/Spawn";
 import { InputLabel } from "components/styles";
-import { pollInterval } from "constants/index";
+import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { useToastContext } from "context/toast";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { GET_MY_HOSTS } from "gql/queries";
@@ -37,12 +37,12 @@ export const MountVolumeSelect = ({
     MyHostsQuery,
     MyHostsQueryVariables
   >(GET_MY_HOSTS, {
-    pollInterval,
+    pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (e) => {
       dispatchToast.error(`There was an error loading hosts: ${e.message}`);
     },
   });
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
 
   // set host dropdown options
   useEffect(() => {

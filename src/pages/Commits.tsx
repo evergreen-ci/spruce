@@ -13,7 +13,7 @@ import { ALL_VALUE } from "components/TreeSelect";
 import TupleSelect from "components/TupleSelect";
 import WelcomeModal from "components/WelcomeModal";
 import { CURRENT_PROJECT } from "constants/cookies";
-import { pollInterval } from "constants/index";
+import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { getCommitsRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { newMainlineCommitsUser } from "constants/welcomeModalProps";
@@ -115,11 +115,11 @@ export const Commits = () => {
   >(GET_MAINLINE_COMMITS, {
     skip: !projectId,
     variables,
-    pollInterval,
+    pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (e) =>
       dispatchToast.error(`There was an error loading the page: ${e.message}`),
   });
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
 
   const { mainlineCommits } = data || {};
   const { versions, nextPageOrderNumber, prevPageOrderNumber } =
