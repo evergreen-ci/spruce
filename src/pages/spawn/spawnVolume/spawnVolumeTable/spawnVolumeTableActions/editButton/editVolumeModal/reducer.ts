@@ -1,5 +1,5 @@
 import { UpdateVolumeMutationVariables } from "gql/generated/types";
-import { MyVolume } from "types/spawn";
+import { TableVolume } from "types/spawn";
 
 type Action =
   | { type: "editExpiration"; expiration?: Date; noExpiration?: boolean }
@@ -9,7 +9,7 @@ type Action =
       volume: UpdateVolumeMutationVariables["UpdateVolumeInput"];
     };
 
-export const getInitialState = (volume: MyVolume) => ({
+export const getInitialState = (volume: TableVolume) => ({
   expiration: new Date(volume.expiration),
   volumeId: volume.id,
   noExpiration: volume.noExpiration,
