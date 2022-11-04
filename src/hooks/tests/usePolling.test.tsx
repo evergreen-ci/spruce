@@ -2,6 +2,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import { fireEvent } from "@testing-library/react";
 import { renderHook, act } from "@testing-library/react-hooks/dom";
 import Cookie from "js-cookie";
+import { FASTER_POLL_INTERVAL, DEFAULT_POLL_INTERVAL } from "constants/index";
 import { GET_USER } from "gql/queries";
 import { usePolling } from "hooks";
 
@@ -28,7 +29,7 @@ describe("usePolling", () => {
     const stopPolling = jest.fn();
     const refetch = jest.fn();
     const { result, waitForNextUpdate } = renderHook(
-      () => usePolling(startPolling, stopPolling, refetch),
+      () => usePolling({ startPolling, stopPolling, refetch }),
       {
         wrapper: Provider,
       }
@@ -47,18 +48,34 @@ describe("usePolling", () => {
       const {
         result: disabledResult,
         waitForNextUpdate: disabledWaitForNextUpdate,
-      } = renderHook(() => usePolling(undefined, undefined, undefined, false), {
-        wrapper: Provider,
-      });
+      } = renderHook(
+        () =>
+          usePolling({
+            shouldPollFaster: false,
+            startPolling: undefined,
+            stopPolling: undefined,
+          }),
+        {
+          wrapper: Provider,
+        }
+      );
       await disabledWaitForNextUpdate();
       expect(disabledResult.current).toBe(false);
 
       const {
         result: enabledResult,
         waitForNextUpdate: enabledWaitForNextUpdate,
-      } = renderHook(() => usePolling(undefined, undefined, undefined, true), {
-        wrapper: Provider,
-      });
+      } = renderHook(
+        () =>
+          usePolling({
+            shouldPollFaster: true,
+            startPolling: undefined,
+            stopPolling: undefined,
+          }),
+        {
+          wrapper: Provider,
+        }
+      );
       await enabledWaitForNextUpdate();
       expect(enabledResult.current).toBe(false);
     });
@@ -67,16 +84,22 @@ describe("usePolling", () => {
       const startPolling = jest.fn();
       const stopPolling = jest.fn();
       mockedGet.mockImplementation(() => "true");
-
-      const { waitForNextUpdate } = renderHook(
-        () => usePolling(startPolling, stopPolling, undefined),
+      let shouldPollFaster = true;
+      const { waitForNextUpdate, rerender } = renderHook(
+        () =>
+          usePolling({
+            startPolling,
+            stopPolling,
+            shouldPollFaster,
+          }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();
 
       // go offline
       fireEvent(window, new Event("offline"));
-
+      shouldPollFaster = false;
+      rerender();
       // go online
       fireEvent(window, new Event("online"));
 
@@ -87,7 +110,8 @@ describe("usePolling", () => {
         });
       });
       fireEvent(document, new Event("visibilitychange"));
-
+      shouldPollFaster = true;
+      rerender();
       // document visible
       act(() => {
         Object.defineProperty(document, "visibilityState", {
@@ -107,7 +131,7 @@ describe("usePolling", () => {
       const stopPolling = jest.fn();
 
       const { result, waitForNextUpdate } = renderHook(
-        () => usePolling(startPolling, stopPolling),
+        () => usePolling({ startPolling, stopPolling }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();
@@ -124,7 +148,7 @@ describe("usePolling", () => {
       const stopPolling = jest.fn();
 
       const { result, waitForNextUpdate } = renderHook(
-        () => usePolling(startPolling, stopPolling),
+        () => usePolling({ startPolling, stopPolling }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();
@@ -147,7 +171,7 @@ describe("usePolling", () => {
       const stopPolling = jest.fn();
 
       const { result, waitForNextUpdate } = renderHook(
-        () => usePolling(startPolling, stopPolling),
+        () => usePolling({ startPolling, stopPolling }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();
@@ -177,7 +201,7 @@ describe("usePolling", () => {
       const stopPolling = jest.fn();
 
       const { result, waitForNextUpdate } = renderHook(
-        () => usePolling(startPolling, stopPolling),
+        () => usePolling({ startPolling, stopPolling }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();
@@ -208,7 +232,7 @@ describe("usePolling", () => {
       const stopPolling = jest.fn();
 
       const { result, waitForNextUpdate } = renderHook(
-        () => usePolling(startPolling, stopPolling),
+        () => usePolling({ startPolling, stopPolling }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();
@@ -250,6 +274,28 @@ describe("usePolling", () => {
     });
   });
 
+  describe("shouldPollFaster", () => {
+    it("calls startPolling with a fast poll rate when shouldPollFaster is enabled and should use the default poll rate when it is disabled", async () => {
+      const startPolling = jest.fn();
+      let shouldPollFaster = true;
+      const { rerender } = renderHook(
+        () =>
+          usePolling({
+            startPolling,
+            stopPolling: undefined,
+            shouldPollFaster,
+          }),
+        { wrapper: Provider }
+      );
+      expect(startPolling).toHaveBeenCalledTimes(1);
+      expect(startPolling).toHaveBeenLastCalledWith(FASTER_POLL_INTERVAL);
+      shouldPollFaster = false;
+      rerender();
+      expect(startPolling).toHaveBeenCalledTimes(2);
+      expect(startPolling).toHaveBeenLastCalledWith(DEFAULT_POLL_INTERVAL);
+    });
+  });
+
   describe("refetch", () => {
     it("usePolling calls refetch function when starting to poll again", async () => {
       const startPolling = jest.fn();
@@ -257,7 +303,7 @@ describe("usePolling", () => {
       const refetch = jest.fn();
 
       const { waitForNextUpdate } = renderHook(
-        () => usePolling(startPolling, stopPolling, refetch),
+        () => usePolling({ startPolling, stopPolling, refetch }),
         { wrapper: Provider }
       );
       await waitForNextUpdate();

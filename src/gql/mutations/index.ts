@@ -17,6 +17,7 @@ import EDIT_SPAWN_HOST from "./edit-spawn-host.graphql";
 import ENQUEUE_PATCH from "./enqueue-patch.graphql";
 import FILE_JIRA_TICKET from "./file-jira-ticket.graphql";
 import FORCE_REPOTRACKER_RUN from "./force-repotracker-run.graphql";
+import MIGRATE_VOLUME from "./migrate-volume.graphql";
 import MOVE_ANNOTATION from "./move-annotation.graphql";
 import OVERRIDE_TASK_DEPENDENCIES from "./override-task-dependencies.graphql";
 import PROMOTE_VARS_TO_REPO from "./promote-vars-to-repo.graphql";
@@ -96,4 +97,5 @@ export {
   UPDATE_SPAWN_HOST_STATUS,
   UPDATE_SPAWN_VOLUME,
   UPDATE_USER_SETTINGS,
+  MIGRATE_VOLUME,
 };

@@ -9,10 +9,10 @@ import { size } from "constants/tokens";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { GET_MY_HOSTS } from "gql/queries";
 import { useSpruceConfig, useUpdateURLQueryParams } from "hooks";
-import { SpawnHostModal } from "pages/spawn/spawnHost/SpawnHostModal";
 import { HostStatus } from "types/host";
 import { queryString } from "utils";
 import { QueryParams } from "../types";
+import { SpawnHostModal } from "./spawnHostButton/SpawnHostModal";
 
 const { parseQueryString } = queryString;
 
@@ -66,7 +66,7 @@ export const SpawnHostButton: React.VFC = () => {
       >
         {`You have reached the maximum number of hosts (${maxHosts}). Delete some hosts to spawn more.`}
       </Tooltip>
-      <SpawnHostModal open={openModal} setOpen={setOpenModal} />
+      {openModal && <SpawnHostModal open={openModal} setOpen={setOpenModal} />}
     </PaddedContainer>
   );
 };
