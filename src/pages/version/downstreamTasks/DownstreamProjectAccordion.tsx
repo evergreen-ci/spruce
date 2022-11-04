@@ -31,6 +31,7 @@ import {
 } from "gql/generated/types";
 import { GET_VERSION_TASKS } from "gql/queries";
 import { usePolling, useTaskStatuses } from "hooks";
+import { PatchStatus } from "types/patch";
 import { queryString, string } from "utils";
 import { reducer } from "./reducer";
 
@@ -171,7 +172,11 @@ export const DownstreamProjectAccordion: React.VFC<
 
   return (
     <AccordionWrapper data-cy="project-accordion">
-      <Accordion title={variantTitle} titleTag={FlexContainer}>
+      <Accordion
+        defaultOpen={status === PatchStatus.Failed}
+        title={variantTitle}
+        titleTag={FlexContainer}
+      >
         <AccordionContents>
           <p>
             Base commit:{" "}

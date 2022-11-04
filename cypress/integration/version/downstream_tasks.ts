@@ -13,13 +13,21 @@ describe("Downstream Tasks Tab", () => {
 
   it("shows the child patches", () => {
     cy.dataCy("project-accordion").should("have.length", 3);
-    cy.dataCy("accordion-toggle").should("be.visible");
-    cy.dataCy("accordion-toggle").first().click();
-    cy.dataCy("tasks-table").should("be.visible");
-    cy.dataCy("project-title").should("be.visible");
+    cy.dataCy("project-title").should("have.length", 3);
+  });
+
+  it("opens failed child patches by default", () => {
+    cy.dataCy("project-accordion")
+      .eq(1)
+      .within(() => {
+        cy.dataCy("tasks-table").should("be.visible");
+      });
   });
 
   it("links to base commit", () => {
+    cy.dataCy("accordion-toggle").eq(1).click();
+    cy.dataCy("accordion-toggle").eq(0).click();
+
     cy.dataCy("downstream-task-base-commit")
       .should("have.attr", "href")
       .and(

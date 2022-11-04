@@ -6,7 +6,6 @@ const versions = {
   4: "5e94c2dfe3c3312519b59480", // unactivated patch on commit queue
   5: "evergreen_33016573166a36bd5f46b4111151899d5c4e95b1", // basecommit for versions[0]
   6: "5e4ff3abe3c3317e352062e4",
-  7: "5f74d99ab2373627c047c5e5", // patch with downstream tasks
 };
 
 const versionRoute = (id: string) => `/version/${id}`;

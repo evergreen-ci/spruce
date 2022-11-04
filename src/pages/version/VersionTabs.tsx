@@ -51,18 +51,16 @@ const tabMap = ({ taskCount, childPatches, numFailedChildPatches }) => ({
   [PatchTab.DownstreamTasks]: (
     <Tab
       name={
-        <span>
-          {numFailedChildPatches ? (
-            <TabLabelWithBadge
-              tabLabel="Downstream Tasks"
-              badgeVariant="red"
-              badgeText={numFailedChildPatches}
-              dataCyBadge="downstream-tasks-tab-badge"
-            />
-          ) : (
-            "Downstream Tasks"
-          )}
-        </span>
+        numFailedChildPatches ? (
+          <TabLabelWithBadge
+            badgeText={numFailedChildPatches}
+            badgeVariant="red"
+            dataCyBadge="downstream-tasks-tab-badge"
+            tabLabel="Downstream Tasks"
+          />
+        ) : (
+          "Downstream Tasks"
+        )
       }
       id="downstream-tab"
       data-cy="downstream-tasks-tab"
