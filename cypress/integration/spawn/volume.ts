@@ -201,14 +201,9 @@ describe("Navigating to Spawn Volume page", () => {
       cy.dataCy(
         "migrate-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
       ).click();
-      cy.get("[role=dialog]")
-        .contains("You can now migrate your home volume to a new spawn host!")
-        .should("not.exist");
-      cy.visit("/spawn/volume");
       cy.get("[role=dialog]").should("not.exist");
-      cy.contains(
-        "You can now migrate your home volume to a new spawn host!"
-      ).should("not.exist");
+      cy.reload();
+      cy.get("[role=dialog]").should("not.exist");
     });
     it("will persistently not show the guide cue after the guide cue 'Got it' button has been clicked", () => {
       cy.get("[role=dialog]").contains(
