@@ -184,7 +184,6 @@ describe("Navigating to Spawn Volume page", () => {
   });
 
   describe("Migrate Modal", () => {
-    const cueCopy = "You can now migrate your home volume to a new spawn host!";
     beforeEach(() => {
       cy.setCookie("seen-migrate-guide-cue", "false");
       cy.visit("/spawn/volume");
@@ -196,23 +195,23 @@ describe("Navigating to Spawn Volume page", () => {
       cy.dataCy("migrate-btn-vol-0ae8720b445b771b6").should("be.disabled");
     });
     it("will persistently not show the guide cue after the Migrate button has been clicked", () => {
-      cy.get("[role=dialog]").contains(cueCopy).should("be.visible");
+      cy.dataCy("migrate-cue").should("be.visible");
       cy.dataCy(
         "migrate-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
       ).click();
-      cy.get("[role=dialog]").contains(cueCopy).should("not.exist");
+      cy.dataCy("migrate-cue").should("not.exist");
       cy.reload();
-      cy.get("[role=dialog]").contains(cueCopy).should("not.exist");
+      cy.dataCy("migrate-cue").should("not.exist");
     });
     it("will persistently not show the guide cue after the guide cue 'Got it' button has been clicked", () => {
-      cy.get("[role=dialog]").contains(cueCopy).should("be.visible");
+      cy.dataCy("migrate-cue").should("be.visible");
       cy.get("[role=dialog]")
         .find("button")
         .contains("Got it")
         .click({ force: true });
-      cy.get("[role=dialog]").contains(cueCopy).should("not.exist");
+      cy.dataCy("migrate-cue").should("not.exist");
       cy.reload();
-      cy.get("[role=dialog]").contains(cueCopy).should("not.exist");
+      cy.dataCy("migrate-cue").should("not.exist");
     });
     it("clicking cancel during confirmation renders the Migrate modal form", () => {
       cy.dataCy(

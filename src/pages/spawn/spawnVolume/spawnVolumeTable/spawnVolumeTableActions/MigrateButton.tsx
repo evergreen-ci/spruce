@@ -21,6 +21,7 @@ export const MigrateButton: React.VFC<Props> = ({ volume }) => {
   return (
     <>
       <GuideCue
+        data-cy="migrate-cue"
         open={openGuideCue}
         setOpen={setOpenGuideCue}
         title="New feature!"
