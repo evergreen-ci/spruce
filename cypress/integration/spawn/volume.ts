@@ -227,6 +227,20 @@ describe("Navigating to Spawn Volume page", () => {
         "You can now migrate your home volume to a new spawn host!"
       ).should("not.exist");
     });
+    it("clicking cancel during confirmation renders the Migrate modal form", () => {
+      cy.dataCy(
+        "migrate-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
+      ).click();
+      cy.dataCy("distro-input").should("be.visible").click();
+      cy.dataCy("distro-option-ubuntu1804-workstation").click();
+      cy.dataCy("migrate-modal").contains("Next").click({ force: true });
+      cy.dataCy("migrate-modal").contains(
+        "Are you sure you want to migrate this home volume?"
+      );
+      cy.dataCy("distro-input").should("not.exist");
+      cy.dataCy("migrate-modal").contains("Cancel").click({ force: true });
+      cy.dataCy("distro-input").should("be.visible");
+    });
     it("open the Migrate modal and spawn a host", () => {
       cy.dataCy(
         "migrate-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
@@ -242,21 +256,6 @@ describe("Navigating to Spawn Volume page", () => {
         "Volume migration has been scheduled. A new host will be spawned and accessible on your Hosts page.",
         false
       );
-    });
-
-    it("clicking cancel during confirmation renders the Migrate modal form", () => {
-      cy.dataCy(
-        "migrate-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
-      ).click();
-      cy.dataCy("distro-input").should("be.visible").click();
-      cy.dataCy("distro-option-ubuntu1804-workstation").click();
-      cy.dataCy("migrate-modal").contains("Next").click({ force: true });
-      cy.dataCy("migrate-modal").contains(
-        "Are you sure you want to migrate this home volume?"
-      );
-      cy.dataCy("distro-input").should("not.exist");
-      cy.dataCy("migrate-modal").contains("Cancel").click({ force: true });
-      cy.dataCy("distro-input").should("be.visible");
     });
   });
 
