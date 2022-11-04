@@ -213,14 +213,9 @@ describe("Navigating to Spawn Volume page", () => {
         .find("button")
         .contains("Got it")
         .click({ force: true });
-      cy.get("[role=dialog]")
-        .contains("You can now migrate your home volume to a new spawn host!")
-        .should("not.exist");
+      cy.get("[role=dialog]").should("not.exist");
       cy.visit("/spawn/volume");
       cy.get("[role=dialog]").should("not.exist");
-      cy.contains(
-        "You can now migrate your home volume to a new spawn host!"
-      ).should("not.exist");
     });
     it("clicking cancel during confirmation renders the Migrate modal form", () => {
       cy.dataCy(
