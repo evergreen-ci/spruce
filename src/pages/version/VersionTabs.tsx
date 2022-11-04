@@ -10,7 +10,7 @@ import { VersionQuery } from "gql/generated/types";
 import { usePrevious } from "hooks";
 import { DownstreamTasks } from "pages/version/DownstreamTasks";
 import { Tasks } from "pages/version/Tasks";
-import { PatchTab } from "types/patch";
+import { PatchStatus, PatchTab } from "types/patch";
 import { queryString } from "utils";
 import TaskDuration from "./TaskDuration";
 
@@ -92,14 +92,13 @@ export const VersionTabs: React.VFC<Props> = ({
     [isPatch, childPatches]
   );
 
-  const numFailedChildPatches = childPatches.filter(
-    (c) => c.status === "failed"
-  ).length;
+  const allTabs = useMemo(() => {
+    const numFailedChildPatches = childPatches
+      ? childPatches.filter((c) => c.status === PatchStatus.Failed).length
+      : 0;
+    return tabMap({ taskCount, childPatches, numFailedChildPatches });
+  }, [taskCount, childPatches]);
 
-  const allTabs = useMemo(
-    () => tabMap({ taskCount, childPatches, numFailedChildPatches }),
-    [taskCount, childPatches, numFailedChildPatches]
-  );
   const activeTabs = useMemo(
     () => Object.keys(allTabs).filter((t) => tabIsActive[t] as PatchTab[]),
     [allTabs, tabIsActive]
