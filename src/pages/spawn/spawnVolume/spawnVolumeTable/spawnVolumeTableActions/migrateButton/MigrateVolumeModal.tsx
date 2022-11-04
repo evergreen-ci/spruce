@@ -17,12 +17,12 @@ import {
   MigrateVolumeMutationVariables,
 } from "gql/generated/types";
 import { MIGRATE_VOLUME } from "gql/mutations";
-import { MyVolume } from "types/spawn";
+import { TableVolume } from "types/spawn";
 import { omit } from "utils/object";
 import { initialState, Page, reducer } from "./migrateVolumeModal/reducer";
 
 interface MigrateVolumeModalProps {
-  volume: MyVolume;
+  volume: TableVolume;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
