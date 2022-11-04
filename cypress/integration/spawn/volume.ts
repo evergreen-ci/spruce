@@ -244,7 +244,6 @@ describe("Navigating to Spawn Volume page", () => {
       cy.validateToast(
         "success",
         "Volume migration has been scheduled. A new host will be spawned and accessible on your Hosts page.",
-        false
       );
     });
   });
