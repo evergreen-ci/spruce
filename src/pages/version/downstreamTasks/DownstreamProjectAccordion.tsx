@@ -182,7 +182,7 @@ export const DownstreamProjectAccordion: React.VFC<
             Base commit:{" "}
             <InlineCode>
               <StyledRouterLink
-                data-cy="downstream-task-base-commit"
+                data-cy="downstream-base-commit"
                 to={getVersionRoute(baseVersionID)}
               >
                 {shortenGithash(githash)}
@@ -210,7 +210,7 @@ export const DownstreamProjectAccordion: React.VFC<
               </FlexContainer>
               <TableControlInnerRow>
                 <Pagination
-                  data-cy="downstream-tasks-table-pagination"
+                  data-cy="downstream-table-pagination"
                   onChange={(p) =>
                     dispatch({ type: "onChangePagination", page: p - 1 })
                   }

@@ -1,17 +1,17 @@
-describe("Restarting a patch with Downstream Tasks", () => {
+describe("Restarting a patch with Downstream Patches", () => {
   before(() => {
     cy.login();
     cy.preserveCookies();
   });
 
   it("Clicking on the Select Downstream Tasks should show the downstream projects", () => {
-    cy.visit(pathWithDownstreamTasks);
+    cy.visit(pathWithDownstreamPatches);
     cy.dataCy("restart-version").click();
     cy.dataCy("select-downstream").first().click();
     cy.dataCy("select-downstream").first().contains("evergreen").click();
   });
 
-  const pathWithDownstreamTasks = `/version/5f74d99ab2373627c047c5e5`;
+  const pathWithDownstreamPatches = `/version/5f74d99ab2373627c047c5e5`;
 });
 
 describe("Restarting a patch", () => {

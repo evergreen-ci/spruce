@@ -48,22 +48,22 @@ const tabMap = ({ taskCount, childPatches, numFailedChildPatches }) => ({
       <CodeChanges />
     </Tab>
   ),
-  [PatchTab.DownstreamTasks]: (
+  [PatchTab.DownstreamPatches]: (
     <Tab
       name={
         numFailedChildPatches ? (
           <TabLabelWithBadge
             badgeText={numFailedChildPatches}
             badgeVariant="red"
-            dataCyBadge="downstream-tasks-tab-badge"
-            tabLabel="Downstream Tasks"
+            dataCyBadge="downstream-tab-badge"
+            tabLabel="Downstream Patches"
           />
         ) : (
-          "Downstream Tasks"
+          "Downstream Patches"
         )
       }
       id="downstream-tab"
-      data-cy="downstream-tasks-tab"
+      data-cy="downstream-tab"
       key="downstream-tab"
     >
       <DownstreamTasks childPatches={childPatches} />
@@ -85,7 +85,7 @@ export const VersionTabs: React.VFC<Props> = ({
       [PatchTab.Tasks]: true,
       [PatchTab.TaskDuration]: true,
       [PatchTab.Changes]: isPatch,
-      [PatchTab.DownstreamTasks]: childPatches,
+      [PatchTab.DownstreamPatches]: childPatches,
     }),
     [isPatch, childPatches]
   );

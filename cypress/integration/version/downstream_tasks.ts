@@ -1,14 +1,13 @@
-const patchWithDownstreamTasks = "5f74d99ab2373627c047c5e5";
-const DOWNSTREAM_TASKS_ROUTE = `/version/${patchWithDownstreamTasks}/downstream-tasks`;
+describe("Downstream Patches Tab", () => {
+  const DOWNSTREAM_ROUTE = `/version/5f74d99ab2373627c047c5e5/downstream-patches`;
 
-describe("Downstream Tasks Tab", () => {
   before(() => {
-    cy.visit(DOWNSTREAM_TASKS_ROUTE);
+    cy.visit(DOWNSTREAM_ROUTE);
   });
 
-  it("shows the number of failed patches in the Downstream Tasks tab label", () => {
-    cy.dataCy("downstream-tasks-tab-badge").should("exist");
-    cy.dataCy("downstream-tasks-tab-badge").should("contain.text", "1");
+  it("shows the number of failed patches in the Downstream Patches tab label", () => {
+    cy.dataCy("downstream-tab-badge").should("exist");
+    cy.dataCy("downstream-tab-badge").should("contain.text", "1");
   });
 
   it("shows the child patches", () => {
@@ -20,7 +19,7 @@ describe("Downstream Tasks Tab", () => {
 
   it("links to base commit", () => {
     cy.dataCy("accordion-toggle").first().click();
-    cy.dataCy("downstream-task-base-commit")
+    cy.dataCy("downstream-base-commit")
       .should("have.attr", "href")
       .and(
         "includes",
@@ -41,7 +40,7 @@ describe("Downstream Tasks Tab", () => {
 
   it("does not push query params to the URL", () => {
     cy.location().should((loc) => {
-      expect(loc.pathname).to.equal(DOWNSTREAM_TASKS_ROUTE);
+      expect(loc.pathname).to.equal(DOWNSTREAM_ROUTE);
     });
   });
 });

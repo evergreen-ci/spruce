@@ -289,7 +289,7 @@ const ConfirmationMessage = styled(Body)`
 
 const Row = styled.div`
   display: flex;
-  >: first-of-type {
+  > first-of-type {
     margin-right: ${size.s};
   }
 `;
