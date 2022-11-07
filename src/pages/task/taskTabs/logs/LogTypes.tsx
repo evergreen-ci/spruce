@@ -1,15 +1,10 @@
+import { useEffect } from "react";
 import { useQuery, ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
 import { uiColors } from "@leafygreen-ui/palette";
-import {
-  SegmentedControl,
-  SegmentedControlOption,
-} from "@leafygreen-ui/segmented-control";
 import { Skeleton } from "antd";
 import get from "lodash/get";
 import { useParams, useLocation } from "react-router-dom";
-import { useTaskAnalytics } from "analytics";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { size, fontSize } from "constants/tokens";
 import {
@@ -33,8 +28,8 @@ import {
   GET_TASK_LOGS,
   GET_ALL_LOGS,
 } from "gql/queries";
-import { usePolling, useUpdateURLQueryParams } from "hooks";
-import { RequiredQueryParams, LogTypes, QueryParams } from "types/task";
+import { usePolling } from "hooks";
+import { RequiredQueryParams, LogTypes } from "types/task";
 import { queryString } from "utils";
 import { LogMessageLine } from "./logTypes/LogMessageLine";
 import { TaskEventLogLine } from "./logTypes/TaskEventLogLine";
@@ -54,6 +49,7 @@ interface Props {
   htmlLink: string;
   rawLink: string;
   lobsterLink: string;
+  setNoLogs: (noLogs: boolean) => void;
 }
 
 export const AllLog: React.VFC<Props> = (props) => {
@@ -176,32 +172,20 @@ const useRenderBody: React.VFC<{
   loading: boolean;
   error: ApolloError;
   data: (TaskEventLogEntryType | LogMessageType)[];
-  currentLog: LogTypes;
   LogContainer?: React.VFC<{ children: React.ReactNode }>;
-  htmlLink: string;
-  rawLink: string;
-  lobsterLink: string;
+  setNoLogs: (noLogs: boolean) => void;
 }> = ({
   loading,
   error,
   data,
-  currentLog,
-  rawLink,
-  htmlLink,
-  lobsterLink,
   LogContainer = ({ children }) => <StyledPre>{children}</StyledPre>,
+  setNoLogs,
 }) => {
-  const taskAnalytics = useTaskAnalytics();
-  const updateQueryParams = useUpdateURLQueryParams();
   const noLogs = !!((error && !data) || !data.length);
-  const onChangeLog = (value: string): void => {
-    const nextLogType = value as LogTypes;
-    updateQueryParams({ [QueryParams.LogType]: nextLogType });
-    taskAnalytics.sendEvent({
-      name: "Select Logs Type",
-      logsType: nextLogType,
-    });
-  };
+  // Update the value of noLogs in the parent component.
+  useEffect(() => {
+    setNoLogs(noLogs);
+  }, [setNoLogs, noLogs]);
 
   let body = null;
   if (loading) {
@@ -228,114 +212,8 @@ const useRenderBody: React.VFC<{
     );
   }
 
-  return (
-    <>
-      <LogHeader>
-        <SegmentedControl
-          aria-controls="Select a log type"
-          name="log-select"
-          onChange={onChangeLog}
-          value={currentLog}
-          label="Log Tail"
-        >
-          <SegmentedControlOption
-            data-cy="task-option"
-            id="cy-task-option"
-            value={LogTypes.Task}
-          >
-            Task Logs
-          </SegmentedControlOption>
-          <SegmentedControlOption
-            data-cy="agent-option"
-            id="cy-agent-option"
-            value={LogTypes.Agent}
-          >
-            Agent Logs
-          </SegmentedControlOption>
-          <SegmentedControlOption
-            data-cy="system-option"
-            id="cy-system-option"
-            value={LogTypes.System}
-          >
-            System Logs
-          </SegmentedControlOption>
-          <SegmentedControlOption
-            data-cy="event-option"
-            id="cy-event-option"
-            value={LogTypes.Event}
-          >
-            Event Logs
-          </SegmentedControlOption>
-          <SegmentedControlOption
-            data-cy="all-option"
-            id="cy-all-option"
-            value={LogTypes.All}
-          >
-            All Logs
-          </SegmentedControlOption>
-        </SegmentedControl>
-
-        {(htmlLink || rawLink || lobsterLink) && (
-          <ButtonContainer>
-            {rawLink && (
-              <Button
-                data-cy="lobster-log-btn"
-                disabled={noLogs}
-                href={lobsterLink}
-                target="_blank"
-                onClick={() =>
-                  taskAnalytics.sendEvent({ name: "Click Logs Lobster Button" })
-                }
-              >
-                Lobster
-              </Button>
-            )}
-            {htmlLink && (
-              <Button
-                data-cy="html-log-btn"
-                disabled={noLogs}
-                href={htmlLink}
-                target="_blank"
-                onClick={() =>
-                  taskAnalytics.sendEvent({ name: "Click Logs HTML Button" })
-                }
-              >
-                HTML
-              </Button>
-            )}
-            {rawLink && (
-              <Button
-                data-cy="raw-log-btn"
-                disabled={noLogs}
-                href={rawLink}
-                target="_blank"
-                onClick={() =>
-                  taskAnalytics.sendEvent({ name: "Click Logs Raw Button" })
-                }
-              >
-                Raw
-              </Button>
-            )}
-          </ButtonContainer>
-        )}
-      </LogHeader>
-      {body}
-    </>
-  );
+  return body;
 };
-
-const LogHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: ${size.s};
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  gap: ${size.xs};
-  margin-right: ${size.xxs};
-`;
 
 const StyledPre = styled.pre`
   padding: ${size.xs};
