@@ -8,7 +8,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
     Distro Projects
   </h3>
   <div
-    className="css-197y785-StyledCard e1c06qt20 leafygreen-ui-fe135o"
+    className="css-197y785-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
   >
     <form
       className="rjsf"
@@ -356,7 +356,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
     Admin Options
   </h3>
   <div
-    className="css-197y785-StyledCard e1c06qt20 leafygreen-ui-fe135o"
+    className="css-197y785-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
   >
     <form
       className="rjsf"
@@ -617,7 +617,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 3 1`] = `
     UI Options
   </h3>
   <div
-    className="css-197y785-StyledCard e1c06qt20 leafygreen-ui-fe135o"
+    className="css-197y785-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
   >
     <form
       className="rjsf"

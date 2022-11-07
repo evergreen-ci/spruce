@@ -36,26 +36,23 @@ interface DetailsCardProps {
   fieldMaps: FieldMap<MyHost | MyVolume>;
 }
 
-const CardContainer = styled(SiderCard)`
-  width: 80%;
-  padding: ${size.s} ${size.l};
-` as typeof SiderCard;
-
 export const DetailsCard: React.VFC<DetailsCardProps> = ({
   type,
   "data-cy": dataCy,
   fieldMaps,
 }) => (
-  <>
-    {/* @ts-expect-error */}
-    <CardContainer data-cy={dataCy}>
-      {Object.keys(fieldMaps).map((key) => (
-        <CardField
-          key={`${key}_${type.id}`}
-          label={key}
-          value={fieldMaps[key](type)}
-        />
-      ))}
-    </CardContainer>
-  </>
+  <CardContainer data-cy={dataCy}>
+    {Object.keys(fieldMaps).map((key) => (
+      <CardField
+        key={`${key}_${type.id}`}
+        label={key}
+        value={fieldMaps[key](type)}
+      />
+    ))}
+  </CardContainer>
 );
+
+const CardContainer = styled(SiderCard)`
+  width: 80%;
+  padding: ${size.s} ${size.l};
+`;

@@ -12,11 +12,9 @@ export const PatchAndTaskFullPageLoad: React.VFC = () => (
     <Skeleton active paragraph />
     <PageLayout>
       <PageSider>
-        {/* @ts-expect-error */}
         <SiderCard>
           <Skeleton active title={false} paragraph={{ rows: 4 }} />
         </SiderCard>
-        {/* @ts-expect-error */}
         <SiderCard>
           <Skeleton active title={false} paragraph={{ rows: 4 }} />
         </SiderCard>

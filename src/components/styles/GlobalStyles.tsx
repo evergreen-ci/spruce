@@ -45,6 +45,7 @@ const globalStyles = css`
   // Override LeafyGreen's 'display: inherit' rule.
   code {
     display: inline !important;
+    line-height: inherit !important;
   }
 `;
 

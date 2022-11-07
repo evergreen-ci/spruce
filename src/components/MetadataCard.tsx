@@ -17,20 +17,15 @@ export const MetadataCard: React.VFC<Props> = ({
   error,
   loading,
 }) => (
-  <>
-    {/* @ts-expect-error */}
-    <SiderCard>
-      {loading && !error && (
-        <Skeleton active title={false} paragraph={{ rows: 4 }} />
-      )}
-      {error && !loading && (
-        <ErrorWrapper data-cy="metadata-card-error">
-          {error.message}
-        </ErrorWrapper>
-      )}
-      {!loading && !error && children}
-    </SiderCard>
-  </>
+  <SiderCard>
+    {loading && !error && (
+      <Skeleton active title={false} paragraph={{ rows: 4 }} />
+    )}
+    {error && !loading && (
+      <ErrorWrapper data-cy="metadata-card-error">{error.message}</ErrorWrapper>
+    )}
+    {!loading && !error && children}
+  </SiderCard>
 );
 
 export const MetadataTitle: React.VFC<{ children: React.ReactNode }> = ({
@@ -59,5 +54,14 @@ const Title = styled(Body)`
 const Item = styled(Body)`
   font-size: 12px;
   line-height: 14px;
-  margin-bottom: 12px;
+
+  // TODO: Remove when fixed: https://jira.mongodb.org/browse/EVG-18183
+  // Override LG's fixed line height
+  a {
+    line-height: 14px;
+  }
+
+  :not(:last-of-type) {
+    margin-bottom: 12px;
+  }
 `;
