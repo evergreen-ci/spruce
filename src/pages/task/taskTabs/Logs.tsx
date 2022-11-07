@@ -41,18 +41,20 @@ interface Props {
   execution: number;
 }
 export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
+  const { sendEvent } = useTaskAnalytics();
+  const updateQueryParams = useUpdateURLQueryParams();
   const { search } = useLocation();
   const parsed = queryString.parse(search);
   const logTypeParam = (parsed[QueryParams.LogType] || "")
     .toString()
-    .toLowerCase();
+    .toLowerCase() as LogTypes;
 
   const [currentLog, setCurrentLog] = useState<LogTypes>(
-    (logTypeParam as LogTypes) ?? DEFAULT_LOG_TYPE
+    Object.values(LogTypes).includes(logTypeParam)
+      ? logTypeParam
+      : DEFAULT_LOG_TYPE
   );
   const [noLogs, setNoLogs] = useState(false);
-  const { sendEvent } = useTaskAnalytics();
-  const updateQueryParams = useUpdateURLQueryParams();
 
   const onChangeLog = (value: string): void => {
     const nextLogType = value as LogTypes;
