@@ -13,13 +13,13 @@ import {
 } from "gql/generated/types";
 import { DETACH_VOLUME } from "gql/mutations";
 import { GET_MY_HOSTS } from "gql/queries";
-import { MyVolume } from "types/spawn";
+import { TableVolume } from "types/spawn";
 
 interface Props {
-  volume: MyVolume;
+  volume: TableVolume;
 }
 
-export const UnmountBtn: React.VFC<Props> = ({ volume }) => {
+export const UnmountButton: React.VFC<Props> = ({ volume }) => {
   const dispatchToast = useToastContext();
   const spawnAnalytics = useSpawnAnalytics();
 

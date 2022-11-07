@@ -43,7 +43,10 @@ const validatePercentage = (percent: string) => {
   return true;
 };
 
-const validateSlack = (v: string): boolean => v.match("(#|@).+") !== null;
+const validateSlack = (v: string): boolean => {
+  const validTarget = /(^\S+$)/;
+  return validTarget.test(v);
+};
 
 /**
  *  validateObjectId tests if a provided id is a mongo objectId indicating that it likely belongs to a patch and not a version

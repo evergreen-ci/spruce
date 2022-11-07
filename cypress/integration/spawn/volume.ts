@@ -157,7 +157,7 @@ describe("Navigating to Spawn Volume page", () => {
 
   it("Clicking on mount, selecting a host and submitting should result in a new error toast appearing.", () => {
     cy.visit("/spawn/volume");
-    cy.dataCy("attach-btn-vol-0583d66433a69f136").click();
+    cy.dataCy("attach-btn-vol-0583d66433a69f136").click({ force: true });
     cy.contains(errorBannerCopy2).should("not.exist");
     cy.dataCy("mount-volume-button").click();
     cy.validateToast("error", errorBannerCopy2);
@@ -184,26 +184,36 @@ describe("Navigating to Spawn Volume page", () => {
   });
 
   describe("Migrate Modal", () => {
-    it("open the Migrate modal and spawn a host", () => {
+    beforeEach(() => {
+      cy.setCookie("seen-migrate-guide-cue", "false");
       cy.visit("/spawn/volume");
+    });
+    it("migrate button is disabled for volumes with the migrating status", () => {
+      cy.get("[data-row-key=vol-0ae8720b445b771b6]")
+        .find("[data-cy=volume-status-badge]")
+        .contains("Migrating");
+      cy.dataCy("migrate-btn-vol-0ae8720b445b771b6").should("be.disabled");
+    });
+    it("will persistently not show the guide cue after the Migrate button has been clicked", () => {
+      cy.dataCy("migrate-cue").should("be.visible");
       cy.dataCy(
         "migrate-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
       ).click();
-      cy.dataCy("distro-input").click();
-      cy.dataCy("distro-option-ubuntu1804-workstation").click();
-      cy.dataCy("migrate-modal").contains("Next").click({ force: true });
-      cy.dataCy("migrate-modal")
-        .contains("Migrate Volume")
-        .click({ force: true });
-      cy.validateToast(
-        "success",
-        "Volume migration has been scheduled. A new host will be spawned and accessible on your Hosts page.",
-        false
-      );
+      cy.dataCy("migrate-cue").should("not.exist");
+      cy.reload();
+      cy.dataCy("migrate-cue").should("not.exist");
     });
-
+    it("will persistently not show the guide cue after the guide cue 'Got it' button has been clicked", () => {
+      cy.dataCy("migrate-cue").should("be.visible");
+      cy.get("[role=dialog]")
+        .find("button")
+        .contains("Got it")
+        .click({ force: true });
+      cy.dataCy("migrate-cue").should("not.exist");
+      cy.reload();
+      cy.dataCy("migrate-cue").should("not.exist");
+    });
     it("clicking cancel during confirmation renders the Migrate modal form", () => {
-      cy.visit("/spawn/volume");
       cy.dataCy(
         "migrate-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
       ).click();
@@ -216,6 +226,21 @@ describe("Navigating to Spawn Volume page", () => {
       cy.dataCy("distro-input").should("not.exist");
       cy.dataCy("migrate-modal").contains("Cancel").click({ force: true });
       cy.dataCy("distro-input").should("be.visible");
+    });
+    it("open the Migrate modal and spawn a host", () => {
+      cy.dataCy(
+        "migrate-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
+      ).click();
+      cy.dataCy("distro-input").click();
+      cy.dataCy("distro-option-ubuntu1804-workstation").click();
+      cy.dataCy("migrate-modal").contains("Next").click({ force: true });
+      cy.dataCy("migrate-modal")
+        .contains("Migrate Volume")
+        .click({ force: true });
+      cy.validateToast(
+        "success",
+        "Volume migration has been scheduled. A new host will be spawned and accessible on your Hosts page."
+      );
     });
   });
 
