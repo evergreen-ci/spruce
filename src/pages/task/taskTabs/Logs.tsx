@@ -79,44 +79,24 @@ export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
       <LogHeader>
         <SegmentedControl
           aria-controls="Select a log type"
+          label="Log Tail"
           name="log-select"
           onChange={onChangeLog}
           value={currentLog}
-          label="Log Tail"
         >
-          <SegmentedControlOption
-            data-cy="task-option"
-            id="cy-task-option"
-            value={LogTypes.Task}
-          >
+          <SegmentedControlOption id="cy-task-option" value={LogTypes.Task}>
             Task Logs
           </SegmentedControlOption>
-          <SegmentedControlOption
-            data-cy="agent-option"
-            id="cy-agent-option"
-            value={LogTypes.Agent}
-          >
+          <SegmentedControlOption id="cy-agent-option" value={LogTypes.Agent}>
             Agent Logs
           </SegmentedControlOption>
-          <SegmentedControlOption
-            data-cy="system-option"
-            id="cy-system-option"
-            value={LogTypes.System}
-          >
+          <SegmentedControlOption id="cy-system-option" value={LogTypes.System}>
             System Logs
           </SegmentedControlOption>
-          <SegmentedControlOption
-            data-cy="event-option"
-            id="cy-event-option"
-            value={LogTypes.Event}
-          >
+          <SegmentedControlOption id="cy-event-option" value={LogTypes.Event}>
             Event Logs
           </SegmentedControlOption>
-          <SegmentedControlOption
-            data-cy="all-option"
-            id="cy-all-option"
-            value={LogTypes.All}
-          >
+          <SegmentedControlOption id="cy-all-option" value={LogTypes.All}>
             All Logs
           </SegmentedControlOption>
         </SegmentedControl>
