@@ -29,7 +29,7 @@ import {
   GET_ALL_LOGS,
 } from "gql/queries";
 import { usePolling } from "hooks";
-import { RequiredQueryParams, LogTypes } from "types/task";
+import { RequiredQueryParams } from "types/task";
 import { queryString } from "utils";
 import { LogMessageLine } from "./logTypes/LogMessageLine";
 import { TaskEventLogLine } from "./logTypes/TaskEventLogLine";
@@ -45,10 +45,6 @@ interface LogMessageType extends LogMessageFragment {
   kind?: "logMessage";
 }
 interface Props {
-  currentLog: LogTypes;
-  htmlLink: string;
-  rawLink: string;
-  lobsterLink: string;
   setNoLogs: (noLogs: boolean) => void;
 }
 

@@ -159,15 +159,7 @@ export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
           </ButtonContainer>
         )}
       </LogHeader>
-      {LogComp && (
-        <LogComp
-          htmlLink={htmlLink}
-          rawLink={rawLink}
-          lobsterLink={lobsterLink}
-          currentLog={currentLog}
-          setNoLogs={setNoLogs}
-        />
-      )}
+      {LogComp && <LogComp setNoLogs={setNoLogs} />}
     </>
   );
 };
