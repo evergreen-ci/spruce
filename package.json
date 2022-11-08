@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "2.36.48",
+  "version": "2.36.51",
   "private": true,
   "scripts": {
     "build-storybook": "NODE_OPTIONS=--max-old-space-size=6144 build-storybook",
@@ -74,7 +74,8 @@
     "@leafygreen-ui/icon": "11.12.0",
     "@leafygreen-ui/icon-button": "14.0.1",
     "@leafygreen-ui/inline-definition": "5.0.0",
-    "@leafygreen-ui/leafygreen-provider": "3.0.0",
+    "@leafygreen-ui/guide-cue": "2.0.1",
+    "@leafygreen-ui/leafygreen-provider": "3.0.1",
     "@leafygreen-ui/menu": "11.0.1",
     "@leafygreen-ui/modal": "6.1.2",
     "@leafygreen-ui/palette": "3.4.4",

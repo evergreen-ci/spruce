@@ -9,13 +9,13 @@ import {
   RemoveVolumeMutationVariables,
 } from "gql/generated/types";
 import { REMOVE_VOLUME } from "gql/mutations";
-import { MyVolume } from "types/spawn";
+import { TableVolume } from "types/spawn";
 
 interface Props {
-  volume: MyVolume;
+  volume: TableVolume;
 }
 
-export const DeleteVolumeBtn: React.VFC<Props> = ({ volume }) => {
+export const DeleteVolumeButton: React.VFC<Props> = ({ volume }) => {
   const dispatchToast = useToastContext();
   const [removeVolume, { loading: loadingRemoveVolume }] = useMutation<
     RemoveVolumeMutation,

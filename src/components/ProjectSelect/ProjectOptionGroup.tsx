@@ -19,7 +19,7 @@ const ProjectOption: React.VFC<OptionProps> = ({
   identifier,
   onClick,
 }) => (
-  <ProjectContainer onClick={() => onClick(identifier)}>
+  <ProjectContainer role="button" onClick={() => onClick(identifier)}>
     <Body data-cy="project-display-name">{displayName || identifier}</Body>
     <FavoriteStar identifier={identifier} isFavorite={isFavorite} />
   </ProjectContainer>
