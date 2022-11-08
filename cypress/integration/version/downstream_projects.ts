@@ -1,11 +1,11 @@
-describe("Downstream Patches Tab", () => {
-  const DOWNSTREAM_ROUTE = `/version/5f74d99ab2373627c047c5e5/downstream-patches`;
+describe("Downstream Projects Tab", () => {
+  const DOWNSTREAM_ROUTE = `/version/5f74d99ab2373627c047c5e5/downstream-projects`;
 
   before(() => {
     cy.visit(DOWNSTREAM_ROUTE);
   });
 
-  it("shows the number of failed patches in the Downstream Patches tab label", () => {
+  it("shows the number of failed patches in the Downstream tab label", () => {
     cy.dataCy("downstream-tab-badge").should("exist");
     cy.dataCy("downstream-tab-badge").should("contain.text", "1");
   });
