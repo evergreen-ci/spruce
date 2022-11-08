@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Button, { Size } from "@leafygreen-ui/button";
-import { MyVolume } from "types/spawn";
+import { TableVolume } from "types/spawn";
 import { EditVolumeModal } from "./editButton/EditVolumeModal";
 
 interface Props {
-  volume: MyVolume;
+  volume: TableVolume;
 }
 
 export const EditButton: React.VFC<Props> = ({ volume }) => {

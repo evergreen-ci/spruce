@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { useParams, useLocation } from "react-router-dom";
-import { pollInterval } from "constants/index";
+import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { useToastContext } from "context/toast";
 import {
   VersionTasksQuery,
@@ -57,14 +57,14 @@ export const Tasks: React.VFC<Props> = ({ taskCount }) => {
     VersionTasksQueryVariables
   >(GET_VERSION_TASKS, {
     variables: queryVariables,
-    pollInterval,
+    pollInterval: DEFAULT_POLL_INTERVAL,
     skip: !hasQueryVariables,
     fetchPolicy: "cache-and-network",
     onError: (err) => {
       dispatchToast.error(`Error fetching patch tasks ${err}`);
     },
   });
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
   const { version } = data || {};
   const { tasks } = version || {};
   const { data: tasksData = [], count = 0 } = tasks || {};

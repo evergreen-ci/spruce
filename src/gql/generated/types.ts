@@ -2371,7 +2371,7 @@ export type BaseSpawnHostFragment = {
   }>;
   homeVolume?: Maybe<{ displayName: string }>;
   instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
-  volumes: Array<{ displayName: string; id: string }>;
+  volumes: Array<{ displayName: string; id: string; migrating: boolean }>;
 };
 
 export type BaseTaskFragment = {
@@ -2428,6 +2428,7 @@ export type PatchesPagePatchesFragment = {
       taskStatusStats?: Maybe<{
         counts?: Maybe<Array<{ status: string; count: number }>>;
       }>;
+      projectMetadata?: Maybe<{ owner: string; repo: string }>;
     }>;
   }>;
 };
@@ -3358,7 +3359,7 @@ export type EditSpawnHostMutation = {
     }>;
     homeVolume?: Maybe<{ displayName: string }>;
     instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
-    volumes: Array<{ displayName: string; id: string }>;
+    volumes: Array<{ displayName: string; id: string; migrating: boolean }>;
   };
 };
 
@@ -3381,6 +3382,13 @@ export type ForceRepotrackerRunMutationVariables = Exact<{
 }>;
 
 export type ForceRepotrackerRunMutation = { forceRepotrackerRun: boolean };
+
+export type MigrateVolumeMutationVariables = Exact<{
+  volumeId: Scalars["String"];
+  spawnHostInput: SpawnHostInput;
+}>;
+
+export type MigrateVolumeMutation = { migrateVolume: boolean };
 
 export type MoveAnnotationIssueMutationVariables = Exact<{
   taskId: Scalars["String"];
@@ -4444,7 +4452,7 @@ export type MyHostsQuery = {
     }>;
     homeVolume?: Maybe<{ displayName: string }>;
     instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
-    volumes: Array<{ displayName: string; id: string }>;
+    volumes: Array<{ displayName: string; id: string; migrating: boolean }>;
   }>;
 };
 
@@ -4465,7 +4473,11 @@ export type MyVolumesQuery = {
     homeVolume: boolean;
     creationTime?: Maybe<Date>;
     migrating: boolean;
-    host?: Maybe<{ displayName?: Maybe<string>; id: string }>;
+    host?: Maybe<{
+      displayName?: Maybe<string>;
+      id: string;
+      noExpiration: boolean;
+    }>;
   }>;
 };
 
@@ -6157,6 +6169,7 @@ export type ProjectPatchesQuery = {
           taskStatusStats?: Maybe<{
             counts?: Maybe<Array<{ status: string; count: number }>>;
           }>;
+          projectMetadata?: Maybe<{ owner: string; repo: string }>;
         }>;
       }>;
     };
@@ -6227,6 +6240,7 @@ export type UserPatchesQuery = {
           taskStatusStats?: Maybe<{
             counts?: Maybe<Array<{ status: string; count: number }>>;
           }>;
+          projectMetadata?: Maybe<{ owner: string; repo: string }>;
         }>;
       }>;
     };
