@@ -120,7 +120,7 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
           <button
             aria-disabled={false}
             aria-label="Select plus button"
-            className="leafygreen-ui-wn45f0"
+            className="leafygreen-ui-6obv0c"
             onClick={[Function]}
             tabIndex={0}
           >

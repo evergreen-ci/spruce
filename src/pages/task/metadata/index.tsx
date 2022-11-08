@@ -164,16 +164,14 @@ export const Metadata: React.VFC<Props> = ({
       {baseTaskId && (
         <MetadataItem>
           Base commit:{" "}
-          <InlineCode>
-            <StyledRouterLink
-              data-cy="base-task-link"
-              to={getTaskRoute(baseTaskId)}
-              onClick={() =>
-                taskAnalytics.sendEvent({ name: "Click Base Commit" })
-              }
-            >
-              {baseCommit}
-            </StyledRouterLink>
+          <InlineCode
+            data-cy="base-task-link"
+            href={getTaskRoute(baseTaskId)}
+            onClick={() =>
+              taskAnalytics.sendEvent({ name: "Click Base Commit" })
+            }
+          >
+            {baseCommit}
           </InlineCode>
         </MetadataItem>
       )}

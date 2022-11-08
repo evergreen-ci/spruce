@@ -73,7 +73,7 @@ export const CodeChanges: React.VFC = () => {
         }
 
         return (
-          <Container key={branchName}>
+          <div key={branchName}>
             <TitleContainer>
               <Title>Changes on {branchName}: </Title>
               <StyledButton
@@ -97,7 +97,7 @@ export const CodeChanges: React.VFC = () => {
               <CodeChangesBadge additions={additions} deletions={deletions} />
             </TitleContainer>
             {codeChanges}
-          </Container>
+          </div>
         );
       })}
     </div>
@@ -120,6 +120,7 @@ const Title: SubtitleType = styled(Subtitle)`
 `;
 
 const TitleContainer = styled.div`
+  align-items: baseline;
   display: flex;
 `;
 
@@ -139,8 +140,4 @@ const CommitContainer = styled.div`
   align-items: baseline;
   margin-top: ${size.s};
   margin-bottom: ${size.xs};
-`;
-
-const Container = styled.div`
-  margin: ${size.l} 0;
 `;

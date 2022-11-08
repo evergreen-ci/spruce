@@ -53,6 +53,7 @@ export const TableControl: React.VFC<Props> = ({
         <PaddedButton // @ts-expect-error
           onClick={onClearAll}
           data-cy="clear-all-filters"
+          size="small"
         >
           Clear All Filters
         </PaddedButton>

@@ -67,6 +67,7 @@ const getTitle = (
 };
 
 const Container = styled.div`
+  min-width: 600px;
   width: 60%;
 `;
 
