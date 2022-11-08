@@ -334,7 +334,7 @@ exports[`storybook Storyshots Components/Task Status Icon Legend Legend With But
   <button
     aria-disabled={false}
     aria-label="Task Status Icon Legend"
-    className="leafygreen-ui-wn45f0"
+    className="leafygreen-ui-6obv0c"
     onClick={[Function]}
     tabIndex={0}
   >
