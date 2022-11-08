@@ -181,38 +181,35 @@ const useRenderBody: React.VFC<{
   LogContainer = ({ children }) => <StyledPre>{children}</StyledPre>,
   setNoLogs,
 }) => {
-  const noLogs = !!((error && !data) || !data.length);
+  const noLogs = error !== undefined || data.length === 0;
   // Update the value of noLogs in the parent component.
   useEffect(() => {
     setNoLogs(noLogs);
   }, [setNoLogs, noLogs]);
 
-  let body = null;
   if (loading) {
-    body = <Skeleton active title={false} paragraph={{ rows: 8 }} />;
-  } else if (noLogs) {
-    body = <div data-cy="cy-no-logs">No logs found</div>;
-  } else {
-    body = (
-      <LogContainer>
-        {data.map((d, index) =>
-          d.kind === "taskEventLogEntry" ? (
-            <TaskEventLogLine
-              key={`${d.resourceId}_${d.id}_${index}`} // eslint-disable-line react/no-array-index-key
-              {...d}
-            />
-          ) : (
-            <LogMessageLine
-              key={`${d.message}_${d.timestamp}_${index}`} // eslint-disable-line react/no-array-index-key
-              {...d}
-            />
-          )
-        )}
-      </LogContainer>
-    );
+    return <Skeleton active title={false} paragraph={{ rows: 8 }} />;
   }
-
-  return body;
+  if (noLogs) {
+    return <div data-cy="cy-no-logs">No logs found</div>;
+  }
+  return (
+    <LogContainer>
+      {data.map((d, index) =>
+        d.kind === "taskEventLogEntry" ? (
+          <TaskEventLogLine
+            key={`${d.resourceId}_${d.id}_${index}`} // eslint-disable-line react/no-array-index-key
+            {...d}
+          />
+        ) : (
+          <LogMessageLine
+            key={`${d.message}_${d.timestamp}_${index}`} // eslint-disable-line react/no-array-index-key
+            {...d}
+          />
+        )
+      )}
+    </LogContainer>
+  );
 };
 
 const StyledPre = styled.pre`
