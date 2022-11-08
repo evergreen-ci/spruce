@@ -134,9 +134,7 @@ const TaskBadgeContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+  gap: ${size.xs};
   margin-top: ${size.xs};
   margin-bottom: ${size.xs};
-  > * {
-    margin-right: ${size.xs};
-  }
 `;

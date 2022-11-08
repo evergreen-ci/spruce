@@ -25,7 +25,7 @@ const VariantGroupedTaskStatusBadges: React.VFC<Props> = ({
   onClick = () => () => {},
 }) => {
   const { stats } = groupStatusesByUmbrellaStatus(statusCounts ?? []);
-  const queryParams = { variant: applyStrictRegex(variant) };
+  const queryParamsToPreserve = { variant: applyStrictRegex(variant) };
 
   return (
     <VariantTasks>
@@ -35,7 +35,7 @@ const VariantGroupedTaskStatusBadges: React.VFC<Props> = ({
             key={`${versionId}_${variant}_${umbrellaStatus}`}
             count={count}
             onClick={onClick(Object.keys(groupedStatusCounts))}
-            queryParamsToPreserve={queryParams}
+            queryParamsToPreserve={queryParamsToPreserve}
             status={umbrellaStatus}
             statusCounts={groupedStatusCounts}
             versionId={versionId}
