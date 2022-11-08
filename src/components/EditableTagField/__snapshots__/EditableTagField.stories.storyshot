@@ -111,7 +111,7 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
         <button
           aria-disabled={false}
           aria-label="Delete Tag"
-          className="leafygreen-ui-wn45f0"
+          className="leafygreen-ui-6obv0c"
           tabIndex={0}
         >
           <div
@@ -248,7 +248,7 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
         <button
           aria-disabled={false}
           aria-label="Delete Tag"
-          className="leafygreen-ui-wn45f0"
+          className="leafygreen-ui-6obv0c"
           tabIndex={0}
         >
           <div
@@ -385,7 +385,7 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
         <button
           aria-disabled={false}
           aria-label="Delete Tag"
-          className="leafygreen-ui-wn45f0"
+          className="leafygreen-ui-6obv0c"
           tabIndex={0}
         >
           <div
