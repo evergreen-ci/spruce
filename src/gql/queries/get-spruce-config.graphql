@@ -19,5 +19,8 @@ query GetSpruceConfig {
       unexpirableHostsPerUser
       unexpirableVolumesPerUser
     }
+    slack {
+      name
+    }
   }
 }
