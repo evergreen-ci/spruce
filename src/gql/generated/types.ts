@@ -1550,7 +1550,6 @@ export type SelectorInput = {
 };
 
 export type SlackConfig = {
-  level?: Maybe<Scalars["String"]>;
   name?: Maybe<Scalars["String"]>;
 };
 
@@ -5543,7 +5542,7 @@ export type GetSpruceConfigQuery = {
       unexpirableHostsPerUser: number;
       unexpirableVolumesPerUser: number;
     };
-    slack?: Maybe<{ name?: Maybe<string>; level?: Maybe<string> }>;
+    slack?: Maybe<{ name?: Maybe<string> }>;
   }>;
 };
 
