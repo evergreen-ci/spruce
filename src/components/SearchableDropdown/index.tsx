@@ -163,7 +163,7 @@ const SearchableDropdown = <T extends {}>({
             value={search}
             onChange={handleSearch}
             icon={<Icon glyph="MagnifyingGlass" />}
-            aria-label="Search for options"
+            aria-labelledby="Search for options"
             type="search"
             autoFocus
           />

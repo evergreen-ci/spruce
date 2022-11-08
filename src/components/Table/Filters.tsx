@@ -50,7 +50,7 @@ export const InputFilter = ({
       <TextInput
         description="Press enter to filter."
         type="search"
-        aria-label="input-filter"
+        aria-labelledby="Search Table"
         data-cy="input-filter"
         placeholder={placeholder}
         value={value}
