@@ -1,8 +1,8 @@
 import Badge, { Variant } from "@leafygreen-ui/badge";
-import { MyVolume } from "types/spawn";
+import { TableVolume } from "types/spawn";
 
 interface Props {
-  volume: MyVolume;
+  volume: TableVolume;
 }
 
 export const VolumeStatusBadge = ({ volume }: Props) => {

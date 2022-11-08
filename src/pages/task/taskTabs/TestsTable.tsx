@@ -14,7 +14,7 @@ import {
   TableControlOuterRow,
   TableControlInnerRow,
 } from "components/styles";
-import { pollInterval } from "constants/index";
+import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { testStatusesFilterTreeData } from "constants/test";
 import {
   TaskTestsQuery,
@@ -121,9 +121,9 @@ export const TestsTable: React.VFC<TestsTableProps> = ({ task }) => {
   >(GET_TASK_TESTS, {
     variables: queryVariables,
     skip: queryVariables.execution === null,
-    pollInterval,
+    pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
 
   // update url query params when user event triggers change
   const tableChangeHandler: TableOnChange<TestResult> = (...[, , sorter]) => {

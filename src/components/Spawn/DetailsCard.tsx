@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { SiderCard } from "components/styles";
 import { size } from "constants/tokens";
-import { MyHost, MyVolume } from "types/spawn";
+import { MyHost, TableVolume } from "types/spawn";
 
 const FieldContainer = styled.div`
   display: flex;
@@ -31,9 +31,9 @@ type FieldMap<T> = {
 };
 
 interface DetailsCardProps {
-  type: MyHost | MyVolume;
+  type: MyHost | TableVolume;
   ["data-cy"]?: string;
-  fieldMaps: FieldMap<MyHost | MyVolume>;
+  fieldMaps: FieldMap<MyHost | TableVolume>;
 }
 
 const CardContainer = styled(SiderCard)`

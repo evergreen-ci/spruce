@@ -10,18 +10,23 @@ export const validateTask = (taskData: GetSpawnTaskQuery["task"]) => {
   return taskDisplayName && buildVariant && revision;
 };
 
-export const validateSpawnHostForm = ({
-  distro,
-  region,
-  publicKeySection,
-  userdataScriptSection,
-  setupScriptSection,
-  homeVolumeDetails,
-  expirationDetails,
-}: FormState) => {
-  const isValidHomeVolumeDetails = homeVolumeDetails?.selectExistingVolume
-    ? !!homeVolumeDetails?.volumeSelect
-    : !!homeVolumeDetails?.volumeSize;
+export const validateSpawnHostForm = (
+  {
+    distro,
+    region,
+    publicKeySection,
+    userdataScriptSection,
+    setupScriptSection,
+    homeVolumeDetails,
+    expirationDetails,
+  }: FormState,
+  isMigration?: boolean
+) => {
+  const isValidHomeVolumeDetails =
+    isMigration ||
+    (homeVolumeDetails?.selectExistingVolume
+      ? !!homeVolumeDetails?.volumeSelect
+      : !!homeVolumeDetails?.volumeSize);
   return (
     !!distro?.value &&
     !!region &&
