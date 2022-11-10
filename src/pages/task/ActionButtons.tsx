@@ -62,9 +62,10 @@ export const ActionButtons: React.VFC<Props> = ({
     requester,
     canSchedule,
     versionMetadata,
-  } = task;
+  } = task || {};
 
   const { isPatch, order } = versionMetadata || {};
+  const { identifier: projectIdentifier } = project || {};
   const isPatchOnCommitQueue = requester === commitQueueRequester;
 
   const dispatchToast = useToastContext();
@@ -273,7 +274,7 @@ export const ActionButtons: React.VFC<Props> = ({
               onClick={() => {
                 taskAnalytics.sendEvent({ name: "Click See History Button" });
               }}
-              href={getTaskHistoryRoute(project.identifier, displayName, {
+              href={getTaskHistoryRoute(projectIdentifier, displayName, {
                 selectedCommit: !isPatch && order,
               })}
               disabled={displayName === mergeTaskName}
