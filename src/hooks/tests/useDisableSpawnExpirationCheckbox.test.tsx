@@ -96,11 +96,13 @@ const myVolumesBase = {
   availabilityZone: "us-east-1d",
   size: 200,
   expiration: "2020-11-12T18:19:39Z",
+  noExpiration: false,
   deviceName: null,
   hostID: "i-0d5d29bf2e7ee342d",
   host: {
     displayName: "hai",
     id: "i-0d5d29bf2e7ee342d",
+    noExpiration: false,
     __typename: "Host",
   },
   homeVolume: false,
@@ -143,6 +145,7 @@ const myVolumesQueryMock = {
 
 const host = {
   expiration: new Date("2020-08-21T14:00:07-04:00"),
+  noExpiration: false,
   distro: {
     isVirtualWorkStation: true,
     id: "ubuntu1804-workstation",
