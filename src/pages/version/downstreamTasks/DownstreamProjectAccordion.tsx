@@ -144,7 +144,7 @@ export const DownstreamProjectAccordion: React.VFC<
       dispatchToast.error(`Error fetching downstream tasks ${err}`);
     },
   });
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
   const showSkeleton = !data;
   const { version } = data || {};
   const { tasks } = version || {};

@@ -12,6 +12,7 @@ query MyVolumes {
     host {
       displayName
       id
+      noExpiration
     }
     noExpiration
     homeVolume

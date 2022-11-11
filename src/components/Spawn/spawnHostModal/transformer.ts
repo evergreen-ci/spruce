@@ -10,13 +10,15 @@ import { validateTask } from "./utils";
 
 interface Props {
   formData: FormState;
-  publicKeys: GetMyPublicKeysQuery["myPublicKeys"];
-  spawnTaskData: GetSpawnTaskQuery["task"];
+  myPublicKeys: GetMyPublicKeysQuery["myPublicKeys"];
+  spawnTaskData?: GetSpawnTaskQuery["task"];
+  migrateVolumeId?: string;
 }
 export const formToGql = ({
   formData,
-  publicKeys,
+  myPublicKeys,
   spawnTaskData,
+  migrateVolumeId,
 }: Props): SpawnHostMutationVariables["SpawnHostInput"] => {
   const {
     expirationDetails,
@@ -39,10 +41,12 @@ export const formToGql = ({
       : new Date(expirationDetails?.expiration),
     noExpiration: expirationDetails?.noExpiration,
     volumeId:
-      isVirtualWorkStation && homeVolumeDetails?.selectExistingVolume
+      migrateVolumeId ||
+      (isVirtualWorkStation && homeVolumeDetails?.selectExistingVolume
         ? homeVolumeDetails.volumeSelect
-        : null,
+        : null),
     homeVolumeSize:
+      !migrateVolumeId &&
       isVirtualWorkStation &&
       (!homeVolumeDetails?.selectExistingVolume ||
         !homeVolumeDetails?.volumeSelect)
@@ -51,15 +55,15 @@ export const formToGql = ({
     publicKey: {
       name: publicKeySection?.useExisting
         ? publicKeySection?.publicKeyNameDropdown
-        : publicKeySection?.newPublicKeyName,
+        : publicKeySection?.newPublicKeyName ?? "",
       key: publicKeySection?.useExisting
-        ? publicKeys.find(
+        ? myPublicKeys.find(
             ({ name }) => name === publicKeySection?.publicKeyNameDropdown
           )?.key
         : stripNewLines(publicKeySection.newPublicKey),
     },
     savePublicKey:
-      !publicKeySection?.useExisting && publicKeySection?.savePublicKey,
+      !publicKeySection?.useExisting && !!publicKeySection?.savePublicKey,
     distroId: distro?.value,
     region,
     taskId:

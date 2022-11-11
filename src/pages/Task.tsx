@@ -10,7 +10,7 @@ import {
   PageSider,
 } from "components/styles";
 import TaskStatusBadge from "components/TaskStatusBadge";
-import { pollInterval } from "constants/index";
+import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { useToastContext } from "context/toast";
 import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
 import { GET_TASK } from "gql/queries";
@@ -42,14 +42,14 @@ export const Task = () => {
     GetTaskQueryVariables
   >(GET_TASK, {
     variables: { taskId: id, execution: selectedExecution },
-    pollInterval,
+    pollInterval: DEFAULT_POLL_INTERVAL,
     fetchPolicy: "network-only",
     onError: (err) =>
       dispatchToast.error(
         `There was an error loading the task: ${err.message}`
       ),
   });
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
 
   const { task, taskFiles } = data ?? {};
   const {

@@ -6,7 +6,7 @@ import {
   PatchesPage,
   getPatchesInputFromURLSearch,
 } from "components/PatchesPage";
-import { pollInterval } from "constants/index";
+import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { useToastContext } from "context/toast";
 import {
   UserPatchesQuery,
@@ -55,12 +55,12 @@ export const UserPatches = () => {
         includeCommitQueue: isCommitQueueCheckboxChecked,
       },
     },
-    pollInterval,
+    pollInterval: DEFAULT_POLL_INTERVAL,
     onError: (err) => {
       dispatchToast.error(`Error while fetching user patches: ${err.message}`);
     },
   });
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
   const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId) || {};
 
   return (
