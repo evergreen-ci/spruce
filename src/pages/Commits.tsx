@@ -36,6 +36,7 @@ import { array, queryString, validators } from "utils";
 import { CommitsWrapper } from "./commits/CommitsWrapper";
 import CommitTypeSelect from "./commits/commitTypeSelect";
 import { PaginationButtons } from "./commits/PaginationButtons";
+import { SettingsButton } from "./commits/SettingsButton";
 import { StatusSelect } from "./commits/StatusSelect";
 import {
   getMainlineCommitsQueryVariables,
@@ -165,7 +166,7 @@ export const Commits = () => {
           <ElementWrapper width="20">
             <CommitTypeSelect />
           </ElementWrapper>
-          <ElementWrapper width="25">
+          <ElementWrapper width="20">
             <ProjectSelect
               selectedProjectIdentifier={projectId}
               getRoute={getCommitsRoute}
@@ -175,6 +176,9 @@ export const Commits = () => {
                 });
               }}
             />
+          </ElementWrapper>
+          <ElementWrapper width="5">
+            <SettingsButton />
           </ElementWrapper>
         </HeaderWrapper>
         <BadgeWrapper>
