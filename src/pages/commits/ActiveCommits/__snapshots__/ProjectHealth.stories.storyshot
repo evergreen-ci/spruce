@@ -319,27 +319,26 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 className="css-1nylm8s-ContentsContainer ev0bopr0"
               >
                 <div
-                  className="css-r7f5o5-ToggleWrapper e1d5uzqe1"
+                  className="css-pqz2jw-ToggleWrapper e1d5uzqe1"
                 >
                   <div
                     aria-label="chart-select"
-                    className="leafygreen-ui-sgfp3 css-1kkalw3-StyledRadioGroup e1d5uzqe2"
+                    className="css-1tmng57-StyledRadioGroup e1d5uzqe2"
                     role="group"
                   >
                     <div
-                      className="leafygreen-ui-1s4vgyd"
+                      className="leafygreen-ui-3n5lp7"
                     >
                       <label
-                        className="leafygreen-ui-17avto4"
+                        className="css-iwoii3 leafygreen-ui-1d5p7a4"
                         htmlFor="chart-radio-absolute"
                       >
                         <input
                           aria-checked={true}
                           aria-disabled={false}
                           checked={true}
-                          className="leafygreen-ui-x2r5fc"
+                          className="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                           data-cy="cy-chart-absolute-radio"
-                          data-leafygreen-ui="input-element"
                           disabled={false}
                           id="chart-radio-absolute"
                           name="chart-select"
@@ -348,40 +347,29 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                           value="absolute"
                         />
                         <div
-                          className="leafygreen-ui-5a1vdt"
-                          data-leafygreen-ui="radio-input-display-wrapper"
+                          className="lg-ui-radio-group-0001 leafygreen-ui-1tsb3ci"
                         >
                           <div
-                            className="leafygreen-ui-1y6j5s3"
-                            data-leafygreen-ui="radio-input-display"
-                            onBlur={[Function]}
-                            onFocus={[Function]}
-                          />
-                          <div
-                            className="leafygreen-ui-1cqcpzq"
-                            data-leafygreen-ui="interaction-ring"
+                            className="lg-ui-radio-group-0000 leafygreen-ui-13fu653"
                           />
                         </div>
-                        <div
-                          className="leafygreen-ui-3sm8z"
-                        >
+                        <div>
                           Absolute Number
                         </div>
                       </label>
                     </div>
                     <div
-                      className="leafygreen-ui-1s4vgyd"
+                      className="leafygreen-ui-3n5lp7"
                     >
                       <label
-                        className="leafygreen-ui-17avto4"
+                        className="css-qgo9zc leafygreen-ui-1d5p7a4"
                         htmlFor="chart-radio-percent"
                       >
                         <input
                           aria-disabled={false}
                           checked={false}
-                          className="leafygreen-ui-x2r5fc"
+                          className="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                           data-cy="cy-chart-percent-radio"
-                          data-leafygreen-ui="input-element"
                           disabled={false}
                           id="chart-radio-percent"
                           name="chart-select"
@@ -390,23 +378,13 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                           value="percentage"
                         />
                         <div
-                          className="leafygreen-ui-5a1vdt"
-                          data-leafygreen-ui="radio-input-display-wrapper"
+                          className="lg-ui-radio-group-0001 leafygreen-ui-1tsb3ci"
                         >
                           <div
-                            className="leafygreen-ui-1y6j5s3"
-                            data-leafygreen-ui="radio-input-display"
-                            onBlur={[Function]}
-                            onFocus={[Function]}
-                          />
-                          <div
-                            className="leafygreen-ui-1cqcpzq"
-                            data-leafygreen-ui="interaction-ring"
+                            className="lg-ui-radio-group-0000 leafygreen-ui-13fu653"
                           />
                         </div>
-                        <div
-                          className="leafygreen-ui-3sm8z"
-                        >
+                        <div>
                           Percentage
                         </div>
                       </label>

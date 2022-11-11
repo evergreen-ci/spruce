@@ -44,14 +44,14 @@ export const ChartToggle: React.VFC<{
                 onChange={onChange}
                 value={currentChartType}
                 name="chart-select"
-                className={css`
-                  font-weight: bold;
-                `}
               >
                 <Radio
                   data-cy="cy-chart-absolute-radio"
                   id="chart-radio-absolute"
                   value={ChartTypes.Absolute}
+                  className={css`
+                    margin: ${size.xs} 0;
+                  `}
                 >
                   Absolute Number
                 </Radio>
@@ -59,6 +59,9 @@ export const ChartToggle: React.VFC<{
                   data-cy="cy-chart-percent-radio"
                   id="chart-radio-percent"
                   value={ChartTypes.Percentage}
+                  className={css`
+                    margin-bottom: ${size.xs};
+                  `}
                 >
                   Percentage
                 </Radio>
@@ -71,22 +74,20 @@ export const ChartToggle: React.VFC<{
   );
 };
 
-// @ts-expect-error
 const StyledRadioGroup = styled(RadioGroup)`
   display: flex;
   align-items: center;
+  gap: ${size.xs};
+  font-weight: bold;
   white-space: nowrap;
-  justify-content: space-evenly;
-  width: 286px;
-  border-radius: 7px;
-  border: 1px solid ${gray.light2};
-  padding: ${size.xs} 0 ${size.s} 0;
-  background: #ffffff;
-  box-shadow: 0px ${size.xxs} 10px -${size.xxs} rgba(0, 0, 0, 0.3);
 `;
 
 const ToggleWrapper = styled.div`
-  width: 286px;
+  padding: ${size.xxs} ${size.xs};
+  border-radius: ${size.xs};
+  border: 1px solid ${gray.light2};
+  background: #ffffff;
+  box-shadow: 0px ${size.xxs} ${size.xs} -${size.xxs} rgba(0, 0, 0, 0.3);
 `;
 
 const AccordionContainer = styled.div`

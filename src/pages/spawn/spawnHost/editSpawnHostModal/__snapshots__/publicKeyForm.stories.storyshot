@@ -14,8 +14,7 @@ exports[`storybook Storyshots Pages/Spawn/Public Key Form Public Key Form View 1
     role="group"
   >
     <label
-      className="leafygreen-ui-uy9cic"
-      data-leafygreen-ui="radio-box-wrapper"
+      className="leafygreen-ui-hr78fp"
       htmlFor="radio-box-1"
     >
       <input
@@ -23,7 +22,6 @@ exports[`storybook Storyshots Pages/Spawn/Public Key Form Public Key Form View 1
         aria-disabled={false}
         checked={true}
         className="leafygreen-ui-sjbfy8"
-        data-leafygreen-ui="radio-box-input"
         disabled={false}
         id="radio-box-1"
         name="radio-box-group-1"
@@ -32,28 +30,13 @@ exports[`storybook Storyshots Pages/Spawn/Public Key Form Public Key Form View 1
         value="existingKey"
       />
       <div
-        className="leafygreen-ui-127vqa1"
+        className="leafygreen-ui-1wcfxjp"
       >
-        <div
-          className="leafygreen-ui-16kk2uc"
-        >
-          <div
-            className="leafygreen-ui-15zg8ja"
-            onBlur={[Function]}
-            onFocus={[Function]}
-          >
-            Use existing key
-          </div>
-          <div
-            className="leafygreen-ui-lmd64m"
-            data-leafygreen-ui="interaction-ring"
-          />
-        </div>
+        Use existing key
       </div>
     </label>
     <label
-      className="leafygreen-ui-uy9cic"
-      data-leafygreen-ui="radio-box-wrapper"
+      className="leafygreen-ui-hr78fp"
       htmlFor="radio-box-2"
     >
       <input
@@ -61,7 +44,6 @@ exports[`storybook Storyshots Pages/Spawn/Public Key Form Public Key Form View 1
         aria-disabled={false}
         checked={false}
         className="leafygreen-ui-sjbfy8"
-        data-leafygreen-ui="radio-box-input"
         disabled={false}
         id="radio-box-2"
         name="radio-box-group-1"
@@ -70,23 +52,9 @@ exports[`storybook Storyshots Pages/Spawn/Public Key Form Public Key Form View 1
         value="newKey"
       />
       <div
-        className="leafygreen-ui-127vqa1"
+        className="leafygreen-ui-1los8me"
       >
-        <div
-          className="leafygreen-ui-1ozjte4"
-        >
-          <div
-            className="leafygreen-ui-15zg8ja"
-            onBlur={[Function]}
-            onFocus={[Function]}
-          >
-            Add new key
-          </div>
-          <div
-            className="leafygreen-ui-15x5f9a"
-            data-leafygreen-ui="interaction-ring"
-          />
-        </div>
+        Add new key
       </div>
     </label>
   </div>
