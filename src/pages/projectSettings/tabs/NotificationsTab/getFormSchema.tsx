@@ -6,6 +6,7 @@ import {
 import { CardFieldTemplate } from "components/SpruceForm/FieldTemplates";
 import widgets from "components/SpruceForm/Widgets";
 import { projectTriggers } from "constants/triggers";
+import { useSpruceConfig } from "hooks";
 import { projectSubscriptionMethods as subscriptionMethods } from "types/subscription";
 import { GetFormSchema } from "../types";
 import { radioBoxOptions } from "../utils/form";
@@ -71,14 +72,7 @@ export const getFormSchema = (
       },
       subscriptions: {
         "ui:placeholder": "No subscriptions are defined.",
-        "ui:descriptionNode": (
-          // this help text will be updated in EVG-17477
-          <Description>
-            The Evergreen bot needs to be re-invited to private Slack channels
-            for notifications to go through. You can do so by running{" "}
-            <InlineCode>invite @evergreen-bot</InlineCode> in the channel.
-          </Description>
-        ),
+        "ui:descriptionNode": <HelpText />,
         "ui:addButtonText": "Add Subscription",
         "ui:orderable": false,
         "ui:useExpandableCard": true,
@@ -92,4 +86,21 @@ export const getFormSchema = (
       },
     },
   };
+};
+
+const HelpText: React.VFC = () => {
+  const spruceConfig = useSpruceConfig();
+  const slackName = spruceConfig?.slack?.name;
+
+  return (
+    <Description>
+      Private slack channels may require further Slack configuration.
+      {slackName && (
+        <div>
+          Invite evergreen to your private Slack channels by running{" "}
+          <InlineCode>invite {slackName}</InlineCode> in the channel.
+        </div>
+      )}
+    </Description>
+  );
 };
