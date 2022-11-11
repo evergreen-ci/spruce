@@ -1,13 +1,10 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
+import { Select, Option } from "@leafygreen-ui/select";
 import TextArea from "@leafygreen-ui/text-area";
-import { Body } from "@leafygreen-ui/typography";
-import { Select } from "antd";
 import { useHostsTableAnalytics } from "analytics";
-import { LoadingButton } from "components/Buttons";
-import { Modal } from "components/Modal";
+import { ConfirmationModal } from "components/ConfirmationModal";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -16,8 +13,6 @@ import {
 } from "gql/generated/types";
 import { UPDATE_HOST_STATUS } from "gql/mutations";
 import { UpdateHostStatus } from "types/host";
-
-const { Option } = Select;
 
 interface Props {
   visible: boolean;
@@ -48,7 +43,7 @@ export const UpdateStatusModal: React.VFC<Props> = ({
   };
 
   // UPDATE HOST STATUS MUTATION
-  const [updateHostStatus, { loading: loadingUpdateHostStatus }] = useMutation<
+  const [updateHostStatus] = useMutation<
     UpdateHostStatusMutation,
     UpdateHostStatusMutationVariables
   >(UPDATE_HOST_STATUS, {
@@ -84,62 +79,45 @@ export const UpdateStatusModal: React.VFC<Props> = ({
   };
 
   return (
-    <Modal
+    <ConfirmationModal
+      buttonText="Update"
       data-cy={dataCy}
-      visible={visible}
       onCancel={onClickCancel}
+      onConfirm={onClickUpdate}
+      open={visible}
+      submitDisabled={!status}
       title="Update Host Status"
-      footer={[
-        <Button
-          key="modal-cancel-button"
-          data-cy="modal-cancel-button"
-          onClick={onClickCancel}
-        >
-          Cancel
-        </Button>,
-        <LoadingButton
-          key="modal-update-button"
-          data-cy="modal-update-button"
-          variant="primary"
-          disabled={!status}
-          loading={loadingUpdateHostStatus}
-          onClick={onClickUpdate}
-        >
-          Update
-        </LoadingButton>,
-      ]}
     >
-      <Body weight="medium">Host Status</Body>
-      <StyledSelect
-        aria-labelledby="host-status-select"
-        data-cy="host-status-select"
-        value={status}
-        onChange={(s) => setHostStatus(s as UpdateHostStatus)}
-      >
-        {hostStatuses.map(({ title, value, key }) => (
-          <Option key={key} value={value} data-cy={`${value}-option`}>
-            {title}
-          </Option>
-        ))}
-      </StyledSelect>
-      <StyledTextArea
-        label="Add Notes"
-        data-cy="host-status-notes"
-        value={notes}
-        rows={6}
-        onChange={(e) => setNotesValue(e.target.value)}
-      />
-    </Modal>
+      <Container>
+        <Select
+          data-cy="host-status-select"
+          value={status}
+          label="Host Status"
+          onChange={(s) => setHostStatus(s as UpdateHostStatus)}
+          allowDeselect={false}
+        >
+          {hostStatuses.map(({ title, value, key }) => (
+            <Option key={key} value={value} data-cy={`${value}-option`}>
+              {title}
+            </Option>
+          ))}
+        </Select>
+        <TextArea
+          label="Add Notes"
+          data-cy="host-status-notes"
+          value={notes}
+          rows={6}
+          onChange={(e) => setNotesValue(e.target.value)}
+        />
+      </Container>
+    </ConfirmationModal>
   );
 };
 
-// STYLES
-const StyledSelect = styled(Select)`
-  width: 100%;
-  margin-bottom: ${size.m};
-`;
-const StyledTextArea = styled(TextArea)`
-  resize: none;
+const Container = styled.div`
+  > :not(:last-child) {
+    margin-bottom: ${size.m};
+  }
 `;
 
 // HOSTS STATUSES DATA FOR SELECT COMPONENT

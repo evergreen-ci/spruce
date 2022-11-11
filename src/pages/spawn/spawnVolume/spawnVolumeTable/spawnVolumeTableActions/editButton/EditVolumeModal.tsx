@@ -1,15 +1,12 @@
 import { useEffect, useReducer } from "react";
 import { useMutation } from "@apollo/client";
-import { Variant } from "@leafygreen-ui/button";
 import TextInput from "@leafygreen-ui/text-input";
 import { useSpawnAnalytics } from "analytics";
-import { Modal } from "components/Modal";
+import { ConfirmationModal } from "components/ConfirmationModal";
 import {
   ExpirationField,
-  ModalContent,
   SectionContainer,
   SectionLabel,
-  WideButton,
 } from "components/Spawn";
 import { useToastContext } from "context/toast";
 import {
@@ -83,43 +80,26 @@ export const EditVolumeModal: React.VFC<Props> = ({
     state.noExpiration === volume.noExpiration;
 
   return (
-    <Modal
+    <ConfirmationModal
       title="Edit Volume"
-      visible={visible}
+      buttonText="Save"
+      open={visible}
       onCancel={onCancel}
-      footer={[
-        <WideButton
-          data-cy="cancel-volume-button" // @ts-expect-error
-          onClick={onCancel}
-          key="cancel-button"
-        >
-          Cancel
-        </WideButton>,
-        <WideButton
-          data-cy="update-volume-button"
-          disabled={loading || noChange}
-          key="update-volume-button" // @ts-expect-error
-          onClick={updateVolume}
-          variant={Variant.Primary}
-        >
-          {loading ? "Saving" : "Save"}
-        </WideButton>,
-      ]}
+      onConfirm={updateVolume}
+      submitDisabled={loading || noChange}
       data-cy="update-volume-modal"
     >
       <SectionContainer>
         <SectionLabel weight="medium">Volume name</SectionLabel>
-        <ModalContent>
-          <TextInput
-            label="Volume Name"
-            data-cy="volume-name-input"
-            id="volumeNameInput"
-            value={state.name}
-            onChange={(e) =>
-              dispatch({ type: "setDisplayName", name: e.target.value })
-            }
-          />
-        </ModalContent>
+        <TextInput
+          label="Volume Name"
+          data-cy="volume-name-input"
+          id="volumeNameInput"
+          value={state.name}
+          onChange={(e) =>
+            dispatch({ type: "setDisplayName", name: e.target.value })
+          }
+        />
       </SectionContainer>
       <ExpirationField
         isVolume
@@ -130,6 +110,6 @@ export const EditVolumeModal: React.VFC<Props> = ({
         }}
         onChange={(expData) => dispatch({ type: "editExpiration", ...expData })}
       />
-    </Modal>
+    </ConfirmationModal>
   );
 };

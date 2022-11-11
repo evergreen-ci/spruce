@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { Body } from "@leafygreen-ui/typography";
 import { usePreferencesAnalytics } from "analytics";
+import { ConfirmationModal } from "components/ConfirmationModal";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -12,7 +13,6 @@ import {
 } from "gql/generated/types";
 import { CLEAR_MY_SUBSCRIPTIONS } from "gql/mutations";
 import { PreferencesCard } from "pages/preferences/Card";
-import { PreferencesModal } from "pages/preferences/preferencesTabs/PreferencesModal";
 
 export const ClearSubscriptionsCard: React.VFC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -54,19 +54,23 @@ export const ClearSubscriptionsCard: React.VFC = () => {
           Clear all previous subscriptions
         </StyledClearSubscriptionButton>
       </PreferencesCard>
-      <PreferencesModal
-        visible={showModal}
-        title="Are you sure you want to clear all subscriptions you have made on individual Version and Task pages?"
-        onSubmit={() => {
+      <ConfirmationModal
+        buttonText="Clear all"
+        open={showModal}
+        onCancel={() => setShowModal(false)}
+        onConfirm={() => {
           clearMySubscriptions();
           sendEvent({
             name: "Clear Subscriptions",
           });
         }}
-        onCancel={() => setShowModal(false)}
-        action="Clear All"
-        disabled={loading}
-      />
+        title="Delete Subscriptions"
+        submitDisabled={loading}
+        variant="danger"
+      >
+        Are you sure you would like to clear all subscriptions you have made on
+        individual Version and Task pages?
+      </ConfirmationModal>
     </>
   );
 };

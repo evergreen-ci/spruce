@@ -77,13 +77,16 @@ export const SectionContainer = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  gap: ${size.s};
   justify-content: space-between;
   margin-top: ${size.s};
+
+  button {
+    width: 200px;
+  }
 `;
 
 export const SectionLabel = styled(Body)`
-  flex-grow: 1;
-  padding-right: ${size.s};
   margin-top: ${size.m};
 `;
 

@@ -1,11 +1,12 @@
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { Tooltip } from "antd";
+import Tooltip from "@leafygreen-ui/tooltip";
+import { Body } from "@leafygreen-ui/typography";
 import { set } from "date-fns";
+import { ConditionalWrapper } from "components/ConditionalWrapper";
 import DatePicker from "components/DatePicker";
-import { InputLabel } from "components/styles";
 import TimePicker from "components/TimePicker";
-import { size } from "constants/tokens";
+import { size, zIndex } from "constants/tokens";
 import { useDisableSpawnExpirationCheckbox, useSpruceConfig } from "hooks";
 import { MyHost, MyVolume } from "types/spawn";
 import { SectionContainer, SectionLabel } from "./Layout";
@@ -63,43 +64,49 @@ export const ExpirationField: React.VFC<ExpirationFieldProps> = ({
     <SectionContainer>
       <SectionLabel weight="medium">Expiration</SectionLabel>
       <FormContainer>
-        <FlexColumnContainer>
-          <InputLabel htmlFor="hostDetailsDatePicker">Date</InputLabel>
-          <DatePicker
-            id="hostDetailsDatePicker"
-            data-cy="date-picker"
-            onChange={updateDate}
-            disabled={noExpiration}
-            disabledDate={disabledDate}
-            value={expiration}
-            allowClear={false}
-          />
-        </FlexColumnContainer>
-        <PaddedBody>&amp;</PaddedBody>
-        <FlexColumnContainer>
-          <InputLabel htmlFor="hostDetailsTimePicker">Time</InputLabel>
-          <TimePicker
-            data-cy="time-picker"
-            onChange={updateTime}
-            disabled={noExpiration}
-            disabledDate={disabledDate}
-            value={expiration}
-            allowClear={false}
-          />
-        </FlexColumnContainer>
-        <PaddedBody> or </PaddedBody>
-        <FlexColumnContainer>
-          <Tooltip
-            title={getNoExpirationCheckboxTooltipCopy({
-              disableExpirationCheckbox,
-              isVolume,
-              limit: isVolume
-                ? unexpirableVolumesPerUser
-                : unexpirableHostsPerUser,
-            })}
+        <DatePicker
+          label="Date"
+          data-cy="date-picker"
+          onChange={updateDate}
+          disabled={noExpiration}
+          disabledDate={disabledDate}
+          value={expiration}
+          allowClear={false}
+        />
+        <TimePicker
+          data-cy="time-picker"
+          label="Time"
+          onChange={updateTime}
+          disabled={noExpiration}
+          disabledDate={disabledDate}
+          value={expiration}
+          allowClear={false}
+        />
+        <RowWrapper>
+          <Body>or</Body>
+        </RowWrapper>
+        <RowWrapper>
+          <ConditionalWrapper
+            condition={disableExpirationCheckbox}
+            wrapper={(children) => (
+              <Tooltip
+                justify="middle"
+                popoverZIndex={zIndex.tooltip}
+                triggerEvent="hover"
+                trigger={children}
+              >
+                {getNoExpirationCheckboxTooltipCopy({
+                  disableExpirationCheckbox,
+                  isVolume,
+                  limit: isVolume
+                    ? unexpirableVolumesPerUser
+                    : unexpirableHostsPerUser,
+                })}
+              </Tooltip>
+            )}
           >
             <span>
-              <PaddedCheckbox
+              <Checkbox
                 data-cy="never-expire-checkbox"
                 disabled={disableExpirationCheckbox}
                 label="Never"
@@ -109,29 +116,19 @@ export const ExpirationField: React.VFC<ExpirationFieldProps> = ({
                 }
               />
             </span>
-          </Tooltip>
-        </FlexColumnContainer>
+          </ConditionalWrapper>
+        </RowWrapper>
       </FormContainer>
     </SectionContainer>
   );
 };
 
-const FlexColumnContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 const FormContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  gap: ${size.xs};
 `;
 
-const PaddedBody = styled.span`
-  padding: 0 ${size.s};
+const RowWrapper = styled.div`
   margin-top: ${size.m};
 `;
-
-// @ts-ignore
-const PaddedCheckbox = styled(Checkbox)`
-  margin-top: ${size.m};
-` as typeof Checkbox;

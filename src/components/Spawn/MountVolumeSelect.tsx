@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
-import { Select } from "antd";
-import { ModalContent } from "components/Spawn";
-import { InputLabel } from "components/styles";
+import { Select, Option } from "@leafygreen-ui/select";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { useToastContext } from "context/toast";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
@@ -10,7 +8,6 @@ import { GET_MY_HOSTS } from "gql/queries";
 import { usePolling } from "hooks";
 import { HostStatus } from "types/host";
 
-const { Option } = Select;
 interface HostOption {
   id: string;
   displayName: string;
@@ -75,27 +72,18 @@ export const MountVolumeSelect = ({
   }, [hostOptions, selectedHostId, onChange, autofill]);
 
   return (
-    <ModalContent>
-      <InputLabel htmlFor="hostDropdown">{label || "Host Name"}</InputLabel>
-      <Select
-        id="hostDropdown"
-        aria-labelledby="host-select"
-        data-cy="host-select"
-        value={selectedHostId}
-        style={{ width: 200 }}
-        onChange={onChange}
-      >
-        {!autofill && (
-          <Option value="" key="clear" data-cy="clear-option">
-            {" "}
-          </Option>
-        )}
-        {hostOptions.map(({ id, displayName }) => (
-          <Option value={id} key={id} data-cy={`${id}-option`}>
-            {displayName}
-          </Option>
-        ))}
-      </Select>
-    </ModalContent>
+    <Select
+      data-cy="host-select"
+      label={label || "Host Name"}
+      value={selectedHostId}
+      onChange={onChange}
+      placeholder="Select from hosts"
+    >
+      {hostOptions.map(({ id, displayName }) => (
+        <Option value={id} key={id} data-cy={`${id}-option`}>
+          {displayName}
+        </Option>
+      ))}
+    </Select>
   );
 };

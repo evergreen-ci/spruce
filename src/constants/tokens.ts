@@ -13,7 +13,11 @@ const size = {
 
 const zIndex = {
   backdrop: -1,
-  modal: 10,
+
+  // Set these values to 1 to utilize LeafyGreen's built-in stacking context
+  sideNav: 1,
+  modal: 1,
+
   tooltip: 20,
   popover: 30,
   toast: 40,

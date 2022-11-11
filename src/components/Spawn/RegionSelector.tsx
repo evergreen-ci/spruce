@@ -1,8 +1,4 @@
-import { Select } from "antd";
-import { InputLabel } from "components/styles";
-import { ModalContent } from "./Layout";
-
-const { Option } = Select;
+import { Select, Option } from "@leafygreen-ui/select";
 
 interface Props {
   onChange: (value: string) => void;
@@ -15,23 +11,18 @@ export const RegionSelector: React.VFC<Props> = ({
   selectedRegion,
   awsRegions,
 }) => (
-  <ModalContent>
-    <InputLabel htmlFor="awsSelectDropown">Region</InputLabel>
-    <Select
-      id="awsSelectDropown"
-      aria-labelledby="region-select"
-      data-cy="regionSelector"
-      showSearch
-      style={{ width: 200 }}
-      placeholder="Select a region"
-      onChange={onChange}
-      value={selectedRegion}
-    >
-      {awsRegions?.map((region) => (
-        <Option value={region} key={`region_option_${region}`}>
-          {region}
-        </Option>
-      ))}
-    </Select>
-  </ModalContent>
+  <Select
+    label="Region"
+    data-cy="regionSelector"
+    placeholder="Select a region"
+    onChange={onChange}
+    value={selectedRegion}
+    allowDeselect={false}
+  >
+    {awsRegions?.map((region) => (
+      <Option value={region} key={`region_option_${region}`}>
+        {region}
+      </Option>
+    ))}
+  </Select>
 );

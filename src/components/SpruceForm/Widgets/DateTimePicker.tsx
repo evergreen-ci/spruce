@@ -49,8 +49,6 @@ export const DateTimePicker: React.VFC<
       {description && <Description>{description}</Description>}
       <DateTimeContainer>
         <DatePicker
-          // @ts-expect-error
-          getPopupContainer={getPopupContainer}
           data-cy="date-picker"
           onChange={handleChange}
           value={currentDateTime}
@@ -59,8 +57,6 @@ export const DateTimePicker: React.VFC<
           disabledDate={disabledDate}
         />
         <TimePicker
-          // @ts-expect-error
-          getPopupContainer={getPopupContainer}
           data-cy="time-picker"
           onChange={handleChange}
           value={currentDateTime}
@@ -74,10 +70,6 @@ export const DateTimePicker: React.VFC<
 };
 
 const DateTimeContainer = styled.div`
-  > :not(:last-of-type) {
-    margin-right: ${size.xs};
-  }
+  display: flex;
+  gap: ${size.xs};
 `;
-
-// Fixes bug where DatePicker won't handle onClick events
-const getPopupContainer = (triggerNode: HTMLElement) => triggerNode.parentNode;

@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { H2, Body } from "@leafygreen-ui/typography";
 import { Layout } from "antd";
-import { size, fontSize } from "constants/tokens";
+import { size } from "constants/tokens";
 
 const { gray, white, red } = palette;
 const { Content, Sider } = Layout;
@@ -73,11 +73,6 @@ export const PageButtonRow = styled.div`
   > *:last-child {
     margin-right: 0;
   }
-`;
-
-export const InputLabel = styled.label`
-  font-size: ${fontSize.m};
-  font-weight: bold;
 `;
 
 export const ErrorMessage = styled(Body)`

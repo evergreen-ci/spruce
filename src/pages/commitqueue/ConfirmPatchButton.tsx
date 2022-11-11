@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Button from "@leafygreen-ui/button";
-import ConfirmationModal, { Variant } from "@leafygreen-ui/confirmation-modal";
+import { ConfirmationModal } from "components/ConfirmationModal";
 
 interface ConfirmPatchButtonProps {
   disabled: boolean;
@@ -33,7 +33,7 @@ export const ConfirmPatchButton: React.VFC<ConfirmPatchButtonProps> = ({
         onCancel={() => setOpen(false)}
         title="Are you sure you want to remove this patch from the commit queue?"
         buttonText="Remove"
-        variant={Variant.Danger}
+        variant="danger"
       >
         {commitTitle}
       </ConfirmationModal>

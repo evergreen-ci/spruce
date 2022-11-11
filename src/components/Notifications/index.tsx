@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import Button, { Variant } from "@leafygreen-ui/button";
+import Button from "@leafygreen-ui/button";
 import Cookies from "js-cookie";
-import { Modal } from "components/Modal";
+import { ConfirmationModal } from "components/ConfirmationModal";
 import { SpruceForm } from "components/SpruceForm";
 import {
   getNotificationTriggerCookie,
@@ -119,31 +119,14 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
   );
 
   return (
-    <Modal
+    <ConfirmationModal
+      buttonText="Save"
       data-cy={dataCy}
-      visible={visible}
       onCancel={onCancel}
+      onConfirm={onClickSave}
+      open={visible}
+      submitDisabled={hasError}
       title="Add Subscription"
-      footer={
-        <>
-          <LeftButton
-            data-cy="cancel-subscription-button"
-            key="cancel" // @ts-expect-error
-            onClick={onCancel}
-          >
-            Cancel
-          </LeftButton>
-          <Button
-            data-cy="save-subscription-button"
-            disabled={hasError}
-            key="save"
-            onClick={onClickSave}
-            variant={Variant.Primary}
-          >
-            Save
-          </Button>
-        </>
-      }
     >
       <SpruceForm
         schema={schema}
@@ -158,7 +141,7 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
           setHasError(errors.length !== 0);
         }}
       />
-    </Modal>
+    </ConfirmationModal>
   );
 };
 

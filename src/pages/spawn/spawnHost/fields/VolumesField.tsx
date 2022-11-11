@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import TextInput from "@leafygreen-ui/text-input";
+import { Label } from "@leafygreen-ui/typography";
 import { Select } from "antd";
-import { InputLabel } from "components/styles";
 import { size } from "constants/tokens";
 import { MyVolume } from "types/spawn";
 
@@ -33,7 +33,7 @@ export const VolumesField: React.VFC<VolumesFieldProps> = ({
   return (
     <>
       <FlexColumnContainer>
-        <InputLabel htmlFor="volumesSelectDropown">Volume</InputLabel>
+        <Label htmlFor="volumesSelectDropown">Volume</Label>
         <Select
           id="volumesSelectDropown"
           aria-labelledby="volume-select"

@@ -1,6 +1,5 @@
 import { css } from "@emotion/react";
 import widgets from "components/SpruceForm/Widgets";
-import { AntdSelect } from "components/SpruceForm/Widgets/AntdWidgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
 import {
   GetMyPublicKeysQuery,
@@ -424,7 +423,7 @@ export const getFormSchema = ({
         "ui:data-cy": "distro-input",
       },
       region: {
-        "ui:widget": AntdSelect,
+        "ui:allowDeselect": false,
         "ui:elementWrapperCSS": dropdownWrapperClassName,
         "ui:valuePlaceholder": "Select a region",
       },
@@ -433,7 +432,7 @@ export const getFormSchema = ({
           "ui:widget": widgets.RadioBoxWidget,
         },
         publicKeyNameDropdown: {
-          "ui:widget": AntdSelect,
+          "ui:allowDeselect": false,
           "ui:elementWrapperCSS": dropdownWrapperClassName,
           "ui:valuePlaceholder": "Select a key",
           "ui:data-cy": "key-select",
@@ -503,26 +502,22 @@ export const getFormSchema = ({
           },
         },
       }),
-      ...(shouldRenderVolumeSelection && {
-        homeVolumeDetails: {
-          selectExistingVolume: {
-            "ui:widget": isVirtualWorkstation
-              ? widgets.RadioBoxWidget
-              : "hidden",
-          },
-          volumeSelect: {
-            "ui:widget": isVirtualWorkstation ? AntdSelect : "hidden",
-            "ui:allowDeselect": false,
-            "ui:data-cy": "volume-select",
-            "ui:disabledEnums": (volumes || [])
-              .filter((v) => !!v.hostID)
-              .map((v) => v.id),
-          },
-          volumeSize: {
-            "ui:inputType": "number",
-          },
+      homeVolumeDetails: {
+        "ui:hidden": !shouldRenderVolumeSelection,
+        selectExistingVolume: {
+          "ui:widget": widgets.RadioBoxWidget,
         },
-      }),
+        volumeSelect: {
+          "ui:allowDeselect": false,
+          "ui:data-cy": "volume-select",
+          "ui:disabledEnums": (volumes || [])
+            .filter((v) => !!v.hostID)
+            .map((v) => v.id),
+        },
+        volumeSize: {
+          "ui:inputType": "number",
+        },
+      },
     },
   };
 };

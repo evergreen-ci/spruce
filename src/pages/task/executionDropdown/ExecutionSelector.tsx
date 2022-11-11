@@ -1,9 +1,8 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Body } from "@leafygreen-ui/typography";
-import { Select } from "antd";
+import { Select, Option } from "@leafygreen-ui/select";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
-import { fontSize, size } from "constants/tokens";
+import { size } from "constants/tokens";
 import {
   GetTaskAllExecutionsQuery,
   GetTaskAllExecutionsQueryVariables,
@@ -11,12 +10,13 @@ import {
 import { GET_TASK_ALL_EXECUTIONS } from "gql/queries";
 import { useDateFormat } from "hooks";
 import { executionAsDisplay } from "pages/task/util/execution";
+import { SelectType } from "types/leafygreen";
 
 interface ExecutionSelectProps {
   id: string;
   currentExecution: number;
   latestExecution: number | null;
-  updateExecution: (execution: number) => void;
+  updateExecution: (execution: string) => void;
 }
 
 export const ExecutionSelect: React.VFC<ExecutionSelectProps> = ({
@@ -33,7 +33,6 @@ export const ExecutionSelect: React.VFC<ExecutionSelectProps> = ({
   });
   const allExecutions = allExecutionsResult?.data?.taskAllExecutions;
   const executionsLoading = allExecutionsResult?.loading;
-  const { Option } = Select;
   const getDateCopy = useDateFormat();
   return (
     <StyledSelect
@@ -41,31 +40,28 @@ export const ExecutionSelect: React.VFC<ExecutionSelectProps> = ({
       disabled={executionsLoading}
       key={currentExecution}
       data-cy="execution-select"
-      value={`Execution ${executionAsDisplay(currentExecution)}${
-        currentExecution === latestExecution ? " (latest)" : ""
-      }`}
-      onChange={(selected: number | null) => {
+      value={`${currentExecution}`}
+      onChange={(selected: string) => {
         updateExecution(selected);
       }}
+      label="Execution"
+      allowDeselect={false}
     >
       {allExecutions?.map((singleExecution) => {
-        const optionText = `Execution ${executionAsDisplay(
+        const optionText = `#${executionAsDisplay(
           singleExecution.execution
-        )} - ${getDateCopy(
+        )} – ${getDateCopy(
           singleExecution.activatedTime ?? singleExecution.ingestTime
-        )}`;
+        )}${singleExecution.execution === latestExecution ? " (latest)" : ""}`;
 
         return (
           <Option
             key={singleExecution.execution}
-            value={singleExecution.execution}
+            value={`${singleExecution.execution}`}
             data-cy={`execution-${singleExecution.execution}`}
+            glyph={<TaskStatusIcon status={singleExecution.status} />}
           >
-            <ExecutionInfo>
-              <StyledTaskStatusIcon status={singleExecution.status} />
-              {/* @ts-expect-error */}
-              <StyledBody title={optionText}>{optionText}</StyledBody>
-            </ExecutionInfo>
+            {optionText}
           </Option>
         );
       })}
@@ -73,24 +69,6 @@ export const ExecutionSelect: React.VFC<ExecutionSelectProps> = ({
   );
 };
 
-const StyledSelect = styled(Select)`
-  margin-bottom: ${size.xs};
-  width: 100%;
-`;
-
-const ExecutionInfo = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const StyledBody = styled(Body)`
-  font-size: ${fontSize.m};
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-`;
-
-const StyledTaskStatusIcon = styled(TaskStatusIcon)`
-  margin-right: ${size.xxs};
-  flex-shrink: 0;
+const StyledSelect = styled<SelectType>(Select)`
+  margin-bottom: ${size.s};
 `;

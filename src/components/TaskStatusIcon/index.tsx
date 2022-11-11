@@ -1,3 +1,4 @@
+import { IconProps } from "@leafygreen-ui/icon";
 import { palette } from "@leafygreen-ui/palette";
 import Icon from "components/Icon";
 import { TaskStatus } from "types/task";
@@ -6,18 +7,15 @@ import { errorReporting } from "utils";
 const { reportError } = errorReporting;
 const { green, red, yellow, gray, purple } = palette;
 
-type IconProps = React.ComponentProps<typeof Icon>;
 interface TaskStatusIconProps
   extends Omit<IconProps, "glyph" | "fill" | "size"> {
   status: string;
   size?: number;
 }
 
-export const TaskStatusIcon: React.VFC<TaskStatusIconProps> = ({
-  status,
-  size = 16,
-  ...rest
-}) => {
+export const TaskStatusIcon: React.VFC<TaskStatusIconProps> & {
+  isGlyph: boolean;
+} = ({ status, size = 16, ...rest }) => {
   switch (status) {
     case TaskStatus.Succeeded:
       return (
@@ -115,3 +113,7 @@ export const groupedIconStatuses = [
     ],
   },
 ];
+
+// Set isGlyph so that TaskStatusIcon can be used as a Select Option's glyph prop
+// Fixed by https://jira.mongodb.org/browse/LG-2568
+TaskStatusIcon.isGlyph = true;

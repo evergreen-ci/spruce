@@ -3,7 +3,6 @@ import { FiltersWrapper } from "./filters";
 import { inactiveElementStyle } from "./Inactive";
 import {
   ErrorMessage,
-  InputLabel,
   PageButtonRow,
   PageContent,
   PageGrid,
@@ -25,7 +24,6 @@ export {
   ErrorMessage,
   FiltersWrapper,
   inactiveElementStyle,
-  InputLabel,
   PageButtonRow,
   PageContent,
   PageGrid,

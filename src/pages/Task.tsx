@@ -111,10 +111,10 @@ export const Task = () => {
               id={id}
               currentExecution={selectedExecution}
               latestExecution={latestExecution}
-              updateExecution={(n: number) => {
+              updateExecution={(n: string) => {
                 taskAnalytics.sendEvent({ name: "Change Execution" });
                 updateQueryParams({
-                  execution: `${n}`,
+                  execution: n,
                 });
               }}
             />

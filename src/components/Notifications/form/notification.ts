@@ -1,5 +1,4 @@
 import { SpruceFormProps } from "components/SpruceForm";
-import { AntdSelect } from "components/SpruceForm/Widgets/AntdWidgets";
 import { generateWebhookSecret } from "pages/projectSettings/tabs/NotificationsTab/utils";
 import {
   SubscriptionMethodOption,
@@ -154,7 +153,7 @@ export const getNotificationSchema = (
   },
   uiSchema: {
     notificationSelect: {
-      "ui:widget": AntdSelect,
+      "ui:allowDeselect": false,
       "ui:data-cy": "notification-method-select",
     },
     jiraCommentInput: {

@@ -5,6 +5,7 @@ import { DISABLE_QUERY_POLLING } from "constants/cookies";
 import { FASTER_POLL_INTERVAL, DEFAULT_POLL_INTERVAL } from "constants/index";
 import { useNetworkStatus } from "./useNetworkStatus";
 import { usePageVisibility } from "./usePageVisibility";
+
 interface Props {
   startPolling: (DEFAULT_POLL_INTERVAL?: number) => void;
   stopPolling: () => void;

@@ -1,25 +1,24 @@
 import { useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Variant } from "@leafygreen-ui/button";
 import TextInput from "@leafygreen-ui/text-input";
 import Tooltip from "@leafygreen-ui/tooltip";
+import { Label } from "@leafygreen-ui/typography";
 import { Select } from "antd";
 import { diff } from "deep-object-diff";
 import isEqual from "lodash.isequal";
 import { useSpawnAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
+import { ConfirmationModal } from "components/ConfirmationModal";
 import Icon from "components/Icon";
-import { Modal } from "components/Modal";
 import {
   ExpirationField,
   ModalContent,
   SectionContainer,
   SectionLabel,
-  WideButton,
 } from "components/Spawn";
 import { ExpirationDateType } from "components/Spawn/ExpirationField";
-import { InputLabel, StyledLink } from "components/styles";
+import { StyledLink } from "components/styles";
 import { windowsPasswordRulesURL } from "constants/externalResources";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -127,9 +126,7 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
     editSpawnHostState
   );
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-
+  const onSubmit = () => {
     spawnAnalytics.sendEvent({
       name: "Edited a Spawn Host",
       params: {
@@ -149,25 +146,13 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
   const canEditRDPPassword =
     host.distro.isWindows && host.status === HostStatus.Running;
   return (
-    <Modal
+    <ConfirmationModal
       title="Edit Host Details"
-      visible={visible}
+      open={visible}
       onCancel={onCancel}
-      footer={[
-        // @ts-expect-error
-        <WideButton onClick={onCancel} key="cancel_button">
-          Cancel
-        </WideButton>,
-        <WideButton
-          data-cy="save-spawn-host-button"
-          disabled={hasChanges || loadingSpawnHost} // @ts-expect-error
-          onClick={onSubmit}
-          variant={Variant.Primary}
-          key="save_spawn_host_button"
-        >
-          {loadingSpawnHost ? "Saving" : "Save"}
-        </WideButton>,
-      ]}
+      onConfirm={onSubmit}
+      buttonText="Save"
+      submitDisabled={hasChanges || loadingSpawnHost}
       data-cy="edit-spawn-host-modal"
     >
       <ModalContent>
@@ -195,9 +180,7 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
         <SectionContainer>
           <SectionLabel weight="medium">Instance Type</SectionLabel>
           <ModalContent>
-            <InputLabel htmlFor="instanceTypeDropdown">
-              Instance Types
-            </InputLabel>
+            <Label htmlFor="instanceTypeDropdown">Instance Types</Label>
             <ConditionalWrapper
               condition={!canEditInstanceType}
               wrapper={(children) => (
@@ -311,7 +294,7 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
           />
         </SectionContainer>
       </ModalContent>
-    </Modal>
+    </ConfirmationModal>
   );
 };
 
