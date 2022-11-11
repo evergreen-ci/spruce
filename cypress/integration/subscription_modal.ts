@@ -67,7 +67,7 @@ const testSharedSubscriptionModalFunctionality = (
       it("has an invalid slack username", () => {
         selectAntdOption("notification-method-select", "Slack");
         cy.dataCy("slack-input").clear();
-        cy.dataCy("slack-input").type("sart");
+        cy.dataCy("slack-input").type("sa rt");
         cy.dataCy("save-subscription-button").should("be.disabled");
         cy.dataCy("slack-input").clear();
         cy.dataCy("slack-input").type("@sart");

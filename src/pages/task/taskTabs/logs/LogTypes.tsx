@@ -1,15 +1,12 @@
+import { useEffect } from "react";
 import { useQuery, ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
 import { palette } from "@leafygreen-ui/palette";
-import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
 import { Skeleton } from "antd";
 import get from "lodash/get";
 import { useParams, useLocation } from "react-router-dom";
-import { useTaskAnalytics } from "analytics";
-import { pollInterval } from "constants/index";
+import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { size, fontSize } from "constants/tokens";
-
 import {
   TaskEventLogsQuery,
   TaskEventLogsQueryVariables,
@@ -31,8 +28,8 @@ import {
   GET_TASK_LOGS,
   GET_ALL_LOGS,
 } from "gql/queries";
-import { usePolling, useUpdateURLQueryParams } from "hooks";
-import { RequiredQueryParams, LogTypes, QueryParams } from "types/task";
+import { usePolling } from "hooks";
+import { RequiredQueryParams } from "types/task";
 import { queryString } from "utils";
 import { LogMessageLine } from "./logTypes/LogMessageLine";
 import { TaskEventLogLine } from "./logTypes/TaskEventLogLine";
@@ -48,10 +45,7 @@ interface LogMessageType extends LogMessageFragment {
   kind?: "logMessage";
 }
 interface Props {
-  currentLog: LogTypes;
-  htmlLink: string;
-  rawLink: string;
-  lobsterLink: string;
+  setNoLogs: (noLogs: boolean) => void;
 }
 
 export const AllLog: React.VFC<Props> = (props) => {
@@ -65,9 +59,9 @@ export const AllLog: React.VFC<Props> = (props) => {
     AllLogsQueryVariables
   >(GET_ALL_LOGS, {
     variables: { id, execution: selectedExecution },
-    pollInterval,
+    pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
 
   // All logs includes task, system, and agent logs. Event logs are not included.
   return useRenderBody({
@@ -88,9 +82,9 @@ export const EventLog: React.VFC<Props> = (props) => {
     TaskEventLogsQueryVariables
   >(GET_TASK_EVENT_LOGS, {
     variables: { id, execution: selectedExecution },
-    pollInterval,
+    pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
 
   return useRenderBody({
     data: get(data, "taskLogs.eventLogs", []).map((v: TaskEventLogEntry) => ({
@@ -114,9 +108,9 @@ export const SystemLog: React.VFC<Props> = (props) => {
     SystemLogsQueryVariables
   >(GET_SYSTEM_LOGS, {
     variables: { id, execution: selectedExecution },
-    pollInterval,
+    pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
 
   return useRenderBody({
     data: get(data, "taskLogs.systemLogs", []),
@@ -136,9 +130,9 @@ export const AgentLog: React.VFC<Props> = (props) => {
     AgentLogsQueryVariables
   >(GET_AGENT_LOGS, {
     variables: { id, execution: selectedExecution },
-    pollInterval,
+    pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
 
   return useRenderBody({
     data: get(data, "taskLogs.agentLogs", []),
@@ -158,9 +152,9 @@ export const TaskLog: React.VFC<Props> = (props) => {
     TaskLogsQueryVariables
   >(GET_TASK_LOGS, {
     variables: { id, execution: selectedExecution },
-    pollInterval,
+    pollInterval: DEFAULT_POLL_INTERVAL,
   });
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
 
   return useRenderBody({
     data: get(data, "taskLogs.taskLogs", []),
@@ -174,153 +168,45 @@ const useRenderBody: React.VFC<{
   loading: boolean;
   error: ApolloError;
   data: (TaskEventLogEntryType | LogMessageType)[];
-  currentLog: LogTypes;
   LogContainer?: React.VFC<{ children: React.ReactNode }>;
-  htmlLink: string;
-  rawLink: string;
-  lobsterLink: string;
+  setNoLogs: (noLogs: boolean) => void;
 }> = ({
   loading,
   error,
   data,
-  currentLog,
-  rawLink,
-  htmlLink,
-  lobsterLink,
   LogContainer = ({ children }) => <StyledPre>{children}</StyledPre>,
+  setNoLogs,
 }) => {
-  const taskAnalytics = useTaskAnalytics();
-  const updateQueryParams = useUpdateURLQueryParams();
-  const noLogs = !!((error && !data) || !data.length);
-  const onChangeLog = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const nextLogType = event.target.value as LogTypes;
-    updateQueryParams({ [QueryParams.LogType]: nextLogType });
-    taskAnalytics.sendEvent({
-      name: "Select Logs Type",
-      logsType: nextLogType,
-    });
-  };
+  const noLogs = error !== undefined || data.length === 0;
+  // Update the value of noLogs in the parent component.
+  useEffect(() => {
+    setNoLogs(noLogs);
+  }, [setNoLogs, noLogs]);
 
-  let body = null;
   if (loading) {
-    body = <Skeleton active title={false} paragraph={{ rows: 8 }} />;
-  } else if (noLogs) {
-    body = <div data-cy="cy-no-logs">No logs found</div>;
-  } else {
-    body = (
-      <LogContainer>
-        {data.map((d, index) =>
-          d.kind === "taskEventLogEntry" ? (
-            <TaskEventLogLine
-              key={`${d.resourceId}_${d.id}_${index}`} // eslint-disable-line react/no-array-index-key
-              {...d}
-            />
-          ) : (
-            <LogMessageLine
-              key={`${d.message}_${d.timestamp}_${index}`} // eslint-disable-line react/no-array-index-key
-              {...d}
-            />
-          )
-        )}
-      </LogContainer>
-    );
+    return <Skeleton active title={false} paragraph={{ rows: 8 }} />;
   }
-
+  if (noLogs) {
+    return <div data-cy="cy-no-logs">No logs found</div>;
+  }
   return (
-    <>
-      <StyledRadioGroup
-        size="default"
-        onChange={onChangeLog}
-        value={currentLog}
-        name="log-select"
-      >
-        {(htmlLink || rawLink || lobsterLink) && (
-          <ButtonContainer>
-            {rawLink && (
-              <Button
-                data-cy="lobster-log-btn"
-                disabled={noLogs}
-                href={lobsterLink}
-                target="_blank"
-                onClick={() =>
-                  taskAnalytics.sendEvent({ name: "Click Logs Lobster Button" })
-                }
-              >
-                Lobster
-              </Button>
-            )}
-            {htmlLink && (
-              <Button
-                data-cy="html-log-btn"
-                disabled={noLogs}
-                href={htmlLink}
-                target="_blank"
-                onClick={() =>
-                  taskAnalytics.sendEvent({ name: "Click Logs HTML Button" })
-                }
-              >
-                HTML
-              </Button>
-            )}
-            {rawLink && (
-              <Button
-                data-cy="raw-log-btn"
-                disabled={noLogs}
-                href={rawLink}
-                target="_blank"
-                onClick={() =>
-                  taskAnalytics.sendEvent({ name: "Click Logs Raw Button" })
-                }
-              >
-                Raw
-              </Button>
-            )}
-          </ButtonContainer>
-        )}
-        <Radio data-cy="task-radio" id="cy-task-radio" value={LogTypes.Task}>
-          Task Logs
-        </Radio>
-        <Radio data-cy="agent-radio" id="cy-agent-radio" value={LogTypes.Agent}>
-          Agent Logs
-        </Radio>
-        <Radio
-          data-cy="system-radio"
-          id="cy-system-radio"
-          value={LogTypes.System}
-        >
-          System Logs
-        </Radio>
-        <Radio data-cy="event-radio" id="cy-event-radio" value={LogTypes.Event}>
-          Event Logs
-        </Radio>
-        <Radio data-cy="all-radio" id="cy-all-radio" value={LogTypes.All}>
-          All Logs
-        </Radio>
-      </StyledRadioGroup>
-      {body}
-    </>
+    <LogContainer>
+      {data.map((d, index) =>
+        d.kind === "taskEventLogEntry" ? (
+          <TaskEventLogLine
+            key={`${d.resourceId}_${d.id}_${index}`} // eslint-disable-line react/no-array-index-key
+            {...d}
+          />
+        ) : (
+          <LogMessageLine
+            key={`${d.message}_${d.timestamp}_${index}`} // eslint-disable-line react/no-array-index-key
+            {...d}
+          />
+        )
+      )}
+    </LogContainer>
   );
 };
-
-const ButtonContainer = styled.div`
-  display: flex;
-  > :not(:last-child) {
-    margin-right: ${size.xs};
-  }
-  margin-right: ${size.s};
-  padding-left: 1px;
-`;
-
-// @ts-expect-error
-const StyledRadioGroup = styled(RadioGroup)`
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
-  label {
-    margin-right: ${size.s};
-  }
-  padding-bottom: ${size.xs};
-`;
 
 const StyledPre = styled.pre`
   padding: ${size.xs};

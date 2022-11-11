@@ -67,9 +67,13 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
 
       <MetadataItem>
         Project:{" "}
-        <StyledRouterLink to={getProjectPatchesRoute(projectIdentifier)}>
-          {projectIdentifier}
-        </StyledRouterLink>
+        {projectIdentifier ? (
+          <StyledRouterLink to={getProjectPatchesRoute(projectIdentifier)}>
+            {projectIdentifier}
+          </StyledRouterLink>
+        ) : (
+          `${owner}/${repo}`
+        )}
       </MetadataItem>
       <MetadataItem>
         Makespan: {makespan && msToDuration(makespan)}

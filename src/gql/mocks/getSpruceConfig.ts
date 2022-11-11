@@ -20,6 +20,9 @@ export const getSpruceConfigMock = {
           aws: { maxVolumeSizePerUser: 1500, __typename: "AWSConfig" },
           __typename: "CloudProviderConfig",
         },
+        slack: {
+          name: "everygreen_slack",
+        },
         spawnHost: {
           spawnHostsPerUser: 6,
           unexpirableHostsPerUser: 2,

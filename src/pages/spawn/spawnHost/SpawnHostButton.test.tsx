@@ -73,13 +73,13 @@ const baseSpawnHost = {
   homeVolume: {
     displayName: "",
   },
-
   instanceType: "m5.xlarge",
   instanceTags: [],
   volumes: [
     {
       displayName: "",
       id: "vol-0cf616375140c067e",
+      migrating: "false",
       __typename: "Volume",
     },
   ],
