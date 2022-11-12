@@ -15,6 +15,7 @@ describe("getFilterStatus", () => {
         tasks: ["task1"],
         variants: ["variant1"],
         requesters: ["requester1"],
+        includeInactiveTasks: false,
       })
     ).toStrictEqual({
       hasFilters: true,
@@ -29,6 +30,7 @@ describe("getFilterStatus", () => {
         tasks: [],
         variants: [],
         requesters: [],
+        includeInactiveTasks: false,
       })
     ).toStrictEqual({
       hasFilters: false,
@@ -43,6 +45,7 @@ describe("getFilterStatus", () => {
         tasks: ["task1"],
         variants: [],
         requesters: [],
+        includeInactiveTasks: false,
       })
     ).toStrictEqual({
       hasFilters: true,
@@ -69,6 +72,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: [],
             variants: [],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).mainlineCommitsOptions
       ).toStrictEqual({
@@ -92,6 +96,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: ["test1"],
             variants: [],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).mainlineCommitsOptions
       ).toStrictEqual({
@@ -113,6 +118,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: [],
             variants: [],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).mainlineCommitsOptions
       ).toStrictEqual({
@@ -134,6 +140,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: ["test1"],
             variants: [],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).mainlineCommitsOptions
       ).toStrictEqual({
@@ -155,6 +162,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: [],
             variants: ["test1"],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).mainlineCommitsOptions
       ).toStrictEqual({
@@ -180,6 +188,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: [],
             variants: [],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).buildVariantOptions
       ).toStrictEqual({
@@ -187,6 +196,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         variants: [],
         statuses: [],
         includeBaseTasks: false,
+        includeInactiveTasks: false,
       });
       expect(
         getMainlineCommitsQueryVariables({
@@ -200,6 +210,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: [],
             variants: [],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).buildVariantOptions
       ).toStrictEqual({
@@ -207,6 +218,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         variants: [],
         statuses: [TaskStatus.Failed],
         includeBaseTasks: false,
+        includeInactiveTasks: false,
       });
       expect(
         getMainlineCommitsQueryVariables({
@@ -220,6 +232,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: ["task1"],
             variants: [],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).buildVariantOptions
       ).toStrictEqual({
@@ -227,6 +240,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         variants: [],
         statuses: [],
         includeBaseTasks: false,
+        includeInactiveTasks: false,
       });
     });
   });
@@ -244,12 +258,14 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: [],
             variants: [],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).buildVariantOptionsForGraph
       ).toStrictEqual({
         tasks: [],
         variants: [],
         statuses: [],
+        includeInactiveTasks: false,
       });
     });
     it("should apply all filters when they are provided", () => {
@@ -265,12 +281,14 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: [],
             variants: [],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).buildVariantOptionsForGraph
       ).toStrictEqual({
         tasks: [],
         variants: [],
         statuses: [TaskStatus.Failed],
+        includeInactiveTasks: false,
       });
       expect(
         getMainlineCommitsQueryVariables({
@@ -284,12 +302,14 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: ["task1"],
             variants: [],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).buildVariantOptionsForGraph
       ).toStrictEqual({
         tasks: ["task1"],
         variants: [],
         statuses: [],
+        includeInactiveTasks: false,
       });
       expect(
         getMainlineCommitsQueryVariables({
@@ -303,12 +323,14 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: [],
             variants: ["variant1"],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).buildVariantOptionsForGraph
       ).toStrictEqual({
         tasks: [],
         variants: ["variant1"],
         statuses: [],
+        includeInactiveTasks: false,
       });
     });
   });
@@ -326,6 +348,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: [],
             variants: [],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).buildVariantOptionsForTaskIcons
       ).toStrictEqual({
@@ -333,6 +356,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         variants: [],
         statuses: FAILED_STATUSES,
         includeBaseTasks: false,
+        includeInactiveTasks: false,
       });
     });
     it("should not return any task icons when a non failing status filter is applied", () => {
@@ -348,6 +372,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: [],
             variants: [],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).buildVariantOptionsForTaskIcons
       ).toStrictEqual({
@@ -355,6 +380,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         variants: [],
         statuses: [],
         includeBaseTasks: false,
+        includeInactiveTasks: false,
       });
     });
     it("should only show failing task icons when there are multiple statuses with mixed failing and non failing statuses", () => {
@@ -370,6 +396,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: [],
             variants: [],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).buildVariantOptionsForTaskIcons
       ).toStrictEqual({
@@ -377,6 +404,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         variants: [],
         statuses: [TaskStatus.Failed],
         includeBaseTasks: false,
+        includeInactiveTasks: false,
       });
     });
     it("should return all matching tasks when a task filter is applied regardless of status", () => {
@@ -392,6 +420,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: ["task1"],
             variants: [],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).buildVariantOptionsForTaskIcons
       ).toStrictEqual({
@@ -399,6 +428,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         variants: [],
         statuses: [],
         includeBaseTasks: false,
+        includeInactiveTasks: false,
       });
       expect(
         getMainlineCommitsQueryVariables({
@@ -412,6 +442,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: ["task1"],
             variants: [],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).buildVariantOptionsForTaskIcons
       ).toStrictEqual({
@@ -419,6 +450,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         variants: [],
         statuses: [TaskStatus.Succeeded],
         includeBaseTasks: false,
+        includeInactiveTasks: false,
       });
     });
     it("should only return failing tasks when a variant filter is applied with no other filters", () => {
@@ -434,6 +466,7 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: [],
             variants: ["variant1"],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).buildVariantOptionsForTaskIcons
       ).toStrictEqual({
@@ -441,6 +474,7 @@ describe("getMainlineCommitsQueryVariables", () => {
         variants: ["variant1"],
         statuses: FAILED_STATUSES,
         includeBaseTasks: false,
+        includeInactiveTasks: false,
       });
     });
   });
@@ -459,12 +493,15 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: [],
             variants: [],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).buildVariantOptionsForGroupedTasks
       ).toStrictEqual({
         tasks: [impossibleMatch],
         statuses: [],
         variants: [],
+        includeBaseTasks: false,
+        includeInactiveTasks: false,
       });
     });
     it("should group statuses when a non failing status filter is applied", () => {
@@ -480,12 +517,15 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: [],
             variants: [],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).buildVariantOptionsForGroupedTasks
       ).toStrictEqual({
         tasks: [],
         variants: [],
         statuses: [TaskStatus.Succeeded],
+        includeBaseTasks: false,
+        includeInactiveTasks: false,
       });
     });
     it("should not return groupings for failing statuses if there are multiple statuses", () => {
@@ -501,12 +541,15 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: [],
             variants: [],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).buildVariantOptionsForGroupedTasks
       ).toStrictEqual({
         tasks: [],
         variants: [],
         statuses: [TaskStatus.Succeeded],
+        includeBaseTasks: false,
+        includeInactiveTasks: false,
       });
     });
     it("should not return groupings for failing statuses if there are only failing statuses", () => {
@@ -522,12 +565,15 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: [],
             variants: [],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).buildVariantOptionsForGroupedTasks
       ).toStrictEqual({
         tasks: [impossibleMatch],
         variants: [],
         statuses: [],
+        includeBaseTasks: false,
+        includeInactiveTasks: false,
       });
     });
     it("should not group failing statuses when there are other filters applied", () => {
@@ -543,12 +589,15 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: [],
             variants: ["variant1"],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).buildVariantOptionsForGroupedTasks
       ).toStrictEqual({
         tasks: [],
         variants: ["variant1"],
         statuses: ALL_NON_FAILING_STATUSES,
+        includeBaseTasks: false,
+        includeInactiveTasks: false,
       });
     });
     it("should not return any task groupings if there are task filters applied", () => {
@@ -564,12 +613,15 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: ["task1"],
             variants: [],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).buildVariantOptionsForGroupedTasks
       ).toStrictEqual({
         tasks: [impossibleMatch],
         variants: [],
         statuses: [],
+        includeBaseTasks: false,
+        includeInactiveTasks: false,
       });
       expect(
         getMainlineCommitsQueryVariables({
@@ -583,12 +635,15 @@ describe("getMainlineCommitsQueryVariables", () => {
             tasks: ["task1"],
             variants: [],
             requesters: [],
+            includeInactiveTasks: false,
           },
         }).buildVariantOptionsForGroupedTasks
       ).toStrictEqual({
         tasks: [impossibleMatch],
         variants: [],
         statuses: [],
+        includeBaseTasks: false,
+        includeInactiveTasks: false,
       });
     });
   });

@@ -12,7 +12,10 @@ import { PageWrapper } from "components/styles";
 import { ALL_VALUE } from "components/TreeSelect";
 import TupleSelect from "components/TupleSelect";
 import WelcomeModal from "components/WelcomeModal";
-import { CURRENT_PROJECT } from "constants/cookies";
+import {
+  CURRENT_PROJECT,
+  INCLUDE_INACTIVE_MAINLINE_COMMIT_TASKS,
+} from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { getCommitsRoute } from "constants/routes";
 import { size } from "constants/tokens";
@@ -93,11 +96,16 @@ export const Commits = () => {
     parsed[MainlineCommitQueryParams.SkipOrderNumber]
   );
   const skipOrderNumber = parseInt(skipOrderNumberParam, 10) || undefined;
+  const includeInactiveTasks =
+    getString(parsed[ProjectFilterOptions.InactiveTasks]) !== ""
+      ? getString(parsed[ProjectFilterOptions.InactiveTasks]) === "true"
+      : Cookies.get(INCLUDE_INACTIVE_MAINLINE_COMMIT_TASKS) === "true";
   const filterState = {
     statuses: statusFilters,
     variants: variantFilters,
     tasks: taskFilters,
     requesters: requesterFilters,
+    includeInactiveTasks,
   };
   const variables = getMainlineCommitsQueryVariables({
     mainlineCommitOptions: {

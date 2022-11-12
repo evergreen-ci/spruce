@@ -9,6 +9,7 @@ interface FilterState {
   tasks: string[];
   variants: string[];
   requesters: string[];
+  includeInactiveTasks: boolean;
 }
 interface MainlineCommitOptions {
   projectID: string;
@@ -53,13 +54,14 @@ const generateBuildVariantOptionsFromState = (
   state: CommitsPageReducerState
 ) => {
   const { filterState } = state;
-  const { statuses, tasks, variants } = filterState;
+  const { statuses, tasks, variants, includeInactiveTasks } = filterState;
 
   const buildVariantOptions = {
     tasks,
     variants,
     statuses,
     includeBaseTasks: false,
+    includeInactiveTasks,
   };
 
   return buildVariantOptions;
@@ -92,6 +94,7 @@ const generateBuildVariantOptionsForTaskIconsFromState = (
     variants: filterState.variants,
     statuses: statusesToShow,
     includeBaseTasks: false,
+    includeInactiveTasks: filterState.includeInactiveTasks,
   };
   return buildVariantOptions;
 };
@@ -129,6 +132,8 @@ const generateBuildVariantOptionsForGroupedTasksFromState = (
     tasks: shouldShowGroupedTaskIcons ? filterState.tasks : [impossibleMatch],
     variants: filterState.variants,
     statuses: statusesToShow,
+    includeBaseTasks: false,
+    includeInactiveTasks: filterState.includeInactiveTasks,
   };
 
   return groupedBuildVariantOptions;
@@ -142,6 +147,7 @@ const generateBuildVariantOptionsForGraphFromState = (
     statuses: filterState.statuses,
     tasks: filterState.tasks,
     variants: filterState.variants,
+    includeInactiveTasks: filterState.includeInactiveTasks,
   };
   return buildVariantOptionsForGraph;
 };

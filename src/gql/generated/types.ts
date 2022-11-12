@@ -95,6 +95,7 @@ export type BuildBaronSettingsInput = {
  */
 export type BuildVariantOptions = {
   includeBaseTasks?: InputMaybe<Scalars["Boolean"]>;
+  includeInactiveTasks?: InputMaybe<Scalars["Boolean"]>;
   statuses?: InputMaybe<Array<Scalars["String"]>>;
   tasks?: InputMaybe<Array<Scalars["String"]>>;
   variants?: InputMaybe<Array<Scalars["String"]>>;
