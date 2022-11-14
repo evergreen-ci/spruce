@@ -3935,7 +3935,7 @@
     "@leafygreen-ui/lib" "^9.0.0"
     "@leafygreen-ui/palette" "^3.2.2"
 
-"@leafygreen-ui/checkbox@^11.0.1":
+"@leafygreen-ui/checkbox@11.0.1":
   version "11.0.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/checkbox/-/checkbox-11.0.1.tgz#d3129fa7ba49dcdfc001cc985702160d4a71f537"
   integrity sha512-/3AOra0RWYs2Yln/dQzmwytP/cPgDIbs0o30Me8s2k/MqsdiwrMOkB173r/tyqaErrI50fvYrcgrrLLograXSA==
