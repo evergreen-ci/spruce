@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
 import { PlusButton } from "components/Buttons";
@@ -44,5 +44,5 @@ const Info = styled(Disclaimer)`
   padding-left: ${size.xs};
   position: relative;
   font-style: italic;
-  color: ${uiColors.gray.dark2};
+  color: ${palette.gray.dark2};
 `;

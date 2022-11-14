@@ -3,12 +3,12 @@
 exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
 <div>
   <h3
-    className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"
+    className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-376vw8"
   >
     Distro Projects
   </h3>
   <div
-    className="css-197y785-StyledCard e1c06qt20 leafygreen-ui-fe135o"
+    className="css-197y785-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
   >
     <form
       className="rjsf"
@@ -100,7 +100,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
             id=" root_expansions"
           >
             <h6
-              className="css-ho1tq1-StyledSubtitle e63qz861 leafygreen-ui-11wdjex"
+              className="css-ho1tq1-StyledSubtitle e63qz861 leafygreen-ui-41zalo"
               id="root_expansions__title"
             >
               Expansions
@@ -351,12 +351,12 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
 exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
 <div>
   <h3
-    className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"
+    className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-376vw8"
   >
     Admin Options
   </h3>
   <div
-    className="css-197y785-StyledCard e1c06qt20 leafygreen-ui-fe135o"
+    className="css-197y785-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
   >
     <form
       className="rjsf"
@@ -612,12 +612,12 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
 exports[`storybook Storyshots Components/Spruce Form Example 3 1`] = `
 <div>
   <h3
-    className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"
+    className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-376vw8"
   >
     UI Options
   </h3>
   <div
-    className="css-197y785-StyledCard e1c06qt20 leafygreen-ui-fe135o"
+    className="css-197y785-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
   >
     <form
       className="rjsf"
@@ -641,18 +641,18 @@ exports[`storybook Storyshots Components/Spruce Form Example 3 1`] = `
             >
               <label
                 className="leafygreen-ui-hfnsvs"
-                htmlFor="checkbox-5"
-                id="checkbox-5-label"
+                htmlFor="checkbox-9"
+                id="checkbox-9-label"
               >
                 <input
                   aria-checked={true}
                   aria-disabled={false}
                   aria-label="checkbox"
-                  aria-labelledby="checkbox-5-label"
+                  aria-labelledby="checkbox-9-label"
                   checked={true}
                   className="leafygreen-ui-3bropy"
                   disabled={false}
-                  id="checkbox-5"
+                  id="checkbox-9"
                   onChange={[Function]}
                   onClick={[Function]}
                   type="checkbox"

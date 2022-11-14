@@ -1,32 +1,22 @@
 import { css } from "@emotion/react";
-import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { Link as LGLink } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
-import { fontSize } from "constants/tokens";
 
-const { blue } = uiColors;
+export const StyledLink = (props) => (
+  <LGLink
+    hideExternalIcon
+    css={css`
+      // TODO: Remove when fixed: https://jira.mongodb.org/browse/EVG-18183
 
-const linkStyles = css`
-  text-decoration: none;
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-  color: ${blue.base};
-  &:hover {
-    text-decoration: underline;
-  }
-`;
+      // Override LG's fixed 13px line height
+      line-height: inherit;
 
-export const StyledLink = styled.a`
-  ${linkStyles}
-`;
+      // Override LeafyGreen's font-size declaration for Link
+      font-size: inherit;
+      font-weight: inherit;
+    `}
+    {...props}
+  />
+);
 
-export const BoldStyledLink = styled.a`
-  ${linkStyles}
-  font-weight: 500;
-  font-size: ${fontSize.m};
-`;
-
-export const StyledRouterLink = styled(Link)`
-  ${linkStyles}
-`;
+export const StyledRouterLink = (props) => <StyledLink as={Link} {...props} />;

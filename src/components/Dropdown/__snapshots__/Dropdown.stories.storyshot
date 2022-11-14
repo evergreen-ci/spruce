@@ -80,8 +80,8 @@ exports[`storybook Storyshots Components/Dropdown Default 1`] = `
         <div
           className="css-soeq2u-LabelWrapper e1yw4j303"
         >
-          <div
-            className="css-197mxpc-OverflowBody e1yw4j300 leafygreen-ui-1mngpnd"
+          <p
+            className="css-197mxpc-OverflowBody e1yw4j300 leafygreen-ui-1yli3c0"
             data-cy="dropdown-value"
           />
         </div>

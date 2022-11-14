@@ -1,13 +1,13 @@
 import { useRef, Component } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import Icon from "components/Icon";
 import { size, zIndex } from "constants/tokens";
 import { useOnClickOutside } from "hooks";
 
-const { gray, white } = uiColors;
+const { gray, white } = palette;
 
 interface DropdownProps {
   ["data-cy"]?: string;

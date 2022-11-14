@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { inactiveElementStyle } from "components/styles";
@@ -12,7 +12,7 @@ import { TaskStatus } from "types/task";
 import { msToDuration } from "utils/string";
 import { ColorCount, getStatusesWithZeroCount } from "./utils";
 
-const { gray } = uiColors;
+const { gray } = palette;
 interface Props {
   groupedTaskStats: ColorCount[];
   trigger: React.ReactElement;

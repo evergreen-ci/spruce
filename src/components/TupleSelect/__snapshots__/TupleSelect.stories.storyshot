@@ -12,7 +12,7 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
     className="css-1ry038z-Container e5gn9hl3"
   >
     <label
-      className="leafygreen-ui-ly82bp"
+      className="leafygreen-ui-1k5mcru"
       htmlFor="filter-input"
     >
       Add New 
@@ -120,7 +120,7 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
           <button
             aria-disabled={false}
             aria-label="Select plus button"
-            className="leafygreen-ui-wn45f0"
+            className="leafygreen-ui-6obv0c"
             onClick={[Function]}
             tabIndex={0}
           >
@@ -152,7 +152,7 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
     </div>
   </div>
   <small
-    className="leafygreen-ui-13bqno6"
+    className="leafygreen-ui-ppjyot"
   >
     The word \`bad\` will fail validation
   </small>

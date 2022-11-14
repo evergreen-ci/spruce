@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import * as fs from "fs";
 import path from "path";
 import vitePluginImp from "vite-plugin-imp";
 import { viteCommonjs, esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
@@ -8,6 +9,10 @@ import checker from "vite-plugin-checker";
 import { visualizer } from "rollup-plugin-visualizer";
 import tsconfigPaths from "vite-tsconfig-paths";
 import injectVariablesInHTML from "./config/injectVariablesInHTML";
+
+// Do not apply Antd's global styles
+fs.writeFileSync(require.resolve("antd/es/style/core/global.less"), "");
+fs.writeFileSync(require.resolve("antd/lib/style/core/global.less"), "");
 
 // https://vitejs.dev/config/
 export default defineConfig({

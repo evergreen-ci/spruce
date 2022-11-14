@@ -141,7 +141,7 @@ interface HookResult extends ConfigurePatchState {
   setSelectedBuildVariants: (variants: string[]) => void;
   setSelectedBuildVariantTasks: (variantTasks: VariantTasksState) => void;
   setSelectedAliases: (aliases: AliasState) => void;
-  setSelectedTab: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setSelectedTab: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const useConfigurePatch = (

@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
 
-const { green, white } = uiColors;
+const { green, white } = palette;
 
 export type NodeType = {
   title: string;
@@ -38,7 +38,7 @@ const Step: React.VFC<StepProps> = ({ stepNumber }) => (
 const Circle = styled.div`
   min-height: 56px;
   min-width: 56px;
-  background-color: ${green.base};
+  background-color: ${green.dark1};
   border-radius: 50%;
   display: flex;
   justify-content: center;

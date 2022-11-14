@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import ExpandedText from "components/ExpandedText";
 import { StyledRouterLink } from "components/styles";
@@ -11,7 +11,7 @@ import { ProjectTriggerLevel } from "types/triggers";
 import { shortenGithash } from "utils/string";
 import { jiraLinkify } from "utils/string/jiraLinkify";
 
-const { gray } = uiColors;
+const { gray } = palette;
 const MAX_CHAR = 40;
 interface Props {
   githash: string;
@@ -52,6 +52,7 @@ const CommitChartLabel: React.VFC<Props> = ({
     <LabelContainer data-cy="commit-label">
       <LabelText>
         <StyledRouterLink
+          data-cy="githash-link"
           onClick={onClickGithash}
           to={getVersionRoute(versionId)}
         >

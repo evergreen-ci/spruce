@@ -196,7 +196,7 @@ const ProjectSettingsNavItem: React.VFC<{
 }> = ({ currentTab, identifier, tab, title }) => (
   <SideNavItem
     active={tab === currentTab}
-    as={Link} // @ts-expect-error
+    as={Link}
     to={getProjectSettingsRoute(identifier, tab)}
     data-cy={`navitem-${tab}`}
   >
@@ -207,7 +207,7 @@ const ProjectSettingsNavItem: React.VFC<{
 const tabRouteValues = Object.values(ProjectSettingsTabRoutes);
 
 const ButtonsContainer = styled.div`
-  padding: 0 ${size.xs};
+  margin: 0 ${size.s};
 
   > :not(:last-child) {
     margin-bottom: ${size.xs};

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useQuery, ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
 import get from "lodash/get";
 import { useParams, useLocation } from "react-router-dom";
@@ -36,7 +36,7 @@ import { TaskEventLogLine } from "./logTypes/TaskEventLogLine";
 
 const { parseQueryString } = queryString;
 
-const { gray } = uiColors;
+const { gray } = palette;
 
 interface TaskEventLogEntryType extends TaskEventLogEntry {
   kind?: "taskEventLogEntry";
@@ -214,6 +214,5 @@ const StyledPre = styled.pre`
   word-wrap: break-word;
   border: 1px solid ${gray.light2};
   border-radius: ${size.xxs};
-  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
   font-size: ${fontSize.m};
 `;

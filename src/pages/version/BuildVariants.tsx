@@ -1,10 +1,8 @@
 import { useQuery } from "@apollo/client";
-import { Skeleton } from "antd";
 import { useParams, useLocation } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
-import { StyledRouterLink, SiderCard } from "components/styles";
-import { Divider } from "components/styles/Divider";
-import { H3, wordBreakCss } from "components/Typography";
+import { MetadataCard, MetadataTitle } from "components/MetadataCard";
+import { StyledRouterLink, wordBreakCss } from "components/styles";
 import { VariantGroupedTaskStatusBadges } from "components/VariantGroupedTaskStatusBadges";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { getVersionRoute } from "constants/routes";
@@ -37,45 +35,39 @@ export const BuildVariants: React.VFC = () => {
   const { version } = data || {};
 
   return (
-    <>
-      {/* @ts-expect-error */}
-      <SiderCard>
-        <H3>Build Variants</H3>
-        <Divider />
-        {error && <div>{error.message}</div>}
-        {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
-        {version?.buildVariantStats?.map(
-          ({ displayName, statusCounts, variant }) => (
-            <div
-              key={`buildVariant_${displayName}_${variant}`}
-              data-cy="patch-build-variant"
+    <MetadataCard error={error} loading={loading}>
+      <MetadataTitle>Build Variants</MetadataTitle>
+      {version?.buildVariantStats?.map(
+        ({ displayName, statusCounts, variant }) => (
+          <div
+            key={`buildVariant_${displayName}_${variant}`}
+            data-cy="patch-build-variant"
+          >
+            <StyledRouterLink
+              css={wordBreakCss}
+              to={getVersionRoute(id, {
+                sorts,
+                page: 0,
+                variant: applyStrictRegex(variant),
+              })}
+              onClick={() =>
+                sendEvent({
+                  name: "Click Build Variant Grid Link",
+                })
+              }
+              data-cy="build-variant-display-name"
             >
-              <StyledRouterLink
-                css={wordBreakCss}
-                to={getVersionRoute(id, {
-                  sorts,
-                  page: 0,
-                  variant: applyStrictRegex(variant),
-                })}
-                onClick={() =>
-                  sendEvent({
-                    name: "Click Build Variant Grid Link",
-                  })
-                }
-                data-cy="build-variant-display-name"
-              >
-                {displayName}
-              </StyledRouterLink>
-              <VariantTaskGroup
-                variant={variant}
-                statusCounts={statusCounts}
-                versionId={id}
-              />
-            </div>
-          )
-        )}
-      </SiderCard>
-    </>
+              {displayName}
+            </StyledRouterLink>
+            <VariantTaskGroup
+              variant={variant}
+              statusCounts={statusCounts}
+              versionId={id}
+            />
+          </div>
+        )
+      )}
+    </MetadataCard>
   );
 };
 

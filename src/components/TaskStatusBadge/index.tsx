@@ -1,12 +1,13 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
-import { purple } from "constants/colors";
+import { palette } from "@leafygreen-ui/palette";
 import { taskStatusToCopy } from "constants/task";
 import { TaskStatus } from "types/task";
 import { statuses, errorReporting } from "utils";
 
 const { reportError } = errorReporting;
+const { purple } = palette;
 const { getStatusBadgeCopy } = statuses;
 
 interface BadgeColorProps {
@@ -89,17 +90,17 @@ const customBadgeColors = (status: string) => {
   switch (status) {
     case TaskStatus.SetupFailed:
       return {
-        fill: purple.light1,
-        border: purple.light2,
-        text: purple.base,
+        fill: purple.light2,
+        border: purple.base,
+        text: purple.dark2,
       };
     case TaskStatus.SystemFailed:
     case TaskStatus.SystemUnresponsive:
     case TaskStatus.SystemTimedOut:
       return {
-        fill: purple.base,
-        border: purple.dark1,
-        text: purple.light1,
+        fill: purple.dark2,
+        border: purple.dark3,
+        text: purple.light3,
       };
 
     default:

@@ -50,7 +50,11 @@ export const TableControl: React.VFC<Props> = ({
           numerator={filteredCount}
           denominator={taskCount}
         />
-        <PaddedButton onClick={onClearAll} data-cy="clear-all-filters">
+        <PaddedButton
+          onClick={onClearAll}
+          data-cy="clear-all-filters"
+          size="small"
+        >
           Clear All Filters
         </PaddedButton>
       </FlexContainer>

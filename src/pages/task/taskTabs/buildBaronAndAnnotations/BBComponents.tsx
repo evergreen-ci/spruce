@@ -39,9 +39,9 @@ export const JiraTicketRow: React.VFC<JiraTicketRowProps> = ({
         {jiraKey}: {summary} {"   "}
       </JiraSummaryLink>
 
-      <StyledBadge data-cy={`${jiraKey}-badge`} variant="lightgray">
+      <Badge data-cy={`${jiraKey}-badge`} variant="lightgray">
         {status.name}
-      </StyledBadge>
+      </Badge>
 
       <BottomMetaDataWrapper data-cy={`${jiraKey}-metadata`}>
         <Disclaimer>
@@ -71,11 +71,6 @@ export const TicketsTitle = styled(Subtitle)<TitleProps>`
 const JiraSummaryLink = styled(StyledLink)`
   font-weight: bold;
   margin-right: ${size.s};
-`;
-
-const StyledBadge = styled(Badge)`
-  justify-content: center;
-  padding: 0px ${size.s} 0px;
 `;
 
 export const BottomMetaDataWrapper = styled.div`

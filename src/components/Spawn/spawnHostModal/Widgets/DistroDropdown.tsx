@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Overline } from "@leafygreen-ui/typography";
 import SearchableDropdown, {
   SearchableDropdownProps,
@@ -8,7 +8,7 @@ import ElementWrapper from "components/SpruceForm/ElementWrapper";
 import { SpruceWidgetProps } from "components/SpruceForm/Widgets/types";
 import { size } from "constants/tokens";
 
-const { gray } = uiColors;
+const { gray } = palette;
 
 interface DistroValue {
   value: string;

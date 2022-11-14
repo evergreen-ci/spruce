@@ -2,14 +2,14 @@ import { useState, useRef } from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import Popover from "@leafygreen-ui/popover";
 import TextInput from "@leafygreen-ui/text-input";
 import { PopoverContainer } from "components/styles/Popover";
 import { size } from "constants/tokens";
 import { useOnClickOutside } from "hooks";
 
-const { gray, focus } = uiColors;
+const { blue, gray } = palette;
 
 interface TableSearchPopoverProps {
   value: string;
@@ -27,7 +27,7 @@ export const TableSearchPopover: React.VFC<TableSearchPopoverProps> = ({
   placeholder,
 }) => {
   const [active, setActive] = useState(false);
-  const iconColor = value === "" ? gray.dark2 : focus;
+  const iconColor = value === "" ? gray.dark2 : blue.light1;
 
   const buttonRef = useRef(null);
   const popoverRef = useRef(null);

@@ -6,7 +6,7 @@ import Icon from "@leafygreen-ui/icon";
 import { Table, Skeleton, Popconfirm } from "antd";
 import { usePreferencesAnalytics } from "analytics";
 import { PlusButton } from "components/Buttons";
-import { WordBreak } from "components/Typography";
+import { WordBreak } from "components/styles";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {

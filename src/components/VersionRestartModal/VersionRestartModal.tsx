@@ -3,7 +3,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { useVersionAnalytics } from "analytics";
@@ -25,9 +25,9 @@ import {
   versionSelectedTasks,
   selectedStrings,
 } from "hooks/useVersionTaskStatusSelect";
-import { BuildVariantAccordian } from "./BuildVariantAccordian";
+import { BuildVariantAccordion } from "./BuildVariantAccordion";
 
-const { gray } = uiColors;
+const { gray } = palette;
 
 interface Props {
   visible: boolean;
@@ -239,7 +239,7 @@ const VersionTasks: React.VFC<VersionTasksProps> = ({
         />
       </Row>
       {buildVariants.map((patchBuildVariant) => (
-        <BuildVariantAccordian
+        <BuildVariantAccordion
           versionId={version?.id}
           key={`accoridan_${patchBuildVariant.variant}`}
           tasks={patchBuildVariant.tasks}

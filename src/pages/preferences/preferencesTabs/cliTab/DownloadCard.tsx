@@ -2,8 +2,12 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Card from "@leafygreen-ui/card";
-import { uiColors } from "@leafygreen-ui/palette";
-import { Subtitle, Body, Disclaimer } from "@leafygreen-ui/typography";
+import {
+  InlineCode,
+  Subtitle,
+  Body,
+  Disclaimer,
+} from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { usePreferencesAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
@@ -16,8 +20,8 @@ import {
   ClientBinary,
 } from "gql/generated/types";
 import { GET_CLIENT_CONFIG } from "gql/queries";
-
-const { gray } = uiColors;
+import { PreferencesCard } from "pages/preferences/Card";
+import { CardType, SubtitleType } from "types/leafygreen";
 
 export const DownloadCard = () => {
   const { data, loading } = useQuery<
@@ -36,16 +40,16 @@ export const DownloadCard = () => {
   );
 
   return (
-    <Container>
+    <PreferencesCard>
       <Subtitle>Command-Line Client</Subtitle>
       <CardDescription>
         <Body>
           View the{" "}
           <StyledLink href={cliDocumentationUrl}>documentation</StyledLink> or
-          run &nbsp;{" "}
+          run <InlineCode>evergreen --help</InlineCode> or{" "}
+          <InlineCode>evergreen [command] --help</InlineCode> for additional
+          assistance.
         </Body>
-        <InlinePre>evergreen --help or evergreen [command] --help</InlinePre>{" "}
-        <Body>for additional assistance.</Body>
       </CardDescription>
       <CardGroup>
         {topBinaries.map((binary) => (
@@ -59,10 +63,10 @@ export const DownloadCard = () => {
           />
         ))}
       </CardGroup>
-      <Accordion title="Show More" toggledTitle="Show Less" showCaret={false}>
+      <Accordion title="Show More" toggledTitle="Show Less">
         <ExpandableLinkContents clientBinaries={otherBinaries} />
       </Accordion>
-    </Container>
+    </PreferencesCard>
   );
 };
 
@@ -91,6 +95,7 @@ const CliDownloadBox: React.VFC<CliDownloadBoxProps> = ({
         href={link}
         disabled={!link}
         as="a"
+        size="small"
       >
         Download
       </CliDownloadButton>
@@ -118,7 +123,7 @@ const ExpandableLinkContents: React.VFC<ExpandableLinkContentsProps> = ({
           key={`link_${binary.url}`}
           href={binary.url}
         >
-          {prettyDisplayNameAccordion[binary.displayName] || binary.displayName}
+          {binary.displayName}
         </StyledLink>
       ))}
     </LinkContainer>
@@ -130,60 +135,39 @@ const descriptions = {
   "OSX ARM 64-bit": "M1 CPU",
 };
 const prettyDisplayNameTop = {
-  "OSX 64-bit": "macOS",
   "OSX ARM 64-bit": "macOS ARM",
   "Windows 64-bit": "Windows",
   "Linux 64-bit": "Linux (64-bit)",
 };
 
-const prettyDisplayNameAccordion = {
-  "Linux 64-bit": "Linux (64-bit, Legacy)",
-};
-
 const filterBinaries = (binary: ClientBinary) =>
-  /darwin_arm64\/|darwin_amd64\/|linux_amd64\/|windows_amd64\//.test(
-    binary.url
-  );
-
-// @ts-expect-error
-const Container = styled(Card)`
-  padding: ${size.m};
-` as typeof Card;
+  /darwin_arm64\/|linux_amd64\/|windows_amd64\//.test(binary.url);
 
 const CardGroup = styled.div`
   display: flex;
-  align-items: space-between;
+  gap: ${size.xs};
   margin-bottom: ${size.s};
 `;
 
-// @ts-expect-error
-const CliDownloadCard = styled(Card)`
+const CliDownloadCard = styled<CardType>(Card)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: ${size.s};
-  margin-right: ${size.xs};
-` as typeof Card;
+`;
 
 const CliDownloadButton = styled(Button)`
   align-self: flex-start;
+  margin-top: ${size.xs};
 `;
 
-// @ts-expect-error
-const CliDownloadTitle = styled(Subtitle)`
+const CliDownloadTitle = styled<SubtitleType>(Subtitle)`
   font-weight: bold;
-` as typeof Subtitle;
+`;
 
 const CardDescription = styled.div`
   font-size: ${fontSize.m};
-  margin-bottom: 40px;
-`;
-
-const InlinePre = styled("pre")`
-  display: inline-block;
-  background-color: ${gray.light3};
-  margin-bottom: 0;
-  overflow: visible;
+  margin-bottom: ${size.m};
 `;
 
 const LinkContainer = styled.div`

@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { zIndex } from "constants/tokens";
 import { gridHeight } from "pages/commits/constants";
 
-const { gray } = uiColors;
+const { gray } = palette;
 
 export const Grid: React.VFC<{
   numDashedLine: number;
