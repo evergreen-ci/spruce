@@ -6,7 +6,7 @@ import { Accordion } from "components/Accordion";
 import { size } from "constants/tokens";
 import { ChartTypes } from "types/commits";
 
-const { gray } = palette;
+const { gray, white } = palette;
 
 export const ChartToggle: React.VFC<{
   onToggleAccordion: (nextState: { isVisible: boolean }) => void;
@@ -76,7 +76,7 @@ const ToggleWrapper = styled.div`
   padding: ${size.xxs} ${size.xs};
   border-radius: ${size.xs};
   border: 1px solid ${gray.light2};
-  background: #ffffff;
+  background: ${white};
   box-shadow: 0px ${size.xxs} ${size.xs} -${size.xxs} rgba(0, 0, 0, 0.3);
 `;
 

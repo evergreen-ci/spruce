@@ -319,18 +319,18 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 className="css-1nylm8s-ContentsContainer ev0bopr0"
               >
                 <div
-                  className="css-pqz2jw-ToggleWrapper e1d5uzqe1"
+                  className="css-xetfur-ToggleWrapper e1d5uzqe1"
                 >
                   <div
                     aria-label="chart-select"
-                    className="css-1tmng57-StyledRadioGroup e1d5uzqe2"
+                    className="css-1n2w10g-StyledRadioGroup e1d5uzqe2"
                     role="group"
                   >
                     <div
                       className="leafygreen-ui-3n5lp7"
                     >
                       <label
-                        className="css-iwoii3 leafygreen-ui-1d5p7a4"
+                        className="leafygreen-ui-1d5p7a4"
                         htmlFor="chart-radio-absolute"
                       >
                         <input
@@ -362,7 +362,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                       className="leafygreen-ui-3n5lp7"
                     >
                       <label
-                        className="css-qgo9zc leafygreen-ui-1d5p7a4"
+                        className="leafygreen-ui-1d5p7a4"
                         htmlFor="chart-radio-percent"
                       >
                         <input
