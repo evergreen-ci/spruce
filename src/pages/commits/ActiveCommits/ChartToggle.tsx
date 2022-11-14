@@ -37,7 +37,6 @@ export const ChartToggle: React.VFC<{
       >
         <ToggleWrapper>
           <StyledRadioGroup
-            size="default"
             onChange={onChange}
             value={currentChartType}
             name="chart-select"
@@ -68,8 +67,6 @@ const StyledRadioGroup = styled(RadioGroup)`
   align-items: baseline;
   gap: ${size.xs};
   margin-bottom: ${size.xs};
-  font-weight: bold;
-  white-space: nowrap;
 `;
 
 const ToggleWrapper = styled.div`
