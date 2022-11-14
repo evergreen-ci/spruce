@@ -11,6 +11,7 @@ import {
 import {
   fireEvent,
   renderWithRouterMatch as render,
+  selectOption,
   screen,
   waitFor,
 } from "test_utils";
@@ -26,7 +27,7 @@ describe("spawnVolumeModal", () => {
         <Component />
       </MockedProvider>
     );
-    expect(screen.queryByDataCy("modal-title")).toBeVisible();
+    expect(screen.queryByDataCy("spawn-volume-modal")).toBeVisible();
   });
 
   it("does not renders the Spawn Volume Modal when the visible prop is false", async () => {
@@ -54,12 +55,15 @@ describe("spawnVolumeModal", () => {
       expect(screen.queryByDataCy("volumeSize")).toHaveValue(500)
     );
 
-    expect(screen.queryByDataCy("regionSelector")).toHaveTextContent(
+    expect(screen.queryByDataCy("region-selector")).toHaveTextContent(
       "us-east-1a"
     );
     expect(screen.queryByDataCy("typeSelector")).toHaveTextContent("gp2");
     expect(screen.queryByDataCy("never-expire-checkbox")).not.toBeChecked();
-    expect(screen.queryByDataCy("host-select")).toHaveTextContent("");
+    expect(screen.queryByDataCy("host-select")).toHaveTextContent(
+      "Select from hosts"
+    );
+    expect(screen.queryByDataCy("host-select")).toHaveValue("");
   });
 
   it("form submission succeeds with default values", async () => {
@@ -87,7 +91,7 @@ describe("spawnVolumeModal", () => {
       </MockedProvider>
     );
     // Click spawn button
-    const spawnButton = screen.queryByDataCy("spawn-volume-button");
+    const spawnButton = screen.getByRole("button", { name: "Spawn" });
     await waitFor(() => {
       expect(spawnButton).toHaveAttribute("aria-disabled", "false");
     });
@@ -122,18 +126,18 @@ describe("spawnVolumeModal", () => {
       </MockedProvider>
     );
     // select us-east-1c region
-    await selectAntdOption("regionSelector", "us-east-1c");
+    await selectOption("region-selector", "us-east-1c");
     // select st1 type
-    await selectAntdOption("typeSelector", "st1");
+    await selectOption("typeSelector", "st1");
     // select host
-    await selectAntdOption("host-select", "i-00b212e96b3f91079");
+    await selectOption("host-select", "i-00b212e96b3f91079");
     // change volume size
     fireEvent.change(screen.queryByDataCy("volumeSize"), {
       target: { value: 24 },
     });
 
     // Click spawn button
-    const spawnButton = screen.queryByDataCy("spawn-volume-button");
+    const spawnButton = screen.getByRole("button", { name: "Spawn" });
     await waitFor(() => {
       expect(spawnButton).toHaveAttribute("aria-disabled", "false");
     });
@@ -141,12 +145,6 @@ describe("spawnVolumeModal", () => {
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
   });
 });
-
-const selectAntdOption = async (dataCy: string, option: string) => {
-  fireEvent.mouseDown(screen.queryByDataCy(dataCy).firstElementChild);
-  await screen.findByText(option);
-  fireEvent.click(screen.queryByText(option));
-};
 
 const myHostsMock = {
   request: {

@@ -128,7 +128,7 @@ describe("filterBadges", () => {
         onClearAll={onClearAll}
       />
     );
-    fireEvent.click(screen.queryByText("CLEAR ALL FILTERS"));
+    fireEvent.click(screen.queryByText("Clear all filters"));
     expect(onClearAll).toHaveBeenCalledTimes(1);
   });
 

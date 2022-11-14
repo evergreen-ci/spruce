@@ -91,36 +91,38 @@ exports[`storybook Storyshots Pages/Spawn/Public Key Form Public Key Form View 1
     </label>
   </div>
   <div
-    className="css-1q3n7yk-StyledSelect e1ua86li2"
+    className="leafygreen-ui-1nkq8lt css-1q3n7yk-StyledSelect e1ua86li2"
   >
     <label
-      className="leafygreen-ui-1v870ns"
-      id="select-9-label"
+      className="leafygreen-ui-1w8j8ik"
+      htmlFor="select-18"
+      id="select-17-label"
     >
       Existing Key
     </label>
     <button
-      aria-controls="select-9-menu"
-      aria-describedby="select-9-description"
+      aria-controls="select-17-menu"
+      aria-describedby="select-17-description"
       aria-disabled={false}
       aria-expanded={false}
       aria-invalid={false}
-      aria-labelledby="select-9-label"
-      className="leafygreen-ui-p6v5m8"
+      aria-labelledby="select-17-label"
+      className="lg-ui-button-0000 leafygreen-ui-23wnbt"
       data-testid="leafygreen-ui-select-menubutton"
       disabled={false}
+      id="select-18"
       onClick={[Function]}
       type="button"
       value="MyFirstKey.pub"
     >
       <div
-        className="leafygreen-ui-1ktj4tm"
+        className="leafygreen-ui-v038xi"
       />
       <div
-        className="leafygreen-ui-sl5lf4"
+        className="leafygreen-ui-1qmzz4y"
       >
         <div
-          className="leafygreen-ui-e32n5q"
+          className="leafygreen-ui-obh8q1"
         >
           <div
             className="leafygreen-ui-17aj16e"
@@ -128,24 +130,20 @@ exports[`storybook Storyshots Pages/Spawn/Public Key Form Public Key Form View 1
             MyFirstKey.pub
           </div>
         </div>
-        <span
-          className="leafygreen-ui-18n6mp2"
+        <svg
+          alt=""
+          aria-hidden={true}
+          className="leafygreen-ui-13p6dfv leafygreen-ui-1t9qnhm"
+          height={16}
+          role="presentation"
+          viewBox="0 0 16 16"
+          width={16}
         >
-          <svg
-            alt=""
-            aria-hidden={true}
-            className="leafygreen-ui-195unnb"
-            height={16}
-            role="presentation"
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
-              fill="currentColor"
-            />
-          </svg>
-        </span>
+          <path
+            d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
+            fill="currentColor"
+          />
+        </svg>
       </div>
     </button>
   </div>

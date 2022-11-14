@@ -13,7 +13,7 @@ export const RegionSelector: React.VFC<Props> = ({
 }) => (
   <Select
     label="Region"
-    data-cy="regionSelector"
+    data-cy="region-selector"
     placeholder="Select a region"
     onChange={onChange}
     value={selectedRegion}

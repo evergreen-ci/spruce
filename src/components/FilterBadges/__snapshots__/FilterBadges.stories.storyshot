@@ -13,7 +13,7 @@ exports[`storybook Storyshots Components/FilterBadges Default 1`] = `
         className="css-1i7u60d-BadgeContent e1vs77ku1"
       >
         test
-        : 
+         : 
         test
       </div>
       <svg

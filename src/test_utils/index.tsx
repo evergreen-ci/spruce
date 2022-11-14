@@ -1,4 +1,11 @@
-import { render, queries, within, screen } from "@testing-library/react";
+import {
+  fireEvent,
+  queries,
+  render,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import type {
   RenderResult,
   RenderOptions,
@@ -94,6 +101,19 @@ export const mockUUID = () => {
   uuid.mockImplementation(() =>
     Math.floor(Math.random() * Math.floor(MAX_INT))
   );
+};
+
+/**
+ * Given the data-cy of a LeafyGreen select and the option's text, open the Select dropdown and click on the option.
+ * @param dataCy data-cy property of the button that opens the select
+ * @param option text of the desired option
+ */
+export const selectOption = async (dataCy: string, option: string) => {
+  fireEvent.click(customScreen.queryByDataCy(dataCy));
+  await waitFor(() => {
+    expect(customScreen.queryByText(option)).toBeVisible();
+  });
+  fireEvent.click(customScreen.getByText(option));
 };
 
 // re-export everything
