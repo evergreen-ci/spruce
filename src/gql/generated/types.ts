@@ -3844,6 +3844,7 @@ export type BuildBaronQuery = {
 
 export type GetBuildVariantStatsQueryVariables = Exact<{
   id: Scalars["String"];
+  includeInactiveTasks: Scalars["Boolean"];
 }>;
 
 export type GetBuildVariantStatsQuery = {

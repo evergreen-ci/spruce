@@ -1,7 +1,9 @@
-query GetBuildVariantStats($id: String!) {
+query GetBuildVariantStats($id: String!, $includeInactiveTasks: Boolean!) {
   version(id: $id) {
     id
-    buildVariantStats(options: {}) {
+    buildVariantStats(
+      options: { includeInactiveTasks: $includeInactiveTasks }
+    ) {
       variant
       displayName
       statusCounts {

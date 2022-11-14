@@ -1,3 +1,6 @@
+import Cookies from "js-cookie";
+import { inactiveTaskQueryParam } from "components/InactiveTasksToggle";
+import { INCLUDE_INACTIVE_TASKS } from "constants/cookies";
 import {
   VersionTasksQueryVariables,
   SortOrder,
@@ -15,6 +18,11 @@ export const useQueryVariables = (
   versionId: string
 ): VersionTasksQueryVariables => {
   const queryParams = parseQueryString(search);
+  const includeInactiveTasks =
+    getString(queryParams[inactiveTaskQueryParam]) !== ""
+      ? getString(queryParams[inactiveTaskQueryParam]) === "true"
+      : Cookies.get(INCLUDE_INACTIVE_TASKS) === "true";
+
   const {
     [PatchTasksQueryParams.Duration]: duration,
     [PatchTasksQueryParams.Sorts]: sorts,
@@ -44,6 +52,7 @@ export const useQueryVariables = (
       sorts: sortsToApply,
       page: getPageFromSearch(search),
       limit: getLimitFromSearch(search),
+      includeEmptyActivation: includeInactiveTasks,
     },
   };
 };

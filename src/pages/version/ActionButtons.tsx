@@ -1,4 +1,6 @@
+import { MenuItem } from "@leafygreen-ui/menu";
 import { ButtonDropdown } from "components/ButtonDropdown";
+import { InactiveTasksToggle } from "components/InactiveTasksToggle";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
   ScheduleTasks,
@@ -50,6 +52,9 @@ export const ActionButtons: React.VFC<ActionButtonProps> = ({
       key="enqueue"
       disabled={!canEnqueueToCommitQueue}
     />,
+    <MenuItem key="inactiveTasksToggle">
+      <InactiveTasksToggle />
+    </MenuItem>,
   ];
 
   return (
