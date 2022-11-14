@@ -1,4 +1,3 @@
-import { ClassNames } from "@emotion/react";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
@@ -36,39 +35,29 @@ export const ChartToggle: React.VFC<{
         defaultOpen={defaultOpenAccordion}
         onToggle={onToggleAccordion}
       >
-        <ClassNames>
-          {({ css }) => (
-            <ToggleWrapper>
-              <StyledRadioGroup
-                size="default"
-                onChange={onChange}
-                value={currentChartType}
-                name="chart-select"
-              >
-                <Radio
-                  data-cy="cy-chart-absolute-radio"
-                  id="chart-radio-absolute"
-                  value={ChartTypes.Absolute}
-                  className={css`
-                    margin: ${size.xs} 0;
-                  `}
-                >
-                  Absolute Number
-                </Radio>
-                <Radio
-                  data-cy="cy-chart-percent-radio"
-                  id="chart-radio-percent"
-                  value={ChartTypes.Percentage}
-                  className={css`
-                    margin-bottom: ${size.xs};
-                  `}
-                >
-                  Percentage
-                </Radio>
-              </StyledRadioGroup>
-            </ToggleWrapper>
-          )}
-        </ClassNames>
+        <ToggleWrapper>
+          <StyledRadioGroup
+            size="default"
+            onChange={onChange}
+            value={currentChartType}
+            name="chart-select"
+          >
+            <Radio
+              data-cy="cy-chart-absolute-radio"
+              id="chart-radio-absolute"
+              value={ChartTypes.Absolute}
+            >
+              Absolute Number
+            </Radio>
+            <Radio
+              data-cy="cy-chart-percent-radio"
+              id="chart-radio-percent"
+              value={ChartTypes.Percentage}
+            >
+              Percentage
+            </Radio>
+          </StyledRadioGroup>
+        </ToggleWrapper>
       </Accordion>
     </AccordionContainer>
   );
@@ -76,8 +65,9 @@ export const ChartToggle: React.VFC<{
 
 const StyledRadioGroup = styled(RadioGroup)`
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: ${size.xs};
+  margin-bottom: ${size.xs};
   font-weight: bold;
   white-space: nowrap;
 `;
