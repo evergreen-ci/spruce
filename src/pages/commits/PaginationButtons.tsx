@@ -41,7 +41,6 @@ export const PaginationButtons: React.VFC<PaginationButtonsProps> = ({
         disabled={
           prevPageOrderNumber === null || prevPageOrderNumber === undefined
         }
-        // @ts-expect-error
         onClick={onPrevClick}
         leftGlyph={<Icon glyph="ChevronLeft" />}
         data-cy="prev-page-button"
@@ -50,7 +49,6 @@ export const PaginationButtons: React.VFC<PaginationButtonsProps> = ({
         disabled={
           nextPageOrderNumber === null || nextPageOrderNumber === undefined
         }
-        // @ts-expect-error
         onClick={onNextClick}
         leftGlyph={<Icon glyph="ChevronRight" />}
         data-cy="next-page-button"
@@ -59,7 +57,6 @@ export const PaginationButtons: React.VFC<PaginationButtonsProps> = ({
   );
 };
 
-// @ts-expect-error
 const StyledButton = styled(Button)`
   margin-left: ${size.xs};
 `;

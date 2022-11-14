@@ -77,7 +77,7 @@ export const CodeChanges: React.VFC = () => {
             <Title>Changes on {branchName}: </Title>
             <StyledButton
               data-cy="html-diff-btn"
-              size="small" // @ts-expect-error
+              size="small"
               title="Open diff as html file"
               href={htmlLink}
               target="_blank"
@@ -86,7 +86,7 @@ export const CodeChanges: React.VFC = () => {
             </StyledButton>
             <StyledButton
               data-cy="raw-diff-btn"
-              size="small" // @ts-expect-error
+              size="small"
               title="Open diff as raw file"
               href={rawLink}
               target="_blank"
@@ -105,7 +105,6 @@ export const CodeChanges: React.VFC = () => {
 const sortFileDiffs = (fileDiffs: FileDiffsFragment[]): FileDiffsFragment[] =>
   [...fileDiffs].sort((a, b) => a.fileName.localeCompare(b.fileName));
 
-// @ts-expect-error
 const StyledButton = styled(Button)`
   margin-right: ${size.s};
 `;

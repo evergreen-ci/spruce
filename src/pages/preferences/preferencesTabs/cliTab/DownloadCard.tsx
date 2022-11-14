@@ -89,7 +89,7 @@ const CliDownloadBox: React.VFC<CliDownloadBoxProps> = ({
           });
         }}
         href={link}
-        disabled={!link} // @ts-expect-error
+        disabled={!link}
         as="a"
       >
         Download
@@ -165,7 +165,6 @@ const CliDownloadCard = styled(Card)`
   margin-right: ${size.xs};
 ` as typeof Card;
 
-// @ts-expect-error
 const CliDownloadButton = styled(Button)`
   align-self: flex-start;
 `;

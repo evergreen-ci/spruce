@@ -273,7 +273,7 @@ export const ActionButtons: React.VFC<Props> = ({
               onClick={() => {
                 taskAnalytics.sendEvent({ name: "Click See History Button" });
               }}
-              to={getTaskHistoryRoute(project.identifier, displayName, {
+              href={getTaskHistoryRoute(project.identifier, displayName, {
                 selectedCommit: !isPatch && order,
               })}
               disabled={displayName === mergeTaskName}

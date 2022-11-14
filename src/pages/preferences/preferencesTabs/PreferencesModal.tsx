@@ -25,10 +25,9 @@ export const PreferencesModal: React.VFC<PreferencesModalProps> = ({
       {/* @ts-expect-error */}
       <Title>{title}</Title>
       <ModalActionContainer>
-        {/* @ts-expect-error */}
         <WideButton onClick={onCancel}>Cancel</WideButton>
         <WideButton
-          variant={Variant.Danger} // @ts-expect-error
+          variant={Variant.Danger}
           onClick={onSubmit}
           disabled={disabled}
         >
@@ -39,7 +38,6 @@ export const PreferencesModal: React.VFC<PreferencesModalProps> = ({
   </Modal>
 );
 
-// @ts-expect-error
 const WideButton = styled(Button)`
   justify-content: center;
   width: 140px;

@@ -61,7 +61,7 @@ export const CopySSHCommandButton: React.VFC<{
         open={openTooltip}
         data-cy="copy-ssh-tooltip"
         trigger={
-          <PaddedButton // @ts-expect-error
+          <PaddedButton
             onClick={() => {
               copyToClipboard(sshCommand);
               spawnAnalytics.sendEvent({ name: "Copy SSH Command" });

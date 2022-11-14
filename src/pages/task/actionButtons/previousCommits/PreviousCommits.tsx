@@ -202,7 +202,7 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
               })
             }
             as={Link}
-            to={link}
+            href={link}
             disabled={disableButton}
             size="small"
             data-cy="previous-commits-go-button"

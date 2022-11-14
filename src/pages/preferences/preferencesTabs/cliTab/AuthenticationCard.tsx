@@ -61,7 +61,6 @@ ui_server_host: "${config.ui_server_host}"
         <CodeContainer>
           <Code language="yaml">{authCode}</Code>
         </CodeContainer>{" "}
-        {/* @ts-expect-error */}
         <StyledButton variant={Variant.Primary} onClick={downloadFile}>
           Download File
         </StyledButton>
@@ -82,7 +81,6 @@ const CodeContainer = styled.div`
   margin-bottom: 30px;
 `;
 
-// @ts-expect-error
 const StyledButton = styled(Button)`
   margin-right: ${size.s};
 `;

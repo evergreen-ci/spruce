@@ -102,7 +102,7 @@ export const SpawnHostActionButton: React.VFC<{ host: MyHost }> = ({
         <PaddedButton
           disabled={loading}
           leftGlyph={<Icon glyph={glyph} />}
-          size={Size.XSmall} // @ts-expect-error
+          size={Size.XSmall}
           onClick={onClick(action)}
         />
       ) : null}
@@ -111,7 +111,6 @@ export const SpawnHostActionButton: React.VFC<{ host: MyHost }> = ({
         title={`Delete host ${host.displayName || host.id}?`}
         checkboxLabel={checkboxLabel}
       >
-        {/* @ts-expect-error */}
         <PaddedButton
           leftGlyph={<Icon glyph="Trash" />}
           size={Size.XSmall}

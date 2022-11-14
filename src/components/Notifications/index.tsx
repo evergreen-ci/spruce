@@ -128,7 +128,7 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
         <>
           <LeftButton
             data-cy="cancel-subscription-button"
-            key="cancel" // @ts-expect-error
+            key="cancel"
             onClick={onCancel}
           >
             Cancel
@@ -172,7 +172,6 @@ const getRegexEnumsToDisable = (regexForm: FormRegexSelector[]) => {
   return regexEnumsToDisable;
 };
 
-/* @ts-expect-error */
 export const LeftButton = styled(Button)`
   margin-right: ${size.s};
 `;

@@ -42,7 +42,7 @@ export const EditSpawnHostButton: React.VFC<EditSpawnHostButtonProps> = ({
         <span>
           <PaddedButton
             size={Size.XSmall}
-            disabled={!canEditSpawnHost} // @ts-expect-error
+            disabled={!canEditSpawnHost}
             onClick={(e) => {
               e.stopPropagation();
               setOpenModal(true);
