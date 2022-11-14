@@ -67,7 +67,6 @@ interface VariantTaskGroupProps {
   statusCounts: StatusCount[];
   variant: string;
   versionId: string;
-  isDownstream?: boolean;
 }
 const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
   displayName,
