@@ -46,7 +46,7 @@ describe("Public Key Management Page", () => {
     it("Should include the public in the public key list after adding", () => {
       cy.dataCy("key-value-input").clear();
       cy.dataCy("key-value-input").type(pubKey, { delay: 0 });
-      cy.dataCy("save-key-button").click();
+      cy.confirmModal("key-edit-modal", "Save");
       cy.dataCy("table-key-name").first().contains(keyName3);
     });
 
@@ -57,7 +57,7 @@ describe("Public Key Management Page", () => {
     });
 
     it("Modal has correct title", () => {
-      cy.dataCy("modal-title").contains("Add Public Key");
+      cy.dataCy("key-edit-modal").contains("Add Public Key");
     });
   });
 
@@ -76,24 +76,24 @@ describe("Public Key Management Page", () => {
       cy.dataCy("key-value-input").clear();
 
       cy.dataCy("key-value-input").type(pubKey2, { delay: 0 });
-      cy.dataCy("save-key-button").click();
-      cy.dataCy("key-edit-modal").should("not.be.visible");
+      cy.confirmModal("key-edit-modal", "Save");
+      cy.dataCy("key-edit-modal").should("not.exist");
       cy.dataCy("table-key-name").first().contains(keyName4);
       cy.dataCy("edit-btn").first().click();
       cy.dataCy("key-name-input").should("have.value", keyName4);
       cy.dataCy("key-value-input").should("have.value", pubKey2);
       cy.dataCy("key-value-input").clear();
       cy.dataCy("key-value-input").type(pubKey3, { delay: 0 });
-      cy.dataCy("save-key-button").click();
-      cy.dataCy("key-edit-modal").should("not.be.visible");
+      cy.confirmModal("key-edit-modal", "Save");
+      cy.dataCy("key-edit-modal").should("not.exist");
       cy.dataCy("table-key-name").first().contains(keyName4);
       cy.dataCy("edit-btn").first().click();
       cy.dataCy("key-name-input").should("have.value", keyName4);
       cy.dataCy("key-value-input").should("have.value", pubKey3);
       cy.dataCy("key-value-input").clear();
       cy.dataCy("key-value-input").type(pubKey4, { delay: 0 });
-      cy.dataCy("save-key-button").click();
-      cy.dataCy("key-edit-modal").should("not.be.visible");
+      cy.confirmModal("key-edit-modal", "Save");
+      cy.dataCy("key-edit-modal").should("not.exist");
       cy.dataCy("table-key-name").first().contains(keyName4);
       cy.dataCy("edit-btn").first().click();
       cy.dataCy("key-name-input").should("have.value", keyName4);
@@ -101,7 +101,7 @@ describe("Public Key Management Page", () => {
     });
 
     it("Modal has correct title", () => {
-      cy.dataCy("modal-title").contains("Update Public Key");
+      cy.dataCy("key-edit-modal").contains("Update Public Key");
     });
   });
 
@@ -111,7 +111,7 @@ describe("Public Key Management Page", () => {
       cy.dataCy("add-key-button").click();
       cy.dataCy("key-name-input").type("rsioeantarsn");
       cy.dataCy("key-value-input").type("ssh-rsa ", { delay: 0 });
-      cy.dataCy("save-key-button").click();
+      cy.confirmModal("key-edit-modal", "Save");
       cy.validateToast("error");
     });
   });

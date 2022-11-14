@@ -98,3 +98,13 @@ Cypress.Commands.add(
     }
   }
 );
+
+/* confirmModal */
+Cypress.Commands.add("confirmModal", (dataCy: string, buttonText: string) => {
+  cy.dataCy(dataCy).find("button").contains(buttonText).click({ force: true });
+});
+
+/* confirmModal */
+Cypress.Commands.add("cancelModal", (dataCy: string) => {
+  cy.dataCy(dataCy).find("button").contains("Cancel").click({ force: true });
+});

@@ -100,6 +100,14 @@ declare global {
         message?: string,
         shouldClose?: boolean
       ): void;
+      /**
+       * Confirm and close a LeafyGreen Confirmation Modal with the given data-cy property and confirmation button text.
+       */
+      confirmModal(dataCy: string, buttonText: string): void;
+      /**
+       * Cancel and close a LeafyGreen Confirmation Modal with the given data-cy property.
+       */
+      cancelModal(dataCy: string): void;
     }
   }
 }

@@ -180,7 +180,9 @@ describe("Navigating to Spawn Host page", () => {
           .should("be.visible")
           .click();
         cy.dataCy("volume-select").click();
-        cy.contains("No Data");
+        cy.get("ul[id='volume-select-menu']")
+          .children()
+          .should("have.length", 1);
       });
 
       it("Clicking 'Add new key' hides the key name dropdown and shows the key value text area", () => {

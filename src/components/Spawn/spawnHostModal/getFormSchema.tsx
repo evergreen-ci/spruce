@@ -508,11 +508,8 @@ export const getFormSchema = ({
           "ui:widget": widgets.RadioBoxWidget,
         },
         volumeSelect: {
-          "ui:allowDeselect": false,
           "ui:data-cy": "volume-select",
-          "ui:disabledEnums": (volumes || [])
-            .filter((v) => !!v.hostID)
-            .map((v) => v.id),
+          "ui:placeholder": "Select from volumes",
         },
         volumeSize: {
           "ui:inputType": "number",

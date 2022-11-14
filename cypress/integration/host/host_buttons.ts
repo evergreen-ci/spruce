@@ -20,9 +20,9 @@ describe("Host page restart jasper, reprovision, and update host status buttons"
 
     cy.dataCy("host-status-select").click();
     cy.dataCy("decommissioned-option").click();
-    cy.dataCy("modal-update-button").click();
+    cy.confirmModal("update-host-status-modal", "Update");
 
     cy.validateToast("success");
-    cy.dataCy("update-host-status-modal").should("not.be.visible");
+    cy.dataCy("update-host-status-modal").should("not.exist");
   });
 });
