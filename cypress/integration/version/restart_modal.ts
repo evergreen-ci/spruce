@@ -5,13 +5,12 @@ describe("Restarting a patch with Downstream Tasks", () => {
   });
 
   it("Clicking on the Select Downstream Tasks should show the downstream projects", () => {
-    cy.visit(pathWithDownstreamTasks);
+    const versionWithDownstream = `/version/5f74d99ab2373627c047c5e5`;
+    cy.visit(versionWithDownstream);
     cy.dataCy("restart-version").click();
     cy.dataCy("select-downstream").first().click();
     cy.dataCy("select-downstream").first().contains("evergreen").click();
   });
-
-  const pathWithDownstreamTasks = `/version/5f74d99ab2373627c047c5e5`;
 });
 
 describe("Restarting a patch", () => {

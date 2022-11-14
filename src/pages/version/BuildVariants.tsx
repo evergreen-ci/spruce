@@ -1,13 +1,15 @@
 import { useQuery } from "@apollo/client";
+import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { useParams, useLocation } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
+import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { StyledRouterLink, SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
 import { H3, wordBreakCss } from "components/Typography";
-import { VariantGroupedTaskStatusBadges } from "components/VariantGroupedTaskStatusBadges";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { getVersionRoute } from "constants/routes";
+import { size } from "constants/tokens";
 import {
   GetBuildVariantStatsQuery,
   GetBuildVariantStatsQueryVariables,
@@ -15,16 +17,14 @@ import {
 } from "gql/generated/types";
 import { GET_BUILD_VARIANTS_STATS } from "gql/queries";
 import { usePolling } from "hooks";
-import { queryString, string } from "utils";
+import { queryString, string, statuses } from "utils";
 
+const { groupStatusesByUmbrellaStatus } = statuses;
 const { parseQueryString } = queryString;
 const { applyStrictRegex } = string;
 
 export const BuildVariants: React.VFC = () => {
   const { id } = useParams<{ id: string }>();
-  const { search } = useLocation();
-  const { sorts } = parseQueryString(search);
-  const { sendEvent } = useVersionAnalytics(id);
 
   const { data, loading, error, refetch, startPolling, stopPolling } = useQuery<
     GetBuildVariantStatsQuery,
@@ -44,66 +44,96 @@ export const BuildVariants: React.VFC = () => {
         <Divider />
         {error && <div>{error.message}</div>}
         {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
-        {version?.buildVariantStats?.map(
-          ({ displayName, statusCounts, variant }) => (
-            <div
-              key={`buildVariant_${displayName}_${variant}`}
-              data-cy="patch-build-variant"
-            >
-              <StyledRouterLink
-                css={wordBreakCss}
-                to={getVersionRoute(id, {
-                  sorts,
-                  page: 0,
-                  variant: applyStrictRegex(variant),
-                })}
-                onClick={() =>
-                  sendEvent({
-                    name: "Click Build Variant Grid Link",
-                  })
-                }
-                data-cy="build-variant-display-name"
-              >
-                {displayName}
-              </StyledRouterLink>
+        <div data-cy="build-variants">
+          {version?.buildVariantStats?.map(
+            ({ displayName, statusCounts, variant }) => (
               <VariantTaskGroup
-                variant={variant}
+                key={`buildVariant_${displayName}_${variant}`}
+                displayName={displayName}
                 statusCounts={statusCounts}
+                variant={variant}
                 versionId={id}
               />
-            </div>
-          )
-        )}
+            )
+          )}
+        </div>
       </SiderCard>
     </>
   );
 };
 
 interface VariantTaskGroupProps {
-  variant: string;
+  displayName: string;
   statusCounts: StatusCount[];
+  variant: string;
   versionId: string;
 }
 const VariantTaskGroup: React.VFC<VariantTaskGroupProps> = ({
-  variant,
+  displayName,
   statusCounts,
+  variant,
   versionId,
 }) => {
   const { sendEvent } = useVersionAnalytics(versionId);
+  const { search } = useLocation();
+  const queryParams = parseQueryString(search);
 
-  const callBack = (statuses: string[]) => () => {
+  const versionRouteParams = {
+    sorts: queryParams.sorts,
+    page: 0,
+    variant: applyStrictRegex(variant),
+  };
+
+  const callBack = (taskSquareStatuses: string[]) => () => {
     sendEvent({
       name: "Click Grouped Task Square",
-      taskSquareStatuses: statuses,
+      taskSquareStatuses,
     });
   };
+
+  const { stats } = groupStatusesByUmbrellaStatus(statusCounts ?? []);
+
   return (
-    <VariantGroupedTaskStatusBadges
-      variant={variant}
-      statusCounts={statusCounts}
-      versionId={versionId}
-      onClick={callBack}
-      preserveSorts
-    />
+    <div data-cy="patch-build-variant">
+      <StyledRouterLink
+        css={wordBreakCss}
+        to={getVersionRoute(versionId, {
+          ...versionRouteParams,
+        })}
+        onClick={() =>
+          sendEvent({
+            name: "Click Build Variant Grid Link",
+          })
+        }
+        data-cy="build-variant-display-name"
+      >
+        {displayName}
+      </StyledRouterLink>
+
+      <TaskBadgeContainer>
+        {stats.map(
+          ({ umbrellaStatus, count, statusCounts: groupedStatusCounts }) => (
+            <GroupedTaskStatusBadge
+              key={`${versionId}_${variant}_${umbrellaStatus}`}
+              count={count}
+              onClick={callBack(Object.keys(groupedStatusCounts))}
+              queryParamsToPreserve={versionRouteParams}
+              status={umbrellaStatus}
+              statusCounts={groupedStatusCounts}
+              versionId={versionId}
+            />
+          )
+        )}
+      </TaskBadgeContainer>
+    </div>
   );
 };
+
+const TaskBadgeContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: ${size.xs};
+  margin-top: ${size.xs};
+  margin-bottom: ${size.xs};
+`;

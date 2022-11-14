@@ -3,6 +3,7 @@ query VersionTasks(
   $taskFilterOptions: TaskFilterOptions!
 ) {
   version(id: $versionId) {
+    id
     tasks(options: $taskFilterOptions) {
       count
       data {
