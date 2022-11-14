@@ -226,6 +226,7 @@ const myHostsMock = {
           volumes: [
             {
               displayName: "",
+              migrating: false,
               id: "vol-0cf616375140c067e",
               __typename: "Volume",
             },
@@ -311,6 +312,7 @@ const myHostsMock = {
           volumes: [
             {
               displayName: "",
+              migrating: false,
               id: "vol-0cf616375140c067e",
               __typename: "Volume",
             },
@@ -349,11 +351,13 @@ const myVolumesQueryMock = {
           host: {
             displayName: "hai",
             id: "i-0d5d29bf2e7ee342d",
+            noExpiration: false,
             __typename: "Host",
           },
           noExpiration: true,
           homeVolume: false,
           creationTime: "2020-11-05T18:19:39Z",
+          migrating: false,
           __typename: "Volume",
         },
         {
@@ -369,10 +373,12 @@ const myVolumesQueryMock = {
           host: {
             displayName: "hai",
             id: "i-0d5d29bf2e7ee342d",
+            noExpiration: false,
             __typename: "Host",
           },
           noExpiration: true,
           homeVolume: false,
+          migrating: false,
           creationTime: "2020-11-05T18:18:36Z",
           __typename: "Volume",
         },
