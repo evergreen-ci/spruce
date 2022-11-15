@@ -424,22 +424,22 @@ exports[`storybook Storyshots Pages/Spawn/User Tags Field User Tags Field View 1
     >
       <button
         aria-disabled={false}
-        className="leafygreen-ui-26sqyb"
+        className="lg-ui-button-0000 leafygreen-ui-n2d19n"
         data-cy="add-tag-button"
         disabled={false}
         onClick={[Function]}
         type="button"
       >
         <div
-          className="leafygreen-ui-1ktj4tm"
+          className="leafygreen-ui-v038xi"
         />
         <div
-          className="leafygreen-ui-ie0uqp"
+          className="leafygreen-ui-1qmzz4y"
         >
           <svg
             alt=""
             aria-hidden={true}
-            className="leafygreen-ui-1my2s1b"
+            className="leafygreen-ui-6juzfh"
             fill="none"
             height={16}
             role="presentation"

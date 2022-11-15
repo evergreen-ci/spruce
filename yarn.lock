@@ -4139,10 +4139,10 @@
     "@leafygreen-ui/lib" "^9.0.0"
     "@leafygreen-ui/palette" "^3.2.2"
 
-"@leafygreen-ui/leafygreen-provider@3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/leafygreen-provider/-/leafygreen-provider-3.0.1.tgz#1ebcaefd990dea246643551b30904d5513c26175"
-  integrity sha512-g3fe89sg4s8CEdGzhu0BftNlhCHstarwFgvdfiftbquLjLf86cY554nK1V+rDdCsZ3Oz4SqWIr75nQRXIb6ffQ==
+"@leafygreen-ui/leafygreen-provider@3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/leafygreen-provider/-/leafygreen-provider-3.1.0.tgz#5f36e5e6e6203e9cf64ba7bad342ed1fa433a32c"
+  integrity sha512-ZfmBV8O8RvUgOOYeV6aMOyYnqKdT/ovEwo4AZVChBvvB7IzNbGkEFgQPLcvqk4dhOJ0Kwg8bWeijD0gSZ9FB3g==
   dependencies:
     "@leafygreen-ui/hooks" "^7.3.3"
     "@leafygreen-ui/lib" "^10.0.0"

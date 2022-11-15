@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import Button from "@leafygreen-ui/button";
 import TextInput from "@leafygreen-ui/text-input";
 import { Popconfirm } from "antd";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { LoadingButton } from "components/Buttons";
@@ -268,7 +268,6 @@ export const ActionButtons: React.VFC<Props> = ({
             <PreviousCommits taskId={taskId} />
             <Button
               size="small"
-              as={Link}
               data-cy="task-history"
               key="task-history"
               onClick={() => {

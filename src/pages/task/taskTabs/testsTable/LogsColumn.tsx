@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { Link } from "react-router-dom";
 import { Analytics } from "analytics/addPageAction";
 import { getTaskHistoryRoute } from "constants/routes";
 import { size } from "constants/tokens";
@@ -116,7 +115,6 @@ export const LogsColumn: React.VFC<Props> = ({
       {filters && !isExecutionTask && (
         <Button
           size="xsmall"
-          as={Link}
           data-cy="task-history-tests-btn"
           key="task-history"
           onClick={() => {
