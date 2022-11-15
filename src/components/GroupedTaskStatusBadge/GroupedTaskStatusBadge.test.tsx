@@ -6,7 +6,10 @@ import {
   waitFor,
 } from "test_utils";
 import { TaskStatus } from "types/task";
+import { string } from "utils";
 import { GroupedTaskStatusBadge } from ".";
+
+const { applyStrictRegex } = string;
 
 describe("groupedTaskStatusBadgeIcon", () => {
   it("clicking on badge performs an action", () => {
@@ -57,7 +60,7 @@ describe("groupedTaskStatusBadgeIcon", () => {
         count={400}
         status={TaskStatus.SystemFailureUmbrella}
         versionId={versionId}
-        variant="some_variant"
+        queryParamsToPreserve={{ variant: applyStrictRegex("some_variant") }}
       />
     );
     expect(screen.queryByDataCy("grouped-task-status-badge")).toHaveAttribute(

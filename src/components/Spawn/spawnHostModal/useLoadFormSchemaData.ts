@@ -18,7 +18,6 @@ import {
   GET_MY_VOLUMES,
 } from "gql/queries";
 import { useDisableSpawnExpirationCheckbox, useSpruceConfig } from "hooks";
-import { useUserTimeZone } from "hooks/useUserTimeZone";
 import { getNoExpirationCheckboxTooltipCopy } from "../utils";
 
 interface Props {
@@ -55,8 +54,6 @@ export const useLoadFormSchemaData = (p?: Props) => {
     MyHostsQueryVariables
   >(GET_MY_VOLUMES);
 
-  const timezone = useUserTimeZone();
-
   const disableExpirationCheckbox = useDisableSpawnExpirationCheckbox(
     false,
     p?.host
@@ -73,7 +70,6 @@ export const useLoadFormSchemaData = (p?: Props) => {
       distros: distrosData?.distros,
       myPublicKeys: publicKeysData?.myPublicKeys,
       noExpirationCheckboxTooltip,
-      timezone,
       userAwsRegion,
       volumes: volumesData?.myVolumes,
     },

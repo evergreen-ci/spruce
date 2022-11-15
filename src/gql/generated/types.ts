@@ -5986,6 +5986,7 @@ export type VersionTasksQueryVariables = Exact<{
 
 export type VersionTasksQuery = {
   version: {
+    id: string;
     tasks: {
       count: number;
       data: Array<{
