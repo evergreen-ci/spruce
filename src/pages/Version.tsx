@@ -31,10 +31,12 @@ import { PageDoesNotExist } from "pages/404";
 import { shortenGithash, githubPRLinkify } from "utils/string";
 import { jiraLinkify } from "utils/string/jiraLinkify";
 import VersionPageBreadcrumbs from "./version/Breadcrumbs";
-import { BuildVariants } from "./version/BuildVariants";
-import { ActionButtons } from "./version/index";
-import { Metadata } from "./version/Metadata";
-import { Tabs } from "./version/Tabs";
+import {
+  ActionButtons,
+  BuildVariants,
+  Metadata,
+  VersionTabs,
+} from "./version/index";
 
 export const VersionPage: React.VFC = () => {
   const spruceConfig = useSpruceConfig();
@@ -184,7 +186,7 @@ export const VersionPage: React.VFC = () => {
         </PageSider>
         <PageLayout>
           <PageContent>
-            <Tabs
+            <VersionTabs
               childPatches={childPatches}
               isPatch={version?.isPatch}
               taskCount={version?.taskCount}

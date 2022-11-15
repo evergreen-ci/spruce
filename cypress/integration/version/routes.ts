@@ -59,19 +59,25 @@ describe("Version route", () => {
     });
 
     it("Lists the patch's build variants", () => {
-      cy.dataCy("patch-build-variant").within(
-        ($variants) => Array.from($variants).length > 0
-      );
+      cy.dataCy("build-variants").within(() => {
+        cy.dataCy("patch-build-variant").within(
+          // @ts-expect-error
+          ($variants) => Array.from($variants).length > 0
+        );
+      });
     });
 
     describe("Grouped Task Status Badge", () => {
       it("Shows tooltip with task's name on hover", () => {
-        cy.dataCy("grouped-task-status-badge")
-          .first()
-          .trigger("mouseover")
-          .within(($el) => {
-            expect($el.text()).to.contain("1Undispatched");
-          });
+        cy.dataCy("build-variants").within(() => {
+          cy.dataCy("grouped-task-status-badge")
+            .first()
+            .trigger("mouseover")
+            .within(($el) => {
+              // @ts-expect-error
+              expect($el.text()).to.contain("1Undispatched");
+            });
+        });
       });
 
       it("Navigates to task tab and applies filters when clicking on grouped task status badge", () => {
@@ -82,7 +88,9 @@ describe("Version route", () => {
           .and("equal", "false");
 
         // clicking on task status badge should move to the task tab
-        cy.dataCy("grouped-task-status-badge").first().click();
+        cy.dataCy("build-variants").within(() => {
+          cy.dataCy("grouped-task-status-badge").first().click();
+        });
         cy.dataCy("task-tab")
           .should("have.attr", "aria-selected")
           .and("equal", "true");
@@ -116,7 +124,9 @@ describe("Version route", () => {
           .type("{enter}");
 
         // name filter shouldn't be applied after clicking task status badge
-        cy.dataCy("grouped-task-status-badge").first().click();
+        cy.dataCy("build-variants").within(() => {
+          cy.dataCy("grouped-task-status-badge").first().click();
+        });
         cy.location("search").should(
           "include",
           "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=undispatched-umbrella,unscheduled,aborted,blocked&variant=%5Eubuntu1604%24"
