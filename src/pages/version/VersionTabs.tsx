@@ -4,12 +4,13 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { CodeChanges } from "components/CodeChanges/CodeChanges";
 import { StyledTabs } from "components/styles/StyledTabs";
+import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { getVersionRoute, DEFAULT_PATCH_TAB } from "constants/routes";
 import { VersionQuery } from "gql/generated/types";
 import { usePrevious } from "hooks";
 import { DownstreamTasks } from "pages/version/DownstreamTasks";
 import { Tasks } from "pages/version/Tasks";
-import { PatchTab } from "types/patch";
+import { PatchStatus, PatchTab } from "types/patch";
 import { queryString } from "utils";
 import TaskDuration from "./TaskDuration";
 
@@ -21,7 +22,7 @@ interface Props {
   childPatches: VersionQuery["version"]["patch"]["childPatches"];
 }
 
-const tabMap = ({ taskCount, childPatches }) => ({
+const tabMap = ({ taskCount, childPatches, numFailedChildPatches }) => ({
   [PatchTab.Tasks]: (
     <Tab name="Tasks" id="task-tab" data-cy="task-tab" key="tasks-tab">
       <Tasks taskCount={taskCount} />
@@ -47,18 +48,29 @@ const tabMap = ({ taskCount, childPatches }) => ({
       <CodeChanges />
     </Tab>
   ),
-  [PatchTab.DownstreamTasks]: (
+  [PatchTab.Downstream]: (
     <Tab
-      name="Downstream Tasks"
+      name={
+        numFailedChildPatches ? (
+          <TabLabelWithBadge
+            badgeText={numFailedChildPatches}
+            badgeVariant="red"
+            dataCyBadge="downstream-tab-badge"
+            tabLabel="Downstream Projects"
+          />
+        ) : (
+          "Downstream Projects"
+        )
+      }
       id="downstream-tab"
-      data-cy="downstream-tasks-tab"
+      data-cy="downstream-tab"
       key="downstream-tab"
     >
       <DownstreamTasks childPatches={childPatches} />
     </Tab>
   ),
 });
-export const Tabs: React.VFC<Props> = ({
+export const VersionTabs: React.VFC<Props> = ({
   taskCount,
   childPatches,
   isPatch,
@@ -73,15 +85,18 @@ export const Tabs: React.VFC<Props> = ({
       [PatchTab.Tasks]: true,
       [PatchTab.TaskDuration]: true,
       [PatchTab.Changes]: isPatch,
-      [PatchTab.DownstreamTasks]: childPatches,
+      [PatchTab.Downstream]: childPatches,
     }),
     [isPatch, childPatches]
   );
 
-  const allTabs = useMemo(
-    () => tabMap({ taskCount, childPatches }),
-    [taskCount, childPatches]
-  );
+  const allTabs = useMemo(() => {
+    const numFailedChildPatches = childPatches
+      ? childPatches.filter((c) => c.status === PatchStatus.Failed).length
+      : 0;
+    return tabMap({ taskCount, childPatches, numFailedChildPatches });
+  }, [taskCount, childPatches]);
+
   const activeTabs = useMemo(
     () => Object.keys(allTabs).filter((t) => tabIsActive[t] as PatchTab[]),
     [allTabs, tabIsActive]

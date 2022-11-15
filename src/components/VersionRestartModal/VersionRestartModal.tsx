@@ -271,9 +271,6 @@ const ConfirmationMessage = styled(Body)`
 
 const Row = styled.div`
   display: flex;
-  >: first-of-type {
-    margin-right: ${size.s};
-  }
 `;
 
 export const TitleContainer = styled.div`

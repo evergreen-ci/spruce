@@ -144,7 +144,6 @@ const KeyNameContainer = styled.div`
   align-items: center;
 `;
 
-// @ts-expect-error
 const StyledRadioBoxGroup = styled(RadioBoxGroup)`
   margin: ${size.s} 0;
 `;

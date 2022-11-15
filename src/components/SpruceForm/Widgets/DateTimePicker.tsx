@@ -4,40 +4,38 @@ import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
 import DatePicker from "components/DatePicker";
 import TimePicker from "components/TimePicker";
 import { size } from "constants/tokens";
+import { useUserTimeZone } from "hooks/useUserTimeZone";
 import ElementWrapper from "../ElementWrapper";
 import { SpruceWidgetProps } from "./types";
 
 export const DateTimePicker: React.VFC<
   {
     options: {
-      disablePastDatetime?: boolean;
-      timezone?: string;
+      disableBefore?: Date;
+      disableAfter?: Date;
     };
   } & SpruceWidgetProps
 > = ({ disabled, id, label, onChange, options, readonly, value = "" }) => {
   const {
     description,
-    disablePastDatetime,
+    disableBefore,
+    disableAfter,
     showLabel,
-    timezone,
     elementWrapperCSS,
   } = options;
 
-  const currentDateTime = timezone
-    ? utcToZonedTime(new Date(value || null), timezone)
-    : new Date(value || null);
+  const timezone = useUserTimeZone();
+  const currentDateTime = utcToZonedTime(new Date(value || null), timezone);
   const isDisabled = disabled || readonly;
   const handleChange = (d: Date) => {
-    onChange(
-      timezone ? zonedTimeToUtc(d, timezone).toString() : new Date(d).toString()
-    );
+    onChange(zonedTimeToUtc(d, timezone).toString());
   };
-  const disabledDate = disablePastDatetime
-    ? (current) =>
-        timezone
-          ? utcToZonedTime(current, timezone) < currentDateTime
-          : current < Date.now()
-    : undefined;
+
+  const disabledDate = (current) => {
+    const disablePast = disableBefore ? current < disableBefore : false;
+    const disableFuture = disableAfter ? current > disableAfter : false;
+    return disableFuture || disablePast;
+  };
 
   return (
     <ElementWrapper css={elementWrapperCSS}>

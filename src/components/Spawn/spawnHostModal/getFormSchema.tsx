@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { add } from "date-fns";
 import widgets from "components/SpruceForm/Widgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
 import {
@@ -29,7 +30,6 @@ interface Props {
   noExpirationCheckboxTooltip: string;
   myPublicKeys: GetMyPublicKeysQuery["myPublicKeys"];
   spawnTaskData?: GetSpawnTaskQuery["task"];
-  timezone: string;
   userAwsRegion?: string;
   volumes: MyVolumesQuery["myVolumes"];
   isMigration: boolean;
@@ -44,7 +44,6 @@ export const getFormSchema = ({
   noExpirationCheckboxTooltip,
   myPublicKeys,
   spawnTaskData,
-  timezone,
   userAwsRegion,
   volumes,
   isMigration,
@@ -464,8 +463,8 @@ export const getFormSchema = ({
           "ui:data-cy": "never-expire-checkbox",
         },
         expiration: {
-          "ui:disablePastDatetime": true,
-          "ui:timezone": timezone,
+          "ui:disableBefore": add(today, { days: 1 }),
+          "ui:disableAfter": add(today, { days: 30 }),
           "ui:widget": "date-time",
           "ui:elementWrapperCSS": datePickerCSS,
         },
@@ -542,3 +541,5 @@ const datePickerCSS = css`
   position: relative;
   z-index: 1;
 `;
+
+const today = new Date();

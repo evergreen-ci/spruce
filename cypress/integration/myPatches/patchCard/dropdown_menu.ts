@@ -48,7 +48,7 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.dataCy("schedule-patch").should("be.disabled");
   });
 
-  // We shouldn't actually unschedule patchWithVersion because patchWithVersionOnCommitQueue is a downstream task
+  // We shouldn't actually unschedule patchWithVersion because patchWithVersionOnCommitQueue is a downstream project
   // and other integration tests will be affected.
   it("'Unschedule' link opens popconfirm and unschedules patch", () => {
     getPatchCardByDescription(patchWithVersion).within(() => {
