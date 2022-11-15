@@ -46,30 +46,6 @@ describe("scheduleTasks", () => {
     );
   });
 
-  it("selecting some and not all task checkboxes puts the build variant checkbox in an indeterminate state.", async () => {
-    const { Component } = RenderFakeToastContext(<ScheduleModal />);
-
-    render(<Component />);
-    await waitFor(() => expect(screen.queryByText("Windows")).toBeVisible());
-    const toggles = screen.queryAllByDataCy("accordion-toggle");
-    fireEvent.click(toggles[1]);
-    await waitFor(() => {
-      expect(
-        screen
-          .queryByDataCy("windows-variant-checkbox")
-          .getAttribute("aria-checked")
-      ).toBe("false");
-    });
-    fireEvent.click(screen.queryByDataCy("windows-compile-task-checkbox"));
-    await waitFor(() => {
-      expect(
-        screen
-          .queryByDataCy("windows-variant-checkbox")
-          .getAttribute("aria-checked")
-      ).toBe("mixed");
-    });
-  });
-
   it("the modal is populated with build variant names and checkboxes", async () => {
     const { Component } = RenderFakeToastContext(<ScheduleModal />);
 
@@ -91,6 +67,30 @@ describe("scheduleTasks", () => {
       screen.queryAllByDataCy("task-checkbox-label").forEach((label) => {
         expect(label).toBeVisible();
       });
+    });
+  });
+
+  it("selecting some and not all task checkboxes puts the build variant checkbox in an indeterminate state.", async () => {
+    const { Component } = RenderFakeToastContext(<ScheduleModal />);
+
+    render(<Component />);
+    await waitFor(() => expect(screen.queryByText("Windows")).toBeVisible());
+    const toggles = screen.queryAllByDataCy("accordion-toggle");
+    fireEvent.click(toggles[1]);
+    await waitFor(() => {
+      expect(
+        screen
+          .queryByDataCy("windows-variant-checkbox")
+          .getAttribute("aria-checked")
+      ).toBe("false");
+    });
+    fireEvent.click(screen.queryByDataCy("windows-compile-task-checkbox"));
+    await waitFor(() => {
+      expect(
+        screen
+          .queryByDataCy("windows-variant-checkbox")
+          .getAttribute("aria-checked")
+      ).toBe("mixed");
     });
   });
 
