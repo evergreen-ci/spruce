@@ -90,9 +90,50 @@ describe("validateSpawnHostForm", () => {
     expect(
       validateSpawnHostForm({
         ...validForm,
+        publicKeySection: {
+          useExisting: true,
+          publicKeyNameDropdown: "key val",
+        },
+      })
+    ).toBe(true);
+    expect(
+      validateSpawnHostForm({
+        ...validForm,
         publicKeySection: { useExisting: false, newPublicKey: "key val" },
       })
     ).toBe(true);
+  });
+  it("a public key name is required when 'Save Public Key' is checked", () => {
+    expect(
+      validateSpawnHostForm({
+        ...validForm,
+        publicKeySection: {
+          useExisting: false,
+          newPublicKey: "ssh-rsa new-key",
+        },
+      })
+    ).toBe(true);
+    expect(
+      validateSpawnHostForm({
+        ...validForm,
+        publicKeySection: {
+          useExisting: false,
+          newPublicKey: "ssh-rsa new-key",
+          savePublicKey: true,
+          newPublicKeyName: "new key",
+        },
+      })
+    ).toBe(true);
+    expect(
+      validateSpawnHostForm({
+        ...validForm,
+        publicKeySection: {
+          useExisting: false,
+          newPublicKey: "ssh-rsa new-key",
+          savePublicKey: true,
+        },
+      })
+    ).toBe(false);
   });
   it("a user data script must be provided when the option is selected", () => {
     expect(

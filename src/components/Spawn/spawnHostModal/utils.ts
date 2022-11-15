@@ -22,24 +22,37 @@ export const validateSpawnHostForm = (
   }: FormState,
   isMigration?: boolean
 ) => {
-  const isValidHomeVolumeDetails =
+  const hasDistro = !!distro?.value;
+  const hasRegion = !!region;
+  const hasPublicKey = publicKeySection?.useExisting
+    ? !!publicKeySection?.publicKeyNameDropdown
+    : !!publicKeySection?.newPublicKey;
+  const hasValidKeyName = publicKeySection?.savePublicKey
+    ? !!publicKeySection?.newPublicKeyName
+    : true;
+  const hasValidUserdataScript = userdataScriptSection?.runUserdataScript
+    ? !!userdataScriptSection?.userdataScript
+    : true;
+  const hasValidSetupScript = setupScriptSection?.defineSetupScriptCheckbox
+    ? !!setupScriptSection?.setupScript
+    : true;
+  const hasValidHomeVolumeDetails =
     isMigration ||
     (homeVolumeDetails?.selectExistingVolume
       ? !!homeVolumeDetails?.volumeSelect
       : !!homeVolumeDetails?.volumeSize);
+  const hasValidExpiration = expirationDetails?.noExpiration
+    ? true
+    : !!expirationDetails?.expiration;
+
   return (
-    !!distro?.value &&
-    !!region &&
-    (publicKeySection?.useExisting
-      ? !!publicKeySection?.publicKeyNameDropdown
-      : !!publicKeySection?.newPublicKey) &&
-    (userdataScriptSection?.runUserdataScript
-      ? !!userdataScriptSection?.userdataScript
-      : true) &&
-    (setupScriptSection?.defineSetupScriptCheckbox
-      ? !!setupScriptSection?.setupScript
-      : true) &&
-    (distro?.isVirtualWorkstation ? isValidHomeVolumeDetails : true) &&
-    (expirationDetails?.noExpiration ? true : !!expirationDetails?.expiration)
+    hasDistro &&
+    hasRegion &&
+    hasPublicKey &&
+    hasValidKeyName &&
+    hasValidUserdataScript &&
+    hasValidSetupScript &&
+    (distro?.isVirtualWorkstation ? hasValidHomeVolumeDetails : true) &&
+    hasValidExpiration
   );
 };
