@@ -99,12 +99,23 @@ Cypress.Commands.add(
   }
 );
 
+/* modalButton */
+Cypress.Commands.add("modalButton", (dataCy: string, buttonText: string) =>
+  cy.dataCy(dataCy).contains("button", buttonText)
+);
+
 /* confirmModal */
 Cypress.Commands.add("confirmModal", (dataCy: string, buttonText: string) => {
-  cy.dataCy(dataCy).find("button").contains(buttonText).click({ force: true });
+  cy.modalButton(dataCy, buttonText).click({ force: true });
 });
 
 /* confirmModal */
 Cypress.Commands.add("cancelModal", (dataCy: string) => {
-  cy.dataCy(dataCy).find("button").contains("Cancel").click({ force: true });
+  cy.modalButton(dataCy, "Cancel").click({ force: true });
+});
+
+/* selectOption */
+Cypress.Commands.add("selectOption", (dataCy: string, option: string) => {
+  cy.dataCy(dataCy).click();
+  cy.get(`ul[id='${dataCy}-menu']`).find("li").contains(option).click();
 });

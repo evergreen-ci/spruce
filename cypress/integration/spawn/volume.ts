@@ -24,7 +24,7 @@ describe("Navigating to Spawn Volume page", () => {
 
     it("Reopening the edit volume modal should reset form input fields.", () => {
       cy.dataCy("volume-name-input").type("Hello, World");
-      cy.dataCy("cancel-volume-button").click();
+      cy.cancelModal("update-volume-modal");
       cy.dataCy(
         "edit-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
       ).click();
@@ -35,13 +35,10 @@ describe("Navigating to Spawn Volume page", () => {
     });
 
     it("Submit button should be enabled when the volume details input value differs from what already exists.", () => {
-      cy.dataCy("update-volume-button").should("be.disabled");
+      cy.modalButton("update-volume-modal", "Save").should("be.disabled");
       // type a new name
       cy.dataCy("volume-name-input").type("Hello, World");
-      cy.dataCy("update-volume-modal")
-        .find("button")
-        .contains("Save")
-        .should("not.be.disabled");
+      cy.modalButton("update-volume-modal", "Save").should("not.be.disabled");
 
       // type original name
       cy.dataCy("volume-name-input")
@@ -187,7 +184,7 @@ describe("Navigating to Spawn Volume page", () => {
     cy.dataCy("typeSelector").click();
     cy.contains("sc1").click();
     cy.contains("Never").click();
-    cy.cancelModal("spawn-volume-modal").click();
+    cy.cancelModal("spawn-volume-modal");
     cy.dataCy("spawn-volume-btn").click();
     cy.dataCy("typeSelector").contains("gp2");
     cy.dataCy("never-expire-checkbox").should(

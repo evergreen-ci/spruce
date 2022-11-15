@@ -101,13 +101,24 @@ declare global {
         shouldClose?: boolean
       ): void;
       /**
-       * Confirm and close a LeafyGreen Confirmation Modal with the given data-cy property and confirmation button text.
+       * Return a LeafyGreen Confirmation Modal button with the given text.
+       * @example cy.modalButton("task-modal", "Save").should("be.disabled")
+       */
+      modalButton(dataCy: string, buttonText: string): Chainable<Element>;
+      /**
+       * Confirm and close a LeafyGreen Confirmation Modal with the given data-cy property and button text.
+       * @example cy.confirmModal("task-modal", "Save")
        */
       confirmModal(dataCy: string, buttonText: string): void;
       /**
        * Cancel and close a LeafyGreen Confirmation Modal with the given data-cy property.
+       * @example cy.cancelModal("task-modal")
        */
       cancelModal(dataCy: string): void;
+      /* Within a LeafyGreen Select with the given dataCy property, click on the provided option text.
+       * @example cy.selectOption("notification-select", "Send me a Slack")
+       */
+      selectOption(dataCy: string, otpion: string): void;
     }
   }
 }
