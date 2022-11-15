@@ -71,6 +71,7 @@ describe("scheduleTasks", () => {
   });
 
   it("the modal is populated with build variant names and checkboxes", async () => {
+    jest.setTimeout(30000);
     const { Component } = RenderFakeToastContext(<ScheduleModal />);
 
     render(<Component />);
