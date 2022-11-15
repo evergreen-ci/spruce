@@ -4292,25 +4292,26 @@
     "@leafygreen-ui/hooks" "^7.3.3"
     "@leafygreen-ui/lib" "^10.0.0"
 
-"@leafygreen-ui/radio-box-group@6.1.4":
-  version "6.1.4"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/radio-box-group/-/radio-box-group-6.1.4.tgz#7e163c53e06d25aa08c74232715d661940fb587e"
-  integrity sha512-fB0LGbIFDUn1Xf2ybgRuM6yKKwHFaleiBHD2iijQddr/xyxqHmnZhpiT7Rmv1aP2jKPHDbYJjmg+PAx3s9k/NA==
+"@leafygreen-ui/radio-box-group@12.0.0":
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/radio-box-group/-/radio-box-group-12.0.0.tgz#1930f01327ed8e3402ffc3b4c4cd133302edd4a3"
+  integrity sha512-KE7svJILFNLL1ANqxn6PhUtAAE2ZDbwPNj6taOtb7141hgjN9NZhPVEbzuQinP33LPcLbaxcf1mmETx3O6RbLA==
   dependencies:
-    "@leafygreen-ui/hooks" "^7.0.0"
-    "@leafygreen-ui/interaction-ring" "^1.1.0"
-    "@leafygreen-ui/lib" "^9.0.0"
-    "@leafygreen-ui/palette" "^3.2.2"
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/hooks" "^7.3.3"
+    "@leafygreen-ui/palette" "^3.4.4"
+    "@leafygreen-ui/tokens" "^1.3.4"
 
-"@leafygreen-ui/radio-group@7.0.6":
-  version "7.0.6"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/radio-group/-/radio-group-7.0.6.tgz#2e36c975eb25f9c9f93694a1d0a4b65bde5ceb8c"
-  integrity sha512-LsokgU+fX2b9teMeiE0VPNH6K9RsGOwesmiZr40q3Df+LWVTMqsjWqIMhXWe1gAwgqqHewdkaXb4eLCLG3rs2w==
+"@leafygreen-ui/radio-group@10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/radio-group/-/radio-group-10.0.0.tgz#aa11809e4de9846da38c4d341841761276a4156b"
+  integrity sha512-DTRy7a1clLnnULTPFrlmabTppIcBz7hSG4KAqnrczVwMlKL57xyTvf4Jyylj0OQsBZ+NIZoNwDZLaohxIrCO7A==
   dependencies:
-    "@leafygreen-ui/hooks" "^7.0.0"
-    "@leafygreen-ui/interaction-ring" "^1.1.0"
-    "@leafygreen-ui/lib" "^9.0.0"
-    "@leafygreen-ui/palette" "^3.2.2"
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/hooks" "^7.3.3"
+    "@leafygreen-ui/lib" "^10.0.0"
+    "@leafygreen-ui/palette" "^3.4.4"
+    "@leafygreen-ui/tokens" "^1.3.4"
 
 "@leafygreen-ui/ripple@^1.1.1":
   version "1.1.1"
