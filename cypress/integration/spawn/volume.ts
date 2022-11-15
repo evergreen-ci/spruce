@@ -46,16 +46,10 @@ describe("Navigating to Spawn Volume page", () => {
         .type(
           "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
         );
-      cy.dataCy("update-volume-modal")
-        .find("button")
-        .contains("Save")
-        .should("be.disabled");
+      cy.modalButton("update-volume-modal", "Save").should("be.disabled");
 
       cy.contains("Never").click();
-      cy.dataCy("update-volume-modal")
-        .find("button")
-        .contains("Save")
-        .should("not.be.disabled");
+      cy.modalButton("update-volume-modal", "Save").should("not.be.disabled");
     });
 
     it("Clicking on save button should close the modal and show a success toast", () => {

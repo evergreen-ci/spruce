@@ -47,8 +47,10 @@ describe("Version Subscription Modal", () => {
         "A build-variant in this version finishes"
       );
       cy.dataCy("jira-comment-input").type("EVG-2000");
-      cy.dataCy("save-subscription-button").should("not.be.disabled");
-      cy.dataCy("save-subscription-button").click();
+      cy.modalButton("patch-notification-modal", "Save").should(
+        "not.be.disabled"
+      );
+      cy.confirmModal("patch-notification-modal", "Save");
       cy.validateToast("success", "Your subscription has been added");
     });
 
@@ -96,7 +98,7 @@ describe("Version Subscription Modal", () => {
       cy.selectOption("regex-select", "Build Variant Name");
       cy.dataCy("regex-input").type("stuff");
       cy.dataCy("jira-comment-input").type("EVG-2000");
-      cy.dataCy("save-subscription-button").click();
+      cy.confirmModal("patch-notification-modal", "Save");
       cy.validateToast("success", "Your subscription has been added");
     });
 

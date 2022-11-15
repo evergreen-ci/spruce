@@ -1033,8 +1033,8 @@ describe("Notifications", () => {
     cy.dataCy("add-button").contains("Add Subscription").should("be.visible");
     cy.dataCy("add-button").contains("Add Subscription").click({ force: true });
     cy.dataCy("expandable-card").should("contain.text", "New Subscription");
-    selectAntdDropdown("Event", "Any Version Finishes");
-    selectAntdDropdown("Notification Method", "Email");
+    cy.selectOption("event-trigger-select", "Any Version Finishes");
+    cy.selectOption("notification-method-select", "Email");
     cy.getInputByLabel("Email").type("mohamed.khelif@mongodb.com");
     cy.dataCy("save-settings-button").scrollIntoView();
     cy.dataCy("save-settings-button").should("not.be.disabled");
@@ -1065,8 +1065,8 @@ describe("Notifications", () => {
     cy.dataCy("add-button").contains("Add Subscription").click({ force: true });
     cy.dataCy("expandable-card").should("exist").scrollIntoView();
     cy.dataCy("expandable-card").should("contain.text", "New Subscription");
-    selectAntdDropdown("Event", "Any Task Finishes");
-    selectAntdDropdown("Notification Method", "Comment on a JIRA issue");
+    cy.selectOption("event-trigger-select", "Any Task Finishes");
+    cy.selectOption("notification-method-select", "Comment on a JIRA issue");
     cy.getInputByLabel("JIRA Issue").type("JIRA-123");
     cy.contains(
       "JIRA comment subscription not allowed for tasks in a project"
@@ -1075,25 +1075,11 @@ describe("Notifications", () => {
     cy.dataCy("save-settings-button").should("be.disabled");
   });
   it("should not be able to save a subscription if an input is invalid", () => {
-    selectAntdDropdown("Event", "Any Version Finishes");
-    selectAntdDropdown("Notification Method", "Email");
+    cy.selectOption("event-trigger-select", "Any Version Finishes");
+    cy.selectOption("notification-method-select", "Email");
     cy.getInputByLabel("Email").type("Not a real email");
     cy.contains("Value should be a valid email.").should("exist");
     cy.dataCy("save-settings-button").scrollIntoView();
     cy.dataCy("save-settings-button").should("be.disabled");
   });
 });
-
-function selectAntdDropdown(label: string, optionText: string) {
-  // open select
-  cy.getInputByLabel(label).click({ force: true });
-
-  return cy
-    .get(".ant-select-dropdown :not(.ant-select-dropdown-hidden)")
-    .find(".ant-select-item-option")
-    .each((el) => {
-      if (el.text() === optionText) {
-        cy.wrap(el).click({ force: true });
-      }
-    });
-}
