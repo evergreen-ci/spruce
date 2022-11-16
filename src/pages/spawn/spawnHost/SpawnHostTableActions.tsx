@@ -45,41 +45,48 @@ export const CopySSHCommandButton: React.VFC<{
   }, [hasCopied]);
 
   return (
-    <StyledTooltip
-      align="top"
-      justify="middle"
-      data-cy="copy-ssh-tooltip"
-      trigger={
-        // Wrapper is necessary because disabled elements cannot trigger mouse events.
-        <div data-cy="copy-ssh-button-wrapper">
-          <PaddedButton
-            data-cy="copy-ssh-button"
-            disabled={!canSSH}
-            leftGlyph={<Icon glyph="Copy" />}
-            // @ts-expect-error
-            onClick={(event: React.MouseEvent) => {
-              event.stopPropagation();
-              copyToClipboard(sshCommand);
-              spawnAnalytics.sendEvent({ name: "Copy SSH Command" });
-              setHasCopied(!hasCopied);
-            }}
-            size={Size.XSmall}
-          >
-            <Label>SSH Command</Label>
-          </PaddedButton>
-        </div>
-      }
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+    <span
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
     >
-      {hasCopied ? (
-        <Center>Copied!</Center>
-      ) : (
-        <Center>
-          {canSSH
-            ? `Must be on VPN to connect to host`
-            : `Host must be running in order to SSH`}
-        </Center>
-      )}
-    </StyledTooltip>
+      <StyledTooltip
+        align="top"
+        justify="middle"
+        data-cy="copy-ssh-tooltip"
+        trigger={
+          // Wrapper is necessary because disabled elements cannot trigger mouse events.
+          <div data-cy="copy-ssh-button-wrapper">
+            <PaddedButton
+              data-cy="copy-ssh-button"
+              disabled={!canSSH}
+              leftGlyph={<Icon glyph="Copy" />}
+              // @ts-expect-error
+              onClick={(event: React.MouseEvent) => {
+                event.stopPropagation();
+                copyToClipboard(sshCommand);
+                spawnAnalytics.sendEvent({ name: "Copy SSH Command" });
+                setHasCopied(!hasCopied);
+              }}
+              size={Size.XSmall}
+            >
+              <Label>SSH Command</Label>
+            </PaddedButton>
+          </div>
+        }
+      >
+        {hasCopied ? (
+          <Center>Copied!</Center>
+        ) : (
+          <Center>
+            {canSSH
+              ? `Must be on VPN to connect to host`
+              : `Host must be running in order to SSH`}
+          </Center>
+        )}
+      </StyledTooltip>
+    </span>
   );
 };
 
