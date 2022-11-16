@@ -141,7 +141,7 @@ const ButtonContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 90%;
+  overflow: hidden;
 `;
 
 const OverflowBody = styled(Body)`
