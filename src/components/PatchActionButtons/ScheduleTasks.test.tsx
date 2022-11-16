@@ -71,7 +71,6 @@ describe("scheduleTasks", () => {
   });
 
   it("the modal is populated with build variant names and checkboxes", async () => {
-    jest.setTimeout(30000);
     const { Component } = RenderFakeToastContext(<ScheduleModal />);
 
     render(<Component />);
@@ -88,10 +87,8 @@ describe("scheduleTasks", () => {
     fireEvent.click(toggles[1]);
 
     // assert task checkbox labels are visible
-    await waitFor(() => {
-      screen.queryAllByDataCy("task-checkbox-label").forEach((label) => {
-        expect(label).toBeVisible();
-      });
+    screen.queryAllByDataCy("task-checkbox-label").forEach((label) => {
+      expect(label).toBeVisible();
     });
   });
 
