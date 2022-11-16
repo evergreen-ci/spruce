@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Analytics } from "analytics/addPageAction";
+import { LinkWrapper } from "components/Header/NavDropdown";
 import { getTaskHistoryRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { TestResult, GetTaskQuery } from "gql/generated/types";
@@ -120,7 +121,8 @@ export const LogsColumn: React.VFC<Props> = ({
           onClick={() => {
             taskAnalytics.sendEvent({ name: "Click See History Button" });
           }}
-          href={getTaskHistoryRoute(project?.identifier, displayName, {
+          as={LinkWrapper}
+          data-to={getTaskHistoryRoute(project?.identifier, displayName, {
             filters,
             selectedCommit: order,
           })}

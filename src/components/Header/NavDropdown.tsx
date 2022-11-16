@@ -14,13 +14,13 @@ const DropdownMenuIcon: React.VFC<{ open: boolean }> = ({ open }) => (
 
 // Use a wrapper over React Router's Link so that native HTML props can be passed through LeafyGreen MenuItem.
 // (i.e. convert "data-to" to "to")
-type LGMenuItem = typeof MenuItem;
 
-interface LinkWrapperType extends LGMenuItem {
+interface LinkWrapperType
+  extends Omit<React.ComponentProps<typeof Link>, "to"> {
   "data-to": string;
 }
 
-const LinkWrapper: React.FC<LinkWrapperType> = ({
+export const LinkWrapper: React.FC<LinkWrapperType> = ({
   "data-to": dataTo,
   children,
   ...rest

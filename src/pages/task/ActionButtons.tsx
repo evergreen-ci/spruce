@@ -8,6 +8,7 @@ import { useTaskAnalytics } from "analytics";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { LoadingButton } from "components/Buttons";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
+import { LinkWrapper } from "components/Header/NavDropdown";
 import { PageButtonRow } from "components/styles";
 import { commitQueueRequester } from "constants/patch";
 import { getTaskHistoryRoute } from "constants/routes";
@@ -273,7 +274,8 @@ export const ActionButtons: React.VFC<Props> = ({
               onClick={() => {
                 taskAnalytics.sendEvent({ name: "Click See History Button" });
               }}
-              href={getTaskHistoryRoute(projectIdentifier, displayName, {
+              as={LinkWrapper}
+              data-to={getTaskHistoryRoute(projectIdentifier, displayName, {
                 selectedCommit: !isPatch && order,
               })}
               disabled={displayName === mergeTaskName}
