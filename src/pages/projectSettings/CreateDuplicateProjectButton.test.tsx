@@ -62,9 +62,7 @@ describe("createProjectField", () => {
 
       await screen.findByText("New Project");
       userEvent.click(screen.queryByDataCy("new-project-button"));
-      await waitFor(() =>
-        expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
-      );
+      expect(screen.queryByDataCy("create-project-modal")).toBeVisible();
       expect(screen.queryByDataCy("new-project-menu")).not.toBeInTheDocument();
     });
   });
