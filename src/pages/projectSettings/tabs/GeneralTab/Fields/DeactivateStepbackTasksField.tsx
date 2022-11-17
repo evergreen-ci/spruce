@@ -81,7 +81,8 @@ export const DeactivateStepbackTasksField: Field = ({ uiSchema }) => {
           Deactivate Currently Scheduled Stepback Tasks
         </Label>
         <Description>
-          This will not turn off future stepbacks for the project.
+          Deactivate a specific stepback task. This will not turn off future
+          stepbacks for the task.
         </Description>
         <div>
           <Button

@@ -152,6 +152,15 @@ export const getFormSchema = (
                   repoData?.projectFlags?.scheduling?.deactivatePrevious
                 ),
               },
+              stepbackDisabled: {
+                type: ["boolean", "null"],
+                title: "Stepback",
+                oneOf: radioBoxOptions(
+                  ["Enabled", "Disabled"],
+                  repoData?.projectFlags?.scheduling?.stepbackDisabled,
+                  true
+                ),
+              },
               deactivateStepback: {
                 type: "null" as "null",
               },
@@ -331,6 +340,11 @@ export const getFormSchema = (
           "ui:widget": widgets.RadioBoxWidget,
           "ui:description":
             "When unscheduled, tasks from previous revisions will be unscheduled when the equivalent task in a newer commit finishes successfully.",
+        },
+        stepbackDisabled: {
+          "ui:widget": widgets.RadioBoxWidget,
+          "ui:description":
+            "Override all stepback settings for the project. Disabling stepback won't cancel any active stepback tasks, but it will prevent any future ones.",
         },
         deactivateStepback: {
           "ui:field": "deactivateStepbackTasks",

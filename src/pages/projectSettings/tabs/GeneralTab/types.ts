@@ -21,6 +21,7 @@ export interface FormState {
     dispatchingDisabled: boolean | null;
     scheduling: {
       deactivatePrevious: boolean | null;
+      stepbackDisabled: boolean | null;
       deactivateStepback: null;
     };
     repotracker: {
