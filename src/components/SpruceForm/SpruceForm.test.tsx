@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from "test_utils";
+import { fireEvent, render, screen, userEvent, waitFor } from "test_utils";
 import { SpruceForm, SpruceFormContainer } from ".";
 
 describe("spruce form", () => {
@@ -42,7 +42,7 @@ describe("spruce form", () => {
     fireEvent.change(screen.queryByDataCy("valid-projects-input"), {
       target: { value: "new value" },
     });
-    fireEvent.click(screen.queryByDataCy("add-button"));
+    userEvent.click(screen.queryByDataCy("add-button"));
     await waitFor(() =>
       expect(screen.queryAllByDataCy("new-user-input")).toHaveLength(2)
     );
@@ -258,6 +258,84 @@ describe("spruce form", () => {
         });
       });
     });
+
+    describe("select", () => {
+      it("renders with the specified default selected", () => {
+        const onChange = jest.fn();
+        const { formData, schema, uiSchema } = select;
+        render(
+          <SpruceForm
+            schema={schema}
+            formData={formData}
+            onChange={onChange}
+            uiSchema={uiSchema}
+          />
+        );
+        expect(screen.getByText("Vanilla")).toBeInTheDocument();
+        expect(screen.queryByText("Chocolate")).not.toBeInTheDocument();
+        expect(screen.queryByText("Strawberry")).not.toBeInTheDocument();
+      });
+
+      it("shows three options on click", () => {
+        const onChange = jest.fn();
+        const { formData, schema, uiSchema } = select;
+        render(
+          <SpruceForm
+            schema={schema}
+            formData={formData}
+            onChange={onChange}
+            uiSchema={uiSchema}
+          />
+        );
+        userEvent.click(screen.queryByRole("button"));
+        expect(screen.queryAllByText("Vanilla")).toHaveLength(2);
+        expect(screen.getByText("Chocolate")).toBeInTheDocument();
+        expect(screen.getByText("Strawberry")).toBeInTheDocument();
+      });
+
+      it("closes the menu and displays the new selected option on click", async () => {
+        const onChange = jest.fn();
+        const { formData, schema, uiSchema } = select;
+        render(
+          <SpruceForm
+            schema={schema}
+            formData={formData}
+            onChange={onChange}
+            uiSchema={uiSchema}
+          />
+        );
+        userEvent.click(screen.queryByRole("button"));
+        userEvent.click(screen.queryByText("Chocolate"));
+        await waitFor(() => {
+          expect(screen.queryByText("Vanilla")).not.toBeInTheDocument();
+        });
+        expect(screen.getByText("Chocolate")).toBeInTheDocument();
+        expect(screen.queryByText("Strawberry")).not.toBeInTheDocument();
+      });
+
+      it("disables options included in enumDisabled", async () => {
+        const onChange = jest.fn();
+        const { formData, schema, uiSchema } = select;
+        render(
+          <SpruceForm
+            schema={schema}
+            formData={formData}
+            onChange={onChange}
+            uiSchema={uiSchema}
+          />
+        );
+        userEvent.click(screen.queryByRole("button"));
+
+        // LeafyGreen doesn't label disabled options as such, so instead of checking for a property
+        // attempt to click on the disabled option and verify that the dropdown doesn't close as a result.
+        userEvent.click(screen.queryByText("Strawberry"));
+        await waitFor(() => {
+          expect(screen.queryAllByText("Vanilla")).toHaveLength(2);
+        });
+        expect(screen.getByText("Chocolate")).toBeInTheDocument();
+        expect(screen.getByText("Strawberry")).toBeInTheDocument();
+      });
+    });
   });
 });
 
@@ -365,3 +443,39 @@ const textArea = (emptyValue?: string) => ({
     },
   },
 });
+
+const select = {
+  formData: {},
+  schema: {
+    type: "object" as "object",
+    properties: {
+      iceCream: {
+        type: "string" as "string",
+        title: "Ice Cream",
+        default: "vanilla",
+        oneOf: [
+          {
+            type: "string" as "string",
+            title: "Vanilla",
+            enum: ["vanilla"],
+          },
+          {
+            type: "string" as "string",
+            title: "Chocolate",
+            enum: ["chocolate"],
+          },
+          {
+            type: "string" as "string",
+            title: "Strawberry",
+            enum: ["strawberry"],
+          },
+        ],
+      },
+    },
+  },
+  uiSchema: {
+    iceCream: {
+      "ui:enumDisabled": ["strawberry"],
+    },
+  },
+};
