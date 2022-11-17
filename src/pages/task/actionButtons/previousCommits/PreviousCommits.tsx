@@ -6,7 +6,7 @@ import { Option, Select } from "@leafygreen-ui/select";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { useTaskAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
-import { LinkWrapper } from "components/Header/NavDropdown";
+import { Link } from "components/Link";
 import { finishedTaskStatuses } from "constants/task";
 import { size } from "constants/tokens";
 import {
@@ -201,7 +201,7 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
                 type: selectState,
               })
             }
-            as={LinkWrapper}
+            as={Link}
             data-to={link}
             disabled={disableButton}
             size="small"

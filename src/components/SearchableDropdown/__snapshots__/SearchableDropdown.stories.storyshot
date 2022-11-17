@@ -32,7 +32,7 @@ exports[`storybook Storyshots Components/Searchable Dropdown Custom Option 1`] =
           className="leafygreen-ui-1qmzz4y"
         >
           <div
-            className="css-czkpcu-ButtonContent e1yw4j301"
+            className="css-19l4y8w-ButtonContent e1yw4j301"
           >
             <div
               className="css-soeq2u-LabelWrapper e1yw4j303"
@@ -102,7 +102,7 @@ exports[`storybook Storyshots Components/Searchable Dropdown Default 1`] = `
           className="leafygreen-ui-1qmzz4y"
         >
           <div
-            className="css-czkpcu-ButtonContent e1yw4j301"
+            className="css-19l4y8w-ButtonContent e1yw4j301"
           >
             <div
               className="css-soeq2u-LabelWrapper e1yw4j303"
@@ -172,7 +172,7 @@ exports[`storybook Storyshots Components/Searchable Dropdown Multiselect 1`] = `
           className="leafygreen-ui-1qmzz4y"
         >
           <div
-            className="css-czkpcu-ButtonContent e1yw4j301"
+            className="css-19l4y8w-ButtonContent e1yw4j301"
           >
             <div
               className="css-soeq2u-LabelWrapper e1yw4j303"

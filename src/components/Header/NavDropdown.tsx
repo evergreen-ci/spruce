@@ -3,31 +3,13 @@ import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { palette } from "@leafygreen-ui/palette";
-import { Link } from "react-router-dom";
+import { Link } from "components/Link";
 import { zIndex } from "constants/tokens";
 
 const { white } = palette;
 
 const DropdownMenuIcon: React.VFC<{ open: boolean }> = ({ open }) => (
   <Icon glyph={open ? "CaretUp" : "CaretDown"} role="presentation" />
-);
-
-// Use a wrapper over React Router's Link so that native HTML props can be passed through LeafyGreen MenuItem.
-// (i.e. convert "data-to" to "to")
-
-interface LinkWrapperType
-  extends Omit<React.ComponentProps<typeof Link>, "to"> {
-  "data-to": string;
-}
-
-export const LinkWrapper: React.FC<LinkWrapperType> = ({
-  "data-to": dataTo,
-  children,
-  ...rest
-}) => (
-  <Link to={dataTo} {...rest}>
-    {children}
-  </Link>
 );
 
 interface MenuItemType {
@@ -50,7 +32,7 @@ const DropdownItem: React.VFC<DropdownItemType> = ({
   to,
 }) => (
   <MenuItem
-    as={to && LinkWrapper}
+    as={to && Link}
     data-to={to}
     href={href}
     data-cy={itemDataCy}
