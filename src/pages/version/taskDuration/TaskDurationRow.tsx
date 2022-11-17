@@ -93,6 +93,7 @@ BuildVariantCell.displayName = "Cell";
 
 const DurationCell = styled(Cell)`
   span {
+    display: block;
     width: 100%;
   }
 `;
