@@ -1,10 +1,9 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { GET_USER } from "gql/queries";
-import { act, fireEvent, render, screen } from "test_utils";
+import { act, render, screen, userEvent, waitFor } from "test_utils";
 import { HostStatus } from "types/host";
 import { CopySSHCommandButton } from "./SpawnHostTableActions";
 
-const execCommand = jest.fn();
 const user = "bynn.lee";
 const hostUrl = "ec2-54-242-162-135.compute-1.amazonaws.com";
 
@@ -13,7 +12,13 @@ describe("copySSHCommandButton", () => {
     jest.clearAllMocks();
     jest.clearAllTimers();
   });
+
   it("tooltip text should change after clicking on the copy button", async () => {
+    Object.defineProperty(navigator, "clipboard", {
+      value: {
+        writeText: jest.fn(),
+      },
+    });
     render(
       <MockedProvider mocks={[getUserMock]}>
         <CopySSHCommandButton
@@ -24,43 +29,47 @@ describe("copySSHCommandButton", () => {
       </MockedProvider>
     );
     jest.useFakeTimers();
-    document.execCommand = execCommand;
     const copySSHButton = screen.queryByDataCy("copy-ssh-button");
-    expect(copySSHButton).not.toBeDisabled();
 
-    // MouseEnter should trigger tooltip.
-    fireEvent.mouseEnter(copySSHButton);
-    act(() => {
-      jest.runOnlyPendingTimers();
+    // Hover over button to trigger tooltip.
+    userEvent.hover(copySSHButton);
+    await waitFor(() => {
+      expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
     });
-    expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
-    expect(screen.queryByDataCy("copy-ssh-tooltip")).toBeVisible();
     expect(
       screen.getByText("Must be on VPN to connect to host")
     ).toBeInTheDocument();
-
-    // Click should change tooltip message.
-    fireEvent.click(copySSHButton);
-    expect(execCommand).toHaveBeenCalledWith("copy");
-    expect(screen.getByText("Copied!")).toBeInTheDocument();
-
-    // MouseLeave should cause tooltip to disappear.
-    fireEvent.mouseLeave(copySSHButton);
-    // Wait for tooltip to disappear and reset the message.
     act(() => {
       jest.runOnlyPendingTimers();
     });
-    expect(screen.queryByDataCy("copy-ssh-tooltip")).toBeNull();
 
-    // MouseEnter should trigger tooltip with unchanged message.
-    fireEvent.mouseEnter(copySSHButton);
-    expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
+    // Click on button to copy the SSH command and change tooltip message.
+    userEvent.click(copySSHButton);
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(
+      `ssh ${user}@${hostUrl}`
+    );
+    expect(screen.getByText("Copied!")).toBeInTheDocument();
+
+    // Wait for tooltip to disappear and reset the message.
+    userEvent.unhover(copySSHButton);
+    await waitFor(() => {
+      expect(screen.queryByDataCy("copy-ssh-tooltip")).toBeNull();
+    });
+    act(() => {
+      jest.runAllTimers();
+    });
+
+    // Hover on button to see tooltip with original message.
+    userEvent.hover(copySSHButton);
+    await waitFor(() => {
+      expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
+    });
     expect(
       screen.getByText("Must be on VPN to connect to host")
     ).toBeInTheDocument();
   });
 
-  it("should disable the Copy SSH Button if there is no host URL", () => {
+  it("should disable the Copy SSH Button if there is no host URL", async () => {
     render(
       <MockedProvider mocks={[getUserMock]}>
         <CopySSHCommandButton
@@ -70,18 +79,23 @@ describe("copySSHCommandButton", () => {
         />
       </MockedProvider>
     );
+    const copySSHButtonWrapper = screen.queryByDataCy(
+      "copy-ssh-button-wrapper"
+    );
     const copySSHButton = screen.queryByDataCy("copy-ssh-button");
     expect(copySSHButton).toBeInTheDocument();
     expect(copySSHButton).toBeDisabled();
 
-    fireEvent.mouseEnter(copySSHButton);
-    expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
+    userEvent.hover(copySSHButtonWrapper);
+    await waitFor(() => {
+      expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
+    });
     expect(
       screen.getByText("Host must be running in order to SSH")
     ).toBeInTheDocument();
   });
 
-  it("should disable the Copy SSH Button if host is terminated", () => {
+  it("should disable the Copy SSH Button if host is terminated", async () => {
     render(
       <MockedProvider mocks={[getUserMock]}>
         <CopySSHCommandButton
@@ -91,12 +105,17 @@ describe("copySSHCommandButton", () => {
         />
       </MockedProvider>
     );
+    const copySSHButtonWrapper = screen.queryByDataCy(
+      "copy-ssh-button-wrapper"
+    );
     const copySSHButton = screen.queryByDataCy("copy-ssh-button");
     expect(copySSHButton).toBeInTheDocument();
     expect(copySSHButton).toBeDisabled();
 
-    fireEvent.mouseEnter(copySSHButton);
-    expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
+    userEvent.hover(copySSHButtonWrapper);
+    await waitFor(() => {
+      expect(screen.getByDataCy("copy-ssh-tooltip")).toBeInTheDocument();
+    });
     expect(
       screen.getByText("Host must be running in order to SSH")
     ).toBeInTheDocument();
