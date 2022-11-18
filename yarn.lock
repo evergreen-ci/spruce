@@ -3931,6 +3931,18 @@
     "@leafygreen-ui/ripple" "^1.1.5"
     "@leafygreen-ui/tokens" "^1.3.4"
 
+"@leafygreen-ui/button@^19.0.0":
+  version "19.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/button/-/button-19.0.0.tgz#4e100d2575e41f29d36e6d89a7177307d3217cb7"
+  integrity sha512-DHtHFjKqIGN9Uz930NACVEYjEcDI5OSsMdZ05Uf3sJFN4RvBKo73/gP32UMll0qfwv/Qs0sudB9zMJq+GtTBcQ==
+  dependencies:
+    "@leafygreen-ui/box" "^3.1.1"
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/lib" "^10.0.0"
+    "@leafygreen-ui/palette" "^3.4.4"
+    "@leafygreen-ui/ripple" "^1.1.5"
+    "@leafygreen-ui/tokens" "^1.3.4"
+
 "@leafygreen-ui/card@8.0.1":
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/card/-/card-8.0.1.tgz#b5d41e8278fbef8dd11059a06829bfb23911fe67"
@@ -4272,6 +4284,17 @@
     "@leafygreen-ui/portal" "^4.0.7"
     react-transition-group "^4.4.1"
 
+"@leafygreen-ui/popover@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/popover/-/popover-11.0.0.tgz#0c01ded9b3c0db2ac00867d9ea286f0d42ac3873"
+  integrity sha512-bmw1LQ9LDmWBTkcapNUMx1Mya/3VLoI8jFBJGCKkDjKn+YyuG5TUGkfM9MEETDGUgM9yDseCEFmBEDOSgUx7tw==
+  dependencies:
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/hooks" "^7.3.3"
+    "@leafygreen-ui/lib" "^10.0.0"
+    "@leafygreen-ui/portal" "^4.0.7"
+    react-transition-group "^4.4.1"
+
 "@leafygreen-ui/portal@^4.0.0":
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/portal/-/portal-4.0.1.tgz#a1428ea990b73810b33e772dceaa4cf4ca9024ac"
@@ -4343,7 +4366,26 @@
     "@leafygreen-ui/typography" "^14.0.1"
     lodash "^4.17.21"
 
-"@leafygreen-ui/select@9.0.0", "@leafygreen-ui/select@^9.0.0":
+"@leafygreen-ui/select@10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/select/-/select-10.0.0.tgz#ca73d2b6d84dc6b626cc496e6e4f8bbf3dc4483d"
+  integrity sha512-RW6y2WoS3oKJGe8E4V6QngsAV97wVUqweryAOyR9qVXX2bzalvLNBdUJAHgQFKDIEwiiqME3ykwTy4wUPH1YAg==
+  dependencies:
+    "@leafygreen-ui/button" "^19.0.0"
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/hooks" "^7.3.3"
+    "@leafygreen-ui/icon" "^11.12.0"
+    "@leafygreen-ui/lib" "^10.0.0"
+    "@leafygreen-ui/palette" "^3.4.4"
+    "@leafygreen-ui/popover" "^11.0.0"
+    "@leafygreen-ui/tokens" "^1.3.4"
+    "@leafygreen-ui/typography" "^15.0.0"
+    "@types/react-is" "^17.0.0"
+    lodash "^4.17.21"
+    polished "^4.1.3"
+    react-is "^17.0.1"
+
+"@leafygreen-ui/select@^9.0.0":
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/select/-/select-9.0.0.tgz#71efa2f45b0bca2ec5915c324c0cb967368cbee2"
   integrity sha512-umPDXPmKgrkCDjecaZo4+djN+gR6EyS5lDecz2NkjPWTTNlSSmZzOZyEElV5vI86xzOSz76tQQ5irNZR9vp01w==
