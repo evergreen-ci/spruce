@@ -458,7 +458,7 @@ export const getEventSchema = (
         regexSelect: {
           "ui:allowDeselect": false,
           "ui:data-cy": "regex-select",
-          "ui:disabledEnums": regexEnumsToDisable,
+          "ui:enumDisabled": regexEnumsToDisable,
         },
         regexInput: {
           "ui:data-cy": "regex-input",
