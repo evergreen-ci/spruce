@@ -21,6 +21,7 @@ export interface SpruceWidgetProps extends WidgetProps {
 
 export type EnumSpruceWidgetProps = {
   options: {
+    enumDisabled: string[];
     enumOptions: Array<{
       label: string;
       value: string;
