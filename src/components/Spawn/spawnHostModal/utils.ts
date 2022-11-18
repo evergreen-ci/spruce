@@ -27,7 +27,7 @@ export const validateSpawnHostForm = (
   const hasPublicKey = publicKeySection?.useExisting
     ? !!publicKeySection?.publicKeyNameDropdown
     : !!publicKeySection?.newPublicKey;
-  const hasValidKeyName = publicKeySection?.savePublicKey
+  const hasValidPublicKeyName = publicKeySection?.savePublicKey
     ? !!publicKeySection?.newPublicKeyName
     : true;
   const hasValidUserdataScript = userdataScriptSection?.runUserdataScript
@@ -49,7 +49,7 @@ export const validateSpawnHostForm = (
     hasDistro &&
     hasRegion &&
     hasPublicKey &&
-    hasValidKeyName &&
+    hasValidPublicKeyName &&
     hasValidUserdataScript &&
     hasValidSetupScript &&
     (distro?.isVirtualWorkstation ? hasValidHomeVolumeDetails : true) &&

@@ -110,15 +110,6 @@ describe("validateSpawnHostForm", () => {
         publicKeySection: {
           useExisting: false,
           newPublicKey: "ssh-rsa new-key",
-        },
-      })
-    ).toBe(true);
-    expect(
-      validateSpawnHostForm({
-        ...validForm,
-        publicKeySection: {
-          useExisting: false,
-          newPublicKey: "ssh-rsa new-key",
           savePublicKey: true,
           newPublicKeyName: "new key",
         },
