@@ -327,13 +327,12 @@ describe("spruce form", () => {
         userEvent.click(screen.queryByRole("button"));
 
         // LeafyGreen doesn't label disabled options as such, so instead of checking for a property
-        // attempt to click on the disabled option and verify that the dropdown doesn't close as a result.
-        userEvent.click(screen.queryByText("Strawberry"));
-        await waitFor(() => {
-          expect(screen.queryAllByText("Vanilla")).toHaveLength(2);
-        });
-        expect(screen.getByText("Chocolate")).toBeInTheDocument();
-        expect(screen.getByText("Strawberry")).toBeInTheDocument();
+        // ensure that the disabled element is not clickable.
+        expect(
+          screen.getByRole("option", {
+            name: "Strawberry",
+          })
+        ).toHaveStyle("cursor: not-allowed");
       });
     });
   });
