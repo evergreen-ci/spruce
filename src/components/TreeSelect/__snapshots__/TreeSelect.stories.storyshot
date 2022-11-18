@@ -13,19 +13,19 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-10"
-        id="checkbox-10-label"
+        htmlFor="checkbox-6"
+        id="checkbox-6-label"
       >
         <input
           aria-checked={false}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-10-label"
+          aria-labelledby="checkbox-6-label"
           checked={false}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-10"
+          id="checkbox-6"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -67,19 +67,19 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-11"
-        id="checkbox-11-label"
+        htmlFor="checkbox-7"
+        id="checkbox-7-label"
       >
         <input
           aria-checked={false}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-11-label"
+          aria-labelledby="checkbox-7-label"
           checked={false}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-11"
+          id="checkbox-7"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -121,19 +121,19 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-12"
-        id="checkbox-12-label"
+        htmlFor="checkbox-8"
+        id="checkbox-8-label"
       >
         <input
           aria-checked={false}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-12-label"
+          aria-labelledby="checkbox-8-label"
           checked={false}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-12"
+          id="checkbox-8"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -175,19 +175,19 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-13"
-        id="checkbox-13-label"
+        htmlFor="checkbox-9"
+        id="checkbox-9-label"
       >
         <input
           aria-checked={false}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-13-label"
+          aria-labelledby="checkbox-9-label"
           checked={false}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-13"
+          id="checkbox-9"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -229,19 +229,19 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-14"
-        id="checkbox-14-label"
+        htmlFor="checkbox-10"
+        id="checkbox-10-label"
       >
         <input
           aria-checked={false}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-14-label"
+          aria-labelledby="checkbox-10-label"
           checked={false}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-14"
+          id="checkbox-10"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -283,19 +283,19 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-15"
-        id="checkbox-15-label"
+        htmlFor="checkbox-11"
+        id="checkbox-11-label"
       >
         <input
           aria-checked={true}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-15-label"
+          aria-labelledby="checkbox-11-label"
           checked={true}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-15"
+          id="checkbox-11"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -337,19 +337,19 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-16"
-        id="checkbox-16-label"
+        htmlFor="checkbox-12"
+        id="checkbox-12-label"
       >
         <input
           aria-checked={true}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-16-label"
+          aria-labelledby="checkbox-12-label"
           checked={true}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-16"
+          id="checkbox-12"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -391,19 +391,19 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-17"
-        id="checkbox-17-label"
+        htmlFor="checkbox-13"
+        id="checkbox-13-label"
       >
         <input
           aria-checked={true}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-17-label"
+          aria-labelledby="checkbox-13-label"
           checked={true}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-17"
+          id="checkbox-13"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -445,19 +445,19 @@ exports[`storybook Storyshots Components/TreeSelect Ellipsis 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-18"
-        id="checkbox-18-label"
+        htmlFor="checkbox-14"
+        id="checkbox-14-label"
       >
         <input
           aria-checked={true}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-18-label"
+          aria-labelledby="checkbox-14-label"
           checked={true}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-18"
+          id="checkbox-14"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -507,19 +507,19 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-19"
-        id="checkbox-19-label"
+        htmlFor="checkbox-15"
+        id="checkbox-15-label"
       >
         <input
           aria-checked={false}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-19-label"
+          aria-labelledby="checkbox-15-label"
           checked={false}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-19"
+          id="checkbox-15"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -561,19 +561,19 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-20"
-        id="checkbox-20-label"
+        htmlFor="checkbox-16"
+        id="checkbox-16-label"
       >
         <input
           aria-checked={false}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-20-label"
+          aria-labelledby="checkbox-16-label"
           checked={false}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-20"
+          id="checkbox-16"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -615,19 +615,19 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-21"
-        id="checkbox-21-label"
+        htmlFor="checkbox-17"
+        id="checkbox-17-label"
       >
         <input
           aria-checked={false}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-21-label"
+          aria-labelledby="checkbox-17-label"
           checked={false}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-21"
+          id="checkbox-17"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -669,19 +669,19 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-22"
-        id="checkbox-22-label"
+        htmlFor="checkbox-18"
+        id="checkbox-18-label"
       >
         <input
           aria-checked={false}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-22-label"
+          aria-labelledby="checkbox-18-label"
           checked={false}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-22"
+          id="checkbox-18"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -723,19 +723,19 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-23"
-        id="checkbox-23-label"
+        htmlFor="checkbox-19"
+        id="checkbox-19-label"
       >
         <input
           aria-checked={true}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-23-label"
+          aria-labelledby="checkbox-19-label"
           checked={true}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-23"
+          id="checkbox-19"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -777,19 +777,19 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-24"
-        id="checkbox-24-label"
+        htmlFor="checkbox-20"
+        id="checkbox-20-label"
       >
         <input
           aria-checked={true}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-24-label"
+          aria-labelledby="checkbox-20-label"
           checked={true}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-24"
+          id="checkbox-20"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -831,19 +831,19 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-25"
-        id="checkbox-25-label"
+        htmlFor="checkbox-21"
+        id="checkbox-21-label"
       >
         <input
           aria-checked={true}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-25-label"
+          aria-labelledby="checkbox-21-label"
           checked={true}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-25"
+          id="checkbox-21"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -885,19 +885,19 @@ exports[`storybook Storyshots Components/TreeSelect No All Button 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-26"
-        id="checkbox-26-label"
+        htmlFor="checkbox-22"
+        id="checkbox-22-label"
       >
         <input
           aria-checked={true}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-26-label"
+          aria-labelledby="checkbox-22-label"
           checked={true}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-26"
+          id="checkbox-22"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -947,19 +947,19 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-27"
-        id="checkbox-27-label"
+        htmlFor="checkbox-23"
+        id="checkbox-23-label"
       >
         <input
           aria-checked={false}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-27-label"
+          aria-labelledby="checkbox-23-label"
           checked={false}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-27"
+          id="checkbox-23"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -1001,19 +1001,19 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-28"
-        id="checkbox-28-label"
+        htmlFor="checkbox-24"
+        id="checkbox-24-label"
       >
         <input
           aria-checked={false}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-28-label"
+          aria-labelledby="checkbox-24-label"
           checked={false}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-28"
+          id="checkbox-24"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -1055,19 +1055,19 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-29"
-        id="checkbox-29-label"
+        htmlFor="checkbox-25"
+        id="checkbox-25-label"
       >
         <input
           aria-checked={false}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-29-label"
+          aria-labelledby="checkbox-25-label"
           checked={false}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-29"
+          id="checkbox-25"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -1109,19 +1109,19 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-30"
-        id="checkbox-30-label"
+        htmlFor="checkbox-26"
+        id="checkbox-26-label"
       >
         <input
           aria-checked={false}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-30-label"
+          aria-labelledby="checkbox-26-label"
           checked={false}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-30"
+          id="checkbox-26"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -1163,19 +1163,19 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-31"
-        id="checkbox-31-label"
+        htmlFor="checkbox-27"
+        id="checkbox-27-label"
       >
         <input
           aria-checked={true}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-31-label"
+          aria-labelledby="checkbox-27-label"
           checked={true}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-31"
+          id="checkbox-27"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -1217,19 +1217,19 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-32"
-        id="checkbox-32-label"
+        htmlFor="checkbox-28"
+        id="checkbox-28-label"
       >
         <input
           aria-checked={true}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-32-label"
+          aria-labelledby="checkbox-28-label"
           checked={true}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-32"
+          id="checkbox-28"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -1271,19 +1271,19 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-33"
-        id="checkbox-33-label"
+        htmlFor="checkbox-29"
+        id="checkbox-29-label"
       >
         <input
           aria-checked={true}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-33-label"
+          aria-labelledby="checkbox-29-label"
           checked={true}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-33"
+          id="checkbox-29"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -1325,19 +1325,19 @@ exports[`storybook Storyshots Components/TreeSelect No Dropdown 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-34"
-        id="checkbox-34-label"
+        htmlFor="checkbox-30"
+        id="checkbox-30-label"
       >
         <input
           aria-checked={true}
           aria-disabled={false}
           aria-label="checkbox"
-          aria-labelledby="checkbox-34-label"
+          aria-labelledby="checkbox-30-label"
           checked={true}
           className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
           data-cy="checkbox"
           disabled={false}
-          id="checkbox-34"
+          id="checkbox-30"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
@@ -1387,6 +1387,222 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
     >
       <label
         className="leafygreen-ui-hx39h2"
+        htmlFor="checkbox-31"
+        id="checkbox-31-label"
+      >
+        <input
+          aria-checked={false}
+          aria-disabled={false}
+          aria-label="checkbox"
+          aria-labelledby="checkbox-31-label"
+          checked={false}
+          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          data-cy="checkbox"
+          disabled={false}
+          id="checkbox-31"
+          onChange={[Function]}
+          onClick={[Function]}
+          type="checkbox"
+        />
+        <div
+          className="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+        >
+          <svg
+            className="leafygreen-ui-6caof5"
+            fill="none"
+            height="10"
+            stroke="#FFFFFF"
+            viewBox="0 0 10 10"
+            width="10"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+              stroke="#FFFFFF"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+            />
+          </svg>
+        </div>
+        <span
+          className="leafygreen-ui-1wmrjan"
+        >
+          All
+        </span>
+      </label>
+    </div>
+  </div>
+  <div
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
+  >
+    <div
+      className="leafygreen-ui-55kazc cy-checkbox"
+    >
+      <label
+        className="leafygreen-ui-hx39h2"
+        htmlFor="checkbox-32"
+        id="checkbox-32-label"
+      >
+        <input
+          aria-checked={false}
+          aria-disabled={false}
+          aria-label="checkbox"
+          aria-labelledby="checkbox-32-label"
+          checked={false}
+          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          data-cy="checkbox"
+          disabled={false}
+          id="checkbox-32"
+          onChange={[Function]}
+          onClick={[Function]}
+          type="checkbox"
+        />
+        <div
+          className="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+        >
+          <svg
+            className="leafygreen-ui-6caof5"
+            fill="none"
+            height="10"
+            stroke="#FFFFFF"
+            viewBox="0 0 10 10"
+            width="10"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+              stroke="#FFFFFF"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+            />
+          </svg>
+        </div>
+        <span
+          className="leafygreen-ui-1wmrjan"
+        >
+          Shapes
+        </span>
+      </label>
+    </div>
+  </div>
+  <div
+    className="css-1i6181l-getCheckboxWrapper e1mpj03z3"
+  >
+    <div
+      className="leafygreen-ui-55kazc cy-checkbox"
+    >
+      <label
+        className="leafygreen-ui-hx39h2"
+        htmlFor="checkbox-33"
+        id="checkbox-33-label"
+      >
+        <input
+          aria-checked={false}
+          aria-disabled={false}
+          aria-label="checkbox"
+          aria-labelledby="checkbox-33-label"
+          checked={false}
+          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          data-cy="checkbox"
+          disabled={false}
+          id="checkbox-33"
+          onChange={[Function]}
+          onClick={[Function]}
+          type="checkbox"
+        />
+        <div
+          className="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+        >
+          <svg
+            className="leafygreen-ui-6caof5"
+            fill="none"
+            height="10"
+            stroke="#FFFFFF"
+            viewBox="0 0 10 10"
+            width="10"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+              stroke="#FFFFFF"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+            />
+          </svg>
+        </div>
+        <span
+          className="leafygreen-ui-1wmrjan"
+        >
+          rectangle
+        </span>
+      </label>
+    </div>
+  </div>
+  <div
+    className="css-1i6181l-getCheckboxWrapper e1mpj03z3"
+  >
+    <div
+      className="leafygreen-ui-55kazc cy-checkbox"
+    >
+      <label
+        className="leafygreen-ui-hx39h2"
+        htmlFor="checkbox-34"
+        id="checkbox-34-label"
+      >
+        <input
+          aria-checked={false}
+          aria-disabled={false}
+          aria-label="checkbox"
+          aria-labelledby="checkbox-34-label"
+          checked={false}
+          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+          data-cy="checkbox"
+          disabled={false}
+          id="checkbox-34"
+          onChange={[Function]}
+          onClick={[Function]}
+          type="checkbox"
+        />
+        <div
+          className="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+        >
+          <svg
+            className="leafygreen-ui-6caof5"
+            fill="none"
+            height="10"
+            stroke="#FFFFFF"
+            viewBox="0 0 10 10"
+            width="10"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+              stroke="#FFFFFF"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+            />
+          </svg>
+        </div>
+        <span
+          className="leafygreen-ui-1wmrjan"
+        >
+          circle
+        </span>
+      </label>
+    </div>
+  </div>
+  <div
+    className="css-1i6181l-getCheckboxWrapper e1mpj03z3"
+  >
+    <div
+      className="leafygreen-ui-55kazc cy-checkbox"
+    >
+      <label
+        className="leafygreen-ui-hx39h2"
         htmlFor="checkbox-35"
         id="checkbox-35-label"
       >
@@ -1428,7 +1644,7 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
         <span
           className="leafygreen-ui-1wmrjan"
         >
-          All
+          rhombus
         </span>
       </label>
     </div>
@@ -1482,13 +1698,13 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
         <span
           className="leafygreen-ui-1wmrjan"
         >
-          Shapes
+          Pass
         </span>
       </label>
     </div>
   </div>
   <div
-    className="css-1i6181l-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <div
       className="leafygreen-ui-55kazc cy-checkbox"
@@ -1536,13 +1752,13 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
         <span
           className="leafygreen-ui-1wmrjan"
         >
-          rectangle
+          REALLY LONG TITLE EXAMPLE EXAMPLE EXAMPLE EXAMPLE EXAMPLE!!!!!!!!!!!!!!!!!
         </span>
       </label>
     </div>
   </div>
   <div
-    className="css-1i6181l-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <div
       className="leafygreen-ui-55kazc cy-checkbox"
@@ -1590,13 +1806,13 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
         <span
           className="leafygreen-ui-1wmrjan"
         >
-          circle
+          Skip
         </span>
       </label>
     </div>
   </div>
   <div
-    className="css-1i6181l-getCheckboxWrapper e1mpj03z3"
+    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
   >
     <div
       className="leafygreen-ui-55kazc cy-checkbox"
@@ -1616,222 +1832,6 @@ exports[`storybook Storyshots Components/TreeSelect No Initial Values 1`] = `
           data-cy="checkbox"
           disabled={false}
           id="checkbox-39"
-          onChange={[Function]}
-          onClick={[Function]}
-          type="checkbox"
-        />
-        <div
-          className="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
-        >
-          <svg
-            className="leafygreen-ui-6caof5"
-            fill="none"
-            height="10"
-            stroke="#FFFFFF"
-            viewBox="0 0 10 10"
-            width="10"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
-              stroke="#FFFFFF"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-            />
-          </svg>
-        </div>
-        <span
-          className="leafygreen-ui-1wmrjan"
-        >
-          rhombus
-        </span>
-      </label>
-    </div>
-  </div>
-  <div
-    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
-  >
-    <div
-      className="leafygreen-ui-55kazc cy-checkbox"
-    >
-      <label
-        className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-40"
-        id="checkbox-40-label"
-      >
-        <input
-          aria-checked={false}
-          aria-disabled={false}
-          aria-label="checkbox"
-          aria-labelledby="checkbox-40-label"
-          checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
-          data-cy="checkbox"
-          disabled={false}
-          id="checkbox-40"
-          onChange={[Function]}
-          onClick={[Function]}
-          type="checkbox"
-        />
-        <div
-          className="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
-        >
-          <svg
-            className="leafygreen-ui-6caof5"
-            fill="none"
-            height="10"
-            stroke="#FFFFFF"
-            viewBox="0 0 10 10"
-            width="10"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
-              stroke="#FFFFFF"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-            />
-          </svg>
-        </div>
-        <span
-          className="leafygreen-ui-1wmrjan"
-        >
-          Pass
-        </span>
-      </label>
-    </div>
-  </div>
-  <div
-    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
-  >
-    <div
-      className="leafygreen-ui-55kazc cy-checkbox"
-    >
-      <label
-        className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-41"
-        id="checkbox-41-label"
-      >
-        <input
-          aria-checked={false}
-          aria-disabled={false}
-          aria-label="checkbox"
-          aria-labelledby="checkbox-41-label"
-          checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
-          data-cy="checkbox"
-          disabled={false}
-          id="checkbox-41"
-          onChange={[Function]}
-          onClick={[Function]}
-          type="checkbox"
-        />
-        <div
-          className="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
-        >
-          <svg
-            className="leafygreen-ui-6caof5"
-            fill="none"
-            height="10"
-            stroke="#FFFFFF"
-            viewBox="0 0 10 10"
-            width="10"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
-              stroke="#FFFFFF"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-            />
-          </svg>
-        </div>
-        <span
-          className="leafygreen-ui-1wmrjan"
-        >
-          REALLY LONG TITLE EXAMPLE EXAMPLE EXAMPLE EXAMPLE EXAMPLE!!!!!!!!!!!!!!!!!
-        </span>
-      </label>
-    </div>
-  </div>
-  <div
-    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
-  >
-    <div
-      className="leafygreen-ui-55kazc cy-checkbox"
-    >
-      <label
-        className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-42"
-        id="checkbox-42-label"
-      >
-        <input
-          aria-checked={false}
-          aria-disabled={false}
-          aria-label="checkbox"
-          aria-labelledby="checkbox-42-label"
-          checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
-          data-cy="checkbox"
-          disabled={false}
-          id="checkbox-42"
-          onChange={[Function]}
-          onClick={[Function]}
-          type="checkbox"
-        />
-        <div
-          className="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
-        >
-          <svg
-            className="leafygreen-ui-6caof5"
-            fill="none"
-            height="10"
-            stroke="#FFFFFF"
-            viewBox="0 0 10 10"
-            width="10"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
-              stroke="#FFFFFF"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-            />
-          </svg>
-        </div>
-        <span
-          className="leafygreen-ui-1wmrjan"
-        >
-          Skip
-        </span>
-      </label>
-    </div>
-  </div>
-  <div
-    className="css-u0wfkk-getCheckboxWrapper e1mpj03z3"
-  >
-    <div
-      className="leafygreen-ui-55kazc cy-checkbox"
-    >
-      <label
-        className="leafygreen-ui-hx39h2"
-        htmlFor="checkbox-43"
-        id="checkbox-43-label"
-      >
-        <input
-          aria-checked={false}
-          aria-disabled={false}
-          aria-label="checkbox"
-          aria-labelledby="checkbox-43-label"
-          checked={false}
-          className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
-          data-cy="checkbox"
-          disabled={false}
-          id="checkbox-43"
           onChange={[Function]}
           onClick={[Function]}
           type="checkbox"
