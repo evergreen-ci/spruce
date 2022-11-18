@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer, InlineCode } from "@leafygreen-ui/typography";
+import { useNavigate } from "react-router-dom";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
 import { DisplayModal } from "components/DisplayModal";
 import { StyledRouterLink } from "components/styles";
@@ -131,6 +132,7 @@ const CommitCopy = ({
 }) => {
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   const getDateCopy = useDateFormat();
+  const navigate = useNavigate();
   const spruceConfig = useSpruceConfig();
   const jiraHost = spruceConfig?.jira?.host;
   const message = isTooltip
@@ -139,19 +141,17 @@ const CommitCopy = ({
   return (
     <CommitText key={v.revision} data-cy="commit-text" tooltip={isTooltip}>
       <CommitTitleText>
-        <InlineCode>
-          <StyledRouterLink
-            onClick={() =>
-              sendEvent({
-                name: "Click commit label",
-                commitType: "inactive",
-                link: "githash",
-              })
-            }
-            to={getVersionRoute(v.id)}
-          >
-            {shortenGithash(v.revision)}
-          </StyledRouterLink>
+        <InlineCode
+          onClick={() => {
+            sendEvent({
+              name: "Click commit label",
+              commitType: "inactive",
+              link: "githash",
+            });
+            navigate(getVersionRoute(v.id));
+          }}
+        >
+          {shortenGithash(v.revision)}
         </InlineCode>{" "}
         {getDateCopy(v.createTime)}
       </CommitTitleText>

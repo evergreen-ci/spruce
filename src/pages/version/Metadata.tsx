@@ -1,4 +1,5 @@
 import { InlineCode } from "@leafygreen-ui/typography";
+import { useNavigate } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import {
   MetadataCard,
@@ -29,6 +30,7 @@ interface Props {
 
 export const Metadata: React.VFC<Props> = ({ loading, version }) => {
   const getDateCopy = useDateFormat();
+  const navigate = useNavigate();
   const {
     author,
     revision,
@@ -96,8 +98,10 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
           Base commit:{" "}
           <InlineCode
             data-cy="patch-base-commit"
-            href={getVersionRoute(baseVersion?.id)}
-            onClick={() => sendEvent({ name: "Click Base Commit Link" })}
+            onClick={() => {
+              sendEvent({ name: "Click Base Commit Link" });
+              navigate(getVersionRoute(baseVersion?.id));
+            }}
           >
             {shortenGithash(revision)}
           </InlineCode>
@@ -107,8 +111,10 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
           Previous commit:{" "}
           <InlineCode
             data-cy="version-previous-commit"
-            href={getVersionRoute(previousVersion?.id)}
-            onClick={() => sendEvent({ name: "Click Previous Version Link" })}
+            onClick={() => {
+              sendEvent({ name: "Click Previous Version Link" });
+              navigate(getVersionRoute(previousVersion?.id));
+            }}
           >
             {shortenGithash(previousVersion?.revision)}
           </InlineCode>

@@ -79,7 +79,6 @@ exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
       <a
         className="lg-ui-0000 leafygreen-ui-hvznge"
         data-cy="base-task-link"
-        href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
         onClick={[Function]}
       >
         <code
@@ -233,7 +232,6 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
       <a
         className="lg-ui-0000 leafygreen-ui-hvznge"
         data-cy="base-task-link"
-        href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
         onClick={[Function]}
       >
         <code
@@ -387,7 +385,6 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
       <a
         className="lg-ui-0000 leafygreen-ui-hvznge"
         data-cy="base-task-link"
-        href="/task/spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41"
         onClick={[Function]}
       >
         <code

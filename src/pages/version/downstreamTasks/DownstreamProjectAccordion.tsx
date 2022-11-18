@@ -5,7 +5,7 @@ import Button from "@leafygreen-ui/button";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { TableProps } from "antd/es/table";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useVersionAnalytics } from "analytics";
 import { Accordion, AccordionWrapper } from "components/Accordion";
 import PageSizeSelector from "components/PageSizeSelector";
@@ -54,6 +54,7 @@ export const DownstreamProjectAccordion: React.VFC<
   taskCount,
 }) => {
   const dispatchToast = useToastContext();
+  const navigate = useNavigate();
 
   const { id } = useParams<{ id: string }>();
   const { sendEvent } = useVersionAnalytics(id);
@@ -178,7 +179,9 @@ export const DownstreamProjectAccordion: React.VFC<
             Base commit:{" "}
             <InlineCode
               data-cy="downstream-base-commit"
-              href={getVersionRoute(baseVersionID)}
+              onClick={() => {
+                navigate(getVersionRoute(baseVersionID));
+              }}
             >
               {shortenGithash(githash)}
             </InlineCode>

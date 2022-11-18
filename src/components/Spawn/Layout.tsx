@@ -58,12 +58,6 @@ export const SpawnTable: React.VFC<React.ComponentProps<typeof Table>> = (
 
 export const DoesNotExpire = "Does not expire";
 
-// @ts-expect-error
-export const WideButton = styled(Button)`
-  justify-content: center;
-  width: 140px;
-`;
-
 export const ModalContent = styled.div`
   display: flex;
   flex-direction: column;

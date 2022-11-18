@@ -47,6 +47,9 @@ const globalStyles = css`
     display: inline !important;
     line-height: inherit !important;
   }
+  a code {
+    cursor: pointer;
+  }
 `;
 
 export const GlobalStyles = () => <Global styles={globalStyles} />;

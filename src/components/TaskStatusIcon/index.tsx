@@ -7,10 +7,8 @@ import { errorReporting } from "utils";
 const { reportError } = errorReporting;
 const { green, red, yellow, gray, purple } = palette;
 
-interface TaskStatusIconProps
-  extends Omit<IconProps, "glyph" | "fill" | "size"> {
+interface TaskStatusIconProps extends Omit<IconProps, "glyph" | "fill"> {
   status: string;
-  size?: number;
 }
 
 export const TaskStatusIcon: React.VFC<TaskStatusIconProps> & {

@@ -2,6 +2,7 @@ import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
 import { InlineCode } from "@leafygreen-ui/typography";
+import { useNavigate } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import {
   MetadataCard,
@@ -44,6 +45,7 @@ export const Metadata: React.VFC<Props> = ({
 }) => {
   const taskAnalytics = useTaskAnalytics();
   const getDateCopy = useDateFormat();
+  const navigate = useNavigate();
   const {
     status,
     spawnHostLink,
@@ -166,10 +168,10 @@ export const Metadata: React.VFC<Props> = ({
           Base commit:{" "}
           <InlineCode
             data-cy="base-task-link"
-            href={getTaskRoute(baseTaskId)}
-            onClick={() =>
-              taskAnalytics.sendEvent({ name: "Click Base Commit" })
-            }
+            onClick={() => {
+              taskAnalytics.sendEvent({ name: "Click Base Commit" });
+              navigate(getTaskRoute(baseTaskId));
+            }}
           >
             {baseCommit}
           </InlineCode>
