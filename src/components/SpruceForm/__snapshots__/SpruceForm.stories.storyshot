@@ -712,18 +712,18 @@ exports[`storybook Storyshots Components/Spruce Form Example 3 1`] = `
               >
                 <label
                   className="leafygreen-ui-hx39h2"
-                  htmlFor="checkbox-9"
-                  id="checkbox-9-label"
+                  htmlFor="checkbox-5"
+                  id="checkbox-5-label"
                 >
                   <input
                     aria-checked={true}
                     aria-disabled={false}
                     aria-label="checkbox"
-                    aria-labelledby="checkbox-9-label"
+                    aria-labelledby="checkbox-5-label"
                     checked={true}
                     className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
                     disabled={false}
-                    id="checkbox-9"
+                    id="checkbox-5"
                     onChange={[Function]}
                     onClick={[Function]}
                     type="checkbox"
