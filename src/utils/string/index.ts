@@ -128,13 +128,8 @@ export const getDateCopy = (
   return format(new Date(time), finalDateFormat);
 };
 
-export const copyToClipboard = (str: string) => {
-  const el = document.createElement("textarea");
-  el.value = str;
-  document.body.appendChild(el);
-  el.select();
-  document.execCommand("copy");
-  document.body.removeChild(el);
+export const copyToClipboard = (textToCopy: string) => {
+  navigator.clipboard.writeText(textToCopy);
 };
 
 export const sortFunctionString = (a, b, key) => {
