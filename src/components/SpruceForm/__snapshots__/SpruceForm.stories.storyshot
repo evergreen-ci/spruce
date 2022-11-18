@@ -34,36 +34,38 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                 className="css-12pm1mq-MaxWidthContainer eevpusu0"
               >
                 <div
-                  className=""
+                  className="leafygreen-ui-1nkq8lt"
                 >
                   <label
-                    className="leafygreen-ui-1v870ns"
-                    id="select-3-label"
+                    className="leafygreen-ui-1w8j8ik"
+                    htmlFor="select-6"
+                    id="select-5-label"
                   >
                     Project Cloning Method
                   </label>
                   <button
-                    aria-controls="select-3-menu"
-                    aria-describedby="select-3-description"
+                    aria-controls="select-5-menu"
+                    aria-describedby="select-5-description"
                     aria-disabled={false}
                     aria-expanded={false}
                     aria-invalid={false}
-                    aria-labelledby="select-3-label"
-                    className="leafygreen-ui-p6v5m8"
+                    aria-labelledby="select-5-label"
+                    className="lg-ui-button-0000 leafygreen-ui-23wnbt"
                     data-testid="leafygreen-ui-select-menubutton"
                     disabled={false}
+                    id="select-6"
                     onClick={[Function]}
                     type="button"
                     value="legacy-ssh"
                   >
                     <div
-                      className="leafygreen-ui-1ktj4tm"
+                      className="leafygreen-ui-v038xi"
                     />
                     <div
-                      className="leafygreen-ui-sl5lf4"
+                      className="leafygreen-ui-1qmzz4y"
                     >
                       <div
-                        className="leafygreen-ui-e32n5q"
+                        className="leafygreen-ui-obh8q1"
                       >
                         <div
                           className="leafygreen-ui-17aj16e"
@@ -71,24 +73,20 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                           Legacy SSH
                         </div>
                       </div>
-                      <span
-                        className="leafygreen-ui-18n6mp2"
+                      <svg
+                        alt=""
+                        aria-hidden={true}
+                        className="leafygreen-ui-13p6dfv leafygreen-ui-1t9qnhm"
+                        height={16}
+                        role="presentation"
+                        viewBox="0 0 16 16"
+                        width={16}
                       >
-                        <svg
-                          alt=""
-                          aria-hidden={true}
-                          className="leafygreen-ui-195unnb"
-                          height={16}
-                          role="presentation"
-                          viewBox="0 0 16 16"
-                          width={16}
-                        >
-                          <path
-                            d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
-                            fill="currentColor"
-                          />
-                        </svg>
-                      </span>
+                        <path
+                          d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
+                          fill="currentColor"
+                        />
+                      </svg>
                     </div>
                   </button>
                 </div>
@@ -614,31 +612,32 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                 className="css-12pm1mq-MaxWidthContainer eevpusu0"
               >
                 <div
-                  className=""
+                  className="leafygreen-ui-1nkq8lt"
                 >
                   
                   <button
-                    aria-controls="select-5-menu"
-                    aria-describedby="select-5-description"
+                    aria-controls="select-9-menu"
+                    aria-describedby="select-9-description"
                     aria-disabled={false}
                     aria-expanded={false}
                     aria-invalid={false}
-                    aria-labelledby="select-5-label"
-                    className="leafygreen-ui-ua6xkt"
+                    aria-labelledby="select-9-label"
+                    className="lg-ui-button-0000 leafygreen-ui-yxx2qh"
                     data-testid="leafygreen-ui-select-menubutton"
                     disabled={false}
+                    id="select-10"
                     onClick={[Function]}
                     type="button"
                     value=""
                   >
                     <div
-                      className="leafygreen-ui-1ktj4tm"
+                      className="leafygreen-ui-v038xi"
                     />
                     <div
-                      className="leafygreen-ui-sl5lf4"
+                      className="leafygreen-ui-1qmzz4y"
                     >
                       <div
-                        className="leafygreen-ui-e32n5q"
+                        className="leafygreen-ui-obh8q1"
                       >
                         <div
                           className="leafygreen-ui-17aj16e"
@@ -646,24 +645,20 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                           
                         </div>
                       </div>
-                      <span
-                        className="leafygreen-ui-18n6mp2"
+                      <svg
+                        alt=""
+                        aria-hidden={true}
+                        className="leafygreen-ui-13p6dfv leafygreen-ui-1t9qnhm"
+                        height={16}
+                        role="presentation"
+                        viewBox="0 0 16 16"
+                        width={16}
                       >
-                        <svg
-                          alt=""
-                          aria-hidden={true}
-                          className="leafygreen-ui-195unnb"
-                          height={16}
-                          role="presentation"
-                          viewBox="0 0 16 16"
-                          width={16}
-                        >
-                          <path
-                            d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
-                            fill="currentColor"
-                          />
-                        </svg>
-                      </span>
+                        <path
+                          d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
+                          fill="currentColor"
+                        />
+                      </svg>
                     </div>
                   </button>
                 </div>
