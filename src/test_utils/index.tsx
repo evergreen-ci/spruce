@@ -11,6 +11,7 @@ import type {
   RenderOptions,
   BoundFunctions,
 } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { createMemoryHistory } from "history";
 import {
   Route,
@@ -125,4 +126,5 @@ export {
   customRender as render,
   renderWithRouterMatch,
   customWithin as within,
+  userEvent,
 };

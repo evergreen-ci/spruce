@@ -38,7 +38,7 @@ export const CopySSHCommandButton: React.VFC<{
 
   const canSSH = hostStatus !== HostStatus.Terminated && !!hostUrl;
   const [hasCopied, setHasCopied] = useState(false);
-  const [openTooltip, setOpenTooltip] = useState(false);
+
   useEffect(() => {
     const timeout = setTimeout(() => setHasCopied(false), 10 * SECOND);
     return () => clearTimeout(timeout);
@@ -46,34 +46,34 @@ export const CopySSHCommandButton: React.VFC<{
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-    <div
-      onClick={(e: React.MouseEvent) => e.stopPropagation()}
-      onMouseEnter={() => {
-        setOpenTooltip(true);
-      }}
-      onMouseLeave={() => {
-        setOpenTooltip(false);
+    <span
+      onClick={(e) => {
+        e.stopPropagation();
       }}
     >
       <StyledTooltip
         align="top"
         justify="middle"
-        open={openTooltip}
         data-cy="copy-ssh-tooltip"
         trigger={
-          <PaddedButton // @ts-expect-error
-            onClick={() => {
-              copyToClipboard(sshCommand);
-              spawnAnalytics.sendEvent({ name: "Copy SSH Command" });
-              setHasCopied(!hasCopied);
-            }}
-            size={Size.XSmall}
-            data-cy="copy-ssh-button"
-            leftGlyph={<Icon glyph="Copy" />}
-            disabled={!canSSH}
-          >
-            <Label>SSH Command</Label>
-          </PaddedButton>
+          // Wrapper is necessary because disabled elements cannot trigger mouse events.
+          <div data-cy="copy-ssh-button-wrapper">
+            <PaddedButton
+              data-cy="copy-ssh-button"
+              disabled={!canSSH}
+              leftGlyph={<Icon glyph="Copy" />}
+              // @ts-expect-error
+              onClick={(event: React.MouseEvent) => {
+                event.stopPropagation();
+                copyToClipboard(sshCommand);
+                spawnAnalytics.sendEvent({ name: "Copy SSH Command" });
+                setHasCopied(!hasCopied);
+              }}
+              size={Size.XSmall}
+            >
+              <Label>SSH Command</Label>
+            </PaddedButton>
+          </div>
         }
       >
         {hasCopied ? (
@@ -86,7 +86,7 @@ export const CopySSHCommandButton: React.VFC<{
           </Center>
         )}
       </StyledTooltip>
-    </div>
+    </span>
   );
 };
 

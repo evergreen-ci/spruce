@@ -376,38 +376,55 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
             <div
               className="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
             >
-              <label
-                className="leafygreen-ui-hfnsvs"
-                htmlFor="checkbox-1"
-                id="checkbox-1-label"
+              <div
+                className="leafygreen-ui-55kazc"
               >
-                <input
-                  aria-checked={false}
-                  aria-disabled={false}
-                  aria-label="checkbox"
-                  aria-labelledby="checkbox-1-label"
-                  checked={false}
-                  className="leafygreen-ui-3bropy"
-                  disabled={false}
-                  id="checkbox-1"
-                  onChange={[Function]}
-                  onClick={[Function]}
-                  type="checkbox"
-                />
-                <div
-                  className="leafygreen-ui-cho4qd"
-                  data-leafygreen-ui="checkbox-wrapper"
+                <label
+                  className="leafygreen-ui-hx39h2"
+                  htmlFor="checkbox-1"
+                  id="checkbox-1-label"
                 >
-                  <div
-                    className="leafygreen-ui-v3mbc2"
+                  <input
+                    aria-checked={false}
+                    aria-disabled={false}
+                    aria-label="checkbox"
+                    aria-labelledby="checkbox-1-label"
+                    checked={false}
+                    className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+                    disabled={false}
+                    id="checkbox-1"
+                    onChange={[Function]}
+                    onClick={[Function]}
+                    type="checkbox"
                   />
-                </div>
-                <span
-                  className="leafygreen-ui-1qufm80"
-                >
-                  Mark distro as a cluster (jobs are not run on this host, used for special purposes).
-                </span>
-              </label>
+                  <div
+                    className="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+                  >
+                    <svg
+                      className="leafygreen-ui-6caof5"
+                      fill="none"
+                      height="10"
+                      stroke="#FFFFFF"
+                      viewBox="0 0 10 10"
+                      width="10"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                        stroke="#FFFFFF"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                      />
+                    </svg>
+                  </div>
+                  <span
+                    className="leafygreen-ui-1wmrjan"
+                  >
+                    Mark distro as a cluster (jobs are not run on this host, used for special purposes).
+                  </span>
+                </label>
+              </div>
             </div>
           </div>
           <div
@@ -417,38 +434,55 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
             <div
               className="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
             >
-              <label
-                className="leafygreen-ui-hfnsvs"
-                htmlFor="checkbox-2"
-                id="checkbox-2-label"
+              <div
+                className="leafygreen-ui-55kazc"
               >
-                <input
-                  aria-checked={false}
-                  aria-disabled={false}
-                  aria-label="checkbox"
-                  aria-labelledby="checkbox-2-label"
-                  checked={false}
-                  className="leafygreen-ui-3bropy"
-                  disabled={false}
-                  id="checkbox-2"
-                  onChange={[Function]}
-                  onClick={[Function]}
-                  type="checkbox"
-                />
-                <div
-                  className="leafygreen-ui-cho4qd"
-                  data-leafygreen-ui="checkbox-wrapper"
+                <label
+                  className="leafygreen-ui-hx39h2"
+                  htmlFor="checkbox-2"
+                  id="checkbox-2-label"
                 >
-                  <div
-                    className="leafygreen-ui-v3mbc2"
+                  <input
+                    aria-checked={false}
+                    aria-disabled={false}
+                    aria-label="checkbox"
+                    aria-labelledby="checkbox-2-label"
+                    checked={false}
+                    className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+                    disabled={false}
+                    id="checkbox-2"
+                    onChange={[Function]}
+                    onClick={[Function]}
+                    type="checkbox"
                   />
-                </div>
-                <span
-                  className="leafygreen-ui-1qufm80"
-                >
-                  Disable shallow clone for this distro.
-                </span>
-              </label>
+                  <div
+                    className="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+                  >
+                    <svg
+                      className="leafygreen-ui-6caof5"
+                      fill="none"
+                      height="10"
+                      stroke="#FFFFFF"
+                      viewBox="0 0 10 10"
+                      width="10"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                        stroke="#FFFFFF"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                      />
+                    </svg>
+                  </div>
+                  <span
+                    className="leafygreen-ui-1wmrjan"
+                  >
+                    Disable shallow clone for this distro.
+                  </span>
+                </label>
+              </div>
             </div>
           </div>
           <div
@@ -458,38 +492,55 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
             <div
               className="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
             >
-              <label
-                className="leafygreen-ui-hfnsvs"
-                htmlFor="checkbox-3"
-                id="checkbox-3-label"
+              <div
+                className="leafygreen-ui-55kazc"
               >
-                <input
-                  aria-checked={false}
-                  aria-disabled={false}
-                  aria-label="checkbox"
-                  aria-labelledby="checkbox-3-label"
-                  checked={false}
-                  className="leafygreen-ui-3bropy"
-                  disabled={false}
-                  id="checkbox-3"
-                  onChange={[Function]}
-                  onClick={[Function]}
-                  type="checkbox"
-                />
-                <div
-                  className="leafygreen-ui-cho4qd"
-                  data-leafygreen-ui="checkbox-wrapper"
+                <label
+                  className="leafygreen-ui-hx39h2"
+                  htmlFor="checkbox-3"
+                  id="checkbox-3-label"
                 >
-                  <div
-                    className="leafygreen-ui-v3mbc2"
+                  <input
+                    aria-checked={false}
+                    aria-disabled={false}
+                    aria-label="checkbox"
+                    aria-labelledby="checkbox-3-label"
+                    checked={false}
+                    className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+                    disabled={false}
+                    id="checkbox-3"
+                    onChange={[Function]}
+                    onClick={[Function]}
+                    type="checkbox"
                   />
-                </div>
-                <span
-                  className="leafygreen-ui-1qufm80"
-                >
-                  Disable queueing this distro. Tasks already in the task queue will be removed.
-                </span>
-              </label>
+                  <div
+                    className="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+                  >
+                    <svg
+                      className="leafygreen-ui-6caof5"
+                      fill="none"
+                      height="10"
+                      stroke="#FFFFFF"
+                      viewBox="0 0 10 10"
+                      width="10"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                        stroke="#FFFFFF"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                      />
+                    </svg>
+                  </div>
+                  <span
+                    className="leafygreen-ui-1wmrjan"
+                  >
+                    Disable queueing this distro. Tasks already in the task queue will be removed.
+                  </span>
+                </label>
+              </div>
             </div>
           </div>
           <div
@@ -499,38 +550,55 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
             <div
               className="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
             >
-              <label
-                className="leafygreen-ui-hfnsvs"
-                htmlFor="checkbox-4"
-                id="checkbox-4-label"
+              <div
+                className="leafygreen-ui-55kazc"
               >
-                <input
-                  aria-checked={true}
-                  aria-disabled={false}
-                  aria-label="checkbox"
-                  aria-labelledby="checkbox-4-label"
-                  checked={true}
-                  className="leafygreen-ui-3bropy"
-                  disabled={false}
-                  id="checkbox-4"
-                  onChange={[Function]}
-                  onClick={[Function]}
-                  type="checkbox"
-                />
-                <div
-                  className="leafygreen-ui-cho4qd"
-                  data-leafygreen-ui="checkbox-wrapper"
+                <label
+                  className="leafygreen-ui-hx39h2"
+                  htmlFor="checkbox-4"
+                  id="checkbox-4-label"
                 >
-                  <div
-                    className="leafygreen-ui-njm8mk"
+                  <input
+                    aria-checked={true}
+                    aria-disabled={false}
+                    aria-label="checkbox"
+                    aria-labelledby="checkbox-4-label"
+                    checked={true}
+                    className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+                    disabled={false}
+                    id="checkbox-4"
+                    onChange={[Function]}
+                    onClick={[Function]}
+                    type="checkbox"
                   />
-                </div>
-                <span
-                  className="leafygreen-ui-1qufm80"
-                >
-                  Decommission hosts of this distro for this update
-                </span>
-              </label>
+                  <div
+                    className="lg-ui-check-wrapper-0000 leafygreen-ui-1mf205r"
+                  >
+                    <svg
+                      className="leafygreen-ui-1degv9q"
+                      fill="none"
+                      height="10"
+                      stroke="#FFFFFF"
+                      viewBox="0 0 10 10"
+                      width="10"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                        stroke="#FFFFFF"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                      />
+                    </svg>
+                  </div>
+                  <span
+                    className="leafygreen-ui-1wmrjan"
+                  >
+                    Decommission hosts of this distro for this update
+                  </span>
+                </label>
+              </div>
             </div>
           </div>
           <div
@@ -634,38 +702,55 @@ exports[`storybook Storyshots Components/Spruce Form Example 3 1`] = `
             <div
               className="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
             >
-              <label
-                className="leafygreen-ui-hfnsvs"
-                htmlFor="checkbox-9"
-                id="checkbox-9-label"
+              <div
+                className="leafygreen-ui-55kazc"
               >
-                <input
-                  aria-checked={true}
-                  aria-disabled={false}
-                  aria-label="checkbox"
-                  aria-labelledby="checkbox-9-label"
-                  checked={true}
-                  className="leafygreen-ui-3bropy"
-                  disabled={false}
-                  id="checkbox-9"
-                  onChange={[Function]}
-                  onClick={[Function]}
-                  type="checkbox"
-                />
-                <div
-                  className="leafygreen-ui-cho4qd"
-                  data-leafygreen-ui="checkbox-wrapper"
+                <label
+                  className="leafygreen-ui-hx39h2"
+                  htmlFor="checkbox-9"
+                  id="checkbox-9-label"
                 >
-                  <div
-                    className="leafygreen-ui-njm8mk"
+                  <input
+                    aria-checked={true}
+                    aria-disabled={false}
+                    aria-label="checkbox"
+                    aria-labelledby="checkbox-9-label"
+                    checked={true}
+                    className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+                    disabled={false}
+                    id="checkbox-9"
+                    onChange={[Function]}
+                    onClick={[Function]}
+                    type="checkbox"
                   />
-                </div>
-                <span
-                  className="leafygreen-ui-1qufm80"
-                >
-                  This is the only visible page element
-                </span>
-              </label>
+                  <div
+                    className="lg-ui-check-wrapper-0000 leafygreen-ui-1mf205r"
+                  >
+                    <svg
+                      className="leafygreen-ui-1degv9q"
+                      fill="none"
+                      height="10"
+                      stroke="#FFFFFF"
+                      viewBox="0 0 10 10"
+                      width="10"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                        stroke="#FFFFFF"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                      />
+                    </svg>
+                  </div>
+                  <span
+                    className="leafygreen-ui-1wmrjan"
+                  >
+                    This is the only visible page element
+                  </span>
+                </label>
+              </div>
             </div>
           </div>
         </fieldset>
