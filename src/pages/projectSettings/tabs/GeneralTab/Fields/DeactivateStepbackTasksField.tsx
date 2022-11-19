@@ -31,7 +31,7 @@ const Modal: React.VFC<ModalProps> = ({ closeModal, open, projectId }) => {
     DeactivateStepbackTaskMutationVariables
   >(DEACTIVATE_STEPBACK_TASK, {
     onCompleted() {
-      dispatchToast.success(`Stepback task was deactivated.`);
+      dispatchToast.success("Stepback task was deactivated.");
     },
     onError(err) {
       dispatchToast.error(
@@ -59,10 +59,10 @@ const Modal: React.VFC<ModalProps> = ({ closeModal, open, projectId }) => {
       onConfirm={onConfirm}
       open={open}
       submitDisabled={hasError || loading}
-      title="Deactivate Scheduled Stepback Tasks"
+      title="Deactivate Scheduled Stepback Task"
       data-cy="deactivate-stepback-modal"
     >
-      <p>Will deactivate running stepback tasks for the specified task.</p>
+      <p>Will deactivate a specific running stepback task.</p>
       <SpruceForm
         formData={formState}
         onChange={({ formData, errors }) => {
@@ -94,11 +94,9 @@ export const DeactivateStepbackTasksField: Field = ({ uiSchema }) => {
         />
       )}
       <ElementWrapper>
-        <Label htmlFor={id}>
-          Deactivate Currently Scheduled Stepback Tasks
-        </Label>
+        <Label htmlFor={id}>Deactivate Currently Scheduled Stepback Task</Label>
         <Description>
-          This will not turn off future stepbacks for the project.
+          This will not turn off future stepbacks for the task.
         </Description>
         <div>
           <Button
