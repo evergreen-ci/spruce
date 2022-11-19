@@ -8,11 +8,11 @@ import {
   userEvent,
   waitFor,
 } from "test_utils";
-import { DeactivateStepbackTasksField } from ".";
+import { DeactivateStepbackTaskField } from ".";
 
 const Field = () => (
   <MockedProvider mocks={[deactivateStepbackTaskMock]}>
-    <DeactivateStepbackTasksField
+    <DeactivateStepbackTaskField
       {...({} as unknown as FieldProps)}
       uiSchema={{
         options: {
@@ -23,7 +23,7 @@ const Field = () => (
   </MockedProvider>
 );
 
-describe("deactivateStepbackTasks", () => {
+describe("deactivateStepbackTask", () => {
   it("renders the button properly", () => {
     const { Component } = RenderFakeToastContext(<Field />);
     render(<Component />);

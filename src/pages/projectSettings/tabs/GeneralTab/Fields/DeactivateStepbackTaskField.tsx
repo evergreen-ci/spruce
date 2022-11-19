@@ -26,7 +26,7 @@ const Modal: React.VFC<ModalProps> = ({ closeModal, open, projectId }) => {
   );
   const [hasError, setHasError] = useState(true);
 
-  const [deactivateStepbackTasks, { loading }] = useMutation<
+  const [deactivateStepbackTask, { loading }] = useMutation<
     DeactivateStepbackTaskMutation,
     DeactivateStepbackTaskMutationVariables
   >(DEACTIVATE_STEPBACK_TASK, {
@@ -42,7 +42,7 @@ const Modal: React.VFC<ModalProps> = ({ closeModal, open, projectId }) => {
 
   const onConfirm = () => {
     const { buildVariantName, taskName } = formState;
-    deactivateStepbackTasks({
+    deactivateStepbackTask({
       variables: {
         projectId,
         buildVariantName,
@@ -76,7 +76,7 @@ const Modal: React.VFC<ModalProps> = ({ closeModal, open, projectId }) => {
   );
 };
 
-export const DeactivateStepbackTasksField: Field = ({ uiSchema }) => {
+export const DeactivateStepbackTaskField: Field = ({ uiSchema }) => {
   const {
     options: { projectId },
   } = uiSchema;

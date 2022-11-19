@@ -9,7 +9,6 @@ import COPY_PROJECT from "./copy-project.graphql";
 import CREATE_PROJECT from "./create-project.graphql";
 import CREATE_PUBLIC_KEY from "./create-public-key.graphql";
 import DEACTIVATE_STEPBACK_TASK from "./deactivate-stepback-task.graphql";
-import DEACTIVATE_STEPBACK_TASKS from "./deactivate-stepback-tasks.graphql";
 import DEFAULT_SECTION_TO_REPO from "./default-section-to-repo.graphql";
 import DETACH_PROJECT_FROM_REPO from "./detach-project-from-repo.graphql";
 import DETACH_VOLUME from "./detach-volume.graphql";
@@ -61,7 +60,6 @@ export {
   CREATE_PROJECT,
   CREATE_PUBLIC_KEY,
   DEACTIVATE_STEPBACK_TASK,
-  DEACTIVATE_STEPBACK_TASKS,
   DEFAULT_SECTION_TO_REPO,
   DETACH_PROJECT_FROM_REPO,
   DETACH_VOLUME,
