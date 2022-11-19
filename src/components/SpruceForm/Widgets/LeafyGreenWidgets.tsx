@@ -164,6 +164,7 @@ export const LeafyGreenSelect: React.VFC<
     allowDeselect,
     ariaLabelledBy,
     description,
+    enumDisabled,
     enumOptions,
     "data-cy": dataCy,
     elementWrapperCSS,
@@ -193,12 +194,14 @@ export const LeafyGreenSelect: React.VFC<
           popoverZIndex={zIndex.dropdown}
         >
           {enumOptions.map((o) => {
+            const optionDisabled = enumDisabled?.includes(o.value) ?? false;
+
             // Handle deselect value without errors
             if (o.value === null) {
               return;
             }
             return (
-              <Option key={o.value} value={o.value}>
+              <Option key={o.value} value={o.value} disabled={optionDisabled}>
                 {o.label}
               </Option>
             );
@@ -216,7 +219,12 @@ export const LeafyGreenRadio: React.VFC<EnumSpruceWidgetProps> = ({
   onChange,
   disabled,
 }) => {
-  const { "data-cy": dataCy, enumOptions, elementWrapperCSS } = options;
+  const {
+    "data-cy": dataCy,
+    enumDisabled,
+    enumOptions,
+    elementWrapperCSS,
+  } = options;
   return (
     <ElementWrapper css={elementWrapperCSS}>
       <RadioGroup
@@ -225,11 +233,18 @@ export const LeafyGreenRadio: React.VFC<EnumSpruceWidgetProps> = ({
         onChange={(e) => onChange(e.target.value)}
         data-cy={dataCy}
       >
-        {enumOptions.map((o) => (
-          <Radio key={o.value} value={o.value} disabled={disabled}>
-            {o.label}
-          </Radio>
-        ))}
+        {enumOptions.map((o) => {
+          const optionDisabled = enumDisabled?.includes(o.value) ?? false;
+          return (
+            <Radio
+              key={o.value}
+              value={o.value}
+              disabled={disabled || optionDisabled}
+            >
+              {o.label}
+            </Radio>
+          );
+        })}
       </RadioGroup>
     </ElementWrapper>
   );
@@ -242,6 +257,7 @@ export const LeafyGreenRadioBox: React.VFC<
     "data-cy": dataCy,
     description,
     elementWrapperCSS,
+    enumDisabled,
     enumOptions,
     errors,
     showLabel,
@@ -284,15 +300,18 @@ export const LeafyGreenRadioBox: React.VFC<
         onChange={(e) => onChange(valueMap[e.target.value])}
         data-cy={dataCy}
       >
-        {enumOptions.map((o) => (
-          <StyledRadioBox
-            key={valueMap.indexOf(o.value)}
-            value={valueMap.indexOf(o.value)}
-            disabled={disabled}
-          >
-            {o.label}
-          </StyledRadioBox>
-        ))}
+        {enumOptions.map((o) => {
+          const optionDisabled = enumDisabled?.includes(o.value) ?? false;
+          return (
+            <StyledRadioBox
+              key={valueMap.indexOf(o.value)}
+              value={valueMap.indexOf(o.value)}
+              disabled={disabled || optionDisabled}
+            >
+              {o.label}
+            </StyledRadioBox>
+          );
+        })}
       </RadioBoxGroup>
     </ElementWrapper>
   );
@@ -351,6 +370,7 @@ export const LeafyGreenSegmentedControl: React.VFC<EnumSpruceWidgetProps> = ({
   const {
     "aria-controls": ariaControls,
     "data-cy": dataCy,
+    enumDisabled,
     enumOptions,
     elementWrapperCSS,
   } = options;
@@ -366,15 +386,18 @@ export const LeafyGreenSegmentedControl: React.VFC<EnumSpruceWidgetProps> = ({
         onChange={onChange}
         aria-controls={ariaControls?.join(" ")}
       >
-        {enumOptions.map((o) => (
-          <SegmentedControlOption
-            key={o.value}
-            value={o.value}
-            disabled={isDisabled}
-          >
-            {o.label}
-          </SegmentedControlOption>
-        ))}
+        {enumOptions.map((o) => {
+          const optionDisabled = enumDisabled?.includes(o.value) ?? false;
+          return (
+            <SegmentedControlOption
+              key={o.value}
+              value={o.value}
+              disabled={isDisabled || optionDisabled}
+            >
+              {o.label}
+            </SegmentedControlOption>
+          );
+        })}
       </StyledSegmentedControl>
     </ElementWrapper>
   );
