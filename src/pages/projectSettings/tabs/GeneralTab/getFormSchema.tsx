@@ -5,7 +5,7 @@ import { versionControlDocumentationUrl } from "constants/externalResources";
 import { GetFormSchema } from "../types";
 import { form, ProjectType } from "../utils";
 import {
-  DeactivateStepbackTasksField,
+  DeactivateStepbackTaskField,
   RepoConfigField,
   RepotrackerField,
 } from "./Fields";
@@ -22,7 +22,7 @@ export const getFormSchema = (
   repoData?: FormState
 ): ReturnType<GetFormSchema> => ({
   fields: {
-    deactivateStepbackTasks: DeactivateStepbackTasksField,
+    deactivateStepbackTask: DeactivateStepbackTaskField,
     repoConfigField: RepoConfigField,
     repotrackerField: RepotrackerField,
   },
@@ -347,7 +347,7 @@ export const getFormSchema = (
             "Override all stepback settings for the project. Disabling stepback won't cancel any active stepback tasks, but it will prevent any future ones.",
         },
         deactivateStepback: {
-          "ui:field": "deactivateStepbackTasks",
+          "ui:field": "deactivateStepbackTask",
           "ui:showLabel": false,
           options: { projectId },
         },

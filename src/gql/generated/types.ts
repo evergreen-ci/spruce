@@ -556,6 +556,8 @@ export type Mutation = {
   copyProject: Project;
   createProject: Project;
   createPublicKey: Array<PublicKey>;
+  deactivateStepbackTask: Scalars["Boolean"];
+  /** @deprecated deactivateStepbackTasks is deprecated. Use deactivateStepbackTask instead. */
   deactivateStepbackTasks: Scalars["Boolean"];
   defaultSectionToRepo?: Maybe<Scalars["String"]>;
   detachProjectFromRepo: Project;
@@ -639,6 +641,12 @@ export type MutationCreateProjectArgs = {
 
 export type MutationCreatePublicKeyArgs = {
   publicKeyInput: PublicKeyInput;
+};
+
+export type MutationDeactivateStepbackTaskArgs = {
+  buildVariantName: Scalars["String"];
+  projectId: Scalars["String"];
+  taskName: Scalars["String"];
 };
 
 export type MutationDeactivateStepbackTasksArgs = {
@@ -3287,6 +3295,16 @@ export type CreatePublicKeyMutationVariables = Exact<{
 
 export type CreatePublicKeyMutation = {
   createPublicKey: Array<{ key: string; name: string }>;
+};
+
+export type DeactivateStepbackTaskMutationVariables = Exact<{
+  projectId: Scalars["String"];
+  buildVariantName: Scalars["String"];
+  taskName: Scalars["String"];
+}>;
+
+export type DeactivateStepbackTaskMutation = {
+  deactivateStepbackTask: boolean;
 };
 
 export type DeactivateStepbackTasksMutationVariables = Exact<{

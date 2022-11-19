@@ -1,5 +1,5 @@
-import { DeactivateStepbackTasksField } from "./DeactivateStepbackTasksField";
+import { DeactivateStepbackTaskField } from "./DeactivateStepbackTaskField";
 import { RepoConfigField } from "./RepoConfigField";
 import { RepotrackerField } from "./RepotrackerField";
 
-export { DeactivateStepbackTasksField, RepoConfigField, RepotrackerField };
+export { DeactivateStepbackTaskField, RepoConfigField, RepotrackerField };
