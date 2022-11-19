@@ -3307,14 +3307,6 @@ export type DeactivateStepbackTaskMutation = {
   deactivateStepbackTask: boolean;
 };
 
-export type DeactivateStepbackTasksMutationVariables = Exact<{
-  projectId: Scalars["String"];
-}>;
-
-export type DeactivateStepbackTasksMutation = {
-  deactivateStepbackTasks: boolean;
-};
-
 export type DefaultSectionToRepoMutationVariables = Exact<{
   projectId: Scalars["String"];
   section: ProjectSettingsSection;
