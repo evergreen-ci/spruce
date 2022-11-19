@@ -5,7 +5,7 @@ import { versionControlDocumentationUrl } from "constants/externalResources";
 import { GetFormSchema } from "../types";
 import { form, ProjectType } from "../utils";
 import {
-  DeactivateStepbackTasksField,
+  DeactivateStepbackTaskField,
   RepoConfigField,
   RepotrackerField,
 } from "./Fields";
@@ -22,7 +22,7 @@ export const getFormSchema = (
   repoData?: FormState
 ): ReturnType<GetFormSchema> => ({
   fields: {
-    deactivateStepbackTasks: DeactivateStepbackTasksField,
+    deactivateStepbackTask: DeactivateStepbackTaskField,
     repoConfigField: RepoConfigField,
     repotrackerField: RepotrackerField,
   },
@@ -333,7 +333,7 @@ export const getFormSchema = (
             "When unscheduled, tasks from previous revisions will be unscheduled when the equivalent task in a newer commit finishes successfully.",
         },
         deactivateStepback: {
-          "ui:field": "deactivateStepbackTasks",
+          "ui:field": "deactivateStepbackTask",
           "ui:showLabel": false,
           options: { projectId },
         },
