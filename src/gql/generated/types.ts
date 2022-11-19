@@ -1032,6 +1032,7 @@ export type Project = {
   repotrackerDisabled?: Maybe<Scalars["Boolean"]>;
   restricted?: Maybe<Scalars["Boolean"]>;
   spawnHostScriptPath: Scalars["String"];
+  stepbackDisabled?: Maybe<Scalars["Boolean"]>;
   taskAnnotationSettings: TaskAnnotationSettings;
   taskSync: TaskSyncOptions;
   tracksPushEvents?: Maybe<Scalars["Boolean"]>;
@@ -1133,6 +1134,7 @@ export type ProjectInput = {
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]>;
   restricted?: InputMaybe<Scalars["Boolean"]>;
   spawnHostScriptPath?: InputMaybe<Scalars["String"]>;
+  stepbackDisabled?: InputMaybe<Scalars["Boolean"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
   taskSync?: InputMaybe<TaskSyncOptionsInput>;
   tracksPushEvents?: InputMaybe<Scalars["Boolean"]>;
@@ -1453,6 +1455,7 @@ export type RepoRef = {
   repotrackerDisabled: Scalars["Boolean"];
   restricted: Scalars["Boolean"];
   spawnHostScriptPath: Scalars["String"];
+  stepbackDisabled: Scalars["Boolean"];
   taskAnnotationSettings: TaskAnnotationSettings;
   taskSync: RepoTaskSyncOptions;
   tracksPushEvents: Scalars["Boolean"];
@@ -1494,6 +1497,7 @@ export type RepoRefInput = {
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]>;
   restricted?: InputMaybe<Scalars["Boolean"]>;
   spawnHostScriptPath?: InputMaybe<Scalars["String"]>;
+  stepbackDisabled?: InputMaybe<Scalars["Boolean"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
   taskSync?: InputMaybe<TaskSyncOptionsInput>;
   tracksPushEvents?: InputMaybe<Scalars["Boolean"]>;

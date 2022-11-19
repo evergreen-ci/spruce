@@ -35,7 +35,7 @@ describe("deactivateStepbackTasks", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("clicking on the button opens the modal, with the fields being empty and confirm button disabled", async () => {
+  it("clicking on the button opens the modal with the confirm button disabled by default", async () => {
     const { Component } = RenderFakeToastContext(<Field />);
     render(<Component />);
     userEvent.click(screen.getByDataCy("deactivate-stepback-button"));
@@ -75,7 +75,7 @@ describe("deactivateStepbackTasks", () => {
 
     await waitFor(() => {
       expect(dispatchToast.success).toHaveBeenCalledWith(
-        "Stepback tasks deactivated."
+        "Stepback task was deactivated."
       );
     });
   });

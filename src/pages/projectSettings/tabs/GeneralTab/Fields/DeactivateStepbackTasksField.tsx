@@ -31,11 +31,11 @@ const Modal: React.VFC<ModalProps> = ({ closeModal, open, projectId }) => {
     DeactivateStepbackTaskMutationVariables
   >(DEACTIVATE_STEPBACK_TASK, {
     onCompleted() {
-      dispatchToast.success("Stepback tasks deactivated.");
+      dispatchToast.success(`Stepback task was deactivated.`);
     },
     onError(err) {
       dispatchToast.error(
-        `There was an error deactivating stepback tasks: ${err.message}`
+        `There was an error deactivating the stepback task: ${err.message}`
       );
     },
   });
@@ -141,9 +141,11 @@ const deactivateStepbackForm = {
   uiSchema: {
     buildVariantName: {
       "ui:data-cy": "deactivate-variant-name-input",
+      "ui:placeholder": "ex. ubuntu1604",
     },
     taskName: {
       "ui:data-cy": "deactivate-task-name-input",
+      "ui:placeholder": "ex. dist",
     },
   },
 };
