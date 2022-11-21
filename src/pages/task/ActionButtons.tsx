@@ -273,14 +273,17 @@ export const ActionButtons: React.VFC<Props> = ({
               onClick={() => {
                 taskAnalytics.sendEvent({ name: "Click See History Button" });
               }}
-              as={({ children }) => (
-                <Link
-                  to={getTaskHistoryRoute(projectIdentifier, displayName, {
-                    selectedCommit: !isPatch && order,
-                  })}
-                >
-                  {children}
-                </Link>
+              as={({ children, ...rest }) => (
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                <div {...rest}>
+                  <Link
+                    to={getTaskHistoryRoute(projectIdentifier, displayName, {
+                      selectedCommit: !isPatch && order,
+                    })}
+                  >
+                    {children}
+                  </Link>
+                </div>
               )}
               disabled={displayName === mergeTaskName}
             >

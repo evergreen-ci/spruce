@@ -201,7 +201,12 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
                 type: selectState,
               })
             }
-            as={({ children }) => <Link to={link}>{children}</Link>}
+            as={({ children, ...rest }) => (
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              <div {...rest}>
+                <Link to={link}>{children}</Link>
+              </div>
+            )}
             disabled={disableButton}
             size="small"
             data-cy="previous-commits-go-button"

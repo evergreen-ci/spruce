@@ -121,15 +121,19 @@ export const LogsColumn: React.VFC<Props> = ({
           onClick={() => {
             taskAnalytics.sendEvent({ name: "Click See History Button" });
           }}
-          as={({ children }) => (
-            <Link
-              to={getTaskHistoryRoute(project?.identifier, displayName, {
-                filters,
-                selectedCommit: order,
-              })}
-            >
-              {children}
-            </Link>
+          as={({ children, ...rest }) => (
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            <div {...rest}>
+              <Link
+                to={getTaskHistoryRoute(project?.identifier, displayName, {
+                  filters,
+                  selectedCommit: order,
+                })}
+                {...rest}
+              >
+                {children}
+              </Link>
+            </div>
           )}
         >
           History
