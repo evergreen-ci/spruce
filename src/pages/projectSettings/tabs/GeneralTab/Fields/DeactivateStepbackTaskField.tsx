@@ -62,7 +62,10 @@ const Modal: React.VFC<ModalProps> = ({ closeModal, open, projectId }) => {
       title="Deactivate Scheduled Stepback Task"
       data-cy="deactivate-stepback-modal"
     >
-      <p>Will deactivate a specific running stepback task.</p>
+      <p>
+        Specify a stepback task to deactivate. To deactivate stepback more
+        broadly, disable stepback for the project.
+      </p>
       <SpruceForm
         formData={formState}
         onChange={({ formData, errors }) => {
@@ -96,7 +99,8 @@ export const DeactivateStepbackTaskField: Field = ({ uiSchema }) => {
       <ElementWrapper>
         <Label htmlFor={id}>Deactivate Currently Scheduled Stepback Task</Label>
         <Description>
-          This will not turn off future stepbacks for the task.
+          Deactivate a specific stepback task. This will not turn off future
+          stepbacks for the task.
         </Description>
         <div>
           <Button
