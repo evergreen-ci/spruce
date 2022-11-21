@@ -23,7 +23,10 @@ interface RowProps {
 }
 
 export const TaskDurationRow: React.VFC<RowProps> = forwardRef(
-  ({ task, maxTimeTaken, children, "data-cy": dataCy, ...rest }, ref) => {
+  (
+    { task, maxTimeTaken, children, "data-cy": dataCy, ...rest },
+    ref: React.Ref<HTMLTableRowElement>
+  ) => {
     const {
       id,
       displayName,
@@ -90,6 +93,7 @@ BuildVariantCell.displayName = "Cell";
 
 const DurationCell = styled(Cell)`
   span {
+    display: block;
     width: 100%;
   }
 `;

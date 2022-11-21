@@ -2,7 +2,7 @@
 
 exports[`storybook Storyshots Components/PageSizeSelector Default 1`] = `
 <div
-  className="css-5krlfz-StyledSelect ekttol50"
+  className="leafygreen-ui-1nkq8lt css-5krlfz-StyledSelect ekttol50"
 >
   <button
     aria-controls="select-1-menu"
@@ -11,21 +11,22 @@ exports[`storybook Storyshots Components/PageSizeSelector Default 1`] = `
     aria-expanded={false}
     aria-invalid={false}
     aria-labelledby="page-size-select"
-    className="leafygreen-ui-1u999q6"
+    className="lg-ui-button-0000 leafygreen-ui-hpqfbp"
     data-testid="leafygreen-ui-select-menubutton"
     disabled={false}
+    id="select-2"
     onClick={[Function]}
     type="button"
     value="10"
   >
     <div
-      className="leafygreen-ui-1ktj4tm"
+      className="leafygreen-ui-v038xi"
     />
     <div
-      className="leafygreen-ui-sl5lf4"
+      className="leafygreen-ui-1qmzz4y"
     >
       <div
-        className="leafygreen-ui-e32n5q"
+        className="leafygreen-ui-obh8q1"
       >
         <div
           className="leafygreen-ui-17aj16e"
@@ -33,24 +34,20 @@ exports[`storybook Storyshots Components/PageSizeSelector Default 1`] = `
           10 / page
         </div>
       </div>
-      <span
-        className="leafygreen-ui-18n6mp2"
+      <svg
+        alt=""
+        aria-hidden={true}
+        className="leafygreen-ui-13p6dfv leafygreen-ui-1t9qnhm"
+        height={16}
+        role="presentation"
+        viewBox="0 0 16 16"
+        width={16}
       >
-        <svg
-          alt=""
-          aria-hidden={true}
-          className="leafygreen-ui-195unnb"
-          height={16}
-          role="presentation"
-          viewBox="0 0 16 16"
-          width={16}
-        >
-          <path
-            d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
-            fill="currentColor"
-          />
-        </svg>
-      </span>
+        <path
+          d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
+          fill="currentColor"
+        />
+      </svg>
     </div>
   </button>
 </div>
