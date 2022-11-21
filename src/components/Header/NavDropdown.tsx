@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { palette } from "@leafygreen-ui/palette";
-import { Link } from "react-router-dom";
 import { zIndex } from "constants/tokens";
 
 const { white } = palette;
@@ -31,12 +30,7 @@ const DropdownItem: React.VFC<DropdownItemType> = ({
   text,
   to,
 }) => (
-  <MenuItem
-    as={({ children }) => <Link to={to}>{children}</Link>}
-    href={href}
-    data-cy={itemDataCy}
-    onClick={closeMenu}
-  >
+  <MenuItem href={to || href} data-cy={itemDataCy} onClick={closeMenu}>
     {text}
   </MenuItem>
 );
