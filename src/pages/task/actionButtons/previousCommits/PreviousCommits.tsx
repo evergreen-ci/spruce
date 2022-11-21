@@ -4,9 +4,9 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Option, Select } from "@leafygreen-ui/select";
 import Tooltip from "@leafygreen-ui/tooltip";
+import { Link } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
-import { Link } from "components/Link";
 import { finishedTaskStatuses } from "constants/task";
 import { size } from "constants/tokens";
 import {
@@ -201,8 +201,7 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
                 type: selectState,
               })
             }
-            as={Link}
-            data-to={link}
+            as={({ children }) => <Link to={link}>{children}</Link>}
             disabled={disableButton}
             size="small"
             data-cy="previous-commits-go-button"

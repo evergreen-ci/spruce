@@ -3,12 +3,11 @@ import { useMutation } from "@apollo/client";
 import Button from "@leafygreen-ui/button";
 import TextInput from "@leafygreen-ui/text-input";
 import { Popconfirm } from "antd";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { LoadingButton } from "components/Buttons";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
-import { Link } from "components/Link";
 import { PageButtonRow } from "components/styles";
 import { commitQueueRequester } from "constants/patch";
 import { getTaskHistoryRoute } from "constants/routes";
@@ -274,10 +273,15 @@ export const ActionButtons: React.VFC<Props> = ({
               onClick={() => {
                 taskAnalytics.sendEvent({ name: "Click See History Button" });
               }}
-              as={Link}
-              data-to={getTaskHistoryRoute(projectIdentifier, displayName, {
-                selectedCommit: !isPatch && order,
-              })}
+              as={({ children }) => (
+                <Link
+                  to={getTaskHistoryRoute(projectIdentifier, displayName, {
+                    selectedCommit: !isPatch && order,
+                  })}
+                >
+                  {children}
+                </Link>
+              )}
               disabled={displayName === mergeTaskName}
             >
               See history
