@@ -344,7 +344,7 @@ export const getFormSchema = (
         stepbackDisabled: {
           "ui:widget": widgets.RadioBoxWidget,
           "ui:description":
-            "Override all stepback settings for the project. Disabling stepback won't cancel any active stepback tasks, but will prevent any future ones.",
+            "Disabling this setting will override all enabled stepback settings for the project. Disabling stepback won't cancel any active stepback tasks, but it will prevent any future ones.",
         },
         deactivateStepback: {
           "ui:field": "deactivateStepbackTask",
