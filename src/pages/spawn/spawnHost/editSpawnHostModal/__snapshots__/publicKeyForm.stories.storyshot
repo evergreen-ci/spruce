@@ -75,7 +75,7 @@ exports[`storybook Storyshots Pages/Spawn/Public Key Form Public Key Form View 1
       aria-expanded={false}
       aria-invalid={false}
       aria-labelledby="select-17-label"
-      className="lg-ui-button-0000 leafygreen-ui-23wnbt"
+      className="lg-ui-button-0000 leafygreen-ui-n2d19n leafygreen-ui-5qxdhb"
       data-testid="leafygreen-ui-select-menubutton"
       disabled={false}
       id="select-18"
