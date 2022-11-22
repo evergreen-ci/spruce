@@ -21,6 +21,7 @@ query GetTests(
       logs {
         url
         urlLobster
+        urlParsley
       }
       testFile
     }

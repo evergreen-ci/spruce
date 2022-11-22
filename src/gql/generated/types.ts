@@ -1942,7 +1942,9 @@ export type TestFilter = {
 export type TestLog = {
   lineNum?: Maybe<Scalars["Int"]>;
   url?: Maybe<Scalars["String"]>;
+  /** @deprecated Use urlParsley instead */
   urlLobster?: Maybe<Scalars["String"]>;
+  urlParsley?: Maybe<Scalars["String"]>;
   urlRaw?: Maybe<Scalars["String"]>;
 };
 
@@ -3300,14 +3302,6 @@ export type DeactivateStepbackTaskMutationVariables = Exact<{
 
 export type DeactivateStepbackTaskMutation = {
   deactivateStepbackTask: boolean;
-};
-
-export type DeactivateStepbackTasksMutationVariables = Exact<{
-  projectId: Scalars["String"];
-}>;
-
-export type DeactivateStepbackTasksMutation = {
-  deactivateStepbackTasks: boolean;
 };
 
 export type DefaultSectionToRepoMutationVariables = Exact<{
@@ -5730,6 +5724,7 @@ export type TaskTestsQuery = {
         url?: Maybe<string>;
         urlRaw?: Maybe<string>;
         urlLobster?: Maybe<string>;
+        urlParsley?: Maybe<string>;
       };
     }>;
   };
@@ -5896,7 +5891,11 @@ export type GetTestsQuery = {
     testResults: Array<{
       id: string;
       testFile: string;
-      logs: { url?: Maybe<string>; urlLobster?: Maybe<string> };
+      logs: {
+        url?: Maybe<string>;
+        urlLobster?: Maybe<string>;
+        urlParsley?: Maybe<string>;
+      };
     }>;
   };
 };
