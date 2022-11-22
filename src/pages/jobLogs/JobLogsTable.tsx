@@ -105,8 +105,8 @@ export const JobLogsTable: React.VFC<JobLogsTableProps> = ({
               <Cell>
                 <ButtonWrapper>
                   <Button
-                    disabled={!datum?.logs?.urlLobster}
-                    href={datum?.logs?.urlLobster}
+                    disabled={!datum?.logs?.urlParsley}
+                    href={datum?.logs?.urlParsley}
                     target="_blank"
                     onClick={() =>
                       sendEvent({
@@ -116,7 +116,7 @@ export const JobLogsTable: React.VFC<JobLogsTableProps> = ({
                     }
                     size="xsmall"
                   >
-                    Lobster
+                    Parsley
                   </Button>
                   <Button
                     disabled={!datum?.logs?.url}

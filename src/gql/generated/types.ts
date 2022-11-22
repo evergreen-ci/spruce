@@ -5723,7 +5723,6 @@ export type TaskTestsQuery = {
       logs: {
         url?: Maybe<string>;
         urlRaw?: Maybe<string>;
-        urlLobster?: Maybe<string>;
         urlParsley?: Maybe<string>;
       };
     }>;
@@ -5891,11 +5890,7 @@ export type GetTestsQuery = {
     testResults: Array<{
       id: string;
       testFile: string;
-      logs: {
-        url?: Maybe<string>;
-        urlLobster?: Maybe<string>;
-        urlParsley?: Maybe<string>;
-      };
+      logs: { url?: Maybe<string>; urlParsley?: Maybe<string> };
     }>;
   };
 };
