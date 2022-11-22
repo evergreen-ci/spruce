@@ -19,10 +19,10 @@ describe("task logs", () => {
       .and("eq", "true");
   });
 
-  it("Should display 'No logs' and disable Lobster, HTML and Raw buttons when no logs are found.", () => {
+  it("Should display 'No logs' and disable Parsley, HTML and Raw buttons when no logs are found.", () => {
     cy.visit(LOGS_ROUTE);
     cy.dataCy("cy-no-logs").contains("No logs");
-    cy.dataCy("lobster-log-btn")
+    cy.dataCy("parsley-log-btn")
       .should("have.attr", "aria-disabled")
       .and("eq", "true");
     cy.dataCy("html-log-btn")
@@ -33,7 +33,7 @@ describe("task logs", () => {
       .and("eq", "true");
   });
 
-  it("Should link to lobster, html and raw version of logs", () => {
+  it("Should link to Parsley, HTML and Raw version of logs", () => {
     cy.visit(LOGS_ROUTE);
     cy.get(systemLogsButton).click({ force: true });
     cy.get(systemLogsButton)
@@ -54,14 +54,14 @@ describe("task logs", () => {
       );
   });
 
-  it("Event logs should have an HTML button but not a Raw button nor Lobster button", () => {
+  it("Event logs should have an HTML button but not a Raw button nor Parsley button", () => {
     cy.get(eventLogsButton).click({ force: true });
     cy.get(eventLogsButton)
       .should("have.attr", "aria-selected")
       .and("eq", "true");
     cy.dataCy("html-log-btn").should("exist");
     cy.dataCy("raw-log-btn").should("not.exist");
-    cy.dataCy("lobster-log-btn").should("not.exist");
+    cy.dataCy("parsley-log-btn").should("not.exist");
   });
 
   it("Should update logtype query param to agent after checking agent radio button", () => {
