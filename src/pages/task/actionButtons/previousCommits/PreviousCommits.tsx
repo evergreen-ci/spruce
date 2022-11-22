@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Option, Select } from "@leafygreen-ui/select";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Link } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { finishedTaskStatuses } from "constants/task";
@@ -19,6 +18,7 @@ import {
   GET_BASE_VERSION_AND_TASK,
   GET_LAST_MAINLINE_COMMIT,
 } from "gql/queries";
+import { useLGButtonRouterLink } from "hooks/useLGButtonRouterLink";
 import { TaskStatus } from "types/task";
 import { errorReporting, string } from "utils";
 import { initialState, reducer } from "./reducer";
@@ -152,6 +152,8 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
     }
   }, [shouldFetchLastExecuted]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const linkComp = useLGButtonRouterLink(link);
+
   return (
     <PreviousCommitsWrapper>
       <StyledSelect
@@ -201,12 +203,7 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
                 type: selectState,
               })
             }
-            as={({ children, ...rest }) => (
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              <div {...rest}>
-                <Link to={link}>{children}</Link>
-              </div>
-            )}
+            as={linkComp}
             disabled={disableButton}
             size="small"
             data-cy="previous-commits-go-button"

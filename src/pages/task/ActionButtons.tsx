@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import Button from "@leafygreen-ui/button";
 import TextInput from "@leafygreen-ui/text-input";
 import { Popconfirm } from "antd";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { LoadingButton } from "components/Buttons";
@@ -37,6 +37,7 @@ import {
   UNSCHEDULE_TASK,
 } from "gql/mutations";
 import { useUpdateURLQueryParams } from "hooks";
+import { useLGButtonRouterLink } from "hooks/useLGButtonRouterLink";
 import { PreviousCommits } from "./actionButtons/previousCommits/PreviousCommits";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
@@ -164,6 +165,12 @@ export const ActionButtons: React.VFC<Props> = ({
     },
   });
 
+  const historyLinkComp = useLGButtonRouterLink(
+    getTaskHistoryRoute(projectIdentifier, displayName, {
+      selectedCommit: !isPatch && order,
+    })
+  );
+
   const disabled =
     loadingAbortTask ||
     loadingRestartTask ||
@@ -273,18 +280,7 @@ export const ActionButtons: React.VFC<Props> = ({
               onClick={() => {
                 taskAnalytics.sendEvent({ name: "Click See History Button" });
               }}
-              as={({ children, ...rest }) => (
-                // eslint-disable-next-line react/jsx-props-no-spreading
-                <div {...rest}>
-                  <Link
-                    to={getTaskHistoryRoute(projectIdentifier, displayName, {
-                      selectedCommit: !isPatch && order,
-                    })}
-                  >
-                    {children}
-                  </Link>
-                </div>
-              )}
+              as={historyLinkComp}
               disabled={displayName === mergeTaskName}
             >
               See history
