@@ -1,17 +1,15 @@
-import React, { useMemo } from "react";
-import { BoxProps } from "@leafygreen-ui/box";
-import { StyledRouterLink } from "components/styles";
+import { useMemo } from "react";
+import { Link } from "react-router-dom";
 
 export const useLGButtonRouterLink = (to: string) => {
   const linkComp = useMemo(
     () =>
-      ({ children, ...rest }: BoxProps<"div", { children: React.ReactNode }>) =>
+      ({ children, ...rest }) =>
         (
-          /* @ts-expect-error */
           // eslint-disable-next-line react/jsx-props-no-spreading
-          <div {...rest}>
-            <StyledRouterLink to={to}>{children}</StyledRouterLink>
-          </div>
+          <Link {...rest} to={to}>
+            {children}
+          </Link>
         ),
     [to]
   );
