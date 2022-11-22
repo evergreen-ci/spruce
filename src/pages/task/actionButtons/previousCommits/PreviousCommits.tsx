@@ -225,11 +225,13 @@ const getTaskFromMainlineCommitsQuery = (
       .buildVariants ?? [];
   if (buildVariants.length > 1) {
     reportError(
-      "Multiple build variants matched previous commit search."
+      new Error("Multiple build variants matched previous commit search.")
     ).warning();
   }
   if (buildVariants[0]?.tasks.length > 1) {
-    reportError("Multiple tasks matched previous commit search.").warning();
+    reportError(
+      new Error("Multiple tasks matched previous commit search.")
+    ).warning();
   }
   return buildVariants[0]?.tasks[0];
 };
