@@ -1,5 +1,5 @@
 import { ColumnProps } from "antd/es/table";
-import { Analytics } from "analytics/addPageAction";
+import { Analytics } from "analytics/task/useTaskAnalytics";
 import {
   InputFilterProps,
   getColumnSearchFilterProps,
@@ -19,11 +19,7 @@ import { TestStatusBadge } from "./TestStatusBadge";
 const { msToDuration } = string;
 
 interface GetColumnsTemplateParams {
-  taskAnalytics: Analytics<
-    | { name: "Click Logs Lobster Button" }
-    | { name: "Click Logs HTML Button" }
-    | { name: "Click Logs Raw Button" }
-  >;
+  onClickTaskLog: Analytics["sendEvent"];
   onColumnHeaderClick?: (sortField) => void;
   statusSelectorProps: TreeSelectProps;
   testNameInputProps: InputFilterProps;
@@ -31,7 +27,7 @@ interface GetColumnsTemplateParams {
 }
 
 export const getColumnsTemplate = ({
-  taskAnalytics,
+  onClickTaskLog = () => undefined,
   onColumnHeaderClick = () => undefined,
   statusSelectorProps,
   testNameInputProps,
@@ -106,7 +102,7 @@ export const getColumnsTemplate = ({
     key: "logs",
     sorter: false,
     render: (a, b): JSX.Element => (
-      <LogsColumn taskAnalytics={taskAnalytics} testResult={b} task={task} />
+      <LogsColumn onClick={onClickTaskLog} testResult={b} task={task} />
     ),
   },
 ];

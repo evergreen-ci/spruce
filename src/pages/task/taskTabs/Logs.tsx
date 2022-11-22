@@ -58,7 +58,7 @@ export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
     updateQueryParams({ [QueryParams.LogType]: nextLogType });
     sendEvent({
       name: "Select Logs Type",
-      logsType: nextLogType,
+      logType: nextLogType,
     });
   };
 
@@ -105,7 +105,13 @@ export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
                 disabled={noLogs}
                 href={parsleyLink}
                 target="_blank"
-                onClick={() => sendEvent({ name: "Click Logs Lobster Button" })}
+                onClick={() =>
+                  sendEvent({
+                    name: "Click Logs Button",
+                    logType: currentLog,
+                    logViewer: "parsley",
+                  })
+                }
               >
                 Parsley
               </Button>
@@ -116,7 +122,13 @@ export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
                 disabled={noLogs}
                 href={htmlLink}
                 target="_blank"
-                onClick={() => sendEvent({ name: "Click Logs HTML Button" })}
+                onClick={() =>
+                  sendEvent({
+                    name: "Click Logs Button",
+                    logType: currentLog,
+                    logViewer: "html",
+                  })
+                }
               >
                 HTML
               </Button>
@@ -127,7 +139,13 @@ export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
                 disabled={noLogs}
                 href={rawLink}
                 target="_blank"
-                onClick={() => sendEvent({ name: "Click Logs Raw Button" })}
+                onClick={() =>
+                  sendEvent({
+                    name: "Click Logs Button",
+                    logType: currentLog,
+                    logViewer: "raw",
+                  })
+                }
               >
                 Raw
               </Button>
