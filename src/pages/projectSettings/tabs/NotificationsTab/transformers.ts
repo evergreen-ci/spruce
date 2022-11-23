@@ -148,9 +148,10 @@ export const gqlToForm: GqlToFormFunction<Tab> = (data) => {
 };
 
 export const formToGql: FormToGqlFunction<Tab> = (
-  { buildBreakSettings, subscriptions }: FormState,
+  formState: FormState,
   projectId
 ) => {
+  const { buildBreakSettings, subscriptions } = formState;
   const projectRef: ProjectInput = {
     id: projectId,
     notifyOnBuildFailure: buildBreakSettings.notifyOnBuildFailure,

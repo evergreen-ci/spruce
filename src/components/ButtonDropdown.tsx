@@ -7,6 +7,7 @@ interface Props {
   disabled?: boolean;
   loading?: boolean;
   dropdownItems: JSX.Element[];
+  size?: "default" | "small" | "large";
   "data-cy"?: string;
 }
 
@@ -14,12 +15,13 @@ export const ButtonDropdown: React.VFC<Props> = ({
   disabled = false,
   loading = false,
   dropdownItems,
+  size = "small",
   "data-cy": dataCy = "ellipsis-btn",
 }) => (
   <Menu
     trigger={
       <LoadingButton
-        size="small"
+        size={size}
         data-cy={dataCy}
         disabled={disabled}
         loading={loading}

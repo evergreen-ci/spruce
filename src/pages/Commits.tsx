@@ -41,6 +41,7 @@ import {
   getMainlineCommitsQueryVariables,
   getFilterStatus,
 } from "./commits/utils";
+import { WaterfallMenu } from "./commits/WaterfallMenu";
 
 const { toArray } = array;
 const { parseQueryString, getString } = queryString;
@@ -176,6 +177,7 @@ export const Commits = () => {
               }}
             />
           </ElementWrapper>
+          <WaterfallMenu />
         </HeaderWrapper>
         <BadgeWrapper>
           <FilterBadges
@@ -222,10 +224,8 @@ const HeaderWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-
-  > div:not(:last-of-type) {
-    margin-right: ${size.s};
-  }
+  gap: ${size.s};
+  align-items: flex-end;
 `;
 const BadgeWrapper = styled.div`
   margin: ${size.s} 0;

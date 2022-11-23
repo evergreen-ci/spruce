@@ -1,4 +1,4 @@
-import { projectTriggers } from "constants/triggers";
+import { projectTriggers, allowedSelectors } from "constants/triggers";
 import { SubscriptionInput } from "gql/generated/types";
 import { NotificationMethods } from "types/subscription";
 import { ExtraField } from "types/triggers";
@@ -34,8 +34,8 @@ const regexFormToGql = (
   hasRegexSelectors: boolean,
   regexForm: FormRegexSelector[]
 ) =>
-  hasRegexSelectors
-    ? regexForm?.map((r) => ({
+  hasRegexSelectors && regexForm
+    ? regexForm.map((r) => ({
         type: r.regexSelect,
         data: r.regexInput,
       }))
@@ -88,7 +88,6 @@ export const getGqlPayload =
       trigger,
       extraFields,
       regexSelectors,
-      allowedSelectors,
     } = event || {};
 
     const triggerData = extraFieldsFormToGql(
@@ -96,15 +95,6 @@ export const getGqlPayload =
       subscriptionData.event.extraFields
     );
 
-    let selectors = Object.entries(triggerData).map(([key, value]) => ({
-      type: key,
-      data: value.toString(),
-    }));
-    if (allowedSelectors) {
-      selectors = selectors.filter(({ type }) =>
-        allowedSelectors.includes(type)
-      );
-    }
     const regexData = regexFormToGql(
       !!regexSelectors,
       subscriptionData.event.regexSelector
@@ -115,13 +105,19 @@ export const getGqlPayload =
       method,
       subscriptionData?.notification
     );
+
+    const selectors = Object.entries(triggerData)
+      .map(([key, value]) => ({
+        type: key,
+        data: value.toString(),
+      }))
+      .filter(({ type }) => allowedSelectors.includes(type));
+
     return {
-      id: subscriptionData.id,
-      trigger,
+      owner_type: "project",
+      regex_selectors: regexData,
       resource_type: resourceType,
       selectors: [{ type: "project", data: projectId }, ...selectors],
-      trigger_data: triggerData,
-      regex_selectors: regexData || [],
       subscriber: {
         type: method,
         target: subscriber,
@@ -134,7 +130,8 @@ export const getGqlPayload =
             ? jiraFormToGql(subscriptionData.notification?.jiraIssueInput)
             : undefined,
       },
-      owner_type: "project",
+      trigger,
+      trigger_data: triggerData,
     };
   };
 

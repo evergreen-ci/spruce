@@ -246,6 +246,7 @@ export const getEventSchema = (
                 enum: [
                   ProjectTriggers.ANY_VERSION_FINISHES,
                   ProjectTriggers.ANY_VERSION_FAILS,
+                  ProjectTriggers.ANY_VERSION_SUCCEEDS,
                 ],
               },
               extraFields: {
@@ -264,6 +265,7 @@ export const getEventSchema = (
                 enum: [
                   ProjectTriggers.ANY_BUILD_FINISHES,
                   ProjectTriggers.ANY_BUILD_FAILS,
+                  ProjectTriggers.ANY_BUILD_SUCCEEDS,
                 ],
               },
               extraFields: {
@@ -321,6 +323,10 @@ export const getEventSchema = (
                   [ExtraFieldKey.BUILD_INITIATOR]: buildSelect,
                 },
               },
+              regexSelector: regexSelector(
+                regexEnumsToDisable,
+                taskRegexSelectors
+              ),
             },
           },
           {
