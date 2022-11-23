@@ -114,6 +114,7 @@ export const getGqlPayload =
       .filter(({ type }) => allowedSelectors.includes(type));
 
     return {
+      id: subscriptionData.id,
       owner_type: "project",
       regex_selectors: regexData,
       resource_type: resourceType,
