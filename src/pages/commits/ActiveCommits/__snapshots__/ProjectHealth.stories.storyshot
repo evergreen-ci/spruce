@@ -337,7 +337,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                           aria-checked={true}
                           aria-disabled={false}
                           checked={true}
-                          className="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
+                          className="static-lg-ui-classname leafygreen-ui-347iq9"
                           data-cy="cy-chart-absolute-radio"
                           disabled={false}
                           id="chart-radio-absolute"
@@ -347,10 +347,10 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                           value="absolute"
                         />
                         <div
-                          className="lg-ui-radio-group-0001 leafygreen-ui-1tsb3ci"
+                          className="static-lg-ui-classname leafygreen-ui-1fbekiy"
                         >
                           <div
-                            className="lg-ui-radio-group-0000 leafygreen-ui-13fu653"
+                            className="static-lg-ui-classname leafygreen-ui-1epksbz"
                           />
                         </div>
                         <div>
@@ -368,7 +368,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                         <input
                           aria-disabled={false}
                           checked={false}
-                          className="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
+                          className="static-lg-ui-classname leafygreen-ui-347iq9"
                           data-cy="cy-chart-percent-radio"
                           disabled={false}
                           id="chart-radio-percent"
@@ -378,10 +378,10 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                           value="percentage"
                         />
                         <div
-                          className="lg-ui-radio-group-0001 leafygreen-ui-1tsb3ci"
+                          className="static-lg-ui-classname leafygreen-ui-1fbekiy"
                         >
                           <div
-                            className="lg-ui-radio-group-0000 leafygreen-ui-13fu653"
+                            className="static-lg-ui-classname leafygreen-ui-1epksbz"
                           />
                         </div>
                         <div>

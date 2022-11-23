@@ -424,7 +424,7 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
     >
       <button
         aria-disabled={false}
-        className="lg-ui-button-0000 leafygreen-ui-n2d19n"
+        className="static-lg-ui-classname leafygreen-ui-n2d19n"
         data-cy="add-tag-button"
         disabled={false}
         onClick={[Function]}

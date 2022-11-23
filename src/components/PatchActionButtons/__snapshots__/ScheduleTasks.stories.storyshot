@@ -3,7 +3,7 @@
 exports[`storybook Storyshots Components/Schedule Tasks Schedule Tasks Empty 1`] = `
 <button
   aria-disabled={false}
-  className="lg-ui-button-0000 leafygreen-ui-1t94nwe"
+  className="static-lg-ui-classname leafygreen-ui-1t94nwe"
   data-cy="schedule-patch"
   disabled={false}
   onClick={[Function]}
@@ -23,7 +23,7 @@ exports[`storybook Storyshots Components/Schedule Tasks Schedule Tasks Empty 1`]
 exports[`storybook Storyshots Components/Schedule Tasks Schedule Tasks Populated 1`] = `
 <button
   aria-disabled={false}
-  className="lg-ui-button-0000 leafygreen-ui-1t94nwe"
+  className="static-lg-ui-classname leafygreen-ui-1t94nwe"
   data-cy="schedule-patch"
   disabled={false}
   onClick={[Function]}
