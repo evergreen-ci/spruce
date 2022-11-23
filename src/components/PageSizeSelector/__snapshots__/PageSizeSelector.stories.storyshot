@@ -11,7 +11,7 @@ exports[`storybook Storyshots Components/PageSizeSelector Default 1`] = `
     aria-expanded={false}
     aria-invalid={false}
     aria-labelledby="page-size-select"
-    className="static-lg-ui-classname leafygreen-ui-1t94nwe leafygreen-ui-1lmkto6"
+    className="static-lg-ui-classname leafygreen-ui-hpqfbp"
     data-testid="leafygreen-ui-select-menubutton"
     disabled={false}
     id="select-2"
@@ -37,7 +37,7 @@ exports[`storybook Storyshots Components/PageSizeSelector Default 1`] = `
       <svg
         alt=""
         aria-hidden={true}
-        className="leafygreen-ui-13p6dfv leafygreen-ui-1t9qnhm"
+        className="leafygreen-ui-866818"
         height={16}
         role="presentation"
         viewBox="0 0 16 16"

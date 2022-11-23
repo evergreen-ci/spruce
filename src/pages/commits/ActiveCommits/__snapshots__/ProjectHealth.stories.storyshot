@@ -459,7 +459,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
              add ssh key to EditSpawnHos...
           </p>
           <small
-            className="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-ppjyot"
+            className="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-q4itxe"
             onBlur={[Function]}
             onFocus={[Function]}
             onMouseEnter={[Function]}
@@ -509,7 +509,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             Triggered From Git Tag 'v2.11.1': v2....
           </p>
           <small
-            className="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-ppjyot"
+            className="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-q4itxe"
             onBlur={[Function]}
             onFocus={[Function]}
             onMouseEnter={[Function]}
@@ -594,7 +594,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
              Correctly visit configure p...
           </p>
           <small
-            className="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-ppjyot"
+            className="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-q4itxe"
             onBlur={[Function]}
             onFocus={[Function]}
             onMouseEnter={[Function]}
@@ -644,7 +644,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             Remove navigation announcement toast ...
           </p>
           <small
-            className="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-ppjyot"
+            className="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-q4itxe"
             onBlur={[Function]}
             onFocus={[Function]}
             onMouseEnter={[Function]}
@@ -694,7 +694,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             Triggered From Git Tag 'v2.11.0': v2....
           </p>
           <small
-            className="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-ppjyot"
+            className="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-q4itxe"
             onBlur={[Function]}
             onFocus={[Function]}
             onMouseEnter={[Function]}

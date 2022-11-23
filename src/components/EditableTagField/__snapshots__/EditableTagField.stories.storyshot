@@ -30,11 +30,11 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
               className="leafygreen-ui-lzja97"
             >
               <div
-                className="leafygreen-ui-1i2djk5"
+                className="leafygreen-ui-1cen7zh leafygreen-ui-1ago99h"
               >
                 <input
                   autoComplete="on"
-                  className="leafygreen-ui-1il5lef"
+                  className="leafygreen-ui-pppkef leafygreen-ui-exxjz2"
                   data-cy="user-tag-key-field"
                   disabled={false}
                   id="tag_key_undefined"
@@ -77,11 +77,11 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
               className="leafygreen-ui-lzja97"
             >
               <div
-                className="leafygreen-ui-1i2djk5"
+                className="leafygreen-ui-1cen7zh leafygreen-ui-1ago99h"
               >
                 <input
                   autoComplete="on"
-                  className="leafygreen-ui-1il5lef"
+                  className="leafygreen-ui-pppkef leafygreen-ui-exxjz2"
                   data-cy="user-tag-value-field"
                   disabled={false}
                   id="tag_value_undefined"
@@ -167,11 +167,11 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
               className="leafygreen-ui-lzja97"
             >
               <div
-                className="leafygreen-ui-1i2djk5"
+                className="leafygreen-ui-1cen7zh leafygreen-ui-1ago99h"
               >
                 <input
                   autoComplete="on"
-                  className="leafygreen-ui-1il5lef"
+                  className="leafygreen-ui-pppkef leafygreen-ui-exxjz2"
                   data-cy="user-tag-key-field"
                   disabled={false}
                   id="tag_key_undefined"
@@ -214,11 +214,11 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
               className="leafygreen-ui-lzja97"
             >
               <div
-                className="leafygreen-ui-1i2djk5"
+                className="leafygreen-ui-1cen7zh leafygreen-ui-1ago99h"
               >
                 <input
                   autoComplete="on"
-                  className="leafygreen-ui-1il5lef"
+                  className="leafygreen-ui-pppkef leafygreen-ui-exxjz2"
                   data-cy="user-tag-value-field"
                   disabled={false}
                   id="tag_value_undefined"
@@ -304,11 +304,11 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
               className="leafygreen-ui-lzja97"
             >
               <div
-                className="leafygreen-ui-1i2djk5"
+                className="leafygreen-ui-1cen7zh leafygreen-ui-1ago99h"
               >
                 <input
                   autoComplete="on"
-                  className="leafygreen-ui-1il5lef"
+                  className="leafygreen-ui-pppkef leafygreen-ui-exxjz2"
                   data-cy="user-tag-key-field"
                   disabled={false}
                   id="tag_key_undefined"
@@ -351,11 +351,11 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
               className="leafygreen-ui-lzja97"
             >
               <div
-                className="leafygreen-ui-1i2djk5"
+                className="leafygreen-ui-1cen7zh leafygreen-ui-1ago99h"
               >
                 <input
                   autoComplete="on"
-                  className="leafygreen-ui-1il5lef"
+                  className="leafygreen-ui-pppkef leafygreen-ui-exxjz2"
                   data-cy="user-tag-value-field"
                   disabled={false}
                   id="tag_value_undefined"

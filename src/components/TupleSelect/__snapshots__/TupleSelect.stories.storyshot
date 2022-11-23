@@ -32,7 +32,7 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
           aria-expanded={false}
           aria-invalid={false}
           aria-labelledby="Tuple Select"
-          className="static-lg-ui-classname leafygreen-ui-n2d19n leafygreen-ui-5qxdhb"
+          className="static-lg-ui-classname leafygreen-ui-23wnbt"
           data-cy="tuple-select-dropdown"
           data-testid="leafygreen-ui-select-menubutton"
           disabled={false}
@@ -59,7 +59,7 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
             <svg
               alt=""
               aria-hidden={true}
-              className="leafygreen-ui-13p6dfv leafygreen-ui-1t9qnhm"
+              className="leafygreen-ui-866818"
               height={16}
               role="presentation"
               viewBox="0 0 16 16"
@@ -83,12 +83,12 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
             className="leafygreen-ui-lzja97"
           >
             <div
-              className="leafygreen-ui-1i2djk5"
+              className="leafygreen-ui-1cen7zh leafygreen-ui-1ago99h"
             >
               <input
                 aria-label="Tuple Search"
                 autoComplete="on"
-                className="leafygreen-ui-1il5lef"
+                className="leafygreen-ui-pppkef leafygreen-ui-exxjz2"
                 data-cy="tuple-select-input"
                 disabled={false}
                 id="filter-input"
