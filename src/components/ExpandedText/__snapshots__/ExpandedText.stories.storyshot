@@ -2,7 +2,7 @@
 
 exports[`storybook Storyshots Components/ExpandedText Sample 1`] = `
 <small
-  className="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-ppjyot"
+  className="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-q4itxe"
   onBlur={[Function]}
   onFocus={[Function]}
   onMouseEnter={[Function]}

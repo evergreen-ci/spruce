@@ -75,7 +75,7 @@ exports[`storybook Storyshots Pages/Spawn/Public Key Form Public Key Form View 1
       aria-expanded={false}
       aria-invalid={false}
       aria-labelledby="select-17-label"
-      className="lg-ui-button-0000 leafygreen-ui-23wnbt"
+      className="static-lg-ui-classname leafygreen-ui-23wnbt"
       data-testid="leafygreen-ui-select-menubutton"
       disabled={false}
       id="select-18"
@@ -101,7 +101,7 @@ exports[`storybook Storyshots Pages/Spawn/Public Key Form Public Key Form View 1
         <svg
           alt=""
           aria-hidden={true}
-          className="leafygreen-ui-13p6dfv leafygreen-ui-1t9qnhm"
+          className="leafygreen-ui-866818"
           height={16}
           role="presentation"
           viewBox="0 0 16 16"

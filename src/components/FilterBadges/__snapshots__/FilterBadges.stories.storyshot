@@ -68,11 +68,11 @@ exports[`storybook Storyshots Components/FilterBadges Default 1`] = `
         className="leafygreen-ui-lzja97"
       >
         <div
-          className="leafygreen-ui-1i2djk5"
+          className="leafygreen-ui-1cen7zh leafygreen-ui-1ago99h"
         >
           <input
             autoComplete="on"
-            className="leafygreen-ui-1il5lef"
+            className="leafygreen-ui-pppkef leafygreen-ui-exxjz2"
             disabled={false}
             id="textinput-13"
             onBlur={[Function]}
@@ -107,11 +107,11 @@ exports[`storybook Storyshots Components/FilterBadges Default 1`] = `
         className="leafygreen-ui-lzja97"
       >
         <div
-          className="leafygreen-ui-1i2djk5"
+          className="leafygreen-ui-1cen7zh leafygreen-ui-1ago99h"
         >
           <input
             autoComplete="on"
-            className="leafygreen-ui-1il5lef"
+            className="leafygreen-ui-pppkef leafygreen-ui-exxjz2"
             disabled={false}
             id="textinput-14"
             onBlur={[Function]}

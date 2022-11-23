@@ -28,12 +28,12 @@ exports[`storybook Storyshots Components/History Table/HistoryTableTestSearch Te
           className="leafygreen-ui-lzja97"
         >
           <div
-            className="leafygreen-ui-1i2djk5"
+            className="leafygreen-ui-1cen7zh leafygreen-ui-1ago99h"
           >
             <input
               aria-label="history-table-test-search-input"
               autoComplete="on"
-              className="leafygreen-ui-1il5lef"
+              className="leafygreen-ui-pppkef leafygreen-ui-exxjz2"
               disabled={false}
               id="textinput-15"
               onBlur={[Function]}
