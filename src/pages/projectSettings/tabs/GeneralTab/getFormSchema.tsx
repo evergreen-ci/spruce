@@ -5,7 +5,7 @@ import { versionControlDocumentationUrl } from "constants/externalResources";
 import { GetFormSchema } from "../types";
 import { form, ProjectType } from "../utils";
 import {
-  DeactivateStepbackTasksField,
+  DeactivateStepbackTaskField,
   RepoConfigField,
   RepotrackerField,
 } from "./Fields";
@@ -22,7 +22,7 @@ export const getFormSchema = (
   repoData?: FormState
 ): ReturnType<GetFormSchema> => ({
   fields: {
-    deactivateStepbackTasks: DeactivateStepbackTasksField,
+    deactivateStepbackTask: DeactivateStepbackTaskField,
     repoConfigField: RepoConfigField,
     repotrackerField: RepotrackerField,
   },
@@ -150,6 +150,15 @@ export const getFormSchema = (
                 oneOf: radioBoxOptions(
                   ["Unschedule", "Don't Unschedule"],
                   repoData?.projectFlags?.scheduling?.deactivatePrevious
+                ),
+              },
+              stepbackDisabled: {
+                type: ["boolean", "null"],
+                title: "Stepback",
+                oneOf: radioBoxOptions(
+                  ["Enabled", "Disabled"],
+                  repoData?.projectFlags?.scheduling?.stepbackDisabled,
+                  true
                 ),
               },
               deactivateStepback: {
@@ -332,8 +341,13 @@ export const getFormSchema = (
           "ui:description":
             "When unscheduled, tasks from previous revisions will be unscheduled when the equivalent task in a newer commit finishes successfully.",
         },
+        stepbackDisabled: {
+          "ui:widget": widgets.RadioBoxWidget,
+          "ui:description":
+            "Disabling this setting will override all enabled stepback settings for the project. Disabling stepback won't cancel any active stepback tasks, but it will prevent any future ones.",
+        },
         deactivateStepback: {
-          "ui:field": "deactivateStepbackTasks",
+          "ui:field": "deactivateStepbackTask",
           "ui:showLabel": false,
           options: { projectId },
         },

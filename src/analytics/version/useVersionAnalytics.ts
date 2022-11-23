@@ -36,6 +36,7 @@ type Action =
   | { name: "Click Grouped Task Square"; taskSquareStatuses: string | string[] }
   | { name: "Click Build Variant Grid Link" }
   | { name: "Click Reconfigure Link" }
+  | { name: "Click Project Patches Metadata Link" }
   | { name: "Enqueue" }
   | { name: "Open Notification Modal" }
   | { name: "Click Task Table Link"; taskId: string }
