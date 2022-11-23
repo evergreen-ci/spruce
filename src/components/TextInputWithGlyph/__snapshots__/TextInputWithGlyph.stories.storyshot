@@ -16,7 +16,7 @@ exports[`storybook Storyshots Components/TextInputWithGlyph Default 1`] = `
     >
       <label
         className="leafygreen-ui-ly82bp"
-        htmlFor="textinput-18"
+        htmlFor="textinput-1"
       >
         Some search field
       </label>
@@ -24,13 +24,13 @@ exports[`storybook Storyshots Components/TextInputWithGlyph Default 1`] = `
         className="leafygreen-ui-lzja97"
       >
         <div
-          className="leafygreen-ui-1i2djk5"
+          className="leafygreen-ui-1cen7zh leafygreen-ui-1ago99h"
         >
           <input
             autoComplete="on"
-            className="leafygreen-ui-1il5lef"
+            className="leafygreen-ui-pppkef leafygreen-ui-exxjz2"
             disabled={false}
-            id="textinput-18"
+            id="textinput-1"
             onBlur={[Function]}
             onChange={[Function]}
             onFocus={[Function]}
