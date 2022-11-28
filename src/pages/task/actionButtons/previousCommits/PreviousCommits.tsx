@@ -184,7 +184,6 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
             justify="middle"
             triggerEvent="hover"
             trigger={children}
-            darkMode
           >
             {loading
               ? `Fetching...`

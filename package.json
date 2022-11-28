@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "2.36.55",
+  "version": "2.36.58",
   "private": true,
   "scripts": {
     "build-storybook": "NODE_OPTIONS=--max-old-space-size=6144 build-storybook",
@@ -79,7 +79,7 @@
     "@leafygreen-ui/menu": "18.0.0",
     "@leafygreen-ui/modal": "12.0.0",
     "@leafygreen-ui/palette": "3.4.4",
-    "@leafygreen-ui/popover": "7.2.2",
+    "@leafygreen-ui/popover": "11.0.0",
     "@leafygreen-ui/radio-box-group": "12.0.0",
     "@leafygreen-ui/radio-group": "10.0.0",
     "@leafygreen-ui/segmented-control": "5.0.0",
@@ -91,7 +91,7 @@
     "@leafygreen-ui/text-input": "6.0.5",
     "@leafygreen-ui/toast": "4.0.0",
     "@leafygreen-ui/toggle": "10.0.0",
-    "@leafygreen-ui/tooltip": "6.3.1",
+    "@leafygreen-ui/tooltip": "9.0.0",
     "@leafygreen-ui/typography": "14.0.0",
     "@rjsf/core": "4.2.0",
     "ansi_up": "5.1.0",

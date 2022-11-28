@@ -43,6 +43,7 @@ export const gqlToForm: GqlToFormFunction<Tab> = (
       dispatchingDisabled: projectRef.dispatchingDisabled,
       scheduling: {
         deactivatePrevious: projectRef.deactivatePrevious,
+        stepbackDisabled: projectRef.stepbackDisabled,
         deactivateStepback: null,
       },
       repotracker: {
@@ -97,6 +98,7 @@ export const formToGql: FormToGqlFunction<Tab> = (
     dispatchingDisabled: projectFlags.dispatchingDisabled,
     deactivatePrevious: projectFlags.scheduling.deactivatePrevious,
     repotrackerDisabled: projectFlags.repotracker.repotrackerDisabled,
+    stepbackDisabled: projectFlags.scheduling.stepbackDisabled,
     patchingDisabled: projectFlags.patch.patchingDisabled,
     taskSync: {
       configEnabled: projectFlags.taskSync.configEnabled,

@@ -53,7 +53,7 @@ export const TaskStatusIconLegend: React.VFC = () => {
       >
         <StyledPopoverContainer>
           <TitleContainer>
-            <Overline>NEW ICONS LEGEND</Overline>
+            <Overline>Icon Legend</Overline>
             <IconButton
               onClick={() => {
                 sendEvent({

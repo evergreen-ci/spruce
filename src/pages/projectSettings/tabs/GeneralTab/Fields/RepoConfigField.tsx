@@ -77,7 +77,7 @@ export const RepoConfigField: Field = ({
                 </Tooltip>
               )}
             >
-              <ButtonWrapper>
+              <ButtonWrapper data-cy="attach-repo-button-wrapper">
                 <Button
                   size="small"
                   onClick={() => setAttachModalOpen(true)}

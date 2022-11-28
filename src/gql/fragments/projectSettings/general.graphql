@@ -11,6 +11,7 @@ fragment projectGeneralSettings on Project {
   versionControlEnabled
   deactivatePrevious
   repotrackerDisabled
+  stepbackDisabled
   patchingDisabled
   taskSync {
     configEnabled
@@ -33,6 +34,7 @@ fragment repoGeneralSettings on RepoRef {
   versionControlEnabled
   deactivatePrevious
   repotrackerDisabled
+  stepbackDisabled
   patchingDisabled
   taskSync {
     configEnabled

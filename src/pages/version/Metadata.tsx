@@ -68,7 +68,12 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
       <MetadataItem>
         Project:{" "}
         {projectIdentifier ? (
-          <StyledRouterLink to={getProjectPatchesRoute(projectIdentifier)}>
+          <StyledRouterLink
+            to={getProjectPatchesRoute(projectIdentifier)}
+            onClick={() =>
+              sendEvent({ name: "Click Project Patches Metadata Link" })
+            }
+          >
             {projectIdentifier}
           </StyledRouterLink>
         ) : (
