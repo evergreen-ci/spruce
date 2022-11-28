@@ -41,6 +41,7 @@ export const GroupedTaskStatusBadge: React.VFC<GroupedTaskStatusBadgeProps> = ({
       align="top"
       justify="middle"
       popoverZIndex={zIndex.tooltip}
+      darkMode
       trigger={
         <div>
           <Link
