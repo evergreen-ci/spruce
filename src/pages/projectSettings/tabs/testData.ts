@@ -20,6 +20,7 @@ const projectBase: ProjectSettingsQuery["projectSettings"] = {
     deactivatePrevious: null,
     repotrackerDisabled: null,
     patchingDisabled: null,
+    stepbackDisabled: null,
     taskSync: {
       configEnabled: null,
       patchEnabled: null,
@@ -125,6 +126,7 @@ const repoBase: RepoSettingsQuery["repoSettings"] = {
     repotrackerDisabled: false,
     notifyOnBuildFailure: false,
     patchingDisabled: false,
+    stepbackDisabled: true,
     taskSync: {
       configEnabled: true,
       patchEnabled: true,

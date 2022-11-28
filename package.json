@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "2.36.55",
+  "version": "2.36.58",
   "private": true,
   "scripts": {
     "build-storybook": "NODE_OPTIONS=--max-old-space-size=6144 build-storybook",
