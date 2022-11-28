@@ -4259,13 +4259,6 @@
     "@leafygreen-ui/portal" "^4.0.7"
     react-transition-group "^4.4.1"
 
-"@leafygreen-ui/portal@^4.0.0":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/portal/-/portal-4.0.1.tgz#a1428ea990b73810b33e772dceaa4cf4ca9024ac"
-  integrity sha512-H+CBvvStKHx3c8TvU1zhKTa05zPjZR9ezeL2gGPZJyIAH45umiBtAT+7RHnPSj7MSfnp4685RcBNN4DNHrMhxw==
-  dependencies:
-    "@leafygreen-ui/lib" "^9.0.0"
-
 "@leafygreen-ui/portal@^4.0.6":
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/portal/-/portal-4.0.6.tgz#0f73b30eaf74b4bb9e413cacc2fee4243b028397"
