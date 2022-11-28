@@ -53,22 +53,6 @@ describe("createProjectField", () => {
     expect(screen.queryByDataCy("new-project-button")).not.toBeInTheDocument();
   });
 
-  describe("when looking at a repo", () => {
-    it("clicking the button opens the new project modal", async () => {
-      const { Component } = RenderFakeToastContext(
-        <Button projectType={ProjectType.Repo} />
-      );
-      render(<Component />);
-
-      await screen.findByText("New Project");
-      userEvent.click(screen.queryByDataCy("new-project-button"));
-      await waitFor(() =>
-        expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
-      );
-      expect(screen.queryByDataCy("new-project-menu")).not.toBeInTheDocument();
-    });
-  });
-
   describe("when looking at a project", () => {
     it("clicking the button opens the menu", async () => {
       const { Component } = RenderFakeToastContext(<Button />);
@@ -79,38 +63,6 @@ describe("createProjectField", () => {
       await waitFor(() =>
         expect(screen.queryByDataCy("new-project-menu")).toBeVisible()
       );
-    });
-
-    it("clicking the 'Create New Project' button opens the create project modal and closes the menu", async () => {
-      const { Component } = RenderFakeToastContext(<Button />);
-      render(<Component />);
-
-      await screen.findByText("New Project");
-      userEvent.click(screen.queryByDataCy("new-project-button"));
-      await waitFor(() =>
-        expect(screen.queryByDataCy("new-project-menu")).toBeVisible()
-      );
-      userEvent.click(screen.queryByDataCy("create-project-button"));
-      await waitFor(() =>
-        expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
-      );
-      expect(screen.queryByDataCy("new-project-menu")).not.toBeInTheDocument();
-    });
-
-    it("clicking the 'Duplicate Project' button opens the create project modal and closes the menu", async () => {
-      const { Component } = RenderFakeToastContext(<Button />);
-      render(<Component />);
-
-      await screen.findByText("New Project");
-      userEvent.click(screen.queryByDataCy("new-project-button"));
-      await waitFor(() =>
-        expect(screen.queryByDataCy("new-project-menu")).toBeVisible()
-      );
-      userEvent.click(screen.queryByDataCy("copy-project-button"));
-      await waitFor(() =>
-        expect(screen.queryByDataCy("copy-project-modal")).toBeVisible()
-      );
-      expect(screen.queryByDataCy("new-project-menu")).not.toBeInTheDocument();
     });
   });
 });
