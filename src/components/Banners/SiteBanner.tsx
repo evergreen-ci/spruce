@@ -29,7 +29,7 @@ export const SiteBanner = () => {
         data-cy="sitewide-banner"
         dismissible
         onClick={hideBanner}
-        variant={mapThemeToVariant?.[theme] ?? Variant.Success}
+        variant={mapThemeToVariant?.[theme] ?? Variant.Info}
       >
         {jiraLinkify(text, jiraHost)}
       </Banner>
