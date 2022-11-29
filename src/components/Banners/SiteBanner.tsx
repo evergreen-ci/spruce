@@ -23,18 +23,17 @@ export const SiteBanner = () => {
     Cookies.set(text, "viewed", { expires: 7 });
   };
 
-  return (
-    showBanner && (
-      <Banner
-        data-cy="sitewide-banner"
-        dismissible
-        onClick={hideBanner}
-        variant={mapThemeToVariant?.[theme] ?? Variant.Info}
-      >
-        {jiraLinkify(text, jiraHost)}
-      </Banner>
-    )
-  );
+  const variant = mapThemeToVariant?.[theme] ?? Variant.Info;
+  return showBanner ? (
+    <Banner
+      data-cy={`sitewide-banner-${variant}`}
+      dismissible
+      onClick={hideBanner}
+      variant={variant}
+    >
+      {jiraLinkify(text, jiraHost)}
+    </Banner>
+  ) : null;
 };
 
 const mapThemeToVariant: Record<string, Variant> = {

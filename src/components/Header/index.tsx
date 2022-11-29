@@ -31,9 +31,7 @@ const StyledHeader = styled.header`
 `;
 
 const BannerContainer = styled.div`
-  padding: 12px;
-
-  > :not(:last-of-type) {
-    margin-bottom: 12px;
+  > * {
+    margin: 12px;
   }
 `;

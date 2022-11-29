@@ -25,19 +25,14 @@ export const GithubUsernameBanner = () => {
   const { lastKnownAs } = githubUser || {};
   const hasNoGithubUser = lastKnownAs === "";
 
-  return (
-    isPatchesPage &&
-    hasNoGithubUser && (
-      <Banner data-cy="github-username-banner" variant="warning">
-        Please set your GitHub username on the{" "}
-        <StyledRouterLink
-          to={getPreferencesRoute(PreferencesTabRoutes.Profile)}
-        >
-          settings page
-        </StyledRouterLink>
-        . Evergreen uses this to map GitHub pull requests to your Evergreen user
-        account.
-      </Banner>
-    )
-  );
+  return isPatchesPage && hasNoGithubUser ? (
+    <Banner data-cy="github-username-banner" variant="warning">
+      Please set your GitHub username on the{" "}
+      <StyledRouterLink to={getPreferencesRoute(PreferencesTabRoutes.Profile)}>
+        settings page
+      </StyledRouterLink>
+      . Evergreen uses this to map GitHub pull requests to your Evergreen user
+      account.
+    </Banner>
+  ) : null;
 };

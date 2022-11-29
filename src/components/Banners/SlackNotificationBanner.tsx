@@ -85,46 +85,42 @@ export const SlackNotificationBanner = () => {
 
   const showSlackBanner = !hasClosedBanner && !hasSetNotifications;
 
-  return (
-    showSlackBanner && (
-      <Banner
-        variant="info"
-        data-cy="slack-notification-banner"
-        dismissible
-        onClose={hideBanner}
+  return showSlackBanner ? (
+    <Banner
+      variant="info"
+      data-cy="slack-notification-banner"
+      dismissible
+      onClose={hideBanner}
+    >
+      You can receive a Slack notification when your patch is ready.
+      <Popconfirm
+        title={
+          <TextInput
+            label="Slack Username"
+            data-cy="slack-username-input"
+            value={slackUsername}
+            onChange={(e) => setSlackUsername(e.target.value)}
+            onKeyPress={(e) => e.key === "Enter" && saveNotificationSettings()}
+            autoFocus
+          />
+        }
+        onConfirm={() => saveNotificationSettings()}
+        okText="Save"
+        cancelText="Cancel"
+        okButtonProps={{
+          loading: loadingUpdateUserSettings,
+          disabled: !slackUsername,
+        }}
+        cancelButtonProps={{ disabled: loadingUpdateUserSettings }}
+        icon={null}
       >
-        You can receive a Slack notification when your patch is ready.
-        <Popconfirm
-          title={
-            <TextInput
-              label="Slack Username"
-              data-cy="slack-username-input"
-              value={slackUsername}
-              onChange={(e) => setSlackUsername(e.target.value)}
-              onKeyPress={(e) =>
-                e.key === "Enter" && saveNotificationSettings()
-              }
-              autoFocus
-            />
-          }
-          onConfirm={() => saveNotificationSettings()}
-          okText="Save"
-          cancelText="Cancel"
-          okButtonProps={{
-            loading: loadingUpdateUserSettings,
-            disabled: !slackUsername,
-          }}
-          cancelButtonProps={{ disabled: loadingUpdateUserSettings }}
-          icon={null}
-        >
-          {" "}
-          <SubscribeButton data-cy="subscribe-to-notifications">
-            Subscribe
-          </SubscribeButton>
-        </Popconfirm>
-      </Banner>
-    )
-  );
+        {" "}
+        <SubscribeButton data-cy="subscribe-to-notifications">
+          Subscribe
+        </SubscribeButton>
+      </Popconfirm>
+    </Banner>
+  ) : null;
 };
 
 const isNotificationSet = (field: string) =>
