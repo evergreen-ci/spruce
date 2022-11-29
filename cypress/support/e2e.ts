@@ -100,6 +100,11 @@ declare global {
         message?: string,
         shouldClose?: boolean
       ): void;
+      /**
+       * Close a dismissible LeafyGreen banner with the given data-cy property.
+       * @example cy.closeBanner("slack-notification")
+       */
+      closeBanner(dataCy: string): void;
     }
   }
 }

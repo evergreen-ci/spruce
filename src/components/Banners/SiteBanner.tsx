@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
-import Icon from "@leafygreen-ui/icon";
-import IconButton from "@leafygreen-ui/icon-button";
+import Banner, { Variant } from "@leafygreen-ui/banner";
 import Cookies from "js-cookie";
 import { useSpruceConfig } from "hooks";
 import { jiraLinkify } from "utils/string/jiraLinkify";
-import { DismissibleBanner } from "./styles";
 
 export const SiteBanner = () => {
   const spruceConfig = useSpruceConfig();
@@ -27,16 +25,21 @@ export const SiteBanner = () => {
 
   return (
     showBanner && (
-      <DismissibleBanner bannerTheme={theme} data-cy="sitewide-banner">
-        <span>{jiraLinkify(text, jiraHost)}</span>
-        <IconButton
-          aria-label="Close Site Banner"
-          onClick={hideBanner}
-          data-cy="dismiss-sitewide-banner-button"
-        >
-          <Icon glyph="X" />{" "}
-        </IconButton>
-      </DismissibleBanner>
+      <Banner
+        data-cy="sitewide-banner"
+        dismissible
+        onClick={hideBanner}
+        variant={mapThemeToVariant?.[theme] ?? Variant.Success}
+      >
+        {jiraLinkify(text, jiraHost)}
+      </Banner>
     )
   );
+};
+
+const mapThemeToVariant: Record<string, Variant> = {
+  announcement: Variant.Success,
+  information: Variant.Info,
+  warning: Variant.Warning,
+  important: Variant.Danger,
 };

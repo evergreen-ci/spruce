@@ -16,14 +16,24 @@ export const Header: React.VFC = () => {
   return (
     <StyledHeader>
       <Navbar />
-      <ConnectivityBanner />
-      <SiteBanner />
-      <SlackNotificationBanner />
-      <GithubUsernameBanner />
+      <BannerContainer>
+        <SiteBanner />
+        <ConnectivityBanner />
+        <GithubUsernameBanner />
+        <SlackNotificationBanner />
+      </BannerContainer>
     </StyledHeader>
   );
 };
 
 const StyledHeader = styled.header`
   grid-area: header;
+`;
+
+const BannerContainer = styled.div`
+  padding: 12px;
+
+  > :not(:last-of-type) {
+    margin-bottom: 12px;
+  }
 `;

@@ -13,7 +13,7 @@ describe("Announcement overlays", () => {
 
   it("Should not show a Sitewide banner after it has been dismissed", () => {
     cy.dataCy("sitewide-banner").should("exist");
-    cy.dataCy("dismiss-sitewide-banner-button").click();
+    cy.closeBanner("sitewide-banner");
     cy.dataCy("sitewide-banner").should("not.exist");
     cy.visit("/");
     cy.dataCy("sitewide-banner").should("not.exist");

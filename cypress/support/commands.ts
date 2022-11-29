@@ -98,3 +98,8 @@ Cypress.Commands.add(
     }
   }
 );
+
+/* closeBanner */
+Cypress.Commands.add("closeBanner", (dataCy: string) => {
+  cy.dataCy(dataCy).within(() => cy.get("[aria-label='X Icon']").click());
+});
