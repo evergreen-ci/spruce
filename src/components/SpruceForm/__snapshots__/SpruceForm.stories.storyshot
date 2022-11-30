@@ -257,7 +257,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                 >
                   <button
                     aria-disabled={false}
-                    className="leafygreen-ui-26sqyb"
+                    className="leafygreen-ui-1jc9h6q"
                     data-cy="delete-item-button"
                     disabled={false}
                     onClick={[Function]}
