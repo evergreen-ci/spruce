@@ -53,6 +53,24 @@ describe("createDuplicateProjectField", () => {
     expect(screen.queryByDataCy("new-project-button")).not.toBeInTheDocument();
   });
 
+  // Flakiness will be addressed in EVG-18333
+  // eslint-disable-next-line jest/no-disabled-tests
+  describe.skip("when looking at a repo", () => {
+    it("clicking the button opens the new project modal", async () => {
+      const { Component } = RenderFakeToastContext(
+        <Button projectType={ProjectType.Repo} />
+      );
+      render(<Component />);
+
+      await screen.findByText("New Project");
+      userEvent.click(screen.queryByDataCy("new-project-button"));
+      await waitFor(() =>
+        expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
+      );
+      expect(screen.queryByDataCy("new-project-menu")).not.toBeInTheDocument();
+    });
+  });
+
   describe("when looking at a project", () => {
     it("clicking the button opens the menu", async () => {
       const { Component } = RenderFakeToastContext(<Button />);
@@ -63,6 +81,42 @@ describe("createDuplicateProjectField", () => {
       await waitFor(() =>
         expect(screen.queryByDataCy("new-project-menu")).toBeVisible()
       );
+    });
+
+    // Flakiness will be addressed in EVG-18333
+    // eslint-disable-next-line jest/no-disabled-tests
+    it.skip("clicking the 'Create New Project' button opens the create project modal and closes the menu", async () => {
+      const { Component } = RenderFakeToastContext(<Button />);
+      render(<Component />);
+
+      await screen.findByText("New Project");
+      userEvent.click(screen.queryByDataCy("new-project-button"));
+      await waitFor(() =>
+        expect(screen.queryByDataCy("new-project-menu")).toBeVisible()
+      );
+      userEvent.click(screen.queryByDataCy("create-project-button"));
+      await waitFor(() =>
+        expect(screen.queryByDataCy("create-project-modal")).toBeVisible()
+      );
+      expect(screen.queryByDataCy("new-project-menu")).not.toBeInTheDocument();
+    });
+
+    // Flakiness will be addressed in EVG-18333
+    // eslint-disable-next-line jest/no-disabled-tests
+    it.skip("clicking the 'Duplicate Project' button opens the create project modal and closes the menu", async () => {
+      const { Component } = RenderFakeToastContext(<Button />);
+      render(<Component />);
+
+      await screen.findByText("New Project");
+      userEvent.click(screen.queryByDataCy("new-project-button"));
+      await waitFor(() =>
+        expect(screen.queryByDataCy("new-project-menu")).toBeVisible()
+      );
+      userEvent.click(screen.queryByDataCy("copy-project-button"));
+      await waitFor(() =>
+        expect(screen.queryByDataCy("copy-project-modal")).toBeVisible()
+      );
+      expect(screen.queryByDataCy("new-project-menu")).not.toBeInTheDocument();
     });
   });
 });

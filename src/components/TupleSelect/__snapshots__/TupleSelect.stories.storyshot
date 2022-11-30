@@ -26,8 +26,8 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
         className="leafygreen-ui-1nkq8lt css-17m5hmx-GroupedSelect e5gn9hl1"
       >
         <button
-          aria-controls="select-1-menu"
-          aria-describedby="select-1-description"
+          aria-controls="select-13-menu"
+          aria-describedby="select-13-description"
           aria-disabled={false}
           aria-expanded={false}
           aria-invalid={false}
@@ -36,7 +36,7 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
           data-cy="tuple-select-dropdown"
           data-testid="leafygreen-ui-select-menubutton"
           disabled={false}
-          id="select-2"
+          id="select-14"
           onClick={[Function]}
           type="button"
           value="buildVariants"

@@ -19,7 +19,7 @@ exports[`storybook Storyshots Components/Searchable Dropdown Custom Option 1`] =
     >
       <button
         aria-disabled={false}
-        className="static-lg-ui-classname leafygreen-ui-n2d19n css-mbqq81-StyledButton e1yw4j302"
+        className="static-lg-ui-classname leafygreen-ui-n2d19n css-129de3f-StyledButton-menuButtonStyleOverrides e1yw4j302"
         data-cy="searchable-dropdown"
         disabled={false}
         onClick={[Function]}
@@ -89,7 +89,7 @@ exports[`storybook Storyshots Components/Searchable Dropdown Default 1`] = `
     >
       <button
         aria-disabled={false}
-        className="static-lg-ui-classname leafygreen-ui-n2d19n css-mbqq81-StyledButton e1yw4j302"
+        className="static-lg-ui-classname leafygreen-ui-n2d19n css-129de3f-StyledButton-menuButtonStyleOverrides e1yw4j302"
         data-cy="searchable-dropdown"
         disabled={false}
         onClick={[Function]}
@@ -159,7 +159,7 @@ exports[`storybook Storyshots Components/Searchable Dropdown Multiselect 1`] = `
     >
       <button
         aria-disabled={false}
-        className="static-lg-ui-classname leafygreen-ui-n2d19n css-mbqq81-StyledButton e1yw4j302"
+        className="static-lg-ui-classname leafygreen-ui-n2d19n css-129de3f-StyledButton-menuButtonStyleOverrides e1yw4j302"
         data-cy="searchable-dropdown"
         disabled={false}
         onClick={[Function]}
