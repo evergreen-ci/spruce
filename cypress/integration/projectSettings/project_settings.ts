@@ -1046,7 +1046,7 @@ describe("Notifications", () => {
     cy.dataCy("expandable-card").scrollIntoView();
     cy.dataCy("expandable-card").should(
       "contain.text",
-      "Version outcome  - mohamed.khelif@mongodb.com"
+      "Version family-outcome  - mohamed.khelif@mongodb.com"
     );
   });
   it("should be able to delete a subscription", () => {
