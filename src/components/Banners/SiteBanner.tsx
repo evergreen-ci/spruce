@@ -23,7 +23,7 @@ export const SiteBanner = () => {
     Cookies.set(text, "viewed", { expires: 7 });
   };
 
-  const variant = mapThemeToVariant?.[theme] ?? Variant.Info;
+  const variant = mapThemeToVariant[theme] ?? Variant.Info;
   return showBanner ? (
     <Banner
       data-cy={`sitewide-banner-${variant}`}
