@@ -49,7 +49,7 @@ const FilterBadge: React.VFC<FilterBadgeProps> = ({ badge, onClose }) => {
         data-cy="filter-badge"
       >
         <BadgeContent>
-          {badge.key} : {trimmedBadgeName}
+          {badge.key}: {trimmedBadgeName}
         </BadgeContent>
         <ClickableIcon data-cy="close-badge" glyph="X" onClick={onClose} />
       </PaddedBadge>
@@ -71,7 +71,7 @@ const PaddedBadge = styled(Badge)`
   }
   margin-right: ${size.s};
   margin-bottom: ${size.m};
-  width: 260px;
+  padding-right: ${size.m};
 
   position: relative;
   :hover {

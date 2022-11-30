@@ -134,7 +134,7 @@ describe("commits page", () => {
         .type("Ubuntu")
         .type("{enter}");
       cy.dataCy("filter-badge").should("have.length", 1);
-      cy.dataCy("filter-badge").should("have.text", "buildVariants : Ubuntu");
+      cy.dataCy("filter-badge").should("have.text", "buildVariants: Ubuntu");
       cy.location("search").should("contain", "?buildVariants=Ubuntu");
       cy.dataCy("grouped-task-status-badge").should("have.length", 5);
       cy.dataCy("waterfall-task-status-icon").should("have.length", 1);

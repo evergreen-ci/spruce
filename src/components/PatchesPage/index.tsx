@@ -83,7 +83,7 @@ export const PatchesPage: React.VFC<Props> = ({
         <TextInputWithGlyph
           icon={<Icon glyph="MagnifyingGlass" />}
           type="search"
-          aria-label="patch-description-input"
+          aria-label="Search patch descriptions"
           placeholder="Patch description regex"
           onChange={(e) => setAndSubmitInputValue(e.target.value)}
           value={inputValue}

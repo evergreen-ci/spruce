@@ -6,14 +6,14 @@ exports[`storybook Storyshots Components/FilterBadges Default 1`] = `
     className="css-19f1xe2-Container e3qndfh0"
   >
     <div
-      className="css-1cf5xhz-PaddedBadge e1vs77ku2 leafygreen-ui-1q59p9a"
+      className="css-1p0v37z-PaddedBadge e1vs77ku2 leafygreen-ui-1q59p9a"
       data-cy="filter-badge"
     >
       <div
         className="css-1i7u60d-BadgeContent e1vs77ku1"
       >
         test
-         : 
+        : 
         test
       </div>
       <svg
@@ -56,80 +56,70 @@ exports[`storybook Storyshots Components/FilterBadges Default 1`] = `
   </div>
   <div>
     <div
-      className="leafygreen-ui-1iyoj2o"
+      className="leafygreen-ui-xtefr5"
     >
-      <label
-        className="leafygreen-ui-ly82bp"
-        htmlFor="textinput-13"
+      <div
+        className="leafygreen-ui-a533bt"
       >
-        key
-      </label>
+        <label
+          className="leafygreen-ui-gr5280"
+          htmlFor="textinput-13"
+        >
+          key
+        </label>
+      </div>
       <div
         className="leafygreen-ui-lzja97"
       >
+        <input
+          aria-invalid={false}
+          autoComplete="on"
+          className="leafygreen-ui-6i61vl"
+          disabled={false}
+          id="textinput-13"
+          onBlur={[Function]}
+          onChange={[Function]}
+          placeholder="key"
+          required={true}
+          type="text"
+          value=""
+        />
         <div
-          className="leafygreen-ui-1cen7zh leafygreen-ui-1ago99h"
-        >
-          <input
-            autoComplete="on"
-            className="leafygreen-ui-pppkef leafygreen-ui-exxjz2"
-            disabled={false}
-            id="textinput-13"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            placeholder="key"
-            required={true}
-            type="text"
-            value=""
-          />
-          <div
-            className="leafygreen-ui-3x1o6h"
-            data-leafygreen-ui="interaction-ring"
-          />
-        </div>
-        <div
-          className="leafygreen-ui-m329s1"
-          data-leafygreen-ui="icon-selector"
+          className="static-lg-ui-classname leafygreen-ui-uy5fvv"
         />
       </div>
     </div>
     <div
-      className="leafygreen-ui-1iyoj2o"
+      className="leafygreen-ui-xtefr5"
     >
-      <label
-        className="leafygreen-ui-ly82bp"
-        htmlFor="textinput-14"
+      <div
+        className="leafygreen-ui-a533bt"
       >
-        value
-      </label>
+        <label
+          className="leafygreen-ui-gr5280"
+          htmlFor="textinput-14"
+        >
+          value
+        </label>
+      </div>
       <div
         className="leafygreen-ui-lzja97"
       >
+        <input
+          aria-invalid={false}
+          autoComplete="on"
+          className="leafygreen-ui-6i61vl"
+          disabled={false}
+          id="textinput-14"
+          onBlur={[Function]}
+          onChange={[Function]}
+          placeholder="value"
+          required={true}
+          type="text"
+          value=""
+        />
         <div
-          className="leafygreen-ui-1cen7zh leafygreen-ui-1ago99h"
-        >
-          <input
-            autoComplete="on"
-            className="leafygreen-ui-pppkef leafygreen-ui-exxjz2"
-            disabled={false}
-            id="textinput-14"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            placeholder="value"
-            required={true}
-            type="text"
-            value=""
-          />
-          <div
-            className="leafygreen-ui-3x1o6h"
-            data-leafygreen-ui="interaction-ring"
-          />
-        </div>
-        <div
-          className="leafygreen-ui-m329s1"
-          data-leafygreen-ui="icon-selector"
+          className="static-lg-ui-classname leafygreen-ui-uy5fvv"
         />
       </div>
     </div>

@@ -27,7 +27,7 @@ const Button = ({
   </MockedProvider>
 );
 
-describe("createProjectField", () => {
+describe("createDuplicateProjectField", () => {
   it("does not show button when user lacks permissions", async () => {
     const lacksPersmissionsMock = {
       request: {

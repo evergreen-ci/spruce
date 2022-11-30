@@ -34,6 +34,11 @@ declare global {
   namespace Cypress {
     interface Chainable {
       /**
+       * Close a dismissible LeafyGreen banner with the given data-cy property.
+       * @example cy.closeBanner("slack-notification")
+       */
+      closeBanner(dataCy: string): void;
+      /**
        * Custom command to select DOM element by data-cy attribute.
        * @example cy.dataCy('greeting')
        */

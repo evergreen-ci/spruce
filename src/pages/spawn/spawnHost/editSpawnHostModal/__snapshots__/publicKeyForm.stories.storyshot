@@ -63,22 +63,22 @@ exports[`storybook Storyshots Pages/Spawn/Public Key Form Public Key Form View 1
   >
     <label
       className="leafygreen-ui-1w8j8ik"
-      htmlFor="select-18"
-      id="select-17-label"
+      htmlFor="select-6"
+      id="select-5-label"
     >
       Existing Key
     </label>
     <button
-      aria-controls="select-17-menu"
-      aria-describedby="select-17-description"
+      aria-controls="select-5-menu"
+      aria-describedby="select-5-description"
       aria-disabled={false}
       aria-expanded={false}
       aria-invalid={false}
-      aria-labelledby="select-17-label"
+      aria-labelledby="select-5-label"
       className="static-lg-ui-classname leafygreen-ui-23wnbt"
       data-testid="leafygreen-ui-select-menubutton"
       disabled={false}
-      id="select-18"
+      id="select-6"
       onClick={[Function]}
       type="button"
       value="MyFirstKey.pub"
