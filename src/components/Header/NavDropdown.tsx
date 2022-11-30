@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { palette } from "@leafygreen-ui/palette";
+import { Link } from "react-router-dom";
 import { zIndex } from "constants/tokens";
 
 const { white } = palette;
@@ -30,7 +31,16 @@ const DropdownItem: React.VFC<DropdownItemType> = ({
   text,
   to,
 }) => (
-  <MenuItem href={to || href} data-cy={itemDataCy} onClick={closeMenu}>
+  <MenuItem
+    as={to && Link}
+    // LG typing should permit props associated with the `as`
+    // component, but right now it doesn't. ¯\_(ツ)_/¯
+    // @ts-expect-error
+    to={to}
+    href={href}
+    data-cy={itemDataCy}
+    onClick={closeMenu}
+  >
     {text}
   </MenuItem>
 );

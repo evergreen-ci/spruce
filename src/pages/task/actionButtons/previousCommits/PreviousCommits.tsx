@@ -152,7 +152,7 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
     }
   }, [shouldFetchLastExecuted]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const linkComp = useLGButtonRouterLink(link);
+  const Link = useLGButtonRouterLink(link);
 
   return (
     <PreviousCommitsWrapper>
@@ -202,7 +202,7 @@ export const PreviousCommits: React.VFC<PreviousCommitsProps> = ({
                 type: selectState,
               })
             }
-            as={linkComp}
+            as={Link}
             disabled={disableButton}
             size="small"
             data-cy="previous-commits-go-button"

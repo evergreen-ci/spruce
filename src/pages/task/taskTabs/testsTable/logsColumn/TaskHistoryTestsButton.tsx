@@ -7,14 +7,14 @@ interface Props {
 }
 
 export const TaskHistoryTestsButton: React.FC<Props> = ({ onClick, to }) => {
-  const linkComp = useLGButtonRouterLink(to);
+  const Link = useLGButtonRouterLink(to);
   return (
     <Button
       size="xsmall"
       data-cy="task-history-tests-btn"
       key="task-history"
       onClick={onClick}
-      as={linkComp}
+      as={Link}
     >
       History
     </Button>

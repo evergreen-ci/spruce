@@ -165,7 +165,7 @@ export const ActionButtons: React.VFC<Props> = ({
     },
   });
 
-  const historyLinkComp = useLGButtonRouterLink(
+  const HistoryLink = useLGButtonRouterLink(
     getTaskHistoryRoute(projectIdentifier, displayName, {
       selectedCommit: !isPatch && order,
     })
@@ -280,7 +280,7 @@ export const ActionButtons: React.VFC<Props> = ({
               onClick={() => {
                 taskAnalytics.sendEvent({ name: "Click See History Button" });
               }}
-              as={historyLinkComp}
+              as={HistoryLink}
               disabled={displayName === mergeTaskName}
             >
               See history
