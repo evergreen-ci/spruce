@@ -46,30 +46,6 @@ describe("scheduleTasks", () => {
     );
   });
 
-  it("the modal is populated with build variant names and checkboxes", async () => {
-    const { Component } = RenderFakeToastContext(<ScheduleModal />);
-
-    render(<Component />);
-
-    // assert build variant checkbox labels are visible
-    await waitFor(() => expect(screen.queryByText("Windows")).toBeVisible());
-    await waitFor(() =>
-      expect(screen.queryByText("Ubuntu 16.04")).toBeVisible()
-    );
-
-    // open the accordions
-    const toggles = screen.queryAllByDataCy("accordion-toggle");
-    fireEvent.click(toggles[0]);
-    fireEvent.click(toggles[1]);
-
-    // assert task checkbox labels are visible
-    await waitFor(() => {
-      screen.queryAllByDataCy("task-checkbox-label").forEach((label) => {
-        expect(label).toBeVisible();
-      });
-    });
-  });
-
   it("selecting some and not all task checkboxes puts the build variant checkbox in an indeterminate state.", async () => {
     const { Component } = RenderFakeToastContext(<ScheduleModal />);
 
@@ -91,6 +67,28 @@ describe("scheduleTasks", () => {
           .queryByDataCy("windows-variant-checkbox")
           .getAttribute("aria-checked")
       ).toBe("mixed");
+    });
+  });
+
+  it("the modal is populated with build variant names and checkboxes", async () => {
+    const { Component } = RenderFakeToastContext(<ScheduleModal />);
+
+    render(<Component />);
+
+    // assert build variant checkbox labels are visible
+    await waitFor(() => expect(screen.queryByText("Windows")).toBeVisible());
+    await waitFor(() =>
+      expect(screen.queryByText("Ubuntu 16.04")).toBeVisible()
+    );
+
+    // open the accordions
+    const toggles = screen.queryAllByDataCy("accordion-toggle");
+    fireEvent.click(toggles[0]);
+    fireEvent.click(toggles[1]);
+
+    // assert task checkbox labels are visible
+    screen.queryAllByDataCy("task-checkbox-label").forEach((label) => {
+      expect(label).toBeVisible();
     });
   });
 

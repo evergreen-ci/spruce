@@ -27,6 +27,7 @@ import {
 } from "gql/generated/types";
 import { GET_VERSION_TASKS } from "gql/queries";
 import { usePolling, useTaskStatuses } from "hooks";
+import { PatchStatus } from "types/patch";
 import { queryString, string } from "utils";
 import { reducer } from "./reducer";
 
@@ -144,7 +145,7 @@ export const DownstreamProjectAccordion: React.VFC<
       dispatchToast.error(`Error fetching downstream tasks ${err}`);
     },
   });
-  usePolling(startPolling, stopPolling, refetch);
+  usePolling({ startPolling, stopPolling, refetch });
   const showSkeleton = !data;
   const { version } = data || {};
   const { tasks } = version || {};
@@ -167,12 +168,16 @@ export const DownstreamProjectAccordion: React.VFC<
 
   return (
     <AccordionWrapper data-cy="project-accordion">
-      <Accordion title={variantTitle} titleTag={FlexContainer}>
+      <Accordion
+        defaultOpen={status === PatchStatus.Failed}
+        title={variantTitle}
+        titleTag={FlexContainer}
+      >
         <AccordionContents>
           <p>
             Base commit:{" "}
             <InlineCode
-              data-cy="downstream-task-base-commit"
+              data-cy="downstream-base-commit"
               href={getVersionRoute(baseVersionID)}
             >
               {shortenGithash(githash)}
@@ -199,7 +204,7 @@ export const DownstreamProjectAccordion: React.VFC<
               </FlexContainer>
               <TableControlInnerRow>
                 <Pagination
-                  data-cy="downstream-tasks-table-pagination"
+                  data-cy="downstream-table-pagination"
                   onChange={(p) =>
                     dispatch({ type: "onChangePagination", page: p - 1 })
                   }

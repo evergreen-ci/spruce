@@ -556,6 +556,8 @@ export type Mutation = {
   copyProject: Project;
   createProject: Project;
   createPublicKey: Array<PublicKey>;
+  deactivateStepbackTask: Scalars["Boolean"];
+  /** @deprecated deactivateStepbackTasks is deprecated. Use deactivateStepbackTask instead. */
   deactivateStepbackTasks: Scalars["Boolean"];
   defaultSectionToRepo?: Maybe<Scalars["String"]>;
   detachProjectFromRepo: Project;
@@ -639,6 +641,12 @@ export type MutationCreateProjectArgs = {
 
 export type MutationCreatePublicKeyArgs = {
   publicKeyInput: PublicKeyInput;
+};
+
+export type MutationDeactivateStepbackTaskArgs = {
+  buildVariantName: Scalars["String"];
+  projectId: Scalars["String"];
+  taskName: Scalars["String"];
 };
 
 export type MutationDeactivateStepbackTasksArgs = {
@@ -1024,6 +1032,7 @@ export type Project = {
   repotrackerDisabled?: Maybe<Scalars["Boolean"]>;
   restricted?: Maybe<Scalars["Boolean"]>;
   spawnHostScriptPath: Scalars["String"];
+  stepbackDisabled?: Maybe<Scalars["Boolean"]>;
   taskAnnotationSettings: TaskAnnotationSettings;
   taskSync: TaskSyncOptions;
   tracksPushEvents?: Maybe<Scalars["Boolean"]>;
@@ -1125,6 +1134,7 @@ export type ProjectInput = {
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]>;
   restricted?: InputMaybe<Scalars["Boolean"]>;
   spawnHostScriptPath?: InputMaybe<Scalars["String"]>;
+  stepbackDisabled?: InputMaybe<Scalars["Boolean"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
   taskSync?: InputMaybe<TaskSyncOptionsInput>;
   tracksPushEvents?: InputMaybe<Scalars["Boolean"]>;
@@ -1445,6 +1455,7 @@ export type RepoRef = {
   repotrackerDisabled: Scalars["Boolean"];
   restricted: Scalars["Boolean"];
   spawnHostScriptPath: Scalars["String"];
+  stepbackDisabled: Scalars["Boolean"];
   taskAnnotationSettings: TaskAnnotationSettings;
   taskSync: RepoTaskSyncOptions;
   tracksPushEvents: Scalars["Boolean"];
@@ -1486,6 +1497,7 @@ export type RepoRefInput = {
   repotrackerDisabled?: InputMaybe<Scalars["Boolean"]>;
   restricted?: InputMaybe<Scalars["Boolean"]>;
   spawnHostScriptPath?: InputMaybe<Scalars["String"]>;
+  stepbackDisabled?: InputMaybe<Scalars["Boolean"]>;
   taskAnnotationSettings?: InputMaybe<TaskAnnotationSettingsInput>;
   taskSync?: InputMaybe<TaskSyncOptionsInput>;
   tracksPushEvents?: InputMaybe<Scalars["Boolean"]>;
@@ -1547,6 +1559,10 @@ export type Selector = {
 export type SelectorInput = {
   data: Scalars["String"];
   type: Scalars["String"];
+};
+
+export type SlackConfig = {
+  name?: Maybe<Scalars["String"]>;
 };
 
 export enum SortDirection {
@@ -1624,6 +1640,7 @@ export type SpruceConfig = {
   githubOrgs: Array<Scalars["String"]>;
   jira?: Maybe<JiraConfig>;
   providers?: Maybe<CloudProviderConfig>;
+  slack?: Maybe<SlackConfig>;
   spawnHost: SpawnHostConfig;
   ui?: Maybe<UiConfig>;
 };
@@ -2366,7 +2383,7 @@ export type BaseSpawnHostFragment = {
   }>;
   homeVolume?: Maybe<{ displayName: string }>;
   instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
-  volumes: Array<{ displayName: string; id: string }>;
+  volumes: Array<{ displayName: string; id: string; migrating: boolean }>;
 };
 
 export type BaseTaskFragment = {
@@ -2423,6 +2440,7 @@ export type PatchesPagePatchesFragment = {
       taskStatusStats?: Maybe<{
         counts?: Maybe<Array<{ status: string; count: number }>>;
       }>;
+      projectMetadata?: Maybe<{ owner: string; repo: string }>;
     }>;
   }>;
 };
@@ -2470,6 +2488,7 @@ export type ProjectGeneralSettingsFragment = {
   versionControlEnabled?: Maybe<boolean>;
   deactivatePrevious?: Maybe<boolean>;
   repotrackerDisabled?: Maybe<boolean>;
+  stepbackDisabled?: Maybe<boolean>;
   patchingDisabled?: Maybe<boolean>;
   disabledStatsCache?: Maybe<boolean>;
   filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -2489,6 +2508,7 @@ export type RepoGeneralSettingsFragment = {
   versionControlEnabled: boolean;
   deactivatePrevious: boolean;
   repotrackerDisabled: boolean;
+  stepbackDisabled: boolean;
   patchingDisabled: boolean;
   disabledStatsCache: boolean;
   filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -2602,6 +2622,7 @@ export type ProjectSettingsFragment = {
     versionControlEnabled?: Maybe<boolean>;
     deactivatePrevious?: Maybe<boolean>;
     repotrackerDisabled?: Maybe<boolean>;
+    stepbackDisabled?: Maybe<boolean>;
     patchingDisabled?: Maybe<boolean>;
     disabledStatsCache?: Maybe<boolean>;
     filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -2741,6 +2762,7 @@ export type RepoSettingsFragment = {
     versionControlEnabled: boolean;
     deactivatePrevious: boolean;
     repotrackerDisabled: boolean;
+    stepbackDisabled: boolean;
     patchingDisabled: boolean;
     disabledStatsCache: boolean;
     filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -3004,6 +3026,7 @@ export type ProjectEventSettingsFragment = {
     dispatchingDisabled?: Maybe<boolean>;
     deactivatePrevious?: Maybe<boolean>;
     repotrackerDisabled?: Maybe<boolean>;
+    stepbackDisabled?: Maybe<boolean>;
     patchingDisabled?: Maybe<boolean>;
     disabledStatsCache?: Maybe<boolean>;
     filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -3274,12 +3297,14 @@ export type CreatePublicKeyMutation = {
   createPublicKey: Array<{ key: string; name: string }>;
 };
 
-export type DeactivateStepbackTasksMutationVariables = Exact<{
+export type DeactivateStepbackTaskMutationVariables = Exact<{
   projectId: Scalars["String"];
+  buildVariantName: Scalars["String"];
+  taskName: Scalars["String"];
 }>;
 
-export type DeactivateStepbackTasksMutation = {
-  deactivateStepbackTasks: boolean;
+export type DeactivateStepbackTaskMutation = {
+  deactivateStepbackTask: boolean;
 };
 
 export type DefaultSectionToRepoMutationVariables = Exact<{
@@ -3353,7 +3378,7 @@ export type EditSpawnHostMutation = {
     }>;
     homeVolume?: Maybe<{ displayName: string }>;
     instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
-    volumes: Array<{ displayName: string; id: string }>;
+    volumes: Array<{ displayName: string; id: string; migrating: boolean }>;
   };
 };
 
@@ -3376,6 +3401,13 @@ export type ForceRepotrackerRunMutationVariables = Exact<{
 }>;
 
 export type ForceRepotrackerRunMutation = { forceRepotrackerRun: boolean };
+
+export type MigrateVolumeMutationVariables = Exact<{
+  volumeId: Scalars["String"];
+  spawnHostInput: SpawnHostInput;
+}>;
+
+export type MigrateVolumeMutation = { migrateVolume: boolean };
 
 export type MoveAnnotationIssueMutationVariables = Exact<{
   taskId: Scalars["String"];
@@ -4439,7 +4471,7 @@ export type MyHostsQuery = {
     }>;
     homeVolume?: Maybe<{ displayName: string }>;
     instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
-    volumes: Array<{ displayName: string; id: string }>;
+    volumes: Array<{ displayName: string; id: string; migrating: boolean }>;
   }>;
 };
 
@@ -4460,7 +4492,11 @@ export type MyVolumesQuery = {
     homeVolume: boolean;
     creationTime?: Maybe<Date>;
     migrating: boolean;
-    host?: Maybe<{ displayName?: Maybe<string>; id: string }>;
+    host?: Maybe<{
+      displayName?: Maybe<string>;
+      id: string;
+      noExpiration: boolean;
+    }>;
   }>;
 };
 
@@ -4577,6 +4613,7 @@ export type ProjectEventLogsQuery = {
           dispatchingDisabled?: Maybe<boolean>;
           deactivatePrevious?: Maybe<boolean>;
           repotrackerDisabled?: Maybe<boolean>;
+          stepbackDisabled?: Maybe<boolean>;
           patchingDisabled?: Maybe<boolean>;
           disabledStatsCache?: Maybe<boolean>;
           filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -4732,6 +4769,7 @@ export type ProjectEventLogsQuery = {
           dispatchingDisabled?: Maybe<boolean>;
           deactivatePrevious?: Maybe<boolean>;
           repotrackerDisabled?: Maybe<boolean>;
+          stepbackDisabled?: Maybe<boolean>;
           patchingDisabled?: Maybe<boolean>;
           disabledStatsCache?: Maybe<boolean>;
           filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -4895,6 +4933,7 @@ export type ProjectSettingsQuery = {
       versionControlEnabled?: Maybe<boolean>;
       deactivatePrevious?: Maybe<boolean>;
       repotrackerDisabled?: Maybe<boolean>;
+      stepbackDisabled?: Maybe<boolean>;
       patchingDisabled?: Maybe<boolean>;
       disabledStatsCache?: Maybe<boolean>;
       filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -5079,6 +5118,7 @@ export type RepoEventLogsQuery = {
           dispatchingDisabled?: Maybe<boolean>;
           deactivatePrevious?: Maybe<boolean>;
           repotrackerDisabled?: Maybe<boolean>;
+          stepbackDisabled?: Maybe<boolean>;
           patchingDisabled?: Maybe<boolean>;
           disabledStatsCache?: Maybe<boolean>;
           filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -5234,6 +5274,7 @@ export type RepoEventLogsQuery = {
           dispatchingDisabled?: Maybe<boolean>;
           deactivatePrevious?: Maybe<boolean>;
           repotrackerDisabled?: Maybe<boolean>;
+          stepbackDisabled?: Maybe<boolean>;
           patchingDisabled?: Maybe<boolean>;
           disabledStatsCache?: Maybe<boolean>;
           filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -5395,6 +5436,7 @@ export type RepoSettingsQuery = {
       versionControlEnabled: boolean;
       deactivatePrevious: boolean;
       repotrackerDisabled: boolean;
+      stepbackDisabled: boolean;
       patchingDisabled: boolean;
       disabledStatsCache: boolean;
       filesIgnoredFromCache?: Maybe<Array<string>>;
@@ -5537,6 +5579,7 @@ export type GetSpruceConfigQuery = {
       unexpirableHostsPerUser: number;
       unexpirableVolumesPerUser: number;
     };
+    slack?: Maybe<{ name?: Maybe<string> }>;
   }>;
 };
 
@@ -5968,6 +6011,7 @@ export type VersionTasksQueryVariables = Exact<{
 
 export type VersionTasksQuery = {
   version: {
+    id: string;
     tasks: {
       count: number;
       data: Array<{
@@ -6151,6 +6195,7 @@ export type ProjectPatchesQuery = {
           taskStatusStats?: Maybe<{
             counts?: Maybe<Array<{ status: string; count: number }>>;
           }>;
+          projectMetadata?: Maybe<{ owner: string; repo: string }>;
         }>;
       }>;
     };
@@ -6221,6 +6266,7 @@ export type UserPatchesQuery = {
           taskStatusStats?: Maybe<{
             counts?: Maybe<Array<{ status: string; count: number }>>;
           }>;
+          projectMetadata?: Maybe<{ owner: string; repo: string }>;
         }>;
       }>;
     };

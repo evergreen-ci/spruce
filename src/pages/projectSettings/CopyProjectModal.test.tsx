@@ -30,47 +30,40 @@ const Modal = ({
   </MockedProvider>
 );
 
-describe("createProjectField", () => {
-  it("does not render the modal when open prop is false", async () => {
+describe("copyProjectField", () => {
+  it("does not render the modal when open prop is false", () => {
     const { Component } = RenderFakeToastContext(<Modal open={false} />);
     render(<Component />);
 
     expect(screen.queryByDataCy("copy-project-modal")).not.toBeInTheDocument();
   });
 
-  it("disables the confirm button on initial render and uses the provided label", async () => {
+  it("disables the confirm button on initial render and uses the provided label", () => {
     const { Component } = RenderFakeToastContext(<Modal />);
     render(<Component />);
 
-    await waitFor(() =>
-      expect(screen.queryByText("Duplicate “evergreen”")).toBeVisible()
-    );
+    expect(screen.queryByText("Duplicate “evergreen”")).toBeVisible();
 
     expect(screen.getByDataCy("copy-project-modal")).toBeInTheDocument();
-    await waitFor(() => {
-      const confirmButton = screen.getByRole("button", {
-        name: "Duplicate",
-      });
-      expect(confirmButton).toBeDisabled();
+    const confirmButton = screen.getByRole("button", {
+      name: "Duplicate",
     });
+    expect(confirmButton).toBeDisabled();
   });
 
   it("submits the modal when a project name is provided", async () => {
     const { Component, dispatchToast } = RenderFakeToastContext(<Modal />);
     render(<Component />);
 
-    await screen.findByDataCy("copy-project-modal");
     userEvent.type(
       screen.queryByDataCy("project-name-input"),
       newProjectIdentifier
     );
 
-    await waitFor(() => {
-      const confirmButton = screen.getByRole("button", {
-        name: "Duplicate",
-      });
-      expect(confirmButton).toBeEnabled();
+    const confirmButton = screen.getByRole("button", {
+      name: "Duplicate",
     });
+    expect(confirmButton).toBeEnabled();
 
     userEvent.click(screen.queryByText("Duplicate"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
@@ -103,19 +96,16 @@ describe("createProjectField", () => {
     );
     render(<Component />);
 
-    await screen.findByDataCy("copy-project-modal");
     userEvent.type(screen.queryByDataCy("project-id-input"), "evg_id");
     userEvent.type(
       screen.queryByDataCy("project-name-input"),
       newProjectIdentifier
     );
 
-    await waitFor(() => {
-      const confirmButton = screen.getByRole("button", {
-        name: "Duplicate",
-      });
-      expect(confirmButton).toBeEnabled();
+    const confirmButton = screen.getByRole("button", {
+      name: "Duplicate",
     });
+    expect(confirmButton).toBeEnabled();
 
     userEvent.click(screen.queryByText("Duplicate"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
@@ -148,18 +138,15 @@ describe("createProjectField", () => {
     );
     render(<Component />);
 
-    await screen.findByDataCy("copy-project-modal");
     userEvent.type(
       screen.queryByDataCy("project-name-input"),
       newProjectIdentifier
     );
 
-    await waitFor(() => {
-      const confirmButton = screen.getByRole("button", {
-        name: "Duplicate",
-      });
-      expect(confirmButton).toBeEnabled();
+    const confirmButton = screen.getByRole("button", {
+      name: "Duplicate",
     });
+    expect(confirmButton).toBeEnabled();
 
     userEvent.click(screen.queryByText("Duplicate"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(0));
@@ -187,18 +174,15 @@ describe("createProjectField", () => {
     );
     render(<Component />);
 
-    await screen.findByDataCy("copy-project-modal");
     userEvent.type(
       screen.queryByDataCy("project-name-input"),
       newProjectIdentifier
     );
 
-    await waitFor(() => {
-      const confirmButton = screen.getByRole("button", {
-        name: "Duplicate",
-      });
-      expect(confirmButton).toBeEnabled();
+    const confirmButton = screen.getByRole("button", {
+      name: "Duplicate",
     });
+    expect(confirmButton).toBeEnabled();
 
     userEvent.click(screen.queryByText("Duplicate"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(0));

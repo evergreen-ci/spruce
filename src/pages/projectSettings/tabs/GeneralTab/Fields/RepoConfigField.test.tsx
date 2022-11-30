@@ -1,6 +1,5 @@
 import { MockedProvider } from "@apollo/client/testing";
 import { FieldProps } from "@rjsf/core";
-import userEvent from "@testing-library/user-event";
 import { RenderFakeToastContext } from "context/__mocks__/toast";
 import {
   ATTACH_PROJECT_TO_REPO,
@@ -9,9 +8,9 @@ import {
 } from "gql/mutations";
 import { GET_GITHUB_ORGS } from "gql/queries";
 import {
-  fireEvent,
   renderWithRouterMatch as render,
   screen,
+  userEvent,
   waitFor,
 } from "test_utils";
 import { ProjectType } from "../../utils";
@@ -110,7 +109,7 @@ describe("repoConfigField", () => {
     expect(
       screen.queryByDataCy("attach-repo-disabled-tooltip")
     ).not.toBeInTheDocument();
-    fireEvent.mouseEnter(screen.queryByDataCy("attach-repo-button"));
+    userEvent.hover(screen.queryByDataCy("attach-repo-button-wrapper"));
     await waitFor(() => {
       expect(
         screen.queryByDataCy("attach-repo-disabled-tooltip")
@@ -133,7 +132,7 @@ describe("repoConfigField", () => {
     expect(
       screen.queryByDataCy("attach-repo-disabled-tooltip")
     ).not.toBeInTheDocument();
-    fireEvent.mouseEnter(screen.queryByDataCy("attach-repo-button"));
+    userEvent.hover(screen.queryByDataCy("attach-repo-button-wrapper"));
     await waitFor(() => {
       expect(
         screen.queryByDataCy("attach-repo-disabled-tooltip")
@@ -163,7 +162,7 @@ describe("repoConfigField", () => {
     expect(screen.queryByDataCy("move-repo-modal")).not.toBeInTheDocument();
 
     await screen.findByDataCy("move-repo-button");
-    fireEvent.click(screen.queryByDataCy("move-repo-button"));
+    userEvent.click(screen.queryByDataCy("move-repo-button"));
     await waitFor(() =>
       expect(screen.queryByDataCy("move-repo-modal")).toBeVisible()
     );
@@ -238,7 +237,7 @@ describe("repoConfigField", () => {
 
       expect(screen.queryByDataCy("attach-repo-modal")).not.toBeInTheDocument();
       const attachRepoButton = screen.queryByDataCy("attach-repo-button");
-      fireEvent.click(attachRepoButton);
+      userEvent.click(attachRepoButton);
       await waitFor(() =>
         expect(screen.queryByDataCy("attach-repo-modal")).toBeVisible()
       );
@@ -266,7 +265,7 @@ describe("repoConfigField", () => {
       );
       render(<Component />);
 
-      fireEvent.click(screen.queryByText("Attach"));
+      userEvent.click(screen.queryByText("Attach"));
       await waitFor(() => expect(dispatchToast.error).not.toHaveBeenCalled());
       await waitFor(() => {
         expect(dispatchToast.success).toHaveBeenCalledWith(
@@ -293,7 +292,7 @@ describe("repoConfigField", () => {
       );
       render(<Component />);
 
-      fireEvent.click(screen.queryByText("Detach"));
+      userEvent.click(screen.queryByText("Detach"));
       await waitFor(() => expect(dispatchToast.error).not.toHaveBeenCalled());
       await waitFor(() => {
         expect(dispatchToast.success).toHaveBeenCalledWith(

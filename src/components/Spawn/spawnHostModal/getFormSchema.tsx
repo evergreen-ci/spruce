@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { add } from "date-fns";
 import widgets from "components/SpruceForm/Widgets";
 import { AntdSelect } from "components/SpruceForm/Widgets/AntdWidgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
@@ -28,11 +29,11 @@ interface Props {
   distroIdQueryParam?: string;
   isVirtualWorkstation: boolean;
   noExpirationCheckboxTooltip: string;
-  publicKeys: GetMyPublicKeysQuery["myPublicKeys"];
+  myPublicKeys: GetMyPublicKeysQuery["myPublicKeys"];
   spawnTaskData?: GetSpawnTaskQuery["task"];
-  timezone: string;
   userAwsRegion?: string;
   volumes: MyVolumesQuery["myVolumes"];
+  isMigration: boolean;
 }
 
 export const getFormSchema = ({
@@ -42,11 +43,11 @@ export const getFormSchema = ({
   distros,
   isVirtualWorkstation,
   noExpirationCheckboxTooltip,
-  publicKeys,
+  myPublicKeys,
   spawnTaskData,
-  timezone,
   userAwsRegion,
   volumes,
+  isMigration,
 }: Props): ReturnType<GetFormSchema> => {
   const {
     displayName: taskDisplayName,
@@ -56,6 +57,7 @@ export const getFormSchema = ({
     canSync,
   } = spawnTaskData || {};
   const hasValidTask = validateTask(spawnTaskData);
+  const shouldRenderVolumeSelection = !isMigration && isVirtualWorkstation;
   return {
     fields: {},
     schema: {
@@ -130,9 +132,11 @@ export const getFormSchema = ({
                     publicKeyNameDropdown: {
                       title: "Choose key",
                       type: "string" as "string",
-                      default: publicKeys?.length ? publicKeys[0]?.name : "",
+                      default: myPublicKeys?.length
+                        ? myPublicKeys[0]?.name
+                        : "",
                       oneOf:
-                        publicKeys?.map((d) => ({
+                        myPublicKeys?.map((d) => ({
                           type: "string" as "string",
                           title: d.name,
                           enum: [d.name],
@@ -324,7 +328,7 @@ export const getFormSchema = ({
             },
           },
         },
-        ...(isVirtualWorkstation && {
+        ...(shouldRenderVolumeSelection && {
           homeVolumeDetails: {
             type: "object" as "object",
             title: "Virtual Workstation",
@@ -359,7 +363,7 @@ export const getFormSchema = ({
                         title: "Volume",
                         type: "string" as "string",
                         default: "",
-                        oneOf: volumes
+                        oneOf: (volumes || [])
                           ?.filter((v) => v.homeVolume && !v.hostID)
                           ?.map((v) => ({
                             type: "string" as "string",
@@ -460,8 +464,8 @@ export const getFormSchema = ({
           "ui:data-cy": "never-expire-checkbox",
         },
         expiration: {
-          "ui:disablePastDatetime": true,
-          "ui:timezone": timezone,
+          "ui:disableBefore": add(today, { days: 1 }),
+          "ui:disableAfter": add(today, { days: 30 }),
           "ui:widget": "date-time",
           "ui:elementWrapperCSS": datePickerCSS,
         },
@@ -498,7 +502,7 @@ export const getFormSchema = ({
           },
         },
       }),
-      ...(isVirtualWorkstation && {
+      ...(shouldRenderVolumeSelection && {
         homeVolumeDetails: {
           selectExistingVolume: {
             "ui:widget": isVirtualWorkstation
@@ -509,7 +513,7 @@ export const getFormSchema = ({
             "ui:widget": isVirtualWorkstation ? AntdSelect : "hidden",
             "ui:allowDeselect": false,
             "ui:data-cy": "volume-select",
-            "ui:disabledEnums": volumes
+            "ui:disabledEnums": (volumes || [])
               .filter((v) => !!v.hostID)
               .map((v) => v.id),
           },
@@ -545,3 +549,5 @@ const datePickerCSS = css`
   position: relative;
   z-index: 1;
 `;
+
+const today = new Date();

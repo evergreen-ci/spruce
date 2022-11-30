@@ -47,7 +47,7 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
                 value="keyA"
               />
               <div
-                className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                className="static-lg-ui-classname leafygreen-ui-uy5fvv"
               />
             </div>
           </div>
@@ -89,7 +89,7 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
                 value="valueA"
               />
               <div
-                className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                className="static-lg-ui-classname leafygreen-ui-uy5fvv"
               />
             </div>
           </div>
@@ -101,7 +101,7 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
         <button
           aria-disabled={false}
           aria-label="Delete Tag"
-          className="leafygreen-ui-wn45f0"
+          className="leafygreen-ui-6obv0c"
           tabIndex={0}
         >
           <div
@@ -174,7 +174,7 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
                 value="keyB"
               />
               <div
-                className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                className="static-lg-ui-classname leafygreen-ui-uy5fvv"
               />
             </div>
           </div>
@@ -216,7 +216,7 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
                 value="valueB"
               />
               <div
-                className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                className="static-lg-ui-classname leafygreen-ui-uy5fvv"
               />
             </div>
           </div>
@@ -228,7 +228,7 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
         <button
           aria-disabled={false}
           aria-label="Delete Tag"
-          className="leafygreen-ui-wn45f0"
+          className="leafygreen-ui-6obv0c"
           tabIndex={0}
         >
           <div
@@ -301,7 +301,7 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
                 value="keyC"
               />
               <div
-                className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                className="static-lg-ui-classname leafygreen-ui-uy5fvv"
               />
             </div>
           </div>
@@ -343,7 +343,7 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
                 value="valueC"
               />
               <div
-                className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+                className="static-lg-ui-classname leafygreen-ui-uy5fvv"
               />
             </div>
           </div>
@@ -355,7 +355,7 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
         <button
           aria-disabled={false}
           aria-label="Delete Tag"
-          className="leafygreen-ui-wn45f0"
+          className="leafygreen-ui-6obv0c"
           tabIndex={0}
         >
           <div

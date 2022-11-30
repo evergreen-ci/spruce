@@ -50,6 +50,7 @@ const repoForm: FormState = {
     dispatchingDisabled: true,
     scheduling: {
       deactivatePrevious: true,
+      stepbackDisabled: true,
       deactivateStepback: null,
     },
     repotracker: {
@@ -89,6 +90,7 @@ const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
     deactivatePrevious: true,
     repotrackerDisabled: false,
     patchingDisabled: false,
+    stepbackDisabled: true,
     taskSync: {
       configEnabled: true,
       patchEnabled: true,
@@ -119,6 +121,7 @@ const projectForm: FormState = {
     dispatchingDisabled: null,
     scheduling: {
       deactivatePrevious: null,
+      stepbackDisabled: null,
       deactivateStepback: null,
     },
     repotracker: {
@@ -159,6 +162,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
     deactivatePrevious: null,
     repotrackerDisabled: null,
     patchingDisabled: null,
+    stepbackDisabled: null,
     taskSync: {
       configEnabled: null,
       patchEnabled: null,

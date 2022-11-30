@@ -2,10 +2,10 @@
 
 exports[`storybook Storyshots Components/DatePicker Default 1`] = `
 <div
-  className="leafygreen-ui-1cen7zh"
+  className="leafygreen-ui-jxj5sq"
 >
   <div
-    className="ant-picker leafygreen-ui-pppkef"
+    className="ant-picker"
     onMouseUp={[Function]}
     style={
       Object {
@@ -58,8 +58,7 @@ exports[`storybook Storyshots Components/DatePicker Default 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-3x1o6h"
-    data-leafygreen-ui="interaction-ring"
+    className="static-lg-ui-classname leafygreen-ui-3x1o6h"
   />
 </div>
 `;

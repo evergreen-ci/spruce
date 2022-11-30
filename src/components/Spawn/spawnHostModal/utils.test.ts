@@ -8,7 +8,7 @@ describe("validateSpawnHostForm", () => {
   it("an empty form will return false", () => {
     expect(validateSpawnHostForm({})).toBe(false);
   });
-  it("a home volume name or size must be provided after selecting a virtual workstation distro", () => {
+  it("a home volume name or size must be provided after selecting a virtual workstation distro when not migrating a volume", () => {
     expect(validateSpawnHostForm(validVirtualWorkstationForm)).toBe(true);
     expect(
       validateSpawnHostForm({
@@ -27,6 +27,35 @@ describe("validateSpawnHostForm", () => {
         ...validVirtualWorkstationForm,
         homeVolumeDetails: { selectExistingVolume: false, volumeSize: 1 },
       })
+    ).toBe(true);
+  });
+  it("home volume inputs are not required when migrating a volume", () => {
+    expect(
+      validateSpawnHostForm(
+        {
+          ...validVirtualWorkstationForm,
+          homeVolumeDetails: { selectExistingVolume: true, volumeSelect: "" },
+        },
+        true
+      )
+    ).toBe(true);
+    expect(
+      validateSpawnHostForm(
+        {
+          ...validVirtualWorkstationForm,
+          homeVolumeDetails: { selectExistingVolume: false, volumeSize: 0 },
+        },
+        true
+      )
+    ).toBe(true);
+    expect(
+      validateSpawnHostForm(
+        {
+          ...validVirtualWorkstationForm,
+          homeVolumeDetails: { selectExistingVolume: false, volumeSize: 1 },
+        },
+        true
+      )
     ).toBe(true);
   });
   it("an empty distro will not pass validation", () => {
@@ -61,9 +90,41 @@ describe("validateSpawnHostForm", () => {
     expect(
       validateSpawnHostForm({
         ...validForm,
+        publicKeySection: {
+          useExisting: true,
+          publicKeyNameDropdown: "key val",
+        },
+      })
+    ).toBe(true);
+    expect(
+      validateSpawnHostForm({
+        ...validForm,
         publicKeySection: { useExisting: false, newPublicKey: "key val" },
       })
     ).toBe(true);
+  });
+  it("a public key name is required when 'Save Public Key' is checked", () => {
+    expect(
+      validateSpawnHostForm({
+        ...validForm,
+        publicKeySection: {
+          useExisting: false,
+          newPublicKey: "ssh-rsa new-key",
+          savePublicKey: true,
+          newPublicKeyName: "new key",
+        },
+      })
+    ).toBe(true);
+    expect(
+      validateSpawnHostForm({
+        ...validForm,
+        publicKeySection: {
+          useExisting: false,
+          newPublicKey: "ssh-rsa new-key",
+          savePublicKey: true,
+        },
+      })
+    ).toBe(false);
   });
   it("a user data script must be provided when the option is selected", () => {
     expect(

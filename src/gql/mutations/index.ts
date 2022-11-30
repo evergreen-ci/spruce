@@ -8,7 +8,7 @@ import CLEAR_MY_SUBSCRIPTIONS from "./clear-my-subscriptions.graphql";
 import COPY_PROJECT from "./copy-project.graphql";
 import CREATE_PROJECT from "./create-project.graphql";
 import CREATE_PUBLIC_KEY from "./create-public-key.graphql";
-import DEACTIVATE_STEPBACK_TASKS from "./deactivate-stepback-tasks.graphql";
+import DEACTIVATE_STEPBACK_TASK from "./deactivate-stepback-task.graphql";
 import DEFAULT_SECTION_TO_REPO from "./default-section-to-repo.graphql";
 import DETACH_PROJECT_FROM_REPO from "./detach-project-from-repo.graphql";
 import DETACH_VOLUME from "./detach-volume.graphql";
@@ -17,6 +17,7 @@ import EDIT_SPAWN_HOST from "./edit-spawn-host.graphql";
 import ENQUEUE_PATCH from "./enqueue-patch.graphql";
 import FILE_JIRA_TICKET from "./file-jira-ticket.graphql";
 import FORCE_REPOTRACKER_RUN from "./force-repotracker-run.graphql";
+import MIGRATE_VOLUME from "./migrate-volume.graphql";
 import MOVE_ANNOTATION from "./move-annotation.graphql";
 import OVERRIDE_TASK_DEPENDENCIES from "./override-task-dependencies.graphql";
 import PROMOTE_VARS_TO_REPO from "./promote-vars-to-repo.graphql";
@@ -58,7 +59,7 @@ export {
   COPY_PROJECT,
   CREATE_PROJECT,
   CREATE_PUBLIC_KEY,
-  DEACTIVATE_STEPBACK_TASKS,
+  DEACTIVATE_STEPBACK_TASK,
   DEFAULT_SECTION_TO_REPO,
   DETACH_PROJECT_FROM_REPO,
   DETACH_VOLUME,
@@ -96,4 +97,5 @@ export {
   UPDATE_SPAWN_HOST_STATUS,
   UPDATE_SPAWN_VOLUME,
   UPDATE_USER_SETTINGS,
+  MIGRATE_VOLUME,
 };

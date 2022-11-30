@@ -319,27 +319,26 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 className="css-1nylm8s-ContentsContainer ev0bopr0"
               >
                 <div
-                  className="css-r7f5o5-ToggleWrapper e1d5uzqe1"
+                  className="css-xetfur-ToggleWrapper e1d5uzqe1"
                 >
                   <div
                     aria-label="chart-select"
-                    className="leafygreen-ui-sgfp3 css-1kkalw3-StyledRadioGroup e1d5uzqe2"
+                    className="css-1ny7bse-StyledRadioGroup e1d5uzqe2"
                     role="group"
                   >
                     <div
-                      className="leafygreen-ui-1s4vgyd"
+                      className="leafygreen-ui-3n5lp7"
                     >
                       <label
-                        className="leafygreen-ui-17avto4"
+                        className="leafygreen-ui-1d5p7a4"
                         htmlFor="chart-radio-absolute"
                       >
                         <input
                           aria-checked={true}
                           aria-disabled={false}
                           checked={true}
-                          className="leafygreen-ui-x2r5fc"
+                          className="static-lg-ui-classname leafygreen-ui-347iq9"
                           data-cy="cy-chart-absolute-radio"
-                          data-leafygreen-ui="input-element"
                           disabled={false}
                           id="chart-radio-absolute"
                           name="chart-select"
@@ -348,40 +347,29 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                           value="absolute"
                         />
                         <div
-                          className="leafygreen-ui-5a1vdt"
-                          data-leafygreen-ui="radio-input-display-wrapper"
+                          className="static-lg-ui-classname leafygreen-ui-1fbekiy"
                         >
                           <div
-                            className="leafygreen-ui-1y6j5s3"
-                            data-leafygreen-ui="radio-input-display"
-                            onBlur={[Function]}
-                            onFocus={[Function]}
-                          />
-                          <div
-                            className="leafygreen-ui-1cqcpzq"
-                            data-leafygreen-ui="interaction-ring"
+                            className="static-lg-ui-classname leafygreen-ui-1epksbz"
                           />
                         </div>
-                        <div
-                          className="leafygreen-ui-3sm8z"
-                        >
+                        <div>
                           Absolute Number
                         </div>
                       </label>
                     </div>
                     <div
-                      className="leafygreen-ui-1s4vgyd"
+                      className="leafygreen-ui-3n5lp7"
                     >
                       <label
-                        className="leafygreen-ui-17avto4"
+                        className="leafygreen-ui-1d5p7a4"
                         htmlFor="chart-radio-percent"
                       >
                         <input
                           aria-disabled={false}
                           checked={false}
-                          className="leafygreen-ui-x2r5fc"
+                          className="static-lg-ui-classname leafygreen-ui-347iq9"
                           data-cy="cy-chart-percent-radio"
-                          data-leafygreen-ui="input-element"
                           disabled={false}
                           id="chart-radio-percent"
                           name="chart-select"
@@ -390,23 +378,13 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                           value="percentage"
                         />
                         <div
-                          className="leafygreen-ui-5a1vdt"
-                          data-leafygreen-ui="radio-input-display-wrapper"
+                          className="static-lg-ui-classname leafygreen-ui-1fbekiy"
                         >
                           <div
-                            className="leafygreen-ui-1y6j5s3"
-                            data-leafygreen-ui="radio-input-display"
-                            onBlur={[Function]}
-                            onFocus={[Function]}
-                          />
-                          <div
-                            className="leafygreen-ui-1cqcpzq"
-                            data-leafygreen-ui="interaction-ring"
+                            className="static-lg-ui-classname leafygreen-ui-1epksbz"
                           />
                         </div>
-                        <div
-                          className="leafygreen-ui-3sm8z"
-                        >
+                        <div>
                           Percentage
                         </div>
                       </label>
@@ -481,7 +459,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
              add ssh key to EditSpawnHos...
           </p>
           <small
-            className="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-ppjyot"
+            className="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-q4itxe"
             onBlur={[Function]}
             onFocus={[Function]}
             onMouseEnter={[Function]}
@@ -531,7 +509,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             Triggered From Git Tag 'v2.11.1': v2....
           </p>
           <small
-            className="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-ppjyot"
+            className="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-q4itxe"
             onBlur={[Function]}
             onFocus={[Function]}
             onMouseEnter={[Function]}
@@ -616,7 +594,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
              Correctly visit configure p...
           </p>
           <small
-            className="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-ppjyot"
+            className="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-q4itxe"
             onBlur={[Function]}
             onFocus={[Function]}
             onMouseEnter={[Function]}
@@ -666,7 +644,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             Remove navigation announcement toast ...
           </p>
           <small
-            className="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-ppjyot"
+            className="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-q4itxe"
             onBlur={[Function]}
             onFocus={[Function]}
             onMouseEnter={[Function]}
@@ -716,7 +694,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             Triggered From Git Tag 'v2.11.0': v2....
           </p>
           <small
-            className="leafygreen-ui-cssveg css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-ppjyot"
+            className="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-q4itxe"
             onBlur={[Function]}
             onFocus={[Function]}
             onMouseEnter={[Function]}

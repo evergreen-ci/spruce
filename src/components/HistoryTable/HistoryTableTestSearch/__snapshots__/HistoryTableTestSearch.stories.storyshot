@@ -47,7 +47,7 @@ exports[`storybook Storyshots Components/History Table/HistoryTableTestSearch Te
             value=""
           />
           <div
-            className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
+            className="static-lg-ui-classname leafygreen-ui-uy5fvv"
           />
         </div>
       </div>
@@ -57,7 +57,7 @@ exports[`storybook Storyshots Components/History Table/HistoryTableTestSearch Te
         <button
           aria-disabled={false}
           aria-label="Select plus button"
-          className="leafygreen-ui-wn45f0"
+          className="leafygreen-ui-6obv0c"
           onClick={[Function]}
           tabIndex={0}
         >

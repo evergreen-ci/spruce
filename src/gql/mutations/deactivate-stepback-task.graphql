@@ -1,0 +1,11 @@
+mutation DeactivateStepbackTask(
+  $projectId: String!
+  $buildVariantName: String!
+  $taskName: String!
+) {
+  deactivateStepbackTask(
+    projectId: $projectId
+    buildVariantName: $buildVariantName
+    taskName: $taskName
+  )
+}

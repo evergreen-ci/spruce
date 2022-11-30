@@ -17,6 +17,10 @@ fragment PatchesPagePatches on Patches {
         }
       }
       status
+      projectMetadata {
+        owner
+        repo
+      }
     }
     canEnqueueToCommitQueue
   }
