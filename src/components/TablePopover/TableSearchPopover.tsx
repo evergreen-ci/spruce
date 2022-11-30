@@ -57,7 +57,7 @@ export const TableSearchPopover: React.VFC<TableSearchPopoverProps> = ({
             description="Press enter to filter."
             placeholder={placeholder}
             type="search"
-            aria-label="input-filter"
+            aria-label="Search Table"
             data-cy="input-filter"
             value={value}
             onChange={(e) => onChange(e.target.value)}

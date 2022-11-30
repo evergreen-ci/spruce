@@ -18,41 +18,36 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
           className="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
         >
           <div
-            className="leafygreen-ui-1iyoj2o"
+            className="leafygreen-ui-xtefr5"
           >
-            <label
-              className="leafygreen-ui-ly82bp"
-              htmlFor="tag_key_undefined"
+            <div
+              className="leafygreen-ui-a533bt"
             >
-              Key
-            </label>
+              <label
+                className="leafygreen-ui-gr5280"
+                htmlFor="tag_key_undefined"
+              >
+                Key
+              </label>
+            </div>
             <div
               className="leafygreen-ui-lzja97"
             >
+              <input
+                aria-invalid={false}
+                autoComplete="on"
+                className="leafygreen-ui-6i61vl"
+                data-cy="user-tag-key-field"
+                disabled={false}
+                id="tag_key_undefined"
+                onBlur={[Function]}
+                onChange={[Function]}
+                required={true}
+                type="text"
+                value="keyA"
+              />
               <div
-                className="leafygreen-ui-1cen7zh leafygreen-ui-1ago99h"
-              >
-                <input
-                  autoComplete="on"
-                  className="leafygreen-ui-pppkef leafygreen-ui-exxjz2"
-                  data-cy="user-tag-key-field"
-                  disabled={false}
-                  id="tag_key_undefined"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={true}
-                  type="text"
-                  value="keyA"
-                />
-                <div
-                  className="leafygreen-ui-3x1o6h"
-                  data-leafygreen-ui="interaction-ring"
-                />
-              </div>
-              <div
-                className="leafygreen-ui-m329s1"
-                data-leafygreen-ui="icon-selector"
+                className="static-lg-ui-classname leafygreen-ui-uy5fvv"
               />
             </div>
           </div>
@@ -65,41 +60,36 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
           className="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
         >
           <div
-            className="leafygreen-ui-1iyoj2o"
+            className="leafygreen-ui-xtefr5"
           >
-            <label
-              className="leafygreen-ui-ly82bp"
-              htmlFor="tag_value_undefined"
+            <div
+              className="leafygreen-ui-a533bt"
             >
-              Value
-            </label>
+              <label
+                className="leafygreen-ui-gr5280"
+                htmlFor="tag_value_undefined"
+              >
+                Value
+              </label>
+            </div>
             <div
               className="leafygreen-ui-lzja97"
             >
+              <input
+                aria-invalid={false}
+                autoComplete="on"
+                className="leafygreen-ui-6i61vl"
+                data-cy="user-tag-value-field"
+                disabled={false}
+                id="tag_value_undefined"
+                onBlur={[Function]}
+                onChange={[Function]}
+                required={true}
+                type="text"
+                value="valueA"
+              />
               <div
-                className="leafygreen-ui-1cen7zh leafygreen-ui-1ago99h"
-              >
-                <input
-                  autoComplete="on"
-                  className="leafygreen-ui-pppkef leafygreen-ui-exxjz2"
-                  data-cy="user-tag-value-field"
-                  disabled={false}
-                  id="tag_value_undefined"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={true}
-                  type="text"
-                  value="valueA"
-                />
-                <div
-                  className="leafygreen-ui-3x1o6h"
-                  data-leafygreen-ui="interaction-ring"
-                />
-              </div>
-              <div
-                className="leafygreen-ui-m329s1"
-                data-leafygreen-ui="icon-selector"
+                className="static-lg-ui-classname leafygreen-ui-uy5fvv"
               />
             </div>
           </div>
@@ -155,41 +145,36 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
           className="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
         >
           <div
-            className="leafygreen-ui-1iyoj2o"
+            className="leafygreen-ui-xtefr5"
           >
-            <label
-              className="leafygreen-ui-ly82bp"
-              htmlFor="tag_key_undefined"
+            <div
+              className="leafygreen-ui-a533bt"
             >
-              Key
-            </label>
+              <label
+                className="leafygreen-ui-gr5280"
+                htmlFor="tag_key_undefined"
+              >
+                Key
+              </label>
+            </div>
             <div
               className="leafygreen-ui-lzja97"
             >
+              <input
+                aria-invalid={false}
+                autoComplete="on"
+                className="leafygreen-ui-6i61vl"
+                data-cy="user-tag-key-field"
+                disabled={false}
+                id="tag_key_undefined"
+                onBlur={[Function]}
+                onChange={[Function]}
+                required={true}
+                type="text"
+                value="keyB"
+              />
               <div
-                className="leafygreen-ui-1cen7zh leafygreen-ui-1ago99h"
-              >
-                <input
-                  autoComplete="on"
-                  className="leafygreen-ui-pppkef leafygreen-ui-exxjz2"
-                  data-cy="user-tag-key-field"
-                  disabled={false}
-                  id="tag_key_undefined"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={true}
-                  type="text"
-                  value="keyB"
-                />
-                <div
-                  className="leafygreen-ui-3x1o6h"
-                  data-leafygreen-ui="interaction-ring"
-                />
-              </div>
-              <div
-                className="leafygreen-ui-m329s1"
-                data-leafygreen-ui="icon-selector"
+                className="static-lg-ui-classname leafygreen-ui-uy5fvv"
               />
             </div>
           </div>
@@ -202,41 +187,36 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
           className="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
         >
           <div
-            className="leafygreen-ui-1iyoj2o"
+            className="leafygreen-ui-xtefr5"
           >
-            <label
-              className="leafygreen-ui-ly82bp"
-              htmlFor="tag_value_undefined"
+            <div
+              className="leafygreen-ui-a533bt"
             >
-              Value
-            </label>
+              <label
+                className="leafygreen-ui-gr5280"
+                htmlFor="tag_value_undefined"
+              >
+                Value
+              </label>
+            </div>
             <div
               className="leafygreen-ui-lzja97"
             >
+              <input
+                aria-invalid={false}
+                autoComplete="on"
+                className="leafygreen-ui-6i61vl"
+                data-cy="user-tag-value-field"
+                disabled={false}
+                id="tag_value_undefined"
+                onBlur={[Function]}
+                onChange={[Function]}
+                required={true}
+                type="text"
+                value="valueB"
+              />
               <div
-                className="leafygreen-ui-1cen7zh leafygreen-ui-1ago99h"
-              >
-                <input
-                  autoComplete="on"
-                  className="leafygreen-ui-pppkef leafygreen-ui-exxjz2"
-                  data-cy="user-tag-value-field"
-                  disabled={false}
-                  id="tag_value_undefined"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={true}
-                  type="text"
-                  value="valueB"
-                />
-                <div
-                  className="leafygreen-ui-3x1o6h"
-                  data-leafygreen-ui="interaction-ring"
-                />
-              </div>
-              <div
-                className="leafygreen-ui-m329s1"
-                data-leafygreen-ui="icon-selector"
+                className="static-lg-ui-classname leafygreen-ui-uy5fvv"
               />
             </div>
           </div>
@@ -292,41 +272,36 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
           className="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
         >
           <div
-            className="leafygreen-ui-1iyoj2o"
+            className="leafygreen-ui-xtefr5"
           >
-            <label
-              className="leafygreen-ui-ly82bp"
-              htmlFor="tag_key_undefined"
+            <div
+              className="leafygreen-ui-a533bt"
             >
-              Key
-            </label>
+              <label
+                className="leafygreen-ui-gr5280"
+                htmlFor="tag_key_undefined"
+              >
+                Key
+              </label>
+            </div>
             <div
               className="leafygreen-ui-lzja97"
             >
+              <input
+                aria-invalid={false}
+                autoComplete="on"
+                className="leafygreen-ui-6i61vl"
+                data-cy="user-tag-key-field"
+                disabled={false}
+                id="tag_key_undefined"
+                onBlur={[Function]}
+                onChange={[Function]}
+                required={true}
+                type="text"
+                value="keyC"
+              />
               <div
-                className="leafygreen-ui-1cen7zh leafygreen-ui-1ago99h"
-              >
-                <input
-                  autoComplete="on"
-                  className="leafygreen-ui-pppkef leafygreen-ui-exxjz2"
-                  data-cy="user-tag-key-field"
-                  disabled={false}
-                  id="tag_key_undefined"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={true}
-                  type="text"
-                  value="keyC"
-                />
-                <div
-                  className="leafygreen-ui-3x1o6h"
-                  data-leafygreen-ui="interaction-ring"
-                />
-              </div>
-              <div
-                className="leafygreen-ui-m329s1"
-                data-leafygreen-ui="icon-selector"
+                className="static-lg-ui-classname leafygreen-ui-uy5fvv"
               />
             </div>
           </div>
@@ -339,41 +314,36 @@ exports[`storybook Storyshots Components/Editable Tags Field Editable Tag Field 
           className="css-jmhbun-FlexColumnContainer-Section e161fbrp1"
         >
           <div
-            className="leafygreen-ui-1iyoj2o"
+            className="leafygreen-ui-xtefr5"
           >
-            <label
-              className="leafygreen-ui-ly82bp"
-              htmlFor="tag_value_undefined"
+            <div
+              className="leafygreen-ui-a533bt"
             >
-              Value
-            </label>
+              <label
+                className="leafygreen-ui-gr5280"
+                htmlFor="tag_value_undefined"
+              >
+                Value
+              </label>
+            </div>
             <div
               className="leafygreen-ui-lzja97"
             >
+              <input
+                aria-invalid={false}
+                autoComplete="on"
+                className="leafygreen-ui-6i61vl"
+                data-cy="user-tag-value-field"
+                disabled={false}
+                id="tag_value_undefined"
+                onBlur={[Function]}
+                onChange={[Function]}
+                required={true}
+                type="text"
+                value="valueC"
+              />
               <div
-                className="leafygreen-ui-1cen7zh leafygreen-ui-1ago99h"
-              >
-                <input
-                  autoComplete="on"
-                  className="leafygreen-ui-pppkef leafygreen-ui-exxjz2"
-                  data-cy="user-tag-value-field"
-                  disabled={false}
-                  id="tag_value_undefined"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={true}
-                  type="text"
-                  value="valueC"
-                />
-                <div
-                  className="leafygreen-ui-3x1o6h"
-                  data-leafygreen-ui="interaction-ring"
-                />
-              </div>
-              <div
-                className="leafygreen-ui-m329s1"
-                data-leafygreen-ui="icon-selector"
+                className="static-lg-ui-classname leafygreen-ui-uy5fvv"
               />
             </div>
           </div>

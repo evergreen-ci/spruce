@@ -68,7 +68,7 @@ const TupleSelect: React.VFC<TupleSelectProps> = ({
         </GroupedSelect>
         <GroupedTextInput
           id="filter-input"
-          aria-label="Tuple Search"
+          aria-label={selectedOption.displayName}
           data-cy="tuple-select-input"
           value={input}
           type="search"

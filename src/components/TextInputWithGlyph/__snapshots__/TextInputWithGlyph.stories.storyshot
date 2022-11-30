@@ -12,41 +12,36 @@ exports[`storybook Storyshots Components/TextInputWithGlyph Default 1`] = `
     className="css-mk4qpy-TextInputWrapper e13gwrw81"
   >
     <div
-      className="leafygreen-ui-1iyoj2o"
+      className="leafygreen-ui-xtefr5"
     >
-      <label
-        className="leafygreen-ui-ly82bp"
-        htmlFor="textinput-18"
+      <div
+        className="leafygreen-ui-a533bt"
       >
-        Some search field
-      </label>
+        <label
+          className="leafygreen-ui-gr5280"
+          htmlFor="textinput-18"
+        >
+          Some search field
+        </label>
+      </div>
       <div
         className="leafygreen-ui-lzja97"
       >
+        <input
+          aria-invalid={false}
+          autoComplete="on"
+          className="leafygreen-ui-6i61vl"
+          disabled={false}
+          id="textinput-18"
+          onBlur={[Function]}
+          onChange={[Function]}
+          placeholder="Search"
+          required={true}
+          type="text"
+          value=""
+        />
         <div
-          className="leafygreen-ui-1cen7zh leafygreen-ui-1ago99h"
-        >
-          <input
-            autoComplete="on"
-            className="leafygreen-ui-pppkef leafygreen-ui-exxjz2"
-            disabled={false}
-            id="textinput-18"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            placeholder="Search"
-            required={true}
-            type="text"
-            value=""
-          />
-          <div
-            className="leafygreen-ui-3x1o6h"
-            data-leafygreen-ui="interaction-ring"
-          />
-        </div>
-        <div
-          className="leafygreen-ui-m329s1"
-          data-leafygreen-ui="icon-selector"
+          className="static-lg-ui-classname leafygreen-ui-uy5fvv"
         />
       </div>
     </div>

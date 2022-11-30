@@ -16,43 +16,38 @@ exports[`storybook Storyshots Components/History Table/HistoryTableTestSearch Te
       className="css-mk4qpy-TextInputWrapper e13gwrw81"
     >
       <div
-        className="leafygreen-ui-1iyoj2o"
+        className="leafygreen-ui-xtefr5"
       >
-        <label
-          className="leafygreen-ui-ly82bp"
-          htmlFor="textinput-15"
+        <div
+          className="leafygreen-ui-a533bt"
         >
-          Filter by Failed Tests
-        </label>
+          <label
+            className="leafygreen-ui-gr5280"
+            htmlFor="textinput-15"
+          >
+            Filter by Failed Tests
+          </label>
+        </div>
         <div
           className="leafygreen-ui-lzja97"
         >
+          <input
+            aria-invalid={false}
+            aria-label="history-table-test-search-input"
+            autoComplete="on"
+            className="leafygreen-ui-6i61vl"
+            disabled={false}
+            id="textinput-15"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onKeyPress={[Function]}
+            placeholder="Search test name regex"
+            required={true}
+            type="search"
+            value=""
+          />
           <div
-            className="leafygreen-ui-1cen7zh leafygreen-ui-1ago99h"
-          >
-            <input
-              aria-label="history-table-test-search-input"
-              autoComplete="on"
-              className="leafygreen-ui-pppkef leafygreen-ui-exxjz2"
-              disabled={false}
-              id="textinput-15"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onFocus={[Function]}
-              onKeyPress={[Function]}
-              placeholder="Search test name regex"
-              required={true}
-              type="search"
-              value=""
-            />
-            <div
-              className="leafygreen-ui-3x1o6h"
-              data-leafygreen-ui="interaction-ring"
-            />
-          </div>
-          <div
-            className="leafygreen-ui-m329s1"
-            data-leafygreen-ui="icon-selector"
+            className="static-lg-ui-classname leafygreen-ui-uy5fvv"
           />
         </div>
       </div>

@@ -77,38 +77,29 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
         className="css-mk4qpy-TextInputWrapper e13gwrw81"
       >
         <div
-          className="leafygreen-ui-1iyoj2o css-1lrwj5g-GroupedTextInput e5gn9hl0"
+          className="css-1lrwj5g-GroupedTextInput e5gn9hl0 leafygreen-ui-xtefr5"
         >
           <div
             className="leafygreen-ui-lzja97"
           >
+            <input
+              aria-invalid={false}
+              aria-label="Build Variant"
+              autoComplete="on"
+              className="leafygreen-ui-6i61vl"
+              data-cy="tuple-select-input"
+              disabled={false}
+              id="filter-input"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onKeyPress={[Function]}
+              placeholder="Search Build Variant names"
+              required={true}
+              type="search"
+              value=""
+            />
             <div
-              className="leafygreen-ui-1cen7zh leafygreen-ui-1ago99h"
-            >
-              <input
-                aria-label="Tuple Search"
-                autoComplete="on"
-                className="leafygreen-ui-pppkef leafygreen-ui-exxjz2"
-                data-cy="tuple-select-input"
-                disabled={false}
-                id="filter-input"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                onKeyPress={[Function]}
-                placeholder="Search Build Variant names"
-                required={true}
-                type="search"
-                value=""
-              />
-              <div
-                className="leafygreen-ui-3x1o6h"
-                data-leafygreen-ui="interaction-ring"
-              />
-            </div>
-            <div
-              className="leafygreen-ui-m329s1"
-              data-leafygreen-ui="icon-selector"
+              className="static-lg-ui-classname leafygreen-ui-uy5fvv"
             />
           </div>
         </div>
