@@ -152,7 +152,7 @@ const ArrayItem: React.VFC<
     <StyledExpandableCard
       defaultOpen={!isDisabled}
       data-cy="expandable-card"
-      // Override LeafyGreen's string typing for title so we can include buttons.
+      // Override LeafyGreen's string typing for title so we can include buttons. (LG-2193)
       /* @ts-expect-error */
       title={
         <>
