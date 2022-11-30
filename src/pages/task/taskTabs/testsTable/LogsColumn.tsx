@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Link } from "react-router-dom";
-import { Analytics } from "analytics/task/useTaskAnalytics";
+import { useTaskAnalytics } from "analytics";
 import { getTaskHistoryRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { TestResult, GetTaskQuery } from "gql/generated/types";
@@ -10,15 +10,15 @@ import { string } from "utils";
 
 const { escapeRegex } = string;
 interface Props {
-  onClick: Analytics["sendEvent"];
   testResult: TestResult;
   task: GetTaskQuery["task"];
 }
 
-export const LogsColumn: React.VFC<Props> = ({ testResult, onClick, task }) => {
+export const LogsColumn: React.VFC<Props> = ({ testResult, task }) => {
   const { status, testFile } = testResult;
   const { url: urlHTML, urlRaw, urlParsley } = testResult.logs ?? {};
   const { project, displayName, displayTask, order } = task ?? {};
+  const { sendEvent } = useTaskAnalytics();
   const filters =
     status === TestStatus.Fail
       ? {
@@ -36,7 +36,7 @@ export const LogsColumn: React.VFC<Props> = ({ testResult, onClick, task }) => {
           target="_blank"
           href={urlParsley}
           onClick={() =>
-            onClick({
+            sendEvent({
               name: "Click Test Logs Button",
               logViewer: "parsley",
               testStatus: status,
@@ -53,7 +53,7 @@ export const LogsColumn: React.VFC<Props> = ({ testResult, onClick, task }) => {
           target="_blank"
           href={urlHTML}
           onClick={() =>
-            onClick({
+            sendEvent({
               name: "Click Test Logs Button",
               logViewer: "html",
               testStatus: status,
@@ -70,7 +70,7 @@ export const LogsColumn: React.VFC<Props> = ({ testResult, onClick, task }) => {
           target="_blank"
           href={urlRaw}
           onClick={() =>
-            onClick({
+            sendEvent({
               name: "Click Test Logs Button",
               logViewer: "raw",
               testStatus: status,
@@ -87,7 +87,7 @@ export const LogsColumn: React.VFC<Props> = ({ testResult, onClick, task }) => {
           data-cy="task-history-tests-btn"
           key="task-history"
           onClick={() => {
-            onClick({ name: "Click See History Button" });
+            sendEvent({ name: "Click See History Button" });
           }}
           to={getTaskHistoryRoute(project?.identifier, displayName, {
             filters,

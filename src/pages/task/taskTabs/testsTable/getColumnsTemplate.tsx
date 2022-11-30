@@ -1,5 +1,4 @@
 import { ColumnProps } from "antd/es/table";
-import { Analytics } from "analytics/task/useTaskAnalytics";
 import {
   InputFilterProps,
   getColumnSearchFilterProps,
@@ -19,7 +18,6 @@ import { TestStatusBadge } from "./TestStatusBadge";
 const { msToDuration } = string;
 
 interface GetColumnsTemplateParams {
-  onClickTaskLog: Analytics["sendEvent"];
   onColumnHeaderClick?: (sortField) => void;
   statusSelectorProps: TreeSelectProps;
   testNameInputProps: InputFilterProps;
@@ -27,7 +25,6 @@ interface GetColumnsTemplateParams {
 }
 
 export const getColumnsTemplate = ({
-  onClickTaskLog = () => undefined,
   onColumnHeaderClick = () => undefined,
   statusSelectorProps,
   testNameInputProps,
@@ -101,8 +98,6 @@ export const getColumnsTemplate = ({
     dataIndex: "logs",
     key: "logs",
     sorter: false,
-    render: (a, b): JSX.Element => (
-      <LogsColumn onClick={onClickTaskLog} testResult={b} task={task} />
-    ),
+    render: (a, b): JSX.Element => <LogsColumn testResult={b} task={task} />,
   },
 ];

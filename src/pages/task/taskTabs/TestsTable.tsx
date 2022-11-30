@@ -100,7 +100,6 @@ export const TestsTable: React.VFC<TestsTableProps> = ({ task }) => {
   };
 
   const columns = getColumnsTemplate({
-    onClickTaskLog: taskAnalytics.sendEvent,
     onColumnHeaderClick: (sortField) =>
       taskAnalytics.sendEvent({ name: "Sort Tests Table", sortBy: sortField }),
     statusSelectorProps,
