@@ -3831,15 +3831,6 @@
   resolved "https://registry.yarnpkg.com/@kwsites/promise-deferred/-/promise-deferred-1.1.1.tgz#8ace5259254426ccef57f3175bc64ed7095ed919"
   integrity sha512-GaHYm+c0O9MjZRu0ongGBRbinu8gVAMd2UZjji6jVmqKtZluZnptXGWhz1E8j8D2HJ3f/yMxKAUC0b+57wncIw==
 
-"@leafygreen-ui/a11y@^1.3.3":
-  version "1.3.3"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/a11y/-/a11y-1.3.3.tgz#9a9e72f08a3ea56918c0d37b68cb4bb7afca46e2"
-  integrity sha512-8aFrxq8yvyjN4qQ5ddJPrC2FxvZUwkJHXJ+ozBpDinT+9xmLLlCs4AxY2EZ1tDwt91Vb42NMwZBULVTWKnr45A==
-  dependencies:
-    "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/hooks" "^7.3.3"
-    "@leafygreen-ui/lib" "^9.5.1"
-
 "@leafygreen-ui/a11y@^1.3.4":
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/a11y/-/a11y-1.3.4.tgz#aa145719db5457103c6339017304c3eae42c7085"
@@ -3849,35 +3840,48 @@
     "@leafygreen-ui/hooks" "^7.3.3"
     "@leafygreen-ui/lib" "^10.0.0"
 
-"@leafygreen-ui/badge@7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/badge/-/badge-7.0.0.tgz#60a01b5cb8691e5dd4eff999775027024aece349"
-  integrity sha512-ZEsI93KoFV+bhGt/aq83lC8eaYvk5DRyDWIQitFZRcPivFK+6WCkX9B8M7PlYO/a2C7BI6EQ/iT6jldKmtrKpA==
+"@leafygreen-ui/badge@8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/badge/-/badge-8.0.1.tgz#d11193338617637c3ae7fce6d91984748eb2e0bf"
+  integrity sha512-1ByvvzNu7K3uQjCxtGdxdwzHkhU0ZbYmJfLp5nsC6SxxH6NYEqoPbU9DzA+kX+Ef02ksArLp1FPoEde9sSkgbw==
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/lib" "^9.5.1"
-    "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/tokens" "^1.3.4"
-
-"@leafygreen-ui/banner@7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/banner/-/banner-7.0.0.tgz#58a8d0a2b57a6595433eaca61ba3dbb7834c3e67"
-  integrity sha512-GAvOsahnuk6hVXCuh/b++8IpqPSYWLBaDWBkAXXvExE4J09BVIdBUOA0I8wwtR3ZSJJ0vG/uBrPvORKbahQtZw==
-  dependencies:
-    "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/icon" "^11.12.0"
-    "@leafygreen-ui/icon-button" "^15.0.0"
     "@leafygreen-ui/lib" "^10.0.0"
     "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/tokens" "^1.3.4"
-    "@leafygreen-ui/typography" "^15.0.0"
+    "@leafygreen-ui/tokens" "^1.4.0"
+
+"@leafygreen-ui/banner@7.0.1":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/banner/-/banner-7.0.1.tgz#1635d2f8e95d7b9b5a65ebd46c88fc58592b269f"
+  integrity sha512-i1p9Drh6/tnw8VciiyNpIggtIMcOguzy/wrJCLhwmb/WXvcdY0fxCUBRnNn7RaMzDOmvQuow/ER2orKUTT5cEQ==
+  dependencies:
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/icon" "^11.12.1"
+    "@leafygreen-ui/icon-button" "^15.0.1"
+    "@leafygreen-ui/lib" "^10.0.0"
+    "@leafygreen-ui/palette" "^3.4.4"
+    "@leafygreen-ui/tokens" "^1.4.0"
+    "@leafygreen-ui/typography" "^15.1.0"
 
 "@leafygreen-ui/box@^3.1.1":
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/box/-/box-3.1.1.tgz#3d2cc09ac5105e19d2a49da2f2065b45cc8e4722"
   integrity sha512-zA6Ors7GV19DTVLqhQdg3jvypUNlyNJNVrS2XytmsPvR5XJuh5saNLmi9zw1aNsN7hETUCxj4JH1QxDEgaYTqg==
 
-"@leafygreen-ui/button@19.0.0", "@leafygreen-ui/button@^19.0.0":
+"@leafygreen-ui/button@19.0.1", "@leafygreen-ui/button@^19.0.1":
+  version "19.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/button/-/button-19.0.1.tgz#76b927abcd246d23b99963aa73f2cec3eb465526"
+  integrity sha512-RXD+Y37LSL3Wc2gDAqIOCznYcuwxWpm/KY7w2wEie9Okj0OFPf6v5haBTvtrBF8opq0RepXM/KYEWVgKYVOWoQ==
+  dependencies:
+    "@leafygreen-ui/box" "^3.1.1"
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/lib" "^10.0.0"
+    "@leafygreen-ui/palette" "^3.4.4"
+    "@leafygreen-ui/ripple" "^1.1.6"
+    "@leafygreen-ui/tokens" "^1.4.0"
+    polished "^4.2.2"
+
+"@leafygreen-ui/button@^19.0.0":
   version "19.0.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/button/-/button-19.0.0.tgz#4e100d2575e41f29d36e6d89a7177307d3217cb7"
   integrity sha512-DHtHFjKqIGN9Uz930NACVEYjEcDI5OSsMdZ05Uf3sJFN4RvBKo73/gP32UMll0qfwv/Qs0sudB9zMJq+GtTBcQ==
@@ -3889,30 +3893,7 @@
     "@leafygreen-ui/ripple" "^1.1.5"
     "@leafygreen-ui/tokens" "^1.3.4"
 
-"@leafygreen-ui/button@^18.0.0":
-  version "18.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/button/-/button-18.0.0.tgz#ab6cde2ca7429adc1b0df29b16578d7b6562a227"
-  integrity sha512-b6LJHWASVwrTNKTLPTLN4s5r7wNV/8nP7jOa1ZG9TdB0741ws9Dy5Rod4u+H45dhmgp3VcNCTJmYOWxBPlOd9A==
-  dependencies:
-    "@leafygreen-ui/box" "^3.1.1"
-    "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/lib" "^10.0.0"
-    "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/ripple" "^1.1.5"
-    "@leafygreen-ui/tokens" "^1.3.4"
-
-"@leafygreen-ui/card@8.0.1":
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/card/-/card-8.0.1.tgz#b5d41e8278fbef8dd11059a06829bfb23911fe67"
-  integrity sha512-jcCh7QzJAQ4K90O2kHb3WaP9u+ZUhwiN0Rpczzk70UNZz2jptTk88YfJ4qDk6Oa5LgejSfYe6RLHki8Vmp5CCQ==
-  dependencies:
-    "@leafygreen-ui/box" "^3.1.1"
-    "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/lib" "^10.0.0"
-    "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/tokens" "^1.3.4"
-
-"@leafygreen-ui/card@^9.0.1":
+"@leafygreen-ui/card@9.0.1", "@leafygreen-ui/card@^9.0.1":
   version "9.0.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/card/-/card-9.0.1.tgz#c81eb354acfd950d10ef0a5b4ce4c124235505db"
   integrity sha512-I07xrEesSmM1tz6IHI4baLb7btudG0EFFPp0MZjd20+yZjrUjBO0DYgL0x7YlN56/DxtIqAmQrWr8kGk1Ythaw==
@@ -3924,39 +3905,40 @@
     "@leafygreen-ui/tokens" "^1.4.0"
     polished "^4.2.2"
 
-"@leafygreen-ui/checkbox@11.0.1":
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/checkbox/-/checkbox-11.0.1.tgz#d3129fa7ba49dcdfc001cc985702160d4a71f537"
-  integrity sha512-/3AOra0RWYs2Yln/dQzmwytP/cPgDIbs0o30Me8s2k/MqsdiwrMOkB173r/tyqaErrI50fvYrcgrrLLograXSA==
+"@leafygreen-ui/checkbox@12.0.1":
+  version "12.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/checkbox/-/checkbox-12.0.1.tgz#1af8e2e74115b705fd1897c4030ef14e3561125e"
+  integrity sha512-/OWghTpCeOlD5h1KnWA0f+RqwR201TXml4aSdzzoz++bSWxDit6fTH5JBKM5HBcGHqka7NyfL902pkqg+wgDlA==
   dependencies:
     "@leafygreen-ui/a11y" "^1.3.4"
     "@leafygreen-ui/emotion" "^4.0.3"
     "@leafygreen-ui/hooks" "^7.3.3"
     "@leafygreen-ui/lib" "^10.0.0"
-    "@leafygreen-ui/tokens" "^1.3.4"
-    "@leafygreen-ui/typography" "^14.0.1"
+    "@leafygreen-ui/tokens" "^1.4.0"
+    "@leafygreen-ui/typography" "^15.1.0"
     react-transition-group "^4.4.1"
 
-"@leafygreen-ui/code@13.0.1":
-  version "13.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/code/-/code-13.0.1.tgz#de2a285b48e9f66608b9e5f830354ac83a280f85"
-  integrity sha512-bgdjIwIJGwGpMSUctiQ0n/hH3PPUteVWQvFMBA27aQQgUrkGz0Tm4o16v/qYY/u/WJmm2QQ5VqtY1Gn3VLbW0Q==
+"@leafygreen-ui/code@14.0.1":
+  version "14.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/code/-/code-14.0.1.tgz#1959bb07bb98a428d63afb8753c31b6ce7a0c772"
+  integrity sha512-ZzZIbM6tMDmkNHkQuQIUk4oBV5Mgq8RzO35V2R33sVA/sZFGom5iN/IW/U3c61FNuRHEptfH7Y2+3aOcWPOrAA==
   dependencies:
     "@leafygreen-ui/a11y" "^1.3.4"
-    "@leafygreen-ui/button" "^18.0.0"
+    "@leafygreen-ui/button" "^19.0.1"
     "@leafygreen-ui/emotion" "^4.0.3"
     "@leafygreen-ui/hooks" "^7.3.3"
-    "@leafygreen-ui/icon" "^11.12.0"
-    "@leafygreen-ui/icon-button" "^14.0.1"
+    "@leafygreen-ui/icon" "^11.12.1"
+    "@leafygreen-ui/icon-button" "^15.0.1"
     "@leafygreen-ui/lib" "^10.0.0"
     "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/select" "^9.0.0"
-    "@leafygreen-ui/tokens" "^1.3.4"
+    "@leafygreen-ui/select" "^10.1.0"
+    "@leafygreen-ui/tokens" "^1.4.0"
     clipboard "^2.0.6"
     facepaint "^1.2.1"
     highlight.js "~11.5.0"
     highlightjs-graphql "^1.0.1"
     lodash "^4.17.21"
+    polished "^4.2.2"
 
 "@leafygreen-ui/confirmation-modal@3.1.4":
   version "3.1.4"
@@ -3995,22 +3977,22 @@
     "@leafygreen-ui/typography" "^15.1.0"
     react-transition-group "^4.4.1"
 
-"@leafygreen-ui/guide-cue@2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/guide-cue/-/guide-cue-2.0.1.tgz#04d25393f5159d34702f420c9580eee1b01e858f"
-  integrity sha512-9naEroNWWOwAOS6GUU8Uj1BGIn3bNfN9ym7CWejsdDoAMq257cTPhE5mo/xYoT0jhuIEmH5LYOCoOX+Kbzz1Hg==
+"@leafygreen-ui/guide-cue@3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/guide-cue/-/guide-cue-3.0.0.tgz#191e5a76609a9f72394de33b353001dd3d92e0b9"
+  integrity sha512-14CH8UvmxA0tOFNd5G2D1sTUlR5UKFLKXh03snwMLRCkgQ5FPh6iBTU3fL/iJunrXtRFX9X/bAmwWtlNQAm9iw==
   dependencies:
     "@leafygreen-ui/a11y" "^1.3.4"
-    "@leafygreen-ui/button" "^18.0.0"
+    "@leafygreen-ui/button" "^19.0.0"
     "@leafygreen-ui/emotion" "^4.0.3"
     "@leafygreen-ui/hooks" "^7.3.3"
     "@leafygreen-ui/icon" "^11.12.0"
-    "@leafygreen-ui/icon-button" "^14.0.1"
+    "@leafygreen-ui/icon-button" "^15.0.0"
     "@leafygreen-ui/lib" "^10.0.0"
     "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/popover" "^10.0.1"
-    "@leafygreen-ui/tooltip" "^8.0.1"
-    "@leafygreen-ui/typography" "^14.0.1"
+    "@leafygreen-ui/popover" "^11.0.0"
+    "@leafygreen-ui/tooltip" "^9.0.0"
+    "@leafygreen-ui/typography" "^15.0.0"
     focus-trap-react "^10.0.0"
     polished "^4.2.2"
 
@@ -4021,17 +4003,17 @@
   dependencies:
     lodash "^4.17.21"
 
-"@leafygreen-ui/icon-button@14.0.1", "@leafygreen-ui/icon-button@^14.0.1":
-  version "14.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon-button/-/icon-button-14.0.1.tgz#baaa3f17ed812406b90c1a7c8b69a7ab64306b7a"
-  integrity sha512-3hcoO718TlA3OsouBpHc/XJpNooaXJAu1Gy/7Q7qM9gaMdiPpYVhQIFRJ/VXnaEt1ma8cf2XzPXf7f6d21/uNQ==
+"@leafygreen-ui/icon-button@15.0.1", "@leafygreen-ui/icon-button@^15.0.1":
+  version "15.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon-button/-/icon-button-15.0.1.tgz#f27ef4837699f819803b4c8ff40b2216707db036"
+  integrity sha512-obpTJbCd0cc/tD9WjX5yV1ulJKZsf+9BIkRl/NV0BcgIfdvLG6foV9AMLFKnMrql0BF+R3Jo6HBJozY1h2yfXw==
   dependencies:
     "@leafygreen-ui/a11y" "^1.3.4"
     "@leafygreen-ui/box" "^3.1.1"
     "@leafygreen-ui/emotion" "^4.0.3"
     "@leafygreen-ui/lib" "^10.0.0"
     "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/tokens" "^1.3.4"
+    "@leafygreen-ui/tokens" "^1.4.0"
 
 "@leafygreen-ui/icon-button@^15.0.0":
   version "15.0.0"
@@ -4045,48 +4027,29 @@
     "@leafygreen-ui/palette" "^3.4.4"
     "@leafygreen-ui/tokens" "^1.3.4"
 
-"@leafygreen-ui/icon-button@^15.0.1":
-  version "15.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon-button/-/icon-button-15.0.1.tgz#f27ef4837699f819803b4c8ff40b2216707db036"
-  integrity sha512-obpTJbCd0cc/tD9WjX5yV1ulJKZsf+9BIkRl/NV0BcgIfdvLG6foV9AMLFKnMrql0BF+R3Jo6HBJozY1h2yfXw==
-  dependencies:
-    "@leafygreen-ui/a11y" "^1.3.4"
-    "@leafygreen-ui/box" "^3.1.1"
-    "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/lib" "^10.0.0"
-    "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/tokens" "^1.4.0"
-
-"@leafygreen-ui/icon@11.12.0", "@leafygreen-ui/icon@^11.12.0":
-  version "11.12.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-11.12.0.tgz#69229d0e15f5ea6b47d2202af913d3c20cb4e645"
-  integrity sha512-CKd618GdW+VhXsrogEKBkeOpXcrdjyuh1Ch8/EhUys83nSalXUclFHWxuwEnGM5iEUItj7Fb1QDXL+NOHtCDDA==
-  dependencies:
-    "@leafygreen-ui/emotion" "^4.0.3"
-
-"@leafygreen-ui/icon@^11.11.1":
-  version "11.11.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-11.11.1.tgz#7244e4b06f28538123aa22fdda3c461a3bb127a3"
-  integrity sha512-T8QQ3T/ewD6/98HSb4fSBm9ioGcrUpmqp24odUB2PgJF1iAVox2qnFWeSIL7FN2v1Id4we+44gu6xzbz3FoFRA==
-  dependencies:
-    "@leafygreen-ui/emotion" "^4.0.3"
-
-"@leafygreen-ui/icon@^11.12.1":
+"@leafygreen-ui/icon@11.12.1", "@leafygreen-ui/icon@^11.12.1":
   version "11.12.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-11.12.1.tgz#8ec2a8cd209c07e5e9a3b5a8f42b74afa4364573"
   integrity sha512-TOnECGHs3honiuy7JdbGXLYi7mgOzX7mJtO8Ius63pG4D0gTZZrJPE4JhXPmdOgYtZ22/pGxSCHcOHvIBYYjvw==
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.3"
 
-"@leafygreen-ui/inline-definition@5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/inline-definition/-/inline-definition-5.0.0.tgz#076c66da6f2289c1e45735a759b4c31c6d09763a"
-  integrity sha512-az5ci0ZWqIcm2MiyxhJWmH4KcC6QLq8ay+eKVJ7ApP8GjgdbnU7Yp3x/EZoBP1JWnJZgoxEj64a4gT3YvMBACQ==
+"@leafygreen-ui/icon@^11.12.0":
+  version "11.12.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-11.12.0.tgz#69229d0e15f5ea6b47d2202af913d3c20cb4e645"
+  integrity sha512-CKd618GdW+VhXsrogEKBkeOpXcrdjyuh1Ch8/EhUys83nSalXUclFHWxuwEnGM5iEUItj7Fb1QDXL+NOHtCDDA==
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/lib" "^9.5.1"
+
+"@leafygreen-ui/inline-definition@6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/inline-definition/-/inline-definition-6.0.0.tgz#44632ced7f7e053575390923ec9a95cfc0e3842d"
+  integrity sha512-jGLMW4Z3CiagbyEUIyQOHIXS+z3NeRRl1pA4fs7XHUVqEA45Ia0joo8okoXuPLmCPMM7oL30COon6fqaYBzfcA==
+  dependencies:
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/lib" "^10.0.0"
     "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/tooltip" "^8.0.0"
+    "@leafygreen-ui/tooltip" "^9.0.0"
 
 "@leafygreen-ui/interaction-ring@7.0.1":
   version "7.0.1"
@@ -4113,31 +4076,43 @@
   dependencies:
     lodash "^4.17.21"
 
-"@leafygreen-ui/lib@^9.5.1":
-  version "9.5.2"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-9.5.2.tgz#c80d7920e819c89ee544866b1046667fe99ea8d3"
-  integrity sha512-soC5ZSnhqoqbFv9b2kAe+1s7nUnAcdcBzrI0yIJZymExCJsZnmI3VWjLTUbViuTrsO1GfnmLDdsUeDr3ezTOOg==
-  dependencies:
-    lodash "^4.17.21"
-
-"@leafygreen-ui/menu@18.0.0":
-  version "18.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/menu/-/menu-18.0.0.tgz#fd6ca6cd367e7200849290ff50d852e7257c6eac"
-  integrity sha512-jp/1XDDfXjodUGhA5zNbgXLNDxTd0DgD7F+xA/0DmpB+uXM+Y7NkrWe4yVI7s+WALilZ5j3uciTb8zh57eWlrA==
+"@leafygreen-ui/menu@19.0.1":
+  version "19.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/menu/-/menu-19.0.1.tgz#42a4bb0c3dcb97a93c4114a4fd51a735468d7abb"
+  integrity sha512-k6EBJh32PidaeTdpZefl7kh3bA9GDcRehzXur1wC0L+dzZYY2QCjKfmoebwJsbwZnVb64IkMW4U/Rg0k9cQsPg==
   dependencies:
     "@leafygreen-ui/box" "^3.1.1"
     "@leafygreen-ui/emotion" "^4.0.3"
     "@leafygreen-ui/hooks" "^7.3.3"
-    "@leafygreen-ui/icon" "^11.12.0"
-    "@leafygreen-ui/icon-button" "^14.0.1"
+    "@leafygreen-ui/icon" "^11.12.1"
+    "@leafygreen-ui/icon-button" "^15.0.1"
     "@leafygreen-ui/lib" "^10.0.0"
     "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/popover" "^10.0.1"
-    "@leafygreen-ui/tokens" "^1.3.4"
+    "@leafygreen-ui/popover" "^11.0.1"
+    "@leafygreen-ui/tokens" "^1.4.0"
     lodash "^4.17.21"
     react-transition-group "^4.4.1"
 
-"@leafygreen-ui/modal@12.0.0", "@leafygreen-ui/modal@^12.0.0":
+"@leafygreen-ui/modal@12.0.1":
+  version "12.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/modal/-/modal-12.0.1.tgz#80e0d538c18247498a489b16beb87f1a415725f3"
+  integrity sha512-GIJGf4ys2n8TuU8rFEHa0juv3gE1JBf395v3gDNmimVZr/zkDTgcK6t8vWJ7PbCH9nX9s4BWUI7Ng6w2h7qTZw==
+  dependencies:
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/hooks" "^7.3.3"
+    "@leafygreen-ui/icon" "^11.12.1"
+    "@leafygreen-ui/icon-button" "^15.0.1"
+    "@leafygreen-ui/lib" "^10.0.0"
+    "@leafygreen-ui/palette" "^3.4.4"
+    "@leafygreen-ui/portal" "^4.0.7"
+    "@leafygreen-ui/tokens" "^1.4.0"
+    facepaint "^1.2.1"
+    focus-trap-react "^8.10.0"
+    polished "^4.2.2"
+    prop-types "^15.8.1"
+    react-transition-group "^4.4.1"
+
+"@leafygreen-ui/modal@^12.0.0":
   version "12.0.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/modal/-/modal-12.0.0.tgz#3988467e48f35800f2b674ae7413c7712672da7a"
   integrity sha512-TxgUU4XD0GqQl4GfQ3GpungDEFN0xCqS3AAKTqwbVS3xRzNkywQiuGqXt2PIOBO1bhi6w22FCkWPzO59Xc3BaA==
@@ -4160,7 +4135,19 @@
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/palette/-/palette-3.4.4.tgz#d5a8fd85b4eaa27d8a61ffa70288f8f3451e5670"
   integrity sha512-ed71/pOusm9/I/7hTox38L5a/6UTk2nJr+b6ihQO/rh1oDblBvq48ID6wbJhmH/wif/SkSOAKPzXR9rKIu9uYg==
 
-"@leafygreen-ui/popover@11.0.0", "@leafygreen-ui/popover@^11.0.0":
+"@leafygreen-ui/popover@11.0.1", "@leafygreen-ui/popover@^11.0.1":
+  version "11.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/popover/-/popover-11.0.1.tgz#864fb3d39cab2e98b600bd1b5bf930f3592af188"
+  integrity sha512-OLAjYWomhc3wL+pZnmzrbQOOLtCH0Fm0cLfK0AY3h1QVV0XGZQVDt1+soa6KKZInb7wcAtHZpDHqxWzVlwkuZg==
+  dependencies:
+    "@leafygreen-ui/emotion" "^4.0.3"
+    "@leafygreen-ui/hooks" "^7.3.3"
+    "@leafygreen-ui/lib" "^10.0.0"
+    "@leafygreen-ui/portal" "^4.0.7"
+    "@leafygreen-ui/tokens" "^1.4.0"
+    react-transition-group "^4.4.1"
+
+"@leafygreen-ui/popover@^11.0.0":
   version "11.0.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/popover/-/popover-11.0.0.tgz#0c01ded9b3c0db2ac00867d9ea286f0d42ac3873"
   integrity sha512-bmw1LQ9LDmWBTkcapNUMx1Mya/3VLoI8jFBJGCKkDjKn+YyuG5TUGkfM9MEETDGUgM9yDseCEFmBEDOSgUx7tw==
@@ -4171,36 +4158,6 @@
     "@leafygreen-ui/portal" "^4.0.7"
     react-transition-group "^4.4.1"
 
-"@leafygreen-ui/popover@^10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/popover/-/popover-10.0.0.tgz#06b0619dc47ad9cb19a74ce0fba0e1207cb85642"
-  integrity sha512-vQtkvHIlvWL8sZ00DRNzN6wmAH2pGDRDOe/1TVhMGwDAPb/7RetUXIFmYtPBspiTTOV6hU195VzbQ/yNoRdymA==
-  dependencies:
-    "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/hooks" "^7.3.3"
-    "@leafygreen-ui/lib" "^9.5.1"
-    "@leafygreen-ui/portal" "^4.0.6"
-    react-transition-group "^4.4.1"
-
-"@leafygreen-ui/popover@^10.0.1":
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/popover/-/popover-10.0.1.tgz#0c7545b3459c37bca1d8f8f278f402c1152e2c62"
-  integrity sha512-dviUrpShlkDX/iozQNauLGVrwSVQs8AXjj8v8nSZ6Cc553J+bVH8BVJQGZ9ewNwbBHU5/xpik69f80euG3xNsA==
-  dependencies:
-    "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/hooks" "^7.3.3"
-    "@leafygreen-ui/lib" "^10.0.0"
-    "@leafygreen-ui/portal" "^4.0.7"
-    react-transition-group "^4.4.1"
-
-"@leafygreen-ui/portal@^4.0.6":
-  version "4.0.6"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/portal/-/portal-4.0.6.tgz#0f73b30eaf74b4bb9e413cacc2fee4243b028397"
-  integrity sha512-DNAJRwQgO9a7hsZbSayKgz6ZpRsTWVlziDxchOcoDzFrEiPaq9ve2FATsaM8wET3U0wA0vSDoaGkGOHuf+gNIA==
-  dependencies:
-    "@leafygreen-ui/hooks" "^7.3.3"
-    "@leafygreen-ui/lib" "^9.5.1"
-
 "@leafygreen-ui/portal@^4.0.7":
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/portal/-/portal-4.0.7.tgz#af1db0bb81a825e9461c9d455cc676e4e7deb4c3"
@@ -4209,130 +4166,122 @@
     "@leafygreen-ui/hooks" "^7.3.3"
     "@leafygreen-ui/lib" "^10.0.0"
 
-"@leafygreen-ui/radio-box-group@12.0.0":
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/radio-box-group/-/radio-box-group-12.0.0.tgz#1930f01327ed8e3402ffc3b4c4cd133302edd4a3"
-  integrity sha512-KE7svJILFNLL1ANqxn6PhUtAAE2ZDbwPNj6taOtb7141hgjN9NZhPVEbzuQinP33LPcLbaxcf1mmETx3O6RbLA==
+"@leafygreen-ui/radio-box-group@12.0.1":
+  version "12.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/radio-box-group/-/radio-box-group-12.0.1.tgz#64f44ad30d99958ccc18e2303269175c4cad715d"
+  integrity sha512-5Sh0+4v9CTV2/I3Tpu0jvpth77ISI+fkbe4IcZBADBxv3Ccggnh4VKdJh6uJZRrpfwERXRl1lvltq4il77B0Ow==
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.3"
     "@leafygreen-ui/hooks" "^7.3.3"
     "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/tokens" "^1.3.4"
+    "@leafygreen-ui/tokens" "^1.4.0"
 
-"@leafygreen-ui/radio-group@10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/radio-group/-/radio-group-10.0.0.tgz#aa11809e4de9846da38c4d341841761276a4156b"
-  integrity sha512-DTRy7a1clLnnULTPFrlmabTppIcBz7hSG4KAqnrczVwMlKL57xyTvf4Jyylj0OQsBZ+NIZoNwDZLaohxIrCO7A==
+"@leafygreen-ui/radio-group@10.0.1":
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/radio-group/-/radio-group-10.0.1.tgz#c006b8dbb204b263320fc117ed6b11b2da069607"
+  integrity sha512-+Jv5pRA2qsANnDgVnsSZPf4UUw68VYfPNkIZuWqFSFD/HfMXfCsgfIu8hEvp+k20UmJdXsfVhHEeRcgJlhiwRg==
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.3"
     "@leafygreen-ui/hooks" "^7.3.3"
     "@leafygreen-ui/lib" "^10.0.0"
     "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/tokens" "^1.3.4"
+    "@leafygreen-ui/tokens" "^1.4.0"
 
 "@leafygreen-ui/ripple@^1.1.5":
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/ripple/-/ripple-1.1.5.tgz#88286f90af3dafcf47ba103bd1663dbe74974ce5"
   integrity sha512-xwIYHtSnNSU/+Wd7gKWPDJvUgbwA2q9xTtycWq0zukRv4+FN/RHwCzvA4XoSRyHbJ9xb3gC+p+Gjjk9YzZn9Ng==
 
-"@leafygreen-ui/segmented-control@5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/segmented-control/-/segmented-control-5.0.0.tgz#5b27bdf35d3c1dfd78404a265d021ad0624625b4"
-  integrity sha512-ByVO0WkSdpzZ5zjGvkbLCkb+V3ezuvTQWP0i0GXDk2H34Zb2U1CeW6nkMFbEI2dYyzX9+qv/SkSKiYc5U8sYdA==
+"@leafygreen-ui/ripple@^1.1.6":
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/ripple/-/ripple-1.1.6.tgz#67fe52ac590f6ed3f48afc8a7789db6a100b175e"
+  integrity sha512-q3Tj+s6vujLRGzf5zr83U/gNCaSKDhQ019wAAgqgn8JBah/EpALHToA98EQQsHy5JuGG79jsjJ7FwfpU2G6jYQ==
+  dependencies:
+    "@leafygreen-ui/tokens" "^1.4.0"
+
+"@leafygreen-ui/segmented-control@6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/segmented-control/-/segmented-control-6.0.1.tgz#bf3337a5538e69f23aa6b34d41aefc7da36cb85c"
+  integrity sha512-PoQpRbjk9IEoEIvgfIrbERSfQN6USSTtCpK0XvxyONm/GxSp1dJQuRrUtAFwO89mD+K+OICxCIgwJqCD1wF0ig==
   dependencies:
     "@leafygreen-ui/box" "^3.1.1"
     "@leafygreen-ui/emotion" "^4.0.3"
     "@leafygreen-ui/hooks" "^7.3.3"
+    "@leafygreen-ui/icon" "^11.12.1"
     "@leafygreen-ui/lib" "^10.0.0"
     "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/tokens" "^1.3.4"
-    "@leafygreen-ui/typography" "^14.0.1"
+    "@leafygreen-ui/tokens" "^1.4.0"
+    "@leafygreen-ui/typography" "^15.1.0"
     lodash "^4.17.21"
+    polished "^4.2.2"
 
-"@leafygreen-ui/select@10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/select/-/select-10.0.0.tgz#ca73d2b6d84dc6b626cc496e6e4f8bbf3dc4483d"
-  integrity sha512-RW6y2WoS3oKJGe8E4V6QngsAV97wVUqweryAOyR9qVXX2bzalvLNBdUJAHgQFKDIEwiiqME3ykwTy4wUPH1YAg==
+"@leafygreen-ui/select@10.1.0", "@leafygreen-ui/select@^10.1.0":
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/select/-/select-10.1.0.tgz#b0fd97362fbbd5d87365b8af7e01ffa6c3d18d99"
+  integrity sha512-o2R0ecJMLHJQhrvNF8a2pxqCVPqUE1fFmbVKgAuLSz7cX9QWlSTMx/r6Mhi80ilcQClnbI+rUKx2LbHZ4aqDLQ==
   dependencies:
-    "@leafygreen-ui/button" "^19.0.0"
+    "@leafygreen-ui/button" "^19.0.1"
     "@leafygreen-ui/emotion" "^4.0.3"
     "@leafygreen-ui/hooks" "^7.3.3"
-    "@leafygreen-ui/icon" "^11.12.0"
+    "@leafygreen-ui/icon" "^11.12.1"
     "@leafygreen-ui/lib" "^10.0.0"
     "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/popover" "^11.0.0"
-    "@leafygreen-ui/tokens" "^1.3.4"
-    "@leafygreen-ui/typography" "^15.0.0"
+    "@leafygreen-ui/popover" "^11.0.1"
+    "@leafygreen-ui/tokens" "^1.4.0"
+    "@leafygreen-ui/typography" "^15.1.0"
     "@types/react-is" "^17.0.0"
     lodash "^4.17.21"
     polished "^4.1.3"
     react-is "^17.0.1"
 
-"@leafygreen-ui/select@^9.0.0":
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/select/-/select-9.0.0.tgz#71efa2f45b0bca2ec5915c324c0cb967368cbee2"
-  integrity sha512-umPDXPmKgrkCDjecaZo4+djN+gR6EyS5lDecz2NkjPWTTNlSSmZzOZyEElV5vI86xzOSz76tQQ5irNZR9vp01w==
+"@leafygreen-ui/side-nav@12.0.1":
+  version "12.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/side-nav/-/side-nav-12.0.1.tgz#d0aa692f63bed9edb3078010fca921acc4991ed6"
+  integrity sha512-NH+opCK8ksVjzkeu1i0GEO+mpJLuDJ8bJuZ0dMiuwiNdXOTo1dm4uob6p6mMoXBY3wDCL1kn2N+phL9Uf5hJGg==
   dependencies:
-    "@leafygreen-ui/button" "^18.0.0"
-    "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/hooks" "^7.3.3"
-    "@leafygreen-ui/icon" "^11.12.0"
-    "@leafygreen-ui/lib" "^10.0.0"
-    "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/popover" "^10.0.1"
-    "@leafygreen-ui/tokens" "^1.3.4"
-    "@leafygreen-ui/typography" "^14.0.1"
-    "@types/react-is" "^17.0.0"
-    lodash "^4.17.21"
-    polished "^4.1.3"
-    react-is "^17.0.1"
-
-"@leafygreen-ui/side-nav@11.0.0":
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/side-nav/-/side-nav-11.0.0.tgz#e43aeebd613eb1b6e66e589f9be1015735328a69"
-  integrity sha512-+hAWFi9GbLP6fB/nNHQ3NgJOyOBJlEvGFheeFzSDO+yNi7cSZO4St8HvgF/zUzdB5n2e9CR1f0LTPC3IunUzHw==
-  dependencies:
-    "@leafygreen-ui/a11y" "^1.3.3"
+    "@leafygreen-ui/a11y" "^1.3.4"
     "@leafygreen-ui/box" "^3.1.1"
     "@leafygreen-ui/emotion" "^4.0.3"
     "@leafygreen-ui/hooks" "^7.3.3"
-    "@leafygreen-ui/icon" "^11.11.1"
-    "@leafygreen-ui/lib" "^9.5.1"
+    "@leafygreen-ui/icon" "^11.12.1"
+    "@leafygreen-ui/lib" "^10.0.0"
     "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/portal" "^4.0.6"
-    "@leafygreen-ui/tokens" "^1.3.4"
-    "@leafygreen-ui/tooltip" "^8.0.0"
-    "@leafygreen-ui/typography" "^14.0.0"
+    "@leafygreen-ui/portal" "^4.0.7"
+    "@leafygreen-ui/tokens" "^1.4.0"
+    "@leafygreen-ui/tooltip" "^9.0.1"
+    "@leafygreen-ui/typography" "^15.1.0"
+    polished "^4.2.2"
     react-transition-group "^4.4.5"
 
-"@leafygreen-ui/table@9.0.0":
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/table/-/table-9.0.0.tgz#442783af4935ab22b040bb97203b898974577d52"
-  integrity sha512-SGiiMJycRiqnwBb71rOb/GZ9k2jvY0NVEIVs3yOFLxTRFaDXaknig+us0heQnT9URWgQb9fP0BZk/LYScL/AlA==
+"@leafygreen-ui/table@9.0.1":
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/table/-/table-9.0.1.tgz#81b495e0e96007f0ee2765f8dc8c8d487b969e6e"
+  integrity sha512-WmCmRpmoSJsJk6r+gZbZQ2kFHInTt7dFERYoEO9JMcoi62VMyj2esOwNjyZFqSQz8CeSUoT/5aTS2TfgEuLcsQ==
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.3"
     "@leafygreen-ui/hooks" "^7.3.3"
-    "@leafygreen-ui/icon" "^11.12.0"
-    "@leafygreen-ui/icon-button" "^15.0.0"
+    "@leafygreen-ui/icon" "^11.12.1"
+    "@leafygreen-ui/icon-button" "^15.0.1"
     "@leafygreen-ui/lib" "^10.0.0"
     "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/tokens" "^1.3.4"
+    "@leafygreen-ui/tokens" "^1.4.0"
     lodash "^4.17.21"
+    polished "^4.2.2"
     react-transition-group "^4.4.1"
 
-"@leafygreen-ui/tabs@10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tabs/-/tabs-10.0.0.tgz#6f08ee4b81573b6ebf6d490d12cb9bbb97bc5f70"
-  integrity sha512-9kzwHVxD5xZmRnQpBSnrceb0F0bwWQJqVzdbkW2+AKrUvO8mZ7UdltknNZyO0xEj0KNBIVmhUMzFb8pwQnWguQ==
+"@leafygreen-ui/tabs@11.0.1":
+  version "11.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tabs/-/tabs-11.0.1.tgz#3dd1114dfe2328122fcaf89fbdf2b8520ceb7e92"
+  integrity sha512-4rg7PnnGwMWtIUW6jb4gjZu2ojjvo7tKy12h5h4DWLmlCvfK7ROylZf0Ni6Tp4zclZTDZjw4Xbrwaxm+szwImw==
   dependencies:
-    "@leafygreen-ui/a11y" "^1.3.3"
+    "@leafygreen-ui/a11y" "^1.3.4"
     "@leafygreen-ui/box" "^3.1.1"
     "@leafygreen-ui/emotion" "^4.0.3"
     "@leafygreen-ui/hooks" "^7.3.3"
-    "@leafygreen-ui/lib" "^9.5.1"
+    "@leafygreen-ui/lib" "^10.0.0"
     "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/portal" "^4.0.6"
-    "@leafygreen-ui/tokens" "1.3.4"
+    "@leafygreen-ui/portal" "^4.0.7"
+    "@leafygreen-ui/tokens" "^1.4.0"
 
 "@leafygreen-ui/text-area@8.0.1":
   version "8.0.1"
@@ -4373,36 +4322,36 @@
     "@leafygreen-ui/tokens" "^1.3.4"
     "@leafygreen-ui/typography" "^15.0.0"
 
-"@leafygreen-ui/toast@4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/toast/-/toast-4.0.0.tgz#672aa17b64d3010fd3872847bf4c81565e540000"
-  integrity sha512-V5O1n4SNiqaOBQCGs/ud1sXpx2UTqWvniHkLCJrqtiqhbzaJADt8wXPTNrdbh8UMcCv4qszZf/wwK9+EcWQjsQ==
+"@leafygreen-ui/toast@4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/toast/-/toast-4.0.1.tgz#586104255f772cc5ef092da172b4f4bed5c2b807"
+  integrity sha512-5Gi/5mgjEXd4vlfNTFxyU7tKctHcBnVY/osJJpjzpxJnc82xUZePWQC/m9bH7n0tArrfaV/oayKKOeOlIr2pcg==
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/icon" "^11.12.0"
-    "@leafygreen-ui/icon-button" "^15.0.0"
+    "@leafygreen-ui/icon" "^11.12.1"
+    "@leafygreen-ui/icon-button" "^15.0.1"
     "@leafygreen-ui/lib" "^10.0.0"
     "@leafygreen-ui/palette" "^3.4.4"
     "@leafygreen-ui/portal" "^4.0.7"
-    "@leafygreen-ui/tokens" "^1.3.4"
-    "@leafygreen-ui/typography" "^15.0.0"
+    "@leafygreen-ui/tokens" "^1.4.0"
+    "@leafygreen-ui/typography" "^15.1.0"
     lodash "^4.17.21"
     polished "^4.2.2"
     react-transition-group "^4.4.1"
 
-"@leafygreen-ui/toggle@10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/toggle/-/toggle-10.0.0.tgz#2f06b94dd0456f37fde7ee54b33a451a7ad990e7"
-  integrity sha512-aHYV4unPVukQyY+802sFPsR9o/xkvPRhpZouqXhQ7uBdI7Jc+bw76NYe8BZlWHWXSBDQ/IEC57XEc477EvM5yQ==
+"@leafygreen-ui/toggle@10.0.1":
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/toggle/-/toggle-10.0.1.tgz#9f6ba006853bc68a65a0762df7bca0a7d5da5c46"
+  integrity sha512-afjsM+cyfu84sal9/dOWv6DLzjC/RZpX7p0iUF0+W3kiF1rwzY6GWfe2GHOx7hykXrxnEKjNwm2aQZhZLzMQ5g==
   dependencies:
     "@leafygreen-ui/a11y" "^1.3.4"
     "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/icon" "^11.12.0"
+    "@leafygreen-ui/icon" "^11.12.1"
     "@leafygreen-ui/lib" "^10.0.0"
     "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/tokens" "^1.3.4"
+    "@leafygreen-ui/tokens" "^1.4.0"
 
-"@leafygreen-ui/tokens@1.3.4", "@leafygreen-ui/tokens@^1.3.4":
+"@leafygreen-ui/tokens@^1.3.4":
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/tokens/-/tokens-1.3.4.tgz#58a8d633f6b978cd23011f3f9c9a6c637089ca6b"
   integrity sha512-CL+uVHSi79md30XFIZlTWg54wTv9gpNxdjCzysEfzlCVoTPE4xLKukmNbLmY0yv+MurII/NA5m7R9hJ/lVMgeg==
@@ -4416,74 +4365,33 @@
   dependencies:
     "@leafygreen-ui/palette" "^3.4.4"
 
-"@leafygreen-ui/tooltip@9.0.0":
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tooltip/-/tooltip-9.0.0.tgz#5766d8f7f96d81a7ef6a8431da5067125c63445f"
-  integrity sha512-KBW/fxemP6oK79Zfy92+s4ZObjv/8ZDLcRBAOszyvdKHxpO5UfjhAPnotY082Y6//aLrc4FM/K226LM+UnWwzA==
+"@leafygreen-ui/tooltip@9.0.1", "@leafygreen-ui/tooltip@^9.0.0", "@leafygreen-ui/tooltip@^9.0.1":
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tooltip/-/tooltip-9.0.1.tgz#ac83f85e31efc6d2e22483ea1a0de87fb9619c53"
+  integrity sha512-qDBUoUjmfqfA2PBSwFzkpuKsOApuBlDosATyG/KOJHOVYSuF6OyZvcanISK9Cu61+jokeYYX5lf5RtoLrYrqeQ==
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.3"
     "@leafygreen-ui/hooks" "^7.3.3"
-    "@leafygreen-ui/icon" "^11.12.0"
+    "@leafygreen-ui/icon" "^11.12.1"
     "@leafygreen-ui/lib" "^10.0.0"
     "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/popover" "^11.0.0"
-    "@leafygreen-ui/tokens" "^1.3.4"
-    "@leafygreen-ui/typography" "^15.0.0"
+    "@leafygreen-ui/popover" "^11.0.1"
+    "@leafygreen-ui/tokens" "^1.4.0"
+    "@leafygreen-ui/typography" "^15.1.0"
     lodash "^4.17.21"
+    polished "^4.2.2"
 
-"@leafygreen-ui/tooltip@^8.0.0":
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tooltip/-/tooltip-8.0.0.tgz#ffff07319fc460ae4dcd7fb9ceddbdc37f204df7"
-  integrity sha512-ggv4k/Nr1rMDsM4LYWvs9/m7rFRUq67opypn5o3pm463WtFAtM7hbfYrATwS2tu8mWaYDXW3csO4M7aDURwJiQ==
-  dependencies:
-    "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/hooks" "^7.3.3"
-    "@leafygreen-ui/icon" "^11.11.1"
-    "@leafygreen-ui/lib" "^9.5.1"
-    "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/popover" "^10.0.0"
-    "@leafygreen-ui/tokens" "^1.3.4"
-    "@leafygreen-ui/typography" "^14.0.0"
-    lodash "^4.17.21"
-
-"@leafygreen-ui/tooltip@^8.0.1":
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tooltip/-/tooltip-8.0.1.tgz#8b4f505920cbd640565d15b9d678447fde9ff61b"
-  integrity sha512-dOl5nNdMYVZFubKWg0RJnnHlUez9uwwBOpecPFV45Sz85pAOKXPP+yye38+h8Qy/AE4cNzhr87iVLMjfCml1Vg==
-  dependencies:
-    "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/hooks" "^7.3.3"
-    "@leafygreen-ui/icon" "^11.12.0"
-    "@leafygreen-ui/lib" "^10.0.0"
-    "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/popover" "^10.0.1"
-    "@leafygreen-ui/tokens" "^1.3.4"
-    "@leafygreen-ui/typography" "^14.0.1"
-    lodash "^4.17.21"
-
-"@leafygreen-ui/typography@14.0.0", "@leafygreen-ui/typography@^14.0.0":
-  version "14.0.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/typography/-/typography-14.0.0.tgz#c8eb9c40578e0aeefbe86405f068adb72411457c"
-  integrity sha512-2C7+uwY/52fHYfnRkpVKV203t1qf63mzKAUmT8EupywzMH/qtyRea85CPJIF0EkFDHf2s76gYrLqkbNXshwIJw==
+"@leafygreen-ui/typography@15.1.0", "@leafygreen-ui/typography@^15.1.0":
+  version "15.1.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/typography/-/typography-15.1.0.tgz#e0d99598de2141d938ddbe10a8bfb7328aae1ffd"
+  integrity sha512-ajvxMdjZjlPpBIdM2eIjFGzFdH8Av42Y/dY7EsO0Cfbq+xxAcmzP5jhtGHwkgECIgkxuJW2B9tPUxu98AbN4Ow==
   dependencies:
     "@leafygreen-ui/box" "^3.1.1"
     "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/icon" "^11.11.1"
-    "@leafygreen-ui/lib" "^9.5.1"
-    "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/tokens" "^1.3.4"
-
-"@leafygreen-ui/typography@^14.0.1":
-  version "14.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/typography/-/typography-14.0.1.tgz#a671fa6701b73b34734e47c2a8f3a863d63bb529"
-  integrity sha512-SU0dowe8j8oZ6b45G8Axdq+aZ1+LHv0uW2V7l5m0PBYjk4WKf+3qzzKJdfDx3/cuY4zKa6xUJG1mlyXkLAsLag==
-  dependencies:
-    "@leafygreen-ui/box" "^3.1.1"
-    "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/icon" "^11.12.0"
+    "@leafygreen-ui/icon" "^11.12.1"
     "@leafygreen-ui/lib" "^10.0.0"
     "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/tokens" "^1.3.4"
+    "@leafygreen-ui/tokens" "^1.4.0"
 
 "@leafygreen-ui/typography@^15.0.0":
   version "15.0.0"
@@ -4496,18 +4404,6 @@
     "@leafygreen-ui/lib" "^10.0.0"
     "@leafygreen-ui/palette" "^3.4.4"
     "@leafygreen-ui/tokens" "^1.3.4"
-
-"@leafygreen-ui/typography@^15.1.0":
-  version "15.1.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/typography/-/typography-15.1.0.tgz#e0d99598de2141d938ddbe10a8bfb7328aae1ffd"
-  integrity sha512-ajvxMdjZjlPpBIdM2eIjFGzFdH8Av42Y/dY7EsO0Cfbq+xxAcmzP5jhtGHwkgECIgkxuJW2B9tPUxu98AbN4Ow==
-  dependencies:
-    "@leafygreen-ui/box" "^3.1.1"
-    "@leafygreen-ui/emotion" "^4.0.3"
-    "@leafygreen-ui/icon" "^11.12.1"
-    "@leafygreen-ui/lib" "^10.0.0"
-    "@leafygreen-ui/palette" "^3.4.4"
-    "@leafygreen-ui/tokens" "^1.4.0"
 
 "@mdx-js/mdx@^1.6.22":
   version "1.6.22"

@@ -248,6 +248,31 @@ exports[`storybook Storyshots Components/Icons Icons 1`] = `
     className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
+      aria-label="Biometric Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M7.5 1A5.5 5.5 0 002 6.5v3A5.5 5.5 0 007.5 15h1A5.5 5.5 0 0014 9.5v-3A5.5 5.5 0 008.5 1h-1zm1.074 6.75a.574.574 0 10-1.148 0v2.457a.574.574 0 001.148 0V7.75zM8 5.338A2.412 2.412 0 005.588 7.75v2.566a.994.994 0 01-.291.704.574.574 0 10.812.812c.402-.402.628-.947.628-1.516V7.75a1.264 1.264 0 112.527 0v2.648c0 .412-.233.79-.602.973a.574.574 0 00.514 1.028 2.237 2.237 0 001.236-2V7.75A2.412 2.412 0 008 5.338zM4.899 7.75A3.101 3.101 0 019.64 5.117a.574.574 0 10.609-.974A4.25 4.25 0 003.75 7.75v2.297a.574.574 0 101.149 0V7.75zm6.887-1.932a.574.574 0 10-1.023.522c.216.423.338.901.338 1.41v1.378a.574.574 0 101.149 0V7.75c0-.695-.167-1.352-.464-1.932z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+    <span>
+      Biometric
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
       aria-label="Building Icon"
       className=""
       color="#000000"
