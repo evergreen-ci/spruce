@@ -84,9 +84,9 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
           >
             <input
               aria-invalid={false}
-              aria-labelledby="Build Variant"
+              aria-label="Build Variant"
               autoComplete="on"
-              className="leafygreen-ui-1imva9i"
+              className="leafygreen-ui-6i61vl"
               data-cy="tuple-select-input"
               disabled={false}
               id="filter-input"

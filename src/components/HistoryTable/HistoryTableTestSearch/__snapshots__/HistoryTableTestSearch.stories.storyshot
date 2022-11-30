@@ -35,7 +35,7 @@ exports[`storybook Storyshots Components/History Table/HistoryTableTestSearch Te
             aria-invalid={false}
             aria-label="history-table-test-search-input"
             autoComplete="on"
-            className="leafygreen-ui-1imva9i"
+            className="leafygreen-ui-6i61vl"
             disabled={false}
             id="textinput-15"
             onBlur={[Function]}

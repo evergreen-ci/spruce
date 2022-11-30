@@ -30,7 +30,7 @@ exports[`storybook Storyshots Components/TextInputWithGlyph Default 1`] = `
         <input
           aria-invalid={false}
           autoComplete="on"
-          className="leafygreen-ui-1imva9i"
+          className="leafygreen-ui-6i61vl"
           disabled={false}
           id="textinput-18"
           onBlur={[Function]}

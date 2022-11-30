@@ -36,7 +36,7 @@ exports[`storybook Storyshots Pages/Spawn/User Tags Field User Tags Field View 1
               <input
                 aria-invalid={false}
                 autoComplete="on"
-                className="leafygreen-ui-1imva9i"
+                className="leafygreen-ui-6i61vl"
                 data-cy="user-tag-key-field"
                 disabled={false}
                 id="tag_key_undefined"
@@ -78,7 +78,7 @@ exports[`storybook Storyshots Pages/Spawn/User Tags Field User Tags Field View 1
               <input
                 aria-invalid={false}
                 autoComplete="on"
-                className="leafygreen-ui-1imva9i"
+                className="leafygreen-ui-6i61vl"
                 data-cy="user-tag-value-field"
                 disabled={false}
                 id="tag_value_undefined"
@@ -163,7 +163,7 @@ exports[`storybook Storyshots Pages/Spawn/User Tags Field User Tags Field View 1
               <input
                 aria-invalid={false}
                 autoComplete="on"
-                className="leafygreen-ui-1imva9i"
+                className="leafygreen-ui-6i61vl"
                 data-cy="user-tag-key-field"
                 disabled={false}
                 id="tag_key_undefined"
@@ -205,7 +205,7 @@ exports[`storybook Storyshots Pages/Spawn/User Tags Field User Tags Field View 1
               <input
                 aria-invalid={false}
                 autoComplete="on"
-                className="leafygreen-ui-1imva9i"
+                className="leafygreen-ui-6i61vl"
                 data-cy="user-tag-value-field"
                 disabled={false}
                 id="tag_value_undefined"
@@ -290,7 +290,7 @@ exports[`storybook Storyshots Pages/Spawn/User Tags Field User Tags Field View 1
               <input
                 aria-invalid={false}
                 autoComplete="on"
-                className="leafygreen-ui-1imva9i"
+                className="leafygreen-ui-6i61vl"
                 data-cy="user-tag-key-field"
                 disabled={false}
                 id="tag_key_undefined"
@@ -332,7 +332,7 @@ exports[`storybook Storyshots Pages/Spawn/User Tags Field User Tags Field View 1
               <input
                 aria-invalid={false}
                 autoComplete="on"
-                className="leafygreen-ui-1imva9i"
+                className="leafygreen-ui-6i61vl"
                 data-cy="user-tag-value-field"
                 disabled={false}
                 id="tag_value_undefined"
