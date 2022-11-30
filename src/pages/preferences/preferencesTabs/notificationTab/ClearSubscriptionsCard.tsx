@@ -48,7 +48,7 @@ export const ClearSubscriptionsCard: React.VFC = () => {
         </Body>
         <StyledClearSubscriptionButton
           data-cy="clear-subscriptions-button"
-          variant={Variant.Danger} // @ts-expect-error
+          variant={Variant.Danger}
           onClick={() => setShowModal(true)}
         >
           Clear all previous subscriptions
@@ -71,7 +71,6 @@ export const ClearSubscriptionsCard: React.VFC = () => {
   );
 };
 
-// @ts-expect-error
 const StyledClearSubscriptionButton = styled(Button)`
   margin-top: ${size.m};
 `;

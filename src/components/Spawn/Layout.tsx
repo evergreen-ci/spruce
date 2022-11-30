@@ -58,7 +58,6 @@ export const SpawnTable: React.VFC<React.ComponentProps<typeof Table>> = (
 
 export const DoesNotExpire = "Does not expire";
 
-// @ts-expect-error
 export const WideButton = styled(Button)`
   justify-content: center;
   width: 140px;
@@ -87,7 +86,6 @@ export const SectionLabel = styled(Body)`
   margin-top: ${size.m};
 `;
 
-// @ts-expect-error
 export const PaddedButton = styled(Button)`
   margin-left: ${size.xxs};
   margin-right: ${size.xxs};

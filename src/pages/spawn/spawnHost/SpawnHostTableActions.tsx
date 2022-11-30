@@ -62,7 +62,6 @@ export const CopySSHCommandButton: React.VFC<{
               data-cy="copy-ssh-button"
               disabled={!canSSH}
               leftGlyph={<Icon glyph="Copy" />}
-              // @ts-expect-error
               onClick={(event: React.MouseEvent) => {
                 event.stopPropagation();
                 copyToClipboard(sshCommand);

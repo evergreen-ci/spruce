@@ -12,24 +12,6 @@ const DropdownMenuIcon: React.VFC<{ open: boolean }> = ({ open }) => (
   <Icon glyph={open ? "CaretUp" : "CaretDown"} role="presentation" />
 );
 
-// Use a wrapper over React Router's Link so that native HTML props can be passed through LeafyGreen MenuItem.
-// (i.e. convert "data-to" to "to")
-type LGMenuItem = typeof MenuItem;
-
-interface LinkWrapperType extends LGMenuItem {
-  "data-to": string;
-}
-
-const LinkWrapper: React.FC<LinkWrapperType> = ({
-  "data-to": dataTo,
-  children,
-  ...rest
-}) => (
-  <Link to={dataTo} {...rest}>
-    {children}
-  </Link>
-);
-
 interface MenuItemType {
   "data-cy"?: string;
   text: string;
@@ -50,8 +32,11 @@ const DropdownItem: React.VFC<DropdownItemType> = ({
   to,
 }) => (
   <MenuItem
-    as={to && LinkWrapper}
-    data-to={to}
+    as={to && Link}
+    // LG typing should permit props associated with the `as`
+    // component, but right now it doesn't. ¯\_(ツ)_/¯
+    // @ts-expect-error
+    to={to}
     href={href}
     data-cy={itemDataCy}
     onClick={closeMenu}

@@ -193,7 +193,7 @@ export const DownstreamProjectAccordion: React.VFC<
                   numerator={count}
                   denominator={taskCount}
                 />
-                <PaddedButton // @ts-expect-error
+                <PaddedButton
                   onClick={() => {
                     dispatch({ type: "clearAllFilters" });
                   }}
@@ -265,7 +265,6 @@ const FlexContainer = styled.div`
   align-items: center;
 `;
 
-// @ts-expect-error
 const PaddedButton = styled(Button)`
   margin-left: ${size.s};
 `;

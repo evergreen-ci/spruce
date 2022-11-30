@@ -137,7 +137,7 @@ export const EditModal: React.VFC<EditModalProps> = ({
       footer={
         <>
           <LeftButton
-            key="cancel" // @ts-expect-error
+            key="cancel"
             onClick={closeModal}
             data-cy="cancel-subscription-button"
           >
@@ -187,7 +187,6 @@ export const EditModal: React.VFC<EditModalProps> = ({
   );
 };
 
-// @ts-expect-error
 const LeftButton = styled(Button)`
   margin-right: ${size.s};
 `;

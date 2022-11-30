@@ -108,22 +108,22 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
             >
               <button
                 aria-disabled={false}
-                className="leafygreen-ui-1jc9h6q"
+                className="static-lg-ui-classname leafygreen-ui-1t94nwe"
                 data-cy="add-button"
                 disabled={false}
                 onClick={[Function]}
                 type="button"
               >
                 <div
-                  className="leafygreen-ui-1ktj4tm"
+                  className="leafygreen-ui-v038xi"
                 />
                 <div
-                  className="leafygreen-ui-ie0uqp"
+                  className="leafygreen-ui-1qmzz4y"
                 >
                   <svg
                     alt=""
                     aria-hidden={true}
-                    className="leafygreen-ui-1my2s1b"
+                    className="leafygreen-ui-6juzfh"
                     fill="none"
                     height={16}
                     role="presentation"
@@ -257,21 +257,21 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                 >
                   <button
                     aria-disabled={false}
-                    className="leafygreen-ui-1jc9h6q"
+                    className="static-lg-ui-classname leafygreen-ui-1t94nwe"
                     data-cy="delete-item-button"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <div
-                      className="leafygreen-ui-1ktj4tm"
+                      className="leafygreen-ui-v038xi"
                     />
                     <div
-                      className="leafygreen-ui-ie0uqp"
+                      className="leafygreen-ui-1qmzz4y"
                     >
                       <svg
                         aria-label="Trash Icon"
-                        className="leafygreen-ui-1d90lhq"
+                        className="leafygreen-ui-19s4jgs"
                         fill="none"
                         height={16}
                         role="img"

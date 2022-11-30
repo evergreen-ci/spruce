@@ -42,7 +42,6 @@ export const Pagination: React.VFC<Props> = ({
         disabled={value === 0}
         size="small"
         data-cy="prev-page-button"
-        /* @ts-expect-error */
         onClick={handlePrevClick}
         leftGlyph={<Icon glyph="ChevronLeft" size="small" />}
       />
@@ -55,7 +54,6 @@ export const Pagination: React.VFC<Props> = ({
         disabled={value === numPages - 1}
         data-cy="next-page-button"
         size="small"
-        /* @ts-expect-error */
         onClick={handleNextClick}
         leftGlyph={<Icon glyph="ChevronRight" size="small" />}
       />
@@ -72,7 +70,6 @@ export const Pagination: React.VFC<Props> = ({
   );
 };
 
-// @ts-expect-error
 const StyledButton = styled(Button)`
   margin-right: ${size.xxs};
   margin-left: ${size.xxs};

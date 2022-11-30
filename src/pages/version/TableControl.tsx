@@ -50,7 +50,7 @@ export const TableControl: React.VFC<Props> = ({
           numerator={filteredCount}
           denominator={taskCount}
         />
-        <PaddedButton // @ts-expect-error
+        <PaddedButton
           onClick={onClearAll}
           data-cy="clear-all-filters"
           size="small"
@@ -80,7 +80,6 @@ const FlexContainer = styled.div`
   align-items: center;
 `;
 
-// @ts-expect-error
 const PaddedButton = styled(Button)`
   margin-left: ${size.m};
 `;

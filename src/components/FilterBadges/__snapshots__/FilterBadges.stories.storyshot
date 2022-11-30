@@ -38,17 +38,17 @@ exports[`storybook Storyshots Components/FilterBadges Default 1`] = `
     </div>
     <button
       aria-disabled={false}
-      className="leafygreen-ui-126lu42"
+      className="static-lg-ui-classname leafygreen-ui-m55msn"
       data-cy="clear-all-filters"
       disabled={false}
       onClick={[Function]}
       type="button"
     >
       <div
-        className="leafygreen-ui-1ktj4tm"
+        className="leafygreen-ui-v038xi"
       />
       <div
-        className="leafygreen-ui-jfktkt"
+        className="leafygreen-ui-1hhc9ms"
       >
         CLEAR ALL FILTERS
       </div>
@@ -125,16 +125,16 @@ exports[`storybook Storyshots Components/FilterBadges Default 1`] = `
     </div>
     <button
       aria-disabled={false}
-      className="leafygreen-ui-26sqyb css-1ck35jk-StyledButton eqgjs5q0"
+      className="static-lg-ui-classname leafygreen-ui-n2d19n css-1ck35jk-StyledButton eqgjs5q0"
       disabled={false}
       onClick={[Function]}
       type="button"
     >
       <div
-        className="leafygreen-ui-1ktj4tm"
+        className="leafygreen-ui-v038xi"
       />
       <div
-        className="leafygreen-ui-ie0uqp"
+        className="leafygreen-ui-1qmzz4y"
       >
         Add
       </div>
