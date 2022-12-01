@@ -58,6 +58,10 @@ export const getFormSchema = ({
   } = spawnTaskData || {};
   const hasValidTask = validateTask(spawnTaskData);
   const shouldRenderVolumeSelection = !isMigration && isVirtualWorkstation;
+  const availableVolumes = volumes
+    ? volumes.filter((v) => v.homeVolume && !v.hostID)
+    : [];
+
   return {
     fields: {},
     schema: {
@@ -363,13 +367,11 @@ export const getFormSchema = ({
                         title: "Volume",
                         type: "string" as "string",
                         default: "",
-                        oneOf: (volumes || [])
-                          ?.filter((v) => v.homeVolume && !v.hostID)
-                          ?.map((v) => ({
-                            type: "string" as "string",
-                            title: `(${v.size}GB) ${v.displayName || v.id}`,
-                            enum: [v.id],
-                          })),
+                        oneOf: availableVolumes.map((v) => ({
+                          type: "string" as "string",
+                          title: `(${v.size}GB) ${v.displayName || v.id}`,
+                          enum: [v.id],
+                        })),
                       },
                     },
                   },
@@ -511,6 +513,7 @@ export const getFormSchema = ({
           },
           volumeSelect: {
             "ui:widget": isVirtualWorkstation ? AntdSelect : "hidden",
+            "ui:hideError": true,
             "ui:allowDeselect": false,
             "ui:data-cy": "volume-select",
             "ui:disabledEnums": (volumes || [])
