@@ -337,7 +337,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                           aria-checked={true}
                           aria-disabled={false}
                           checked={true}
-                          className="static-lg-ui-classname leafygreen-ui-347iq9"
+                          className="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                           data-cy="cy-chart-absolute-radio"
                           disabled={false}
                           id="chart-radio-absolute"
@@ -347,10 +347,10 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                           value="absolute"
                         />
                         <div
-                          className="static-lg-ui-classname leafygreen-ui-1fbekiy"
+                          className="lg-ui-radio-group-0001 leafygreen-ui-1tsb3ci"
                         >
                           <div
-                            className="static-lg-ui-classname leafygreen-ui-1aw822h"
+                            className="lg-ui-radio-group-0000 leafygreen-ui-lej95p"
                           />
                         </div>
                         <div>
@@ -368,7 +368,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                         <input
                           aria-disabled={false}
                           checked={false}
-                          className="static-lg-ui-classname leafygreen-ui-347iq9"
+                          className="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                           data-cy="cy-chart-percent-radio"
                           disabled={false}
                           id="chart-radio-percent"
@@ -378,10 +378,10 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                           value="percentage"
                         />
                         <div
-                          className="static-lg-ui-classname leafygreen-ui-1fbekiy"
+                          className="lg-ui-radio-group-0001 leafygreen-ui-1tsb3ci"
                         >
                           <div
-                            className="static-lg-ui-classname leafygreen-ui-1aw822h"
+                            className="lg-ui-radio-group-0000 leafygreen-ui-lej95p"
                           />
                         </div>
                         <div>
@@ -416,13 +416,13 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             <a
-              className="static-lg-ui-classname css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+              className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
               data-cy="githash-link"
               href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks"
               onClick={[Function]}
             >
               <span
-                className="leafygreen-ui-161szq7"
+                className="leafygreen-ui-1ewnca3"
               >
                 987bf57
               </span>
@@ -443,7 +443,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           >
             
             <a
-              className="static-lg-ui-classname css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+              className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
               data-cy="jira-link"
               href="https://undefined/browse/EVG-14901"
               onClick={[Function]}
@@ -451,7 +451,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
               target="_blank"
             >
               <span
-                className="leafygreen-ui-161szq7"
+                className="leafygreen-ui-1ewnca3"
               >
                 EVG-14901
               </span>
@@ -481,13 +481,13 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             <a
-              className="static-lg-ui-classname css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+              className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
               data-cy="githash-link"
               href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks"
               onClick={[Function]}
             >
               <span
-                className="leafygreen-ui-161szq7"
+                className="leafygreen-ui-1ewnca3"
               >
                 a77bd39
               </span>
@@ -551,13 +551,13 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             <a
-              className="static-lg-ui-classname css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+              className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
               data-cy="githash-link"
               href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks"
               onClick={[Function]}
             >
               <span
-                className="leafygreen-ui-161szq7"
+                className="leafygreen-ui-1ewnca3"
               >
                 9c1d1eb
               </span>
@@ -578,7 +578,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           >
             
             <a
-              className="static-lg-ui-classname css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+              className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
               data-cy="jira-link"
               href="https://undefined/browse/EVG-14799"
               onClick={[Function]}
@@ -586,7 +586,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
               target="_blank"
             >
               <span
-                className="leafygreen-ui-161szq7"
+                className="leafygreen-ui-1ewnca3"
               >
                 EVG-14799
               </span>
@@ -616,13 +616,13 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             <a
-              className="static-lg-ui-classname css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+              className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
               data-cy="githash-link"
               href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks"
               onClick={[Function]}
             >
               <span
-                className="leafygreen-ui-161szq7"
+                className="leafygreen-ui-1ewnca3"
               >
                 f7f7f1a
               </span>
@@ -666,13 +666,13 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
           >
             <a
-              className="static-lg-ui-classname css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+              className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
               data-cy="githash-link"
               href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks"
               onClick={[Function]}
             >
               <span
-                className="leafygreen-ui-161szq7"
+                className="leafygreen-ui-1ewnca3"
               >
                 211b3a0
               </span>
@@ -720,13 +720,13 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="static-lg-ui-classname ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/code_health?selectedCommit=929"
             onClick={[Function]}
           >
             <span
-              className="leafygreen-ui-161szq7"
+              className="leafygreen-ui-1ewnca3"
             >
               01. Code Health [code_health]
             </span>
@@ -779,13 +779,13 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="static-lg-ui-classname ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/package_rpm?selectedCommit=929"
             onClick={[Function]}
           >
             <span
-              className="leafygreen-ui-161szq7"
+              className="leafygreen-ui-1ewnca3"
             >
               02. Packaging (RPM - RHEL7) [package_rpm]
             </span>
@@ -838,13 +838,13 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="static-lg-ui-classname ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/js?selectedCommit=929"
             onClick={[Function]}
           >
             <span
-              className="leafygreen-ui-161szq7"
+              className="leafygreen-ui-1ewnca3"
             >
               03b. JavaScript Tests [js]
             </span>
@@ -906,13 +906,13 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="static-lg-ui-classname ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/code_health?selectedCommit=928"
             onClick={[Function]}
           >
             <span
-              className="leafygreen-ui-161szq7"
+              className="leafygreen-ui-1ewnca3"
             >
               01. Code Health [code_health]
             </span>
@@ -965,13 +965,13 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="static-lg-ui-classname ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/package_rpm?selectedCommit=928"
             onClick={[Function]}
           >
             <span
-              className="leafygreen-ui-161szq7"
+              className="leafygreen-ui-1ewnca3"
             >
               02. Packaging (RPM - RHEL7) [package_rpm]
             </span>
@@ -1024,13 +1024,13 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="static-lg-ui-classname ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/unit_java?selectedCommit=928"
             onClick={[Function]}
           >
             <span
-              className="leafygreen-ui-161szq7"
+              className="leafygreen-ui-1ewnca3"
             >
               03a. Unit Tests Java [unit_java]
             </span>
@@ -1091,13 +1091,13 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="static-lg-ui-classname ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/code_health?selectedCommit=926"
             onClick={[Function]}
           >
             <span
-              className="leafygreen-ui-161szq7"
+              className="leafygreen-ui-1ewnca3"
             >
               01. Code Health [code_health]
             </span>
@@ -1150,13 +1150,13 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="static-lg-ui-classname ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/package_rpm?selectedCommit=926"
             onClick={[Function]}
           >
             <span
-              className="leafygreen-ui-161szq7"
+              className="leafygreen-ui-1ewnca3"
             >
               02. Packaging (RPM - RHEL7) [package_rpm]
             </span>
@@ -1218,13 +1218,13 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="static-lg-ui-classname ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/code_health?selectedCommit=925"
             onClick={[Function]}
           >
             <span
-              className="leafygreen-ui-161szq7"
+              className="leafygreen-ui-1ewnca3"
             >
               01. Code Health [code_health]
             </span>
@@ -1277,13 +1277,13 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="static-lg-ui-classname ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/package_rpm?selectedCommit=925"
             onClick={[Function]}
           >
             <span
-              className="leafygreen-ui-161szq7"
+              className="leafygreen-ui-1ewnca3"
             >
               02. Packaging (RPM - RHEL7) [package_rpm]
             </span>
@@ -1345,13 +1345,13 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="static-lg-ui-classname ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/code_health?selectedCommit=924"
             onClick={[Function]}
           >
             <span
-              className="leafygreen-ui-161szq7"
+              className="leafygreen-ui-1ewnca3"
             >
               01. Code Health [code_health]
             </span>
@@ -1399,13 +1399,13 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="static-lg-ui-classname ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/package_rpm?selectedCommit=924"
             onClick={[Function]}
           >
             <span
-              className="leafygreen-ui-161szq7"
+              className="leafygreen-ui-1ewnca3"
             >
               02. Packaging (RPM - RHEL7) [package_rpm]
             </span>
@@ -1453,13 +1453,13 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           className="css-8bv1t4-Container ek3nkvx1"
         >
           <a
-            className="static-lg-ui-classname ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
+            className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
             data-cy="variant-header"
             href="/variant-history/spruce/unit_java?selectedCommit=924"
             onClick={[Function]}
           >
             <span
-              className="leafygreen-ui-161szq7"
+              className="leafygreen-ui-1ewnca3"
             >
               03a. Unit Tests Java [unit_java]
             </span>

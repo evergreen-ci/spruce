@@ -32,7 +32,7 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
           aria-expanded={false}
           aria-invalid={false}
           aria-labelledby="Tuple Select"
-          className="static-lg-ui-classname leafygreen-ui-sedrjd"
+          className="lg-ui-button-0000 leafygreen-ui-sedrjd"
           data-cy="tuple-select-dropdown"
           data-testid="leafygreen-ui-select-menubutton"
           disabled={false}
@@ -99,7 +99,7 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
               value=""
             />
             <div
-              className="static-lg-ui-classname leafygreen-ui-uy5fvv"
+              className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
             />
           </div>
         </div>

@@ -50,7 +50,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                     aria-expanded={false}
                     aria-invalid={false}
                     aria-labelledby="select-5-label"
-                    className="static-lg-ui-classname leafygreen-ui-sedrjd"
+                    className="lg-ui-button-0000 leafygreen-ui-sedrjd"
                     data-testid="leafygreen-ui-select-menubutton"
                     disabled={false}
                     id="select-6"
@@ -108,7 +108,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
             >
               <button
                 aria-disabled={false}
-                className="static-lg-ui-classname leafygreen-ui-1t94nwe"
+                className="lg-ui-button-0000 leafygreen-ui-1t94nwe"
                 data-cy="add-button"
                 disabled={false}
                 onClick={[Function]}
@@ -196,7 +196,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                                 value="Sample Input"
                               />
                               <div
-                                className="static-lg-ui-classname leafygreen-ui-uy5fvv"
+                                className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
                               />
                             </div>
                           </div>
@@ -243,7 +243,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                                 value="Sample Input"
                               />
                               <div
-                                className="static-lg-ui-classname leafygreen-ui-uy5fvv"
+                                className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
                               />
                             </div>
                           </div>
@@ -257,7 +257,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                 >
                   <button
                     aria-disabled={false}
-                    className="static-lg-ui-classname leafygreen-ui-1t94nwe"
+                    className="lg-ui-button-0000 leafygreen-ui-1t94nwe"
                     data-cy="delete-item-button"
                     disabled={false}
                     onClick={[Function]}
@@ -271,7 +271,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                     >
                       <svg
                         aria-label="Trash Icon"
-                        className="leafygreen-ui-19s4jgs"
+                        className="leafygreen-ui-ui6c7f"
                         fill="none"
                         height={16}
                         role="img"
@@ -361,7 +361,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                 className="leafygreen-ui-55kazc"
               >
                 <label
-                  className="leafygreen-ui-1iihofw"
+                  className="leafygreen-ui-hx39h2"
                   htmlFor="checkbox-1"
                   id="checkbox-1-label"
                 >
@@ -371,7 +371,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                     aria-label="checkbox"
                     aria-labelledby="checkbox-1-label"
                     checked={false}
-                    className="static-lg-ui-classname leafygreen-ui-13rxaxn"
+                    className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
                     disabled={false}
                     id="checkbox-1"
                     onChange={[Function]}
@@ -379,7 +379,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                     type="checkbox"
                   />
                   <div
-                    className="static-lg-ui-classname leafygreen-ui-nlfut8"
+                    className="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
                   >
                     <svg
                       className="leafygreen-ui-6caof5"
@@ -419,7 +419,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                 className="leafygreen-ui-55kazc"
               >
                 <label
-                  className="leafygreen-ui-1iihofw"
+                  className="leafygreen-ui-hx39h2"
                   htmlFor="checkbox-2"
                   id="checkbox-2-label"
                 >
@@ -429,7 +429,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                     aria-label="checkbox"
                     aria-labelledby="checkbox-2-label"
                     checked={false}
-                    className="static-lg-ui-classname leafygreen-ui-13rxaxn"
+                    className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
                     disabled={false}
                     id="checkbox-2"
                     onChange={[Function]}
@@ -437,7 +437,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                     type="checkbox"
                   />
                   <div
-                    className="static-lg-ui-classname leafygreen-ui-nlfut8"
+                    className="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
                   >
                     <svg
                       className="leafygreen-ui-6caof5"
@@ -477,7 +477,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                 className="leafygreen-ui-55kazc"
               >
                 <label
-                  className="leafygreen-ui-1iihofw"
+                  className="leafygreen-ui-hx39h2"
                   htmlFor="checkbox-3"
                   id="checkbox-3-label"
                 >
@@ -487,7 +487,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                     aria-label="checkbox"
                     aria-labelledby="checkbox-3-label"
                     checked={false}
-                    className="static-lg-ui-classname leafygreen-ui-13rxaxn"
+                    className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
                     disabled={false}
                     id="checkbox-3"
                     onChange={[Function]}
@@ -495,7 +495,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                     type="checkbox"
                   />
                   <div
-                    className="static-lg-ui-classname leafygreen-ui-nlfut8"
+                    className="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
                   >
                     <svg
                       className="leafygreen-ui-6caof5"
@@ -535,7 +535,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                 className="leafygreen-ui-55kazc"
               >
                 <label
-                  className="leafygreen-ui-1iihofw"
+                  className="leafygreen-ui-hx39h2"
                   htmlFor="checkbox-4"
                   id="checkbox-4-label"
                 >
@@ -545,7 +545,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                     aria-label="checkbox"
                     aria-labelledby="checkbox-4-label"
                     checked={true}
-                    className="static-lg-ui-classname leafygreen-ui-13rxaxn"
+                    className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
                     disabled={false}
                     id="checkbox-4"
                     onChange={[Function]}
@@ -553,7 +553,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                     type="checkbox"
                   />
                   <div
-                    className="static-lg-ui-classname leafygreen-ui-1mf205r"
+                    className="lg-ui-check-wrapper-0000 leafygreen-ui-1mf205r"
                   >
                     <svg
                       className="leafygreen-ui-1degv9q"
@@ -603,7 +603,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                     aria-expanded={false}
                     aria-invalid={false}
                     aria-labelledby="select-9-label"
-                    className="static-lg-ui-classname leafygreen-ui-1bn2bfe"
+                    className="lg-ui-button-0000 leafygreen-ui-1bn2bfe"
                     data-testid="leafygreen-ui-select-menubutton"
                     disabled={false}
                     id="select-10"
@@ -687,7 +687,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 3 1`] = `
                 className="leafygreen-ui-55kazc"
               >
                 <label
-                  className="leafygreen-ui-1iihofw"
+                  className="leafygreen-ui-hx39h2"
                   htmlFor="checkbox-5"
                   id="checkbox-5-label"
                 >
@@ -697,7 +697,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 3 1`] = `
                     aria-label="checkbox"
                     aria-labelledby="checkbox-5-label"
                     checked={true}
-                    className="static-lg-ui-classname leafygreen-ui-13rxaxn"
+                    className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
                     disabled={false}
                     id="checkbox-5"
                     onChange={[Function]}
@@ -705,7 +705,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 3 1`] = `
                     type="checkbox"
                   />
                   <div
-                    className="static-lg-ui-classname leafygreen-ui-1mf205r"
+                    className="lg-ui-check-wrapper-0000 leafygreen-ui-1mf205r"
                   >
                     <svg
                       className="leafygreen-ui-1degv9q"
