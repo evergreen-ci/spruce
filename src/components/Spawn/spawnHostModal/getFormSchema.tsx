@@ -10,14 +10,9 @@ import {
 } from "gql/generated/types";
 import { GetFormSchema } from "pages/projectSettings/tabs/types";
 import { shortenGithash } from "utils/string";
+import { getDefaultExpiration } from "../utils";
 import { validateTask } from "./utils";
 import { DistroDropdown } from "./Widgets/DistroDropdown";
-
-export const getDefaultExpiration = () => {
-  const nextWeek = new Date();
-  nextWeek.setDate(nextWeek.getDate() + 7);
-  return nextWeek.toString();
-};
 
 interface Props {
   distros: {
@@ -155,12 +150,13 @@ export const getFormSchema = ({
                     },
                     newPublicKey: {
                       title: "Public key",
-                      default: "",
                       type: "string" as "string",
+                      default: "",
                     },
                     savePublicKey: {
                       title: "Save Public Key",
                       type: "boolean" as "boolean",
+                      default: false,
                     },
                   },
                   dependencies: {

@@ -55,10 +55,10 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
   const initialFormState = {
     hostName: host.displayName ?? "",
     expirationDetails: {
-      expiration: host.expiration.toString(),
+      expiration: host.expiration ? host.expiration.toString() : null,
       noExpiration: host.noExpiration,
     },
-    instanceType: host.instanceType,
+    instanceType: host.instanceType ?? "",
     volume: "",
     rdpPassword: "",
     userTags,

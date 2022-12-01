@@ -7,6 +7,7 @@ import { InputLabel, StyledLink } from "components/styles";
 import { windowsPasswordRulesURL } from "constants/externalResources";
 import { GetMyPublicKeysQuery, MyVolumesQuery } from "gql/generated/types";
 import { GetFormSchema } from "pages/projectSettings/tabs/types";
+import { getDefaultExpiration } from "../utils";
 import { ExpirationRow } from "./FieldTemplates/ExpirationRow";
 import { UserTagRow } from "./FieldTemplates/UserTagRow";
 
@@ -38,6 +39,7 @@ export const getFormSchema = ({
       hostName: {
         title: "Edit Host Name",
         type: "string",
+        default: "",
       },
       expirationDetails: {
         title: "",
@@ -46,10 +48,12 @@ export const getFormSchema = ({
           expiration: {
             type: "string" as "string",
             title: "Edit Expiration",
+            default: getDefaultExpiration(),
           },
           noExpiration: {
             type: "boolean" as "boolean",
             title: "Never expire",
+            default: false,
           },
         },
         dependencies: {
@@ -82,6 +86,7 @@ export const getFormSchema = ({
       instanceType: {
         title: "Change Instance Type",
         type: "string" as "string",
+        default: "",
         oneOf: instanceTypes.map((it) => ({
           type: "string" as "string",
           title: it,

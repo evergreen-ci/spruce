@@ -557,8 +557,6 @@ export type Mutation = {
   createProject: Project;
   createPublicKey: Array<PublicKey>;
   deactivateStepbackTask: Scalars["Boolean"];
-  /** @deprecated deactivateStepbackTasks is deprecated. Use deactivateStepbackTask instead. */
-  deactivateStepbackTasks: Scalars["Boolean"];
   defaultSectionToRepo?: Maybe<Scalars["String"]>;
   detachProjectFromRepo: Project;
   detachVolumeFromHost: Scalars["Boolean"];
@@ -647,10 +645,6 @@ export type MutationDeactivateStepbackTaskArgs = {
   buildVariantName: Scalars["String"];
   projectId: Scalars["String"];
   taskName: Scalars["String"];
-};
-
-export type MutationDeactivateStepbackTasksArgs = {
-  projectId: Scalars["String"];
 };
 
 export type MutationDefaultSectionToRepoArgs = {
@@ -1804,7 +1798,9 @@ export type TaskFiles = {
 /** TaskFilterOptions defines the parameters that are used when fetching tasks from a Version. */
 export type TaskFilterOptions = {
   baseStatuses?: InputMaybe<Array<Scalars["String"]>>;
+  /** @deprecated Use includeNeverActivatedTasks instead */
   includeEmptyActivation?: InputMaybe<Scalars["Boolean"]>;
+  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]>;
   limit?: InputMaybe<Scalars["Int"]>;
   page?: InputMaybe<Scalars["Int"]>;
   sorts?: InputMaybe<Array<SortOrder>>;
@@ -1942,7 +1938,9 @@ export type TestFilter = {
 export type TestLog = {
   lineNum?: Maybe<Scalars["Int"]>;
   url?: Maybe<Scalars["String"]>;
+  /** @deprecated Use urlParsley instead */
   urlLobster?: Maybe<Scalars["String"]>;
+  urlParsley?: Maybe<Scalars["String"]>;
   urlRaw?: Maybe<Scalars["String"]>;
 };
 
