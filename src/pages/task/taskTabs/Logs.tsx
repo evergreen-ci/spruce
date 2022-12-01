@@ -99,7 +99,7 @@ export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
 
         {(htmlLink || rawLink || parsleyLink) && (
           <ButtonContainer>
-            {rawLink && (
+            {parsleyLink && (
               <Button
                 data-cy="parsley-log-btn"
                 disabled={noLogs}
