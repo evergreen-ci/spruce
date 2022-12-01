@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { ErrorWrapper } from "components/ErrorWrapper";
-import { SiderCard } from "components/styles";
+import { SiderCard, wordBreakCss } from "components/styles";
 import { Divider } from "components/styles/Divider";
 
 interface Props {
@@ -52,6 +52,7 @@ const Title = styled(Body)`
 `;
 
 const Item = styled(Body)`
+  ${wordBreakCss}
   font-size: 12px;
   line-height: 14px;
 

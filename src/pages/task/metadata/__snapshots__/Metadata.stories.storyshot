@@ -17,7 +17,7 @@ exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
       role="separator"
     />
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
       data-cy="task-metadata-build-variant"
     >
       Build Variant Name:
@@ -36,7 +36,7 @@ exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
       </a>
     </p>
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
       data-cy="task-metadata-project"
     >
       Project:
@@ -55,13 +55,13 @@ exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
       </a>
     </p>
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Submitted by: 
       mohamed.khelif
     </p>
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Estimated time to start:
        
@@ -72,7 +72,7 @@ exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
       </span>
     </p>
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Base commit:
        
@@ -90,7 +90,7 @@ exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
       </a>
     </p>
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Distro:
        
@@ -109,14 +109,14 @@ exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
       </a>
     </p>
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
       data-cy="task-metadata-ami"
     >
       AMI: 
       ami-0c83bb0a9f48c15bf
     </p>
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Host:
        
@@ -135,7 +135,7 @@ exports[`storybook Storyshots Pages/Task/Metadata Base 1`] = `
       </a>
     </p>
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       <a
         className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
@@ -171,7 +171,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
       role="separator"
     />
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
       data-cy="task-metadata-build-variant"
     >
       Build Variant Name:
@@ -190,7 +190,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
       </a>
     </p>
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
       data-cy="task-metadata-project"
     >
       Project:
@@ -209,13 +209,13 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
       </a>
     </p>
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Submitted by: 
       mohamed.khelif
     </p>
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Estimated time to start:
        
@@ -226,7 +226,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
       </span>
     </p>
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Base commit:
        
@@ -244,7 +244,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
       </a>
     </p>
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Distro:
        
@@ -263,14 +263,14 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
       </a>
     </p>
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
       data-cy="task-metadata-ami"
     >
       AMI: 
       ami-0c83bb0a9f48c15bf
     </p>
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Host:
        
@@ -289,7 +289,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Abort Message 1`] = `
       </a>
     </p>
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       <a
         className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
@@ -325,7 +325,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
       role="separator"
     />
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
       data-cy="task-metadata-build-variant"
     >
       Build Variant Name:
@@ -344,7 +344,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
       </a>
     </p>
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
       data-cy="task-metadata-project"
     >
       Project:
@@ -363,13 +363,13 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
       </a>
     </p>
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Submitted by: 
       mohamed.khelif
     </p>
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Estimated time to start:
        
@@ -380,7 +380,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
       </span>
     </p>
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Base commit:
        
@@ -398,7 +398,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
       </a>
     </p>
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Distro:
        
@@ -417,14 +417,14 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
       </a>
     </p>
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
       data-cy="task-metadata-ami"
     >
       AMI: 
       ami-0c83bb0a9f48c15bf
     </p>
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       Host:
        
@@ -443,7 +443,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
       </a>
     </p>
     <p
-      className="css-epyhm8-Item e1ul56zb0 leafygreen-ui-1yli3c0"
+      className="css-1cffvml-Item-wordBreakCss e1ul56zb0 leafygreen-ui-1yli3c0"
     >
       <a
         className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
