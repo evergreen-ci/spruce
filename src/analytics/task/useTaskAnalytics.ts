@@ -19,6 +19,8 @@ import { RequiredQueryParams, LogTypes } from "types/task";
 import { queryString } from "utils";
 
 const { parseQueryString } = queryString;
+
+type LogViewer = "raw" | "html" | "parsley";
 type Action =
   | { name: "Filter Tests"; filterBy: string }
   | {
@@ -45,11 +47,9 @@ type Action =
   | { name: "Change Page Size" }
   | { name: "Change Tab"; tab: string }
   | { name: "Change Execution" }
-  | { name: "Click Logs Lobster Button" }
-  | { name: "Click Logs HTML Button" }
-  | { name: "Click Logs Lobster Button" }
-  | { name: "Click Logs Raw Button" }
-  | { name: "Select Logs Type"; logsType: LogTypes }
+  | { name: "Click Logs Button"; logType: LogTypes; logViewer: LogViewer }
+  | { name: "Click Test Logs Button"; logViewer: LogViewer; testStatus: string }
+  | { name: "Select Logs Type"; logType: LogTypes }
   | { name: "Open Notification Modal" }
   | {
       name: "Add Notification";

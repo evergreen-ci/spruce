@@ -28,7 +28,7 @@ query TaskTests(
       logs {
         url
         urlRaw
-        urlLobster
+        urlParsley
       }
     }
     filteredTestCount
