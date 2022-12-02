@@ -1,65 +1,24 @@
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { Analytics } from "analytics/addPageAction";
+import { useTaskAnalytics } from "analytics";
 import { getTaskHistoryRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { TestResult, GetTaskQuery } from "gql/generated/types";
 import { TestStatus } from "types/test";
 import { string } from "utils";
-import {
-  getLobsterURL,
-  getParsleyUrl,
-  isProduction,
-} from "utils/environmentalVariables";
-import { stringifyQuery } from "utils/queryString";
 import { TaskHistoryTestsButton } from "./logsColumn/TaskHistoryTestsButton";
 
 const { escapeRegex } = string;
 interface Props {
-  taskAnalytics: Analytics<
-    | { name: "Click Logs Lobster Button" }
-    | { name: "Click Logs HTML Button" }
-    | { name: "Click Logs Raw Button" }
-    | { name: "Click See History Button" }
-  >;
   testResult: TestResult;
   task: GetTaskQuery["task"];
 }
 
-// These are temporary until we update the backend to return the correct links
-const turnTestLogLinkIntoParsleyLink = (url: string) => {
-  const legacyLobsterURL = `${getLobsterURL()}/lobster/evergreen/test`;
-  const parsleyTestURL = `${getParsleyUrl()}/test`;
-  let newURL = url.replace(legacyLobsterURL, parsleyTestURL);
-  const selectedLineRegexp = /#shareLine=([0-9]+)/;
-  const selectedLine = url.match(selectedLineRegexp)?.[1];
-  newURL = newURL.replace(selectedLineRegexp, "");
-
-  return `${newURL}?${stringifyQuery({ selectedLine })}`;
-};
-
-const turnResmokeTestLogLinkIntoParsleyLink = (url: string) => {
-  const legacyResmokeLobsterURL = `${getLobsterURL()}/lobster/build`;
-  const parsleyResmokeTestURL = `${getParsleyUrl()}/resmoke`;
-  let newURL = url.replace(legacyResmokeLobsterURL, parsleyResmokeTestURL);
-  const selectedLineRegexp = /#shareLine=([0-9]+)/;
-  const selectedLine = url.match(selectedLineRegexp)?.[1];
-  newURL = newURL.replace(selectedLineRegexp, "");
-
-  return `${newURL}?${stringifyQuery({ selectedLine })}`;
-};
-
-export const LogsColumn: React.VFC<Props> = ({
-  testResult,
-  taskAnalytics,
-  task,
-}) => {
+export const LogsColumn: React.VFC<Props> = ({ testResult, task }) => {
   const { status, testFile } = testResult;
-  const { url: urlHTML, urlRaw, urlLobster } = testResult.logs ?? {};
+  const { url: urlHTML, urlRaw, urlParsley } = testResult.logs ?? {};
   const { project, displayName, displayTask, order } = task ?? {};
-  const parsleyLink = urlLobster
-    ? turnTestLogLinkIntoParsleyLink(urlLobster)
-    : turnResmokeTestLogLinkIntoParsleyLink(urlHTML);
+  const { sendEvent } = useTaskAnalytics();
   const filters =
     status === TestStatus.Fail
       ? {
@@ -70,19 +29,21 @@ export const LogsColumn: React.VFC<Props> = ({
   const isExecutionTask = displayTask !== null;
   return (
     <ButtonWrapper>
-      {urlLobster && (
+      {urlParsley && (
         <Button
-          data-cy="test-table-lobster-btn"
+          data-cy="test-table-parsley-btn"
           size="xsmall"
           target="_blank"
-          href={isProduction() ? urlLobster : parsleyLink}
+          href={urlParsley}
           onClick={() =>
-            taskAnalytics.sendEvent({
-              name: "Click Logs Lobster Button",
+            sendEvent({
+              name: "Click Test Logs Button",
+              logViewer: "parsley",
+              testStatus: status,
             })
           }
         >
-          Lobster
+          Parsley
         </Button>
       )}
       {urlHTML && (
@@ -90,10 +51,12 @@ export const LogsColumn: React.VFC<Props> = ({
           data-cy="test-table-html-btn"
           size="xsmall"
           target="_blank"
-          href={isProduction() || urlLobster ? urlHTML : parsleyLink}
+          href={urlHTML}
           onClick={() =>
-            taskAnalytics.sendEvent({
-              name: "Click Logs HTML Button",
+            sendEvent({
+              name: "Click Test Logs Button",
+              logViewer: "html",
+              testStatus: status,
             })
           }
         >
@@ -107,7 +70,11 @@ export const LogsColumn: React.VFC<Props> = ({
           target="_blank"
           href={urlRaw}
           onClick={() =>
-            taskAnalytics.sendEvent({ name: "Click Logs Raw Button" })
+            sendEvent({
+              name: "Click Test Logs Button",
+              logViewer: "raw",
+              testStatus: status,
+            })
           }
         >
           Raw
@@ -116,7 +83,7 @@ export const LogsColumn: React.VFC<Props> = ({
       {filters && !isExecutionTask && (
         <TaskHistoryTestsButton
           onClick={() => {
-            taskAnalytics.sendEvent({ name: "Click See History Button" });
+            sendEvent({ name: "Click See History Button" });
           }}
           to={getTaskHistoryRoute(project?.identifier, displayName, {
             filters,
