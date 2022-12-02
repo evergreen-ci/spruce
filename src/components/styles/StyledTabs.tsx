@@ -4,7 +4,7 @@ import { size } from "constants/tokens";
 import { TabsType } from "types/leafygreen";
 
 export const StyledTabs = styled<TabsType>(Tabs)`
-  [role="tablist"] {
+  > div > [role="tablist"] {
     margin-bottom: ${size.s};
   }
 `;

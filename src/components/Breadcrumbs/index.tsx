@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import styled from "@emotion/styled";
+import { palette } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
@@ -7,6 +8,8 @@ import Icon from "components/Icon";
 import { StyledRouterLink } from "components/styles";
 import { size } from "constants/tokens";
 import { trimStringFromMiddle } from "utils/string";
+
+const { gray } = palette;
 
 export interface Breadcrumb {
   text: string;
@@ -22,7 +25,12 @@ const Breadcrumbs: React.VFC<BreadcrumbsProps> = ({ breadcrumbs }) => (
       <Fragment key={`breadCrumb-${bc.text}`}>
         <BreadcrumbFragment breadcrumb={bc} />
         {breadcrumbs.length - 1 !== index && (
-          <PaddedIcon data-cy="breadcrumb-chevron" glyph="ChevronRight" />
+          <PaddedIcon
+            data-cy="breadcrumb-chevron"
+            glyph="ChevronRight"
+            fill={gray.dark2}
+            size="small"
+          />
         )}
       </Fragment>
     ))}
@@ -66,10 +74,10 @@ const BreadcrumbFragment: React.VFC<BreadcrumbFragmentProps> = ({
   );
 };
 
-const Container = styled.div`
+const Container = styled.nav`
   display: flex;
   align-items: center;
-  margin-bottom: ${size.l};
+  margin-bottom: ${size.s};
 `;
 
 const PaddedIcon = styled(Icon)`

@@ -243,6 +243,5 @@ const PreviousCommitsWrapper = styled.div`
 const StyledSelect = styled(Select)`
   width: 220px;
   margin-right: ${size.xs};
-  position: relative;
-  bottom: 23px; // to offset the label
+  margin-top: -23px;
 `;

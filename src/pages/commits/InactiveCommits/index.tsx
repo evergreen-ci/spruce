@@ -193,7 +193,6 @@ const InactiveCommitLine = styled.div`
 `;
 
 const TooltipContainer = styled.div`
-  width: 300px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
