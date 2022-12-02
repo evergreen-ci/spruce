@@ -2,7 +2,7 @@
 
 exports[`storybook Storyshots Components/DatePicker Default 1`] = `
 <div
-  className="leafygreen-ui-jxj5sq"
+  className="leafygreen-ui-62nio8"
 >
   <div
     className="ant-picker"
@@ -58,7 +58,7 @@ exports[`storybook Storyshots Components/DatePicker Default 1`] = `
     </div>
   </div>
   <div
-    className="static-lg-ui-classname leafygreen-ui-3x1o6h"
+    className="lg-ui-interaction-ring-0000 leafygreen-ui-3x1o6h"
   />
 </div>
 `;

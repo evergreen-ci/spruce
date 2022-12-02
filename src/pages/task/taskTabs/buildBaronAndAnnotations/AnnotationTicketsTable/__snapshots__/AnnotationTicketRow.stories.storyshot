@@ -5,14 +5,14 @@ exports[`storybook Storyshots Pages/Task/BuildBaron/AnnotationTicketRow Default 
   data-cy="annotation-ticket-row"
 >
   <a
-    className="static-lg-ui-classname ekm0eth2 css-8qzidg-StyledLink-JiraSummaryLink leafygreen-ui-1cn1hqb"
+    className="lg-ui-0001 ekm0eth2 css-8qzidg-StyledLink-JiraSummaryLink leafygreen-ui-1cn1hqb"
     data-cy="EVG-123"
     href="https://www.google.com"
     onClick={[Function]}
     target="_blank"
   >
     <span
-      className="leafygreen-ui-161szq7"
+      className="leafygreen-ui-1ewnca3"
     >
       EVG-123
       : summary
