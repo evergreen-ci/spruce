@@ -70,7 +70,7 @@
     "@leafygreen-ui/code": "9.1.0",
     "@leafygreen-ui/confirmation-modal": "2.2.2",
     "@leafygreen-ui/emotion": "^4.0.0",
-    "@leafygreen-ui/expandable-card": "0.9.1",
+    "@leafygreen-ui/expandable-card": "2.0.1",
     "@leafygreen-ui/guide-cue": "2.0.1",
     "@leafygreen-ui/icon": "11.4.0",
     "@leafygreen-ui/icon-button": "9.1.7",
