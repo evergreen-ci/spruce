@@ -57,7 +57,7 @@ const getExtraFields = (
   if (!triggerData) return {};
 
   const extraFields = {};
-  projectTriggers[triggerEnum].extraFields.forEach((e) => {
+  projectTriggers[triggerEnum]?.extraFields.forEach((e) => {
     // Extra fields that are numbers must be converted in order to fulfill the form schema.
     const isNumber = e.format === "number";
     extraFields[e.key] = isNumber
