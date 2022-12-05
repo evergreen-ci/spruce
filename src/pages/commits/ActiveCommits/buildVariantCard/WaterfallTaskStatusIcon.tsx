@@ -57,6 +57,14 @@ export const WaterfallTaskStatusIcon: React.VFC<
     }
   }, [enabled]);
 
+  useEffect(
+    () => () => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+    },
+    [] // eslint-disable-line react-hooks/exhaustive-deps
+  );
   return (
     <Tooltip
       align="top"
