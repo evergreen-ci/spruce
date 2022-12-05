@@ -23,7 +23,7 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
       className="css-19ahzkx-InputGroup e5gn9hl2"
     >
       <div
-        className="leafygreen-ui-1nkq8lt css-17m5hmx-GroupedSelect e5gn9hl1"
+        className="leafygreen-ui-1nkq8lt css-1scwv0u-GroupedSelect e5gn9hl1"
       >
         <button
           aria-controls="select-13-menu"
@@ -77,7 +77,7 @@ exports[`storybook Storyshots Components/TupleSelect Default 1`] = `
         className="css-mk4qpy-TextInputWrapper e13gwrw81"
       >
         <div
-          className="css-1lrwj5g-GroupedTextInput e5gn9hl0 leafygreen-ui-xtefr5"
+          className="css-1f1bh8e-GroupedTextInput e5gn9hl0 leafygreen-ui-xtefr5"
         >
           <div
             className="leafygreen-ui-lzja97"

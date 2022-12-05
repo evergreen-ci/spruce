@@ -160,7 +160,6 @@ export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
 
 const LogHeader = styled.div`
   display: flex;
-  align-items: center;
   justify-content: space-between;
   margin-bottom: ${size.s};
 `;
@@ -168,7 +167,6 @@ const LogHeader = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   gap: ${size.xs};
-  margin-right: ${size.xxs};
 `;
 
 interface GetLinksResult {

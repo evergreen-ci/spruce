@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Row, Cell } from "@leafygreen-ui/table";
 import { Description } from "@leafygreen-ui/typography";
@@ -73,21 +74,23 @@ TaskDurationRow.displayName = "Row";
 const calculateBarWidth = (value: number, max: number) =>
   max ? `${(value / max) * 100}%` : "0%";
 
-const TaskNameCell = styled(Cell)`
+const baseCellStyle = css`
   word-break: break-all;
-  padding-right: ${size.m};
+  vertical-align: middle;
+`;
+
+const TaskNameCell = styled(Cell)`
+  ${baseCellStyle}
 `;
 TaskNameCell.displayName = "Cell";
 
 const StatusCell = styled(Cell)`
-  word-break: break-all;
-  padding-right: ${size.m};
+  ${baseCellStyle}
 `;
 StatusCell.displayName = "Cell";
 
 const BuildVariantCell = styled(Cell)`
-  word-break: break-all;
-  padding-right: ${size.m};
+  ${baseCellStyle}
 `;
 BuildVariantCell.displayName = "Cell";
 
@@ -96,6 +99,7 @@ const DurationCell = styled(Cell)`
     display: block;
     width: 100%;
   }
+  vertical-align: middle;
 `;
 DurationCell.displayName = "Cell";
 

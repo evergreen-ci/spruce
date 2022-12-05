@@ -3,7 +3,7 @@
   "version": "2.36.60",
   "private": true,
   "scripts": {
-    "build-storybook": "NODE_OPTIONS=--max-old-space-size=6144 build-storybook",
+    "build-storybook": "build-storybook",
     "build:beta": "env-cmd -e beta -r env/.cmdrc.json yarn build",
     "build:local": "env-cmd -e local -r env/.cmdrc.json  yarn build",
     "build:prod": "env-cmd -e prod -r env/.cmdrc.json yarn build",

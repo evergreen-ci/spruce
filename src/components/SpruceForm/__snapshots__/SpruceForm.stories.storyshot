@@ -143,7 +143,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
               </button>
             </div>
             <div
-              className="css-fwqti9-ArrayContainer e7smmlm2"
+              className="css-uocgfp-ArrayContainer e7smmlm2"
             >
               <div
                 className="css-nbhfvd-ArrayItemRow e7smmlm4"
@@ -253,7 +253,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                   </fieldset>
                 </div>
                 <div
-                  className="css-1w3q9da-ElementWrapper-DeleteButtonWrapper e7smmlm1"
+                  className="css-oex5ed-ElementWrapper-DeleteButtonWrapper e7smmlm1"
                 >
                   <button
                     aria-disabled={false}

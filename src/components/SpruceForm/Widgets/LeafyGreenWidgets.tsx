@@ -404,6 +404,7 @@ export const LeafyGreenSegmentedControl: React.VFC<EnumSpruceWidgetProps> = ({
 };
 
 const StyledSegmentedControl = styled(SegmentedControl)`
+  box-sizing: border-box;
   margin-bottom: ${size.s};
 `;
 
