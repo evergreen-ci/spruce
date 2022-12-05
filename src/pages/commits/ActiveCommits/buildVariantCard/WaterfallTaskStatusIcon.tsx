@@ -58,7 +58,7 @@ export const WaterfallTaskStatusIcon: React.VFC<
   }, [enabled]);
 
   return (
-    <StyledTooltip
+    <Tooltip
       align="top"
       justify="middle"
       popoverZIndex={zIndex.tooltip}
@@ -102,7 +102,7 @@ export const WaterfallTaskStatusIcon: React.VFC<
           </>
         )}
       </div>
-    </StyledTooltip>
+    </Tooltip>
   );
 };
 const TestName = styled.div`
@@ -115,12 +115,4 @@ const TaskStatusWrapper = styled.div`
   height: ${TASK_ICON_HEIGHT}px;
   width: ${size.m};
   padding: ${size.xxs};
-`;
-
-// @ts-expect-error
-const StyledTooltip = styled(Tooltip)`
-  -webkit-transition: none !important;
-  -moz-transition: none !important;
-  -o-transition: none !important;
-  transition: none !important;
 `;
