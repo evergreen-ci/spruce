@@ -27,6 +27,7 @@ interface WaterfallTaskStatusIconProps {
   identifier: string;
 }
 
+let timeout;
 export const WaterfallTaskStatusIcon: React.VFC<
   WaterfallTaskStatusIconProps
 > = ({ taskId, status, displayName, timeTaken, identifier }) => {
@@ -39,42 +40,33 @@ export const WaterfallTaskStatusIcon: React.VFC<
   const { testResults, filteredTestCount } = data?.taskTests ?? {};
   const failedTestDifference = filteredTestCount - (testResults ?? []).length;
 
-  let timeout;
-  const onMouseEnter = () => {
-    injectGlobalStyle(identifier);
-    timeout = setTimeout(() => {
-      setEnabled(true);
-      // Only query failing test names if the task has failed.
-      if (isFailedTaskStatus(status)) {
-        loadData();
-      }
-    }, 500);
-  };
-  const onMouseLeave = () => {
-    removeGlobalStyle();
-    setEnabled(false);
+  useEffect(() => {
     if (timeout) {
       clearTimeout(timeout);
     }
-  };
-  useEffect(
-    () => () => {
-      if (timeout) {
-        clearTimeout(timeout);
-      }
-    },
-    [] // eslint-disable-line react-hooks/exhaustive-deps
-  );
+    if (enabled) {
+      injectGlobalStyle(identifier);
+      timeout = setTimeout(() => {
+        // Only query failing test names if the task has failed.
+        if (isFailedTaskStatus(status)) {
+          loadData();
+        }
+      }, 500);
+    } else {
+      removeGlobalStyle();
+    }
+  }, [enabled]);
+
   return (
-    <Tooltip
+    <StyledTooltip
       align="top"
       justify="middle"
       popoverZIndex={zIndex.tooltip}
       enabled={enabled}
       trigger={
         <Link
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
+          onMouseEnter={() => setEnabled(true)}
+          onMouseLeave={() => setEnabled(false)}
           key={`task_${taskId}`}
           aria-label={`${status} icon`}
           to={getTaskRoute(taskId)}
@@ -110,7 +102,7 @@ export const WaterfallTaskStatusIcon: React.VFC<
           </>
         )}
       </div>
-    </Tooltip>
+    </StyledTooltip>
   );
 };
 const TestName = styled.div`
@@ -123,4 +115,12 @@ const TaskStatusWrapper = styled.div`
   height: ${TASK_ICON_HEIGHT}px;
   width: ${size.m};
   padding: ${size.xxs};
+`;
+
+// @ts-expect-error
+const StyledTooltip = styled(Tooltip)`
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
 `;
