@@ -53,9 +53,7 @@ describe("createDuplicateProjectField", () => {
     expect(screen.queryByDataCy("new-project-button")).not.toBeInTheDocument();
   });
 
-  // Flakiness will be addressed in EVG-18333
-  // eslint-disable-next-line jest/no-disabled-tests
-  describe.skip("when looking at a repo", () => {
+  describe("when looking at a repo", () => {
     it("clicking the button opens the new project modal", async () => {
       const { Component } = RenderFakeToastContext(
         <Button projectType={ProjectType.Repo} />
@@ -83,9 +81,7 @@ describe("createDuplicateProjectField", () => {
       );
     });
 
-    // Flakiness will be addressed in EVG-18333
-    // eslint-disable-next-line jest/no-disabled-tests
-    it.skip("clicking the 'Create New Project' button opens the create project modal and closes the menu", async () => {
+    it("clicking the 'Create New Project' button opens the create project modal and closes the menu", async () => {
       const { Component } = RenderFakeToastContext(<Button />);
       render(<Component />);
 
@@ -101,9 +97,7 @@ describe("createDuplicateProjectField", () => {
       expect(screen.queryByDataCy("new-project-menu")).not.toBeInTheDocument();
     });
 
-    // Flakiness will be addressed in EVG-18333
-    // eslint-disable-next-line jest/no-disabled-tests
-    it.skip("clicking the 'Duplicate Project' button opens the create project modal and closes the menu", async () => {
+    it("clicking the 'Duplicate Project' button opens the create project modal and closes the menu", async () => {
       const { Component } = RenderFakeToastContext(<Button />);
       render(<Component />);
 
