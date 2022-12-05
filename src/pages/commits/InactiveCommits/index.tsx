@@ -222,6 +222,7 @@ const TooltipTitleText = styled.div`
 
 const StyledDisclaimer = styled(Disclaimer)`
   cursor: pointer;
+  text-align: center;
   :hover {
     color: ${blue.light1};
   }
