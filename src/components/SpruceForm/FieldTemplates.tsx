@@ -22,7 +22,7 @@ const { gray } = palette;
 
 // Total pixel count above a text field with a label. Used to align buttons to the
 // top of the text box itself.
-const labelOffset = "24px";
+const labelOffset = size.m;
 
 // Extract index of the current field via its ID
 const getIndex = (id: string): number => {
@@ -345,7 +345,7 @@ const ArrayContainer = styled.div`
   ${({ hasChildren }) => hasChildren && `margin-bottom: ${size.m};`}
   min-width: min-content;
   width: ${({ fullWidth }: ArrayContainerProps): string =>
-    fullWidth ? "100%" : "60%"};
+    fullWidth ? "100%" : "70%"};
 `;
 
 const DeleteButtonWrapper = styled(ElementWrapper)`

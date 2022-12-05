@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
+import { size } from "constants/tokens";
 
 interface Props {
   tabLabel: string;
@@ -23,5 +24,5 @@ export const TabLabelWithBadge: React.VFC<Props> = ({
 
 const StyledBadge = styled(Badge)`
   // Fix height to be consistent with text-only tabs
-  height: 16px;
+  height: ${size.s};
 `;

@@ -85,11 +85,3 @@ export const SectionLabel = styled(Body)`
   padding-right: ${size.s};
   margin-top: ${size.m};
 `;
-
-export const PaddedButton = styled(Button)`
-  margin-left: ${size.xxs};
-  margin-right: ${size.xxs};
-  flex-grow: 0;
-`;
-
-export const tooltipWidth = "250px";

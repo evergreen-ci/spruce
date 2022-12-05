@@ -323,7 +323,7 @@ export const ActionButtons: React.VFC<Props> = ({
             setIsVisibleModal(true);
           }}
         >
-          Notify Me
+          Notify me
         </Button>
         <ButtonDropdown
           disabled={disabled}

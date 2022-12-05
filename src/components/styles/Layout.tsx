@@ -67,6 +67,10 @@ export const PageButtonRow = styled.div`
   display: flex;
   align-items: flex-start;
   gap: ${size.xs};
+
+  button {
+    min-width: fit-content;
+  }
 `;
 
 export const InputLabel = styled.label`

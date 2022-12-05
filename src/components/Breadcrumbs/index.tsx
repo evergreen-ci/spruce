@@ -77,7 +77,7 @@ const BreadcrumbFragment: React.VFC<BreadcrumbFragmentProps> = ({
 const Container = styled.nav`
   display: flex;
   align-items: center;
-  margin-bottom: ${size.s};
+  margin-bottom: ${size.m};
 `;
 
 const PaddedIcon = styled(Icon)`
