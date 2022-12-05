@@ -127,12 +127,6 @@ describe("Repo Settings", () => {
     cy.visit(destination);
   });
 
-  it("clicking the New Project button opens the new project modal", () => {
-    cy.dataCy("new-project-button").click();
-    cy.dataCy("create-project-modal").should("be.visible");
-    cy.get('button[aria-label="Close modal"]').click();
-  });
-
   it("Should not have the save button enabled on load", () => {
     cy.dataCy("save-settings-button").should("be.disabled");
   });
@@ -949,28 +943,6 @@ describe("Attaching Spruce to a repo", () => {
       });
       cy.dataCy("cq-card").dataCy("error-banner").should("exist");
     });
-  });
-});
-
-describe("New Project button for project", () => {
-  beforeEach(() => {
-    cy.login();
-    cy.visit(getGeneralRoute(project));
-    cy.dataCy("new-project-menu").should("not.exist");
-    cy.dataCy("new-project-button").click();
-    cy.dataCy("new-project-menu").should("be.visible");
-  });
-
-  it("clicking the 'Create New Project' menu button opens the create project modal and closes the menu", () => {
-    cy.dataCy("create-project-button").click();
-    cy.dataCy("new-project-menu").should("not.exist");
-    cy.dataCy("create-project-modal").should("be.visible");
-  });
-
-  it("clicking the 'Duplicate Project' menu button opens the create project modal and closes the menu", () => {
-    cy.dataCy("copy-project-button").click();
-    cy.dataCy("new-project-menu").should("not.exist");
-    cy.dataCy("copy-project-modal").should("be.visible");
   });
 });
 
