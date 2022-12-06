@@ -44,7 +44,7 @@ const host = {
 const initialEditState: EditSpawnHostMutationVariables = {
   hostId: host.id,
   displayName: host.displayName,
-  expiration: host.noExpiration ? null : new Date(host.expiration),
+  expiration: null,
   noExpiration: host.noExpiration,
   instanceType: host.instanceType,
   volumeId: "",
@@ -61,7 +61,7 @@ const initialEditState: EditSpawnHostMutationVariables = {
 const currEditState: EditSpawnHostMutationVariables = {
   hostId: host.id,
   displayName: "new-display-name",
-  expiration: host.noExpiration ? null : new Date(host.expiration),
+  expiration: null,
   noExpiration: host.noExpiration,
   instanceType: "new-instance-type",
   volumeId: "",

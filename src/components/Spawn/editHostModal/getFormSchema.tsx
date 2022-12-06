@@ -1,12 +1,12 @@
 import { css } from "@emotion/react";
 import { add } from "date-fns";
+import { GetFormSchema } from "components/SpruceForm/types";
 import widgets from "components/SpruceForm/Widgets";
 import { AntdSelect } from "components/SpruceForm/Widgets/AntdWidgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
 import { InputLabel, StyledLink } from "components/styles";
 import { windowsPasswordRulesURL } from "constants/externalResources";
 import { GetMyPublicKeysQuery, MyVolumesQuery } from "gql/generated/types";
-import { GetFormSchema } from "pages/projectSettings/tabs/types";
 import { getDefaultExpiration } from "../utils";
 import { ExpirationRow } from "./FieldTemplates/ExpirationRow";
 import { UserTagRow } from "./FieldTemplates/UserTagRow";
@@ -17,7 +17,7 @@ interface Props {
   myPublicKeys: GetMyPublicKeysQuery["myPublicKeys"];
   volumes: MyVolumesQuery["myVolumes"];
   instanceTypes: string[];
-  canEditRDPPassword: boolean;
+  canEditRdpPassword: boolean;
   canEditInstanceType: boolean;
   canEditSshKeys: boolean;
 }
@@ -28,7 +28,7 @@ export const getFormSchema = ({
   myPublicKeys,
   volumes,
   instanceTypes,
-  canEditRDPPassword,
+  canEditRdpPassword,
   canEditInstanceType,
   canEditSshKeys,
 }: Props): ReturnType<GetFormSchema> => ({
@@ -103,7 +103,7 @@ export const getFormSchema = ({
           enum: [v.id],
         })),
       },
-      ...(canEditRDPPassword && {
+      ...(canEditRdpPassword && {
         rdpPassword: {
           title: "Set New RDP Password",
           type: "string",
@@ -226,7 +226,6 @@ export const getFormSchema = ({
       noExpiration: {
         "ui:disabled": disableExpirationCheckbox,
         "ui:tooltipDescription": noExpirationCheckboxTooltip ?? "",
-        "ui:data-cy": "never-expire-checkbox",
         "ui:elementWrapperCSS": checkboxCSS,
       },
     },
@@ -241,7 +240,6 @@ export const getFormSchema = ({
       "ui:widget": AntdSelect,
       "ui:hideError": true,
       "ui:allowDeselect": false,
-      "ui:data-cy": "volume-select",
     },
     rdpPassword: {
       // Console error should be resolved by https://jira.mongodb.org/browse/LG-2342.
@@ -273,12 +271,10 @@ export const getFormSchema = ({
         "ui:widget": AntdSelect,
         "ui:hideError": true,
         "ui:valuePlaceholder": "Select a key",
-        "ui:data-cy": "key-select",
         "ui:disabled": !canEditSshKeys,
       },
       newPublicKey: {
         "ui:widget": LeafyGreenTextArea,
-        "ui:data-cy": "key-value-text-area",
         "ui:disabled": !canEditSshKeys,
       },
     },

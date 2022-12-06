@@ -1,4 +1,4 @@
-import { SpruceFormProps } from "components/SpruceForm";
+import { SpruceFormProps } from "components/SpruceForm/types";
 import { SubscriptionMethodOption } from "types/subscription";
 import { Trigger } from "types/triggers";
 import { getEventSchema } from "./event";

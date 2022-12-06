@@ -4,5 +4,5 @@ import { FormState } from "./types";
 import { useLoadFormData } from "./useLoadFormData";
 import { computeDiff } from "./utils";
 
-export { computeDiff, getFormSchema, useLoadFormData, formToGql };
+export { computeDiff, formToGql, getFormSchema, useLoadFormData };
 export type { FormState };

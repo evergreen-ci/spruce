@@ -33,7 +33,7 @@ export const formToGql = ({
   const {
     useExisting,
     publicKeyNameDropdown = "",
-    newPublicKey,
+    newPublicKey = "",
     newPublicKeyName = "",
     savePublicKey = false,
   } = publicKeySection;
@@ -58,8 +58,11 @@ export const formToGql = ({
     publicKey: {
       name: useExisting ? publicKeyNameDropdown : newPublicKeyName,
       key: useExisting
-        ? myPublicKeys.find(({ name }) => name === publicKeyNameDropdown)
-            ?.key ?? ""
+        ? (
+            myPublicKeys.find(({ name }) => name === publicKeyNameDropdown) ?? {
+              key: "",
+            }
+          ).key
         : stripNewLines(newPublicKey),
     },
     savePublicKey: !useExisting && savePublicKey,

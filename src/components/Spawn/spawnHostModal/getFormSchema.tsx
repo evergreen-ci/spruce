@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import { add } from "date-fns";
+import { GetFormSchema } from "components/SpruceForm/types";
 import widgets from "components/SpruceForm/Widgets";
 import { AntdSelect } from "components/SpruceForm/Widgets/AntdWidgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
@@ -8,7 +9,6 @@ import {
   GetSpawnTaskQuery,
   MyVolumesQuery,
 } from "gql/generated/types";
-import { GetFormSchema } from "pages/projectSettings/tabs/types";
 import { shortenGithash } from "utils/string";
 import { getDefaultExpiration } from "../utils";
 import { validateTask } from "./utils";

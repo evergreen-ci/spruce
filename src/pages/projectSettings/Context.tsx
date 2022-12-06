@@ -8,7 +8,7 @@ import {
 } from "react";
 import debounce from "lodash.debounce";
 import isEqual from "lodash.isequal";
-import { SpruceFormProps } from "components/SpruceForm";
+import { SpruceFormProps } from "components/SpruceForm/types";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import { formToGqlMap } from "./tabs/transformers";
 import {

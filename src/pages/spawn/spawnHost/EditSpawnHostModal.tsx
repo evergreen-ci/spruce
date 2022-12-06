@@ -3,11 +3,11 @@ import { useMutation } from "@apollo/client";
 import { useSpawnAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import {
-  getFormSchema,
   FormState,
-  useLoadFormData,
-  formToGql,
   computeDiff,
+  formToGql,
+  getFormSchema,
+  useLoadFormData,
 } from "components/Spawn/editHostModal";
 import { SpruceForm } from "components/SpruceForm";
 import { useToastContext } from "context/toast";
@@ -69,7 +69,7 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
 
   const { schema, uiSchema } = getFormSchema({
     canEditInstanceType: host.status === HostStatus.Stopped,
-    canEditRDPPassword:
+    canEditRdpPassword:
       host.distro.isWindows && host.status === HostStatus.Running,
     canEditSshKeys: host.status === HostStatus.Running,
     disableExpirationCheckbox,
