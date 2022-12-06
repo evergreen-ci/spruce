@@ -7,6 +7,7 @@ import {
   routes,
   getProjectPatchesRoute,
   getProjectSettingsRoute,
+  getTaskQueueRoute,
 } from "constants/routes";
 import { GetSpruceConfigQuery } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
@@ -48,6 +49,11 @@ export const AuxiliaryDropdown = () => {
       to: getProjectPatchesRoute(mostRecentProject),
       text: "Project Patches",
       onClick: () => sendEvent({ name: "Click Project Patches Link" }),
+    },
+    {
+      text: "Task Queue",
+      to: getTaskQueueRoute(""),
+      onClick: () => sendEvent({ name: "Click Task Queue Link" }),
     },
   ];
 
