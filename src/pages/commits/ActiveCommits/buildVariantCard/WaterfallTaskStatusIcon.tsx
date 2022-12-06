@@ -27,6 +27,7 @@ interface WaterfallTaskStatusIconProps {
   identifier: string;
 }
 
+let timeout;
 export const WaterfallTaskStatusIcon: React.VFC<
   WaterfallTaskStatusIconProps
 > = ({ taskId, status, displayName, timeTaken, identifier }) => {
@@ -39,24 +40,23 @@ export const WaterfallTaskStatusIcon: React.VFC<
   const { testResults, filteredTestCount } = data?.taskTests ?? {};
   const failedTestDifference = filteredTestCount - (testResults ?? []).length;
 
-  let timeout;
-  const onMouseEnter = () => {
-    injectGlobalStyle(identifier);
-    timeout = setTimeout(() => {
-      setEnabled(true);
-      // Only query failing test names if the task has failed.
-      if (isFailedTaskStatus(status)) {
-        loadData();
-      }
-    }, 500);
-  };
-  const onMouseLeave = () => {
-    removeGlobalStyle();
-    setEnabled(false);
+  useEffect(() => {
     if (timeout) {
       clearTimeout(timeout);
     }
-  };
+    if (enabled) {
+      injectGlobalStyle(identifier);
+      timeout = setTimeout(() => {
+        // Only query failing test names if the task has failed.
+        if (isFailedTaskStatus(status)) {
+          loadData();
+        }
+      }, 500);
+    } else {
+      removeGlobalStyle();
+    }
+  }, [enabled]);
+
   useEffect(
     () => () => {
       if (timeout) {
@@ -73,8 +73,8 @@ export const WaterfallTaskStatusIcon: React.VFC<
       enabled={enabled}
       trigger={
         <Link
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
+          onMouseEnter={() => setEnabled(true)}
+          onMouseLeave={() => setEnabled(false)}
           key={`task_${taskId}`}
           aria-label={`${status} icon`}
           to={getTaskRoute(taskId)}
