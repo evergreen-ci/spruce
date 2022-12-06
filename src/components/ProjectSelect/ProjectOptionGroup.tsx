@@ -79,15 +79,15 @@ const ProjectContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  padding: ${size.xs};
+  padding: ${size.xxs} ${size.xxs} ${size.xxs} ${size.xs};
   :hover {
     background-color: ${gray.light1};
   }
 `;
 
 const OptionGroupContainer = styled.div`
-  padding: ${size.xs};
   word-break: break-word;
+  padding: ${size.xs};
 `;
 
 const hoverStyles = css`
