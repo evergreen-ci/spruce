@@ -12,25 +12,25 @@ import { ExpirationRow } from "./FieldTemplates/ExpirationRow";
 import { UserTagRow } from "./FieldTemplates/UserTagRow";
 
 interface Props {
-  disableExpirationCheckbox: boolean;
-  noExpirationCheckboxTooltip: string;
-  myPublicKeys: GetMyPublicKeysQuery["myPublicKeys"];
-  volumes: MyVolumesQuery["myVolumes"];
-  instanceTypes: string[];
-  canEditRdpPassword: boolean;
   canEditInstanceType: boolean;
+  canEditRdpPassword: boolean;
   canEditSshKeys: boolean;
+  disableExpirationCheckbox: boolean;
+  instanceTypes: string[];
+  myPublicKeys: GetMyPublicKeysQuery["myPublicKeys"];
+  noExpirationCheckboxTooltip: string;
+  volumes: MyVolumesQuery["myVolumes"];
 }
 
 export const getFormSchema = ({
-  disableExpirationCheckbox,
-  noExpirationCheckboxTooltip,
-  myPublicKeys,
-  volumes,
-  instanceTypes,
-  canEditRdpPassword,
   canEditInstanceType,
+  canEditRdpPassword,
   canEditSshKeys,
+  disableExpirationCheckbox,
+  instanceTypes,
+  myPublicKeys,
+  noExpirationCheckboxTooltip,
+  volumes,
 }: Props): ReturnType<GetFormSchema> => ({
   fields: {},
   schema: {
@@ -120,13 +120,11 @@ export const getFormSchema = ({
               type: "string" as "string",
               title: "Key",
               default: "",
-              minLength: 1,
             },
             value: {
               type: "string" as "string",
               title: "Value",
               default: "",
-              minLength: 1,
             },
           },
         },
@@ -201,6 +199,7 @@ export const getFormSchema = ({
                           newPublicKeyName: {
                             title: "Key name",
                             type: "string" as "string",
+                            default: "",
                           },
                         },
                       },
