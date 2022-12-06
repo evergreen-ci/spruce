@@ -1,19 +1,16 @@
 import styled from "@emotion/styled";
-import { ObjectFieldTemplateProps } from "@rjsf/core";
+import { SpruceFormProps } from "components/SpruceForm/types";
 import { size } from "constants/tokens";
-import { form } from "pages/projectSettings/tabs/utils";
 
-const { getFields } = form;
-
-export const UserTagRow: React.VFC<
-  Pick<ObjectFieldTemplateProps, "formData" | "properties" | "uiSchema">
-> = ({ formData, properties }) => {
-  const [key, value] = getFields(properties, formData.isDisabled);
+export const UserTagRow: SpruceFormProps["ObjectFieldTemplate"] = ({
+  properties,
+}) => {
+  const [key, value] = properties;
 
   return (
     <UserTagContainer>
-      <div>{key}</div>
-      <div>{value}</div>
+      <div>{key.content}</div>
+      <div>{value.content}</div>
     </UserTagContainer>
   );
 };
