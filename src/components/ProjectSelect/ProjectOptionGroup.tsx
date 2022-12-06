@@ -86,8 +86,8 @@ const ProjectContainer = styled.div`
 `;
 
 const OptionGroupContainer = styled.div`
-  word-break: break-word;
   padding: ${size.xs};
+  word-break: break-word;
 `;
 
 const hoverStyles = css`
