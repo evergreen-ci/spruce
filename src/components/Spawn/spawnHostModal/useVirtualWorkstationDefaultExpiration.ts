@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { usePrevious } from "hooks";
-import { getDefaultExpiration } from "./getFormSchema";
+import { getDefaultExpiration } from "../utils";
 import { FormState } from "./types";
 
 interface Props {

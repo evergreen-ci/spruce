@@ -117,7 +117,7 @@ export const LeafyGreenCheckBox: React.VFC<SpruceWidgetProps> = ({
         data-cy={dataCy}
         checked={value}
         label={
-          <>
+          <CheckboxLabel>
             {customLabel || label}
             {tooltipDescription && (
               <Tooltip
@@ -133,7 +133,7 @@ export const LeafyGreenCheckBox: React.VFC<SpruceWidgetProps> = ({
                 {tooltipDescription}
               </Tooltip>
             )}
-          </>
+          </CheckboxLabel>
         }
         onChange={(e) => onChange(e.target.checked)}
         disabled={disabled || readonly}
@@ -141,6 +141,11 @@ export const LeafyGreenCheckBox: React.VFC<SpruceWidgetProps> = ({
     </ElementWrapper>
   );
 };
+
+const CheckboxLabel = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 const IconContainer = styled.span`
   margin-left: ${size.xxs};

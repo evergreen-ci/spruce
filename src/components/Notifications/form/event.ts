@@ -1,4 +1,4 @@
-import { SpruceFormProps } from "components/SpruceForm";
+import { SpruceFormProps } from "components/SpruceForm/types";
 import { AntdSelect } from "components/SpruceForm/Widgets/AntdWidgets";
 import {
   buildRegexSelectors,
