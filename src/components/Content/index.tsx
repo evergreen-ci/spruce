@@ -65,7 +65,7 @@ export const Content: React.VFC = () => {
         <Route path="*" element={<PageDoesNotExist />} />
         <Route path="/" element={<MyPatches />} />
         <Route path={routes.commits} element={<Commits />}>
-          <Route path=":id" />
+          <Route path=":id" element={null} />
         </Route>
         <Route path={routes.configurePatch} element={<ConfigurePatch />}>
           <Route path={tab} element={null} />
@@ -73,7 +73,7 @@ export const Content: React.VFC = () => {
         <Route path={routes.host} element={<Host />} />
         <Route path={routes.hosts} element={<Hosts />} />
         <Route path={routes.jobLogs} element={<JobLogs />}>
-          <Route path=":groupId" />
+          <Route path=":groupId" element={null} />
         </Route>
         <Route path={routes.myPatches} element={<MyPatches />} />
         <Route path={routes.patch} element={<VersionPage />}>
@@ -99,8 +99,8 @@ export const Content: React.VFC = () => {
         </Route>
         <Route path={routes.taskHistory} element={<TaskHistory />} />
         <Route path={routes.taskQueue} element={<TaskQueue />}>
-          <Route path=":distro" />
-          <Route path=":distro/:taskId" />
+          <Route path=":distro" element={null} />
+          <Route path=":distro/:taskId" element={null} />
         </Route>
         <Route path={routes.userPatches} element={<UserPatches />} />
         <Route
