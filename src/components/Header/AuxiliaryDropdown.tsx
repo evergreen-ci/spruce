@@ -34,16 +34,17 @@ export const AuxiliaryDropdown = () => {
       onClick: () => sendEvent({ name: "Click All Hosts Link" }),
     },
     {
+      text: "Task Queue",
+      to: getTaskQueueRoute(""),
+      onClick: () => sendEvent({ name: "Click Task Queue Link" }),
+    },
+    {
       "data-cy": "legacy_route",
       href: `${uiURL}${legacyRoutes.distros}`,
       text: "Distros",
       onClick: () => sendEvent({ name: "Click Distros Link" }),
     },
-    {
-      text: "Project Settings",
-      to: getProjectSettingsRoute(mostRecentProject),
-      onClick: () => sendEvent({ name: "Click Projects Link" }),
-    },
+
     {
       "data-cy": "auxiliary-dropdown-project-patches",
       to: getProjectPatchesRoute(mostRecentProject),
@@ -51,9 +52,9 @@ export const AuxiliaryDropdown = () => {
       onClick: () => sendEvent({ name: "Click Project Patches Link" }),
     },
     {
-      text: "Task Queue",
-      to: getTaskQueueRoute(""),
-      onClick: () => sendEvent({ name: "Click Task Queue Link" }),
+      text: "Project Settings",
+      to: getProjectSettingsRoute(mostRecentProject),
+      onClick: () => sendEvent({ name: "Click Projects Link" }),
     },
   ];
 
