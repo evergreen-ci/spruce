@@ -121,16 +121,7 @@ export const TaskDurationTable: React.VFC<Props> = ({ tasks, loading }) => {
             data-cy="task-duration-table-row"
             task={datum}
             maxTimeTaken={maxTimeTaken}
-          >
-            {datum?.executionTasksFull &&
-              datum?.executionTasksFull.map((task) => (
-                <TaskDurationRow
-                  key={`execution_task_${task.id}`}
-                  task={task}
-                  maxTimeTaken={maxTimeTaken}
-                />
-              ))}
-          </TaskDurationRow>
+          />
         )}
       </Table>
       {loading && (
