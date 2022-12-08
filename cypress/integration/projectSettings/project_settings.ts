@@ -687,7 +687,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("add-button").contains("Add Patch Definition").parent().click();
       cy.dataCy("variant-input-control")
         .find("button")
-        .contains("Regex")
+        .contains("Variant Regex")
         .click();
       cy.dataCy("variant-input").first().type(".*");
     });
@@ -697,14 +697,17 @@ describe("Project Settings when defaulting to repo", () => {
     });
 
     it("Does not clear tag/regex fields when toggling between them", () => {
-      cy.get("button").contains("Tags").first().click();
-      cy.get("button").contains("Regex").first().click();
+      cy.get("button").contains("Variant Tags").first().click();
+      cy.get("button").contains("Variant Regex").first().click();
 
       cy.dataCy("variant-input").should("have.value", ".*");
     });
 
     it("Should enable save when the task and variant fields are filled in", () => {
-      cy.dataCy("task-input-control").find("button").contains("Regex").click();
+      cy.dataCy("task-input-control")
+        .find("button")
+        .contains("Task Regex")
+        .click();
       cy.dataCy("task-input").first().type(".*");
       cy.dataCy("save-settings-button").should("not.be.disabled");
     });

@@ -40,13 +40,6 @@ const globalStyles = css`
     font-size: 13px;
     margin: 0;
   }
-
-  // TODO: Remove when fixed: https://jira.mongodb.org/browse/EVG-18184
-  // Override LeafyGreen's 'display: inherit' rule.
-  code {
-    display: inline !important;
-    line-height: inherit !important;
-  }
 `;
 
 export const GlobalStyles = () => <Global styles={globalStyles} />;

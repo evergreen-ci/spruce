@@ -22,7 +22,7 @@ export const SpawnVolumeButton: React.VFC = () => {
           spawnAnalytics.sendEvent({ name: "Opened the Spawn Volume Modal" });
         }}
       >
-        Spawn a Volume
+        Spawn a volume
       </PlusButton>
       <Info>Limit {volumeLimit} GiB per User</Info>
       <SpawnVolumeModal

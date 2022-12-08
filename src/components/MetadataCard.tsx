@@ -58,8 +58,9 @@ const Item = styled(Body)`
 
   // TODO: Remove when fixed: https://jira.mongodb.org/browse/EVG-18183
   // Override LG's fixed line height
-  a {
-    line-height: 14px;
+  a,
+  code {
+    line-height: inherit;
   }
 
   :not(:last-of-type) {
