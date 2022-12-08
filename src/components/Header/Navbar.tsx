@@ -36,7 +36,7 @@ export const Navbar: React.VFC = () => {
           to={routes.myPatches}
           onClick={() => sendEvent({ name: "Click Logo Link" })}
         >
-          <Icon glyph="EvergreenLogo" />
+          <Icon glyph="EvergreenLogo" size={28} />
         </LogoLink>
         <PrimaryLink
           to={getCommitsRoute()}
@@ -103,10 +103,7 @@ const NavActionContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-
-  > :not(:last-child) {
-    margin-right: 40px;
-  }
+  gap: ${size.l};
 `;
 
 const primaryLinkStyle = css`
