@@ -148,6 +148,13 @@ const findMaxTimeTaken = (
 
 const TableWrapper = styled.div`
   border-top: 3px solid ${gray.light2};
+
+  // LeafyGreen applies overflow-x: auto to the table, which causes an overflow-y scrollbar
+  // to appear. Since the table container will expand to fit its contents, we will never
+  // overflow on the Y-axis. Therefore, hide the scroll bar.
+  > div > div:last-of-type {
+    overflow-y: hidden;
+  }
 `;
 
 const StyledTableHeader = styled(TableHeader)`
