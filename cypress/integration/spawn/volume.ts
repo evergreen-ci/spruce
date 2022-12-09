@@ -159,7 +159,7 @@ describe("Navigating to Spawn Volume page", () => {
     cy.visit("/spawn/volume");
     cy.dataCy("attach-btn-vol-0583d66433a69f136").click({ force: true });
     cy.contains(errorBannerCopy2).should("not.exist");
-    cy.dataCy("mount-volume-button").click();
+    cy.contains("Mount").click();
     cy.validateToast("error", errorBannerCopy2);
   });
 
