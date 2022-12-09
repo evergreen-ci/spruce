@@ -1,14 +1,13 @@
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
+import SearchInput from "@leafygreen-ui/search-input";
 import { useLocation } from "react-router-dom";
 import { Analytics } from "analytics/addPageAction";
-import Icon from "components/Icon";
 import PageSizeSelector, {
   usePageSizeSelector,
 } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { PageWrapper, FiltersWrapper, PageTitle } from "components/styles";
-import TextInputWithGlyph from "components/TextInputWithGlyph";
 import { size } from "constants/tokens";
 import { PatchesPagePatchesFragment, PatchesInput } from "gql/generated/types";
 import {
@@ -80,9 +79,7 @@ export const PatchesPage: React.VFC<Props> = ({
     <PageWrapper>
       <PageTitle data-cy="patches-page-title">{pageTitle}</PageTitle>
       <FiltersWrapperSpaceBetween>
-        <TextInputWithGlyph
-          icon={<Icon glyph="MagnifyingGlass" />}
-          type="search"
+        <SearchInput
           aria-label="Search patch descriptions"
           placeholder="Patch description regex"
           onChange={(e) => setAndSubmitInputValue(e.target.value)}
