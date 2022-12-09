@@ -458,7 +458,8 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
         </span>
       </a>
     </p>
-    <span
+    <div
+      className="css-5f1fjg-DependsOnContainer ebphozh1"
       data-cy="depends-on-container"
     >
       <p
@@ -671,7 +672,7 @@ exports[`storybook Storyshots Pages/Task/Metadata With Dependencies 1`] = `
           </div>
         </div>
       </div>
-    </span>
+    </div>
   </div>
 </div>
 `;

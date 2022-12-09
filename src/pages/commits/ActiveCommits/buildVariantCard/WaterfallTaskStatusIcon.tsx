@@ -88,37 +88,45 @@ export const WaterfallTaskStatusIcon: React.VFC<
           </TaskStatusWrapper>
         </Link>
       }
-      triggerEvent="hover"
     >
       <div data-cy="waterfall-task-status-icon-tooltip">
-        <TooltipTitle
+        <Body
           data-cy="waterfall-task-status-icon-tooltip-title"
           weight="medium"
         >
           {displayName} {timeTaken && `- ${msToDuration(timeTaken)}`}
-        </TooltipTitle>
+        </Body>
         {loading ? (
           <Skeleton />
         ) : (
-          <>
-            {testResults?.map(({ id, testFile }) => (
-              <TestName key={id}>{testFile}</TestName>
-            ))}
+          <div>
+            <TestList>
+              {testResults?.map(({ id, testFile }) => (
+                <li key={id}>
+                  <TestName>{testFile}</TestName>
+                </li>
+              ))}
+            </TestList>
+
             {failedTestDifference > 0 && (
               <div>and {failedTestDifference} more</div>
             )}
-          </>
+          </div>
         )}
       </div>
     </Tooltip>
   );
 };
+
+const TestList = styled.ul`
+  margin: 0;
+  padding-left: 12px;
+`;
+
 const TestName = styled.div`
   word-break: break-all;
 `;
-const TooltipTitle = styled(Body)`
-  white-space: nowrap;
-`;
+
 const TaskStatusWrapper = styled.div`
   height: ${TASK_ICON_HEIGHT}px;
   width: ${size.m};

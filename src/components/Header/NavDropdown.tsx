@@ -89,6 +89,7 @@ const NavDropdownTitle = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   color: ${white};
   cursor: pointer;
 `;
