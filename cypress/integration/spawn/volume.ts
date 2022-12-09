@@ -30,10 +30,10 @@ describe("Navigating to Spawn Volume page", () => {
     });
 
     it("Submit button should be enabled when the volume details input value differs from what already exists.", () => {
-      cy.dataCy("update-volume-button").should("be.disabled");
+      cy.contains("Save").should("be.disabled");
       // type a new name
       cy.dataCy("volume-name-input").type("Hello, World");
-      cy.dataCy("update-volume-button").should("not.be.disabled");
+      cy.contains("Save").should("not.be.disabled");
 
       // type original name
       cy.dataCy("volume-name-input")
@@ -41,14 +41,14 @@ describe("Navigating to Spawn Volume page", () => {
         .type(
           "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
         );
-      cy.dataCy("update-volume-button").should("be.disabled");
+      cy.contains("Save").should("be.disabled");
 
       cy.contains("Never").click();
-      cy.dataCy("update-volume-button").should("not.be.disabled");
+      cy.contains("Save").should("not.be.disabled");
     });
 
     it("Clicking on save button should close the modal and show a success toast", () => {
-      cy.dataCy("update-volume-button").click();
+      cy.contains("Save").click();
       cy.contains("Successfully updated volume");
       cy.dataCy("update-volume-modal").should("not.be.visible");
     });
