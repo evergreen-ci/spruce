@@ -6,6 +6,7 @@ import {
   SubscriptionInput,
 } from "gql/generated/types";
 import { NotificationMethods } from "types/subscription";
+import { TriggerType } from "types/triggers";
 import { string } from "utils";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
 import { FormState } from "./types";
@@ -32,10 +33,24 @@ const getSubscriberText = (subscriberType: string, subscriber: Subscriber) => {
   }
 };
 
+const convertFamilyTrigger = (trigger: string) => {
+  switch (trigger) {
+    case TriggerType.FAMILY_OUTCOME:
+      return TriggerType.OUTCOME;
+    case TriggerType.FAMILY_FAILURE:
+      return TriggerType.FAILURE;
+    case TriggerType.FAMILY_SUCCESS:
+      return TriggerType.SUCCESS;
+    default:
+      return trigger;
+  }
+};
+
 const getTriggerText = (trigger: string, resourceType: string) => {
+  const convertedTrigger = convertFamilyTrigger(trigger);
   const triggerText =
     resourceType && trigger
-      ? `${toSentenceCase(resourceType)} ${trigger} `
+      ? `${toSentenceCase(resourceType)} ${convertedTrigger} `
       : "";
   return triggerText;
 };
@@ -57,7 +72,7 @@ const getExtraFields = (
   if (!triggerData) return {};
 
   const extraFields = {};
-  projectTriggers[triggerEnum].extraFields.forEach((e) => {
+  projectTriggers[triggerEnum]?.extraFields.forEach((e) => {
     // Extra fields that are numbers must be converted in order to fulfill the form schema.
     const isNumber = e.format === "number";
     extraFields[e.key] = isNumber

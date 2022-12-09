@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { palette } from "@leafygreen-ui/palette";
+import { Description } from "@leafygreen-ui/typography";
 import { Select } from "antd";
 import { InputLabel } from "components/styles";
 import { OneOf } from "types/utils";
@@ -29,6 +30,7 @@ export const AntdSelect: React.VFC<
   const {
     "data-cy": dataCy,
     ariaLabelledBy,
+    description,
     disabledEnums,
     elementWrapperCSS,
     enumOptions,
@@ -46,6 +48,7 @@ export const AntdSelect: React.VFC<
     <ElementWrapper css={elementWrapperCSS}>
       <MaxWidthContainer>
         <InputLabel htmlFor={dataCy}>{label}</InputLabel>
+        {description && <Description>{description}</Description>}
         <Select
           getPopupContainer={getPopupContainer}
           data-cy={dataCy}
