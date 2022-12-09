@@ -1,22 +1,20 @@
 import { useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Variant } from "@leafygreen-ui/button";
+import { Select, Option } from "@leafygreen-ui/select";
 import TextInput from "@leafygreen-ui/text-input";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Select } from "antd";
 import { diff } from "deep-object-diff";
 import isEqual from "lodash.isequal";
 import { useSpawnAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
+import { ConfirmationModal } from "components/ConfirmationModal";
 import Icon from "components/Icon";
-import { Modal } from "components/Modal";
 import {
   ExpirationField,
   ModalContent,
   SectionContainer,
   SectionLabel,
-  WideButton,
 } from "components/Spawn";
 import { ExpirationDateType } from "components/Spawn/ExpirationField";
 import { InputLabel, StyledLink } from "components/styles";
@@ -54,7 +52,6 @@ import {
 } from "./editSpawnHostModal/PublicKeyForm";
 import { useEditSpawnHostModalState } from "./editSpawnHostModal/useEditSpawnHostModalState";
 
-const { Option } = Select;
 const { omitTypename, stripNewLines } = string;
 
 interface EditSpawnHostModalProps {
@@ -149,24 +146,13 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
   const canEditRDPPassword =
     host.distro.isWindows && host.status === HostStatus.Running;
   return (
-    <Modal
+    <ConfirmationModal
       title="Edit Host Details"
-      visible={visible}
+      open={visible}
       onCancel={onCancel}
-      footer={[
-        <WideButton onClick={onCancel} key="cancel_button">
-          Cancel
-        </WideButton>,
-        <WideButton
-          data-cy="save-spawn-host-button"
-          disabled={hasChanges || loadingSpawnHost}
-          onClick={onSubmit}
-          variant={Variant.Primary}
-          key="save_spawn_host_button"
-        >
-          {loadingSpawnHost ? "Saving" : "Save"}
-        </WideButton>,
-      ]}
+      submitDisabled={hasChanges || loadingSpawnHost}
+      buttonText={loadingSpawnHost ? "Saving" : "Save"}
+      onSubmit={onSubmit}
       data-cy="edit-spawn-host-modal"
     >
       <ModalContent>
@@ -215,7 +201,6 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
                 <Select
                   id="instanceTypeDropdown"
                   aria-labelledby="instance-type-select"
-                  showSearch
                   style={{ width: 200 }}
                   placeholder="Select instance type"
                   onChange={(v) =>
@@ -310,7 +295,7 @@ export const EditSpawnHostModal: React.VFC<EditSpawnHostModalProps> = ({
           />
         </SectionContainer>
       </ModalContent>
-    </Modal>
+    </ConfirmationModal>
   );
 };
 
