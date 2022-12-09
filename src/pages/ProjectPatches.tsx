@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
+import Cookies from "js-cookie";
 import { useLocation, useParams } from "react-router-dom";
 import { useProjectPatchesAnalytics } from "analytics/patches/useProjectPatchesAnalytics";
 import {
   PatchesPage,
   getPatchesInputFromURLSearch,
 } from "components/PatchesPage";
+import { CURRENT_PROJECT } from "constants/cookies";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
 import { useToastContext } from "context/toast";
 import {
@@ -21,6 +23,8 @@ const { parseQueryString } = queryString;
 
 export const ProjectPatches = () => {
   const dispatchToast = useToastContext();
+  const analyticsObject = useProjectPatchesAnalytics();
+
   const { id: projectId } = useParams<{ id: string }>();
   const { search } = useLocation();
   const parsed = parseQueryString(search);
@@ -37,7 +41,6 @@ export const ProjectPatches = () => {
       });
     }
   }, [parsed, updateQueryParams]);
-  const analyticsObject = useProjectPatchesAnalytics();
 
   const { data, refetch, startPolling, stopPolling, loading } = useQuery<
     ProjectPatchesQuery,
@@ -51,6 +54,9 @@ export const ProjectPatches = () => {
       },
     },
     pollInterval: DEFAULT_POLL_INTERVAL,
+    onCompleted: () => {
+      Cookies.set(CURRENT_PROJECT, projectId);
+    },
     onError: (err) => {
       dispatchToast.error(
         `Error while fetching project patches: ${err.message}`

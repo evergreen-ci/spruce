@@ -116,6 +116,9 @@ export const Commits = () => {
     skip: !projectId,
     variables,
     pollInterval: DEFAULT_POLL_INTERVAL,
+    onCompleted: () => {
+      Cookies.set(CURRENT_PROJECT, projectId);
+    },
     onError: (e) =>
       dispatchToast.error(`There was an error loading the page: ${e.message}`),
   });
