@@ -1,14 +1,12 @@
 import { useReducer, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { Variant } from "@leafygreen-ui/button";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { useSpawnAnalytics } from "analytics";
-import { Modal } from "components/Modal";
+import { ConfirmationModal } from "components/ConfirmationModal";
 import {
   MountVolumeSelect,
   SectionContainer,
   SectionLabel,
-  WideButton,
 } from "components/Spawn";
 import { ExpirationField } from "components/Spawn/ExpirationField";
 import { HR } from "components/styles/Layout";
@@ -98,32 +96,15 @@ export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
   }, [maxSpawnableLimit, totalVolumeSize, volumeLimit]);
 
   return (
-    <Modal
+    <ConfirmationModal
       title="Spawn New Volume"
-      visible={visible}
+      open={visible}
       onCancel={onCancel}
-      footer={[
-        <WideButton
-          onClick={onCancel}
-          data-cy="cancel-button"
-          key="cancel-button"
-        >
-          Cancel
-        </WideButton>,
-        <WideButton
-          data-cy="spawn-volume-button"
-          disabled={
-            loadingSpawnVolume ||
-            state.size === 0 ||
-            state.size > maxSpawnableLimit
-          }
-          key="spawn-volume-button"
-          onClick={spawnVolume}
-          variant={Variant.Primary}
-        >
-          {loadingSpawnVolume ? "Spawning Volume" : "Spawn"}
-        </WideButton>,
-      ]}
+      buttonText={loadingSpawnVolume ? "Spawning Volume" : "Spawn"}
+      onSubmit={spawnVolume}
+      submitDisabled={
+        loadingSpawnVolume || !state.size || state.size > maxSpawnableLimit
+      }
       data-cy="spawn-volume-modal"
     >
       <Subtitle>Required Volume Information</Subtitle>
@@ -159,6 +140,6 @@ export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
           targetAvailabilityZone={state.availabilityZone}
         />
       </SectionContainer>
-    </Modal>
+    </ConfirmationModal>
   );
 };
