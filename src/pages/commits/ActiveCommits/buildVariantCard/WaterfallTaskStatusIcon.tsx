@@ -55,7 +55,7 @@ export const WaterfallTaskStatusIcon: React.VFC<
     } else {
       removeGlobalStyle();
     }
-  }, [enabled]);
+  }, [enabled]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(
     () => () => {
@@ -102,12 +102,9 @@ export const WaterfallTaskStatusIcon: React.VFC<
           <div>
             <TestList>
               {testResults?.map(({ id, testFile }) => (
-                <li key={id}>
-                  <TestName>{testFile}</TestName>
-                </li>
+                <TestName key={id}>{testFile}</TestName>
               ))}
             </TestList>
-
             {failedTestDifference > 0 && (
               <div>and {failedTestDifference} more</div>
             )}
@@ -123,7 +120,7 @@ const TestList = styled.ul`
   padding-left: 12px;
 `;
 
-const TestName = styled.div`
+const TestName = styled.li`
   word-break: break-all;
 `;
 

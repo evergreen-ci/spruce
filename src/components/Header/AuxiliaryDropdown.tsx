@@ -11,7 +11,7 @@ import {
 import { GetSpruceConfigQuery } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
 import { environmentalVariables } from "utils";
-import { Dropdown as NavDropdown } from "./NavDropdown";
+import { NavDropdown } from "./NavDropdown";
 
 const { getUiUrl } = environmentalVariables;
 

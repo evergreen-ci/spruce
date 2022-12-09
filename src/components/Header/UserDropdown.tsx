@@ -3,7 +3,7 @@ import { useNavbarAnalytics } from "analytics";
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import { GetUserQuery } from "gql/generated/types";
 import { GET_USER } from "gql/queries";
-import { Dropdown as NavDropdown } from "./NavDropdown";
+import { NavDropdown } from "./NavDropdown";
 
 export const UserDropdown = () => {
   const { data } = useQuery<GetUserQuery>(GET_USER);
