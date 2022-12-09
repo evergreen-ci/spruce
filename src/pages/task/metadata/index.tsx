@@ -17,6 +17,7 @@ import {
   getVersionRoute,
   getProjectPatchesRoute,
 } from "constants/routes";
+import { size } from "constants/tokens";
 import { GetTaskQuery } from "gql/generated/types";
 import { useDateFormat } from "hooks";
 import { TaskStatus } from "types/task";
@@ -268,7 +269,7 @@ export const Metadata: React.VFC<Props> = ({
         </OOMTrackerMessage>
       )}
       {dependsOn && dependsOn.length ? (
-        <span data-cy="depends-on-container">
+        <DependsOnContainer data-cy="depends-on-container">
           <MetadataTitle>Depends On</MetadataTitle>
           {dependsOn.map((dep) => (
             <DependsOn
@@ -280,7 +281,7 @@ export const Metadata: React.VFC<Props> = ({
               taskId={dep.taskId}
             />
           ))}
-        </span>
+        </DependsOnContainer>
       ) : null}
     </MetadataCard>
   );
@@ -292,6 +293,10 @@ const processFailingCommand = (description: string): string => {
   }
   return description;
 };
+
+const DependsOnContainer = styled.div`
+  margin-top: ${size.s};
+`;
 
 const OOMTrackerMessage = styled(MetadataItem)`
   color: ${red.dark2};
