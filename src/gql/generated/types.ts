@@ -2150,22 +2150,22 @@ export type Version = {
 
 /** Version models a commit within a project. */
 export type VersionBuildVariantStatsArgs = {
-  options?: InputMaybe<BuildVariantOptions>;
+  options: BuildVariantOptions;
 };
 
 /** Version models a commit within a project. */
 export type VersionBuildVariantsArgs = {
-  options?: InputMaybe<BuildVariantOptions>;
+  options: BuildVariantOptions;
 };
 
 /** Version models a commit within a project. */
 export type VersionTaskStatusStatsArgs = {
-  options?: InputMaybe<BuildVariantOptions>;
+  options: BuildVariantOptions;
 };
 
 /** Version models a commit within a project. */
 export type VersionTasksArgs = {
-  options?: InputMaybe<TaskFilterOptions>;
+  options: TaskFilterOptions;
 };
 
 export type VersionTasks = {
