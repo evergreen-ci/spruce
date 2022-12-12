@@ -167,7 +167,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                           className="css-12pm1mq-MaxWidthContainer eevpusu0"
                         >
                           <div
-                            className="css-1kbcljo-StyledTextInput eevpusu7 leafygreen-ui-xtefr5"
+                            className="css-1kbcljo-StyledTextInput eevpusu8 leafygreen-ui-xtefr5"
                           >
                             <div
                               className="leafygreen-ui-a533bt"
@@ -214,7 +214,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                           className="css-12pm1mq-MaxWidthContainer eevpusu0"
                         >
                           <div
-                            className="css-1kbcljo-StyledTextInput eevpusu7 leafygreen-ui-xtefr5"
+                            className="css-1kbcljo-StyledTextInput eevpusu8 leafygreen-ui-xtefr5"
                           >
                             <div
                               className="leafygreen-ui-a533bt"
@@ -402,7 +402,11 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                   <span
                     className="leafygreen-ui-1wmrjan"
                   >
-                    Mark distro as a cluster (jobs are not run on this host, used for special purposes).
+                    <div
+                      className="css-9o8rvd-CheckboxLabel eevpusu6"
+                    >
+                      Mark distro as a cluster (jobs are not run on this host, used for special purposes).
+                    </div>
                   </span>
                 </label>
               </div>
@@ -460,7 +464,11 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                   <span
                     className="leafygreen-ui-1wmrjan"
                   >
-                    Disable shallow clone for this distro.
+                    <div
+                      className="css-9o8rvd-CheckboxLabel eevpusu6"
+                    >
+                      Disable shallow clone for this distro.
+                    </div>
                   </span>
                 </label>
               </div>
@@ -518,7 +526,11 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                   <span
                     className="leafygreen-ui-1wmrjan"
                   >
-                    Disable queueing this distro. Tasks already in the task queue will be removed.
+                    <div
+                      className="css-9o8rvd-CheckboxLabel eevpusu6"
+                    >
+                      Disable queueing this distro. Tasks already in the task queue will be removed.
+                    </div>
                   </span>
                 </label>
               </div>
@@ -576,7 +588,11 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                   <span
                     className="leafygreen-ui-1wmrjan"
                   >
-                    Decommission hosts of this distro for this update
+                    <div
+                      className="css-9o8rvd-CheckboxLabel eevpusu6"
+                    >
+                      Decommission hosts of this distro for this update
+                    </div>
                   </span>
                 </label>
               </div>
@@ -728,7 +744,11 @@ exports[`storybook Storyshots Components/Spruce Form Example 3 1`] = `
                   <span
                     className="leafygreen-ui-1wmrjan"
                   >
-                    This is the only visible page element
+                    <div
+                      className="css-9o8rvd-CheckboxLabel eevpusu6"
+                    >
+                      This is the only visible page element
+                    </div>
                   </span>
                 </label>
               </div>

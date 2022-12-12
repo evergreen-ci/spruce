@@ -110,7 +110,7 @@ export const ProjectSettings: React.VFC = () => {
 
   return (
     <ProjectSettingsProvider>
-      <SideNav aria-label="Project Settings">
+      <SideNav aria-label="Project Settings" widthOverride={250}>
         <ButtonsContainer>
           <ProjectSelect
             selectedProjectIdentifier={projectLabel}

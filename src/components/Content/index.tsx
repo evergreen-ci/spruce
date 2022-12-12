@@ -65,41 +65,42 @@ export const Content: React.VFC = () => {
         <Route path="*" element={<PageDoesNotExist />} />
         <Route path="/" element={<MyPatches />} />
         <Route path={routes.commits} element={<Commits />}>
-          <Route path=":id" />
+          <Route path=":id" element={null} />
         </Route>
         <Route path={routes.configurePatch} element={<ConfigurePatch />}>
-          <Route path={tab} />
+          <Route path={tab} element={null} />
         </Route>
         <Route path={routes.host} element={<Host />} />
         <Route path={routes.hosts} element={<Hosts />} />
         <Route path={routes.jobLogs} element={<JobLogs />}>
-          <Route path=":groupId" />
+          <Route path=":groupId" element={null} />
         </Route>
         <Route path={routes.myPatches} element={<MyPatches />} />
         <Route path={routes.patch} element={<VersionPage />}>
-          <Route path={tab} />
+          <Route path={tab} element={null} />
         </Route>
         <Route path={routes.preferences} element={<Preferences />}>
-          <Route path={tab} />
+          <Route path={tab} element={null} />
         </Route>
         <Route path={routes.projectPatches} element={<ProjectPatches />} />
         <Route path={routes.projectSettings} element={<ProjectSettings />}>
-          <Route path={tab} />
+          <Route path={tab} element={null} />
         </Route>
         <Route
           path={routes.projectSettingsRedirect}
           element={<ProjectSettingsRedirect />}
         />
-        <Route path={routes.spawn} element={<Spawn />}>
-          <Route path={tab} />
+        <Route path={`${routes.spawn}/*`} element={<Spawn />}>
+          <Route path={tab} element={null} />
         </Route>
         <Route path={routes.commitQueue} element={<CommitQueue />} />
         <Route path={routes.task} element={<Task />}>
-          <Route path={tab} />
+          <Route path={tab} element={null} />
         </Route>
         <Route path={routes.taskHistory} element={<TaskHistory />} />
         <Route path={routes.taskQueue} element={<TaskQueue />}>
-          <Route path=":distro" /> <Route path=":distro/:taskId" />
+          <Route path=":distro" element={null} />
+          <Route path=":distro/:taskId" element={null} />
         </Route>
         <Route path={routes.userPatches} element={<UserPatches />} />
         <Route
@@ -108,7 +109,7 @@ export const Content: React.VFC = () => {
         />
         <Route path={routes.variantHistory} element={<VariantHistory />} />
         <Route path={routes.version} element={<VersionPage />}>
-          <Route path={tab} />
+          <Route path={tab} element={null} />
         </Route>
       </Routes>
       {!hasUsedSpruceBefore && (
