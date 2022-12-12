@@ -87,3 +87,15 @@ export const selectAntdOption = (dataCy: string, option: string) => {
     "not.be.visible"
   );
 };
+
+/**
+ * Given the label of a select input and the test of the option, this function will open the select and click on that option
+ * @param label
+ * @param optionText
+ * @returns
+ */
+export const selectDropdown = (label: string, optionText: string) => {
+  // open select
+  cy.getInputByLabel(label).click({ force: true });
+  return cy.contains(optionText).click();
+};

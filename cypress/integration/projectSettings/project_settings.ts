@@ -1,3 +1,5 @@
+import { selectDropdown } from "../../utils";
+
 const getSettingsRoute = (identifier: string) =>
   `project/${identifier}/settings`;
 const getGeneralRoute = (identifier: string) =>
@@ -1083,9 +1085,3 @@ describe("Notifications", () => {
     cy.dataCy("save-settings-button").should("be.disabled");
   });
 });
-
-function selectDropdown(label: string, optionText: string) {
-  // open select
-  cy.getInputByLabel(label).click({ force: true });
-  return cy.contains(optionText).click();
-}
