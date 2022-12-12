@@ -232,6 +232,7 @@ export const getFormSchema = ({
       "ui:description":
         "Instance type can only be changed when the host is stopped.",
       "ui:disabled": !canEditInstanceType,
+      "ui:allowDeselect": false,
     },
     volume: {
       "ui:hideError": true,

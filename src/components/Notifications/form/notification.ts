@@ -154,6 +154,7 @@ export const getNotificationSchema = (
   uiSchema: {
     notificationSelect: {
       "ui:data-cy": "notification-method-select",
+      "ui:allowDeselect": false,
     },
     jiraCommentInput: {
       "ui:placeholder": "ABC-123",

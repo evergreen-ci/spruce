@@ -415,6 +415,7 @@ export const getEventSchema = (
   uiSchema: {
     eventSelect: {
       "ui:data-cy": "event-trigger-select",
+      "ui:allowDeselect": false,
     },
     extraFields: {
       "ui:showLabel": false,

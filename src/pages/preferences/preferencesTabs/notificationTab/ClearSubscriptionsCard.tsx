@@ -57,7 +57,7 @@ export const ClearSubscriptionsCard: React.VFC = () => {
       <ConfirmationModal
         open={showModal}
         title="Clear All Subscriptions"
-        onSubmit={() => {
+        onConfirm={() => {
           clearMySubscriptions();
           sendEvent({
             name: "Clear Subscriptions",
