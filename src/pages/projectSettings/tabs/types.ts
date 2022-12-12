@@ -1,5 +1,5 @@
 import { Field } from "@rjsf/core";
-import { SpruceFormProps } from "components/SpruceForm";
+import { SpruceFormProps } from "components/SpruceForm/types";
 import { ProjectSettingsTabRoutes } from "constants/routes";
 import {
   ProjectSettingsInput,

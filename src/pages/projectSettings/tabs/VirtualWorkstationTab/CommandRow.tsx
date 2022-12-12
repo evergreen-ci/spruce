@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { SpruceFormProps } from "components/SpruceForm";
+import { SpruceFormProps } from "components/SpruceForm/types";
 import { size } from "constants/tokens";
 
 export const CommandRow: SpruceFormProps["ObjectFieldTemplate"] = ({

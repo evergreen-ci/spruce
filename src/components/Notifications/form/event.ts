@@ -1,4 +1,4 @@
-import { SpruceFormProps } from "components/SpruceForm";
+import { SpruceFormProps } from "components/SpruceForm/types";
 import {
   buildRegexSelectors,
   failureTypeSubscriberOptions,

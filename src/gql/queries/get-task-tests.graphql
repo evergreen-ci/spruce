@@ -29,6 +29,7 @@ query TaskTests(
         url
         urlRaw
         urlParsley
+        urlLobster
       }
     }
     filteredTestCount
