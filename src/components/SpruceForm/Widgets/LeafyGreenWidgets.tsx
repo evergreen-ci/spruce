@@ -179,7 +179,7 @@ export const LeafyGreenSelect: React.VFC<
   const isDisabled = disabled || readonly;
   const labelProps: OneOf<{ label: string }, { "aria-labelledby": string }> =
     ariaLabelledBy ? { "aria-labelledby": ariaLabelledBy } : { label };
-
+  console.log(options);
   return (
     <ElementWrapper css={elementWrapperCSS}>
       <MaxWidthContainer>
@@ -199,8 +199,9 @@ export const LeafyGreenSelect: React.VFC<
           popoverZIndex={zIndex.dropdown}
         >
           {enumOptions.map((o) => {
-            const optionDisabled = enumDisabled?.includes(o.value) ?? false;
-
+            // Do not check against
+            const optionDisabled =
+              (value !== o.value && enumDisabled?.includes(o.value)) ?? false;
             // Handle deselect value without errors
             if (o.value === null) {
               return;

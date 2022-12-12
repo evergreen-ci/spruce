@@ -35,7 +35,13 @@ describe("Version Subscription Modal", () => {
       cy.contains("Add Additional Criteria").click();
       cy.contains("Build Variant Name").should("be.visible");
       cy.dataCy("regex-select").last().click();
-      cy.contains("Build Variant ID").should("have.css", "user-select", "none");
+      cy.get("#regex-select-menu").within(() => {
+        cy.contains("Build Variant ID").should(
+          "have.css",
+          "cursor",
+          "not-allowed"
+        );
+      });
     });
 
     it("Regex selectors are optional for triggers that offer them", () => {
@@ -64,8 +70,8 @@ describe("Version Subscription Modal", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
       selectDropdown("Event", "A build-variant in this version finishes");
       cy.contains("Add Additional Criteria").click();
-      cy.dataCy("regex-select").click();
-      cy.contains("Build Variant Name").click();
+      selectDropdown("Field name", "Build Variant Name");
+
       cy.dataCy("regex-input").type("stuff").should("have.value", "stuff");
       cy.dataCy("regex-select").click();
       cy.contains("Build Variant ID").click();
@@ -76,7 +82,7 @@ describe("Version Subscription Modal", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
       selectDropdown("Event", "A build-variant in this version finishes");
       cy.contains("Add Additional Criteria").click();
-      selectDropdown("regex-select", "Build Variant Name");
+      selectDropdown("Field name", "Build Variant Name");
       cy.dataCy("regex-input").type("stuff");
       cy.dataCy("jira-comment-input").type("EVG-2000");
       cy.contains("Save").click();

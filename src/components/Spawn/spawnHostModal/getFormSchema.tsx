@@ -511,7 +511,7 @@ export const getFormSchema = ({
             "ui:hideError": true,
             "ui:allowDeselect": false,
             "ui:data-cy": "volume-select",
-            "ui:disabledEnums": (volumes || [])
+            "ui:enumDisabled": (volumes || [])
               .filter((v) => !!v.hostID)
               .map((v) => v.id),
           },
