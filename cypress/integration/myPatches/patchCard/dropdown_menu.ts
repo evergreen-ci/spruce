@@ -80,7 +80,9 @@ describe("Dropdown Menu of Patch Actions", () => {
       .first()
       .click({ force: true });
     cy.contains("generate-lint").click();
-    cy.contains("Restart").click();
+    cy.dataCy("version-restart-modal").within(() => {
+      cy.contains("Restart").click();
+    });
     cy.validateToast("success");
   });
 
