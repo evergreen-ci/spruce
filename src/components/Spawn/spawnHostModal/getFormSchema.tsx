@@ -1,7 +1,6 @@
 import { css } from "@emotion/react";
 import { add } from "date-fns";
 import widgets from "components/SpruceForm/Widgets";
-import { AntdSelect } from "components/SpruceForm/Widgets/AntdWidgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
 import {
   GetMyPublicKeysQuery,
@@ -423,7 +422,6 @@ export const getFormSchema = ({
         "ui:data-cy": "distro-input",
       },
       region: {
-        "ui:widget": AntdSelect,
         "ui:elementWrapperCSS": dropdownWrapperClassName,
         "ui:valuePlaceholder": "Select a region",
       },
@@ -432,7 +430,6 @@ export const getFormSchema = ({
           "ui:widget": widgets.RadioBoxWidget,
         },
         publicKeyNameDropdown: {
-          "ui:widget": AntdSelect,
           "ui:elementWrapperCSS": dropdownWrapperClassName,
           "ui:valuePlaceholder": "Select a key",
           "ui:data-cy": "key-select",
@@ -510,7 +507,7 @@ export const getFormSchema = ({
               : "hidden",
           },
           volumeSelect: {
-            "ui:widget": isVirtualWorkstation ? AntdSelect : "hidden",
+            "ui:widget": isVirtualWorkstation ?? "hidden",
             "ui:allowDeselect": false,
             "ui:data-cy": "volume-select",
             "ui:disabledEnums": (volumes || [])
