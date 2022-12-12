@@ -237,6 +237,9 @@ export const getFormSchema = ({
     volume: {
       "ui:hideError": true,
       "ui:allowDeselect": false,
+      "ui:disabled": volumes.length === 0,
+      "ui:placeholder":
+        volumes.length === 0 ? "No Volumes Available" : undefined,
     },
     rdpPassword: {
       // Console error should be resolved by https://jira.mongodb.org/browse/LG-2342.
