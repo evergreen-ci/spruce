@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import styled from "@emotion/styled";
 import { Select, Option } from "@leafygreen-ui/select";
 import TextArea from "@leafygreen-ui/text-area";
 import { Body } from "@leafygreen-ui/typography";
@@ -104,7 +103,7 @@ export const UpdateStatusModal: React.VFC<Props> = ({
           </Option>
         ))}
       </Select>
-      <StyledTextArea
+      <TextArea
         label="Add Notes"
         data-cy="host-status-notes"
         value={notes}
@@ -114,10 +113,6 @@ export const UpdateStatusModal: React.VFC<Props> = ({
     </ConfirmationModal>
   );
 };
-
-const StyledTextArea = styled(TextArea)`
-  resize: none;
-`;
 
 // HOSTS STATUSES DATA FOR SELECT COMPONENT
 interface Status {
