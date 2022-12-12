@@ -80,7 +80,7 @@ describe("Restarting a patch", () => {
       cy.dataCy("task-status-filter").click();
       cy.contains("Restart").click();
     });
-    cy.dataCy("version-restart-modal").should("not.be.visible");
+    cy.dataCy("version-restart-modal").should("not.exist");
     cy.validateToast("success", "Successfully restarted tasks!");
   });
 });
