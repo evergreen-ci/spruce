@@ -87,7 +87,7 @@ export const EditVolumeModal: React.VFC<Props> = ({
       onCancel={onCancel}
       submitDisabled={loading || noChange}
       buttonText={loading ? "Saving" : "Save"}
-      onSubmit={updateVolume}
+      onConfirm={updateVolume}
       data-cy="update-volume-modal"
     >
       <SectionContainer>

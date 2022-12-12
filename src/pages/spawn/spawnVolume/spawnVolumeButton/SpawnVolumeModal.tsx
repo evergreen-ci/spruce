@@ -101,7 +101,7 @@ export const SpawnVolumeModal: React.VFC<SpawnVolumeModalProps> = ({
       open={visible}
       onCancel={onCancel}
       buttonText={loadingSpawnVolume ? "Spawning Volume" : "Spawn"}
-      onSubmit={spawnVolume}
+      onConfirm={spawnVolume}
       submitDisabled={
         loadingSpawnVolume || !state.size || state.size > maxSpawnableLimit
       }

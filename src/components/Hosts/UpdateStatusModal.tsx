@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { Select, Option } from "@leafygreen-ui/select";
 import TextArea from "@leafygreen-ui/text-area";
-import { Body } from "@leafygreen-ui/typography";
 import { useHostsTableAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
 import { useToastContext } from "context/toast";
@@ -82,19 +81,17 @@ export const UpdateStatusModal: React.VFC<Props> = ({
       data-cy={dataCy}
       open={visible}
       onCancel={onClickCancel}
-      onSubmit={onClickUpdate}
+      onConfirm={onClickUpdate}
       title="Update Host Status"
       buttonText="Update"
       submitDisabled={!status || loadingUpdateHostStatus}
     >
-      <Body weight="medium">Host Status</Body>
       <Select
-        aria-labelledby="host-status-select"
+        label="Host Status"
         data-cy="host-status-select"
         value={status}
         onChange={(s) => {
           setHostStatus(s as UpdateHostStatus);
-          console.log("SET BUTTON");
         }}
       >
         {hostStatuses.map(({ title, value, key }) => (

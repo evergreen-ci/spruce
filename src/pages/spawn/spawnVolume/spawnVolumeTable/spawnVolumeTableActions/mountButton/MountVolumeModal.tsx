@@ -45,7 +45,7 @@ export const MountVolumeModal: React.VFC<Props> = ({
       title="Attach Volume to Host"
       open={visible}
       onCancel={onCancel}
-      onSubmit={() => {
+      onConfirm={() => {
         spawnAnalytics.sendEvent({
           name: "Mount volume to host",
           volumeId: volume.id,
