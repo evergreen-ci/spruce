@@ -1,9 +1,11 @@
 import styled from "@emotion/styled";
-import { Select, Option } from "@leafygreen-ui/select";
 import TextInput from "@leafygreen-ui/text-input";
+import { Select } from "antd";
 import { InputLabel } from "components/styles";
 import { size } from "constants/tokens";
 import { MyVolume } from "types/spawn";
+
+const { Option } = Select;
 
 export type VolumesData = {
   volumeId?: string;
