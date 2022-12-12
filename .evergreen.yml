@@ -60,6 +60,13 @@ functions:
         SETTINGS_OVERRIDE: file
         GOROOT: /opt/golang/go1.16
 
+  wait-for-evergreen:
+    command: shell.exec
+    type: setup
+    params:
+      working_dir: spruce
+      script: ./scripts/wait-for-evergreen.sh
+
   sym-link:
     command: shell.exec
     params:
@@ -413,6 +420,7 @@ tasks:
     - func: yarn-build
     - func: yarn-serve
     - func: install-chrome
+    - func: wait-for-evergreen
     - func: run-cypress-tests
     
   - name: send_email
