@@ -13,7 +13,7 @@ export const RegexSelectorRow: React.VFC<
   return (
     <RowContainer data-cy="regex-selector-row">
       <LeftColumn>{regexSelect}</LeftColumn>
-      <MiddleText> matches regex </MiddleText>
+      <MiddleText> matches </MiddleText>
       <RightColumn>{regexInput}</RightColumn>
     </RowContainer>
   );
