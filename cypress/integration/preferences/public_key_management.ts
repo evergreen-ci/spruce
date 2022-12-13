@@ -57,7 +57,7 @@ describe("Public Key Management Page", () => {
     });
 
     it("Modal has correct title", () => {
-      cy.dataCy("modal-title").contains("Add Public Key");
+      cy.contains("Add Public Key");
     });
   });
 
@@ -101,7 +101,7 @@ describe("Public Key Management Page", () => {
     });
 
     it("Modal has correct title", () => {
-      cy.dataCy("modal-title").contains("Update Public Key");
+      cy.contains("Update Public Key");
     });
   });
 
