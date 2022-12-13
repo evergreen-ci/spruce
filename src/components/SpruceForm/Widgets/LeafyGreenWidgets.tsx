@@ -179,7 +179,7 @@ export const LeafyGreenSelect: React.VFC<
   const isDisabled = disabled || readonly;
   const labelProps: OneOf<{ label: string }, { "aria-labelledby": string }> =
     ariaLabelledBy ? { "aria-labelledby": ariaLabelledBy } : { label };
-  console.log(options);
+
   return (
     <ElementWrapper css={elementWrapperCSS}>
       <MaxWidthContainer>
@@ -195,7 +195,7 @@ export const LeafyGreenSelect: React.VFC<
           name={dataCy}
           data-cy={dataCy}
           state={hasError && !disabled ? "error" : "none"}
-          errorMessage="Selection is required."
+          errorMessage={rawErrors.join(" , ")}
           popoverZIndex={zIndex.dropdown}
         >
           {enumOptions.map((o) => {
