@@ -210,6 +210,33 @@ describe("Navigating to Spawn Host page", () => {
         ).click();
         cy.dataCy("setup-script-text-area").should("be.visible");
       });
+
+      it("Conditionally disables setup script and project setup script checkboxes based on the other's value", () => {
+        cy.visit(
+          `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`
+        );
+        // Checking setup script should disable project setup script.
+        cy.dataCy("setup-script-checkbox").check({ force: true });
+        cy.dataCy("project-setup-script-checkbox").should(
+          "have.attr",
+          "aria-disabled",
+          "true"
+        );
+        // Unchecking setup script should reenable project setup script.
+        cy.dataCy("setup-script-checkbox").uncheck({ force: true });
+        cy.dataCy("project-setup-script-checkbox").should(
+          "have.attr",
+          "aria-disabled",
+          "false"
+        );
+        // Checking project setup script should disable setup script.
+        cy.dataCy("project-setup-script-checkbox").check({ force: true });
+        cy.dataCy("setup-script-checkbox").should(
+          "have.attr",
+          "aria-disabled",
+          "true"
+        );
+      });
       const label1 = "Use project-specific setup script defined at /path";
       const label2 = "Load from task sync";
       const label3 = "Also start any hosts this task started (if applicable)";
