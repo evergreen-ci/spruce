@@ -507,7 +507,7 @@ export const getFormSchema = ({
               : "hidden",
           },
           volumeSelect: {
-            "ui:widget": isVirtualWorkstation ?? "hidden",
+            "ui:widget": isVirtualWorkstation ? undefined : "hidden",
             "ui:hideError": true,
             "ui:allowDeselect": false,
             "ui:data-cy": "volume-select",
