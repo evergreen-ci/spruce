@@ -195,7 +195,7 @@ export const LeafyGreenSelect: React.VFC<
           name={dataCy}
           data-cy={dataCy}
           state={hasError && !disabled ? "error" : "none"}
-          errorMessage={rawErrors.join(" , ")}
+          errorMessage={hasError && rawErrors?.join(" , ")}
           popoverZIndex={zIndex.dropdown}
         >
           {enumOptions.map((o) => {
