@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
+import styled from "@emotion/styled";
 import { Select, Option } from "@leafygreen-ui/select";
 import TextArea from "@leafygreen-ui/text-area";
 import { useHostsTableAnalytics } from "analytics";
 import { ConfirmationModal } from "components/ConfirmationModal";
+import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
   UpdateHostStatusMutation,
@@ -86,7 +88,7 @@ export const UpdateStatusModal: React.VFC<Props> = ({
       buttonText="Update"
       submitDisabled={!status || loadingUpdateHostStatus}
     >
-      <Select
+      <StyledSelect
         label="Host Status"
         data-cy="host-status-select"
         value={status}
@@ -99,7 +101,7 @@ export const UpdateStatusModal: React.VFC<Props> = ({
             {title}
           </Option>
         ))}
-      </Select>
+      </StyledSelect>
       <TextArea
         label="Add Notes"
         data-cy="host-status-notes"
@@ -111,6 +113,10 @@ export const UpdateStatusModal: React.VFC<Props> = ({
   );
 };
 
+// @ts-expect-error
+const StyledSelect = styled(Select)`
+  margin-bottom: ${size.xs};
+`;
 // HOSTS STATUSES DATA FOR SELECT COMPONENT
 interface Status {
   title: keyof typeof UpdateHostStatus;
