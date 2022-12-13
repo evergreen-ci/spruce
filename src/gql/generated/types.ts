@@ -734,6 +734,7 @@ export type MutationRestartJasperArgs = {
 };
 
 export type MutationRestartTaskArgs = {
+  failedOnly?: InputMaybe<Scalars["Boolean"]>;
   taskId: Scalars["String"];
 };
 
@@ -996,9 +997,11 @@ export type Project = {
   commitQueue: CommitQueueParams;
   containerSizeDefinitions?: Maybe<Array<ContainerResources>>;
   deactivatePrevious?: Maybe<Scalars["Boolean"]>;
+  disabledStatsCache?: Maybe<Scalars["Boolean"]>;
   dispatchingDisabled?: Maybe<Scalars["Boolean"]>;
   displayName: Scalars["String"];
   enabled?: Maybe<Scalars["Boolean"]>;
+  filesIgnoredFromCache?: Maybe<Array<Scalars["String"]>>;
   gitTagAuthorizedTeams?: Maybe<Array<Scalars["String"]>>;
   gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]>>;
   gitTagVersionsEnabled?: Maybe<Scalars["Boolean"]>;
@@ -1100,9 +1103,11 @@ export type ProjectInput = {
   commitQueue?: InputMaybe<CommitQueueParamsInput>;
   containerSizeDefinitions?: InputMaybe<Array<ContainerResourcesInput>>;
   deactivatePrevious?: InputMaybe<Scalars["Boolean"]>;
+  disabledStatsCache?: InputMaybe<Scalars["Boolean"]>;
   dispatchingDisabled?: InputMaybe<Scalars["Boolean"]>;
   displayName?: InputMaybe<Scalars["String"]>;
   enabled?: InputMaybe<Scalars["Boolean"]>;
+  filesIgnoredFromCache?: InputMaybe<Array<Scalars["String"]>>;
   gitTagAuthorizedTeams?: InputMaybe<Array<Scalars["String"]>>;
   gitTagAuthorizedUsers?: InputMaybe<Array<Scalars["String"]>>;
   gitTagVersionsEnabled?: InputMaybe<Scalars["Boolean"]>;
@@ -1420,9 +1425,11 @@ export type RepoRef = {
   commitQueue: RepoCommitQueueParams;
   containerSizeDefinitions?: Maybe<Array<ContainerResources>>;
   deactivatePrevious: Scalars["Boolean"];
+  disabledStatsCache: Scalars["Boolean"];
   dispatchingDisabled: Scalars["Boolean"];
   displayName: Scalars["String"];
   enabled: Scalars["Boolean"];
+  filesIgnoredFromCache?: Maybe<Array<Scalars["String"]>>;
   gitTagAuthorizedTeams?: Maybe<Array<Scalars["String"]>>;
   gitTagAuthorizedUsers?: Maybe<Array<Scalars["String"]>>;
   gitTagVersionsEnabled: Scalars["Boolean"];
@@ -1460,9 +1467,11 @@ export type RepoRefInput = {
   commitQueue?: InputMaybe<CommitQueueParamsInput>;
   containerSizeDefinitions?: InputMaybe<Array<ContainerResourcesInput>>;
   deactivatePrevious?: InputMaybe<Scalars["Boolean"]>;
+  disabledStatsCache?: InputMaybe<Scalars["Boolean"]>;
   dispatchingDisabled?: InputMaybe<Scalars["Boolean"]>;
   displayName?: InputMaybe<Scalars["String"]>;
   enabled?: InputMaybe<Scalars["Boolean"]>;
+  filesIgnoredFromCache?: InputMaybe<Array<Scalars["String"]>>;
   gitTagAuthorizedTeams?: InputMaybe<Array<Scalars["String"]>>;
   gitTagAuthorizedUsers?: InputMaybe<Array<Scalars["String"]>>;
   gitTagVersionsEnabled?: InputMaybe<Scalars["Boolean"]>;
@@ -2142,22 +2151,22 @@ export type Version = {
 
 /** Version models a commit within a project. */
 export type VersionBuildVariantStatsArgs = {
-  options?: InputMaybe<BuildVariantOptions>;
+  options: BuildVariantOptions;
 };
 
 /** Version models a commit within a project. */
 export type VersionBuildVariantsArgs = {
-  options?: InputMaybe<BuildVariantOptions>;
+  options: BuildVariantOptions;
 };
 
 /** Version models a commit within a project. */
 export type VersionTaskStatusStatsArgs = {
-  options?: InputMaybe<BuildVariantOptions>;
+  options: BuildVariantOptions;
 };
 
 /** Version models a commit within a project. */
 export type VersionTasksArgs = {
-  options?: InputMaybe<TaskFilterOptions>;
+  options: TaskFilterOptions;
 };
 
 export type VersionTasks = {
