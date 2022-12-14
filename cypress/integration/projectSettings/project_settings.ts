@@ -1,5 +1,3 @@
-import { selectDropdown } from "../../utils";
-
 const getSettingsRoute = (identifier: string) =>
   `project/${identifier}/settings`;
 const getGeneralRoute = (identifier: string) =>
@@ -1035,8 +1033,8 @@ describe("Notifications", () => {
     cy.dataCy("add-button").contains("Add Subscription").should("be.visible");
     cy.dataCy("add-button").contains("Add Subscription").click({ force: true });
     cy.dataCy("expandable-card").should("contain.text", "New Subscription");
-    selectDropdown("Event", "Any Version Finishes");
-    selectDropdown("Notification Method", "Email");
+    cy.selectLGDropdown("Event", "Any Version Finishes");
+    cy.selectLGDropdown("Notification Method", "Email");
     cy.getInputByLabel("Email").type("mohamed.khelif@mongodb.com");
     cy.dataCy("save-settings-button").scrollIntoView();
     cy.dataCy("save-settings-button").should("not.be.disabled");
@@ -1067,8 +1065,8 @@ describe("Notifications", () => {
     cy.dataCy("add-button").contains("Add Subscription").click({ force: true });
     cy.dataCy("expandable-card").should("exist").scrollIntoView();
     cy.dataCy("expandable-card").should("contain.text", "New Subscription");
-    selectDropdown("Event", "Any Task Finishes");
-    selectDropdown("Notification Method", "Comment on a JIRA issue");
+    cy.selectLGDropdown("Event", "Any Task Finishes");
+    cy.selectLGDropdown("Notification Method", "Comment on a JIRA issue");
     cy.getInputByLabel("JIRA Issue").type("JIRA-123");
     cy.contains(
       "JIRA comment subscription not allowed for tasks in a project"
@@ -1077,8 +1075,8 @@ describe("Notifications", () => {
     cy.dataCy("save-settings-button").should("be.disabled");
   });
   it("should not be able to save a subscription if an input is invalid", () => {
-    selectDropdown("Event", "Any Version Finishes");
-    selectDropdown("Notification Method", "Email");
+    cy.selectLGDropdown("Event", "Any Version Finishes");
+    cy.selectLGDropdown("Notification Method", "Email");
     cy.getInputByLabel("Email").type("Not a real email");
     cy.contains("Value should be a valid email.").should("exist");
     cy.dataCy("save-settings-button").scrollIntoView();
