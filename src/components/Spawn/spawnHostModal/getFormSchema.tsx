@@ -427,7 +427,7 @@ export const getFormSchema = ({
         "ui:data-cy": "region-select",
         "ui:disabled": isMigration,
         "ui:elementWrapperCSS": dropdownWrapperClassName,
-        "ui:valuePlaceholder": "Select a region",
+        "ui:placeholder": "Select a region",
         "ui:allowDeselect": false,
       },
       publicKeySection: {
@@ -436,9 +436,11 @@ export const getFormSchema = ({
         },
         publicKeyNameDropdown: {
           "ui:elementWrapperCSS": dropdownWrapperClassName,
-          "ui:valuePlaceholder": "Select a key",
+          "ui:placeholder":
+            myPublicKeys.length > 0 ? "Select a key" : "No keys available",
           "ui:data-cy": "key-select",
           "ui:allowDeselect": false,
+          "ui:disabled": myPublicKeys.length === 0,
         },
         newPublicKey: {
           "ui:widget": LeafyGreenTextArea,
