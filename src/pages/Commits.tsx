@@ -224,8 +224,8 @@ const HeaderWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  gap: ${size.s};
   align-items: flex-end;
+  gap: ${size.s};
 `;
 const BadgeWrapper = styled.div`
   margin: ${size.s} 0;

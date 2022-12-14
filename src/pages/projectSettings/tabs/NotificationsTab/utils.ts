@@ -112,7 +112,7 @@ export const getGqlPayload =
         type: key,
         data: value.toString(),
       }))
-      .filter(({ type }) => allowedSelectors.includes(type));
+      .filter(({ type }) => allowedSelectors.has(type));
 
     return {
       id: subscriptionData.id,

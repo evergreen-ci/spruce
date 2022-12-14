@@ -389,7 +389,7 @@ export const invalidProjectTriggerSubscriptionCombinations = {
   ],
 };
 
-export const allowedSelectors = [
+export const allowedSelectors = new Set([
   "object",
   "id",
   "project",
@@ -400,4 +400,4 @@ export const allowedSelectors = [
   "build-variant",
   "in-version",
   "in-build",
-];
+]);

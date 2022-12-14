@@ -8,14 +8,14 @@ import { subscriptionMethods } from "types/subscription";
 
 export const AddNotification: React.VFC = () => {
   const { id: projectId } = useParams<{ id: string }>();
-  const [isVisibleModal, setIsVisibleModal] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const { sendEvent } = useProjectHealthAnalytics({ page: "Commit chart" });
   return (
     <>
       <DropdownItem
         data-cy="add-notification"
         onClick={() => {
-          setIsVisibleModal(true);
+          setIsModalVisible(true);
           sendEvent({ name: "Open Notification Modal" });
         }}
       >
@@ -23,7 +23,7 @@ export const AddNotification: React.VFC = () => {
       </DropdownItem>
       <NotificationModal
         data-cy="waterfall-notification-modal"
-        onCancel={() => setIsVisibleModal(false)}
+        onCancel={() => setIsModalVisible(false)}
         resourceId={projectId}
         sendAnalyticsEvent={(subscription) =>
           sendEvent({ name: "Add Notification", subscription })
@@ -31,7 +31,7 @@ export const AddNotification: React.VFC = () => {
         subscriptionMethods={subscriptionMethods}
         triggers={waterfallTriggers}
         type="project"
-        visible={isVisibleModal}
+        visible={isModalVisible}
       />
     </>
   );
