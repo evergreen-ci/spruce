@@ -51,8 +51,8 @@ describe("Navigating to Spawn Volume page", () => {
 
     it("Clicking on save button should close the modal and show a success toast", () => {
       cy.contains("Save").click();
-      cy.contains("Successfully updated volume");
-      cy.dataCy("update-volume-modal").should("not.be.visible");
+      cy.validateToast("success", "Successfully updated volume");
+      cy.dataCy("update-volume-modal").should("not.exist");
     });
   });
 
