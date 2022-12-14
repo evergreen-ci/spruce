@@ -75,9 +75,9 @@ declare global {
       getInputByLabel(label: string): Chainable<Element>;
       /**
        * Custom command to select an option from a leafygreen select component
-       * @example cy.selectLGDropdown("Some Label", "Some Option")
+       * @example cy.selectLGOption("Some Label", "Some Option")
        */
-      selectLGDropdown(label: string, option: string): void;
+      selectLGOption(label: string, option: string): void;
       /**
        * Custom command to navigate to login page and login.
        * @example cy.login()

@@ -13,8 +13,8 @@ const testSharedSubscriptionModalFunctionality = (
       openSubscriptionModal(route, dataCyToggleModalButton);
       cy.dataCy(dataCyModal).should("be.visible");
 
-      cy.selectLGDropdown("Event", `This ${type} finishes`);
-      cy.selectLGDropdown("Notification Method", "JIRA issue");
+      cy.selectLGOption("Event", `This ${type} finishes`);
+      cy.selectLGOption("Notification Method", "JIRA issue");
 
       cy.dataCy("jira-comment-input").type("EVG-2000");
       cy.contains("button", "Save").should("not.be.disabled");
@@ -29,7 +29,7 @@ const testSharedSubscriptionModalFunctionality = (
       });
 
       it("has an invalid percentage", () => {
-        cy.selectLGDropdown("Event", "changes by some percentage");
+        cy.selectLGOption("Event", "changes by some percentage");
         cy.dataCy("percent-change-input").clear().type("-100");
         cy.dataCy("jira-comment-input").type("EVG-2000");
         cy.contains(errorTextPercent).should("exist");
@@ -39,7 +39,7 @@ const testSharedSubscriptionModalFunctionality = (
         cy.dataCy("jira-comment-input").clear();
       });
       it("has an invalid duration value", () => {
-        cy.selectLGDropdown("Event", "exceeds some duration");
+        cy.selectLGOption("Event", "exceeds some duration");
         cy.dataCy("duration-secs-input").clear().type("-100");
         cy.dataCy("jira-comment-input").type("EVG-2000");
         cy.contains(errorTextDuration).should("exist");
@@ -56,7 +56,7 @@ const testSharedSubscriptionModalFunctionality = (
         cy.dataCy("jira-comment-input").clear();
       });
       it("has an invalid email", () => {
-        cy.selectLGDropdown("Notification Method", "Email");
+        cy.selectLGOption("Notification Method", "Email");
         cy.dataCy("email-input").clear();
         cy.dataCy("email-input").type("arst");
         cy.contains("button", "Save").should("be.disabled");
@@ -64,7 +64,7 @@ const testSharedSubscriptionModalFunctionality = (
         cy.contains("button", "Save").should("not.be.disabled");
       });
       it("has an invalid slack username", () => {
-        cy.selectLGDropdown("Notification Method", "Slack message");
+        cy.selectLGOption("Notification Method", "Slack message");
         cy.dataCy("slack-input").clear();
         cy.dataCy("slack-input").type("sa rt");
         cy.contains("button", "Save").should("be.disabled");
@@ -77,7 +77,7 @@ const testSharedSubscriptionModalFunctionality = (
     it("Displays error toast when save subscription request fails", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
       cy.dataCy(dataCyModal).should("be.visible");
-      cy.selectLGDropdown("Event", `This ${type} finishes`);
+      cy.selectLGOption("Event", `This ${type} finishes`);
       cy.dataCy("jira-comment-input").type("EVG-2000");
       mockErrorResponse({
         path: "SaveSubscription",
