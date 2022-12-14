@@ -12,11 +12,11 @@ interface Props {
 }
 
 export const ButtonDropdown: React.VFC<Props> = ({
-  disabled = false,
-  loading = false,
-  dropdownItems,
-  size = "small",
   "data-cy": dataCy = "ellipsis-btn",
+  disabled = false,
+  dropdownItems,
+  loading = false,
+  size = "small",
 }) => (
   <Menu
     trigger={

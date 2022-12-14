@@ -48,12 +48,11 @@ const webhookFormToGql = (webhookInput: Notification["webhookInput"]) => {
   return {
     url: webhookInput.urlInput,
     secret: webhookInput.secretInput,
-    headers: webhookInput.httpHeaders
-      ? webhookInput.httpHeaders.map(({ keyInput, valueInput }) => ({
-          key: keyInput,
-          value: valueInput,
-        }))
-      : [],
+    headers:
+      webhookInput.httpHeaders?.map(({ keyInput, valueInput }) => ({
+        key: keyInput,
+        value: valueInput,
+      })) ?? [],
   };
 };
 const jiraFormToGql = (jiraInput: Notification["jiraIssueInput"]) => {

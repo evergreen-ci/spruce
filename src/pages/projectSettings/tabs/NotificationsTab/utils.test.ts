@@ -37,7 +37,7 @@ describe("getGqlPayload", () => {
           webhookSubscriber: undefined,
           jiraIssueSubscriber: undefined,
         },
-        trigger: "outcome",
+        trigger: "family-outcome",
         trigger_data: { requester: "gitter_request" },
       },
     ]);
@@ -110,7 +110,7 @@ describe("getGqlPayload", () => {
         webhookSubscriber: undefined,
         jiraIssueSubscriber: undefined,
       },
-      trigger: "failure",
+      trigger: "family-failure",
       trigger_data: { requester: "ad_hoc" },
     });
   });
@@ -168,7 +168,7 @@ const webhookSubscription = {
       webhookInput: {
         secretInput: "webhook_secret",
         urlInput: "https://fake-website.com",
-        httpHeaders: [],
+        httpHeaders: undefined,
       },
       notificationSelect: "evergreen-webhook",
     },

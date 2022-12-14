@@ -338,19 +338,19 @@ export const projectTriggers: Trigger = {
 
 export const waterfallTriggers: Trigger = {
   [ProjectTriggers.ANY_VERSION_FINISHES]: {
-    trigger: TriggerType.OUTCOME,
+    trigger: TriggerType.FAMILY_OUTCOME,
     resourceType: ResourceType.VERSION,
     label: "Any Version Finishes",
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.ANY_VERSION_FAILS]: {
-    trigger: TriggerType.FAILURE,
+    trigger: TriggerType.FAMILY_FAILURE,
     resourceType: ResourceType.VERSION,
     label: "Any Version Fails",
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.ANY_VERSION_SUCCEEDS]: {
-    trigger: TriggerType.SUCCESS,
+    trigger: TriggerType.FAMILY_SUCCESS,
     resourceType: ResourceType.VERSION,
     label: "Any Version Succeeds",
     extraFields: [requesterSubscriberConfig],
