@@ -3,6 +3,7 @@ import {
   Properties,
   Analytics as A,
 } from "analytics/addPageAction";
+import { SaveSubscriptionMutationVariables } from "gql/generated/types";
 
 type pageType = "Commit chart" | "Task history" | "Variant history";
 type Action =
@@ -36,6 +37,11 @@ type Action =
   | { name: "Toggle folded commit"; toggle: "open" | "close" }
   | {
       name: "Toggle commit chart label tooltip";
+    }
+  | { name: "Open Notification Modal" }
+  | {
+      name: "Add Notification";
+      subscription: SaveSubscriptionMutationVariables["subscription"];
     };
 
 interface P extends Properties {}
