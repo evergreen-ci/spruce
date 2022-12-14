@@ -426,6 +426,8 @@ export const getFormSchema = ({
       },
       region: {
         "ui:widget": AntdSelect,
+        "ui:data-cy": "region-select",
+        "ui:disabled": isMigration,
         "ui:elementWrapperCSS": dropdownWrapperClassName,
         "ui:valuePlaceholder": "Select a region",
       },
