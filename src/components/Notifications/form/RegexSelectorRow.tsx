@@ -28,7 +28,7 @@ const LeftColumn = styled.div`
 
 const MiddleText = styled.div`
   padding-right: ${size.s};
-  margin-top: ${size.m};
+  margin-top: ${size.l};
   white-space: nowrap;
 `;
 

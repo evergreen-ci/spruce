@@ -9,7 +9,7 @@ import {
   GET_MY_VOLUMES,
 } from "gql/queries";
 import {
-  fireEvent,
+  userEvent,
   renderWithRouterMatch as render,
   screen,
   waitFor,
@@ -26,7 +26,7 @@ describe("spawnVolumeModal", () => {
         <Component />
       </MockedProvider>
     );
-    expect(screen.queryByDataCy("modal-title")).toBeVisible();
+    expect(screen.queryByDataCy("spawn-volume-modal")).toBeVisible();
   });
 
   it("does not renders the Spawn Volume Modal when the visible prop is false", async () => {
@@ -86,12 +86,11 @@ describe("spawnVolumeModal", () => {
         <Component />
       </MockedProvider>
     );
-    // Click spawn button
-    const spawnButton = screen.queryByDataCy("spawn-volume-button");
+    const spawnButton = screen.queryByRole("button", { name: "Spawn" });
     await waitFor(() => {
-      expect(spawnButton).toHaveAttribute("aria-disabled", "false");
+      expect(spawnButton).not.toBeDisabled();
     });
-    fireEvent.click(spawnButton);
+    userEvent.click(spawnButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
   });
 
@@ -122,30 +121,30 @@ describe("spawnVolumeModal", () => {
       </MockedProvider>
     );
     // select us-east-1c region
-    await selectAntdOption("regionSelector", "us-east-1c");
-    // select st1 type
-    await selectAntdOption("typeSelector", "st1");
-    // select host
-    await selectAntdOption("host-select", "i-00b212e96b3f91079");
-    // change volume size
-    fireEvent.change(screen.queryByDataCy("volumeSize"), {
-      target: { value: 24 },
-    });
+    await selectOption("regionSelector", "us-east-1c");
+    await selectOption("typeSelector", "st1");
+    await selectOption("host-select", "i-00b212e96b3f91079");
+    userEvent.type(screen.queryByDataCy("volumeSize"), "{clear}24");
+    expect(screen.queryByDataCy("volumeSize")).toHaveValue(24);
 
     // Click spawn button
-    const spawnButton = screen.queryByDataCy("spawn-volume-button");
+    const spawnButton = screen.queryByRole("button", { name: "Spawn" });
     await waitFor(() => {
-      expect(spawnButton).toHaveAttribute("aria-disabled", "false");
+      expect(spawnButton).not.toBeDisabled();
     });
-    fireEvent.click(spawnButton);
+    userEvent.click(spawnButton);
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
   });
 });
 
-const selectAntdOption = async (dataCy: string, option: string) => {
-  fireEvent.mouseDown(screen.queryByDataCy(dataCy).firstElementChild);
-  await screen.findByText(option);
-  fireEvent.click(screen.queryByText(option));
+const selectOption = async (dataCy: string, option: string) => {
+  expect(screen.queryByDataCy(dataCy)).not.toBeDisabled();
+  userEvent.click(screen.queryByDataCy(dataCy));
+  await waitFor(() => {
+    expect(screen.queryByText(option)).toBeVisible();
+  });
+  userEvent.click(screen.queryByText(option));
+  expect(screen.queryByDataCy(dataCy)).toHaveTextContent(option);
 };
 
 const myHostsMock = {
