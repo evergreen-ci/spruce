@@ -24,7 +24,7 @@ describe("Update Status Modal", () => {
     cy.dataCy("update-host-status-modal").within(() => {
       cy.get("button").contains("Update").click({ force: true });
     });
-
+    cy.dataCy("update-host-status-modal").should("not.exist");
     cy.validateToast("success");
 
     // MODAL FORM VALUES SHOULD BE CLEARED AFTER MUTATION
