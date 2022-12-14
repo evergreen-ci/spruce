@@ -85,7 +85,7 @@ export const getFormSchema = ({
       instanceType: {
         title: "Change Instance Type",
         type: "string" as "string",
-        default: "",
+        default: "m4.xlarge",
         oneOf: instanceTypes.map((it) => ({
           type: "string" as "string",
           title: it,
