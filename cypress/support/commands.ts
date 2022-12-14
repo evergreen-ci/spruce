@@ -5,9 +5,9 @@ const user = {
   username: "admin",
   password: "password",
 };
-Cypress.Cookies.defaults({
-  preserve: TOAST_COOKIE,
-});
+// Cypress.Cookies.defaults({
+//   preserve: TOAST_COOKIE,
+// });
 
 type cyGetOptions = Parameters<typeof cy.get>[1];
 
@@ -62,13 +62,7 @@ Cypress.Commands.add("login", () => {
 });
 
 /* preserveCookies */
-Cypress.Commands.add("preserveCookies", () => {
-  Cypress.Cookies.preserveOnce(
-    LOGIN_COOKIE,
-    "mci-session",
-    "mci-project-cookie"
-  );
-});
+Cypress.Commands.add("preserveCookies", () => {});
 
 /* toggleTableFilter */
 Cypress.Commands.add("toggleTableFilter", (colNum: number) => {
