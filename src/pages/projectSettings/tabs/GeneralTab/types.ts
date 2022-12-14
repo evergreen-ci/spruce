@@ -36,6 +36,13 @@ export interface FormState {
       patchEnabled: boolean | null;
     };
   };
+  historicalDataCaching: {
+    disabledStatsCache: boolean | null;
+    files: {
+      filesIgnoredFromCacheOverride: boolean;
+      filesIgnoredFromCache: Array<string> | null;
+    };
+  };
 }
 
 export type TabProps = {

@@ -65,6 +65,13 @@ const repoForm: FormState = {
       patchEnabled: true,
     },
   },
+  historicalDataCaching: {
+    disabledStatsCache: false,
+    files: {
+      filesIgnoredFromCacheOverride: true,
+      filesIgnoredFromCache: ["filename"],
+    },
+  },
 };
 
 const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
@@ -88,6 +95,8 @@ const repoResult: Pick<RepoSettingsInput, "projectRef"> = {
       configEnabled: true,
       patchEnabled: true,
     },
+    disabledStatsCache: false,
+    filesIgnoredFromCache: ["filename"],
   },
 };
 
@@ -127,6 +136,13 @@ const projectForm: FormState = {
       patchEnabled: null,
     },
   },
+  historicalDataCaching: {
+    disabledStatsCache: null,
+    files: {
+      filesIgnoredFromCacheOverride: false,
+      filesIgnoredFromCache: [],
+    },
+  },
 };
 
 const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
@@ -151,5 +167,7 @@ const projectResult: Pick<ProjectSettingsInput, "projectRef"> = {
       configEnabled: null,
       patchEnabled: null,
     },
+    disabledStatsCache: null,
+    filesIgnoredFromCache: null,
   },
 };
