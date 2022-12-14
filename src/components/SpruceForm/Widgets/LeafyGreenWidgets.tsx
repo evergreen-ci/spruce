@@ -199,7 +199,7 @@ export const LeafyGreenSelect: React.VFC<
           popoverZIndex={zIndex.dropdown}
         >
           {enumOptions.map((o) => {
-            // Do not check against
+            // LG Select doesn't handle disabled options well. So we need to ensure the selected option is not disabled
             const optionDisabled =
               (value !== o.value && enumDisabled?.includes(o.value)) ?? false;
             // Handle deselect value without errors
