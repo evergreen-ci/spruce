@@ -22,7 +22,7 @@ describe("Update Status Modal", () => {
 
     cy.dataCy("update-host-status-modal").should("be.visible");
     cy.dataCy("update-host-status-modal").within(() => {
-      cy.get("button").contains("Update").click({ force: true });
+      cy.contains("button", "Update").click({ force: true });
     });
     cy.dataCy("update-host-status-modal").should("not.exist");
     cy.validateToast("success");

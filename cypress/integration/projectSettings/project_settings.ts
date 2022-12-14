@@ -311,7 +311,7 @@ describe("Repo Settings", () => {
       cy.dataCy("pta-alias-input").type("my-alias");
       cy.dataCy("project-input").type("spruce");
       cy.dataCy("module-input").type("module_name");
-      cy.get("button").contains("Variant/Task").click();
+      cy.contains("button", "Variant/Task").click();
       cy.dataCy("variant-regex-input").type(".*");
       cy.dataCy("task-regex-input").type(".*");
       cy.dataCy("github-trigger-alias-checkbox").check({ force: true });
@@ -648,7 +648,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("promote-vars-button").click();
       cy.dataCy("promote-vars-modal").should("be.visible");
       cy.dataCy("promote-var-checkbox").first().check({ force: true });
-      cy.get("button").contains("Move 1 variable").parent().click();
+      cy.contains("button", "Move 1 variable").parent().click();
       cy.validateToast("success");
     });
   });
@@ -699,8 +699,8 @@ describe("Project Settings when defaulting to repo", () => {
     });
 
     it("Does not clear tag/regex fields when toggling between them", () => {
-      cy.get("button").contains("Tags").first().click();
-      cy.get("button").contains("Regex").first().click();
+      cy.contains("button", "Tags").first().click();
+      cy.contains("button", "Regex").first().click();
 
       cy.dataCy("variant-input").should("have.value", ".*");
     });
@@ -992,7 +992,7 @@ describe("Duplicating a project with errors", () => {
 
   it("Successfully copies the project and shows a warning toast", () => {
     cy.dataCy("project-name-input").type("copied-project");
-    cy.get("button").contains("Duplicate").parent().click();
+    cy.contains("button", "Duplicate").parent().click();
     cy.validateToast("warning");
   });
 

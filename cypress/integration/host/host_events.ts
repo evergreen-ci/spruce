@@ -184,7 +184,7 @@ describe("Host events", () => {
     cy.visit("/preferences");
     cy.contains("Select a timezone").click();
     cy.contains("Hawaii").click();
-    cy.contains("Save Changes").click();
+    cy.contains("button", "Save Changes").click();
     cy.visit(pathWithEvents);
     cy.dataCy("HOST_JASPER_RESTARTING-time").contains(
       "Sep 30, 2017, 9:11:16 AM"

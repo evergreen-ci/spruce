@@ -18,8 +18,8 @@ const testSharedSubscriptionModalFunctionality = (
       selectDropdown("Notification Method", "JIRA issue");
 
       cy.dataCy("jira-comment-input").type("EVG-2000");
-      cy.contains("Save").should("not.be.disabled");
-      cy.contains("Save").click();
+      cy.contains("button", "Save").should("not.be.disabled");
+      cy.contains("button", "Save").click();
       cy.validateToast("success", successText);
     });
 
@@ -34,9 +34,9 @@ const testSharedSubscriptionModalFunctionality = (
         cy.dataCy("percent-change-input").clear().type("-100");
         cy.dataCy("jira-comment-input").type("EVG-2000");
         cy.contains(errorTextPercent).should("exist");
-        cy.contains("Save").should("be.disabled");
+        cy.contains("button", "Save").should("be.disabled");
         cy.dataCy("percent-change-input").clear().type("100");
-        cy.contains("Save").should("not.be.disabled");
+        cy.contains("button", "Save").should("not.be.disabled");
         cy.dataCy("jira-comment-input").clear();
       });
       it("has an invalid duration value", () => {
@@ -44,34 +44,34 @@ const testSharedSubscriptionModalFunctionality = (
         cy.dataCy("duration-secs-input").clear().type("-100");
         cy.dataCy("jira-comment-input").type("EVG-2000");
         cy.contains(errorTextDuration).should("exist");
-        cy.contains("Save").should("be.disabled");
+        cy.contains("button", "Save").should("be.disabled");
         cy.dataCy("duration-secs-input").clear().type("100");
-        cy.contains("Save").should("not.be.disabled");
+        cy.contains("button", "Save").should("not.be.disabled");
         cy.dataCy("jira-comment-input").clear();
       });
       it("has an invalid jira ticket", () => {
         cy.dataCy("jira-comment-input").type("E");
-        cy.contains("Save").should("be.disabled");
+        cy.contains("button", "Save").should("be.disabled");
         cy.dataCy("jira-comment-input").type("EVG-100");
-        cy.contains("Save").should("not.be.disabled");
+        cy.contains("button", "Save").should("not.be.disabled");
         cy.dataCy("jira-comment-input").clear();
       });
       it("has an invalid email", () => {
         selectDropdown("Notification Method", "Email");
         cy.dataCy("email-input").clear();
         cy.dataCy("email-input").type("arst");
-        cy.contains("Save").should("be.disabled");
+        cy.contains("button", "Save").should("be.disabled");
         cy.dataCy("email-input").type("rat@rast.com");
-        cy.contains("Save").should("not.be.disabled");
+        cy.contains("button", "Save").should("not.be.disabled");
       });
       it("has an invalid slack username", () => {
         selectDropdown("Notification Method", "Slack message");
         cy.dataCy("slack-input").clear();
         cy.dataCy("slack-input").type("sa rt");
-        cy.contains("Save").should("be.disabled");
+        cy.contains("button", "Save").should("be.disabled");
         cy.dataCy("slack-input").clear();
         cy.dataCy("slack-input").type("@sart");
-        cy.contains("Save").should("not.be.disabled");
+        cy.contains("button", "Save").should("not.be.disabled");
       });
     });
 
@@ -84,7 +84,7 @@ const testSharedSubscriptionModalFunctionality = (
         path: "SaveSubscription",
         errorMessage: "error",
       });
-      cy.contains("Save").click();
+      cy.contains("button", "Save").click();
       cy.validateToast("error");
     });
 

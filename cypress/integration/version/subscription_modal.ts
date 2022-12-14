@@ -48,8 +48,8 @@ describe("Version Subscription Modal", () => {
       openSubscriptionModal(route, dataCyToggleModalButton);
       selectDropdown("Event", "A build-variant in this version finishes");
       cy.dataCy("jira-comment-input").type("EVG-2000");
-      cy.contains("Save").should("not.be.disabled");
-      cy.contains("Save").click();
+      cy.contains("button", "Save").should("not.be.disabled");
+      cy.contains("button", "Save").click();
       cy.validateToast("success", "Your subscription has been added");
     });
 
@@ -85,7 +85,7 @@ describe("Version Subscription Modal", () => {
       selectDropdown("Field name", "Build Variant Name");
       cy.dataCy("regex-input").type("stuff");
       cy.dataCy("jira-comment-input").type("EVG-2000");
-      cy.contains("Save").click();
+      cy.contains("button", "Save").click();
       cy.validateToast("success", "Your subscription has been added");
     });
 
