@@ -38,6 +38,7 @@ import {
   UNSCHEDULE_TASK,
 } from "gql/mutations";
 import { useUpdateURLQueryParams } from "hooks";
+import { TaskStatus } from "types/task";
 import { PreviousCommits } from "./actionButtons/previousCommits/PreviousCommits";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
@@ -61,6 +62,7 @@ export const ActionButtons: React.VFC<Props> = ({
     canSetPriority,
     canOverrideDependencies,
     displayName,
+    executionTasksFull,
     project,
     requester,
     canSchedule,
@@ -70,6 +72,9 @@ export const ActionButtons: React.VFC<Props> = ({
   const { isPatch, order } = versionMetadata || {};
   const { identifier: projectIdentifier } = project || {};
   const isPatchOnCommitQueue = requester === commitQueueRequester;
+  const allExecutionTasksSucceeded =
+    executionTasksFull?.every((t) => t.status === TaskStatus.Succeeded) ??
+    false;
 
   const dispatchToast = useToastContext();
   const [isVisibleModal, setIsVisibleModal] = useState(false);
@@ -298,7 +303,7 @@ export const ActionButtons: React.VFC<Props> = ({
         >
           Schedule
         </LoadingButton>
-        {isDisplayTask ? (
+        {isDisplayTask && !allExecutionTasksSucceeded ? (
           <Menu
             trigger={
               <LoadingButton
@@ -325,7 +330,7 @@ export const ActionButtons: React.VFC<Props> = ({
                 taskAnalytics.sendEvent({ name: "Restart" });
               }}
             >
-              Restart only failed tasks
+              Restart unsuccessful tasks
             </MenuItem>
           </Menu>
         ) : (
