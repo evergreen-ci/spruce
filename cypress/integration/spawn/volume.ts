@@ -159,7 +159,10 @@ describe("Navigating to Spawn Volume page", () => {
     cy.visit("/spawn/volume");
     cy.dataCy("attach-btn-vol-0583d66433a69f136").click({ force: true });
     cy.contains(errorBannerCopy2).should("not.exist");
-    cy.contains("Mount").click();
+    cy.dataCy("mount-volume-modal").should("be.visible");
+    cy.dataCy("mount-volume-modal").within(() => {
+      cy.contains("Mount").click();
+    });
     cy.validateToast("error", errorBannerCopy2);
   });
 
@@ -173,7 +176,7 @@ describe("Navigating to Spawn Volume page", () => {
     cy.dataCy("typeSelector").click();
     cy.contains("sc1").click();
     cy.contains("Never").click();
-    cy.get("button").contains("cancel").click();
+    cy.get("button").contains("Cancel").click();
     cy.dataCy("spawn-volume-btn").click();
     cy.dataCy("typeSelector").contains("gp2");
     cy.dataCy("never-expire-checkbox").should(
