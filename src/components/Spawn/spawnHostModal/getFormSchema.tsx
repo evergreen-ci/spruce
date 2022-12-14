@@ -365,7 +365,7 @@ export const getFormSchema = ({
                       volumeSelect: {
                         title: "Volume",
                         type: "string" as "string",
-                        default: availableVolumes[0].id,
+                        default: availableVolumes[0]?.id,
                         oneOf: availableVolumes.map((v) => ({
                           type: "string" as "string",
                           title: `(${v.size}GB) ${v.displayName || v.id}`,
