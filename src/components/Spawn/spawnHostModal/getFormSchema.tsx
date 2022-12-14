@@ -365,7 +365,7 @@ export const getFormSchema = ({
                       volumeSelect: {
                         title: "Volume",
                         type: "string" as "string",
-                        default: "",
+                        default: availableVolumes[0].id,
                         oneOf: availableVolumes.map((v) => ({
                           type: "string" as "string",
                           title: `(${v.size}GB) ${v.displayName || v.id}`,
@@ -520,7 +520,6 @@ export const getFormSchema = ({
           },
           volumeSelect: {
             "ui:widget": isVirtualWorkstation ? undefined : "hidden",
-            "ui:hideError": true,
             "ui:allowDeselect": false,
             "ui:data-cy": "volume-select",
             "ui:disabled": availableVolumes.length === 0,

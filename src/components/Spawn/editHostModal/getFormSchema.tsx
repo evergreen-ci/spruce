@@ -228,14 +228,12 @@ export const getFormSchema = ({
       },
     },
     instanceType: {
-      "ui:hideError": true,
       "ui:description":
         "Instance type can only be changed when the host is stopped.",
       "ui:disabled": !canEditInstanceType,
       "ui:allowDeselect": false,
     },
     volume: {
-      "ui:hideError": true,
       "ui:allowDeselect": false,
       "ui:disabled": volumes.length === 0,
       "ui:placeholder":
@@ -268,7 +266,6 @@ export const getFormSchema = ({
         "ui:disabled": !canEditSshKeys,
       },
       publicKeyNameDropdown: {
-        "ui:hideError": true,
         "ui:valuePlaceholder": "Select a key",
         "ui:disabled": !canEditSshKeys,
       },
