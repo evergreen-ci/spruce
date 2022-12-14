@@ -1,3 +1,5 @@
+import { screen, userEvent, waitFor } from ".";
+
 const mockEnvironmentalVariables = () => {
   const restoreCalls = [];
   const mockEnv = (variable: string, value: string) => {
@@ -17,5 +19,14 @@ const mockEnvironmentalVariables = () => {
 
   return { mockEnv, cleanup };
 };
+const selectLGOption = async (dataCy: string, option: string) => {
+  expect(screen.queryByDataCy(dataCy)).not.toBeDisabled();
+  userEvent.click(screen.queryByDataCy(dataCy));
+  await waitFor(() => {
+    expect(screen.queryByText(option)).toBeVisible();
+  });
+  userEvent.click(screen.queryByText(option));
+  expect(screen.queryByDataCy(dataCy)).toHaveTextContent(option);
+};
 
-export { mockEnvironmentalVariables };
+export { mockEnvironmentalVariables, selectLGOption };

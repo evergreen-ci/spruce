@@ -14,6 +14,7 @@ import {
   screen,
   waitFor,
 } from "test_utils";
+import { selectLGOption } from "test_utils/utils";
 import { SpawnVolumeModal } from "./SpawnVolumeModal";
 
 describe("spawnVolumeModal", () => {
@@ -121,9 +122,9 @@ describe("spawnVolumeModal", () => {
       </MockedProvider>
     );
     // select us-east-1c region
-    await selectOption("regionSelector", "us-east-1c");
-    await selectOption("typeSelector", "st1");
-    await selectOption("host-select", "i-00b212e96b3f91079");
+    await selectLGOption("regionSelector", "us-east-1c");
+    await selectLGOption("typeSelector", "st1");
+    await selectLGOption("host-select", "i-00b212e96b3f91079");
     userEvent.type(screen.queryByDataCy("volumeSize"), "{clear}24");
     expect(screen.queryByDataCy("volumeSize")).toHaveValue(24);
 
@@ -136,16 +137,6 @@ describe("spawnVolumeModal", () => {
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
   });
 });
-
-const selectOption = async (dataCy: string, option: string) => {
-  expect(screen.queryByDataCy(dataCy)).not.toBeDisabled();
-  userEvent.click(screen.queryByDataCy(dataCy));
-  await waitFor(() => {
-    expect(screen.queryByText(option)).toBeVisible();
-  });
-  userEvent.click(screen.queryByText(option));
-  expect(screen.queryByDataCy(dataCy)).toHaveTextContent(option);
-};
 
 const myHostsMock = {
   request: {
