@@ -3483,6 +3483,7 @@ export type RestartJasperMutation = { restartJasper: number };
 
 export type RestartTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
+  failedOnly: Scalars["Boolean"];
 }>;
 
 export type RestartTaskMutation = {
