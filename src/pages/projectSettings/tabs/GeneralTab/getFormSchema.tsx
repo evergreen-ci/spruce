@@ -11,7 +11,7 @@ import {
 } from "./Fields";
 import { FormState } from "./types";
 
-const { overrideRadioBox, placeholderIf, radioBoxOptions } = form;
+const { placeholderIf, radioBoxOptions } = form;
 
 export const getFormSchema = (
   projectId: string,
@@ -207,40 +207,6 @@ export const getFormSchema = (
           },
         },
       },
-      historicalDataCaching: {
-        type: "object" as "object",
-        title: "Historical Data Caching Info",
-        properties: {
-          disabledStatsCache: {
-            type: ["boolean", "null"],
-            title: "Caching",
-            oneOf: radioBoxOptions(
-              ["Enabled", "Disabled"],
-              repoData?.historicalDataCaching?.disabledStatsCache,
-              true
-            ),
-          },
-          files: {
-            type: "object" as "object",
-            title: "File Patterns to Ignore",
-            description:
-              "Comma-separated list of regular expression patterns that specify test filenames to ignore when caching test and task history.",
-            ...overrideRadioBox(
-              "filesIgnoredFromCache",
-              ["Override Repo File Pattern", "Default to Repo File Pattern"],
-              {
-                type: "array" as "array",
-                items: {
-                  type: "string" as "string",
-                  title: "File Pattern",
-                  default: "",
-                  minLength: 1,
-                },
-              }
-            ),
-          },
-        },
-      },
     },
   },
   uiSchema: {
@@ -368,34 +334,6 @@ export const getFormSchema = (
           "ui:widget": widgets.RadioBoxWidget,
           "ui:description":
             "Users can create patches that sync the task directory to S3 at the end of any task.",
-        },
-      },
-    },
-    historicalDataCaching: {
-      "ui:rootFieldId": "historicalDataCaching",
-      "ui:ObjectFieldTemplate": CardFieldTemplate,
-      disabledStatsCache: {
-        "ui:widget": widgets.RadioBoxWidget,
-      },
-      files: {
-        filesIgnoredFromCacheOverride: {
-          "ui:widget":
-            projectType === ProjectType.AttachedProject
-              ? widgets.RadioBoxWidget
-              : "hidden",
-          "ui:showLabel": false,
-        },
-        filesIgnoredFromCache: {
-          "ui:addButtonText": "Add File Pattern",
-          "ui:orderable": false,
-          "ui:showLabel": false,
-        },
-        repoData: {
-          filesIgnoredFromCache: {
-            "ui:disabled": true,
-            "ui:readonly": true,
-            "ui:showLabel": false,
-          },
         },
       },
     },
