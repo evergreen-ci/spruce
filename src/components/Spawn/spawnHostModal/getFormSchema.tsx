@@ -424,6 +424,8 @@ export const getFormSchema = ({
         "ui:data-cy": "distro-input",
       },
       region: {
+        "ui:data-cy": "region-select",
+        "ui:disabled": isMigration,
         "ui:elementWrapperCSS": dropdownWrapperClassName,
         "ui:valuePlaceholder": "Select a region",
         "ui:allowDeselect": false,
