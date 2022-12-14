@@ -557,8 +557,6 @@ export type Mutation = {
   createProject: Project;
   createPublicKey: Array<PublicKey>;
   deactivateStepbackTask: Scalars["Boolean"];
-  /** @deprecated deactivateStepbackTasks is deprecated. Use deactivateStepbackTask instead. */
-  deactivateStepbackTasks: Scalars["Boolean"];
   defaultSectionToRepo?: Maybe<Scalars["String"]>;
   detachProjectFromRepo: Project;
   detachVolumeFromHost: Scalars["Boolean"];
@@ -649,10 +647,6 @@ export type MutationDeactivateStepbackTaskArgs = {
   taskName: Scalars["String"];
 };
 
-export type MutationDeactivateStepbackTasksArgs = {
-  projectId: Scalars["String"];
-};
-
 export type MutationDefaultSectionToRepoArgs = {
   projectId: Scalars["String"];
   section: ProjectSettingsSection;
@@ -740,6 +734,7 @@ export type MutationRestartJasperArgs = {
 };
 
 export type MutationRestartTaskArgs = {
+  failedOnly?: InputMaybe<Scalars["Boolean"]>;
   taskId: Scalars["String"];
 };
 
@@ -1804,7 +1799,9 @@ export type TaskFiles = {
 /** TaskFilterOptions defines the parameters that are used when fetching tasks from a Version. */
 export type TaskFilterOptions = {
   baseStatuses?: InputMaybe<Array<Scalars["String"]>>;
+  /** @deprecated Use includeNeverActivatedTasks instead */
   includeEmptyActivation?: InputMaybe<Scalars["Boolean"]>;
+  includeNeverActivatedTasks?: InputMaybe<Scalars["Boolean"]>;
   limit?: InputMaybe<Scalars["Int"]>;
   page?: InputMaybe<Scalars["Int"]>;
   sorts?: InputMaybe<Array<SortOrder>>;
@@ -1942,7 +1939,9 @@ export type TestFilter = {
 export type TestLog = {
   lineNum?: Maybe<Scalars["Int"]>;
   url?: Maybe<Scalars["String"]>;
+  /** @deprecated Use urlParsley instead */
   urlLobster?: Maybe<Scalars["String"]>;
+  urlParsley?: Maybe<Scalars["String"]>;
   urlRaw?: Maybe<Scalars["String"]>;
 };
 
@@ -2152,22 +2151,22 @@ export type Version = {
 
 /** Version models a commit within a project. */
 export type VersionBuildVariantStatsArgs = {
-  options?: InputMaybe<BuildVariantOptions>;
+  options: BuildVariantOptions;
 };
 
 /** Version models a commit within a project. */
 export type VersionBuildVariantsArgs = {
-  options?: InputMaybe<BuildVariantOptions>;
+  options: BuildVariantOptions;
 };
 
 /** Version models a commit within a project. */
 export type VersionTaskStatusStatsArgs = {
-  options?: InputMaybe<BuildVariantOptions>;
+  options: BuildVariantOptions;
 };
 
 /** Version models a commit within a project. */
 export type VersionTasksArgs = {
-  options?: InputMaybe<TaskFilterOptions>;
+  options: TaskFilterOptions;
 };
 
 export type VersionTasks = {
@@ -2490,8 +2489,6 @@ export type ProjectGeneralSettingsFragment = {
   repotrackerDisabled?: Maybe<boolean>;
   stepbackDisabled?: Maybe<boolean>;
   patchingDisabled?: Maybe<boolean>;
-  disabledStatsCache?: Maybe<boolean>;
-  filesIgnoredFromCache?: Maybe<Array<string>>;
   taskSync: { configEnabled?: Maybe<boolean>; patchEnabled?: Maybe<boolean> };
 };
 
@@ -2510,8 +2507,6 @@ export type RepoGeneralSettingsFragment = {
   repotrackerDisabled: boolean;
   stepbackDisabled: boolean;
   patchingDisabled: boolean;
-  disabledStatsCache: boolean;
-  filesIgnoredFromCache?: Maybe<Array<string>>;
   taskSync: { configEnabled: boolean; patchEnabled: boolean };
 };
 
@@ -2624,8 +2619,6 @@ export type ProjectSettingsFragment = {
     repotrackerDisabled?: Maybe<boolean>;
     stepbackDisabled?: Maybe<boolean>;
     patchingDisabled?: Maybe<boolean>;
-    disabledStatsCache?: Maybe<boolean>;
-    filesIgnoredFromCache?: Maybe<Array<string>>;
     private?: Maybe<boolean>;
     restricted?: Maybe<boolean>;
     admins?: Maybe<Array<Maybe<string>>>;
@@ -2764,8 +2757,6 @@ export type RepoSettingsFragment = {
     repotrackerDisabled: boolean;
     stepbackDisabled: boolean;
     patchingDisabled: boolean;
-    disabledStatsCache: boolean;
-    filesIgnoredFromCache?: Maybe<Array<string>>;
     private: boolean;
     restricted: boolean;
     admins: Array<string>;
@@ -3028,8 +3019,6 @@ export type ProjectEventSettingsFragment = {
     repotrackerDisabled?: Maybe<boolean>;
     stepbackDisabled?: Maybe<boolean>;
     patchingDisabled?: Maybe<boolean>;
-    disabledStatsCache?: Maybe<boolean>;
-    filesIgnoredFromCache?: Maybe<Array<string>>;
     private?: Maybe<boolean>;
     restricted?: Maybe<boolean>;
     admins?: Maybe<Array<Maybe<string>>>;
@@ -4615,8 +4604,6 @@ export type ProjectEventLogsQuery = {
           repotrackerDisabled?: Maybe<boolean>;
           stepbackDisabled?: Maybe<boolean>;
           patchingDisabled?: Maybe<boolean>;
-          disabledStatsCache?: Maybe<boolean>;
-          filesIgnoredFromCache?: Maybe<Array<string>>;
           private?: Maybe<boolean>;
           restricted?: Maybe<boolean>;
           admins?: Maybe<Array<Maybe<string>>>;
@@ -4771,8 +4758,6 @@ export type ProjectEventLogsQuery = {
           repotrackerDisabled?: Maybe<boolean>;
           stepbackDisabled?: Maybe<boolean>;
           patchingDisabled?: Maybe<boolean>;
-          disabledStatsCache?: Maybe<boolean>;
-          filesIgnoredFromCache?: Maybe<Array<string>>;
           private?: Maybe<boolean>;
           restricted?: Maybe<boolean>;
           admins?: Maybe<Array<Maybe<string>>>;
@@ -4935,8 +4920,6 @@ export type ProjectSettingsQuery = {
       repotrackerDisabled?: Maybe<boolean>;
       stepbackDisabled?: Maybe<boolean>;
       patchingDisabled?: Maybe<boolean>;
-      disabledStatsCache?: Maybe<boolean>;
-      filesIgnoredFromCache?: Maybe<Array<string>>;
       private?: Maybe<boolean>;
       restricted?: Maybe<boolean>;
       admins?: Maybe<Array<Maybe<string>>>;
@@ -5120,8 +5103,6 @@ export type RepoEventLogsQuery = {
           repotrackerDisabled?: Maybe<boolean>;
           stepbackDisabled?: Maybe<boolean>;
           patchingDisabled?: Maybe<boolean>;
-          disabledStatsCache?: Maybe<boolean>;
-          filesIgnoredFromCache?: Maybe<Array<string>>;
           private?: Maybe<boolean>;
           restricted?: Maybe<boolean>;
           admins?: Maybe<Array<Maybe<string>>>;
@@ -5276,8 +5257,6 @@ export type RepoEventLogsQuery = {
           repotrackerDisabled?: Maybe<boolean>;
           stepbackDisabled?: Maybe<boolean>;
           patchingDisabled?: Maybe<boolean>;
-          disabledStatsCache?: Maybe<boolean>;
-          filesIgnoredFromCache?: Maybe<Array<string>>;
           private?: Maybe<boolean>;
           restricted?: Maybe<boolean>;
           admins?: Maybe<Array<Maybe<string>>>;
@@ -5438,8 +5417,6 @@ export type RepoSettingsQuery = {
       repotrackerDisabled: boolean;
       stepbackDisabled: boolean;
       patchingDisabled: boolean;
-      disabledStatsCache: boolean;
-      filesIgnoredFromCache?: Maybe<Array<string>>;
       private: boolean;
       restricted: boolean;
       admins: Array<string>;
@@ -5732,6 +5709,7 @@ export type TaskTestsQuery = {
       logs: {
         url?: Maybe<string>;
         urlRaw?: Maybe<string>;
+        urlParsley?: Maybe<string>;
         urlLobster?: Maybe<string>;
       };
     }>;
@@ -5899,7 +5877,7 @@ export type GetTestsQuery = {
     testResults: Array<{
       id: string;
       testFile: string;
-      logs: { url?: Maybe<string>; urlLobster?: Maybe<string> };
+      logs: { url?: Maybe<string>; urlParsley?: Maybe<string> };
     }>;
   };
 };

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { useLocation } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
@@ -82,13 +82,9 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     isMigration: false,
     isVirtualWorkstation: !!formState?.distro?.isVirtualWorkstation,
     spawnTaskData: spawnTaskData?.task,
+    useSetupScript: !!formState?.setupScriptSection?.defineSetupScriptCheckbox,
+    useProjectSetupScript: !!formState?.loadData?.runProjectSpecificSetupScript,
   });
-
-  useEffect(() => {
-    if (!open) {
-      setFormState({});
-    }
-  }, [open]);
 
   if (loadingFormData) {
     return null;
@@ -122,7 +118,10 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
       submitDisabled={
         !validateSpawnHostForm(formState, false) || loadingSpawnHost
       }
-      onCancel={() => setOpen(false)}
+      onCancel={() => {
+        setOpen(false);
+        setFormState({});
+      }}
       onConfirm={spawnHost}
       buttonText={loadingSpawnHost ? "Spawning" : "Spawn a host"}
     >

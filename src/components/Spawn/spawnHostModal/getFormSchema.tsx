@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import { add } from "date-fns";
+import { GetFormSchema } from "components/SpruceForm/types";
 import widgets from "components/SpruceForm/Widgets";
 import { AntdSelect } from "components/SpruceForm/Widgets/AntdWidgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
@@ -8,16 +9,10 @@ import {
   GetSpawnTaskQuery,
   MyVolumesQuery,
 } from "gql/generated/types";
-import { GetFormSchema } from "pages/projectSettings/tabs/types";
 import { shortenGithash } from "utils/string";
+import { getDefaultExpiration } from "../utils";
 import { validateTask } from "./utils";
 import { DistroDropdown } from "./Widgets/DistroDropdown";
-
-export const getDefaultExpiration = () => {
-  const nextWeek = new Date();
-  nextWeek.setDate(nextWeek.getDate() + 7);
-  return nextWeek.toString();
-};
 
 interface Props {
   distros: {
@@ -34,6 +29,8 @@ interface Props {
   userAwsRegion?: string;
   volumes: MyVolumesQuery["myVolumes"];
   isMigration: boolean;
+  useSetupScript?: boolean;
+  useProjectSetupScript?: boolean;
 }
 
 export const getFormSchema = ({
@@ -48,6 +45,8 @@ export const getFormSchema = ({
   userAwsRegion,
   volumes,
   isMigration,
+  useSetupScript = false,
+  useProjectSetupScript = false,
 }: Props): ReturnType<GetFormSchema> => {
   const {
     displayName: taskDisplayName,
@@ -58,6 +57,10 @@ export const getFormSchema = ({
   } = spawnTaskData || {};
   const hasValidTask = validateTask(spawnTaskData);
   const shouldRenderVolumeSelection = !isMigration && isVirtualWorkstation;
+  const availableVolumes = volumes
+    ? volumes.filter((v) => v.homeVolume && !v.hostID)
+    : [];
+
   return {
     fields: {},
     schema: {
@@ -151,12 +154,13 @@ export const getFormSchema = ({
                     },
                     newPublicKey: {
                       title: "Public key",
-                      default: "",
                       type: "string" as "string",
+                      default: "",
                     },
                     savePublicKey: {
                       title: "Save Public Key",
                       type: "boolean" as "boolean",
+                      default: false,
                     },
                   },
                   dependencies: {
@@ -363,13 +367,11 @@ export const getFormSchema = ({
                         title: "Volume",
                         type: "string" as "string",
                         default: "",
-                        oneOf: (volumes || [])
-                          ?.filter((v) => v.homeVolume && !v.hostID)
-                          ?.map((v) => ({
-                            type: "string" as "string",
-                            title: `(${v.size}GB) ${v.displayName || v.id}`,
-                            enum: [v.id],
-                          })),
+                        oneOf: availableVolumes.map((v) => ({
+                          type: "string" as "string",
+                          title: `(${v.size}GB) ${v.displayName || v.id}`,
+                          enum: [v.id],
+                        })),
                       },
                     },
                   },
@@ -424,6 +426,8 @@ export const getFormSchema = ({
       },
       region: {
         "ui:widget": AntdSelect,
+        "ui:data-cy": "region-select",
+        "ui:disabled": isMigration,
         "ui:elementWrapperCSS": dropdownWrapperClassName,
         "ui:valuePlaceholder": "Select a region",
       },
@@ -451,6 +455,10 @@ export const getFormSchema = ({
         },
       },
       setupScriptSection: {
+        defineSetupScriptCheckbox: {
+          "ui:disabled": useProjectSetupScript,
+          "ui:data-cy": "setup-script-checkbox",
+        },
         setupScript: {
           "ui:widget": LeafyGreenTextArea,
           "ui:elementWrapperCSS": textAreaWrapperClassName,
@@ -489,6 +497,8 @@ export const getFormSchema = ({
               hasValidTask && project?.spawnHostScriptPath
                 ? widgets.CheckboxWidget
                 : "hidden",
+            "ui:disabled": useSetupScript,
+            "ui:data-cy": "project-setup-script-checkbox",
             "ui:elementWrapperCSS": childCheckboxCSS,
           },
           taskSync: {
@@ -511,6 +521,7 @@ export const getFormSchema = ({
           },
           volumeSelect: {
             "ui:widget": isVirtualWorkstation ? AntdSelect : "hidden",
+            "ui:hideError": true,
             "ui:allowDeselect": false,
             "ui:data-cy": "volume-select",
             "ui:disabledEnums": (volumes || [])

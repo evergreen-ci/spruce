@@ -40,13 +40,6 @@ export const getGithubCommitUrl = (
   githash: string
 ) => `https://github.com/${owner}/${repo}/commit/${githash}`;
 
-export const getLobsterTaskLink = (
-  logType: LogTypes,
-  taskId: string,
-  execution: number
-) =>
-  `${getLobsterURL()}/lobster/evergreen/task/${taskId}/${execution}/${logType}`;
-
 export const getParsleyTaskLogLink = (
   logType: LogTypes,
   taskId: string,
@@ -71,3 +64,10 @@ export const getLobsterTestLogCompleteUrl = ({
         groupId ? `/${groupId}` : ""
       }${lineNum ? `#shareLine=${lineNum}` : ""}`
     : "";
+
+export const getLobsterTaskLink = (
+  logType: LogTypes,
+  taskId: string,
+  execution: number
+) =>
+  `${getLobsterURL()}/lobster/evergreen/task/${taskId}/${execution}/${logType}`;

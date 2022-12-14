@@ -78,6 +78,7 @@ export const PageButtonRow = styled.div`
 export const InputLabel = styled.label`
   font-size: ${fontSize.m};
   font-weight: bold;
+  color: ${gray.dark2};
 `;
 
 export const ErrorMessage = styled(Body)`

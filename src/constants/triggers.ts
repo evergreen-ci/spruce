@@ -133,19 +133,19 @@ export const taskTriggers: Trigger = {
 // VERSION TRIGGERS
 export const versionTriggers: Trigger = {
   [VersionTriggers.VERSION_FINISHES]: {
-    trigger: TriggerType.OUTCOME,
+    trigger: TriggerType.FAMILY_OUTCOME,
     label: "This version finishes",
     resourceType: ResourceType.VERSION,
     payloadResourceIdKey: "id",
   },
   [VersionTriggers.VERSION_FAILS]: {
-    trigger: TriggerType.FAILURE,
+    trigger: TriggerType.FAMILY_FAILURE,
     label: "This version fails",
     resourceType: ResourceType.VERSION,
     payloadResourceIdKey: "id",
   },
   [VersionTriggers.VERSION_SUCCEEDS]: {
-    trigger: TriggerType.SUCCESS,
+    trigger: TriggerType.FAMILY_SUCCESS,
     label: "This version succeeds",
     resourceType: ResourceType.VERSION,
     payloadResourceIdKey: "id",
@@ -205,13 +205,13 @@ export const versionTriggers: Trigger = {
 
 export const projectTriggers: Trigger = {
   [ProjectTriggers.ANY_VERSION_FINISHES]: {
-    trigger: TriggerType.OUTCOME,
+    trigger: TriggerType.FAMILY_OUTCOME,
     resourceType: ResourceType.VERSION,
     label: "Any Version Finishes",
     extraFields: [requesterSubscriberConfig],
   },
   [ProjectTriggers.ANY_VERSION_FAILS]: {
-    trigger: TriggerType.FAILURE,
+    trigger: TriggerType.FAMILY_FAILURE,
     resourceType: ResourceType.VERSION,
     label: "Any Version Fails",
     extraFields: [requesterSubscriberConfig],

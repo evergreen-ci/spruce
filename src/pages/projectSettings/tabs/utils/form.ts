@@ -1,5 +1,5 @@
 import { ObjectFieldTemplateProps } from "@rjsf/core";
-import { SpruceFormProps } from "components/SpruceForm";
+import { SpruceFormProps } from "components/SpruceForm/types";
 import { Unpacked } from "types/utils";
 
 export const insertIf = (condition, ...elements) => (condition ? elements : []);
