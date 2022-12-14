@@ -521,7 +521,6 @@ export const getFormSchema = ({
               : "hidden",
           },
           volumeSelect: {
-            "ui:widget": isVirtualWorkstation ? undefined : "hidden",
             "ui:allowDeselect": false,
             "ui:data-cy": "volume-select",
             "ui:disabled": availableVolumes.length === 0,
