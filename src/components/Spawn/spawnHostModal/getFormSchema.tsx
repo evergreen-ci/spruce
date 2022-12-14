@@ -511,6 +511,11 @@ export const getFormSchema = ({
             "ui:hideError": true,
             "ui:allowDeselect": false,
             "ui:data-cy": "volume-select",
+            "ui:disabled": availableVolumes.length === 0,
+            "ui:placeholder":
+              availableVolumes.length === 0
+                ? "No Volumes Available"
+                : undefined,
             "ui:enumDisabled": (volumes || [])
               .filter((v) => !!v.hostID)
               .map((v) => v.id),

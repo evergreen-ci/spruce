@@ -20,7 +20,10 @@ describe("Update Status Modal", () => {
 
     cy.dataCy("host-status-notes").type("notes");
 
-    cy.contains("Update").click();
+    cy.dataCy("update-host-status-modal").should("be.visible");
+    cy.dataCy("update-host-status-modal").within(() => {
+      cy.contains("Update").click();
+    });
 
     cy.validateToast("success");
 
