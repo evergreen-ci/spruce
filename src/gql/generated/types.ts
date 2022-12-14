@@ -734,6 +734,7 @@ export type MutationRestartJasperArgs = {
 };
 
 export type MutationRestartTaskArgs = {
+  failedOnly?: InputMaybe<Scalars["Boolean"]>;
   taskId: Scalars["String"];
 };
 
@@ -2488,8 +2489,6 @@ export type ProjectGeneralSettingsFragment = {
   repotrackerDisabled?: Maybe<boolean>;
   stepbackDisabled?: Maybe<boolean>;
   patchingDisabled?: Maybe<boolean>;
-  disabledStatsCache?: Maybe<boolean>;
-  filesIgnoredFromCache?: Maybe<Array<string>>;
   taskSync: { configEnabled?: Maybe<boolean>; patchEnabled?: Maybe<boolean> };
 };
 
@@ -2508,8 +2507,6 @@ export type RepoGeneralSettingsFragment = {
   repotrackerDisabled: boolean;
   stepbackDisabled: boolean;
   patchingDisabled: boolean;
-  disabledStatsCache: boolean;
-  filesIgnoredFromCache?: Maybe<Array<string>>;
   taskSync: { configEnabled: boolean; patchEnabled: boolean };
 };
 
@@ -2622,8 +2619,6 @@ export type ProjectSettingsFragment = {
     repotrackerDisabled?: Maybe<boolean>;
     stepbackDisabled?: Maybe<boolean>;
     patchingDisabled?: Maybe<boolean>;
-    disabledStatsCache?: Maybe<boolean>;
-    filesIgnoredFromCache?: Maybe<Array<string>>;
     private?: Maybe<boolean>;
     restricted?: Maybe<boolean>;
     admins?: Maybe<Array<Maybe<string>>>;
@@ -2762,8 +2757,6 @@ export type RepoSettingsFragment = {
     repotrackerDisabled: boolean;
     stepbackDisabled: boolean;
     patchingDisabled: boolean;
-    disabledStatsCache: boolean;
-    filesIgnoredFromCache?: Maybe<Array<string>>;
     private: boolean;
     restricted: boolean;
     admins: Array<string>;
@@ -3026,8 +3019,6 @@ export type ProjectEventSettingsFragment = {
     repotrackerDisabled?: Maybe<boolean>;
     stepbackDisabled?: Maybe<boolean>;
     patchingDisabled?: Maybe<boolean>;
-    disabledStatsCache?: Maybe<boolean>;
-    filesIgnoredFromCache?: Maybe<Array<string>>;
     private?: Maybe<boolean>;
     restricted?: Maybe<boolean>;
     admins?: Maybe<Array<Maybe<string>>>;
@@ -4613,8 +4604,6 @@ export type ProjectEventLogsQuery = {
           repotrackerDisabled?: Maybe<boolean>;
           stepbackDisabled?: Maybe<boolean>;
           patchingDisabled?: Maybe<boolean>;
-          disabledStatsCache?: Maybe<boolean>;
-          filesIgnoredFromCache?: Maybe<Array<string>>;
           private?: Maybe<boolean>;
           restricted?: Maybe<boolean>;
           admins?: Maybe<Array<Maybe<string>>>;
@@ -4769,8 +4758,6 @@ export type ProjectEventLogsQuery = {
           repotrackerDisabled?: Maybe<boolean>;
           stepbackDisabled?: Maybe<boolean>;
           patchingDisabled?: Maybe<boolean>;
-          disabledStatsCache?: Maybe<boolean>;
-          filesIgnoredFromCache?: Maybe<Array<string>>;
           private?: Maybe<boolean>;
           restricted?: Maybe<boolean>;
           admins?: Maybe<Array<Maybe<string>>>;
@@ -4933,8 +4920,6 @@ export type ProjectSettingsQuery = {
       repotrackerDisabled?: Maybe<boolean>;
       stepbackDisabled?: Maybe<boolean>;
       patchingDisabled?: Maybe<boolean>;
-      disabledStatsCache?: Maybe<boolean>;
-      filesIgnoredFromCache?: Maybe<Array<string>>;
       private?: Maybe<boolean>;
       restricted?: Maybe<boolean>;
       admins?: Maybe<Array<Maybe<string>>>;
@@ -5118,8 +5103,6 @@ export type RepoEventLogsQuery = {
           repotrackerDisabled?: Maybe<boolean>;
           stepbackDisabled?: Maybe<boolean>;
           patchingDisabled?: Maybe<boolean>;
-          disabledStatsCache?: Maybe<boolean>;
-          filesIgnoredFromCache?: Maybe<Array<string>>;
           private?: Maybe<boolean>;
           restricted?: Maybe<boolean>;
           admins?: Maybe<Array<Maybe<string>>>;
@@ -5274,8 +5257,6 @@ export type RepoEventLogsQuery = {
           repotrackerDisabled?: Maybe<boolean>;
           stepbackDisabled?: Maybe<boolean>;
           patchingDisabled?: Maybe<boolean>;
-          disabledStatsCache?: Maybe<boolean>;
-          filesIgnoredFromCache?: Maybe<Array<string>>;
           private?: Maybe<boolean>;
           restricted?: Maybe<boolean>;
           admins?: Maybe<Array<Maybe<string>>>;
@@ -5436,8 +5417,6 @@ export type RepoSettingsQuery = {
       repotrackerDisabled: boolean;
       stepbackDisabled: boolean;
       patchingDisabled: boolean;
-      disabledStatsCache: boolean;
-      filesIgnoredFromCache?: Maybe<Array<string>>;
       private: boolean;
       restricted: boolean;
       admins: Array<string>;
