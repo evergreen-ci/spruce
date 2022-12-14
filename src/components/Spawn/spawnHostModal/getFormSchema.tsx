@@ -437,10 +437,10 @@ export const getFormSchema = ({
         publicKeyNameDropdown: {
           "ui:elementWrapperCSS": dropdownWrapperClassName,
           "ui:placeholder":
-            myPublicKeys.length > 0 ? "Select a key" : "No keys available",
+            myPublicKeys?.length > 0 ? "Select a key" : "No keys available",
           "ui:data-cy": "key-select",
           "ui:allowDeselect": false,
-          "ui:disabled": myPublicKeys.length === 0,
+          "ui:disabled": myPublicKeys?.length === 0,
         },
         newPublicKey: {
           "ui:widget": LeafyGreenTextArea,
@@ -523,9 +523,9 @@ export const getFormSchema = ({
           volumeSelect: {
             "ui:allowDeselect": false,
             "ui:data-cy": "volume-select",
-            "ui:disabled": availableVolumes.length === 0,
+            "ui:disabled": availableVolumes?.length === 0,
             "ui:placeholder":
-              availableVolumes.length === 0
+              availableVolumes?.length === 0
                 ? "No Volumes Available"
                 : undefined,
             "ui:enumDisabled": (volumes || [])

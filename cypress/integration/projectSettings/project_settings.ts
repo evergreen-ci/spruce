@@ -646,7 +646,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("promote-vars-button").click();
       cy.dataCy("promote-vars-modal").should("be.visible");
       cy.dataCy("promote-var-checkbox").first().check({ force: true });
-      cy.contains("button", "Move 1 variable").parent().click();
+      cy.contains("button", "Move 1 variable").click();
       cy.validateToast("success");
     });
   });
@@ -773,11 +773,7 @@ describe("Project Settings when defaulting to repo", () => {
     it("Defaults to repo", () => {
       cy.dataCy("default-to-repo-button").click();
       cy.dataCy("default-to-repo-modal").should("be.visible");
-      cy.dataCy("default-to-repo-modal")
-        .find("button")
-        .contains("Confirm")
-        .parent()
-        .click();
+      cy.dataCy("default-to-repo-modal").contains("button", "Confirm").click();
       cy.validateToast("success", "Successfully defaulted page to repo");
     });
 
@@ -905,11 +901,7 @@ describe("Attaching Spruce to a repo", () => {
 
   it("Attaches to new repo", () => {
     cy.dataCy("attach-repo-button").click();
-    cy.dataCy("attach-repo-modal")
-      .find("button")
-      .contains("Attach")
-      .parent()
-      .click();
+    cy.dataCy("attach-repo-modal").contains("button", "Attach").click();
     cy.validateToast("success", "Successfully attached to repo");
   });
 
