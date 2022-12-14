@@ -82,6 +82,8 @@ export const SpawnHostModal: React.VFC<SpawnHostModalProps> = ({
     isMigration: false,
     isVirtualWorkstation: !!formState?.distro?.isVirtualWorkstation,
     spawnTaskData: spawnTaskData?.task,
+    useSetupScript: !!formState?.setupScriptSection?.defineSetupScriptCheckbox,
+    useProjectSetupScript: !!formState?.loadData?.runProjectSpecificSetupScript,
   });
 
   if (loadingFormData) {

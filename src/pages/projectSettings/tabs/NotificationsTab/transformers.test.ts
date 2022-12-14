@@ -58,7 +58,7 @@ describe("project data", () => {
             jiraIssueSubscriber: undefined,
             webhookSubscriber: undefined,
           },
-          trigger: "outcome",
+          trigger: "family-outcome",
           trigger_data: {
             requester: "gitter_request",
           },
@@ -120,7 +120,7 @@ describe("project data", () => {
             },
             webhookSubscriber: undefined,
           },
-          trigger: "outcome",
+          trigger: "family-outcome",
           trigger_data: {
             requester: "gitter_request",
           },
@@ -193,7 +193,7 @@ describe("project data", () => {
               ],
             },
           },
-          trigger: "outcome",
+          trigger: "family-outcome",
           trigger_data: {
             requester: "gitter_request",
           },

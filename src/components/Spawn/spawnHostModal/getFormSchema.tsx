@@ -28,6 +28,8 @@ interface Props {
   userAwsRegion?: string;
   volumes: MyVolumesQuery["myVolumes"];
   isMigration: boolean;
+  useSetupScript?: boolean;
+  useProjectSetupScript?: boolean;
 }
 
 export const getFormSchema = ({
@@ -42,6 +44,8 @@ export const getFormSchema = ({
   userAwsRegion,
   volumes,
   isMigration,
+  useSetupScript = false,
+  useProjectSetupScript = false,
 }: Props): ReturnType<GetFormSchema> => {
   const {
     displayName: taskDisplayName,
@@ -448,6 +452,10 @@ export const getFormSchema = ({
         },
       },
       setupScriptSection: {
+        defineSetupScriptCheckbox: {
+          "ui:disabled": useProjectSetupScript,
+          "ui:data-cy": "setup-script-checkbox",
+        },
         setupScript: {
           "ui:widget": LeafyGreenTextArea,
           "ui:elementWrapperCSS": textAreaWrapperClassName,
@@ -486,6 +494,8 @@ export const getFormSchema = ({
               hasValidTask && project?.spawnHostScriptPath
                 ? widgets.CheckboxWidget
                 : "hidden",
+            "ui:disabled": useSetupScript,
+            "ui:data-cy": "project-setup-script-checkbox",
             "ui:elementWrapperCSS": childCheckboxCSS,
           },
           taskSync: {
