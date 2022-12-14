@@ -439,9 +439,11 @@ export const getEventSchema = (
       },
       [ExtraFieldKey.BUILD_INITIATOR]: {
         "ui:data-cy": "build-initiator-select",
+        "ui:allowDeselect": false,
       },
       [ExtraFieldKey.FAILURE_TYPE]: {
         "ui:data-cy": "failure-type-select",
+        "ui:allowDeselect": false,
       },
     },
     regexSelector: {
