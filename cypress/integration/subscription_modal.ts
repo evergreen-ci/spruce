@@ -93,7 +93,7 @@ const testSharedSubscriptionModalFunctionality = (
       cy.dataCy(dataCyToggleModalButton).click();
       cy.dataCy(dataCyModal).should("be.visible");
       cy.contains("Cancel").click();
-      cy.dataCy(dataCyModal).should("not.be.visible");
+      cy.dataCy(dataCyModal).should("not.exist");
     });
 
     it("Pulls initial values from cookies", () => {
