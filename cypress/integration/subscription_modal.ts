@@ -147,12 +147,12 @@ describe("Waterfall subscription modal", () => {
     cy.dataCy("add-notification").click();
     cy.dataCy(dataCyModal).should("be.visible");
 
-    selectAntdOption("event-trigger-select", "Any Version Finishes");
-    selectAntdOption("notification-method-select", "JIRA issue");
+    cy.selectLGOption("Event", "Any Version Finishes");
+    cy.selectLGOption("Notification Method", "JIRA issue");
 
     cy.dataCy("jira-comment-input").type("EVG-2000");
-    cy.dataCy("save-subscription-button").should("not.be.disabled");
-    cy.dataCy("save-subscription-button").click();
+    cy.contains("button", "Save").should("not.be.disabled");
+    cy.contains("button", "Save").click();
     cy.validateToast("success", successText);
   });
 
@@ -161,18 +161,18 @@ describe("Waterfall subscription modal", () => {
     cy.dataCy("add-notification").click();
     cy.dataCy(dataCyModal).should("be.visible");
 
-    selectAntdOption("event-trigger-select", "Any Build Finishes");
+    cy.selectLGOption("Event", "Any Build Finishes");
     cy.dataCy("add-button").click();
-    cy.dataCy("save-subscription-button").should("be.disabled");
+    cy.contains("button", "Save").should("be.disabled");
 
     cy.dataCy("jira-comment-input").type("EVG-2000");
     cy.dataCy("regex-input").type("*.notValidRegex");
     cy.contains(errorTextRegex).should("exist");
-    cy.dataCy("save-subscription-button").should("be.disabled");
+    cy.contains("button", "Save").should("be.disabled");
 
     cy.dataCy("regex-input").clear().type("validRegex");
-    cy.dataCy("save-subscription-button").should("not.be.disabled");
-    cy.dataCy("save-subscription-button").click();
+    cy.contains("button", "Save").should("not.be.disabled");
+    cy.contains("button", "Save").click();
     cy.validateToast("success", successText);
   });
 
@@ -181,13 +181,13 @@ describe("Waterfall subscription modal", () => {
     cy.dataCy("add-notification").click();
     cy.dataCy(dataCyModal).should("be.visible");
 
-    selectAntdOption("event-trigger-select", "Any Version Finishes");
+    cy.selectLGOption("Event", "Any Version Finishes");
     cy.dataCy("jira-comment-input").type("EVG-2000");
     mockErrorResponse({
       path: "SaveSubscription",
       errorMessage: "error",
     });
-    cy.dataCy("save-subscription-button").click();
+    cy.contains("button", "Save").click();
     cy.validateToast("error");
   });
 
@@ -195,8 +195,8 @@ describe("Waterfall subscription modal", () => {
     cy.dataCy("waterfall-menu").click();
     cy.dataCy("add-notification").click();
     cy.dataCy(dataCyModal).should("be.visible");
-    cy.dataCy("cancel-subscription-button").click();
-    cy.dataCy(dataCyModal).should("not.be.visible");
+    cy.contains("button", "Cancel").click();
+    cy.dataCy(dataCyModal).should("not.exist");
   });
 
   it("Pulls initial values from cookies", () => {

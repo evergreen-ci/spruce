@@ -982,7 +982,7 @@ describe("Duplicating a project with errors", () => {
 
   it("Successfully copies the project and shows a warning toast", () => {
     cy.dataCy("project-name-input").type("copied-project");
-    cy.contains("button", "Duplicate").parent().click();
+    cy.contains("button", "Duplicate").click();
     cy.validateToast("warning");
   });
 
