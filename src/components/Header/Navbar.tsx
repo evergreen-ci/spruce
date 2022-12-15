@@ -36,7 +36,7 @@ export const Navbar: React.VFC = () => {
           to={routes.myPatches}
           onClick={() => sendEvent({ name: "Click Logo Link" })}
         >
-          <Icon glyph="EvergreenLogo" />
+          <Icon glyph="EvergreenLogo" size={28} />
         </LogoLink>
         <PrimaryLink
           to={getCommitsRoute()}
