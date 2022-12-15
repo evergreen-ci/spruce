@@ -190,12 +190,13 @@ export const LeafyGreenSelect: React.VFC<
           name={dataCy}
           data-cy={dataCy}
           state={hasError && !disabled ? "error" : "none"}
-          errorMessage="Selection is required."
+          errorMessage={hasError ? rawErrors?.join(", ") : ""}
           popoverZIndex={zIndex.dropdown}
         >
           {enumOptions.map((o) => {
-            const optionDisabled = enumDisabled?.includes(o.value) ?? false;
-
+            // LG Select doesn't handle disabled options well. So we need to ensure the selected option is not disabled
+            const optionDisabled =
+              (value !== o.value && enumDisabled?.includes(o.value)) ?? false;
             // Handle deselect value without errors
             if (o.value === null) {
               return;

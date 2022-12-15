@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Variant } from "@leafygreen-ui/button";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
-import { Modal } from "components/Modal";
-import { ModalContent, MountVolumeSelect, WideButton } from "components/Spawn";
+import { ConfirmationModal } from "components/ConfirmationModal";
+import { ModalContent, MountVolumeSelect } from "components/Spawn";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -42,39 +41,28 @@ export const MountVolumeModal: React.VFC<Props> = ({
   const targetAvailabilityZone = volume.availabilityZone;
   const [selectedHostId, setSelectedHostId] = useState("");
   return (
-    <Modal
+    <ConfirmationModal
       title="Attach Volume to Host"
-      visible={visible}
+      open={visible}
       onCancel={onCancel}
-      footer={[
-        <WideButton key="cancel" onClick={onCancel}>
-          Cancel
-        </WideButton>,
-        <WideButton
-          key="mount"
-          data-cy="mount-volume-button"
-          disabled={!selectedHostId || loadingAttachVolume}
-          onClick={() => {
-            spawnAnalytics.sendEvent({
-              name: "Mount volume to host",
+      onConfirm={() => {
+        spawnAnalytics.sendEvent({
+          name: "Mount volume to host",
+          volumeId: volume.id,
+          hostId: selectedHostId,
+        });
+        attachVolume({
+          variables: {
+            volumeAndHost: {
               volumeId: volume.id,
               hostId: selectedHostId,
-            });
-            attachVolume({
-              variables: {
-                volumeAndHost: {
-                  volumeId: volume.id,
-                  hostId: selectedHostId,
-                },
-              },
-            });
-            onCancel();
-          }}
-          variant={Variant.Primary}
-        >
-          Mount
-        </WideButton>,
-      ]}
+            },
+          },
+        });
+        onCancel();
+      }}
+      submitDisabled={!selectedHostId || loadingAttachVolume}
+      buttonText="Mount"
       data-cy="mount-volume-modal"
     >
       <ModalContent>
@@ -88,7 +76,7 @@ export const MountVolumeModal: React.VFC<Props> = ({
           {`Only shows running hosts in zone ${targetAvailabilityZone}.`}
         </StyledDisclaimer>
       </ModalContent>
-    </Modal>
+    </ConfirmationModal>
   );
 };
 

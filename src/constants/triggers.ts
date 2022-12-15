@@ -243,7 +243,6 @@ export const projectTriggers: Trigger = {
     label: "Any Task Fails",
     regexSelectors: taskRegexSelectors,
     extraFields: [failureTypeSubscriberConfig, requesterSubscriberConfig],
-    allowedSelectors: [ExtraFieldKey.BUILD_INITIATOR],
   },
   [ProjectTriggers.FIRST_FAILURE_VERSION]: {
     trigger: TriggerType.FIRST_FAILURE_VERSION,
@@ -281,7 +280,6 @@ export const projectTriggers: Trigger = {
       },
       failureTypeSubscriberConfig,
     ],
-    allowedSelectors: [],
   },
   [ProjectTriggers.PREVIOUS_PASSING_TEST_FAILS]: {
     trigger: TriggerType.TEST_REGRESSION,
@@ -305,7 +303,6 @@ export const projectTriggers: Trigger = {
       },
       failureTypeSubscriberConfig,
     ],
-    allowedSelectors: [],
   },
   [ProjectTriggers.TASK_EXCEEDS_DURATION]: {
     trigger: TriggerType.EXCEEDS_DURATION,
@@ -321,7 +318,6 @@ export const projectTriggers: Trigger = {
         default: "10",
       },
     ],
-    allowedSelectors: [],
   },
   [ProjectTriggers.SUCCESSFUL_TASK_RUNTIME_CHANGES]: {
     trigger: TriggerType.RUNTIME_CHANGE,
@@ -337,7 +333,48 @@ export const projectTriggers: Trigger = {
         default: "10",
       },
     ],
-    allowedSelectors: [],
+  },
+};
+
+export const waterfallTriggers: Trigger = {
+  [ProjectTriggers.ANY_VERSION_FINISHES]: {
+    trigger: TriggerType.FAMILY_OUTCOME,
+    resourceType: ResourceType.VERSION,
+    label: "Any Version Finishes",
+    extraFields: [requesterSubscriberConfig],
+  },
+  [ProjectTriggers.ANY_VERSION_FAILS]: {
+    trigger: TriggerType.FAMILY_FAILURE,
+    resourceType: ResourceType.VERSION,
+    label: "Any Version Fails",
+    extraFields: [requesterSubscriberConfig],
+  },
+  [ProjectTriggers.ANY_VERSION_SUCCEEDS]: {
+    trigger: TriggerType.FAMILY_SUCCESS,
+    resourceType: ResourceType.VERSION,
+    label: "Any Version Succeeds",
+    extraFields: [requesterSubscriberConfig],
+  },
+  [ProjectTriggers.ANY_BUILD_FINISHES]: {
+    trigger: TriggerType.OUTCOME,
+    resourceType: ResourceType.BUILD,
+    label: "Any Build Finishes",
+    regexSelectors: buildRegexSelectors,
+    extraFields: [requesterSubscriberConfig],
+  },
+  [ProjectTriggers.ANY_BUILD_FAILS]: {
+    trigger: TriggerType.FAILURE,
+    resourceType: ResourceType.BUILD,
+    label: "Any Build Fails",
+    regexSelectors: buildRegexSelectors,
+    extraFields: [requesterSubscriberConfig],
+  },
+  [ProjectTriggers.ANY_BUILD_SUCCEEDS]: {
+    trigger: TriggerType.SUCCESS,
+    resourceType: ResourceType.BUILD,
+    label: "Any Build Succeeds",
+    regexSelectors: buildRegexSelectors,
+    extraFields: [requesterSubscriberConfig],
   },
 };
 
@@ -351,3 +388,16 @@ export const invalidProjectTriggerSubscriptionCombinations = {
     ProjectTriggers.SUCCESSFUL_TASK_RUNTIME_CHANGES,
   ],
 };
+
+export const allowedSelectors = new Set([
+  "object",
+  "id",
+  "project",
+  "owner",
+  "requester",
+  "status",
+  "display-name",
+  "build-variant",
+  "in-version",
+  "in-build",
+]);
