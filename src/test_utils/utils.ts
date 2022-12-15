@@ -1,4 +1,4 @@
-import { screen, userEvent, waitFor } from ".";
+import { screen, userEvent } from ".";
 
 const mockEnvironmentalVariables = () => {
   const restoreCalls = [];
@@ -22,9 +22,7 @@ const mockEnvironmentalVariables = () => {
 const selectLGOption = async (dataCy: string, option: string) => {
   expect(screen.queryByDataCy(dataCy)).not.toBeDisabled();
   userEvent.click(screen.queryByDataCy(dataCy));
-  await waitFor(() => {
-    expect(screen.queryByText(option)).toBeVisible();
-  });
+  await screen.findByText(option);
   userEvent.click(screen.queryByText(option));
   expect(screen.queryByDataCy(dataCy)).toHaveTextContent(option);
 };
