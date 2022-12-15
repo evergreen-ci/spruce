@@ -131,3 +131,88 @@ testSharedSubscriptionModalFunctionality(
   "Version Subscription Modal",
   "version"
 );
+
+describe("Waterfall subscription modal", () => {
+  const route = "/commits/spruce";
+  const type = "project";
+  const dataCyModal = "waterfall-notification-modal";
+  const errorTextRegex = "Value should be a valid regex expression.";
+  const successText = "Your subscription has been added";
+
+  before(() => {
+    cy.visit(route);
+  });
+  it("Displays success toast after submitting a valid form and request succeeds", () => {
+    cy.dataCy("waterfall-menu").click();
+    cy.dataCy("add-notification").click();
+    cy.dataCy(dataCyModal).should("be.visible");
+
+    selectAntdOption("event-trigger-select", "Any Version Finishes");
+    selectAntdOption("notification-method-select", "JIRA issue");
+
+    cy.dataCy("jira-comment-input").type("EVG-2000");
+    cy.dataCy("save-subscription-button").should("not.be.disabled");
+    cy.dataCy("save-subscription-button").click();
+    cy.validateToast("success", successText);
+  });
+
+  it("Disables save button and displays an error message when populating form with invalid values", () => {
+    cy.dataCy("waterfall-menu").click();
+    cy.dataCy("add-notification").click();
+    cy.dataCy(dataCyModal).should("be.visible");
+
+    selectAntdOption("event-trigger-select", "Any Build Finishes");
+    cy.dataCy("add-button").click();
+    cy.dataCy("save-subscription-button").should("be.disabled");
+
+    cy.dataCy("jira-comment-input").type("EVG-2000");
+    cy.dataCy("regex-input").type("*.notValidRegex");
+    cy.contains(errorTextRegex).should("exist");
+    cy.dataCy("save-subscription-button").should("be.disabled");
+
+    cy.dataCy("regex-input").clear().type("validRegex");
+    cy.dataCy("save-subscription-button").should("not.be.disabled");
+    cy.dataCy("save-subscription-button").click();
+    cy.validateToast("success", successText);
+  });
+
+  it("Displays error toast when save subscription request fails", () => {
+    cy.dataCy("waterfall-menu").click();
+    cy.dataCy("add-notification").click();
+    cy.dataCy(dataCyModal).should("be.visible");
+
+    selectAntdOption("event-trigger-select", "Any Version Finishes");
+    cy.dataCy("jira-comment-input").type("EVG-2000");
+    mockErrorResponse({
+      path: "SaveSubscription",
+      errorMessage: "error",
+    });
+    cy.dataCy("save-subscription-button").click();
+    cy.validateToast("error");
+  });
+
+  it("Hides the modal after clicking the cancel button", () => {
+    cy.dataCy("waterfall-menu").click();
+    cy.dataCy("add-notification").click();
+    cy.dataCy(dataCyModal).should("be.visible");
+    cy.dataCy("cancel-subscription-button").click();
+    cy.dataCy(dataCyModal).should("not.be.visible");
+  });
+
+  it("Pulls initial values from cookies", () => {
+    const triggerCookie = `${type}-notification-trigger`;
+    cy.setCookie(triggerCookie, `any-build-fails`);
+    const subscriptionCookie = "subscription-method";
+    cy.setCookie(subscriptionCookie, "slack");
+
+    cy.reload();
+    cy.dataCy("waterfall-menu").click();
+    cy.dataCy("add-notification").click();
+    cy.dataCy(dataCyModal).should("be.visible");
+    cy.contains("Any Build Fails").should("be.visible");
+    cy.contains("Slack").should("be.visible");
+
+    cy.clearCookie(subscriptionCookie);
+    cy.clearCookie(triggerCookie);
+  });
+});
