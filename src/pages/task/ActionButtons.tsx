@@ -36,7 +36,7 @@ import {
   SET_TASK_PRIORTY,
   UNSCHEDULE_TASK,
 } from "gql/mutations";
-import { useUpdateURLQueryParams } from "hooks";
+import { useQueryParam } from "hooks/useQueryParam";
 import { PreviousCommits } from "./actionButtons/previousCommits/PreviousCommits";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
@@ -73,7 +73,7 @@ export const ActionButtons: React.VFC<Props> = ({
   const [priority, setPriority] = useState<number>(initialPriority);
   const { id: taskId } = useParams<{ id: string }>();
   const taskAnalytics = useTaskAnalytics();
-  const updateQueryParams = useUpdateURLQueryParams();
+  const [, setExecution] = useQueryParam("execution", 0);
 
   const [scheduleTask, { loading: loadingScheduleTask }] = useMutation<
     ScheduleTasksMutation,
@@ -124,9 +124,7 @@ export const ActionButtons: React.VFC<Props> = ({
     onCompleted: (data) => {
       const { latestExecution } = data.restartTask;
       dispatchToast.success("Task scheduled to restart");
-      updateQueryParams({
-        execution: `${latestExecution}`,
-      });
+      setExecution(latestExecution);
     },
     onError: (err) => {
       dispatchToast.error(`Error restarting task: ${err.message}`);
