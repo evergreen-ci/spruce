@@ -17,6 +17,7 @@ import {
   MigrateVolumeMutationVariables,
 } from "gql/generated/types";
 import { MIGRATE_VOLUME } from "gql/mutations";
+import { AZToRegion } from "pages/spawn/utils";
 import { TableVolume } from "types/spawn";
 import { omit } from "utils/object";
 import { initialState, Page, reducer } from "./migrateVolumeModal/reducer";
@@ -69,6 +70,7 @@ export const MigrateVolumeModal: React.VFC<MigrateVolumeModalProps> = ({
     distros,
     isMigration: true,
     isVirtualWorkstation: !!form?.distro?.isVirtualWorkstation,
+    userAwsRegion: AZToRegion(volume.availabilityZone),
   });
   useVirtualWorkstationDefaultExpiration({
     disableExpirationCheckbox: formSchemaInput.disableExpirationCheckbox,
