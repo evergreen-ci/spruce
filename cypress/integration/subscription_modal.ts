@@ -91,7 +91,7 @@ const testSharedSubscriptionModalFunctionality = (
       cy.visit(route);
       cy.dataCy(dataCyToggleModalButton).click();
       cy.dataCy(dataCyModal).should("be.visible");
-      cy.contains("Cancel").click();
+      cy.contains("button", "Cancel").click();
       cy.dataCy(dataCyModal).should("not.exist");
     });
 

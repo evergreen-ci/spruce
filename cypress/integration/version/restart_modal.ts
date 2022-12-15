@@ -78,7 +78,7 @@ describe("Restarting a patch", () => {
       cy.dataCy("task-status-filter").click();
       cy.getInputByLabel("Unscheduled").check({ force: true });
       cy.dataCy("task-status-filter").click();
-      cy.contains("Restart").click();
+      cy.contains("button", "Restart").click();
     });
     cy.dataCy("version-restart-modal").should("not.exist");
     cy.validateToast("success", "Successfully restarted tasks!");
