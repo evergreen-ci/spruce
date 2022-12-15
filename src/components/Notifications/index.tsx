@@ -35,7 +35,7 @@ interface NotificationModalProps {
   ) => void;
   subscriptionMethods: SubscriptionMethodOption[];
   triggers: Trigger;
-  type: "task" | "version";
+  type: "task" | "version" | "project";
   visible: boolean;
 }
 
@@ -88,7 +88,7 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
   const [hasError, setHasError] = useState(hasInitialError(formState));
 
   const onClickSave = () => {
-    const subscription = getGqlPayload(triggers, resourceId, formState);
+    const subscription = getGqlPayload(type, triggers, resourceId, formState);
     saveSubscription({
       variables: { subscription },
     });
