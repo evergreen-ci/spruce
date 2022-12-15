@@ -3953,7 +3953,7 @@
     "@leafygreen-ui/text-input" "^12.0.0"
     "@leafygreen-ui/tokens" "^1.3.4"
 
-"@leafygreen-ui/emotion@4.0.3", "@leafygreen-ui/emotion@^4.0.3":
+"@leafygreen-ui/emotion@4.0.3", "@leafygreen-ui/emotion@^4.0.1", "@leafygreen-ui/emotion@^4.0.3":
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/emotion/-/emotion-4.0.3.tgz#f93cf9c4471551f3d54e21670e80e6e6c019550a"
   integrity sha512-GXVHswpN68rwBv7s1FKDIBserh2WYRsXfuRSWk9Nq5SKyl74JVuvEfMIwrJLNzAy0+G3j+vskCGkH22dgPCPhA==
@@ -4041,6 +4041,13 @@
   dependencies:
     "@leafygreen-ui/emotion" "^4.0.3"
 
+"@leafygreen-ui/icon@^11.12.2":
+  version "11.12.2"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-11.12.2.tgz#17a0e30b365d06483bedfcc70cf29a723d78e680"
+  integrity sha512-DeOVJsSox34Jbjt3MH0LYX/Ztrb5JjXFvA42wwGE134l3mqo87BfKJtLpCIVq3ncUzlkxDWhMvgM/4z6z3azHQ==
+  dependencies:
+    "@leafygreen-ui/emotion" "^4.0.3"
+
 "@leafygreen-ui/inline-definition@6.0.0":
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/inline-definition/-/inline-definition-6.0.0.tgz#44632ced7f7e053575390923ec9a95cfc0e3842d"
@@ -4073,6 +4080,13 @@
   version "10.0.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-10.0.0.tgz#082155cbea1698ea1feb20ebbf9eec8f4b45ddc7"
   integrity sha512-l9W05IYJ/Bmyu5TayuadlsSR1DTF3W05o8Lk6HQk1qK+1xMLMwrxysbwzI6jKb6wAALU9/1dmw9kLDKE2n+EWg==
+  dependencies:
+    lodash "^4.17.21"
+
+"@leafygreen-ui/lib@^9.4.2":
+  version "9.5.2"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-9.5.2.tgz#c80d7920e819c89ee544866b1046667fe99ea8d3"
+  integrity sha512-soC5ZSnhqoqbFv9b2kAe+1s7nUnAcdcBzrI0yIJZymExCJsZnmI3VWjLTUbViuTrsO1GfnmLDdsUeDr3ezTOOg==
   dependencies:
     lodash "^4.17.21"
 
@@ -4134,6 +4148,11 @@
   version "3.4.4"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/palette/-/palette-3.4.4.tgz#d5a8fd85b4eaa27d8a61ffa70288f8f3451e5670"
   integrity sha512-ed71/pOusm9/I/7hTox38L5a/6UTk2nJr+b6ihQO/rh1oDblBvq48ID6wbJhmH/wif/SkSOAKPzXR9rKIu9uYg==
+
+"@leafygreen-ui/palette@^3.4.5":
+  version "3.4.5"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/palette/-/palette-3.4.5.tgz#b86af53cfb22adec097cf6b9d68688d54238f33e"
+  integrity sha512-BcxPBH6VnwooezqGpPtyZm1J22HmJtS+KJK4EJXP7oWFWPQsLGu5FLB37Qq4EUFpzEgjpgBUk6boCxHecyTPJw==
 
 "@leafygreen-ui/popover@11.0.1", "@leafygreen-ui/popover@^11.0.1":
   version "11.0.1"
@@ -4198,6 +4217,17 @@
   integrity sha512-q3Tj+s6vujLRGzf5zr83U/gNCaSKDhQ019wAAgqgn8JBah/EpALHToA98EQQsHy5JuGG79jsjJ7FwfpU2G6jYQ==
   dependencies:
     "@leafygreen-ui/tokens" "^1.4.0"
+
+"@leafygreen-ui/search-input@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/search-input/-/search-input-1.0.2.tgz#50db6aaace4e839c2fea5b38159cbc3c6ab94ab1"
+  integrity sha512-4sF076tChPM8iDMvP8GyH0CCN4PMZErH/B5cHSxxFDTtYsi9/FNGykZVBw3F/WChkpZgfJ1G0M4JspVeLWV6NQ==
+  dependencies:
+    "@leafygreen-ui/emotion" "^4.0.1"
+    "@leafygreen-ui/icon" "^11.12.2"
+    "@leafygreen-ui/lib" "^9.4.2"
+    "@leafygreen-ui/palette" "^3.4.5"
+    "@leafygreen-ui/tokens" "^1.4.1"
 
 "@leafygreen-ui/segmented-control@6.0.1":
   version "6.0.1"
@@ -4364,6 +4394,13 @@
   integrity sha512-A8xjTVUsc2OG3A6lmvJ8xw/+v0snKkqVPUHX8Q6dqDfWm4YW/wjWFoww/gUyeH4HX7lvOrBHltjwbVKGC7RcGQ==
   dependencies:
     "@leafygreen-ui/palette" "^3.4.4"
+
+"@leafygreen-ui/tokens@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tokens/-/tokens-1.4.1.tgz#67e068d5fbc560acd463d78f6c64ddf95598d60f"
+  integrity sha512-ap9IdpQy+wg8IG9rJbWZB9F9zihhixClz68UFcwJMbDqcvxcqRPBvRpkbqiJdAPwOSrbYZfrHSGEtdJk9bzZAg==
+  dependencies:
+    "@leafygreen-ui/palette" "^3.4.5"
 
 "@leafygreen-ui/tooltip@9.0.1", "@leafygreen-ui/tooltip@^9.0.0", "@leafygreen-ui/tooltip@^9.0.1":
   version "9.0.1"
@@ -8165,25 +8202,10 @@ camelcase@^6.0.0, camelcase@^6.1.0, camelcase@^6.2.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-6.2.0.tgz#924af881c9d525ac9d87f40d964e5cea982a1809"
   integrity sha512-c7wVvbw3f37nuobQNtgsgG9POC9qMbNuMQmTCqZv23b6MIz0fcYpBiOlv9gEN/hdLdnZTDQhg6e9Dq5M1vKvfg==
 
-caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001358:
-  version "1.0.30001359"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001359.tgz#a1c1cbe1c2da9e689638813618b4219acbd4925e"
-  integrity sha512-Xln/BAsPzEuiVLgJ2/45IaqD9jShtk3Y33anKb4+yLwQzws3+v6odKfpgES/cDEaZMLzSChpIGdbOYtH9MyuHw==
-
-caniuse-lite@^1.0.30001181:
-  version "1.0.30001310"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001310.tgz"
-  integrity sha512-cb9xTV8k9HTIUA3GnPUJCk0meUnrHL5gy5QePfDjxHyNBcnzPzrHFv5GqfP7ue5b1ZyzZL0RJboD6hQlPXjhjg==
-
-caniuse-lite@^1.0.30001332:
-  version "1.0.30001344"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001344.tgz#8a1e7fdc4db9c2ec79a05e9fd68eb93a761888bb"
-  integrity sha512-0ZFjnlCaXNOAYcV7i+TtdKBp0L/3XEU2MF/x6Du1lrh+SRX4IfzIVL4HNJg5pB2PmFb8rszIGyOvsZnqqRoc2g==
-
-caniuse-lite@^1.0.30001349:
-  version "1.0.30001352"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001352.tgz#cc6f5da3f983979ad1e2cdbae0505dccaa7c6a12"
-  integrity sha512-GUgH8w6YergqPQDGWhJGt8GDRnY0L/iJVQcU3eJ46GYf52R8tk0Wxp0PymuFVZboJYXGiCqwozAYZNRjVj6IcA==
+caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001181, caniuse-lite@^1.0.30001332, caniuse-lite@^1.0.30001349, caniuse-lite@^1.0.30001358:
+  version "1.0.30001439"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001439.tgz"
+  integrity sha512-1MgUzEkoMO6gKfXflStpYgZDlFM7M/ck/bgfVCACO5vnAf0fXoNVHdWtqGU+MYca+4bL9Z5bpOVmR33cWW9G2A==
 
 capital-case@^1.0.4:
   version "1.0.4"

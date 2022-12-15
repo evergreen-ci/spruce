@@ -79,7 +79,7 @@ const ProjectContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  padding: ${size.xs};
+  padding: ${size.xxs} ${size.xxs} ${size.xxs} ${size.xs};
   :hover {
     background-color: ${gray.light1};
   }

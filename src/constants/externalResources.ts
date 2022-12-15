@@ -64,3 +64,10 @@ export const getLobsterTestLogCompleteUrl = ({
         groupId ? `/${groupId}` : ""
       }${lineNum ? `#shareLine=${lineNum}` : ""}`
     : "";
+
+export const getLobsterTaskLink = (
+  logType: LogTypes,
+  taskId: string,
+  execution: number
+) =>
+  `${getLobsterURL()}/lobster/evergreen/task/${taskId}/${execution}/${logType}`;

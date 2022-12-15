@@ -1,4 +1,4 @@
-import Form, { FormProps } from "@rjsf/core";
+import Form from "@rjsf/core";
 import { SpruceFormContainer } from "./Container";
 import { customFormats } from "./customFormats";
 import { transformErrors } from "./errors";
@@ -8,17 +8,8 @@ import {
   DefaultFieldTemplate,
   ObjectFieldTemplate,
 } from "./FieldTemplates";
+import { SpruceFormProps } from "./types";
 import widgets from "./Widgets";
-
-export type SpruceFormProps<A = any> = Pick<
-  FormProps<A>,
-  "schema" | "onChange" | "formData"
-> &
-  Partial<FormProps<A>> & { customFormatFields?: CustomFormatFields };
-
-type CustomFormatFields = {
-  jiraHost?: string;
-};
 
 export const SpruceForm: React.VFC<SpruceFormProps> = ({
   schema,

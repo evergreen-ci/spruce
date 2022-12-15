@@ -15,3 +15,9 @@ export const getNoExpirationCheckboxTooltipCopy = ({
         isVolume ? "volume" : "host"
       } to expirable to enable this checkbox.`
     : undefined;
+
+export const getDefaultExpiration = () => {
+  const nextWeek = new Date();
+  nextWeek.setDate(nextWeek.getDate() + 7);
+  return nextWeek.toString();
+};

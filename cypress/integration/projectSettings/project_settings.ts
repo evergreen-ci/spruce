@@ -309,7 +309,7 @@ describe("Repo Settings", () => {
       cy.dataCy("pta-alias-input").type("my-alias");
       cy.dataCy("project-input").type("spruce");
       cy.dataCy("module-input").type("module_name");
-      cy.get("button").contains("Variant/Task").click();
+      cy.contains("button", "Variant/Task").click();
       cy.dataCy("variant-regex-input").type(".*");
       cy.dataCy("task-regex-input").type(".*");
       cy.dataCy("github-trigger-alias-checkbox").check({ force: true });
@@ -646,7 +646,7 @@ describe("Project Settings when defaulting to repo", () => {
       cy.dataCy("promote-vars-button").click();
       cy.dataCy("promote-vars-modal").should("be.visible");
       cy.dataCy("promote-var-checkbox").first().check({ force: true });
-      cy.get("button").contains("Move 1 variable").parent().click();
+      cy.contains("button", "Move 1 variable").click();
       cy.validateToast("success");
     });
   });
@@ -697,8 +697,8 @@ describe("Project Settings when defaulting to repo", () => {
     });
 
     it("Does not clear tag/regex fields when toggling between them", () => {
-      cy.get("button").contains("Tags").first().click();
-      cy.get("button").contains("Regex").first().click();
+      cy.contains("button", "Tags").first().click();
+      cy.contains("button", "Regex").first().click();
 
       cy.dataCy("variant-input").should("have.value", ".*");
     });
@@ -773,11 +773,7 @@ describe("Project Settings when defaulting to repo", () => {
     it("Defaults to repo", () => {
       cy.dataCy("default-to-repo-button").click();
       cy.dataCy("default-to-repo-modal").should("be.visible");
-      cy.dataCy("default-to-repo-modal")
-        .find("button")
-        .contains("Confirm")
-        .parent()
-        .click();
+      cy.dataCy("default-to-repo-modal").contains("button", "Confirm").click();
       cy.validateToast("success", "Successfully defaulted page to repo");
     });
 
@@ -905,11 +901,7 @@ describe("Attaching Spruce to a repo", () => {
 
   it("Attaches to new repo", () => {
     cy.dataCy("attach-repo-button").click();
-    cy.dataCy("attach-repo-modal")
-      .find("button")
-      .contains("Attach")
-      .parent()
-      .click();
+    cy.dataCy("attach-repo-modal").contains("button", "Attach").click();
     cy.validateToast("success", "Successfully attached to repo");
   });
 
@@ -990,7 +982,7 @@ describe("Duplicating a project with errors", () => {
 
   it("Successfully copies the project and shows a warning toast", () => {
     cy.dataCy("project-name-input").type("copied-project");
-    cy.get("button").contains("Duplicate").parent().click();
+    cy.contains("button", "Duplicate").click();
     cy.validateToast("warning");
   });
 
@@ -1033,8 +1025,8 @@ describe("Notifications", () => {
     cy.dataCy("add-button").contains("Add Subscription").should("be.visible");
     cy.dataCy("add-button").contains("Add Subscription").click({ force: true });
     cy.dataCy("expandable-card").should("contain.text", "New Subscription");
-    selectAntdDropdown("Event", "Any Version Finishes");
-    selectAntdDropdown("Notification Method", "Email");
+    cy.selectLGOption("Event", "Any Version Finishes");
+    cy.selectLGOption("Notification Method", "Email");
     cy.getInputByLabel("Email").type("mohamed.khelif@mongodb.com");
     cy.dataCy("save-settings-button").scrollIntoView();
     cy.dataCy("save-settings-button").should("not.be.disabled");
@@ -1065,8 +1057,8 @@ describe("Notifications", () => {
     cy.dataCy("add-button").contains("Add Subscription").click({ force: true });
     cy.dataCy("expandable-card").should("exist").scrollIntoView();
     cy.dataCy("expandable-card").should("contain.text", "New Subscription");
-    selectAntdDropdown("Event", "Any Task Finishes");
-    selectAntdDropdown("Notification Method", "Comment on a JIRA issue");
+    cy.selectLGOption("Event", "Any Task Finishes");
+    cy.selectLGOption("Notification Method", "Comment on a JIRA issue");
     cy.getInputByLabel("JIRA Issue").type("JIRA-123");
     cy.contains(
       "JIRA comment subscription not allowed for tasks in a project"
@@ -1075,25 +1067,11 @@ describe("Notifications", () => {
     cy.dataCy("save-settings-button").should("be.disabled");
   });
   it("should not be able to save a subscription if an input is invalid", () => {
-    selectAntdDropdown("Event", "Any Version Finishes");
-    selectAntdDropdown("Notification Method", "Email");
+    cy.selectLGOption("Event", "Any Version Finishes");
+    cy.selectLGOption("Notification Method", "Email");
     cy.getInputByLabel("Email").type("Not a real email");
     cy.contains("Value should be a valid email.").should("exist");
     cy.dataCy("save-settings-button").scrollIntoView();
     cy.dataCy("save-settings-button").should("be.disabled");
   });
 });
-
-function selectAntdDropdown(label: string, optionText: string) {
-  // open select
-  cy.getInputByLabel(label).click({ force: true });
-
-  return cy
-    .get(".ant-select-dropdown :not(.ant-select-dropdown-hidden)")
-    .find(".ant-select-item-option")
-    .each((el) => {
-      if (el.text() === optionText) {
-        cy.wrap(el).click({ force: true });
-      }
-    });
-}

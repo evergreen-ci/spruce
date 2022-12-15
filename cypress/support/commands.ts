@@ -103,3 +103,10 @@ Cypress.Commands.add(
     }
   }
 );
+
+/* selectLGOption */
+Cypress.Commands.add("selectLGOption", (label: string, option: string) => {
+  // open select
+  cy.getInputByLabel(label).click({ force: true });
+  return cy.contains(option).click();
+});

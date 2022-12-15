@@ -1,6 +1,6 @@
 import { formToGql } from "./transformer";
 
-describe("repo data", () => {
+describe("spawn host modal", () => {
   it("correctly converts from a form to GQL", () => {
     data.forEach(({ formData, mutationInput }) => {
       expect(

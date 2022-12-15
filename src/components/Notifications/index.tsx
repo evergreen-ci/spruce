@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import Button, { Variant } from "@leafygreen-ui/button";
+import Button from "@leafygreen-ui/button";
 import Cookies from "js-cookie";
-import { Modal } from "components/Modal";
+import { ConfirmationModal } from "components/ConfirmationModal";
 import { SpruceForm } from "components/SpruceForm";
 import {
   getNotificationTriggerCookie,
@@ -35,7 +35,7 @@ interface NotificationModalProps {
   ) => void;
   subscriptionMethods: SubscriptionMethodOption[];
   triggers: Trigger;
-  type: "task" | "version";
+  type: "task" | "version" | "project";
   visible: boolean;
 }
 
@@ -88,7 +88,7 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
   const [hasError, setHasError] = useState(hasInitialError(formState));
 
   const onClickSave = () => {
-    const subscription = getGqlPayload(triggers, resourceId, formState);
+    const subscription = getGqlPayload(type, triggers, resourceId, formState);
     saveSubscription({
       variables: { subscription },
     });
@@ -119,31 +119,14 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
   );
 
   return (
-    <Modal
+    <ConfirmationModal
       data-cy={dataCy}
-      visible={visible}
+      open={visible}
       onCancel={onCancel}
       title="Add Subscription"
-      footer={
-        <>
-          <LeftButton
-            data-cy="cancel-subscription-button"
-            key="cancel"
-            onClick={onCancel}
-          >
-            Cancel
-          </LeftButton>
-          <Button
-            data-cy="save-subscription-button"
-            disabled={hasError}
-            key="save"
-            onClick={onClickSave}
-            variant={Variant.Primary}
-          >
-            Save
-          </Button>
-        </>
-      }
+      onConfirm={onClickSave}
+      submitDisabled={hasError}
+      buttonText="Save"
     >
       <SpruceForm
         schema={schema}
@@ -158,7 +141,7 @@ export const NotificationModal: React.VFC<NotificationModalProps> = ({
           setHasError(errors.length !== 0);
         }}
       />
-    </Modal>
+    </ConfirmationModal>
   );
 };
 
