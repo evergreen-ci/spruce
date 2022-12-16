@@ -12,7 +12,11 @@ export const getFormSchema = (
   fields: {},
   schema: {
     type: "object" as "object",
-    description: "Configure tasks to run at fixed intervals.",
+    description:
+      "Configure tasks to run at a consistent interval within this project. " +
+      "This will create a new version that can be seen on the Spruce commits page, " +
+      "regardless of whether or not a new commit has been pushed since the last interval, " +
+      "as opposed to batchtime which will activate the tasks on existing commit versions.",
     ...overrideRadioBox(
       "periodicBuilds",
       ["Override Repo Commands", "Default to Repo Commands"],
