@@ -13,6 +13,22 @@ describe("storybook", () => {
     matchMedia = new MatchMediaMock();
     mockUUID();
   });
+  beforeEach(() => {
+    const mockIntersectionObserver = jest.fn((callback) => {
+      callback([
+        {
+          isIntersecting: true,
+        },
+      ]);
+      return {
+        observe: jest.fn(),
+        unobserve: jest.fn(),
+      };
+    });
+
+    // @ts-expect-error
+    window.IntersectionObserver = mockIntersectionObserver;
+  });
 
   afterAll(() => {
     matchMedia.clear();
