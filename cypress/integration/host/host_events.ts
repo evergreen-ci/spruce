@@ -1,8 +1,14 @@
 import { clickOnPageSizeBtnAndAssertURLandTableSize } from "../../utils";
 
-const pathWithEvents = `/host/i-0f81a2d39744003dd`;
+const pathWithEvents = "/host/i-0f81a2d39744003dd";
 
 describe("Host events", () => {
+  beforeEach(() => {
+    cy.session("log in and set pagination", () => {
+      cy.login();
+      window.localStorage.setItem("recentPageSize", "20");
+    });
+  });
   it("host events display the correct text", () => {
     cy.visit(pathWithEvents);
     clickOnPageSizeBtnAndAssertURLandTableSize(100, dataCy);
@@ -102,7 +108,7 @@ describe("Host events", () => {
     });
   });
 
-  it("host events with logs display the correct text and the logs get displayed when available", () => {
+  it.only("host events with logs display the correct text and the logs get displayed when available", () => {
     const hostTypes = [
       {
         hostType: "host-script-executed",
