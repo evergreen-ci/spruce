@@ -12,6 +12,24 @@ export default {
     hasTaskFilter: false,
     hasFilters: false,
   },
+  argTypes: {
+    buildVariantCount: {
+      control: {
+        type: "range",
+        min: 1,
+        max: 100,
+        step: 1,
+      },
+    },
+    taskCount: {
+      control: {
+        type: "range",
+        min: 1,
+        max: 1000,
+        step: 1,
+      },
+    },
+  },
 };
 
 export const ActualWaterfallPage = ({
@@ -39,36 +57,47 @@ const buildVariantUpdateLength = (
   buildVariant: CommitVersion["buildVariants"],
   buildVariantCount: number
 ) => {
-  if (buildVariant.length === buildVariantCount) {
-    return buildVariant;
-  }
+  // Given a list of buildVariants, return a list of buildVariants with the same length as buildVariantCount
+  // If the list of buildVariants is longer than buildVariantCount, return a list of buildVariants with length buildVariantCount
+  // If the list of buildVariants is shorter than buildVariantCount, return a list of buildVariants with length buildVariantCount
+  // If the list of buildVariants is the same length as buildVariantCount, return the list of buildVariants
+
+  let newBuildVariants = buildVariant;
   if (buildVariant.length < buildVariantCount) {
-    const newBuildVariant = buildVariant.concat(
+    newBuildVariants = buildVariant.concat(
       buildVariant.slice(buildVariant.length - buildVariantCount)
     );
-    return newBuildVariant;
   }
   if (buildVariant.length > buildVariantCount) {
-    const newBuildVariant = buildVariant.slice(0, buildVariantCount);
-    return newBuildVariant;
+    newBuildVariants = buildVariant.slice(0, buildVariantCount);
   }
+  return newBuildVariants.map((bv, index) => ({
+    ...bv,
+    displayName: `${bv.displayName} ${index}`,
+    variant: `${bv.variant} ${index}`,
+  }));
 };
 
 const taskUpdateLength = (
   tasks: CommitVersion["buildVariants"][0]["tasks"],
   taskCount: number
 ) => {
-  if (tasks.length === taskCount) {
-    return tasks;
-  }
+  // Given a list of tasks, return a list of tasks with the same length as taskCount
+  // If the list of tasks is longer than taskCount, return a list of tasks with length taskCount
+  // If the list of tasks is shorter than taskCount, return a list of tasks with length taskCount
+  // If the list of tasks is the same length as taskCount, return the list of tasks
+  let newTasks = tasks;
   if (tasks.length < taskCount) {
-    const newTasks = tasks.concat(tasks.slice(tasks.length - taskCount));
-    return newTasks;
+    newTasks = tasks.concat(tasks.slice(tasks.length - taskCount));
   }
   if (tasks.length > taskCount) {
-    const newTasks = tasks.slice(0, taskCount);
-    return newTasks;
+    newTasks = tasks.slice(0, taskCount);
   }
+  return newTasks.map((task, index) => ({
+    ...task,
+    displayName: `${task.displayName} ${index}`,
+    id: `${task.id} ${index}`,
+  }));
 };
 
 const isRolledUpCommit = (commit: Commit) => commit.rolledUpVersions !== null;

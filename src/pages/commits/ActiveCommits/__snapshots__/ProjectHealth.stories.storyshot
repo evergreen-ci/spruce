@@ -705,10 +705,10 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
-            href="/variant-history/spruce/code_health?selectedCommit=929"
+            href="/variant-history/spruce/code_health 0?selectedCommit=929"
             onClick={[Function]}
           >
-            01. Code Health [code_health]
+            01. Code Health [code_health] 0
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -722,7 +722,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                   aria-label="pending icon"
                   className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
                   data-cy="waterfall-task-status-icon"
-                  href="/task/code_health"
+                  href="/task/code_health 0"
                   onBlur={[Function]}
                   onClick={[Function]}
                   onFocus={[Function]}
@@ -731,7 +731,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 >
                   <div
                     className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="code_health-Code Health"
+                    data-task-icon="code_health 0-Code Health 0"
                   >
                     <svg
                       aria-label="Calendar Icon"
@@ -762,10 +762,10 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
-            href="/variant-history/spruce/package_rpm?selectedCommit=929"
+            href="/variant-history/spruce/package_rpm 1?selectedCommit=929"
             onClick={[Function]}
           >
-            02. Packaging (RPM - RHEL7) [package_rpm]
+            02. Packaging (RPM - RHEL7) [package_rpm] 1
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -779,7 +779,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                   aria-label="will-run icon"
                   className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
                   data-cy="waterfall-task-status-icon"
-                  href="/task/code_health"
+                  href="/task/code_health 0"
                   onBlur={[Function]}
                   onClick={[Function]}
                   onFocus={[Function]}
@@ -788,7 +788,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 >
                   <div
                     className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="package_rpm-Code Health"
+                    data-task-icon="package_rpm 1-Code Health 0"
                   >
                     <svg
                       aria-label="Calendar Icon"
@@ -819,10 +819,10 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
-            href="/variant-history/spruce/js?selectedCommit=929"
+            href="/variant-history/spruce/js 2?selectedCommit=929"
             onClick={[Function]}
           >
-            03b. JavaScript Tests [js]
+            03b. JavaScript Tests [js] 2
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -836,7 +836,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                   aria-label="will-run icon"
                   className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
                   data-cy="waterfall-task-status-icon"
-                  href="/task/js"
+                  href="/task/js 0"
                   onBlur={[Function]}
                   onClick={[Function]}
                   onFocus={[Function]}
@@ -845,7 +845,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 >
                   <div
                     className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="js-JavaScript Test"
+                    data-task-icon="js 2-JavaScript Test 0"
                   >
                     <svg
                       aria-label="Calendar Icon"
@@ -885,10 +885,10 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
-            href="/variant-history/spruce/code_health?selectedCommit=928"
+            href="/variant-history/spruce/code_health 0?selectedCommit=928"
             onClick={[Function]}
           >
-            01. Code Health [code_health]
+            01. Code Health [code_health] 0
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -902,7 +902,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                   aria-label="pending icon"
                   className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
                   data-cy="waterfall-task-status-icon"
-                  href="/task/code_health"
+                  href="/task/code_health 0"
                   onBlur={[Function]}
                   onClick={[Function]}
                   onFocus={[Function]}
@@ -911,7 +911,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 >
                   <div
                     className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="code_health-Code Health"
+                    data-task-icon="code_health 0-Code Health 0"
                   >
                     <svg
                       aria-label="Calendar Icon"
@@ -942,10 +942,10 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
-            href="/variant-history/spruce/package_rpm?selectedCommit=928"
+            href="/variant-history/spruce/package_rpm 1?selectedCommit=928"
             onClick={[Function]}
           >
-            02. Packaging (RPM - RHEL7) [package_rpm]
+            02. Packaging (RPM - RHEL7) [package_rpm] 1
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -959,7 +959,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                   aria-label="pending icon"
                   className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
                   data-cy="waterfall-task-status-icon"
-                  href="/task/code_health"
+                  href="/task/code_health 0"
                   onBlur={[Function]}
                   onClick={[Function]}
                   onFocus={[Function]}
@@ -968,7 +968,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 >
                   <div
                     className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="package_rpm-Code Health"
+                    data-task-icon="package_rpm 1-Code Health 0"
                   >
                     <svg
                       aria-label="Calendar Icon"
@@ -999,10 +999,10 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
-            href="/variant-history/spruce/unit_java?selectedCommit=928"
+            href="/variant-history/spruce/unit_java 2?selectedCommit=928"
             onClick={[Function]}
           >
-            03a. Unit Tests Java [unit_java]
+            03a. Unit Tests Java [unit_java] 2
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -1016,7 +1016,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                   aria-label="failed icon"
                   className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
                   data-cy="waterfall-task-status-icon"
-                  href="/task/unit_java"
+                  href="/task/unit_java 0"
                   onBlur={[Function]}
                   onClick={[Function]}
                   onFocus={[Function]}
@@ -1025,7 +1025,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 >
                   <div
                     className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="unit_java-Unit Tests"
+                    data-task-icon="unit_java 2-Unit Tests 0"
                   >
                     <svg
                       aria-label="Failure Icon"
@@ -1064,10 +1064,10 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
-            href="/variant-history/spruce/code_health?selectedCommit=926"
+            href="/variant-history/spruce/code_health 0?selectedCommit=926"
             onClick={[Function]}
           >
-            01. Code Health [code_health]
+            01. Code Health [code_health] 0
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -1081,7 +1081,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                   aria-label="will-run icon"
                   className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
                   data-cy="waterfall-task-status-icon"
-                  href="/task/code_health"
+                  href="/task/code_health 0"
                   onBlur={[Function]}
                   onClick={[Function]}
                   onFocus={[Function]}
@@ -1090,7 +1090,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 >
                   <div
                     className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="code_health-Code Health"
+                    data-task-icon="code_health 0-Code Health 0"
                   >
                     <svg
                       aria-label="Calendar Icon"
@@ -1121,10 +1121,10 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
-            href="/variant-history/spruce/package_rpm?selectedCommit=926"
+            href="/variant-history/spruce/package_rpm 1?selectedCommit=926"
             onClick={[Function]}
           >
-            02. Packaging (RPM - RHEL7) [package_rpm]
+            02. Packaging (RPM - RHEL7) [package_rpm] 1
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -1138,7 +1138,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                   aria-label="pending icon"
                   className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
                   data-cy="waterfall-task-status-icon"
-                  href="/task/code_health"
+                  href="/task/code_health 0"
                   onBlur={[Function]}
                   onClick={[Function]}
                   onFocus={[Function]}
@@ -1147,7 +1147,64 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 >
                   <div
                     className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="package_rpm-Code Health"
+                    data-task-icon="package_rpm 1-Code Health 0"
+                  >
+                    <svg
+                      aria-label="Calendar Icon"
+                      className="leafygreen-ui-foqtcf"
+                      fill="none"
+                      height={16}
+                      role="img"
+                      viewBox="0 0 16 16"
+                      width={16}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clipRule="evenodd"
+                        d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
+                        fill="currentColor"
+                        fillRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="css-8bv1t4-Container ek3nkvx1"
+        >
+          <a
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+            data-cy="variant-header"
+            href="/variant-history/spruce/package_rpm 2?selectedCommit=926"
+            onClick={[Function]}
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm] 2
+          </a>
+          <div
+            className="css-xlhdy3-Content ek3nkvx0"
+            height="40px"
+          >
+            <div>
+              <div
+                className="css-cdgbn2-IconContainer ek3nkvx2"
+              >
+                <a
+                  aria-label="pending icon"
+                  className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
+                  data-cy="waterfall-task-status-icon"
+                  href="/task/code_health 0"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                >
+                  <div
+                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                    data-task-icon="package_rpm 2-Code Health 0"
                   >
                     <svg
                       aria-label="Calendar Icon"
@@ -1187,10 +1244,10 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
-            href="/variant-history/spruce/code_health?selectedCommit=925"
+            href="/variant-history/spruce/code_health 0?selectedCommit=925"
             onClick={[Function]}
           >
-            01. Code Health [code_health]
+            01. Code Health [code_health] 0
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -1204,7 +1261,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                   aria-label="will-run icon"
                   className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
                   data-cy="waterfall-task-status-icon"
-                  href="/task/code_health"
+                  href="/task/code_health 0"
                   onBlur={[Function]}
                   onClick={[Function]}
                   onFocus={[Function]}
@@ -1213,7 +1270,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 >
                   <div
                     className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="code_health-Code Health"
+                    data-task-icon="code_health 0-Code Health 0"
                   >
                     <svg
                       aria-label="Calendar Icon"
@@ -1244,10 +1301,10 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
-            href="/variant-history/spruce/package_rpm?selectedCommit=925"
+            href="/variant-history/spruce/package_rpm 1?selectedCommit=925"
             onClick={[Function]}
           >
-            02. Packaging (RPM - RHEL7) [package_rpm]
+            02. Packaging (RPM - RHEL7) [package_rpm] 1
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -1261,7 +1318,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                   aria-label="success icon"
                   className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
                   data-cy="waterfall-task-status-icon"
-                  href="/task/code_health"
+                  href="/task/code_health 0"
                   onBlur={[Function]}
                   onClick={[Function]}
                   onFocus={[Function]}
@@ -1270,7 +1327,64 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 >
                   <div
                     className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="package_rpm-Code Health"
+                    data-task-icon="package_rpm 1-Code Health 0"
+                  >
+                    <svg
+                      aria-label="Checkmark Icon"
+                      className="leafygreen-ui-ifwzrn"
+                      fill="none"
+                      height={16}
+                      role="img"
+                      viewBox="0 0 16 16"
+                      width={16}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clipRule="evenodd"
+                        d="M6.306 9.05l5.455-5.455a1 1 0 011.414 0l.707.707a1 1 0 010 1.414l-7.067 7.068a1 1 0 01-1.5-.098l-3.049-3.97a1 1 0 01.184-1.402l.595-.457a1.25 1.25 0 011.753.23L6.306 9.05z"
+                        fill="currentColor"
+                        fillRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="css-8bv1t4-Container ek3nkvx1"
+        >
+          <a
+            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+            data-cy="variant-header"
+            href="/variant-history/spruce/package_rpm 2?selectedCommit=925"
+            onClick={[Function]}
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm] 2
+          </a>
+          <div
+            className="css-xlhdy3-Content ek3nkvx0"
+            height="40px"
+          >
+            <div>
+              <div
+                className="css-cdgbn2-IconContainer ek3nkvx2"
+              >
+                <a
+                  aria-label="success icon"
+                  className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
+                  data-cy="waterfall-task-status-icon"
+                  href="/task/code_health 0"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                >
+                  <div
+                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
+                    data-task-icon="package_rpm 2-Code Health 0"
                   >
                     <svg
                       aria-label="Checkmark Icon"
@@ -1310,10 +1424,10 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
-            href="/variant-history/spruce/code_health?selectedCommit=924"
+            href="/variant-history/spruce/code_health 0?selectedCommit=924"
             onClick={[Function]}
           >
-            01. Code Health [code_health]
+            01. Code Health [code_health] 0
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -1327,7 +1441,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                   aria-label="failed icon"
                   className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
                   data-cy="waterfall-task-status-icon"
-                  href="/task/code_health"
+                  href="/task/code_health 0"
                   onBlur={[Function]}
                   onClick={[Function]}
                   onFocus={[Function]}
@@ -1336,7 +1450,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 >
                   <div
                     className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="code_health-Code Health"
+                    data-task-icon="code_health 0-Code Health 0"
                   >
                     <svg
                       aria-label="Failure Icon"
@@ -1362,10 +1476,10 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
-            href="/variant-history/spruce/package_rpm?selectedCommit=924"
+            href="/variant-history/spruce/package_rpm 1?selectedCommit=924"
             onClick={[Function]}
           >
-            02. Packaging (RPM - RHEL7) [package_rpm]
+            02. Packaging (RPM - RHEL7) [package_rpm] 1
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -1379,7 +1493,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                   aria-label="failed icon"
                   className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
                   data-cy="waterfall-task-status-icon"
-                  href="/task/code_health"
+                  href="/task/code_health 0"
                   onBlur={[Function]}
                   onClick={[Function]}
                   onFocus={[Function]}
@@ -1388,7 +1502,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 >
                   <div
                     className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="package_rpm-Code Health"
+                    data-task-icon="package_rpm 1-Code Health 0"
                   >
                     <svg
                       aria-label="Failure Icon"
@@ -1414,10 +1528,10 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
           <a
             className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
             data-cy="variant-header"
-            href="/variant-history/spruce/unit_java?selectedCommit=924"
+            href="/variant-history/spruce/unit_java 2?selectedCommit=924"
             onClick={[Function]}
           >
-            03a. Unit Tests Java [unit_java]
+            03a. Unit Tests Java [unit_java] 2
           </a>
           <div
             className="css-xlhdy3-Content ek3nkvx0"
@@ -1431,7 +1545,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                   aria-label="failed icon"
                   className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
                   data-cy="waterfall-task-status-icon"
-                  href="/task/unit_java"
+                  href="/task/unit_java 0"
                   onBlur={[Function]}
                   onClick={[Function]}
                   onFocus={[Function]}
@@ -1440,7 +1554,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 >
                   <div
                     className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="unit_java-Unit Tests"
+                    data-task-icon="unit_java 2-Unit Tests 0"
                   >
                     <svg
                       aria-label="Failure Icon"
