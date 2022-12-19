@@ -8,6 +8,7 @@ modules:
 - name: evergreen
   repo: git@github.com:evergreen-ci/evergreen.git
   branch: main
+  auto_update: true
 
 #######################################
 #              Functions              #

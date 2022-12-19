@@ -1,5 +1,5 @@
 import { NotificationMethods } from "types/subscription";
-import { Trigger, ExtraField } from "types/triggers";
+import { Trigger, ExtraField, StringMap } from "types/triggers";
 import { FormState, FormExtraFields, FormRegexSelector } from "./types";
 
 // This utils file contains functions used to process the form state.
@@ -24,7 +24,7 @@ const regexFormToGql = (
   hasRegexSelectors: boolean,
   regexForm: FormRegexSelector[]
 ) =>
-  hasRegexSelectors
+  hasRegexSelectors && regexForm
     ? regexForm.map((r) => ({
         type: r.regexSelect,
         data: r.regexInput,
@@ -37,7 +37,7 @@ const regexFormToGql = (
 const extraFieldsFormToGql = (
   extraFieldsToInclude: ExtraField[],
   extraFieldsForm: FormExtraFields
-) => {
+): StringMap => {
   // If there are no extra fields for this trigger, just return.
   if (!extraFieldsToInclude) {
     return {};
@@ -50,6 +50,7 @@ const extraFieldsFormToGql = (
 };
 
 export const getGqlPayload = (
+  type: "task" | "version" | "project",
   triggers: Trigger,
   resourceId: string,
   formState: FormState
@@ -76,20 +77,28 @@ export const getGqlPayload = (
   const method = formState.notification.notificationSelect;
   const subscriber = formState.notification[getTargetForMethod(method)];
 
+  const selectors =
+    type === "project"
+      ? [
+          { type: "project", data: resourceId },
+          { type: "requester", data: triggerData.requester },
+        ]
+      : [
+          { type: "object", data: resourceType.toLowerCase() },
+          { type: payloadResourceIdKey, data: resourceId },
+        ];
+
   return {
-    trigger,
-    resource_type: resourceType,
-    selectors: [
-      { type: "object", data: resourceType.toLowerCase() },
-      { type: payloadResourceIdKey, data: resourceId },
-    ],
-    trigger_data: triggerData,
+    owner_type: "person",
     regex_selectors: regexData,
+    resource_type: resourceType,
+    selectors,
     subscriber: {
       type: method,
       target: subscriber,
     },
-    owner_type: "person",
+    trigger,
+    trigger_data: triggerData,
   };
 };
 

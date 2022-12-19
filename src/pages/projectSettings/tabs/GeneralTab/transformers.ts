@@ -5,17 +5,20 @@ import {
   RepoSettingsQuery,
 } from "gql/generated/types";
 import { FormToGqlFunction, GqlToFormFunction } from "../types";
+import { ProjectType } from "../utils";
 
 type Tab = ProjectSettingsTabRoutes.General;
 
 export const gqlToForm: GqlToFormFunction<Tab> = (
   data:
     | ProjectSettingsQuery["projectSettings"]
-    | RepoSettingsQuery["repoSettings"]
+    | RepoSettingsQuery["repoSettings"],
+  options: { projectType: ProjectType }
 ) => {
   if (!data) return null;
 
   const { projectRef } = data;
+  const { projectType } = options;
 
   return {
     generalConfiguration: {
@@ -55,11 +58,27 @@ export const gqlToForm: GqlToFormFunction<Tab> = (
         patchEnabled: projectRef.taskSync.patchEnabled,
       },
     },
+    historicalDataCaching: {
+      disabledStatsCache: projectRef.disabledStatsCache,
+      files: {
+        filesIgnoredFromCacheOverride:
+          projectType !== ProjectType.AttachedProject ||
+          !!projectRef.filesIgnoredFromCache,
+        filesIgnoredFromCache: projectRef.filesIgnoredFromCache ?? [],
+      },
+    },
   };
 };
 
 export const formToGql: FormToGqlFunction<Tab> = (
-  { generalConfiguration, projectFlags },
+  {
+    generalConfiguration,
+    projectFlags,
+    historicalDataCaching: {
+      disabledStatsCache,
+      files: { filesIgnoredFromCache, filesIgnoredFromCacheOverride },
+    },
+  },
   id: string
 ) => {
   const projectRef: ProjectInput = {
@@ -85,6 +104,10 @@ export const formToGql: FormToGqlFunction<Tab> = (
       configEnabled: projectFlags.taskSync.configEnabled,
       patchEnabled: projectFlags.taskSync.patchEnabled,
     },
+    disabledStatsCache,
+    filesIgnoredFromCache: filesIgnoredFromCacheOverride
+      ? filesIgnoredFromCache
+      : null,
   };
 
   return { projectRef };
