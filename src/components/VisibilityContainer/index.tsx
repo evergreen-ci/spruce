@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 
 interface VisibilityContainerProps {
   children: React.ReactNode;
@@ -17,7 +17,7 @@ const VisibilityContainer: React.VFC<VisibilityContainerProps> = ({
     const observer = new IntersectionObserver(([entry]) => {
       setIsVisible(entry.isIntersecting);
     });
-    observer.observe(currentRef);
+    observer.disconnect();
     return () => observer.unobserve(currentRef);
   }, []);
 
