@@ -140,6 +140,7 @@ const SecondaryLink = styled(StyledLink)`
 `;
 
 const ChristmasTreeIcon = styled.img`
-  height: 32px;
-  width: 32px;
+  height: 46px;
+  width: 46px;
+  position: relative;
 `;
