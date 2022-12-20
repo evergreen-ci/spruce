@@ -143,4 +143,5 @@ const ChristmasTreeIcon = styled.img`
   height: 46px;
   width: 46px;
   position: relative;
+  bottom: 4px;
 `;
