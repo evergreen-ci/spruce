@@ -734,7 +734,7 @@ export type MutationRestartJasperArgs = {
 };
 
 export type MutationRestartTaskArgs = {
-  failedOnly?: InputMaybe<Scalars["Boolean"]>;
+  failedOnly: Scalars["Boolean"];
   taskId: Scalars["String"];
 };
 
