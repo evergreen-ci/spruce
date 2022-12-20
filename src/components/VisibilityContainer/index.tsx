@@ -17,8 +17,8 @@ const VisibilityContainer: React.VFC<VisibilityContainerProps> = ({
     const observer = new IntersectionObserver(([entry]) => {
       setIsVisible(entry.isIntersecting);
     });
-    observer.disconnect();
-    return () => observer.unobserve(currentRef);
+    observer.observe(currentRef);
+    return () => observer.disconnect();
   }, []);
 
   return <div ref={containerRef}>{isVisible ? children : null}</div>;
