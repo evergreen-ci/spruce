@@ -5,6 +5,7 @@ import { palette } from "@leafygreen-ui/palette";
 import { Link } from "react-router-dom";
 import { useNavbarAnalytics } from "analytics";
 import Icon from "components/Icon";
+import ChristmasTree from "components/Icon/icons/ChristmasTree.svg";
 import { wikiUrl } from "constants/externalResources";
 import { getCommitsRoute, getUserPatchesRoute, routes } from "constants/routes";
 import { size } from "constants/tokens";
@@ -36,7 +37,7 @@ export const Navbar: React.VFC = () => {
           to={routes.myPatches}
           onClick={() => sendEvent({ name: "Click Logo Link" })}
         >
-          <Icon glyph="EvergreenLogo" size={28} />
+          <ChristmasTreeIcon src={ChristmasTree} alt="Evergreen Logo" />
         </LogoLink>
         <PrimaryLink
           to={getCommitsRoute()}
@@ -146,4 +147,11 @@ const secondaryStyle = css`
 
 const SecondaryLink = styled.a`
   ${secondaryStyle}
+`;
+
+const ChristmasTreeIcon = styled.img`
+  height: 46px;
+  width: 46px;
+  position: relative;
+  bottom: 4px;
 `;
