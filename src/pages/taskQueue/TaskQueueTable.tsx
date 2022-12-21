@@ -7,7 +7,7 @@ import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { useParams, useLocation } from "react-router-dom";
 import { useTaskQueueAnalytics } from "analytics";
-import { StyledRouterLink } from "components/styles";
+import { StyledRouterLink, WordBreak } from "components/styles";
 import { getVersionRoute, getTaskRoute } from "constants/routes";
 import {
   DistroTaskQueueQuery,
@@ -87,7 +87,7 @@ export const TaskQueueTable = () => {
                 taskQueueAnalytics.sendEvent({ name: "Click Task Link" })
               }
             >
-              {displayName}
+              <WordBreak>{displayName}</WordBreak>
             </StyledRouterLink>
           </Body>
           <Body>{buildVariant}</Body>
