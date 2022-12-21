@@ -2,414 +2,296 @@
 
 exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall Page 1`] = `
 <div
-  className="css-1htrvjs-ChartContainer ech0nhv3"
+  style={
+    Object {
+      "height": "500px",
+    }
+  }
 >
   <div
-    className="css-1r6zuyg-Row ev0bopr3"
-  >
-    <span
-      className="css-58nl5l-AccordionToggle ev0bopr2"
-      data-cy="accordion-toggle"
-      onClick={[Function]}
-    >
-      <svg
-        aria-label="Caret Down Icon"
-        className=""
-        fill="none"
-        height={16}
-        role="img"
-        viewBox="0 0 16 16"
-        width={16}
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M8.679 10.796a.554.554 0 01-.858 0L4.64 6.976C4.32 6.594 4.582 6 5.069 6h6.362c.487 0 .748.594.43.976l-3.182 3.82z"
-          fill="currentColor"
-        />
-      </svg>
-      <span>
-        Project Health
-      </span>
-    </span>
-  </div>
-  <div
-    className="css-1ofqqce-AnimatedAccordion ev0bopr1"
+    className="css-1htrvjs-ChartContainer ech0nhv3"
   >
     <div
-      className="css-1ds08bm-ContentsContainer ev0bopr0"
+      className="css-1r6zuyg-Row ev0bopr3"
+    >
+      <span
+        className="css-58nl5l-AccordionToggle ev0bopr2"
+        data-cy="accordion-toggle"
+        onClick={[Function]}
+      >
+        <svg
+          aria-label="Caret Down Icon"
+          className=""
+          fill="none"
+          height={16}
+          role="img"
+          viewBox="0 0 16 16"
+          width={16}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M8.679 10.796a.554.554 0 01-.858 0L4.64 6.976C4.32 6.594 4.582 6 5.069 6h6.362c.487 0 .748.594.43.976l-3.182 3.82z"
+            fill="currentColor"
+          />
+        </svg>
+        <span>
+          Project Health
+        </span>
+      </span>
+    </div>
+    <div
+      className="css-1ofqqce-AnimatedAccordion ev0bopr1"
     >
       <div
-        className="css-j6oyur-ChartWrapper e3d007b1"
+        className="css-1ds08bm-ContentsContainer ev0bopr0"
       >
         <div
-          className="css-gnwyka-FlexRowContainer eq4i7ol1"
+          className="css-j6oyur-ChartWrapper e3d007b1"
         >
           <div
-            className="css-mgqp2w-CommitWrapper eq4i7ol0"
-            width={200}
+            className="css-gnwyka-FlexRowContainer eq4i7ol1"
           >
             <div
-              className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
-              data-cy="commit-chart-container"
-              data-type="absolute"
-              onBlur={[Function]}
-              onFocus={[Function]}
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
+              className="css-mgqp2w-CommitWrapper eq4i7ol0"
+              width={200}
             >
               <div
-                className="css-118ut8l-Bar e1tzsy280"
-                color="#4F4FBF"
-                data-cy="commit-chart-bar"
-                height="35%"
-              />
-              <div
-                className="css-1ciyyzm-Bar e1tzsy280"
-                color="#F1F0FC"
-                data-cy="commit-chart-bar"
-                height="25%"
-              />
-              <div
-                className="css-1wnnau0-Bar e1tzsy280"
-                color="#5D6C74"
-                data-cy="commit-chart-bar"
-                height="10%"
+                className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+                data-cy="commit-chart-container"
+                data-type="absolute"
+                onBlur={[Function]}
+                onFocus={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
               />
             </div>
-          </div>
-          <div
-            className="css-mgqp2w-CommitWrapper eq4i7ol0"
-            width={200}
-          >
             <div
-              className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
-              data-cy="commit-chart-container"
-              data-type="absolute"
-              onBlur={[Function]}
-              onFocus={[Function]}
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
+              className="css-mgqp2w-CommitWrapper eq4i7ol0"
+              width={200}
             >
               <div
-                className="css-13lwr9o-Bar e1tzsy280"
-                color="#CF4A22"
-                data-cy="commit-chart-bar"
-                height="30%"
-              />
-              <div
-                className="css-1l8kjo3-Bar e1tzsy280"
-                color="#4F4FBF"
-                data-cy="commit-chart-bar"
-                height="30%"
-              />
-              <div
-                className="css-1sxj9ug-Bar e1tzsy280"
-                color="#89979B"
-                data-cy="commit-chart-bar"
-                height="10%"
-              />
-              <div
-                className="css-1pry9ok-Bar e1tzsy280"
-                color="#5D6C74"
-                data-cy="commit-chart-bar"
-                height="60%"
+                className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+                data-cy="commit-chart-container"
+                data-type="absolute"
+                onBlur={[Function]}
+                onFocus={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
               />
             </div>
-          </div>
-          <div
-            className="css-11x1fi4-CommitWrapper eq4i7ol0"
-            width={64}
-          >
             <div
-              className="css-316fn7-InactiveCommitContainer ezzuvrx10"
+              className="css-11x1fi4-CommitWrapper eq4i7ol0"
+              width={64}
             >
               <div
-                className="css-1q62izj-InactiveCommitLine ezzuvrx9"
-              />
-            </div>
-          </div>
-          <div
-            className="css-mgqp2w-CommitWrapper eq4i7ol0"
-            width={200}
-          >
-            <div
-              className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
-              data-cy="commit-chart-container"
-              data-type="absolute"
-              onBlur={[Function]}
-              onFocus={[Function]}
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-            >
-              <div
-                className="css-o4mlxh-Bar e1tzsy280"
-                color="#F1F0FC"
-                data-cy="commit-chart-bar"
-                height="20%"
-              />
-              <div
-                className="css-17vb51y-Bar e1tzsy280"
-                color="#89979B"
-                data-cy="commit-chart-bar"
-                height="35%"
-              />
-            </div>
-          </div>
-          <div
-            className="css-mgqp2w-CommitWrapper eq4i7ol0"
-            width={200}
-          >
-            <div
-              className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
-              data-cy="commit-chart-container"
-              data-type="absolute"
-              onBlur={[Function]}
-              onFocus={[Function]}
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-            >
-              <div
-                className="css-zz768j-Bar e1tzsy280"
-                color="#CF4A22"
-                data-cy="commit-chart-bar"
-                height="10%"
-              />
-              <div
-                className="css-1etxla3-Bar e1tzsy280"
-                color="#5D6C74"
-                data-cy="commit-chart-bar"
-                height="35%"
-              />
-            </div>
-          </div>
-          <div
-            className="css-mgqp2w-CommitWrapper eq4i7ol0"
-            width={200}
-          >
-            <div
-              className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
-              data-cy="commit-chart-container"
-              data-type="absolute"
-              onBlur={[Function]}
-              onFocus={[Function]}
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-            >
-              <div
-                className="css-d68zij-Bar e1tzsy280"
-                color="#13AA52"
-                data-cy="commit-chart-bar"
-                height="30%"
-              />
-              <div
-                className="css-zz768j-Bar e1tzsy280"
-                color="#CF4A22"
-                data-cy="commit-chart-bar"
-                height="10%"
-              />
-              <div
-                className="css-1wqr4kq-Bar e1tzsy280"
-                color="#FFDD49"
-                data-cy="commit-chart-bar"
-                height="45%"
-              />
-              <div
-                className="css-1sxj9ug-Bar e1tzsy280"
-                color="#89979B"
-                data-cy="commit-chart-bar"
-                height="10%"
-              />
-            </div>
-          </div>
-        </div>
-        <div
-          className="css-an2uwi-GridLabelContainer e18agri1"
-        >
-          <div
-            className="css-1dwm295-YAxisValue e18agri0"
-          >
-            20
-          </div>
-          <div
-            className="css-1dwm295-YAxisValue e18agri0"
-          >
-            16
-          </div>
-          <div
-            className="css-1dwm295-YAxisValue e18agri0"
-          >
-            12
-          </div>
-          <div
-            className="css-1dwm295-YAxisValue e18agri0"
-          >
-            8
-          </div>
-          <div
-            className="css-1dwm295-YAxisValue e18agri0"
-          >
-            4
-          </div>
-          <div
-            className="css-1dwm295-YAxisValue e18agri0"
-          >
-            0
-          </div>
-        </div>
-        <div
-          className="css-1kwm5h2-ColumnContainer e15dc98b2"
-        >
-          <div
-            className="css-oxpn1r-DashedLine e15dc98b1"
-          />
-          <div
-            className="css-oxpn1r-DashedLine e15dc98b1"
-          />
-          <div
-            className="css-oxpn1r-DashedLine e15dc98b1"
-          />
-          <div
-            className="css-oxpn1r-DashedLine e15dc98b1"
-          />
-          <div
-            className="css-oxpn1r-DashedLine e15dc98b1"
-          />
-          <div
-            className="css-1sahvn-SolidLine e15dc98b0"
-          />
-        </div>
-        <div
-          className="css-7yxj8m-AbsoluteContainer e3d007b2"
-        >
-          <div
-            className="css-nbsfda-AccordionContainer e1d5uzqe0"
-          >
-            <div
-              className="css-1r6zuyg-Row ev0bopr3"
-            >
-              <span
-                className="css-58nl5l-AccordionToggle ev0bopr2"
-                data-cy="accordion-toggle"
-                onClick={[Function]}
-              >
-                <svg
-                  aria-label="Caret Down Icon"
-                  className=""
-                  fill="none"
-                  height={16}
-                  role="img"
-                  viewBox="0 0 16 16"
-                  width={16}
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M8.679 10.796a.554.554 0 01-.858 0L4.64 6.976C4.32 6.594 4.582 6 5.069 6h6.362c.487 0 .748.594.43.976l-3.182 3.82z"
-                    fill="currentColor"
-                  />
-                </svg>
-                <span>
-                  View options
-                </span>
-              </span>
-            </div>
-            <div
-              className="css-1ofqqce-AnimatedAccordion ev0bopr1"
-            >
-              <div
-                className="css-1nylm8s-ContentsContainer ev0bopr0"
+                className="css-316fn7-InactiveCommitContainer ezzuvrx10"
               >
                 <div
-                  className="css-r7f5o5-ToggleWrapper e1d5uzqe1"
+                  className="css-1q62izj-InactiveCommitLine ezzuvrx9"
+                />
+              </div>
+            </div>
+            <div
+              className="css-mgqp2w-CommitWrapper eq4i7ol0"
+              width={200}
+            >
+              <div
+                className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+                data-cy="commit-chart-container"
+                data-type="absolute"
+                onBlur={[Function]}
+                onFocus={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              />
+            </div>
+            <div
+              className="css-mgqp2w-CommitWrapper eq4i7ol0"
+              width={200}
+            >
+              <div
+                className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+                data-cy="commit-chart-container"
+                data-type="absolute"
+                onBlur={[Function]}
+                onFocus={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              />
+            </div>
+            <div
+              className="css-mgqp2w-CommitWrapper eq4i7ol0"
+              width={200}
+            >
+              <div
+                className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+                data-cy="commit-chart-container"
+                data-type="absolute"
+                onBlur={[Function]}
+                onFocus={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              />
+            </div>
+          </div>
+          <div
+            className="css-an2uwi-GridLabelContainer e18agri1"
+          />
+          <div
+            className="css-1kwm5h2-ColumnContainer e15dc98b2"
+          >
+            <div
+              className="css-oxpn1r-DashedLine e15dc98b1"
+            />
+            <div
+              className="css-oxpn1r-DashedLine e15dc98b1"
+            />
+            <div
+              className="css-oxpn1r-DashedLine e15dc98b1"
+            />
+            <div
+              className="css-oxpn1r-DashedLine e15dc98b1"
+            />
+            <div
+              className="css-oxpn1r-DashedLine e15dc98b1"
+            />
+            <div
+              className="css-1sahvn-SolidLine e15dc98b0"
+            />
+          </div>
+          <div
+            className="css-7yxj8m-AbsoluteContainer e3d007b2"
+          >
+            <div
+              className="css-nbsfda-AccordionContainer e1d5uzqe0"
+            >
+              <div
+                className="css-1r6zuyg-Row ev0bopr3"
+              >
+                <span
+                  className="css-58nl5l-AccordionToggle ev0bopr2"
+                  data-cy="accordion-toggle"
+                  onClick={[Function]}
+                >
+                  <svg
+                    aria-label="Caret Down Icon"
+                    className=""
+                    fill="none"
+                    height={16}
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width={16}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8.679 10.796a.554.554 0 01-.858 0L4.64 6.976C4.32 6.594 4.582 6 5.069 6h6.362c.487 0 .748.594.43.976l-3.182 3.82z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <span>
+                    View options
+                  </span>
+                </span>
+              </div>
+              <div
+                className="css-1ofqqce-AnimatedAccordion ev0bopr1"
+              >
+                <div
+                  className="css-1nylm8s-ContentsContainer ev0bopr0"
                 >
                   <div
-                    aria-label="chart-select"
-                    className="leafygreen-ui-sgfp3 css-9dmnhj-StyledRadioGroup e1d5uzqe2"
-                    role="group"
+                    className="css-r7f5o5-ToggleWrapper e1d5uzqe1"
                   >
                     <div
-                      className="leafygreen-ui-1s4vgyd"
+                      aria-label="chart-select"
+                      className="leafygreen-ui-sgfp3 css-9dmnhj-StyledRadioGroup e1d5uzqe2"
+                      role="group"
                     >
-                      <label
-                        className="leafygreen-ui-17avto4"
-                        htmlFor="chart-radio-absolute"
+                      <div
+                        className="leafygreen-ui-1s4vgyd"
                       >
-                        <input
-                          aria-checked={true}
-                          aria-disabled={false}
-                          checked={true}
-                          className="leafygreen-ui-x2r5fc"
-                          data-cy="cy-chart-absolute-radio"
-                          data-leafygreen-ui="input-element"
-                          disabled={false}
-                          id="chart-radio-absolute"
-                          name="chart-select"
-                          onChange={[Function]}
-                          type="radio"
-                          value="absolute"
-                        />
-                        <div
-                          className="leafygreen-ui-5a1vdt"
-                          data-leafygreen-ui="radio-input-display-wrapper"
+                        <label
+                          className="leafygreen-ui-17avto4"
+                          htmlFor="chart-radio-absolute"
                         >
-                          <div
-                            className="leafygreen-ui-1y6j5s3"
-                            data-leafygreen-ui="radio-input-display"
-                            onBlur={[Function]}
-                            onFocus={[Function]}
+                          <input
+                            aria-checked={true}
+                            aria-disabled={false}
+                            checked={true}
+                            className="leafygreen-ui-x2r5fc"
+                            data-cy="cy-chart-absolute-radio"
+                            data-leafygreen-ui="input-element"
+                            disabled={false}
+                            id="chart-radio-absolute"
+                            name="chart-select"
+                            onChange={[Function]}
+                            type="radio"
+                            value="absolute"
                           />
                           <div
-                            className="leafygreen-ui-1cqcpzq"
-                            data-leafygreen-ui="interaction-ring"
-                          />
-                        </div>
-                        <div
-                          className="leafygreen-ui-3sm8z"
-                        >
-                          Absolute Number
-                        </div>
-                      </label>
-                    </div>
-                    <div
-                      className="leafygreen-ui-1s4vgyd"
-                    >
-                      <label
-                        className="leafygreen-ui-17avto4"
-                        htmlFor="chart-radio-percent"
+                            className="leafygreen-ui-5a1vdt"
+                            data-leafygreen-ui="radio-input-display-wrapper"
+                          >
+                            <div
+                              className="leafygreen-ui-1y6j5s3"
+                              data-leafygreen-ui="radio-input-display"
+                              onBlur={[Function]}
+                              onFocus={[Function]}
+                            />
+                            <div
+                              className="leafygreen-ui-1cqcpzq"
+                              data-leafygreen-ui="interaction-ring"
+                            />
+                          </div>
+                          <div
+                            className="leafygreen-ui-3sm8z"
+                          >
+                            Absolute Number
+                          </div>
+                        </label>
+                      </div>
+                      <div
+                        className="leafygreen-ui-1s4vgyd"
                       >
-                        <input
-                          aria-disabled={false}
-                          checked={false}
-                          className="leafygreen-ui-x2r5fc"
-                          data-cy="cy-chart-percent-radio"
-                          data-leafygreen-ui="input-element"
-                          disabled={false}
-                          id="chart-radio-percent"
-                          name="chart-select"
-                          onChange={[Function]}
-                          type="radio"
-                          value="percentage"
-                        />
-                        <div
-                          className="leafygreen-ui-5a1vdt"
-                          data-leafygreen-ui="radio-input-display-wrapper"
+                        <label
+                          className="leafygreen-ui-17avto4"
+                          htmlFor="chart-radio-percent"
                         >
-                          <div
-                            className="leafygreen-ui-1y6j5s3"
-                            data-leafygreen-ui="radio-input-display"
-                            onBlur={[Function]}
-                            onFocus={[Function]}
+                          <input
+                            aria-disabled={false}
+                            checked={false}
+                            className="leafygreen-ui-x2r5fc"
+                            data-cy="cy-chart-percent-radio"
+                            data-leafygreen-ui="input-element"
+                            disabled={false}
+                            id="chart-radio-percent"
+                            name="chart-select"
+                            onChange={[Function]}
+                            type="radio"
+                            value="percentage"
                           />
                           <div
-                            className="leafygreen-ui-1cqcpzq"
-                            data-leafygreen-ui="interaction-ring"
-                          />
-                        </div>
-                        <div
-                          className="leafygreen-ui-3sm8z"
-                        >
-                          Percentage
-                        </div>
-                      </label>
+                            className="leafygreen-ui-5a1vdt"
+                            data-leafygreen-ui="radio-input-display-wrapper"
+                          >
+                            <div
+                              className="leafygreen-ui-1y6j5s3"
+                              data-leafygreen-ui="radio-input-display"
+                              onBlur={[Function]}
+                              onFocus={[Function]}
+                            />
+                            <div
+                              className="leafygreen-ui-1cqcpzq"
+                              data-leafygreen-ui="interaction-ring"
+                            />
+                          </div>
+                          <div
+                            className="leafygreen-ui-3sm8z"
+                          >
+                            Percentage
+                          </div>
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -419,10 +301,275 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
         </div>
       </div>
     </div>
-  </div>
-  <div
-    className="css-1nsrvm5-StickyContainer ech0nhv2"
-  >
+    <div
+      className="css-1nsrvm5-StickyContainer ech0nhv2"
+    >
+      <div
+        className="css-gnwyka-FlexRowContainer eq4i7ol1"
+      >
+        <div
+          className="css-mgqp2w-CommitWrapper eq4i7ol0"
+          width={200}
+        >
+          <div
+            className="css-3j3zz7-LabelContainer e1cz15301"
+            data-cy="commit-label"
+          >
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            >
+              <a
+                className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks"
+                onClick={[Function]}
+              >
+                987bf57
+              </a>
+               
+              <b>
+                Jul 16, 2021, 3:53 PM
+              </b>
+            </div>
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            >
+              Jonathan Brill
+               -
+            </div>
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            >
+              
+              <a
+                className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+                href="https://undefined/browse/EVG-14901"
+                onClick={[Function]}
+              >
+                EVG-14901
+              </a>
+               add ssh key to EditSpawnHos...
+            </div>
+            <small
+              className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              more
+            </small>
+          </div>
+        </div>
+        <div
+          className="css-mgqp2w-CommitWrapper eq4i7ol0"
+          width={200}
+        >
+          <div
+            className="css-3j3zz7-LabelContainer e1cz15301"
+            data-cy="commit-label"
+          >
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            >
+              <a
+                className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks"
+                onClick={[Function]}
+              >
+                a77bd39
+              </a>
+               
+              <b>
+                Jul 13, 2021, 2:51 PM
+              </b>
+            </div>
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            >
+              Mohamed Khelif
+               -
+            </div>
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            >
+              Triggered From Git Tag 'v2.11.1': v2....
+            </div>
+            <small
+              className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              more
+            </small>
+          </div>
+        </div>
+        <div
+          className="css-11x1fi4-CommitWrapper eq4i7ol0"
+          width={64}
+        >
+          <div
+            className="leafygreen-ui-cssveg css-1ctfjby-ButtonContainer ezzuvrx7"
+            onClick={[Function]}
+            role="button"
+          >
+            <small
+              className="css-t2ltce-ButtonText ezzuvrx6 leafygreen-ui-13bqno6"
+              data-cy="inactive-commits-button"
+            >
+              <div>
+                1
+              </div>
+              Inactive
+            </small>
+          </div>
+        </div>
+        <div
+          className="css-mgqp2w-CommitWrapper eq4i7ol0"
+          width={200}
+        >
+          <div
+            className="css-3j3zz7-LabelContainer e1cz15301"
+            data-cy="commit-label"
+          >
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            >
+              <a
+                className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks"
+                onClick={[Function]}
+              >
+                9c1d1eb
+              </a>
+               
+              <b>
+                Jul 13, 2021, 2:51 PM
+              </b>
+            </div>
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            >
+              Mohamed Khelif
+               -
+            </div>
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            >
+              
+              <a
+                className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+                href="https://undefined/browse/EVG-14799"
+                onClick={[Function]}
+              >
+                EVG-14799
+              </a>
+               Correctly visit configure p...
+            </div>
+            <small
+              className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              more
+            </small>
+          </div>
+        </div>
+        <div
+          className="css-mgqp2w-CommitWrapper eq4i7ol0"
+          width={200}
+        >
+          <div
+            className="css-3j3zz7-LabelContainer e1cz15301"
+            data-cy="commit-label"
+          >
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            >
+              <a
+                className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks"
+                onClick={[Function]}
+              >
+                f7f7f1a
+              </a>
+               
+              <b>
+                Jul 13, 2021, 2:51 PM
+              </b>
+            </div>
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            >
+              Sophie Stadler
+               -
+            </div>
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            >
+              Remove navigation announcement toast ...
+            </div>
+            <small
+              className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              more
+            </small>
+          </div>
+        </div>
+        <div
+          className="css-mgqp2w-CommitWrapper eq4i7ol0"
+          width={200}
+        >
+          <div
+            className="css-3j3zz7-LabelContainer e1cz15301"
+            data-cy="commit-label"
+          >
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            >
+              <a
+                className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks"
+                onClick={[Function]}
+              >
+                211b3a0
+              </a>
+               
+              <b>
+                Jul 13, 2021, 2:51 PM
+              </b>
+            </div>
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            >
+              Chaya Malik
+               -
+            </div>
+            <div
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            >
+              Triggered From Git Tag 'v2.11.0': v2....
+            </div>
+            <small
+              className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              more
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
     <div
       className="css-gnwyka-FlexRowContainer eq4i7ol1"
     >
@@ -431,52 +578,74 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
         width={200}
       >
         <div
-          className="css-3j3zz7-LabelContainer e1cz15301"
-          data-cy="commit-label"
+          className="css-ygh2q6-ColumnContainer e1s1lwa10"
         >
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-8bv1t4-Container ek3nkvx1"
           >
             <a
-              className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
-              href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks"
+              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              data-cy="variant-header"
+              href="/variant-history/spruce/bv_0?selectedCommit=929"
               onClick={[Function]}
             >
-              987bf57
+              Build Variant 0
             </a>
-             
-            <b>
-              Jul 16, 2021, 3:53 PM
-            </b>
+            <div
+              className="css-16zj0ph-Content ek3nkvx0"
+              height="64px"
+            >
+              <div>
+                <div
+                  className="css-1uxzogm-VariantTasks e35ih1y0"
+                />
+              </div>
+            </div>
           </div>
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-8bv1t4-Container ek3nkvx1"
           >
-            Jonathan Brill
-             -
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            
             <a
-              className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
-              href="https://undefined/browse/EVG-14901"
+              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              data-cy="variant-header"
+              href="/variant-history/spruce/bv_1?selectedCommit=929"
               onClick={[Function]}
             >
-              EVG-14901
+              Build Variant 1
             </a>
-             add ssh key to EditSpawnHos...
+            <div
+              className="css-16zj0ph-Content ek3nkvx0"
+              height="64px"
+            >
+              <div>
+                <div
+                  className="css-1uxzogm-VariantTasks e35ih1y0"
+                />
+              </div>
+            </div>
           </div>
-          <small
-            className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
-            onBlur={[Function]}
-            onFocus={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
+          <div
+            className="css-8bv1t4-Container ek3nkvx1"
           >
-            more
-          </small>
+            <a
+              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              data-cy="variant-header"
+              href="/variant-history/spruce/bv_2?selectedCommit=929"
+              onClick={[Function]}
+            >
+              Build Variant 2
+            </a>
+            <div
+              className="css-16zj0ph-Content ek3nkvx0"
+              height="64px"
+            >
+              <div>
+                <div
+                  className="css-1uxzogm-VariantTasks e35ih1y0"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div
@@ -484,64 +653,153 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
         width={200}
       >
         <div
-          className="css-3j3zz7-LabelContainer e1cz15301"
-          data-cy="commit-label"
+          className="css-ygh2q6-ColumnContainer e1s1lwa10"
         >
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-8bv1t4-Container ek3nkvx1"
           >
             <a
-              className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
-              href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks"
+              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              data-cy="variant-header"
+              href="/variant-history/spruce/bv_0?selectedCommit=928"
               onClick={[Function]}
             >
-              a77bd39
+              Build Variant 0
             </a>
-             
-            <b>
-              Jul 13, 2021, 2:51 PM
-            </b>
+            <div
+              className="css-16zj0ph-Content ek3nkvx0"
+              height="64px"
+            >
+              <div>
+                <div
+                  className="css-1uxzogm-VariantTasks e35ih1y0"
+                />
+              </div>
+            </div>
           </div>
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-8bv1t4-Container ek3nkvx1"
           >
-            Mohamed Khelif
-             -
+            <a
+              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              data-cy="variant-header"
+              href="/variant-history/spruce/bv_1?selectedCommit=928"
+              onClick={[Function]}
+            >
+              Build Variant 1
+            </a>
+            <div
+              className="css-16zj0ph-Content ek3nkvx0"
+              height="64px"
+            >
+              <div>
+                <div
+                  className="css-1uxzogm-VariantTasks e35ih1y0"
+                />
+              </div>
+            </div>
           </div>
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-8bv1t4-Container ek3nkvx1"
           >
-            Triggered From Git Tag 'v2.11.1': v2....
+            <a
+              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              data-cy="variant-header"
+              href="/variant-history/spruce/bv_2?selectedCommit=928"
+              onClick={[Function]}
+            >
+              Build Variant 2
+            </a>
+            <div
+              className="css-16zj0ph-Content ek3nkvx0"
+              height="64px"
+            >
+              <div>
+                <div
+                  className="css-1uxzogm-VariantTasks e35ih1y0"
+                />
+              </div>
+            </div>
           </div>
-          <small
-            className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
-            onBlur={[Function]}
-            onFocus={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-          >
-            more
-          </small>
         </div>
       </div>
       <div
         className="css-11x1fi4-CommitWrapper eq4i7ol0"
         width={64}
+      />
+      <div
+        className="css-mgqp2w-CommitWrapper eq4i7ol0"
+        width={200}
       >
         <div
-          className="leafygreen-ui-cssveg css-1ctfjby-ButtonContainer ezzuvrx7"
-          onClick={[Function]}
-          role="button"
+          className="css-ygh2q6-ColumnContainer e1s1lwa10"
         >
-          <small
-            className="css-t2ltce-ButtonText ezzuvrx6 leafygreen-ui-13bqno6"
-            data-cy="inactive-commits-button"
+          <div
+            className="css-8bv1t4-Container ek3nkvx1"
           >
-            <div>
-              1
+            <a
+              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              data-cy="variant-header"
+              href="/variant-history/spruce/bv_0?selectedCommit=926"
+              onClick={[Function]}
+            >
+              Build Variant 0
+            </a>
+            <div
+              className="css-16zj0ph-Content ek3nkvx0"
+              height="64px"
+            >
+              <div>
+                <div
+                  className="css-1uxzogm-VariantTasks e35ih1y0"
+                />
+              </div>
             </div>
-            Inactive
-          </small>
+          </div>
+          <div
+            className="css-8bv1t4-Container ek3nkvx1"
+          >
+            <a
+              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              data-cy="variant-header"
+              href="/variant-history/spruce/bv_1?selectedCommit=926"
+              onClick={[Function]}
+            >
+              Build Variant 1
+            </a>
+            <div
+              className="css-16zj0ph-Content ek3nkvx0"
+              height="64px"
+            >
+              <div>
+                <div
+                  className="css-1uxzogm-VariantTasks e35ih1y0"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            className="css-8bv1t4-Container ek3nkvx1"
+          >
+            <a
+              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              data-cy="variant-header"
+              href="/variant-history/spruce/bv_2?selectedCommit=926"
+              onClick={[Function]}
+            >
+              Build Variant 2
+            </a>
+            <div
+              className="css-16zj0ph-Content ek3nkvx0"
+              height="64px"
+            >
+              <div>
+                <div
+                  className="css-1uxzogm-VariantTasks e35ih1y0"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div
@@ -549,52 +807,74 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
         width={200}
       >
         <div
-          className="css-3j3zz7-LabelContainer e1cz15301"
-          data-cy="commit-label"
+          className="css-ygh2q6-ColumnContainer e1s1lwa10"
         >
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-8bv1t4-Container ek3nkvx1"
           >
             <a
-              className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
-              href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks"
+              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              data-cy="variant-header"
+              href="/variant-history/spruce/bv_0?selectedCommit=925"
               onClick={[Function]}
             >
-              9c1d1eb
+              Build Variant 0
             </a>
-             
-            <b>
-              Jul 13, 2021, 2:51 PM
-            </b>
+            <div
+              className="css-16zj0ph-Content ek3nkvx0"
+              height="64px"
+            >
+              <div>
+                <div
+                  className="css-1uxzogm-VariantTasks e35ih1y0"
+                />
+              </div>
+            </div>
           </div>
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-8bv1t4-Container ek3nkvx1"
           >
-            Mohamed Khelif
-             -
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            
             <a
-              className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
-              href="https://undefined/browse/EVG-14799"
+              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              data-cy="variant-header"
+              href="/variant-history/spruce/bv_1?selectedCommit=925"
               onClick={[Function]}
             >
-              EVG-14799
+              Build Variant 1
             </a>
-             Correctly visit configure p...
+            <div
+              className="css-16zj0ph-Content ek3nkvx0"
+              height="64px"
+            >
+              <div>
+                <div
+                  className="css-1uxzogm-VariantTasks e35ih1y0"
+                />
+              </div>
+            </div>
           </div>
-          <small
-            className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
-            onBlur={[Function]}
-            onFocus={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
+          <div
+            className="css-8bv1t4-Container ek3nkvx1"
           >
-            more
-          </small>
+            <a
+              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              data-cy="variant-header"
+              href="/variant-history/spruce/bv_2?selectedCommit=925"
+              onClick={[Function]}
+            >
+              Build Variant 2
+            </a>
+            <div
+              className="css-16zj0ph-Content ek3nkvx0"
+              height="64px"
+            >
+              <div>
+                <div
+                  className="css-1uxzogm-VariantTasks e35ih1y0"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div
@@ -602,974 +882,71 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
         width={200}
       >
         <div
-          className="css-3j3zz7-LabelContainer e1cz15301"
-          data-cy="commit-label"
+          className="css-ygh2q6-ColumnContainer e1s1lwa10"
         >
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-8bv1t4-Container ek3nkvx1"
           >
             <a
-              className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
-              href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks"
+              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              data-cy="variant-header"
+              href="/variant-history/spruce/bv_0?selectedCommit=924"
               onClick={[Function]}
             >
-              f7f7f1a
+              Build Variant 0
             </a>
-             
-            <b>
-              Jul 13, 2021, 2:51 PM
-            </b>
+            <div
+              className="css-16zj0ph-Content ek3nkvx0"
+              height="64px"
+            >
+              <div>
+                <div
+                  className="css-1uxzogm-VariantTasks e35ih1y0"
+                />
+              </div>
+            </div>
           </div>
           <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            Sophie Stadler
-             -
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            Remove navigation announcement toast ...
-          </div>
-          <small
-            className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
-            onBlur={[Function]}
-            onFocus={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-          >
-            more
-          </small>
-        </div>
-      </div>
-      <div
-        className="css-mgqp2w-CommitWrapper eq4i7ol0"
-        width={200}
-      >
-        <div
-          className="css-3j3zz7-LabelContainer e1cz15301"
-          data-cy="commit-label"
-        >
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            className="css-8bv1t4-Container ek3nkvx1"
           >
             <a
-              className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
-              href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks"
+              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              data-cy="variant-header"
+              href="/variant-history/spruce/bv_1?selectedCommit=924"
               onClick={[Function]}
             >
-              211b3a0
+              Build Variant 1
             </a>
-             
-            <b>
-              Jul 13, 2021, 2:51 PM
-            </b>
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            Chaya Malik
-             -
-          </div>
-          <div
-            className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
-          >
-            Triggered From Git Tag 'v2.11.0': v2....
-          </div>
-          <small
-            className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
-            onBlur={[Function]}
-            onFocus={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-          >
-            more
-          </small>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="css-gnwyka-FlexRowContainer eq4i7ol1"
-  >
-    <div
-      className="css-mgqp2w-CommitWrapper eq4i7ol0"
-      width={200}
-    >
-      <div
-        className="css-ygh2q6-ColumnContainer e1s1lwa10"
-      >
-        <div
-          className="css-8bv1t4-Container ek3nkvx1"
-        >
-          <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
-            data-cy="variant-header"
-            href="/variant-history/spruce/code_health 0?selectedCommit=929"
-            onClick={[Function]}
-          >
-            01. Code Health [code_health] 0
-          </a>
-          <div
-            className="css-xlhdy3-Content ek3nkvx0"
-            height="40px"
-          >
-            <div>
-              <div
-                className="css-cdgbn2-IconContainer ek3nkvx2"
-              >
-                <a
-                  aria-label="pending icon"
-                  className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
-                  data-cy="waterfall-task-status-icon"
-                  href="/task/code_health 0"
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                >
-                  <div
-                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="code_health 0-Code Health 0"
-                  >
-                    <svg
-                      aria-label="Calendar Icon"
-                      className="leafygreen-ui-foqtcf"
-                      fill="none"
-                      height={16}
-                      role="img"
-                      viewBox="0 0 16 16"
-                      width={16}
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        clipRule="evenodd"
-                        d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
-                        fill="currentColor"
-                        fillRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                </a>
+            <div
+              className="css-16zj0ph-Content ek3nkvx0"
+              height="64px"
+            >
+              <div>
+                <div
+                  className="css-1uxzogm-VariantTasks e35ih1y0"
+                />
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="css-8bv1t4-Container ek3nkvx1"
-        >
-          <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
-            data-cy="variant-header"
-            href="/variant-history/spruce/package_rpm 1?selectedCommit=929"
-            onClick={[Function]}
-          >
-            02. Packaging (RPM - RHEL7) [package_rpm] 1
-          </a>
           <div
-            className="css-xlhdy3-Content ek3nkvx0"
-            height="40px"
+            className="css-8bv1t4-Container ek3nkvx1"
           >
-            <div>
-              <div
-                className="css-cdgbn2-IconContainer ek3nkvx2"
-              >
-                <a
-                  aria-label="will-run icon"
-                  className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
-                  data-cy="waterfall-task-status-icon"
-                  href="/task/code_health 0"
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                >
-                  <div
-                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="package_rpm 1-Code Health 0"
-                  >
-                    <svg
-                      aria-label="Calendar Icon"
-                      className="leafygreen-ui-foqtcf"
-                      fill="none"
-                      height={16}
-                      role="img"
-                      viewBox="0 0 16 16"
-                      width={16}
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        clipRule="evenodd"
-                        d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
-                        fill="currentColor"
-                        fillRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="css-8bv1t4-Container ek3nkvx1"
-        >
-          <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
-            data-cy="variant-header"
-            href="/variant-history/spruce/js 2?selectedCommit=929"
-            onClick={[Function]}
-          >
-            03b. JavaScript Tests [js] 2
-          </a>
-          <div
-            className="css-xlhdy3-Content ek3nkvx0"
-            height="40px"
-          >
-            <div>
-              <div
-                className="css-cdgbn2-IconContainer ek3nkvx2"
-              >
-                <a
-                  aria-label="will-run icon"
-                  className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
-                  data-cy="waterfall-task-status-icon"
-                  href="/task/js 0"
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                >
-                  <div
-                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="js 2-JavaScript Test 0"
-                  >
-                    <svg
-                      aria-label="Calendar Icon"
-                      className="leafygreen-ui-foqtcf"
-                      fill="none"
-                      height={16}
-                      role="img"
-                      viewBox="0 0 16 16"
-                      width={16}
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        clipRule="evenodd"
-                        d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
-                        fill="currentColor"
-                        fillRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="css-mgqp2w-CommitWrapper eq4i7ol0"
-      width={200}
-    >
-      <div
-        className="css-ygh2q6-ColumnContainer e1s1lwa10"
-      >
-        <div
-          className="css-8bv1t4-Container ek3nkvx1"
-        >
-          <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
-            data-cy="variant-header"
-            href="/variant-history/spruce/code_health 0?selectedCommit=928"
-            onClick={[Function]}
-          >
-            01. Code Health [code_health] 0
-          </a>
-          <div
-            className="css-xlhdy3-Content ek3nkvx0"
-            height="40px"
-          >
-            <div>
-              <div
-                className="css-cdgbn2-IconContainer ek3nkvx2"
-              >
-                <a
-                  aria-label="pending icon"
-                  className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
-                  data-cy="waterfall-task-status-icon"
-                  href="/task/code_health 0"
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                >
-                  <div
-                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="code_health 0-Code Health 0"
-                  >
-                    <svg
-                      aria-label="Calendar Icon"
-                      className="leafygreen-ui-foqtcf"
-                      fill="none"
-                      height={16}
-                      role="img"
-                      viewBox="0 0 16 16"
-                      width={16}
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        clipRule="evenodd"
-                        d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
-                        fill="currentColor"
-                        fillRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="css-8bv1t4-Container ek3nkvx1"
-        >
-          <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
-            data-cy="variant-header"
-            href="/variant-history/spruce/package_rpm 1?selectedCommit=928"
-            onClick={[Function]}
-          >
-            02. Packaging (RPM - RHEL7) [package_rpm] 1
-          </a>
-          <div
-            className="css-xlhdy3-Content ek3nkvx0"
-            height="40px"
-          >
-            <div>
-              <div
-                className="css-cdgbn2-IconContainer ek3nkvx2"
-              >
-                <a
-                  aria-label="pending icon"
-                  className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
-                  data-cy="waterfall-task-status-icon"
-                  href="/task/code_health 0"
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                >
-                  <div
-                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="package_rpm 1-Code Health 0"
-                  >
-                    <svg
-                      aria-label="Calendar Icon"
-                      className="leafygreen-ui-foqtcf"
-                      fill="none"
-                      height={16}
-                      role="img"
-                      viewBox="0 0 16 16"
-                      width={16}
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        clipRule="evenodd"
-                        d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
-                        fill="currentColor"
-                        fillRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="css-8bv1t4-Container ek3nkvx1"
-        >
-          <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
-            data-cy="variant-header"
-            href="/variant-history/spruce/unit_java 2?selectedCommit=928"
-            onClick={[Function]}
-          >
-            03a. Unit Tests Java [unit_java] 2
-          </a>
-          <div
-            className="css-xlhdy3-Content ek3nkvx0"
-            height="40px"
-          >
-            <div>
-              <div
-                className="css-cdgbn2-IconContainer ek3nkvx2"
-              >
-                <a
-                  aria-label="failed icon"
-                  className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
-                  data-cy="waterfall-task-status-icon"
-                  href="/task/unit_java 0"
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                >
-                  <div
-                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="unit_java 2-Unit Tests 0"
-                  >
-                    <svg
-                      aria-label="Failure Icon"
-                      fill="currentColor"
-                      height={16}
-                      viewBox="0 0 21 21"
-                      width={16}
-                    >
-                      <path
-                        d="M17.7783.807588c-.7811-.7810482-2.0474-.7810486-2.8285 0L10.0001 5.75734 5.05035.807588c-.78105-.7810484-2.04738-.7810482-2.82843 0L.80771 2.2218c-.7810481.78105-.7810485 2.04738 0 2.82843l4.94975 4.94975L.80771 14.9497c-.7810474.7811-.7810481 2.0474 0 2.8285l1.41421 1.4142c.78105.781 2.04738.781 2.82843 0l4.94975-4.9498 4.9497 4.9498c.7811.781 2.0474.781 2.8285 0l1.4142-1.4142c.781-.7811.781-2.0474 0-2.8285l-4.9498-4.94972 4.9498-4.94975c.781-.78105.781-2.04738 0-2.82843L17.7783.807588Z"
-                        fill="#CF4A22"
-                      />
-                    </svg>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="css-11x1fi4-CommitWrapper eq4i7ol0"
-      width={64}
-    />
-    <div
-      className="css-mgqp2w-CommitWrapper eq4i7ol0"
-      width={200}
-    >
-      <div
-        className="css-ygh2q6-ColumnContainer e1s1lwa10"
-      >
-        <div
-          className="css-8bv1t4-Container ek3nkvx1"
-        >
-          <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
-            data-cy="variant-header"
-            href="/variant-history/spruce/code_health 0?selectedCommit=926"
-            onClick={[Function]}
-          >
-            01. Code Health [code_health] 0
-          </a>
-          <div
-            className="css-xlhdy3-Content ek3nkvx0"
-            height="40px"
-          >
-            <div>
-              <div
-                className="css-cdgbn2-IconContainer ek3nkvx2"
-              >
-                <a
-                  aria-label="will-run icon"
-                  className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
-                  data-cy="waterfall-task-status-icon"
-                  href="/task/code_health 0"
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                >
-                  <div
-                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="code_health 0-Code Health 0"
-                  >
-                    <svg
-                      aria-label="Calendar Icon"
-                      className="leafygreen-ui-foqtcf"
-                      fill="none"
-                      height={16}
-                      role="img"
-                      viewBox="0 0 16 16"
-                      width={16}
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        clipRule="evenodd"
-                        d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
-                        fill="currentColor"
-                        fillRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="css-8bv1t4-Container ek3nkvx1"
-        >
-          <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
-            data-cy="variant-header"
-            href="/variant-history/spruce/package_rpm 1?selectedCommit=926"
-            onClick={[Function]}
-          >
-            02. Packaging (RPM - RHEL7) [package_rpm] 1
-          </a>
-          <div
-            className="css-xlhdy3-Content ek3nkvx0"
-            height="40px"
-          >
-            <div>
-              <div
-                className="css-cdgbn2-IconContainer ek3nkvx2"
-              >
-                <a
-                  aria-label="pending icon"
-                  className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
-                  data-cy="waterfall-task-status-icon"
-                  href="/task/code_health 0"
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                >
-                  <div
-                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="package_rpm 1-Code Health 0"
-                  >
-                    <svg
-                      aria-label="Calendar Icon"
-                      className="leafygreen-ui-foqtcf"
-                      fill="none"
-                      height={16}
-                      role="img"
-                      viewBox="0 0 16 16"
-                      width={16}
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        clipRule="evenodd"
-                        d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
-                        fill="currentColor"
-                        fillRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="css-8bv1t4-Container ek3nkvx1"
-        >
-          <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
-            data-cy="variant-header"
-            href="/variant-history/spruce/package_rpm 2?selectedCommit=926"
-            onClick={[Function]}
-          >
-            02. Packaging (RPM - RHEL7) [package_rpm] 2
-          </a>
-          <div
-            className="css-xlhdy3-Content ek3nkvx0"
-            height="40px"
-          >
-            <div>
-              <div
-                className="css-cdgbn2-IconContainer ek3nkvx2"
-              >
-                <a
-                  aria-label="pending icon"
-                  className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
-                  data-cy="waterfall-task-status-icon"
-                  href="/task/code_health 0"
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                >
-                  <div
-                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="package_rpm 2-Code Health 0"
-                  >
-                    <svg
-                      aria-label="Calendar Icon"
-                      className="leafygreen-ui-foqtcf"
-                      fill="none"
-                      height={16}
-                      role="img"
-                      viewBox="0 0 16 16"
-                      width={16}
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        clipRule="evenodd"
-                        d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
-                        fill="currentColor"
-                        fillRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="css-mgqp2w-CommitWrapper eq4i7ol0"
-      width={200}
-    >
-      <div
-        className="css-ygh2q6-ColumnContainer e1s1lwa10"
-      >
-        <div
-          className="css-8bv1t4-Container ek3nkvx1"
-        >
-          <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
-            data-cy="variant-header"
-            href="/variant-history/spruce/code_health 0?selectedCommit=925"
-            onClick={[Function]}
-          >
-            01. Code Health [code_health] 0
-          </a>
-          <div
-            className="css-xlhdy3-Content ek3nkvx0"
-            height="40px"
-          >
-            <div>
-              <div
-                className="css-cdgbn2-IconContainer ek3nkvx2"
-              >
-                <a
-                  aria-label="will-run icon"
-                  className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
-                  data-cy="waterfall-task-status-icon"
-                  href="/task/code_health 0"
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                >
-                  <div
-                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="code_health 0-Code Health 0"
-                  >
-                    <svg
-                      aria-label="Calendar Icon"
-                      className="leafygreen-ui-foqtcf"
-                      fill="none"
-                      height={16}
-                      role="img"
-                      viewBox="0 0 16 16"
-                      width={16}
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        clipRule="evenodd"
-                        d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
-                        fill="currentColor"
-                        fillRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="css-8bv1t4-Container ek3nkvx1"
-        >
-          <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
-            data-cy="variant-header"
-            href="/variant-history/spruce/package_rpm 1?selectedCommit=925"
-            onClick={[Function]}
-          >
-            02. Packaging (RPM - RHEL7) [package_rpm] 1
-          </a>
-          <div
-            className="css-xlhdy3-Content ek3nkvx0"
-            height="40px"
-          >
-            <div>
-              <div
-                className="css-cdgbn2-IconContainer ek3nkvx2"
-              >
-                <a
-                  aria-label="success icon"
-                  className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
-                  data-cy="waterfall-task-status-icon"
-                  href="/task/code_health 0"
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                >
-                  <div
-                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="package_rpm 1-Code Health 0"
-                  >
-                    <svg
-                      aria-label="Checkmark Icon"
-                      className="leafygreen-ui-ifwzrn"
-                      fill="none"
-                      height={16}
-                      role="img"
-                      viewBox="0 0 16 16"
-                      width={16}
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        clipRule="evenodd"
-                        d="M6.306 9.05l5.455-5.455a1 1 0 011.414 0l.707.707a1 1 0 010 1.414l-7.067 7.068a1 1 0 01-1.5-.098l-3.049-3.97a1 1 0 01.184-1.402l.595-.457a1.25 1.25 0 011.753.23L6.306 9.05z"
-                        fill="currentColor"
-                        fillRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="css-8bv1t4-Container ek3nkvx1"
-        >
-          <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
-            data-cy="variant-header"
-            href="/variant-history/spruce/package_rpm 2?selectedCommit=925"
-            onClick={[Function]}
-          >
-            02. Packaging (RPM - RHEL7) [package_rpm] 2
-          </a>
-          <div
-            className="css-xlhdy3-Content ek3nkvx0"
-            height="40px"
-          >
-            <div>
-              <div
-                className="css-cdgbn2-IconContainer ek3nkvx2"
-              >
-                <a
-                  aria-label="success icon"
-                  className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
-                  data-cy="waterfall-task-status-icon"
-                  href="/task/code_health 0"
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                >
-                  <div
-                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="package_rpm 2-Code Health 0"
-                  >
-                    <svg
-                      aria-label="Checkmark Icon"
-                      className="leafygreen-ui-ifwzrn"
-                      fill="none"
-                      height={16}
-                      role="img"
-                      viewBox="0 0 16 16"
-                      width={16}
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        clipRule="evenodd"
-                        d="M6.306 9.05l5.455-5.455a1 1 0 011.414 0l.707.707a1 1 0 010 1.414l-7.067 7.068a1 1 0 01-1.5-.098l-3.049-3.97a1 1 0 01.184-1.402l.595-.457a1.25 1.25 0 011.753.23L6.306 9.05z"
-                        fill="currentColor"
-                        fillRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="css-mgqp2w-CommitWrapper eq4i7ol0"
-      width={200}
-    >
-      <div
-        className="css-ygh2q6-ColumnContainer e1s1lwa10"
-      >
-        <div
-          className="css-8bv1t4-Container ek3nkvx1"
-        >
-          <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
-            data-cy="variant-header"
-            href="/variant-history/spruce/code_health 0?selectedCommit=924"
-            onClick={[Function]}
-          >
-            01. Code Health [code_health] 0
-          </a>
-          <div
-            className="css-xlhdy3-Content ek3nkvx0"
-            height="40px"
-          >
-            <div>
-              <div
-                className="css-cdgbn2-IconContainer ek3nkvx2"
-              >
-                <a
-                  aria-label="failed icon"
-                  className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
-                  data-cy="waterfall-task-status-icon"
-                  href="/task/code_health 0"
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                >
-                  <div
-                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="code_health 0-Code Health 0"
-                  >
-                    <svg
-                      aria-label="Failure Icon"
-                      fill="currentColor"
-                      height={16}
-                      viewBox="0 0 21 21"
-                      width={16}
-                    >
-                      <path
-                        d="M17.7783.807588c-.7811-.7810482-2.0474-.7810486-2.8285 0L10.0001 5.75734 5.05035.807588c-.78105-.7810484-2.04738-.7810482-2.82843 0L.80771 2.2218c-.7810481.78105-.7810485 2.04738 0 2.82843l4.94975 4.94975L.80771 14.9497c-.7810474.7811-.7810481 2.0474 0 2.8285l1.41421 1.4142c.78105.781 2.04738.781 2.82843 0l4.94975-4.9498 4.9497 4.9498c.7811.781 2.0474.781 2.8285 0l1.4142-1.4142c.781-.7811.781-2.0474 0-2.8285l-4.9498-4.94972 4.9498-4.94975c.781-.78105.781-2.04738 0-2.82843L17.7783.807588Z"
-                        fill="#CF4A22"
-                      />
-                    </svg>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="css-8bv1t4-Container ek3nkvx1"
-        >
-          <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
-            data-cy="variant-header"
-            href="/variant-history/spruce/package_rpm 1?selectedCommit=924"
-            onClick={[Function]}
-          >
-            02. Packaging (RPM - RHEL7) [package_rpm] 1
-          </a>
-          <div
-            className="css-xlhdy3-Content ek3nkvx0"
-            height="40px"
-          >
-            <div>
-              <div
-                className="css-cdgbn2-IconContainer ek3nkvx2"
-              >
-                <a
-                  aria-label="failed icon"
-                  className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
-                  data-cy="waterfall-task-status-icon"
-                  href="/task/code_health 0"
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                >
-                  <div
-                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="package_rpm 1-Code Health 0"
-                  >
-                    <svg
-                      aria-label="Failure Icon"
-                      fill="currentColor"
-                      height={16}
-                      viewBox="0 0 21 21"
-                      width={16}
-                    >
-                      <path
-                        d="M17.7783.807588c-.7811-.7810482-2.0474-.7810486-2.8285 0L10.0001 5.75734 5.05035.807588c-.78105-.7810484-2.04738-.7810482-2.82843 0L.80771 2.2218c-.7810481.78105-.7810485 2.04738 0 2.82843l4.94975 4.94975L.80771 14.9497c-.7810474.7811-.7810481 2.0474 0 2.8285l1.41421 1.4142c.78105.781 2.04738.781 2.82843 0l4.94975-4.9498 4.9497 4.9498c.7811.781 2.0474.781 2.8285 0l1.4142-1.4142c.781-.7811.781-2.0474 0-2.8285l-4.9498-4.94972 4.9498-4.94975c.781-.78105.781-2.04738 0-2.82843L17.7783.807588Z"
-                        fill="#CF4A22"
-                      />
-                    </svg>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="css-8bv1t4-Container ek3nkvx1"
-        >
-          <a
-            className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
-            data-cy="variant-header"
-            href="/variant-history/spruce/unit_java 2?selectedCommit=924"
-            onClick={[Function]}
-          >
-            03a. Unit Tests Java [unit_java] 2
-          </a>
-          <div
-            className="css-xlhdy3-Content ek3nkvx0"
-            height="40px"
-          >
-            <div>
-              <div
-                className="css-cdgbn2-IconContainer ek3nkvx2"
-              >
-                <a
-                  aria-label="failed icon"
-                  className="leafygreen-ui-cssveg css-1emht1s-StyledRouterLink-linkStyles-IconWrapper enafhlo1"
-                  data-cy="waterfall-task-status-icon"
-                  href="/task/unit_java 0"
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                >
-                  <div
-                    className="css-h1k2k-TaskStatusWrapper enafhlo0"
-                    data-task-icon="unit_java 2-Unit Tests 0"
-                  >
-                    <svg
-                      aria-label="Failure Icon"
-                      fill="currentColor"
-                      height={16}
-                      viewBox="0 0 21 21"
-                      width={16}
-                    >
-                      <path
-                        d="M17.7783.807588c-.7811-.7810482-2.0474-.7810486-2.8285 0L10.0001 5.75734 5.05035.807588c-.78105-.7810484-2.04738-.7810482-2.82843 0L.80771 2.2218c-.7810481.78105-.7810485 2.04738 0 2.82843l4.94975 4.94975L.80771 14.9497c-.7810474.7811-.7810481 2.0474 0 2.8285l1.41421 1.4142c.78105.781 2.04738.781 2.82843 0l4.94975-4.9498 4.9497 4.9498c.7811.781 2.0474.781 2.8285 0l1.4142-1.4142c.781-.7811.781-2.0474 0-2.8285l-4.9498-4.94972 4.9498-4.94975c.781-.78105.781-2.04738 0-2.82843L17.7783.807588Z"
-                        fill="#CF4A22"
-                      />
-                    </svg>
-                  </div>
-                </a>
+            <a
+              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              data-cy="variant-header"
+              href="/variant-history/spruce/bv_2?selectedCommit=924"
+              onClick={[Function]}
+            >
+              Build Variant 2
+            </a>
+            <div
+              className="css-16zj0ph-Content ek3nkvx0"
+              height="64px"
+            >
+              <div>
+                <div
+                  className="css-1uxzogm-VariantTasks e35ih1y0"
+                />
               </div>
             </div>
           </div>
