@@ -23,6 +23,7 @@ describe("storybook", () => {
       return {
         observe: jest.fn(),
         unobserve: jest.fn(),
+        disconnect: jest.fn(),
       };
     });
 
