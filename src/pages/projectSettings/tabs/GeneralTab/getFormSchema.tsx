@@ -214,6 +214,8 @@ export const getFormSchema = (
           disabledStatsCache: {
             type: ["boolean", "null"],
             title: "Cache Daily Task Statistics",
+            description:
+              "Daily task execution statistics, aggregated by project, build variant, distro, task name, and task creation date.",
             oneOf: radioBoxOptions(
               ["Enabled", "Disabled"],
               repoData?.historicalTaskDataCaching?.disabledStatsCache,
