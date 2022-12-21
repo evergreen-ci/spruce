@@ -108,7 +108,7 @@ describe("Host events", () => {
     });
   });
 
-  it.only("host events with logs display the correct text and the logs get displayed when available", () => {
+  it("host events with logs display the correct text and the logs get displayed when available", () => {
     const hostTypes = [
       {
         hostType: "host-script-executed",

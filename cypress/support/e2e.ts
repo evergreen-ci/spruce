@@ -74,11 +74,6 @@ declare global {
        */
       login(): void;
       /**
-       * Custom command to preserve cookie between tests.
-       * @example cy.preserveCookies()
-       */
-      preserveCookies(): void;
-      /**
        * Custom command to open an antd table filter associated with the
        * the supplied column number
        *
@@ -112,7 +107,6 @@ before(() => {
 beforeEach(() => {
   cy.setCookie(bannerCookie, "true");
   cy.setCookie(slackBannerCookie, "true");
-  cy.preserveCookies();
 });
 
 const bannerCookie = "This is an important notification";

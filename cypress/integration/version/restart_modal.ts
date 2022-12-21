@@ -1,7 +1,6 @@
 describe("Restarting a patch with Downstream Tasks", () => {
   before(() => {
     cy.login();
-    cy.preserveCookies();
   });
 
   it("Clicking on the Select Downstream Tasks should show the downstream projects", () => {

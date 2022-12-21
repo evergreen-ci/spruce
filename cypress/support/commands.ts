@@ -1,13 +1,9 @@
 const LOGIN_COOKIE = "mci-token";
-const TOAST_COOKIE = "announcement-toast";
 const loginURL = "http://localhost:9090/login";
 const user = {
   username: "admin",
   password: "password",
 };
-// Cypress.Cookies.defaults({
-//   preserve: TOAST_COOKIE,
-// });
 
 type cyGetOptions = Parameters<typeof cy.get>[1];
 
@@ -60,9 +56,6 @@ Cypress.Commands.add("login", () => {
     }
   });
 });
-
-/* preserveCookies */
-Cypress.Commands.add("preserveCookies", () => {});
 
 /* toggleTableFilter */
 Cypress.Commands.add("toggleTableFilter", (colNum: number) => {
