@@ -56,6 +56,7 @@ export const Task = () => {
     annotation,
     displayName,
     displayTask,
+    executionTasksFull,
     latestExecution,
     patchNumber,
     priority,
@@ -63,6 +64,7 @@ export const Task = () => {
     versionMetadata,
   } = task ?? {};
   const attributed = annotation?.issues?.length > 0;
+  const isDisplayTask = executionTasksFull != null;
 
   if (
     id === task?.id &&
@@ -99,6 +101,7 @@ export const Task = () => {
         buttons={
           <ActionButtons
             initialPriority={priority}
+            isDisplayTask={isDisplayTask}
             isExecutionTask={!!displayTask}
             task={task}
           />
@@ -123,7 +126,13 @@ export const Task = () => {
         </PageSider>
         <LogWrapper>
           <PageContent>
-            {task && <TaskTabs task={task} taskFiles={taskFiles} />}
+            {task && (
+              <TaskTabs
+                task={task}
+                taskFiles={taskFiles}
+                isDisplayTask={isDisplayTask}
+              />
+            )}
           </PageContent>
         </LogWrapper>
       </PageLayout>
