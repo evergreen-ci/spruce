@@ -109,14 +109,14 @@ export const TaskQueueTable = () => {
       key: "version",
       className: "cy-task-queue-col-version",
       width: "30%",
-      render: (value) => (
+      render: (version) => (
         <StyledRouterLink
-          to={getVersionRoute(value)}
+          to={getVersionRoute(version)}
           onClick={() =>
             taskQueueAnalytics.sendEvent({ name: "Click Version Link" })
           }
         >
-          {value}
+          <WordBreak>{version}</WordBreak>
         </StyledRouterLink>
       ),
     },
