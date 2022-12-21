@@ -165,6 +165,7 @@ describe("Host events", () => {
   it("host events logs do not display when not available", () => {
     cy.dataCy("host-status-changed")
       .contains("Status changed from running to stopping")
+      .first()
       .within(() => {
         cy.dataCy("host-event-logs").should("not.exist");
       });
