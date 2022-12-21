@@ -1736,6 +1736,7 @@ export type Task = {
   projectId: Scalars["String"];
   projectIdentifier?: Maybe<Scalars["String"]>;
   requester: Scalars["String"];
+  resetWhenFinished: Scalars["Boolean"];
   revision?: Maybe<Scalars["String"]>;
   scheduledTime?: Maybe<Scalars["Time"]>;
   spawnHostLink?: Maybe<Scalars["String"]>;
@@ -5778,6 +5779,7 @@ export type GetTaskQuery = {
     isPerfPluginEnabled: boolean;
     minQueuePosition: number;
     expectedDuration?: Maybe<number>;
+    resetWhenFinished: boolean;
     canModifyAnnotation: boolean;
     id: string;
     execution: number;
