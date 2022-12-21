@@ -214,8 +214,6 @@ export const getFormSchema = (
           disabledStatsCache: {
             type: ["boolean", "null"],
             title: "Cache Daily Task Statistics",
-            description:
-              "Task execution statistics aggregated by project, build variant, distro, task name, and task creation date.",
             oneOf: radioBoxOptions(
               ["Enabled", "Disabled"],
               repoData?.historicalTaskDataCaching?.disabledStatsCache,
@@ -359,6 +357,8 @@ export const getFormSchema = (
       "ui:ObjectFieldTemplate": CardFieldTemplate,
       disabledStatsCache: {
         "ui:widget": widgets.RadioBoxWidget,
+        "ui:description":
+          "Task execution statistics aggregated by project, build variant, distro, task name, and task creation date.",
       },
     },
   },
