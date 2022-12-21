@@ -67,6 +67,7 @@ export const Metadata: React.VFC<Props> = ({
     project,
     expectedDuration,
     baseTask,
+    resetWhenFinished,
   } = task || {};
 
   const baseCommit = shortenGithash(revision);
@@ -277,6 +278,12 @@ export const Metadata: React.VFC<Props> = ({
           ))}
         </span>
       ) : null}
+      {resetWhenFinished && (
+        <P2 data-cy="reset-when-finished-container">
+          This task is scheduled to restart when all of the tasks in its group
+          have finished.
+        </P2>
+      )}
     </MetadataCard>
   );
 };
