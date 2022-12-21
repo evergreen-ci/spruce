@@ -213,7 +213,7 @@ export const getFormSchema = (
         properties: {
           disabledStatsCache: {
             type: ["boolean", "null"],
-            title: "Caching",
+            title: "Cache Daily Task Statistics",
             oneOf: radioBoxOptions(
               ["Enabled", "Disabled"],
               repoData?.historicalTaskDataCaching?.disabledStatsCache,
