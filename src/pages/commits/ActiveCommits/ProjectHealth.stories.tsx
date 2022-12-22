@@ -8,7 +8,7 @@ export default {
   component: CommitsWrapper,
   args: {
     buildVariantCount: 3,
-    taskCount: 1,
+    taskCount: 2,
     isLoading: false,
     hasTaskFilter: false,
     hasFilters: false,
@@ -18,7 +18,7 @@ export default {
       control: {
         type: "range",
         min: 1,
-        max: 100,
+        max: 50,
         step: 1,
       },
     },
@@ -26,7 +26,7 @@ export default {
       control: {
         type: "range",
         min: 1,
-        max: 1000,
+        max: 500,
         step: 1,
       },
     },
@@ -66,7 +66,7 @@ const buildVariantUpdateLength = (buildVariantCount: number) =>
 
   new Array(buildVariantCount).fill("").map((_, index) => ({
     displayName: `Build Variant ${index}`,
-    variant: `bv_${index}`,
+    variant: `bv_${index.toString().padStart(3, "0")}`,
     tasks: [],
   }));
 const taskUpdateLength = (taskCount: number) =>
