@@ -41,7 +41,7 @@ export const ActualWaterfallPage = ({
   hasFilters,
 }) => {
   const updatedVersions = versions.map((version) =>
-    formatVersion(version, buildVariantCount, taskCount, hasTaskFilter)
+    populateVersion(version, buildVariantCount, taskCount, hasTaskFilter)
   );
   return (
     <div style={{ height: "500px" }}>
@@ -56,27 +56,26 @@ export const ActualWaterfallPage = ({
   );
 };
 
-const buildVariantUpdateLength = (buildVariantCount: number) =>
-  // Given a list of buildVariants, return a list of buildVariants with the same length as buildVariantCount
-  // If the list of buildVariants is longer than buildVariantCount, return a list of buildVariants with length buildVariantCount
-  // If the list of buildVariants is shorter than buildVariantCount, return a list of buildVariants with length buildVariantCount
-  // If the list of buildVariants is the same length as buildVariantCount, return the list of buildVariants
-
-  // Create an array of length buildVariantCount and populate it with empty objects
-
-  new Array(buildVariantCount).fill("").map((_, index) => ({
+/**
+ * `generateBuildVariants` generates an array of build variants
+ * @param count number of build variants to generate
+ * @returns
+ */
+const generateBuildVariants = (buildVariantCount: number, taskCount: number) =>
+  new Array(buildVariantCount).fill(undefined).map((_, index) => ({
     displayName: `Build Variant ${index}`,
     variant: `bv_${index.toString().padStart(3, "0")}`,
-    tasks: [],
+    tasks: generateTasks(taskCount),
   }));
-const taskUpdateLength = (taskCount: number) =>
-  // Given a list of tasks, return a list of tasks with the same length as taskCount
-  // If the list of tasks is longer than taskCount, return a list of tasks with length taskCount
-  // If the list of tasks is shorter than taskCount, return a list of tasks with length taskCount
-  // If the list of tasks is the same length as taskCount, return the list of tasks
 
-  Array(taskCount)
-    .fill("")
+/**
+ * `generateTasks` generates an array of tasks with random statuses
+ * @param count number of tasks to generate
+ * @returns
+ */
+const generateTasks = (count: number) =>
+  Array(count)
+    .fill(undefined)
     .map((_, index) => ({
       displayName: `Task ${index}`,
       id: `task_${index}`,
@@ -84,16 +83,24 @@ const taskUpdateLength = (taskCount: number) =>
       execution: 0,
     }));
 
+/**
+ * randomStatus returns a random status from the TaskStatus enum in a round robin fashion
+ * @param index
+ * @returns
+ */
 const randomStatus = (index: number) => {
   const TaskStatusWithoutUmbrella = Object.values(TaskStatus).filter(
     (status) => status.includes("umbrella") === false
   );
-  const taskStatuses = Object.values(TaskStatusWithoutUmbrella);
+  const taskStatuses = Object.values(
+    TaskStatusWithoutUmbrella.filter((t) => !isFailedTaskStatus(t))
+  );
   return taskStatuses[index % taskStatuses.length];
 };
+
 const isRolledUpCommit = (commit: Commit) => commit.rolledUpVersions !== null;
 
-const formatVersion = (
+const populateVersion = (
   version: Commit,
   buildVariantCount: number,
   taskCount: number,
@@ -103,13 +110,9 @@ const formatVersion = (
     return version;
   }
   const newVersion = { ...version };
-  let buildVariants = buildVariantUpdateLength(buildVariantCount);
-  buildVariants = buildVariants.map((buildVariant) => {
-    const newBuildVariant = { ...buildVariant };
-    newBuildVariant.tasks = taskUpdateLength(taskCount);
+  const buildVariants = generateBuildVariants(buildVariantCount, taskCount);
 
-    return newBuildVariant;
-  });
+  // This is used to populate the barcharts on the waterfall page
   // iterate through the buildVariants and aggregate the task statuses for each buildVariant into this format [ { status: "success", count: 1 }, { status: "failed", count: 1 }
   const taskStatusCounts = buildVariants.reduce((acc, buildVariant) => {
     buildVariant.tasks.forEach((task) => {
@@ -127,6 +130,7 @@ const formatVersion = (
   }, [] as { status: string; count: number }[]);
   newVersion.version.taskStatusStats = { eta: null, counts: taskStatusCounts };
 
+  // Calculate the buildVariantStats
   newVersion.version.buildVariantStats = hasTaskFilter
     ? []
     : buildVariants.map((buildVariant) => ({
@@ -137,6 +141,7 @@ const formatVersion = (
         ),
       }));
 
+  // filter out tasks that are not failed if there is no task filter
   newVersion.version.buildVariants = buildVariants.map((buildVariant) => {
     const newBuildVariant = { ...buildVariant };
     newBuildVariant.tasks = hasTaskFilter
@@ -150,6 +155,12 @@ const formatVersion = (
   return newVersion;
 };
 
+/**
+ * `groupTasksByStatus` groups tasks by status and returns an array of objects with the status and count
+ * @param tasks
+ * @returns
+ *
+ */
 const groupTasksByStatus = (tasks: { status: string }[]) => {
   const taskStatusCounts = tasks.reduce((acc, task) => {
     const taskStatus = task.status;
@@ -165,6 +176,7 @@ const groupTasksByStatus = (tasks: { status: string }[]) => {
   }, [] as { status: string; count: number }[]);
   return taskStatusCounts;
 };
+
 const versions: Commits = [
   {
     version: {
