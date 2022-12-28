@@ -280,8 +280,8 @@ export const Metadata: React.VFC<Props> = ({
       ) : null}
       {resetWhenFinished && (
         <P2 data-cy="reset-when-finished-container">
-          This task is scheduled to restart when all of the tasks in its group
-          have finished.
+          This task will restart when all of the tasks in its task group
+          have finished running.
         </P2>
       )}
     </MetadataCard>
