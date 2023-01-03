@@ -26,7 +26,7 @@ const list = [
     child: <AuthenticationCard />,
   },
   {
-    title: "Move the authentication file to ~/.evergreen.yml.",
+    title: "Move the authentication file to 〜/.evergreen.yml.",
   },
   {
     title: "Make sure you are good to go!",

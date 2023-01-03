@@ -1,5 +1,4 @@
 import { SpruceFormProps } from "components/SpruceForm/types";
-import { AntdSelect } from "components/SpruceForm/Widgets/AntdWidgets";
 import {
   buildRegexSelectors,
   failureTypeSubscriberOptions,
@@ -421,8 +420,8 @@ export const getEventSchema = (
   },
   uiSchema: {
     eventSelect: {
-      "ui:widget": AntdSelect,
       "ui:data-cy": "event-trigger-select",
+      "ui:allowDeselect": false,
     },
     extraFields: {
       "ui:showLabel": false,
@@ -445,12 +444,12 @@ export const getEventSchema = (
         "ui:data-cy": "test-regex-input",
       },
       [ExtraFieldKey.BUILD_INITIATOR]: {
-        "ui:widget": AntdSelect,
         "ui:data-cy": "build-initiator-select",
+        "ui:allowDeselect": false,
       },
       [ExtraFieldKey.FAILURE_TYPE]: {
-        "ui:widget": AntdSelect,
         "ui:data-cy": "failure-type-select",
+        "ui:allowDeselect": false,
       },
     },
     regexSelector: {
@@ -463,9 +462,9 @@ export const getEventSchema = (
       items: {
         "ui:ObjectFieldTemplate": RegexSelectorRow,
         regexSelect: {
-          "ui:widget": AntdSelect,
           "ui:data-cy": "regex-select",
-          "ui:disabledEnums": regexEnumsToDisable,
+          "ui:enumDisabled": regexEnumsToDisable,
+          "ui:allowDeselect": false,
         },
         regexInput: {
           "ui:data-cy": "regex-input",

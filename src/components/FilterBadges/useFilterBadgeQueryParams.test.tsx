@@ -43,8 +43,8 @@ describe("filterBadges - queryParams", () => {
     });
     const badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(2);
-    expect(badges[0]).toHaveTextContent("buildVariants : variant1");
-    expect(badges[1]).toHaveTextContent("buildVariants : variant2");
+    expect(badges[0]).toHaveTextContent("buildVariants: variant1");
+    expect(badges[1]).toHaveTextContent("buildVariants: variant2");
   });
 
   it("should render multiple filter badges with the different keys and different values", () => {
@@ -54,8 +54,8 @@ describe("filterBadges - queryParams", () => {
     });
     const badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(2);
-    expect(badges[0]).toHaveTextContent("buildVariants : variant1");
-    expect(badges[1]).toHaveTextContent("tests : test1");
+    expect(badges[0]).toHaveTextContent("buildVariants: variant1");
+    expect(badges[1]).toHaveTextContent("tests: test1");
   });
 
   it("closing out a badge should remove it from the url", () => {
@@ -65,7 +65,7 @@ describe("filterBadges - queryParams", () => {
     });
 
     const badge = screen.queryByDataCy("filter-badge");
-    expect(badge).toHaveTextContent("buildVariants : variant1");
+    expect(badge).toHaveTextContent("buildVariants: variant1");
     const closeBadge = screen.queryByDataCy("close-badge");
     expect(closeBadge).toBeInTheDocument();
     fireEvent.click(closeBadge);
@@ -83,12 +83,12 @@ describe("filterBadges - queryParams", () => {
 
     let badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(2);
-    expect(screen.getByText("buildVariants : variant1")).toBeInTheDocument();
+    expect(screen.getByText("buildVariants: variant1")).toBeInTheDocument();
     const closeBadge = screen.queryAllByDataCy("close-badge");
     fireEvent.click(closeBadge[0]);
     badges = screen.queryAllByDataCy("filter-badge");
     expect(badges).toHaveLength(1);
-    expect(screen.queryByText("buildVariants : variant1")).toBeNull();
+    expect(screen.queryByText("buildVariants: variant1")).toBeNull();
 
     const { location } = history;
 

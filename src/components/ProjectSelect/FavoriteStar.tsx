@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import IconButton from "@leafygreen-ui/icon-button";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import Icon from "components/Icon";
 import { useToastContext } from "context/toast";
 import {
@@ -11,7 +11,7 @@ import {
 } from "gql/generated/types";
 import { ADD_FAVORITE_PROJECT, REMOVE_FAVORITE_PROJECT } from "gql/mutations";
 
-const { green, gray } = uiColors;
+const { green, gray } = palette;
 
 interface FavoriteStarProps {
   identifier: string;

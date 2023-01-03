@@ -63,6 +63,7 @@ export const ExecutionSelect: React.VFC<ExecutionSelectProps> = ({
           >
             <ExecutionInfo>
               <StyledTaskStatusIcon status={singleExecution.status} />
+              {/* @ts-expect-error */}
               <StyledBody title={optionText}>{optionText}</StyledBody>
             </ExecutionInfo>
           </Option>

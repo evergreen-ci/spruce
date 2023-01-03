@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
+import Badge, { Variant } from "@leafygreen-ui/badge";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import Badge, { Variant } from "components/Badge";
 import { StyledRouterLink } from "components/styles";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { getTaskRoute } from "constants/routes";

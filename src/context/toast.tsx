@@ -8,7 +8,7 @@ import {
 } from "react";
 import styled from "@emotion/styled";
 import Toast, { Variant } from "@leafygreen-ui/toast";
-import { WordBreak } from "components/Typography";
+import { WordBreak } from "components/styles";
 import { TOAST_TIMEOUT } from "constants/index";
 import { zIndex } from "constants/tokens";
 import { InvertedObject } from "types/utils";

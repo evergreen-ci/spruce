@@ -1,6 +1,4 @@
-import styled from "@emotion/styled";
-import Badge, { Variant } from "components/Badge";
-import { size } from "constants/tokens";
+import Badge, { Variant } from "@leafygreen-ui/badge";
 import { PatchStatus } from "types/patch";
 
 interface Props {
@@ -8,9 +6,9 @@ interface Props {
 }
 
 export const PatchStatusBadge: React.VFC<Props> = ({ status }) => (
-  <StyledBadge variant={statusToBadgeVariant[status as PatchStatus]}>
+  <Badge variant={statusToBadgeVariant[status as PatchStatus]}>
     {patchStatusToCopy[status as PatchStatus]}
-  </StyledBadge>
+  </Badge>
 );
 
 const statusToBadgeVariant = {
@@ -28,9 +26,3 @@ const patchStatusToCopy = {
   [PatchStatus.Success]: "Succeeded",
   [PatchStatus.Aborted]: "Aborted",
 };
-
-const StyledBadge = styled(Badge)`
-  display: flex;
-  justify-content: center;
-  width: ${size.xxl};
-`;

@@ -41,6 +41,7 @@ export const GroupedTaskStatusBadge: React.VFC<GroupedTaskStatusBadgeProps> = ({
       align="top"
       justify="middle"
       popoverZIndex={zIndex.tooltip}
+      darkMode
       trigger={
         <div>
           <Link
@@ -88,6 +89,7 @@ const BadgeContainer = styled.div<BadgeColorProps>`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  line-height: normal;
   ${({ border }) => border && `border-color: ${border};`}
   ${({ fill }) => fill && `background-color: ${fill};`}
   ${({ text }) => text && `color: ${text};`}

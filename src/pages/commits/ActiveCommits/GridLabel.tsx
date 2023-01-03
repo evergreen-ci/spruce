@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { zIndex, size } from "constants/tokens";
 import { gridHeight } from "pages/commits/constants";
 import { ChartTypes } from "types/commits";
@@ -7,7 +7,7 @@ import { array } from "utils";
 import { roundMax } from "./utils";
 
 const { range } = array;
-const { gray } = uiColors;
+const { gray } = palette;
 
 const percentages = [100, 80, 60, 40, 20, 0];
 

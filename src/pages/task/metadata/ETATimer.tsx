@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { addMilliseconds, differenceInMilliseconds } from "date-fns";
-import { P2 } from "components/Typography";
+import { MetadataItem } from "components/MetadataCard";
 import { string } from "utils";
 
 const { msToDuration } = string;
@@ -48,14 +48,14 @@ export const ETATimer: React.VFC<ETATimerProps> = ({
 
   return (
     <>
-      <P2 data-cy="task-metadata-running-time">
+      <MetadataItem data-cy="task-metadata-running-time">
         Running Time:{" "}
         <span data-cy="metadata-eta-timer">{msToDuration(runningTime)}</span>
-      </P2>
+      </MetadataItem>
       {eta >= 0 && (
-        <P2 data-cy="task-metadata-eta">
+        <MetadataItem data-cy="task-metadata-eta">
           ETA: <span>{msToDuration(eta)}</span>
-        </P2>
+        </MetadataItem>
       )}
     </>
   );

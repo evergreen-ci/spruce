@@ -6,7 +6,7 @@ import Icon from "@leafygreen-ui/icon";
 import { Table, Skeleton, Popconfirm } from "antd";
 import { usePreferencesAnalytics } from "analytics";
 import { PlusButton } from "components/Buttons";
-import { WordBreak } from "components/Typography";
+import { WordBreak } from "components/styles";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -94,7 +94,6 @@ export const PublicKeysTab: React.VFC = () => {
             okText="Yes"
             cancelText="Cancel"
           >
-            {/* @ts-expect-error */}
             <StyledButton
               size="small"
               data-cy="delete-btn"
@@ -159,7 +158,6 @@ const TableContainer = styled.div`
   margin-top: 48px;
 `;
 
-// @ts-expect-error
 const StyledButton = styled(Button)`
   margin-left: ${size.xs};
 `;
