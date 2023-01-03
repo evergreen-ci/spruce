@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { zIndex } from "constants/tokens";
 import { NodeType, Node } from "./nodeList/Node";
 
-const { gray } = uiColors;
+const { gray } = palette;
 interface NodeListProps {
   list: NodeType[];
 }

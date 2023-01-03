@@ -12,11 +12,7 @@ import PageSizeSelector from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { ResultCountLabel } from "components/ResultCountLabel";
-import {
-  TableControlOuterRow,
-  TableControlInnerRow,
-  StyledRouterLink,
-} from "components/styles";
+import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
 import { TasksTable } from "components/Table/TasksTable";
 import { getVersionRoute } from "constants/routes";
 import { size } from "constants/tokens";
@@ -180,13 +176,11 @@ export const DownstreamProjectAccordion: React.VFC<
         <AccordionContents>
           <p>
             Base commit:{" "}
-            <InlineCode>
-              <StyledRouterLink
-                data-cy="downstream-base-commit"
-                to={getVersionRoute(baseVersionID)}
-              >
-                {shortenGithash(githash)}
-              </StyledRouterLink>
+            <InlineCode
+              data-cy="downstream-base-commit"
+              href={getVersionRoute(baseVersionID)}
+            >
+              {shortenGithash(githash)}
             </InlineCode>
           </p>
           <TableWrapper>
@@ -199,7 +193,7 @@ export const DownstreamProjectAccordion: React.VFC<
                   numerator={count}
                   denominator={taskCount}
                 />
-                <PaddedButton // @ts-expect-error
+                <PaddedButton
                   onClick={() => {
                     dispatch({ type: "clearAllFilters" });
                   }}
@@ -271,7 +265,6 @@ const FlexContainer = styled.div`
   align-items: center;
 `;
 
-// @ts-expect-error
 const PaddedButton = styled(Button)`
   margin-left: ${size.s};
 `;

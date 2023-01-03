@@ -48,7 +48,7 @@ describe("breadcrumbs", () => {
     const breadcrumbs = [{ text: "test", onClick, to: "/" }];
     render(<Breadcrumbs breadcrumbs={breadcrumbs} />);
     expect(screen.getByText("test")).toBeInTheDocument();
-    expect(screen.getByText("test")).toHaveAttribute("href", "/");
+    expect(screen.getByRole("link")).toHaveAttribute("href", "/");
     userEvent.click(screen.getByText("test"));
     expect(onClick).toHaveBeenCalledTimes(1);
   });

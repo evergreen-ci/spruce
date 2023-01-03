@@ -2,11 +2,10 @@ import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import TextInput from "@leafygreen-ui/text-input";
 import { Popconfirm } from "antd";
 import Cookies from "js-cookie";
-import { PageWrapper } from "components/styles";
 import { SLACK_NOTIFICATION_BANNER } from "constants/cookies";
 import { fontSize } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -18,7 +17,7 @@ import {
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { GET_USER_SETTINGS } from "gql/queries";
 
-const { blue } = uiColors;
+const { blue } = palette;
 
 export const SlackNotificationBanner = () => {
   const dispatchToast = useToastContext();
@@ -86,55 +85,46 @@ export const SlackNotificationBanner = () => {
 
   const showSlackBanner = !hasClosedBanner && !hasSetNotifications;
 
-  return (
-    showSlackBanner && (
-      <StyledPageWrapper>
-        <Banner
-          variant="info"
-          data-cy="slack-notification-banner"
-          dismissible
-          onClose={hideBanner}
-        >
-          You can receive a Slack notification when your patch is ready.
-          <Popconfirm
-            title={
-              <TextInput
-                label="Slack Username"
-                data-cy="slack-username-input"
-                value={slackUsername}
-                onChange={(e) => setSlackUsername(e.target.value)}
-                onKeyPress={(e) =>
-                  e.key === "Enter" && saveNotificationSettings()
-                }
-                autoFocus
-              />
-            }
-            onConfirm={() => saveNotificationSettings()}
-            okText="Save"
-            cancelText="Cancel"
-            okButtonProps={{
-              loading: loadingUpdateUserSettings,
-              disabled: !slackUsername,
-            }}
-            cancelButtonProps={{ disabled: loadingUpdateUserSettings }}
-            icon={null}
-          >
-            {" "}
-            <SubscribeButton data-cy="subscribe-to-notifications">
-              Subscribe
-            </SubscribeButton>
-          </Popconfirm>
-        </Banner>
-      </StyledPageWrapper>
-    )
-  );
+  return showSlackBanner ? (
+    <Banner
+      variant="info"
+      data-cy="slack-notification-banner"
+      dismissible
+      onClose={hideBanner}
+    >
+      You can receive a Slack notification when your patch is ready.
+      <Popconfirm
+        title={
+          <TextInput
+            label="Slack Username"
+            data-cy="slack-username-input"
+            value={slackUsername}
+            onChange={(e) => setSlackUsername(e.target.value)}
+            onKeyPress={(e) => e.key === "Enter" && saveNotificationSettings()}
+            autoFocus
+          />
+        }
+        onConfirm={() => saveNotificationSettings()}
+        okText="Save"
+        cancelText="Cancel"
+        okButtonProps={{
+          loading: loadingUpdateUserSettings,
+          disabled: !slackUsername,
+        }}
+        cancelButtonProps={{ disabled: loadingUpdateUserSettings }}
+        icon={null}
+      >
+        {" "}
+        <SubscribeButton data-cy="subscribe-to-notifications">
+          Subscribe
+        </SubscribeButton>
+      </Popconfirm>
+    </Banner>
+  ) : null;
 };
 
 const isNotificationSet = (field: string) =>
   field !== "" && field !== undefined;
-const StyledPageWrapper = styled(PageWrapper)`
-  padding: 12px 0;
-`;
 
 const SubscribeButton = styled.span`
   text-decoration: underline;

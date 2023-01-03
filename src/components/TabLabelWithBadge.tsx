@@ -1,4 +1,6 @@
-import Badge, { Variant } from "components/Badge";
+import styled from "@emotion/styled";
+import Badge, { Variant } from "@leafygreen-ui/badge";
+import { size } from "constants/tokens";
 
 interface Props {
   tabLabel: string;
@@ -14,8 +16,13 @@ export const TabLabelWithBadge: React.VFC<Props> = ({
 }) => (
   <>
     {tabLabel}{" "}
-    <Badge data-cy={dataCyBadge} variant={badgeVariant}>
+    <StyledBadge data-cy={dataCyBadge} variant={badgeVariant}>
       {badgeText}
-    </Badge>
+    </StyledBadge>
   </>
 );
+
+const StyledBadge = styled(Badge)`
+  // Fix height to be consistent with text-only tabs
+  height: ${size.s};
+`;

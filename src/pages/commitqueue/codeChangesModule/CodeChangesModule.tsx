@@ -29,30 +29,32 @@ export const CodeChangeModule: React.VFC<{
 }> = ({ moduleCodeChange }) => {
   const { fileDiffs } = moduleCodeChange;
 
-  const modules = bucketByCommit(fileDiffs).map((commitDiffs) => {
-    const { description } = commitDiffs[0] ?? {};
-    return (
-      <CodeChangeModuleContainer key={`code_change_${description}`}>
-        {description && (
-          <CommitName data-cy="commit-name">{description}</CommitName>
-        )}
-        <Accordion
-          title={
-            <DropDownText>
-              <DropDownTextStyle>Total Code changes</DropDownTextStyle>
-              <CodeChangesBadge {...totalFileDiffs(commitDiffs)} />
-            </DropDownText>
-          }
-        >
-          <TableWrapper>
-            <CodeChangesTable fileDiffs={commitDiffs} showHeader={false} />
-          </TableWrapper>
-        </Accordion>
-      </CodeChangeModuleContainer>
-    );
-  });
-
-  return <>{modules}</>; // eslint-disable-line react/jsx-no-useless-fragment
+  return (
+    <>
+      {bucketByCommit(fileDiffs).map((commitDiffs) => {
+        const { description } = commitDiffs[0] ?? {};
+        return (
+          <CodeChangeModuleContainer key={`code_change_${description}`}>
+            {description && (
+              <CommitName data-cy="commit-name">{description}</CommitName>
+            )}
+            <Accordion
+              title={
+                <Body>
+                  <DropDownTextStyle>Total code changes</DropDownTextStyle>
+                  <CodeChangesBadge {...totalFileDiffs(commitDiffs)} />
+                </Body>
+              }
+            >
+              <TableWrapper>
+                <CodeChangesTable fileDiffs={commitDiffs} showHeader={false} />
+              </TableWrapper>
+            </Accordion>
+          </CodeChangeModuleContainer>
+        );
+      })}
+    </>
+  );
 };
 
 const CodeChangeModuleContainer = styled.div`
@@ -61,10 +63,6 @@ const CodeChangeModuleContainer = styled.div`
 
 const DropDownTextStyle = styled("span")`
   margin-right: ${size.m};
-`;
-
-const DropDownText = styled(Body)`
-  font-size: ${fontSize.l};
 `;
 
 const CommitName = styled(Body)`

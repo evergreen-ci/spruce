@@ -2,13 +2,13 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Link } from "react-router-dom";
 import { zIndex } from "constants/tokens";
 
-const { white } = uiColors;
+const { white } = palette;
 
-const DropdownMenuIcon: React.VFC<{ open: boolean }> = ({ open }) => (
+const NavDropdownMenuIcon: React.VFC<{ open: boolean }> = ({ open }) => (
   <Icon glyph={open ? "CaretUp" : "CaretDown"} role="presentation" />
 );
 
@@ -20,11 +20,11 @@ interface MenuItemType {
   onClick?: () => void;
 }
 
-interface DropdownItemType extends MenuItemType {
+interface NavDropdownItemType extends MenuItemType {
   closeMenu: () => void;
 }
 
-const DropdownItem: React.VFC<DropdownItemType> = ({
+const NavDropdownItem: React.VFC<NavDropdownItemType> = ({
   "data-cy": itemDataCy,
   closeMenu,
   href,
@@ -33,6 +33,9 @@ const DropdownItem: React.VFC<DropdownItemType> = ({
 }) => (
   <MenuItem
     as={to && Link}
+    // LG typing should permit props associated with the `as`
+    // component, but right now it doesn't. ¯\_(ツ)_/¯
+    // @ts-expect-error
     to={to}
     href={href}
     data-cy={itemDataCy}
@@ -42,13 +45,13 @@ const DropdownItem: React.VFC<DropdownItemType> = ({
   </MenuItem>
 );
 
-interface DropdownProps {
+interface NavDropdownProps {
   dataCy?: string;
   menuItems: MenuItemType[];
   title: string;
 }
 
-export const Dropdown: React.VFC<DropdownProps> = ({
+export const NavDropdown: React.VFC<NavDropdownProps> = ({
   dataCy,
   menuItems,
   title,
@@ -64,12 +67,12 @@ export const Dropdown: React.VFC<DropdownProps> = ({
       trigger={
         <NavDropdownTitle data-cy={dataCy}>
           {title}
-          <DropdownMenuIcon open={openMenu} />
+          <NavDropdownMenuIcon open={openMenu} />
         </NavDropdownTitle>
       }
     >
       {menuItems.map((menuItem) => (
-        <DropdownItem
+        <NavDropdownItem
           key={`dropdown_${menuItem.text}`}
           closeMenu={() => {
             menuItem.onClick?.(); // call if exists
@@ -86,6 +89,7 @@ const NavDropdownTitle = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   color: ${white};
   cursor: pointer;
 `;

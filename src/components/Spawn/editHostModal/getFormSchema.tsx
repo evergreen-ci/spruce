@@ -2,7 +2,6 @@ import { css } from "@emotion/react";
 import { add } from "date-fns";
 import { GetFormSchema } from "components/SpruceForm/types";
 import widgets from "components/SpruceForm/Widgets";
-import { AntdSelect } from "components/SpruceForm/Widgets/AntdWidgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
 import { InputLabel, StyledLink } from "components/styles";
 import { windowsPasswordRulesURL } from "constants/externalResources";
@@ -86,7 +85,7 @@ export const getFormSchema = ({
       instanceType: {
         title: "Change Instance Type",
         type: "string" as "string",
-        default: "",
+        default: "m4.xlarge",
         oneOf: instanceTypes.map((it) => ({
           type: "string" as "string",
           title: it,
@@ -229,16 +228,16 @@ export const getFormSchema = ({
       },
     },
     instanceType: {
-      "ui:widget": AntdSelect,
-      "ui:hideError": true,
       "ui:description":
         "Instance type can only be changed when the host is stopped.",
       "ui:disabled": !canEditInstanceType,
+      "ui:allowDeselect": false,
     },
     volume: {
-      "ui:widget": AntdSelect,
-      "ui:hideError": true,
       "ui:allowDeselect": false,
+      "ui:disabled": volumes.length === 0,
+      "ui:placeholder":
+        volumes.length === 0 ? "No Volumes Available" : undefined,
     },
     rdpPassword: {
       // Console error should be resolved by https://jira.mongodb.org/browse/LG-2342.
@@ -267,8 +266,6 @@ export const getFormSchema = ({
         "ui:disabled": !canEditSshKeys,
       },
       publicKeyNameDropdown: {
-        "ui:widget": AntdSelect,
-        "ui:hideError": true,
         "ui:valuePlaceholder": "Select a key",
         "ui:disabled": !canEditSshKeys,
       },

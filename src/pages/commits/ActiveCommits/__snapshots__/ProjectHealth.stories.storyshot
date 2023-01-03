@@ -63,31 +63,12 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 onFocus={[Function]}
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
-              />
-            </div>
-            <div
-              className="css-mgqp2w-CommitWrapper eq4i7ol0"
-              width={200}
-            >
-              <div
-                className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
-                data-cy="commit-chart-container"
-                data-type="absolute"
-                onBlur={[Function]}
-                onFocus={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-              />
-            </div>
-            <div
-              className="css-11x1fi4-CommitWrapper eq4i7ol0"
-              width={64}
-            >
-              <div
-                className="css-316fn7-InactiveCommitContainer ezzuvrx10"
               >
                 <div
-                  className="css-1q62izj-InactiveCommitLine ezzuvrx9"
+                  className="css-12xroym-Bar e1tzsy280"
+                  color="#889397"
+                  data-cy="commit-chart-bar"
+                  height="30%"
                 />
               </div>
             </div>
@@ -103,7 +84,26 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 onFocus={[Function]}
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
-              />
+              >
+                <div
+                  className="css-12xroym-Bar e1tzsy280"
+                  color="#889397"
+                  data-cy="commit-chart-bar"
+                  height="30%"
+                />
+              </div>
+            </div>
+            <div
+              className="css-11x1fi4-CommitWrapper eq4i7ol0"
+              width={64}
+            >
+              <div
+                className="css-316fn7-InactiveCommitContainer ezzuvrx10"
+              >
+                <div
+                  className="css-1e8x40o-InactiveCommitLine ezzuvrx9"
+                />
+              </div>
             </div>
             <div
               className="css-mgqp2w-CommitWrapper eq4i7ol0"
@@ -117,7 +117,14 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 onFocus={[Function]}
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
-              />
+              >
+                <div
+                  className="css-12xroym-Bar e1tzsy280"
+                  color="#889397"
+                  data-cy="commit-chart-bar"
+                  height="30%"
+                />
+              </div>
             </div>
             <div
               className="css-mgqp2w-CommitWrapper eq4i7ol0"
@@ -131,32 +138,91 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                 onFocus={[Function]}
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
-              />
+              >
+                <div
+                  className="css-12xroym-Bar e1tzsy280"
+                  color="#889397"
+                  data-cy="commit-chart-bar"
+                  height="30%"
+                />
+              </div>
+            </div>
+            <div
+              className="css-mgqp2w-CommitWrapper eq4i7ol0"
+              width={200}
+            >
+              <div
+                className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy281"
+                data-cy="commit-chart-container"
+                data-type="absolute"
+                onBlur={[Function]}
+                onFocus={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+              >
+                <div
+                  className="css-12xroym-Bar e1tzsy280"
+                  color="#889397"
+                  data-cy="commit-chart-bar"
+                  height="30%"
+                />
+              </div>
             </div>
           </div>
           <div
-            className="css-an2uwi-GridLabelContainer e18agri1"
-          />
+            className="css-fbf73e-GridLabelContainer e18agri1"
+          >
+            <div
+              className="css-1dwm295-YAxisValue e18agri0"
+            >
+              10
+            </div>
+            <div
+              className="css-1dwm295-YAxisValue e18agri0"
+            >
+              8
+            </div>
+            <div
+              className="css-1dwm295-YAxisValue e18agri0"
+            >
+              6
+            </div>
+            <div
+              className="css-1dwm295-YAxisValue e18agri0"
+            >
+              4
+            </div>
+            <div
+              className="css-1dwm295-YAxisValue e18agri0"
+            >
+              2
+            </div>
+            <div
+              className="css-1dwm295-YAxisValue e18agri0"
+            >
+              0
+            </div>
+          </div>
           <div
             className="css-1kwm5h2-ColumnContainer e15dc98b2"
           >
             <div
-              className="css-oxpn1r-DashedLine e15dc98b1"
+              className="css-2g8xyl-DashedLine e15dc98b1"
             />
             <div
-              className="css-oxpn1r-DashedLine e15dc98b1"
+              className="css-2g8xyl-DashedLine e15dc98b1"
             />
             <div
-              className="css-oxpn1r-DashedLine e15dc98b1"
+              className="css-2g8xyl-DashedLine e15dc98b1"
             />
             <div
-              className="css-oxpn1r-DashedLine e15dc98b1"
+              className="css-2g8xyl-DashedLine e15dc98b1"
             />
             <div
-              className="css-oxpn1r-DashedLine e15dc98b1"
+              className="css-2g8xyl-DashedLine e15dc98b1"
             />
             <div
-              className="css-1sahvn-SolidLine e15dc98b0"
+              className="css-16mwmlj-SolidLine e15dc98b0"
             />
           </div>
           <div
@@ -200,27 +266,26 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                   className="css-1nylm8s-ContentsContainer ev0bopr0"
                 >
                   <div
-                    className="css-r7f5o5-ToggleWrapper e1d5uzqe1"
+                    className="css-xetfur-ToggleWrapper e1d5uzqe1"
                   >
                     <div
                       aria-label="chart-select"
-                      className="leafygreen-ui-sgfp3 css-9dmnhj-StyledRadioGroup e1d5uzqe2"
+                      className="css-1ny7bse-StyledRadioGroup e1d5uzqe2"
                       role="group"
                     >
                       <div
-                        className="leafygreen-ui-1s4vgyd"
+                        className="leafygreen-ui-3n5lp7"
                       >
                         <label
-                          className="leafygreen-ui-17avto4"
+                          className="leafygreen-ui-1d5p7a4"
                           htmlFor="chart-radio-absolute"
                         >
                           <input
                             aria-checked={true}
                             aria-disabled={false}
                             checked={true}
-                            className="leafygreen-ui-x2r5fc"
+                            className="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                             data-cy="cy-chart-absolute-radio"
-                            data-leafygreen-ui="input-element"
                             disabled={false}
                             id="chart-radio-absolute"
                             name="chart-select"
@@ -229,40 +294,29 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                             value="absolute"
                           />
                           <div
-                            className="leafygreen-ui-5a1vdt"
-                            data-leafygreen-ui="radio-input-display-wrapper"
+                            className="lg-ui-radio-group-0001 leafygreen-ui-1tsb3ci"
                           >
                             <div
-                              className="leafygreen-ui-1y6j5s3"
-                              data-leafygreen-ui="radio-input-display"
-                              onBlur={[Function]}
-                              onFocus={[Function]}
-                            />
-                            <div
-                              className="leafygreen-ui-1cqcpzq"
-                              data-leafygreen-ui="interaction-ring"
+                              className="lg-ui-radio-group-0000 leafygreen-ui-lej95p"
                             />
                           </div>
-                          <div
-                            className="leafygreen-ui-3sm8z"
-                          >
+                          <div>
                             Absolute Number
                           </div>
                         </label>
                       </div>
                       <div
-                        className="leafygreen-ui-1s4vgyd"
+                        className="leafygreen-ui-3n5lp7"
                       >
                         <label
-                          className="leafygreen-ui-17avto4"
+                          className="leafygreen-ui-1d5p7a4"
                           htmlFor="chart-radio-percent"
                         >
                           <input
                             aria-disabled={false}
                             checked={false}
-                            className="leafygreen-ui-x2r5fc"
+                            className="lg-ui-radio-group-0002 leafygreen-ui-1iwed1m"
                             data-cy="cy-chart-percent-radio"
-                            data-leafygreen-ui="input-element"
                             disabled={false}
                             id="chart-radio-percent"
                             name="chart-select"
@@ -271,23 +325,13 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
                             value="percentage"
                           />
                           <div
-                            className="leafygreen-ui-5a1vdt"
-                            data-leafygreen-ui="radio-input-display-wrapper"
+                            className="lg-ui-radio-group-0001 leafygreen-ui-1tsb3ci"
                           >
                             <div
-                              className="leafygreen-ui-1y6j5s3"
-                              data-leafygreen-ui="radio-input-display"
-                              onBlur={[Function]}
-                              onFocus={[Function]}
-                            />
-                            <div
-                              className="leafygreen-ui-1cqcpzq"
-                              data-leafygreen-ui="interaction-ring"
+                              className="lg-ui-radio-group-0000 leafygreen-ui-lej95p"
                             />
                           </div>
-                          <div
-                            className="leafygreen-ui-3sm8z"
-                          >
+                          <div>
                             Percentage
                           </div>
                         </label>
@@ -315,42 +359,54 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-3j3zz7-LabelContainer e1cz15301"
             data-cy="commit-label"
           >
-            <div
-              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            <p
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
             >
               <a
-                className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                data-cy="githash-link"
                 href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks"
                 onClick={[Function]}
               >
-                987bf57
+                <span
+                  className="leafygreen-ui-1ewnca3"
+                >
+                  987bf57
+                </span>
               </a>
                
               <b>
                 Jul 16, 2021, 3:53 PM
               </b>
-            </div>
-            <div
-              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            </p>
+            <p
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
             >
               Jonathan Brill
                -
-            </div>
-            <div
-              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            </p>
+            <p
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
             >
               
               <a
-                className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+                className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                data-cy="jira-link"
                 href="https://undefined/browse/EVG-14901"
                 onClick={[Function]}
+                rel="noopener noreferrer"
+                target="_blank"
               >
-                EVG-14901
+                <span
+                  className="leafygreen-ui-1ewnca3"
+                >
+                  EVG-14901
+                </span>
               </a>
                add ssh key to EditSpawnHos...
-            </div>
+            </p>
             <small
-              className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+              className="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-q4itxe"
               onBlur={[Function]}
               onFocus={[Function]}
               onMouseEnter={[Function]}
@@ -368,34 +424,39 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-3j3zz7-LabelContainer e1cz15301"
             data-cy="commit-label"
           >
-            <div
-              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            <p
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
             >
               <a
-                className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                data-cy="githash-link"
                 href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks"
                 onClick={[Function]}
               >
-                a77bd39
+                <span
+                  className="leafygreen-ui-1ewnca3"
+                >
+                  a77bd39
+                </span>
               </a>
                
               <b>
                 Jul 13, 2021, 2:51 PM
               </b>
-            </div>
-            <div
-              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            </p>
+            <p
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
             >
               Mohamed Khelif
                -
-            </div>
-            <div
-              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            </p>
+            <p
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
             >
               Triggered From Git Tag 'v2.11.1': v2....
-            </div>
+            </p>
             <small
-              className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+              className="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-q4itxe"
               onBlur={[Function]}
               onFocus={[Function]}
               onMouseEnter={[Function]}
@@ -415,7 +476,7 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             role="button"
           >
             <small
-              className="css-t2ltce-ButtonText ezzuvrx6 leafygreen-ui-13bqno6"
+              className="css-t2ltce-ButtonText ezzuvrx6 leafygreen-ui-ppjyot"
               data-cy="inactive-commits-button"
             >
               <div>
@@ -433,42 +494,54 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-3j3zz7-LabelContainer e1cz15301"
             data-cy="commit-label"
           >
-            <div
-              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            <p
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
             >
               <a
-                className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                data-cy="githash-link"
                 href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks"
                 onClick={[Function]}
               >
-                9c1d1eb
+                <span
+                  className="leafygreen-ui-1ewnca3"
+                >
+                  9c1d1eb
+                </span>
               </a>
                
               <b>
                 Jul 13, 2021, 2:51 PM
               </b>
-            </div>
-            <div
-              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            </p>
+            <p
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
             >
               Mohamed Khelif
                -
-            </div>
-            <div
-              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            </p>
+            <p
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
             >
               
               <a
-                className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+                className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                data-cy="jira-link"
                 href="https://undefined/browse/EVG-14799"
                 onClick={[Function]}
+                rel="noopener noreferrer"
+                target="_blank"
               >
-                EVG-14799
+                <span
+                  className="leafygreen-ui-1ewnca3"
+                >
+                  EVG-14799
+                </span>
               </a>
                Correctly visit configure p...
-            </div>
+            </p>
             <small
-              className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+              className="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-q4itxe"
               onBlur={[Function]}
               onFocus={[Function]}
               onMouseEnter={[Function]}
@@ -486,34 +559,39 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-3j3zz7-LabelContainer e1cz15301"
             data-cy="commit-label"
           >
-            <div
-              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            <p
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
             >
               <a
-                className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                data-cy="githash-link"
                 href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks"
                 onClick={[Function]}
               >
-                f7f7f1a
+                <span
+                  className="leafygreen-ui-1ewnca3"
+                >
+                  f7f7f1a
+                </span>
               </a>
                
               <b>
                 Jul 13, 2021, 2:51 PM
               </b>
-            </div>
-            <div
-              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            </p>
+            <p
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
             >
               Sophie Stadler
                -
-            </div>
-            <div
-              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            </p>
+            <p
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
             >
               Remove navigation announcement toast ...
-            </div>
+            </p>
             <small
-              className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+              className="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-q4itxe"
               onBlur={[Function]}
               onFocus={[Function]}
               onMouseEnter={[Function]}
@@ -531,34 +609,39 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-3j3zz7-LabelContainer e1cz15301"
             data-cy="commit-label"
           >
-            <div
-              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            <p
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
             >
               <a
-                className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
+                data-cy="githash-link"
                 href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks"
                 onClick={[Function]}
               >
-                211b3a0
+                <span
+                  className="leafygreen-ui-1ewnca3"
+                >
+                  211b3a0
+                </span>
               </a>
                
               <b>
                 Jul 13, 2021, 2:51 PM
               </b>
-            </div>
-            <div
-              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            </p>
+            <p
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
             >
               Chaya Malik
                -
-            </div>
-            <div
-              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1mngpnd"
+            </p>
+            <p
+              className="css-1l2peoq-LabelText e1cz15300 leafygreen-ui-1yli3c0"
             >
               Triggered From Git Tag 'v2.11.0': v2....
-            </div>
+            </p>
             <small
-              className="css-2n0pzr-ButtonText eq9i5u71 leafygreen-ui-1mvgvb8"
+              className="css-7pbzgz-ButtonText eq9i5u71 leafygreen-ui-q4itxe"
               onBlur={[Function]}
               onFocus={[Function]}
               onMouseEnter={[Function]}
@@ -584,12 +667,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-8bv1t4-Container ek3nkvx1"
           >
             <a
-              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
               data-cy="variant-header"
-              href="/variant-history/spruce/bv_0?selectedCommit=929"
+              href="/variant-history/spruce/bv_000?selectedCommit=929"
               onClick={[Function]}
             >
-              Build Variant 0
+              <span
+                className="leafygreen-ui-1ewnca3"
+              >
+                Build Variant 0
+              </span>
             </a>
             <div
               className="css-16zj0ph-Content ek3nkvx0"
@@ -598,7 +685,37 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
               <div>
                 <div
                   className="css-1uxzogm-VariantTasks e35ih1y0"
-                />
+                >
+                  <div
+                    className="leafygreen-ui-cssveg"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                  >
+                    <a
+                      data-cy="grouped-task-status-badge"
+                      href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_000%24"
+                      onClick={[Function]}
+                    >
+                      <div
+                        className="css-15tkksr-BadgeContainer emc61an4"
+                        fill="#5C6C75"
+                      >
+                        <span
+                          className="css-1f81ztl-Number emc61an2"
+                        >
+                          1
+                        </span>
+                        <span
+                          className="css-oqj204-Status emc61an1"
+                        >
+                          Scheduled
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -606,12 +723,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-8bv1t4-Container ek3nkvx1"
           >
             <a
-              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
               data-cy="variant-header"
-              href="/variant-history/spruce/bv_1?selectedCommit=929"
+              href="/variant-history/spruce/bv_001?selectedCommit=929"
               onClick={[Function]}
             >
-              Build Variant 1
+              <span
+                className="leafygreen-ui-1ewnca3"
+              >
+                Build Variant 1
+              </span>
             </a>
             <div
               className="css-16zj0ph-Content ek3nkvx0"
@@ -620,7 +741,37 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
               <div>
                 <div
                   className="css-1uxzogm-VariantTasks e35ih1y0"
-                />
+                >
+                  <div
+                    className="leafygreen-ui-cssveg"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                  >
+                    <a
+                      data-cy="grouped-task-status-badge"
+                      href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_001%24"
+                      onClick={[Function]}
+                    >
+                      <div
+                        className="css-15tkksr-BadgeContainer emc61an4"
+                        fill="#5C6C75"
+                      >
+                        <span
+                          className="css-1f81ztl-Number emc61an2"
+                        >
+                          1
+                        </span>
+                        <span
+                          className="css-oqj204-Status emc61an1"
+                        >
+                          Scheduled
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -628,12 +779,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-8bv1t4-Container ek3nkvx1"
           >
             <a
-              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
               data-cy="variant-header"
-              href="/variant-history/spruce/bv_2?selectedCommit=929"
+              href="/variant-history/spruce/bv_002?selectedCommit=929"
               onClick={[Function]}
             >
-              Build Variant 2
+              <span
+                className="leafygreen-ui-1ewnca3"
+              >
+                Build Variant 2
+              </span>
             </a>
             <div
               className="css-16zj0ph-Content ek3nkvx0"
@@ -642,7 +797,37 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
               <div>
                 <div
                   className="css-1uxzogm-VariantTasks e35ih1y0"
-                />
+                >
+                  <div
+                    className="leafygreen-ui-cssveg"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                  >
+                    <a
+                      data-cy="grouped-task-status-badge"
+                      href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_002%24"
+                      onClick={[Function]}
+                    >
+                      <div
+                        className="css-15tkksr-BadgeContainer emc61an4"
+                        fill="#5C6C75"
+                      >
+                        <span
+                          className="css-1f81ztl-Number emc61an2"
+                        >
+                          1
+                        </span>
+                        <span
+                          className="css-oqj204-Status emc61an1"
+                        >
+                          Scheduled
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -659,12 +844,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-8bv1t4-Container ek3nkvx1"
           >
             <a
-              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
               data-cy="variant-header"
-              href="/variant-history/spruce/bv_0?selectedCommit=928"
+              href="/variant-history/spruce/bv_000?selectedCommit=928"
               onClick={[Function]}
             >
-              Build Variant 0
+              <span
+                className="leafygreen-ui-1ewnca3"
+              >
+                Build Variant 0
+              </span>
             </a>
             <div
               className="css-16zj0ph-Content ek3nkvx0"
@@ -673,7 +862,37 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
               <div>
                 <div
                   className="css-1uxzogm-VariantTasks e35ih1y0"
-                />
+                >
+                  <div
+                    className="leafygreen-ui-cssveg"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                  >
+                    <a
+                      data-cy="grouped-task-status-badge"
+                      href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_000%24"
+                      onClick={[Function]}
+                    >
+                      <div
+                        className="css-15tkksr-BadgeContainer emc61an4"
+                        fill="#5C6C75"
+                      >
+                        <span
+                          className="css-1f81ztl-Number emc61an2"
+                        >
+                          1
+                        </span>
+                        <span
+                          className="css-oqj204-Status emc61an1"
+                        >
+                          Scheduled
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -681,12 +900,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-8bv1t4-Container ek3nkvx1"
           >
             <a
-              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
               data-cy="variant-header"
-              href="/variant-history/spruce/bv_1?selectedCommit=928"
+              href="/variant-history/spruce/bv_001?selectedCommit=928"
               onClick={[Function]}
             >
-              Build Variant 1
+              <span
+                className="leafygreen-ui-1ewnca3"
+              >
+                Build Variant 1
+              </span>
             </a>
             <div
               className="css-16zj0ph-Content ek3nkvx0"
@@ -695,7 +918,37 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
               <div>
                 <div
                   className="css-1uxzogm-VariantTasks e35ih1y0"
-                />
+                >
+                  <div
+                    className="leafygreen-ui-cssveg"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                  >
+                    <a
+                      data-cy="grouped-task-status-badge"
+                      href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_001%24"
+                      onClick={[Function]}
+                    >
+                      <div
+                        className="css-15tkksr-BadgeContainer emc61an4"
+                        fill="#5C6C75"
+                      >
+                        <span
+                          className="css-1f81ztl-Number emc61an2"
+                        >
+                          1
+                        </span>
+                        <span
+                          className="css-oqj204-Status emc61an1"
+                        >
+                          Scheduled
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -703,12 +956,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-8bv1t4-Container ek3nkvx1"
           >
             <a
-              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
               data-cy="variant-header"
-              href="/variant-history/spruce/bv_2?selectedCommit=928"
+              href="/variant-history/spruce/bv_002?selectedCommit=928"
               onClick={[Function]}
             >
-              Build Variant 2
+              <span
+                className="leafygreen-ui-1ewnca3"
+              >
+                Build Variant 2
+              </span>
             </a>
             <div
               className="css-16zj0ph-Content ek3nkvx0"
@@ -717,7 +974,37 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
               <div>
                 <div
                   className="css-1uxzogm-VariantTasks e35ih1y0"
-                />
+                >
+                  <div
+                    className="leafygreen-ui-cssveg"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                  >
+                    <a
+                      data-cy="grouped-task-status-badge"
+                      href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_002%24"
+                      onClick={[Function]}
+                    >
+                      <div
+                        className="css-15tkksr-BadgeContainer emc61an4"
+                        fill="#5C6C75"
+                      >
+                        <span
+                          className="css-1f81ztl-Number emc61an2"
+                        >
+                          1
+                        </span>
+                        <span
+                          className="css-oqj204-Status emc61an1"
+                        >
+                          Scheduled
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -738,12 +1025,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-8bv1t4-Container ek3nkvx1"
           >
             <a
-              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
               data-cy="variant-header"
-              href="/variant-history/spruce/bv_0?selectedCommit=926"
+              href="/variant-history/spruce/bv_000?selectedCommit=926"
               onClick={[Function]}
             >
-              Build Variant 0
+              <span
+                className="leafygreen-ui-1ewnca3"
+              >
+                Build Variant 0
+              </span>
             </a>
             <div
               className="css-16zj0ph-Content ek3nkvx0"
@@ -752,7 +1043,37 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
               <div>
                 <div
                   className="css-1uxzogm-VariantTasks e35ih1y0"
-                />
+                >
+                  <div
+                    className="leafygreen-ui-cssveg"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                  >
+                    <a
+                      data-cy="grouped-task-status-badge"
+                      href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_000%24"
+                      onClick={[Function]}
+                    >
+                      <div
+                        className="css-15tkksr-BadgeContainer emc61an4"
+                        fill="#5C6C75"
+                      >
+                        <span
+                          className="css-1f81ztl-Number emc61an2"
+                        >
+                          1
+                        </span>
+                        <span
+                          className="css-oqj204-Status emc61an1"
+                        >
+                          Scheduled
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -760,12 +1081,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-8bv1t4-Container ek3nkvx1"
           >
             <a
-              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
               data-cy="variant-header"
-              href="/variant-history/spruce/bv_1?selectedCommit=926"
+              href="/variant-history/spruce/bv_001?selectedCommit=926"
               onClick={[Function]}
             >
-              Build Variant 1
+              <span
+                className="leafygreen-ui-1ewnca3"
+              >
+                Build Variant 1
+              </span>
             </a>
             <div
               className="css-16zj0ph-Content ek3nkvx0"
@@ -774,7 +1099,37 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
               <div>
                 <div
                   className="css-1uxzogm-VariantTasks e35ih1y0"
-                />
+                >
+                  <div
+                    className="leafygreen-ui-cssveg"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                  >
+                    <a
+                      data-cy="grouped-task-status-badge"
+                      href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_001%24"
+                      onClick={[Function]}
+                    >
+                      <div
+                        className="css-15tkksr-BadgeContainer emc61an4"
+                        fill="#5C6C75"
+                      >
+                        <span
+                          className="css-1f81ztl-Number emc61an2"
+                        >
+                          1
+                        </span>
+                        <span
+                          className="css-oqj204-Status emc61an1"
+                        >
+                          Scheduled
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -782,12 +1137,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-8bv1t4-Container ek3nkvx1"
           >
             <a
-              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
               data-cy="variant-header"
-              href="/variant-history/spruce/bv_2?selectedCommit=926"
+              href="/variant-history/spruce/bv_002?selectedCommit=926"
               onClick={[Function]}
             >
-              Build Variant 2
+              <span
+                className="leafygreen-ui-1ewnca3"
+              >
+                Build Variant 2
+              </span>
             </a>
             <div
               className="css-16zj0ph-Content ek3nkvx0"
@@ -796,7 +1155,37 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
               <div>
                 <div
                   className="css-1uxzogm-VariantTasks e35ih1y0"
-                />
+                >
+                  <div
+                    className="leafygreen-ui-cssveg"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                  >
+                    <a
+                      data-cy="grouped-task-status-badge"
+                      href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_002%24"
+                      onClick={[Function]}
+                    >
+                      <div
+                        className="css-15tkksr-BadgeContainer emc61an4"
+                        fill="#5C6C75"
+                      >
+                        <span
+                          className="css-1f81ztl-Number emc61an2"
+                        >
+                          1
+                        </span>
+                        <span
+                          className="css-oqj204-Status emc61an1"
+                        >
+                          Scheduled
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -813,12 +1202,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-8bv1t4-Container ek3nkvx1"
           >
             <a
-              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
               data-cy="variant-header"
-              href="/variant-history/spruce/bv_0?selectedCommit=925"
+              href="/variant-history/spruce/bv_000?selectedCommit=925"
               onClick={[Function]}
             >
-              Build Variant 0
+              <span
+                className="leafygreen-ui-1ewnca3"
+              >
+                Build Variant 0
+              </span>
             </a>
             <div
               className="css-16zj0ph-Content ek3nkvx0"
@@ -827,7 +1220,37 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
               <div>
                 <div
                   className="css-1uxzogm-VariantTasks e35ih1y0"
-                />
+                >
+                  <div
+                    className="leafygreen-ui-cssveg"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                  >
+                    <a
+                      data-cy="grouped-task-status-badge"
+                      href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_000%24"
+                      onClick={[Function]}
+                    >
+                      <div
+                        className="css-15tkksr-BadgeContainer emc61an4"
+                        fill="#5C6C75"
+                      >
+                        <span
+                          className="css-1f81ztl-Number emc61an2"
+                        >
+                          1
+                        </span>
+                        <span
+                          className="css-oqj204-Status emc61an1"
+                        >
+                          Scheduled
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -835,12 +1258,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-8bv1t4-Container ek3nkvx1"
           >
             <a
-              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
               data-cy="variant-header"
-              href="/variant-history/spruce/bv_1?selectedCommit=925"
+              href="/variant-history/spruce/bv_001?selectedCommit=925"
               onClick={[Function]}
             >
-              Build Variant 1
+              <span
+                className="leafygreen-ui-1ewnca3"
+              >
+                Build Variant 1
+              </span>
             </a>
             <div
               className="css-16zj0ph-Content ek3nkvx0"
@@ -849,7 +1276,37 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
               <div>
                 <div
                   className="css-1uxzogm-VariantTasks e35ih1y0"
-                />
+                >
+                  <div
+                    className="leafygreen-ui-cssveg"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                  >
+                    <a
+                      data-cy="grouped-task-status-badge"
+                      href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_001%24"
+                      onClick={[Function]}
+                    >
+                      <div
+                        className="css-15tkksr-BadgeContainer emc61an4"
+                        fill="#5C6C75"
+                      >
+                        <span
+                          className="css-1f81ztl-Number emc61an2"
+                        >
+                          1
+                        </span>
+                        <span
+                          className="css-oqj204-Status emc61an1"
+                        >
+                          Scheduled
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -857,12 +1314,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-8bv1t4-Container ek3nkvx1"
           >
             <a
-              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
               data-cy="variant-header"
-              href="/variant-history/spruce/bv_2?selectedCommit=925"
+              href="/variant-history/spruce/bv_002?selectedCommit=925"
               onClick={[Function]}
             >
-              Build Variant 2
+              <span
+                className="leafygreen-ui-1ewnca3"
+              >
+                Build Variant 2
+              </span>
             </a>
             <div
               className="css-16zj0ph-Content ek3nkvx0"
@@ -871,7 +1332,37 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
               <div>
                 <div
                   className="css-1uxzogm-VariantTasks e35ih1y0"
-                />
+                >
+                  <div
+                    className="leafygreen-ui-cssveg"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                  >
+                    <a
+                      data-cy="grouped-task-status-badge"
+                      href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_002%24"
+                      onClick={[Function]}
+                    >
+                      <div
+                        className="css-15tkksr-BadgeContainer emc61an4"
+                        fill="#5C6C75"
+                      >
+                        <span
+                          className="css-1f81ztl-Number emc61an2"
+                        >
+                          1
+                        </span>
+                        <span
+                          className="css-oqj204-Status emc61an1"
+                        >
+                          Scheduled
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -888,12 +1379,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-8bv1t4-Container ek3nkvx1"
           >
             <a
-              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
               data-cy="variant-header"
-              href="/variant-history/spruce/bv_0?selectedCommit=924"
+              href="/variant-history/spruce/bv_000?selectedCommit=924"
               onClick={[Function]}
             >
-              Build Variant 0
+              <span
+                className="leafygreen-ui-1ewnca3"
+              >
+                Build Variant 0
+              </span>
             </a>
             <div
               className="css-16zj0ph-Content ek3nkvx0"
@@ -902,7 +1397,37 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
               <div>
                 <div
                   className="css-1uxzogm-VariantTasks e35ih1y0"
-                />
+                >
+                  <div
+                    className="leafygreen-ui-cssveg"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                  >
+                    <a
+                      data-cy="grouped-task-status-badge"
+                      href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_000%24"
+                      onClick={[Function]}
+                    >
+                      <div
+                        className="css-15tkksr-BadgeContainer emc61an4"
+                        fill="#5C6C75"
+                      >
+                        <span
+                          className="css-1f81ztl-Number emc61an2"
+                        >
+                          1
+                        </span>
+                        <span
+                          className="css-oqj204-Status emc61an1"
+                        >
+                          Scheduled
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -910,12 +1435,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-8bv1t4-Container ek3nkvx1"
           >
             <a
-              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
               data-cy="variant-header"
-              href="/variant-history/spruce/bv_1?selectedCommit=924"
+              href="/variant-history/spruce/bv_001?selectedCommit=924"
               onClick={[Function]}
             >
-              Build Variant 1
+              <span
+                className="leafygreen-ui-1ewnca3"
+              >
+                Build Variant 1
+              </span>
             </a>
             <div
               className="css-16zj0ph-Content ek3nkvx0"
@@ -924,7 +1453,37 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
               <div>
                 <div
                   className="css-1uxzogm-VariantTasks e35ih1y0"
-                />
+                >
+                  <div
+                    className="leafygreen-ui-cssveg"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                  >
+                    <a
+                      data-cy="grouped-task-status-badge"
+                      href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_001%24"
+                      onClick={[Function]}
+                    >
+                      <div
+                        className="css-15tkksr-BadgeContainer emc61an4"
+                        fill="#5C6C75"
+                      >
+                        <span
+                          className="css-1f81ztl-Number emc61an2"
+                        >
+                          1
+                        </span>
+                        <span
+                          className="css-oqj204-Status emc61an1"
+                        >
+                          Scheduled
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -932,12 +1491,16 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
             className="css-8bv1t4-Container ek3nkvx1"
           >
             <a
-              className="css-51km4x-StyledRouterLink-linkStyles-Label ek3nkvx3"
+              className="lg-ui-0001 ek3nkvx3 css-11x0tt9-StyledLink-Label leafygreen-ui-1cn1hqb"
               data-cy="variant-header"
-              href="/variant-history/spruce/bv_2?selectedCommit=924"
+              href="/variant-history/spruce/bv_002?selectedCommit=924"
               onClick={[Function]}
             >
-              Build Variant 2
+              <span
+                className="leafygreen-ui-1ewnca3"
+              >
+                Build Variant 2
+              </span>
             </a>
             <div
               className="css-16zj0ph-Content ek3nkvx0"
@@ -946,7 +1509,37 @@ exports[`storybook Storyshots Pages/Commits/Project Health Page Actual Waterfall
               <div>
                 <div
                   className="css-1uxzogm-VariantTasks e35ih1y0"
-                />
+                >
+                  <div
+                    className="leafygreen-ui-cssveg"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                  >
+                    <a
+                      data-cy="grouped-task-status-badge"
+                      href="/version/spruce_v2.11.0_60ec461532f4172d48288274/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Ebv_002%24"
+                      onClick={[Function]}
+                    >
+                      <div
+                        className="css-15tkksr-BadgeContainer emc61an4"
+                        fill="#5C6C75"
+                      >
+                        <span
+                          className="css-1f81ztl-Number emc61an2"
+                        >
+                          1
+                        </span>
+                        <span
+                          className="css-oqj204-Status emc61an1"
+                        >
+                          Scheduled
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

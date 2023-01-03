@@ -1,9 +1,7 @@
-import { Select } from "antd";
+import { Select, Option } from "@leafygreen-ui/select";
 import { ModalContent, SectionContainer, SectionLabel } from "components/Spawn";
 import { InputLabel } from "components/styles";
 import { volumeTypes } from "constants/volumes";
-
-const { Option } = Select;
 
 interface Props {
   value: string;

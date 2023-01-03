@@ -141,7 +141,7 @@ describe("Tasks filters", () => {
               urlSearchParamsAreUpdated({
                 pathname: pathTasks,
                 paramName: urlParam,
-                search: "failed,success",
+                search: "failed-umbrella,failed,known-issue,success",
               });
               waitForTable();
               cy.dataCy("current-task-count").should(
@@ -280,6 +280,7 @@ const assertChecked = (statuses: string[], checked: boolean) => {
 
 /**
  * Function used to select a checkbox option from the table filter dropdown.
+ * Only the first checkbox whose label is a match (i.e. the umbrella group name) will be checked.
  * @param label label of the checkbox option to click on
  * @param checked true if should be checked, false if should be unchecked
  */
@@ -298,6 +299,7 @@ const selectCheckboxOption = (label: string, checked: boolean) => {
             .find('input[type="checkbox"]')
             .uncheck({ force: true, scrollBehavior: false });
         }
+        return false;
       }
     });
 };

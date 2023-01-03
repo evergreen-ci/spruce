@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { size } from "constants/tokens";
 
 interface Props {
@@ -33,12 +33,12 @@ export const FileDiffText: React.VFC<FileDiffTextProps> = ({ value, type }) => {
   );
 };
 
-const { green, red } = uiColors;
+const { green, red } = palette;
 
 const FileDiffTextContainer = styled("span")`
   ${(props: { type: string; hasValue: boolean }): string =>
     props.hasValue &&
-    (props.type === "+" ? `color: ${green.base};` : `color: ${red.base};`)}
+    (props.type === "+" ? `color: ${green.dark1};` : `color: ${red.base};`)}
   &:nth-of-type(2) {
     margin-left: ${size.s};
   }

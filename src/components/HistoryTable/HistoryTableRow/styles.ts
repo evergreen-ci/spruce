@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 
-const { blue } = uiColors;
+const { blue } = palette;
 export const LabelCellContainer = styled.div`
   min-width: 200px;
   padding-right: 40px;
