@@ -18,7 +18,6 @@ fragment projectGeneralSettings on Project {
     patchEnabled
   }
   disabledStatsCache
-  filesIgnoredFromCache
 }
 
 fragment repoGeneralSettings on RepoRef {
@@ -41,5 +40,4 @@ fragment repoGeneralSettings on RepoRef {
     patchEnabled
   }
   disabledStatsCache
-  filesIgnoredFromCache
 }
