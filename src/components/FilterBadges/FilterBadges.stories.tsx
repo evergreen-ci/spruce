@@ -71,13 +71,11 @@ const BadgeInput = ({
         value={badgeValue}
         onChange={(e) => setBadgeValue(e.target.value)}
       />
-      {/* @ts-expect-error */}
       <StyledButton onClick={handleAdd}>Add</StyledButton>
     </div>
   );
 };
 
-/* @ts-expect-error */
 const StyledButton = styled(Button)`
   margin-top: ${size.s};
 `;

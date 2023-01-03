@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import { Size } from "@leafygreen-ui/button";
+import Button, { Size } from "@leafygreen-ui/button";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { useSpawnAnalytics } from "analytics";
 import Icon from "components/Icon";
-import { PaddedButton, tooltipWidth } from "components/Spawn";
 import { SECOND } from "constants/index";
+import { size } from "constants/tokens";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 import { string } from "utils";
@@ -51,18 +51,17 @@ export const CopySSHCommandButton: React.VFC<{
         e.stopPropagation();
       }}
     >
-      <StyledTooltip
+      <Tooltip
         align="top"
         justify="middle"
         data-cy="copy-ssh-tooltip"
         trigger={
           // Wrapper is necessary because disabled elements cannot trigger mouse events.
           <div data-cy="copy-ssh-button-wrapper">
-            <PaddedButton
+            <Button
               data-cy="copy-ssh-button"
               disabled={!canSSH}
               leftGlyph={<Icon glyph="Copy" />}
-              // @ts-expect-error
               onClick={(event: React.MouseEvent) => {
                 event.stopPropagation();
                 copyToClipboard(sshCommand);
@@ -72,7 +71,7 @@ export const CopySSHCommandButton: React.VFC<{
               size={Size.XSmall}
             >
               <Label>SSH Command</Label>
-            </PaddedButton>
+            </Button>
           </div>
         }
       >
@@ -85,22 +84,16 @@ export const CopySSHCommandButton: React.VFC<{
               : `Host must be running in order to SSH`}
           </Center>
         )}
-      </StyledTooltip>
+      </Tooltip>
     </span>
   );
 };
-
-// @ts-expect-error
-// For leafygreen Tooltip, there is a bug where you have to set the width to prevent misalignment when
-// the trigger element is near the right side of a page. Ticket: https://jira.mongodb.org/browse/PD-1542
-const StyledTooltip = styled(Tooltip)`
-  width: ${tooltipWidth};
-`;
 
 const FlexContainer = styled.div`
   display: flex;
   align-items: center;
   line-height: 1;
+  gap: ${size.xs};
 `;
 
 const Label = styled.span`

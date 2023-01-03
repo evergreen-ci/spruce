@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { H2, Disclaimer } from "@leafygreen-ui/typography";
+import { Body, H2 } from "@leafygreen-ui/typography";
 import { Route, Routes, useParams, Navigate } from "react-router-dom";
 import { PreferencesTabRoutes } from "constants/routes";
 import { size } from "constants/tokens";
@@ -60,13 +60,14 @@ const getTitle = (
       },
       [PreferencesTabRoutes.PublicKeys]: {
         title: "Manage Public Keys",
-        subtitle: "These keys will be used to SSH into spawned hosts",
+        subtitle: "These keys will be used to SSH into spawned hosts.",
       },
     }[tab] ?? defaultTitle
   );
 };
 
 const Container = styled.div`
+  min-width: 600px;
   width: 60%;
 `;
 
@@ -74,6 +75,6 @@ const TitleContainer = styled.div`
   margin-bottom: 30px;
 `;
 
-const Subtitle = styled(Disclaimer)`
+const Subtitle = styled(Body)`
   padding-top: ${size.s};
 `;

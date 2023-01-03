@@ -134,7 +134,7 @@ describe("commits page", () => {
         .type("Ubuntu")
         .type("{enter}");
       cy.dataCy("filter-badge").should("have.length", 1);
-      cy.dataCy("filter-badge").should("have.text", "buildVariants : Ubuntu");
+      cy.dataCy("filter-badge").should("have.text", "buildVariants: Ubuntu");
       cy.location("search").should("contain", "?buildVariants=Ubuntu");
       cy.dataCy("grouped-task-status-badge").should("have.length", 5);
       cy.dataCy("waterfall-task-status-icon").should("have.length", 1);
@@ -145,8 +145,8 @@ describe("commits page", () => {
       );
     });
     it("applying a task filter should show all task icons instead of groupings", () => {
-      cy.get("button").contains("Build Variant").should("exist");
-      cy.get("button").contains("Build Variant").click({ force: true });
+      cy.contains("button", "Build Variant").should("exist");
+      cy.contains("button", "Build Variant").click({ force: true });
       cy.get("li").contains("Task").should("be.visible");
       cy.get("li").contains("Task").click();
       cy.getInputByLabel("Add New Task Filter").type(".").type("{enter}");

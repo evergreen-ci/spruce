@@ -4,7 +4,7 @@ import Button from "@leafygreen-ui/button";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import TextInput from "@leafygreen-ui/text-input";
 import { Popconfirm } from "antd";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { LoadingButton } from "components/Buttons";
@@ -37,6 +37,7 @@ import {
   SET_TASK_PRIORTY,
   UNSCHEDULE_TASK,
 } from "gql/mutations";
+import { useLGButtonRouterLink } from "hooks/useLGButtonRouterLink";
 import { useQueryParam } from "hooks/useQueryParam";
 import { TaskStatus } from "types/task";
 import { PreviousCommits } from "./actionButtons/previousCommits/PreviousCommits";
@@ -169,6 +170,12 @@ export const ActionButtons: React.VFC<Props> = ({
     },
   });
 
+  const HistoryLink = useLGButtonRouterLink(
+    getTaskHistoryRoute(projectIdentifier, displayName, {
+      selectedCommit: !isPatch && order,
+    })
+  );
+
   const disabled =
     loadingAbortTask ||
     loadingRestartTask ||
@@ -273,15 +280,12 @@ export const ActionButtons: React.VFC<Props> = ({
             <PreviousCommits taskId={taskId} />
             <Button
               size="small"
-              as={Link}
               data-cy="task-history"
               key="task-history"
               onClick={() => {
                 taskAnalytics.sendEvent({ name: "Click See History Button" });
               }}
-              to={getTaskHistoryRoute(projectIdentifier, displayName, {
-                selectedCommit: !isPatch && order,
-              })}
+              as={HistoryLink}
               disabled={displayName === mergeTaskName}
             >
               See history
@@ -356,7 +360,7 @@ export const ActionButtons: React.VFC<Props> = ({
             setIsVisibleModal(true);
           }}
         >
-          Notify Me
+          Notify me
         </Button>
         <ButtonDropdown
           disabled={disabled}

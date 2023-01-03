@@ -2,7 +2,7 @@ import { useEffect, useMemo, useReducer } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { inactiveElementStyle, SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
@@ -11,7 +11,7 @@ import { size } from "constants/tokens";
 import { array } from "utils";
 
 const { toggleArray } = array;
-const { green } = uiColors;
+const { green } = palette;
 
 interface MenuItemProps {
   displayName: string;
@@ -132,43 +132,40 @@ const Card: React.VFC<CardProps> = ({
   selectedMenuItems,
   title,
 }) => (
-  <>
-    {/* @ts-expect-error */}
-    <StyledSiderCard>
-      <Container>
-        <Body weight="medium">{title}</Body>
-        <Divider />
-      </Container>
-      <ScrollableBuildVariantContainer>
-        {menuItems.map(({ displayName, name, taskCount }) => {
-          const isSelected = selectedMenuItems.includes(name);
-          return (
-            <BuildVariant
-              data-cy={dataCy}
-              data-selected={isSelected}
-              key={name}
-              isSelected={isSelected}
-              onClick={onClick(name)}
-            >
-              <VariantName>
-                <Body weight={isSelected ? "medium" : "regular"}>
-                  {displayName}
-                </Body>
-              </VariantName>
-              {taskCount > 0 && (
-                <StyledBadge
-                  data-cy="task-count-badge"
-                  variant={isSelected ? Variant.DarkGray : Variant.LightGray}
-                >
-                  {taskCount}
-                </StyledBadge>
-              )}
-            </BuildVariant>
-          );
-        })}
-      </ScrollableBuildVariantContainer>
-    </StyledSiderCard>
-  </>
+  <StyledSiderCard>
+    <Container>
+      <Body weight="medium">{title}</Body>
+      <Divider />
+    </Container>
+    <ScrollableBuildVariantContainer>
+      {menuItems.map(({ displayName, name, taskCount }) => {
+        const isSelected = selectedMenuItems.includes(name);
+        return (
+          <BuildVariant
+            data-cy={dataCy}
+            data-selected={isSelected}
+            key={name}
+            isSelected={isSelected}
+            onClick={onClick(name)}
+          >
+            <VariantName>
+              <Body weight={isSelected ? "medium" : "regular"}>
+                {displayName}
+              </Body>
+            </VariantName>
+            {taskCount > 0 && (
+              <StyledBadge
+                data-cy="task-count-badge"
+                variant={isSelected ? Variant.DarkGray : Variant.LightGray}
+              >
+                {taskCount}
+              </StyledBadge>
+            )}
+          </BuildVariant>
+        );
+      })}
+    </ScrollableBuildVariantContainer>
+  </StyledSiderCard>
 );
 
 const hotKeys = new Set(["Meta", "Shift", "Control"]);

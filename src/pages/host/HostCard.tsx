@@ -21,21 +21,15 @@ export const HostCard: React.VFC<Props> = ({
   loading,
   metaData,
 }) => (
-  <>
-    {/* @ts-expect-error */}
-    <SiderCard metaData={metaData}>
-      {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
-      {error && (
-        <ErrorWrapper data-cy="metadata-card-error">
-          {error.message}
-        </ErrorWrapper>
-      )}
-      {children}
-    </SiderCard>
-  </>
+  <SiderCard metaData={metaData}>
+    {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
+    {error && (
+      <ErrorWrapper data-cy="metadata-card-error">{error.message}</ErrorWrapper>
+    )}
+    {children}
+  </SiderCard>
 );
 
-// @ts-expect-error
 const SiderCard = styled(Card)<StylingProps>`
   padding: ${size.xs} 0;
   margin-bottom: ${size.l};

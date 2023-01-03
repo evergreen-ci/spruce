@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import Banner from "@leafygreen-ui/banner";
 import Button from "@leafygreen-ui/button";
 import ExpandableCard from "@leafygreen-ui/expandable-card";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Body, Subtitle } from "@leafygreen-ui/typography";
 import {
   ArrayFieldTemplateProps,
@@ -18,7 +18,11 @@ import { SpruceFormContainer } from "./Container";
 import { TitleField as CustomTitleField } from "./CustomFields";
 import ElementWrapper from "./ElementWrapper";
 
-const { gray } = uiColors;
+const { gray } = palette;
+
+// Total pixel count above a text field with a label. Used to align buttons to the
+// top of the text box itself.
+const labelOffset = size.m;
 
 // Extract index of the current field via its ID
 const getIndex = (id: string): number => {
@@ -145,12 +149,15 @@ const ArrayItem: React.VFC<
       disabled={isDisabled}
       leftGlyph={<Icon glyph="Trash" />}
       data-cy="delete-item-button"
+      size="small"
     />
   );
   return useExpandableCard ? (
     <StyledExpandableCard
       defaultOpen={!isDisabled}
       data-cy="expandable-card"
+      // Override LeafyGreen's string typing for title so we can include buttons. (LG-2193)
+      /* @ts-expect-error */
       title={
         <>
           <TitleWrapper data-cy="expandable-card-title">{title}</TitleWrapper>
@@ -202,7 +209,7 @@ const OrderControls = styled.div<{ topAlignDelete: boolean }>`
   display: flex;
   flex-direction: column;
   margin-right: ${size.s};
-  margin-top: ${({ topAlignDelete }) => (topAlignDelete ? "0px" : "20px")};
+  margin-top: ${({ topAlignDelete }) => (topAlignDelete ? "0px" : labelOffset)};
 
   > :not(:last-of-type) {
     margin-bottom: ${size.xs};
@@ -338,14 +345,14 @@ const ArrayContainer = styled.div`
   ${({ hasChildren }) => hasChildren && `margin-bottom: ${size.m};`}
   min-width: min-content;
   width: ${({ fullWidth }: ArrayContainerProps): string =>
-    fullWidth ? "100%" : "60%"};
+    fullWidth ? "100%" : "70%"};
 `;
 
 const DeleteButtonWrapper = styled(ElementWrapper)`
   margin-left: ${size.s};
   // Align button with top of input unless it should specifically align to the top of the ArrayItemRow
   margin-top: ${({ topAlignDelete }: { topAlignDelete: boolean }) =>
-    topAlignDelete ? "0px" : "20px"};
+    topAlignDelete ? "0px" : labelOffset};
 `;
 
 export const CardFieldTemplate: React.VFC<ObjectFieldTemplateProps> = ({

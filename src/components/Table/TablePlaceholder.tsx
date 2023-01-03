@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import { glyphs } from "@leafygreen-ui/icon";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
 
-const { gray } = uiColors;
+const { gray } = palette;
 
 interface Props {
   message: string;

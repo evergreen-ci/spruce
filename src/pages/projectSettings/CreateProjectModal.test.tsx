@@ -30,7 +30,7 @@ const NewProjectModal = ({
 );
 
 describe("createProjectField", () => {
-  it("does not render the modal when open prop is false", async () => {
+  it("does not render the modal when open prop is false", () => {
     const { Component } = RenderFakeToastContext(
       <NewProjectModal open={false} />
     );
@@ -41,96 +41,76 @@ describe("createProjectField", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("disables the confirm button on initial render", async () => {
+  it("disables the confirm button on initial render", () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     render(<Component />);
 
-    await waitFor(() =>
-      expect(screen.queryByText("Project Name")).toBeVisible()
-    );
+    expect(screen.queryByText("Project Name")).toBeVisible();
 
-    await waitFor(() => {
-      const confirmButton = screen.getByRole("button", {
-        name: "Create Project",
-      });
-      expect(confirmButton).toBeDisabled();
+    const confirmButton = screen.getByRole("button", {
+      name: "Create Project",
     });
+    expect(confirmButton).toBeDisabled();
   });
 
-  it("disables the confirm button when project name field is missing", async () => {
+  it("disables the confirm button when project name field is missing", () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     render(<Component />);
 
-    await waitFor(() =>
-      expect(screen.queryByText("Project Name")).toBeVisible()
-    );
+    expect(screen.queryByText("Project Name")).toBeVisible();
     userEvent.type(screen.queryByDataCy("repo-input"), "new-repo-name");
     userEvent.type(screen.queryByDataCy("owner-input"), "new-owner-name");
-    await waitFor(() => {
-      const confirmButton = screen.getByRole("button", {
-        name: "Create Project",
-      });
-      expect(confirmButton).toBeDisabled();
+    const confirmButton = screen.getByRole("button", {
+      name: "Create Project",
     });
+    expect(confirmButton).toBeDisabled();
   });
 
-  it("disables the confirm button when repo field is missing", async () => {
+  it("disables the confirm button when repo field is missing", () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     render(<Component />);
 
-    await waitFor(() =>
-      expect(screen.queryByText("Project Name")).toBeVisible()
-    );
+    expect(screen.queryByText("Project Name")).toBeVisible();
     userEvent.type(
       screen.queryByDataCy("project-name-input"),
       "new-project-name-input"
     );
     userEvent.type(screen.queryByDataCy("owner-input"), "new-owner-name");
     expect(screen.queryByDataCy("repo-input")).toHaveValue("");
-    await waitFor(() => {
-      const confirmButton = screen.getByRole("button", {
-        name: "Create Project",
-      });
-      expect(confirmButton).toBeDisabled();
+    const confirmButton = screen.getByRole("button", {
+      name: "Create Project",
     });
+    expect(confirmButton).toBeDisabled();
   });
 
-  it("disables the confirm button when owner field is missing", async () => {
+  it("disables the confirm button when owner field is missing", () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     render(<Component />);
 
-    await waitFor(() =>
-      expect(screen.queryByText("Project Name")).toBeVisible()
-    );
+    expect(screen.queryByText("Project Name")).toBeVisible();
     userEvent.type(
       screen.queryByDataCy("project-name-input"),
       "new-project-name-input"
     );
     userEvent.type(screen.queryByDataCy("repo-input"), "new-repo-name");
-    await waitFor(() => {
-      const confirmButton = screen.getByRole("button", {
-        name: "Create Project",
-      });
-      expect(confirmButton).toBeDisabled();
+    const confirmButton = screen.getByRole("button", {
+      name: "Create Project",
     });
+    expect(confirmButton).toBeDisabled();
   });
 
-  it("disables the confirm button when project name contains a space", async () => {
+  it("disables the confirm button when project name contains a space", () => {
     const { Component } = RenderFakeToastContext(<NewProjectModal />);
     render(<Component />);
 
-    await waitFor(() =>
-      expect(screen.queryByText("Project Name")).toBeVisible()
-    );
+    expect(screen.queryByText("Project Name")).toBeVisible();
     userEvent.type(screen.queryByDataCy("project-name-input"), "my test");
     userEvent.type(screen.queryByDataCy("repo-input"), "new-repo-name");
     userEvent.type(screen.queryByDataCy("owner-input"), "new-owner-name");
-    await waitFor(() => {
-      const confirmButton = screen.getByRole("button", {
-        name: "Create Project",
-      });
-      expect(confirmButton).toBeDisabled();
+    const confirmButton = screen.getByRole("button", {
+      name: "Create Project",
     });
+    expect(confirmButton).toBeDisabled();
   });
 
   it("enables the confirm button if the optional project id is empty", async () => {
@@ -139,21 +119,17 @@ describe("createProjectField", () => {
     );
     render(<Component />);
 
-    await waitFor(() =>
-      expect(screen.queryByText("Project Name")).toBeVisible()
-    );
+    expect(screen.queryByText("Project Name")).toBeVisible();
     userEvent.type(
       screen.queryByDataCy("project-name-input"),
       "new-project-name-input"
     );
     userEvent.type(screen.queryByDataCy("repo-input"), "new-repo-name");
     userEvent.type(screen.queryByDataCy("owner-input"), "new-owner-name");
-    await waitFor(() => {
-      const confirmButton = screen.getByRole("button", {
-        name: "Create Project",
-      });
-      expect(confirmButton).toBeEnabled();
+    const confirmButton = screen.getByRole("button", {
+      name: "Create Project",
     });
+    expect(confirmButton).toBeEnabled();
 
     userEvent.click(screen.queryByText("Create Project"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
@@ -186,9 +162,7 @@ describe("createProjectField", () => {
     );
     render(<Component />);
 
-    await waitFor(() =>
-      expect(screen.queryByText("Project Name")).toBeVisible()
-    );
+    expect(screen.queryByText("Project Name")).toBeVisible();
     userEvent.type(
       screen.queryByDataCy("project-name-input"),
       "new-project-name-input"
@@ -200,27 +174,23 @@ describe("createProjectField", () => {
     userEvent.type(screen.queryByDataCy("repo-input"), "new-repo-name");
     userEvent.type(screen.queryByDataCy("owner-input"), "new-owner-name");
 
-    await waitFor(() => {
-      const confirmButton = screen.getByRole("button", {
-        name: "Create Project",
-      });
-      expect(confirmButton).toBeEnabled();
+    const confirmButton = screen.getByRole("button", {
+      name: "Create Project",
     });
+    expect(confirmButton).toBeEnabled();
 
     userEvent.click(screen.queryByText("Create Project"));
     await waitFor(() => expect(dispatchToast.success).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(dispatchToast.error).toHaveBeenCalledTimes(0));
   });
 
-  it("pre-fills the owner and repo when available", async () => {
+  it("pre-fills the owner and repo when available", () => {
     const { Component } = RenderFakeToastContext(
       <NewProjectModal owner={defaultOwner} repo={defaultRepo} />
     );
     render(<Component />);
 
-    await waitFor(() =>
-      expect(screen.queryByText("Project Name")).toBeVisible()
-    );
+    expect(screen.queryByText("Project Name")).toBeVisible();
     expect(screen.queryByDataCy("owner-input")).toHaveValue(defaultOwner);
     expect(screen.queryByDataCy("repo-input")).toHaveValue(defaultRepo);
   });

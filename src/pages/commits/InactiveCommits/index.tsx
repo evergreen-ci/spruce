@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
@@ -17,7 +17,7 @@ import { jiraLinkify } from "utils/string/jiraLinkify";
 import { commitChartHeight } from "../constants";
 
 const { shortenGithash, trimStringFromMiddle } = string;
-const { focus, gray } = uiColors;
+const { blue, gray } = palette;
 
 export const InactiveCommitsLine = () => (
   <InactiveCommitContainer>
@@ -82,7 +82,7 @@ export const InactiveCommitButton: React.VFC<InactiveCommitsProps> = ({
           <CommitCopy v={v} isTooltip={false} key={v.id} />
         ))}
       </DisplayModal>
-      <Tooltip
+      <StyledTooltip
         usePortal={false}
         align="bottom"
         justify="middle"
@@ -103,15 +103,14 @@ export const InactiveCommitButton: React.VFC<InactiveCommitsProps> = ({
         }
         triggerEvent="click"
         popoverZIndex={zIndex.tooltip}
+        data-cy="inactive-commits-tooltip"
       >
-        <TooltipContainer data-cy="inactive-commits-tooltip">
-          <TooltipTitleText>
-            {versionCount} {tooltipType}
-            {` Commit${versionCount !== 1 ? "s" : ""}`}
-          </TooltipTitleText>
-          {returnedCommits}
-        </TooltipContainer>
-      </Tooltip>
+        <TooltipTitleText>
+          {versionCount} {tooltipType}
+          {` Commit${versionCount !== 1 ? "s" : ""}`}
+        </TooltipTitleText>
+        {returnedCommits}
+      </StyledTooltip>
     </>
   );
 };
@@ -192,12 +191,9 @@ const InactiveCommitLine = styled.div`
   border: 1px dashed ${gray.light1};
 `;
 
-const TooltipContainer = styled.div`
+// @ts-expect-error
+const StyledTooltip = styled(Tooltip)`
   width: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
 `;
 
 const ButtonContainer = styled.div`
@@ -226,8 +222,9 @@ const TooltipTitleText = styled.div`
 
 const StyledDisclaimer = styled(Disclaimer)`
   cursor: pointer;
+  text-align: center;
   :hover {
-    color: ${focus};
+    color: ${blue.light1};
   }
 `;
 

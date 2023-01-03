@@ -2,7 +2,7 @@
 
 exports[`storybook Storyshots Pages/Spawn/Spawn Host Card Spawn Host Card Story 1`] = `
 <div
-  className="css-vvf03h-SiderCard-CardContainer e9wutqn0 leafygreen-ui-fe135o"
+  className="css-9bhcvs-SiderCard-CardContainer e9wutqn0 leafygreen-ui-1v4ednr"
   data-cy="spawn-host-card"
 >
   <div
@@ -162,11 +162,15 @@ exports[`storybook Storyshots Pages/Spawn/Spawn Host Card Spawn Host Card Story 
     <div>
       <span>
         <a
-          className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+          className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
           href="/spawn/volume?volume=vol-0ea662ac92f611ed4"
           onClick={[Function]}
         >
-          vol-0ea662ac92f611ed4
+          <span
+            className="leafygreen-ui-1ewnca3"
+          >
+            vol-0ea662ac92f611ed4
+          </span>
         </a>
       </span>
     </div>
@@ -182,10 +186,15 @@ exports[`storybook Storyshots Pages/Spawn/Spawn Host Card Spawn Host Card Story 
     <div>
       <span>
         <a
-          className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+          className="lg-ui-0001 css-84rhzu-StyledLink leafygreen-ui-1cn1hqb"
           href="/host/i-04ade558e1e26b0ad/ide"
+          target="_self"
         >
-          Open IDE
+          <span
+            className="leafygreen-ui-1ewnca3"
+          >
+            Open IDE
+          </span>
         </a>
       </span>
     </div>

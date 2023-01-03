@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Row, Cell } from "@leafygreen-ui/table";
 import { Description } from "@leafygreen-ui/typography";
@@ -11,26 +12,31 @@ import {
 import { size } from "constants/tokens";
 import { VersionTaskDurationsQuery } from "gql/generated/types";
 import { TaskStatus } from "types/task";
+import { Unpacked } from "types/utils";
 import { string } from "utils";
 
 const { msToDuration } = string;
 
 interface RowProps {
-  task: VersionTaskDurationsQuery["version"]["tasks"]["data"][0];
+  task: Unpacked<VersionTaskDurationsQuery["version"]["tasks"]["data"]>;
   maxTimeTaken: number;
   children?: React.ReactNode;
   "data-cy"?: string;
 }
 
 export const TaskDurationRow: React.VFC<RowProps> = forwardRef(
-  ({ task, maxTimeTaken, children, "data-cy": dataCy, ...rest }, ref) => {
+  (
+    { task, maxTimeTaken, children, "data-cy": dataCy, ...rest },
+    ref: React.Ref<HTMLTableRowElement>
+  ) => {
     const {
-      id,
-      displayName,
-      status,
       buildVariantDisplayName,
-      timeTaken,
+      displayName,
+      executionTasksFull,
+      id,
       startTime,
+      status,
+      timeTaken,
     } = task;
 
     const barWidth = calculateBarWidth(timeTaken, maxTimeTaken);
@@ -60,7 +66,43 @@ export const TaskDurationRow: React.VFC<RowProps> = forwardRef(
             </>
           )}
         </DurationCell>
-        {children}
+
+        {/*
+         * LeafyGreen at the moment fails to render nested rows that are not comprised directly of Row and Cell components.
+         * To render execution tasks, reuse the same Cell structure that comprises the parent task.
+         * This should be addressed by the table refactor LG-2231.
+         */}
+        {executionTasksFull?.map((t) => (
+          <Row key={t.id} data-cy="execution-task-row">
+            <TaskNameCell>
+              <TaskLink taskId={t.id} taskName={t.displayName} />
+            </TaskNameCell>
+            <StatusCell>
+              <TaskStatusBadge status={t.status} />
+            </StatusCell>
+            <BuildVariantCell>{t.buildVariantDisplayName}</BuildVariantCell>
+            <DurationCell>
+              {t.startTime === null && t.status === TaskStatus.Started ? (
+                <DurationLabel>
+                  There is no task duration information for this task at this
+                  time.
+                </DurationLabel>
+              ) : (
+                <>
+                  <DurationBar
+                    width={calculateBarWidth(t.timeTaken, maxTimeTaken)}
+                    color={
+                      mapTaskToBarchartColor[
+                        mapTaskStatusToUmbrellaStatus[t.status]
+                      ]
+                    }
+                  />
+                  <DurationLabel>{msToDuration(t.timeTaken)}</DurationLabel>
+                </>
+              )}
+            </DurationCell>
+          </Row>
+        ))}
       </Row>
     );
   }
@@ -70,28 +112,32 @@ TaskDurationRow.displayName = "Row";
 const calculateBarWidth = (value: number, max: number) =>
   max ? `${(value / max) * 100}%` : "0%";
 
-const TaskNameCell = styled(Cell)`
+const baseCellStyle = css`
   word-break: break-all;
-  padding-right: ${size.m};
+  vertical-align: middle;
+`;
+
+const TaskNameCell = styled(Cell)`
+  ${baseCellStyle}
 `;
 TaskNameCell.displayName = "Cell";
 
 const StatusCell = styled(Cell)`
-  word-break: break-all;
-  padding-right: ${size.m};
+  ${baseCellStyle}
 `;
 StatusCell.displayName = "Cell";
 
 const BuildVariantCell = styled(Cell)`
-  word-break: break-all;
-  padding-right: ${size.m};
+  ${baseCellStyle}
 `;
 BuildVariantCell.displayName = "Cell";
 
 const DurationCell = styled(Cell)`
   span {
+    display: block;
     width: 100%;
   }
+  vertical-align: middle;
 `;
 DurationCell.displayName = "Cell";
 

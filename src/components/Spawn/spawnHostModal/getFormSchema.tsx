@@ -2,7 +2,6 @@ import { css } from "@emotion/react";
 import { add } from "date-fns";
 import { GetFormSchema } from "components/SpruceForm/types";
 import widgets from "components/SpruceForm/Widgets";
-import { AntdSelect } from "components/SpruceForm/Widgets/AntdWidgets";
 import { LeafyGreenTextArea } from "components/SpruceForm/Widgets/LeafyGreenWidgets";
 import {
   GetMyPublicKeysQuery,
@@ -366,7 +365,7 @@ export const getFormSchema = ({
                       volumeSelect: {
                         title: "Volume",
                         type: "string" as "string",
-                        default: "",
+                        default: availableVolumes[0]?.id,
                         oneOf: availableVolumes.map((v) => ({
                           type: "string" as "string",
                           title: `(${v.size}GB) ${v.displayName || v.id}`,
@@ -425,21 +424,23 @@ export const getFormSchema = ({
         "ui:data-cy": "distro-input",
       },
       region: {
-        "ui:widget": AntdSelect,
         "ui:data-cy": "region-select",
         "ui:disabled": isMigration,
         "ui:elementWrapperCSS": dropdownWrapperClassName,
-        "ui:valuePlaceholder": "Select a region",
+        "ui:placeholder": "Select a region",
+        "ui:allowDeselect": false,
       },
       publicKeySection: {
         useExisting: {
           "ui:widget": widgets.RadioBoxWidget,
         },
         publicKeyNameDropdown: {
-          "ui:widget": AntdSelect,
           "ui:elementWrapperCSS": dropdownWrapperClassName,
-          "ui:valuePlaceholder": "Select a key",
+          "ui:placeholder":
+            myPublicKeys?.length > 0 ? "Select a key" : "No keys available",
           "ui:data-cy": "key-select",
+          "ui:allowDeselect": false,
+          "ui:disabled": myPublicKeys?.length === 0,
         },
         newPublicKey: {
           "ui:widget": LeafyGreenTextArea,
@@ -520,11 +521,14 @@ export const getFormSchema = ({
               : "hidden",
           },
           volumeSelect: {
-            "ui:widget": isVirtualWorkstation ? AntdSelect : "hidden",
-            "ui:hideError": true,
             "ui:allowDeselect": false,
             "ui:data-cy": "volume-select",
-            "ui:disabledEnums": (volumes || [])
+            "ui:disabled": availableVolumes?.length === 0,
+            "ui:placeholder":
+              availableVolumes?.length === 0
+                ? "No Volumes Available"
+                : undefined,
+            "ui:enumDisabled": (volumes || [])
               .filter((v) => !!v.hostID)
               .map((v) => v.id),
           },

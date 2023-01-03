@@ -1,15 +1,14 @@
 import { Fragment, useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import Icon from "@leafygreen-ui/icon";
-import { Body } from "@leafygreen-ui/typography";
+import SearchInput from "@leafygreen-ui/search-input";
+import { Body, Subtitle } from "@leafygreen-ui/typography";
 import { Table, Skeleton } from "antd";
 import { SortOrder } from "antd/es/table/interface";
 import debounce from "lodash.debounce";
 import get from "lodash/get";
 import { useParams, useLocation } from "react-router-dom";
-import TextInputWithGlyph from "components/TextInputWithGlyph";
-import { H3, WordBreak } from "components/Typography";
+import { WordBreak } from "components/styles";
 import { size } from "constants/tokens";
 import {
   TaskFilesQuery,
@@ -102,7 +101,7 @@ export const FilesTables: React.VFC = () => {
     }
     return filteredFiles.map(({ taskName, files }) => (
       <Fragment key={taskName}>
-        {filteredData?.length > 1 && <H3>{taskName}</H3>}
+        {filteredData?.length > 1 && <Subtitle>{taskName}</Subtitle>}
         <StyledTable
           rowKey={rowKey}
           columns={columns}
@@ -117,11 +116,10 @@ export const FilesTables: React.VFC = () => {
   return (
     <ContentWrapper>
       <TextInputWrapper>
-        <TextInputWithGlyph
+        <SearchInput
           aria-labelledby="search-file-names-input"
           placeholder="Search file names"
           onChange={onSearch}
-          icon={<Icon glyph="MagnifyingGlass" />}
           data-cy="file-input"
         />
       </TextInputWrapper>

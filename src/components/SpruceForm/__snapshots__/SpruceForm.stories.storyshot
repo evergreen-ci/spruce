@@ -3,12 +3,12 @@
 exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
 <div>
   <h3
-    className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"
+    className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-376vw8"
   >
     Distro Projects
   </h3>
   <div
-    className="css-197y785-StyledCard e1c06qt20 leafygreen-ui-fe135o"
+    className="css-197y785-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
   >
     <form
       className="rjsf"
@@ -34,36 +34,38 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                 className="css-12pm1mq-MaxWidthContainer eevpusu0"
               >
                 <div
-                  className=""
+                  className="leafygreen-ui-1nkq8lt"
                 >
                   <label
-                    className="leafygreen-ui-1v870ns"
-                    id="select-3-label"
+                    className="leafygreen-ui-1wkudkc"
+                    htmlFor="select-6"
+                    id="select-5-label"
                   >
                     Project Cloning Method
                   </label>
                   <button
-                    aria-controls="select-3-menu"
-                    aria-describedby="select-3-description"
+                    aria-controls="select-5-menu"
+                    aria-describedby="select-5-description"
                     aria-disabled={false}
                     aria-expanded={false}
                     aria-invalid={false}
-                    aria-labelledby="select-3-label"
-                    className="leafygreen-ui-p6v5m8"
+                    aria-labelledby="select-5-label"
+                    className="lg-ui-button-0000 leafygreen-ui-sedrjd"
                     data-testid="leafygreen-ui-select-menubutton"
                     disabled={false}
+                    id="select-6"
                     onClick={[Function]}
                     type="button"
                     value="legacy-ssh"
                   >
                     <div
-                      className="leafygreen-ui-1ktj4tm"
+                      className="leafygreen-ui-v038xi"
                     />
                     <div
-                      className="leafygreen-ui-sl5lf4"
+                      className="leafygreen-ui-1qmzz4y"
                     >
                       <div
-                        className="leafygreen-ui-e32n5q"
+                        className="leafygreen-ui-obh8q1"
                       >
                         <div
                           className="leafygreen-ui-17aj16e"
@@ -71,24 +73,20 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                           Legacy SSH
                         </div>
                       </div>
-                      <span
-                        className="leafygreen-ui-18n6mp2"
+                      <svg
+                        alt=""
+                        aria-hidden={true}
+                        className="leafygreen-ui-866818"
+                        height={16}
+                        role="presentation"
+                        viewBox="0 0 16 16"
+                        width={16}
                       >
-                        <svg
-                          alt=""
-                          aria-hidden={true}
-                          className="leafygreen-ui-195unnb"
-                          height={16}
-                          role="presentation"
-                          viewBox="0 0 16 16"
-                          width={16}
-                        >
-                          <path
-                            d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
-                            fill="currentColor"
-                          />
-                        </svg>
-                      </span>
+                        <path
+                          d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
+                          fill="currentColor"
+                        />
+                      </svg>
                     </div>
                   </button>
                 </div>
@@ -100,7 +98,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
             id=" root_expansions"
           >
             <h6
-              className="css-ho1tq1-StyledSubtitle e63qz861 leafygreen-ui-11wdjex"
+              className="css-ho1tq1-StyledSubtitle e63qz861 leafygreen-ui-41zalo"
               id="root_expansions__title"
             >
               Expansions
@@ -110,22 +108,22 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
             >
               <button
                 aria-disabled={false}
-                className="leafygreen-ui-1jc9h6q"
+                className="lg-ui-button-0000 leafygreen-ui-1t94nwe"
                 data-cy="add-button"
                 disabled={false}
                 onClick={[Function]}
                 type="button"
               >
                 <div
-                  className="leafygreen-ui-1ktj4tm"
+                  className="leafygreen-ui-v038xi"
                 />
                 <div
-                  className="leafygreen-ui-ie0uqp"
+                  className="leafygreen-ui-1qmzz4y"
                 >
                   <svg
                     alt=""
                     aria-hidden={true}
-                    className="leafygreen-ui-1my2s1b"
+                    className="leafygreen-ui-6juzfh"
                     fill="none"
                     height={16}
                     role="presentation"
@@ -145,7 +143,7 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
               </button>
             </div>
             <div
-              className="css-fwqti9-ArrayContainer e7smmlm2"
+              className="css-uocgfp-ArrayContainer e7smmlm2"
             >
               <div
                 className="css-nbhfvd-ArrayItemRow e7smmlm4"
@@ -169,41 +167,36 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                           className="css-12pm1mq-MaxWidthContainer eevpusu0"
                         >
                           <div
-                            className="leafygreen-ui-1iyoj2o css-1kbcljo-StyledTextInput eevpusu7"
+                            className="css-1kbcljo-StyledTextInput eevpusu7 leafygreen-ui-xtefr5"
                           >
-                            <label
-                              className="leafygreen-ui-ly82bp"
-                              htmlFor="textinput-16"
+                            <div
+                              className="leafygreen-ui-a533bt"
                             >
-                              key
-                            </label>
+                              <label
+                                className="leafygreen-ui-gr5280"
+                                htmlFor="textinput-16"
+                              >
+                                key
+                              </label>
+                            </div>
                             <div
                               className="leafygreen-ui-lzja97"
                             >
+                              <input
+                                aria-invalid={false}
+                                aria-label="key"
+                                autoComplete="on"
+                                className="leafygreen-ui-6i61vl"
+                                disabled={false}
+                                id="textinput-16"
+                                onBlur={[Function]}
+                                onChange={[Function]}
+                                required={true}
+                                type="text"
+                                value="Sample Input"
+                              />
                               <div
-                                className="leafygreen-ui-1i2djk5"
-                              >
-                                <input
-                                  aria-label="key"
-                                  autoComplete="on"
-                                  className="leafygreen-ui-1il5lef"
-                                  disabled={false}
-                                  id="textinput-16"
-                                  onBlur={[Function]}
-                                  onChange={[Function]}
-                                  onFocus={[Function]}
-                                  required={true}
-                                  type="text"
-                                  value="Sample Input"
-                                />
-                                <div
-                                  className="leafygreen-ui-3x1o6h"
-                                  data-leafygreen-ui="interaction-ring"
-                                />
-                              </div>
-                              <div
-                                className="leafygreen-ui-m329s1"
-                                data-leafygreen-ui="icon-selector"
+                                className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
                               />
                             </div>
                           </div>
@@ -221,41 +214,36 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                           className="css-12pm1mq-MaxWidthContainer eevpusu0"
                         >
                           <div
-                            className="leafygreen-ui-1iyoj2o css-1kbcljo-StyledTextInput eevpusu7"
+                            className="css-1kbcljo-StyledTextInput eevpusu7 leafygreen-ui-xtefr5"
                           >
-                            <label
-                              className="leafygreen-ui-ly82bp"
-                              htmlFor="textinput-17"
+                            <div
+                              className="leafygreen-ui-a533bt"
                             >
-                              value
-                            </label>
+                              <label
+                                className="leafygreen-ui-gr5280"
+                                htmlFor="textinput-17"
+                              >
+                                value
+                              </label>
+                            </div>
                             <div
                               className="leafygreen-ui-lzja97"
                             >
+                              <input
+                                aria-invalid={false}
+                                aria-label="value"
+                                autoComplete="on"
+                                className="leafygreen-ui-6i61vl"
+                                disabled={false}
+                                id="textinput-17"
+                                onBlur={[Function]}
+                                onChange={[Function]}
+                                required={true}
+                                type="text"
+                                value="Sample Input"
+                              />
                               <div
-                                className="leafygreen-ui-1i2djk5"
-                              >
-                                <input
-                                  aria-label="value"
-                                  autoComplete="on"
-                                  className="leafygreen-ui-1il5lef"
-                                  disabled={false}
-                                  id="textinput-17"
-                                  onBlur={[Function]}
-                                  onChange={[Function]}
-                                  onFocus={[Function]}
-                                  required={true}
-                                  type="text"
-                                  value="Sample Input"
-                                />
-                                <div
-                                  className="leafygreen-ui-3x1o6h"
-                                  data-leafygreen-ui="interaction-ring"
-                                />
-                              </div>
-                              <div
-                                className="leafygreen-ui-m329s1"
-                                data-leafygreen-ui="icon-selector"
+                                className="lg-ui-icon-selector-0000 leafygreen-ui-uy5fvv"
                               />
                             </div>
                           </div>
@@ -265,25 +253,25 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                   </fieldset>
                 </div>
                 <div
-                  className="css-1w3q9da-ElementWrapper-DeleteButtonWrapper e7smmlm1"
+                  className="css-oex5ed-ElementWrapper-DeleteButtonWrapper e7smmlm1"
                 >
                   <button
                     aria-disabled={false}
-                    className="leafygreen-ui-26sqyb"
+                    className="lg-ui-button-0000 leafygreen-ui-1t94nwe"
                     data-cy="delete-item-button"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <div
-                      className="leafygreen-ui-1ktj4tm"
+                      className="leafygreen-ui-v038xi"
                     />
                     <div
-                      className="leafygreen-ui-ie0uqp"
+                      className="leafygreen-ui-1qmzz4y"
                     >
                       <svg
                         aria-label="Trash Icon"
-                        className="leafygreen-ui-1d90lhq"
+                        className="leafygreen-ui-ui6c7f"
                         fill="none"
                         height={16}
                         role="img"
@@ -315,29 +303,20 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
                 className="leafygreen-ui-1iyoj2o"
               >
                 <label
-                  className="leafygreen-ui-ly82bp"
+                  className="leafygreen-ui-1k5mcru"
                   htmlFor="textarea-1"
                 >
                   Valid Projects
                 </label>
-                <div
-                  className="leafygreen-ui-1cen7zh"
-                >
-                  <textarea
-                    className="leafygreen-ui-1rmmepu"
-                    disabled={false}
-                    id="textarea-1"
-                    onBlur={[Function]}
-                    onChange={[Function]}
-                    onFocus={[Function]}
-                    title="Valid Projects"
-                    value=""
-                  />
-                  <div
-                    className="leafygreen-ui-3x1o6h"
-                    data-leafygreen-ui="interaction-ring"
-                  />
-                </div>
+                <textarea
+                  className="leafygreen-ui-1or2ez7"
+                  disabled={false}
+                  id="textarea-1"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  title="Valid Projects"
+                  value=""
+                />
               </div>
             </div>
           </div>
@@ -351,12 +330,12 @@ exports[`storybook Storyshots Components/Spruce Form Example 1 1`] = `
 exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
 <div>
   <h3
-    className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"
+    className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-376vw8"
   >
     Admin Options
   </h3>
   <div
-    className="css-197y785-StyledCard e1c06qt20 leafygreen-ui-fe135o"
+    className="css-197y785-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
   >
     <form
       className="rjsf"
@@ -378,38 +357,55 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
             <div
               className="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
             >
-              <label
-                className="leafygreen-ui-hfnsvs"
-                htmlFor="checkbox-1"
-                id="checkbox-1-label"
+              <div
+                className="leafygreen-ui-55kazc"
               >
-                <input
-                  aria-checked={false}
-                  aria-disabled={false}
-                  aria-label="checkbox"
-                  aria-labelledby="checkbox-1-label"
-                  checked={false}
-                  className="leafygreen-ui-3bropy"
-                  disabled={false}
-                  id="checkbox-1"
-                  onChange={[Function]}
-                  onClick={[Function]}
-                  type="checkbox"
-                />
-                <div
-                  className="leafygreen-ui-cho4qd"
-                  data-leafygreen-ui="checkbox-wrapper"
+                <label
+                  className="leafygreen-ui-hx39h2"
+                  htmlFor="checkbox-1"
+                  id="checkbox-1-label"
                 >
-                  <div
-                    className="leafygreen-ui-v3mbc2"
+                  <input
+                    aria-checked={false}
+                    aria-disabled={false}
+                    aria-label="checkbox"
+                    aria-labelledby="checkbox-1-label"
+                    checked={false}
+                    className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+                    disabled={false}
+                    id="checkbox-1"
+                    onChange={[Function]}
+                    onClick={[Function]}
+                    type="checkbox"
                   />
-                </div>
-                <span
-                  className="leafygreen-ui-1qufm80"
-                >
-                  Mark distro as a cluster (jobs are not run on this host, used for special purposes).
-                </span>
-              </label>
+                  <div
+                    className="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+                  >
+                    <svg
+                      className="leafygreen-ui-6caof5"
+                      fill="none"
+                      height="10"
+                      stroke="#FFFFFF"
+                      viewBox="0 0 10 10"
+                      width="10"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                        stroke="#FFFFFF"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                      />
+                    </svg>
+                  </div>
+                  <span
+                    className="leafygreen-ui-1wmrjan"
+                  >
+                    Mark distro as a cluster (jobs are not run on this host, used for special purposes).
+                  </span>
+                </label>
+              </div>
             </div>
           </div>
           <div
@@ -419,38 +415,55 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
             <div
               className="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
             >
-              <label
-                className="leafygreen-ui-hfnsvs"
-                htmlFor="checkbox-2"
-                id="checkbox-2-label"
+              <div
+                className="leafygreen-ui-55kazc"
               >
-                <input
-                  aria-checked={false}
-                  aria-disabled={false}
-                  aria-label="checkbox"
-                  aria-labelledby="checkbox-2-label"
-                  checked={false}
-                  className="leafygreen-ui-3bropy"
-                  disabled={false}
-                  id="checkbox-2"
-                  onChange={[Function]}
-                  onClick={[Function]}
-                  type="checkbox"
-                />
-                <div
-                  className="leafygreen-ui-cho4qd"
-                  data-leafygreen-ui="checkbox-wrapper"
+                <label
+                  className="leafygreen-ui-hx39h2"
+                  htmlFor="checkbox-2"
+                  id="checkbox-2-label"
                 >
-                  <div
-                    className="leafygreen-ui-v3mbc2"
+                  <input
+                    aria-checked={false}
+                    aria-disabled={false}
+                    aria-label="checkbox"
+                    aria-labelledby="checkbox-2-label"
+                    checked={false}
+                    className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+                    disabled={false}
+                    id="checkbox-2"
+                    onChange={[Function]}
+                    onClick={[Function]}
+                    type="checkbox"
                   />
-                </div>
-                <span
-                  className="leafygreen-ui-1qufm80"
-                >
-                  Disable shallow clone for this distro.
-                </span>
-              </label>
+                  <div
+                    className="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+                  >
+                    <svg
+                      className="leafygreen-ui-6caof5"
+                      fill="none"
+                      height="10"
+                      stroke="#FFFFFF"
+                      viewBox="0 0 10 10"
+                      width="10"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                        stroke="#FFFFFF"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                      />
+                    </svg>
+                  </div>
+                  <span
+                    className="leafygreen-ui-1wmrjan"
+                  >
+                    Disable shallow clone for this distro.
+                  </span>
+                </label>
+              </div>
             </div>
           </div>
           <div
@@ -460,38 +473,55 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
             <div
               className="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
             >
-              <label
-                className="leafygreen-ui-hfnsvs"
-                htmlFor="checkbox-3"
-                id="checkbox-3-label"
+              <div
+                className="leafygreen-ui-55kazc"
               >
-                <input
-                  aria-checked={false}
-                  aria-disabled={false}
-                  aria-label="checkbox"
-                  aria-labelledby="checkbox-3-label"
-                  checked={false}
-                  className="leafygreen-ui-3bropy"
-                  disabled={false}
-                  id="checkbox-3"
-                  onChange={[Function]}
-                  onClick={[Function]}
-                  type="checkbox"
-                />
-                <div
-                  className="leafygreen-ui-cho4qd"
-                  data-leafygreen-ui="checkbox-wrapper"
+                <label
+                  className="leafygreen-ui-hx39h2"
+                  htmlFor="checkbox-3"
+                  id="checkbox-3-label"
                 >
-                  <div
-                    className="leafygreen-ui-v3mbc2"
+                  <input
+                    aria-checked={false}
+                    aria-disabled={false}
+                    aria-label="checkbox"
+                    aria-labelledby="checkbox-3-label"
+                    checked={false}
+                    className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+                    disabled={false}
+                    id="checkbox-3"
+                    onChange={[Function]}
+                    onClick={[Function]}
+                    type="checkbox"
                   />
-                </div>
-                <span
-                  className="leafygreen-ui-1qufm80"
-                >
-                  Disable queueing this distro. Tasks already in the task queue will be removed.
-                </span>
-              </label>
+                  <div
+                    className="lg-ui-check-wrapper-0000 leafygreen-ui-nlfut8"
+                  >
+                    <svg
+                      className="leafygreen-ui-6caof5"
+                      fill="none"
+                      height="10"
+                      stroke="#FFFFFF"
+                      viewBox="0 0 10 10"
+                      width="10"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                        stroke="#FFFFFF"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                      />
+                    </svg>
+                  </div>
+                  <span
+                    className="leafygreen-ui-1wmrjan"
+                  >
+                    Disable queueing this distro. Tasks already in the task queue will be removed.
+                  </span>
+                </label>
+              </div>
             </div>
           </div>
           <div
@@ -501,38 +531,55 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
             <div
               className="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
             >
-              <label
-                className="leafygreen-ui-hfnsvs"
-                htmlFor="checkbox-4"
-                id="checkbox-4-label"
+              <div
+                className="leafygreen-ui-55kazc"
               >
-                <input
-                  aria-checked={true}
-                  aria-disabled={false}
-                  aria-label="checkbox"
-                  aria-labelledby="checkbox-4-label"
-                  checked={true}
-                  className="leafygreen-ui-3bropy"
-                  disabled={false}
-                  id="checkbox-4"
-                  onChange={[Function]}
-                  onClick={[Function]}
-                  type="checkbox"
-                />
-                <div
-                  className="leafygreen-ui-cho4qd"
-                  data-leafygreen-ui="checkbox-wrapper"
+                <label
+                  className="leafygreen-ui-hx39h2"
+                  htmlFor="checkbox-4"
+                  id="checkbox-4-label"
                 >
-                  <div
-                    className="leafygreen-ui-njm8mk"
+                  <input
+                    aria-checked={true}
+                    aria-disabled={false}
+                    aria-label="checkbox"
+                    aria-labelledby="checkbox-4-label"
+                    checked={true}
+                    className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+                    disabled={false}
+                    id="checkbox-4"
+                    onChange={[Function]}
+                    onClick={[Function]}
+                    type="checkbox"
                   />
-                </div>
-                <span
-                  className="leafygreen-ui-1qufm80"
-                >
-                  Decommission hosts of this distro for this update
-                </span>
-              </label>
+                  <div
+                    className="lg-ui-check-wrapper-0000 leafygreen-ui-1mf205r"
+                  >
+                    <svg
+                      className="leafygreen-ui-1degv9q"
+                      fill="none"
+                      height="10"
+                      stroke="#FFFFFF"
+                      viewBox="0 0 10 10"
+                      width="10"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                        stroke="#FFFFFF"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                      />
+                    </svg>
+                  </div>
+                  <span
+                    className="leafygreen-ui-1wmrjan"
+                  >
+                    Decommission hosts of this distro for this update
+                  </span>
+                </label>
+              </div>
             </div>
           </div>
           <div
@@ -546,31 +593,32 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                 className="css-12pm1mq-MaxWidthContainer eevpusu0"
               >
                 <div
-                  className=""
+                  className="leafygreen-ui-1nkq8lt"
                 >
                   
                   <button
-                    aria-controls="select-5-menu"
-                    aria-describedby="select-5-description"
+                    aria-controls="select-9-menu"
+                    aria-describedby="select-9-description"
                     aria-disabled={false}
                     aria-expanded={false}
                     aria-invalid={false}
-                    aria-labelledby="select-5-label"
-                    className="leafygreen-ui-ua6xkt"
+                    aria-labelledby="select-9-label"
+                    className="lg-ui-button-0000 leafygreen-ui-1bn2bfe"
                     data-testid="leafygreen-ui-select-menubutton"
                     disabled={false}
+                    id="select-10"
                     onClick={[Function]}
                     type="button"
                     value=""
                   >
                     <div
-                      className="leafygreen-ui-1ktj4tm"
+                      className="leafygreen-ui-v038xi"
                     />
                     <div
-                      className="leafygreen-ui-sl5lf4"
+                      className="leafygreen-ui-1qmzz4y"
                     >
                       <div
-                        className="leafygreen-ui-e32n5q"
+                        className="leafygreen-ui-obh8q1"
                       >
                         <div
                           className="leafygreen-ui-17aj16e"
@@ -578,24 +626,20 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
                           
                         </div>
                       </div>
-                      <span
-                        className="leafygreen-ui-18n6mp2"
+                      <svg
+                        alt=""
+                        aria-hidden={true}
+                        className="leafygreen-ui-866818"
+                        height={16}
+                        role="presentation"
+                        viewBox="0 0 16 16"
+                        width={16}
                       >
-                        <svg
-                          alt=""
-                          aria-hidden={true}
-                          className="leafygreen-ui-195unnb"
-                          height={16}
-                          role="presentation"
-                          viewBox="0 0 16 16"
-                          width={16}
-                        >
-                          <path
-                            d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
-                            fill="currentColor"
-                          />
-                        </svg>
-                      </span>
+                        <path
+                          d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
+                          fill="currentColor"
+                        />
+                      </svg>
                     </div>
                   </button>
                 </div>
@@ -612,12 +656,12 @@ exports[`storybook Storyshots Components/Spruce Form Example 2 1`] = `
 exports[`storybook Storyshots Components/Spruce Form Example 3 1`] = `
 <div>
   <h3
-    className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-1hbs73"
+    className="css-f090xx-StyledH3 e1c06qt21 leafygreen-ui-376vw8"
   >
     UI Options
   </h3>
   <div
-    className="css-197y785-StyledCard e1c06qt20 leafygreen-ui-fe135o"
+    className="css-197y785-StyledCard e1c06qt20 leafygreen-ui-1v4ednr"
   >
     <form
       className="rjsf"
@@ -639,38 +683,55 @@ exports[`storybook Storyshots Components/Spruce Form Example 3 1`] = `
             <div
               className="css-g4pjur-ElementWrapper-LeafyGreenCheckBox ee4bs9n0"
             >
-              <label
-                className="leafygreen-ui-hfnsvs"
-                htmlFor="checkbox-5"
-                id="checkbox-5-label"
+              <div
+                className="leafygreen-ui-55kazc"
               >
-                <input
-                  aria-checked={true}
-                  aria-disabled={false}
-                  aria-label="checkbox"
-                  aria-labelledby="checkbox-5-label"
-                  checked={true}
-                  className="leafygreen-ui-3bropy"
-                  disabled={false}
-                  id="checkbox-5"
-                  onChange={[Function]}
-                  onClick={[Function]}
-                  type="checkbox"
-                />
-                <div
-                  className="leafygreen-ui-cho4qd"
-                  data-leafygreen-ui="checkbox-wrapper"
+                <label
+                  className="leafygreen-ui-hx39h2"
+                  htmlFor="checkbox-5"
+                  id="checkbox-5-label"
                 >
-                  <div
-                    className="leafygreen-ui-njm8mk"
+                  <input
+                    aria-checked={true}
+                    aria-disabled={false}
+                    aria-label="checkbox"
+                    aria-labelledby="checkbox-5-label"
+                    checked={true}
+                    className="lg-ui-input-0000 leafygreen-ui-fz7rbm"
+                    disabled={false}
+                    id="checkbox-5"
+                    onChange={[Function]}
+                    onClick={[Function]}
+                    type="checkbox"
                   />
-                </div>
-                <span
-                  className="leafygreen-ui-1qufm80"
-                >
-                  This is the only visible page element
-                </span>
-              </label>
+                  <div
+                    className="lg-ui-check-wrapper-0000 leafygreen-ui-1mf205r"
+                  >
+                    <svg
+                      className="leafygreen-ui-1degv9q"
+                      fill="none"
+                      height="10"
+                      stroke="#FFFFFF"
+                      viewBox="0 0 10 10"
+                      width="10"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2 5.5L4.12132 7.62132L8.36396 3.37868"
+                        stroke="#FFFFFF"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                      />
+                    </svg>
+                  </div>
+                  <span
+                    className="leafygreen-ui-1wmrjan"
+                  >
+                    This is the only visible page element
+                  </span>
+                </label>
+              </div>
             </div>
           </div>
         </fieldset>

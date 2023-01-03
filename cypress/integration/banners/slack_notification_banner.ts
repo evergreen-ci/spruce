@@ -20,9 +20,7 @@ describe("Slack notification banner", () => {
   });
 
   it("does not show up again if user closes the banner", () => {
-    cy.dataCy(slackNotificationBanner).within(() =>
-      cy.get("[aria-label='X Icon']").click()
-    );
+    cy.closeBanner(slackNotificationBanner);
     cy.dataCy(slackNotificationBanner).should("not.exist");
 
     cy.visit("/version/5ecedafb562343215a7ff297/tasks");

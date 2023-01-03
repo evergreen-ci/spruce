@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
+import Badge from "@leafygreen-ui/badge";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Accordion, AccordionWrapper } from "components/Accordion";
-import Badge from "components/Badge";
 import { selectedStrings } from "hooks/useVersionTaskStatusSelect";
 import { TaskStatusCheckboxContainer } from "./TaskStatusCheckboxContainer";
 
-interface BuildVariantAccordianProps {
+interface BuildVariantAccordionProps {
   versionId: string;
   tasks: {
     id: string;
@@ -19,7 +19,7 @@ interface BuildVariantAccordianProps {
     taskIds: { [versionId: string]: string } | { [versionId: string]: string[] }
   ) => void;
 }
-export const BuildVariantAccordian: React.VFC<BuildVariantAccordianProps> = ({
+export const BuildVariantAccordion: React.VFC<BuildVariantAccordionProps> = ({
   versionId,
   tasks,
   displayName,

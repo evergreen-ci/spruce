@@ -5,10 +5,13 @@ import { Tab } from "@leafygreen-ui/tabs";
 import TextInput from "@leafygreen-ui/text-input";
 import { useNavigate } from "react-router-dom";
 import { CodeChanges } from "components/CodeChanges/CodeChanges";
-import { MetadataCard } from "components/MetadataCard";
+import {
+  MetadataCard,
+  MetadataItem,
+  MetadataTitle,
+} from "components/MetadataCard";
 import { PageContent, PageLayout, PageSider } from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
-import { P2 } from "components/Typography";
 import { getVersionRoute } from "constants/routes";
 import { size } from "constants/tokens";
 
@@ -138,9 +141,10 @@ export const ConfigurePatchCore: React.VFC<Props> = ({ patch }) => {
       />
       <PageLayout>
         <PageSider>
-          <MetadataCard error={null} title="Patch Metadata">
-            <P2>Submitted by: {author}</P2>
-            <P2>Submitted at: {time.submittedAt}</P2>
+          <MetadataCard error={null}>
+            <MetadataTitle>Patch Metadata</MetadataTitle>
+            <MetadataItem>Submitted by: {author}</MetadataItem>
+            <MetadataItem>Submitted at: {time.submittedAt}</MetadataItem>
           </MetadataCard>
           <ConfigureBuildVariants
             variants={getVariantEntries(variants, selectedBuildVariantTasks)}

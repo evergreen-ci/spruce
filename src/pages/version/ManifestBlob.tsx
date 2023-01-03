@@ -1,5 +1,5 @@
+import { MetadataItem } from "components/MetadataCard";
 import { StyledLink } from "components/styles";
-import { P2 } from "components/Typography";
 import { Manifest } from "gql/generated/types";
 import { string } from "utils";
 
@@ -15,7 +15,7 @@ const ManifestBlob: React.VFC<Props> = ({ manifest }) => {
     type: "text/json",
   });
   return (
-    <P2>
+    <MetadataItem>
       <StyledLink
         data-cy="manifest-link"
         href={URL.createObjectURL(blob)}
@@ -23,7 +23,7 @@ const ManifestBlob: React.VFC<Props> = ({ manifest }) => {
       >
         Version Manifest
       </StyledLink>
-    </P2>
+    </MetadataItem>
   );
 };
 

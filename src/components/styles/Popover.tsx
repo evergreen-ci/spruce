@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { size } from "constants/tokens";
 
-const { white, gray } = uiColors;
+const { white, gray } = palette;
 
 export const PopoverContainer = styled.div`
   display: flex;
