@@ -71,6 +71,7 @@ export const Metadata: React.VFC<Props> = ({
     project,
     expectedDuration,
     baseTask,
+    resetWhenFinished,
   } = task || {};
 
   const baseCommit = shortenGithash(revision);
@@ -267,6 +268,12 @@ export const Metadata: React.VFC<Props> = ({
           Out of Memory Kill detected
           {oomTracker.pids ? `(PIDs: ${oomTracker.pids.join(", ")}` : ""} )
         </OOMTrackerMessage>
+      )}
+      {resetWhenFinished && (
+        <MetadataItem data-cy="reset-when-finished">
+          This task will restart when all of the tasks in its task group have
+          finished running.
+        </MetadataItem>
       )}
       {dependsOn && dependsOn.length ? (
         <DependsOnContainer data-cy="depends-on-container">
