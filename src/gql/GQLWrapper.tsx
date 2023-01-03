@@ -82,13 +82,17 @@ const authLink = (logout: () => void): ApolloLink =>
     }
   });
 
-const logErrorsLink = onError(({ graphQLErrors }) => {
+const logErrorsLink = onError(({ graphQLErrors, operation }) => {
   if (Array.isArray(graphQLErrors)) {
     graphQLErrors.forEach((gqlErr) => {
       reportError({
-        name: "GraphQL Error",
-        message: gqlErr.message,
-        metadata: gqlErr,
+        message: "GraphQL Error",
+        name: gqlErr.message,
+        metadata: {
+          gqlErr,
+          operationName: operation.operationName,
+          variables: operation.variables,
+        },
       }).warning();
     });
   }
