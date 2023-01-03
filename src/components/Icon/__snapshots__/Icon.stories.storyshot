@@ -83,6 +83,29 @@ exports[`storybook Storyshots Components/Icons Icons 1`] = `
     className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
+      aria-label="Array Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M2.5 1a.5.5 0 00-.5.5v13a.5.5 0 00.5.5h4a.5.5 0 00.5-.5v-1a.5.5 0 00-.5-.5H4V3h2.5a.5.5 0 00.5-.5v-1a.5.5 0 00-.5-.5h-4zM13.5 1a.5.5 0 01.5.5v13a.5.5 0 01-.5.5h-4a.5.5 0 01-.5-.5v-1a.5.5 0 01.5-.5H12V3H9.5a.5.5 0 01-.5-.5v-1a.5.5 0 01.5-.5h4z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      Array
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
       aria-label="Arrow Down Icon"
       className=""
       color="#000000"
@@ -219,6 +242,31 @@ exports[`storybook Storyshots Components/Icons Icons 1`] = `
     </svg>
     <span>
       Bell
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Biometric Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M7.5 1A5.5 5.5 0 002 6.5v3A5.5 5.5 0 007.5 15h1A5.5 5.5 0 0014 9.5v-3A5.5 5.5 0 008.5 1h-1zm1.074 6.75a.574.574 0 10-1.148 0v2.457a.574.574 0 001.148 0V7.75zM8 5.338A2.412 2.412 0 005.588 7.75v2.566a.994.994 0 01-.291.704.574.574 0 10.812.812c.402-.402.628-.947.628-1.516V7.75a1.264 1.264 0 112.527 0v2.648c0 .412-.233.79-.602.973a.574.574 0 00.514 1.028 2.237 2.237 0 001.236-2V7.75A2.412 2.412 0 008 5.338zM4.899 7.75A3.101 3.101 0 019.64 5.117a.574.574 0 10.609-.974A4.25 4.25 0 003.75 7.75v2.297a.574.574 0 101.149 0V7.75zm6.887-1.932a.574.574 0 10-1.023.522c.216.423.338.901.338 1.41v1.378a.574.574 0 101.149 0V7.75c0-.695-.167-1.352-.464-1.932z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+    <span>
+      Biometric
     </span>
   </div>
   <div
@@ -567,6 +615,58 @@ exports[`storybook Storyshots Components/Icons Icons 1`] = `
     className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
+      aria-label="Clock Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M8 14A6 6 0 108 2a6 6 0 000 12zm-.75-9.25a.75.75 0 011.5 0v3.16l1.744 1.526a.75.75 0 01-.988 1.128L7.511 8.818a.761.761 0 01-.19-.25.747.747 0 01-.071-.318v-3.5z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+    <span>
+      Clock
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Clock With Arrow Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M13 8a5 5 0 01-7.304 4.438c-.348-.18-.787-.13-1.038.172l-.33.398c-.276.33-.22.828.152 1.044a7 7 0 10-1.452-10.98L1.97 2.146a.584.584 0 00-.964.521l.455 3.252c.04.287.285.51.576.511H5.32a.58.58 0 00.387-1.018l-1.168-1.02A5 5 0 0113 8z"
+        fill="currentColor"
+      />
+      <path
+        d="M7.25 5.25a.75.75 0 011.5 0v2.668l1.68 1.524a.75.75 0 11-.988 1.129L7.507 8.815a.758.758 0 01-.257-.565v-3z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      ClockWithArrow
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
       aria-label="Clone Icon"
       className=""
       color="#000000"
@@ -633,6 +733,31 @@ exports[`storybook Storyshots Components/Icons Icons 1`] = `
     </svg>
     <span>
       Code
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Connect Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M12.867 8.898a4.048 4.048 0 00.687-4.8l1.275-1.275a.584.584 0 000-.826l-.826-.826a.584.584 0 00-.826 0l-1.29 1.29a4.048 4.048 0 00-4.734.722L5.277 5.058a.323.323 0 00-.041.035L3.182 7.148a4.048 4.048 0 00-.72 4.738l-1.29 1.29a.584.584 0 000 .827l.825.826a.584.584 0 00.826 0l1.278-1.278a4.048 4.048 0 004.795-.689l1.876-1.875a.324.324 0 00.041-.035l2.054-2.054zM6.561 6.776L4.685 8.65a1.916 1.916 0 000 2.707c.747.746 1.961.747 2.707 0l2.055-2.054a.321.321 0 01.04-.035l1.877-1.875a1.916 1.916 0 000-2.707 1.916 1.916 0 00-2.707 0L6.602 6.74a.32.32 0 01-.04.035z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+    <span>
+      Connect
     </span>
   </div>
   <div
@@ -710,6 +835,31 @@ exports[`storybook Storyshots Components/Icons Icons 1`] = `
     className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
+      aria-label="Cursor Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M8.534 8.534l.473-.27 2.389-1.366-6.748-2.25 2.25 6.748 1.366-2.389.27-.473zM10 10l4.48-2.563c.734-.333.678-1.393-.086-1.648L3.169 2.047A.887.887 0 002.047 3.17l3.742 11.225c.255.764 1.315.82 1.648.086L10 10z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+    <span>
+      Cursor
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
       aria-label="Database Icon"
       className=""
       color="#000000"
@@ -735,6 +885,100 @@ exports[`storybook Storyshots Components/Icons Icons 1`] = `
     </svg>
     <span>
       Database
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Diagram Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M6 2.75A.75.75 0 016.75 2h2.5a.75.75 0 01.75.75v1.5a.75.75 0 01-.75.75H8.5v2h4.75a.75.75 0 01.75.75V10h.25a.75.75 0 01.75.75v1.5a.75.75 0 01-.75.75h-2a.75.75 0 01-.75-.75v-1.5a.75.75 0 01.75-.75H13V8H8.5v2H9a.75.75 0 01.75.75v1.5A.75.75 0 019 13H7a.75.75 0 01-.75-.75v-1.5A.75.75 0 017 10h.5V8H3v2h.75a.75.75 0 01.75.75v1.5a.75.75 0 01-.75.75h-2a.75.75 0 01-.75-.75v-1.5a.75.75 0 01.75-.75H2V7.75A.75.75 0 012.75 7H7.5V5h-.75A.75.75 0 016 4.25v-1.5z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      Diagram
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Diagram2 Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M10.72 1c-.398 0-.72.336-.72.75V2H7.48a.49.49 0 00-.48.5V7H5v-.25C5 6.336 4.678 6 4.28 6H1.72c-.398 0-.72.336-.72.75v1.5c0 .414.322.75.72.75h2.56c.398 0 .72-.336.72-.75V8h2v4.5c0 .276.215.5.48.5H10v.25c0 .414.322.75.72.75h2.06c.398 0 .72-.336.72-.75v-1.5c0-.414-.322-.75-.72-.75h-2.06c-.398 0-.72.336-.72.75V12H8V8h2v.25c0 .414.322.75.72.75h2.06c.398 0 .72-.336.72-.75v-1.5c0-.414-.322-.75-.72-.75h-2.06c-.398 0-.72.336-.72.75V7H8V3h2v.25c0 .414.322.75.72.75h2.06c.398 0 .72-.336.72-.75v-1.5c0-.414-.322-.75-.72-.75h-2.06z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      Diagram2
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Diagram3 Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M1.75 1a.75.75 0 00-.75.75v1.5c0 .414.336.75.75.75h2.5A.75.75 0 005 3.25v-1.5A.75.75 0 004.25 1h-2.5zm9.25.75a.75.75 0 01.75-.75h2.5a.75.75 0 01.75.75v1.5a.75.75 0 01-.75.75h-2.5a.75.75 0 01-.75-.75v-1.5zm0 9a.75.75 0 01.75-.75h2.5a.75.75 0 01.75.75v1.5a.75.75 0 01-.75.75h-2.5a.75.75 0 01-.75-.75v-1.5zm-10 0a.75.75 0 01.75-.75h2.5a.75.75 0 01.75.75v1.5a.75.75 0 01-.75.75h-2.5a.75.75 0 01-.75-.75v-1.5zM6 5a1 1 0 00-1 1v2a1 1 0 001 1h4a1 1 0 001-1V6a1 1 0 00-1-1H6z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+    <span>
+      Diagram3
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Disconnect Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M7.093 3.671a.317.317 0 010-.448L8.14 2.175a4.024 4.024 0 015.685 0 4.024 4.024 0 010 5.685l-1.048 1.047a.317.317 0 01-.448 0L11.28 7.86a.317.317 0 010-.449l1.048-1.047a1.906 1.906 0 000-2.693 1.906 1.906 0 00-2.693 0L8.59 4.718a.317.317 0 01-.449 0L7.093 3.671zM1.293 1.293a1.001 1.001 0 011.416 0l11.998 11.998a1.001 1.001 0 01-1.416 1.416l-3.159-3.16-2.272 2.277a4.024 4.024 0 01-5.685 0 4.024 4.024 0 010-5.684l2.273-2.277L1.293 2.71a1.001 1.001 0 010-1.416zm4.65 6.066L3.672 9.636a1.906 1.906 0 000 2.693c.743.742 1.95.742 2.693 0l2.272-2.277-2.692-2.693z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      Disconnect
     </span>
   </div>
   <div
@@ -824,6 +1068,33 @@ exports[`storybook Storyshots Components/Icons Icons 1`] = `
     </svg>
     <span>
       Ellipsis
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Email Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M2.494 4l4.714 5.05a1.068 1.068 0 001.584 0L13.505 4H2.494zM1.133 4.256A2.12 2.12 0 001 5v6c0 .369.093.715.256 1.011L4.814 8.2l-3.68-3.944z"
+        fill="currentColor"
+      />
+      <path
+        d="M2.867 13c-.348 0-.674-.102-.953-.28l3.56-3.813 1.219 1.306a1.78 1.78 0 002.64 0l1.346-1.443 3.575 3.83c-.313.251-.7.4-1.12.4H2.866zM14.84 11.813c.103-.248.16-.523.16-.813V5c0-.255-.045-.5-.126-.724l-3.535 3.787 3.5 3.75z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      Email
     </span>
   </div>
   <div
@@ -986,7 +1257,7 @@ exports[`storybook Storyshots Components/Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M2 1a1 1 0 00-1 1v10a1 1 0 001 1h12a1 1 0 001-1V4a1 1 0 00-1-1H8a1 1 0 01-1-1 1 1 0 00-1-1H2z"
+        d="M2 2a1 1 0 00-1 1v10a1 1 0 001 1h12a1 1 0 001-1V5a1 1 0 00-1-1H8a1 1 0 01-1-1 1 1 0 00-1-1H2z"
         fill="currentColor"
       />
     </svg>
@@ -1045,6 +1316,60 @@ exports[`storybook Storyshots Components/Icons Icons 1`] = `
     </svg>
     <span>
       GovernmentBuilding
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Home Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M7.52 2.4a.75.75 0 01.96 0l5.13 4.275a.5.5 0 01.06.71l-.217.253a.5.5 0 01-.686.07l-4.46-3.47a.5.5 0 00-.614 0l-4.46 3.47a.5.5 0 01-.686-.07l-.217-.253a.5.5 0 01.06-.71L7.52 2.4z"
+        fill="currentColor"
+      />
+      <path
+        d="M7.685 5.43L4 8.316v4.922c0 .42.336.762.75.762H6.5a.5.5 0 00.5-.5v-2.04c0-.281.224-.509.5-.509h1c.276 0 .5.228.5.508V13.5a.5.5 0 00.5.5h1.75c.414 0 .75-.341.75-.762V8.316L8.315 5.43a.494.494 0 00-.63 0z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      Home
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Import Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M11.623 8.799a.278.278 0 000-.385L8.818 5.498a.277.277 0 00-.477.193v1.405A3.5 3.5 0 015 3.6v-.1a1.5 1.5 0 10-3 0v.1a6.5 6.5 0 006.34 6.498v1.424c0 .25.305.372.478.192L11.623 8.8z"
+        fill="currentColor"
+      />
+      <path
+        d="M3.95 11a.75.75 0 011.5 0v1.75a.5.5 0 00.5.5h6.864a.5.5 0 00.5-.5V5.886a.5.5 0 00-.5-.5h-1.943a.75.75 0 010-1.5h1.943a2 2 0 012 2v6.864a2 2 0 01-2 2H5.95a2 2 0 01-2-2V11z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      Import
     </span>
   </div>
   <div
@@ -1128,6 +1453,31 @@ exports[`storybook Storyshots Components/Icons Icons 1`] = `
     className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
+      aria-label="Key Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M6 10c.554 0 1.082-.113 1.562-.317L8.88 11l-.44.44a1.5 1.5 0 002.122 2.12l.439-.439.44.44a1.5 1.5 0 002.12-2.122L9.684 7.562A4 4 0 106 10zm-.75-3.5a1.25 1.25 0 100-2.5 1.25 1.25 0 000 2.5z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+    <span>
+      Key
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
       aria-label="Laptop Icon"
       className=""
       color="#000000"
@@ -1151,6 +1501,33 @@ exports[`storybook Storyshots Components/Icons Icons 1`] = `
     </svg>
     <span>
       Laptop
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Link Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M6.039 9.953a3.596 3.596 0 01-.327-.38l1.45-1.445a1.553 1.553 0 002.496.423l2.885-2.87a1.57 1.57 0 00.01-2.213 1.553 1.553 0 00-2.203-.01l-.379.377A.995.995 0 018.56 3.83a1.005 1.005 0 01.006-1.418l.38-.377a3.542 3.542 0 015.024.023 3.58 3.58 0 01-.022 5.047l-2.884 2.871a3.542 3.542 0 01-5.025-.022z"
+        fill="currentColor"
+      />
+      <path
+        d="M9.961 6.047c.12.12.228.248.327.38l-1.45 1.445a1.553 1.553 0 00-2.496-.423l-2.885 2.87a1.57 1.57 0 00-.01 2.213 1.553 1.553 0 002.203.01l.379-.377a.995.995 0 011.411.006 1.005 1.005 0 01-.006 1.418l-.38.377a3.542 3.542 0 01-5.024-.023 3.58 3.58 0 01.022-5.047l2.884-2.871a3.542 3.542 0 015.025.022z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      Link
     </span>
   </div>
   <div
@@ -1266,7 +1643,7 @@ exports[`storybook Storyshots Components/Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M2 4a1 1 0 011-1h10a1 1 0 110 2H3a1 1 0 01-1-1zM2 8a1 1 0 011-1h10a1 1 0 110 2H3a1 1 0 01-1-1zM3 11a1 1 0 100 2h10a1 1 0 100-2H3z"
+        d="M3 6.5a1 1 0 00-1 1v1a1 1 0 001 1h10a1 1 0 001-1v-1a1 1 0 00-1-1H3z"
         fill="currentColor"
       />
     </svg>
@@ -1297,6 +1674,35 @@ exports[`storybook Storyshots Components/Icons Icons 1`] = `
     </svg>
     <span>
       NotAllowed
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Note Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M4.5 6.25a.75.75 0 01.75-.75h3.5a.75.75 0 010 1.5h-3.5a.75.75 0 01-.75-.75zM4.5 8.75A.75.75 0 015.25 8h1.5a.75.75 0 010 1.5h-1.5a.75.75 0 01-.75-.75z"
+        fill="currentColor"
+      />
+      <path
+        clipRule="evenodd"
+        d="M15 10l-4 4H3a2 2 0 01-2-2V4a2 2 0 012-2h10a2 2 0 012 2v6zm-2-6H3v8h7v-2a1 1 0 011-1h2V4z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+    <span>
+      Note
     </span>
   </div>
   <div
@@ -1529,6 +1935,29 @@ exports[`storybook Storyshots Components/Icons Icons 1`] = `
     className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
+      aria-label="Redo Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M4.018 9.402c-.05.328-.313.598-.645.598h-.8c-.331 0-.603-.27-.57-.6a5.996 5.996 0 012.543-4.325A5.997 5.997 0 017.974 4h.028c2.699 0 4.95 1.718 5.467 4h1.414c.541 0 .792.672.383 1.026l-2.482 2.15a.585.585 0 01-.765 0l-2.482-2.15A.584.584 0 019.92 8h1.446c-.468-1.085-1.68-2-3.364-2a3.98 3.98 0 00-2.543.89 3.996 3.996 0 00-1.441 2.512z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      Redo
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
       aria-label="Refresh Icon"
       className=""
       color="#000000"
@@ -1546,6 +1975,54 @@ exports[`storybook Storyshots Components/Icons Icons 1`] = `
     </svg>
     <span>
       Refresh
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Relationship Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M.5 2a1 1 0 011-1h2a1 1 0 011 1v1H6a2.5 2.5 0 012.5 2.5v5A1.5 1.5 0 0010 12h1.5v-1a1 1 0 011-1h2a1 1 0 011 1v3a1 1 0 01-1 1h-2a1 1 0 01-1-1v-1H10a2.5 2.5 0 01-2.5-2.5v-5A1.5 1.5 0 006 4H4.5v1a1 1 0 01-1 1h-2a1 1 0 01-1-1V2z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      Relationship
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Replica Set Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M9.39 7.713A3.488 3.488 0 018 8c-.494 0-.964-.102-1.39-.287L5.264 9.729a2.5 2.5 0 11-1.08-.634L5.57 7.02a3.5 3.5 0 114.86 0l1.385 2.076A2.501 2.501 0 0115 11.5a2.5 2.5 0 11-4.265-1.77L9.391 7.712zM9.75 4.5a1.75 1.75 0 11-3.5 0 1.75 1.75 0 013.5 0z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+    <span>
+      ReplicaSet
     </span>
   </div>
   <div
@@ -1575,6 +2052,54 @@ exports[`storybook Storyshots Components/Icons Icons 1`] = `
     </svg>
     <span>
       Save
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Serverless Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M2.132 10.849a5.5 5.5 0 118.4-6.571 4 4 0 014.398 6.444 1 1 0 01-.15.192l-1.77 1.898a1.995 1.995 0 01-1.51.688H7.792a2.5 2.5 0 110-2H11.5l1.166-1.25H8.5a3.75 3.75 0 00-6.368.599z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      Serverless
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Sharded Cluster Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M13 2.75a1.75 1.75 0 01-2.123 1.71l-.619.866a3.497 3.497 0 011.186 2.049h1.17a1.75 1.75 0 110 1.25h-1.17a3.497 3.497 0 01-1.186 2.05l.619.865a1.75 1.75 0 11-1.046.686l-.662-.926a3.495 3.495 0 01-2.331.002l-.664.93a1.75 1.75 0 11-1.043-.69l.616-.863a3.497 3.497 0 01-1.191-2.054h-1.17a1.75 1.75 0 110-1.25h1.17c.147-.819.58-1.54 1.191-2.054l-.616-.863a1.75 1.75 0 111.043-.69l.664.93A3.494 3.494 0 018 4.5c.41 0 .803.07 1.17.2l.66-.926A1.75 1.75 0 1113 2.75zM9.75 8a1.75 1.75 0 11-3.5 0 1.75 1.75 0 013.5 0z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+    <span>
+      ShardedCluster
     </span>
   </div>
   <div
@@ -1628,6 +2153,31 @@ exports[`storybook Storyshots Components/Icons Icons 1`] = `
     className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
+      aria-label="SMS Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M1 4a2 2 0 012-2h10a2 2 0 012 2v6a2 2 0 01-2 2H7.755L4.23 14.831c-.488.392-1.23.058-1.23-.555V12a2 2 0 01-2-2V4zm2 .75A.75.75 0 013.75 4h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 013 4.75zm0 3A.75.75 0 013.75 7h5.5a.75.75 0 110 1.5h-5.5A.75.75 0 013 7.75z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+    <span>
+      SMS
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
       aria-label="Sort Ascending Icon"
       className=""
       color="#000000"
@@ -1668,6 +2218,56 @@ exports[`storybook Storyshots Components/Icons Icons 1`] = `
     </svg>
     <span>
       SortDescending
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Split Horizontal Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M15 11a2 2 0 01-2 2H3a2 2 0 01-2-2V3a2 2 0 012-2h10a2 2 0 012 2v8zm-2-4.5V3H3v3.5h10zm-10 1V11h10V7.5H3z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+    <span>
+      SplitHorizontal
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Split Vertical Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M13 1a2 2 0 012 2v8a2 2 0 01-2 2H3a2 2 0 01-2-2V3a2 2 0 012-2h10zM7.5 3H3v8h4.5V3zm1 8H13V3H8.5v8z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+    <span>
+      SplitVertical
     </span>
   </div>
   <div
@@ -1722,6 +2322,56 @@ exports[`storybook Storyshots Components/Icons Icons 1`] = `
     className="css-1eu126b-IconContainer e7xdko0"
   >
     <svg
+      aria-label="Sweep Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M3 14.465L4 12.734c.292.169.631.266.999.266h2v2H5a3.982 3.982 0 01-2-.535zM9 15v-2h2c.368 0 .707-.097.999-.266L13 14.464A3.982 3.982 0 0111 15H9zm6-8h-2V5c0-.368-.097-.707-.266-.999L14.464 3c.341.588.536 1.271.536 2v2zM7 1H5c-.729 0-1.412.195-2 .535L4 3.266C4.293 3.097 4.632 3 5 3h2V1zM1 9h2v2c0 .368.097.707.266.999L1.536 13A3.982 3.982 0 011 11V9zm0-2h2V5c0-.368.097-.707.266-.999L1.536 3A3.982 3.982 0 001 5v2zm8-6v2h2c.368 0 .707.097.999.266L13 1.536A3.982 3.982 0 0011 1H9zm6 8h-2v2c0 .368-.097.707-.266.999L14.464 13c.341-.588.536-1.271.536-2V9z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+    <span>
+      Sweep
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Table Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M1 3.25C1 2.56 1.56 2 2.25 2h11.5c.69 0 1.25.56 1.25 1.25v9.5c0 .69-.56 1.25-1.25 1.25H2.25C1.56 14 1 13.44 1 12.75v-9.5zm2 4.12V4h4.37v3.37H3zm0 1.25V12h4.37V8.62H3zM8.62 12H13V8.62H8.62V12zM13 7.37V4H8.62v3.37H13z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+    <span>
+      Table
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
       aria-label="Time Series Icon"
       className=""
       color="#000000"
@@ -1764,6 +2414,29 @@ exports[`storybook Storyshots Components/Icons Icons 1`] = `
     </svg>
     <span>
       Trash
+    </span>
+  </div>
+  <div
+    className="css-1eu126b-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Undo Icon"
+      className=""
+      color="#000000"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M11.981 9.402c.05.328.313.598.645.598h.8c.331 0 .603-.27.57-.6a5.996 5.996 0 00-2.543-4.325A5.997 5.997 0 008.026 4h-.029C5.298 4 3.047 5.718 2.53 8H1.116a.584.584 0 00-.383 1.026l2.482 2.15c.22.19.545.19.765 0l2.482-2.15A.584.584 0 006.079 8H4.632c.47-1.085 1.68-2 3.365-2a3.98 3.98 0 012.543.89 3.996 3.996 0 011.441 2.512z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      Undo
     </span>
   </div>
   <div
@@ -2040,14 +2713,27 @@ exports[`storybook Storyshots Components/Icons Icons 1`] = `
   >
     <svg
       aria-label="Evergreen Icon"
-      height="28"
-      width="14"
+      fill="none"
+      height={16}
+      viewBox="0 0 258 258"
+      width={16}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M6.884 0C4.59 8.35 2.294 16.864 0 25.214c2.032-.246 3.934-.49 6.065-.818-.528 3.34 0 .235-.528 3.604h2.858l-.527-3.604c.164 0 2.95.49 5.737.982-.82-3.438-3.77-1.99-6.72-5.92 1.638.818 4.425 1.5 5.9 1.663-.983-3.438-3.278-1.5-5.9-4.938 1.31.655 3.605 1.172 4.917 1.5-.984-3.439-2.623-1.827-4.918-4.774 1.148.49 2.95 1.008 3.934 1.335-.82-3.438-1.803-2.154-3.934-4.774.984.492 2.131.845 2.95 1.172-.382-1.527-.621-2.063-.968-2.449-.396-.441-.933-.687-1.982-1.997.656.327 1.311.68 1.967.844-.82-2.947-.164-1.99-1.967-4.119.492.164.656.354.984.517L6.884 0z"
-        fill="#71CC97"
-        fillRule="evenodd"
+        d="M144.206 213.445H114.693C110.693 213.445 107.449 216.688 107.449 220.689V250.201C107.449 254.202 110.693 257.445 114.693 257.445H144.206C148.206 257.445 151.449 254.202 151.449 250.201V220.689C151.449 216.688 148.206 213.445 144.206 213.445Z"
+        fill="#00A35C"
+      />
+      <path
+        d="M237.92 218.638L188.116 155.363H71.0083L20.5234 218.649C16.5211 224.712 20.8722 232.791 28.1364 232.791H230.312C237.582 232.791 241.933 224.701 237.92 218.638Z"
+        fill="#00A35C"
+      />
+      <path
+        d="M208.375 146.21L167.82 89.1536H90.4297L49.6287 146.227C45.6264 152.289 49.9774 160.369 57.2417 160.369H200.767C208.037 160.369 212.388 152.278 208.375 146.216V146.21Z"
+        fill="#00A35C"
+      />
+      <path
+        d="M184.463 79.9953L132.867 2.05749C131.048 -0.689405 127.019 -0.684039 125.2 2.06286L73.7767 80.006C69.7744 86.0685 74.1254 94.1482 81.3897 94.1482H176.85C184.119 94.1482 188.47 86.0577 184.457 79.9953H184.463Z"
+        fill="#00A35C"
       />
     </svg>
     <span>

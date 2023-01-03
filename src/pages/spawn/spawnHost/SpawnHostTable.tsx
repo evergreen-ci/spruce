@@ -6,8 +6,7 @@ import { useLocation } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
 import { HostStatusBadge } from "components/HostStatusBadge";
 import { DoesNotExpire, SpawnTable } from "components/Spawn";
-import { StyledRouterLink } from "components/styles";
-import { WordBreak } from "components/Typography";
+import { StyledRouterLink, WordBreak } from "components/styles";
 import { getHostRoute } from "constants/routes";
 import { size } from "constants/tokens";
 import { MyHost } from "types/spawn";
@@ -105,6 +104,7 @@ const columns = [
 ];
 
 const FlexContainer = styled.div`
+  align-items: baseline;
   display: flex;
 `;
 
@@ -118,7 +118,7 @@ const linkStyle = css`
 `;
 
 const WorkstationBadge = styled(Badge)`
-  margin-left: ${size.xxs};
+  margin-left: ${size.xs};
 `;
 
 const NoWrap = styled.span`

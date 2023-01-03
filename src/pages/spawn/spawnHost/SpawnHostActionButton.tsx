@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 import { useMutation, useLazyQuery } from "@apollo/client";
-import { Size } from "@leafygreen-ui/button";
+import Button, { Size } from "@leafygreen-ui/button";
 import { useSpawnAnalytics } from "analytics";
 import Icon from "components/Icon";
 import { PopconfirmWithCheckbox } from "components/Popconfirm";
-import { PaddedButton } from "components/Spawn";
 import { useToastContext } from "context/toast";
 import {
   UpdateSpawnHostStatusMutation,
@@ -99,10 +98,10 @@ export const SpawnHostActionButton: React.VFC<{ host: MyHost }> = ({
   return (
     <>
       {action ? (
-        <PaddedButton
+        <Button
           disabled={loading}
           leftGlyph={<Icon glyph={glyph} />}
-          size={Size.XSmall} // @ts-expect-error
+          size={Size.XSmall}
           onClick={onClick(action)}
         />
       ) : null}
@@ -111,8 +110,7 @@ export const SpawnHostActionButton: React.VFC<{ host: MyHost }> = ({
         title={`Delete host ${host.displayName || host.id}?`}
         checkboxLabel={checkboxLabel}
       >
-        {/* @ts-expect-error */}
-        <PaddedButton
+        <Button
           leftGlyph={<Icon glyph="Trash" />}
           size={Size.XSmall}
           disabled={!canTerminate}

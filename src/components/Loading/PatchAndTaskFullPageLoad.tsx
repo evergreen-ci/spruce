@@ -6,20 +6,15 @@ import {
   PageWrapper,
   SiderCard,
 } from "components/styles";
-import { H2 } from "components/Typography";
 
 export const PatchAndTaskFullPageLoad: React.VFC = () => (
   <PageWrapper>
-    <H2>
-      <Skeleton active paragraph={{ rows: 0 }} />
-    </H2>
+    <Skeleton active paragraph />
     <PageLayout>
       <PageSider>
-        {/* @ts-expect-error */}
         <SiderCard>
           <Skeleton active title={false} paragraph={{ rows: 4 }} />
         </SiderCard>
-        {/* @ts-expect-error */}
         <SiderCard>
           <Skeleton active title={false} paragraph={{ rows: 4 }} />
         </SiderCard>

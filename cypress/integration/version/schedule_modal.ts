@@ -9,8 +9,8 @@ describe("Restarting and scheduling mainline commits", () => {
       cy.dataCy("accordion-toggle").click();
       cy.getInputByLabel("check_codegen").should("exist");
       cy.getInputByLabel("check_codegen").click({ force: true });
-      cy.get("button").contains("Schedule").should("not.be.disabled");
-      cy.get("button").contains("Schedule").click({ force: true });
+      cy.contains("button", "Schedule").should("not.be.disabled");
+      cy.contains("button", "Schedule").click({ force: true });
     });
     cy.validateToast("success", "Successfully scheduled tasks!");
   });

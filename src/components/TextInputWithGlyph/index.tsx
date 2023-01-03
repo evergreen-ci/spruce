@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
-import TextInput from "@leafygreen-ui/text-input";
+import TextInput, { TextInputProps } from "@leafygreen-ui/text-input";
 import { size } from "constants/tokens";
 
 type TextInputWithGlyphProps = {
   icon: React.ReactElement;
-} & React.ComponentProps<typeof TextInput>;
+} & TextInputProps;
 
 const TextInputWithGlyph: React.VFC<TextInputWithGlyphProps> = (props) => {
   const { icon, ...rest } = props;

@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
 import { TaskQueueDistro } from "gql/generated/types";
 
-const { blue } = uiColors;
+const { blue } = palette;
 
 interface DistroOptionProps {
   option: TaskQueueDistro;

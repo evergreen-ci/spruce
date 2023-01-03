@@ -2,9 +2,9 @@ import { useMemo } from "react";
 import { ColumnProps } from "antd/es/table";
 import { formatDistanceToNow } from "date-fns";
 import Cookies from "js-cookie";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { DoesNotExpire, SpawnTable } from "components/Spawn";
-import { WordBreak } from "components/Typography";
+import { StyledRouterLink, WordBreak } from "components/styles";
 import { SEEN_MIGRATE_GUIDE_CUE } from "constants/cookies";
 import { getSpawnHostRoute } from "constants/routes";
 import { SpawnVolumeCard } from "pages/spawn/spawnVolume/spawnVolumeTable/SpawnVolumeCard";
@@ -73,9 +73,12 @@ const columns: Array<ColumnProps<TableVolume>> = [
     key: "mountedOn",
     sorter: sortByHost,
     render: (_, volume: TableVolume) => (
-      <Link data-cy="host-link" to={getSpawnHostRoute({ host: volume.hostID })}>
+      <StyledRouterLink
+        data-cy="host-link"
+        to={getSpawnHostRoute({ host: volume.hostID })}
+      >
         <WordBreak>{getHostDisplayName(volume)}</WordBreak>
-      </Link>
+      </StyledRouterLink>
     ),
   },
   {

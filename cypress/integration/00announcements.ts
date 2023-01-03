@@ -12,11 +12,11 @@ describe("Announcement overlays", () => {
   });
 
   it("Should not show a Sitewide banner after it has been dismissed", () => {
-    cy.dataCy("sitewide-banner").should("exist");
-    cy.dataCy("dismiss-sitewide-banner-button").click();
-    cy.dataCy("sitewide-banner").should("not.exist");
+    cy.dataCy("sitewide-banner-success").should("exist");
+    cy.closeBanner("sitewide-banner-success");
+    cy.dataCy("sitewide-banner-success").should("not.exist");
     cy.visit("/");
-    cy.dataCy("sitewide-banner").should("not.exist");
+    cy.dataCy("sitewide-banner-success").should("not.exist");
   });
 
   it("Should close the announcement toast if one exists", () => {

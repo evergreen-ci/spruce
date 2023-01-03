@@ -4,8 +4,8 @@ import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
+import { Link } from "react-router-dom";
 import { useProjectHealthAnalytics } from "analytics/projectHealth/useProjectHealthAnalytics";
-import { StyledRouterLink } from "components/styles";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { getTaskRoute } from "constants/routes";
 import { size, zIndex } from "constants/tokens";
@@ -27,6 +27,7 @@ interface WaterfallTaskStatusIconProps {
   identifier: string;
 }
 
+let timeout;
 export const WaterfallTaskStatusIcon: React.VFC<
   WaterfallTaskStatusIconProps
 > = ({ taskId, status, displayName, timeTaken, identifier }) => {
@@ -39,24 +40,23 @@ export const WaterfallTaskStatusIcon: React.VFC<
   const { testResults, filteredTestCount } = data?.taskTests ?? {};
   const failedTestDifference = filteredTestCount - (testResults ?? []).length;
 
-  let timeout;
-  const onMouseEnter = () => {
-    injectGlobalStyle(identifier);
-    timeout = setTimeout(() => {
-      setEnabled(true);
-      // Only query failing test names if the task has failed.
-      if (isFailedTaskStatus(status)) {
-        loadData();
-      }
-    }, 500);
-  };
-  const onMouseLeave = () => {
-    removeGlobalStyle();
-    setEnabled(false);
+  useEffect(() => {
     if (timeout) {
       clearTimeout(timeout);
     }
-  };
+    if (enabled) {
+      injectGlobalStyle(identifier);
+      timeout = setTimeout(() => {
+        // Only query failing test names if the task has failed.
+        if (isFailedTaskStatus(status)) {
+          loadData();
+        }
+      }, 500);
+    } else {
+      removeGlobalStyle();
+    }
+  }, [enabled]); // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(
     () => () => {
       if (timeout) {
@@ -72,9 +72,9 @@ export const WaterfallTaskStatusIcon: React.VFC<
       popoverZIndex={zIndex.tooltip}
       enabled={enabled}
       trigger={
-        <IconWrapper
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
+        <Link
+          onMouseEnter={() => setEnabled(true)}
+          onMouseLeave={() => setEnabled(false)}
           key={`task_${taskId}`}
           aria-label={`${status} icon`}
           to={getTaskRoute(taskId)}
@@ -86,42 +86,44 @@ export const WaterfallTaskStatusIcon: React.VFC<
           <TaskStatusWrapper data-task-icon={identifier}>
             <TaskStatusIcon status={status} size={16} />
           </TaskStatusWrapper>
-        </IconWrapper>
+        </Link>
       }
-      triggerEvent="hover"
     >
       <div data-cy="waterfall-task-status-icon-tooltip">
-        <TooltipTitle
+        <Body
           data-cy="waterfall-task-status-icon-tooltip-title"
           weight="medium"
         >
           {displayName} {timeTaken && `- ${msToDuration(timeTaken)}`}
-        </TooltipTitle>
+        </Body>
         {loading ? (
           <Skeleton />
         ) : (
-          <>
-            {testResults?.map(({ id, testFile }) => (
-              <TestName key={id}>{testFile}</TestName>
-            ))}
+          <div>
+            <TestList>
+              {testResults?.map(({ id, testFile }) => (
+                <TestName key={id}>{testFile}</TestName>
+              ))}
+            </TestList>
             {failedTestDifference > 0 && (
               <div>and {failedTestDifference} more</div>
             )}
-          </>
+          </div>
         )}
       </div>
     </Tooltip>
   );
 };
-const TestName = styled.div`
+
+const TestList = styled.ul`
+  margin: 0;
+  padding-left: 12px;
+`;
+
+const TestName = styled.li`
   word-break: break-all;
 `;
-const TooltipTitle = styled(Body)`
-  white-space: nowrap;
-`;
-const IconWrapper = styled(StyledRouterLink)`
-  cursor: pointer;
-`;
+
 const TaskStatusWrapper = styled.div`
   height: ${TASK_ICON_HEIGHT}px;
   width: ${size.m};

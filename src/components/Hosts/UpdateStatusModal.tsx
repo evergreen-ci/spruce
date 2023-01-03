@@ -1,13 +1,10 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
+import { Select, Option } from "@leafygreen-ui/select";
 import TextArea from "@leafygreen-ui/text-area";
-import { Body } from "@leafygreen-ui/typography";
-import { Select } from "antd";
 import { useHostsTableAnalytics } from "analytics";
-import { LoadingButton } from "components/Buttons";
-import { Modal } from "components/Modal";
+import { ConfirmationModal } from "components/ConfirmationModal";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -16,8 +13,6 @@ import {
 } from "gql/generated/types";
 import { UPDATE_HOST_STATUS } from "gql/mutations";
 import { UpdateHostStatus } from "types/host";
-
-const { Option } = Select;
 
 interface Props {
   visible: boolean;
@@ -84,37 +79,22 @@ export const UpdateStatusModal: React.VFC<Props> = ({
   };
 
   return (
-    <Modal
+    <ConfirmationModal
       data-cy={dataCy}
-      visible={visible}
+      open={visible}
       onCancel={onClickCancel}
+      onConfirm={onClickUpdate}
       title="Update Host Status"
-      footer={[
-        <Button
-          key="modal-cancel-button"
-          data-cy="modal-cancel-button"
-          onClick={onClickCancel}
-        >
-          Cancel
-        </Button>,
-        <LoadingButton
-          key="modal-update-button"
-          data-cy="modal-update-button"
-          variant="primary"
-          disabled={!status}
-          loading={loadingUpdateHostStatus}
-          onClick={onClickUpdate}
-        >
-          Update
-        </LoadingButton>,
-      ]}
+      buttonText="Update"
+      submitDisabled={!status || loadingUpdateHostStatus}
     >
-      <Body weight="medium">Host Status</Body>
       <StyledSelect
-        aria-labelledby="host-status-select"
+        label="Host Status"
         data-cy="host-status-select"
         value={status}
-        onChange={(s) => setHostStatus(s as UpdateHostStatus)}
+        onChange={(s) => {
+          setHostStatus(s as UpdateHostStatus);
+        }}
       >
         {hostStatuses.map(({ title, value, key }) => (
           <Option key={key} value={value} data-cy={`${value}-option`}>
@@ -122,26 +102,21 @@ export const UpdateStatusModal: React.VFC<Props> = ({
           </Option>
         ))}
       </StyledSelect>
-      <StyledTextArea
+      <TextArea
         label="Add Notes"
         data-cy="host-status-notes"
         value={notes}
         rows={6}
         onChange={(e) => setNotesValue(e.target.value)}
       />
-    </Modal>
+    </ConfirmationModal>
   );
 };
 
-// STYLES
+// @ts-expect-error
 const StyledSelect = styled(Select)`
-  width: 100%;
-  margin-bottom: ${size.m};
+  margin-bottom: ${size.xs};
 `;
-const StyledTextArea = styled(TextArea)`
-  resize: none;
-`;
-
 // HOSTS STATUSES DATA FOR SELECT COMPONENT
 interface Status {
   title: keyof typeof UpdateHostStatus;

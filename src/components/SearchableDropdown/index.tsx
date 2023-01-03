@@ -8,7 +8,7 @@ import {
   useMemo,
 } from "react";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Label } from "@leafygreen-ui/typography";
 import Dropdown from "components/Dropdown";
 import Icon from "components/Icon";
@@ -16,7 +16,7 @@ import TextInput from "components/TextInputWithGlyph";
 import { size } from "constants/tokens";
 import { toggleArray } from "utils/array";
 
-const { gray, blue } = uiColors;
+const { gray, blue } = palette;
 
 export interface SearchableDropdownProps<T> {
   allowMultiSelect?: boolean;

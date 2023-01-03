@@ -1,13 +1,13 @@
 import { useEffect, useRef } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import Badge from "@leafygreen-ui/badge";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { useParams, useLocation } from "react-router-dom";
 import { useTaskQueueAnalytics } from "analytics";
-import Badge from "components/Badge";
-import { StyledRouterLink } from "components/styles";
+import { StyledRouterLink, WordBreak } from "components/styles";
 import { getVersionRoute, getTaskRoute } from "constants/routes";
 import {
   DistroTaskQueueQuery,
@@ -87,7 +87,7 @@ export const TaskQueueTable = () => {
                 taskQueueAnalytics.sendEvent({ name: "Click Task Link" })
               }
             >
-              {displayName}
+              <WordBreak>{displayName}</WordBreak>
             </StyledRouterLink>
           </Body>
           <Body>{buildVariant}</Body>
@@ -109,14 +109,14 @@ export const TaskQueueTable = () => {
       key: "version",
       className: "cy-task-queue-col-version",
       width: "30%",
-      render: (value) => (
+      render: (version) => (
         <StyledRouterLink
-          to={getVersionRoute(value)}
+          to={getVersionRoute(version)}
           onClick={() =>
             taskQueueAnalytics.sendEvent({ name: "Click Version Link" })
           }
         >
-          {value}
+          <WordBreak>{version}</WordBreak>
         </StyledRouterLink>
       ),
     },

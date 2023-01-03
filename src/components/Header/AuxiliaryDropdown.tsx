@@ -12,7 +12,7 @@ import {
 import { GetSpruceConfigQuery } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
 import { environmentalVariables } from "utils";
-import { Dropdown } from "./NavDropdown";
+import { NavDropdown } from "./NavDropdown";
 
 const { getUiUrl } = environmentalVariables;
 
@@ -59,7 +59,7 @@ export const AuxiliaryDropdown = () => {
   ];
 
   return (
-    <Dropdown
+    <NavDropdown
       dataCy="auxiliary-dropdown-link"
       menuItems={menuItems}
       title="More"

@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import Tooltip, { TriggerEvent } from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { zIndex } from "constants/tokens";
 
-const { blue } = uiColors;
+const { blue } = palette;
 
 interface ExpandedTextProps {
   message: string;

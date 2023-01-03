@@ -1,11 +1,14 @@
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { formatDistanceToNow } from "date-fns";
+import {
+  MetadataCard,
+  MetadataItem,
+  MetadataTitle,
+} from "components/MetadataCard";
 import { StyledLink } from "components/styles";
-import { P2 } from "components/Typography";
 import { getTaskRoute } from "constants/routes";
 import { HostQuery } from "gql/generated/types";
-import { HostCard } from "pages/host/HostCard";
 import { environmentalVariables } from "utils";
 
 const { getUiUrl } = environmentalVariables;
@@ -32,24 +35,25 @@ export const Metadata: React.VFC<{
   const distroLink = `${getUiUrl()}/distros##${distroId}`;
 
   return (
-    <HostCard error={error} loading={loading} metaData>
-      <P2>User: {user}</P2>
-      {hostUrl && <P2>Host Name: {hostUrl}</P2>}
+    <MetadataCard error={error} loading={loading}>
+      <MetadataTitle>Host Details</MetadataTitle>
+      <MetadataItem>User: {user}</MetadataItem>
+      {hostUrl && <MetadataItem>Host Name: {hostUrl}</MetadataItem>}
       {lastCommunicationTime && (
-        <P2 data-cy="host-last-communication">
+        <MetadataItem data-cy="host-last-communication">
           Last Communication:{" "}
           {formatDistanceToNow(new Date(lastCommunicationTime))} ago
-        </P2>
+        </MetadataItem>
       )}
-      <P2>Started By: {startedBy}</P2>
-      <P2>Cloud Provider: {provider}</P2>
-      <P2>
+      <MetadataItem>Started By: {startedBy}</MetadataItem>
+      <MetadataItem>Cloud Provider: {provider}</MetadataItem>
+      <MetadataItem>
         Distro:{" "}
         <StyledLink data-cy="distro-link" href={distroLink}>
           {distroId}
         </StyledLink>
-      </P2>
-      <P2 data-cy="current-running-task">
+      </MetadataItem>
+      <MetadataItem data-cy="current-running-task">
         Current Task:{" "}
         {runningTaskName ? (
           <StyledLink data-cy="running-task-link" href={taskLink}>
@@ -58,8 +62,8 @@ export const Metadata: React.VFC<{
         ) : (
           <Italic>none</Italic>
         )}
-      </P2>
-    </HostCard>
+      </MetadataItem>
+    </MetadataCard>
   );
 };
 
