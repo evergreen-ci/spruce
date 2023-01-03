@@ -1,11 +1,11 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Body, Overline } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
 import { FavoriteStar } from "./FavoriteStar";
 
-const { gray } = uiColors;
+const { gray } = palette;
 
 interface OptionProps {
   displayName: string;
@@ -79,7 +79,7 @@ const ProjectContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  padding: ${size.xs};
+  padding: ${size.xxs} ${size.xxs} ${size.xxs} ${size.xs};
   :hover {
     background-color: ${gray.light1};
   }

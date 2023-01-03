@@ -1,5 +1,5 @@
+import { MetadataItem } from "components/MetadataCard";
 import { StyledRouterLink } from "components/styles";
-import { P2 } from "components/Typography";
 import { getTaskRoute, getVersionRoute } from "constants/routes";
 import { AbortInfo } from "gql/generated/types";
 
@@ -12,7 +12,7 @@ export const AbortMessage: React.VFC<AbortInfo> = ({
   user,
 }) =>
   user ? (
-    <P2>
+    <MetadataItem>
       {`Aborted by: ${user} `}
       {taskID && buildVariantDisplayName && taskDisplayName && (
         <span>
@@ -37,5 +37,5 @@ export const AbortMessage: React.VFC<AbortInfo> = ({
         </span>
       )}
       {prClosed && <span>because the GitHub PR was closed</span>}
-    </P2>
+    </MetadataItem>
   ) : null;

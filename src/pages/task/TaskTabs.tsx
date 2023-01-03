@@ -19,10 +19,15 @@ import { TestsTable } from "./taskTabs/TestsTable";
 
 const { parseQueryString } = queryString;
 interface TaskTabProps {
+  isDisplayTask: boolean;
   task: GetTaskQuery["task"];
   taskFiles: GetTaskQuery["taskFiles"];
 }
-export const TaskTabs: React.VFC<TaskTabProps> = ({ task, taskFiles }) => {
+export const TaskTabs: React.VFC<TaskTabProps> = ({
+  isDisplayTask,
+  task,
+  taskFiles,
+}) => {
   const { tab: urlTab } = useParams<{ id: string; tab: TaskTab | null }>();
 
   const navigate = useNavigate();
@@ -42,7 +47,6 @@ export const TaskTabs: React.VFC<TaskTabProps> = ({ task, taskFiles }) => {
   } = task ?? {};
   const { fileCount } = taskFiles ?? {};
 
-  const isDisplayTask = executionTasksFull != null;
   const { showBuildBaron } = useBuildBaronVariables({
     task: {
       id,

@@ -1,8 +1,11 @@
 import { InlineCode } from "@leafygreen-ui/typography";
 import { useVersionAnalytics } from "analytics";
-import { MetadataCard } from "components/MetadataCard";
-import { StyledLink, StyledRouterLink } from "components/styles";
-import { P2 } from "components/Typography";
+import {
+  MetadataCard,
+  MetadataItem,
+  MetadataTitle,
+} from "components/MetadataCard";
+import { StyledRouterLink } from "components/styles";
 import { getGithubCommitUrl } from "constants/externalResources";
 import {
   getCommitQueueRoute,
@@ -57,12 +60,12 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
 
   const { repo, owner } = projectMetadata || {};
   return (
-    <MetadataCard
-      loading={loading}
-      error={null}
-      title={isPatch ? "Patch Metadata" : "Version Metadata"}
-    >
-      <P2>
+    <MetadataCard loading={loading} error={null}>
+      <MetadataTitle>
+        {isPatch ? "Patch Metadata" : "Version Metadata"}
+      </MetadataTitle>
+
+      <MetadataItem>
         Project:{" "}
         {projectIdentifier ? (
           <StyledRouterLink
@@ -76,67 +79,71 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
         ) : (
           `${owner}/${repo}`
         )}
-      </P2>
-      <P2>Makespan: {makespan && msToDuration(makespan)}</P2>
-      <P2>Time taken: {timeTaken && msToDuration(timeTaken)}</P2>
-      <P2>Submitted at: {createTime && getDateCopy(createTime)}</P2>
-      <P2>Started: {startTime && getDateCopy(startTime)}</P2>
-      <P2>Finished: {finishTime && getDateCopy(finishTime)}</P2>
-      <P2>{`Submitted by: ${author}`}</P2>
+      </MetadataItem>
+      <MetadataItem>
+        Makespan: {makespan && msToDuration(makespan)}
+      </MetadataItem>
+      <MetadataItem>
+        Time taken: {timeTaken && msToDuration(timeTaken)}
+      </MetadataItem>
+      <MetadataItem>
+        Submitted at: {createTime && getDateCopy(createTime)}
+      </MetadataItem>
+      <MetadataItem>
+        Started: {startTime && getDateCopy(startTime)}
+      </MetadataItem>
+      <MetadataItem>
+        Finished: {finishTime && getDateCopy(finishTime)}
+      </MetadataItem>
+      <MetadataItem>{`Submitted by: ${author}`}</MetadataItem>
       {isPatch ? (
-        <P2>
+        <MetadataItem>
           Base commit:{" "}
-          <InlineCode>
-            <StyledRouterLink
-              data-cy="patch-base-commit"
-              to={getVersionRoute(baseVersion?.id)}
-              onClick={() => sendEvent({ name: "Click Base Commit Link" })}
-            >
-              {shortenGithash(revision)}
-            </StyledRouterLink>
+          <InlineCode
+            data-cy="patch-base-commit"
+            href={getVersionRoute(baseVersion?.id)}
+            onClick={() => sendEvent({ name: "Click Base Commit Link" })}
+          >
+            {shortenGithash(revision)}
           </InlineCode>
-        </P2>
+        </MetadataItem>
       ) : (
-        <P2>
+        <MetadataItem>
           Previous commit:{" "}
-          <InlineCode>
-            <StyledRouterLink
-              data-cy="version-previous-commit"
-              to={getVersionRoute(previousVersion?.id)}
-              onClick={() => sendEvent({ name: "Click Previous Version Link" })}
-            >
-              {shortenGithash(previousVersion?.revision)}
-            </StyledRouterLink>
+          <InlineCode
+            data-cy="version-previous-commit"
+            href={getVersionRoute(previousVersion?.id)}
+            onClick={() => sendEvent({ name: "Click Previous Version Link" })}
+          >
+            {shortenGithash(previousVersion?.revision)}
           </InlineCode>
-        </P2>
+        </MetadataItem>
       )}
       {!isPatch && (
-        <P2>
+        <MetadataItem>
           Github Commit:{" "}
-          <InlineCode>
-            <StyledLink
-              data-cy="version-github-commit"
-              href={getGithubCommitUrl(owner, repo, revision)}
-              onClick={() => sendEvent({ name: "Click Github Commit Link" })}
-            >
-              {shortenGithash(revision)}
-            </StyledLink>
+          <InlineCode
+            data-cy="version-github-commit"
+            href={getGithubCommitUrl(owner, repo, revision)}
+            onClick={() => sendEvent({ name: "Click Github Commit Link" })}
+          >
+            {shortenGithash(revision)}
           </InlineCode>
-        </P2>
+        </MetadataItem>
       )}
       {isPatch && commitQueuePosition !== null && (
-        <P2>
+        <MetadataItem>
           <StyledRouterLink
             data-cy="commit-queue-position"
             to={getCommitQueueRoute(project)}
           >
             Commit Queue Position: {commitQueuePosition}
           </StyledRouterLink>
-        </P2>
+        </MetadataItem>
       )}
       {manifest && <ManifestBlob manifest={manifest} />}
       {upstreamProject && (
-        <P2>
+        <MetadataItem>
           Triggered from:{" "}
           <StyledRouterLink
             to={
@@ -147,7 +154,7 @@ export const Metadata: React.VFC<Props> = ({ loading, version }) => {
           >
             {upstreamProjectIdentifier}
           </StyledRouterLink>
-        </P2>
+        </MetadataItem>
       )}
       <ParametersModal parameters={parameters} />
     </MetadataCard>

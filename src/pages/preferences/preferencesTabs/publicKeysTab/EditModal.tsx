@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import Button, { Variant } from "@leafygreen-ui/button";
 import TextArea from "@leafygreen-ui/text-area";
 import TextInput from "@leafygreen-ui/text-input";
 import { usePreferencesAnalytics } from "analytics";
-import { Modal } from "components/Modal";
+import { ConfirmationModal } from "components/ConfirmationModal";
 import { ErrorMessage } from "components/styles";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -130,30 +129,13 @@ export const EditModal: React.VFC<EditModalProps> = ({
   };
 
   return (
-    <Modal
+    <ConfirmationModal
       data-cy="key-edit-modal"
-      visible={visible}
+      open={visible}
       onCancel={closeModal}
-      footer={
-        <>
-          <LeftButton
-            key="cancel" // @ts-expect-error
-            onClick={closeModal}
-            data-cy="cancel-subscription-button"
-          >
-            Cancel
-          </LeftButton>
-          <Button
-            key="save"
-            data-cy="save-key-button"
-            disabled={errors.length > 0}
-            onClick={onClickSave}
-            variant={Variant.Primary}
-          >
-            Save
-          </Button>
-        </>
-      }
+      onConfirm={onClickSave}
+      submitDisabled={errors.length > 0}
+      buttonText="Save"
       title={replaceKeyName ? "Update Public Key" : "Add Public Key"}
     >
       <StyledInput
@@ -183,14 +165,10 @@ export const EditModal: React.VFC<EditModalProps> = ({
             </div>
           ))}
       </ErrorContainer>
-    </Modal>
+    </ConfirmationModal>
   );
 };
 
-// @ts-expect-error
-const LeftButton = styled(Button)`
-  margin-right: ${size.s};
-`;
 const StyledInput = styled(TextInput)`
   margin-bottom: ${size.m};
 `;

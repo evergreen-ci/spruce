@@ -22,7 +22,7 @@ export const AddNotification: React.VFC<Props> = ({ patchId }) => {
           setIsVisibleModal(true);
         }}
       >
-        Notify Me
+        Notify me
       </Button>
       <PatchNotificationModal
         visible={isVisibleModal}

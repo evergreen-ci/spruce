@@ -48,10 +48,9 @@ const AnnotationTickets: React.VFC<AnnotationTicketsProps> = ({
       <NonTableWrapper>
         {/* @ts-expect-error */}
         <TicketsTitle>{title}</TicketsTitle>
-
         <Tooltip
           trigger={
-            <StyledButton // @ts-expect-error
+            <StyledButton
               onClick={handleAdd}
               data-cy={
                 isIssue ? "add-issue-button" : "add-suspected-issue-button"
@@ -91,7 +90,6 @@ const AnnotationTickets: React.VFC<AnnotationTicketsProps> = ({
   );
 };
 
-// @ts-expect-error
 const StyledButton = styled(PlusButton)`
   margin: ${size.xs} 0;
 `;

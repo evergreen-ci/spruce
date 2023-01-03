@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Body, H2 } from "@leafygreen-ui/typography";
 import { Table } from "antd";
-import Badge from "components/Badge";
 import Icon from "components/Icon";
 import { size } from "constants/tokens";
 
@@ -15,10 +14,8 @@ export const TitleContainer = styled.div`
 
 export const BadgeWrapper = styled.div`
   display: flex;
-`;
-
-export const StyledBadge = styled(Badge)`
-  margin: 0 ${size.xs};
+  margin-left: ${size.xs};
+  gap: ${size.xs};
 `;
 
 const TableContainer = styled.div`
@@ -61,7 +58,6 @@ export const SpawnTable: React.VFC<React.ComponentProps<typeof Table>> = (
 
 export const DoesNotExpire = "Does not expire";
 
-// @ts-expect-error
 export const WideButton = styled(Button)`
   justify-content: center;
   width: 140px;
@@ -89,12 +85,3 @@ export const SectionLabel = styled(Body)`
   padding-right: ${size.s};
   margin-top: ${size.m};
 `;
-
-// @ts-expect-error
-export const PaddedButton = styled(Button)`
-  margin-left: ${size.xxs};
-  margin-right: ${size.xxs};
-  flex-grow: 0;
-`;
-
-export const tooltipWidth = "250px";

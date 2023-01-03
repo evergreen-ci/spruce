@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
-import Card from "@leafygreen-ui/card";
 import { Body } from "@leafygreen-ui/typography";
 import { usePreferencesAnalytics } from "analytics";
+import { ConfirmationModal } from "components/ConfirmationModal";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
 import {
@@ -12,7 +12,7 @@ import {
   ClearMySubscriptionsMutationVariables,
 } from "gql/generated/types";
 import { CLEAR_MY_SUBSCRIPTIONS } from "gql/mutations";
-import { PreferencesModal } from "pages/preferences/preferencesTabs/PreferencesModal";
+import { PreferencesCard } from "pages/preferences/Card";
 
 export const ClearSubscriptionsCard: React.VFC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -41,51 +41,40 @@ export const ClearSubscriptionsCard: React.VFC = () => {
 
   return (
     <>
-      {/* @ts-expect-error */}
       <PreferencesCard>
-        <ContentWrapper>
-          <Body>
-            To clear all subscriptions you have made on individual Version and
-            Task pages.
-          </Body>
-          <StyledClearSubscriptionButton
-            data-cy="clear-subscriptions-button"
-            variant={Variant.Danger} // @ts-expect-error
-            onClick={() => setShowModal(true)}
-          >
-            Clear all previous subscriptions
-          </StyledClearSubscriptionButton>
-        </ContentWrapper>
+        <Body>
+          Clear all subscriptions you have made on individual Version and Task
+          pages:
+        </Body>
+        <StyledClearSubscriptionButton
+          data-cy="clear-subscriptions-button"
+          variant={Variant.Danger}
+          onClick={() => setShowModal(true)}
+        >
+          Clear all previous subscriptions
+        </StyledClearSubscriptionButton>
       </PreferencesCard>
-      <PreferencesModal
-        visible={showModal}
-        title="Are you sure you want to clear all subscriptions you have made on individual Version and Task pages?"
-        onSubmit={() => {
+      <ConfirmationModal
+        open={showModal}
+        title="Clear All Subscriptions"
+        onConfirm={() => {
           clearMySubscriptions();
           sendEvent({
             name: "Clear Subscriptions",
           });
         }}
         onCancel={() => setShowModal(false)}
-        action="Clear All"
-        disabled={loading}
-      />
+        variant="danger"
+        buttonText="Clear All"
+        submitDisabled={loading}
+      >
+        Are you sure you want to clear all subscriptions you have made on
+        individual Version and Task pages?
+      </ConfirmationModal>
     </>
   );
 };
 
-// @ts-expect-error
 const StyledClearSubscriptionButton = styled(Button)`
   margin-top: ${size.m};
-`;
-
-const ContentWrapper = styled.div`
-  width: 50%;
-`;
-
-// @ts-expect-error
-const PreferencesCard = styled(Card)`
-  padding: ${size.m};
-  margin-bottom: ${size.m};
-  width: 100%;
 `;

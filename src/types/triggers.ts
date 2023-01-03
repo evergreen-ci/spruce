@@ -13,6 +13,9 @@ export enum TriggerType {
   OUTCOME = "outcome",
   FAILURE = "failure",
   SUCCESS = "success",
+  FAMILY_OUTCOME = "family-outcome",
+  FAMILY_FAILURE = "family-failure",
+  FAMILY_SUCCESS = "family-success",
   RUNTIME_CHANGE = "runtime-change",
   EXCEEDS_DURATION = "exceeds-duration",
   TASK_STARTED = "task-started",
@@ -48,8 +51,10 @@ export enum VersionTriggers {
 export enum ProjectTriggers {
   ANY_VERSION_FINISHES = "any-version-finishes",
   ANY_VERSION_FAILS = "any-version-fails",
+  ANY_VERSION_SUCCEEDS = "any-version-succeeds",
   ANY_BUILD_FINISHES = "any-build-finishes",
   ANY_BUILD_FAILS = "any-build-fails",
+  ANY_BUILD_SUCCEEDS = "any-build-succeeds",
   ANY_TASK_FINISHES = "any-task-finishes",
   ANY_TASK_FAILS = "any-task-fails",
   FIRST_FAILURE_VERSION = "first-failure-version",
@@ -82,12 +87,10 @@ export interface Trigger {
     resourceType: ResourceType;
     payloadResourceIdKey?: PayloadResourceIdKey;
     regexSelectors?: RegexSelector[];
-    /** allowedSelectors is an optional allow list for selectors if it is not provided all extraFields will be used as selectors */
-    allowedSelectors?: string[];
   };
 }
 
-interface StringMap {
+export interface StringMap {
   [index: string]: string;
 }
 export interface ExtraField {

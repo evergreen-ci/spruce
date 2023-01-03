@@ -1,11 +1,11 @@
 import { CSSProperties } from "react";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { size } from "constants/tokens";
 import { useDateFormat } from "hooks";
 
-const { gray } = uiColors;
+const { gray } = palette;
 interface DateSeparatorProps {
   style: CSSProperties;
   date: Date;

@@ -110,7 +110,7 @@ export const ProjectSettings: React.VFC = () => {
 
   return (
     <ProjectSettingsProvider>
-      <SideNav aria-label="Project Settings">
+      <SideNav aria-label="Project Settings" widthOverride={250}>
         <ButtonsContainer>
           <ProjectSelect
             selectedProjectIdentifier={projectLabel}
@@ -196,7 +196,7 @@ const ProjectSettingsNavItem: React.VFC<{
 }> = ({ currentTab, identifier, tab, title }) => (
   <SideNavItem
     active={tab === currentTab}
-    as={Link} // @ts-expect-error
+    as={Link}
     to={getProjectSettingsRoute(identifier, tab)}
     data-cy={`navitem-${tab}`}
   >
@@ -207,7 +207,7 @@ const ProjectSettingsNavItem: React.VFC<{
 const tabRouteValues = Object.values(ProjectSettingsTabRoutes);
 
 const ButtonsContainer = styled.div`
-  padding: 0 ${size.xs};
+  margin: 0 ${size.s};
 
   > :not(:last-child) {
     margin-bottom: ${size.xs};

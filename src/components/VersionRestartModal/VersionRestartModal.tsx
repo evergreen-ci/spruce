@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { useVersionAnalytics } from "analytics";
 import { Accordion } from "components/Accordion";
-import { Modal } from "components/Modal";
+import { ConfirmationModal } from "components/ConfirmationModal";
 import { TaskStatusFilters } from "components/TaskStatusFilters";
 import { size } from "constants/tokens";
 import { useToastContext } from "context/toast";
@@ -25,9 +24,9 @@ import {
   versionSelectedTasks,
   selectedStrings,
 } from "hooks/useVersionTaskStatusSelect";
-import { BuildVariantAccordian } from "./BuildVariantAccordian";
+import { BuildVariantAccordion } from "./BuildVariantAccordion";
 
-const { gray } = uiColors;
+const { gray } = palette;
 
 interface Props {
   visible: boolean;
@@ -90,51 +89,30 @@ const VersionRestartModal: React.VFC<Props> = ({
 
   const { sendEvent } = useVersionAnalytics(versionId);
 
-  const handlePatchRestart = async (e): Promise<void> => {
-    e.preventDefault();
-    try {
-      sendEvent({
-        name: "Restart",
+  const handlePatchRestart = () => {
+    sendEvent({
+      name: "Restart",
+      abort: shouldAbortInProgressTasks,
+    });
+    restartVersions({
+      variables: {
+        versionId: version?.id,
+        versionsToRestart: getTaskIds(selectedTasks),
         abort: shouldAbortInProgressTasks,
-      });
-      await restartVersions({
-        variables: {
-          versionId: version?.id,
-          versionsToRestart: getTaskIds(selectedTasks),
-          abort: shouldAbortInProgressTasks,
-        },
-      });
-    } catch {
-      // This is handled in the onError handler for the mutation
-    }
+      },
+    });
   };
 
   const selectedTotal = selectTasksTotal(selectedTasks || {});
 
   return (
-    <Modal
+    <ConfirmationModal
       title="Modify Version"
-      visible={visible}
-      onOk={onOk}
+      open={visible}
+      onConfirm={handlePatchRestart}
       onCancel={onCancel}
-      footer={[
-        <Button
-          key="cancel"
-          onClick={onCancel}
-          data-cy="cancel-restart-modal-button"
-        >
-          Cancel
-        </Button>,
-        <Button
-          key="restart"
-          data-cy="restart-version-button"
-          disabled={selectedTotal === 0 || mutationLoading}
-          onClick={handlePatchRestart}
-          variant="danger"
-        >
-          Restart
-        </Button>,
-      ]}
+      buttonText="Restart"
+      submitDisabled={selectedTotal === 0 || mutationLoading}
       data-cy="version-restart-modal"
     >
       {loading ? (
@@ -198,7 +176,7 @@ const VersionRestartModal: React.VFC<Props> = ({
           />
         </>
       )}
-    </Modal>
+    </ConfirmationModal>
   );
 };
 
@@ -239,7 +217,7 @@ const VersionTasks: React.VFC<VersionTasksProps> = ({
         />
       </Row>
       {buildVariants.map((patchBuildVariant) => (
-        <BuildVariantAccordian
+        <BuildVariantAccordion
           versionId={version?.id}
           key={`accoridan_${patchBuildVariant.variant}`}
           tasks={patchBuildVariant.tasks}

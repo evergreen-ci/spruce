@@ -20,7 +20,7 @@ query GetTests(
       id
       logs {
         url
-        urlLobster
+        urlParsley
       }
       testFile
     }

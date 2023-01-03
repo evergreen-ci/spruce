@@ -16,7 +16,6 @@ import { size } from "constants/tokens";
 import { TaskLogLinks } from "gql/generated/types";
 import { useUpdateURLQueryParams } from "hooks";
 import { LogTypes, QueryParams } from "types/task";
-import { isProduction } from "utils/environmentalVariables";
 import {
   EventLog,
   AgentLog,
@@ -62,11 +61,11 @@ export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
     updateQueryParams({ [QueryParams.LogType]: nextLogType });
     sendEvent({
       name: "Select Logs Type",
-      logsType: nextLogType,
+      logType: nextLogType,
     });
   };
 
-  const { htmlLink, rawLink, lobsterLink } = getLinks(
+  const { htmlLink, rawLink, parsleyLink, lobsterLink } = getLinks(
     logLinks,
     currentLog,
     taskId,
@@ -101,15 +100,38 @@ export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
           </SegmentedControlOption>
         </SegmentedControl>
 
-        {(htmlLink || rawLink || lobsterLink) && (
+        {(htmlLink || rawLink || parsleyLink || lobsterLink) && (
           <ButtonContainer>
-            {rawLink && (
+            {parsleyLink && (
+              <Button
+                data-cy="parsley-log-btn"
+                disabled={noLogs}
+                href={parsleyLink}
+                target="_blank"
+                onClick={() =>
+                  sendEvent({
+                    name: "Click Logs Button",
+                    logType: currentLog,
+                    logViewer: "parsley",
+                  })
+                }
+              >
+                Parsley
+              </Button>
+            )}
+            {lobsterLink && (
               <Button
                 data-cy="lobster-log-btn"
                 disabled={noLogs}
                 href={lobsterLink}
                 target="_blank"
-                onClick={() => sendEvent({ name: "Click Logs Lobster Button" })}
+                onClick={() =>
+                  sendEvent({
+                    name: "Click Logs Button",
+                    logType: currentLog,
+                    logViewer: "lobster",
+                  })
+                }
               >
                 Lobster
               </Button>
@@ -120,7 +142,13 @@ export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
                 disabled={noLogs}
                 href={htmlLink}
                 target="_blank"
-                onClick={() => sendEvent({ name: "Click Logs HTML Button" })}
+                onClick={() =>
+                  sendEvent({
+                    name: "Click Logs Button",
+                    logType: currentLog,
+                    logViewer: "html",
+                  })
+                }
               >
                 HTML
               </Button>
@@ -131,7 +159,13 @@ export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
                 disabled={noLogs}
                 href={rawLink}
                 target="_blank"
-                onClick={() => sendEvent({ name: "Click Logs Raw Button" })}
+                onClick={() =>
+                  sendEvent({
+                    name: "Click Logs Button",
+                    logType: currentLog,
+                    logViewer: "raw",
+                  })
+                }
               >
                 Raw
               </Button>
@@ -146,7 +180,6 @@ export const Logs: React.VFC<Props> = ({ logLinks, taskId, execution }) => {
 
 const LogHeader = styled.div`
   display: flex;
-  align-items: center;
   justify-content: space-between;
   margin-bottom: ${size.s};
 `;
@@ -154,13 +187,13 @@ const LogHeader = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   gap: ${size.xs};
-  margin-right: ${size.xxs};
 `;
 
 interface GetLinksResult {
   htmlLink?: string;
-  lobsterLink?: string;
+  parsleyLink?: string;
   rawLink?: string;
+  lobsterLink?: string;
 }
 
 const getLinks = (
@@ -185,9 +218,8 @@ const getLinks = (
   }`;
   return {
     htmlLink,
-    lobsterLink: isProduction()
-      ? getLobsterTaskLink(logType, taskId, execution)
-      : getParsleyTaskLogLink(logType, taskId, execution),
+    parsleyLink: getParsleyTaskLogLink(logType, taskId, execution),
+    lobsterLink: getLobsterTaskLink(logType, taskId, execution),
     rawLink: `${htmlLink}&text=true`,
   };
 };

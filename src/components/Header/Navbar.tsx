@@ -1,11 +1,11 @@
 import { useQuery } from "@apollo/client";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Link } from "react-router-dom";
 import { useNavbarAnalytics } from "analytics";
 import Icon from "components/Icon";
-import { StyledLink } from "components/styles";
+import ChristmasTree from "components/Icon/icons/ChristmasTree.svg";
 import { wikiUrl } from "constants/externalResources";
 import { getCommitsRoute, getUserPatchesRoute, routes } from "constants/routes";
 import { size } from "constants/tokens";
@@ -16,7 +16,7 @@ import { useLegacyUIURL } from "hooks";
 import { AuxiliaryDropdown } from "./AuxiliaryDropdown";
 import { UserDropdown } from "./UserDropdown";
 
-const { white, blue, gray } = uiColors;
+const { white, blue, gray } = palette;
 
 export const Navbar: React.VFC = () => {
   const { isAuthenticated } = useAuthStateContext();
@@ -37,7 +37,7 @@ export const Navbar: React.VFC = () => {
           to={routes.myPatches}
           onClick={() => sendEvent({ name: "Click Logo Link" })}
         >
-          <Icon glyph="EvergreenLogo" />
+          <ChristmasTreeIcon src={ChristmasTree} alt="Evergreen Logo" />
         </LogoLink>
         <PrimaryLink
           to={getCommitsRoute()}
@@ -85,14 +85,16 @@ export const Navbar: React.VFC = () => {
 };
 
 export const navBarHeight = size.xl;
+
 const StyledNav = styled.nav`
-  align-items: center;
-  background-color: ${gray.dark3};
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  gap: ${size.xxl};
+  background-color: ${gray.dark3};
   height: ${navBarHeight};
   line-height: ${navBarHeight};
-  padding: 0 36px;
+  padding: 0 ${size.l};
 `;
 
 const LogoLink = styled(Link)`
@@ -104,14 +106,17 @@ const NavActionContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-
-  > :not(:last-child) {
-    margin-right: 40px;
-  }
+  gap: ${size.l};
 `;
 
 const primaryLinkStyle = css`
   color: ${white};
+  transition: all 100ms ease-in;
+  flex-shrink: 0;
+
+  :hover {
+    color: ${blue.light1};
+  }
 `;
 
 const PrimaryLink = styled(Link)`
@@ -132,8 +137,21 @@ const PrimaryAWithIcon = styled(PrimaryA)`
 
 const secondaryStyle = css`
   color: ${blue.light2};
+  transition: all 100ms ease-in;
+  flex-shrink: 0;
+
+  :hover {
+    color: ${blue.light1};
+  }
 `;
 
-const SecondaryLink = styled(StyledLink)`
+const SecondaryLink = styled.a`
   ${secondaryStyle}
+`;
+
+const ChristmasTreeIcon = styled.img`
+  height: 46px;
+  width: 46px;
+  position: relative;
+  bottom: 4px;
 `;

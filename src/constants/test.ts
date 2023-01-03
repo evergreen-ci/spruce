@@ -1,4 +1,4 @@
-import { Variant } from "components/Badge";
+import { Variant } from "@leafygreen-ui/badge";
 import { TestStatus } from "types/test";
 
 export const statusToBadgeColor = {

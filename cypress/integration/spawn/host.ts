@@ -179,8 +179,7 @@ describe("Navigating to Spawn Host page", () => {
         cy.dataCy("distro-option-ubuntu1804-workstation")
           .should("be.visible")
           .click();
-        cy.dataCy("volume-select").click();
-        cy.contains("No Data");
+        cy.dataCy("volume-select").should("be.disabled");
       });
 
       it("Clicking 'Add new key' hides the key name dropdown and shows the key value text area", () => {
@@ -209,6 +208,33 @@ describe("Navigating to Spawn Host page", () => {
           "Define setup script to run after host is configured (i.e. task data and artifacts are loaded"
         ).click();
         cy.dataCy("setup-script-text-area").should("be.visible");
+      });
+
+      it("Conditionally disables setup script and project setup script checkboxes based on the other's value", () => {
+        cy.visit(
+          `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${hostTaskId}`
+        );
+        // Checking setup script should disable project setup script.
+        cy.dataCy("setup-script-checkbox").check({ force: true });
+        cy.dataCy("project-setup-script-checkbox").should(
+          "have.attr",
+          "aria-disabled",
+          "true"
+        );
+        // Unchecking setup script should reenable project setup script.
+        cy.dataCy("setup-script-checkbox").uncheck({ force: true });
+        cy.dataCy("project-setup-script-checkbox").should(
+          "have.attr",
+          "aria-disabled",
+          "false"
+        );
+        // Checking project setup script should disable setup script.
+        cy.dataCy("project-setup-script-checkbox").check({ force: true });
+        cy.dataCy("setup-script-checkbox").should(
+          "have.attr",
+          "aria-disabled",
+          "true"
+        );
       });
       const label1 = "Use project-specific setup script defined at /path";
       const label2 = "Load from task sync";

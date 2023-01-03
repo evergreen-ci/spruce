@@ -1,11 +1,11 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { H2, Body } from "@leafygreen-ui/typography";
 import { Layout } from "antd";
 import { size, fontSize } from "constants/tokens";
 
-const { gray, white, red } = uiColors;
+const { gray, white, red } = palette;
 const { Content, Sider } = Layout;
 
 const whiteBackground = css`
@@ -66,18 +66,17 @@ export const TableControlOuterRow = styled(TableControlInnerRow)`
 export const PageButtonRow = styled.div`
   display: flex;
   align-items: flex-start;
-  > * {
-    margin-right: ${size.s};
-    white-space: nowrap;
-  }
-  > *:last-child {
-    margin-right: 0;
+  gap: ${size.xs};
+
+  button {
+    min-width: fit-content;
   }
 `;
 
 export const InputLabel = styled.label`
   font-size: ${fontSize.m};
   font-weight: bold;
+  color: ${gray.dark2};
 `;
 
 export const ErrorMessage = styled(Body)`

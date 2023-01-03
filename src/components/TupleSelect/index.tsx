@@ -1,14 +1,14 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Select, Option } from "@leafygreen-ui/select";
 import { Label } from "@leafygreen-ui/typography";
 import Icon from "components/Icon";
 import IconTooltip from "components/IconTooltip";
 import TextInput from "components/TextInputWithGlyph";
 
-const { yellow } = uiColors;
+const { yellow } = palette;
 type option = {
   value: string;
   displayName: string;
@@ -68,7 +68,7 @@ const TupleSelect: React.VFC<TupleSelectProps> = ({
         </GroupedSelect>
         <GroupedTextInput
           id="filter-input"
-          aria-label="Tuple Search"
+          aria-label={selectedOption.displayName}
           data-cy="tuple-select-input"
           value={input}
           type="search"
@@ -120,12 +120,11 @@ const GroupedSelect = styled(Select)`
     margin-top: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    border-right: 0;
   }
 `;
 
 const GroupedTextInput = styled(TextInput)`
-  /* LG box-shadow property */
-  box-shadow: 0px 1px 2px rgba(6, 22, 33, 0.3);
   /* overwrite lg borders https://jira.mongodb.org/browse/PD-1995 */
   div input {
     border-bottom-left-radius: 0;

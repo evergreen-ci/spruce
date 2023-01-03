@@ -28,7 +28,6 @@ export const HistoryTableIcon: React.VFC<HistoryTableIconProps> = ({
     condition={inactive || failingTests.length > 0}
     wrapper={(children) => (
       <Tooltip
-        usePortal={false}
         align="right"
         justify="middle"
         enabled={!inactive && !!failingTests.length}
@@ -36,14 +35,14 @@ export const HistoryTableIcon: React.VFC<HistoryTableIconProps> = ({
         trigger={children}
         triggerEvent="hover"
       >
-        <TestNameContainer data-cy="test-tooltip">
+        <div data-cy="test-tooltip">
           {failingTests.map((testName) => (
             <TestName key={testName}>{testName}</TestName>
           ))}
           {loadingTestResults && (
             <Skeleton active data-cy="history-tooltip-skeleton" />
           )}
-        </TestNameContainer>
+        </div>
       </Tooltip>
     )}
   >
@@ -60,10 +59,6 @@ export const HistoryTableIcon: React.VFC<HistoryTableIconProps> = ({
     </Container>
   </ConditionalWrapper>
 );
-
-const TestNameContainer = styled.div`
-  white-space: nowrap;
-`;
 
 interface ContainerProps {
   onClick?: () => void;

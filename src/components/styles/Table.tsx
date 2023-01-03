@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { size } from "constants/tokens";
 
-const { gray, white } = uiColors;
+const { gray, white } = palette;
 
 export const tableInputContainerCSS = css`
   background: ${white};

@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Button from "@leafygreen-ui/button";
+import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import TextInput from "@leafygreen-ui/text-input";
 import { Popconfirm } from "antd";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { LoadingButton } from "components/Buttons";
@@ -37,19 +38,23 @@ import {
   UNSCHEDULE_TASK,
 } from "gql/mutations";
 import { useUpdateURLQueryParams } from "hooks";
+import { useLGButtonRouterLink } from "hooks/useLGButtonRouterLink";
+import { TaskStatus } from "types/task";
 import { PreviousCommits } from "./actionButtons/previousCommits/PreviousCommits";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
 interface Props {
   initialPriority?: number;
+  isDisplayTask: boolean;
   isExecutionTask: boolean;
   task: GetTaskQuery["task"];
 }
 
 export const ActionButtons: React.VFC<Props> = ({
   initialPriority = 1,
-  task,
+  isDisplayTask,
   isExecutionTask,
+  task,
 }) => {
   const {
     canAbort,
@@ -58,6 +63,7 @@ export const ActionButtons: React.VFC<Props> = ({
     canSetPriority,
     canOverrideDependencies,
     displayName,
+    executionTasksFull,
     project,
     requester,
     canSchedule,
@@ -67,6 +73,9 @@ export const ActionButtons: React.VFC<Props> = ({
   const { isPatch, order } = versionMetadata || {};
   const { identifier: projectIdentifier } = project || {};
   const isPatchOnCommitQueue = requester === commitQueueRequester;
+  const allExecutionTasksSucceeded =
+    executionTasksFull?.every((t) => t.status === TaskStatus.Succeeded) ??
+    false;
 
   const dispatchToast = useToastContext();
   const [isVisibleModal, setIsVisibleModal] = useState(false);
@@ -120,7 +129,6 @@ export const ActionButtons: React.VFC<Props> = ({
     RestartTaskMutation,
     RestartTaskMutationVariables
   >(RESTART_TASK, {
-    variables: { taskId },
     onCompleted: (data) => {
       const { latestExecution } = data.restartTask;
       dispatchToast.success("Task scheduled to restart");
@@ -163,6 +171,12 @@ export const ActionButtons: React.VFC<Props> = ({
       dispatchToast.error(`Error overriding task dependencies: ${err.message}`);
     },
   });
+
+  const HistoryLink = useLGButtonRouterLink(
+    getTaskHistoryRoute(projectIdentifier, displayName, {
+      selectedCommit: !isPatch && order,
+    })
+  );
 
   const disabled =
     loadingAbortTask ||
@@ -268,15 +282,12 @@ export const ActionButtons: React.VFC<Props> = ({
             <PreviousCommits taskId={taskId} />
             <Button
               size="small"
-              as={Link}
               data-cy="task-history"
               key="task-history"
               onClick={() => {
                 taskAnalytics.sendEvent({ name: "Click See History Button" });
               }}
-              to={getTaskHistoryRoute(projectIdentifier, displayName, {
-                selectedCommit: !isPatch && order,
-              })}
+              as={HistoryLink}
               disabled={displayName === mergeTaskName}
             >
               See history
@@ -296,19 +307,51 @@ export const ActionButtons: React.VFC<Props> = ({
         >
           Schedule
         </LoadingButton>
-        <LoadingButton
-          size="small"
-          data-cy="restart-task"
-          key="restart"
-          disabled={disabled || !canRestart || isPatchOnCommitQueue}
-          loading={loadingRestartTask}
-          onClick={() => {
-            restartTask();
-            taskAnalytics.sendEvent({ name: "Restart" });
-          }}
-        >
-          Restart
-        </LoadingButton>
+        {isDisplayTask && !allExecutionTasksSucceeded ? (
+          <Menu
+            trigger={
+              <LoadingButton
+                size="small"
+                data-cy="restart-task"
+                disabled={disabled || !canRestart || isPatchOnCommitQueue}
+                loading={loadingRestartTask}
+              >
+                Restart
+              </LoadingButton>
+            }
+          >
+            <MenuItem
+              onClick={() => {
+                restartTask({ variables: { taskId, failedOnly: false } });
+                taskAnalytics.sendEvent({ name: "Restart" });
+              }}
+            >
+              Restart all tasks
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                restartTask({ variables: { taskId, failedOnly: true } });
+                taskAnalytics.sendEvent({ name: "Restart" });
+              }}
+            >
+              Restart unsuccessful tasks
+            </MenuItem>
+          </Menu>
+        ) : (
+          <LoadingButton
+            size="small"
+            data-cy="restart-task"
+            key="restart"
+            disabled={disabled || !canRestart || isPatchOnCommitQueue}
+            loading={loadingRestartTask}
+            onClick={() => {
+              restartTask({ variables: { taskId, failedOnly: false } });
+              taskAnalytics.sendEvent({ name: "Restart" });
+            }}
+          >
+            Restart
+          </LoadingButton>
+        )}
         <Button
           size="small"
           data-cy="notify-task"
@@ -319,7 +362,7 @@ export const ActionButtons: React.VFC<Props> = ({
             setIsVisibleModal(true);
           }}
         >
-          Notify Me
+          Notify me
         </Button>
         <ButtonDropdown
           disabled={disabled}

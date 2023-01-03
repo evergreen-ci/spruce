@@ -41,7 +41,7 @@ export const HostPopover: React.VFC<Props> = ({
           {buttonText}
         </Button>
       </ButtonWrapper>
-      <StyledPopover
+      <Popover
         align="bottom"
         justify="middle"
         active={active}
@@ -76,17 +76,10 @@ export const HostPopover: React.VFC<Props> = ({
             </ButtonSpacer>
           </ButtonContainer>
         </PopoverContainer>
-      </StyledPopover>
+      </Popover>
     </>
   );
 };
-
-// @ts-expect-error
-// For leafygreen Popover, there is a bug where you have to set the width to prevent misalignment when
-// the trigger element is near the right side of a page. Ticket: https://jira.mongodb.org/browse/PD-1542
-const StyledPopover = styled(Popover)`
-  width: 300px;
-`;
 
 const ButtonWrapper = styled.div`
   white-space: nowrap; // prevent button collapse when screen is small

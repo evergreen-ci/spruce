@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
-import { Select } from "antd";
+import { Select, Option } from "@leafygreen-ui/select";
 import { ModalContent } from "components/Spawn";
 import { InputLabel } from "components/styles";
 import { DEFAULT_POLL_INTERVAL } from "constants/index";
@@ -10,7 +10,6 @@ import { GET_MY_HOSTS } from "gql/queries";
 import { usePolling } from "hooks";
 import { HostStatus } from "types/host";
 
-const { Option } = Select;
 interface HostOption {
   id: string;
   displayName: string;

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
-import { Disclaimer } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
 import { EditableTagField } from "components/EditableTagField";
 import { size } from "constants/tokens";
 import { ParameterInput, SchedulePatchMutation } from "gql/generated/types";
@@ -19,20 +19,17 @@ export const ParametersContent: React.VFC<Props> = ({
   <ParamsContainer>
     {patchActivated ? (
       <>
-        <Disclaimer>
-          <span data-cy="parameters-disclaimer">
-            Parameters cannot be added or modified once a patch is configured
-          </span>
-        </Disclaimer>
+        <Body data-cy="parameters-disclaimer">
+          Parameters cannot be added or modified once a patch is configured.
+        </Body>
         {patchParameters && (
           <ExistingParamsContainer>
-            {" "}
             {patchParameters?.map((param) => (
               <StyledBadge
                 data-cy={`badge-${param.key}`}
                 key={`param_${param.key}`}
               >
-                {param.key}:{param.value}
+                {param.key}: {param.value}
               </StyledBadge>
             ))}
           </ExistingParamsContainer>

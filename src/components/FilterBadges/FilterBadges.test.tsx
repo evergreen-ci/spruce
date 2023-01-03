@@ -22,7 +22,7 @@ describe("filterBadges", () => {
       />
     );
     expect(screen.queryAllByDataCy("filter-badge")).toHaveLength(1);
-    expect(screen.getByText("test : value")).toBeInTheDocument();
+    expect(screen.getByText("test: value")).toBeInTheDocument();
   });
 
   it("should render a badge for each key/value pair passed in", () => {
@@ -39,8 +39,8 @@ describe("filterBadges", () => {
       />
     );
     expect(screen.queryAllByDataCy("filter-badge")).toHaveLength(2);
-    expect(screen.getByText("test : value")).toBeInTheDocument();
-    expect(screen.getByText("test2 : value2")).toBeInTheDocument();
+    expect(screen.getByText("test: value")).toBeInTheDocument();
+    expect(screen.getByText("test2: value2")).toBeInTheDocument();
   });
 
   it("only renders badges up to the limit", () => {
@@ -65,8 +65,8 @@ describe("filterBadges", () => {
       />
     );
     expect(screen.queryAllByDataCy("filter-badge")).toHaveLength(8);
-    expect(screen.getByText("test : value")).toBeInTheDocument();
-    expect(screen.getByText("test8 : value8")).toBeInTheDocument();
+    expect(screen.getByText("test: value")).toBeInTheDocument();
+    expect(screen.getByText("test8: value8")).toBeInTheDocument();
     expect(screen.getByText("see 2 more")).toBeInTheDocument();
   });
 
@@ -101,7 +101,7 @@ describe("filterBadges", () => {
     for (let i = 0; i < 10; i++) {
       expect(
         within(screen.getByDataCy("see-more-modal")).getByText(
-          `test${i + 1} : value${i + 1}`
+          `test${i + 1}: value${i + 1}`
         )
       ).toBeInTheDocument();
     }

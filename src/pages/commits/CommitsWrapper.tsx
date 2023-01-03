@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
+import { palette } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
 import { size } from "constants/tokens";
 import { Commits } from "types/commits";
@@ -15,7 +15,7 @@ import {
 } from "./RenderCommit";
 import { FlexRowContainer, CommitWrapper } from "./styles";
 
-const { white } = uiColors;
+const { white } = palette;
 
 interface Props {
   versions: Commits;
