@@ -22,7 +22,7 @@ const useQueryParams = () => {
 
 /**
  * `useQueryParam` allows you to interact with a query param in the same way you would use a useState hook.
- *  The first argument is the name of the query param. The second argument is the initial value of the query param.
+ *  The first argument is the name of the query param. The second argument is the fallback value of the query param.
  *  `useQueryParam` will default to the second argument if the query param is not present in the url.
  */
 const useQueryParam = <T>(
