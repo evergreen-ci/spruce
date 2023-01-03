@@ -270,10 +270,10 @@ export const Metadata: React.VFC<Props> = ({
         </OOMTrackerMessage>
       )}
       {resetWhenFinished && (
-        <P2 data-cy="reset-when-finished">
+        <MetadataItem data-cy="reset-when-finished">
           This task will restart when all of the tasks in its task group have
           finished running.
-        </P2>
+        </MetadataItem>
       )}
       {dependsOn && dependsOn.length ? (
         <DependsOnContainer data-cy="depends-on-container">
