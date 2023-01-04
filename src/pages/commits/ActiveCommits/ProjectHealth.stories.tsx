@@ -92,9 +92,7 @@ const randomStatus = (index: number) => {
   const TaskStatusWithoutUmbrella = Object.values(TaskStatus).filter(
     (status) => status.includes("umbrella") === false
   );
-  const taskStatuses = Object.values(
-    TaskStatusWithoutUmbrella.filter((t) => !isFailedTaskStatus(t))
-  );
+  const taskStatuses = Object.values(TaskStatusWithoutUmbrella);
   return taskStatuses[index % taskStatuses.length];
 };
 
